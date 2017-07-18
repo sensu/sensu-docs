@@ -52,22 +52,22 @@ googleAnalytics = ""
 
 [[menu.main]]
 	name   = "Getting started"
-	url    = "getting-started/"
+	url    = "example/content/getting-started/"
 	weight = 10
 
 [[menu.main]]
 	name   = "Adding content"
-	url    = "adding-content/"
+	url    = "example/content/adding-content/"
 	weight = 20
 
 [[menu.main]]
 	name   = "Roadmap"
-	url    = "roadmap/"
+	url    = "example/content/roadmap/"
 	weight = 30
 
 [[menu.main]]
 	name   = "License"
-	url    = "license/"
+	url    = "example/content/license/"
 	weight = 40
 
 
