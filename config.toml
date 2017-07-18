@@ -47,7 +47,7 @@ googleAnalytics = ""
 
 [[menu.main]]
 	name   = "Material"
-	url    = "example/content/"
+	url    = "/"
 	weight = 0
 
 [[menu.main]]
@@ -62,7 +62,7 @@ googleAnalytics = ""
 
 [[menu.main]]
 	name   = "Roadmap"
-	url    = "example/contentroadmap/"
+	url    = "example/content/roadmap/"
 	weight = 30
 
 [[menu.main]]
