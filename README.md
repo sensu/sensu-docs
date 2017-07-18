@@ -29,7 +29,7 @@ Next, we'll copy the config.toml file into our project's root directory.
 ### Keeping the Example Site
 I wanted to keep the Material Theme example site on their Github as an example while I worked. I created a folder named example in the content folder. I copied the contents of themes/hugo-material-docs/exampleSite to the newly created example folder.
 
-I updated the root config.toml file so that all the menu.main urls would include the full path: example/content/
+I updated the root config.toml file so that all the menu.main urls would include the full path: example/content/. In addition to that, we also need to update example/content/index.md to have matching full path urls. 
 
 ### Viewing locally
 Now just run the Hugo server
