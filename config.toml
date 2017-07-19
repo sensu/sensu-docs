@@ -40,15 +40,15 @@ googleAnalytics = ""
 
 
 [social]
-	twitter = ""
-	github  = "digitalcraftsman"
-	email   = "hello@email.com"
+	twitter = "sensu"
+	github  = "sensu"
+	email   = ""
 
 
 [[menu.main]]
 	name   = "Material"
-	url    = "example/material"
-	weight = 0
+	url    = "example/material-for-hugo/"
+	weight = 50
 
 [[menu.main]]
 	name   = "Getting started"
