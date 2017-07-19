@@ -36,6 +36,20 @@
     background: #81C000
 }
 
+.palette-accent-green .article a:focus,.palette-accent-green .article a:hover {
+    color: #618B25;
+}
+
+.palette-accent-green .repo a {
+    background: #618B25;
+}
+
+/* Banner tweak */
+.header .stretch .title {
+    font-size: 25px;
+    padding-top: 10px;
+}
+
 /* For some sidebar tweaks */
 .project .banner {
     padding: 15px 20px;
