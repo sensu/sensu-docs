@@ -1,6 +1,6 @@
 baseurl = "https://sensu-docs-site.herokuapp.com/"
 languageCode = "en-us"
-title = "Material Docs"
+title = "Sensu Docs"
 theme = "hugo-material-docs"
 metadataformat = "yaml"
 canonifyURLs = true
@@ -9,17 +9,17 @@ googleAnalytics = ""
 
 [params]
 	# General information
-	author = "Digitalcraftsman"
-	description = "A material design theme for documentations."
-	copyright = "Released under the MIT license"
+	author = "Sensu, Inc"
+	description = "Monitor servers, services, application health, and business KPIs. Collect and analyze custom metrics. Get notified about failures before your users do. Give your business the competitive advantage it deserves."
+	copyright = ""
 
 	# Repository
 	provider = "GitHub"
-	repo_url = "https://github.com/digitalcraftsman/hugo-material-docs"
+	repo_url = "https://github.com/sensu/sensu-docs-site"
 
 	version = "1.0.0"
-	logo = "images/logo.png"
-	favicon = ""
+	logo = "images/logo-flat-black.png"
+	favicon = "images/logo-flat-black.png"
 
 	permalink = "#"
 
@@ -31,8 +31,8 @@ googleAnalytics = ""
 	highlight_css  = ""
 
 	[params.palette]
-    	primary = "red"
-    	accent  = "teal"
+    	primary = "green"
+     	accent  = "green"
 
     [params.font]
     	text = "Ubuntu"
@@ -47,27 +47,27 @@ googleAnalytics = ""
 
 [[menu.main]]
 	name   = "Material"
-	url    = "/"
+	url    = "example/material"
 	weight = 0
 
 [[menu.main]]
 	name   = "Getting started"
-	url    = "example/content/getting-started/"
+	url    = "example/getting-started/"
 	weight = 10
 
 [[menu.main]]
 	name   = "Adding content"
-	url    = "example/content/adding-content/"
+	url    = "example/adding-content/"
 	weight = 20
 
 [[menu.main]]
 	name   = "Roadmap"
-	url    = "example/content/roadmap/"
+	url    = "example/roadmap/"
 	weight = 30
 
 [[menu.main]]
 	name   = "License"
-	url    = "example/content/license/"
+	url    = "example/license/"
 	weight = 40
 
 

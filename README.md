@@ -1,4 +1,4 @@
-ensu Docs Site
+#Sensu Docs Site
 
 ## Getting Started with Hugo
 [Hugo Docs](https://gohugo.io/getting-started/installing/)
@@ -27,9 +27,11 @@ git clone https://github.com/digitalcraftsman/hugo-material-docs.git themes/hugo
 Next, we'll copy the config.toml file into our project's root directory.
 
 ### Keeping the Example Site
-I wanted to keep the Material Theme example site on their Github as an example while I worked. I created a folder named example in the content folder. I copied the contents of themes/hugo-material-docs/exampleSite to the newly created example folder.
+I wanted to keep the Material Theme example site on their Github as an example while I worked. I created a folder named example in the content folder. I copied the contents of themes/hugo-material-docs/exampleSitei/content to the newly created example folder.
 
-I updated the root config.toml file so that all the menu.main urls would include the full path: example/content/. In addition to that, we also need to update example/content/index.md to have matching full path urls. 
+I updated the root config.toml file so that all the menu.main urls would include the full path: example/. In addition to that, we also need to update example/index.md to have matching full path urls. 
+
+Eventually these items will be removed from the sidebar, but for now they should at least be working.
 
 ### Viewing locally
 Now just run the Hugo server

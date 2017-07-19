@@ -1,0 +1,51 @@
+/* overriding theme palette */
+.palette-primary-green {
+    background: #81C000
+}
+
+.palette-primary-green .footer,.palette-primary-green .header {
+    background: #81C000
+}
+
+.palette-primary-green .drawer .toc a.current,.palette-primary-green .drawer .toc a:focus,.palette-primary-green .drawer .toc a:hover {
+    color: #81C000
+}
+
+.palette-primary-green .drawer .anchor a {
+    border-left: 2px solid #81C000
+}
+
+.ios.standalone .palette-primary-green .article {
+    background: -webkit-linear-gradient(top,#fff 50%,#81C000 0);
+    background: linear-gradient(180deg,#fff 50%,#81C000 0);
+}
+
+.palette-primary-green .article a,.palette-primary-green .article code,.palette-primary-green .article h1,.palette-primary-green .article h2 {
+    color: #81C000
+}
+
+.palette-primary-green .article .headerlink {
+    color: rgba(0,0,0,.26)
+}
+
+.palette-primary-green .article table th {
+    background: #5cb45b
+}
+
+.palette-primary-green .results .meta {
+    background: #81C000
+}
+
+/* For some sidebar tweaks */
+.project .banner {
+    padding: 15px 20px;
+}
+
+.project .logo {
+    width: 80px;
+    height: 80px;
+    padding-right: 10px;
+}
+
+.repo {
+    margin-top: 10px;
