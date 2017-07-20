@@ -36,9 +36,35 @@
     background: #81C000
 }
 
-/* For some sidebar tweaks */
+.palette-accent-green .article a:focus,.palette-accent-green .article a:hover {
+    color: #618B25;
+}
+
+.palette-accent-green .repo a {
+    background: #618B25;
+}
+
+/* Banner tweak */
+.header .stretch .title {
+    font-size: 30px;
+    padding-top: 5px;
+}
+
 .project .banner {
     padding: 15px 20px;
+}
+
+/* Sidebar stuff */
+#products {
+    padding: 14.5px 24px;
+}
+
+.name strong {
+    font-size: 16px;
+}
+
+.drawer {
+    font-size: 14px;
 }
 
 .project .logo {
@@ -56,11 +82,4 @@
     margin-top: 10px;
 }
 
-.header .stretch .title {
-    font-size: 25px;
-    padding-top: 10px;
-}
 
-#products {
-    padding: 14.5px 24px;
-}
