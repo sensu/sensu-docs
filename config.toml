@@ -15,7 +15,7 @@ googleAnalytics = ""
 
 	# Repository
 	provider = "GitHub"
-	repo_url = "https://github.com/sensu/sensu-docs-site"
+	repo_url = "https://github.com/sensu/sensu-docs"
 
 	version = "1.0.0"
 	logo = "images/logo-flat-black.png"
