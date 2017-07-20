@@ -1,0 +1,12 @@
+---
+date: 2016-03-08T21:07:13+01:00
+title: Sensu Docs
+type: index
+---
+<div>
+Monitor servers, services, application health, and business KPIs. Collect and analyze custom metrics. Get notified about failures before your users do. Give your business the competitive advantage it deserves.
+</div>
+<div><a style="margin: 20px; padding: 100px; background: green;" href="/product1/">Product 1</a>
+</div>
+
+[Product 2](product2/)
