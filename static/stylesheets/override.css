@@ -46,13 +46,21 @@
 
 /* Banner tweak */
 .header .stretch .title {
-    font-size: 25px;
-    padding-top: 10px;
+    font-size: 30px;
+    padding-top: 5px;
 }
 
-/* For some sidebar tweaks */
 .project .banner {
     padding: 15px 20px;
+}
+
+/* Sidebar stuff */
+.name strong {
+    font-size: 16px;
+}
+
+.drawer {
+    font-size: 14px;
 }
 
 .project .logo {
