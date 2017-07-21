@@ -4,6 +4,7 @@ date: 2017-07-20T16:35:46-07:00
 type: index
 ---
 
+## What is Sensu?
 Monitor servers, services, application health, and business KPIs. Collect and analyze custom metrics. Get notified about failures before your users do. Give your business the competitive advantage it deserves.
 
 ## Products

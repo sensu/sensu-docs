@@ -1,5 +1,5 @@
 {{ $currentNode := . }}
-{{ partial "products" $currentNode }}
+<!-- if currently not on homepage {{ partial "products" $currentNode }} -->
 
 {{ range .Site.Menus.main.ByWeight }}
 
