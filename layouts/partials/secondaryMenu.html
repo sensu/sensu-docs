@@ -1,11 +1,19 @@
-{{ range .ByWeight }}
-    <li><a href="{{.URL}}">{{ .Name  }}</a>
-        {{ if .HasChildren }}
-            {{ range .Children }}
-                <!-- TODO make this work tomorrow -->
-                {{ partial "nav_link" . }}
-            {{ end }}
+{{ $currentNode := . }}
+
+{{ range (index .Site.Menus $.Params.menu).ByWeight }}
+    {{ $.Scratch.Set "currentMenuEntry" . }}
+    <li>
+    {{ if .HasChildren }}
+        <span class="section">{{ .Name | title }}</span>
+        <ul>
+        {{ range .Children }}
+            {{ $.Scratch.Set "currentMenuEntry" . }}
+            {{ partial "nav_link" $currentNode }}
         {{ end }}
+        </ul>
+    {{ else }}
+        {{ partial "nav_link" $currentNode }}
+    {{ end }}
     </li>
 {{ end }}
 
