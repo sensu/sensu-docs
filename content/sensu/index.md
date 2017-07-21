@@ -7,10 +7,12 @@ menu: "sensu"
 Monitor servers, services, application health, and business KPIs. Collect and analyze custom metrics. Get notified about failures before your users do. Give your business the competitive advantage it deserves.
 
 ## Key Features
-Here's some features.
+Here's some key features. For a full list visit the [Features](/sensu/features) page.
+
 - Does this neat thing
 - Does another cool thing
 - So cool
 
-## More stuff
-COoooooool
+## Versions
+- [Latest](/sensu/)
+- [Version 0.29](/sensu/v0.29/)
