@@ -1,5 +1,4 @@
 {{ $currentNode := . }}
-<!-- if currently not on homepage {{ partial "products" $currentNode }} -->
 
 {{ range .Site.Menus.main.ByWeight }}
 
@@ -17,4 +16,8 @@
     {{ partial "nav_link" $currentNode }}
   {{ end }}
 </li>
+{{ end }}
+
+{{ if not .IsHome }}
+    {{ partial "secondaryMenu" (index .Site.Menus $.Params.menu) }}
 {{ end }}

@@ -1,0 +1,11 @@
+{{ range .ByWeight }}
+    <li><a href="{{.URL}}">{{ .Name  }}</a>
+        {{ if .HasChildren }}
+            {{ range .Children }}
+                <!-- TODO make this work tomorrow -->
+                {{ partial "nav_link" . }}
+            {{ end }}
+        {{ end }}
+    </li>
+{{ end }}
+
