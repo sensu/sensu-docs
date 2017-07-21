@@ -1,8 +1,8 @@
 ---
-title: "Product 1"
+title: "Sensu"
 date: 2017-07-19T13:36:39-07:00
-menu: "product1"
-weight: 0
+weight: -100
+menu: "sensu"
 ---
 Monitor servers, services, application health, and business KPIs. Collect and analyze custom metrics. Get notified about failures before your users do. Give your business the competitive advantage it deserves.
 
