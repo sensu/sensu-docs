@@ -2,6 +2,7 @@
 title: "Sensu Docs"
 date: 2017-07-20T16:35:46-07:00
 type: index
+menu: main
 ---
 
 ## What is Sensu?

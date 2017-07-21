@@ -43,11 +43,6 @@ googleAnalytics = ""
 	github  = "sensu"
 	email   = ""
 
-[[menu.main]]
-    name = "Sensu Docs"
-    url = "/"
-    weight = 0
-
 [blackfriday]
 	smartypants	= true
 	fractions = true
