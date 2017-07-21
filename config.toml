@@ -38,7 +38,6 @@ googleAnalytics = ""
     	text = "Ubuntu"
     	code = "Ubuntu Mono"
 
-
 [social]
 	twitter = "sensu"
 	github  = "sensu"
@@ -48,12 +47,6 @@ googleAnalytics = ""
     name = "Sensu Docs"
     url = "/"
     weight = 0
-
-[[menu.product1]]
-	name   = "License"
-	url    = "example/license/"
-	weight = 40
-
 
 [blackfriday]
 	smartypants	= true
