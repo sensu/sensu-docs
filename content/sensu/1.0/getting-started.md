@@ -7,8 +7,16 @@ version: 1.0
 ---
 Monitor servers, services, application health, and business KPIs. Collect and analyze custom metrics. Get notified about failures before your users do. Give your business the competitive advantage it deserves.
 
-## Key Features
+## A list
 Here's some features.
+
 - Does this neat thing
 - Does another cool thing
 - So cool
+
+## Some code
+Run the following:
+```
+here's some code for version 1.0
+it's for ubuntu
+```

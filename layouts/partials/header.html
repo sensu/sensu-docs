@@ -14,7 +14,7 @@
             Sensu {{ .Params.version }} - {{ .Title }}
         {{ end }}
       </div>
-        {{ if and (isset .Params "version") (or (ne .Params.version "latest") (ne .Params.version 1.0)) }}
+        {{ if and (isset .Params "version") (not (or (eq .Params.version "latest") (eq .Params.version 1.0))) }}
                 <p>CLICK HERE FOR LATEST VERSION</p> 
         {{ end }}
     </div>
