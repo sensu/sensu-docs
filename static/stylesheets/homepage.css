@@ -10,6 +10,10 @@
     color: #81C000;
 }
 
+#home-title {
+    font-weight: bold;
+}
+
 .homepage-main {
     background-color: white;
     margin-top: 51px;
@@ -19,18 +23,29 @@
 }
 
 .product-block {
+    height: 100%;
     display: block;
     margin: 0 auto;
 }
 
 .product-holder {
-    height: 350px;
+    height: 50%;
     width: 50%;
     margin: -1px;
     display: inline-block;
     position: relative;
     background: green;
     text-align: center;
+}
+
+div.product-holder:hover {
+    background-image: url(/images/cubes.png) !important;
+    opacity: 0.9 !important;
+    -o-transition:1s;
+    -ms-transition:1s;
+    -moz-transition:1s;
+    -webkit-transition:1s;
+    transition:1s;
 }
 
 .homepage-product {
