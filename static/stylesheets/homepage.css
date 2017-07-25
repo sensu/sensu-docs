@@ -39,8 +39,8 @@
 
     opacity: 1;
     transition: opacity .9s ease-in-out;
-    -moz-transition: opacity .25s ease-in-out;
-    -webkit-transition: opacity .25s ease-in-out;
+    -moz-transition: opacity .9s ease-in-out;
+    -webkit-transition: opacity .9s ease-in-out;
 }
 
 div.product-holder:hover {
@@ -54,7 +54,7 @@ div.product-holder:hover {
     font-size: 36px;
     color: white;
     width: 100%;
-    top: 40%;
+    top: 38%;
 }
 
 .product-title {
@@ -63,7 +63,7 @@ div.product-holder:hover {
 
 .description {
     padding-top: 10px;
-    font-size: 18px;
+    font-size: 19px;
     width: 350px;
     margin: 0 auto;
 }
