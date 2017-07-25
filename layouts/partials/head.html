@@ -52,6 +52,9 @@
     <link rel="stylesheet" href="{{ "stylesheets/palettes.css" | absURL }}">
     <link rel="stylesheet" href="{{ with .Site.Params.highlight_css }}{{ . | absURL }}{{ else }}{{ "stylesheets/highlight/highlight.css" | absURL }}{{ end }}">
     <link rel="stylesheet" href="{{ "stylesheets/override.css" | absURL }}">
+    {{ if .IsHome }}
+        <link rel="stylesheet" href="{{ "stylesheets/homepage.css" | absURL }}">
+    {{ end }}
     {{/* set default values if no custom ones are defined */}}
     {{ $text := or .Site.Params.font.text "Roboto" }}
     {{ $code := or .Site.Params.font.code "Roboto Mono" }}
