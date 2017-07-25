@@ -36,16 +36,16 @@
     position: relative;
     background: green;
     text-align: center;
+
+    opacity: 1;
+    transition: opacity .9s ease-in-out;
+    -moz-transition: opacity .25s ease-in-out;
+    -webkit-transition: opacity .25s ease-in-out;
 }
 
 div.product-holder:hover {
     background-image: url(/images/cubes.png) !important;
-    opacity: 0.9 !important;
-    -o-transition:1s;
-    -ms-transition:1s;
-    -moz-transition:1s;
-    -webkit-transition:1s;
-    transition:1s;
+    opacity: 0.9;
 }
 
 .homepage-product {
