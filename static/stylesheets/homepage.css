@@ -1,3 +1,15 @@
+:root {
+--color-1: #81C000;
+--color-2: #76AF01;
+--color-3: #689A01;
+--color-4: #578002;
+}
+
+.palette-primary-green .footer, .palette-primary-green .header {
+    background: white;
+    color: #81C000;
+}
+
 .homepage-main {
     background-color: white;
     margin-top: 51px;
@@ -8,20 +20,51 @@
 
 .product-block {
     display: block;
-    max-width: 1000px;
     margin: 0 auto;
 }
 
 .product-holder {
-    height: 300px;
-    width: 49%;
+    height: 350px;
+    width: 50%;
+    margin: -1px;
     display: inline-block;
     position: relative;
     background: green;
+    text-align: center;
 }
 
 .homepage-product {
-    display: table-cell;
+    display: block;
     position: absolute;
     font-size: 36px;
+    color: white;
+    width: 100%;
+    top: 40%;
+}
+
+.product-title {
+    font-weight: bold;    
+}
+
+.description {
+    padding-top: 10px;
+    font-size: 18px;
+    width: 350px;
+    margin: 0 auto;
+}
+
+#product-1 {
+    background: var(--color-1);
+}
+
+#product-2 {
+    background: var(--color-2);
+}
+
+#product-3 {
+    background: var(--color-3);
+}
+
+#product-4 {
+    background: var(--color-4);
 }
