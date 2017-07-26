@@ -28,6 +28,8 @@
     height: 100%;
     position: absolute;
     box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
 }
 
 .product-block {
@@ -51,15 +53,10 @@
     -webkit-transition: opacity .9s ease-in-out;
 }
 
-div.product-holder:hover {
-    background-image: url(/images/cubes.png) !important;
-    opacity: 0.9;
-}
-
 .homepage-product {
     display: block;
     position: absolute;
-    font-size: 36px;
+    font-size: 32px;
     color: white;
     width: 100%;
     top: 38%;
@@ -71,7 +68,7 @@ div.product-holder:hover {
 
 .description {
     padding-top: 10px;
-    font-size: 19px;
+    font-size: 16px;
     width: 350px;
     margin: 0 auto;
 }
@@ -80,22 +77,53 @@ div.product-holder:hover {
     background: var(--color-1);
 }
 
+div#product-1:hover {
+    background-image: url(/images/random-grey-variations.png) !important;
+    opacity: 0.9;
+}
+
 #product-2 {
     background: var(--color-2);
+}
+
+div#product-2:hover {
+    background-image: url(/images/subtle-zebra-3d.png) !important;
+    opacity: 0.9;
 }
 
 #product-3 {
     background: var(--color-3);
 }
 
+div#product-3:hover {
+    background-image: url(/images/black-thread-light.png) !important;
+    opacity: 0.9;
+}
+
 #product-4 {
     background: var(--color-4);
+}
+
+div#product-4:hover {
+    background-image: url(/images/swirl.png) !important;
+    opacity: 0.9;
 }
 
 #product-5 {
     background: var(--color-5);
 }
 
+div#product-5:hover {
+    background-image: url(/images/white-diamond.png) !important;
+    opacity: 0.9;
+}
+
 #product-6 {
     background: var(--color-6);
 }
+
+div#product-6:hover {
+    background-image: url(/images/cubes.png) !important;
+    opacity: 0.9;
+}
+
