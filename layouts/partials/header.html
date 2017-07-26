@@ -8,10 +8,10 @@
     <div class="stretch">
       <div class="title">
         {{ if .IsHome }}
-            <span id="home-title">Sensu Products</span>
+            <span id="home-title">Sensu Documentation</span>
         {{ else }}
             <!-- TODO: sensu 1.0 renders as sensu 1 - fix this -->
-            Sensu {{ .Params.version }} - {{ .Title }}
+            {{ .Params.product }} {{ .Params.version }} - {{ .Title }}
         {{ end }}
       </div>
         {{ if and (isset .Params "version") (not (or (eq .Params.version "latest") (eq .Params.version 1.0))) }}

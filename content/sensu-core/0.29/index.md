@@ -4,6 +4,7 @@ date: 2017-07-21T13:06:31-07:00
 weight: -100
 menu: "sensu-0.29"
 version: 0.29
+product: "Sensu Core"
 ---
 This is an older version of Sensu.
 

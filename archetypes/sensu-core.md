@@ -5,5 +5,6 @@ description: ""
 weight:
 menu: "sensu-core"
 version:
+product: "Sensu Core"
 ---
 
