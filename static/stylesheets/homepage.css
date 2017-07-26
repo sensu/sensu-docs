@@ -3,6 +3,13 @@
 --color-2: #76AF01;
 --color-3: #689A01;
 --color-4: #578002;
+--color-5: #4B6F00;
+--color-6: #3B5801;
+}
+
+.header, .overlay {
+    position: absolute;
+    display: block;
 }
 
 .palette-primary-green .footer, .palette-primary-green .header {
@@ -16,10 +23,11 @@
 
 .homepage-main {
     background-color: white;
-    margin-top: 51px;
+    padding-top: 64px;
     width: 100%;
     height: 100%;
     position: absolute;
+    box-sizing: border-box;
 }
 
 .product-block {
@@ -30,7 +38,7 @@
 
 .product-holder {
     height: 50%;
-    width: 50%;
+    width: 33.3333%;
     margin: -1px;
     display: inline-block;
     position: relative;
@@ -82,4 +90,12 @@ div.product-holder:hover {
 
 #product-4 {
     background: var(--color-4);
+}
+
+#product-5 {
+    background: var(--color-5);
+}
+
+#product-6 {
+    background: var(--color-6);
 }
