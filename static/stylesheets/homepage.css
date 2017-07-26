@@ -13,7 +13,7 @@
 }
 
 .palette-primary-green .footer, .palette-primary-green .header {
-    background: white;
+    background: #f6f6f6;
     color: #81C000;
 }
 
@@ -56,19 +56,20 @@
 .homepage-product {
     display: block;
     position: absolute;
-    font-size: 32px;
-    color: white;
     width: 100%;
     top: 38%;
 }
 
 .product-title {
+    font-size: 30px;
+    color: #fff;
     font-weight: bold;    
 }
 
 .description {
     padding-top: 10px;
-    font-size: 16px;
+    color: #f4f4f4;
+    font-size: 18px;
     width: 350px;
     margin: 0 auto;
 }
