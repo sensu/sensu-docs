@@ -1,21 +1,21 @@
 :root {
---color-1: #244073;/* #A2CD4B; /* sensu core*/
---color-1-hover: #072D71;/*#81C000;*/
+--color-1: #244073; /* sensu core*/
+--color-1-hover: #072D71;
 
---color-2: #448E2D;/*#A2CD4B;/*#CD5555; /* sensu enterprise */
---color-2-hover: #2C6E18;/*#81C000;/*#D52020;*/
+--color-2: #448E2D; /* sensu enterprise */
+--color-2-hover: #2C6E18;
 
---color-3: #502665;/*#835F95; /* sensu enterprise dashboard */
---color-3-hover: #450765;/*#6F2493;*/
+--color-3: #502665; /* sensu enterprise dashboard */
+--color-3-hover: #450765;
 
 --color-4: #5380D1; /* uchiwa */
 --color-4-hover: #5F97FB;
 
---color-5: #66B350;/* #E1A84E; /* plugins */
---color-5-hover:#43AE24; /*#ED9908;*/
+--color-5: #66B350; /* plugins */
+--color-5-hover: #43AE24;
 
---color-6: #7B4496;/*#E87FB8; /* extensions */
---color-6-hover: #6F2493;/*#EB51A4; */
+--color-6: #7B4496; /* extensions */
+--color-6-hover: #6F2493;
 }
 
 .header, .overlay {
