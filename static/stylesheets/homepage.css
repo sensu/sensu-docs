@@ -1,21 +1,21 @@
 :root {
---color-1: #A2CD4B; /* sensu core*/
---color-1-hover: #81C000;
+--color-1: #244073;/* #A2CD4B; /* sensu core*/
+--color-1-hover: #072D71;/*#81C000;*/
 
---color-2: #CD5555; /* sensu enterprise */
---color-2-hover: #D52020;
+--color-2: #6E8E2D;/*#A2CD4B;/*#CD5555; /* sensu enterprise */
+--color-2-hover: #608B07;/*#81C000;/*#D52020;*/
 
---color-3: #835F95; /* sensu enterprise dashboard */
---color-3-hover: #6F2493;
+--color-3: #502665;/*#835F95; /* sensu enterprise dashboard */
+--color-3-hover: #450765;/*#6F2493;*/
 
 --color-4: #5D7FBC; /* uchiwa */
 --color-4-hover: #5F97FB;
 
---color-5: #E1A84E; /* plugins */
---color-5-hover: #ED9908;
+--color-5: #93C036;/* #E1A84E; /* plugins */
+--color-5-hover:#81C000; /*#ED9908;*/
 
---color-6: #E87FB8; /* extensions */
---color-6-hover: #EB51A4; 
+--color-6: #835F95;/*#E87FB8; /* extensions */
+--color-6-hover: #6F2493;/*#EB51A4; */
 }
 
 .header, .overlay {
@@ -25,7 +25,7 @@
 
 .palette-primary-green .footer, .palette-primary-green .header {
     background: #f6f6f6;
-    color: #81C000;
+    color: gray;/*#81C000*/;
 }
 
 #home-title {
