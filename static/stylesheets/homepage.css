@@ -62,7 +62,6 @@
     display: inline-block;
     margin: 0 !important;
     position: relative;
-    background: green;
     text-align: center;
     overflow: hidden;
     z-index: 2;
@@ -119,56 +118,56 @@
     z-index: 2;
 }
 
-#product-1 {
+#product-sensu-core {
     background: var(--color-1);
 }
 
-#product-1 > .mask {
+#product-sensu-core > .mask {
     background: var(--color-1-hover);
     background-image: url(/images/swirl.png) !important;
 }
 
-#product-2 {
+#product-sensu-enterprise {
     background: var(--color-2);
 }
 
-#product-2 > .mask {
+#product-sensu-enterprise > .mask {
     background: var(--color-2-hover);
     background-image: url(/images/white-diamond.png) !important;
 }
 
-#product-3 {
+#product-sensu-enterprise-dashboard {
     background: var(--color-3);
 }
 
-#product-3 > .mask {
+#product-sensu-enterprise-dashboard > .mask {
     background-image: url(/images/cubes.png) !important;
     background-color: var(--color-3-hover);
 }
 
-#product-4 {
+#product-uchiwa {
     background: var(--color-4);
 }
 
-#product-4 > .mask {
+#product-uchiwa > .mask {
     background-image: url(/images/random-grey-variations.png) !important;
     background-color: var(--color-4-hover);
 }
 
-#product-5 {
+#product-plugins {
     background: var(--color-5);
 }
 
-#product-5 > .mask {
+#product-plugins > .mask {
     background-image: url(/images/black-thread.png) !important;
     background-color: var(--color-5-hover);
 }
 
-#product-6 {
+#product-extensions {
     background: var(--color-6);
 }
 
-#product-6 > .mask {
+#product-extensions > .mask {
     background-image: url(/images/subtle-zebra-3d.png) !important;
     background-color: var(--color-6-hover);
 }

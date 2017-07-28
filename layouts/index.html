@@ -16,10 +16,26 @@
     </header>
 
     <div class="homepage-main">
+        <div class="product-block">
+            {{ range sort .Site.Params.Products "weight" }}
+                <div class="product-holder" id="product-{{ .identifier }}">
+                    <div class="content">
+                        <a class="homepage-product" href="/{{ .identifier }}/"><span class="product-title">{{ .name }}</span>
+                        <span class="description">
+                            <br>
+                            Sensu helps monitoring and does some cool things. It's neato!
+                        </span>
+                    </a>
+                </div>
+            <div class="mask"></div>
+            </div>
+            {{ end }}
+        </div>
+
         <!-- I don't like this loop, curious if I can change it -->
-        {{ range where .Site.Pages "Type" "index" }}
+        <!--{{ range where .Site.Pages "Type" "index" }}
             {{ .Content }}
-        {{ end }}
+            {{ end }}-->
 	    <div class="results" role="status" aria-live="polite">
 		    <div class="scrollable">
 			    <div class="wrapper">
