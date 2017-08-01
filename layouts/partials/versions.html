@@ -1,0 +1,11 @@
+<li id="navVersions" style="font-weight: bold;"><a onclick="$('.hiddenList').toggle(); return false;" style="margin:0; padding:0;" href="">{{ .Params.Product }} Versions</a>
+    <span id="" class="hiddenList" style="display: none;">
+        <ul style="margin: 14.5px 0 0 -12px;">
+            {{ $product := .Section }}
+            {{ $tmp := printf ".Site.Params.products.%s.versions" $product }}
+            {{ range $tmp }}
+            <li class="anchor"><a href="/">{{ .version }}</a></li>
+            {{ end }}
+        </ul>
+    </span>
+</li>

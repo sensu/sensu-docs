@@ -1,5 +1,5 @@
 ---
-title: "What's new?"
+title: "What is it?"
 date: 2017-07-19T13:36:39-07:00
 weight: -100
 menu: "sensu-core"
@@ -13,6 +13,11 @@ Here's some key features. For a full list visit the [Features](/sensu-core/1.0/f
 - Does this neat thing
 - Does another cool thing
 - So cool
+
+# New Things
+
+- A new thing is here
+- Another new thing
 
 ## Versions
 - [Latest](/sensu-core/latest)
