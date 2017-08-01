@@ -2,9 +2,11 @@
     <span id="" class="hiddenList" style="display: none;">
         <ul style="margin: 14.5px 0 0 -12px;">
             {{ $product := .Section }}
-            {{ $tmp := printf ".Site.Params.products.%s.versions" $product }}
-            {{ range $tmp }}
-            <li class="anchor"><a href="/">{{ .version }}</a></li>
+            {{ $product2 := replace $product "-" "_" }}
+            {{ $product_info := (index .Site.Params.products $product2) }} 
+            {{ range $product_info.versions }} 
+                {{ $version :=  printf "%.2f" . }}
+                <li class="anchor"><a href="/">{{ $version }}</a></li>
             {{ end }}
         </ul>
     </span>
