@@ -1,4 +1,29 @@
-<li id="navVersions" style="font-weight: bold;"><a onclick="$('.hiddenList').toggle(); return false;" style="margin:0; padding:0;" href="">{{ .Params.Product }} Versions</a>
+<li id="productButton">
+    {{ if isset .Params ".Params.product" }} 
+        {{ $display := .Params.product }}
+        <a onclick="$('.hiddenProducts').toggle(); return false;" href="">{{ $display }}</a>
+    {{ else }}
+        {{ $display := "Products" }}
+        <a onclick="$('.hiddenProducts').toggle(); return false;" href="">{{ $display }}</a>
+    {{ end }}
+    <span id="" class="hiddenProducts" style="display: none;">
+        <ul style="margin: 14.5px 0 0 -12px;">
+            {{  range sort .Site.Params.Products "weight"  }} 
+                <li class="anchor"><a href="/">{{ .name }}</a></li>
+            {{ end }}
+        </ul>
+    </span>
+</li>
+
+
+<li id="versionButton">
+    {{ if isset .Params "version" }} 
+        {{ $display := .Params.version }}
+        <a onclick="$('.hiddenVersions').toggle(); return false;" href="">{{ $display }}</a>
+    {{ else }}
+        {{ $display := "Version" }}
+        <a onclick="$('.hiddenVersions').toggle(); return false;" href="">{{ $display }}</a>
+    {{ end }}
     <span id="" class="hiddenList" style="display: none;">
         <ul style="margin: 14.5px 0 0 -12px;">
             {{ $product := .Section }}
@@ -11,3 +36,5 @@
         </ul>
     </span>
 </li>
+
+

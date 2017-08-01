@@ -1,7 +1,4 @@
 {{ $currentNode := . }}
-
-{{ partial "versions" . }}
-
 {{ range .Site.Menus.main.ByWeight }}
     {{ $.Scratch.Set "currentMenuEntry" . }}
     <li>

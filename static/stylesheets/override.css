@@ -55,10 +55,6 @@
 }
 
 /* Sidebar stuff */
-#navVersions {
-    padding: 14.5px 24px;
-}
-
 .name strong {
     font-size: 16px;
 }
@@ -82,4 +78,7 @@
     margin-top: 10px;
 }
 
-
+/* Version buttons */
+#versionButton {
+    background-color: blue;
+}
