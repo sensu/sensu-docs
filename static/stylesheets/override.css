@@ -78,7 +78,81 @@
     margin-top: 10px;
 }
 
+/* Content overrides */
+.article h1 {
+    font-size: 32px;
+    padding-top: 50px;
+    padding-bottom: 30px;;
+}
+
+@media only screen and (min-width: 720px) {
+    .article .wrapper {
+        padding-top: 95px;
+    }
+}
+
 /* Version buttons */
+.buttonHolder {
+    padding-top: 17px;
+}
+
+#productButton, #versionButton {
+    display: inline-block;
+    padding: 20px;
+    margin-left: 0;
+    border-radius: 3px;
+    font-size: 16px;
+}
+
+#productButton a, #versionButton a {
+  color: rgba(0,0,0,.87);
+  border-bottom: none;
+}
+
+#productButton {
+    background-color: #bbb;
+    width: 250px;
+}
+
 #versionButton {
-    background-color: blue;
+    background-color: #bbb;
+    margin-left: 15px;
+    width: 120px;
+}
+
+.dropdownArrow {
+  float: right;
+  font-size: 20px;
+  padding-top: 3px;
+}
+
+.hiddenProducts {
+    position: absolute;
+    z-index: 100;
+    background-color: #bbb;
+    list-style: none !important;
+    margin-left: -85px;
+    margin-top: 25px;
+    width: 250px;
+}
+
+.hiddenVersions {
+    position: absolute;
+    z-index: 100;
+    background-color: #bbb;
+    list-style: none !important;
+    padding-top: 5px;
+    width: 120px;
+    margin-top: 19px;
+    margin-left: -75px;
+}
+
+.hiddenItems {
+    margin-top: 0 !important;
+    border-radius: 3px;
+    padding-bottom: 20px;
+}
+
+.hiddenItem:before {
+    content: none !important;
 }

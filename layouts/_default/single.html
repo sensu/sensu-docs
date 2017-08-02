@@ -24,9 +24,8 @@
 
   <article class="article">
     <div class="wrapper">
-      <h1>{{ .Title }} {{ if .IsDraft }} (Draft){{ end }}</h1>
-
       {{ partial "versions" . }}
+      <h1>{{ .Title }} {{ if .IsDraft }} (Draft){{ end }}</h1>
 
       {{ .Content }}
 

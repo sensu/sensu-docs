@@ -1,40 +1,32 @@
-<li id="productButton">
-    {{ if isset .Params ".Params.product" }} 
-        {{ $display := .Params.product }}
-        <a onclick="$('.hiddenProducts').toggle(); return false;" href="">{{ $display }}</a>
-    {{ else }}
+<div class="buttonHolder">
+<div id="productButton">
         {{ $display := "Products" }}
-        <a onclick="$('.hiddenProducts').toggle(); return false;" href="">{{ $display }}</a>
-    {{ end }}
+        <a onclick="$('.hiddenProducts').toggle(); return false;" href="">{{ $display }}<i class="fa fa-chevron-down dropdownArrow" aria-hidden="true"></i></a>
     <span id="" class="hiddenProducts" style="display: none;">
-        <ul style="margin: 14.5px 0 0 -12px;">
+        <ul class="hiddenItems">
             {{  range sort .Site.Params.Products "weight"  }} 
-                <li class="anchor"><a href="/">{{ .name }}</a></li>
+                <li class="hiddenItem"><a href="/{{ .identifier }}">{{ .name }}</a></li>
             {{ end }}
         </ul>
     </span>
-</li>
+</div>
 
 
-<li id="versionButton">
-    {{ if isset .Params "version" }} 
-        {{ $display := .Params.version }}
-        <a onclick="$('.hiddenVersions').toggle(); return false;" href="">{{ $display }}</a>
-    {{ else }}
+<div id="versionButton">
         {{ $display := "Version" }}
-        <a onclick="$('.hiddenVersions').toggle(); return false;" href="">{{ $display }}</a>
-    {{ end }}
-    <span id="" class="hiddenList" style="display: none;">
-        <ul style="margin: 14.5px 0 0 -12px;">
+        <a onclick="$('.hiddenVersions').toggle(); return false;" href="">{{ $display }}<i class="fa fa-chevron-down dropdownArrow" aria-hidden="true"></i></a>
+    <span id="" class="hiddenVersions" style="display: none;">
+        <ul class="hiddenItems">
             {{ $product := .Section }}
             {{ $product2 := replace $product "-" "_" }}
             {{ $product_info := (index .Site.Params.products $product2) }} 
             {{ range $product_info.versions }} 
                 {{ $version :=  printf "%.2f" . }}
-                <li class="anchor"><a href="/">{{ $version }}</a></li>
+                <li class="hiddenItem"><a href="/{{ $product }}/{{ $version }}">{{ $version }}</a></li>
             {{ end }}
         </ul>
     </span>
-</li>
+</div>
+</div>
 
 

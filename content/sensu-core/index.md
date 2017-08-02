@@ -14,7 +14,7 @@ Here's some key features. For a full list visit the [Features](/sensu-core/1.0/f
 - Does another cool thing
 - So cool
 
-# New Things
+## New Things
 
 - A new thing is here
 - Another new thing
