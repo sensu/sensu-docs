@@ -21,13 +21,13 @@
 
     {{ with .Site.Social.twitter }}
     <div class="button button-twitter" role="button" aria-label="Twitter">
-       <a href="https://twitter.com/{{ . }}" title="@{{ . }} on Twitter" target="_blank" class="toggle-button icon icon-twitter"></a>
+       <a href="https://twitter.com/{{ . }}" title="@{{ . }} on Twitter" target="_blank" class="toggle-button"><i class="icon fa fa-twitter" aria-hidden="true"></i></a>
     </div>
     {{ end }}
 
     {{ with .Site.Social.github }}
     <div class="button button-github" role="button" aria-label="GitHub">
-      <a href="https://github.com/{{ . }}" title="@{{ . }} on GitHub" target="_blank" class="toggle-button icon icon-github"></a>
+      <a href="https://github.com/{{ . }}" title="@{{ . }} on GitHub" target="_blank" class="toggle-button"><i class="icon fa fa-github" aria-hidden="true"></i></a>
     </div>
     {{ end }}
     
