@@ -7,13 +7,13 @@
         {{ $display := "Projects" }}
         <a onclick="$('.hiddenProducts').toggle(); return false;" href="">{{ $display }}<i class="fa fa-chevron-down dropdownArrow" aria-hidden="true"></i></a>
     {{ end }}
-    <span id="" class="hiddenProducts" style="display: none;">
+    <div id="" class="hiddenProducts" style="display: none;">
         <ul class="hiddenItems">
             {{  range sort .Site.Params.Products "weight"  }} 
                 <li class="hiddenItem"><a href="/{{ .identifier }}">{{ .name }}</a></li>
             {{ end }}
         </ul>
-    </span>
+    </div>
 </div>
 
 
@@ -25,7 +25,7 @@
         {{ $display := "Version" }}
         <a onclick="$('.hiddenVersions').toggle(); return false;" href="">{{ $display }}<i class="fa fa-chevron-down dropdownArrow" aria-hidden="true"></i></a>
     {{ end }}
-    <span id="" class="hiddenVersions" style="display: none;">
+    <div id="" class="hiddenVersions" style="display: none;">
         <ul class="hiddenItems">
             {{ $product := .Section }}
             {{ $product2 := replace $product "-" "_" }}
@@ -35,7 +35,7 @@
                 <li class="hiddenItem"><a href="/{{ $product }}/{{ $version }}">{{ $version }}</a></li>
             {{ end }}
         </ul>
-    </span>
+    </div>
 </div>
 </div>
 

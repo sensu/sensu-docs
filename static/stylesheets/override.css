@@ -93,11 +93,13 @@
 
 /* Version and product buttons */
 .buttonHolder {
-    padding-top: 17px;
+    position: relative;
+    display: inline-block;
+    padding: 20px 0 40px;
 }
 
 #productButton, #versionButton {
-    display: inline-block;
+    position: absolute;
     padding: 20px;
     margin-left: 0;
     border-radius: 3px;
@@ -117,8 +119,8 @@
 
 #versionButton {
     background-color: #E5E5E5;
-    margin-left: 15px;
     width: 120px;
+    margin-left: 270px;
 }
 
 .dropdownArrow {
@@ -128,32 +130,26 @@
 }
 
 .hiddenProducts {
-    position: absolute;
     font-weight: normal;
     z-index: 100;
     background-color: #E5E5E5;
-    list-style: none !important;
-    margin-left: -89px;
-    margin-top: 25px;
-    width: 250px;
+    margin-top: 20px;
 }
 
 .hiddenVersions {
-    position: absolute;
     z-index: 100;
     background-color: #E5E5E5;
-    list-style: none !important;
-    padding-top: 5px;
-    width: 120px;
-    margin-top: 19px;
-    margin-left: -79px;
+    margin-top: 20px;
     font-weight: normal;
 }
 
 .hiddenItems {
     margin-top: 0 !important;
     border-radius: 3px;
-    padding-bottom: 20px;
+}
+
+.hiddenItem {
+  margin-left: 0 !important;
 }
 
 .hiddenItem:before {
