@@ -8,7 +8,7 @@ product: "Sensu Core"
 Monitor servers, services, application health, and business KPIs. Collect and analyze custom metrics. Get notified about failures before your users do. Give your business the competitive advantage it deserves.
 
 ## Key Features
-Here's some key features. For a full list visit the [Features](/sensu-core/1.0/features) page.
+Here's some key features. For a full list visit the [Features](/sensu-core/1.00/features) page.
 
 - Does this neat thing
 - Does another cool thing
@@ -20,6 +20,6 @@ Here's some key features. For a full list visit the [Features](/sensu-core/1.0/f
 - Another new thing
 
 ## Versions
-- [Latest](/sensu-core/latest)
-- [Version 1.0](/sensu-core/1.0/)
+- [Latest](/sensu-core/1.00)
+- [Version 1.00](/sensu-core/1.00/)
 - [Version 0.29](/sensu-core/0.29/)

@@ -91,7 +91,7 @@
     }
 }
 
-/* Version buttons */
+/* Version and product buttons */
 .buttonHolder {
     padding-top: 17px;
 }
@@ -102,6 +102,7 @@
     margin-left: 0;
     border-radius: 3px;
     font-size: 16px;
+    font-weight: bold;
 }
 
 #productButton a, #versionButton a {
@@ -110,12 +111,12 @@
 }
 
 #productButton {
-    background-color: #bbb;
+    background-color: #E5E5E5;
     width: 250px;
 }
 
 #versionButton {
-    background-color: #bbb;
+    background-color: #E5E5E5;
     margin-left: 15px;
     width: 120px;
 }
@@ -128,10 +129,11 @@
 
 .hiddenProducts {
     position: absolute;
+    font-weight: normal;
     z-index: 100;
-    background-color: #bbb;
+    background-color: #E5E5E5;
     list-style: none !important;
-    margin-left: -85px;
+    margin-left: -89px;
     margin-top: 25px;
     width: 250px;
 }
@@ -139,12 +141,13 @@
 .hiddenVersions {
     position: absolute;
     z-index: 100;
-    background-color: #bbb;
+    background-color: #E5E5E5;
     list-style: none !important;
     padding-top: 5px;
     width: 120px;
     margin-top: 19px;
-    margin-left: -75px;
+    margin-left: -79px;
+    font-weight: normal;
 }
 
 .hiddenItems {
