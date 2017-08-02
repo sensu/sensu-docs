@@ -1,42 +1,41 @@
 <div class="buttonHolder">
-<div id="productButton">
-    {{ if isset .Params ".Params.product" }}
-        {{ $display := .Params.product }}
-        <a onclick="$('.hiddenProducts').toggle(); return false;" href="">{{ $display }}<i class="fa fa-chevron-down dropdownArrow" aria-hidden="true"></i></a>
-    {{ else }}
-        {{ $display := "Projects" }}
-        <a onclick="$('.hiddenProducts').toggle(); return false;" href="">{{ $display }}<i class="fa fa-chevron-down dropdownArrow" aria-hidden="true"></i></a>
-    {{ end }}
-    <div id="" class="hiddenProducts" style="display: none;">
-        <ul class="hiddenItems">
-            {{  range sort .Site.Params.Products "weight"  }} 
-                <li class="hiddenItem"><a href="/{{ .identifier }}">{{ .name }}</a></li>
-            {{ end }}
-        </ul>
+    <div id="productButton">
+        {{ if isset .Params "product" }}
+            {{ $display := .Params.product }}
+            <a onclick="$('.hiddenProducts').toggle(); return false;" href="">{{ $display }}<i class="fa fa-chevron-down dropdownArrow" aria-hidden="true"></i></a>
+        {{ else }}
+            {{ $display := "Projects" }}
+            <a onclick="$('.hiddenProducts').toggle(); return false;" href="">{{ $display }}<i class="fa fa-chevron-down dropdownArrow" aria-hidden="true"></i></a>
+        {{ end }}
+        <div id="" class="hiddenProducts" style="display: none;">
+            <ul class="hiddenItems">
+                {{  range sort .Site.Params.Products "weight"  }} 
+                    <li class="hiddenItem"><a href="/{{ .identifier }}">{{ .name }}</a></li>
+                {{ end }}
+            </ul>
+        </div>
     </div>
-</div>
 
-
-<div id="versionButton">
-    {{ if isset .Params "version" }} 
-        {{ $display := .Params.version }}
-        <a onclick="$('.hiddenVersions').toggle(); return false;" href="">{{ $display }}<i class="fa fa-chevron-down dropdownArrow" aria-hidden="true"></i></a>
-    {{ else }}
-        {{ $display := "Version" }}
-        <a onclick="$('.hiddenVersions').toggle(); return false;" href="">{{ $display }}<i class="fa fa-chevron-down dropdownArrow" aria-hidden="true"></i></a>
-    {{ end }}
-    <div id="" class="hiddenVersions" style="display: none;">
-        <ul class="hiddenItems">
-            {{ $product := .Section }}
-            {{ $product2 := replace $product "-" "_" }}
-            {{ $product_info := (index .Site.Params.products $product2) }} 
-            {{ range $product_info.versions }} 
-                {{ $version := . }}
-                <li class="hiddenItem"><a href="/{{ $product }}/{{ $version }}">{{ $version }}</a></li>
-            {{ end }}
-        </ul>
+    <div id="versionButton">
+        {{ if isset .Params "version" }} 
+            {{ $display := .Params.version }}
+            <a onclick="$('.hiddenVersions').toggle(); return false;" href="">{{ $display }}<i class="fa fa-chevron-down dropdownArrow" aria-hidden="true"></i></a>
+        {{ else }}
+            {{ $display := "Version" }}
+            <a onclick="$('.hiddenVersions').toggle(); return false;" href="">{{ $display }}<i class="fa fa-chevron-down dropdownArrow" aria-hidden="true"></i></a>
+        {{ end }}
+        <div id="" class="hiddenVersions" style="display: none;">
+            <ul class="hiddenItems">
+                {{ $product := .Section }}
+                {{ $product2 := replace $product "-" "_" }}
+                {{ $product_info := (index .Site.Params.products $product2) }} 
+                {{ range $product_info.versions }} 
+                    {{ $version := . }}
+                    <li class="hiddenItem"><a href="/{{ $product }}/{{ $version }}">{{ $version }}</a></li>
+                {{ end }}
+            </ul>
+        </div>
     </div>
-</div>
 </div>
 
 

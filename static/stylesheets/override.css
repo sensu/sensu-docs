@@ -99,12 +99,14 @@
 }
 
 #productButton, #versionButton {
+    pointer: cursor;
     position: absolute;
     padding: 20px;
     margin-left: 0;
     border-radius: 3px;
     font-size: 16px;
     font-weight: bold;
+    background-color: #E5E5E5;
 }
 
 #productButton a, #versionButton a {
@@ -113,12 +115,10 @@
 }
 
 #productButton {
-    background-color: #E5E5E5;
     width: 250px;
 }
 
 #versionButton {
-    background-color: #E5E5E5;
     width: 120px;
     margin-left: 270px;
 }
@@ -129,18 +129,11 @@
   padding-top: 3px;
 }
 
-.hiddenProducts {
+.hiddenProducts, .hiddenVersions {
     font-weight: normal;
     z-index: 100;
     background-color: #E5E5E5;
     margin-top: 20px;
-}
-
-.hiddenVersions {
-    z-index: 100;
-    background-color: #E5E5E5;
-    margin-top: 20px;
-    font-weight: normal;
 }
 
 .hiddenItems {
