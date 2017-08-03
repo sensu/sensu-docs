@@ -1,18 +1,19 @@
 /* overriding theme palette */
 .palette-primary-green {
-    background: #81C000
+    background: #282828;
 }
 
 .palette-primary-green .footer,.palette-primary-green .header {
-    background: #81C000
+    background: #282828;
+    color: #BBBBBB;
 }
 
 .palette-primary-green .drawer .toc a.current,.palette-primary-green .drawer .toc a:focus,.palette-primary-green .drawer .toc a:hover {
-    color: #81C000
+    color: #81C000;
 }
 
 .palette-primary-green .drawer .anchor a {
-    border-left: 2px solid #81C000
+    border-left: 2px solid #81C000;
 }
 
 .ios.standalone .palette-primary-green .article {
@@ -21,19 +22,19 @@
 }
 
 .palette-primary-green .article a,.palette-primary-green .article code,.palette-primary-green .article h1,.palette-primary-green .article h2 {
-    color: #81C000
+    color: #81C000;
 }
 
 .palette-primary-green .article .headerlink {
-    color: rgba(0,0,0,.26)
+    color: rgba(0,0,0,.26);
 }
 
 .palette-primary-green .article table th {
-    background: #5cb45b
+    background: #5cb45b;
 }
 
 .palette-primary-green .results .meta {
-    background: #81C000
+    background: #81C000;
 }
 
 .palette-accent-green .article a:focus,.palette-accent-green .article a:hover {
@@ -57,6 +58,10 @@
 .header {
     overflow: visible;
     padding: 0;
+}
+
+.bar {
+    max-width: 1500px;
 }
 
 .bar.search {
@@ -138,26 +143,26 @@ div.button.button-close {
 #productButton, #versionButton {
     pointer: cursor;
     position: absolute;
-    padding: 10px;
     margin-left: 0;
     border-radius: 3px;
     font-size: 16px;
     font-weight: bold;
-    background-color: #E5E5E5;
+    background-color: #e7e7e7;
 }
 
 #productButton a, #versionButton a {
-  color: rgba(0,0,0,.87);
+  color: rgb(90, 90, 90);
   border-bottom: none;
+  padding: 10px;
 }
 
 #productButton {
-    width: 250px;
+    width: 260px;
 }
 
 #versionButton {
     width: 120px;
-    margin-left: 260px;
+    margin-left: 270px;
 }
 
 .dropdownArrow {
@@ -169,8 +174,7 @@ div.button.button-close {
 .hiddenProducts, .hiddenVersions {
     font-weight: normal;
     z-index: 100;
-    background-color: #E5E5E5;
-    margin-top: 20px;
+    background-color: #e7e7e7;
 }
 
 .hiddenItems {
@@ -179,10 +183,13 @@ div.button.button-close {
 }
 
 .hiddenItem {
-  margin-left: 0 !important;
-  padding: 5px 0;
+    margin-left: 0 !important;
 }
 
 .hiddenItem:before {
     content: none !important;
+}
+
+.hiddenItem:hover {
+    background-color: #dbdbdb; 
 }
