@@ -24,7 +24,6 @@
 
   <article class="article">
     <div class="wrapper">
-      {{ partial "productVersionDropdown.html" . }}
       <h1>{{ .Title }} {{ if .IsDraft }} (Draft){{ end }}</h1>
 
       {{ .Content }}

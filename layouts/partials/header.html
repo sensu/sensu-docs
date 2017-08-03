@@ -10,16 +10,15 @@
         {{ if .IsHome }}
             <span id="home-title">Sensu Documentation</span>
         {{ else }}
-            <!-- TODO: sensu 1.0 renders as sensu 1 - fix this -->
             {{ .Params.product }} {{ .Params.version }} - {{ .Title }}
         {{ end }}
       </div>
-        {{ if and (isset .Params "version") (not (or (eq .Params.version "latest") (eq .Params.version 1.0))) }}
-                <p>CLICK HERE FOR LATEST VERSION</p> 
-        {{ end }}
+      <!--{{ if and (isset .Params "version") (not (or (eq .Params.version "latest") (eq .Params.version 1.0))) }}
+        <p>CLICK HERE FOR LATEST VERSION</p> 
+      {{ end }}-->
     </div>
-
-    {{ with .Site.Social.twitter }}
+    {{ partial "productVersionDropdown.html" . }}
+    <!--{{ with .Site.Social.twitter }}
     <div class="button button-twitter" role="button" aria-label="Twitter">
        <a href="https://twitter.com/{{ . }}" title="@{{ . }} on Twitter" target="_blank" class="toggle-button"><i class="icon fa fa-twitter" aria-hidden="true"></i></a>
     </div>
@@ -30,12 +29,12 @@
       <a href="https://github.com/{{ . }}" title="@{{ . }} on GitHub" target="_blank" class="toggle-button"><i class="icon fa fa-github" aria-hidden="true"></i></a>
     </div>
     {{ end }}
-    
-    <!-- TODO: disabled until Hugo supports the generation of a content index natively 
+    -->
+    <!-- TODO: disabled until Hugo supports the generation of a content index natively --> 
     <div class="button button-search" role="button" aria-label="Search">
       <label class="toggle-button icon icon-search" title="Search" for="toggle-search"></label>
     </div>
-    -->    
+    <!-- end -->    
   </div>
   <div class="bar search">
     <div class="button button-close" role="button" aria-label="Close">

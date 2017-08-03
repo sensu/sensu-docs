@@ -47,11 +47,31 @@
 /* Banner tweak */
 .header .stretch .title {
     font-size: 30px;
-    padding-top: 5px;
+}
+
+.title {
+  padding-top: 15px !important;
+}
+
+.header {
+    overflow: visible;
+    padding: 0;
+}
+
+.bar.search {
+    margin-top: -13px;
+}
+
+.stretch {
+    display: inline;
 }
 
 .project .banner {
     padding: 15px 20px;
+}
+
+.button .icon {
+    margin: 13px;
 }
 
 /* Sidebar stuff */
@@ -93,15 +113,17 @@
 
 /* Version and product buttons */
 .buttonHolder {
-    position: relative;
+    z-index: 2000;
     display: inline-block;
-    padding: 20px 0 40px;
+    position: absolute;
+    padding-top: 13px;
+    padding-left: 5px;
 }
 
 #productButton, #versionButton {
     pointer: cursor;
     position: absolute;
-    padding: 20px;
+    padding: 10px;
     margin-left: 0;
     border-radius: 3px;
     font-size: 16px;
@@ -120,7 +142,7 @@
 
 #versionButton {
     width: 120px;
-    margin-left: 270px;
+    margin-left: 260px;
 }
 
 .dropdownArrow {
@@ -143,6 +165,7 @@
 
 .hiddenItem {
   margin-left: 0 !important;
+  padding: 5px 0;
 }
 
 .hiddenItem:before {
