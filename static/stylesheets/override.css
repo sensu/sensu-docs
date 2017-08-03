@@ -63,6 +63,11 @@
     margin-top: -12px;
 }
 
+div.bar.default {
+    position: relative;
+    z-index: 100;
+}
+
 .stretch {
     display: inline;
 }
