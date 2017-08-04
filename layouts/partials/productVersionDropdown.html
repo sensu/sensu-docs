@@ -1,14 +1,21 @@
 <script>
     // I've heard that .stopPropogation() is not ideal, potentially needs a rework
     $( document ).ready(function() {
-    $('.productButtonTitle').click( function(event){
-        event.stopPropagation();
-        $('.hiddenProducts').toggle();
-    });
+        $('.productButtonTitle').click( function(event){
+            event.stopPropagation();
+            $('.hiddenProducts').toggle();
+        });
+        $(document).click( function(){
+            $('.hiddenProducts').hide();
+        });
 
-    $(document).click( function(){
-        $('.hiddenProducts').hide();
-    });
+        $('.versionButtonTitle').click( function(event){
+            event.stopPropagation();
+            $('.hiddenVersions').toggle();
+        });
+        $(document).click( function(){
+            $('.hiddenVersions').hide();
+        });
 });
 </script>
 
@@ -21,7 +28,7 @@
             {{ $display := "Projects" }}
             <a class="productButtonTitle">{{ $display }}<i class="fa fa-chevron-down dropdownArrow" aria-hidden="true"></i></a>
         {{ end }}
-        <div id="" class="hiddenProducts" style="display: none;">
+        <div class="hiddenProducts" style="display: none;">
             <ul class="hiddenItems">
                 {{ range sort .Site.Params.Products "weight" }} 
                     <li class="hiddenItem"><a href="/{{ .identifier }}">{{ .name }}</a></li>
@@ -33,12 +40,12 @@
     <div id="versionButton">
         {{ if isset .Params "version" }} 
             {{ $display := .Params.version }}
-            <a onclick="$('.hiddenVersions').toggle(); return false;" href="">{{ $display }}<i class="fa fa-chevron-down dropdownArrow" aria-hidden="true"></i></a>
+            <a class="versionButtonTitle">{{ $display }}<i class="fa fa-chevron-down dropdownArrow" aria-hidden="true"></i></a>
         {{ else }}
             {{ $display := "Version" }}
-            <a onclick="$('.hiddenVersions').toggle(); return false;" href="">{{ $display }}<i class="fa fa-chevron-down dropdownArrow" aria-hidden="true"></i></a>
+            <a class="versionButtonTitle">{{ $display }}<i class="fa fa-chevron-down dropdownArrow" aria-hidden="true"></i></a>
         {{ end }}
-        <div id="" class="hiddenVersions" style="display: none;">
+        <div class="hiddenVersions" style="display: none;">
             <ul class="hiddenItems">
                 {{ $product := .Section }}
                 {{ $product2 := replace $product "-" "_" }}
