@@ -1,49 +1,43 @@
 {{ partial "head" . }}
-{{ if not .IsHome }}
-    {{ partial "main-layout" . }}
-{{ else }}
-    {{ if (eq (trim .Site.Params.provider " " | lower) "github") | and (isset .Site.Params "repo_url") }}
-	    {{ $repo_id := replace .Site.Params.repo_url "https://github.com/" ""}}
-	    {{ .Scratch.Set "repo_id" $repo_id }}
-    {{ end }}
 
-    <input class="toggle" type="checkbox" id="toggle-drawer">
-    <input class="toggle" type="checkbox" id="toggle-search">
-    <label class="toggle-button overlay" for="toggle-drawer"></label>
-
-    <header class="header">
-    	{{ partial "header" . }}
-    </header>
-
-    <div class="homepage-main">
-        <div class="product-block">
-            {{ range sort .Site.Params.Products "weight" }}
-                <div class="product-holder" id="product-{{ .identifier }}">
-                    <div class="content">
-                        <a class="homepage-product" href="/{{ .identifier }}/"><span class="product-title">{{ .name }}</span>
-                        <span class="description">
-                            <br>
-                            Sensu helps monitoring and does some cool things. It's neato!
-                        </span>
-                    </a>
-                </div>
-            <div class="mask"></div>
-            </div>
-            {{ end }}
-        </div>
-
-        <!-- I don't like this loop, curious if I can change it -->
-        <!--{{ range where .Site.Pages "Type" "index" }}
-            {{ .Content }}
-            {{ end }}-->
-	    <div class="results" role="status" aria-live="polite">
-		    <div class="scrollable">
-			    <div class="wrapper">
-				    <div class="meta"></div>
-				    <div class="list"></div>
-			    </div>
-		    </div>
-	    </div>
-    </div>
+{{ if (eq (trim .Site.Params.provider " " | lower) "github") | and (isset .Site.Params "repo_url") }}
+  {{ $repo_id := replace .Site.Params.repo_url "https://github.com/" ""}}
+  {{ .Scratch.Set "repo_id" $repo_id }}
 {{ end }}
+
+<input class="toggle" type="checkbox" id="toggle-drawer">
+<input class="toggle" type="checkbox" id="toggle-search">
+<label class="toggle-button overlay" for="toggle-drawer"></label>
+
+<header class="header">
+  {{ partial "header" . }}
+</header>
+
+<div class="homepage-main">
+  <div class="product-block">
+    {{ range sort .Site.Params.Products "weight" }}
+      <div class="product-holder" id="product-{{ .identifier }}">
+        <div class="content">
+          <a class="homepage-product" href="/{{ .identifier }}/"><span class="product-title">{{ .name }}</span>
+            <span class="description">
+              <br>
+              Sensu helps monitoring and does some cool things. It's neato!
+            </span>
+          </a>
+        </div>
+        <div class="mask"></div>
+      </div>
+    {{ end }}
+  </div>
+
+  <div class="results" role="status" aria-live="polite">
+    <div class="scrollable">
+      <div class="wrapper">
+        <div class="meta"></div>
+        <div class="list"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
 {{ partial "footer_js" . }}
