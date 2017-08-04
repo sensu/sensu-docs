@@ -1,15 +1,29 @@
+<script>
+    // I've heard that .stopPropogation() is not ideal, potentially needs a rework
+    $( document ).ready(function() {
+    $('.productButtonTitle').click( function(event){
+        event.stopPropagation();
+        $('.hiddenProducts').toggle();
+    });
+
+    $(document).click( function(){
+        $('.hiddenProducts').hide();
+    });
+});
+</script>
+
 <div class="buttonHolder">
     <div id="productButton">
         {{ if isset .Params "product" }}
             {{ $display := .Params.product }}
-            <a onclick="$('.hiddenProducts').toggle(); return false;" href="">{{ $display }}<i class="fa fa-chevron-down dropdownArrow" aria-hidden="true"></i></a>
+            <a class="productButtonTitle">{{ $display }}<i class="fa fa-chevron-down dropdownArrow" aria-hidden="true"></i></a>
         {{ else }}
             {{ $display := "Projects" }}
-            <a onclick="$('.hiddenProducts').toggle(); return false;" href="">{{ $display }}<i class="fa fa-chevron-down dropdownArrow" aria-hidden="true"></i></a>
+            <a class="productButtonTitle">{{ $display }}<i class="fa fa-chevron-down dropdownArrow" aria-hidden="true"></i></a>
         {{ end }}
         <div id="" class="hiddenProducts" style="display: none;">
             <ul class="hiddenItems">
-                {{  range sort .Site.Params.Products "weight"  }} 
+                {{ range sort .Site.Params.Products "weight" }} 
                     <li class="hiddenItem"><a href="/{{ .identifier }}">{{ .name }}</a></li>
                 {{ end }}
             </ul>
