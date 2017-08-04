@@ -103,6 +103,12 @@ div.button.button-close {
     font-size: 14px;
 }
 
+@media only screen and (min-width: 960px) {
+    .drawer {
+        padding-top: 100px;
+    }
+}
+
 .project .logo {
     width: 80px;
     height: 80px;
@@ -127,7 +133,7 @@ div.button.button-close {
 
 @media only screen and (min-width: 720px) {
     .article .wrapper {
-        padding-top: 95px;
+        padding-top: 70px;
     }
 }
 
@@ -151,9 +157,9 @@ div.button.button-close {
 }
 
 #productButton a, #versionButton a {
-  color: rgb(90, 90, 90);
-  border-bottom: none;
-  padding: 10px;
+    color: rgb(90, 90, 90);
+    border-bottom: none;
+    padding: 10px;
 }
 
 #productButton {
@@ -166,8 +172,8 @@ div.button.button-close {
 }
 
 .dropdownArrow {
-  float: right;
-  font-size: 20px;
+    float: right;
+    font-size: 20px;
 }
 
 .hiddenProducts, .hiddenVersions {
@@ -195,13 +201,19 @@ div.button.button-close {
 
 /* version banner */
 .versionBanner {
-  background-color: #B00808;
-  position: absolute;
-  z-index: 1;
-  width: 100%;
-  top: 64px;
-  padding: 5px;
-  text-align: center;
+    background-color: #B00808;
+    position: absolute;
+    z-index: 1;
+    width: 100%;
+    top: 64px;
+    padding: 5px;
+    text-align: center;
+}
+
+@media only screen and (max-width: 760px) {
+    .versionBanner {
+        top: 56px;
+    }
 }
 
 .versionBanner a {
