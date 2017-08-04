@@ -13,9 +13,6 @@
             {{ .Params.product }} {{ .Params.version }} - {{ .Title }}
         {{ end }}
       </div>
-      <!--{{ if and (isset .Params "version") (not (or (eq .Params.version "latest") (eq .Params.version 1.0))) }}
-        <p>CLICK HERE FOR LATEST VERSION</p> 
-      {{ end }}-->
     </div>
     {{ partial "productVersionDropdown.html" . }}
     <!--{{ with .Site.Social.twitter }}
@@ -49,4 +46,12 @@
       <button class="toggle-button icon icon-close" id="reset-search"></button>
     </div>
   </div>
+  {{ $product := .Section }}
+  {{ $product2 := replace $product "-" "_" }}
+  {{ $product_info := (index .Site.Params.products $product2) }}
+  {{ if and (isset .Params "version") (ne $product_info.latest .Params.version) }}
+    <div class="versionBanner">
+      <a class="versionBannerText" href="/{{ .Section }}/{{ $product_info.latest }}/">You're viewing an older version of {{ .Params.product }}. Click here for the latest.</a>
+    </div>
+  {{ end }}
 </nav>

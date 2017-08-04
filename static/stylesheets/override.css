@@ -192,3 +192,26 @@ div.button.button-close {
 .hiddenItem:hover {
     background-color: #dbdbdb; 
 }
+
+/* version banner */
+.versionBanner {
+  background-color: #B00808;
+  position: absolute;
+  z-index: 1;
+  width: 100%;
+  top: 64px;
+  padding: 5px;
+  text-align: center;
+}
+
+.versionBanner a {
+  rgb(90, 90, 90);
+}
+
+.versionBanner a:hover {
+  color: #eeeeee;
+}
+
+.versionBannerText {
+  font-size: 14px;
+}
