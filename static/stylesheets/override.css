@@ -201,7 +201,7 @@ div.button.button-close {
 
 /* version banner */
 .versionBanner {
-    background-color: #B00808;
+    background-color: #cc7d7c;
     position: absolute;
     z-index: 1;
     width: 100%;
@@ -217,11 +217,11 @@ div.button.button-close {
 }
 
 .versionBanner a {
-  rgb(90, 90, 90);
+  color: #dedede;
 }
 
 .versionBanner a:hover {
-  color: #eeeeee;
+  color: #ffffff;
 }
 
 .versionBannerText {
