@@ -54,10 +54,8 @@
       <a class="versionBannerText" href="/{{ .Section }}/{{ $product_info.latest }}/">You're viewing documentation for an older version of {{ .Params.product }}. Click here for the latest.</a>
     </div>
   {{ end }}
+  <ul id="results" class="query"></ul>
 </nav>
-
-<ul id="results">
-</ul>
 
 <script type="text/javascript">
   var lunrIndex,
@@ -103,6 +101,7 @@
     $results = $("#results");
     $("#search").keyup(function() {
       $results.empty();
+      document.getElementById("results").className = document.getElementById("results").className.replace( /(?:^|\s)resultsList(?!\S)/g , '' );
 
       // Only trigger a search when 2 chars. at least have been provided
       var query = $(this).val();
@@ -111,8 +110,11 @@
       }
 
       var results = search(query);
+      if (results.length > 0) {
+        document.getElementById("results").className += " resultsList";
+      }
+      renderResults(results); 
 
-      renderResults(results);
     });
   }
 
@@ -150,7 +152,7 @@
     var $result = $("<li>");
     $result.append($("<a>", {
       href: result.href,
-      text: "» " + result.title
+      text: "" + result.title
     }));
     $results.append($result);
     });

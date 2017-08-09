@@ -94,6 +94,21 @@ div.button.button-close {
     padding-top 1px;
 }
 
+#results.query.resultsList {
+    background-color: white;
+    width: 100%;
+    position: fixed;
+    z-index: 500;
+    top: 64px;
+    font-size: 16px;
+    padding-bottom: 5px;
+}
+
+#results.query.resultsList li {
+  margin-left: 82.5px;
+  padding: 10px 50px;
+}
+
 /* Sidebar stuff */
 .name strong {
     font-size: 16px;
