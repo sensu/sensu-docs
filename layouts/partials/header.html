@@ -34,7 +34,7 @@
     <!-- end -->    
   </div>
   <div class="bar search">
-    <div class="button button-close" role="button" aria-label="Close">
+    <div class="button button-close" onClick="closeResults()" role="button" aria-label="Close">
       <label class="toggle-button icon" for="toggle-search"><i class="fa fa-arrow-left" aria-hidden="true"></i></label>
     </div>
     <div class="stretch">
@@ -162,6 +162,13 @@
   initLunr();
 
   $(document).ready(function() {
-      initUI();
+    initUI();
   });
+
+  function closeResults() {
+    $results = $("#results");
+    $results.empty();
+    document.getElementById("search").value = "";
+    document.getElementById("results").className = document.getElementById("results").className.replace( /(?:^|\s)resultsList(?!\S)/g , '' );
+  }
 </script>
