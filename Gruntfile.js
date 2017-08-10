@@ -88,8 +88,8 @@ module.exports = function(grunt) {
             // build Lunr index for this page
             pageIndex = {
                 title: frontMatter.title,
-                // TODO: add tags later
-                // tags: frontMatter.tags,
+                tags: frontMatter.tags,
+                product: frontMatter.product,
                 href: href,
                 content: S(content[2]).trim().stripTags().stripPunctuation().s
             };
