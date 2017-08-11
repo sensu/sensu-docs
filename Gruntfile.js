@@ -1,7 +1,7 @@
 var yaml = require("js-yaml");
 var S = require("string");
 
-var CONTENT_PATH_PREFIX = "site/content";
+var CONTENT_PATH_PREFIX = "./content";
 
 // define the grunt function for cli
 module.exports = function(grunt) {
