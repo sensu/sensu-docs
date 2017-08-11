@@ -27,11 +27,9 @@
     </div>
     {{ end }}
     -->
-    <!-- TODO: disabled until Hugo supports the generation of a content index natively --> 
     <div class="button button-search" role="button" aria-label="Search">
       <label class="toggle-button icon" title="Search" for="toggle-search"><i class="icon fa fa-search" aria-hidden="true"></i></label>
     </div>
-    <!-- end -->    
   </div>
   <div class="bar search">
     <div class="button button-close" onClick="closeResults()" role="button" aria-label="Close">
@@ -73,10 +71,10 @@
       // Set up lunrjs by declaring the fields we use
       // Also provide their boost level for the ranking
       lunrIndex = lunr(function() {
-        this.field("title", {
+        this.field("product", {
           boost: 10
         });
-        this.field("product", {
+        this.field("title", {
           boost: 8
         });
         this.field("tags", {
@@ -87,7 +85,7 @@
         this.ref("href");
       });
 
-        // Feed lunr with each file and let lunr actually index them
+      // Feed lunr with each file and let lunr actually index them
       pagesIndex.forEach(function(page) {
         lunrIndex.add(page);
       });
@@ -151,10 +149,16 @@
 
   // Only show the ten first results
   results.slice(0, 10).forEach(function(result) {
+    var text = "";
+    if (result.product === undefined) {
+      text = result.title;
+    } else {
+      text = result.product + ": " + result.title;
+    }
     var $result = $("<li>");
     $result.append($("<a>", {
       href: result.href,
-      text: result.product + ": " + result.title
+      text: text
     }));
     $results.append($result);
     });
@@ -173,4 +177,11 @@
     document.getElementById("search").value = "";
     document.getElementById("results").className = document.getElementById("results").className.replace( /(?:^|\s)resultsList(?!\S)/g , '' );
   }
+
+  $(document).on('keyup',function(evt) {
+    // key 27 is esc
+    if (evt.keyCode == 27) {
+       closeResults();
+    }
+});
 </script>
