@@ -71,19 +71,17 @@
       // Set up lunrjs by declaring the fields we use
       // Also provide their boost level for the ranking
       lunrIndex = lunr(function() {
-        this.field("product", {
-          boost: 10
-        });
-        this.field("title", {
-          boost: 8
-        });
-        this.field("tags", {
-          boost: 5
-        });
+        this.field("product");
+        this.field("title");
+        this.field("tags");
         this.field("content");
         // ref is the result item identifier (I chose the page URL)
         this.ref("href");
       });
+
+      lunrIndex.search('product:foo^10');
+      lunrIndex.search('title:foo^9');
+      lunrIndex.search('tags:tags^8');
 
       // Feed lunr with each file and let lunr actually index them
       pagesIndex.forEach(function(page) {
@@ -153,7 +151,11 @@
     if (result.product === undefined) {
       text = result.title;
     } else {
-      text = result.product + ": " + result.title;
+      if (result.version === undefined) {
+        text = result.product + ": " + result.title;
+      } else {
+        text = result.product + " " + result.version + " - " + result.title;
+      }
     }
     var $result = $("<li>");
     $result.append($("<a>", {
@@ -164,10 +166,9 @@
     });
   }
 
-  // Let's get started
-  initLunr();
-
   $(document).ready(function() {
+    // Let's get started
+    initLunr();
     initUI();
   });
 
@@ -183,5 +184,5 @@
     if (evt.keyCode == 27) {
        closeResults();
     }
-});
+  });
 </script>
