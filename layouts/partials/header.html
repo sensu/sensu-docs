@@ -79,13 +79,15 @@
         this.ref("href");
       });
 
-      lunrIndex.search('product:foo^10');
-      lunrIndex.search('title:foo^9');
-      lunrIndex.search('tags:tags^8');
+      lunrIndex.search("product:foo^10");
+      lunrIndex.search("title:foo^9");
+      lunrIndex.search("tags:tags^8");
 
       // Feed lunr with each file and let lunr actually index them
       pagesIndex.forEach(function(page) {
-        lunrIndex.add(page);
+        if (page.product === {{ .Params.product }}) {
+          lunrIndex.add(page);
+        }
       });
     })
       .fail(function(jqxhr, textStatus, error) {
