@@ -90,6 +90,7 @@ module.exports = function(grunt) {
                 title: frontMatter.title,
                 tags: frontMatter.tags,
                 product: frontMatter.product,
+                version: frontMatter.version,
                 href: href,
                 content: S(content[2]).trim().stripTags().stripPunctuation().s
             };
