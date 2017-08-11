@@ -1,7 +1,7 @@
 {
   "name": "sensu-docs-site",
   "version": "1.0.0",
-  "postinstall": "grunt lunr-index",
+  "postinstall": "./node_modules/.bin/grunt lunr-index",
   "repository": "git@github.com:sensu/sensu-docs-site.git",
   "author": "Melissa P <melissa@sensu.io>",
   "license": "MIT",
