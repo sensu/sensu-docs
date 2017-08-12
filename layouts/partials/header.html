@@ -113,11 +113,8 @@
       }
 
       var results = search(query);
-      if (results.length > 0) {
-        document.getElementById("results").className += " resultsList";
-      }
-      renderResults(results); 
-
+      document.getElementById("results").className += " resultsList"; 
+      renderResults(results);
     });
   }
 
@@ -147,27 +144,31 @@
   */
   function renderResults(results) {
     if (!results.length) {
+      var $result = $("<li>");
+      $result.append($("<a>", {
+        text: "No results."
+      }));
+      $results.append($result);
       return;
     }
-
-  // Only show the ten first results
-  results.slice(0, 10).forEach(function(result) {
-    var text = "";
-    if (result.product === undefined) {
-      text = result.title;
-    } else {
-      if (result.version === undefined) {
-        text = result.product + ": " + result.title;
+    // Only show the ten first results
+    results.slice(0, 10).forEach(function(result) {
+      var text = "";
+      if (result.product === undefined) {
+        text = result.title;
       } else {
-        text = result.product + " " + result.version + " - " + result.title;
+        if (result.version === undefined) {
+        text = result.product + ": " + result.title;
+        } else {
+          text = result.product + " " + result.version + " - " + result.title;
+        }
       }
-    }
-    var $result = $("<li>");
-    $result.append($("<a>", {
-      href: result.href,
-      text: text
-    }));
-    $results.append($result);
+      var $result = $("<li>");
+      $result.append($("<a>", {
+        href: result.href,
+        text: text
+      }));
+      $results.append($result);
     });
   }
 

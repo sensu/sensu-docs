@@ -97,7 +97,7 @@ module.exports = function(grunt) {
             return pageIndex;
         };
         grunt.log.writeln("Index pages -> process file -> process based on type");
-        grunt.file.write("site/static/js/lunr/PagesIndex.json", JSON.stringify(indexPages()));
+        grunt.file.write("static/js/lunr/PagesIndex.json", JSON.stringify(indexPages()));
         grunt.log.ok("Index built");
     });
 };
