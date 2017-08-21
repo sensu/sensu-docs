@@ -94,6 +94,27 @@ div.button.button-close {
     padding-top 1px;
 }
 
+#results.query.resultsList {
+    background-color: white;
+    width: 100%;
+    position: fixed;
+    z-index: 500;
+    top: 64px;
+    font-size: 16px;
+    margin-top: -10px;
+    padding-bottom: 10px;
+    box-shadow: 0 3px 8px rgba(0,0,0,.05);
+}
+
+#results.query.resultsList li {
+    padding: 10px 125px;
+    width: 100%;
+}
+
+#results.query.resultsList li:hover {
+    background-color: #efefef;
+ }
+
 /* Sidebar stuff */
 .name strong {
     font-size: 16px;
@@ -202,6 +223,7 @@ div.button.button-close {
 /* version banner */
 .versionBanner {
     background-color: #cc7d7c;
+    box-shadow: 0 3px 8px rgba(0,0,0,.05);
     position: absolute;
     z-index: 1;
     width: 100%;
