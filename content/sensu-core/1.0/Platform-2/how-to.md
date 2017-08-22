@@ -1,5 +1,5 @@
 ---
-title: "Platform 2"
+title: "How To"
 date: 2017-08-22T10:13:50-07:00
 description: ""
 weight:
