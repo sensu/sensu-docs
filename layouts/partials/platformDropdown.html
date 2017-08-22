@@ -1,0 +1,35 @@
+<script>
+    // I've heard that .stopPropogation() is not ideal, potentially needs a rework
+    $( document ).ready(function() {
+        $('.platformButtonTitle').click( function(event){
+            event.stopPropagation();
+            $('.hiddenProducts').toggle();
+        });
+        $(document).click( function(){
+            $('.hiddenProducts').hide();
+        });
+});
+</script>
+test
+<div class="platformHolder">
+    <div id="platformButton">
+        {{ if isset .Params "platform" }}
+            {{ $display := .Params.platform }}
+            <a class="platformButtonTitle">{{ $display }}<i class="fa fa-chevron-down dropdownArrow" aria-hidden="true"></i></a>
+        {{ else }}
+            {{ $display := "Platforms" }}
+            <a class="platformButtonTitle">{{ $display }}<i class="fa fa-chevron-down dropdownArrow" aria-hidden="true"></i></a>
+        {{ end }}
+        <div class="hiddenProducts" style="display: none;">
+            <ul class="hiddenItems">
+                {{ $product := .Section }}
+                {{ $product2 := replace $product "-" "_" }}
+                {{ $product_info := (index .Site.Params.products $product2) }}
+                {{ range $product_info.platforms }}
+                    {{ $platform := . }}
+                    <li class="hiddenItem"><a href="/{{ $product }}/{{ $.Params.version }}/{{ $platform }}/{{ $.Title }}">{{ $platform }}</a></li>
+                {{ end }}
+            </ul>
+        </div>
+    </div>
+</div>
