@@ -5,5 +5,6 @@ weight: 20
 menu: "sensu-core-1.0"
 version: "1.0"
 product: "Sensu Core"
+platform: "General"
 ---
 

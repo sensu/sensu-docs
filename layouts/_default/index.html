@@ -25,9 +25,21 @@
   <article class="article">
     <div class="wrapper">
       <h1>{{ .Title }} {{ if .IsDraft }} (Draft){{ end }}</h1>
-      
-      {{ partial "platformDropdown.html" . }}
-      {{ .Content }}
+
+      <div>
+        Monitor servers, services, application health, and business KPIs. Collect and analyze custom metrics. Get notified about failures before your users do. Give your business the competitive advantage it deserves.
+
+        <h2>Pick a Version</h2>
+        <ul>
+          {{ $product := .Section }}
+          {{ $product2 := replace $product "-" "_" }}
+          {{ $product_info := (index .Site.Params.products $product2) }}
+          {{ range $product_info.versions }}
+            {{ $version := . }}
+            <li class="hiddenItem"><a href="/{{ $product }}/{{ $version }}">{{ $version }}</a></li>
+          {{ end }}
+        </ul>
+      </div>
 
       <aside class="copyright" role="note">
         {{ with .Site.Params.copyright }}
@@ -47,7 +59,7 @@
 
   <div class="results" role="status" aria-live="polite">
     <div class="scrollable">
-      <div class="wrapper">
+        <div class="wrapper">
         <div class="meta"></div>
         <div class="list"></div>
       </div>
@@ -56,3 +68,4 @@
 </main>
 
 {{ partial "footer_js" . }}
+

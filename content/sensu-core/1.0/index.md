@@ -6,6 +6,7 @@ menu: "sensu-core-1.0"
 version: "1.0"
 product: "Sensu Core"
 tags: ["sensu", "core", "sensu core", "1.0", "frog", "index"]
+platform: "General"
 ---
 
 ## Key Features
