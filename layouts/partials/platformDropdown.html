@@ -26,11 +26,15 @@
                 {{ $product_info := (index .Site.Params.products $product2) }}
                 {{ range $product_info.platforms }}
                     {{ $platform := . }}
-                    {{ $platform2 := replace $platform " " "-" }}
-                    {{ $platform2 := lower $platform2 }}
                     {{ $title2 := replace $.Title " " "-" }}
                     {{ $title2 := lower $title2 }}
-                    <li class="hiddenItem"><a href="/{{ $product }}/{{ $.Params.version }}/{{ $platform2 }}/{{ $title2 }}">{{ $platform }}</a></li>
+                    {{ if ne $platform "General" }}
+                      {{ $platform2 := replace $platform " " "-" }}
+                      {{ $platform2 := lower $platform2 }}
+                      <li class="hiddenItem"><a href="/{{ $product }}/{{ $.Params.version }}/{{ $platform2 }}/{{ $title2 }}">{{ $platform }}</a></li>
+                    {{ else }}
+                      <li class="hiddenItem"><a href="/{{ $product }}/{{ $.Params.version }}/{{ $title2 }}">{{ $platform }}</a></li>
+                    {{ end }}
                 {{ end }}
             </ul>
         </div>

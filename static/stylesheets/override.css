@@ -170,7 +170,7 @@ div.button.button-close {
 
 .platformHolder {
     margin-top: -15px;
-    margin-bottom: 20px;
+    height: 50px;
 }
 
 #productButton, #versionButton, #platformButton {
@@ -199,7 +199,6 @@ div.button.button-close {
 }
 
 #platformButton {
-    padding: 10px;
     width: 200px;
 }
 
