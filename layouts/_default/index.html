@@ -33,9 +33,9 @@
           {{ $product := .Section }}
           {{ $product2 := replace $product "-" "_" }}
           {{ $product_info := (index .Site.Params.products $product2) }}
-          {{ range $product_info.versions }}
-            {{ $version := . }}
-            <li class="hiddenItem"><a href="/{{ $product }}/{{ $version }}">{{ $version }}</a></li>
+          {{ range $k, $v := $product_info.versions }}
+            {{ $version := $k }}
+            <li class="hiddenItem"><a href="/{{ $product }}/{{ $k }}">{{ $k }}</a></li>
           {{ end }}
         </ul>
       </div>
