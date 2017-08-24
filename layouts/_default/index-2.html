@@ -28,14 +28,14 @@
         
         {{ .Content }}
         
-        <h2>Pick a Version</h2>
+        <h2>Pick a Platform</h2>
         <ul>
           {{ $product := .Section }}
           {{ $product2 := replace $product "-" "_" }}
           {{ $product_info := (index .Site.Params.products $product2) }}
-          {{ range $product_info.versions }}
-            {{ $version := . }}
-            <li class="hiddenItem"><a href="/{{ $product }}/{{ $version }}">{{ $version }}</a></li>
+          {{ range $product_info.platforms }}
+            {{ $platform := . }}
+            <li class="hiddenItem"><a href="/{{ $product }}/{{ $.Params.version }}/getting-started">{{ $platform }}</a></li>
           {{ end }}
         </ul>
       </div>
