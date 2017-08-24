@@ -169,7 +169,7 @@ div.button.button-close {
 }
 
 .platformHolder {
-    margin-top: -15px;
+    margin-top: 15px;
     height: 50px;
 }
 
@@ -200,6 +200,12 @@ div.button.button-close {
 
 #platformButton {
     width: 200px;
+    padding: 10px 10px 10px 0;
+}
+
+#platformButton li {
+    margin-top: 0;
+    padding: 10px 0 0;
 }
 
 .dropdownArrow {

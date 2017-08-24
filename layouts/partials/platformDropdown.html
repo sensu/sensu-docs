@@ -24,7 +24,7 @@
                 {{ $product := .Section }}
                 {{ $product2 := replace $product "-" "_" }}
                 {{ $product_info := (index .Site.Params.products $product2) }}
-                {{ range $product_info.platforms }}
+                {{ range (index $product_info.versions $.Params.version) }}
                     {{ $platform := . }}
                     {{ $title2 := replace $.Title " " "-" }}
                     {{ $title2 := lower $title2 }}
