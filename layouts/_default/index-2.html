@@ -35,7 +35,11 @@
           {{ $product_info := (index .Site.Params.products $product2) }}
           {{ range $product_info.platforms }}
             {{ $platform := . }}
-            <li class="hiddenItem"><a href="/{{ $product }}/{{ $.Params.version }}/getting-started">{{ $platform }}</a></li>
+            {{ if eq $platform "General" }}
+              <li class="hiddenItem"><a href="/{{ $product }}/{{ $.Params.version }}/getting-started">{{ $platform }}</a></li>
+            {{ else }}
+              <li class="hiddenItem"><a href="/{{ $product }}/{{ $.Params.version }}/{{ $platform }}/getting-started">{{ $platform }}</a></li>
+            {{ end }}
           {{ end }}
         </ul>
       </div>
