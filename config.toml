@@ -45,8 +45,8 @@ googleAnalytics = ""
         weight = 1
         latest = "1.0"
         [params.products.sensu_core.versions]
-            1.0 = ["General", "Platform 1", "Platform 2"]
-            0.29 = ["General"]
+            "1.0" = ["General", "Platform 1", "Platform 2"]
+            "0.29" = ["General"]
 
     [params.products.sensu_enterprise]
         identifier = "sensu-enterprise"
