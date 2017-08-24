@@ -29,15 +29,15 @@
         {{ .Content }}
         
         <h2>Pick a Version</h2>
-        <ul>
+        <div class="landingButtonHolder">
           {{ $product := .Section }}
           {{ $product2 := replace $product "-" "_" }}
           {{ $product_info := (index .Site.Params.products $product2) }}
           {{ range $k, $v := $product_info.versions }}
             {{ $version := $k }}
-            <li class="hiddenItem"><a href="/{{ $product }}/{{ $k }}">{{ $k }}</a></li>
+            <span class="landingButton"><a href="/{{ $product }}/{{ $k }}">{{ $k }}</a></span>
           {{ end }}
-        </ul>
+        </div>
       </div>
 
       <aside class="copyright" role="note">

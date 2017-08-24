@@ -29,19 +29,21 @@
         {{ .Content }}
         
         <h2>Pick a Platform</h2>
-        <ul>
+        <div class="landingButtonHolder">
           {{ $product := .Section }}
           {{ $product2 := replace $product "-" "_" }}
           {{ $product_info := (index .Site.Params.products $product2) }}
           {{ range (index $product_info.versions .Params.version) }} 
             {{ $platform := . }}
+            {{ $platform2 := replace $platform " " "-" }}
+            {{ $platform2 := lower $platform2 }}
             {{ if eq $platform "General" }}
-              <li class="hiddenItem"><a href="/{{ $product }}/{{ $.Params.version }}/getting-started">{{ $platform }}</a></li>
+              <div class="landingButton"><a href="/{{ $product }}/{{ $.Params.version }}/getting-started">{{ $platform }}</a></div>
             {{ else }}
-              <li class="hiddenItem"><a href="/{{ $product }}/{{ $.Params.version }}/{{ $platform }}/getting-started">{{ $platform }}</a></li>
+              <div class="landingButton"><a href="/{{ $product }}/{{ $.Params.version }}/{{ $platform2 }}/getting-started">{{ $platform }}</a></div>
             {{ end }}
           {{ end }}
-        </ul>
+        </div>
       </div>
 
       <aside class="copyright" role="note">

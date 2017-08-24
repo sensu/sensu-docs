@@ -149,7 +149,7 @@ div.button.button-close {
 .article h1 {
     font-size: 32px;
     padding-top: 50px;
-    padding-bottom: 30px;;
+    padding-bottom: 0px !important;
     border-bottom: none;
 }
 
@@ -249,13 +249,34 @@ div.button.button-close {
 }
 
 .versionBanner a {
-  color: #dedede;
+    color: #dedede;
 }
 
 .versionBanner a:hover {
-  color: #ffffff;
+    color: #ffffff;
 }
 
 .versionBannerText {
-  font-size: 14px;
+    font-size: 14px;
+}
+
+/* landing page buttons */
+.landingButtonHolder {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.landingButton {
+    border: 1px solid #81C000;
+    display: inline-block;
+    width: 200px;
+    height: 100px;
+    margin: 10px;
+}
+
+.landingButton a {
+    font-size: 20px;
+    display: block;
+    margin-top: 35px;
+    border-bottom: none;
 }
