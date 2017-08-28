@@ -38,9 +38,9 @@
             {{ $platform2 := replace $platform " " "-" }}
             {{ $platform2 := lower $platform2 }}
             {{ if eq $platform "General" }}
-              <div class="landingButton"><span onClick="setPlatformCookie('general')">{{ $platform }}</span></div>
+              <div class="landingButton"><a onClick="setPlatformCookie('general')">{{ $platform }}</a></div>
             {{ else }}
-              <div class="landingButton"><span onClick="setPlatformCookie('{{ $platform2 }}')">{{ $platform }}</span></div>
+              <div class="landingButton"><a onClick="setPlatformCookie('{{ $platform2 }}')">{{ $platform }}</a></div>
             {{ end }}
           {{ end }}
         </div>
