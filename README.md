@@ -51,7 +51,7 @@ hugo server
 ```
 
 ### Deploying to Heroku
-Assuming you have Heroku's cli installed and the app rep is created, link it with the project
+Assuming you have Heroku's cli installed and the app created, link it with the project
 ```
 heroku git:remote -a sensu-docs-site
 ```
@@ -145,6 +145,7 @@ You can also set global site variables inside the `config.toml`. Here's an examp
          weight = 1
          latest = "1.0"
 ```
+
 You can gain access to all the products with `.Site.Params.Products`. You can access a product's attributes like: ` .Site.Params.sensu-core.description`.
 
 ### Search

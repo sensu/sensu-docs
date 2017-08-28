@@ -28,13 +28,7 @@
                     {{ $platform := . }}
                     {{ $title2 := replace $.Title " " "-" }}
                     {{ $title2 := lower $title2 }}
-                    {{ if ne $platform "General" }}
-                      {{ $platform2 := replace $platform " " "-" }}
-                      {{ $platform2 := lower $platform2 }}
-                      <li class="hiddenItem"><a href="/{{ $product }}/{{ $.Params.version }}/{{ $platform2 }}/{{ $title2 }}">{{ $platform }}</a></li>
-                    {{ else }}
-                      <li class="hiddenItem"><a href="/{{ $product }}/{{ $.Params.version }}/{{ $title2 }}">{{ $platform }}</a></li>
-                    {{ end }}
+                    <li class="hiddenItem"><a href="/{{ $product }}/{{ $.Params.version }}/{{ $title2 }}">{{ $platform }}</a></li>
                 {{ end }}
             </ul>
         </div>

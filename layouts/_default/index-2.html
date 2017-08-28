@@ -35,13 +35,7 @@
           {{ $product_info := (index .Site.Params.products $product2) }}
           {{ range (index $product_info.versions .Params.version) }} 
             {{ $platform := . }}
-            {{ $platform2 := replace $platform " " "-" }}
-            {{ $platform2 := lower $platform2 }}
-            {{ if eq $platform "General" }}
-              <div class="landingButton"><a onClick="setPlatformCookie('general')">{{ $platform }}</a></div>
-            {{ else }}
-              <div class="landingButton"><a onClick="setPlatformCookie('{{ $platform2 }}')">{{ $platform }}</a></div>
-            {{ end }}
+            <div class="landingButton"><a onClick="setPlatformCookie('general')" href="getting-started">{{ $platform }}</a></div>
           {{ end }}
         </div>
       </div>
@@ -77,6 +71,5 @@
 <script>
     function setPlatformCookie(platform) {
       Cookies.set('platform', platform, { expires: 2030 });
-      window.location.href = "getting-started";
     }
 </script>
