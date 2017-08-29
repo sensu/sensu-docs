@@ -1,5 +1,22 @@
 #Sensu Docs Site
 
+
+1. [Project Setup](#project-setup)
+
+    - [Getting Started with Hugo](#getting-started-with-hugo)
+    
+    - [Deploying to Heroku](#deploying-to-heroku)
+    
+2. [Working With Hugo](#working-with-hugo)
+
+    - [Adding Content](#adding-content)
+    
+    - [Overriding the Theme](#overriding-the-theme)
+    
+    - [Variables and Accessing Front Matter](#variables-and-accessing-front-matter)
+    
+    - [Search](#search)
+
 ## Getting Started with Hugo
 [Hugo Docs](https://gohugo.io/getting-started/installing/)
 
