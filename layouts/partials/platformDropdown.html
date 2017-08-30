@@ -8,7 +8,10 @@
         $(document).click( function(){
             $('.hiddenPlatforms').hide();
         });
-});
+    });
+    function setPlatformCookie(platform) {
+        Cookies.set('platform', platform, { expires: 2030 });
+    }
 </script>
 <div class="platformHolder">
     <div id="platformButton">
@@ -28,7 +31,9 @@
                     {{ $platform := . }}
                     {{ $title2 := replace $.Title " " "-" }}
                     {{ $title2 := lower $title2 }}
-                    <li class="hiddenItem"><a href="/{{ $product }}/{{ $.Params.version }}/{{ $title2 }}">{{ $platform }}</a></li>
+                    {{ $platform2 := replace $platform " " "-" }}
+                    {{ $platform2 := lower $platform2 }}
+                    <li class="hiddenItem"><a onClick="setPlatformCookie('{{ $platform2 }}')" href="/{{ $product }}/{{ $.Params.version }}/{{ $title2 }}">{{ $platform }}</a></li>
                 {{ end }}
             </ul>
         </div>
