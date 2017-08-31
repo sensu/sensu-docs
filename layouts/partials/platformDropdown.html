@@ -27,16 +27,18 @@
                 {{ $product := .Section }}
                 {{ $product2 := replace $product "-" "_" }}
                 {{ $product_info := (index .Site.Params.products $product2) }}
-                {{ if isset $product_info.versions $.Params.version }}
-                    {{ range (index $product_info.versions $.Params.version) }}
-                        {{ $platform := . }}
-                        {{ $title2 := replace $.Title " " "-" }}
-                        {{ $title2 := lower $title2 }}
-                        {{ $platform2 := replace $platform " " "-" }}
-                        {{ $platform2 := lower $platform2 }}
-                        <li class="hiddenItem"><a onClick="setPlatformCookie('{{ $platform2 }}')" href="/{{ $product }}/{{ $.Params.version }}/{{ $title2 }}">{{ $platform }}</a></li>
+                {{ if $product_info.versions }}
+                    {{ if isset $product_info.versions .Params.version }}
+                        {{ range (index $product_info.versions .Params.version) }}
+                            {{ $platform := . }}
+                            {{ $title2 := replace $.Title " " "-" }}
+                            {{ $title2 := lower $title2 }}
+                            {{ $platform2 := replace $platform " " "-" }}
+                            {{ $platform2 := lower $platform2 }}
+                            <li class="hiddenItem"><a onClick="setPlatformCookie('{{ $platform2 }}')" href="/{{ $product }}/{{ $.Params.version }}/{{ $title2 }}">{{ $platform }}</a></li>
+                        {{ end }}
                     {{ end }}
-                {{ end }}
+                {{end}}
             </ul>
         </div>
     </div>
