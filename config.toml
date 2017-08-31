@@ -45,7 +45,7 @@ googleAnalytics = ""
         weight = 1
         latest = "1.0"
         [params.products.sensu_core.versions]
-            "1.0" = ["Ubuntu/Debian", "CentOS"]
+            "1.0" = ["General", "Ubuntu/Debian", "CentOS"]
             "0.29" = ["General"]
 
     [params.products.sensu_enterprise]
