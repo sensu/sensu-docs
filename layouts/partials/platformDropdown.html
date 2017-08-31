@@ -34,7 +34,7 @@
                     {{ $platform2 := replace $platform " " "-" }}
                     {{ $platform2 := lower $platform2 }}
                     <li class="hiddenItem"><a onClick="setPlatformCookie('{{ $platform2 }}')" href="/{{ $product }}/{{ $.Params.version }}/{{ $title2 }}">{{ $platform }}</a></li>
-                {{ end }}
+              {{ end }}
             </ul>
         </div>
     </div>
