@@ -5,6 +5,5 @@ description: ""
 weight: -100
 menu: "extensions"
 product: "Extensions"
-platform: "General"
 ---
 

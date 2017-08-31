@@ -45,7 +45,7 @@ googleAnalytics = ""
         weight = 1
         latest = "1.0"
         [params.products.sensu_core.versions]
-            "1.0" = ["General", "Ubuntu/Debian", "CentOS"]
+            "1.0" = ["Ubuntu/Debian", "CentOS"]
             "0.29" = ["General"]
 
     [params.products.sensu_enterprise]
@@ -73,10 +73,10 @@ googleAnalytics = ""
         name = "Uchiwa"
         description = "Uchiwa is a dashboard that integrates with Sensu. It's basically a must."
         weight = 4
-        latest = "1.40"
+        latest = "1.0"
         [params.products.uchiwa.versions]
+            "0.9" = ["General"]
             "1.0" = ["General"]
-            "1.40" = ["General"]
 
     [params.products.plugins]
         identifier = "plugins"

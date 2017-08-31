@@ -5,6 +5,7 @@ weight: 10
 menu: "uchiwa"
 product: "Uchiwa"
 platform: "General"
+version: "1.0"
 ---
 Monitor servers, services, application health, and business KPIs. Collect and analyze custom metrics. Get notified about failures before your users do. Give your business the competitive advantage it deserves.
 

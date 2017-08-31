@@ -5,6 +5,5 @@ description: ""
 weight:
 menu: "sensu-enterprise-dashboard"
 product: "Sensu Enterprise Dashboard"
-platform: "General"
 ---
 

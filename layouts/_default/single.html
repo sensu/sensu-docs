@@ -25,8 +25,10 @@
   <article class="article">
     <div class="wrapper">
       <h1>{{ .Title }} {{ if .IsDraft }} (Draft){{ end }}</h1>
-      
-      {{ partial "platformDropdown.html" . }}
+
+      {{ if isset .Params "version" }}
+        {{ partial "platformDropdown.html" . }}
+      {{ end }}
       {{ .Content }}
 
       <aside class="copyright" role="note">
