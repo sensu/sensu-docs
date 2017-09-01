@@ -45,7 +45,7 @@ googleAnalytics = ""
         weight = 1
         latest = "1.0"
         [params.products.sensu_core.versions]
-            "1.0" = ["Ubuntu/Debian", "CentOS"]
+            "1.0" = ["Ubuntu/Debian", "RHEL/CentOS"]
             "0.29" = ["General"]
 
     [params.products.sensu_enterprise]
@@ -104,7 +104,8 @@ googleAnalytics = ""
 	email   = ""
 
 [blackfriday]
-	smartypants	= true
+  extensions = ["laxHtmlBlocks"]
+  smartypants	= true
 	fractions = true
 	smartDashes = true
 	plainIDAnchors = true

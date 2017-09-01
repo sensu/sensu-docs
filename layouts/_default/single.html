@@ -60,6 +60,11 @@
 {{ partial "footer_js" . }}
 
 <script>
-// TODO: write script to check cookie and hide unapplicable platform content
-//var $platform = Cookies.get('platform');
+  var $platformCookie = Cookies.get("platform");
+  var $platformSpans = document.getElementsByClassName("platform");
+  Array.prototype.forEach.call($platformSpans, function($platformSpan) {
+    if ($platformSpan.id != $platformCookie.lower()) {
+      $platformSpan.style.display = 'none';
+    }
+  });
 </script>
