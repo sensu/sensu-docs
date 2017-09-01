@@ -1,2 +1,4 @@
 {{ $id := .Get 0 }}
+{{ $id := lower $id }}
+{{ $id := replace $id " " "-" }}
 <div id="{{ $id }}" class="platform">

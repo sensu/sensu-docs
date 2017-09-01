@@ -63,7 +63,7 @@
   var $platformCookie = Cookies.get("platform");
   var $platformSpans = document.getElementsByClassName("platform");
   Array.prototype.forEach.call($platformSpans, function($platformSpan) {
-    if ($platformSpan.id != $platformCookie.lower()) {
+    if ($platformSpan.id != $platformCookie) {
       $platformSpan.style.display = 'none';
     }
   });
