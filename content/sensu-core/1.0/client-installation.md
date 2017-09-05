@@ -36,8 +36,11 @@ and/or enabling the Sensu client process to start automatically on system boot.
 
 ## Install Sensu Core {#sensu-core}
 
-{{% platformBlock "Ubuntu/Debian" %}}
+{{< platformBlock "Ubuntu/Debian" >}}
+
 ### Ubuntu/Debian
+
+{{< platformDropdown "Ubuntu/Debian" >}}
 
 Sensu Core is installed on Ubuntu and Debian systems via a native system
 installer package (i.e. a .deb file), which is available for download from the
@@ -106,11 +109,13 @@ have updated existing repository configurations._
    need a [data-store (Redis) definition][14] &mdash; all of which are explained
    below.
 
-{{% platformBlockClose %}}
+{{< platformBlockClose >}}
 
-{{% platformBlock "RHEL/CentOS" %}}
+{{< platformBlock "RHEL/CentOS" >}}
 
 ### RHEL/CentOS
+
+{{< platformDropdown "RHEL/CentOS" >}}
 
 Sensu Core is installed on RHEL and CentOS systems via a native system installer
 package (i.e. a .rpm file), which is available for download from the [Sensu
@@ -166,4 +171,4 @@ repository configurations._
    need a [data-store (Redis) definition][13] &mdash; all of which are explained
    below.
 
-{{% platformBlockClose %}}
+{{< platformBlockClose >}}
