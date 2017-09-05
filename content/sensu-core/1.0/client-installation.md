@@ -40,7 +40,7 @@ and/or enabling the Sensu client process to start automatically on system boot.
 
 ### Ubuntu/Debian
 
-{{< platformDropdown "Ubuntu/Debian" >}}
+{{< platformDropdown "Ubuntu/Debian" "Sensu-Core" "1.0" "Client Installation" >}}
 
 Sensu Core is installed on Ubuntu and Debian systems via a native system
 installer package (i.e. a .deb file), which is available for download from the
@@ -115,7 +115,7 @@ have updated existing repository configurations._
 
 ### RHEL/CentOS
 
-{{< platformDropdown "RHEL/CentOS" >}}
+{{< platformDropdown "RHEL/CentOS" "Sensu-Core" "1.0" "Client Installation" >}}
 
 Sensu Core is installed on RHEL and CentOS systems via a native system installer
 package (i.e. a .rpm file), which is available for download from the [Sensu
