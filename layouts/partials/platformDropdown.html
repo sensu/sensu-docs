@@ -8,20 +8,25 @@
         $(document).click( function(){
             $('.hiddenPlatforms').hide();
         });
+
+        var $platformTextInsert = document.getElementById("platformButtonTitleText");
+        if (Cookies.get("platform")) {
+          $platformTextInsert.innerHTML = Cookies.get("platform") + '<i class="fa fa-chevron-down dropdownArrow" aria-hidden="true"></i>'; 
+        }
     });
+
     function setPlatformCookie(platform) {
+      if (platform === "All Platforms") {
+        Cookies.remove('platform');
+      } else {
         Cookies.set('platform', platform, { expires: 2030 });
+      }
     }
 </script>
+
 <div class="platformHolder">
     <div id="platformButton">
-        {{ if isset .Params "platform" }}
-            {{ $display := .Params.platform }}
-            <a class="platformButtonTitle">{{ $display }}<i class="fa fa-chevron-down dropdownArrow" aria-hidden="true"></i></a>
-        {{ else }}
-            {{ $display := "Platforms" }}
-            <a class="platformButtonTitle">{{ $display }}<i class="fa fa-chevron-down dropdownArrow" aria-hidden="true"></i></a>
-        {{ end }}
+        <a class="platformButtonTitle" id="platformButtonTitleText">All Platforms<i class="fa fa-chevron-down dropdownArrow" aria-hidden="true"></i></a>
         <div class="hiddenPlatforms" style="display: none;">
             <ul class="hiddenItems">
                 {{ $product := .Section }}
@@ -33,9 +38,7 @@
                             {{ $platform := . }}
                             {{ $title2 := replace $.Title " " "-" }}
                             {{ $title2 := lower $title2 }}
-                            {{ $platform2 := replace $platform " " "-" }}
-                            {{ $platform2 := lower $platform2 }}
-                            <li class="hiddenItem"><a onClick="setPlatformCookie('{{ $platform2 }}')" href="/{{ $product }}/{{ $.Params.version }}/{{ $title2 }}">{{ $platform }}</a></li>
+                            <li class="hiddenItem"><a onClick="setPlatformCookie('{{ $platform }}')" href="/{{ $product }}/{{ $.Params.version }}/{{ $title2 }}">{{ $platform }}</a></li>
                         {{ end }}
                     {{ end }}
                 {{end}}

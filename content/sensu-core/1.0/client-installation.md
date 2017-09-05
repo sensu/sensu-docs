@@ -108,7 +108,7 @@ have updated existing repository configurations._
 
 {{% platformBlockClose %}}
 
-{{% platformBlock "RHEL/Centos" %}}
+{{% platformBlock "RHEL/CentOS" %}}
 
 ### RHEL/CentOS
 

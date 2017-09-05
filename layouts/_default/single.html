@@ -61,10 +61,13 @@
 
 <script>
   var $platformCookie = Cookies.get("platform");
-  var $platformSpans = document.getElementsByClassName("platform");
-  Array.prototype.forEach.call($platformSpans, function($platformSpan) {
-    if ($platformSpan.id != $platformCookie) {
-      $platformSpan.style.display = 'none';
+  var $platformDivs = document.getElementsByClassName("platform");
+  Array.prototype.forEach.call($platformDivs, function($platformDiv) {
+    $platformDivId =  $platformDiv.id
+    $platformDivId = $platformDivId.replace("-", " ");
+    $platformDivId = $platformDivId.replace("_", "/");
+    if ($platformDivId != $platformCookie && $platformCookie != null) {
+      $platformDiv.style.display = 'none';
     }
   });
 </script>
