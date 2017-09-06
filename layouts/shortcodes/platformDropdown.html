@@ -81,10 +81,8 @@
 
     function setPlatformCookie($platform, $product, $title) {
       Cookies.set('platform', $platform, { expires: 2030 });
-      togglePlatformDivs();
       location.reload();
-      //document.getElementById("{{ $parent }}").scrollIntoView();
-      window.location = "#{{ $parent }}";
+      document.getElementById("{{ $parent }}").scrollIntoView();
     }
 </script>
 
