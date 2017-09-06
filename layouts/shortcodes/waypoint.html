@@ -1,15 +1,18 @@
 {{ $id := .Get 0 }}
-{{ $id := replace $id "/" "_" }}
-
+{{ $id := replace $id "/" "-" }}
 <script>
-$( document ).ready(function() {
-  var waypoint = new Waypoint({
-    element: document.getElementById('{{ $id }}'),
-    handler: function() {
-      console.log('Basic waypoint triggered for ' + {{ $id }})
-      window.history.pushState("object or string", "Title", "#{{ $id }}");
-    },
-    offset: 10
+$cookie = Cookies.get("platform").toLowerCase();
+$cookie = $cookie.replace("/", "-");
+
+if (!$("#{{ $id }}").parent().hasClass("platform") || ($("#{{ $id }}").parent().hasClass("platform") && ($cookie == {{ $id }}))) {
+  $( document ).ready(function() {
+    var waypoint = new Waypoint({
+      element: document.getElementById('{{ $id }}'),
+      handler: function() {
+        window.history.pushState("", "", "#{{ $id }}");
+      },
+      offset: 10
+    });
   });
-});
+}
 </script>

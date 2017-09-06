@@ -42,6 +42,7 @@ and/or enabling the Sensu client process to start automatically on system boot.
 
 {{< platformBlock "Ubuntu/Debian" >}}
 
+{{< waypoint "ubuntu/debian" >}}
 ### Ubuntu/Debian
 
 {{< platformDropdown "Ubuntu/Debian" "Sensu-Core" "1.0" "Client Installation" >}}
@@ -61,6 +62,7 @@ If you wish to install Sensu packages on newer Debian or Ubuntu releases, please
 try installing a package built for the most recent Debian `stable` or
 Ubuntu LTS release.
 
+{{< waypoint "install-sensu-core-repository" >}}
 #### Install Sensu using APT (recommended) {#install-sensu-core-repository}
 
 _NOTE: As of Sensu version 0.27, apt repository configuration has
@@ -117,6 +119,7 @@ have updated existing repository configurations._
 
 {{< platformBlock "RHEL/CentOS" >}}
 
+{{< waypoint "rhel/centos" >}}
 ### RHEL/CentOS
 
 {{< platformDropdown "RHEL/CentOS" "Sensu-Core" "1.0" "Client Installation" >}}
@@ -127,6 +130,7 @@ Downloads][1] page, and from YUM package management repositories. The Sensu Core
 package installs several processes including `sensu-server`, `sensu-api`, and
 `sensu-client`.
 
+{{< waypoint "install-sensu-core-repository" >}}
 #### Install Sensu using YUM (recommended) {#install-sensu-core-repository}
 
 Sensu packages for Red Hat target currently supported versions of Red Hat
