@@ -36,7 +36,6 @@
           {{ range (index $product_info.versions .Params.version) }} 
             {{ $platform := . }}
             {{ $platform2 := replace $platform " " "-" }}
-            {{ $platform2 := lower $platform2 }}
             <div class="landingButton"><a onClick="setPlatformCookie('{{ $platform2 }}')" href="client-installation">{{ $platform }}</a></div>
           {{ end }}
         </div>
