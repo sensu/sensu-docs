@@ -60,6 +60,11 @@
 {{ partial "footer_js" . }}
 
 <script>
+$( document ).ready(function() {
+  togglePlatformDivs();
+});
+
+function togglePlatformDivs() {
   var $platformCookie = Cookies.get("platform");
   var $platformDivs = document.getElementsByClassName("platform");
   Array.prototype.forEach.call($platformDivs, function($platformDiv) {
@@ -70,4 +75,6 @@
       $platformDiv.style.display = 'none';
     }
   });
+}
+
 </script>

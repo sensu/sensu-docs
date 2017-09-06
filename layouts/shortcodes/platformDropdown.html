@@ -8,6 +8,8 @@
 
 {{ $title := .Get 3 }}
 
+{{ $parent := .Get 4 }}
+
 <style>
 .platformHolder-{{ $uniqueness }} {
     margin-top: 5px;
@@ -77,11 +79,15 @@
         }
     });
 
-    function setPlatformCookie(platform) {
-      if (platform === "All Platforms") {
+    function setPlatformCookie($platform, $product, $title) {
+      if ($platform === "All Platforms") {
         Cookies.remove('platform');
       } else {
-        Cookies.set('platform', platform, { expires: 2030 });
+        Cookies.set('platform', $platform, { expires: 2030 });
+        togglePlatformDivs();
+        location.reload();
+        //document.getElementById("{{ $parent }}").scrollIntoView();
+        window.location = "#{{ $parent }}";
       }
     }
 </script>
@@ -98,7 +104,7 @@
                     {{ $platform := . }}
                     {{ $title2 := replace $title " " "-" }}
                     {{ $title2 := lower $title2 }}
-                    <li class="hiddenItem"><a onClick="setPlatformCookie('{{ $platform }}')" href="/{{ $product2 }}/{{ $version }}/{{ $title2 }}">{{ $platform }}</a></li>
+                    <li class="hiddenItem"><a onClick="setPlatformCookie('{{ $platform }}', '{{ $product2 }}', '{{ $title2 }}')" href="/{{ $product2 }}/{{ $version }}/{{ $title2 }}/#{{ $parent }}">{{ $platform }}</a></li>
                 {{ end }}
             </ul>
         </div>
