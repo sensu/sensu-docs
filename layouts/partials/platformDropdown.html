@@ -16,11 +16,7 @@
     });
 
     function setPlatformCookie(platform) {
-      if (platform === "All Platforms") {
-        Cookies.remove('platform');
-      } else {
-        Cookies.set('platform', platform, { expires: 2030 });
-      }
+      Cookies.set('platform', platform, { expires: 2030 });
     }
 </script>
 

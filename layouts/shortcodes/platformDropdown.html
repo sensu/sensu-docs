@@ -80,15 +80,11 @@
     });
 
     function setPlatformCookie($platform, $product, $title) {
-      if ($platform === "All Platforms") {
-        Cookies.remove('platform');
-      } else {
-        Cookies.set('platform', $platform, { expires: 2030 });
-        togglePlatformDivs();
-        location.reload();
-        //document.getElementById("{{ $parent }}").scrollIntoView();
-        window.location = "#{{ $parent }}";
-      }
+      Cookies.set('platform', $platform, { expires: 2030 });
+      togglePlatformDivs();
+      location.reload();
+      //document.getElementById("{{ $parent }}").scrollIntoView();
+      window.location = "#{{ $parent }}";
     }
 </script>
 
