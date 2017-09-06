@@ -1,0 +1,15 @@
+{{ $id := .Get 0 }}
+{{ $id := replace $id "/" "_" }}
+
+<script>
+$( document ).ready(function() {
+  var waypoint = new Waypoint({
+    element: document.getElementById('{{ $id }}'),
+    handler: function() {
+      console.log('Basic waypoint triggered for ' + {{ $id }})
+      window.history.pushState("object or string", "Title", "#{{ $id }}");
+    },
+    offset: 10
+  });
+});
+</script>

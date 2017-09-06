@@ -7,6 +7,7 @@ version: "1.0"
 product: "Sensu Core"
 ---
 
+{{< waypoint "install-the-sensu-client" >}}
 # Install the Sensu Client
 
 Having successfully installed and configured a Sensu server and API (Sensu Core
@@ -17,6 +18,7 @@ Redis). **Both Sensu Core and Sensu Enterprise use the same Sensu client
 process** (i.e. `sensu-client`), so upgrading from Sensu Core to Sensu
 Enterprise does not require you to install a difference Sensu client.
 
+{{< waypoint "included-in-sensu-core" >}}
 ## Included in Sensu Core
 
 The Sensu client process (`sensu-client`) is part of the open source Sensu
@@ -26,6 +28,7 @@ and `sensu-api`). This means that if you are following the instructions in this
 guide for a [standalone][1] installation, your Sensu client is already
 installed!
 
+{{< waypoint "disabled-by-default" >}}
 ## Disabled by default
 
 The Sensu client process (`sensu-client`) is disabled by default on all
@@ -34,6 +37,7 @@ documentation corresponding to the platform where you have installed your Sensu
 client(s) for instructions on starting & stopping the Sensu client process,
 and/or enabling the Sensu client process to start automatically on system boot.
 
+{{< waypoint "sensu-core" >}}
 ## Install Sensu Core {#sensu-core}
 
 {{< platformBlock "Ubuntu/Debian" >}}

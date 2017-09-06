@@ -45,6 +45,11 @@
     background: #618B25;
 }
 
+.article h4 {
+  color: #232323;
+  font-weight: bold;
+}
+
 /* Banner tweak */
 .header .stretch .title {
     font-size: 30px;
