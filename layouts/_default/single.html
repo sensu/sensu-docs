@@ -62,16 +62,23 @@
 <script>
 $( document ).ready(function() {
   // select all heading with an ID attribute
-  const els = document.body.querySelectorAll("h1[id],h2[id],h3[id]")
-
+  const els = document.body.querySelectorAll("h1[id],h2[id],h3[id],h4[id]")
+  $cookie = Cookies.get("platform");
+  $cookie = $cookie.replace("/", "_");
+  $cookie = $cookie.replace(" ", "-");
+  console.log($cookie);
   // iterate through each and add 'waypoint'
   Array.prototype.forEach.call(els, function(el) {
-    new Waypoint({
-      element: el,
-      handler: function() {
-        window.history.replaceState("", "", "#" + el.id);
-      }
-    })
+    // only add the waypoint if we can see the actual content (don't want to add hidden platform blocks)
+    // this check is kinda nasty, but it works
+    if (!$(el).parent().hasClass("platform") || ($(el).parent().hasClass("platform") && ($cookie === $(el).parent().attr('id')))) {
+      new Waypoint({
+        element: el,
+        handler: function() {
+          window.history.replaceState("", "", "#" + el.id);
+        }
+      })
+    }
   });
 
 
