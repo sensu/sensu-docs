@@ -61,6 +61,20 @@
 
 <script>
 $( document ).ready(function() {
+  // select all heading with an ID attribute
+  const els = document.body.querySelectorAll("h1[id],h2[id],h3[id]")
+
+  // iterate through each and add 'waypoint'
+  Array.prototype.forEach.call(els, function(el) {
+    new Waypoint({
+      element: el,
+      handler: function() {
+        window.history.replaceState("", "", "#" + el.id);
+      }
+    })
+  });
+
+
   togglePlatformDivs();
 });
 

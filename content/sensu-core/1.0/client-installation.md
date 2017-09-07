@@ -7,7 +7,6 @@ version: "1.0"
 product: "Sensu Core"
 ---
 
-{{< waypoint "install-the-sensu-client" >}}
 # Install the Sensu Client
 
 Having successfully installed and configured a Sensu server and API (Sensu Core
@@ -18,7 +17,6 @@ Redis). **Both Sensu Core and Sensu Enterprise use the same Sensu client
 process** (i.e. `sensu-client`), so upgrading from Sensu Core to Sensu
 Enterprise does not require you to install a difference Sensu client.
 
-{{< waypoint "included-in-sensu-core" >}}
 ## Included in Sensu Core
 
 The Sensu client process (`sensu-client`) is part of the open source Sensu
@@ -28,7 +26,6 @@ and `sensu-api`). This means that if you are following the instructions in this
 guide for a [standalone][1] installation, your Sensu client is already
 installed!
 
-{{< waypoint "disabled-by-default" >}}
 ## Disabled by default
 
 The Sensu client process (`sensu-client`) is disabled by default on all
@@ -37,12 +34,10 @@ documentation corresponding to the platform where you have installed your Sensu
 client(s) for instructions on starting & stopping the Sensu client process,
 and/or enabling the Sensu client process to start automatically on system boot.
 
-{{< waypoint "sensu-core" >}}
 ## Install Sensu Core {#sensu-core}
 
 {{< platformBlock "Ubuntu/Debian" >}}
 
-{{< waypoint "ubuntu/debian" >}}
 ### Ubuntu/Debian
 
 {{< platformDropdown "Ubuntu/Debian" "Sensu-Core" "1.0" "Client Installation" "sensu-core">}}
@@ -62,7 +57,6 @@ If you wish to install Sensu packages on newer Debian or Ubuntu releases, please
 try installing a package built for the most recent Debian `stable` or
 Ubuntu LTS release.
 
-{{< waypoint "install-sensu-core-repository" >}}
 #### Install Sensu using APT (recommended) {#install-sensu-core-repository}
 
 _NOTE: As of Sensu version 0.27, apt repository configuration has
@@ -119,7 +113,6 @@ have updated existing repository configurations._
 
 {{< platformBlock "RHEL/CentOS" >}}
 
-{{< waypoint "rhel/centos" >}}
 ### RHEL/CentOS
 
 {{< platformDropdown "RHEL/CentOS" "Sensu-Core" "1.0" "Client Installation" "sensu-core" >}}
@@ -130,7 +123,6 @@ Downloads][1] page, and from YUM package management repositories. The Sensu Core
 package installs several processes including `sensu-server`, `sensu-api`, and
 `sensu-client`.
 
-{{< waypoint "install-sensu-core-repository" >}}
 #### Install Sensu using YUM (recommended) {#install-sensu-core-repository}
 
 Sensu packages for Red Hat target currently supported versions of Red Hat
