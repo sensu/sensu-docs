@@ -5,4 +5,5 @@ type: index
 weight: -100
 menu: "main"
 version: "latest"
+platform: "General"
 ---

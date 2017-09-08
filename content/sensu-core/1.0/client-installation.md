@@ -1,8 +1,10 @@
 ---
-title: "Sensu Client Installation"
+title: "Client Installation"
 description: "The Sensu Core client installation guide."
-version: 1.0
 weight: 3
+menu: "sensu-core-1.0"
+version: "1.0"
+product: "Sensu Core"
 ---
 
 # Install the Sensu Client
@@ -34,7 +36,11 @@ and/or enabling the Sensu client process to start automatically on system boot.
 
 ## Install Sensu Core {#sensu-core}
 
+{{< platformBlock "Ubuntu/Debian" >}}
+
 ### Ubuntu/Debian
+
+{{< platformDropdown "Ubuntu/Debian" "Sensu-Core" "1.0" "Client Installation" "sensu-core">}}
 
 Sensu Core is installed on Ubuntu and Debian systems via a native system
 installer package (i.e. a .deb file), which is available for download from the
@@ -103,7 +109,13 @@ have updated existing repository configurations._
    need a [data-store (Redis) definition][14] &mdash; all of which are explained
    below.
 
+{{< platformBlockClose >}}
+
+{{< platformBlock "RHEL/CentOS" >}}
+
 ### RHEL/CentOS
+
+{{< platformDropdown "RHEL/CentOS" "Sensu-Core" "1.0" "Client Installation" "sensu-core" >}}
 
 Sensu Core is installed on RHEL and CentOS systems via a native system installer
 package (i.e. a .rpm file), which is available for download from the [Sensu
@@ -158,3 +170,5 @@ repository configurations._
    a [client definition][12], and both the `sensu-server` and `sensu-api` will
    need a [data-store (Redis) definition][13] &mdash; all of which are explained
    below.
+
+{{< platformBlockClose >}}

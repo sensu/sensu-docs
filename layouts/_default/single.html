@@ -26,6 +26,9 @@
     <div class="wrapper">
       <h1>{{ .Title }} {{ if .IsDraft }} (Draft){{ end }}</h1>
 
+      {{ if isset .Params "version" }}
+        {{ partial "platformDropdown.html" . }}
+      {{ end }}
       {{ .Content }}
 
       <aside class="copyright" role="note">
@@ -55,3 +58,44 @@
 </main>
 
 {{ partial "footer_js" . }}
+
+<script>
+$( document ).ready(function() {
+  // select all heading with an ID attribute
+  const els = document.body.querySelectorAll("h1[id],h2[id],h3[id],h4[id]")
+  $cookie = Cookies.get("platform");
+  $cookie = $cookie.replace("/", "_");
+  $cookie = $cookie.replace(" ", "-");
+  // iterate through each and add 'waypoint'
+  Array.prototype.forEach.call(els, function(el) {
+    // only add the waypoint if we can see the actual content (don't want to add hidden platform blocks)
+    // this check is kinda nasty, but it works
+    if (!$(el).parent().hasClass("platform") || ($(el).parent().hasClass("platform") && ($cookie === $(el).parent().attr('id')))) {
+      new Waypoint({
+        element: el,
+        handler: function() {
+          window.history.replaceState("", "", "#" + el.id);
+        }
+      })
+    }
+  });
+
+  togglePlatformDivs();
+});
+
+function togglePlatformDivs() {
+  var $platformCookie = Cookies.get("platform");
+  var $platformDivs = document.getElementsByClassName("platform");
+  Array.prototype.forEach.call($platformDivs, function($platformDiv) {
+    $platformDivId =  $platformDiv.id
+    $platformDivId = $platformDivId.replace("-", " ");
+    $platformDivId = $platformDivId.replace("_", "/");
+    if ($platformDivId != $platformCookie && $platformCookie != null) {
+      $platformDiv.style.display = 'none';
+    } else {
+      $platformDiv.style.display = 'block';
+    }
+  });
+}
+
+</script>

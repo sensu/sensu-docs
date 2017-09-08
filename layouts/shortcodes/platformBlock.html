@@ -1,0 +1,5 @@
+{{ $id := .Get 0 }}
+<!-- Spaces will be dashes, slashes will be underscores -->
+{{ $id := replace $id " " "-" }}
+{{ $id := replace $id "/" "_" }}
+<div id="{{ $id }}" class="platform">

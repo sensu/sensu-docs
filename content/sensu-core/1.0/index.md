@@ -6,6 +6,8 @@ menu: "sensu-core-1.0"
 version: "1.0"
 product: "Sensu Core"
 tags: ["sensu", "core", "sensu core", "1.0", "frog", "index"]
+platform: "General"
+layout: "index-2"
 ---
 
 ## Key Features
@@ -15,7 +17,3 @@ Here's some key features. For a full list visit the [Features](/sensu-core/1.0/f
 - Does another alright thing
 - It's pretty good
 
-## Versions
-
-- [Version 1.0](/sensu-core/1.0)
-- [Version 0.29](/sensu-core/0.29/)

@@ -45,6 +45,11 @@
     background: #618B25;
 }
 
+.article h4 {
+  color: #232323;
+  font-weight: bold;
+}
+
 /* Banner tweak */
 .header .stretch .title {
     font-size: 30px;
@@ -149,7 +154,8 @@ div.button.button-close {
 .article h1 {
     font-size: 32px;
     padding-top: 50px;
-    padding-bottom: 30px;;
+    padding-bottom: 0px !important;
+    border-bottom: none;
 }
 
 @media only screen and (min-width: 720px) {
@@ -158,7 +164,7 @@ div.button.button-close {
     }
 }
 
-/* Version and product buttons */
+/* Dropdown buttons */
 .buttonHolder {
     z-index: 2000;
     display: inline-block;
@@ -167,7 +173,13 @@ div.button.button-close {
     padding-left: 5px;
 }
 
-#productButton, #versionButton {
+.platformHolder {
+    margin-top: 15px;
+    height: 50px;
+    padding-top: 5px;
+}
+
+#productButton, #versionButton, #platformButton {
     pointer: cursor;
     position: absolute;
     margin-left: 0;
@@ -177,7 +189,7 @@ div.button.button-close {
     background-color: #e7e7e7;
 }
 
-#productButton a, #versionButton a {
+#productButton a, #versionButton a, #platformButton a {
     color: rgb(90, 90, 90);
     border-bottom: none;
     padding: 10px;
@@ -192,12 +204,28 @@ div.button.button-close {
     margin-left: 270px;
 }
 
+#platformButton {
+    width: 200px;
+}
+
+#platformButton a {
+    display: block;
+}
+
+#platformButton li {
+    margin-top: 0;
+}
+
 .dropdownArrow {
     float: right;
     font-size: 20px;
 }
 
-.hiddenProducts, .hiddenVersions {
+.platformButtonTitle .dropdownArrow {
+    padding-top: 1px;
+}
+
+.hiddenProducts, .hiddenVersions, .hiddenPlatforms {
     font-weight: normal;
     z-index: 100;
     background-color: #e7e7e7;
@@ -239,13 +267,34 @@ div.button.button-close {
 }
 
 .versionBanner a {
-  color: #dedede;
+    color: #dedede;
 }
 
 .versionBanner a:hover {
-  color: #ffffff;
+    color: #ffffff;
 }
 
 .versionBannerText {
-  font-size: 14px;
+    font-size: 14px;
+}
+
+/* landing page buttons */
+.landingButtonHolder {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.landingButton {
+    border: 1px solid #81C000;
+    display: inline-block;
+    width: 200px;
+    height: 100px;
+    margin: 10px;
+}
+
+.landingButton a {
+    font-size: 20px;
+    display: block;
+    margin-top: 35px;
+    border-bottom: none;
 }
