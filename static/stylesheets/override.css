@@ -298,3 +298,59 @@ div.button.button-close {
     margin-top: 35px;
     border-bottom: none;
 }
+
+@media only screen and (max-width: 959px) {
+  .header .stretch {
+    padding: 0 16px;
+  }
+}
+
+@media only screen and (max-width: 825px) {
+    .header {
+      height: 50px;
+    }
+
+    .header .stretch {
+      padding: 0;
+    }
+
+    .homepage-main {
+      padding-top: 50px !important;
+    }
+
+    .title {
+      padding: 15px !important;
+    }
+
+    .header .stretch .title {
+      font-size: 16px;
+    }
+
+    .button .icon {
+      font-size: 16px;
+      margin: 7px;
+    }
+
+    #productButton, #versionButton {
+      font-size: 12px;
+    }
+
+    #productButton a, #versionButton a {
+      padding: 5px;
+    }
+
+    #productButton {
+      width: 190px;
+    }
+
+    #versionButton {
+      margin-left: 200px;
+    }
+
+    .buttonHolder {
+      //display: block;
+      //background-color: #383838;
+      //height: 64px;
+      //width: 100%;
+    }
+}

@@ -42,7 +42,7 @@
     width: 100%;
     padding-top: 56px;
     height: 100%;
-    overflow: hidden;
+    overflow-x: hidden;
     position: absolute;
     box-sizing: border-box;
     -moz-box-sizing: border-box;
@@ -194,13 +194,14 @@
 @media only screen and (max-width: 875px) {
     .product-holder {
         width: 50%;
-        height: 33.3333%;
+        height: 350px;
     }
 }
 
 @media only screen and (max-width: 600px) {
     .product-holder {
         width: 100%;
+        height: 300px;
     }
 }
 
