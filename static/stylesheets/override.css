@@ -358,11 +358,24 @@ div.button.button-close {
     }
 
     .buttonHolder {
-      padding: 0 10px;
+      padding: 5px 10px;
       display: block;
       background-color: #383838;
       height: 35px;
       width: 100%;
+    }  
+}
+
+@media only screen and (max-width: 520px) {
+    .title {
+      padding: 5px 5px !important;
     }
-   
+
+    .button .icon {
+      margin: 2px 3px;
+    }
+
+    .buttonHolder {
+      padding: 5px 5px;
+    }
 }
