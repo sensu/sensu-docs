@@ -310,6 +310,10 @@ div.button.button-close {
       height: 50px;
     }
 
+    .product-holder {
+      height: 200px;
+    }
+
     .header .stretch {
       padding: 0;
     }
@@ -363,12 +367,24 @@ div.button.button-close {
       background-color: #383838;
       height: 35px;
       width: 100%;
-    }  
+    }
+
+    #productButton {
+      width: 180px;
+    }
+
+    #versionButton {
+      margin-left: 190px;
+    }
+
+    .product-holder {
+      height: 200px;
+    }
 }
 
 @media only screen and (max-width: 520px) {
     .title {
-      padding: 5px 5px !important;
+      padding: 2px 5px !important;
     }
 
     .button .icon {
@@ -376,6 +392,6 @@ div.button.button-close {
     }
 
     .buttonHolder {
-      padding: 5px 5px;
+      padding: 2px 5px;
     }
 }
