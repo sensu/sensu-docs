@@ -350,7 +350,7 @@ div.button.button-close {
 
 @media only screen and (max-width: 570px) {
     .title {
-      padding: 5px 15px !important;
+      padding: 5px 10px !important;
     }
 
     .button .icon {
@@ -358,7 +358,7 @@ div.button.button-close {
     }
 
     .buttonHolder {
-      padding: 0 15px;
+      padding: 0 10px;
       display: block;
       background-color: #383838;
       height: 35px;
