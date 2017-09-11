@@ -344,13 +344,25 @@ div.button.button-close {
     }
 
     #versionButton {
-      margin-left: 200px;
+        margin-left: 200px;
+    }
+}
+
+@media only screen and (max-width: 570px) {
+    .title {
+      padding: 5px 15px !important;
+    }
+
+    .button .icon {
+      margin: 3px 7px;
     }
 
     .buttonHolder {
-      //display: block;
-      //background-color: #383838;
-      //height: 64px;
-      //width: 100%;
+      padding: 0 15px;
+      display: block;
+      background-color: #383838;
+      height: 35px;
+      width: 100%;
     }
+   
 }
