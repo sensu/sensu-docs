@@ -111,8 +111,12 @@ div.button.button-close {
     box-shadow: 0 3px 8px rgba(0,0,0,.05);
 }
 
+.bar {
+    margin-left: 0;
+}
+
 #results.query.resultsList li {
-    padding: 10px 125px;
+    padding: 10px 40px;
     width: 100%;
 }
 
@@ -318,6 +322,22 @@ div.button.button-close {
       padding: 0;
     }
 
+    .bar.search {
+      margin-top: 5px;
+    }
+
+    .field {
+      padding-top: 3px;
+    }
+
+    #results.query.resultsList {
+      top: 50px;
+    }
+
+    .bar.search .query {
+      font-size: 16px;
+    }
+
     .homepage-main {
       padding-top: 50px !important;
     }
@@ -328,6 +348,10 @@ div.button.button-close {
 
     .header .stretch .title {
       font-size: 16px;
+    }
+
+    #results.query.resultsList li {
+      padding: 10px 28px;
     }
 
     .button .icon {
@@ -361,12 +385,20 @@ div.button.button-close {
       margin: 3px 7px;
     }
 
+    .bar.search {
+      padding-top: 5px;
+    }
+
     .buttonHolder {
       padding: 5px 10px;
       display: block;
       background-color: #383838;
       height: 35px;
       width: 100%;
+    }
+
+    #results.query.resultsList li {
+      padding: 10px 25px;
     }
 
     #productButton {
@@ -379,6 +411,23 @@ div.button.button-close {
 
     .product-holder {
       height: 200px;
+    }
+    
+    .bar.search {
+      margin-top: 25px;
+    }
+
+    .field {
+      padding-top: 0;
+    }
+
+    #results.query.resultsList {
+      top: 50px;
+    }
+
+    .bar.search .query {
+      font-size: 16px;
+      padding-top: 10px;
     }
 }
 
@@ -393,5 +442,9 @@ div.button.button-close {
 
     .buttonHolder {
       padding: 2px 5px;
+    }
+    
+    #results.query.resultsList li {
+      padding: 5px 20px;
     }
 }
