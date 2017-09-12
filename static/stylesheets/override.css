@@ -444,6 +444,10 @@ div.button.button-close {
       padding: 2px 5px;
     }
     
+    .bar.search {
+      padding-top: 9px;
+    }
+
     #results.query.resultsList li {
       padding: 5px 20px;
     }
