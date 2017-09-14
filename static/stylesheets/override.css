@@ -367,13 +367,13 @@ div.button.button-close {
     #productButton a, #versionButton a {
       padding: 5px;
     }
-
     #productButton {
-      width: 190px;
+      width: 180px;
     }
 
     #versionButton {
-        margin-left: 200px;
+      margin-left: 190px;
+      width: 100px;
     }
 }
 
@@ -400,14 +400,6 @@ div.button.button-close {
 
     #results.query.resultsList li {
       padding: 10px 25px;
-    }
-
-    #productButton {
-      width: 180px;
-    }
-
-    #versionButton {
-      margin-left: 190px;
     }
 
     .product-holder {

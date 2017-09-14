@@ -16,7 +16,7 @@
         $(document).click( function(){
             $('.hiddenVersions').hide();
         });
-});
+    });
 </script>
 
 <div class="buttonHolder">
@@ -51,7 +51,6 @@
                 {{ $product2 := replace $product "-" "_" }}
                 {{ $product_info := (index .Site.Params.products $product2) }} 
                 {{ range $k, $v := $product_info.versions }} 
-                    {{ $version := $k }}
                     <li class="hiddenItem"><a href="/{{ $product }}/{{ $k }}">{{ $k }}</a></li>
                 {{ end }}
             </ul>

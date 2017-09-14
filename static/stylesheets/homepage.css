@@ -93,6 +93,14 @@
     font-size: 18px;
 }
 
+.drawer {
+    display: hidden;
+}
+
+.results {
+    z-index: 2000;
+}
+
 /* Hover and Background Blocks ----------------------------------------------------------------- */
 
 .product-holder > .mask {

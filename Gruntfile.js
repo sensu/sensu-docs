@@ -1,7 +1,7 @@
 var yaml = require("js-yaml");
 var S = require("string");
 
-var CONTENT_PATH_PREFIX = "./content";
+var CONTENT_PATH_PREFIX = "content/";
 
 // define the grunt function for cli
 module.exports = function(grunt) {
@@ -91,7 +91,8 @@ module.exports = function(grunt) {
                 tags: frontMatter.tags,
                 product: frontMatter.product,
                 version: frontMatter.version,
-                href: href,
+                location: href,
+                display_name: frontMatter.product + " " + frontMatter.version + ": " + frontMatter.title, 
                 content: S(content[2]).trim().stripTags().stripPunctuation().s
             };
             return pageIndex;

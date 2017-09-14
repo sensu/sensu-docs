@@ -13,6 +13,20 @@
   {{ partial "header" . }}
 </header>
 
+<div class="main"></div>
+<div class="drawer">
+  {{ partial "drawer" . }}
+</div>
+
+<div class="results" role="status" aria-live="polite">
+  <div class="scrollable">
+    <div class="wrapper">
+      <div class="meta"></div>
+      <div class="list"></div>
+    </div>
+  </div>
+</div>
+
 <div class="homepage-main">
   <div class="product-block">
     {{ range sort .Site.Params.Products "weight" }}

@@ -34,7 +34,6 @@
           {{ $product2 := replace $product "-" "_" }}
           {{ $product_info := (index .Site.Params.products $product2) }}
           {{ range $k, $v := $product_info.versions }}
-            {{ $version := $k }}
             <span class="landingButton"><a href="/{{ $product }}/{{ $k }}">{{ $k }}</a></span>
           {{ end }}
         </div>
