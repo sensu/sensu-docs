@@ -52,7 +52,7 @@
 
 /* Banner tweak */
 
-div.bar.default {
+.bar.default {
     margin: auto;
 }
 
@@ -79,7 +79,7 @@ div.bar.default {
     margin-top: -12px;
 }
 
-div.bar.default {
+.bar.default {
     position: relative;
     z-index: 100;
 }
@@ -97,12 +97,8 @@ div.bar.default {
     padding: 0;
 }
 
-div.button.button-close {
+.button.button-close {
     padding-top: 11px;
-}
-
-.field {
-    padding-top 1px;
 }
 
 #results.query.resultsList {
@@ -321,7 +317,23 @@ div.button.button-close {
   padding-top: 0px;
 }
 
+#toggle-search:checked~.header .bar.search, .toggle-search .header .bar.search {
+  padding-top: 3px;
+}
+
+.bar.search .query {
+  padding-top: 12px !important;
+}
+
+.bar.search .button-reset {
+  padding-top: 15px;
+}
+
 @media only screen and (max-width: 985px) {
+    .results .scrollable {
+      margin-top: -8px;
+    }
+
     .header {
       height: 55px;
     }
@@ -330,26 +342,14 @@ div.button.button-close {
       padding: 0;
     }
 
-    .bar.search {
-      margin-top: 5px;
-    }
-
-    .field {
-      padding-top: 3px;
-    }
-
-    #results.query.resultsList {
-      top: 50px;
-    }
-
     .bar.search .query {
-      font-size: 18px;
+      padding-top: 30px !important;
     }
 
     .button .icon {
       font-size: 24px !important;
     }
-
+    
     .button-menu {
       padding-top: 6px;
     }
@@ -371,7 +371,7 @@ div.button.button-close {
     }
 
     #productButton, #versionButton {
-      font-size: 18px;
+      font-size: 16px;
     }
 
     #productButton a, #versionButton a {
@@ -388,7 +388,34 @@ div.button.button-close {
     }
 }
 
+@media only screen and (max-width: 719px) {
+    .results .scrollable {
+      margin-top: 0;
+    }
+
+    .bar.search .query {
+      font-size: 20px;
+      padding-top: 33px !important;
+    }
+}
+
 @media only screen and (max-width: 680px) {
+    .bar.search .query {
+      padding-top: 20px !important;
+    }
+
+    .bar.search .button-reset {
+      padding-top: 5px;
+    }
+
+    .button.button-close {
+      padding-top: 5px;
+    }
+
+    .results .scrollable {
+      top: 50px;
+    }
+
     .header {
       height: 50px;
     }
@@ -460,10 +487,6 @@ div.button.button-close {
 }
 
 @media only screen and (max-width: 566px) {
-    .bar.search {
-      padding-top: 5px;
-    }
-
     .header .stretch .title {
       display: block;
     }
@@ -506,7 +529,10 @@ div.button.button-close {
 
     .bar.search .query {
       font-size: 16px;
-      padding-top: 10px;
+    }
+
+    #toggle-search:checked~.header .bar.search, .toggle-search .header .bar.search {
+      margin-top: 20px;
     }
 
     .button .icon {
@@ -514,3 +540,10 @@ div.button.button-close {
     }
 }
 
+.bar .search .non-empty {
+  //z-index: 3;
+}
+
+#toggle-search:checked~.main .results, .toggle-search .results {
+    //z-index: 2;
+}

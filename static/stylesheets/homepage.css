@@ -220,3 +220,6 @@
   display: none;
 }
 
+#toggle-search:checked~.main .results, .toggle-search .results {
+  z-index: 2;
+}

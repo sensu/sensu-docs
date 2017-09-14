@@ -27,6 +27,7 @@
       <div class="field">
         <input id="search" class="query" type="text" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck>
       </div>
+      <ul id="results" class="query"></ul>
     </div>
     <div class="button button-reset" role="button" aria-label="Search">
       <button class="toggle-button icon icon-close" id="reset-search"></button>
@@ -40,9 +41,9 @@
       <a class="versionBannerText" href="/{{ .Section }}/{{ $product_info.latest }}/">You're viewing documentation for an older version of {{ .Params.product }}. Click here for the latest.</a>
     </div>
   {{ end }}
-  <ul id="results" class="query"></ul>
 </nav>
 
+<!-- The below JS has been replaced, these functions are no longer being called, remvove soon -->
 <script type="text/javascript">
   var lunrIndex,
     $results,
