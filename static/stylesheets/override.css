@@ -51,6 +51,11 @@
 }
 
 /* Banner tweak */
+
+div.bar.default {
+    margin: auto;
+}
+
 .header .stretch .title {
     font-size: 30px;
 }
@@ -88,7 +93,7 @@ div.bar.default {
 }
 
 .button .icon {
-    margin: 10px;
+    margin: 7px 10px;
     padding: 0;
 }
 
@@ -304,13 +309,86 @@ div.button.button-close {
     border-bottom: none;
 }
 
-@media only screen and (max-width: 959px) {
-  .header .stretch {
-    padding: 0 16px;
-  }
+.button .icon {
+    font-size: 28px;
 }
 
-@media only screen and (max-width: 825px) {
+.button .button-menu {
+  padding-top: 5px;
+}
+
+.button .button-search {
+  padding-top: 0px;
+}
+
+@media only screen and (max-width: 985px) {
+    .header {
+      height: 55px;
+    }
+
+    .header .stretch {
+      padding: 0;
+    }
+
+    .bar.search {
+      margin-top: 5px;
+    }
+
+    .field {
+      padding-top: 3px;
+    }
+
+    #results.query.resultsList {
+      top: 50px;
+    }
+
+    .bar.search .query {
+      font-size: 18px;
+    }
+
+    .button .icon {
+      font-size: 24px !important;
+    }
+
+    .button-menu {
+      padding-top: 6px;
+    }
+
+    .homepage-main {
+      padding-top: 50px !important;
+    }
+
+    .title {
+      padding: 15px !important;
+    }
+
+    .header .stretch .title {
+      font-size: 22px;
+    }
+
+    #results.query.resultsList li {
+      padding: 10px 28px;
+    }
+
+    #productButton, #versionButton {
+      font-size: 18px;
+    }
+
+    #productButton a, #versionButton a {
+      padding: 5px;
+    }
+
+    #productButton {
+      width: 240px;
+    }
+
+    #versionButton {
+      margin-left: 250px;
+      width: 110px;
+    }
+}
+
+@media only screen and (max-width: 680px) {
     .header {
       height: 50px;
     }
@@ -336,7 +414,16 @@ div.button.button-close {
     }
 
     .bar.search .query {
-      font-size: 16px;
+      font-size: 18px;
+    }
+
+    .button .icon {
+      padding: 0px;
+      font-size: 18px !important;
+    }
+
+    .button-menu {
+      padding-top: 6px;
     }
 
     .homepage-main {
@@ -348,16 +435,11 @@ div.button.button-close {
     }
 
     .header .stretch .title {
-      font-size: 16px;
+      font-size: 18px;
     }
 
     #results.query.resultsList li {
       padding: 10px 28px;
-    }
-
-    .button .icon {
-      font-size: 16px;
-      margin: 7px;
     }
 
     #productButton, #versionButton {
@@ -377,25 +459,29 @@ div.button.button-close {
     }
 }
 
-@media only screen and (max-width: 570px) {
-    .title {
-      padding: 5px 10px !important;
-    }
-
-    .button .icon {
-      margin: 3px 7px;
-    }
-
+@media only screen and (max-width: 566px) {
     .bar.search {
       padding-top: 5px;
     }
 
-    .buttonHolder {
-      padding: 5px 10px;
+    .header .stretch .title {
       display: block;
-      background-color: #383838;
+    }
+
+    .title {
+      padding: 7px 10px!important;
+    }
+
+    .buttonHolder {
+      margin-top: -2px;
+      background: #383838;
+      padding-top: 0;
       height: 35px;
       width: 100%;
+    }
+
+    #productButton {
+      margin-left: 5px;
     }
 
     #results.query.resultsList li {
@@ -422,26 +508,9 @@ div.button.button-close {
       font-size: 16px;
       padding-top: 10px;
     }
-}
-
-@media only screen and (max-width: 520px) {
-    .title {
-      padding: 2px 5px !important;
-    }
 
     .button .icon {
-      margin: 2px 3px;
-    }
-
-    .buttonHolder {
-      padding: 2px 5px;
-    }
-    
-    .bar.search {
-      padding-top: 9px;
-    }
-
-    #results.query.resultsList li {
-      padding: 5px 20px;
+      margin: 5px !important;
     }
 }
+

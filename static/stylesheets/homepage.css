@@ -202,15 +202,21 @@
 @media only screen and (max-width: 875px) {
     .product-holder {
         width: 50%;
-        height: 350px;
+        height: 300px;
     }
 }
 
 @media only screen and (max-width: 600px) {
     .product-holder {
         width: 100%;
-        height: 300px;
     }
 }
 
+.button-menu {
+    display: none;
+}
+
+.drawer {
+  display: none;
+}
 
