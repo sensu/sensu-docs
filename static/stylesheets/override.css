@@ -240,7 +240,7 @@ nav {
 }
 
 #versionButton {
-  width: 120px;
+  width: 100px;
   margin-left: 270px;
 }
 
@@ -364,8 +364,13 @@ nav {
 
   .button .icon {
     font-size: 24px !important;
+    padding-top: 3px;
   }
   
+  .toggle-button .icon {
+    margin-top: -2px;
+  }
+
   .button-menu {
     padding-top: 6px;
   }
@@ -400,7 +405,7 @@ nav {
 
   #versionButton {
     margin-left: 250px;
-    width: 110px;
+    width: 90px;
   }
 
   .versionBanner {
@@ -482,6 +487,7 @@ nav {
 
   .button .icon {
     padding: 0px;
+    padding-top: 4px;
     font-size: 18px !important;
   }
 
@@ -515,7 +521,7 @@ nav {
 
   #versionButton {
     margin-left: 190px;
-    width: 100px;
+    width: 70px;
   }
 
   .versionBanner {
@@ -525,7 +531,12 @@ nav {
 
 @media only screen and (max-width: 658px) {
   .toggle-button .icon {
-    margin-top: 5px;
+    padding-top: 2px;
+  }
+
+  .button .icon {
+    margin-top: 0;
+    padding-top: 4px;
   }
 
   .header .stretch .title {
@@ -533,19 +544,20 @@ nav {
   }
 
   .title {
-    padding: 7px 10px!important;
+    padding: 7px 0px!important;
   }
 
   .buttonHolder {
     margin-top: -2px;
     background: #383838;
     padding-top: 0;
+    padding-left: 0;
     height: 35px;
     width: 100%;
   }
 
   #productButton {
-    margin-left: 5px;
+    margin-left: 0;
   }
 
   .versionBanner {
@@ -582,4 +594,20 @@ nav {
   }
 }
 
+@media only screen and (max-width: 366px) {
+  #productButton {
+    width: 170px;
+  }
 
+  #versionButton {
+    margin-left: 180px;
+  }
+ 
+  .button .icon {
+    margin: 0 5px;
+  }
+
+  .toggle-button .icon {
+    margin-left: 0;
+  }
+}
