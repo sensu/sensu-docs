@@ -48,7 +48,7 @@ module.exports = function(grunt) {
             // the page name will be the filename, minus html
             var pageName = S(filename).chompRight(".html").s;
             // create the path to the file, minus everything before the path prefix
-            var href = S(abspath)
+            var href = "/" + S(abspath)
                 .chompLeft(CONTENT_PATH_PREFIX).s;
             grunt.log.writeln("PageName (html)" + pageName);
             return {
@@ -82,6 +82,8 @@ module.exports = function(grunt) {
             if (filename === "index.md") {
                 href = S(abspath).chompLeft(CONTENT_PATH_PREFIX).chompRight(filename).s;
             }
+
+            href = "/" + href
 
             grunt.log.writeln("PageName (html)" + frontMatter.title);
 

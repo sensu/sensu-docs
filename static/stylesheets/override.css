@@ -288,6 +288,8 @@ nav {
   background-color: #dbdbdb; 
 }
 
+/* Version Banner ----------------------------------------------------------------- */
+
 .versionBanner {
   background-color: #cc7d7c;
   box-shadow: 0 3px 8px rgba(0,0,0,.05);
@@ -400,11 +402,9 @@ nav {
     margin-left: 250px;
     width: 110px;
   }
-}
 
-@media only screen and (max-width: 760px) {
   .versionBanner {
-      top: 56px;
+    top: 55px;
   }
 }
 
@@ -523,6 +523,10 @@ nav {
     margin-left: 190px;
     width: 100px;
   }
+
+  .versionBanner {
+    top: 50px;
+  }
 }
 
 @media only screen and (max-width: 615px) {
@@ -544,6 +548,10 @@ nav {
 
   #productButton {
     margin-left: 5px;
+  }
+
+  .versionBanner {
+    top: 64px;
   }
 
   #results.query.resultsList li {

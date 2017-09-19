@@ -752,6 +752,7 @@ if ("document" in self && ("classList" in document.createElement("_") ? ! functi
             };
         Modernizr.ios || (window.addEventListener("resize", c), c());
         var l = function() {
+            var base_url = "";
             pegasus(base_url + "/js/lunr/PagesIndex.json").then(function(e, n) {
                 var o = lunr(function() {
                         this.field("title", {
@@ -777,9 +778,12 @@ if ("document" in self && ("classList" in document.createElement("_") ? ! functi
                         var r = document.createElement("h1");
                         r.innerHTML = o.display_name, i.appendChild(r);
                         var a = document.createElement("a");
-                        a.href = o.location, a.appendChild(i);
+                        a.href = o.location;
+                        a.appendChild(i);
                         var c = document.createElement("span");
-                        c.innerHTML = a.href.split("#")[0], i.appendChild(c);
+                        console.log(a.href.split("#")[0])
+                        c.innerHTML = a.href.split("#")[0];
+                        i.appendChild(c);
                         var l = a.href.split("#");
                         l[0] == document.location.href.split("#")[0] && a.addEventListener("click", function(e) {
                             if (document.body.classList.remove("toggle-search"), document.body.classList.remove("locked"), t.checked = !1, !matchMedia("only screen and (min-width: 960px)").matches && (e.preventDefault(), e.stopPropagation(), 1 != l.length)) {
@@ -861,6 +865,7 @@ if ("document" in self && ("classList" in document.createElement("_") ? ! functi
             })
         });
         var y = document.querySelectorAll(".toggle");
+        var repo_id = "";
         Array.prototype.forEach.call(y, function(t) {
             t.addEventListener("click", function() {
                 document.body.classList.toggle(this.id)
