@@ -230,3 +230,9 @@
 #toggle-search:checked~.main .results, .toggle-search .results {
   //z-index: 2;
 }
+
+@media only screen and (max-width: 959px) {
+  .results {
+    top: unset;
+  }
+}

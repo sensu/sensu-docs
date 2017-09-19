@@ -536,7 +536,7 @@ nav {
     }
     
     .bar.search {
-      margin-top: 25px;
+      margin-top: -10px;
     }
 
     .field {
@@ -549,14 +549,6 @@ nav {
 
     .bar.search .query {
       font-size: 16px;
-    }
-
-    #toggle-search:checked~.header .bar.search, .toggle-search .header .bar.search {
-      margin-top: 20px;
-    }
-
-    .button .icon {
-      margin: 5px !important;
     }
 
     .button-menu {
@@ -572,3 +564,15 @@ nav {
 #toggle-search:checked~.main .results, .toggle-search .results {
     //z-index: 2;
 }
+
+@media only screen and (max-width: 959px) {
+  .results {
+    top: 0px;
+  }
+
+  .drawer {
+    width: 260px;
+  }
+}
+
+
