@@ -236,3 +236,9 @@
     top: unset;
   }
 }
+
+@media only screen and (max-width: 615px) {
+  #toggle-search:checked~.header .bar.search, .toggle-search .header .bar.search {
+    padding-top: 25px;
+  }
+}
