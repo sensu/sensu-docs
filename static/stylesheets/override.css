@@ -56,11 +56,6 @@
     margin: auto;
 }
 
-nav {
-  margin-top: -55px;
-  height: 55px;
-}
-
 .header .stretch .title {
     font-size: 30px;
 }
@@ -81,16 +76,15 @@ nav {
 }
 
 .bar.search {
-    margin-top: -60px;
-    padding-top: 50px;
+    margin-top: -12px;
+    transform: scale(.01, .01);
 }
 
-.button-search {
-    padding-top: 2px;
+nav {
+    height: 60px;
 }
 
-.bar.default, .non-empty {
-    padding-top: 55px;
+.bar.default {
     position: relative;
     //z-index: 100;
 }
@@ -325,9 +319,9 @@ nav {
   padding-top: 0px;
 }
 
-//#toggle-search:checked~.header .bar.search, .toggle-search .header .bar.search {
-//  padding-top: 5px;
-///}
+#toggle-search:checked~.header .bar.search, .toggle-search .header .bar.search {
+  padding-top: 5px;
+}
 
 .bar.search .query {
   padding-top: 12px !important;
