@@ -213,6 +213,10 @@ background-color: var(--color-6-hover);
 }
 
 @media only screen and (max-width: 959px) {
+  .title {
+    padding-left: 15px !important;
+  }
+
   .results {
     top: unset;
   }
@@ -221,5 +225,9 @@ background-color: var(--color-6-hover);
 @media only screen and (max-width: 615px) {
   #toggle-search:checked~.header .bar.search, .toggle-search .header .bar.search {
     padding-top: 25px;
+  }
+
+  .title {
+    padding-left: 10px !important;
   }
 }
