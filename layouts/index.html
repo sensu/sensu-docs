@@ -31,6 +31,7 @@
   <div class="product-block">
     {{ range sort .Site.Params.Products "weight" }}
       <div class="product-holder" id="product-{{ .identifier }}">
+        <div class="mask"></div>
         <div class="content">
           <a class="homepage-product" href="/{{ .identifier }}/"><span class="product-title">{{ .name }}</span>
             <span class="description">
@@ -39,7 +40,6 @@
             </span>
           </a>
         </div>
-        <div class="mask"></div>
       </div>
     {{ end }}
   </div>

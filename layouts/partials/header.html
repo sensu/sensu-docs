@@ -27,7 +27,6 @@
       <div class="field">
         <input id="search" class="query" type="text" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck>
       </div>
-      <ul id="results" class="query"></ul>
     </div>
     <div class="button button-reset" role="button" aria-label="Search">
       <button class="toggle-button icon icon-close" id="reset-search"></button>
@@ -166,12 +165,15 @@
     //initLunr();
     //initUI();
   });
-
+  
   function closeResults() {
-    $results = $("#results");
+    $results = $("#search");
     $results.empty();
     document.getElementById("search").value = "";
-    document.getElementById("results").className = document.getElementById("results").className.replace( /(?:^|\s)resultsList(?!\S)/g , '' );
+    var r = document.querySelector(".results .meta");
+    for (var t = document.querySelector(".results .list"); t.firstChild;) t.removeChild(t.firstChild);
+      var e = document.querySelector(".bar.search");
+      e.classList.remove("non-empty"), r.innerHTML = "", i.value = ""
   }
 
   $(document).on('keyup',function(evt) {

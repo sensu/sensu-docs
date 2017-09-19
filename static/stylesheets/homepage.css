@@ -67,10 +67,6 @@
     //z-index: 2;
 }
 
-#toggle-search:checked~.header .bar.search, .toggle-search .header .bar.search {
-    z-index: 101;
-}
-
 .results {
     //z-index: 100;
 }
@@ -204,11 +200,11 @@
     }
 }
 
-@media only screen and (max-width: 959px) {
-    .results {
-      top: unset;
-    }
-}
+//@media only screen and (max-width: 959px) {
+//    .results {
+//      top: unset;
+//    }
+//}
 
 @media only screen and (max-width: 875px) {
     .product-holder {

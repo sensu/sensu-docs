@@ -801,10 +801,6 @@ if ("document" in self && ("classList" in document.createElement("_") ? ! functi
         t.addEventListener("click", l);
         var u = 0;
         t.addEventListener("click", function(t) {
-            var homepageText = document.getElementsByClassName('homepage-product');
-                Array.prototype.forEach.call(homepageText, function(text) {
-                    text.style.zIndex = "0";
-                });
             var e = document.body.classList,
                 n = !matchMedia("only screen and (min-width: 960px)").matches;
             e.contains("locked") ? (e.remove("locked"), n && setTimeout(function() {
@@ -821,18 +817,6 @@ if ("document" in self && ("classList" in document.createElement("_") ? ! functi
         }), window.addEventListener("keyup", function(e) {
             var n = e.keyCode || e.which;
             27 == n && (i.blur(), document.body.classList.remove("toggle-search"), document.body.classList.remove("locked"), t.checked = !1)
-            if (e.keyCode == 27) { 
-              var homepageText = document.getElementsByClassName('homepage-product');
-              Array.prototype.forEach.call(homepageText, function(text) {
-                text.style.zIndex = "10";
-              });
-            } else {
-               var homepageText = document.getElementsByClassName('homepage-product');
-            Array.prototype.forEach.call(homepageText, function(text) {
-                text.style.zIndex = "0";
-            });
-
-            }
         });
         var d = document.getElementById("reset-search");
         d.addEventListener("click", function() {
