@@ -209,8 +209,8 @@ background-color: var(--color-6-hover);
 }
 
 @media only screen and (max-width: 658px) {
-  .buttonHolder {
-    padding-left: 15px;
+  .bar.search {
+    padding-top: 30px;
   }
 }
 
@@ -242,4 +242,12 @@ background-color: var(--color-6-hover);
   display: none;
 }
 
+@media only screen and (max-width: 469px) {
+  .bar.default {
+    padding-top: 8px;
+  }
 
+  .button .icon {
+    padding-top: 3px;
+  }
+}

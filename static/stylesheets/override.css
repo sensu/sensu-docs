@@ -335,7 +335,7 @@ nav {
 
 /* Media Queries ----------------------------------------------------------------- */
 
-@media only screen and (max-width: 985px) {
+@media only screen and (max-width: 970px) {
   article .wrapper {
     padding-top: 0;
   }
@@ -360,17 +360,13 @@ nav {
     padding-top: 30px !important;
   }
 
-  .button .icon {
-    font-size: 24px !important;
-    padding-top: 3px;
-  }
-  
   .toggle-button .icon {
+    font-size: 24px;
     margin-top: -2px;
   }
 
   .button-menu {
-    padding-top: 6px;
+    padding-top: 7px;
   }
 
   .homepage-main {
@@ -433,7 +429,7 @@ nav {
   }
 }
 
-@media only screen and (max-width: 795px) {
+@media only screen and (max-width: 690px) {
   .title {
     padding-left: 0px !important;
   }
@@ -485,8 +481,12 @@ nav {
 
   .button .icon {
     padding: 0px;
-    padding-top: 4px;
-    font-size: 18px !important;
+    padding-top: 0;
+    font-size: 25px !important;
+  }
+
+  .button-search {
+    padding-top: 1px;
   }
 
   .button-menu {
@@ -503,6 +503,10 @@ nav {
 
   #results.query.resultsList li {
     padding: 10px 28px;
+  }
+
+  .buttonHolder {
+    padding-left: 0;
   }
 
   #productButton, #versionButton {
@@ -527,7 +531,7 @@ nav {
   }
 }
 
-@media only screen and (max-width: 658px) {
+@media only screen and (max-width: 470px) {
   .toggle-button .icon {
     padding-top: 2px;
   }

@@ -36,7 +36,6 @@
             </ul>
         </div>
     </div>
-    {{ if not .IsHome }}
     <div id="versionButton">
         {{ if isset .Params "version" }} 
             {{ $display := .Params.version }}
@@ -56,7 +55,6 @@
             </ul>
         </div>
     </div>
-    {{ end }}
 </div>
 
 

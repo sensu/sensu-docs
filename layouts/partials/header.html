@@ -10,11 +10,13 @@
         {{ if .IsHome }}
             <span id="home-title">Sensu Documentation</span>
         {{ else }}
-            {{ .Params.product }} {{ .Params.version }} - {{ .Title }}
+            {{ .Params.product }} {{ .Params.version }}
         {{ end }}
       </div>
     </div>
-    {{ partial "productVersionDropdown.html" . }}
+    {{ if not .IsHome }}
+      {{ partial "productVersionDropdown.html" . }}
+    {{ end }}
     <div class="button button-search" role="button" aria-label="Search">
       <label class="toggle-button icon" title="Search" for="toggle-search"><i class="icon fa fa-search" aria-hidden="true"></i></label>
     </div>
