@@ -17,6 +17,7 @@
   </a>
   <div id="productVersionDrawerHolder">
     {{ partial "productVersionDrawer" . }}
+    <hr id="specialDivider">
   </div>
   <div class="scrollable">
     <div class="wrapper">
@@ -36,7 +37,6 @@
         </ul>
         <hr>
       {{ end }}-->
-      <hr id="specialDivider">
       <div class="toc">
         {{ if gt (len .Site.Menus.main) 0 }}
         <ul>

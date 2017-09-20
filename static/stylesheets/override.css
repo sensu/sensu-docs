@@ -94,7 +94,7 @@ nav {
 }
 
 .project .banner {
-  padding: 15px 20px;
+  padding: 15px 20px 0;
 }
 
 .button .icon {
@@ -575,6 +575,10 @@ nav {
   //  top: 64px;
   //}
 
+  nav .scrollable {
+    padding-top: 95px;
+  }
+
   #productVersionNav {
     opacity: 0;
     transform: scale(0.01);
@@ -583,8 +587,10 @@ nav {
   #productVersionDrawerHolder {
     opacity: 1;
     transform: scale(1);
-    padding-top: 10px;
+    padding-top: 15px;
     display: block;
+    background-color: white;
+    height: 110px;
   }
 
   #productVersionDrawerHolder .buttonHolder {
@@ -592,13 +598,13 @@ nav {
   }
 
   #productButtonDrawer {
-    margin: 0 10px;
-    width: 240px;
+    margin: 0 20px;
+    width: 200px;
     font-size: 14px;
   }
   
   #versionButtonDrawer {
-    margin: 40px 10px 0 10px;
+    margin: 30px 10px 0 20px;
     font-size: 14px;
   }
 
@@ -620,7 +626,7 @@ nav {
   }
 
   #specialDivider {
-    margin-top: 100px;
+    margin-top: 80px;
   }
 
   #results.query.resultsList li {
