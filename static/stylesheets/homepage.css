@@ -204,7 +204,7 @@ background-color: var(--color-6-hover);
 @media only screen and (max-width: 875px) {
   .product-holder {
     width: 50%;
-    height: 300px;
+    height: 230px;
   }
 }
 
@@ -231,6 +231,7 @@ background-color: var(--color-6-hover);
 @media only screen and (max-width: 600px) {
   .product-holder {
     width: 100%;
+    height: 200px;
   }
 }
 
