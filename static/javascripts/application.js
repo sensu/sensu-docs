@@ -781,7 +781,6 @@ if ("document" in self && ("classList" in document.createElement("_") ? ! functi
                         a.href = o.location;
                         a.appendChild(i);
                         var c = document.createElement("span");
-                        console.log(a.href.split("#")[0])
                         c.innerHTML = a.href.split("#")[0];
                         i.appendChild(c);
                         var l = a.href.split("#");

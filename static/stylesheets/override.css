@@ -110,7 +110,6 @@ nav {
   background-color: white;
   width: 100%;
   position: fixed;
-  z-index: 500;
   top: 64px;
   font-size: 16px;
   margin-top: -10px;
@@ -294,7 +293,6 @@ nav {
   background-color: #cc7d7c;
   box-shadow: 0 3px 8px rgba(0,0,0,.05);
   position: absolute;
-  z-index: 1;
   width: 100%;
   top: 64px;
   padding: 5px;

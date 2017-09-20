@@ -32,14 +32,6 @@
       <button class="toggle-button icon icon-close" id="reset-search"></button>
     </div>
   </div>
-  {{ $product := .Section }}
-  {{ $product2 := replace $product "-" "_" }}
-  {{ $product_info := (index .Site.Params.products $product2) }}
-  {{ if and (isset .Params "version") (ne $product_info.latest .Params.version) }}
-    <div class="versionBanner">
-      <a class="versionBannerText" href="/{{ .Section }}/{{ $product_info.latest }}/">You're viewing documentation for an older version of {{ .Params.product }}. Click here for the latest.</a>
-    </div>
-  {{ end }}
 </nav>
 
 <script>  
@@ -50,7 +42,7 @@
     var r = document.querySelector(".results .meta");
     for (var t = document.querySelector(".results .list"); t.firstChild;) t.removeChild(t.firstChild);
       var e = document.querySelector(".bar.search");
-      e.classList.remove("non-empty"), r.innerHTML = "", i.value = ""
+      e.classList.remove("non-empty"), r.innerHTML = ""
   }
 
   $(document).on('keyup',function(evt) {
