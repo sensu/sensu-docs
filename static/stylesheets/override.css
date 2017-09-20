@@ -381,6 +381,10 @@ nav {
     padding-top: 50px !important;
   }
 
+  .field {
+    padding-top: 2px;
+  }
+
   .title {
     padding: 15px !important;
   }
@@ -540,6 +544,12 @@ nav {
   }
 }
 
+@media only screen and (max-width: 720px) {
+  .field {
+    padding-top: 4px;
+  }
+}
+
 @media only screen and (max-width: 625px) {
   .toggle-button .icon {
     padding-top: 2px;
@@ -637,14 +647,6 @@ nav {
     height: 200px;
   }
   
-  .bar.search {
-    margin-top: -10px;
-  }
-
-  .field {
-    padding-top: 0;
-  }
-
   #results.query.resultsList {
     top: 50px;
   }

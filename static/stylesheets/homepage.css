@@ -214,6 +214,12 @@ background-color: var(--color-6-hover);
   }
 }
 
+@media only screen and (max-width: 719px) {
+  .field {
+    padding-top: 3px;
+  }
+}
+
 @media only screen and (max-width: 658px) {
   .bar.search {
     padding-top: 30px;
@@ -227,16 +233,8 @@ background-color: var(--color-6-hover);
 }
 
 @media only screen and (max-width: 625px) {
-  #toggle-search:checked~.header .bar.search, .toggle-search .header .bar.search {
-    padding-top: 25px;
-  }
-
   .title {
     padding-left: 10px !important;
-  }
-
-  .field {
-    padding-top: 0;
   }
 
   .buttonHolder {
@@ -257,24 +255,4 @@ background-color: var(--color-6-hover);
 
 .drawer {
   display: none;
-}
-
-@media only screen and (max-width: 469px) {
-  .button .icon {
-    padding-top: 5px;
-  }
-
-  #toggle-search:checked~.header .bar.search, .toggle-search .header .bar.search {
-    padding-top: 22px;
-  }
-
-  .bar.search .query {
-    padding-top: 3px !important;
-  }
-}
-
-@media only screen and (max-width: 366px) {
-  #toggle-search:checked~.header .bar.search, .toggle-search .header .bar.search {
-    padding-top: 29px;
-  }
 }
