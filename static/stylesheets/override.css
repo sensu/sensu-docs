@@ -433,6 +433,7 @@ nav {
   }
 
   .drawer {
+    padding-top: 0;
     width: 260px;
   }
 }
@@ -539,20 +540,14 @@ nav {
   }
 }
 
-@media only screen and (max-width: 720px) {
-  .drawer {
-    padding-top: 0;
-  }
-}
-
 @media only screen and (max-width: 625px) {
   .toggle-button .icon {
     padding-top: 2px;
   }
 
   .button .icon {
-    margin-top: 0;
-    padding-top: 4px;
+    //margin-top: 0;
+    //padding-top: 4px;
   }
 
   .header .stretch .title {
@@ -560,7 +555,7 @@ nav {
   }
 
   .title {
-    padding: 7px 0px!important;
+    //padding: 7px 0px!important;
   }
 
   .buttonHolder {
@@ -651,11 +646,6 @@ nav {
   .bar.search .query {
     font-size: 16px;
   }
-
-  .button-menu {
-    height: 68px;
-    background-color: #383838;
-  }
 }
 
 @media only screen and (max-width: 366px) {
@@ -672,7 +662,7 @@ nav {
   }*/
  
   .button .icon {
-    margin: 0 5px;
+    //margin: 0 5px;
   }
 
   .toggle-button .icon {
