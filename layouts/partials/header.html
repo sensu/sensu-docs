@@ -15,7 +15,9 @@
       </div>
     </div>
     {{ if not .IsHome }}
-      {{ partial "productVersionDropdown.html" . }}
+      <div id="productVersionNav">
+        {{ partial "productVersionDropdown.html" . }}
+      </div>
     {{ end }}
     <div class="button button-search" role="button" aria-label="Search">
       <label class="toggle-button icon" title="Search" for="toggle-search"><i class="icon fa fa-search" aria-hidden="true"></i></label>
