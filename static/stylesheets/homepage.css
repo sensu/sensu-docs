@@ -204,7 +204,13 @@ background-color: var(--color-6-hover);
 @media only screen and (max-width: 875px) {
   .product-holder {
     width: 50%;
-    height: 230px;
+    height: 33.3%;
+  }
+}
+
+@media only screen and (max-width: 775px) {
+  .field {
+    padding-top: 2px;
   }
 }
 
@@ -214,13 +220,23 @@ background-color: var(--color-6-hover);
   }
 }
 
-@media only screen and (max-width: 615px) {
+@media only screen and (max-width: 658px) {
+  .title {
+    padding-top: 15px !important;
+  }
+}
+
+@media only screen and (max-width: 625px) {
   #toggle-search:checked~.header .bar.search, .toggle-search .header .bar.search {
     padding-top: 25px;
   }
 
   .title {
     padding-left: 10px !important;
+  }
+
+  .field {
+    padding-top: 0;
   }
 
   .buttonHolder {
@@ -231,7 +247,7 @@ background-color: var(--color-6-hover);
 @media only screen and (max-width: 600px) {
   .product-holder {
     width: 100%;
-    height: 200px;
+    height: 220px;
   }
 }
 
@@ -244,11 +260,21 @@ background-color: var(--color-6-hover);
 }
 
 @media only screen and (max-width: 469px) {
-  .bar.default {
-    padding-top: 8px;
+  .button .icon {
+    padding-top: 5px;
   }
 
-  .button .icon {
-    padding-top: 3px;
+  #toggle-search:checked~.header .bar.search, .toggle-search .header .bar.search {
+    padding-top: 22px;
+  }
+
+  .bar.search .query {
+    padding-top: 3px !important;
+  }
+}
+
+@media only screen and (max-width: 366px) {
+  #toggle-search:checked~.header .bar.search, .toggle-search .header .bar.search {
+    padding-top: 29px;
   }
 }

@@ -394,11 +394,11 @@ nav {
   }
 
   #productButton {
-    width: 240px;
+    width: 250px;
   }
 
   #versionButton {
-    margin-left: 250px;
+    margin-left: 260px;
     width: 90px;
   }
 
@@ -429,7 +429,7 @@ nav {
   }
 }
 
-@media only screen and (max-width: 690px) {
+@media only screen and (max-width: 775px) {
   .title {
     padding-left: 0px !important;
   }
@@ -518,11 +518,11 @@ nav {
   }
   
   #productButton {
-    width: 180px;
+    width: 190px;
   }
 
   #versionButton {
-    margin-left: 190px;
+    margin-left: 200px;
     width: 70px;
   }
 
@@ -531,7 +531,7 @@ nav {
   }
 }
 
-@media only screen and (max-width: 470px) {
+@media only screen and (max-width: 625px) {
   .toggle-button .icon {
     padding-top: 2px;
   }
@@ -599,6 +599,10 @@ nav {
 @media only screen and (max-width: 366px) {
   #productButton {
     width: 170px;
+  }
+
+  .productButtonTitle, .versionButtonTitle {
+    font-size: 10px;
   }
 
   #versionButton {
