@@ -11,7 +11,9 @@ $( document ).ready(function() {
         $('.hiddenPlatforms').hide();
     });
 
-    setTopDropdown();
+    if (document.getElementById("platformButtonTitleText")) {
+      setTopDropdown();
+    }
 });
 
 function setTopDropdown() {

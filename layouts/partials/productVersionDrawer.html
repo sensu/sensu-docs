@@ -1,34 +1,34 @@
 <script>
     // I've heard that .stopPropogation() is not ideal, potentially needs a rework
     $( document ).ready(function() {
-        $('.productButtonTitle').click( function(event){
+        $('.productButtonTitleDrawer').click( function(event){
             event.stopPropagation();
-            $('.hiddenProducts').toggle();
+            $('.hiddenProductsDrawer').toggle();
         });
         $(document).click( function(){
-            $('.hiddenProducts').hide();
+            $('.hiddenProductsDrawer').hide();
         });
 
-        $('.versionButtonTitle').click( function(event){
+        $('.versionButtonTitleDrawer').click( function(event){
             event.stopPropagation();
-            $('.hiddenVersions').toggle();
+            $('.hiddenVersionsDrawer').toggle();
         });
         $(document).click( function(){
-            $('.hiddenVersions').hide();
+            $('.hiddenVersionsDrawer').hide();
         });
     });
 </script>
 
 <div class="buttonHolder">
-    <div id="productButton">
+    <div id="productButtonDrawer">
         {{ if isset .Params "product" }}
             {{ $display := .Params.product }}
-            <a class="productButtonTitle">{{ $display }}<i class="fa fa-chevron-down dropdownArrow" aria-hidden="true"></i></a>
+            <a class="productButtonTitleDrawer">{{ $display }}<i class="fa fa-chevron-down dropdownArrow" aria-hidden="true"></i></a>
         {{ else }}
             {{ $display := "Projects" }}
-            <a class="productButtonTitle">{{ $display }}<i class="fa fa-chevron-down dropdownArrow" aria-hidden="true"></i></a>
+            <a class="productButtonTitleDrawer">{{ $display }}<i class="fa fa-chevron-down dropdownArrow" aria-hidden="true"></i></a>
         {{ end }}
-        <div class="hiddenProducts" style="display: none;">
+        <div class="hiddenProductsDrawer" style="display: none;">
             <ul class="hiddenItems">
                 {{ range sort .Site.Params.Products "weight" }} 
                     <li class="hiddenItem"><a href="/{{ .identifier }}">{{ .name }}</a></li>
@@ -36,15 +36,16 @@
             </ul>
         </div>
     </div>
-    <div id="versionButton">
+    <br>
+    <div id="versionButtonDrawer">
         {{ if isset .Params "version" }} 
             {{ $display := .Params.version }}
-            <a class="versionButtonTitle">{{ $display }}<i class="fa fa-chevron-down dropdownArrow" aria-hidden="true"></i></a>
+            <a class="versionButtonTitleDrawer">{{ $display }}<i class="fa fa-chevron-down dropdownArrow" aria-hidden="true"></i></a>
         {{ else }}
             {{ $display := "Version" }}
-            <a class="versionButtonTitle">{{ $display }}<i class="fa fa-chevron-down dropdownArrow" aria-hidden="true"></i></a>
+            <a class="versionButtonTitleDrawer">{{ $display }}<i class="fa fa-chevron-down dropdownArrow" aria-hidden="true"></i></a>
         {{ end }}
-        <div class="hiddenVersions" style="display: none;">
+        <div class="hiddenVersionsDrawer" style="display: none;">
             <ul class="hiddenItems">
                 {{ $product := .Section }}
                 {{ $product2 := replace $product "-" "_" }}

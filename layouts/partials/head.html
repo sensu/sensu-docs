@@ -55,6 +55,7 @@
     {{ if .IsHome }}
         <link rel="stylesheet" href="{{ "stylesheets/homepage.css" | absURL }}">
     {{ end }}
+
     {{/* set default values if no custom ones are defined */}}
     {{ $text := or .Site.Params.font.text "Roboto" }}
     {{ $code := or .Site.Params.font.code "Roboto Mono" }}
@@ -79,6 +80,7 @@
     <script type="text/javascript" src="{{ "js/js-cookie.js" | absURL }}"></script>
     <script type="text/javascript" src="{{ "js/platformDropdowns.js" | absURL }}"></script>
     <script type="text/javascript" src="{{ "js/noframework.waypoints.min.js" | absURL }}"></script>
+    <!-- <script type="text/javascript" src="{{ "javascripts/application.js" | absURL }}"></script> -->
     {{ with .RSSLink }}
     <link href="{{ . }}" rel="alternate" type="application/rss+xml" title="{{ $.Site.Title }}" />
     <link href="{{ . }}" rel="feed" type="application/rss+xml" title="{{ $.Site.Title }}" />

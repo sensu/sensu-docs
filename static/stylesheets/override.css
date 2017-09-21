@@ -1,300 +1,679 @@
-/* overriding theme palette */
+/* Theme Palette Overrides ----------------------------------------------------------------- */
+
 .palette-primary-green {
-    background: #383838;
+  background: #383838;
 }
 
 .palette-primary-green .footer,.palette-primary-green .header {
-    background: #383838;
-    color: #BBBBBB;
+  background: #383838;
+  color: #BBBBBB;
 }
 
 .palette-primary-green .drawer .toc a.current,.palette-primary-green .drawer .toc a:focus,.palette-primary-green .drawer .toc a:hover {
-    color: #81C000;
+  color: #81C000;
 }
 
 .palette-primary-green .drawer .anchor a {
-    border-left: 2px solid #81C000;
+  border-left: 2px solid #81C000;
 }
 
 .ios.standalone .palette-primary-green .article {
-    background: -webkit-linear-gradient(top,#fff 50%,#81C000 0);
-    background: linear-gradient(180deg,#fff 50%,#81C000 0);
+  background: -webkit-linear-gradient(top,#fff 50%,#81C000 0);
+  background: linear-gradient(180deg,#fff 50%,#81C000 0);
 }
 
 .palette-primary-green .article a,.palette-primary-green .article code,.palette-primary-green .article h1,.palette-primary-green .article h2 {
-    color: #81C000;
+  color: #81C000;
 }
 
 .palette-primary-green .article .headerlink {
-    color: rgba(0,0,0,.26);
+  color: rgba(0,0,0,.26);
 }
 
 .palette-primary-green .article table th {
-    background: #5cb45b;
+  background: #5cb45b;
 }
 
 .palette-primary-green .results .meta {
-    background: #81C000;
+  background: #81C000;
 }
 
 .palette-accent-green .article a:focus,.palette-accent-green .article a:hover {
-    color: #618B25;
+  color: #618B25;
 }
 
 .palette-accent-green .repo a {
-    background: #618B25;
+  background: #618B25;
 }
+
+/* General Site Wide Components ----------------------------------------------------------------- */
 
 .article h4 {
   color: #232323;
   font-weight: bold;
 }
 
-/* Banner tweak */
+.bar.default {
+  margin: auto;
+}
+
 .header .stretch .title {
-    font-size: 30px;
+  font-size: 30px;
 }
 
 .title {
-    padding-top: 15px !important;
-    font-weight: bold;
+  padding-top: 15px !important;
+  font-weight: bold;
 }
 
 .header {
-    overflow: visible;
-    padding: 0;
+  overflow: visible;
+  padding: 0;
 }
 
 .bar {
-    max-width: 1500px;
+  max-width: 1600px;
+  margin: 0 auto;
 }
 
 .bar.search {
-    margin-top: -12px;
+  margin-top: -12px;
+  transform: scale(.01, .01);
 }
 
-div.bar.default {
-    position: relative;
-    z-index: 100;
+nav {
+  height: 60px;
+}
+
+.bar.default {
+  position: relative;
 }
 
 .stretch {
-    display: inline;
+  display: inline;
 }
 
 .project .banner {
-    padding: 15px 20px;
+  padding: 15px 20px 0;
 }
 
 .button .icon {
-    margin: 10px;
-    padding: 0;
+  margin: 7px 10px;
+  padding: 0;
 }
 
-div.button.button-close {
-    padding-top: 11px;
-}
-
-.field {
-    padding-top 1px;
+.button.button-close {
+  padding-top: 11px;
 }
 
 #results.query.resultsList {
-    background-color: white;
-    width: 100%;
-    position: fixed;
-    z-index: 500;
-    top: 64px;
-    font-size: 16px;
-    margin-top: -10px;
-    padding-bottom: 10px;
-    box-shadow: 0 3px 8px rgba(0,0,0,.05);
+  background-color: white;
+  width: 100%;
+  position: fixed;
+  top: 64px;
+  font-size: 16px;
+  margin-top: -10px;
+  padding-bottom: 10px;
+  box-shadow: 0 3px 8px rgba(0,0,0,.05);
+}
+
+.bar {
+  margin-left: 0;
 }
 
 #results.query.resultsList li {
-    padding: 10px 125px;
-    width: 100%;
+  padding: 10px 40px;
+  width: 100%;
 }
 
 #results.query.resultsList li:hover {
-    background-color: #efefef;
- }
+  background-color: #efefef;
+}
 
-/* Sidebar stuff */
+.button .icon {
+  font-size: 28px;
+}
+
+.button .button-menu {
+  padding-top: 5px;
+}
+
+.button .button-search {
+  padding-top: 0px;
+}
+
+#toggle-search:checked~.header .bar.search, .toggle-search .header .bar.search {
+  padding-top: 5px;
+}
+
+.bar.search .query {
+  padding-top: 12px !important;
+}
+
+.bar.search .button-reset {
+  padding-top: 15px;
+}
+
+/* Sidebar Stuff ----------------------------------------------------------------- */
+
 .name strong {
-    font-size: 16px;
+  font-size: 16px;
 }
 
 .drawer {
-    font-size: 14px;
-}
-
-@media only screen and (min-width: 960px) {
-    .drawer {
-        padding-top: 100px;
-    }
+  font-size: 14px;
 }
 
 .project .logo {
-    width: 80px;
-    height: 80px;
-    padding-right: 0;
+  width: 80px;
+  height: 80px;
+  padding-right: 0;
 }
 
 .project .logo img {
-    border-radius: 3px;
-    margin: 0 auto;
+  border-radius: 3px;
+  margin: 0 auto;
 }
 
 .repo {
-    margin-top: 10px;
+  margin-top: 10px;
 }
 
-/* Content overrides */
+#productVersionDrawerHolder {
+  opacity: 0;
+  transform: scale(0.01);
+}
+/* General Content Overrides ----------------------------------------------------------------- */
+
 .article h1 {
-    font-size: 32px;
-    padding-top: 50px;
-    padding-bottom: 0px !important;
-    border-bottom: none;
+  font-size: 32px;
+  padding-top: 50px;
+  padding-bottom: 0px !important;
+  border-bottom: none;
+}
+
+.ios .scrollable .wrapper {
+  margin-bottom: 0;
 }
 
 @media only screen and (min-width: 720px) {
-    .article .wrapper {
-        padding-top: 70px;
-    }
+  .article .wrapper {
+    padding-top: 50px;
+  }
+
+  .drawer {
+    padding-top: 80px;
+  }
 }
 
-/* Dropdown buttons */
-.buttonHolder {
-    z-index: 2000;
-    display: inline-block;
-    position: absolute;
-    padding-top: 13px;
-    padding-left: 5px;
+/* Dropdown Stuff ----------------------------------------------------------------- */
+
+#productVersionNav {
+  display: inline;
 }
 
-.platformHolder {
-    margin-top: 15px;
-    height: 50px;
-    padding-top: 5px;
+#productVersionNav .buttonHolder {
+  z-index: 2000;
+  display: inline-block;
+  position: absolute;
+  padding-top: 13px;
+  padding-left: 5px;
 }
 
-#productButton, #versionButton, #platformButton {
-    pointer: cursor;
-    position: absolute;
-    margin-left: 0;
-    border-radius: 3px;
-    font-size: 16px;
-    font-weight: bold;
-    background-color: #e7e7e7;
+#productVersionNav .platformHolder {
+  margin-top: 15px;
+  height: 50px;
+  padding-top: 5px;
 }
 
-#productButton a, #versionButton a, #platformButton a {
-    color: rgb(90, 90, 90);
-    border-bottom: none;
-    padding: 10px;
+#productButton, #versionButton, #platformButton, #productButtonDrawer, #versionButtonDrawer {
+  pointer: cursor;
+  position: absolute;
+  margin-left: 0;
+  border-radius: 3px;
+  font-size: 16px;
+  font-weight: bold;
+  background-color: #e7e7e7;
 }
 
-#productButton {
-    width: 260px;
+#productButton a, #versionButton a, #platformButton a, #productButtonDrawer a, #versionButtonDrawer a {
+  color: rgb(90, 90, 90);
+  border-bottom: none;
+  padding: 10px;
 }
 
-#versionButton {
-    width: 120px;
-    margin-left: 270px;
+#productButton, #productButtonDrawer {
+  width: 260px;
+}
+
+#versionButton, #versionButtonDrawer {
+  width: 100px;
+  margin-left: 270px;
 }
 
 #platformButton {
-    width: 200px;
+  width: 200px;
 }
 
 #platformButton a {
-    display: block;
+  display: block;
 }
 
 #platformButton li {
-    margin-top: 0;
+  margin-top: 0;
 }
 
 .dropdownArrow {
-    float: right;
-    font-size: 20px;
+  float: right;
+  font-size: 20px;
 }
 
-.platformButtonTitle .dropdownArrow {
-    padding-top: 1px;
+.platformButtonTitle .dropdownArrow, .platformButtonTitleDrawer .dropdownArrow {
+  padding-top: 1px;
 }
 
-.hiddenProducts, .hiddenVersions, .hiddenPlatforms {
-    font-weight: normal;
-    z-index: 100;
-    background-color: #e7e7e7;
+.hiddenProducts, .hiddenVersions, .hiddenPlatforms, .hiddenProductsDrawer, .hiddenVersionsDrawer {
+  font-weight: normal;
+  z-index: 100;
+  background-color: #e7e7e7;
 }
 
 .hiddenItems {
-    margin-top: 0 !important;
-    border-radius: 3px;
+  margin-top: 0 !important;
+  border-radius: 3px;
 }
 
 .hiddenItem {
-    margin-left: 0 !important;
+  margin-left: 0 !important;
 }
 
 .hiddenItem:before {
-    content: none !important;
+  content: none !important;
 }
 
 .hiddenItem:hover {
-    background-color: #dbdbdb; 
+  background-color: #dbdbdb; 
 }
 
-/* version banner */
+/* Version Banner ----------------------------------------------------------------- */
+
 .versionBanner {
-    background-color: #cc7d7c;
-    box-shadow: 0 3px 8px rgba(0,0,0,.05);
-    position: absolute;
-    z-index: 1;
-    width: 100%;
-    top: 64px;
-    padding: 5px;
-    text-align: center;
-}
-
-@media only screen and (max-width: 760px) {
-    .versionBanner {
-        top: 56px;
-    }
+  background-color: #cc7d7c;
+  box-shadow: 0 3px 8px rgba(0,0,0,.05);
+  position: absolute;
+  width: 100%;
+  top: 64px;
+  padding: 5px;
+  text-align: center;
 }
 
 .versionBanner a {
-    color: #dedede;
+  color: #dedede;
 }
 
 .versionBanner a:hover {
-    color: #ffffff;
+  color: #ffffff;
 }
 
 .versionBannerText {
-    font-size: 14px;
+  font-size: 14px;
 }
 
-/* landing page buttons */
+/* Non-Homepage Index Buttons ----------------------------------------------------------------- */
+
 .landingButtonHolder {
-    text-align: center;
-    margin-top: 20px;
+  text-align: center;
+  margin-top: 20px;
 }
 
 .landingButton {
-    border: 1px solid #81C000;
-    display: inline-block;
-    width: 200px;
-    height: 100px;
-    margin: 10px;
+  border: 1px solid #81C000;
+  display: inline-block;
+  width: 200px;
+  height: 100px;
+  margin: 10px;
 }
 
 .landingButton a {
-    font-size: 20px;
+  font-size: 20px;
+  display: block;
+  margin-top: 35px;
+  border-bottom: none;
+}
+
+/* Media Queries ----------------------------------------------------------------- */
+
+@media only screen and (max-width: 970px) {
+  article .wrapper {
+    padding-top: 0;
+  }
+
+  .results .scrollable {
+    margin-top: -8px;
+  }
+
+  .results {
+    top: 57px;
+  }
+
+  .header {
+    height: 55px;
+  }
+
+  .header .stretch {
+    padding: 0;
+  }
+
+  .bar.search .query {
+    padding-top: 30px !important;
+  }
+
+  .toggle-button .icon {
+    font-size: 24px;
+    margin-top: -2px;
+  }
+
+  .button-menu {
+    padding-top: 7px;
+  }
+
+  .homepage-main {
+    padding-top: 50px !important;
+  }
+
+  .field {
+    padding-top: 2px;
+  }
+
+  .title {
+    padding: 15px !important;
+  }
+
+  .header .stretch .title {
+    font-size: 22px;
+  }
+
+  #results.query.resultsList li {
+    padding: 10px 28px;
+  }
+
+  #productVersionNav #productButton, #productVersionNav #versionButton {
+    font-size: 16px;
+  }
+
+  #productVersionNav #productButton a, #productVersionNav #versionButton a {
+    padding: 5px;
+  }
+
+  #productVersionNav #productButton {
+    width: 250px;
+  }
+
+  #productVersionNav #versionButton {
+    margin-left: 260px;
+    width: 90px;
+  }
+
+  .versionBanner {
+    top: 55px;
+  }
+}
+
+@media only screen and (max-width: 959px) {
+  .title {
+    padding-left: 0px !important;
+  }
+
+  .article .wrapper {
+    padding-top: 30px;
+  }
+
+  .results {
+    top: unset;
+  }
+
+  .results {
+    top: 0px;
+  }
+
+  .drawer {
+    padding-top: 0;
+    width: 260px;
+  }
+}
+
+@media only screen and (max-width: 775px) {
+  .title {
+    padding-left: 0px !important;
+  }
+
+  .bar.search .query {
+    padding-top: 0 !important;
+  }
+
+  .bar.search .button-reset {
+    padding-top: 0;
+  }
+
+  .button.button-close {
+    padding-top: 0;
+  }
+
+  .results .scrollable {
+    top: 50px;
+    margin-top: 0;
+  }
+
+  .header {
+    height: 50px;
+  }
+
+  .product-holder {
+    height: 200px;
+  }
+
+  .header .stretch {
+    padding: 0;
+  }
+
+  .bar.search {
+    margin-top: 5px;
+  }
+
+  .field {
+    padding-top: 3px;
+  }
+
+  #results.query.resultsList {
+    top: 50px;
+  }
+
+  .bar.search .query {
+    font-size: 18px;
+  }
+
+  .button .icon {
+    padding: 0px;
+    padding-top: 0;
+    font-size: 25px !important;
+  }
+
+  .button-search {
+    padding-top: 1px;
+  }
+
+  .button-menu {
+    padding-top: 6px;
+  }
+
+  .homepage-main {
+    padding-top: 50px !important;
+  }
+
+  .header .stretch .title {
+    font-size: 18px;
+  }
+
+  #results.query.resultsList li {
+    padding: 10px 28px;
+  }
+
+  #productVersionNav .buttonHolder {
+    padding-left: 0;
+  }
+
+  #productVersionNav #productButton, #productVersionNav #versionButton {
+    font-size: 12px;
+  }
+
+  #productVersionNav #productButton a, #productVersionNav #versionButton a {
+    padding: 5px;
+  }
+  
+  #productVersionNav #productButton {
+    width: 190px;
+  }
+
+  #productVersionNav #versionButton {
+    margin-left: 200px;
+    width: 70px;
+  }
+
+  .versionBanner {
+    top: 50px;
+  }
+}
+
+@media only screen and (max-width: 720px) {
+  .field {
+    padding-top: 4px;
+  }
+}
+
+@media only screen and (max-width: 625px) {
+  .toggle-button .icon {
+    padding-top: 2px;
+  }
+
+  .button .icon {
+    //margin-top: 0;
+    //padding-top: 4px;
+  }
+
+  .header .stretch .title {
     display: block;
-    margin-top: 35px;
-    border-bottom: none;
+  }
+
+  .title {
+    //padding: 7px 0px!important;
+  }
+
+  .buttonHolder {
+    //margin-top: -2px;
+    //background: #383838;
+    //padding-top: 0;
+    //padding-left: 0;
+    //height: 35px;
+    //width: 100%;
+  }
+
+  //#productButton {
+  //  margin-left: 0;
+  //}
+
+  //.versionBanner {
+  //  top: 64px;
+  //}
+
+  nav .scrollable {
+    padding-top: 95px;
+  }
+
+  #productVersionNav {
+    opacity: 0;
+    transform: scale(0.01);
+  }
+
+  #productVersionDrawerHolder {
+    opacity: 1;
+    transform: scale(1);
+    padding-top: 15px;
+    display: block;
+    background-color: white;
+    height: 110px;
+  }
+
+  #productVersionDrawerHolder .buttonHolder {
+    display: block;
+  }
+
+  #productButtonDrawer {
+    margin: 0 20px;
+    width: 200px;
+    font-size: 14px;
+  }
+  
+  #versionButtonDrawer {
+    margin: 30px 10px 0 20px;
+    font-size: 14px;
+  }
+
+  #productButtonDrawer .hiddenItem a, #versionButtonDrawer .hiddenItem a {
+    display: block;
+  }
+
+  .productButtonTitleDrawer, .versionButtonTitleDrawer {
+    display: block;
+  }
+
+  .productButtonTitleDrawer a, .versionButtonTitleDrawer a {
+    padding: 10px;
+    display: block;
+  }
+
+  .hiddenProductsDrawer, .hiddenversionsDrawer {
+    position: relative;
+  }
+
+  #specialDivider {
+    margin-top: 80px;
+  }
+
+  #results.query.resultsList li {
+    padding: 10px 25px;
+  }
+
+  .product-holder {
+    height: 200px;
+  }
+  
+  #results.query.resultsList {
+    top: 50px;
+  }
+
+  .bar.search .query {
+    font-size: 16px;
+  }
+}
+
+@media only screen and (max-width: 366px) {
+  /*#productButton {
+    width: 170px;
+  }
+
+  .productButtonTitle, .versionButtonTitle {
+    font-size: 10px;
+  }
+
+  #versionButton {
+    margin-left: 180px;
+  }*/
+ 
+  .button .icon {
+    //margin: 0 5px;
+  }
+
+  .toggle-button .icon {
+    margin-left: 0;
+  }
 }

@@ -10,23 +10,15 @@
         {{ if .IsHome }}
             <span id="home-title">Sensu Documentation</span>
         {{ else }}
-            {{ .Params.product }} {{ .Params.version }} - {{ .Title }}
+            {{ .Params.product }} {{ .Params.version }}
         {{ end }}
       </div>
     </div>
-    {{ partial "productVersionDropdown.html" . }}
-    <!--{{ with .Site.Social.twitter }}
-    <div class="button button-twitter" role="button" aria-label="Twitter">
-       <a href="https://twitter.com/{{ . }}" title="@{{ . }} on Twitter" target="_blank" class="toggle-button"><i class="icon fa fa-twitter" aria-hidden="true"></i></a>
-    </div>
+    {{ if not .IsHome }}
+      <div id="productVersionNav">
+        {{ partial "productVersionDropdown.html" . }}
+      </div>
     {{ end }}
-
-    {{ with .Site.Social.github }}
-    <div class="button button-github" role="button" aria-label="GitHub">
-      <a href="https://github.com/{{ . }}" title="@{{ . }} on GitHub" target="_blank" class="toggle-button"><i class="icon fa fa-github" aria-hidden="true"></i></a>
-    </div>
-    {{ end }}
-    -->
     <div class="button button-search" role="button" aria-label="Search">
       <label class="toggle-button icon" title="Search" for="toggle-search"><i class="icon fa fa-search" aria-hidden="true"></i></label>
     </div>
@@ -44,158 +36,17 @@
       <button class="toggle-button icon icon-close" id="reset-search"></button>
     </div>
   </div>
-  {{ $product := .Section }}
-  {{ $product2 := replace $product "-" "_" }}
-  {{ $product_info := (index .Site.Params.products $product2) }}
-  {{ if and (isset .Params "version") (ne $product_info.latest .Params.version) }}
-    <div class="versionBanner">
-      <a class="versionBannerText" href="/{{ .Section }}/{{ $product_info.latest }}/">You're viewing documentation for an older version of {{ .Params.product }}. Click here for the latest.</a>
-    </div>
-  {{ end }}
-  <ul id="results" class="query"></ul>
 </nav>
 
-<script type="text/javascript">
-  var lunrIndex,
-    $results,
-    pagesIndex;
-
-  // Initialize lunrjs using our generated index file
-  function initLunr() {
-    // First retrieve the index file
-    $.getJSON("{{ "js/lunr/PagesIndex.json" | absURL }}")
-      .done(function(index) {
-        pagesIndex = index;
-        console.log("index:", pagesIndex);
-
-      // Set up lunrjs by declaring the fields we use
-      // Also provide their boost level for the ranking
-      lunrIndex = lunr(function() {
-        this.field("product");
-        this.field("title");
-        this.field("tags");
-        this.field("content");
-        // ref is the result item identifier (I chose the page URL)
-        this.ref("href");
-      });
-
-      lunrIndex.search("product:foo^10");
-      lunrIndex.search("title:foo^9");
-      lunrIndex.search("tags:tags^8");
-
-      // Feed lunr with each file and let lunr actually index them
-      pagesIndex.forEach(function(page) {
-        // render all results if we're on the homepage, else filter it to the product
-         if ({{ .IsHome }}) {
-          lunrIndex.add(page);
-        } else if (page.product === {{ .Params.product }}) {
-          lunrIndex.add(page);
-        }      
-        });
-    })
-      .fail(function(jqxhr, textStatus, error) {
-        var err = textStatus + ", " + error;
-        console.error("Error getting Hugo index flie:", err);
-    });
-  }
-
-  // Nothing crazy here, just hook up a listener on the input field
-  function initUI() {
-    $results = $("#results");
-    $("#search").keyup(function() {
-      $results.empty();
-      document.getElementById("results").className = document.getElementById("results").className.replace( /(?:^|\s)resultsList(?!\S)/g , '' );
-
-      // Only trigger a search when 2 chars. at least have been provided
-      var query = $(this).val();
-      if (query.length < 2) {
-        return;
-      }
-
-      var results = search(query);
-      document.getElementById("results").className += " resultsList"; 
-      renderResults(results);
-    });
-  }
-
-  /**
-  * Trigger a search in lunr and transform the result
-  *
-  * @param  {String} query
-  * @return {Array}  results
-  */
-  function search(query) {
-    // Find the item in our index corresponding to the lunr one to have more info
-    // Lunr result:
-    //  {ref: "/section/page1", score: 0.2725657778206127}
-    // Our result:
-    //  {title:"Page1", href:"/section/page1", ...}
-    return lunrIndex.search(query).map(function(result) {
-      return pagesIndex.filter(function(page) {
-        return page.href === result.ref;
-      })[0];
-    });
-  }
-
-  /**
-  * Display the 10 first results
-  *
-  * @param  {Array} results to display
-  */
-  function renderResults(results) {
-    if (!results.length) {
-      var $result = $("<li>");
-      $result.append($("<a>", {
-        text: "No results."
-      }));
-      $results.append($result);
-      return;
-    }
-    // Only show the ten first results
-    results.slice(0, 10).forEach(function(result) {
-      var text = "";
-      if (result.product === undefined) {
-        text = result.title;
-      } else {
-        if (result.version === undefined) {
-        text = result.product + ": " + result.title;
-        } else {
-          text = result.product + " " + result.version + " - " + result.title;
-        }
-      }
-      var $result = $("<li>");
-      $result.append($("<a>", {
-        href: result.href,
-        text: text
-      }));
-      $results.append($result);
-    });
-  }
-
-  $(document).ready(function() {
-    // Let's get started
-    initLunr();
-    initUI();
-
-    // TODO: 
-    //$setPlatform = Cookies.get('platform');
-    //{{ $product := .Section }}
-    //{{ $product2 := replace $product "-" "_" }}
-    //{{ $product_info := (index .Site.Params.products $product2) }}
-    //$platforms = {{ $product_info.versions }};
-    //foreach ($platform in $platforms) {
-    //  if ( 
-    //}
-    // iterate all platforms for version
-    // if cookie != that platform
-    // hide
-  });
-
+<script>  
   function closeResults() {
-    $results = $("#results");
+    $results = $("#search");
     $results.empty();
     document.getElementById("search").value = "";
-    document.getElementById("results").className = document.getElementById("results").className.replace( /(?:^|\s)resultsList(?!\S)/g , '' );
+    var r = document.querySelector(".results .meta");
+    for (var t = document.querySelector(".results .list"); t.firstChild;) t.removeChild(t.firstChild);
+      var e = document.querySelector(".bar.search");
+      e.classList.remove("non-empty"), r.innerHTML = ""
   }
 
   $(document).on('keyup',function(evt) {

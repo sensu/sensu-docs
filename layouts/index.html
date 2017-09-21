@@ -13,19 +13,33 @@
   {{ partial "header" . }}
 </header>
 
+<div class="main"></div>
+<div class="drawer">
+  {{ partial "drawer" . }}
+</div>
+
+<div class="results" role="status" aria-live="polite">
+  <div class="scrollable">
+    <div class="wrapper">
+      <div class="meta"></div>
+      <div class="list"></div>
+    </div>
+  </div>
+</div>
+
 <div class="homepage-main">
   <div class="product-block">
     {{ range sort .Site.Params.Products "weight" }}
       <div class="product-holder" id="product-{{ .identifier }}">
+        <div class="mask"></div>
         <div class="content">
           <a class="homepage-product" href="/{{ .identifier }}/"><span class="product-title">{{ .name }}</span>
             <span class="description">
               <br>
-              Sensu helps monitoring and does some cool things. It's neato!
+              {{ .description }}
             </span>
           </a>
         </div>
-        <div class="mask"></div>
       </div>
     {{ end }}
   </div>

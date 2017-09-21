@@ -1,5 +1,7 @@
 {{ partial "head" . }}
 
+<script type="text/javascript" src="{{ "javascripts/application.js" | absURL }}"></script>
+
 {{ if (eq (trim .Site.Params.provider " " | lower) "github") | and (isset .Site.Params "repo_url") }}
   {{ $repo_id := replace .Site.Params.repo_url "https://github.com/" ""}}
   {{ .Scratch.Set "repo_id" $repo_id }}
@@ -57,13 +59,20 @@
   </div>
 </main>
 
-{{ partial "footer_js" . }}
+{{ $product := .Section }}
+{{ $product2 := replace $product "-" "_" }}
+{{ $product_info := (index .Site.Params.products $product2) }}
+{{ if and (isset .Params "version") (ne $product_info.latest .Params.version) }}
+  <div class="versionBanner">
+    <a class="versionBannerText" href="/{{ .Section }}/{{ $product_info.latest }}/">You're viewing documentation for an older version of {{ .Params.product }}. Click here for the latest.</a>
+  </div>
+{{ end }}
 
 <script>
 $( document ).ready(function() {
   // select all heading with an ID attribute
   const els = document.body.querySelectorAll("h1[id],h2[id],h3[id],h4[id]")
-  $cookie = Cookies.get("platform");
+  $cookie = Cookies.get("platform") || "";
   $cookie = $cookie.replace("/", "_");
   $cookie = $cookie.replace(" ", "-");
   // iterate through each and add 'waypoint'

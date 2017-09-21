@@ -1,7 +1,7 @@
 var yaml = require("js-yaml");
 var S = require("string");
 
-var CONTENT_PATH_PREFIX = "./content";
+var CONTENT_PATH_PREFIX = "content/";
 
 // define the grunt function for cli
 module.exports = function(grunt) {
@@ -48,7 +48,7 @@ module.exports = function(grunt) {
             // the page name will be the filename, minus html
             var pageName = S(filename).chompRight(".html").s;
             // create the path to the file, minus everything before the path prefix
-            var href = S(abspath)
+            var href = "/" + S(abspath)
                 .chompLeft(CONTENT_PATH_PREFIX).s;
             grunt.log.writeln("PageName (html)" + pageName);
             return {
@@ -83,6 +83,8 @@ module.exports = function(grunt) {
                 href = S(abspath).chompLeft(CONTENT_PATH_PREFIX).chompRight(filename).s;
             }
 
+            href = "/" + href
+
             grunt.log.writeln("PageName (html)" + frontMatter.title);
 
             // build Lunr index for this page
@@ -91,7 +93,8 @@ module.exports = function(grunt) {
                 tags: frontMatter.tags,
                 product: frontMatter.product,
                 version: frontMatter.version,
-                href: href,
+                location: href,
+                display_name: frontMatter.product + " " + frontMatter.version + ": " + frontMatter.title, 
                 content: S(content[2]).trim().stripTags().stripPunctuation().s
             };
             return pageIndex;
