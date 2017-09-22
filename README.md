@@ -11,7 +11,9 @@
     - [Adding Content](#adding-content)
     
     - [Overriding the Theme](#overriding-the-theme)
-    
+
+    - [Understanding Front Matter](#understanding-front-matter)
+
     - [Variables and Accessing Front Matter](#variables-and-accessing-front-matter)
     
     - [Search](#search)
@@ -50,6 +52,9 @@ Now just run the Hugo server
 hugo server
 ```
 
+### Pushing to Github
+This is the same as any other project. Follow Github's instructions if you're unsure. No additional steps are needed.
+
 ### Deploying to Heroku
 Assuming you have Heroku's cli installed and the app created, link it with the project
 ```
@@ -83,13 +88,35 @@ git push heroku master
 ## Working with Hugo
 
 ### Adding Content
-Pages are stored in the `/content/` folder. Generally you will have a folder inside content which is called a section. We've organized each project (Sensu Core, Uchiwa, etc) into a section. Each section can have it's own attributes called "front matter". You can set defaults for a section's front matter in the `/archtypes/` folder.
+Pages are stored in the `/content/` folder. Generally you will have a folder inside `/content/` which is called a section. We've organized each project (Sensu Core, Uchiwa, etc) into a section. Each section can have it's own attributes called "front matter". You can set defaults for a section's front matter in the `/archtypes/` folder. Each project also requires configuration in the `/config.toml` file, an example is detailed [here](#variables-and-accessing-front-matter). We will talk about all of these shortly.
 
 #### Creating a Section
 This will create a folder for us in `/content/`
 ```
 hugo new sensu-core
 ```
+
+### Understanding Front Matter
+Front matter is the page-level attributes that are defined in yaml at the top of each page of Markdown. You can define default front matter with archtypes, detailed in the next section. For now, I'll explain the current front matter we are using.
+```
+---
+title: "Client Installation"
+description: "The Sensu Core client installation guide."
+weight: 3
+menu: "sensu-core-1.0"
+version: "1.0"
+product: "Sensu Core"
+---
+```
+
+- Title: Mandatory. Displayed at the top of the window, in the sidebar, and as the top-most header for the page.
+- Description: Optional. A description of the page. Currently not being used on the site.
+- Weight: Mandatory. For ordering pages in menus and lists.
+- Menu: Mandatory. The menu context the page belongs to. Currently made of the project name and version. This will likely change.
+- Version: Optional. Only special pages will not have a version, these will likely be landing pages or pages not associated with a project. 
+- Product: Project that the page belongs to in a readable fashion. `.Section` gives this as well, so this field could potentially be deprecated.
+
+Some of these attributes, such as version, are only needed because Hugo currently doesn't have a way of understanding a sub-setcion. As explained earlier, a section is the first level folder inside `/content/`. Any subsequent folders keep that folder name as their `.Section`. This means that `/sensu-core/1.0/examplePage.md` does not know that it's contained within the `1.0` folder without some parsing of it's location. For the time being it's easier to assign a front matter attribute and track it that way.
 
 #### Setting Archtype
 In the `/archtypes/` folder, name the file after the section it will be used for, not forgetting the `.md` extension.
@@ -136,17 +163,20 @@ To be used with Go's templating.
 
 A page's front matter can be accessed through the `.Params` variable.
 
-You can also set global site variables inside the `config.toml`. Here's an example:
+You can also set global site variables inside the `config.toml`. Here's an example of global variables for a project:
 ```
 [params.products.sensu_core]
-         identifier = "sensu-core"
-         name = "Sensu Core"
-         description = "Sensu helps monitoring and does some cool things. It's neato!"
-         weight = 1
-         latest = "1.0"
+    identifier = "sensu-core"
+    name = "Sensu Core"
+    description = "Sensu helps monitoring and does some cool things. It's neato!"
+    weight = 1
+    latest = "1.0"
+    [params.products.sensu_core.versions]
+        "1.0" = ["Ubuntu/Debian", "RHEL/CentOS"]
+        "0.29" = ["General"]
 ```
 
 You can gain access to all the products with `.Site.Params.Products`. You can access a product's attributes like: ` .Site.Params.sensu-core.description`.
 
 ### Search
-Search was added through [this workflow by sebz](https://gist.github.com/sebz/efddfc8fdcb6b480f567) with a few modifications.
+Search was added through lunr js. The search code lives in `/static/javascripts/application.js` and the action of creating the index occurs in the `/Gruntfile`.
