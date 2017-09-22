@@ -2,6 +2,7 @@
 import sys, os
 
 # TODO: TEST THIS BEAST
+# TODO: test for file existence, etc.
 
 def main(argv):
   folder = argv[1]
@@ -11,7 +12,8 @@ def main(argv):
   for filename in os.listdir(folder):
     # open a file and create a temp file to hold our alternation 
     oldFile = open(filename)
-    tmpFile = open("conversionFile.tmp","w+")
+
+    print "Starting file: " + filename
 
     # allow us to keep track of the old front matter we don't want to copy
     startFrontMatter = false;
@@ -19,68 +21,66 @@ def main(argv):
 
     # saves relevant font matter from the old file to be used in the new file
     # title is generally the filename, this key is not being used but may be implemented for use later
-    frontMatter = {"title" = "", "description" = "", "version" = "", "weight" = ""}
+    frontMatter = {"title": "", "description": "", "version": "", "weight": ""}
 
     # for each line in the old file
     for line in oldFile:
-      # only write if we have established we're past the front matter 
-      if (startFrontMatter && endFrontMatter):
-        tmpFile.write(line)
-      # save the previous front matter to a dictionary
+      # we have established we're past the front matter 
+      if (startFrontMatter and endFrontMatter):
+        print "Finished front matter"
+        break;
+      # save the old front matter to a dictionary
       elif (startFrontMatter):
         if (line == "---"):
           endFrontMatter = true
-          if (line.find("title: ")):
+        for attribute in frontMatter:
+          if (line.find(attribute + ": ")):
             tmp = line.split(": ")
-            frontMatter["title"] = tmp[1]
-          elif (line.find("description: "):
-            tmp = line.split(": ")
-            frontMatter["description"] = tmp[1]
-          elif (line.find("version: "):
-            tmp = line.split(": ")
-            frontMatter["version"] = tmp[1]
-          elif (line.find("weight: "):
-            tmp = line.split(": ")
-            frontMatter["weight"] = tmp[1]
+            print "Saving attribute: " + attribute + " with value: " + tmp[1]
+            frontMatter[attribute] = tmp[1]
       # check the first line of the file
       elif (line == "---"):
+        print "Starting front matter"
         startFrontMatter = true
-
-    # close the files since we're done copying the content
-    oldFile.close()
-    tmpFile.close()
 
     # reset this to use in our hugo file
     startFrontMatter = false
 
     # TODO: /filename won't suffice, need to keep track of subdirectories as well
     # may need some splitting or a loop to append the full new path
-    os.system("hugo new " + project + "/" frontMatter["version"] + "/" + filename)
-    hugoFile = open(content + "/" + frontMatter["version"] + "/" + filename, "r+b")
+    newPath = folder + "/" + filename
+    newPath = hugopath.split(frontMatter["version"] + "/")
+    hugoPath = hugoPath[1]
+
+    os.system("hugo new " + project + "/" + frontMatter["version"] + "/" + hugoPath + "/" + filename)
+    hugoFile = open(content + "/" + frontMatter["version"] + "/" + "/" + hugoPath + "/" + filename, "r+b")
+
+    print "Created hugo file"
 
     for line in hugoFile:
-      if (startFrontMatter)
+      if (startFrontMatter):
         # break if we've reached the end of the front matter
         if (line == "---"):
           break
-        elif (line.find("description: ")):
-          line = line + "\"" + frontMatter["description"] + "\""
-        elif (line.find("version: ")):
-          line = line + "\"" + frontMatter["version"] + "\""
-        elif (line.find("weight: ")):
-          line = line + "\"" + frontMatter["weight"] + "\""
-        elif (line.find("menu: ")):
-          menu = project + "-" + frontMatter["version"]
-          line = line + menu
+        for attribute in frontMatter:
+          if (line.find("menu:")):
+            print "Writing attribute: " + attribute
+            menu = " \"" + project + "-" + frontMatter["version"] + "\""
+            line = line + menu
+          elif (line.find(attribute + ":")):
+            print "Writing attribute: " + attribute
+            line = line + " \"" + frontMatter[attribute] + "\""
+      if (line == "---"):
+        startFrontMatter = true
 
     # close our hugo file since we're done editing the front matter
     hugoFile.close()
+    oldFile.close()
 
     # append our temp file to this new hugo file
-    os.system("cat conversionFile.tmp >> " + "content/" + project + "/" fontMatter["version"] + filename)
+    os.system("cat " + filename + " >> content/" + project + "/" + frontMatter["version"] + "/" + hugoPath + "/" + filename)
 
-    # delete temp file and close files
-    os.system("rm conversionFile.tmp")
+    print "Appended to hugo file"
 
 if __name__ == "__main__":
   if (len(sys.argv) == 3):
@@ -88,6 +88,6 @@ if __name__ == "__main__":
   else:
     print "Please supply the following arg(s):"
     print "1: The folder which you'd like to migrate"
-    print "2: The name of the project it belongs to"
+    print "2: The name of the project it belongs to, eg. 'sensu-core'"
     sys.stdout.flush()
 
