@@ -138,35 +138,22 @@ specification][5], and not a definition of a distinct Sensu primitive)._
 
 #### Aggregate `check` attributes
 
-`aggregate`
-: description
-  : Create a named aggregate for the check. Check result data will be
-    aggregated and exposed via the [Sensu Aggregates API][2].
-: required
-  : false
-: type
-  : String
-: default
-  : false
-: example
-  : ~~~ shell
-    "aggregate": "elasticsearch"
-    ~~~
+aggregate    | 
+-------------|------
+description  | Create a named aggregate for the check. Check result data will be aggregated and exposed via the [Sensu Aggregates API][2].
+required     | false
+type         | String
+default      | false
+example      | `"aggregate": "elasticsearch"`
 
-`handle`
-: description
-  : If events created by the check should be handled.
-: required
-  : false
-: type
-  : Boolean
-: default
-  : true
-: example
-  : ~~~ shell
-    "handle": false
-    ~~~
-    _NOTE: although there are cases when it may be helpful to aggregate check
+handle       | 
+-------------|------
+description  | If events created by the check should be handled.
+required     | false
+type         | Boolean
+default      | true
+example      | `"handle": false`
+_NOTE: although there are cases when it may be helpful to aggregate check
     results **and** handle individual check results, it is typically recommended
     to set `"handle": false` when aggregating check results, as the [purpose of
     the aggregation][8] should be to act on the state of the aggregated

@@ -55,6 +55,21 @@ h5 {
   font-style: italic;
 }
 
+/* General Site Wide Components ----------------------------------------------------------------- */
+.article .data table {
+  width: 700px;
+  display: inline-table;
+}
+
+.article .data {
+  padding: 0;
+  overflow: visible;
+}
+
+thead, tbody {
+  width: 100%;
+}
+
 .article {
   font-size: 16px;
 }
@@ -62,8 +77,6 @@ h5 {
 .article h3, .article h4 {
   font-size: 16px;
 }
-
-/* General Site Wide Components ----------------------------------------------------------------- */
 
 .article h4 {
   color: #232323;
