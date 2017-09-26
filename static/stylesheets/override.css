@@ -55,6 +55,14 @@ h5 {
   font-style: italic;
 }
 
+.article {
+  font-size: 16px;
+}
+
+.article h3, .article h4 {
+  font-size: 16px;
+}
+
 /* General Site Wide Components ----------------------------------------------------------------- */
 
 .article h4 {
