@@ -45,21 +45,31 @@ SSL documentation][2] for a detailed guide on configuring RabbitMQ with SSL.
 
 1. OpenSSL is required on the machine that will generate the SSL certificates.
    Install OpenSSL on your platform:
-
-   #### Ubuntu/Debian
+   
+   {{< platformBlock "Ubuntu/Debian" >}}
+   
+   <h5 id="ubuntu-debian"> Ubuntu/Debian </h5>
+   {{< platformDropdown "Ubuntu/Debian" "Sensu-Core" "1.0" "reference/SSL" "generate-self-signed-openssl-certificates-and-ca">}}
 
    ~~~ shell
    sudo apt-get update
    sudo apt-get install openssl
    openssl version
    ~~~
+   
+   {{< platformBlockClose >}}
 
-   #### CentOS/RHEL
+   {{< platformBlock "RHEL/CentOS" >}}
+
+   <h5 id="rhel-centos"> RHEL/CentOS </h5>
+   {{< platformDropdown "RHEL/CentOS" "Sensu-Core" "1.0" "reference/SSL" "generate-self-signed-openssl-certificates-and-ca">}}
 
    ~~~ shell
    sudo yum install openssl
    openssl version
    ~~~
+   
+   {{< platformBlockClose >}}
 
 2. Download the Sensu SSL tool
 

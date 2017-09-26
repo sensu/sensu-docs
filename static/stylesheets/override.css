@@ -46,6 +46,11 @@
   background: #618B25;
 }
 
+h5 {
+  font-size: 14px;
+  font-style: italic;
+}
+
 /* General Site Wide Components ----------------------------------------------------------------- */
 
 .article h4 {

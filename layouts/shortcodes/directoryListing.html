@@ -1,0 +1,8 @@
+{{ $path := .Get 0 }}
+{{ $files := readDir $path }}
+<ul>
+  {{ range $files }}
+    {{ $name := replace .Name ".md" "" }}
+    <li><a href="{{ $name }}" target="_blank"> {{ .Name }}</a></li>
+  {{ end }}
+</ul>
