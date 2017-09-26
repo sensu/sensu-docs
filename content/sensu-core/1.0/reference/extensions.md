@@ -1,7 +1,7 @@
 ---
 title: "Extensions"
 description: "Reference documentation for Sensu Extensions."
-product: "sensu-core"
+product: "Sensu Core"
 version: "1.0"
 weight: 10
 menu: "sensu-core-1.0"

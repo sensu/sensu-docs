@@ -1,7 +1,7 @@
 ---
 title: "Server"
 description: "Reference documentation for the Sensu Server."
-product: "sensu-core"
+product: "Sensu Core"
 version: "1.0"
 weight: 1
 menu: "sensu-core-1.0"

@@ -1,7 +1,7 @@
 ---
 title: "Sensu Transport"
 description: "Reference documentation for the Sensu Transport."
-product: "sensu-core"
+product: "Sensu Core"
 version: "1.0"
 weight: 13
 menu: "sensu-core-1.0"

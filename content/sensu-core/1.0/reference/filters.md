@@ -1,7 +1,7 @@
 ---
 title: "Filters"
 description: "Reference documentation for Sensu Filters."
-product: "sensu-core"
+product: "Sensu Core"
 version: "1.0"
 weight: 6
 menu: "sensu-core-1.0"

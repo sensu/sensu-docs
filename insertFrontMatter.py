@@ -5,6 +5,10 @@ def main(folder, project):
   executingDir = os.getcwd()
   os.chdir(folder)
 
+  projectReadable = project
+  project = project.lower()
+  project = project.replace(" ", "-")
+
   # get only the files and not sub-directories
   files = (file for file in os.listdir(folder)
          if os.path.isfile(os.path.join(folder, file)))
@@ -30,7 +34,7 @@ def main(folder, project):
     hugoFile.write("---\n")
     hugoFile.write("title: \"" + oldFile["title"] + "\"\n")
     hugoFile.write("description: \"" + oldFile["description"] + "\"\n")
-    hugoFile.write("product: \"" + project + "\"\n")
+    hugoFile.write("product: \"" + projectReadable + "\"\n")
     hugoFile.write("version: \"" + str(oldFile["version"]) + "\"\n")
     hugoFile.write("weight: " + str(oldFile["weight"]) + "\n")
     hugoFile.write("menu: \"" + project + "-" + str(oldFile["version"]) + "\"\n")
@@ -62,7 +66,7 @@ if __name__ == "__main__":
   print "This program does not parse sub-directories.\n"
   print "Please enter the absolute path to the folder you'd like to migrate:"
   folder = raw_input()
-  print "Please enter the name of the project it belongs to, eg. \"sensu-core\":"
+  print "Please enter the name of the project it belongs to, eg. \"Sensu Core\":"
   project = raw_input()
   main(folder, project)
 
