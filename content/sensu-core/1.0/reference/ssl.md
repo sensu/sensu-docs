@@ -1,10 +1,11 @@
 ---
 title: "SSL Configuration"
 description: "Reference documentation for using Sensu with SSL."
-version: 1.0
+product: "sensu-core"
+version: "1.0"
 weight: 17
+menu: "sensu-core-1.0"
 ---
-
 # Sensu and SSL
 
 ## Reference documentation

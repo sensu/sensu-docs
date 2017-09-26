@@ -1,13 +1,11 @@
 ---
 title: "Redis Configuration"
 description: "Reference documentation for configuring Redis for use with Sensu."
-version: 1.0
+product: "sensu-core"
+version: "1.0"
 weight: 16
-next:
-  url: "ssl"
-  text: "SSL Configuration"
+menu: "sensu-core-1.0"
 ---
-
 # Redis Configuration
 
 ## Reference documentation

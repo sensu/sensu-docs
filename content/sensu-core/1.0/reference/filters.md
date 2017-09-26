@@ -1,10 +1,11 @@
 ---
 title: "Filters"
 description: "Reference documentation for Sensu Filters."
-version: 1.0
+product: "sensu-core"
+version: "1.0"
 weight: 6
+menu: "sensu-core-1.0"
 ---
-
 # Sensu Filters
 
 ## Reference documentation

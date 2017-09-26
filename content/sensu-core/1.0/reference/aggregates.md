@@ -1,10 +1,11 @@
 ---
 title: "Aggregates"
 description: "Reference documentation for Sensu Named Aggregates."
-version: 1.0
+product: "sensu-core"
+version: "1.0"
 weight: 4
+menu: "sensu-core-1.0"
 ---
-
 # Sensu Named Aggregates
 
 ## Reference documentation
