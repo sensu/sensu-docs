@@ -8,79 +8,128 @@ def main(argv):
   folder = argv[1]
   project = argv[2]
 
+  print "folder: " + folder
+  print "project: " + project
+
+  # save our working directory then change directory
+  executingDir = os.getcwd()
+  os.chdir(folder)
+
   # for each file in specified directory
   for filename in os.listdir(folder):
     # open a file and create a temp file to hold our alternation 
-    oldFile = open(filename)
+    oldFile = open(folder + "/" + filename)
 
     print "Starting file: " + filename
 
     # allow us to keep track of the old front matter we don't want to copy
-    startFrontMatter = false;
-    endFrontMatter = false;
+    startFrontMatter = False;
+    endFrontMatter = False;
 
-    # saves relevant font matter from the old file to be used in the new file
-    # title is generally the filename, this key is not being used but may be implemented for use later
+    # save relevant font matter from the old file to be used in the new file
     frontMatter = {"title": "", "description": "", "version": "", "weight": ""}
+    hugoLineStart = 0
 
     # for each line in the old file
     for line in oldFile:
       # we have established we're past the front matter 
       if (startFrontMatter and endFrontMatter):
-        print "Finished front matter"
-        break;
+        print "Finished saving front matter"
+
+        # go back to our executing directory
+        os.chdir(executingDir)
+
+        # create the Hugo file, returns the path for the file
+        hugoPath = createHugoFile(project, folder, filename, frontMatter)
+        print "Created hugo file"
+
+        # insert our saved front matter, returns the final line of front matter
+        hugoFile = open("content/" + project + "/" + frontMatter["version"].rstrip() + hugoPath, "r+b")
+        #hugoLineStart = insertFrontMatter(project, hugoPath, frontMatter) + 1
+        #print "Finished inserting front matter"
+
+        startFrontMatter = False
+        endFrontMatter = False
       # save the old front matter to a dictionary
       elif (startFrontMatter):
-        if (line == "---"):
-          endFrontMatter = true
+        print line
+        if (line.rstrip() == "---"):
+          endFrontMatter = True
         for attribute in frontMatter:
-          if (line.find(attribute + ": ")):
+          if ((attribute + ": ") in line):
             tmp = line.split(": ")
             print "Saving attribute: " + attribute + " with value: " + tmp[1]
             frontMatter[attribute] = tmp[1]
       # check the first line of the file
-      elif (line == "---"):
+      elif (line.rstrip() == "---"):
         print "Starting front matter"
-        startFrontMatter = true
-
-    # reset this to use in our hugo file
-    startFrontMatter = false
-
-    # TODO: /filename won't suffice, need to keep track of subdirectories as well
-    # may need some splitting or a loop to append the full new path
-    newPath = folder + "/" + filename
-    newPath = hugopath.split(frontMatter["version"] + "/")
-    hugoPath = hugoPath[1]
-
-    os.system("hugo new " + project + "/" + frontMatter["version"] + "/" + hugoPath + "/" + filename)
-    hugoFile = open(content + "/" + frontMatter["version"] + "/" + "/" + hugoPath + "/" + filename, "r+b")
-
-    print "Created hugo file"
-
-    for line in hugoFile:
-      if (startFrontMatter):
-        # break if we've reached the end of the front matter
-        if (line == "---"):
-          break
-        for attribute in frontMatter:
-          if (line.find("menu:")):
-            print "Writing attribute: " + attribute
-            menu = " \"" + project + "-" + frontMatter["version"] + "\""
-            line = line + menu
-          elif (line.find(attribute + ":")):
-            print "Writing attribute: " + attribute
-            line = line + " \"" + frontMatter[attribute] + "\""
-      if (line == "---"):
-        startFrontMatter = true
+        startFrontMatter = True
+      #else:
+        # open hugo file again, append lines from old doc
+        # hugoFile = open("content/" + project + "/" + frontMatter["version"].rstrip() + hugoPath, "r+b")
+        #hugoFile.seek(hugoLineStart, 0)
+        #hugoFile.write(line)
+        #print "Appending :" + line + " to line " + str(hugoLineStart) + " of hugo file"
+        #hugoLineStart = hugoLineStart + 1
 
     # close our hugo file since we're done editing the front matter
     hugoFile.close()
     oldFile.close()
 
-    # append our temp file to this new hugo file
-    os.system("cat " + filename + " >> content/" + project + "/" + frontMatter["version"] + "/" + hugoPath + "/" + filename)
-
+    # append the old file to Hugo file
+    hugoLineStart = hugoLineStart + 1
+    #os.system("sed '" + str(hugoLineStart) + "r " + folder + "/" + filename + "' " + "content/" + project + "/" + frontMatter["version"].rstrip() + hugoPath)
+    # os.system("cat " + folder + "/" + filename + " >> content/" + project + "/" + frontMatter["version"].rstrip() + hugoPath)
     print "Appended to hugo file"
+    break
+
+def createHugoFile(project, folder, filename, frontMatter):
+  # generate the proper path for Hugo
+  hugoPath = ""
+  newPath = folder + filename
+  print newPath
+  newPath2 = newPath.split("/")
+  print newPath2
+  log = False
+  for segment in newPath2:
+    if (segment == frontMatter["version"].rstrip()):
+      log = True
+    elif (log):
+      hugoPath = hugoPath + "/" + segment
+
+  # create the Hugo File
+  # os.system("hugo new " + project + "/" + frontMatter["version"].rstrip() + "/" + hugoPath)
+
+  return hugoPath
+
+def insertFrontMatter(project, hugoPath, frontMatter):
+  hugoFile = open("content/" + project + "/" + frontMatter["version"].rstrip() + hugoPath, "r+b")
+  startFrontMatter = False
+  endFrontMatter = True
+
+  print "Front Matter: "
+  print frontMatter
+
+  for i, line in enumerate(hugoFile, 1):
+    if (startFrontMatter):
+      print line
+      # break if we've reached the end of the front matter and return finish line
+      if (line.rstrip() == "---"):
+        return i
+      frontMatterKeys = frontMatter.keys()
+      frontMatterKeys.append("menu")
+      for attribute in frontMatterKeys:
+          if (line.startswith(attribute + ":")):
+            if (attribute == "menu"):
+              print "Writing attribute: " + attribute
+              menu = " \"" + project + "-" + frontMatter["version"].rstrip() + "\""
+              line = line.rstrip() + menu + "\n"
+            else:
+              print "Writing attribute: " + attribute
+              line = line.rstrip() + " "  + frontMatter[attribute]
+    if (line.rstrip() == "---"):
+      startFrontMatter = True
+  hugoFile.close()
 
 if __name__ == "__main__":
   if (len(sys.argv) == 3):
