@@ -1,12 +1,11 @@
 ---
-title: "Client"
+title: "Sensu Client"
 description: "Reference documentation for Sensu Clients."
 product: "Sensu Core"
 version: "1.0"
 weight: 2
 menu: "sensu-core-1.0"
 ---
-# Sensu Client
 
 ## Reference documentation
 

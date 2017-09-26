@@ -6,7 +6,6 @@ version: "1.0"
 weight: 13
 menu: "sensu-core-1.0"
 ---
-# Sensu Transport
 
 ## Reference documentation
 

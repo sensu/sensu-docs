@@ -1,12 +1,11 @@
 ---
-title: "Handlers"
+title: "Sensu Handlers"
 description: "Reference documentation for Sensu Handlers."
 product: "Sensu Core"
 version: "1.0"
 weight: 8
 menu: "sensu-core-1.0"
 ---
-# Sensu Event Handlers
 
 ## Reference documentation
 

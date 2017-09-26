@@ -6,7 +6,6 @@ version: "1.0"
 weight: 17
 menu: "sensu-core-1.0"
 ---
-# Sensu and SSL
 
 ## Reference documentation
 

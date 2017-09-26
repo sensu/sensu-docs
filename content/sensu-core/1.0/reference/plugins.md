@@ -1,12 +1,11 @@
 ---
-title: "Plugins"
+title: "Sensu Plugins"
 description: "Reference documentation for Sensu Plugins."
 product: "Sensu Core"
 version: "1.0"
 weight: 9
 menu: "sensu-core-1.0"
 ---
-# Sensu Plugins
 
 ## Reference documentation
 

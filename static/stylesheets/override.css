@@ -46,6 +46,10 @@
   background: #618B25;
 }
 
+.article h2 {
+  margin-top: -70px;
+}
+
 h5 {
   font-size: 14px;
   font-style: italic;
@@ -225,8 +229,7 @@ nav {
   padding-left: 5px;
 }
 
-#productVersionNav .platformHolder {
-  margin-top: 15px;
+.platformHolder {
   height: 50px;
   padding-top: 5px;
 }

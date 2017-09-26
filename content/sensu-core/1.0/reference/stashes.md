@@ -1,12 +1,11 @@
 ---
-title: "Stashes"
+title: "Sensu Stashes"
 description: "Reference documentation for Sensu Stashes."
 product: "Sensu Core"
 version: "1.0"
 weight: 11
 menu: "sensu-core-1.0"
 ---
-# Sensu Stashes
 
 ## Reference documentation
 

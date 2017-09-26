@@ -1,12 +1,11 @@
 ---
-title: "Mutators"
+title: "Sensu Mutators"
 description: "Reference documentation for Sensu Mutators."
 product: "Sensu Core"
 version: "1.0"
 weight: 7
 menu: "sensu-core-1.0"
 ---
-# Sensu Mutators
 
 ## Reference documentation
 

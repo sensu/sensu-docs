@@ -6,7 +6,6 @@ version: "1.0"
 weight: 16
 menu: "sensu-core-1.0"
 ---
-# Redis Configuration
 
 ## Reference documentation
 

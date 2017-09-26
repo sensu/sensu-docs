@@ -6,8 +6,6 @@ version: "1.0"
 weight: 4
 menu: "sensu-core-1.0"
 ---
-# Sensu Named Aggregates
-
 ## Reference documentation
 
 - [What is a Sensu named aggregate?](#what-is-a-check-aggregate)

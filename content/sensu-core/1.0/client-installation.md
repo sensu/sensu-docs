@@ -7,7 +7,7 @@ version: "1.0"
 product: "Sensu Core"
 ---
 
-# Install the Sensu Client
+## Install the Sensu Client
 
 Having successfully installed and configured a Sensu server and API (Sensu Core
 or Sensu Enterprise), let's now install and/or configure a Sensu client. The
