@@ -244,174 +244,94 @@ scope][9].
 The following attributes are configured within the `{"handlers": { "HANDLER": {}
 } }` [configuration scope][9] (where `HANDLER` is a valid [handler name][15]).
 
-`type`
-: description
-  : The handler type.
-: required
-  : true
-: type
-  : String
-: allowed values
-  : `pipe`, `tcp`, `udp`, `transport`, `set`
-: example
-  : ~~~ shell
-    "type": "pipe"
-    ~~~
+type           | 
+---------------|------
+description    | The handler type.
+required       | true
+type           | String
+allowed values | `pipe`, `tcp`, `udp`, `transport`, `set`
+example        | `"type": "pipe"`
 
-`filter`
-: description
-  : The Sensu event filter (name) to use when filtering events for the handler.
-: required
-  : false
-: type
-  : String
-: example
-  : ~~~ shell
-    "filter": "recurrence"
-    ~~~
+filter       | 
+-------------|------
+description  | The Sensu event filter (name) to use when filtering events for the handler.
+required     | false
+type         | String
+example      | `"filter": "recurrence"`
 
-`filters`
-: description
-  : An array of Sensu event filters (names) to use when filtering events for the
-    handler. Each array item must be a string.
-: required
-  : false
-: type
-  : Array
-: example
-  : ~~~ shell
-    "filters": ["recurrence", "production"]
-    ~~~
+filters      | 
+-------------|------
+description  | An array of Sensu event filters (names) to use when filtering events for the handler. Each array item must be a string.
+required     | false
+type         | Array
+example      | `"filters": ["recurrence", "production"]`
 
-`severities`
-: description
-  : An array of check result severities the handler will handle.
-    _NOTE: event resolution bypasses this filtering._
-: required
-  : false
-: type
-  : Array
-: allowed values
-  : `warning`, `critical`, `unknown`
-: example
-  : ~~~ shell
-    "severities": ["critical", "unknown"]
-    ~~~
+severities     | 
+---------------|------
+description    | An array of check result severities the handler will handle.<br>_NOTE: event resolution bypasses this filtering._
+required       | false
+type           | Array
+allowed values | `warning`, `critical`, `unknown`
+example        | `"severities": ["critical", "unknown"]`
 
-`mutator`
-: description
-  : The Sensu event mutator (name) to use to mutate event data for the handler.
-: required
-  : false
-: type
-  : String
-: example
-  : ~~~ shell
-    "mutator": "only_check_output"
-    ~~~
+mutator      | 
+-------------|------
+description  | The Sensu event mutator (name) to use to mutate event data for the handler.
+required     | false
+type         | String
+example      | `"mutator": "only_check_output"`
 
-`timeout`
-: description
-  : The handler execution duration timeout in seconds (hard stop). Only used by
-    `pipe` and `tcp` handler types.
-: required
-  : false
-: type
-  : Integer
-: default
-  : `10`
-: example
-  : ~~~ shell
-    "timeout": 30
-    ~~~
+timeout     | 
+------------|------
+description | The handler execution duration timeout in seconds (hard stop). Only used by `pipe` and `tcp` handler types.
+required    | false
+type        | Integer
+default     | `10`
+example     | `"timeout": 30`
 
-`handle_silenced`
-: description
-  : If events matching one or more silence entries should be handled.
-: required
-  : false
-: type
-  : Boolean
-: default
-  : false
-: example
-  : ~~~ shell
-    "handle_silenced": true
-    ~~~
+handle_silenced | 
+----------------|------
+description     | If events matching one or more silence entries should be handled.
+required        | false
+type            | Boolean
+default         | false
+example         | `"handle_silenced": true`
 
-`handle_flapping`
-: description
-  : If events in the flapping state should be handled.
-: required
-  : false
-: type
-  : Boolean
-: default
-  : false
-: example
-  : ~~~ shell
-    "handle_flapping": true
-    ~~~
+handle_flapping | 
+----------------|------
+description     | If events in the flapping state should be handled.
+required        | false
+type            | Boolean
+default         | false
+example         | `"handle_flapping": true`
 
-`command`
-: description
-  : The handler command to be executed. The event data is passed to the process
-    via `STDIN`.
-    _NOTE: the `command` attribute is only supported for Pipe handlers (i.e.
-    handlers configured with `"type": "pipe"`)._
-: required
-  : true (if `type` == `pipe`)
-: type
-  : String
-: example
-  : ~~~ shell
-    "command": "/etc/sensu/plugins/pagerduty.rb"
-    ~~~
+command      | 
+-------------|------
+description  | The handler command to be executed. The event data is passed to the process via `STDIN`.<br>_NOTE: the `command` attribute is only supported for Pipe handlers (i.e. handlers configured with `"type": "pipe"`)._
+required     | true (if `type` == `pipe`)
+type         | String
+example      | `"command": "/etc/sensu/plugins/pagerduty.rb"`
 
-`socket`
-: description
-  : The [`socket` definition scope][13], used to configure the TCP/UDP handler
-    socket.
-    _NOTE: the `socket` attribute is only supported for TCP/UDP handlers (i.e.
-    handlers configured with `"type": "tcp"` or `"type": "udp"`)._
-: required
-  : true (if `type` == `tcp` or `udp`)
-: type
-  : Hash
-: example
-  : ~~~ shell
-    "socket": {}
-    ~~~
+socket       | 
+-------------|------
+description  | The [`socket` definition scope][13], used to configure the TCP/UDP handler socket.<br>_NOTE: the `socket` attribute is only supported for TCP/UDP handlers (i.e. handlers configured with `"type": "tcp"` or `"type": "udp"`)._
+required     | true (if `type` == `tcp` or `udp`)
+type         | Hash
+example      | `"socket": {}`
 
-`pipe`
-: description
-  : The [`pipe` definition scope][14], used to configure the Sensu transport
-    pipe.
-    _NOTE: the `pipe` attribute is only supported for Transport handlers (i.e.
-    handlers configured with `"type": "transport"`)._
-: required
-  : true (if `type` == `transport`)
-: type
-  : Hash
-: example
-  : ~~~ shell
-    "pipe": {}
-    ~~~
+pipe         | 
+-------------|------
+description  | The [`pipe` definition scope][14], used to configure the Sensu transport pipe.<br>_NOTE: the `pipe` attribute is only supported for Transport handlers (i.e. handlers configured with `"type": "transport"`)._
+required     | true (if `type` == `transport`)
+type         | Hash
+example      | `"pipe": {}`
 
-`handlers`
-: description
-  : An array of Sensu event handlers (names) to use for events using the handler
-    set. Each array item must be a string.
-    _NOTE: the `handlers` attribute is only supported for handler sets (i.e.
-    handlers configured with `"type": "set"`)._
-: required
-  : true (if `type` == `set`)
-: type
-  : Array
-: example
-  : ~~~ shell
-    "handlers": ["pagerduty", "email", "ec2"]
-    ~~~
+handlers     | 
+-------------|------
+description  | An array of Sensu event handlers (names) to use for events using the handler set. Each array item must be a string.<br>_NOTE: the `handlers` attribute is only supported for handler sets (i.e. handlers configured with `"type": "set"`)._
+required     | true (if `type` == `set`)
+type         | Array
+example      | `"handlers": ["pagerduty", "email", "ec2"]`
 
 #### `socket` attributes
 
@@ -440,29 +360,19 @@ handlers configured with `"type": "tcp"` or `"type": "udp"`)._
 
 ##### ATTRIBUTES {#socket-attributes-specification}
 
-`host`
-: description
-  : The socket host address (IP or hostname) to connect to.
-: required
-  : true
-: type
-  : String
-: example
-  : ~~~ shell
-    "host": "8.8.8.8"
-    ~~~
+host         | 
+-------------|------
+description  | The socket host address (IP or hostname) to connect to.
+required     | true
+type         | String
+example      | `"host": "8.8.8.8"`
 
-`port`
-: description
-  : The socket port to connect to.
-: required
-  : true
-: type
-  : Integer
-: example
-  : ~~~ shell
-    "port": 4242
-    ~~~
+port         | 
+-------------|------
+description  | The socket port to connect to.
+required     | true
+type         | Integer
+example      | `"port": 4242`
 
 #### `pipe` attributes
 
@@ -491,52 +401,32 @@ handlers configured with `"type": "transport"`)._
 
 ##### ATTRIBUTES {#pipe-attributes-specification}
 
-`type`
-: description
-  : The Sensu transport pipe type.
-: required
-  : true
-: type
-  : String
-: allowed values
-  : `direct`, `fanout`, `topic`
-: example
-  : ~~~ shell
-    "type": "direct"
-    ~~~
+type           | 
+---------------|------
+description    | The Sensu transport pipe type.
+required       | true
+type           | String
+allowed values | `direct`, `fanout`, `topic`
+example        | `"type": "direct"`
 
 _NOTE: types `direct`, `fanout` and `topic` are supported by the default
 RabbitMQ transport. Redis and other transports may only implement a subset of
 these._
 
-`name`
-: description
-  : The Sensu transport pipe name.
-: required
-  : true
-: type
-  : String
-: example
-  : ~~~ shell
-    "name": "graphite_plaintext"
-    ~~~
+name         | 
+-------------|------
+description  | The Sensu transport pipe name.
+required     | true
+type         | String
+example      | `"name": "graphite_plaintext"`
 
-`options`
-: description
-  : The Sensu transport pipe options. These options may be specific to the Sensu
-    transport in use.
-: required
-  : false
-: type
-  : Hash
-: default
-  : `{}`
-: example
-  : ~~~ shell
-    "options": {"durable": true}
-    ~~~
-
-
+options      | 
+-------------|------
+description  | The Sensu transport pipe options. These options may be specific to the Sensu transport in use.
+required     | false
+type         | Hash
+default      | `{}`
+example      | `"options": {"durable": true}`
 
 [?]:  #
 [1]:  server.html
