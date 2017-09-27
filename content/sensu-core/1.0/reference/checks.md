@@ -334,341 +334,181 @@ Every check definition is within the `"checks": {}` [configuration scope][29].
 The following attributes are configured within the `{"checks": { "CHECK": {} }
 }` [configuration scope][29] (where `CHECK` is a valid [check name][41]).
 
-`type`
-: description
-  : The check type, either `standard` or `metric`. Setting type to `metric` will
-    cause OK (exit 0) check results to create events.
-: required
-  : false
-: type
-  : String
-: allowed values
-  : `standard`, `metric`
-: default
-  : `standard`
-: example
-  : ~~~ shell
-    "type": "metric"
-    ~~~
+type            | 
+----------------|------
+description     | The check type, either `standard` or `metric`. Setting type to `metric` will cause OK (exit 0) check results to create events.
+required        | false
+type            | String
+allowed values  | `standard`, `metric`
+default         | `standard`
+example         | `"type": "metric"`
 
-`command`
-: description
-  : The check command to be executed.
-: required
-  : true (unless `extension` is configured)
-: type
-  : String
-: example
-  : ~~~ shell
-    "command": "/etc/sensu/plugins/check-chef-client.rb"
-    ~~~
+command      | 
+-------------|------
+description  | The check command to be executed.
+required     | true (unless `extension` is configured)
+type         | String
+example      | `"command": "/etc/sensu/plugins/check-chef-client.rb"`
 
-`extension`
-: description
-  : The name of a Sensu check extension to run instead of a command. This is an
-    _advanced feature_ and is not commonly used.
-: required
-  : true (unless `command` is configured)
-: type
-  : String
-: example
-  : ~~~ shell
-    "extension": "system_profile"
-    ~~~
+extension    | 
+-------------|------
+description  | The name of a Sensu check extension to run instead of a command. This is an _advanced feature_ and is not commonly used.
+required     | true (unless `command` is configured)
+type         | String
+example      | `"extension": "system_profile"`
 
-`standalone`
-: description
-  : If the check is scheduled by the local Sensu client instead of the Sensu
-    server (standalone mode).
-: required
-  : false
-: type
-  : Boolean
-: default
-  : false
-: example
-  : ~~~ shell
-    "standalone": true
-    ~~~
+standalone   | 
+-------------|------
+description  | If the check is scheduled by the local Sensu client instead of the Sensu server (standalone mode).
+required     | false
+type         | Boolean
+default      | false
+example      | `"standalone": true`
 
-`subscribers`
-: description
-  : An array of Sensu client subscriptions that check requests will be sent to.
-    The array cannot be empty and its items must each be a string.
-: required
-  : true (unless `standalone` is `true`)
-: type
-  : Array
-: example
-  : ~~~ shell
-    "subscribers": ["production"]
-    ~~~
+subscribers  | 
+-------------|------
+description  | An array of Sensu client subscriptions that check requests will be sent to. The array cannot be empty and its items must each be a string.
+required     | true (unless `standalone` is `true`)
+type         | Array
+example      | `"subscribers": ["production"]`
 
-`publish`
-: description
-  : If check requests are published for the check.
-: required
-  : false
-: type
-  : Boolean
-: default
-  : true
-: example
-  : ~~~ shell
-    "publish": false
-    ~~~
+publish      | 
+-------------|------
+description  | If check requests are published for the check.
+required     | false
+type         | Boolean
+default      | true
+example      | "publish": false
 
-`interval`
-: description
-  : The frequency in seconds the check is executed.
-: required
-  : true (unless `publish` is `false` or `cron` is configured)
-: type
-  : Integer
-: example
-  : ~~~ shell
-    "interval": 60
-    ~~~
+interval     | 
+-------------|------
+description  | The frequency in seconds the check is executed.
+required     | true (unless `publish` is `false` or `cron` is configured)
+type         | Integer
+example      | `"interval": 60`
 
-`cron`
-: description
-  : When the check should be executed, using the [Cron syntax][47].
-: required
-  : true (unless `publish` is `false` or `interval` is configured)
-: type
-  : String
-: example
-  : ~~~ shell
-    "cron": "0 0 * * *"
-    ~~~
+cron         | 
+-------------|------
+description  | When the check should be executed, using the [Cron syntax][47].
+required     | true (unless `publish` is `false` or `interval` is configured)
+type         | String
+example      | `"cron": "0 0 * * *"`
 
-`timeout`
-: description
-  : The check execution duration timeout in seconds (hard stop).
-: required
-  : false
-: type
-  : Integer
-: example
-  : ~~~ shell
-    "timeout": 30
-    ~~~
+timeout      | 
+-------------|------
+description  | The check execution duration timeout in seconds (hard stop).
+required     | false
+type         | Integer
+example      | `"timeout": 30`
 
-`ttl`
-: description
-  : The time to live (TTL) in seconds until check results are considered stale.
-    If a client stops publishing results for the check, and the TTL expires, an
-    event will be created for the client. The check `ttl` must be greater than
-    the check `interval`, and should accommodate time for the check execution and
-    result processing to complete. For example, if a check has an `interval` of
-    `60` (seconds) and a `timeout` of `30` (seconds), an appropriate `ttl` would
-    be a minimum of `90` (seconds).
-: required
-  : false
-: type
-  : Integer
-: example
-  : ~~~ shell
-    "ttl": 100
-    ~~~
+ttl          | 
+-------------|------
+description  | The time to live (TTL) in seconds until check results are considered stale. If a client stops publishing results for the check, and the TTL expires, an event will be created for the client. The check `ttl` must be greater than the check `interval`, and should accommodate time for the check execution and result processing to complete. For example, if a check has an `interval` of `60` (seconds) and a `timeout` of `30` (seconds), an appropriate `ttl` would be a minimum of `90` (seconds).
+required     | false
+type         | Integer
+example      | `"ttl": 100`
 
-`auto_resolve`
-: description
-  : When a check in a `WARNING` or `CRITICAL` state returns to an `OK` state,
-    the event generated by the `WARNING` or `CRITICAL` state will be
-    automatically resolved. Setting `auto_resolve` to `false` will prevent this
-    automatic event resolution from occurring. This is useful in situations
-    where you want to explicitly require manual resolution of an event, e.g. via
-    the API or a dashboard.
-: required
-  : false
-: type
-  : Boolean
-: default
-  : true
-: example
-  : ~~~ shell
-    "auto_resolve": false
-    ~~~
+auto_resolve | 
+-------------|------
+description  | When a check in a `WARNING` or `CRITICAL` state returns to an `OK` state, the event generated by the `WARNING` or `CRITICAL` state will be automatically resolved. Setting `auto_resolve` to `false` will prevent this automatic event resolution from occurring. This is useful in situations where you want to explicitly require manual resolution of an event, e.g. via the API or a dashboard.
+required     | false
+type         | Boolean
+default      | true
+example      | `"auto_resolve": false`
 
-`force_resolve`
-: description
-  : Setting `force_resolve` to `true` on a check result ensures that the event
-  is resolved and removed from the registry, regardless of the current event
-  action. This attribute is used internally by [Sensu's `/resolve` API][45].
-: required
-  : false
-: type
-  : Boolean
-: default
-  : false
-: example
-  : ~~~ shell
-    "force_resolve": true
-    ~~~
+force_resolve | 
+--------------|------
+description   | Setting `force_resolve` to `true` on a check result ensures that the event is resolved and removed from the registry, regardless of the current event action. This attribute is used internally by [Sensu's `/resolve` API][45].
+required      | false
+type          | Boolean
+default       | false
+example       | `"force_resolve": true`
 
-`handle`
-: description
-  : If events created by the check should be handled.
-: required
-  : false
-: type
-  : Boolean
-: default
-  : true
-: example
-  : ~~~ shell
-    "handle": false
-    ~~~
+handle       | 
+-------------|------
+description  | If events created by the check should be handled.
+required     | false
+type         | Boolean
+default      | true
+example      | `"handle": false`
 
-`handler`
-: description
-  : The Sensu event handler (name) to use for events created by the check.
-: required
-  : false
-: type
-  : String
-: example
-  : ~~~ shell
-    "handler": "pagerduty"
-    ~~~
+handler      | 
+-------------|------
+description  | The Sensu event handler (name) to use for events created by the check.
+required     | false
+type         | String
+example      | `"handler": "pagerduty"`
 
-`handlers`
-: description
-  : An array of Sensu event handlers (names) to use for events created by the
-    check. Each array item must be a string.
-: required
-  : false
-: type
-  : Array
-: example
-  : ~~~ shell
-    "handlers": ["pagerduty", "email"]
-    ~~~
+handlers     | 
+-------------|------
+description  | An array of Sensu event handlers (names) to use for events created by the check. Each array item must be a string.
+required     | false
+type         | Array
+example      | `"handlers": ["pagerduty", "email"]`
 
-`low_flap_threshold`
-: description
-  : The flap detection low threshold (% state change) for the check. Sensu uses
-    the same [flap detection algorithm as Nagios][31].
-: required
-  : false
-: type
-  : Integer
-: example
-  : ~~~ shell
-    "low_flap_threshold": 20
-    ~~~
+low_flap_threshold | 
+-------------------|------
+description        | The flap detection low threshold (% state change) for the check. Sensu uses the same [flap detection algorithm as Nagios][31].
+required           | false
+type               | Integer
+example            | `"low_flap_threshold": 20`
 
-`high_flap_threshold`
-: description
-  : The flap detection high threshold (% state change) for the check. Sensu uses
-    the same [flap detection algorithm as Nagios][31].
-: required
-  : true (if `low_flap_threshold` is configured)
-: type
-  : Integer
-: example
-  : ~~~ shell
-    "high_flap_threshold": 60
-    ~~~
+high_flap_threshold | 
+--------------------|------
+description         | The flap detection high threshold (% state change) for the check. Sensu uses the same [flap detection algorithm as Nagios][31].
+required            | true (if `low_flap_threshold` is configured)
+type                | Integer
+example             | `"high_flap_threshold": 60`
 
-`source`
-: description
-  : The check source, used to create a [JIT Sensu client][32] for an external
-    resource (e.g. a network switch).
-: required
-  : false
-: type
-  : String
-: validated
-  : `/^[\w\.-]+$/`
-: example
-  : ~~~ shell
-    "source": "switch-dc-01"
-    ~~~
+source       | 
+-------------|------
+description  | The check source, used to create a [JIT Sensu client][32] for an external resource (e.g. a network switch).
+required     | false
+type         | String
+validated    | `/^[\w\.-]+$/`
+example      | `"source": "switch-dc-01"`
 
-`aggregate`
-: description
-  : Create a named aggregate for the check. Check result data will be aggregated
-    and exposed via the [Sensu Aggregates API][33].
-    _NOTE: named aggregates are new to [Sensu version 0.24][43], now being
-    defined with a String data type rather than a Boolean (i.e. `true` or
-    `false`). Legacy check definitions with `"aggregate": true` attributes will
-    default to using the check name as the aggregate name._
-: required
-  : false
-: type
-  : String
-: example
-  : ~~~ shell
-    "aggregate": "proxy_servers"
-    ~~~
+aggregate    | 
+-------------|------
+description  | Create a named aggregate for the check. Check result data will be aggregated and exposed via the [Sensu Aggregates API][33]. <br>_NOTE: named aggregates are new to [Sensu version 0.24][43], now being defined with a String data type rather than a Boolean (i.e. `true` or `false`). Legacy check definitions with `"aggregate": true` attributes will default to using the check name as the aggregate name._
+required     | false
+type         | String
+example      | `"aggregate": "proxy_servers"`
 
-`aggregates`
-: description
-  : An array of strings defining one or more named aggregates (described above).
-: required
-  : false
-: type
-  : Array
-: example
-  : ~~~ shell
-    "aggregates": [ "webservers", "production" ]
-    ~~~
+aggregates   | 
+-------------|------
+description  | An array of strings defining one or more named aggregates (described above).
+required     | false
+type         | Array
+example      | `"aggregates": [ "webservers", "production" ]`
 
-`subdue`
-: description
-  : The [`subdue` definition scope][42], used to determine when a check is
-    subdued.
-: required
-  : false
-: type
-  : Hash
-: example
-  : ~~~ shell
-    "subdue": {}
-    ~~~
+subdue       | 
+-------------|------
+description  | The [`subdue` definition scope][42], used to determine when a check is subdued.
+required     | false
+type         | Hash
+example      | `"subdue": {}`
 
-`contact`
-: description
-  : A contact name to use for the check.
-    **ENTERPRISE: This configuration is provided for using [Contact
-    Routing][44].**
-: required
-  : false
-: type
-  : String
-: example
-  : ~~~ shell
-    "contact": "ops"
-    ~~~
+contact      | 
+-------------|------
+description  | A contact name to use for the check. <br>**ENTERPRISE: This configuration is provided for using [Contact Routing][44].**
+required     | false
+type         | String
+example      | `"contact": "ops"`
 
-`contacts`
-: description
-  : An array of contact names to use for the check. Each array item (name) must
-    be a string.
-    **ENTERPRISE: This configuration is provided for using [Contact
-    Routing][44].**
-: required
-  : false
-: type
-  : Array
-: example
-  : ~~~ shell
-    "contacts": ["ops"]
-    ~~~
+contacts     | 
+-------------|------
+description  | An array of contact names to use for the check. Each array item (name) must be a string. <br>**ENTERPRISE: This configuration is provided for using [Contact Routing][44].**
+required     | false
+type         | Array
+example      | `"contacts": ["ops"]`
 
-`proxy_requests`
-: description
-  : The [`proxy_requests` definition scope][48], used to create proxy check requests.
-: required
-  : false
-: type
-  : Hash
-: example
-  : ~~~ shell
-    "proxy_requests": {}
-    ~~~
+proxy_requests | 
+---------------|------
+description    | The [`proxy_requests` definition scope][48], used to create proxy check requests.
+required       | false
+type           | Hash
+example        | `"proxy_requests": {}`
 
 #### `subdue` attributes
 
@@ -700,32 +540,12 @@ name][41]).
 
 ##### ATTRIBUTES {#subdue-attributes-specification}
 
-`days`
-: description
-  : A hash of days of the week or 'all', each day specified must
-  define one or more time windows in which the check is not scheduled to
-  be executed.
-: required
-  : false (unless `subdue` is configured)
-: type
-  : Hash
-: example
-  : ~~~ shell
-    "days": {
-      "all": [
-        {
-          "begin": "5:00 PM",
-          "end": "8:00 AM"
-        }
-      ],
-      "friday": [
-        {
-          "begin": "12:00 PM",
-          "end": "5:00 PM"
-        }
-      ]
-    }
-    ~~~
+days         | 
+-------------|------
+description  | A hash of days of the week or 'all', each day specified must define one or more time windows in which the check is not scheduled to be executed.
+required     | false (unless `subdue` is configured)
+type         | Hash
+example      | `"days": {`<br>&emsp;`"all": [`<br>&emsp;&emsp;`{`<br>&emsp;&emsp;&emsp;`"begin": "5:00 PM",`<br>&emsp;&emsp;&emsp;`"end": "8:00 AM"`<br>&emsp;&emsp;`}`<br>&emsp;`],`<br>&emsp;`"friday": [`<br>&emsp;&emsp;`{`<br>&emsp;&emsp;&emsp;`"begin": "12:00 PM",`<br>&emsp;&emsp;&emsp;`"end": "5:00 PM"`<br>&emsp;&emsp;`}`<br>&emsp;`]`<br>` }`
 
 #### `proxy_requests` attributes {#proxy-requests-attributes}
 
@@ -766,22 +586,12 @@ check `source` is set to the client `name`.
 
 ##### ATTRIBUTES {#proxy-requests-attributes-specification}
 
-`client_attributes`
-: description
-  : Sensu client attributes to match clients in the registry.
-: required
-  : true
-: type
-  : Hash
-: example
-  : ~~~ shell
-    "client_attributes": {
-      "keepalive": false,
-      "device_type": "router",
-      "device_manufacturer": "arista",
-      "subscriptions": "eval: value.include?('dc-01')"
-    }
-    ~~~
+client_attributes | 
+------------------|------
+description       | Sensu client attributes to match clients in the registry.
+required          | true
+type              | Hash
+example           | `"client_attributes": {`<br>&emsp;`"keepalive": false,`<br>&emsp;`"device_type": "router",`<br>&emsp;`"device_manufacturer": "arista",`<br>&emsp;`"subscriptions": "eval: value.include?('dc-01')"`<br>`}`
 
 You can, as above, also use `eval` to perform more complicated filtering with Ruby on the available `value`, such as finding clients with particular subscriptions.
 
@@ -831,135 +641,77 @@ automatically added by the client to build a complete check result.
 
 #### `check` attributes {#check-result-check-attributes}
 
-`status`
-: description
-  : The check execution exit status code. An exit status code of `0` (zero)
-    indicates `OK`, `1` indicates `WARNING`, and `2` indicates `CRITICAL`; exit
-    status codes other than `0`, `1`, or `2` indicate an `UNKNOWN` or custom
-    status.
-: required
-  : true
-: type
-  : Integer
-: example
-  : ~~~ shell
-    "status": 0
-    ~~~
+status       | 
+-------------|------
+description  | The check execution exit status code. An exit status code of `0` (zero) indicates `OK`, `1` indicates `WARNING`, and `2` indicates `CRITICAL`; exit status codes other than `0`, `1`, or `2` indicate an `UNKNOWN` or custom status.
+required     | true
+type         | Integer
+example      | `"status": 0`
 
-`command`
-: description
-  : The command as [provided by the check definition][17].
-: required
-  : false
-: type
-  : String
-: example
-  : ~~~ shell
-    "command": "check-http.rb -u https://sensuapp.org"
-    ~~~
+command      | 
+-------------|------
+description  | The command as [provided by the check definition][17].
+required     | false
+type         | String
+example      | `"command": "check-http.rb -u https://sensuapp.org"`
 
-`subscribers`
-: description
-  : The check subscribers as [provided by the check definition][17].
-: required
-  : false
-: type
-  : Array
-: example
-  : ~~~ shell
-    "subscribers": ["database_servers"]
-    ~~~
+subscribers  | 
+-------------|------
+description  | The check subscribers as [provided by the check definition][17].
+required     | false
+type         | Array
+example      | `"subscribers": ["database_servers"]`
 
-`interval`
-: description
-  : The check interval in seconds, as [provided by the check definition][17]
-: required
-  : false
-: type
-  : Integer
-: example
-  : ~~~ shell
-    "interval": 60
-    ~~~
+interval     | 
+-------------|------
+description  | The check interval in seconds, as [provided by the check definition][17]
+required     | false
+type         | Integer
+example      | `"interval": 60`
 
-`name`
-: description
-  : The check name, as [provided by the check definition][17]
-: required
-  : true
-: type
-  : String
-: example
-  : ~~~ shell
-    "name": "sensu-website"
-    ~~~
+name         | 
+-------------|------
+description  | The check name, as [provided by the check definition][17]
+required     | true
+type         | String
+example      | `"name": "sensu-website"`
 
-`issued`
-: description
-  : The time the check request was issued (by the [Sensu server][6] or
-    [client][1]), stored as an integer (i.e. `Time.now.to_i`)
-: required
-  : false
-: type
-  : Integer
-: example
-  : ~~~ shell
-    "issued": 1458934742
-    ~~~
+issued       | 
+-------------|------
+description  | The time the check request was issued (by the [Sensu server][6] or [client][1]), stored as an integer (i.e. `Time.now.to_i`)
+required     | false
+type         | Integer
+example      | `"issued": 1458934742`
 
-`executed`
-: description
-  : The time the check request was executed by the [Sensu client][1], stored as
-    and integer (i.e. `Time.now.to_i`).
-: required
-  : false
-: type
-  : Integer
-: example
-  : ~~~ shell
-    "executed": 1458934742
-    ~~~
+executed     | 
+-------------|------
+description  | The time the check request was executed by the [Sensu client][1], stored as and integer (i.e. `Time.now.to_i`).
+required     | false
+type         | Integer
+example      | `"executed": 1458934742`
 
-`duration`
-: description
-  : The amount of time (in seconds) it took for the [Sensu client][1] to execute
-    the check.
-: required
-  : false
-: type
-  : Float
-: example
-  : ~~~ shell
-    "duration": 0.637
-    ~~~
+duration     | 
+-------------|------
+description  | The amount of time (in seconds) it took for the [Sensu client][1] to execute the check.
+required     | false
+type         | Float
+example      | `"duration": 0.637`
 
-`output`
-: description
-  : The output produced by the check `command`.
-: required
-  : true
-: type
-  : String
-: example
-  : ~~~ shell
-    "output": "CheckHttp OK: 200, 78572 bytes\n"
-    ~~~
+output       | 
+-------------|------
+description  | The output produced by the check `command`.
+required     | true
+type         | String
+example      | `"output": "CheckHttp OK: 200, 78572 bytes\n"`
 
 
 #### `client` attributes {#check-result-client-attributes}
 
-`name`
-: description
-  : The name of the [Sensu client][1] that generated the check result. The Sensu
-    server will use the client `name` value to fetch the corresponding client
-    attributes from the [Clients API][39] and add them to the resulting [Sensu
-    event][34] for context.
-: type
-  : String
-: example
-  : ~~~ shell
-    "output": "i-424242"
-    ~~~
+name         | 
+-------------|------
+description  | The name of the [Sensu client][1] that generated the check result. The Sensu server will use the client `name` value to fetch the corresponding client attributes from the [Clients API][39] and add them to the resulting [Sensu event][34] for context.
+type         | String
+example      | `"output": "i-424242"`
 
 
 [?]:  #
