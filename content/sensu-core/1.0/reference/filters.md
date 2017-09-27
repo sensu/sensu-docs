@@ -332,58 +332,27 @@ filter definition is within the `"filters": {}` definition scope.
 
 #### Filter attributes
 
-`negate`
-: description
-  : If the filter will negate events that match the filter attributes.
-    _NOTE: see [Inclusive and exclusive filtering][4] for more information._
-: required
-  : false
-: type
-  : Boolean
-: default
-  : `false`
-: example
-  : ~~~ shell
-    "negate": true
-    ~~~
+negate       | 
+-------------|------
+description  | If the filter will negate events that match the filter attributes.<br>_NOTE: see [Inclusive and exclusive filtering][4] for more information._
+required     | false
+type         | Boolean
+default      | `false`
+example      | `"negate": true`
 
-`attributes`
-: description
-  : Filter attributes to be compared with Event data.
-: required
-  : true
-: type
-  : Hash
-: example
-  : ~~~ shell
-    "attributes": {
-      "check": {
-        "team": "ops"
-      }
-    }
-    ~~~
+attributes   | 
+-------------|------
+description  | Filter attributes to be compared with Event data.
+required     | true
+type         | Hash
+example      | `"attributes": {`<br>&emsp;`"check": {`<br>&emsp;`"team": "ops"`<br>&emsp;`}`<br>`}`
 
-`when`
-: description
-  : The [`when` definition scope][14], used to determine when a
-  filter is applied (time windows).
-: required
-  : false
-: type
-  : Hash
-: example
-  : ~~~ shell
-    "when": {
-      "days": {
-        "all": [
-          {
-            "begin": "5:00 PM",
-            "end": "8:00 AM"
-          }
-        ]
-      }
-    }
-    ~~~
+when         | 
+-------------|------
+description  | The [`when` definition scope][14], used to determine when a filter is applied (time windows).
+required     | false
+type         | Hash
+example      | `"when": {`<br>&emsp;`"days": {`<br>&emsp;&emsp;`"all": [`<br>&emsp;&emsp;&emsp;`{`<br>&emsp;&emsp;&emsp;&emsp;`"begin": "5:00 PM",`<br>&emsp;&emsp;&emsp;&emsp;`"end": "8:00 AM"`<br>&emsp;&emsp;&emsp;`}`<br>&emsp;&emsp;`]`<br>&emsp;`}`<br>`}`
 
 #### `when` attributes
 
@@ -419,31 +388,12 @@ name][15]).
 
 ##### ATTRIBUTES {#when-attributes-specification}
 
-`days`
-: description
-  : A hash of days of the week or 'all', each day specified defines
-  one or more time windows in which the filter is applied.
-: required
-  : false (unless `when` is configured)
-: type
-  : Hash
-: example
-  : ~~~ shell
-    "days": {
-      "all": [
-        {
-          "begin": "5:00 PM",
-          "end": "8:00 AM"
-        }
-      ],
-      "friday": [
-        {
-          "begin": "12:00 PM",
-          "end": "5:00 PM"
-        }
-      ]
-    }
-    ~~~
+days         | 
+-------------|------
+description  | A hash of days of the week or 'all', each day specified defines one or more time windows in which the filter is applied.
+required     | false (unless `when` is configured)
+type         | Hash
+example      | `"days": {`<br>&emsp;`"all": [`<br>&emsp;&emsp;`{`<br>&emsp;&emsp;&emsp;`"begin": "5:00 PM",`<br>&emsp;&emsp;&emsp;`"end": "8:00 AM"`<br>&emsp;&emsp;`}`<br>&emsp;`],`<br>&emsp;`"friday": [`<br>&emsp;&emsp;`{`<br>&emsp;&emsp;&emsp;`"begin": "12:00 PM",`<br>&emsp;&emsp;&emsp;`"end": "5:00 PM"`<br>&emsp;&emsp;`}`<br>&emsp;`]`<br>`}`
 
 [1]:  handlers.html
 [2]:  #filter-definition-specification
