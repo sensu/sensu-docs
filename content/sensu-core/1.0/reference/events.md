@@ -99,128 +99,65 @@ formatted, making it language-independent and fairly human readable.
 The following attributes are available in the root scope of the event data JSON
 document:
 
-`id`
-: description
-  : Persistent unique ID for the event.
-: type
-  : String
-: possible values
-  : Any [Ruby `SecureRandom.uuid` value][7]
-: example
-  : ~~~ shell
-    "id": "66926524-da77-41a4-92bd-365498841079"
-    ~~~
+id              | 
+----------------|------
+description     | Persistent unique ID for the event.
+type            | String
+possible values | Any [Ruby `SecureRandom.uuid` value][7]
+example         | `"id": "66926524-da77-41a4-92bd-365498841079"`
 
-`timestamp`
-: description
-  : The time the event occurred in [Epoch time][6] (generated via Ruby
-    `Time.now.to_i`)
-: type
-  : Integer
-: example
-  : ~~~ shell
-    "timestamp": 1460172826
-    ~~~
+timestamp    | 
+-------------|------
+description  | The time the event occurred in [Epoch time][6] (generated via Ruby `Time.now.to_i`)
+type         | Integer
+example      | `"timestamp": 1460172826`
 
-`action`
-: description
-  : The Sensu event action, providing event handlers with more information about
-    the state change.
-: type
-  : String
-: possible values
-  : `create`, `resolve`, `flapping`
-: default
-  : `create`
-: example
-  : ~~~ shell
-    "action": "create"
-    ~~~
+action          | 
+----------------|------
+description     | The Sensu event action, providing event handlers with more information about the state change.
+type            | String
+possible values | `create`, `resolve`, `flapping`
+default         | `create`
+example         | `"action": "create"`
 
-`occurrences`
-: description
-  : The occurrence count for the event; the number of times an event has been
-    created for a client/check pair with the same state (check status).
-: type
-  : Integer
-: default
-  : `1`
-: example
-  : ~~~ shell
-    "occurrences": 3
-    ~~~
+occurrences  | 
+-------------|------
+description  | The occurrence count for the event; the number of times an event has been created for a client/check pair with the same state (check status).
+type         | Integer
+default      | `1`
+example      | `"occurrences": 3`
 
-`occurrences_watermark`
-: description
-  : The "high water mark" tracking number of occurrences at the current severity.
-: type
-  : Integer
-: default
-  : `1`
-: example
-  : ~~~ shell
-    "occurrences_watermark": 3
-    ~~~
+occurrences_watermark | 
+----------------------|------
+description           | The "high water mark" tracking number of occurrences at the current severity.
+type                  | Integer
+default               | `1`
+example               | `"occurrences_watermark": 3`
 
-`check`
-: description
-  : The check result [check attributes][8].
-: type
-  : Hash
-: example
-  : ~~~ shell
-    "check":{
-      "name": "chef_client",
-      "command": "/etc/sensu/plugins/check-chef-client.rb",
-      "subscribers": [
-        "production"
-      ],
-      "interval": 60,
-      "handler": "slack",
-      "issued": 1326390169,
-      "output": "WARNING - Chef client process is NOT running",
-      "status": 1,
-      "history": [
-        "0",
-        "1"
-      ]
-    }
-    ~~~
+check        | 
+-------------|------
+description  | The check result [check attributes][8].
+type         | Hash
+example      | `"check":{`<br>&emsp;`"name": "chef_client",`<br>&emsp;`"command": "/etc/sensu/plugins/check-chef-client.rb",`<br>&emsp;`"subscribers": [`<br>&emsp;&emsp;`"production"`<br>&emsp;`],`<br>&emsp;`"interval": 60,`<br>&emsp;`"handler": "slack",`<br>&emsp;`"issued": 1326390169,`<br>&emsp;`"output": "WARNING - Chef client process is NOT running",`<br>&emsp;`"status": 1,`<br>&emsp;`"history": [`<br>&emsp;&emsp;`"0",`<br>&emsp;&emsp;`"1"`<br>&emsp;`]`<br>`}`
 
-`client`
-: description
-  : [Client attributes][9] from the originating client, or the proxy client
-    attributes, in the case of an event from a proxy client.
-: type
-  : Hash
-: example
-  : ~~~ shell
-    "client": {
-      "name": "i-424242",
-      "address": "8.8.8.8",
-      "subscriptions": [
-        "production",
-        "webserver",
-        "mysql"
-      ],
-      "timestamp": 1326390159
-    }
-    ~~~
+client       | 
+-------------|------
+description  | [Client attributes][9] from the originating client, or the proxy client attributes, in the case of an event from a proxy client.
+type         | Hash
+example      | `"client": {`<br>&emsp;`"name": "i-424242",`<br>&emsp;`"address": "8.8.8.8",`<br>&emsp;`"subscriptions": [`<br>&emsp;&emsp;`"production",`<br>&emsp;&emsp;`"webserver",`<br>&emsp;&emsp;`"mysql"`<br>&emsp;`],`<br>&emsp;`"timestamp": 1326390159`<br>`}`
 
-`silenced`
-: description
-: type
-: example
+silenced     | 
+-------------|------
+description  |
+type         |
+example      |
 
-`silenced_by`
-: description
-  : List of silence entry IDs which match this event
-: type
-  : Array
-: example
-  : ~~~ json
-    [ "load-balancer:check_ntp" ]
-    ~~~
+silenced_by  | 
+-------------|------
+description  | List of silence entry IDs which match this event
+type         | Array
+example      | `[ "load-balancer:check_ntp" ]`
+
 
 #### `check` attributes
 
@@ -234,176 +171,97 @@ attributes][12]). The following specification only documents the standard set of
 check attributes which may be expected in an event data payload._
 
 
-`type`
-: description
-  : The check type.
-: default
-  : `standard`
-: allowed values
-  : `standard`, `metric`
-: type
-  : String
-: example
-  : ~~~ shell
-    "type": "standard"
-    ~~~
+type           | 
+---------------|------
+description    | The check type.
+default        | `standard`
+allowed values | `standard`, `metric`
+type           | String
+example        | `"type": "standard"`
 
-`name`
-: description
-  : The `name` as defined in the originating [check definition][11].
-: type
-  : String
-: required
-  : `true`
-: example
-  : ~~~ shell
-    "name": "sensu_website"
-    ~~~
+name         | 
+-------------|------
+description  | The `name` as defined in the originating [check definition][11].
+type         | String
+required     | `true`
+example      | `"name": "sensu_website"`
 
-`command`
-: description
-  : The `command` as defined in the originating [check definition][11].
-: type
-  : String
-: required
-  : `true`
-: example
-  : ~~~ shell
-    "command": "check-http.rb -u https://sensuapp.org"
-    ~~~
+command      | 
+-------------|------
+description  | The `command` as defined in the originating [check definition][11].
+type         | String
+required     | `true`
+example      | `"command": "check-http.rb -u https://sensuapp.org"`
 
-`subscribers`
-: description
-  : The `subscribers` as defined in the originating [check definition][11].
-: type
-  : Array
-: required
-  : `true`
-: example
-  : ~~~ shell
-    "subscribers": [
-      "webserver"
-    ]
-    ~~~
+subscribers  | 
+-------------|------
+description  | The `subscribers` as defined in the originating [check definition][11].
+type         | Array
+required     | `true`
+example      | `"subscribers": [`<br>&emsp;`"webserver"`<br>`]`
 
-`interval`
-: description
-  : The `interval`, in seconds, as defined in the originating [check
-    definition][11].
-: type
-  : Integer
-: required
-  : `true`
-: example
-  : ~~~ shell
-    "interval": 30
-    ~~~
+interval     | 
+-------------|------
+description  | The `interval`, in seconds, as defined in the originating [check definition][11].
+type         | Integer
+required     | `true`
+example      | `"interval": 30`
 
-`handler`
-: description
-  : The `handler` as defined in the originating [check definition][11].
-: type
-  : String
-: required
-  : `false`
-: example
-  : ~~~ shell
-    "handler": "slack"
-    ~~~
+handler      | 
+-------------|------
+description  | The `handler` as defined in the originating [check definition][11].
+type         | String
+required     | `false`
+example      | `"handler": "slack"`
 
-`handlers`
-: description
-  : The `handlers` as defined in the originating [check definition][11].
-: type
-  : Array
-: required
-  : `false`
-: example
-  : ~~~ shell
-    "handlers": [
-      "slack"
-    ]
-    ~~~
+handlers     | 
+-------------|------
+description  | The `handlers` as defined in the originating [check definition][11].
+type         | Array
+required     | `false`
+example      | `"handlers": [`<br>&emsp;`"slack"`<br>`]`
 
-`issued`
-: description
-  : The `issued` timestamp (in [epoch time][13]), when Sensu issued the check
-    request (for a subscription check or standalone check).
-: type
-  : Integer
-: required
-  : `false`
-: example
-  : ~~~ shell
-    "issued": 1326390159
-    ~~~
+issued       | 
+-------------|------
+description  | The `issued` timestamp (in [epoch time][13]), when Sensu issued the check request (for a subscription check or standalone check).
+type         | Integer
+required     | `false`
+example      | `"issued": 1326390159`
 
-`output`
-: description
-  : The `output` produced by the check, as included in the [check result][10].
-: type
-  : String
-: required
-  : `true`
-: example
-  : ~~~ shell
-    "output": "CheckHttp OK: 200, 78572 bytes\n"
-    ~~~
+output       | 
+-------------|------
+description  | The `output` produced by the check, as included in the [check result][10].
+type         | String
+required     | `true`
+example      | `"output": "CheckHttp OK: 200, 78572 bytes\n"`
 
-`status`
-: description
-  : The [exit status code][14] produced by the check, as included in the [check
-    result][10].
-: type
-  : Integer
-: required
-  : `true`
-: example
-  : ~~~ shell
-    "status": 0
-    ~~~
+status       | 
+-------------|------
+description  | The [exit status code][14] produced by the check, as included in the [check result][10].
+type         | Integer
+required     | `true`
+example      | `"status": 0`
 
-`history`
-: description
-  : The history of the last 21 exit status codes produced by the check, as
-    included in the [check result][10].
-: type
-  : Array
-: required
-  : `true`
-: example
-  : ~~~ shell
-    "history": [0,0,0,0,0,0,1,2,2,0,0,0,0,0,0,0,0,0,0,0,0]
-    ~~~
+history      | 
+-------------|------
+description  | The history of the last 21 exit status codes produced by the check, as included in the [check result][10].
+type         | Array
+required     | `true`
+example      | `"history": [0,0,0,0,0,0,1,2,2,0,0,0,0,0,0,0,0,0,0,0,0]`
 
-`source`
-: description
-  : The name of the [proxy client][15] to associate the event with, as included
-    in the [check result][10] (`source` attribute).
-    _NOTE: the `source` attribute may be included in [check definitions][11], or
-    provided in check results published to the [Sensu client input socket][16]._
-: type
-  : String
-: required
-  : false
-: example
-  : ~~~ shell
-    "source": "sensuapp.org"
-    ~~~
+source       | 
+-------------|------
+description  | The name of the [proxy client][15] to associate the event with, as included in the [check result][10] (`source` attribute).<br>_NOTE: the `source` attribute may be included in [check definitions][11], or provided in check results published to the [Sensu client input socket][16]._
+type         | String
+required     | false
+example      | `"source": "sensuapp.org"`
 
-`origin`
-: description
-  : The `name` of the Sensu client that executed the check.
-    _NOTE: this attribute is only provided for proxy client events (i.e. events
-    containing a `source` attribute._
-: type
-  : String
-: required
-  : false
-: example
-  : ~~~ shell
-    "origin": "i-424242"
-    ~~~
+origin       | 
+-------------|------
+description  | The `name` of the Sensu client that executed the check.<br>_NOTE: this attribute is only provided for proxy client events (i.e. events containing a `source` attribute._
+type         | String
+required     | false
+example      | `"origin": "i-424242"`
 
 #### `client` attributes
 
@@ -416,62 +274,33 @@ attribute][18] (which may include [custom client definition attributes][19]).
 The following specification only documents the standard set of check attributes
 which may be expected in an event data payload._
 
-`name`
-: description
-  : The `name` of the Sensu client (or [proxy client][15]) the event is
-    associated with, as fetched from the [Clients API][17].
-: type
-  : String
-: required
-  : true
-: example
-  : ~~~ shell
-    "name": "1-424242"
-    ~~~
+name         | 
+-------------|------
+description  | The `name` of the Sensu client (or [proxy client][15]) the event is associated with, as fetched from the [Clients API][17].
+type         | String
+required     | true
+example      | `"name": "1-424242"`
 
-`address`
-: description
-  : The `address` of the Sensu client (or [proxy client][15]) the event is
-    associated with, as fetched from the [Clients API][17].
-: type
-  : String
-: required
-  : true
-: example
-  : ~~~ shell
-    "address": "10.0.2.100"
-    ~~~
+address      | 
+-------------|------
+description  | The `address` of the Sensu client (or [proxy client][15]) the event is associated with, as fetched from the [Clients API][17].
+type         | String
+required     | true
+example      | `"address": "10.0.2.100"`
 
-`subscriptions`
-: description
-  : The `subscriptions` the associated Sensu client (or [proxy client][15]) is a
-    member of, as fetched from the [Clients API][17].
-: type
-  : Array
-: required
-  : true
-: example
-  : ~~~ shell
-    "subscriptions": [
-      "webserver"
-    ]
-    ~~~
+subscriptions | 
+--------------|------
+description   | The `subscriptions` the associated Sensu client (or [proxy client][15]) is a member of, as fetched from the [Clients API][17].
+type          | Array
+required      | true
+example       | `"subscriptions": [`<br>&emsp;`"webserver"`<br>`]`
 
-`timestamp`
-: description
-  : The last [keepalive][20] `timestamp` (in [epoch time][13]) produced by the
-    Sensu client (or [proxy client][15]), as fetched from the [Clients API][17].
-    _NOTE: for proxy clients, this will usually represent the date/time when the
-    proxy client was created, unless some external process is updating proxy
-    client data via the [Clients API (POST)][21]._
-: type
-  : Integer
-: required
-  : true
-: example
-  : ~~~ shell
-    "timestamp": 1326390159
-    ~~~
+timestamp    | 
+-------------|------
+description  | The last [keepalive][20] `timestamp` (in [epoch time][13]) produced by the Sensu client (or [proxy client][15]), as fetched from the [Clients API][17].<br>_NOTE: for proxy clients, this will usually represent the date/time when the proxy client was created, unless some external process is updating proxy client data via the [Clients API (POST)][21]._
+type         | Integer
+required     | true
+example      | `"timestamp": 1326390159`
 
 
 
