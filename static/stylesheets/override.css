@@ -62,6 +62,10 @@ h5 {
   padding-top: 30px;
 }
 
+pre {
+  background-color: #eee;
+}
+
 /* General Site Wide Components ----------------------------------------------------------------- */
 .article .data table {
   width: 90%;
