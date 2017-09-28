@@ -68,6 +68,10 @@ h5 {
   display: inline-table;
 }
 
+.article .data table tr:last-child {
+  background-color: #eee;
+}
+
 .article .data {
   padding: 0;
   overflow: visible;
@@ -87,7 +91,7 @@ thead, tbody {
 }
 
 .article h4 {
-  margin-top: -80px;
+  margin-top: -60px;
   color: #232323;
   font-style: none;
   font-size: 22px;
