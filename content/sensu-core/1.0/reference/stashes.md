@@ -58,45 +58,27 @@ The following is an example Sensu stash.
 
 #### Stash attributes
 
-`path`
-: desc
-  : The path (or "key") the stash will be created and/or accessible at.
-: type
-  : String
-: required
-  : true
-: example
-  : ~~~
-    "path": "silence/server-01"
-    ~~~
+path         | 
+-------------|------
+description  | The path (or "key") the stash will be created and/or accessible at.
+type         | String
+required     | true
+example      | `"path": "silence/server-01"`
 
-`content`
-: desc
-  : Arbitrary JSON data.
-: type
-  : Hash
-: required
-  : false
-: example
-  : ~~~
-    "content": {
-      "message": "hello world!"
-    }
-    ~~~  
+content      | 
+-------------|------
+description  | Arbitrary JSON data.
+type         | Hash
+required     | false
+example      | `"content": {`<br>&emsp;`"message": "hello world!"`<br>`}`
 
-`expire`
-: desc
-  : How long should the stash exist before it is removed by the API, in seconds
-: type
-  : Integer
-: required
-  : false
-: default
-  : `-1`
-: example
-  : ~~~
-    "expire": 3600
-    ~~~
+expire       | 
+-------------|------
+description  | How long should the stash exist before it is removed by the API, in seconds
+type         | Integer
+required     | false
+default      | `-1`
+example      | `"expire": 3600`
 
 #### `content` attributes
 

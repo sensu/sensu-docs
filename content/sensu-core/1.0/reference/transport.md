@@ -104,35 +104,22 @@ The Sensu Transport uses the `"transport": {}` [definition scope][3].
 The following attributes are defined within the `"transport": {}`
 [definition scope](configuration#configuration-scopes).
 
-`name`
-: description
-  : The Transport driver to use.
-: required
-  : false
-: type
-  : String
-: allowed values
-  : `rabbitmq`, `redis`
-: default
-  : `rabbitmq`
-: example
-  : ~~~ shell
-    "name": "redis"
-    ~~~
+name           | 
+---------------|------
+description    | The Transport driver to use.
+required       | false
+type           | String
+allowed values | `rabbitmq`, `redis`
+default        | `rabbitmq`
+example        | `"name": "redis"`
 
-`reconnect_on_error`
-: description
-  : Attempt to reconnect after a connection error.
-: required
-  : false
-: type
-  : String
-: default
-  : `true`
-: example
-  : ~~~ shell
-    "reconnect_on_error": "false"
-    ~~~
+reconnect_on_error | 
+-------------------|------
+description        | Attempt to reconnect after a connection error.
+required           | false
+type               | String
+default            | `true`
+example            | `"reconnect_on_error": "false"`
 
 
 [1]:  rabbitmq.html

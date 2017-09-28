@@ -153,154 +153,86 @@ The RabbitMQ definition uses the `"rabbitmq": {}` definition scope.
 
 #### `rabbitmq` attributes
 
-`host`
-: description
-  : The RabbitMQ hostname or IP address (recommended).
-: required
-  : false
-: type
-  : String
-: default
-  : `127.0.0.1`
-: example
-  : ~~~ shell
-    "host": "8.8.8.8"
-    ~~~
+host         | 
+-------------|------
+description  | The RabbitMQ hostname or IP address (recommended).
+required     | false
+type         | String
+default      | `127.0.0.1`
+example      | `"host": "8.8.8.8"`
 
-`port`
-: description
-  : The RabbitMQ TCP port.
-: required
-  : false
-: type
-  : Integer
-: default
-  : `5672`
-: example
-  : ~~~ shell
-    "port": 5671
-    ~~~
+port         | 
+-------------|------
+description  | The RabbitMQ TCP port.
+required     | false
+type         | Integer
+default      | `5672`
+example      | `"port": 5671`
 
-`vhost`
-: description
-  : The RabbitMQ vhost to use.
-: required
-  : false
-: type
-  : String
-: default
-  : `/`
-: example
-  : ~~~ shell
-    "vhost": "/sensu"
-    ~~~
+host         | 
+-------------|------
+description  | The RabbitMQ vhost to use.
+required     | false
+type         | String
+default      | `/`
+example      | `"vhost": "/sensu"`
 
-`user`
-: description
-  : The RabbitMQ user name.
-: required
-  : false
-: type
-  : String
-: default
-  : `guest`
-: example
-  : ~~~ shell
-    "user": "sensu"
-    ~~~
+user         | 
+-------------|------
+description  | The RabbitMQ user name.
+required     | false
+type         | String
+default      | `guest`
+example      | `"user": "sensu"`
 
-`password`
-: description
-  : The RabbitMQ user password.
-: required
-  : false
-: type
-  : String
-: default
-  : `guest`
-: example
-  : ~~~ shell
-    "password": "secret"
-    ~~~
+password     | 
+-------------|------
+description  | The RabbitMQ user password.
+required     | false
+type         | String
+default      | `guest`
+example      | `"password": "secret"`
 
-`heartbeat`
-: description
-  : The RabbitMQ AMQP connection heartbeat in seconds.  Enabling can help in
-    early detection of disrupted TCP connections causing the RabbitMQ client to
-    attempt re-connection to the server much earlier than if left disabled.
-    _NOTE: if this setting is not defined or set to 0 then RabbitMQ client
-    heartbeats are disabled.
-: required
-  : false
-: type
-  : Integer
-: example
-  : ~~~ shell
-    "heartbeat": 30
-    ~~~
+heartbeat    | 
+-------------|------
+description  | The RabbitMQ AMQP connection heartbeat in seconds.  Enabling can help in early detection of disrupted TCP connections causing the RabbitMQ client to attempt re-connection to the server much earlier than if left disabled.<br>_NOTE: if this setting is not defined or set to 0 then RabbitMQ client heartbeats are disabled._
+required     | false
+type         | Integer
+example      | `"heartbeat": 30`
 
-`prefetch`
-: description
-  : The RabbitMQ AMQP consumer prefetch value, setting the number of
-    unacknowledged messages allowed for the channel. This attribute can be used
-    as a flow control mechanism, to tune message throughput performance.
-    _NOTE: an increased prefetch value should be used if you are experiencing a
-    backlog of messages in RabbitMQ while the Sensu server(s) load remains low.
-    Increasing the prefetch value will effect the distribution of messages in
-    Sensu configurations with more than one Sensu server._
-: required
-  : false
-: type
-  : Integer
-: default
-  : `1`
-: example
-  : ~~~ shell
-    "prefetch": 100
-    ~~~
+prefetch     | 
+-------------|------
+description  | The RabbitMQ AMQP consumer prefetch value, setting the number of unacknowledged messages allowed for the channel. This attribute can be used as a flow control mechanism, to tune message throughput performance. <br>_NOTE: an increased prefetch value should be used if you are experiencing a backlog of messages in RabbitMQ while the Sensu server(s) load remains low. Increasing the prefetch value will effect the distribution of messages in Sensu configurations with more than one Sensu server._
+required     | false
+type         | Integer
+default      | `1`
+example      | `"prefetch": 100`
 
-`ssl`
-: description
-  : A set of attributes that configure SSL encryption for the connection. SSL
-    encryption will be enabled if this attribute is configured.
-: required
-  : false
-: type
-  : Hash
-: example
-  : ~~~ shell
-    "ssl": {}
-    ~~~
+ssl          | 
+-------------|------
+description  | A set of attributes that configure SSL encryption for the connection. SSL encryption will be enabled if this attribute is configured.
+required     | false
+type         | Hash
+example      | `"ssl": {}`
 
 #### `ssl` attributes
 
 The following attributes are configured within the `"ssl": {}` RabbitMQ
 definition attribute scope.
 
-`cert_chain_file`
-: description
-  : The file path for the chain of X509 SSL certificates in the PEM format for
-    the SSL connection.
-: required
-  : true
-: type
-  : String
-: example
-  : ~~~ shell
-    "cert_chain_file": "/etc/sensu/ssl/cert.pem"
-    ~~~
+cert_chain_file | 
+----------------|------
+description     | The file path for the chain of X509 SSL certificates in the PEM format for the SSL connection.
+required        | true
+type            | String
+example         | `"cert_chain_file": "/etc/sensu/ssl/cert.pem"`
 
-`private_key_file`
-: description
-  : The file path for the SSL private key in the PEM format.
-: required
-  : true
-: type
-  : String
-: example
-  : ~~~ shell
-    "private_key_file": "/etc/sensu/ssl/key.pem"
-    ~~~
+private_key_file | 
+-----------------|------
+description      | The file path for the SSL private key in the PEM format.
+required         | true
+type             | String
+example          | `"private_key_file": "/etc/sensu/ssl/key.pem"`
 
 ## Configure RabbitMQ
 

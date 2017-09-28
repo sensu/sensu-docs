@@ -134,159 +134,89 @@ The Redis definition uses the `"redis": {}` definition scope.
 
 #### `redis` attributes
 
-`host`
-: description
-  : The Redis instance hostname or IP address (recommended).
-: required
-  : false
-: type
-  : String
-: default
-  : `127.0.0.1`
-: example
-  : ~~~ shell
-    "host": "8.8.8.8"
-    ~~~
+host         | 
+-------------|------
+description  | The Redis instance hostname or IP address (recommended).
+required     | false
+type         | String
+default      | `127.0.0.1`
+example      | `"host": "8.8.8.8"`
 
-    _WARNING: using `"localhost"` instead of `127.0.0.1` for the host
-    configuration on systems that support IPv6 may result in an IPv6 "localhost"
-    resolution (i.e. `::1`) rather than an IPv4 "localhost" resolution (i.e.
-    `127.0.0.1`). Sensu does support
-    IPv6, so this may be desirable; however, if Redis is not configured to listen on IPv6, this will
-    result in a connection error and log entries indicating a `"redis connection
-    error"` with an `"unable to connect to redis server"` error message._
+_WARNING: using `"localhost"` instead of `127.0.0.1` for the host configuration on systems that support IPv6 may result in an IPv6 "localhost" resolution (i.e. `::1`) rather than an IPv4 "localhost" resolution (i.e. `127.0.0.1`). Sensu does support IPv6, so this may be desirable; however, if Redis is not configured to listen on IPv6, this will result in a connection error and log entries indicating a `"redis connection error"` with an `"unable to connect to redis server"` error message._
 
-`port`
-: description
-  : The Redis instance TCP port.
-: required
-  : false
-: type
-  : Integer
-: default
-  : `6379`
-: example
-  : ~~~ shell
-    "port": 6380
-    ~~~
+port         | 
+-------------|------
+description  | The Redis instance TCP port.
+required     | false
+type         | Integer
+default      | `6379`
+example      | `"port": 6380`
 
-`password`
-: description
-  : The Redis instance authentication password.
-: required
-  : false
-: type
-  : String
-: example
-  : ~~~ shell
-    "password": "secret"
-    ~~~
+password     | 
+-------------|------
+description  | The Redis instance authentication password.
+required     | false
+type         | String
+example      | `"password": "secret"`
 
-`db`
-: description
-  : The Redis instance DB to use/select (numeric index).
-: required
-  : false
-: type
-  : Integer
-: default
-  : `0`
-: example
-  : ~~~ shell
-    "db": 1
-    ~~~
+db           | 
+-------------|------
+description  | The Redis instance DB to use/select (numeric index).
+required     | false
+type         | Integer
+default      | `0`
+example      | `"db": 1`
 
-`auto_reconnect`
-: description
-  : Reconnect to Redis in the event of a connection failure.
-: required
-  : false
-: type
-  : Boolean
-: default
-  : `true`
-: example
-  : ~~~ shell
-    "auto_reconnect": false
-    ~~~
+auto_reconnect | 
+---------------|------
+description    | Reconnect to Redis in the event of a connection failure.
+required       | false
+type           | Boolean
+default        | `true`
+example        | `"auto_reconnect": false`
 
-`reconnect_on_error`
-: description
-  : Reconnect to Redis in the event of a Redis error, e.g. READONLY (not to be
-    confused with a connection failure).
-: required
-  : false
-: type
-  : Boolean
-: default
-  : `true`
-: example
-  : ~~~ shell
-    "reconnect_on_error": false
-    ~~~
+reconnect_on_error | 
+-------------------|------
+description        | Reconnect to Redis in the event of a Redis error, e.g. READONLY (not to be confused with a connection failure).
+required           | false
+type               | Boolean
+default            | `true`
+example            | `"reconnect_on_error": false`
 
-`master`
-: description
-  : The name of the Redis master set to connect to. Only used for
-    [Redis Sentinel][16] connections.
-    _WARNING: When configuring Sensu to use Sentinels for Redis failover, the
-    value of this setting must match the configured name for the Redis master
-    set. If these settings do not match, Sensu will be unable to connect to
-    Redis._
-: required
-  : false
-: default
-  : `mymaster`
-: type
-  : String
-: example
-  : ~~~ shell
-    "master": "redis-01"
-    ~~~
+master       | 
+-------------|------
+description  | The name of the Redis master set to connect to. Only used for [Redis Sentinel][16] connections.<br>_WARNING: When configuring Sensu to use Sentinels for Redis failover, the value of this setting must match the configured name for the Redis master set. If these settings do not match, Sensu will be unable to connect to Redis._
+required     | false
+default      | `mymaster`
+type         | String
+example      | `"master": "redis-01"`
 
-`sentinels`
-: description
-  : Redis Sentinel configuration, connection information for one or more Redis
-    Sentinel instances.
-: required
-  : false
-: type
-  : Array
-: example
-  : ~~~ shell
-    "sentinels": [{"host": "10.0.1.23", "port": 26379}]
-    ~~~
+sentinels    | 
+-------------|------
+description  | Redis Sentinel configuration, connection information for one or more Redis Sentinel instances.
+required     | false
+type         | Array
+example      | `"sentinels": [{"host": "10.0.1.23", "port": 26379}]`
 
 #### `sentinels` attributes
 
 The following attributes are configured within each item in `"sentinels": []`,
 e.g. `"sentinels": [{"host": "10.0.1.23"}]`.
 
-`host`
-: description
-  : The Redis Sentinel instance hostname or IP address (recommended).
-: required
-  : true
-: type
-  : String
-: example
-  : ~~~ shell
-    "host": "10.0.1.23"
-    ~~~
+host         | 
+-------------|------
+description  | The Redis Sentinel instance hostname or IP address (recommended).
+required     | true
+type         | String
+example      | `"host": "10.0.1.23"`
 
-`port`
-: description
-  : The Redis Sentinel instance TCP port.
-: required
-  : false
-: type
-  : Integer
-: default
-  : `26379`
-: example
-  : ~~~ shell
-    "port": 26380
-    ~~~
+port         | 
+-------------|------
+description  | The Redis Sentinel instance TCP port.
+required     | false
+type         | Integer
+default      | `26379`
+example      | `"port": 26380`
 
 ## Configure Redis
 
