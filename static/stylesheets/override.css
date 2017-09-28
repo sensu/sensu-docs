@@ -31,7 +31,12 @@
 }
 
 .palette-primary-green .article table th {
-  background: #5cb45b;
+  background: #81C000;
+  font-size: 16px;
+  font-weight: 200;
+  display: table-caption;
+  height: 0;
+  width: 1000%;
 }
 
 .palette-primary-green .results .meta {
@@ -48,17 +53,18 @@
 
 .article h2 {
   margin-top: -70px;
+  font-size: 30px;
 }
 
 h5 {
-  font-size: 14px;
+  font-size: 16px;
   font-style: italic;
   padding-top: 30px;
 }
 
 /* General Site Wide Components ----------------------------------------------------------------- */
 .article .data table {
-  width: 700px;
+  width: 90%;
   display: inline-table;
 }
 
@@ -75,12 +81,20 @@ thead, tbody {
   font-size: 16px;
 }
 
-.article h3, .article h4 {
-  font-size: 16px;
+.article h3 {
+  font-size: 27px;
+  font-weight: 200;
 }
 
 .article h4 {
+  margin-top: -80px;
   color: #232323;
+  font-style: none;
+  font-size: 22px;
+}
+
+h6 {
+  font-size: 16px; 
   font-weight: bold;
 }
 
@@ -217,7 +231,7 @@ nav {
 /* General Content Overrides ----------------------------------------------------------------- */
 
 .article h1 {
-  font-size: 32px;
+  font-size: 35px;
   padding-top: 50px;
   padding-bottom: 0px !important;
   border-bottom: none;
