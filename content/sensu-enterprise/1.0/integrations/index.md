@@ -6,7 +6,5 @@ version: "1.0"
 weight: 10
 menu: "sensu-enterprise-1.0"
 ---
-%h2= "Sensu Enterprise Integrations"
-- current_resource.children.sort_by!{ |c| c.data.fetch(:weight, 1) }.each do |page|
-  %ul
-    = partial "toc-helper", locals: { content: page }
+
+{{< directoryListing "content/sensu-enterprise/1.0/integrations" >}}
