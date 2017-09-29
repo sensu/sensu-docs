@@ -4,7 +4,7 @@
   {{ range $files }}
     {{ if ne .Name "index.md" }}
       {{ $name := replace .Name ".md" "" }}
-      <li><a href="{{ $name }}"> {{ .Name }}</a></li>
+      <li><a href="{{ $name }}"> {{ $name }}</a></li>
     {{ end }}
   {{ end }}
 </ul>
