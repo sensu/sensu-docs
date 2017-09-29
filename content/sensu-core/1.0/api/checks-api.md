@@ -44,41 +44,13 @@ $ curl -s http://127.0.0.1:4567/checks | jq .
 
 #### API Specification {#checks-get-specification}
 
-`/checks` (GET)
-: desc.
-  : Returns the list of checks.
-
-: example url
-  : http://hostname:4567/checks
-
-: response type
-  : Array
-
-: response codes
-  : - **Success**: 200 (OK)
-    - **Error**: 500 (Internal Server Error)
-
-: output
-  : ~~~ json
-    [
-        {
-            "name": "chef_client_process",
-            "command": "check-procs.rb -p /usr/bin/chef-client -W 1 -w 2 -c 3",
-            "subscribers": [
-                "production"
-            ],
-            "interval": 60
-        },
-        {
-            "name": "website",
-            "command": "check-http.rb -h localhost -p /health -P 80 -q Passed -t 30",
-            "subscribers": [
-                "webserver"
-            ],
-            "interval": 30
-        }
-    ]
-    ~~~
+/checks (GET)  | 
+---------------|------
+description    | Returns the list of checks.
+example url    | http://hostname:4567/checks
+response type  | Array
+response codes | - **Success**: 200 (OK)<br>- **Error**: 500 (Internal Server Error)
+output         | `[`<br>&emsp;`{`<br>&emsp;&emsp;`"name": "chef_client_process",`<br>&emsp;&emsp;`"command": "check-procs.rb -p /usr/bin/chef-client -W 1 -w 2 -c 3",`<br>&emsp;&emsp;`"subscribers": [`<br>&emsp;&emsp;&emsp;`"production"`<br>&emsp;&emsp;`],`<br>&emsp;&emsp;`"interval": 60`<br>&emsp;`},`<br>&emsp;`{`<br>&emsp;&emsp;`"name": "website",`<br>&emsp;&emsp;`"command": "check-http.rb -h localhost -p /health -P 80 -q Passed -t 30",`<br>&emsp;&emsp;`"subscribers": [`<br>&emsp;&emsp;&emsp;`"webserver"`<br>&emsp;&emsp;`],`<br>&emsp;&emsp;`"interval": 30`<br>&emsp;`}`<br>`]`
 
 ## The `/checks/:check` API endpoint(s)
 
@@ -125,32 +97,13 @@ Server: thin
 
 #### API Specification {#checkscheck-get-specification}
 
-`/checks/:check` (GET)
-: desc.
-  : Returns a check.
-
-: example url
-  : http://hostname:4567/checks/sensu_website
-
-: response type
-  : Hash
-
-: response codes
-  : - **Success**: 200 (OK)
-    - **Missing**: 404 (Not Found)
-    - **Error**: 500 (Internal Server Error)
-
-: output
-  : ~~~ json
-    {
-        "name": "chef_client_process",
-        "command": "check-procs.rb -p /usr/bin/chef-client -W 1 -w 2 -c 3",
-        "subscribers": [
-            "production"
-        ],
-        "interval": 60
-    }
-    ~~~
+/checks/:check (GET) | 
+---------------------|------
+description          | Returns a check.
+example url          | http://hostname:4567/checks/sensu_website
+response type        | Hash
+response codes       | - **Success**: 200 (OK)<br>- **Missing**: 404 (Not Found)<br>- **Error**: 500 (Internal Server Error)
+output               | `{`<br>&emsp;`"name": "chef_client_process",`<br>&emsp;`"command": "check-procs.rb -p /usr/bin/chef-client -W 1 -w 2 -c 3",`<br>&emsp;`"subscribers": [`<br>&emsp;&emsp;`"production"`<br>&emsp;`],`<br>&emsp;`"interval": 60`<br>`}`
 
 ## The `/request` API endpoint
 
@@ -216,39 +169,12 @@ Server: thin
 
 #### API Specification {#request-post-specification}
 
-`/request` (POST)
-: desc.
-  : Issues a check execution request.
-
-: example url
-  : http://hostname:4567/request
-
-: payload
-  : ~~~ json
-    {
-      "check": "chef_client_process",
-      "subscribers": [
-        "production"
-      ],
-      "creator": "sysop@example.com",
-      "reason": "triggered application deployment"
-    }
-    ~~~
-
-    _NOTE: the `subscribers` attribute is not required for requesting a check
-    execution, however it may be provided to override the `subscribers` [check
-    definition attribute][2]._
-
-    _NOTE: the `creator` and `reason` attributes are not required for
-    requesting a check execution, however they may be provided to add
-    more context to the check request and in turn the check result(s).
-    The check request `creator` and `reason` are added to the check
-    request payload under `api_requested`._
-
-: response codes
-  : - **Success**: 202 (Accepted)
-    - **Malformed**: 400 (Bad Request)
-    - **Error**: 500 (Internal Server Error)
+/request (POST) | 
+----------------|------
+description     | Issues a check execution request.
+example url     | http://hostname:4567/request
+payload         | `{`<br>&emsp;`"check": "chef_client_process",`<br>&emsp;`"subscribers": [`<br>&emsp;&emsp;`"production"`<br>&emsp;`],`<br>&emsp;`"creator": "sysop@example.com",`<br>&emsp;`"reason": "triggered application deployment"`<br>`}`<br>_NOTE: the `subscribers` attribute is not required for requesting a check execution, however it may be provided to override the `subscribers` [check definition attribute][2]._<br>_NOTE: the `creator` and `reason` attributes are not required for requesting a check execution, however they may be provided to add more context to the check request and in turn the check result(s). The check request `creator` and `reason` are added to the check request payload under `api_requested`._
+response codes  | - **Success**: 202 (Accepted)<br>- **Malformed**: 400 (Bad Request)<br>- **Error**: 500 (Internal Server Error)
 
 [?]:  #
 [1]:  ../reference/checks.html#subscription-checks
