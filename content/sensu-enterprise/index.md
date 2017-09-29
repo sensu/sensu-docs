@@ -5,4 +5,4 @@ weight: -100
 menu: "sensu-enterprise"
 product: "Sensu Enterprise"
 ---
-
+<meta http-equiv="refresh" content="0; url=1.0" />

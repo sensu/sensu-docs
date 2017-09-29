@@ -33,7 +33,8 @@ def main(folder, project):
     # print "Writing front matter..."
     hugoFile.write("---\n")
     hugoFile.write("title: \"" + oldFile["title"] + "\"\n")
-    hugoFile.write("description: \"" + oldFile["description"] + "\"\n")
+    if "description" in oldFile.keys():
+      hugoFile.write("description: \"" + oldFile["description"] + "\"\n")
     hugoFile.write("product: \"" + projectReadable + "\"\n")
     hugoFile.write("version: \"" + str(oldFile["version"]) + "\"\n")
     hugoFile.write("weight: " + str(oldFile["weight"]) + "\n")
