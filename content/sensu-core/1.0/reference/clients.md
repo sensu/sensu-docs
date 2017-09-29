@@ -447,235 +447,123 @@ The client definition uses the `{ "client": {} }` [configuration scope][24].
 
 #### `client` attributes
 
-`name`
-: description
-  : A unique name for the client. The name cannot contain special characters or
-    spaces.
-: required
-  : false
-: default
-  : System hostname as determined by Ruby `Socket.gethostname`
-: type
-  : String
-: validation
-  : `/^[\w\.-]+$/`
-: example
-  : ~~~ shell
-    "name": "i-424242"
-    ~~~
+name         | 
+-------------|------
+description  | A unique name for the client. The name cannot contain special characters or spaces.
+required     | false
+default      | System hostname as determined by Ruby `Socket.gethostname`
+type         | String
+validation   | `/^[\w\.-]+$/`
+example      | `"name": "i-424242"`
 
-`address`
-: description
-  : An address to help identify and reach the client. This is only
-    informational, usually an IP address or hostname.
-: required
-  : false
-: default
-  : Non-loopback IPv4 address as determined by Ruby `Socket.ip_address_list`
-: type
-  : String
-: example
-  : ~~~ shell
-    "address": "8.8.8.8"
-    ~~~
+address      | 
+-------------|------
+description  | An address to help identify and reach the client. This is only informational, usually an IP address or hostname.
+required     | false
+default      | Non-loopback IPv4 address as determined by Ruby `Socket.ip_address_list`
+type         | String
+example      | `"address": "8.8.8.8"`
 
-`subscriptions`
-: description
-  : An array of client subscriptions, a list of roles and/or responsibilities
-    assigned to the system (e.g. webserver). These subscriptions determine which
-    monitoring checks are executed by the client, as check requests are sent to
-    subscriptions. The `subscriptions` array items must be strings.
-: required
-  : true
-: type
-  : Array
-: example
-  : ~~~ shell
-    "subscriptions": ["production", "webserver"]
-    ~~~
+subscriptions | 
+--------------|------
+description   |  An array of client subscriptions, a list of roles and/or responsibilities assigned to the system (e.g. webserver). These subscriptions determine which monitoring checks are executed by the client, as check requests are sent to subscriptions. The `subscriptions` array items must be strings.
+required      | true
+type          | Array
+example       | `"subscriptions": ["production", "webserver"]`
 
-`safe_mode`
-: description
-  : If safe mode is enabled for the client. Safe mode requires local check
-    definitions in order to accept a check request and execute the check.
-: required
-  : false
-: type
-  : Boolean
-: default
-  : `false`
-: example
-  : ~~~ shell
-    "safe_mode": true
-    ~~~
+safe_mode    | 
+-------------|------
+description  | If safe mode is enabled for the client. Safe mode requires local check definitions in order to accept a check request and execute the check.
+required     | false
+type         | Boolean
+default      | `false`
+example      | `"safe_mode": true`
 
-`redact`
-: description
-  : Client definition attributes to redact (values) when logging and sending
-    client keepalives. When configuring this array, the default values will be overwritten, requiring them to be re-added to your array.
-: required
-  : false
-: type
-  : Array
-: default
-  : ~~~ shell
-    [
-      "password", "passwd", "pass",
-      "api_key", "api_token", "access_key",
-      "secret_key", "private_key",
-      "secret"
-    ]
-    ~~~
-: example
-  : ~~~ shell
-    "redact": [
-      "password",
-      "ec2_access_key",
-      "ec2_secret_key"
-    ]
-    ~~~
+redact       | 
+-------------|------
+description  | Client definition attributes to redact (values) when logging and sending client keepalives. When configuring this array, the default values will be overwritten, requiring them to be re-added to your array.
+required     | false
+type         | Array
+default      | `[`<br>&emsp;`"password", "passwd", "pass",`<br>&emsp;`"api_key", "api_token", "access_key",`<br>&emsp;`"secret_key", "private_key","secret"`<br>`]`
+example      | `"redact": [`<br>&emsp;`"password",`<br>&emsp;`"ec2_access_key",`<br>&emsp;`"ec2_secret_key"`<br>&emsp;`]`
 
-`socket`
-: description
-  : The [`socket` definition scope][16], used to configure the [Sensu client
-    socket][36].
-: required
-  : false
-: type
-  : Hash
-: example
-  : ~~~ shell
-    "socket": {}
-    ~~~
+socket       | 
+-------------|------
+description  | The [`socket` definition scope][16], used to configure the [Sensu client socket][36].
+required     | false
+type         | Hash
+example      | `"socket": {}`
 
-`keepalives`
-: description
-  : If Sensu should monitor [keepalives][3] for this client.
-: required
-  : false
-: default
-  : `true`
-: type
-  : Boolean
-: example
-  : ~~~ shell
-    "keepalives": false
-    ~~~
+keepalives   | 
+-------------|------
+description  | If Sensu should monitor [keepalives][3] for this client.
+required     | false
+default      | `true`
+type         | Boolean
+example      | `"keepalives": false`
 
-`keepalive`
-: description
-  : The [`keepalive` definition scope][12], used to configure [Sensu client
-    keepalives][2] behavior (e.g. keepalive thresholds, etc).
-: required
-  : false
-: type
-  : Hash
-: example
-  : ~~~ shell
-    "keepalive": {}
-    ~~~
+keepalive    | 
+-------------|------
+description  | The [`keepalive` definition scope][12], used to configure [Sensu client keepalives][2] behavior (e.g. keepalive thresholds, etc).
+required     | false
+type         | Hash
+example      | `"keepalive": {}`
 
-`signature`
-: description
-  : Unique string used to authenticate check results from the client in question.
-: required
-  : false
-: type
-  : String
-: example
-  : ~~~ shell
-    "signature": "yVNxtPbRGwCYFYEr3V"
-    ~~~
+signature    | 
+-------------|------
+description  | Unique string used to authenticate check results from the client in question.
+required     | false
+type         | String
+example      | `"signature": "yVNxtPbRGwCYFYEr3V"`
 
-`registration`
-: description
-  : The [`registration` definition scope][31], used to configure [Sensu
-    registration event][37] handlers.
-: required
-  : false
-: type
-  : Hash
-: example
-  : ~~~ shell
-    "registration": {}
-    ~~~
+registration | 
+-------------|------
+description  | The [`registration` definition scope][31], used to configure [Sensu registration event][37] handlers.
+required     | false
+type         | Hash
+example      | `"registration": {}`
 
-`deregister`
-: description
-  : If a deregistration event should be created upon Sensu client process stop.
-: required
-  : false
-: default
-  : `false`
-: example
-  : ~~~ shell
-    "deregister": true
-    ~~~
+deregister   | 
+-------------|------
+description  | If a deregistration event should be created upon Sensu client process stop.
+required     | false
+default      | `false`
+example      | `"deregister": true`
 
-`deregistration`
-: description
-  : The [`deregistration` definition scope][48], used to configure automated
-    Sensu client de-registration.
-: required
-  : false
-: type
-  : Hash
-: example
-  : ~~~ shell
-    "deregistration": {}
-    ~~~
+deregistration | 
+---------------|------
+description    | The [`deregistration` definition scope][48], used to configure automated Sensu client de-registration.
+required       | false
+type           | Hash
+example        | `"deregistration": {}`
 
-`ec2`
-: description
-  : The [`ec2` definition scope][38], used to configure the [Sensu Enterprise
-    AWS EC2 integration][39] ([Sensu Enterprise][40] users only).
-: required
-  : false
-: type
-  : Hash
-: example
-  : ~~~ shell
-    "ec2": {}
-    ~~~
+ec2          | 
+-------------|------
+description  | The [`ec2` definition scope][38], used to configure the [Sensu Enterprise AWS EC2 integration][39] ([Sensu Enterprise][40] users only).
+required     | false
+type         | Hash
+example      | `"ec2": {}`
 
-`chef`
-: description
-  : The [`chef` definition scope][41], used to configure the [Sensu Enterprise
-    Chef integration][42] ([Sensu Enterprise][40] users only).
-: required
-  : false
-: type
-  : Hash
-: example
-  : ~~~ shell
-    "chef": {}
-    ~~~
+chef         | 
+-------------|------
+description  | The [`chef` definition scope][41], used to configure the [Sensu Enterprise Chef integration][42] ([Sensu Enterprise][40] users only).
+required     | false
+type         | Hash
+example      | `"chef": {}`
 
-`puppet`
-: description
-  : The [`puppet` definition scope][43], used to configure the [Sensu Enterprise
-    Puppet integration][44] ([Sensu Enterprise][40] users only).
-: required
-  : false
-: type
-  : Hash
-: example
-  : ~~~ shell
-    "puppet": {}
-    ~~~
+puppet       | 
+-------------|------
+description  | The [`puppet` definition scope][43], used to configure the [Sensu Enterprise Puppet integration][44] ([Sensu Enterprise][40] users only).
+required     | false
+type         | Hash
+example      | `"puppet": {}`
 
-`servicenow`
-: description
-  : The [`servicenow` definition scope][45], used to configure the [Sensu
-    Enterprise ServiceNow integration][46] ([Sensu Enterprise][40] users only).
-: required
-  : false
-: type
-  : Hash
-: example
-  : ~~~ shell
-    "servicenow": {}
-    ~~~
+servicenow   | 
+-------------|------
+description  | The [`servicenow` definition scope][45], used to configure the [Sensu Enterprise ServiceNow integration][46] ([Sensu Enterprise][40] users only).
+required     | false
+type         | Hash
+example      | `"servicenow": {}`
 
 #### `socket` attributes
 
@@ -699,33 +587,21 @@ The following attributes are configured within the `{ "client": { "socket": {} }
 
 ##### ATTRIBUTES {#socket-attributes-specification}
 
-`bind`
-: description
-  : The address to bind the Sensu client socket to.
-: required
-  : false
-: type
-  : String
-: default
-  : `127.0.0.1`
-: example
-  : ~~~ shell
-    "bind": "0.0.0.0"
-    ~~~
+bind         | 
+-------------|------
+description  | The address to bind the Sensu client socket to.
+required     | false
+type         | String
+default      | `127.0.0.1`
+example      | `"bind": "0.0.0.0"`
 
-`port`
-: description
-  : The port the Sensu client socket listens on.
-: required
-  : false
-: type
-  : Integer
-: default
-  : `3030`
-: example
-  : ~~~ shell
-    "port": 3032
-    ~~~
+port         | 
+-------------|------
+description  | The port the Sensu client socket listens on.
+required     | false
+type         | Integer
+default      | `3030`
+example      | `"port": 3032`
 
 #### `http socket` attributes
 
@@ -751,57 +627,35 @@ The following attributes are configured within the `{ "client": { "http_socket":
 
 ##### ATTRIBUTES {#http-socket-attributes-specification}
 
-`bind`
-: description
-  : The address to bind the Sensu client socket to.
-: required
-  : false
-: type
-  : String
-: default
-  : `127.0.0.1`
-: example
-  : ~~~ shell
-    "bind": "0.0.0.0"
-    ~~~
+bind         | 
+-------------|------
+description  | The address to bind the Sensu client socket to.
+required     | false
+type         | String
+default      | `127.0.0.1`
+example      | `"bind": "0.0.0.0"`
 
-`port`
-: description
-  : The port the HTTP Sensu client socket listens on.
-: required
-  : false
-: type
-  : Integer
-: default
-  : `3031`
-: example
-  : ~~~ shell
-    "port": 8000
-    ~~~
+port         | 
+-------------|------
+description  | The port the HTTP Sensu client socket listens on.
+required     | false
+type         | Integer
+default      | `3031`
+example      | `"port": 8000`
 
-`user`
-: description
-  : The user name to enforce HTTP authentication on endpoints that require it
-: required
-  : false
-: type
-  : String
-: example
-  : ~~~ shell
-    "user": "sensu"
-    ~~~
+user         | 
+-------------|------
+description  | The user name to enforce HTTP authentication on endpoints that require it
+required     | false
+type         | String
+example      | `"user": "sensu"`
 
-`password`
-: description
-  : The password to enforce HTTP authentication on endpoints that require it
-: required
-  : false
-: type
-  : String
-: example
-  : ~~~ shell
-    "password": "F76639PML6c7sk5nI46N"
-    ~~~
+password     | 
+-------------|------
+description  | The password to enforce HTTP authentication on endpoints that require it
+required     | false
+type         | String
+example      | `"password": "F76639PML6c7sk5nI46N"`
 
 #### `keepalive` attributes
 
@@ -828,43 +682,26 @@ The following attributes are configured within the `{ "client": { "keepalive":
 
 ##### ATTRIBUTES {#keepalive-attributes-specification}
 
-`handler`
-: description
-  : The Sensu event handler (name) to use for events created by keepalives.
-: required
-  : false
-: type
-  : String
-: example
-  : ~~~ shell
-    "handler": "pagerduty"
-    ~~~
+handler      | 
+-------------|------
+description  | The Sensu event handler (name) to use for events created by keepalives.
+required     | false
+type         | String
+example      | `"handler": "pagerduty"`
 
-`handlers`
-: description
-  : An array of Sensu event handlers (names) to use for events created by
-    keepalives. Each array item must be a string.
-: required
-  : false
-: type
-  : Array
-: example
-  : ~~~ shell
-    "handlers": ["pagerduty", "chef"]
-    ~~~
+handlers     | 
+-------------|------
+description  | An array of Sensu event handlers (names) to use for events created by keepalives. Each array item must be a string.
+required     | false
+type         | Array
+example      | `"handlers": ["pagerduty", "chef"]`
 
-`thresholds`
-: description
-  : A set of attributes that configure the client keepalive "staleness"
-    thresholds, when a client is determined to be unhealthy.
-: required
-  : false
-: type
-  : Hash
-: example
-  : ~~~ shell
-    "thresholds": {}
-    ~~~
+thresholds   | 
+-------------|------
+description  | A set of attributes that configure the client keepalive "staleness" thresholds, when a client is determined to be unhealthy.
+required     | false
+type         | Hash
+example      | `"thresholds": {}`
 
 #### `thresholds` attributes (for client keepalives) {#thresholds-attributes}
 
@@ -891,51 +728,21 @@ The following attributes are configured within the `{ "client": { "keepalive": {
 
 ##### ATTRIBUTES {#thresholds-attributes-specification}
 
-`warning`
-: description
-  : The warning threshold (in seconds) where a Sensu client is determined to be
-    unhealthy, not having sent a keepalive in so many seconds.
+warning      | 
+-------------|------
+description  | The warning threshold (in seconds) where a Sensu client is determined to be unhealthy, not having sent a keepalive in so many seconds.<br><em>WARNING: keepalive messages are sent at an interval of 20 seconds. Setting a `warning` threshold of 20 seconds or fewer will result in false-positive events. Also note that due to the potential for NTP synchronization issues and/or network latency or packet loss interfering with regular delivery of client keepalive messages, we recommend a minimum `warning` threshold of 40 seconds.</em>
+required     | false
+type         | Integer
+default      | `120`
+example      | `"warning": 60`
 
-    _WARNING: keepalive messages are sent at an interval of 20 seconds. Setting
-    a `warning` threshold of 20 seconds or fewer will result in false-positive
-    events. Also note that due to the potential for NTP synchronization issues
-    and/or network latency or packet loss interfering with regular delivery of
-    client keepalive messages, we recommend a minimum `warning` threshold of 40
-    seconds._
-
-: required
-  : false
-: type
-  : Integer
-: default
-  : `120`
-: example
-  : ~~~ shell
-    "warning": 60
-    ~~~
-
-`critical`
-: description
-  : The critical threshold (in seconds) where a Sensu client is determined to be
-    unhealthy, not having sent a keepalive in so many seconds.
-
-    _WARNING: keepalive messages are sent at an interval of 20 seconds. Setting
-    a `critical` threshold of 20 seconds or fewer will result in false-positive
-    events. Also note that due to the potential for NTP synchronization issues
-    and/or network latency or packet loss interfering with regular delivery of
-    client keepalive messages, we recommend a minimum `critical` threshold of 60
-    seconds._
-
-: required
-  : false
-: type
-  : Integer
-: default
-  : `180`
-: example
-  : ~~~ shell
-    "critical": 90
-    ~~~
+critical     | 
+-------------|------
+description  | The critical threshold (in seconds) where a Sensu client is determined to be unhealthy, not having sent a keepalive in so many seconds.<br><em>WARNING: keepalive messages are sent at an interval of 20 seconds. Setting a `critical` threshold of 20 seconds or fewer will result in false-positive events. Also note that due to the potential for NTP synchronization issues and/or network latency or packet loss interfering with regular delivery of client keepalive messages, we recommend a minimum `critical` threshold of 60 seconds.</em>
+required     | false
+type         | Integer
+default      | `180`
+example      | `"critical": 90`
 
 #### `registration` attributes
 
@@ -958,19 +765,13 @@ The following attributes are configured within the `{ "client": {
 
 ##### ATTRIBUTES {#registration-attributes-specification}
 
-`handler`
-: description
-  : The registration handler that should process the client registration event.
-: required
-  : false
-: type
-  : String
-: default
-  : `registration`
-: example
-  : ~~~ shell
-    "handler": "registration_cmdb"
-    ~~~
+handler      | 
+-------------|------
+description  | The registration handler that should process the client registration event.
+required     | false
+type         | String
+default      | `registration`
+example      | `"handler": "registration_cmdb"`
 
 _NOTE: client `registration` attributes are used to generate [check result][28]
 data for the registration [event][7]. Client `registration` attributes are
@@ -1012,20 +813,13 @@ exceptions (which are used to ensure the check result is valid): check name,
 `output`, `status`, and `issued` timestamp. The following attributes are
 provided as recommendations for controlling client deregistration behavior._
 
-`handler`
-: description
-  : The deregistration handler that should process the client deregistration
-    event.
-: required
-  : false
-: type
-  : String
-: default
-  : `deregistration`
-: example
-  : ~~~ shell
-    "handler": "cmdb_deregistration"
-    ~~~
+handler      | 
+-------------|------
+description  | The deregistration handler that should process the client deregistration event.
+required     | false
+type         | String
+default      | `deregistration`
+example      | `"handler": "cmdb_deregistration"`
 
 #### `ec2` attributes
 
@@ -1055,109 +849,53 @@ Enterprise AWS EC2 integration][39].**
 
 ##### ATTRIBUTES {#ec2-attributes-specification}
 
-`instance_id`
-: description
-  : The AWS EC2 instance ID of the Sensu client system (if different than the
-    [client definition `name` attribute][15]), used to lookup instance status
-    information with the AWS EC2 API.
-: required
-  : false
-: type
-  : String
-: default
-  : defaults to the value of the [client definition `name` attribute][15].
-: example
-  : ~~~ shell
-    "instance_id": "i-424242"
-    ~~~
+instance_id  | 
+-------------|------
+description  | The AWS EC2 instance ID of the Sensu client system (if different than the [client definition `name` attribute][15]), used to lookup instance status information with the AWS EC2 API.
+required     | false
+type         | String
+default      | defaults to the value of the [client definition `name` attribute][15].
+example      | `"instance_id": "i-424242"`
 
-`allowed_instance_states`
-: description
-  : The allowed operational states (e.g. `"running"`) for the instance. If a
-    client keepalive event is created and the EC2 API indicates that the
-    instance is _not_ in an allowed state (e.g. `"terminated"`), Sensu client
-    will be removed from the [client registry][37]. This configuration can be
-    provided to override the [built-in Sensu Enterprise `ec2` integration
-    `allowed_instance_states` configuration][39] for the client.
-: required
-  : false
-: type
-  : Array
-: allowed values
-  : `pending`, `running`, `rebooting`, `stopping`, `stopped`, `shutting-down`,
-    and `terminated`
-: default
-  : `running`
-: example
-  : ~~~ shell
-    "allowed_instance_states": [
-      "pending",
-      "running",
-      "rebooting"
-    ]
-    ~~~
+allowed_instance_states | 
+------------------------|------
+description             | The allowed operational states (e.g. `"running"`) for the instance. If a client keepalive event is created and the EC2 API indicates that the instance is _not_ in an allowed state (e.g. `"terminated"`), Sensu client will be removed from the [client registry][37]. This configuration can be provided to override the [built-in Sensu Enterprise `ec2` integration `allowed_instance_states` configuration][39] for the client.
+required                | false
+type                    | Array
+allowed values          | `pending`, `running`, `rebooting`, `stopping`, `stopped`, `shutting-down`, and `terminated`
+default                 | `running`
+example                 | `"allowed_instance_states": [`<br>&emsp;`"pending",`<br>&emsp;`"running",`<br>&emsp;`"rebooting"`<br>`]`
 
-`region`
-: description
-  : The AWS EC2 region to query for the EC2 instance state(s). This
-    configuration can be provided to override the [built-in Sensu Enterprise
-    `ec2` integration `region` configuration][39] for the client.
-: required
-  : false
-: type
-  : String
-: allowed values
-  :
-: default
-  : `us-east-1`
-: example
-  : ~~~ shell
-    "region": "us-west-1"
-    ~~~
+region         | 
+---------------|------
+description    | The AWS EC2 region to query for the EC2 instance state(s). This configuration can be provided to override the [built-in Sensu Enterprise `ec2` integration `region` configuration][39] for the client.
+required       | false
+type           | String
+allowed values |
+default        | `us-east-1`
+example        | `"region": "us-west-1"`
 
-`access_key_id`
-: description
-  : The AWS IAM user access key ID to use when querying the EC2 API. This
-    configuration can be provided to override the [built-in Sensu Enterprise
-    `ec2` integration `access_key_id` configuration][39] for the client.
-: required
-  : true
-: type
-  : String
-: example
-  : ~~~ shell
-    "access_key_id": "AlygD0X6Z4Xr2m3gl70J"
-    ~~~
+access_key_id | 
+--------------|------
+description   | The AWS IAM user access key ID to use when querying the EC2 API. This configuration can be provided to override the [built-in Sensu Enterprise `ec2` integration `access_key_id` configuration][39] for the client.
+required      | true
+type          | String
+example       | `"access_key_id": "AlygD0X6Z4Xr2m3gl70J"`
 
-`secret_access_key`
-: description
-  : The AWS IAM user secret access key to use when querying the EC2 API. This
-    configuration can be provided to override the [built-in Sensu Enterprise
-    `ec2` integration `secret_access_key` configuration][39] for the client.
-: required
-  : true
-: type
-  : String
-: example
-  : ~~~ shell
-    "secret_access_key": "y9Jt5OqNOqdy5NCFjhcUsHMb6YqSbReLAJsy4d6obSZIWySv"
-    ~~~
+secret_access_key | 
+------------------|------
+description       | The AWS IAM user secret access key to use when querying the EC2 API. This configuration can be provided to override the [built-in Sensu Enterprise `ec2` integration `secret_access_key` configuration][39] for the client.
+required          | true
+type              | String
+example           | `"secret_access_key": "y9Jt5OqNOqdy5NCFjhcUsHMb6YqSbReLAJsy4d6obSZIWySv"`
 
-`timeout`
-: description
-  : The handler execution duration timeout in seconds (hard stop). This
-    configuration can be provided to override the [built-in Sensu Enterprise
-    `ec2` integration `timeout` configuration][39] for the client.
-: required
-  : false
-: type
-  : Integer
-: default
-  : `10`
-: example
-  : ~~~ shell
-    "timeout": 30
-    ~~~
+timeout      | 
+-------------|------
+description  | The handler execution duration timeout in seconds (hard stop). This configuration can be provided to override the [built-in Sensu Enterprise `ec2` integration `timeout` configuration][39] for the client.
+required     | false
+type         | Integer
+default      | `10`
+example      | `"timeout": 30`
 
 #### `chef` attributes
 
@@ -1183,182 +921,93 @@ Enterprise Chef integration][42].**
 
 ##### ATTRIBUTES {#chef-attributes-specification}
 
-`node_name`
-: description
-  : The Chef node name (if different than the [client definition `name`
-    attribute][15]), used to lookup node data in the Chef API.
-: required
-  : false
-: type
-  : String
-: default
-  : defaults to the value of the [client definition `name` attribute][15].
-: example
-  : ~~~ shell
-    "node_name": "webserver01"
-    ~~~
+node_name    | 
+-------------|------
+description  | The Chef node name (if different than the [client definition `name` attribute][15]), used to lookup node data in the Chef API.
+required     | false
+type         | String
+default      | defaults to the value of the [client definition `name` attribute][15].
+example      | `"node_name": "webserver01"`
 
-`endpoint`
-: description
-  : The Chef Server API endpoint (URL). This configuration can be provided to
-    override the [built-in Sensu Enterprise `chef` integration `endpoint`
-    configuration][42] for the client.
-: required
-  : true
-: type
-  : String
-: example
-  : ~~~ shell
-    "endpoint": "https://api.chef.io/organizations/example"
-    ~~~
+endpoint     | 
+-------------|------
+description  | The Chef Server API endpoint (URL). This configuration can be provided to override the [built-in Sensu Enterprise `chef` integration `endpoint` configuration][42] for the client.
+required     | true
+type         | String
+example      | `"endpoint": "https://api.chef.io/organizations/example"`
 
-`flavor`
-: description
-  : The Chef Server flavor (is it enterprise?). This configuration can be
-    provided to override the [built-in Sensu Enterprise `chef` integration
-    `flavor` configuration][42] for the client.
-: required
-  : false
-: type
-  : String
-: allowed values
-  : `enterprise`: for Hosted Chef and Enterprise Chef
-    `open_source`: for Chef Zero and Open Source Chef Server
-: example
-  : ~~~ shell
-    "flavor": "enterprise"
-    ~~~
+flavor         | 
+---------------|------
+description    | The Chef Server flavor (is it enterprise?). This configuration can be provided to override the [built-in Sensu Enterprise `chef` integration `flavor` configuration][42] for the client.
+required       | false
+type           | String
+allowed values | `enterprise`: for Hosted Chef and Enterprise Chef<br>`open_source`: for Chef Zero and Open Source Chef Server
+example        | `"flavor": "enterprise"`
 
-`client`
-: description
-  : The Chef Client name to use when authenticating/querying the Chef Server
-    API. This configuration can be provided to override the [built-in Sensu
-    Enterprise `chef` integration `client` configuration][42] for the client.
-: required
-  : true
-: type
-  : String
-: example
-  : ~~~ shell
-    "client": "sensu-server"
-    ~~~
+client       | 
+-------------|------
+description  | The Chef Client name to use when authenticating/querying the Chef Server API. This configuration can be provided to override the [built-in Sensu Enterprise `chef` integration `client` configuration][42] for the client.
+required     | true
+type         | String
+example      | `"client": "sensu-server"`
 
-`key`
-: description
-  : The Chef Client key to use when authenticating/querying the Chef Server API.
-    This configuration can be provided to override the [built-in Sensu
-    Enterprise `chef` integration `key` configuration][42] for the client.
-: required
-  : true
-: type
-  : String
-: example
-  : ~~~ shell
-    "key": "/etc/chef/i-424242.pem"
-    ~~~
+key          | 
+-------------|------
+description  | The Chef Client key to use when authenticating/querying the Chef Server API. This configuration can be provided to override the [built-in Sensu Enterprise `chef` integration `key` configuration][42] for the client.
+required     | true
+type         | String
+example      | `"key": "/etc/chef/i-424242.pem"`
 
-`ssl_pem_file`
-: description
-  : The Chef SSL pem file use when querying the Chef Server API. This
-    configuration can be provided to override the [built-in Sensu Enterprise
-    `chef` integration `ssl_pem_file` configuration][42] for the client.
-: required
-  : false
-: type
-  : String
-: example
-  : ~~~ shell
-    "ssl_pem_file": "/etc/chef/ssl.pem"
-    ~~~
+ssl_pem_file | 
+-------------|------
+description  | The Chef SSL pem file use when querying the Chef Server API. This configuration can be provided to override the [built-in Sensu Enterprise `chef` integration `ssl_pem_file` configuration][42] for the client.
+required     | false
+type         | String
+example      | `"ssl_pem_file": "/etc/chef/ssl.pem"`
 
-`ssl_verify`
-: description
-  : If the SSL certificate will be verified when querying the Chef Server API.
-    This configuration can be provided to override the [built-in Sensu
-    Enterprise `chef` integration `ssl_verify` configuration][42] for the
-    client.
-: required
-  : false
-: type
-  : Boolean
-: default
-  : `true`
-: example
-  : ~~~ shell
-    "ssl_verify": false
-    ~~~
+ssl_verify   | 
+-------------|------
+description  | If the SSL certificate will be verified when querying the Chef Server API. This configuration can be provided to override the [built-in Sensu Enterprise `chef` integration `ssl_verify` configuration][42] for the client.
+required     | false
+type         | Boolean
+default      | `true`
+example      | `"ssl_verify": false`
 
-`proxy_address`
-: description
-  : The HTTP proxy address. This configuration can be provided to override the
-    [built-in Sensu Enterprise `chef` integration `proxy_address`
-    configuration][42] for the client.
-: required
-  : false
-: type
-  : String
-: example
-  : ~~~ shell
-    "proxy_address": "proxy.example.com"
-    ~~~
+proxy_address | 
+--------------|------
+description   | The HTTP proxy address. This configuration can be provided to override the [built-in Sensu Enterprise `chef` integration `proxy_address` configuration][42] for the client.
+required      | false
+type          | String
+example       | `"proxy_address": "proxy.example.com"`
 
-`proxy_port`
-: description
-  : The HTTP proxy port (if there is a proxy). This configuration can be
-    provided to override the [built-in Sensu Enterprise `chef` integration
-    `proxy_port` configuration][42] for the client.
-: required
-  : false
-: type
-  : Integer
-: example
-  : ~~~ shell
-    "proxy_port": 8080
-    ~~~
+proxy_port   | 
+-------------|------
+description  | The HTTP proxy port (if there is a proxy). This configuration can be provided to override the [built-in Sensu Enterprise `chef` integration `proxy_port` configuration][42] for the client.
+required     | false
+type         | Integer
+example      | `"proxy_port": 8080`
 
-`proxy_username`
-: description
-  : The HTTP proxy username (if there is a proxy). This configuration can be
-    provided to override the [built-in Sensu Enterprise `chef` integration
-    `proxy_username` configuration][42] for the client.
-: required
-  : false
-: type
-  : String
-: example
-  : ~~~ shell
-    "proxy_username": "chef"
-    ~~~
+proxy_username | 
+---------------|------
+description    | The HTTP proxy username (if there is a proxy). This configuration can be provided to override the [built-in Sensu Enterprise `chef` integration `proxy_username` configuration][42] for the client.
+required       | false
+type           | String
+example        | `"proxy_username": "chef"`
 
-`proxy_password`
-: description
-  : The HTTP proxy user password (if there is a proxy). This configuration can
-    be provided to override the [built-in Sensu Enterprise `chef` integration
-    `proxy_password` configuration][42] for the client.
-: required
-  : false
-: type
-  : String
-: example
-  : ~~~ shell
-    "proxy_password": "secret"
-    ~~~
+proxy_password | 
+---------------|------
+description    | The HTTP proxy user password (if there is a proxy). This configuration can be provided to override the [built-in Sensu Enterprise `chef` integration `proxy_password` configuration][42] for the client.
+required       | false
+type           | String
+example        | `"proxy_password": "secret"`
 
-`timeout`
-: description
-  : The handler execution duration timeout in seconds (hard stop). This
-    configuration can be provided to override the [built-in Sensu Enterprise
-    `chef` integration `timeout` configuration][42] for the client.
-: required
-  : false
-: type
-  : Integer
-: default
-  : `10`
-: example
-  : ~~~ shell
-    "timeout": 30
-    ~~~
+timeout      | 
+-------------|------
+description  | The handler execution duration timeout in seconds (hard stop). This configuration can be provided to override the [built-in Sensu Enterprise `chef` integration `timeout` configuration][42] for the client.
+required     | false
+type         | Integer
+default      | `10`
+example      | `"timeout": 30`
 
 #### `puppet` attributes
 
@@ -1384,20 +1033,13 @@ Enterprise Puppet integration][44].**
 
 ##### ATTRIBUTES {#puppet-attributes-specification}
 
-`node_name`
-: description
-  : The Puppet node name (if different than the [client definition `name`
-    attribute][15]), used to lookup node data in PuppetDB.
-: required
-  : false
-: type
-  : String
-: default
-  : defaults to the value of the [client definition `name` attribute][15].
-: example
-  : ~~~ shell
-    "node_name": "webserver01"
-    ~~~
+node_name    | 
+-------------|------
+description  | The Puppet node name (if different than the [client definition `name` attribute][15]), used to lookup node data in PuppetDB.
+required     | false
+type         | String
+default      | defaults to the value of the [client definition `name` attribute][15].
+example      | `"node_name": "webserver01"`
 
 #### `servicenow` attributes
 
@@ -1425,20 +1067,12 @@ Enterprise ServiceNow integration][46].**
 
 ##### ATTRIBUTES {#servicenow-attributes-specification}
 
-`configuration_item`
-: description
-  : The [ServiceNow Configuration Item definition scope][45] used to configure
-    the ServiceNow CMDB Configuration Item for the client.
-: required
-  : false
-: type
-  : Hash
-: example
-  : ~~~ shell
-    "configuration_item": {
-      "name": "webserver01"
-    }
-    ~~~
+configuration_item | 
+-------------------|------
+description        | The [ServiceNow Configuration Item definition scope][45] used to configure the ServiceNow CMDB Configuration Item for the client.
+required           | false
+type               | Hash
+example            | `"configuration_item": {`<br>&emsp;`"name": "webserver01"`<br>`}`
 
 #### `configuration_item` attributes
 
@@ -1468,19 +1102,13 @@ via the `configuration_item` configuration scope. In this example, the CI field
 
 ##### ATTRIBUTES {#configurationitem-attributes-specification}
 
-`name`
-: description
-  : The [ServiceNow Configuration Item name][47] to be used for the system.
-: required
-  : false
-: type
-  : String
-: default
-  : defaults to the value of the [client definition `name` attribute][15].
-: example
-  : ~~~ shell
-    "name": "webserver01.example.com"
-    ~~~
+name         | 
+-------------|------
+description  | The [ServiceNow Configuration Item name][47] to be used for the system.
+required     | false
+type         | String
+default      | defaults to the value of the [client definition `name` attribute][15].
+example      | `"name": "webserver01.example.com"`
 
 #### Custom attributes
 
