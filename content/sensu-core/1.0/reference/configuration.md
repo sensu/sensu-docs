@@ -303,49 +303,49 @@ EMBEDDED_RUBY |
 description   | If the Sensu embedded Ruby runtime is used for check executions, adding Ruby to Sensu's `$PATH`.
 required      | false
 default       | `true` (for versions >0.21)
-example       | `EMBEDDED_RUBY=true`
+example       | {{< highlight shell >}}EMBEDDED_RUBY=true{{< /highlight >}}
 
 CONFIG_FILE  | 
 -------------|------
 description  | The primary configuration file path.
 required     | false
 default      | `/etc/sensu/config.json`
-example      | `CONFIG_FILE=/etc/sensu/config.json`
+example      | {{< highlight shell >}}CONFIG_FILE=/etc/sensu/config.json{{< /highlight >}}
 
 CONFD_DIR    | 
 -------------|------
 description  | The configuration snippet directory path.
 required     | false
 default      | `/etc/sensu/conf.d`
-example      | `CONFD_DIR=/etc/sensu/conf.d`
+example      | {{< highlight shell >}}CONFD_DIR=/etc/sensu/conf.d{{< /highlight >}}
 
 EXTENSION_DIR | 
 --------------|------
 description   | The Sensu extension directory path.
 required      | false
 default       | `/etc/sensu/extensions`
-example       | `EXTENSION_DIR=/etc/sensu/extensions`
+example       | {{< highlight shell >}}EXTENSION_DIR=/etc/sensu/extensions{{< /highlight >}}
 
 PLUGINS_DIR  | 
 -------------|------
 description  | The Sensu plugins directory path, to add to the Sensu's `$PATH`.
 required     | false
 default      | `/etc/sensu/plugins`
-example      | `PLUGINS_DIR=/etc/sensu/plugins`
+example      | {{< highlight shell >}}PLUGINS_DIR=/etc/sensu/plugins{{< /highlight >}}
 
 HANDLERS_DIR | 
 -------------|------
 description  | The Sensu handlers directory path, to add to Sensu's `$PATH`. This is only used by the Sensu server.
 required     | false
 default      | `/etc/sensu/handlers`
-example      | `HANDLERS_DIR=/etc/sensu/handlers`
+example      | {{< highlight shell >}}HANDLERS_DIR=/etc/sensu/handlers{{< /highlight >}}
 
 LOG_DIR      | 
 -------------|------
 description  | The log file directory path.
 required     | false
 default      | `/var/log/sensu`
-example      | `LOG_DIR=/var/log/sensu`
+example      | {{< highlight shell >}}LOG_DIR=/var/log/sensu{{< /highlight >}}
 
 LOG_LEVEL      | 
 ---------------|------
@@ -353,28 +353,28 @@ description    | The log level to default the logger to.
 required       | false
 default        | `info`
 allowed values | `debug`, `info`, `warn`, `error`, `fatal`
-example        | `LOG_LEVEL=info`
+example        | {{< highlight shell >}}LOG_LEVEL=info{{< /highlight >}}
 
 PID_DIR      | 
 -------------|------
 description  | The PID directory path.
 required     | false
 default      | `/var/run/sensu`
-example      | `PID_DIR=/var/run/sensu`
+example      | {{< highlight shell >}}PID_DIR=/var/run/sensu{{< /highlight >}}
 
 USER         | 
 -------------|------
 description  | The Sensu user to run the process as.
 required     | false
 default      | `sensu`
-example      | `USER=sensu`
+example      | {{< highlight shell >}}USER=sensu{{< /highlight >}}
 
 SERVICE_MAX_WAIT | 
 -----------------|------
 description      | The max wait time for process start/stop.
 required         | false
 default          | `10`
-example          | `SERVICE_MAX_WAIT=10`
+example          | {{< highlight shell >}}SERVICE_MAX_WAIT=10{{< /highlight >}}
 
 ## Sensu command line interfaces and arguments
 
@@ -387,69 +387,134 @@ _NOTE: these options will work with ALL of the Sensu services (`sensu-server`,
 -h (-\-help)  | 
 --------------|------
 description   | Display the help documentation.
-examples      | `$ /opt/sensu/bin/sensu-server -h`<br>`Usage: sensu-server [options]`<br>&emsp;<code>-h, --help&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; Display this message</code><br>&emsp;<code>-V, --version&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Display version</code><br>&emsp;<code>-c, --config FILE&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Sensu JSON config FILE</code><br>&emsp;<code>-d, --config_dir DIR[,DIR] &emsp;&emsp;DIR or comma-delimited DIR list for Sensu JSON config files</code><br>&emsp;<code>-P, --print_config&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; Print the compiled configuration and exit</code><br>&emsp;<code>-e, --extension_dir DIR&emsp;&emsp;&emsp;&emsp;DIR for Sensu extensions</code><br>&emsp;<code>-l, --log FILE&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; Log to a given FILE. Default: STDOUT</code><br>&emsp;<code>-L, --log_level LEVEL&emsp;&emsp;&emsp;&emsp;&emsp;Log severity LEVEL</code><br>&emsp;<code>-v, --verbose&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Enable verbose logging</code><br>&emsp;<code>-b, --background&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; Fork into the background</code><br>&emsp;<code>-p, --pid_file FILE&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Write the PID to a given FILE</code><br>`$ /opt/sensu/bin/sensu-install -h`<br>`Usage: sensu-install [options]`<br>&emsp;<code>-h, --help&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; Display this message</code><br>&emsp;<code>-v, --verbose&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Enable verbose logging</code><br>&emsp;<code>-p, --plugin PLUGIN&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Install a Sensu PLUGIN</code><br>&emsp;<code>-P, --plugins PLUGIN[,PLUGIN]&emsp;PLUGIN or comma-delimited list of Sensu plugins to install</code><br>&emsp;<code>-s, --source SOURCE&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Install Sensu plugins from a custom SOURCE</code>
+examples      | {{< highlight shell >}}$ /opt/sensu/bin/sensu-server -h
+Usage: sensu-server [options]
+  -h, --help                       Display this message
+  -V, --version                    Display version
+  -c, --config FILE                Sensu JSON config FILE
+  -d, --config_dir DIR[,DIR]       DIR or comma-delimited DIR list for Sensu JSON config files
+  -P, --print_config               Print the compiled configuration and exit
+  -e, --extension_dir DIR          DIR for Sensu extensions
+  -l, --log FILE                   Log to a given FILE. Default: STDOUT
+  -L, --log_level LEVEL            Log severity LEVEL
+  -v, --verbose                    Enable verbose logging
+  -b, --background                 Fork into the background
+  -p, --pid_file FILE              Write the PID to a given FILE
+
+$ /opt/sensu/bin/sensu-install -h
+Usage: sensu-install [options]
+  -h, --help                       Display this message
+  -v, --verbose                    Enable verbose logging
+  -p, --plugin PLUGIN              Install a Sensu PLUGIN
+  -P, --plugins PLUGIN[,PLUGIN]    PLUGIN or comma-delimited list of Sensu plugins to install
+  -s, --source SOURCE              Install Sensu plugins from a custom SOURCE
+{{< /highlight >}}
 
 -V (-\-version) | 
 ----------------|------
 description     | Display the Sensu version.
-example         | `$ /opt/sensu/bin/sensu-client -V`<br>`1.0.0`
+example         | {{< highlight shell >}}$ /opt/sensu/bin/sensu-client -V
+1.0.0
+{{< /highlight >}}
 
 -c (-\-config FILE) | 
 --------------------|------
 description         | Provide the path to the Sensu configuration `FILE`.
-example             | `/opt/sensu/bin/sensu-api -c /etc/sensu/config.json`
+example             | {{< highlight shell >}}/opt/sensu/bin/sensu-api -c /etc/sensu/config.json{{< /highlight >}}
 
 -d (-\-config_dir DIR[,DIR]) | 
 -----------------------------|------
 description                  | Provide the path to the Sensu configuration `DIR`, or comma delimited `DIR` list. Configuration directories are loaded in the order provided.
-example                      | `/opt/sensu/bin/sensu-server -d /etc/sensu/conf.d,/path/to/more/configuration`
+example                      | {{< highlight shell >}}/opt/sensu/bin/sensu-server -d /etc/sensu/conf.d,/path/to/more/configuration{{< /highlight >}}
 
 -P (-\-print_config) | 
 ---------------------|------
 description          | Load and print Sensu configuration to STDOUT.
 dependencies         | Requires `-c` (`--config`) and `-d` (`--config_dir`) CLI arguments to be provided so the Sensu service knows where to load configuration from.
-example              | `$ sudo -u sensu /opt/sensu/bin/sensu-client -P -c /etc/sensu/config.json -d /etc/sensu/conf.d/`<br>`{"timestamp":"2016-04-08T16:41:35.699200-0700","level":"warn","message":"loading config file","file":"/etc/sensu/config.json"}`<br>`{"timestamp":"2016-04-08T16:41:35.699411-0700","level":"warn","message":"loading config files from directory","directory":"/etc/sensu/conf.d/"}`<br>`{"timestamp":"2016-04-08T16:41:35.699456-0700","level":"warn","message":"loading config file","file":"/etc/sensu/conf.d/check-sensu-website.json"}`<br>`{"timestamp":"2016-04-08T16:41:35.699551-0700","level":"warn","message":"config file applied changes","file":"/etc/sensu/conf.d/check-sensu-website.json","changes":{"checks":{"sensu_website":[null,{"command":"check-http.rb -u https://sensuapp.org","subscribers":["production"],"interval":60,"publish":false}]}}}`<br>`{"timestamp":"2016-04-08T16:41:35.699597-0700","level":"warn","message":"loading config file","file":"/etc/sensu/conf.d/client.json"}`<br>`{"timestamp":"2016-04-08T16:41:35.699673-0700","level":"warn","message":"config file applied changes","file":"/etc/sensu/conf.d/client.json","changes":{"client":[null,{"name":"client-01","address":"127.0.0.1","environment":"development","subscriptions":["production"],"socket":{"bind":"127.0.0.1","port":3030}}]}}`<br>`{"timestamp":"2016-04-08T16:41:35.700246-0700","level":"warn","message":"outputting compiled configuration and exiting"}`<br>`{`<br>&emsp;`"transport":{`<br>&emsp;&emsp;`"name":"redis",`<br>&emsp;&emsp;`"reconnect_on_error":true`<br>&emsp;`},`<br>&emsp;`"checks":{`<br>&emsp;&emsp;`"sensu_website":{`<br>&emsp;&emsp;&emsp;`"command":"check-http.rb -u https://sensuapp.org",`<br>&emsp;&emsp;&emsp;&emsp;`"subscribers":[`<br>&emsp;&emsp;&emsp;&emsp;`"production"`<br>&emsp;&emsp;&emsp;`],`<br>&emsp;&emsp;&emsp;`"interval":60,`<br>&emsp;&emsp;&emsp;`"publish":false`<br>&emsp;&emsp;`}`<br>&emsp;`},`<br>&emsp;`"filters":{},`<br>&emsp;`"mutators":{},`<br>&emsp;`"handlers":{},`<br>&emsp;`"redis":{`<br>&emsp;&emsp;`"host":"127.0.0.1"`<br>&emsp;`},`<br>&emsp;`"api":{`<br>&emsp;&emsp;`"host":"127.0.0.1",`<br>&emsp;&emsp;`"port":4567`<br>&emsp;`},`<br>&emsp;`"client":{`<br>&emsp;&emsp;`"name":"client-01",`<br>&emsp;&emsp;`"address":"127.0.0.1",`<br>&emsp;&emsp;`"environment":"development",`<br>&emsp;&emsp;`"subscriptions":[`<br>&emsp;&emsp;&emsp;`"production"`<br>&emsp;&emsp;`],`<br>&emsp;&emsp;`"socket":{`<br>&emsp;&emsp;&emsp;`"bind":"127.0.0.1",`<br>&emsp;&emsp;&emsp;`"port":3030`<br>&emsp;&emsp;`}`<br>&emsp;`}`<br>`}`
-
-_NOTE: this command needs to be run as the `sensu` user (or as a user with elevated privileges) in order for Sensu to access its configuration files)._
-
-_PRO TIP: to generate config output without log entries, try setting the `-L` (`--log_level`) CLI argument to `error` or `fatal` (e.g. `-L fatal`)._
+example              | {{< highlight shell >}}$ sudo -u sensu /opt/sensu/bin/sensu-client -P -c /etc/sensu/config.json -d /etc/sensu/conf.d/
+{"timestamp":"2016-04-08T16:41:35.699200-0700","level":"warn","message":"loading config file","file":"/etc/sensu/config.json"}
+{"timestamp":"2016-04-08T16:41:35.699411-0700","level":"warn","message":"loading config files from directory","directory":"/etc/sensu/conf.d/"}
+{"timestamp":"2016-04-08T16:41:35.699456-0700","level":"warn","message":"loading config file","file":"/etc/sensu/conf.d/check-sensu-website.json"}
+{"timestamp":"2016-04-08T16:41:35.699551-0700","level":"warn","message":"config file applied changes","file":"/etc/sensu/conf.d/check-sensu-website.json","changes":{"checks":{"sensu_website":[null,{"command":"check-http.rb -u https://sensuapp.org","subscribers":["production"],"interval":60,"publish":false}]}}}
+{"timestamp":"2016-04-08T16:41:35.699597-0700","level":"warn","message":"loading config file","file":"/etc/sensu/conf.d/client.json"}
+{"timestamp":"2016-04-08T16:41:35.699673-0700","level":"warn","message":"config file applied changes","file":"/etc/sensu/conf.d/client.json","changes":{"client":[null,{"name":"client-01","address":"127.0.0.1","environment":"development","subscriptions":["production"],"socket":{"bind":"127.0.0.1","port":3030}}]}}
+{"timestamp":"2016-04-08T16:41:35.700246-0700","level":"warn","message":"outputting compiled configuration and exiting"}
+{
+  "transport":{
+    "name":"redis",
+    "reconnect_on_error":true
+  },
+  "checks":{
+    "sensu_website":{
+      "command":"check-http.rb -u https://sensuapp.org",
+      "subscribers":[
+        "production"
+      ],
+      "interval":60,
+      "publish":false
+    }
+  },
+  "filters":{},
+  "mutators":{},
+  "handlers":{},
+  "redis":{
+    "host":"127.0.0.1"
+  },
+  "api":{
+    "host":"127.0.0.1",
+    "port":4567
+  },
+  "client":{
+    "name":"client-01",
+    "address":"127.0.0.1",
+    "environment":"development",
+    "subscriptions":[
+      "production"
+    ],
+    "socket":{
+      "bind":"127.0.0.1",
+      "port":3030
+    }
+  }
+}
+{{< /highlight >}}_NOTE: this command needs to be run as the `sensu` user (or as a user with elevated privileges) in order for Sensu to access its configuration files)._<br>_PRO TIP: to generate config output without log entries, try setting the `-L` (`--log_level`) CLI argument to `error` or `fatal` (e.g. `-L fatal`)._
 
 -\-validate_config | 
 -------------------|------
 description        | Validate compiled configuration and exit with an exit status code indicating if the configuration is valid (will exit `0` for "OK", and `2` for "CRITICAL" or invalid).
 dependencies       | Requires `-c` (`--config`) and `-d` (`--config_dir`) CLI arguments to be provided so the Sensu service knows where to load configuration from.
-example            | `$ sudo -u sensu /opt/sensu/bin/sensu-client --validate_config -c /etc/sensu/config.json -d /etc/sensu/conf.d/`<br>`configuration is valid`
+example            | {{< highlight shell >}}$ sudo -u sensu /opt/sensu/bin/sensu-client --validate_config -c /etc/sensu/config.json -d /etc/sensu/conf.d/`<br>`configuration is valid{{< /highlight >}}
 
 -e (-\-extensions_dir DIR) | 
 ---------------------------|------
 description                | Provide the path to the Sensu extensions `DIR`.
-example                    | `/opt/sensu/bin/sensu-server -e /etc/sensu/extensions`
+example                    | {{< highlight shell >}}/opt/sensu/bin/sensu-server -e /etc/sensu/extensions{{< /highlight >}}
 
 -l (-\-log LOG) | 
 ----------------|------
 description     | The path to the `LOG` file. Defaults to `STDOUT` if not provided.
-example         | `/opt/sensu/bin/sensu-server -l /var/log/sensu/sensu-server.log`
+example         | {{< highlight shell >}}/opt/sensu/bin/sensu-server -l /var/log/sensu/sensu-server.log{{< /highlight >}}
 
 -L (-\-log_level LEVEL) | 
 ------------------------|------
 description             | Log security `LEVEL`
 allowed values          | `debug`, `info`, `warn`, `error`, `fatal`
-example                 | `/opt/sensu/bin/sensu-server -L warn`
+example                 | {{< highlight shell >}}/opt/sensu/bin/sensu-server -L warn{{< /highlight >}}
 
 -v (-\-verbose) | 
 ----------------|------
 description     | Enable verbose logging.
-example         | `/opt/sensu/bin/sensu-client -v`
+example         | {{< highlight shell >}}/opt/sensu/bin/sensu-client -v{{< /highlight >}}
 
 -b (-\-background) | 
 -------------------|------
 description        | Detach the process and run in the background (i.e. run as a "daemon")
-example            | `/opt/sensu/bin/sensu-server -b`
+example            | {{< highlight shell >}}/opt/sensu/bin/sensu-server -b{{< /highlight >}}
 
 -p (-\-pid_file FILE) | 
 ----------------------|------
 description           | Write the PID to a given `FILE`.
-example               | `/opt/sensu/bin/sensu-server -p /var/run/sensu-server.pid`
+example               | {{< highlight shell >}}/opt/sensu/bin/sensu-server -p /var/run/sensu-server.pid{{< /highlight >}}
 
 
 ## Sensu environment variables
@@ -467,7 +532,7 @@ SENSU_CLIENT_NAME |
 description       | The Sensu client `name`, used if a client definition does not already provide one.
 type              | String
 required          | false
-example           | `SENSU_CLIENT_NAME="container-01"`
+example           | {{< highlight shell >}}SENSU_CLIENT_NAME="container-01"{{< /highlight >}}
 
 SENSU_CLIENT_ADDRESS | 
 ---------------------|------
@@ -475,7 +540,7 @@ description          | The Sensu client `address`, used if a client definition d
 type                 | String
 required             | false
 default              | `hostname`
-example              | `SENSU_CLIENT_ADDRESS="8.8.8.8"`
+example              | {{< highlight shell >}}SENSU_CLIENT_ADDRESS="8.8.8.8"{{< /highlight >}}
 
 SENSU_CLIENT_SUBSCRIPTIONS | 
 ---------------------------|------
@@ -483,7 +548,7 @@ description                | The Sensu client `subscriptions`, comma delimited, 
 type                       | Array
 required                   | false
 default                    | `[]`
-example                    | `SENSU_CLIENT_SUBSCRIPTIONS="production,webserver,nginx,memcached,all"`
+example                    | {{< highlight shell >}}SENSU_CLIENT_SUBSCRIPTIONS="production,webserver,nginx,memcached,all"{{< /highlight >}}
 
 SENSU_TRANSPORT_NAME | 
 ---------------------|------
@@ -491,28 +556,28 @@ description          | The Sensu transport name, indicating the Sensu transport 
 type                 | String
 required             | false
 default              | `rabbitmq`
-example              | `SENSU_TRANSPORT_NAME="redis"`
+example              | {{< highlight shell >}}SENSU_TRANSPORT_NAME="redis"{{< /highlight >}}
 
 RABBITMQ_URL | 
 -------------|------
 description  | The RabbitMQ URL Sensu will use when connecting to RabbitMQ, used if a RabbitMQ definition does not already define connection options. The RabbitMQ URL uses the [AMQP URI spec][6].
 type         | String
 required     | false
-example      | `RABBITMQ_URL="amqp://user:password@hostname:5672/%2Fvhost"`
+example      | {{< highlight shell >}}RABBITMQ_URL="amqp://user:password@hostname:5672/%2Fvhost"{{< /highlight >}}
 
 REDIS_URL    | 
 -------------|------
 description  | The Redis URL Sensu will use when connecting to Redis, used if a Redis definition does not already define connection options.
 type         | String
 required     | false
-example      | `REDIS_URL="redis://hostname:6379/0"`
+example      | {{< highlight shell >}}REDIS_URL="redis://hostname:6379/0"{{< /highlight >}}
 
 REDIS_SENTINEL_URLS | 
 --------------------|------
 description         | A comma-separated list of Redis Sentinel URLs Sensu will use when connecting to Redis; this is used if a Redis definition does not already define Sentinel connection options.
 type                | String
 required            | false
-example             | REDIS_SENTINEL_URLS="redis://sentinel1:26379,redis://sentinel2:26379,redis://sentinel3:26379/"
+example             | {{< highlight shell >}}REDIS_SENTINEL_URLS="redis://sentinel1:26379,redis://sentinel2:26379,redis://sentinel3:26379/"{{< /highlight >}}
 
 SENSU_API_PORT | 
 ---------------|------
@@ -520,7 +585,7 @@ description    | The Sensu API TCP port to bind to and listen on, used if an API
 type           | Integer
 required       | false
 default        | `4567`
-example        | `SENSU_API_PORT=8080`
+example        | {{< highlight shell >}}SENSU_API_PORT=8080{{< /highlight >}}
 
 ## Sensu configuration specification
 
@@ -561,63 +626,125 @@ rabbitmq     |
 description  | The RabbitMQ definition scope (see: [RabbitMQ Configuration][7])
 required     | true
 type         | Hash
-example      | `{`<br>&emsp;`"rabbitmq": {`<br>&emsp;&emsp;`"host": "10.0.1.10",`<br>&emsp;&emsp;`"vhost": "/sensu",`<br>&emsp;&emsp;`"user": "sensu",`<br>&emsp;&emsp;`"password": "secret"`<br>&emsp;`}`<br>`}`
+example      | {{< highlight json >}}{
+  "rabbitmq": {
+    "host": "10.0.1.10",
+    "vhost": "/sensu",
+    "user": "sensu",
+    "password": "secret"
+  }
+}
+{{< /highlight >}}
 
 redis        | 
 -------------|------
 description  | The Redis definition scope (see: [Redis Configuration][8])
 required     | true
 type         | Hash
-example      | `{`<br>&emsp;`"redis": {`<br>&emsp;&emsp;`"host": "10.0.1.20",`<br>&emsp;&emsp;`"port": 6379,`<br>&emsp;&emsp;`"password": "secret"`<br>&emsp;`}`<br>`}`
+example      | {{< highlight json >}}{
+  "redis": {
+    "host": "10.0.1.20",
+    "port": 6379,
+    "password": "secret"
+  }
+}
+{{< /highlight >}}
 
 transport    | 
 -------------|------
 description  | The Sensu Transport definition scope (see: [Transport Configuration][9]).
 required     | false
 type         | Hash
-example      | `{`<br>&emsp;`"transport": {`<br>&emsp;&emsp;`"name": "rabbitmq"`<br>&emsp;`}`<br>`}`
+example      | {{< highlight json >}}{
+  "transport": {
+    "name": "rabbitmq"
+  }
+}
+{{< /highlight >}}
 
 api          | 
 -------------|------
 description  | The Sensu API definition scope (see: [API Configuration][10])
 required     | true
 type         | Hash
-example      | `{`<br>&emsp;`"api": {`<br>&emsp;&emsp;`"host": "10.0.1.30",`<br>&emsp;&emsp;`"bind": "0.0.0.0",`<br>&emsp;&emsp;`"port": 4242`<br>&emsp;`}`<br>`}`
+example      | {{< highlight json >}}{
+  "api": {
+    "host": "10.0.1.30",
+    "bind": "0.0.0.0",
+    "port": 4242
+  }
+}
+{{< /highlight >}}
 
 client       | 
 -------------|------
 description  | The Sensu Client definition scope (see: [Clients][3])
 required     | false
 type         | Hash
-example      | `{`<br>&emsp;`"client": {`<br>&emsp;&emsp;`"name": "i-424242",`<br>&emsp;&emsp;`"address": "8.8.8.8",`<br>&emsp;&emsp;`"subscriptions": [`<br>&emsp;&emsp;&emsp;`"production",`<br>&emsp;&emsp;&emsp;`"webserver",`<br>&emsp;&emsp;&emsp;`"mysql"`<br>&emsp;&emsp;`]`<br>&emsp;`}`<br>`}`
+example      | {{< highlight json >}}{
+  "client": {
+    "name": "i-424242",
+    "address": "8.8.8.8",
+    "subscriptions": [
+      "production",
+      "webserver",
+      "mysql"
+    ]
+  }
+}
+{{< /highlight >}}
 
 checks       | 
 -------------|------
 description  | The Sensu Checks definition scope (see: [Checks][11])
 required     | false
 type         | Hash
-example      | `{`<br>&emsp;`"checks": {`<br>&emsp;&emsp;`"example_check": {},`<br>&emsp;&emsp;`"another_check": {}`<br>&emsp;`}`<br>`}`
+example      | {{< highlight json >}}{
+  "checks": {
+    "example_check": {},
+    "another_check": {}
+  }
+}
+{{< /highlight >}}
 
 handlers     | 
 -------------|------
 description  | The Sensu Handlers definition scope (see: [Handlers][12])
 required     | false
 type         | Hash
-example      | `{`<br>&emsp;`"handlers": {`<br>&emsp;&emsp;`"example_handler": {},`<br>&emsp;&emsp;`"another_handler": {}`<br>&emsp;`}`<br>`}`
+example      | {{< highlight json >}}{
+  "handlers": {
+    "example_handler": {},
+    "another_handler": {}
+  }
+}
+{{< /highlight >}}
 
 filters      | 
 -------------|------
 description  | The Sensu Filters definition scope (see: [Filters][13])
 required     | false
 type         | Hash
-example      | `{`<br>&emsp;`"filters": {`<br>&emsp;&emsp;`"example_filter": {},`<br>&emsp;&emsp;`"another_filter": {}`<br>&emsp;`}`<br>`}`
+example      | {{< highlight json >}}{
+  "filters": {
+    "example_filter": {},
+    "another_filter": {}
+  }
+}
+{{< /highlight >}}
 
 mutators     | 
 -------------|------
 description  | The Sensu Mutators definition scope (see: [Mutators][14])
 required     | false
 type         | Hash
-example      | `{`<br>&emsp;`"mutators": {`<br>&emsp;&emsp;`"example_mutator": {},`<br>&emsp;&emsp;`"another_mutator": {}`<br>&emsp;`}`<br>`}`
+example      | {{< highlight json >}}{
+  "mutators": {
+    "example_mutator": {},
+    "another_mutator": {}
+  }
+}
+{{< /highlight >}}
 
 [1]:  #sensu-command-line-interfaces-and-arguments
 [2]:  #sensu-environment-variables

@@ -66,10 +66,14 @@ pre {
   background-color: #333;
 }
 
+table pre {
+  max-width: 720px;
+}
+
 .highlight {
   margin-top: -17px;
-  width: 94%;
-  margin-left: 10px;
+  margin-right: 24px;
+  margin-left: 20px;
 }
 
 .article pre code {
