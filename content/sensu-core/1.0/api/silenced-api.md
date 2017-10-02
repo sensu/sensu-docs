@@ -52,49 +52,34 @@ $ curl -s -X GET http://localhost:4567/silenced |jq .
 
 #### API specification {#silenced-get-specification}
 
-`/silenced` (GET)
-: desc
-  : Returns a list of silence entries.
-: example url
-  : http://hostname:4567/silenced
-: parameters
-  : - `limit`:
-      - **required**: false
-      - **type**: Integer
-      - **description**: The number of silence entries to return.
-    - `offset`:
-      - **required**: false
-      - **type**: Integer
-      - **depends**: `limit`
-      - **description**: The number of silence entries to offset before
-      returning items.
-: response type: Array
-: response codes
-  : - **Success**: 200 (OK)
-    - **Error**: 500 (Internal Server Error)
-: output
-  : ~~~ json
-    [
-      {
-        "expire": 3530,
-        "expire_on_resolve": false,
-        "creator": null,
-        "reason": null,
-        "check": "check_haproxy",
-        "subscription": "load-balancer",
-        "id": "load-balancer:check_haproxy"
-      },
-      {
-        "expire": -1,
-        "expire_on_resolve": true,
-        "creator": "sysop@example.com",
-        "reason": "we ran out of time",
-        "check": "check_ntpd",
-        "subscription": "all",
-        "id": "all:check_ntpd"
-      }
-    ]
-    ~~~
+/silenced (GET) | 
+----------------|------
+description     | Returns a list of silence entries.
+example url     | http://hostname:4567/silenced
+parameters      | - `limit`:<br>&emsp;- **required**: false<br>&emsp;- **type**: Integer<br>&emsp;- **description**: The number of silence entries to return.<br>- `offset`:<br>&emsp;- **required**: false<br>&emsp;- **type**: Integer<br>&emsp;- **depends**: `limit`<br>&emsp;- **description**: The number of silence entries to offset before returning items.
+response type   | Array
+response codes  | - **Success**: 200 (OK)<br>- **Error**: 500 (Internal Server Error)
+output          | {{< highlight json >}}[
+  {
+    "expire": 3530,
+    "expire_on_resolve": false,
+    "creator": null,
+    "reason": null,
+    "check": "check_haproxy",
+    "subscription": "load-balancer",
+    "id": "load-balancer:check_haproxy"
+  },
+  {
+    "expire": -1,
+    "expire_on_resolve": true,
+    "creator": "sysop@example.com",
+    "reason": "we ran out of time",
+    "check": "check_ntpd",
+    "subscription": "all",
+    "id": "all:check_ntpd"
+  }
+]
+{{< /highlight >}}
 
 ### `/silenced` (POST)
 
@@ -134,53 +119,18 @@ $ curl -s -X GET http://localhost:4567/silenced | jq .
 
 #### API specification {#silenced-post-specification}
 
-`/silenced` (POST)
-: desc
-  : Create a silence entry.
-: example URL
-  : http://hostname:4567/silenced
-: payload
-  : ~~~ json
-    {
-      "subscription": "load-balancer",
-      "expire": 3600,
-      "reason": "load-balancer maintenance window",
-      "creator": "sysop@example.com"
-    }
-    ~~~
-: payload parameters
-  : - `check`
-     - **required**: true, unless `subscription` is specified
-     - **type**: String
-     - **description**: Specifies the check which the silence entry applies to.
-     - **example**: "check_haproxy"
-  : - `creator`
-     - **required**: false
-     - **type**: String
-     - **description**: Specifies the entity responsible for this entry.
-     - **example**: "you@yourdomain.com" or "Your Name Here"
-  : - `expire`
-      - **required**: false
-      - **type**: Integer
-      - **description**: If specified, the silence entry will be
-      automatically cleared after this number of seconds.
-      - **example**: 1800
-  : - `expire_on_resolve`
-      - **required**: false
-      - **type**: Boolean
-      - **description**: If specified as true, the silence entry will be
-      automatically cleared once the condition it is silencing is resolved.
-      - **example**: true
-  : - `reason`
-      - **required**: false
-      - **type**: String
-      - **description**: If specified, this free-form string is used to provide context
-      or rationale for the reason this silence entry was created.
-      - **example**: "pre-arranged maintenance window"
-  : - `subscription`
-      - **required**: true, unless `check` is specified
-      - **type:** String
-      - **description**: Specifies the subscription which the silence entry applies to.
+/silenced (POST)   | 
+-------------------|------
+description        | Create a silence entry.
+example URL        | http://hostname:4567/silenced
+payload            | {{< highlight json >}}{
+  "subscription": "load-balancer",
+  "expire": 3600,
+  "reason": "load-balancer maintenance window",
+  "creator": "sysop@example.com"
+}
+{{< /highlight >}}
+payload parameters | - `check`<br>&emsp;- **required**: true, unless `subscription` is specified<br>&emsp;- **type**: String<br>&emsp;- **description**: Specifies the check which the silence entry applies to.<br>&emsp;- **example**: "check_haproxy"- `creator`<br>&emsp;- **required**: false<br>&emsp;- **type**: String<br>&emsp;- **description**: Specifies the entity responsible for this entry.<br>&emsp;- **example**: "you@yourdomain.com" or "Your Name Here"<br>- `expire`<br>&emsp;- **required**: false<br>&emsp;- **type**: Integer<br>&emsp;- **description**: If specified, the silence entry will be automatically cleared after this number of seconds.<br>&emsp;- **example**: 1800<br>- `expire_on_resolve`<br>&emsp;- **required**: false<br>&emsp;- **type**: Boolean<br>&emsp;- **description**: If specified as true, the silence entry will be automatically cleared once the condition it is silencing is resolved.<br>&emsp;- **example**: true<br>- `reason`<br>&emsp;- **required**: false<br>&emsp;- **type**: String<br>&emsp;- **description**: If specified, this free-form string is used to provide context or rationale for the reason this silence entry was created.<br>&emsp;- **example**: "pre-arranged maintenance window"<br>- `subscription`<br>&emsp;- **required**: true, unless `check` is specified<br>&emsp;- **type:** String<br>&emsp;- **description**: Specifies the subscription which the silence entry applies to.
 : response codes
   : - **Success**: 201 (Created)
     - **Malformed**: 400 (Bad Request)
@@ -205,28 +155,22 @@ $ curl -s -X GET http://localhost:4567/silenced/ids/load-balancer:check_haproxy 
 
 #### API specification {#silencedids-get-specification}
 
-`/silenced/ids/:id` (GET)
-: desc
-  : Returns a specific silenced override by it's ID.
-: example url
-  : http://hostname:4567/silenced/webserver:check_nginx
-: response type: Hash
-: response codes
-  : - **Success**: 200 (OK)
-    - **Missing**: 404 (Not Found)
-    - **Error**: 500 (Internal Server Error)
-: output
-  : ~~~ json
-    {
-      "id": "webserver:check_nginx",
-      "subscription": "webserver",
-      "check": "check_nginx",
-      "reason": null,
-      "creator": null,
-      "expire_on_resolve": false,
-      "expire": -1
-    }
-    ~~~
+/silenced/ids/:id (GET) | 
+------------------------|------
+description             | Returns a specific silenced override by it's ID.
+example url             | http://hostname:4567/silenced/webserver:check_nginx
+response type           | Hash
+response codes          | - **Success**: 200 (OK)<br>- **Missing**: 404 (Not Found)<br>- **Error**: 500 (Internal Server Error)
+output                  | {{< highlight json >}}{
+  "id": "webserver:check_nginx",
+  "subscription": "webserver",
+  "check": "check_nginx",
+  "reason": null,
+  "creator": null,
+  "expire_on_resolve": false,
+  "expire": -1
+}
+{{< /highlight >}}
 
 ### `/silenced/clear` (POST)
 
@@ -301,38 +245,16 @@ $ curl -s -X GET http://localhost:4567/silenced | jq .
 
 #### API specification {#silenced-clear-post-specification}
 
-`/silenced/clear` (POST)
-: desc
-  : Clear a silence entry.
-: example URL
-  : http://hostname:4567/silenced/clear
-: payload
-  : ~~~ json
-    {
-      "id": "load-balancer:ha_proxy"
-    }
-    ~~~
-: payload parameters
-  : - `check`
-      - **required**: true, unless `subscription` or `id` is specified
-      - **type**: String
-      - **description**: Specifies the name of the check for which the silence
-      entry should be cleared.
-      - **example**: "check_haproxy"
-  : - `subscription`:
-      - **required**: true, unless `client` is specified
-      - **type:** String
-      - **description**: Specifies the name of the subscription for which the silence
-     entry should be cleared.
-  : - `id`:
-      - **required**: true, unless `client` or is specified
-      - **type:** String
-      - **description**: Specifies the id (intersection of subscription and
-      check) of the subscription for which the silence entry should be cleared.
-: response codes
-  : - **Success**: 204 (No Content)
-    - **Malformed**: 400 (Bad Request)
-    - **Error**: 500 (Internal Server Error)
+/silenced/clear (POST) | 
+-----------------------|------
+description            | Clear a silence entry.
+example URL            | http://hostname:4567/silenced/clear
+payload                | {{< highlight json >}}{
+  "id": "load-balancer:ha_proxy"
+}
+{{< /highlight >}}
+payload parameters     | - `check`<br>&emsp;- **required**: true, unless `subscription` or `id` is specified<br>&emsp;- **type**: String<br>&emsp;- **description**: Specifies the name of the check for which the silence entry should be cleared.<br>&emsp;- **example**: "check_haproxy"<br>- `subscription`:<br>&emsp;- **required**: true, unless `client` is specified<br>&emsp;- **type:** String<br>&emsp;- **description**: Specifies the name of the subscription for which the silence entry should be cleared.<br>- `id`:<br>&emsp;- **required**: true, unless `client` or is specified<br>&emsp;- **type:** String<br>&emsp;- **description**: Specifies the id (intersection of subscription and check) of the subscription for which the silence entry should be cleared.
+response codes         | - **Success**: 204 (No Content)<br>- **Malformed**: 400 (Bad Request)<br>- **Error**: 500 (Internal Server Error)
 
 ### `/silenced/subscriptions/:subscription` (GET)
 
@@ -355,31 +277,13 @@ $ curl -s -X GET http://localhost:4567/silenced/subscriptions/load-balancer | jq
 
 #### API specification {#silenced-subscriptions-get-specification}
 
-`/silenced/subscriptions/:subscription` (GET)
-: desc
-  : Returns a list of silence entries matching the specified subscription name.
-: example url
-  : http://hostname:4567/silenced/subscriptions/load-balancer
-
-: response type
-  : Array
-
-: parameters
-  : - `limit`
-      - **required**: false
-      - **type**: Integer
-      - **description**: The number of clients to return.
-      - **example**: `http://hostname:4567/subscriptions/load-balancer?limit=100`
-    - `offset`
-      - **required**: false
-      - **type**: Integer
-      - **depends**: `limit`
-      - **description**: The number of clients to offset before returning items.
-      - **example**: `http://hostname:4567/subscriptions/load-balancer?limit=100&offset=100`
-
-: response codes
-  : - **Success**: 200 (OK)
-    - **Error**: 500 (Internal Server Error)
+/silenced/subscriptions/:subscription (GET) | 
+--------------------------------------------|------
+description                                 | Returns a list of silence entries matching the specified subscription name.
+example url                                 | http://hostname:4567/silenced/subscriptions/load-balancer
+response type                               | Array
+parameters                                  | - `limit`<br>&emsp;- **required**: false<br>&emsp;- **type**: Integer<br>&emsp;- **description**: The number of clients to return.<br>&emsp;- **example**: `http://hostname:4567/subscriptions/load-balancer?limit=100`<br>- `offset`<br>&emsp;- **required**: false<br>&emsp;- **type**: Integer<br>&emsp;- **depends**: `limit`<br>&emsp;- **description**: The number of clients to offset before returning items.<br>&emsp;- **example**: `http://hostname:4567/subscriptions/load-balancer?limit=100&offset=100`
+response codes                              | - **Success**: 200 (OK)<br>- **Error**: 500 (Internal Server Error)
 
 ### `/silenced/checks/:check` (GET)
 
@@ -411,29 +315,10 @@ $ curl -s -X GET http://localhost:4567/silenced/checks/check_ntpd | jq .
 
 #### API specification {#silenced-checks-get-specification}
 
-`/silenced/checks/:check` (GET)
-: desc
-  : Returns a list of silence entries matching the specified check name.
-
-: example url
-  : http://hostname:4567/silenced/checks/check_ntpd
-
-: response type
-  : Array
-
-: parameters
-  : - `limit`
-      - **required**: false
-      - **type**: Integer
-      - **description**: The number of silence entries to return.
-      - **example**: `http://hostname:4567/silenced/checks/check_ntpd?limit=100`
-    - `offset`
-      - **required**: false
-      - **type**: Integer
-      - **depends**: `limit`
-      - **description**: The number of clients to offset before returning items.
-      - **example**: `http://hostname:4567/silenced/checks/check_ntpd?limit=100&offset=100`
-
-: response codes
-  : - **Success**: 200 (OK)
-    - **Error**: 500 (Internal Server Error)
+/silenced/checks/:check (GET) | 
+------------------------------|------
+desc                          | Returns a list of silence entries matching the specified check name.
+example url                   | http://hostname:4567/silenced/checks/check_ntpd
+response type                 | Array
+parameters                    | - `limit`<br>&emsp;- **required**: false<br>&emsp;- **type**: Integer<br>&emsp;- **description**: The number of silence entries to return.<br>&emsp;- **example**: `http://hostname:4567/silenced/checks/check_ntpd?limit=100`<br>- `offset`<br>&emsp;- **required**: false<br>&emsp;- **type**: Integer<br>&emsp;- **depends**: `limit`<br>&emsp;- **description**: The number of clients to offset before returning items.<br>&emsp;- **example**: `http://hostname:4567/silenced/checks/check_ntpd?limit=100&offset=100`
+response codes                | - **Success**: 200 (OK)<br>- **Error**: 500 (Internal Server Error)

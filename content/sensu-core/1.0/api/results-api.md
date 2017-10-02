@@ -72,41 +72,31 @@ $ curl -s http://localhost:4567/results | jq .
 
 #### API specification {#results-get-specification}
 
-`/results` (GET)
-: desc
-  : Returns a list of current check results for all clients.
-
-: example url
-  : http://hostname:4567/results
-
-: response type
-  : Array
-
-: response codes
-  : - **Success**: 200 (OK)
-    - **Error**: 500 (Internal Server Error)
-
-: output
-  : ~~~ json
-    [
-        {
-            "client": "i-424242",
-            "check": {
-                "name": "chef_client_process",
-                "command": "check-procs.rb -p chef-client -W 1",
-                "subscribers": [
-                    "production"
-                ],
-                "interval": 60,
-                "issued": 1389374667,
-                "executed": 1389374667,
-                "output": "WARNING Found 0 matching processes\n",
-                "status": 1,
-                "duration": 0.032
-            }
-        }
-    ]
-    ~~~
+/results (GET) | 
+---------------|------
+description    | Returns a list of current check results for all clients.
+example url    | http://hostname:4567/results
+response type  | Array
+response codes | - **Success**: 200 (OK)<br>- **Error**: 500 (Internal Server Error)
+output         | {{< highlight json >}}[
+  {
+    "client": "i-424242",
+    "check": {
+      "name": "chef_client_process",
+      "command": "check-procs.rb -p chef-client -W 1",
+      "subscribers": [
+        "production"
+      ],
+      "interval": 60,
+      "issued": 1389374667,
+      "executed": 1389374667,
+      "output": "WARNING Found 0 matching processes\n",
+      "status": 1,
+      "duration": 0.032
+    }
+  }
+]
+{{< /highlight >}}
 
 ### `/results` (POST)
 
@@ -141,43 +131,31 @@ Server: thin
 
 #### API specification {#results-post-specification}
 
-`/results` (POST)
-: desc
-  : Accepts [Sensu check result data][4] via API.
-: example url
-  : http://hostname:4567/results
-: response type
-  : [HTTP-header][3] only (no output)
-: response codes
-  : - **Success**: 201 (Created)
-    - **Malformed**: 400 (Bad Request)
-    - **Error**: 500 (Internal Server Error)
-: example payload
-  : ~~~
-     {
-       "source": "docker_01",
-       "name": "index_app_01",
-       "output": "Indexing app is OK",
-       "status": 0
-     }
-    ~~~
-    _NOTE: the `/results` (POST) API only supports check `name`, `output`,
-    `status`, and `source` (used to create a [proxy client][4]). Please see the
-    [check definition specification][5] documentation for more information._
-: output
-  : ~~~ shell
-    HTTP/1.1 202 Accepted
-    Content-Type: application/json
-    Access-Control-Allow-Origin: *
-    Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS
-    Access-Control-Allow-Credentials: true
-    Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept, Authorization
-    Content-Length: 21
-    Connection: keep-alive
-    Server: thin
+/results (POST) | 
+----------------|------
+description     | Accepts [Sensu check result data][4] via API.
+example url     | http://hostname:4567/results
+response type   | [HTTP-header][3] only (no output)
+response codes  | - **Success**: 201 (Created)<br>- **Malformed**: 400 (Bad Request)<br>- **Error**: 500 (Internal Server Error)
+example payload | {{< highlight shell >}}{
+  "source": "docker_01",
+  "name": "index_app_01",
+  "output": "Indexing app is OK",
+  "status": 0
+}
+{{< /highlight >}}<br>_NOTE: the `/results` (POST) API only supports check `name`, `output`, `status`, and `source` (used to create a [proxy client][4]). Please see the [check definition specification][5] documentation for more information._
+output          | {{< highlight shell >}}HTTP/1.1 202 Accepted
+  Content-Type: application/json
+  Access-Control-Allow-Origin: *
+  Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS
+  Access-Control-Allow-Credentials: true
+  Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept, Authorization
+  Content-Length: 21
+  Connection: keep-alive
+  Server: thin
 
-    {"issued":1460326288}
-    ~~~
+  {"issued":1460326288}
+{{< /highlight >}}
 
 ## The `/results/:client` API endpoint
 
@@ -231,37 +209,31 @@ $ curl -s http://localhost:4567/results/client-01 | jq .
 
 #### API specification {#resultsclient-get-specification}
 
-`/results/:client` (GET)
-: desc
-  : Returns a list of current check results for a given client.
-: example url
-  : http://hostname:4567/results/i-424242
-: response type
-  : Array
-: response codes
-  : - **Success**: 200 (OK)
-    - **Error**: 500 (Internal Server Error)
-: output
-  : ~~~ json
-    [
-        {
-            "client": "i-424242",
-            "check": {
-                "name": "chef_client_process",
-                "command": "check-procs.rb -p chef-client -W 1",
-                "subscribers": [
-                    "production"
-                ],
-                "interval": 60,
-                "issued": 1389374667,
-                "executed": 1389374667,
-                "output": "WARNING Found 0 matching processes\n",
-                "status": 1,
-                "duration": 0.032
-            }
-        }
-    ]
-    ~~~
+/results/:client (GET) | 
+-----------------------|------
+description            | Returns a list of current check results for a given client.
+example url            | http://hostname:4567/results/i-424242
+response type          | Array
+response codes         | - **Success**: 200 (OK)<br>- **Error**: 500 (Internal Server Error)
+output                 | {{< highlight json >}}[
+  {
+    "client": "i-424242",
+    "check": {
+      "name": "chef_client_process",
+      "command": "check-procs.rb -p chef-client -W 1",
+      "subscribers": [
+        "production"
+      ],
+       "interval": 60,
+      "issued": 1389374667,
+      "executed": 1389374667,
+      "output": "WARNING Found 0 matching processes\n",
+      "status": 1,
+      "duration": 0.032
+    }
+  }
+]
+{{< /highlight >}}
 
 ## The `/results/:client/:check` API endpoints
 
@@ -299,36 +271,29 @@ $ curl -s http://localhost:4567/results/client-01/sensu_website | jq .
 
 #### API specification {#resultsclientcheck-get-specification}
 
-`/results/:client/:check` (GET)
-: desc
-  : Returns a check result for a given client & check name.
-: example url
-  : http://hostname:4567/results/i-424242/chef_client_process
-: response type
-  : Hash
-: response codes
-  : - **Success**: 200 (OK)
-    - **Missing**: 404 (Not Found)
-    - **Error**: 500 (Internal Server Error)
-: output
-  : ~~~ json
-    {
-        "client": "i-424242",
-        "check": {
-            "name": "chef_client_process",
-            "command": "check-procs.rb -p chef-client -W 1",
-            "subscribers": [
-                "production"
-            ],
-            "interval": 60,
-            "issued": 1389374667,
-            "executed": 1389374667,
-            "output": "WARNING Found 0 matching processes\n",
-            "status": 1,
-            "duration": 0.032
-        }
+/results/:client/:check (GET) | 
+------------------------------|------
+description                   | Returns a check result for a given client & check name.
+example url                   | http://hostname:4567/results/i-424242/chef_client_process
+response type                 | Hash
+response codes                | - **Success**: 200 (OK)<br>- **Missing**: 404 (Not Found)<br>- **Error**: 500 (Internal Server Error)
+output                        | {{< highlight json >}}{
+    "client": "i-424242",
+    "check": {
+      "name": "chef_client_process",
+      "command": "check-procs.rb -p chef-client -W 1",
+      "subscribers": [
+        "production"
+      ],
+      "interval": 60,
+      "issued": 1389374667,
+      "executed": 1389374667,
+      "output": "WARNING Found 0 matching processes\n",
+      "status": 1,
+      "duration": 0.032
     }
-    ~~~
+  }
+{{< /highlight >}}
 
 ### `/results/:client/:check` (DELETE)
 
@@ -353,27 +318,20 @@ Server: thin
 
 #### API specification {#resultsclientcheck-delete-specification}
 
-`/results/:client/:check` (DELETE)
-: desc
-  : Delete a check result for a given client & check name.
-: example url
-  : http://hostname:4567/results/i-424242/chef_client_process
-: response type
-  : [HTTP-header][3] only (No Content)
-: response codes
-  : - **Success**: 204 (No Content)
-    - **Missing**: 404 (Not Found)
-    - **Error**: 500 (Internal Server Error)
-: output
-  : ~~~ shell
-    HTTP/1.1 204 No Content
-    Access-Control-Allow-Origin: *
-    Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS
-    Access-Control-Allow-Credentials: true
-    Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept, Authorization
-    Connection: close
-    Server: thin
-    ~~~
+/results/:client/:check (DELETE) | 
+---------------------------------|------
+description                      | Delete a check result for a given client & check name.
+example url                      | http://hostname:4567/results/i-424242/chef_client_process
+response type                    | [HTTP-header][3] only (No Content)
+response codes                   | - **Success**: 204 (No Content)<br>- **Missing**: 404 (Not Found)<br>- **Error**: 500 (Internal Server Error)
+output                           | {{< highlight shell >}}HTTP/1.1 204 No Content
+Access-Control-Allow-Origin: *
+Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS
+Access-Control-Allow-Credentials: true
+Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept, Authorization
+Connection: close
+Server: thin
+{{< /highlight >}}
 
 [?]:  #
 [1]:  ../reference/checks.html#check-results

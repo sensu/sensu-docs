@@ -83,43 +83,20 @@ Sensu servers which may be registered and processing check results._
 
 #### API Specification {#health-get-specification}
 
-`/health` (GET)
-: desc
-  : Returns health information on transport & Redis connections.
-
-: example url
-  : http://hostname:4567/health
-
-: parameters
-  : - `consumers`:
-      - **required**: true
-      - **type**: Integer
-      - **description**: The minimum number of transport consumers to be
-        considered healthy
-      - **notes**: not supported for Sensu installations using Redis as the
-        transport
-    - `messages`:
-      - **required**: true
-      - **type**: Integer
-      - **description**: The maximum amount of transport queued messages to be
-        considered healthy
-
-: response type
-  : [HTTP-header][11] only (no content)
-
-: response codes
-  : - **Success**: 204 (No Content)
-    - **Error**: 412 (Precondition Failed)
-
-: output
-  : ~~~ shell
-    HTTP/1.1 412 Precondition Failed
-    Access-Control-Allow-Origin: *
-    Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS
-    Access-Control-Allow-Credentials: true
-    Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept, Authorization
-    Connection: close
-    ~~~
+/health (GET)  | 
+---------------|------
+description    | Returns health information on transport & Redis connections.
+example url    | http://hostname:4567/health
+parameters     | - `consumers`:<br>&emsp;- **required**: true<br>&emsp;- **type**: Integer<br>&emsp;- **description**: The minimum number of transport consumers to be considered healthy<br>&emsp;- **notes**: not supported for Sensu installations using Redis as the transport<br>- `messages`:<br>&emsp;- **required**: true<br>&emsp;- **type**: Integer<br>&emsp;- **description**: The maximum amount of transport queued messages to be considered healthy
+response type  | [HTTP-header][11] only (no content)
+response codes | - **Success**: 204 (No Content)<br>- **Error**: 412 (Precondition Failed)
+output         | {{< highlight shell >}}HTTP/1.1 412 Precondition Failed
+Access-Control-Allow-Origin: *
+Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS
+Access-Control-Allow-Credentials: true
+Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept, Authorization
+Connection: close
+{{< /highlight >}}
 
 ## The `/info` API endpoint
 
@@ -186,71 +163,61 @@ $ curl -s http://127.0.0.1:4567/info | jq .
 
 #### API Specification {#info-get-specification}
 
-`/info` (GET)
-: desc
-  : Returns information on the Sensu installation.
-
-: example url
-  : http://hostname:4567/info
-
-: response type
-  : Hash
-
-: response codes
-  : - **Success**: 200 (OK)
-    - **Error**: 500 (Internal Server Error)
-
-: output
-  : ~~~ json
+/info (GET)  | 
+---------------|------
+description    | Returns information on the Sensu installation.
+example url    | http://hostname:4567/info
+response type  | Hash
+response codes | - **Success**: 200 (OK)<br>- **Error**: 500 (Internal Server Error)
+output         | {{< highlight json >}}{
+  "sensu": {
+    "version": "1.0.0",
+    "settings": {
+      "hexdigest": "4041dcf9b87d3dc8523a79d944c68f99fe10f99b379989afd617201c91d75411"
+    }
+  },
+  "redis": {
+    "connected": true
+  },
+  "transport": {
+    "name": "rabbitmq",
+    "connected": true,
+    "results": {
+      "consumers": 0,
+      "messages": 0
+    },
+    "keepalives": {
+      "consumers": 0,
+      "messages": 0
+    }
+  },
+  "servers": [
     {
+      "id": "ee193524-ef98-4477-817a-6a1c8d822c82",
+      "hostname": "example",
+      "address": "192.168.0.2",
+      "tasks": [
+        "check_request_publisher",
+        "client_monitor",
+        "check_result_monitor"
+      ],
+      "metrics": {
+        "cpu": {
+          "user": 45.52,
+          "system": 0.95
+        }
+      },
       "sensu": {
         "version": "1.0.0",
         "settings": {
           "hexdigest": "4041dcf9b87d3dc8523a79d944c68f99fe10f99b379989afd617201c91d75411"
         }
       },
-      "redis": {
-        "connected": true
-      },
-      "transport": {
-        "name": "rabbitmq",
-        "connected": true,
-        "results": {
-          "consumers": 0,
-          "messages": 0
-        },
-        "keepalives": {
-          "consumers": 0,
-          "messages": 0
-        }
-      },
-      "servers": [
-        {
-          "id": "ee193524-ef98-4477-817a-6a1c8d822c82",
-          "hostname": "example",
-          "address": "192.168.0.2",
-          "tasks": [
-            "check_request_publisher",
-            "client_monitor",
-            "check_result_monitor"
-          ],
-          "metrics": {
-            "cpu": {
-              "user": 45.52,
-              "system": 0.95
-            }
-          },
-          "sensu": {
-            "version": "1.0.0",
-            "settings": {
-              "hexdigest": "4041dcf9b87d3dc8523a79d944c68f99fe10f99b379989afd617201c91d75411"
-            }
-          },
-          "timestamp": 1488240896
-        }
-      ]
+      "timestamp": 1488240896
     }
-    ~~~
+  ]
+}
+{{< /highlight >}}
 
 [1]:  ../reference/data-store.html
 [2]:  ../reference/transport.html

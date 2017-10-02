@@ -48,44 +48,27 @@ $ curl -s http://127.0.0.1:4567/settings | jq .
 
 #### API Specification {#settings-get-specification}
 
-`/settings` (GET)
-: desc
-  : Returns the APIs running configuration settings.
-
-: example url
-  : http://hostname:4567/settings
-
-: parameters
-  : - `redacted`:
-      - **required**: false
-      - **type**: Boolean
-      - **description**: If sensitive setting values should be
-        redacted.
-      - **default**: true
-
-: response type
-  : Hash
-
-: response codes
-  : - **Success**: 200 (OK)
-    - **Error**: 500 (Internal Server Error)
-
-: output
-  : ~~~ json
-    {
-      "api": {
-        "cors": {
-          "Headers": "Origin, X-Requested-With, Content-Type, Accept, Authorization",
-          "Credentials": "true",
-          "Methods": "GET, POST, PUT, DELETE, OPTIONS",
-          "Origin": "*"
-        },
-        "password": "REDACTED",
-        "user": "admin"
-      },
-      "checks": {
-        "...": "..."
-      },
-      "...": "..."
-    }
-    ~~~
+/settings (GET) | 
+----------------|------
+description     | Returns the APIs running configuration settings.
+example url     | http://hostname:4567/settings
+parameters      | - `redacted`:<br>&emsp;- **required**: false<br>&emsp;- **type**: Boolean<br>&emsp;- **description**: If sensitive setting values should be redacted.<br>&emsp;- **default**: true
+response type   | Hash
+response codes  | - **Success**: 200 (OK)<br>- **Error**: 500 (Internal Server Error)
+output          | {{< highlight json >}}{
+  "api": {
+    "cors": {
+      "Headers": "Origin, X-Requested-With, Content-Type, Accept, Authorization",
+      "Credentials": "true",
+      "Methods": "GET, POST, PUT, DELETE, OPTIONS",
+      "Origin": "*"
+    },
+    "password": "REDACTED",
+    "user": "admin"
+  },
+  "checks": {
+    "...": "..."
+  },
+  "...": "..."
+}
+{{< /highlight >}}

@@ -54,48 +54,33 @@ $ curl -s http://localhost:4567/stashes | jq .
 
 #### API specification {#stashes-get-specification}  
 
-`/stashes` (GET)
-: desc
-  : Returns a list of stashes.
-: example url
-  : http://hostname:4567/stashes
-: parameters
-  : - `limit`:
-      - **required**: false
-      - **type**: Integer
-      - **description**: The number of stashes to return.
-    - `offset`:
-      - **required**: false
-      - **type**: Integer
-      - **depends**: `limit`
-      - **description**: The number of stashes to offset before returning items.
-: response type
-  : Array
-: response codes
-  : - **Success**: 200 (OK)
-    - **Error**: 500 (Internal Server Error)
-: output
-  : ~~~ json
-    [
-      {
-        "path": "silence/i-424242/chef_client_process",
-        "content": {
-          "timestamp": 1383441836
-        },
-        "expire": 3600
-      },
-      {
-        "path": "application/storefront",
-        "content": {
-          "timestamp": 1381350802,
-          "endpoints": [
-            "https://hostname/store"
-          ]
-        },
-        "expire": -1
-      }
-    ]
-    ~~~
+/stashes (GET) | 
+---------------|------
+description    | Returns a list of stashes.
+example url    | http://hostname:4567/stashes
+parameters     | - `limit`:<br>&emsp;- **required**: false<br>&emsp;- **type**: Integer<br>&emsp;- **description**: The number of stashes to return.<br>- `offset`:<br>&emsp;- **required**: false<br>&emsp;- **type**: Integer<br>&emsp;- **depends**: `limit`<br>&emsp;- **description**: The number of stashes to offset before returning items.
+response type  | Array
+response codes | - **Success**: 200 (OK)<br>- **Error**: 500 (Internal Server Error)
+output         | {{< highlight json >}}[
+  {
+    "path": "silence/i-424242/chef_client_process",
+    "content": {
+      "timestamp": 1383441836
+    },
+    "expire": 3600
+  },
+  {
+    "path": "application/storefront",
+    "content": {
+      "timestamp": 1381350802,
+      "endpoints": [
+        "https://hostname/store"
+      ]
+    },
+    "expire": -1
+  }
+]
+{{< /highlight >}}
 
 ### `/stashes` (POST)
 
@@ -127,25 +112,19 @@ Server: thin
 
 #### API specification {#stashes-post-specification}
 
-`/stashes` (POST)
-: desc
-  : Create a stash. (JSON document)
-: example URL
-  : http://hostname:4567/stashes
-: payload
-  : ~~~ json
-    {
-      "path": "example/stash",
-      "content": {
-        "message": "example"
-      },
-      "expire": -1
-    }
-    ~~~
-: response codes
-  : - **Success**: 201 (Created)
-    - **Malformed**: 400 (Bad Request)
-    - **Error**: 500 (Internal Server Error)
+/stashes (POST) | 
+----------------|------
+description     | Create a stash. (JSON document)
+example URL     | http://hostname:4567/stashes
+payload         | {{< highlight json >}}{
+  "path": "example/stash",
+  "content": {
+    "message": "example"
+  },
+  "expire": -1
+}
+{{< /highlight >}}
+response codes  | - **Success**: 201 (Created)<br>- **Malformed**: 400 (Bad Request)<br>- **Error**: 500 (Internal Server Error)
 
 ## The `/stashes/:path` API endpoints
 
@@ -174,27 +153,16 @@ _NOTE: the `/stashes/:path` API endpoint provides [direct access to stash
 
 #### API specification {#stashespath-get-specification}
 
-`/stashes/:path` (GET)
-: desc
-  : Get a stash. (JSON document)
-: example URL
-  : http://hostname:4567/stashes/example/stash
-: response type
-  : Hash
-: response codes
-  : - **Success**: 200 (OK)
-    - **Missing**: 404 (Not Found)
-    - **Error**: 500 (Internal Server Error)
-: output
-  : ~~~
-    {
-      "message": "hello world"
-    }
-    ~~~
-
-    _NOTE: the `/stashes/:path` API endpoint provides [direct access to stash
-    `content` data][7], so only [stash `content` attributes][8] are provided for
-    `/stashes/:path` API queries (not [complete stash definitions][9])._
+/stashes/:path (GET) | 
+---------------------|------
+description          | Get a stash. (JSON document)
+example URL          | http://hostname:4567/stashes/example/stash
+response type        | Hash
+response codes       | - **Success**: 200 (OK)<br>- **Missing**: 404 (Not Found)<br>- **Error**: 500 (Internal Server Error)
+output               | {{< highlight json >}}{
+  "message": "hello world"
+}
+{{< /highlight >}}<br>_NOTE: the `/stashes/:path` API endpoint provides [direct access to stash `content` data][7], so only [stash `content` attributes][8] are provided for `/stashes/:path` API queries (not [complete stash definitions][9])._
 
 ### `/stashes/:path` (POST)
 
@@ -227,40 +195,28 @@ Server: thin
 
 #### API specification {#stashespath-post-specification}
 
-`/stashes/:path` (POST)
-: desc
-  : Create a stash. (JSON document)
-: example URL
-  : http://hostname:4567/stashes/example/stash
-: payload
-  : ~~~ json
-    {
-      "message": "example"
-    }
-    ~~~
-    _NOTE: the `/stashes/:path` API endpoint provides [direct access to stash
-    `content` data][7]; as a result, it expects [stash `content` attributes][8]
-    only (i.e. not a complete [stash definition][9])._
-: response type
-  : Hash
-: response codes
-  : - **Success**: 201 (Created)
-    - **Malformed**: 400 (Bad Request)
-    - **Error**: 500 (Internal Server Error)
-: output
-  : ~~~
-    HTTP/1.1 201 Created
-    Content-Type: application/json
-    Access-Control-Allow-Origin: *
-    Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS
-    Access-Control-Allow-Credentials: true
-    Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept, Authorization
-    Content-Length: 26
-    Connection: keep-alive
-    Server: thin
+/stashes/:path (POST) | 
+----------------------|------
+description           | Create a stash. (JSON document)
+example URL           | http://hostname:4567/stashes/example/stash
+payload               | {{< highlight json >}}{
+  "message": "example"
+}
+{{< /highlight >}}<br>_NOTE: the `/stashes/:path` API endpoint provides [direct access to stash `content` data][7]; as a result, it expects [stash `content` attributes][8] only (i.e. not a complete [stash definition][9])._
+response type         | Hash
+response codes        | <br>- **Success**: 201 (Created)<br>- **Malformed**: 400 (Bad Request)<br>- **Error**: 500 (Internal Server Error)
+output                | {{< highlight shell >}}HTTP/1.1 201 Created
+Content-Type: application/json
+Access-Control-Allow-Origin: *
+Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS
+Access-Control-Allow-Credentials: true
+Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept, Authorization
+Content-Length: 26
+Connection: keep-alive
+Server: thin
 
-    {"path":"my/example/path"}
-    ~~~
+{"path":"my/example/path"}
+{{< /highlight >}}
 
 ### `/stashes/:path` (DELETE)
 
@@ -283,27 +239,20 @@ Server: thin
 
 #### API specification {#stashespath-delete-specification}
 
-`/stashes/:path` (DELETE)
-: desc
-  : Delete a stash. (JSON document)
-: example URL
-  : http://hostname:4567/stashes/example/stash
-: response type
-  : [HTTP-header][10] only (no output)
-: response codes
-  : - **Success**: 204 (No Response)
-    - **Missing**: 404 (Not Found)
-    - **Error**: 500 (Internal Server Error)
-: output
-  : ~~~
-    HTTP/1.1 204 No Content
-    Access-Control-Allow-Origin: *
-    Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS
-    Access-Control-Allow-Credentials: true
-    Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept, Authorization
-    Connection: close
-    Server: thin
-    ~~~
+/stashes/:path (DELETE) | 
+------------------------|------
+description             | Delete a stash. (JSON document)
+example URL             | http://hostname:4567/stashes/example/stash
+response type           | [HTTP-header][10] only (no output)
+response codes          | - **Success**: 204 (No Response)<br>- **Missing**: 404 (Not Found)<br>- **Error**: 500 (Internal Server Error)
+output                  | {{< highlight shell >}}HTTP/1.1 204 No Content
+Access-Control-Allow-Origin: *
+Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS
+Access-Control-Allow-Credentials: true
+Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept, Authorization
+Connection: close
+Server: thin
+{{< /highlight >}}
 
 [1]:  https://en.wikipedia.org/wiki/Key-value_database
 [2]:  ../reference/events.html
