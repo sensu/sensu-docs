@@ -140,7 +140,7 @@ description  | The Redis instance hostname or IP address (recommended).
 required     | false
 type         | String
 default      | `127.0.0.1`
-example      | `"host": "8.8.8.8"`
+example      | {{< highlight shell >}}"host": "8.8.8.8"{{< /highlight >}}
 
 _WARNING: using `"localhost"` instead of `127.0.0.1` for the host configuration on systems that support IPv6 may result in an IPv6 "localhost" resolution (i.e. `::1`) rather than an IPv4 "localhost" resolution (i.e. `127.0.0.1`). Sensu does support IPv6, so this may be desirable; however, if Redis is not configured to listen on IPv6, this will result in a connection error and log entries indicating a `"redis connection error"` with an `"unable to connect to redis server"` error message._
 
@@ -150,14 +150,14 @@ description  | The Redis instance TCP port.
 required     | false
 type         | Integer
 default      | `6379`
-example      | `"port": 6380`
+example      | {{< highlight shell >}}"port": 6380{{< /highlight >}}
 
 password     | 
 -------------|------
 description  | The Redis instance authentication password.
 required     | false
 type         | String
-example      | `"password": "secret"`
+example      | {{< highlight shell >}}"password": "secret"{{< /highlight >}}
 
 db           | 
 -------------|------
@@ -165,7 +165,7 @@ description  | The Redis instance DB to use/select (numeric index).
 required     | false
 type         | Integer
 default      | `0`
-example      | `"db": 1`
+example      | {{< highlight shell >}}"db": 1{{< /highlight >}}
 
 auto_reconnect | 
 ---------------|------
@@ -173,7 +173,7 @@ description    | Reconnect to Redis in the event of a connection failure.
 required       | false
 type           | Boolean
 default        | `true`
-example        | `"auto_reconnect": false`
+example        | {{< highlight shell >}}"auto_reconnect": false{{< /highlight >}}
 
 reconnect_on_error | 
 -------------------|------
@@ -181,7 +181,7 @@ description        | Reconnect to Redis in the event of a Redis error, e.g. READ
 required           | false
 type               | Boolean
 default            | `true`
-example            | `"reconnect_on_error": false`
+example            | {{< highlight shell >}}"reconnect_on_error": false{{< /highlight >}}
 
 master       | 
 -------------|------
@@ -189,14 +189,14 @@ description  | The name of the Redis master set to connect to. Only used for [Re
 required     | false
 default      | `mymaster`
 type         | String
-example      | `"master": "redis-01"`
+example      | {{< highlight shell >}}"master": "redis-01"{{< /highlight >}}
 
 sentinels    | 
 -------------|------
 description  | Redis Sentinel configuration, connection information for one or more Redis Sentinel instances.
 required     | false
 type         | Array
-example      | `"sentinels": [{"host": "10.0.1.23", "port": 26379}]`
+example      | {{< highlight shell >}}"sentinels": [{"host": "10.0.1.23", "port": 26379}]{{< /highlight >}}
 
 #### `sentinels` attributes
 
@@ -208,7 +208,7 @@ host         |
 description  | The Redis Sentinel instance hostname or IP address (recommended).
 required     | true
 type         | String
-example      | `"host": "10.0.1.23"`
+example      | {{< highlight shell >}}"host": "10.0.1.23"{{< /highlight >}}
 
 port         | 
 -------------|------
@@ -216,7 +216,7 @@ description  | The Redis Sentinel instance TCP port.
 required     | false
 type         | Integer
 default      | `26379`
-example      | `"port": 26380`
+example      | {{< highlight shell >}}"port": 26380{{< /highlight >}}
 
 ## Configure Redis
 

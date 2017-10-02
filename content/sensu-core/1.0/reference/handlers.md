@@ -250,21 +250,21 @@ description    | The handler type.
 required       | true
 type           | String
 allowed values | `pipe`, `tcp`, `udp`, `transport`, `set`
-example        | `"type": "pipe"`
+example        | {{< highlight shell >}}"type": "pipe"{{< /highlight >}}
 
 filter       | 
 -------------|------
 description  | The Sensu event filter (name) to use when filtering events for the handler.
 required     | false
 type         | String
-example      | `"filter": "recurrence"`
+example      | {{< highlight shell >}}"filter": "recurrence"{{< /highlight >}}
 
 filters      | 
 -------------|------
 description  | An array of Sensu event filters (names) to use when filtering events for the handler. Each array item must be a string.
 required     | false
 type         | Array
-example      | `"filters": ["recurrence", "production"]`
+example      | {{< highlight shell >}}"filters": ["recurrence", "production"]{{< /highlight >}}
 
 severities     | 
 ---------------|------
@@ -272,14 +272,14 @@ description    | An array of check result severities the handler will handle.<br
 required       | false
 type           | Array
 allowed values | `warning`, `critical`, `unknown`
-example        | `"severities": ["critical", "unknown"]`
+example        | {{< highlight shell >}}"severities": ["critical", "unknown"]{{< /highlight >}}
 
 mutator      | 
 -------------|------
 description  | The Sensu event mutator (name) to use to mutate event data for the handler.
 required     | false
 type         | String
-example      | `"mutator": "only_check_output"`
+example      | {{< highlight shell >}}"mutator": "only_check_output"{{< /highlight >}}
 
 timeout     | 
 ------------|------
@@ -287,7 +287,7 @@ description | The handler execution duration timeout in seconds (hard stop). Onl
 required    | false
 type        | Integer
 default     | `10`
-example     | `"timeout": 30`
+example     | {{< highlight shell >}}"timeout": 30{{< /highlight >}}
 
 handle_silenced | 
 ----------------|------
@@ -295,7 +295,7 @@ description     | If events matching one or more silence entries should be handl
 required        | false
 type            | Boolean
 default         | false
-example         | `"handle_silenced": true`
+example         | {{< highlight shell >}}"handle_silenced": true{{< /highlight >}}
 
 handle_flapping | 
 ----------------|------
@@ -303,35 +303,35 @@ description     | If events in the flapping state should be handled.
 required        | false
 type            | Boolean
 default         | false
-example         | `"handle_flapping": true`
+example         | {{< highlight shell >}}"handle_flapping": true{{< /highlight >}}
 
 command      | 
 -------------|------
 description  | The handler command to be executed. The event data is passed to the process via `STDIN`.<br>_NOTE: the `command` attribute is only supported for Pipe handlers (i.e. handlers configured with `"type": "pipe"`)._
 required     | true (if `type` == `pipe`)
 type         | String
-example      | `"command": "/etc/sensu/plugins/pagerduty.rb"`
+example      | {{< highlight shell >}}"command": "/etc/sensu/plugins/pagerduty.rb"{{< /highlight >}}
 
 socket       | 
 -------------|------
 description  | The [`socket` definition scope][13], used to configure the TCP/UDP handler socket.<br>_NOTE: the `socket` attribute is only supported for TCP/UDP handlers (i.e. handlers configured with `"type": "tcp"` or `"type": "udp"`)._
 required     | true (if `type` == `tcp` or `udp`)
 type         | Hash
-example      | `"socket": {}`
+example      | {{< highlight shell >}}"socket": {}{{< /highlight >}}
 
 pipe         | 
 -------------|------
 description  | The [`pipe` definition scope][14], used to configure the Sensu transport pipe.<br>_NOTE: the `pipe` attribute is only supported for Transport handlers (i.e. handlers configured with `"type": "transport"`)._
 required     | true (if `type` == `transport`)
 type         | Hash
-example      | `"pipe": {}`
+example      | {{< highlight shell >}}"pipe": {}{{< /highlight >}}
 
 handlers     | 
 -------------|------
 description  | An array of Sensu event handlers (names) to use for events using the handler set. Each array item must be a string.<br>_NOTE: the `handlers` attribute is only supported for handler sets (i.e. handlers configured with `"type": "set"`)._
 required     | true (if `type` == `set`)
 type         | Array
-example      | `"handlers": ["pagerduty", "email", "ec2"]`
+example      | {{< highlight shell >}}"handlers": ["pagerduty", "email", "ec2"]{{< /highlight >}}
 
 #### `socket` attributes
 
@@ -365,14 +365,14 @@ host         |
 description  | The socket host address (IP or hostname) to connect to.
 required     | true
 type         | String
-example      | `"host": "8.8.8.8"`
+example      | {{< highlight shell >}}"host": "8.8.8.8"{{< /highlight >}}
 
 port         | 
 -------------|------
 description  | The socket port to connect to.
 required     | true
 type         | Integer
-example      | `"port": 4242`
+example      | {{< highlight shell >}}"port": 4242{{< /highlight >}}
 
 #### `pipe` attributes
 
@@ -407,7 +407,7 @@ description    | The Sensu transport pipe type.
 required       | true
 type           | String
 allowed values | `direct`, `fanout`, `topic`
-example        | `"type": "direct"`
+example        | {{< highlight shell >}}"type": "direct"{{< /highlight >}}
 
 _NOTE: types `direct`, `fanout` and `topic` are supported by the default
 RabbitMQ transport. Redis and other transports may only implement a subset of
@@ -418,7 +418,7 @@ name         |
 description  | The Sensu transport pipe name.
 required     | true
 type         | String
-example      | `"name": "graphite_plaintext"`
+example      | {{< highlight shell >}}"name": "graphite_plaintext"{{< /highlight >}}
 
 options      | 
 -------------|------
@@ -426,7 +426,7 @@ description  | The Sensu transport pipe options. These options may be specific t
 required     | false
 type         | Hash
 default      | `{}`
-example      | `"options": {"durable": true}`
+example      | {{< highlight shell >}}"options": {"durable": true}{{< /highlight >}}
 
 [?]:  #
 [1]:  server.html

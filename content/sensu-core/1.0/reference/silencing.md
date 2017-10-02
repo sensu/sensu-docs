@@ -122,8 +122,15 @@ description  | Name of check which the entry should match on
 required     | true, unless `subscription` is provided
 type         | String
 default      | null
-example      | `{`<br>&emsp;`"check": "haproxy_status"`<br>`}`
-example      | `{`<br>&emsp;`"check": "haproxy_status",`<br>&emsp;`"subscription": "load_balancer"`<br>`}`
+example      | {{< highlight json >}}{
+  "check": "haproxy_status"
+}
+{{< /highlight >}}
+example      | {{< highlight json >}}{
+  "check": "haproxy_status",
+  "subscription": "load_balancer"
+}
+{{< /highlight >}}
 
 subscription | 
 -------------|------
@@ -131,8 +138,15 @@ description  | Name of subscription which the entry should match on
 required     | true, unless `check` is provided
 type         | String
 default      | null
-example      | `{`<br>&emsp;`"subscription": "client:i-424242"`<br>`}`
-example      | `{`<br>&emsp;`"subscription": "client:i-424242",`<br>&emsp;`"check": "haproxy_status"`<br>`}`
+example      | {{< highlight json >}}{
+  "subscription": "client:i-424242"
+}
+{{< /highlight >}}
+example      | {{< highlight json >}}{
+  "subscription": "client:i-424242",
+  "check": "haproxy_status"
+}
+{{< /highlight >}}
 
 id           | 
 -------------|------
@@ -140,7 +154,19 @@ description  | Read-only attribute generated from the intersection of subscripti
 required     | false -- this value cannot be modified
 type         | String
 default      | N/A
-example      | <code>$ curl -s -X GET 127.0.0.1:4567/silenced &#124; jq .</code><br>`[`<br>&emsp;`{`<br>&emsp;&emsp;`"expire": -1,`<br>&emsp;&emsp;`"expire_on_resolve": false,`<br>&emsp;&emsp;`"creator": null,`<br>&emsp;&emsp;`"reason": null,`<br>&emsp;&emsp;`"check": "mysql_status",`<br>&emsp;&emsp;`"subscription": "appserver",`<br>&emsp;&emsp;`"id": "appserver:mysql_status"`<br>&emsp;`}`<br>`]`
+example      | {{< highlight shell >}}$ curl -s -X GET 127.0.0.1:4567/silenced &#124; jq .
+[
+  {
+    "expire": -1,
+    "expire_on_resolve": false,
+    "creator": null,
+    "reason": null,
+    "check": "mysql_status",
+    "subscription": "appserver",
+    "id": "appserver:mysql_status"
+  }
+]
+{{< /highlight >}}
 
 expire       | 
 -------------|------
@@ -148,7 +174,12 @@ description  | Number of seconds until this entry should be automatically delete
 required     | false
 type         | Integer
 default      | -1
-example      | `{`<br>&emsp;`"expire": 3600,`<br>&emsp;`"check": "disk_utilization",`<br>&emsp;`"subscription": "client:i-424242"`<br>`}`
+example      | {{< highlight json >}}{
+  "expire": 3600,
+  "check": "disk_utilization",
+  "subscription": "client:i-424242"
+}
+{{< /highlight >}}
 
 expire_on_resolve | 
 ------------------|------
@@ -156,7 +187,11 @@ description       | If the entry should be automatically deleted when a matching
 required          | false
 type              | Boolean
 default           | false
-example           | `{`<br>&emsp;`"expire_on_resolve": true,`<br>&emsp;`"check": "mysql_status"`<br>`}`
+example           | {{< highlight json >}}{
+  "expire_on_resolve": true,
+  "check": "mysql_status"
+}
+{{< /highlight >}}
 
 creator      | 
 -------------|------
@@ -164,7 +199,12 @@ description  | Person, application or other entity responsible for creating the 
 required     | false
 type         | String
 default      | null
-example      | `{`<br>&emsp;`"creator": "Application Deploy Tool 5.0",`<br>&emsp;`"subscription": "appservers",`<br>&emsp;`"check": "app_status"`<br>`}`
+example      | {{< highlight json >}}{
+  "creator": "Application Deploy Tool 5.0",
+  "subscription": "appservers",
+  "check": "app_status"
+}
+{{< /highlight >}}
 
 reason       | 
 -------------|------
@@ -172,7 +212,12 @@ description  | Explanation or rationale for this entry being created.
 required     | false
 type         | String
 default      | null
-example      | `{`<br>&emsp;`"creator": "patrick",`<br>&emsp;`"subscription": "client:darkstar",`<br>&emsp;`"reason": "brb, rebooting"`<br>`}`
+example      | {{< highlight json >}}{
+  "creator": "patrick",
+  "subscription": "client:darkstar",
+  "reason": "brb, rebooting"
+}
+{{< /highlight >}}
 
 ## Examples
 

@@ -338,21 +338,36 @@ description  | If the filter will negate events that match the filter attributes
 required     | false
 type         | Boolean
 default      | `false`
-example      | `"negate": true`
+example      | {{< highlight shell >}}"negate": true{{< /highlight >}}
 
 attributes   | 
 -------------|------
 description  | Filter attributes to be compared with Event data.
 required     | true
 type         | Hash
-example      | `"attributes": {`<br>&emsp;`"check": {`<br>&emsp;`"team": "ops"`<br>&emsp;`}`<br>`}`
+example      | {{< highlight shell >}}"attributes": {
+  "check": {
+    "team": "ops"
+  }
+}
+{{< /highlight >}}
 
 when         | 
 -------------|------
 description  | The [`when` definition scope][14], used to determine when a filter is applied (time windows).
 required     | false
 type         | Hash
-example      | `"when": {`<br>&emsp;`"days": {`<br>&emsp;&emsp;`"all": [`<br>&emsp;&emsp;&emsp;`{`<br>&emsp;&emsp;&emsp;&emsp;`"begin": "5:00 PM",`<br>&emsp;&emsp;&emsp;&emsp;`"end": "8:00 AM"`<br>&emsp;&emsp;&emsp;`}`<br>&emsp;&emsp;`]`<br>&emsp;`}`<br>`}`
+example      | {{< highlight shell >}}"when": {
+  "days": {
+    "all": [
+      {
+        "begin": "5:00 PM",
+        "end": "8:00 AM"
+      }
+    ]
+  }
+}
+{{< /highlight >}}
 
 #### `when` attributes
 
@@ -393,7 +408,21 @@ days         |
 description  | A hash of days of the week or 'all', each day specified defines one or more time windows in which the filter is applied.
 required     | false (unless `when` is configured)
 type         | Hash
-example      | `"days": {`<br>&emsp;`"all": [`<br>&emsp;&emsp;`{`<br>&emsp;&emsp;&emsp;`"begin": "5:00 PM",`<br>&emsp;&emsp;&emsp;`"end": "8:00 AM"`<br>&emsp;&emsp;`}`<br>&emsp;`],`<br>&emsp;`"friday": [`<br>&emsp;&emsp;`{`<br>&emsp;&emsp;&emsp;`"begin": "12:00 PM",`<br>&emsp;&emsp;&emsp;`"end": "5:00 PM"`<br>&emsp;&emsp;`}`<br>&emsp;`]`<br>`}`
+example      | {{< highlight shell >}}"days": {
+  "all": [
+    {
+      "begin": "5:00 PM",
+      "end": "8:00 AM"
+    }
+  ],
+  "friday": [
+    {
+      "begin": "12:00 PM",
+      "end": "5:00 PM"
+    }
+  ]
+}
+{{< /highlight >}}
 
 [1]:  handlers.html
 [2]:  #filter-definition-specification

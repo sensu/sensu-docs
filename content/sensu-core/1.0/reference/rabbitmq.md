@@ -159,7 +159,7 @@ description  | The RabbitMQ hostname or IP address (recommended).
 required     | false
 type         | String
 default      | `127.0.0.1`
-example      | `"host": "8.8.8.8"`
+example      | {{< highlight shell >}}"host": "8.8.8.8"{{< /highlight >}}
 
 port         | 
 -------------|------
@@ -167,7 +167,7 @@ description  | The RabbitMQ TCP port.
 required     | false
 type         | Integer
 default      | `5672`
-example      | `"port": 5671`
+example      | {{< highlight shell >}}"port": 5671{{< /highlight >}}
 
 host         | 
 -------------|------
@@ -175,7 +175,7 @@ description  | The RabbitMQ vhost to use.
 required     | false
 type         | String
 default      | `/`
-example      | `"vhost": "/sensu"`
+example      | {{< highlight shell >}}"vhost": "/sensu"{{< /highlight >}}
 
 user         | 
 -------------|------
@@ -183,7 +183,7 @@ description  | The RabbitMQ user name.
 required     | false
 type         | String
 default      | `guest`
-example      | `"user": "sensu"`
+example      | {{< highlight shell >}}"user": "sensu"{{< /highlight >}}
 
 password     | 
 -------------|------
@@ -191,14 +191,14 @@ description  | The RabbitMQ user password.
 required     | false
 type         | String
 default      | `guest`
-example      | `"password": "secret"`
+example      | {{< highlight shell >}}"password": "secret"{{< /highlight >}}
 
 heartbeat    | 
 -------------|------
 description  | The RabbitMQ AMQP connection heartbeat in seconds.  Enabling can help in early detection of disrupted TCP connections causing the RabbitMQ client to attempt re-connection to the server much earlier than if left disabled.<br>_NOTE: if this setting is not defined or set to 0 then RabbitMQ client heartbeats are disabled._
 required     | false
 type         | Integer
-example      | `"heartbeat": 30`
+example      | {{< highlight shell >}}"heartbeat": 30{{< /highlight >}}
 
 prefetch     | 
 -------------|------
@@ -206,14 +206,14 @@ description  | The RabbitMQ AMQP consumer prefetch value, setting the number of 
 required     | false
 type         | Integer
 default      | `1`
-example      | `"prefetch": 100`
+example      | {{< highlight shell >}}"prefetch": 100{{< /highlight >}}
 
 ssl          | 
 -------------|------
 description  | A set of attributes that configure SSL encryption for the connection. SSL encryption will be enabled if this attribute is configured.
 required     | false
 type         | Hash
-example      | `"ssl": {}`
+example      | {{< highlight shell >}}"ssl": {}{{< /highlight >}}
 
 #### `ssl` attributes
 
@@ -225,14 +225,14 @@ cert_chain_file |
 description     | The file path for the chain of X509 SSL certificates in the PEM format for the SSL connection.
 required        | true
 type            | String
-example         | `"cert_chain_file": "/etc/sensu/ssl/cert.pem"`
+example         | {{< highlight shell >}}"cert_chain_file": "/etc/sensu/ssl/cert.pem"{{< /highlight >}}
 
 private_key_file | 
 -----------------|------
 description      | The file path for the SSL private key in the PEM format.
 required         | true
 type             | String
-example          | `"private_key_file": "/etc/sensu/ssl/key.pem"`
+example          | {{< highlight shell >}}"private_key_file": "/etc/sensu/ssl/key.pem"{{< /highlight >}}
 
 ## Configure RabbitMQ
 

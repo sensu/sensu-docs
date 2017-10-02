@@ -111,7 +111,7 @@ required       | false
 type           | String
 allowed values | `rabbitmq`, `redis`
 default        | `rabbitmq`
-example        | `"name": "redis"`
+example        | {{< highlight shell >}}"name": "redis"{{< /highlight >}}
 
 reconnect_on_error | 
 -------------------|------
@@ -119,7 +119,7 @@ description        | Attempt to reconnect after a connection error.
 required           | false
 type               | String
 default            | `true`
-example            | `"reconnect_on_error": "false"`
+example            | {{< highlight shell >}}"reconnect_on_error": "false"{{< /highlight >}}
 
 
 [1]:  rabbitmq.html

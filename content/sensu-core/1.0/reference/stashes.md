@@ -63,14 +63,17 @@ path         |
 description  | The path (or "key") the stash will be created and/or accessible at.
 type         | String
 required     | true
-example      | `"path": "silence/server-01"`
+example      | {{< highlight shell >}}"path": "silence/server-01"{{< /highlight >}}
 
 content      | 
 -------------|------
 description  | Arbitrary JSON data.
 type         | Hash
 required     | false
-example      | `"content": {`<br>&emsp;`"message": "hello world!"`<br>`}`
+example      | {{< highlight shell >}}"content": {
+  "message": "hello world!"
+}
+{{< /highlight >}}
 
 expire       | 
 -------------|------
@@ -78,7 +81,7 @@ description  | How long should the stash exist before it is removed by the API, 
 type         | Integer
 required     | false
 default      | `-1`
-example      | `"expire": 3600`
+example      | {{< highlight shell >}}"expire": 3600{{< /highlight >}}
 
 #### `content` attributes
 

@@ -290,7 +290,7 @@ description  | The number of event occurrences that must occur before an event i
 required     | false
 type         | Integer
 default      | `1`
-example      | `"occurrences": 3`
+example      | {{< highlight shell >}}"occurrences": 3{{< /highlight >}}
 
 refresh      | 
 -------------|------
@@ -298,21 +298,25 @@ description  | Time in seconds until the event occurrence count is considered re
 required     | false
 type         | Integer
 default      | `1800`
-example      | `"refresh": 3600`
+example      | {{< highlight shell >}}"refresh": 3600{{< /highlight >}}
 
 dependencies | 
 -------------|------
 description  | An array of check dependencies. Events for the check will not be handled if events exist for one or more of the check dependencies. A check dependency can be a check executed by the same Sensu client (eg. `check_app`), or a client/check pair (eg.`db-01/check_mysql`).
 required     | false
 type         | Array
-example      | `"dependencies": [`<br>&emsp;`"check_app",`<br>&emsp;`"db-01/check_mysql"`<br>`]`
+example      | {{< highlight shell >}}"dependencies": [
+  "check_app",
+  "db-01/check_mysql"
+]
+{{< /highlight >}}
 
 notification | 
 -------------|------
 description  | The notification message used for events created by the check, instead of the commonly used check output. This attribute is used by most notification event handlers that use the sensu-plugin library.
 required     | false
 type         | String
-example      | `"notification": "the shopping cart application is not responding to requests"`
+example      | {{< highlight shell >}}"notification": "the shopping cart application is not responding to requests"{{< /highlight >}}
 
 [1]:  checks.html
 [2]:  handlers.html

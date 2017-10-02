@@ -137,14 +137,14 @@ command      |
 description  | The mutator command to be executed. The event data is passed to the process via `STDIN`.
 required     | true
 type         | String
-example      | `"command": "/etc/sensu/plugins/mutated.rb"`
+example      | {{< highlight shell >}}"command": "/etc/sensu/plugins/mutated.rb"{{< /highlight >}}
 
 timeout      | 
 -------------|------
 description  | The mutator execution duration timeout in seconds (hard stop).
 required     | false
 type         | Integer
-example      | `"timeout": 30`
+example      | {{< highlight shell >}}"timeout": 30{{< /highlight >}}
 
 [1]:  events.html#event-data
 [2]:  handlers.html
