@@ -66,14 +66,28 @@ pre {
   background-color: #eee;
 }
 
+.highlight {
+  margin-top: -17px;
+  width: 94%;
+  margin-left: 10px;
+}
+
+.highlight pre {
+  background-color: #eee !important;
+}
+
+.highlight pre code span {
+  background-color: #eee;
+}
+
 /* General Site Wide Components ----------------------------------------------------------------- */
 .article .data table {
   width: 90%;
   display: inline-table;
 }
 
-.article .data table tr:last-child {
-  background-color: #eee;
+.article .data table tr:last-child td:last-child {
+  //background-color: #eee;
 }
 
 .article .data {
@@ -84,6 +98,12 @@ pre {
 thead, tbody {
   width: 100%;
 }
+
+table>tbody>tr>td>code {
+  //background: gray !important;
+  //margin: -10px;  
+}
+
 
 .article {
   font-size: 16px;

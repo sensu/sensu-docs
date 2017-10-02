@@ -63,57 +63,35 @@ below)._
 
 #### API Specification {#clients-get-specification}
 
-`/clients` (GET)
-: desc.
-  : Returns a list of clients.
-
-: example url
-  : http://hostname:4567/clients
-
-: parameters
-  : - `limit`
-      - **required**: false
-      - **type**: Integer
-      - **description**: The number of clients to return.
-      - **example**: `http://hostname:4567/clients?limit=100`
-    - `offset`
-      - **required**: false
-      - **type**: Integer
-      - **depends**: `limit`
-      - **description**: The number of clients to offset before returning items.
-      - **example**: `http://hostname:4567/clients?limit=100&offset=100`
-
-: response type
-  : Array
-
-: response codes
-  : - **Success**: 200 (OK)
-    - **Error**: 500 (Internal Server Error)
-
-: output
-  : ~~~ json
-    [
-        {
-            "name": "i-334455",
-            "address": "192.168.0.2",
-            "subscriptions": [
-                "chef-client",
-                "sensu-server"
-            ],
-            "timestamp": 1324674972
-        },
-        {
-            "name": "i-424242",
-            "address": "192.168.0.3",
-            "subscriptions": [
-                "chef-client",
-                "webserver",
-                "memcached"
-            ],
-            "timestamp": 1324674956
-        }
-    ]
-    ~~~
+/clients (GET) | 
+---------------|------
+description    | Returns a list of clients.
+example url    | http://hostname:4567/clients
+parameters     | - `limit`<br>&emsp;- **required**: false<br>&emsp;- **type**: Integer<br>&emsp;- **description**: The number of clients to return.<br>&emsp;- **example**: `http://hostname:4567/clients?limit=100`<br>- `offset`<br>&emsp;- **required**: false<br>&emsp;- **type**: Integer<br>&emsp;- **depends**: `limit`<br>&emsp;- **description**: The number of clients to offset before returning items.<br>&emsp;- **example**: `http://hostname:4567/clients?limit=100&offset=100`
+response type  | Array
+response codes | - **Success**: 200 (OK)<br>- **Error**: 500 (Internal Server Error)
+output         | {{< highlight json >}}[
+  {
+    "name": "i-334455",
+    "address": "192.168.0.2",
+    "subscriptions": [
+      "chef-client",
+      "sensu-server"
+    ],
+    "timestamp": 1324674972
+  },
+  {
+    "name": "i-424242",
+    "address": "192.168.0.3",
+    "subscriptions": [
+      "chef-client",
+      "webserver",
+      "memcached"
+    ],
+    "timestamp": 1324674956
+  }
+]
+{{< /highlight >}}
 
 ### `/clients` (POST)
 
@@ -147,30 +125,21 @@ Server: thin
 
 ### API Specification {#clients-post-specification}
 
-`/clients` (POST)
-: desc
-  : Create or update client data (e.g. [Sensu proxy clients][3]).
-
-: example URL
-  : http://hostname:4567/clients
-
-: payload
-  : ~~~ json
-    {
-        "name": "gateway-router",
-        "address": "192.168.0.1",
-        "subscriptions": [
-            "network",
-            "snmp"
-        ],
-        "environment": "production"
-    }
-    ~~~
-
-: response codes
-  : - **Success**: 201 (Created)
-    - **Malformed**: 400 (Bad Request)
-    - **Error**: 500 (Internal Server Error)
+/clients (POST) | 
+----------------|------
+description     | Create or update client data (e.g. [Sensu proxy clients][3]).
+example URL     | http://hostname:4567/clients
+payload         | {{< highlight json >}}{
+  "name": "gateway-router",
+  "address": "192.168.0.1",
+  "subscriptions": [
+    "network",
+    "snmp"
+  ],
+  "environment": "production"
+}
+{{< /highlight >}}
+response codes  | <span class="noCodeBlock" style="visibility: none;"></span>- **Success**: 201 (Created)<br>- **Malformed**: 400 (Bad Request)<br>- **Error**: 500 (Internal Server Error)
 
 ## The `/clients/:client` API Endpoint(s)
 
@@ -227,34 +196,23 @@ Server: thin
 
 ### API Specification {#clientsclient-get-specification}
 
-`/clients/:client` (GET)
-: desc.
-  : Returns a client.
-
-: example url
-  : http://hostname:4567/clients/i-424242
-
-: response type
-  : Hash
-
-: response codes
-  : - **Success**: 200 (OK)
-    - **Missing**: 404 (Not Found)
-    - **Error**: 500 (Internal Server Error)
-
-: output
-  : ~~~ json
-    {
-        "name": "i-424242",
-        "address": "192.168.0.3",
-        "subscriptions": [
-            "chef-client",
-            "webserver",
-            "memcached"
-        ],
-       "timestamp": 1324674956
-    }
-    ~~~
+/clients/:client (GET) | 
+-----------------------|------
+description            | Returns a client.
+example url            | http://hostname:4567/clients/i-424242
+response type          | Hash
+response codes         | - **Success**: 200 (OK)<br>- **Missing**: 404 (Not Found)<br>- **Error**: 500 (Internal Server Error)
+output                 | {{< highlight json >}}{
+  "name": "i-424242",
+  "address": "192.168.0.3",
+  "subscriptions": [
+    "chef-client",
+    "webserver",
+    "memcached"
+  ],
+  "timestamp": 1324674956
+}
+{{< /highlight >}}
 
 ### `/clients/:client` (DELETE)
 
