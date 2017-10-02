@@ -63,7 +63,7 @@ h5 {
 }
 
 pre {
-  background-color: #eee;
+  background-color: #333;
 }
 
 .highlight {
@@ -72,12 +72,16 @@ pre {
   margin-left: 10px;
 }
 
+.article pre code {
+  background-color: #333;
+}
+
 .highlight pre {
-  background-color: #eee !important;
+  background-color: #333 !important;
 }
 
 .highlight pre code span {
-  background-color: #eee;
+  background-color: #333;
 }
 
 /* General Site Wide Components ----------------------------------------------------------------- */

@@ -138,7 +138,13 @@ description                | Deletes all aggregate data for a named aggregate.
 example url                | http://hostname:4567/aggregates/elasticsearch
 response type              | [HTTP-header][3] only (no output)
 response codes             | - **Success**: 204 (No Content)<br>- **Missing**: 404 (Not Found)<br>- **Error**: 500 (Internal Server Error)
-output                     | HTTP/1.1 204 No Content<br>Access-Control-Allow-Origin: *<br>Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS<br>Access-Control-Allow-Credentials: true<br>Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept, Authorization<br>Connection: close<br>Server: thin
+output                     | {{< highlight shell >}}HTTP/1.1 204 No Content
+Access-Control-Allow-Origin: *
+Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS
+Access-Control-Allow-Credentials: true
+Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept, Authorization
+Connection: close<br>Server: thin
+{{< /highlight >}}
 
 ## The `/aggregates/:name/clients` API endpoint
 

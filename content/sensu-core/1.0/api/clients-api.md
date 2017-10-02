@@ -70,7 +70,7 @@ example url    | http://hostname:4567/clients
 parameters     | - `limit`<br>&emsp;- **required**: false<br>&emsp;- **type**: Integer<br>&emsp;- **description**: The number of clients to return.<br>&emsp;- **example**: `http://hostname:4567/clients?limit=100`<br>- `offset`<br>&emsp;- **required**: false<br>&emsp;- **type**: Integer<br>&emsp;- **depends**: `limit`<br>&emsp;- **description**: The number of clients to offset before returning items.<br>&emsp;- **example**: `http://hostname:4567/clients?limit=100&offset=100`
 response type  | Array
 response codes | - **Success**: 200 (OK)<br>- **Error**: 500 (Internal Server Error)
-output         | {{< highlight json >}}[
+output         | {{< highlight shell >}}[
   {
     "name": "i-334455",
     "address": "192.168.0.2",
@@ -129,7 +129,7 @@ Server: thin
 ----------------|------
 description     | Create or update client data (e.g. [Sensu proxy clients][3]).
 example URL     | http://hostname:4567/clients
-payload         | {{< highlight json >}}{
+payload         | {{< highlight shell >}}{
   "name": "gateway-router",
   "address": "192.168.0.1",
   "subscriptions": [
@@ -202,7 +202,7 @@ description            | Returns a client.
 example url            | http://hostname:4567/clients/i-424242
 response type          | Hash
 response codes         | - **Success**: 200 (OK)<br>- **Missing**: 404 (Not Found)<br>- **Error**: 500 (Internal Server Error)
-output                 | {{< highlight json >}}{
+output                 | {{< highlight shell >}}{
   "name": "i-424242",
   "address": "192.168.0.3",
   "subscriptions": [
@@ -261,34 +261,12 @@ Server: thin
 
 #### API Specification {#clientsclient-delete-specification}
 
-`/clients/:client` (DELETE)
-: desc.
-  : Removes a client, resolving its current events. (delayed action)
-
-: example url
-  : http://hostname:4567/clients/i-424242
-
-: parameters
-  : - `invalidate`
-      - **required**: false
-      - **type**: Boolean
-      - **description**: If the Sensu client should be invalidated,
-        disallowing further client keepalives and check results until
-        the client is successfully removed from the client registry.
-      - **example**: `http://hostname:4567/clients/i-424242?invalidate=true`
-    - `invalidate_expire`
-      - **required**: false
-      - **type**: Integer
-      - **description**: If the Sensu client should be invalidated for
-        a specified amount of time (in seconds), disallowing further
-        client keepalives and check results even after the client is
-        successfully removed from the client registry.
-      - **example**: `http://hostname:4567/clients/i-424242?invalidate=true&invalidate_expire=3600`
-
-: response codes
-  : - **Success**: 202 (Accepted)
-    - **Missing**: 404 (Not Found)
-    - **Error**: 500 (Internal Server Error)
+/clients/:client (DELETE) | 
+--------------------------|------
+description               | Removes a client, resolving its current events. (delayed action)
+example url               | http://hostname:4567/clients/i-424242
+parameters                | - `invalidate`<br>&emsp;- **required**: false<br>&emsp;- **type**: Boolean<br>&emsp;- **description**: If the Sensu client should be invalidated, disallowing further client keepalives and check results until the client is successfully removed from the client registry.<br>&emsp;- **example**: `http://hostname:4567/clients/i-424242?invalidate=true`<br>- `invalidate_expire`<br>&emsp;- **required**: false<br>&emsp;- **type**: Integer<br>&emsp;- **description**: If the Sensu client should be invalidated for a specified amount of time (in seconds), disallowing further client keepalives and check results even after the client is successfully removed from the client registry.<br>&emsp;- **example**: `http://hostname:4567/clients/i-424242?invalidate=true&invalidate_expire=3600`
+response codes            |- **Success**: 202 (Accepted)<br>- **Missing**: 404 (Not Found)<br>- **Error**: 500 (Internal Server Error)
 
 ## The `/clients/:client/history` API Endpoint(s)
 

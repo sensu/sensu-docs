@@ -50,7 +50,7 @@ description    | Returns the list of checks.
 example url    | http://hostname:4567/checks
 response type  | Array
 response codes | - **Success**: 200 (OK)<br>- **Error**: 500 (Internal Server Error)
-output         | {{< highlight json >}}[
+output         | {{< highlight shell >}}[
   {
     "name": "chef_client_process",
     "command": "check-procs.rb -p /usr/bin/chef-client -W 1 -w 2 -c 3",
