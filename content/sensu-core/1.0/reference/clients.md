@@ -740,7 +740,7 @@ The following attributes are configured within the `{ "client": { "keepalive": {
 
 warning      | 
 -------------|------
-description  | The warning threshold (in seconds) where a Sensu client is determined to be unhealthy, not having sent a keepalive in so many seconds.<br>_WARNING: keepalive messages are sent at an interval of 20 seconds. Setting a `warning` threshold of 20 seconds or fewer will result in false-positive events. Also note that due to the potential for NTP synchronization issues and/or network latency or packet loss interfering with regular delivery of client keepalive messages, we recommend a minimum `warning` threshold of 40 seconds._
+description  | The warning threshold (in seconds) where a Sensu client is determined to be unhealthy, not having sent a keepalive in so many seconds._WARNING: keepalive messages are sent at an interval of 20 seconds. Setting a `warning` threshold of 20 seconds or fewer will result in false-positive events. Also note that due to the potential for NTP synchronization issues and/or network latency or packet loss interfering with regular delivery of client keepalive messages, we recommend a minimum `warning` threshold of 40 seconds._
 required     | false
 type         | Integer
 default      | `120`
@@ -748,7 +748,7 @@ example      | {{< highlight shell >}}"warning": 60{{< /highlight >}}
 
 critical     | 
 -------------|------
-description  | The critical threshold (in seconds) where a Sensu client is determined to be unhealthy, not having sent a keepalive in so many seconds.<br>_WARNING: keepalive messages are sent at an interval of 20 seconds. Setting a `critical` threshold of 20 seconds or fewer will result in false-positive events. Also note that due to the potential for NTP synchronization issues and/or network latency or packet loss interfering with regular delivery of client keepalive messages, we recommend a minimum `critical` threshold of 60 seconds._
+description  | The critical threshold (in seconds) where a Sensu client is determined to be unhealthy, not having sent a keepalive in so many seconds._WARNING: keepalive messages are sent at an interval of 20 seconds. Setting a `critical` threshold of 20 seconds or fewer will result in false-positive events. Also note that due to the potential for NTP synchronization issues and/or network latency or packet loss interfering with regular delivery of client keepalive messages, we recommend a minimum `critical` threshold of 60 seconds._
 required     | false
 type         | Integer
 default      | `180`

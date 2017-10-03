@@ -268,7 +268,7 @@ example      | {{< highlight shell >}}"filters": ["recurrence", "production"]{{<
 
 severities     | 
 ---------------|------
-description    | An array of check result severities the handler will handle.<br>_NOTE: event resolution bypasses this filtering._
+description    | An array of check result severities the handler will handle._NOTE: event resolution bypasses this filtering._
 required       | false
 type           | Array
 allowed values | `warning`, `critical`, `unknown`
@@ -307,28 +307,28 @@ example         | {{< highlight shell >}}"handle_flapping": true{{< /highlight >
 
 command      | 
 -------------|------
-description  | The handler command to be executed. The event data is passed to the process via `STDIN`.<br>_NOTE: the `command` attribute is only supported for Pipe handlers (i.e. handlers configured with `"type": "pipe"`)._
+description  | The handler command to be executed. The event data is passed to the process via `STDIN`._NOTE: the `command` attribute is only supported for Pipe handlers (i.e. handlers configured with `"type": "pipe"`)._
 required     | true (if `type` == `pipe`)
 type         | String
 example      | {{< highlight shell >}}"command": "/etc/sensu/plugins/pagerduty.rb"{{< /highlight >}}
 
 socket       | 
 -------------|------
-description  | The [`socket` definition scope][13], used to configure the TCP/UDP handler socket.<br>_NOTE: the `socket` attribute is only supported for TCP/UDP handlers (i.e. handlers configured with `"type": "tcp"` or `"type": "udp"`)._
+description  | The [`socket` definition scope][13], used to configure the TCP/UDP handler socket._NOTE: the `socket` attribute is only supported for TCP/UDP handlers (i.e. handlers configured with `"type": "tcp"` or `"type": "udp"`)._
 required     | true (if `type` == `tcp` or `udp`)
 type         | Hash
 example      | {{< highlight shell >}}"socket": {}{{< /highlight >}}
 
 pipe         | 
 -------------|------
-description  | The [`pipe` definition scope][14], used to configure the Sensu transport pipe.<br>_NOTE: the `pipe` attribute is only supported for Transport handlers (i.e. handlers configured with `"type": "transport"`)._
+description  | The [`pipe` definition scope][14], used to configure the Sensu transport pipe._NOTE: the `pipe` attribute is only supported for Transport handlers (i.e. handlers configured with `"type": "transport"`)._
 required     | true (if `type` == `transport`)
 type         | Hash
 example      | {{< highlight shell >}}"pipe": {}{{< /highlight >}}
 
 handlers     | 
 -------------|------
-description  | An array of Sensu event handlers (names) to use for events using the handler set. Each array item must be a string.<br>_NOTE: the `handlers` attribute is only supported for handler sets (i.e. handlers configured with `"type": "set"`)._
+description  | An array of Sensu event handlers (names) to use for events using the handler set. Each array item must be a string._NOTE: the `handlers` attribute is only supported for handler sets (i.e. handlers configured with `"type": "set"`)._
 required     | true (if `type` == `set`)
 type         | Array
 example      | {{< highlight shell >}}"handlers": ["pagerduty", "email", "ec2"]{{< /highlight >}}

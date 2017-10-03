@@ -140,9 +140,7 @@ description  | The Redis instance hostname or IP address (recommended).
 required     | false
 type         | String
 default      | `127.0.0.1`
-example      | {{< highlight shell >}}"host": "8.8.8.8"{{< /highlight >}}
-
-_WARNING: using `"localhost"` instead of `127.0.0.1` for the host configuration on systems that support IPv6 may result in an IPv6 "localhost" resolution (i.e. `::1`) rather than an IPv4 "localhost" resolution (i.e. `127.0.0.1`). Sensu does support IPv6, so this may be desirable; however, if Redis is not configured to listen on IPv6, this will result in a connection error and log entries indicating a `"redis connection error"` with an `"unable to connect to redis server"` error message._
+example      | {{< highlight shell >}}"host": "8.8.8.8"{{< /highlight >}}_WARNING: using `"localhost"` instead of `127.0.0.1` for the host configuration on systems that support IPv6 may result in an IPv6 "localhost" resolution (i.e. `::1`) rather than an IPv4 "localhost" resolution (i.e. `127.0.0.1`). Sensu does support IPv6, so this may be desirable; however, if Redis is not configured to listen on IPv6, this will result in a connection error and log entries indicating a `"redis connection error"` with an `"unable to connect to redis server"` error message._
 
 port         | 
 -------------|------
@@ -185,7 +183,7 @@ example            | {{< highlight shell >}}"reconnect_on_error": false{{< /high
 
 master       | 
 -------------|------
-description  | The name of the Redis master set to connect to. Only used for [Redis Sentinel][16] connections.<br>_WARNING: When configuring Sensu to use Sentinels for Redis failover, the value of this setting must match the configured name for the Redis master set. If these settings do not match, Sensu will be unable to connect to Redis._
+description  | The name of the Redis master set to connect to. Only used for [Redis Sentinel][16] connections._WARNING: When configuring Sensu to use Sentinels for Redis failover, the value of this setting must match the configured name for the Redis master set. If these settings do not match, Sensu will be unable to connect to Redis._
 required     | false
 default      | `mymaster`
 type         | String

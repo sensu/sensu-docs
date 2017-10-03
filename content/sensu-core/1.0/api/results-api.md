@@ -142,7 +142,7 @@ example payload | {{< highlight shell >}}{
   "output": "Indexing app is OK",
   "status": 0
 }
-{{< /highlight >}}<br>_NOTE: the `/results` (POST) API only supports check `name`, `output`, `status`, and `source` (used to create a [proxy client][4]). Please see the [check definition specification][5] documentation for more information._
+{{< /highlight >}}_NOTE: the `/results` (POST) API only supports check `name`, `output`, `status`, and `source` (used to create a [proxy client][4]). Please see the [check definition specification][5] documentation for more information._
 output          | {{< highlight shell >}}HTTP/1.1 202 Accepted
   Content-Type: application/json
   Access-Control-Allow-Origin: *

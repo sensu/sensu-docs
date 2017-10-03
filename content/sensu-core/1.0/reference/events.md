@@ -283,14 +283,14 @@ example      | {{< highlight shell >}}"history": [0,0,0,0,0,0,1,2,2,0,0,0,0,0,0,
 
 source       | 
 -------------|------
-description  | The name of the [proxy client][15] to associate the event with, as included in the [check result][10] (`source` attribute).<br>_NOTE: the `source` attribute may be included in [check definitions][11], or provided in check results published to the [Sensu client input socket][16]._
+description  | The name of the [proxy client][15] to associate the event with, as included in the [check result][10] (`source` attribute)._NOTE: the `source` attribute may be included in [check definitions][11], or provided in check results published to the [Sensu client input socket][16]._
 type         | String
 required     | false
 example      | {{< highlight shell >}}"source": "sensuapp.org"{{< /highlight >}}
 
 origin       | 
 -------------|------
-description  | The `name` of the Sensu client that executed the check.<br>_NOTE: this attribute is only provided for proxy client events (i.e. events containing a `source` attribute._
+description  | The `name` of the Sensu client that executed the check._NOTE: this attribute is only provided for proxy client events (i.e. events containing a `source` attribute._
 type         | String
 required     | false
 example      | {{< highlight shell >}}"origin": "i-424242"{{< /highlight >}}
@@ -332,7 +332,7 @@ example       | {{< highlight shell >}}"subscriptions": [
 
 timestamp    | 
 -------------|------
-description  | The last [keepalive][20] `timestamp` (in [epoch time][13]) produced by the Sensu client (or [proxy client][15]), as fetched from the [Clients API][17].<br>_NOTE: for proxy clients, this will usually represent the date/time when the proxy client was created, unless some external process is updating proxy client data via the [Clients API (POST)][21]._
+description  | The last [keepalive][20] `timestamp` (in [epoch time][13]) produced by the Sensu client (or [proxy client][15]), as fetched from the [Clients API][17]._NOTE: for proxy clients, this will usually represent the date/time when the proxy client was created, unless some external process is updating proxy client data via the [Clients API (POST)][21]._
 type         | Integer
 required     | true
 example      | {{< highlight shell >}}"timestamp": 1326390159{{< /highlight >}}

@@ -334,7 +334,7 @@ filter definition is within the `"filters": {}` definition scope.
 
 negate       | 
 -------------|------
-description  | If the filter will negate events that match the filter attributes.<br>_NOTE: see [Inclusive and exclusive filtering][4] for more information._
+description  | If the filter will negate events that match the filter attributes._NOTE: see [Inclusive and exclusive filtering][4] for more information._
 required     | false
 type         | Boolean
 default      | `false`

@@ -195,14 +195,14 @@ example      | {{< highlight shell >}}"password": "secret"{{< /highlight >}}
 
 heartbeat    | 
 -------------|------
-description  | The RabbitMQ AMQP connection heartbeat in seconds.  Enabling can help in early detection of disrupted TCP connections causing the RabbitMQ client to attempt re-connection to the server much earlier than if left disabled.<br>_NOTE: if this setting is not defined or set to 0 then RabbitMQ client heartbeats are disabled._
+description  | The RabbitMQ AMQP connection heartbeat in seconds.  Enabling can help in early detection of disrupted TCP connections causing the RabbitMQ client to attempt re-connection to the server much earlier than if left disabled._NOTE: if this setting is not defined or set to 0 then RabbitMQ client heartbeats are disabled._
 required     | false
 type         | Integer
 example      | {{< highlight shell >}}"heartbeat": 30{{< /highlight >}}
 
 prefetch     | 
 -------------|------
-description  | The RabbitMQ AMQP consumer prefetch value, setting the number of unacknowledged messages allowed for the channel. This attribute can be used as a flow control mechanism, to tune message throughput performance. <br>_NOTE: an increased prefetch value should be used if you are experiencing a backlog of messages in RabbitMQ while the Sensu server(s) load remains low. Increasing the prefetch value will effect the distribution of messages in Sensu configurations with more than one Sensu server._
+description  | The RabbitMQ AMQP consumer prefetch value, setting the number of unacknowledged messages allowed for the channel. This attribute can be used as a flow control mechanism, to tune message throughput performance. _NOTE: an increased prefetch value should be used if you are experiencing a backlog of messages in RabbitMQ while the Sensu server(s) load remains low. Increasing the prefetch value will effect the distribution of messages in Sensu configurations with more than one Sensu server._
 required     | false
 type         | Integer
 default      | `1`

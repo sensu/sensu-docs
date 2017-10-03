@@ -477,7 +477,7 @@ example              | {{< highlight shell >}}$ sudo -u sensu /opt/sensu/bin/sen
     }
   }
 }
-{{< /highlight >}}_NOTE: this command needs to be run as the `sensu` user (or as a user with elevated privileges) in order for Sensu to access its configuration files)._<br>_PRO TIP: to generate config output without log entries, try setting the `-L` (`--log_level`) CLI argument to `error` or `fatal` (e.g. `-L fatal`)._
+{{< /highlight >}}_NOTE: this command needs to be run as the `sensu` user (or as a user with elevated privileges) in order for Sensu to access its configuration files)._ _PRO TIP: to generate config output without log entries, try setting the `-L` (`--log_level`) CLI argument to `error` or `fatal` (e.g. `-L fatal`)._
 
 -\-validate_config | 
 -------------------|------

@@ -470,7 +470,7 @@ example      | {{< highlight shell >}}"source": "switch-dc-01"{{< /highlight >}}
 
 aggregate    | 
 -------------|------
-description  | Create a named aggregate for the check. Check result data will be aggregated and exposed via the [Sensu Aggregates API][33]. <br>_NOTE: named aggregates are new to [Sensu version 0.24][43], now being defined with a String data type rather than a Boolean (i.e. `true` or `false`). Legacy check definitions with `"aggregate": true` attributes will default to using the check name as the aggregate name._
+description  | Create a named aggregate for the check. Check result data will be aggregated and exposed via the [Sensu Aggregates API][33]. _NOTE: named aggregates are new to [Sensu version 0.24][43], now being defined with a String data type rather than a Boolean (i.e. `true` or `false`). Legacy check definitions with `"aggregate": true` attributes will default to using the check name as the aggregate name._
 required     | false
 type         | String
 example      | {{< highlight shell >}}"aggregate": "proxy_servers"{{< /highlight >}}
