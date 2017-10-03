@@ -5,7 +5,6 @@ version: "1.0"
 weight: 3
 menu: "sensu-core-1.0"
 ---
-# Sensu Checks API
 
 ## Reference documentation
 
@@ -49,7 +48,7 @@ $ curl -s http://127.0.0.1:4567/checks | jq .
 description    | Returns the list of checks.
 example url    | http://hostname:4567/checks
 response type  | Array
-response codes | - **Success**: 200 (OK)<br>- **Error**: 500 (Internal Server Error)
+response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output         | {{< highlight shell >}}[
   {
     "name": "chef_client_process",
@@ -120,7 +119,7 @@ Server: thin
 description          | Returns a check.
 example url          | http://hostname:4567/checks/sensu_website
 response type        | Hash
-response codes       | - **Success**: 200 (OK)<br>- **Missing**: 404 (Not Found)<br>- **Error**: 500 (Internal Server Error)
+response codes       | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output               | {{< highlight json >}}{
   "name": "chef_client_process",
   "command": "check-procs.rb -p /usr/bin/chef-client -W 1 -w 2 -c 3",
@@ -206,7 +205,7 @@ payload         | {{< highlight json >}}{
   ],
   "creator": "sysop@example.com",
   "reason": "triggered application deployment"
-}{{< /highlight >}}<br>_NOTE: the `subscribers` attribute is not required for requesting a check execution, however it may be provided to override the `subscribers` [check definition attribute][2]._<br>_NOTE: the `creator` and `reason` attributes are not required for requesting a check execution, however they may be provided to add more context to the check request and in turn the check result(s). The check request `creator` and `reason` are added to the check request payload under `api_requested`._
+}{{< /highlight >}}_NOTE: the `subscribers` attribute is not required for requesting a check execution, however it may be provided to override the `subscribers` [check definition attribute][2]._ _NOTE: the `creator` and `reason` attributes are not required for requesting a check execution, however they may be provided to add more context to the check request and in turn the check result(s). The check request `creator` and `reason` are added to the check request payload under `api_requested`._
 response codes  | - **Success**: 202 (Accepted)<br>- **Malformed**: 400 (Bad Request)<br>- **Error**: 500 (Internal Server Error)
 
 [?]:  #

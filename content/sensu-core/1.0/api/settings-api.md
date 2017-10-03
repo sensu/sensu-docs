@@ -1,11 +1,10 @@
 ---
-title: "Settings API"
+title: "Sensu Settings API"
 product: "Sensu Core"
 version: "1.0"
 weight: 9
 menu: "sensu-core-1.0"
 ---
-# Sensu Settings API
 
 ## Reference documentation
 
@@ -52,9 +51,9 @@ $ curl -s http://127.0.0.1:4567/settings | jq .
 ----------------|------
 description     | Returns the APIs running configuration settings.
 example url     | http://hostname:4567/settings
-parameters      | - `redacted`:<br>&emsp;- **required**: false<br>&emsp;- **type**: Boolean<br>&emsp;- **description**: If sensitive setting values should be redacted.<br>&emsp;- **default**: true
+parameters      | <ul><li>`redacted`:<ul><li>**required**: false</li><li>**type**: Boolean</li><li>**description**: If sensitive setting values should be redacted.</li><li>**default**: true</li></ul>
 response type   | Hash
-response codes  | - **Success**: 200 (OK)<br>- **Error**: 500 (Internal Server Error)
+response codes  | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output          | {{< highlight json >}}{
   "api": {
     "cors": {

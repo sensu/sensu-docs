@@ -1,11 +1,11 @@
 ---
-title: "Overview"
+title: "Sensu API Overview"
 product: "Sensu Core"
 version: "1.0"
 weight: 1
 menu: "sensu-core-1.0"
 ---
-# Sensu API
+## Sensu API
 
 The Sensu API provides access to monitoring data collected by Sensu, such as
 a [client registry][1], [check results][2], and [event data][3]. The API can be

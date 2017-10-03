@@ -5,7 +5,6 @@ version: "1.0"
 weight: 10
 menu: "sensu-core-1.0"
 ---
-# Sensu API Configuration
 
 ## Reference documentation
 

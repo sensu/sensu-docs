@@ -1,11 +1,10 @@
 ---
-title: "Results API"
+title: "Sensu Results API"
 product: "Sensu Core"
 version: "1.0"
 weight: 4
 menu: "sensu-core-1.0"
 ---
-# Sensu Results API
 
 ## Reference documentation
 
@@ -77,7 +76,7 @@ $ curl -s http://localhost:4567/results | jq .
 description    | Returns a list of current check results for all clients.
 example url    | http://hostname:4567/results
 response type  | Array
-response codes | - **Success**: 200 (OK)<br>- **Error**: 500 (Internal Server Error)
+response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output         | {{< highlight json >}}[
   {
     "client": "i-424242",
@@ -136,7 +135,7 @@ Server: thin
 description     | Accepts [Sensu check result data][4] via API.
 example url     | http://hostname:4567/results
 response type   | [HTTP-header][3] only (no output)
-response codes  | - **Success**: 201 (Created)<br>- **Malformed**: 400 (Bad Request)<br>- **Error**: 500 (Internal Server Error)
+response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 example payload | {{< highlight shell >}}{
   "source": "docker_01",
   "name": "index_app_01",
@@ -214,7 +213,7 @@ $ curl -s http://localhost:4567/results/client-01 | jq .
 description            | Returns a list of current check results for a given client.
 example url            | http://hostname:4567/results/i-424242
 response type          | Array
-response codes         | - **Success**: 200 (OK)<br>- **Error**: 500 (Internal Server Error)
+response codes         | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output                 | {{< highlight json >}}[
   {
     "client": "i-424242",
@@ -276,7 +275,7 @@ $ curl -s http://localhost:4567/results/client-01/sensu_website | jq .
 description                   | Returns a check result for a given client & check name.
 example url                   | http://hostname:4567/results/i-424242/chef_client_process
 response type                 | Hash
-response codes                | - **Success**: 200 (OK)<br>- **Missing**: 404 (Not Found)<br>- **Error**: 500 (Internal Server Error)
+response codes                | <ul><li>**Success**: 200 (OK)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output                        | {{< highlight json >}}{
     "client": "i-424242",
     "check": {
@@ -323,7 +322,7 @@ Server: thin
 description                      | Delete a check result for a given client & check name.
 example url                      | http://hostname:4567/results/i-424242/chef_client_process
 response type                    | [HTTP-header][3] only (No Content)
-response codes                   | - **Success**: 204 (No Content)<br>- **Missing**: 404 (Not Found)<br>- **Error**: 500 (Internal Server Error)
+response codes                   | <ul><li>**Success**: 204 (No Content)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output                           | {{< highlight shell >}}HTTP/1.1 204 No Content
 Access-Control-Allow-Origin: *
 Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS

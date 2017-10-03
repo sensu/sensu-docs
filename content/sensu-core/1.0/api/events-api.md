@@ -5,7 +5,6 @@ version: "1.0"
 weight: 6
 menu: "sensu-core-1.0"
 ---
-# Sensu Events API
 
 ## Reference documentation
 
@@ -102,7 +101,7 @@ $ curl -s http://localhost:4567/events | jq .
 description    | Returns the list of current events.
 example url    | http://hostname:4567/events
 response type  | Array
-response codes | - **Success**: 200 (OK)<br>- **Error**: 500 (Internal Server Error)
+response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output         | {{< highlight json >}}[
   {
     "id": "1ccfdf59-d9ab-447c-ac11-fd84072b905a",
@@ -224,7 +223,7 @@ $ curl -s http://localhost:4567/events/client-01 | jq .
 description           | Returns the list of current events for a given client.
 example url           | http://hostname:4567/events/i-424242
 response type         | Array
-response codes        | - **Success**: 200 (OK)<br>- **Error**: 500 (Internal Server Error)
+response codes        | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output                | {{< highlight json >}}[
   {
     "id": "1ccfdf59-d9ab-447c-ac11-fd84072b905a",
@@ -344,7 +343,7 @@ $ curl -s http://localhost:4567/events/client-01/sensu_website | jq .
 description                  | Returns an event for a given client & check name.
 example url                  | http://hostname:4567/events/i-424242/chef_client_process
 response type                | Hash
-response codes               | - **Success**: 200 (OK)<br>- **Missing**: 404 (Not Found)<br>- **Error**: 500 (Internal Server Error)
+response codes               | <ul><li>**Success**: 200 (OK)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output                       | {{< highlight json >}}{
   "id": "1ccfdf59-d9ab-447c-ac11-fd84072b905a",
   "client": {
@@ -410,7 +409,7 @@ Server: thin
 --------------------------------|------
 description                     | Resolves an event for a given check on a given client. (delayed action)
  example url                    | http://hostname:4567/events/i-424242/chef_client_process
-response codes                  | - **Success**: 202 (Accepted)<br>- **Missing**: 404 (Not Found)<br>- **Error**: 500 (Internal Server Error)
+response codes                  | <ul><li>**Success**: 202 (Accepted)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 ## The `/resolve` API endpoint
 
@@ -477,7 +476,7 @@ payload         | {{< highlight json >}}{
   "check": "chef_client_process"
 }
 {{< /highlight >}}
-response codes  | - **Success**: 202 (Accepted)<br>- **Missing**: 404 (Not Found)<br>- **Malformed**: 400 (Bad Request)<br>- **Error**: 500 (Internal Server Error)
+response codes  | <ul><li>**Success**: 202 (Accepted)</li><li>**Missing**: 404 (Not Found)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 [1]:  ../reference/events.html#event-data
 [2]:  https://en.wikipedia.org/wiki/List_of_HTTP_status_codes

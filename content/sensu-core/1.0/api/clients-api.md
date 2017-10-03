@@ -5,7 +5,6 @@ version: "1.0"
 weight: 2
 menu: "sensu-core-1.0"
 ---
-# Sensu Clients API
 
 ## Reference documentation
 
@@ -67,9 +66,9 @@ below)._
 ---------------|------
 description    | Returns a list of clients.
 example url    | http://hostname:4567/clients
-parameters     | - `limit`<br>&emsp;- **required**: false<br>&emsp;- **type**: Integer<br>&emsp;- **description**: The number of clients to return.<br>&emsp;- **example**: `http://hostname:4567/clients?limit=100`<br>- `offset`<br>&emsp;- **required**: false<br>&emsp;- **type**: Integer<br>&emsp;- **depends**: `limit`<br>&emsp;- **description**: The number of clients to offset before returning items.<br>&emsp;- **example**: `http://hostname:4567/clients?limit=100&offset=100`
+parameters     | <ul><li>`limit`<ul><li>**required**: false</li><li>**type**: Integer</li><li>**description**: The number of clients to return.</li><li>**example**: `http://hostname:4567/clients?limit=100`</li></ul></li><li>`offset`<ul><li>**required**: false</li><li>**type**: Integer</li><li>**depends**: `limit`</li><li>**description**: The number of clients to offset before returning items.</li><li>**example**: `http://hostname:4567/clients?limit=100&offset=100`</li></ul></li></ul>
 response type  | Array
-response codes | - **Success**: 200 (OK)<br>- **Error**: 500 (Internal Server Error)
+response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output         | {{< highlight shell >}}[
   {
     "name": "i-334455",
@@ -139,7 +138,7 @@ payload         | {{< highlight shell >}}{
   "environment": "production"
 }
 {{< /highlight >}}
-response codes  | <span class="noCodeBlock" style="visibility: none;"></span>- **Success**: 201 (Created)<br>- **Malformed**: 400 (Bad Request)<br>- **Error**: 500 (Internal Server Error)
+response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 ## The `/clients/:client` API Endpoint(s)
 
@@ -201,7 +200,7 @@ Server: thin
 description            | Returns a client.
 example url            | http://hostname:4567/clients/i-424242
 response type          | Hash
-response codes         | - **Success**: 200 (OK)<br>- **Missing**: 404 (Not Found)<br>- **Error**: 500 (Internal Server Error)
+response codes         | <ul><li>**Success**: 200 (OK)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output                 | {{< highlight shell >}}{
   "name": "i-424242",
   "address": "192.168.0.3",
@@ -265,8 +264,8 @@ Server: thin
 --------------------------|------
 description               | Removes a client, resolving its current events. (delayed action)
 example url               | http://hostname:4567/clients/i-424242
-parameters                | - `invalidate`<br>&emsp;- **required**: false<br>&emsp;- **type**: Boolean<br>&emsp;- **description**: If the Sensu client should be invalidated, disallowing further client keepalives and check results until the client is successfully removed from the client registry.<br>&emsp;- **example**: `http://hostname:4567/clients/i-424242?invalidate=true`<br>- `invalidate_expire`<br>&emsp;- **required**: false<br>&emsp;- **type**: Integer<br>&emsp;- **description**: If the Sensu client should be invalidated for a specified amount of time (in seconds), disallowing further client keepalives and check results even after the client is successfully removed from the client registry.<br>&emsp;- **example**: `http://hostname:4567/clients/i-424242?invalidate=true&invalidate_expire=3600`
-response codes            |- **Success**: 202 (Accepted)<br>- **Missing**: 404 (Not Found)<br>- **Error**: 500 (Internal Server Error)
+parameters                | <ul><li>`invalidate`<ul><li>**required**: false</li><li>**type**: Boolean</li><li>**description**: If the Sensu client should be invalidated, disallowing further client keepalives and check results until the client is successfully removed from the client registry.</li><li>**example**: `http://hostname:4567/clients/i-424242?invalidate=true`</li></ul><li>`invalidate_expire`<ul><li>**required**: false</li><li>**type**: Integer</li><li>**description**: If the Sensu client should be invalidated for a specified amount of time (in seconds), disallowing further client keepalives and check results even after the client is successfully removed from the client registry.</li><li>**example**: `http://hostname:4567/clients/i-424242?invalidate=true&invalidate_expire=3600`</li></ul></li></ul>
+response codes            | <ul><li>**Success**: 202 (Accepted)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 ## The `/clients/:client/history` API Endpoint(s)
 

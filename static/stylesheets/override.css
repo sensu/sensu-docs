@@ -51,9 +51,17 @@
   background: #618B25;
 }
 
+.palette-primary-green .article code {
+  color: #6a5fc7;
+}
+
+pre code {
+  color: #81C000 !important;
+}
+
 /* General Site Wide Components ----------------------------------------------------------------- */
 .note {
-  margin-top: -6px;
+  //margin-top: 5px;
   padding: 10px;
   background-color: #d9edf7;
   border-color: #bce8f1;
@@ -61,7 +69,7 @@
 }
 
 .warning {
-  margin-top: -6px;
+  //margin-top: 5px;
   padding: 10px;
   background-color: #fcf8e3;
   border-color: #faebcc;
@@ -69,7 +77,7 @@
 }
 
 .pro-tip {
-  margin-top: -6px;
+  //margin-top: 5px;
   padding: 10px;
   background-color: #dff0d8;
  color: #3c763d;
@@ -79,6 +87,18 @@
 .article h2 {
   margin-top: -70px;
   font-size: 30px;
+}
+
+table .note, table .warning, table .pro-tip {
+  margin-top: 5px;
+}
+
+.article table ul {
+  margin-top: 0;
+}
+
+.article table ul li {
+  margin-top: 0;
 }
 
 h5 {
@@ -153,6 +173,7 @@ thead, tbody {
   color: #232323;
   font-style: none;
   font-size: 22px;
+  margin-bottom: -10px;
 }
 
 h6 {

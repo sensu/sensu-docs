@@ -5,7 +5,6 @@ version: "1.0"
 weight: 8
 menu: "sensu-core-1.0"
 ---
-# Sensu Health & Info APIs
 
 ## Reference documentation
 
@@ -87,9 +86,9 @@ Sensu servers which may be registered and processing check results._
 ---------------|------
 description    | Returns health information on transport & Redis connections.
 example url    | http://hostname:4567/health
-parameters     | - `consumers`:<br>&emsp;- **required**: true<br>&emsp;- **type**: Integer<br>&emsp;- **description**: The minimum number of transport consumers to be considered healthy<br>&emsp;- **notes**: not supported for Sensu installations using Redis as the transport<br>- `messages`:<br>&emsp;- **required**: true<br>&emsp;- **type**: Integer<br>&emsp;- **description**: The maximum amount of transport queued messages to be considered healthy
+parameters     | <ul><li>`consumers`:<ul><li>**required**: true</li><li>**type**: Integer</li><li>**description**: The minimum number of transport consumers to be considered healthy</li><li>**notes**: not supported for Sensu installations using Redis as the transport</li></ul></li><li>`messages`:<ul><li>**required**: true</li><li>**type**: Integer</li><li>**description**: The maximum amount of transport queued messages to be considered healthy</li></ul></li></ul>
 response type  | [HTTP-header][11] only (no content)
-response codes | - **Success**: 204 (No Content)<br>- **Error**: 412 (Precondition Failed)
+response codes | <ul><li>**Success**: 204 (No Content)</li><li>**Error**: 412 (Precondition Failed)</li></ul>
 output         | {{< highlight shell >}}HTTP/1.1 412 Precondition Failed
 Access-Control-Allow-Origin: *
 Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS
@@ -168,7 +167,7 @@ $ curl -s http://127.0.0.1:4567/info | jq .
 description    | Returns information on the Sensu installation.
 example url    | http://hostname:4567/info
 response type  | Hash
-response codes | - **Success**: 200 (OK)<br>- **Error**: 500 (Internal Server Error)
+response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li><ul>
 output         | {{< highlight json >}}{
   "sensu": {
     "version": "1.0.0",
