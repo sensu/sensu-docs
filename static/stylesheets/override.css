@@ -32,7 +32,7 @@
 
 .palette-primary-green .article table th {
   background: #81C000;
-  font-size: 16px;
+  font-size: 20px;
   font-weight: 200;
   display: table-caption;
   height: 0;
@@ -51,6 +51,31 @@
   background: #618B25;
 }
 
+/* General Site Wide Components ----------------------------------------------------------------- */
+.note {
+  margin-top: -6px;
+  padding: 10px;
+  background-color: #d9edf7;
+  border-color: #bce8f1;
+  color: #31708f;
+}
+
+.warning {
+  margin-top: -6px;
+  padding: 10px;
+  background-color: #fcf8e3;
+  border-color: #faebcc;
+  color: #8a6d3b;
+}
+
+.pro-tip {
+  margin-top: -6px;
+  padding: 10px;
+  background-color: #dff0d8;
+ color: #3c763d;
+ border: 1px solid #d6e9c6
+}
+
 .article h2 {
   margin-top: -70px;
   font-size: 30px;
@@ -66,14 +91,26 @@ pre {
   background-color: #333;
 }
 
+table td {
+  font-size: 16px;
+}
+
+table tbody {
+  display: table;
+}
+
+table tr td:first-child {
+  width: 20%;
+}
+
 table pre {
   max-width: 720px;
 }
 
 .highlight {
   margin-top: -17px;
-  margin-right: 24px;
-  margin-left: 20px;
+  margin-right: 25px;
+  margin-left: 25px;
 }
 
 .article pre code {
@@ -88,14 +125,9 @@ table pre {
   background-color: #333;
 }
 
-/* General Site Wide Components ----------------------------------------------------------------- */
 .article .data table {
-  width: 90%;
+  width: 95%;
   display: inline-table;
-}
-
-.article .data table tr:last-child td:last-child {
-  //background-color: #eee;
 }
 
 .article .data {
@@ -106,12 +138,6 @@ table pre {
 thead, tbody {
   width: 100%;
 }
-
-table>tbody>tr>td>code {
-  //background: gray !important;
-  //margin: -10px;  
-}
-
 
 .article {
   font-size: 16px;
