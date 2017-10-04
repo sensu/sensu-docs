@@ -109,7 +109,7 @@ located at `/etc/sensu/conf.d/example_mutator.json`. This mutator definition
 uses an imaginary [Sensu plugin][7] called `example_mutator.rb` to modify event
 data prior to handling the event.
 
-~~~ json
+{{< highlight json >}}
 {
   "mutators": {
     "example_mutator": {
@@ -117,7 +117,7 @@ data prior to handling the event.
     }
   }
 }
-~~~
+{{< /highlight >}}
 
 ### Mutator definition specification
 

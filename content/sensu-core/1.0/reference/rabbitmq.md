@@ -61,7 +61,7 @@ The following are an example RabbitMQ connection definitions, each located at
 
 #### Example standalone configuration {#sensu-rabbitmq-configuration-examples-standalone}
 
-~~~ json
+{{< highlight json >}}
 {
   "rabbitmq": {
     "host": "127.0.0.1",
@@ -77,11 +77,11 @@ The following are an example RabbitMQ connection definitions, each located at
     }
   }
 }
-~~~
+{{< /highlight >}}
 
 #### Example distributed configuration {#sensu-rabbitmq-configuration-examples-distributed}
 
-~~~ json
+{{< highlight json >}}
 {
   "rabbitmq": {
     "host": "10.0.1.6",
@@ -97,11 +97,11 @@ The following are an example RabbitMQ connection definitions, each located at
     }
   }
 }
-~~~
+{{< /highlight >}}
 
 #### Example high-availability configuration {#sensu-rabbitmq-configuration-examples-high-availability}
 
-~~~ json
+{{< highlight json >}}
 {
   "rabbitmq": [
     {
@@ -145,7 +145,7 @@ The following are an example RabbitMQ connection definitions, each located at
     }
   ]
 }
-~~~
+{{< /highlight >}}
 
 ### RabbitMQ definition specification
 
@@ -254,13 +254,13 @@ To enable support for external connections, please ensure that your
 `/etc/rabbitmq/rabbitmq.config` file contains the following configuration
 snippet:
 
-~~~ shell
+{{< highlight shell >}}
 [
   {rabbit, [
     {tcp_listeners, [{"0.0.0.0", 5672}]}
   ]}
 ].
-~~~
+{{< /highlight >}}
 
 ### High-availability configuration
 
@@ -314,26 +314,20 @@ To configure your three node RabbitMQ cluster for use with Sensu, please note
 the following instructions:
 
 1. Stop the RabbitMQ service on all three RabbitMQ systems.
-
    _NOTE: The `service` command will not work on CentOS 5, the
    sysvinit script must be used, e.g. `sudo /etc/init.d/rabbitmq-server stop`_
-
-   ~~~ shell
-   sudo service rabbitmq-server stop
-   ~~~
+{{< highlight shell >}}
+sudo service rabbitmq-server stop{{< /highlight >}}
 
 2. Enable RabbitMQ [`pause_minority` network partition handling][12]. Please
    ensure that your `/etc/rabbitmq/rabbitmq.config` configuration file contains
    the following configuration snippet:
-
-   ~~~ erlang
-   [
-     {rabbit, [
-       {cluster_partition_handling, pause_minority}
-     ]}
-   ].
-   ~~~
-
+{{< highlight shell >}}
+[
+ {rabbit, [
+   {cluster_partition_handling, pause_minority}
+ ]}
+].{{< /highlight >}}<br>
    _NOTE: a RabbitMQ cluster offers several methods of handling network
    partitions. A RabbitMQ cluster should not span regions (e.g. WAN links), as
    doing so would increase latency and the probability of network partitions._
@@ -342,91 +336,75 @@ the following instructions:
    (e.g. `cookiemonster`). Create and/or edit the file located at
    `/var/lib/rabbitmq/.erlang.cookie` so that it contains the following
    contents:
-
-   ~~~
-   coookiemonster
-   ~~~
-
+{{< highlight shell >}}
+coookiemonster{{< /highlight >}}<br>
    _WARNING: if this file is edited while RabbitMQ is running it may prevent the
    RabbitMQ process from stopping and/or restarting gracefully, which is why
    step #1 of these instructions indicates that the RabbitMQ services should be
    stopped before making configuration changes._
 
 4. Start RabbitMQ on all three RabbitMQ systems.
-
    _NOTE: The `service` command will not work on CentOS 5, the
    sysvinit script must be used, e.g. `sudo /etc/init.d/rabbitmq-server start`_
-
-   ~~~ shell
-   sudo service rabbitmq-server start
-   ~~~
+{{< highlight shell >}}
+sudo service rabbitmq-server start
+{{< /highlight >}}
 
 5. Reset the RabbitMQ nodes on all 3 selected instances in preparation for
    clustering.
-
-   ~~~ shell
-   sudo rabbitmqctl stop_app
-   sudo rabbitmqctl reset
-   ~~~
+{{< highlight shell >}}
+sudo rabbitmqctl stop_app
+sudo rabbitmqctl reset
+{{< /highlight >}}
 
 6. Start the RabbitMQ application on **one of the three RabbitMQ systems**, and
    obtain the IP address of this system for instructing the remaining systems on
    where to join the RabbitMQ cluster.
-
-   ~~~ shell
-   sudo rabbitmqctl start_app
-   ifconfig
-   ~~~
-
+{{< highlight shell >}}
+sudo rabbitmqctl start_app
+ifconfig
+{{< /highlight >}}<br>
    _NOTE: this step effectively starts the RabbitMQ "cluster", which the other
    RabbitMQ systems will join in the following steps. for the purposes of this
    guide we will assume `10.0.1.6` is the IP address of this system._
 
 7. Join the other two RabbitMQ systems to the RabbitMQ cluster started in step
    #6 using the `rabbitmqctl` utility, and the IP address obtained in step #6.
-
-   ~~~ shell
-   sudo rabbitmqctl join_cluster rabbit@ip-10-0-1-6
-   sudo rabbitmqctl start_app
-   ~~~
-
+{{< highlight shell >}}
+sudo rabbitmqctl join_cluster rabbit@ip-10-0-1-6
+sudo rabbitmqctl start_app
+{{< /highlight >}}<br>
    _NOTE: these commands need to be run twice - once on each of the remaining
-   two RabbitMQ systems in the cluster._
-
+   two RabbitMQ systems in the cluster._<br>
    _WARNING: when adding a RabbitMQ broker to a cluster (e.g. `rabbitmqctl
    join_cluster rabbit@hostname`, the brokers must be able to successfully
    resolve each other's `hostname`._
 
 8. Add the Sensu `vhost` and `user` credentials from any system in the new
    RabbitMQ cluster.
-
-   ~~~ shell
-   sudo rabbitmqctl add_vhost /sensu
-   sudo rabbitmqctl add_user sensu secret
-   sudo rabbitmqctl set_permissions -p /sensu sensu ".*" ".*" ".*"
-   sudo rabbitmqctl list_permissions -p /sensu
-   ~~~
-
+{{< highlight shell >}}
+sudo rabbitmqctl add_vhost /sensu
+sudo rabbitmqctl add_user sensu secret
+sudo rabbitmqctl set_permissions -p /sensu sensu ".*" ".*" ".*"
+sudo rabbitmqctl list_permissions -p /sensu
+{{< /highlight >}}<br>
    _NOTE: please replace `secret` with your desired password. These `vhost` and
    `user` credentials will be automatically replicated to the other instances in
    the RabbitMQ cluster._
 
 9. Create a RabbitMQ policy to enable high-availability for Sensu's `result` and
    `keepalive` queues:
-
-   ~~~ shell
-   sudo rabbitmqctl set_policy ha-sensu "^(results$|keepalives$)" '{"ha-mode":"all", "ha-sync-mode":"automatic"}' -p /sensu
-   sudo rabbitmqctl list_policies -p /sensu
-   ~~~
-
+{{< highlight shell >}}
+sudo rabbitmqctl set_policy ha-sensu "^(results$|keepalives$)" '{"ha-mode":"all", "ha-sync-mode":"automatic"}' -p /sensu
+sudo rabbitmqctl list_policies -p /sensu
+{{< /highlight >}}<br>
    _NOTE: by default, queues within a RabbitMQ cluster are located on a single
    node (the node on which they were first declared). This is in contrast to
    exchanges and bindings, which can always be considered to be on all nodes in
    a RabbitMQ cluster. Sensu requires specific queues to be mirrored across all
    RabbitMQ nodes in a RabbitMQ cluster. The Sensu `results` and `keepalives`
    queues **MUST** be mirrored. Sensu client subscription queues do not need to
-   be mirrored._
-
+   be mirrored._<br>
    _WARNING: RabbitMQ uses policies to determine which queues are mirrored. The
    command provided above will create a RabbitMQ policy to mirror the Sensu
    `results` and `keealives` queues in the RabbitMQ `vhost` named `/sensu`. If
@@ -453,7 +431,7 @@ connect to a RabbitMQ cluster.
 _NOTE: the RabbitMQ nodes must first be successfully clustered in order for
 Sensu to operate._
 
-~~~ json
+{{< highlight json >}}
 {
   "rabbitmq": [
     {
@@ -497,7 +475,7 @@ Sensu to operate._
     }
   ]
 }
-~~~
+{{< /highlight >}}
 
 ## Securing RabbitMQ
 
@@ -518,16 +496,16 @@ successfully.
 
 To list the available SELinux booleans, run the following command:
 
-~~~ shell
+{{< highlight shell >}}
 sudo getsebool -a
-~~~
+{{< /highlight >}}
 
 For some reason, enabling the NIS boolean allows RabbitMQ to bind to its TCP
 socket and operate normally.
 
-~~~ shell
+{{< highlight shell >}}
 sudo setsebool -P nis_enabled 1
-~~~
+{{< /highlight >}}
 
 ### RabbitMQ SSL
 
@@ -547,7 +525,7 @@ Erlang 18.3 and Sensu, it is necessary to configure the specific TLS version
 [{rsa,aes_256_cbc,sha256}]}`) that RabbitMQ will accept, and to reject clients
 with no certificate (i.e. `{fail_if_no_peer_cert,true}`).
 
-~~~ shell
+{{< highlight shell >}}
 [
  {rabbit, [
     {ssl_listeners, [5671]},
@@ -560,7 +538,7 @@ with no certificate (i.e. `{fail_if_no_peer_cert,true}`).
                    {fail_if_no_peer_cert,true}]}
   ]}
 ].
-~~~
+{{< /highlight >}}
 
 _WARNING: if you are seeing RabbitMQ log entries with messages like `Fatal
 error: insufficient security`, and using Erlang 18.3, please confirm that

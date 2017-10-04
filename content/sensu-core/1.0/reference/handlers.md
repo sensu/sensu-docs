@@ -70,7 +70,7 @@ Pipe handlers are external commands that can consume [event data][6] via STDIN.
 
 ### Example pipe handler definition
 
-~~~ json
+{{< highlight json >}}
 {
   "handlers": {
     "example_pipe_handler": {
@@ -79,7 +79,7 @@ Pipe handlers are external commands that can consume [event data][6] via STDIN.
     }
   }
 }
-~~~
+{{< /highlight >}}
 
 ### Pipe handler commands
 
@@ -119,7 +119,7 @@ The following example TCP handler definition will forward [event data][6] to a
 [TCP socket][8] (i.e. `10.0.1.99:4444`) and will `timeout` if an acknowledgement
 (`ACK`) is not received within 30 seconds.
 
-~~~ json
+{{< highlight json >}}
 {
   "handlers": {
     "example_tcp_handler": {
@@ -132,12 +132,12 @@ The following example TCP handler definition will forward [event data][6] to a
     }
   }
 }
-~~~
+{{< /highlight >}}
 
 The following example UDP handler definition will forward [event data][6] to a
 UDP socket (i.e. `10.0.1.99:444`).
 
-~~~ json
+{{< highlight json >}}
 {
   "handlers": {
     "example_udp_handler": {
@@ -149,7 +149,7 @@ UDP socket (i.e. `10.0.1.99:444`).
     }
   }
 }
-~~~
+{{< /highlight >}}
 
 ## Transport handlers
 
@@ -164,7 +164,7 @@ to the Sensu transport on a pipe (e.g. a "queue" or "channel", etc) named
 third-party application would need to subscribe to the named pipe to process the
 events.
 
-~~~ json
+{{< highlight json >}}
 {
   "handlers": {
     "example_transport_handler": {
@@ -176,7 +176,7 @@ events.
     }
   }
 }
-~~~
+{{< /highlight >}}
 
 ## Handler sets
 
@@ -192,7 +192,7 @@ in a handler set will have no effect._
 The following example handler set definition will execute three handlers (i.e.
 `email`, `slack`, and `pagerduty`) for every event.
 
-~~~ json
+{{< highlight json >}}
 {
   "handlers": {
     "notify_all_the_things": {
@@ -205,7 +205,7 @@ The following example handler set definition will execute three handlers (i.e.
     }
   }
 }
-~~~
+{{< /highlight >}}
 
 ## Handler configuration
 
@@ -216,7 +216,7 @@ located at `/etc/sensu/conf.d/mail_handler.json`. This handler definition uses
 the `mailx` unix command, to email the event data to `example@address.com`, with
 the email subject `sensu event`. The handler is named `mail`.
 
-~~~ json
+{{< highlight json >}}
 {
   "handlers": {
     "mail": {
@@ -225,7 +225,7 @@ the email subject `sensu event`. The handler is named `mail`.
     }
   }
 }
-~~~
+{{< /highlight >}}
 
 ### Handler definition specification
 
@@ -344,7 +344,7 @@ handlers configured with `"type": "tcp"` or `"type": "udp"`)._
 
 ##### EXAMPLE {#socket-attributes-example}
 
-~~~ json
+{{< highlight json >}}
 {
   "handlers": {
     "example_handler": {
@@ -356,7 +356,7 @@ handlers configured with `"type": "tcp"` or `"type": "udp"`)._
     }
   }
 }
-~~~
+{{< /highlight >}}
 
 ##### ATTRIBUTES {#socket-attributes-specification}
 
@@ -385,7 +385,7 @@ handlers configured with `"type": "transport"`)._
 
 ##### EXAMPLE {#pipe-attributes-example}
 
-~~~ json
+{{< highlight json >}}
 {
   "handlers": {
     "example_handler": {
@@ -397,7 +397,7 @@ handlers configured with `"type": "transport"`)._
     }
   }
 }
-~~~
+{{< /highlight >}}
 
 ##### ATTRIBUTES {#pipe-attributes-specification}
 
