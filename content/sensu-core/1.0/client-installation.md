@@ -65,38 +65,27 @@ install or upgrade to the latest version of Sensu, please ensure you
 have updated existing repository configurations._
 
 1. Install the GPG public key:
-
-   ~~~ shell
-   wget -q https://sensu.global.ssl.fastly.net/apt/pubkey.gpg -O- | sudo apt-key add -
-   ~~~
+{{< highlight shell >}}
+wget -q https://sensu.global.ssl.fastly.net/apt/pubkey.gpg -O- | sudo apt-key add -{{< /highlight >}}
 
 2. Determine the codename of the Ubuntu/Debian release on your system:
-
-   ~~~ shell
-   . /etc/os-release && echo $VERSION
-   "14.04.4 LTS, Trusty Tahr" # codename for this system is "trusty"
-   ~~~
+{{< highlight shell >}}
+. /etc/os-release && echo $VERSION
+"14.04.4 LTS, Trusty Tahr" # codename for this system is "trusty"{{< /highlight >}}
 
 3. Create an APT configuration file at
    `/etc/apt/sources.list.d/sensu.list`:
-
-   ~~~ shell
-   export CODENAME=your_release_codename_here # e.g. "trusty"
-   echo "deb     https://sensu.global.ssl.fastly.net/apt $CODENAME main" | sudo tee /etc/apt/sources.list.d/sensu.list
-   ~~~
+{{< highlight shell >}}
+export CODENAME=your_release_codename_here # e.g. "trusty"
+echo "deb     https://sensu.global.ssl.fastly.net/apt $CODENAME main" | sudo tee /etc/apt/sources.list.d/sensu.list{{< /highlight >}}
 
 4. Update APT:
-
-   ~~~ shell
-   sudo apt-get update
-   ~~~
+{{< highlight shell >}}
+sudo apt-get update{{< /highlight >}}
 
 5. Install Sensu:
-
-   ~~~ shell
-   sudo apt-get install sensu
-   ~~~
-
+{{< highlight shell >}}
+sudo apt-get install sensu{{< /highlight >}}<br>
    _NOTE: as mentioned above, the `sensu` package installs all of the Sensu Core
    processes, including `sensu-client`, `sensu-server`, and `sensu-api`._
 
@@ -144,23 +133,17 @@ repository configurations._
 
 1. Create the YUM repository configuration file for the Sensu Core repository at
    `/etc/yum.repos.d/sensu.repo`:
-
-   ~~~ shell
-   echo '[sensu]
-   name=sensu
-   baseurl=https://sensu.global.ssl.fastly.net/yum/$releasever/$basearch/
-   gpgcheck=0
-   enabled=1' | sudo tee /etc/yum.repos.d/sensu.repo
-   ~~~
+{{< highlight shell >}}
+echo '[sensu]
+name=sensu
+baseurl=https://sensu.global.ssl.fastly.net/yum/$releasever/$basearch/
+gpgcheck=0
+enabled=1' | sudo tee /etc/yum.repos.d/sensu.repo{{< /highlight >}}
 
 2. Install Sensu:
-
-   ~~~ shell
-   sudo yum install sensu
-   ~~~
-
-   _NOTE: as mentioned above, the `sensu` package installs all of the Sensu Core
-   processes, including `sensu-client`, `sensu-server`, and `sensu-api`._
+{{< highlight shell >}}
+sudo yum install sensu{{< /highlight >}}<br>
+   _NOTE: as mentioned above, the `sensu` package installs all of the Sensu Core processes, including `sensu-client`, `sensu-server`, and `sensu-api`._
 
 3. Configure Sensu. **No "default" configuration is provided with Sensu**, so
    none of the Sensu processes will run without the corresponding configuration.

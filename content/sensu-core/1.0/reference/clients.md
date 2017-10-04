@@ -128,7 +128,7 @@ inherently unable to run a `sensu-client`._
 Proxy clients are created when a check result includes a `source` attribute, as
 follows:
 
-~~~ json
+{{< highlight json >}}
 {
   "check": {
     "status": 0,
@@ -146,7 +146,7 @@ follows:
   },
   "client": "sensu-docs"
 }
-~~~
+{{< /highlight >}}
 
 _NOTE: this `source` attribute can be provided in a [check definition][14], or
 included in a check result published to the Sensu [client input socket][36]._
@@ -154,14 +154,14 @@ included in a check result published to the Sensu [client input socket][36]._
 By default, proxy client data includes a minimal number of attributes. The
 following is an example of proxy client data that is added to the registry.
 
-~~~ json
+{{< highlight json >}}
 {
   "name": "switch-x",
   "address": "unknown",
   "subscriptions": [],
   "keepalives": false
 }
-~~~
+{{< /highlight >}}
 
 The Sensu API can be used to update proxy client data in the client registry. To
 update proxy client data, please refer to the [Client API reference
@@ -171,9 +171,9 @@ documentation][9].
 
 The following is an example of how to create a proxy client payload via the [client socket](#client-socket-input), using netcat:
 
-~~~ shell
+{{< highlight shell >}}
 echo '{"source": "mysql_01", "name": "app_01", "output": "could not connect to mysql", "status": 1}' | nc localhost 3030
-~~~
+{{< /highlight >}}
 
 ### How are keepalive events created? {#keepalive-events}
 
@@ -245,7 +245,7 @@ subscription will execute a roundrobin check each time it is published.
 The following is a Sensu client definition that includes a round-robin
 subscription.
 
-~~~ json
+{{< highlight json >}}
 {
   "client": {
     "name": "i-424242",
@@ -257,12 +257,12 @@ subscription.
     ]
   }
 }
-~~~
+{{< /highlight >}}
 
 The following is a Sensu check definition that targets a round-robin
 subscription.
 
-~~~ json
+{{< highlight json >}}
 {
   "checks": {
     "web_application_api": {
@@ -274,7 +274,7 @@ subscription.
     }
   }
 }
-~~~
+{{< /highlight >}}
 
 ### Client subscription configuration
 
@@ -349,21 +349,21 @@ The following is an example demonstrating external check result input via the
 Sensu client TCP socket. The example uses Bash's built-in `/dev/tcp` file to
 communicate with the Sensu client socket.
 
-~~~ shell
+{{< highlight shell >}}
 echo '{"name": "app_01", "output": "could not connect to mysql", "status": 1}' > /dev/tcp/localhost/3030
-~~~
+{{< /highlight >}}
 
 [Netcat][17] can also be used, instead of the TCP file:
 
-~~~ shell
+{{< highlight shell >}}
 echo '{"name": "app_01", "output": "could not connect to mysql", "status": 1}' | nc localhost 3030
-~~~
+{{< /highlight >}}
 
 You can do the same using the HTTP socket:
 
-~~~ shell
+{{< highlight shell >}}
 curl -v -H "Content-Type: application/json" -X POST -d '{"name": "app_01", "output": "could not connect to mysql", "status": 1}' localhost 3031
-~~~
+{{< /highlight >}}
 
 
 #### Creating a "dead man's switch"
@@ -392,13 +392,13 @@ script using the following code would be expected to continue to send a check
 result at least once every 7 hours or Sensu will create an [event][7] to
 indicate the silent failure.
 
-~~~ shell
+{{< highlight shell >}}
 echo '{"name": "backup_mysql", "ttl": 25200, "output": "backed up mysql successfully | size_mb=568", "status": 0}' | nc localhost 3030
-~~~
+{{< /highlight >}}
 
-~~~ shell
+{{< highlight shell >}}
 echo '{"name": "backup_mysql", "ttl": 25200, "output": "failed to backup mysql", "status": 1}' | nc localhost 3030
-~~~
+{{< /highlight >}}
 
 ## Standalone check execution scheduler
 
@@ -423,7 +423,7 @@ Sensu with information about the system on which it resides. This is a
 production system, running a web server and a MySQL database. The client 'name'
 attribute is required in the definition, and must be unique.
 
-~~~ json
+{{< highlight json >}}
 {
   "client": {
     "name": "i-424242",
@@ -439,7 +439,7 @@ attribute is required in the definition, and must be unique.
     }
   }
 }
-~~~
+{{< /highlight >}}
 
 ### Client definition specification
 
@@ -582,7 +582,7 @@ The following attributes are configured within the `{ "client": { "socket": {} }
 
 ##### EXAMPLE {#socket-attributes-example}
 
-~~~ json
+{{< highlight json >}}
 {
   "client": {
     "name": "1-424242",
@@ -593,7 +593,7 @@ The following attributes are configured within the `{ "client": { "socket": {} }
     }
   }
 }
-~~~
+{{< /highlight >}}
 
 ##### ATTRIBUTES {#socket-attributes-specification}
 
@@ -620,7 +620,7 @@ The following attributes are configured within the `{ "client": { "http_socket":
 
 ##### EXAMPLE {#http-socket-attributes-example}
 
-~~~ json
+{{< highlight json >}}
 {
   "client": {
     "name": "1-424242",
@@ -633,7 +633,7 @@ The following attributes are configured within the `{ "client": { "http_socket":
     }
   }
 }
-~~~
+{{< /highlight >}}
 
 ##### ATTRIBUTES {#http-socket-attributes-specification}
 
@@ -674,7 +674,7 @@ The following attributes are configured within the `{ "client": { "keepalive":
 
 ##### EXAMPLE {#keepalive-attributes-example}
 
-~~~ json
+{{< highlight json >}}
 {
   "client": {
     "name": "1-424242",
@@ -688,7 +688,7 @@ The following attributes are configured within the `{ "client": { "keepalive":
     }
   }
 }
-~~~
+{{< /highlight >}}
 
 ##### ATTRIBUTES {#keepalive-attributes-specification}
 
@@ -720,7 +720,7 @@ The following attributes are configured within the `{ "client": { "keepalive": {
 
 ##### EXAMPLE {#thresholds-attributes-example}
 
-~~~ json
+{{< highlight json >}}
 {
   "client": {
     "name": "1-424242",
@@ -734,7 +734,7 @@ The following attributes are configured within the `{ "client": { "keepalive": {
     }
   }
 }
-~~~
+{{< /highlight >}}
 
 ##### ATTRIBUTES {#thresholds-attributes-specification}
 
@@ -761,7 +761,7 @@ The following attributes are configured within the `{ "client": {
 
 ##### EXAMPLE {#registration-attributes-example}
 
-~~~ json
+{{< highlight json >}}
 {
   "client": {
     "name": "1-424242",
@@ -771,7 +771,7 @@ The following attributes are configured within the `{ "client": {
     }
   }
 }
-~~~
+{{< /highlight >}}
 
 ##### ATTRIBUTES {#registration-attributes-specification}
 
@@ -798,7 +798,7 @@ The following attributes are configured within the `{ "client": {
 
 ##### EXAMPLE {#deregistration-attributes-example}
 
-~~~ json
+{{< highlight json >}}
 {
   "client": {
     "name": "1-424242",
@@ -809,7 +809,7 @@ The following attributes are configured within the `{ "client": {
     }
   }
 }
-~~~
+{{< /highlight >}}
 
 ##### ATTRIBUTES {#deregistration-attributes-specification}
 
@@ -841,7 +841,7 @@ Enterprise AWS EC2 integration][39].**
 
 ##### EXAMPLE {#ec2-attributes-example}
 
-~~~ json
+{{< highlight json >}}
 {
   "client": {
     "name": "1-424242",
@@ -855,7 +855,7 @@ Enterprise AWS EC2 integration][39].**
     }
   }
 }
-~~~
+{{< /highlight >}}
 
 ##### ATTRIBUTES {#ec2-attributes-specification}
 
@@ -921,7 +921,7 @@ Enterprise Chef integration][42].**
 
 ##### EXAMPLE {#chef-attributes-example}
 
-~~~ json
+{{< highlight json >}}
 {
   "client": {
     "name": "1-424242",
@@ -931,7 +931,7 @@ Enterprise Chef integration][42].**
     }
   }
 }
-~~~
+{{< /highlight >}}
 
 ##### ATTRIBUTES {#chef-attributes-specification}
 
@@ -1033,7 +1033,7 @@ Enterprise Puppet integration][44].**
 
 ##### EXAMPLE {#puppet-attributes-example}
 
-~~~ json
+{{< highlight json >}}
 {
   "client": {
     "name": "1-424242",
@@ -1043,7 +1043,7 @@ Enterprise Puppet integration][44].**
     }
   }
 }
-~~~
+{{< /highlight >}}
 
 ##### ATTRIBUTES {#puppet-attributes-specification}
 
@@ -1065,7 +1065,7 @@ Enterprise ServiceNow integration][46].**
 
 ##### EXAMPLE {#servicenow-attributes-example}
 
-~~~ json
+{{< highlight json >}}
 {
   "client": {
     "name": "1-424242",
@@ -1077,7 +1077,7 @@ Enterprise ServiceNow integration][46].**
     }
   }
 }
-~~~
+{{< /highlight >}}
 
 ##### ATTRIBUTES {#servicenow-attributes-specification}
 
@@ -1098,7 +1098,7 @@ The following attributes are configured within the `{ "client": { "servicenow":
 
 ##### EXAMPLE {#configurationitem-attributes-example}
 
-~~~ json
+{{< highlight json >}}
 {
   "client": {
     "name": "1-424242",
@@ -1111,7 +1111,7 @@ The following attributes are configured within the `{ "client": { "servicenow":
     }
   }
 }
-~~~
+{{< /highlight >}}
 
 _PRO TIP: ServiceNow users may provide custom Configuration Item (CI) field values
 via the `configuration_item` configuration scope. In this example, the CI field
@@ -1143,7 +1143,7 @@ The following is an example Sensu client definition that has custom attributes
 for the `environment` it is running in, a `mysql` attribute containing
 information about a local database, and a link to an operational `playbook`.
 
-~~~ json
+{{< highlight json >}}
 {
   "client": {
     "name": "i-424242",
@@ -1163,7 +1163,7 @@ information about a local database, and a link to an operational `playbook`.
     "playbook": "https://wiki.example.com/ops/mysql-playbook"
   }
 }
-~~~
+{{< /highlight >}}
 
 _NOTE: Because client data is included in alerts created by Sensu, custom
 attributes that only exist for the purpose of providing troubleshooting

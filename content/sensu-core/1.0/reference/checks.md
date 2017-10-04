@@ -162,7 +162,7 @@ client name the result was submitted from, and the `output` of the check.
 
 ### Example check result output
 
-~~~ json
+{{< highlight json >}}
 {
   "check": {
     "status": 0,
@@ -179,7 +179,7 @@ client name the result was submitted from, and the `output` of the check.
   },
   "client": "sensu-docs"
 }
-~~~
+{{< /highlight >}}
 
 _NOTE: please refer to the [check result specification][38] (below) for more
 information about check results._
@@ -221,7 +221,7 @@ check definition attribute called `environment`, which will default to a value
 of `production`, unless a different value is provided by the client definition
 (i.e. `:::environment|production:::`).
 
-~~~ json
+{{< highlight json >}}
 {
   "checks": {
     "check_disk_usage": {
@@ -234,13 +234,13 @@ of `production`, unless a different value is provided by the client definition
     }
   }
 }
-~~~
+{{< /highlight >}}
 
 The following example [Sensu client definition][16] would provide the necessary
 attributes to override the `disk.warning`, `disk.critical`, and `environment`
 tokens declared above.
 
-~~~ json
+{{< highlight json >}}
 {
   "client": {
     "name": "i-424242",
@@ -257,7 +257,7 @@ tokens declared above.
     "environment": "development"
   }
 }
-~~~
+{{< /highlight >}}
 
 ### Check token specification
 
@@ -303,7 +303,7 @@ website is still available. The check is named `sensu-website` and it runs on
 Sensu clients with the `production` [subscription][15], at an `interval` of 60
 seconds.
 
-~~~ json
+{{< highlight json >}}
 {
   "checks": {
     "sensu-website": {
@@ -316,7 +316,7 @@ seconds.
     }
   }
 }
-~~~
+{{< /highlight >}}
 
 ### Check definition specification
 
@@ -518,7 +518,7 @@ name][41]).
 
 ##### EXAMPLE {#subdue-attributes-example}
 
-~~~ json
+{{< highlight json >}}
 {
   "checks": {
     "check-printer": {
@@ -536,7 +536,7 @@ name][41]).
     }
   }
 }
-~~~
+{{< /highlight >}}
 
 ##### ATTRIBUTES {#subdue-attributes-specification}
 
@@ -577,7 +577,7 @@ definition (e.g. `"check-snmp-if.rb -h :::address::: -i eth0"`) are
 substituted prior to publishing the check request. The check request
 check `source` is set to the client `name`.
 
-~~~ json
+{{< highlight json >}}
 {
   "checks": {
     "check_arista_eth0": {
@@ -596,7 +596,7 @@ check `source` is set to the client `name`.
     }
   }
 }
-~~~
+{{< /highlight >}}
 
 ##### ATTRIBUTES {#proxy-requests-attributes-specification}
 
@@ -635,7 +635,7 @@ attribute, `"playbook"`, a URL for documentation to aid in the resolution of
 events for the check. The playbook URL will be available in [event data][34] and
 thus able to be included in event notifications (e.g. email).
 
-~~~ json
+{{< highlight json >}}
 {
   "checks": {
     "check_mysql_replication": {
@@ -648,7 +648,7 @@ thus able to be included in event notifications (e.g. email).
     }
   }
 }
-~~~
+{{< /highlight >}}
 
 ### Check result specification
 
