@@ -105,7 +105,7 @@ The following example filter definition, entitled `production_filter` will match
 [event data][3] with a [custom client definition attribute][5] `"environment":
 "production"`.
 
-~~~ json
+{{< highlight json >}}
 {
   "filters": {
     "production_filter": {
@@ -118,7 +118,7 @@ The following example filter definition, entitled `production_filter` will match
     }
   }
 }
-~~~
+{{< /highlight >}}
 
 ### Filter attribute evaluation
 
@@ -136,7 +136,7 @@ Some teams migrating to Sensu have asked about reproducing the behavior of their
 old monitoring system which alerts only on state change. This
 `state_change_only` [inclusive][4] filter provides such.
 
-~~~ json
+{{< highlight json >}}
 {
   "filters": {
     "state_change_only": {
@@ -147,7 +147,7 @@ old monitoring system which alerts only on state change. This
     }
   }
 }
-~~~
+{{< /highlight >}}
 
 This eval filter is effective because value of event `occurrences` is reset on each
 state change, except when the event `action` is `:resolve`. The resolve action
@@ -166,7 +166,7 @@ calculation; i.e. calculating the remainder after dividing `occurrences` by 60).
 Note that negate is true, making this an [exclusive filter][4]; if evaluation
 returns false, the event will be handled.
 
-~~~ json
+{{< highlight json >}}
 {
   "filters": {
     "filter_interval_60_hourly": {
@@ -180,12 +180,12 @@ returns false, the event will be handled.
     }
   }
 }
-~~~
+{{< /highlight >}}
 
 The next example will apply the same logic as the previous example, but for
 checks with a 30 second `interval`.
 
-~~~ json
+{{< highlight json >}}
 {
   "filters": {
     "filter_interval_30_hourly": {
@@ -199,7 +199,7 @@ checks with a 30 second `interval`.
     }
   }
 }
-~~~
+{{< /highlight >}}
 
 _NOTE: The effect of both of these filters is that they will only allow an
 events with 30-second or 60-second intervals to be [handled][1] on the first
@@ -215,7 +215,7 @@ This filter evaluates the event timestamp to determine if the event occurred
 between 9 AM and 5 PM on a weekday. Remember that `negate` defaults to false, so
 this is an inclusive filter. If evaluation returns false, the event will not be
 
-~~~ json
+{{< highlight json >}}
 {
   "filters": {
     "nine_to_fiver": {
@@ -226,7 +226,7 @@ this is an inclusive filter. If evaluation returns false, the event will not be
     }
   }
 }
-~~~
+{{< /highlight >}}
 
 ## Filter attribute eval tokens
 
@@ -248,7 +248,7 @@ expression. The token will be replaced by the [check definition attribute][6]
 named `occurrences` if it is defined, otherwise it will use the fallback value
 of `60`.
 
-~~~ json
+{{< highlight json >}}
 {
   "filters": {
     "occurrences": {
@@ -259,7 +259,7 @@ of `60`.
     }
   }
 }
-~~~
+{{< /highlight >}}
 
 This example would be useful for filtering events that don't exceed a minimum
 number of `occurrences` as configured in the check definition.
@@ -303,7 +303,7 @@ filter definition called `production`. The effect of this filter is that only
 events with the [custom client attribute][5] `"environment": "production"` will
 be handled.
 
-~~~ json
+{{< highlight json >}}
 {
   "filters": {
     "production": {
@@ -316,7 +316,7 @@ be handled.
     }
   }
 }
-~~~
+{{< /highlight >}}
 
 ### Filter definition specification
 
@@ -377,7 +377,7 @@ name][15]).
 
 ##### EXAMPLE {#when-attributes-example}
 
-~~~ json
+{{< highlight json >}}
 {
   "filters": {
     "offhours": {
@@ -399,7 +399,7 @@ name][15]).
     }
   }
 }
-~~~
+{{< /highlight >}}
 
 ##### ATTRIBUTES {#when-attributes-specification}
 
