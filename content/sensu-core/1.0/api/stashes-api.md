@@ -28,7 +28,7 @@ stash data][3] via the [Sensu key/value store][4].
 The following example demonstrates a `/stashes` query, which results in a JSON
 Array of JSON Hashes containing [stash data][3].
 
-~~~
+{{< highlight shell >}}
 $ curl -s http://localhost:4567/stashes | jq .
 [
   {
@@ -49,7 +49,7 @@ $ curl -s http://localhost:4567/stashes | jq .
     "expire": -1
   }
 ]
-~~~
+{{< /highlight >}}
 
 #### API specification {#stashes-get-specification}  
 
@@ -90,7 +90,7 @@ document payload to the `/stashes` API, resulting in a [201 (Created) HTTP
 response code][5] and a payload containing a JSON Hash confirming the stash
 `path` (i.e. the "key" where the stash can be accessed).
 
-~~~ shell
+{{< highlight shell >}}
 curl -s -i -X POST \
 -H 'Content-Type: application/json' \
 -d '{"path": "example/stash/path", "content": { "foo": "bar" }}' \
@@ -107,7 +107,7 @@ Connection: keep-alive
 Server: thin
 
 {"path":"example/stash/path"}
-~~~
+{{< /highlight >}}
 
 #### API specification {#stashes-post-specification}
 
@@ -139,12 +139,12 @@ The following example demonstrates a `/stashes/:path` API query for a stash
 located at the `my/example/path` `:path`, resulting in a JSON Hash of [stash
 `content` data][8].
 
-~~~
+{{< highlight shell >}}
 $ curl -s http://localhost:4567/stashes/my/example/stash | jq .
 {
   "message": "hello world"
 }
-~~~
+{{< /highlight >}}
 
 _NOTE: the `/stashes/:path` API endpoint provides [direct access to stash
 `content` data][7], so only [stash `content` attributes][8] are provided for
@@ -173,7 +173,7 @@ The following example demonstrates submitting an HTTP POST to the
 payload containing a JSON Hash confirming the stash `path` (i.e. the "key" where
 the stash can be accessed).
 
-~~~ shell
+{{< highlight shell >}}
 $ curl -s -i -X POST \
 -H 'Content-Type: application/json' \
 -d '{"message": "hello world"}' \
@@ -190,7 +190,7 @@ Connection: keep-alive
 Server: thin
 
 {"path":"my/example/path"}
-~~~
+{{< /highlight >}}
 
 #### API specification {#stashespath-post-specification}
 
@@ -225,7 +225,7 @@ The following example demonstrates submitting an HTTP DELETE to the
 `/stashes/:path` API with a `:path` called `my/example/path`, resulting in a
 [204 (No Response) HTTP response code][5] (i.e. `HTTP/1.1 204 No Response`).
 
-~~~ shell
+{{< highlight shell >}}
 $ curl -s -i -X DELETE http://localhost:4567/stashes/my/example/path                                                                                                                                                                                        
 HTTP/1.1 204 No Content
 Access-Control-Allow-Origin: *
@@ -234,7 +234,7 @@ Access-Control-Allow-Credentials: true
 Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept, Authorization
 Connection: close
 Server: thin
-~~~
+{{< /highlight >}}
 
 #### API specification {#stashespath-delete-specification}
 

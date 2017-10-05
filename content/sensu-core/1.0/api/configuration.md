@@ -18,7 +18,7 @@ menu: "sensu-core-1.0"
 
 The following is an example API definition at `/etc/sensu/conf.d/api.json`.
 
-~~~ json
+{{< highlight json >}}
 {
   "api": {
     "host": "57.43.53.22",
@@ -26,7 +26,7 @@ The following is an example API definition at `/etc/sensu/conf.d/api.json`.
     "port": 4567
   }
 }
-~~~
+{{< /highlight >}}
 
 ### API definition specification
 
@@ -36,7 +36,7 @@ The API definition uses the `"api": {}` definition scope.
 
 host         | 
 -------------|------
-description  | The hostname or IP address that is used when querying the API.<br>_NOTE: this attribute does not configure the address that the API binds to (that's `bind`). This attribute is used by the Sensu server when querying the Sensu API._
+description  | The hostname or IP address that is used when querying the API._NOTE: this attribute does not configure the address that the API binds to (that's `bind`). This attribute is used by the Sensu server when querying the Sensu API._
 required     | false
 type         | String
 default      | `127.0.0.1`

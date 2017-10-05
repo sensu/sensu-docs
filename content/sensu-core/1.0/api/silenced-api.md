@@ -25,7 +25,7 @@ clear (delete) a silence entry via the Sensu API.
 
 #### Example: Querying for all silence entries
 
-~~~ shell
+{{< highlight shell >}}
 $ curl -s -X GET http://localhost:4567/silenced |jq .
 [
   {
@@ -47,7 +47,7 @@ $ curl -s -X GET http://localhost:4567/silenced |jq .
     "id": "all:check_ntpd"
   }
 ]
-~~~
+{{< /highlight >}}
 
 #### API specification {#silenced-get-specification}
 
@@ -88,7 +88,7 @@ The following example demonstrates a `/silenced` query, which creates a
 silence entry for the check "check_haproxy" on clients with the
 "load-balancer" subscription, with an expiration of 3600 seconds:
 
-~~~ shell
+{{< highlight shell >}}
 $ curl -s -i -X POST \
 -H 'Content-Type: application/json' \
 -d '{"subscription": "load-balancer", "check": "check_haproxy", "expire": 3600 }' \
@@ -114,7 +114,7 @@ $ curl -s -X GET http://localhost:4567/silenced | jq .
     "id": "load-balancer:check_haproxy"
   }
 ]
-~~~
+{{< /highlight >}}
 
 #### API specification {#silenced-post-specification}
 
@@ -136,7 +136,7 @@ response codes     | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 4
 
 #### Example: Querying for a specific silence entry
 
-~~~ shell
+{{< highlight shell >}}
 $ curl -s -X GET http://localhost:4567/silenced/ids/load-balancer:check_haproxy |jq .
 {
   "id": "load-balancer:check_haproxy",
@@ -147,7 +147,7 @@ $ curl -s -X GET http://localhost:4567/silenced/ids/load-balancer:check_haproxy 
   "expire_on_resolve": false,
   "expire": 3529
 }
-~~~
+{{< /highlight >}}
 
 #### API specification {#silencedids-get-specification}
 
@@ -174,7 +174,7 @@ output                  | {{< highlight json >}}{
 
 A silence entry can be cleared (deleted) by its ID:
 
-~~~ shell
+{{< highlight shell >}}
 $ curl -s -X GET http://localhost:4567/silenced | jq .
 [
   {
@@ -203,12 +203,12 @@ Content-length: 0
 
 $ curl -s -X GET http://localhost:4567/silenced | jq .
 []
-~~~
+{{< /highlight >}}
 
 A silence entry can also be cleared by specifying the intersection of
 subscription and/or handler to which the entry applies:
 
-~~~ shell
+{{< highlight shell >}}
 $ curl -s -X GET http://localhost:4567/silenced | jq .
 [
   {
@@ -237,7 +237,7 @@ Content-length: 0
 
 $ curl -s -X GET http://localhost:4567/silenced | jq .
 []
-~~~
+{{< /highlight >}}
 
 #### API specification {#silenced-clear-post-specification}
 
@@ -256,7 +256,7 @@ response codes         | <ul><li>**Success**: 204 (No Content)</li><li>**Malform
 
 #### Example: Querying for silence entries via subscription name
 
-~~~ shell
+{{< highlight shell >}}
 $ curl -s -X GET http://localhost:4567/silenced/subscriptions/load-balancer | jq .
 [
   {
@@ -269,7 +269,7 @@ $ curl -s -X GET http://localhost:4567/silenced/subscriptions/load-balancer | jq
     "id": "load-balancer:check_ntpd"
   }
 ]
-~~~
+{{< /highlight >}}
 
 #### API specification {#silenced-subscriptions-get-specification}
 
@@ -285,7 +285,7 @@ response codes                              | <ul><li>**Success**: 200 (OK)</li>
 
 #### Example: Querying for silence entries via check name
 
-~~~ shell
+{{< highlight shell >}}
 $ curl -s -X GET http://localhost:4567/silenced/checks/check_ntpd | jq .
 [
   {
@@ -307,7 +307,7 @@ $ curl -s -X GET http://localhost:4567/silenced/checks/check_ntpd | jq .
     "id": "load-balancer:check_ntpd"
   }
 ]
-~~~
+{{< /highlight >}}
 
 #### API specification {#silenced-checks-get-specification}
 

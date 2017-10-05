@@ -25,7 +25,7 @@ e.g. `/settings?redacted=false.`
 The following example demonstrates a request to the `/settings` API, resulting in
 a JSON Hash containing the APIs running configuration settings.
 
-~~~ shell
+{{< highlight shell >}}
 $ curl -s http://127.0.0.1:4567/settings | jq .
 {
   "api": {
@@ -43,7 +43,7 @@ $ curl -s http://127.0.0.1:4567/settings | jq .
   },
   "...": "..."
 }
-~~~
+{{< /highlight >}}
 
 #### API Specification {#settings-get-specification}
 

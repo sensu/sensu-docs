@@ -32,7 +32,7 @@ result data][1].
 The following example demonstrates a `/results` API query which returns a JSON
 Array of JSON Hashes containing [check results][1].
 
-~~~ shell
+{{< highlight shell >}}
 $ curl -s http://localhost:4567/results | jq .
 [
   {
@@ -67,7 +67,7 @@ $ curl -s http://localhost:4567/results | jq .
     "client": "client-01"
   }
 ]
-~~~
+{{< /highlight >}}
 
 #### API specification {#results-get-specification}
 
@@ -109,7 +109,7 @@ with JSON Hash payload containing [check result data][1], resulting in a [202
 (Accepted) HTTP response code][2] (i.e. `HTTP/1.1 202 Accepted`) and a JSON Hash
 containing an `issued` timestamp.
 
-~~~ shell
+{{< highlight shell >}}
 $ curl -s -i -X POST \
 -H 'Content-Type: application/json' \
 -d '{"source": "external_service", "name": "check_external", "output": "hello results API world", "status": 0}' \
@@ -126,7 +126,7 @@ Connection: keep-alive
 Server: thin
 
 {"issued":1460326288}
-~~~
+{{< /highlight >}}
 
 #### API specification {#results-post-specification}
 
@@ -169,7 +169,7 @@ The following example demonstrates a `/results/:client` API query which returns
 a JSON Array of JSON Hashes containing [check results][1] for the `:client`
 named `client-01`.
 
-~~~ shell
+{{< highlight shell >}}
 $ curl -s http://localhost:4567/results/client-01 | jq .
 [
   {
@@ -204,7 +204,7 @@ $ curl -s http://localhost:4567/results/client-01 | jq .
     "client": "client-01"
   }
 ]
-~~~
+{{< /highlight >}}
 
 #### API specification {#resultsclient-get-specification}
 
@@ -247,7 +247,7 @@ The following example demonstrates a `/results/:client/:check` API query which
 returns a JSON Hash containing the most recent [check result][1] for the
 `:client` named `client-01` and the `:check` named `:`.
 
-~~~ shell
+{{< highlight shell >}}
 $ curl -s http://localhost:4567/results/client-01/sensu_website | jq .
 {
   "check": {
@@ -266,7 +266,7 @@ $ curl -s http://localhost:4567/results/client-01/sensu_website | jq .
   },
   "client": "client-01"
 }
-~~~
+{{< /highlight >}}
 
 #### API specification {#resultsclientcheck-get-specification}
 
@@ -304,7 +304,7 @@ check result data for a `:client` named `client-01` and a `:check` named
 `HTTP/1.1 204 No Content`), indicating that the result was successful, but that
 no content is provided as output.
 
-~~~ shell
+{{< highlight shell >}}
 curl -s -i -X DELETE http://localhost:4567/results/client-01/sensu_website
 HTTP/1.1 204 No Content
 Access-Control-Allow-Origin: *
@@ -313,7 +313,7 @@ Access-Control-Allow-Credentials: true
 Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept, Authorization
 Connection: close
 Server: thin
-~~~
+{{< /highlight >}}
 
 #### API specification {#resultsclientcheck-delete-specification}
 

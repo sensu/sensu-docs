@@ -55,7 +55,7 @@ times (i.e. at least two Sensu servers processing check results). The [412
 (Precondition Failed) HTTP response code][7] indicates that the requested number
 of consumers are not registered.
 
-~~~ shell
+{{< highlight shell >}}
 curl -s -i http://127.0.0.1:4567/health?consumers=2
 HTTP/1.1 412 Precondition Failed
 Access-Control-Allow-Origin: *
@@ -63,7 +63,7 @@ Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS
 Access-Control-Allow-Credentials: true
 Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept, Authorization
 Connection: close
-~~~
+{{< /highlight >}}
 
 _NOTE: the ["412 (Precondition Failed)" HTTP response code][7] does **not** mean
 that the API itself is unavailable, but rather, it is the equivalent of a
@@ -108,7 +108,7 @@ connectivity, and the running Sensu servers.
 
 #### EXAMPLE {#info-get-example}
 
-~~~ shell
+{{< highlight shell >}}
 $ curl -s http://127.0.0.1:4567/info | jq .
 {
   "sensu": {
@@ -158,7 +158,7 @@ $ curl -s http://127.0.0.1:4567/info | jq .
     }
   ]
 }
-~~~
+{{< /highlight >}}
 
 #### API Specification {#info-get-specification}
 
