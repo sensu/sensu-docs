@@ -151,7 +151,7 @@ description  | If events created by the check should be handled.
 required     | false
 type         | Boolean
 default      | true
-example      | {{< highlight shell >}}"handle": false{{< /highlight >}}<br>_NOTE: although there are cases when it may be helpful to aggregate check results **and** handle individual check results, it is typically recommended to set `"handle": false` when aggregating check results, as the [purpose of the aggregation][8] should be to act on the state of the aggregated result(s) rather than the individual check result(s)._
+example      | {{< highlight shell >}}"handle": false{{< /highlight >}}_NOTE: although there are cases when it may be helpful to aggregate check results **and** handle individual check results, it is typically recommended to set `"handle": false` when aggregating check results, as the [purpose of the aggregation][8] should be to act on the state of the aggregated result(s) rather than the individual check result(s)._
 
 [1]:  checks.html#check-results
 [2]:  ../api/aggregates-api.html

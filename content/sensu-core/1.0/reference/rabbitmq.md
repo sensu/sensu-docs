@@ -327,7 +327,7 @@ sudo service rabbitmq-server stop{{< /highlight >}}
  {rabbit, [
    {cluster_partition_handling, pause_minority}
  ]}
-].{{< /highlight >}}<br>
+].{{< /highlight >}}
    _NOTE: a RabbitMQ cluster offers several methods of handling network
    partitions. A RabbitMQ cluster should not span regions (e.g. WAN links), as
    doing so would increase latency and the probability of network partitions._
@@ -337,7 +337,7 @@ sudo service rabbitmq-server stop{{< /highlight >}}
    `/var/lib/rabbitmq/.erlang.cookie` so that it contains the following
    contents:
 {{< highlight shell >}}
-coookiemonster{{< /highlight >}}<br>
+coookiemonster{{< /highlight >}}
    _WARNING: if this file is edited while RabbitMQ is running it may prevent the
    RabbitMQ process from stopping and/or restarting gracefully, which is why
    step #1 of these instructions indicates that the RabbitMQ services should be
@@ -363,7 +363,7 @@ sudo rabbitmqctl reset
 {{< highlight shell >}}
 sudo rabbitmqctl start_app
 ifconfig
-{{< /highlight >}}<br>
+{{< /highlight >}}
    _NOTE: this step effectively starts the RabbitMQ "cluster", which the other
    RabbitMQ systems will join in the following steps. for the purposes of this
    guide we will assume `10.0.1.6` is the IP address of this system._
@@ -373,9 +373,9 @@ ifconfig
 {{< highlight shell >}}
 sudo rabbitmqctl join_cluster rabbit@ip-10-0-1-6
 sudo rabbitmqctl start_app
-{{< /highlight >}}<br>
+{{< /highlight >}}
    _NOTE: these commands need to be run twice - once on each of the remaining
-   two RabbitMQ systems in the cluster._<br>
+   two RabbitMQ systems in the cluster._
    _WARNING: when adding a RabbitMQ broker to a cluster (e.g. `rabbitmqctl
    join_cluster rabbit@hostname`, the brokers must be able to successfully
    resolve each other's `hostname`._
@@ -387,7 +387,7 @@ sudo rabbitmqctl add_vhost /sensu
 sudo rabbitmqctl add_user sensu secret
 sudo rabbitmqctl set_permissions -p /sensu sensu ".*" ".*" ".*"
 sudo rabbitmqctl list_permissions -p /sensu
-{{< /highlight >}}<br>
+{{< /highlight >}}
    _NOTE: please replace `secret` with your desired password. These `vhost` and
    `user` credentials will be automatically replicated to the other instances in
    the RabbitMQ cluster._
@@ -397,14 +397,14 @@ sudo rabbitmqctl list_permissions -p /sensu
 {{< highlight shell >}}
 sudo rabbitmqctl set_policy ha-sensu "^(results$|keepalives$)" '{"ha-mode":"all", "ha-sync-mode":"automatic"}' -p /sensu
 sudo rabbitmqctl list_policies -p /sensu
-{{< /highlight >}}<br>
+{{< /highlight >}}
    _NOTE: by default, queues within a RabbitMQ cluster are located on a single
    node (the node on which they were first declared). This is in contrast to
    exchanges and bindings, which can always be considered to be on all nodes in
    a RabbitMQ cluster. Sensu requires specific queues to be mirrored across all
    RabbitMQ nodes in a RabbitMQ cluster. The Sensu `results` and `keepalives`
    queues **MUST** be mirrored. Sensu client subscription queues do not need to
-   be mirrored._<br>
+   be mirrored._
    _WARNING: RabbitMQ uses policies to determine which queues are mirrored. The
    command provided above will create a RabbitMQ policy to mirror the Sensu
    `results` and `keealives` queues in the RabbitMQ `vhost` named `/sensu`. If

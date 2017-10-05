@@ -77,14 +77,14 @@ The following is an example transport definition, a JSON configuration file
 located at `/etc/sensu/conf.d/transport.json`. This example transport
 configuration indicates that Redis should be used as the Sensu transport.
 
-~~~ json
+{{< highlight json >}}
 {
   "transport": {
     "name": "redis",
     "reconnect_on_error": true
   }
 }
-~~~
+{{ /highlight >}}
 
 ### Transport DNS resolution {#transport-dns}
 

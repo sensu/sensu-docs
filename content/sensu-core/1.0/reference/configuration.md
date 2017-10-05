@@ -76,7 +76,7 @@ configuration sources, please note the following example scenario:
    as an empty JSON document.
    <h4 id="inital-sensu-configuration-hash">Initial Sensu configuration Hash (in memory)</h4>
 {{< highlight json >}}
-{}{{< /highlight >}}<br>
+{}{{< /highlight >}}
    When Sensu is started, it will begin to collect configuration from
    environment variables, a configuration file, and one ore more configuration
    directories, which configuration parameters will be used to build up this
@@ -100,7 +100,7 @@ configuration sources, please note the following example scenario:
    "password": "secret"
  }
 }{{< /highlight >}}
-   <br>At this time, the Sensu configuration Hash (in memory) will look like: 
+   At this time, the Sensu configuration Hash (in memory) will look like: 
    <h6>Updated Sensu configuration Hash (in memory)</h6>
 {{< highlight json >}}
 {
@@ -129,7 +129,7 @@ configuration sources, please note the following example scenario:
    "password": "newsecret"
  }
 }
-{{< /highlight >}}<br>
+{{< /highlight >}}
    The second configuration snippet provided configuration for the `rabbitmq`
    scope, some of which already exists in the Sensu configuration Hash (in
    memory) - but also missing some attributes which already exist in the Sensu
@@ -150,7 +150,7 @@ configuration sources, please note the following example scenario:
    "password": "secret"
  }
 }
-{{< /highlight >}}<br>
+{{< /highlight >}}
    The result of the deep merge is that the configuration snippet provided by
    `/etc/sensu/conf.d/rabbitmq.json` was overlaid on the Sensu configuration
    Hash (in memory), essentially overwriting the previously existing values
@@ -466,7 +466,8 @@ example              | {{< highlight shell >}}$ sudo -u sensu /opt/sensu/bin/sen
 -------------------|------
 description        | Validate compiled configuration and exit with an exit status code indicating if the configuration is valid (will exit `0` for "OK", and `2` for "CRITICAL" or invalid).
 dependencies       | Requires `-c` (`--config`) and `-d` (`--config_dir`) CLI arguments to be provided so the Sensu service knows where to load configuration from.
-example            | {{< highlight shell >}}$ sudo -u sensu /opt/sensu/bin/sensu-client --validate_config -c /etc/sensu/config.json -d /etc/sensu/conf.d/`<br>`configuration is valid{{< /highlight >}}
+example            | {{< highlight shell >}}$ sudo -u sensu /opt/sensu/bin/sensu-client --validate_config -c /etc/sensu/config.json -d /etc/sensu/conf.d/`
+`configuration is valid{{< /highlight >}}
 
 -e (-\-extensions_dir DIR) | 
 ---------------------------|------
