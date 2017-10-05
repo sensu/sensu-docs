@@ -85,7 +85,7 @@ sudo apt-get update{{< /highlight >}}
 
 5. Install Sensu:
 {{< highlight shell >}}
-sudo apt-get install sensu{{< /highlight >}}<br>
+sudo apt-get install sensu{{< /highlight >}}
    _NOTE: as mentioned above, the `sensu` package installs all of the Sensu Core
    processes, including `sensu-client`, `sensu-server`, and `sensu-api`._
 
@@ -142,7 +142,7 @@ enabled=1' | sudo tee /etc/yum.repos.d/sensu.repo{{< /highlight >}}
 
 2. Install Sensu:
 {{< highlight shell >}}
-sudo yum install sensu{{< /highlight >}}<br>
+sudo yum install sensu{{< /highlight >}}
    _NOTE: as mentioned above, the `sensu` package installs all of the Sensu Core processes, including `sensu-client`, `sensu-server`, and `sensu-api`._
 
 3. Configure Sensu. **No "default" configuration is provided with Sensu**, so
