@@ -31,7 +31,12 @@
 }
 
 .palette-primary-green .article table th {
-  background: #5cb45b;
+  background: #81C000;
+  font-size: 20px;
+  font-weight: 200;
+  display: table-caption;
+  height: 0;
+  width: 1000%;
 }
 
 .palette-primary-green .results .meta {
@@ -46,10 +51,133 @@
   background: #618B25;
 }
 
+.palette-primary-green .article code {
+  color: #6a5fc7;
+}
+
+pre code {
+  color: #81C000 !important;
+}
+
 /* General Site Wide Components ----------------------------------------------------------------- */
+.note {
+  //margin-top: 5px;
+  padding: 10px;
+  background-color: #d9edf7;
+  border-color: #bce8f1;
+  color: #31708f;
+}
+
+.warning {
+  //margin-top: 5px;
+  padding: 10px;
+  background-color: #fcf8e3;
+  border-color: #faebcc;
+  color: #8a6d3b;
+}
+
+.pro-tip {
+  //margin-top: 5px;
+  padding: 10px;
+  background-color: #dff0d8;
+ color: #3c763d;
+ border: 1px solid #d6e9c6
+}
+
+.article h2 {
+  margin-top: -70px;
+  font-size: 30px;
+}
+
+table .note, table .warning, table .pro-tip {
+  margin-top: 10px;
+}
+
+.article table ul {
+  margin-top: 0;
+}
+
+.article table ul li {
+  margin-top: 0;
+}
+
+h5 {
+  font-size: 16px;
+  font-style: italic;
+  padding-top: 30px;
+}
+
+pre {
+  background-color: #333;
+}
+
+table td {
+  font-size: 16px;
+}
+
+table tbody {
+  display: table;
+}
+
+table tr td:first-child {
+  width: 20%;
+}
+
+table pre {
+  max-width: 720px;
+}
+
+.highlight {
+  margin-top: -17px;
+  margin-right: 25px;
+  margin-left: 25px;
+}
+
+.article pre code {
+  background-color: #333;
+}
+
+.highlight pre {
+  background-color: #333 !important;
+}
+
+.highlight pre code span {
+  background-color: #333;
+}
+
+.article .data table {
+  width: 95%;
+  display: inline-table;
+}
+
+.article .data {
+  padding: 0;
+  overflow: visible;
+}
+
+thead, tbody {
+  width: 100%;
+}
+
+.article {
+  font-size: 16px;
+}
+
+.article h3 {
+  font-size: 27px;
+  font-weight: 200;
+}
 
 .article h4 {
+  margin-top: -60px;
   color: #232323;
+  font-style: none;
+  font-size: 22px;
+  margin-bottom: -10px;
+}
+
+h6 {
+  font-size: 16px; 
   font-weight: bold;
 }
 
@@ -186,7 +314,7 @@ nav {
 /* General Content Overrides ----------------------------------------------------------------- */
 
 .article h1 {
-  font-size: 32px;
+  font-size: 35px;
   padding-top: 50px;
   padding-bottom: 0px !important;
   border-bottom: none;
@@ -220,8 +348,7 @@ nav {
   padding-left: 5px;
 }
 
-#productVersionNav .platformHolder {
-  margin-top: 15px;
+.platformHolder {
   height: 50px;
   padding-top: 5px;
 }

@@ -1,10 +1,10 @@
 ---
 title: "{{ replace .TranslationBaseName "-" " " | title }}"
 date: {{ .Date }}
-description: ""
-weight:
-menu: "sensu-core"
-version:
+description: 
+weight: 
+menu: 
+version: 
 product: "Sensu Core"
 ---
 

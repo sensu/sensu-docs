@@ -90,6 +90,7 @@ $( document ).ready(function() {
   });
 
   togglePlatformDivs();
+  applyTipBoxes();
 });
 
 function togglePlatformDivs() {
@@ -107,4 +108,23 @@ function togglePlatformDivs() {
   });
 }
 
+function boldFirstWord(element) {
+  newElement = element.html().replace(/(^\w+)/, '<strong>$1</strong>');
+  element.html(newElement);
+}
+
+function applyTipBoxes() {
+  $("em").wrap(function() {
+    if ($(this).text().includes("NOTE:")) {
+      boldFirstWord($(this));
+      return '<div class="note"></div>';
+    } else if ($(this).text().includes("WARNING:")) {
+      boldFirstWord($(this));
+      return '<div class="warning"></div>';
+    } else if ($(this).text().includes("PRO TIP:")) {
+      boldFirstWord($(this));
+      return '<div class="pro-tip"></div>';
+    }
+  });
+}
 </script>

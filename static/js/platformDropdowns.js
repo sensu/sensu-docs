@@ -49,6 +49,7 @@ function setPlatformCookie($platform, $product, $title) {
   setTopDropdown();
   $platform = $platform.replace("/", "_");
   $platform = $platform.replace(" ", "-");
+  console.log($platform)
   var dropdown = document.getElementById("platformButtonTitleText-" + $platform);
   dropdown.innerHTML = Cookies.get("platform") + '<i class="fa fa-chevron-down dropdownArrow-' + $platform + '" aria-hidden="true"></i>';
   dropdown.scrollIntoView();

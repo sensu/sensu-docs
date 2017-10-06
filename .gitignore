@@ -38,3 +38,5 @@ Thumbs.db
 
 # Extras #
 node_modules/
+public/
+*.swp
