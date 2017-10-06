@@ -47,7 +47,7 @@ around the Ruby `gem` utility). The Sensu Install tool (`sensu-install`)
 simplifies installation of Ruby-based extensions. The `sensu-install` tool can be
 run with one or more arguments that determine the action(s) to take.
 
-~~~ shell
+{{< highlight shell >}}
 $ sensu-install -h
 Usage: sensu-install [options]
     -h, --help                       Display this message
@@ -59,7 +59,7 @@ Usage: sensu-install [options]
     -s, --source SOURCE              Install Sensu plugins and extensions from a custom SOURCE
     -c, --clean                      Clean up (remove) other installed versions of the plugin(s) and/or extension(s)
     -x, --proxy PROXY                Install Sensu plugins and extensions via a PROXY URL
-~~~
+{{< /highlight >}}
 
 _NOTE: `sensu-install` is only available in Sensu Core >= `0.21.0`._
 
@@ -67,15 +67,15 @@ Sensu extensions can be installed using the `sensu-install` executable:
 
 #### EXAMPLE {#installing-sensu-extensions-from-gems-example}
 
-~~~ shell
+{{< highlight shell >}}
 sensu-install -e sensu-extensions-system-profile
-~~~
+{{< /highlight >}}
 
 Or `sensu-install` can prepend `sensu-extensions-` automatically:
 
-~~~ shell
+{{< highlight highlight >}}
 sensu-install -e system-profile
-~~~
+{{< /highlight >}}
 
 ### Configuring Sensu to load extensions
 
@@ -85,7 +85,7 @@ configuration under the top level `extensions` attribute:
 
 #### EXAMPLE {#configuring-extension-loading-from-gems-example}
 
-~~~ json
+{{< highlight json >}}
 {
   "extensions": {
     "system-profile": {
@@ -93,13 +93,13 @@ configuration under the top level `extensions` attribute:
     }
   }
 }
-~~~
+{{< /highlight >}}
 
 #### EXAMPLE {#configuring-extension-loading-from-gems-w-version-example}
 
 Configuration may optionally include a version specification:
 
-~~~ json
+{{< highlight json >}}
 {
   "extensions": {
     "system_profile": {
@@ -108,7 +108,7 @@ Configuration may optionally include a version specification:
     }
   }
 }
-~~~
+{{< /highlight >}}
 
 Once extensions have been explicitly enabled in Sensu's configuration, they will
 be loaded the next time Sensu processes are restarted. Informational messages
@@ -116,7 +116,7 @@ are printed to the log when extensions are loaded:
 
 #### EXAMPLE {#configuring-extension-loading-from-gems-log-example}
 
-~~~
+{{< highlight shell >}}
 {"timestamp":"2016-08-08T16:37:25.711275+0000","level":"warn","message":"loading
 extension gem","gem":"sensu-extensions-system-profile","version":"1.0.0"}
 {"timestamp":"2016-08-08T16:37:25.711419+0000","level":"warn","message":"requiring
@@ -124,7 +124,7 @@ extension gem","require":"sensu/extensions/system-profile"}
 {"timestamp":"2016-08-08T16:37:25.711579+0000","level":"warn","message":"loaded
 extension","type":"check","name":"system_profile","description":"collects system
 metrics, using the graphite plain-text format"}
-~~~
+{{< /highlight >}}
 
 
 _NOTE: Explicit extension loading does not apply to [legacy
@@ -157,7 +157,7 @@ defined in code by overriding the [Sensu::Extension::Base `definition` method][1
 
 #### EXAMPLE {#extension-configuration-in-code-example}
 
-~~~ ruby
+{{< highlight ruby >}}
 def definition
   {
     :type => "extension",
@@ -166,7 +166,7 @@ def definition
     :mutator => "only_check_output"
   }
 end
-~~~
+{{< /highlight >}}
 
 The above code would configure the associated extension to apply the
 `occurrences` filter, and then the `only_check_output` mutator, prior to
@@ -184,13 +184,13 @@ Graphite path prefix from a default value of "system" to "profile":
 
 #### EXAMPLE {#providing-extension-configuration-example}
 
-~~~ json
+{{< highlight json >}}
 {
   "system_profile": {
     "path_prefix": "profile"
   }
 }
-~~~
+{{< /highlight >}}
 
 ## The sensu-extension gem
 

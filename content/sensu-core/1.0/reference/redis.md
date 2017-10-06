@@ -72,7 +72,7 @@ for more information._
 
 #### Example standalone configuration {#sensu-redis-configuration-examples-standalone}
 
-~~~ json
+{{< highlight json >}}
 {
   "redis": {
     "host": "127.0.0.1",
@@ -80,11 +80,11 @@ for more information._
     "password": "secret"
   }
 }
-~~~
+{{< /highlight >}}
 
 #### Example distributed configuration {#sensu-redis-configuration-examples-distributed}
 
-~~~ json
+{{< highlight json >}}
 {
   "redis": {
     "host": "10.0.1.23",
@@ -92,11 +92,11 @@ for more information._
     "password": "secret"
   }
 }
-~~~
+{{< /highlight >}}
 
 #### Example high-availability configuration {#sensu-redis-configuration-examples-high-availability}
 
-~~~ json
+{{< highlight json >}}
 {
   "redis": {
     "password": "your_redis_password",
@@ -117,7 +117,7 @@ for more information._
     ]
   }
 }
-~~~
+{{< /highlight >}}
 
 ### Redis DNS resolution {#redis-dns}
 
@@ -239,7 +239,7 @@ external systems via the `bind` configuration directive.
 To enable support for external connections, please ensure that your
 `/etc/redis/redis.conf` file contains the following configuration snippet:
 
-~~~ shell
+{{< highlight shell >}}
 # By default Redis listens for connections from all the network interfaces
 # available on the server. It is possible to listen to just one or multiple
 # interfaces using the "bind" configuration directive, followed by one or
@@ -249,7 +249,7 @@ To enable support for external connections, please ensure that your
 #
 # bind 192.168.1.100 10.0.0.1
 bind 0.0.0.0
-~~~
+{{< /highlight >}}
 
 ### High-availability configuration {#redis-high-availability-configuration}
 
@@ -326,23 +326,17 @@ elevated privileges (e.g. `sudo nano /etc/redis/redis.conf`).
    connectivity (for slaves etc.), ensure that the `bind` configuration option is
    either commented out or modified to an appropriate network interface IP
    address.
-
-   ~~~
-   #bind 127.0.0.1
-   ~~~
+{{< highlight shell >}}
+#bind 127.0.0.1{{< /highlight >}}
 
 2. Redis password authentication must be enabled, ensure that the `masterauth`
    and `requirepass` configuration options are uncommented and their values are
    the SAME complex string (for increased security) (e.g.
    `thW0K5tB4URO5a9wsykBH8ja4AdwkQcw`).
-
-   ~~~
-   masterauth your_redis_password
-   ~~~
-
-   ~~~
-   requirepass your_redis_password
-   ~~~
+{{< highlight shell >}}
+masterauth your_redis_password{{< /highlight >}}
+{{< highlight shell >}}
+requirepass your_redis_password{{< /highlight >}}
 
 3. Restart the Redis server to reload the now modified configuration.
 
@@ -357,38 +351,30 @@ sudo privileges, e.g. `sudo nano /etc/redis/redis.conf`.
    other than localhost (`127.0.0.1`). To allow external network connectivity,
    ensure that the `bind` configuration option is either commented out or
    modified to an appropriate network interface IP address.
-
-   ~~~
-   #bind 127.0.0.1
-   ~~~
+{{< highlight shell >}}
+#bind 127.0.0.1{{< /highlight >}}
 
 2. Redis password authentication must be enabled, ensure that the `requirepass`
    configuration option is uncommented and its value is a complex string (for
    increased security). The Redis password string should match that of the Redis
    master.
-
-   ~~~
-   requirepass your_redis_password
-   ~~~
+{{< highlight shell >}}
+requirepass your_redis_password{{< /highlight >}}
 
 3. The Redis server must configured as a slave for a specific Redis master. To
    configure the Redis server as a slave, the `slaveof` configuration option
    must be uncommented and its value updated to point at the appropriate host
    address and Redis port for the Redis master. The default Redis port is
    `6379`.
-
-   ~~~
-   slaveof your_redis_master_ip 6379
-   ~~~
+{{< highlight shell >}}
+slaveof your_redis_master_ip 6379{{< /highlight >}}
 
 4. The Redis slave must be configured with the Redis master authentication password
    in order to connect to it. The `masterauth` configuration option must be
    uncommented and its value updated to equal the Redis master password (same value
    of `requirepass`).
-
-   ~~~
-   masterauth your_redis_password
-   ~~~
+{{< highlight shell >}}
+masterauth your_redis_password{{< /highlight >}}
 
 5. Restart the Redis server to reload the now modified configuration.
 
@@ -403,15 +389,15 @@ slave. The Redis command `AUTH` must first be used to authenticate with
 `your_redis_password` before other commands can be used. The Redis command
 `INFO` provides replication status information.
 
-~~~ shell
+{{< highlight shell >}}
 redis-cli
 AUTH your_redis_password
 INFO
-~~~
+{{< /highlight >}}
 
 Example `INFO` replication information:
 
-~~~
+{{< highlight shell >}}
 ...
 
 # Replication
@@ -425,7 +411,7 @@ repl_backlog_first_byte_offset:2
 repl_backlog_histlen:5474
 
 ...
-~~~
+{{< /highlight >}}
 
 
 #### Redis Sentinel configuration
@@ -441,18 +427,14 @@ _NOTE: At least three instances of Redis Sentinel are required for a robust
 deployment._
 
 1. Download the Sensu Redis Sentinel configuration file.
-
-   ~~~ shell
-   sudo wget -O /etc/redis/sentinel.conf http://sensuapp.org/docs/1.0/files/sentinel.conf
-   ~~~
+{{< highlight shell >}}
+sudo wget -O /etc/redis/sentinel.conf http://sensuapp.org/docs/1.0/files/sentinel.conf{{< /highlight >}}
 
 2. Sentinel not only reads its configuration from `/etc/redis/sentinel.conf`, but
    it also writes changes to it (state), so the Redis user must own the
    configuration file.
-
-   ~~~ shell
-   sudo chown redis:redis /etc/redis/sentinel.conf
-   ~~~
+{{< highlight shell >}}
+sudo chown redis:redis /etc/redis/sentinel.conf{{< /highlight >}}
 
 3. The Redis Sentinel configuration file requires a few changes before Sentinel
    can be started. The Sentinel configuration file at `/etc/redis/sentinel.conf`
@@ -463,34 +445,23 @@ deployment._
    `your_redis_master_ip` to the address that the Redis master server is
    listening on. Leaving the master name as `mymaster` is recommended, as many
    other configuration options reference it.
-
-   ~~~
-   sentinel monitor mymaster your_redis_master_ip 6379 2
-   ~~~
+{{< highlight shell >}}
+   sentinel monitor mymaster your_redis_master_ip 6379 2{{< /highlight >}}
 
 5. Sentinel needs to know the Redis password, change `your_redis_password` to be
    the same value as `masterauth` (and `requirepass`) on the Redis master
    server.
-
-   ~~~
-   sentinel auth-pass mymaster your_redis_password
-   ~~~
+{{< highlight shell >}}
+sentinel auth-pass mymaster your_redis_password{{< /highlight >}}
 
 6. The Redis package does not provide an init script for Sentinel. Run the
-   following command to install prereqs and download a working Redis Sentinel init script.
-
-   Note that you may, on some RedHat variants, also need the `redhat-lsb` package to use this init script.
-
-   ~~~ shell
-   sudo yum install initscripts
-   sudo wget -O /etc/init.d/redis-sentinel http://sensuapp.org/docs/1.0/files/redis-sentinel
-   ~~~
-
+   following command to install prereqs and download a working Redis Sentinel init script.<br><br>Note that you may, on some RedHat variants, also need the `redhat-lsb` package to use this init script.
+{{< highlight shell >}}
+sudo yum install initscripts
+sudo wget -O /etc/init.d/redis-sentinel http://sensuapp.org/docs/1.0/files/redis-sentinel{{< /highlight >}}
    The Redis Sentinel init script file needs to be executable.
-
-   ~~~ shell
-   sudo chmod +x /etc/init.d/redis-sentinel
-   ~~~
+{{< highlight shell >}}
+sudo chmod +x /etc/init.d/redis-sentinel{{< /highlight >}}
 
 7. Enable the Redis Sentinel service on boot and start it:
 
@@ -504,14 +475,14 @@ must be used to specify the Sentinel port (`26379`).
 The following commands can be executed on any configured instance of Redis
 Sentinel. The Redis command `INFO` provides the Sentinel information.
 
-~~~ shell
+{{< highlight shell >}}
 redis-cli -p 26379
 INFO
-~~~
+{{< /highlight >}}
 
 Example `INFO` Sentinel information:
 
-~~~
+{{< highlight shell >}}
 ...
 
 # Sentinel
@@ -522,7 +493,7 @@ sentinel_scripts_queue_length:0
 master0:name=mymaster,status=ok,address=10.0.0.214:6379,slaves=1,sentinels=3
 
 ...
-~~~
+{{< /highlight >}}
 
 #### Configuring Sensu for Redis Sentinel
 
@@ -534,7 +505,7 @@ information (host and port). The following is an example Sensu Redis
 configuration snippet, located at `/etc/sensu/conf.d/redis.json`. The following
 configuration could also be in `/etc/sensu/config.json`.
 
-~~~ json
+{{< highlight json >}}
 {
   "redis": {
     "password": "your_redis_password",
@@ -555,7 +526,7 @@ configuration could also be in `/etc/sensu/config.json`.
     ]
   }
 }
-~~~
+{{< /highlight >}}
 
 ## Securing Redis
 

@@ -43,7 +43,7 @@ arbitrary `path` (i.e. the "keys").
 
 The following is an example Sensu stash.
 
-~~~ json
+{{< highlight json >}}
 {
   "path": "path/to/my/stash",
   "content": {
@@ -52,7 +52,7 @@ The following is an example Sensu stash.
   },
   "expire": -1
 }
-~~~
+{{< /highlight >}}
 
 ### Stash definition specification
 
@@ -106,83 +106,76 @@ Please note the following example exercise to demonstrate the effect of direct
 access to stash `content` data:
 
 1. Let's assume we're starting out with an empty [key/value store][4].
-
-   ~~~ shell
-   $ curl -s http://localhost:4567/stashes | jq .
-   []
-   ~~~
+{{< highlight shell >}}
+$ curl -s http://localhost:4567/stashes | jq .
+[]
+{{< /highlight >}}
 
 2. Now let's create a stash with a path called 'direct-access/example-1' via the
    [`/stashes` (POST) API][5]:
+{{< highlight shell >}}
+$ curl -s -i -X POST \
+-H 'Content-Type: application/json' \
+-d '{"path": "direct-access/example-1", "content":{"message":"hello world"}}' \
+http://localhost:4567/stashes
 
-   ~~~ shell
-   $ curl -s -i -X POST \
-   -H 'Content-Type: application/json' \
-   -d '{"path": "direct-access/example-1", "content":{"message":"hello world"}}' \
-   http://localhost:4567/stashes
+HTTP/1.1 201 Created
+Content-Type: application/json
+Access-Control-Allow-Origin: *
+Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS
+Access-Control-Allow-Credentials: true
+Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept, Authorization
+Content-Length: 32
+Connection: keep-alive
+Server: thin
 
-   HTTP/1.1 201 Created
-   Content-Type: application/json
-   Access-Control-Allow-Origin: *
-   Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS
-   Access-Control-Allow-Credentials: true
-   Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept, Authorization
-   Content-Length: 32
-   Connection: keep-alive
-   Server: thin
-
-   {"path":"direct-access/example-1"}
-   ~~~
+{"path":"direct-access/example-1"}
+{{< /highlight >}}
 
 3. Now let's create a stash with a path called `direct-access/example-2` via the
    [`/stashes/:path` (POST) API][6] (i.e. using **direct access to stash
    `content` data**):
+{{< highlight shell >}}
+$ curl -s -i -X POST \
+-H 'Content-Type: application/json' \
+-d '{"message": "hello world"}' \
+http://localhost:4567/stashes/direct-access/example-2
 
-   ~~~ shell
-   $ curl -s -i -X POST \
-   -H 'Content-Type: application/json' \
-   -d '{"message": "hello world"}' \
-   http://localhost:4567/stashes/direct-access/example-2
+HTTP/1.1 201 Created
+Content-Type: application/json
+Access-Control-Allow-Origin: *
+Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS
+Access-Control-Allow-Credentials: true
+Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept, Authorization
+Content-Length: 32
+Connection: keep-alive
+Server: thin
 
-   HTTP/1.1 201 Created
-   Content-Type: application/json
-   Access-Control-Allow-Origin: *
-   Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS
-   Access-Control-Allow-Credentials: true
-   Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept, Authorization
-   Content-Length: 32
-   Connection: keep-alive
-   Server: thin
-
-   {"path":"direct-access/example-2"}
-   ~~~
-
+{"path":"direct-access/example-2"}{{< /highlight >}}
    _NOTE: in the above example, we are not providing a complete [stash
    definition][2] (e.g. defining the `path` and `content` attributes), because
    the `/stashes/:path` API provides **direct access to stash `content` data**._
 
 4. Now let's see what our stashes looks like:
-
-   ~~~ shell
-   $ curl -s http://localhost:4567/stashes | jq .
-   [
-     {
-       "expire": -1,
-       "content": {
-         "message": "hello world"
-       },
-       "path": "direct-access/example-1"
-     },
-     {
-       "expire": -1,
-       "content": {
-         "message": "hello world"
-       },
-       "path": "direct-access/example-2"
-     }
-   ]
-   ~~~
-
+{{< highlight shell >}}
+$ curl -s http://localhost:4567/stashes | jq .
+[
+ {
+   "expire": -1,
+   "content": {
+     "message": "hello world"
+   },
+   "path": "direct-access/example-1"
+ },
+ {
+   "expire": -1,
+   "content": {
+     "message": "hello world"
+   },
+   "path": "direct-access/example-2"
+ }
+]
+{{< /highlight >}}
    As you can see, even though we didn't provide a complete stash definition in
    step 3, the resulting stash is the same format as the stash created in step
    2.

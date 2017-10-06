@@ -53,7 +53,7 @@ specification][5], below._
 The following is an example Sensu event. By default, event data is JSON
 formatted, making it language-independent and fairly human readable.
 
-~~~ json
+{{< highlight json >}}
 [
   {
     "id": "ef6b87d2-1f89-439f-8bea-33881436ab90",
@@ -90,7 +90,7 @@ formatted, making it language-independent and fairly human readable.
     }
   }
 ]
-~~~
+{{< /highlight >}}
 
 ### Event data specification
 

@@ -142,7 +142,8 @@ Access-Control-Allow-Origin: *
 Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS
 Access-Control-Allow-Credentials: true
 Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept, Authorization
-Connection: close<br>Server: thin
+Connection: close
+Server: thin
 {{< /highlight >}}
 
 ## The `/aggregates/:name/clients` API endpoint

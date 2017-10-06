@@ -29,7 +29,7 @@ The `/events` API endpoint provide HTTP GET access to the Sensu event registry.
 The following example demonstrates a `/events` API query which returns a JSON
 Array of JSON Hashes containing [event data][1].
 
-~~~ shell
+{{< highlight shell >}}
 $ curl -s http://localhost:4567/events | jq .
 [
   {
@@ -92,7 +92,7 @@ $ curl -s http://localhost:4567/events | jq .
     "id": "0f42ec94-12bf-4918-a0b9-52fd57e8ee96"
   }
 ]
-~~~
+{{< /highlight >}}
 
 #### API specification {#events-get-specification}
 
@@ -151,7 +151,7 @@ The following example demonstrates a `/events/:client` API query which returns a
 JSON Array of JSON Hashes containing current [event data][1] for the `:client`
 named `client-01`.
 
-~~~ shell
+{{< highlight shell >}}
 $ curl -s http://localhost:4567/events/client-01 | jq .
 [
   {
@@ -214,7 +214,7 @@ $ curl -s http://localhost:4567/events/client-01 | jq .
     "id": "588a2932-6c12-4222-8118-00ba40625149"
   }
 ]
-~~~
+{{< /highlight >}}
 
 #### API specification {#eventsclient-get-specification}
 
@@ -273,7 +273,7 @@ The following example demonstrates a `/events/:client/:check` API query which
 returns a JSON Hash containing [event data][1] for a `:client` named `client-01`
 and a `:check` named `sensu_website`.
 
-~~~ shell
+{{< highlight shell >}}
 $ curl -s http://localhost:4567/events/client-01/sensu_website | jq .
 {
   "timestamp": 1460304102,
@@ -334,7 +334,7 @@ $ curl -s http://localhost:4567/events/client-01/sensu_website | jq .
   },
   "id": "07246570-8335-414e-8720-db6616fe5c40"
 }
-~~~
+{{< /highlight >}}
 
 #### API specification {#eventsclientcheck-get-specification}
 
@@ -388,7 +388,7 @@ to delete event data for a `:client` named `:client-01` and a `:check` named
 `HTTP/1.1 202 Accepted`) and a payload containing a JSON Hash with the delete
 request `issued` timestamp.
 
-~~~ shell
+{{< highlight shell >}}
 curl -s -i -X DELETE http://localhost:4567/events/client-01/sensu_website
 HTTP/1.1 202 Accepted
 Content-Type: application/json
@@ -401,7 +401,7 @@ Connection: keep-alive
 Server: thin
 
 {"issued":1460304359}
-~~~
+{{< /highlight >}}
 
 #### API specification {#eventsclientcheck-delete-specification}
 
@@ -425,7 +425,7 @@ for a client named `client-01` and a check named `sensu_website`, which results
 in a [202 (Accepted) HTTP response code][2] (i.e. `HTTP/1.1 202 Accepted`) and a
 payload containing a JSON Hash with the resolve requests `issued` timestamp.
 
-~~~ shell
+{{< highlight shell >}}
 $ curl -s -i -X POST \
 -H 'Content-Type: application/json' \
 -d '{"client": "client-01", "check": "sensu_website"}' \
@@ -442,13 +442,13 @@ Connection: keep-alive
 Server: thin
 
 {"issued":1460311425}
-~~~
+{{< /highlight >}}
 
 The following example demonstrates a `/resolve` API request to resolve an event
 for a non-existent client named `non-existent-client` and a check named
 `non-existent-check`, resulting in a [404 (Not Found) HTTP response code][2].
 
-~~~ shell
+{{< highlight shell >}}
 curl -s -i -X POST \
 -H 'Content-Type: application/json' \
 -d '{"client": "non-existent-client", "check": "non-existent-check"}' \
@@ -463,7 +463,7 @@ Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept, Au
 Content-Length: 0
 Connection: keep-alive
 Server: thin
-~~~
+{{< /highlight >}}
 
 #### API specification {#resolve-post-specification}
 

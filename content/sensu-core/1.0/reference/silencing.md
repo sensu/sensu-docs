@@ -226,19 +226,19 @@ example      | {{< highlight json >}}{
 Assume a Sensu client "i-424242" which we wish to silence any alerts on. We'll
 do this by taking advantage of [per-client subscriptions][4]:
 
-~~~ shell
+{{< highlight shell >}}
 $ curl -s -i -X POST \
 -H 'Content-Type: application/json' \
 -d '{"subscription": "client:i-424242"}' \
 http://127.0.0.1:4567/silenced
 
 HTTP/1.1 201 Created
-~~~
+{{< /highlight >}}
 
 The `HTTP/1.1 201 Created` response indicates our POST was successful, so we
 should be able to use GET to see the resulting entry:
 
-~~~ shell
+{{< highlight shell >}}
 curl -s -X GET 127.0.0.1:4567/silenced | jq .
 [
   {
@@ -251,23 +251,23 @@ curl -s -X GET 127.0.0.1:4567/silenced | jq .
     "id": "client:i-424242:*"
   }
 ]
-~~~
+{{< /highlight >}}
 
 Now, imagine that we'd like to make this entry expire in 3600 seconds:
 
-~~~ shell
+{{< highlight shell >}}
 $ curl -s -i -X POST \
 -H 'Content-Type: application/json' \
 -d '{"subscription": "client:i-424242", "expire": 3600 }' \
 http://127.0.0.1:4567/silenced
 
 HTTP/1.1 201 Created
-~~~
+{{< /highlight >}}
 
 If we query the list of silenced entries again, we can see the value of
 `"expire"` has changed from -1 to a value which decrements as time passes:
 
-~~~ shell
+{{< highlight shell >}}
 curl -s -X GET 127.0.0.1:4567/silenced | jq .
 [
   {
@@ -280,33 +280,33 @@ curl -s -X GET 127.0.0.1:4567/silenced | jq .
     "id": "client:i-424242:*"
   }
 ]
-~~~
+{{< /highlight >}}
 
 ### Silence a specific check on a specific client
 
 Following on the previous example, let's silence a check named "check_ntp" on
 client "i-424242":
 
-~~~ shell
+{{< highlight shell >}}
 $ curl -s -i -X POST \
 -H 'Content-Type: application/json' \
 -d '{"subscription": "client:i-424242", "check": "check_ntp"}' \
 http://127.0.0.1:4567/silenced
 
 HTTP/1.1 201 Created
-~~~
+{{< /highlight >}}
 
 Now suppose I'd like to ensure this silencing entry is deleted once I've
 resolved the underlying condition it is reporting on:
 
-~~~ shell
+{{< highlight shell >}}
 $ curl -s -i -X POST \
 -H 'Content-Type: application/json' \
 -d '{"subscription": "client:i-424242", "check": "check_ntp", "expire_on_resolve": true}' \
 http://127.0.0.1:4567/silenced
 
 HTTP/1.1 201 Created
-~~~
+{{< /highlight >}}
 
 The optional `expire_on_resolve` attribute used here indicates that when the
 server processes a matching check from the specified client with status `OK`,
@@ -323,33 +323,33 @@ Assume a client subscription "appserver" which we wish to silence completely.
 Just as with our example of silencing all checks on a specific client, we'll
 create a silencing entry specifying only the applicable subscription:
 
-~~~ shell
+{{< highlight shell >}}
 $ curl -s -i -X POST \
 -H 'Content-Type: application/json' \
 -d '{"subscription": "appserver"}' \
 http://127.0.0.1:4567/silenced
 
 HTTP/1.1 201 Created
-~~~
+{{< /highlight >}}
 
 ### Silence a specific check on clients with a specific subscription
 
 Assume a check "mysql_status" which we wish to silence, running on Sensu
 clients with the subscription "appserver":
 
-~~~ shell
+{{< highlight shell >}}
 $ curl -s -i -X POST \
 -H 'Content-Type: application/json' \
 -d '{"subscription": "appserver", "check": "mysql_status"}' \
 http://127.0.0.1:4567/silenced
 
 HTTP/1.1 201 Created
-~~~
+{{< /highlight >}}
 
 The `HTTP/1.1 201 Created` response indicates our POST was successful, so we
 should be able to use GET to see the resulting entry:
 
-~~~ shell
+{{< highlight shell >}}
 $ curl -s -X GET 127.0.0.1:4567/silenced | jq .
 [
   {
@@ -362,26 +362,26 @@ $ curl -s -X GET 127.0.0.1:4567/silenced | jq .
     "id": "appserver:mysql_status"
   }
 ]
-~~~
+{{< /highlight >}}
 
 ### Silence a specific check on every client
 
 Assume we'd like to silence the "mysql_status" check on every client in our
 infrastructure, regardless of their subscriptions:
 
-~~~ shell
+{{< highlight shell >}}
 $ curl -s -i -X POST \
 -H 'Content-Type: application/json' \
 -d '{"check": "mysql_status"}' \
 http://127.0.0.1:4567/silenced
 
 HTTP/1.1 201 Created
-~~~
+{{< /highlight >}}
 
 The `HTTP/1.1 201 Created` response indicates our POST was successful, so we
 should be able to use GET to see the resulting entry:
 
-~~~ shell
+{{< highlight shell >}}
 $ curl -s -X GET 127.0.0.1:4567/silenced | jq .
 [
   {
@@ -394,21 +394,21 @@ $ curl -s -X GET 127.0.0.1:4567/silenced | jq .
     "id": "*:mysql_status"
   }
 ]
-~~~
+{{< /highlight >}}
 
 ### Deleting silencing entries
 
 Assuming we know the ID of a silencing entry, we can delete or clear it by via
 HTTP POST on the `/silenced/clear` endpoint:
 
-~~~ shell
+{{< highlight shell >}}
 $ curl -s -i -X POST \
 -H 'Content-Type: application/json' \
 -d '{"id": "appserver:mysql_status"}' \
 http://127.0.0.1:4567/silenced/clear
 
 HTTP/1.1 204 No Content
-~~~
+{{< /highlight >}}
 
 In this case the `HTTP/1.1 204 No Content` response indicates our POST was
 successful, meaning the silencing entry has been cleared (deleted) from the

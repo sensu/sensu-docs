@@ -48,7 +48,7 @@ set of counters indicating the total number of client members, checks, and
 check results collected, with a breakdown of how many results were recorded per
 status (i.e. `ok`, `warning`, `critical`, and `unknown`).
 
-~~~ json
+{{< highlight json >}}
 {
   "clients": 15,
   "checks": 2,
@@ -61,13 +61,13 @@ status (i.e. `ok`, `warning`, `critical`, and `unknown`).
     "stale": 0
   }
 }
-~~~
+{{< /highlight >}}
 
 Additional aggregate data is available from the Aggregates API, including Sensu
 client members of a named aggregate, and the corresponding checks which are
 included in the aggregate:
 
-~~~ shell
+{{< highlight shell >}}
 $ curl -s http://localhost:4567/aggregates/elasticsearch/clients | jq .
 [
   {
@@ -84,13 +84,13 @@ $ curl -s http://localhost:4567/aggregates/elasticsearch/clients | jq .
     ]
   },
 ]
-~~~
+{{< /highlight >}}
 
 Aggregate data may also be fetched per check that is a member of the named
 aggregate, along with the corresponding clients that are producing results for
 said check:
 
-~~~ shell
+{{< highlight shell >}}
 $ curl -s http://localhost:4567/aggregates/elasticsearch/checks | jq .
 [
   {
@@ -107,16 +107,15 @@ $ curl -s http://localhost:4567/aggregates/elasticsearch/checks | jq .
     ]
   }
 ]
-~~~
+{{< /highlight >}}
 
 ## Aggregate configuration
 
 ### Example aggregate definition
 
-The following is an example [check definition][6], a JSON configuration file
-located at `/etc/sensu/conf.d/check_aggregate_example.json`.
+The following is an example [check definition][6], a JSON configuration file located at `/etc/sensu/conf.d/check_aggregate_example.json`.
 
-~~~
+{{< highlight shell >}}
 {
   "checks": {
     "example_check_aggregate": {
@@ -126,7 +125,7 @@ located at `/etc/sensu/conf.d/check_aggregate_example.json`.
     }
   }
 }
-~~~
+{{< /highlight >}}
 
 ### Aggregate definition specification
 
@@ -152,7 +151,7 @@ description  | If events created by the check should be handled.
 required     | false
 type         | Boolean
 default      | true
-example      | {{< highlight shell >}}"handle": false{{< /highlight >}}<br>_NOTE: although there are cases when it may be helpful to aggregate check results **and** handle individual check results, it is typically recommended to set `"handle": false` when aggregating check results, as the [purpose of the aggregation][8] should be to act on the state of the aggregated result(s) rather than the individual check result(s)._
+example      | {{< highlight shell >}}"handle": false{{< /highlight >}}_NOTE: although there are cases when it may be helpful to aggregate check results **and** handle individual check results, it is typically recommended to set `"handle": false` when aggregating check results, as the [purpose of the aggregation][8] should be to act on the state of the aggregated result(s) rather than the individual check result(s)._
 
 [1]:  checks.html#check-results
 [2]:  ../api/aggregates-api.html

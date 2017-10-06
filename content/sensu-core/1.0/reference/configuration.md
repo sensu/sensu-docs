@@ -74,13 +74,9 @@ configuration sources, please note the following example scenario:
    the purposes of providing a visual example, let's imagine that this Hash
    object is actually a JSON document, which begins life (as Sensu is started)
    as an empty JSON document.
-
    <h4 id="inital-sensu-configuration-hash">Initial Sensu configuration Hash (in memory)</h4>
-
-   ~~~json
-   {}
-   ~~~
-
+{{< highlight json >}}
+{}{{< /highlight >}}
    When Sensu is started, it will begin to collect configuration from
    environment variables, a configuration file, and one ore more configuration
    directories, which configuration parameters will be used to build up this
@@ -89,85 +85,72 @@ configuration sources, please note the following example scenario:
 2. For the purposes of this example, let's assume that the first configuration
    snippet that Sensu encounters is a configuration file, located at
    `/etc/sensu/config.json` with the following contents:
-
    <h6>New config file (on disk at `/etc/sensu/config.json`)</h6>
-
-   ~~~json
-   {
-     "rabbitmq": {
-       "host": "10.0.1.10",
-       "vhost": "/sensu",
-       "user": "sensu",
-       "password": "secret"
-     },
-     "redis": {
-       "host": "10.0.1.20",
-       "port": 6379,
-       "password": "secret"
-     }
-   }
-   ~~~
-
-   At this time, the Sensu configuration Hash (in memory) will look like:
-
+{{< highlight json >}}
+{
+ "rabbitmq": {
+   "host": "10.0.1.10",
+   "vhost": "/sensu",
+   "user": "sensu",
+   "password": "secret"
+ },
+ "redis": {
+   "host": "10.0.1.20",
+   "port": 6379,
+   "password": "secret"
+ }
+}{{< /highlight >}}
+   At this time, the Sensu configuration Hash (in memory) will look like: 
    <h6>Updated Sensu configuration Hash (in memory)</h6>
-
-   ~~~json
-   {
-     "rabbitmq": {
-       "host": "localhost",
-       "vhost": "/sensu",
-       "user": "sensu",
-       "password": "secret"
-     },
-     "redis": {
-       "host": "localhost",
-       "port": 6379,
-       "password": "secret"
-     }
-   }
-   ~~~
+{{< highlight json >}}
+{
+ "rabbitmq": {
+   "host": "localhost",
+   "vhost": "/sensu",
+   "user": "sensu",
+   "password": "secret"
+ },
+ "redis": {
+   "host": "localhost",
+   "port": 6379,
+   "password": "secret"
+ }
+}{{< /highlight >}}
 
 3. Now let's see what happens when Sensu encounters another configuration
    snippet (e.g. a file located in a Sensu configuration directory, such as
-   `/etc/sensu/conf.d/rabbitmq.json`):
-
+   `/etc/sensu/conf.d/rabbitmq.json`): 
   <h6>New config file contents (on disk at `/etc/sensu/conf.d/rabbitmq.json`)</h6>
-
-   ~~~json
-   {
-     "rabbitmq": {
-       "host": "10.0.1.10",
-       "user": "sensu01",
-       "password": "newsecret"
-     }
-   }
-   ~~~
-
+{{< highlight json >}}
+{
+ "rabbitmq": {
+   "host": "10.0.1.10",
+   "user": "sensu01",
+   "password": "newsecret"
+ }
+}
+{{< /highlight >}}
    The second configuration snippet provided configuration for the `rabbitmq`
    scope, some of which already exists in the Sensu configuration Hash (in
    memory) - but also missing some attributes which already exist in the Sensu
    configuration Hash (i.e. `vhost`). The result of merging this configuration
    snippet into the Sensu configuration Hash (in memory) is as follows:
-
   <h6>Updated Sensu configuration Hash (in memory)</h6>
-
-   ~~~json
-   {
-     "rabbitmq": {
-       "host": "10.0.1.10",
-       "vhost": "/sensu",
-       "user": "sensu01",
-       "password": "newsecret"
-     },
-     "redis": {
-       "host": "localhost",
-       "port": 6379,
-       "password": "secret"
-     }
-   }
-   ~~~
-
+{{< highlight json >}}
+{
+ "rabbitmq": {
+   "host": "10.0.1.10",
+   "vhost": "/sensu",
+   "user": "sensu01",
+   "password": "newsecret"
+ },
+ "redis": {
+   "host": "localhost",
+   "port": 6379,
+   "password": "secret"
+ }
+}
+{{< /highlight >}}
    The result of the deep merge is that the configuration snippet provided by
    `/etc/sensu/conf.d/rabbitmq.json` was overlaid on the Sensu configuration
    Hash (in memory), essentially overwriting the previously existing values
@@ -194,13 +177,13 @@ For example, the "root" or scope of the Sensu configuration would be any
 attributes defined at the top "level" of a JSON configuration file, such as the
 configuration attributes for `rabbitmq`, `redis`, or the `api`:
 
-~~~json
+{{< highlight json >}}
 {
   "rabbitmq": {},
   "redis": {},
   "api": {}
 }
-~~~
+{{< /highlight >}}
 
 Attributes defined in the root scope (or top "level") provide the corresponding
 scope(s) for additional configuration settings (e.g. the `rabbitmq` attribute
@@ -227,11 +210,11 @@ containing Sensu client configuration on disk (assuming it is in a location that
 will be loaded by Sensu), the file should contain a top "level" attribute
 called `"client"`:
 
-~~~json
+{{< highlight json >}}
 {
   "client": {}
 }
-~~~
+{{< /highlight >}}
 
 ##### The client socket scope (`"socket": {}`)
 
@@ -248,13 +231,13 @@ location that will be loaded by Sensu), the file should contain a top "level"
 attribute called `"client"`, _and another attribute_ defined within the
 `"client"` scope (or level) called `"socket"`:
 
-~~~json
+{{< highlight json >}}
 {
   "client": {
     "socket": {}
   }
 }
-~~~
+{{< /highlight >}}
 
 Thus, when the Client Socket reference documentation continues to explain that
 the `bind` and `port` attributes should be defined in the Client Socket scope,
@@ -263,7 +246,7 @@ regardless of where you might store a configuration file containing said
 configuration attributes on disk (assuming it is in a location that will be
 loaded by Sensu).
 
-~~~json
+{{< highlight json >}}
 {
   "client": {
     "socket": {
@@ -272,7 +255,7 @@ loaded by Sensu).
     }
   }
 }
-~~~
+{{< /highlight >}}
 
 ## Sensu service service configuration
 
@@ -483,7 +466,8 @@ example              | {{< highlight shell >}}$ sudo -u sensu /opt/sensu/bin/sen
 -------------------|------
 description        | Validate compiled configuration and exit with an exit status code indicating if the configuration is valid (will exit `0` for "OK", and `2` for "CRITICAL" or invalid).
 dependencies       | Requires `-c` (`--config`) and `-d` (`--config_dir`) CLI arguments to be provided so the Sensu service knows where to load configuration from.
-example            | {{< highlight shell >}}$ sudo -u sensu /opt/sensu/bin/sensu-client --validate_config -c /etc/sensu/config.json -d /etc/sensu/conf.d/`<br>`configuration is valid{{< /highlight >}}
+example            | {{< highlight shell >}}$ sudo -u sensu /opt/sensu/bin/sensu-client --validate_config -c /etc/sensu/config.json -d /etc/sensu/conf.d/`
+`configuration is valid{{< /highlight >}}
 
 -e (-\-extensions_dir DIR) | 
 ---------------------------|------
@@ -595,7 +579,7 @@ The following is an example Sensu configuration, a JSON configuration file
 located at `/etc/sensu/config.json`. This Sensu configuration provides Sensu
 with information it needs to communicate with RabbitMQ and Redis:
 
-~~~json
+{{< highlight json >}}
 {
   "rabbitmq": {
     "host": "10.0.1.10",
@@ -614,7 +598,7 @@ with information it needs to communicate with RabbitMQ and Redis:
     "port": "4242"
   }
 }
-~~~
+{{< /highlight >}}
 
 ### Top-level configuration scopes
 
