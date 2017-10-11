@@ -2,20 +2,37 @@
 {{ range .Site.Menus.main.ByWeight }}
     {{ $.Scratch.Set "currentMenuEntry" . }}
     <li>
-    {{ if .HasChildren }}
-        <span class="section">{{ .Name | title }}</span>
-        <ul>
-        {{ range .Children }}
-            {{ $.Scratch.Set "currentMenuEntry" . }}
-            {{ partial "nav_link" $currentNode }}
-        {{ end }}
-        </ul>
-    {{ else }}
         {{ partial "nav_link" $currentNode }}
-    {{ end }}
     </li>
 {{ end }}
 
 {{ if not .IsHome }}
-    {{ partial "secondaryMenu" . }}
+<!--  {{ $sectionMenu := ( printf "%s-%s" .Section $.Params.version ) }}
+  {{ $sectionMenu2 := replace $sectionMenu "-" " " }}
+  {{ $sectionMenu2 := title $sectionMenu2 }}
+  <li>{{ $sectionMenu2 }}</li>
+  {{ range (index .Site.Menus $sectionMenu) }}
+    {{ $.Scratch.Set "currentMenuEntry" . }}
+      <li>
+      {{ if .HasChildren }}
+          <span class="section">{{ .Name | title }}</span>
+          <ul>
+          {{ range .Children }}
+              {{ $.Scratch.Set "currentMenuEntry" . }}
+              {{ partial "nav_link" $currentNode }}
+          {{ end }}
+          </ul>
+      {{ else }}
+          {{ partial "nav_link" $currentNode }}
+      {{ end }}
+    </li>
+  {{ end }}
+-->
+  {{ $section := replace .Section "-" "_" }}
+  {{ $product_info := (index .Site.Params.products $section) }}
+  {{ if (isset $product_info "submenus") }}
+    {{ range $element := $product_info.submenus }}
+      <li>{{ $element }}</li>
+    {{ end }}
+  {{ end }}
 {{ end }}
