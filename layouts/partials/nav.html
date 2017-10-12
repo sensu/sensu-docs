@@ -9,20 +9,45 @@
 {{ if not .IsHome }}
   {{ $section := replace .Section "-" "_" }}
   {{ $product_info := (index .Site.Params.products $section) }}
-  {{ $version := .Params.version }}
+  {{ $.Scratch.Add "version" .Params.version }}
+  {{ if (eq .Params.version "latest") }}
+    {{ $.Scratch.Set "version" $product_info.latest }}
+  {{ end }}
+  {{ $version := $.Scratch.Get "version" }}
   {{ range $k, $v := .Site.Menus }}
-    <li>{{ $k }}<ul>
-    {{ range $y, $x := $v }}
-      <li>{{ $x.Name }}
-      {{ if .HasChildren }}
-        <ul>
-        {{ range .Children }}
-          <li>{{ .Name }}</li>
+    {{ if and (ne $k "main") (in $k $.Section) }}
+        {{ if (in $k $version) }}
+          <li><span style="font-size: 16px;"><a href="/{{ $.Section }}/{{ $version }}">{{ $k }}</a></span><ul>
+        {{ else }}
+        <li><span style="font-size: 16px;"><a href="/{{ $.Section }}">{{ $k }}</a></span><ul>
         {{ end }}
-        </ul>
-      {{ end }}
-      </li>
+        {{ range $y, $x := $v }}
+          {{ $formattedName := urlize $x.Name }}
+          {{ if .HasChildren }}
+            {{ if (in $k $version) }}
+              <li><span style="font-size: 16px;"><a href="/{{ $.Section }}/{{ $version }}/{{ $formattedName }}">{{ $x.Name }}</a></span>
+                <ul>
+                  {{ range .Children }}
+                    {{ $childName := urlize .Name }}
+                    <li><a href="/{{ $.Section }}/{{ $version }}/{{ $formattedName }}/{{ $childName }}">{{ .Name }}</a></li>
+                  {{ end }}
+                </ul>
+            {{ else }}
+              <li><span style="font-size: 16px;"><a href="/{{ $.Section }}/{{ $formattedName }}">{{ $x.Name }}</a></span>
+                <ul>
+                  {{ range .Children }}
+                    {{ $child := urlize . }}
+                    {{ $childName := urlize .Name }}
+                    <li><a href="/{{ $.Section }}/{{ $child }}">{{ .Name }}</a></li>
+                  {{ end }}
+                </ul>
+              {{ end }}
+          {{ else }}
+            <li><a href="/{{ $.Section }}/{{ $version }}/{{ $formattedName }}">{{ $x.Name }}</a>
+          {{ end }}
+          </li>
+        {{ end }}
+      </ul></li>
     {{ end }}
-    </ul></li>
   {{ end }}
 {{ end }}
