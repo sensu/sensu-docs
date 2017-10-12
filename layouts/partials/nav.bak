@@ -14,10 +14,9 @@
     {{ if eq $version "latest" }}
       {{ $version := $product_info.latest }}
     {{ end }}
-    {{ $sectionMenu := ( printf "%s-%s" .Section $version ) }}
+    {{ $sectionMenu := (index .Site.Menus ( printf "%s-%s" .Section $version )) }}
     <li>test</li>
-    {{ $sectionId := printf "%s-%s" .Section .Params.version }}
-    {{ range (index .Site.Menus $sectionMenu) }}
+    {{ range $sectionMenu }}
       {{ $.Scratch.Set "currentMenuEntry" . }}
         <li>
         {{ if .HasChildren }}
@@ -39,32 +38,10 @@
         <li>{{ $v }}</li>
         {{ $subMenu := printf "%s-%s-%s" $.Section $version $v }}
         <li>{{ $subMenu }}</li>
-          {{ range (index .Site.Menus $subMenu) }}
+          {{ range (index $.Site.Menus $subMenu) }}
             <li>{{ .Name }}</li>
           {{ end }}
       {{ end }}
     {{ end }}
   {{ end }}
 {{ end }}
-
-{{/*
-<li>{{.Section}}</li>
-<li>{{.Params.version}}</li>
-
-{{/*{{ range (index .Site.Menus (printf "%s-%s" .Section .Params.version)) }}
-  <li><b>{{.Name}}</b>{{.Menu}}{{.Identifier}}{{.Children}}{{.Parent}}</li>
-  {{ range .Children }}
-    <li>title {{.Title}}</li>
-  {{ end }}
-{{ end }}
-
-{{ range (index .Site.Menus .Params.menu) }}
-  <li>{{ .Children }}</li>
-{{ end }}
-*/}}
-
-{{ $sectionId := printf "%s-%s" .Section .Params.version }}
-{{ range (index .Site.Menus $sectionId) }}
-  <li>(({{.Name}}))({{.HasChildren}})[{{len .Children}}]</li>
-{{end}}
-*/}}

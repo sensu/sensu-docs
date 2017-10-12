@@ -4,7 +4,9 @@ description: "Sensu Aggregates API reference documentation."
 product: "Sensu Core"
 version: "1.0"
 weight: 5
-menu: "sensu-api"
+menu:
+  sensu-core-1.0:
+    parent: api
 ---
 
 ## Reference documentation

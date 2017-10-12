@@ -5,5 +5,6 @@ weight: -100
 menu: "uchiwa"
 product: "Uchiwa"
 layout: "index"
+version: "latest"
 ---
 This is product 2's index page

@@ -7,5 +7,6 @@ product: "Sensu Core"
 type: "sensu-core"
 layout: "index"
 platform: "General"
+version: "latest"
 ---
 Monitor servers, services, application health, and business KPIs. Collect and analyze custom metrics. Get notified about failures before your users do. Give your business the competitive advantage it deserves.
