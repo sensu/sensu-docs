@@ -7,64 +7,22 @@
 {{ end }}
 
 {{ if not .IsHome }}
-  {{ if (isset .Params "version") }}
-    {{ $section := replace .Section "-" "_" }}
-    {{ $product_info := (index .Site.Params.products $section) }}
-    {{ $version := .Params.version }}
-    {{ if eq $version "latest" }}
-      {{ $version := $product_info.latest }}
-    {{ end }}
-    {{ $sectionMenu := ( printf "%s-%s" .Section $version ) }}
-    <li>test</li>
-    {{ $sectionId := printf "%s-%s" .Section .Params.version }}
-    {{ range (index .Site.Menus $sectionMenu) }}
-      {{ $.Scratch.Set "currentMenuEntry" . }}
-        <li>
-        {{ if .HasChildren }}
-          <span class="section">{{ .Name | title }}</span>
-          <ul>
-            {{ range .Children }}
-              {{ $.Scratch.Set "currentMenuEntry" . }}
-              {{ partial "nav_link" $currentNode }}
-            {{ end }}
-            </ul>
-        {{ else }}
-          {{ partial "nav_link" $currentNode }}
+  {{ $section := replace .Section "-" "_" }}
+  {{ $product_info := (index .Site.Params.products $section) }}
+  {{ $version := .Params.version }}
+  {{ range $k, $v := .Site.Menus }}
+    <li>{{ $k }}<ul>
+    {{ range $y, $x := $v }}
+      <li>{{ $x.Name }}
+      {{ if .HasChildren }}
+        <ul>
+        {{ range .Children }}
+          <li>{{ .Name }}</li>
         {{ end }}
+        </ul>
+      {{ end }}
       </li>
     {{ end }}
-    
-    {{ if (isset $product_info "submenus") }}
-      {{ range $v := $product_info.submenus }}
-        <li>{{ $v }}</li>
-        {{ $subMenu := printf "%s-%s-%s" $.Section $version $v }}
-        <li>{{ $subMenu }}</li>
-          {{ range (index .Site.Menus $subMenu) }}
-            <li>{{ .Name }}</li>
-          {{ end }}
-      {{ end }}
-    {{ end }}
+    </ul></li>
   {{ end }}
 {{ end }}
-
-{{/*
-<li>{{.Section}}</li>
-<li>{{.Params.version}}</li>
-
-{{/*{{ range (index .Site.Menus (printf "%s-%s" .Section .Params.version)) }}
-  <li><b>{{.Name}}</b>{{.Menu}}{{.Identifier}}{{.Children}}{{.Parent}}</li>
-  {{ range .Children }}
-    <li>title {{.Title}}</li>
-  {{ end }}
-{{ end }}
-
-{{ range (index .Site.Menus .Params.menu) }}
-  <li>{{ .Children }}</li>
-{{ end }}
-*/}}
-
-{{ $sectionId := printf "%s-%s" .Section .Params.version }}
-{{ range (index .Site.Menus $sectionId) }}
-  <li>(({{.Name}}))({{.HasChildren}})[{{len .Children}}]</li>
-{{end}}
-*/}}

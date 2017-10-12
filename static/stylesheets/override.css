@@ -294,6 +294,8 @@ nav {
 }
 
 .drawer {
+  overflow: auto;
+  height: 100%;
   font-size: 14px;
 }
 

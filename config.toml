@@ -12,10 +12,6 @@ googleAnalytics = ""
   url = "/"
   identifier = "api"
 
-[[menu.main]]
-  name = "HIYA"
-  url = "/"
-
 [params]
 	# General information
 	author = "Sensu, Inc"
