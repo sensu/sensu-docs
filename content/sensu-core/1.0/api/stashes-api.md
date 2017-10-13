@@ -3,7 +3,9 @@ title: "Sensu Stashes API"
 product: "Sensu Core"
 version: "1.0"
 weight: 7
-menu: "sensu-core-1.0"
+menu:
+  sensu-core-1.0:
+    parent: api
 ---
 
 ## Reference documentation

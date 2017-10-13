@@ -17,15 +17,26 @@
   {{ range $k, $v := .Site.Menus }}
     {{ if and (ne $k "main") (in $k $.Section) }}
         {{ if (in $k $version) }}
-          <li><span style="font-size: 16px;"><a href="/{{ $.Section }}/{{ $version }}">{{ $k }}</a></span><ul>
+          {{ $niceName := replace $k "-" " " }}
+          {{ $niceName := title $niceName }}
+          <li><span style="font-size: 16px;"><a href="/{{ $.Section }}/{{ $version }}">{{ $niceName }}</a></span><ul>
         {{ else }}
-        <li><span style="font-size: 16px;"><a href="/{{ $.Section }}">{{ $k }}</a></span><ul>
+          {{ $niceName := replace $k "-" " " }}
+          {{ $niceName := title $niceName }}
+          <li><span style="font-size: 16px;"><a href="/{{ $.Section }}">{{ $niceName }}</a></span><ul>
         {{ end }}
         {{ range $y, $x := $v }}
           {{ $formattedName := urlize $x.Name }}
           {{ if .HasChildren }}
             {{ if (in $k $version) }}
-              <li><span style="font-size: 16px;"><a href="/{{ $.Section }}/{{ $version }}/{{ $formattedName }}">{{ $x.Name }}</a></span>
+              {{ $niceName := replace $x.Name "-" " " }}
+              {{ $niceName := title $niceName }}
+              {{ if $niceName := "Api" }}
+                {{ $niceName := upper $niceName }}
+                <li><span style="font-size: 16px;"><a href="/{{ $.Section }}/{{ $version }}/{{ $formattedName }}">{{ $niceName }}</a></span>
+              {{ else }}
+                <li><span style="font-size: 16px;"><a href="/{{ $.Section }}/{{ $version }}/{{ $formattedName }}">{{ $niceName }}</a></span>
+              {{ end }}
                 <ul>
                   {{ range .Children }}
                     {{ $childName := urlize .Name }}
@@ -43,7 +54,9 @@
                 </ul>
               {{ end }}
           {{ else }}
-            <li><a href="/{{ $.Section }}/{{ $version }}/{{ $formattedName }}">{{ $x.Name }}</a>
+            {{ $niceName := replace $x.Name "-" " " }}
+            {{ $niceName := title $niceName }}
+            <li><a href="/{{ $.Section }}/{{ $version }}/{{ $formattedName }}">{{ $niceName }}</a>
           {{ end }}
           </li>
         {{ end }}

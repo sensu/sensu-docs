@@ -4,7 +4,9 @@ description: "Reference documentation for configuring Redis for use with Sensu."
 product: "Sensu Core"
 version: "1.0"
 weight: 16
-menu: "sensu-core-1.0"
+menu:
+  sensu-core-1.0:
+    parent: reference
 ---
 
 ## Reference documentation
