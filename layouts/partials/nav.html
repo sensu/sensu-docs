@@ -31,7 +31,7 @@
             {{ if (in $k $version) }}
               {{ $niceName := replace $x.Name "-" " " }}
               {{ $niceName := title $niceName }}
-              {{ if $niceName := "Api" }}
+              {{ if eq $niceName "Api" }}
                 {{ $niceName := upper $niceName }}
                 <li><span style="font-size: 16px;"><a href="/{{ $.Section }}/{{ $version }}/{{ $formattedName }}">{{ $niceName }}</a></span>
               {{ else }}
