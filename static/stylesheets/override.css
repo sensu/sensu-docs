@@ -226,8 +226,16 @@ nav {
   display: inline;
 }
 
+a .project {
+  text-align: center;
+}
+
+.banner .name strong {
+  font-size: 22px;
+}
+
 .project .banner {
-  padding: 15px 20px 0;
+  padding: 20px 0 0;
 }
 
 .button .icon {
@@ -289,6 +297,29 @@ nav {
 
 /* Sidebar Stuff ----------------------------------------------------------------- */
 
+.project .banner {
+  margin-bottom: -20px;
+}
+
+.main {
+ //width: 1360px;
+}
+
+.drawer .toc li a.menu-title {
+  font-size: 20px;
+  padding: 10px;
+}
+
+.drawer .toc li a.menu-child {
+  font-size: 18px;
+  font-weight: 100 !important;
+  padding: 5px;
+}
+
+.project .logo+.name {
+  padding-left: 15px;
+}
+
 .name strong {
   font-size: 16px;
 }
@@ -296,16 +327,24 @@ nav {
 .drawer {
   overflow: auto;
   height: 100%;
-  font-size: 14px;
+  //font-size: 14px;
+  //left: 0;
+  padding-left: 80px;
+  //position: absolute;
+  margin-left: -120px;
+  width: 380px;
 }
 
 .project .logo {
-  width: 80px;
-  height: 80px;
+  width: 90px;
+  height: 90px;
   padding-right: 0;
+  padding-bottom: 20px;
 }
 
 .project .logo img {
+  width: 90px;
+  height: 90px;
   border-radius: 3px;
   margin: 0 auto;
 }
@@ -477,6 +516,54 @@ nav {
 
 /* Media Queries ----------------------------------------------------------------- */
 
+@media only screen and (max-width: 1310px) {
+  .drawer {
+    padding-left: 100px;
+  }
+
+  .drawer .toc li a.menu-title {
+    font-size: 18px;
+  }
+
+  .drawer .toc li a.menu-child {
+    font-size: 16px;
+  }  
+}
+
+@media only screen and (max-width: 1265px) {
+  .drawer {
+    padding-left: 110px;
+  }
+
+  .project .logo {
+    width: 80px;
+    height: 80px;
+  }
+
+  .project .logo img {
+    width: 80px;
+    height: 80px;
+  }
+}
+
+@media only screen and (max-width: 1254px) {
+  .drawer {
+    padding-left: 130px;
+  }
+
+  .drawer .toc li a.menu-title {
+    font-size: 16px;
+  }
+
+  .drawer .toc li a.menu-child {
+    font-size: 14px;
+  }
+
+  .banner .name strong {
+    font-size: 16px;
+  }
+}
+
 @media only screen and (max-width: 970px) {
   article .wrapper {
     padding-top: 0;
@@ -573,6 +660,16 @@ nav {
   .drawer {
     padding-top: 0;
     width: 260px;
+    margin-left: 0;
+    padding-left: 0;
+  }
+
+  .project {
+    padding-left: 10px;
+  }
+
+  .toc {
+    padding-top: 20px;
   }
 }
 
@@ -735,6 +832,7 @@ nav {
     display: block;
     background-color: white;
     height: 110px;
+    margin-top: 20px;
   }
 
   #productVersionDrawerHolder .buttonHolder {

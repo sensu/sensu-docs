@@ -1,8 +1,8 @@
 {{ $currentNode := . }}
 {{ range .Site.Menus.main.ByWeight }}
     {{ $.Scratch.Set "currentMenuEntry" . }}
-    <li>
-        {{ partial "nav_link" $currentNode }}
+    <li class="nav-title">
+      <a class="menu-title" href="/">Sensu Documentation Home</a>
     </li>
 {{ end }}
 
@@ -14,49 +14,60 @@
     {{ $.Scratch.Set "version" $product_info.latest }}
   {{ end }}
   {{ $version := $.Scratch.Get "version" }}
+  <!-- loop through all menus, but only care if they're for our current section -->
   {{ range $k, $v := .Site.Menus }}
     {{ if and (ne $k "main") (in $k $.Section) }}
+        <!-- check if we're looking at the section index, or a sub section -->
         {{ if (in $k $version) }}
           {{ $niceName := replace $k "-" " " }}
           {{ $niceName := title $niceName }}
-          <li><span style="font-size: 16px;"><a href="/{{ $.Section }}/{{ $version }}">{{ $niceName }}</a></span><ul>
+          <!-- ex. Sensu Core 1.0 -->
+          <li><a class="menu-title" href="/{{ $.Section }}/{{ $version }}">{{ $niceName }}</a><ul>
         {{ else }}
+          <!-- ex. Sensu Core -->
           {{ $niceName := replace $k "-" " " }}
           {{ $niceName := title $niceName }}
-          <li><span style="font-size: 16px;"><a href="/{{ $.Section }}">{{ $niceName }}</a></span><ul>
+          <li><a class="menu-title" href="/{{ $.Section }}">{{ $niceName }}</a><ul>
         {{ end }}
+        <!-- Loop through the menus pages -->
         {{ range $y, $x := $v }}
           {{ $formattedName := urlize $x.Name }}
+          <!-- if the menu has a child menu -->
           {{ if .HasChildren }}
             {{ if (in $k $version) }}
               {{ $niceName := replace $x.Name "-" " " }}
               {{ $niceName := title $niceName }}
+              <!-- saving the menu as API breaks it in the front matter, so we need to format it here -->
               {{ if eq $niceName "Api" }}
                 {{ $niceName := upper $niceName }}
-                <li><span style="font-size: 16px;"><a href="/{{ $.Section }}/{{ $version }}/{{ $formattedName }}">{{ $niceName }}</a></span>
+                <li><a class="menu-title" href="/{{ $.Section }}/{{ $version }}/{{ $formattedName }}">{{ $niceName }}</a>
+              <!-- render the title normally if not API -->
               {{ else }}
-                <li><span style="font-size: 16px;"><a href="/{{ $.Section }}/{{ $version }}/{{ $formattedName }}">{{ $niceName }}</a></span>
+                <li><a class="menu-title" href="/{{ $.Section }}/{{ $version }}/{{ $formattedName }}">{{ $niceName }}</a>
               {{ end }}
                 <ul>
+                  <!-- Loop through the child menu items -->
                   {{ range .Children }}
                     {{ $childName := urlize .Name }}
-                    <li><a href="/{{ $.Section }}/{{ $version }}/{{ $formattedName }}/{{ $childName }}">{{ .Name }}</a></li>
+                    <li><a class="menu-child" href="/{{ $.Section }}/{{ $version }}/{{ $formattedName }}/{{ $childName }}">{{ .Name }}</a></li>
                   {{ end }}
                 </ul>
+            <!-- No version for the child, this is rare and will probably not execute -->
             {{ else }}
-              <li><span style="font-size: 16px;"><a href="/{{ $.Section }}/{{ $formattedName }}">{{ $x.Name }}</a></span>
+              <li><a class="menu-title" href="/{{ $.Section }}/{{ $formattedName }}">{{ $x.Name }}</a>
                 <ul>
                   {{ range .Children }}
                     {{ $child := urlize . }}
                     {{ $childName := urlize .Name }}
-                    <li><a href="/{{ $.Section }}/{{ $child }}">{{ .Name }}</a></li>
+                    <li><a class="menu-child" href="/{{ $.Section }}/{{ $child }}">{{ .Name }}</a></li>
                   {{ end }}
                 </ul>
               {{ end }}
+          <!-- No children, render page normally -->
           {{ else }}
             {{ $niceName := replace $x.Name "-" " " }}
             {{ $niceName := title $niceName }}
-            <li><a href="/{{ $.Section }}/{{ $version }}/{{ $formattedName }}">{{ $niceName }}</a>
+            <li><a class="menu-child" href="/{{ $.Section }}/{{ $version }}/{{ $formattedName }}">{{ $niceName }}</a>
           {{ end }}
           </li>
         {{ end }}
