@@ -24,44 +24,39 @@
           {{ $niceName := replace $k "-" " " }}
           {{ $niceName := title $niceName }}
           <!-- ex. Sensu Core 1.0 -->
-          <li><a class="menu-title accordion">{{ $niceName }}</a><ul class="panel">
-        {{ else }}
-          <!-- ex. Sensu Core -->
-          {{ $niceName := replace $k "-" " " }}
-          {{ $niceName := title $niceName }}
-          <li><a class="menu-title accordion">{{ $niceName }}</a><ul class="panel">
-        {{ end }}
-        <!-- Loop through the menus pages -->
-        {{ range $y, $x := $v }}
-          <!-- if the menu has a child menu -->
-          {{ if .HasChildren }}
-            {{ if (in $k $version) }}
-              {{ $niceName := replace $x.Name "-" " " }}
-              {{ $niceName := title $niceName }}
-              <!-- saving the menu as API breaks it in the front matter, so we need to format it here -->
-              {{ if or (eq $niceName "Api") (eq $niceName "Rbac") }}
-                {{ $niceName := upper $niceName }}
-                <li><a class="menu-title accordion">{{ $niceName }}</a>
-              <!-- render the title normally if not API -->
-              {{ else }}
-                <li><a class="menu-title accordion">{{ $niceName }}</a>
-              {{ end }}
-              <ul class="panel">
-                <!-- Loop through the child menu's pages -->
-                {{ range .Children.ByWeight }}
-                  {{ if not (eq (lower .Parent) (lower .Name)) }}
-                    <li><a class="menu-child" href="/{{ .URL | absURL }}">{{ .Name }}</a></li>
-                  {{ end }}
+          <li><a class="menu-title">{{ $niceName }}</a><ul class="panel">
+          <!-- Loop through the menus pages -->
+          {{ range $y, $x := $v }}
+            <!-- if the menu has a child menu -->
+            {{ if .HasChildren }}
+              {{ if (in $k $version) }}
+                {{ $niceName := replace $x.Name "-" " " }}
+                {{ $niceName := title $niceName }}
+                <!-- saving the menu as API breaks it in the front matter, so we need to format it here -->
+                {{ if or (eq $niceName "Api") (eq $niceName "Rbac") }}
+                  {{ $niceName := upper $niceName }}
+                  <li><a class="menu-title accordion">{{ $niceName }}<span class="menu-dropdown-icon"><i class="fa fa-chevron-down" aria-hidden="true"></i></span></a>
+                <!-- render the title normally if not API -->
+                {{ else }}
+                  <li><a class="menu-title accordion">{{ $niceName }}<span class="menu-dropdown-icon"><i class="fa fa-chevron-down" aria-hidden="true"></i></span></a>
                 {{ end }}
-              </ul>
+                <ul class="panel">
+                  <!-- Loop through the child menu's pages -->
+                  {{ range .Children.ByWeight }}
+                    {{ if not (eq (lower .Parent) (lower .Name)) }}
+                      <li><a class="menu-child" href="/{{ .URL | absURL }}">{{ .Name }}</a></li>
+                    {{ end }}
+                  {{ end }}
+                </ul>
+              {{ end }}
+            <!-- No children, render page normally -->
+            {{ else }}
+              <li><a class="menu-child" href="/{{ .URL | absURL }}">{{ $x.Name }}</a>
             {{ end }}
-          <!-- No children, render page normally -->
-          {{ else }}
-            <li><a class="menu-child" href="/{{ .URL | absURL }}">{{ $x.Name }}</a>
+            </li>
           {{ end }}
-          </li>
+          </ul></li>
         {{ end }}
-        </ul></li>
       {{ end }}
     {{ end }}
   {{ end }}

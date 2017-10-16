@@ -308,6 +308,7 @@ a .project {
 .drawer .toc li a.menu-title {
   font-size: 19px;
   padding: 10px;
+  padding-left: 5px;
 }
 
 .drawer .toc li a.menu-child {
@@ -367,10 +368,13 @@ button.accordion.active, button.accordion:hover {
     background-color: #ccc;
 }
 
-div.panel {
-    padding: 0 18px;
-    background-color: white;
+.drawer .toc li ul .panel {
     display: none;
+}
+
+.menu-dropdown-icon {
+  margin-left: 10px;
+  font-weight: 100;
 }
 
 /* General Content Overrides ----------------------------------------------------------------- */
