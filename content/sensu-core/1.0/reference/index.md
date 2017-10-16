@@ -1,9 +1,9 @@
 ---
-title: "Sensu Reference Documentation"
+title: "Reference"
 description: "Reference documentation for Sensu."
 product: "Sensu Core"
 version: "1.0"
-weight: 0
+weight: -1
 layout: "index-3"
 menu:
   sensu-core-1.0:

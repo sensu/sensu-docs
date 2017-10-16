@@ -357,6 +357,22 @@ a .project {
   opacity: 0;
   transform: scale(0.01);
 }
+
+button.accordion {
+    cursor: pointer;
+    transition: 0.4s;
+}
+
+button.accordion.active, button.accordion:hover {
+    background-color: #ccc;
+}
+
+div.panel {
+    padding: 0 18px;
+    background-color: white;
+    display: none;
+}
+
 /* General Content Overrides ----------------------------------------------------------------- */
 
 .article h1 {

@@ -17,62 +17,74 @@
   <!-- loop through all menus, but only care if they're for our current section -->
   {{ range $k, $v := .Site.Menus }}
     {{ if and (ne $k "main") (in $k $.Section) }}
+      <!-- special case for sensu enterprise dash -->
+      {{ if not (and (in $k "sensu-enterprise-dashboard") (eq $.Section "sensu-enterprise")) }}
         <!-- check if we're looking at the section index, or a sub section -->
         {{ if (in $k $version) }}
           {{ $niceName := replace $k "-" " " }}
           {{ $niceName := title $niceName }}
           <!-- ex. Sensu Core 1.0 -->
-          <li><a class="menu-title" href="/{{ $.Section }}/{{ $version }}">{{ $niceName }}</a><ul>
+          <li><a class="menu-title accordion">{{ $niceName }}</a><ul class="panel">
         {{ else }}
           <!-- ex. Sensu Core -->
           {{ $niceName := replace $k "-" " " }}
           {{ $niceName := title $niceName }}
-          <li><a class="menu-title" href="/{{ $.Section }}">{{ $niceName }}</a><ul>
+          <li><a class="menu-title accordion">{{ $niceName }}</a><ul class="panel">
         {{ end }}
         <!-- Loop through the menus pages -->
         {{ range $y, $x := $v }}
-          {{ $formattedName := urlize $x.Name }}
           <!-- if the menu has a child menu -->
           {{ if .HasChildren }}
             {{ if (in $k $version) }}
               {{ $niceName := replace $x.Name "-" " " }}
               {{ $niceName := title $niceName }}
               <!-- saving the menu as API breaks it in the front matter, so we need to format it here -->
-              {{ if eq $niceName "Api" }}
+              {{ if or (eq $niceName "Api") (eq $niceName "Rbac") }}
                 {{ $niceName := upper $niceName }}
-                <li><a class="menu-title" href="/{{ $.Section }}/{{ $version }}/{{ $formattedName }}">{{ $niceName }}</a>
+                <li><a class="menu-title accordion">{{ $niceName }}</a>
               <!-- render the title normally if not API -->
               {{ else }}
-                <li><a class="menu-title" href="/{{ $.Section }}/{{ $version }}/{{ $formattedName }}">{{ $niceName }}</a>
+                <li><a class="menu-title accordion">{{ $niceName }}</a>
               {{ end }}
-                <ul>
-                  <!-- Loop through the child menu's pages -->
-                  {{ range .Children }}
-                    {{ $childName := urlize .Name }}
-                    {{ $childName := replace $childName "_" "-" }}
-                    <li><a class="menu-child" href="/{{ $.Section }}/{{ $version }}/{{ $formattedName }}/{{ $childName }}">{{ .Name }}</a></li>
+              <ul class="panel">
+                <!-- Loop through the child menu's pages -->
+                {{ range .Children.ByWeight }}
+                  {{ if not (eq (lower .Parent) (lower .Name)) }}
+                    <li><a class="menu-child" href="/{{ .URL | absURL }}">{{ .Name }}</a></li>
                   {{ end }}
-                </ul>
-            <!-- No version for the child, this is rare and will probably not execute -->
-            {{ else }}
-              <li><a class="menu-title" href="/{{ $.Section }}/{{ $formattedName }}">{{ $x.Name }}</a>
-                <ul>
-                  {{ range .Children }}
-                    {{ $child := urlize . }}
-                    {{ $childName := urlize .Name }}
-                    <li><a class="menu-child" href="/{{ $.Section }}/{{ $child }}">{{ .Name }}</a></li>
-                  {{ end }}
-                </ul>
-              {{ end }}
+                {{ end }}
+              </ul>
+            {{ end }}
           <!-- No children, render page normally -->
           {{ else }}
-            {{ $niceName := replace $x.Name "-" " " }}
-            {{ $niceName := title $niceName }}
-            <li><a class="menu-child" href="/{{ $.Section }}/{{ $version }}/{{ $formattedName }}">{{ $niceName }}</a>
+            <li><a class="menu-child" href="/{{ .URL | absURL }}">{{ $x.Name }}</a>
           {{ end }}
           </li>
         {{ end }}
-      </ul></li>
+        </ul></li>
+      {{ end }}
     {{ end }}
   {{ end }}
 {{ end }}
+
+
+<script>
+var acc = document.getElementsByClassName("accordion");
+var i;
+
+for (i = 0; i < acc.length; i++) {
+    acc[i].onclick = function(){
+        /* Toggle between adding and removing the "active" class,
+        to highlight the button that controls the panel */
+        this.classList.toggle("active");
+
+        /* Toggle between hiding and showing the active panel */
+        var panel = this.nextElementSibling;
+        if (panel.style.display === "block") {
+            panel.style.display = "none";
+        } else {
+            panel.style.display = "block";
+        }
+    }
+}
+</script>

@@ -1,5 +1,5 @@
 ---
-title: "What's new?"
+title: "Sensu Core"
 date: 2017-07-21T13:06:31-07:00
 weight: -100
 menu: "sensu-core-1.0"
