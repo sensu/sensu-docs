@@ -43,43 +43,12 @@ googleAnalytics = ""
     	text = "Ubuntu"
     	code = "Ubuntu Mono"
 
-    #[[menu.sensu_core]]
-      #name = "Sensu Core Home"
-      #identifier = "sensu-core-home"
-      #url = "sensu-core"
-
-    #[[menu.sensu_core]]
-      #name = "Sensu API"
-      #identifier = "sensu-api"
-      #parent="sensu-core-home"
-
-     #[[menu.sensu_enterprise]]
-      #name = "Sensu Enterprise Home"
-      #identifier = "sensu-enterprise-home"
-      #url = "sensu-enterprise"
-
-    #[[menu.uchiwa]]
-      #name = "Uchiwa Home"
-      #identifier = "uchiwa-home"
-      #url = "uchiwa"
-
-    #[[menu.plugins]]
-      #name = "Plugins Home"
-      #identifier = "plugins-home"
-      #url = "plugins"
-
-    #[[menu.extensions]]
-      #name = "Extensions Home"
-      #identifier = "extensions-home"
-      #url = "extensions"
-
     [params.products.sensu_core]
         identifier = "sensu-core"
         name = "Sensu Core"
         description = "Sensu helps monitoring and does some cool things. It's neato!"
         weight = 1
         latest = "1.0"
-        submenus = ["api", "reference"]
         [params.products.sensu_core.versions]
             "1.0" = ["Ubuntu/Debian", "RHEL/CentOS"]
             "0.29" = ["General"]
