@@ -4,7 +4,9 @@ description: "Send notification to a HipChat room for Sensu events."
 product: "Sensu Enterprise"
 version: "1.0"
 weight: 7
-menu: "sensu-enterprise-1.0"
+menu:
+  sensu-enterprise-1.0:
+    parent: integrations
 ---
 **ENTERPRISE: Built-in integrations are available for [Sensu Enterprise][1]
 users only.**

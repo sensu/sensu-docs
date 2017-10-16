@@ -4,7 +4,9 @@ description: "Deregister Sensu clients from the client registry if they no longe
 product: "Sensu Enterprise"
 version: "1.0"
 weight: 12
-menu: "sensu-enterprise-1.0"
+menu:
+  sensu-enterprise-1.0:
+    parent: integrations
 ---
 **ENTERPRISE: Built-in integrations are available for [Sensu Enterprise][1]
 users only.**
