@@ -46,9 +46,10 @@
                 <li><a class="menu-title" href="/{{ $.Section }}/{{ $version }}/{{ $formattedName }}">{{ $niceName }}</a>
               {{ end }}
                 <ul>
-                  <!-- Loop through the child menu items -->
+                  <!-- Loop through the child menu's pages -->
                   {{ range .Children }}
                     {{ $childName := urlize .Name }}
+                    {{ $childName := replace $childName "_" "-" }}
                     <li><a class="menu-child" href="/{{ $.Section }}/{{ $version }}/{{ $formattedName }}/{{ $childName }}">{{ .Name }}</a></li>
                   {{ end }}
                 </ul>

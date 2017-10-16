@@ -306,12 +306,12 @@ a .project {
 }
 
 .drawer .toc li a.menu-title {
-  font-size: 20px;
+  font-size: 19px;
   padding: 10px;
 }
 
 .drawer .toc li a.menu-child {
-  font-size: 18px;
+  font-size: 17px;
   font-weight: 100 !important;
   padding: 5px;
 }
