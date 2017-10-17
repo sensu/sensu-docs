@@ -5,7 +5,6 @@ version: "1.0"
 weight: 12
 menu: "sensu-enterprise-1.0"
 ---
-# Sensu Enterprise Dashboard Collections
 
 Collections are a grouping of items returned by a collection query. This query
 acts like a global search and it **persists** between the different views.
