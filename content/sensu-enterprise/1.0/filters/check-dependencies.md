@@ -9,8 +9,6 @@ menu: "sensu-enterprise-1.0"
 **ENTERPRISE: Built-in filters are available for [Sensu Enterprise][0]
 users only.**
 
-# The `check_dependencies` filter
-
 ## Reference documentation
 
 - [Overview](#overview)
@@ -36,7 +34,7 @@ The following is an example of how to configure a check dependency for a check.
 The example check monitors a web application API and has a dependency on another
 check that monitors the local MySQL database.
 
-~~~ json
+{{< highlight json >}}
 {
   "checks": {
     "web_application_api": {
@@ -51,12 +49,12 @@ check that monitors the local MySQL database.
     }
   }
 }
-~~~
+{{< /highlight >}}
 
 The `web_application_api` check could depend on a check executed by another
 Sensu client, in this example a Sensu client named `db-01`.
 
-~~~ json
+{{< highlight json >}}
 {
   "checks": {
     "web_application_api": {
@@ -71,12 +69,12 @@ Sensu client, in this example a Sensu client named `db-01`.
     }
   }
 }
-~~~
+{{< /highlight >}}
 
 The following is an example of how to apply the `check_dependencies` enterprise
 filter to a standard Sensu `pipe` handler.
 
-~~~ json
+{{< highlight json >}}
 {
   "handlers": {
     "custom_mailer": {
@@ -86,7 +84,7 @@ filter to a standard Sensu `pipe` handler.
     }
   }
 }
-~~~
+{{< /highlight >}}
 
 ### Filter specification
 
@@ -95,24 +93,16 @@ filter to a standard Sensu `pipe` handler.
 The following attributes are configured within the `{"checks": { "CHECK": {} }
 }` [configuration scope][1].
 
-`dependencies`
-: description
-  : An array of check dependencies. Events for the check will not be handled if
-    events exist for one or more of the check dependencies. A check dependency
-    can be a check executed by the same Sensu client (eg. `check_app`), or a
-    client/check pair (eg.`db-01/check_mysql`).
-: required
-  : false
-: type
-  : Array
-: example
-  : ~~~ shell
-    "dependencies": [
-      "check_app",
-      "db-01/check_mysql"
-    ]
-    ~~~
-
+dependencies | 
+-------------|------
+description  | An array of check dependencies. Events for the check will not be handled if events exist for one or more of the check dependencies. A check dependency can be a check executed by the same Sensu client (eg. `check_app`), or a client/check pair (eg.`db-01/check_mysql`).
+required     | false
+type         | Array
+example      | {{< highlight shell >}}"dependencies": [
+  "check_app",
+  "db-01/check_mysql"
+]
+{{< /highlight >}}
 
 [?]:  #
 [0]:  /enterprise
