@@ -8,8 +8,6 @@ menu: "sensu-enterprise-1.0"
 **ENTERPRISE: Built-in mutators are available for [Sensu Enterprise][0]
 users only.**
 
-# Built-in Mutators
-
 Sensu Core ships with a set of built-in [mutators][1] for transforming
 event data into JSON, Ruby Hash, or extracting check output. Sensu Enterprise
 comes with additional mutators, enabling third-party integrations, and providing
@@ -47,7 +45,7 @@ not only monitors NTP but also collects several metrics. Note the multiple event
 handlers: one for notifications (`pagerduty`), another for metric storage
 (`graphite`).
 
-~~~ json
+{{< highlight json >}}
 {
   "checks": {
     "ntp": {
@@ -64,26 +62,18 @@ handlers: one for notifications (`pagerduty`), another for metric storage
     }
   }
 }
-~~~
+{{< /highlight >}}
 
 #### Definition attributes
 
-output_format
-: description
-  : A metric output format (to be parsed).
-: required
-  : true
-: type
-  : String
-: allowed values
-  : `influxdb_line`, `graphite_plaintext`, `nagios_perfdata`, `opentsdb`,
-    `wavefront`, `metrics20_wire`, `wizardvan_json`
-: default
-  : `graphite_plaintext`
-: example
-  : ~~~ shell
-    "output_format": "graphite_plaintext"
-    ~~~
+output_format  | 
+---------------|------
+description    | A metric output format (to be parsed).
+required       | true
+type           | String
+allowed values | `influxdb_line`, `graphite_plaintext`, `nagios_perfdata`, `opentsdb`, `wavefront`, `metrics20_wire`, `wizardvan_json`
+default        | `graphite_plaintext`
+example        | {{< highlight shell >}}"output_format": "graphite_plaintext"{{< /highlight >}}
 
 [0]:  /enterprise
 [1]:  ../reference/mutators.html
