@@ -3,7 +3,9 @@ title: "Audit Logging"
 product: "Sensu Enterprise"
 version: "1.0"
 weight: 5
-menu: "sensu-enterprise-1.0"
+menu:
+  sensu-enterprise-1.0:
+    parent: rbac
 ---
 # Audit Logging
 

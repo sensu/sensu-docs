@@ -4,7 +4,9 @@ description: "Create ServiceNow configuration items upon Sensu client registrati
 product: "Sensu Enterprise"
 version: "1.0"
 weight: 3
-menu: "sensu-enterprise-1.0"
+menu:
+  sensu-enterprise-1.0:
+    parent: integrations
 ---
 **ENTERPRISE: Built-in integrations are available for [Sensu Enterprise][1]
 users only.**

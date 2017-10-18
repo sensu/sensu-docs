@@ -4,7 +4,9 @@ description: "Send metrics to Librato using the Librato HTTP API."
 product: "Sensu Enterprise"
 version: "1.0"
 weight: 20
-menu: "sensu-enterprise-1.0"
+menu:
+  sensu-enterprise-1.0:
+    parent: integrations
 ---
 **ENTERPRISE: Built-in integrations are available for [Sensu Enterprise][1]
 users only.**

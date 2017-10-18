@@ -3,7 +3,9 @@ title: "Sensu Results API"
 product: "Sensu Core"
 version: "1.0"
 weight: 4
-menu: "sensu-core-1.0"
+menu:
+  sensu-core-1.0:
+    parent: api
 ---
 
 ## Reference documentation

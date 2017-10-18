@@ -4,7 +4,9 @@ description: "Reference documentation for Sensu Named Aggregates."
 product: "Sensu Core"
 version: "1.0"
 weight: 4
-menu: "sensu-core-1.0"
+menu:
+  sensu-core-1.0:
+    parent: reference
 ---
 ## Reference documentation
 

@@ -2,9 +2,11 @@
 title: "Client Installation"
 description: "The Sensu Core client installation guide."
 weight: 3
-menu: "sensu-core-1.0"
 version: "1.0"
 product: "Sensu Core"
+menu:
+  sensu-core-1.0:
+    parent: guides
 ---
 
 ## Install the Sensu Client
