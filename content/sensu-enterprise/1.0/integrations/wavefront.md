@@ -9,8 +9,6 @@ menu: "sensu-enterprise-1.0"
 **ENTERPRISE: Built-in integrations are available for [Sensu Enterprise][1]
 users only.**
 
-# Wavefront Integration
-
 - [Overview](#overview)
 - [Configuring a Wavefront Proxy](#configuring-a-wavefront-proxy)
 - [Configuration](#configuration)
@@ -35,14 +33,14 @@ Enterprise, please refer to the [Wavefront Proxy setup documentation][5].
 The following is an example global configuration for the `wavefront` enterprise
 handler (integration).
 
-~~~ json
+{{< highlight json >}}
 {
   "wavefront": {
     "host": "wavefront.example.com",
     "port": 2878
   }
 }
-~~~
+{{< /highlight >}}
 
 ### Integration Specification
 
@@ -51,33 +49,21 @@ handler (integration).
 The following attributes are configured within the `{"wavefront": {} }`
 [configuration scope][3].
 
-`host`
-: description
-  : The Wavefront host address.
-: required
-  : false
-: type
-  : String
-: default
-  : `127.0.0.1`
-: example
-  : ~~~ shell
-    "host": "wavefront.example.com"
-    ~~~
+host         | 
+-------------|------
+description  | The Wavefront host address.
+required     | false
+type         | String
+default      | `127.0.0.1`
+example      | {{< highlight shell >}}"host": "wavefront.example.com"{{< /highlight >}}
 
-`port`
-: description
-  : The Wavefront Proxy port for the Wavefront Data Format.
-: required
-  : false
-: type
-  : Integer
-: default
-  : `2878`
-: example
-  : ~~~ shell
-    "port": 2878
-    ~~~
+port         | 
+-------------|------
+description  | The Wavefront Proxy port for the Wavefront Data Format.
+required     | false
+type         | Integer
+default      | `2878`
+example      | {{< highlight shell >}}"port": 2878{{< /highlight >}}
 
 
 [1]:  /enterprise

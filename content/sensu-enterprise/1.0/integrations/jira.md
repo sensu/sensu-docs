@@ -8,8 +8,6 @@ menu: "sensu-enterprise-1.0"
 **ENTERPRISE: Built-in integrations are available for [Sensu Enterprise][1]
 users only.**
 
-# JIRA Integration
-
 - [Overview](#overview)
 - [Configuration](#configuration)
   - [Example(s)](#examples)
@@ -27,7 +25,7 @@ Create and resolve [Jira][2] issues for [Sensu events][3].
 The following is an example global configuration for the `jira` enterprise
 event handler (integration).
 
-~~~ json
+{{< highlight json >}}
 {
   "jira": {
     "host": "jira.example.com",
@@ -37,7 +35,7 @@ event handler (integration).
     "timeout": 10
   }
 }
-~~~
+{{< /highlight >}}
 
 ### Integration Specification
 
@@ -46,96 +44,56 @@ event handler (integration).
 The following attributes are configured within the `{"jira": {} }`
 [configuration scope][4].
 
-`host`
-: description
-  : The JIRA host address.
-: required
-  : true
-: type
-  : String
-: example
-  : ~~~ shell
-    "host": "jira.example.com"
-    ~~~
+host         | 
+-------------|------
+description  | The JIRA host address.
+required     | true
+type         | String
+example      | {{< highlight shell >}}"host": "jira.example.com"{{< /highlight >}}
 
-`user`
-: description
-  : The JIRA user used to authenticate.
-: required
-  : true
-: type
-  : String
-: example
-  : ~~~ shell
-    "user": "admin"
-    ~~~
+user         | 
+-------------|------
+description  | The JIRA user used to authenticate.
+required     | true
+type         | String
+example      | {{< highlight shell >}}"user": "admin"{{< /highlight >}}
 
-`password`
-: description
-  : The JIRA user password.
-: required
-  : true
-: type
-  : String
-: example
-  : ~~~ shell
-    "password": "secret"
-    ~~~
+password     | 
+-------------|------
+description  | The JIRA user password.
+required     | true
+type         | String
+example      | {{< highlight shell >}}"password": "secret"{{< /highlight >}}
 
-`project`
-: description
-  : The JIRA project to use for issues.
-: required
-  : false
-: type
-  : String
-: default
-  : `Sensu`
-: example
-  : ~~~ shell
-    "project": "Alerts"
-    ~~~
+project      | 
+-------------|------
+description  | The JIRA project to use for issues.
+required     | false
+type         | String
+default      | `Sensu`
+example      | {{< highlight shell >}}"project": "Alerts"{{< /highlight >}}
 
-`project_key`
-: description
-  : The JIRA project key to use for issues. This option allows the
-  integration to work without querying JIRA for a projects key. Using
-  this option is recommended.
-: required
-  : false
-: type
-  : String
-: example
-  : ~~~ shell
-    "project_key": "SEN"
-    ~~~
+project_key  | 
+-------------|------
+description  | The JIRA project key to use for issues. This option allows the integration to work without querying JIRA for a projects key. Using this option is recommended.
+required     | false
+type         | String
+example      | {{< highlight shell >}}"project_key": "SEN"{{< /highlight >}}
 
-`root_url`
-: description
-  : The JIRA root URL. When set, this option overrides the `host`
-  option, most commonly used when a service proxy is in use.
-: required
-  : false
-: type
-  : String
-: example
-  : ~~~ shell
-    "root_url": "https://services.example.com/proxy/jira"
-    ~~~
+root_url     | 
+-------------|------
+description  | The JIRA root URL. When set, this option overrides the `host` option, most commonly used when a service proxy is in use.
+required     | false
+type         | String
+example      | {{< highlight shell >}}"root_url": "https://services.example.com/proxy/jira"{{< /highlight >}}
 
-`timeout`
-: description
-  : The handler execution duration timeout in seconds (hard stop).
-: required
-  : false
-: type
-  : Integer
-: default
-  : `10`
-: example
-  : ~~~ shell
-    "timeout": 30
-    ~~~
+timeout      | 
+-------------|------
+description  | The handler execution duration timeout in seconds (hard stop).
+required     | false
+type         | Integer
+default      | `10`
+example      | {{< highlight shell >}}"timeout": 30{{< /highlight >}}
 
 [?]:  #
 [1]:  /enterprise

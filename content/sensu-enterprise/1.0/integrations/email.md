@@ -9,8 +9,6 @@ menu: "sensu-enterprise-1.0"
 **ENTERPRISE: Built-in integrations are available for [Sensu Enterprise][1]
 users only.**
 
-# Email Integration
-
 - [Overview](#overview)
 - [Custom email templates](#custom-email-templates)
   - [Example(s)](#custom-email-templates-example)
@@ -40,7 +38,7 @@ ERB templating syntax][5]._
 The following example demonstrates how to access the Sensu `@event` variable from
 a custom ERB template.
 
-~~~erb
+{{< highlight erb >}}
 Hi there,
 
 Sensu has detected a <%= @event[:check][:name] %> monitoring event.
@@ -58,7 +56,7 @@ https://sensu.example.com/#/client/<%= @event[:client][:datacenter] %>/<%= @even
 
 #monitoringlove,
 Team Sensu
-~~~
+{{< /highlight >}}
 
 ## Configuration
 
@@ -67,7 +65,7 @@ Team Sensu
 The following is an example configuration for the `email` enterprise event
 handler (integration).
 
-~~~ json
+{{< highlight json >}}
 {
   "email": {
     "smtp": {
@@ -84,7 +82,7 @@ handler (integration).
     "timeout": 10
   }
 }
-~~~
+{{< /highlight >}}
 
 ### Integration specification
 
@@ -93,90 +91,61 @@ handler (integration).
 The following attributes are configured within the `{"email": {} }`
 [configuration scope][2].
 
-`smtp`
-: description
-  : A set of attributes that provides SMTP connection information to the email event handler.
-: required
-  : false
-: type
-  : Hash
-: default
-  : ~~~ shell
-    "smtp": {
-      "address": "127.0.0.1",
-      "port": 25,
-      "domain": "localhost.localdomain",
-      "openssl_verify_mode": "none",
-      "enable_starttls_auto": true,
-      "user_name": null,
-      "password": null,
-      "authentication": "plain"
-    }
-    ~~~
-: example
-  : ~~~ shell
-    "smtp": {
-      "address": "smtp.example.com",
-      "port": 587
-    }
-    ~~~
+smtp         | 
+-------------|------
+description  | A set of attributes that provides SMTP connection information to the email event handler.
+required     | false
+type         | Hash
+default      | {{< highlight shell >}}"smtp": {
+  "address": "127.0.0.1",
+  "port": 25,
+  "domain": "localhost.localdomain",
+  "openssl_verify_mode": "none",
+  "enable_starttls_auto": true,
+  "user_name": null,
+  "password": null,
+  "authentication": "plain"
+}{{< /highlight >}}
+example      |  {{< highlight shell >}}"smtp": {
+  "address": "smtp.example.com",
+  "port": 587
+}
+{{< /highlight >}}
 
-`to`
-: description
-  : The default email address to send notification to.
-: required
-  : false
-: type
-  : String
-: default
-  : `root@localhost`
-: example
-  : ~~~ shell
-    "to": "support@example.com"
-    ~~~
+to           | 
+-------------|------
+description  | The default email address to send notification to.
+required     | false
+type         | String
+default      | `root@localhost`
+example      | {{< highlight shell >}}"to": "support@example.com"{{< /highlight >}}
 
-`from`
-: description
-  : The default email address to use as the sender.
-: required
-  : false
-: type
-  : String
-: default
-  : `sensu@localhost`
-: example
-  : ~~~ shell
-    "from": "noreply@example.com"
-    ~~~
+from         | 
+-------------|------
+description  | The default email address to use as the sender.
+required     | false
+type         | String
+default      | `sensu@localhost`
+example      | {{< highlight shell >}}"from": "noreply@example.com"{{< /highlight >}}
 
-`templates`
-: description
-  : A set of attributes that provides email [`templates` configuration][3].
-: required
-  : false
-: type
-  : Hash
-: example
-  : ~~~ shell
-    "templates": {
-      "subject": "/etc/sensu/email/subject_template.erb",
-      "body": "/etc/sensu/email/body_template.erb"
-    }
-    ~~~
+templates    | 
+-------------|------
+description  | A set of attributes that provides email [`templates` configuration][3].
+required     | false
+type         | Hash
+example      | {{< highlight shell >}}"templates": {
+  "subject": "/etc/sensu/email/subject_template.erb",
+  "body": "/etc/sensu/email/body_template.erb"
+}
+{{< /highlight >}}
 
-`timeout`
-: description
-  : The handler execution duration timeout in seconds (hard stop).
-: required
-  : false
-: type
-  : Integer
-: default
-  : `10`
-: example
-  : ~~~ shell
-    "timeout": 30
-    ~~~
+timeout      | 
+-------------|------
+description  | The handler execution duration timeout in seconds (hard stop).
+required     | false
+type         | Integer
+default      | `10`
+example      | {{< highlight shell >}}"timeout": 30{{< /highlight >}}
 
 #### `smtp` attributes
 
@@ -185,7 +154,7 @@ The following attributes are configured within the `{"email": { "smtp": {} } }`
 
 ##### EXAMPLE {#smtp-attributes-example}
 
-~~~ json
+{{< highlight json >}}
 {
   "email": {
     "smtp": {
@@ -198,169 +167,98 @@ The following attributes are configured within the `{"email": { "smtp": {} } }`
     "timeout": 10
   }
 }
-~~~
+{{< /highlight >}}
 
 ##### ATTRIBUTES {#smtp-attributes-specification}
 
-`address`
-: description
-  : The hostname or IP address of the SMTP server
-: type
-  : String
-: required
-  : false
-: default
-  : "127.0.0.1"
-: example
-  : ~~~ shell
-    "address": "smtp.example.com"
-    ~~~
+address      | 
+-------------|------
+description  | The hostname or IP address of the SMTP server
+type         | String
+required     | false
+default      | "127.0.0.1"
+example      | {{< highlight shell >}}"address": "smtp.example.com"{{< /highlight >}}
 
-`port`
-: description
-  : The SMTP sever port
-: type
-  : Integer
-: required
-  : false
-: default
-  : `25`
-: example
-  : ~~~ shell
-    "port": 25
-    ~~~
+port         | 
+-------------|------
+description  | The SMTP sever port
+type         | Integer
+required     | false
+default      | `25`
+example      | {{< highlight shell >}}"port": 25{{< /highlight >}}
 
-`domain`
-: description
-  : The domain the SMTP server should use to send email from.
-: type
-  : String
-: required
-  : false
-: default
-  : `localhost.localdomain`
-: example
-  : ~~~ shell
-    "domain": "localhost.localdomain"
-    ~~~
+domain       | 
+-------------|------
+description  | The domain the SMTP server should use to send email from.
+type         | String
+required     | false
+default      | `localhost.localdomain`
+example      | {{< highlight shell >}}"domain": "localhost.localdomain"{{< /highlight >}}
 
-`openssl_verify_mode`
-: description
-  : What SSL verification mode Sensu should use to establish a connection with
-    the SMTP server.
-: type
-  : String
-: required
-  : false
-: default
-  : `none`
-: example
-  : ~~~ shell
-    "openssl_verify_mode": "none"
-    ~~~
+openssl_verify_mode | 
+--------------------|------
+description         | What SSL verification mode Sensu should use to establish a connection with the SMTP server.
+type                | String
+required            | false
+default             | `none`
+example             | {{< highlight shell >}}"openssl_verify_mode": "none"{{< /highlight >}}
 
-`enable_starttls_auto`
-: description
-  : Whether Sensu should use `STARTTLS` (or "Opportunistic TLS") to upgrade
-    insecure connections with TLS encryption, when possible. Sensu
-    Enterprise uses TLSv1.2, ONLY supporting TLSv1.0+.
-: type
-  : Boolean
-: required
-  : false
-: default
-  : `true`
-: example
-  : ~~~ shell
-    "enable_starttls_auto": true
-    ~~~
+enable_starttls_auto | 
+---------------------|------
+description          | Whether Sensu should use `STARTTLS` (or "Opportunistic TLS") to upgrade insecure connections with TLS encryption, when possible. Sensu Enterprise uses TLSv1.2, ONLY supporting TLSv1.0+.
+type                 | Boolean
+required             | false
+default              | `true`
+example              | {{< highlight shell >}}"enable_starttls_auto": true{{< /highlight >}}
 
-`tls`
-: description
-  : Whether Sensu should use TLS encryption for connections. Sensu
-  Enterprise uses TLSv1.2, ONLY supporting TLSv1.0+.
-: type
-  : Boolean
-: required
-  : false
-: default
-  : `false`
-: example
-  : ~~~ shell
-    "tls": true
-    ~~~
+tls          | 
+-------------|------
+description  | Whether Sensu should use TLS encryption for connections. Sensu Enterprise uses TLSv1.2, ONLY supporting TLSv1.0+.
+type         | Boolean
+required     | false
+default      | `false`
+example      | {{< highlight shell >}}"tls": true{{< /highlight >}}
 
-`user_name`
-: description
-  : The username credential Sensu should use to authenticate to the SMTP server.
-: type
-  : String
-: required
-  : false
-: example
-  : ~~~ shell
-    "username": "monitoring@example.com"
-    ~~~
+user_name    | 
+-------------|------
+description  | The username credential Sensu should use to authenticate to the SMTP server.
+type         | String
+required     | false
+example      | {{< highlight shell >}}"username": "monitoring@example.com"{{< /highlight >}}
 
-`password`
-: description
-  : The password credential Sensu should use to authenticate to the SMTP server.
-: type
-  : String
-: required
-  : false
-: example
-  : ~~~ shell
-    "passsword": "PASSWORD"
-    ~~~
+password     | 
+-------------|------
+description  | The password credential Sensu should use to authenticate to the SMTP server.
+type         | String
+required     | false
+example      | {{< highlight shell >}}"passsword": "PASSWORD"{{< /highlight >}}
 
-`authentication`
-: description
-  : The authentication method should Sensu use when connecting to the SMTP
-    server.
-: type
-  : String
-: required
-  : false
-: default
-  : `plain`
-: example
-  : ~~~ shell
-    "authentication": "plain"
-    ~~~
+authentication | 
+---------------|------
+description    | The authentication method should Sensu use when connecting to the SMTP server.
+type           | String
+required       | false
+default        | `plain`
+example        | {{< highlight shell >}}"authentication": "plain"{{< /highlight >}}
 
 #### `templates` attributes
 
 The following attributes are configured within the `{"email": { "templates": {}
 } }` [configuration scope][2].
 
-`subject`
-: description
-  : Path to the email subject [ERB][5] template file, which must be accessible
-    by the `sensu` system user. If an email subject template is not provided, a
-    built-in default template will be used.
-: type
-  : String
-: required
-  : false
-: example
-  : ~~~ shell
-    "subject": "/etc/sensu/email/subject_template.erb"
-    ~~~
+subject      | 
+-------------|------
+description  | Path to the email subject [ERB][5] template file, which must be accessible by the `sensu` system user. If an email subject template is not provided, a built-in default template will be used.
+type         | String
+required     | false
+example      | {{< highlight shell >}}"subject": "/etc/sensu/email/subject_template.erb"{{< /highlight >}}
 
-`body`
-: description
-  : Path to the email body [ERB][5] template file, which must be accessible
-    by the `sensu` system user. If an email body template is not provided, a
-    built-in default template will be used.
-: type
-  : String
-: required
-  : false
-: example
-  : ~~~ shell
-    "body": "/etc/sensu/email/body_template.erb"
-    ~~~
+body         | 
+-------------|------
+description  | Path to the email body [ERB][5] template file, which must be accessible by the `sensu` system user. If an email body template is not provided, a built-in default template will be used.
+type         | String
+required     | false
+example      | {{< highlight shell >}}"body": "/etc/sensu/email/body_template.erb"{{< /highlight >}}
 
 
 

@@ -9,8 +9,6 @@ menu: "sensu-enterprise-1.0"
 **ENTERPRISE: Built-in integrations are available for [Sensu Enterprise][1]
 users only.**
 
-# Puppet Integration
-
 - [Overview](#overview)
 - [Configuration](#configuration)
   - [Example(s)](#examples)
@@ -33,7 +31,7 @@ key, and CA can be used.
 The following is an example global configuration for the `puppet` enterprise
 handler (integration).
 
-~~~ json
+{{< highlight json >}}
 {
   "puppet": {
     "endpoint": "https://10.0.1.12:8081/pdb/query/v4/nodes/",
@@ -46,12 +44,12 @@ handler (integration).
     "timeout": 10
   }
 }
-~~~
+{{< /highlight >}}
 
 The Puppet enterprise handler is most commonly used as part of the `keepalive`
 set handler. For example:
 
-~~~ json
+{{< highlight json >}}
 {
   "handlers": {
     "keepalive": {
@@ -63,7 +61,7 @@ set handler. For example:
     }
   }
 }
-~~~
+{{< /highlight >}}
 
 When querying PuppetDB for a node, by default, Sensu will use the Sensu client's
 name for the Puppet node name. Individual Sensu clients can override the name of
@@ -71,7 +69,7 @@ their corresponding Puppet node, using specific client definition attributes.
 
 The following is an example client definition, specifying its Puppet node name.
 
-~~~ json
+{{< highlight json >}}
 {
   "client": {
     "name": "i-424242",
@@ -85,7 +83,7 @@ The following is an example client definition, specifying its Puppet node name.
     }
   }
 }
-~~~
+{{< /highlight >}}
 
 ### Integration Specification
 
@@ -98,30 +96,19 @@ included in [event data][4]._
 The following attributes are configured within the `{"puppet": {} }`
 [configuration scope][5].
 
-`endpoint`
-: description
-  : The PuppetDB API endpoint (URL). If an API path is not specified,
-    `/pdb/query/v4/nodes/` will be used.
-: required
-  : true
-: type
-  : String
-: example
-  : ~~~ shell
-    "endpoint": "https://10.0.1.12:8081/pdb/query/v4/nodes/"
-    ~~~
+endpoint     | 
+-------------|------
+description  | The PuppetDB API endpoint (URL). If an API path is not specified, `/pdb/query/v4/nodes/` will be used.
+required     | true
+type         | String
+example      | {{< highlight shell >}}"endpoint": "https://10.0.1.12:8081/pdb/query/v4/nodes/"{{< /highlight >}}
 
-`ssl`
-: description
-  : A set of attributes that configure SSL for PuppetDB API queries.
-: required
-  : true
-: type
-  : Hash
-: example
-  : ~~~ shell
-    "ssl": {}
-    ~~~
+ssl          | 
+-------------|------
+description  | A set of attributes that configure SSL for PuppetDB API queries.
+required     | true
+type         | Hash
+example      | {{< highlight shell >}}"ssl": {}{{< /highlight >}}
 
 #### `ssl` attributes
 
@@ -130,7 +117,7 @@ The following attributes are configured within the `{"puppet": { "ssl": {} } }`
 
 ##### EXAMPLE {#ssl-attributes-example}
 
-~~~ json
+{{< highlight json >}}
 {
   "puppet": {
     "endpoint": "https://10.0.1.12:8081/pdb/query/v4/nodes/",
@@ -143,57 +130,37 @@ The following attributes are configured within the `{"puppet": { "ssl": {} } }`
     }
   }
 }
-~~~
+{{< /highlight >}}
 
 ##### ATTRIBUTES {#ssl-attributes-specification}
 
-`keystore_file`
-: description
-  : The file path for the SSL certificate keystore.
-: required
-  : true
-: type
-  : String
-: example
-  : ~~~ shell
-    "keystore_file": "/etc/sensu/ssl/puppet/keystore.jks"
-    ~~~
+keystore_file | 
+--------------|------
+description   | The file path for the SSL certificate keystore.
+required      | true
+type          | String
+example       | {{< highlight shell >}}"keystore_file": "/etc/sensu/ssl/puppet/keystore.jks"{{< /highlight >}}
 
-`keystore_password`
-: description
-  : The SSL certificate keystore password.
-: required
-  : true
-: type
-  : String
-: example
-  : ~~~ shell
-    "keystore_password": "secret"
-    ~~~
+keystore_password | 
+------------------|------
+description       | The SSL certificate keystore password.
+required          | true
+type              | String
+example           | {{< highlight shell >}}"keystore_password": "secret"{{< /highlight >}}
 
-`truststore_file`
-: description
-  : The file path for the SSL certificate truststore.
-: required
-  : true
-: type
-  : String
-: example
-  : ~~~ shell
-    "truststore_file": "/etc/sensu/ssl/puppet/truststore.jks"
-    ~~~
+truststore_file | 
+----------------|------
+description     | The file path for the SSL certificate truststore.
+required        | true
+type            | String
+example         | {{< highlight shell >}}"truststore_file": "/etc/sensu/ssl/puppet/truststore.jks"{{< /highlight >}}
 
-`truststore_password`
-: description
-  : The SSL certificate truststore password.
-: required
-  : true
-: type
-  : String
-: example
-  : ~~~ shell
-    "truststore_password": "secret"
-    ~~~
+truststore_password | 
+--------------------|------
+description         | The SSL certificate truststore password.
+required            | true
+type                | String
+example             | {{< highlight shell >}}"truststore_password": "secret"{{< /highlight >}}
 
 
 [?]:  #

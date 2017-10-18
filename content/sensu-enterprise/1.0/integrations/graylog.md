@@ -9,8 +9,6 @@ menu: "sensu-enterprise-1.0"
 **ENTERPRISE: Built-in integrations are available for [Sensu Enterprise][1]
 users only.**
 
-# Graylog Integration
-
 - [Overview](#overview)
 - [Configuration](#configuration)
   - [Example(s)](#examples)
@@ -29,7 +27,7 @@ This integration requires a Graylog [JSON extractor][4].
 The following is an example configuration for the `graylog` enterprise event
 handler (integration).
 
-~~~ json
+{{< highlight json >}}
 {
   "graylog": {
     "host": "127.0.0.1",
@@ -37,54 +35,35 @@ handler (integration).
     "timeout": 10
   }
 }
-~~~
+{{< /highlight >}}
 
 ### Integration specification
 
 #### `graylog` attributes
 
+host         | 
+-------------|------
+description  | The Graylog [Raw/Plaintext TCP input][3] host address.
+required     | false
+type         | String
+default      | `127.0.0.1`
+example      | {{< highlight shell >}}"host": "graylog.company.com"{{< /highlight >}}
 
-`host`
-: description
-  : The Graylog [Raw/Plaintext TCP input][3] host address.
-: required
-  : false
-: type
-  : String
-: default
-  : `127.0.0.1`
-: example
-  : ~~~ shell
-    "host": "graylog.company.com"
-    ~~~
+port         | 
+-------------|------
+description  | The Graylog [Raw/Plaintext TCP input][3] port.
+required     | false
+type         | Integer
+default      | `5555`
+example      | {{< highlight shell >}}"port": 5556{{< /highlight >}}
 
-`port`
-: description
-  : The Graylog [Raw/Plaintext TCP input][3] port.
-: required
-  : false
-: type
-  : Integer
-: default
-  : `5555`
-: example
-  : ~~~ shell
-    "port": 5556
-    ~~~
-
-`timeout`
-: description
-  : The handler execution duration timeout in seconds (hard stop).
-: required
-  : false
-: type
-  : Integer
-: default
-  : `10`
-: example
-  : ~~~ shell
-    "timeout": 30
-    ~~~
+timeout      | 
+-------------|------
+description  | The handler execution duration timeout in seconds (hard stop).
+required     | false
+type         | Integer
+default      | `10`
+example      | {{< highlight shell >}}"timeout": 30{{< /highlight >}}
 
 [1]:  /enterprise
 [2]:  https://www.graylog.org/

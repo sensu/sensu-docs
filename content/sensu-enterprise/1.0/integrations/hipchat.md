@@ -9,8 +9,6 @@ menu: "sensu-enterprise-1.0"
 **ENTERPRISE: Built-in integrations are available for [Sensu Enterprise][1]
 users only.**
 
-# HipChat Integration
-
 - [Overview](#overview)
 - [Configuration](#configuration)
   - [Example(s)](#examples)
@@ -29,7 +27,7 @@ API token][3], configure the handler (integration) with the provided API token.
 The following is an example global configuration for the `hipchat` enterprise
 event handler (integration).
 
-~~~ json
+{{< highlight json >}}
 {
   "hipchat": {
     "api_token": "L7kVQzXF7c5eUMYUon6INaSVRDU8mP",
@@ -39,7 +37,7 @@ event handler (integration).
     "timeout": 10
   }
 }
-~~~
+{{< /highlight >}}
 
 ### Integration Specification
 
@@ -48,102 +46,60 @@ event handler (integration).
 The following attributes are configured within the `{"hipchat": {} }`
 [configuration scope][4].
 
-`api_token`
-: description
-  : The HipChat API token - [https://www.hipchat.com/docs/api/auth][3].
-: required
-  : true
-: type
-  : String
-: example
-  : ~~~ shell
-    "api_token": "L7kVQzXF7c5eUMYUon6INaSVRDU8mP"
-    ~~~
+api_token    | 
+-------------|------
+description  | The HipChat API token - [https://www.hipchat.com/docs/api/auth][3].
+required     | true
+type         | String
+example      | {{< highlight shell >}}"api_token": "L7kVQzXF7c5eUMYUon6INaSVRDU8mP"{{< /highlight >}}
 
-`server_url`
-: description
-  : The URL of the HipChat server (used for self-hosted HipChat installations)
-: required
-  : false
-: type
-  : String
-: example
-  : ~~~ shell
-    "server_url": "https://hipchat.example.com"
-    ~~~
+server_url   | 
+-------------|------
+description  | The URL of the HipChat server (used for self-hosted HipChat installations)
+required     | false
+type         | String
+example      | {{< highlight shell >}}"server_url": "https://hipchat.example.com"{{< /highlight >}}
 
-`api_version`
-: description
-  : The HipChat API version to use.
-: required
-  : false
-: type
-  : String
-: default
-  : `v2`
-: example
-  : ~~~ shell
-    "api_version": "v2"
-    ~~~
+api_version  | 
+-------------|------
+description  | The HipChat API version to use.
+required     | false
+type         | String
+default      | `v2`
+example      | {{< highlight shell >}}"api_version": "v2"{{< /highlight >}}
 
-`username`
-: description
-  : The HipChat username to use to notify the room.
-: required
-  : false
-: type
-  : String
-: default
-  : `sensu`
-: example
-  : ~~~ shell
-    "username": "monitoring"
-    ~~~
 
-`room`
-: description
-  : The HipChat room to notify.
-: required
-  : false
-: type
-  : String
-: default
-  : `sensu`
-: example
-  : ~~~ shell
-    "room": "Search"
-    ~~~
+username     | 
+-------------|------
+description  | The HipChat username to use to notify the room.
+required     | false
+type         | String
+default      | `sensu`
+example      | {{< highlight shell >}}"username": "monitoring"{{< /highlight >}}
 
-`notify`
-: description
-  : Configures whether notifications sent from Sensu Enterprise to HipChat
-    should trigger a user notification (change the tab color, play a sound,
-    notify mobile phones, etc). Each recipient's notification preferences are
-    taken into account.
-: required
-  : false
-: type
-  : Boolean
-: default
-  : false
-: example
-  : ~~~ shell
-    "notify": true
-    ~~~
+room         | 
+-------------|------
+description  | The HipChat room to notify.
+required     | false
+type         | String
+default      | `sensu`
+example      | {{< highlight shell >}}"room": "Search"{{< /highlight >}}
 
-`timeout`
-: description
-  : The handler execution duration timeout in seconds (hard stop).
-: required
-  : false
-: type
-  : Integer
-: default
-  : `10`
-: example
-  : ~~~ shell
-    "timeout": 30
-    ~~~
+notify       | 
+-------------|------
+description  | Configures whether notifications sent from Sensu Enterprise to HipChat should trigger a user notification (change the tab color, play a sound, notify mobile phones, etc). Each recipient's notification preferences are taken into account.
+required     | false
+type         | Boolean
+default      | false
+example      | {{< highlight shell >}}"notify": true{{< /highlight >}}
+
+timeout      | 
+-------------|------
+description  | The handler execution duration timeout in seconds (hard stop).
+required     | false
+type         | Integer
+default      | `10`
+example      | {{< highlight shell >}}"timeout": 30{{< /highlight >}}
 
 
 

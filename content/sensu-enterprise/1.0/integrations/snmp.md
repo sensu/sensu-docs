@@ -8,8 +8,6 @@ menu: "sensu-enterprise-1.0"
 **ENTERPRISE: Built-in integrations are available for [Sensu Enterprise][1]
 users only.**
 
-# SNMP Integration
-
 - [Overview](#overview)
   - [Sensu Enterprise MIBs](#sensu-enterprise-mibs)
 - [Configuration](#configuration)
@@ -51,7 +49,7 @@ SNMPv2 MIBs:
 The following is an example global configuration for the `snmp` enterprise event
 handler (integration).
 
-~~~ json
+{{< highlight json >}}
 {
   "snmp": {
     "host": "8.8.8.8",
@@ -61,7 +59,7 @@ handler (integration).
     "varbind_trim": 200
   }
 }
-~~~
+{{< /highlight >}}
 
 ### Integration Specification
 
@@ -70,63 +68,37 @@ handler (integration).
 The following attributes are configured within the `{"snmp": {} }`
 [configuration scope][2].
 
-`host`
-: description
-  : The SNMP manager host address.
-: required
-  : false
-: type
-  : String
-: default
-  : `127.0.0.1`
-: example
-  : ~~~ shell
-    "host": "8.8.8.8"
-    ~~~
+host         | 
+-------------|------
+description  | The SNMP manager host address.
+required     | false
+type         | String
+default      | `127.0.0.1`
+example      | {{< highlight shell >}}"host": "8.8.8.8"{{< /highlight >}}
 
-`port`
-: description
-  : The SNMP manager trap port (UDP).
-: required
-  : false
-: type
-  : Integer
-: default
-  : `162`
-: example
-  : ~~~ shell
-    "port": 162
-    ~~~
+port         | 
+-------------|------
+description  | The SNMP manager trap port (UDP).
+required     | false
+type         | Integer
+default      | `162`
+example      | {{< highlight shell >}}"port": 162{{< /highlight >}}
 
-`community`
-: description
-  : The SNMP community string to use when sending traps.
-: required
-  : false
-: type
-  : String
-: default
-  : `public`
-: example
-  : ~~~ shell
-    "community": "private"
-    ~~~
+community    | 
+-------------|------
+description  | The SNMP community string to use when sending traps.
+required     | false
+type         | String
+default      | `public`
+example      | {{< highlight shell >}}"community": "private"{{< /highlight >}}
 
-`varbind_trim`
-: description
-  : The SNMP trap varbind value trim length. The network(s) UDP MTU
-  dictates how large the trap payloads can be, trimming varbind values
-  keeps the payloads within limits.
-: required
-  : false
-: type
-  : Integer
-: default
-  : `100`
-: example
-  : ~~~ shell
-    "varbind_trim": 300
-    ~~~
+varbind_trim | 
+-------------|------
+description  | The SNMP trap varbind value trim length. The network(s) UDP MTU dictates how large the trap payloads can be, trimming varbind values keeps the payloads within limits.
+required     | false
+type         | Integer
+default      | `100`
+example      | {{< highlight shell >}}"varbind_trim": 300{{< /highlight >}}
 
 [?]:  #
 [1]:  /enterprise
