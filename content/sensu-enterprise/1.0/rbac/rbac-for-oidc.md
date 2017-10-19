@@ -192,11 +192,13 @@ register an OIDC application for Sensu Enterprise based on your OIDC provider:
 #### OIDC Driver Configuration
 
 1. Add the `additionalScopes` configuration attribute in the [OIDC scope][5] and set the value to `[ "groups" ]`, just like this:
-    >  `"additionalScopes": [ "groups" ]`
+
+   >  `"additionalScopes": [ "groups" ]`
 2. Add the `redirectURL` configuration attribute in the [OIDC scope][5] and set
   the value to the Redirect URI configured at step 4 of
   [Create an Okta Application](#create-an-okta-application), just like this:
-    > `"redirectURL": "{DASHBOARD_URL}/login/callback"`
+  
+  > `"redirectURL": "{DASHBOARD_URL}/login/callback"`
 
 ### PingFederate
 
@@ -240,6 +242,7 @@ configured. These steps assume that Active Directory is used:
   - Set **LDAP DATASTORE** to your configured LDAP data store
   - Set **SEARCH BASE** according to your directory, e.g. `cn=users,dc=domain,dc=tld`
   - Set **SEARCH FILTER** to:
+    
     >(&(sAMAccountName=${username})(sAMAccountType=805306368)(!(userAccountControl:1.2.840.113556.1.4.803:=2)))
 5. Click `Next`.
 6. Click the `Next` button on the Extended Contract section.
@@ -259,6 +262,7 @@ configured. These steps assume that Active Directory is used:
 
 1. From the PingFederate administrative console, click on `OAuth Settings` and within the `AUTHORIZATION SERVER` section, click on `Scope Management`.
 2. On the Scope Management page, enter a message in **Default Scope description** that will be presented to the user once they login, such as:
+    
     > Allow access to your email address and profile information, such as your name.
 3. On the same page, add the following scope values and descriptions:
 
@@ -369,6 +373,7 @@ and within the `APPLICATION INTEGRATION` section, click on `Adapters`.
     ![](../../img/enterprise-dashboard-oidc-pingfederate-4.png)
 11. Click `Next`.
 12. In the LDAP Filter section, enter the following information in the **FILTER** textarea:
+
     > (&(sAMAccountName=${sub})(sAMAccountType=805306368)(!(userAccountControl:1.2.840.113556.1.4.803:=2)))
 13. Click `Next`.
 14. Review your configuration and click the `Done` button.
