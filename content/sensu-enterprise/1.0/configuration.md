@@ -1,6 +1,6 @@
 ---
 title: "Enterprise Configuration"
-product: "Sensu-Enterprise"
+product: "Sensu Enterprise"
 version: "1.0"
 weight: 2
 menu: "sensu-enterprise-1.0"

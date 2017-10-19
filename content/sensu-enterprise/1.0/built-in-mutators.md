@@ -1,6 +1,6 @@
 ---
 title: "Built-in Mutators"
-product: "Sensu-Enterprise"
+product: "Sensu Enterprise"
 version: "1.0"
 weight: 10
 menu: "sensu-enterprise-1.0"

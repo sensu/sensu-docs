@@ -1,6 +1,6 @@
 ---
 title: "Heads-Up Display"
-product: "Sensu-Enterprise"
+product: "Sensu Enterprise"
 version: "1.0"
 weight: 11
 menu: "sensu-enterprise-1.0"

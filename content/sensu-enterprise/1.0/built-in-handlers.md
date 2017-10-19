@@ -1,6 +1,6 @@
 ---
 title: "Built-in Handlers"
-product: "Sensu-Enterprise"
+product: "Sensu Enterprise"
 version: "1.0"
 weight: 6
 menu: "sensu-enterprise-1.0"
