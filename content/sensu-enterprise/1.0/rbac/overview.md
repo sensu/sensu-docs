@@ -8,8 +8,6 @@ menu: "sensu-enterprise-1.0"
 **ENTERPRISE: Role based access controls are available for [Sensu Enterprise][0]
 users only.**
 
-# Role Based Access Controls
-
 ## Reference Documentation
 
 - [What are Role Based Access Controls for Sensu Enterprise?](#what-are-role-based-access-controls)
@@ -66,15 +64,15 @@ HTTP `GET` access to the [Clients API][16], but not `DELETE` access; see the
 
 In a header:
 
-~~~ shell
+{{< highlight shell >}}
 $ curl -H "Authorization: token TOKEN" https://localhost:3000/events
-~~~
+{{< /highlight >}}
 
 As a parameter:
 
-~~~ shell
+{{< highlight shell >}}
 $ curl https://localhost:3000/events?token=TOKEN
-~~~
+{{< /highlight >}}
 
 ## RBAC configuration
 
@@ -84,7 +82,7 @@ The following is an example RBAC configuration using the [RBAC for LDAP][7]
 authentication driver, a JSON configuration file located at
 `/etc/sensu/dashboard.json`.
 
-~~~ json
+{{< highlight json >}}
 {
   "dashboard": {
     "host": "0.0.0.0",
@@ -123,7 +121,7 @@ authentication driver, a JSON configuration file located at
     }
   }
 }
-~~~
+{{< /highlight >}}
 
 ### RBAC definition specification
 
@@ -147,7 +145,7 @@ specification is common across all RBAC drivers.
 
 ##### EXAMPLE {#roles-attributes-example}
 
-~~~ json
+{{< highlight json >}}
 {
   "dashboard": {
     "...": "...",
@@ -165,142 +163,85 @@ specification is common across all RBAC drivers.
     }
   }
 }
-~~~
+{{< /highlight >}}
 
 ##### ATTRIBUTES {#roles-attributes-specification}
 
-`name`
-: description
-  : The name of the role.
-: required
-  : true
-: type
-  : String
-: example
-  : ~~~shell
-    "name": "operators"
-    ~~~
+name         | 
+-------------|------
+description  | The name of the role.
+required     | true
+type         | String
+example      | {{< highlight shell >}}"name": "operators"{{< /highlight >}}
 
-`members`
-: description
-  : An array of the LDAP groups, GitHub Teams, or GitLab Groups that should be
-    included as members of the role.
-: required
-  : true
-: type
-  : Array
-: allowed values
-  : Any LDAP group name, GitHub `organization/team` pair, or GitLab Group name.
-    _NOTE: For LDAP group names, Sensu Enterprise supports the following LDAP
-    group object classes: `group`, `groupOfNames`, `groupOfUniqueNames` and
-    `posixGroup`._
-    _NOTE: A GitHub Team with a URL of [github.com/orgs/sensu/teams/docs][11]
-    would be entered as `sensu/docs`._
-    _NOTE: A GitLab Group with a URL of [gitlab.com/groups/heavywater][12] would
-    be entered as `heavywater`._
-: example
-  : ~~~shell
-    "members": [
-      "myorganization/devs",
-      "myorganization/ops"
-    ]
-    ~~~
+members        | 
+---------------|------
+description    | An array of the LDAP groups, GitHub Teams, or GitLab Groups that should be included as members of the role.
+required       | true
+type           | Array
+allowed values | Any LDAP group name, GitHub `organization/team` pair, or GitLab Group name. _NOTE: For LDAP group names, Sensu Enterprise supports the following LDAP group object classes: `group`, `groupOfNames`, `groupOfUniqueNames` and `posixGroup`._ _NOTE: A GitHub Team with a URL of [github.com/orgs/sensu/teams/docs][11] would be entered as `sensu/docs`._ _NOTE: A GitLab Group with a URL of [gitlab.com/groups/heavywater][12] would be entered as `heavywater`._
+example        | {{< highlight shell >}}"members": [
+  "myorganization/devs",
+  "myorganization/ops"
+]
+{{< /highlight >}}
 
-`datacenters`
-: description
-  : An array of the `datacenters` (i.e. matching a defined [Sensu API endpoint
-    `name`][13] value) that members of the role
-    should have access to. Provided values will be used to filter which
-    `datacenters` members of the role will have access to.
-    _NOTE: omitting this configuration attribute or providing an empty array
-    will allow members of the role access to all configured `datacenters`._
-: required
-  : false
-: type
-  : Array
-: example
-  : ~~~shell
-    "datacenters": [
-      "us-west-1",
-      "us-west-2"
-    ]
-    ~~~
+datacenters  | 
+-------------|------
+description  | An array of the `datacenters` (i.e. matching a defined [Sensu API endpoint `name`][13] value) that members of the role should have access to. Provided values will be used to filter which `datacenters` members of the role will have access to. _NOTE: omitting this configuration attribute or providing an empty array will allow members of the role access to all configured `datacenters`._
+required     | false
+type         | Array
+example      | {{< highlight shell >}}"datacenters": [
+  "us-west-1",
+  "us-west-2"
+]
+{{< /highlight >}}
 
-`subscriptions`
-: description
-  : An array of the subscriptions that members of the role should have access
-    to. Provided values will be used to filter which subscriptions members of
-    the role will have access to.
-    _NOTE: omitting this configuration attribute or providing an empty array
-    will allow members of the role access to all subscriptions._
-: required
-  : false
-: type
-  : Array
-: example
-  : ~~~shell
-    "subscriptions": [
-      "webserver"
-    ]
-    ~~~
+subscriptions | 
+--------------|------
+description   | An array of the subscriptions that members of the role should have access to. Provided values will be used to filter which subscriptions members of the role will have access to. _NOTE: omitting this configuration attribute or providing an empty array will allow members of the role access to all subscriptions._
+required      | false
+type          | Array
+example       | {{< highlight shell >}}"subscriptions": [
+  "webserver"
+]
+{{< /highlight >}}
 
-`readonly`
-: description
-  : Used to restrict "write" access (i.e. preventing members of the role from
-    being able to create stashes, silence checks, etc).
-: required
-  : false
-: type
-  : Boolean
-: default
-  : false
-: example
-  : ~~~ shell
-    "readonly": true
-    ~~~
+readonly     | 
+-------------|------
+description  | Used to restrict "write" access (i.e. preventing members of the role from being able to create stashes, silence checks, etc).
+required     | false
+type         | Boolean
+default      | false
+example      | {{< highlight shell >}}"readonly": true{{< /highlight >}}
 
-`accessToken`
-: description
-  : A unique token for [authenticating][19] against the [Sensu Enterprise
-    Console API][14] as a member of that role.
-: required
-  : false
-: type
-  : String
-: allowed values
-  : any length string that only contains URL-friendly characters.
-    _PRO TIP: we recommend using a random string generator for access tokens;
-    e.g.: <br>
-    `openssl rand -base64 40 |  tr -- '+=/' '-_~'`._
-: example
-  : ~~~shell
-    "accessToken": "OrIXC7ezuq0AZKoRHhf~oIl-98dX5B23hf8KudfcqJt5eTeQjDDGDQ__"
-    ~~~
+accessToken    | 
+---------------|------
+description    | A unique token for [authenticating][19] against the [Sensu Enterprise Console API][14] as a member of that role.
+required       | false
+type           | String
+allowed values | any length string that only contains URL-friendly characters. _PRO TIP: we recommend using a random string generator for access tokens; e.g.: <br><code>openssl rand -base64 40 &#124;  tr -- '+=/' '-&#95;~'</code>._
+example        | {{< highlight shell >}}"accessToken": "OrIXC7ezuq0AZKoRHhf~oIl-98dX5B23hf8KudfcqJt5eTeQjDDGDQ__"{{< /highlight >}}
 
-`methods`
-: description
-  : The [`methods` definition scope][18], used to configure access to the [Sensu
-    Enterprise Console API][14].
-: required
-  : false
-: type
-  : Hash
-: example
-  : ~~~ shell
-    "methods": {
-      "head": [
-        "none"
-      ],
-      "get": [],
-      "post": [
-        "results",
-        "stashes"
-      ],
-      "delete": [
-        "stashes"
-      ]
-    }
-    ~~~
+methods      | 
+-------------|------
+description  | The [`methods` definition scope][18], used to configure access to the [Sensu Enterprise Console API][14].
+required     | false
+type         | Hash
+example      | {{< highlight shell >}}"methods": {
+  "head": [
+    "none"
+  ],
+  "get": [],
+  "post": [
+    "results",
+    "stashes"
+  ],
+  "delete": [
+    "stashes"
+  ]
+}
+{{< /highlight >}}
 
 #### `methods` attributes
 
@@ -310,7 +251,7 @@ Sensu Enterprise Console API access controls may be fine tuned using the
 
 ##### EXAMPLE {#methods-attributes-example}
 
-~~~ json
+{{< highlight json >}}
 {
   "dashboard": {
     "...": "...",
@@ -338,106 +279,73 @@ Sensu Enterprise Console API access controls may be fine tuned using the
     }
   }
 }
-~~~
+{{< /highlight >}}
 
 ##### SPECIFICATION {#methods-attributes-specification}
 
-`get`
-: description
-  : Used to configure HTTP `GET` access to one or more [Sensu Enterprise
-    Console API][14] endpoints.
-: required
-  : false
-: type
-  : Array of Strings
-: allowed values
-  : `aggregates`, `checks`, `clients`, `events`, `results`, `stashes`,
-    `subscriptions`, and `datacenters`.
-: default
-  : `[]` (an empty array, which is equivalent to "allow all")
-: example
-  : ~~~ shell
-    "methods": {
-      "get": [
-        "clients",
-        "checks",
-        "events"
-      ]
-    }
-    ~~~
+get            | 
+---------------|------
+description    | Used to configure HTTP `GET` access to one or more [Sensu Enterprise Console API][14] endpoints.
+required       | false
+type           | Array of Strings
+allowed values | `aggregates`, `checks`, `clients`, `events`, `results`, `stashes`, `subscriptions`, and `datacenters`.
+default        | `[]` (an empty array, which is equivalent to "allow all")
+example        | {{< highlight shell >}}"methods": {
+  "get": [
+    "clients",
+    "checks",
+    "events"
+  ]
+}
+{{< /highlight >}}
 
-`post`
-: description
-  : Used to configure HTTP `POST` access to one or more [Sensu Enterprise
-    Console API][14] endpoints.
-: required
-  : false
-: type
-  : Array of Strings
-: allowed values
-  : `aggregates`, `checks`, `clients`, `events`, `results`, `stashes`,
-    `subscriptions`, and `datacenters`.
-: default
-  : `[]` (an empty array, which is equivalent to "allow all")
-: example
-  : ~~~ shell
-    "methods": {
-      "post": [
-        "clients",
-        "checks",
-        "events"
-      ]
-    }
-    ~~~
+post           | 
+---------------|------
+description    | Used to configure HTTP `POST` access to one or more [Sensu Enterprise Console API][14] endpoints.
+required       | false
+type           | Array of Strings
+allowed values | `aggregates`, `checks`, `clients`, `events`, `results`, `stashes`, `subscriptions`, and `datacenters`.
+default        | `[]` (an empty array, which is equivalent to "allow all")
+example        | {{< highlight shell >}}"methods": {
+  "post": [
+    "clients",
+    "checks",
+    "events"
+  ]
+}
+{{< /highlight >}}
 
-`delete`
-: description
-  : Used to configure HTTP `DELETE` access to one or more [Sensu Enterprise
-    Console API][14] endpoints.
-: required
-  : false
-: type
-  : Array of Strings
-: allowed values
-  : `aggregates`, `checks`, `clients`, `events`, `results`, `stashes`,
-    `subscriptions`, and `datacenters`.
-: default
-  : `[]` (an empty array, which is equivalent to "allow all")
-: example
-  : ~~~ shell
-    "methods": {
-      "delete": [
-        "clients",
-        "checks",
-        "events"
-      ]
-    }
-    ~~~
+delete         | 
+---------------|------
+description    | Used to configure HTTP `DELETE` access to one or more [Sensu Enterprise Console API][14] endpoints.
+required       | false
+type           | Array of Strings
+allowed values | `aggregates`, `checks`, `clients`, `events`, `results`, `stashes`, `subscriptions`, and `datacenters`.
+default        | `[]` (an empty array, which is equivalent to "allow all")
+example        | {{< highlight shell >}}"methods": {
+  "delete": [
+    "clients",
+    "checks",
+    "events"
+  ]
+}
+{{< /highlight >}}
 
-`head`
-: description
-  : Used to configure HTTP `HEAD` access to one or more [Sensu Enterprise
-    Console API][14] endpoints.
-: required
-  : false
-: type
-  : Array of Strings
-: allowed values
-  : `aggregates`, `checks`, `clients`, `events`, `results`, `stashes`,
-    `subscriptions`, and `datacenters`.
-: default
-  : `[]` (an empty array, which is equivalent to "allow all")
-: example
-  : ~~~ shell
-    "methods": {
-      "head": [
-        "clients",
-        "checks",
-        "events"
-      ]
-    }
-    ~~~
-
+head           | 
+---------------|------
+description    | Used to configure HTTP `HEAD` access to one or more [Sensu Enterprise Console API][14] endpoints.
+required       | false
+type           | Array of Strings
+allowed values | `aggregates`, `checks`, `clients`, `events`, `results`, `stashes`, `subscriptions`, and `datacenters`.
+default        | `[]` (an empty array, which is equivalent to "allow all")
+example        | {{< highlight shell >}}"methods": {
+  "head": [
+    "clients",
+    "checks",
+    "events"
+  ]
+}
+{{< /highlight >}}
 
 
 [?]:  #

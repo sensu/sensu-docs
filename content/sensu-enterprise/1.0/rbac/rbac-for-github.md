@@ -6,12 +6,9 @@ version: "1.0"
 weight: 3
 menu: "sensu-enterprise-1.0"
 ---
-**ENTERPRISE: Role based access controls are available for [Sensu Enterprise][6]
-users only.**
+**ENTERPRISE: Role based access controls are available for [Sensu Enterprise][6] users only.**
 
-## RBAC for GitHub (driver)
-
-### Reference Documentation
+## Reference Documentation
 
 - [What is RBAC for GitHub?](#what-is-rbac-for-github)
 - [RBAC for GitHub configuration](#rbac-for-github-configuration)
@@ -33,7 +30,7 @@ RBAC authentication.
 
 ### Example RBAC for GitHub definition
 
-~~~ json
+{{< highlight json >}}
 {
   "dashboard": {
     "host": "0.0.0.0",
@@ -70,84 +67,63 @@ RBAC authentication.
     }    
   }
 }
-~~~
+{{< /highlight >}}
 
 ### RBAC for GitHub definition specification
 
 #### `github` attributes
 
-clientId
-: description
-  : The GitHub OAuth Application "Client ID"
-    _NOTE: requires [registration of an OAuth application in GitHub][3]._
-: required
-  : true
-: type
-  : String
-: example
-  : ~~~shell
-    "clientId": "a8e43af034e7f2608780"
-    ~~~
+clientId     | 
+-------------|------
+description  | The GitHub OAuth Application "Client ID" _NOTE: requires [registration of an OAuth application in GitHub][3]._
+required     | true
+type         | String
+example      | {{< highlight shell >}}"clientId": "a8e43af034e7f2608780"{{< /highlight >}}
 
-clientSecret
-: description
-  : The GitHub OAuth Application "Client Secret"
-  _NOTE: requires [registration of an OAuth application in GitHub][3]._
-: required
-  : true
-: type
-  : String
-: example
-  : ~~~shell
-    "clientSecret": "b63968394be6ed2edb61c93847ee792f31bf6216"
-    ~~~
+clientSecret | 
+-------------|------
+description  | The GitHub OAuth Application "Client Secret" _NOTE: requires [registration of an OAuth application in GitHub][3]._
+required     | true
+type         | String
+example      | {{< highlight shell >}}"clientSecret": "b63968394be6ed2edb61c93847ee792f31bf6216"{{< /highlight >}}
 
-server
-: description
-  : The location of the GitHub server you wish to authenticate against.
-: required
-  : true
-: type
-  : String
-: example
-  : ~~~shell
-    "server": "https://github.com"`
-    ~~~
+server       | 
+-------------|------
+description  | The location of the GitHub server you wish to authenticate against.
+required     | true
+type         | String
+example      | {{< highlight shell >}}"server": "https://github.com"{{< /highlight >}}
 
-roles
-: description
-  : An array of [`roles` definitions][4].
-: required
-  : true
-: type
-  : Array
-: example
-  : ~~~shell
-    "roles": [
-      {
-        "name": "guests",
-        "members": [
-          "myorganization/guests"
-        ],
-        "datacenters": [
-          "us-west-1"
-        ],
-        "subscriptions": [
-          "webserver"
-        ],
-        "readonly": true
-      },
-      {
-        "name": "operators",
-        "members": [
-          "myorganization/operators"
-        ],
-        "datacenters": [],
-        "subscriptions": [],
-        "readonly": false
-      }
-    ]
-    ~~~
+roles        | 
+-------------|------
+description  | An array of [`roles` definitions][4].
+required     | true
+type         | Array
+example      | {{< highlight shell >}}"roles": [
+  {
+    "name": "guests",
+    "members": [
+      "myorganization/guests"
+    ],
+    "datacenters": [
+      "us-west-1"
+    ],
+    "subscriptions": [
+      "webserver"
+    ],
+    "readonly": true
+  },
+  {
+    "name": "operators",
+    "members": [
+      "myorganization/operators"
+    ],
+    "datacenters": [],
+    "subscriptions": [],
+    "readonly": false
+  }
+]
+{{< /highlight >}}
 
 #### `roles` attributes
 
