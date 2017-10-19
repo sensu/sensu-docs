@@ -4,7 +4,9 @@ description: "Reference documentation for the Sensu Transport."
 product: "Sensu Core"
 version: "1.0"
 weight: 13
-menu: "sensu-core-1.0"
+menu:
+  sensu-core-1.0:
+    parent: reference
 ---
 
 ## Reference documentation

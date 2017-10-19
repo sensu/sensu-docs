@@ -4,7 +4,9 @@ description: "The silence_stashes Enterprise filter is used to filter events whe
 product: "Sensu Enterprise"
 version: "1.0"
 weight: 1
-menu: "sensu-enterprise-1.0"
+menu:
+  sensu-enterprise-1.0:
+    parent: filters
 ---
 **ENTERPRISE: Built-in filters are available for [Sensu Enterprise][0]
 users only.**

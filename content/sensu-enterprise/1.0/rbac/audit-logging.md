@@ -3,7 +3,9 @@ title: "Audit Logging"
 product: "Sensu Enterprise"
 version: "1.0"
 weight: 5
-menu: "sensu-enterprise-1.0"
+menu:
+  sensu-enterprise-1.0:
+    parent: rbac
 ---
 
 As of Sensu Enterprise Dashboard version 1.3, Audit Logging is enabled by
@@ -34,6 +36,7 @@ type         | String
 default      | `/var/log/sensu/sensu-enterprise-dashboard-audit.log`
 example      | {{< highlight shell >}}"logfile": "/var/log/sensu/sensu-enterprise-dashboard-audit.log"{{< /highlight >}}
 
+<<<<<<< HEAD
 level          | 
 ---------------|------
 description    | The audit logging level.
