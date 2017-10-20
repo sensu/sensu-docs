@@ -9,8 +9,6 @@ menu: "sensu-enterprise-1.0"
 **ENTERPRISE: Built-in filters are available for [Sensu Enterprise][0]
 users only.**
 
-# The `handle_when` filter
-
 ## Reference documentation
 
 - [Overview](#overview)
@@ -38,7 +36,7 @@ occurrences and send reminder/update notifications every 20 minutes. Sensu
 Enterprise integrations and standard event handlers using the `handle_when`
 enterprise filter will have events filtered unless these conditions are met.
 
-~~~ json
+{{< highlight json >}}
 {
   "checks": {
     "load_balancer_listeners": {
@@ -54,12 +52,12 @@ enterprise filter will have events filtered unless these conditions are met.
     }
   }
 }
-~~~
+{{< /highlight >}}
 
 The following is an example of how to apply the `handle_when` enterprise filter
 to a standard Sensu `pipe` handler.
 
-~~~ json
+{{< highlight json >}}
 {
   "handlers": {
     "custom_mailer": {
@@ -69,7 +67,7 @@ to a standard Sensu `pipe` handler.
     }
   }
 }
-~~~
+{{< /highlight >}}
 
 ### Filter specification
 
@@ -78,35 +76,21 @@ to a standard Sensu `pipe` handler.
 The following attributes are configured within the `{"handle_when": {} }`
 [configuration scope][2].
 
-occurrences
-: description
-  : The number of occurrences that must occur before an event is handled for a
-    check.
-: required
-  : false
-: type
-  : Integer
-: default
-  : `1`
-: example
-  : ~~~ shell
-    "occurrences": 3
-    ~~~
+occurrences  | 
+-------------|------
+description  | The number of occurrences that must occur before an event is handled for a check.
+required     | false
+type         | Integer
+default      | `1`
+example      | {{< highlight shell >}}"occurrences": 3{{< /highlight >}}
 
-reset
-: description
-  : Time in seconds until the occurrence count is considered "reset", to allow
-    the event to be handled once again.
-: required
-  : false
-: type
-  : Integer
-: default
-  : `1800`
-: example
-  : ~~~ shell
-    "reset": 3600
-    ~~~
+reset        | 
+-------------|------
+description  | Time in seconds until the occurrence count is considered "reset", to allow the event to be handled once again.
+required     | false
+type         | Integer
+default      | `1800`
+example      | {{< highlight shell >}}"reset": 3600{{< /highlight >}}
 
 [?]:  #
 [0]:  /enterprise

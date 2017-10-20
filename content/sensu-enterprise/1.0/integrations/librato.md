@@ -11,8 +11,6 @@ menu:
 **ENTERPRISE: Built-in integrations are available for [Sensu Enterprise][1]
 users only.**
 
-# Librato Integration
-
 - [Overview](#overview)
 - [Configuration](#configuration)
   - [Example(s)](#examples)
@@ -30,14 +28,14 @@ Send metrics to [Librato][2] Metrics using the HTTP API.
 The following is an example global configuration for the `librato` enterprise
 handler (integration).
 
-~~~ json
+{{< highlight json >}}
 {
   "librato": {
     "email": "support@example.com",
     "api_key": "90SHpjPOFqd2YJFIX9rzDq7ik6CiDmqu2AvqcXJAX3buIwcOGqIOgNilwKMjpStO"
   }
 }
-~~~
+{{< /highlight >}}
 
 ### Integration Specification
 
@@ -46,29 +44,19 @@ handler (integration).
 The following attributes are configured within the `{"librato": {} }`
 [configuration scope][3].
 
-`email`
-: description
-  : The Librato account email.
-: required
-  : true
-: type
-  : String
-: example
-  : ~~~ shell
-    "email": "support@example.com"
-    ~~~
+email        | 
+-------------|------
+description  | The Librato account email.
+required     | true
+type         | String
+example      | {{< highlight shell >}}"email": "support@example.com"{{< /highlight >}}
 
-`api_key`
-: description
-  : The Librato account API key.
-: required
-  : true
-: type
-  : String
-: example
-  : ~~~ shell
-    "api_key": "90SHpjPOFqd2YJFIX9rzDq7ik6CiDmqu2AvqcXJAX3buIwcOGqIOgNilwKMjpStO"
-    ~~~
+api_key      | 
+-------------|------
+description  | The Librato account API key.
+required     | true
+type         | String
+example      | {{< highlight shell >}}"api_key": "90SHpjPOFqd2YJFIX9rzDq7ik6CiDmqu2AvqcXJAX3buIwcOGqIOgNilwKMjpStO"{{< /highlight >}}
 
 
 [?]:  #

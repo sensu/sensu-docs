@@ -11,8 +11,6 @@ menu:
 **ENTERPRISE: Built-in filters are available for [Sensu Enterprise][0]
 users only.**
 
-# The `silence_stashes` filter
-
 ## Reference documentation
 
 - [Overview](#overview)
@@ -38,7 +36,7 @@ data.
 The following is an example of how to apply the `silence_stashes` enterprise
 filter to a standard Sensu `pipe` handler.
 
-~~~ json
+{{< highlight json >}}
 {
   "handlers": {
     "custom_mailer": {
@@ -48,7 +46,7 @@ filter to a standard Sensu `pipe` handler.
     }
   }
 }
-~~~
+{{< /highlight >}}
 
 ### Filter specification
 

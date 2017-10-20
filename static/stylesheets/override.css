@@ -22,7 +22,7 @@
   background: linear-gradient(180deg,#fff 50%,#81C000 0);
 }
 
-.palette-primary-green .article a,.palette-primary-green .article code,.palette-primary-green .article h1,.palette-primary-green .article h2 {
+.palette-primary-green .article a,.palette-primary-green .article h1,.palette-primary-green .article h2 {
   color: #81C000;
 }
 
@@ -34,7 +34,7 @@
   background: #81C000;
   font-size: 20px;
   font-weight: 200;
-  display: table-caption;
+  //display: table-caption;
   height: 0;
   width: 1000%;
 }
@@ -52,11 +52,20 @@
 }
 
 .palette-primary-green .article code {
-  color: #6a5fc7;
+  //color: #6a5fc7;
+  //background-color: unset;
 }
 
 pre code {
-  color: #81C000 !important;
+  //color: #81C000 !important;
+}
+
+article code {
+  background: #f0f0f0 !important;
+}
+
+p code, li code, td code, h1 code, h2 code, h3 code, h4 code, h5 code, h6 code {
+  color: #000080 !important;
 }
 
 .article pre {
@@ -125,7 +134,7 @@ table tbody {
 }
 
 table tr td:first-child {
-  width: 20%;
+  width: 25%;
 }
 
 table pre {
@@ -139,15 +148,15 @@ table pre {
 }
 
 .article pre code {
-  background-color: #333;
+  //background-color: #333;
 }
 
 .highlight pre {
-  background-color: #333 !important;
+  //background-color: #333 !important;
 }
 
 .highlight pre code span {
-  background-color: #333;
+  //background-color: #333;
 }
 
 .article .data table {

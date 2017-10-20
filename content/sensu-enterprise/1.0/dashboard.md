@@ -1,11 +1,10 @@
 ---
 title: "Sensu Dashboard"
-product: "Sensu-Enterprise"
+product: "Sensu Enterprise"
 version: "1.0"
 weight: 2
 menu: "sensu-enterprise-1.0"
 ---
-# Sensu Enterprise Dashboard
 
 ## Reference Documentation
 
@@ -79,7 +78,7 @@ installation or cluster).
 The following is the bare minimum that should be included in your Sensu
 Enterprise Dashboard configuration.
 
-~~~ json
+{{< highlight json >}}
 {
   "sensu": [
     {
@@ -93,7 +92,7 @@ Enterprise Dashboard configuration.
     "port": 3000
   }
 }
-~~~
+{{< /highlight >}}
 
 _NOTE: the Sensu Enterprise Dashboard requires two configuration scopes: `sensu`
 and `dashboard` (see [Dashboard definition specification][8], below)._
@@ -112,416 +111,296 @@ as described [here][10]._
 
 #### `sensu` attributes
 
-name
-: description
-  : The name of the Sensu API (used elsewhere as the `datacenter` name).
-: required
-  : false
-: type
-  : String
-: default
-  : randomly generated
-: example
-  : ~~~ shell
-    "name": "us-west-1"
-    ~~~
+name         | 
+-------------|------
+description  | The name of the Sensu API (used elsewhere as the `datacenter` name).
+required     | false
+type         | String
+default      | randomly generated
+example      | {{< highlight shell >}}"name": "us-west-1"{{< /highlight >}}
 
-host
-: description
-  : The hostname or IP address of the Sensu API.
-: required
-  : true
-: type
-  : String
-: example
-  : ~~~ shell
-    "host": "127.0.0.1"
-    ~~~
+host         | 
+-------------|------
+description  | The hostname or IP address of the Sensu API.
+required     | true
+type         | String
+example      | {{< highlight shell >}}"host": "127.0.0.1"{{< /highlight >}}
 
-port
-: description
-  : The port of the Sensu API.
-: required
-  : false
-: type
-  : Integer
-: default
-  : 4567
-: example
-  : ~~~ shell
-    "port": 4567
-    ~~~
+port         | 
+-------------|------
+description  | The port of the Sensu API.
+required     | false
+type         | Integer
+default      | 4567
+example      | {{< highlight shell >}}"port": 4567{{< /highlight >}}
 
-ssl
-: description
-  : Determines whether or not to use the HTTPS protocol.
-: required
-  : false
-: type
-  : Boolean
-: default
-  : false
-: example
-  : ~~~ shell
-    "ssl": true
-    ~~~
+ssl          | 
+-------------|------
+description  | Determines whether or not to use the HTTPS protocol.
+required     | false
+type         | Boolean
+default      | false
+example      | {{< highlight shell >}}"ssl": true{{< /highlight >}}
 
-insecure
-: description
-  : Determines whether or not to accept an insecure SSL certificate.
-: required
-  : false
-: type
-  : Boolean
-: default
-  : false
-: example
-  : ~~~ shell
-    "insecure": true
-    ~~~
+insecure     | 
+-------------|------
+description  | Determines whether or not to accept an insecure SSL certificate.
+required     | false
+type         | Boolean
+default      | false
+example      | {{< highlight shell >}}"insecure": true{{< /highlight >}}
 
-path
-: description
-  : The path of the Sensu API. Leave empty unless your Sensu API is not mounted
-    to `/`.
-: required
-  : false
-: type
-  : String
-: example
-  : ~~~ shell
-    "path": "/my_api"
-    ~~~
+path         | 
+-------------|------
+description  | The path of the Sensu API. Leave empty unless your Sensu API is not mounted to `/`.
+required     | false
+type         | String
+example      | {{< highlight shell >}}"path": "/my_api"{{< /highlight >}}
 
-timeout
-: description
-  : The timeout for the Sensu API, in seconds.
-: required
-  : false
-: type
-  : Integer
-: default
-  : 5
-: example
-  : ~~~ shell
-    "timeout": 15
-    ~~~
+timeout      | 
+-------------|------
+description  | The timeout for the Sensu API, in seconds.
+required     | false
+type         | Integer
+default      | 5
+example      | {{< highlight shell >}}"timeout": 15{{< /highlight >}}
 
-user
-: description
-  : The username of the Sensu API. Leave empty for no authentication.
-: required
-  : false
-: type
-  : String
-: example
-  : ~~~ shell
-    "user": "my_sensu_api_username"
-    ~~~
+user         | 
+-------------|------
+description  | The username of the Sensu API. Leave empty for no authentication.
+required     | false
+type         | String
+example      | {{< highlight shell >}}"user": "my_sensu_api_username"{{< /highlight >}}
 
-pass
-: description
-  : The password of the Sensu API. Leave empty for no authentication.
-: required
-  : false
-: type
-  : String
-: example
-  : ~~~ shell
-    "pass": "my_sensu_api_password"
-    ~~~
+pass         | 
+-------------|------
+description  | The password of the Sensu API. Leave empty for no authentication.
+required     | false
+type         | String
+example      | {{< highlight shell >}}"pass": "my_sensu_api_password"{{< /highlight >}}
 
 #### `dashboard` attributes
 
-host
-: description
-  : The hostname or IP address on which Sensu Enterprise Dashboard will listen
-    on.
-: required
-  : false
-: type
-  : String
-: default
-  : "0.0.0.0"
-: example
-  : ~~~ shell
-    "host": "1.2.3.4"
-    ~~~
+host         | 
+-------------|------
+description  | The hostname or IP address on which Sensu Enterprise Dashboard will listen on.
+required     | false
+type         | String
+default      | "0.0.0.0"
+example      | {{< highlight shell >}}"host": "1.2.3.4"{{< /highlight >}}
 
-port
-: description
-  : The port on which Sensu Enterprise Dashboard and Console API will listen on.
-: required
-  : false
-: type
-  : Integer
-: default
-  : 3000
-: example
-  : ~~~ shell
-    "port": 3000
-    ~~~
+port         | 
+-------------|------
+description  | The port on which Sensu Enterprise Dashboard and Console API will listen on.
+required     | false
+type         | Integer
+default      | 3000
+example      | {{< highlight shell >}}"port": 3000{{< /highlight >}}
 
-refresh
-: description
-  : Determines the interval to poll the Sensu APIs, in seconds.
-: required
-  : false
-: type
-  : Integer
-: default
-  : 5
-: example
-  : ~~~ shell
-    "refresh": 5
-    ~~~
+refresh      | 
+-------------|------
+description  | Determines the interval to poll the Sensu APIs, in seconds.
+required     | false
+type         | Integer
+default      | 5
+example      | {{< highlight shell >}}"refresh": 5{{< /highlight >}}
 
-ssl
-: description
-  : A hash of SSL configuration for native SSL support.
-: required
-  : false
-: type
-  : Hash
-: example
-  : ~~~ shell
-    "ssl": {
-        "certfile": "/path/to/dashboard.pem",
-        "keyfile": "/path/to/dashboard.key"
-    }
-    ~~~
+ssl          | 
+-------------|------
+description  | A hash of SSL configuration for native SSL support.
+required     | false
+type         | Hash
+example      | {{< highlight shell >}}"ssl": {
+  "certfile": "/path/to/dashboard.pem",
+  "keyfile": "/path/to/dashboard.key"
+}
+{{< /highlight >}}
 
-user
-: description
-  : A username to enable simple authentication and restrict access to the
-    dashboard. Leave blank along with `pass` to disable simple authentication.
-: required
-  : false
-: type
-  : String
-: example
-  : ~~~ shell
-    "user": "admin"
-    ~~~
+user         | 
+-------------|------
+description  | A username to enable simple authentication and restrict access to the dashboard. Leave blank along with `pass` to disable simple authentication.
+required     | false
+type         | String
+example      | "user": "admin"
 
-pass
-: description
-  : A password to enable simple authentication and restrict access to the
-    dashboard. Leave blank along with `user` to disable simple authentication.
-: required
-  : false
-: type
-  : String
-: example
-  : ~~~ shell
-    "pass": "secret"
-    ~~~
+pass         | 
+-------------|------
+description  | A password to enable simple authentication and restrict access to the dashboard. Leave blank along with `user` to disable simple authentication.
+required     | false
+type         | String
+example      | {{< highlight shell >}}"pass": "secret"{{< /highlight >}}
 
-auth
-: description
-  : The [`auth` definition scope][11], used to configure JSON Web Token (JWT)
-    authentication signatures.
-: required
-  : false
-: type
-  : Hash
-: example
-  : ~~~shell
-    "auth": {
-      "privatekey": "/path/to/console.rsa",
-      "publickey": "/path/to/console.rsa.pub"
-    }
-    ~~~
+auth         | 
+-------------|------
+description  | The [`auth` definition scope][11], used to configure JSON Web Token (JWT) authentication signatures.
+required     | false
+type         | Hash
+example      | {{< highlight shell >}}"auth": {
+  "privatekey": "/path/to/console.rsa",
+  "publickey": "/path/to/console.rsa.pub"
+}
+{{< /highlight >}}
 
-audit
-: description
-  : The [`audit` definition scope][12], used to configure [Audit Logging][7]
-    for the Sensu Enterprise Dashboard.
-: required
-  : false
-: type
-  : Hash
-: example
-  : ~~~shell
-    "audit": {
-      "logfile": "/var/log/sensu/sensu-enterprise-dashboard-audit.log",
-      "level": "default"
-    }
-    ~~~
+audit        | 
+-------------|------
+description  | The [`audit` definition scope][12], used to configure [Audit Logging][7] for the Sensu Enterprise Dashboard.
+required     | false
+type         | Hash
+example      | {{< highlight shell >}}"audit": {
+  "logfile": "/var/log/sensu/sensu-enterprise-dashboard-audit.log",
+  "level": "default"
+}
+{{< /highlight >}}
 
-github
-: description
-  : The [`github` definition scope][14], used to configure [Role Based Access
-    Controls][3] with the [RBAC for GitHub driver][5]. Overrides simple
-    authentication.
-: required
-  : false
-: type
-  : Hash
-: example
-  : ~~~ shell
-    "github": {
-      "clientId": "a8e43af034e7f2608780",
-      "clientSecret": "b63968394be6ed2edb61c93847ee792f31bf6216",
-      "server": "https://github.com",
-      "roles": [
-        {
-          "name": "guests",
-          "members": [
-            "myorganization/devs"
-          ],
-          "datacenters": [
-            "us-west-1"
-          ],
-          "subscriptions": [
-            "webserver"
-          ],
-          "readonly": true
-        },
-        {
-          "name": "operators",
-          "members": [
-            "myorganization/owners"
-          ],
-          "datacenters": [],
-          "subscriptions": [],
-          "readonly": false
-        }
-      ]
-    }
-    ~~~
-
-gitlab
-: description
-  : The [`gitlab` definition scope][15], used to configure [Role Based Access
-    Controls][3] with the [RBAC for GitLab driver][6]. Overrides simple
-    authentication.
-: required
-  : false
-: type
-  : Hash
-: example
-  : ~~~ shell
-    "gitlab": {
-      "clientId": "a8e43af034e7f2608780",
-      "clientSecret": "b63968394be6ed2edb61c93847ee792f31bf6216",
-      "server": "https://github.com",
-      "roles": [
-        {
-          "name": "guests",
-          "members": [
-            "myorganization/devs"
-          ],
-          "datacenters": [
-            "us-west-1"
-          ],
-          "subscriptions": [
-            "webserver"
-          ],
-          "readonly": true
-        },
-        {
-          "name": "operators",
-          "members": [
-            "myorganization/owners"
-          ],
-          "datacenters": [],
-          "subscriptions": [],
-          "readonly": false
-        }
-      ]
-    }
-    ~~~
-
-ldap
-: description
-  : The [`ldap` configuration scope][13], used to configure [Role Based Access
-    Controls][3] with the [RBAC for LDAP driver][4]. Overrides simple
-    authentication.
-: required
-  : false
-: type
-  : Hash
-: example
-  : ~~~shell
-    "ldap": {
-      "server": "localhost",
-      "port": 389,
-      "basedn": "cn=users,dc=domain,dc=tld",
-      "binduser": "cn=binder,cn=users,dc=domain,dc=tld",
-      "bindpass": "secret",
-      "roles": [
-        {
-          "name": "guests",
-          "members": [
-            "guests_group"
-          ],
-          "datacenters": [
-            "us-west-1"
-          ],
-          "subscriptions": [
-            "webserver"
-          ],
-          "readonly": true
-        },
-        {
-          "name": "operators",
-          "members": [
-            "operators_group"
-          ],
-          "datacenters": [],
-          "subscriptions": [],
-          "readonly": false
-        }
+github       | 
+-------------|------
+description  | The [`github` definition scope][14], used to configure [Role Based Access Controls][3] with the [RBAC for GitHub driver][5]. Overrides simple authentication.
+required     | false
+type         | Hash
+example      | {{< highlight shell >}}"github": {
+  "clientId": "a8e43af034e7f2608780",
+  "clientSecret": "b63968394be6ed2edb61c93847ee792f31bf6216",
+  "server": "https://github.com",
+  "roles": [
+    {
+      "name": "guests",
+      "members": [
+        "myorganization/devs"
       ],
-      "insecure": false,
-      "security": "none",
-      "userattribute": "sAMAccountName"
+      "datacenters": [
+        "us-west-1"
+      ],
+      "subscriptions": [
+        "webserver"
+      ],
+      "readonly": true
+    },
+    {
+      "name": "operators",
+      "members": [
+        "myorganization/owners"
+      ],
+      "datacenters": [],
+      "subscriptions": [],
+      "readonly": false
     }
-    ~~~
+  ]
+}
+{{< /highlight >}}
 
-oidc
-: description
-  : The [`oidc` definition scope][18], used to configure [Role Based Access
-    Controls][3] with the [RBAC for OpenID Connect (OIDC) driver][17]. Overrides simple
-    authentication.
-: required
-  : false
-: type
-  : Hash
-: example
-  : ~~~ shell
-    "oidc": {
-      "clientId": "a8e43af034e7f2608780",
-      "clientSecret": "b63968394be6ed2edb61c93847ee792f31bf6216",
-      "insecure": false,
-      "server": "https://localhost:9031",
-      "roles": [
-        {
-          "name": "guests",
-          "members": [
-            "myorganization/devs"
-          ],
-          "datacenters": [
-            "us-west-1"
-          ],
-          "subscriptions": [
-            "webserver"
-          ],
-          "readonly": true
-        },
-        {
-          "name": "operators",
-          "members": [
-            "myorganization/owners"
-          ],
-          "datacenters": [],
-          "subscriptions": [],
-          "readonly": false
-        }
-      ]
+gitlab       | 
+-------------|------
+description  | The [`gitlab` definition scope][15], used to configure [Role Based Access Controls][3] with the [RBAC for GitLab driver][6]. Overrides simple authentication.
+required     | false
+type         | Hash
+example      | {{< highlight shell >}}"gitlab": {
+  "clientId": "a8e43af034e7f2608780",
+  "clientSecret": "b63968394be6ed2edb61c93847ee792f31bf6216",
+  "server": "https://github.com",
+  "roles": [
+    {
+      "name": "guests",
+      "members": [
+        "myorganization/devs"
+      ],
+      "datacenters": [
+        "us-west-1"
+      ],
+      "subscriptions": [
+        "webserver"
+      ],
+      "readonly": true
+    },
+    {
+      "name": "operators",
+      "members": [
+        "myorganization/owners"
+      ],
+      "datacenters": [],
+      "subscriptions": [],
+      "readonly": false
     }
-    ~~~
+  ]
+}
+{{< /highlight >}}
+
+ldap         | 
+-------------|------
+description  | The [`ldap` configuration scope][13], used to configure [Role Based Access Controls][3] with the [RBAC for LDAP driver][4]. Overrides simple authentication.
+required     | false
+type         | Hash
+example      | {{< highlight shell >}}"ldap": {
+  "server": "localhost",
+  "port": 389,
+  "basedn": "cn=users,dc=domain,dc=tld",
+  "binduser": "cn=binder,cn=users,dc=domain,dc=tld",
+  "bindpass": "secret",
+  "roles": [
+    {
+      "name": "guests",
+      "members": [
+        "guests_group"
+      ],
+      "datacenters": [
+        "us-west-1"
+      ],
+      "subscriptions": [
+        "webserver"
+      ],
+      "readonly": true
+    },
+    {
+      "name": "operators",
+      "members": [
+        "operators_group"
+      ],
+      "datacenters": [],
+      "subscriptions": [],
+      "readonly": false
+    }
+  ],
+  "insecure": false,
+  "security": "none",
+  "userattribute": "sAMAccountName"
+}
+{{< /highlight >}}
+
+oidc         | 
+-------------|------
+description  | The [`oidc` definition scope][18], used to configure [Role Based Access Controls][3] with the [RBAC for OpenID Connect (OIDC) driver][17]. Overrides simple authentication.
+required     | false
+type         | Hash
+example      | {{< highlight shell >}}"oidc": {
+  "clientId": "a8e43af034e7f2608780",
+  "clientSecret": "b63968394be6ed2edb61c93847ee792f31bf6216",
+  "insecure": false,
+  "server": "https://localhost:9031",
+  "roles": [
+    {
+      "name": "guests",
+      "members": [
+        "myorganization/devs"
+      ],
+      "datacenters": [
+        "us-west-1"
+      ],
+      "subscriptions": [
+        "webserver"
+      ],
+      "readonly": true
+    },
+    {
+      "name": "operators",
+      "members": [
+        "myorganization/owners"
+      ],
+      "datacenters": [],
+      "subscriptions": [],
+      "readonly": false
+    }
+  ]
+}
+{{< /highlight >}}
 
 #### `auth` attributes
 
@@ -533,35 +412,25 @@ supported and is necessary when using Sensu Enterprise Console behind a load
 balancer. Static keys can be configured by using the `auth` attributes detailed
 below._
 
-privatekey
-: description
-  : Path to a private RSA key used for generating and validating the signatures
-    of the JSON Web Tokens (JWT) for authentication.
-: required
-  : false
-: type
-  : String
-: example
-  : ~~~shell
-    "auth": {
-      "privatekey": "/path/to/console.rsa"
-    }
-    ~~~
+privatekey   | 
+-------------|------
+description  | Path to a private RSA key used for generating and validating the signatures of the JSON Web Tokens (JWT) for authentication.
+required     | false
+type         | String
+example      | {{< highlight shell >}}"auth": {
+  "privatekey": "/path/to/console.rsa"
+}
+{{< /highlight >}}
 
-public
-: description
-  : Path to a public RSA key used for generating and validating the signatures
-    of the JSON Web Tokens (JWT) for authentication.
-: required
-  : false
-: type
-  : String
-: example
-  : ~~~shell
-    "auth": {
-      "publickey": "/path/to/console.rsa.pub"
-    }
-    ~~~
+public       | 
+-------------|------
+description  | Path to a public RSA key used for generating and validating the signatures of the JSON Web Tokens (JWT) for authentication.
+required     | false
+type         | String
+example      | {{< highlight shell >}}"auth": {
+  "publickey": "/path/to/console.rsa.pub"
+}
+{{< /highlight >}}
 
 #### `audit` attributes
 

@@ -1,14 +1,12 @@
 ---
 title: "Built-in Filters"
-product: "Sensu-Enterprise"
+product: "Sensu Enterprise"
 version: "1.0"
 weight: 8
 menu: "sensu-enterprise-1.0"
 ---
 **ENTERPRISE: Built-in filters are available for [Sensu Enterprise][0]
 users only.**
-
-# Built-in Filters
 
 ## Reference documentation
 
@@ -37,7 +35,7 @@ Multiple enterprise filters can be applied to standard Sensu event handlers. The
 following example event handler uses the `handle_when` and `silence_stashes`
 event filters.
 
-~~~ json
+{{< highlight json >}}
 {
   "handlers": {
     "custom_mailer": {
@@ -50,6 +48,6 @@ event filters.
     }
   }
 }
-~~~
+{{< /highlight >}}
 
 [0]:  /enterprise

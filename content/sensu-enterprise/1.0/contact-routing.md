@@ -1,11 +1,10 @@
 ---
 title: "Contact Routing"
-product: "Sensu-Enterprise"
+product: "Sensu Enterprise"
 version: "1.0"
 weight: 5
 menu: "sensu-enterprise-1.0"
 ---
-# Contact Routing
 
 ## Reference documentation
 
@@ -37,7 +36,7 @@ _number_, **email** _address_, **Twitter** _username_, etc).
 The following example contact definition provides overrides for the Sensu
 Enterprise email and Slack integration default configuration settings.
 
-~~~ json
+{{< highlight json >}}
 {
   "contacts": {
     "support": {
@@ -50,7 +49,7 @@ Enterprise email and Slack integration default configuration settings.
     }
   }
 }
-~~~
+{{< /highlight >}}
 
 Once defined, Sensu Enterprise contacts are used the same way in which you use
 contacts on your phone &ndash; by selecting a communication channel (e.g.
@@ -63,7 +62,7 @@ The following example check definition will use the built-in Sensu Enterprise
 email integration (event handler), notifying the `support` contact for any
 corresponding events.
 
-~~~ json
+{{< highlight json >}}
 {
   "checks": {
     "example_check": {
@@ -74,7 +73,7 @@ corresponding events.
     }
   }
 }
-~~~
+{{< /highlight >}}
 
 ## Contact routing configuration
 
@@ -83,7 +82,7 @@ corresponding events.
 The following is an example contact routing definition (i.e. a "contact"), a
 JSON configuration file located at `/etc/sensu/conf.d/contacts/ops.json`.
 
-~~~ json
+{{< highlight json >}}
 {
   "contacts": {
     "support": {
@@ -97,7 +96,7 @@ JSON configuration file located at `/etc/sensu/conf.d/contacts/ops.json`.
     }
   }
 }
-~~~
+{{< /highlight >}}
 
 ### Contact Routing definition specification
 
@@ -125,7 +124,7 @@ In most cases, contact definitions are used to provide partial integration
 handler attribute overrides. The following example only provides a `"to"`
 (recipient) attribute to override the default email integration configuration:
 
-~~~ json
+{{< highlight json >}}
 {
   "contacts": {
     "support": {
@@ -135,7 +134,7 @@ handler attribute overrides. The following example only provides a `"to"`
     }
   }
 }
-~~~
+{{< /highlight >}}
 
 However, contact definitions are not limited to providing a single attribute
 &mdash; they can be used to provide multiple attributes or even complete
@@ -144,7 +143,7 @@ definition). For example, a contact could be used to provide an email
 integration definition to use an alternate SMTP server from the default
 configuration:
 
-~~~ json
+{{< highlight json >}}
 {
   "contacts": {
     "support": {
@@ -164,7 +163,7 @@ configuration:
     }
   }
 }
-~~~
+{{< /highlight >}}
 
 [?]:  #
 [1]:  built-in-handlers.html

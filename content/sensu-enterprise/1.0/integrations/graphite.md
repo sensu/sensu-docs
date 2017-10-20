@@ -11,8 +11,6 @@ menu:
 **ENTERPRISE: Built-in integrations are available for [Sensu Enterprise][1]
 users only.**
 
-# Graphite Integration
-
 - [Overview](#overview)
 - [Configuration](#configuration)
   - [Example(s)](#examples)
@@ -33,7 +31,7 @@ Hosted Graphite API key. This handler uses the `output_format` mutator.
 The following is an example global configuration for the `graphite` enterprise
 handler (integration).
 
-~~~ json
+{{< highlight json >}}
 {
   "graphite": {
     "host": "graphite.example.com",
@@ -42,7 +40,7 @@ handler (integration).
     "prefix": "production"
   }
 }
-~~~
+{{< /highlight >}}
 
 ### Integration Specification
 
@@ -51,60 +49,36 @@ handler (integration).
 The following attributes are configured within the `{"graphite": {} }`
 [configuration scope][4].
 
-`host`
-: description
-  : The Graphite Carbon host address.
-: required
-  : false
-: type
-  : String
-: default
-  : `127.0.0.1`
-: example
-  : ~~~ shell
-    "host": "carbon.hostedgraphite.com"
-    ~~~
+host         | 
+-------------|------
+description  | The Graphite Carbon host address.
+required     | false
+type         | String
+default      | `127.0.0.1`
+example      | {{< highlight shell >}}"host": "carbon.hostedgraphite.com"{{< /highlight >}}
 
-`port`
-: description
-  : The Graphite Carbon port.
-: required
-  : false
-: type
-  : Integer
-: default
-  : `2003`
-: example
-  : ~~~ shell
-    "port": 3003
-    ~~~
+port         | 
+-------------|------
+description  | The Graphite Carbon port.
+required     | false
+type         | Integer
+default      | `2003`
+example      | {{< highlight shell >}}"port": 3003{{< /highlight >}}
 
-`prefix_source`
-: description
-  : If the Sensu source (client name) should prefix (added to) the metric names.
-: required
-  : false
-: type
-  : Boolean
-: default
-  : `false`
-: example
-  : ~~~ shell
-    "prefix_source": true
-    ~~~
+prefix_source | 
+--------------|------
+description   | If the Sensu source (client name) should prefix (added to) the metric names.
+required      | false
+type          | Boolean
+default       | `false`
+example       | {{< highlight shell >}}"prefix_source": true{{< /highlight >}}
 
-`prefix`
-: description
-  : A custom metric name prefix - this can be used to prefix the Hosted Graphite
-    API key.
-: required
-  : false
-: type
-  : String
-: example
-  : ~~~ shell
-    "prefix": "production"
-    ~~~
+prefix       | 
+-------------|------
+description  | A custom metric name prefix - this can be used to prefix the Hosted Graphite API key.
+required     | false
+type         | String
+example      | {{< highlight shell >}}"prefix": "production"{{< /highlight >}}
 
 
 [?]:  #

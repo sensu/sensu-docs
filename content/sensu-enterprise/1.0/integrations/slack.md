@@ -10,8 +10,6 @@ menu:
 **ENTERPRISE: Built-in integrations are available for [Sensu Enterprise][1]
 users only.**
 
-# Slack Integration
-
 - [Overview](#overview)
 - [Configuration](#configuration)
   - [Example(s)](#examples)
@@ -31,7 +29,7 @@ provided webhook url.
 The following is an example global configuration for the `slack` enterprise
 event handler (integration).
 
-~~~ json
+{{< highlight json >}}
 {
   "slack": {
     "webhook_url": "https://hooks.slack.com/services/IB6JgRmRJ/eL7Hgo6kF/CckJm8E4Yt8X3i6QRKHWBekc",
@@ -40,7 +38,7 @@ event handler (integration).
     "timeout": 10
   }
 }
-~~~
+{{< /highlight >}}
 
 ### Integration Specification
 
@@ -49,73 +47,44 @@ event handler (integration).
 The following attributes are configured within the `{"slack": {} }`
 [configuration scope][4].
 
-`webhook_url`
-: description
-  : The Slack incoming webhook URL - [https://api.slack.com/incoming-webhooks][3].
-: required
-  : true
-: type
-  : String
-: example
-  : ~~~ shell
-    "webhook_url": "https://hooks.slack.com/services/IB6JgRmRJ/eL7Hgo6kF/CckJm8E4Yt8X3i6QRKHWBekc"
-    ~~~
+webhook_url  | 
+-------------|------
+description  | The Slack incoming webhook URL - [https://api.slack.com/incoming-webhooks][3].
+required     | true
+type         | String
+example      | "webhook_url": "https://hooks.slack.com/services/IB6JgRmRJ/eL7Hgo6kF/CckJm8E4Yt8X3i6QRKHWBekc"
 
-`channel`
-: description
-  : The Slack channel to notify.
-: required
-  : false
-: type
-  : String
-: default
-  : `#general`
-: example
-  : ~~~ shell
-    "channel": "#ops"
-    ~~~
+channel      | 
+-------------|------
+description  | The Slack channel to notify.
+required     | false
+type         | String
+default      | `#general`
+example      | {{< highlight shell >}}"channel": "#ops"{{< /highlight >}}
 
-`username`
-: description
-  : The Slack username to use to notify the channel.
-: required
-  : false
-: type
-  : String
-: default
-  : `sensu`
-: example
-  : ~~~ shell
-    "username": "monitoring"
-    ~~~
+username     | 
+-------------|------
+description  | The Slack username to use to notify the channel.
+required     | false
+type         | String
+default      | `sensu`
+example      | {{< highlight shell >}}"username": "monitoring"{{< /highlight >}}
 
-`icon_url`
-: description
-  : The Slack icon URL to use for notifications.
-: required
-  : false
-: type
-  : String
-: default
-  : `http://www.gravatar.com/avatar/9b37917076cee4e2d331a785f3426640`
-: example
-  : ~~~ shell
-    "icon_url": "http://www.gravatar.com/avatar/9b37917076cee4e2d331a785f3426640"
-    ~~~
+icon_url     | 
+-------------|------
+description  | The Slack icon URL to use for notifications.
+required     | false
+type         | String
+default      | `http://www.gravatar.com/avatar/9b37917076cee4e2d331a785f3426640`
+example      | {{< highlight shell >}}"icon_url": "http://www.gravatar.com/avatar/9b37917076cee4e2d331a785f3426640"{{< /highlight >}}
 
-`timeout`
-: description
-  : The handler execution duration timeout in seconds (hard stop).
-: required
-  : false
-: type
-  : Integer
-: default
-  : `10`
-: example
-  : ~~~ shell
-    "timeout": 30
-    ~~~
+timeout      | 
+-------------|------
+description  | The handler execution duration timeout in seconds (hard stop).
+required     | false
+type         | Integer
+default      | `10`
+example      | {{< highlight shell >}}"timeout": 30{{< /highlight >}}
 
 
 

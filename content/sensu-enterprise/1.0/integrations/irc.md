@@ -10,8 +10,6 @@ menu:
 **ENTERPRISE: Built-in integrations are available for [Sensu Enterprise][1]
 users only.**
 
-# IRC Integration
-
 - [Overview](#overview)
 - [Configuration](#configuration)
   - [Example(s)](#examples)
@@ -29,7 +27,7 @@ Send notifications to an Internet Relay Chat (IRC) channel for events.
 The following is an example global configuration for the `irc` enterprise event
 handler (integration).
 
-~~~ json
+{{< highlight json >}}
 {
   "irc": {
     "uri": "irc://nick:pass@example.com:6697/#ops",
@@ -40,7 +38,7 @@ handler (integration).
     "timeout": 10
   }
 }
-~~~
+{{< /highlight >}}
 
 ### Integration Specification
 
@@ -49,83 +47,50 @@ handler (integration).
 The following attributes are configured within the `{"irc": {} }` [configuration
 scope][2].
 
-`uri`
-: description
-  : The IRC URI; including the nick, password, address, port, and channel.
-: required
-  : true
-: type
-  : String
-: example
-  : ~~~ shell
-    "uri": "irc://nick:pass@example.com:6697/#ops"
-    ~~~
+url          | 
+-------------|------
+description  | The IRC URI; including the nick, password, address, port, and channel.
+required     | true
+type         | String
+example      | {{< highlight shell >}}"uri": "irc://nick:pass@example.com:6697/#ops"{{< /highlight >}}
 
-`ssl`
-: description
-  : If SSL encryption is used for the IRC connection.
-: required
-  : false
-: type
-  : Boolean
-: default
-  : `false`
-: example
-  : ~~~ shell
-    "ssl": true
-    ~~~
+ssl          | 
+-------------|------
+description  | If SSL encryption is used for the IRC connection.
+required     | false
+type         | Boolean
+default      | `false`
+example      | {{< highlight shell >}}"ssl": true{{< /highlight >}}
 
-`channel_password`
-: description
-  : The IRC channel password (if required).
-: required
-  : false
-: type
-  : String
-: example
-  : ~~~ shell
-    "channel_password": "secret"
-    ~~~
+channel_password | 
+-----------------|------
+description      | The IRC channel password (if required).
+required         | false
+type             | String
+example          | {{< highlight shell >}}"channel_password": "secret"{{< /highlight >}}
 
-`nickserv_password`
-: description
-  : Identify with NickServ (if required).
-: required
-  : false
-: type
-  : String
-: example
-  : ~~~ shell
-    "nickserv_password": "secret"
-    ~~~
+nickserv_password | 
+------------------|------
+description       | Identify with NickServ (if required).
+required          | false
+type              | String
+example           | {{< highlight shell >}}"nickserv_password": "secret"{{< /highlight >}}
 
-`join`
-: description
-  : If the handler must join the IRC channel before messaging.
-: required
-  : false
-: type
-  : Boolean
-: default
-  : `false`
-: example
-  : ~~~ shell
-    "join": true
-    ~~~
+join         | 
+-------------|------
+description  | If the handler must join the IRC channel before messaging.
+required     | false
+type         | Boolean
+default      | `false`
+example      | {{< highlight shell >}}"join": true{{< /highlight >}}
 
-`timeout`
-: description
-  : The handler execution duration timeout in seconds (hard stop).
-: required
-  : false
-: type
-  : Integer
-: default
-  : `10`
-: example
-  : ~~~ shell
-    "timeout": 30
-    ~~~
+timeout      | 
+-------------|------
+description  | The handler execution duration timeout in seconds (hard stop).
+required     | false
+type         | Integer
+default      | `10`
+example      | {{< highlight shell >}}"timeout": 30{{< /highlight >}}
 
 
 [?]:  #

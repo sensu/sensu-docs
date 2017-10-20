@@ -11,8 +11,6 @@ menu:
 **ENTERPRISE: Built-in integrations are available for [Sensu Enterprise][1]
 users only.**
 
-# ServiceNow Integration
-
 - [Overview](#overview)
 - [Configuration](#configuration)
   - [Example(s)](#examples)
@@ -32,7 +30,7 @@ ServiceNow events for [Sensu events][5].
 The following is an example global configuration for the `servicenow` enterprise
 event handler (integration).
 
-~~~ json
+{{< highlight json >}}
 {
   "servicenow": {
     "host": "dev42.service-now.com",
@@ -45,7 +43,7 @@ event handler (integration).
     "timeout": 10
   }
 }
-~~~
+{{< /highlight >}}
 
 When creating [ServiceNow configuration items][6], by default, Sensu will use
 the client's name for the item name. Individual Sensu clients can override the
@@ -56,7 +54,7 @@ attributes (fields & values) may also be set, e.g. `os_version`.
 The following is an example [client definition][7], specifying its ServiceNow
 configuration item attributes.
 
-~~~ json
+{{< highlight json >}}
 {
   "client": {
     "name": "i-424242",
@@ -73,7 +71,7 @@ configuration item attributes.
     }
   }
 }
-~~~
+{{< /highlight >}}
 
 ### Integration Specification
 
@@ -86,140 +84,82 @@ are included in [event data][9]._
 The following attributes are configured within the `{"servicenow": {} }`
 [configuration scope][10].
 
-`host`
-: description
-  : The ServiceNow host address.
-: required
-  : true
-: type
-  : String
-: example
-  : ~~~ shell
-    "host": "dev42.service-now.com"
-    ~~~
+host         | 
+-------------|------
+description  | The ServiceNow host address.
+required     | true
+type         | String
+example      | {{< highlight shell >}}"host": "dev42.service-now.com"{{< /highlight >}}
 
-`user`
-: description
-  : The ServiceNow user used to authenticate.
-: required
-  : true
-: type
-  : String
-: example
-  : ~~~ shell
-    "user": "admin"
-    ~~~
+user         | 
+-------------|------
+description  | The ServiceNow user used to authenticate.
+required     | true
+type         | String
+example      | {{< highlight shell >}}"user": "admin"{{< /highlight >}}
 
-`password`
-: description
-  : The ServiceNow user password.
-: required
-  : true
-: type
-  : String
-: example
-  : ~~~ shell
-    "password": "secret"
-    ~~~
+password     | 
+-------------|------
+description  | The ServiceNow user password.
+required     | true
+type         | String
+example      | {{< highlight shell >}}"password": "secret"{{< /highlight >}}
 
-`create_cmdb_ci`
-: description
-  : If ServiceNow CMDB configuration items should be automatically created for
-    Sensu clients.
-: required
-  : false
-: type
-  : Boolean
-: default
-  : `true`
-: example
-  : ~~~ shell
-    "create_cmdb_ci": false
-    ~~~
+create_cmdb_ci | 
+---------------|------
+description    | If ServiceNow CMDB configuration items should be automatically created for Sensu clients.
+required       | false
+type           | Boolean
+default        | `true`
+example        | {{< highlight shell >}}"create_cmdb_ci": false{{< /highlight >}}
 
-`cmdb_ci_table`
-: description
-  : The ServiceNow CMDB table used for automated configuration item creation.
-: required
-  : false
-: type
-  : String
-: default
-  : `cmdb_ci_server`
-: example
-  : ~~~ shell
-    "cmdb_ci_table": "cmdb_ci_sensu_client"
-    ~~~
+cmdb_ci_table | 
+--------------|------
+description   | The ServiceNow CMDB table used for automated configuration item creation.
+required      | false
+type          | String
+default       | `cmdb_ci_server`
+example       | {{< highlight shell >}}"cmdb_ci_table": "cmdb_ci_sensu_client"{{< /highlight >}}
 
-`incident_management`
-: description
-  : If ServiceNow incidents should be created and resolved for Sensu events.
-: required
-  : false
-: type
-  : Boolean
-: default
-  : `true`
-: example
-  : ~~~ shell
-    "incident_management": false
-    ~~~
+incident_management | 
+--------------------|------
+description         | If ServiceNow incidents should be created and resolved for Sensu events.
+required            | false
+type                | Boolean
+default             | `true`
+example             | {{< highlight shell >}}"incident_management": false{{< /highlight >}}
 
-`incident_table`
-: description
-  : The ServiceNow table used for creating/resolving incidents corresponding to Sensu events.
-: required
-  : false
-: type
-  : String
-: default
-  : `incident`
-: example
-  : ~~~ shell
-    "incident_table": "incident"
-    ~~~
+incident_table | 
+---------------|------
+description    | The ServiceNow table used for creating/resolving incidents corresponding to Sensu events.
+required       | false
+type           | String
+default        | `incident`
+example        | {{< highlight shell >}}"incident_table": "incident"{{< /highlight >}}
 
-`event_management`
-: description
-  : If ServiceNow events should be created for Sensu events.
-: required
-  : false
-: type
-  : Boolean
-: default
-  : `false`
-: example
-  : ~~~ shell
-    "event_management": true
-    ~~~
+event_management | 
+-----------------|------
+description      | If ServiceNow events should be created for Sensu events.
+required         | false
+type             | Boolean
+default          | `false`
+example          | {{< highlight shell >}}"event_management": true{{< /highlight >}}
 
-`event_table`
-: description
-  : The ServiceNow table used for creating ServiceNow events corresponding to Sensu events.
-: required
-  : false
-: type
-  : String
-: default
-  : `em_event`
-: example
-  : ~~~ shell
-    "event_table": "em_event"
-    ~~~
+event_table  | 
+-------------|------
+description  | The ServiceNow table used for creating ServiceNow events corresponding to Sensu events.
+required     | false
+type         | String
+default      | `em_event`
+example      | {{< highlight shell >}}"event_table": "em_event"{{< /highlight >}}
 
-`timeout`
-: description
-  : The handler execution duration timeout in seconds (hard stop).
-: required
-  : false
-: type
-  : Integer
-: default
-  : `10`
-: example
-  : ~~~ shell
-    "timeout": 30
-    ~~~
+timeout      | 
+-------------|------
+description  | The handler execution duration timeout in seconds (hard stop).
+required     | false
+type         | Integer
+default      | `10`
+example      | {{< highlight shell >}}"timeout": 30{{< /highlight >}}
 
 
 [?]:  #

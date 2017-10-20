@@ -10,8 +10,6 @@ menu:
 **ENTERPRISE: Built-in integrations are available for [Sensu Enterprise][1]
 users only.**
 
-# VictorOps Integration
-
 - [Overview](#overview)
 - [Configuration](#configuration)
   - [Example(s)](#examples)
@@ -29,7 +27,7 @@ Create [VictorOps][2] messages for events.
 The following is an example global configuration for the `victorops` enterprise
 event handler (integration).
 
-~~~ json
+{{< highlight json >}}
 {
   "victorops": {
     "api_key": "a53265cd-d2ef-fa32-fc54de52659a",
@@ -37,7 +35,7 @@ event handler (integration).
     "timeout": 10
   }
 }
-~~~
+{{< /highlight >}}
 
 ### Integration Specification
 
@@ -46,45 +44,28 @@ event handler (integration).
 The following attributes are configured within the `{"victorops": {} }`
 [configuration scope][3].
 
-`api_key`
-: description
-  : The VictorOps api key to use when creating messages.
-: required
-  : true
-: type
-  : String
-: example
-  : ~~~ shell
-    "api_key": "a53265cd-d2ef-fa32-fc54de52659a"
-    ~~~
+api_key      | 
+-------------|------
+description  | The VictorOps api key to use when creating messages.
+required     | true
+type         | String
+example      | {{< highlight shell >}}"api_key": "a53265cd-d2ef-fa32-fc54de52659a"{{< /highlight >}}
 
-`routing_key`
-: description
-  : The VictorOps routing key to decide what team(s) to send alerts to.
-: required
-  : false
-: type
-  : String
-: default
-  : `everyone`
-: example
-  : ~~~ shell
-    "routing_key": "ops"
-    ~~~
+routing_key  | 
+-------------|------
+description  | The VictorOps routing key to decide what team(s) to send alerts to.
+required     | false
+type         | String
+default      | `everyone`
+example      | {{< highlight shell >}}"routing_key": "ops"{{< /highlight >}}
 
-`timeout`
-: description
-  : The handler execution duration timeout in seconds (hard stop).
-: required
-  : false
-: type
-  : Integer
-: default
-  : `10`
-: example
-  : ~~~ shell
-    "timeout": 30
-    ~~~
+timeout      | 
+-------------|------
+description  | The handler execution duration timeout in seconds (hard stop).
+required     | false
+type         | Integer
+default      | `10`
+example      | {{< highlight shell >}}"timeout": 30{{< /highlight >}}
 
 [?]:  #
 [1]:  /enterprise

@@ -10,8 +10,6 @@ menu:
 **ENTERPRISE: Built-in integrations are available for [Sensu Enterprise][1]
 users only.**
 
-# PagerDuty Integration
-
 - [Overview](#overview)
 - [Configuration](#configuration)
   - [Example(s)](#examples)
@@ -31,14 +29,14 @@ service key.
 The following is an example global configuration for the `pagerduty` enterprise
 event handler (integration).
 
-~~~ json
+{{< highlight json >}}
 {
   "pagerduty": {
     "service_key": "r3FPuDvNOTEDyQYCc7trBkymIFcy2NkE",
     "timeout": 10
   }
 }
-~~~
+{{< /highlight >}}
 
 ### Integration Specification
 
@@ -47,31 +45,20 @@ event handler (integration).
 The following attributes are configured within the `{"pagerduty": {} }`
 [configuration scope][4].
 
-`service_key`
-: description
-  : The PagerDuty service key to use when creating and resolving incidents.
-: required
-  : true
-: type
-  : String
-: example
-  : ~~~ shell
-    "service_key": "r3FPuDvNOTEDyQYCc7trBkymIFcy2NkE"
-    ~~~
+service_key  | 
+-------------|------
+description  | The PagerDuty service key to use when creating and resolving incidents.
+required     | true
+type         | String
+example      | {{< highlight shell >}}"service_key": "r3FPuDvNOTEDyQYCc7trBkymIFcy2NkE"{{< /highlight >}}
 
-`timeout`
-: description
-  : The handler execution duration timeout in seconds (hard stop).
-: required
-  : false
-: type
-  : Integer
-: default
-  : `10`
-: example
-  : ~~~ shell
-    "timeout": 30
-    ~~~
+timeout      | 
+-------------|------
+description  | The handler execution duration timeout in seconds (hard stop).
+required     | false
+type         | Integer
+default      | `10`
+example      | {{< highlight shell >}}"timeout": 30{{< /highlight >}}
 
 [?]:  #
 [1]:  https://support.pagerduty.com/hc/en-us/articles/202830340-Creating-a-Generic-API-Service

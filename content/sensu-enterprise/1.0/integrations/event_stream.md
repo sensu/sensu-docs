@@ -11,8 +11,6 @@ menu:
 **ENTERPRISE: Built-in integrations are available for [Sensu Enterprise][1]
 users only.**
 
-# Event Stream Integration
-
 - [Overview](#overview)
 - [Configuration](#configuration)
   - [Example(s)](#examples)
@@ -32,7 +30,7 @@ long-term storage.
 The following is an example configuration for the `event_stream` enterprise
 event handler (integration).
 
-~~~ json
+{{< highlight json >}}
 {
   "event_stream": {
     "host": "127.0.0.1",
@@ -40,7 +38,7 @@ event handler (integration).
     "filter_metrics": false
   }
 }
-~~~
+{{< /highlight >}}
 
 
 ### Integration specification
@@ -48,47 +46,29 @@ event handler (integration).
 #### `event_stream` attributes
 
 
-`host`
-: description
-  : The remote host address.
-: required
-  : false
-: type
-  : String
-: default
-  : `127.0.0.1`
-: example
-  : ~~~ shell
-    "host": "moogserver-01.company.com"
-    ~~~
+host         | 
+-------------|------
+description  | The remote host address.
+required     | false
+type         | String
+default      | `127.0.0.1`
+example      | {{< highlight shell >}}"host": "moogserver-01.company.com"{{< /highlight >}}
 
-`port`
-: description
-  : The remote TCP port.
-: required
-  : false
-: type
-  : Integer
-: default
-  : `3000`
-: example
-  : ~~~ shell
-    "port": 3333
-    ~~~
+port         | 
+-------------|------
+description  | The remote TCP port.
+required     | false
+type         | Integer
+default      | `3000`
+example      | {{< highlight shell >}}"port": 3333{{< /highlight >}}
 
-`filter_metrics`
-: description
-  : If [events][2] with a `type` of `metric` are relayed to the remote socket.
-: required
-  : false
-: type
-  : Boolean
-: default
-  : `false`
-: example
-  : ~~~ shell
-    "filter_metrics": true
-    ~~~
+filter_metrics | 
+---------------|------
+description    | If [events][2] with a `type` of `metric` are relayed to the remote socket.
+required       | false
+type           | Boolean
+default        | `false`
+example        | {{< highlight shell >}}"filter_metrics": true{{< /highlight >}}
 
 
 

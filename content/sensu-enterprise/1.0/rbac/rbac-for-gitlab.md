@@ -11,9 +11,7 @@ menu:
 **ENTERPRISE: Role based access controls are available for [Sensu Enterprise][5]
 users only.**
 
-## RBAC for GitLab (driver)
-
-### Reference Documentation
+## Reference Documentation
 
 - [What is RBAC for GitLab?](#what-is-rbac-for-gitlab)
 - [RBAC for GitLab configuration](#rbac-for-gitlab-configuration)
@@ -34,7 +32,7 @@ support for using [GitLab][1] for RBAC authentication.
 
 ### Example RBAC for GitLab definition
 
-~~~ json
+{{< highlight json >}}
 {
   "dashboard": {
     "host": "0.0.0.0",
@@ -72,97 +70,70 @@ support for using [GitLab][1] for RBAC authentication.
     }
   }
 }
-~~~
+{{< /highlight >}}
 
 ### RBAC for GitLab definition specification
 
 #### `gitlab` attributes
 
-applicationid
-: description
-  : The GitLab OAuth Application "Application Id"
-   _NOTE: requires [registration of an OAuth application in GitLab][2]._
-: required
-  : true
-: type
-  : String
-: example
-  : ~~~shell
-    "applicationid": "6141d36e5ea48103bc39bb3eb5eede8735f0dd8f9788d8b30255dbf4d218628f"
-    ~~~
+applicationid | 
+--------------|------
+description   | The GitLab OAuth Application "Application Id" _NOTE: requires [registration of an OAuth application in GitLab][2]._
+required      | true
+type          | String
+example       | {{< highlight shell >}}"applicationid": "6141d36e5ea48103bc39bb3eb5eede8735f0dd8f9788d8b30255dbf4d218628f"{{< /highlight >}}
 
-secret
-: description
-  : The GitLab OAuth Application "Secret"
-  _NOTE: requires [registration of an OAuth application in GitLab][2]._
-: required
-  : true
-: type
-  : String
-: example
-  : ~~~shell
-    "secret": "7d419a3b2f7b92edab30f963d7c0a4d1841f0dc46b4403b11146b4f1d5cb3a4e"
-    ~~~
+secret       | 
+-------------|------
+description  | The GitLab OAuth Application "Secret" _NOTE: requires [registration of an OAuth application in GitLab][2]._
+required     | true
+type         | String
+example      | {{< highlight shell >}}"secret": "7d419a3b2f7b92edab30f963d7c0a4d1841f0dc46b4403b11146b4f1d5cb3a4e"{{< /highlight >}}
 
-server
-: description
-  : The location of the GitLab server you wish to authenticate against.
-: required
-  : true
-: type
-  : String
-: example
-  : ~~~shell
-    "server": "https://gitlab.com"`
-    ~~~
+server       | 
+-------------|------
+description  | The location of the GitLab server you wish to authenticate against.
+required     | true
+type         | String
+example      | {{< highlight shell >}}"server": "https://gitlab.com"{{< /highlight >}}
 
-redirecturl
-: description
-  : The GitLab OAuth Application "Callback url"
-  _NOTE: requires [registration of an OAuth application in GitLab][2]._
-: required
-  : true
-: type
-  : String
-: example
-  : ~~~shell
-    "redirecturl": "https://sensu.example.org/login/callback"
-    ~~~
+redirecturl  | 
+-------------|------
+description  | The GitLab OAuth Application "Callback url" _NOTE: requires [registration of an OAuth application in GitLab][2]._
+required     | true
+type         | String
+example      | {{< highlight shell >}}"redirecturl": "https://sensu.example.org/login/callback"{{< /highlight >}}
 
-roles
-: description
-  : An array of [`roles` definitions][3].
-: required
-  : true
-: type
-  : Array
-: example
-  : ~~~shell
-    "roles": [
-      {
-        "name": "guests",
-        "members": [
-          "guests"
-        ],
-        "datacenters": [
-          "us-west-1"
-        ],
-        "subscriptions": [
-          "webserver"
-        ],
-        "readonly": true
-      },
-      {
-        "name": "operators",
-        "members": [
-          "operators"
-        ],
-        "datacenters": [],
-        "subscriptions": [],
-        "readonly": false
-      }
-    ]
-    ~~~
+roles        | 
+-------------|------
+description  | An array of [`roles` definitions][3].
+required     | true
+type         | Array
+example      | {{< highlight shell >}}"roles": [
+  {
+    "name": "guests",
+    "members": [
+      "guests"
+    ],
+    "datacenters": [
+      "us-west-1"
+    ],
+    "subscriptions": [
+      "webserver"
+    ],
+    "readonly": true
+  },
+  {
+    "name": "operators",
+    "members": [
+      "operators"
+    ],
+    "datacenters": [],
+    "subscriptions": [],
+    "readonly": false
+  }
+]
+{{< /highlight >}}
 
 #### `roles` attributes
 

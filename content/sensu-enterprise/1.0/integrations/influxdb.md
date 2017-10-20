@@ -10,8 +10,6 @@ menu:
 **ENTERPRISE: Built-in integrations are available for [Sensu Enterprise][1]
 users only.**
 
-# InfluxDB Integration
-
 - [Overview](#overview)
 - [Configuration](#configuration)
   - [Example(s)](#examples)
@@ -29,7 +27,7 @@ Send metrics to [InfluxDB][2] using the InfluxDB HTTP API.
 The following is an example global configuration for the influxdb enterprise
 handler (integration).
 
-~~~ json
+{{< highlight json >}}
 {
   "influxdb": {
     "host": "8.8.8.8",
@@ -39,7 +37,7 @@ handler (integration).
     "api_version": "0.9"
   }
 }
-~~~
+{{< /highlight >}}
 
 ### Integration specification
 
@@ -48,105 +46,62 @@ handler (integration).
 The following attributes are configured within the `{"influxdb": {} }`
 [configuration scope][3].
 
-`host`
-: description
-  : The InfluxDB host address.
-: required
-  : false
-: type
-  : String
-: default
-  : `127.0.0.1`
-: example
-  : ~~~ shell
-    "host": "8.8.8.8"
-    ~~~
+host         | 
+-------------|------
+description  | The InfluxDB host address.
+required     | false
+type         | String
+default      | `127.0.0.1`
+example      | {{< highlight shell >}}"host": "8.8.8.8"{{< /highlight >}}
 
-`port`
-: description
-  : The InfluxDB HTTP API port.
-: required
-  : false
-: type
-  : Integer
-: default
-  : `8086`
-: example
-  : ~~~ shell
-    "port": 9096
-    ~~~
+port         | 
+-------------|------
+description  | The InfluxDB HTTP API port.
+required     | false
+type         | Integer
+default      | `8086`
+example      | {{< highlight shell >}}"port": 9096{{< /highlight >}}
 
-`username`
-: description
-  : The InfluxDB username.
-: required
-  : false
-: type
-  : String
-: default
-  : `root`
-: example
-  : ~~~ shell
-    "username": "sensu"
-    ~~~
+username     | 
+-------------|------
+description  | The InfluxDB username.
+required     | false
+type         | String
+default      | `root`
+example      | {{< highlight shell >}}"username": "sensu"{{< /highlight >}}
 
-`password`
-: description
-  : The InfluxDB user password.
-: required
-  : false
-: type
-  : String
-: default
-  : `root`
-: example
-  : ~~~ shell
-    "password": "secret"
-    ~~~
+password     | 
+-------------|------
+description  | The InfluxDB user password.
+required     | false
+type         | String
+default      | `root`
+example      | {{< highlight shell >}}"password": "secret"{{< /highlight >}}
 
-`database`
-: description
-  : The InfluxDB database (name) to use.
-: required
-  : false
-: type
-  : String
-: default
-  : `db`
-: example
-  : ~~~ shell
-    "database": "sensu"
-    ~~~
+database     | 
+-------------|------
+description  | The InfluxDB database (name) to use.
+required     | false
+type         | String
+default      | `db`
+example      | {{< highlight shell >}}"database": "sensu"{{< /highlight >}}
 
-`api_version`
-: description
-  : The InfluxDB API version.
-: required
-  : false
-: type
-  : String
-: allowed values
-  : `0.8`, `0.9`
-: default
-  : `0.8`
-: example
-  : ~~~ shell
-    "api_version": "0.9"
-    ~~~
+api_version    | 
+---------------|------
+description    | The InfluxDB API version.
+required       | false
+type           | String
+allowed values | `0.8`, `0.9`
+default        | `0.8`
+example        | {{< highlight shell >}}"api_version": "0.9"{{< /highlight >}}
 
-`timeout`
-: description
-  : The InfluxDB HTTP API POST timeout (write).
-: required
-  : false
-: type
-  : Integer
-: default
-  : `10`
-: example
-  : ~~~ shell
-    "timeout": 3
-    ~~~
+timeout      | 
+-------------|------
+description  | The InfluxDB HTTP API POST timeout (write).
+required     | false
+type         | Integer
+default      | `10`
+example      | {{< highlight shell >}}"timeout": 3{{< /highlight >}}
 
 
 [1]:  /enterprise
