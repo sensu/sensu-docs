@@ -60,8 +60,12 @@ pre code {
   //color: #81C000 !important;
 }
 
-.palette-primary-green .article code {
-  color: #4070a0;
+article code {
+  background: #f0f0f0 !important;
+}
+
+p code, li code, td code, h1 code, h2 code, h3 code, h4 code, h5 code, h6 code {
+  color: #4070a0 !important;
 }
 
 .article pre {
