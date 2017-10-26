@@ -64,6 +64,10 @@ pre code {
   margin-bottom: 20px;
 }
 
+.copyright {
+  margin-bottom: 0;
+}
+
 /* General Site Wide Components ----------------------------------------------------------------- */
 .note {
   margin: 10px 0;
@@ -334,6 +338,10 @@ a .project {
   position: fixed;
   margin-left: -120px;
   width: 380px;
+}
+
+nav .scrollable {
+  margin-bottom: 70px;
 }
 
 .project .logo {
