@@ -39,9 +39,9 @@ function setHeaderDropdowns($uniqueness) {
   }
 }
 
-function setPlatformCookie($platform) {
+/*function setPlatformCookie($platform) {
   Cookies.set('platform', $platform, { expires: $cookieLife });
-}
+}*/
 
 function setPlatformCookie($platform, $product, $title) {
   Cookies.set('platform', $platform, { expires: $cookieLife });
