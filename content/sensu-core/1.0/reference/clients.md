@@ -27,7 +27,7 @@ menu:
 - [Client socket input](#client-socket-input)
   - [What is the Sensu client socket](#what-is-the-sensu-client-socket)
   - [Example client socket usage](#example-client-socket-usage)
-  - [Client socket configuration](#client-socket-configuration)
+  - [Client socket configuration](#socket-attributes)
 - [Standalone check execution scheduler](#standalone-check-execution-scheduler)
 - [Client configuration](#client-configuration)
   - [Example client definition](#example-client-definition)
