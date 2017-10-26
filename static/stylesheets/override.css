@@ -64,8 +64,14 @@ pre code {
   margin-bottom: 20px;
 }
 
+.footer {
+  padding-bottom: 20px;
+  color: #eee;
+}
+
 .copyright {
   margin-bottom: 0;
+  color: #eee;
 }
 
 /* General Site Wide Components ----------------------------------------------------------------- */
