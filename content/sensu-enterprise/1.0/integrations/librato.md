@@ -23,7 +23,7 @@ Send metrics to [Librato][2] Metrics using the HTTP API.
 
 ## Configuration
 
-### Example(s)
+### Example(s) {#examples}
 
 The following is an example global configuration for the `librato` enterprise
 handler (integration).
@@ -60,6 +60,6 @@ example      | {{< highlight shell >}}"api_key": "90SHpjPOFqd2YJFIX9rzDq7ik6CiDm
 
 
 [?]:  #
-[1]:  /enterprise
+[1]:  /sensu-enterprise
 [2]:  https://www.librato.com?ref=sensu-enterprise
-[3]:  ../../reference/configuration.html#configuration-scopes
+[3]:  /sensu-core/1.0/reference/configuration#configuration-scopes

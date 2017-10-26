@@ -468,15 +468,15 @@ to use the new `/silenced` API.
 * All entries in `/stashes/silence` be deleted via the `/stashes` API before
 upgrading Uchiwa 0.18+ or Sensu Enterprise Console 2.0+.
 
-[0]: checks.html#check-results
-[1]: handlers.html
-[2]: ../api/silenced-api.html
-[3]: checks.html
-[4]: clients.html#client-subscriptions
-[5]: handlers.html#handler-attributes
+[0]: ../checks#check-results
+[1]: ../handlers
+[2]: ../../api/silenced
+[3]: ../checks
+[4]: ../clients#client-subscriptions
+[5]: ../handlers#handler-attributes
 [6]: http://github.com/sensu-plugins/sensu-plugin
-[7]: stashes.html
+[7]: ../stashes
 [8]: https://github.com/sensu-plugins/sensu-plugin/issues/134
 [9]: https://sensuapp.org/blog/2016/07/07/sensu-plugin-filter-deprecation.html
-[10]: data-store.html
-[11]: filters.html
+[10]: ../data-store
+[11]: ../filters

@@ -31,7 +31,7 @@ data.
 
 ## Configuration
 
-### Example(s)
+### Example(s) {#examples}
 
 The following is an example of how to apply the `silence_stashes` enterprise
 filter to a standard Sensu `pipe` handler.
@@ -56,5 +56,5 @@ This built-in filter requires no configuration.
 
 
 [?]:  #
-[0]:  /enterprise
-[1]:  ../../reference/stashes.html
+[0]:  /sensu-enterprise
+[1]:  /sensu-core/1.0/reference/stashes

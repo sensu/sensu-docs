@@ -46,10 +46,10 @@ more information).
 Sensu Enterprise currently includes the following authentication drivers for
 RBAC:
 
-* [LDAP](rbac-for-ldap.html)
-* [GitHub](rbac-for-github.html)
-* [GitLab](rbac-for-gitlab.html)
-* [OIDC](rbac-for-oidc.html)
+* [LDAP](../rbac-for-ldap)
+* [GitHub](../rbac-for-github)
+* [GitLab](../rbac-for-gitlab)
+* [OIDC](../rbac-for-oidc)
 
 ## RBAC for the Sensu Enterprise Console API
 
@@ -351,23 +351,23 @@ example        | {{< highlight shell >}}"methods": {
 
 
 [?]:  #
-[0]:  /enterprise
+[0]:  /sensu-enterprise
 [1]:  https://github.com
 [2]:  https://enterprise.github.com/home
 [3]:  https://gitlab.com
-[4]:  ../dashboard.html#what-is-a-sensu-datacenter
-[5]:  ../../reference/clients.html#client-subscriptions
-[6]:  ../api.html
-[7]:  rbac-for-ldap.html
-[8]:  rbac-for-github.html
-[9]:  rbac-for-gitlab.html
+[4]:  ../../dashboard#what-is-a-sensu-datacenter
+[5]:  /sensu-core/1.0/reference/clients#client-subscriptions
+[6]:  ../../api
+[7]:  ../rbac-for-ldap
+[8]:  ../rbac-for-github
+[9]:  ../rbac-for-gitlab
 [10]: #driver-attributes
 [11]: https://github.com/orgs/sensu/teams/docs
 [12]: https://gitlab.com/groups/heavywater
-[13]: ../dashboard.html#sensu-attributes
-[14]: ../dashboard.html#what-is-the-sensu-enterprise-console
+[13]: ../../dashboard#sensu-attributes
+[14]: ../../dashboard#what-is-the-sensu-enterprise-console
 [15]: #roles-attributes
-[16]: ../../api/clients-api.html
-[17]: ../../reference/configuration.html#configuration-scopes
+[16]: /sensu-core/1.0/api/clients
+[17]: /sensu-core/1.0/reference/configuration#configuration-scopes
 [18]: #methods-attributes
 [19]: #providing-an-access-token

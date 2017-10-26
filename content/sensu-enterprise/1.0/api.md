@@ -31,7 +31,7 @@ SSL, for end-to-end SSL, eliminating the need for a proxy to terminate SSL.
 
 ## Enterprise API Configuration
 
-### Example(s)
+### Example(s) {#examples}
 
 The following is an example API definition at `/etc/sensu/conf.d/api.json`.
 
@@ -241,7 +241,7 @@ sudo service sensu-enterprise reload
 {{< /highlight >}}
 
 [?]:  #
-[1]:  ../api/overview.html
-[2]:  ../reference/configuration.html#configuration-scopes
+[1]:  /sensu-core/1.0/api/overview
+[2]:  /sensu-core/1.0/reference/configuration#configuration-scopes
 [3]:  #create-an-ssl-keystore
-[4]:  dashboard.html
+[4]:  ../dashboard

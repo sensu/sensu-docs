@@ -166,9 +166,9 @@ Dashboard as a GitLab "application". Please note the following instructions:
 
 
 [?]:  #
-[0]:  ../role-based-access-controls.html
+[0]:  ../overview
 [1]:  https://gitlab.com
 [2]:  #register-an-oauth-application-in-gitlab
 [3]:  #roles-attributes
-[4]:  overview.html#roles-attributes
-[5]:  /enterprise
+[4]:  ../overview#roles-attributes
+[5]:  /sensu-enterprise

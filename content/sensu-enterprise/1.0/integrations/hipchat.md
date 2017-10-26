@@ -24,7 +24,7 @@ API token][3], configure the handler (integration) with the provided API token.
 
 ## Configuration
 
-### Example(s)
+### Example(s) {#examples}
 
 The following is an example global configuration for the `hipchat` enterprise
 event handler (integration).
@@ -106,7 +106,7 @@ example      | {{< highlight shell >}}"timeout": 30{{< /highlight >}}
 
 
 [?]:  #
-[1]:  /enterprise
+[1]:  /sensu-enterprise
 [2]:  https://www.hipchat.com?ref=sensu-enterprise
 [3]:  https://www.hipchat.com/docs/api/auth?ref=sensu-enterprise
-[4]:  ../../reference/configuration.html#configuration-scopes
+[4]:  /sensu-core/1.0/reference/configuration#configuration-scopes

@@ -426,19 +426,19 @@ example      | {{< highlight shell >}}"days": {
 }
 {{< /highlight >}}
 
-[1]:  handlers.html
+[1]:  ../handlers
 [2]:  #filter-definition-specification
-[3]:  events.html#event-data
+[3]:  ../events#event-data
 [4]:  #inclusive-and-exclusive-filtering
-[5]:  clients.html#custom-attributes
-[6]:  checks.html#check-definition-specification
+[5]:  ../clients#custom-attributes
+[6]:  ../checks#check-definition-specification
 [7]:  https://en.wikipedia.org/wiki/Modulo_operation
-[8]:  clients.html#client-definition-specification
+[8]:  ../clients#client-definition-specification
 [9]:  http://ruby-doc.org/core-2.2.0/Regexp.html
 [10]: #filter-attribute-comparison
-[11]: events.html#event-data-specification
-[12]: checks.html#custom-attributes
+[11]: ../events#event-data-specification
+[12]: ../checks#custom-attributes
 [13]: #eval-token-interpolation
 [14]: #when-attributes
 [15]: #filter-naming
-[16]: handlers.html#handler-sets
+[16]: ../handlers#handler-sets

@@ -514,7 +514,7 @@ sudo setsebool -P nis_enabled 1
 For more information on configuring RabbitMQ to use SSL, please visit the [Sensu
 SSL documentation][14].
 
-### RabbitMQ SSL and Erlang 18.3
+### RabbitMQ SSL and Erlang 18.3 {#rabbitmq-ssl-and-erlang-183}
 
 For users of Erlang version 18.3, the SSL implementation that RabbitMQ relies on
 changed in such a way that additional configuration parameters are needed for
@@ -548,9 +548,9 @@ the above stated configuration changes are in place._
 
 [1]:  http://www.rabbitmq.com/features.html
 [2]:  http://www.rabbitmq.com/
-[3]:  transport.html
+[3]:  ../transport
 [4]:  https://www.rabbitmq.com/configure.html
-[5]:  ../installation/install-rabbitmq.html
+[5]:  ../../installation/install-rabbitmq
 [6]:  https://www.rabbitmq.com/networking.html#interfaces
 [7]:  https://www.rabbitmq.com/clustering.html
 [8]:  http://aws.amazon.com/ec2/instance-types/#M3
@@ -559,4 +559,4 @@ the above stated configuration changes are in place._
 [11]: https://www.rabbitmq.com/man/rabbitmqctl.1.man.html
 [12]: https://www.rabbitmq.com/partitions.html#automatic-handling
 [13]: #rabbitmq-definition-specification
-[14]: ssl.html
+[14]: ../ssl

@@ -10,10 +10,3 @@ platform: "General"
 layout: "index-2"
 ---
 
-## Key Features
-Here's some key features. For a full list visit the [Features](/sensu-core/1.0/features/) page.
-
-- Does this neat thing
-- Does another alright thing
-- It's pretty good
-

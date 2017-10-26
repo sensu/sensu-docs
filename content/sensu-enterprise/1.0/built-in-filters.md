@@ -20,14 +20,14 @@ Sensu Enterprise has several built-in event filters, used by many of the
 third-party integrations, and made available to standard Sensu event handlers.
 These enterprise filters can be used to combat alert fatigue.
 
-## Built-in filters
+## Built-in filters {#using-built-in-filters}
 
 Please refer to the reference documentation for each of the following built-in
 filters for more information on how to use them:
 
-- [`handle_when`](filters/handle-when.html)
-- [`silence_stashes`](filters/silence-stashes.html)
-- [`check_dependencies`](filters/check-dependencies.html)
+- [`handle_when`](../filters/handle-when)
+- [`silence_stashes`](../filters/silence-stashes)
+- [`check_dependencies`](../filters/check-dependencies)
 
 ### Using multiple built-in filters
 
@@ -50,4 +50,4 @@ event filters.
 }
 {{< /highlight >}}
 
-[0]:  /enterprise
+[0]:  /sensu-enterprise

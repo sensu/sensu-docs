@@ -220,11 +220,11 @@ output         | {{< highlight json >}}{
 }
 {{< /highlight >}}
 
-[1]:  ../reference/data-store.html
-[2]:  ../reference/transport.html
-[3]:  ../reference/server.html
-[4]:  ../reference/clients.html#client-keepalives
-[5]:  ../reference/checks.html#check-results
+[1]:  ../../reference/data-store
+[2]:  ../../reference/transport
+[3]:  ../../reference/server
+[4]:  ../../reference/clients#client-keepalives
+[5]:  ../../reference/checks#check-results
 [6]:  #health-get-specification
 [7]:  https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
 [8]:  https://en.wikipedia.org/wiki/Publish%E2%80%93subscribe_pattern

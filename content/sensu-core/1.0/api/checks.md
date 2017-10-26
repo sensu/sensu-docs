@@ -71,9 +71,9 @@ output         | {{< highlight shell >}}[
 ]
 {{< /highlight >}}
 
-## The `/checks/:check` API endpoint(s)
+## The `/checks/:check` API endpoint(s) {#the-checkscheck-api-endpoints}
 
-### `/checks/:check` (GET)
+### `/checks/:check` (GET) {#checkscheck-get}
 
 The `/checks/:check` API endpoints provide HTTP GET access to
 [subcription check data][1] for specific `:check` definitions, by check `name`.
@@ -211,6 +211,6 @@ payload         | {{< highlight json >}}{
 response codes  | <ul><li>**Success**: 202 (Accepted)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 [?]:  #
-[1]:  ../reference/checks.html#subscription-checks
-[2]:  ../reference/checks.html#check-configuration
+[1]:  ../../reference/checks#subscription-checks
+[2]:  ../../reference/checks#check-configuration
 [3]:  https://en.wikipedia.org/wiki/List_of_HTTP_status_codes

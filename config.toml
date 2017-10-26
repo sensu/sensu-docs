@@ -62,7 +62,7 @@ pygmentsUseClasses=true
         weight = 2
         latest = "1.0"
         [params.products.sensu_enterprise.versions]
-            "1.0" = ["General"]
+            "1.0" = ["Ubuntu/Debian", "RHEL/CentOS"]
 
     [params.products.sensu_enterprise_dashboard]
         identifier = "sensu-enterprise-dashboard"

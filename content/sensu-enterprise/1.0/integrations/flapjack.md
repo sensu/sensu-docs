@@ -30,7 +30,7 @@ configured._
 
 ## Configuration
 
-### Example(s)
+### Example(s) {#examples}
 
 The following is an example global configuration for the `flapjack` enterprise
 integration.
@@ -94,6 +94,6 @@ type           | Boolean
 default        | `false`
 example        | {{< highlight shell >}}"filter_metrics": true{{< /highlight >}}
 
-[1]:  /enterprise
+[1]:  /sensu-enterprise
 [2]:  http://flapjack.io?ref=sensu-enterprise
-[3]:  ../../reference/configuration.html#configuration-scopes
+[3]:  /sensu-core/1.0/reference/configuration#configuration-scopes

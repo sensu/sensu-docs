@@ -25,7 +25,7 @@ long-term storage.
 
 ## Configuration
 
-### Example(s)
+### Example(s) {#examples}
 
 The following is an example configuration for the `event_stream` enterprise
 event handler (integration).
@@ -43,8 +43,7 @@ event handler (integration).
 
 ### Integration specification
 
-#### `event_stream` attributes
-
+#### `event_stream` attributes {#eventstream-attributes}
 
 host         | 
 -------------|------
@@ -72,6 +71,6 @@ example        | {{< highlight shell >}}"filter_metrics": true{{< /highlight >}}
 
 
 
-[1]:  /enterprise
-[2]:  ../../reference/events.html
+[1]:  /sensu-enterprise
+[2]:  /sensu-core/1.0/reference/events
 [3]:  https://en.wikipedia.org/wiki/Complex_event_processing

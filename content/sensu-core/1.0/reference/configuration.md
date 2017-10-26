@@ -259,7 +259,7 @@ loaded by Sensu).
 }
 {{< /highlight >}}
 
-## Sensu service service configuration
+## Sensu service service configuration {#sensu-service-script-configuration}
 
 The Sensu services are managed by service scripts that are provided in the Sensu
 packages. The Sensu service scripts are able to start/stop/restart the
@@ -278,7 +278,7 @@ configuration variables) are located as follows:
 - `/etc/init.d/sensu-enterprise`
 - `/etc/init.d/sensu-enterprise-dashboard`
 
-### Sensu service script configuration variables
+### Sensu service script configuration variables {#sensu-service-script-configuration-variables}
 
 The following configuration variables can be set in the service script(s) for the
 platform.
@@ -734,15 +734,15 @@ example      | {{< highlight json >}}{
 
 [1]:  #sensu-command-line-interfaces-and-arguments
 [2]:  #sensu-environment-variables
-[3]:  clients.html#client-definition-specification
-[4]:  clients.html#socket-attributes
+[3]:  ../clients#client-definition-specification
+[4]:  ../clients#socket-attributes
 [5]:  #sensu-service-script-configuration-variables
 [6]:  https://www.rabbitmq.com/uri-spec.html
-[7]:  rabbitmq.html#rabbitmq-definition-specification
-[8]:  redis.html#redis-definition-specification
-[9]:  transport.html#transport-definition-specification
-[10]: ../api/configuration.html#api-definition-specification
-[11]: checks.html#check-definition-specification
-[12]: handlers.html#handler-definition-specification
-[13]: filters.html#filter-definition-specification
-[14]: mutators.html#mutator-definition-specification
+[7]:  ../rabbitmq#rabbitmq-definition-specification
+[8]:  ../redis#redis-definition-specification
+[9]:  ../transport#transport-definition-specification
+[10]: ../../api/configuration#api-definition-specification
+[11]: ../checks#check-definition-specification
+[12]: ../handlers#handler-definition-specification
+[13]: ../filters#filter-definition-specification
+[14]: ../mutators#mutator-definition-specification

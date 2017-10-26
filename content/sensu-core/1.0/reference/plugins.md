@@ -320,13 +320,13 @@ required     | false
 type         | String
 example      | {{< highlight shell >}}"notification": "the shopping cart application is not responding to requests"{{< /highlight >}}
 
-[1]:  checks.html
-[2]:  handlers.html
-[3]:  events.html#event-data
-[4]:  mutators.html
-[5]:  checks.html#check-commands
-[6]:  handlers.html#pipe-handler-commands
-[7]:  mutators.html#mutator-commands
+[1]:  ../checks
+[2]:  ../handlers
+[3]:  ../events#event-data
+[4]:  ../mutators
+[5]:  ../checks#check-commands
+[6]:  ../handlers#pipe-handler-commands
+[7]:  ../mutators#mutator-commands
 [8]:  http://sensu-plugins.io/
 [9]:  https://github.com/sensu-plugins
 [10]: https://rubygems.org/search?query=sensu-plugins-
@@ -342,10 +342,10 @@ example      | {{< highlight shell >}}"notification": "the shopping cart applica
 [20]: https://exchange.nagios.org/
 [21]: #what-programming-languages-are-supported
 [22]: https://github.com/sensu-plugins/sensu-plugins-http
-[23]: server.html
-[24]: clients.html
+[23]: ../server
+[24]: ../clients
 [25]: #what-is-sensus-embeddedruby
-[26]: configuration.html#configuration-variables
+[26]: ../configuration#configuration-variables
 [27]: https://github.com/sensu-plugins/sensu-plugin
-[28]: checks.html#custom-attributes
-[29]: checks.html#check-definition-attributes
+[28]: ../checks#custom-attributes
+[29]: ../checks#check-definition-attributes

@@ -97,11 +97,11 @@ resolution failures, log them, and make further attempts to connect to
 the selected transport. This also allows Sensu to use DNS as a
 transport failover mechanism.
 
-### Transport definition specification
+### Transport definition specification {#transport-definition-specification}
 
 The Sensu Transport uses the `"transport": {}` [definition scope][3].
 
-#### Transport attributes
+#### Transport attributes {#transport-attributes}
 
 The following attributes are defined within the `"transport": {}`
 [definition scope](configuration#configuration-scopes).
@@ -124,7 +124,7 @@ default            | `true`
 example            | {{< highlight shell >}}"reconnect_on_error": "false"{{< /highlight >}}
 
 
-[1]:  rabbitmq.html
+[1]:  ../rabbitmq
 [2]:  http://github.com/sensu/sensu-transport
-[3]:  configuration.html#configuration-scopes
-[4]:  ../api/health-and-info-api.html
+[3]:  ../configuration#configuration-scopes
+[4]:  ../../api/health-and-info

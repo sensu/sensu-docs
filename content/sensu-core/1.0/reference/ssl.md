@@ -192,12 +192,12 @@ the use of configuration management tools. In the future, the Sensu project
 hopes to be able to provide a better mechanism for distributing individual
 certificates and providing fast/simple revocation facilities.
 
-[1]:  transport.html
+[1]:  ../transport
 [2]:  http://www.rabbitmq.com/ssl.html
 [3]:  http://www.rabbitmq.com/ssl.html#enabling-ssl
-[4]:  server.html
-[5]:  ../api/overview.html
-[6]:  clients.html
-[7]:  rabbitmq.html#ssl-attributes
-[8]:  rabbitmq.html#rabbitmq-definition-specification
-[9]:  rabbitmq.html#standalone-configuration
+[4]:  ../server
+[5]:  ../../api/overview
+[6]:  ../clients
+[7]:  ../rabbitmq#ssl-attributes
+[8]:  ../rabbitmq#rabbitmq-definition-specification
+[9]:  ../rabbitmq#standalone-configuration

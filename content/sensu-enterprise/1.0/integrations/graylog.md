@@ -24,7 +24,7 @@ This integration requires a Graylog [JSON extractor][4].
 
 ## Configuration
 
-### Example(s)
+### Example(s) {#examples}
 
 The following is an example configuration for the `graylog` enterprise event
 handler (integration).
@@ -67,7 +67,7 @@ type         | Integer
 default      | `10`
 example      | {{< highlight shell >}}"timeout": 30{{< /highlight >}}
 
-[1]:  /enterprise
+[1]:  /sensu-enterprise
 [2]:  https://www.graylog.org/
 [3]:  http://docs.graylog.org/en/2.0/pages/sending_data.html#raw-plaintext-inputs
 [4]:  http://docs.graylog.org/en/2.0/pages/extractors.html?highlight=json%20extractor#using-the-json-extractor

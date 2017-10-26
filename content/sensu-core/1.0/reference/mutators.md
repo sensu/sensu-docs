@@ -11,7 +11,7 @@ menu:
 
 ## Reference documentation
 
-- [What is a Sensu mutator?](#what-is-a-sensu-mutator)
+- [What is a Sensu mutator?](#what-are-sensu-mutators)
   - [The Sensu mutator specification](#the-sensu-mutator-specification)
   - [When to use a mutator](#when-to-use-a-mutator)
 - [How do Sensu mutators work?](#how-do-sensu-mutators-work)
@@ -123,7 +123,7 @@ data prior to handling the event.
 
 ### Mutator definition specification
 
-#### Mutator name(s)
+#### Mutator name(s) {#mutator-names}
 
 Each mutator definition has a unique mutator name, used for the definition key.
 Every mutator definition is within the `"mutators": {}` definition scope.
@@ -148,13 +148,13 @@ required     | false
 type         | Integer
 example      | {{< highlight shell >}}"timeout": 30{{< /highlight >}}
 
-[1]:  events.html#event-data
-[2]:  handlers.html
-[3]:  events.html#event-data-specification
-[4]:  server.html
+[1]:  ../events#event-data
+[2]:  ../handlers
+[3]:  ../events#event-data-specification
+[4]:  ../server
 [5]:  #how-and-where-are-mutator-commands-executed
 [6]:  #mutator-definition-specification
-[7]:  plugins.html
-[8]:  handlers.html#handler-definition-specification
-[9]:  events.html
+[7]:  ../plugins
+[8]:  ../handlers#handler-definition-specification
+[9]:  ../events
 [10]: http://ruby-doc.org/core-2.2.0/Regexp.html

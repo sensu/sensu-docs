@@ -43,7 +43,7 @@ menu:
 licensed, advanced key-value cache and store”. Learn more at
 [http://redis.io][1].
 
-## How does Sensu uses Redis
+## How does Sensu uses Redis {#how-does-sensu-use-redis}
 
 Sensu uses Redis as a [data-store][2], for storing monitoring data (e.g. a
 [client registry][3], current check results, current monitoring events, etc).
@@ -61,7 +61,7 @@ Sensu also provides support for using Redis as a [transport][14]. Please see the
 For more information about installing Redis for use with Sensu, please visit the
 [Redis installation guide][6].
 
-## Configure Sensu {#sensu-redis-configuration}
+## Configure Sensu {#configure-sensu}
 
 ### Example configurations {#sensu-redis-configuration-examples}
 
@@ -218,7 +218,7 @@ type         | Integer
 default      | `26379`
 example      | {{< highlight shell >}}"port": 26380{{< /highlight >}}
 
-## Configure Redis
+## Configure Redis {#sensu-redis-configuration}
 
 Please note the following configuration and tuning references for setting up
 Redis with Sensu.
@@ -255,7 +255,7 @@ bind 0.0.0.0
 
 ### High-availability configuration {#redis-high-availability-configuration}
 
-#### What is Redis master-slave replication?
+#### What is Redis master-slave replication? {#what-is-redis-master-slave-replication}
 
 Redis supports asynchronous master-slave replication which allows one or more
 Redis servers to be exact copies of a "master" Redis server. Configuration of
@@ -314,7 +314,7 @@ provide the Redis services. For Redis installation instructions, please refer to
 the [Sensu Redis installation guide][11]. Once Redis has been installed and
 started, you may proceed to configure Redis master-slave replication.
 
-#### Redis master-slave configuration
+#### Redis master-slave configuration {#redis-master-slave-configuration}
 
 ##### Configure the Redis master
 
@@ -497,7 +497,7 @@ master0:name=mymaster,status=ok,address=10.0.0.214:6379,slaves=1,sentinels=3
 ...
 {{< /highlight >}}
 
-#### Configuring Sensu for Redis Sentinel
+#### Configuring Sensu for Redis Sentinel {#configure-sensu-to-use-redis-sentinel}
 
 Once Redis master-slave replication and Redis Sentinels have been configured,
 it's time to configure Sensu. To configure the Sensu services that communicate
@@ -546,18 +546,18 @@ documentation](http://redis.io/topics/security).
 
 
 [1]:  http://redis.io/
-[2]:  data-store.html
-[3]:  clients.html#registration-and-registry
-[4]:  server.html
-[5]:  ../api/overview.html
-[6]:  ../installation/install-redis.html
+[2]:  ../data-store
+[3]:  ../clients#registration-and-registry
+[4]:  ../server
+[5]:  ../../api/overview
+[6]:  ../../installation/install-redis
 [7]:  http://redis.io/topics/config
 [8]:  http://redis.io/topics/replication
 [9]:  http://redis.io/topics/sentinel
 [10]: http://redis.io/topics/benchmarks
-[11]: ../installation/install-redis.html
+[11]: ../../installation/install-redis
 [12]: #what-is-redis-master-slave-replication
 [13]: #what-is-redis-sentinel
-[14]: transport.html
-[15]: transport.html#transport-configuration
+[14]: ../transport
+[15]: ../transport#transport-configuration
 [16]: http://redis.io/topics/sentinel#a-quick-tutorial

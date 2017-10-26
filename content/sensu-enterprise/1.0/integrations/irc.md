@@ -22,7 +22,7 @@ Send notifications to an Internet Relay Chat (IRC) channel for events.
 
 ## Configuration
 
-### Example(s)
+### Example(s) {#examples}
 
 The following is an example global configuration for the `irc` enterprise event
 handler (integration).
@@ -94,5 +94,5 @@ example      | {{< highlight shell >}}"timeout": 30{{< /highlight >}}
 
 
 [?]:  #
-[1]:  /enterprise
-[2]:  ../../reference/configuration.html#configuration-scopes
+[1]:  /sensu-enterprise
+[2]:  /sensu-core/1.0/reference/configuration#configuration-scopes

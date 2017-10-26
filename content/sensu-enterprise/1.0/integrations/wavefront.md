@@ -30,7 +30,7 @@ Enterprise, please refer to the [Wavefront Proxy setup documentation][5].
 
 ## Configuration
 
-### Example(s)
+### Example(s) {#examples}
 
 The following is an example global configuration for the `wavefront` enterprise
 handler (integration).
@@ -68,8 +68,8 @@ default      | `2878`
 example      | {{< highlight shell >}}"port": 2878{{< /highlight >}}
 
 
-[1]:  /enterprise
+[1]:  /sensu-enterprise
 [2]:  http://www.wavefront.com?ref=sensu-enterprise
-[3]:  ../../reference/configuration.html#configuration-scopes
+[3]:  /sensu-core/1.0/reference/configuration#configuration-scopes
 [4]:  https://community.wavefront.com/docs/DOC-1031
 [5]:  https://community.wavefront.com/docs/DOC-1041

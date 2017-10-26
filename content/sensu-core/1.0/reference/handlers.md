@@ -110,7 +110,7 @@ This allows `command` attributes to use "relative paths" for Sensu plugin
 commands; <br><br>e.g.: `"command": "handler-irc.rb"`_
 
 
-## TCP/UDP handlers
+## TCP/UDP handlers {#tcpudp-handlers}
 
 TCP and UDP handlers enable Sensu to forward event data to arbitrary [TCP or UDP
 sockets][t] for external services to consume (e.g. third-party APIs).
@@ -231,7 +231,7 @@ the email subject `sensu event`. The handler is named `mail`.
 
 ### Handler definition specification
 
-#### Handler name(s)
+#### Handler name(s) {#handler-names}
 
 Each handler definition has a unique handler name, used for the definition key.
 Every handler definition is within the `"handlers": {}` [configuration
@@ -431,19 +431,19 @@ default      | `{}`
 example      | {{< highlight shell >}}"options": {"durable": true}{{< /highlight >}}
 
 [?]:  #
-[1]:  server.html
-[2]:  events.html
-[3]:  checks.html
+[1]:  ../server
+[2]:  ../events
+[3]:  ../checks
 [4]:  https://en.wikipedia.org/wiki/Standard_streams
-[5]:  transport.html
-[6]:  events.html#event-data
+[5]:  ../transport
+[6]:  ../events#event-data
 [7]:  https://en.wikipedia.org/wiki/PATH_(variable)
 [8]:  https://en.wikipedia.org/wiki/Network_socket
-[9]:  configuration.html#configuration-scopes
+[9]:  ../configuration#configuration-scopes
 [10]: http://ruby-doc.org/core-2.2.0/Regexp.html
-[11]: plugins.html
+[11]: ../plugins
 [13]: #socket-attributes
 [14]: #pipe-attributes
 [15]: #handler-names
-[16]: checks#check-definition-specification
+[16]: ../checks#check-definition-specification
 [17]: #handler-sets

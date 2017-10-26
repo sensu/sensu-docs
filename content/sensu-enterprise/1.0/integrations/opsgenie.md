@@ -23,7 +23,7 @@ Create and close [OpsGenie][2] alerts for events.
 
 ## Configuration
 
-### Example(s)
+### Example(s) {#examples}
 
 The following is an example global configuration for the `opsgenie` enterprise
 event handler (integration).
@@ -106,6 +106,6 @@ example      | {{< highlight shell >}}"timeout": 30{{< /highlight >}}
 
 
 [?]:  #
-[1]:  /enterprise
+[1]:  /sensu-enterprise
 [2]:  https://www.opsgenie.com?ref=sensu-enterprise
-[3]:  ../../reference/configuration.html#configuration-scopes
+[3]: /sensu-core/1.0/reference/configuration#configuration-scopes

@@ -19,14 +19,14 @@ menu:
   - [Aggregate definition specification](#aggregate-definition-specification)
     - [Aggregate `check` attributes](#aggregate-check-attributes)
 
-## What is a Sensu named aggregate?
+## What is a Sensu named aggregate? {#what-is-a-check-aggregate}
 
 Sensu named aggregates are collections of [check results][1], accessible via
 the [Aggregates API][2]. Check aggregates make it possible to treat the results
 of multiple disparate check results &ndash; executed across multiple disparate
 systems &ndash; as a single result.
 
-### When should named aggregates be used?
+### When should named aggregates be used? {#when-should-check-aggregates-be-used}
 
 Check aggregates are extremely useful in dynamic environments and/or
 environments that have a reasonable tolerance for failure. Check aggregates
@@ -34,7 +34,7 @@ should be used when a service can be considered healthy as long as a minimum
 threshold is satisfied (e.g. are at least 5 healthy web servers? are at least
 70% of N processes healthy?).
 
-## How do named aggregates work?
+## How do named aggregates work? {#how-do-check-aggregates-work}
 
 Check results are included in an aggregate when a check definition includes the
 [`aggregate` definition attribute][3]. Check results that provide an
@@ -155,12 +155,12 @@ type         | Boolean
 default      | true
 example      | {{< highlight shell >}}"handle": false{{< /highlight >}}_NOTE: although there are cases when it may be helpful to aggregate check results **and** handle individual check results, it is typically recommended to set `"handle": false` when aggregating check results, as the [purpose of the aggregation][8] should be to act on the state of the aggregated result(s) rather than the individual check result(s)._
 
-[1]:  checks.html#check-results
-[2]:  ../api/aggregates-api.html
-[3]:  checks.html#check-definition-specification
-[4]:  checks.html#check-attributes
-[5]:  checks.html#check-definition-specification
-[6]:  checks.html#check-configuration
-[7]:  checks.html#standalone-checks
+[1]:  ../checks#check-results
+[2]:  ../../api/aggregates
+[3]:  ../checks#check-definition-specification
+[4]:  ../checks#check-attributes
+[5]:  ../checks#check-definition-specification
+[6]:  ../checks#check-configuration
+[7]:  ../checks#standalone-checks
 [8]:  #when-should-check-aggregates-be-used
-[9]:  checks.html#how-are-checks-scheduled
+[9]:  ../checks#how-are-checks-scheduled
