@@ -2,7 +2,7 @@
 title: "GSoC 15"
 date: 2017-10-26T10:58:06-07:00
 description: ""
-weight: 6
+weight: 7
 product: "Plugins"
 version: "2.3"
 menu: "plugins-2.3"

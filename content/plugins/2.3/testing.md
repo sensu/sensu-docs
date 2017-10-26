@@ -2,7 +2,7 @@
 title: "Testing"
 date: 2017-10-26T12:53:47-07:00
 description: ""
-weight: 8
+weight: 9
 product: "Plugins"
 version: "2.3"
 menu: "plugins-2.3"
@@ -86,7 +86,7 @@ bundle install
 {{< /highlight >}}
 
 **Test Commands**
-{{< highlight >}}
+{{< highlight bash>}}
 # Ruby 1.9.3
 rvm use 1.9.3
 bundle exec rake default

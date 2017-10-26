@@ -2,7 +2,7 @@
 title: "Installation"
 date: 2017-10-26T11:06:32-07:00
 description: ""
-weight: 7
+weight: 8
 product: "Plugins"
 version: "2.3"
 menu: "plugins-2.3"
