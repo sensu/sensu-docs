@@ -226,8 +226,8 @@ Core distribution, by [searching RubyGems][11].
 [5]: https://github.com/sensu/sensu-extension
 [6]: https://github.com/sensu-extensions/sensu-extensions-only-check-output/blob/master/lib/sensu/extensions/only-check-output.rb
 [7]: https://github.com/sensu-extensions/sensu-extensions-debug/blob/master/lib/sensu/extensions/debug.rb
-[8]: configuration.html#sensu-service-init-configuration
-[9]: configuration.html#configuration-scopes
+[8]: ../configuration#sensu-service-init-configuration
+[9]: ../configuration#configuration-scopes
 [10]: https://github.com/sensu/sensu-extension/blob/v1.5.0/lib/sensu/extension.rb#L42-L50
 [11]: https://rubygems.org/search?utf8=%E2%9C%93&query=sensu-extensions-
 [12]: https://github.com/sensu-extensions/template

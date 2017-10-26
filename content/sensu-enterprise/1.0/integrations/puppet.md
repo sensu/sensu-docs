@@ -28,7 +28,7 @@ key, and CA can be used.
 
 ## Configuration
 
-### Example(s)
+### Example(s) {#examples}
 
 The following is an example global configuration for the `puppet` enterprise
 handler (integration).
@@ -166,8 +166,8 @@ example             | {{< highlight shell >}}"truststore_password": "secret"{{< 
 
 
 [?]:  #
-[1]:  /enterprise
+[1]:  /sensu-enterprise
 [2]:  https://puppet.com?ref=sensu-enterprise
-[3]:  ../../reference/clients.html#puppet-attributes
-[4]:  ../../reference/events.html#event-data
-[5]:  ../../reference/configuration.html#configuration-scopes
+[3]:  /sensu-core/1.0/reference/clients#puppet-attributes
+[4]:  /sensu-core/1.0/reference/events#event-data
+[5]:  /sensu-core/1.0/reference/configuration#configuration-scopes

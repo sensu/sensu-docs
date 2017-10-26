@@ -27,7 +27,7 @@ describe instances action in a policy, e.g. `ec2:DescribeInstances`.
 
 ## Configuration
 
-### Example(s)
+### Example(s) {#examples}
 
 The following is an example global configuration for the `ec2` enterprise
 handler (integration).
@@ -96,9 +96,9 @@ example      | {{< highlight shell >}}"timeout": 30{{< /highlight >}}
 
 
 [?]:  #
-[1]:  /enterprise
+[1]:  /sensu-enterprise
 [2]:  http://aws.amazon.com?ref=sensu-enterprise
 [3]:  http://aws.amazon.com/iam/
-[4]:  ../../reference/clients.html#ec2-attributes
-[5]:  ../../reference/events.html#event-data
-[6]:  ../../reference/configuration.html#configuration-scopes
+[4]:  /sensu-core/1.0/reference/clients#ec2-attributes
+[5]:  /sensu-core/1.0/reference/events#event-data
+[6]:  /sensu-core/1.0/reference/configuration#configuration-scopes

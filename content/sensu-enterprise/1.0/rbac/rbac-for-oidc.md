@@ -405,10 +405,10 @@ reference, if you followed this guide, the `clientId` should be
 [generated a secret][6] earlier.
 
 [?]:  #
-[0]:  overview.html
+[0]:  ../overview
 [1]:  #roles-attributes
-[2]:  overview.html#roles-attributes
-[3]:  /enterprise
+[2]:  ../overview#roles-attributes
+[3]:  /sensu-enterprise
 [4]:  #register-an-oidc-application
 [5]:  #oidc-attributes
 [6]:  #create-the-application

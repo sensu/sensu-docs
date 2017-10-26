@@ -341,25 +341,25 @@ example      | {{< highlight shell >}}"timestamp": 1326390159{{< /highlight >}}
 
 
 
-[1]:  handlers.html
+[1]:  ../handlers
 [2]:  #event-data
-[3]:  checks.html
-[4]:  checks.html#check-results
+[3]:  ../checks
+[4]:  ../checks#check-results
 [5]:  #event-data-specification
 [6]:  https://en.wikipedia.org/wiki/Unix_time
 [7]:  http://ruby-doc.org/stdlib-2.3.0/libdoc/securerandom/rdoc/SecureRandom.html
 [8]:  #check-attributes
 [9]:  #client-attributes
-[10]: checks.html#check-results
-[11]: checks.html#check-definition-specification
-[12]: checks.html#custom-attributes
+[10]: ../checks#check-results
+[11]: ../checks#check-definition-specification
+[12]: ../checks#custom-attributes
 [13]: https://en.wikipedia.org/wiki/Unix_time
-[14]: checks.html#sensu-check-specification
-[15]: clients.html#proxy-clients
-[16]: clients.html#client-socket-input
-[17]: ../api/clients-api.html
-[18]: clients.html#client-definition-specification
-[19]: clients.html#custom-attributes
-[20]: clients.html#client-keepalives
-[21]: ../api/clients-api.html#clients-post
-[22]: clients.html#registration-and-registry
+[14]: ../checks#sensu-check-specification
+[15]: ../clients#proxy-clients
+[16]: ../clients#client-socket-input
+[17]: ../../api/clients
+[18]: ../clients#client-definition-specification
+[19]: ../clients#custom-attributes
+[20]: ../clients#client-keepalives
+[21]: ../../api/clients#clients-post
+[22]: ../clients#registration-and-registry

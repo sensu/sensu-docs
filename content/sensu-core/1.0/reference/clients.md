@@ -27,7 +27,7 @@ menu:
 - [Client socket input](#client-socket-input)
   - [What is the Sensu client socket](#what-is-the-sensu-client-socket)
   - [Example client socket usage](#example-client-socket-usage)
-  - [Client socket configuration](#client-socket-configuration)
+  - [Client socket configuration](#socket-attributes)
 - [Standalone check execution scheduler](#standalone-check-execution-scheduler)
 - [Client configuration](#client-configuration)
   - [Example client definition](#example-client-definition)
@@ -220,7 +220,7 @@ maliciously submitting keepalives or check results using the same client name.
 
 ## Client subscriptions
 
-### What is a client subscription?
+### What is a client subscription? {#what-is-a-sensu-subscription}
 
 Sensu's use of the [publish/subscribe pattern of communication][13] allows for
 automated registration & de-registration of ephemeral systems. At the core of
@@ -1173,53 +1173,53 @@ information for operations teams can be extremely valuable._
 
 
 [?]:  #
-[1]:  ../overview/architecture.html#monitoring-agent
+[1]:  ../../overview/architecture#monitoring-agent
 [2]:  #client-keepalives
 [3]:  #client-subscriptions
-[4]:  checks.html#check-requests
-[5]:  server.html
-[6]:  transport.html
-[7]:  events.html
-[8]:  data-store.html
-[9]:  ../api/clients-api.html
+[4]:  ../checks#check-requests
+[5]:  ../server
+[6]:  ../transport
+[7]:  ../events
+[8]:  ../data-store
+[9]:  ../../api/clients
 [10]: #what-is-a-client-keepalive
-[11]: events.html#how-are-events-created
+[11]: ../events#how-are-events-created
 [12]: #keepalive-attributes
 [13]: https://en.wikipedia.org/wiki/Publish%E2%80%93subscribe_pattern
-[14]: checks.html#check-definition-specification
+[14]: ../checks#check-definition-specification
 [15]: #client-attributes
 [16]: #socket-attributes
 [17]: http://nc110.sourceforge.net/
 [18]: http://en.wikipedia.org/wiki/Dead_man%27s_switch
-[19]: server.html#check-execution-scheduling
-[20]: checks.html#standalone-checks
-[21]: server.html#check-scheduling-algorithm--synchronization
-[22]: checks.html#subscription-checks
+[19]: ../server#check-execution-scheduling
+[20]: ../checks#standalone-checks
+[21]: ../server#check-scheduling-algorithm--synchronization
+[22]: ../checks#subscription-checks
 [23]: http://www.ntp.org/
-[24]: configuration#configuration-scopes
+[24]: ../configuration#configuration-scopes
 [25]: http://www.json.org/
-[26]: filters.html
-[27]: checks.html#check-token-substitution
-[28]: checks.html#check-results
-[29]: checks.html#custom-attributes
-[30]: handlers.html
+[26]: ../filters
+[27]: ../checks#check-token-substitution
+[28]: ../checks#check-results
+[29]: ../checks#custom-attributes
+[30]: ../handlers
 [31]: #registration-attributes
-[32]: mutators.html
-[33]: changelog#v0-22-0
+[32]: ../mutators
+[33]: ../changelog#v0-22-0
 [34]: https://en.wikipedia.org/wiki/Configuration_management_database
 [35]: http://www.servicenow.com/solutions/it-operations-management.html
 [36]: #client-socket-input
 [37]: #registration-and-registry
 [38]: #ec2-attributes
-[39]: ../enterprise/integrations/ec2.html
+[39]: /sensu-enterprise/1.0/integrations/ec2
 [40]: https://sensuapp.org/enterprise
 [41]: #chef-attributes
-[42]: ../enterprise/integrations/chef.html
+[42]: /sensu-enterprise/1.0/integrations/chef
 [43]: #puppet-attributes
-[44]: ../enterprise/integrations/puppet.html
+[44]: /sensu-enterprise/1.0/integrations/puppet
 [45]: #servicenow-attributes
-[46]: ../enterprise/integrations/servicenow.html
+[46]: /sensu-enterprise/1.0/integrations/servicenow
 [47]: http://wiki.servicenow.com/index.php?title=Introduction_to_Assets_and_Configuration
 [48]: #deregistration-attributes
-[49]: ../api/checks-api.html#the-request-api-endpoint
+[49]: ../../api/checks#the-request-api-endpoint
 [50]: #http-socket-attributes

@@ -103,7 +103,7 @@ commands; <br><br>e.g.: `"command": "check-http.rb -u https://sensuapp.org"`_
 ### How are checks scheduled?
 
 Sensu offers two distinct check execution schedulers: the [Sensu
-server](server), and the [Sensu client][10] (monitoring agent).
+server](../server), and the [Sensu client][10] (monitoring agent).
 The Sensu server schedules and publishes check execution requests to client
 subscriptions via a [Publish/Subscribe model][11] (i.e. [subscription
 checks](#subscription-checks)). The Sensu client (monitoring agent) schedules and
@@ -275,7 +275,7 @@ definition attributes][16] can be accessed via "dot notation" (e.g.
 - `:::disk.warning:::` would be replaced with a [custom attribute][24] called
   `warning` nested inside of a JSON hash called `disk`
 
-#### Token substitution default values
+#### Token substitution default values {check-token-default-values}
 
 Check token default values can be used as a fallback in the event that an
 attribute is not provided by the [client definition][16]. Check token default
@@ -737,22 +737,22 @@ example      | {{< highlight shell >}}"output": "i-424242"{{< /highlight >}}
 
 
 [?]:  #
-[1]:  clients.html
+[1]:  ../clients
 [2]:  https://en.wikipedia.org/wiki/Standard_streams
 [3]:  https://www.nagios.org/
 [4]:  #check-results
-[5]:  ../overview/architecture.html#event-processor
-[6]:  server.html
+[5]:  ../../overview/architecture#event-processor
+[6]:  ../server
 [7]:  #check-configuration
-[8]:  plugins.html#check-plugins
+[8]:  ../plugins#check-plugins
 [9]:  https://en.wikipedia.org/wiki/PATH_(variable)
-[10]: clients.html#standalone-check-execution-scheduler
+[10]: ../clients#standalone-check-execution-scheduler
 [11]: https://en.wikipedia.org/wiki/Publish%E2%80%93subscribe_pattern
 [12]: #standalone-checks
-[13]: transport.html
+[13]: ../transport
 [14]: https://en.wikipedia.org/wiki/Publish%E2%80%93subscribe_pattern#Message_filtering
-[15]: clients.html#client-subscriptions
-[16]: clients.html#client-definition-specification
+[15]: ../clients#client-subscriptions
+[16]: ../clients#client-definition-specification
 [17]: #check-definition-specification
 [18]: http://www.ntp.org/
 [19]: #subscription-checks
@@ -760,30 +760,30 @@ example      | {{< highlight shell >}}"output": "i-424242"{{< /highlight >}}
 [21]: #custom-attributes
 [22]: #check-commands
 [23]: #check-command-arguments
-[24]: clients.html#custom-attributes
+[24]: ../clients#custom-attributes
 [25]: #check-token-default-values
-[26]: clients.html#client-attributes
-[27]: plugins.html
+[26]: ../clients#client-attributes
+[27]: ../plugins
 [28]: https://github.com/sensu-plugins/sensu-plugins-http
-[29]: configuration.html#configuration-scopes
+[29]: ../configuration#configuration-scopes
 [30]: http://ruby-doc.org/core-2.2.0/Regexp.html
 [31]: https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/3/en/flapping.html
-[32]: clients.html#proxy-clients
-[33]: ../api/aggregates-api.html
-[34]: events.html
-[35]: handlers.html
-[36]: ../enterprise/contact-routing.html
+[32]: ../clients#proxy-clients
+[33]: ../../api/aggregates
+[34]: ../events
+[35]: ../handlers
+[36]: /sensu-enterprise/1.0/contact-routing
 [37]: #example-check-result-output
 [38]: #check-result-specification
-[39]: ../api/clients-api.html
-[40]: events.html#event-data
+[39]: ../../api/clients
+[40]: ../events#event-data
 [41]: #check-names
 [42]: #subdue-attributes
-[43]: /docs/0.24/overview/changelog.html
-[44]: ../enterprise/contact-routing.html
-[45]: ../api/events-api.html#the-resolve-api-endpoint
-[46]: clients.html#client-socket-input
+[43]: ../../../0.24/overview/changelog.html
+[44]: /sensu-enterprise/1.0/contact-routing
+[45]: ../../api/events#the-resolve-api-endpoint
+[46]: ../clients#client-socket-input
 [47]: https://en.wikipedia.org/wiki/Cron#CRON_expression
 [48]: #proxy-requests-attributes
-[49]: ../guides/getting-started/intro-to-checks.html#proxy-clients
-[50]: ../guides/getting-started/adding-a-client.html#proxy-clients
+[49]: ../../guides/getting-started/intro-to-checks#proxy-clients
+[50]: ../../guides/getting-started/adding-a-client#proxy-clients

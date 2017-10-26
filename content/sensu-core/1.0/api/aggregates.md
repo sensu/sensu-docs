@@ -24,7 +24,7 @@ menu:
   - [`/aggregates/:name/results/:severity` (GET)](#aggregatesnameresultsseverity-get)
 
 
-## The `/aggregates` API endpoint
+## The `/aggregates` API endpoint {#the-aggregates-api-endpoint}
 
 The `/aggregates` API endpoint provides HTTP GET access to [named aggregate
 data][1].
@@ -61,12 +61,12 @@ output            | {{< highlight json >}}[
 ]
 {{< /highlight >}}
 
-## The `/aggregates/:name` API endpoints
+## The `/aggregates/:name` API endpoints {#the-aggregatesname-api-endpoints}
 
 The `/aggregates/:name` API endpoints provide HTTP GET and HTTP DELETE access
 to [check aggregate data][1] for a named aggregate.
 
-### `/aggregates/:name` (GET)
+### `/aggregates/:name` (GET) {#aggregatesname-get}
 
 #### EXAMPLES {#aggregatesname-get-examples}
 
@@ -112,7 +112,7 @@ output                  | {{< highlight json >}}{
 }
 {{< /highlight >}}
 
-### `/aggregates/:name` (DELETE)
+### `/aggregates/:name` (DELETE) {#aggregatesname-delete}
 
 #### EXAMPLES {#aggregatesname-delete-examples}
 
@@ -148,12 +148,12 @@ Connection: close
 Server: thin
 {{< /highlight >}}
 
-## The `/aggregates/:name/clients` API endpoint
+## The `/aggregates/:name/clients` API endpoint {#the-aggregatesnameclients-api-endpoint}
 
 The `/aggregates/:name/clients` API endpoint provides HTTP GET access to the
 Sensu client members of a [named aggregate][1].
 
-### `/aggregates/:name/clients` (GET)
+### `/aggregates/:name/clients` (GET) {#aggregatesnameclients-get}
 
 #### EXAMPLES {#aggregatesnameclients-get-examples}
 
@@ -204,12 +204,12 @@ output                          | {{< highlight json >}}[
 ]
 {{< /highlight >}}
 
-## The `/aggregates/:name/checks` API endpoint
+## The `/aggregates/:name/checks` API endpoint {#the-aggregatesnamechecks-api-endpoint}
 
 The `/aggregates/:name/checks` API endpoint provides HTTP GET access to the
 Sensu check members of a [named aggregate][1].
 
-### `/aggregates/:name/checks` (GET)
+### `/aggregates/:name/checks` (GET) {#aggregatesnamechecks-get}
 
 #### EXAMPLES {#aggregatesnamechecks-get-examples}
 
@@ -260,12 +260,12 @@ output                         | {{< highlight json >}}[
 ]
 {{< /highlight >}}
 
-## The `/aggregates/:name/results/:severity` API endpoint
+## The `/aggregates/:name/results/:severity` API endpoint {#the-aggregatesnameresultsseverity-api-endpoint}
 
 The `/aggregates/:name/results/:severity` API endpoint provides HTTP GET access
 to check result members of a [named aggregate][1], by severity.
 
-### `/aggregates/:name/results/:severity` (GET)
+### `/aggregates/:name/results/:severity` (GET) {#aggregatesnameresultsseverity-get}
 
 #### EXAMPLES {#aggregatesnameresultsseverity-get-examples}
 
@@ -312,6 +312,6 @@ output                                    | {{< highlight json >}}[
 ]
 {{< /highlight >}}
 
-[1]:  ../reference/aggregates.html
+[1]:  ../../reference/aggregates
 [2]:  https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
 [3]:  https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html

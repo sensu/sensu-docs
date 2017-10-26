@@ -75,13 +75,13 @@ allowed values | `influxdb_line`, `graphite_plaintext`, `nagios_perfdata`, `open
 default        | `graphite_plaintext`
 example        | {{< highlight shell >}}"output_format": "graphite_plaintext"{{< /highlight >}}
 
-[0]:  /enterprise
-[1]:  ../reference/mutators.html
+[0]:  /sensu-enterprise
+[1]:  /sensu-core/1.0/reference/mutators
 [2]:  #sensu-metric-format
 [3]:  http://graphite.readthedocs.org/en/latest/feeding-carbon.html#the-plaintext-protocol
 [4]:  http://nagios.sourceforge.net/docs/3_0/perfdata.html
 [5]:  http://opentsdb.net/docs/build/html/user_guide/writing.html
-[6]:  http://metrics20.org/spec/#wire_format
+[6]:  http://metrics20.org/spec/
 [7]:  https://github.com/opower/sensu-metrics-relay#json-metric-format
 [8]:  https://docs.influxdata.com/influxdb/v1.1/write_protocols/line_protocol_tutorial/
 [9]:  https://community.wavefront.com/docs/DOC-1031

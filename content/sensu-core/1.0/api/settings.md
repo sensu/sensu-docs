@@ -13,7 +13,7 @@ menu:
 - [The `/settings` API endpoint](#the-settings-endpoint)
   - [`/settings` (GET)](#settings-get)
 
-## The `/settings` API endpoint
+## The `/settings` API endpoint {#the-settings-endpoint}
 
 ### `/settings` (GET)
 

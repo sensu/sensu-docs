@@ -21,15 +21,15 @@ willingness to Google) industry standard RESTful API behaviors &ndash; including
 
 ## Reference documentation
 
-- [Clients API](clients-api.html)
-- [Checks API](checks-api.html)
-- [Results API](results-api.html)
-- [Aggregates API](aggregates-api.html)
-- [Events API](events-api.html)
-- [Stashes API](stashes-api.html)
-- [Health & Info API](health-and-info-api.html)
-- [Settings API](settings-api.html)
-- [API configuration](configuration.html)
+- [Clients API](../clients)
+- [Checks API](../checks)
+- [Results API](../results)
+- [Aggregates API](../aggregates)
+- [Events API](../events)
+- [Stashes API](../stashes)
+- [Health & Info API](../health-and-info)
+- [Settings API](../settings)
+- [API configuration](../configuration)
 
 ## Response Content Filtering
 
@@ -43,9 +43,9 @@ content filter attributes. Multiple attributes may be specified for a
 request, e.g.
 `/events?filter.client.environment=production&filter.check.contact=ops`.
 
-[1]:  ../reference/clients.html#registration-and-registry
-[2]:  ../reference/checks.html#check-results
-[3]:  ../reference/events.html#event-data
+[1]:  ../../reference/clients#registration-and-registry
+[2]:  ../../reference/checks#check-results
+[3]:  ../../reference/events#event-data
 [4]:  http://www.json.org/
 [5]:  https://en.wikipedia.org/wiki/Representational_state_transfer
 [6]:  https://en.wikipedia.org/wiki/List_of_HTTP_status_codes

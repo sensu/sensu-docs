@@ -24,7 +24,7 @@ provided webhook url.
 
 ## Configuration
 
-### Example(s)
+### Example(s) {#examples}
 
 The following is an example global configuration for the `slack` enterprise
 event handler (integration).
@@ -89,7 +89,7 @@ example      | {{< highlight shell >}}"timeout": 30{{< /highlight >}}
 
 
 [?]:  #
-[1]:  /enterprise
+[1]:  /sensu-enterprise
 [2]:  https://slack.com?ref=sensu-enterprise
 [3]:  https://api.slack.com/incoming-webhooks?ref=sensu-enterprise
-[4]:  ../../reference/configuration.html#configuration-scopes
+[4]:  /sensu-core/1.0/reference/configuration#configuration-scopes

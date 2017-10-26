@@ -56,7 +56,7 @@ attributes `"standalone": true` or `"publish": false` &ndash; and
 calculating when executions should occur based on their defined
 `interval`s.
 
-### Check scheduling algorithm & synchronization
+### Check scheduling algorithm & synchronization {#check-scheduling-algorithm--synchronization}
 
 Sensu uses an internal algorithm for determining a unique "cadence" for Sensu
 checks, which uniqueness is based on the check name and `interval`. This
@@ -90,8 +90,8 @@ The event processing workflow happens in the following order:
 > **Event** -> **Filter** -> **Mutator** -> **Handler**
 
 _NOTE: events that are filtered out (i.e. removed) by Sensu [event
-filters](filters) will not continue to be mutated by [event data
-mutators](mutators) or [event handlers](handlers)._
+filters](../filters) will not continue to be mutated by [event data
+mutators](../mutators) or [event handlers](../handlers)._
 
 Sensu's event processing capabilities can be distributed among multiple Sensu
 servers in a Sensu cluster. For more information on configuring a Sensu cluster,
@@ -145,25 +145,25 @@ tasks, see [API /info][23].
 Coming soon...
 
 
-[1]:  checks.html#check-requests
-[2]:  clients.html#client-subscriptions
-[3]:  checks.html#pubsub-checks
-[4]:  ../overview/architecture.html#event-processor
+[1]:  ../checks#check-requests
+[2]:  ../clients#client-subscriptions
+[3]:  ../checks#pubsub-checks
+[4]:  ../../overview/architecture#event-processor
 [5]:  https://sensuapp.org/
 [6]:  https://sensuapp.org/enterprise
 [7]:  https://sensuapp.org/#compare
 [8]:  #automated-task-election
-[9]:  checks.html#check-results
-[10]: filters.html
-[11]: mutators.html
-[12]: handlers.html
+[9]:  ../checks#check-results
+[10]: ../filters
+[11]: ../mutators
+[12]: ../handlers
 [13]: #scaling-sensu
 [14]: https://en.wikipedia.org/wiki/Scalability#Horizontal_and_vertical_scaling
-[15]: transport.html
-[16]: data-store.html
+[15]: ../transport
+[16]: ../data-store
 [18]: #check-execution-scheduling
-[19]: clients.html#registration-and-registry
-[20]: clients.html#keepalive-events
-[21]: checks.html#check-ttls
-[22]: checks.html#standalone-checks
-[23]: api/health-and-info-api.md
+[19]: ../clients#registration-and-registry
+[20]: ../clients#keepalive-events
+[21]: ../checks#check-ttls
+[22]: ../checks#standalone-checks
+[23]: ../../api/health-and-info

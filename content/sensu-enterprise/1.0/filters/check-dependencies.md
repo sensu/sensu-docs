@@ -30,7 +30,7 @@ an array of checks (e.g. `check_app`) or Sensu client/check pairs (e.g.
 
 ## Configuration
 
-### Example(s)
+### Example(s) {#examples}
 
 The following is an example of how to configure a check dependency for a check.
 The example check monitors a web application API and has a dependency on another
@@ -107,5 +107,5 @@ example      | {{< highlight shell >}}"dependencies": [
 {{< /highlight >}}
 
 [?]:  #
-[0]:  /enterprise
-[1]:  ../reference/configuration.html#configuration-scopes
+[0]:  /sensu-enterprise
+[1]:  /sensu-core/1.0/reference/configuration#configuration-scopes

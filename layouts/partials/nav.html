@@ -44,14 +44,14 @@
                   <!-- Loop through the child menu's pages -->
                   {{ range .Children.ByWeight }}
                     {{ if not (eq (lower .Parent) (lower .Name)) }}
-                      <li><a class="menu-child" href="/{{ .URL | absURL }}">{{ .Name }}</a></li>
+                      <li><a class="menu-child" href="{{ .URL | absURL }}">{{ .Name }}</a></li>
                     {{ end }}
                   {{ end }}
                 </ul>
               {{ end }}
             <!-- No children, render page normally -->
             {{ else }}
-              <li><a class="menu-child" href="/{{ .URL | absURL }}">{{ $x.Name }}</a>
+              <li><a class="menu-child" href="{{ .URL | absURL }}">{{ $x.Name }}</a>
             {{ end }}
             </li>
           {{ end }}

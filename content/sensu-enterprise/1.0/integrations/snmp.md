@@ -46,7 +46,7 @@ SNMPv2 MIBs:
 
 ## Configuration
 
-### Example(s)
+### Example(s) {#examples}
 
 The following is an example global configuration for the `snmp` enterprise event
 handler (integration).
@@ -103,5 +103,5 @@ default      | `100`
 example      | {{< highlight shell >}}"varbind_trim": 300{{< /highlight >}}
 
 [?]:  #
-[1]:  /enterprise
-[2]:  ../../reference/configuration.html#configuration-scopes
+[1]:  /sensu-enterprise
+[2]:  /sensu-core/1.0/reference/configuration#configuration-scopes

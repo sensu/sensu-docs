@@ -142,12 +142,12 @@ payload         | {{< highlight shell >}}{
 {{< /highlight >}}
 response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
-## The `/clients/:client` API Endpoint(s)
+## The `/clients/:client` API Endpoint(s) {#the-clientsclient-api-endpoints}
 
 The `/clients/:client` API endpoint provides read and delete access to specific
 Sensu client data in the [Sensu client registry][1], by client `name`.
 
-### `/clients/:client` (GET)
+### `/clients/:client` (GET) {#clientsclient-get}
 
 The `/clients/:client` endpoint provides HTTP GET access to specific client
 definitions in the [client registry][1] as published via [client keepalives][2],
@@ -215,7 +215,7 @@ output                 | {{< highlight shell >}}{
 }
 {{< /highlight >}}
 
-### `/clients/:client` (DELETE)
+### `/clients/:client` (DELETE) {#clientsclient-delete}
 
 The `/clients/:client` endpoint provides HTTP DELETE access to specific client
 definitions in the [client registry][1].
@@ -269,16 +269,16 @@ example url               | http://hostname:4567/clients/i-424242
 parameters                | <ul><li>`invalidate`<ul><li>**required**: false</li><li>**type**: Boolean</li><li>**description**: If the Sensu client should be invalidated, disallowing further client keepalives and check results until the client is successfully removed from the client registry.</li><li>**example**: `http://hostname:4567/clients/i-424242?invalidate=true`</li></ul><li>`invalidate_expire`<ul><li>**required**: false</li><li>**type**: Integer</li><li>**description**: If the Sensu client should be invalidated for a specified amount of time (in seconds), disallowing further client keepalives and check results even after the client is successfully removed from the client registry.</li><li>**example**: `http://hostname:4567/clients/i-424242?invalidate=true&invalidate_expire=3600`</li></ul></li></ul>
 response codes            | <ul><li>**Success**: 202 (Accepted)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
-## The `/clients/:client/history` API Endpoint(s)
+## The `/clients/:client/history` API Endpoint(s) {#the-clientsclienthistory-api-endpoints}
 
 The `/clients/:client/history` API is being deprecated in favor of the [Sensu
 Results API][6]. This API predates the `/results` APIs and provides less
 functionality than the newer alternative.
 
-[1]:  ../reference/clients.html#registration-and-registry
-[2]:  ../reference/clients.html#client-keepalives
-[3]:  ../reference/clients.html#proxy-clients
+[1]:  ../../reference/clients#registration-and-registry
+[2]:  ../../reference/clients#client-keepalives
+[3]:  ../../reference/clients#proxy-clients
 [4]:  #clients-post
 [5]:  https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
-[6]:  results-api.html
+[6]:  ../results
 [7]:  #clients-get-specification

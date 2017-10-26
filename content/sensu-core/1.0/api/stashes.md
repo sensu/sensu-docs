@@ -127,13 +127,13 @@ payload         | {{< highlight json >}}{
 {{< /highlight >}}
 response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
-## The `/stashes/:path` API endpoints
+## The `/stashes/:path` API endpoints {#the-stashespath-api-endpoints}
 
 The `/stashes/:path` API endpoint provides HTTP GET, HTTP POST, and HTTP DELETE
 access to [Sensu stash data][3] for specified `:path`s (i.e. "keys") via the
 [Sensu key/value store][4].
 
-### `/stashes/:path` (GET)
+### `/stashes/:path` (GET) {#stashespath-get}
 
 #### EXAMPLES {#stashespath-get-examples}
 
@@ -165,7 +165,7 @@ output               | {{< highlight json >}}{
 }
 {{< /highlight >}}_NOTE: the `/stashes/:path` API endpoint provides [direct access to stash `content` data][7], so only [stash `content` attributes][8] are provided for `/stashes/:path` API queries (not [complete stash definitions][9])._
 
-### `/stashes/:path` (POST)
+### `/stashes/:path` (POST) {#stashespath-post}
 
 #### EXAMPLES {#stashespath-post-examples}
 
@@ -219,7 +219,7 @@ Server: thin
 {"path":"my/example/path"}
 {{< /highlight >}}
 
-### `/stashes/:path` (DELETE)
+### `/stashes/:path` (DELETE) {#stashespath-delete}
 
 #### EXAMPLES {#stashespath-delete-examples}
 
@@ -256,12 +256,12 @@ Server: thin
 {{< /highlight >}}
 
 [1]:  https://en.wikipedia.org/wiki/Key-value_database
-[2]:  ../reference/events.html
-[3]:  ../reference/stashes.html#what-is-a-sensu-stash
-[4]:  ../reference/stashes.html#the-sensu-keyvalue-store
+[2]:  ../../reference/events
+[3]:  ../../reference/stashes#what-is-a-sensu-stash
+[4]:  ../../reference/stashes#the-sensu-keyvalue-store
 [5]:  https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
 [6]:  #stashes-get
-[7]:  ../reference/stashes.html#direct-access-to-stash-content-data
-[8]:  ../reference/stashes.html#content-attributes
-[9]:  ../reference/stashes.html#stash-definition-specification
+[7]:  ../../reference/stashes#direct-access-to-stash-content-data
+[8]:  ../../reference/stashes#content-attributes
+[9]:  ../../reference/stashes#stash-definition-specification
 [10]: https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html

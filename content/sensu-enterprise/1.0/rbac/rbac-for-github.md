@@ -162,10 +162,10 @@ register an OAuth application for Sensu Enterprise:
 
 
 [?]:  #
-[0]:  overview.html
+[0]:  ../overview
 [1]:  https://github.com
 [2]:  https://enterprise.github.com/home
 [3]:  #register-an-oauth-application-in-github
 [4]:  #roles-attributes
-[5]:  overview.html#roles-attributes
-[6]:  /enterprise
+[5]:  ../overview#roles-attributes
+[6]:  /sensu-enterprise

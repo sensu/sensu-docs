@@ -31,5 +31,5 @@ use the term "data store" in the Sensu documentation as an abstraction for the
 functions currently provided by Redis._
 
 
-[1]:  redis.html
-[2]:  transport.html
+[1]:  ../redis
+[2]:  ../transport

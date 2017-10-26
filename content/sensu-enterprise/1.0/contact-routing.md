@@ -166,10 +166,10 @@ configuration:
 {{< /highlight >}}
 
 [?]:  #
-[1]:  built-in-handlers.html
-[2]:  ../reference/configuration.html#configuration-scopes
+[1]:  ../built-in-handlers
+[2]:  /sensu-core/1.0/reference/configuration#configuration-scopes
 [3]:  #contact-names
-[4]:  integrations/email.html
-[5]:  integrations/slack.html
-[6]:  integrations/pagerduty.html
-[7]:  integrations/servicenow.html
+[4]:  ../integrations/email
+[5]:  ../integrations/slack
+[6]:  ../integrations/pagerduty
+[7]:  ../integrations/servicenow

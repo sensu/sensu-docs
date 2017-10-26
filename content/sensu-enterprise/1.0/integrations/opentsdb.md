@@ -24,7 +24,7 @@ handler uses the `output_format`mutator.
 
 ## Configuration
 
-### Example(s)
+### Example(s) {#examples}
 
 The following is an example global configuration for the `opentsdb` enterprise
 handler (integration).
@@ -85,6 +85,6 @@ required     | false
 type         | String
 example      | {{< highlight shell >}}"prefix": "production"{{< /highlight >}}
 
-[1]:  /enterprise
+[1]:  /sensu-enterprise
 [2]:  http://opentsdb.net?ref=sensu-enterprise
-[3]:  ../../reference/configuration.html#configuration-scopes
+[3]:  /sensu-core/1.0/reference/configuration#configuration-scopes

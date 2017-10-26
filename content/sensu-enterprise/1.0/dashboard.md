@@ -97,7 +97,7 @@ Enterprise Dashboard configuration.
 _NOTE: the Sensu Enterprise Dashboard requires two configuration scopes: `sensu`
 and `dashboard` (see [Dashboard definition specification][8], below)._
 
-### Dashboard definition specification
+### Dashboard definition specification {#dashboard-configuration-attributes}
 
 The Sensu Enterprise dashboard uses two [configuration scopes][9]: the
 `{ "sensu": {} }` configuration scope provides connection details for one or
@@ -109,7 +109,7 @@ _NOTE: by default, the Sensu Enterprise Dashboard will load configuration from
 `/etc/sensu/dashboard.d/**.json`, with the same configuration merging behavior
 as described [here][10]._
 
-#### `sensu` attributes
+#### `sensu` attributes {#sensu-attributes}
 
 name         | 
 -------------|------
@@ -179,7 +179,7 @@ required     | false
 type         | String
 example      | {{< highlight shell >}}"pass": "my_sensu_api_password"{{< /highlight >}}
 
-#### `dashboard` attributes
+#### `dashboard` attributes {#dashboard-attributes}
 
 host         | 
 -------------|------
@@ -461,19 +461,19 @@ to configure the dashboard for RBAC with OpenID Connect (OIDC).
 [?]:  #
 [1]:  #what-is-a-sensu-datacenter
 [2]:  http://www.uchiwa.io
-[3]:  rbac/overview.html
-[4]:  rbac/rbac-for-ldap.html
-[5]:  rbac/rbac-for-github.html
-[6]:  rbac/rbac-for-gitlab.html
-[7]:  rbac/audit-logging.html
+[3]:  ../rbac/overview
+[4]:  ../rbac/rbac-for-ldap
+[5]:  ../rbac/rbac-for-github
+[6]:  ../rbac/rbac-for-gitlab
+[7]:  ../rbac/audit-logging
 [8]:  #dashboard-definition-specification
-[9]:  ../reference/configuration.html#configuration-scopes
-[10]: ../reference/configuration.html#configuration-merging
+[9]:  /sensu-core/1.0/reference/configuration#configuration-scopes
+[10]: /sensu-core/1.0/reference/configuration#configuration-merging
 [11]: #auth-attributes
 [12]: #audit-attributes
 [13]: #ldap-attributes
 [14]: #github-attributes
 [15]: #gitlab-attributes
-[16]: rbac/overview.html#rbac-for-the-sensu-enterprise-console-api
-[17]: rbac/rbac-for-oidc.html
+[16]: ../rbac/overview#rbac-for-the-sensu-enterprise-console-api
+[17]: ../rbac/rbac-for-oidc
 [18]: #oidc-attributes

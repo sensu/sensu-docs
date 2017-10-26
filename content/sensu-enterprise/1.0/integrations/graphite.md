@@ -26,7 +26,7 @@ Hosted Graphite API key. This handler uses the `output_format` mutator.
 
 ## Configuration
 
-### Example(s)
+### Example(s) {#examples}
 
 The following is an example global configuration for the `graphite` enterprise
 handler (integration).
@@ -82,7 +82,7 @@ example      | {{< highlight shell >}}"prefix": "production"{{< /highlight >}}
 
 
 [?]:  #
-[1]:  /enterprise
+[1]:  /sensu-enterprise
 [2]:  http://graphite.wikidot.com?ref=sensu-enterprise
 [3]:  https://www.hostedgraphite.com?ref=sensu-enterprise
-[4]:  ../../reference/configuration.html#configuration-scopes
+[4]:  /sensu-core/1.0/reference/configuration#configuration-scopes

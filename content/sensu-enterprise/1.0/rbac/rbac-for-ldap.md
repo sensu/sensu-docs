@@ -264,10 +264,10 @@ Please see the [RBAC definition specification][4] for information on how to
 configure RBAC roles.
 
 [?]:  #
-[0]:  overview.html
+[0]:  ../overview
 [1]:  https://msdn.microsoft.com/en-us/library/aa362244(v=vs.85).aspx
 [2]:  http://www.openldap.org/
 [3]:  #roles-attributes
-[4]:  overview.html#roles-attributes
-[5]:  /enterprise
+[4]:  ../overview#roles-attributes
+[5]:  /sensu-enterprise
 [6]:  #servers-attributes

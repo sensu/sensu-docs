@@ -19,7 +19,7 @@ menu:
   - [`/results/:client/:check` (GET)](#resultsclientcheck-get)
   - [`/results/:client/:check` (DELETE)](#resultsclientcheck-delete)
 
-## The `/results` API endpoint
+## The `/results` API endpoint {#the-results-api-endpoint}
 
 The `/results` API endpoint provides HTTP GET and HTTP POST access to current
 [check result data][1].
@@ -158,9 +158,9 @@ output          | {{< highlight shell >}}HTTP/1.1 202 Accepted
   {"issued":1460326288}
 {{< /highlight >}}
 
-## The `/results/:client` API endpoint
+## The `/results/:client` API endpoint {#the-resultsclient-api-endpoint}
 
-### `/results/:client` (GET)
+### `/results/:client` (GET) {#resultsclient-get}
 
 The `/results/:client` API endpoint provides HTTP GET access to [check result
 data][1] for a specific `:client`.
@@ -236,12 +236,12 @@ output                 | {{< highlight json >}}[
 ]
 {{< /highlight >}}
 
-## The `/results/:client/:check` API endpoints
+## The `/results/:client/:check` API endpoints {#the-resultsclientcheck-api-endpoints}
 
 The `/results/:client/:check` API endpoint provides HTTP GET and HTTP DELETE
 access to [check result data][1] for a named `:client` and `:check`.
 
-### `/results/:client/:check` (GET)
+### `/results/:client/:check` (GET) {#resultsclientcheck-get}
 
 #### EXAMPLES {#resultsclientcheck-get-examples}
 
@@ -296,7 +296,7 @@ output                        | {{< highlight json >}}{
   }
 {{< /highlight >}}
 
-### `/results/:client/:check` (DELETE)
+### `/results/:client/:check` (DELETE) {#resultsclientcheck-delete}
 
 #### EXAMPLES {#resultsclientcheck-delete-examples}
 
@@ -335,8 +335,8 @@ Server: thin
 {{< /highlight >}}
 
 [?]:  #
-[1]:  ../reference/checks.html#check-results
+[1]:  ../../reference/checks#check-results
 [2]:  https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
 [3]:  https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html
-[4]:  ../reference/clients.html#proxy-clients
-[5]:  ../reference/checks.html#check-definition-specification
+[4]:  ../../reference/clients#proxy-clients
+[5]:  ../../reference/checks#check-definition-specification

@@ -29,7 +29,7 @@ integrations][1].
 
 ## Configuration
 
-### Example(s)
+### Example(s) {#examples}
 
 The following is an example of how to configure a check to only notify after 2
 occurrences and send reminder/update notifications every 20 minutes. Sensu
@@ -71,7 +71,7 @@ to a standard Sensu `pipe` handler.
 
 ### Filter specification
 
-#### `handle_when` attributes
+#### `handle_when` attributes {#handlewhen-attributes}
 
 The following attributes are configured within the `{"handle_when": {} }`
 [configuration scope][2].
@@ -93,6 +93,6 @@ default      | `1800`
 example      | {{< highlight shell >}}"reset": 3600{{< /highlight >}}
 
 [?]:  #
-[0]:  /enterprise
-[1]:  ../built-in-handlers.html
-[2]:  ../reference/configuration.html#configuration-scopes
+[0]:  /sensu-enterprise
+[1]:  ../../built-in-handlers
+[2]:  /sensu-core/1.0/reference/configuration#configuration-scopes

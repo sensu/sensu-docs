@@ -140,9 +140,9 @@ output         | {{< highlight json >}}[
 ]
 {{< /highlight >}}
 
-## The `/events/:client` API endpoint
+## The `/events/:client` API endpoint {#the-eventsclient-api-endpoint}
 
-### `/events/:client` (GET)
+### `/events/:client` (GET) {#eventsclient-get}
 
 The `/events/:client` API endpoint provide HTTP GET access to current [event
 data][1] for a specific client in the Sensu event registry, by `:client` name.
@@ -262,12 +262,12 @@ output                | {{< highlight json >}}[
 ]
 {{< /highlight >}}
 
-## The `/events/:client/:check` API endpoints
+## The `/events/:client/:check` API endpoints {#the-eventsclientcheck-api-endpoints}
 
 The `/events/:client/:check` API provides HTTP GET and HTTP DELETE access to
 current [event data][1] for a named `:client` and `:check`.
 
-### `/events/:client/:check` (GET)
+### `/events/:client/:check` (GET) {#eventsclientcheck-get}
 
 #### EXAMPLES {#eventsclientcheck-get-examples}
 
@@ -380,7 +380,7 @@ output                       | {{< highlight json >}}{
 }
 {{< /highlight >}}
 
-### `/events/:client/:check` (DELETE)
+### `/events/:client/:check` (DELETE) {#eventsclientcheck-delete}
 
 #### EXAMPLES {#eventsclientcheck-delete-examples}
 
@@ -480,6 +480,6 @@ payload         | {{< highlight json >}}{
 {{< /highlight >}}
 response codes  | <ul><li>**Success**: 202 (Accepted)</li><li>**Missing**: 404 (Not Found)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
-[1]:  ../reference/events.html#event-data
+[1]:  ../../reference/events#event-data
 [2]:  https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
-[3]:  ../reference/events.html
+[3]:  ../../reference/events

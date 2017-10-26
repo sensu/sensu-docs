@@ -62,7 +62,7 @@ Team Sensu
 
 ## Configuration
 
-### Example(s)
+### Example(s) {#examples}
 
 The following is an example configuration for the `email` enterprise event
 handler (integration).
@@ -265,8 +265,8 @@ example      | {{< highlight shell >}}"body": "/etc/sensu/email/body_template.er
 
 
 [?]:  #
-[1]:  /enterprise
-[2]:  ../../reference/configuration.html#configuration-scopes
+[1]:  /sensu-enterprise
+[2]:  /sensu-core/1.0/reference/configuration#configuration-scopes
 [3]:  #templates-attributes
-[4]:  ../../reference/events.html#event-data
+[4]:  /sensu-core/1.0/reference/events#event-data
 [5]:  https://docs.puppet.com/puppet/latest/lang_template_erb.html

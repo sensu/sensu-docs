@@ -22,7 +22,7 @@ Send metrics to [InfluxDB][2] using the InfluxDB HTTP API.
 
 ## Configuration
 
-### Example(s)
+### Example(s) {#examples}
 
 The following is an example global configuration for the influxdb enterprise
 handler (integration).
@@ -104,6 +104,6 @@ default      | `10`
 example      | {{< highlight shell >}}"timeout": 3{{< /highlight >}}
 
 
-[1]:  /enterprise
+[1]:  /sensu-enterprise
 [2]:  https://influxdata.com?ref=sensu-enterprise
-[3]:  ../../reference/configuration.html#configuration-scopes
+[3]:  /sensu-core/1.0/reference/configuration#configuration-scopes

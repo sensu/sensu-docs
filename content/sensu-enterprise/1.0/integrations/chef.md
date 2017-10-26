@@ -27,7 +27,7 @@ local chef-client configuration can be used as a reference.
 
 ## Configuration
 
-### Example(s)
+### Example(s) {#examples}
 
 The following is an example global configuration for the `chef` enterprise
 handler (integration).
@@ -142,9 +142,9 @@ default      | `10`
 example      | {{< highlight shell >}}"timeout": 30{{< /highlight >}}
 
 [?]:  #
-[1]:  /enterprise
+[1]:  /sensu-enterprise
 [2]:  https://www.chef.io?ref=sensu-enterprise
 [3]:  https://docs.chef.io/nodes.html
-[4]:  ../../reference/clients.html#chef-attributes
-[5]:  ../../reference/events.html#event-data
-[6]:  ../../reference/configuration.html#configuration-scopes
+[4]:  /sensu-core/1.0/reference/clients#chef-attributes
+[5]:  /sensu-core/1.0/reference/events#event-data
+[6]:  /sensu-core/1.0/reference/configuration#configuration-scopes

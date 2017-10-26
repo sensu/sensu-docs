@@ -12,7 +12,7 @@
                             {{ $platform := . }}
                             {{ $title2 := replace $.Title " " "-" }}
                             {{ $title2 := lower $title2 }}
-                            <li class="hiddenItem"><a onClick="setPlatformCookie('{{ $platform }}')" href="/{{ $product }}/{{ $.Params.version }}/{{ $title2 }}">{{ $platform }}</a></li>
+                            <li class="hiddenItem"><a onClick="setPlatformCookie('{{ $platform }}')" href="{{ $.URL }}">{{ $platform }}</a></li>
                         {{ end }}
                     {{ end }}
                 {{end}}

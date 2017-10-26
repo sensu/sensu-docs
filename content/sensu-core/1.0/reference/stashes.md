@@ -33,7 +33,7 @@ crafted stashes. Silencing via stashes is deprecated in favor of new
 native silencing. Please see the [silencing reference documentation][7] for
 more details._
 
-### The Sensu key/value store
+### The Sensu key/value store {#the-sensu-keyvalue-store}
 
 The [Stashes API][1] provides a [key/value store][1] for Sensu, where arbitrary
 JSON data (i.e. the "values") can be created, accessed, and deleted via an
@@ -183,10 +183,10 @@ $ curl -s http://localhost:4567/stashes | jq .
    2.
 
 [?]:  #
-[1]:  ../api/stashes-api.html
+[1]:  ../../api/stashes
 [2]:  #stash-definition-specification
 [3]:  #content-attributes
 [4]:  #the-sensu-keyvalue-store
-[5]:  ../api/stashes-api.html#stashes-post
-[6]:  ../api/stashes-api.html#stashespath-post
-[7]:  silencing.html
+[5]:  ../../api/stashes#stashes-post
+[6]:  ../../api/stashes#stashespath-post
+[7]:  ../silencing
