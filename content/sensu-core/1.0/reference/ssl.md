@@ -15,7 +15,6 @@ menu:
   - [SSL-secured transports](#ssl-secured-transports)
 - [Configuring Sensu + RabbitMQ for SSL encryption](#configuring-sensu-rabbitmq-for-ssl-encryption)
   - [Generate self-signed OpenSSL certificates & CA](#generate-self-signed-openssl-certificates-and-ca)
-  - [Install self-signed SSL certificates](#install-self-signed-ssl-certificates)
   - [Enable RabbitMQ SSL support](#enable-rabbitmq-ssl-support)
   - [Configure Sensu](#configure-sensu)
 - [Known limitations](#known-limitations)
