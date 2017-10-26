@@ -73,6 +73,16 @@ p code, li code, td code, h1 code, h2 code, h3 code, h4 code, h5 code, h6 code {
   margin-bottom: 20px;
 }
 
+.footer {
+  padding-bottom: 20px;
+  color: #eee;
+}
+
+.copyright {
+  margin-bottom: 0;
+  color: #eee;
+}
+
 /* General Site Wide Components ----------------------------------------------------------------- */
 .note {
   margin: 10px 0;
@@ -340,9 +350,13 @@ a .project {
   //font-size: 14px;
   //left: 0;
   padding-left: 80px;
-  //position: absolute;
+  position: fixed;
   margin-left: -120px;
   width: 380px;
+}
+
+nav .scrollable {
+  margin-bottom: 70px;
 }
 
 .project .logo {
