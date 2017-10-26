@@ -331,7 +331,7 @@ a .project {
   //font-size: 14px;
   //left: 0;
   padding-left: 80px;
-  //position: absolute;
+  position: fixed;
   margin-left: -120px;
   width: 380px;
 }
