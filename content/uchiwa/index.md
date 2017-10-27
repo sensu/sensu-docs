@@ -1,10 +1,10 @@
 ---
-title: "What's new?"
-date: 2017-07-20T10:11:25-07:00
-weight: -100
-menu: "uchiwa"
+title: "Uchiwa"
 product: "Uchiwa"
-layout: "index"
 version: "latest"
+weight: 0
+menu: "uchiwa"
+layout: "index"
+weight: -100
 ---
-This is product 2's index page
+
