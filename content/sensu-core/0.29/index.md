@@ -6,7 +6,6 @@ menu: "sensu-0.29"
 version: "0.29"
 product: "Sensu Core"
 tags: ["sensu", "sensu core", "core", "0.29", "index", "versions", "ipsum", "bunny"]
-platform: "General"
 ---
 This is an older version of Sensu.
 
