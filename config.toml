@@ -87,9 +87,9 @@ pygmentsUseClasses=true
         name = "Plugins"
         description = "Plugins to add capabilities to Sensu."
         weight = 5
-        latest = "1.0"
+        latest = "2.3"
         [params.products.plugins.versions]
-            "1.0" = []
+            "2.3" = []
 
     [params.products.extensions]
         identifier = "extensions"

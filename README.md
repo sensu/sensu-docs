@@ -137,7 +137,7 @@ product: "Sensu Core"
 #### Creating Pages
 Now you can run:
 ```
-hugo new sensu-core/getting-started
+hugo new sensu-core/getting-started.md
 ```
 It will generate a new `.md` file in `/content/sensu-core/` with your pre-defined front matter at the top of the file.
 
