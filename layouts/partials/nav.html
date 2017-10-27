@@ -1,9 +1,6 @@
 {{ $currentNode := . }}
 {{ range .Site.Menus.main.ByWeight }}
-    {{ $.Scratch.Set "currentMenuEntry" . }}
-    <li class="nav-title">
-      <a class="menu-title" href="/">Sensu Documentation Home</a>
-    </li>
+  <!-- If we have important things we can put them in the main menu and they'll show up here -->
 {{ end }}
 
 {{ if not .IsHome }}
@@ -21,8 +18,7 @@
       {{ if not (and (in $k "sensu-enterprise-dashboard") (eq $.Section "sensu-enterprise")) }}
         <!-- check if we're looking at the section index, or a sub section -->
         {{ if (in $k $version) }}
-          {{ $niceName := replace $k "-" " " }}
-          {{ $niceName := title $niceName }}
+          {{ $niceName := $.Params.product }}
           <!-- ex. Sensu Core 1.0 -->
           <li><a class="menu-title">{{ $niceName }}</a><ul class="panel">
           <!-- Loop through the menus pages -->
