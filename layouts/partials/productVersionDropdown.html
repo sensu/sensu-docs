@@ -31,7 +31,7 @@
         <div class="hiddenProducts" style="display: none;">
             <ul class="hiddenItems">
                 {{ range sort .Site.Params.Products "weight" }} 
-                    <li class="hiddenItem"><a href="/{{ .identifier }}">{{ .name }}</a></li>
+                    <li class="hiddenItem"><a href="/{{ .identifier }}/{{ .latest }}">{{ .name }}</a></li>
                 {{ end }}
             </ul>
         </div>
