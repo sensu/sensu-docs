@@ -1,4 +1,4 @@
-{{ if not .IsHome }}
+{{ if .Params.platformContent }}
   {{ $product := .Section }}
   {{ $product2 := replace $product "-" "_" }}
   {{ $product_info := (index .Site.Params.products $product2) }}

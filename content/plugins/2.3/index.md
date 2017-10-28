@@ -6,7 +6,6 @@ menu: "plugins-2.3"
 version: "2.3"
 product: "Plugins"
 tags: ["sensu", "plugins", "2.3", "index"]
-platform: "General"
 layout: "index-2"
 ---
 
