@@ -173,7 +173,7 @@ You can also set global site variables inside the `config.toml`. Here's an examp
     latest = "1.0"
     [params.products.sensu_core.versions]
         "1.0" = ["Ubuntu/Debian", "RHEL/CentOS"]
-        "0.29" = ["General"]
+        "0.29" = []
 ```
 
 You can gain access to all the products with `.Site.Params.Products`. You can access a product's attributes like: ` .Site.Params.sensu-core.description`.
