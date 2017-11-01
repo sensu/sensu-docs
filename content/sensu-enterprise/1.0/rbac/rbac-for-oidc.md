@@ -226,7 +226,7 @@ the OAuth 2.0 authorization server to be enabled in PingFederate:
   - `SAML 2.0`
 4. Click `Save`.
 
-![](../../img/enterprise-dashboard-oidc-pingfederate-1.png)
+![](/images/enterprise-dashboard-oidc-pingfederate-1.png)
 
 #### Create a Credential Validator
 
@@ -251,7 +251,7 @@ configured. These steps assume that Active Directory is used:
 7. Review your configuation and click the `Done` button.
 8. Click `Save`.
 
-![](../../img/enterprise-dashboard-oidc-pingfederate-2.png)
+![](/images/enterprise-dashboard-oidc-pingfederate-2.png)
 
 #### Configure the PingFederate Authorization Server
 
@@ -276,7 +276,7 @@ configured. These steps assume that Active Directory is used:
 
 4. Click `Save`.
 
-![](../../img/enterprise-dashboard-oidc-pingfederate-3.png)
+![](/images/enterprise-dashboard-oidc-pingfederate-3.png)
 
 #### Create the application
 
@@ -372,7 +372,7 @@ and within the `APPLICATION INTEGRATION` section, click on `Adapters`.
   - `mail`
   - `memberOf` (check Nested Groups or not depending on your needs)
   - `userPrincipalName`
-    ![](../../img/enterprise-dashboard-oidc-pingfederate-4.png)
+    ![](/images/enterprise-dashboard-oidc-pingfederate-4.png)
 11. Click `Next`.
 12. In the LDAP Filter section, enter the following information in the **FILTER** textarea:
 
@@ -389,7 +389,7 @@ and within the `APPLICATION INTEGRATION` section, click on `Adapters`.
     name     | &emsp;&emsp;LDAP (Active Directory LDAP) | displayName
     sub      | &emsp;&emsp;LDAP (Active Directory LDAP) | userPrincipalName
 
-    ![](../../img/enterprise-dashboard-oidc-pingfederate-5.png)
+    ![](/images/enterprise-dashboard-oidc-pingfederate-5.png)
 
 17. Click `Next`.
 18. In the Issuance Criteria section, click `Next`.
