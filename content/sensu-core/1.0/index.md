@@ -9,3 +9,5 @@ tags: ["sensu", "core", "sensu core", "1.0", "frog", "index"]
 layout: "index-2"
 ---
 
+## Overview
+Monitor servers, services, application health, and business KPIs. Collect and analyze custom metrics. Get notified about failures before your users do. Give your business the competitive advantage it deserves.
