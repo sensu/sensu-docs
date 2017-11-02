@@ -351,6 +351,7 @@ a .project {
   font-size: 19px;
   padding: 10px;
   padding-left: 5px;
+  cursor: pointer;
 }
 
 .drawer .toc li a.menu-child {
@@ -457,7 +458,7 @@ button.accordion.active, button.accordion:hover {
 }
 
 #productButton, #versionButton, #platformButton, #productButtonDrawer, #versionButtonDrawer {
-  pointer: cursor;
+  cursor: pointer;
   position: absolute;
   margin-left: 0;
   border-radius: 3px;

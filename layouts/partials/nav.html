@@ -19,8 +19,10 @@
         <!-- check if we're looking at the section index, or a sub section -->
         {{ if (in $k $version) }}
           {{ $niceName := $.Params.product }}
-          <!-- ex. Sensu Core 1.0 -->
-          <li><a class="menu-title">{{ $niceName }}</a><ul class="panel">
+          <!-- ex. Sensu Core -->
+          {{ $url := replace $.Params.product " " "-" }}
+          {{ $url := lower $url }}
+          <li><a class="menu-title" href="/{{ $url }}/{{ $.Params.version }}">{{ $niceName }}</a><ul class="panel">
           <!-- Loop through the menus pages -->
           {{ range $y, $x := $v }}
             <!-- if the menu has a child menu -->
@@ -45,9 +47,11 @@
                   {{ end }}
                 </ul>
               {{ end }}
-            <!-- No children, render page normally -->
+            <!-- No children, this is top level menu items -->
             {{ else }}
-              <li><a class="menu-child" href="{{ .URL | absURL }}">{{ $x.Name }}</a>
+              {{ if not (eq $.Params.product $x.Name) }}
+                <li><a class="menu-child" href="{{ .URL | absURL }}">{{ $x.Name }}</a>
+              {{ end }}
             {{ end }}
             </li>
           {{ end }}
