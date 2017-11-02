@@ -53,7 +53,7 @@ pygmentsUseClasses=true
         latest = "1.0"
         [params.products.sensu_core.versions]
             "1.0" = ["Ubuntu/Debian", "RHEL/CentOS"]
-            "0.29" = ["General"]
+            "0.29" = []
 
     [params.products.sensu_enterprise]
         identifier = "sensu-enterprise"
@@ -71,7 +71,7 @@ pygmentsUseClasses=true
         weight = 3
         latest = "1.0"
         [params.products.sensu_enterprise_dashboard.versions]
-            "1.0" = ["General"]
+            "1.0" = []
 
     [params.products.uchiwa]
         identifier = "uchiwa"
@@ -80,7 +80,7 @@ pygmentsUseClasses=true
         weight = 4
         latest = "1.0"
         [params.products.uchiwa.versions]
-            "1.0" = ["General"]
+            "1.0" = []
 
     [params.products.plugins]
         identifier = "plugins"
@@ -89,7 +89,7 @@ pygmentsUseClasses=true
         weight = 5
         latest = "2.3"
         [params.products.plugins.versions]
-            "2.3" = ["General"]
+            "2.3" = []
 
     [params.products.extensions]
         identifier = "extensions"
@@ -98,7 +98,7 @@ pygmentsUseClasses=true
         weight = 6
         latest = "1.0"
         [params.products.extensions.versions]
-            "1.0" = ["General"]
+            "1.0" = []
 
 [social]
 	twitter = "sensu"

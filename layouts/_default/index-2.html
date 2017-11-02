@@ -28,18 +28,25 @@
         
         {{ .Content }}
         
-        <h2>Pick a Platform</h2>
-        <div class="landingButtonHolder">
-          {{ $product := .Section }}
-          {{ $product2 := replace $product "-" "_" }}
-          {{ $product_info := (index .Site.Params.products $product2) }}
-          {{ range (index $product_info.versions .Params.version) }} 
-            {{ $platform := . }}
-            {{ $platform2 := replace $platform " " "-" }}
-            <div class="landingButton"><a onClick="setPlatformCookie('{{ $platform2 }}')" href="client-installation">{{ $platform }}</a></div>
+        {{ $product := .Section }}
+        {{ $product2 := replace $product "-" "_" }}
+        {{ $product_info := (index .Site.Params.products $product2) }}
+        {{ .Scratch.Set "product_info" $product_info }}
+        {{ if (isset $product_info "versions") }}
+          {{ $product_info := .Scratch.Get "product_info" }}
+          {{  $platformVersions := (index $product_info.versions .Params.version) }}
+          {{ if gt (len $platformVersions) 0 }} 
+            <h2>Pick a Platform</h2>
+            <div class="landingButtonHolder">
+              {{ $product_info := .Scratch.Get "product_info" }}
+              {{ range (index $product_info.versions .Params.version) }} 
+                {{ $platform := . }}
+                {{ $platform2 := replace $platform " " "-" }}
+                <div class="landingButton"><a onClick="setPlatformCookie('{{ $platform2 }}')" href="client-installation">{{ $platform }}</a></div>
+              {{ end }}
+            </div>
           {{ end }}
-        </div>
-      </div>
+        {{ end }}
 
       <footer class="footer">
         {{ partial "footer" . }}

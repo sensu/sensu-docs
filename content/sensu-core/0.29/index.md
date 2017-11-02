@@ -6,8 +6,10 @@ menu: "sensu-0.29"
 version: "0.29"
 product: "Sensu Core"
 tags: ["sensu", "sensu core", "core", "0.29", "index", "versions", "ipsum", "bunny"]
-platform: "General"
 ---
+
+## This is a test page
+
 This is an older version of Sensu.
 
 ## Key Features
@@ -16,11 +18,6 @@ Here's some key features. For a full list visit the [Features](/sensu/0.29/featu
 - Does this neat thing
 - Does another alright thing
 - It's pretty good
-
-## Versions
-
-- [Version 1.0](/sensu/1.0/)
-- [Version 0.29](/sensu/0.29/)
 
 ## Some Ipsum
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi in mi lorem. Cras ut congue dui. Nullam non lobortis erat. Nunc vel magna ex. Duis congue tellus vel egestas accumsan. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Phasellus eget odio semper lacus luctus feugiat id vel odio. Cras eget nulla commodo, ornare nisi in, faucibus tortor. Pellentesque ultrices hendrerit aliquam. Praesent ac scelerisque velit. Aliquam elementum dolor sit amet commodo molestie. In iaculis pulvinar varius.
