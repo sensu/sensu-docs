@@ -148,7 +148,7 @@ Dashboard as a GitLab "application". Please note the following instructions:
 1. To register a GitLab OAuth application, please navigate to your GitLab
   profile section and selection "Applications" => "New application".
 
-    ![](../../img/enterprise-dashboard-gitlab-app.png)
+    ![](/images/enterprise-dashboard-gitlab-app.png)
 
 2. Give your application a name (e.g. "Sensu Enterprise Dashboard")
 
@@ -162,7 +162,7 @@ Dashboard as a GitLab "application". Please note the following instructions:
 
 4. Select "Submit" and note the application Application Id and Secret.
 
-    ![](../../img/enterprise-dashboard-gitlab-secret.png)
+    ![](/images/enterprise-dashboard-gitlab-secret.png)
 
 
 [?]:  #
