@@ -25,7 +25,7 @@ pygmentsUseClasses=true
 	repo_url = "https://github.com/sensu/sensu-docs"
 
 	version = "1.0"
-	logo = "images/logo-flat-black.png"
+	logo = "images/sensu-logo-green.png"
 	favicon = "images/logo-flat-black.png"
 
 	permalink = "#"

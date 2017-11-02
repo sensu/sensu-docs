@@ -1,5 +1,24 @@
 /* Theme Palette Overrides ----------------------------------------------------------------- */
 
+.project .logo img {
+  background: none !important;
+  margin-bottom: 20px;
+  width: unset;
+  height: 80px;
+  padding-left: 5px;
+  border-radius: 0;
+}
+
+.project:hover .logo img {
+  box-shadow: none;
+}
+
+.project:hover {
+  -webkit-transition: color .25s;
+  transition: color .25s;
+  color: #81C000;
+}
+
 .palette-primary-green {
   background: #383838;
 }
@@ -316,6 +335,10 @@ a .project {
 
 /* Sidebar Stuff ----------------------------------------------------------------- */
 
+.drawer .scrollable .wrapper .toc {
+  margin: 0;
+}
+
 .project .banner {
   margin-bottom: -20px;
 }
@@ -328,6 +351,7 @@ a .project {
   font-size: 19px;
   padding: 10px;
   padding-left: 5px;
+  cursor: pointer;
 }
 
 .drawer .toc li a.menu-child {
@@ -341,7 +365,7 @@ a .project {
 }
 
 .name strong {
-  font-size: 16px;
+  font-size: 28px;
 }
 
 .drawer {
@@ -360,17 +384,8 @@ nav .scrollable {
 }
 
 .project .logo {
-  width: 90px;
-  height: 90px;
   padding-right: 0;
   padding-bottom: 20px;
-}
-
-.project .logo img {
-  width: 90px;
-  height: 90px;
-  border-radius: 3px;
-  margin: 0 auto;
 }
 
 .repo {
@@ -443,7 +458,7 @@ button.accordion.active, button.accordion:hover {
 }
 
 #productButton, #versionButton, #platformButton, #productButtonDrawer, #versionButtonDrawer {
-  pointer: cursor;
+  cursor: pointer;
   position: absolute;
   margin-left: 0;
   border-radius: 3px;
@@ -577,16 +592,6 @@ button.accordion.active, button.accordion:hover {
   .drawer {
     padding-left: 110px;
   }
-
-  .project .logo {
-    width: 80px;
-    height: 80px;
-  }
-
-  .project .logo img {
-    width: 80px;
-    height: 80px;
-  }
 }
 
 @media only screen and (max-width: 1254px) {
@@ -708,11 +713,17 @@ button.accordion.active, button.accordion:hover {
   }
 
   .project {
+    padding-bottom: 20px;
     padding-left: 10px;
   }
 
   .toc {
-    padding-top: 20px;
+    padding-left: 10px;
+    padding-top: 70px;
+  }
+
+  .palette-primary-green .project {
+    background-color: rgb(56, 56, 56);
   }
 }
 
