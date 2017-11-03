@@ -3,48 +3,42 @@
 1. [Project Setup](#project-setup)
 
     - [Getting Started with Hugo](#getting-started-with-hugo)
-    
+
     - [Deploying to Heroku](#deploying-to-heroku)
-    
+
 2. [Working With Hugo](#working-with-hugo)
 
     - [Adding Content](#adding-content)
-    
+
     - [Overriding the Theme](#overriding-the-theme)
 
     - [Understanding Front Matter](#understanding-front-matter)
 
     - [Variables and Accessing Front Matter](#variables-and-accessing-front-matter)
-    
+
     - [Search](#search)
-    
+
 ## Project Setup
 
 ### Getting Started with Hugo
-[Hugo Docs](https://gohugo.io/getting-started/installing/)
 
 #### Initial Setup
-These instructions assume you have [Homebrew](https://brew.sh/) installed. Please refer to Hugo docs otherwise.
+
+These instructions assume you have [Homebrew](https://brew.sh/) installed. Please refer to [Hugo Docs](https://gohugo.io/getting-started/installing/) otherwise.
+
 ```
 brew install hugo
 ```
 
-Create your new site:
+This project uses [git submodules](https://git-scm.com/book/en/v2/Git-Tools-Submodules) to manage themes. If you have git 1.6.5 or later, you can clone this project and checkout submodules in one command:
 ```
-hugo new site sensu-docs-site
-```
-
-Initialize Git:
-```
-git init
+git clone --recursive https://github.com/sensu/sensu-docs-site.git sensu-docs-site
 ```
 
-#### Adding a Theme
-We're starting out with the [Material Theme](https://themes.gohugo.io/material-docs/). For testing locally, we'll need to clone their repo into our `/themes` folder.
+If you cloned this repository without the `--recursive` flag, you can manually pull in the theme submodule:
 ```
-git clone https://github.com/digitalcraftsman/hugo-material-docs.git themes/hugo-material-docs
+cd sensu-docs-site ; git submodule update --init --recursive
 ```
-Next, we'll copy the `config.toml` file into our project's root directory.
 
 #### Viewing locally
 Now just run the Hugo server
@@ -113,7 +107,7 @@ product: "Sensu Core"
 - Description: Optional. A description of the page. Currently not being used on the site.
 - Weight: Mandatory. For ordering pages in menus and lists.
 - Menu: Mandatory. The menu context the page belongs to. Currently made of the project name and version. This will likely change.
-- Version: Optional. Only special pages will not have a version, these will likely be landing pages or pages not associated with a project. 
+- Version: Optional. Only special pages will not have a version, these will likely be landing pages or pages not associated with a project.
 - Product: Project that the page belongs to in a readable fashion. `.Section` gives this as well, so this field could potentially be deprecated.
 
 Some of these attributes, such as version, are only needed because Hugo currently doesn't have a way of understanding a sub-setcion. As explained earlier, a section is the first level folder inside `/content/`. Any subsequent folders keep that folder name as their `.Section`. This means that `/sensu-core/1.0/examplePage.md` does not know that it's contained within the `1.0` folder without some parsing of it's location. For the time being it's easier to assign a front matter attribute and track it that way.
@@ -142,7 +136,7 @@ hugo new sensu-core/getting-started.md
 It will generate a new `.md` file in `/content/sensu-core/` with your pre-defined front matter at the top of the file.
 
 #### Sub-Sections
-While you can create sub-sections for versions or related sub-topics through the hugo new command, keep in mind the page's "section" attribute will remain that of it's parent. 
+While you can create sub-sections for versions or related sub-topics through the hugo new command, keep in mind the page's "section" attribute will remain that of it's parent.
 
 #### Landing Pages
 You can have an `index.html` page for each section or sub-section you've defined. While not manditory it can create smoother user navigation.
