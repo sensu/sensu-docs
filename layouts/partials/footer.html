@@ -1,3 +1,25 @@
+<!-- check if we need to render this at all -->
+{{ if or (isset .Params "previous") }}
+<span class="footer-previous">
+  {{ $nameSplit := split .Params.previous "/" }}
+  {{ $niceName := (index $nameSplit 1) }}
+  {{ $niceName := replace $niceName "-" " " }}
+  {{ $niceName := title $niceName }}
+  <h2><a href="{{ .Params.previous }}"><i class="fa fa-arrow-left" aria-hidden="true"></i> Previous: {{ $niceName }}</a></h2>
+</span>
+{{ end }}
+
+{{ if or (isset .Params "next") }}
+<span class="footer-next">
+  {{ $nameSplit := split .Params.next "/" }}
+  {{ $niceName := (index $nameSplit 1) }}
+  {{ $niceName := replace $niceName "-" " " }}
+  {{ $niceName := title $niceName }}
+  <h2><a href="{{ .Params.next }}">Next: {{ $niceName }} <i class="fa fa-arrow-right" aria-hidden="true"></i></a></h2>
+</span>
+{{ end }}
+
+<!-- Thanks to the theme, maybe move stuff like this to a single page -->
 <aside class="copyright" role="note">
   {{ with .Site.Params.copyright }}
     &copy; {{ now.Format "2006" }} {{ . }} &ndash;

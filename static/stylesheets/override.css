@@ -92,12 +92,38 @@ p code, li code, td code, h1 code, h2 code, h3 code, h4 code, h5 code, h6 code {
   margin-bottom: 20px;
 }
 
+.main {
+  padding-bottom: 100px;
+}
+
 .footer {
   padding-bottom: 20px;
   color: #eee;
 }
 
+.footer h2 {
+  display: inline;
+}
+
+.footer i {
+  color: #eee;
+}
+
+.footer-next, .footer-previous {
+  padding: 20px 20px 10px;
+}
+
+.footer-next {
+  float: right;
+}
+
+.footer-previous {
+  float: left;
+}
+
 .copyright {
+  clear: both;
+  padding: 0 20px;
   margin-bottom: 0;
   color: #eee;
 }
@@ -380,7 +406,7 @@ a .project {
 }
 
 nav .scrollable {
-  margin-bottom: 70px;
+  margin-bottom: 160px;
 }
 
 .project .logo {
