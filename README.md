@@ -94,19 +94,26 @@ hugo new sensu-core
 Front matter is the page-level attributes that are defined in yaml at the top of each page of Markdown. You can define default front matter with archtypes, detailed in the next section. For now, I'll explain the current front matter we are using.
 ```
 ---
-title: "Client Installation"
-description: "The Sensu Core client installation guide."
-weight: 3
-menu: "sensu-core-1.0"
-version: "1.0"
+title: "Sensu Aggregates API"
+description: "Sensu Aggregates API reference documentation."
 product: "Sensu Core"
+version: "1.0"
+weight: 5
+next: "../checks"
+previous: "../clients"
+menu:
+  sensu-core-1.0:
+    parent: api
 ---
 ```
 
 - Title: Mandatory. Displayed at the top of the window, in the sidebar, and as the top-most header for the page.
 - Description: Optional. A description of the page. Currently not being used on the site.
 - Weight: Mandatory. For ordering pages in menus and lists.
+- Next: Optional. A relative link to the next file in the reading order, gets used in the footer.
+- Previous: Optional. A relative link to the previous file in the reaading order, gets used in the footer.
 - Menu: Mandatory. The menu context the page belongs to. Currently made of the project name and version. This will likely change.
+  - parent: this is a folder in the `1.0` directory that contains the file. 
 - Version: Optional. Only special pages will not have a version, these will likely be landing pages or pages not associated with a project.
 - Product: Project that the page belongs to in a readable fashion. `.Section` gives this as well, so this field could potentially be deprecated.
 
@@ -127,6 +134,8 @@ version: "1.0"
 product: "Sensu Core"
 ---
 ```
+
+Note: Date is mandatory when using archtypes.
 
 #### Creating Pages
 Now you can run:
