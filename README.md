@@ -62,7 +62,11 @@ Fedora:
 sudo dnf copr enable daftaupe/hugo
 ```
 
-From there, proceed to clone the repo, and run locally.
+From there, proceed to clone the repo:
+```
+git clone --recursive https://github.com/sensu/sensu-docs-site.git sensu-docs-site
+cd sensu-docs-site
+```
 
 #### Viewing locally
 Now just run the Hugo server
