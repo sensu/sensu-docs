@@ -1,8 +1,14 @@
 {{ $path := .Get 0 }}
 {{ $files := readDir $path }}
+
+<!-- Loop through all files in dir -->
 <ul>
   {{ range $files }}
+
+    <!-- Don't list the index, cause we're there -->
     {{ if ne .Name "index.md" }}
+
+      <!-- Format the name nicely -->
       {{ $name := replace .Name ".md" "" }}
       {{ $name2 := replace $name "-" " " }}
       {{ $name2 := title $name }}
