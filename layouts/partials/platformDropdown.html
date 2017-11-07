@@ -1,28 +1,40 @@
+<!-- Check in case we called this where we shouldn't -->
+<!-- Make sure there's platform content -->
 {{ if .Params.platformContent }}
+
+  <!-- Grab the product global variables for product we're on -->
   {{ $product := .Section }}
   {{ $product2 := replace $product "-" "_" }}
   {{ $product_info := (index .Site.Params.products $product2) }}
   {{ .Scratch.Set "product_info" $product_info }}
+
+  <!-- Check and make sure we've also got a version -->
   {{ if (isset $product_info "versions") }}
     {{ $product_info := .Scratch.Get "product_info" }}
     {{  $platformVersions := (index $product_info.versions .Params.version) }}
+
+    <!-- if we have a list of platform versions -->
     {{ if gt (len $platformVersions) 0 }}
       {{ $platformLen := (len $platformVersions) }}
       <div class="platformHolder">
         <div id="platformButton">
-            <a class="platformButtonTitle" id="platformButtonTitleText">All Platforms<i class="fa fa-chevron-down dropdownArrow" aria-hidden="true"></i></a>
-            <div class="hiddenPlatforms" style="display: none;">
-                <ul class="hiddenItems">
-                  {{ if isset $product_info.versions .Params.version }}
-                    {{ range (index $product_info.versions .Params.version) }}
-                      {{ $platform := . }}
-                      {{ $title2 := replace $.Title " " "-" }}
-                      {{ $title2 := lower $title2 }}
-                      <li class="hiddenItem"><a onClick="setPlatformCookie('{{ $platform }}')" href="{{ $.URL }}">{{ $platform }}</a></li>
-                    {{ end }}
-                  {{end}}
-                </ul>
-            </div>
+
+          <!-- Title -->
+          <a class="platformButtonTitle" id="platformButtonTitleText">All Platforms<i class="fa fa-chevron-down dropdownArrow" aria-hidden="true"></i></a>
+          <div class="hiddenPlatforms" style="display: none;">
+ 
+            <!-- List of platforms -->
+            <ul class="hiddenItems">
+              {{ if isset $product_info.versions .Params.version }}
+                {{ range (index $product_info.versions .Params.version) }}
+                  {{ $platform := . }}
+                  {{ $title2 := replace $.Title " " "-" }}
+                  {{ $title2 := lower $title2 }}
+                    <li class="hiddenItem"><a onClick="setPlatformCookie('{{ $platform }}')" href="{{ $.URL }}">{{ $platform }}</a></li>
+                {{ end }}
+              {{ end }}
+            </ul>
+          </div>
         </div>
       </div>
     {{ end }}

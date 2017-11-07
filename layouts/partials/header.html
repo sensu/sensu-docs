@@ -1,3 +1,4 @@
+<!-- Nav bar and hamburger icon -->
 <nav aria-label="Header">
   <div class="bar default">
     <div class="button button-menu" role="button" aria-label="Menu">
@@ -5,6 +6,8 @@
         <span></span>
       </label>
     </div>
+
+    <!-- Title -->
     <div class="stretch">
       <div class="title">
         {{ if .IsHome }}
@@ -14,11 +17,14 @@
         {{ end }}
       </div>
     </div>
+    <!-- Render dropdowns if we're not home -->
     {{ if not .IsHome }}
       <div id="productVersionNav">
         {{ partial "productVersionDropdown.html" . }}
       </div>
     {{ end }}
+
+    <!-- Search button and search bar -->
     <div class="button button-search" role="button" aria-label="Search">
       <label class="toggle-button icon" title="Search" for="toggle-search"><i class="icon fa fa-search" aria-hidden="true"></i></label>
     </div>
@@ -38,7 +44,8 @@
   </div>
 </nav>
 
-<script>  
+<!-- Scripts for the search bar -->
+<script>
   function closeResults() {
     $results = $("#search");
     $results.empty();

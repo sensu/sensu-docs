@@ -1,6 +1,8 @@
 <div class="footer-content">
   <!-- check if we need to render this at all -->
   {{ if or (isset .Params "previous") }}
+
+  <!-- previous -->
   <span class="footer-previous">
     {{ $nameSplit := split .Params.previous "/" }}
     {{ $niceName := (index $nameSplit 1) }}
@@ -10,6 +12,7 @@
   </span>
   {{ end }}
 
+  <!-- next -->
   {{ if or (isset .Params "next") }}
   <span class="footer-next">
     {{ $nameSplit := split .Params.next "/" }}

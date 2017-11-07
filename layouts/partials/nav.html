@@ -4,6 +4,8 @@
 {{ end }}
 
 {{ if not .IsHome }}
+
+  <!-- Format this to grab the global varaibles for the product we're on -->
   {{ $section := replace .Section "-" "_" }}
   {{ $product_info := (index .Site.Params.products $section) }}
   {{ $.Scratch.Add "version" .Params.version }}
@@ -11,34 +13,43 @@
     {{ $.Scratch.Set "version" $product_info.latest }}
   {{ end }}
   {{ $version := $.Scratch.Get "version" }}
+
   <!-- loop through all menus, but only care if they're for our current section -->
   {{ range $k, $v := .Site.Menus }}
     {{ if and (ne $k "main") (in $k $.Section) }}
+
       <!-- special case for sensu enterprise dash -->
       {{ if not (and (in $k "sensu-enterprise-dashboard") (eq $.Section "sensu-enterprise")) }}
+
         <!-- check if we're looking at the section index, or a sub section -->
         {{ if (in $k $version) }}
           {{ $niceName := $.Params.product }}
+
           <!-- ex. Sensu Core -->
           {{ $url := replace $.Params.product " " "-" }}
           {{ $url := lower $url }}
           <li><a class="menu-title" href="/{{ $url }}/{{ $.Params.version }}">{{ $niceName }}</a><ul class="panel">
+
           <!-- Loop through the menus pages -->
           {{ range $y, $x := $v }}
+
             <!-- if the menu has a child menu -->
             {{ if .HasChildren }}
               {{ if (in $k $version) }}
                 {{ $niceName := replace $x.Name "-" " " }}
                 {{ $niceName := title $niceName }}
+
                 <!-- saving the menu as API breaks it in the front matter, so we need to format it here -->
                 {{ if or (eq $niceName "Api") (eq $niceName "Rbac") }}
                   {{ $niceName := upper $niceName }}
                   <li><a class="menu-title accordion">{{ $niceName }}<span class="menu-dropdown-icon"><i class="fa fa-chevron-down" aria-hidden="true"></i></span></a>
+
                 <!-- render the title normally if not API -->
                 {{ else }}
                   <li><a class="menu-title accordion">{{ $niceName }}<span class="menu-dropdown-icon"><i class="fa fa-chevron-down" aria-hidden="true"></i></span></a>
                 {{ end }}
                 <ul class="panel">
+
                   <!-- Loop through the child menu's pages -->
                   {{ range .Children.ByWeight }}
                     {{ if not (eq (lower .Parent) (lower .Name)) }}
@@ -47,6 +58,7 @@
                   {{ end }}
                 </ul>
               {{ end }}
+
             <!-- No children, this is top level menu items -->
             {{ else }}
               {{ if not (eq $.Params.product $x.Name) }}
@@ -62,24 +74,24 @@
   {{ end }}
 {{ end }}
 
-
+<!-- Script for the dropdown list items -->
 <script>
-var acc = document.getElementsByClassName("accordion");
-var i;
+  var acc = document.getElementsByClassName("accordion");
+  var i;
 
-for (i = 0; i < acc.length; i++) {
-    acc[i].onclick = function(){
-        /* Toggle between adding and removing the "active" class,
-        to highlight the button that controls the panel */
-        this.classList.toggle("active");
+  for (i = 0; i < acc.length; i++) {
+      acc[i].onclick = function(){
+          /* Toggle between adding and removing the "active" class,
+          to highlight the button that controls the panel */
+          this.classList.toggle("active");
 
-        /* Toggle between hiding and showing the active panel */
-        var panel = this.nextElementSibling;
-        if (panel.style.display === "block") {
-            panel.style.display = "none";
-        } else {
-            panel.style.display = "block";
-        }
-    }
-}
+          /* Toggle between hiding and showing the active panel */
+          var panel = this.nextElementSibling;
+          if (panel.style.display === "block") {
+              panel.style.display = "none";
+          } else {
+              panel.style.display = "block";
+          }
+      }
+  }
 </script>
