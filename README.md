@@ -22,7 +22,7 @@
 
 ### Getting Started with Hugo
 
-#### Initial Setup
+#### Initial Setup - OS X
 
 These instructions assume you have [Homebrew](https://brew.sh/) installed. Please refer to [Hugo Docs](https://gohugo.io/getting-started/installing/) otherwise.
 
@@ -38,6 +38,34 @@ git clone --recursive https://github.com/sensu/sensu-docs-site.git sensu-docs-si
 If you cloned this repository without the `--recursive` flag, you can manually pull in the theme submodule:
 ```
 cd sensu-docs-site ; git submodule update --init --recursive
+```
+
+#### Initial Setup - RedHat/CentOS/Fedora
+
+Sensu Docs Site uses Hugo > .30. You'll need to ensure that you've downloaded that version prior to cloning the repo. To install the repo, ensure that you have the yum-utils package installed:
+
+```
+sudo yum install - yum-utils
+```
+
+Then install the daftaupe repo:
+
+CentOS:
+
+```
+sudo yum-config-manager --add-repo https://copr.fedorainfracloud.org/coprs/daftaupe/hugo/repo/epel-7/daftaupe-hugo-epel-7.repo
+```
+
+Fedora:
+
+```
+sudo dnf copr enable daftaupe/hugo
+```
+
+From there, proceed to clone the repo:
+```
+git clone --recursive https://github.com/sensu/sensu-docs-site.git sensu-docs-site
+cd sensu-docs-site
 ```
 
 #### Viewing locally
