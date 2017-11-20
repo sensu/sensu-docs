@@ -106,7 +106,7 @@ p code, li code, td code, h1 code, h2 code, h3 code, h4 code, h5 code, h6 code {
   margin: 0 auto;
 }
 
-.footer h2 {
+.footer h2, .footer .next, .footer .previous {
   display: inline;
 }
 
