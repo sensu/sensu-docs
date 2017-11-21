@@ -20,7 +20,7 @@
 }
 
 .palette-primary-green {
-  background: #383838;
+  background: rgb(242, 242, 242);
 }
 
 .palette-primary-green .footer,.palette-primary-green .header {
@@ -92,12 +92,43 @@ p code, li code, td code, h1 code, h2 code, h3 code, h4 code, h5 code, h6 code {
   margin-bottom: 20px;
 }
 
+.main article {
+  padding-bottom: 100px;
+}
+
 .footer {
   padding-bottom: 20px;
   color: #eee;
 }
 
+.footer-content {
+  max-width: 1600px;
+  margin: 0 auto;
+}
+
+.footer h2, .footer .next, .footer .previous {
+  display: inline;
+}
+
+.footer i {
+  color: #eee;
+}
+
+.footer-next, .footer-previous {
+  padding: 20px 20px 10px;
+}
+
+.footer-next {
+  float: right;
+}
+
+.footer-previous {
+  float: left;
+}
+
 .copyright {
+  clear: both;
+  padding: 0 20px;
   margin-bottom: 0;
   color: #eee;
 }
@@ -238,6 +269,9 @@ h6 {
 }
 
 .header {
+  -webkit-transform: translate3d(0, 0, 0);
+  -webkit-backface-visibility: hidden;
+  -webkit-perspective: 1000;
   overflow: visible;
   padding: 0;
 }
@@ -380,7 +414,7 @@ a .project {
 }
 
 nav .scrollable {
-  margin-bottom: 70px;
+  margin-bottom: 160px;
 }
 
 .project .logo {
