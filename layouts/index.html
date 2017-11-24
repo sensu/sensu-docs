@@ -9,15 +9,18 @@
 <input class="toggle" type="checkbox" id="toggle-search">
 <label class="toggle-button overlay" for="toggle-drawer"></label>
 
+<!-- Titlebar -->
 <header class="header">
   {{ partial "header" . }}
 </header>
 
+<!-- Not displayed, but needed to not break things -->
 <div class="main"></div>
 <div class="drawer">
   {{ partial "drawer" . }}
 </div>
 
+<!-- Searchbar stuff -->
 <div class="results" role="status" aria-live="polite">
   <div class="scrollable">
     <div class="wrapper">
@@ -27,6 +30,7 @@
   </div>
 </div>
 
+<!-- Main content -->
 <div class="homepage-main">
   <div class="product-block">
     {{ range sort .Site.Params.Products "weight" }}
@@ -44,14 +48,5 @@
     {{ end }}
   </div>
 
-  <div class="results" role="status" aria-live="polite">
-    <div class="scrollable">
-      <div class="wrapper">
-        <div class="meta"></div>
-        <div class="list"></div>
-      </div>
-    </div>
-  </div>
-</div>
-
+<!-- Footer which is not displayed -->
 {{ partial "footer_js" . }}

@@ -1,88 +1,99 @@
+<!-- Uniqueness is for when we need to refer to the specific in page platform dropdown -->
 {{ $uniqueness := .Get 0 }}
 {{ $uniqueness := replace $uniqueness " " "-" }}
 {{ $uniqueness := replace $uniqueness "/" "_" }}
 
 {{ $product := .Get 1 }}
-
 {{ $version := .Get 2 }}
-
 {{ $title := .Get 3 }}
-
 {{ $parent := .Get 4 }}
 
+<!-- Some specific css for the dropdowns -->
 <style>
-.platformHolder-{{ $uniqueness }} {
-    margin-top: 5px;
-    height: 30px;
-    padding-top: 5px;
-}
+ .platformHolder-{{ $uniqueness }} {
+   margin-top: 5px;
+   height: 30px;
+   padding-top: 5px;
+ }
 
-.dropdownArrow-{{ $uniqueness }} {
-    float: right;
-    padding-top: 5px;
-}
+ .dropdownArrow-{{ $uniqueness }} {
+   float: right;
+   padding-top: 5px;
+ }
 
-#platformButton-{{ $uniqueness }} {
-    pointer: cursor;
-    position: absolute;
-    margin-left: 0;
-    border-radius: 3px;
-    font-size: 12px;
-    font-weight: bold;
-    background-color: #e7e7e7;
-}
+ #platformButton-{{ $uniqueness }} {
+   pointer: cursor;
+   position: absolute;
+   margin-left: 0;
+   border-radius: 3px;
+   font-size: 12px;
+   font-weight: bold;
+   background-color: #e7e7e7;
+ }
 
-#platformButton-{{ $uniqueness }} a {
-    color: rgb(90, 90, 90);
-    border-bottom: none;
-    padding: 5px;
-}
+ #platformButton-{{ $uniqueness }} a {
+   color: rgb(90, 90, 90);
+   border-bottom: none;
+   padding: 5px;
+ }
 
-#platformButton-{{ $uniqueness }} {
-    width: 200px;
-}
+ #platformButton-{{ $uniqueness }} {
+   width: 200px;
+ }
 
-#platformButton-{{ $uniqueness }} a {
-    display: block;
-}
+ #platformButton-{{ $uniqueness }} a {
+   display: block;
+ }
 
-#platformButton-{{ $uniqueness }} li {
-    margin-top: 0;
-}
+ #platformButton-{{ $uniqueness }} li {
+   margin-top: 0;
+ }
 
-.hiddenPlatforms-{{ $uniqueness }} {
-    font-weight: normal;
-    z-index: 100;
-    background-color: #e7e7e7;
-}
+ .hiddenPlatforms-{{ $uniqueness }} {
+   font-weight: normal;
+   z-index: 100;
+   background-color: #e7e7e7;
+ }
 
-.hiddenItems-{{ $uniqueness }} {
-    margin-top: 0 !important;
-    border-radius: 3px;
-}
+ .hiddenItems-{{ $uniqueness }} {
+   margin-top: 0 !important;
+   border-radius: 3px;
+ }
 </style>
 
+<!-- Updates the text in the dropdown to display current platform -->
 <script>
-$( document ).ready(function() {
-  setHeaderDropdowns("{{ $uniqueness }}")
-});
+  $( document ).ready(function() {
+    setHeaderDropdowns("{{ $uniqueness }}")
+  });
 </script>
 
+<!-- The platform dropdown itself -->
 <div class="platformHolder-{{ $uniqueness }}">
-    <div id="platformButton-{{ $uniqueness }}">
-        <a class="platformButtonTitle-{{ $uniqueness }}" id="platformButtonTitleText-{{ $uniqueness }}">Platform<i class="fa fa-chevron-down dropdownArrow-{{ $uniqueness }}" aria-hidden="true"></i></a>
-        <div class="hiddenPlatforms-{{ $uniqueness }}" style="display: none;">
-            <ul class="hiddenItems-{{ $uniqueness }}">
-                {{ $product2 := lower $product }}
-                {{ $product3 := replace $product2 "-" "_" }}
-                {{ $product_info := (index .Site.Params.products $product3) }}
-                {{ range (index $product_info.versions $version) }}
-                    {{ $platform := . }}
-                    {{ $title2 := replace $title " " "-" }}
-                    {{ $title2 := lower $title2 }}
-                    <li class="hiddenItem"><a onClick="setPlatformCookie('{{ $platform }}', '{{ $product2 }}', '{{ $title2 }}')" href="/{{ $product2 }}/{{ $version }}/{{ $title2 }}/#{{ $parent }}">{{ $platform }}</a></li>
-                {{ end }}
-            </ul>
-        </div>
+  <div id="platformButton-{{ $uniqueness }}">
+
+    <!-- Current platform title -->
+    <a class="platformButtonTitle-{{ $uniqueness }}" id="platformButtonTitleText-{{ $uniqueness }}">Platform<i class="fa fa-chevron-down dropdownArrow-{{ $uniqueness }}" aria-hidden="true"></i></a>
+    <div class="hiddenPlatforms-{{ $uniqueness }}" style="display: none;">
+
+      <!-- List of each platform -->
+      <ul class="hiddenItems-{{ $uniqueness }}">
+
+        <!-- Get the current product global vars -->
+        {{ $product2 := lower $product }}
+        {{ $product3 := replace $product2 "-" "_" }}
+        {{ $product_info := (index .Site.Params.products $product3) }}
+        {{ range (index $product_info.versions $version) }}
+          {{ $platform := . }}
+
+          <!-- Pretify the name -->
+          {{ $title2 := replace $title " " "-" }}
+          {{ $title2 := lower $title2 }}
+
+          <!-- TODO: THIS WILL BREAK ON PAGES WITHIN A FOLDER -->
+          <li class="hiddenItem"><a onClick="setPlatformCookie('{{ $platform }}', '{{ $product2 }}', '{{ $title2 }}')" href="/{{ $product2 }}/{{ $version }}/{{ $title2 }}/#{{ $parent }}">{{ $platform }}</a></li>
+        {{ end }}
+      </ul>
     </div>
+  </div>
 </div>
