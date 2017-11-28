@@ -716,7 +716,7 @@ This release includes potentially breaking, backwards-incompatible changes:
   not only confusing, it made it very difficult to apply a simple "don't execute
   this check outside of 9-5, M-F" rule.
 
-  ~~~ json
+  {{< highlight json >}}
   {
     "checks": {
       "example_check": {
@@ -736,13 +736,13 @@ This release includes potentially breaking, backwards-incompatible changes:
       }
     }
   }
-  ~~~
+  {{< / highlight >}}
 
   The new syntax is more verbose, but by doing away with the need for
   `exceptions` and adding support for defining an array of subdue time windows,
   it is much easier to configure.
 
-  ~~~ json
+  {{< highlight json >}}
   {
     "checks": {
       "example_check": {
@@ -817,7 +817,7 @@ This release includes potentially breaking, backwards-incompatible changes:
       }
     }
   }
-  ~~~
+  {{< / highlight >}}
 
   _NOTE: Subdue rules now apply to check publishing, **ONLY** (i.e. `subdue`
   definitions no longer support the `"at": "handler"` definition attribute,
@@ -1007,28 +1007,28 @@ This release includes potentially breaking, backwards-incompatible changes:
   and sets the deregistration event handler to `deregister_client` (via the new
   client `deregistration` definition attribute):
 
-	~~~ json
-	{
-  	"client": {
-	    "name": "i-424242",
-			"address": "8.8.8.8",
-			"subscriptions": [
-				"production",
-				"webserver",
-				"mysql"
-			],
-			"deregister": true,
-			"deregistration": {
-				"handler": "deregister_client"
-			},
-			"socket": {
-				"bind": "127.0.0.1",
-				"port": 3030
-			}
-		}
-	}
-	~~~
-
+  {{< highlight json >}}
+  {
+    "client": {
+      "name": "i-424242",
+      "address": "8.8.8.8",
+      "subscriptions": [
+        "production",
+        "webserver",
+        "mysql"
+      ],
+      "deregister": true,
+      "deregistration": {
+        "handler": "deregister_client"
+      },
+      "socket": {
+        "bind": "127.0.0.1",
+        "port": 3030
+      }
+    }
+  }
+  {{< / highlight >}}
+	
 Please refer to the [Sensu client reference documentation][2] for additional
 information on configuring the built-in Sensu client de-registration.
 **Fixes [#1191][3], [#1305][4].**
@@ -1209,7 +1209,7 @@ available for immediate download. Please note the following improvements:
 
   Example Redis Sentinel configuration:
 
-  ~~~ json
+  {{< highlight json >}}
   {
     "sentinels": [
       {
@@ -1218,7 +1218,7 @@ available for immediate download. Please note the following improvements:
       }
     ]  
   }
-  ~~~
+  {{< / highlight >}}
 
   See the [Redis configuration documentation][3] for more information.
 
@@ -1233,7 +1233,7 @@ available for immediate download. Please note the following improvements:
 
   Example filter eval token:
 
-  ~~~ json
+  {{< highlight json >}}
   {
     "filters": {
       "example_filter": {
@@ -1243,7 +1243,7 @@ available for immediate download. Please note the following improvements:
       }
     }
   }
-  ~~~
+  {{< / highlight >}}
 
 - **NEW:** native installer packages are now available for IBM AIX systems
   (sensu-client only).
