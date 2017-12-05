@@ -669,6 +669,14 @@ required     | false
 type         | String
 example      | {{< highlight shell >}}"password": "F76639PML6c7sk5nI46N"{{< /highlight >}}
 
+protect_all_endpoints | 
+----------------------|------
+description           | If all client HTTP endpoints are protected by HTTP authentication
+required              | false
+type                  | Boolean
+default               | false
+example               | {{< highlight shell >}}"protect_all_endpoints": true{{< /highlight >}}
+
 #### `keepalive` attributes
 
 The following attributes are configured within the `{ "client": { "keepalive":
