@@ -1,5 +1,6 @@
 ---
-title: "Sensu Silenced API"
+title: "Silenced API"
+description: "Sensu Silencing API reference documentation."
 product: "Sensu Core"
 version: "0.29"
 weight: 7

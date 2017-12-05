@@ -1,5 +1,5 @@
 ---
-title: "Sensu Handlers"
+title: "Handlers"
 description: "Reference documentation for Sensu Handlers."
 product: "Sensu Core"
 version: "0.29"

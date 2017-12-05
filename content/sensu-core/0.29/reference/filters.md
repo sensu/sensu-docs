@@ -1,5 +1,5 @@
 ---
-title: "Sensu Filters"
+title: "Filters"
 description: "Reference documentation for Sensu Filters."
 product: "Sensu Core"
 version: "0.29"

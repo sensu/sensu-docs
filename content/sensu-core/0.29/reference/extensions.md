@@ -1,5 +1,5 @@
 ---
-title: "Sensu Extensions"
+title: "Extensions"
 description: "Reference documentation for Sensu Extensions."
 product: "Sensu Core"
 version: "0.29"

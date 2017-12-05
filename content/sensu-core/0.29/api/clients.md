@@ -1,5 +1,6 @@
 ---
 title: "Clients API"
+description: "Sensu Clients API reference documentation."
 product: "Sensu Core"
 version: "0.29"
 weight: 2

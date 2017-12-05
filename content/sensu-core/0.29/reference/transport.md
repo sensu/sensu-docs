@@ -1,5 +1,5 @@
 ---
-title: "Sensu Transport"
+title: "Transport"
 description: "Reference documentation for the Sensu Transport."
 product: "Sensu Core"
 version: "0.29"

@@ -1,5 +1,5 @@
 ---
-title: "Sensu Configuration"
+title: "Configuration"
 description: "Reference documentation for Sensu Configuration, including service init scripts, command line arguments, and environment variables."
 product: "Sensu Core"
 version: "0.29"

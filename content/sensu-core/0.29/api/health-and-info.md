@@ -1,5 +1,6 @@
 ---
 title: "Health & Info APIs"
+description: "Sensu Health & Info API reference documentation"
 product: "Sensu Core"
 version: "0.29"
 weight: 8

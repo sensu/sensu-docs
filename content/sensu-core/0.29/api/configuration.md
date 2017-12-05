@@ -1,5 +1,6 @@
 ---
 title: "API Configuration"
+description: "Sensu API configuration reference documentation"
 product: "Sensu Core"
 version: "0.29"
 weight: 10

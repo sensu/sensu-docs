@@ -1,5 +1,5 @@
 ---
-title: "Sensu Stashes"
+title: "Stashes"
 description: "Reference documentation for Sensu Stashes."
 product: "Sensu Core"
 version: "0.29"

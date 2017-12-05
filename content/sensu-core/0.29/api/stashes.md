@@ -1,5 +1,6 @@
 ---
-title: "Sensu Stashes API"
+title: "Stashes API"
+description: "Sensu Stashes API reference documentation."
 product: "Sensu Core"
 version: "0.29"
 weight: 7

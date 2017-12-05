@@ -3,9 +3,9 @@ title: "API"
 product: "Sensu Core"
 version: "0.29"
 weight: -1
-menu: 
+menu:
   sensu-core-0.29:
     parent: api
 ---
 
-{{< directoryListing "content/sensu-core/1.0/api" >}}
+{{< directoryListing "content/sensu-core/0.29/api" >}}
