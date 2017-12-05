@@ -757,6 +757,22 @@ example           | {{< highlight shell >}}"client_attributes": {
 }
 {{< /highlight >}}
 
+splay       | 
+------------|------
+description | If proxy check requests should be splayed, published evenly over a window of time, determined by the check interval and a configurable splay coverage percentage. For example, if a check has an interval of 60s and a configured splay coverage of 90%, its proxy check requests would be splayed evenly over a time window of 60s * 90%, 54s, leaving 6s for the last proxy check execution before the the next round of proxy check requests for the same check.
+required    | false
+type        | Boolean
+default     | false
+example     | {{< highlight shell >}}"splay": true{{< /highlight >}}
+
+splay_coverage | 
+---------------|------
+description    | If proxy check requests should be splayed, published evenly over a window of time, determined by the check interval and a configurable splay coverage percentage. For example, if a check has an interval of 60s and a configured splay coverage of 90%, its proxy check requests would be splayed evenly over a time window of 60s * 90%, 54s, leaving 6s for the last proxy check execution before the the next round of proxy check requests for the same check.
+required       | false
+type           | Integer
+default        | 90
+example        | {{< highlight shell >}}"splay_coverage": 65{{< /highlight >}}
+
 You can, as above, also use `eval` to perform more complicated filtering with Ruby on the available `value`, such as finding clients with particular subscriptions.
 
 For a more general introduction to using this style of check, check out the [guide on using proxy checks][49] or the [guide on adding a proxy client][50].
