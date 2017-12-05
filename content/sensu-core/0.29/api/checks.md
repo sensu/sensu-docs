@@ -2,10 +2,10 @@
 title: "Checks API"
 description: "Sensu Checks API reference documentation."
 product: "Sensu Core"
-version: "1.0"
+version: "0.29"
 weight: 3
 menu:
-  sensu-core-1.0:
+  sensu-core-0.29:
     parent: api
 ---
 

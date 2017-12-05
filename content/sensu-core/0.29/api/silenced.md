@@ -1,11 +1,11 @@
 ---
 title: "Silenced API"
+description: "Sensu Silencing API reference documentation."
 product: "Sensu Core"
-description: "Sensu Silenced API reference documentation."
-version: "1.0"
+version: "0.29"
 weight: 7
 menu:
-  sensu-core-1.0:
+  sensu-core-0.29:
     parent: api
 ---
 
