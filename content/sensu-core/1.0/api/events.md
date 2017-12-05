@@ -1,5 +1,6 @@
 ---
 title: "Events API"
+description: "Sensu Events API reference documentation."
 product: "Sensu Core"
 version: "1.0"
 weight: 6

@@ -1,5 +1,5 @@
 ---
-title: "Sensu Silencing"
+title: "Silencing"
 description: "Reference documentation for Sensu Event Silencing."
 product: "Sensu Core"
 version: "1.0"

@@ -1,5 +1,5 @@
 ---
-title: "Sensu Data Store"
+title: "Data Store"
 description: "Reference documentation for the Sensu Data Store."
 product: "Sensu Core"
 version: "1.0"

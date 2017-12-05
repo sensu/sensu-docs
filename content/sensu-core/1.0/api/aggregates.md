@@ -1,5 +1,5 @@
 ---
-title: "Sensu Aggregates API"
+title: "Aggregates API"
 description: "Sensu Aggregates API reference documentation."
 product: "Sensu Core"
 version: "1.0"

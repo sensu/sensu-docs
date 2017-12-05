@@ -1,5 +1,5 @@
 ---
-title: "Sensu Mutators"
+title: "Mutators"
 description: "Reference documentation for Sensu Mutators."
 product: "Sensu Core"
 version: "1.0"

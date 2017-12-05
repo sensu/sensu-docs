@@ -1,5 +1,5 @@
 ---
-title: "Sensu Events"
+title: "Events"
 description: "Reference documentation for Sensu Events, including the Event Data specification."
 product: "Sensu Core"
 version: "1.0"

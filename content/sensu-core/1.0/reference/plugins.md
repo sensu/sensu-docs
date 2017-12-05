@@ -1,5 +1,5 @@
 ---
-title: "Sensu Plugins"
+title: "Plugins"
 description: "Reference documentation for Sensu Plugins."
 product: "Sensu Core"
 version: "1.0"

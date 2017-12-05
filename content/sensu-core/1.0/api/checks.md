@@ -1,9 +1,10 @@
 ---
 title: "Checks API"
+description: "Sensu Checks API reference documentation."
 product: "Sensu Core"
 version: "1.0"
 weight: 3
-menu: 
+menu:
   sensu-core-1.0:
     parent: api
 ---

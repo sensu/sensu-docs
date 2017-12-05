@@ -1,5 +1,5 @@
 ---
-title: "Sensu Client"
+title: "Clients"
 description: "Reference documentation for Sensu Clients."
 product: "Sensu Core"
 version: "1.0"

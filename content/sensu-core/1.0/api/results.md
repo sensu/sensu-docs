@@ -1,5 +1,6 @@
 ---
-title: "Sensu Results API"
+title: "Results API"
+description: "Sensu Results API reference documentation."
 product: "Sensu Core"
 version: "1.0"
 weight: 4

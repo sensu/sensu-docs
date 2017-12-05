@@ -1,5 +1,6 @@
 ---
-title: "Sensu API Overview"
+title: "RESTful API Overview"
+description: "Overview of Sensu API endpoints"
 product: "Sensu Core"
 version: "1.0"
 weight: 1

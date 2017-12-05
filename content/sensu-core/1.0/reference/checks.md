@@ -1,5 +1,5 @@
 ---
-title: "Sensu Checks"
+title: "Checks"
 description: "Reference documentation for Sensu Checks."
 product: "Sensu Core"
 version: "1.0"

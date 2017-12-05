@@ -1,5 +1,6 @@
 ---
-title: "Sensu Settings API"
+title: "Settings API"
+description: "Sensu Settings API reference documentation."
 product: "Sensu Core"
 version: "1.0"
 weight: 9
