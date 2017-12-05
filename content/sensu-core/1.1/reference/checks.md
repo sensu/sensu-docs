@@ -453,6 +453,13 @@ required     | false
 type         | Integer
 example      | {{< highlight shell >}}"timeout": 30{{< /highlight >}}
 
+stdin        | 
+-------------|------
+description  | If the Sensu client writes JSON serialized Sensu client and check data to the command process’ STDIN. The command must expect the JSON data via STDIN, read it, and close STDIN. This attribute cannot be used with existing Sensu check plugins, nor Nagios plugins etc, as the Sensu client will wait indefinitely for the check process to read and close STDIN.
+required     | false
+type         | boolean
+example      | {{< highlight shell >}}"stdin": true{{< /highlight >}}
+
 ttl          | 
 -------------|------
 description  | The time to live (TTL) in seconds until check results are considered stale. If a client stops publishing results for the check, and the TTL expires, an event will be created for the client. The check `ttl` must be greater than the check `interval`, and should accommodate time for the check execution and result processing to complete. For example, if a check has an `interval` of `60` (seconds) and a `timeout` of `30` (seconds), an appropriate `ttl` would be a minimum of `90` (seconds).
