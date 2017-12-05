@@ -31,12 +31,16 @@ menu:
     - [Token substitution syntax](#token-substitution-syntax)
     - [Token substitution default values](#token-substitution-default-values)
     - [Unmatched tokens](#unmatched-tokens)
+- [Check hooks](#check-hooks)
+  - [What are check hooks?](#what-are-check-hooks)
+  - [Example check hooks](#example-check-hooks)
 - [Check configuration](#check-configuration)
   - [Example check definition](#example-check-definition)
   - [Check definition specification](#check-definition-specification)
     - [Check naming](#check-names)
     - [`CHECK` attributes](#check-attributes)
     - [`subdue` attributes](#subdue-attributes)
+    - [`hooks` attributes](#hooks-attributes)
     - [Custom attributes](#custom-attributes)
   - [Check result specification](#check-result-specification)
     - [`check` attributes](#check-result-check-attributes)
@@ -294,6 +298,52 @@ value), _and_ the Sensu client definition does not have a matching definition
 attribute, a [check result][4] indicating "unmatched tokens" will be published
 for the check execution (e.g.: `"Unmatched check token(s): disk.warning"`).
 
+## Check hooks
+
+### What are check hooks? {#what-are-check-hooks}
+
+Check hooks are commands run by the Sensu client in response to the result of check command execution. The Sensu client will execute the appropriate configured hook command, depending on the check execution status (e.g. 1). Valid hook names include (in order of precedence): “1”-“255”, “ok”, “warning”, “critical”, “unknown”, and “non-zero”. The check hook command output, status, executed timestamp, and duration are captured and published in the check result. Check hook commands can optionally receive JSON serialized Sensu client and check definition data via STDIN.
+
+### Example check hooks
+
+Check hooks can be used for automated data gathering for incident triage, for example, a check hook could be used to capture the process tree when a process has been determined to be not running etc.
+
+{{< highlight json >}}
+{
+  "checks": {
+    "nginx_process": {
+      "command": "check-process.rb -p nginx",
+      "subscribers": [
+        "proxy"
+      ],
+      "interval": 60,
+      "hooks": {
+        "non-zero": {"command": "ps aux"}
+      }
+    }
+  }
+}
+{{< /highlight >}}
+
+Check hooks can also be used for rudimentary auto-remediation tasks, for example, starting a process that is no longer running.
+
+{{< highlight json >}}
+{
+  "checks": {
+    "nginx_process": {
+      "command": "check-process.rb -p nginx",
+      "subscribers": [
+        "proxy"
+      ],
+      "interval": 60,
+      "hooks": {
+        "critical": {"command": "sudo systemctl start nginx"}
+      }
+    }
+  }
+}
+{{< /highlight >}}
+
 ## Check configuration
 
 ### Example check definition
@@ -491,6 +541,13 @@ required     | false
 type         | Hash
 example      | {{< highlight shell >}}"subdue": {}{{< /highlight >}}
 
+hooks        | 
+-------------|------
+description  | The `hooks` definition scope, commands run by the Sensu client in response to the result of the check command execution
+required     | false
+type         |  Hash
+example      | {{< highlight shell >}}"hooks": {}{{< /highlight >}}
+
 contact      | 
 -------------|------
 description  | A contact name to use for the check. <br>**ENTERPRISE: This configuration is provided for using [Contact Routing][44].**
@@ -560,6 +617,68 @@ example      | {{< highlight shell >}}"days": {
       "end": "5:00 PM"
     }
   ]
+}
+{{< /highlight >}}
+
+
+#### `hooks` attributes {#hooks-attributes}
+
+The following attributes are configured within the `{"checks": { "CHECK": { "hooks": {} } } }` [configuration scope][29] (where `CHECK` is a valid [check name][41]).
+
+##### ATTRIBUTES {#hooks-attributes-specification}
+
+command      | 
+-------------|------
+description  | The hook command to be executed.
+required     | true
+type         | String
+example      | {{< highlight shell >}}"command": "ps aux"{{< /highlight >}}
+
+timeout      | 
+-------------|------
+description  | The hook command execution duration timeout in seconds (hard stop).
+required     | false
+type         | Integer
+default      | 60
+example      | {{< highlight shell >}}"timeout": 30{{< /highlight >}}
+
+stdin        | 
+-------------|------
+description  | If the Sensu client writes JSON serialized Sensu client and check data to the hook command process' STDIN. The hook command must expect the JSON data via STDIN, read it and close STDIN.
+required     | false
+type         | Boolean
+default      | false
+example      | {{< highlight shell >}}"stdin": true{{< /highlight >}}
+
+##### Hook naming {#hook-names}
+
+Each check hook has a unique hook name. Valid hook names include (in order of precedence): “1”-“255”, “ok”, “warning”, “critical”, “unknown”, and “non-zero”. The check hook name is used to determine the appropriate hook command to execute, depending on the check execution status (e.g. 1).
+
+
+##### `HOOK` attributes {#hook-attributes}
+
+The following attributes are configured within the {"checks": { "CHECK": { "hooks": { "HOOK": {}} } } } [configuration scope][29] (where CHECK is a valid [check name][41] and HOOK is a valid [hook name](#hook-names)).
+
+
+##### EXAMPLE {#hooks-attributes-example}
+
+{{< highlight json >}}
+{
+  "checks": {
+    "nginx_process": {
+      "command": "check-process.rb -p nginx",
+      "subscribers": [
+        "proxy"
+      ],
+      "interval": 60,
+      "hooks": {
+        "non-zero": {
+          "command": "ps aux",
+          "timeout": 10
+        }
+      }
+    }
+  }
 }
 {{< /highlight >}}
 
