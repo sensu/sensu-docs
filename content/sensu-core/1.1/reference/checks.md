@@ -537,7 +537,7 @@ example         | {{< highlight shell >}}"truncate_output": true{{< /highlight >
 
 truncate_output_length | 
 -----------------------|------
-description            | If check output will be truncated for storage. Output truncation is automatically set to `true` for checks with type set to `"metric"` unless configured to `false`.
+description            |The output truncation length, the maximum number of characters.
 required               | false
 type                   | Integer
 default                | 255
