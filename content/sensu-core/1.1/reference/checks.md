@@ -527,6 +527,22 @@ type         | String
 validated    | `/^[\w\.-]+$/`
 example      | {{< highlight shell >}}"source": "switch-dc-01"{{< /highlight >}}
 
+truncate_output | 
+----------------|------
+description     | If check output will be truncated for storage. Output truncation is automatically set to `true` for checks with type set to `"metric"` unless configured to `false`.
+required        | false
+type            | Boolean
+default         | false
+example         | {{< highlight shell >}}"truncate_output": true{{< /highlight >}}
+
+truncate_output_length | 
+-----------------------|------
+description            | If check output will be truncated for storage. Output truncation is automatically set to `true` for checks with type set to `"metric"` unless configured to `false`.
+required               | false
+type                   | Integer
+default                | 255
+example                | {{< highlight shell >}}"truncate_output_length": 1024{{< /highlight >}}
+
 aggregate    | 
 -------------|------
 description  | Create a named aggregate for the check. Check result data will be aggregated and exposed via the [Sensu Aggregates API][33]. _NOTE: named aggregates are new to [Sensu version 0.24][43], now being defined with a String data type rather than a Boolean (i.e. `true` or `false`). Legacy check definitions with `"aggregate": true` attributes will default to using the check name as the aggregate name._
