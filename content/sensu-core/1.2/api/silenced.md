@@ -34,6 +34,7 @@ $ curl -s -X GET http://localhost:4567/silenced |jq .
   {
     "expire": 3530,
     "expire_on_resolve": false,
+    "begin": null,
     "creator": null,
     "reason": null,
     "check": "check_haproxy",
@@ -43,6 +44,7 @@ $ curl -s -X GET http://localhost:4567/silenced |jq .
   {
     "expire": -1,
     "expire_on_resolve": true,
+    "begin": null,
     "creator": "sysop@example.com",
     "reason": "we ran out of time",
     "check": "check_ntpd",
@@ -65,6 +67,7 @@ output          | {{< highlight json >}}[
   {
     "expire": 3530,
     "expire_on_resolve": false,
+    "begin": null,
     "creator": null,
     "reason": null,
     "check": "check_haproxy",
@@ -110,6 +113,7 @@ $ curl -s -X GET http://localhost:4567/silenced | jq .
   {
     "expire": 3594,
     "expire_on_resolve": false,
+    "begin": null,
     "creator": null,
     "reason": null,
     "check": "check_haproxy",
@@ -132,7 +136,7 @@ payload            | {{< highlight json >}}{
   "creator": "sysop@example.com"
 }
 {{< /highlight >}}
-payload parameters | <ul><li>`check`<ul><li>**required**: true, unless `subscription` is specified</li><li>**type**: String</li><li>**description**: Specifies the check which the silence entry applies to.</li><li>**example**: "check_haproxy"</li></ul><li>`creator`<ul><li>**required**: false</li><li>**type**: String</li><li>**description**: Specifies the entity responsible for this entry.</li><li>**example**: "you@yourdomain.com" or "Your Name Here"</li></ul></li><li>`expire`<ul><li>**required**: false</li><li>**type**: Integer</li><li>**description**: If specified, the silence entry will be automatically cleared after this number of seconds.</li><li>**example**: 1800</li></ul></li><li>`expire_on_resolve`<ul><li>**required**: false</li><li>**type**: Boolean</li><li>**description**: If specified as true, the silence entry will be automatically cleared once the condition it is silencing is resolved.</li><li>**example**: true</li></ul></li><li>`reason`<ul><li>**required**: false</li><li>**type**: String</li><li>**description**: If specified, this free-form string is used to provide context or rationale for the reason this silence entry was created.</li><li>**example**: "pre-arranged maintenance window"</li></ul></li><li>`subscription`<ul><li>**required**: true, unless `check` is specified</li><li>**type:** String</li><li>**description**: Specifies the subscription which the silence entry applies to.</li><ul></li></ul>
+payload parameters | <ul><li>`check`<ul><li>**required**: true, unless `subscription` is specified</li><li>**type**: String</li><li>**description**: Specifies the check which the silence entry applies to.</li><li>**example**: "check_haproxy"</li></ul><li>`begin`<ul><li>**required**: false</li><li>**type**: Integer</li><li>**description**: If specified, the silence entry will only be effective after this epoch timestamp. Silence a check and/or client subscriptions at a predetermined time (e.g. maintenance window).</li><li>**example**: 1512501881</li></ul><li>`creator`<ul><li>**required**: false</li><li>**type**: String</li><li>**description**: Specifies the entity responsible for this entry.</li><li>**example**: "you@yourdomain.com" or "Your Name Here"</li></ul></li><li>`expire`<ul><li>**required**: false</li><li>**type**: Integer</li><li>**description**: If specified, the silence entry will be automatically cleared after this number of seconds. If `begin` is specified, the number of seconds until being cleared starts at that time.</li><li>**example**: 1800</li></ul></li><li>`expire_on_resolve`<ul><li>**required**: false</li><li>**type**: Boolean</li><li>**description**: If specified as true, the silence entry will be automatically cleared once the condition it is silencing is resolved.</li><li>**example**: true</li></ul></li><li>`reason`<ul><li>**required**: false</li><li>**type**: String</li><li>**description**: If specified, this free-form string is used to provide context or rationale for the reason this silence entry was created.</li><li>**example**: "pre-arranged maintenance window"</li></ul></li><li>`subscription`<ul><li>**required**: true, unless `check` is specified</li><li>**type:** String</li><li>**description**: Specifies the subscription which the silence entry applies to.</li><ul></li></ul>
 response codes     | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 ### `/silenced/ids/:id` (GET) {#silencedidsid-get}
@@ -145,6 +149,7 @@ $ curl -s -X GET http://localhost:4567/silenced/ids/load-balancer:check_haproxy 
   "id": "load-balancer:check_haproxy",
   "subscription": "load-balancer",
   "check": "check_haproxy",
+  "begin": null,
   "reason": null,
   "creator": null,
   "expire_on_resolve": false,
@@ -164,6 +169,7 @@ output                  | {{< highlight json >}}{
   "id": "webserver:check_nginx",
   "subscription": "webserver",
   "check": "check_nginx",
+  "begin": null,
   "reason": null,
   "creator": null,
   "expire_on_resolve": false,
@@ -183,6 +189,7 @@ $ curl -s -X GET http://localhost:4567/silenced | jq .
   {
     "expire": 3594,
     "expire_on_resolve": false,
+    "begin": null,
     "creator": null,
     "reason": null,
     "check": "check_haproxy",
@@ -217,6 +224,7 @@ $ curl -s -X GET http://localhost:4567/silenced | jq .
   {
     "expire": null,
     "expire_on_resolve": false,
+    "begin": null,
     "creator": null,
     "reason": null,
     "check": "check_ntpd",
@@ -265,6 +273,7 @@ $ curl -s -X GET http://localhost:4567/silenced/subscriptions/load-balancer | jq
   {
     "expire": 3596,
     "expire_on_resolve": false,
+    "begin": null,
     "creator": null,
     "reason": null,
     "check": "check_ntpd",
@@ -294,6 +303,7 @@ $ curl -s -X GET http://localhost:4567/silenced/checks/check_ntpd | jq .
   {
     "expire": -1,
     "expire_on_resolve": false,
+    "begin": null,
     "creator": "sysop@example.com",
     "reason": "we ran out of time",
     "check": "check_ntpd",
@@ -303,6 +313,7 @@ $ curl -s -X GET http://localhost:4567/silenced/checks/check_ntpd | jq .
   {
     "expire": -1,
     "expire_on_resolve": false,
+    "begin": null,
     "creator": "sysop@example.com",
     "reason": "we ran out of time",
     "check": "check_ntpd",
