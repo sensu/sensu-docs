@@ -116,11 +116,11 @@ Source: [GitHub.com](https://github.com/sensu/sensu/blob/master/CHANGELOG.md#100
 	prior versions of Sensu will require any plugin or extension gems
 	to be re-installed under the new Ruby environment.
 
-- **IMPORTANT**: Sensu packages now include [sensu-plugin 2.0.0][3], which
+- **IMPORTANT**: Sensu packages now include [sensu-plugin 2.0.0][46], which
 	disables its deprecated filter methods by default, i.e.
 	occurrences. Sensu 1.0 includes built-in filters that provide the
 	same functionality with several improvements. The built-in filters
-	are ["occurrences"][4] and ["check_dependencies"][5]. To use the
+	are ["occurrences"][47] and ["check_dependencies"][48]. To use the
 	built-in filters, apply them to Sensu event handlers via their
 	definition `"filters"` attribute, e.g. `"filters": ["occurrences",
 	"check_dependencies"]`. These filters can now be used with Sensu
@@ -164,11 +164,11 @@ Source: [GitHub.com](https://github.com/sensu/sensu/blob/master/CHANGELOG.md#029
 	prior versions of Sensu will require any plugin or extension gems
 	to be re-installed under the new Ruby environment.
 
-- **IMPORTANT**: Sensu packages now include [sensu-plugin 2.0.0][3], which
+- **IMPORTANT**: Sensu packages now include [sensu-plugin 2.0.0][43], which
 	disables its deprecated filter methods by default, i.e.
 	occurrences. Sensu 0.29 includes built-in filters that provide the
 	same functionality with several improvements. The built-in filters
-	are ["occurrences"][4] and ["check_dependencies"][5]. To use the
+	are ["occurrences"][44] and ["check_dependencies"][45]. To use the
 	built-in filters, apply them to Sensu event handlers via their
 	definition `"filters"` attribute, e.g. `"filters": ["occurrences",
 	"check_dependencies"]`. These filters can now be used with Sensu
@@ -296,10 +296,10 @@ Source: [GitHub.com](https://github.com/sensu/sensu/blob/master/CHANGELOG.md#028
 - **BUGFIX**: Check requests with proxy_requests attributes are no
   longer overridden by local check definitions.
 
-- **IMPROVEMENT**: Updated [Oj][3] (used by the sensu-json library) to the
+- **IMPROVEMENT**: Updated [Oj][41] (used by the sensu-json library) to the
   latest release (2.18.1) for Ruby 2.4 compatibility.
 
-- **IMPROVEMENT**: Updated embedded OpenSSL from [1.0.2j to 1.0.2k][4].
+- **IMPROVEMENT**: Updated embedded OpenSSL from [1.0.2j to 1.0.2k][42].
 
 ## Core 0.28.0 Release Notes {#core-v0-28-0}
 
@@ -385,7 +385,7 @@ This release includes potentially breaking, backwards-incompatible changes:
 	for each platform and architecture using the oldest supported
 	platform version. Accordingly, package repository structures have
 	changed to support per-platform-version packages. See the
-	[platforms page][3] for links to updated installation instructions.
+	[platforms page][35] for links to updated installation instructions.
 
 - **NEW**: On platforms where systemd is the default init, Sensu now
 	provides systemd unit files instead of sysv init scripts.
@@ -398,10 +398,10 @@ This release includes potentially breaking, backwards-incompatible changes:
 - **REMOVED**: The embedded runit service supervisor is no longer included
 	in Sensu packages for Linux platforms.
 
-- **REPLACED**: The [sensu-omnibus project][4] has superseded sensu-build as
+- **REPLACED**: The [sensu-omnibus project][36] has superseded sensu-build as
 	the tool chain for building official Sensu packages. This project
-	uses [Travis CI][5] to automate package builds using a combination of
-	[Test Kitchen][6], [Chef][7] and [Omnibus][8] tools.
+	uses [Travis CI][37] to automate package builds using a combination of
+	[Test Kitchen][38], [Chef][39] and [Omnibus][40] tools.
 
 - **IMPROVEMENT**: Sensu packages for Windows now include Ruby 2.3.0,
 	upgraded from Ruby 2.0.0 in prior versions of Sensu.
@@ -551,14 +551,14 @@ available for immediate download. Please note the following improvements:
 This release includes potentially breaking, backwards-incompatible changes:
 
 - Event silencing is now built into Sensu Core, and a new `/silenced` API
-  is now available. A new [`"handle_silenced": true` attribute][12] is
+  is now available. A new [`"handle_silenced": true` attribute][34] is
   available to opt-out of this new built-in silencing functionality on a
   per-handler basis.
 
 - **NEW**: Every Sensu client now creates and subscribes to a unique client
   subscription (e.g. `client:i-424242`). Unique client subscriptions are
   required for silencing one or more checks on a single client (host)
-  **Fixes: [#1327][1327]**.
+  **Fixes: [#1327][gh-1327]**.
 
 - Sensu Core version 0.26 requires Uchiwa version 0.18 or newer in order
   to make use of the new `/silenced` API feature. Prior versions of Uchiwa
@@ -574,11 +574,11 @@ This release includes potentially breaking, backwards-incompatible changes:
   apply this pattern by default, but will log deprecation warnings as
   well.	Set the check attribute `enable_deprecated_filtering: false` to
   disable the deprecated filtering behavior. Please refer to the
-  [Deprecating Event Filtering in sensu-plugin][10] blog post for more
+  [Deprecating Event Filtering in sensu-plugin][32] blog post for more
   information._
 
 - The handler definition `subdue` attribute is no longer supported. Time-based
-  filtering is now supported by the new [filter `when` attribute][5]. Please
+  filtering is now supported by the new [filter `when` attribute][27]. Please
   update your handler definitions accordingly.
 
 - Check `subdue` definitions no longer support the `"at": "handler"`
@@ -587,7 +587,7 @@ This release includes potentially breaking, backwards-incompatible changes:
 ### CHANGES {#core-v0-26-0-changes}
 
 - **NEW**: Event silencing is now built into Sensu Core! The Sensu API now
-  provides a set of [`/silenced` endpoints][11], for silencing one or more
+  provides a set of [`/silenced` endpoints][33], for silencing one or more
   checks and/or subscriptions (including the NEW client-specific subscriptions,
   above). Silencing applies to all event handlers by default, however a new
   `handle_silenced` handler definition attribute can be used to disable this
@@ -595,7 +595,7 @@ This release includes potentially breaking, backwards-incompatible changes:
 
   _NOTE: this improvement is very closely related to the impending removal
   of event filtering in the `sensu-plugin` gem. See the recent [Deprecating
-  Event Filtering in sensu-plugin][10] blog post for more information._
+  Event Filtering in sensu-plugin][32] blog post for more information._
 
 - **NEW**: Introducing **Subdue 2.0**! Sensu `subdue` rules have a brand new
   configuration syntax, adding support for a broader number of applications, and
@@ -712,59 +712,59 @@ This release includes potentially breaking, backwards-incompatible changes:
   _NOTE: Subdue rules now apply to check publishing, **ONLY** (i.e. `subdue`
   definitions no longer support the `"at": "handler"` definition attribute,
   among other changes). Prior to this release, `subdue` rules could be provided
-  via [check definition `subdue` attribute][2] (i.e. `"at": "publisher"`) or the
-  [handler definition `subdue` attribute][3] (i.e. `"at": "handler"`).
+  via [check definition `subdue` attribute][25] (i.e. `"at": "publisher"`) or the
+  [handler definition `subdue` attribute][26] (i.e. `"at": "handler"`).
   Time-based filtering for handlers is now provided by Sensu filters (see
-  below). Please refer to the new [`subdue` reference documentation][4] for more
-  information._ **See: [#1415][1415]**.
+  below). Please refer to the new [`subdue` reference documentation][25] for more
+  information._ **See: [#1415][gh-1415]**.
 
 - **NEW**: Event filters now support time-based rules, via a new `"when": {}`
   filter definition attribute. The filter `when` specification uses the same
   syntax as the new Subdue 2.0 specification, simplifying time-based event
-  filtering. Please refer to the [filer `when` reference documentation][5] for
-  more information. *See [#1415][1415]**.
+  filtering. Please refer to the [filer `when` reference documentation][27] for
+  more information. **See [#1415][gh-1415]**.
 
 - **NEW**: Sensu Extensions can now be loaded from Rubygems and enabled/disabled
   via configuration! The `sensu-install` has also added support for installing
   Sensu Extensions (e.g. `sensu-install -e system-profile`). Extensions gems
   must be enabled via configuration, please refer to the [Sensu extension
-  reference documentation][6] for more information. **See: [#1394][1394]**.
+  reference documentation][28] for more information. **See: [#1394][gh-1394]**.
 
-- **NEW**: A check can now be a member of more than one [named aggregate][7],
-  via a new check definition `"aggregates": []` attribute. **See: [#1379][1379];
-  fixes [#1342][1342]**.
+- **NEW**: A check can now be a member of more than one [named aggregate][29],
+  via a new check definition `"aggregates": []` attribute. **See: [#1379][gh-1379];
+  fixes [#1342][gh-1342]**.
 
 - **NEW**: Added support for setting Redis Sentinel configuration via a new
   `REDIS_SENTINEL_URLS` environment variable. Please refer to the [Sensu
-  environment variables reference documentation][8] for more information. **See
-  [#1411][1411]; fixes [#1361][1361].
+  environment variables reference documentation][30] for more information. **See
+  [#1411][gh-1411]; fixes [#1361][gh-1361].
 
 - **NEW**: Added support for automatically discovering and setting client `name`
   and `address` attributes (two of the few required attributes for a valid
-  Sensu client definition). **See: [#1379][1379]; fixes [#1362][1362]**.
+  Sensu client definition). **See: [#1379][gh-1379]; fixes [#1362][gh-1362]**.
 
 - **IMPROVEMENT**: Added support for a new `occurrences_watermark` attribute,
-  which is used by the built-in [sensu-occurrences-extension][9] filter to
+  which is used by the built-in [sensu-occurrences-extension][31] filter to
   prevent sending resolve notifications for events that were not handled due to
-  occurrence filtering. **See: [#1419][1419] and [#1427][1427]**.
+  occurrence filtering. **See: [#1419][gh-1419] and [#1427][gh-1427]**.
 
 - **IMPROVEMENT**: Only attempt to schedule standalone checks that have an
-  interval. **See: [#1384][1384]; fixes [#1286][1286]**.
+  interval. **See: [#1384][gh-1384]; fixes [#1286][gh-1286]**.
 
 - **IMPROVEMENT**: Locally configured standalone checks (e.g. on a Sensu server)
   are no longer accessible via the Sensu API `/checks` endpoint. **See:
-  [#1417][1417]; fixes [#1416][1416]**.
+  [#1417][gh-1417]; fixes [#1416][gh-1416]**.
 
 - **IMPROVEMENT**: Check TTL events are no longer created if the associated
-  Sensu client has a current keepalive event. **See [#1428][1428]; fixes [#861][861]
-  and [#1282][1282]**.
+  Sensu client has a current keepalive event. **See [#1428][gh-1428]; fixes [#861][gh-861]
+  and [#1282][gh-1282]**.
 
 - **IMPROVEMENT**: Increased the maximum number of EventMachine timers from 100k
   to 200k, to accommodate very large Sensu installations that execute over 100k
-  checks. **See [#1370][1370]; fixes [#1368][1368]**.
+  checks. **See [#1370][gh-1370]; fixes [#1368][gh-1368]**.
 
 - **BUGFIX**: Fixed a Sensu API `/results` endpoint race condition that
-  caused incomplete response content. **See [#1372][1372]; fixes [#1356][1356]**.
+  caused incomplete response content. **See [#1372][gh-1372]; fixes [#1356][-i1356]**.
 
 ## Core 0.25.7 Release Notes {#core-v0-25-7}
 
@@ -776,7 +776,7 @@ available for immediate download. Please note the following improvements:
 ### CHANGES {#core-v0-25-7-changes}
 
 - **BUGFIX**: Fixed the Sensu API 204 status response string, changing "No
-  Response" to the correct string "No Content". **Fixes: [#1405][26].**
+  Response" to the correct string "No Content". **Fixes: [#1405][gh-1405].**
 
 ## Core 0.25.6 Release Notes {#core-v0-25-6}
 
@@ -803,14 +803,14 @@ available for immediate download. Please note the following improvements:
 ### CHANGES {#core-v0-25-5-changes}
 
 - **BUGFIX**: Reverted a Sensu API race condition fix, it was a red herring.
-  Desired behavior has been restored. **See: [#1358][19].**
+  Desired behavior has been restored. **See: [#1358][gh-1358].**
 
 - **BUGFIX:**: Custom check definition attributes are now included in check
   request payloads, fixing check attribute token substitution for pubsub checks.
-  **Fixes: [#1360][20].**
+  **Fixes: [#1360][gh-1360].**
 
 - **BUGFIX:** Transport connectivity issues are now handled while querying the
-  Transport for pipe stats for API /info and /health. **See: [#1367][21].**
+  Transport for pipe stats for API /info and /health. **See: [#1367][gh-1367].**
 
 ## Core 0.25.4 Release Notes {#core-v0-25-4}
 
@@ -862,11 +862,11 @@ available for immediate download. Please note the following improvements:
 ### CHANGES {#core-v0-25-1-changes}
 
 - **IMPROVEMENT**: the Sensu Core package now includes version 1.2 _and_ 1.3 of
-	the Sensu Plugin gem. **Fixes [#1339][11].**
+	the Sensu Plugin gem. **Fixes [#1339][gh-1339].**
 
 - **BUGFIX**: The Sensu API now sets the HTTP response header "Connection" to
 	"close". Uchiwa was experiencing intermittent EOF errors. **Fixes
-  [#1340][7].**
+  [#1340][gh-1340].**
 
 ## Core 0.25.0 Release Notes {#core-v0-25-0}
 
@@ -886,7 +886,7 @@ This release includes potentially breaking, backwards-incompatible changes:
 
 ### CHANGES {#core-v0-25-0-changes}
 
-- **NEW**: [Built-in client de-registration][2]. Sensu client de-registration on
+- **NEW**: [Built-in client de-registration][23]. Sensu client de-registration on
   graceful `sensu-client` process stop is now supported by the Sensu client
   itself (no longer depending on the package init script). The package init
   script-based de-registration functionality still remains, but is considered to
@@ -919,14 +919,14 @@ This release includes potentially breaking, backwards-incompatible changes:
   }
   {{< / highlight >}}
 	
-Please refer to the [Sensu client reference documentation][2] for additional
+Please refer to the [Sensu client reference documentation][23] for additional
 information on configuring the built-in Sensu client de-registration.
-**Fixes [#1191][3], [#1305][4].**
+**Fixes [#1191][gh-1191], [#1305][gh-1305].**
 
-- **NEW**: The Sensu API has been rewritten to use [EM HTTP Server][5], removing
+- **NEW**: The Sensu API has been rewritten to use [EM HTTP Server][24], removing
   Rack and Thin as API runtime dependencies. The API no longer uses Rack async,
   making for cleaner HTTP request logic and much improved HTTP request and
-  response logging. **Fixes [#1317][6].**
+  response logging. **Fixes [#1317][gh-1317].**
 
 - **BUGFIX**: Fixed a critical bug in Sensu client `execute_check_command()`
   where a check result would contain a check command with client tokens
@@ -941,11 +941,11 @@ available for immediate download. Please note the following improvements:
 
 - **BUGFIX:** Fixed a critical bug in Sensu server `resume()` which caused the
   server to crash when querying the state of the Sensu Transport connection
-  before it had been initialized. **Resolves [#1321][34].**
+  before it had been initialized. **Resolves [#1321][gh-1321].**
 
 - **IMPROVEMENT:** Updated references to unmatched tokens, i.e. check result
   output message, to better represent the new scope of token substitution.
-  **Resolves [#1322][35].**
+  **Resolves [#1322][gh-1322].**
 
 ## Core 0.24.0 Release Notes {#core-v0-24-0}
 
@@ -958,18 +958,18 @@ available for immediate download. Please note the following improvements:
 
 This release includes potentially breaking, backwards-incompatible changes:
 
-- Sensu [check aggregates][2] have been completely redesigned. Users who are
+- Sensu [check aggregates][7] have been completely redesigned. Users who are
   using check aggregates may need to review these changes before upgrading.
-  [Uchiwa][3] users should install version 0.15 or higher before upgrading to
+  [Uchiwa][8] users should install version 0.15 or higher before upgrading to
   Sensu Core version 0.24.0. See below for additional information.
 
-- Sensu [event `id`s][4] are no longer unique to each occurrence of an event.
+- Sensu [event `id`s][9] are no longer unique to each occurrence of an event.
   Event `id`s are now persistent for the duration of an event (per client/check
   pair), until the event is resolved. See below for additional information.
 
-- The Sensu [/health (GET) API endpoint][5] has been updated such that failed
+- The Sensu [/health (GET) API endpoint][10] has been updated such that failed
   health checks now respond with an [`412 (Precondition Failed)` HTTP response
-  code][6] instead of a [`503 (Service Unavailable)` response code][7].
+  code][11] instead of a [`503 (Service Unavailable)` response code][12].
   Third-party services and/or custom scripts may need to be updated accordingly.
 
 - The Sensu services and corresponding service management scripts have been
@@ -979,17 +979,17 @@ This release includes potentially breaking, backwards-incompatible changes:
 
 ### CHANGES {#core-v0-24-0-changes}
 
-- **NEW:** Named aggregates. Check [aggregates 2.0][8] are here! At long last,
-  Sensu [check aggregates][2] have been updated to support standalone checks, as
+- **NEW:** Named aggregates. Check [aggregates 2.0][gh-1218] are here! At long last,
+  Sensu [check aggregates][gh-1218] have been updated to support standalone checks, as
   well as a number of new use cases. Please refer to the [check aggregates
-  reference documentation][2] for additional information. **Resolves [#803][9],
-  [#915][10], [#1041][11], [#1070][12], [#1187][13], and [#1218][8].**
+  reference documentation][8] for additional information. **Resolves [#803][gh-803],
+  [#915][gh-915], [#1041][gh-1041], [#1070][gh-1070], [#1187][gh-1187], and [#1218][gh-1218].**
 
-- **NEW:** Persistent [event IDs][4]. Event occurrences for a client/check pair
+- **NEW:** Persistent [event IDs][9]. Event occurrences for a client/check pair
   will now have the same event ID until the event is resolved (instead of a
   unique event ID for each occurrence of an event). Please refer to the [Event
-  specification reference documentation][14] for additional information.
-  **Resolves [#1196][15].**
+  specification reference documentation][13] for additional information.
+  **Resolves [#1196][gh-1196].**
 
 - **NEW:** Strong configuration validation. Added a new `--validate_config` CLI
   option/argument to cause Sensu to validate configuration settings and exit
@@ -997,43 +997,43 @@ This release includes potentially breaking, backwards-incompatible changes:
   used when restarting a Sensu service to first validate the new configuration
   before stopping the running service (i.e. to prevent restarts if the
   configuration is invalid). Please refer to the [Sensu service command line
-  interface reference documentation][16] for additional information. **Resolves
-  [#1244][17], [#1254][18].**
+  interface reference documentation][14] for additional information. **Resolves
+  [#1244][gh-1244], [#1254][gh-1254].**
 
-- **NEW:** Proxy check origins. Events for [proxy clients][19] will now have a
+- **NEW:** Proxy check origins. Events for [proxy clients][15] will now have a
   check `origin` attribute, set to the client name of the result producer.
-  Please refer to the [Event data specification reference documentation][20] for
-  additional information. **Resolves [#1075][21].**
+  Please refer to the [Event data specification reference documentation][16] for
+  additional information. **Resolves [#1075][gh-1075].**
 
 - **NEW:** Improved Sensu check token substitution. Sensu [check token
-  substitution][22] is now supported in every check definition attribute value
+  substitution][17] is now supported in every check definition attribute value
   (no longer just the check `command` attribute). Please refer to the [check
-  token substitution reference documentation][22] for additional information.
-  **Resolves [#1281][23].**
+  token substitution reference documentation][17] for additional information.
+  **Resolves [#1281][gh-1281].**
 
 - **NEW:** Sensu `/clients (POST)` API endpoint can now create clients in the
   client registry that are expected to produce keepalives, and validates clients
   with the Sensu Settings client definition validator. A new [check `keepalives`
-  attribute][33] called has also been added, which allows client keepalives to
-  be disabled on a per-client basis. **Resolves [#1203][24].**
+  attribute][21] called has also been added, which allows client keepalives to
+  be disabled on a per-client basis. **Resolves [#1203][gh-1203].**
 
 
 - **IMPROVEMENT:** Configurable Sensu Spawn concurrent child process limit
   (checks, mutators, & pipe handlers). The default limit is still 12 and the
   EventMachine threadpool size is automatically adjusted to accommodate a larger
-  limit. **Resolves [#1002][25].**
+  limit. **Resolves [#1002][gh-1002].**
 
 - **IMPROVEMENT:** Event data check type now explicitly defaults to `standard`.
-  **Resolves [#1025][26].**
+  **Resolves [#1025][gh-1025].**
 
 - **IMPROVEMENT:** Improved tracking of in progress check result processing,
   eliminates the potential for losing check results when restarting the Sensu
-  server service. **Resolves [#1165][27].**
+  server service. **Resolves [#1165][gh-1165].**
 
-- **IMPROVEMENT:** Updated [Thin][28] (used by Sensu API) to the latest release,
-  version 1.6.4. **Resolves [#1122][29].**
+- **IMPROVEMENT:** Updated [Thin][18] (used by Sensu API) to the latest release,
+  version 1.6.4. **Resolves [#1122][gh-1122].**
 
-- **IMPROVEMENT:** [JrJackson][30] is now used to parse JSON when Sensu is
+- **IMPROVEMENT:** [JrJackson][19] is now used to parse JSON when Sensu is
   running on JRuby.
 
 - **IMPROVEMENT:** The Sensu API now listens immediately on service start, even
@@ -1041,8 +1041,8 @@ This release includes potentially breaking, backwards-incompatible changes:
   now respond with a `500 (Internal Server Error)` HTTP response code and a
   descriptive error message when it has not yet initialized its connections or
   it is reconnecting to either Redis or the Sensu Transport. The [Health and
-  Info API][31] endpoints will still respond normally while reconnecting.
-  **Resolves [#1215][32].**
+  Info API][20] endpoints will still respond normally while reconnecting.
+  **Resolves [#1215][gh-1215].**
 
 ## Core 0.23.3 Release Notes {#core-v0-23-3}
 
@@ -1067,7 +1067,7 @@ available for immediate download. Please note the following improvements:
 
 - **IMPROVEMENT:** fixed client socket check result publishing when the client
 has a signature. The client signature is now added to the check result payload,
-making it valid (see: [#1182][7]).
+making it valid (see: [#1182][gh-1182]).
 
 ## Core 0.23.1 Release Notes {#core-v0-23-1}
 
@@ -1220,119 +1220,123 @@ available for immediate download. Please note the following improvements:
 [?]: #
 [github-changelog]: https://github.com/sensu/sensu/blob/master/CHANGELOG.md
 <!-- 0.23 -->
+
 [1]:  https://www.ruby-lang.org/en/news/2015/12/25/ruby-2-3-0-released/
 [2]:  http://redis.io/topics/sentinel
 [3]:  redis.html#redis-high-availability-configuration
 [4]:  configuration.html#sensu-command-line-interfaces-and-arguments
 [5]:  https://github.com/JuanitoFatas/fast-ruby
 [6]:  https://github.com/eventmachine/eventmachine/blob/master/CHANGELOG.md#1201-march-15-2016
-[7]:  https://github.com/sensu/sensu/issues/1182
-[10]: #core-v0-23-2
-[11]: #core-v0-23-3
+
 <!-- 0.24 -->
-[2]:  /docs/0.24/reference/aggregates.html
-[3]:  https://uchiwa.io/
-[4]:  /docs/0.24/reference/events.html#event-data-specification
-[5]:  /docs/0.24/api/health-and-info-api.html#health-get
-[6]:  https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.13
-[7]:  https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.5.4
-[8]:  https://github.com/sensu/sensu/issues/1218
-[9]:  https://github.com/sensu/sensu/issues/803
-[10]: https://github.com/sensu/sensu/issues/915
-[11]: https://github.com/sensu/sensu/issues/1041
-[12]: https://github.com/sensu/sensu/issues/1070
-[13]: https://github.com/sensu/sensu/issues/1187
-[14]: /docs/0.24/reference/events.html#event-data-specification
-[15]: https://github.com/sensu/sensu/issues/1196
-[16]: /docs/0.24/reference/configuration.html#sensu-command-line-interfaces-and-arguments
-[17]: https://github.com/sensu/sensu/issues/1244
-[18]: https://github.com/sensu/sensu/issues/1254
-[19]: /docs/0.24/reference/clients.html#proxy-clients
-[20]: /docs/0.24/reference/events.html#check-attributes
-[21]: https://github.com/sensu/sensu/issues/1275
-[22]: /docs/0.24/reference/checks.html#check-token-substitution
-[23]: https://github.com/sensu/sensu/issues/1281
-[24]: https://github.com/sensu/sensu/issues/1203
-[25]: https://github.com/sensu/sensu/issues/1002
-[26]: https://github.com/sensu/sensu/issues/1025
-[27]: https://github.com/sensu/sensu/issues/1165
-[28]: http://code.macournoyer.com/thin/
-[29]: https://github.com/sensu/sensu/issues/1122
-[30]: https://github.com/guyboertje/jrjackson
-[31]: /docs/0.24/api/health-and-info-api.html
-[32]: https://github.com/sensu/sensu/issues/1215
-[33]: /docs/0.24/reference/clients.html#client-definition-specification
-[34]: https://github.com/sensu/sensu/issues/1321
-[35]: https://github.com/sensu/sensu/issues/1322
+
+[7]:  /sensu-core/0.29/reference/aggregates
+[8]:  https://uchiwa.io/
+[9]:  /sensu-core/0.29/reference/events#event-data-specification
+[10]: /sensu-core/0.29/api/health-and-info-api#health-get
+[11]: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.13
+[12]: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.5.4
+[13]: /sensu-core/0.29/reference/events#event-data-specification
+[14]: /sensu-core/0.29/reference/configuration#sensu-command-line-interfaces-and-arguments
+[15]: /sensu-core/0.29/reference/clients#proxy-clients
+[16]: /sensu-core/0.29/reference/events#check-attributes
+[17]: /sensu-core/0.29/reference/checks#check-token-substitution
+[18]: http://code.macournoyer.com/thin/
+[19]: https://github.com/guyboertje/jrjackson
+[20]: /sensu-core/0.29/api/health-and-info-api.html
+[21]: /sensu-core/0.29/reference/clients.html#client-definition-specification
+
 <!-- 0.25 -->
-[1]:  https://github.com/sensu/sensu/blob/master/CHANGELOG.md#0250---2016-06-13
-[2]:  /docs/0.25/reference/clients.html#deregistration-attributes
-[3]:  https://github.com/sensu/sensu/pull/1191
-[4]:  https://github.com/sensu/sensu/pull/1305
-[5]:  https://github.com/alor/em-http-server
-[6]:  https://github.com/sensu/sensu/issues/1317
-[7]:  https://github.com/sensu/sensu/issues/1317
-[8]:  #core-v0-25-0
-[9]:  #core-v0-25-1
-[10]: #core-v0-25-2
-[11]: https://github.com/sensu/sensu/issues/1339
-[12]: #core-v0-25-3
-[17]: #core-v0-25-4
-[19]: https://github.com/sensu/sensu/pull/1358
-[20]: https://github.com/sensu/sensu/issues/1360
-[21]: https://github.com/sensu/sensu/pull/1367
-[22]: #core-v0-25-5
-[24]: #core-v0-25-6
-[26]: https://github.com/sensu/sensu/issues/1405
-[27]: #core-v0-25-7
+
+[22]: https://github.com/sensu/sensu/blob/master/CHANGELOG.md#0250---2016-06-13
+[23]: /sensu-core/0.29/reference/clients#deregistration-attributes
+[24]: https://github.com/alor/em-http-server
+
 <!-- 0.26 -->
-[2]:    ../../0.25/reference/checks.html#subdue-attributes
-[3]:    ../../0.25/reference/handlers.html#subdue-attributes
-[4]:    ../reference/checks.html#subdue-attributes
-[5]:    ../reference/filters.html#when-attributes
-[6]:    ../reference/extensions.html
-[7]:    ../reference/aggregates.html
-[8]:    ../reference/configuration.html#sensu-environment-variables
-[9]:    https://github.com/sensu-extensions/sensu-extensions-occurrences/
-[10]:   https://sensuapp.org/blog/2016/07/07/sensu-plugin-filter-deprecation.html
-[11]:   ../api/silenced-api.html
-[12]:   ../reference/handlers.html#handler-attributes
-[861]:  https://github.com/sensu/sensu/issues/861
-[1282]: https://github.com/sensu/sensu/issues/1282
-[1286]: https://github.com/sensu/sensu/issues/1286
-[1327]: https://github.com/sensu/sensu/issues/1327
-[1342]: https://github.com/sensu/sensu/issues/1342
-[1356]: https://github.com/sensu/sensu/issues/1356
-[1361]: https://github.com/sensu/sensu/issues/1361
-[1362]: https://github.com/sensu/sensu/issues/1362
-[1368]: https://github.com/sensu/sensu/issues/1368
-[1370]: https://github.com/sensu/sensu/pull/1370
-[1372]: https://github.com/sensu/sensu/pull/1372
-[1379]: https://github.com/sensu/sensu/pull/1379
-[1384]: https://github.com/sensu/sensu/pull/1384
-[1394]: https://github.com/sensu/sensu/pull/1394
-[1411]: https://github.com/sensu/sensu/pull/1411
-[1415]: https://github.com/sensu/sensu/pull/1415
-[1417]: https://github.com/sensu/sensu/pull/1417
-[1416]: https://github.com/sensu/sensu/issues/1416
-[1419]: https://github.com/sensu/sensu/pull/1419
-[1427]: https://github.com/sensu/sensu/pull/1427
-[1428]: https://github.com/sensu/sensu/pull/1428
+
+[25]: /sensu-core/0.29/reference/checks#subdue-attributes
+[26]: /sensu-core/0.29/reference/handlers#subdue-attributes 
+[27]: /sensu-core/0.29/reference/filters#when-attributes
+[28]: /sensu-core/0.29/reference/extensions
+[29]: /sensu-core/0.29/reference/aggregates
+[30]: /sensu-core/0.29/reference/configuration.html#sensu-environment-variables
+[31]: https://github.com/sensu-extensions/sensu-extensions-occurrences/
+[32]: https://sensuapp.org/blog/2016/07/07/sensu-plugin-filter-deprecation.html
+[33]: /sensu-core/0.29/api/silenced-api
+[34]: /sensu-core/0.29/reference/handlers#handler-attributes
+
 <!-- 0.27 -->
-[3]: ../platforms
-[4]: https://github.com/sensu/sensu-omnibus
-[5]: https://travis-ci.org
-[6]: https://github.com/test-kitchen/test-kitchen
-[7]: https://github.com/chef/chef
-[8]: https://github.com/chef/omnibus
+
+[35]: /sensu-core/0.29/platforms 
+[36]: https://github.com/sensu/sensu-omnibus
+[37]: https://travis-ci.org
+[38]: https://github.com/test-kitchen/test-kitchen
+[39]: https://github.com/chef/chef
+[40]: https://github.com/chef/omnibus
 <!-- 0.28 -->
-[3]: https://github.com/ohler55/oj
-[4]: https://www.openssl.org/news/openssl-1.0.2-notes.html
+
+[41]: https://github.com/ohler55/oj
+[42]: https://www.openssl.org/news/openssl-1.0.2-notes.html
 <!-- 0.29 -->
-[3]: https://github.com/sensu-plugins/sensu-plugin/blob/master/CHANGELOG.md#v200---2017-03-29
-[4]: https://github.com/sensu-extensions/sensu-extensions-occurrences
-[5]: https://github.com/sensu-extensions/sensu-extensions-check-dependencies
+
+[43]: https://github.com/sensu-plugins/sensu-plugin/blob/master/CHANGELOG.md#v200---2017-03-29
+[44]: https://github.com/sensu-extensions/sensu-extensions-occurrences
+[45]: https://github.com/sensu-extensions/sensu-extensions-check-dependencies
 <!-- 1.0 -->
-[3]: https://github.com/sensu-plugins/sensu-plugin/blob/master/CHANGELOG.md#v200---2017-03-29
-[4]: https://github.com/sensu-extensions/sensu-extensions-occurrences
-[5]: https://github.com/sensu-extensions/sensu-extensions-check-dependencies
+
+[46]: https://github.com/sensu-plugins/sensu-plugin/blob/master/CHANGELOG.md#v200---2017-03-29
+[47]: https://github.com/sensu-extensions/sensu-extensions-occurrences
+[48]: https://github.com/sensu-extensions/sensu-extensions-check-dependencies
+
+<!-- GH Issues/PR's -->
+
+[gh-803]:  https://github.com/sensu/sensu/issues/803
+[gh-861]:  https://github.com/sensu/sensu/issues/861
+[gh-915]:  https://github.com/sensu/sensu/issues/915
+[gh-1002]: https://github.com/sensu/sensu/issues/1002
+[gh-1025]: https://github.com/sensu/sensu/issues/1025
+[gh-1041]: https://github.com/sensu/sensu/issues/1041
+[gh-1070]: https://github.com/sensu/sensu/issues/1070
+[gh-1075]: https://github.com/sensu/sensu/issues/1075
+[gh-1122]: https://github.com/sensu/sensu/issues/1122
+[gh-1165]: https://github.com/sensu/sensu/issues/1165
+[gh-1182]: https://github.com/sensu/sensu/issues/1182
+[gh-1187]: https://github.com/sensu/sensu/issues/1187
+[gh-1191]: https://github.com/sensu/sensu/pull/1191
+[gh-1196]: https://github.com/sensu/sensu/issues/1196
+[gh-1203]: https://github.com/sensu/sensu/issues/1203
+[gh-1215]: https://github.com/sensu/sensu/issues/1215
+[gh-1218]: https://github.com/sensu/sensu/issues/1218
+[gh-1244]: https://github.com/sensu/sensu/issues/1244
+[gh-1254]: https://github.com/sensu/sensu/issues/1254
+[gh-1281]: https://github.com/sensu/sensu/issues/1281
+[gh-1282]: https://github.com/sensu/sensu/issues/1282
+[gh-1286]: https://github.com/sensu/sensu/issues/1286
+[gh-1305]: https://github.com/sensu/sensu/pull/1305
+[gh-1317]: https://github.com/sensu/sensu/issues/1317
+[gh-1321]: https://github.com/sensu/sensu/issues/1321
+[gh-1322]: https://github.com/sensu/sensu/issues/1322
+[gh-1327]: https://github.com/sensu/sensu/issues/1327
+[gh-1339]: https://github.com/sensu/sensu/issues/1339
+[gh-1340]: https://github.com/sensu/sensu/issues/1340
+[gh-1342]: https://github.com/sensu/sensu/issues/1342
+[gh-1356]: https://github.com/sensu/sensu/issues/1356
+[gh-1358]: https://github.com/sensu/sensu/pull/1358
+[gh-1360]: https://github.com/sensu/sensu/issues/1360
+[gh-1361]: https://github.com/sensu/sensu/issues/1361
+[gh-1362]: https://github.com/sensu/sensu/issues/1362
+[gh-1367]: https://github.com/sensu/sensu/pull/1367
+[gh-1368]: https://github.com/sensu/sensu/issues/1368
+[gh-1370]: https://github.com/sensu/sensu/pull/1370
+[gh-1372]: https://github.com/sensu/sensu/pull/1372
+[gh-1379]: https://github.com/sensu/sensu/pull/1379
+[gh-1384]: https://github.com/sensu/sensu/pull/1384
+[gh-1394]: https://github.com/sensu/sensu/pull/1394
+[gh-1405]: https://github.com/sensu/sensu/issues/1405
+[gh-1411]: https://github.com/sensu/sensu/pull/1411
+[gh-1415]: https://github.com/sensu/sensu/pull/1415
+[gh-1416]: https://github.com/sensu/sensu/issues/1416
+[gh-1417]: https://github.com/sensu/sensu/pull/1417
+[gh-1419]: https://github.com/sensu/sensu/pull/1419
+[gh-1427]: https://github.com/sensu/sensu/pull/1427
+[gh-1428]: https://github.com/sensu/sensu/pull/1428
