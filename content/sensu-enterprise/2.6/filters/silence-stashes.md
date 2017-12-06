@@ -2,10 +2,10 @@
 title: "silence_stashes"
 description: "The silence_stashes Enterprise filter is used to filter events when specific Sensu API stashes exist."
 product: "Sensu Enterprise"
-version: "1.0"
+version: "2.6"
 weight: 1
 menu:
-  sensu-enterprise-1.0:
+  sensu-enterprise-2.6:
     parent: filters
 ---
 **ENTERPRISE: Built-in filters are available for [Sensu Enterprise][0]

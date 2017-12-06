@@ -1,9 +1,9 @@
 ---
 title: "Built-in Mutators"
 product: "Sensu Enterprise"
-version: "1.0"
+version: "2.6"
 weight: 10
-menu: "sensu-enterprise-1.0"
+menu: "sensu-enterprise-2.6"
 ---
 **ENTERPRISE: Built-in mutators are available for [Sensu Enterprise][0]
 users only.**

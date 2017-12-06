@@ -2,10 +2,10 @@
 title: "Event Stream"
 description: "Send Sensu events to a remote TCP socket for complex event processing and/or long-term storage."
 product: "Sensu Enterprise"
-version: "1.0"
+version: "2.6"
 weight: 15
 menu:
-  sensu-enterprise-1.0:
+  sensu-enterprise-2.6:
     parent: integrations
 ---
 **ENTERPRISE: Built-in integrations are available for [Sensu Enterprise][1]

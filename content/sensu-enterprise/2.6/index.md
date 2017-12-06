@@ -1,9 +1,9 @@
 ---
 title: "Sensu Enterprise"
 product: "Sensu Enterprise"
-version: "1.0"
+version: "2.6"
 weight: 1
-menu: "sensu-enterprise-1.0"
+menu: "sensu-enterprise-2.6"
 ---
 
 ## Overview
@@ -44,47 +44,47 @@ information.
 
 ## Reference documentation
 
-- [Sensu Enterprise Configuration](../configuration)
-- [Sensu Enterprise Dashboard](../dashboard)
-  - [Role-based access controls](../rbac/overview)
-    - [RBAC for LDAP](../rbac/rbac-for-ldap)
-    - [RBAC for GitHub](../rbac/rbac-for-github)
-    - [RBAC for GitLab](../rbac/rbac-for-gitlab)
-  - [Audit Logging](../rbac/audit-logging)
-  - [Collections](../collections)
-  - [Heads up display](../hud)
-- [Sensu Enterprise API](../api)
-- [Contact routing](../contact-routing)
-- [Built-in handlers (integrations)](../built-in-handlers)
-  - [Email](../integrations/email)
-  - [PagerDuty](../integrations/pagerduty)
-  - [ServiceNow](../integrations/servicenow)
-  - [VictorOps](../integrations/victorops)
-  - [OpsGenie](../integrations/opsgenie)
-  - [Slack](../integrations/slack)
-  - [HipChat](../integrations/hipchat)
-  - [IRC](../integrations/irc)
-  - [SNMP](../integrations/snmp)
-  - [Graylog](../integrations/graylog)
-  - [Flapjack](../integrations/flapjack)
-  - [Puppet](../integrations/puppet)
-  - [Chef](../integrations/chef)
-  - [EC2](../integrations/ec2)
-  - [Event Stream](../integrations/event_stream)
-  - [Graphite](../integrations/graphite)
-  - [Librato](../integrations/librato)
-  - [OpenTSDB](../integrations/opentsdb)
-  - [InfluxDB](../integrations/influxdb)
-  - [DataDog](../integrations/datadog)
-- [Built-in filters](../built-in-filters)
+- [Sensu Enterprise Configuration](configuration)
+- [Sensu Enterprise Dashboard](dashboard)
+  - [Role-based access controls](rbac/overview)
+    - [RBAC for LDAP](rbac/rbac-for-ldap)
+    - [RBAC for GitHub](rbac/rbac-for-github)
+    - [RBAC for GitLab](rbac/rbac-for-gitlab)
+  - [Audit Logging](rbac/audit-logging)
+  - [Collections](collections)
+  - [Heads up display](hud)
+- [Sensu Enterprise API](api)
+- [Contact routing](contact-routing)
+- [Built-in handlers (integrations)](built-in-handlers)
+  - [Email](integrations/email)
+  - [PagerDuty](integrations/pagerduty)
+  - [ServiceNow](integrations/servicenow)
+  - [VictorOps](integrations/victorops)
+  - [OpsGenie](integrations/opsgenie)
+  - [Slack](integrations/slack)
+  - [HipChat](integrations/hipchat)
+  - [IRC](integrations/irc)
+  - [SNMP](integrations/snmp)
+  - [Graylog](integrations/graylog)
+  - [Flapjack](integrations/flapjack)
+  - [Puppet](integrations/puppet)
+  - [Chef](integrations/chef)
+  - [EC2](integrations/ec2)
+  - [Event Stream](integrations/event_stream)
+  - [Graphite](integrations/graphite)
+  - [Librato](integrations/librato)
+  - [OpenTSDB](integrations/opentsdb)
+  - [InfluxDB](integrations/influxdb)
+  - [DataDog](integrations/datadog)
+- [Built-in filters](built-in-filters)
 
 
 [1]:  /sensu-enterprise
-[2]:  ../contact-routing
-[3]:  ../built-in-handlers
+[2]:  contact-routing
+[3]:  built-in-handlers
 [4]:  /training
-[5]:  /support
+[5]:  https://sensuapp.org/support
 [6]:  /sensu-core/1.0/reference/server
 [7]:  /sensu-core/1.0/api/overview
-[8]:  ../installation/install-sensu-server-api#sensu-enterprise
+[8]:  installation/install-sensu-server-api#sensu-enterprise
 [9]:  #reference-documentation

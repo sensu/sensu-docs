@@ -2,10 +2,10 @@
 title: "Puppet"
 description: "Deregister Sensu clients from the client registry if they no longer have an associated Puppet node."
 product: "Sensu Enterprise"
-version: "1.0"
+version: "2.6"
 weight: 12
 menu:
-  sensu-enterprise-1.0:
+  sensu-enterprise-2.6:
     parent: integrations
 ---
 **ENTERPRISE: Built-in integrations are available for [Sensu Enterprise][1]

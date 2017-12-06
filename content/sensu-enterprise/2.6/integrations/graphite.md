@@ -2,10 +2,10 @@
 title: "Graphite"
 description: "Send metrics to the Graphite time-series database using the plaintext protocol."
 product: "Sensu Enterprise"
-version: "1.0"
+version: "2.6"
 weight: 17
 menu:
-  sensu-enterprise-1.0:
+  sensu-enterprise-2.6:
     parent: integrations
 ---
 **ENTERPRISE: Built-in integrations are available for [Sensu Enterprise][1]

@@ -1,10 +1,10 @@
 ---
 title: "Role Based Access Controls"
 product: "Sensu Enterprise"
-version: "1.0"
+version: "2.6"
 weight: 1
 menu:
-  sensu-enterprise-1.0:
+  sensu-enterprise-2.6:
     parent: rbac
 ---
 **ENTERPRISE: Role based access controls are available for [Sensu Enterprise][0]

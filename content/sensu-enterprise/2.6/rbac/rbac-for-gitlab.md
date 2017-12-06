@@ -2,10 +2,10 @@
 title: "RBAC for GitLab"
 description: "Reference documentation for the Sensu Enterprise Dashboard Role Based Access Controls (RBAC) for GitLab"
 product: "Sensu Enterprise"
-version: "1.0"
+version: "2.6"
 weight: 4
 menu:
-  sensu-enterprise-1.0:
+  sensu-enterprise-2.6:
     parent: rbac
 ---
 **ENTERPRISE: Role based access controls are available for [Sensu Enterprise][5]

@@ -2,10 +2,10 @@
 title: "OpenTSDB"
 description: "Send metrics to OpenTSDB using the telnet protocol."
 product: "Sensu Enterprise"
-version: "1.0"
+version: "2.6"
 weight: 19
 menu:
-  sensu-enterprise-1.0:
+  sensu-enterprise-2.6:
       parent: integrations
 ---
 **ENTERPRISE: Built-in integrations are available for [Sensu Enterprise][1]

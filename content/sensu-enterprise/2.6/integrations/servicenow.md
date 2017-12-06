@@ -2,10 +2,10 @@
 title: "ServiceNow"
 description: "Create ServiceNow configuration items upon Sensu client registration, create/resolve ServiceNow incidents, and/or create ServiceNow events for Sensu events."
 product: "Sensu Enterprise"
-version: "1.0"
+version: "2.6"
 weight: 3
 menu:
-  sensu-enterprise-1.0:
+  sensu-enterprise-2.6:
     parent: integrations
 ---
 **ENTERPRISE: Built-in integrations are available for [Sensu Enterprise][1]
