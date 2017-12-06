@@ -50,10 +50,11 @@ pygmentsUseClasses=true
         name = "Sensu Core"
         description = "Sensu helps monitoring and does some cool things. It's neato!"
         weight = 1
-        latest = "1.0"
+        latest = "1.1"
         [params.products.sensu_core.versions]
+            "1.1" = ["Ubuntu/Debian", "RHEL/CentOS"]
             "1.0" = ["Ubuntu/Debian", "RHEL/CentOS"]
-            "0.29" = []
+            "0.29" = ["Ubuntu/Debian", "RHEL/CentOS"]
 
     [params.products.sensu_enterprise]
         identifier = "sensu-enterprise"
