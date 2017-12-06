@@ -2,10 +2,10 @@
 title: "Events"
 description: "Reference documentation for Sensu Events, including the Event Data specification."
 product: "Sensu Core"
-version: "1.1"
+version: "1.2"
 weight: 5
 menu:
-  sensu-core-1.1:
+  sensu-core-1.2:
     parent: reference
 ---
 

@@ -2,10 +2,10 @@
 title: "Redis Configuration"
 description: "Reference documentation for configuring Redis for use with Sensu."
 product: "Sensu Core"
-version: "1.1"
+version: "1.2"
 weight: 16
 menu:
-  sensu-core-1.1:
+  sensu-core-1.2:
     parent: reference
 ---
 

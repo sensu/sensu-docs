@@ -2,10 +2,10 @@
 title: "Health & Info APIs"
 description: "Sensu Health & Info API reference documentation."
 product: "Sensu Core"
-version: "1.1"
+version: "1.2"
 weight: 8
 menu:
-  sensu-core-1.1:
+  sensu-core-1.2:
     parent: api
 ---
 

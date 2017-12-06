@@ -2,11 +2,11 @@
 title: "SSL Configuration"
 description: "Reference documentation for using Sensu with SSL."
 product: "Sensu Core"
-version: "1.1"
+version: "1.2"
 weight: 17
 platformContent: true
 menu:
-  sensu-core-1.1:
+  sensu-core-1.2:
     parent: reference
 ---
 

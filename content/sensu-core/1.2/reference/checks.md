@@ -2,10 +2,10 @@
 title: "Checks"
 description: "Reference documentation for Sensu Checks."
 product: "Sensu Core"
-version: "1.1"
+version: "1.2"
 weight: 3
 menu:
-  sensu-core-1.1:
+  sensu-core-1.2:
     parent: reference
 ---
 

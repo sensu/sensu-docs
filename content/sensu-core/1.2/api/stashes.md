@@ -2,10 +2,10 @@
 title: "Stashes API"
 description: "Sensu Stashes API reference documentation."
 product: "Sensu Core"
-version: "1.1"
+version: "1.2"
 weight: 7
 menu:
-  sensu-core-1.1:
+  sensu-core-1.2:
     parent: api
 ---
 

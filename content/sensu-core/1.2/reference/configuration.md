@@ -2,10 +2,10 @@
 title: "Sensu Configuration"
 description: "Reference documentation for Sensu Configuration, including service init scripts, command line arguments, and environment variables."
 product: "Sensu Core"
-version: "1.1"
+version: "1.2"
 weight: 14
 menu:
-  sensu-core-1.1:
+  sensu-core-1.2:
     parent: reference
 ---
 

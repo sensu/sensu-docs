@@ -2,10 +2,10 @@
 title: "API Configuration"
 description: "Sensu API configuration reference documentation."
 product: "Sensu Core"
-version: "1.1"
+version: "1.2"
 weight: 10
 menu:
-  sensu-core-1.1:
+  sensu-core-1.2:
     parent: api
 ---
 

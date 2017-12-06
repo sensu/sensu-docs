@@ -2,12 +2,12 @@
 title: "Aggregates API"
 description: "Sensu Aggregates API reference documentation."
 product: "Sensu Core"
-version: "1.1"
+version: "1.2"
 weight: 5
 next: "../checks"
 previous: "../clients"
 menu:
-  sensu-core-1.1:
+  sensu-core-1.2:
     parent: api
 ---
 

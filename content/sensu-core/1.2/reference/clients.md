@@ -2,10 +2,10 @@
 title: "Clients"
 description: "Reference documentation for Sensu Clients."
 product: "Sensu Core"
-version: "1.1"
+version: "1.2"
 weight: 2
 menu:
-  sensu-core-1.1:
+  sensu-core-1.2:
     parent: reference
 ---
 
