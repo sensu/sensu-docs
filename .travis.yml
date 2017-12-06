@@ -1,0 +1,15 @@
+addons:
+  apt:
+    packages:
+      - python-pygments
+
+script:
+  - bin/hugo
+
+deploy:
+  provider: heroku
+  app: sensu-docs-site
+  api_key:
+    secure: lkbs3btmm5PAgSeZ0gl0cUykzf9umFLD/r0SnHEEpKvxm90tXaZBhMXaLr/i6kl3sIFjJacaJnF6TdVXcRJWuXKRxF8d0xdzLRpvsW4lety4yKeVtB+NZ69NT1WRCWFYM+UhFzBoeXQXQzatrn7snckjzRx+PUYpY8OCDo9law3DQIea90A+0P9gFM4DblO649BMW4pMVoGyKsr2k91f5RoM+biNALXIUqh5NvDdszwfdXvOmsqcrCIM0cEwfglAIHJhsY6rGz7T4I4Hsu556k5wBocU6dJAM2ziACn5gj+T74upldi95KTHYdUN1aXBM1ea1iidwDiUrGBX1XLw9gMPIR1iIkLLyh+o2UFOdic1pBTYK3RThcNvQiiMcfwoSImu4TmgQ1dM67lW+luLj0A6TbCBCCuow5HYYdazXGxYRth3UPVSVEgBS0ADQyu9kNhmPkBqBf8lPiaWN6o1xD5Nto99U0P5jcpo7MvsTFiw12Mrfid+x+cocPOFCI9KEfrnsTcXcyQh3t8oZDmdZGySxuY9gEFkHttz8U5ie86eGVm2s17jw/NOFNiBoPpuLfwksUXQJa8IouPM0GUbMac4gKQHDc97hVKp8rRM0kymUL574qxluIOtdFOO4oOxJgXSP1+Afm371ZgIdjuyrmdON1+zA4jOGm3UHEhYjII=
+  on:
+    branch: master
