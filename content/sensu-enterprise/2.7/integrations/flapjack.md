@@ -2,10 +2,10 @@
 title: "Flapjack"
 description: "Relay Sensu results to Flapjack for notification routing and event processing."
 product: "Sensu Enterprise"
-version: "2.6"
+version: "2.7"
 weight: 11
 menu:
-  sensu-enterprise-2.6:
+  sensu-enterprise-2.7:
     parent: integrations
 ---
 

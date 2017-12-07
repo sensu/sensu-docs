@@ -1,9 +1,9 @@
 ---
 title: "Enterprise API"
 product: "Sensu Enterprise"
-version: "2.6"
+version: "2.7"
 weight: 4
-menu: "sensu-enterprise-2.6"
+menu: "sensu-enterprise-2.7"
 ---
 
 ## Reference documentation

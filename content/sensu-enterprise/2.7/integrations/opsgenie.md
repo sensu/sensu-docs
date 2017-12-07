@@ -2,10 +2,10 @@
 title: "OpsGenie"
 description: "Create and close OpsGenie alerts for Sensu events."
 product: "Sensu Enterprise"
-version: "2.6"
+version: "2.7"
 weight: 5
 menu:
-  sensu-enterprise-2.6:
+  sensu-enterprise-2.7:
     parent: integrations
 ---
 **ENTERPRISE: Built-in integrations are available for [Sensu Enterprise][1]

@@ -1,10 +1,10 @@
 ---
 title: "EC2"
 product: "Sensu Enterprise"
-version: "2.6"
+version: "2.7"
 weight: 14
 menu:
-  sensu-enterprise-2.6:
+  sensu-enterprise-2.7:
     parent: integrations
 ---
 **ENTERPRISE: Built-in integrations are available for [Sensu Enterprise][1]

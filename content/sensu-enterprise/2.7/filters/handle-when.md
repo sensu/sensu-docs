@@ -2,9 +2,9 @@
 title: "handle_when"
 description: "The handle_when Enterprise filter is used to reduce notification noise."
 product: "Sensu Enterprise"
-version: "2.6"
+version: "2.7"
 weight: 1
-menu: "sensu-enterprise-2.6"
+menu: "sensu-enterprise-2.7"
 ---
 **ENTERPRISE: Built-in filters are available for [Sensu Enterprise][0]
 users only.**

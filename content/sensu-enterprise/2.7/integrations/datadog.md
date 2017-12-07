@@ -2,10 +2,10 @@
 title: "DataDog"
 description: "Create DataDog events for Sensu events."
 product: "Sensu Enterprise"
-version: "2.6"
+version: "2.7"
 weight: 21
 menu:
-  sensu-enterprise-2.6:
+  sensu-enterprise-2.7:
     parent: integrations
 ---
 **ENTERPRISE: Built-in integrations are available for [Sensu Enterprise][1]

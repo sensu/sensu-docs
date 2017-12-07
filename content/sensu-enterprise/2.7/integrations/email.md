@@ -2,10 +2,10 @@
 title: "Email"
 description: "User documentation for the built-in email integration in Sensu Enterprise. Send email notifications for events via SMTP."
 product: "Sensu Enterprise"
-version: "2.6"
+version: "2.7"
 weight: 1
 menu:
-  sensu-enterprise-2.6:
+  sensu-enterprise-2.7:
     parent: integrations
 ---
 **ENTERPRISE: Built-in integrations are available for [Sensu Enterprise][1]

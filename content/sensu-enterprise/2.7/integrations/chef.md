@@ -2,10 +2,10 @@
 title: "Chef"
 description: "Deregister Sensu clients from the client registry, if they no longer have associated Chef node data."
 product: "Sensu Enterprise"
-version: "2.6"
+version: "2.7"
 weight: 13
 menu:
-  sensu-enterprise-2.6:
+  sensu-enterprise-2.7:
     parent: integrations
 ---
 **ENTERPRISE: Built-in integrations are available for [Sensu Enterprise][1]

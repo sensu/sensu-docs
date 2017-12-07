@@ -1,9 +1,9 @@
 ---
 title: "Collections"
 product: "Sensu Enterprise"
-version: "2.6"
+version: "2.7"
 weight: 12
-menu: "sensu-enterprise-2.6"
+menu: "sensu-enterprise-2.7"
 ---
 
 Collections are a grouping of items returned by a collection query. This query
