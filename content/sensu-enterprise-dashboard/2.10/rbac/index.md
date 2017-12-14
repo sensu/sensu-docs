@@ -1,10 +1,10 @@
 ---
 title: "RBAC"
-product: "Sensu Enterprise"
-version: "2.7"
+product: "Sensu Enterprise Dashboard"
+version: "2.10"
 weight: -1
 menu:
-  sensu-enterprise-2.7:
+  sensu-enterprise-2.10:
     parent: rbac
 ---
 
