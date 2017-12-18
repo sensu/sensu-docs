@@ -9,7 +9,6 @@ layout: "index-3"
 
 ## COMING SOON
 
-# TODO: ADD HUD
 {{< directoryListing "content/sensu-enterprise-dashboard/1.0" >}}
 
 ## Reference Documentation
@@ -24,7 +23,7 @@ layout: "index-3"
 
 The Sensu Enterprise Dashboard is a simple web-based application that provides
 realtime visibility into Sensu monitoring data, with dedicated views for
-monitoring events, clients, checks, aggregates, [data centers][?], and more. The
+monitoring events, clients, checks, aggregates, data centers, and more. The
 dashboard provides powerful global search features for filtering views so users
 can focus on the data that's important to them. The dashboard also provides
 basic operational controls to acknowledge or otherwise "silence" monitoring
@@ -68,7 +67,6 @@ servers in cluster (multiple API endpoints may be provided by a single Sensu
 installation or cluster).
 
 
-[?]:  #
 [1]:  #what-is-a-sensu-datacenter
 [2]:  http://www.uchiwa.io
 [3]:  /sensu-enterprise-dashboard/rbac/overview
