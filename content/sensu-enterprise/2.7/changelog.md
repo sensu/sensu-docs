@@ -1,3 +1,11 @@
+---
+title: "CHANGELOG"
+description: "Release notes for Sensu Enterprise"
+product: "Sensu Enterprise"
+version: "2.7"
+menu: "sensu-enterprise-2.7"
+---
+
 _NOTE: Sensu Enterprise is built on Sensu Core. Sensu Core changes are documented in the [Sensu Core changelog][core-changelog]._
 
 ## Releases
