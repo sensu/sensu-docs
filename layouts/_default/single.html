@@ -51,7 +51,6 @@
   {{ partial "footer" . }}
 </footer>
 
-
 <!-- May not render, used for old versions,  -->
 {{ $product := .Section }}
 {{ $product2 := replace $product "-" "_" }}
@@ -59,7 +58,7 @@
 {{ if and (isset .Params "version") (ne $product_info.latest .Params.version) }}
   {{ $message := (printf "You're viewing documentation for an older or pre-release version of %s. Click here for the latest." .Params.product) }}
   {{ $link := (printf "/%s/%s/" .Section $product_info.latest) }}
-  {{ $params := slice "#000" $message $link }}
+  {{ $params := slice "#cc7d7c" $message  }}
   {{ partial "alert" $params }}
 {{ end }}
 

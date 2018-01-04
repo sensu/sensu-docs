@@ -551,7 +551,7 @@ button.accordion.active, button.accordion:hover {
   background-color: #dbdbdb; 
 }
 
-/* Version Banner ----------------------------------------------------------------- */
+/* Version Banner/Alerts ----------------------------------------------------------------- */
 
 .versionBanner {
   background-color: #cc7d7c;
@@ -563,7 +563,7 @@ button.accordion.active, button.accordion:hover {
   text-align: center;
 }
 
-.versionBanner a {
+.versionBanner a, .versionBanner span {
   color: #dedede;
 }
 

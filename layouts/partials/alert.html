@@ -1,7 +1,12 @@
+{{ $color := index . 0 }}
 {{ $message := index . 1 }}
 {{ $link := index . 2 }}
 
-<div class="versionBanner">
-  <a class="versionBannerText" href="{{ $link }}">{{ $message }}</a>
+<div class="versionBanner" style="background-color: {{ $color }}">
+  {{ if $link }}
+    <a class="versionBannerText" href="{{ $link }}">{{ $message }}</a>
+  {{ else }}
+    <span class="versionBannerText">{{ $message }}</span>
+  {{ end }}
 </div>
 
