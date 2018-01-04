@@ -36,7 +36,6 @@ type         | String
 default      | `/var/log/sensu/sensu-enterprise-dashboard-audit.log`
 example      | {{< highlight shell >}}"logfile": "/var/log/sensu/sensu-enterprise-dashboard-audit.log"{{< /highlight >}}
 
-<<<<<<< HEAD
 level          | 
 ---------------|------
 description    | The audit logging level.

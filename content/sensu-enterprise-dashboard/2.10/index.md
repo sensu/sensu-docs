@@ -1,9 +1,9 @@
 ---
 title: "Sensu Enterprise Dashboard"
 product: "Sensu Enterprise Dashboard"
-version: "2.10.2"
+version: "2.10"
 weight: 0
-menu: "sensu-enterprise-dashboard-2.10.2"
+menu: "sensu-enterprise-dashboard-2.10"
 layout: "index-3"
 ---
 

@@ -5,7 +5,7 @@ product: "Sensu Enterprise Dashboard"
 version: "2.10"
 weight: 2
 menu:
-  sensu-enterprise-2.10:
+  sensu-enterprise-dashboard-2.10:
     parent: rbac
 ---
 **ENTERPRISE: Role based access controls are available for [Sensu Enterprise][5]
