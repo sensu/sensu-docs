@@ -2,11 +2,11 @@
 {{ $message := index . 1 }}
 {{ $link := index . 2 }}
 
-<div class="versionBanner" style="background-color: {{ $color }}">
+<div class="alertBanner" style="background-color: {{ $color }}">
   {{ if $link }}
-    <a class="versionBannerText" href="{{ $link }}">{{ $message }}</a>
+    <a class="alertBannerText" href="{{ $link }}">{{ $message }}</a>
   {{ else }}
-    <span class="versionBannerText">{{ $message }}</span>
+    <span class="alertBannerText">{{ $message }}</span>
   {{ end }}
 </div>
 
