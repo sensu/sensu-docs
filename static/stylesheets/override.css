@@ -575,6 +575,12 @@ button.accordion.active, button.accordion:hover {
   font-size: 14px;
 }
 
+.closeAlert {
+  float: right;
+  margin-right: 20px;
+  font-size: 16px;
+}
+
 /* Non-Homepage Index Buttons ----------------------------------------------------------------- */
 
 .landingButtonHolder {

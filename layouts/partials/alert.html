@@ -5,8 +5,17 @@
 <div class="alertBanner" style="background-color: {{ $color }}">
   {{ if $link }}
     <a class="alertBannerText" href="{{ $link }}">{{ $message }}</a>
+    <span class="closeAlert"><i class="fa fa-times" aria-hidden="true" onClick="closeAlert()"></i></span>
   {{ else }}
     <span class="alertBannerText">{{ $message }}</span>
+    <span class="closeAlert"><i class="fa fa-times" aria-hidden="true" onClick="closeAlert()"></i></span>
   {{ end }}
 </div>
 
+
+<script>
+  function closeAlert() {
+    var $banner = document.getElementsByClassName("alertBanner");
+    $banner[0].style.display = 'none';
+  }
+</script>
