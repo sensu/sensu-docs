@@ -7,10 +7,6 @@ menu: "sensu-enterprise-dashboard-2.10"
 layout: "index-3"
 ---
 
-## COMING SOON
-
-{{< directoryListing "content/sensu-enterprise-dashboard/1.0" >}}
-
 ## Reference Documentation
 
 - [What is the Sensu Enterprise Dashboard?](#what-is-the-sensu-enterprise-dashboard)
