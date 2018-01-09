@@ -42,7 +42,7 @@ cd sensu-docs-site ; git submodule update --init --recursive
 
 #### Initial Setup - RedHat/CentOS/Fedora
 
-Sensu Docs Site uses Hugo > .30. You'll need to ensure that you've downloaded that version prior to cloning the repo. To install the repo, ensure that you have the yum-utils package installed:
+Sensu Docs Site uses Hugo .30, though .31 works. Do NOT use .32 at this time, as it breaks the site. You'll need to ensure that you've downloaded either of those versions prior to cloning the repo. To install the repo, ensure that you have the yum-utils package installed:
 
 ```
 sudo yum install - yum-utils
@@ -54,12 +54,15 @@ CentOS:
 
 ```
 sudo yum-config-manager --add-repo https://copr.fedorainfracloud.org/coprs/daftaupe/hugo/repo/epel-7/daftaupe-hugo-epel-7.repo
+sudo dnf install 0.31.1-0.el7.centos 
 ```
+
 
 Fedora:
 
 ```
 sudo dnf copr enable daftaupe/hugo
+sudo dnf install hugo-0.31.1-0.fc26.x86_64
 ```
 
 From there, proceed to clone the repo:
