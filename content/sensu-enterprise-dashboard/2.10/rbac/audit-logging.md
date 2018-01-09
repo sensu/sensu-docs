@@ -1,10 +1,10 @@
 ---
 title: "Audit Logging"
-product: "Sensu Enterprise"
-version: "2.7"
+product: "Sensu Enterprise Dashboard"
+version: "2.10"
 weight: 5
 menu:
-  sensu-enterprise-2.7:
+  sensu-enterprise-dashboard-2.10:
     parent: rbac
 ---
 
@@ -36,7 +36,6 @@ type         | String
 default      | `/var/log/sensu/sensu-enterprise-dashboard-audit.log`
 example      | {{< highlight shell >}}"logfile": "/var/log/sensu/sensu-enterprise-dashboard-audit.log"{{< /highlight >}}
 
-<<<<<<< HEAD
 level          | 
 ---------------|------
 description    | The audit logging level.
