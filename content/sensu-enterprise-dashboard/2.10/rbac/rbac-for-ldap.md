@@ -1,11 +1,11 @@
 ---
 title: "RBAC for LDAP"
 description: "Reference documentation for the Sensu Enterprise Dashboard Role Based Access Controls (RBAC) for LDAP"
-product: "Sensu Enterprise"
-version: "2.7"
+product: "Sensu Enterprise Dashboard"
+version: "2.10"
 weight: 2
 menu:
-  sensu-enterprise-2.7:
+  sensu-enterprise-dashboard-2.10:
     parent: rbac
 ---
 **ENTERPRISE: Role based access controls are available for [Sensu Enterprise][5]
