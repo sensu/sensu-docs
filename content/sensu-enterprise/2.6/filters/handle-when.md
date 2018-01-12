@@ -4,7 +4,9 @@ description: "The handle_when Enterprise filter is used to reduce notification n
 product: "Sensu Enterprise"
 version: "2.6"
 weight: 1
-menu: "sensu-enterprise-2.6"
+menu:
+  sensu-enterprise-2.6:
+    parent: filters
 ---
 **ENTERPRISE: Built-in filters are available for [Sensu Enterprise][0]
 users only.**
