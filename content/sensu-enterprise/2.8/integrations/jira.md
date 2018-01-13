@@ -4,7 +4,7 @@ product: "Sensu Enterprise"
 version: "2.8"
 weight: 2
 menu:
-  sensu-enterprise-2.7:
+  sensu-enterprise-2.8:
     parent: integrations
 ---
 **ENTERPRISE: Built-in integrations are available for [Sensu Enterprise][1]
