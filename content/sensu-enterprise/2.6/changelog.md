@@ -55,7 +55,7 @@ improvements:
 
 ### CHANGES {#enterprise-v2-6-5-changes}
 
-- **IMPROVEMENT**: Now built on Sensu Core 1.0.4
+- **IMPROVEMENT**: Now built on [Sensu Core 1.0.4][core-v1-0-4]
 
 - **IMPROVEMENT**: Service scripts now honor `SENSU_OPTS` environment variable 
   for appending Sensu command line arguments when running Sensu Enterprise. 
@@ -122,7 +122,7 @@ is available for immediate download. Please note the following improvements:
 
 ### CHANGES {#enterprise-v2-6-0-changes}
 
-- **IMPROVEMENT**: Built on Sensu Core 1.0.2.
+- **IMPROVEMENT**: Built on [Sensu Core 1.0.2][core-v1-0-2].
 
 - **IMPROVEMENT**: Added support for contact routing to every metric 
   integration (e.g. InfluxDB, Graphite, OpenTSDB, etc.). 
@@ -148,7 +148,7 @@ improvements:
 
 ### CHANGES {#enterprise-v2-5-2-changes}
 
-- **IMPROVEMENT**: Built on Sensu Core 0.28.5.
+- **IMPROVEMENT**: Built on [Sensu Core 0.28.5][core-v0-28-5].
 
 - **IMPROVEMENT**: Improved OpsGenie integration API request debug logging. 
 
@@ -160,7 +160,7 @@ improvements:
 
 ### CHANGES {#enterprise-v2-5-1-changes}
 
-- **IMPROVEMENT**: Built on Sensu Core 0.28.4.
+- **IMPROVEMENT**: Built on [Sensu Core 0.28.4][core-v0-28-4].
 
 ## Enterprise 2.5.0 Release Notes {#enterprise-v2-5-0}
 
@@ -170,7 +170,7 @@ improvements:
 
 ### CHANGES {#enterprise-v2-5-0-changes}
 
-- **IMPROVEMENT**: Built on Sensu Core 0.28.0.
+- **IMPROVEMENT**: Built on [Sensu Core 0.28.0][core-v0-28-0].
 
 - **IMPROVEMENT**: Added OpenTSDB integration `prefix_source` and `prefix` 
   options. 
@@ -186,7 +186,7 @@ improvements:
 
 ### CHANGES {#enterprise-v2-4-0-changes}
 
-- **IMPROVEMENT**: Built on Sensu Core 0.27.1.
+- **IMPROVEMENT**: Built on [Sensu Core 0.27.1][core-v0-27-1].
 
 ## Enterprise 2.3.1 Release Notes {#enterprise-v2-3-1}
 
@@ -266,14 +266,14 @@ improvements:
 
 ### IMPORTANT {#enterprise-v2-0-0-important}
 
-This Enterprise release is built upon [Sensu Core 0.26](#core-v0-26-0),
+This Enterprise release is built upon [Sensu Core 0.26][core-v0-26-0],
 which includes potentially breaking, backwards-incompatible changes. For
 more information, please refer to the [Sensu Core 0.26.0 Important
 Changes](#core-v0-26-0-important).
 
 ### CHANGES {#enterprise-v2-0-0-changes}
 
-- **NEW**: Built on [Sensu Core version 0.26.5](#core-v0-26-5).
+- **NEW**: Built on [Sensu Core version 0.26.5][core-v0-26-5].
 
 ## Enterprise 1.14.7 Release Notes {#enterprise-v1-14-7}
 
@@ -282,7 +282,7 @@ is available for immediate download. Please note the following improvements:
 
 ### CHANGES {#enterprise-v1-14-7-changes}
 
-- **NEW**: Built on [Sensu Core version 0.25.6][24].
+- **NEW**: Built on [Sensu Core version 0.25.6][core-v0-25-6].
 
 ## Enterprise 1.14.6 Release Notes {#enterprise-v1-14-6}
 
@@ -300,7 +300,7 @@ is available for immediate download. Please note the following improvements:
 
 ### CHANGES {#enterprise-v1-14-5-changes}
 
-- **NEW**: Built on [Sensu Core version 0.25.5][22]
+- **NEW**: Built on [Sensu Core version 0.25.5][core-v0-25-5]
 
 ## Enterprise 1.14.4 Release Notes {#enterprise-v1-14-4}
 
@@ -320,7 +320,7 @@ is available for immediate download. Please note the following improvements:
 
 ### CHANGES {#enterprise-v1-14-3-changes}
 
-- **NEW**: Built on [Sensu Core version 0.25.3][12].
+- **NEW**: Built on [Sensu Core version 0.25.3][core-v0-25-3].
 
 ## Enterprise 1.14.2 Release Notes {#enterprise-v1-14-2}
 
@@ -339,7 +339,7 @@ is available for immediate download. Please note the following improvements:
 
 ### CHANGES {#enterprise-v1-14-1-changes}
 
-- **NEW**: Built on [Sensu Core version 0.25.2][10].
+- **NEW**: Built on [Sensu Core version 0.25.2][core-v0-25-2].
 
 ## Enterprise 1.14.0 Release Notes {#enterprise-v1-14-0}
 
@@ -351,12 +351,12 @@ is available for immediate download. Please note the following improvements:
 This release includes potentially breaking, backwards-incompatible changes:
 
 - This is the first Sensu Enterprise release based on Sensu Core version 0.25.x.
-  Please refer to the [Sensu Core version 0.25.0 release notes][8] (below) for
+  Please refer to the [Sensu Core version 0.25.0 release notes][core-v0-25-0] (below) for
   additional information on potentially breaking changes.
 
 ### CHANGES {#enterprise-v1-14-0-changes}
 
-- **NEW**: Built on [Sensu Core version 0.25.1][9].
+- **NEW**: Built on [Sensu Core version 0.25.1][core-v0-25-1].
 - **IMPROVEMENT**: Significant Enterprise /metric API route performance
   improvements, reducing network IO, CPU, and memory utilization.
 - **IMPROVEMENT**: Reduced Enterprise metric retention from 4 hours to 1 hour,
@@ -372,25 +372,25 @@ is available for immediate download. Please note the following improvements:
 This release includes potentially breaking, backwards-incompatible changes:
 
 - This is the first Sensu Enterprise release based on Sensu Core version 0.24.x.
-  Please refer to the [Sensu Core version 0.24.0][] release notes for
+  Please refer to the [Sensu Core version 0.24.0][core-v0-24-0] release notes for
   additional information on potentially breaking changes. This release requires
   Sensu Enterprise Dashboard 1.9.8 or higher. 
 
 ### CHANGES {#enterprise-v1-13-0-changes}
 
-- **NEW:** Built on [Sensu Core 0.24.1][].
+- **NEW:** Built on [Sensu Core 0.24.1][core-v0-24-1].
 
-- **NEW:** [Event Stream integration][39]. The Sensu Enterprise "event stream"
+- **NEW:** [Event Stream integration][event-stream-integration]. The Sensu Enterprise "event stream"
   integration sends **all** Sensu events to a remote TCP socket for complex
   event processing (e.g. "stream processing") and/or long-term storage. Please
   refer to the [Event Stream integration reference documentation][39] for
   additional information.
 
-- **NEW:** [Graylog integration][40]. The Sensu Enterprise Graylog integration
+- **NEW:** [Graylog integration][graylog-integration]. The Sensu Enterprise Graylog integration
   sends Sensu events to a a Graylog Raw/Plaintext TCP input. Please refer to the
   [Graylog integration reference documentation][40] for additional information.
 
-- **IMPROVEMENT:** [ServiceNow integration][41] adds support for configurable
+- **IMPROVEMENT:** [ServiceNow integration][service-now-integration] adds support for configurable
   "incident table" name (previously hard-coded to `"incident"`), for
   organizations with customized ServiceNow configurations.
 
@@ -399,16 +399,33 @@ This release includes potentially breaking, backwards-incompatible changes:
 [core-changelog]:  /sensu-core/latest/changelog
 
 <!-- 1.13 -->
-[38]: #core-v0-24-1
-[39]: /docs/0.24/enterprise/integrations/event_stream.html
-[40]: /docs/0.24/enterprise/integrations/graylog.html
-[41]: /docs/0.24/enterprise/integrations/servicenow.html
+[core-v0-24-0]: /sensu-core/1.0/changelog/#core-v0-24-0
+[core-v0-24-1]: /sensu-core/1.0/changelog/#core-v0-24-1
+[event-stream-integration]: ../integrations/event_stream
+[graylog-integration]: ../integrations/graylog
+[service-now-integration]: ../integrations/servicenow
 
 <!-- 1.14 -->
-[10]: #core-v0-25-2
-[12]: #core-v0-25-3
-[17]: #core-v0-25-4
-[22]: #core-v0-25-5
-[24]: #core-v0-25-6
+[core-v0-25-0]: /sensu-core/1.0/changelog/#core-v0-25-0
+[core-v0-25-1]: /sensu-core/1.0/changelog/#core-v0-25-1
+[core-v0-25-2]: /sensu-core/1.0/changelog/#core-v0-25-2
+[core-v0-25-3]: /sensu-core/1.0/changelog/#core-v0-25-3
+[core-v0-25-4]: /sensu-core/1.0/changelog/#core-v0-25-4
+[core-v0-25-5]: /sensu-core/1.0/changelog/#core-v0-25-5
+[core-v0-25-6]: /sensu-core/1.0/changelog/#core-v0-25-6
 
 <!-- 2.0 -->
+[core-v0-26-0]: /sensu-core/1.0/changelog/#core-v0-26-0
+[core-v0-26-5]: /sensu-core/1.0/changelog/#core-v0-26-5
+
+<!-- 2.4 -->
+[core-v0-27-1]:  /sensu-core/1.0/changelog/#core-v0-27-1
+
+<!-- 2.5 -->
+[core-v0-28-0]:  /sensu-core/1.0/changelog/#core-v0-28-0
+[core-v0-28-4]:  /sensu-core/1.0/changelog/#core-v0-28-4
+[core-v0-28-5]:  /sensu-core/1.0/changelog/#core-v0-28-5
+
+<!-- 2.6 -->
+[core-v1-0-2]:  /sensu-core/1.0/changelog/#core-v1-0-2
+[core-v1-0-4]:  /sensu-core/1.0/changelog/#core-v1-0-4
