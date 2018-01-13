@@ -2,7 +2,7 @@
 title: "Flapjack"
 description: "Relay Sensu results to Flapjack for notification routing and event processing."
 product: "Sensu Enterprise"
-version: "2.7"
+version: "2.8"
 weight: 11
 menu:
   sensu-enterprise-2.7:

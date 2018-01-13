@@ -2,7 +2,7 @@
 title: "Librato"
 description: "Send metrics to Librato using the Librato HTTP API."
 product: "Sensu Enterprise"
-version: "2.7"
+version: "2.8"
 weight: 20
 menu:
   sensu-enterprise-2.7:

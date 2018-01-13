@@ -2,7 +2,7 @@
 title: "DataDog"
 description: "Create DataDog events for Sensu events."
 product: "Sensu Enterprise"
-version: "2.7"
+version: "2.8"
 weight: 21
 menu:
   sensu-enterprise-2.7:

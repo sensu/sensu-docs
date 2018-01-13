@@ -2,7 +2,7 @@
 title: "ServiceNow"
 description: "Create ServiceNow configuration items upon Sensu client registration, create/resolve ServiceNow incidents, and/or create ServiceNow events for Sensu events."
 product: "Sensu Enterprise"
-version: "2.7"
+version: "2.8"
 weight: 3
 menu:
   sensu-enterprise-2.7:

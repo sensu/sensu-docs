@@ -2,7 +2,7 @@
 title: "Graylog"
 description: "Send Sensu events to Graylog via the Graylog Raw/Plaintext TCP input."
 product: "Sensu Enterprise"
-version: "2.7"
+version: "2.8"
 weight: 10
 menu:
   sensu-enterprise-2.7:

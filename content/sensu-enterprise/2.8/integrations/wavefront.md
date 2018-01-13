@@ -2,7 +2,7 @@
 title: "Wavefront"
 description: "Send metrics to Wavefront using the Wavefront Data Format."
 product: "Sensu Enterprise"
-version: "2.7"
+version: "2.8"
 weight: 18
 menu:
   sensu-enterprise-2.7:

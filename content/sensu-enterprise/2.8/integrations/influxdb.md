@@ -1,7 +1,7 @@
 ---
 title: "InfluxDB"
 product: "Sensu Enterprise"
-version: "2.7"
+version: "2.8"
 weight: 16
 menu:
   sensu-enterprise-2.7:

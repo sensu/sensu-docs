@@ -2,7 +2,7 @@
 title: "Graphite"
 description: "Send metrics to the Graphite time-series database using the plaintext protocol."
 product: "Sensu Enterprise"
-version: "2.7"
+version: "2.8"
 weight: 17
 menu:
   sensu-enterprise-2.7:

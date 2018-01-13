@@ -1,7 +1,7 @@
 ---
 title: "EC2"
 product: "Sensu Enterprise"
-version: "2.7"
+version: "2.8"
 weight: 14
 menu:
   sensu-enterprise-2.7:

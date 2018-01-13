@@ -2,7 +2,7 @@
 title: "HipChat"
 description: "Send notification to a HipChat room for Sensu events."
 product: "Sensu Enterprise"
-version: "2.7"
+version: "2.8"
 weight: 7
 menu:
   sensu-enterprise-2.7:
