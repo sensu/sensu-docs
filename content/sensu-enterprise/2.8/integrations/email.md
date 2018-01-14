@@ -81,6 +81,7 @@ handler (integration).
     },
     "to": "support@example.com",
     "from": "noreply@example.com",
+    "content_type": "text/plain",
     "timeout": 10
   }
 }
@@ -129,6 +130,14 @@ required     | false
 type         | String
 default      | `sensu@localhost`
 example      | {{< highlight shell >}}"from": "noreply@example.com"{{< /highlight >}}
+
+content_type | 
+-------------|------
+description  | The email content type header. Can be used to enable HTML body content.
+required     | false
+type         | String
+default      | `text/plain`
+example      | {{< highlight shell >}}"content_type": "text/html"{{< /highlight >}}
 
 templates    | 
 -------------|------

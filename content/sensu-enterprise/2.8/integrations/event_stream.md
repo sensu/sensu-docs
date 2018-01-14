@@ -35,7 +35,8 @@ event handler (integration).
   "event_stream": {
     "host": "127.0.0.1",
     "port": 3000,
-    "filter_metrics": false
+    "filter_metrics": true,
+    "filter_ok_keepalives": true
   }
 }
 {{< /highlight >}}
@@ -69,8 +70,14 @@ type           | Boolean
 default        | `false`
 example        | {{< highlight shell >}}"filter_metrics": true{{< /highlight >}}
 
-
+filter_ok_keepalives | 
+---------------------|------
+description          | If OK keepalive [events][2] are relayed to the remote socket.
+required             | false
+type                 | Boolean
+default              | `false`
+example              | {{< highlight shell >}}"filter_ok_keepalives": true{{< /highlight >}}
 
 [1]:  /sensu-enterprise
-[2]:  /sensu-core/1.0/reference/events
+[2]:  /sensu-core/1.2/reference/events
 [3]:  https://en.wikipedia.org/wiki/Complex_event_processing

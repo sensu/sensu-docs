@@ -39,7 +39,10 @@ handler (integration).
 {
   "wavefront": {
     "host": "wavefront.example.com",
-    "port": 2878
+    "port": 2878,
+    "tags": {
+      "dc": "us-central-1"
+    }
   }
 }
 {{< /highlight >}}
@@ -66,6 +69,18 @@ required     | false
 type         | Integer
 default      | `2878`
 example      | {{< highlight shell >}}"port": 2878{{< /highlight >}}
+
+tags           | 
+---------------|------
+description    | Configurable custom tags (key/value pairs) to add to every Wavefront metric data point.
+required       | false
+type           | Hash
+default        | {{< highlight shell >}}{}{{</ highlight >}}
+example        | {{< highlight json >}}
+"tags": {
+  "dc": "us-central-1"
+}
+{{< /highlight >}}
 
 
 [1]:  /sensu-enterprise

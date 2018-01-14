@@ -78,6 +78,17 @@ type         | String
 default      | `http://www.gravatar.com/avatar/9b37917076cee4e2d331a785f3426640`
 example      | {{< highlight shell >}}"icon_url": "http://www.gravatar.com/avatar/9b37917076cee4e2d331a785f3426640"{{< /highlight >}}
 
+templates    | 
+-------------|------
+description  | A set of attributes that configure Slack notification [`templates` configuration][5].
+required     | false
+type         | Hash
+example      | {{< highlight json >}}
+"templates": {
+  "text": "/etc/sensu/slack/text_template.erb"
+}
+{{< /highlight >}}
+
 timeout      | 
 -------------|------
 description  | The handler execution duration timeout in seconds (hard stop).
@@ -86,10 +97,22 @@ type         | Integer
 default      | `10`
 example      | {{< highlight shell >}}"timeout": 30{{< /highlight >}}
 
+#### `templates` attributes
 
+The following attributes are configured within the `{"slack": { "templates": {}
+} }` [configuration scope][6].
+
+text         | 
+-------------|------
+description  |  Path to the Slack attachment text ERB template file, which must be accessible by the `sensu` system user. If an attachment text subject template is not provided, a built-in default template will be used.
+required     | false
+type         | String
+example      | {{< highlight shell >}}"text": "/etc/sensu/slack/text_template.erb"{{< /highlight >}}
 
 [?]:  #
 [1]:  /sensu-enterprise
 [2]:  https://slack.com?ref=sensu-enterprise
 [3]:  https://api.slack.com/incoming-webhooks?ref=sensu-enterprise
-[4]:  /sensu-core/1.0/reference/configuration#configuration-scopes
+[4]:  /sensu-core/1.2/reference/configuration#configuration-scopes
+[5]:  #templates-attributes
+[6]:  /sensu-core/1.2/reference/configuration.html#configuration-scopes

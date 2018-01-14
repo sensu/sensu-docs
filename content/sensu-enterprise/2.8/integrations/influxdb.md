@@ -34,7 +34,10 @@ handler (integration).
     "port": 8086,
     "username": "root",
     "password": "Bfw3Bdrn5WfqvOl1",
-    "api_version": "0.9"
+    "api_version": "0.9",
+    "tags": {
+      "dc": "us-central-1"
+    }
   }
 }
 {{< /highlight >}}
@@ -94,6 +97,19 @@ type           | String
 allowed values | `0.8`, `0.9`
 default        | `0.8`
 example        | {{< highlight shell >}}"api_version": "0.9"{{< /highlight >}}
+
+tags           | 
+---------------|------
+description    | Configurable custom tags (key/value pairs) to add to every InfluxDB measurement.
+required       | false
+type           | Hash
+default        | {{< highlight shell >}}{}{{</ highlight >}}
+example        | {{< highlight json >}}
+"tags": {
+  "dc": "us-central-1"
+}
+{{< /highlight >}}
+
 
 timeout      | 
 -------------|------
