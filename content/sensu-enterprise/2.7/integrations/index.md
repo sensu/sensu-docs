@@ -9,4 +9,4 @@ menu:
     parent: integrations
 ---
 
-{{< directoryListing "content/sensu-enterprise/2.6/integrations" >}}
+{{< directoryListing "content/sensu-enterprise/2.7/integrations" >}}

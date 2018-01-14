@@ -8,4 +8,4 @@ menu:
     parent: filters
 ---
 
-{{< directoryListing "content/sensu-enterprise/2.6/filters" >}}
+{{< directoryListing "content/sensu-enterprise/2.8/filters" >}}
