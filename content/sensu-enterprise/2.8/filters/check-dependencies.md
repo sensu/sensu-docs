@@ -108,4 +108,4 @@ example      | {{< highlight shell >}}"dependencies": [
 
 [?]:  #
 [0]:  /sensu-enterprise
-[1]:  /sensu-core/1.0/reference/configuration#configuration-scopes
+[1]:  /sensu-core/1.2/reference/configuration#configuration-scopes

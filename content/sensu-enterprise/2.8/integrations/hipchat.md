@@ -109,4 +109,4 @@ example      | {{< highlight shell >}}"timeout": 30{{< /highlight >}}
 [1]:  /sensu-enterprise
 [2]:  https://www.hipchat.com?ref=sensu-enterprise
 [3]:  https://www.hipchat.com/docs/api/auth?ref=sensu-enterprise
-[4]:  /sensu-core/1.0/reference/configuration#configuration-scopes
+[4]:  /sensu-core/1.2/reference/configuration#configuration-scopes

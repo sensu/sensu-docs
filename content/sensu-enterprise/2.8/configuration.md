@@ -52,4 +52,4 @@ required       | false
 default        | `16384`
 example        | {{< highlight shell >}}MAX_OPEN_FILES=32768{{< /highlight >}}
 
-[1]: /sensu-core/1.0/reference/configuration
+[1]: /sensu-core/1.2/reference/configuration

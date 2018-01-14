@@ -63,4 +63,4 @@ example      | {{< highlight shell >}}"timeout": 30{{< /highlight >}}
 [1]:  /sensu-enterprise
 [2]:  https://app.datadoghq.com/account/login?next=%2Faccount%2Fsettings#api
 [3]:  https://app.datadoghq.com/account/login?next=%2Faccount%2Fsettings#api
-[4]:  /sensu-core/1.0/reference/configuration#configuration-scopes
+[4]:  /sensu-core/1.2/reference/configuration#configuration-scopes

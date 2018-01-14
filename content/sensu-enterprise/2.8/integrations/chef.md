@@ -145,6 +145,6 @@ example      | {{< highlight shell >}}"timeout": 30{{< /highlight >}}
 [1]:  /sensu-enterprise
 [2]:  https://www.chef.io?ref=sensu-enterprise
 [3]:  https://docs.chef.io/nodes.html
-[4]:  /sensu-core/1.0/reference/clients#chef-attributes
-[5]:  /sensu-core/1.0/reference/events#event-data
-[6]:  /sensu-core/1.0/reference/configuration#configuration-scopes
+[4]:  /sensu-core/1.2/reference/clients#chef-attributes
+[5]:  /sensu-core/1.2/reference/events#event-data
+[6]:  /sensu-core/1.2/reference/configuration#configuration-scopes

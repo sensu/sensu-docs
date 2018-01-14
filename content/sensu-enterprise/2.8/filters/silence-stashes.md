@@ -57,4 +57,4 @@ This built-in filter requires no configuration.
 
 [?]:  #
 [0]:  /sensu-enterprise
-[1]:  /sensu-core/1.0/reference/stashes
+[1]:  /sensu-core/1.2/reference/stashes

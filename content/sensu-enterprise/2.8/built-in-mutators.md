@@ -76,7 +76,7 @@ default        | `graphite_plaintext`
 example        | {{< highlight shell >}}"output_format": "graphite_plaintext"{{< /highlight >}}
 
 [0]:  /sensu-enterprise
-[1]:  /sensu-core/1.0/reference/mutators
+[1]:  /sensu-core/1.2/reference/mutators
 [2]:  #sensu-metric-format
 [3]:  http://graphite.readthedocs.org/en/latest/feeding-carbon.html#the-plaintext-protocol
 [4]:  http://nagios.sourceforge.net/docs/3_0/perfdata.html

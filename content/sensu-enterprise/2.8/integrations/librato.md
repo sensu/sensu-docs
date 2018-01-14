@@ -62,4 +62,4 @@ example      | {{< highlight shell >}}"api_key": "90SHpjPOFqd2YJFIX9rzDq7ik6CiDm
 [?]:  #
 [1]:  /sensu-enterprise
 [2]:  https://www.librato.com?ref=sensu-enterprise
-[3]:  /sensu-core/1.0/reference/configuration#configuration-scopes
+[3]:  /sensu-core/1.2/reference/configuration#configuration-scopes

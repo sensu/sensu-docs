@@ -467,8 +467,8 @@ to configure the dashboard for RBAC with OpenID Connect (OIDC).
 [6]:  ../rbac/rbac-for-gitlab
 [7]:  ../rbac/audit-logging
 [8]:  #dashboard-definition-specification
-[9]:  /sensu-core/1.0/reference/configuration#configuration-scopes
-[10]: /sensu-core/1.0/reference/configuration#configuration-merging
+[9]:  /sensu-core/1.2/reference/configuration#configuration-scopes
+[10]: /sensu-core/1.2/reference/configuration#configuration-merging
 [11]: #auth-attributes
 [12]: #audit-attributes
 [13]: #ldap-attributes

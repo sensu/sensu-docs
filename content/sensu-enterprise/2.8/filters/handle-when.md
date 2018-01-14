@@ -97,4 +97,4 @@ example      | {{< highlight shell >}}"reset": 3600{{< /highlight >}}
 [?]:  #
 [0]:  /sensu-enterprise
 [1]:  ../../built-in-handlers
-[2]:  /sensu-core/1.0/reference/configuration#configuration-scopes
+[2]:  /sensu-core/1.2/reference/configuration#configuration-scopes

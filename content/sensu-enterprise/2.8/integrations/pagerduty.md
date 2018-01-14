@@ -64,4 +64,4 @@ example      | {{< highlight shell >}}"timeout": 30{{< /highlight >}}
 [1]:  https://support.pagerduty.com/hc/en-us/articles/202830340-Creating-a-Generic-API-Service
 [2]:  https://www.pagerduty.com?ref=sensu-enterprise
 [3]:  https://support.pagerduty.com/hc/en-us/articles/202830340-Creating-a-Generic-API-Service?ref=sensu-enterprise
-[4]:  /sensu-core/1.0/reference/configuration#configuration-scopes
+[4]:  /sensu-core/1.2/reference/configuration#configuration-scopes

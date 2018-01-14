@@ -77,5 +77,5 @@ example     | {{< highlight shell >}}"timeout": 30{{< /highlight >}}
 [?]:  #
 [1]:  /sensu-enterprise
 [2]:  https://rollbar.com/
-[3]:  /sensu-core/1.0/reference/events
-[4]:  /sensu-core/1.0/reference/configuration#configuration-scopes
+[3]:  /sensu-core/1.2/reference/events
+[4]:  /sensu-core/1.2/reference/configuration#configuration-scopes

@@ -168,6 +168,6 @@ example             | {{< highlight shell >}}"truststore_password": "secret"{{< 
 [?]:  #
 [1]:  /sensu-enterprise
 [2]:  https://puppet.com?ref=sensu-enterprise
-[3]:  /sensu-core/1.0/reference/clients#puppet-attributes
-[4]:  /sensu-core/1.0/reference/events#event-data
-[5]:  /sensu-core/1.0/reference/configuration#configuration-scopes
+[3]:  /sensu-core/1.2/reference/clients#puppet-attributes
+[4]:  /sensu-core/1.2/reference/events#event-data
+[5]:  /sensu-core/1.2/reference/configuration#configuration-scopes

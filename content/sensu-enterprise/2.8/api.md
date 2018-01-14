@@ -242,6 +242,6 @@ sudo service sensu-enterprise reload
 
 [?]:  #
 [1]:  /sensu-core/1.0/api/overview
-[2]:  /sensu-core/1.0/reference/configuration#configuration-scopes
+[2]:  /sensu-core/1.2/reference/configuration#configuration-scopes
 [3]:  #create-an-ssl-keystore
 [4]:  ../dashboard

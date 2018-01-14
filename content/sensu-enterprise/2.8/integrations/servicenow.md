@@ -166,10 +166,10 @@ example      | {{< highlight shell >}}"timeout": 30{{< /highlight >}}
 [1]:  /sensu-enterprise
 [2]:  https://www.servicenow.com?ref=sensu-enterprise
 [3]:  https://www.servicenow.com/products/it-service-automation-applications/configuration-management.html?ref=sensu-enterprise
-[4]:  /sensu-core/1.0/reference/clients#registration-and-registry
-[5]:  /sensu-core/1.0/reference/events
+[4]:  /sensu-core/1.2/reference/clients#registration-and-registry
+[5]:  /sensu-core/1.2/reference/events
 [6]:  https://wiki.servicenow.com/index.php?title=Introduction_to_Assets_and_Configuration#gsc.tab=0
-[7]:  /sensu-core/1.0/reference/clients#client-definition-specification
+[7]:  /sensu-core/1.2/reference/clients#client-definition-specification
 [8]:  #servicenow-attributes
-[9]:  /sensu-core/1.0/reference/events#event-data
-[10]: /sensu-core/1.0/reference/configuration#configuration-scopes
+[9]:  /sensu-core/1.2/reference/events#event-data
+[10]: /sensu-core/1.2/reference/configuration#configuration-scopes

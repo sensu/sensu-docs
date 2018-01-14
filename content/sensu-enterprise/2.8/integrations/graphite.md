@@ -85,4 +85,4 @@ example      | {{< highlight shell >}}"prefix": "production"{{< /highlight >}}
 [1]:  /sensu-enterprise
 [2]:  http://graphite.wikidot.com?ref=sensu-enterprise
 [3]:  https://www.hostedgraphite.com?ref=sensu-enterprise
-[4]:  /sensu-core/1.0/reference/configuration#configuration-scopes
+[4]:  /sensu-core/1.2/reference/configuration#configuration-scopes

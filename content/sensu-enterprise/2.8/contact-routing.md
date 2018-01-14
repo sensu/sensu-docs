@@ -167,7 +167,7 @@ configuration:
 
 [?]:  #
 [1]:  ../built-in-handlers
-[2]:  /sensu-core/1.0/reference/configuration#configuration-scopes
+[2]:  /sensu-core/1.2/reference/configuration#configuration-scopes
 [3]:  #contact-names
 [4]:  ../integrations/email
 [5]:  ../integrations/slack

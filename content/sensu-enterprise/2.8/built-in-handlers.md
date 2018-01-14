@@ -103,7 +103,7 @@ Built-in event handlers:
 
 [?]:  #
 [0]:  /sensu-enterprise
-[1]:  /sensu-core/1.0/reference/handlers
-[2]:  /sensu-core/1.0/reference/checks
+[1]:  /sensu-core/1.2/reference/handlers
+[2]:  /sensu-core/1.2/reference/checks
 [3]:  ../contact-routing
 [4]:  #list-of-built-in-handlers
