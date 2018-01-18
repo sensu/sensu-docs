@@ -34,7 +34,10 @@ handler (integration).
   "opentsdb": {
     "host": "opentsdb.example.com",
     "port": 4242,
-    "tag_host": true
+    "tag_host": true,
+    "tags": {
+      "dc": "us-central-1"
+    }
   }
 }
 {{< /highlight >}}
@@ -84,6 +87,18 @@ description  | A custom metric name prefix.
 required     | false
 type         | String
 example      | {{< highlight shell >}}"prefix": "production"{{< /highlight >}}
+
+tags           | 
+---------------|------
+description    | Configurable custom tags (key/value pairs) to add to every OpenTSDB metric data point.
+required       | false
+type           | Hash
+default        | {{< highlight shell >}}{}{{</ highlight >}}
+example        | {{< highlight json >}}
+"tags": {
+  "dc": "us-central-1"
+}
+{{< /highlight >}}
 
 [1]:  /sensu-enterprise
 [2]:  http://opentsdb.net?ref=sensu-enterprise
