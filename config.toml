@@ -62,10 +62,11 @@ pygmentsUseClasses=true
         name = "Sensu Enterprise"
         description = "Sensu for paying customers. You get some additional things."
         weight = 2
-        latest = "2.7"
+        latest = "2.8"
         [params.products.sensu_enterprise.versions]
             "2.6" = ["Ubuntu/Debian", "RHEL/CentOS"]
             "2.7" = ["Ubuntu/Debian", "RHEL/CentOS"]
+            "2.8" = ["Ubuntu/Debian", "RHEL/CentOS"]
 
     [params.products.sensu_enterprise_dashboard]
         identifier = "sensu-enterprise-dashboard"
