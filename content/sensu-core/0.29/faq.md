@@ -15,7 +15,7 @@ Enterprise](https://sensuapp.org/get-started/) a try.
 > Do I need RabbitMQ to be installed on every system I wish to monitor?
 
 **No.** Sensu uses [RabbitMQ](../reference/rabbitmq.html) as a
-[Transport](../reference/transport.html). Sensu services require access to a shared
+[Transport](../reference/transport). Sensu services require access to a shared
 instance of the defined Sensu Transport (e.g. a RabbitMQ cluster) to function.
 Sensu check requests and check results are published as "messages" to the Sensu
 Transport, and the corresponding Sensu services receive these messages by
@@ -23,7 +23,7 @@ subscribing to the appropriate subscription topics.
 
 > Does Redis need to be installed on every system I wish to monitor?
 
-**No.** Sensu uses [Redis](../reference/redis.html) as a data store,
+**No.** Sensu uses [Redis](../reference/redis) as a data store,
 and the Sensu server services (i.e. `sensu-server` & `sensu-api` for
 Sensu Core; `sensu-enterprise` for Sensu Enterprise) require access to
 the same Redis instance (or cluster) to store and access the Sensu
@@ -62,7 +62,7 @@ inclusion of the `"standalone": true` configuration parameter.
 When a check request is published for a check defined on the Sensu server, the
 Sensu client will look for a local definition matching the check `name` prior to
 executing the check. If a local definition exists, it is
-[merged](../reference/configuration.html#configuration-merging) with the
+[merged](../reference/configuration#configuration-merging) with the
 definition provided by the server, with any local definition attributes
 overriding the definition provided by the Sensu server.
 
