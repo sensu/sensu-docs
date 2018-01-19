@@ -10,7 +10,7 @@ menu:
     parent: guides
 ---
 # The Five Minute Install
-{{< platformDropdown "Ubuntu/Debian" "Sensu-Core" "1.0" "Client Installation" "sensu-core">}}
+{{< platformDropdown "Ubuntu/Debian" "Sensu-Core" "0.29" "Client Installation" "sensu-core">}}
 
 ## Objective
 
@@ -210,14 +210,14 @@ the [installation guide](2).
 
 {{< platformBlockClose >}}
 
-[1]:  ../overview/architecture.html
-[2]:  ../installation/overview.html
-[3]:  ../installation/installation-strategies.html
-[4]:  ../installation/installation-strategies.html#standalone
+[1]:  ../overview/architecture/
+[2]:  ../installation/overview/
+[3]:  ../installation/installation-strategies/
+[4]:  ../installation/installation-strategies#standalone
 [5]:  https://wiki.centos.org/Manuals/ReleaseNotes/CentOS7
 [6]:  http://github.com/sensu/sensu-bash
-[7]:  ../platforms/sensu-on-rhel-centos.html#install-sensu-core-repository
+[7]:  ../platforms/sensu-on-rhel-centos#install-sensu-core-repository
 [8]:  https://www.youtube.com/watch?v=J2D1XF40-ok
-[9]:  ../platforms/sensu-on-rhel-centos.html#install-sensu-enterprise-repository
+[9]:  ../platforms/sensu-on-rhel-centos#install-sensu-enterprise-repository
 [10]: https://stedolan.github.io/jq/
 [redis-security]: https://redis.io/topics/security

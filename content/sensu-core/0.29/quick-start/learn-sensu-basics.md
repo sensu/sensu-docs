@@ -407,7 +407,7 @@ You may be wondering, "why are we installing a Nagios plugin in a Sensu tutorial
 
 **Learn more**:
 
-- [Check reference documentation](https://sensuapp.org/docs/latest/reference/checks.html)
+- [Check reference documentation](https://sensuapp.org/docs/latest/reference/checks/)
 
 ### Exercise #3: Installing a Sensu handler {#exercise-3}
 
@@ -523,7 +523,7 @@ content:
 
 **Learn more**:
 
-- [Handler reference documentation](https://sensuapp.org/docs/latest/reference/handlers.html)
+- [Handler reference documentation](https://sensuapp.org/docs/latest/reference/handlers/)
 
 
 ### Exercise #4: Interacting with the Sensu API {#exercise-4}

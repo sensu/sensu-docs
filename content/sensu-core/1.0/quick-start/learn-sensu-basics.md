@@ -10,6 +10,7 @@ menu:
     parent: guides
 ---
 # Learn Sensu in 15 Minutes
+{{< platformDropdown "Ubuntu/Debian" "Sensu-Core" "0.29" "Client Installation" "learn-sensu-basics">}}
 
 Sensu was designed to provide a comprehensive monitoring platform for monitoring
 infrastructure (servers), services, application health, and business KPIs
@@ -61,91 +62,79 @@ questions about Sensu is _"how do I add new servers?"_. To demonstrate how this
 works, let's observe what happens when the `sensu-client` on the local system
 starts up for the first time.
 
-1. Let's "reset" our testing environment by stopping the `sensu-client` and
-   removing it from Sensu's registry.
+* Let's "reset" our testing environment by stopping the `sensu-client` and removing it from Sensu's registry.
 
-   {{< highlight shell >}}
-   sudo /etc/init.d/sensu-client stop{{< /highlight >}}
+{{< highlight shell >}}
+sudo /etc/init.d/sensu-client stop{{< /highlight >}}
 
-   Now let's query the [Clients API][3] to see how many clients are currently
-   registered, and then let's delete them:
+Now let's query the [Clients API][3] to see how many clients are currently registered, and then let's delete them:
 
-   {{< highlight shell >}}
-   $ curl -s http://localhost:4567/clients | jq .
-   [
-     {
-       "timestamp": 1458682194,
-       "version": "0.26.0",
-       "socket": {
-         "port": 3030,
-         "bind": "127.0.0.1"
-       },
-       "subscriptions": [
-         "dev"
-       ],
-       "environment": "development",
-       "address": "localhost",
-       "name": "client-01"
-     }
-   ]{{< /highlight >}}
+{{< highlight shell >}}
+$ curl -s http://localhost:4567/clients | jq .
+[
+  {
+    "timestamp": 1458682194,
+    "version": "0.26.0",
+    "socket": {
+      "port": 3030,
+      "bind": "127.0.0.1"
+    },
+    "subscriptions": [
+      "dev"
+    ],
+    "environment": "development",
+    "address": "localhost",
+    "name": "client-01"
+  }
+]{{< /highlight >}}
 
-   If you've been following this guide you should see a very similar result as
-   shown above &ndash; a single client named "test" is currently registered.
-   Now let's delete it using the API:
+If you've been following this guide you should see a very similar result as shown above &ndash; a single client named "test" is currently registered. Now let's delete it using the API:
 
-   {{< highlight shell >}}
-   $ curl -s -X DELETE localhost:4567/clients/client-01 | jq .
-   {
-     "issued": 1458683015
-   }{{< /highlight >}}
+{{< highlight shell >}}
+$ curl -s -X DELETE localhost:4567/clients/client-01 | jq .
+{
+  "issued": 1458683015
+}{{< /highlight >}}
 
-   The Sensu API will respond with a JSON hash containing a timestamp (e.g.
-    `"issued": 1458683015`), confirming that the client was deleted.
+The Sensu API will respond with a JSON hash containing a timestamp (e.g. `"issued": 1458683015`), confirming that the client was deleted.
 
-   _NOTE: if you try running the command again (i.e. attempting to delete a
-   client that doesn't exist in Sensu's client registry), you will not see a
-   timestamp because no action was taken._
+_NOTE: if you try running the command again (i.e. attempting to delete a client that doesn't exist in Sensu's client registry), you will not see a timestamp because no action was taken._
 
-2. Now let's confirm that our testing environment has been reset and that there
-   are no clients registered:
+* Now let's confirm that our testing environment has been reset and that there are no clients registered:
 
-   {{< highlight shell >}}
-   $ curl -s localhost:4567/clients | jq .
-   []{{< /highlight >}}
+{{< highlight shell >}}
+$ curl -s localhost:4567/clients | jq .
+[]{{< /highlight >}}
 
-   The Sensu API should respond with an empty JSON array (i.e. `[]`), indicating
-   that there are no clients currently registered with Sensu. If you still have
-   one or more Sensu clients in your client registry, please repeat step 1 until
-   there are no clients registered with Sensu.
+The Sensu API should respond with an empty JSON array (i.e. `[]`), indicating that there are no clients currently registered with Sensu. If you still have one or more Sensu clients in your client registry, please repeat step 1 until there are no clients registered with Sensu.
 
-3. Now let's start the `sensu-client` again
+* Now let's start the `sensu-client` again
 
-   {{< highlight shell >}}
-   sudo /etc/init.d/sensu-client start{{< /highlight >}}
+{{< highlight shell >}}
+sudo /etc/init.d/sensu-client start{{< /highlight >}}
 
-   ...and then let's confirm that it automatically registers itself with the
-   Sensu server.
+...and then let's confirm that it automatically registers itself with the Sensu server.
 
-   {{< highlight shell >}}
-   $ curl -s localhost:4567/clients | jq .
-   [
-     {
-       "timestamp": 1458684161,
-       "version": "0.26.0",
-       "socket": {
-         "port": 3030,
-         "bind": "127.0.0.1"
-       },
-       "subscriptions": [
-         "dev"
-       ],
-       "environment": "development",
-       "address": "localhost",
-       "name": "client-01"
-     }
-   ]{{< /highlight >}}
+{{< highlight shell >}}
+$ curl -s localhost:4567/clients | jq .
+[
+  {
+    "timestamp": 1458684161,
+    "version": "0.26.0",
+    "socket": {
+      "port": 3030,
+      "bind": "127.0.0.1"
+    },
+    "subscriptions": [
+      "dev"
+    ],
+    "environment": "development",
+    "address": "localhost",
+    "name": "client-01"
+  }
+]{{< /highlight >}}
 
-   Our client is back!
+Our client is back!
 
 #### SUMMARY
 
@@ -177,13 +166,14 @@ plugin for monitoring availability of HTTP service, and
 configure a check definition to execute the plugin. The scheduling of
 this execution will be handled by the Sensu server.
 
-1. Install nagios-plugins-http package to provide the check plugin
+{{< platformBlock "RHEL/CentOS" >}}
 
-   {{< highlight shell >}}
-   sudo yum install -y nagios-plugins-http{{< /highlight >}}
+* Install nagios-plugins-http package to provide the check plugin
 
-  You may be wondering, "why are we installing a Nagios plugin in a
-  Sensu tutorial?"
+{{< highlight shell >}}
+sudo yum install -y nagios-plugins-http{{< /highlight >}}
+
+You may be wondering, "why are we installing a Nagios plugin in a Sensu tutorial?"
 
   Good question! Sensu shares Nagios' check plugin specification,
   meaning existing check plugins compatible with Nagios can be used by
@@ -191,7 +181,7 @@ this execution will be handled by the Sensu server.
   provided as a package by the CentOS default distribution. Once
   installed, the plugin is available as `/usr/lib64/nagios/plugins/check_http`.
 
-2. Let's execute the check plugin manually and see what happens:
+* Let's execute the check plugin manually and see what happens:
 
    {{< highlight shell >}}
    $ /usr/lib64/nagios/plugins/check_http -I 127.0.0.1
@@ -206,7 +196,7 @@ this execution will be handled by the Sensu server.
    determine if the check execution is indicative of an OK, WARNING or
    CRITICAL state.
 
-    {{< highlight shell >}}
+  {{< highlight shell >}}
    $ echo $?
    2{{< /highlight >}}
 
@@ -214,7 +204,7 @@ this execution will be handled by the Sensu server.
    a critical state. This aligns with the text output from the
    plugin. So far so good!
 
-3. Now let's write a check definition which describes how and when to
+* Now let's write a check definition which describes how and when to
    run this check plugin.
 
    Using the editor of your choice, create a JSON file in
@@ -238,7 +228,7 @@ this execution will be handled by the Sensu server.
    subscribers it is considered a publish-subscribe check, or "pubsub"
    check, scheduled for execution by the Sensu server.
 
-4. As we've added a new check definition, let's restart Sensu server
+* As we've added a new check definition, let's restart Sensu server
    and API services to update their configuration:
 
    {{< highlight shell >}}
@@ -289,6 +279,124 @@ this execution will be handled by the Sensu server.
    have been published back to the results queue for later processing by the
    server.
 
+{{< platformBlockClose >}}
+
+{{< platformBlock "Ubuntu/Debian" >}}
+
+* Install the monitoring-plugins package to provide the check plugin
+
+   {{< highlight shell >}}
+   sudo apt-get install -y monitoring-plugins{{< /highlight >}}
+
+  You may be wondering, "why are we installing a Nagios plugin in a
+  Sensu tutorial?"
+
+  Good question! Sensu shares Nagios' check plugin specification,
+  meaning existing check plugins compatible with Nagios can be used by
+  Sensu without modification. In this case the check_http plugin is
+  provided as a package by the CentOS default distribution. Once
+  installed, the plugin is available as `/usr/lib/nagios/plugins/check_http`.
+
+* Let's execute the check plugin manually and see what happens:
+
+   {{< highlight shell >}}
+   $ /usr/lib/nagios/plugins/check_http -I 127.0.0.1
+   connect to address 127.0.0.1 and port 80: Connection refused
+   HTTP CRITICAL - Unable to open TCP socket{{< /highlight >}}
+
+   Here we can see that the check plugin output reflects failure to
+   connect to port 80 on 127.0.0.1 (the localhost address).
+
+   Beyond the human-readable output of the check plugin, the exit
+   status code returned by the command (`$?`) is used by Sensu to
+   determine if the check execution is indicative of an OK, WARNING or
+   CRITICAL state.
+
+  {{< highlight shell >}}
+   $ echo $?
+   2{{< /highlight >}}
+
+   In this case the plugin has returned an exit status of `2`, indicating
+   a critical state. This aligns with the text output from the
+   plugin. So far so good!
+
+* Now let's write a check definition which describes how and when to
+   run this check plugin.
+
+   Using the editor of your choice, create a JSON file in
+   /etc/sensu/conf.d named "check_http.json" with the following
+   content:
+
+   {{< highlight shell >}}
+   {
+     "checks": {
+       "check_http": {
+         "command": "/usr/lib/nagios/plugins/check_http -I 127.0.0.1",
+         "interval": 10,
+         "subscribers": ["webserver", "dev"]
+       }
+     }
+   }{{< /highlight >}}
+
+   This definition describes a check named "check_http" which will run
+   the specified command every 10 seconds on any Sensu clients with
+   the subscription "webserver". Because this check defines
+   subscribers it is considered a publish-subscribe check, or "pubsub"
+   check, scheduled for execution by the Sensu server.
+
+* As we've added a new check definition, let's restart Sensu server
+   and API services to update their configuration:
+
+   {{< highlight shell >}}
+   sudo systemctl restart sensu-{server,api}{{< /highlight >}}
+
+   With these services restarted we should be able to observe via the
+   API that the new check definition has been loaded:
+
+   {{< highlight shell >}}
+   $ curl -s 127.0.0.1:4567/checks | jq .
+   [
+     {
+       "command": "/usr/lib/nagios/plugins/check_http -I 127.0.0.1",
+       "interval": 10,
+       "subscribers": [
+         "webserver",
+         "dev"
+       ],
+       "name": "check_http"
+     }
+   ]{{< /highlight >}}
+
+   Now that the API reports this check has been loaded, the Sensu server
+   should be scheduling execution of this check. We can verify this by
+   watching the sensu-server log file:
+
+   {{< highlight shell >}}
+   $ tail -f /var/log/sensu/sensu-server.log | grep check_http
+   {"timestamp":"2017-03-16T17:36:46.947925+0000","level":"info","message":"publishing
+   check request","payload":{"command":"/usr/lib/nagios/plugins/check_http
+   -H 127.0.0.1","name":"check_http","issued":1489685806},"subscribers":["webserver"]}{{< /highlight >}}
+
+   The "publishing check request" message visible here indicates that
+   the server is sending a request for check execution which the
+   client will act on.
+
+   We can verify that the client is acting on this check execution
+   request by watching the sensu-client log file:
+
+   {{< highlight shell >}}
+   $ tail -f /var/log/sensu/sensu-client.log | grep check_http
+   {"timestamp":"2017-03-16T17:40:23.639588+0000","level":"info","message":"received check request","check":{"command":"/usr/lib/nagios/plugins/check_http -H 127.0.0.1","name":"check_http","issued":1489686023}}
+   {"timestamp":"2017-03-16T17:40:23.643769+0000","level":"info","message":"publishing check result","payload":{"client":"localhost.localdomain","check":{"command":"/usr/lib/nagios/plugins/check_http -H 127.0.0.1","name":"check_http","issued":1489686023,"executed":1489686023,"duration":0.004,"output":"connect to address 127.0.0.1 and port 80: Connection refused\nHTTP CRITICAL - Unable to open TCP socket\n","status":2}}}{{< /highlight >}}
+
+   This pair of messages indicates that the client has received a
+   request to execute the check, that the check has been executed and
+   that the results of that check (the exit status code and output)
+   have been published back to the results queue for later processing by the
+   server.
+
+{{< platformBlockClose >}}
+
 #### SUMMARY
 
 **What is a Sensu Check?** A check is a combination of an executable
@@ -299,7 +407,7 @@ this execution will be handled by the Sensu server.
 
 **Learn more**:
 
-- [Check reference documentation](https://sensuapp.org/docs/latest/reference/checks.html)
+- [Check reference documentation](https://sensuapp.org/docs/latest/reference/checks/)
 
 ### Exercise #3: Installing a Sensu handler {#exercise-3}
 
@@ -313,46 +421,46 @@ check execution should be handled, but our definition doesn't include
 any such instructions. As a result, the check results will be passed
 to a handler named "default".
 
-1. Let's see what the server is doing with results destined for the
+* Let's see what the server is doing with results destined for the
    "default" handler:
 
-   {{< highlight shell >}}
-   $ tail -f /var/log/sensu/sensu-server.log | grep default
-   {"timestamp":"2017-03-16T17:44:54.510093+0000","level":"error","message":"unknown handler","handler_name":"default"}
-   {"timestamp":"2017-03-16T17:45:05.340691+0000","level":"error","message":"unknown handler","handler_name":"default"}{{< /highlight >}}
+{{< highlight shell >}}
+$ tail -f /var/log/sensu/sensu-server.log | grep default
+{"timestamp":"2017-03-16T17:44:54.510093+0000","level":"error","message":"unknown handler","handler_name":"default"}
+{"timestamp":"2017-03-16T17:45:05.340691+0000","level":"error","message":"unknown handler","handler_name":"default"}{{< /highlight >}}
 
-   Because the "default" handler is unknown (unconfigured), the
-   results of the check execution are effectively dropped with no
-   further action. This means we need to configure the server with a
-   handler to do something meaningful with these results.
+Because the "default" handler is unknown (unconfigured), the
+results of the check execution are effectively dropped with no
+further action. This means we need to configure the server with a
+handler to do something meaningful with these results.
 
-2. Using the `sensu-install` program we can install plugins and
-   extensions published by the Sensu community. Let's use
-   `sensu-install` to install the `mailer` handler so we can receive
-   alerts via email:
+* Using the `sensu-install` program we can install plugins and
+extensions published by the Sensu community. Let's use
+`sensu-install` to install the `mailer` handler so we can receive
+alerts via email:
 
-   {{< highlight shell >}}
-   sudo sensu-install -p mailer{{< /highlight >}}
+{{< highlight shell >}}
+sudo sensu-install -p mailer{{< /highlight >}}
 
-   With this plugin package installed, the `handler-mailer.rb`
-   executable is now available at `/opt/sensu/embedded/bin/handler-mailer.rb`.
+With this plugin package installed, the `handler-mailer.rb`
+executable is now available at `/opt/sensu/embedded/bin/handler-mailer.rb`.
 
-3. Similar to the check definition we wrote above, we will now need a
-   definition to describe execution of the mailer handler.
+* Similar to the check definition we wrote above, we will now need a
+definition to describe execution of the mailer handler.
 
-   Using the editor of your choice, create a JSON file in
-   `/etc/sensu/conf.d/handler_default.json` with the following
-   content:
+Using the editor of your choice, create a JSON file in
+`/etc/sensu/conf.d/handler_default.json` with the following
+content:
 
-   {{< highlight shell >}}
-   {
-     "handlers": {
-       "default": {
-         "command": "/opt/sensu/embedded/bin/handler-mailer.rb",
-         "type": "pipe"
-       }
-     }
-   }{{< /highlight >}}
+{{< highlight shell >}}
+{
+  "handlers": {
+    "default": {
+      "command": "/opt/sensu/embedded/bin/handler-mailer.rb",
+      "type": "pipe"
+    }
+  }
+}{{< /highlight >}}
 
    The mailer handler requires configuration to specify
    the email address and SMTP server details for sending an
@@ -364,7 +472,7 @@ to a handler named "default".
    Using the editor of your choice, create a JSON file at
    `/etc/sensu/conf.d/mailer.json` using the following as a guide:
 
-    {{< highlight shell >}}
+   {{< highlight shell >}}
    {
        "mailer": {
            "mail_from": "alerts@example.com",
@@ -415,7 +523,7 @@ to a handler named "default".
 
 **Learn more**:
 
-- [Handler reference documentation](https://sensuapp.org/docs/latest/reference/handlers.html)
+- [Handler reference documentation](https://sensuapp.org/docs/latest/reference/handlers/)
 
 
 ### Exercise #4: Interacting with the Sensu API {#exercise-4}
