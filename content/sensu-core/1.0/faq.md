@@ -78,7 +78,7 @@ attribute.
 **Yes.** Sensu is designed to be scaled horizontally (i.e. by
 adding additional Sensu servers). It supports fully automated leader
 election (ensuring that a single Sensu server acts as a centralized
-[Check Execution Scheduler](../overview/architecture/#check-execution-schedule/r)),
+[Check Execution Scheduler](../overview/architecture#check-execution-schedule/r)),
 automated failover (automatically electing a new leader
 if the previous leader is unexpectedly unavailable), and distributed
 event processing (check results are distributed across all Sensu servers
