@@ -116,11 +116,11 @@ Graphite).
 [1]:  https://www.pagerduty.com
 [2]:  https://slack.com
 [3]:  http://www.hipchat.com
-[4]:  /plugins
-[5]:  /enterprise#built-in-integrations
-[6]:  #service-checks
-[7]:  #event-processing
-[8]:  architecture.html#secure-transport
+[4]:  ../reference/plugins
+[5]:  ../reference/enterprise#built-in-integrations
+[6]:  ../reference/#service-checks
+[7]:  ../reference/#event-processing
+[8]:  architecture#secure-transport/
 [9]:  http://www.chef.io
 [10]: https://puppetlabs.com
 [11]: http://www.ansible.com
