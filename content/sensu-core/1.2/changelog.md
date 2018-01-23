@@ -2,6 +2,7 @@
 title: "CHANGELOG"
 description: "Release notes for Sensu Core"
 product: "Sensu Core"
+version: "1.2"
 menu: "sensu-core-1.2"
 ---
 
