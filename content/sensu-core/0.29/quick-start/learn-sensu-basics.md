@@ -7,7 +7,7 @@ product: "Sensu Core"
 platformContent: true
 menu:
   sensu-core-0.29:
-    parent: guides
+    parent: quick-start
 ---
 # Learn Sensu in 15 Minutes
 {{< platformDropdown "Ubuntu/Debian" "Sensu-Core" "0.29" "Client Installation" "learn-sensu-basics">}}
