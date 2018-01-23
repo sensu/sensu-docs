@@ -1,9 +1,9 @@
 ---
 title: "Overview"
-version: "0.29"
+version: "1.1"
 weight: 1
 menu:
-  sensu-core-0.29:
+  sensu-core-1.1:
     parent: guides
 ---
 

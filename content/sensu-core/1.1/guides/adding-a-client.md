@@ -1,10 +1,10 @@
 ---
 title: "Adding a Client"
 product: "Sensu Core"
-version: "0.29"
+version: "1.1"
 weight: 2
 menu:
-  sensu-core-0.29:
+  sensu-core-1.1:
     parent: guides
 ---
 

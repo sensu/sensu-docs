@@ -1,9 +1,9 @@
 ---
 title: "Intro to Mutators"
-version: "0.29"
+version: "1.0"
 weight: 5
 menu:
-  sensu-core-0.29:
+  sensu-core-1.0:
     parent: guides
 ---
 
