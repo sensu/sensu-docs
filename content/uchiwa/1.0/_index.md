@@ -7,6 +7,4 @@ menu: "uchiwa-1.0"
 layout: "base-for-directory-listing"
 ---
 
-## COMING SOON
-
-{{< directoryListing "content/uchiwa/1.0" >}}
+{{< redirect "https://uchiwa.io" >}}
