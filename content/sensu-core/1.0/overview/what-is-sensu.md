@@ -116,11 +116,11 @@ Graphite).
 [1]:  https://www.pagerduty.com
 [2]:  https://slack.com
 [3]:  http://www.hipchat.com
-[4]:  /plugins
-[5]:  /enterprise#built-in-integrations
+[4]:  ../../reference/plugins
+[5]:  ../../reference/enterprise#built-in-integrations
 [6]:  #service-checks
 [7]:  #event-processing
-[8]:  architecture.html#secure-transport
+[8]:  ../architecture#secure-transport/
 [9]:  http://www.chef.io
 [10]: https://puppetlabs.com
 [11]: http://www.ansible.com
@@ -129,5 +129,5 @@ Graphite).
 [14]: https://sensuapp.org/enterprise
 [15]: https://sensuapp.org/sensu-license
 [16]: #service-checks
-[17]: ../reference/clients
-[18]: ../reference/handlers
+[17]: ../../reference/clients
+[18]: ../../reference/handlers

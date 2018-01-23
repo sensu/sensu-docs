@@ -27,7 +27,7 @@ the following components:
 
 ### Architectural Diagram
 
-![](images/sensu-diagram.gif)
+![Sensu Architecture Gif](/images/sensu-diagram.gif)
 
 ### Secure Transport
 
