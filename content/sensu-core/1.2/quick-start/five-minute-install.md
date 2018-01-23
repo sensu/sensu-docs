@@ -7,7 +7,7 @@ product: "Sensu Core"
 platformContent: true
 menu:
   sensu-core-1.2:
-    parent: guides
+    parent: quick-start
 ---
 # The Five Minute Install
 {{< platformDropdown "Ubuntu/Debian" "Sensu-Core" "0.29" "Client Installation" "sensu-core">}}
