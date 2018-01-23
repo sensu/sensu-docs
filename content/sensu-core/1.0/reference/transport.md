@@ -86,7 +86,7 @@ configuration indicates that Redis should be used as the Sensu transport.
     "reconnect_on_error": true
   }
 }
-{{ /highlight >}}
+{{< /highlight >}}
 
 ### Transport DNS resolution {#transport-dns}
 
