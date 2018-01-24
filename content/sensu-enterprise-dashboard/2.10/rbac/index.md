@@ -8,4 +8,4 @@ menu:
     parent: rbac
 ---
 
-{{< directoryListing "content/sensu-enterprise/2.6/rbac" >}}
+{{< directoryListing "content/sensu-enterprise-dashboard/2.10/rbac" >}}
