@@ -1,9 +1,10 @@
 ---
 title: "Sensu Enterprise"
 product: "Sensu Enterprise"
-version: "2.6"
+version: "2.7"
 weight: 1
-menu: "sensu-enterprise-2.6"
+menu: "sensu-enterprise-2.7"
+layout: "single"
 ---
 
 ## Overview

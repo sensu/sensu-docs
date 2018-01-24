@@ -5,5 +5,5 @@ weight: -100
 version: "latest"
 menu: "sensu-enterprise-dashboard"
 product: "Sensu Enterprise Dashboard"
-layout: "index"
+layout: "product-versions"
 ---

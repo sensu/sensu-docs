@@ -4,6 +4,6 @@ product: "Uchiwa"
 version: "latest"
 weight: 0
 menu: "uchiwa"
-layout: "index"
+layout: "product-versions"
 ---
 

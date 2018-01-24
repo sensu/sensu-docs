@@ -2,11 +2,11 @@
 title: "Reference"
 description: "Reference documentation for Sensu."
 product: "Sensu Core"
-version: "1.0"
+version: "0.29"
 weight: -1
-layout: "index-3"
+layout: "base-for-directory-listing"
 menu:
-  sensu-core-1.0:
+  sensu-core-0.29:
     parent: reference
 ---
 

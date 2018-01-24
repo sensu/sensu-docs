@@ -5,6 +5,6 @@ weight: -100
 menu: "sensu-core"
 product: "Sensu Core"
 type: "sensu-core"
-layout: "index"
+layout: "product-versions"
 version: "latest"
 ---

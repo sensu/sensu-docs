@@ -2,11 +2,11 @@
 title: "Sensu Core"
 date: 2017-07-21T13:06:31-07:00
 weight: -100
-menu: "sensu-core-1.2"
-version: "1.2"
+menu: "sensu-core-1.1"
+version: "1.1"
 product: "Sensu Core"
 tags: ["sensu", "core", "sensu core", "1.1", "index"]
-layout: "index-2"
+layout: "product-platforms"
 ---
 
 ## Overview

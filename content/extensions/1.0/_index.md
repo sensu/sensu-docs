@@ -4,7 +4,7 @@ product: "Extensions"
 version: "1.0"
 weight: 0
 menu: "extensions-1.0"
-layout: "index-3"
+layout: "base-for-directory-listing"
 ---
 
 ## COMING SOON

@@ -4,6 +4,6 @@ product: "Extensions"
 version: "latest"
 weight: 0
 menu: "extensions"
-layout: "index"
+layout: "product-versions"
 ---
 

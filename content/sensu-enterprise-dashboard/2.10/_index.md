@@ -4,7 +4,7 @@ product: "Sensu Enterprise Dashboard"
 version: "2.10"
 weight: 0
 menu: "sensu-enterprise-dashboard-2.10"
-layout: "index-3"
+layout: "single"
 ---
 
 ## Reference Documentation
