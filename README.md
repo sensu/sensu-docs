@@ -1,28 +1,28 @@
 # Sensu Docs Site
 
-1. [Project Setup](#project-setup)
+Welcome to the Sensu Documentation! This is a work in progress as we migrate from our previous project, [sensu/sensu-docs](https://github.com/sensu/sensu-docs-site).
 
-    - [Getting Started with Hugo](#getting-started-with-hugo)
+## Status
 
-    - [Deploying to Heroku](#deploying-to-heroku)
+- Pages from site are officially merged into the new docs site: https://github.com/sensu/sensu-docs-site, which is [tracked on these Milestones](https://github.com/sensu/sensu-docs-site/milestones)
+- The sensuapp.org/docs pages will remain separate until the Launch milestone is hit, tracked here: https://github.com/sensu/sensu-docs-site/milestones
 
-2. [Working With Hugo](#working-with-hugo)
+## Why Change?
 
-    - [Adding Content](#adding-content)
+This new site is a place for:
 
-    - [Overriding the Theme](#overriding-the-theme)
+- Versioned documentation that's easy to navigate
+- MUCH FASTER load times
+- Full-text search 😍
+- Easier contribution experience running Hugo locally
 
-    - [Understanding Front Matter](#understanding-front-matter)
+# Running Sensu Docs
 
-    - [Variables and Accessing Front Matter](#variables-and-accessing-front-matter)
-
-    - [Search](#search)
-
-## Project Setup
+Now that our project can be run locally with Hugo, there's some new steps to learn. Don't worry, we've documented how to do so:
 
 ### Getting Started with Hugo
 
-#### Initial Setup - OS X
+#### Initial Setup - MacOS
 
 These instructions assume you have [Homebrew](https://brew.sh/) installed. Please refer to [Hugo Docs](https://gohugo.io/getting-started/installing/) otherwise.
 
@@ -54,7 +54,7 @@ CentOS:
 
 ```
 sudo yum-config-manager --add-repo https://copr.fedorainfracloud.org/coprs/daftaupe/hugo/repo/epel-7/daftaupe-hugo-epel-7.repo
-sudo dnf install 0.31.1-0.el7.centos 
+sudo dnf install 0.31.1-0.el7.centos
 ```
 
 
@@ -80,7 +80,7 @@ hugo server
 ### Pushing to Github
 This is the same as any other project. Follow Github's instructions if you're unsure. No additional steps are needed.
 
-### Deploying to Heroku
+### Deploying to Heroku (Admin Only)
 Assuming you have Heroku's cli installed and the app created, link it with the project
 ```
 heroku git:remote -a sensu-docs-site
@@ -144,7 +144,7 @@ menu:
 - Next: Optional. A relative link to the next file in the reading order, gets used in the footer.
 - Previous: Optional. A relative link to the previous file in the reaading order, gets used in the footer.
 - Menu: Mandatory. The menu context the page belongs to. Currently made of the project name and version. This will likely change.
-  - parent: this is a folder in the `1.0` directory that contains the file. 
+  - parent: this is a folder in the `1.0` directory that contains the file.
 - Version: Optional. Only special pages will not have a version, these will likely be landing pages or pages not associated with a project.
 - Product: Project that the page belongs to in a readable fashion. `.Section` gives this as well, so this field could potentially be deprecated.
 
