@@ -6,7 +6,7 @@
   {{ range $files }}
 
     <!-- Don't list the index, cause we're there -->
-    {{ if ne .Name "index.md" }}
+    {{ if ne .Name "_index.md" }}
 
       <!-- Format the name nicely -->
       {{ $name := replace .Name ".md" "" }}
