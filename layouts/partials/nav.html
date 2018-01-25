@@ -67,7 +67,12 @@
             <!-- No children, this is top level menu items -->
             {{ else }}
               {{ if not (eq $.Params.product $x.Name) }}
-                <li><a class="menu-child" href="{{ .URL | absURL }}">{{ $x.Name }}</a>
+                {{ if in $.URL "latest" }}
+                  {{ $url := replace (.URL | absURL) $version "latest" }}
+                  <li><a class="menu-child" href="{{ $url }}">{{ $x.Name }}</a>
+                {{ else }}
+                  <li><a class="menu-child" href="{{ .URL | absURL }}">{{ $x.Name }}</a>
+                {{ end }}
               {{ end }}
             {{ end }}
             </li>
