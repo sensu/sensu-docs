@@ -22,6 +22,8 @@
 
 ### Getting Started with Hugo
 
+This project requires Hugo version 0.34 or later.
+
 #### Initial Setup - OS X
 
 These instructions assume you have [Homebrew](https://brew.sh/) installed. Please refer to [Hugo Docs](https://gohugo.io/getting-started/installing/) otherwise.
