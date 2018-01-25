@@ -53,7 +53,12 @@
                   <!-- Loop through the child menu's pages -->
                   {{ range .Children.ByWeight }}
                     {{ if not (eq (lower .Parent) (lower .Name)) }}
-                      <li><a class="menu-child" href="{{ .URL | absURL }}">{{ .Name }}</a></li>
+                      {{ if in $.URL "latest" }}
+                        {{ $url := replace (.URL | absURL) $version "latest" }}
+                        <li><a class="menu-child" href="{{ $url }}">{{ .Name }}</a></li>
+                      {{ else }}
+                        <li><a class="menu-child" href="{{ .URL | absURL }}">{{ .Name }}</a></li>
+                      {{ end }}
                     {{ end }}
                   {{ end }}
                 </ul>
