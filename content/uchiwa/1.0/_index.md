@@ -7,4 +7,4 @@ menu: "uchiwa-1.0"
 layout: "base-for-directory-listing"
 ---
 
-{{< redirect "https://uchiwa.io" >}}
+{{< redirect "https://docs.uchiwa.io" >}}

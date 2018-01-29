@@ -37,7 +37,7 @@
         {{ range sort .Site.Params.Products "weight" }} 
           {{ $.Scratch.Set "url" "" }}
           {{ if eq .identifier "uchiwa" }}
-            {{ $.Scratch.Set "url" "https://uchiwa.io/" }}
+            {{ $.Scratch.Set "url" "https://docs.uchiwa.io/" }}
           {{ else }}
             {{ $.Scratch.Set "url" (printf "/%s/%s/" .identifier .latest) }}
           {{ end }}
