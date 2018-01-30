@@ -1,9 +1,9 @@
 ---
 title: "Configuration"
 product: "Sensu Enterprise Dashboard"
-version: "2.10"
+version: "2.9"
 weight: 2
-menu: "sensu-enterprise-dashboard-2.10"
+menu: "sensu-enterprise-dashboard-2.9"
 ---
 
 ## Dashboard configuration
@@ -36,21 +36,13 @@ and `dashboard` (see [Dashboard definition specification][8], below)._
 
 The Sensu Enterprise dashboard uses two [configuration scopes][9]: the
 `{ "sensu": {} }` configuration scope provides connection details for one or
-more Sensu API endpoints (i.e. [datacenters][1], and the `{ "dashboard": {} }`
+more Sensu API endpoints (i.e. [datacenters][1]), and the `{ "dashboard": {} }`
 configuration scope is used to configure the behavior of the dashboard itself.
 
 _NOTE: by default, the Sensu Enterprise Dashboard will load configuration from
 `/etc/sensu/dashboard.json` and/or from JSON configuration files located in
 `/etc/sensu/dashboard.d/**.json`, with the same configuration merging behavior
-as described [here][2]._
-
-## What is a Sensu "datacenter"? {#what-is-a-sensu-datacenter}
-
-The Sensu Enterprise Dashboard provides access to monitoring data from one or
-more Sensu "datacenters". A Sensu datacenter is simply a Sensu API endpoint,
-which corresponds to a Sensu installation consisting of one or more Sensu
-servers in cluster (multiple API endpoints may be provided by a single Sensu
-installation or cluster).
+as described [here][10]._
 
 #### `sensu` attributes {#sensu-attributes}
 
@@ -155,18 +147,7 @@ required     | false
 type         | Hash
 example      | {{< highlight shell >}}"ssl": {
   "certfile": "/path/to/dashboard.pem",
-  "keyfile": "/path/to/dashboard.key",
-  "ciphersuite": [
-      "TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256",
-      "TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305",
-      "TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305",
-      "TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA",
-      "TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA",
-      "TLS_RSA_WITH_AES_128_GCM_SHA256",
-      "TLS_RSA_WITH_AES_128_CBC_SHA",
-      "TLS_RSA_WITH_AES_256_CBC_SHA"
-      ],
-  "tlsminversion": "tls10"
+  "keyfile": "/path/to/dashboard.key"
 }
 {{< /highlight >}}
 
@@ -411,6 +392,3 @@ to configure the dashboard for RBAC with LDAP.
 
 Please see the [RBAC for OIDC reference documentation][4] for information on how
 to configure the dashboard for RBAC with OpenID Connect (OIDC).
-
-[1]:  #what-is-a-sensu-datacenter/
-[2]: ../../../sensu-core/1.2/reference/configuration/#configuration-merging/

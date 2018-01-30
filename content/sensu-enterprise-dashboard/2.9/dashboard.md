@@ -1,9 +1,9 @@
 ---
-title: "Sensu Dashboard"
+title: "Overview"
 product: "Sensu Enterprise Dashboard"
-version: "2.10"
+version: "2.9"
 weight: 1
-menu: "sensu-enterprise-dashboard-2.10"
+menu: "sensu-enterprise-dashboard-2.9"
 ---
 
 ## Reference Documentation

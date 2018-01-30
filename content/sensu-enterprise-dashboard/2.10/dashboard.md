@@ -1,10 +1,75 @@
 ---
-title: "Configuration"
+title: "Overview"
 product: "Sensu Enterprise Dashboard"
 version: "2.10"
-weight: 2
+weight: 1
 menu: "sensu-enterprise-dashboard-2.10"
 ---
+
+## Reference Documentation
+
+- [What is the Sensu Enterprise Dashboard?](#what-is-the-sensu-enterprise-dashboard)
+  - [What is Uchiwa?](#what-is-uchiwa)
+  - [What is the Sensu Enterprise Console?](#what-is-the-sensu-enterprise-console)
+- [What is a Sensu "datacenter"?](#what-is-a-sensu-datacenter)
+- [Dashboard configuration](#dashboard-configuration)
+  - [Example dashboard configuration](#example-dashboard-configuration)
+  - [Dashboard configuration attributes](#dashboard-configuration-attributes)
+    - [`sensu` attributes](#sensu-attributes)
+    - [`dashboard` attributes](#dashboard-attributes)
+    - [`auth` attributes](#auth-attributes)
+    - [`audit` attributes](#audit-attributes)
+    - [`github` attributes](#github-attributes)
+    - [`gitlab` attributes](#gitlab-attributes)
+    - [`ldap` attributes](#ldap-attributes)
+    - [`oidc` attributes](#oidc-attributes)
+
+## What is the Sensu Enterprise Dashboard?
+
+The Sensu Enterprise Dashboard is a simple web-based application that provides
+realtime visibility into Sensu monitoring data, with dedicated views for
+monitoring events, clients, checks, aggregates, [data centers][?], and more. The
+dashboard provides powerful global search features for filtering views so users
+can focus on the data that's important to them. The dashboard also provides
+basic operational controls to acknowledge or otherwise "silence" monitoring
+events, request ad hoc execution of monitoring checks, and much more.
+
+### What is Uchiwa?
+
+The Sensu Enterprise Dashboard is based on the open-source &ndash; and
+community developed &ndash; [Uchiwa][2] dashboard. Very much like the
+relationship between Sensu Core and Sensu Enterprise, the Sensu Enterprise
+Dashboard builds on top of Uchiwa via a number of added-value extensions (e.g.
+[Role Based Access Controls][3]; [LDAP][4], [GitHub][5], and [GitLab][6]
+authentication; [Audit Logging][7]; etc), which development also results in
+many contributions to the open-source Uchiwa dashboard project.
+
+### What is the Sensu Enterprise Console?
+
+The Sensu Enterprise Console is a federated API endpoint provided by the Sensu
+Enterprise Dashboard for API access to multiple [Sensu datacenters][1]
+(available in Sensu Enterprise Dashboard version 1.10 and newer). This API
+provides added-value features including token-based authentication and [granular
+role-based access controls][16].
+
+_NOTE: the Sensu Enterprise Dashboard is comprised of two components: a backend
+service (API) for aggregating monitoring data from one or more [Sensu
+datacenters][5], and a web application for displaying this information. As of
+Sensu Enterprise Dashboard version 1.10, this Sensu Enterprise Dashboard backend
+has been updated so that it provides the same API endpoints as the [Sensu
+API][1]. Prior to version 1.10, the Sensu Enterprise Dashboard backend used
+different API routes for accessing data from specific datacenters; for example,
+client data was accessible via `/clients/us-west-1/:client` instead of
+`/clients/:client?dc=us-west-1`. Version 1.11 introduced access token-based
+authentication, and version 1.12 introduced RBAC for the Console API._
+
+## What is a Sensu "datacenter"?
+
+The Sensu Enterprise Dashboard provides access to monitoring data from one or
+more Sensu "datacenters". A Sensu datacenter is simply a Sensu API endpoint,
+which corresponds to a Sensu installation consisting of one or more Sensu
+servers in cluster (multiple API endpoints may be provided by a single Sensu
+installation or cluster).
 
 ## Dashboard configuration
 
@@ -36,21 +101,13 @@ and `dashboard` (see [Dashboard definition specification][8], below)._
 
 The Sensu Enterprise dashboard uses two [configuration scopes][9]: the
 `{ "sensu": {} }` configuration scope provides connection details for one or
-more Sensu API endpoints (i.e. [datacenters][1], and the `{ "dashboard": {} }`
+more Sensu API endpoints (i.e. [datacenters][1]), and the `{ "dashboard": {} }`
 configuration scope is used to configure the behavior of the dashboard itself.
 
 _NOTE: by default, the Sensu Enterprise Dashboard will load configuration from
 `/etc/sensu/dashboard.json` and/or from JSON configuration files located in
 `/etc/sensu/dashboard.d/**.json`, with the same configuration merging behavior
-as described [here][2]._
-
-## What is a Sensu "datacenter"? {#what-is-a-sensu-datacenter}
-
-The Sensu Enterprise Dashboard provides access to monitoring data from one or
-more Sensu "datacenters". A Sensu datacenter is simply a Sensu API endpoint,
-which corresponds to a Sensu installation consisting of one or more Sensu
-servers in cluster (multiple API endpoints may be provided by a single Sensu
-installation or cluster).
+as described [here][10]._
 
 #### `sensu` attributes {#sensu-attributes}
 
@@ -155,18 +212,7 @@ required     | false
 type         | Hash
 example      | {{< highlight shell >}}"ssl": {
   "certfile": "/path/to/dashboard.pem",
-  "keyfile": "/path/to/dashboard.key",
-  "ciphersuite": [
-      "TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256",
-      "TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305",
-      "TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305",
-      "TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA",
-      "TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA",
-      "TLS_RSA_WITH_AES_128_GCM_SHA256",
-      "TLS_RSA_WITH_AES_128_CBC_SHA",
-      "TLS_RSA_WITH_AES_256_CBC_SHA"
-      ],
-  "tlsminversion": "tls10"
+  "keyfile": "/path/to/dashboard.key"
 }
 {{< /highlight >}}
 
@@ -412,5 +458,22 @@ to configure the dashboard for RBAC with LDAP.
 Please see the [RBAC for OIDC reference documentation][4] for information on how
 to configure the dashboard for RBAC with OpenID Connect (OIDC).
 
-[1]:  #what-is-a-sensu-datacenter/
-[2]: ../../../sensu-core/1.2/reference/configuration/#configuration-merging/
+[?]:  #
+[1]:  #what-is-a-sensu-datacenter
+[2]:  http://www.uchiwa.io
+[3]:  ../rbac/overview
+[4]:  ../rbac/rbac-for-ldap
+[5]:  ../rbac/rbac-for-github
+[6]:  ../rbac/rbac-for-gitlab
+[7]:  ../rbac/audit-logging
+[8]:  #dashboard-definition-specification
+[9]:  /sensu-core/1.0/reference/configuration#configuration-scopes
+[10]: /sensu-core/1.0/reference/configuration#configuration-merging
+[11]: #auth-attributes
+[12]: #audit-attributes
+[13]: #ldap-attributes
+[14]: #github-attributes
+[15]: #gitlab-attributes
+[16]: ../rbac/overview#rbac-for-the-sensu-enterprise-console-api
+[17]: ../rbac/rbac-for-oidc
+[18]: #oidc-attributes

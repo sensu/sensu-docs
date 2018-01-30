@@ -1,9 +1,9 @@
 ---
 title: "Sensu Enterprise Dashboard"
 product: "Sensu Enterprise Dashboard"
-version: "2.10"
+version: "2.9"
 weight: 0
-menu: "sensu-enterprise-dashboard-2.10"
+menu: "sensu-enterprise-dashboard-2.9"
 layout: "single"
 ---
 
@@ -65,11 +65,11 @@ installation or cluster).
 
 [1]:  #what-is-a-sensu-datacenter
 [2]:  http://www.uchiwa.io
-[3]:  /sensu-enterprise-dashboard/2.10/rbac/overview
-[4]:  /sensu-enterprise-dashboard/2.10/rbac/rbac-for-ldap
-[5]:  /sensu-enterprise-dashboard/2.10/rbac/rbac-for-github
-[6]:  /sensu-enterprise-dashboard/2.10/rbac/rbac-for-gitlab
-[7]:  /sensu-enterprise-dashboard/2.10/rbac/audit-logging
+[3]:  /sensu-enterprise-dashboard/2.9/rbac/overview
+[4]:  /sensu-enterprise-dashboard/2.9/rbac/rbac-for-ldap
+[5]:  /sensu-enterprise-dashboard/2.9/rbac/rbac-for-github
+[6]:  /sensu-enterprise-dashboard/2.9/rbac/rbac-for-gitlab
+[7]:  /sensu-enterprise-dashboard/2.9/rbac/audit-logging
 [8]:  #dashboard-definition-specification
 [9]:  /sensu-core/1.2/reference/configuration#configuration-scopes
 [10]: /sensu-core/1.2/reference/configuration#configuration-merging
@@ -78,6 +78,6 @@ installation or cluster).
 [13]: #ldap-attributes
 [14]: #github-attributes
 [15]: #gitlab-attributes
-[16]: /sensu-enterprise-dashboard/2.10/rbac/overview#rbac-for-the-sensu-enterprise-console-api
-[17]: /sensu-enterprise-dashboard/2.10/rbac/rbac-for-oidc
+[16]: /sensu-enterprise-dashboard/2.9/rbac/overview#rbac-for-the-sensu-enterprise-console-api
+[17]: /sensu-enterprise-dashboard/2.9/rbac/rbac-for-oidc
 [18]: #oidc-attributes

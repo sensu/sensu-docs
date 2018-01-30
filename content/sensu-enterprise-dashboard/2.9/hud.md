@@ -1,9 +1,9 @@
 ---
 title: "Heads-Up Display"
 product: "Sensu Enterprise Dashboard"
-version: "2.10"
+version: "2.9"
 weight: 2
-menu: "sensu-enterprise-dashboard-2.10"
+menu: "sensu-enterprise-dashboard-2.9"
 ---
 
 As of version 1.3, a new Heads Up Display (HUD) has been added to the Sensu
