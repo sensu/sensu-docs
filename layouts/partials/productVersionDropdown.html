@@ -35,7 +35,14 @@
     <div class="hiddenProducts" style="display: none;">
       <ul class="hiddenItems">
         {{ range sort .Site.Params.Products "weight" }} 
-          <li class="hiddenItem"><a href="/{{ .identifier }}/{{ .latest }}">{{ .name }}</a></li>
+          {{ $.Scratch.Set "url" "" }}
+          {{ if eq .identifier "uchiwa" }}
+            {{ $.Scratch.Set "url" "https://uchiwa.io/" }}
+          {{ else }}
+            {{ $.Scratch.Set "url" (printf "/%s/%s/" .identifier .latest) }}
+          {{ end }}
+          {{ $url := $.Scratch.Get "url" }}
+          <li class="hiddenItem"><a href="{{ $url }}">{{ .name }}</a></li>
         {{ end }}
       </ul>
     </div>

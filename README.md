@@ -22,7 +22,9 @@ Now that our project can be run locally with Hugo, there's some new steps to lea
 
 ### Getting Started with Hugo
 
+
 #### Initial Setup - MacOS
+This project requires Hugo version 0.34 or later.
 
 These instructions assume you have [Homebrew](https://brew.sh/) installed. Please refer to [Hugo Docs](https://gohugo.io/getting-started/installing/) otherwise.
 
