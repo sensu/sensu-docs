@@ -1,9 +1,9 @@
 ---
 title: "Overview"
 product: "Sensu Enterprise Dashboard"
-version: "2.10"
+version: "2.9"
 weight: 1
-menu: "sensu-enterprise-dashboard-2.10"
+menu: "sensu-enterprise-dashboard-2.9"
 ---
 
 ## Reference Documentation
@@ -63,7 +63,7 @@ client data was accessible via `/clients/us-west-1/:client` instead of
 `/clients/:client?dc=us-west-1`. Version 1.11 introduced access token-based
 authentication, and version 1.12 introduced RBAC for the Console API._
 
-## What is a Sensu "datacenter"? {#what-is-a-sensu-datacenter}
+## What is a Sensu "datacenter"?
 
 The Sensu Enterprise Dashboard provides access to monitoring data from one or
 more Sensu "datacenters". A Sensu datacenter is simply a Sensu API endpoint,

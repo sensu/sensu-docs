@@ -73,9 +73,12 @@ pygmentsUseClasses=true
         name = "Sensu Enterprise Dashboard"
         description = "The dashboard is quite fancy and super helpful."
         weight = 3
-        latest = "2.10"
+        latest = "2.11"
         [params.products.sensu_enterprise_dashboard.versions]
+            "2.11" = ["Ubuntu/Debian", "RHEL/CentOS"]
             "2.10" = ["Ubuntu/Debian", "RHEL/CentOS"]
+            "2.9" = ["Ubuntu/Debian", "RHEL/CentOS"]
+
 
     [params.products.uchiwa]
         identifier = "uchiwa"
