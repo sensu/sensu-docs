@@ -7,4 +7,4 @@ menu: "uchiwa"
 layout: "product-versions"
 ---
 
-{{< redirect "https://uchiwa.io" >}}
+{{< redirect "https://docs.uchiwa.io" >}}
