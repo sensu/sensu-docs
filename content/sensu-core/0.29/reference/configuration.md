@@ -67,7 +67,7 @@ sources in the following order:
    attempting to name configuration files in the configuration directory to
    control load order, you're doing it wrong)._
 
-### Configuration merging
+### Configuration merging {#configuration-merging}
 
 To explain how Sensu merges configuration parameters from the various disparate
 configuration sources, please note the following example scenario:
