@@ -2,7 +2,7 @@
 
 # add sensu group
 set +e
-grep "^sensu:" /etc/group > /dev/null
+getent group sensu > /dev/null
 RC=$?
 set -e
 if [ "${RC}" != 0 ]; then
@@ -11,7 +11,7 @@ fi
 
 # add sensu group
 set +e
-grep "^sensu:" /etc/passwd > /dev/null
+getent passwd sensu > /dev/null
 RC=$?
 set -e
 if [ "${RC}" != 0 ]; then
