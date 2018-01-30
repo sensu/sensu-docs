@@ -1,5 +1,5 @@
 ---
-title: "Sensu Dashboard Configuration"
+title: "Configuration"
 product: "Sensu Enterprise Dashboard"
 version: "2.9"
 weight: 2
