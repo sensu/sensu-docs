@@ -44,14 +44,6 @@ _NOTE: by default, the Sensu Enterprise Dashboard will load configuration from
 `/etc/sensu/dashboard.d/**.json`, with the same configuration merging behavior
 as described [here][2]._
 
-## What is a Sensu "datacenter"? {#what-is-a-sensu-datacenter}
-
-The Sensu Enterprise Dashboard provides access to monitoring data from one or
-more Sensu "datacenters". A Sensu datacenter is simply a Sensu API endpoint,
-which corresponds to a Sensu installation consisting of one or more Sensu
-servers in cluster (multiple API endpoints may be provided by a single Sensu
-installation or cluster).
-
 #### `sensu` attributes {#sensu-attributes}
 
 name         | 
@@ -412,5 +404,5 @@ to configure the dashboard for RBAC with LDAP.
 Please see the [RBAC for OIDC reference documentation][4] for information on how
 to configure the dashboard for RBAC with OpenID Connect (OIDC).
 
-[1]:  #what-is-a-sensu-datacenter/
+[1]:  ../dashboard/#what-is-a-sensu-datacenter/
 [2]: ../../../sensu-core/1.2/reference/configuration/#configuration-merging/
