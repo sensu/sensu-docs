@@ -10,7 +10,7 @@ As of version 1.3, a new Heads Up Display (HUD) has been added to the Sensu
 Enterprise Dashboard, which provides an at-a-glance view into the overall health
 of your infrastructure via a set of built-in graphs and status widgets.
 
-![heads-up display screenshot](/static/images/enterprise-dashboard-hud.png)
+![heads-up display screenshot](/images/enterprise-dashboard-hud.png)
 
 ## HUD RBAC Support
 
