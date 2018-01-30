@@ -2,8 +2,8 @@
 title: "CHANGELOG"
 description: "Release notes for Sensu Enterprise Dashboard"
 product: "Sensu Enterprise Dashboard"
-version: "2.11"
-menu: "sensu-enterprise-dashboard-2.11"
+version: "2.10"
+menu: "sensu-enterprise-dashboard-2.10"
 ---
 
 _NOTE: Sensu Enterprise Dashboard is built on Uchiwa. Uchiwa changes are documented in the [Uchiwa changelog][uchiwa-changelog]._
