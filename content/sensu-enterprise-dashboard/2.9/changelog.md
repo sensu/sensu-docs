@@ -10,8 +10,6 @@ _NOTE: Sensu Enterprise Dashboard is built on Uchiwa. Uchiwa changes are documen
 
 ## Releases
 
-- [Enterprise Dashboard 2.10.1 Release Notes](#enterprise-dashboard-v2-10-1)
-- [Enterprise Dashboard 2.10.0 Release Notes](#enterprise-dashboard-v2-10-0)
 - [Enterprise Dashboard 2.9.0 Release Notes](#enterprise-dashboard-v2-9-0)
 - [Enterprise Dashboard 2.8.1 Release Notes](#enterprise-dashboard-v2-8-1)
 - [Enterprise Dashboard 2.8.0 Release Notes](#enterprise-dashboard-v2-8-0)
@@ -65,30 +63,6 @@ _NOTE: Sensu Enterprise Dashboard is built on Uchiwa. Uchiwa changes are documen
 - [Enterprise Dashboard 0.1.0 Release Notes](#enterprise-dashboard-v0-1-0)
 
 
-
-
-## Enterprise Dashboard 2.10.2 Release Notes {#enterprise-dashboard-v2-10-2}
-**October 5, 2017** &mdash; Sensu Enterprise Dashboard version 2.10.2 has been released and is available for immediate download. 
-
-### CHANGES {#enterprise-dashboard-v2-10-2-changes}
-
-- **IMPROVEMENT**: Built on [Uchiwa 0.26.3][uchiwa-v0-26-3].
-
-## Enterprise Dashboard 2.10.1 Release Notes {#enterprise-dashboard-v2-10-1}
-**September 29, 2017** &mdash; Sensu Enterprise Dashboard version 2.10.1 has been released and is available for immediate download. 
-
-### CHANGES {#enterprise-dashboard-v2-10-1-changes}
-
-- **IMPROVEMENT**: Built on [Uchiwa 0.26.2][uchiwa-v0-26-2].
-
-## Enterprise Dashboard 2.10.0 Release Notes {#enterprise-dashboard-v2-10-0}
-**September 29, 2017** &mdash; Sensu Enterprise Dashboard version 2.10.0 has been released and is available for immediate download. 
-
-### CHANGES {#enterprise-dashboard-v2-10-0-changes}
-
-- **IMPROVEMENT**: Built on [Uchiwa 0.26.1][uchiwa-v0-26-1].
-
-- **FIX**: Properly display keepalives events with RBAC. Uses the client's subscriptions if a check's subscribers is empty (e.g. keepalive event).
 
 ## Enterprise Dashboard 2.9.0 Release Notes {#enterprise-dashboard-v2-9-0}
 **July 26, 2017** &mdash; Sensu Enterprise Dashboard version 2.9.0 has been released and is available for immediate download. 
@@ -550,10 +524,6 @@ _NOTE: Sensu Enterprise Dashboard is built on Uchiwa. Uchiwa changes are documen
 - **IMPROVEMENT?**: Building unstable packages for testing purposes.
 
 [uchiwa-changelog]:  https://github.com/sensu/uchiwa/blob/master/CHANGELOG.md
-<!-- Uchiwa 0.26 -->
-[uchiwa-v0-26-3]: https://github.com/sensu/uchiwa/blob/master/CHANGELOG.md#0263-2017-10-05
-[uchiwa-v0-26-2]: https://github.com/sensu/uchiwa/blob/master/CHANGELOG.md#0262-2017-10-02
-[uchiwa-v0-26-1]: https://github.com/sensu/uchiwa/blob/master/CHANGELOG.md#0261-2017-09-29
 <!-- Uchiwa 0.25 -->
 [uchiwa-v0-25-3]: https://github.com/sensu/uchiwa/blob/master/CHANGELOG.md#0253-2017-07-25
 [uchiwa-v0-25-2]: https://github.com/sensu/uchiwa/blob/master/CHANGELOG.md#0252-2017-05-16
