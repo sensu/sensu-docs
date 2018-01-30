@@ -7,7 +7,7 @@ We ask that you keep the following guidelines in mind when planning your contrib
 
 * Whether your contribution is for a bug fix or a feature request, **create an [Issue](https://github.com/sensu-plugins/sensu-docs-site/issues)** to let us know what you are thinking before you fix it. It helps us give a LGTM much faster (with fewer cases of saying no to a PR)
 * **For bugs**, if you have already found a fix, feel free to submit a Pull Request referencing the Issue you created. Include the `Fixes #` syntax to link it to the issue you're addressing.
-* **For feature requests**, we want to improve upon the library incrementally which means small changes at a time. In order to ensure your PR can be reviewed in a timely manner, please keep PRs small. If you think this is unrealistic, then mention that within the issue and we can discuss it.
+* **For feature requests**, we want to improve upon the documentation incrementally which means small changes at a time. In order to ensure your PR can be reviewed in a timely manner, please keep PRs small. If you think this is unrealistic, then mention that within the issue and we can discuss it.
 
 ## Workflow
 
