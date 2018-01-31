@@ -151,7 +151,7 @@ Coming soon...
 [4]:  ../../overview/architecture#event-processor
 [5]:  https://sensuapp.org/
 [6]:  https://sensuapp.org/enterprise
-[7]:  https://sensuapp.org/#compare
+[7]:  https://sensuapp.org/features#compare
 [8]:  #automated-task-election
 [9]:  ../checks#check-results
 [10]: ../filters
