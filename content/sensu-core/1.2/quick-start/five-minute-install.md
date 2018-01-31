@@ -204,13 +204,13 @@ the [installation guide](2).
     [http://hostname:3000](http://hostname:3000) (replacing `hostname` with the
     hostname or IP address of the system where the dashboard is installed).
 
-    ![](../img/five-minute-dashboard-1.png)
-    ![](../img/five-minute-dashboard-2.png)
+    ![five-minute-dashboard-1](/images/five-minute-dashboard-1.png)
+    ![five-minute-dashboard-2](/images/five-minute-dashboard-2.png)
 
 
 {{< platformBlockClose >}}
 
-[1]:  ../overview/architecture/
+[1]:  ../../overview/architecture/
 [2]:  ../installation/overview/
 [3]:  ../installation/installation-strategies/
 [4]:  ../installation/installation-strategies#standalone
