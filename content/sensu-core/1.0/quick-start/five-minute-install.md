@@ -10,7 +10,6 @@ menu:
     parent: quick-start
 ---
 # The Five Minute Install
-{{< platformDropdown "Ubuntu/Debian" "Sensu-Core" "0.29" "Client Installation" "sensu-core">}}
 
 ## Objective
 
@@ -25,8 +24,6 @@ your money back</abbr>, guaranteed**.
 
 After completing the steps in this guide, you will have a fully functional Sensu
 Core installation in a [standalone][4] configuration.
-
-{{< platformBlock "RHEL/CentOS" >}}
 
 ## Installation Requirements
 
@@ -206,9 +203,6 @@ the [installation guide](2).
 
     ![five-minute-dashboard-1](/images/five-minute-dashboard-1.png)
     ![five-minute-dashboard-2](/images/five-minute-dashboard-2.png)
-
-
-{{< platformBlockClose >}}
 
 [1]:  ../../overview/architecture/
 [2]:  ../installation/overview/
