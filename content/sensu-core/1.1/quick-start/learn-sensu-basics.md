@@ -10,7 +10,7 @@ menu:
     parent: quick-start
 ---
 # Learn Sensu in 15 Minutes
-{{< platformDropdown "Ubuntu/Debian" "Sensu-Core" "0.29" "Client Installation" "learn-sensu-basics">}}
+{{< platformDropdown "Ubuntu/Debian" "Sensu-Core" "1.1" "Client Installation" "learn-sensu-basics">}}
 
 Sensu was designed to provide a comprehensive monitoring platform for monitoring
 infrastructure (servers), services, application health, and business KPIs
