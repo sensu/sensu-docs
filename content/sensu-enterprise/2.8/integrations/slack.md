@@ -115,4 +115,4 @@ example      | {{< highlight shell >}}"text": "/etc/sensu/slack/text_template.er
 [3]:  https://api.slack.com/incoming-webhooks?ref=sensu-enterprise
 [4]:  /sensu-core/1.2/reference/configuration#configuration-scopes
 [5]:  #templates-attributes
-[6]:  /sensu-core/1.2/reference/configuration.html#configuration-scopes
+[6]:  /sensu-core/1.2/reference/configuration/#configuration-scopes
