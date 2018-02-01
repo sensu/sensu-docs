@@ -357,7 +357,7 @@ example        | {{< highlight shell >}}"methods": {
 [3]:  https://gitlab.com
 [4]:  ../../dashboard#what-is-a-sensu-datacenter
 [5]:  /sensu-core/1.0/reference/clients#client-subscriptions
-[6]:  ../../api
+[6]:  /sensu-enterprise/2.8/api
 [7]:  ../rbac-for-ldap
 [8]:  ../rbac-for-github
 [9]:  ../rbac-for-gitlab
