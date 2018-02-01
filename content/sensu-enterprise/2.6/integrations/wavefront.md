@@ -69,7 +69,7 @@ example      | {{< highlight shell >}}"port": 2878{{< /highlight >}}
 
 
 [1]:  /sensu-enterprise
-[2]:  http://www.wavefront.com?ref=sensu-enterprise
+[2]:  https://www.wavefront.com?ref=sensu-enterprise
 [3]:  /sensu-core/1.0/reference/configuration#configuration-scopes
 [4]:  https://community.wavefront.com/docs/DOC-1031
 [5]:  https://community.wavefront.com/docs/DOC-1041

@@ -100,7 +100,7 @@ example      | {{< highlight shell >}}"timeout": 30{{< /highlight >}}
 #### `templates` attributes
 
 The following attributes are configured within the `{"slack": { "templates": {}
-} }` [configuration scope][6].
+} }` [configuration scope][4].
 
 text         | 
 -------------|------
@@ -113,6 +113,6 @@ example      | {{< highlight shell >}}"text": "/etc/sensu/slack/text_template.er
 [1]:  /sensu-enterprise
 [2]:  https://slack.com?ref=sensu-enterprise
 [3]:  https://api.slack.com/incoming-webhooks?ref=sensu-enterprise
-[4]:  /sensu-core/1.2/reference/configuration#configuration-scopes
+[4]:  /sensu-core/1.2/reference/configuration/#reference-documentation
 [5]:  #templates-attributes
 [6]:  /sensu-core/1.2/reference/configuration/#configuration-scopes

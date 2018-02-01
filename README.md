@@ -23,16 +23,10 @@ Now that our project can be run locally with Hugo, there's some new steps to lea
 ### Getting Started with Hugo
 
 
-#### Initial Setup - MacOS
-This project requires Hugo version 0.34 or later.
-
-These instructions assume you have [Homebrew](https://brew.sh/) installed. Please refer to [Hugo Docs](https://gohugo.io/getting-started/installing/) otherwise.
-
-```
-brew install hugo
-```
+#### Initial Setup 
 
 This project uses [git submodules](https://git-scm.com/book/en/v2/Git-Tools-Submodules) to manage themes. If you have git 1.6.5 or later, you can clone this project and checkout submodules in one command:
+
 ```
 git clone --recursive https://github.com/sensu/sensu-docs-site.git sensu-docs-site
 ```
@@ -42,36 +36,10 @@ If you cloned this repository without the `--recursive` flag, you can manually p
 cd sensu-docs-site ; git submodule update --init --recursive
 ```
 
-#### Initial Setup - RedHat/CentOS/Fedora
+#### Installing Hugo
 
-Sensu Docs Site uses Hugo .30, though .31 works. Do NOT use .32 at this time, as it breaks the site. You'll need to ensure that you've downloaded either of those versions prior to cloning the repo. To install the repo, ensure that you have the yum-utils package installed:
+To install Hugo, we recommend heading over to http://gohugo.io/getting-started/installing/ to find the instructions for your platform of choice. If you're in doubt over whether a release exists for your platform, check out https://github.com/gohugoio/hugo/releases to see what packages are available. Once you've installed Hugo, continue reading for viewing the site and working with Hugo.
 
-```
-sudo yum install - yum-utils
-```
-
-Then install the daftaupe repo:
-
-CentOS:
-
-```
-sudo yum-config-manager --add-repo https://copr.fedorainfracloud.org/coprs/daftaupe/hugo/repo/epel-7/daftaupe-hugo-epel-7.repo
-sudo dnf install 0.31.1-0.el7.centos
-```
-
-
-Fedora:
-
-```
-sudo dnf copr enable daftaupe/hugo
-sudo dnf install hugo-0.31.1-0.fc26.x86_64
-```
-
-From there, proceed to clone the repo:
-```
-git clone --recursive https://github.com/sensu/sensu-docs-site.git sensu-docs-site
-cd sensu-docs-site
-```
 
 #### Viewing locally
 Now just run the Hugo server

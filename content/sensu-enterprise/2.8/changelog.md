@@ -441,7 +441,7 @@ This release includes potentially breaking, backwards-incompatible changes:
 
 - **IMMPROVEMENT:** Built on JRuby 9K.
 
-[core-changelog]:  /sensu-core/latest/changelog
+[core-changelog]:  /sensu-core/1.2/changelog
 
 <!-- 1.13 -->
 [core-v0-24-0]: /sensu-core/1.0/changelog/#core-v0-24-0
@@ -480,3 +480,6 @@ This release includes potentially breaking, backwards-incompatible changes:
 
 <!-- 2.8 -->
 [core-v1-2-0]:  /sensu-core/1.2/changelog/#core-v1-2-0
+
+<!-- core -->
+[core-v0-26-0-important] /sensu-core/1.2/changelog/#core-v0-26-0-important
