@@ -441,7 +441,7 @@ To manually start and stop the Sensu services, use the following commands:
 [7]:  http://smarden.org/runit/
 [8]:  #disable-the-sensu-services-on-boot
 [9]:  http://manpages.ubuntu.com/manpages/precise/man8/update-rc.d.8.html
-[10]: ../../../reference/transport#transport-definition-specification/
+[10]: ../../../reference/transport/#transport-definition-specification
 [11]: #configure-sensu
 [12]: #example-transport-configuration
 [13]: #example-client-configuration

@@ -1181,7 +1181,7 @@ information for operations teams can be extremely valuable._
 
 
 [?]:  #
-[1]:  ../../overview/architectur/e#monitoring-agent
+[1]:  ../../overview/architecture/#monitoring-agent
 [2]:  #client-keepalives
 [3]:  #client-subscriptions
 [4]:  ../checks/#check-requests

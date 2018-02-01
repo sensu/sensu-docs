@@ -751,7 +751,7 @@ example      | {{< highlight shell >}}"output": "i-424242"{{< /highlight >}}
 [12]: #standalone-checks
 [13]: ../transport/
 [14]: https://en.wikipedia.org/wiki/Publish%E2%80%93subscribe_pattern#Message_filtering
-[15]: ../clients/#client-subscriptions/
+[15]: ../clients/#client-subscriptions
 [16]: ../clients/#client-definition-specification
 [17]: #check-definition-specification
 [18]: http://www.ntp.org/

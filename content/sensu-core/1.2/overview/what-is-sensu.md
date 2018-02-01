@@ -120,7 +120,7 @@ Graphite).
 [5]:  ../../reference/enterprise/#built-in-integrations
 [6]:  #service-checks
 [7]:  #event-processing
-[8]:  ../architecture/#secure-transport/
+[8]:  ../architecture/#secure-transport
 [9]:  http://www.chef.io
 [10]: https://puppetlabs.com
 [11]: http://www.ansible.com

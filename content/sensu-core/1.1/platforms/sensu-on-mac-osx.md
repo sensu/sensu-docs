@@ -201,7 +201,7 @@ $ sudo -u _sensu /opt/sensu/bin/sensu-client -V
 [7]:  ../../../reference/redis/#sensu-redis-configuration
 [8]:  ../../../reference/rabbitmq/#sensu-rabbitmq-configuration
 [9]:  https://developer.apple.com/library/mac/documentation/Darwin/Reference/ManPages/man5/plist.5.html
-[10]: ../../../reference/configuration#sensu-service-cli-arguments/
+[10]: ../../../reference/configuration/#sensu-service-cli-arguments
 [11]: https://developer.apple.com/library/mac/documentation/Darwin/Reference/ManPages/man1/launchctl.1.html
 [12]: #configure-sensu
 [13]: #example-transport-configuration
