@@ -37,7 +37,7 @@ various check plugins (Nagios plugins, etc.) and data sources. The
 - [Metrics 2.0 as a wire format][6]
 - [Wizardvan JSON][7]
 
-#### Example output_format filter configuration
+#### Example output_format filter configuration {#sensu-metric-format}
 
 The following is an example of how to configure an output format for a metric
 collection check, one that is making use of a Nagios plugin. This example check
@@ -64,7 +64,7 @@ handlers: one for notifications (`pagerduty`), another for metric storage
 }
 {{< /highlight >}}
 
-#### Definition attributes
+#### Definition attributes 
 
 output_format  | 
 ---------------|------
