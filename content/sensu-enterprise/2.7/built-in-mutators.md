@@ -64,7 +64,7 @@ handlers: one for notifications (`pagerduty`), another for metric storage
 }
 {{< /highlight >}}
 
-#### Definition attributes
+#### Definition attributes {#sensu-metric-format}
 
 output_format  | 
 ---------------|------
