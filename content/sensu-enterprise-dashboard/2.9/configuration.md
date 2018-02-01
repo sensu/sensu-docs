@@ -404,13 +404,13 @@ to configure the dashboard for RBAC with LDAP.
 Please see the [RBAC for OIDC reference documentation][4] for information on how
 to configure the dashboard for RBAC with OpenID Connect (OIDC).
 
-[1]:  /sensu-enterprise-dashboard/2.11/dashboard/#what-is-a-sensu-datacenter
+[1]:  /sensu-enterprise-dashboard/2.9/dashboard/#what-is-a-sensu-datacenter
 [2]: /sensu-core/1.2/reference/configuration/#configuration-merging
-[3]:  /sensu-enterprise-dashboard/2.11/rbac/overview
-[4]:  /sensu-enterprise-dashboard/2.11/rbac/rbac-for-ldap
-[5]:  /sensu-enterprise-dashboard/2.11/rbac/rbac-for-github
-[6]:  /sensu-enterprise-dashboard/2.11/rbac/rbac-for-gitlab
-[7]:  /sensu-enterprise-dashboard/2.11/rbac/audit-logging
+[3]:  /sensu-enterprise-dashboard/2.9/rbac/overview
+[4]:  /sensu-enterprise-dashboard/2.9/rbac/rbac-for-ldap
+[5]:  /sensu-enterprise-dashboard/2.9/rbac/rbac-for-github
+[6]:  /sensu-enterprise-dashboard/2.9/rbac/rbac-for-gitlab
+[7]:  /sensu-enterprise-dashboard/2.9/rbac/audit-logging
 [8]:  #dashboard-definition-specification
 [9]:  #configuration-scopes
 [10]: #configuration-merging
@@ -419,6 +419,6 @@ to configure the dashboard for RBAC with OpenID Connect (OIDC).
 [13]: #ldap-attributes
 [14]: #github-attributes
 [15]: #gitlab-attributes
-[16]: /sensu-enterprise-dashboard/2.11/rbac/overview/#rbac-for-the-sensu-enterprise-console-api
-[17]: /sensu-enterprise-dashboard/2.11/rbac/rbac-for-oidc
+[16]: /sensu-enterprise-dashboard/2.9/rbac/overview/#rbac-for-the-sensu-enterprise-console-api
+[17]: /sensu-enterprise-dashboard/2.9/rbac/rbac-for-oidc
 [18]: #oidc-attributes

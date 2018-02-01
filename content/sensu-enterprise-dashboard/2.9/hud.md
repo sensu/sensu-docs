@@ -75,4 +75,4 @@ The Datacenter Status Summary widget(s) provide real-time counts for the current
 state of the datacenters (i.e. Sensu Enterprise servers).
 
 
-[1]: /sensu-enterprise-dashboard/2.11/configuration/#what-is-a-sensu-datacenter
+[1]: /sensu-enterprise-dashboard/2.9/configuration/#what-is-a-sensu-datacenter
