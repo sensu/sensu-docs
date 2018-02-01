@@ -10,7 +10,6 @@ menu:
     parent: quick-start
 ---
 # The Five Minute Install
-{{< platformDropdown "Ubuntu/Debian" "Sensu-Core" "0.29" "Client Installation" "sensu-core">}}
 
 ## Objective
 
@@ -25,8 +24,6 @@ your money back</abbr>, guaranteed**.
 
 After completing the steps in this guide, you will have a fully functional Sensu
 Core installation in a [standalone][4] configuration.
-
-{{< platformBlock "RHEL/CentOS" >}}
 
 ## Installation Requirements
 
@@ -204,20 +201,17 @@ the [installation guide](2).
     [http://hostname:3000](http://hostname:3000) (replacing `hostname` with the
     hostname or IP address of the system where the dashboard is installed).
 
-    ![](../img/five-minute-dashboard-1.png)
-    ![](../img/five-minute-dashboard-2.png)
+    ![five-minute-dashboard-1](/images/five-minute-dashboard-1.png)
+    ![five-minute-dashboard-2](/images/five-minute-dashboard-2.png)
 
-
-{{< platformBlockClose >}}
-
-[1]:  ../overview/architecture/
-[2]:  ../installation/overview/
-[3]:  ../installation/installation-strategies/
-[4]:  ../installation/installation-strategies#standalone
+[1]:  ../../overview/architecture/
+[2]:  ../../../installation/overview/
+[3]:  ../../../installation/installation-strategies/
+[4]:  ../../../installation/installation-strategies/#standalone
 [5]:  https://wiki.centos.org/Manuals/ReleaseNotes/CentOS7
 [6]:  http://github.com/sensu/sensu-bash
-[7]:  ../platforms/sensu-on-rhel-centos#install-sensu-core-repository
+[7]:  ../../../platforms/sensu-on-rhel-centos/#install-sensu-core-repository
 [8]:  https://www.youtube.com/watch?v=J2D1XF40-ok
-[9]:  ../platforms/sensu-on-rhel-centos#install-sensu-enterprise-repository
+[9]:  ../../../platforms/sensu-on-rhel-centos/#install-sensu-enterprise-repository
 [10]: https://stedolan.github.io/jq/
 [redis-security]: https://redis.io/topics/security

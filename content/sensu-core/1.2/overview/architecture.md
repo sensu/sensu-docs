@@ -57,7 +57,7 @@ telemetry data to external time-series databases (e.g. [Graphite][5],
 - Event registry
 - Stashes (a key-value store provided by the [Sensu API][9])
 
-### Check Execution Scheduler
+### Check Execution Scheduler {#check-execution-scheduler}
 
 Sensu offers two distinct check execution schedulers: the Sensu server, and the
 Sensu client (monitoring agent). The Sensu server schedules and publishes check
@@ -81,7 +81,7 @@ following features:
   external resources
 - an input socket for accepting input from external services.
 
-### Event Processor
+### Event Processor {#event-processor}
 
 The Sensu server is a scalable event processor that processes event data and
 takes action. Sensu's event processing capabilities include:
@@ -118,21 +118,21 @@ HTTP JSON API, including:
 
 [1]:  http://www.rabbitmq.com/
 [2]:  http://github.com/sensu/sensu-transport
-[3]:  ../reference/data-store
-[4]:  ../reference/clients
+[3]:  ../../reference/data-store/
+[4]:  ../../reference/clients/
 [5]:  https://github.com/graphite-project
 [6]:  https://www.librato.com/
 [7]:  https://influxdata.com/
-[8]:  ../reference/clients.html#registration-and-registry
-[9]:  ../api/overview
+[8]:  ../../reference/clients/#registration-and-registry
+[9]:  ../../api/overview
 [10]: #check-execution-scheduler
-[11]: ../reference/filters
-[12]: ../reference/mutators
-[13]: ../reference/handlers
-[14]: ../reference/transport
-[15]: ../api/clients-api
-[16]: ../api/checks-api
-[17]: ../api/events-api
-[18]: ../api/results-api
-[19]: ../api/aggregates-api
-[20]: ../api/stashes-api
+[11]: ../../reference/filters/
+[12]: ../../reference/mutators/
+[13]: ../../reference/handlers/
+[14]: ../../reference/transport/
+[15]: ../../api/clients-api/
+[16]: ../../api/checks-api/
+[17]: ../../api/events-api/
+[18]: ../../api/results-api/
+[19]: ../../api/aggregates-api/
+[20]: ../../api/stashes-api/

@@ -31,4 +31,4 @@ menu:
 - The **Sensu Server** executes the **Event Handler** (assuming the event was
   not filtered out)
 
-![Sensu Architecture Gif](images/sensu-diagram.gif)
+![Sensu Architecture Gif](/images/sensu-diagram.gif)

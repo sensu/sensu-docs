@@ -92,4 +92,4 @@ example      | {{< highlight shell >}}"timeout": 30{{< /highlight >}}
 [1]:  /sensu-enterprise
 [2]:  https://slack.com?ref=sensu-enterprise
 [3]:  https://api.slack.com/incoming-webhooks?ref=sensu-enterprise
-[4]:  /sensu-core/1.0/reference/configuration#configuration-scopes
+[4]:  /sensu-core/1.0/reference/configuration/#configuration-scopes

@@ -122,20 +122,20 @@ For example, you may have a router that you can't run Sensu on but publishes int
 
 
 [?]:  #
-[1]:  ../reference/clients/
-[2]:  ../reference/server/
+[1]:  ../../../reference/clients/
+[2]:  ../../../reference/server/
 [3]:  #add-a-remote-sensu-client
 [4]:  #it-starts-with-configuration
 [5]:  #its-all-about-the-transport
-[6]:  ../reference/configuration/
-[7]:  ../reference/clients#registration-and-registry/
-[8]:  ../reference/clients#client-definition-specification/
-[9]:  ../reference/transport#transport-definition-specification/
-[10]: ../reference/transport/
-[11]: ../reference/rabbitmq/
-[12]: ../reference/transport#selecting-a-transport/
-[13]: ../reference/redis/
-[14]: ../reference/clients#client-keepalives/
-[15]: ../reference/checks#check-results/
-[16]: ../reference/clients#proxy-clients/
-[17]: ../intro-to-checks#proxy-clients/
+[6]:  ../../../reference/configuration/
+[7]:  ../../../reference/clients/#registration-and-registry
+[8]:  ../../../reference/clients/#client-definition-specification
+[9]:  ../../../reference/transport/#transport-definition-specification
+[10]: ../../../reference/transport/
+[11]: ../../../reference/rabbitmq/
+[12]: ../../../reference/transport/#selecting-a-transport
+[13]: ../../../reference/redis/
+[14]: ../../../reference/clients/#client-keepalives
+[15]: ../../../reference/checks/#check-results
+[16]: ../../../reference/clients/#proxy-clients
+[17]: ../../../intro-to-checks/#proxy-clients

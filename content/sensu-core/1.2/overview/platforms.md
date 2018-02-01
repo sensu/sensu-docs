@@ -37,13 +37,13 @@ running the `sensu-server` and `sensu-api` processes._
 
 ### Sensu Client
 
-- [Ubuntu/Debian](../platforms/sensu-on-ubuntu-debian.html#sensu-core)
-- [RHEL/CentOS](../platforms/sensu-on-rhel-centos.html#sensu-core)
-- [Microsoft Windows](../platforms/sensu-on-microsoft-windows.html#sensu-core)
-- [Mac OS X](../platforms/sensu-on-mac-os-x.html#sensu-core)
-- [FreeBSD](../platforms/sensu-on-freebsd.html#sensu-core)
-- [IBM AIX](../platforms/sensu-on-ibm-aix.html#sensu-core)
-- [Oracle Solaris](../platforms/sensu-on-oracle-solaris.html#sensu-core)
+- [Ubuntu/Debian](../../platforms/sensu-on-ubuntu-debian/#sensu-core)
+- [RHEL/CentOS](../../platforms/sensu-on-rhel-centos/#sensu-core)
+- [Microsoft Windows](../../platforms/sensu-on-microsoft-windows/#sensu-core)
+- [Mac OS X](../../platforms/sensu-on-mac-os-x/#sensu-core)
+- [FreeBSD](../../platforms/sensu-on-freebsd/#sensu-core)
+- [IBM AIX](../../platforms/sensu-on-ibm-aix/#sensu-core)
+- [Oracle Solaris](../../platforms/sensu-on-oracle-solaris/#sensu-core)
 
 ## Sensu Enterprise
 
@@ -55,8 +55,8 @@ which provides [added-value][7] replacements for the Sensu Core server
 
 ### Sensu Enterprise Server & API
 
-- [Ubuntu/Debian](sensu-on-ubuntu-debian#sensu-enterprise)
-- [RHEL/CentOS](sensu-on-rhel-centos#sensu-enterprise)
+- [Ubuntu/Debian](../../platforms/sensu-on-ubuntu-debian#sensu-enterprise)
+- [RHEL/CentOS](../../platforms/sensu-on-rhel-centos#sensu-enterprise)
 
 ### Sensu Enterprise Client
 
@@ -68,9 +68,9 @@ agents &mdash; simply replace the server and API components. Consequently,
 by Sensu**.
 
 [1]:  https://github.com/sensu
-[2]:  ../reference/server
-[3]:  ../api/overview
-[4]:  ../reference/clients
+[2]:  ../../reference/server/
+[3]:  ../../api/overview/
+[4]:  ../../reference/clients/
 [5]:  https://sensuapp.org/download
 [6]:  https://sensuapp.org/enterprise
 [7]:  https://sensuapp.org/enterprise#advantage
