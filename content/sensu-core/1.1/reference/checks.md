@@ -902,15 +902,15 @@ example      | {{< highlight shell >}}"output": "i-424242"{{< /highlight >}}
 [5]:  ../../overview/architecture/#event-processor
 [6]:  ../server/
 [7]:  #check-configuration
-[8]:  ../plugins/#check-plugins/
+[8]:  ../plugins/#check-plugins
 [9]:  https://en.wikipedia.org/wiki/PATH_(variable)
 [10]: ../clients/#standalone-check-execution-scheduler
 [11]: https://en.wikipedia.org/wiki/Publish%E2%80%93subscribe_pattern
 [12]: #standalone-checks
 [13]: ../transport/
 [14]: https://en.wikipedia.org/wiki/Publish%E2%80%93subscribe_pattern#Message_filtering
-[15]: ../clients/#client-subscriptions/
-[16]: ../clients/#client-definition-specification/
+[15]: ../clients/#client-subscriptions
+[16]: ../clients/#client-definition-specification
 [17]: #check-definition-specification
 [18]: http://www.ntp.org/
 [19]: #subscription-checks
@@ -923,7 +923,7 @@ example      | {{< highlight shell >}}"output": "i-424242"{{< /highlight >}}
 [26]: ../clients#client-attributes
 [27]: ../plugins
 [28]: https://github.com/sensu-plugins/sensu-plugins-http
-[29]: ../configuration/#configuration-scopes/
+[29]: ../configuration/#configuration-scopes
 [30]: http://ruby-doc.org/core-2.2.0/Regexp.html
 [31]: https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/3/en/flapping.html
 [32]: ../clients#proxy-clients
@@ -934,7 +934,7 @@ example      | {{< highlight shell >}}"output": "i-424242"{{< /highlight >}}
 [37]: #example-check-result-output
 [38]: #check-result-specification
 [39]: ../../api/clients/
-[40]: ../events#event-data/
+[40]: ../events#event-data
 [41]: #check-names
 [42]: #subdue-attributes
 [43]: ../../overview/changelog/
@@ -943,5 +943,5 @@ example      | {{< highlight shell >}}"output": "i-424242"{{< /highlight >}}
 [46]: ../clients#client-socket-input
 [47]: https://en.wikipedia.org/wiki/Cron#CRON_expression
 [48]: #proxy-requests-attributes
-[49]: ../../guides/intro-to-checks/#proxy-clients/
-[50]: ../../guides/adding-a-client/#proxy-clients/
+[49]: ../../guides/intro-to-checks/#proxy-clients
+[50]: ../../guides/adding-a-client/#proxy-clients
