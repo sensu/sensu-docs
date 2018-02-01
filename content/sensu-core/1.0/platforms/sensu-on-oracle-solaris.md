@@ -180,10 +180,10 @@ $ svcadm restart sensu-client{{< /highlight >}}
 [2]:  https://sensu.global.ssl.fastly.net/solaris/pkg/
 [3]:  https://sensu.global.ssl.fastly.net/solaris/ips/
 [4]:  https://sensuapp.org/mit-license
-[5]:  ../../reference/configuration/
-[6]:  ../../reference/transport/
-[7]:  ../../reference/redis/#sensu-redis-configuration
-[8]:  ../../reference/rabbitmq/#sensu-rabbitmq-configuration
+[5]:  ../../../reference/configuration/
+[6]:  ../../../reference/transport/
+[7]:  ../../../reference/redis/#sensu-redis-configuration
+[8]:  ../../../reference/rabbitmq/#sensu-rabbitmq-configuration
 [9]:  #configure-sensu
 [10]: #example-transport-configuration
 [11]: #example-client-configuration
