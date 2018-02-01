@@ -81,7 +81,7 @@ following features:
   external resources
 - an input socket for accepting input from external services.
 
-### Event Processor
+### Event Processor {#event-processor}
 
 The Sensu server is a scalable event processor that processes event data and
 takes action. Sensu's event processing capabilities include:

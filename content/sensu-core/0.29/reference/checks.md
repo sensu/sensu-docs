@@ -741,7 +741,7 @@ example      | {{< highlight shell >}}"output": "i-424242"{{< /highlight >}}
 [2]:  https://en.wikipedia.org/wiki/Standard_streams
 [3]:  https://www.nagios.org/
 [4]:  #check-results
-[5]:  ../../overview/architecture/#event-processor/
+[5]:  ../../overview/architecture/#event-processor
 [6]:  ../server/
 [7]:  #check-configuration
 [8]:  ../plugins/#check-plugins/
