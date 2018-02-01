@@ -431,10 +431,10 @@ script must be used, e.g. `sudo /etc/init.d/sensu-client start`_
 
 [1]:  https://sensuapp.org/download
 [2]:  https://sensuapp.org/enterprise
-[3]:  ../reference/configuration/
-[4]:  ../reference/transport/
-[5]:  ../reference/redis#sensu-redis-configuration/
-[6]:  ../reference/rabbitmq#sensu-rabbitmq-configuration/
+[3]:  ../../reference/configuration/
+[4]:  ../../reference/transport/
+[5]:  ../../reference/redis/#sensu-redis-configuration
+[6]:  ../../reference/rabbitmq/#sensu-rabbitmq-configuration
 [7]:  http://smarden.org/runit/
 [8]:  #disable-the-sensu-services-on-boot
 [9]:  https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/6/html/Deployment_Guide/s2-services-chkconfig.html
