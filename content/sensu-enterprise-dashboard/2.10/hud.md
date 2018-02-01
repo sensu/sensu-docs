@@ -15,7 +15,7 @@ of your infrastructure via a set of built-in graphs and status widgets.
 ## HUD RBAC Support
 
 The HUD is scoped according to any existing [Sensu Enterprise Dashboard
-RBAC](enterprise-dashboard-configuration#role-based-access-controls-rbac)
+RBAC][1]
 controls. For example, if a user is a member of a role with limited access to
 Sensu data, they will only see history graphs and status widgets corresponding
 to the Sensu Subscriptions and/or Datacenters they have access to.
@@ -73,3 +73,5 @@ unknown (black), and healthy (green).
 
 The Datacenter Status Summary widget(s) provide real-time counts for the current
 state of the datacenters (i.e. Sensu Enterprise servers).
+
+[1]: /sensu-enterprise-dashboard/2.11/configuration/#what-is-a-sensu-datacenter
