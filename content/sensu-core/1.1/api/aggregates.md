@@ -166,7 +166,7 @@ the client members of an aggregate named `elasticsearch`.
 $ curl -s http://localhost:4567/aggregates/elasticsearch/clients | jq .
 [
   {
-    "name": "1-424242",
+    "name": "i-424242",
     "checks": [
       "elasticsearch_service",
       "elasticsearch_cluster_health"
@@ -191,7 +191,7 @@ response type                   | Array
 response codes                  | <ul><li>**Success**: 200 (OK)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output                          | {{< highlight json >}}[
   {
-    "name": "1-424242",
+    "name": "i-424242",
     "checks": [
       "elasticsearch_service",
       "elasticsearch_cluster_health"
@@ -224,14 +224,14 @@ $ curl -s http://localhost:4567/aggregates/elasticsearch/checks | jq .
   {
     "name": "elasticsearch_service",
     "clients": [
-      "1-424242",
+      "i-424242",
       "i-424243"
     ]
   },
   {
     "name": "elasticsearch_cluster_health",
     "clients": [
-      "1-424242"
+      "i-424242"
     ]
   }
 ]
@@ -249,14 +249,14 @@ output                         | {{< highlight json >}}[
   {
     "name": "elasticsearch_service",
     "clients": [
-      "1-424242",
+      "i-424242",
       "i-424243"
     ]
   },
   {
     "name": "elasticsearch_cluster_health",
     "clients": [
-      "1-424242"
+      "i-424242"
     ]
   }
 ]

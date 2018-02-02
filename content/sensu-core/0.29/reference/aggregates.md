@@ -73,7 +73,7 @@ included in the aggregate:
 $ curl -s http://localhost:4567/aggregates/elasticsearch/clients | jq .
 [
   {
-    "name": "1-424242",
+    "name": "i-424242",
     "checks": [
       "elasticsearch_service",
       "elasticsearch_cluster_health"
@@ -98,14 +98,14 @@ $ curl -s http://localhost:4567/aggregates/elasticsearch/checks | jq .
   {
     "name": "elasticsearch_service",
     "clients": [
-      "1-424242",
+      "i-424242",
       "i-424243"
     ]
   },
   {
     "name": "elasticsearch_cluster_health",
     "clients": [
-      "1-424242"
+      "i-424242"
     ]
   }
 ]
