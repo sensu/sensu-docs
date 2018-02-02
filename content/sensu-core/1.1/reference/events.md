@@ -313,7 +313,7 @@ name         |
 description  | The `name` of the Sensu client (or [proxy client][15]) the event is associated with, as fetched from the [Clients API][17].
 type         | String
 required     | true
-example      | {{< highlight shell >}}"name": "1-424242"{{< /highlight >}}
+example      | {{< highlight shell >}}"name": "i-424242"{{< /highlight >}}
 
 address      | 
 -------------|------

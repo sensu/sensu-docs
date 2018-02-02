@@ -587,7 +587,7 @@ The following attributes are configured within the `{ "client": { "socket": {} }
 {{< highlight json >}}
 {
   "client": {
-    "name": "1-424242",
+    "name": "i-424242",
     "...": "...",
     "socket": {
       "bind": "127.0.0.1",
@@ -625,7 +625,7 @@ The following attributes are configured within the `{ "client": { "http_socket":
 {{< highlight json >}}
 {
   "client": {
-    "name": "1-424242",
+    "name": "i-424242",
     "...": "...",
     "http_socket": {
       "bind": "127.0.0.1",
@@ -687,7 +687,7 @@ The following attributes are configured within the `{ "client": { "keepalive":
 {{< highlight json >}}
 {
   "client": {
-    "name": "1-424242",
+    "name": "i-424242",
     "...": "...",
     "keepalive": {
       "handler": "pagerduty",
@@ -733,7 +733,7 @@ The following attributes are configured within the `{ "client": { "keepalive": {
 {{< highlight json >}}
 {
   "client": {
-    "name": "1-424242",
+    "name": "i-424242",
     "...": "...",
     "keepalive": {
       "...": "...",
@@ -774,7 +774,7 @@ The following attributes are configured within the `{ "client": {
 {{< highlight json >}}
 {
   "client": {
-    "name": "1-424242",
+    "name": "i-424242",
     "...": "...",
     "registration": {
       "handler": "servicenow"
@@ -811,7 +811,7 @@ The following attributes are configured within the `{ "client": {
 {{< highlight json >}}
 {
   "client": {
-    "name": "1-424242",
+    "name": "i-424242",
     "...": "...",
     "deregister": true,
     "deregistration": {
@@ -854,7 +854,7 @@ Enterprise AWS EC2 integration][39].**
 {{< highlight json >}}
 {
   "client": {
-    "name": "1-424242",
+    "name": "i-424242",
     "...": "...",
     "ec2": {
       "instance_id": "i-424242",
@@ -934,7 +934,7 @@ Enterprise Chef integration][42].**
 {{< highlight json >}}
 {
   "client": {
-    "name": "1-424242",
+    "name": "i-424242",
     "...": "...",
     "chef": {
       "node_name": "webserver01"
@@ -1046,7 +1046,7 @@ Enterprise Puppet integration][44].**
 {{< highlight json >}}
 {
   "client": {
-    "name": "1-424242",
+    "name": "i-424242",
     "...": "...",
     "puppet": {
       "node_name": "webserver01"
@@ -1078,7 +1078,7 @@ Enterprise ServiceNow integration][46].**
 {{< highlight json >}}
 {
   "client": {
-    "name": "1-424242",
+    "name": "i-424242",
     "...": "...",
     "servicenow": {
       "configuration_item": {
@@ -1111,7 +1111,7 @@ The following attributes are configured within the `{ "client": { "servicenow":
 {{< highlight json >}}
 {
   "client": {
-    "name": "1-424242",
+    "name": "i-424242",
     "...": "...",
     "servicenow": {
       "configuration_item": {
