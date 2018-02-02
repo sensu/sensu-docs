@@ -48,7 +48,7 @@ pygmentsUseClasses=true
     [params.products.sensu_core]
         identifier = "sensu-core"
         name = "Sensu Core"
-        description = "Sensu helps monitoring and does some cool things. It's neato!"
+        description = "The open source extensible monitoring framework."
         weight = 1
         latest = "1.2"
         [params.products.sensu_core.versions]
@@ -60,7 +60,7 @@ pygmentsUseClasses=true
     [params.products.sensu_enterprise]
         identifier = "sensu-enterprise"
         name = "Sensu Enterprise"
-        description = "Sensu for paying customers. You get some additional things."
+        description = "The powerful and simple monitoring product, built on Sensu Core."
         weight = 2
         latest = "2.8"
         [params.products.sensu_enterprise.versions]
@@ -71,7 +71,7 @@ pygmentsUseClasses=true
     [params.products.sensu_enterprise_dashboard]
         identifier = "sensu-enterprise-dashboard"
         name = "Sensu Enterprise Dashboard"
-        description = "The dashboard is quite fancy and super helpful."
+        description = "The dashboard for Sensu Enterprise with RBAC and more, built on Uchiwa."
         weight = 3
         latest = "2.11"
         [params.products.sensu_enterprise_dashboard.versions]
@@ -83,7 +83,7 @@ pygmentsUseClasses=true
     [params.products.uchiwa]
         identifier = "uchiwa"
         name = "Uchiwa"
-        description = "Uchiwa is a dashboard that integrates with Sensu. It's basically a must."
+        description = "An open source dashboard for the Sensu monitoring framework."
         weight = 4
         latest = "1.0"
         [params.products.uchiwa.versions]
@@ -92,7 +92,7 @@ pygmentsUseClasses=true
     [params.products.plugins]
         identifier = "plugins"
         name = "Plugins"
-        description = "Plugins to add capabilities to Sensu."
+        description = "Checks, handlers and other plugins to power your Sensu deployment."
         weight = 5
         latest = "2.3"
         [params.products.plugins.versions]
@@ -101,7 +101,7 @@ pygmentsUseClasses=true
     [params.products.extensions]
         identifier = "extensions"
         name = "Extensions"
-        description = "Extensions to extend Sensu."
+        description = "High performance integrations for Sensu Core."
         weight = 6
         latest = "1.0"
         [params.products.extensions.versions]
