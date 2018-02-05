@@ -28,31 +28,31 @@ The Sensu Agent (sensu-agent) is a single statically linked binary that can be d
 
 Add the Sensu prerelease repository.
 
-```sh
+{{< highlight shell >}}
 export SENSU_REPO_TOKEN=your_token_here
 curl -s https://$SENSU_REPO_TOKEN:@packagecloud.io/install/repositories/sensu/prerelease/script.deb.sh | sudo bash
-```
+{{< /highlight >}}
 
 Install the packages from the Sensu prerelease repository.
 
-```sh
+{{< highlight shell >}}
 sudo apt-get install sensu-backend sensu-agent
-```
+{{< /highlight >}}
 
 #### RHEL / CentOS
 
 Add the Sensu prerelease repository.
 
-```sh
+{{< highlight shell >}}
 export SENSU_REPO_TOKEN=your_token_here
 curl -s https://$SENSU_REPO_TOKEN:@packagecloud.io/install/repositories/sensu/prerelease/script.rpm.sh | sudo bash
-```
+{{< /highlight >}}
 
 Install the Sensu backend and agent packages.
 
-```sh
+{{< highlight shell >}}
 sudo yum install sensu-backend sensu-agent
-```
+{{< /highlight >}}
 
 ### Linux - Configuration
 
@@ -62,9 +62,9 @@ The example config files list all of the configurable options for each service.
 
 Copy the example backend config file to the default config path.
 
-```sh
+{{< highlight shell >}}
 sudo cp /etc/sensu/backend.yml.example /etc/sensu/backend.yml
-```
+{{< /highlight >}}
 
 The backend config requires `state-dir` to be set. The example config sets `state-dir` to `/var/lib/sensu` by
 default.
@@ -73,17 +73,17 @@ default.
 
 Copy the example agent config file to the default config path.
 
-```sh
+{{< highlight shell >}}
 sudo cp /etc/sensu/agent.yml.example /etc/sensu/agent.yml
-```
+{{< /highlight >}}
 
 In order for the agent to function it will need to have a list of one or more backends to point to. This can be set
 by setting `backend-url`.
 
-```yaml
+{{< highlight yaml >}}
 backend-url:
   - "ws://127.0.0.1:8081"
-```
+{{< /highlight >}}
 
 ### Linux - Starting the services
 
@@ -91,19 +91,19 @@ backend-url:
 
 Start the services using the sysvinit scripts.
 
-```sh
+{{< highlight shell >}}
 sudo /etc/init.d/sensu-backend start
 sudo /etc/init.d/sensu-agent start
-```
+{{< /highlight >}}
 
 #### Ubuntu 16.04 / CentOS 7 / RHEL 7
 
 Start the services using systemd.
 
-```sh
+{{< highlight shell >}}
 sudo systemctl start sensu-backend
 sudo systemctl start sensu-agent
-```
+{{< /highlight >}}
 
 ### Windows
 
@@ -120,19 +120,26 @@ The backend requires 3 exposed ports and persistent storage. This example uses a
 - 8080: Sensu API (all users need access to this port)
 - 8081: Agent API (all agents need access to this port)
 
-We suggest, but do not require, persistent storage for sensu-agents. The Sensu Agent will cache runtime assets locally for each check (see [Checks and Assets](06-checks-and-assets.md) for more details). This storage should be unique per sensu-agent process.
+We suggest, but do not require, persistent storage for sensu-agents. The Sensu Agent will cache runtime assets locally for each check. This storage should be unique per sensu-agent process.
 
 #### How To
 
 1. Start the sensu-backend process
 
-`docker run -v /var/lib/sensu:/var/lib/sensu -d --name sensu-backend -p 2380:2380 -p 3000:3000 -p 8080:8080 -p 8081:8081 sensuapp/sensu-go:2.0.0-alpha sensu-backend start`
+{{< highlight shell >}}
+docker run -v /var/lib/sensu:/var/lib/sensu -d --name sensu-backend -p 2380:2380 \
+-p 3000:3000 -p 8080:8080 -p 8081:8081 sensuapp/sensu-go:2.0.0-alpha sensu-backend start
+{{< /highlight >}}
 
 2. Start an agent
 
 In this case, we're starting an agent whose ID is the hostname with the webserver and system subscriptions. This assumes that sensu-backend is running on another host named sensu.yourdomain.com. If you are running these locally on the same system, be sure to add `--link sensu-backend` to your Docker arguments and change the backend URL `--backend-url ws://sensu-backend:8081`.
 
-`docker run -v /var/lib/sensu:/var/lib/sensu -d --name sensu-agent sensuapp/sensu-go:2.0.0-alpha sensu-agent start --backend-url ws://sensu.yourdomain.com:8081 --subscriptions webserver,system --cache-dir /var/lib/sensu`
+{{< highlight shell >}}
+docker run -v /var/lib/sensu:/var/lib/sensu -d --name sensu-agent \ 
+sensuapp/sensu-go:2.0.0-alpha sensu-agent start --backend-url ws://sensu.yourdomain.com:8081 \
+--subscriptions webserver,system --cache-dir /var/lib/sensu
+{{< /highlight >}}
 
 A note about sensuctl and Docker:
 
