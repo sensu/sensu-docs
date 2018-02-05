@@ -20,59 +20,60 @@ Sensu 2.0 can be configured and used with the sensuctl (pronounced "sensu cuddle
 
 Download the latest release.
 
-```sh
+{{< highlight shell >}}
 curl -LO https://storage.googleapis.com/sensu-binaries/$(curl -s https://storage.googleapis.com/sensu-binaries/latest.txt)/darwin/amd64/sensuctl
-```
+{{< /highlight >}}
+
 **Optionally**, if you would like to download a specific release, replace
 `{VERSION}` in the command below.
 
-```sh
+{{< highlight shell >}}
 curl -LO https://storage.googleapis.com/sensu-binaries/{VERSION}/darwin/amd64/sensuctl
-```
+{{< /highlight >}}
 
 Make the sensuctl binary executable.
 
-```sh
+{{< highlight shell >}}
 chmod +x sensuctl
-```
+{{< /highlight >}}
 
 Move the executable into your PATH.
 
-```
+{{< highlight shell >}}
 sudo mv sensuctl /usr/local/bin/
-```
+{{< /highlight >}}
 
 ### Debian / Ubuntu
 
 Add the Sensu prerelease repository (this step can be skipped if you previously added the repository
 on the backend/agent installation page).
 
-```sh
+{{< highlight shell >}}
 export SENSU_REPO_TOKEN=your_token_here
 curl -s https://$SENSU_REPO_TOKEN:@packagecloud.io/install/repositories/sensu/prerelease/script.deb.sh | sudo bash
-```
+{{< /highlight >}}
 
 Install the Sensu CLI package.
 
-```sh
+{{< highlight shell >}}
 sudo apt-get install sensu-cli
-```
+{{< /highlight >}}
 
 ### RHEL / CentOS
 
 Add the Sensu prerelease repository (this step can be skipped if you previously added the repository
 on the backend/agent installation page).
 
-```sh
+{{< highlight shell >}}
 export SENSU_REPO_TOKEN=your_token_here
 curl -s https://$SENSU_REPO_TOKEN:@packagecloud.io/install/repositories/sensu/prerelease/script.rpm.sh | sudo bash
-```
+{{< /highlight >}}
 
 Install the Sensu CLI package.
 
-```sh
+{{< highlight shell >}}
 sudo yum install sensu-cli
-```
+{{< /highlight >}}
 
 
 ## Configure
@@ -80,9 +81,9 @@ sudo yum install sensu-cli
 Sensuctl must be configured before it can connect to your Sensu cluster. Run the
 `configure` command to get started.
 
-```sh
+{{< highlight shell >}}
 sensuctl configure
-```
+{{< /highlight >}}
 
 <img alt="sensu-configure-demo" src="assets/sensuctl-configure.gif" width="650px" />
 
@@ -94,30 +95,30 @@ change it immediately. To do so, you'll first want to authenticate using the
 `sensuctl` tool.
 
 > sensuctl configure
-```sh
+{{< highlight shell >}}
 ? Sensu Base URL: http://my-sensu-host:8080
 ? Username: admin
 ? Password:  *********
 ? ...
-```
+{{< /highlight >}}
 
 Once authenticated, you can use the `change-password` command.
 
 > sensuctl user change-password
-```sh
+{{< highlight shell >}}
 ? Current Password:  *********
 ? Password:          *********
 ? Confirm:           *********
-```
+{{< /highlight >}}
 
 ### Tweak Values
 
 You can change individual values with the `config` sub-command.
 
-```sh
+{{< highlight shell >}}
 sensuctl config set-organization default
 sensuctl config set-environment prod
-```
+{{< /highlight >}}
 
 ## Getting Help
 
@@ -126,7 +127,7 @@ using the command and if applicable any sub-commands _it_ has.
 
 sensuctl:
 > $ sensuctl --help
-```shell
+{{< highlight shell >}}
 sensuctl controls Sensu instances
 
 Usage:    sensuctl COMMAND
@@ -155,14 +156,14 @@ Management Commands:
   organization Manage organizations
   role         Manage roles
   user         Manage users
-```
+{{< /highlight >}}
 
 ## Import
 
 On top of being able to create new resources interactively and with flags,
 sensuctl provides `import` commands for creating & updating resources via STDIN.
 
-```json
+{{< highlight json >}}
 {
   "name": "marketing-site",
   "command": "check-http.rb -u https://dean-learner.book",
@@ -172,12 +173,12 @@ sensuctl provides `import` commands for creating & updating resources via STDIN.
   "organization": "default",
   "environment": "default"
 }
-```
+{{< /highlight >}}
 
-```sh
+{{< highlight shell >}}
 # cat my-check.json | sensuctl check import
 OK
-```
+{{< /highlight >}}
 
 Further API details- including valid parameters- forthcoming.
 
@@ -187,7 +188,7 @@ sensuctl can be configured to return JSON instead of the default human-readable
 format.
 
 > sensuctl check info marketing-site --format json
-```json
+{{< highlight json >}}
 {
   "name": "marketing-site",
   "interval": 10,
@@ -202,15 +203,15 @@ format.
   "environment": "default",
   "organization": "default"
 }
-```
+{{< /highlight >}}
 
 If you do not want to explicitly use the format flag with each command, you can
 set the global default.
 
-```sh
+{{< highlight shell >}}
 # sensuctl config set-format json
 OK
-```
+{{< /highlight >}}
 
 ## Shell Auto-Completion
 
@@ -220,55 +221,55 @@ Make sure bash completion is installed. If you use a current Linux
 in a non-minimal installation, bash completion should be available.
 On a Mac, install with:
 
-```sh
+{{< highlight shell >}}
 brew install bash-completion
-```
+{{< /highlight >}}
 
 Then add the following to your `~/.bash_profile`:
 
-```bash
+{{< highlight shell >}}
 if [ -f $(brew --prefix)/etc/bash_completion ]; then
 . $(brew --prefix)/etc/bash_completion
 fi
-```
+{{< /highlight >}}
 
 When bash-completion is available we can add the following to your `~/.bash_profile`:
 
-```bash
+{{< highlight shell >}}
 source <(sensuctl completion bash)
-```
+{{< /highlight >}}
 
 You can now source your `~/.bash_profile` or launch a new terminal to utilize completion.
 
-```sh
+{{< highlight shell >}}
 source ~/.bash_profile
-```
+{{< /highlight >}}
 
 ### Installation (ZSH)
 
 Add the following to your `~/.zshrc`:
 
-```bash
+{{< highlight shell >}}
 source <(sensuctl completion zsh)
-```
+{{< /highlight >}}
 
 You can now source your `~/.zshrc` or launch a new terminal to utilize completion.
 
-```sh
+{{< highlight shell >}}
 source ~/.zshrc
-```
+{{< /highlight >}}
 
 ### Usage
 
 sensuctl:
+{{< highlight shell >}}
 > $ sensuctl <kbd>Tab</kbd>
-```
 check       configure   event       user
 asset       completion  entity      handler
-```
+{{< /highlight >}}
 
 sensuctl:
+{{< highlight shell >}}
 > $ sensuctl check <kbd>Tab</kbd>
-```
 create  delete  import  list
-```
+{{< /highlight >}}

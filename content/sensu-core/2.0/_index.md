@@ -1,6 +1,6 @@
 ---
 title: "Sensu Core"
-date: 2018-02-05T13:06:31-07:00
+date: 2018-02-05T06:06:31-07:00
 weight: -100
 menu: "sensu-core-2.0"
 version: "2.0"
