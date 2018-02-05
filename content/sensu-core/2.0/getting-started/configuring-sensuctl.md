@@ -6,7 +6,7 @@ version: "2.0"
 product: "Sensu Core"
 platformContent: true
 menu:
-  sensu-core-1.2:
+  sensu-core-2.0:
     parent: getting-started
 ---
 
