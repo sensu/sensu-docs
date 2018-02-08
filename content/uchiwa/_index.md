@@ -1,9 +1,9 @@
 ---
 title: "Uchiwa"
 product: "Uchiwa"
-version: "latest"
+version: "1.0"
 weight: 0
 menu: "uchiwa"
-layout: "product-versions"
+layout: "single"
 ---
 
