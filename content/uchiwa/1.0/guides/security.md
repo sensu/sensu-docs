@@ -15,7 +15,7 @@ users passwords in your configuration files.
 
 Please note that you must **absolutely** use the `{crypt}` prefix when using an encrypted
 password. For example:
-{{< highlight >}}
+{{< highlight shell >}}
 "password": "{crypt}$1$MteWnoFT$yhEi8KMxO794K0TIriZcI0"{{< /highlight >}}
 
 The following algorithms are supported (along the commands to create the hashes):
