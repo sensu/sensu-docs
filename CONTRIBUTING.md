@@ -9,6 +9,11 @@ We ask that you keep the following guidelines in mind when planning your contrib
 * **For bugs**, if you have already found a fix, feel free to submit a Pull Request referencing the Issue you created. Include the `Fixes #` syntax to link it to the issue you're addressing.
 * **For feature requests**, we want to improve upon the documentation incrementally which means small changes at a time. In order to ensure your PR can be reviewed in a timely manner, please keep PRs small. If you think this is unrealistic, then mention that within the issue and we can discuss it.
 
+### Updating Multiple Versions of the Docs
+Some contributions apply to multiple versions of Sensu, or other sections of the documentation. **We appreciate if you have a chance to copy these edits to all applicable versions.** 🙏
+
+If you have a good idea on how to script this type of behavior, please comment on [this issue discussing ideas](https://github.com/sensu/sensu-docs-site/issues/95). 
+
 ## Workflow
 
 Once you're ready to contribute code back to this repo, ensure you setup your environment to be prepared for upstream contributions.
