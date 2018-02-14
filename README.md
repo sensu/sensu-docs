@@ -39,6 +39,11 @@ If you cloned this repository without the `--recursive` flag, you can manually p
 cd sensu-docs-site ; git submodule update --init --recursive
 ```
 
+#### Installing yarn
+
+This project uses [Yarn](https://yarnpkg.com/) to manage dependencies and the build process. For installation
+on installing yarn, [view their documentation](https://yarnpkg.com/lang/en/docs/install/).
+
 #### Installing Hugo
 
 This project requires Hugo version 0.34 or later.
@@ -52,7 +57,7 @@ Once you've installed Hugo, continue reading for viewing the site and working wi
 After installing Hugo we suggest that you test the build of the site in your local environment:
 
 ```
-hugo build
+yarn
 ```
 
 This is the same build process used by TravisCI to test changes. If this command produces any errors, please ensure you're using [the same version of Hugo documented in our wiki](https://github.com/sensu/sensu-docs-site/wiki/Hugo-version-upgrades).
