@@ -33,7 +33,7 @@ module.exports = function(grunt) {
             var pageIndex;
             if (S(filename).endsWith(".html")) {
                 pageIndex = processHTMLFile(abspath, filename);
-            } else {
+            } else if (S(filename).endsWith(".md")) {
                 pageIndex = processMDFile(abspath, filename);
             }
             return pageIndex;
