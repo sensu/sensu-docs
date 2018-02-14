@@ -56,13 +56,15 @@ Create a new, descriptively named branch to contain your change:
 
 ```
 $ git checkout -b feature/myfeature
+$ yarn
 ```
 
 Now hack away at your awesome feature on the `feature/myfeature` branch.
 
-### 4) Testing Your Code
+### 4) Building and Testing Your Code
 
-There is not yet a standardization on how we test plugins across Sensu Community contributions. If you'd like to be part of the solution, [comment on this open Issue](https://github.com/sensu-plugins/community/issues/46). For now, please run your code on Sensu and ensure it works as expected.
+To build the site, run `yarn`. This builds the search index and compiles the static content.
+You can then run `hugo server` to view the site real-time as you develop.
 
 ### 5) Committing Code
 

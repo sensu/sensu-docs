@@ -6,6 +6,15 @@ var CONTENT_PATH_PREFIX = "content/";
 // define the grunt function for cli
 module.exports = function(grunt) {
 
+    grunt.registerTask("hugo-build", function() {
+        grunt.log.writeln("Running hugo build");
+        grunt.util.spawn({
+            cmd: "hugo",
+            args: ["build",],
+        })
+        grunt.log.ok("Successfully built site")
+    });
+
     // define the actual lunr-index task for cli
     grunt.registerTask("lunr-index", function() {
 
@@ -13,8 +22,6 @@ module.exports = function(grunt) {
 
         // makes an array of the names of all the files
         var indexPages = function() {
-            grunt.log.writeln("Inside indexPages function");
-
             var pagesIndex = [];
             // go through the folders recursively
             grunt.file.recurse(CONTENT_PATH_PREFIX, function(abspath, rootdir, subdir, filename) {
@@ -28,8 +35,6 @@ module.exports = function(grunt) {
 
         // call the appropriate process for if it's a content file (md) or html page
         var processFile = function(abspath, filename) {
-            grunt.log.writeln("Inside processFile function");
-
             var pageIndex;
             if (S(filename).endsWith(".html")) {
                 pageIndex = processHTMLFile(abspath, filename);
@@ -41,8 +46,6 @@ module.exports = function(grunt) {
 
         // process html
         var processHTMLFile = function(abspath, filename) {
-            grunt.log.writeln("Inside processHTMLFile function");
-
             // read the file contents
             var content = grunt.file.read(abspath);
             // the page name will be the filename, minus html
@@ -62,8 +65,6 @@ module.exports = function(grunt) {
 
         // process md
         var processMDFile = function(abspath, filename) {
-            grunt.log.writeln("Inside processMDFile function");
-
             // read the file contents
             var content = grunt.file.read(abspath);
             var pageIndex;
@@ -99,9 +100,9 @@ module.exports = function(grunt) {
             };
             return pageIndex;
         };
-        grunt.log.writeln("Index pages -> process file -> process based on type");
         grunt.file.write("static/js/lunr/PagesIndex.json", JSON.stringify(indexPages()));
-        grunt.log.ok("Index built");
+        grunt.log.ok("Lunr index built");
     });
-};
 
+    grunt.registerTask("default", ["lunr-index", "hugo-build",]);
+};
