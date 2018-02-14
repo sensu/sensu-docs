@@ -16,12 +16,11 @@ This new site is a place for:
 - Full-text search 😍
 - Easier contribution experience running Hugo locally
 
-# Running Sensu Docs
+## Running Sensu Docs
 
 Now that our project can be run locally with Hugo, there's some new steps to learn. Don't worry, we've documented how to do so:
 
 ### Getting Started with Hugo
-
 
 #### Initial Setup 
 
@@ -67,3 +66,7 @@ This is the same as any other project. Follow Github's instructions if you're un
 
 ### Deploying to Heroku
 This project uses [Travis CI Deployment support for Heroku](https://docs.travis-ci.com/user/deployment/heroku/) to automatically deploy the site once changes are merged to `master`. For additional details on Heroku configuration and deployment, see [our wiki page](https://github.com/sensu/sensu-docs-site/wiki/Heroku-Configuration-and-Publishing).
+
+## Adding Content
+
+This document is focused on helping you get started with the sensu-docs-site project as a whole. For detail on formatting, layouts and other aspects of adding to or modifying content, please see our [project wiki](https://github.com/sensu/sensu-docs-site/wiki).
