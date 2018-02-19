@@ -6,7 +6,7 @@ menu: "sensu-core-1.2"
 version: "1.2"
 product: "Sensu Core"
 tags: ["sensu", "core", "sensu core", "1.1", "index"]
-layout: "product-platforms"
+layout: "single"
 ---
 
 ## Overview
