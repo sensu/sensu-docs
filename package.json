@@ -16,6 +16,7 @@
   },
   "scripts": {
     "postinstall": "grunt",
-    "precommit": "grunt"
+    "precommit": "grunt",
+    "test": "bin/test"
   }
 }
