@@ -18,10 +18,16 @@ If you create code that needs highlighting, it should look like this:
  {{< highlight shell >}}
  /usr/bin/whoami{{< /highlight >}}
 ```
-Optionally, you can change this to ` {{< highlight json >}}` for highlighting json text.
+
+To elaborate: `{{< highlight >}}` is the opening tag for highlighting text. `{{< /highlight >}}` is a closing highlight tag. You can add specific highlighting to a tag. It should look something like:
+` {{< highlight json >}}`
+
+One note here, the `{{< /highlight >}}` tag should come _immediately_ after the text you wish to highlight, else there will be a weird space rendered in the highlighted text.
+
+Since the Hugo platform uses [Chroma](https://github.com/alecthomas/chroma) (based on Pygments), there are a number of styles you can add after `highlight`. For a full  list, click [here](https://github.com/alecthomas/chroma/tree/master/lexers)
 
 # Header 3
-If you are documenting an API endpoint, use the following format:
+You'll rarely want or need to do this, but here's a very complex example of syntax highlighting that we've standardized across the project:
 ```
 /aggregates/:name (GET) | 
 ------------------------|------
@@ -44,7 +50,7 @@ output                  | {{< highlight json >}}{
 }{{< /highlight >}}
 ```
 
-<!-- Your links should go here. If -->
+<!-- Your links should go here. -->
 [1]: http://sensuapp.org
 [2]:
 [3]:
