@@ -30,21 +30,21 @@ A Sensu Event is created every time a check result is processed by the Sensu ser
 
 To view all the events that are currently in history for a configuration, enter:
 
-```sh
+{{< highlight shell >}}
 sensuctl event list
-```
+{{< /highlight >}}
 
 If you want more details on an event, the `info` subcommand can help you out. An event is identified by the entity ID and check name.
 
 > sensuctl event info apollo-11 moon-landing
-```sh
+{{< highlight shell >}}
 Entity:    apollo-11
 Check:     moon-landing
 Output:    WARNING - Unknown fuel status
 Status:    1
 History:   0,1,0,1,0
 Timestamp: 1969-07-20 14:07:26 -0600 CST
-```
+{{< /highlight >}}
 
 ### Manual Event Resolution
 
@@ -55,11 +55,11 @@ If you want to use sensuctl to manually resolve an event, the `resolve` subcomma
 > sensuctl event resolve apollo-11 moon-landing
 
 > sensuctl event info apollo-11 moon-landing
-```sh
+{{< highlight shell >}}
 Entity:    apollo-11
 Check:     moon-landing
 Output:    Resolved Manually by sensuctl
 Status:    0
 History:   0,1,0,1,0
 Timestamp: 1969-07-20 14:10:32 -0600 CST
-```
+{{< /highlight >}}
