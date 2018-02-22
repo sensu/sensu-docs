@@ -76,24 +76,24 @@ a single Sensu cluster.
 To view all the organizations currently configured in your Sensu installation,
 run the following:
 
-```
+{{< highlight shell >}}
 sensuctl organization list
-```
+{{< /highlight >}}
 
 ### Managing Organizations
 
 To add a new organization, simply call the `sensuctl` organization create
 command with it's intended name.
 
-```
+{{< highlight shell >}}
 sensuctl organization create acme
-```
+{{< /highlight >}}
 
 To remove an organization from the system, run the `delete` subcommand.
 
-```
+{{< highlight shell >}}
 sensuctl organization delete acme
-```
+{{< /highlight >}}
 
 ## Environments
 
@@ -106,21 +106,21 @@ You can create additional environments to map your development workflow.
 To view all the environments currently configured in your Sensu installation,
 run the following:
 
-```
+{{< highlight shell >}}
 sensuctl environment list
-```
+{{< /highlight >}}
 
 ### Managing Environments
 
 To add a new environment, simply call the `sensuctl` environment create
 command with it's intended name.
 
-```
+{{< highlight shell >}}
 sensuctl environment create dev
-```
+{{< /highlight >}}
 
 To remove an environment from the system, run the `delete` subcommand.
 
-```
+{{< highlight shell >}}
 sensuctl environment delete dev
-```
+{{< /highlight >}}
