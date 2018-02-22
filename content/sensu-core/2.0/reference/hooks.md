@@ -26,14 +26,14 @@ Check out Sean's [blog post](https://blog.sensuapp.org/using-check-hooks-a739a36
 
 To view all the hooks that are currently configured for the cluster, enter:
 
-```sh
+{{< highlight shell >}}
 sensuctl hook list
-```
+{{< /highlight >}}
 
 If you want more details on a hook, the `info` subcommand can help you out.
 
 > sensuctl hook info nginx-start
-```sh
+{{< highlight shell >}}
 === nginx-start
 Name:           nginx-start
 Command:        sudo /etc/init.d/nginx start
@@ -41,21 +41,21 @@ Timeout:        60
 Stdin?:         false
 Organization:   default
 Environment:    default
-```
+{{< /highlight >}}
 
 ### Management
 
 Hooks can be configured both interactively or by using CLI flags.
 
-```sh
+{{< highlight shell >}}
 sensuctl hook create nginx-start --command "sudo /etc/init.d/nginx start" --timeout 10
-```
+{{< /highlight >}}
 
 To delete an existing hook, simply pass the name of the hook to the `delete` command.
 
-```sh
+{{< highlight shell >}}
 sensuctl hook delete nginx-start
-```
+{{< /highlight >}}
 
 ## Check hooks
 
@@ -64,7 +64,7 @@ sensuctl hook delete nginx-start
 A check hook is a type of hook that lives in the check configuration scope. Check hooks associate existing hooks to a check and type. The check hook type is defined by the response code or severity of the check execution result. Valid check hook types include (in order of precedence): “1”-“255”, “ok”, “warning”, “critical”, “unknown”, and “non-zero”.
 
 ex:
-```
+{{< highlight shell >}}
 “checks”: {
     “nginx_process”: {
         “command”: “check-process.rb -p nginx”,
@@ -79,18 +79,18 @@ ex:
         }],
     }
 }
-```
+{{< /highlight >}}
 
 ### Managing check hooks
 
 To add hooks to a check, use the `add-hook` subcommand.
 
-```sh
+{{< highlight shell >}}
 sensuctl check add-hook nginx_process --type critical --hooks nginx-start,hook-with-custom-script
-```
+{{< /highlight >}}
 
 To remove a hook from a check, use the `remove-hook` subcommand.
 
-```sh
+{{< highlight shell >}}
 sensuctl check remove-hook nginx_process critical hook-with-custom-script
-```
+{{< /highlight >}}
