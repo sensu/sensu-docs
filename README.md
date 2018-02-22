@@ -26,7 +26,7 @@ Unlike the old sensu-docs project, this site can be run locally with Hugo. There
 
 ### Getting Started with Hugo
 
-#### Cloning the project
+#### [Cloning the project](#cloning-the-project) 
 
 This project uses [git submodules](https://git-scm.com/book/en/v2/Git-Tools-Submodules) to manage themes. If you have git 1.6.5 or later, you can clone this project and checkout submodules in one command:
 
@@ -46,7 +46,7 @@ on installing yarn, [view their documentation](https://yarnpkg.com/lang/en/docs/
 
 #### Installing Hugo
 
-This project requires Hugo version 0.34 or later.
+This project requires **Hugo version 0.34 or later**.
 
 To install Hugo, we recommend heading over to [the Hugo installation docs](http://gohugo.io/getting-started/installing/) to find the instructions for your platform of choice. If you're in doubt over whether a release exists for your platform, check out [the GitHub releases page for Hugo](https://github.com/gohugoio/hugo/releases) to see available packages. 
 
@@ -69,6 +69,13 @@ If the site builds successfully, you can run the Hugo server and view the site i
 ```
 hugo server
 ```
+
+### Troubleshooting Hugo
+If you encounter an issue viewing the site, this usually boils down to one of three issues:
+* Hugo version is not .34+. You can check what version you have by doing `hugo version`. If you don't have .34+, head on over to [Hugo's releases page](https://github.com/gohugoio/hugo/releases) and grab the package for your OS.
+* The repo was cloned without submodules. See the "[cloning the repo](#cloning-the-repo)" section for how to add submodules post-clone.
+* The pages are cached. Try using `hugo server --disableFastRender` to start hugo locally, which should work.
+* If you're still having trouble viewing the site, open an issue, and we'll be happy to help!
 
 ### Pushing to Github
 This is the same as any other project. Follow Github's instructions if you're unsure. No additional steps are needed.
