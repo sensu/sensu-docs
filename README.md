@@ -73,7 +73,7 @@ hugo server
 #### Troubleshooting Hugo
 If you encounter an issue viewing the site, this usually boils down to one of three issues:
 * Hugo version is not .34+. You can check what version you have by doing `hugo version`. If you don't have .34+, head on over to [Hugo's releases page](https://github.com/gohugoio/hugo/releases) and grab the package for your OS.
-* The repo was cloned without submodules. See the "[cloning the repo](#cloning-the-project)" section for how to add submodules post-clone.
+* The repo was cloned without submodules. See the "[cloning the project](#cloning-the-project)" section for how to add submodules post-clone.
 * The pages are cached. Try using `hugo server --disableFastRender` to start hugo locally, which should work.
 * If you're still having trouble viewing the site, open an issue, and we'll be happy to help!
 
