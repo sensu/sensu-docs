@@ -58,14 +58,32 @@ Environment:    default
 
 Checks can be configured both interactively:
 
-![alt text](/static/images/sensuctl-check-create.gif "create check")
-<img src="/static/images/sensuctl-check-create.gif" alt="create check" width="500px" />
+{{< highlight shell >}}
+$ ./bin/sensuctl check create --interactive
+? Check Name: disk_full
+? Organization: default
+? Environment: default
+? Command: rm -rf /
+? Interval: 30
+? Cron:
+? Timeout:
+? TTL:
+? Subscriptions: unix,postgresql
+? Handlers: slack,pagerduty
+? Runtime Assets:
+? Publish: true
+? Check Proxy Entity ID:
+? Check STDIN:
+? High Flap Threshold:
+? Low Flap Threshold:
+OK
+{{< /highlight>}}
 
 ...or by using CLI flags.
 
 {{< highlight shell >}}
 sensuctl check create check-disk -c "./check-disk.sh" --handlers slack -i 5 --subscriptions unix
-ensuctl check create check-nginx -c "./nginx-status.sh" --handlers pagerduty,slack -i 15 --subscriptions unix,www
+sensuctl check create check-nginx -c "./nginx-status.sh" --handlers pagerduty,slack -i 15 --subscriptions unix,www
 {{< /highlight >}}
 
 To delete an existing check, simply pass the name of the check to the `delete`
@@ -129,7 +147,15 @@ sensu asset info my-great-check-sh
 
 Assets can be created both interactively..
 
-<img src="assets/sensuctl-asset-create.gif" alt="create asset" width="500px" />
+{{< highlight shell >}}
+ ./bin/sensuctl asset create --interactive
+? Name: test-asset
+? Organization: default
+? URL: http://s3.example.com/test-asset.tgz
+? SHA-512 Checksum: 0e3e75234abc68f4378a86b3f4b32a198ba301845b0cd6e50106e874345700cc6663a86c1ea125dc5e92be17c98f9a0f85ca9d5f595db2012f? SHA-512 Checksum: 0e3e75234abc68f4378a86b3f4b32a198ba301845b0cd6e50106e874345700cc6663a86c1ea125dc5e92be17c98f9a0f85ca9d5f595db2012f7cc3571945c123
+? Filters:
+OK
+{{< /highlight >}}
 
 or by using CLI flags.
 
