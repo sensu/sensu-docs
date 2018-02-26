@@ -24,7 +24,7 @@ Entities, formally known as clients in Sensu 1.x, are monitoring agents (e.g. se
 
 ### What is an agent entity?
 
-An agent entity is a Sensu entity which falls under the "agent" class. Agent entities are monitoring agents, which are installed and run on every system (e.g. server, container, etc) that needs to be monitored. The entity is responsible for registering the system with Sensu, sending keepalive messages (the Sensu heartbeat mechanism), and executing monitoring checks. Each entity is a member of one or more subscriptions – a list of roles and/or responsibilities assigned to the system (e.g. a webserver, database, etc). Sensu entities will "subscribe" to (or watch for) check requests published by the Sensu server (via the Sensu Transport), execute the corresponding requests locally, and publish the results of the check back to the transport (to be processed by a Sensu server).
+An agent entity is a Sensu entity which falls under the "agent" class. Agent entities are monitoring agents, which are installed and run on every system that needs to be monitored. The entity is responsible for registering the system with Sensu, sending keepalive messages (the Sensu heartbeat mechanism), and executing monitoring checks. Each entity is a member of one or more subscriptions – a list of roles and/or responsibilities assigned to the system (e.g. a webserver, database, etc). Sensu entities will "subscribe" to (or watch for) check requests published by the Sensu server (via the Sensu Transport), execute the corresponding requests locally, and publish the results of the check back to the transport (to be processed by a Sensu server).
 
 ### Creating an agent entity
 
