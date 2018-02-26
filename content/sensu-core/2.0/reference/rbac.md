@@ -63,7 +63,7 @@ single organization.
 * Each **environment** belongs to only one organization.
 * Each **resource** belongs to only one environment.
 
-![RBAC](assets/rbac.png)
+![RBAC](images/rbac.png)
 
 ## Organizations
 
