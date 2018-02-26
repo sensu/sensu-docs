@@ -14,11 +14,11 @@ menu:
 
 ### What are hooks?
 
-Hooks are commands run by the Sensu client in response to the result of a check, mutator, or handler execution. The Sensu client will execute the appropriate configured hook command, depending on the execution status (e.g. 1). The hook command output, status, executed timestamp, and duration are captured and published in the event result. Hook commands can optionally receive JSON serialized Sensu client data via STDIN.
+Hooks are commands run by the Sensu client in response to the result of a check, mutator ([implementation pending](https://github.com/sensu/sensu-go/issues/701)), or handler ([implementation pending](https://github.com/sensu/sensu-go/issues/702)) execution. The Sensu client will execute the appropriate configured hook command, depending on the execution status (e.g. 1). The hook command output, status, executed timestamp, and duration are captured and published in the event result. Hook commands can optionally receive JSON serialized Sensu client data via STDIN.
 
 ### New and improved hooks!
 
-In 2.x, we've redesigned and expanded on the concept of 1.x check hooks. Hooks are now their own resource, and can be created and managed independent of the check configuration scope. With unique and descriptive identifiers, hooks are now reusable and can respond to checks, mutators and handlers! And thats not all, you can now execute multiple hooks for any given response code.
+In 2.x, we've redesigned and expanded on the concept of 1.x check hooks. Hooks are now their own resource, and can be created and managed independent of the check configuration scope. With unique and descriptive identifiers, hooks are now reusable and can respond to checks, mutators ([implementation pending](https://github.com/sensu/sensu-go/issues/701)) and handlers ([implementation pending](https://github.com/sensu/sensu-go/issues/702))! And thats not all, you can now execute multiple hooks for any given response code.
 
 Check out Sean's [blog post](https://blog.sensuapp.org/using-check-hooks-a739a362961f) about Sensu Core check hooks to see how you can use Sensu for auto-remediation tasks!
 
