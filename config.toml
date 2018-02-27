@@ -1,4 +1,4 @@
-baseurl = "//sensu-docs-site.herokuapp.com/"
+baseurl = "//docs-preview.sensuapp.org/"
 languageCode = "en-us"
 title = "Sensu Docs"
 theme = "hugo-material-docs"
