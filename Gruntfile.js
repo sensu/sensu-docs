@@ -7,12 +7,20 @@ var CONTENT_PATH_PREFIX = "content/";
 module.exports = function(grunt) {
 
     grunt.registerTask("hugo-build", function() {
+        const done = this.async();
+
         grunt.log.writeln("Running hugo build");
         grunt.util.spawn({
             cmd: "hugo",
-            args: ["build",],
-        })
-        grunt.log.ok("Successfully built site")
+        },
+            function(error, result, code) {
+                if (code == 0) {
+                    grunt.log.ok("Successfully built site");
+                } else {
+                    grunt.fail.fatal(error);
+                }
+                done();
+            });
     });
 
     // define the actual lunr-index task for cli
@@ -25,7 +33,7 @@ module.exports = function(grunt) {
             var pagesIndex = [];
             // go through the folders recursively
             grunt.file.recurse(CONTENT_PATH_PREFIX, function(abspath, rootdir, subdir, filename) {
-                grunt.verbose.writeln("Parse file:",abspath);
+                grunt.verbose.writeln("Parse file:", abspath);
 
                 // push adds the processed file to the array of pages
                 pagesIndex.push(processFile(abspath, filename));
@@ -95,7 +103,7 @@ module.exports = function(grunt) {
                 product: frontMatter.product,
                 version: frontMatter.version,
                 location: href,
-                display_name: frontMatter.product + " " + frontMatter.version + ": " + frontMatter.title, 
+                display_name: frontMatter.product + " " + frontMatter.version + ": " + frontMatter.title,
                 content: S(content[2]).trim().stripTags().stripPunctuation().s
             };
             return pageIndex;
