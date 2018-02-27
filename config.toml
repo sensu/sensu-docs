@@ -22,7 +22,7 @@ pygmentsUseClasses=true
 
 	# Repository
 	provider = "GitHub"
-	repo_url = "https://github.com/sensu/sensu-docs"
+	repo_url = "https://github.com/sensu/sensu-docs-site"
 
 	version = "1.0"
 	logo = "images/sensu-logo-green.png"
