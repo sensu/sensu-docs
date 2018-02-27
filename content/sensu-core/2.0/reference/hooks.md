@@ -61,14 +61,14 @@ sensuctl hook delete nginx-start
 
 ### What is a check hook?
 
-A check hook is a type of hook that lives in the check configuration scope. Check hooks associate existing hooks to a check and type. The check hook type is defined by the response code or severity of the check execution result. Valid check hook types include (in order of precedence): “1”-“255”, “ok”, “warning”, “critical”, “unknown”, and “non-zero”.
+A check hook is a type of hook that lives in the check configuration scope. Check hooks associate existing hooks to a check and type. The check hook type is defined by the response code or severity of the check execution result. Valid check hook types include (in order of precedence): "0"-"255", "ok", "warning", "critical", "unknown", and "non-zero".
 
 ex:
 {{< highlight shell >}}
 "checks": {
     "nginx_process": {
         "command": "check-process.rb -p nginx",
-        "subscribers": [“proxy”],
+        "subscribers": ["proxy"],
         "interval”: 30,
         "check_hooks": [
         {
