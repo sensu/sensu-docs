@@ -26,14 +26,13 @@ The Sensu Agent (sensu-agent) is a single statically linked binary that can be d
 
 #### Debian / Ubuntu
 
-Add the Sensu prerelease repository.
+Add the Sensu nightly repository.
 
 {{< highlight shell >}}
-export SENSU_REPO_TOKEN=your_token_here
-curl -s https://$SENSU_REPO_TOKEN:@packagecloud.io/install/repositories/sensu/prerelease/script.deb.sh | sudo bash
+curl -s https://packagecloud.io/install/repositories/sensu/nightly/script.deb.sh | sudo bash
 {{< /highlight >}}
 
-Install the packages from the Sensu prerelease repository.
+Install the packages from the Sensu nightly repository.
 
 {{< highlight shell >}}
 sudo apt-get install sensu-backend sensu-agent
@@ -41,11 +40,10 @@ sudo apt-get install sensu-backend sensu-agent
 
 #### RHEL / CentOS
 
-Add the Sensu prerelease repository.
+Add the Sensu nightly repository.
 
 {{< highlight shell >}}
-export SENSU_REPO_TOKEN=your_token_here
-curl -s https://$SENSU_REPO_TOKEN:@packagecloud.io/install/repositories/sensu/prerelease/script.rpm.sh | sudo bash
+curl -s https://packagecloud.io/install/repositories/sensu/nightly/script.rpm.sh | sudo bash
 {{< /highlight >}}
 
 Install the Sensu backend and agent packages.
@@ -111,7 +109,7 @@ Coming soon.
 
 ### Docker
 
-Sensu 2.0 can be run via [Docker](https://www.docker.com/) or [rkt](https://coreos.com/rkt) using the [sensuapp/sensu](https://hub.docker.com/r/sensuapp/sensu/) image. When running Sensu from Docker there are a couple of things to take into consideration.
+Sensu 2.0 can be run via [Docker](https://www.docker.com/) or [rkt](https://coreos.com/rkt) using the [sensuapp/sensu](https://hub.docker.com/r/sensuapp/sensu-go/) image. When running Sensu from Docker there are a couple of things to take into consideration.
 
 The backend requires 3 exposed ports and persistent storage. This example uses a shared filesystem. Sensu 2.0 is backed by a distributed database, and its storage should be provisioned accordingly.  We recommend local storage or something like Throughtput Optimized or Provisioned IOPS EBS if local storage is unavailable.  The 3 exposed ports are:
 
