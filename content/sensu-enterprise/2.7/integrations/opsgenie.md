@@ -96,6 +96,22 @@ type                   | Boolean
 default                | `false`
 example                | {{< highlight shell >}}"overwrites_quiet_hours": true{{< /highlight >}}
 
+filters        | 
+---------------|------
+description    | An array of Sensu event filters (names) to use when filtering events for the handler. Each array item must be a string. Specified filters are merged with default values.
+required       | false
+type           | Array
+default        | {{< highlight shell >}}["handle_when", "check_dependencies"]{{< /highlight >}}
+example        | {{< highlight shell >}}"filters": ["recurrence", "production"]{{< /highlight >}}
+
+severities     | 
+---------------|------
+description    | An array of check result severities the handler will handle. _NOTE: event resolution bypasses this filtering._
+required       | false
+type           | Array
+allowed values | `ok`, `warning`, `critical`, `unknown`
+example        | {{< highlight shell >}} "severities": ["critical", "unknown"]{{< /highlight >}}
+
 timeout      | 
 -------------|------
 description  | The handler execution duration timeout in seconds (hard stop).
