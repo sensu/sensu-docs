@@ -9,12 +9,9 @@ Welcome to the Sensu Documentation! This is a work in progress as we migrate fro
 
 ## Why Change?
 
-This new site is a place for:
+As of this writing, documentation for Sensu products is maintained in the [sensu-docs](https://github.com/sensu/sensu-docs) repository. The content of the sensu-docs repo is merged with Sensu's private website project and published as a single site at sensuapp.org. Unfortunately this setup has created a situation that makes it too difficult for contributors to effectively preview their changes, slowing the rate of documentation improvements.
 
-- Versioned documentation that's easy to navigate
-- MUCH FASTER load times
-- Full-text search 😍
-- Easier contribution experience running Hugo locally
+This project exists in order to address these problems, moving the documentation to it's own website which can stand alone from the primary Sensu website, and add some features missing from the current documentation site, e.g. full-text search and *much faster* rendering times.
 
 ## Project wiki
 
