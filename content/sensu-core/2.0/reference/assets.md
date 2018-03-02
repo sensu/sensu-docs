@@ -12,12 +12,12 @@ menu:
 
 # Assets
 
-## What are Assets?
+## What are assets?
 
-Sensu Assets are resources that checks can specify as dependencies. When an
-Agent runs a Check, it will ensure that all of the Check's required Assets
+Sensu **assets** are resources that checks can specify as dependencies. When an
+Agent runs a check, it will ensure that all of the check's required assets
 are available to the Agent. If they aren't, the Agent will install them by
-consulting each of the Assets' URLs.
+consulting each of the assets' URLs.
 
 ## Asset management
 
@@ -49,7 +49,7 @@ Filters:
 Metadata:         
 {{< /highlight >}}
 
-### Listing all available Assets
+### Listing all available assets
 
 {{< highlight shell >}}
 sensuctl asset list
@@ -60,7 +60,7 @@ sensuctl asset list
   readme    //example.com/.../README.md   84998ad  
 {{< /highlight >}}
 
-### Updating an existing Asset
+### Updating an existing asset
 
 {{< highlight shell >}}
 sensuctl asset update readme
@@ -69,11 +69,11 @@ sensuctl asset update readme
 This will result in an interactive prompt, which will ask you which of the
 asset's field that you wish to change.
 
-## Using Assets in Checks
+## Using assets in checks
 
-Assets can be associated with Checks when they are created, or afterwards.
+Assets can be associated with checks when they are created, or afterwards.
 
-### Adding an Asset to a Check on creation
+### Adding an asset to a check on creation
 
 {{< highlight shell >}}
 sensuctl check create foobar \
@@ -83,10 +83,10 @@ sensuctl check create foobar \
   --runtime-assets readme,foobar
 {{< /highlight >}}
 
-### Adding an Asset to an existing Check's dependencies
+### Adding an asset to an existing check's dependencies
 
 {{< highlight shell >}}
 sensuctl check set-runtime-assets check1 readme,foobar
 {{< /highlight >}}
 
-This command will set a Check's Assets to readme and foobar.
+This command will set a check's assets to `readme` and `foobar`.
