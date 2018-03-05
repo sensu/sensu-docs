@@ -18,5 +18,8 @@
     "postinstall": "grunt",
     "precommit": "grunt",
     "test": "bin/test"
+  },
+  "dependencies": {
+    "hugo-cli": "^0.5.4"
   }
 }
