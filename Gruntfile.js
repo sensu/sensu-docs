@@ -23,6 +23,25 @@ module.exports = function(grunt) {
             });
     });
 
+    grunt.registerTask("hugo-server", function() {
+        const done = this.async();
+
+        grunt.log.writeln("Running Hugo server");
+        grunt.util.spawn({
+            cmd: "hugo",
+            args: ["server"],
+            opts: {stdio: 'inherit'}
+        },
+            function(error, result, code) {
+                if (code == 0) {
+                    grunt.log.ok("Thanks for using Hugo!");
+                } else {
+                    grunt.fail.fatal(error);
+                }
+                done();
+            });
+    });
+
     // define the actual lunr-index task for cli
     grunt.registerTask("lunr-index", function() {
 

@@ -17,6 +17,7 @@
   "scripts": {
     "postinstall": "grunt",
     "precommit": "grunt",
+    "server": "grunt hugo-server",
     "test": "bin/test"
   },
   "dependencies": {
