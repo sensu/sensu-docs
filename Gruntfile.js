@@ -42,6 +42,22 @@ module.exports = function(grunt) {
             });
     });
 
+    grunt.registerTask("hugo-version", function() {
+        const done = this.async();
+        grunt.util.spawn({
+            cmd: "hugo",
+            args: ["version"],
+            opts: {stdio: 'inherit'}
+        },
+            function(error, result, code) {
+                if (code == 0) {
+                } else {
+                    grunt.fail.fatal(error);
+                }
+                done();
+            });
+    });
+
     // define the actual lunr-index task for cli
     grunt.registerTask("lunr-index", function() {
 
