@@ -5,6 +5,18 @@ var CONTENT_PATH_PREFIX = "content/";
 
 // define the grunt function for cli
 module.exports = function(grunt) {
+    grunt.initConfig({
+        env : {
+            options : {
+                add : {
+                    HUGO_VERSION : '0.34.0'
+                }
+            },
+            dev : {}
+        }
+    })
+
+    grunt.loadNpmTasks('grunt-env');
 
     grunt.registerTask("hugo-build", function() {
         const done = this.async();
@@ -147,5 +159,6 @@ module.exports = function(grunt) {
         grunt.log.ok("Lunr index built");
     });
 
-    grunt.registerTask("default", ["lunr-index", "hugo-build",]);
+    grunt.registerTask("default", ["env", "lunr-index", "hugo-version", "hugo-build",]);
+    grunt.registerTask("server", ["env", "lunr-index", "hugo-version", "hugo-server",]);
 };
