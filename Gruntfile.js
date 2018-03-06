@@ -5,6 +5,18 @@ var CONTENT_PATH_PREFIX = "content/";
 
 // define the grunt function for cli
 module.exports = function(grunt) {
+    grunt.initConfig({
+        env : {
+            options : {
+                add : {
+                    HUGO_VERSION : '0.34.0'
+                }
+            },
+            dev : {}
+        }
+    })
+
+    grunt.loadNpmTasks('grunt-env');
 
     grunt.registerTask("hugo-build", function() {
         const done = this.async();
@@ -13,14 +25,50 @@ module.exports = function(grunt) {
         grunt.util.spawn({
             cmd: "hugo",
         },
-            function(error, result, code) {
-                if (code == 0) {
-                    grunt.log.ok("Successfully built site");
-                } else {
-                    grunt.fail.fatal(error);
-                }
-                done();
-            });
+        function(error, result, code) {
+            if (code == 0) {
+                grunt.log.ok("Successfully built site");
+            } else {
+                grunt.fail.fatal(error);
+            }
+            done();
+        });
+    });
+
+    grunt.registerTask("hugo-server", function() {
+        const done = this.async();
+        const args = process.argv.slice(3); // fetch given arguments
+
+        grunt.log.writeln("Running Hugo server");
+        grunt.util.spawn({
+            cmd: "hugo",
+            args: ["server", ...args] , // pass arguments down
+            opts: {stdio: 'inherit'}
+        },
+        function(error, result, code) {
+            if (code == 0) {
+                grunt.log.ok("Thanks for using Hugo!");
+            } else {
+                grunt.fail.fatal(error);
+            }
+            done();
+        });
+    });
+
+    grunt.registerTask("print-hugo-version", function() {
+        const done = this.async();
+        grunt.util.spawn({
+            cmd: "hugo",
+            args: ["version"],
+            opts: {stdio: 'inherit'}
+        },
+        function(error, result, code) {
+            if (code == 0) {
+            } else {
+                grunt.fail.fatal(error);
+            }
+            done();
+        });
     });
 
     // define the actual lunr-index task for cli
@@ -112,5 +160,7 @@ module.exports = function(grunt) {
         grunt.log.ok("Lunr index built");
     });
 
-    grunt.registerTask("default", ["lunr-index", "hugo-build",]);
+    grunt.registerTask("default", ["env", "lunr-index", "hugo-version", "hugo-build",]);
+    grunt.registerTask("server", ["env", "lunr-index", "hugo-version", "hugo-server",]);
+    grunt.registerTask("hugo-version", ["env", "print-hugo-version",]);
 };
