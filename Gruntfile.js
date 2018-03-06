@@ -25,14 +25,14 @@ module.exports = function(grunt) {
         grunt.util.spawn({
             cmd: "hugo",
         },
-            function(error, result, code) {
-                if (code == 0) {
-                    grunt.log.ok("Successfully built site");
-                } else {
-                    grunt.fail.fatal(error);
-                }
-                done();
-            });
+        function(error, result, code) {
+            if (code == 0) {
+                grunt.log.ok("Successfully built site");
+            } else {
+                grunt.fail.fatal(error);
+            }
+            done();
+        });
     });
 
     grunt.registerTask("hugo-server", function() {
@@ -45,14 +45,14 @@ module.exports = function(grunt) {
             args: ["server", ...args] , // pass arguments down
             opts: {stdio: 'inherit'}
         },
-            function(error, result, code) {
-                if (code == 0) {
-                    grunt.log.ok("Thanks for using Hugo!");
-                } else {
-                    grunt.fail.fatal(error);
-                }
-                done();
-            });
+        function(error, result, code) {
+            if (code == 0) {
+                grunt.log.ok("Thanks for using Hugo!");
+            } else {
+                grunt.fail.fatal(error);
+            }
+            done();
+        });
     });
 
     grunt.registerTask("print-hugo-version", function() {
@@ -62,13 +62,13 @@ module.exports = function(grunt) {
             args: ["version"],
             opts: {stdio: 'inherit'}
         },
-            function(error, result, code) {
-                if (code == 0) {
-                } else {
-                    grunt.fail.fatal(error);
-                }
-                done();
-            });
+        function(error, result, code) {
+            if (code == 0) {
+            } else {
+                grunt.fail.fatal(error);
+            }
+            done();
+        });
     });
 
     // define the actual lunr-index task for cli
