@@ -53,7 +53,7 @@ After installing yarn we suggest that you test the build of the site in your loc
 yarn
 ```
 
-Hugo will render the site into the `public` directory. 
+Yarn will run Hugo to render the site into the `public` directory.
 
 This is the same build process used by TravisCI to test changes. If this command produces any errors, please open an issue.
 
@@ -68,9 +68,9 @@ yarn run server
 #### Troubleshooting Hugo
 Here are some things you might try if you encounter an issue working with the site:
 
-* Run `yarn run hugo-version` to print the running version of Hugo. Version 0.34 or newer is required.
+* Run `yarn hugo-version` to print the running version of Hugo. Version 0.34 or newer is required.
 * Did you clone the repository without submodules? See the "[cloning the project](#cloning-the-project)" section for how to add submodules after the fact.
-* If you are seeing stale page content, try using `yarn run server-fullrender` to start Hugo with the `--disableFastRender` option.
+* If you are seeing stale page content, try using `yarn server --disableFastRender` to ensure all pages are rebuilt as you make changes.
 * If you're still having trouble viewing the site, open an issue, and we'll be happy to help!
 
 ### Pushing to GitHub

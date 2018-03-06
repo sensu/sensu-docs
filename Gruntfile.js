@@ -37,30 +37,12 @@ module.exports = function(grunt) {
 
     grunt.registerTask("hugo-server", function() {
         const done = this.async();
+        const args = process.argv.slice(3); // fetch given arguments
 
         grunt.log.writeln("Running Hugo server");
         grunt.util.spawn({
             cmd: "hugo",
-            args: ["server"],
-            opts: {stdio: 'inherit'}
-        },
-            function(error, result, code) {
-                if (code == 0) {
-                    grunt.log.ok("Thanks for using Hugo!");
-                } else {
-                    grunt.fail.fatal(error);
-                }
-                done();
-            });
-    });
-
-    grunt.registerTask("hugo-server-fullrender", function() {
-        const done = this.async();
-
-        grunt.log.writeln("Running Hugo server with Fast Render disabled");
-        grunt.util.spawn({
-            cmd: "hugo",
-            args: ["server", "--disableFastRender"],
+            args: ["server", ...args] , // pass arguments down
             opts: {stdio: 'inherit'}
         },
             function(error, result, code) {
@@ -180,6 +162,5 @@ module.exports = function(grunt) {
 
     grunt.registerTask("default", ["env", "lunr-index", "hugo-version", "hugo-build",]);
     grunt.registerTask("server", ["env", "lunr-index", "hugo-version", "hugo-server",]);
-    grunt.registerTask("server-fullrender", ["env", "lunr-index", "hugo-version", "hugo-server-fullrender",]);
     grunt.registerTask("hugo-version", ["env", "print-hugo-version",]);
 };
