@@ -18,6 +18,8 @@
     "postinstall": "grunt",
     "precommit": "grunt",
     "server": "grunt server",
+    "server-fullrender": "grunt server-fullrender",
+    "hugo-version": "grunt hugo-version",
     "test": "bin/test"
   },
   "dependencies": {
