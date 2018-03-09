@@ -10,6 +10,9 @@ _NOTE: Sensu Enterprise is built on Sensu Core. Sensu Core changes are documente
 
 ## Releases
 
+- [Enterprise 2.8.3 Release Notes](#enterprise-v2-8-3)
+- [Enterprise 2.8.2 Release Notes](#enterprise-v2-8-2)
+- [Enterprise 2.8.1 Release Notes](#enterprise-v2-8-1)
 - [Enterprise 2.8.0 Release Notes](#enterprise-v2-8-0)
 - [Enterprise 2.7.0 Release Notes](#enterprise-v2-7-0)
 - [Enterprise 2.6.6 Release Notes](#enterprise-v2-6-6)
@@ -38,8 +41,46 @@ _NOTE: Sensu Enterprise is built on Sensu Core. Sensu Core changes are documente
 - [Enterprise 1.14.0 Release Notes](#enterprise-v1-14-0)
 - [Enterprise 1.13.0 Release Notes](#enterprise-v1-13-0)
 
+## Enterprise 2.8.3 Release Notes {#enterprise-v2-8-3}
+
+**March 7, 2017** &mdash; Sensu Enterprise version 2.8.3 has been
+	released and is available for immediate download. Please note the
+	following improvements:
+
+### CHANGES {#enterprise-v2-8-3-changes}
+
+- **IMPROVEMENT**: Added context to JIRA integration log events, including
+event/event_id and contact name.
+
+- **BUGFIX**: Fixed an OpsGenie integration bug, now adding a contact name prefix to
+OpsGenie alert aliases so alerts are deduplicated per contact.
+
+## Enterprise 2.8.2 Release Notes {#enterprise-v2-8-2}
+
+**February 9, 2017** &mdash; Sensu Enterprise version 2.8.2 has been
+	released and is available for immediate download. Please note the
+	following improvements:
+
+### CHANGES {#enterprise-v2-8-2-changes}
+
+- **SECURITY FIX:** Built on Sensu Core 1.2.1 to address [CVE-2018-1000060](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2018-1000060).
+
+## Enterprise 2.8.1 Release Notes {#enterprise-v2-8-1}
+
+**January 24, 2017** &mdash; Sensu Enterprise version 2.8.1 has been
+	released and is available for immediate download. Please note the
+	following improvements:
+
+### CHANGES {#enterprise-v2-8-1-changes}
+
+- **BUGFIX**: The OpsGenie alerting integration was accumulating additional
+  tags for every event handled. One symptom of this behavior would be seeing
+  alerts tagged with multiple severities. OpsGenie alert tags will now be
+  unique to the Sensu. event they represent.
+
 ## Enterprise 2.8.0 Release Notes {#enterprise-v2-8-0}
-**December 18, 2017** &mdash; Sensu Enterprise version 2.8.0 has been released and is available for immediate download. Please note the following improvements:
+**December 18, 2017** &mdash; Sensu Enterprise version 2.8.0 has been released and is
+available for immediate download. Please note the following improvements:
 
 ### CHANGES {#enterprise-v2-8-0-changes}
 
