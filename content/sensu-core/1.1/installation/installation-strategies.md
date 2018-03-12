@@ -76,6 +76,6 @@ configuration (clustering, etc), _and_ install the Sensu services on multiple
 systems in a clustered configuration.** High availability configurations will be
 introduced at [conclusion of this guide][3].
 
-[1]:  ../overview/architecture.html
-[2]:  installation-prerequisites.html
-[3]:  summary.html
+[1]:  ../../overview/architecture
+[2]:  ../installation-prerequisites
+[3]:  ../summary

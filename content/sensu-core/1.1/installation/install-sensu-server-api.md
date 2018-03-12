@@ -31,8 +31,8 @@ Ubuntu/Debian systems), and YUM (for RHEL/CentOS). The Sensu Core packages
 installs several processes, including `sensu-server`, `sensu-api`, and
 `sensu-client`.
 
-- [Install the Sensu Core server & API on Ubuntu/Debian](../platforms/sensu-on-ubuntu-debian.html#sensu-core)
-- [Install the Sensu Core server & API on RHEL/CentOS](../platforms/sensu-on-rhel-centos.html#sensu-core)
+- [Install the Sensu Core server & API on Ubuntu/Debian](../../platforms/sensu-on-ubuntu-debian/#sensu-core)
+- [Install the Sensu Core server & API on RHEL/CentOS](../../platforms/sensu-on-rhel-centos/#sensu-core)
 
 _NOTE: although Sensu Core packages are available for a variety of platforms
 &ndash; thus making it technically possible to run the `sensu-server` and
@@ -51,9 +51,9 @@ repositories, which requires access credentials to access. The Sensu Enterprise
 package installs a single executable, `sensu-enterprise`, which provides the
 functionality of Sensu server and API in a single process.
 
-- [Install Sensu Enterprise on Ubuntu/Debian](../platforms/sensu-on-ubuntu-debian.html#sensu-enterprise)
-- [Install Sensu Enterprise on RHEL/CentOS](../platforms/sensu-on-rhel-centos.html#sensu-enterprise)
+- [Install Sensu Enterprise on Ubuntu/Debian](../../platforms/sensu-on-ubuntu-debian/#sensu-enterprise)
+- [Install Sensu Enterprise on RHEL/CentOS](../../platforms/sensu-on-rhel-centos/#sensu-enterprise)
 
-[1]:  installation-prerequisites.html
+[1]:  ../installation-prerequisites
 [2]:  #sensu-enterprise
 [3]:  https://sensuapp.org/download

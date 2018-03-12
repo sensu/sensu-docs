@@ -44,17 +44,17 @@ documentation][13] for more information
 
 What will be covered in this guide:
 
-1. [How to install and configure Sensu's prerequisites](installation-prerequisites.html)
-  - [How to install and configure Redis](install-redis.html)
-  - [How to install and configure RabbitMQ](install-rabbitmq.html)
-2. [How to install and configure the Sensu server and API](install-sensu-server-api.html) (Sensu Core or Sensu Enterprise)
-3. [How to install and configure a Sensu Client](install-sensu-client.html)
-4. [How to install and configure a Sensu Dashboard](install-a-dashboard.html) (Uchiwa or Sensu Enterprise Console)
-5. [Next steps](summary.html)
-  - [Monitoring infrastructure and applications with Sensu](summary.html#instrumentation)
-  - [Automating Sensu installation](summary.html#automation)
-  - [Hardening Sensu](summary.html#hardening)
-  - [Running Sensu at scale](summary.html#scaling-sensu)
+1. [How to install and configure Sensu's prerequisites](../installation-prerequisites)
+  - [How to install and configure Redis](../install-redis)
+  - [How to install and configure RabbitMQ](../install-rabbitmq)
+2. [How to install and configure the Sensu server and API](../install-sensu-server-api) (Sensu Core or Sensu Enterprise)
+3. [How to install and configure a Sensu Client](../install-sensu-client)
+4. [How to install and configure a Sensu Dashboard](../install-a-dashboard) (Uchiwa or Sensu Enterprise Console)
+5. [Next steps](../summary)
+  - [Monitoring infrastructure and applications with Sensu](../summary/#instrumentation)
+  - [Automating Sensu installation](summary#automation)
+  - [Hardening Sensu](../summary/#hardening)
+  - [Running Sensu at scale](../summary/#scaling-sensu)
 
 Upon the completion of the first four (4) steps in this guide, you should have a
 fully functional Sensu installation, with one or more Sensu clients reporting
@@ -79,16 +79,16 @@ What will you need to install Sensu?
 
 Ready? Let's get started with selecting an installation strategy!
 
-[1]:  ../quick-start/the-five-minute-install.html
+[1]:  ../../quick-start/the-five-minute-install
 [2]:  https://chef.io
 [3]:  https://puppetlabs.com
 [4]:  https://www.ansible.com
-[5]:  ../overview/architecture.html
-[6]:  ../installation/summary.html
-[7]:  ../reference/clients.html#client-keepalives
-[8]:  ../guides/getting-started/overview.html
+[5]:  ../overview/architecture
+[6]:  ../installation/summary
+[7]:  ../../reference/clients/#client-keepalives
+[8]:  ../guides/getting-started/overview
 [9]:  https://sensuapp.org/enterprise
-[10]: installation-strategies.html#standalone
-[11]: installation-strategies.html#distributed
-[12]: installation-strategies.html#high-availability
-[13]: installation-strategies.html
+[10]: ../installation-strategies/#standalone
+[11]: ../installation-strategies/#distributed
+[12]: ../installation-strategies/#high-availability
+[13]: ../installation-strategies

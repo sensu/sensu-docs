@@ -45,12 +45,12 @@ Transport, and the corresponding Sensu services receive these messages  by
 subscribing to the appropriate subscriptions.
 
 
-[1]:  ../overview/architecture.html
-[2]:  installation-strategies.html#standalone
-[3]:  installation-strategies.html#distributed
-[4]:  installation-strategies.html#high-availability
-[5]:  installation-strategies.html
+[1]:  ../../overview/architecture
+[2]:  ../installation-strategies/#standalone
+[3]:  ../installation-strategies/#distributed
+[4]:  ../installation-strategies/#high-availability
+[5]:  ../installation-strategies
 [6]:  http://redis.io
-[7]:  ../reference/data-store.html
-[8]:  ../reference/rabbitmq.html
-[9]:  ../reference/transport.html
+[7]:  ../../reference/data-store
+[8]:  ../../reference/rabbitmq
+[9]:  ../../reference/transport
