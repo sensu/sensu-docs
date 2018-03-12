@@ -40,3 +40,4 @@ Thumbs.db
 node_modules/
 public/
 *.swp
+static/js/lunr/PagesIndex.json
