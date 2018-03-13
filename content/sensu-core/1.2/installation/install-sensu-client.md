@@ -4,6 +4,8 @@ description: "The complete Sensu installation guide."
 weight: 5 
 product: "Sensu Core"
 version: "1.2"
+next: ../install-a-dashboard
+previous: ../install-sensu-server-api
 menu:
   sensu-core-1.2:
     parent: installation

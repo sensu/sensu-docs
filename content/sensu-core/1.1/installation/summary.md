@@ -3,6 +3,8 @@ title: "Summary"
 weight: 7
 product: "Sensu Core"
 version: "1.1"
+next: ../upgrading
+previous: ../install-a-dashboard
 menu:
   sensu-core-1.1:
     parent: installation

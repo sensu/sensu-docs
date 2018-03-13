@@ -4,6 +4,8 @@ description: "The complete Sensu installation guide."
 weight: 2
 product: "Sensu Core"
 version: "0.29"
+next: ../installation-prerequisites
+previous: ../installation-overview
 menu:
   sensu-core-0.29:
     parent: installation

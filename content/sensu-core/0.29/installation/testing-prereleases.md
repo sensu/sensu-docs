@@ -3,6 +3,7 @@ title: "Testing Prereleases"
 weight: 9
 product: "Sensu Core"
 version: "0.29"
+previous: ../upgrading
 menu:
   sensu-core-0.29:
     parent: installation

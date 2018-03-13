@@ -3,6 +3,8 @@ title: "Upgrading Sensu"
 weight: 8
 product: "Sensu Core"
 version: "0.29"
+next: ../testing-prereleases
+previous: ../summary
 menu:
   sensu-core-0.29:
     parent: installation
