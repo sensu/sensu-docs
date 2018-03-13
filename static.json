@@ -1,0 +1,15 @@
+{
+    "root": "public/",
+    "https_only": true,
+    "rewrites": {
+        "~ ^/sensu-core/latest/?(.*)$": {
+            "url": "/sensu-core/1.2/$1"
+        },
+        "~ ^/sensu-enterprise/latest/?(.*)$": {
+            "url": "/sensu-enterprise/2.8/$1"
+        },
+        "~ ^/sensu-enterprise-dashboard/latest/?(.*)$": {
+            "url": "/sensu-enterprise-dashboard/2.11/$1"
+        }
+    }
+}

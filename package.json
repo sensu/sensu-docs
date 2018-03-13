@@ -17,6 +17,12 @@
   "scripts": {
     "postinstall": "grunt",
     "precommit": "grunt",
+    "server": "grunt server",
+    "hugo-version": "grunt hugo-version",
     "test": "bin/test"
+  },
+  "dependencies": {
+    "grunt-env": "^0.4.4",
+    "hugo-cli": "^0.5.4"
   }
 }
