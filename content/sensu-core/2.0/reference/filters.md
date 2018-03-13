@@ -12,35 +12,35 @@ menu:
 
 ## How do Sensu filters work?
 
-Sensu Filters are applied when Event Handlers are configured to use one or more
-Filters. Prior to executing a Handler, the Sensu server will apply any Filters
-configured for the Handler to the Event Data. If the Event is not removed by the
-Filter(s) (i.e. filtered out), the Handler will be executed. The filter analysis
+Sensu filters are applied when **event handlers** are configured to use one or more
+filters. Prior to executing a handler, the Sensu server will apply any filters
+configured for the handler to the **event** data. If the event is not removed by the
+filter(s) (i.e. filtered out), the handler will be executed. The filter analysis
 flow performs these steps:
 
-* When the Sensu server is processing an Event, it will check for the definition
-of a `handler` (or `handlers`). Prior to executing each Handler, the Sensu
-server will first apply any configured `filter` (or `filters`) for the Handler
-* If multiple `filters` are configured for a Handler, they are executed
-sequentially
-* Filter `statements` are compared with Event data
+* When the Sensu server is processing an event, it will check for the definition
+of a `handler` (or `handlers`). Prior to executing each handler, the Sensu
+server will first apply any configured `filter` (or `filters`) for the handler.
+* If multiple `filters` are configured for a handler, they are executed
+sequentially.
+* Filter `statements` are compared with event data.
 * Filters can be inclusive (only matching events are handled) or exclusive
-(matching events are not handled)
-* As soon as a Filter removes an Event (i.e. filters it out), no further
-analysis is performed and the Event Handler will not be executed
+(matching events are not handled).
+* As soon as a filter removes an event (i.e. filters it out), no further
+analysis is performed and the event handler will not be executed.
 
 {{< note title="Note" >}}
 Filters specified in a **handler set** definition have no effect. Filters must
 be specified in individual handler definitions.
 {{< /note >}}
 
-### Inclusive and Exclusive Filtering
+### Inclusive and exclusive filtering
 
 Filters can be _inclusive_ `"action": "allow"` (replaces `"negate": false` in
 Sensu 1) or _exclusive_ `"action": "deny"` (replaces `"negate": true` in Sensu
 1). Configuring a handler to use multiple _inclusive_ filters is the equivalent
 of using an `AND` query operator (i.e. only handle events if they match
-_inclusive_ filters `x AND y AND z`). Configuring a handler to use multiple
+_inclusive_ filter `x AND y AND z`). Configuring a handler to use multiple
 _exclusive_ filters is the equivalent of using an `OR` operator (i.e. only
 handle events if they don’t match `x OR y OR z`).
 
@@ -62,7 +62,7 @@ additional filters (if defined), mutators (if defined), and handlers.
 
 ### Filter statement evaluation
 
-When more complex conditional logic is needed than direct filter statements
+When more complex conditional logic is needed than direct filter statement
 comparison, Sensu filters provide support for statements evaluation using
 [govaluate](https://github.com/Knetic/govaluate/blob/master/MANUAL.md)
 expressions. If the evaluated expression returns true,
@@ -91,7 +91,7 @@ example      | {{< highlight shell >}}"action": "allow"{{< /highlight >}}
 
 statements   | 
 -------------|------
-description  | Filter statements to be compared with Event data.
+description  | Filter statements to be compared with event data.
 required     | true
 type         | Array
 example      | {{< highlight shell >}}"statements": [
