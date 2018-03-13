@@ -12,11 +12,11 @@ menu:
 
 ## How do Sensu filters work?
 
-Sensu filters are applied when **event handlers** are configured to use one or more
-filters. Prior to executing a handler, the Sensu server will apply any filters
-configured for the handler to the **event** data. If the event is not removed by the
-filter(s) (i.e. filtered out), the handler will be executed. The filter analysis
-flow performs these steps:
+Sensu filters are applied when **event handlers** are configured to use one or
+more filters. Prior to executing a handler, the Sensu server will apply any
+filters configured for the handler to the **event** data. If the event is not
+removed by the filter(s) (i.e. filtered out), the handler will be executed. The
+filter analysis flow performs these steps:
 
 * When the Sensu server is processing an event, it will check for the definition
 of a `handler` (or `handlers`). Prior to executing each handler, the Sensu

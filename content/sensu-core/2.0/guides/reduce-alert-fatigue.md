@@ -12,8 +12,8 @@ menu:
 
 ## What are Sensu filters?
 
-Sensu filters allow you to filter events destined for one or more event
-Handlers. Sensu filters evaluate their statements against the event data, to
+Sensu filters allow you to filter **events** destined for one or more event
+**handlers**. Sensu filters evaluate their statements against the event data, to
 determine if the event should be passed to an event handler.
 
 ## Why use a filter?
@@ -31,7 +31,7 @@ place, learn [how to send alerts with handlers](#).
 
 ### Creating the filter
 
-The first step is to create a filter, that we will call `hourly`, which matches
+The first step is to create a filter that we will call `hourly`, which matches
 new events (where the event's `occurrences` is equal to `1`) or hourly events
 (so every hour after the first occurrence, calculated with the check's
 `interval` and the event's `occurrences`).
@@ -66,7 +66,7 @@ filtered` will appear instead.
 You now know how to apply a filter to a handler and hopefully reduce alert
 fatigue. From this point, here are some recommended resources:
 
-* Read the [filters reference][1] for in-dept
+* Read the [filters reference][1] for in-depth
   documentation on filters. 
 
 [1]:  ../../reference/filters
