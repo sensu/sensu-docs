@@ -1,12 +1,12 @@
 ---
 title: "Install Redis"
 description: "The complete Sensu installation guide."
-version: 0.29
+version: "1.1"
 weight: 4
 next: ../install-rabbitmq
 previous: ../installation-prerequisites
 menu:
-  sensu-core-0.29:
+  sensu-core-1.1:
     parent: installation
 ---
 
