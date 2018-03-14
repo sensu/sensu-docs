@@ -1,6 +1,8 @@
 ---
 title: "Intro to Checks"
 version: "0.29"
+next: ../intro-to-filters
+previous: ../adding-a-client
 weight: 3
 menu:
   sensu-core-0.29:

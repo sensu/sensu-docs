@@ -2,6 +2,7 @@
 title: "Overview"
 version: "0.29"
 weight: 1
+next: ../adding-a-client
 menu:
   sensu-core-0.29:
     parent: guides
