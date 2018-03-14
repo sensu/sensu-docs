@@ -11,8 +11,6 @@ menu:
     parent: installation
 ---
 
-# Installation strategies
-
 Sensu's [architecture][1] is one of its most compelling features. It
 is flexible enough to be installed on a single system for
 development/testing/lab purposes (or small production environments), and

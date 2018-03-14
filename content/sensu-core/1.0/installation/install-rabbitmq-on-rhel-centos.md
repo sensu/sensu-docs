@@ -8,8 +8,6 @@ next: ../install-sensu-server-api
 previous: ../install-rabbitmq
 ---
 
-# Install RabbitMQ on RHEL/CentOS
-
 - [Install Erlang (the RabbitMQ runtime)](#install-erlang)
 - [Install RabbitMQ](#install-rabbitmq)
   - [Download and install RabbitMQ using `rpm` (recommended)](#download-and-install-rabbitmq-using-rpm)

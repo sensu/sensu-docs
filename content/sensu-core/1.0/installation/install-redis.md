@@ -9,8 +9,6 @@ menu:
     parent: installation
 ---
 
-# Install Redis
-
 [Redis][1] is a key-value database, which [describes itself][2] as _"an open
 source, BSD licensed, advanced key-value cache and store"_. Sensu uses Redis for
 storing persistent data. Two Sensu services, the server and API, require access

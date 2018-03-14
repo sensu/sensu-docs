@@ -8,8 +8,6 @@ next: ../install-sensu-server-api
 previous: ../install-rabbitmq
 ---
 
-# Install RabbitMQ on Ubuntu/Debian
-
 - [Install Erlang (the RabbitMQ runtime)](#install-erlang)
 - [Install RabbitMQ](#install-rabbitmq)
   - [Download and install RabbitMQ using `dpkg` (recommended)](#download-and-install-rabbitmq-using-dpkg)
@@ -152,7 +150,7 @@ ulimit -n 65536{{< /highlight >}}
 else run
 {{< highlight shell >}}
 systemctl edit rabbitmq-server{{< /highlight >}}
-and edit the (empty) file by inputing the following and then saving:
+and edit the (empty) file by inputting the following and then saving:
 {{< highlight shell >}}
 [Service]
 LimitNOFILE=65535{{< /highlight >}}

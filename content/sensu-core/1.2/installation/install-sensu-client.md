@@ -11,8 +11,6 @@ menu:
     parent: installation
 ---
 
-# Install the Sensu Client
-
 Having successfully installed and configured a Sensu server and API (Sensu Core
 or Sensu Enterprise), let's now install and/or configure a Sensu client. The
 Sensu client is run on every system you need to monitor, including those running

@@ -4,14 +4,12 @@ description: "The complete Sensu installation guide."
 weight: 3
 product: "Sensu Core"
 version: "1.2"
-next: ../install-sensu-server-api
+next: ../install-redis
 previous: ../installation-strategies
 menu:
   sensu-core-1.2:
     parent: installation
 ---
-
-# Installation Prerequisites
 
 As mentioned earlier in this guide, Sensu's [architecture][1] is one
 of its most compelling features. While this modular design makes it infinitely

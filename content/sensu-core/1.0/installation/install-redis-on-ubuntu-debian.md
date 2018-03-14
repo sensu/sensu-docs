@@ -8,8 +8,6 @@ next: ../install-rabbitmq-on-ubuntu-debian
 previous: ../installation-prerequisites
 ---
 
-# Install Redis on Ubuntu/Debian
-
 - [Install Redis using APT](#install-redis-using-apt)
 - [Managing the Redis service/process](#manage-the-redis-service-process)
   - [Start/stop the Redis services](#startstop-the-redis-services)
