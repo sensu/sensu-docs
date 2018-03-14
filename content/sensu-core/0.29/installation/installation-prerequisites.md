@@ -4,7 +4,7 @@ description: "The complete Sensu installation guide."
 weight: 3
 product: "Sensu Core"
 version: "0.29"
-next: ../install-sensu-server-api
+next: ../install-redis
 previous: ../installation-strategies
 menu:
   sensu-core-0.29:
