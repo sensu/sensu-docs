@@ -6,9 +6,6 @@ product: "Sensu Core"
 version: "1.2"
 next: ../install-sensu-server-api
 previous: ../install-rabbitmq
-menu:
-  sensu-core-1.2:
-    parent: installation
 ---
 
 # Install RabbitMQ on Ubuntu/Debian

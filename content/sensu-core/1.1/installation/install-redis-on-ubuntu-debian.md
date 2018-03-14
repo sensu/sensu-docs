@@ -6,9 +6,6 @@ product: "Sensu Core"
 version: "1.1"
 next: ../install-rabbitmq-on-ubuntu-debian
 previous: ../installation-prerequisites
-menu:
-  sensu-core-1.1:
-    parent: installation
 ---
 
 # Install Redis on Ubuntu/Debian
