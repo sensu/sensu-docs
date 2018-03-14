@@ -1,7 +1,7 @@
 ---
 title: "Sensu Client"
 description: "The complete Sensu installation guide."
-weight: 5 
+weight: 11 
 product: "Sensu Core"
 version: "1.2"
 next: ../install-a-dashboard

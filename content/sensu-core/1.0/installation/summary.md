@@ -1,6 +1,6 @@
 ---
 title: "Summary"
-weight: 7
+weight: 13
 product: "Sensu Core"
 version: "1.0"
 next: ../upgrading

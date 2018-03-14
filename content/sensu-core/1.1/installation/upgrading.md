@@ -1,6 +1,6 @@
 ---
 title: "Upgrading Sensu"
-weight: 8
+weight: 14
 product: "Sensu Core"
 version: "1.1"
 next: ../testing-prereleases

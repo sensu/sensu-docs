@@ -1,6 +1,6 @@
 ---
 title: "Testing Prereleases"
-weight: 9
+weight: 15
 product: "Sensu Core"
 version: "0.29"
 previous: ../upgrading

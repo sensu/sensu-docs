@@ -1,6 +1,6 @@
 ---
 title: "Sensu Dashboards"
-weight: 6
+weight: 12
 product: "Sensu Core"
 version: "1.0"
 next: ../summary

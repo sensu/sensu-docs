@@ -1,10 +1,14 @@
 ---
 title: "Install RabbitMQ on Ubuntu/Debian"
 description: "The complete Sensu installation guide."
-weight: 0
+weight: 8
 product: "Sensu Core"
 version: "0.29"
 next: ../install-sensu-server-api
+previous: ../install-rabbitmq
+menu:
+  sensu-core-0.29:
+    parent: installation
 ---
 
 # Install RabbitMQ on Ubuntu/Debian

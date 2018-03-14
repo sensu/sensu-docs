@@ -1,7 +1,7 @@
 ---
 title: "Sensu Server and API"
 description: "The complete Sensu installation guide."
-weight: 4
+weight: 10
 product: "Sensu Core"
 version: "0.29"
 next: ../install-sensu-client
