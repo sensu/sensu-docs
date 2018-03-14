@@ -11,8 +11,6 @@ menu:
     parent: installation
 ---
 
-# Installation Prerequisites
-
 As mentioned earlier in this guide, Sensu's [architecture][1] is one
 of its most compelling features. While this modular design makes it infinitely
 adaptable to monitor any infrastructure, it also depends on some external

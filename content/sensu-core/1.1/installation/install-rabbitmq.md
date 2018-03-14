@@ -9,8 +9,6 @@ menu:
     parent: installation
 ---
 
-# Install RabbitMQ
-
 [RabbitMQ][1] is a message bus that [describes itself][rabbitmq-features] as _"a
 messaging broker - an intermediary for messaging. It gives your applications a
 common platform to send and receive messages, and your messages a safe place to

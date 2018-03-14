@@ -11,8 +11,6 @@ menu:
     parent: installation
 ---
 
-# Install the Sensu Server and API
-
 Once you have installed [Sensu's prerequisites][1] (RabbitMQ and/or Redis), you
 are ready to install a Sensu Server and API. The Sensu Server and API are
 available in two flavors:

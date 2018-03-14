@@ -10,8 +10,6 @@ menu:
     parent: installation
 ---
 
-# Installation Overview
-
 ## The complete installation guide
 
 The purpose of this guide is to help provide new and experienced Sensu users

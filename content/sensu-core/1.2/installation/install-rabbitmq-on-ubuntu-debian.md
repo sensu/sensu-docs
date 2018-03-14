@@ -8,8 +8,6 @@ next: ../install-sensu-server-api
 previous: ../install-rabbitmq
 ---
 
-# Install RabbitMQ on Ubuntu/Debian
-
 - [Install Erlang (the RabbitMQ runtime)](#install-erlang)
 - [Install RabbitMQ](#install-rabbitmq)
   - [Download and install RabbitMQ using `dpkg` (recommended)](#download-and-install-rabbitmq-using-dpkg)

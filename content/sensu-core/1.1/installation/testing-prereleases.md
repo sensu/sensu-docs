@@ -9,8 +9,6 @@ menu:
     parent: installation
 ---
 
-# Testing Prereleases
-
 _WARNING: Sensu prereleases are your first chance to try out new
 features and bug fixes. Please be aware that you may be the first to
 discover an issue, you probably do not want to use a prerelease in

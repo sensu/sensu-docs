@@ -7,8 +7,6 @@ next: ../install-rabbitmq-on-rhel-centos
 previous: ../installation-prerequisites
 ---
 
-# Install Redis on RHEL/CentOS
-
 - [Install Redis from the EPEL repositories](#install-redis-from-the-epel-repositories)
 - [Managing the Redis service/process](#manage-the-redis-service-process)
   - [Start/stop the Redis services](#startstop-the-redis-services)

@@ -10,8 +10,6 @@ menu:
     parent: installation
 ---
 
-# Upgrading Sensu
-
 _WARNING: Note that the biggest change in this release that may affect your
 deployment deals with our internal update to a newer Ruby. This means
 that plugins will have to be re-installed - and any old plugins will
