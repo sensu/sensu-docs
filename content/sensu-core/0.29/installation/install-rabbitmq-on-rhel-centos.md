@@ -4,11 +4,7 @@ description: "The complete Sensu installation guide."
 weight: 0
 product: "Sensu Core"
 version: "0.29"
-hidden: true
 next: ../install-sensu-server-api
-menu:
-  sensu-core-0.29:
-    parent: installation
 ---
 
 # Install RabbitMQ on RHEL/CentOS

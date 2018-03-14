@@ -4,11 +4,7 @@ description: "The complete Sensu installation guide."
 weight: 0
 product: "Sensu Core"
 version: "1.0"
-hidden: true
 next: install-rabbitmq-on-ubuntu-debian
-menu:
-  sensu-core-1.0:
-    parent: installation
 ---
 
 # Install Redis on Ubuntu/Debian
@@ -119,7 +115,7 @@ ULIMIT=65536{{< /highlight >}}
 When the configured number of maximum clients can not be honored, the condition
 is logged at startup...
 
-{{< /highlight >}}
+{{< highlight shell >}}
 [41422] 23 Jan 11:28:33.179 # Unable to set the max number of files limit to 100032 (Invalid argument), setting the max clients configuration to 10112.{{< /highlight >}}
 
 ## Configure Sensu

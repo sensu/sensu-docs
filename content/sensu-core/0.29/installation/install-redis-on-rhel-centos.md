@@ -3,11 +3,7 @@ title: "Install Redis on RHEL/CentOS"
 weight: 0
 product: "Sensu Core"
 version: "0.29"
-hidden: true
 next: install-rabbitmq-on-rhel-centos
-menu:
-  sensu-core-0.29:
-    parent: installation
 ---
 
 # Install Redis on RHEL/CentOS
