@@ -2,6 +2,7 @@
 title: "Intro to Handlers"
 version: "0.29"
 weight: 6
+previous: ../intro-to-mutators
 menu:
   sensu-core-0.29:
     parent: guides

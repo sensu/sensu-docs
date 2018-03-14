@@ -2,6 +2,8 @@
 title: "Intro to Mutators"
 version: "0.29"
 weight: 5
+next: ../intro-to-handlers
+previous: ../intro-to-filters
 menu:
   sensu-core-0.29:
     parent: guides
