@@ -4,6 +4,7 @@ description: "What is Sensu"
 product: "Sensu Core"
 version: "1.2"
 weight: 1
+next: ../how-sensu-works
 menu:
   sensu-core-1.2:
     parent: overview
