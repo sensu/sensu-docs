@@ -139,8 +139,8 @@ Coming soon.
 Verify that the services are properly running using `journalctl`.
 
 {{< highlight shell >}}
-journalctl -u sensu-backend -f
-journalctl -u sensu-agent -f
+tail -f /var/log/sensu/sensu-backend.log
+tail -f /var/log/sensu-agent.log
 {{< /highlight >}}
 
 ### Ubuntu 16.04 / CentOS 7 / RHEL 7
@@ -148,8 +148,8 @@ journalctl -u sensu-agent -f
 Verify that the services are properly running using the log files.
 
 {{< highlight shell >}}
-tail -f /var/log/sensu/sensu-backend.log
-tail -f /var/log/sensu-agent.log
+journalctl -u sensu-backend -f
+journalctl -u sensu-agent -f
 {{< /highlight >}}
 {{< platformBlockClose >}}
 
