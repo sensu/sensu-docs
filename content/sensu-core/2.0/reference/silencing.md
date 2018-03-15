@@ -122,20 +122,20 @@ example      | {{< highlight shell >}}
 
 organization | 
 -------------|------ 
-description  | the sensu RBAC organization that this check belongs to
+description  | the Sensu RBAC organization that this check belongs to
 required     | false 
 type         | String 
-default      | "default" 
+default      | current organization value configured for `sensuctl` (ie `default`) 
 example      | {{< highlight shell >}}
   "organization": "default",
 {{</ highlight >}}
 
 environment  | 
 -------------|------ 
-description  | the sensu RBAC environment that this check belongs to
+description  | the Sensu RBAC environment that this check belongs to
 required     | false 
 type         | String 
-default      | "default" 
+default      | current environment value configured for `sensuctl` (ie `default`) 
 example      | {{< highlight shell >}}
   "environment": "default",
 {{</ highlight >}}
