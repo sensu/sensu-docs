@@ -2,6 +2,8 @@
 title: "Intro to Filters"
 version: "1.2"
 weight: 4
+next: ../intro-to-mutators
+previous: ../intro-to-checks
 menu:
   sensu-core-1.2:
     parent: guides

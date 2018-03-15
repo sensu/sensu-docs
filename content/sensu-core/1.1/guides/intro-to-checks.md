@@ -2,6 +2,8 @@
 title: "Intro to Checks"
 version: "1.1"
 weight: 3
+next: ../intro-to-filters
+previous: ../adding-a-client
 menu:
   sensu-core-1.1:
     parent: guides
