@@ -997,3 +997,40 @@ button.accordion.active, button.accordion:hover {
     margin-left: 0;
   }
 }
+
+/* 404 page ----------------------------------------------------------------- */
+.notFoundContainer {
+  height: 100%;
+  width: 100%;
+  text-align: center;
+  padding-top: 10%;
+  color: #3d3d3d;
+}
+
+.notFoundContainer i {
+  font-size: 130px;
+}
+
+.notFoundContainer h1 {
+  font-size: 120px;
+}
+
+.notFoundContainer h2 {
+  font-size: 44px;
+  margin-top: 0;
+}
+
+.notFoundContainer p {
+  font-size: 24px;
+  padding-top: 15px;
+  margin-bottom: 50px;
+  color: #a4a4a4;
+}
+
+.homeButton {
+  margin-top: 50px;
+  padding: 10px;
+  border: 1px solid #a8a8a8;
+  border-radius: 3px;
+  color: #3d3d3d
+}
