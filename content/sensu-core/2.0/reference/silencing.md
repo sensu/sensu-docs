@@ -120,6 +120,26 @@ example      | {{< highlight shell >}}
   "reason": "rebooting the world"
 {{</ highlight >}}
 
+organization | 
+-------------|------ 
+description  | the sensu RBAC organization that this check belongs to
+required     | false 
+type         | String 
+default      | "default" 
+example      | {{< highlight shell >}}
+  "organization": "default",
+{{</ highlight >}}
+
+environment  | 
+-------------|------ 
+description  | the sensu RBAC environment that this check belongs to
+required     | false 
+type         | String 
+default      | "default" 
+example      | {{< highlight shell >}}
+  "environment": "default",
+{{</ highlight >}}
+
 ## Examples
 
 ### Silence all checks on a specific entity 
