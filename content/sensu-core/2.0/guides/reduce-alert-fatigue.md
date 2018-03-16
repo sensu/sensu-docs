@@ -55,6 +55,9 @@ sensuctl handler set-filters mail hourly
 ### Validating the filter
 
 You can verify the proper behavior of this filter by using `sensu-backend` logs.
+The default location of these logs varies based on the platform used, but the
+[installation and configuration][2] documentation provides this information.
+
 Whenever an event is being handled, a log entry is added with the message
 `sending event: {...} to handler: mail`, followed by a second one with the
 message `pipelined executed event pipe handler: status=0 output=`. However, if
@@ -70,3 +73,4 @@ fatigue. From this point, here are some recommended resources:
   documentation on filters. 
 
 [1]:  ../../reference/filters
+[2]: ../../getting-started/installation-and-configuration/#validating-the-services
