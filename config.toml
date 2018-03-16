@@ -1,11 +1,11 @@
-baseurl = "//docs-preview.sensuapp.org/"
+baseurl = "//docs.sensu.io/"
 languageCode = "en-us"
 title = "Sensu Docs"
 theme = "hugo-material-docs"
 metadataformat = "yaml"
 canonifyURLs = true
 # Enable Google Analytics by entering your tracking id
-googleAnalytics = ""
+googleAnalytics = "UA-39138312-17"
 
 pygmentsUseClasses=true
 

@@ -4,6 +4,8 @@ description: "Sensu Architecture"
 product: "Sensu Core"
 version: "1.1"
 weight: 3
+next: ../platforms
+previous: ../how-sensu-works
 menu:
   sensu-core-1.1:
     parent: overview
