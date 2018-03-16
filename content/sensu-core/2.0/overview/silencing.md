@@ -4,7 +4,7 @@ description: "The guide to setting up silencing entries."
 weight: 
 menu: 
   sensu-core-2.0:
-    parent: getting-started
+    parent: overview 
 version: 
 product: "Sensu Core"
 ---

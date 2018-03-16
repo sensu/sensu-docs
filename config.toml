@@ -1,11 +1,11 @@
-baseurl = "//docs-preview.sensuapp.org/"
+baseurl = "//docs.sensu.io/"
 languageCode = "en-us"
 title = "Sensu Docs"
 theme = "hugo-material-docs"
 metadataformat = "yaml"
 canonifyURLs = true
 # Enable Google Analytics by entering your tracking id
-googleAnalytics = ""
+googleAnalytics = "UA-39138312-17"
 
 pygmentsUseClasses=true
 
@@ -52,7 +52,7 @@ pygmentsUseClasses=true
         weight = 1
         latest = "1.2"
         [params.products.sensu_core.versions]
-            "2.0" = ["Ubuntu/Debian", "RHEL/CentOS"]
+            "2.0" = ["Ubuntu/Debian", "RHEL/CentOS", "Windows"]
             "1.2" = ["Ubuntu/Debian", "RHEL/CentOS"]
             "1.1" = ["Ubuntu/Debian", "RHEL/CentOS"]
             "1.0" = ["Ubuntu/Debian", "RHEL/CentOS"]

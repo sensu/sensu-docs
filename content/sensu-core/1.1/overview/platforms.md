@@ -4,6 +4,7 @@ description: "Supported platforms"
 product: "Sensu Core"
 version: "1.1"
 weight: 4
+previous: ../architecture
 menu:
   sensu-core-1.1:
     parent: overview
