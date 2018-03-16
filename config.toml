@@ -52,7 +52,7 @@ pygmentsUseClasses=true
         weight = 1
         latest = "1.2"
         [params.products.sensu_core.versions]
-            "2.0" = ["Ubuntu/Debian", "RHEL/CentOS"]
+            "2.0" = ["Ubuntu/Debian", "RHEL/CentOS", "Windows"]
             "1.2" = ["Ubuntu/Debian", "RHEL/CentOS"]
             "1.1" = ["Ubuntu/Debian", "RHEL/CentOS"]
             "1.0" = ["Ubuntu/Debian", "RHEL/CentOS"]
