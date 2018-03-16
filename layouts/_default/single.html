@@ -88,9 +88,9 @@ function togglePlatformDivs() {
   var $platformDivs = document.getElementsByClassName("platform");
   Array.prototype.forEach.call($platformDivs, function($platformDiv) {
     $platformDivId =  $platformDiv.id
-    $platformDivId = $platformDivId.replace("-", " ");
-    $platformDivId = $platformDivId.replace("_", "/");
-    if ($platformDivId != $platformCookie && $platformCookie != null) {
+    $platformDivId = $platformDivId.replace(new RegExp("-", "g"), " ");
+    $platformDivId = $platformDivId.replace(new RegExp("_", "g"), "/");
+    if (!$platformDivId.includes($platformCookie) && $platformCookie != null) {
       $platformDiv.style.display = 'none';
     } else {
       $platformDiv.style.display = 'block';
