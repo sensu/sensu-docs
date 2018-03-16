@@ -4,7 +4,7 @@ description: "The silencing reference guide."
 weight: 1
 version: "2.0"
 product: "Sensu Core"
-platformContent: true
+platformContent: false
 menu:
   sensu-core-2.0:
     parent: reference
@@ -36,7 +36,7 @@ description  | The name of the check the entry should match
 required     | true, unless `subscription` is provided
 type         | String
 example      | {{< highlight shell >}}"check": "haproxy_status"{{</ highlight >}}
-example      | {{< highlight shell >}}"check": "haproxy_status", "subscription" : "load_balancer"{{</ highlight >}}
+
 
 subscription | 
 -------------|------ 
@@ -44,32 +44,20 @@ description  | The name of the subscription the entry should match
 required     | true, unless `check` is provided
 type         | String
 example      | {{< highlight shell >}}"subscription": "entity:i-424242"{{</highlight>}}
-example      | {{< highlight shell >}}
-  "subscription": "entity:i-424242",
-  "check" : "haproxy_status"
-{{</ highlight >}}
 
 id           | 
 -------------|------ 
 description  | Silencing identifier generated from the combination of a subsription name and check name. 
 required     | false - this value cannot be modified 
 type         | String
-example      | {{< highlight shell >}}
-  "id": "appserver:mysql_status",
-  "check": "mysql_status",
-  "subscription": "appserver",
-{{</ highlight >}}
+example      | {{< highlight shell >}}"id": "appserver:mysql_status"{{</ highlight >}}
 
 begin        | 
 -------------|------ 
 description  | Time at which silence entry goes into effect, in epoch. 
 required     | false 
 type         | Integer 
-example      | {{< highlight shell >}}
-  "begin": 1512512023,
-  "check": "disk_utilization",
-  "subscription": "entity:i-424242"
-{{</ highlight >}}
+example      | {{< highlight shell >}}"begin": 1512512023{{</ highlight >}}
 
 expire       | 
 -------------|------ 
@@ -77,11 +65,7 @@ description  | Number of seconds until this entry should be deleted.
 required     | false 
 type         | Integer 
 default      | -1
-example      | {{< highlight shell >}}
-  "expire": 3600,
-  "check": "disk_utilization",
-  "subscription": "entity:i-424242"
-{{</ highlight >}}
+example      | {{< highlight shell >}}"expire": 3600{{</ highlight >}}
 
 expire_on_resolve       | 
 -------------|------ 
@@ -89,10 +73,7 @@ description  | If the entry should be deleted when a check begins return OK stat
 required     | false 
 type         | Boolean 
 default      | false 
-example      | {{< highlight shell >}}
-  "expire_on_resolve": true,
-  "check": "disk_utilization",
-{{</ highlight >}}
+example      | {{< highlight shell >}}"expire_on_resolve": true{{</ highlight >}}
 
 
 creator      | 
@@ -101,11 +82,7 @@ description  | Person/application/entity responsible for creating the entry.
 required     | false 
 type         | String 
 default      | null 
-example      | {{< highlight shell >}}
-  "creator": "Application Deploy Tool 5.0",
-  "subsription": "appservers",
-  "check": "app_status"
-{{</ highlight >}}
+example      | {{< highlight shell >}}"creator": "Application Deploy Tool 5.0"{{</ highlight >}}
 
 reason       | 
 -------------|------ 
@@ -113,12 +90,7 @@ description  | Explanation for the creation of this entry.
 required     | false 
 type         | String 
 default      | null 
-example      | {{< highlight shell >}}
-  "creator": "mercedes",
-  "subsription": "webserver",
-  "check": "app_status",
-  "reason": "rebooting the world"
-{{</ highlight >}}
+example      | {{< highlight shell >}}"reason": "rebooting the world"{{</ highlight >}}
 
 organization | 
 -------------|------ 
@@ -126,9 +98,7 @@ description  | the Sensu RBAC organization that this check belongs to
 required     | false 
 type         | String 
 default      | current organization value configured for `sensuctl` (ie `default`) 
-example      | {{< highlight shell >}}
-  "organization": "default",
-{{</ highlight >}}
+example      | {{< highlight shell >}}"organization": "default"{{</ highlight >}}
 
 environment  | 
 -------------|------ 
@@ -136,9 +106,7 @@ description  | the Sensu RBAC environment that this check belongs to
 required     | false 
 type         | String 
 default      | current environment value configured for `sensuctl` (ie `default`) 
-example      | {{< highlight shell >}}
-  "environment": "default",
-{{</ highlight >}}
+example      | {{< highlight shell >}}"environment": "default"{{</ highlight >}}
 
 ## Examples
 
