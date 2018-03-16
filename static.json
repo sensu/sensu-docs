@@ -1,6 +1,7 @@
 {
     "root": "public/",
     "https_only": true,
+    "error_page": "/404.html",
     "rewrites": {
         "~ ^/sensu-core/latest/?(.*)$": {
             "url": "/sensu-core/1.2/$1"

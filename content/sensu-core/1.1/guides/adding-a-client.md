@@ -2,6 +2,8 @@
 title: "Adding a Client"
 product: "Sensu Core"
 version: "1.1"
+next: ../intro-to-checks
+previous: ../overview
 weight: 2
 menu:
   sensu-core-1.1:
