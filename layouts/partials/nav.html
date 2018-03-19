@@ -39,7 +39,7 @@
 
             <!-- if the menu has a child menu -->
             {{ if .HasChildren }}
-              {{ if (in $k $version) }}         
+              {{ if (in $k $version) }}
                 {{ $niceName := replace $x.Name "-" " " }}
                 {{ $niceName := title $niceName }}
 
