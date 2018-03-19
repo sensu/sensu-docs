@@ -144,12 +144,12 @@ subscriptions in [Sensu 1][12]. Prepending `roundrobin:` in front of
 subscriptions is no longer required in Sensu 2 since round-robin can now be
 enabled directly with the [round_robin][13] attribute in the check configuration.
 
-## Check Specification
+## Check specification
 
 ### Check naming
 
 Each check definition must have a unique name within its organization and
-+environment.
+environment.
 
 * A unique string used to name/identify the check
 * Cannot contain special characters or spaces
