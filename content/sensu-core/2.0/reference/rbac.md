@@ -1,5 +1,5 @@
 ---
-title: "Role-Based Access Control (RBAC)"
+title: "RBAC"
 description: "The rbac reference guide."
 weight: 1
 version: "2.0"
@@ -10,31 +10,105 @@ menu:
     parent: reference
 ---
 
-# Role-Based Access Control (RBAC) and Multitenancy in Sensu 2.0
-
-Sensu's **Role-Based Access Control** (RBAC) allows you to exercise fine-grained
-control over how Sensu users interact with Sensu resources. Using RBAC
-rules, you can easily achieve **multitenancy** so users only have access to
-resources within their own organization and environment.
-
-## Overview
+## How does Role Based Access Control work?
+Sensu RBAC allows management and access of users and resources based on a heirarchy of Organizations, Environments, Roles, Rules, and Users. Each `environment` belongs to only one `organization`, and each `resource` (user, check, asset, etc) belongs to only one `environment`. A Sensu installation can have multiple organizations, each with their own set of environments and resources belonging to them.
 
 ### Authentication
 
 Sensu 2.0 offers local users management. Users can be managed with `sensuctl`.
-Support for external directories (such as LDAP) is coming.
+Support for external directories (such as LDAP) is planned for future releases.
 
-### Terminology
+## Terminology
 
-#### User
+### Organization
+
+An organization is the top-level resource for RBAC. Each organization can
+contain one or multiple environments. Sensu ships with a `default` organization.
+#### Attributes
+
+description  | 
+-------------|------ 
+description  | Description of the organization 
+required     | false 
+type         | String
+example      | {{< highlight shell >}}"description": "Default organization"{{</highlight>}}
+
+name         | 
+-------------|------ 
+description  | The name of the organization. Cannot contain special characters.
+required     | true 
+type         | String
+example      | {{< highlight shell >}}"name": "default"{{</highlight>}}
+
+### Environment
+
+An environment contains a set of resources and represent a logical division,
+such as `development`, `staging` and `production`. An environment belongs to a
+single organization. Every organization has a `default` environment.
+
+#### Attributes
+
+name         | 
+-------------|------ 
+description  | The name of the environment. Cannot contain special characters.
+required     | true 
+type         | String
+example      | {{< highlight shell >}}"name": "default"{{</highlight>}}
+
+description  | 
+-------------|------ 
+description  | Description of the environment 
+required     | false 
+type         | String
+example      | {{< highlight shell >}}"description": "Default environment"{{</highlight>}}
+
+organization | 
+-------------|------ 
+description  | The name of the organization the environment belongs to. 
+required     | true 
+type         | String
+example      | {{< highlight shell >}}"organization": "default"{{</highlight>}}
+
+### User
 
 A user represents a person or an agent which interacts with Sensu.
 
-#### Group
+#### Attributes
+
+username     | 
+-------------|------ 
+description  | The name of the user. Cannot contain special characters.
+required     | true 
+type         | String
+example      | {{< highlight shell >}}"name": "admin"{{</highlight>}}
+
+password     | 
+-------------|------ 
+description  | The user's password. Cannot be empty. 
+required     | true 
+type         | String
+example      | {{< highlight shell >}}"password": "P@ssw0rd!"{{</highlight>}}
+
+roles        | 
+-------------|------ 
+description  | A list of roles the user belongs to.
+required     | false 
+type         | Array
+example      | {{< highlight shell >}}"roles": ["admin"]{{</highlight>}}
+
+disabled     | 
+-------------|------ 
+description  | The state of the user's account.
+required     | false 
+type         | Boolean 
+default      | false
+example      | {{< highlight shell >}}"disabled": false{{</highlight>}}
+
+### Group
 
 Not available yet!
 
-#### Role
+### Role
 
 A role contains a set of rules, which represent permissions to Sensu resources.
 
@@ -42,85 +116,93 @@ Roles can be assigned to one or multiple users. Each user can be a member of one
 or multiple roles. Users inherit all of the permissions from each role they are
 in.
 
-#### Rule
+The initial installation of Sensu includes an initial `admin` role that gives a
+user associated with it full access to the system.
 
-A rule is an explicit statement which grants a particular permission to a
-particular resource.
+#### Attributes
 
-#### Organization
+name         | 
+-------------|------ 
+description  | Name of the role 
+required     | true 
+type         | String
+example      | {{< highlight shell >}}"name": "admin"{{</highlight>}}
 
-An organization is the top-level resource for RBAC. Each organization can
-contain one or multiple environments.
+rules        | 
+-------------|------ 
+description  | The rulesets that a role applies.
+required     | true 
+type         | array 
+example      | {{< highlight shell >}}"rules": [
+    {
+        "type": "*",
+        "environment": "*",
+        "organization": "*",
+        "permissions": [
+            "create",
+            "read",
+            "update",
+            "delete"        
+        ]
+    } 
+]{{</highlight>}}
 
-#### Environment
+### Rule
 
-An environment contains a set of resources and represent a logical division,
-such as `development`, `staging` and `production`. An environment belongs to a
-single organization.
+A rule is an explicit statement which grants a particular permission to a resource.
 
-## Resource Hierarchy
+#### Attributes
 
-* Each **environment** belongs to only one organization.
-* Each **resource** belongs to only one environment.
+type         | 
+-------------|------ 
+description  | The type of resource the rule has permission to access. 
+required     | true 
+type         | String
+example      | {{< highlight shell >}}"type": "*"{{</highlight>}}
+example      | {{< highlight shell >}}"type": "checks"{{</highlight>}}
+example      | {{< highlight shell >}}"type": "environments"{{</highlight>}}
 
-![RBAC](images/rbac.png)
+organization | 
+-------------|------ 
+description  | The name of the organization the rule belongs to. 
+required     | true 
+type         | String
+example      | {{< highlight shell >}}"organization": "default"{{</highlight>}}
+    
+environment  | 
+-------------|------ 
+description  | The name of the environment the rule belongs to. 
+required     | true 
+type         | String
+example      | {{< highlight shell >}}"environment": "default"{{</highlight>}}
 
-## Organizations
+permissions  | 
+-------------|------ 
+description  | The permissions to be applied by the rule. 
+required     | true 
+type         | Array
+example      | {{< highlight shell >}}"permissions": [
+    "create",
+    "read",
+    "update",
+    "delete"        
+]
+{{</highlight>}}
 
-The initial installation of Sensu includes a `default` organization.
+### Resource Types
 
-You can create additional organizations to easily achieve multitenancy within
-a single Sensu cluster.
+A resource type is the resource that a rule acts on. 
 
-### Viewing Organizations
-To view all the organizations currently configured in your Sensu installation,
-run the following:
-
-{{< highlight shell >}}
-sensuctl organization list
-{{< /highlight >}}
-
-### Managing Organizations
-
-To add a new organization, simply call the `sensuctl` organization create
-command with it's intended name.
-
-{{< highlight shell >}}
-sensuctl organization create acme
-{{< /highlight >}}
-
-To remove an organization from the system, run the `delete` subcommand.
-
-{{< highlight shell >}}
-sensuctl organization delete acme
-{{< /highlight >}}
-
-## Environments
-
-The initial installation of Sensu includes a `default` environment,
-included in the `default` organization.
-
-You can create additional environments to map your development workflow.
-
-### Viewing Environments
-To view all the environments currently configured in your Sensu installation,
-run the following:
-
-{{< highlight shell >}}
-sensuctl environment list
-{{< /highlight >}}
-
-### Managing Environments
-
-To add a new environment, simply call the `sensuctl` environment create
-command with it's intended name.
-
-{{< highlight shell >}}
-sensuctl environment create dev
-{{< /highlight >}}
-
-To remove an environment from the system, run the `delete` subcommand.
-
-{{< highlight shell >}}
-sensuctl environment delete dev
-{{< /highlight >}}
+| Type | Description |
+|---|---|
+| `*` | Manage all resources. **NOTE**: The `*` type gives precedence to its rule over other rules within the same rule. If you wish to deny a certain type, you can't use the `*` type and must explicitly allow every type required |
+| `assets` | Manage asset resources within a given organization & environment |
+| `checks` | Manage check resources within a given organization & environment |
+| `entities` | Manage entity resources within a given organization & environment |
+| `environment` | Create and remove environments |
+| `events` | Manage event resources within a given organization & environment |
+| `handlers` | Manage handler resources within a given organization & environment |
+| `mutators` | Manage mutator resources within a given organization & environment |
+| `organizations` | Create and remove organizations |
+| `roles` | Create, remove roles and set rules within |
+| `users` | Manage user resources |
