@@ -11,7 +11,7 @@ menu:
 ---
 
 ## What is RBAC?
-**Role-Based Access Control** (RBAC) is Sensu's local user management system. RBAC currently supports the management of users and permissions with Organizations, Environments, Roles, and Users. Support for external directories (such as LDAP) will be available in a future release.
+**Role-Based Access Control** (RBAC) is Sensu's local user management system. RBAC currently supports the management of users and permissions with *organizations*, *environments*, *roles*, and *users*. Support for external directories (such as LDAP) will be available in a future release.
 
 ## Why use RBAC
 RBAC allows you to exercise fine-grained control over how Sensu users interact 
@@ -19,7 +19,7 @@ with Sensu resources. Using RBAC rules, you can easily achieve **multitenancy**
 so users only have access to resources within their own organization and environment. 
 
 ## How to create a Read Only user
-The initial installation of Sensu includes a `default` environment, included in the `default` organization, and an `admin` user with full permissions to create, modify, or delete resouces within Sensu. Using `sensuctl`, you can create new roles for users that give as much or as little access as you see fit. The purpose of this guide is to help you create a new user with read-only access to resources within the `default` organization and environments.
+The initial installation of Sensu includes a `default` environment, included in the `default` organization, and an `admin` user with full permissions to create, modify, or delete resouces within Sensu. Using `sensuctl`, you can create new roles for users that give as much or as little access as you see fit. The purpose of this guide is to help you create a new user with read-only access to resources within the `default` organization and environment.
 
 To get started, you must first create a new read-only role. 
 {{< highlight shell >}}

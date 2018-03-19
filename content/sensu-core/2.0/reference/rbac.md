@@ -4,14 +4,14 @@ description: "The rbac reference guide."
 weight: 1
 version: "2.0"
 product: "Sensu Core"
-platformContent: true
+platformContent: false 
 menu:
   sensu-core-2.0:
     parent: reference
 ---
 
 ## How does Role Based Access Control work?
-Sensu RBAC allows management and access of users and resources based on a heirarchy of Organizations, Environments, Roles, Rules, and Users. Each `environment` belongs to only one `organization`, and each `resource` (user, check, asset, etc) belongs to only one `environment`. A Sensu installation can have multiple organizations, each with their own set of environments and resources belonging to them.
+Sensu RBAC allows management and access of users and resources based on a heirarchy of *organizations*, *environments*, *roles*, *rules*, and *users*. Each `environment` belongs to only one `organization`, and each `resource` (user, check, asset, etc) belongs to only one `environment`. A Sensu installation can have multiple organizations, each with their own set of environments and resources belonging to them.
 
 ### Authentication
 
@@ -65,8 +65,9 @@ example      | {{< highlight shell >}}"description": "Default environment"{{</hi
 organization | 
 -------------|------ 
 description  | The name of the organization the environment belongs to. 
-required     | true 
+required     | false 
 type         | String
+default      | current environment value configured for `sensuctl` (ie `default`)
 example      | {{< highlight shell >}}"organization": "default"{{</highlight>}}
 
 ### User
@@ -181,12 +182,20 @@ permissions  |
 description  | The permissions to be applied by the rule. 
 required     | true 
 type         | Array
-example      | {{< highlight shell >}}"permissions": [
-    "create",
-    "read",
-    "update",
-    "delete"        
-]
+example      | {{< highlight shell >}}
+{
+  "name": "read-only",
+  "rules": [
+    {
+      "type": "*",
+      "environment": "default",
+      "organization": "default",
+      "permissions": [
+        "read"
+      ]
+    }
+  ]
+}
 {{</highlight>}}
 
 ### Resource Types
