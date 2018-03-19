@@ -54,7 +54,7 @@
 {{ $product_info := (index .Site.Params.products $product2) }}
 {{ if and (isset .Params "version") (ne $product_info.latest .Params.version) }}
   <div class="versionBanner">
-    <a class="versionBannerText" href="/{{ .Section }}/{{ $product_info.latest }}/">You're viewing documentation for an older version of {{ .Params.product }}. Click here for the latest.</a>
+    <a class="versionBannerText" href="/{{ .Section }}/{{ $product_info.latest }}/">You're viewing documentation for an older or pre-release version of {{ .Params.product }}. Click here for the latest.</a>
   </div>
 {{ end }}
 
