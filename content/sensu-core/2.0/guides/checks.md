@@ -34,7 +34,7 @@ to the `linux` subscription.
 
 The `check-cpu.sh` script provided by the [Sensu CPU Checks Plugin][1] can
 reliably detect the percentage of CPU usage. The following command will provide
-the `check-cpu.sh` script and should be run on every Sensy agent that has an
+the `check-cpu.sh` script and should be run on every Sensu agent that has an
 entity subscribed to the `linux` subscription.
 
 {{< highlight shell >}}
