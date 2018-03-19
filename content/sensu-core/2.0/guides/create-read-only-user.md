@@ -49,3 +49,9 @@ Username        	Roles       Enabled
 read-only-user        read-only      true
 {{< /highlight >}}
 ## Next steps
+
+You now know how to create a role, add a rule to restrict its abilities, and apply that role to a user. From this point, here are some recommended resources:
+
+* Read the [RBAC reference][1] for in-depth documentation on Role Based Access Control. 
+
+[1]: ../../reference/rbac
