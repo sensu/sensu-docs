@@ -1,20 +1,22 @@
 # Sensu Docs Site
 
-Welcome to the Sensu Documentation! This is a work in progress as we migrate from our previous project, [sensu/sensu-docs](https://github.com/sensu/sensu-docs). You can view the live site at [docs-preview.sensuapp.org](https://docs-preview.sensuapp.org/).
+Welcome to the Sensu Documentation! This repository is the new home of all Sensu-related documentation and we appreciate your help in maintaining it. View it at [docs.sensu.io](https://docs.sensu.io).
 
-## Status
+## Why this project
 
-- We're close to shifting from our previous docs these new ones! Please open issues here instead of sensu/sensu-docs
-- The sensuapp.org/docs pages will remain separate until the Launch milestone is hit, tracked here: https://github.com/sensu/sensu-docs-site/milestones
-
-## Why Change?
-
-Contribution to documentation is too complicated with [sensu-docs](https://github.com/sensu/sensu-docs) build depending on the private website code. In addition, this new site gives us:
+Contribution was too complicated when working with [sensu-docs](https://github.com/sensu/sensu-docs) build depending on the private website code. In addition, this new site gives us:
 
 - **Much faster** rendering times
 - Versioned documentation per project all in one place
 - Easier contribution experience running Hugo locally
 - Full-text search 😍
+
+## Known limitations
+
+- Uchiwa links to the existing website
+- There is no Extensions documentation at this time
+- Plugin documentation is very out of date. Help fix that by participating in [this issue](https://github.com/sensu-plugins/community/issues/58)
+- Sensu Core 2.0 documentation will be partially missing until the Beta milestone is reached
 
 ## Project wiki
 
@@ -42,8 +44,7 @@ cd sensu-docs-site ; git submodule update --init --recursive
 
 #### Installing Yarn
 
-This project uses [Yarn](https://yarnpkg.com/) to manage dependencies and the build process. For installation
-on installing yarn, [view their documentation](https://yarnpkg.com/lang/en/docs/install/).
+This project uses [Yarn](https://yarnpkg.com/) to manage dependencies and the build process. For information on installing yarn, [view their documentation](https://yarnpkg.com/lang/en/docs/install/).
 
 #### Building the site
 
@@ -53,12 +54,13 @@ After installing yarn we suggest that you test the build of the site in your loc
 yarn
 ```
 
-Yarn will run Hugo to render the site into the `public` directory.
+Yarn will install and run Hugo to render the site into the `public` directory.
 
 This is the same build process used by TravisCI to test changes. If this command produces any errors, please open an issue.
 
 
 #### Viewing locally
+
 If the site builds successfully, you can run the Hugo server and view the site in a local web browser:
 
 ```
