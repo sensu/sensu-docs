@@ -44,16 +44,7 @@ cd sensu-docs-site ; git submodule update --init --recursive
 
 #### Installing Yarn
 
-This project uses [Yarn](https://yarnpkg.com/) to manage dependencies and the build process. For installation
-on installing yarn, [view their documentation](https://yarnpkg.com/lang/en/docs/install/).
-
-#### Installing Hugo
-
-This project requires **Hugo version 0.34 or later**.
-
-To install Hugo, we recommend heading over to [the Hugo installation docs](http://gohugo.io/getting-started/installing/) to find the instructions for your platform of choice. If you're in doubt over whether a release exists for your platform, check out [the GitHub releases page for Hugo](https://github.com/gohugoio/hugo/releases) to see available packages.
-
-Once you've installed Hugo, continue reading for viewing the site and working with Hugo.
+This project uses [Yarn](https://yarnpkg.com/) to manage dependencies and the build process. For installation on installing yarn, [view their documentation](https://yarnpkg.com/lang/en/docs/install/).
 
 #### Building the site
 
@@ -63,12 +54,13 @@ After installing yarn we suggest that you test the build of the site in your loc
 yarn
 ```
 
-Yarn will run Hugo to render the site into the `public` directory.
+Yarn will install and run Hugo to render the site into the `public` directory.
 
 This is the same build process used by TravisCI to test changes. If this command produces any errors, please open an issue.
 
 
 #### Viewing locally
+
 If the site builds successfully, you can run the Hugo server and view the site in a local web browser:
 
 ```
