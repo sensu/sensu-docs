@@ -4,6 +4,8 @@ description: "The Sensu Monitoring Workflow"
 product: "Sensu Core"
 version: "0.29"
 weight: 2
+next: ../architecture
+previous: ../what-is-sensu
 menu:
   sensu-core-0.29:
     parent: overview

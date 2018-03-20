@@ -57,27 +57,30 @@ Once you've installed Hugo, continue reading for viewing the site and working wi
 
 #### Building the site
 
-After installing Hugo we suggest that you test the build of the site in your local environment:
+After installing yarn we suggest that you test the build of the site in your local environment:
 
 ```
 yarn
 ```
 
-This is the same build process used by TravisCI to test changes. If this command produces any errors, please ensure you're using [the same version of Hugo documented in our wiki](https://github.com/sensu/sensu-docs-site/wiki/Hugo-version-upgrades).
+Yarn will run Hugo to render the site into the `public` directory.
+
+This is the same build process used by TravisCI to test changes. If this command produces any errors, please open an issue.
 
 
 #### Viewing locally
 If the site builds successfully, you can run the Hugo server and view the site in a local web browser:
 
 ```
-hugo server
+yarn run server
 ```
 
 #### Troubleshooting Hugo
-If you encounter an issue viewing the site, this usually boils down to one of three issues:
-* Hugo version is not .34+. You can check what version you have by doing `hugo version`. If you don't have .34+, head on over to [Hugo's releases page](https://github.com/gohugoio/hugo/releases) and grab the package for your OS.
-* The repo was cloned without submodules. See the "[cloning the project](#cloning-the-project)" section for how to add submodules post-clone.
-* The pages are cached. Try using `hugo server --disableFastRender` to start hugo locally, which should work.
+Here are some things you might try if you encounter an issue working with the site:
+
+* Run `yarn hugo-version` to print the running version of Hugo. Version 0.34 or newer is required.
+* Did you clone the repository without submodules? See the "[cloning the project](#cloning-the-project)" section for how to add submodules after the fact.
+* If you are seeing stale page content, try using `yarn server --disableFastRender` to ensure all pages are rebuilt as you make changes.
 * If you're still having trouble viewing the site, open an issue, and we'll be happy to help!
 
 ### Pushing to GitHub
