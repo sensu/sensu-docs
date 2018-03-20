@@ -44,7 +44,7 @@ cd sensu-docs-site ; git submodule update --init --recursive
 
 #### Installing Yarn
 
-This project uses [Yarn](https://yarnpkg.com/) to manage dependencies and the build process. For installation on installing yarn, [view their documentation](https://yarnpkg.com/lang/en/docs/install/).
+This project uses [Yarn](https://yarnpkg.com/) to manage dependencies and the build process. For information on installing yarn, [view their documentation](https://yarnpkg.com/lang/en/docs/install/).
 
 #### Building the site
 
