@@ -1,5 +1,5 @@
 ---
-title: "How to Monitor Devices With Sensu and SNMP"
+title: "How to Monitor Devices With Sensu's SNMP Receiver Integration"
 product: "Sensu Enterprise"
 version: "2.8"
 weight: 1
@@ -33,7 +33,7 @@ sudo yum install -y net-snmp-utils{{< /highlight >}}
 # Sensu Client Configuration
 As Sensu 1.X cannot be installed on most networking gear, SNMP traps in Sensu function as [proxy clients][2]. In this example, the general flow will be as follows:
 
-SNMP trap generated→ SNMP trap received by Sensu client → Sensu client sends result to transport/Sensu server → alert is created
+SNMP trap generated→ SNMP trap received by Sensu client → Sensu client sends result to transport/Sensu server → event is created
 
 We’ll start by first installing the extension and enabling it on a given client that we expect to function as an SNMP trap reciever:
 
@@ -83,11 +83,11 @@ sudo netstat -plunt | grep 1062{{< /highlight >}}
 At this point, it’s worth noting that the configuration provided here is a basic, bare-minimum configuration. There are additional options you can add to your SNMP extension configuration to suit your needs. We cover those [here](#additional-snmp-extension-options). But to get a general sense of how SNMP traps function with Sensu, continue reading below.
 
 # Testing the SNMP Extension
-So far, we’ve done the following:
-Installed the SNMP trap extension
-Configured the extension
-Configured the SNMP trap receiver
-Confirmed that the SNMP trap receiver is listening on our host
+- So far, we’ve done the following:
+- Installed the SNMP trap extension
+- Configured the extension
+- Configured the SNMP trap receiver
+- Confirmed that the SNMP trap receiver is listening on our host
 
 Now comes the fun part: testing the extension to make sure that our trap receiver is working as expected. If you’ve met the prerequisites, you should already have the `net-snmp-utils` package installed on your host, which has the `snmptrap` command that we’ll be using in our tests. 
 
@@ -145,7 +145,7 @@ description  | The SNMP receiver trap port (UDP).
 required     | false
 type         | Integer
 default      | `1062`
-example      | {{< highlight shell >}}"port": 162{{< /highlight >}}
+example      | {{< highlight shell >}}"port": 1062{{< /highlight >}} _NOTE: By default, SNMP uses :162 UDP. When configuring a network device, you'll need to ensure that traps are sent to the Sensu client over :1062 UDP._
 
 Filters, severities, handlers are also able to be applied on the SNMP trap receiver configuration:
 
