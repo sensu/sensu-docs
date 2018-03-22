@@ -64,7 +64,29 @@ backend. The check hook command result will be available in the `hooks` array,
 within the `check` hash.
 
 {{< highlight shell >}}
-sensuctl event info i-424242 nginx_process --format json
+$ sensuctl event info i-424242 nginx_process --format json
+{
+  [...]
+  "check": {
+    [...]
+    "hooks": [
+      {
+        "config": {
+          "name": "nginx-restart",
+          "command": "systemctl restart nginx",
+          "timeout": 10,
+          "environment": "default",
+          "organization": "default"
+        },
+        "duration": 0.008713605,
+        "executed": 1521724622,
+        "output": "",
+        "status": 0
+      }
+    ],
+    [...]
+  }
+}
 {{< /highlight >}}
 
 ## Next steps
