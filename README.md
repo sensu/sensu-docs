@@ -1,10 +1,10 @@
-# Sensu Docs Site
+# Sensu Documentation
 
-Welcome to the Sensu Documentation! This repository is the new home of all Sensu-related documentation and we appreciate your help in maintaining it. View it at [docs.sensu.io](https://docs.sensu.io).
+Welcome to Sensu Docs! This repository is the new home of all Sensu-related documentation and we appreciate your help in maintaining it. You can view the live site at [docs.sensu.io](https://docs.sensu.io).
 
 ## Why this project
 
-Contribution was too complicated when working with [sensu-docs](https://github.com/sensu/sensu-docs) build depending on the private website code. In addition, this new site gives us:
+Contribution was too complicated when working with the now-deprecated [sensu-docs-legacy](https://github.com/sensu/sensu-docs-legacy) project. Building it depended on proprietary website code. In addition to making the build independent of our marketing website, this new project gives us:
 
 - **Much faster** rendering times
 - Versioned documentation per project all in one place
