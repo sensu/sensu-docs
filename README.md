@@ -20,11 +20,11 @@ Contribution was too complicated when working with [sensu-docs](https://github.c
 
 ## Project wiki
 
-This README is focused on helping you get started with the sensu-docs-site project as a whole. For detail on formatting, layouts and other aspects of adding to or modifying content, please see our [project wiki](https://github.com/sensu/sensu-docs-site/wiki).
+This README is focused on helping you get started with the sensu-docs project as a whole. For detail on formatting, layouts and other aspects of adding to or modifying content, please see our [project wiki](https://github.com/sensu/sensu-docs/wiki).
 
 ## Running Sensu Docs
 
-Unlike the old sensu-docs project, this site can be run locally with Hugo. There are some new steps to learn, but don't worry, we've documented how to do so (and some common [troubleshooting](https://github.com/sensu/sensu-docs-site/blob/master/README.md#troubleshooting-hugo) if you need it):
+Unlike the old sensu-docs project, this site can be run locally with Hugo. There are some new steps to learn, but don't worry, we've documented how to do so (and some common [troubleshooting](https://github.com/sensu/sensu-docs/blob/master/README.md#troubleshooting-hugo) if you need it):
 
 ### Getting Started with Hugo
 
@@ -33,13 +33,13 @@ Unlike the old sensu-docs project, this site can be run locally with Hugo. There
 This project uses [git submodules](https://git-scm.com/book/en/v2/Git-Tools-Submodules) to manage themes. If you have git 1.6.5 or later, you can clone this project and checkout submodules in one command:
 
 ```
-git clone --recursive https://github.com/sensu/sensu-docs-site.git sensu-docs-site
+git clone --recursive https://github.com/sensu/sensu-docs.git sensu-docs
 ```
 
 If you cloned this repository without the `--recursive` flag, you can manually pull in the theme submodule:
 
 ```
-cd sensu-docs-site ; git submodule update --init --recursive
+cd sensu-docs ; git submodule update --init --recursive
 ```
 
 #### Installing Yarn
@@ -79,4 +79,4 @@ Here are some things you might try if you encounter an issue working with the si
 This is the same as any other project. Follow GitHub's instructions if you're unsure. No additional steps are needed.
 
 ### Deploying to Heroku
-This project uses [Travis CI Deployment support for Heroku](https://docs.travis-ci.com/user/deployment/heroku/) to automatically deploy the site once changes are merged to `master`. For additional details on Heroku configuration and deployment, see [our wiki page](https://github.com/sensu/sensu-docs-site/wiki/Heroku-Configuration-and-Publishing).
+This project uses [Travis CI Deployment support for Heroku](https://docs.travis-ci.com/user/deployment/heroku/) to automatically deploy the site once changes are merged to `master`. For additional details on Heroku configuration and deployment, see [our wiki page](https://github.com/sensu/sensu-docs/wiki/Heroku-Configuration-and-Publishing).

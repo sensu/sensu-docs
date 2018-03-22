@@ -5,7 +5,7 @@ Thank you for wanting to contribute back to the Sensu Community! Take a look thr
 ## Guidelines
 We ask that you keep the following guidelines in mind when planning your contribution:
 
-* Whether your contribution is for a bug fix or a feature request, **create an [Issue](https://github.com/sensu-plugins/sensu-docs-site/issues)** to let us know what you are thinking before you fix it. It helps us give a LGTM much faster (with fewer cases of saying no to a PR)
+* Whether your contribution is for a bug fix or a feature request, **create an [Issue](https://github.com/sensu/sensu-docs/issues)** to let us know what you are thinking before you fix it. It helps us give a LGTM much faster (with fewer cases of saying no to a PR)
 * **For bugs**, if you have already found a fix, feel free to submit a Pull Request referencing the Issue you created. Include the `Fixes #` syntax to link it to the issue you're addressing.
 * **For feature requests**, we want to improve upon the documentation incrementally which means small changes at a time. In order to ensure your PR can be reviewed in a timely manner, please keep PRs small. If you think this is unrealistic, then mention that within the issue and we can discuss it.
 * **For adding a guide/doc**, use the [guide/doc template](static/files/sensu-doc-template.md). We would super :heart: it if when you write your doc, you ensure that it's written for a specific version and any other version in which it applies, though that's not a requirement. We would also super :heart: it that if you're writing OS-specific content, you standardize it on CentOS. 
@@ -13,7 +13,7 @@ We ask that you keep the following guidelines in mind when planning your contrib
 ### Updating Multiple Versions of the Docs
 Some contributions apply to multiple versions of Sensu, or other sections of the documentation. **We appreciate if you have a chance to copy these edits to all applicable versions.** 🙏
 
-If you have a good idea on how to script this type of behavior, please comment on [this issue discussing ideas](https://github.com/sensu/sensu-docs-site/issues/95). 
+If you have a good idea on how to script this type of behavior, please comment on [this issue discussing ideas](https://github.com/sensu/sensu-docs/issues/95).
 
 ## Workflow
 
@@ -28,13 +28,13 @@ Fork the appropriate repository by clicking the Fork button (top right) on GitHu
 From whatever directory you want to have this code, clone this repository and setup some sane defaults:
 
 ```
-$ git clone https://github.com/sensu-plugins/sensu-docs-site/
-# or: git clone git@github.com:$user/sensu-docs-site.git
+$ git clone https://github.com/sensu/sensu-docs/
+# or: git clone git@github.com:$user/sensu-docs.git
 
-$ cd sensu-docs-site
+$ cd sensu-docs
 
-$ git remote add upstream https://github.com/sensu-plugins/sensu-docs-site.git
-# or: git remote add upstream git@github.com:sensu-plugins/sensu-docs-site.git
+$ git remote add upstream https://github.com/sensu/sensu-docs.git
+# or: git remote add upstream git@github.com:sensu/sensu-docs.git
 
 # Never allow a push to upstream master
 $ git remote set-url --push upstream no_push
@@ -100,7 +100,7 @@ $ git push -f origin feature/myfeature
 
 ### 7) Create a Pull Request
 
-Create a pull request by visiting https://github.com/sensu-plugins/sensu-docs-site/ and following the instructions at the top of the screen.
+Create a pull request by visiting https://github.com/sensu/sensu-docs/ and following the instructions at the top of the screen.
 
 After the PR is submitted, project maintainers will review it.
 
