@@ -51,7 +51,8 @@ runtime dependencies to checks on bigger environments.
 
 Now that our script is installed, the second step is to create a check named
 `check-cpu`, which runs the command `check-cpu.sh -w 75 -c 90`, at an
-**interval** of 60 seconds, for all entities with the `linux` subscription.
+**interval** of 60 seconds, for all entities subscribed to the `linux`
+subscription.
 
 {{< highlight shell >}}
 sensuctl check create check-cpu \
@@ -63,9 +64,9 @@ sensuctl check create check-cpu \
 ### Validating the check
 
 You can verify the proper behavior of this check against a specific entity, here
-named `i-424242`, by using `sensuctl`. It might take few seconds, once the check
-is created, for the check to be scheduled on the entity and the result sent back
-to Sensu backend.
+named `i-424242`, by using `sensuctl`. It might take a few moments, once the
+check is created, for the check to be scheduled on the entity and the result
+sent back to Sensu backend.
 
 {{< highlight shell >}}
 sensuctl event info i-424242 check-cpu
