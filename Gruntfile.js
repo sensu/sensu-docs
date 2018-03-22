@@ -78,13 +78,16 @@ module.exports = function(grunt) {
 
         // makes an array of the names of all the files
         var indexPages = function() {
-            var pagesIndex = [];
+            let pagesIndex = [];
             // go through the folders recursively
             grunt.file.recurse(CONTENT_PATH_PREFIX, function(abspath, rootdir, subdir, filename) {
                 grunt.verbose.writeln("Parse file:", abspath);
 
                 // push adds the processed file to the array of pages
-                pagesIndex.push(processFile(abspath, filename));
+                const entry = processFile(abspath, filename);
+                if (entry !== null && entry !== undefined) {
+                  pagesIndex.push(entry);
+                }
             });
             return pagesIndex;
         };
