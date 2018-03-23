@@ -28,6 +28,8 @@
           </ul>
         {{ end }}
 
+        <hr>
+        <a href="{{.Site.Params.repo_url}}/edit/master/content/{{.File.Path}}">Edit this page</a>
         <!-- Small section for Sensu links -->
         {{ if isset .Site.Params "author" }}
           <hr>
