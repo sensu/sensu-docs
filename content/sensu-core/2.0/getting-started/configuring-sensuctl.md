@@ -80,10 +80,14 @@ Sensuctl must be configured before it can connect to your Sensu cluster. Run the
 `configure` command to get started.
 
 {{< highlight shell >}}
-sensuctl configure
+$ sensuctl configure
+? Sensu Backend URL: http://127.0.0.1:8080
+? Username: admin
+? Password: *********
+? Organization: default
+? Environment: default
+? Preferred output format: tabular
 {{< /highlight >}}
-
-<img alt="sensu-configure-demo" src="assets/sensuctl-configure.gif" width="650px" />
 
 ### Default User
 
@@ -128,21 +132,25 @@ sensuctl:
 {{< highlight shell >}}
 sensuctl controls Sensu instances
 
-Usage:    sensuctl COMMAND
+Usage:	sensuctl COMMAND
 
-Options:
+Flags:
       --api-url string        host URL of Sensu installation
-      --cache-dir string      path to directory containing cache & temporary files (default "/Users/deanlearner/Library/Caches/sensu/sensuctl")
-      --config-dir string     path to directory containing configuration files (default "/Users/deanlearner/.config/sensu/sensuctl")
+      --cache-dir string      path to directory containing cache & temporary files (default
+                              "/Users/mercedes/Library/Caches/sensu/sensuctl")
+      --config-dir string     path to directory containing configuration files (default
+                              "/Users/mercedes/.config/sensu/sensuctl")
+      --environment string    environment in which we perform actions (default "default")
   -h, --help                  help for sensuctl
       --organization string   organization in which we perform actions (default "default")
 
 Commands:
   completion   Output shell completion code for the specified shell (bash or zsh)
   configure    Initialize sensuctl configuration
+  import       import resources from STDIN
   logout       Logout from sensuctl
   version      Show the sensu-ctl version information
-  
+
 Management Commands:
   asset        Manage assets
   check        Manage checks
@@ -150,10 +158,16 @@ Management Commands:
   entity       Manage entities
   environment  Manage environments
   event        Manage events
+  filter       Manage filters
   handler      Manage handlers
+  hook         Manage hooks
+  mutator      Manage mutators
   organization Manage organizations
   role         Manage roles
+  silenced     Manage silenced subscriptions and checks
   user         Manage users
+
+Run 'sensuctl COMMAND --help' for more information on a command.
 {{< /highlight >}}
 
 ## Import
@@ -178,38 +192,6 @@ sensuctl provides `import` commands for creating & updating resources via STDIN.
 OK
 {{< /highlight >}}
 
-Further API details- including valid parameters- forthcoming.
-
-## Output
-
-sensuctl can be configured to return JSON instead of the default human-readable
-format.
-
-> sensuctl check info marketing-site --format json
-{{< highlight json >}}
-{
-  "name": "marketing-site",
-  "interval": 10,
-  "subscriptions": [
-    "web"
-  ],
-  "command": "check-http.rb -u https://dean-learner.book",
-  "handlers": [
-    "slack"
-  ],
-  "runtime_assets": [],
-  "environment": "default",
-  "organization": "default"
-}
-{{< /highlight >}}
-
-If you do not want to explicitly use the format flag with each command, you can
-set the global default.
-
-{{< highlight shell >}}
-# sensuctl config set-format json
-OK
-{{< /highlight >}}
 
 ## Shell Auto-Completion
 
@@ -271,3 +253,7 @@ sensuctl:
 > $ sensuctl check <kbd>Tab</kbd>
 create  delete  import  list
 {{< /highlight >}}
+
+For more details on `sensuctl` commands, check out the [reference guide][1]. 
+
+[1]: ../../reference/sensuctl
