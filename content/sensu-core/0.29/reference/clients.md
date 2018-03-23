@@ -364,7 +364,7 @@ echo '{"name": "app_01", "output": "could not connect to mysql", "status": 1}' |
 You can do the same using the HTTP socket:
 
 {{< highlight shell >}}
-curl -v -H "Content-Type: application/json" -X POST -d '{"name": "app_01", "output": "could not connect to mysql", "status": 1}' localhost 3031
+curl -v -H "Content-Type: application/json" -X POST -d '{"name": "app_01", "output": "could not connect to mysql", "status": 1}' localhost:3031/results
 {{< /highlight >}}
 
 

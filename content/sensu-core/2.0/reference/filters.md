@@ -99,6 +99,26 @@ example      | {{< highlight shell >}}"statements": [
 ]
 {{< /highlight >}}
 
+organization | 
+-------------|------ 
+description  | The Sensu RBAC organization that this filter belongs to.
+required     | false 
+type         | String
+default      | current organization value configured for `sensuctl` (ie `default`) 
+example      | {{< highlight shell >}}
+  "organization": "default"
+{{</ highlight >}}
+
+environment  | 
+-------------|------ 
+description  | The Sensu RBAC environment that this filter belongs to.
+required     | false 
+type         | String 
+default      | current environment value configured for `sensuctl` (ie `default`) 
+example      | {{< highlight shell >}}
+  "environment": "default"
+{{</ highlight >}}
+
 ## Filter Examples
 
 ### Handling production events
