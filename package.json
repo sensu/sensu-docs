@@ -24,5 +24,8 @@
   "dependencies": {
     "grunt-env": "^0.4.4",
     "hugo-cli": "^0.5.4"
+  },
+  "engines": {
+    "node": ">= 8"
   }
 }
