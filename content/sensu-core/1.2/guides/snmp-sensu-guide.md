@@ -31,7 +31,7 @@ sudo yum install -y net-snmp-utils{{< /highlight >}}
 - [SNMP extension Github repository][4] 
 
 # Sensu Client Configuration
-As Sensu 1.X cannot be installed on most networking gear, SNMP traps in Sensu function as [proxy clients][2]. In this example, the general flow will be as follows:
+As the Sensu monitoring agent cannot be installed on most networking gear, host that send SNMP traps in Sensu function as [proxy clients][2]. In this example, the general flow will be as follows:
 
 SNMP trap generated→ SNMP trap received by Sensu client → Sensu client sends result to transport/Sensu server → event is created
 
@@ -83,7 +83,7 @@ sudo netstat -plunt | grep 1062{{< /highlight >}}
 At this point, it’s worth noting that the configuration provided here is a basic, bare-minimum configuration. There are additional options you can add to your SNMP extension configuration to suit your needs. We cover those [here](#additional-snmp-extension-options). But to get a general sense of how SNMP traps function with Sensu, continue reading below.
 
 # Testing the SNMP Extension
-- So far, we’ve done the following:
+So far, we’ve done the following:
 - Installed the SNMP trap extension
 - Configured the extension
 - Configured the SNMP trap receiver
@@ -128,7 +128,7 @@ Which yields:
 
 You can then delete the result from the dashboard. 
 
-# Additional SNMP Extension Options (#additional-snmp-extension-options)
+# Additional SNMP Extension Options{#additional-snmp-extension-options}
 Earlier in the guide, we mentioned that there are some additional options you can configure for the SNMP trap listener. Let's take a look starting with some of the more basic ones:
 
 bind         | 
