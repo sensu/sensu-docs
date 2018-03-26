@@ -61,7 +61,7 @@ openssl version{{< /highlight >}}{{< platformBlockClose >}}
 
 2. Download the Sensu SSL tool
 {{< highlight shell >}}
-wget http://sensuapp.org/docs/1.0/files/sensu_ssl_tool.tar
+wget http://docs.sensu.io/sensu-core/1.0/files/sensu_ssl_tool.tar
 tar -xvf sensu_ssl_tool.tar
 {{< /highlight >}}
 
