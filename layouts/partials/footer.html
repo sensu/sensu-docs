@@ -1,36 +1,92 @@
-<div class="footer-content">
-  <!-- check if we need to render this at all -->
-  {{ if or (isset .Params "previous") }}
+<footer class="su-footer">
+  <img src="{{ "images/footer-symbol.png" | absURL }}" class="footer-symbol">
+  <div class="su-container">
+    <div class="su-row">
+        <div class="su-footer-left">
+        <h3>About Sensu</h3>
+          <p>Sensu is the open source monitoring platform that shines a light into every corner of every system. Backed by an open source community and used by companies you trust, Sensu’s platform makes building the monitoring solution you need possible, today.</p>
+          <div class="su-footer-left-bottom">
+            <div class="su-row">
+              <div class="-bottom-nav">
+                <h3>Navigation</h3>
+                <ul>
+                  <li><a href="https://sensuapp.io/solutions">Solutions</a></li>
+                  <li><a href="https://sensuapp.io/features">Features</a></li>
+                  <li><a href="https://sensuapp.io/pricing">Pricing</a></li>
+                  <li><a href="https://sensuapp.io/resources">Resources</a></li>
+                  <li><a href="https://sensuapp.io/community">Community</a></li>
+                  <li><a href="https://sensuapp.io/support">Support</a></li>
+                  <li><a href="https://sensuapp.io/contact">Contact</a></li>
+                </ul>
+              </div>
+              <div class="-bottom-nav">
+                <h3>Resources</h3>
+                <ul>
+                  <li><a href="https://sensuapp.io/docs">Documentation</a></li>
+                  <li><a href="https://sensuapp.io/resources/plugins">Plugins</a></li>
+                  <li><a href="https://sensuapp.io/resources/downloads">Downloads</a></li>
+                  <li><a href="https://sensuapp.io/resources/faq">FAQ</a></li>
+                </ul>
+            </div>
+              <div class="-bottom-nav">
+                <h3>Community</h3>
+                <ul>
+                  <li><a href="https://sensuapp.io/community">Community</a></li>
+                  <li><a href="https://sensuapp.io/resources/partners">Partners</a></li>
+                  <!-- <li><a href="Case Studies','case-studies'%></liCase</a>> -->
+                  <li><a href="https://blog.sensuapp.org/" target="_blank">Blog</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          </div>
+          <div class="su-footer-right">
+          <h3>Get In Touch</h3>
+          <p>Our team is here to help. Contact us here or give us a call at 1-855-99-SENSU.</p>
+          <ul class="su-footer-right-social">
+            <li><a href="https://github.com/sensu" target="_blank"><svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <g id="Solutions" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(-920.000000, -4175.000000)">
+                  <g id="Footer" transform="translate(0.000000, 4008.000000)" fill="#2C3458">
+                      <path d="M944,179.302423 C944,184.73279 940.5625,189.346199 935.796875,190.980114 C935.1875,191.092246 934.984375,190.707795 934.984375,190.387419 L934.984375,187.007457 C934.984375,185.854105 934.609375,185.117241 934.171875,184.73279 C936.84375,184.428433 939.65625,183.387212 939.65625,178.661672 C939.65625,177.316095 939.1875,176.210799 938.421875,175.361803 C938.546875,175.041428 938.953125,173.791963 938.296875,172.093972 C937.296875,171.773597 935,173.359456 935,173.359456 C934.046875,173.087137 933.015625,172.942968 932,172.942968 C930.984375,172.942968 929.953125,173.087137 929,173.359456 C929,173.359456 926.703125,171.773597 925.6875,172.093972 C925.046875,173.791963 925.453125,175.041428 925.578125,175.361803 C924.8125,176.210799 924.34375,177.316095 924.34375,178.661672 C924.34375,183.371194 927.140625,184.428433 929.8125,184.73279 C929.46875,185.053166 929.15625,185.581785 929.046875,186.382724 C928.359375,186.7031 926.609375,187.247739 925.5625,185.357522 C924.90625,184.188151 923.71875,184.092039 923.71875,184.092039 C922.546875,184.07602 923.640625,184.844921 923.640625,184.844921 C924.421875,185.213353 924.96875,186.639025 924.96875,186.639025 C925.671875,188.833598 929.015625,188.096734 929.015625,188.096734 C929.015625,189.121936 929.03125,190.099081 929.03125,190.387419 C929.03125,190.707795 928.8125,191.092246 928.203125,190.980114 C923.4375,189.346199 920,184.73279 920,179.302423 C920,172.51046 925.375,167 932,167 C938.625,167 944,172.51046 944,179.302423 Z" id=""></path>
+                  </g>
+              </g>
+          </svg>
+          </svg></a></li>
+            <li><a href="http://slack.sensu.io/" target="_blank"><svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 
-  <!-- previous -->
-  <span class="footer-previous">
-    {{ $nameSplit := split .Params.previous "/" }}
-    {{ $niceName := (index $nameSplit 1) }}
-    {{ $niceName := replace $niceName "-" " " }}
-    {{ $niceName := title $niceName }}
-    <h2><a href="{{ .Params.previous }}"><i class="fa fa-arrow-left" aria-hidden="true"></i> {{ $niceName }}</a></h2>
-  </span>
-  {{ end }}
+              <g id="Solutions" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(-970.000000, -4174.000000)">
+                  <g id="Footer" transform="translate(0.000000, 4008.000000)" fill="#2C3458">
+                      <path d="M983.558646,174.858722 C981.981445,175.389656 980.426,175.913367 978.850551,176.443791 C979.381566,178.019593 979.905426,179.574164 980.436149,181.149018 C982.013351,180.618084 983.568868,180.094373 985.144317,179.56395 C984.613229,177.988147 984.089442,176.433576 983.558646,174.858722 M987.341608,173.597015 C987.875471,175.177268 988.398382,176.725054 988.927352,178.290642 C989.756037,178.018937 990.556758,177.747669 991.363173,177.494204 C992.397094,177.169165 993.417872,177.616194 993.827396,178.558626 C994.288246,179.619546 993.796293,180.824125 992.708489,181.235696 C991.977422,181.512289 991.230584,181.747514 990.490901,182.001563 C990.405258,182.031112 990.320418,182.063069 990.205863,182.104583 C990.270843,182.306246 990.332611,182.502072 990.396862,182.697023 C990.599104,183.310913 990.820184,183.919332 991.000743,184.53957 C991.250662,185.398097 990.877426,186.300984 990.115766,186.758301 C989.350602,187.21766 988.359685,187.148348 987.740107,186.522857 C987.48201,186.262315 987.291814,185.904516 987.158276,185.557297 C986.881926,184.838635 986.664132,184.097501 986.41465,183.342724 C984.842632,183.872564 983.293175,184.39467 981.715316,184.926334 C981.780881,185.135657 981.839875,185.33214 981.903906,185.526945 C982.108631,186.149518 982.328324,186.767567 982.518155,187.394517 C982.876862,188.579689 982.220339,189.689565 981.01893,189.955652 C980.084524,190.162568 979.102077,189.628716 978.759651,188.702773 C978.491625,187.977983 978.253679,187.242175 978.0023,186.511256 C977.970101,186.417502 977.937538,186.32382 977.894972,186.200955 C977.176317,186.441068 976.471168,186.676877 975.765801,186.912175 C975.373216,187.043066 974.980924,187.128722 974.558915,187.042774 C973.695331,186.866793 973.028587,186.13799 972.956744,185.262317 C972.879935,184.327035 973.388828,183.514036 974.25964,183.211249 C974.963547,182.966612 975.674171,182.741237 976.381583,182.506669 C976.466496,182.478579 976.55024,182.446841 976.652603,182.410361 C976.123997,180.844627 975.601086,179.295966 975.0681,177.717318 C974.51102,177.900157 973.970732,178.081902 973.427451,178.254162 C973.037422,178.37783 972.650459,178.539437 972.249697,178.595763 C971.209351,178.742049 970.294513,178.107584 970.060948,177.128745 C969.815775,176.101533 970.325324,175.12138 971.318796,174.755556 C972.03548,174.491658 972.763335,174.258184 973.486153,174.010993 C973.579827,173.978964 973.673355,173.946496 973.79397,173.904836 C973.550914,173.175814 973.313845,172.461675 973.074512,171.74834 C972.9455,171.363911 972.86818,170.9797 972.952144,170.56864 C973.131023,169.693697 973.864792,169.035155 974.761961,168.966718 C975.677968,168.896895 976.483872,169.408859 976.785849,170.272931 C977.019633,170.941761 977.231952,171.618032 977.454565,172.290583 C977.494064,172.4098 977.537798,172.527559 977.585329,172.662317 C979.165889,172.133353 980.72586,171.61132 982.311677,171.080605 C982.104542,170.467809 981.897408,169.876609 981.705971,169.280375 C981.586962,168.909882 981.437652,168.53771 981.396401,168.156053 C981.286591,167.140296 981.9326,166.296142 982.949216,166.053402 C983.895304,165.827516 984.871253,166.334373 985.22244,167.268633 C985.503974,168.017355 985.744548,168.781398 986.00447,169.538291 C986.033236,169.622196 986.069012,169.703693 986.108439,169.804013 C986.874479,169.548505 987.622777,169.293362 988.374726,169.049601 C989.361919,168.729596 990.330567,169.104759 990.808575,169.982548 C991.399095,171.06718 990.889838,172.393822 989.71829,172.800431 C989.014237,173.044776 988.304123,173.27183 987.596931,173.507055 C987.520195,173.532518 987.444409,173.560608 987.341608,173.597015" id="Fill-1"></path>
+                  </g>
+              </g>
+          </svg></a></li>
+            <li><a href="https://twitter.com/sensu" target="_blank"><svg width="24px" height="20px" viewBox="0 0 24 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 
-  <!-- next -->
-  {{ if or (isset .Params "next") }}
-  <span class="footer-next">
-    {{ $nameSplit := split .Params.next "/" }}
-    {{ $niceName := (index $nameSplit 1) }}
-    {{ $niceName := replace $niceName "-" " " }}
-    {{ $niceName := title $niceName }}
-    <h2><a href="{{ .Params.next }}">{{ $niceName }} <i class="fa fa-arrow-right" aria-hidden="true"></i></a></h2>
-  </span>
-  {{ end }}
+                <g id="Solutions" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(-1017.000000, -4176.000000)">
+                    <g id="Footer" transform="translate(0.000000, 4008.000000)" fill="#2C3458">
+                        <path d="M1038.54405,172.982073 C1038.55358,173.198827 1038.55676,173.41558 1038.55676,173.633963 C1038.55676,180.306063 1033.60511,188 1024.54749,188 C1021.76566,188 1019.17936,187.16558 1017,185.729791 C1017.38469,185.778683 1017.77732,185.79987 1018.17473,185.79987 C1020.48126,185.79987 1022.60498,184.994785 1024.28997,183.638853 C1022.13604,183.601369 1020.31594,182.139505 1019.68963,180.134941 C1019.99006,180.195241 1020.30004,180.226206 1020.61796,180.226206 C1021.06464,180.226206 1021.49861,180.162647 1021.91509,180.048566 C1019.66101,179.584094 1017.96331,177.543677 1017.96331,175.099087 L1017.96331,175.035528 C1018.62777,175.410365 1019.3876,175.640156 1020.19513,175.664602 C1018.87257,174.758475 1018.00305,173.215124 1018.00305,171.463168 C1018.00305,170.537484 1018.24467,169.672099 1018.67068,168.924055 C1021.09803,171.979791 1024.72871,173.987614 1028.82037,174.201108 C1028.73612,173.83116 1028.6932,173.443286 1028.6932,173.048892 C1028.6932,170.26043 1030.89641,168 1033.61624,168 C1035.03259,168 1036.31223,168.614407 1037.20877,169.595502 C1038.33263,169.36897 1039.38495,168.948501 1040.33872,168.369948 C1039.96834,169.54824 1039.18943,170.537484 1038.17208,171.161669 C1039.16876,171.044329 1040.11776,170.770535 1041,170.367992 C1040.33872,171.381682 1039.50576,172.269883 1038.54405,172.982073" id="Fill-1"></path>
+                    </g>
+                </g>
+            </svg>
+          </a></li>
+          </ul>
+        <div class="su-footer-right-info">
+            <h3>Join Our Community</h3>
+            <p>Become a member of the Sensu community and get access to the community Slack channel, and our weekly newsletter containing updates about Sensu.</p>
+            <div class="su-footer-input-group">
+              <div id="mc_embed_signup">
+               <form action="//heavywater.us6.list-manage.com/subscribe/post?u=576e632588&amp;amp;id=2e5efd43d8" id="mc-embedded-subscribe-form" method="post" name="mc-embedded-subscribe-form" novalidate="" target="_blank">
+                 <input type="email" id="mce-EMAIL" name="EMAIL" placeholder="Your Email" class="su-input">
+                 <button class="su-button" type="submit" id="mce-embedded-subscribe">Sign Up!</button>
+               </form>
+             </div>
+            </div>
+          </div>
+          </div>
+      </div>
 
-  <!-- Thanks to the theme, maybe move stuff like this to a single page -->
-  <aside class="copyright" role="note">
-    {{ with .Site.Params.copyright }}
-      &copy; {{ now.Format "2006" }} {{ . }} &ndash;
-    {{ end }}
-    Documentation built with
-    <a href="https://www.gohugo.io" target="_blank">Hugo</a>
-    using the
-    <a href="http://github.com/digitalcraftsman/hugo-material-docs" target="_blank">Material</a> theme.
-  </aside>
-</div>
+  </div>
+  <div class="su-footer-bottom">
+    <p>Made with <a href="https://twitter.com/hashtag/monitoringlove" target="_blank">#monitoringlove</a> by Sensu, Inc. © 2013-2018</p>
+  </div>
+</footer>

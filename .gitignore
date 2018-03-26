@@ -40,3 +40,6 @@ node_modules/
 public/
 *.swp
 static/js/lunr/PagesIndex.json
+mix-manifest.json
+scss/
+webpack.mix.js

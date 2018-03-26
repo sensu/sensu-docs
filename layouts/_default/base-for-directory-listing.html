@@ -27,10 +27,7 @@
       <h1>{{ .Title }} {{ if .IsDraft }} (Draft){{ end }}</h1>
         
         {{ .Content }}
-        
-      <footer class="footer">
-        {{ partial "footer" . }}
-      </footer>
+      
     </div>
   </article>
 
@@ -43,6 +40,10 @@
     </div>
   </div>
 </main>
+
+<footer class="footer">
+  {{ partial "footer" . }}
+</footer>
 
 {{ partial "footer_js" . }}
 
