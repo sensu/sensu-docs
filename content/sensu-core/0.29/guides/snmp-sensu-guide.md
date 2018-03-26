@@ -2,7 +2,7 @@
 title: "How to Monitor Devices With Sensu's SNMP Receiver Extension"
 product: "Sensu Core"
 version: "0.29"
-weight: 1
+weight: 7
 menu:
  sensu-core-0.29:
    parent: guides
