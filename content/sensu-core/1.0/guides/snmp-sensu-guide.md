@@ -1,10 +1,10 @@
 ---
 title: "How to Monitor Devices With Sensu's SNMP Receiver Extension"
 product: "Sensu Core"
-version: "1.2"
+version: "1.0"
 weight: 1
 menu:
- sensu-core-1.2:
+ sensu-core-1.0:
    parent: guides
 ---
 
@@ -251,7 +251,7 @@ Congratulations! You've successfully set up Sensu to act as an SNMP trap receive
 
 While in this guide we're relying on Sensu to act as a receiver with hosts sending traps to it, there is also the [Sensu SNMP check plugin][5], which allows Sensu to poll a device for some basic metrics and checks. This allows for some flexibility in how you choose to use Sensu to monitor devices using SNMP.  
 
-Hopefully you've found this useful! If you find any issues or question, feel free to reach out in our [Community Slack][6], or [open an issue][7] on Github.    
+Hopefully you've found this useful! If you find any issues or question, feel free to reach out in our [Community Slack][6], or [open an issue][7] on Github.
 
 [1]: /sensu-core/latest/quick-start/five-minute-install/
 [2]: /sensu-core/latest/reference/clients/#reference-documentation
