@@ -6,8 +6,8 @@ metadataformat = "yaml"
 canonifyURLs = true
 # Enable Google Analytics by entering your tracking id
 googleAnalytics = "UA-39138312-17"
-
-pygmentsUseClasses=true
+enableRobotsTXT = true
+pygmentsUseClasses = true
 ignoreFiles = [ "sensu-doc-template.md" ]
 
 [["menu.sensu-core-1.0"]]
