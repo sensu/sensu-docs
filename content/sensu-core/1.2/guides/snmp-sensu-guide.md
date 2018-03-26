@@ -1,10 +1,10 @@
 ---
-title: "How to Monitor Devices With Sensu's SNMP Receiver Integration"
-product: "Sensu Enterprise"
-version: "2.8"
+title: "How to Monitor Devices With Sensu's SNMP Receiver Extension"
+product: "Sensu Core"
+version: "1.2"
 weight: 1
 menu:
- sensu-enterprise-2.8:
+ sensu-core-1.2:
    parent: guides
 ---
 
@@ -12,8 +12,6 @@ menu:
 - Set up a Sensu client as an SNMP trap receiver
 - Send a test SNMP trap to simulate a real world circumstance
 - Demonstrate the results of the SNMP trap test in Sensu Enterprise Dashboard
-
-_NOTE: This guide applies only to Sensu Enterprise._ 
 
 # Prerequisites
 A working Sensu deployment including sensu-enterprise, sensu-client, and transport/datastore components
@@ -27,7 +25,7 @@ For installing the `snmptrap` command, you’ll want to run the following to ins
 sudo yum install -y net-snmp-utils{{< /highlight >}}
 
 # Additional Resources
-- The [SNMP][3] documentation on the Sensu Docs site
+- DigitalOcean's [Intro to SNMP](3)
 - [SNMP extension Github repository][4] 
 
 # Sensu Client Configuration
@@ -68,9 +66,9 @@ sudo chown sensu. /etc/sensu/mibs{{< /highlight >}}
 
 This directory is where the SNMP extension will look for any MIB files used to translate the trap OIDs into something that’s readable by humans...unless you know what your OID means off the top of your head. 
 
-Keep in mind that while Sensu does ship with several MIBs, you’ll need to ensure that you place the MIB provided by your device manufacturer in directory above. If you already have MIBs present in another location, you can override the default location by specifying the the `mibs_dir` or `imported_dir` attributes in your `snmp_trap.json` configuration file.
+You’ll need to ensure that you place the MIB provided by your device manufacturer in directory above. If you already have MIBs present in another location, you can override the default location by specifying the the `mibs_dir` or `imported_dir` attributes in your `snmp_trap.json` configuration file.
 
-_WARNING: Before proceeding any further, you’ll need to restart your `sensu-client` process_
+_WARNING: Before proceeding any further, you’ll need to restart your `sensu-client` process so that the configuration is loaded._
 
 {{< highlight shell >}}
 sudo systemctl restart sensu-client{{< /highlight >}}
@@ -245,8 +243,21 @@ The configurable result status map allows you to define SNMP trap varbind to num
 
 Configuring a result status map does not replace the built-in mappings, the configured mappings take precedence over them.
 
+# Wrapping Up
+Congratulations! You've successfully set up Sensu to act as an SNMP trap receiver. To recap, we covered the following:
+- Setting up a Sensu client as an SNMP trap receiver
+- Sending a test SNMP trap to simulate a real world circumstance
+- Demonstrating the results of the SNMP trap test in Sensu Enterprise Dashboard
+
+While in this guide we're relying on Sensu to act as a receiver with hosts sending traps to it, there is also the [Sensu SNMP check plugin][5], which allows Sensu to poll a device for some basic metrics and checks. This allows for some flexibility in how you choose to use Sensu to monitor devices using SNMP.  
+
+Hopefully you've found this useful! If you find any issues or question, feel free to reach out in our [Community Slack][6], or [open an issue][7] on Github.
+
 [1]: /sensu-core/latest/quick-start/five-minute-install/
 [2]: /sensu-core/latest/reference/clients/#reference-documentation
-[3]: ../../../latest/integrations/snmp/#overview
+[3]: https://www.digitalocean.com/community/tutorials/an-introduction-to-snmp-simple-network-management-protocol
 [4]: https://github.com/sensu-extensions/sensu-extensions-snmp-trap
+[5]: https://github.com/sensu-plugins/sensu-plugins-snmp
+[6]: https://slack.sensu.io
+[7]: https://github.com/sensu/sensu-docs/issues/new
 
