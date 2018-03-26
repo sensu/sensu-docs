@@ -11,13 +11,14 @@ menu:
 # Objectives
 - Set up a Sensu client as an SNMP trap receiver
 - Send a test SNMP trap to simulate a real world circumstance
-- Demonstrate the results of the SNMP trap test in Sensu Enterprise Dashboard
+- Demonstrate the results of the SNMP trap test in Uchiwa/Sensu Enterprise Dashboard
 
 # Prerequisites
-A working Sensu deployment including sensu-server/sensu-api (or sensu-enterprise), sensu-client, and transport/datastore components
-`snmptrap` command installed on a Linux device (we’ll use CentOS 7)
+- A working Sensu deployment including sensu-server/sensu-api (or sensu-enterprise), sensu-client, and transport/datastore components
+- [Uchiwa][1], or [Sensu Enterprise Dashboard][2] installed and configured
+- `snmptrap` command installed on a Linux device (we’ll use CentOS 7) 
 
-If you don’t have Sensu spun up yet, we encourage you to go through our [5 minute install guide][1].
+If you don’t have Sensu spun up yet, we encourage you to go through our [5 minute install guide][3].
 
 For installing the `snmptrap` command, you’ll want to run the following to install the command on a CentOS/RHEL device:
 
@@ -25,11 +26,11 @@ For installing the `snmptrap` command, you’ll want to run the following to ins
 sudo yum install -y net-snmp-utils{{< /highlight >}}
 
 # Additional Resources
-- DigitalOcean's [Intro to SNMP](3)
-- [SNMP extension Github repository][4] 
+- DigitalOcean's [Intro to SNMP](4)
+- [SNMP extension Github repository][5] 
 
 # Sensu Client Configuration
-As the Sensu monitoring agent cannot be installed on most networking gear, host that send SNMP traps in Sensu function as [proxy clients][2]. In this example, the general flow will be as follows:
+As the Sensu monitoring agent cannot be installed on most networking gear, host that send SNMP traps in Sensu function as [proxy clients][6]. In this example, the general flow will be as follows:
 
 SNMP trap generated→ SNMP trap received by Sensu client → Sensu client sends result to transport/Sensu server → event is created
 
@@ -248,17 +249,19 @@ Congratulations! You've successfully set up Sensu to act as an SNMP trap receive
 
 - Setting up a Sensu client as an SNMP trap receiver
 - Sending a test SNMP trap to simulate a real world circumstance
-- Demonstrating the results of the SNMP trap test in Sensu Enterprise Dashboard
+- Demonstrating the results of the SNMP trap test in Uchiwa/Sensu Enterprise Dashboard
 
-While in this guide we're relying on Sensu to act as a receiver with hosts sending traps to it, there is also the [Sensu SNMP check plugin][5], which allows Sensu to poll a device for some basic metrics and checks. This allows for some flexibility in how you choose to use Sensu to monitor devices using SNMP.  
+While in this guide we're relying on Sensu to act as a receiver with hosts sending traps to it, there is also the [Sensu SNMP check plugin][7], which allows Sensu to poll a device for some basic metrics and checks. This allows for some flexibility in how you choose to use Sensu to monitor devices using SNMP.  
 
-Hopefully you've found this useful! If you find any issues or question, feel free to reach out in our [Community Slack][6], or [open an issue][7] on Github.
+Hopefully you've found this useful! If you find any issues or question, feel free to reach out in our [Community Slack][8], or [open an issue][9] on Github.
 
-[1]: /sensu-core/latest/quick-start/five-minute-install/
-[2]: /sensu-core/latest/reference/clients/#reference-documentation
-[3]: https://www.digitalocean.com/community/tutorials/an-introduction-to-snmp-simple-network-management-protocol
-[4]: https://github.com/sensu-extensions/sensu-extensions-snmp-trap
-[5]: https://github.com/sensu-plugins/sensu-plugins-snmp
-[6]: https://slack.sensu.io
-[7]: https://github.com/sensu/sensu-docs/issues/new
+[1]: https://docs.uchiwa.io/
+[2]: /sensu-core/latest/platforms/sensu-on-rhel-centos/#sensu-on-rhel-centos
+[3]: /sensu-core/latest/quick-start/five-minute-install/
+[4]: https://www.digitalocean.com/community/tutorials/an-introduction-to-snmp-simple-network-management-protocol
+[5]: https://github.com/sensu-extensions/sensu-extensions-snmp-trap
+[6]: /sensu-core/latest/reference/clients/#reference-documentation
+[7]: https://github.com/sensu-plugins/sensu-plugins-snmp
+[8]: https://slack.sensu.io
+[9]: https://github.com/sensu/sensu-docs/issues/new
 
