@@ -144,4 +144,4 @@ once per hour.
   }
 }{{< /highlight >}}
 
-[1]:  ../reference/filters/
+[1]:  ../../reference/filters/
