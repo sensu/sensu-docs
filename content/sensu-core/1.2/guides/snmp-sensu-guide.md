@@ -14,7 +14,7 @@ menu:
 - Demonstrate the results of the SNMP trap test in Sensu Enterprise Dashboard
 
 # Prerequisites
-A working Sensu deployment including sensu-enterprise, sensu-client, and transport/datastore components
+A working Sensu deployment including sensu-server/sensu-api (or sensu-enterprise), sensu-client, and transport/datastore components
 `snmptrap` command installed on a Linux device (we’ll use CentOS 7)
 
 If you don’t have Sensu spun up yet, we encourage you to go through our [5 minute install guide][1].
@@ -245,6 +245,7 @@ Configuring a result status map does not replace the built-in mappings, the conf
 
 # Wrapping Up
 Congratulations! You've successfully set up Sensu to act as an SNMP trap receiver. To recap, we covered the following:
+
 - Setting up a Sensu client as an SNMP trap receiver
 - Sending a test SNMP trap to simulate a real world circumstance
 - Demonstrating the results of the SNMP trap test in Sensu Enterprise Dashboard
