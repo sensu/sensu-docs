@@ -16,7 +16,7 @@
 .project:hover {
   -webkit-transition: color .25s;
   transition: color .25s;
-  color: #81C000;
+  color: #89C967;
 }
 
 .palette-primary-green {
@@ -29,20 +29,20 @@
 }
 
 .palette-primary-green .drawer .toc a.current,.palette-primary-green .drawer .toc a:focus,.palette-primary-green .drawer .toc a:hover {
-  color: #81C000;
+  color: #89C967;
 }
 
 .palette-primary-green .drawer .anchor a {
-  border-left: 2px solid #81C000;
+  border-left: 2px solid #89C967;
 }
 
 .ios.standalone .palette-primary-green .article {
-  background: -webkit-linear-gradient(top,#fff 50%,#81C000 0);
-  background: linear-gradient(180deg,#fff 50%,#81C000 0);
+  background: -webkit-linear-gradient(top,#fff 50%,#89C967 0);
+  background: linear-gradient(180deg,#fff 50%,#89C967 0);
 }
 
 .palette-primary-green .article a,.palette-primary-green .article h1,.palette-primary-green .article h2 {
-  color: #81C000;
+  color: #89C967;
 }
 
 .palette-primary-green .article .headerlink {
@@ -50,7 +50,7 @@
 }
 
 .palette-primary-green .article table th {
-  background: #81C000;
+  background: #89C967;
   font-size: 20px;
   font-weight: 200;
   //display: table-caption;
@@ -59,7 +59,7 @@
 }
 
 .palette-primary-green .results .meta {
-  background: #81C000;
+  background: #89C967;
 }
 
 .palette-accent-green .article a:focus,.palette-accent-green .article a:hover {
@@ -76,12 +76,9 @@
 }
 
 pre code {
-  //color: #81C000 !important;
+  //color: #89C967 !important;
 }
 
-article code {
-  background: #f0f0f0 !important;
-}
 
 p code, li code, td code, h1 code, h2 code, h3 code, h4 code, h5 code, h6 code {
   color: #000080 !important;
@@ -199,12 +196,6 @@ table tr td:first-child {
 
 table pre {
   max-width: 720px;
-}
-
-.highlight {
-  margin-top: -17px;
-  margin-right: 25px;
-  margin-left: 25px;
 }
 
 .article pre code {
@@ -369,9 +360,9 @@ a .project {
 
 /* Sidebar Stuff ----------------------------------------------------------------- */
 
-.drawer .scrollable .wrapper .toc {
+/*.drawer .scrollable .wrapper .toc {
   margin: 0;
-}
+}*/
 
 .project .banner {
   margin-bottom: -20px;
@@ -381,7 +372,7 @@ a .project {
  //width: 1360px;
 }
 
-.drawer .toc li a.menu-title {
+/*.drawer .toc li a.menu-title {
   font-size: 19px;
   padding: 10px;
   padding-left: 5px;
@@ -392,7 +383,7 @@ a .project {
   font-size: 17px;
   font-weight: 100 !important;
   padding: 5px;
-}
+}*/
 
 .project .logo+.name {
   padding-left: 15px;
@@ -413,7 +404,7 @@ a .project {
   width: 380px;
 }
 
-nav .scrollable {
+/*nav .scrollable {
   margin-bottom: 160px;
 }
 
@@ -424,7 +415,7 @@ nav .scrollable {
 
 .repo {
   margin-top: 10px;
-}
+}*/
 
 #productVersionDrawerHolder {
   opacity: 0;
@@ -592,7 +583,7 @@ button.accordion.active, button.accordion:hover {
 }
 
 .landingButton {
-  border: 1px solid #81C000;
+  border: 1px solid #89C967;
   display: inline-block;
   width: 200px;
   height: 100px;
@@ -696,25 +687,67 @@ button.accordion.active, button.accordion:hover {
     font-size: 22px;
   }
 
+  #productVersionNav {
+    opacity: 0;
+    transform: scale(0.01);
+  }
+
+  #productVersionDrawerHolder {
+    opacity: 1;
+    transform: scale(1);
+    padding-top: 15px;
+    display: block;
+    background-color: white;
+    height: 110px;
+    margin-top: 20px;
+  }
+
+  #productVersionDrawerHolder .buttonHolder {
+    display: block;
+  }
+
+  #productButtonDrawer {
+    margin: 0 20px;
+    width: 200px;
+    font-size: 14px;
+  }
+  
+  #versionButtonDrawer {
+    margin: 30px 10px 0 20px;
+    font-size: 14px;
+  }
+
+  #productButtonDrawer .hiddenItem a, #versionButtonDrawer .hiddenItem a {
+    display: block;
+  }
+
+  .productButtonTitleDrawer, .versionButtonTitleDrawer {
+    display: block;
+  }
+
+  .productButtonTitleDrawer a, .versionButtonTitleDrawer a {
+    padding: 10px;
+    display: block;
+  }
+
+  .hiddenProductsDrawer, .hiddenversionsDrawer {
+    position: relative;
+  }
+
+  #specialDivider {
+    margin-top: 80px;
+  }
+
   #results.query.resultsList li {
-    padding: 10px 28px;
+    padding: 10px 25px;
   }
 
-  #productVersionNav #productButton, #productVersionNav #versionButton {
-    font-size: 16px;
+  .product-holder {
+    height: 200px;
   }
-
-  #productVersionNav #productButton a, #productVersionNav #versionButton a {
-    padding: 5px;
-  }
-
-  #productVersionNav #productButton {
-    width: 250px;
-  }
-
-  #productVersionNav #versionButton {
-    margin-left: 260px;
-    width: 90px;
+  
+  #results.query.resultsList {
+    top: 50px;
   }
 
   .versionBanner {
@@ -833,29 +866,12 @@ button.accordion.active, button.accordion:hover {
     font-size: 18px;
   }
 
-  #results.query.resultsList li {
-    padding: 10px 28px;
-  }
-
-  #productVersionNav .buttonHolder {
-    padding-left: 0;
-  }
-
-  #productVersionNav #productButton, #productVersionNav #versionButton {
-    font-size: 12px;
-  }
-
-  #productVersionNav #productButton a, #productVersionNav #versionButton a {
-    padding: 5px;
+  .product-holder {
+    height: 200px;
   }
   
-  #productVersionNav #productButton {
-    width: 190px;
-  }
-
-  #productVersionNav #versionButton {
-    margin-left: 200px;
-    width: 70px;
+  #results.query.resultsList {
+    top: 50px;
   }
 
   .versionBanner {

@@ -282,7 +282,7 @@ Checks are scheduled normally, but by specifying a [**Proxy Request**][13] in yo
     }
   }{{< /highlight >}}
 
-[1]:  ../reference/checks
+[1]:  ../../reference/checks
 [2]:  https://github.com/sensu-plugins/sensu-plugins-process-checks
 [3]:  #check-cron-install-dependencies
 [4]:  http://graphite.readthedocs.org/en/latest/feeding-carbon#the-plaintext-protocol/
@@ -291,8 +291,8 @@ Checks are scheduled normally, but by specifying a [**Proxy Request**][13] in yo
 [7]:  http://metrics20.org/spec/
 [8]:  https://github.com/sensu-plugins/sensu-plugins-cpu-checks
 [9]:  #cpu-metrics-install-dependencies
-[10]: ../reference/events#what-are-sensu-events/
+[10]: ../../reference/events#what-are-sensu-events/
 [11]: #metric-collection-checks
 [12]: https://github.com/sensu-plugins/sensu-plugins-graphite
-[13]: ../reference/checks#proxy-requests-attributes/
+[13]: ../../reference/checks#proxy-requests-attributes/
 [14]: ..adding-a-client#proxy-clients/

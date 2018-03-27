@@ -32,10 +32,6 @@
         {{ partial "platformDropdown.html" . }}
       {{ end }}
       {{ .Content }}
-
-      <footer class="footer">
-        {{ partial "footer" . }}
-      </footer>
     </div>
   </article>
 
@@ -48,6 +44,11 @@
     </div>
   </div>
 </main>
+
+<footer class="footer">
+  {{ partial "footer" . }}
+</footer>
+
 
 {{ $product := .Section }}
 {{ $product2 := replace $product "-" "_" }}

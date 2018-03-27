@@ -239,8 +239,8 @@ changes. Sensu Enterprise can be reloaded._
   }
 }{{< /highlight >}}
 
-[1]:  ../reference/handlers/
-[2]:  ../reference/events/
+[1]:  ../../reference/handlers/
+[2]:  ../../reference/events/
 [3]:  ../intro-to-checks#install-dependencies/
 [4]:  #install-dependencies
 [5]:  ../intro-to-checks#create-the-check-definition-for-cron/

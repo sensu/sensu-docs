@@ -1,5 +1,5 @@
 :root {
---color-1: #244073; /* sensu core*/
+--color-1: #2C3458; /* sensu core*/
 --color-1-hover: #072D71;
 
 --color-2: #448E2D; /* sensu enterprise */
@@ -123,55 +123,28 @@
   background: var(--color-1);
 }
 
-#product-sensu-core > .mask {
-  background: var(--color-1-hover);
-  background-image: url(/images/swirl.png) !important;
-}
-
 #product-sensu-enterprise {
   background: var(--color-2);
-}
-
-#product-sensu-enterprise > .mask {
-  background: var(--color-2-hover);
-  background-image: url(/images/white-diamond.png) !important;
 }
 
 #product-sensu-enterprise-dashboard {
   background: var(--color-3);
 }
 
-#product-sensu-enterprise-dashboard > .mask {
-  background-image: url(/images/cubes.png) !important;
-  background-color: var(--color-3-hover);
-}
-
 #product-uchiwa {
   background: var(--color-4);
 }
 
-#product-uchiwa > .mask {
-  background-image: url(/images/random-grey-variations.png) !important;
-  background-color: var(--color-4-hover);
-}
 
 #product-plugins {
   background: var(--color-5);
 }
 
-#product-plugins > .mask {
-  background-image: url(/images/black-thread.png) !important;
-  background-color: var(--color-5-hover);
-}
 
 #product-extensions {
  background: var(--color-6);
 }
 
-#product-extensions > .mask {
-background-image: url(/images/subtle-zebra-3d.png) !important;
-background-color: var(--color-6-hover);
-}
 
 /* Media Queries ----------------------------------------------------------------- */
 
