@@ -32,17 +32,17 @@ SNMP configurations.
 
 SNMPv1 MIBs:
 
-- [RFC-1212-MIB.txt](/files/RFC-1212-MIB.txt)
+- [RFC-1212-MIB.txt](../../files/RFC-1212-MIB.txt)
 
-- [RFC-1215-MIB.txt](/files/RFC-1215-MIB.txt)
+- [RFC-1215-MIB.txt](../../files/RFC-1215-MIB.txt)
 
-- [SENSU-ENTERPRISE-V1-MIB.txt](/files/SENSU-ENTERPRISE-V1-MIB.txt)
+- [SENSU-ENTERPRISE-V1-MIB.txt](../../files/SENSU-ENTERPRISE-V1-MIB.txt)
 
 SNMPv2 MIBs:
 
-- [SENSU-ENTERPRISE-ROOT-MIB.txt](/files/SENSU-ENTERPRISE-ROOT-MIB.txt)
+- [SENSU-ENTERPRISE-ROOT-MIB.txt](../../files/SENSU-ENTERPRISE-ROOT-MIB.txt)
 
-- [SENSU-ENTERPRISE-NOTIFY-MIB.txt](/files/SENSU-ENTERPRISE-NOTIFY-MIB.txt)
+- [SENSU-ENTERPRISE-NOTIFY-MIB.txt](../../files/SENSU-ENTERPRISE-NOTIFY-MIB.txt)
 
 ## Configuration
 
