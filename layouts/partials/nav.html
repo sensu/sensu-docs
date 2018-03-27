@@ -28,13 +28,12 @@
           <!-- ex. Sensu Core -->
           {{ $url := replace $.Params.product " " "-" }}
           {{ $url := lower $url }}
-          <li><a class="menu-title" href="/{{ $url }}/{{ $.Params.version }}">{{ $niceName }}</a><ul class="panel">
+          <li><a class="menu-title" href="/{{ $url }}/{{ $.Params.version }}">{{ $niceName }}</a><ul class="toc-menu-container">
 
           <!-- Loop through the menus pages -->
           {{ range $y, $x := $v }}
-            
-            <!-- Determine if one the children of this menu is active so we can
-            apply the proper styling -->
+
+          <!-- Determine if one the children of this menu is active so we can apply the proper styling -->
             {{ $isCurrent := ($currentNode.HasMenuCurrent $k $x) }}
 
             <!-- if the menu has a child menu -->
@@ -46,11 +45,11 @@
                 <!-- saving the menu as API breaks it in the front matter, so we need to format it here -->
                 {{ if or (eq $niceName "Api") (eq $niceName "Rbac") }}
                   {{ $niceName := upper $niceName }}
-                  <li><a class="menu-title accordion {{ if $isCurrent }}current{{ end }}">{{ $niceName }}<span class="menu-dropdown-icon"><i class="fa fa-chevron-down" aria-hidden="true"></i></span></a>
+                  <li><a class="menu-title accordion {{ if $isCurrent }}current{{ end }}">{{ $niceName }}<span class="menu-dropdown-icon oc-toggle -angle-down toc-show"><i class="fa fa-chevron-down" aria-hidden="true"></i></span></a>
 
                 <!-- render the title normally if not API -->
                 {{ else }}
-                  <li><a class="menu-title accordion {{ if $isCurrent }}current{{ end }}">{{ $niceName }}<span class="menu-dropdown-icon"><i class="fa fa-chevron-down" aria-hidden="true"></i></span></a>
+                  <li><a class="menu-title accordion {{ if $isCurrent }}current{{ end }}">{{ $niceName }}<span class="menu-dropdown-icon toc-toggle -angle-down toc-show"><i class="fa fa-chevron-down" aria-hidden="true"></i></span></a>
                 {{ end }}
                 <ul class="panel" {{ if $isCurrent }}style="display: block;"{{ end }}>
 
@@ -87,6 +86,7 @@
 
   for (i = 0; i < acc.length; i++) {
       acc[i].onclick = function(){
+
           /* Toggle between adding and removing the "active" class,
           to highlight the button that controls the panel */
           this.classList.toggle("active");
@@ -95,8 +95,12 @@
           var panel = this.nextElementSibling;
           if (panel.style.display === "block") {
               panel.style.display = "none";
+              this.firstElementChild.classList.remove('toc-hide');
+              this.firstElementChild.classList.add('toc-show');
           } else {
               panel.style.display = "block";
+              this.firstElementChild.classList.remove('toc-show');
+              this.firstElementChild.classList.add('toc-hide');
           }
       }
   }

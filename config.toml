@@ -25,8 +25,8 @@ ignoreFiles = [ "sensu-doc-template.md" ]
 	repo_url = "https://github.com/sensu/sensu-docs"
 
 	version = "1.0"
-	logo = "images/sensu-logo-green.png"
-	favicon = "images/logo-flat-black.png"
+	logo = "images/sensu-logo-icon-dark@2x.png"
+	favicon = "images/favicon.png"
 
 	permalink = "#"
 

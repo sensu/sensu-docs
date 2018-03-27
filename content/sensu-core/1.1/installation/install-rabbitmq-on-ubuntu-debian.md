@@ -78,7 +78,8 @@ be a reason to upgrade RabbitMQ versions frequently._
 ## Managing the RabbitMQ service/process
 
 1. To enable the RabbitMQ service, you'll need to install its init scripts using
-   the `update-rc.d` utility:
+   the `update-rc.d` utility (if you are using Ubuntu 16.04+ you will need to 
+   use `systemctl` instead):
 
    {{< highlight shell >}}
    sudo update-rc.d rabbitmq-server enable{{< /highlight >}}

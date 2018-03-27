@@ -5,7 +5,7 @@ version: "0.29"
 menu: "sensu-core-0.29"
 product: "Sensu Core"
 ---
-# Sensu Frequently Asked Questions
+## Sensu Frequently Asked Questions
 
 Please note the following frequently asked questions about Sensu Core, Sensu
 Enterprise, Sensu Training, Professional Services for Sensu, and more. If you
