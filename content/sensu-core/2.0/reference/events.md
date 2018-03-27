@@ -11,13 +11,13 @@ menu:
 ---
 ## How do Events work?
 
-A Sensu Event is created every time a check result is processed by the Sensu server,
-regardless of the status indicated by the check result. An Event is created by 
+A Sensu event is created every time a check result is processed by the Sensu server,
+regardless of the status indicated by the check result. An event is created by 
 the agent on receipt of the check execution result. The agent will execute any configured
 [hooks][4] the check might have. From there, it is forwarded to the Sensu backend 
-for processing. Potentially noteworthy Events may be processed by one or more 
-Event handlers to do things such as send an email or invoke an automated action. 
-Every Sensu Event provides context, called “Event data”, which contains 
+for processing. Potentially noteworthy events may be processed by one or more 
+event handlers to do things such as send an email or invoke an automated action. 
+Every Sensu Event provides context, called “event data”, which contains 
 information about the originating entity and the corresponding check result.
 
 ## Events specification
@@ -25,13 +25,13 @@ information about the originating entity and the corresponding check result.
 ### Attributes
 timestamp    | 
 -------------|------ 
-description  | The time of the Event occurrence in eopoch time. 
+description  | The time of the Event occurrence in epoch time. 
 type         | integer 
 example      | {{< highlight shell >}}"timestamp": 1522099512{{</ highlight >}}
 
 silenced     | 
 -------------|------ 
-description  | If the Event is to be silenced. 
+description  | If the event is to be silenced. 
 type         | boolean 
 example      | {{< highlight shell >}}"silenced": false{{</ highlight >}}
 
@@ -90,7 +90,7 @@ example      | {{< highlight json >}}
     "deregister": false,
     "deregistration": {},
     "environment": "default",
-    "id": "example-agent",
+    "id": "example-entity",
     "keepalive_timeout": 120,
     "organization": "default",
     "redact": [
@@ -139,52 +139,114 @@ example      | {{< highlight json >}}
   }
 {{</ highlight >}}
 
-## Examples
+## Example event data
 
-### List all Events
-With sensuctl, you can output a list of the most recent check events for a high
-level status overview of monitored entities.
-{{< highlight shell >}}
-$ sensuctl event list
-      Entity           Check                     Output                     Status    Silenced             Timestamp
- ───────────── ────────────────── ──────────────────────────  ──────── ────────── ───────────────────────────────
- example.hostname     example-http       CheckHttpResponseTime OK: 1669       0         false       2018-03-26 22:38:36 +0000 UTC 
-
+{{< highlight json >}}
+  {
+    "timestamp": 1522170515,
+    "entity": {
+      "class": "agent",
+      "deregister": false,
+      "deregistration": {},
+      "environment": "default",
+      "id": "example-entity",
+      "keepalive_timeout": 120,
+      "organization": "default",
+      "redact": [
+        "password",
+        "passwd",
+        "pass",
+        "api_key",
+        "api_token",
+        "access_key",
+        "secret_key",
+        "private_key",
+        "secret"
+      ],
+      "subscriptions": [
+        "web",
+        "entity:example-entity"
+      ],
+      "system": {
+        "hostname": "example-entity",
+        "os": "linux",
+        "platform": "ubuntu",
+        "platform_family": "debian",
+        "platform_version": "16.04",
+        "network": {
+          "interfaces": [
+            {
+              "name": "lo",
+              "addresses": [
+                "127.0.0.1/8",
+                "::1/128"
+              ]
+            },
+            {
+              "name": "eth0",
+              "mac": "52:54:00:20:1b:3c",
+              "addresses": [
+                "192.168.1.1/25",
+                "fd9e:a92d:eddd:12d1:119/10"
+              ]
+            }
+          ]
+        },
+        "arch": "amd64"
+      },
+      "user": "agent"
+    },
+    "check": {
+      "check_hooks": null,
+      "command": "check-http-response-time.rb -a example.com -C 5000 -w 3000",
+      "duration": 2.033888684,
+      "environment": "default",
+      "executed": 1522170513,
+      "handlers": [
+        "example-handler"
+      ],
+      "high_flap_threshold": 0,
+      "history": [
+        {
+          "executed": 1522169313
+        },
+        {
+          "executed": 1522169613
+        },
+        {
+          "executed": 1522169913
+        },
+        {
+          "executed": 1522170213
+        },
+        {
+          "executed": 1522170513
+        }
+      ],
+      "interval": 300,
+      "last_ok": 1522170515,
+      "low_flap_threshold": 0,
+      "name": "example-http-check",
+      "occurrences": 1,
+      "occurrences_watermark": 1,
+      "organization": "default",
+      "output": "CheckHttpResponseTime OK: 1771 is acceptable\n",
+      "proxy_entity_id": "",
+      "publish": true,
+      "round_robin": false,
+      "runtime_assets": [],
+      "state": "passing",
+      "status": 0,
+      "stdin": false,
+      "subdue": null,
+      "subscriptions": [
+        "web"
+      ],
+      "timeout": 30,
+      "total_state_change": 0
+    }
+  }
 {{</ highlight >}}
-
-### Event info
-To get more info on an event, such as more detailed status history, run sensuctl
-event [ENTITY] [CHECK]:
-{{< highlight shell >}}
-$ sensuctl event info example.hostname example-http 
-=== example.hostname - example-http 
-Entity:    exmample.hostname 
-Check:     example-http
-Output:    CheckHttpResponseTime OK: 1042 is acceptable
-Status:    0
-History:   0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-Silenced:  false
-Timestamp: 2018-03-26 23:34:55 +0000 UTC
-{{</ highlight >}}
-
-### Manual Event Resolution
-
-In Sensu 1.x, we offer manual Event resolution through the POST /resolve endpoint. In Sensu 2.x, POST /Events can do that and more!
-
-If you want to use sensuctl to manually resolve an Event, the `resolve` subcommand will resolve the output and set the status to 0.
-
-{{< highlight shell >}}
-$ sensuctl event resolve apollo-11 moon-landing
-
-$ sensuctl event info apollo-11 moon-landing
-== apollo-11 - moon-landing
-Entity:    apollo-11
-Check:     moon-landing
-Output:    Resolved Manually by sensuctl
-Status:    0
-History:   0,1,0,1,0
-Timestamp: 1969-07-20 14:10:32 -0600 CST
-{{< /highlight >}}
 
 [1]: ../checks/#check-attributes
 [2]: ../entities/#entity-attributes
