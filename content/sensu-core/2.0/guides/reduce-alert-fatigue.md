@@ -59,10 +59,10 @@ The default location of these logs varies based on the platform used, but the
 [installation and configuration][2] documentation provides this information.
 
 Whenever an event is being handled, a log entry is added with the message
-`sending event: {...} to handler: mail`, followed by a second one with the
-message `pipelined executed event pipe handler: status=0 output=`. However, if
-the event is being discarded by our filter, a log entry with the message `event
-filtered` will appear instead.
+`"handler":"mail","level":"debug","msg":"sending event to handler"`, followed by
+a second one with the message `"msg":"pipelined executed event pipe
+handler","output":"","status":0`. However, if the event is being discarded by
+our filter, a log entry with the message `event filtered` will appear instead.
 
 ## Next steps
 
