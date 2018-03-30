@@ -2,7 +2,7 @@
 title: "Scaling Sensu"
 description: "Strategies and best practices for scaling Sensu"
 version: "0.29"
-weight: 5
+weight: 9
 menu:
   sensu-core-0.29:
     parent: guides
