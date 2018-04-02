@@ -20,25 +20,27 @@ In this guide, we'll walk you through the best practices and strategies for secu
 
 We'll cover the following in this guide:
 
-  - [Securing Sensu](#securing-sensu)
-    - [The `client_signature` Attribute](#the-clientsignature-attribute)
-    - [The `redact` Attribute](#the-redact-attribute)
-  - [Securing Dashboards](#securing-dashboards)
-    - [Securing Uchiwa](#securing-uchiwa)
-    - [Securing Sensu Enterprise Dashboards](#securing-sensu-enterprise-dashboards)
-  - [Securing RabbitMQ](#securing-rabbitmq)
-    - [Minimum Viable Permissions](#minimum-viable-permissions)
-    - [SSL/TLS Configuration](#ssltls-configuration)
-  - [Securing Redis](#securing-redis)
+* [Securing Sensu](#securing-sensu)
+  * [The `client_signature` Attribute](#the-clientsignature-attribute)
+  * [The `redact` Attribute](#the-redact-attribute)
+* [Securing Dashboards](#securing-dashboards)
+  * [Securing Uchiwa](#securing-uchiwa)
+  * [Securing Sensu Enterprise Dashboards](#securing-sensu-enterprise-dashboards)
+* [Securing RabbitMQ](#securing-rabbitmq)
+  * [Minimum Viable Permissions](#minimum-viable-permissions)
+  * [SSL/TLS Configuration](#ssltls-configuration)
+* [Securing Redis](#securing-redis)
 
 ## Securing Sensu
 
-Securing Sensu 
+Securing Sensu
 
 ### The Client `signature` Attribute{#the-clientsignature-attribute}
+
 By default, the `signature` attribute isn't required and doesn't have a value, but adding it to your clients' configurations ensures that you're able to validate the results coming from a client by providing a random string in the attribute. In this way, if you're ever in doubt about the authenicity of the results that are being returned from a client, you can compare the results against your client configuration to see if the signature strings match up. You can read more about using a client `signature` [here][2]
 
 ### The `redact` Attribute
+
 The `redact` attribute allows you to pass values as an array in your client configuration to Sensu to redact when logging, or sending keepalives. These can be any value you wish, or that you feel may be of a sensitive nature in your organization. By default, the attribute uses the following:
 
 {{< highlight json>}}
@@ -46,13 +48,13 @@ The `redact` attribute allows you to pass values as an array in your client conf
   "password", "passwd", "pass",
   "api_key", "api_token", "access_key",
   "secret_key", "private_key","secret"
-]{{{< /highlight >}}} 
+]{{{< /highlight >}}}
 
 But if you're using the [EC2][4] integration or plugins whose handlers might have different values than what are specified in the default, you can add said values to the array to be redacted. You can read more about the attribute [here][3].
 
 ## Securing Dashboards
 
-In this section, we'll cover some strategies for how you can secure your dashboard with Sensu, whether you're using Uchiwa or Sensu Enterprise. 
+In this section, we'll cover some strategies for how you can secure your dashboard with Sensu, whether you're using Uchiwa or Sensu Enterprise.
 
 ### Securing Uchiwa 
 
@@ -123,21 +125,6 @@ The addition of role based access controls to your Sensu Enterprise Dasbhaord co
 
 
 #### Adding Roles and Authentication Tokens
-
-## Securing RabbitMQ
-
-As the supported transport mechanism for any Sensu deployment, RabbitMQ has its own set of security concerns, from ensuring that VHOST permissions are set correctly, to adding SSL/TLS encryption between clients, consumers, and queues.
-
-### Minimum Viable Permissions
-
-### SSL/TLS Configuration
-
-
-## Securing Redis
-
-Similar to RabbitMQ, securing Redis is a concern in any environment. Let's take a look at what is needed to ensure that we have Redis locked down tight.
-
-## Putting It All Together
 
 We've covered a lot of material in this article, so let's do a quick recap of the various approaches to securing Sensu's components, and what that might look like in a real-world deployment of Sensu
 
