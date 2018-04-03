@@ -16,6 +16,7 @@ Securing Sensu is a multifaceted process that requires several different compone
 * How to secure Uchiwa/the Sensu Enterprise Dashboard
 
 We'll also walk through securing the additional components like RabbitMQ and Redis in the guides following this one.
+
 ## Objectives
 
 We'll cover the following in this guide:
@@ -32,7 +33,7 @@ We'll cover the following in this guide:
 
 ### The Client `signature` Attribute{#the-clientsignature-attribute}
 
-By default, the `signature` attribute isn't required and doesn't have a value, but adding it to your clients' configurations ensures that you're able to validate the results coming from a client by providing a random string in the attribute. In this way, if you're ever in doubt about the authenicity of the results that are being returned from a client, you can compare the results against your client configuration to see if the signature strings match up. You can read more about using a client `signature` [here][2]
+By default, the `signature` attribute isn't required and doesn't have a value, but adding it to your clients' configurations ensures that you're able to validate the results coming from a client by providing a random string in the attribute. In this way, if you're ever in doubt about the authenicity of the results that are being returned from a client, you can compare the results against your client configuration to see if the signature strings match up. You can read more about using a client `signature` [here][1]
 
 ### The `redact` Attribute
 
@@ -45,11 +46,34 @@ The `redact` attribute allows you to pass values as an array in your client conf
   "secret_key", "private_key","secret"
 ]{{{< /highlight >}}}
 
-But if you're using the [EC2][4] integration or plugins whose handlers might have different values than what are specified in the default, you can add said values to the array to be redacted. You can read more about the attribute [here][3].
+But if you're using the [EC2][2] integration or plugins whose handlers might have different values than what are specified in the default, you can add said values to the array to be redacted. You can read more about the attribute [here][3].
+
+### SSL/TLS Encrypted Transport
+
+By default, communication between Sensu clients and the transport mechanism for a Sensu deployment are not secure. To secure communication between the client and transport is simple and quick to implement. You can read the [full documentation about SSL/TLS configuration][4], but we'll take a look over what a sample `rabbitmq.json` configuration might look like for a client:
+
+{{< highlight json >}}
+{
+ "host": "127.0.0.1",
+ "port": 5671,
+ "vhost": "XXXXXX",
+ "user": "XXXXXX",
+ "password": "XXXXXX",
+ "heartbeat": 30,
+ "prefetch": 50,
+ "ssl": {
+   "cert_chain_file": "/etc/sensu/ssl/cert.pem",
+   "private_key_file": "/etc/sensu/ssl/key.pem"
+ }
+}{{< /highlight >}}
+
+As you can see above, we've provided the full path to our certificate and key files inside of the `ssl` attribute in our configuration. 
+
+_NOTE: In order for the above to work, you'll also need to ensure that you've enabled [RabbitMQ SSL Support][5] and that you're running a version of RabbitMQ/Erlang that will reliably support SSL/TLS communication. If in doubt, visit [RabbitMQ's documentation][6] to determine what version of RabbitMQ/Erlang you should use._
 
 ## Securing Sensu Server/API
 
-
+In addition to the Sensu client, the Sensu server and API processes (or Sensu Entprise if you're using it) can be secured by using SSL/TLS for encrypted transmissions between the Sensu Server/API processes and RabbitMQ. See the above example for how to add SSL encryption inside of your `/etc/sensu/conf.d`
 
 ## Securing Dashboards
 
@@ -62,11 +86,11 @@ Uchiwa provides two primary mechanisms for securing the dashboard:
 * Encrypted passwords
 * SSL/TLS
 
-For more details on how to secure your Uchiwa instance using these two features, see [Uchiwa's site](https://docs.uchiwa.io/guides/security/).
+For more details on how to secure your Uchiwa instance using these two features, see [Uchiwa's site][7].
 
 ### Securing Sensu Enterprise Dashboards
 
-The Sensu Enterprise Dashboard provides the same mechanisms for securing it as Uchiwa, but adds the more "enterprise-y" feature of [role based access control (RBAC)][], as well as providing the ability to assign authentication tokens for accessing the Sensu Enterprise Dashboard API
+The Sensu Enterprise Dashboard provides the same mechanisms for securing it as Uchiwa, but adds the more "enterprise-y" feature of [role based access control (RBAC)][8], as well as providing the ability to assign authentication tokens for accessing the Sensu Enterprise Dashboard API
 
 * SSL/TLS
 * Authentication for the Sensu Enterprise Console API
@@ -117,16 +141,16 @@ In addition to being able to add an SSL certificate to our configuration, we can
 
 The addition of role based access controls to your Sensu Enterprise Dasbhaord configuration allows for another layer of security when it comes to viewing and interacting with Sensu events. Out of the box, there are several RBAC methods that are available for you to implement:
 
-* [LDAP][7]
-* [GitHub][8]
-* [OpenID Connect][9]
-* [GitLab][10]
+* [LDAP][9]
+* [GitHub][10]
+* [OpenID Connect][11]
+* [GitLab][12]
 
 You can view the details for implementing one of these RBAC methods via the links above. 
 
 #### Adding Roles and Access Tokens
 
-Sensu Enterprise also provides a method for implementing roles and auth tokens in the absence of an RBAC authentication mechanism. You can read more about access tokens and implementing them [here][11]. However, for a quick example of what a configuration might look like, see below:
+Sensu Enterprise also provides a method for implementing roles and auth tokens in the absence of an RBAC authentication mechanism. You can read more about access tokens and implementing them [here][13]. However, for a quick example of what a configuration might look like, see below:
 
 {{< highlight json>}}
 {
@@ -156,7 +180,7 @@ Sensu Enterprise also provides a method for implementing roles and auth tokens i
     }
   }{{< /highlight >}}
 
-Note that there are also options for restricting API methods to roles, as well as the ability to restrict read/write access to the dashboard, which you can see more of in the [RBAC drivers documentation][12]
+Note that there are also options for restricting API methods to roles, as well as the ability to restrict read/write access to the dashboard, which you can see more of in the [RBAC drivers documentation][14]
 
 ### Putting It All Together
 
@@ -184,19 +208,96 @@ We covered the `signature` and `redact` attributes at the beginning of the guide
 
 This adds the client `signature` for us to verify results against, as well as the custom values we want to append to the default `redact` values.
 
+And inside of our `/etc/sensu/conf.d/rabbitmq.json` we've configured it to use SSL:
+
+{{< highlight json >}}
+{
+ "host": "127.0.0.1",
+ "port": 5671,
+ "vhost": "XXXXXX",
+ "user": "XXXXXX",
+ "password": "XXXXXX",
+ "heartbeat": 30,
+ "prefetch": 50,
+ "ssl": {
+   "cert_chain_file": "/etc/sensu/ssl/cert.pem",
+   "private_key_file": "/etc/sensu/ssl/key.pem"
+ }
+}{{< /highlight >}}
+
+_NOTE: One element not present is the discussion of minimum viable permissions for RabbitMQ. We'll discuss how to approach RabbitMQ permissions in the following article_
+
 #### Server Configuration
 
+Just like our client, we've added the following inside of our RabbitMQ configuration:
+
+{{ highlight json }}
+ "ssl": {
+   "cert_chain_file": "/etc/sensu/ssl/cert.pem",
+   "private_key_file": "/etc/sensu/ssl/key.pem"
+ }{{< /highlight >}}
+
+ #### Dashboard Configuration
+
+For our dashboard of choice, we've done the following:
+
+* Added a SSL/TLS certificate/key pair (and optionally specified our cipher suites)
+* Ensured our passwords are encrypted or are using a RBAC mechanism (if using Sensu Enterprise)
+* Added access tokens to a user/role
+
+Which will look like the following:
+
+`/etc/sensu/uchiwa.json`
+
+{{< highlight json >}}
+{
+  "uchiwa": {
+    "ssl": {
+      "certfile": "/path/to/uchiwa.pem",
+      "keyfile": "/path/to/uchiwa.key",
+      "ciphersuite": [
+        "TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256",
+        "TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384",
+        "TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305",
+        "TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA",
+        "TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA",
+        "TLS_RSA_WITH_AES_128_GCM_SHA256",
+        "TLS_RSA_WITH_AES_256_GCM_SHA384",
+        "TLS_RSA_WITH_AES_128_CBC_SHA",
+        "TLS_RSA_WITH_AES_256_CBC_SHA",
+      ],
+      "tlsminversion": "tls10"
+    },
+    "users": [
+      {
+        "username" : "admin",
+        "password": "secret",
+        "accessToken": "vFzX6rFDAn3G9ieuZ4ZhN-XrfdRow4Hd5CXXOUZ5NsTw4h3k3l4jAw__",
+        "readonly": false
+      },
+      {
+        "username" : "guest",
+        "password": "secret",
+        "accessToken": "hrKMW3uIt2RGxuMIoXQ-bVp-TL1MP4St5Hap3KAanMxI3OovFV48ww__",
+        "readonly": true
+      }
+  }
+}{{< /highlight >}}
+
+That wraps it up! We'll cover more in the subsequent articles in this series. Click "Next" on the bottom right to continue on to Securing RabbitMQ.
 
 
-[1]: 
-[2]: ../../reference/clients/#client-signature
+[1]: ../../reference/clients/#client-signature
+[2]: /sensu-enterprise/latest/integrations/ec2/
 [3]: ../../reference/clients/#client-attributes
-[4]: /sensu-enterprise/latest/integrations/ec2/
-[5]: /sensu-enterprise-dashboard/latest/rbac/overview/#rbac-for-the-sensu-enterprise-console-api
-[6]: /sensu-enterprise-dashboard/latest/rbac/overview
-[7]: /sensu-enterprise-dashboard/latest/rbac/rbac-for-ldap/
-[8]: /sensu-enterprise-dashboard/latest/rbac/rbac-for-github/
-[9]: /sensu-enterprise-dashboard/latest/rbac/rbac-for-oidc/
-[10]: /sensu-enterprise-dashboard/late.st/rbac/rbac-for-gitlab/
-[11]: /sensu-enterprise-dashboard/latest/rbac/overview/#rbac-for-the-sensu-enterprise-console-api
-[12]: /sensu-enterprise-dashboard/latest/rbac/overview/#driver-attributes
+[4]: ../../reference/ssl/#reference-documentation
+[5]: ../../reference/ssl/#enable-rabbitmq-ssl-support
+[6]: https://www.rabbitmq.com/which-erlang.html
+[7]: https://docs.uchiwa.io/guides/security/ 
+[8]: /sensu-enterprise-dashboard/latest/rbac/overview
+[9]: /sensu-enterprise-dashboard/latest/rbac/rbac-for-ldap/
+[10]: /sensu-enterprise-dashboard/latest/rbac/rbac-for-github/
+[11]: /sensu-enterprise-dashboard/latest/rbac/rbac-for-oidc/
+[12]: /sensu-enterprise-dashboard/late.st/rbac/rbac-for-gitlab/
+[13]: /sensu-enterprise-dashboard/latest/rbac/overview/#rbac-for-the-sensu-enterprise-console-api
+[14]: /sensu-enterprise-dashboard/latest/rbac/overview/#driver-attributes
