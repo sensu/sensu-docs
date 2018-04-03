@@ -36,7 +36,8 @@ using the [Go tools][4]. The generated binary will be placed into one of the
 Sensu backend [`$PATH` directories][5], more precisely `/usr/local/bin`.
 
 {{< highlight shell >}}
-go build -o /usr/local/bin/handler-slack main.go
+# From the local path of the sensu-go repository
+go build -o /usr/local/bin/handler-slack handlers/slack/main.go
 {{< /highlight >}}
 
 ### Creating the handler
