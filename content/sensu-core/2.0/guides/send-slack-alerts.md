@@ -31,9 +31,9 @@ great place to start.
 
 The first step is to create an executable script named `handler-slack`, which is
 responsible for sending the event data to Slack. The source code of this script
-is available on [GitHub][3] and can easily be compiled using the [Go tools][4].
-The generated binary will be placed into one of the Sensu backend [`$PATH`
-directories][5], more precisely `/usr/local/bin`.
+is available on [GitHub][3] and can easily be compiled or [cross compiled][10]
+using the [Go tools][4]. The generated binary will be placed into one of the
+Sensu backend [`$PATH` directories][5], more precisely `/usr/local/bin`.
 
 {{< highlight shell >}}
 go build -o /usr/local/bin/handler-slack main.go
@@ -103,3 +103,4 @@ this point, here are some recommended resources:
 [7]: ../../getting-started/installation-and-configuration/#validating-the-services
 [8]: #
 [9]: ../reduce-alert-fatigue/
+[10]: https://rakyll.org/cross-compilation/
