@@ -3,37 +3,32 @@ title: "Securing Sensu"
 description: "Strategies and best practices for securing Sensu"
 version: "0.29"
 weight: 8
+next: ../securing-rabbitmq-guide
 menu:
   sensu-core-0.29:
     parent: guides
 ---
 
-In this guide, we'll walk you through the best practices and strategies for securing Sensu and its various components. By the end of the guide, you should have a thorough understanding of what goes into securing all of the pieces that make up a Sensu deployment, including:
+Securing Sensu is a multifaceted process that requires several different components to be secured in order to properly harden your Sensu deployment. In this guide, we'll walk you through the best practices and strategies for securing Sensu. By the end of the guide, you should have a thorough understanding of what goes into securing all of the pieces that make up a Sensu deployment, including:
 
 * How to secure your Sensu clients
 * How to secure your Sensu Server/API/Enterprise instance(s)
 * How to secure Uchiwa/the Sensu Enterprise Dashboard
-* How to secure RabbitMQ
-* How to Secure Redis
 
+We'll also walk through securing the additional components like RabbitMQ and Redis in the guides following this one.
 ## Objectives
 
 We'll cover the following in this guide:
 
-* [Securing Sensu](#securing-sensu)
+* [Securing Sensu](#securing-sensu-clients)
   * [The `client_signature` Attribute](#the-clientsignature-attribute)
   * [The `redact` Attribute](#the-redact-attribute)
+* [Securing Sensu Server/API][]
 * [Securing Dashboards](#securing-dashboards)
   * [Securing Uchiwa](#securing-uchiwa)
   * [Securing Sensu Enterprise Dashboards](#securing-sensu-enterprise-dashboards)
-* [Securing RabbitMQ](#securing-rabbitmq)
-  * [Minimum Viable Permissions](#minimum-viable-permissions)
-  * [SSL/TLS Configuration](#ssltls-configuration)
-* [Securing Redis](#securing-redis)
 
-## Securing Sensu
-
-Securing Sensu
+## Securing Sensu Clients
 
 ### The Client `signature` Attribute{#the-clientsignature-attribute}
 
@@ -52,11 +47,15 @@ The `redact` attribute allows you to pass values as an array in your client conf
 
 But if you're using the [EC2][4] integration or plugins whose handlers might have different values than what are specified in the default, you can add said values to the array to be redacted. You can read more about the attribute [here][3].
 
+## Securing Sensu Server/API
+
+
+
 ## Securing Dashboards
 
-In this section, we'll cover some strategies for how you can secure your dashboard with Sensu, whether you're using Uchiwa or Sensu Enterprise.
+In this section, we'll cover some strategies for how you can secure your dashboard with Sensu, whether you're using Uchiwa or Sensu Enterprise. We'll start with some strategies to secure Uchiwa, and then discuss methods for hardening the Sensu Enterprise Dashboard
 
-### Securing Uchiwa 
+### Securing Uchiwa
 
 Uchiwa provides two primary mechanisms for securing the dashboard:
 
@@ -118,24 +117,86 @@ In addition to being able to add an SSL certificate to our configuration, we can
 
 The addition of role based access controls to your Sensu Enterprise Dasbhaord configuration allows for another layer of security when it comes to viewing and interacting with Sensu events. Out of the box, there are several RBAC methods that are available for you to implement:
 
-* [LDAP][]
-* [GitHub][]
-* [OpenID Connect][]
-* [GitLab][]
+* [LDAP][7]
+* [GitHub][8]
+* [OpenID Connect][9]
+* [GitLab][10]
 
+You can view the details for implementing one of these RBAC methods via the links above. 
 
-#### Adding Roles and Authentication Tokens
+#### Adding Roles and Access Tokens
 
-We've covered a lot of material in this article, so let's do a quick recap of the various approaches to securing Sensu's components, and what that might look like in a real-world deployment of Sensu
+Sensu Enterprise also provides a method for implementing roles and auth tokens in the absence of an RBAC authentication mechanism. You can read more about access tokens and implementing them [here][11]. However, for a quick example of what a configuration might look like, see below:
+
+{{< highlight json>}}
+{
+  "dashboard": {
+    "...": "...",
+    "ldap": {
+      "...": "...",
+      "roles": [
+        {
+          "name": "example_role",
+          "members": ["example_group"],
+          "datacenters": [],
+          "subscriptions": ["example_application"],
+          "accessToken": "j3sJ8itFn9d9ooFYdN9erW3ZN6i8C9V3",
+          "methods": {
+            "get": [],
+            "post": [
+              "clients",
+              "stashes"
+            ],
+            "delete": [
+              "none"
+            ]
+          }
+        }
+      ]
+    }
+  }{{< /highlight >}}
+
+Note that there are also options for restricting API methods to roles, as well as the ability to restrict read/write access to the dashboard, which you can see more of in the [RBAC drivers documentation][12]
+
+### Putting It All Together
+
+We've covered a lot of material in this article, so let's do a quick recap of the various approaches to securing Sensu's components, and what that might look like in a real-world deployment of Sensu.
+
+#### Client Configuration
+
+We covered the `signature` and `redact` attributes at the beginning of the guide. An implementation of those two attributes would look similar to the below client configuration:
+
+{{< highlight json >}}
+{
+  client: {
+    "name": "test_client",
+    "subscriptions": [
+      "dev"
+    ],
+    "redact": [
+      "ec2_access_key",
+      "ec2_secret_key",
+      "do_auth_token"
+    ],
+    "signature": "yVNxtPbRGwCYFYEr3V"
+  }
+}{{< /highlight >}}
+
+This adds the client `signature` for us to verify results against, as well as the custom values we want to append to the default `redact` values.
+
+#### Server Configuration
+
 
 
 [1]: 
 [2]: ../../reference/clients/#client-signature
 [3]: ../../reference/clients/#client-attributes
 [4]: /sensu-enterprise/latest/integrations/ec2/
-[5]:
-[6]: /sensu-enterprise-dashboard/latest/rbac/overview/#rbac-for-the-sensu-enterprise-console-api
-[7]: /sensu-enterprise-dashboard/latest/rbac/overview
-[8]: /sensu-enterprise-dashboard/latest/rbac/rbac-for-ldap/
+[5]: /sensu-enterprise-dashboard/latest/rbac/overview/#rbac-for-the-sensu-enterprise-console-api
+[6]: /sensu-enterprise-dashboard/latest/rbac/overview
+[7]: /sensu-enterprise-dashboard/latest/rbac/rbac-for-ldap/
+[8]: /sensu-enterprise-dashboard/latest/rbac/rbac-for-github/
 [9]: /sensu-enterprise-dashboard/latest/rbac/rbac-for-oidc/
-[10]: /sensu-enterprise-dashboard/latest/rbac/rbac-for-gitlab/
+[10]: /sensu-enterprise-dashboard/late.st/rbac/rbac-for-gitlab/
+[11]: /sensu-enterprise-dashboard/latest/rbac/overview/#rbac-for-the-sensu-enterprise-console-api
+[12]: /sensu-enterprise-dashboard/latest/rbac/overview/#driver-attributes
