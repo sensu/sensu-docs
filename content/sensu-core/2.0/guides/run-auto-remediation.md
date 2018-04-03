@@ -1,7 +1,7 @@
 ---
 title: "How to run auto-remediation tasks with check hooks"
 linkTitle: "Running Auto-Remediation"
-weight: 1
+weight: 40
 version: "2.0"
 product: "Sensu Core"
 platformContent: false
