@@ -6,8 +6,8 @@ metadataformat = "yaml"
 canonifyURLs = true
 # Enable Google Analytics by entering your tracking id
 googleAnalytics = "UA-39138312-17"
-
-pygmentsUseClasses=true
+enableRobotsTXT = true
+pygmentsUseClasses = true
 ignoreFiles = [ "sensu-doc-template.md" ]
 
 [["menu.sensu-core-1.0"]]
@@ -22,7 +22,7 @@ ignoreFiles = [ "sensu-doc-template.md" ]
 
 	# Repository
 	provider = "GitHub"
-	repo_url = "https://github.com/sensu/sensu-docs-site"
+	repo_url = "https://github.com/sensu/sensu-docs"
 
 	version = "1.0"
 	logo = "images/sensu-logo-icon-dark@2x.png"
