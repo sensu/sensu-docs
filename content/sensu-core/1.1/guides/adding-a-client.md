@@ -120,24 +120,21 @@ Sometimes, a logical piece of infrastructure isn't a device we can run Sensu on.
 
 For example, you may have a router that you can't run Sensu on but publishes interesting information over SNMP that you want to gather metrics from. Or maybe your monitor which other datacenters are visible/online to you, or have any number of creative use cases. You can create a [**proxy client**][16] that can have attributes for use in check execution, allowing you to use the **client registry** naturally for 'managed' an 'unmanaged' infrastructure. See [the reference for creating proxy clients][16] or [details on writing checks against them][17] for more.
 
-## Troubleshooting
-
-
 [?]:  #
-[1]:  ../../../reference/clients/
-[2]:  ../../../reference/server/
+[1]:  ../../reference/clients/
+[2]:  ../../reference/server/
 [3]:  #add-a-remote-sensu-client
 [4]:  #it-starts-with-configuration
 [5]:  #its-all-about-the-transport
-[6]:  ../../../reference/configuration/
-[7]:  ../../../reference/clients/#registration-and-registry
-[8]:  ../../../reference/clients/#client-definition-specification
-[9]:  ../../../reference/transport/#transport-definition-specification
-[10]: ../../../reference/transport/
-[11]: ../../../reference/rabbitmq/
-[12]: ../../../reference/transport/#selecting-a-transport
-[13]: ../../../reference/redis/
-[14]: ../../../reference/clients/#client-keepalives
-[15]: ../../../reference/checks/#check-results
-[16]: ../../../reference/clients/#proxy-clients
-[17]: ../../../intro-to-checks/#proxy-clients
+[6]:  ../../reference/configuration/
+[7]:  ../../reference/clients/#registration-and-registry
+[8]:  ../../reference/clients/#client-definition-specification
+[9]:  ../../reference/transport/#transport-definition-specification
+[10]: ../../reference/transport/
+[11]: ../../reference/rabbitmq/
+[12]: ../../reference/transport/#selecting-a-transport
+[13]: ../../reference/redis/
+[14]: ../../reference/clients/#client-keepalives
+[15]: ../../reference/checks/#check-results
+[16]: ../../reference/clients/#proxy-clients
+[17]: ../../intro-to-checks/#proxy-clients
