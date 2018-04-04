@@ -268,7 +268,8 @@ script.
 {{< highlight shell >}}
 sudo sensu-install -p graphite:0.0.6{{< /highlight >}}
 
-## Checking on Other Clients {#proxy-clients}
+## Checking on Other Clients{#proxy-clients}
+
 Sensu supports running checks where the results are considered to be for a **client** that isn't actually the one **executing** the check- regardless of whether that client is a **Sensu client** or simply a [**proxy client**][14]. There are a number of reasons for this use case, but fundamentally, Sensu handles it the same.
 
 Checks are scheduled normally, but by specifying a [**Proxy Request**][13] in your check, clients that match certain definitions (their `client_attributes`) cause the check to run for each one. The attributes supplied must normally match *exactly* as stated- no variables or directives have any special meaning, but you can still use `eval` to perform more complicated filtering with Ruby on the available `value`, such as finding clients with particular subscriptions (given that we're dealing with arrays):
