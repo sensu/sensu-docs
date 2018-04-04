@@ -1,7 +1,7 @@
 ---
 title: "How to monitor server resources with checks"
 linkTitle: "Monitoring Server Resources"
-weight: 1
+weight: 10
 version: "2.0"
 product: "Sensu Core"
 platformContent: false
