@@ -31,8 +31,8 @@ Pipe handlers are external commands that can consume [event][3] data via STDIN.
 
 #### Pipe handler command
 
-Pipe handler definitions include a `command` attribute which is literally an
-executable command which will be executed on a Sensu backend.
+Pipe handler definitions include a `command` attribute, which is a command to be
+executed by the Sensu backend.
 
 #### Pipe handler command arguments
 
@@ -123,7 +123,7 @@ example      | {{< highlight shell >}}"command": "/etc/sensu/plugins/pagerduty.r
 env_vars      | 
 -------------|------
 description  | An array of environment variables to use with command execution._NOTE: the `env_vars` attribute is only supported for Pipe handlers (i.e. handlers configured with `"type": "pipe"`)._
-required     | true (if `type` equals `pipe`)
+required     | false
 type         | Array
 example      | {{< highlight shell >}}"env_vars": ["API_KEY=0428d6b8nb51an4d95nbe28nf90865a66af5"]{{< /highlight >}}
 
