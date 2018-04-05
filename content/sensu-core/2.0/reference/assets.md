@@ -1,92 +1,101 @@
 ---
 title: "Assets"
+linkTitle: "Assets"
 description: "The assets reference guide."
 weight: 1
 version: "2.0"
 product: "Sensu Core"
-platformContent: true
+platformContent: false 
 menu:
   sensu-core-2.0:
     parent: reference
 ---
 
-# Assets
+## How do assets work?
+At runtime, the agent sequentially fetches assets and stores them in its local
+cache. Asset dependencies are then injected into the `PATH` so they are
+available when the command is executed. Subsequent check executions look for the
+asset in local cache and ensure the contents match the checksum. If the
+requested asset is not in the local cache, it is downloaded from the asset url.
+The Sensu backend does not currently provide any storage for assets; they are
+expected to be retrieved over HTTP or HTTPS.
 
-## What are assets?
+The agent expects that an asset is a `TAR` archive that may optionally be GZip'd.
+Any scripts or executables should be within a `bin/` folder within in the archive.
 
-Sensu **assets** are resources that checks can specify as dependencies. When an
-Agent runs a check, it will ensure that all of the check's required assets
-are available to the Agent. If they aren't, the Agent will install them by
-consulting each of the assets' URLs.
+The following are injected into the execution context:
 
-## Asset management
+- `{PATH_TO_ASSET}/bin` is injected into the `PATH` environment variable.
+- `{PATH_TO_ASSET}/lib` is injected into the `LD_LIBRARY_PATH` environment variable.
+- `{PATH_TO_ASSET}/include` is injected into the `CPATH` environment variable.
 
-Assets are created through the `sensuctl` CLI.
+## Assets specification
 
-### Creating an asset
+### Attributes
 
-In this example, we'll create an asset from a README.md file. To create an
-asset, we'll need a name, a URL to the asset location, and a SHA-512 checksum.
-{{< highlight shell >}}
-sensuctl asset create readme \
-  -u http://example.com/README.md \
-  --sha512 "$(sha512sum README.md | cut -f1 -d ' ')"
-OK
-{{< /highlight >}}
+name         | 
+-------------|------ 
+description  | The unique name of the asset, validated with go regex `[a-z0-9\/\_\.\-]+`. 
+required     | true
+type         | String 
+example      | {{< highlight shell >}}"name": "check_script"{{</ highlight >}}
 
-### Getting information about an asset
 
-Getting information about an asset is easy - you just need the name.
+url          | 
+-------------|------ 
+description  | The URL location of the asset. 
+required     | true
+type         | String 
+example      | {{< highlight shell >}}"url": "http://example.com/asset.tar.gz"{{</ highlight >}}
 
-{{< highlight shell >}}
-sensuctl asset info readme
-=== readme
-Name:             readme
-Organization:     default
-URL:              http://example.com/README.md
-SHA-512 Checksum: 84998adb7e1ced02b092347eb050018c3abe8c0055797ac149a1c3cf9efe6cfc7e9666ffba748729ed0273265aeacfe61b295e1ebfd739e33a124883f7703f0b
-Filters:          
-Metadata:         
-{{< /highlight >}}
+sha512       | 
+-------------|------ 
+description  | The checksum of the asset. 
+required     | true
+type         | String 
+example      | {{< highlight shell >}}"sha512": "4f926bf4328..."{{</ highlight >}}
 
-### Listing all available assets
+metadata     | 
+-------------|------ 
+description  | Information about the asset, in the form of key value pairs. 
+required     | false 
+type         | Map 
+example      | {{< highlight shell >}}"metadata": {
+"Content-Type": "application/zip", 
+"X-Intended-Distribution": "trusty-14"}
+{{</ highlight >}}
 
-{{< highlight shell >}}
-sensuctl asset list
-   Name                 URL                Hash    
- ───────── ───────────────────────────── ───────── 
-  foo/bar   //example.com/.../            asldkjf  
-  foobar    //example.com/.../            0ea6f27  
-  readme    //example.com/.../README.md   84998ad  
-{{< /highlight >}}
+filters      | 
+-------------|------ 
+description  | A set of [filters][1] used by the agent to determine of the asset should be installed. 
+required     | false 
+type         | Array 
+example      | {{< highlight shell >}}"filters": ["System.OS=='linux'", "System.Arch=='amd64'"] {{</ highlight >}}
 
-### Updating an existing asset
+organization | 
+-------------|------ 
+description  | The Sensu RBAC organization that this asset belongs to.
+required     | false 
+type         | String
+default      | current organization value configured for `sensuctl` (ie `default`) 
+example      | {{< highlight shell >}}
+  "organization": "default"
+{{</ highlight >}}
 
-{{< highlight shell >}}
-sensuctl asset update readme
-{{< /highlight >}}
+## Examples
 
-This will result in an interactive prompt, which will ask you which of the
-asset's field that you wish to change.
+### Asset definition
+{{< highlight json >}}
+{
+  "name": "asset_example",
+  "url": "http://example.com/asset/example.tar",
+  "sha512": "4f926bf4328fbad2b9cac873d117f771914f4b837c9c85584c38ccf55a3ef3c2e8d154812246e5dda4a87450576b2c58ad9ab40c9e2edc31b288d066b195b21b",
+  "metadata": null,
+  "filters": [
+    "System.OS==linux"
+  ],
+  "organization": "default"
+}
+{{</ highlight >}}
 
-## Using assets in checks
-
-Assets can be associated with checks when they are created, or afterwards.
-
-### Adding an asset to a check on creation
-
-{{< highlight shell >}}
-sensuctl check create foobar \
-  --command /bin/false \
-  --subscriptions foobar \
-  --interval 10 \
-  --runtime-assets readme,foobar
-{{< /highlight >}}
-
-### Adding an asset to an existing check's dependencies
-
-{{< highlight shell >}}
-sensuctl check set-runtime-assets check1 readme,foobar
-{{< /highlight >}}
-
-This command will set a check's assets to `readme` and `foobar`.
+[1]: ../../reference/filters/
