@@ -15,9 +15,11 @@ menu:
 At runtime, the agent sequentially fetches assets and stores them in its local
 cache. Asset dependencies are then injected into the `PATH` so they are
 available when the command is executed. Subsequent check executions look for the
-asset in local cache and ensure the contents match the checksum. If the
-requested asset is not in the local cache, it is downloaded from the asset url.
-The Sensu backend does not currently provide any storage for assets; they are
+asset in local cache and ensure the contents match the checksum. An agent's
+local cache can be set using the `--cache-dir` flag; it defaults to
+`/var/cache/sensu/sensu-agent` (`C:\\ProgramData\sensu\cache\sensu-agent` on Windows systems). 
+If the requested asset is not in the local cache, it is downloaded from the asset url. 
+The Sensu backend does not currently provide any storage for assets; they are 
 expected to be retrieved over HTTP or HTTPS.
 
 The agent expects that an asset is a `TAR` archive that may optionally be GZip'd.
@@ -35,7 +37,7 @@ The following are injected into the execution context:
 
 name         | 
 -------------|------ 
-description  | The unique name of the asset, validated with go regex `[a-z0-9\/\_\.\-]+`. 
+description  | The unique name of the asset, validated with go regex [`\A[\w\.\-]+\z`](https://regex101.com/r/zo9mQU/2)
 required     | true
 type         | String 
 example      | {{< highlight shell >}}"name": "check_script"{{</ highlight >}}
