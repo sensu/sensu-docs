@@ -1,6 +1,6 @@
 ---
 title: "How to install Check Executables using Assets"
-linkTitle: "Install Check Executables Using Assets"
+linkTitle: "Using Assets in Checks"
 weight: 100
 version: "2.0"
 product: "Sensu Core"
