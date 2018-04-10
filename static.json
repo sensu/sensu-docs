@@ -11,6 +11,9 @@
         },
         "~ ^/sensu-enterprise-dashboard/latest/?(.*)$": {
             "url": "/sensu-enterprise-dashboard/2.11/$1"
+        },
+        "~ ^/plugins/latest/?(.*)$": {
+            "url": "/plugins/2.3/$1"
         }
     }
 }

@@ -1,7 +1,7 @@
 ---
 title: "How to plan a maintenance using silencing"
 linkTitle: "Planning a Maintenance"
-weight: 1
+weight: 50
 version: "2.0"
 product: "Sensu Core"
 platformContent: False

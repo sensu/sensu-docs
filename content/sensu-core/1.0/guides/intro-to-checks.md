@@ -26,7 +26,7 @@ What will be covered in this guide:
 - Creation of **metric collection** checks (server resources, etc)
 - Creation of **metric analysis** checks (querying time series data, etc)
 
-## What are Sensu checks? {#what-are-sensu-checks}
+## What are Sensu checks?{#what-are-sensu-checks}
 
 Sensu checks allow you to monitor server resources, services, and application
 health, as well as collect & analyze metrics; they are executed on servers
@@ -51,7 +51,7 @@ etc.).
 The following instructions install the check dependencies and configure the
 Sensu check definition in order to monitor the Cron service.
 
-#### Install dependencies  {#check-cron-install-dependencies}
+#### Install dependencies{#check-cron-install-dependencies}
 
 The `check-process.rb` script provided by the [Sensu Process Checks Plugin][2]
 can reliably detect if a service such as Cron is running or not. The following
@@ -156,7 +156,7 @@ variety of metric formats:
 
 ### Measuring CPU utilization
 
-#### Install dependencies {#cpu-metrics-install-dependencies}
+#### Install dependencies{#cpu-metrics-install-dependencies}
 
 The `metrics-cpu.rb` script provided by the [Sensu CPU Checks Plugin][8]
 collects and outputs CPU metrics in the Graphite plaintext format. The following
@@ -268,7 +268,8 @@ script.
 {{< highlight shell >}}
 sudo sensu-install -p graphite:0.0.6{{< /highlight >}}
 
-## Checking on Other Clients {#proxy-clients}
+## Checking on Other Clients{#proxy-clients}
+
 Sensu supports running checks where the results are considered to be for a **client** that isn't actually the one **executing** the check- regardless of whether that client is a **Sensu client** or simply a [**proxy client**][14]. There are a number of reasons for this use case, but fundamentally, Sensu handles it the same.
 
 Checks are scheduled normally, but by specifying a [**Proxy Request**][13] in your check, clients that match certain definitions (their `client_attributes`) cause the check to run for each one. The attributes supplied must normally match *exactly* as stated- no variables or directives have any special meaning, but you can still use `eval` to perform more complicated filtering with Ruby on the available `value`, such as finding clients with particular subscriptions (given that we're dealing with arrays):
