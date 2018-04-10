@@ -4,13 +4,282 @@ description: "The entities reference guide."
 weight: 1
 version: "2.0"
 product: "Sensu Core"
-platformContent: true
+platformContent: false 
 menu:
   sensu-core-2.0:
     parent: reference
 ---
 
-# Entities
+## How do entities work?
+
+## Entities specification
+
+### Attributes
+
+### _Entity_
+
+ID           | 
+-------------|------ 
+description  | The unique ID of the entity, validated with go regex [`\A[\w\.\-]+\z`](https://regex101.com/r/zo9mQU/2)
+required     | true
+type         | string 
+example      | {{< highlight shell >}}"ID": "example-hostname"{{</ highlight >}}
+
+class        | 
+-------------|------ 
+description  | The entity type, validated with go regex [`\A[\w\.\-]+\z`](https://regex101.com/r/zo9mQU/2)
+required     | true
+type         | string 
+example      | {{< highlight shell >}}"class": "agent"{{</ highlight >}}
+
+
+subscriptions| 
+-------------|------ 
+description  | A list of subscription names for the entity. 
+required     | false 
+type         | array 
+example      | {{< highlight shell >}}"subscriptions": ["web", "prod"]{{</ highlight >}}
+
+system       | 
+-------------|------ 
+description  | System information about the entity, such as operating system and platform.
+required     | false 
+type         | System 
+example      | {{< highlight json >}}
+"system": {
+"hostname": "example-hostname",
+    "os": "linux",
+    "platform": "ubuntu",
+    "platform_family": "debian",
+    "platform_version": "16.04",
+    "network": {
+      "interfaces": [
+        {
+          "name": "lo",
+          "addresses": [
+            "127.0.0.1/8",
+            "::1/128"
+          ]
+        },
+        {
+          "name": "eth0",
+          "mac": "52:54:00:20:1b:3c",
+          "addresses": [
+            "93.184.216.34/24",
+            "2606:2800:220:1:248:1893:25c8:1946/10"
+          ]
+        }
+      ]
+    },
+    "arch": "amd64"
+}
+{{</ highlight >}}
+
+last_seen    | 
+-------------|------ 
+description  | Timestamp the entity was last seen, in epoch time. 
+required     | false 
+type         | integer 
+example      | {{< highlight shell >}}"last_seen": 1522798317 {{</ highlight >}}
+
+
+deregister   | 
+-------------|------ 
+description  | If the entity should be removed when it stops sending keepalive messages. 
+required     | false 
+type         | boolean 
+default      | false
+example      | {{< highlight shell >}}"deregister": false {{</ highlight >}}
+
+deregistration  | 
+-------------|------ 
+description  |  
+required     | false 
+type         | Deregistration 
+example      | {{< highlight json >}}"deregistration": {} {{</ highlight >}}
+
+keepalive_timeout  | 
+-------------|------ 
+description  | The time in seconds until an entity keepalive is considered stale. 
+required     | false 
+type         | integer 
+default      | 120
+example      | {{< highlight shell >}}"keepalive_timeout": 120 {{</ highlight >}}
+
+organization | 
+-------------|------ 
+description  | The Sensu RBAC organization that this entity belongs to.
+required     | false 
+type         | String 
+example      | {{< highlight shell >}}
+  "organization": "default"
+{{</ highlight >}}
+
+environment  | 
+-------------|------ 
+description  | The Sensu RBAC environment that this entity belongs to.
+required     | false 
+type         | String 
+default      | current environment value configured for `sensuctl` (ie `default`) 
+example      | {{< highlight shell >}}
+  "environment": "default"
+{{</ highlight >}}
+
+extended_attributes | 
+-------------|------ 
+description  | Custom attributes to include with the entity. 
+required     | false 
+type         | byte 
+example      | {{< highlight shell >}}"extended_attributes": '{"team":"ops"}'{{</ highlight >}}
+
+redact       | 
+-------------|------ 
+description  | List of items to redact from log messages. 
+required     | false 
+type         | array 
+default      | ["password", "passwd", "pass", "api_key", "api_token", "access_key", "secret_key", "private_key", "secret"]
+example      | {{< highlight json >}}"redact": [
+  "extra_secret_tokens"
+]
+{{</ highlight >}}
+
+### _System_
+
+hostname     | 
+-------------|------ 
+description  | The hostname of the entity. 
+required     | false 
+type         | string 
+example      | {{< highlight shell >}}"hostname": "example-hostname" {{</ highlight >}}
+
+os           | 
+-------------|------ 
+description  | The entity's operating system. 
+required     | false 
+type         | string 
+example      | {{< highlight shell >}}"os": "linux" {{</ highlight >}}
+
+platform     | 
+-------------|------ 
+description  | The entity's operating system platform. 
+required     | false 
+type         | string 
+example      | {{< highlight shell >}}"platform": "ubuntu" {{</ highlight >}}
+
+platform_family     | 
+-------------|------ 
+description  | The entity's operating system platform. 
+required     | false 
+type         | string 
+example      | {{< highlight shell >}}"platform_family": "debian" {{</ highlight >}}
+
+platform_version     | 
+-------------|------ 
+description  | The operating system version. 
+required     | false 
+type         | string 
+example      | {{< highlight shell >}}"platform_version": "16.04" {{</ highlight >}}
+
+network     | 
+-------------|------ 
+description  | The entity's network interface list. 
+required     | false 
+type         | Network 
+example      | {{< highlight json >}}
+"network": {
+      "interfaces": [
+        {
+          "name": "lo",
+          "addresses": [
+            "127.0.0.1/8",
+            "::1/128"
+          ]
+        },
+        {
+          "name": "eth0",
+          "mac": "52:54:00:20:1b:3c",
+          "addresses": [
+            "93.184.216.34/24",
+            "2606:2800:220:1:248:1893:25c8:1946/10"
+          ]
+        }
+      ]
+}
+{{</ highlight >}}
+
+arch         | 
+-------------|------ 
+description  | The entity's system architecture. 
+required     | false 
+type         | string 
+example      | {{< highlight shell >}}"arch": "amd64" {{</ highlight >}}
+
+### _Network_
+
+network_interface         | 
+-------------|------ 
+description  | A network interface list. 
+required     | false 
+type         | array NetworkInterface 
+example      | {{< highlight json >}}
+      "interfaces": [
+        {
+          "name": "lo",
+          "addresses": [
+            "127.0.0.1/8",
+            "::1/128"
+          ]
+        },
+        {
+          "name": "eth0",
+          "mac": "52:54:00:20:1b:3c",
+          "addresses": [
+            "93.184.216.34/24",
+            "2606:2800:220:1:248:1893:25c8:1946/10"
+          ]
+        }
+      ]
+{{</ highlight >}}
+
+### _NetworkInterface_
+
+name         | 
+-------------|------ 
+description  | The network interface name.
+required     | false 
+type         | string 
+example      | {{< highlight shell >}}"name": "eth0"{{</ highlight >}}
+
+mac          | 
+-------------|------ 
+description  | The network interface's MAC address.
+required     | false 
+type         | string 
+example      | {{< highlight shell >}}"mac": "52:54:00:20:1b:3c"{{</ highlight >}}
+
+addresses    | 
+-------------|------ 
+description  | The list of IP addresses for the interface.
+required     | false 
+type         | array 
+example      | {{< highlight json >}}  "addresses": [
+    "93.184.216.34/24",
+    "2606:2800:220:1:248:1893:25c8:1946/10"
+]
+{{</ highlight >}}
+
+### _Deregistration_
+
+handler      | 
+-------------|------ 
+description  | The name of the handler to be called when an entity is deregistered.
+required     | false 
+type         | string 
+example      | {{< highlight shell >}}"handler": "email-handler"{{</ highlight >}}
+
+## Examples
+
+## Entity definition
 
 ### Why "Entities"?
 
