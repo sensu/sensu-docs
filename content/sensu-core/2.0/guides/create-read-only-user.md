@@ -1,7 +1,7 @@
 ---
 title: "How to create a Read Only User with RBAC"
-linkTitle: "Create Read Only User"
-weight: 1
+linkTitle: "Creating a Read Only User"
+weight: 100
 version: "2.0"
 product: "Sensu Core"
 platformContent: False
