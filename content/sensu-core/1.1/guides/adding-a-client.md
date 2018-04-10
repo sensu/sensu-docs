@@ -137,4 +137,4 @@ For example, you may have a router that you can't run Sensu on but publishes int
 [14]: ../../reference/clients/#client-keepalives
 [15]: ../../reference/checks/#check-results
 [16]: ../../reference/clients/#proxy-clients
-[17]: ../../intro-to-checks/#proxy-clients
+[17]: ../intro-to-checks/#proxy-clients
