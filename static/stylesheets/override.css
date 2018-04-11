@@ -556,7 +556,7 @@ button.accordion.active, button.accordion:hover {
 .alertBanner {
   background-color: #cc7d7c;
   box-shadow: 0 3px 8px rgba(0,0,0,.05);
-  position: absolute;
+  position: fixed;
   width: 100%;
   top: 64px;
   padding: 5px;
@@ -875,9 +875,10 @@ button.accordion.active, button.accordion:hover {
   .product-holder {
     height: 200px;
   }
-  
+
   #results.query.resultsList {
     top: 50px;
+  }
 
   #productVersionNav #productButton {
     width: 190px;
