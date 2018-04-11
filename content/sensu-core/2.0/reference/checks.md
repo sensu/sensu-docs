@@ -348,5 +348,5 @@ example      | {{< highlight shell >}}"splay_coverage": 65{{</ highlight >}}
 [17]: #
 [18]: #
 [19]: #round-robin-checks
-[20]: #
-[21]: #
+[20]: #../entities/#proxy_entities
+[21]: #../entities/#entity_attributes
