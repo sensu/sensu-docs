@@ -35,7 +35,7 @@ example      | {{< highlight shell >}}"ID": "example-hostname"{{</ highlight >}}
 
 class        | 
 -------------|------ 
-description  | The entity type, validated with go regex [`\A[\w\.\-]+\z`](https://regex101.com/r/zo9mQU/2)
+description  | The entity type, validated with go regex [`\A[\w\.\-]+\z`](https://regex101.com/r/zo9mQU/2). This value is not user configurable; it is set directly by the agent. An entity that runs an agent will be of `agent`, while a proxy entity will have class `proxy`.
 required     | true
 type         | string 
 example      | {{< highlight shell >}}"class": "agent"{{</ highlight >}}
