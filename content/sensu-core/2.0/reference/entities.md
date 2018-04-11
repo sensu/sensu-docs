@@ -45,7 +45,8 @@ subscriptions|
 description  | A list of subscription names for the entity. 
 required     | false 
 type         | array 
-example      | {{< highlight shell >}}"subscriptions": ["web", "prod"]{{</ highlight >}}
+default      | The entity-specific subscription.
+example      | {{< highlight shell >}}"subscriptions": ["web", "prod", "entity:example-entity"]{{</ highlight >}}
 
 system       | 
 -------------|------ 
