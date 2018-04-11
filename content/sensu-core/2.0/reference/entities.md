@@ -20,7 +20,7 @@ Proxy entities (formerly known as proxy clients, "Just-in-time" or "JIT" clients
 
 ## New and improved entities
 
-An `entity`, formally known as a `client` in Sensu 1.x, represents anything (e.g. server, container, network switch, etc) that needs to be monitored. Sensu 2.0 uses an updated data model that allows for it to acknowledge the full range of infrastructure, runtime and application types that compose a complete monitoring environment (from server hardware to "serverless" functions). Sensu no longer focuses on the object doing the monitoring and instead focuses on the object it monitors. We call these monitored parts of an infrastructure "entities." An Entity not only provides context to event data (what/where the event is from) but an event's uniqueness is determined by the check name and the ID of the entity upon which the check ran. In addition, an entity can contain system information such as the hostname, OS, platform, and version. 
+An `entity`, formally known as a `client` in Sensu 1.x, represents anything (e.g. server, container, network switch, etc) that needs to be monitored. Sensu 2.0 uses an updated data model that allows for it to acknowledge the full range of infrastructure, runtime and application types that compose a complete monitoring environment (from server hardware to "serverless" functions). Sensu no longer focuses on the object doing the monitoring and instead focuses on the object it monitors. We call these monitored parts of an infrastructure "entities." An entity not only provides context to event data (what/where the event is from) but an event's uniqueness is determined by the check name and the ID of the entity upon which the check ran. In addition, an entity can contain system information such as the hostname, OS, platform, and version. 
 
 ## Entities specification
 
@@ -42,7 +42,7 @@ example      | {{< highlight shell >}}"class": "agent"{{</ highlight >}}
 
 subscriptions| 
 -------------|------ 
-description  | A list of subscription names for the entity. 
+description  | A list of subscription names for the entity. The entity by default has an entity-specific subscription, in the format of `entity:{ID}` where `ID` is the entity's hostname.
 required     | false 
 type         | array 
 default      | The entity-specific subscription.
@@ -123,9 +123,7 @@ organization |
 description  | The Sensu RBAC organization that this entity belongs to.
 required     | false 
 type         | string 
-example      | {{< highlight shell >}}
-  "organization": "default"
-{{</ highlight >}}
+example      | {{< highlight shell >}}"organization": "default"{{</ highlight >}}
 
 environment  | 
 -------------|------ 
@@ -133,9 +131,7 @@ description  | The Sensu RBAC environment that this entity belongs to.
 required     | false 
 type         | string 
 default      | current environment value configured for `sensuctl` (ie `default`) 
-example      | {{< highlight shell >}}
-  "environment": "default"
-{{</ highlight >}}
+example      | {{< highlight shell >}}"environment": "default"{{</ highlight >}}
 
 extended_attributes | 
 -------------|------ 
@@ -146,7 +142,7 @@ example      | {{< highlight shell >}}"team":"ops"{{</ highlight >}}
 
 redact       | 
 -------------|------ 
-description  | List of items to redact from log messages. 
+description  | List of items to redact from log messages. If a value is provided, it overwrites the default list of items to be redacted.
 required     | false 
 type         | array 
 default      | ["password", "passwd", "pass", "api_key", "api_token", "access_key", "secret_key", "private_key", "secret"]
@@ -221,7 +217,7 @@ example      | {{< highlight json >}}
 
 arch         | 
 -------------|------ 
-description  | The entity's system architecture. 
+description  | The entity's system architecture. This value is determined by the Go binary architecture, as a function of runtime.GOARCH. An `amd` system running a `386` binary will report the arch as `386`.
 required     | false 
 type         | string 
 example      | {{< highlight shell >}}"arch": "amd64" {{</ highlight >}}
