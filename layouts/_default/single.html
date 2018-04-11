@@ -51,7 +51,7 @@
   {{ partial "footer" . }}
 </footer>
 
-<!-- May not render, used for old versions,  -->
+<!-- May not render, used for old/pre release versions -->
 {{ $product := .Section }}
 {{ $product2 := replace $product "-" "_" }}
 {{ $product_info := (index .Site.Params.products $product2) }}
