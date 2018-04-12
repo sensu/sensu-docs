@@ -198,6 +198,13 @@ required     | false
 type         | Array
 example      | {{< highlight shell >}}"sentinels": [{"host": "10.0.1.33", "port": 26379}]{{< /highlight >}}
 
+ssl          | 
+-------------|------
+description  | A set of attributes that configure SSL encryption for the connection. SSL encryption will be enabled if this attribute is configured.
+required     | false
+type         | Hash
+example      | {{< highlight shell >}}"ssl": {}{{< /highlight >}}
+
 #### `sentinels` attributes
 
 The following attributes are configured within each item in `"sentinels": []`,
