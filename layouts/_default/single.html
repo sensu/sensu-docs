@@ -61,6 +61,12 @@
   {{ $params := slice "#cc7d7c" $message $link }}
   {{ partial "alert" $params }}
 {{ end }}
+{{ $params2 := slice "#000" "I'm a second alert!" }}
+{{ partial "alert" $params2 }}
+{{ $params3 := slice "#81c000" "I'm a third alert!" }}
+{{ partial "alert" $params3 }}
+{{ $params4 := slice "#fff" "I'm a fourth alert!" }}
+{{ partial "alert" $params4 }}
 
 <script>
 $( document ).ready(function() {

@@ -2,20 +2,46 @@
 {{ $message := index . 1 }}
 {{ $link := index . 2 }}
 
-<div class="alertBanner" style="background-color: {{ $color }}">
+<!-- creates a unique id if there's multiple alerts -->
+{{ $uniqueness := replace $message " " "" }}
+
+<div class="alertBanner" id="{{ $uniqueness }}" style="background-color: {{ $color }}">
   {{ if $link }}
     <a class="alertBannerText" href="{{ $link }}">{{ $message }}</a>
-    <span class="closeAlert"><i class="fa fa-times" aria-hidden="true" onClick="closeAlert()"></i></span>
+    <span class="closeAlert"><i class="fa fa-times" aria-hidden="true" onClick="closeAlert({{ $uniqueness }})"></i></span>
   {{ else }}
     <span class="alertBannerText">{{ $message }}</span>
-    <span class="closeAlert"><i class="fa fa-times" aria-hidden="true" onClick="closeAlert()"></i></span>
+    <span class="closeAlert"><i class="fa fa-times" aria-hidden="true" onClick="closeAlert({{ $uniqueness }})"></i></span>
   {{ end }}
 </div>
 
-
 <script>
-  function closeAlert() {
-    var $banner = document.getElementsByClassName("alertBanner");
-    $banner[0].style.display = 'none';
+  alerts = document.getElementsByClassName("alertBanner");
+  i = 0;
+  // stack the alerts as needed
+  Array.prototype.forEach.call(alerts, alert => {
+    lastLocation = parseInt($(alerts[i]).css('top'), 10);
+    height = 28;
+    (i == 0) ? newLocation = lastLocation : newLocation = lastLocation + height;
+    alert.style.top = newLocation + "px";
+    i++;
+  });
+
+  function closeAlert(id) {
+    currentBanner = $(document.getElementById(id));
+    lastLocation = parseInt(currentBanner.css('top'), 10);
+    document.getElementById(id).remove();
+
+    alerts = document.getElementsByClassName("alertBanner");
+    i = 0;
+    // unstack the alerts as needed
+    Array.prototype.forEach.call(alerts, alert => {
+      // wat am I doing
+      (i == 0) ? lastLocation = lastLocation : lastLocation = parseInt($(alerts[i]).css('top'), 10);
+      height = 28;
+      (i == 0) ? newLocation = lastLocation : newLocation = lastLocation - height;
+      alert.style.top = newLocation + "px";
+      i++;
+    });
   }
 </script>
