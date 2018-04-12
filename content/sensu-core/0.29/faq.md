@@ -5,7 +5,7 @@ version: "0.29"
 menu: "sensu-core-0.29"
 product: "Sensu Core"
 ---
-# Sensu Frequently Asked Questions
+## Sensu Frequently Asked Questions
 
 Please note the following frequently asked questions about Sensu Core, Sensu
 Enterprise, Sensu Training, Professional Services for Sensu, and more. If you
@@ -136,4 +136,23 @@ $ ps aux | grep [s]ensu-server
 sensu     5992  1.7  0.3 177232 24352 ...
 $ kill -TRAP 5992{{< /highlight >}}
 
+> How can I print my Sensu configuration for troubleshooting?
+
+Frequently, Sensu staff or community members may ask you to print your configuration. It's fairly easy to print the configuration for your Sensu deployment:
+
+**Sensu Core**:
+`/opt/sensu/bin/sensu-client --print_config | tee sensu-core-config.json`
+
+**Sensu Enterprise**
+`sudo -u sensu java -jar /usr/lib/sensu-enterprise/sensu-enterprise.jar -c /etc/sensu/config.json -d /etc/sensu/conf.d --print_config | tee se-config.json`
+
+> RabbitMQ is giving me an error about `wrong credentials`, but everything seems correct. What do I do?
+
+Due to [AMQP's][1] implementation in RabbitMQ, it's often difficult to distinguish a SSL handshake failure from a bad username/password combination. If you've ensured that the username/password combination in your configuration is correct, we encourage you to check your RabbitMQ/Erlang versions against [RabbitMQ's "Which Erlang" article][2] to see if your versions are able to reliably support TLS.
+
+It's also worth noting that as of Sensu 0.27, our build processes changed and we [upgraded the version of OpenSSL][3], and upgrading your client (if < 0.27) may solve the issue.
+
 [downloads]: https://sensuapp.org/downloads
+[1]: https://www.amqp.org/
+[2]: https://www.rabbitmq.com/which-erlang.html
+[3]: ../installation/upgrading/#tls-ssl-changes

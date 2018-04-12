@@ -33,9 +33,7 @@
       {{ end }}
       {{ .Content }}
 
-      <footer class="footer">
-        {{ partial "footer" . }}
-      </footer>
+      {{ partial "pagination.html" . }}
     </div>
   </article>
 
@@ -49,12 +47,17 @@
   </div>
 </main>
 
+<footer class="footer">
+  {{ partial "footer" . }}
+</footer>
+
+
 {{ $product := .Section }}
 {{ $product2 := replace $product "-" "_" }}
 {{ $product_info := (index .Site.Params.products $product2) }}
 {{ if and (isset .Params "version") (ne $product_info.latest .Params.version) }}
   <div class="versionBanner">
-    <a class="versionBannerText" href="/{{ .Section }}/{{ $product_info.latest }}/">You're viewing documentation for an older version of {{ .Params.product }}. Click here for the latest.</a>
+    <a class="versionBannerText" href="/{{ .Section }}/{{ $product_info.latest }}/">You're viewing documentation for an older or pre-release version of {{ .Params.product }}. Click here for the latest.</a>
   </div>
 {{ end }}
 
@@ -88,9 +91,9 @@ function togglePlatformDivs() {
   var $platformDivs = document.getElementsByClassName("platform");
   Array.prototype.forEach.call($platformDivs, function($platformDiv) {
     $platformDivId =  $platformDiv.id
-    $platformDivId = $platformDivId.replace("-", " ");
-    $platformDivId = $platformDivId.replace("_", "/");
-    if ($platformDivId != $platformCookie && $platformCookie != null) {
+    $platformDivId = $platformDivId.replace(new RegExp("-", "g"), " ");
+    $platformDivId = $platformDivId.replace(new RegExp("_", "g"), "/");
+    if (!$platformDivId.includes($platformCookie) && $platformCookie != null) {
       $platformDiv.style.display = 'none';
     } else {
       $platformDiv.style.display = 'block';
@@ -118,3 +121,5 @@ function applyTipBoxes() {
   });
 }
 </script>
+
+{{ partial "footer_js" . }}

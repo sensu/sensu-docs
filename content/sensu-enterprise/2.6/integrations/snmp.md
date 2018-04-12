@@ -32,17 +32,17 @@ SNMP configurations.
 
 SNMPv1 MIBs:
 
-- [RFC-1212-MIB.txt](/files/RFC-1212-MIB.txt)
+- [RFC-1212-MIB.txt](../../files/RFC-1212-MIB.txt)
 
-- [RFC-1215-MIB.txt](/files/RFC-1215-MIB.txt)
+- [RFC-1215-MIB.txt](../../files/RFC-1215-MIB.txt)
 
-- [SENSU-ENTERPRISE-V1-MIB.txt](/files/SENSU-ENTERPRISE-V1-MIB.txt)
+- [SENSU-ENTERPRISE-V1-MIB.txt](../../files/SENSU-ENTERPRISE-V1-MIB.txt)
 
 SNMPv2 MIBs:
 
-- [SENSU-ENTERPRISE-ROOT-MIB.txt](/files/SENSU-ENTERPRISE-ROOT-MIB.txt)
+- [SENSU-ENTERPRISE-ROOT-MIB.txt](../../files/SENSU-ENTERPRISE-ROOT-MIB.txt)
 
-- [SENSU-ENTERPRISE-NOTIFY-MIB.txt](/files/SENSU-ENTERPRISE-NOTIFY-MIB.txt)
+- [SENSU-ENTERPRISE-NOTIFY-MIB.txt](../../files/SENSU-ENTERPRISE-NOTIFY-MIB.txt)
 
 ## Configuration
 
@@ -93,6 +93,22 @@ required     | false
 type         | String
 default      | `public`
 example      | {{< highlight shell >}}"community": "private"{{< /highlight >}}
+
+filters        | 
+---------------|------
+description    | An array of Sensu event filters (names) to use when filtering events for the handler. Each array item must be a string. Specified filters are merged with default values.
+required       | false
+type           | Array
+default        | {{< highlight shell >}}["handle_when", "check_dependencies"]{{< /highlight >}}
+example        | {{< highlight shell >}}"filters": ["recurrence", "production"]{{< /highlight >}}
+
+severities     | 
+---------------|------
+description    | An array of check result severities the handler will handle. _NOTE: event resolution bypasses this filtering._
+required       | false
+type           | Array
+allowed values | `ok`, `warning`, `critical`, `unknown`
+example        | {{< highlight shell >}} "severities": ["critical", "unknown"]{{< /highlight >}}
 
 varbind_trim | 
 -------------|------

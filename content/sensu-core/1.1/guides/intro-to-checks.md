@@ -2,6 +2,8 @@
 title: "Intro to Checks"
 version: "1.1"
 weight: 3
+next: ../intro-to-filters
+previous: ../adding-a-client
 menu:
   sensu-core-1.1:
     parent: guides
@@ -266,7 +268,8 @@ script.
 {{< highlight shell >}}
 sudo sensu-install -p graphite:0.0.6{{< /highlight >}}
 
-## Checking on Other Clients {#proxy-clients}
+## Checking on Other Clients{#proxy-clients}
+
 Sensu supports running checks where the results are considered to be for a **client** that isn't actually the one **executing** the check- regardless of whether that client is a **Sensu client** or simply a [**proxy client**][14]. There are a number of reasons for this use case, but fundamentally, Sensu handles it the same.
 
 Checks are scheduled normally, but by specifying a [**Proxy Request**][13] in your check, clients that match certain definitions (their `client_attributes`) cause the check to run for each one. The attributes supplied must normally match *exactly* as stated- no variables or directives have any special meaning, but you can still use `eval` to perform more complicated filtering with Ruby on the available `value`, such as finding clients with particular subscriptions (given that we're dealing with arrays):
@@ -280,7 +283,7 @@ Checks are scheduled normally, but by specifying a [**Proxy Request**][13] in yo
     }
   }{{< /highlight >}}
 
-[1]:  ../reference/checks
+[1]:  ../../reference/checks
 [2]:  https://github.com/sensu-plugins/sensu-plugins-process-checks
 [3]:  #check-cron-install-dependencies
 [4]:  http://graphite.readthedocs.org/en/latest/feeding-carbon#the-plaintext-protocol/
@@ -289,8 +292,8 @@ Checks are scheduled normally, but by specifying a [**Proxy Request**][13] in yo
 [7]:  http://metrics20.org/spec/
 [8]:  https://github.com/sensu-plugins/sensu-plugins-cpu-checks
 [9]:  #cpu-metrics-install-dependencies
-[10]: ../reference/events#what-are-sensu-events/
+[10]: ../../reference/events#what-are-sensu-events/
 [11]: #metric-collection-checks
 [12]: https://github.com/sensu-plugins/sensu-plugins-graphite
-[13]: ../reference/checks#proxy-requests-attributes/
+[13]: ../../reference/checks#proxy-requests-attributes/
 [14]: ..adding-a-client#proxy-clients/

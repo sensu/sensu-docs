@@ -2,6 +2,8 @@
 title: "Intro to Filters"
 version: "1.0"
 weight: 4
+next: ../intro-to-mutators
+previous: ../intro-to-checks
 menu:
   sensu-core-1.0:
     parent: guides
@@ -142,4 +144,4 @@ once per hour.
   }
 }{{< /highlight >}}
 
-[1]:  ../reference/filters/
+[1]:  ../../reference/filters/

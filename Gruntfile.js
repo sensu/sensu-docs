@@ -5,6 +5,71 @@ var CONTENT_PATH_PREFIX = "content/";
 
 // define the grunt function for cli
 module.exports = function(grunt) {
+    grunt.initConfig({
+        env : {
+            options : {
+                add : {
+                    HUGO_VERSION : '0.34.0'
+                }
+            },
+            dev : {}
+        }
+    })
+
+    grunt.loadNpmTasks('grunt-env');
+
+    grunt.registerTask("hugo-build", function() {
+        const done = this.async();
+
+        grunt.log.writeln("Running hugo build");
+        grunt.util.spawn({
+            cmd: "hugo",
+        },
+        function(error, result, code) {
+            if (code == 0) {
+                grunt.log.ok("Successfully built site");
+            } else {
+                grunt.fail.fatal(error);
+            }
+            done();
+        });
+    });
+
+    grunt.registerTask("hugo-server", function() {
+        const done = this.async();
+        const args = process.argv.slice(3); // fetch given arguments
+
+        grunt.log.writeln("Running Hugo server");
+        grunt.util.spawn({
+            cmd: "hugo",
+            args: ["server", ...args] , // pass arguments down
+            opts: {stdio: 'inherit'}
+        },
+        function(error, result, code) {
+            if (code == 0) {
+                grunt.log.ok("Thanks for using Hugo!");
+            } else {
+                grunt.fail.fatal(error);
+            }
+            done();
+        });
+    });
+
+    grunt.registerTask("print-hugo-version", function() {
+        const done = this.async();
+        grunt.util.spawn({
+            cmd: "hugo",
+            args: ["version"],
+            opts: {stdio: 'inherit'}
+        },
+        function(error, result, code) {
+            if (code == 0) {
+            } else {
+                grunt.fail.fatal(error);
+            }
+            done();
+        });
+    });
 
     // define the actual lunr-index task for cli
     grunt.registerTask("lunr-index", function() {
@@ -13,27 +78,26 @@ module.exports = function(grunt) {
 
         // makes an array of the names of all the files
         var indexPages = function() {
-            grunt.log.writeln("Inside indexPages function");
-
-            var pagesIndex = [];
+            let pagesIndex = [];
             // go through the folders recursively
             grunt.file.recurse(CONTENT_PATH_PREFIX, function(abspath, rootdir, subdir, filename) {
-                grunt.verbose.writeln("Parse file:",abspath);
+                grunt.verbose.writeln("Parse file:", abspath);
 
                 // push adds the processed file to the array of pages
-                pagesIndex.push(processFile(abspath, filename));
+                const entry = processFile(abspath, filename);
+                if (entry !== null && entry !== undefined) {
+                  pagesIndex.push(entry);
+                }
             });
             return pagesIndex;
         };
 
         // call the appropriate process for if it's a content file (md) or html page
         var processFile = function(abspath, filename) {
-            grunt.log.writeln("Inside processFile function");
-
             var pageIndex;
             if (S(filename).endsWith(".html")) {
                 pageIndex = processHTMLFile(abspath, filename);
-            } else {
+            } else if (S(filename).endsWith(".md")) {
                 pageIndex = processMDFile(abspath, filename);
             }
             return pageIndex;
@@ -41,8 +105,6 @@ module.exports = function(grunt) {
 
         // process html
         var processHTMLFile = function(abspath, filename) {
-            grunt.log.writeln("Inside processHTMLFile function");
-
             // read the file contents
             var content = grunt.file.read(abspath);
             // the page name will be the filename, minus html
@@ -62,8 +124,6 @@ module.exports = function(grunt) {
 
         // process md
         var processMDFile = function(abspath, filename) {
-            grunt.log.writeln("Inside processMDFile function");
-
             // read the file contents
             var content = grunt.file.read(abspath);
             var pageIndex;
@@ -94,14 +154,16 @@ module.exports = function(grunt) {
                 product: frontMatter.product,
                 version: frontMatter.version,
                 location: href,
-                display_name: frontMatter.product + " " + frontMatter.version + ": " + frontMatter.title, 
+                display_name: frontMatter.product + " " + frontMatter.version + ": " + frontMatter.title,
                 content: S(content[2]).trim().stripTags().stripPunctuation().s
             };
             return pageIndex;
         };
-        grunt.log.writeln("Index pages -> process file -> process based on type");
         grunt.file.write("static/js/lunr/PagesIndex.json", JSON.stringify(indexPages()));
-        grunt.log.ok("Index built");
+        grunt.log.ok("Lunr index built");
     });
-};
 
+    grunt.registerTask("default", ["env", "lunr-index", "hugo-version", "hugo-build",]);
+    grunt.registerTask("server", ["env", "lunr-index", "hugo-version", "hugo-server",]);
+    grunt.registerTask("hugo-version", ["env", "print-hugo-version",]);
+};

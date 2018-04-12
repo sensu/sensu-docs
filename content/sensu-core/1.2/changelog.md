@@ -8,6 +8,7 @@ menu: "sensu-core-1.2"
 
 ## Releases
 
+- [Core 1.2.1 Release Notes](#core-v1-2-1)
 - [Core 1.2.0 Release Notes](#core-v1-2-0)
 - [Core 1.1.3 Release Notes](#core-v1-1-3)
 - [Core 1.1.2 Release Notes](#core-v1-1-2)
@@ -46,6 +47,21 @@ menu: "sensu-core-1.2"
 - [Core 0.23.1 Release Notes](#core-v0-23-1)
 - [Core 0.23.0 Release Notes](#core-v0-23-0)
 
+## Core 1.2.1 Release Notes {#core-v1-2-1}
+
+**February 9, 2017** &mdash; Sensu Core version 1.2.1 has been
+	released and is available for immediate download. Please note
+	the following improvements:
+
+### CHANGES {#core-v1-2-1-changes}
+
+- **SECURITY FIX**: Sensu's configuration redaction function failed to
+  handle key/value pairs in deeply nested data structures, resulting in
+  sensitive configuration data (e.g. passwords) being logged in clear-text.
+  The redaction function now handles the necessary recursion to address
+  this vulnerability.
+
+  This vulnerability is documented as [CVE-2018-1000060](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2018-1000060).
 
 ## Core 1.2.0 Release Notes {#core-v1-2-0}
 

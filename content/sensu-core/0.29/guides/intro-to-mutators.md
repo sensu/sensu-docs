@@ -2,6 +2,8 @@
 title: "Intro to Mutators"
 version: "0.29"
 weight: 5
+next: ../intro-to-handlers
+previous: ../intro-to-filters
 menu:
   sensu-core-0.29:
     parent: guides
@@ -42,5 +44,5 @@ Coming soon. Please see the [Mutators][1] reference documentation. If you have
 questions about event data mutators, please contact [Sensu Support][2].
 
 
-[1]:  ../reference/mutators/
+[1]:  ../../reference/mutators/
 [2]:  http://helpdesk.sensuapp.com

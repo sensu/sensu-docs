@@ -1,13 +1,14 @@
-baseurl = "//sensu-docs-site.herokuapp.com/"
+baseurl = "//docs.sensu.io/"
 languageCode = "en-us"
 title = "Sensu Docs"
 theme = "hugo-material-docs"
 metadataformat = "yaml"
 canonifyURLs = true
 # Enable Google Analytics by entering your tracking id
-googleAnalytics = ""
-
-pygmentsUseClasses=true
+googleAnalytics = "UA-39138312-17"
+enableRobotsTXT = true
+pygmentsUseClasses = true
+ignoreFiles = [ "sensu-doc-template.md" ]
 
 [["menu.sensu-core-1.0"]]
   name = "Moi API"
@@ -16,7 +17,6 @@ pygmentsUseClasses=true
 
 [params]
 	# General information
-	author = "Sensu, Inc"
 	description = "Monitor servers, services, application health, and business KPIs. Collect and analyze custom metrics. Get notified about failures before your users do. Give your business the competitive advantage it deserves."
 	copyright = ""
 
@@ -25,8 +25,8 @@ pygmentsUseClasses=true
 	repo_url = "https://github.com/sensu/sensu-docs"
 
 	version = "1.0"
-	logo = "images/sensu-logo-green.png"
-	favicon = "images/logo-flat-black.png"
+	logo = "images/sensu-logo-icon-dark@2x.png"
+	favicon = "images/favicon.png"
 
 	permalink = "#"
 
@@ -50,8 +50,10 @@ pygmentsUseClasses=true
         name = "Sensu Core"
         description = "The open source extensible monitoring framework."
         weight = 1
-        latest = "1.2"
+        latest = "1.3"
         [params.products.sensu_core.versions]
+            "2.0" = ["Ubuntu/Debian", "RHEL/CentOS", "Windows"]
+            "1.3" = ["Ubuntu/Debian", "RHEL/CentOS"]
             "1.2" = ["Ubuntu/Debian", "RHEL/CentOS"]
             "1.1" = ["Ubuntu/Debian", "RHEL/CentOS"]
             "1.0" = ["Ubuntu/Debian", "RHEL/CentOS"]

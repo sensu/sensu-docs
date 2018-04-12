@@ -1,0 +1,23 @@
+{
+    "root": "public/",
+    "https_only": true,
+    "error_page": "/404.html",
+    "rewrites": {
+        "~ ^/sensu-core/latest/?(.*)$": {
+            "url": "/sensu-core/1.3/$1",
+            "status": 302
+        },
+        "~ ^/sensu-enterprise/latest/?(.*)$": {
+            "url": "/sensu-enterprise/2.8/$1",
+            "status": 302
+        },
+        "~ ^/sensu-enterprise-dashboard/latest/?(.*)$": {
+            "url": "/sensu-enterprise-dashboard/2.11/$1",
+            "status": 302
+        },
+        "~ ^/plugins/latest/?(.*)$": {
+            "url": "/plugins/2.3/$1",
+            "status": 302
+        }
+    }
+}

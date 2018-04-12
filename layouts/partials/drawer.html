@@ -2,14 +2,10 @@
 
   <!-- Logo and link to home -->
   <a href="{{ .Site.BaseURL }}" class="project">
-    <div class="banner">
-      {{ with .Site.Params.logo }}
-        <div class="logo">
-          <img src="{{ $.Site.BaseURL }}{{ . }}">
-        </div>
-      {{ end }}
+    <div class="drawer-title">
+      <img src="{{ "images/sensu-logo-icon-dark@2x.png" | absURL }}" alt="Sensu Logo">
+      <h2>Navigation</h2>
     </div>
-    <div class="name"><strong>Sensu Docs Home</strong></div>
   </a>
 
   <!-- Dropdowns for the product and version will appear here on resize -->
@@ -23,15 +19,15 @@
       <!-- Contains the actual nav links -->
       <div class="toc">
         {{ if gt (len .Site.Menus.main) 0 }}
-          <ul>
+          <ul class="toc-menu">
             {{ partial "nav" . }}
           </ul>
         {{ end }}
 
+        <a href="{{.Site.Params.repo_url}}/edit/master/content/{{.File.Path}}">Edit this page</a>
+
         <!-- Small section for Sensu links -->
         {{ if isset .Site.Params "author" }}
-          <hr>
-          <span class="section">The author</span>
           <ul>
             {{ with .Site.Social.twitter }}
             <li>

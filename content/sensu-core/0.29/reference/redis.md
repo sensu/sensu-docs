@@ -430,7 +430,7 @@ deployment._
 
 1. Download the Sensu Redis Sentinel configuration file.
 {{< highlight shell >}}
-sudo wget -O /etc/redis/sentinel.conf http://sensuapp.org/docs/1.0/files/sentinel.conf{{< /highlight >}}
+sudo wget -O /etc/redis/sentinel.conf http://docs.sensu.io/sensu-core/0.29/files/sentinel.conf{{< /highlight >}}
 
 2. Sentinel not only reads its configuration from `/etc/redis/sentinel.conf`, but
    it also writes changes to it (state), so the Redis user must own the
@@ -460,7 +460,7 @@ sentinel auth-pass mymaster your_redis_password{{< /highlight >}}
    following command to install prereqs and download a working Redis Sentinel init script.<br><br>Note that you may, on some RedHat variants, also need the `redhat-lsb` package to use this init script.
 {{< highlight shell >}}
 sudo yum install initscripts
-sudo wget -O /etc/init.d/redis-sentinel http://sensuapp.org/docs/1.0/files/redis-sentinel{{< /highlight >}}
+sudo wget -O /etc/init.d/redis-sentinel http://docs.sensu.io/sensu-core/0.29/files/redis-sentinel{{< /highlight >}}
    The Redis Sentinel init script file needs to be executable.
 {{< highlight shell >}}
 sudo chmod +x /etc/init.d/redis-sentinel{{< /highlight >}}

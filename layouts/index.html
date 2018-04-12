@@ -34,17 +34,23 @@
 <div class="homepage-main">
   <div class="product-block">
     {{ range sort .Site.Params.Products "weight" }}
-      <div class="product-holder" id="product-{{ .identifier }}">
+      {{ $.Scratch.Set "url" "" }}
+      {{ if eq .identifier "uchiwa" }}
+        {{ $.Scratch.Set "url" "https://docs.uchiwa.io/" }}
+      {{ else }}
+        {{ $.Scratch.Set "url" (printf "/%s/%s/" .identifier .latest) }}
+      {{ end }}
+      {{ $url := $.Scratch.Get "url" }}
+      <a class="product-holder" id="product-{{ .identifier }}" href="{{ $url }}">
         <div class="mask"></div>
         <div class="content">
           <a class="homepage-product" href="/{{ .identifier }}/{{ .latest }}/"><span class="product-title">{{ .name }}</span>
             <span class="description">
-              <br>
               {{ .description }}
             </span>
-          </a>
+          </div>
         </div>
-      </div>
+      </a>
     {{ end }}
   </div>
 
