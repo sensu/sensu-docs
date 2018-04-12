@@ -225,6 +225,25 @@ type         | Integer
 default      | `26379`
 example      | {{< highlight shell >}}"port": 26380{{< /highlight >}}
 
+#### `ssl` attributes
+
+The following attributes are configured within the `"ssl": {}` Redis
+definition attribute scope.
+
+cert_chain_file | 
+----------------|------
+description     | The file path for the chain of X509 SSL certificates in the PEM format for the SSL connection.
+required        | false
+type            | String
+example         | {{< highlight shell >}}"cert_chain_file": "/etc/sensu/ssl/redis_cert.pem"{{< /highlight >}}
+
+private_key_file | 
+-----------------|------
+description      | The file path for the SSL private key in the PEM format.
+required         | false
+type             | String
+example          | {{< highlight shell >}}"private_key_file": "/etc/sensu/ssl/redis_key.pem"{{< /highlight >}}
+
 ## Configure Redis {#sensu-redis-configuration}
 
 Please note the following configuration and tuning references for setting up
