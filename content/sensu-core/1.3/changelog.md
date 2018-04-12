@@ -8,6 +8,7 @@ menu: "sensu-core-1.2"
 
 ## Releases
 
+- [Core 1.3.0 Release Notes](#core-v1-3-0)
 - [Core 1.2.1 Release Notes](#core-v1-2-1)
 - [Core 1.2.0 Release Notes](#core-v1-2-0)
 - [Core 1.1.3 Release Notes](#core-v1-1-3)
@@ -46,6 +47,47 @@ menu: "sensu-core-1.2"
 - [Core 0.23.2 Release Notes](#core-v0-23-2)
 - [Core 0.23.1 Release Notes](#core-v0-23-1)
 - [Core 0.23.0 Release Notes](#core-v0-23-0)
+
+## Core 1.3.0 Release Notes {#core-v1-3-0}
+
+Source: [GitHub.com][57]
+
+**April 12, 2017** &mdash; Sensu Core version 1.3.0 has been
+	released and is available for immediate download. Please note
+	the following improvements:
+
+### CHANGES {#core-v1-3-0-changes}
+
+- **NEW**: Redis TLS connection support. Sensu Redis connections can now
+	be configured to use TLS, this includes the Sensu server and Redis
+	transport connections! The Sensu Redis configuration definition
+	now includes the optional "tls" (or "ssl") attribute, a hash
+	containing TLS options ("private_key_file", "cert_chain_file", and
+	"verify_peer").
+
+- **NEW**: The Sensu client TCP/UDP socket can now be disabled via
+	configuration. The Sensu client configuration definition now
+	includes the socket "enabled" attribute, which defaults to true,
+	and it can be set to false in order to disable the socket. (#1799)
+
+- **IMPROVEMENT**: The Sensu Ruby gems are now cryptographically signed.
+	To learn more about Ruby gem signing, please refer to the RubyGems
+	security guide. (#1819)
+
+- **IMPROVEMENT**: The Sensu API POST /clients endpoint no longer
+	requires client subscriptions to be specified. (#1795)
+
+- **IMPROVEMENT**: All Sensu event handler types now include event ID in
+	log events.
+
+- **BUGFIX**: Sensu TCP event handlers will no longer connect to a socket
+	if the provided event data is nil or empty. (#1734)
+
+- **BUGFIX**: The RabbitMQ transport will now reconnect after failing to
+	resolve DNS, instead of independently retrying broker hostname
+	resolution. This fixes retry timer backoff and allows the
+	transport to connect to another eligible broker after failing to
+	resolve a hostname.
 
 ## Core 1.2.1 Release Notes {#core-v1-2-1}
 
@@ -1100,7 +1142,7 @@ This release includes potentially breaking, backwards-incompatible changes:
     }
   }
   {{< / highlight >}}
-	
+
 Please refer to the [Sensu client reference documentation][23] for additional
 information on configuring the built-in Sensu client de-registration.
 **Fixes [#1191][gh-1191], [#1305][gh-1305].**
@@ -1288,7 +1330,7 @@ available for immediate download. Please note the following improvements:
         "host": "10.0.1.23",
         "port": 26479
       }
-    ]  
+    ]
   }
   {{< / highlight >}}
 
@@ -1310,7 +1352,7 @@ available for immediate download. Please note the following improvements:
     "filters": {
       "example_filter": {
         "attributes": {
-          "occurrences": "eval: value > :::check.occurrences:::"          
+          "occurrences": "eval: value > :::check.occurrences:::"
         }
       }
     }
@@ -1437,7 +1479,7 @@ available for immediate download. Please note the following improvements:
 <!-- 0.26 -->
 
 [25]: /sensu-core/0.29/reference/checks#subdue-attributes
-[26]: /sensu-core/0.29/reference/handlers#subdue-attributes 
+[26]: /sensu-core/0.29/reference/handlers#subdue-attributes
 [27]: /sensu-core/0.29/reference/filters#when-attributes
 [28]: /sensu-core/0.29/reference/extensions
 [29]: /sensu-core/0.29/reference/aggregates
@@ -1449,7 +1491,7 @@ available for immediate download. Please note the following improvements:
 
 <!-- 0.27 -->
 
-[35]: /sensu-core/0.29/platforms 
+[35]: /sensu-core/0.29/platforms
 [36]: https://github.com/sensu/sensu-omnibus
 [37]: https://travis-ci.org
 [38]: https://github.com/test-kitchen/test-kitchen
@@ -1481,6 +1523,9 @@ available for immediate download. Please note the following improvements:
 
 <!-- 1.2 -->
 [56]: https://github.com/sensu/sensu/blob/master/CHANGELOG.md#120---2017-12-05
+
+<!-- 1.3 -->
+[57]: https://github.com/sensu/sensu/blob/master/CHANGELOG.md#130----2018-03-09
 
 <!-- GH Issues/PR's -->
 
