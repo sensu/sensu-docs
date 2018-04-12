@@ -8,4 +8,4 @@ menu:
     parent: api
 ---
 
-{{< directoryListing "content/sensu-core/1.0/api" >}}
+{{< directoryListing "content/sensu-core/1.3/api" >}}
