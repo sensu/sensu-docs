@@ -106,8 +106,8 @@ change it immediately. To do so, you'll first want to authenticate using the
 
 Once authenticated, you can use the `change-password` command.
 
-> sensuctl user change-password
 {{< highlight shell >}}
+$ sensuctl user change-password --interactive
 ? Current Password:  *********
 ? Password:          *********
 ? Confirm:           *********
@@ -127,9 +127,8 @@ sensuctl config set-environment prod
 All Sensu sub-commands have a `--help` flag that returns more information on
 using the command and if applicable any sub-commands _it_ has.
 
-sensuctl:
-> $ sensuctl --help
 {{< highlight shell >}}
+$ sensuctl --help
 sensuctl controls Sensu instances
 
 Usage:	sensuctl COMMAND
@@ -137,9 +136,9 @@ Usage:	sensuctl COMMAND
 Flags:
       --api-url string        host URL of Sensu installation
       --cache-dir string      path to directory containing cache & temporary files (default
-                              "/Users/mercedes/Library/Caches/sensu/sensuctl")
+                              "/Users/username/Library/Caches/sensu/sensuctl")
       --config-dir string     path to directory containing configuration files (default
-                              "/Users/mercedes/.config/sensu/sensuctl")
+                              "/Users/username/.config/sensu/sensuctl")
       --environment string    environment in which we perform actions (default "default")
   -h, --help                  help for sensuctl
       --organization string   organization in which we perform actions (default "default")
