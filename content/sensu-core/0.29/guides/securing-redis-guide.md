@@ -109,9 +109,35 @@ Status: active
 -
 centos firewall
 -
-Using ACLs on Redis Host
-- 
-Using Firewall on Redis Host
+https://redislabs.com/redis-enterprise-documentation/administering/installing-upgrading/configuring/centos-rhel-7-firewall/
+
+CentOS / RHEL7 distributions have, by default, a restrictive firewall mechanism based on firewalld (which in turn configures the standard iptables system). The default configuration assigns the network interfaces to the public zone and blocks all ports, except 22 (SSH).
+
+Redis Enterprise Software (RES) installation on CentOS / RHEL 7 automatically creates two firewalld system services:
+
+A service named redislabs, which includes all ports and protocols needed for communications between cluster nodes.
+A service named redislabs-clients, which includes the ports and protocols needed for communications external to the cluster.
+
+These services are defined but not allowed through the firewall by default. As part of the installation process, the installer prompts you to confirm auto-configuration of a default (public) zone to allow the redislabs service.
+
+
+sudo firewall-cmd --permanent --new-zone=redis
+
+sudo firewall-cmd --permanent --zone=redis --add-port=6379/tcp
+
+sudo firewall-cmd --permanent --zone=redis --add-source=client_server_private_IP
+
+sudo firewall-cmd --reload
+
+
+---
+iptables:
+
+sudo iptables -A INPUT -i lo -j ACCEPT
+sudo iptables -A INPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
+sudo iptables -A INPUT -p tcp -s client_servers_private_IP/32 --dport 6397 -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT
+sudo iptables -P INPUT DROP
+
 -
 Using Network Router/Firewall 
 --
