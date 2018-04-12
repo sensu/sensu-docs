@@ -599,6 +599,14 @@ The following attributes are configured within the `{ "client": { "socket": {} }
 
 ##### ATTRIBUTES {#socket-attributes-specification}
 
+enabled      | 
+-------------|------
+description  | If the Sensu client socket is enabled.
+required     | false
+type         | Boolean
+default      | `true`
+example      | {{< highlight shell >}}"enabled": false{{< /highlight >}}
+
 bind         | 
 -------------|------
 description  | The address to bind the Sensu client socket to.
