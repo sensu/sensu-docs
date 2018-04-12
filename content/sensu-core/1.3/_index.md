@@ -5,7 +5,7 @@ weight: -100
 menu: "sensu-core-1.3"
 version: "1.3"
 product: "Sensu Core"
-tags: ["sensu", "core", "sensu core", "1.1", "index"]
+tags: ["sensu", "core", "sensu core", "1.3", "index"]
 layout: "single"
 ---
 
