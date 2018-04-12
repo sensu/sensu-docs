@@ -148,7 +148,9 @@ Frequently, Sensu staff or community members may ask you to print your configura
 
 > RabbitMQ is giving me an error about `wrong credentials`, but everything seems correct. What do I do?
 
-Due to [AMQP's][1] implementation in Sensu, it's often difficult to distinguish between a SSL handshake failure from a bad username/password combination. If you've ensured that the username/password combination in your configuration is correct, we encourage you to check your RabbitMQ/Erlang versions against [RabbitMQ's "Which Erlang" article][2] to see if your versions are able to reliably support TLS. It's also worth noting that as of Sensu 0.27, our build processes changed and we [upgraded the version of OpenSSL][3], and upgrading your client (if < 0.27) may solve the issue.
+Due to [AMQP's][1] implementation in RabbitMQ, it's often difficult to distinguish a SSL handshake failure from a bad username/password combination. If you've ensured that the username/password combination in your configuration is correct, we encourage you to check your RabbitMQ/Erlang versions against [RabbitMQ's "Which Erlang" article][2] to see if your versions are able to reliably support TLS.
+
+It's also worth noting that as of Sensu 0.27, our build processes changed and we [upgraded the version of OpenSSL][3], and upgrading your client (if < 0.27) may solve the issue.
 
 [downloads]: https://sensuapp.org/downloads
 [1]: https://www.amqp.org/
