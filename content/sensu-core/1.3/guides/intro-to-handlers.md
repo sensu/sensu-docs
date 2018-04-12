@@ -1,10 +1,10 @@
 ---
 title: "Intro to Handlers"
-version: "1.2"
+version: "1.3"
 weight: 6
 previous: ../intro-to-mutators
 menu:
-  sensu-core-1.2:
+  sensu-core-1.3:
     parent: guides
 ---
 
@@ -55,7 +55,7 @@ parsed event data, and then writes the event data to the file (e.g.
 `/tmp/client_name/check_name.json`).
 
 {{< highlight shell >}}
-sudo wget -O /etc/sensu/plugins/event-file.rb http://sensuapp.org/docs/1.2/files/event-file.rb
+sudo wget -O /etc/sensu/plugins/event-file.rb http://sensuapp.org/docs/1.3/files/event-file.rb
 sudo chmod +x /etc/sensu/plugins/event-file.rb{{< /highlight >}}
 
 The `event-file` Sensu plugin requires a Ruby runtime. Install Ruby from the

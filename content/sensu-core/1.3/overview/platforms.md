@@ -2,11 +2,11 @@
 title: "Platforms"
 description: "Supported platforms"
 product: "Sensu Core"
-version: "1.2"
+version: "1.3"
 weight: 4
 previous: ../architecture
 menu:
-  sensu-core-1.2:
+  sensu-core-1.3:
     parent: overview
 ---
 

@@ -1,11 +1,11 @@
 ---
 title: "Install Redis"
 description: "The complete Sensu installation guide."
-version: "1.2"
+version: "1.3"
 weight: 4
 previous: ../installation-prerequisites
 menu:
-  sensu-core-1.2:
+  sensu-core-1.3:
     parent: installation
 ---
 

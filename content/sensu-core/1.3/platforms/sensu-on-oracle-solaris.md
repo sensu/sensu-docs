@@ -3,11 +3,11 @@ title: "Solaris"
 description: "User documentation for installing and operating Sensu on Solaris
   systems."
 weight: 5
-version: "1.2"
+version: "1.3"
 product: "Sensu Core"
 platformContent: true
 menu:
-  sensu-core-1.2:
+  sensu-core-1.3:
     parent: platforms
 ---
 
@@ -41,11 +41,11 @@ format specified below._
 
 1. Download Sensu from the [Sensu Downloads][1] page
 
-2. Install the `sensu-1.2.0-1.i386.pkg` package using the `pkgadd` utility:
+2. Install the `sensu-1.3.0-1.i386.pkg` package using the `pkgadd` utility:
 
    {{< highlight shell >}}
    $ su
-   $ pkgadd -d sensu-1.2.0-1.i386.pkg{{< /highlight >}}
+   $ pkgadd -d sensu-1.3.0-1.i386.pkg{{< /highlight >}}
 
 3. Install the Sensu service init script(s) using the `svccfg` utility:
 
@@ -64,17 +64,17 @@ format specified below._
    utility:
 
    {{< highlight shell >}}
-   wget https://sensu.global.ssl.fastly.net/solaris/ips/5.11/sensu-1.2.0-1.i386.p5p{{< /highlight >}}
+   wget https://sensu.global.ssl.fastly.net/solaris/ips/5.11/sensu-1.3.0-1.i386.p5p{{< /highlight >}}
 
-2. Install the `sensu-1.2.0-1.i386.p5p` package using the `pkg` utility:
+2. Install the `sensu-1.3.0-1.i386.p5p` package using the `pkg` utility:
 
    {{< highlight shell >}}
-   $ sudo pkg install -g sensu-1.2.0-1.i386.p5p developer/versioning/sensu{{< /highlight >}}
+   $ sudo pkg install -g sensu-1.3.0-1.i386.p5p developer/versioning/sensu{{< /highlight >}}
 
 3. Download and run the Sensu [post-install script][12]:
 
    {{< highlight shell >}}
-   $ wget https://sensuapp.org/docs/1.2/files/postinst.sh
+   $ wget https://sensuapp.org/docs/1.3/files/postinst.sh
    $ chmod +x postinst.sh
    $ sudo ./postinst.sh{{< /highlight >}}
 

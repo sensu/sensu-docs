@@ -2,15 +2,15 @@
 title: "Learn Sensu in 15 Minutes"
 description: "Learn the basics to Sensu Core in 15 minutes."
 weight: 3
-version: "1.2"
+version: "1.3"
 product: "Sensu Core"
 platformContent: true
 menu:
-  sensu-core-1.2:
+  sensu-core-1.3:
     parent: quick-start
 ---
 # Learn Sensu in 15 Minutes
-{{< platformDropdown "Ubuntu/Debian" "Sensu-Core" "1.2" "Client Installation" "learn-sensu-basics">}}
+{{< platformDropdown "Ubuntu/Debian" "Sensu-Core" "1.3" "Client Installation" "learn-sensu-basics">}}
 
 Sensu was designed to provide a comprehensive monitoring platform for monitoring
 infrastructure (servers), services, application health, and business KPIs

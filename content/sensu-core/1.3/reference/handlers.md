@@ -2,10 +2,10 @@
 title: "Handlers"
 description: "Reference documentation for Sensu Handlers."
 product: "Sensu Core"
-version: "1.2"
+version: "1.3"
 weight: 8
 menu:
-  sensu-core-1.2:
+  sensu-core-1.3:
     parent: reference
 ---
 

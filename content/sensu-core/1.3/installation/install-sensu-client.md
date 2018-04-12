@@ -3,11 +3,11 @@ title: "Sensu Client"
 description: "The complete Sensu installation guide."
 weight: 11 
 product: "Sensu Core"
-version: "1.2"
+version: "1.3"
 next: ../install-a-dashboard
 previous: ../install-sensu-server-api
 menu:
-  sensu-core-1.2:
+  sensu-core-1.3:
     parent: installation
 ---
 

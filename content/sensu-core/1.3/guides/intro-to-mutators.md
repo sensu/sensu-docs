@@ -1,11 +1,11 @@
 ---
 title: "Intro to Mutators"
-version: "1.2"
+version: "1.3"
 weight: 5
 next: ../intro-to-handlers
 previous: ../intro-to-filters
 menu:
-  sensu-core-1.2:
+  sensu-core-1.3:
     parent: guides
 ---
 

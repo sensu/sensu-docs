@@ -2,10 +2,10 @@
 title: "Sensu Configuration"
 description: "Reference documentation for Sensu Configuration, including service init scripts, command line arguments, and environment variables."
 product: "Sensu Core"
-version: "1.2"
+version: "1.3"
 weight: 14
 menu:
-  sensu-core-1.2:
+  sensu-core-1.3:
     parent: reference
 ---
 
@@ -97,7 +97,7 @@ configuration sources, please note the following example scenario:
    "password": "secret"
  },
  "redis": {
-   "host": "10.0.1.20",
+   "host": "10.0.1.30",
    "port": 6379,
    "password": "secret"
  }
@@ -590,7 +590,7 @@ with information it needs to communicate with RabbitMQ and Redis:
     "password": "secret"
   },
   "redis": {
-    "host": "10.0.1.20",
+    "host": "10.0.1.30",
     "port": 6379,
     "password": "secret"
   },
@@ -629,7 +629,7 @@ required     | true
 type         | Hash
 example      | {{< highlight json >}}{
   "redis": {
-    "host": "10.0.1.20",
+    "host": "10.0.1.30",
     "port": 6379,
     "password": "secret"
   }

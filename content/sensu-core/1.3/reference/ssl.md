@@ -2,11 +2,11 @@
 title: "SSL Configuration"
 description: "Reference documentation for using Sensu with SSL."
 product: "Sensu Core"
-version: "1.2"
+version: "1.3"
 weight: 17
 platformContent: true
 menu:
-  sensu-core-1.2:
+  sensu-core-1.3:
     parent: reference
 ---
 
@@ -61,7 +61,7 @@ openssl version{{< /highlight >}}{{< platformBlockClose >}}
 
 2. Download the Sensu SSL tool
 {{< highlight shell >}}
-wget http://docs.sensu.io/sensu-core/1.2/files/sensu_ssl_tool.tar
+wget http://docs.sensu.io/sensu-core/1.3/files/sensu_ssl_tool.tar
 tar -xvf sensu_ssl_tool.tar
 {{< /highlight >}}
 

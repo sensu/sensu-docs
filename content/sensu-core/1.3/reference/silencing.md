@@ -2,10 +2,10 @@
 title: "Silencing"
 description: "Reference documentation for Sensu Event Silencing."
 product: "Sensu Core"
-version: "1.2"
+version: "1.3"
 weight: 6
 menu:
-  sensu-core-1.2:
+  sensu-core-1.3:
     parent: reference
 ---
 

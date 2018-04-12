@@ -2,10 +2,10 @@
 title: "Redis Configuration"
 description: "Reference documentation for configuring Redis for use with Sensu."
 product: "Sensu Core"
-version: "1.2"
+version: "1.3"
 weight: 16
 menu:
-  sensu-core-1.2:
+  sensu-core-1.3:
     parent: reference
 ---
 
@@ -89,7 +89,7 @@ for more information._
 {{< highlight json >}}
 {
   "redis": {
-    "host": "10.0.1.23",
+    "host": "10.0.1.33",
     "port": 6379,
     "password": "secret"
   }
@@ -105,15 +105,15 @@ for more information._
     "master": "redis-01",
     "sentinels": [
       {
-        "host": "10.0.1.23",
+        "host": "10.0.1.33",
         "port": 26379
       },
       {
-        "host": "10.0.1.24",
+        "host": "10.0.1.34",
         "port": 26379
       },
       {
-        "host": "10.0.1.25",
+        "host": "10.0.1.35",
         "port": 26379
       }
     ]
@@ -196,19 +196,19 @@ sentinels    |
 description  | Redis Sentinel configuration, connection information for one or more Redis Sentinel instances.
 required     | false
 type         | Array
-example      | {{< highlight shell >}}"sentinels": [{"host": "10.0.1.23", "port": 26379}]{{< /highlight >}}
+example      | {{< highlight shell >}}"sentinels": [{"host": "10.0.1.33", "port": 26379}]{{< /highlight >}}
 
 #### `sentinels` attributes
 
 The following attributes are configured within each item in `"sentinels": []`,
-e.g. `"sentinels": [{"host": "10.0.1.23"}]`.
+e.g. `"sentinels": [{"host": "10.0.1.33"}]`.
 
 host         | 
 -------------|------
 description  | The Redis Sentinel instance hostname or IP address (recommended).
 required     | true
 type         | String
-example      | {{< highlight shell >}}"host": "10.0.1.23"{{< /highlight >}}
+example      | {{< highlight shell >}}"host": "10.0.1.33"{{< /highlight >}}
 
 port         | 
 -------------|------
@@ -430,7 +430,7 @@ deployment._
 
 1. Download the Sensu Redis Sentinel configuration file.
 {{< highlight shell >}}
-sudo wget -O /etc/redis/sentinel.conf http://docs.sensu.io/sensu-core/1.2/files/sentinel.conf{{< /highlight >}}
+sudo wget -O /etc/redis/sentinel.conf http://docs.sensu.io/sensu-core/1.3/files/sentinel.conf{{< /highlight >}}
 
 2. Sentinel not only reads its configuration from `/etc/redis/sentinel.conf`, but
    it also writes changes to it (state), so the Redis user must own the
@@ -514,15 +514,15 @@ configuration could also be in `/etc/sensu/config.json`.
     "master": "mymaster",
     "sentinels": [
       {
-        "host": "10.0.1.23",
+        "host": "10.0.1.33",
         "port": 26379
       },
       {
-        "host": "10.0.1.24",
+        "host": "10.0.1.34",
         "port": 26379
       },
       {
-        "host": "10.0.1.25",
+        "host": "10.0.1.35",
         "port": 26379
       }
     ]

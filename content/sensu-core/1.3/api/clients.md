@@ -2,10 +2,10 @@
 title: "Clients API"
 description: "Sensu Clients API reference documentation."
 product: "Sensu Core"
-version: "1.2"
+version: "1.3"
 weight: 2
 menu:
-  sensu-core-1.2:
+  sensu-core-1.3:
     parent: api
 ---
 

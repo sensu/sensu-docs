@@ -2,12 +2,12 @@
 title: "Architecture"
 description: "Sensu Architecture"
 product: "Sensu Core"
-version: "1.2"
+version: "1.3"
 weight: 3
 next: ../platforms
 previous: ../how-sensu-works
 menu:
-  sensu-core-1.2:
+  sensu-core-1.3:
     parent: overview
 ---
 

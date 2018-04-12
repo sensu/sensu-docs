@@ -2,11 +2,11 @@
 title: "Upgrading Sensu"
 weight: 14
 product: "Sensu Core"
-version: "1.2"
+version: "1.3"
 next: ../testing-prereleases
 previous: ../summary
 menu:
-  sensu-core-1.2:
+  sensu-core-1.3:
     parent: installation
 ---
 

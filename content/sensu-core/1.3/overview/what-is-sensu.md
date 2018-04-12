@@ -2,11 +2,11 @@
 title: "What is Sensu?"
 description: "What is Sensu"
 product: "Sensu Core"
-version: "1.2"
+version: "1.3"
 weight: 1
 next: ../how-sensu-works
 menu:
-  sensu-core-1.2:
+  sensu-core-1.3:
     parent: overview
 ---
 

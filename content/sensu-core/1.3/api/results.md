@@ -2,10 +2,10 @@
 title: "Results API"
 description: "Sensu Results API reference documentation."
 product: "Sensu Core"
-version: "1.2"
+version: "1.3"
 weight: 4
 menu:
-  sensu-core-1.2:
+  sensu-core-1.3:
     parent: api
 ---
 

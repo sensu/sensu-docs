@@ -2,10 +2,10 @@
 title: "RabbitMQ Configuration"
 description: "Reference documentation for configuring RabbitMQ for use with Sensu."
 product: "Sensu Core"
-version: "1.2"
+version: "1.3"
 weight: 15
 menu:
-  sensu-core-1.2:
+  sensu-core-1.3:
     parent: reference
 ---
 

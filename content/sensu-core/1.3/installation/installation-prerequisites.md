@@ -3,11 +3,11 @@ title: "Prerequisites"
 description: "The complete Sensu installation guide."
 weight: 3
 product: "Sensu Core"
-version: "1.2"
+version: "1.3"
 next: ../install-redis
 previous: ../installation-strategies
 menu:
-  sensu-core-1.2:
+  sensu-core-1.3:
     parent: installation
 ---
 
