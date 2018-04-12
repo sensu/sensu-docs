@@ -1,5 +1,5 @@
 ---
-title: "BSD"
+title: "FreeBSD"
 description: "User documentation for installing and operating Sensu on FreeBSD systems."
 weight: 1
 version: "1.1"
