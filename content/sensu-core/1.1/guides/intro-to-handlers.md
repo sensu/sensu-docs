@@ -1,6 +1,7 @@
 ---
 title: "Intro to Handlers"
 version: "1.1"
+product: "Sensu Core"
 weight: 6
 previous: ../intro-to-mutators
 menu:

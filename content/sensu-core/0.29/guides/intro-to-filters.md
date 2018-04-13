@@ -2,6 +2,7 @@
 title: "Intro to Filters"
 version: "0.29"
 weight: 4
+product: "Sensu Core"
 next: ../intro-to-mutators
 previous: ../intro-to-checks
 menu:
