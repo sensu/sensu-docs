@@ -27,7 +27,7 @@ environments.
 The purpose of this guide is to help you reduce alert fatigue by configuring a
 filter named `hourly`, for a handler named `mail`, in order to prevent alerts
 from being sent by email every minute. If you don't already have a handler in
-place, learn [how to send alerts with handlers](#).
+place, learn [how to send alerts with handlers][3].
 
 ### Creating the filter
 
@@ -74,3 +74,4 @@ fatigue. From this point, here are some recommended resources:
 
 [1]:  ../../reference/filters
 [2]: ../../getting-started/installation-and-configuration/#validating-the-services
+[3]: ../send-slack-alerts

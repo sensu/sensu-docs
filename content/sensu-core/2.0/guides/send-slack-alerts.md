@@ -102,6 +102,6 @@ this point, here are some recommended resources:
 [5]: https://en.wikipedia.org/wiki/PATH_(variable)
 [6]: https://api.slack.com/incoming-webhooks
 [7]: ../../getting-started/installation-and-configuration/#validating-the-services
-[8]: #
+[8]: ../../reference/handlers
 [9]: ../reduce-alert-fatigue/
 [10]: https://rakyll.org/cross-compilation/
