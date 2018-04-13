@@ -9,8 +9,7 @@ menu:
 ---
 
 ## Datacenter
-A datacenter is a logical representation of a Sensu cluster.
-Datacenters can be used, for example, to organize physical datacenters or environements.
+A datacenter is a logical representation of a Sensu cluster. Datacenters can be used, for example, to organize physical datacenters or environments.
 
 ## Sensu
-See [Sensu documentation](https://sensuapp.org/docs/latest/overview) for more concepts.
+See [Sensu documentation](https://docs.sensu.io/sensu-core/latest/overview/what-is-sensu) for more concepts.
