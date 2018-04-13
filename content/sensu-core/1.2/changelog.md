@@ -600,6 +600,8 @@ This release includes potentially breaking, backwards-incompatible changes:
   `CONFIG_DIR`, please update it to the new `CONFD_DIR`
   variable name.
 
+- **IMPROVEMENT**: Updated embedded OpenSSL from [1.0.1t to 1.0.2k][sl-ssl-updates].
+
 ### CHANGES {#core-v0-27-0-changes}
 
 - **NEW**: Added a Sensu client HTTP socket for check result input and
@@ -1534,3 +1536,6 @@ available for immediate download. Please note the following improvements:
 [gh-1419]: https://github.com/sensu/sensu/pull/1419
 [gh-1427]: https://github.com/sensu/sensu/pull/1427
 [gh-1428]: https://github.com/sensu/sensu/pull/1428
+
+<!-- Supplemental links -->
+[sl-ssl-updates]: ../installation/upgrading/#tls-ssl-changes
