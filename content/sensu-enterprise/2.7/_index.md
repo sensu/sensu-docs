@@ -50,6 +50,6 @@ information.
 [3]:  built-in-handlers
 [4]:  /training
 [5]:  https://sensuapp.org/support
-[6]:  /sensu-core/1.0/reference/server
-[7]:  /sensu-core/1.0/api/overview
-[8]:  installation/install-sensu-server-api#sensu-enterprise
+[6]:  /sensu-core/latest/reference/server
+[7]:  /sensu-core/latest/api/overview
+[8]:  /sensu-core/latest/installation/install-sensu-server-api/#sensu-enterprise
