@@ -18,11 +18,13 @@
 <script>
   alerts = Array.prototype.slice.call(document.getElementsByClassName("alertBanner"));
   currentBanner = $(document.getElementById({{ $uniqueness }}));
+  // 10px is a small hack for different screen sizes
+  // semi-breaks if you're scaling the page large to small, but is fine on refresh
+  height = currentBanner.height() + 10;
 
   // stack the alerts as needed
   for (i = 1; i <= alerts.length; i++) {
     lastLocation = parseInt($(alerts[i]).css('top'), 10);
-    height = 28;
     newLocation = lastLocation + height;
     currentBanner.css('top', newLocation + "px");
     // double incrementing is a little weird, but we get gaps otherwise
@@ -39,10 +41,8 @@
 
     // unstack the alerts as needed
     for (i = arrLocation + 1; i <= alerts.length; i++){
-      height = 28;
       (i == arrLocation + 1) ? newLocation = lastLocation : newLocation = lastLocation + height;
       lastLocation = newLocation;
-      console.log(i);
       $(alerts[i]).css('top', newLocation + "px");
     };
   }
