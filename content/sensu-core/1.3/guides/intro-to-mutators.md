@@ -1,5 +1,6 @@
 ---
 title: "Intro to Mutators"
+product: "Sensu Core"
 version: "1.3"
 weight: 5
 next: ../intro-to-handlers

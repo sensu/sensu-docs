@@ -1,6 +1,7 @@
 ---
 title: "Intro to Checks"
 version: "1.1"
+product: "Sensu Core"
 weight: 3
 next: ../intro-to-filters
 previous: ../adding-a-client
