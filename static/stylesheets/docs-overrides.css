@@ -1183,6 +1183,7 @@ code {
   top: 0;
   padding-top: 10px;
   position: relative;
+  padding-bottom: 100px;
 }
 
 @media (min-width: 960px) {
