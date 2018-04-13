@@ -1,5 +1,6 @@
 ---
 title: "Overview"
+product: "Sensu Core"
 version: "1.3"
 weight: 1
 next: ../adding-a-client
