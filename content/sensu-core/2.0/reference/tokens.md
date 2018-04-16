@@ -19,11 +19,11 @@ Sensu 2.0 uses the [Go template][1] package to implement token substitution. Ins
 
 ### Token substitution syntax
 
-Tokens are invoked by wrapping references to entity or custom attributes with double curly braces, such as `{{ .ID }}` to substitute an entity's ID value. Nested Sensu [entity attributes][3] can be accessed via dot notation (e.g. `system.arch`).
+Tokens are invoked by wrapping references to entity or custom attributes with double curly braces, such as `{{ .ID }}` to substitute an entity's ID value. Nested Sensu [entity attributes][3] can be accessed via dot notation (e.g. `System.arch`).
 
-- `{{ system.network.interfaces.addresses }}` would be replaced with the [entity `system.network.interfaces.address` attribute][26]
-- `{{ url }}` would be replaced with a custom attribute called `url`
-- `{{ disk.warning }}` would be replaced with a custom attribute called
+- `{{ .ID }}` would be replaced with the [entity `ID` attribute][3]
+- `{{ .URL }}` would be replaced with a custom attribute called `url`
+- `{{ Disk.Warning }}` would be replaced with a custom attribute called
   `warning` nested inside of a JSON hash called `disk`
 
 ### Token substitution default values
@@ -31,7 +31,7 @@ Tokens are invoked by wrapping references to entity or custom attributes with do
 In the event that an attribute is not provided by the [entity][3], a token's default
 value will be substituted. Token default values are separated by a pipe character (`|`), and can be used to provide a "fallback value" for entities that are missing a specified token attribute.
 
-- `{{url|https://sensu.io}}` would be replaced with a [custom  attribute][3] called `url`. If no such attribute called `url` is included in the client definition, the default (or fallback) value of `https://sensu.io` will be used to substitute the token.
+- `{{.URL | default "https://sensu.io"}}` would be replaced with a [custom  attribute][3] called `url`. If no such attribute called `url` is included in the client definition, the default (or fallback) value of `https://sensu.io` will be used to substitute the token.
 
 ### Unmatched tokens
 
@@ -48,13 +48,13 @@ Check config token errors will be logged by the agent, and sent to Sensu backend
 ### Token substitution for check thresholds 
 
 In this example [check configuration][5], the `check-disk-usage.rb` command accepts `-w` (warning) and `-c` (critical)
-arguments to indicate the thresholds (as percentages) for creating warning or critical events. If no token substitutions are provided by a check configuration, it will use default values to create a warning event at 80% disk capacity (i.e. `{{ disk.warning|80 }}`), and a critical event at 90% capacity (i.e. `{{ disk.critical|90 }}`).
+arguments to indicate the thresholds (as percentages) for creating warning or critical events. If no token substitutions are provided by a check configuration, it will use default values to create a warning event at 80% disk capacity (i.e. `{{ Disk.Warning | default 80 }}`), and a critical event at 90% capacity (i.e. `{{ Disk.Critical | default 90 }}`).
 
 {{< highlight json >}}
 {
   "check_hooks": null,
-  "command": "check-disk-usage.rb -w {{disk.warning|80}} -c {{disk.critical|90}}"
-  "environment": "{{ environment|production }}",
+  "command": "check-disk-usage.rb -w {{Disk.Warning | default 80}} -c {{Disk.Critical | default 90}}"
+  "environment": "{{ environment | default production }}",
   "handlers": [],
   "high_flap_threshold": 0,
   "interval": 60,
@@ -76,7 +76,7 @@ arguments to indicate the thresholds (as percentages) for creating warning or cr
 {{< /highlight >}}
 
 The following example [entity][4] would provide the necessary
-attributes to override the `disk.warning`, `disk.critical`, and `environment`
+attributes to override the `Disk.Warning`, `Disk.Critical`, and `environment`
 tokens declared above.
 
 {{< highlight json >}}
