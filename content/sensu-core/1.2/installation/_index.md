@@ -7,7 +7,7 @@ weight: -1
 layout: "base-for-directory-listing"
 menu:
   sensu-core-1.2:
-    parent: quick-start
+    parent: installation
 ---
 
 {{< directoryListing "content/sensu-core/1.2/installation" >}}
