@@ -336,8 +336,8 @@ example      | {{< highlight shell >}}"splay_coverage": 65{{</ highlight >}}
 [5]: #
 [6]: ../hooks/
 [7]: ../../../1.2/reference/checks/#standalone-checks
-[8]: #
-[9]: #
+[8]: ../rbac
+[9]: ../assets
 [10]: #proxy-requests-attributes
 [11]: #
 [12]: ../../../1.2/reference/clients/#round-robin-client-subscriptions
@@ -348,4 +348,5 @@ example      | {{< highlight shell >}}"splay_coverage": 65{{</ highlight >}}
 [17]: #
 [18]: #
 [19]: #round-robin-checks
-[20]: #
+[20]: #../entities/#proxy_entities
+[21]: #../entities/#entity_attributes

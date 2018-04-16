@@ -70,9 +70,9 @@ Once the silenced entry starts to take effect, events that are not handled due t
 
 {{< highlight shell >}}
 $ sensuctl event list
-     Entity         Check        Output    Status         Silenced     Timestamp
- ────────────── ───────── ───────── ──────────── ────────── ───────────────────────────────
-  scotch.local      keepalive               0              true         2018-03-16 13:22:16 -0400 EDT
+     Entity         Check        Output       Status     Silenced          Timestamp
+ ──────────────   ─────────    ─────────   ──────────── ────────── ───────────────────────────────
+  scotch.local    keepalive                     0          true     2018-03-16 13:22:16 -0400 EDT
 {{< /highlight >}}
 
 ## Next steps

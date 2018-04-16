@@ -1,5 +1,6 @@
 ---
 title: "Intro to Filters"
+product: "Sensu Core"
 version: "1.2"
 weight: 4
 next: ../intro-to-mutators
