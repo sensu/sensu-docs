@@ -41,7 +41,9 @@
 </nav>
 
 <!-- div containing all alerts -->
-{{ partial "alertSection.html" . }}
+{{ if not .IsHome }}
+  {{ partial "alertSection.html" . }}
+{{ end }}
 
 <!-- Scripts for the search bar -->
 <script>
