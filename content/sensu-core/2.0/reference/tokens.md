@@ -13,7 +13,7 @@ menu:
 When a check is scheduled to be executed by an agent, it first goes through a token substitution step. Any tokens matching attribute values in the check are applied, and then the check is executed. Invalid templates or unmatched tokens will return an error, which is logged and sent to the Sensu backend message transport. Checks with token matching errors will not be executed.
 
 ## New and improved tokens
-Sensu 2.0 uses the [Go template][1] package to implement token substitution. Instead of using triple colons `:::` as in [1.x token substitution][2], 2.0 token substitution uses double curly braces `{{` around tokens to be substituted.
+Sensu 2.0 uses the [Go template][1] package to implement token substitution. Instead of using triple colons `:::` as in [1.x token substitution][2], 2.0 token substitution uses double curly braces around the token, and a dot before the attribute to be subtituted, such as: `{{ .System.hostname }}`.
 
 ## Sensu tokens specification
 
@@ -29,7 +29,7 @@ Tokens are invoked by wrapping references to entity or custom attributes with do
 ### Token substitution default values
 
 In the event that an attribute is not provided by the [entity][3], a token's default
-value will be substituted. Token default values are separated by a pipe character (`|`), and can be used to provide a "fallback value" for entities that are missing a specified token attribute.
+value will be substituted. Token default values are separated by a pipe character and the word `default` (`| default`), and can be used to provide a "fallback value" for entities that are missing a specified token attribute.
 
 - `{{.URL | default "https://sensu.io"}}` would be replaced with a [custom  attribute][3] called `url`. If no such attribute called `url` is included in the client definition, the default (or fallback) value of `https://sensu.io` will be used to substitute the token.
 
@@ -48,13 +48,13 @@ Check config token errors will be logged by the agent, and sent to Sensu backend
 ### Token substitution for check thresholds 
 
 In this example [check configuration][5], the `check-disk-usage.rb` command accepts `-w` (warning) and `-c` (critical)
-arguments to indicate the thresholds (as percentages) for creating warning or critical events. If no token substitutions are provided by a check configuration, it will use default values to create a warning event at 80% disk capacity (i.e. `{{ Disk.Warning | default 80 }}`), and a critical event at 90% capacity (i.e. `{{ Disk.Critical | default 90 }}`).
+arguments to indicate the thresholds (as percentages) for creating warning or critical events. If no token substitutions are provided by a check configuration, it will use default values to create a warning event at 80% disk capacity (i.e. `{{ .Disk.Warning | default 80 }}`), and a critical event at 90% capacity (i.e. `{{ .Disk.Critical | default 90 }}`).
 
 {{< highlight json >}}
 {
   "check_hooks": null,
-  "command": "check-disk-usage.rb -w {{Disk.Warning | default 80}} -c {{Disk.Critical | default 90}}"
-  "environment": "{{ environment | default production }}",
+  "command": "check-disk-usage.rb -w {{.Disk.Warning | default 80}} -c {{.Disk.Critical | default 90}}"
+  "environment": "{{ .Environment | default "production" }}",
   "handlers": [],
   "high_flap_threshold": 0,
   "interval": 60,
@@ -76,7 +76,7 @@ arguments to indicate the thresholds (as percentages) for creating warning or cr
 {{< /highlight >}}
 
 The following example [entity][4] would provide the necessary
-attributes to override the `Disk.Warning`, `Disk.Critical`, and `environment`
+attributes to override the `.Disk.Warning`, `.Disk.Critical`, and `environment`
 tokens declared above.
 
 {{< highlight json >}}
