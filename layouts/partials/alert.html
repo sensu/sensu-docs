@@ -4,46 +4,36 @@
 
 <!-- creates a "mostly" unique id if there's multiple alerts -->
 {{ $uniqueness := replace $message " " "" }}
-
-<div class="alertBanner" id="{{ $uniqueness }}" style="background-color: {{ $color }}">
-  {{ if $link }}
-    <a class="alertBannerText" href="{{ $link }}">{{ $message }}</a>
-    <span class="closeAlert"><i class="fa fa-times" aria-hidden="true" onClick="closeAlert({{ $uniqueness }})"></i></span>
-  {{ else }}
-    <span class="alertBannerText">{{ $message }}</span>
-    <span class="closeAlert"><i class="fa fa-times" aria-hidden="true" onClick="closeAlert({{ $uniqueness }})"></i></span>
-  {{ end }}
-</div>
+{{ $uniqueness := replace $uniqueness "'" "" }}
 
 <script>
-  alerts = Array.prototype.slice.call(document.getElementsByClassName("alertBanner"));
-  currentBanner = $(document.getElementById({{ $uniqueness }}));
-  // 10px is a small hack for different screen sizes
-  // semi-breaks if you're scaling the page large to small, but is fine on refresh
-  height = currentBanner.height() + 10;
-
-  // stack the alerts as needed
-  for (i = 1; i <= alerts.length; i++) {
-    lastLocation = parseInt($(alerts[i]).css('top'), 10);
-    newLocation = lastLocation + height;
-    currentBanner.css('top', newLocation + "px");
-    // double incrementing is a little weird, but we get gaps otherwise
-    i++;
-  };
-
+  // close the alert
   function closeAlert(id) {
-    // grab information before delete
-    alerts = Array.prototype.slice.call(document.getElementsByClassName("alertBanner"));
-    currentBanner = $(document.getElementById(id));
-    arrLocation = alerts.findIndex(alert => alert.id == currentBanner[0].id);
-    lastLocation = parseInt(currentBanner.css('top'), 10);
-    document.getElementById(id).remove();
+    // remove additional margin so we don't leave empty space
+    currentPos = parseInt($(".main").css('margin-top'), 10);
+    $(".main").css('margin-top', currentPos - 28);
 
-    // unstack the alerts as needed
-    for (i = arrLocation + 1; i <= alerts.length; i++){
-      (i == arrLocation + 1) ? newLocation = lastLocation : newLocation = lastLocation + height;
-      lastLocation = newLocation;
-      $(alerts[i]).css('top', newLocation + "px");
-    };
+    // remove the alert
+    document.getElementById(id).remove();
   }
+
+  $(document).ready(function() {
+    // build the alert if it has a link or not
+    alertElement = "<div class='alertBanner' id='{{ $uniqueness }}' style='background-color: {{ $color }}'>";
+    {{ if $link }}
+      alertElement += "<a class='alertBannerText' href='{{ $link }}'>{{ $message }}</a>";
+    {{ else }}
+      alertElement += "<span class='alertBannerText'>{{ $message }}</span>";
+    {{ end }}
+      alertElement += "<span class='closeAlert'>" +
+              "<i class='fa fa-times' aria-hidden='true' onClick='closeAlert(\"{{ $uniqueness }}\")'></i>" +
+              "</span></div>";
+
+    // append the alert to the alert section
+    $("#alertSection").append(alertElement);
+
+    // add additional margin so we don't cover page content
+    currentPos = parseInt($(".main").css("margin-top"), 10);
+    $(".main").css("margin-top", currentPos + 28);
+  });
 </script>
