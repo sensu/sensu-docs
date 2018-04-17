@@ -13,7 +13,7 @@ menu:
 When a check is scheduled to be executed by an agent, it first goes through a token substitution step. Any tokens matching attribute values in the check are applied, and then the check is executed. Invalid templates or unmatched tokens will return an error, which is logged and sent to the Sensu backend message transport. Checks with token matching errors will not be executed.
 
 ## New and improved tokens
-Sensu 2.0 uses the [Go template][1] package to implement token substitution. Instead of using triple colons `:::` as in [1.x token substitution][2], 2.0 token substitution uses double curly braces around the token, and a dot before the attribute to be subtituted, such as: `{{ .System.hostname }}`.
+Sensu 2.0 uses the [Go template][1] package to implement token substitution. Instead of using triple colons `:::` as in [1.x token substitution][2], 2.0 token substitution uses double curly braces around the token, and a dot before the attribute to be subtituted, such as: `{{ .System.hostname }}`
 
 ## Sensu tokens specification
 
@@ -23,7 +23,7 @@ Tokens are invoked by wrapping references to entity or custom attributes with do
 
 - `{{ .ID }}` would be replaced with the [entity `ID` attribute][3]
 - `{{ .URL }}` would be replaced with a custom attribute called `url`
-- `{{ Disk.Warning }}` would be replaced with a custom attribute called
+- `{{ .Disk.Warning }}` would be replaced with a custom attribute called
   `warning` nested inside of a JSON hash called `disk`
 
 ### Token substitution default values
@@ -76,7 +76,7 @@ arguments to indicate the thresholds (as percentages) for creating warning or cr
 {{< /highlight >}}
 
 The following example [entity][4] would provide the necessary
-attributes to override the `.Disk.Warning`, `.Disk.Critical`, and `environment`
+attributes to override the `.Disk.Warning`, `.Disk.Critical`, and `.Environment`
 tokens declared above.
 
 {{< highlight json >}}
