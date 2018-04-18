@@ -41,25 +41,29 @@ content of that file:
    "days":{  
       "all":[  
          {  
-            "begin":"5:00 PM",
-            "end":"9:00 AM"
+            "begin":"5:00PM EST",
+            "end":"9:00AM EST"
          }
       ],
       "saturday":[  
          {  
-            "begin":"0:00 AM",
-            "end":"11:59 PM"
+            "begin":"0:00AM EST",
+            "end":"11:59PM EST"
          }
       ],
       "sunday":[  
          {  
-            "begin":"0:00 AM",
-            "end":"11:59 PM"
+            "begin":"0:00AM EST",
+            "end":"11:59PM EST"
          }
       ]
    }
 }
 {{< /highlight >}}
+
+By default, all specified times are assumed to be UTC. An optional timezone
+abbreviation (using [RFC822][4] format or [IANA Time Zone database][5] format)
+can also be specified.
 
 ### Subduing the check
 
@@ -98,3 +102,5 @@ are some recommended resources:
 [1]: ../monitor-server-resources/
 [2]: ../../getting-started/installation-and-configuration/#validating-the-services
 [3]: ../../reference/handlers
+[4]: https://www.w3.org/Protocols/rfc822/#z28
+[5]: https://www.iana.org/time-zones
