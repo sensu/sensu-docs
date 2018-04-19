@@ -99,6 +99,23 @@ example      | {{< highlight shell >}}"statements": [
 ]
 {{< /highlight >}}
 
+when         | 
+-------------|------
+description  | The [when definition scope][2], used to determine when a filter is applied with time windows.
+required     | false
+type         | Hash
+example      | {{< highlight shell >}}"when": {
+  "days": {
+    "all": [
+      {
+        "begin": "5:00PM",
+        "end": "8:00AM"
+      }
+    ]
+  }
+}
+{{< /highlight >}}
+
 organization | 
 -------------|------ 
 description  | The Sensu RBAC organization that this filter belongs to.
@@ -118,6 +135,29 @@ default      | current environment value configured for `sensuctl` (ie `default`
 example      | {{< highlight shell >}}
   "environment": "default"
 {{</ highlight >}}
+
+### `when` attributes
+
+days         | 
+-------------|------
+description  | A hash of days of the week (i.e., `monday`) and/or `all`. Each day specified can define one or more time windows, in which the filter is applied.
+required     | false (unless `when` is configured)
+type         | Hash
+example      | {{< highlight shell >}}"days": {
+  "all": [
+    {
+      "begin": "5:00 PM",
+      "end": "8:00 AM"
+    }
+  ],
+  "friday": [
+    {
+      "begin": "12:00 PM",
+      "end": "5:00 PM"
+    }
+  ]
+}
+{{< /highlight >}}
 
 ## Filter Examples
 
@@ -210,7 +250,8 @@ checks with a 30 second `interval`.
 This filter evaluates the event timestamp to determine if the event occurred
 between 9 AM and 5 PM UTC on a weekday. Remember that `action` equals to
 `allow`, so this is an inclusive filter. If evaluation returns false, the event
-will not be handled.
+will not be handled. The [`when` attribute][2] could also be used to achieve the
+same result.
 
 {{< highlight json >}}
 {
@@ -228,4 +269,5 @@ Sensu handles dates and times in UTC (Coordinated Universal Time), therefore
 when comparing the weekday or the hour, you should provide values in UTC.
 {{< /note >}}
 
-[1]:  #inclusive-and-exclusive-filtering
+[1]: #inclusive-and-exclusive-filtering
+[2]: #when-attributes
