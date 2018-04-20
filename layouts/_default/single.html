@@ -51,16 +51,6 @@
   {{ partial "footer" . }}
 </footer>
 
-
-{{ $product := .Section }}
-{{ $product2 := replace $product "-" "_" }}
-{{ $product_info := (index .Site.Params.products $product2) }}
-{{ if and (isset .Params "version") (ne $product_info.latest .Params.version) }}
-  <div class="versionBanner">
-    <a class="versionBannerText" href="/{{ .Section }}/{{ $product_info.latest }}/">You're viewing documentation for an older or pre-release version of {{ .Params.product }}. Click here for the latest.</a>
-  </div>
-{{ end }}
-
 <script>
 $( document ).ready(function() {
   // select all heading with an ID attribute

@@ -1,0 +1,12 @@
+<!-- May not render, used for old/pre release versions -->
+<div id="alertSection">
+  {{ $product := .Section }}
+  {{ $product2 := replace $product "-" "_" }}
+  {{ $product_info := (index .Site.Params.products $product2) }}
+  {{ if and (isset .Params "version") (ne $product_info.latest .Params.version) }}
+    {{ $message := (printf "You're viewing documentation for an older or pre-release version of %s. Click here for the latest." .Params.product) }}
+    {{ $link := replace .URL .Params.version $product_info.latest }}
+    {{ $params := slice "#cc7d7c" $message $link }}
+    {{ partial "alert" $params }}
+  {{ end }}
+</div>
