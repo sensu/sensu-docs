@@ -13,12 +13,9 @@ menu:
 ## What are Sensu handlers?
 
 Sensu event handlers are actions executed by the Sensu server on [events][1].
-
-## Why use a handler?
-
-Handlers can be used for sending email alerts, creating or resolving an incident
-(e.g., in PagerDuty, ServiceNow, etc), or storing metrics in a time-series
-database (e.g., Graphite, InfluxDB).
+In this example, we'll use a handler to populate a time series database. If
+you're not totally comfortable with handlers yet, check out the in-depth
+guide on [handlers][9] first!
 
 ## Using a handler to populate InfluxDB
 
@@ -53,10 +50,10 @@ populate.
 sensuctl handler create influx-db \
 --type pipe \
 --command 'handler-influx-db' \
-  --addr '123.4.5.6' \
-	--db-name 'myDB' \
-  --username 'foo' \
-	--password 'bar' \
+--addr '123.4.5.6' \
+--db-name 'myDB' \
+--username 'foo' \
+--password 'bar'
 {{< /highlight >}}
 
 ### Assigning the handler to an event
