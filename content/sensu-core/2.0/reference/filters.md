@@ -248,7 +248,7 @@ checks with a 30 second `interval`.
 ### Handling events during “office hours” only
 
 This filter evaluates the event timestamp to determine if the event occurred
-between 9 AM and 5 PM UTC on a weekday. Remember that `action` equals to
+between 9 AM and 5 PM UTC on a weekday. Remember that `action` is equal to
 `allow`, so this is an inclusive filter. If evaluation returns false, the event
 will not be handled. The [`when` attribute][2] could also be used to achieve the
 same result.
