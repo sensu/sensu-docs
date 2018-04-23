@@ -6,6 +6,7 @@ weight: 1
 version: "2.0"
 product: "Sensu Core"
 platformContent: true
+platforms: ["Ubuntu/Debian", "RHEL/CentOS", "Windows"]
 menu:
   sensu-core-2.0:
     parent: getting-started
