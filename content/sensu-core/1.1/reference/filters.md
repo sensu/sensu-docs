@@ -245,26 +245,25 @@ attributes][8] (including custom attributes).
 ### Example filter attribute eval token
 
 The following is an example Sensu [filter definition][2], which is using a
-token (`:::check.occurrences|60:::`) as a secondary attribute in the Ruby eval
-expression. The token will be replaced by the [check definition attribute][6]
-named `occurrences` if it is defined, otherwise it will use the fallback value
-of `60`.
+token (`:::client.environent|known:::`) as a secondary attribute in the Ruby eval
+expression. The token will be replaced by the [custom client definition attribute][5]
+named `environment` if it is defined, otherwise it will use the fallback value
+of `unknown`.
 
 {{< highlight json >}}
 {
   "filters": {
-    "occurrences": {
+    "pre_prod": {
       "negate": true,
       "attributes": {
-        "occurrences": "eval: value > :::check.occurrences|60:::"
+        "client": {
+          "environment": "eval: ['qa','staging','test'].include? :::client.environment|unknown:::"
       }
     }
   }
-}
-{{< /highlight >}}
+}{{< /highlight >}}
 
-This example would be useful for filtering events that don't exceed a minimum
-number of `occurrences` as configured in the check definition.
+This filter will drop any events where the client environment attribute value matches "qa", "staging", or "test". All events from any clients that have an `environment` attribute not in the array (e.g., "prod") will be allowed through. Likewise, clients that do not have the `environment` defined will fall back to a value of `unknown` and will also be allowed through.
 
 ### Filter attribute eval token specification
 
@@ -273,7 +272,7 @@ number of `occurrences` as configured in the check definition.
 Eval tokens are invoked by wrapping event data attributes with "triple colons"
 (i.e. three colon characters before and after the attribute, i.e. `:::`). Nested
 [event data attributes][3] may be accessed via "dot notation" (e.g.
-`check.occurrences`)
+`client.environment`)
 
 - `:::occurrences:::` would be replaced with the [event `occurrences` data][11]
 - `:::check.my_threshold:::` would be replaced with a [custom check definition
@@ -286,9 +285,9 @@ token attribute][13] is not satisfied by [event data][3]. Eval token default
 values are separated by a pipe character (`|`), and can be used to provide a
 "fallback value" for events that are missing the declared token attribute.
 
-- `:::check.occurrences|60:::` would be replaced with a [check definition
-  attribute][6] called `occurrences`. If `occurrences` is not defined in the
-  check definition, the default (or fallback) value of `60` will be used.
+- `:::client.environment|unknown:::` would be replaced with a [client definition
+  attribute][5] called `environment`. If `environment` is not defined in the
+  client definition, the default (or fallback) value of `unknown` will be used.
 
 _NOTE: if an eval token default value is not provided (i.e. as a fallback
 value), and the event data does not contain a matching [eval token
