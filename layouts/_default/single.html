@@ -79,16 +79,25 @@ $( document ).ready(function() {
 function togglePlatformDivs() {
   var $platformCookie = Cookies.get("platform");
   var $platformDivs = document.getElementsByClassName("platform");
+  var $hasContentForPlatformCookie = false;
+
   Array.prototype.forEach.call($platformDivs, function($platformDiv) {
-    $platformDivId =  $platformDiv.id
+    $platformDivId = $platformDiv.id
     $platformDivId = $platformDivId.replace(new RegExp("-", "g"), " ");
     $platformDivId = $platformDivId.replace(new RegExp("_", "g"), "/");
-    if (!$platformDivId.includes($platformCookie) && $platformCookie != null) {
+    if (typeof $platformCookie != 'undefined' && !$platformDivId.includes($platformCookie)) {
       $platformDiv.style.display = 'none';
     } else {
+      $hasContentForPlatformCookie = true
       $platformDiv.style.display = 'block';
     }
   });
+
+  // If we don't have any content for the platform cookie, remove it so we go
+  // back to the "All Platforms" option and display everything
+  if (typeof $platformCookie != 'undefined' && !$hasContentForPlatformCookie) {
+    removePlatformCookie();
+  }
 }
 
 function boldFirstWord(element) {
