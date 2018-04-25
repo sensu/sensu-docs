@@ -34,7 +34,7 @@ We'll cover the following in this guide:
 
 ### Ensure Check Result Authenticity Using Client Signatures{#the-clientsignature-attribute}
 
-By default, the `signature` attribute isn't required and doesn't have a value, but adding it to your clients' configurations ensures that you're able to validate the results coming from a client by providing a random string in the attribute. In this way, if you're ever in doubt about the authenicity of the results that are being returned from a client, you can compare the results against your client configuration to see if the signature strings match up. You can read more about using a client `signature` [here][1]
+By default, the `signature` attribute isn't required and doesn't have a value, but adding it to your clients' configurations ensures that you're able to validate the results coming from a client by providing a random string in the attribute. In this way, if you're ever in doubt about the authenticity of the results that are being returned from a client, you can compare the results against your client configuration to see if the signature strings match up. You can read more about using a client `signature` [here][1]
 
 ### Prevent Secret Disclosure via Client-side Redaction{#the-redact-attribute}
 
@@ -49,7 +49,7 @@ The `redact` attribute allows you to pass values as an array in your client conf
 
 But if you're using the [EC2][2] integration or plugins whose handlers might have different values than what are specified in the default, you can add said values to the array to be redacted. You can read more about the attribute [here][3].
 
-Using `redact` in combination with [check token substitution][15] is also a powerful way to prevent the inadvertent disclosure of secrets. We strongly recommend using these two features in conjuction with each other to add another layer of security to your environment.
+Using `redact` in combination with [check token substitution][15] is also a powerful way to prevent the inadvertent disclosure of secrets. We strongly recommend using these two features in conjunction with each other to add another layer of security to your environment.
 
 ### Encrypting communications using SSL/TLS{#client-ssl-tls}
 
@@ -128,7 +128,7 @@ In addition to being able to add an SSL certificate to our configuration, we can
 
 ### Disabling Client TCP/HTTP Sockets{#disabling-client-sockets}
 
-Prior to Sensu 1.3, Sensu clients had an "always on" feature where the client would listen on `127.0.0.1:3030` by default. While this feature is useful for instrumention applications to send results to via the client, it did pose a risk if the `bind` attribute was set to listen on all ports. As of version 1.3, there is now an option to completely disable this feature altogether. For more information on managing or disabling client sockets, head over to the [client reference documentation][16]
+Prior to Sensu 1.3, Sensu clients had an "always on" feature where the client would listen on `127.0.0.1:3030` by default. While this feature is useful for instrumentation applications to send results to via the client, it did pose a risk if the `bind` attribute was set to listen on all ports. As of version 1.3, there is now an option to completely disable this feature altogether. For more information on managing or disabling client sockets, head over to the [client reference documentation][16]
 
 ### Preventing Arbitrary Code Execution via Safe Mode
 
