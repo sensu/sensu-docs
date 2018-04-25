@@ -23,7 +23,7 @@ We'll cover the following in this guide:
 
 * [Securing Sensu](#securing-sensu-clients)
   * [Ensure Check Result Authenticity Using Client Signatures](#the-clientsignature-attribute)
-  * [Prevent Secret Discosure via Client-side Redaction](#the-redact-attribute)
+  * [Prevent Secret Disclosure via Client-side Redaction](#the-redact-attribute)
   * [Encrypting communications using SSL/TLS](#client-ssl-tls)
   * [Disabling Client TCP/HTTP Sockets](#disabling-client-sockets)
 * [Securing Dashboards](#securing-dashboards)
@@ -36,7 +36,7 @@ We'll cover the following in this guide:
 
 By default, the `signature` attribute isn't required and doesn't have a value, but adding it to your clients' configurations ensures that you're able to validate the results coming from a client by providing a random string in the attribute. In this way, if you're ever in doubt about the authenicity of the results that are being returned from a client, you can compare the results against your client configuration to see if the signature strings match up. You can read more about using a client `signature` [here][1]
 
-### Prevent Secret Discosure via Client-side Redaction{#the-redact-attribute}
+### Prevent Secret Disclosure via Client-side Redaction{#the-redact-attribute}
 
 The `redact` attribute allows you to pass values as an array in your client configuration to Sensu to redact when logging, or sending keepalives. These can be any value you wish, or that you feel may be of a sensitive nature in your organization. By default, the attribute uses the following:
 
