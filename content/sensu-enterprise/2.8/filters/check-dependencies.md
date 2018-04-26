@@ -82,7 +82,9 @@ filter to a standard Sensu `pipe` handler.
     "custom_mailer": {
       "type": "pipe",
       "command": "custom_mailer.rb",
-      "filter": "check_dependencies"
+      "filters": [
+        "check_dependencies"
+      ]
     }
   }
 }
