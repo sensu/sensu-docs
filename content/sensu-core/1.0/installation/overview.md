@@ -1,12 +1,12 @@
 ---
 title: "Installation Overview"
 description: "The complete Sensu installation guide."
+next: ../installation-strategies
 weight: 1
 product: "Sensu Core"
-version: "1.2"
-next: ../installation-strategies
+version: "1.0"
 menu:
-  sensu-core-1.2:
+  sensu-core-1.0:
     parent: installation
 ---
 
