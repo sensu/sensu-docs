@@ -1,6 +1,7 @@
 ---
 title: "Intro to Filters"
 version: "1.1"
+product: "Sensu Core"
 weight: 4
 next: ../intro-to-mutators
 previous: ../intro-to-checks

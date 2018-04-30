@@ -5,7 +5,7 @@ weight: 2
 product: "Sensu Core"
 version: "1.0"
 next: ../installation-prerequisites
-previous: ../installation-overview
+previous: ../overview
 menu:
   sensu-core-1.0:
     parent: installation

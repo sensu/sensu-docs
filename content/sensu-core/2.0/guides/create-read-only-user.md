@@ -40,16 +40,16 @@ permissions.
 Using sensuctl, you can verify that the role and user have the correct permissions.
 {{< highlight shell >}}
 $ sensuctl role list-rules read-only
-  Type       Org.       Env.       Permissions
+  Type     Org.      Env.    Permissions
  ────── ───────── ───────── ─────────────
-  *        default     default        read
+  *      default    default     read
 {{< /highlight >}}
 
 {{< highlight shell >}}
 $ sensuctl user list 
-Username        	Roles       Enabled
+Username           Roles      Enabled
 ──────────────── ─────────── ─────────
-read-only-user        read-only      true
+read-only-user    read-only    true
 {{< /highlight >}}
 ## Next steps
 

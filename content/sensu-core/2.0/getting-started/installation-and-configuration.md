@@ -6,6 +6,7 @@ weight: 1
 version: "2.0"
 product: "Sensu Core"
 platformContent: true
+platforms: ["Ubuntu/Debian", "RHEL/CentOS", "Windows"]
 menu:
   sensu-core-2.0:
     parent: getting-started
@@ -88,8 +89,8 @@ Copy the example agent config file to the default config path.
 sudo cp /etc/sensu/agent.yml.example /etc/sensu/agent.yml
 {{< /highlight >}}
 
-In order for the agent to function it will need to have a list of one or more backends to point to. This can be set
-by setting `backend-url`.
+In order for the agent to function, it will need to have a list of one or more backends to point to. This can be set
+by setting `backend-url` to the ip and port of a sensu backend..
 
 {{< highlight yaml >}}
 backend-url:

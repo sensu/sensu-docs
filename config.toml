@@ -50,9 +50,10 @@ ignoreFiles = [ "sensu-doc-template.md" ]
         name = "Sensu Core"
         description = "The open source extensible monitoring framework."
         weight = 1
-        latest = "1.2"
+        latest = "1.3"
         [params.products.sensu_core.versions]
-            "2.0" = ["Ubuntu/Debian", "RHEL/CentOS", "Windows"]
+            "2.0" = ["Ubuntu/Debian", "RHEL/CentOS"]
+            "1.3" = ["Ubuntu/Debian", "RHEL/CentOS"]
             "1.2" = ["Ubuntu/Debian", "RHEL/CentOS"]
             "1.1" = ["Ubuntu/Debian", "RHEL/CentOS"]
             "1.0" = ["Ubuntu/Debian", "RHEL/CentOS"]

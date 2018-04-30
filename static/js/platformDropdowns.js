@@ -19,7 +19,10 @@ $( document ).ready(function() {
 function setTopDropdown() {
   var $platformTextInsert = document.getElementById("platformButtonTitleText");
   if (Cookies.get("platform")) {
-    $platformTextInsert.innerHTML = Cookies.get("platform") + '<i class="fa fa-chevron-down dropdownArrow" aria-hidden="true"></i>';
+    $platformTextInsert.innerHTML = Cookies.get("platform");
+  } else {
+    // If we don't have a cookie for the platform
+    $platformTextInsert.innerHTML = 'All Platforms';
   }
 }
 
@@ -39,19 +42,14 @@ function setHeaderDropdowns($uniqueness) {
   }
 }
 
-/*function setPlatformCookie($platform) {
-  Cookies.set('platform', $platform, { expires: $cookieLife });
-}*/
-
-function setPlatformCookie($platform, $product, $title) {
+function setPlatformCookie($platform) {
   Cookies.set('platform', $platform, { expires: $cookieLife });
   togglePlatformDivs();
   setTopDropdown();
-  $platform = $platform.replace("/", "_");
-  $platform = $platform.replace(" ", "-");
-  console.log($platform)
-  var dropdown = document.getElementById("platformButtonTitleText-" + $platform);
-  dropdown.innerHTML = Cookies.get("platform") + '<i class="fa fa-chevron-down dropdownArrow-' + $platform + '" aria-hidden="true"></i>';
-  dropdown.scrollIntoView();
 }
 
+function removePlatformCookie() {
+  Cookies.remove('platform');
+  togglePlatformDivs();
+  setTopDropdown();
+}
