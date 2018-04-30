@@ -36,10 +36,14 @@ new events (where the event's `occurrences` is equal to `1`) or hourly events
 (so every hour after the first occurrence, calculated with the check's
 `interval` and the event's `occurrences`).
 
+Note that unlike in Sensu 1.x, events in Sensu 2.x are handled regardless of
+check execution status; even successful check events are passed through the
+pipeline. Therefore, it's necessary to add a clause for non-zero status.
+
 {{< highlight shell >}}
 sensuctl filter create hourly \
   --action allow \
-  --statements "event.Check.Occurrences == 1 || event.Check.Occurrences % (3600 / event.Check.Interval) == 0"
+  --statements "event.Check.Status != 0 && (event.Check.Occurrences == 1 || event.Check.Occurrences % (3600 / event.Check.Interval) == 0)"
 {{< /highlight >}}
 
 ### Assigning the filter to a handler
