@@ -1,6 +1,6 @@
 ---
-title: "How to plan a maintenance using silencing"
-linkTitle: "Planning a Maintenance"
+title: "How to plan maintenance windows using silencing"
+linkTitle: "Planning Maintenance"
 weight: 50
 version: "2.0"
 product: "Sensu Core"
@@ -36,16 +36,16 @@ Sensu silencing entries make it possible to:
 * [Silence a specific check on entities with a specific subscription][5]
 * [Silence a specific check on every entity][6]
 
-## Using silencing to plan a maintenance
+## Using silencing to plan maintenance
 
-The purpose of this guide is to help you plan a window maintenance, by creating
+The purpose of this guide is to help you plan a maintenance window, by creating
 a silenced entry for a specific entity named `i-424242`, in order to prevent
 alerts as you restart or redeploy the services associated with this entity.
 
 ### Creating the silenced entry
 
 The first step is to create a silenced entry that will silence all checks on an
-entity named `i-424242`, for a planned maintenance that starts at **01:00**, on
+entity named `i-424242`, for a planned maintenance window that starts at **01:00**, on
 **Sunday**, and ends **1 hour** later. Your username will automatically be added
 as the **creator** of the silenced entry.
 
