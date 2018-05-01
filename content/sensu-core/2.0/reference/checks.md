@@ -228,7 +228,7 @@ required     | false
 type         | Integer
 example      | {{< highlight shell >}}"low_flap_threshold": 20{{< /highlight >}}
 
-low_flap_threshold | 
+high_flap_threshold | 
 -------------|------
 description  | The flap detection high threshold (% state change) for the check. Sensu uses the same [flap detection algorithm as Nagios][16].
 required     | true (if `low_flap_threshold` is configured)
