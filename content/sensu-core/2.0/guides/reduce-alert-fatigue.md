@@ -53,8 +53,10 @@ Here, since we want to reduce the number of emails sent by Sensu, we will apply
 our filter to an already existing handler named `mail`.
 
 {{< highlight shell >}}
-sensuctl handler set-filters mail hourly
+sensuctl handler update mail
 {{< /highlight >}}
+
+Follow the prompts to add the hourly filter to the mail handler.
 
 ### Validating the filter
 
