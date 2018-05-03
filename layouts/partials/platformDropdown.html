@@ -11,27 +11,28 @@
   <!-- Check and make sure we've also got a version -->
   {{ if (isset $product_info "versions") }}
     {{ $product_info := .Scratch.Get "product_info" }}
-    {{  $platformVersions := (index $product_info.versions .Params.version) }}
+    {{ .Scratch.Set "platforms" (index $product_info.versions .Params.version) }}
 
-    <!-- if we have a list of platform versions -->
-    {{ if gt (len $platformVersions) 0 }}
-      {{ $platformLen := (len $platformVersions) }}
+    <!-- Check if the platforms list was overriden on the page itself -->
+    {{ if (isset .Params "platforms") }}
+      {{ .Scratch.Set "platforms" .Params.platforms }}
+    {{ end }}
+
+    <!-- if we have a list of platforms -->
+    {{ $platforms := .Scratch.Get "platforms" }}
+    {{ if gt (len $platforms) 0 }}
       <div class="platformHolder">
         <div id="platformButton">
 
           <!-- Title -->
-          <a class="platformButtonTitle" id="platformButtonTitleText">All Platforms<i class="fa fa-chevron-down dropdownArrow" aria-hidden="true"></i></a>
+          <a class="platformButtonTitle"><span id="platformButtonTitleText">All Platforms</span><i class="fa fa-chevron-down dropdownArrow" aria-hidden="true"></i></a>
           <div class="hiddenPlatforms" style="display: none;">
  
             <!-- List of platforms -->
             <ul class="hiddenItems">
-              {{ if isset $product_info.versions .Params.version }}
-                {{ range (index $product_info.versions .Params.version) }}
-                  {{ $platform := . }}
-                  {{ $title2 := replace $.Title " " "-" }}
-                  {{ $title2 := lower $title2 }}
-                    <li class="hiddenItem"><a onClick="setPlatformCookie('{{ $platform }}')" href="{{ $.URL }}">{{ $platform }}</a></li>
-                {{ end }}
+              {{ range $platforms }}
+                {{ $platform := . }}
+                <li class="hiddenItem"><a onClick="setPlatformCookie('{{ $platform }}')" href="{{ $.URL }}">{{ $platform }}</a></li>
               {{ end }}
             </ul>
           </div>
