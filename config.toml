@@ -97,9 +97,9 @@ ignoreFiles = [ "sensu-doc-template.md" ]
         name = "Plugins"
         description = "Checks, handlers and other plugins to power your Sensu deployment."
         weight = 5
-        latest = "2.3"
+        latest = "1.0"
         [params.products.plugins.versions]
-            "2.3" = []
+            "1.0" = []
 
     [params.products.extensions]
         identifier = "extensions"
