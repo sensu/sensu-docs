@@ -38,6 +38,9 @@ the simple netcat utility command:
 echo "foo:1|c" | nc -u -w0 127.0.0.1 8125
 {{< /highlight >}}
 
+_NOTE: On Windows machines running Sensu, the statsd UDP port is not supported,
+rather the TCP port is exposed!_
+
 _NOTE: Metrics received through the StatsD listener are not stored in etcd, so
 it is important to configure an event handler(s)!_
 
