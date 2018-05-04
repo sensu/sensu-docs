@@ -44,19 +44,19 @@ format specified below._
    "Fileset Name". Display the content using the `installp` utility.
 
    {{< highlight shell >}}
-   installp -ld sensu-1.4.0-1.powerpc.bff{{< /highlight >}}
+   installp -ld sensu-1.4.1-1.powerpc.bff{{< /highlight >}}
 
    Once you have collected the fileset name, you can optionally proceed to
    preview installation using the `installp` utility, with the `-p` (preview)
    flag.
 
    {{< highlight shell >}}
-   installp -apXY -d sensu-1.4.0-1.powerpc.bff sensu{{< /highlight >}}
+   installp -apXY -d sensu-1.4.1-1.powerpc.bff sensu{{< /highlight >}}
 
 3. Install Sensu using the `installp` utility.
 
    {{< highlight shell >}}
-   installp -aXY -d sensu-1.4.0-1.powerpc.bff sensu{{< /highlight >}}
+   installp -aXY -d sensu-1.4.1-1.powerpc.bff sensu{{< /highlight >}}
 
    _NOTE: this command uses the following `installp` utilty flags: `-a` to apply
    changes to the system, `-X` to extend the file system, and `-Y` to accept the
@@ -166,7 +166,7 @@ support will be enabled in a future release.
 
 [1]:  https://sensuapp.org/downloads
 [2]:  https://sensu.global.ssl.fastly.net/aix/
-[3]:  https://sensu.global.ssl.fastly.net/aix/6.1/sensu-1.4.0-1.powerpc.bff
+[3]:  https://sensu.global.ssl.fastly.net/aix/6.1/sensu-1.4.1-1.powerpc.bff
 [4]:  https://sensuapp.org/mit-license
 [5]:  ../../../reference/configuration/
 [6]:  ../../../reference/transport/

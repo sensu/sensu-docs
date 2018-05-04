@@ -45,10 +45,10 @@ format specified below._
    _NOTE: FreeBSD packages are available for FreeBSD 10 and 11.
    Please visit the [Sensu Downloads][1] page for more information._
 
-2. Install the `sensu-1.4.0_1.txz` package using the `pkg` utility:
+2. Install the `sensu-1.4.1_1.txz` package using the `pkg` utility:
 
    {{< highlight shell >}}
-   sudo pkg add ./sensu-1.4.0_1.txz{{< /highlight >}}
+   sudo pkg add ./sensu-1.4.1_1.txz{{< /highlight >}}
 
 3. Configure the Sensu client. **No "default" configuration is provided with
    Sensu**, so the Sensu client will not run without the corresponding
@@ -130,7 +130,7 @@ Coming soon...
 
 [1]:  https://sensuapp.org/download
 [2]:  https://sensu.global.ssl.fastly.net/freebsd/
-[3]:  https://sensu.global.ssl.fastly.net/freebsd/FreeBSD:10:amd64/sensu/sensu-1.4.0_1.txz
+[3]:  https://sensu.global.ssl.fastly.net/freebsd/FreeBSD:10:amd64/sensu/sensu-1.4.1_1.txz
 [4]:  https://sensuapp.org/mit-license
 [5]:  ../../../reference/configuration/
 [6]:  ../../../reference/transport/
