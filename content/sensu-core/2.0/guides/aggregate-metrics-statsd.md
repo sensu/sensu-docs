@@ -55,7 +55,7 @@ and port:
 --statsd-event-handlers stringSlice   comma-delimited list of event handlers for statsd metrics
 --statsd-flush-interval int           number of seconds between statsd flush (default 10)
 --statsd-metrics-host string          address used for the statsd metrics server (default "127.0.0.1")
---statsd-metrics-port int          port used for the statsd metrics server (default 8125)
+--statsd-metrics-port int             port used for the statsd metrics server (default 8125)
 {{< /highlight >}}
 
 ex.
