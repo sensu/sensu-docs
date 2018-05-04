@@ -8,6 +8,8 @@ menu: "sensu-core-1.4"
 
 ## Releases
 
+- [Core 1.4.1 Release Notes](#core-v1-4-1)
+- [Core 1.4.0 Release Notes](#core-v1-4-0)
 - [Core 1.3.0 Release Notes](#core-v1-3-0)
 - [Core 1.2.1 Release Notes](#core-v1-2-1)
 - [Core 1.2.0 Release Notes](#core-v1-2-0)
@@ -48,11 +50,56 @@ menu: "sensu-core-1.4"
 - [Core 0.23.1 Release Notes](#core-v0-23-1)
 - [Core 0.23.0 Release Notes](#core-v0-23-0)
 
+## Core 1.4.1 Release Notes {#core-v1-4-1}
+
+Source: [GitHub.com][58]
+
+**May 4, 2018** &mdash; Sensu Core version 1.4.1 has been
+	released and is available for immediate download. Please note
+	the following improvements:
+
+### CHANGES {#core-v1-4-1-changes}
+
+- **BUGFIX**: Now including em-http-request Ruby gem in runtime
+    dependencies, fixing the 1.4 sensu-server.
+
+## Core 1.4.0 Release Notes {#core-v1-4-0}
+
+Source: [GitHub.com][58]
+
+**May 2, 2018** &mdash; Sensu Core version 1.4.0 has been
+	released and is available for immediate download. Please note
+	the following improvements:
+
+### CHANGES {#core-v1-4-0-changes}
+
+- **NEW**: Sensu call-home mechanism, the Tessen client (opt-in). It
+    sends anonymized data about the Sensu installation to the Tessen
+    hosted service (Sensu Inc), on sensu-server startup and every 6
+    hours thereafter. All data reports are logged for
+    transparency/awareness and transmitted over HTTPS. The anonymized
+    data currently includes the flavour of Sensu (Core or Enterprise),
+    the Sensu version, and the Sensu client and server counts.
+
+- **NEW**: API list endpoints (e.g. /events) now all support
+    pagination.
+
+- **IMPROVEMENT**: Support for writing multiple check results to the
+    client socket (in one payload).
+
+- **IMPROVEMENT**: Now updating event last_ok when storing latest
+    check results for better accuracy.
+
+- **BUGFIX**: Include child process (e.g. check execution) stop
+    (SIGTERM/KILL) error message in timeout output. This helps when
+    debugging defunct/zombie processes, e.g. "Execution timed out -
+    Unable to TERM/KILL the process: Operation not permitted".
+
 ## Core 1.3.0 Release Notes {#core-v1-3-0}
 
 Source: [GitHub.com][57]
 
-**April 12, 2017** &mdash; Sensu Core version 1.3.0 has been
+**April 12, 2018** &mdash; Sensu Core version 1.3.0 has been
 	released and is available for immediate download. Please note
 	the following improvements:
 
@@ -91,7 +138,7 @@ Source: [GitHub.com][57]
 
 ## Core 1.2.1 Release Notes {#core-v1-2-1}
 
-**February 9, 2017** &mdash; Sensu Core version 1.2.1 has been
+**February 9, 2018** &mdash; Sensu Core version 1.2.1 has been
 	released and is available for immediate download. Please note
 	the following improvements:
 
