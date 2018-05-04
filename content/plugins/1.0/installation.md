@@ -12,20 +12,11 @@ menu: "plugins-1.0"
 
 Installing via gem is the preferred method if one exists.
 
+For production deployments make sure you [pin your gems](https://github.com/sensu-plugins/community/blob/master/best_practices/production_deployments/plugins/PINNING_VERSIONS.md)
+
 **Standard Installation**
 
 `gem install sensu-plugins-disk-checks`
-
-**Secure Installation**
-
-Add the public key (if you haven’t already) as a trusted certificate
-
-{{< highlight bash >}}
-gem cert --add <(curl -Ls https://raw.githubusercontent.com/sensu-plugins/sensu-plugins.github.io/master/certs/sensu-plugins.pem)
-gem install sensu-plugins-disk-checks -P MediumSecurity
-{{< /highlight >}}
-
-You can also download the key from certs/ within each repository.
 
 **Note:**
 If the gem has an alpha tag then you will need to use the *--prerelease* flag or the gem will not be found.

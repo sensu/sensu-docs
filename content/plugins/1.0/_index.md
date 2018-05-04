@@ -17,11 +17,24 @@ TODO - how do you add a callout box? We want one explaining that plugins are mai
 
 ## What is a Sensu plugin?
 
-TODO
+A sensu plugin is a bundle of sensu artifacts typically service specific.
+
+These artifacts typically include:
+- check scripts
+- metric scripts
+- sensu handlers
+- sensu mutators
 
 ## How do I use a plugin?
 
-TODO - brief overview and link to `installation.md`
+Depending on the type of artifact you wish you wish to use they have different setup/configuration. The most common are check/metric scripts. Each plugin has self contained documentation that you should refer to for more in depth information.
+
+To install a ruby plugin see [here](installation.md) for more details and refer to the plugins self contained documentation for any external dependencies such as os libraries, compilers, etc.
+
+To setup:
+- [checks](../../sensu-core/latest/guides/intro-to-checks.md)
+- [handlers](../../sensu-core/latest/guides/intro-to-handlers.md)
+- [mutators](../../sensu-core/latest/guides/intro-to-handlers.md)
 
 ## How do I contribute to plugins?
 
