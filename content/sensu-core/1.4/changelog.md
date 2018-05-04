@@ -52,7 +52,7 @@ menu: "sensu-core-1.4"
 
 ## Core 1.4.1 Release Notes {#core-v1-4-1}
 
-Source: [GitHub.com][58]
+Source: [GitHub.com][59]
 
 **May 4, 2018** &mdash; Sensu Core version 1.4.1 has been
 	released and is available for immediate download. Please note
@@ -1573,6 +1573,10 @@ available for immediate download. Please note the following improvements:
 
 <!-- 1.3 -->
 [57]: https://github.com/sensu/sensu/blob/master/CHANGELOG.md#130----2018-03-09
+
+<!-- 1.4 -->
+[58]: https://github.com/sensu/sensu/blob/master/CHANGELOG.md#140---2018-05-02
+[59]: https://github.com/sensu/sensu/blob/master/CHANGELOG.md#141---2018-05-04
 
 <!-- GH Issues/PR's -->
 
