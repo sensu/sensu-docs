@@ -8,10 +8,10 @@ menu: "sensu-core-1.4"
 
 ## Releases
 
-- [Core 1.4.0 Release Notes](#core-v1-3-0)
+- [Core 1.3.0 Release Notes](#core-v1-3-0)
 - [Core 1.2.1 Release Notes](#core-v1-2-1)
 - [Core 1.2.0 Release Notes](#core-v1-2-0)
-- [Core 1.1.4 Release Notes](#core-v1-1-3)
+- [Core 1.1.3 Release Notes](#core-v1-1-3)
 - [Core 1.1.2 Release Notes](#core-v1-1-2)
 - [Core 1.1.1 Release Notes](#core-v1-1-1)
 - [Core 1.1.0 Release Notes](#core-v1-1-0)
@@ -48,11 +48,11 @@ menu: "sensu-core-1.4"
 - [Core 0.23.1 Release Notes](#core-v0-23-1)
 - [Core 0.23.0 Release Notes](#core-v0-23-0)
 
-## Core 1.4.0 Release Notes {#core-v1-3-0}
+## Core 1.3.0 Release Notes {#core-v1-3-0}
 
 Source: [GitHub.com][57]
 
-**April 12, 2017** &mdash; Sensu Core version 1.4.0 has been
+**April 12, 2017** &mdash; Sensu Core version 1.3.0 has been
 	released and is available for immediate download. Please note
 	the following improvements:
 
@@ -132,7 +132,7 @@ Source: [GitHub.com][56]
 - **IMPROVEMENT**: Check token substitution is now supported in check
 	"subdue".
 
-## Core 1.1.4 Release Notes {#core-v1-1-3}
+## Core 1.1.3 Release Notes {#core-v1-1-3}
 
 Source: [GitHub.com][55]
 
@@ -1085,7 +1085,7 @@ available for immediate download. Please note the following improvements:
 
 ### CHANGES {#core-v0-25-1-changes}
 
-- **IMPROVEMENT**: the Sensu Core package now includes version 1.2 _and_ 1.4 of
+- **IMPROVEMENT**: the Sensu Core package now includes version 1.2 _and_ 1.3 of
 	the Sensu Plugin gem. **Fixes [#1339][gh-1339].**
 
 - **BUGFIX**: The Sensu API now sets the HTTP response header "Connection" to
@@ -1524,7 +1524,7 @@ available for immediate download. Please note the following improvements:
 <!-- 1.2 -->
 [56]: https://github.com/sensu/sensu/blob/master/CHANGELOG.md#120---2017-12-05
 
-<!-- 1.4 -->
+<!-- 1.3 -->
 [57]: https://github.com/sensu/sensu/blob/master/CHANGELOG.md#130----2018-03-09
 
 <!-- GH Issues/PR's -->
