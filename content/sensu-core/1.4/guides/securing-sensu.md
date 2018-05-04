@@ -1,11 +1,11 @@
 ---
 title: "Securing Sensu"
 description: "Strategies and best practices for securing Sensu"
-version: "1.3"
+version: "1.4"
 weight: 8
 next: ../securing-rabbitmq-guide
 menu:
-  sensu-core-1.3:
+  sensu-core-1.4:
     parent: guides
 ---
 

@@ -1,8 +1,8 @@
 ---
 title: "FAQs"
 description: "Sensu Frequently Asked Questions"
-version: "1.3"
-menu: "sensu-core-1.3"
+version: "1.4"
+menu: "sensu-core-1.4"
 product: "Sensu Core"
 ---
 ## Sensu Frequently Asked Questions

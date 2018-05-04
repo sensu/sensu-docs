@@ -3,11 +3,11 @@ title: "Mac OS X"
 description: "User documentation for installing and operating Sensu on Mac OS X
   systems."
 weight: 3
-version: "1.3"
+version: "1.4"
 product: "Sensu Core"
 platformContent: true
 menu:
-  sensu-core-1.3:
+  sensu-core-1.4:
     parent: platforms
 ---
 
@@ -44,7 +44,7 @@ notice._
 2. Install the package using the `installer` utility
 
    {{< highlight shell >}}
-   sudo installer -pkg sensu-1.3.0-1.pkg -target /{{< /highlight >}}
+   sudo installer -pkg sensu-1.4.0-1.pkg -target /{{< /highlight >}}
 
 3. Configure the Sensu client. **No "default" configuration is provided with
    Sensu**, so the Sensu Client will not start without the corresponding
@@ -139,7 +139,7 @@ configuration file) to configure the `sensu-client` daemon run arguments (e.g.
    your favorite text editor.
 
    {{< highlight shell >}}
-   sudo cp /opt/sensu/embedded/Cellar/sensu/1.3.0/Library/LaunchDaemons/org.sensuapp.sensu-client.plist /Library/LaunchDaemons/org.sensuapp.sensu-client.plist{{< /highlight >}}
+   sudo cp /opt/sensu/embedded/Cellar/sensu/1.4.0/Library/LaunchDaemons/org.sensuapp.sensu-client.plist /Library/LaunchDaemons/org.sensuapp.sensu-client.plist{{< /highlight >}}
 
 2. This XML configuration file allows you to set Sensu client [CLI
    arguments][10]. The following example configuration file sets the Sensu
@@ -189,12 +189,12 @@ is installed by the Sensu OS X installer package.
 
 {{< highlight shell >}}
 $ sudo -u _sensu /opt/sensu/bin/sensu-client -V
-1.3.0{{< /highlight >}}
+1.4.0{{< /highlight >}}
 
 
 [1]:  https://sensuapp.org/download
 [2]:  https://sensu.global.ssl.fastly.net/osx/
-[3]:  https://sensu.global.ssl.fastly.net/osx/sensu-1.3.0-1.mountainlion.pkg
+[3]:  https://sensu.global.ssl.fastly.net/osx/sensu-1.4.0-1.mountainlion.pkg
 [4]:  #configure-the-sensu-client-launchd-daemon
 [5]:  ../../../reference/configuration/
 [6]:  ../../../reference/transport/

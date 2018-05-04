@@ -2,7 +2,7 @@
 title: "Install Redis on RHEL/CentOS"
 weight: 6
 product: "Sensu Core"
-version: "1.3"
+version: "1.4"
 next: ../install-rabbitmq-on-rhel-centos
 previous: ../installation-prerequisites
 ---

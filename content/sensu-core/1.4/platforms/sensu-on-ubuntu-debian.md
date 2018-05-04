@@ -3,11 +3,11 @@ title: "Ubuntu/Debian"
 description: "User documentation for installing and operating Sensu on Ubuntu
   and Debian Linux systems."
 weight: 7
-version: "1.3"
+version: "1.4"
 product: "Sensu Core"
 platformContent: true
 menu:
-  sensu-core-1.3:
+  sensu-core-1.4:
     parent: platforms
 ---
 

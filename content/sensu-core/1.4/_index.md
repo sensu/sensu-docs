@@ -2,10 +2,10 @@
 title: "Sensu Core"
 date: 2017-07-21T13:06:31-07:00
 weight: -100
-menu: "sensu-core-1.3"
-version: "1.3"
+menu: "sensu-core-1.4"
+version: "1.4"
 product: "Sensu Core"
-tags: ["sensu", "core", "sensu core", "1.3", "index"]
+tags: ["sensu", "core", "sensu core", "1.4", "index"]
 layout: "single"
 ---
 

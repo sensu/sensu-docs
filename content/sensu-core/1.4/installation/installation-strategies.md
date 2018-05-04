@@ -3,11 +3,11 @@ title: "Installation Strategies"
 description: "The complete Sensu installation guide."
 weight: 2
 product: "Sensu Core"
-version: "1.3"
+version: "1.4"
 next: ../installation-prerequisites
 previous: ../overview
 menu:
-  sensu-core-1.3:
+  sensu-core-1.4:
     parent: installation
 ---
 

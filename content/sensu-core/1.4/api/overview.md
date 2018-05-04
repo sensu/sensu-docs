@@ -2,10 +2,10 @@
 title: "RESTful API Overview"
 description: "Overview of Sensu API endpoints"
 product: "Sensu Core"
-version: "1.3"
+version: "1.4"
 weight: 1
 menu:
-  sensu-core-1.3:
+  sensu-core-1.4:
     parent: api
 ---
 ## Sensu API

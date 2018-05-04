@@ -3,11 +3,11 @@ title: "Sensu Server and API"
 description: "The complete Sensu installation guide."
 weight: 10
 product: "Sensu Core"
-version: "1.3"
+version: "1.4"
 next: ../install-sensu-client
 previous: ../installation-prerequisites
 menu:
-  sensu-core-1.3:
+  sensu-core-1.4:
     parent: installation
 ---
 

@@ -3,11 +3,11 @@ title: "RHEL/CentOS"
 description: "User documentation for installing and operating Sensu on Red Hat
   Enterprise Linux and CentOS Linux systems."
 weight: 6
-version: "1.3"
+version: "1.4"
 product: "Sensu Core"
 platformContent: true
 menu:
-  sensu-core-1.3:
+  sensu-core-1.4:
     parent: platforms
 ---
 
@@ -156,7 +156,7 @@ monitored by Sensu._
 
 ## Configure Sensu
 
-By default, all of the Sensu services on Ubuntu and Debian systems will load
+By default, all of the Sensu services on RHEL and CentOS systems will load
 configuration from the following locations:
 
 - `/etc/sensu/config.json`

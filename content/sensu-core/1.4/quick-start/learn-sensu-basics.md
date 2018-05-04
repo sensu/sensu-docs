@@ -2,15 +2,15 @@
 title: "Learn Sensu in 15 Minutes"
 description: "Learn the basics to Sensu Core in 15 minutes."
 weight: 3
-version: "1.3"
+version: "1.4"
 product: "Sensu Core"
 platformContent: true
 menu:
-  sensu-core-1.3:
+  sensu-core-1.4:
     parent: quick-start
 ---
 # Learn Sensu in 15 Minutes
-{{< platformDropdown "Ubuntu/Debian" "Sensu-Core" "1.3" "Client Installation" "learn-sensu-basics">}}
+{{< platformDropdown "Ubuntu/Debian" "Sensu-Core" "1.4" "Client Installation" "learn-sensu-basics">}}
 
 Sensu was designed to provide a comprehensive monitoring platform for monitoring
 infrastructure (servers), services, application health, and business KPIs
@@ -509,7 +509,7 @@ content:
 
    {{< highlight shell >}}
    $ tail -f /var/log/sensu/sensu-server.log | grep default
-   {"timestamp":"2017-03-20T19:12:51.356611+0000","level":"info","message":"handler output","handler":{"command":"/opt/sensu/embedded/bin/handler-mailer.rb","type":"pipe","name":"default"},"event":{"id":"efad9a7a-dca8-4ed8-aaac-32c429313988"},"output":["mail -- sent alert for localhost.localdomain/check_http to operators@example.com\n"]}{{< /highlight >}}
+   {"timestamp":"2017-03-20T19:12:51.456611+0000","level":"info","message":"handler output","handler":{"command":"/opt/sensu/embedded/bin/handler-mailer.rb","type":"pipe","name":"default"},"event":{"id":"efad9a7a-dca8-4ed8-aaac-32c429313988"},"output":["mail -- sent alert for localhost.localdomain/check_http to operators@example.com\n"]}{{< /highlight >}}
 
    And of course you should also see an email delivered to the
    mailbox of your `smtp_to` addressee!

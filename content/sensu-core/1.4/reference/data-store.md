@@ -2,10 +2,10 @@
 title: "Data Store"
 description: "Reference documentation for the Sensu Data Store."
 product: "Sensu Core"
-version: "1.3"
+version: "1.4"
 weight: 12
 menu:
-  sensu-core-1.3:
+  sensu-core-1.4:
     parent: reference
 ---
 

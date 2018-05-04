@@ -2,12 +2,12 @@
 title: "How Sensu Works"
 description: "The Sensu Monitoring Workflow"
 product: "Sensu Core"
-version: "1.3"
+version: "1.4"
 weight: 2
 next: ../architecture
 previous: ../what-is-sensu
 menu:
-  sensu-core-1.3:
+  sensu-core-1.4:
     parent: overview
 ---
 

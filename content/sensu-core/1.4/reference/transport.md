@@ -2,10 +2,10 @@
 title: "Transport"
 description: "Reference documentation for the Sensu Transport."
 product: "Sensu Core"
-version: "1.3"
+version: "1.4"
 weight: 13
 menu:
-  sensu-core-1.3:
+  sensu-core-1.4:
     parent: reference
 ---
 

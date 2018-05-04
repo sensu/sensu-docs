@@ -2,11 +2,11 @@
 title: "The Five Minute Install"
 description: "The Sensu Core five minute installation guide."
 weight: 2
-version: "1.3"
+version: "1.4"
 product: "Sensu Core"
 platformContent: true
 menu:
-  sensu-core-1.3:
+  sensu-core-1.4:
     parent: quick-start
 ---
 # The Five Minute Install

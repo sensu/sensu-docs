@@ -2,11 +2,11 @@
 title: "Sensu Dashboards"
 weight: 12
 product: "Sensu Core"
-version: "1.3"
+version: "1.4"
 next: ../summary
 previous: ../install-sensu-client
 menu:
-  sensu-core-1.3:
+  sensu-core-1.4:
     parent: installation
 ---
 
