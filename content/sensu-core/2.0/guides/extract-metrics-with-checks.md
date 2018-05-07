@@ -45,29 +45,29 @@ sensuctl check set-metric-handlers collect-metrics influx-db
 The metric formats that Sensu currently supports for check output metric
 extraction are nagios, influxdb, graphite, and opentsdb.
 
-nagios       |
--------------|------
-metric_format| nagios_perfdata
-documentation| [Nagios Performance Data][6]
-example      | `PING ok - Packet loss = 0%, RTA = 0.80 ms | percent_packet_loss=0, rta=0.80`
+|nagios       |      |
+--------------|------
+metric_format | nagios_perfdata
+documentation | [Nagios Performance Data][6]
+example       | `PING ok - Packet loss = 0%, RTA = 0.80 ms | percent_packet_loss=0, rta=0.80`
 
-graphite     |
--------------|------
-metric_format| graphite_plaintext
-documentation| [Graphite Plaintext Protocol][7]
-example      | `local.random.diceroll 4 123456789`
+|graphite     |      |
+--------------|------
+metric_format | graphite_plaintext
+documentation | [Graphite Plaintext Protocol][7]
+example       | `local.random.diceroll 4 123456789`
 
-influxdb     |
--------------|------
-metric_format| influxdb_line
-documentation| [InfluxDB Line Protocol][8]
-example      | `weather,location=us-midwest temperature=82 1465839830100400200`
+|influxdb     |      |
+--------------|------
+metric_format | influxdb_line
+documentation | [InfluxDB Line Protocol][8]
+example       | `weather,location=us-midwest temperature=82 1465839830100400200`
 
-opentsdb     |
--------------|------
-metric_format| opentsdb_line
-documentation| [OpenTSDB Data Specification][9]
-example      | `sys.cpu.user 1356998400 42.5 host=webserver01 cpu=0`
+|opentsdb     |      |
+--------------|------
+metric_format | opentsdb_line
+documentation | [OpenTSDB Data Specification][9]
+example       | `sys.cpu.user 1356998400 42.5 host=webserver01 cpu=0`
 
 ### Validating the metrics
 
