@@ -47,27 +47,27 @@ extraction are nagios, influxdb, graphite, and opentsdb.
 
 |nagios       |      |
 --------------|------
-metric_format | nagios_perfdata
+metric_format | `nagios_perfdata`
 documentation | [Nagios Performance Data][6]
-example       | `PING ok - Packet loss = 0%, RTA = 0.80 ms | percent_packet_loss=0, rta=0.80`
+example       | {{< highlight string >}}PING ok - Packet loss = 0%, RTA = 0.80 ms | percent_packet_loss=0, rta=0.80{{< /highlight >}}
 
 |graphite     |      |
 --------------|------
-metric_format | graphite_plaintext
+metric_format | `graphite_plaintext`
 documentation | [Graphite Plaintext Protocol][7]
-example       | `local.random.diceroll 4 123456789`
+example       | {{< highlight string >}}local.random.diceroll 4 123456789{{< /highlight >}}
 
 |influxdb     |      |
 --------------|------
-metric_format | influxdb_line
+metric_format | `influxdb_line`
 documentation | [InfluxDB Line Protocol][8]
-example       | `weather,location=us-midwest temperature=82 1465839830100400200`
+example       | {{< highlight string >}}weather,location=us-midwest temperature=82 1465839830100400200{{< /highlight >}}
 
 |opentsdb     |      |
 --------------|------
-metric_format | opentsdb_line
+metric_format | `opentsdb_line`
 documentation | [OpenTSDB Data Specification][9]
-example       | `sys.cpu.user 1356998400 42.5 host=webserver01 cpu=0`
+example       | {{< highlight string >}}sys.cpu.user 1356998400 42.5 host=webserver01 cpu=0{{< /highlight >}}
 
 ### Validating the metrics
 
