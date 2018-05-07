@@ -14,19 +14,17 @@ menu:
 
 As **check results** are processed by a Sensu server, the server executes [event
 handlers][1] to send alerts to personnel or otherwise relay **event data** to
-external services. Although event handlers can be directly configured with
-**filters** to improve overall signal-to-noise ratio, there are many scenarios
-in which operators receiving notifications from Sensu require an on-demand means
-to suppress alerts. Sensu’s built-in **silencing** provides the means to
-suppress execution of event handlers on an ad hoc basis.
+external services. Sensu’s built-in **silencing**, along with the built-in
+`not_silenced` filter, provides the means to suppress execution of event
+handlers on an ad hoc basis.
 
 ## When to use silencing 
 
-Silencing is used to prevent handlers from being triggered based on the check
-name present in a check result or the subscriptions associated with the entity
-that published the check result. This can be desirable in many scenarios, giving
-operators the ability to quiet incoming alerts while coordinating their
-response.
+Silencing is used to prevent handlers configured with the `not_silenced` filter
+from being triggered based on the check name present in a check result or the
+subscriptions associated with the entity that published the check result. This
+can be desirable in many scenarios, giving operators the ability to quiet
+incoming alerts while coordinating their response.
 
 Sensu silencing entries make it possible to:
 
@@ -39,8 +37,9 @@ Sensu silencing entries make it possible to:
 ## Using silencing to plan a maintenance
 
 The purpose of this guide is to help you plan a window maintenance, by creating
-a silenced entry for a specific entity named `i-424242`, in order to prevent
-alerts as you restart or redeploy the services associated with this entity.
+a silenced entry for a specific entity named `i-424242` and its check named
+`check-http`, in order to prevent alerts as you restart or redeploy the services
+associated with this entity.
 
 ### Creating the silenced entry
 
@@ -59,14 +58,16 @@ sensuctl silenced create \
 
 ### Validating the silenced entry
 
-You can verify that the silenced entry against our entity, here named `i-424242`, has been properly created, by using `sensuctl`.
+You can verify that the silenced entry against our entity, here named
+`i-424242`, has been properly created, by using `sensuctl`.
 
 {{< highlight shell >}}
 sensuctl silenced info \
 --subscription 'entity:i-424242'
 {{< /highlight >}}
 
-Once the silenced entry starts to take effect, events that are not handled due to silencing will be marked as so in `sensuctl events`.
+Once the silenced entry starts to take effect, events that are silenced will be
+marked as so in `sensuctl events`.
 
 {{< highlight shell >}}
 $ sensuctl event list
@@ -74,6 +75,10 @@ $ sensuctl event list
  ──────────────   ─────────    ─────────   ──────────── ────────── ───────────────────────────────
   scotch.local    keepalive                     0          true     2018-03-16 13:22:16 -0400 EDT
 {{< /highlight >}}
+
+_WARNING: A silenced event does not automatically means that it will not be
+handled. Only handlers using the `not_silenced` built-in filter will discard
+silenced events!_
 
 ## Next steps
 

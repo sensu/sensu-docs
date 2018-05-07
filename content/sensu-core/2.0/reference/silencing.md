@@ -11,15 +11,33 @@ menu:
 ---
 
 ## How does silencing work?
-Silencing entries are created on an ad-hoc basis via `sensuctl`. When silencing entries are successfully created, they are assigned an `ID` in the format `$SUBSCRIPTION:$CHECK`, where `$SUBSCRIPTION` is the name of a Sensu entity subscription and `$CHECK` is the name of a Sensu check. Silencing entries can be used to silence checks on specific entities by taking advantage of per-entity subscriptions, e.g. `entity:$ENTITY_NAME`. When the check name and/or subscription described in a silencing entry match an event, the handler will not be executed and an informational message will be logged.
+Silencing entries are created on an ad-hoc basis via `sensuctl`. When silencing
+entries are successfully created, they are assigned an `ID` in the format
+`$SUBSCRIPTION:$CHECK`, where `$SUBSCRIPTION` is the name of a Sensu entity
+subscription and `$CHECK` is the name of a Sensu check. Silencing entries can be
+used to silence checks on specific entities by taking advantage of per-entity
+subscriptions, e.g. `entity:$ENTITY_NAME`. When the check name and/or
+subscription described in a silencing entry match an event and a handler use the
+`not_silenced` built-in filter, this handler will not be exeucted.
 
-These silencing entries are persisted in the Sensu data store. When the Sensu server processes subsequent check results, matching silencing entries are retrieved from the store. If one or more matching entries exist, the event is updated with a list of silenced entry ids. The presence of silencing entries indicates that the event is silenced.
+These silencing entries are persisted in the Sensu data store. When the Sensu
+server processes subsequent check results, matching silencing entries are
+retrieved from the store. If one or more matching entries exist, the event is
+updated with a list of silenced entry ids. The presence of silencing entries
+indicates that the event is silenced.
 
-When creating a silencing entry, a combination of check and subscription can be specified, but only one or the other is strictly required.
+When creating a silencing entry, a combination of check and subscription can be
+specified, but only one or the other is strictly required.
 
-For example, when a silencing entry is created specifying only a check, its ID will contain an asterisk (or wildcard) in the `$SUBSCRIPTION` position. This indicates that any event with a matching check name will be marked as silenced, regardless of the originating entities’ subscriptions.
+For example, when a silencing entry is created specifying only a check, its ID
+will contain an asterisk (or wildcard) in the `$SUBSCRIPTION` position. This
+indicates that any event with a matching check name will be marked as silenced,
+regardless of the originating entities’ subscriptions.
 
-Conversely, a silencing entry which specifies only a subscription will have an ID with an asterisk in the `$CHECK` position. This indicates that any event where the originating entities’ subscriptions match the subscription specified in the entry will be marked as silenced, regardless of the check name.
+Conversely, a silencing entry which specifies only a subscription will have an
+ID with an asterisk in the `$CHECK` position. This indicates that any event
+where the originating entities’ subscriptions match the subscription specified
+in the entry will be marked as silenced, regardless of the check name.
 
 ## Silencing specification
 
@@ -111,7 +129,9 @@ example      | {{< highlight shell >}}"environment": "default"{{</ highlight >}}
 ## Examples
 
 ### Silence all checks on a specific entity 
-Assume a Sensu entity `i-424242` which we wish to silence any alerts on. We’ll do this by taking advantage of per-entity subscriptions:
+Assume a Sensu entity `i-424242` which we wish to silence any alerts on. We’ll
+do this by taking advantage of per-entity subscriptions:
+
 {{< highlight json >}}
 {
   "expire": -1,
@@ -125,9 +145,10 @@ Assume a Sensu entity `i-424242` which we wish to silence any alerts on. We’ll
 {{</ highlight >}}
 
 ### Silence a specific check on a specific entity
-Following on the previous example, silence a check named `check_ntp` on
-entity `i-424242`, ensuring the entry is deleted once the underlying issue has
-been resolved:
+Following on the previous example, silence a check named `check_ntp` on entity
+`i-424242`, ensuring the entry is deleted once the underlying issue has been
+resolved:
+
 {{< highlight json >}}
 {
   "subscription": "entity:i-424242", 
@@ -135,12 +156,21 @@ been resolved:
   "expire_on_resolve": true 
 }
 {{</ highlight >}}
-The optional expire_on_resolve attribute used here indicates that when the server processes a matching check from the specified entity with status OK, this silencing entry will automatically be removed.
 
-When used in combination with other attributes (e.g. creator and reason), this provides Sensu operators with a method of acknowledging that they have received an alert, suppressing additional notifications, and automatically clearing the silencing entry when the check status returns to normal.
+The optional expire_on_resolve attribute used here indicates that when the
+server processes a matching check from the specified entity with status OK, this
+silencing entry will automatically be removed.
+
+When used in combination with other attributes (e.g. creator and reason), this
+provides Sensu operators with a method of acknowledging that they have received
+an alert, suppressing additional notifications, and automatically clearing the
+silencing entry when the check status returns to normal.
 
 ### Silence all checks on entities with a specific subscription
-In this case, we'll compleltely silence any entities subscribed to `appserver`. Just as in the example of silencing all checks on a specific entity, we’ll create a silencing entry specifying only the `appserver` subscription:
+In this case, we'll compleltely silence any entities subscribed to `appserver`.
+Just as in the example of silencing all checks on a specific entity, we’ll
+create a silencing entry specifying only the `appserver` subscription:
+
 {{< highlight json >}}
 {
   "subscription": "appserver", 
@@ -148,7 +178,9 @@ In this case, we'll compleltely silence any entities subscribed to `appserver`. 
 {{</ highlight >}}
 
 ### Silence a specific check on entities with a specific subscription
-Assume a check `mysql_status` which we wish to silence, running on Sensu entitys with the subscription `appserver`:
+Assume a check `mysql_status` which we wish to silence, running on Sensu
+entities with the subscription `appserver`:
+
 {{< highlight json >}}
 {
   "subscription": "appserver", 
@@ -159,6 +191,7 @@ Assume a check `mysql_status` which we wish to silence, running on Sensu entitys
 ### Silence a specific check on every entity
 To silence the check `mysql_status` on every entity in our infrastructure,
 regardless of subscriptions, we only need to provide the check name:
+
 {{< highlight json >}}
 {
   "check": "mysql_status"
