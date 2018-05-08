@@ -76,9 +76,8 @@ $ sensuctl event list
   scotch.local    keepalive                     0          true     2018-03-16 13:22:16 -0400 EDT
 {{< /highlight >}}
 
-_WARNING: A silenced event does not automatically means that it will not be
-handled. Only handlers using the `not_silenced` built-in filter will discard
-silenced events!_
+_WARNING: By default, a silenced event will be handled unless the handler uses
+the not_silenced filter to discard silenced events._
 
 ## Next steps
 
