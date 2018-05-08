@@ -43,20 +43,22 @@ pipeline. Therefore, it's necessary to add a clause for non-zero status.
 {{< highlight shell >}}
 sensuctl filter create hourly \
   --action allow \
-  --statements "event.Check.Status != 0 && (event.Check.Occurrences == 1 || event.Check.Occurrences % (3600 / event.Check.Interval) == 0)"
+  --statements "event.Check.Occurrences == 1 || event.Check.Occurrences % (3600 / event.Check.Interval) == 0"
 {{< /highlight >}}
 
 ### Assigning the filter to a handler
 
 Now that the `hourly` filter has been created, it can be assigned to a handler.
 Here, since we want to reduce the number of emails sent by Sensu, we will apply
-our filter to an already existing handler named `mail`.
+our filter to an already existing handler named `mail`, in addition to the
+built-in `is_incident` filter so only failing events will handled.
 
 {{< highlight shell >}}
 sensuctl handler update mail
 {{< /highlight >}}
 
-Follow the prompts to add the hourly filter to the mail handler.
+Follow the prompts to add the `hourly` & `is_incident` filters to the mail
+handler.
 
 ### Validating the filter
 
