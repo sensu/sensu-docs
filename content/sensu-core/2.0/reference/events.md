@@ -55,11 +55,12 @@ description  | The time of the Event occurrence in epoch time.
 type         | integer
 example      | {{< highlight shell >}}"timestamp": 1522099512{{</ highlight >}}
 
-|silenced    |      |
+|silenced (deprecated)    |      |
 -------------|------
 description  | If the event is to be silenced.
 type         | boolean
 example      | {{< highlight shell >}}"silenced": false{{</ highlight >}}
+_NOTE: Silenced has been deprecated from Event. Please see [check specification][7]._
 
 |check       |      |
 -------------|------
@@ -330,3 +331,4 @@ example      | {{< highlight json >}}
 [4]: ../hooks/
 [5]: ../../guides/aggregate-metrics-statsd/
 [6]: ../../guides/extract-metrics-with-checks
+[7]: ../checks/#check-specification
