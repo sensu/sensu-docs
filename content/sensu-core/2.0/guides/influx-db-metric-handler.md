@@ -58,11 +58,12 @@ sensuctl handler create influx-db \
 
 ### Assigning the handler to an event
 
-With the `influx-db` handler now created, it can be assigned to a check, in this
-example, the check name is `collect-metrics`:
+With the `influx-db` handler now created, it can be assigned to a check for
+[check output metric extraction][10]. In this example, the check name is
+`collect-metrics`:
 
 {{< highlight shell >}}
-sensuctl check set-handlers collect-metrics influx-db
+sensuctl check set-output-metric-handlers collect-metrics influx-db
 {{< /highlight >}}
 
 And/or, the handler can be assigned to the [Sensu StatsD Listener][3] to pass
@@ -94,6 +95,8 @@ this point, here are some recommended resources:
 * Read the [handlers reference][9] for in-depth documentation on handlers.
 * Read the [statsd listener guide][3] for instructions on how to aggregate
 StatsD metrics in Sensu.
+* Read the [check output metric extraction guide][10] to learn how to collect
+and extract metrics using Sensu checks.
 
 [1]: ../../reference/events/
 [2]: https://github.com/influxdata/influxdb
@@ -104,3 +107,4 @@ StatsD metrics in Sensu.
 [7]: https://en.wikipedia.org/wiki/PATH_(variable)
 [8]: ../../getting-started/installation-and-configuration/#validating-the-services
 [9]: ../../reference/handlers
+[10]: ../extract-metrics-with-checks

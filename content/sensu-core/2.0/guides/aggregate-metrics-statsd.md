@@ -1,6 +1,6 @@
 ---
 title: "How to aggregate metrics with the StatsD listener"
-linkTitle: "Aggregating metrics with StatsD"
+linkTitle: "Aggregating Metrics with StatsD"
 weight: 120
 version: "2.0"
 product: "Sensu Core"
