@@ -37,19 +37,21 @@ Sensu silencing entries make it possible to:
 ## Using silencing to plan maintenance
 
 The purpose of this guide is to help you plan a maintenance window, by creating
-a silenced entry for a specific entity named `i-424242`, in order to prevent
-alerts as you restart or redeploy the services associated with this entity.
+a silenced entry for a specific entity named `i-424242` and its check named
+`check-http`,  in order to prevent alerts as you restart or redeploy the
+services associated with this entity.
 
 ### Creating the silenced entry
 
-The first step is to create a silenced entry that will silence all checks on an
-entity named `i-424242`, for a planned maintenance window that starts at
-**01:00**, on **Sunday**, and ends **1 hour** later. Your username will
-automatically be added as the **creator** of the silenced entry.
+The first step is to create a silenced entry that will silence the check
+`check-http` on an entity named `i-424242`, for a planned maintenance window
+that starts at **01:00**, on **Sunday**, and ends **1 hour** later. Your
+username will automatically be added as the **creator** of the silenced entry.
 
 {{< highlight shell >}}
 sensuctl silenced create \
 --subscription 'entity:i-424242' \
+--check 'check-http' \
 --begin 'Mar 18 2018 1:00AM' \
 --expire 3600 \
 --reason 'Server upgrade'
@@ -62,7 +64,7 @@ You can verify that the silenced entry against our entity, here named
 
 {{< highlight shell >}}
 sensuctl silenced info \
---subscription 'entity:i-424242'
+--subscription 'entity:i-424242:check-http'
 {{< /highlight >}}
 
 Once the silenced entry starts to take effect, events that are silenced will be
@@ -72,7 +74,7 @@ marked as so in `sensuctl events`.
 $ sensuctl event list
      Entity         Check        Output       Status     Silenced          Timestamp
  ──────────────   ─────────    ─────────   ──────────── ────────── ───────────────────────────────
-  scotch.local    keepalive                     0          true     2018-03-16 13:22:16 -0400 EDT
+  scotch.local    check-http                    0          true     2018-03-16 13:22:16 -0400 EDT
 {{< /highlight >}}
 
 _WARNING: By default, a silenced event will be handled unless the handler uses
