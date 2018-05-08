@@ -276,7 +276,7 @@ round_robin  |
 description  | If the check should be executed on a single entity within a subscription in a [round-robin fashion][19].
 required     | false
 type         | Boolean
-example      | {{< highlight shell >}}"publish": false{{< /highlight >}}
+example      | {{< highlight shell >}}"round_robin": false{{< /highlight >}}
 
 extended_attributes | 
 -------------|------ 
