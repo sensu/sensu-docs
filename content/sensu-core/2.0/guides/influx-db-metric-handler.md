@@ -63,7 +63,7 @@ With the `influx-db` handler now created, it can be assigned to a check for
 `collect-metrics`:
 
 {{< highlight shell >}}
-sensuctl check set-metric-handlers collect-metrics influx-db
+sensuctl check set-output-metric-handlers collect-metrics influx-db
 {{< /highlight >}}
 
 And/or, the handler can be assigned to the [Sensu StatsD Listener][3] to pass
