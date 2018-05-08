@@ -204,7 +204,7 @@ configured webhook URL, using the `handler-slack` executable command.
 
 ### Sending event data to a TCP socket
 
-This handler will forward event data to a TCP socker (i.e., 10.0.1.99:4444) and
+This handler will forward event data to a TCP socket (i.e., 10.0.1.99:4444) and
 will timeout if an acknowledgement (`ACK`) is not received within 30 seconds.
 
 {{< highlight json >}}
