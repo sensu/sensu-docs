@@ -1,16 +1,35 @@
 ---
-title: "Installing and configuring Sensu 2.0"
-linkTitle: "Installation and Configuration"
+title: "Testing Nightly Releases"
+linkTitle: "Testing Nightly Releases"
 description: "The Sensu Core installation guide."
 weight: 1
 version: "2.0"
 product: "Sensu Core"
 platformContent: true
-platforms: ["Ubuntu/Debian", "RHEL/CentOS", "Windows"]
+platforms: ["Ubuntu/Debian", "RHEL/CentOS"]
 menu:
   sensu-core-2.0:
     parent: getting-started
 ---
+
+_WARNING: Sensu nightly releases are your first chance to try out new
+features and bug fixes. Please be aware that you may be the first to
+discover an issue, you probably do not want to use a nightly release in
+production._
+
+_WARNING: Please uninstall/purge any previous Sensu 2.x packages before
+switching to the nightly repositories._
+
+Testing and using a Sensu nightly release is straightforward, it simply
+involves using a different package repository. You should only be
+using nightly releases if you already have experience installing and
+managing a Sensu installation. Below are the per-platform nightly
+repository installation instructions. We are slowly adding nightly
+repositories for other platforms.
+
+_NOTE: The Sensu nightly repository instructions replace the
+existing Sensu repository configuration files, you will need to revert
+these changes in order to return to using stable releases._
 
 The Sensu 2.0 binaries are statically linked and can be deployed to any Linux or Windows operating system.
 
@@ -27,13 +46,13 @@ The Sensu Agent (sensu-agent) is a single statically linked binary that can be d
 {{< platformBlock "Ubuntu/Debian" >}}
 ### Ubuntu/Debian
 
-Add the Sensu beta repository.
+Add the Sensu nightly repository.
 
 {{< highlight shell >}}
-curl -s https://packagecloud.io/install/repositories/sensu/beta/script.deb.sh | sudo bash
+curl -s https://packagecloud.io/install/repositories/sensu/nightly/script.deb.sh | sudo bash
 {{< /highlight >}}
 
-Install the packages from the Sensu beta repository.
+Install the packages from the Sensu nightly repository.
 
 {{< highlight shell >}}
 sudo apt-get install sensu-backend sensu-agent
@@ -44,10 +63,10 @@ sudo apt-get install sensu-backend sensu-agent
 {{< platformBlock "RHEL/CentOS" >}}
 ### RHEL/CentOS
 
-Add the Sensu beta repository.
+Add the Sensu nightly repository.
 
 {{< highlight shell >}}
-curl -s https://packagecloud.io/install/repositories/sensu/beta/script.rpm.sh | sudo bash
+curl -s https://packagecloud.io/install/repositories/sensu/nightly/script.rpm.sh | sudo bash
 {{< /highlight >}}
 
 Install the Sensu backend and agent packages.
