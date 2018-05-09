@@ -64,11 +64,21 @@ not provide a built-in default handler.
 
 ### Transport handlers
 
-Sensu architecture considerably changed between the 1.0 and 2.0 versions, and a
+Sensu architecture considerably changed between the 1.x and 2.x versions, and a
 dedicated message bus (i.e., RabbitMQ) is no longer used. Therefore, [transport
 handlers][5] have been removed but a similar functionality could be achieved
 using a pipe handler that connects to a message bus and injects event data into
 a queue.
+
+### Each and every check results are handled
+
+All check results are now considered to be events, and therefore these events
+are automatically sent to the check handlers, no matter their status, whereas
+only non-zero check results were considered as events and sent to handlers in
+Sensu 1.x.
+
+That being said, 1.x behaviour can be replicated in Sensu 2.x by using the
+built-in `is_incident` filter.
 
 ## Handler specification
 
@@ -194,7 +204,7 @@ configured webhook URL, using the `handler-slack` executable command.
 
 ### Sending event data to a TCP socket
 
-This handler will forward event data to a TCP socker (i.e., 10.0.1.99:4444) and
+This handler will forward event data to a TCP socket (i.e., 10.0.1.99:4444) and
 will timeout if an acknowledgement (`ACK`) is not received within 30 seconds.
 
 {{< highlight json >}}
