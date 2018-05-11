@@ -36,6 +36,10 @@ new events (where the event's `occurrences` is equal to `1`) or hourly events
 (so every hour after the first occurrence, calculated with the check's
 `interval` and the event's `occurrences`).
 
+Note that unlike in Sensu 1.x, events in Sensu 2.x are handled regardless of
+check execution status; even successful check events are passed through the
+pipeline. Therefore, it's necessary to add a clause for non-zero status.
+
 {{< highlight shell >}}
 sensuctl filter create hourly \
   --action allow \
@@ -46,11 +50,15 @@ sensuctl filter create hourly \
 
 Now that the `hourly` filter has been created, it can be assigned to a handler.
 Here, since we want to reduce the number of emails sent by Sensu, we will apply
-our filter to an already existing handler named `mail`.
+our filter to an already existing handler named `mail`, in addition to the
+built-in `is_incident` filter so only failing events will handled.
 
 {{< highlight shell >}}
-sensuctl handler set-filters mail hourly
+sensuctl handler update mail
 {{< /highlight >}}
+
+Follow the prompts to add the `hourly` & `is_incident` filters to the mail
+handler.
 
 ### Validating the filter
 
