@@ -20,36 +20,29 @@ guide on [handlers][9] first!
 ## Using a handler to populate InfluxDB
 
 The purpose of this guide is to help you populate Sensu metrics into the time
-series database [InfluxDB][2]. Metrics can be collected from check output or
-from the Sensu StatsD Server. For more information on how to send StatsD metrics
-to Sensu, check out [this guide][3].
+series database [InfluxDB][2]. Metrics can be collected from [check output][10]
+or from the [Sensu StatsD Server][3].
 
 ### Installing the handler command
 
 The first thing you'll want to do is create an executable script named
-`handler-influx-db`, which will be responsible for populating a configurable
-InfluxDB with Sensu metrics. The source code of this script is available on
-[GitHub][4] and can easily be compiled or [cross compiled][5] using the
-[Go tools][6]. The generated binary will be placed into one of the Sensu backend
-[`$PATH` directories][7], more precisely `/usr/local/bin`.
-
-{{< highlight shell >}}
-# From the local path of the sensu-go repository
-go build -o /usr/local/bin/handler-influx-db handlers/influx-db/main.go
-{{< /highlight >}}
+`sensu-influxdb-handler`, which will be responsible for populating a configurable
+InfluxDB with Sensu metrics. The source code and installation instructions of
+this script is available on [GitHub][4]. You can also download the binaries
+directly from [releases][11].
 
 ### Creating the handler
 
 Now that our handler command is installed, the second step is to create a
 handler that we will call `influx-db`, which is a **pipe** handler that pipes
-event data into our previous script named `handler-influx-db`. We will also pass
-the database name, address, username, and password of the InfluxDB you wish to
-populate.
+event data into our previous script named `sensu-influxdb-handler`. We will also
+pass the database name, address, username, and password of the InfluxDB you wish
+to populate.
 
 {{< highlight shell >}}
 sensuctl handler create influx-db \
 --type pipe \
---command 'handler-influx-db' \
+--command 'sensu-influxdb-handler' \
 --addr '123.4.5.6' \
 --db-name 'myDB' \
 --username 'foo' \
@@ -101,10 +94,11 @@ and extract metrics using Sensu checks.
 [1]: ../../reference/events/
 [2]: https://github.com/influxdata/influxdb
 [3]: ../aggregate-metrics-statsd/
-[4]: https://github.com/sensu/sensu-go/tree/master/handlers
+[4]: https://github.com/nikkiki/sensu-influxdb-handler#installation
 [5]: https://rakyll.org/cross-compilation/
 [6]: https://golang.org/doc/install
 [7]: https://en.wikipedia.org/wiki/PATH_(variable)
 [8]: ../../getting-started/installation-and-configuration/#validating-the-services
 [9]: ../../reference/handlers
 [10]: ../extract-metrics-with-checks
+[11]: https://github.com/nikkiki/sensu-influxdb-handler/releases
