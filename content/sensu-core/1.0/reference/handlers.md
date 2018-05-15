@@ -259,14 +259,14 @@ filter       |
 description  | The Sensu event filter (name) to use when filtering events for the handler.
 required     | false
 type         | String
-example      | {{< highlight shell >}}"filter": "recurrence"{{< /highlight >}}
+example      | {{< highlight shell >}}"filter": "occurrences"{{< /highlight >}}
 
 filters      | 
 -------------|------
 description  | An array of Sensu event filters (names) to use when filtering events for the handler. Each array item must be a string.
 required     | false
 type         | Array
-example      | {{< highlight shell >}}"filters": ["recurrence", "production"]{{< /highlight >}}
+example      | {{< highlight shell >}}"filters": ["occurrences", "production"]{{< /highlight >}}
 
 severities     | 
 ---------------|------

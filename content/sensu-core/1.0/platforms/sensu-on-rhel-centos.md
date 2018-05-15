@@ -156,7 +156,7 @@ monitored by Sensu._
 
 ## Configure Sensu
 
-By default, all of the Sensu services on Ubuntu and Debian systems will load
+By default, all of the Sensu services on RHEL and CentOS systems will load
 configuration from the following locations:
 
 - `/etc/sensu/config.json`
