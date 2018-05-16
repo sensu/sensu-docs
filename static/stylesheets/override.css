@@ -53,7 +53,6 @@
   background: #89C967;
   font-size: 20px;
   font-weight: 200;
-  //display: table-caption;
   height: 0;
   width: 1000%;
 }
@@ -70,16 +69,6 @@
   background: #618B25;
 }
 
-.palette-primary-green .article code {
-  //color: #6a5fc7;
-  //background-color: unset;
-}
-
-pre code {
-  //color: #89C967 !important;
-}
-
-
 p code, li code, td code, h1 code, h2 code, h3 code, h4 code, h5 code, h6 code {
   color: #000080 !important;
 }
@@ -87,6 +76,10 @@ p code, li code, td code, h1 code, h2 code, h3 code, h4 code, h5 code, h6 code {
 .article pre {
   margin-top: 30px;
   margin-bottom: 20px;
+}
+
+.main {
+  margin-top: 0;
 }
 
 .main article {
@@ -196,18 +189,6 @@ table tr td:first-child {
 
 table pre {
   max-width: 720px;
-}
-
-.article pre code {
-  //background-color: #333;
-}
-
-.highlight pre {
-  //background-color: #333 !important;
-}
-
-.highlight pre code span {
-  //background-color: #333;
 }
 
 .article .data table {
@@ -360,30 +341,9 @@ a .project {
 
 /* Sidebar Stuff ----------------------------------------------------------------- */
 
-/*.drawer .scrollable .wrapper .toc {
-  margin: 0;
-}*/
-
 .project .banner {
   margin-bottom: -20px;
 }
-
-.main {
- //width: 1360px;
-}
-
-/*.drawer .toc li a.menu-title {
-  font-size: 19px;
-  padding: 10px;
-  padding-left: 5px;
-  cursor: pointer;
-}
-
-.drawer .toc li a.menu-child {
-  font-size: 17px;
-  font-weight: 100 !important;
-  padding: 5px;
-}*/
 
 .project .logo+.name {
   padding-left: 15px;
@@ -396,26 +356,11 @@ a .project {
 .drawer {
   overflow: auto;
   height: 100%;
-  //font-size: 14px;
-  //left: 0;
   padding-left: 80px;
   position: fixed;
   margin-left: -120px;
   width: 380px;
 }
-
-/*nav .scrollable {
-  margin-bottom: 160px;
-}
-
-.project .logo {
-  padding-right: 0;
-  padding-bottom: 20px;
-}
-
-.repo {
-  margin-top: 10px;
-}*/
 
 #productVersionDrawerHolder {
   opacity: 0;
@@ -551,28 +496,40 @@ button.accordion.active, button.accordion:hover {
   background-color: #dbdbdb; 
 }
 
-/* Version Banner ----------------------------------------------------------------- */
+/* Alerts ----------------------------------------------------------------- */
 
-.versionBanner {
+#alertSection {
+  z-index: -1;
+  position: fixed;
+  top: 64px;
+  width: 100%;
+}
+
+.alertBanner {
   background-color: #cc7d7c;
   box-shadow: 0 3px 8px rgba(0,0,0,.05);
-  position: absolute;
   width: 100%;
-  top: 64px;
+  right: 0;
   padding: 5px;
   text-align: center;
 }
 
-.versionBanner a {
+.alertBanner a, .alertBanner span {
   color: #dedede;
 }
 
-.versionBanner a:hover {
+.alertBanner a:hover {
   color: #ffffff;
 }
 
-.versionBannerText {
+.alertBannerText {
   font-size: 14px;
+}
+
+.closeAlert {
+  float: right;
+  margin-right: 20px;
+  font-size: 16px;
 }
 
 /* Non-Homepage Index Buttons ----------------------------------------------------------------- */
@@ -711,7 +668,7 @@ button.accordion.active, button.accordion:hover {
     width: 200px;
     font-size: 14px;
   }
-  
+
   #versionButtonDrawer {
     margin: 30px 10px 0 20px;
     font-size: 14px;
@@ -745,12 +702,12 @@ button.accordion.active, button.accordion:hover {
   .product-holder {
     height: 200px;
   }
-  
+
   #results.query.resultsList {
     top: 50px;
   }
 
-  .versionBanner {
+  #alertSection {
     top: 55px;
   }
 }
@@ -869,12 +826,21 @@ button.accordion.active, button.accordion:hover {
   .product-holder {
     height: 200px;
   }
-  
+
   #results.query.resultsList {
     top: 50px;
   }
 
-  .versionBanner {
+  #productVersionNav #productButton {
+    width: 190px;
+  }
+
+  #productVersionNav #versionButton {
+    margin-left: 200px;
+    width: 70px;
+  }
+
+  #alertSection {
     top: 50px;
   }
 }
@@ -890,35 +856,9 @@ button.accordion.active, button.accordion:hover {
     padding-top: 2px;
   }
 
-  .button .icon {
-    //margin-top: 0;
-    //padding-top: 4px;
-  }
-
   .header .stretch .title {
     display: block;
   }
-
-  .title {
-    //padding: 7px 0px!important;
-  }
-
-  .buttonHolder {
-    //margin-top: -2px;
-    //background: #383838;
-    //padding-top: 0;
-    //padding-left: 0;
-    //height: 35px;
-    //width: 100%;
-  }
-
-  //#productButton {
-  //  margin-left: 0;
-  //}
-
-  //.versionBanner {
-  //  top: 64px;
-  //}
 
   nav .scrollable {
     padding-top: 95px;
@@ -948,7 +888,7 @@ button.accordion.active, button.accordion:hover {
     width: 200px;
     font-size: 14px;
   }
-  
+
   #versionButtonDrawer {
     margin: 30px 10px 0 20px;
     font-size: 14px;
