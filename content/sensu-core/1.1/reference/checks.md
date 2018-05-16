@@ -600,6 +600,40 @@ required       | false
 type           | Hash
 example        | {{< highlight shell >}}"proxy_requests": {}{{< /highlight >}}
 
+occurrences  | 
+-------------|------
+description  | The number of event occurrences that must occur before an event is handled for the check. _NOTE: For this attribute to take effect, the `occurrences` filter must be explicitly configured in your handler definition._
+required     | false
+type         | Integer
+default      | `1`
+example      | {{< highlight shell >}}"occurrences": 3{{< /highlight >}}
+
+refresh      | 
+-------------|------
+description  | Time in seconds until the event occurrence count is considered reset for the purpose of counting `occurrences`, to allow an event for the check to be handled again. For example, a check with a refresh of `1800` will have its events (recurrences) handled every 30 minutes, to remind users of the issue. _NOTE: For this attribute to take effect, the `occurrences` filter must be explicitly configured in your handler definition._
+required     | false
+type         | Integer
+default      | `1800`
+example      | {{< highlight shell >}}"refresh": 3600{{< /highlight >}}
+
+dependencies | 
+-------------|------
+description  | An array of check dependencies. Events for the check will not be handled if events exist for one or more of the check dependencies. A check dependency can be a check executed by the same Sensu client (eg. `check_app`), or a client/check pair (eg.`db-01/check_mysql`). _NOTE: For this attribute to take effect, the `check_dependencies` filter must be explicitly configured in your handler definition._
+required     | false
+type         | Array
+example      | {{< highlight shell >}}"dependencies": [
+  "check_app",
+  "db-01/check_mysql"
+]
+{{< /highlight >}}
+
+notification | 
+-------------|------
+description  | The notification message used for events created by the check, instead of the commonly used check output. This attribute is used by most notification event handlers that use the sensu-plugin library.
+required     | false
+type         | String
+example      | {{< highlight shell >}}"notification": "the shopping cart application is not responding to requests"{{< /highlight >}}
+
 #### `subdue` attributes
 
 The following attributes are configured within the `{"checks": { "CHECK": {
