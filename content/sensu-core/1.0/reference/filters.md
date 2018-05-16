@@ -245,7 +245,7 @@ attributes][8] (including custom attributes).
 ### Example filter attribute eval token
 
 The following is an example Sensu [filter definition][2], which is using a
-token (`:::client.environent|known:::`) as a secondary attribute in the Ruby eval
+token (`:::client.environment|unknown:::`) as a secondary attribute in the Ruby eval
 expression. The token will be replaced by the [custom client definition attribute][5]
 named `environment` if it is defined, otherwise it will use the fallback value
 of `unknown`.
@@ -257,7 +257,8 @@ of `unknown`.
       "negate": true,
       "attributes": {
         "client": {
-          "environment": "eval: ['qa','staging','test'].include? :::client.environment|unknown:::"
+          "environment": "eval: ['qa','staging','test'].include? ':::client.environment|unknown:::'"
+        }
       }
     }
   }
