@@ -133,7 +133,7 @@ type         | string
 default      | current environment value configured for `sensuctl` (ie `default`) 
 example      | {{< highlight shell >}}"environment": "default"{{</ highlight >}}
 
-extended_attributes |
+extended_attributes | 
 -------------|------ 
 description  | Custom attributes to include as with the entity, that appear as outer-level attributes.
 required     | false 
