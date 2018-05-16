@@ -10,6 +10,7 @@ layout: "single"
 ## Overview
 
 - [What is Sensu Enterprise?](#what-is-sensu-enterprise)
+- [Installing Sensu Enterprise](#installing-sensu-enterprise)
 - [Upgrading to Sensu Enterprise](#upgrading-to-sensu-enterprise)
 
 ## What is Sensu Enterprise?
@@ -29,19 +30,26 @@ provide support for creating/resolving incidents, on-call rotation scheduling,
 storing time series data (metrics), relaying events, deregistering sensu-clients
 for terminated nodes, and/or notifying contacts via various media.
 
+## Installing Sensu Enterprise
+
+Sensu Enterprise and Sensu Core both depend on Redis and RabbitMQ to provide
+data store and transport architecture components. The Sensu Core monitoring
+agent (sensu-client) is used regardless of whether Sensu Core or Sensu
+Enterprise is used as the monitoring event processor.
+
+Please see the [Sensu Core installation guide][8] for instructions on installing
+Sensu Enterprise, Sensu Enterprise Dashboard and the `sensu-client` monitoring
+agent.
+
 ## Upgrading to Sensu Enterprise
 
-Sensu Enterprise is designed to be a drop-in replacement for the Sensu Core
-[server][6] and [API][7], so for users who are upgrading to Sensu Enterprise
-from Sensu Core, no configuration changes are required to resume – simply
-terminate the `sensu-server` and `sensu-api` processes, and start the
-`sensu-enterprise` process to resume  operation of Sensu (see the [Sensu Server
-and API installation guide][8] for  additional details). However, some
-configuration changes may be required to take  advantage of certain third-party
-integrations or added-value features (e.g. contact routing). Please refer to the
-[Sensu Enterprise reference documentation][9] (below), for more
-information.
-
+For those already running Sensu Core, Sensu Enterprise is designed to be a
+drop-in replacement for the Sensu Core [server][6] and [API][7]. Once installed,
+no configuration changes are required – simply terminate the
+`sensu-server` and `sensu-api` processes, and start the `sensu-enterprise`
+process to resume operation of your Sensu instance. Some configuration
+changes may be required to take advantage of [third-party integrations][9]
+or added-value features (e.g. [contact routing][2]).
 
 [1]:  /sensu-enterprise
 [2]:  contact-routing
@@ -51,3 +59,4 @@ information.
 [6]:  /sensu-core/latest/reference/server
 [7]:  /sensu-core/latest/api/overview
 [8]:  /sensu-core/latest/installation/install-sensu-server-api/#sensu-enterprise
+[9]:  integrations
