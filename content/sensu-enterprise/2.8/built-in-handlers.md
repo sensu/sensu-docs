@@ -80,6 +80,7 @@ Built-in event handlers:
 
 - [Email](../integrations/email) - send email notifications for events
 - [PagerDuty](../integrations/pagerduty) - create and resolve PagerDuty incidents for events
+- [Rollbar](../integrations/rollbar) - Create and resolve Rollbar messages/items for Sensu events
 - [ServiceNow](../integrations/servicenow) - create ServiceNow CMDB configuration items and incidents
 - [JIRA](../integrations/jira) - create and resolve JIRA issues for Sensu events
 - [VictorOps](../integrations/victorops) - create and resolve VictorOps messages for events
