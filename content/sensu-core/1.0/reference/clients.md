@@ -402,6 +402,8 @@ echo '{"name": "backup_mysql", "ttl": 25200, "output": "backed up mysql successf
 echo '{"name": "backup_mysql", "ttl": 25200, "output": "failed to backup mysql", "status": 1}' | nc localhost 3030
 {{< /highlight >}}
 
+It is also worth noting that you can set the attribute `ttl_status`, which will change the exit code from its default ("1") to a different exit code. You can see an example of this in the check attributes reference documentation linked above.
+
 ## Standalone check execution scheduler
 
 In addition to subscribing to [client subscriptions][3] and executing check

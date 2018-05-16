@@ -157,63 +157,63 @@ environment.
 
 ### Check attributes
 
-command      | 
+|command     |      |
 -------------|------
 description  | The check command to be executed.
 required     | true
 type         | String
 example      | {{< highlight shell >}}"command": "/etc/sensu/plugins/check-chef-client.rb"{{< /highlight >}}
 
-subscriptions| 
+|subscriptions|     |
 -------------|------
 description  | An array of Sensu entity subscriptions that check requests will be sent to. The array cannot be empty and its items must each be a string.
 required     | true
 type         | Array
 example      | {{< highlight shell >}}"subscriptions": ["production"]{{< /highlight >}}
 
-handlers     | 
+|handlers    |      |
 -------------|------
 description  | An array of Sensu event handlers (names) to use for events created by the check. Each array item must be a string.
 required     | true
 type         | Array
 example      | {{< highlight shell >}}"handlers": ["pagerduty", "email"]{{< /highlight >}}
 
-interval     | 
+|interval    |      |
 -------------|------
 description  | The frequency in seconds the check is executed.
 required     | true (unless `publish` is `false` or `cron` is configured)
 type         | Integer
 example      | {{< highlight shell >}}"interval": 60{{< /highlight >}}
 
-cron         | 
+|cron        |      |
 -------------|------
 description  | When the check should be executed, using the [Cron syntax][14] or [these predefined schedules][15].
 required     | true (unless `publish` is `false` or `interval` is configured)
 type         | String
 example      | {{< highlight shell >}}"cron": "0 0 * * *"{{< /highlight >}}
 
-publish         | 
+|publish     |      |
 -------------|------
 description  | If check requests are published for the check.
 required     | false
 type         | Boolean
 example      | {{< highlight shell >}}"publish": false{{< /highlight >}}
 
-timeout      | 
+|timeout     |      |
 -------------|------
 description  | The check execution duration timeout in seconds (hard stop).
 required     | false
 type         | Integer
 example      | {{< highlight shell >}}"timeout": 30{{< /highlight >}}
 
-ttl          | 
+|ttl         |      |
 -------------|------
 description  | The time to live (TTL) in seconds until check results are considered stale. If an agent stops publishing results for the check, and the TTL expires, an event will be created for the agent's entity. The check `ttl` must be greater than the check `interval`, and should accommodate time for the check execution and result processing to complete. For example, if a check has an `interval` of `60` (seconds) and a `timeout` of `30` (seconds), an appropriate `ttl` would be a minimum of `90` (seconds).
 required     | false
 type         | Integer
 example      | {{< highlight shell >}}"ttl": 100{{< /highlight >}}
 
-stdin        | 
+|stdin       |      |
 -------------|------
 description  | If the Sensu agent writes JSON serialized Sensu entity and check data to the command process’ STDIN. The command must expect the JSON data via STDIN, read it, and close STDIN. This attribute cannot be used with existing Sensu check plugins, nor Nagios plugins etc, as Sensu agent will wait indefinitely for the check process to read and close STDIN.
 required     | false
@@ -221,42 +221,42 @@ type         | Boolean
 default      | false
 example      | {{< highlight shell >}}"stdin": true{{< /highlight >}}
 
-low_flap_threshold | 
+|low_flap_threshold ||
 -------------|------
 description  | The flap detection low threshold (% state change) for the check. Sensu uses the same [flap detection algorithm as Nagios][16].
 required     | false
 type         | Integer
 example      | {{< highlight shell >}}"low_flap_threshold": 20{{< /highlight >}}
 
-low_flap_threshold | 
+|high_flap_threshold ||
 -------------|------
 description  | The flap detection high threshold (% state change) for the check. Sensu uses the same [flap detection algorithm as Nagios][16].
 required     | true (if `low_flap_threshold` is configured)
 type         | Integer
 example      | {{< highlight shell >}}"high_flap_threshold": 60{{< /highlight >}}
 
-runtime_assets | 
+|runtime_assets |   |
 -------------|------
 description  | An array of [Sensu assets][9] (names), required at runtime for the execution of the `command`
 required     | false
 type         | Array
 example      | {{< highlight shell >}}"runtime_assets": ["ruby-2.5.0"]{{< /highlight >}}
 
-check_hooks  | 
+|check_hooks |      |
 -------------|------
 description  | An array of [Sensu hooks][6] (names), which are commands run by the Sensu agent in response to the result of the check command execution.
 required     | false
 type         | Array
 example      | {{< highlight shell >}}"check_hooks": ["nginx_restart"]{{< /highlight >}}
 
-subdue       | 
+|subdue      |      |
 -------------|------
 description  | A [Sensu subdue][17], a hash of days of the week, which define one or more time windows in which the check is not scheduled to be executed.
 required     | false
 type         | Hash
 example      | {{< highlight shell >}}"subdue": {}{{< /highlight >}}
 
-proxy_entity_id | 
+|proxy_entity_id|   |
 -------------|------
 description  | The check ID, used to create a [proxy entity][18] for an external resource (i.e., a network switch).
 required     | false
@@ -264,66 +264,72 @@ type         | String
 validated    | [`\A[\w\.\-]+\z`](https://regex101.com/r/zo9mQU/2)
 example      | {{< highlight shell >}}"proxy_entity_id": "switch-dc-01"{{< /highlight >}}
 
-proxy_requests | 
+|proxy_requests|    |
 -------------|------
 description  | A [Sensu Proxy Requests][10], representing Sensu entity attributes to match entities in the registry.
 required     | false
 type         | Hash
 example      | {{< highlight shell >}}"proxy_requests": {}{{< /highlight >}}
 
-round_robin  | 
+|round_robin |      |
 -------------|------
 description  | If the check should be executed on a single entity within a subscription in a [round-robin fashion][19].
 required     | false
 type         | Boolean
-example      | {{< highlight shell >}}"publish": false{{< /highlight >}}
+example      | {{< highlight shell >}}"round_robin": false{{< /highlight >}}
 
-extended_attributes | 
--------------|------ 
+|extended_attributes|      |
+-------------|------
 description  | Coming soon.
 
-organization | 
--------------|------ 
+|organization|      |
+-------------|------
 description  | The Sensu RBAC organization that this check belongs to.
-required     | false 
-type         | String 
+required     | false
+type         | String
 example      | {{< highlight shell >}}
   "organization": "default"
 {{</ highlight >}}
 
-environment  | 
--------------|------ 
+|environment |      |
+-------------|------
 description  | The Sensu RBAC environment that this check belongs to.
-required     | false 
-type         | String 
-default      | current environment value configured for `sensuctl` (ie `default`) 
+required     | false
+type         | String
+default      | current environment value configured for `sensuctl` (ie `default`)
 example      | {{< highlight shell >}}
   "environment": "default"
 {{</ highlight >}}
 
+|silenced    |      |
+-------------|------
+description  | If the event is to be silenced.
+type         | boolean
+example      | {{< highlight shell >}}"silenced": false{{</ highlight >}}
+
 ### Proxy requests attributes
 
-entity_attributes  | 
--------------|------ 
+|entity_attributes| |
+-------------|------
 description  | Sensu entity attributes to match entities in the registry, using [Sensu Query Expressions][20]
-required     | false 
-type         | Array 
-default      | current environment value configured for `sensuctl` (ie `default`) 
+required     | false
+type         | Array
+default      | current environment value configured for `sensuctl` (ie `default`)
 example      | {{< highlight shell >}}"entity_attributes": ["entity.Class == 'proxy'"]{{</ highlight >}}
 
-splay  | 
--------------|------ 
+|splay       |      |
+-------------|------
 description  | If proxy check requests should be splayed, published evenly over a window of time, determined by the check interval and a configurable splay coverage percentage. For example, if a check has an interval of `60` seconds and a configured splay coverage of `90`%, its proxy check requests would be splayed evenly over a time window of `60` seconds * `90`%, `54` seconds, leaving `6`s for the last proxy check execution before the the next round of proxy check requests for the same check.
-required     | false 
-type         | Boolean 
+required     | false
+type         | Boolean
 default      | false
 example      | {{< highlight shell >}}"splay": true{{</ highlight >}}
 
-splay_coverage  | 
--------------|------ 
+|splay_coverage  | |
+-------------|------
 description  | The splay coverage percentage use for proxy check request splay calculation. The splay coverage is used to determine the amount of time check requests can be published over (before the next check interval).
-required     | false 
-type         | Integer 
+required     | false
+type         | Integer
 default      | 90
 example      | {{< highlight shell >}}"splay_coverage": 65{{</ highlight >}}
 
