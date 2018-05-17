@@ -1,4 +1,4 @@
-@import url(https://fonts.googleapis.com/css?family=Work+Sans:400,500,600,700);/*! sanitize.css v3.0.0 | CC0 1.0 Public Domain | github.com/10up/sanitize.css */
+@import url(https://fonts.googleapis.com/css?family=Work+Sans:300,400,500,600,700);/*! sanitize.css v3.0.0 | CC0 1.0 Public Domain | github.com/10up/sanitize.css */
 /*
  * Normalization
  */
@@ -1266,9 +1266,9 @@ code {
 .article blockquote p {
   margin: 0;
   font-family: 'Work Sans';
-  font-weight: 600;
+  font-weight: 300;
   font-size: 18px;
-  line-height: 1.1;
+  line-height: 1.2;
   color: #2C3458;
 }
 
