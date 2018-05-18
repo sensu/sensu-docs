@@ -106,7 +106,7 @@ filters      |
 description  | An array of Sensu event filters (names) to use when filtering events for the handler. Each array item must be a string.
 required     | false
 type         | Array
-example      | {{< highlight shell >}}"filters": ["recurrence", "production"]{{< /highlight >}}
+example      | {{< highlight shell >}}"filters": ["occurrences", "production"]{{< /highlight >}}
 
 mutator      | 
 -------------|------
