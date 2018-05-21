@@ -333,7 +333,27 @@ type         | Integer
 default      | 90
 example      | {{< highlight shell >}}"splay_coverage": 65{{</ highlight >}}
 
-## Check examples
+### Subdue attributes
+
+|days | |
+-------------|------
+description  | A hash of days of the week or `all`, each day specified must define one or more time windows in which the check is not scheduled to be executed. See the [sensuctl documentation][22] for the supported time formats.
+required     | false (unless `subdue` is configured)
+type         | Hash
+example      | {{< highlight shell >}}"days": {
+  "all": [
+    {
+      "begin": "17:00 UTC",
+      "end": "08:00 UTC"
+    }
+  ],
+  "friday": [
+    {
+      "begin": "12:00 UTC",
+      "end": "17:00 UTC"
+    }
+  ]
+}}{{< /highlight >}}
 
 [1]: #subscription-checks
 [2]: https://en.wikipedia.org/wiki/Publish%E2%80%93subscribe_pattern
@@ -351,8 +371,9 @@ example      | {{< highlight shell >}}"splay_coverage": 65{{</ highlight >}}
 [14]: https://en.wikipedia.org/wiki/Cron#CRON_expression
 [15]: https://godoc.org/github.com/robfig/cron#hdr-Predefined_schedules
 [16]: https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/3/en/flapping.html
-[17]: #
+[17]: #subdue-attributes
 [18]: #
 [19]: #round-robin-checks
 [20]: #../entities/#proxy_entities
 [21]: #../entities/#entity_attributes
+[22]: ../../reference/sensuctl/#time-windows

@@ -185,4 +185,37 @@ $ sensuctl config set-format json
 OK
 {{< /highlight >}}
 
+## Time formats
+
+sensuctl supports multiple time formats, varying depending on the manipulated
+resource.
+
+Supported canonical time zone IDs are defined in the [tz database][2].
+
+_WARNING: Canonical zone IDs (i.e. `America/Vancouver`) are not supported on
+Windows._
+
+### Time windows
+
+Time windows are used by various resources, such as check and filters. The
+following formats can be used:
+
+* 24-hour kitchen with canonical zone ID: `07:04 America/Vancouver` or `15:04
+  UTC`
+* 24-hour kitchen with numeric zone offset: `07:04 -08:00`
+* 12-hour kitchen with canonical zone ID: `7:04AM America/Vancouver`
+
+### Dates with time
+
+Full dates with time are used to specify an exact point in time, which can be
+used with silenced entries for example. The following formats are supported:
+
+* RFC3339 with numeric zone offset: `2018-05-10T07:04:00-08:00` or
+  `2018-05-10T15:04:00Z` 
+* RFC3339 with space delimiters and numeric zone offset: `2018-05-10 07:04:00
+  -08:00`
+* Sensu alpha legacy format with canonical zone ID: `May 10 2018 7:04AM
+  America/Vancouver`
+
 [1]: ../../reference/rbac
+[2]: https://en.wikipedia.org/wiki/List_of_tz_database_time_zones

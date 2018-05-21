@@ -1,5 +1,5 @@
 ---
-title: "Quick Start"
+title: "Quick-Start"
 description: "Quick start documentation for Sensu."
 product: "Sensu Core"
 version: "1.2"
