@@ -52,10 +52,13 @@ username will automatically be added as the **creator** of the silenced entry.
 sensuctl silenced create \
 --subscription 'entity:i-424242' \
 --check 'check-http' \
---begin 'Mar 18 2018 1:00AM' \
+--begin '2018-03-16 01:00:00 -04:00' \
 --expire 3600 \
 --reason 'Server upgrade'
 {{< /highlight >}}
+
+See the [sensuctl documentation][8] for the supported time formats in the
+`begin` flag.
 
 ### Validating the silenced entry
 
@@ -94,3 +97,4 @@ avoid false positive. From this point, here are some recommended resources:
 [5]: ../../reference/silencing/#silence-a-specific-check-on-entities-with-a-specific-subscription
 [6]: ../../reference/silencing/#silence-a-specific-check-on-every-entity
 [7]: ../../reference/silencing/
+[8]: ../../reference/sensuctl/#dates-with-time
