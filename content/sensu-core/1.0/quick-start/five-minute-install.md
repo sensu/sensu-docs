@@ -205,13 +205,13 @@ the [installation guide](2).
     ![five-minute-dashboard-2](/images/five-minute-dashboard-2.png)
 
 [1]:  ../../overview/architecture/
-[2]:  ../../../installation/overview/
-[3]:  ../../../installation/installation-strategies/
-[4]:  ../../../installation/installation-strategies/#standalone
+[2]:  ../../installation/overview/
+[3]:  ../../installation/installation-strategies/
+[4]:  ../../installation/installation-strategies/#standalone
 [5]:  https://wiki.centos.org/Manuals/ReleaseNotes/CentOS7
 [6]:  http://github.com/sensu/sensu-bash
-[7]:  ../../../platforms/sensu-on-rhel-centos/#install-sensu-core-repository
+[7]:  ../../platforms/sensu-on-rhel-centos/#install-sensu-core-repository
 [8]:  https://www.youtube.com/watch?v=J2D1XF40-ok
-[9]:  ../../../platforms/sensu-on-rhel-centos/#install-sensu-enterprise-repository
+[9]:  ../../platforms/sensu-on-rhel-centos/#install-sensu-enterprise-repository
 [10]: https://stedolan.github.io/jq/
 [redis-security]: https://redis.io/topics/security
