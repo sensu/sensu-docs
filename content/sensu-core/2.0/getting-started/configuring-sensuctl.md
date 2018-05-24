@@ -197,7 +197,7 @@ Similar to the `import` command, `sensuctl create` allows you to create and/or
 update resources by reading from STDIN or a flag configured file (`-f`). The
 accepted format of the `create` command is `wrapped-json`, which wraps the
 contents of the resource in `spec` and identifies its 2.x `type` (see below for
-an example, and [typemap][2] for a list of types).
+an example, and [this table][2] for a list of supported types).
 
 {{< highlight json >}}
 {
@@ -233,6 +233,19 @@ Create all resources in `wrapped-json` format from `my-resources.json`:
 {{< highlight shell >}}
 cat my-resources.json | sensuctl create
 {{< /highlight >}}
+
+### Supported types
+
+|wrapped-json types |   |   |   |
+--------------------|---|---|---|
+`AdhocRequest` | `adhoc_request` | `Asset` | `asset`
+`Check` | `check` | `CheckConfig` | `check_config`
+`Entity` | `entity` | `Environment` | `environment`
+`Event` | `event` | `EventFilter` | `event_filter`
+`Extension` | `extension` | `Handler` | `handler`
+`Hook` | `hook` | `HookConfig` | `hook_config`
+`Mutator` | `mutator` | `Organization` | `organization`
+`Role` | `role` | `Silenced` | `silenced`
 
 ## Shell Auto-Completion
 
@@ -298,4 +311,4 @@ create  delete  import  list
 For more details on `sensuctl` commands, check out the [reference guide][1].
 
 [1]: ../../reference/sensuctl
-[2]: https://github.com/sensu/sensu-go/blob/master/types/typemap.go
+[2]: #supported-types
