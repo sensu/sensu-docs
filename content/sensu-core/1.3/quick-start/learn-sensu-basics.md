@@ -40,7 +40,7 @@ What will you learn how to do?
 - Familiarity with a command-line interface & related tooling
   (e.g. text editor, curl)
 - A standalone Sensu installation (preferably created using [the five minute
-  install](the-five-minute-install))
+  install](../five-minute-install))
 - Access to the Internet for downloading plugins and communicating
   with external services
 - Access to an SMTP server for sending alerts via email

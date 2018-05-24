@@ -101,15 +101,15 @@ example      | {{< highlight shell >}}"statements": [
 
 when         | 
 -------------|------
-description  | The [when definition scope][2], used to determine when a filter is applied with time windows.
+description  | The [when definition scope][2], used to determine when a filter is applied with time windows. See the [sensuctl documentation][3] for the supported time formats.
 required     | false
 type         | Hash
 example      | {{< highlight shell >}}"when": {
   "days": {
     "all": [
       {
-        "begin": "5:00PM",
-        "end": "8:00AM"
+        "begin": "17:00 UTC",
+        "end": "08:00 UTC"
       }
     ]
   }
@@ -140,20 +140,20 @@ example      | {{< highlight shell >}}
 
 days         | 
 -------------|------
-description  | A hash of days of the week (i.e., `monday`) and/or `all`. Each day specified can define one or more time windows, in which the filter is applied.
+description  | A hash of days of the week (i.e., `monday`) and/or `all`. Each day specified can define one or more time windows, in which the filter is applied. See the [sensuctl documentation][3] for the supported time formats.
 required     | false (unless `when` is configured)
 type         | Hash
 example      | {{< highlight shell >}}"days": {
   "all": [
     {
-      "begin": "5:00 PM",
-      "end": "8:00 AM"
+      "begin": "17:00 UTC",
+      "end": "08:00 UTC"
     }
   ],
   "friday": [
     {
-      "begin": "12:00 PM",
-      "end": "5:00 PM"
+      "begin": "12:00 UTC",
+      "end": "17:00 UTC"
     }
   ]
 }
@@ -271,3 +271,4 @@ when comparing the weekday or the hour, you should provide values in UTC.
 
 [1]: #inclusive-and-exclusive-filtering
 [2]: #when-attributes
+[3]: ../../reference/sensuctl/#time-windows

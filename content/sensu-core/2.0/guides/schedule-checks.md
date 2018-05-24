@@ -41,29 +41,27 @@ content of that file:
    "days":{  
       "all":[  
          {  
-            "begin":"5:00PM EST",
-            "end":"9:00AM EST"
+            "begin":"17:00 America/Vancouver",
+            "end":"09:00 America/Vancouver"
          }
       ],
       "saturday":[  
          {  
-            "begin":"0:00AM EST",
-            "end":"11:59PM EST"
+            "begin":"00:00 America/Vancouver",
+            "end":"23:50 America/Vancouver"
          }
       ],
       "sunday":[  
          {  
-            "begin":"0:00AM EST",
-            "end":"11:59PM EST"
+            "begin":"00:00 America/Vancouver",
+            "end":"23:50 America/Vancouver"
          }
       ]
    }
 }
 {{< /highlight >}}
 
-By default, all specified times are assumed to be UTC. An optional timezone
-abbreviation (using [RFC822][4] format or [IANA Time Zone database][5] format)
-can also be specified.
+See the [sensuctl documentation][4] for the supported time formats.
 
 ### Subduing the check
 
@@ -102,5 +100,4 @@ are some recommended resources:
 [1]: ../monitor-server-resources/
 [2]: ../../getting-started/installation-and-configuration/#validating-the-services
 [3]: ../../reference/handlers
-[4]: https://www.w3.org/Protocols/rfc822/#z28
-[5]: https://www.iana.org/time-zones
+[4]: ../../reference/sensuctl/#time-windows
