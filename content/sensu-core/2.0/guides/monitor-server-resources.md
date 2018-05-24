@@ -5,7 +5,7 @@ weight: 10
 version: "2.0"
 product: "Sensu Core"
 platformContent: false
-menu: 
+menu:
   sensu-core-2.0:
     parent: guides
 ---
@@ -61,6 +61,12 @@ sensuctl check create check-cpu \
 --subscriptions linux
 {{< /highlight >}}
 
+**Note** Sensu advises against requiring root privileges to execute check
+commands or scripts. The Sensu user is not permitted to kill timed out processes
+invoked by the root user, which _could_ result in zombie processes. While Sensu
+discourages the use of `sudo` in check commands, you are free to configure your
+checks as you see fit, but please do so at your own risk.
+
 ### Validating the check
 
 You can verify the proper behavior of this check against a specific entity, here
@@ -78,13 +84,13 @@ You now know how to run a simple check to verify the CPU usage. From this point,
 here are some recommended resources:
 
 * Read the [checks reference][3] for in-depth documentation on checks.
-* Read our guide on [providing runtime dependencies to checks with assets][4].
+* Read our guide on [providing runtime dependencies to checks with assets][2].
 * Read our guide on [monitoring external resources with proxy checks and entities][5].
 * Read our guide on [sending alerts to Slack with handlers][6].
 
 [1]: https://github.com/sensu-plugins/sensu-plugins-cpu-checks
-[2]: #
+[2]: ../install-check-executables-with-assets
 [3]: ../../reference/checks
-[4]: #
-[5]: #
-[6]: #
+[4]: ../
+[5]: ../monitor-external-resources
+[6]: ../send-slack-alerts

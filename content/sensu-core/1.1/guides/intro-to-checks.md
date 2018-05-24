@@ -1,6 +1,7 @@
 ---
 title: "Intro to Checks"
 version: "1.1"
+product: "Sensu Core"
 weight: 3
 next: ../intro-to-filters
 previous: ../adding-a-client
@@ -219,6 +220,8 @@ of time will improve alerting accuracy.
 
 Because metric analysis checks require interaction with an external metric store, providing a functional example is outside of the scope of this guide. However, assuming the existence of a Graphite installation that is populated with metric data, the following example checks could be used.
 
+_NOTE: If you've not configured a Graphite instance for these example checks but would like to, you can head over to [Graphite's quick start guides][sl1] and get a Graphite Vagrant box spun up fairly quickly, and continue with the examples below._
+
 The following check uses the `check-graphite-data.rb` script, provided by the
 [Sensu Graphite Plugin][12], to query the Graphite API at `localhost:9001`. The
 check queries Graphite for a calculated moving average (using the last 10 data
@@ -297,3 +300,6 @@ Checks are scheduled normally, but by specifying a [**Proxy Request**][13] in yo
 [12]: https://github.com/sensu-plugins/sensu-plugins-graphite
 [13]: ../../reference/checks#proxy-requests-attributes/
 [14]: ..adding-a-client#proxy-clients/
+
+<!--Supplemental links-->
+[sl1]: http://graphiteapp.org/quick-start-guides/

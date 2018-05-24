@@ -6,6 +6,7 @@ weight: 1
 version: "2.0"
 product: "Sensu Core"
 platformContent: true
+platforms: ["Ubuntu/Debian", "RHEL/CentOS", "Windows"]
 menu:
   sensu-core-2.0:
     parent: getting-started
@@ -26,13 +27,13 @@ The Sensu Agent (sensu-agent) is a single statically linked binary that can be d
 {{< platformBlock "Ubuntu/Debian" >}}
 ### Ubuntu/Debian
 
-Add the Sensu nightly repository.
+Add the Sensu beta repository.
 
 {{< highlight shell >}}
-curl -s https://packagecloud.io/install/repositories/sensu/nightly/script.deb.sh | sudo bash
+curl -s https://packagecloud.io/install/repositories/sensu/beta/script.deb.sh | sudo bash
 {{< /highlight >}}
 
-Install the packages from the Sensu nightly repository.
+Install the packages from the Sensu beta repository.
 
 {{< highlight shell >}}
 sudo apt-get install sensu-backend sensu-agent
@@ -43,10 +44,10 @@ sudo apt-get install sensu-backend sensu-agent
 {{< platformBlock "RHEL/CentOS" >}}
 ### RHEL/CentOS
 
-Add the Sensu nightly repository.
+Add the Sensu beta repository.
 
 {{< highlight shell >}}
-curl -s https://packagecloud.io/install/repositories/sensu/nightly/script.rpm.sh | sudo bash
+curl -s https://packagecloud.io/install/repositories/sensu/beta/script.rpm.sh | sudo bash
 {{< /highlight >}}
 
 Install the Sensu backend and agent packages.
@@ -88,8 +89,8 @@ Copy the example agent config file to the default config path.
 sudo cp /etc/sensu/agent.yml.example /etc/sensu/agent.yml
 {{< /highlight >}}
 
-In order for the agent to function it will need to have a list of one or more backends to point to. This can be set
-by setting `backend-url`.
+In order for the agent to function, it will need to have a list of one or more backends to point to. This can be set
+by setting `backend-url` to the ip and port of a sensu backend..
 
 {{< highlight yaml >}}
 backend-url:

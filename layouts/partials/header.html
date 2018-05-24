@@ -40,6 +40,11 @@
   </div>
 </nav>
 
+<!-- div containing all alerts -->
+{{ if not .IsHome }}
+  {{ partial "alertSection.html" . }}
+{{ end }}
+
 <!-- Scripts for the search bar -->
 <script>
   function closeResults() {
