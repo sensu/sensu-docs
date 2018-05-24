@@ -189,7 +189,7 @@ _WARNING: `filter` attribute will be depreciated in future releases. Please use
 `filters` instead.
 
 _NOTE: Attributes defined on handler sets do not apply to the handlers they
-include. For example, `filters`, and `mutator` attributes defined 
+include. For example,`filter`, `filters`, and `mutator` attributes defined 
 in a handler set will have no effect._
 
 ### Example handler set definition
