@@ -51,7 +51,7 @@ What will be covered in this guide:
 4. [How to install and configure a Sensu Dashboard](../install-a-dashboard) (Uchiwa or Sensu Enterprise Console)
 5. [Next steps](../summary)
   - [Monitoring infrastructure and applications with Sensu](../summary/#instrumentation)
-  - [Automating Sensu installation](summary#automation)
+  - [Automating Sensu installation](../summary/#automation)
   - [Hardening Sensu](../summary/#hardening)
   - [Running Sensu at scale](../summary/#scaling-sensu)
 
@@ -82,10 +82,10 @@ Ready? Let's get started with selecting an installation strategy!
 [2]:  https://chef.io
 [3]:  https://puppetlabs.com
 [4]:  https://www.ansible.com
-[5]:  ../overview/architecture
-[6]:  ../installation/summary
+[5]:  ../../overview/architecture
+[6]:  ../summary
 [7]:  ../../reference/clients/#client-keepalives
-[8]:  ../guides/getting-started/overview
+[8]:  ../../guides/overview
 [9]:  https://sensuapp.org/enterprise
 [10]: ../installation-strategies/#standalone
 [11]: ../installation-strategies/#distributed

@@ -26,8 +26,8 @@ For installing the `snmptrap` command, you’ll want to run the following to ins
 sudo yum install -y net-snmp-utils{{< /highlight >}}
 
 # Additional Resources
-- DigitalOcean's [Intro to SNMP](4)
 - [SNMP extension Github repository][5] 
+- DigitalOcean's [Intro to SNMP][4]
 
 # Sensu Client Configuration
 As the Sensu monitoring agent cannot be installed on most networking gear, host that send SNMP traps in Sensu function as [proxy clients][6]. In this example, the general flow will be as follows:
