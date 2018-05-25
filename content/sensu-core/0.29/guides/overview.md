@@ -1,5 +1,5 @@
 ---
-title: "Overview"
+title: "Getting Started"
 version: "0.29"
 product: "Sensu Core"
 weight: 1
