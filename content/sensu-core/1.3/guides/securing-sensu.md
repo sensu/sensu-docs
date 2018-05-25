@@ -58,7 +58,7 @@ There are several elements of any Sensu deployment that may be secured using SSL
 * Client to transport communication
 * Server to transport communication
 * API to transport communication
-* Dashboards (Uchiwa and Sensu Enteprise Dashboard)
+* Dashboards (Uchiwa and Sensu Enterprise Dashboard)
 
 We'll cover securing client to transport communication first. 
 
@@ -128,7 +128,7 @@ In addition to being able to add an SSL certificate to our configuration, we can
 
 ### Disabling Client TCP/HTTP Sockets{#disabling-client-sockets}
 
-Prior to Sensu 1.3, Sensu clients had an "always on" feature where the client would listen on `127.0.0.1:3030` by default. While this feature is useful for instrumention applications to send results to via the client, it did pose a risk if the `bind` attribute was set to listen on all ports. As of version 1.3, there is now an option to completely disable this feature altogether. For more information on managing or disabling client sockets, head over to the [client reference documentation][16]
+Prior to Sensu 1.3, Sensu clients had an "always on" feature where the client would listen on `127.0.0.1:3030` by default. While this feature is useful for instrumentation applications to send results to via the client, it did pose a risk if the `bind` attribute was set to listen on all ports. As of version 1.3, there is now an option to completely disable this feature altogether. For more information on managing or disabling client sockets, head over to the [client reference documentation][16]
 
 ### Preventing Arbitrary Code Execution via Safe Mode
 
@@ -153,7 +153,7 @@ The Sensu Enterprise Dashboard provides the same mechanisms for securing it as U
 
 #### RBAC
 
-The addition of role based access controls to your Sensu Enterprise Dasbhaord configuration allows for another layer of security when it comes to viewing and interacting with Sensu events. Out of the box, there are several RBAC methods that are available for you to implement:
+The addition of role based access controls to your Sensu Enterprise Dashboard configuration allows for another layer of security when it comes to viewing and interacting with Sensu events. Out of the box, there are several RBAC methods that are available for you to implement:
 
 * [LDAP][9]
 * [GitHub][10]

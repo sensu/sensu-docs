@@ -23,7 +23,7 @@ We'll cover the following in this guide:
 
 * [Securing Sensu](#securing-sensu-clients)
   * [Ensure Check Result Authenticity Using Client Signatures](#the-clientsignature-attribute)
-  * [Prevent Secret lsure via Client-side Redaction](#the-redact-attribute)
+  * [Prevent Secret Disclosure via Client-side Redaction](#the-redact-attribute)
   * [Encrypting communications using SSL/TLS](#client-ssl-tls)
   * [Disabling Client TCP/HTTP Sockets](#disabling-client-sockets)
 * [Securing Dashboards](#securing-dashboards)
@@ -153,7 +153,7 @@ The Sensu Enterprise Dashboard provides the same mechanisms for securing it as U
 
 #### RBAC
 
-The addition of role based access controls to your Sensu Enterprise Dasbhaord configuration allows for another layer of security when it comes to viewing and interacting with Sensu events. Out of the box, there are several RBAC methods that are available for you to implement:
+The addition of role based access controls to your Sensu Enterprise Dashboard configuration allows for another layer of security when it comes to viewing and interacting with Sensu events. Out of the box, there are several RBAC methods that are available for you to implement:
 
 * [LDAP][9]
 * [GitHub][10]

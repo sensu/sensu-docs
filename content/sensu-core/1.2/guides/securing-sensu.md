@@ -58,7 +58,7 @@ There are several elements of any Sensu deployment that may be secured using SSL
 * Client to transport communication
 * Server to transport communication
 * API to transport communication
-* Dashboards (Uchiwa and Sensu Enteprise Dashboard)
+* Dashboards (Uchiwa and Sensu Enterprise Dashboard)
 
 We'll cover securing client to transport communication first. 
 
@@ -153,7 +153,7 @@ The Sensu Enterprise Dashboard provides the same mechanisms for securing it as U
 
 #### RBAC
 
-The addition of role based access controls to your Sensu Enterprise Dasbhaord configuration allows for another layer of security when it comes to viewing and interacting with Sensu events. Out of the box, there are several RBAC methods that are available for you to implement:
+The addition of role based access controls to your Sensu Enterprise Dashboard configuration allows for another layer of security when it comes to viewing and interacting with Sensu events. Out of the box, there are several RBAC methods that are available for you to implement:
 
 * [LDAP][9]
 * [GitHub][10]
