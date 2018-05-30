@@ -132,7 +132,7 @@ development environments.
 To adjust this limit first check if you are booted with systemd by running.
 {{< highlight shell >}}
 systemctl is-system-running{{< /highlight >}}
-If it complains that the command is not found or the ouput is not "running",
+If it complains that the command is not found or the output is not "running",
 then please edit the configuration file found at `/etc/default/rabbitmq-server`
 by uncommenting the last line in the file, and
 adjusting the ulimit value to the recommendation corresponding to the

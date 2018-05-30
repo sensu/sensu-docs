@@ -47,7 +47,7 @@ To learn more about RabbitmQ, please visit [the official RabbitMQ website][2].
 Sensu services use RabbitMQ (the default [Sensu transport][3]) to communicate
 with one another. Every Sensu service requires access to the same instance of
 RabbitMQ or a RabbitMQ cluster to function. Sensu check requests and check
-results are sent over RabbitMQ to the approprate Sensu services.
+results are sent over RabbitMQ to the appropriate Sensu services.
 
 ## Install RabbitMQ
 
@@ -492,7 +492,7 @@ key are able to connect.
 
 ### RabbitMQ and SELinux
 
-If SELinux is enabled on the machine(s) reponsible for running RabbitMQ, you may
+If SELinux is enabled on the machine(s) responsible for running RabbitMQ, you may
 need to make minor policy changes in order for RabbitMQ (and Erlang) to run
 successfully.
 
