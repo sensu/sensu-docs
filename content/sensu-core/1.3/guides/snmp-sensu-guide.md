@@ -26,7 +26,7 @@ For installing the `snmptrap` command, you’ll want to run the following to ins
 sudo yum install -y net-snmp-utils{{< /highlight >}}
 
 # Additional Resources
-- DigitalOcean's [Intro to SNMP](4)
+- DigitalOcean's [Intro to SNMP][4]
 - [SNMP extension Github repository][5] 
 
 # Sensu Client Configuration

@@ -814,7 +814,7 @@ example      | {{< highlight shell >}}"output": "i-424242"{{< /highlight >}}
 [33]: ../../api/aggregates/
 [34]: ../events/
 [35]: ../handlers/
-[36]: /sensu-enterprise/1.0/contact-routing
+[36]: /sensu-enterprise/latest/contact-routing
 [37]: #example-check-result-output
 [38]: #check-result-specification
 [39]: ../../api/clients/
@@ -822,7 +822,7 @@ example      | {{< highlight shell >}}"output": "i-424242"{{< /highlight >}}
 [41]: #check-names
 [42]: #subdue-attributes
 [43]: ../../overview/changelog/
-[44]: /sensu-enterprise/1.0/contact-routing
+[44]: /sensu-enterprise/latest/contact-routing
 [45]: ../../api/events#the-resolve-api-endpoint
 [46]: ../clients#client-socket-input
 [47]: https://en.wikipedia.org/wiki/Cron#CRON_expression

@@ -51,4 +51,4 @@ platform(s) where you will run your Sensu client(s).
 - [Oracle Solaris](../../platforms/sensu-on-oracle-solaris/#sensu-core)
 
 
-[1]:  installation-strategies#standalone
+[1]:  ../installation-strategies#standalone

@@ -288,17 +288,17 @@ Checks are scheduled normally, but by specifying a [**Proxy Request**][13] in yo
 [1]:  ../../reference/checks
 [2]:  https://github.com/sensu-plugins/sensu-plugins-process-checks
 [3]:  #check-cron-install-dependencies
-[4]:  http://graphite.readthedocs.org/en/latest/feeding-carbon#the-plaintext-protocol/
+[4]:  http://graphite.readthedocs.io/en/latest/feeding-carbon.html#the-plaintext-protocol
 [5]:  http://nagios.sourceforge.net/docs/3_0/perfdata.html
 [6]:  http://opentsdb.net/docs/build/html/user_guide/writing.html
 [7]:  http://metrics20.org/spec/
 [8]:  https://github.com/sensu-plugins/sensu-plugins-cpu-checks
 [9]:  #cpu-metrics-install-dependencies
-[10]: ../../reference/events#what-are-sensu-events/
+[10]: ../../reference/events#what-are-sensu-events
 [11]: #metric-collection-checks
 [12]: https://github.com/sensu-plugins/sensu-plugins-graphite
-[13]: ../../reference/checks#proxy-requests-attributes/
-[14]: ..adding-a-client#proxy-clients/
+[13]: ../../reference/checks#proxy-requests-attributes
+[14]: ../adding-a-client#proxy-clients
 
 <!--Supplemental links-->
 [sl1]: http://graphiteapp.org/quick-start-guides/
