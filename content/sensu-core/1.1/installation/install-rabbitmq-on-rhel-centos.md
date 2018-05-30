@@ -30,18 +30,15 @@ RabbitMQ runs on the [Erlang runtime][1], so before you can install and run
 RabbitMQ, you'll need to install Erlang.
 
 1. Add the EPEL repository:
-
    {{< highlight shell >}}
    sudo yum install epel-release   {{< /highlight >}}
 
 2. Add the Erlang Solutions YUM repository:
-
    {{< highlight shell >}}
    sudo wget https://packages.erlang-solutions.com/erlang-solutions-1.0-1.noarch.rpm
    sudo rpm -Uvh erlang-solutions-1.0-1.noarch.rpm{{< /highlight >}}
 
 3. Install Erlang:
-
    {{< highlight shell >}}
    sudo yum install -y erlang-19.3{{< /highlight >}}
 
@@ -64,13 +61,11 @@ Erlang version 19.3 or newer][4]).
 ### Download and install RabbitMQ using `rpm`
 
 1. Install the `socat` package, required by RabbitMQ rpm:
-
    {{< highlight shell >}}
    sudo yum install -y socat{{< /highlight >}}
 
 2. Download the signing key for the RabbitMQ YUM repository, and then download
    and install RabbitMQ 3.6.9 using the `rpm` utility:
-
    {{< highlight shell >}}
    sudo rpm --import https://www.rabbitmq.com/rabbitmq-signing-key-public.asc
    sudo rpm -Uvh https://www.rabbitmq.com/releases/rabbitmq-server/v3.6.9/rabbitmq-server-3.6.9-1.el6.noarch.rpm{{< /highlight >}}
@@ -88,15 +83,12 @@ be a reason to upgrade RabbitMQ versions frequently._
 ## Managing the RabbitMQ service/process
 
 1. Install the RabbitMQ init scripts using the [`chkconfig` utility][5]:
-
    {{< highlight shell >}}
    sudo chkconfig rabbitmq-server on{{< /highlight >}}
 
 2. Start and stop the RabbitMQ service using the installed init scripts:
-
    _NOTE: The `service` command will not work on CentOS 5, the
    sysvinit script must be used, e.g. `sudo /etc/init.d/rabbitmq-server start`_
-
    {{< highlight shell >}}
    sudo service rabbitmq-server start
    sudo service rabbitmq-server stop{{< /highlight >}}
