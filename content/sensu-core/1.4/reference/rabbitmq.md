@@ -514,38 +514,6 @@ sudo setsebool -P nis_enabled 1
 For more information on configuring RabbitMQ to use SSL, please visit the [Sensu
 SSL documentation][14].
 
-### RabbitMQ SSL and Erlang 18.3 {#rabbitmq-ssl-and-erlang-183}
-
-For users of Erlang version 18.3, the SSL implementation that RabbitMQ relies on
-changed in such a way that additional configuration parameters are needed for
-SSL encrypted communication between Sensu and RabbitMQ (specifically affecting
-Sensu Enterprise users). This does not apply to Erlang 19.0+
-
-In order to enable SSL communication between RabbitMQ installations running on
-Erlang 18.3 and Sensu, it is necessary to configure the specific TLS version
-(i.e. `{versions, ['tlsv1.2']}`) and ciphers (i.e. `{ciphers,
-[{rsa,aes_256_cbc,sha256}]}`) that RabbitMQ will accept, and to reject clients
-with no certificate (i.e. `{fail_if_no_peer_cert,true}`).
-
-{{< highlight shell >}}
-[
- {rabbit, [
-    {ssl_listeners, [5671]},
-    {ssl_options, [{cacertfile,"/etc/rabbitmq/ssl/cacert.pem"},
-                   {certfile,"/etc/rabbitmq/ssl/cert.pem"},
-                   {keyfile,"/etc/rabbitmq/ssl/key.pem"},
-                   {versions, ['tlsv1.2']},
-                   {ciphers,  [{rsa,aes_256_cbc,sha256}]},
-                   {verify,verify_peer},
-                   {fail_if_no_peer_cert,true}]}
-  ]}
-].
-{{< /highlight >}}
-
-_WARNING: if you are seeing RabbitMQ log entries with messages like `Fatal
-error: insufficient security`, and using Erlang 18.3, please confirm that
-the above stated configuration changes are in place._
-
 [1]:  http://www.rabbitmq.com/features.html
 [2]:  http://www.rabbitmq.com/
 [3]:  ../transport

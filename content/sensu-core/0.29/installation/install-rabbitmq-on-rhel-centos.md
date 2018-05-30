@@ -58,8 +58,8 @@ installation method.
   for which version of the server is available for which versions of the
   distribution.
 
-[Sensu Support][3] is available for RabbitMQ versions 3.6.0 and newer ([on
-Erlang version R16B03 or newer][4]).
+[Sensu Support][3] is available for RabbitMQ versions 3.6.4 and newer ([on
+Erlang version 19.3 or newer][4]).
 
 ### Download and install RabbitMQ using `rpm`
 
