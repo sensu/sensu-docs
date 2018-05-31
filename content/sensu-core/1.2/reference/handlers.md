@@ -186,7 +186,7 @@ Handler set definitions allow groups of handlers (i.e. individual collections of
 actions to take on event data) to be referenced via a single named handler set.
 
 _NOTE: Attributes defined on handler sets do not apply to the handlers they
-include. For example,`filter`, `filters`, and `mutator` attributes defined 
+include. For example, `filter`, `filters`, and `mutator` attributes defined 
 in a handler set will have no effect._
 
 ### Example handler set definition
@@ -253,6 +253,13 @@ required       | true
 type           | String
 allowed values | `pipe`, `tcp`, `udp`, `transport`, `set`
 example        | {{< highlight shell >}}"type": "pipe"{{< /highlight >}}
+
+filter       | 
+-------------|------
+description  | The Sensu event filter (name) to use when filtering events for the handler.
+required     | false
+type         | String
+example      | {{< highlight shell >}}"filter": "occurrences"{{< /highlight >}}
 
 filters      | 
 -------------|------
