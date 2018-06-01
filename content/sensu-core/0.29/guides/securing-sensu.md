@@ -311,7 +311,7 @@ That wraps it up! We'll cover more in the subsequent articles in this series. Cl
 [9]: /sensu-enterprise-dashboard/latest/rbac/rbac-for-ldap/
 [10]: /sensu-enterprise-dashboard/latest/rbac/rbac-for-github/
 [11]: /sensu-enterprise-dashboard/latest/rbac/rbac-for-oidc/
-[12]: /sensu-enterprise-dashboard/late.st/rbac/rbac-for-gitlab/
+[12]: /sensu-enterprise-dashboard/latest/rbac/rbac-for-gitlab/
 [13]: /sensu-enterprise-dashboard/latest/rbac/overview/#rbac-for-the-sensu-enterprise-console-api
 [14]: /sensu-enterprise-dashboard/latest/rbac/overview/#driver-attributes
 [15]: ../../reference/checks/#what-is-check-token-substitution

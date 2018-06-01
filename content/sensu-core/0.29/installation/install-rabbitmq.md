@@ -31,6 +31,6 @@ Ubuntu/Debian and RHEL/CentOS operating systems, only._
 
 [1]:  http://www.rabbitmq.com/
 [2]:  http://www.rabbitmq.com/features.html
-[3]:  ../../reference/transport.html
+[3]:  ../../reference/transport
 [4]:  https://sensuapp.org/support
 [5]:  ../installation-prerequisites/#selecting-a-transport

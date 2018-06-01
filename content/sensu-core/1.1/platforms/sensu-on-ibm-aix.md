@@ -168,12 +168,12 @@ support will be enabled in a future release.
 [2]:  https://sensu.global.ssl.fastly.net/aix/
 [3]:  https://sensu.global.ssl.fastly.net/aix/6.1/sensu-1.2.0-1.powerpc.bff
 [4]:  https://sensuapp.org/mit-license
-[5]:  ../../../reference/configuration/
-[6]:  ../../../reference/transport/
-[7]:  ../../../reference/redis/#sensu-redis-configuration
-[8]:  ../../../reference/rabbitmq/#sensu-rabbitmq-configuration
+[5]:  ../../reference/configuration/
+[6]:  ../../reference/transport/
+[7]:  ../../reference/redis/#sensu-redis-configuration
+[8]:  ../../reference/rabbitmq/#sensu-rabbitmq-configuration
 [9]:  https://github.com/ffi/ffi
 [10]: #configure-sensu
 [11]: #example-transport-configuration
 [12]: #example-client-configuration
-[13]: ../../../reference/transport/#transport-definition-specification
+[13]: ../../reference/transport/#transport-definition-specification

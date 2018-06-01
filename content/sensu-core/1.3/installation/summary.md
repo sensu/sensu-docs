@@ -62,10 +62,10 @@ Support][11].
 [2]:  http://www.chef.io
 [3]:  https://github.com/sensu/sensu-puppet
 [4]:  https://github.com/sensu/sensu-chef
-[5]:  ../guides/getting-started/overview.html
+[5]:  ../../guides/overview
 [6]:  #scaling-sensu
-[7]:  ../guides/getting-started/intro-to-checks.html
-[8]:  ../guides/getting-started/intro-to-checks.html#create-a-metric-collection-check
-[9]:  ../guides/getting-started/intro-to-checks.html#create-a-metric-analysis-check
-[10]: ../guides/getting-started/intro-to-handlers.html
+[7]:  ../../guides/intro-to-checks
+[8]:  ../../guides/intro-to-checks#create-a-metric-collection-check
+[9]:  ../../guides/intro-to-checks#create-a-metric-analysis-check
+[10]: ../../guides/intro-to-handlers
 [11]: https://helpdesk.sensuapp.com
