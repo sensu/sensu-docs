@@ -1,12 +1,12 @@
 ---
 title: "Securing Redis"
 description: "Strategies and best practices for security Redis"
-version: "0.29"
+version: "1.1"
 weight: 9
 next: ../securing-rabbitmq-guide
 previous: ../securing-sensu-guide
 menu:
-  sensu-core-0.29:
+  sensu-core-1.1:
     parent: guides
 ---
 

@@ -1,12 +1,12 @@
 ---
 title: "Securing Redis"
 description: "Strategies and best practices for security Redis"
-version: "0.29"
+version: "1.3"
 weight: 9
 next: ../securing-rabbitmq-guide
 previous: ../securing-sensu-guide
 menu:
-  sensu-core-0.29:
+  sensu-core-1.3:
     parent: guides
 ---
 
@@ -66,5 +66,5 @@ After making the change you will need to restart the Redis service so the change
 Once Redis is bind to the IP address you can then limit access to that specific IP/port using internal security tools such as host firewalls, networking ACL or other methods of locking down access to a specific host/port.
 
 [1] https://redis.io/topics/security
-[2] ../1.3/references/redis
+[2] ../../references/redis
 [3] https://help.ubuntu.com/lts/serverguide/firewall.html
