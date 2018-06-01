@@ -376,7 +376,7 @@ example      | {{< highlight shell >}}"subscribers": ["production"]{{< /highligh
 
 publish      | 
 -------------|------
-description  | If check requests are published for the check.
+description  | If check requests are published for the check. If `standalone` is `true`, setting `publish` to `false` prevents the Sensu client from scheduling the check automatically.
 required     | false
 type         | Boolean
 default      | true
