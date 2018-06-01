@@ -1,7 +1,7 @@
 ---
 title: "FAQ"
 date: 2017-10-26T09:27:53-07:00
-description: ""
+description: "Frequently asked questions about Sensu plugins"
 weight: 2
 product: "Plugins"
 version: "1.0"
@@ -16,11 +16,11 @@ This was done to simplify the deployment and delivery process.  When working wit
 
 The repos are named based up the application, product, or function they are associated with.  This means that if you use apache, you need only install the *sensu-plugins-apache* gem or clone the repo.  When it comes to handlers and mutators the same convention was used so that in the future if a check is added the repo name won't change.  *Sensu-plugins-pagerduty* is a great example, it may only contain handlers at this time but if in the future we want to add a check of an endpoint we don't need to do anything more than bump the version and update the docs.
 
-Besides having a standard naming convention makes automation and deployment tools very happy and we all use them right?
+Besides, having a standard naming convention makes automation and deployment tools very happy and we all use them, right?
 
 ### How do I know what a repo contains?
 
-One of the conditions for dropping the prerelease or alpha tag will be a complete README that will include a list of all binaries and what each one does, [sensu-plugins-disk-checks][1] does this now.
+One of the conditions for dropping the prerelease or alpha tag will be a complete README that will include a list of all binaries and what each one does, [sensu-plugins-disk-checks][30] does this now.
 
 ### Why did you change the filenames and why name them this way?
 
@@ -40,7 +40,7 @@ No!  It will be frozen in place at a date TBD, most likely sometime Fall 2015 al
 
 ### How should I deploy the new plugins?
 
-If a gem exists then that would be the best way.  Instructions for installing it can be found in the README of the repo or [here][3].  If no gem exists yet, then you can attempt to build one based upon the gemspec.  You can also install straight from source.
+If a gem exists then that would be the best way.  Instructions for installing it can be found in the README of the repo or [here][31].  If no gem exists yet, then you can attempt to build one based upon the gemspec.  You can also install straight from source.
 
 All repos have releases, you can just download the latest tarball or zip file, cloning the master branch is not recommended, supported and never will be.  Unless it's a breaking change, the repo will not contain feature branches, everything will be pushed to master.  You have been warned.
 
@@ -70,20 +70,12 @@ We strive to test on all non-EOL versions. It can take time to add new versions 
 
 Rubocop
 
-Details are in .rubocop.yml within the root of each repo and in the [developer guidelines][2]
+Details are in .rubocop.yml within the root of each repo.
 
 ### What do you use for testing?
 
 RSpec
 
----
-title: "Reference"
-date: 2017-10-26T14:49:05-07:00
-description: ""
-weight: 1
-product: "Plugins"
-version: "2.3"
-menu: "plugins-2.3"
 ---
 
 - [What is a Sensu plugin?](#what-is-a-sensu-plugin)
@@ -395,19 +387,13 @@ specification][29], and not a definition of a distinct Sensu primitive)._
 | type         | String                                                                                                                                                                                                  |
 | example      | {{< highlight shell >}}"notification": "the shopping cart application is not responding to requests"{{< /highlight >}}                                                                                  |
 
-
-
-[1]: https://github.com/sensu-plugins/sensu-plugins-disk-checks
-[2]: ../developer_guidelines
-[3]: ../installation
-
-[1]:  ../../../sensu-core/1.0/reference/checks
-[2]:  ../../../sensu-core/1.0/reference/handlers
-[3]:  ../../../sensu-core/1.0/reference/events#event-data
-[4]:  ../../../sensu-core/1.0/reference/mutators
-[5]:  ../../../sensu-core/1.0/reference/checks#check-commands
-[6]:  ../../../sensu-core/1.0/reference/handlers#pipe-handler-commands
-[7]:  ../../../sensu-core/1.0/reference/mutators#mutator-commands
+[1]:  ../../../sensu-core/latest/reference/checks
+[2]:  ../../../sensu-core/latest/reference/handlers
+[3]:  ../../../sensu-core/latest/reference/events#event-data
+[4]:  ../../../sensu-core/latest/reference/mutators
+[5]:  ../../../sensu-core/latest/reference/checks#check-commands
+[6]:  ../../../sensu-core/latest/reference/handlers#pipe-handler-commands
+[7]:  ../../../sensu-core/latest/reference/mutators#mutator-commands
 [8]:  http://sensu-plugins.io/
 [9]:  https://github.com/sensu-plugins
 [10]: https://rubygems.org/search?query=sensu-plugins-
@@ -430,3 +416,5 @@ specification][29], and not a definition of a distinct Sensu primitive)._
 [27]: https://github.com/sensu-plugins/sensu-plugin
 [28]: /sensu-core/latest/reference/checks#custom-attributes
 [29]: /sensu-core/latest/reference/checks#check-definition-attributesw
+[30]: https://github.com/sensu-plugins/sensu-plugins-disk-checks
+[31]: installation

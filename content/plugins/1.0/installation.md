@@ -1,8 +1,8 @@
 ---
 title: "Installation"
 date: 2017-10-26T11:06:32-07:00
-description: ""
-weight: 8
+description: "How to install Sensu plugins"
+weight: 2
 product: "Plugins"
 version: "1.0"
 menu: "plugins-1.0"
@@ -16,10 +16,11 @@ For production deployments make sure you [pin your gems](https://github.com/sens
 
 **Standard Installation**
 
-`gem install sensu-plugins-disk-checks`
+```
+gem install sensu-plugins-disk-checks
+```
 
-**Note:**
-If the gem has an alpha tag then you will need to use the *--prerelease* flag or the gem will not be found.
+_NOTE: If the gem has an alpha tag then you will need to use the `--prerelease` flag or the gem will not be found._
 
 #### Bundle
 
@@ -62,12 +63,16 @@ package { 'sensu-plugins-disk-checks':
 
 ## Usage
 
-In a proper gem environment plugins can be executed directly from the command line. If you want to check the disk usage you could use the **check-disk-usage** plugin.  This will only work for ruby scripts.  Scripts in other langauges will still need to be called directly do to binstubs not being automatically created.
+In a proper gem environment plugins can be executed directly from the command line. If you want to check the disk usage you could use the **check-disk-usage** plugin.  This will only work for ruby scripts.  Scripts in other languages will still need to be called directly do to binstubs not being automatically created.
 
-`check-disk-usage.rb -w 80 -c 90`
+```
+check-disk-usage.rb -w 80 -c 90
+```
 
 Depending on ruby environment you may need to call ruby directly
 
-`/opt/sensu/embedded/bin/ruby check-disk-usage.rb -w 80 -c 90`
+```
+/opt/sensu/embedded/bin/ruby check-disk-usage.rb -w 80 -c 90
+```
 
 For details check the header file of a given plugin.
