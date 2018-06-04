@@ -124,7 +124,7 @@ example         | {{< highlight shell >}}"action": "create"{{< /highlight >}}
 
 last_ok       | 
 --------------|-----
-description   | The time of the most recent check execution indicating 'OK' status for this client/check pair (generated via Ruby `Time.now.to_i`).
+description   | The most recent time a check result indicated an 'OK' status for this client/check pair (generated via Ruby `Time.now.to_i`).
 type          | Integer
 example       | `1528150592`
 
