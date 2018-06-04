@@ -122,6 +122,12 @@ possible values | `create`, `resolve`, `flapping`
 default         | `create`
 example         | {{< highlight shell >}}"action": "create"{{< /highlight >}}
 
+last_ok       | 
+--------------|-----
+description   | The time of the most recent check execution indicating 'OK' status for this client/check pair (generated via Ruby `Time.now.to_i`).
+type          | Integer
+example       | `1528150592`
+
 occurrences  | 
 -------------|------
 description  | The occurrence count for the event; the number of times an event has been created for a client/check pair with the same state (check status).
