@@ -64,7 +64,7 @@ event handler (integration).
 The following attributes are configured within the `{"opsgenie": {} }`
 [configuration scope][3].
 
-_NOTE: Some attributes are only available for certain tiers of OpsGenie._
+_NOTE: Some attributes are only available for certain OpsGenie subscription tiers._
 
 api_key      | 
 -------------|------
