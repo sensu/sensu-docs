@@ -33,6 +33,19 @@ event handler (integration).
   "opsgenie": {
     "api_key": "eed02a0d-85a4-427b-851a-18dd8fd80d93",
     "source": "Sensu Enterprise (AWS)",
+    "responders":[
+      {
+        "name":"afterhours",
+        "type":"schedule"
+      }
+    ],
+    "visible_to":[
+      {
+        "name":"ops",
+        "type":"team"
+      }
+    ],
+    "actions": ["ShowProcesses"],
     "tags": ["production"],
     "overwrites_quiet_hours": true,
     "timeout": 10
@@ -62,12 +75,64 @@ type         | String
 default      | `Sensu Enterprise`
 example      | {{< highlight shell >}}"source": "Sensu (us-west-1)"{{< /highlight >}}
 
+responders   | 
 -------------|------
+description  | The OpsGenie teams, users, schedules, or escalations that receive alert notifications. Each responder requires an `id` or `name` and a `type` (`team`, `user`, `escalation`, or `schedule`). _NOTE: For `"type":"user"`, use `username` instead of `name`._
 required     | false
+type         | Array of objects
+example      | {{< highlight shell >}}
+"responders":[
+  {
+    "name":"afterhours",
+    "type":"schedule"
+  },
+  {
+    "id":"bb4d9938-c3c2-455d-aaab-727aa701c0d8",
+    "type":"user"
+  },
+  {
+    "username":"alice@company.com",
+    "type":"user"
+  },
+  {
+    "id":"aee8a0de-c80f-4515-a232-501c0bc9d715",
+    "type":"escalation"
+  }
+]
+{{< /highlight >}}
 
+visible_to   | 
 -------------|------
+description  | The OpsGenie teams and users that can see alerts but won't receive notifications. Teams require an `id` or `name` and `"type":"team"`. Users require an `id` or `username` and `"type":"user"`.
+required     | false
+type         | Array of objects
+example      | {{< highlight shell >}}
+"visible_to":[
+  {
+    "name":"ops",
+    "type":"team"
+  },
+  {
+    "id":"4513b7ea-3b91-438f-b7e4-e3e54af9147c",
+    "type":"team"
+  },
+  {
+    "id":"bb4d9938-c3c2-455d-aaab-727aa701c0d8",
+    "type":"user"
+  },
+  {
+    "username":"alice@company.com",
+    "type":"user"
+  }
+]
+{{< /highlight >}}
+
+actions      | 
+-------------|------
+description  | Custom actions available for the alert
 required     | false
 type         | Array
+example      | {{< highlight shell >}}"actions": ["ViewLogs", "ShowProcesses"]{{< /highlight >}}
 
 tags         | 
 -------------|------
