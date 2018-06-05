@@ -21,6 +21,10 @@ users only.**
 
 Create and close [OpsGenie][2] alerts for events.
 
+_NOTE: As of Sensu Enterprise 3.0, the OpsGenie integration uses version 2 of the OpsGenie API.
+OpsGenie API v2 deprecates the `recipients` and `teams` attributes from version 1 and adds `responders`, `visible_to`, and `actions`.
+Visit the [Sensu Enterprise changelog][4] and the [OpsGenie API docs][5] for more information._
+
 ## Configuration
 
 ### Example(s) {#examples}
@@ -179,3 +183,5 @@ example      | {{< highlight shell >}}"timeout": 30{{< /highlight >}}
 [1]:  /sensu-enterprise
 [2]:  https://www.opsgenie.com?ref=sensu-enterprise
 [3]: /sensu-core/1.2/reference/configuration#configuration-scopes
+[4]: ../../changelog
+[5]: https://docs.opsgenie.com/docs/alert-api
