@@ -19,6 +19,7 @@
 - [ ] Breaking change (fix or feature that would cause existing functionality to change)
 - [ ] New doc/guide
 - [ ] Fixing errata
+- [ ] Update (Add missing or refresh existing content)
 
 ## Checklist:
 <!--- Go over all the following points, and put an `x` in all the boxes that apply. -->
