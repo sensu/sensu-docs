@@ -64,6 +64,8 @@ event handler (integration).
 The following attributes are configured within the `{"opsgenie": {} }`
 [configuration scope][3].
 
+_NOTE: Some attributes are only available for certain tiers of OpsGenie._
+
 api_key      | 
 -------------|------
 description  | The OpsGenie Alert API key to use when creating/closing alerts.
