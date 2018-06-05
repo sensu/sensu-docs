@@ -33,8 +33,6 @@ event handler (integration).
   "opsgenie": {
     "api_key": "eed02a0d-85a4-427b-851a-18dd8fd80d93",
     "source": "Sensu Enterprise (AWS)",
-    "teams": ["ops", "web"],
-    "recipients": ["afterhours"],
     "tags": ["production"],
     "overwrites_quiet_hours": true,
     "timeout": 10
@@ -64,21 +62,12 @@ type         | String
 default      | `Sensu Enterprise`
 example      | {{< highlight shell >}}"source": "Sensu (us-west-1)"{{< /highlight >}}
 
-teams        | 
 -------------|------
-description  | An array of OpsGenie team names to be used to calculate which users will be responsible for created alerts.
 required     | false
-type         | Array
-default      | `[]`
-example      | {{< highlight shell >}}"teams": ["ops", "web"]{{< /highlight >}}
 
-recipients   | 
 -------------|------
-description  | An array of OpsGenie group, schedule, or escalation names to be used to calculate which users will be responsible for created alerts.
 required     | false
 type         | Array
-default      | `[]`
-example      | {{< highlight shell >}}"recipients": ["web", "afterhours"]{{< /highlight >}}
 
 tags         | 
 -------------|------
