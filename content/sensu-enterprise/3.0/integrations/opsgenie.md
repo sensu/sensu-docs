@@ -23,6 +23,7 @@ Create and close [OpsGenie][2] alerts for events.
 
 _NOTE: As of Sensu Enterprise 3.0, the OpsGenie integration uses version 2 of the OpsGenie API.
 OpsGenie API v2 deprecates the `recipients` and `teams` attributes from version 1 and adds `responders`, `visible_to`, and `actions`.
+The naming of Sensu Enterprise's `overwrites_quiet_hours` attribute has changed to `overwrite_quiet_hours` as well.
 Visit the [Sensu Enterprise changelog][4] and the [OpsGenie API docs][5] for more information._
 
 ## Configuration
@@ -51,7 +52,7 @@ event handler (integration).
     ],
     "actions": ["ShowProcesses"],
     "tags": ["production"],
-    "overwrites_quiet_hours": true,
+    "overwrite_quiet_hours": true,
     "timeout": 10
   }
 }
@@ -148,13 +149,13 @@ type         | Array
 default      | `[]`
 example      | {{< highlight shell >}}"tags": ["production"]{{< /highlight >}}
 
-overwrites_quiet_hours | 
+overwrite_quiet_hours  | 
 -----------------------|------
-description            | If events with a critical severity should be tagged with "OverwritesQuietHours". This tag can be used to bypass quiet (or off) hour alert notification filtering.
+description            | When configured, critical severity events will be tagged with "OverwriteQuietHours". This tag indicates that OpsGenie should bypass configured "quiet hours" that would otherwise filter alert notifications.
 required               | false
 type                   | Boolean
 default                | `false`
-example                | {{< highlight shell >}}"overwrites_quiet_hours": true{{< /highlight >}}
+example                | {{< highlight shell >}}"overwrite_quiet_hours": true{{< /highlight >}}
 
 filters        | 
 ---------------|------
