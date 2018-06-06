@@ -61,7 +61,7 @@ filter analysis flow performs these steps:
   server will first apply any configured `filters` for the Handler
 - If multiple `filters` are configured for a Handler, they are executed
   sequentially
-- Filters `attributes` are compared with Event data
+- Filter `attributes` are compared with Event data
 - Filters can be inclusive (only matching events are handled) or exclusive
   (matching events are _not_ handled)
 - As soon as a Filter removes an Event (i.e. filters it out), no further
