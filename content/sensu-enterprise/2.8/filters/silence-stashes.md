@@ -42,7 +42,9 @@ filter to a standard Sensu `pipe` handler.
     "custom_mailer": {
       "type": "pipe",
       "command": "custom_mailer.rb",
-      "filter": "silence_stashes"
+      "filters": [
+        "silence_stashes"
+      ]
     }
   }
 }
