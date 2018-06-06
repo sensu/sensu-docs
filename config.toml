@@ -67,6 +67,7 @@ ignoreFiles = [ "sensu-doc-template.md" ]
         weight = 2
         latest = "2.8"
         [params.products.sensu_enterprise.versions]
+            "3.0" = ["Ubuntu/Debian", "RHEL/CentOS"]
             "2.8" = ["Ubuntu/Debian", "RHEL/CentOS"]
             "2.7" = ["Ubuntu/Debian", "RHEL/CentOS"]
             "2.6" = ["Ubuntu/Debian", "RHEL/CentOS"]

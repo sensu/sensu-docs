@@ -18,7 +18,7 @@ layout: "single"
 [Sensu Enterprise][1] is a drop-in replacement for Sensu Core (the FREE, open
 source version of Sensu), that provides added-value features like [contact
 routing][2], several built-in [third-party integrations][3], and more. Sensu
-Enterprise also includes FREE annual [training][4] and [enterprise-class
+Enterprise also includes FREE annual training and [enterprise-class
 support][5].
 
 We like to think of the distinction between Sensu Core and Sensu Enterprise as
@@ -54,8 +54,7 @@ or added-value features (e.g. [contact routing][2]).
 [1]:  /sensu-enterprise
 [2]:  contact-routing
 [3]:  built-in-handlers
-[4]:  /training
-[5]:  https://sensuapp.org/support
+[5]:  https://sensu.io/resources/support
 [6]:  /sensu-core/latest/reference/server
 [7]:  /sensu-core/latest/api/overview
 [8]:  /sensu-core/latest/installation/install-sensu-server-api/#sensu-enterprise

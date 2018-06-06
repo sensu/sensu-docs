@@ -1,5 +1,5 @@
 ---
-title: "Platforms"
+title: "Supported Platforms"
 description: "Supported platforms"
 product: "Sensu Core"
 version: "1.1"
