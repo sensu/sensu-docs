@@ -23,7 +23,7 @@ of a `handler` (or `handlers`). Prior to executing each handler, the Sensu
 server will first apply any configured `filters` for the handler.
 * If multiple `filters` are configured for a handler, they are executed
 sequentially.
-* Filters `statements` are compared with event data.
+* Filter `statements` are compared with event data.
 * Filters can be inclusive (only matching events are handled) or exclusive
 (matching events are not handled).
 * As soon as a filter removes an event (i.e. filters it out), no further
