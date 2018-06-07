@@ -26,6 +26,7 @@ menu:
 - [Sensu configuration specification](#sensu-configuration-specification)
   - [Example sensu configuration](#example-sensu-configuration)
   - [Top-level configuration scopes](#top-level-configuration-scopes)
+- [Sensu definition specification](#sensu-definition-specification)
 
 ## How does Sensu load configuration?
 
@@ -662,6 +663,18 @@ example      | {{< highlight json >}}{
 }
 {{< /highlight >}}
 
+sensu        | 
+-------------|-----
+description  | The Sensu global definition scope (see: [Sensu definition scope](#sensu-definition-specification))
+required     | false
+type         | Hash
+example      | {{< highlight json >}}{
+  "sensu": {
+     "spawn": 24
+  }
+}
+{{< /highlight >}}
+
 client       | 
 -------------|------
 description  | The Sensu Client definition scope (see: [Clients][3])
@@ -728,6 +741,27 @@ example      | {{< highlight json >}}{
   "mutators": {
     "example_mutator": {},
     "another_mutator": {}
+  }
+}
+{{< /highlight >}}
+
+## Sensu definition specification
+
+Sensu uses the `"sensu": {}` definition scope.
+
+### Sensu attributes
+
+The following attributes are defined within the `"sensu": {}` definition scope.
+
+spawn          | 
+---------------|------
+description    | Number of processes Sensu will execute simultaneously. This setting affects execution of both checks and pipe handlers.
+required       | false
+type           | Integer
+default        | 12
+example        | {{< highlight json >}}{
+  "sensu": {
+    "spawn": 24
   }
 }
 {{< /highlight >}}
