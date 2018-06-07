@@ -22,8 +22,6 @@ users only.**
 Create and close [OpsGenie][2] alerts for events.
 
 _NOTE: As of Sensu Enterprise 3.0, the OpsGenie integration uses version 2 of the OpsGenie API.
-OpsGenie API v2 deprecates the `recipients` and `teams` attributes from version 1 and adds `responders`, `visible_to`, and `actions`.
-Additionally, the naming of Sensu Enterprise's `overwrites_quiet_hours` attribute has changed to `overwrite_quiet_hours`.
 Visit the [Sensu Enterprise changelog][4] and the [OpsGenie API docs][5] for more information._
 
 ## Configuration
