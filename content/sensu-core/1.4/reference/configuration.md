@@ -663,6 +663,18 @@ example      | {{< highlight json >}}{
 }
 {{< /highlight >}}
 
+sensu        | 
+-------------|-----
+description  | The Sensu global definition scope (see: [Sensu definition scope](#sensu-definition-specification))
+required     | false
+type         | Hash
+example      | {{< highlight json >}}{
+  "sensu": {
+     "spawn": 24
+  }
+}
+{{< /highlight >}}
+
 client       | 
 -------------|------
 description  | The Sensu Client definition scope (see: [Clients][3])
