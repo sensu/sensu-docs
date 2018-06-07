@@ -12,6 +12,13 @@ latest package. Certain versions of Sensu Enterprise may include changes that
 are *not backwards compatible* and require additional steps be taken when
 upgrading.
 
+- [Upgrading from Sensu Enterprise < 3.0](#upgrading-from-sensu-enterprise-3-0)
+	- [Changes in OpsGenie integration](#changes-in-opsgenie-integration)
+		- [Configure OpsGenie for `responders`](#configure-opsgenie-for-responders)
+		- [Update `overwrites_quiet_hours`](#update-overwrites-quiet-hours)
+	- [Changes in Java package dependency](#changes-in-java-package-dependency)
+- [Upgrading the Sensu Enterprise package](#upgrading-the-sensu-enterprise-package)
+
 ## Upgrading from Sensu Enterprise < 3.0
 
 The following documentation provides steps necessary when upgrading
