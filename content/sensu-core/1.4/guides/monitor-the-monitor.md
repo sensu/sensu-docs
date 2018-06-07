@@ -15,7 +15,7 @@ In this guide, we'll walk you through the best practices and strategies for moni
 * How to monitor your RabbitMQ instance(s)
 * How to monitor your Redis instance(s)
 
-# Objectives
+## Objectives
 
 We'll cover the following in this guide:
 
@@ -32,10 +32,14 @@ We'll cover the following in this guide:
 
 ### Monitoring Sensu Server{#monitoring-sensu-server}
 
-### Monitoring Sensu API{#monitoring-sensu-API}
+### Monitoring Sensu API{#monitoring-sensu-api}
 
 ### Monitoring Sensu Enterprise{#monitoring-sensu-enterprise}
 
 ### Monitoring Sensu Enterprise Dashboard{#monitoring-sensu-enterprise-dashboard}
 
 ### Monitoring Uchiwa{#monitoring-sensu-uchiwa}
+
+## Monitoring RabbitMQ
+
+## Monitoring Redis
