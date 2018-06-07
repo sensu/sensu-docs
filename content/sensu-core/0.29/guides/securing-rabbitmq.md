@@ -3,7 +3,7 @@ title: "Securing RabbitMQ"
 description: "Strategies and best practices for securing RabbitMQ"
 version: "0.29"
 weight: 9
-previous: ../securing-sensu-guide
+previous: ../securing-sensu
 next: ../securing-redis-guide
 menu:
   sensu-core-0.29:
@@ -20,7 +20,7 @@ This guide will discuss the following:
 
 * [VHost Permissions for Sensu Clients](#vhost-permissions-clients)
 * [VHost Permissions for Sensu Servers](#vhost-permissions-servers)
-* [SSL/TLS Configuration](#vhost-permissions-clients)
+* [SSL/TLS Configuration](#ssl-tls-configuration)
 
 ## Vhost Permissions for Sensu Clients{#vhost-permissions-clients}
 
@@ -75,7 +75,7 @@ For a visual representation of the queues that clients have access to, let's tak
 
 So how do we lock down permissions for our clients?
 
-We'll first start by creating a separate user. In the case of our 3rd point above, and cases where our client hostnames follow a predictable pattern, you can simply create a user with that node's hostname:
+We'll first start by creating a separate user. In the case of our 3rd point above, and cases where our client hostnames follow a predictable pattern, you can create a user with that node's hostname:
 
 {{< highlight shell >}}
 sudo rabbitmqctl add_user sensu-client-01 <PASSWORD>{{< /highlight >}}
@@ -97,7 +97,7 @@ sudo rabbitmqctl add_user <CLIENT-USER> <CLIENT-PASS>{{< /highlight >}}
 {{< highlight shell >}}
 rabbitmqctl set_permissions -p /sensu <CLIENT-USER> '((?!keepalives|results).)*' '.*' '((?!keepalives|results).)*'{{< /highlight >}}
 
-This simply means that the client user we create for our randomly-named clients will have full `write` permissions.
+This means that the client user we create for our randomly-named clients will have full `write` permissions.
 
 ## Vhost Permissions for Sensu Servers{#vhost-permissions-servers}
 
