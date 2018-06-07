@@ -10,6 +10,7 @@ _NOTE: Sensu Enterprise is built on Sensu Core. Sensu Core changes are documente
 
 ## Releases
 
+- [Enterprise 3.0.0 Release Notes](#enterprise-v3-0-0)
 - [Enterprise 2.8.3 Release Notes](#enterprise-v2-8-3)
 - [Enterprise 2.8.2 Release Notes](#enterprise-v2-8-2)
 - [Enterprise 2.8.1 Release Notes](#enterprise-v2-8-1)
@@ -41,9 +42,52 @@ _NOTE: Sensu Enterprise is built on Sensu Core. Sensu Core changes are documente
 - [Enterprise 1.14.0 Release Notes](#enterprise-v1-14-0)
 - [Enterprise 1.13.0 Release Notes](#enterprise-v1-13-0)
 
+
+## Enterprise 3.0.0 Release Notes {#enterprise-v3-0-0}
+
+**June 8, 2018** &mdash; Sensu Enterprise version 3.0.0 has been
+   released and is available for immediate download. Please note the
+   following improvements:
+
+### IMPORTANT {#enterprise-v3-0-0-important}
+
+This release includes potentially breaking, backwards-incompatible
+changes:
+
+- The OpsGenie Integration has been updated for the v2 Alert API. **To
+  continue using the Sensu Enterprise OpsGenie integration, you must
+  upgrade to Sensu Enterprise 3.0 and update your Sensu Enterprise
+  configuration for OpsGenie before June 30, 2018.**
+
+- Sensu Enterprise now depends on OpenJDK 1.8. On some platforms
+  Upgrading from OpenJDK 1.7 may require access to EPEL to provide
+  this version.
+
+See the Sensu Enterprise 3.0 upgrading documentation for additional
+details on these important changes.
+
+### CHANGES {#enterprise-v3-0-0-changes}
+
+- **IMPROVEMENT**: Built on [Sensu Core 1.4.3][core-v1-4-3].
+
+- **IMPROVEMENT**: JIRA integration search queries are now scoped within the
+  appropriate project, reducing overhead when searching the server for
+  existing issues.
+
+- **IMPROVEMENT**: OpsGenie integration now supports new v2 Alert API
+  features like `visible_to` and `action` attributes. See the updated
+  [OpsGenie integration documentation][opsgenie-integration-doc] for
+  details.
+
+- **BUGFIX**: EC2 integration now works in regions which accept only
+  AWS Signature V4.
+
+- **BUGFIX**: Enterprise integrations now gracefully handle the
+  failure of individual contact notifications.
+
 ## Enterprise 2.8.3 Release Notes {#enterprise-v2-8-3}
 
-**March 7, 2017** &mdash; Sensu Enterprise version 2.8.3 has been
+**March 7, 2018** &mdash; Sensu Enterprise version 2.8.3 has been
 	released and is available for immediate download. Please note the
 	following improvements:
 
@@ -57,7 +101,7 @@ OpsGenie alert aliases so alerts are deduplicated per contact.
 
 ## Enterprise 2.8.2 Release Notes {#enterprise-v2-8-2}
 
-**February 9, 2017** &mdash; Sensu Enterprise version 2.8.2 has been
+**February 9, 2018** &mdash; Sensu Enterprise version 2.8.2 has been
 	released and is available for immediate download. Please note the
 	following improvements:
 
@@ -67,7 +111,7 @@ OpsGenie alert aliases so alerts are deduplicated per contact.
 
 ## Enterprise 2.8.1 Release Notes {#enterprise-v2-8-1}
 
-**January 24, 2017** &mdash; Sensu Enterprise version 2.8.1 has been
+**January 24, 2018** &mdash; Sensu Enterprise version 2.8.1 has been
 	released and is available for immediate download. Please note the
 	following improvements:
 
@@ -521,6 +565,10 @@ This release includes potentially breaking, backwards-incompatible changes:
 
 <!-- 2.8 -->
 [core-v1-2-0]:  /sensu-core/1.2/changelog/#core-v1-2-0
+
+<!-- 3.0 -->
+[core-v1-4-3]: /sensu-core/1.2/changelog/#core-v1-4-3
+[opsgenie-integration-doc]: /sensu-enterprise/3.0/integrations/opsgenie
 
 <!-- core -->
 [core-v0-26-0-important] /sensu-core/1.2/changelog/#core-v0-26-0-important
