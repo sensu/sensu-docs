@@ -20,7 +20,7 @@ from a Sensu Enterprise version prior to 3.0.
 ### Changes in OpsGenie integration
 
 OpsGenie has deprecated and will shut down their v1 API on
-June 30th, 2018.
+June 30, 2018.
 
 _NOTE: To continue using the Sensu Enterprise OpsGenie integration, you must
 upgrade to Sensu Enterprise 3.0 before June 30, 2018._
@@ -32,8 +32,8 @@ Enterprise's OpsGenie configuration specification.
 #### Configure OpsGenie for `responders`
 
 _NOTE: To continue routing events to specific OpsGenie teams and other
-entities you must upgrade your Sensu Enterprise configuration when
-upgrading Sensu Enterprise 3.0 or later_
+entities you must upgrade your Sensu Enterprise OpsGenie configuration when
+upgrading to Sensu Enterprise 3.0 or later_
 
 The OpsGenie v2 Alert API replaces the `teams` and `recipients` attributes with
 a new `responders` attribute. As a result you must upgrade your Sensu
@@ -90,7 +90,7 @@ With the release of Sensu Enterprise 3.0 the `sensu-enterprise` package
 dependency on the Java Virtual Machine will change from OpenJDK 1.7 to
 OpenJDK 1.8. This dependency will typically be satisfied
 automatically by your distribution's package management system,
-e.g. `yum` or `apt`.
+such as `yum` or `apt`.
 
 _NOTE: Users running Sensu Enterprise on RHEL/Centos 6 or similar
 distributions will need to install the [Extra Packages for
@@ -103,7 +103,7 @@ policies which may require packages like OpenJDK 1.7 to be removed
 once their end-of-support date is reached.
 
 Until recently [Redhat’s OpenJDK Life
-Cycle and Support Policy][rhel-openjdk-policy] reflected June 2018 as
+Cycle and Support Policy][rhel-openjdk-policy] listed June 2018 as
 the end-of-support date for OpenJDK 1.7. That date has since changed
 to June 2020.
 
