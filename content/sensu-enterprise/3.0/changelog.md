@@ -60,8 +60,8 @@ changes:
   upgrade to Sensu Enterprise 3.0 and update your Sensu Enterprise
   configuration for OpsGenie before June 30, 2018.**
 
-- Sensu Enterprise now depends on OpenJDK 1.8. On some platforms
-  Upgrading from OpenJDK 1.7 may require access to EPEL to provide
+- Sensu Enterprise now depends on OpenJDK 1.8. On some platforms,
+  upgrading from OpenJDK 1.7 may require access to EPEL to provide
   this version.
 
 See the [Sensu Enterprise 3.0 upgrading documentation][3-0-upgrade] for additional
