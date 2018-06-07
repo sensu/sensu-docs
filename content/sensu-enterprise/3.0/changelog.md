@@ -80,6 +80,12 @@ details on these important changes.
   [OpsGenie integration documentation][opsgenie-integration-doc] for
   details.
 
+- **BUGFIX**: OpsGenie integration now uses `overwrite_quiet_hours` attribute
+  instead of `overwrites_quiet_hours` attribute. The singular form of this attribute
+  is required to achieve the desired result of overriding alert filtering that would
+  otherwise prevent OpsGenie from notifying recipient(s) during their configured quiet
+  hours.
+
 - **BUGFIX**: EC2 integration now works in regions which accept only
   AWS Signature V4.
 
