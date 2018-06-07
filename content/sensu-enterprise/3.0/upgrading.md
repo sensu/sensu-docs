@@ -84,6 +84,24 @@ given type of a responder, the identifying attribute (e.g. `name`) may
 vary. Please see [OpsGenie's Alert API Migration
 Guide][opsgenie-api-migration] for more details.
 
+#### Update `overwrites_quiet_hours`
+
+Sensu Enterprise 3.0 updates the name of the `overwrites_quiet_hours` attribute
+to `overwrite_quiet_hours`. The singular form of this attribute is required to
+achieve the desired result of overriding alert filtering that would otherwise
+prevent OpsGenie from notifying recipient(s) during their configured quiet hours.
+
+Example OpsGenie configuration for Sensu Enterprise 3.0:
+
+{{< highlight json >}}
+{
+  "opsgenie": {
+    "api_key": "eed02a0d-85a4-427b-851a-18dd8fd80d93",
+    "overwrite_quiet_hours": true
+  }
+}
+{{</ highlight >}}
+
 ### Changes in Java package dependency
 
 With the release of Sensu Enterprise 3.0 the `sensu-enterprise` package
