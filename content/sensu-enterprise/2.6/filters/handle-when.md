@@ -65,7 +65,9 @@ to a standard Sensu `pipe` handler.
     "custom_mailer": {
       "type": "pipe",
       "command": "custom_mailer.rb",
-      "filter": "handle_when"
+      "filters": [
+        "handle_when"
+      ]
     }
   }
 }
