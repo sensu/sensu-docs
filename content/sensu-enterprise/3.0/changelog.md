@@ -64,7 +64,7 @@ changes:
   Upgrading from OpenJDK 1.7 may require access to EPEL to provide
   this version.
 
-See the Sensu Enterprise 3.0 upgrading documentation for additional
+See the [Sensu Enterprise 3.0 upgrading documentation][3-0-upgrade] for additional
 details on these important changes.
 
 ### CHANGES {#enterprise-v3-0-0-changes}
@@ -570,6 +570,7 @@ This release includes potentially breaking, backwards-incompatible changes:
 <!-- 3.0 -->
 [core-v1-4-2]: /sensu-core/1.4/changelog/#core-v1-4-2
 [opsgenie-integration-doc]: /sensu-enterprise/3.0/integrations/opsgenie
+[3-0-upgrade]: /sensu-enterprise/3.0/upgrading
 
 <!-- core -->
 [core-v0-26-0-important] /sensu-core/1.2/changelog/#core-v0-26-0-important
