@@ -92,6 +92,13 @@ details on these important changes.
 - **BUGFIX**: Enterprise integrations now gracefully handle the
   failure of individual contact notifications.
 
+- **NEW**: Sensu Enterprise now supports running in API-only mode,
+  making it possible to deploy Sensu Enterprise API instances
+  which will not process events from transport queues. See [Sensu
+  Enterprise
+  configuration](/sensu-enterprise/3.0/configuration/#sensu-enterprise-environment-variables)
+  for details.
+
 ## Enterprise 2.8.3 Release Notes {#enterprise-v2-8-3}
 
 **March 7, 2018** &mdash; Sensu Enterprise version 2.8.3 has been
