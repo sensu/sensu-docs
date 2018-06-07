@@ -743,7 +743,7 @@ The following attributes are defined within the `"sensu": {}` definition scope.
 
 spawn          | 
 ---------------|------
-description    | Number processes Sensu will execute simultaneously. This setting affects execution of both checks and pipe handlers.
+description    | Number of processes Sensu will execute simultaneously. This setting affects execution of both checks and pipe handlers.
 required       | false
 type           | Integer
 default        | 12
