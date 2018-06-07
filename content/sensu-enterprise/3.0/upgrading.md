@@ -28,18 +28,15 @@ from a Sensu Enterprise version prior to 3.0.
 OpsGenie has deprecated and will shut down their v1 API on
 June 30, 2018.
 
-_NOTE: To continue using the Sensu Enterprise OpsGenie integration, you must
-upgrade to Sensu Enterprise 3.0 before June 30, 2018._
+_WARNING: To continue using the Sensu Enterprise OpsGenie integration, you must
+upgrade to Sensu Enterprise 3.0 and update your Sensu Enterprise
+OpsGenie configuration before June 30, 2018._
 
 Sensu Enterprise 3.0 updates the OpsGenie integration to use
 OpsGenie's new v2 Alert, necessitating a breaking change to Sensu
 Enterprise's OpsGenie configuration specification.
 
-#### Configure OpsGenie for `responders`
-
-_NOTE: To continue routing events to specific OpsGenie teams and other
-entities you must upgrade your Sensu Enterprise OpsGenie configuration when
-upgrading to Sensu Enterprise 3.0 or later_
+#### Update OpsGenie configuration for `responders`
 
 The OpsGenie v2 Alert API replaces the `teams` and `recipients` attributes with
 a new `responders` attribute. As a result you must upgrade your Sensu
@@ -90,7 +87,7 @@ given type of a responder, the identifying attribute (e.g. `name`) may
 vary. Please see [OpsGenie's Alert API Migration
 Guide][opsgenie-api-migration] for more details.
 
-#### Update `overwrites_quiet_hours`
+#### Update OpsGenie configuration for `overwrites_quiet_hours`
 
 Sensu Enterprise 3.0 updates the name of the `overwrites_quiet_hours` attribute
 to `overwrite_quiet_hours`. The singular form of this attribute is required to
