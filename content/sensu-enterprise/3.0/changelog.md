@@ -3,6 +3,7 @@ title: "CHANGELOG"
 description: "Release notes for Sensu Enterprise"
 product: "Sensu Enterprise"
 version: "3.0"
+weight: 1
 menu: "sensu-enterprise-3.0"
 ---
 
