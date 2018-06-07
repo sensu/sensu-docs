@@ -80,8 +80,8 @@ details on these important changes.
   [OpsGenie integration documentation][opsgenie-integration-doc] for
   details.
 
-- **BUGFIX**: OpsGenie integration now uses `overwrite_quiet_hours` attribute
-  instead of `overwrites_quiet_hours` attribute. The singular form of this attribute
+- **BUGFIX**: OpsGenie integration now uses an `overwrite_quiet_hours` attribute
+  instead of `overwrites_quiet_hours`. The singular form of this attribute
   is required to achieve the desired result of overriding alert filtering that would
   otherwise prevent OpsGenie from notifying recipient(s) during their configured quiet
   hours.
