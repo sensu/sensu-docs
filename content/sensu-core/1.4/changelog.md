@@ -8,6 +8,7 @@ menu: "sensu-core-1.4"
 
 ## Releases
 
+- [Core 1.4.2 Release Notes](#core-v1-4-2)
 - [Core 1.4.1 Release Notes](#core-v1-4-1)
 - [Core 1.4.0 Release Notes](#core-v1-4-0)
 - [Core 1.3.0 Release Notes](#core-v1-3-0)
@@ -49,6 +50,20 @@ menu: "sensu-core-1.4"
 - [Core 0.23.2 Release Notes](#core-v0-23-2)
 - [Core 0.23.1 Release Notes](#core-v0-23-1)
 - [Core 0.23.0 Release Notes](#core-v0-23-0)
+
+## Core 1.4.2 Release Notes {#core-v1-4-2}
+
+Source: [GitHub.com][60]
+
+**May 10, 2018** &mdash; Sensu Core version 1.4.2 has been
+	released and is available for immediate download. Please note
+	the following improvements:
+
+### CHANGES {#core-v1-4-2-changes}
+
+- **BUGFIX**: Fixed API GET /results, results were incorrectly reported
+    under a single client name.
+
 
 ## Core 1.4.1 Release Notes {#core-v1-4-1}
 
@@ -1577,6 +1592,7 @@ available for immediate download. Please note the following improvements:
 <!-- 1.4 -->
 [58]: https://github.com/sensu/sensu/blob/master/CHANGELOG.md#140---2018-05-02
 [59]: https://github.com/sensu/sensu/blob/master/CHANGELOG.md#141---2018-05-04
+[60]: https://github.com/sensu/sensu/blob/master/CHANGELOG.md#142---2018-05-10
 
 <!-- GH Issues/PR's -->
 

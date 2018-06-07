@@ -50,7 +50,7 @@ executables are installed via `sensu-install`.
 A standalone check is a check definition that is installed on and executed by
 the Sensu client without being scheduled by the Sensu server. Standalone checks
 defer [Check execution scheduling
-responsibilities](/overview/architecture#check-execution-scheduler/) to
+responsibilities](../overview/architecture#check-execution-scheduler/) to
 Sensu clients, enabling decentralized management of monitoring checks and
 distribution of scheduling responsibilities. Standalone checks may be used in
 conjunction with pubsub checks, and are distinguished from pubsub checks by
@@ -112,7 +112,7 @@ be facilitated with [NTP](http://www.ntp.org/).
 
 > Is Sensu Enterprise available as a hosted / SaaS solution?
 
-**No.** Like Sensu Core, [Sensu Enterprise](../../sensu-enterprise/index/) is
+**No.** Like Sensu Core, [Sensu Enterprise](../../../sensu-enterprise/latest) is
 installed on your organization's infrastructure alongside other applications and
 services. Sensu Enterprise packages are available for major Linux distributions
 including RHEL, CentOS, Debian and Ubuntu.
