@@ -22,8 +22,6 @@ _NOTE: If your machines do not have direct access to the internet and
 cannot reach the Sensu software repositories, you must mirror the
 repositories and keep them up-to-date._
 
-### Sensu Enterprise
-
 #### Ubuntu/Debian
 
 {{< highlight shell >}}

@@ -17,7 +17,7 @@ upgrading.
 The following documentation provides steps necessary when upgrading
 from a Sensu Enterprise version prior to 3.0.
 
-### Update OpsGenie integration configuration
+### Changes in OpsGenie integration
 
 OpsGenie has deprecated and will shut down their v1 API on
 June 30th, 2018.
@@ -29,7 +29,7 @@ Sensu Enterprise 3.0 updates the OpsGenie integration to use
 OpsGenie's new v2 Alert, necessitating a breaking change to Sensu
 Enterprise's OpsGenie configuration specification.
 
-#### Configuring OpsGenie for `responders`
+#### Configure OpsGenie for `responders`
 
 _NOTE: To continue routing events to specific OpsGenie teams and other
 entities you must upgrade your Sensu Enterprise configuration when
@@ -116,8 +116,6 @@ Sensu and/or Sensu Enterprise by using the steps detailed in the
 _NOTE: If your machines do not have direct access to the internet and
 cannot reach the Sensu software repositories, you must mirror the
 repositories and keep them up-to-date._
-
-### Sensu Enterprise
 
 #### Ubuntu/Debian
 
