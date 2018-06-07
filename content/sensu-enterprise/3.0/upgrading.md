@@ -6,11 +6,10 @@ version: "3.0"
 menu: "sensu-enterprise-3.0"
 ---
 
-Upgrading Sensu Enterprise is usually a straightforward process. In most cases,
-upgrading Sensu Enterprise only requires upgrading to the
-latest package. Certain versions of Sensu Enterprise may include changes that
-are *not backwards compatible* and require additional steps be taken when
-upgrading.
+In most cases, you can upgrade Sensu Enterprise by installing the
+latest package. Certain versions of Sensu Enterprise may include
+changes that are *not backwards compatible* and require additional
+steps be taken when upgrading.
 
 - [Upgrading from Sensu Enterprise < 3.0](#upgrading-from-sensu-enterprise-3-0)
 	- [Changes in OpsGenie integration](#changes-in-opsgenie-integration)
@@ -124,19 +123,13 @@ Enterprise Linux (EPEL) repository][epel] to provide OpenJDK version
 
 The aim of this change is to help our customers stay up-to-date with
 their chosen Linux distributions and remain in compliance with security
-policies which may require packages like OpenJDK 1.7 to be removed
-once their end-of-support date is reached.
-
-Until recently [Redhat’s OpenJDK Life
-Cycle and Support Policy][rhel-openjdk-policy] listed June 2018 as
-the end-of-support date for OpenJDK 1.7. That date has since changed
-to June 2020.
+policies.
 
 ## Upgrading the Sensu Enterprise package
 
 The following instructions assume that you have already installed
-Sensu and/or Sensu Enterprise by using the steps detailed in the
-[Sensu Installation Guide][overview].
+Sensu Enterprise by using the steps detailed in the [Sensu
+Installation Guide][overview].
 
 _NOTE: If your machines do not have direct access to the internet and
 cannot reach the Sensu software repositories, you must mirror the
@@ -156,4 +149,3 @@ sudo yum install sensu-enterprise{{< /highlight >}}
 [overview]: /sensu-core/installation/overview
 [opsgenie-api-migration]: https://docs.opsgenie.com/docs/migration-guide-for-alert-rest-api
 [epel]: https://www.fedoraproject.org/wiki/EPEL
-[rhel-openjdk-policy]: https://access.redhat.com/articles/1299013
