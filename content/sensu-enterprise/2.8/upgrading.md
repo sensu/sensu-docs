@@ -8,7 +8,7 @@ menu: "sensu-enterprise-2.8"
 
 Upgrading Sensu Enterprise is usually a straightforward process. In most cases,
 upgrading Sensu Enterprise only requires upgrading to the
-latest package. Certain versions of Sensu Enterprise emay include changes that
+latest package. Certain versions of Sensu Enterprise may include changes that
 are *not backwards compatible* and require additional steps be taken when
 upgrading.
 

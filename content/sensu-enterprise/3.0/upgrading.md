@@ -8,7 +8,7 @@ menu: "sensu-enterprise-3.0"
 
 Upgrading Sensu Enterprise is usually a straightforward process. In most cases,
 upgrading Sensu Enterprise only requires upgrading to the
-latest package. Certain versions of Sensu Enterprise emay include changes that
+latest package. Certain versions of Sensu Enterprise may include changes that
 are *not backwards compatible* and require additional steps be taken when
 upgrading.
 
@@ -87,8 +87,8 @@ Guide][opsgenie-api-migration] for more details.
 ### Changes in Java package dependency
 
 With the release of Sensu Enterprise 3.0 the `sensu-enterprise` package
-dependency the Java Virtual Machinee will change from OpenJDK 1.7 to
-OpenJDK 1.8. This dependency will typically be satified
+dependency on the Java Virtual Machine will change from OpenJDK 1.7 to
+OpenJDK 1.8. This dependency will typically be satisfied
 automatically by your distribution's package management system,
 e.g. `yum` or `apt`.
 
