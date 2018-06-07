@@ -106,8 +106,8 @@ change it immediately. To do so, you'll first want to authenticate using the
 
 Once authenticated, you can use the `change-password` command.
 
-> sensuctl user change-password
 {{< highlight shell >}}
+$ sensuctl user change-password --interactive
 ? Current Password:  *********
 ? Password:          *********
 ? Confirm:           *********
@@ -127,9 +127,8 @@ sensuctl config set-environment prod
 All Sensu sub-commands have a `--help` flag that returns more information on
 using the command and if applicable any sub-commands _it_ has.
 
-sensuctl:
-> $ sensuctl --help
 {{< highlight shell >}}
+$ sensuctl --help
 sensuctl controls Sensu instances
 
 Usage:	sensuctl COMMAND
@@ -137,9 +136,9 @@ Usage:	sensuctl COMMAND
 Flags:
       --api-url string        host URL of Sensu installation
       --cache-dir string      path to directory containing cache & temporary files (default
-                              "/Users/mercedes/Library/Caches/sensu/sensuctl")
+                              "/Users/username/Library/Caches/sensu/sensuctl")
       --config-dir string     path to directory containing configuration files (default
-                              "/Users/mercedes/.config/sensu/sensuctl")
+                              "/Users/username/.config/sensu/sensuctl")
       --environment string    environment in which we perform actions (default "default")
   -h, --help                  help for sensuctl
       --organization string   organization in which we perform actions (default "default")
@@ -192,6 +191,61 @@ sensuctl provides `import` commands for creating & updating resources via STDIN.
 OK
 {{< /highlight >}}
 
+## Create
+
+Similar to the `import` command, `sensuctl create` allows you to create and/or
+update resources by reading from STDIN or a flag configured file (`-f`). The
+accepted format of the `create` command is `wrapped-json`, which wraps the
+contents of the resource in `spec` and identifies its 2.x `type` (see below for
+an example, and [this table][2] for a list of supported types).
+
+{{< highlight json >}}
+{
+  "type": "CheckConfig",
+  "spec": {
+    "name": "marketing-site",
+    "command": "check-http.rb -u https://dean-learner.book",
+    "subscriptions": ["demo"],
+    "interval": 15,
+    "handlers": ["slack"],
+    "organization": "default",
+    "environment": "default"
+  }
+}
+{
+  "type": "Handler",
+  "spec": {
+    "name": "slack",
+    "type": "pipe",
+    "command": "handler-slack --webhook-url https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX --channel monitoring'",
+    "environment": "default",
+    "organization": "default"
+  }
+}
+{{< /highlight >}}
+
+Write all checks to `my-resources.json` in `wrapped-json` format:
+{{< highlight shell >}}
+sensuctl check list --format wrapped-json > my-resources.json
+{{< /highlight >}}
+
+Create all resources in `wrapped-json` format from `my-resources.json`:
+{{< highlight shell >}}
+cat my-resources.json | sensuctl create
+{{< /highlight >}}
+
+### Supported types
+
+|wrapped-json types |   |   |   |
+--------------------|---|---|---|
+`AdhocRequest` | `adhoc_request` | `Asset` | `asset`
+`Check` | `check` | `CheckConfig` | `check_config`
+`Entity` | `entity` | `Environment` | `environment`
+`Event` | `event` | `EventFilter` | `event_filter`
+`Extension` | `extension` | `Handler` | `handler`
+`Hook` | `hook` | `HookConfig` | `hook_config`
+`Mutator` | `mutator` | `Organization` | `organization`
+`Role` | `role` | `Silenced` | `silenced`
 
 ## Shell Auto-Completion
 
@@ -254,6 +308,7 @@ sensuctl:
 create  delete  import  list
 {{< /highlight >}}
 
-For more details on `sensuctl` commands, check out the [reference guide][1]. 
+For more details on `sensuctl` commands, check out the [reference guide][1].
 
 [1]: ../../reference/sensuctl
+[2]: #supported-types

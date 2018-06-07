@@ -185,6 +185,9 @@ events.
 Handler set definitions allow groups of handlers (i.e. individual collections of
 actions to take on event data) to be referenced via a single named handler set.
 
+_WARNING: `filter` attribute will be depreciated in future releases. Please use 
+`filters` instead.
+
 _NOTE: Attributes defined on handler sets do not apply to the handlers they
 include. For example, `filter`, `filters`, and `mutator` attributes defined 
 in a handler set will have no effect._
@@ -259,14 +262,14 @@ filter       |
 description  | The Sensu event filter (name) to use when filtering events for the handler.
 required     | false
 type         | String
-example      | {{< highlight shell >}}"filter": "recurrence"{{< /highlight >}}
+example      | {{< highlight shell >}}"filter": "occurrences"{{< /highlight >}}
 
 filters      | 
 -------------|------
 description  | An array of Sensu event filters (names) to use when filtering events for the handler. Each array item must be a string.
 required     | false
 type         | Array
-example      | {{< highlight shell >}}"filters": ["recurrence", "production"]{{< /highlight >}}
+example      | {{< highlight shell >}}"filters": ["occurrences", "production"]{{< /highlight >}}
 
 severities     | 
 ---------------|------

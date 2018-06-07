@@ -219,6 +219,8 @@ of time will improve alerting accuracy.
 
 Because metric analysis checks require interaction with an external metric store, providing a functional example is outside of the scope of this guide. However, assuming the existence of a Graphite installation that is populated with metric data, the following example checks could be used.
 
+_NOTE: If you've not configured a Graphite instance for these example checks but would like to, you can head over to [Graphite's quick start guides][sl1] and get a Graphite Vagrant box spun up fairly quickly, and continue with the examples below._
+
 The following check uses the `check-graphite-data.rb` script, provided by the
 [Sensu Graphite Plugin][12], to query the Graphite API at `localhost:9001`. The
 check queries Graphite for a calculated moving average (using the last 10 data
@@ -286,14 +288,17 @@ Checks are scheduled normally, but by specifying a [**Proxy Request**][13] in yo
 [1]:  ../../reference/checks
 [2]:  https://github.com/sensu-plugins/sensu-plugins-process-checks
 [3]:  #check-cron-install-dependencies
-[4]:  http://graphite.readthedocs.org/en/latest/feeding-carbon#the-plaintext-protocol/
+[4]:  http://graphite.readthedocs.io/en/latest/feeding-carbon.html#the-plaintext-protocol
 [5]:  http://nagios.sourceforge.net/docs/3_0/perfdata.html
 [6]:  http://opentsdb.net/docs/build/html/user_guide/writing.html
 [7]:  http://metrics20.org/spec/
 [8]:  https://github.com/sensu-plugins/sensu-plugins-cpu-checks
 [9]:  #cpu-metrics-install-dependencies
-[10]: ../../reference/events#what-are-sensu-events/
+[10]: ../../reference/events#what-are-sensu-events
 [11]: #metric-collection-checks
 [12]: https://github.com/sensu-plugins/sensu-plugins-graphite
-[13]: ../../reference/checks#proxy-requests-attributes/
-[14]: ..adding-a-client#proxy-clients/
+[13]: ../../reference/checks#proxy-requests-attributes
+[14]: ../adding-a-client#proxy-clients
+
+<!--Supplemental links-->
+[sl1]: http://graphiteapp.org/quick-start-guides/

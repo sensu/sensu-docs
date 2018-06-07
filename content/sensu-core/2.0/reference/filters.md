@@ -20,7 +20,7 @@ filter analysis flow performs these steps:
 
 * When the Sensu server is processing an event, it will check for the definition
 of a `handler` (or `handlers`). Prior to executing each handler, the Sensu
-server will first apply any configured `filter` (or `filters`) for the handler.
+server will first apply any configured `filters` for the handler.
 * If multiple `filters` are configured for a handler, they are executed
 sequentially.
 * Filter `statements` are compared with event data.
@@ -99,6 +99,23 @@ example      | {{< highlight shell >}}"statements": [
 ]
 {{< /highlight >}}
 
+when         | 
+-------------|------
+description  | The [when definition scope][2], used to determine when a filter is applied with time windows. See the [sensuctl documentation][3] for the supported time formats.
+required     | false
+type         | Hash
+example      | {{< highlight shell >}}"when": {
+  "days": {
+    "all": [
+      {
+        "begin": "17:00 UTC",
+        "end": "08:00 UTC"
+      }
+    ]
+  }
+}
+{{< /highlight >}}
+
 organization | 
 -------------|------ 
 description  | The Sensu RBAC organization that this filter belongs to.
@@ -118,6 +135,29 @@ default      | current environment value configured for `sensuctl` (ie `default`
 example      | {{< highlight shell >}}
   "environment": "default"
 {{</ highlight >}}
+
+### `when` attributes
+
+days         | 
+-------------|------
+description  | A hash of days of the week (i.e., `monday`) and/or `all`. Each day specified can define one or more time windows, in which the filter is applied. See the [sensuctl documentation][3] for the supported time formats.
+required     | false (unless `when` is configured)
+type         | Hash
+example      | {{< highlight shell >}}"days": {
+  "all": [
+    {
+      "begin": "17:00 UTC",
+      "end": "08:00 UTC"
+    }
+  ],
+  "friday": [
+    {
+      "begin": "12:00 UTC",
+      "end": "17:00 UTC"
+    }
+  ]
+}
+{{< /highlight >}}
 
 ## Filter Examples
 
@@ -208,9 +248,10 @@ checks with a 30 second `interval`.
 ### Handling events during “office hours” only
 
 This filter evaluates the event timestamp to determine if the event occurred
-between 9 AM and 5 PM UTC on a weekday. Remember that `action` equals to
+between 9 AM and 5 PM UTC on a weekday. Remember that `action` is equal to
 `allow`, so this is an inclusive filter. If evaluation returns false, the event
-will not be handled.
+will not be handled. The [`when` attribute][2] could also be used to achieve the
+same result.
 
 {{< highlight json >}}
 {
@@ -228,4 +269,6 @@ Sensu handles dates and times in UTC (Coordinated Universal Time), therefore
 when comparing the weekday or the hour, you should provide values in UTC.
 {{< /note >}}
 
-[1]:  #inclusive-and-exclusive-filtering
+[1]: #inclusive-and-exclusive-filtering
+[2]: #when-attributes
+[3]: ../../reference/sensuctl/#time-windows

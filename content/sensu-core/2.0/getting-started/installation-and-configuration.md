@@ -6,6 +6,7 @@ weight: 1
 version: "2.0"
 product: "Sensu Core"
 platformContent: true
+platforms: ["Ubuntu/Debian", "RHEL/CentOS", "Windows"]
 menu:
   sensu-core-2.0:
     parent: getting-started
@@ -26,13 +27,13 @@ The Sensu Agent (sensu-agent) is a single statically linked binary that can be d
 {{< platformBlock "Ubuntu/Debian" >}}
 ### Ubuntu/Debian
 
-Add the Sensu nightly repository.
+Add the Sensu beta repository.
 
 {{< highlight shell >}}
-curl -s https://packagecloud.io/install/repositories/sensu/nightly/script.deb.sh | sudo bash
+curl -s https://packagecloud.io/install/repositories/sensu/beta/script.deb.sh | sudo bash
 {{< /highlight >}}
 
-Install the packages from the Sensu nightly repository.
+Install the packages from the Sensu beta repository.
 
 {{< highlight shell >}}
 sudo apt-get install sensu-backend sensu-agent
@@ -43,10 +44,10 @@ sudo apt-get install sensu-backend sensu-agent
 {{< platformBlock "RHEL/CentOS" >}}
 ### RHEL/CentOS
 
-Add the Sensu nightly repository.
+Add the Sensu beta repository.
 
 {{< highlight shell >}}
-curl -s https://packagecloud.io/install/repositories/sensu/nightly/script.rpm.sh | sudo bash
+curl -s https://packagecloud.io/install/repositories/sensu/beta/script.rpm.sh | sudo bash
 {{< /highlight >}}
 
 Install the Sensu backend and agent packages.
@@ -88,8 +89,8 @@ Copy the example agent config file to the default config path.
 sudo cp /etc/sensu/agent.yml.example /etc/sensu/agent.yml
 {{< /highlight >}}
 
-In order for the agent to function it will need to have a list of one or more backends to point to. This can be set
-by setting `backend-url`.
+In order for the agent to function, it will need to have a list of one or more backends to point to. This can be set
+by setting `backend-url` to the ip and port of a sensu backend..
 
 {{< highlight yaml >}}
 backend-url:
@@ -185,10 +186,12 @@ docker run -v /var/lib/sensu:/var/lib/sensu -d --name sensu-backend -p 2380:2380
 In this case, we're starting an agent whose ID is the hostname with the webserver and system subscriptions. This assumes that sensu-backend is running on another host named sensu.yourdomain.com. If you are running these locally on the same system, be sure to add `--link sensu-backend` to your Docker arguments and change the backend URL `--backend-url ws://sensu-backend:8081`.
 
 {{< highlight shell >}}
-docker run -v /var/lib/sensu:/var/lib/sensu -d --name sensu-agent \ 
+docker run -v /var/lib/sensu:/var/lib/sensu -d --name sensu-agent \
 sensuapp/sensu-go:2.0.0-alpha sensu-agent start --backend-url ws://sensu.yourdomain.com:8081 \
 --subscriptions webserver,system --cache-dir /var/lib/sensu
 {{< /highlight >}}
+
+**Note** You can configure the sensu-backend and sensu-agent log levels by using the `--log-level` flag on either process. Log levels include `panic`, `fatal`, `error`, `warn`, `info`, and `debug`, defaulting to `warn`.
 
 A note about sensuctl and Docker:
 

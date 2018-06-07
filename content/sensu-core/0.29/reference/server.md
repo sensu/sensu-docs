@@ -87,7 +87,7 @@ system.
 
 The event processing workflow happens in the following order:
 
-> **Event** -> **Filter** -> **Mutator** -> **Handler**
+> **Event** -> **Filters** -> **Mutator** -> **Handler**
 
 _NOTE: events that are filtered out (i.e. removed) by Sensu [event
 filters](../filters) will not continue to be mutated by [event data

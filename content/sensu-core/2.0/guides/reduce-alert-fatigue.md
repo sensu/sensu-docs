@@ -27,7 +27,7 @@ environments.
 The purpose of this guide is to help you reduce alert fatigue by configuring a
 filter named `hourly`, for a handler named `mail`, in order to prevent alerts
 from being sent by email every minute. If you don't already have a handler in
-place, learn [how to send alerts with handlers](#).
+place, learn [how to send alerts with handlers][3].
 
 ### Creating the filter
 
@@ -35,6 +35,10 @@ The first step is to create a filter that we will call `hourly`, which matches
 new events (where the event's `occurrences` is equal to `1`) or hourly events
 (so every hour after the first occurrence, calculated with the check's
 `interval` and the event's `occurrences`).
+
+Note that unlike in Sensu 1.x, events in Sensu 2.x are handled regardless of
+check execution status; even successful check events are passed through the
+pipeline. Therefore, it's necessary to add a clause for non-zero status.
 
 {{< highlight shell >}}
 sensuctl filter create hourly \
@@ -46,11 +50,15 @@ sensuctl filter create hourly \
 
 Now that the `hourly` filter has been created, it can be assigned to a handler.
 Here, since we want to reduce the number of emails sent by Sensu, we will apply
-our filter to an already existing handler named `mail`.
+our filter to an already existing handler named `mail`, in addition to the
+built-in `is_incident` filter so only failing events will handled.
 
 {{< highlight shell >}}
-sensuctl handler set-filters mail hourly
+sensuctl handler update mail
 {{< /highlight >}}
+
+Follow the prompts to add the `hourly` & `is_incident` filters to the mail
+handler.
 
 ### Validating the filter
 
@@ -74,3 +82,4 @@ fatigue. From this point, here are some recommended resources:
 
 [1]:  ../../reference/filters
 [2]: ../../getting-started/installation-and-configuration/#validating-the-services
+[3]: ../send-slack-alerts

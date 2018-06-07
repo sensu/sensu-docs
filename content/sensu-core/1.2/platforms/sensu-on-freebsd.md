@@ -1,5 +1,5 @@
 ---
-title: "BSD"
+title: "FreeBSD"
 description: "User documentation for installing and operating Sensu on FreeBSD systems."
 weight: 1
 version: "1.2"
@@ -132,10 +132,10 @@ Coming soon...
 [2]:  https://sensu.global.ssl.fastly.net/freebsd/
 [3]:  https://sensu.global.ssl.fastly.net/freebsd/FreeBSD:10:amd64/sensu/sensu-1.2.0_1.txz
 [4]:  https://sensuapp.org/mit-license
-[5]:  ../../../reference/configuration/
-[6]:  ../../../reference/transport/
-[7]:  ../../../reference/redis/#sensu-redis-configuration
-[8]:  ../../../reference/rabbitmq/#sensu-rabbitmq-configuration
+[5]:  ../../reference/configuration/
+[6]:  ../../reference/transport/
+[7]:  ../../reference/redis/#sensu-redis-configuration
+[8]:  ../../reference/rabbitmq/#sensu-rabbitmq-configuration
 [9]:  #configure-sensu
 [10]: #example-transport-configuration
 [11]: #example-client-configuration

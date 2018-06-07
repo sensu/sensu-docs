@@ -1,6 +1,7 @@
 ---
 title: "Install RabbitMQ"
 description: "The complete Sensu installation guide."
+product: "Sensu Core"
 version: "1.0"
 weight: 7
 previous: ../install-redis
@@ -9,7 +10,7 @@ menu:
     parent: installation
 ---
 
-[RabbitMQ][1] is a message bus that [describes itself][rabbitmq-features] as _"a
+[RabbitMQ][1] is a message bus that [describes itself][2] as _"a
 messaging broker - an intermediary for messaging. It gives your applications a
 common platform to send and receive messages, and your messages a safe place to
 live until received"_. RabbitMQ is also the default [Sensu Transport][3]. When
@@ -30,6 +31,6 @@ Ubuntu/Debian and RHEL/CentOS operating systems, only._
 
 [1]:  http://www.rabbitmq.com/
 [2]:  http://www.rabbitmq.com/features.html
-[3]:  ../../reference/transport.html
+[3]:  ../../reference/transport
 [4]:  https://sensuapp.org/support
 [5]:  ../installation-prerequisites/#selecting-a-transport

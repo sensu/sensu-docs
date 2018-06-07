@@ -1,6 +1,7 @@
 ---
 title: "Intro to Filters"
 version: "1.0"
+product: "Sensu Core"
 weight: 4
 next: ../intro-to-mutators
 previous: ../intro-to-checks
@@ -88,7 +89,9 @@ in the handler definition. For example:
     "mail": {
       "type": "pipe",
       "command": "mailx -s 'sensu event' example@address.com",
-      "filter": "production"
+      "filters": [
+        "production"
+      ]
     }
   }
 }{{< /highlight >}}
@@ -96,6 +99,9 @@ in the handler definition. For example:
 ## Using multiple filters
 
 To specify multiple Sensu event filters, use the `filters` attribute (plural).
+
+_WARNING: `filter` attribute will be depreciated in future releases. Please use 
+`filters` instead.
 
 _NOTE: if both `filter` and `filters` (plural) handler definition attributes are
 used, `filters` will take precedence._
