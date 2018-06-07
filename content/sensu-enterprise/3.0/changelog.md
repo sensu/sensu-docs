@@ -68,7 +68,7 @@ details on these important changes.
 
 ### CHANGES {#enterprise-v3-0-0-changes}
 
-- **IMPROVEMENT**: Built on [Sensu Core 1.4.3][core-v1-4-3].
+- **IMPROVEMENT**: Built on [Sensu Core 1.4.2][core-v1-4-2].
 
 - **IMPROVEMENT**: JIRA integration search queries are now scoped within the
   appropriate project, reducing overhead when searching the server for
@@ -567,7 +567,7 @@ This release includes potentially breaking, backwards-incompatible changes:
 [core-v1-2-0]:  /sensu-core/1.2/changelog/#core-v1-2-0
 
 <!-- 3.0 -->
-[core-v1-4-3]: /sensu-core/1.2/changelog/#core-v1-4-3
+[core-v1-4-2]: /sensu-core/1.4/changelog/#core-v1-4-2
 [opsgenie-integration-doc]: /sensu-enterprise/3.0/integrations/opsgenie
 
 <!-- core -->
