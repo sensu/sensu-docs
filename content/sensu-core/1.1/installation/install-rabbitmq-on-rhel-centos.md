@@ -80,7 +80,7 @@ users, as the repository is labeled as a "testing" repo, because (according to
 the RabbitMQ website) "[they] release somewhat frequently", and there shouldn't
 be a reason to upgrade RabbitMQ versions frequently._
 
-## Managing the RabbitMQ service/process
+## Managing the RabbitMQ service/process {#managing-the-rabbitmq-serviceprocess}
 
 1. Install the RabbitMQ init scripts using the [`chkconfig` utility][5]:
    {{< highlight shell >}}
