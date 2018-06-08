@@ -46,7 +46,7 @@ _NOTE: Sensu Enterprise is built on Sensu Core. Sensu Core changes are documente
 
 ## Enterprise 3.0.0 Release Notes {#enterprise-v3-0-0}
 
-**June 8, 2018** &mdash; Sensu Enterprise version 3.0.0 has been
+**June 11, 2018** &mdash; Sensu Enterprise version 3.0.0 has been
    released and is available for immediate download. Please note the
    following improvements:
 
@@ -69,7 +69,13 @@ details on these important changes.
 
 ### CHANGES {#enterprise-v3-0-0-changes}
 
+- **IMPROVEMENT**: Built on [JRuby 9.1.17.0](http://jruby.org/2018/04/23/jruby-9-1-17-0.html)
+
 - **IMPROVEMENT**: Built on [Sensu Core 1.4.2][core-v1-4-2].
+
+- **IMPROVEMENT**: Log output from Enterprise integrations now provides
+  additional context for debugging, including event data, event ID and contact 
+  name.
 
 - **IMPROVEMENT**: JIRA integration search queries are now scoped within the
   appropriate project, reducing overhead when searching the server for
@@ -96,7 +102,7 @@ details on these important changes.
   making it possible to deploy Sensu Enterprise API instances
   which will not process events from transport queues. See [Sensu
   Enterprise
-  configuration](/sensu-enterprise/3.0/configuration/#sensu-enterprise-environment-variables)
+  configuration](/sensu-enterprise/3.0/configuration/#sensu-enterprise-command-line-interfaces-and-arguments)
   for details.
 
 ## Enterprise 2.8.3 Release Notes {#enterprise-v2-8-3}
