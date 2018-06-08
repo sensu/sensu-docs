@@ -1,12 +1,13 @@
 ---
 title: "Securing RabbitMQ"
 description: "Strategies and best practices for securing RabbitMQ"
-version: "0.29"
+product: "Sensu Core"
+version: "1.1"
 weight: 9
 previous: ../securing-sensu
 next: ../securing-redis-guide
 menu:
-  sensu-core-0.29:
+  sensu-core-1.1:
     parent: guides
 ---
 
