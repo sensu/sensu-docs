@@ -100,6 +100,9 @@ processes: `sensu-enterprise` (which provides the Sensu server and API from a
 single process), and `sensu-enterprise-dashboard` (which provides the dashboard
 API and web application).
 
+_NOTE: Some versions of RHEL and CentOS may require the
+[EPEL package repository][epel] to provide the required OpenJDK runtime._
+
 _WARNING: Sensu Enterprise is designed to be a drop-in replacement for the Sensu
 Core server and API, **only**. Sensu Enterprise uses the same `sensu-client`
 process provided by the Sensu Core installer packages (above). As a result,
@@ -431,7 +434,7 @@ script must be used, e.g. `sudo /etc/init.d/sensu-client start`_
 
 [1]:  https://sensuapp.org/download
 [2]:  https://sensuapp.org/enterprise
-[3]:  ../../../reference/configuration/
+[3]:  ../../reference/configuration/
 [4]:  ../../reference/transport/
 [5]:  ../../reference/redis/#sensu-redis-configuration
 [6]:  ../../reference/rabbitmq/#sensu-rabbitmq-configuration
@@ -443,3 +446,4 @@ script must be used, e.g. `sudo /etc/init.d/sensu-client start`_
 [12]: #example-client-configuration
 [13]: #example-data-store-configuration
 [14]: https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/6/html/Deployment_Guide/sec-Using_Yum_Variables.html
+[epel]: https://www.fedoraproject.org/wiki/EPEL
