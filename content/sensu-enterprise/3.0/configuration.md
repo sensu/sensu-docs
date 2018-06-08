@@ -52,4 +52,16 @@ required       | false
 default        | `16384`
 example        | {{< highlight shell >}}MAX_OPEN_FILES=32768{{< /highlight >}}
 
+## Sensu Enterprise command line interfaces and arguments
+
+The following command line options are unique to Sensu Enterprise.
+For command line options shared with `sensu-server`, `sensu-api`, and `sensu-client`,
+visit the [Sensu Core configuration reference docs][1].
+
+-a (-\-api_only) | 
+----------------|------
+description     | Run only the Sensu Enterprise API. You can use API-only mode to deploy Sensu Enterprise API instances that don't process events from transport queues.
+example         | {{< highlight shell >}}$ /opt/sensu/bin/sensu-enterprise -a
+{{< /highlight >}}
+
 [1]: /sensu-core/1.2/reference/configuration
