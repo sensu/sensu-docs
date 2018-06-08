@@ -103,7 +103,7 @@ API and web application).
 _NOTE: As of Sensu Enterprise 3.0 the package dependency providing
 Java has changed from `java-1.7.0-openjdk` to
 `java-1.8.0-openjdk`. Some versions of RHEL/Centos may require the
-EPEL package repository to provide this version of the OpenJDK runtime._
+[EPEL package repository][epel] to provide this version of the OpenJDK runtime._
 
 _WARNING: Sensu Enterprise is designed to be a drop-in replacement for the Sensu
 Core server and API, **only**. Sensu Enterprise uses the same `sensu-client`
@@ -448,3 +448,4 @@ script must be used, e.g. `sudo /etc/init.d/sensu-client start`_
 [12]: #example-client-configuration
 [13]: #example-data-store-configuration
 [14]: https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/6/html/Deployment_Guide/sec-Using_Yum_Variables.html
+[epel]: https://www.fedoraproject.org/wiki/EPEL
