@@ -100,6 +100,11 @@ processes: `sensu-enterprise` (which provides the Sensu server and API from a
 single process), and `sensu-enterprise-dashboard` (which provides the dashboard
 API and web application).
 
+_NOTE: As of Sensu Enterprise 3.0 the package dependency providing
+Java has changed from `java-1.7.0-openjdk` to
+`java-1.8.0-openjdk`. Some versions of RHEL/Centos may require the
+EPEL package repository to provide this version of the OpenJDK runtime._
+
 _WARNING: Sensu Enterprise is designed to be a drop-in replacement for the Sensu
 Core server and API, **only**. Sensu Enterprise uses the same `sensu-client`
 process provided by the Sensu Core installer packages (above). As a result,
