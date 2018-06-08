@@ -1,6 +1,7 @@
 ---
 title: "Securing RabbitMQ"
 description: "Strategies and best practices for securing RabbitMQ"
+product: "Sensu Core"
 version: "0.29"
 weight: 9
 previous: ../securing-sensu
