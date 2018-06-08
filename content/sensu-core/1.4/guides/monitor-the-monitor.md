@@ -32,24 +32,26 @@ We'll cover the following in this guide:
 
 ### Monitoring Sensu Server{#monitoring-sensu-server}
 
-The server running the sensu-server process will need to be monitored in two general ways:
+The server running the sensu-server process will need to be monitored in two ways:
 
 * Locally by a sensu-client process (OS metrics, OS checks, etc)
 * Remotely from an entirely independent Sensu stack (due to if the sensu-server process is down, it won't be able to alert)
 
 #### Monitoring Sensu Server Locally
 
-Monitoring the server that the sensu-server process runs on should be monitored just like any other node in your infastructure. This includes, but not limited to, checks and metrics for CPU, memory, disk, and networking.
+Monitoring the server that the sensu-server process runs on should be done just like any other node in your infrastructure. This includes checks and metrics for CPU, memory, disk, networking.
 
 #### Monitoring Sensu Server Remotely
 
-To monitor the Sensu Server process, you will need another independent Sensu stack that can reach in. This can be done using a network port check or reaching out to an API endpoint (TODO: need to confirm)
+To monitor the Sensu Server process, you will need another independent Sensu stack that can reach in. This can be done by reaching out to an API health endpoint (TODO: need to confirm)
 
-Show example check that hits the /health API endpoint:
+Show example check that hits the /health API endpoint
 
 http://localhost:1313/sensu-core/1.4/api/health-and-info/#reference-documentation
 
 ### Monitoring Sensu API{#monitoring-sensu-api}
+
+Check to see if Sensu can monitor the API and still alert on it. If not, this will have to be done remotely. If it can, the plugins can live on the Sensu server and check for the process running, API endpoints, ports.
 
 Standard port
 
@@ -70,7 +72,11 @@ Standard port
 
 ### Monitoring Sensu Enterprise{#monitoring-sensu-enterprise}
 
-Unsecure port
+This one would be more tricky to alert on locally. I do not know if there is a scenario where Sensu Enterprise is running, the sensu-server portion is working, but the API is down.
+
+If not, then this needs to be monitored remotely.
+
+Insecure port
 
 {{< highlight json >}}
 {
@@ -105,22 +111,47 @@ Secure port (Sensu Enterprise only?)
 
 Secure API keystore
 
+Show example using keystore location shown in:
+
+https://docs.sensu.io/sensu-enterprise/2.8/api/#create-an-ssl-keystore
+
+Using:
+
 https://github.com/sensu-plugins/sensu-plugins-ssl/blob/master/bin/check-java-keystore-cert.rb
 
 ### Monitoring Sensu Enterprise Dashboard{#monitoring-sensu-enterprise-dashboard}
+
+Use process checks for local monitoring or port check for remote monitoring
+
+Show examples of both
 
 https://github.com/sensu-plugins/sensu-plugins-network-checks
 https://github.com/sensu-plugins/sensu-plugins-process-checks
 
 ### Monitoring Uchiwa{#monitoring-sensu-uchiwa}
 
+Use process checks for local monitoring or port check for remote monitoring
+
+Show examples of both
+
 https://github.com/sensu-plugins/sensu-plugins-network-checks
 https://github.com/sensu-plugins/sensu-plugins-process-checks
 
 ## Monitoring RabbitMQ
 
-https://github.com/sensu-plugins/sensu-plugins-rabbitmq
+Use RabbitMQ alive check for remote monitoring from other Sensu stack
+
+https://github.com/sensu-plugins/sensu-plugins-rabbitmq/blob/master/bin/check-rabbitmq-alive.rb
+
+Other RabbitMQ maybes
+
+https://github.com/sensu-plugins/sensu-plugins-rabbitmq/blob/master/bin/metrics-rabbitmq-queue.rb
+https://github.com/sensu-plugins/sensu-plugins-rabbitmq/blob/master/bin/check-rabbitmq-queue.rb
 
 ## Monitoring Redis
+
+Use Redis ping check for remote monitoring from other Sensu stack
+
+https://github.com/sensu-plugins/sensu-plugins-redis/blob/master/bin/check-redis-ping.rb
 
 https://github.com/sensu-plugins/sensu-plugins-redis
