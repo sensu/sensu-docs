@@ -71,7 +71,7 @@ users, as the repository is labeled as a "testing" repo, because (according to
 the RabbitMQ website) "[they] release somewhat frequently", and there shouldn't
 be a reason to upgrade RabbitMQ versions frequently._
 
-## Managing the RabbitMQ service/process
+## Managing the RabbitMQ service/process {#managing-the-rabbitmq-serviceprocess}
 
 1. To enable the RabbitMQ service, you'll need to install its init scripts using
    the `update-rc.d` utility (if you are using Ubuntu 16.04+ you will need to 
