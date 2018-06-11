@@ -144,8 +144,15 @@ aggregate    |
 description  | Create a named aggregate for the check. Check result data will be aggregated and exposed via the [Sensu Aggregates API][2].
 required     | false
 type         | String
-default      | false
 example      | {{< highlight shell >}}"aggregate": "elasticsearch"{{< /highlight >}}
+
+aggregates   | 
+-------------|------
+description  | An array of strings defining one or more named aggregates (described above).
+required     | false
+type         | Array
+example      | {{< highlight shell >}}"aggregates": [ "webservers", "production" ]{{< /highlight >}}
+
 
 handle       | 
 -------------|------

@@ -21,6 +21,9 @@ users only.**
 
 Create and close [OpsGenie][2] alerts for events.
 
+_NOTE: As of Sensu Enterprise 3.0, the OpsGenie integration uses version 2 of the OpsGenie API.
+Visit the [Sensu Enterprise 3.0 upgrade guide][4] and the [OpsGenie API docs][5] for more information._
+
 ## Configuration
 
 ### Example(s) {#examples}
@@ -33,10 +36,21 @@ event handler (integration).
   "opsgenie": {
     "api_key": "eed02a0d-85a4-427b-851a-18dd8fd80d93",
     "source": "Sensu Enterprise (AWS)",
-    "teams": ["ops", "web"],
-    "recipients": ["afterhours"],
+    "responders":[
+      {
+        "name":"afterhours",
+        "type":"schedule"
+      }
+    ],
+    "visible_to":[
+      {
+        "name":"ops",
+        "type":"team"
+      }
+    ],
+    "actions": ["ShowProcesses"],
     "tags": ["production"],
-    "overwrites_quiet_hours": true,
+    "overwrite_quiet_hours": true,
     "timeout": 10
   }
 }
@@ -48,6 +62,8 @@ event handler (integration).
 
 The following attributes are configured within the `{"opsgenie": {} }`
 [configuration scope][3].
+
+_NOTE: Some attributes are only available for certain OpsGenie subscription tiers._
 
 api_key      | 
 -------------|------
@@ -64,21 +80,64 @@ type         | String
 default      | `Sensu Enterprise`
 example      | {{< highlight shell >}}"source": "Sensu (us-west-1)"{{< /highlight >}}
 
-teams        | 
+responders   | 
 -------------|------
-description  | An array of OpsGenie team names to be used to calculate which users will be responsible for created alerts.
+description  | The OpsGenie teams, users, schedules, or escalations that receive alert notifications. Each responder requires an `id` or `name` and a `type` (`team`, `user`, `escalation`, or `schedule`). _NOTE: For `"type":"user"`, use `username` instead of `name`._
 required     | false
-type         | Array
-default      | `[]`
-example      | {{< highlight shell >}}"teams": ["ops", "web"]{{< /highlight >}}
+type         | Array of objects
+example      | {{< highlight shell >}}
+"responders":[
+  {
+    "name":"afterhours",
+    "type":"schedule"
+  },
+  {
+    "id":"bb4d9938-c3c2-455d-aaab-727aa701c0d8",
+    "type":"user"
+  },
+  {
+    "username":"alice@company.com",
+    "type":"user"
+  },
+  {
+    "id":"aee8a0de-c80f-4515-a232-501c0bc9d715",
+    "type":"escalation"
+  }
+]
+{{< /highlight >}}
 
-recipients   | 
+visible_to   | 
 -------------|------
-description  | An array of OpsGenie group, schedule, or escalation names to be used to calculate which users will be responsible for created alerts.
+description  | The OpsGenie teams and users that can see alerts but won't receive notifications. Teams require an `id` or `name` and `"type":"team"`. Users require an `id` or `username` and `"type":"user"`.
+required     | false
+type         | Array of objects
+example      | {{< highlight shell >}}
+"visible_to":[
+  {
+    "name":"ops",
+    "type":"team"
+  },
+  {
+    "id":"4513b7ea-3b91-438f-b7e4-e3e54af9147c",
+    "type":"team"
+  },
+  {
+    "id":"bb4d9938-c3c2-455d-aaab-727aa701c0d8",
+    "type":"user"
+  },
+  {
+    "username":"alice@company.com",
+    "type":"user"
+  }
+]
+{{< /highlight >}}
+
+actions      | 
+-------------|------
+description  | Custom actions available for the alert
 required     | false
 type         | Array
-default      | `[]`
-example      | {{< highlight shell >}}"recipients": ["web", "afterhours"]{{< /highlight >}}
+example      | {{< highlight shell >}}"actions": ["ViewLogs", "ShowProcesses"]{{< /highlight >}}
 
 tags         | 
 -------------|------
@@ -88,13 +147,13 @@ type         | Array
 default      | `[]`
 example      | {{< highlight shell >}}"tags": ["production"]{{< /highlight >}}
 
-overwrites_quiet_hours | 
+overwrite_quiet_hours  | 
 -----------------------|------
-description            | If events with a critical severity should be tagged with "OverwritesQuietHours". This tag can be used to bypass quiet (or off) hour alert notification filtering.
+description            | When configured, critical severity events will be tagged with "OverwriteQuietHours". This tag indicates that OpsGenie should bypass configured "quiet hours" that would otherwise filter alert notifications.
 required               | false
 type                   | Boolean
 default                | `false`
-example                | {{< highlight shell >}}"overwrites_quiet_hours": true{{< /highlight >}}
+example                | {{< highlight shell >}}"overwrite_quiet_hours": true{{< /highlight >}}
 
 filters        | 
 ---------------|------
@@ -125,3 +184,5 @@ example      | {{< highlight shell >}}"timeout": 30{{< /highlight >}}
 [1]:  /sensu-enterprise
 [2]:  https://www.opsgenie.com?ref=sensu-enterprise
 [3]: /sensu-core/1.2/reference/configuration#configuration-scopes
+[4]: /sensu-enterprise/3.0/upgrading#changes-in-opsgenie-integration
+[5]: https://docs.opsgenie.com/docs/alert-api
