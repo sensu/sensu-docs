@@ -9,6 +9,8 @@ menu:
     parent: guides
 ---
 
+_NOTE: In order to completely monitor a Sensu stack, you will need to have at least one other independent Sensu stack to do so. This is because a single Sensu stack can not monitor itself completely, as if some components are down, Sensu will not be able to alert on itself properly_
+
 In this guide, we'll walk you through the best practices and strategies for monitoring Sensu with Sensu. By the end of the guide, you should have a thorough understanding of what is required to ensure your Sensu components are properly monitored, including:
 
 * How to monitor your Sensu server/API/Enterprise/Dashboard instance(s)
@@ -84,7 +86,7 @@ Insecure port
     "check_sensu_api_port": {
       "command": "check-ports.rb -p 4567",
       "subscribers": [
-        "proxy"
+        "sensu_api"
       ],
       "interval": 60
     }
@@ -119,6 +121,22 @@ Using:
 
 https://github.com/sensu-plugins/sensu-plugins-ssl/blob/master/bin/check-java-keystore-cert.rb
 
+Example:
+
+{{< highlight json >}}
+{
+  "checks": {
+    "check_java_keystore": {
+      "command": "TODO",
+      "subscribers": [
+        "sensu_ssl"
+      ],
+      "interval": 60
+    }
+  }
+}
+{{< /highlight >}}
+
 ### Monitoring Sensu Enterprise Dashboard{#monitoring-sensu-enterprise-dashboard}
 
 Use process checks for local monitoring or port check for remote monitoring
@@ -127,6 +145,36 @@ Show examples of both
 
 https://github.com/sensu-plugins/sensu-plugins-network-checks
 https://github.com/sensu-plugins/sensu-plugins-process-checks
+
+Examples:
+
+{{< highlight json >}}
+{
+  "checks": {
+    "check_enterprise_dashboard_port": {
+      "command": "TODO",
+      "subscribers": [
+        "enterprise_dashboard"
+      ],
+      "interval": 60
+    }
+  }
+}
+{{< /highlight >}}
+
+{{< highlight json >}}
+{
+  "checks": {
+    "check_enterprise_dashboard_process": {
+      "command": "TODO",
+      "subscribers": [
+        "enterprise_dashboard"
+      ],
+      "interval": 60
+    }
+  }
+}
+{{< /highlight >}}
 
 ### Monitoring Uchiwa{#monitoring-sensu-uchiwa}
 
@@ -137,21 +185,128 @@ Show examples of both
 https://github.com/sensu-plugins/sensu-plugins-network-checks
 https://github.com/sensu-plugins/sensu-plugins-process-checks
 
+Examples:
+
+{{< highlight json >}}
+{
+  "checks": {
+    "check_uchiwa_port": {
+      "command": "TODO",
+      "subscribers": [
+        "uchiwa"
+      ],
+      "interval": 60
+    }
+  }
+}
+{{< /highlight >}}
+
+{{< highlight json >}}
+{
+  "checks": {
+    "check_uchiwa_process": {
+      "command": "TODO",
+      "subscribers": [
+        "uchiwa"
+      ],
+      "interval": 60
+    }
+  }
+}
+{{< /highlight >}}
+
 ## Monitoring RabbitMQ
 
 Use RabbitMQ alive check for remote monitoring from other Sensu stack
 
 https://github.com/sensu-plugins/sensu-plugins-rabbitmq/blob/master/bin/check-rabbitmq-alive.rb
 
+Example:
+
+{{< highlight json >}}
+{
+  "checks": {
+    "check_rabbitmq_alive": {
+      "command": "TODO",
+      "subscribers": [
+        "rabbitmq"
+      ],
+      "interval": 60
+    }
+  }
+}
+{{< /highlight >}}
+
 Other RabbitMQ maybes
 
 https://github.com/sensu-plugins/sensu-plugins-rabbitmq/blob/master/bin/metrics-rabbitmq-queue.rb
 https://github.com/sensu-plugins/sensu-plugins-rabbitmq/blob/master/bin/check-rabbitmq-queue.rb
 
+Examples:
+
+{{< highlight json >}}
+{
+  "checks": {
+    "check_rabbitmq_queue": {
+      "command": "TODO",
+      "subscribers": [
+        "rabbitmq"
+      ],
+      "interval": 60
+    }
+  }
+}
+{{< /highlight >}}
+
+{{< highlight json >}}
+{
+  "checks": {
+    "collect_rabbitmq_queue": {
+      "command": "TODO",
+      "subscribers": [
+        "rabbitmq"
+      ],
+      "interval": 60,
+      "type": "metric"
+    }
+  }
+}
+{{< /highlight >}}
+
 ## Monitoring Redis
 
-Use Redis ping check for remote monitoring from other Sensu stack
+Use Redis ping check for remote monitoring from another Sensu stack
 
 https://github.com/sensu-plugins/sensu-plugins-redis/blob/master/bin/check-redis-ping.rb
+maybe https://github.com/sensu-plugins/sensu-plugins-redis/blob/master/bin/metrics-redis-graphite.rb
 
-https://github.com/sensu-plugins/sensu-plugins-redis
+Example:
+
+{{< highlight json >}}
+{
+  "checks": {
+    "redis_ping": {
+      "command": "redis",
+      "subscribers": [
+        "redis"
+      ],
+      "interval": 60
+    }
+  }
+}
+{{< /highlight >}}
+
+{{< highlight json >}}
+{
+  "checks": {
+    "collect_redis_metrics": {
+      "command": "redis",
+      "subscribers": [
+        "redis"
+      ],
+      "interval": 60,
+      "type": "metric"
+    }
+  }
+}
+{{< /highlight >}}
