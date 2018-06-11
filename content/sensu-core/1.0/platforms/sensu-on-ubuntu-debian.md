@@ -411,7 +411,7 @@ sudo service sensu-enterprise-dashboard stop{{< /highlight >}}
   IP address where the Sensu Enterprise Dashboard is running).
 
 
-[[1]:  https://sensuapp.org/download
+[1]:  https://sensuapp.org/download
 [2]:  https://sensuapp.org/enterprise
 [3]:  ../../reference/configuration
 [4]:  ../../reference/transport
