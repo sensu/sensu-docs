@@ -128,15 +128,13 @@ configuration][2] for more information on how Sensu loads configuration.
 
 1. Copy the following contents to a configuration file located at
    `/etc/sensu/conf.d/redis.json`:
-
    {{< highlight json >}}
-   {
-     "redis": {
-       "host": "127.0.0.1",
-       "port": 6379
-     }
-   }{{< /highlight >}}
-
+{
+  "redis": {
+    "host": "127.0.0.1",
+    "port": 6379
+  }
+}{{< /highlight >}}
    _WARNING: using `"localhost"` instead of `127.0.0.1` for the `host`
    configuration on systems that support IPv6 may result in an [IPv6 "localhost"
    resolution (i.e. `::1`)][5] rather than an IPv4 "localhost" resolution (i.e.
@@ -153,16 +151,14 @@ configuration][2] for more information on how Sensu loads configuration.
 2. Create a configuration file  with the following contents at
    `/etc/sensu/conf.d/redis.json` on the Sensu server and API system(s), and all
    systems running the Sensu client:
-
    {{< highlight json >}}
-   {
-     "redis": {
-       "host": "10.0.1.5",
-       "port": 6379,
-       "auto_reconnect": true
-     }
-   }{{< /highlight >}}
-
+{
+  "redis": {
+    "host": "10.0.1.5",
+    "port": 6379,
+    "auto_reconnect": true
+  }
+}{{< /highlight >}}
    _NOTE: the `sensu-client` process does not require Redis configuration
    unless Redis is being used as the [Sensu Transport][3]. If you're not
    planning on using Redis as the Sensu Transport, you do not need to create a
@@ -173,15 +169,13 @@ configuration][2] for more information on how Sensu loads configuration.
 1. If you are [planning to use Redis][4] as your [Sensu Transport][3], please
    copy the following contents to a configuration file located at
    `/etc/sensu/conf.d/transport.json`:
-
    {{< highlight json >}}
-   {
-     "transport": {
-       "name": "redis",
-       "reconnect_on_error": true
-     }
-   }{{< /highlight >}}
-
+{
+  "transport": {
+    "name": "redis",
+    "reconnect_on_error": true
+  }
+}{{< /highlight >}}
    This will inform the Sensu services to use the defined Redis configuration as
    the Sensu Transport (instead of looking for the default transport, RabbitMQ).
 

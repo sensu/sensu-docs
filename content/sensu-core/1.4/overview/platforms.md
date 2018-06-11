@@ -33,8 +33,8 @@ running the `sensu-server` and `sensu-api` processes._
 
 ### Sensu Server & API
 
-- [Ubuntu/Debian](../platforms/sensu-on-ubuntu-debian.html#sensu-core)
-- [RHEL/CentOS](../platforms/sensu-on-rhel-centos.html#sensu-core)
+- [Ubuntu/Debian](../../platforms/sensu-on-ubuntu-debian#sensu-core)
+- [RHEL/CentOS](../../platforms/sensu-on-rhel-centos#sensu-core)
 
 ### Sensu Client
 

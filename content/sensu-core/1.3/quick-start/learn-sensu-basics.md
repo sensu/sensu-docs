@@ -175,109 +175,112 @@ sudo yum install -y nagios-plugins-http{{< /highlight >}}
 
 You may be wondering, "why are we installing a Nagios plugin in a Sensu tutorial?"
 
-  Good question! Sensu shares Nagios' check plugin specification,
-  meaning existing check plugins compatible with Nagios can be used by
-  Sensu without modification. In this case the check_http plugin is
-  provided as a package by the CentOS default distribution. Once
-  installed, the plugin is available as `/usr/lib64/nagios/plugins/check_http`.
+Good question! Sensu shares Nagios' check plugin specification,
+meaning existing check plugins compatible with Nagios can be used by
+Sensu without modification. In this case the check_http plugin is
+provided as a package by the CentOS default distribution. Once
+installed, the plugin is available as `/usr/lib64/nagios/plugins/check_http`.
 
 * Let's execute the check plugin manually and see what happens:
 
-   {{< highlight shell >}}
-   $ /usr/lib64/nagios/plugins/check_http -I 127.0.0.1
-   connect to address 127.0.0.1 and port 80: Connection refused
-   HTTP CRITICAL - Unable to open TCP socket{{< /highlight >}}
+{{< highlight shell >}}
+$ /usr/lib64/nagios/plugins/check_http -I 127.0.0.1
+connect to address 127.0.0.1 and port 80: Connection refused
+HTTP CRITICAL - Unable to open TCP socket{{< /highlight >}}
 
-   Here we can see that the check plugin output reflects failure to
-   connect to port 80 on 127.0.0.1 (the localhost address).
+Here we can see that the check plugin output reflects failure to
+connect to port 80 on 127.0.0.1 (the localhost address).
 
-   Beyond the human-readable output of the check plugin, the exit
-   status code returned by the command (`$?`) is used by Sensu to
-   determine if the check execution is indicative of an OK, WARNING or
-   CRITICAL state.
+Beyond the human-readable output of the check plugin, the exit
+status code returned by the command (`$?`) is used by Sensu to
+determine if the check execution is indicative of an OK, WARNING or
+CRITICAL state.
 
-  {{< highlight shell >}}
-   $ echo $?
-   2{{< /highlight >}}
+{{< highlight shell >}}
+$ echo $?
+2{{< /highlight >}}
 
-   In this case the plugin has returned an exit status of `2`, indicating
-   a critical state. This aligns with the text output from the
-   plugin. So far so good!
+In this case the plugin has returned an exit status of `2`, indicating
+a critical state. This aligns with the text output from the
+plugin. So far so good!
 
 * Now let's write a check definition which describes how and when to
-   run this check plugin.
+run this check plugin.
 
-   Using the editor of your choice, create a JSON file in
-   /etc/sensu/conf.d named "check_http.json" with the following
-   content:
+Using the editor of your choice, create a JSON file in
+/etc/sensu/conf.d named "check_http.json" with the following
+content:
 
-   {{< highlight shell >}}
-   {
-     "checks": {
-       "check_http": {
-         "command": "/usr/lib64/nagios/plugins/check_http -I 127.0.0.1",
-         "interval": 10,
-         "subscribers": ["webserver", "dev"]
-       }
-     }
-   }{{< /highlight >}}
+{{< highlight shell >}}
+{
+  "checks": {
+    "check_http": {
+      "command": "/usr/lib64/nagios/plugins/check_http -I 127.0.0.1",
+      "interval": 10,
+      "subscribers": [
+        "webserver",
+        "dev"
+      ]
+    }
+  }
+}{{< /highlight >}}
 
-   This definition describes a check named "check_http" which will run
-   the specified command every 10 seconds on any Sensu clients with
-   the subscription "webserver". Because this check defines
-   subscribers it is considered a publish-subscribe check, or "pubsub"
-   check, scheduled for execution by the Sensu server.
+This definition describes a check named "check_http" which will run
+the specified command every 10 seconds on any Sensu clients with
+the subscription "webserver". Because this check defines
+subscribers it is considered a publish-subscribe check, or "pubsub"
+check, scheduled for execution by the Sensu server.
 
 * As we've added a new check definition, let's restart Sensu server
-   and API services to update their configuration:
+and API services to update their configuration:
 
-   {{< highlight shell >}}
-   sudo systemctl restart sensu-{server,api}{{< /highlight >}}
+{{< highlight shell >}}
+sudo systemctl restart sensu-{server,api}{{< /highlight >}}
 
-   With these services restarted we should be able to observe via the
-   API that the new check definition has been loaded:
+With these services restarted we should be able to observe via the
+API that the new check definition has been loaded:
 
-   {{< highlight shell >}}
-   $ curl -s 127.0.0.1:4567/checks | jq .
-   [
-     {
-       "command": "/usr/lib64/nagios/plugins/check_http -I 127.0.0.1",
-       "interval": 10,
-       "subscribers": [
-         "webserver",
-         "dev"
-       ],
-       "name": "check_http"
-     }
-   ]{{< /highlight >}}
+{{< highlight shell >}}
+$ curl -s 127.0.0.1:4567/checks | jq .
+[
+  {
+    "command": "/usr/lib64/nagios/plugins/check_http -I 127.0.0.1",
+    "interval": 10,
+    "subscribers": [
+      "webserver",
+      "dev"
+    ],
+    "name": "check_http"
+  }
+]{{< /highlight >}}
 
-   Now that the API reports this check has been loaded, the Sensu server
-   should be scheduling execution of this check. We can verify this by
-   watching the sensu-server log file:
+Now that the API reports this check has been loaded, the Sensu server
+should be scheduling execution of this check. We can verify this by
+watching the sensu-server log file:
 
-   {{< highlight shell >}}
-   $ tail -f /var/log/sensu/sensu-server.log | grep check_http
-   {"timestamp":"2017-03-16T17:36:46.947925+0000","level":"info","message":"publishing
-   check request","payload":{"command":"/usr/lib64/nagios/plugins/check_http
-   -H 127.0.0.1","name":"check_http","issued":1489685806},"subscribers":["webserver"]}{{< /highlight >}}
+{{< highlight shell >}}
+$ tail -f /var/log/sensu/sensu-server.log | grep check_http
+{"timestamp":"2017-03-16T17:36:46.947925+0000","level":"info","message":"publishing
+check request","payload":{"command":"/usr/lib64/nagios/plugins/check_http
+-H 127.0.0.1","name":"check_http","issued":1489685806},"subscribers":["webserver"]}{{< /highlight >}}
 
-   The "publishing check request" message visible here indicates that
-   the server is sending a request for check execution which the
-   client will act on.
+The "publishing check request" message visible here indicates that
+the server is sending a request for check execution which the
+client will act on.
 
-   We can verify that the client is acting on this check execution
-   request by watching the sensu-client log file:
+We can verify that the client is acting on this check execution
+request by watching the sensu-client log file:
 
-   {{< highlight shell >}}
-   $ tail -f /var/log/sensu/sensu-client.log | grep check_http
-   {"timestamp":"2017-03-16T17:40:23.639588+0000","level":"info","message":"received check request","check":{"command":"/usr/lib64/nagios/plugins/check_http -H 127.0.0.1","name":"check_http","issued":1489686023}}
-   {"timestamp":"2017-03-16T17:40:23.643769+0000","level":"info","message":"publishing check result","payload":{"client":"localhost.localdomain","check":{"command":"/usr/lib64/nagios/plugins/check_http -H 127.0.0.1","name":"check_http","issued":1489686023,"executed":1489686023,"duration":0.004,"output":"connect to address 127.0.0.1 and port 80: Connection refused\nHTTP CRITICAL - Unable to open TCP socket\n","status":2}}}{{< /highlight >}}
+{{< highlight shell >}}
+$ tail -f /var/log/sensu/sensu-client.log | grep check_http
+{"timestamp":"2017-03-16T17:40:23.639588+0000","level":"info","message":"received check request","check":{"command":"/usr/lib64/nagios/plugins/check_http -H 127.0.0.1","name":"check_http","issued":1489686023}}
+{"timestamp":"2017-03-16T17:40:23.643769+0000","level":"info","message":"publishing check result","payload":{"client":"localhost.localdomain","check":{"command":"/usr/lib64/nagios/plugins/check_http -H 127.0.0.1","name":"check_http","issued":1489686023,"executed":1489686023,"duration":0.004,"output":"connect to address 127.0.0.1 and port 80: Connection refused\nHTTP CRITICAL - Unable to open TCP socket\n","status":2}}}{{< /highlight >}}
 
-   This pair of messages indicates that the client has received a
-   request to execute the check, that the check has been executed and
-   that the results of that check (the exit status code and output)
-   have been published back to the results queue for later processing by the
-   server.
+This pair of messages indicates that the client has received a
+request to execute the check, that the check has been executed and
+that the results of that check (the exit status code and output)
+have been published back to the results queue for later processing by the
+server.
 
 {{< platformBlockClose >}}
 
@@ -285,115 +288,118 @@ You may be wondering, "why are we installing a Nagios plugin in a Sensu tutorial
 
 * Install the monitoring-plugins package to provide the check plugin
 
-   {{< highlight shell >}}
-   sudo apt-get install -y monitoring-plugins{{< /highlight >}}
+{{< highlight shell >}}
+sudo apt-get install -y monitoring-plugins{{< /highlight >}}
 
-  You may be wondering, "why are we installing a Nagios plugin in a
-  Sensu tutorial?"
+You may be wondering, "why are we installing a Nagios plugin in a
+Sensu tutorial?"
 
-  Good question! Sensu shares Nagios' check plugin specification,
-  meaning existing check plugins compatible with Nagios can be used by
-  Sensu without modification. In this case the check_http plugin is
-  provided as a package by the CentOS default distribution. Once
-  installed, the plugin is available as `/usr/lib/nagios/plugins/check_http`.
+Good question! Sensu shares Nagios' check plugin specification,
+meaning existing check plugins compatible with Nagios can be used by
+Sensu without modification. In this case the check_http plugin is
+provided as a package by the CentOS default distribution. Once
+installed, the plugin is available as `/usr/lib/nagios/plugins/check_http`.
 
 * Let's execute the check plugin manually and see what happens:
 
-   {{< highlight shell >}}
-   $ /usr/lib/nagios/plugins/check_http -I 127.0.0.1
-   connect to address 127.0.0.1 and port 80: Connection refused
-   HTTP CRITICAL - Unable to open TCP socket{{< /highlight >}}
+{{< highlight shell >}}
+$ /usr/lib/nagios/plugins/check_http -I 127.0.0.1
+connect to address 127.0.0.1 and port 80: Connection refused
+HTTP CRITICAL - Unable to open TCP socket{{< /highlight >}}
 
-   Here we can see that the check plugin output reflects failure to
-   connect to port 80 on 127.0.0.1 (the localhost address).
+Here we can see that the check plugin output reflects failure to
+connect to port 80 on 127.0.0.1 (the localhost address).
 
-   Beyond the human-readable output of the check plugin, the exit
-   status code returned by the command (`$?`) is used by Sensu to
-   determine if the check execution is indicative of an OK, WARNING or
-   CRITICAL state.
+Beyond the human-readable output of the check plugin, the exit
+status code returned by the command (`$?`) is used by Sensu to
+determine if the check execution is indicative of an OK, WARNING or
+CRITICAL state.
 
-  {{< highlight shell >}}
-   $ echo $?
-   2{{< /highlight >}}
+{{< highlight shell >}}
+$ echo $?
+2{{< /highlight >}}
 
-   In this case the plugin has returned an exit status of `2`, indicating
-   a critical state. This aligns with the text output from the
-   plugin. So far so good!
+In this case the plugin has returned an exit status of `2`, indicating
+a critical state. This aligns with the text output from the
+plugin. So far so good!
 
 * Now let's write a check definition which describes how and when to
-   run this check plugin.
+run this check plugin.
 
-   Using the editor of your choice, create a JSON file in
-   /etc/sensu/conf.d named "check_http.json" with the following
-   content:
+Using the editor of your choice, create a JSON file in
+/etc/sensu/conf.d named "check_http.json" with the following
+content:
 
-   {{< highlight shell >}}
-   {
-     "checks": {
-       "check_http": {
-         "command": "/usr/lib/nagios/plugins/check_http -I 127.0.0.1",
-         "interval": 10,
-         "subscribers": ["webserver", "dev"]
-       }
-     }
-   }{{< /highlight >}}
+{{< highlight shell >}}
+{
+  "checks": {
+    "check_http": {
+      "command": "/usr/lib/nagios/plugins/check_http -I 127.0.0.1",
+      "interval": 10,
+      "subscribers": [
+        "webserver",
+        "dev"
+      ]
+    }
+  }
+}{{< /highlight >}}
 
-   This definition describes a check named "check_http" which will run
-   the specified command every 10 seconds on any Sensu clients with
-   the subscription "webserver". Because this check defines
-   subscribers it is considered a publish-subscribe check, or "pubsub"
-   check, scheduled for execution by the Sensu server.
+This definition describes a check named "check_http" which will run
+the specified command every 10 seconds on any Sensu clients with
+the subscription "webserver". Because this check defines
+subscribers it is considered a publish-subscribe check, or "pubsub"
+check, scheduled for execution by the Sensu server.
 
 * As we've added a new check definition, let's restart Sensu server
-   and API services to update their configuration:
+and API services to update their configuration:
 
-   {{< highlight shell >}}
-   sudo systemctl restart sensu-{server,api}{{< /highlight >}}
+{{< highlight shell >}}
+sudo systemctl restart sensu-{server,api}{{< /highlight >}}
 
-   With these services restarted we should be able to observe via the
-   API that the new check definition has been loaded:
+With these services restarted we should be able to observe via the
+API that the new check definition has been loaded:
 
-   {{< highlight shell >}}
-   $ curl -s 127.0.0.1:4567/checks | jq .
-   [
-     {
-       "command": "/usr/lib/nagios/plugins/check_http -I 127.0.0.1",
-       "interval": 10,
-       "subscribers": [
-         "webserver",
-         "dev"
-       ],
-       "name": "check_http"
-     }
-   ]{{< /highlight >}}
+{{< highlight shell >}}
+$ curl -s 127.0.0.1:4567/checks | jq .
+[
+  {
+    "command": "/usr/lib/nagios/plugins/check_http -I 127.0.0.1",
+    "interval": 10,
+    "subscribers": [
+      "webserver",
+      "dev"
+    ],
+    "name": "check_http"
+  }
+]{{< /highlight >}}
 
-   Now that the API reports this check has been loaded, the Sensu server
-   should be scheduling execution of this check. We can verify this by
-   watching the sensu-server log file:
+Now that the API reports this check has been loaded, the Sensu server
+should be scheduling execution of this check. We can verify this by
+watching the sensu-server log file:
 
-   {{< highlight shell >}}
-   $ tail -f /var/log/sensu/sensu-server.log | grep check_http
-   {"timestamp":"2017-03-16T17:36:46.947925+0000","level":"info","message":"publishing
-   check request","payload":{"command":"/usr/lib/nagios/plugins/check_http
-   -H 127.0.0.1","name":"check_http","issued":1489685806},"subscribers":["webserver"]}{{< /highlight >}}
+{{< highlight shell >}}
+$ tail -f /var/log/sensu/sensu-server.log | grep check_http
+{"timestamp":"2017-03-16T17:36:46.947925+0000","level":"info","message":"publishing
+check request","payload":{"command":"/usr/lib/nagios/plugins/check_http
+-H 127.0.0.1","name":"check_http","issued":1489685806},"subscribers":["webserver"]}{{< /highlight >}}
 
-   The "publishing check request" message visible here indicates that
-   the server is sending a request for check execution which the
-   client will act on.
+The "publishing check request" message visible here indicates that
+the server is sending a request for check execution which the
+client will act on.
 
-   We can verify that the client is acting on this check execution
-   request by watching the sensu-client log file:
+We can verify that the client is acting on this check execution
+request by watching the sensu-client log file:
 
-   {{< highlight shell >}}
-   $ tail -f /var/log/sensu/sensu-client.log | grep check_http
-   {"timestamp":"2017-03-16T17:40:23.639588+0000","level":"info","message":"received check request","check":{"command":"/usr/lib/nagios/plugins/check_http -H 127.0.0.1","name":"check_http","issued":1489686023}}
-   {"timestamp":"2017-03-16T17:40:23.643769+0000","level":"info","message":"publishing check result","payload":{"client":"localhost.localdomain","check":{"command":"/usr/lib/nagios/plugins/check_http -H 127.0.0.1","name":"check_http","issued":1489686023,"executed":1489686023,"duration":0.004,"output":"connect to address 127.0.0.1 and port 80: Connection refused\nHTTP CRITICAL - Unable to open TCP socket\n","status":2}}}{{< /highlight >}}
+{{< highlight shell >}}
+$ tail -f /var/log/sensu/sensu-client.log | grep check_http
+{"timestamp":"2017-03-16T17:40:23.639588+0000","level":"info","message":"received check request","check":{"command":"/usr/lib/nagios/plugins/check_http -H 127.0.0.1","name":"check_http","issued":1489686023}}
+{"timestamp":"2017-03-16T17:40:23.643769+0000","level":"info","message":"publishing check result","payload":{"client":"localhost.localdomain","check":{"command":"/usr/lib/nagios/plugins/check_http -H 127.0.0.1","name":"check_http","issued":1489686023,"executed":1489686023,"duration":0.004,"output":"connect to address 127.0.0.1 and port 80: Connection refused\nHTTP CRITICAL - Unable to open TCP socket\n","status":2}}}{{< /highlight >}}
 
-   This pair of messages indicates that the client has received a
-   request to execute the check, that the check has been executed and
-   that the results of that check (the exit status code and output)
-   have been published back to the results queue for later processing by the
-   server.
+This pair of messages indicates that the client has received a
+request to execute the check, that the check has been executed and
+that the results of that check (the exit status code and output)
+have been published back to the results queue for later processing by the
+server.
 
 {{< platformBlockClose >}}
 
@@ -462,57 +468,57 @@ content:
   }
 }{{< /highlight >}}
 
-   The mailer handler requires configuration to specify
-   the email address and SMTP server details for sending an
-   alert. Whereas our check and handler definitions have been
-   configured under the "checks" and "handlers" scopes respectively,
-   the configuration for the mailer handler will be provided under a
-   top-level "mailer" scope.
+The mailer handler requires configuration to specify
+the email address and SMTP server details for sending an
+alert. Whereas our check and handler definitions have been
+configured under the "checks" and "handlers" scopes respectively,
+the configuration for the mailer handler will be provided under a
+top-level "mailer" scope.
 
-   Using the editor of your choice, create a JSON file at
-   `/etc/sensu/conf.d/mailer.json` using the following as a guide:
+Using the editor of your choice, create a JSON file at
+`/etc/sensu/conf.d/mailer.json` using the following as a guide:
 
-   {{< highlight shell >}}
-   {
-       "mailer": {
-           "mail_from": "alerts@example.com",
-           "mail_to": "operators@example.com",
-           "smtp_address": "smtp.gmail.com",
-           "smtp_username": "alerts@example.com",
-           "smtp_password": "your_password_here",
-           "smtp_use_tls": true,
-           "smtp_port": 465
-       }
-   }{{< /highlight >}}
+{{< highlight shell >}}
+{
+  "mailer": {
+    "mail_from": "alerts@example.com",
+    "mail_to": "operators@example.com",
+    "smtp_address": "smtp.gmail.com",
+    "smtp_username": "alerts@example.com",
+    "smtp_password": "your_password_here",
+    "smtp_use_tls": true,
+    "smtp_port": 465
+  }
+}{{< /highlight >}}
 
-   _NOTE: The above is representative of configuration using Google's Gmail
-   as the SMTP server. In place of the example values above, you must
-   provide a valid values for `mail_from`, `mail_to`, `smtp_username`
-   and `smtp_password`. If you are not a Gmail user, you may also need
-   to adjust the `smtp_address`, `smtp_port` and `smtp_use_tls`
-   values as appropriate for your SMTP host._
+_NOTE: The above is representative of configuration using Google's Gmail
+as the SMTP server. In place of the example values above, you must
+provide a valid values for `mail_from`, `mail_to`, `smtp_username`
+and `smtp_password`. If you are not a Gmail user, you may also need
+to adjust the `smtp_address`, `smtp_port` and `smtp_use_tls`
+values as appropriate for your SMTP host._
 
-   At this point we have installed the `handler-mailer.rb` handler
-   plugin, provided configuration for both the handler definition
-   in `/etc/sensu/conf.d/handler_default.json`, and provided
-   configuration details in `/etc/sensu/conf.d/mailer.json`.
+At this point we have installed the `handler-mailer.rb` handler
+plugin, provided configuration for both the handler definition
+in `/etc/sensu/conf.d/handler_default.json`, and provided
+configuration details in `/etc/sensu/conf.d/mailer.json`.
 
-   With this configuration in place we can restart the Sensu services
-   and expect to see emails regarding our failing check:
+With this configuration in place we can restart the Sensu services
+and expect to see emails regarding our failing check:
 
-   {{< highlight shell >}}
-   sudo systemctl restart sensu-{server,api}{{< /highlight >}}
+{{< highlight shell >}}
+sudo systemctl restart sensu-{server,api}{{< /highlight >}}
 
-   After a successful restart of the sensu-server and sensu-api
-   processes, we should see messages similar to this one in the
-   sensu-server log file:
+After a successful restart of the sensu-server and sensu-api
+processes, we should see messages similar to this one in the
+sensu-server log file:
 
-   {{< highlight shell >}}
-   $ tail -f /var/log/sensu/sensu-server.log | grep default
-   {"timestamp":"2017-03-20T19:12:51.356611+0000","level":"info","message":"handler output","handler":{"command":"/opt/sensu/embedded/bin/handler-mailer.rb","type":"pipe","name":"default"},"event":{"id":"efad9a7a-dca8-4ed8-aaac-32c429313988"},"output":["mail -- sent alert for localhost.localdomain/check_http to operators@example.com\n"]}{{< /highlight >}}
+{{< highlight shell >}}
+$ tail -f /var/log/sensu/sensu-server.log | grep default
+{"timestamp":"2017-03-20T19:12:51.356611+0000","level":"info","message":"handler output","handler":{"command":"/opt/sensu/embedded/bin/handler-mailer.rb","type":"pipe","name":"default"},"event":{"id":"efad9a7a-dca8-4ed8-aaac-32c429313988"},"output":["mail -- sent alert for localhost.localdomain/check_http to operators@example.com\n"]}{{< /highlight >}}
 
-   And of course you should also see an email delivered to the
-   mailbox of your `smtp_to` addressee!
+And of course you should also see an email delivered to the
+mailbox of your `smtp_to` addressee!
 
 #### SUMMARY
 
