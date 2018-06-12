@@ -8,7 +8,7 @@
             "status": 302
         },
         "~ ^/sensu-enterprise/latest/?(.*)$": {
-            "url": "/sensu-enterprise/2.8/$1",
+            "url": "/sensu-enterprise/3.0/$1",
             "status": 302
         },
         "~ ^/sensu-enterprise-dashboard/latest/?(.*)$": {

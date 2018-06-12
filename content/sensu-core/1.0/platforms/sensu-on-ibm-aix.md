@@ -42,22 +42,17 @@ format specified below._
 2. The Sensu installer package for IBM AIX systems is provided in **backup file
    format** (.bff). In order to install the content, you will need to know the
    "Fileset Name". Display the content using the `installp` utility.
-
    {{< highlight shell >}}
-   installp -ld sensu-1.2.0-1.powerpc.bff{{< /highlight >}}
-
+installp -ld sensu-1.2.0-1.powerpc.bff{{< /highlight >}}
    Once you have collected the fileset name, you can optionally proceed to
    preview installation using the `installp` utility, with the `-p` (preview)
    flag.
-
    {{< highlight shell >}}
-   installp -apXY -d sensu-1.2.0-1.powerpc.bff sensu{{< /highlight >}}
+installp -apXY -d sensu-1.2.0-1.powerpc.bff sensu{{< /highlight >}}
 
 3. Install Sensu using the `installp` utility.
-
    {{< highlight shell >}}
-   installp -aXY -d sensu-1.2.0-1.powerpc.bff sensu{{< /highlight >}}
-
+installp -aXY -d sensu-1.2.0-1.powerpc.bff sensu{{< /highlight >}}
    _NOTE: this command uses the following `installp` utilty flags: `-a` to apply
    changes to the system, `-X` to extend the file system, and `-Y` to accept the
    [Sensu MIT License][4]._
@@ -98,23 +93,22 @@ mkdir /etc/sensu/conf.d{{< /highlight >}}
 
 1. Copy the following contents to a configuration file located at
    `/etc/sensu/conf.d/client.json`:
-
    {{< highlight json >}}
-   {
-     "client": {
-       "name": "aix-client",
-       "address": "localhost",
-       "environment": "development",
-       "subscriptions": [
-         "dev",
-         "aix-hosts"
-       ],
-       "socket": {
-         "bind": "127.0.0.1",
-         "port": 3030
-       }
-     }
-   }{{< /highlight >}}
+{
+  "client": {
+    "name": "aix-client",
+    "address": "localhost",
+    "environment": "development",
+    "subscriptions": [
+      "dev",
+      "aix-hosts"
+    ],
+    "socket": {
+      "bind": "127.0.0.1",
+      "port": 3030
+    }
+  }
+}{{< /highlight >}}
 
 ### Example Transport Configuration
 
@@ -123,15 +117,13 @@ connect to the configured [Sensu Transport][6].
 
 1. Copy the following contents to a configuration file located at
    `/etc/sensu/conf.d/transport.json`:
-
    {{< highlight json >}}
-   {
-     "transport": {
-       "name": "rabbitmq",
-       "reconnect_on_error": true
-     }
-   }{{< /highlight >}}
-
+{
+  "transport": {
+    "name": "rabbitmq",
+    "reconnect_on_error": true
+  }
+}{{< /highlight >}}
    _NOTE: if you are using Redis as your transport, please use `"name": "redis"`
    for your transport configuration. For more information, please visit the
    [transport definition specification][13]._
