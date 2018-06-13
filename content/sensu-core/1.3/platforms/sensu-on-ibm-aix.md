@@ -21,6 +21,7 @@ menu:
   - [Example transport configuration](#example-transport-configuration)
 - [Operating Sensu](#operating-sensu)
   - [Managing the Sensu client process](#service-management)
+  - [Rotating Sensu Logs](#rotating-sensu-logs)
 - [Known limitations](#known-limitations)
   - [Foreign Function Interface](#foreign-function-interface)
 
