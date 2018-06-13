@@ -61,6 +61,11 @@ Source: [GitHub.com][60]
 
 ### CHANGES {#core-v1-4-2-changes}
 
+- **SECURITY FIX**: Sensu's directory permissions on Microsoft Windows
+  platforms were overly permissive, making it possible for
+  unprivileged users to execute code as the Sensu service user. This
+  vulnerability is fixed in Sensu Core 1.4.2-3, released May 31, 2018.
+
 - **BUGFIX**: Fixed API GET /results, results were incorrectly reported
     under a single client name.
 
