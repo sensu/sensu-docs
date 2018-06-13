@@ -21,6 +21,7 @@ menu:
   - [Example transport configuration](#example-transport-configuration)
 - [Operating Sensu](#operating-sensu)
   - [Managing the Sensu client process](#service-management)
+  - [Rotating Sensu Logs](#rotating-sensu-logs)
 - [Known limitations](#known-limitations)
   - [Foreign Function Interface](#foreign-function-interface)
 
@@ -143,6 +144,10 @@ utilities][10]:
 startsrc -s sensu-client
 stopsrc -s sensu-client{{< /highlight >}}
 
+### Rotating Sensu Logs
+
+Sensu comes packaged with logrotate rules. However, on AIX, you'll need to install an additional package to take advantage of those rules. You can install the `logrotate` package listed [here][aix-logrotate]. Once installed, the rules present in `/etc/logrotate.d/sensu` will be used.
+
 ## Known limitations
 
 Please note the following platform-specific limitations affecting Sensu on AIX
@@ -169,3 +174,6 @@ support will be enabled in a future release.
 [11]: #example-transport-configuration
 [12]: #example-client-configuration
 [13]: ../../reference/transport/#transport-definition-specification
+
+<!-- Supplemental links -->
+[aix-logrotate]: https://www.ibm.com/developerworks/aix/library/aix-toolbox/alpha.html#L
