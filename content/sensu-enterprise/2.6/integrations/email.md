@@ -289,4 +289,4 @@ example      | {{< highlight shell >}}"body": "/etc/sensu/email/body_template.er
 [3]:  #templates-attributes
 [4]:  /sensu-core/1.0/reference/events#event-data
 [5]:  https://docs.puppet.com/puppet/latest/lang_template_erb.html
-[6]:  /sensu-core/1.4/reference/clients/#custom-attributes
+[6]:  /sensu-core/1.0/reference/clients/#custom-attributes
