@@ -297,6 +297,131 @@ tokens"` will be published to the Sensu server log._
 
 ## Filter configuration
 
+### Built-in Filters - occurrences {#built-in-filters-occurrences}
+
+The `occurrences` filter is included in every install of Sensu. This filter can 
+be applied to a handler using the "filter" or "filters" handler definition attribute.
+
+For example:
+{{< highlight json >}}
+{
+  "handlers": {
+    "email": {
+      "...": "...",
+      "filters": ["occurrences"]
+    }
+  }
+}
+{{< /highlight >}}
+
+
+The `occurrences` filter uses two custom check definition attributes, `occurrences` 
+and `refresh`. 
+
+`occurrences`: The number of events that must occur before an event is handled for 
+the check (default is 1).
+
+`refresh`: Time in seconds until event occurrences are handled for the check again 
+(default is 1800). For example, a check with a refresh of 1800 will have its' event
+(recurrences) handled every 30 minutes, to remind users of the issue.
+
+For example:
+{{< highlight json >}}
+{
+  "checks": {
+    "check-http": {
+      "...": "...",
+      "occurrences": 2,
+      "refresh": 3600
+    }
+  }
+}
+{{< /highlight >}}
+
+### Built-in Filters - check_dependencies {#built-in-filters-check-dependencies}
+
+The `check_dependencies` filter is included in every install of Sensu. This 
+filter can be applied to a handler using the "filter" or "filters" handler definition
+attribute. The `check_dependencies` filter matches events when an even already exisits,
+enabling the user to reduce notification noise, only being notified for the "root cause"
+of a given failure.
+
+The example below shows `checks_dependencies` filter being applied to `custom_mailer`:
+{{< highlight json >}}
+{
+  "handlers": {
+    "custom_mailer": {
+      "type": "pipe",
+      "command": "custom_mailer.rb",
+      "filters": ["check_dependencies"]
+    }
+  }
+}
+{{< /highlight >}}
+
+#### Defining Dependencies {#defining-dependencies}
+
+The `check_dependencies` filter uses a customer check definition attribute `dependencies`.
+`dependencies` is defined as an array with attributes such as `checks`, Sensu client/check
+pairs or a subscription/check pairs. 
+
+This example showcases a check configured to depend on any check called `mysql`:
+
+{{< highlight json >}}
+{
+  "checks": {
+    "web_application_api": {
+      "command": "check-http.rb -u https://localhost:8080/api/v1/health",
+      "subscribers": [
+        "web_application"
+      ],
+      "interval": 20,
+      "dependencies": [
+        "mysql"
+      ]
+    }
+  }
+}
+{{< /highlight >}}
+
+We can define a more detailed dependency by specifying the `client` and `check` pair:
+
+{{< highlight json >}}
+{
+  "checks": {
+    "web_application_api": {
+      "command": "check-http.rb -u https://localhost:8080/api/v1/health",
+      "subscribers": [
+        "web_application"
+      ],
+      "interval": 20,
+      "dependencies": [
+        "db-01/mysql"
+      ]
+    }
+  }
+}
+{{< /highlight >}}
+
+Lastly we can specify a dependency on any `mysql` check in the `mysql_nodes` subscription:
+
+{{< highlight json >}}
+{
+  "checks": {
+    "web_application_api": {
+      "command": "check-http.rb -u https://localhost:8080/api/v1/health",
+      "subscribers": [
+        "web_application"
+      ],
+      "interval": 20,
+      "dependencies": [
+        "subscription:mysql_nodes/mysql"
+      ]
+    }
+  }
+}
+{{< /highlight >}}
+
 ### Example filter definition {#example-filter-definition}
 
 The following is an example Sensu filter definition, a JSON configuration file
