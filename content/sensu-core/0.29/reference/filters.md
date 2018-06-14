@@ -322,7 +322,7 @@ and `refresh`.
 the check (default is 1).
 
 `refresh`: Time in seconds until event occurrences are handled for the check again 
-(default is 1800). For example, a check with a refresh of 1800 will have its' event
+(default is 1800). For example, a check with a refresh of 1800 will have its event
 (recurrences) handled every 30 minutes, to remind users of the issue.
 
 For example:
@@ -342,7 +342,7 @@ For example:
 
 The `check_dependencies` filter is included in every install of Sensu. This 
 filter can be applied to a handler using the "filter" or "filters" handler definition
-attribute. The `check_dependencies` filter matches events when an even already exisits,
+attribute. The `check_dependencies` filter matches events when an event already exists,
 enabling the user to reduce notification noise, only being notified for the "root cause"
 of a given failure.
 
@@ -361,9 +361,9 @@ The example below shows `checks_dependencies` filter being applied to `custom_ma
 
 #### Defining Dependencies {#defining-dependencies}
 
-The `check_dependencies` filter uses a customer check definition attribute `dependencies`.
+The `check_dependencies` filter uses a custom check definition attribute `dependencies`.
 `dependencies` is defined as an array with attributes such as `checks`, Sensu client/check
-pairs or a subscription/check pairs. 
+pairs or subscription/check pairs. 
 
 This example showcases a check configured to depend on any check called `mysql`:
 
