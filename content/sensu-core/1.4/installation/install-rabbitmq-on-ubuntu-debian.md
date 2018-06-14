@@ -26,13 +26,13 @@ RabbitMQ, you'll need to install Erlang.
 
 1. Add the Erlang Solutions APT repository
    {{< highlight shell >}}
-   sudo wget http://packages.erlang-solutions.com/erlang-solutions_1.0_all.deb
-   sudo dpkg -i erlang-solutions_1.0_all.deb
-   sudo apt-get update{{< /highlight >}}
+sudo wget http://packages.erlang-solutions.com/erlang-solutions_1.0_all.deb
+sudo dpkg -i erlang-solutions_1.0_all.deb
+sudo apt-get update{{< /highlight >}}
 
 2. Install Erlang
    {{< highlight shell >}}
-   sudo apt-get -y install socat erlang-base erlang-nox{{< /highlight >}}
+sudo apt-get -y install socat erlang-base erlang-nox{{< /highlight >}}
 
 ## Install RabbitMQ
 
@@ -55,11 +55,11 @@ Erlang version 19.3 or newer][4]).
 1. Download the official RabbitMQ 3.6.9 .deb installer package, as suggested in
    the [official RabbitMQ installation guide][2]:
    {{< highlight shell >}}
-   sudo wget http://www.rabbitmq.com/releases/rabbitmq-server/v3.6.9/rabbitmq-server_3.6.9-1_all.deb{{< /highlight >}}
+sudo wget http://www.rabbitmq.com/releases/rabbitmq-server/v3.6.9/rabbitmq-server_3.6.9-1_all.deb{{< /highlight >}}
 
 2. Install the package using `dpkg`
    {{< highlight shell >}}
-   sudo dpkg -i rabbitmq-server_3.6.9-1_all.deb{{< /highlight >}}
+sudo dpkg -i rabbitmq-server_3.6.9-1_all.deb{{< /highlight >}}
 
 ### Install RabbitMQ using APT
 
@@ -71,18 +71,18 @@ users, as the repository is labeled as a "testing" repo, because (according to
 the RabbitMQ website) "[they] release somewhat frequently", and there shouldn't
 be a reason to upgrade RabbitMQ versions frequently._
 
-## Managing the RabbitMQ service/process
+## Managing the RabbitMQ service/process {#managing-the-rabbitmq-serviceprocess}
 
 1. To enable the RabbitMQ service, you'll need to install its init scripts using
    the `update-rc.d` utility (if you are using Ubuntu 16.04+ you will need to 
    use `systemctl` instead):
    {{< highlight shell >}}
-   sudo update-rc.d rabbitmq-server enable{{< /highlight >}}
+sudo update-rc.d rabbitmq-server enable{{< /highlight >}}
 
 2. Start and stop the RabbitMQ service using the `service` command:
    {{< highlight shell >}}
-   sudo service rabbitmq-server start
-   sudo service rabbitmq-server stop{{< /highlight >}}
+sudo service rabbitmq-server start
+sudo service rabbitmq-server stop{{< /highlight >}}
 
 ## Configure RabbitMQ access controls
 
@@ -174,17 +174,16 @@ configuration.
 
 1. Copy the following contents to a configuration file located at
    `/etc/sensu/conf.d/rabbitmq.json`:
-
-   {{< highlight json>}}
-   {
-     "rabbitmq": {
-       "host": "127.0.0.1",
-       "port": 5672,
-       "vhost": "/sensu",
-       "user": "sensu",
-       "password": "secret"
-     }
-   }{{< /highlight >}}
+  {{< highlight json>}}
+{
+ "rabbitmq": {
+   "host": "127.0.0.1",
+   "port": 5672,
+   "vhost": "/sensu",
+   "user": "sensu",
+   "password": "secret"
+ }
+}{{< /highlight >}}
 
 ### Example Distributed Configuration
 
@@ -194,17 +193,16 @@ configuration.
 2. Create a configuration file  with the following contents at
    `/etc/sensu/conf.d/rabbitmq.json` on the Sensu server and API system(s), and
    all systems running the Sensu client:
-
-   {{< highlight json>}}
-   {
-     "rabbitmq": {
-       "host": "10.0.1.6",
-       "port": 5672,
-       "vhost": "/sensu",
-       "user": "sensu",
-       "password": "secret"
-     }
-   }{{< /highlight >}}
+  {{< highlight json>}}
+{
+  "rabbitmq": {
+    "host": "10.0.1.6",
+    "port": 5672,
+    "vhost": "/sensu",
+    "user": "sensu",
+    "password": "secret"
+  }
+}{{< /highlight >}}
 
 
 

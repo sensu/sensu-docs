@@ -42,11 +42,11 @@ to populate.
 {{< highlight shell >}}
 sensuctl handler create influx-db \
 --type pipe \
---command 'sensu-influxdb-handler' \
+--command "sensu-influxdb-handler \
 --addr '123.4.5.6' \
 --db-name 'myDB' \
 --username 'foo' \
---password 'bar'
+--password 'bar'"
 {{< /highlight >}}
 
 ### Assigning the handler to an event
