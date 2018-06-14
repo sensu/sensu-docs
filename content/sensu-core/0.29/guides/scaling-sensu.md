@@ -7,7 +7,29 @@ menu:
   sensu-core-0.29:
     parent: guides
 ---
-# Scaling Sensu at a Single Site {#scaling-sensu-at-a-single-site}
+
+In this article we'll cover some strategies to consider when scaling Sensu, whether at a single site, or configured in a distributed fashion.
+
+# Objectives
+
+By the end of the end of this article, you should be able to confidently:
+
+* Scale Sensu at a single site
+* Scale Sensu at multiple sites
+* Understand the strengths and weaknesses of various scaling strategies
+
+## Prerequisites
+
+* At least one working Sensu installation consisting of:
+  * sensu-server
+  * sensu-api
+  * uchiwa
+  * rabbitmq
+  * redis
+
+If you don't have a fully functioning Sensu deployment, consider running through our ["Five Minute Install"][] guide to stand up a single Sensu instance. Alternatively, you can use the Vagrantfile found [here][] to stand up a development instance.
+
+## Scaling at a Single Site {#scaling-sensu-at-a-single-site}
 
 Sensu made of multiple components, each has its own scaling considerations. For a real-life example of how to scale a Sensu Cluster, see [Failshell.io's excellent writeup](http://failshell.io/sensu/high-availability-sensu/)
 
