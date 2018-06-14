@@ -71,10 +71,10 @@ in the set.
 Sensu Client `keepalives` are the heartbeat mechanism used by Sensu to ensure 
 that all registered Sensu clients are still operational and able to reach the 
 [Sensu transport][5]. By default `keepalive` events are handled by the [default
-handler][#the-default-handler].
+handler](#the-default-handler).
 
 The `keepalive` scope can be configured to use specific handlers on the client, 
-as well as overriding the default threashold values
+as well as overriding the default threshold values.
 
 For example:
 {{< highlight json >}}
