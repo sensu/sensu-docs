@@ -40,8 +40,7 @@ ERB templating syntax][5]._
 The following example demonstrates how to access the Sensu `@event` variable from
 a custom ERB template.
 
-_NOTE: This example includes the `datacenter` object which needs to be added
-using a [client custom attribute][6] for the `@event` variable to contain it_
+_NOTE: This example includes the `datacenter` attribute, which is only available to be used in a template when defined as a [client custom attribute][6]_
 
 {{< highlight erb >}}
 Hi there,
