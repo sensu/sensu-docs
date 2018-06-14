@@ -4,8 +4,8 @@ date: 2017-10-26T10:52:11-07:00
 description: ""
 weight: 5
 product: "Plugins"
-version: "2.3"
-menu: "plugins-2.3"
+version: "1.0"
+menu: "plugins-1.0"
 ---
 
 **Table of Contents**
@@ -40,22 +40,17 @@ Members in the Owners or Core Infra team must provide a voice number.  Due to th
 
 There is a public Trello [board](https://trello.com/b/QjkJ8CS3/sensu-community-plugins) used for communicating various project wide items. This is still a work in progress but it works for now.  Ideas are always welcome.
 
-#### Website
-
-[sensu-plugins.io](http://sensu-plugins.io/)
-
-
 ### Policies
 
-This is a volunteer project and as such comitters are free to come and go.  No one is required to do any amount of work to continue as a comitter, some days you may do a ton of work or you may be on vacation or doing something that pays the bills for several weeks.  No worries.
+This is a volunteer project and as such committers are free to come and go.  No one is required to do any amount of work to continue as a committer, some days you may do a ton of work or you may be on vacation or doing something that pays the bills for several weeks.  No worries.
 
 #### Organization Access
 
-This is a public organization and as such anyone may join the only requirements are a firm belief in treating your infrastructure as code and 2FA on your github account.
+This is a public organization and as such anyone may join the only requirements are a firm belief in treating your infrastructure as code and 2FA on your GitHub account.
 
 #### Organization Structure
 
-Becoming a member of each of these groups and teams is an open decision.  You may be invited by any member of the team and the majority of the other team members can approve.  There is no time limit before being invited into a team and no set amount of work that needs to be accomplished once you are in a team. You may also request to be given commit bit by openning an issue in a repo and mentioning an existing commiter. We will then be happy to start a dialogue with you.
+Becoming a member of each of these groups and teams is an open decision.  You may be invited by any member of the team and the majority of the other team members can approve.  There is no time limit before being invited into a team and no set amount of work that needs to be accomplished once you are in a team. You may also request to be given commit bit by opening an issue in a repo and mentioning an existing committer. We will then be happy to start a dialogue with you.
 
 For security purposes though if you have not made any contributions in the last 6 months, you may be removed from a team and can request access again at any time by reaching out and contacting an existing team member.
 
@@ -63,7 +58,7 @@ Any membership issues will be resolved by members of the Admin group after consu
 
 **core committer**
 
-A committer who has read access to all public and private repos including these specific privilages:
+A committer who has read access to all public and private repos including these specific privileges:
 
 * Can push directly to Github and RubyGems
 * Access to the sensu-plugin bot account
@@ -75,8 +70,8 @@ A committer who has read access to all public and private repos including these 
 
 **committer**
 
-A commiter who has push access to all plugin repos. They can either be a member of a team or be granted rights to specific repos using Github's contributor org permissions.
-They also have the following privilages after 6 months of continued effort or a demostrated need:
+A committer who has push access to all plugin repos. They can either be a member of a team or be granted rights to specific repos using Github's contributor org permissions.
+They also have the following privileges after 6 months of continued effort or a demonstrated need:
 
 * Discount to Tower2 OSX Git Client
 * Access to DO droplets for testing
