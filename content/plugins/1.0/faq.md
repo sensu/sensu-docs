@@ -1,11 +1,11 @@
 ---
 title: "FAQ"
 date: 2017-10-26T09:27:53-07:00
-description: ""
+description: "Frequently asked questions about Sensu plugins"
 weight: 2
 product: "Plugins"
-version: "2.3"
-menu: "plugins-2.3"
+version: "1.0"
+menu: "plugins-1.0"
 ---
 
 ### Why did you split the repos?
@@ -16,7 +16,7 @@ This was done to simplify the deployment and delivery process.  When working wit
 
 The repos are named based up the application, product, or function they are associated with.  This means that if you use apache, you need only install the *sensu-plugins-apache* gem or clone the repo.  When it comes to handlers and mutators the same convention was used so that in the future if a check is added the repo name won't change.  *Sensu-plugins-pagerduty* is a great example, it may only contain handlers at this time but if in the future we want to add a check of an endpoint we don't need to do anything more than bump the version and update the docs.
 
-Besides having a standard naming convention makes automation and deployment tools very happy and we all use them right?
+Besides, having a standard naming convention makes automation and deployment tools very happy and we all use them, right?
 
 ### How do I know what a repo contains?
 
@@ -40,7 +40,7 @@ No!  It will be frozen in place at a date TBD, most likely sometime Fall 2015 al
 
 ### How should I deploy the new plugins?
 
-If a gem exists then that would be the best way.  Instructions for installing it can be found in the README of the repo or [here][3].  If no gem exists yet, then you can attempt to build one based upon the gemspec.  You can also install straight from source.
+If a gem exists then that would be the best way.  Instructions for installing it can be found in the README of the repo or [here][2].  If no gem exists yet, then you can attempt to build one based upon the gemspec.  You can also install straight from source.
 
 All repos have releases, you can just download the latest tarball or zip file, cloning the master branch is not recommended, supported and never will be.  Unless it's a breaking change, the repo will not contain feature branches, everything will be pushed to master.  You have been warned.
 
@@ -70,12 +70,12 @@ We strive to test on all non-EOL versions. It can take time to add new versions 
 
 Rubocop
 
-Details are in .rubocop.yml within the root of each repo and in the [developer guidelines][2]
+Details are in .rubocop.yml within the root of each repo and in the [developer guidelines][3].
 
 ### What do you use for testing?
 
 RSpec
 
 [1]: https://github.com/sensu-plugins/sensu-plugins-disk-checks
-[2]: ../developer_guidelines
-[3]: ../installation
+[2]: installation
+[3]: developer-guidelines
