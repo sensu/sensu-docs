@@ -4,8 +4,8 @@ date: 2017-10-26T10:36:53-07:00
 description: ""
 weight: 4
 product: "Plugins"
-version: "2.3"
-menu: "plugins-2.3"
+version: "1.0"
+menu: "plugins-1.0"
 ---
 
 **Table of Contents**

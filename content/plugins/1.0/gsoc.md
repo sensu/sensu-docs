@@ -1,18 +1,12 @@
 ---
-title: "GSoC 15"
+title: "GSoC 2015"
 date: 2017-10-26T10:58:06-07:00
-description: ""
+description: "Google Summer of Code 2015"
 weight: 7
 product: "Plugins"
-version: "2.3"
-menu: "plugins-2.3"
+version: "1.0"
+menu: "plugins-1.0"
 ---
-
-Creating a set of production grade gems from the [Sensu Community Plugins][2] is a huge task that will take considerable time; only with the continued effort of many people can this goal can be achieved.
-
-The original community plugins repo has already been split in smaller [repos][3], based upon application. This means all the Windows plugins, handlers, etc are in a repo named sensu-plugins-windows, the aws ones are in sensu-plugins-aws and so on.
-
-This is only the first step towards completing the transformation, existing tooling will need to be improved and new tooling created for managing all the repos separately but also as a whole.  A maintainer should be able to issue a single command and have a template generated and installed in all repos, manually copying a file to every repo is so 2006. :D
 
 ### Task: General refactoring of community plugins code base
 
@@ -94,11 +88,11 @@ When submitting your proposal please explain your views on testing code and infr
 
 **Brief explanation:**
 
-With the split of the community repo in ~150 separate repos, users may have a hard time finding a particular monitor or know that a monitor or handler for a service already exists.  There should be a directory we can point them to that will offer this functionality in a clean manner.  The directory should be updated automatically upon the release of a new gem, github tag, or repo.  Consideration will need to be given for the rate-limiting that is inherent with Github.
+With the split of the community repo in ~150 separate repos, users may have a hard time finding a particular monitor or know that a monitor or handler for a service already exists.  There should be a directory we can point them to that will offer this functionality in a clean manner.  The directory should be updated automatically upon the release of a new gem, GitHub tag, or repo.  Consideration will need to be given for the rate-limiting that is inherent with Github.
 
 **Expected Results:**
 
-We would like a solid design and poc of the code and tools necessary to build and maintain the directory. It need not be complete but substantial progress should have been made and it should be in a poc state with complete functionality.  Current technologies in consideration are Node.js, RoR, vanilla js.
+We would like a solid design and proof-of-concept of the code and tools necessary to build and maintain the directory. It need not be complete but substantial progress should have been made and it should be in a proof-of-concept state with complete functionality.  Current technologies in consideration are Node.js, RoR, vanilla js.
 
 **Why Work On This:**
 
@@ -136,7 +130,7 @@ With the split of the community repo in ~150 separate repos, users may have a ha
 
 **Expected Results:**
 
-We would like a solid design and poc of the code and tools necessary to build and maintain this. It need not be complete but substantial progress should have been made and it should be in a poc state with complete functionality.  Current technologies in consideration are Node.js and RoR.
+We would like a solid design and proof-of-concept of the code and tools necessary to build and maintain this. It need not be complete but substantial progress should have been made and it should be in a proof-of-concept state with complete functionality.  Current technologies in consideration are Node.js and RoR.
 
 **Why Work On This:**
 
@@ -182,7 +176,7 @@ There are still lots of api's, platforms, and tools out there that have minimal 
 
 **Expected Results:**
 
-A set of completed, stable, and production grade monitors, handlers, etc that are within the scope agreed upon by the student and the mentor at the outset.  The emphsis will be on quality not quanity and all code will be written in Ruby following the [Developer Guidelines][8] for the sensu plugins.
+A set of completed, stable, and production grade monitors, handlers, etc that are within the scope agreed upon by the student and the mentor at the outset.  The emphasis will be on quality not quantity and all code will be written in Ruby following the [Developer Guidelines][8] for the Sensu plugins.
 
 **Why Work On This:**
 
@@ -213,11 +207,11 @@ You will get a feel for how infrastructure developers and system administrators 
 When submitting your proposal please pick one or more topics, and explain why you want to work with them, a simple scope for the project, and any domain specific knowledge or skills you have to help you complete the task.
 
 
-[1]: http://sensu-plugins.github.io/development/gir
+[1]: https://github.com/sensu-plugins/GIR
 [2]: https://github.com/sensu/sensu-community-plugins
 [3]: https://github.com/sensu-plugins
 [4]: https://github.com/bbatsov/ruby-style-guide
 [5]: https://github.com/mattyjones
 [6]: https://github.com/kalabiyau
 [7]: https://github.com/sensu/sensu-plugin-spec
-[8]: http://sensu-plugins.github.io/development/guidelines.html
+[8]: developer-guidelines
