@@ -175,7 +175,9 @@ Sensu Core users:
 
 {{< highlight shell >}}
 sudo systemctl enable sensu-{server,api,client}
-sudo systemctl start sensu-{server,api,client}{{< /highlight >}}
+sudo systemctl start sensu-{server,api,client}
+sudo systemctl enable uchiwa
+sudo systemctl stat uchiwa{{< /highlight >}}
 
 Sensu Enterprise users:
 
@@ -213,7 +215,7 @@ $ curl -s http://127.0.0.1:4567/clients | jq .
 
 ...you have successfully installed and configured Sensu!
 
-If you you're using Sensu Enterprise, you should also be able to load the
+If you're using Sensu Enterprise, you should also be able to load the
 Sensu Enterprise Dashboard in your browser by visiting
 [http://hostname:3000](http://hostname:3000) (replacing `hostname` with the
 hostname or IP address of the system where the dashboard is installed).
