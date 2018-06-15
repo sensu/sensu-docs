@@ -66,6 +66,36 @@ does not exist. To use one or more existing handlers as the `default`, you can
 create a [Set handler][17] called `default` and include the existing handler(s)
 in the set.
 
+#### Keepalive
+
+Sensu Client `keepalives` are the heartbeat mechanism used by Sensu to ensure
+that all registered Sensu clients are still operational and able to reach the
+[Sensu transport][5]. By default `keepalive` events are handled by the [default
+handler](#the-default-handler).
+
+The `keepalive` scope can be configured to use specific handlers on the client,
+as well as overriding the default threshold values.
+
+For example:
+{{< highlight json >}}
+{
+  "client": {
+    "name": "i-424242",
+    "...": "...",
+    "keepalive": {
+      "handlers": [
+        "pagerduty",
+        "email"
+      ],
+      "thresholds": {
+        "warning": 40,
+        "critical": 60
+      }
+    }
+  }
+}
+{{< /highlight >}}
+
 ## Pipe handlers
 
 Pipe handlers are external commands that can consume [event data][6] via STDIN.
@@ -185,6 +215,9 @@ events.
 Handler set definitions allow groups of handlers (i.e. individual collections of
 actions to take on event data) to be referenced via a single named handler set.
 
+_WARNING: `filter` attribute will be depreciated in future releases. Please use 
+`filters` instead.
+
 _NOTE: Attributes defined on handler sets do not apply to the handlers they
 include. For example, `filter`, `filters`, and `mutator` attributes defined 
 in a handler set will have no effect._
@@ -259,14 +292,14 @@ filter       |
 description  | The Sensu event filter (name) to use when filtering events for the handler.
 required     | false
 type         | String
-example      | {{< highlight shell >}}"filter": "recurrence"{{< /highlight >}}
+example      | {{< highlight shell >}}"filter": "occurrences"{{< /highlight >}}
 
 filters      | 
 -------------|------
 description  | An array of Sensu event filters (names) to use when filtering events for the handler. Each array item must be a string.
 required     | false
 type         | Array
-example      | {{< highlight shell >}}"filters": ["recurrence", "production"]{{< /highlight >}}
+example      | {{< highlight shell >}}"filters": ["occurrences", "production"]{{< /highlight >}}
 
 severities     | 
 ---------------|------

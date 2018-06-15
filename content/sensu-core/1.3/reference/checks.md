@@ -325,7 +325,8 @@ Check hooks can be used for automated data gathering for incident triage, for ex
 }
 {{< /highlight >}}
 
-Check hooks can also be used for rudimentary auto-remediation tasks, for example, starting a process that is no longer running.
+Check hooks can also be used to add context to a check result, for example,
+outputting the last 100 lines of an error log.
 
 {{< highlight json >}}
 {
@@ -337,7 +338,7 @@ Check hooks can also be used for rudimentary auto-remediation tasks, for example
       ],
       "interval": 60,
       "hooks": {
-        "critical": {"command": "sudo systemctl start nginx"}
+        "critical": {"command": "tail -n 100 /var/log/nginx/error.log"}
       }
     }
   }
@@ -426,7 +427,7 @@ example      | {{< highlight shell >}}"subscribers": ["production"]{{< /highligh
 
 publish      | 
 -------------|------
-description  | If check requests are published for the check.
+description  | If check requests are published for the check. If `standalone` is `true`, setting `publish` to `false` prevents the Sensu client from scheduling the check automatically.
 required     | false
 type         | Boolean
 default      | true
@@ -466,6 +467,14 @@ description  | The time to live (TTL) in seconds until check results are conside
 required     | false
 type         | Integer
 example      | {{< highlight shell >}}"ttl": 100{{< /highlight >}}
+
+ttl_status   | 
+-------------|------
+description  | The exit code that a check with the `ttl` attribute should return.
+required     | false
+type         | Integer
+default      | 1
+example      | {{< highlight shell >}}"ttl_status": 2{{< /highlight >}}
 
 auto_resolve | 
 -------------|------
@@ -591,6 +600,40 @@ description    | The [`proxy_requests` definition scope][48], used to create pro
 required       | false
 type           | Hash
 example        | {{< highlight shell >}}"proxy_requests": {}{{< /highlight >}}
+
+occurrences  | 
+-------------|------
+description  | The number of event occurrences that must occur before an event is handled for the check. _NOTE: For this attribute to take effect, the `occurrences` filter must be explicitly configured in your handler definition._
+required     | false
+type         | Integer
+default      | `1`
+example      | {{< highlight shell >}}"occurrences": 3{{< /highlight >}}
+
+refresh      | 
+-------------|------
+description  | Time in seconds until the event occurrence count is considered reset for the purpose of counting `occurrences`, to allow an event for the check to be handled again. For example, a check with a refresh of `1800` will have its events (recurrences) handled every 30 minutes, to remind users of the issue. _NOTE: For this attribute to take effect, the `occurrences` filter must be explicitly configured in your handler definition._
+required     | false
+type         | Integer
+default      | `1800`
+example      | {{< highlight shell >}}"refresh": 3600{{< /highlight >}}
+
+dependencies | 
+-------------|------
+description  | An array of check dependencies. Events for the check will not be handled if events exist for one or more of the check dependencies. A check dependency can be a check executed by the same Sensu client (eg. `check_app`), or a client/check pair (eg.`db-01/check_mysql`). _NOTE: For this attribute to take effect, the `check_dependencies` filter must be explicitly configured in your handler definition._
+required     | false
+type         | Array
+example      | {{< highlight shell >}}"dependencies": [
+  "check_app",
+  "db-01/check_mysql"
+]
+{{< /highlight >}}
+
+notification | 
+-------------|------
+description  | The notification message used for events created by the check, instead of the commonly used check output. This attribute is used by most notification event handlers that use the sensu-plugin library.
+required     | false
+type         | String
+example      | {{< highlight shell >}}"notification": "the shopping cart application is not responding to requests"{{< /highlight >}}
 
 #### `subdue` attributes
 
@@ -930,7 +973,7 @@ example      | {{< highlight shell >}}"output": "i-424242"{{< /highlight >}}
 [33]: ../../api/aggregates/
 [34]: ../events/
 [35]: ../handlers/
-[36]: /sensu-enterprise/1.0/contact-routing
+[36]: /sensu-enterprise/latest/contact-routing
 [37]: #example-check-result-output
 [38]: #check-result-specification
 [39]: ../../api/clients/
@@ -938,7 +981,7 @@ example      | {{< highlight shell >}}"output": "i-424242"{{< /highlight >}}
 [41]: #check-names
 [42]: #subdue-attributes
 [43]: ../../overview/changelog/
-[44]: /sensu-enterprise/1.0/contact-routing
+[44]: /sensu-enterprise/latest/contact-routing
 [45]: ../../api/events#the-resolve-api-endpoint
 [46]: ../clients#client-socket-input
 [47]: https://en.wikipedia.org/wiki/Cron#CRON_expression

@@ -34,7 +34,13 @@ $ sensuctl asset create check_website.tar.gz \
   --sha512 "$(sha512sum check_website.tar.gz | cut -f1 -d ' ')"
 {{< /highlight >}}
 
-If you're using a mac, you'll need to use `$(shasum -a 512 check_website.tar.gz | cut -f1 -d ' ') to generate a checksum.
+If you're using a mac, you'll need to use `$(shasum -a 512 check_website.tar.gz | cut -f1 -d ' ')` to generate a checksum.
+
+If you're using windows, you'll need to use the `CertFile` utility to generate the checksum:
+{{< highlight shell >}}
+CertUtil -hashfile check_website.tar.gz SHA512
+{{< /highlight >}}
+and extract the checksum from the output manually, before adding it to the sensuctl command.
 
 
 ### Adding an asset to a check on creation

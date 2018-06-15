@@ -41,14 +41,12 @@ you have updated existing configurations to follow the repository URL
 format specified below._
 
 1. Download Sensu from the [Sensu Downloads][1] page.
-
    _NOTE: FreeBSD packages are available for FreeBSD 10 and 11.
    Please visit the [Sensu Downloads][1] page for more information._
 
 2. Install the `sensu-1.3.0_1.txz` package using the `pkg` utility:
-
    {{< highlight shell >}}
-   sudo pkg add ./sensu-1.3.0_1.txz{{< /highlight >}}
+sudo pkg add ./sensu-1.3.0_1.txz{{< /highlight >}}
 
 3. Configure the Sensu client. **No "default" configuration is provided with
    Sensu**, so the Sensu client will not run without the corresponding
@@ -82,23 +80,22 @@ mkdir /usr/local/etc/sensu/conf.d{{< /highlight >}}
 
 1. Copy the following contents to a configuration file located at
    `/usr/local/etc/sensu/conf.d/client.json`:
-
    {{< highlight json >}}
-   {
-     "client": {
-       "name": "freebsd-client",
-       "address": "127.0.0.1",
-       "environment": "development",
-       "subscriptions": [
-         "dev",
-         "freebsd-hosts"
-       ],
-       "socket": {
-         "bind": "127.0.0.1",
-         "port": 3030
-       }
-     }
-   }{{< /highlight >}}
+{
+  "client": {
+    "name": "freebsd-client",
+    "address": "127.0.0.1",
+    "environment": "development",
+    "subscriptions": [
+      "dev",
+      "freebsd-hosts"
+    ],
+    "socket": {
+      "bind": "127.0.0.1",
+      "port": 3030
+    }
+  }
+}{{< /highlight >}}
 
 ### Example Transport Configuration
 
@@ -107,15 +104,13 @@ connect to the configured [Sensu Transport][6].
 
 1. Copy the following contents to a configuration file located at
    `/usr/local/etc/sensu/conf.d/transport.json`:
-
    {{< highlight json >}}
-   {
-     "transport": {
-       "name": "rabbitmq",
-       "reconnect_on_error": true
-     }
-   }{{< /highlight >}}
-
+{
+  "transport": {
+    "name": "rabbitmq",
+    "reconnect_on_error": true
+  }
+}{{< /highlight >}}
    _NOTE: if you are using Redis as your transport, please use `"name": "redis"`
    for your transport configuration. For more information, please visit the
    [transport definition specification][10]._
@@ -132,10 +127,10 @@ Coming soon...
 [2]:  https://sensu.global.ssl.fastly.net/freebsd/
 [3]:  https://sensu.global.ssl.fastly.net/freebsd/FreeBSD:10:amd64/sensu/sensu-1.3.0_1.txz
 [4]:  https://sensuapp.org/mit-license
-[5]:  ../../../reference/configuration/
-[6]:  ../../../reference/transport/
-[7]:  ../../../reference/redis/#sensu-redis-configuration
-[8]:  ../../../reference/rabbitmq/#sensu-rabbitmq-configuration
+[5]:  ../../reference/configuration/
+[6]:  ../../reference/transport/
+[7]:  ../../reference/redis/#sensu-redis-configuration
+[8]:  ../../reference/rabbitmq/#sensu-rabbitmq-configuration
 [9]:  #configure-sensu
 [10]: #example-transport-configuration
 [11]: #example-client-configuration

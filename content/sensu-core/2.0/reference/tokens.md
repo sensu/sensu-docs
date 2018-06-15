@@ -133,7 +133,7 @@ tokens declared above.
   }
   "user": "agent",
   "region": "us-west-1",
-  "team": "ops"
+  "team": "ops",
   "disk": {
     "warning": 75,
     "critical": 85

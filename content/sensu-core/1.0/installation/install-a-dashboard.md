@@ -37,5 +37,5 @@ required for operating Sensu Core or Sensu Enterprise._
 
 [sensu-enterprise]:       https://sensuapp.org/enterprise
 [core-api]:               ../../api/overview
-[enterprise-api]:         ../../../sensu-enterprise/latest/api
+[enterprise-api]:         /sensu-enterprise/latest/api/
 [uchiwa-install]:         http://docs.uchiwa.io/getting-started/

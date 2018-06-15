@@ -45,14 +45,18 @@ go build -o /usr/local/bin/handler-slack handlers/slack/main.go
 Now that our handler command is installed, the second step is to create a
 handler that we will call `slack`, which is a **pipe** handler that pipes event
 data into our previous script named `handler-slack`. We will also pass the
-[Slack webhook URL][6] and the Slack channel name to this script.
+[Slack webhook URL][6] and the Slack channel name to this script. Finally, in
+order to avoid silenced events from being sent to Slack, we will use the
+`not_silenced` built-in filter, in addition to the `is_incident` built-in filter
+so zero status events are also discarded.
 
 {{< highlight shell >}}
 sensuctl handler create slack \
 --type pipe \
 --command 'handler-slack \
   --webhook-url https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX \
-  --channel monitoring'
+  --channel monitoring' \
+--filters is_incident,not_silenced
 {{< /highlight >}}
 
 ### Assigning the handler to a check

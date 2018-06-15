@@ -52,4 +52,4 @@ platform(s) where you will run your Sensu client(s).
 
 
 
-[1]:  installation-strategies#standalone
+[1]:  ../installation-strategies#standalone

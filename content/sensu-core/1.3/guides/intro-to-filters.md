@@ -89,7 +89,9 @@ in the handler definition. For example:
     "mail": {
       "type": "pipe",
       "command": "mailx -s 'sensu event' example@address.com",
-      "filter": "production"
+      "filters": [
+        "production"
+      ]
     }
   }
 }{{< /highlight >}}

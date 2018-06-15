@@ -21,6 +21,7 @@ menu:
   - [Example transport configuration](#example-transport-configuration)
 - [Operating Sensu](#operating-sensu)
   - [Managing the Sensu client process](#service-management)
+  - [Rotating Sensu Logs](#rotating-sensu-logs)
 - [Known limitations](#known-limitations)
   - [Foreign Function Interface](#foreign-function-interface)
 
@@ -42,22 +43,17 @@ format specified below._
 2. The Sensu installer package for IBM AIX systems is provided in **backup file
    format** (.bff). In order to install the content, you will need to know the
    "Fileset Name". Display the content using the `installp` utility.
-
    {{< highlight shell >}}
-   installp -ld sensu-1.2.0-1.powerpc.bff{{< /highlight >}}
-
+installp -ld sensu-1.2.0-1.powerpc.bff{{< /highlight >}}
    Once you have collected the fileset name, you can optionally proceed to
    preview installation using the `installp` utility, with the `-p` (preview)
    flag.
-
    {{< highlight shell >}}
-   installp -apXY -d sensu-1.2.0-1.powerpc.bff sensu{{< /highlight >}}
+installp -apXY -d sensu-1.2.0-1.powerpc.bff sensu{{< /highlight >}}
 
 3. Install Sensu using the `installp` utility.
-
    {{< highlight shell >}}
-   installp -aXY -d sensu-1.2.0-1.powerpc.bff sensu{{< /highlight >}}
-
+installp -aXY -d sensu-1.2.0-1.powerpc.bff sensu{{< /highlight >}}
    _NOTE: this command uses the following `installp` utilty flags: `-a` to apply
    changes to the system, `-X` to extend the file system, and `-Y` to accept the
    [Sensu MIT License][4]._
@@ -98,23 +94,22 @@ mkdir /etc/sensu/conf.d{{< /highlight >}}
 
 1. Copy the following contents to a configuration file located at
    `/etc/sensu/conf.d/client.json`:
-
    {{< highlight json >}}
-   {
-     "client": {
-       "name": "aix-client",
-       "address": "localhost",
-       "environment": "development",
-       "subscriptions": [
-         "dev",
-         "aix-hosts"
-       ],
-       "socket": {
-         "bind": "127.0.0.1",
-         "port": 3030
-       }
-     }
-   }{{< /highlight >}}
+{
+  "client": {
+    "name": "aix-client",
+    "address": "localhost",
+    "environment": "development",
+    "subscriptions": [
+      "dev",
+      "aix-hosts"
+    ],
+    "socket": {
+      "bind": "127.0.0.1",
+      "port": 3030
+    }
+  }
+}{{< /highlight >}}
 
 ### Example Transport Configuration
 
@@ -123,15 +118,13 @@ connect to the configured [Sensu Transport][6].
 
 1. Copy the following contents to a configuration file located at
    `/etc/sensu/conf.d/transport.json`:
-
    {{< highlight json >}}
-   {
-     "transport": {
-       "name": "rabbitmq",
-       "reconnect_on_error": true
-     }
-   }{{< /highlight >}}
-
+{
+  "transport": {
+    "name": "rabbitmq",
+    "reconnect_on_error": true
+  }
+}{{< /highlight >}}
    _NOTE: if you are using Redis as your transport, please use `"name": "redis"`
    for your transport configuration. For more information, please visit the
    [transport definition specification][13]._
@@ -151,6 +144,10 @@ utilities][10]:
 startsrc -s sensu-client
 stopsrc -s sensu-client{{< /highlight >}}
 
+### Rotating Sensu Logs
+
+Sensu comes packaged with logrotate rules. However, on AIX, you'll need to install an additional package to take advantage of those rules. You can install the `logrotate` package listed [here][aix-logrotate]. Once installed, the rules present in `/etc/logrotate.d/sensu` will be used.
+
 ## Known limitations
 
 Please note the following platform-specific limitations affecting Sensu on AIX
@@ -168,12 +165,15 @@ support will be enabled in a future release.
 [2]:  https://sensu.global.ssl.fastly.net/aix/
 [3]:  https://sensu.global.ssl.fastly.net/aix/6.1/sensu-1.2.0-1.powerpc.bff
 [4]:  https://sensuapp.org/mit-license
-[5]:  ../../../reference/configuration/
-[6]:  ../../../reference/transport/
-[7]:  ../../../reference/redis/#sensu-redis-configuration
-[8]:  ../../../reference/rabbitmq/#sensu-rabbitmq-configuration
+[5]:  ../../reference/configuration/
+[6]:  ../../reference/transport/
+[7]:  ../../reference/redis/#sensu-redis-configuration
+[8]:  ../../reference/rabbitmq/#sensu-rabbitmq-configuration
 [9]:  https://github.com/ffi/ffi
 [10]: #configure-sensu
 [11]: #example-transport-configuration
 [12]: #example-client-configuration
-[13]: ../../../reference/transport/#transport-definition-specification
+[13]: ../../reference/transport/#transport-definition-specification
+
+<!-- Supplemental links -->
+[aix-logrotate]: https://www.ibm.com/developerworks/aix/library/aix-toolbox/alpha.html#L
