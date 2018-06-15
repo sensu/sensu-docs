@@ -130,7 +130,24 @@ Run the following to set up a minimal client config:
 
 **8. Configure a Sensu dashboard**
 
-Run the following to set up a minimal dashboard config:
+Sensu Core users:
+
+{{< highlight shell >}}
+ echo '{
+   "sensu": [
+     {
+       "name": "sensu",
+       "host": "127.0.0.1",
+       "port": 4567
+     }
+   ],
+   "uchiwa": {
+     "host": "0.0.0.0",
+     "port": 3000
+   }
+ }' |sudo tee /etc/sensu/uchiwa.json{{< /highlight >}}
+
+Sensu Enterprise users:
 
 {{< highlight shell >}}
  echo '{
