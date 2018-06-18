@@ -215,10 +215,7 @@ $ curl -s http://127.0.0.1:4567/clients | jq .
 
 ...you have successfully installed and configured Sensu!
 
-If you're using Sensu Enterprise, you should also be able to load the
-Sensu Enterprise Dashboard in your browser by visiting
-[http://hostname:3000](http://hostname:3000) (replacing `hostname` with the
-hostname or IP address of the system where the dashboard is installed).
+Whether you're using Uchiwa or Sensu Enterprise Dashboard, you now be able to view it in your browser by visiting [http://hostname:3000](http://hostname:3000) (replacing `hostname` with the hostname or IP address of the system where the dashboard is installed).
 
 ![five-minute-dashboard-1](/images/five-minute-dashboard-1.png)
 ![five-minute-dashboard-2](/images/five-minute-dashboard-2.png)
