@@ -31,16 +31,16 @@ RabbitMQ, you'll need to install Erlang.
 
 1. Add the EPEL repository:
    {{< highlight shell >}}
-   sudo yum install epel-release   {{< /highlight >}}
+sudo yum install epel-release{{< /highlight >}}
 
 2. Add the Erlang Solutions YUM repository:
    {{< highlight shell >}}
-   sudo wget https://packages.erlang-solutions.com/erlang-solutions-1.0-1.noarch.rpm
-   sudo rpm -Uvh erlang-solutions-1.0-1.noarch.rpm{{< /highlight >}}
+sudo wget https://packages.erlang-solutions.com/erlang-solutions-1.0-1.noarch.rpm
+sudo rpm -Uvh erlang-solutions-1.0-1.noarch.rpm{{< /highlight >}}
 
 3. Install Erlang:
    {{< highlight shell >}}
-   sudo yum install -y erlang-19.3{{< /highlight >}}
+sudo yum install -y erlang-19.3{{< /highlight >}}
 
 ## Install RabbitMQ
 
@@ -62,13 +62,13 @@ Erlang version 19.3 or newer][4]).
 
 1. Install the `socat` package, required by RabbitMQ rpm:
    {{< highlight shell >}}
-   sudo yum install -y socat{{< /highlight >}}
+sudo yum install -y socat{{< /highlight >}}
 
 2. Download the signing key for the RabbitMQ YUM repository, and then download
    and install RabbitMQ 3.6.9 using the `rpm` utility:
    {{< highlight shell >}}
-   sudo rpm --import https://www.rabbitmq.com/rabbitmq-signing-key-public.asc
-   sudo rpm -Uvh https://www.rabbitmq.com/releases/rabbitmq-server/v3.6.9/rabbitmq-server-3.6.9-1.el6.noarch.rpm{{< /highlight >}}
+sudo rpm --import https://www.rabbitmq.com/rabbitmq-signing-key-public.asc
+sudo rpm -Uvh https://www.rabbitmq.com/releases/rabbitmq-server/v3.6.9/rabbitmq-server-3.6.9-1.el6.noarch.rpm{{< /highlight >}}
 
 ### Install RabbitMQ using YUM
 
@@ -84,14 +84,14 @@ be a reason to upgrade RabbitMQ versions frequently._
 
 1. Install the RabbitMQ init scripts using the [`chkconfig` utility][5]:
    {{< highlight shell >}}
-   sudo chkconfig rabbitmq-server on{{< /highlight >}}
+sudo chkconfig rabbitmq-server on{{< /highlight >}}
 
 2. Start and stop the RabbitMQ service using the installed init scripts:
    _NOTE: The `service` command will not work on CentOS 5, the
    sysvinit script must be used, e.g. `sudo /etc/init.d/rabbitmq-server start`_
    {{< highlight shell >}}
-   sudo service rabbitmq-server start
-   sudo service rabbitmq-server stop{{< /highlight >}}
+sudo service rabbitmq-server start
+sudo service rabbitmq-server stop{{< /highlight >}}
 
 ## Configure RabbitMQ access controls
 
@@ -168,17 +168,16 @@ configuration.
 
 1. Copy the following contents to a configuration file located at
    `/etc/sensu/conf.d/rabbitmq.json`:
-
    {{< highlight json >}}
-   {
-     "rabbitmq": {
-       "host": "127.0.0.1",
-       "port": 5672,
-       "vhost": "/sensu",
-       "user": "sensu",
-       "password": "secret"
-     }
-   }{{< /highlight >}}
+{
+  "rabbitmq": {
+    "host": "127.0.0.1",
+    "port": 5672,
+    "vhost": "/sensu",
+    user": "sensu",
+    "password": "secret"
+  }
+}{{< /highlight >}}
 
 ### Example Distributed Configuration
 
@@ -188,17 +187,16 @@ configuration.
 2. Create a configuration file  with the following contents at
    `/etc/sensu/conf.d/rabbitmq.json` on the Sensu server and API system(s), and
    all systems running the Sensu client:
-
    {{< highlight json >}}
-   {
-     "rabbitmq": {
-       "host": "10.0.1.6",
-       "port": 5672,
-       "vhost": "/sensu",
-       "user": "sensu",
-       "password": "secret"
-     }
-   }{{< /highlight >}}
+{
+  "rabbitmq": {
+    "host": "10.0.1.6",
+    "port": 5672,
+    "vhost": "/sensu",
+    "user": "sensu",
+    "password": "secret"
+  }
+}{{< /highlight >}}
 
 
 

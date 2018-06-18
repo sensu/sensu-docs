@@ -65,7 +65,7 @@ ignoreFiles = [ "sensu-doc-template.md" ]
         name = "Sensu Enterprise"
         description = "The powerful and simple monitoring product, built on Sensu Core."
         weight = 2
-        latest = "2.8"
+        latest = "3.0"
         [params.products.sensu_enterprise.versions]
             "3.0" = ["Ubuntu/Debian", "RHEL/CentOS"]
             "2.8" = ["Ubuntu/Debian", "RHEL/CentOS"]
@@ -98,9 +98,9 @@ ignoreFiles = [ "sensu-doc-template.md" ]
         name = "Plugins"
         description = "Checks, handlers and other plugins to power your Sensu deployment."
         weight = 5
-        latest = "2.3"
+        latest = "1.0"
         [params.products.plugins.versions]
-            "2.3" = []
+            "1.0" = []
 
     [params.products.extensions]
         identifier = "extensions"

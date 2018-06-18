@@ -44,7 +44,6 @@ format specified below._
 2. Double-click the `sensu-1.4.1-1-x64.msi` installer package to launch the
    installer, accept the Sensu Core [MIT License][4] and install Sensu using the
    default settings (e.g. install location, etc).
-
    _WARNING: changing the default installation path from `C:\opt` is strongly
    discouraged._
 
@@ -90,23 +89,22 @@ mkdir C:\opt\sensu\conf.d\{{< /highlight >}}
 
 1. Copy the following contents to a configuration file located at
    `C:\opt\sensu\conf.d\client.json`:
-
    {{< highlight json >}}
-   {
-     "client": {
-       "name": "windows-client",
-       "address": "127.0.0.1",
-       "environment": "development",
-       "subscriptions": [
-         "dev",
-         "windows-hosts"
-       ],
-       "socket": {
-         "bind": "127.0.0.1",
-         "port": 3030
-       }
-     }
-   }{{< /highlight >}}
+{
+  "client": {
+    "name": "windows-client",
+    "address": "127.0.0.1",
+    "environment": "development",
+    "subscriptions": [
+      "dev",
+      "windows-hosts"
+    ],
+    "socket": {
+      "bind": "127.0.0.1",
+      "port": 3030
+    }
+  }
+}{{< /highlight >}}
 
 ### Example Transport Configuration
 
@@ -115,15 +113,13 @@ connect to the configured [Sensu Transport][6].
 
 1. Copy the following contents to a configuration file located at
    `/etc/sensu/conf.d/transport.json`:
-
    {{< highlight json >}}
-   {
-     "transport": {
-       "name": "rabbitmq",
-       "reconnect_on_error": true
-     }
-   }{{< /highlight >}}
-
+{
+  "transport": {
+    "name": "rabbitmq",
+    "reconnect_on_error": true
+  }
+}{{< /highlight >}}
    _NOTE: if you are using Redis as your transport, please use `"name": "redis"`
    for your transport configuration. For more information, please visit the
    [transport definition specification][15]._
@@ -178,8 +174,8 @@ To manually start and stop the Sensu client Windows service, use the
 - Start or stop the Sensu client
 
   {{< highlight shell >}}
-  sc start sensu-client
-  sc stop sensu-client{{< /highlight >}}
+sc start sensu-client
+sc stop sensu-client{{< /highlight >}}
 
 
 [1]:  https://sensuapp.org/download
