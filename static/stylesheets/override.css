@@ -358,6 +358,10 @@ a .project {
   width: 380px;
 }
 
+.drawer .toc li a.menu-title {
+    cursor: pointer;
+}
+
 #productVersionDrawerHolder {
   opacity: 0;
   transform: scale(0.01);
