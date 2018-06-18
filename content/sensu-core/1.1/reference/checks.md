@@ -325,7 +325,8 @@ Check hooks can be used for automated data gathering for incident triage, for ex
 }
 {{< /highlight >}}
 
-Check hooks can also be used for rudimentary auto-remediation tasks, for example, starting a process that is no longer running.
+Check hooks can also be used to add context to a check result, for example,
+outputting the last 100 lines of an error log.
 
 {{< highlight json >}}
 {
@@ -337,7 +338,7 @@ Check hooks can also be used for rudimentary auto-remediation tasks, for example
       ],
       "interval": 60,
       "hooks": {
-        "critical": {"command": "sudo systemctl start nginx"}
+        "critical": {"command": "tail -n 100 /var/log/nginx/error.log"}
       }
     }
   }
