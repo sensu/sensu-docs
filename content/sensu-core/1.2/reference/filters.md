@@ -58,7 +58,7 @@ filter analysis flow performs these steps:
 
 - When the Sensu server is processing an Event, it will check for the definition
   of a `handler` (or `handlers`). Prior to executing each Handler, the Sensu
-  server will first apply any configured `filter` (or `filters`) for the Handler
+  server will first apply any configured `filters` for the Handler
 - If multiple `filters` are configured for a Handler, they are executed
   sequentially
 - Filter `attributes` are compared with Event data

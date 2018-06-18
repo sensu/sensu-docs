@@ -51,7 +51,7 @@ of actions to take on event data) to be referenced via a single named handler
 set.
 
 _NOTE: Attributes defined on handler sets do not apply to the handlers they
-include. For example, `filter`, `filters`, and `mutator` attributes defined 
+include. For example, `filters`, and `mutator` attributes defined 
 in a handler set will have no effect._
 
 ## New and improved handlers
