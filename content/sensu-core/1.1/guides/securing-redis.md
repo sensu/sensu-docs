@@ -1,12 +1,12 @@
 ---
 title: "Securing Redis"
 description: "Strategies and best practices for security Redis"
-version: "1.0"
+version: "1.1"
 weight: 9
 next: ../securing-rabbitmq-guide
 previous: ../securing-sensu
 menu:
-  sensu-core-1.0:
+  sensu-core-1.1:
     parent: guides
 ---
 
@@ -35,7 +35,7 @@ _NOTE: As of [Sensu 1.3.0][2], TLS is now supported, allowing you to encrypt you
 
 For instances where you will be running Redis on the same host that you will be running Sensu, you can configure Redis to listen to the localhost only on the host loopback IP address.
 
-To accomplish this you would need to edit `/etc/redis/redis.conf` with following line:
+To accomplish this you will need to edit `/etc/redis/redis.conf` with the following line:
 
 {{< highlight shell >}}
 bind 127.0.0.1
@@ -53,7 +53,7 @@ Redis documentation recommends limiting access to the TCP port Redis uses. By de
 * 16379 For clustered Redis instances
 * 26379 For Sential instances
 
-We recommend first binding to the host IP address instead of binding to all IP's on the host. This can be accomplished by configuring `bind` to the IP address in `/etc/redis/redis.conf`:
+We recommend binding to the host IP address instead of binding to all IP's on the host. This can be accomplished by configuring `bind` to the IP address in `/etc/redis/redis.conf`:
 
 {{< highlight shell >}}
 bind 192.168.50.41
@@ -63,7 +63,7 @@ After making the change you will need to restart the Redis service so the change
 
 ### Host Configuration
 
-Once Redis is bind to the IP address you can then limit access to that specific IP/port using internal security tools such as host firewalls, networking ACL or other methods of locking down access to a specific host/port.
+Once Redis is bound to the IP address you can then limit access to its specific IP/port using internal security tools such as host firewalls, networking ACL or other methods of locking down access to a specific host/port.
 
 [1]: https://redis.io/topics/security
 [2]: ../../../1.3/reference/redis
