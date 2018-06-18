@@ -130,7 +130,24 @@ echo '{
 
 **8. Configure a Sensu dashboard**
 
-Run the following to set up a minimal dashboard config:
+Sensu Core users:
+
+{{< highlight shell >}}
+ echo '{
+   "sensu": [
+     {
+       "name": "sensu",
+       "host": "127.0.0.1",
+       "port": 4567
+     }
+   ],
+   "uchiwa": {
+     "host": "0.0.0.0",
+     "port": 3000
+   }
+ }' |sudo tee /etc/sensu/uchiwa.json{{< /highlight >}}
+
+Sensu Enterprise users:
 
 {{< highlight shell >}}
 echo '{
@@ -158,7 +175,9 @@ Sensu Core users:
 
 {{< highlight shell >}}
 sudo systemctl enable sensu-{server,api,client}
-sudo systemctl start sensu-{server,api,client}{{< /highlight >}}
+sudo systemctl start sensu-{server,api,client}
+sudo systemctl enable uchiwa
+sudo systemctl stat uchiwa{{< /highlight >}}
 
 Sensu Enterprise users:
 
@@ -196,10 +215,7 @@ $ curl -s http://127.0.0.1:4567/clients | jq .
 
 ...you have successfully installed and configured Sensu!
 
-If you you're using Sensu Enterprise, you should also be able to load the
-Sensu Enterprise Dashboard in your browser by visiting
-[http://hostname:3000](http://hostname:3000) (replacing `hostname` with the
-hostname or IP address of the system where the dashboard is installed).
+Whether you're using Uchiwa or Sensu Enterprise Dashboard, you now be able to view it in your browser by visiting [http://hostname:3000](http://hostname:3000) (replacing `hostname` with the hostname or IP address of the system where the dashboard is installed).
 
 ![five-minute-dashboard-1](/images/five-minute-dashboard-1.png)
 ![five-minute-dashboard-2](/images/five-minute-dashboard-2.png)
