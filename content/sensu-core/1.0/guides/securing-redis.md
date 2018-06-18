@@ -67,4 +67,3 @@ Once Redis is bound to the IP address you can then limit access to its specific 
 
 [1]: https://redis.io/topics/security
 [2]: ../../../1.3/reference/redis
-[3]: https://help.ubuntu.com/lts/serverguide/firewall.html
