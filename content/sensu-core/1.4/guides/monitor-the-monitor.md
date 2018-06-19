@@ -3,13 +3,13 @@ title: "Monitoring Sensu with Sensu"
 description: "Strategies and best practices for monitoring Sensu with Sensu"
 version: "1.4"
 weight: 10
-next: ../securing-rabbitmq-guide
+next: ../securing-rabbitmq
 menu:
   sensu-core-1.4:
     parent: guides
 ---
 
-_NOTE: In order to completely monitor a Sensu stack, you will need to have at least one other independent Sensu stack to do so. This is because a single Sensu stack can not monitor itself completely, as if some components are down, Sensu will not be able to alert on itself properly_
+_NOTE: In order to completely monitor a Sensu stack (Sensu services, Redis, RabbitMQ), you will need to have at least one other independent Sensu stack to do so. This is because a single Sensu stack can not monitor itself completely, as if some components are down, Sensu will not be able to alert on itself properly_
 
 In this guide, we'll walk you through the best practices and strategies for monitoring Sensu with Sensu. By the end of the guide, you should have a thorough understanding of what is required to ensure your Sensu components are properly monitored, including:
 
@@ -34,18 +34,18 @@ We'll cover the following in this guide:
 
 ### Monitoring Sensu Server{#monitoring-sensu-server}
 
-The server running the sensu-server process will need to be monitored in two ways:
+The host running the `sensu-server` service should be monitored in two ways:
 
-* Locally by a sensu-client process (OS metrics, OS checks, etc)
-* Remotely from an entirely independent Sensu stack (due to if the sensu-server process is down, it won't be able to alert)
+* Locally by a `sensu-client` process for Operating System checks/metrics and Sensu services like Uchiwa and Sensu Enterprise Dashboard that are not part of the Sensu event system.
+* Remotely from an entirely independent Sensu stack to monitor pieces of the Sensu stack that if down will make Sensu unable to alert on. 
 
 #### Monitoring Sensu Server Locally
 
-Monitoring the server that the sensu-server process runs on should be done just like any other node in your infrastructure. This includes checks and metrics for CPU, memory, disk, networking.
+Monitoring the host that the `sensu-server` process runs on should be done just like any other node in your infrastructure. This includes, but not limited to, checks and metrics for CPU, memory, disk, and networking.
 
 #### Monitoring Sensu Server Remotely
 
-To monitor the Sensu Server process, you will need another independent Sensu stack that can reach in. This can be done by reaching out to an API health endpoint (TODO: need to confirm)
+To monitor the `sensu-server` Server process, you will need another independent Sensu stack that can reach in. This can be done by reaching out to an API health endpoint (TODO: need to confirm)
 
 Show example check that hits the /health API endpoint
 
@@ -63,7 +63,7 @@ Standard port
     "check_sensu_server_port": {
       "command": "check-ports.rb -p 4567",
       "subscribers": [
-        "proxy"
+        "sensu_api"
       ],
       "interval": 60
     }
