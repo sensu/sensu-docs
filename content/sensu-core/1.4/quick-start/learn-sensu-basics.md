@@ -88,7 +88,7 @@ $ curl -s http://localhost:4567/clients | jq .
   }
 ]{{< /highlight >}}
 
-If you've been following this guide you should see a very similar result as shown above &ndash; a single client named "test" is currently registered. Now let's delete it using the API:
+If you've been following this guide you should see a very similar result as shown above &ndash; a single client named "client-01" is currently registered. Now let's delete it using the API:
 
 {{< highlight shell >}}
 $ curl -s -X DELETE localhost:4567/clients/client-01 | jq .
