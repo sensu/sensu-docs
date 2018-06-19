@@ -153,7 +153,7 @@ In this guide, we've built on the things we've learned in the previous guide on 
 * A separate client user
 * Separate permissions to our RabbitMQ vhost for our client and server users
 * A separate server user
-* SSL/TLS configuration for encryping traffice between our clients, servers, and transport
+* SSL/TLS configuration for encrypting traffic between our clients, servers, and transport
 
 We'll continue building on our securing Sensu guide series and will cover strategies and best practices for securing our Redis component of our Sensu deployment. Click the link at the bottom to continue on.
 
