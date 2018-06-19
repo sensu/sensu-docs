@@ -41,7 +41,7 @@ The host running the `sensu-server` service should be monitored in two ways:
 
 #### Monitoring Sensu Server Locally
 
-Monitoring the host that the `sensu-server` process runs on should be done just like any other node in your infrastructure. This includes, but not limited to, checks and metrics for CPU, memory, disk, and networking.
+Monitoring the host that the `sensu-server` process runs on should be done just like any other node in your infrastructure. This includes, but not limited to, checks and metrics for [CPU][1], [memory][2], [disk][3], and [networking][4]. You can find more plugins at the [Sensu Community Homepage][5].
 
 #### Monitoring Sensu Server Remotely
 
@@ -49,7 +49,7 @@ To monitor the `sensu-server` Server process, you will need another independent 
 
 Show example check that hits the /health API endpoint
 
-http://localhost:1313/sensu-core/1.4/api/health-and-info/#reference-documentation
+http://docs.sensu.io/sensu-core/1.4/api/health-and-info/#reference-documentation
 
 ### Monitoring Sensu API{#monitoring-sensu-api}
 
@@ -310,3 +310,9 @@ Example:
   }
 }
 {{< /highlight >}}
+
+[1]: https://github.com/sensu-plugins/sensu-plugins-cpu-checks
+[2]: https://github.com/sensu-plugins/sensu-plugins-memory-checks
+[3]: https://github.com/sensu-plugins/sensu-plugins-disk-checks
+[4]: https://github.com/sensu-plugins/sensu-plugins-network-checks
+[5]: https://github.com/sensu-plugins
