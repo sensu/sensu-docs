@@ -300,7 +300,7 @@ tokens"` will be published to the Sensu server log._
 ### Built-in Filters - occurrences {#built-in-filters-occurrences}
 
 The `occurrences` filter is included in every install of Sensu. This filter can 
-be applied to a handler using the "filter" or "filters" handler definition attribute.
+be applied to a handler using the "filters" handler definition attribute.
 
 For example:
 {{< highlight json >}}
@@ -341,7 +341,7 @@ For example:
 ### Built-in Filters - check_dependencies {#built-in-filters-check-dependencies}
 
 The `check_dependencies` filter is included in every install of Sensu. This 
-filter can be applied to a handler using the "filter" or "filters" handler definition
+filter can be applied to a handler using the "filters" handler definition
 attribute. The `check_dependencies` filter matches events when an event already exists,
 enabling the user to reduce notification noise, only being notified for the "root cause"
 of a given failure.
