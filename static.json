@@ -7,10 +7,6 @@
             "url": "/sensu-core/1.4/$1",
             "status": 302
         },
-        "~ ^/uchiwa/latest/?(.*)$": {
-            "url": "/uchiwa/1.0/$1",
-            "status": 302
-        },
         "~ ^/sensu-enterprise/latest/?(.*)$": {
             "url": "/sensu-enterprise/3.0/$1",
             "status": 302
