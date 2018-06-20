@@ -1,11 +1,11 @@
 ---
 title: "Reference"
 date: 2017-10-26T14:49:05-07:00
-description: ""
+description: "Sensu plugins reference docs"
 weight: 1
 product: "Plugins"
-version: "2.3"
-menu: "plugins-2.3"
+version: "1.0"
+menu: "plugins-1.0"
 ---
 
 - [What is a Sensu plugin?](#what-is-a-sensu-plugin)
@@ -273,15 +273,57 @@ occurrence, and again every N occurrences, where N = `refresh`).
 }
 {{< /highlight >}}
 
-For more information on the check definition specification, head over to the ["checks" reference documentation][1].
+### Sensu plugin definition specification
 
-[1]:  /sensu-core/latest/reference/checks
-[2]:  /sensu-core/latest/reference/handlers
-[3]:  /sensu-core/latest/reference/events#event-data
-[4]:  /sensu-core/latest/reference/mutators
-[5]:  /sensu-core/latest/reference/checks#check-commands
-[6]:  /sensu-core/latest/reference/handlers#pipe-handler-commands
-[7]:  /sensu-core/latest/reference/mutators#mutator-commands
+_NOTE: plugins based on the `sensu-plugin` gem derive configuration from [custom
+check definition attributes][28]. The configuration example(s) provided above,
+and the "specification" provided here are for clarification and convenience only
+(i.e. this "specification" is just an extension of the [check definition
+specification][29], and not a definition of a distinct Sensu primitive)._
+
+#### Check definition attributes
+
+| occurrences |                                                                                           |
+|:------------|:------------------------------------------------------------------------------------------|
+| description | The number of event occurrences that must occur before an event is handled for the check. |
+| required    | false                                                                                     |
+| type        | Integer                                                                                   |
+| default     | `1`                                                                                       |
+| example     | {{< highlight shell >}}"occurrences": 3{{< /highlight >}}                                 |
+
+| refresh     |                                                                                                                                                                                                                                                                                                               |
+|:------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| description | Time in seconds until the event occurrence count is considered reset for the purpose of counting `occurrences`, to allow an event for the check to be handled again. For example, a check with a refresh of `1800` will have its events (recurrences) handled every 30 minutes, to remind users of the issue. |
+| required    | false                                                                                                                                                                                                                                                                                                         |
+| type        | Integer                                                                                                                                                                                                                                                                                                       |
+| default     | `1800`                                                                                                                                                                                                                                                                                                        |
+| example     | {{< highlight shell >}}"refresh": 3600{{< /highlight >}}                                                                                                                                                                                                                                                      |
+
+| dependencies |                                                                                                                                                                                                                                                                             |
+|:-------------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| description  | An array of check dependencies. Events for the check will not be handled if events exist for one or more of the check dependencies. A check dependency can be a check executed by the same Sensu client (eg. `check_app`), or a client/check pair (eg.`db-01/check_mysql`). |
+| required     | false                                                                                                                                                                                                                                                                       |
+| type         | Array                                                                                                                                                                                                                                                                       |
+| example      | {{< highlight shell >}}"dependencies": [                                                                                                                                                                                                                                    |
+  "check_app",
+  "db-01/check_mysql"
+]
+{{< /highlight >}}
+
+| notification |                                                                                                                                                                                                         |
+|:-------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| description  | The notification message used for events created by the check, instead of the commonly used check output. This attribute is used by most notification event handlers that use the sensu-plugin library. |
+| required     | false                                                                                                                                                                                                   |
+| type         | String                                                                                                                                                                                                  |
+| example      | {{< highlight shell >}}"notification": "the shopping cart application is not responding to requests"{{< /highlight >}}                                                                                  |
+
+[1]:  ../../../sensu-core/latest/reference/checks
+[2]:  ../../../sensu-core/latest/reference/handlers
+[3]:  ../../../sensu-core/latest/reference/events#event-data
+[4]:  ../../../sensu-core/latest/reference/mutators
+[5]:  ../../../sensu-core/latest/reference/checks#check-commands
+[6]:  ../../../sensu-core/latest/reference/handlers#pipe-handler-commands
+[7]:  ../../../sensu-core/latest/reference/mutators#mutator-commands
 [8]:  http://sensu-plugins.io/
 [9]:  https://github.com/sensu-plugins
 [10]: https://rubygems.org/search?query=sensu-plugins-
@@ -304,4 +346,3 @@ For more information on the check definition specification, head over to the ["c
 [27]: https://github.com/sensu-plugins/sensu-plugin
 [28]: /sensu-core/latest/reference/checks#custom-attributes
 [29]: /sensu-core/latest/reference/checks#check-definition-attributesw
-
