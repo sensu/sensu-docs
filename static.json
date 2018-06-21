@@ -1,5 +1,5 @@
 {
-    "root": "public/",
+    "root": "/app/public/",
     "https_only": true,
     "error_page": "/404.html",
     "rewrites": {
