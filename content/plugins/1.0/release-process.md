@@ -4,8 +4,8 @@ date: 2017-10-26T10:35:03-07:00
 description: ""
 weight: 6
 product: "Plugins"
-version: "2.3"
-menu: "plugins-2.3"
+version: "1.0"
+menu: "plugins-1.0"
 ---
 
 Currently we use  [Travis](https://travis-ci.org/) is used to run tests across all forks and deploying the gems.

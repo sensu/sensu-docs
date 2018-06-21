@@ -109,6 +109,8 @@ information about the Sensu installation, including the API version,
 Sensu settings hexdigest, [data store][1] and [transport][2]
 connectivity, and the running Sensu servers.
 
+_PRO TIP: The Sensu settings `hexdigest` value is used when comparing configurations across Sensu server instances, and can be particularly useful in troubleshooting cases where there are unexpected results inside of your deployment. Note that when retrieving this value in a distributed configuration, the `hexdigest` value should be consistent across server instances. If the value is differing between Sensu server instances in the same environment, this indicates that the configuration between one or more servers differ from the rest of those in the environment._
+
 #### EXAMPLE {#info-get-example}
 
 {{< highlight shell >}}
