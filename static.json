@@ -1,10 +1,14 @@
 {
-    "root": "public/",
+    "root": "/app/public/",
     "https_only": true,
     "error_page": "/404.html",
     "rewrites": {
         "~ ^/sensu-core/latest/?(.*)$": {
             "url": "/sensu-core/1.4/$1",
+            "status": 302
+        },
+        "~ ^/uchiwa/latest/?(.*)$": {
+            "url": "/uchiwa/1.0/$1",
             "status": 302
         },
         "~ ^/sensu-enterprise/latest/?(.*)$": {
@@ -16,7 +20,7 @@
             "status": 302
         },
         "~ ^/plugins/latest/?(.*)$": {
-            "url": "/plugins/2.3/$1",
+            "url": "/plugins/1.0/$1",
             "status": 302
         }
     }

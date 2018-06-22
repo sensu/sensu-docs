@@ -17,19 +17,24 @@ cache. Asset dependencies are then injected into the `PATH` so they are
 available when the command is executed. Subsequent check executions look for the
 asset in local cache and ensure the contents match the checksum. An agent's
 local cache can be set using the `--cache-dir` flag; it defaults to
-`/var/cache/sensu/sensu-agent` (`C:\\ProgramData\sensu\cache\sensu-agent` on Windows systems). 
-If the requested asset is not in the local cache, it is downloaded from the asset url. 
-The Sensu backend does not currently provide any storage for assets; they are 
-expected to be retrieved over HTTP or HTTPS.
+`/var/cache/sensu/sensu-agent` (`C:\\ProgramData\sensu\cache\sensu-agent` on
+Windows systems). If the requested asset is not in the local cache, it is
+downloaded from the asset url. The Sensu backend does not currently provide any
+storage for assets; they are expected to be retrieved over HTTP or HTTPS.
 
-The agent expects that an asset is a `TAR` archive that may optionally be GZip'd.
-Any scripts or executables should be within a `bin/` folder within in the archive.
+The agent expects that an asset is a `TAR` archive that may optionally be
+GZip'd. Any scripts or executables should be within a `bin/` folder within in
+the archive.
 
 The following are injected into the execution context:
 
 - `{PATH_TO_ASSET}/bin` is injected into the `PATH` environment variable.
-- `{PATH_TO_ASSET}/lib` is injected into the `LD_LIBRARY_PATH` environment variable.
+- `{PATH_TO_ASSET}/lib` is injected into the `LD_LIBRARY_PATH` environment
+  variable.
 - `{PATH_TO_ASSET}/include` is injected into the `CPATH` environment variable.
+
+**N.B.** GitHub source code archives [can't currently be used][2] as Sensu
+assets archives.
 
 ## Assets specification
 
@@ -101,3 +106,4 @@ example      | {{< highlight shell >}}
 {{</ highlight >}}
 
 [1]: ../../reference/filters/
+[2]: https://github.com/mholt/archiver/issues/27
