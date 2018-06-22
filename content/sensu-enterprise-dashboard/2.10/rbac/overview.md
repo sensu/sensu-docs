@@ -2,6 +2,7 @@
 title: "Role Based Access Controls"
 product: "Sensu Enterprise Dashboard"
 version: "2.10"
+description: "RBAC for Sensu Enterprise enables administrators to grant the correct level access to many different development and operations teams."
 weight: 1
 menu:
   sensu-enterprise-dashboard-2.10:

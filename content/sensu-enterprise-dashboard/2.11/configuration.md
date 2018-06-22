@@ -2,6 +2,7 @@
 title: "Configuration"
 product: "Sensu Enterprise Dashboard"
 version: "2.11"
+description: "The Sensu Enterprise dashboard uses two configuration scopes to provide connection details for one or more Sensu API endpoints and to configure the behavior of the dashboard itself."
 weight: 2
 menu: "sensu-enterprise-dashboard-2.11"
 ---

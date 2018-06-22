@@ -2,6 +2,7 @@
 title: "Heads-Up Display"
 product: "Sensu Enterprise Dashboard"
 version: "2.9"
+description: "The Heads Up Display (HUD) provides an at-a-glance view into the overall health of your infrastructure via a set of built-in graphs and status widgets."
 weight: 2
 menu: "sensu-enterprise-dashboard-2.9"
 ---

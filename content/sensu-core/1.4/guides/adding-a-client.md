@@ -1,5 +1,6 @@
 ---
 title: "Adding a Client"
+description: "Configure and start a Sensu Client"
 product: "Sensu Core"
 version: "1.4"
 next: ../intro-to-checks

@@ -1,5 +1,6 @@
 ---
 title: "Upgrading Sensu"
+description: "The complete Sensu installation guide."
 weight: 14
 product: "Sensu Core"
 version: "1.4"
