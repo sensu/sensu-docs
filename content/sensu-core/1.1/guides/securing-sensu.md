@@ -1,6 +1,7 @@
 ---
 title: "Securing Sensu"
 description: "Strategies and best practices for securing Sensu"
+product: "Sensu Core"
 version: "1.1"
 weight: 8
 next: ../securing-rabbitmq

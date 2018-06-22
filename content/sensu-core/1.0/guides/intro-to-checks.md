@@ -1,5 +1,6 @@
 ---
 title: "Intro to Checks"
+product: "Sensu Core"
 version: "1.0"
 weight: 3
 next: ../intro-to-filters
