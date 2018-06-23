@@ -90,14 +90,15 @@ sudo systemctl start redis{{< /highlight >}}
 
 **5. Install Sensu:**
 
+For Sensu Core:
+
 {{< highlight shell >}}
 sudo yum install sensu uchiwa -y{{< /highlight >}}
 
-...and if you're using [Sensu Enterprise][9], let's go ahead and install
-Sensu Enterprise as well:
+Or for [Sensu Enterprise][9]:
 
 {{< highlight shell >}}
-sudo yum install sensu-enterprise sensu-enterprise-dashboard -y{{< /highlight >}}
+sudo yum install sensu sensu-enterprise sensu-enterprise-dashboard -y{{< /highlight >}}
 
 **6. Configure Sensu server**
 
