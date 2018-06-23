@@ -178,7 +178,7 @@ Sensu Core users:
 sudo systemctl enable sensu-{server,api,client}
 sudo systemctl start sensu-{server,api,client}
 sudo systemctl enable uchiwa
-sudo systemctl stat uchiwa{{< /highlight >}}
+sudo systemctl start uchiwa{{< /highlight >}}
 
 Sensu Enterprise users:
 
