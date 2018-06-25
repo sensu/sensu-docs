@@ -11,7 +11,7 @@ product: "Sensu Core"
 Please note the following frequently asked questions about Sensu Core, Sensu
 Enterprise, Sensu Training, Professional Services for Sensu, and more. If you
 need support for Sensu, please consider giving [Sensu
-Enterprise](https://sensuapp.org/get-started/) a try.
+Enterprise](https://sensu.io/features/enterprise) a try.
 
 > What platforms does Sensu support?
 

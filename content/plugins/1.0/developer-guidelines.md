@@ -133,7 +133,7 @@ The production_status field gives a quick glance on whether the gem should be us
 **unstable - testing recommended** => throw stuff at the wall and hope it sticks (currently most gems are here)
 
 ### Additional Information
-[Testing](../testing) [Build and Release Tools and Pipeline](../release_process)
+[Testing](../testing) [Build and Release Tools and Pipeline](../release-process)
 
 [1]: https://github.com/sensu/sensu-plugin
 [2]: http://yardoc.org/

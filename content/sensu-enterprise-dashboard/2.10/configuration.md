@@ -405,7 +405,7 @@ to configure the dashboard for RBAC with LDAP.
 Please see the [RBAC for OIDC reference documentation][4] for information on how
 to configure the dashboard for RBAC with OpenID Connect (OIDC).
 
-[1]:  /sensu-enterprise-dashboard/2.11/dashboard/#what-is-a-sensu-datacenter
+[1]:  ../#what-is-a-sensu-datacenter
 [2]: /sensu-core/1.2/reference/configuration/#configuration-merging
 [3]:  /sensu-enterprise-dashboard/2.11/rbac/overview
 [4]:  /sensu-enterprise-dashboard/2.11/rbac/rbac-for-ldap

@@ -186,8 +186,8 @@ $ sudo -u _sensu /opt/sensu/bin/sensu-client -V
 
 
 [1]:  https://sensuapp.org/download
-[2]:  https://sensu.global.ssl.fastly.net/osx/
-[3]:  https://sensu.global.ssl.fastly.net/osx/sensu-1.3.0-1.mountainlion.pkg
+[2]:  https://sensu.io/features/downloads
+[3]:  https://sensu.io/features/downloadssensu-1.3.0-1.mountainlion.pkg
 [4]:  #configure-the-sensu-client-launchd-daemon
 [5]:  ../../reference/configuration/
 [6]:  ../../reference/transport/

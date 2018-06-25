@@ -10,7 +10,6 @@ menu:
     parent: quick-start
 ---
 # Learn Sensu in 15 Minutes
-{{< platformDropdown "Ubuntu/Debian" "Sensu-Core" "1.4" "Client Installation" "learn-sensu-basics">}}
 
 Sensu was designed to provide a comprehensive monitoring platform for monitoring
 infrastructure (servers), services, application health, and business KPIs
@@ -146,7 +145,7 @@ already registered in the Sensu client registry (based on the configured client
 **Learn more:**
 
 - [Client registration & the client registry](#registration-and-registry)
-- [Sensu client keepalives](clients#client-keepalives)
+- [Sensu client keepalives][4]
 
 ### Exercise #2: Configuring your first Sensu check {#exercise-2}
 
@@ -166,7 +165,11 @@ plugin for monitoring availability of HTTP service, and
 configure a check definition to execute the plugin. The scheduling of
 this execution will be handled by the Sensu server.
 
+{{< platformDropdown "Ubuntu/Debian" "Sensu-Core" "0.29" "quick-start/learn-sensu-basics" "learn-sensu-basics">}}
+
 {{< platformBlock "RHEL/CentOS" >}}
+
+### RHEL/CentOS
 
 * Install nagios-plugins-http package to provide the check plugin
 
@@ -285,6 +288,8 @@ server.
 {{< platformBlockClose >}}
 
 {{< platformBlock "Ubuntu/Debian" >}}
+
+### Ubuntu/Debian
 
 * Install the monitoring-plugins package to provide the check plugin
 
@@ -538,5 +543,6 @@ Coming soon...
 
 
 [1]:  http://twitter.com/hashtag/monitoringlove
-[2]:  the-five-minute-install
-[3]:  api-clients
+[2]:  ../five-minute-install
+[3]:  ../../api/clients
+[4]: ../../reference/clients#client-keepalives
