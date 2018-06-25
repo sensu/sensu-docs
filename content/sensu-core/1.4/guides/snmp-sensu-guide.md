@@ -31,11 +31,11 @@ sudo yum install -y net-snmp-utils{{< /highlight >}}
 - DigitalOcean's [Intro to SNMP][4]
 
 # Sensu Client Configuration
-As the Sensu monitoring agent cannot be installed on most networking gear, host that send SNMP traps in Sensu function as [proxy clients][6]. In this example, the general flow will be as follows:
+As the Sensu monitoring agent cannot be installed on most networking gear, hosts that send SNMP traps in Sensu function as [proxy clients][6]. In this example, the general flow will be as follows:
 
 SNMP trap generated→ SNMP trap received by Sensu client → Sensu client sends result to transport/Sensu server → event is created
 
-We’ll start by first installing the extension and enabling it on a given client that we expect to function as an SNMP trap reciever:
+We’ll start by first installing the extension and enabling it on a given client that we expect to function as an SNMP trap receiver:
 
 {{< highlight shell >}}
 sudo sensu-install -e snmp-trap:0.0.33{{< /highlight >}}
