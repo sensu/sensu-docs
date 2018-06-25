@@ -124,7 +124,7 @@ connect to the configured [Sensu Transport][6].
 
 The Sensu Core .pkg package includes a Sensu client daemon configuration,
 allowing Sensu to be run as a `launchd` job, or daemon. The OS X `launchd`
-service and `launchctl` utility use a ["plist" file][9] (an XML-based
+service and `launchctl` utility use a "plist" file (an XML-based
 configuration file) to configure the `sensu-client` daemon run arguments (e.g.
 `--log /var/log/sensu/sensu-client.log`).
 
@@ -193,9 +193,8 @@ $ sudo -u _sensu /opt/sensu/bin/sensu-client -V
 [6]:  ../../reference/transport/
 [7]:  ../../reference/redis/#sensu-redis-configuration
 [8]:  ../../reference/rabbitmq/#sensu-rabbitmq-configuration
-[9]:  https://developer.apple.com/library/mac/documentation/Darwin/Reference/ManPages/man5/plist.5.html
 [10]: ../../reference/configuration#sensu-service-cli-arguments/
-[11]: https://developer.apple.com/library/mac/documentation/Darwin/Reference/ManPages/man1/launchctl.1.html
+[11]: https://ss64.com/osx/launchctl.html
 [12]: #configure-sensu
 [13]: #example-transport-configuration
 [14]: #example-client-configuration
