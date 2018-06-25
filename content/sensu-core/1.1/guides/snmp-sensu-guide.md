@@ -1,6 +1,7 @@
 ---
-title: "SNMP Receiver Extension"
-description: "How to Monitor Devices With Sensu's SNMP Receiver Extension"
+title: "Monitoring Devices With Sensu's SNMP Receiver Extension"
+linkTitle: "SNMP Receiver Extension"
+description: "Set up a Sensu client as a Simple Network Management Protocol trap receiver."
 product: "Sensu Core"
 version: "1.1"
 weight: 7
