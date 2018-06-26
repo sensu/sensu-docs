@@ -1,9 +1,9 @@
 ---
 title: "Securing Redis"
-description: "Strategies and best practices for security Redis"
+description: "Strategies and best practices for securing Redis"
 version: "1.2"
 weight: 9
-next: ../securing-rabbitmq-guide
+next: ../securing-rabbitmq
 previous: ../securing-sensu
 menu:
   sensu-core-1.2:
@@ -26,7 +26,7 @@ This guide will discuss the following:
 
 Redis was designed to be accessed by trusted clients inside a closed network environment. As such it is recommended that Redis instances not be directly exposed to the internet or have access in general to untrusted clients that can directly connect to the Redis TCP port or UNIX socket.
 
-Best practices from [Redis Security Documentation][1] suggest blocking port level access to all hosts except trusted hosts, in our case your Sensu-Server, Sensu-API and/or Sensu-Enterprise-Server.
+Best practices from the [Redis Security Documentation][1] suggest blocking port level access to all hosts except trusted hosts, in our case your Sensu-Server, Sensu-API and/or Sensu-Enterprise-Server.
 
 _NOTE: As of [Sensu 1.3.0][2], TLS is now supported, allowing you to encrypt your traffic between Sensu and Redis when being used as a Transport or Datastore._
 
@@ -47,7 +47,7 @@ After making the above change, you will need to restart the Redis service.
 
 ### Redis Configuration
 
-Redis documentation recommends limiting access to the TCP port Redis uses. By default Redis uses the following ports:
+The Redis documentation recommends limiting access to the TCP port Redis uses. By default Redis uses the following ports:
 
 * 6379 For standalone Redis instances
 * 16379 For clustered Redis instances
@@ -59,7 +59,7 @@ We recommend binding to the host IP address instead of binding to all IP's on th
 bind 192.168.50.41
 {{< /highlight >}}
 
-After making the change you will need to restart the Redis service so the changes take affect.
+After making the change you will need to restart the Redis service so the changes take effect.
 
 ### Host Configuration
 
