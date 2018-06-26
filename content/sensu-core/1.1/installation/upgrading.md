@@ -1,5 +1,6 @@
 ---
 title: "Upgrading Sensu"
+description: "The complete Sensu installation guide."
 weight: 14
 product: "Sensu Core"
 version: "1.1"
@@ -117,7 +118,7 @@ FLUSHALL{{< /highlight >}}
 
 The following instructions assume that you have already installed
 Sensu and/or Sensu Enterprise by using the steps detailed in the
-[Sensu Installation Guide](overview).
+[Sensu Installation Guide][overview].
 
 _NOTE: If your machines do not have direct access to the internet and
 cannot reach the Sensu software repositories, you must mirror the
@@ -164,3 +165,4 @@ sudo yum install sensu-enterprise-dashboard{{< /highlight >}}
 
 [openssl-release-strat]: https://www.openssl.org/policies/releasestrat.html
 [which-erlang]: https://www.rabbitmq.com/which-erlang.html
+[overview]: /sensu-core/latest/installation/overview

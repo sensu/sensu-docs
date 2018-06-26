@@ -132,10 +132,9 @@ HTTP JSON API, including:
 [12]: ../../reference/mutators/
 [13]: ../../reference/handlers/
 [14]: ../../reference/transport/
-[15]: ../../api/clients-api/
-[16]: ../../api/checks-api/
-[17]: ../../api/events-api/
-[18]: ../../api/results-api/
-[19]: ../../api/aggregates-api/
-[20]: ../../api/stashes-api/
-
+[15]: ../../api/clients
+[16]: ../../api/checks
+[17]: ../../api/events
+[18]: ../../api/results
+[19]: ../../api/aggregates
+[20]: ../../api/stashes

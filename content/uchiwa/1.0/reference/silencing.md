@@ -31,4 +31,4 @@ You can silence an event from the **events view** or the **client view**.
 You can silence a subscription for a given datacenter by clicking on the
 **Add** button in the table header, within the **silenced** view.
 
-[1]:  ../reference/clients/#view-a-client
+[1]:  ../clients/#view-a-client

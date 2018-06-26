@@ -143,6 +143,6 @@ sudo apt-get -y install sensu-enterprise{{< /highlight >}}
 {{< highlight shell >}}
 sudo yum install sensu-enterprise{{< /highlight >}}
 
-[overview]: /sensu-core/installation/overview
+[overview]:  /sensu-core/latest/installation/install-sensu-server-api/#sensu-enterprise
 [opsgenie-api-migration]: https://docs.opsgenie.com/docs/migration-guide-for-alert-rest-api
 [epel]: https://www.fedoraproject.org/wiki/EPEL

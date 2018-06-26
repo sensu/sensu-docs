@@ -45,7 +45,7 @@ Ready? Let's get started!
 The following installation steps will help you get Sensu Core installed in a
 [standalone][4] on a system running [CentOS 7][5], only. For installation on
 other platforms, and/or alternative installation configurations, please consult
-the [installation guide](2).
+the [installation guide][2].
 
 **0. Install EPEL (if not already done)**
 

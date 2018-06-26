@@ -2,6 +2,7 @@
 title: "Audit Logging"
 product: "Sensu Enterprise Dashboard"
 version: "2.10"
+description: Audit Logging captures user events in the Sensu Enterprise dashboard."
 weight: 5
 menu:
   sensu-enterprise-dashboard-2.10:
