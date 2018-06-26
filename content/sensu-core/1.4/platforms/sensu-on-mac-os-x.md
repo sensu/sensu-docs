@@ -187,7 +187,7 @@ $ sudo -u _sensu /opt/sensu/bin/sensu-client -V
 
 [1]:  https://sensuapp.org/download
 [2]:  https://sensu.io/features/downloads
-[3]:  https://sensu.io/features/downloadssensu-1.4.1-1.mountainlion.pkg
+[3]:  https://sensu.io/features/downloads
 [4]:  #configure-the-sensu-client-launchd-daemon
 [5]:  ../../reference/configuration/
 [6]:  ../../reference/transport/
