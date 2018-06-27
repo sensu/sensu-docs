@@ -58,7 +58,12 @@ package { 'sensu-plugins-disk-checks':
 #### Ansible
 
 {{< highlight yaml >}}
-- gem: name=sensu-plugins-disk-checks version=0.0.1 state=present executable=/opt/sensu/embedded/bin/gem
+- gem: 
+    name: sensu-plugins-disk-checks 
+    version: 0.0.1 
+    state: present 
+    executable: /opt/sensu/embedded/bin/gem
+    user_install: no
 {{< /highlight >}}
 
 ## Usage
