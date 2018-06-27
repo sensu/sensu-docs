@@ -1,5 +1,6 @@
 ---
 title: "Summary"
+description: "The complete Sensu installation guide."
 weight: 13
 product: "Sensu Core"
 version: "1.1"

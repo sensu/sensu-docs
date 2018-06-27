@@ -5,7 +5,7 @@ product: "Sensu Core"
 version: "1.4"
 weight: 9
 previous: ../securing-sensu
-next: ../securing-redis-guide
+next: ../securing-redis
 menu:
   sensu-core-1.4:
     parent: guides
@@ -153,11 +153,11 @@ In this guide, we've built on the things we've learned in the previous guide on 
 * A separate client user
 * Separate permissions to our RabbitMQ vhost for our client and server users
 * A separate server user
-* SSL/TLS configuration for encryping traffice between our clients, servers, and transport
+* SSL/TLS configuration for encrypting traffic between our clients, servers, and transport
 
 We'll continue building on our securing Sensu guide series and will cover strategies and best practices for securing our Redis component of our Sensu deployment. Click the link at the bottom to continue on.
 
 [1]: https://www.rabbitmq.com/access-control.html#permissions
 [2]: ../../reference/rabbitmq/#sensu-rabbitmq-configuration-examples
 [3]: ../../installation/install-rabbitmq/
-[4]: ../securing-sensu-guide
+[4]: ../securing-sensu

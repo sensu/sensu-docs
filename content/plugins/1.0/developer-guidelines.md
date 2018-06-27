@@ -22,7 +22,7 @@ menu: "plugins-1.0"
 
 ## Naming Conventions
 - All binaries should start with either **handler**, **check**, **metrics**, or **mutator** depending on their primary function.  This is done to ensure that a user can tell from the command what the primary action of the script is.  It also makes things easier for infrastructure tools.
-- The name's of scripts should use dashes to separate words and contain an extension (`.rb`, `.sh`, `.exe`, `etc).  Extensions are unfortunately necessary for Sensu to be able to directly exec plugins and handlers on Windows.  All scripts should also be made executable using `chmod +x plugin` or a similar method.  There is a rake task that is run by Travis that will automatically make all files in _/bin_ executable if this is not done.
+- The name's of scripts should use dashes to separate words and contain an extension (`.rb`, `.sh`, `.exe`, etc).  Extensions are unfortunately necessary for Sensu to be able to directly exec plugins and handlers on Windows.  All scripts should also be made executable using `chmod +x plugin` or a similar method.  There is a rake task that is run by Travis that will automatically make all files in _/bin_ executable if this is not done.
 - Any repos created need to follow the format of *sensu-plugins-app*, where *app* is the name such as windows, disk-checks, or influxdb.  The exception to the rule are repos used for the site or tooling such as GIR or sensu-plugins.github.io.  This is done so that the rake tasks and other automation tools can easily parse Github and effectively work with the 150+ repos.
 
 ## Coding Style
@@ -133,7 +133,7 @@ The production_status field gives a quick glance on whether the gem should be us
 **unstable - testing recommended** => throw stuff at the wall and hope it sticks (currently most gems are here)
 
 ### Additional Information
-[Testing](../testing) [Build and Release Tools and Pipeline](../release_process)
+[Testing](../testing) [Build and Release Tools and Pipeline](../release-process)
 
 [1]: https://github.com/sensu/sensu-plugin
 [2]: http://yardoc.org/

@@ -77,5 +77,5 @@ Details are in .rubocop.yml within the root of each repo and in the [developer g
 RSpec
 
 [1]: https://github.com/sensu-plugins/sensu-plugins-disk-checks
-[2]: installation
-[3]: developer-guidelines
+[2]: ../installation
+[3]: ../developer-guidelines

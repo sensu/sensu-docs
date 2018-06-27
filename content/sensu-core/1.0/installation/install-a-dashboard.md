@@ -1,5 +1,6 @@
 ---
 title: "Sensu Dashboards"
+description: "The complete Sensu installation guide."
 weight: 12
 product: "Sensu Core"
 version: "1.0"

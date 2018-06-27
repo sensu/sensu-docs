@@ -1217,7 +1217,7 @@ information for operations teams can be extremely valuable._
 [32]: ../mutators
 [33]: ../changelog#v0-22-0
 [34]: https://en.wikipedia.org/wiki/Configuration_management_database
-[35]: http://www.servicenow.com/solutions/it-operations-management.html
+[35]: https://www.servicenow.com/products/it-operations-management.html
 [36]: #client-socket-input
 [37]: #registration-and-registry
 [38]: #ec2-attributes

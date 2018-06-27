@@ -1,6 +1,7 @@
 ---
 title: "Mutators"
 description: "The mutators reference guide."
+product: "Sensu Core"
 weight: 1
 version: "2.0"
 platformContent: False 
