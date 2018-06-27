@@ -34,9 +34,9 @@ To install a ruby plugin see [here](installation) for more details and refer to 
 
 To setup:
 
-- [Checks](../../sensu-core/latest/guides/intro-to-checks.md)
-- [Handlers](../../sensu-core/latest/guides/intro-to-handlers.md)
-- [Mutators](../../sensu-core/latest/guides/intro-to-handlers.md)
+- [Checks](/sensu-core/latest/guides/intro-to-checks)
+- [Handlers](/sensu-core/latest/guides/intro-to-handlers)
+- [Mutators](/sensu-core/latest/guides/intro-to-mutators)
 
 ## How do I contribute to plugins?
 
