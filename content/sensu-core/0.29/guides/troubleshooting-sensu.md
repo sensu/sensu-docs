@@ -118,7 +118,7 @@ As you can see, both RabbitMQ and Sensu will give errors if the credentials are 
 
 #### Troubleshooting Authenticating Failures
 
-We'll start by going through the process of setting up RabbitMQ manually. If you've gone through our [SSL configuration reference guide][], these commands should be familiar.
+We'll start by going through the process of setting up RabbitMQ manually. If you've gone through our [RabbitMQ installation guide][4], these commands should be familiar.
 
 - Ensure that you've created the correct vhost:
 
@@ -176,7 +176,7 @@ Once we've ensured that our credentials are correct, we can see that RabbitMQ st
 2018-06-26 01:28:35.191 [info] <0.642.0> accepting AMQP connection <0.642.0> (192.168.1.3:44816 -> 192.168.1.2:5671)
 2018-06-26 01:28:35.194 [info] <0.642.0> connection <0.642.0> (192.168.1.3:44816 -> 192.168.1.2:5671): user 'sensu' authenticated and granted access to vhost '/sensu'{{ /highlight }}
 
-_WARNING: The credentials in this guide shouldn't be used in any production environment. If you're curious about how to better secure RabbitMQ, see our [Securing RabbitMQ Guide][]._
+_WARNING: The credentials in this guide shouldn't be used in any production environment. If you're curious about how to better secure RabbitMQ, see our [Securing RabbitMQ Guide][5]._
 
 ### SSL
 
@@ -184,7 +184,86 @@ SSL issues are one of the more difficult ones to troubleshoot inside of Sensu. W
 
 If you've already gone through the steps in the previous section to confirm that your Sensu instance is using the correct credentials to connect to your RabbitMQ instance, then you'll want to proceed through this part of the guide to rule out any issues with SSL.
 
-##### Handshake Failures
+_PRO TIP: For troubleshooting SSL issues, the openssl tool provides a wealth of troubleshooting capabilities. To see what is possible with the tool, take a look at this [handy cheat sheet][6]._
+
+#### Handshake Failures
+
+There are several layers of the proverbial onion when it comes to drilling down to handshake failures. We'll start by looking at the obvious errors that you'll see in logs, and dive deeper from there. The assumption here is that you've already configured Sensu to use SSL. If not, you'll want to refer back to our [SSL Configuration Reference material][7] before you proceed. Now, on to examining the errors you'll likely encounter in a handshake failure scenario:
+
+**Sensu Logs**:
+{{ highlight json }}{"timestamp":"2018-06-10T16:39:15.988000+0200","level":"warn","message":"transport connection error","reason":"tcp connection lost"}
+{"timestamp":"2018-06-10T16:39:15.989000+0200","level":"warn","message":"transport connection error","reason":"possible authentication failure. wrong credentials?","user":"sensu"}{{ /highlight }}
+
+Much like the errors seen in the previous section, the failure to connect to RabbitMQ appears to be one related to credentials. However, we can go a bit deeper by looking at the RabbitMQ logs, which present an error similar to the following:
+
+{{hilight shell }}2018-06-11 15:31:03.515 [info] <0.1540.0> TLS server: In state certify at ssl_handshake.erl:1289 generated SERVER ALERT: Fatal - Handshake Failure - {bad_cert,invalid_ext_key_usage}{{ /highlight }}
+
+_NOTE: We'll presume that if you've gone through our SSL guide, that you're using the [SSL tool][] to generate the certificates used in your deployment. If not, this is not a problem, as the commands we'll use for troubleshooting this particular scenario will prove useful no matter how your cert and key pairs are generated._
+
+Let's start off by manually verifying our certificate and key pairs. Sensu's SSL tool will place the certs/keys in the following directory:
+
+{{highlight shell }}sensu_ssl_tool
+├── client
+│ ├── cert.pem
+│ ├── keycert.p12
+│ ├── key.pem
+│ └── req.pem
+├── sensu_ca
+│ ├── cacert.cer
+│ ├── cacert.pem
+│ ├── certs
+│ │ ├── 01.pem
+│ │ └── 02.pem
+│ ├── index.txt
+│ ├── index.txt.attr
+│ ├── index.txt.attr.old
+│ ├── index.txt.old
+│ ├── openssl.cnf
+│ ├── private
+│ │ └── cakey.pem
+│ ├── serial
+│ └── serial.old
+├── server
+│ ├── cert.pem
+│ ├── keycert.p12
+│ ├── key.pem
+│ └── req.pem
+└── ssl_certs.sh{{ /highlight }}
+
+So from that directory, we'll ensure that our server cert and key (read "cert and key that are being used inside of the RabbitMQ configuration") match
+
+{{ highlight shell }}$ openssl x509 -noout -modulus -in server/cert.pem | openssl md5
+(stdin)= 32df80471e2d4e7d0453f60cfb66b2b2
+$ openssl rsa -noout -modulus -in server/key.pem | openssl md5
+(stdin)= 32df80471e2d4e7d0453f60cfb66b2b2{{ /highlight }}
+
+And then the same with our client cert and key (cert and key being used inside of the Sensu configuration):
+
+{{highlight shell }}$ openssl x509 -noout -modulus -in client/cert.pem | openssl md5
+(stdin)= c2a6a5a28a629653741e7674c3b95b19
+$ openssl rsa -noout -modulus -in client/key.pem | openssl md5
+(stdin)= c2a6a5a28a629653741e7674c3b95b19{{ /highlight }}
+
+_WARNING: Should the values here NOT match, you'll need to regenerate your cert/key pairs._
+
+And just to test to ensure that we can indeed connect with our cert/key pairs, we can use openssl to connect to our RabbitMQ instance directly:
+
+{{ highlight shell }}$ openssl s_client -connect localhost:5671 -key client/key.pem{{ /highlight }}
+
+Which should give you output that will look similar to the following:
+
+{{ highlight shell }}CONNECTED(00000003)
+depth=1 CN = SensuCA
+verify error:num=19:self signed certificate in certificate chain
+---
+Certificate chain
+0 s:/CN=sensu/O=server
+i:/CN=SensuCA
+1 s:/CN=SensuCA
+i:/CN=SensuCA
+{{ /highlight }}
+
+Provided that the MD5 sums match, and we're able to connect to , we can effectively rule out any issues with the certificates.
 
 ## Redis Connectivity
 
@@ -194,13 +273,10 @@ If you've already gone through the steps in the previous section to confirm that
 ## Renaming checks/clients
 
 
-[1]: https://docs.uchiwa.io/
-[2]: /sensu-core/latest/platforms/sensu-on-rhel-centos/#sensu-on-rhel-centos
+[1]: /uchiwa/latest/getting-started/installation/
+[2]: /sensu-core/latest/platforms/sensu-on-rhel-centos/#sensu-enterprise
 [3]: /sensu-core/latest/quick-start/five-minute-install/
-[4]: https://www.digitalocean.com/community/tutorials/an-introduction-to-snmp-simple-network-management-protocol
-[5]: https://github.com/sensu-extensions/sensu-extensions-snmp-trap
-[6]: /sensu-core/latest/reference/clients/#reference-documentation
-[7]: https://github.com/sensu-plugins/sensu-plugins-snmp
-[8]: https://slack.sensu.io
-[9]: https://github.com/sensu/sensu-docs/issues/new
-[10]: 
+[4]: /sensu-core/1.4/installation/install-rabbitmq-on-rhel-centos/#configure-rabbitmq-access-controls
+[5]: sensu-core/latest/guides/securing-rabbitmq/
+[6]: https://medium.freecodecamp.org/openssl-command-cheatsheet-b441be1e8c4a
+[7]: /sensu-core/latest/reference/ssl/
