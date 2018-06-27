@@ -198,7 +198,7 @@ Much like the errors seen in the previous section, the failure to connect to Rab
 
 {{hilight shell }}2018-06-11 15:31:03.515 [info] <0.1540.0> TLS server: In state certify at ssl_handshake.erl:1289 generated SERVER ALERT: Fatal - Handshake Failure - {bad_cert,invalid_ext_key_usage}{{ /highlight }}
 
-_NOTE: We'll presume that if you've gone through our SSL guide, that you're using the [SSL tool][] to generate the certificates used in your deployment. If not, this is not a problem, as the commands we'll use for troubleshooting this particular scenario will prove useful no matter how your cert and key pairs are generated._
+_NOTE: We'll presume that if you've gone through our SSL guide, that you're using the [SSL tool][8] to generate the certificates used in your deployment. If not, this is not a problem, as the commands we'll use for troubleshooting this particular scenario will prove useful no matter how your cert and key pairs are generated._
 
 Let's start off by manually verifying our certificate and key pairs. Sensu's SSL tool will place the certs/keys in the following directory:
 
@@ -263,7 +263,23 @@ i:/CN=SensuCA
 i:/CN=SensuCA
 {{ /highlight }}
 
-Provided that the MD5 sums match, and we're able to connect to , we can effectively rule out any issues with the certificates.
+Provided that the MD5 sums match and we're able to connect to RabbitMQ via openssl, we can effectively rule out any issues with the certificates.
+
+Let's move on to looking at the certificate (in this case, the server certificate specifically) and see what we find there. You can use the following command to examine the inner details of a certificate:
+
+{{ highlight shell }}openssl x509 -in server/cert.pem -text -noout{{ /highlight }}
+
+This will give you quite a bit, but the most important thing to note here is a specific extension:
+
+{{ highlight shell}}        X509v3 extensions:
+            X509v3 Basic Constraints:
+                CA:FALSE
+            X509v3 Key Usage:
+                Key Encipherment
+            X509v3 Extended Key Usage:
+                TLS Web Server Authentication{{ /highlight }}
+
+In the output above, we're specifically interested in the `TLS Web Server Authentication` extension. In a non-working certificate, _you will not see this present._ Instead, you'll end up seeing a value that looks similar to a SMTP MIB.
 
 ## Redis Connectivity
 
@@ -272,6 +288,7 @@ Provided that the MD5 sums match, and we're able to connect to , we can effectiv
 
 ## Renaming checks/clients
 
+It's often the case that checks and clients will be renamed. We'll now walk through what happens when a check and/or client is renamed, and how you can avoid some of the "gotchas" when renaming a client, or check.
 
 [1]: /uchiwa/latest/getting-started/installation/
 [2]: /sensu-core/latest/platforms/sensu-on-rhel-centos/#sensu-enterprise
@@ -280,3 +297,4 @@ Provided that the MD5 sums match, and we're able to connect to , we can effectiv
 [5]: sensu-core/latest/guides/securing-rabbitmq/
 [6]: https://medium.freecodecamp.org/openssl-command-cheatsheet-b441be1e8c4a
 [7]: /sensu-core/latest/reference/ssl/
+[8]: /sensu-core/latest/files/sensu_ssl_tool.tar
