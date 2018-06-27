@@ -13,7 +13,7 @@ _NOTE: In order to completely monitor a Sensu stack (Sensu services, Redis, Rabb
 
 In this guide, we'll walk you through the best practices and strategies for monitoring Sensu with Sensu. By the end of the guide, you should have a thorough understanding of what is required to ensure your Sensu components are properly monitored, including:
 
-* How to monitor your Sensu server/API/Enterprise/Dashboard instance(s)
+* How to monitor your Sensu server/Sensu API/Sensu Enterprise/Sensu Enterprise Dashboard services(s)
 * How to monitor your RabbitMQ instance(s)
 * How to monitor your Redis instance(s)
 
@@ -53,9 +53,7 @@ http://docs.sensu.io/sensu-core/1.4/api/health-and-info/#reference-documentation
 
 ### Monitoring Sensu API{#monitoring-sensu-api}
 
-Check to see if Sensu can monitor the API and still alert on it. If not, this will have to be done remotely. If it can, the plugins can live on the Sensu server and check for the process running, API endpoints, ports.
-
-Standard port
+Sensu API needs to be monitored remotely via port checks or API health endpoints
 
 {{< highlight json >}}
 {
