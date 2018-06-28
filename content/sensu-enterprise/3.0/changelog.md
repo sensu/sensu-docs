@@ -53,14 +53,15 @@ following improvements:
 ### CHANGES {#enterprise-v3-0-1-changes}
 
 - **BUGFIX**: A bug in error logging for HTTP requests caused the log
-  to reflect "unknown method to_hash" instead of providing insight
-  into the actual HTTP response. Error logs should now correctly
-  reflect details of the HTTP response.
+  to describe errors as "unknown method to_hash" instead of providing insight
+  into the actual HTTP response. Logs now include details of the HTTP
+  response header in the error message.
 
-- **BUGFIX**: A bug in  OpsGenie integration prevented creation of
-  alerts when the custom client `environment` attribute has an array
-  value instead of a string value. The integration now properly
-  handles `environment` values as a string or an array of strings.
+- **BUGFIX**: A bug in the OpsGenie integration prevented Sensu Enterprise from
+  creating alerts when the [client attribute][custom-client-attr]
+  `environment` contained an array  instead of a string. The
+  integration now properly handles  `environment` values as a string
+  or an array of strings.
 
 ## Enterprise 3.0.0 Release Notes {#enterprise-v3-0-0}
 
@@ -608,6 +609,7 @@ This release includes potentially breaking, backwards-incompatible changes:
 [core-v1-4-2]: /sensu-core/1.4/changelog/#core-v1-4-2
 [opsgenie-integration-doc]: /sensu-enterprise/3.0/integrations/opsgenie
 [3-0-upgrade]: /sensu-enterprise/3.0/upgrading
+[custom-client-attr]: /sensu-core/1.4/reference/clients/#custom-attributes
 
 <!-- core -->
 [core-v0-26-0-important] /sensu-core/1.2/changelog/#core-v0-26-0-important
