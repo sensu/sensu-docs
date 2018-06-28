@@ -59,7 +59,7 @@ following improvements:
 
 - **BUGFIX**: A bug in the OpsGenie integration prevented Sensu Enterprise from
   creating alerts when the [client attribute][custom-client-attr]
-  `environment` contained an array  instead of a string. The
+  `environment` contained an array instead of a string. The
   integration now properly handles  `environment` values as a string
   or an array of strings.
 
