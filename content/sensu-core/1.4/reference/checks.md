@@ -946,7 +946,7 @@ example      | {{< highlight shell >}}"output": "i-424242"{{< /highlight >}}
 [40]: ../events#event-data
 [41]: #check-names
 [42]: #subdue-attributes
-[43]: ../../overview/changelog/
+[43]: ../../changelog/
 [44]: /sensu-enterprise/latest/contact-routing
 [45]: ../../api/events#the-resolve-api-endpoint
 [46]: ../clients#client-socket-input

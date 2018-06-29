@@ -1,5 +1,6 @@
 ---
 title: "Intro to Handlers"
+description: "Sensu event handlers take action on events produced by check results. For example, handlers can send email alerts, create or resolve incidents, and store metrics."
 product: "Sensu Core"
 version: "1.2"
 weight: 6

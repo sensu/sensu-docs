@@ -2,6 +2,7 @@
 title: "Collections"
 product: "Sensu Enterprise Dashboard"
 version: "2.9"
+description: "Collections are easily sharable groups of items returned by a collection query."
 weight: 12
 menu: "sensu-enterprise-dashboard-2.9"
 ---

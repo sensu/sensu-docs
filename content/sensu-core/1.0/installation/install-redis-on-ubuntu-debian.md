@@ -182,7 +182,7 @@ configuration][2] for more information on how Sensu loads configuration.
 [1]:  ../../reference/redis
 [2]:  ../../reference/configuration
 [3]:  ../../reference/transport
-[4]:  installation-prerequisites.html#selecting-a-transport
+[4]:  ../installation-prerequisites#selecting-a-transport
 [5]:  https://en.wikipedia.org/wiki/IPv6_address#Local_addresses
 [6]:  http://redis.io/topics/clients#maximum-number-of-clients
 [7]:  ../../reference/redis/#redis-high-availability-configuration

@@ -1,5 +1,6 @@
 ---
 title: "Intro to Mutators"
+description: "Sensu mutators transform event data for a Sensu event handler."
 version: "0.29"
 weight: 5
 product: "Sensu Core"

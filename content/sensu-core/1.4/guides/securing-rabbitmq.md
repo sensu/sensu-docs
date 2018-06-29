@@ -5,7 +5,7 @@ product: "Sensu Core"
 version: "1.4"
 weight: 9
 previous: ../securing-sensu
-next: ../securing-redis-guide
+next: ../securing-redis
 menu:
   sensu-core-1.4:
     parent: guides
@@ -160,4 +160,4 @@ We'll continue building on our securing Sensu guide series and will cover strate
 [1]: https://www.rabbitmq.com/access-control.html#permissions
 [2]: ../../reference/rabbitmq/#sensu-rabbitmq-configuration-examples
 [3]: ../../installation/install-rabbitmq/
-[4]: ../securing-sensu-guide
+[4]: ../securing-sensu

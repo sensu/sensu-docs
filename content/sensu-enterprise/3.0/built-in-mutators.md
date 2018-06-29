@@ -82,6 +82,6 @@ example        | {{< highlight shell >}}"output_format": "graphite_plaintext"{{<
 [4]:  http://nagios.sourceforge.net/docs/3_0/perfdata.html
 [5]:  http://opentsdb.net/docs/build/html/user_guide/writing.html
 [6]:  http://metrics20.org/spec/
-[7]:  https://github.com/opower/sensu-metrics-relay#json-metric-format
+[7]:  https://github.com/opinionlab/sensu-metrics-relay#json-metric-format
 [8]:  https://docs.influxdata.com/influxdb/v1.1/write_protocols/line_protocol_tutorial/
 [9]:  https://community.wavefront.com/docs/DOC-1031

@@ -177,5 +177,5 @@ $ svcadm restart sensu-client{{< /highlight >}}
 [9]:  #configure-sensu
 [10]: #example-transport-configuration
 [11]: #example-client-configuration
-[12]: /files/postinst.sh
+[12]: ../../files/postinst.sh
 [13]: http://www.oracle.com/technetwork/server-storage/solaris11/technologies/ips-323421.html
