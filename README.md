@@ -30,16 +30,10 @@ Unlike the old sensu-docs project, this site can be run locally with Hugo. There
 
 #### [Cloning the project](#cloning-the-project)
 
-This project uses [git submodules](https://git-scm.com/book/en/v2/Git-Tools-Submodules) to manage themes. If you have git 1.6.5 or later, you can clone this project and checkout submodules in one command:
+To view the Sensu docs locally, clone this repository with:
 
 ```
-git clone --recursive https://github.com/sensu/sensu-docs.git sensu-docs
-```
-
-If you cloned this repository without the `--recursive` flag, you can manually pull in the theme submodule:
-
-```
-cd sensu-docs ; git submodule update --init --recursive
+git clone https://github.com/sensu/sensu-docs.git
 ```
 
 #### Installing Yarn
@@ -71,7 +65,6 @@ yarn run server
 Here are some things you might try if you encounter an issue working with the site:
 
 * Run `yarn hugo-version` to print the running version of Hugo. Version 0.34 or newer is required.
-* Did you clone the repository without submodules? See the "[cloning the project](#cloning-the-project)" section for how to add submodules after the fact.
 * If you are seeing stale page content, try using `yarn server --disableFastRender` to ensure all pages are rebuilt as you make changes.
 * If you're still having trouble viewing the site, open an issue, and we'll be happy to help!
 
