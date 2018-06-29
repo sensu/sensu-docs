@@ -45,126 +45,146 @@ Ready? Let's get started!
 The following installation steps will help you get Sensu Core installed in a
 [standalone][4] on a system running [CentOS 7][5], only. For installation on
 other platforms, and/or alternative installation configurations, please consult
-the [installation guide](2).
+the [installation guide][2].
 
 **0. Install EPEL (if not already done)**
 
-   {{< highlight shell >}}
-   sudo yum install epel-release -y{{< /highlight >}}
+{{< highlight shell >}}
+sudo yum install epel-release -y{{< /highlight >}}
 
 **1. Create the YUM repository configuration file for the Sensu Core repository at
    `/etc/yum.repos.d/sensu.repo` or see [Sensu Enterprise repository instructions][9]:**
 
-   {{< highlight shell >}}
-   echo '[sensu]
-   name=sensu
-   baseurl=https://sensu.global.ssl.fastly.net/yum/$releasever/$basearch/
-   gpgcheck=0
-   enabled=1' | sudo tee /etc/yum.repos.d/sensu.repo{{< /highlight >}}
+{{< highlight shell >}}
+echo '[sensu]
+name=sensu
+baseurl=https://sensu.global.ssl.fastly.net/yum/$releasever/$basearch/
+gpgcheck=0
+enabled=1' | sudo tee /etc/yum.repos.d/sensu.repo{{< /highlight >}}
 
 **2. Install Redis (>= 1.3.14) from EPEL:**
 
-   {{< highlight shell >}}
-   sudo yum install redis -y{{< /highlight >}}
+{{< highlight shell >}}
+sudo yum install redis -y{{< /highlight >}}
 
 **3. Disable Redis protected mode**
 
-   When using Redis 3.2.0 or later, you will need to edit `/etc/redis.conf` in
-   order to disable [protected mode][redis-security].
+When using Redis 3.2.0 or later, you will need to edit `/etc/redis.conf` in
+order to disable [protected mode][redis-security].
 
-   Look for a line that reads:
+Look for a line that reads:
 
-   {{< highlight shell >}}
-   protected-mode yes{{< /highlight >}}
+{{< highlight shell >}}
+protected-mode yes{{< /highlight >}}
 
-   and change it to:
+and change it to:
 
-   {{< highlight shell >}}
-   protected-mode no{{< /highlight >}}
+{{< highlight shell >}}
+protected-mode no{{< /highlight >}}
 
 **4. Enable and start Redis:**
 
-   {{< highlight shell >}}
-   sudo systemctl enable redis
-   sudo systemctl start redis{{< /highlight >}}
+{{< highlight shell >}}
+sudo systemctl enable redis
+sudo systemctl start redis{{< /highlight >}}
 
 **5. Install Sensu:**
 
-   {{< highlight shell >}}
-   sudo yum install sensu -y{{< /highlight >}}
+For Sensu Core:
 
-   ...and if you're using [Sensu Enterprise][9], let's go ahead and install
-   Sensu Enterprise as well:
+{{< highlight shell >}}
+sudo yum install sensu uchiwa -y{{< /highlight >}}
 
-   {{< highlight shell >}}
-   sudo yum install sensu-enterprise sensu-enterprise-dashboard -y{{< /highlight >}}
+Or for [Sensu Enterprise][9]:
+
+{{< highlight shell >}}
+sudo yum install sensu sensu-enterprise sensu-enterprise-dashboard -y{{< /highlight >}}
 
 **6. Configure Sensu server**
 
-   Run the following to set up a minimal client config:
+Run the following to set up a minimal client config:
 
-   {{< highlight shell >}}
-   echo '{
-     "transport": {
-       "name": "redis"
-     },
-     "api": {
-       "host": "127.0.0.1",
-       "port": 4567
-     }
-   }' | sudo tee /etc/sensu/config.json{{< /highlight >}}
+{{< highlight shell >}}
+ echo '{
+   "transport": {
+     "name": "redis"
+   },
+   "api": {
+     "host": "127.0.0.1",
+     "port": 4567
+   }
+ }' | sudo tee /etc/sensu/config.json{{< /highlight >}}
 
 **7. Configure the Sensu client**
 
-   Run the following to set up a minimal client config:
+Run the following to set up a minimal client config:
 
-   {{< highlight shell >}}
-   echo '{
-     "client": {
-       "environment": "development",
-       "subscriptions": [
-         "dev"
-       ]
-     }
-   }' |sudo tee /etc/sensu/conf.d/client.json{{< /highlight >}}
+{{< highlight shell >}}
+ echo '{
+   "client": {
+     "environment": "development",
+     "subscriptions": [
+       "dev"
+     ]
+   }
+ }' |sudo tee /etc/sensu/conf.d/client.json{{< /highlight >}}
 
 **8. Configure a Sensu dashboard**
 
-   Run the following to set up a minimal dashboard config:
+Sensu Core users:
 
-   {{< highlight shell >}}
-   echo '{
-     "sensu": [
-       {
-         "name": "sensu",
-         "host": "127.0.0.1",
-         "port": 4567
-       }
-     ],
-     "dashboard": {
-       "host": "0.0.0.0",
-       "port": 3000
+{{< highlight shell >}}
+ echo '{
+   "sensu": [
+     {
+       "name": "sensu",
+       "host": "127.0.0.1",
+       "port": 4567
      }
-   }' |sudo tee /etc/sensu/dashboard.json{{< /highlight >}}
+   ],
+   "uchiwa": {
+     "host": "0.0.0.0",
+     "port": 3000
+   }
+ }' |sudo tee /etc/sensu/uchiwa.json{{< /highlight >}}
+
+Sensu Enterprise users:
+
+{{< highlight shell >}}
+ echo '{
+   "sensu": [
+     {
+       "name": "sensu",
+       "host": "127.0.0.1",
+       "port": 4567
+     }
+   ],
+   "dashboard": {
+     "host": "0.0.0.0",
+     "port": 3000
+   }
+ }' |sudo tee /etc/sensu/dashboard.json{{< /highlight >}}
 
 **9. Make sure that the `sensu` user owns all of the Sensu configuration files:**
 
-   {{< highlight shell >}}
-   sudo chown -R sensu:sensu /etc/sensu{{< /highlight >}}
+{{< highlight shell >}}
+sudo chown -R sensu:sensu /etc/sensu{{< /highlight >}}
 
 **10. Start the Sensu services**
 
-   Sensu Core users:
+Sensu Core users:
 
-   {{< highlight shell >}}
-   sudo systemctl enable sensu-{server,api,client}
-   sudo systemctl start sensu-{server,api,client}{{< /highlight >}}
+{{< highlight shell >}}
+sudo systemctl enable sensu-{server,api,client}
+sudo systemctl start sensu-{server,api,client}
+sudo systemctl enable uchiwa
+sudo systemctl start uchiwa{{< /highlight >}}
 
-   Sensu Enterprise users:
+Sensu Enterprise users:
 
-   {{< highlight shell >}}
-   sudo systemctl enable sensu-{enterprise,enterprise-dashboard,client}
-   sudo systemctl start sensu-{enterprise,enterprise-dashboard,client}{{< /highlight >}}
+{{< highlight shell >}}
+sudo systemctl enable sensu-{enterprise,enterprise-dashboard,client}
+sudo systemctl start sensu-{enterprise,enterprise-dashboard,client}{{< /highlight >}}
 
 **11. Verify that your installation is ready to use by querying the Sensu API
     using the `curl` utility (and piping the result to the [`jq` utility][10]):**
@@ -196,10 +216,7 @@ $ curl -s http://127.0.0.1:4567/clients | jq .
 
 ...you have successfully installed and configured Sensu!
 
-If you you're using Sensu Enterprise, you should also be able to load the
-Sensu Enterprise Dashboard in your browser by visiting
-[http://hostname:3000](http://hostname:3000) (replacing `hostname` with the
-hostname or IP address of the system where the dashboard is installed).
+Whether you're using Uchiwa or Sensu Enterprise Dashboard, you now be able to view it in your browser by visiting [http://hostname:3000](http://hostname:3000) (replacing `hostname` with the hostname or IP address of the system where the dashboard is installed).
 
 ![five-minute-dashboard-1](/images/five-minute-dashboard-1.png)
 ![five-minute-dashboard-2](/images/five-minute-dashboard-2.png)

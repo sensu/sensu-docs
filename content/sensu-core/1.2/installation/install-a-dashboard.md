@@ -1,5 +1,6 @@
 ---
 title: "Sensu Dashboards"
+description: "The complete Sensu installation guide."
 weight: 12
 product: "Sensu Core"
 version: "1.2"
@@ -29,8 +30,7 @@ Enterprise APIs][enterprise-api]).
 - [Install Sensu Enterprise Dashboard on Ubuntu/Debian](../../platforms/sensu-on-ubuntu-debian/#sensu-enterprise)
 - [Install Sensu Enterprise Dashboard on RHEL/CentOS](../../platforms/sensu-on-rhel-centos/#sensu-enterprise)
 
-To install Uchiwa, please visit the [Getting Started with
-Uchiwa][uchiwa-install] guide, on the [Uchiwa website](http://uchiwa.io).
+To install Uchiwa, please visit the [Uchiwa installation guide][uchiwa-install].
 
 _NOTE: as mentioned above &ndash; installation and use of a dashboard is not
 required for operating Sensu Core or Sensu Enterprise._
@@ -38,4 +38,4 @@ required for operating Sensu Core or Sensu Enterprise._
 [sensu-enterprise]:       https://sensuapp.org/enterprise
 [core-api]:               ../../api/overview
 [enterprise-api]:         /sensu-enterprise/latest/api/
-[uchiwa-install]:         http://docs.uchiwa.io/getting-started/
+[uchiwa-install]:         /uchiwa/latest/getting-started/installation

@@ -42,15 +42,13 @@ format specified below._
 1. Download Sensu from the [Sensu Downloads][1] page
 
 2. Install the `sensu-1.2.0-1.i386.pkg` package using the `pkgadd` utility:
-
    {{< highlight shell >}}
-   $ su
-   $ pkgadd -d sensu-1.2.0-1.i386.pkg{{< /highlight >}}
+$ su
+$ pkgadd -d sensu-1.2.0-1.i386.pkg{{< /highlight >}}
 
 3. Install the Sensu service init script(s) using the `svccfg` utility:
-
    {{< highlight shell >}}
-   svccfg import /lib/svc/manifest/site/sensu-client.xml{{< /highlight >}}
+svccfg import /lib/svc/manifest/site/sensu-client.xml{{< /highlight >}}
 
 4. Configure the Sensu client. **No "default" configuration is provided with
    Sensu**, so the Sensu client will not run without the corresponding
@@ -62,22 +60,18 @@ format specified below._
 
 1. Download Sensu from the [Sensu Downloads][1] page, or by using the `wget`
    utility:
-
    {{< highlight shell >}}
-   wget https://sensu.global.ssl.fastly.net/solaris/ips/5.11/sensu-1.2.0-1.i386.p5p{{< /highlight >}}
+wget https://sensu.global.ssl.fastly.net/solaris/ips/5.11/sensu-1.2.0-1.i386.p5p{{< /highlight >}}
 
 2. Install the `sensu-1.2.0-1.i386.p5p` package using the `pkg` utility:
-
    {{< highlight shell >}}
-   $ sudo pkg install -g sensu-1.2.0-1.i386.p5p developer/versioning/sensu{{< /highlight >}}
+$ sudo pkg install -g sensu-1.2.0-1.i386.p5p developer/versioning/sensu{{< /highlight >}}
 
 3. Download and run the Sensu [post-install script][12]:
-
    {{< highlight shell >}}
-   $ wget https://sensuapp.org/docs/1.2/files/postinst.sh
-   $ chmod +x postinst.sh
-   $ sudo ./postinst.sh{{< /highlight >}}
-
+$ wget https://sensuapp.org/docs/1.2/files/postinst.sh
+$ chmod +x postinst.sh
+$ sudo ./postinst.sh{{< /highlight >}}
    _NOTE: all native system installer packages for Sensu contain this
    post-install script, which is used for setting up the `sensu` system user and
    group, creating various configuration directories, setting configuration
@@ -86,9 +80,8 @@ format specified below._
    however at this time it is necessary to perform these steps manually._
 
 4. Install the Sensu service init script(s) using the `svcadm` utility:
-
    {{< highlight shell >}}
-   $ sudo svcadm restart manifest-import{{< /highlight >}}
+$ sudo svcadm restart manifest-import{{< /highlight >}}
 
 5. Configure the Sensu client. **No "default" configuration is provided with
    Sensu**, so the Sensu client will not run without the corresponding
@@ -122,23 +115,22 @@ mkdir /etc/sensu/conf.d{{< /highlight >}}
 
 1. Copy the following contents to a configuration file located at
    `/etc/sensu/conf.d/client.json`:
-
    {{< highlight json >}}
-   {
-     "client": {
-       "name": "solaris-client",
-       "address": "127.0.0.1",
-       "environment": "development",
-       "subscriptions": [
-         "dev",
-         "solaris-hosts"
-       ],
-       "socket": {
-         "bind": "127.0.0.1",
-         "port": 3030
-       }
-     }
-   }{{< /highlight >}}
+{
+  "client": {
+    "name": "solaris-client",
+    "address": "127.0.0.1",
+    "environment": "development",
+    "subscriptions": [
+      "dev",
+      "solaris-hosts"
+    ],
+    "socket": {
+      "bind": "127.0.0.1",
+      "port": 3030
+    }
+  }
+}{{< /highlight >}}
 
 ### Example Transport Configuration
 
@@ -147,15 +139,13 @@ connect to the configured [Sensu Transport][6].
 
 1. Copy the following contents to a configuration file located at
    `/etc/sensu/conf.d/transport.json`:
-
    {{< highlight json >}}
-   {
-     "transport": {
-       "name": "rabbitmq",
-       "reconnect_on_error": true
-     }
-   }{{< /highlight >}}
-
+{
+  "transport": {
+    "name": "rabbitmq",
+    "reconnect_on_error": true
+  }
+}{{< /highlight >}}
    _NOTE: if you are using Redis as your transport, please use `"name": "redis"`
    for your transport configuration. For more information, please visit the
    [transport definition specification][10]._
@@ -187,5 +177,5 @@ $ svcadm restart sensu-client{{< /highlight >}}
 [9]:  #configure-sensu
 [10]: #example-transport-configuration
 [11]: #example-client-configuration
-[12]: /files/postinst.sh
+[12]: ../../files/postinst.sh
 [13]: http://www.oracle.com/technetwork/server-storage/solaris11/technologies/ips-323421.html

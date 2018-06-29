@@ -1,5 +1,6 @@
 ---
 title: "Intro to Checks"
+description: "Sensu checks allow you to monitor server resources, services, and application health, as well as collect & analyze metrics."
 version: "0.29"
 product: "Sensu Core"
 next: ../intro-to-filters

@@ -2,6 +2,7 @@
 title: "Role Based Access Controls"
 product: "Sensu Enterprise Dashboard"
 version: "2.9"
+description: "RBAC for Sensu Enterprise enables administrators to grant the correct level access to many different development and operations teams."
 weight: 1
 menu:
   sensu-enterprise-dashboard-2.9:
@@ -190,7 +191,7 @@ example        | {{< highlight shell >}}"members": [
 
 datacenters  | 
 -------------|------
-description  | An array of the `datacenters` (i.e. matching a defined [Sensu API endpoint `name`][13] value) that members of the role should have access to. Provided values will be used to filter which `datacenters` members of the role will have access to. _NOTE: omitting this configuration attribute or providing an empty array will allow members of the role access to all configured `datacenters`._
+description  | An array of the `datacenters` (i.e. matching a defined Sensu API endpoint `name` value) that members of the role should have access to. Provided values will be used to filter which `datacenters` members of the role will have access to. _NOTE: omitting this configuration attribute or providing an empty array will allow members of the role access to all configured `datacenters`._
 required     | false
 type         | Array
 example      | {{< highlight shell >}}"datacenters": [
@@ -355,7 +356,7 @@ example        | {{< highlight shell >}}"methods": {
 [1]:  https://github.com
 [2]:  https://enterprise.github.com/home
 [3]:  https://gitlab.com
-[4]:  ../../dashboard#what-is-a-sensu-datacenter
+[4]:  ../../#what-is-a-sensu-datacenter
 [5]:  /sensu-core/1.0/reference/clients#client-subscriptions
 [6]:  /sensu-enterprise/2.8/api
 [7]:  ../rbac-for-ldap
@@ -364,8 +365,7 @@ example        | {{< highlight shell >}}"methods": {
 [10]: #driver-attributes
 [11]: https://github.com/orgs/sensu/teams/docs
 [12]: https://gitlab.com/groups/heavywater
-[13]: ../../dashboard#sensu-attributes
-[14]: ../../dashboard#what-is-the-sensu-enterprise-console
+[14]: ../../#what-is-the-sensu-enterprise-console
 [15]: #roles-attributes
 [16]: /sensu-core/1.0/api/clients
 [17]: /sensu-core/1.0/reference/configuration#configuration-scopes

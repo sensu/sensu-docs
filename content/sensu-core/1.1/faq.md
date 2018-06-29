@@ -5,12 +5,34 @@ version: "1.1"
 menu: "sensu-core-1.1"
 product: "Sensu Core"
 ---
-## Sensu Frequently Asked Questions
+
+# Sensu Frequently Asked Questions
 
 Please note the following frequently asked questions about Sensu Core, Sensu
 Enterprise, Sensu Training, Professional Services for Sensu, and more. If you
 need support for Sensu, please consider giving [Sensu
-Enterprise](https://sensuapp.org/get-started/) a try.
+Enterprise](https://sensu.io/features/enterprise) a try.
+
+> What platforms does Sensu support?
+
+| Platform & Version | 64bit | 32bit | Comments                 |
+|--------------------|-------|-------|--------------------------|
+| Ubuntu 12.04       | ✅     | ✅     |                          |
+| Ubuntu 14.04       | ✅     | ✅     |                          |
+| Ubuntu 16.04       | ✅     | ❌     | No official 32bit images |
+| Ubuntu 18.04       | ✅     | ❌     | No official 32bit images |
+| Debian 7           | ✅     | ✅     |                          |
+| Debian 8           | ✅     | ❌     | No official 32bit images |
+| Debian 9           | ✅     | ❌     | No official 32bit images |
+| CentOS 5           | ✅     | ✅     | 32 and 64bit images built with [sensu-omnibus-packer](https://github.com/sensu/sensu-omnibus-packer) |
+| CentOS 6           | ✅     | ✅     | Using unofficial 32bit image |
+| CentOS 7           | ✅     | ❌     | No official 32bit images |
+| FreeBSD 10         | ✅     | ❌     | Official 32bit images are out of date |
+| FreeBSD 11         | ✅     | ❌     | No official 32bit images |
+| Windows 2012r2     | ✅     | ✅     | 32bit artifact built on 64bit platform |
+| Mac OS X 10.10     | ✅     | ❌     | See [Mac platform notes][4] for instructions |
+| Mac OS X 10.11     | ✅     | ❌     | See [Mac platform notes][4] for instructions |
+| Mac OS X 10.12     | ✅     | ❌     | See [Mac platform notes][4] for instructions |
 
 > Do I need RabbitMQ to be installed on every system I wish to monitor?
 
@@ -156,3 +178,4 @@ It's also worth noting that as of Sensu 0.27, our build processes changed and we
 [1]: https://www.amqp.org/
 [2]: https://www.rabbitmq.com/which-erlang.html
 [3]: ../installation/upgrading/#tls-ssl-changes
+[4]: https://github.com/sensu/sensu-omnibus/blob/master/platform-docs/MAC_OS_X.md

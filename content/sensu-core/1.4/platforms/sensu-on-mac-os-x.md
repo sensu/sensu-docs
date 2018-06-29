@@ -37,14 +37,12 @@ notice._
 ### Download and install Sensu using the Sensu Universal .pkg file {#download-and-install-sensu-core}
 
 1. Download Sensu from the [Sensu Downloads][1] page.
-
    _NOTE: the Universal .pkg file supports OS X "Mavericks" (10.9) and newer.
    Mountain Lion users: please use [this installer][3]._
 
 2. Install the package using the `installer` utility
-
    {{< highlight shell >}}
-   sudo installer -pkg sensu-1.4.1-1.pkg -target /{{< /highlight >}}
+sudo installer -pkg sensu-1.4.1-1.pkg -target /{{< /highlight >}}
 
 3. Configure the Sensu client. **No "default" configuration is provided with
    Sensu**, so the Sensu Client will not start without the corresponding
@@ -83,23 +81,22 @@ mkdir /etc/sensu/conf.d{{< /highlight >}}
 
 1. Copy the following contents to a configuration file located at
    `/etc/sensu/conf.d/client.json`:
-
    {{< highlight json >}}
-   {
-     "client": {
-       "name": "macosx-client",
-       "address": "127.0.0.1",
-       "environment": "development",
-       "subscriptions": [
-         "dev",
-         "macosx-hosts"
-       ],
-       "socket": {
-         "bind": "127.0.0.1",
-         "port": 3030
-       }
-     }
-   }{{< /highlight >}}
+{
+  "client": {
+    "name": "macosx-client",
+    "address": "127.0.0.1",
+    "environment": "development",
+    "subscriptions": [
+      "dev",
+      "macosx-hosts"
+    ],
+    "socket": {
+      "bind": "127.0.0.1",
+      "port": 3030
+    }
+  }
+}{{< /highlight >}}
 
 ### Example Transport Configuration
 
@@ -108,15 +105,13 @@ connect to the configured [Sensu Transport][6].
 
 1. Copy the following contents to a configuration file located at
    `/etc/sensu/conf.d/transport.json`:
-
    {{< highlight json >}}
-   {
-     "transport": {
-       "name": "rabbitmq",
-       "reconnect_on_error": true
-     }
-   }{{< /highlight >}}
-
+{
+  "transport": {
+    "name": "rabbitmq",
+    "reconnect_on_error": true
+  }
+}{{< /highlight >}}
    _NOTE: if you are using Redis as your transport, please use `"name": "redis"`
    for your transport configuration. For more information, please visit the
    [transport definition specification][15]._
@@ -129,7 +124,7 @@ connect to the configured [Sensu Transport][6].
 
 The Sensu Core .pkg package includes a Sensu client daemon configuration,
 allowing Sensu to be run as a `launchd` job, or daemon. The OS X `launchd`
-service and `launchctl` utility use a ["plist" file][9] (an XML-based
+service and `launchctl` utility use a "plist" file (an XML-based
 configuration file) to configure the `sensu-client` daemon run arguments (e.g.
 `--log /var/log/sensu/sensu-client.log`).
 
@@ -137,37 +132,35 @@ configuration file) to configure the `sensu-client` daemon run arguments (e.g.
    definition file entitled `org.sensuapp.sensu-client.plist` to
    `/Library/LaunchDaemons/org.sensuapp.sensu-client.plist` and edit it with
    your favorite text editor.
-
    {{< highlight shell >}}
-   sudo cp /opt/sensu/embedded/Cellar/sensu/1.4.1/Library/LaunchDaemons/org.sensuapp.sensu-client.plist /Library/LaunchDaemons/org.sensuapp.sensu-client.plist{{< /highlight >}}
+sudo cp /opt/sensu/embedded/Cellar/sensu/1.4.1/Library/LaunchDaemons/org.sensuapp.sensu-client.plist /Library/LaunchDaemons/org.sensuapp.sensu-client.plist{{< /highlight >}}
 
 2. This XML configuration file allows you to set Sensu client [CLI
    arguments][10]. The following example configuration file sets the Sensu
    client primary configuration file path to `/etc/sensu/config.json`, the Sensu
    configuration directory to `/etc/sensu/conf.d`, and the log file path to
    `/etc/sensu/sensu-client.log`.
-
    {{< highlight xml >}}
-   <?xml version="1.0" encoding="UTF-8"?>
-   <!DOCTYPE plist PUBLIC -//Apple//DTD PLIST 1.0//EN http://www.apple.com/DTDs/PropertyList-1.0.dtd>
-   <plist version="1.0">
-     <dict>
-       <key>Label</key><string>org.sensuapp.sensu-client</string>
-       <key>ProgramArguments</key>
-       <array>
-         <string>/opt/sensu/bin/sensu-client</string>
-         <string>-c/etc/sensu/config.json</string>
-         <string>-d/etc/sensu/conf.d</string>
-         <string>-l/var/log/sensu/sensu-client.log</string>
-       </array>
-       <key>UserName</key><string>_sensu</string>
-       <key>GroupName</key><string>_sensu</string>
-       <key>RunAtLoad</key><true/>
-       <key>KeepAlive</key><true/>
-       <key>StandardOutPath</key><string>/var/log/sensu/sensu-client.log</string>
-       <key>StandardErrorPath</key><string>/var/log/sensu/sensu-client.log</string>
-     </dict>
-   </plist>{{< /highlight >}}
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC -//Apple//DTD PLIST 1.0//EN http://www.apple.com/DTDs/PropertyList-1.0.dtd>
+<plist version="1.0">
+ <dict>
+   <key>Label</key><string>org.sensuapp.sensu-client</string>
+   <key>ProgramArguments</key>
+   <array>
+     <string>/opt/sensu/bin/sensu-client</string>
+     <string>-c/etc/sensu/config.json</string>
+     <string>-d/etc/sensu/conf.d</string>
+     <string>-l/var/log/sensu/sensu-client.log</string>
+   </array>
+   <key>UserName</key><string>_sensu</string>
+   <key>GroupName</key><string>_sensu</string>
+   <key>RunAtLoad</key><true/>
+   <key>KeepAlive</key><true/>
+   <key>StandardOutPath</key><string>/var/log/sensu/sensu-client.log</string>
+   <key>StandardErrorPath</key><string>/var/log/sensu/sensu-client.log</string>
+ </dict>
+</plist>{{< /highlight >}}
 
 ## Operating Sensu
 
@@ -192,17 +185,16 @@ $ sudo -u _sensu /opt/sensu/bin/sensu-client -V
 1.4.1{{< /highlight >}}
 
 
-[1]:  https://sensuapp.org/download
-[2]:  https://sensu.global.ssl.fastly.net/osx/
-[3]:  https://sensu.global.ssl.fastly.net/osx/sensu-1.4.1-1.mountainlion.pkg
+[1]:  https://sensu.io/features/downloads
+[2]:  http://repositories.sensuapp.org/osx/
+[3]:  http://repositories.sensuapp.org/osx/sensu-0.26.3-1.mountainlion.pkg
 [4]:  #configure-the-sensu-client-launchd-daemon
 [5]:  ../../reference/configuration/
 [6]:  ../../reference/transport/
 [7]:  ../../reference/redis/#sensu-redis-configuration
 [8]:  ../../reference/rabbitmq/#sensu-rabbitmq-configuration
-[9]:  https://developer.apple.com/library/mac/documentation/Darwin/Reference/ManPages/man5/plist.5.html
 [10]: ../../reference/configuration/#sensu-service-cli-arguments
-[11]: https://developer.apple.com/library/mac/documentation/Darwin/Reference/ManPages/man1/launchctl.1.html
+[11]: https://ss64.com/osx/launchctl.html
 [12]: #configure-sensu
 [13]: #example-transport-configuration
 [14]: #example-client-configuration

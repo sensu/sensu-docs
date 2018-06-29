@@ -1,9 +1,10 @@
 ---
 title: "Securing Sensu"
 description: "Strategies and best practices for securing Sensu"
+product: "Sensu Core"
 version: "0.29"
 weight: 8
-next: ../securing-rabbitmq-guide
+next: ../securing-rabbitmq
 menu:
   sensu-core-0.29:
     parent: guides
@@ -142,7 +143,7 @@ In addition to SSL/TLS encryption, Uchiwa provides another mechanism for securin
 
 * Encrypted passwords
 
-For more details on how to secure your Uchiwa instance using this feature, see [Uchiwa's site][7].
+For more details on how to secure your Uchiwa instance using this feature, see [the Uchiwa security docs][7].
 
 ### Securing the Sensu Enterprise Dashboard
 
@@ -306,7 +307,7 @@ That wraps it up! We'll cover more in the subsequent articles in this series. Cl
 [4]: ../../reference/ssl/#reference-documentation
 [5]: ../../reference/ssl/#enable-rabbitmq-ssl-support
 [6]: https://www.rabbitmq.com/which-erlang.html
-[7]: https://docs.uchiwa.io/guides/security/
+[7]: /uchiwa/latest/guides/security/
 [8]: /sensu-enterprise-dashboard/latest/rbac/overview
 [9]: /sensu-enterprise-dashboard/latest/rbac/rbac-for-ldap/
 [10]: /sensu-enterprise-dashboard/latest/rbac/rbac-for-github/
