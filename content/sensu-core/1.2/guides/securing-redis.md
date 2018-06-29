@@ -1,6 +1,7 @@
 ---
 title: "Securing Redis"
 description: "Strategies and best practices for securing Redis"
+product: "Sensu Core"
 version: "1.2"
 weight: 9
 next: ../securing-rabbitmq
