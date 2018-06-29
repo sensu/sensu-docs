@@ -43,11 +43,9 @@ and/or enabling the Sensu client process to start automatically on system boot.
 
 ### Ubuntu/Debian
 
-{{< platformDropdown "Ubuntu/Debian" "Sensu-Core" "1.0" "Client Installation" "sensu-core">}}
-
 Sensu Core is installed on Ubuntu and Debian systems via a native system
 installer package (i.e. a .deb file), which is available for download from the
-[Sensu Downloads][1] page, and from APT package management repositories. The
+[Sensu Downloads][2] page, and from APT package management repositories. The
 Sensu Core package installs several processes including `sensu-server`,
 `sensu-api`, and `sensu-client`.
 
@@ -94,7 +92,7 @@ sudo apt-get install sensu{{< /highlight >}}
 
 6. Configure Sensu. **No "default" configuration is provided with Sensu**, so
    none of the Sensu processes will run without the corresponding configuration.
-   Please refer to the ["Configure Sensu" section][11] (below), for more
+   Please refer to the "Configure Sensu" section below, for more
    information on configuring Sensu. **At minimum, all of the Sensu processes
    will need a working [transport definition][12]**. The Sensu client will need
    a [client definition][13], and both the `sensu-server` and `sensu-api` will
@@ -107,11 +105,9 @@ sudo apt-get install sensu{{< /highlight >}}
 
 ### RHEL/CentOS
 
-{{< platformDropdown "RHEL/CentOS" "Sensu-Core" "1.0" "Client Installation" "sensu-core" >}}
-
 Sensu Core is installed on RHEL and CentOS systems via a native system installer
 package (i.e. a .rpm file), which is available for download from the [Sensu
-Downloads][1] page, and from YUM package management repositories. The Sensu Core
+Downloads][2] page, and from YUM package management repositories. The Sensu Core
 package installs several processes including `sensu-server`, `sensu-api`, and
 `sensu-client`.
 
@@ -123,7 +119,7 @@ expected to be compatible with Red Hat derivatives like SuSE, Amazon or
 Scientific Linux, but packages are not tested on these platforms.
 
 The following instructions describe configuring package repository definitions
-using [Yum variables][14] as components of the baseurl. On Red Hat derivative
+using Yum variables as components of the baseurl. On Red Hat derivative
 platforms the value of the `$releasever` variable will not typically align with
 the RHEL release versions (e.g. `6` or `7`) advertised in the Sensu Yum
 repository. Please use `6` or `7` in lieu of `$releasever` on RHEL derivatives,
@@ -150,11 +146,19 @@ sudo yum install sensu{{< /highlight >}}
 
 3. Configure Sensu. **No "default" configuration is provided with Sensu**, so
    none of the Sensu processes will run without the corresponding configuration.
-   Please refer to the ["Configure Sensu" section][10] (below), for more
+   Please refer to the "Configure Sensu" section below, for more
    information on configuring Sensu. **At minimum, all of the Sensu processes
-   will need a working [transport definition][11]**. The Sensu client will need
-   a [client definition][12], and both the `sensu-server` and `sensu-api` will
-   need a [data-store (Redis) definition][13] &mdash; all of which are explained
+   will need a working [transport definition][12]**. The Sensu client will need
+   a [client definition][13], and both the `sensu-server` and `sensu-api` will
+   need a [data-store (Redis) definition][14] &mdash; all of which are explained
    below.
 
 {{< platformBlockClose >}}
+
+[1]: ../../quick-start/five-minute-install
+[2]: https://sensu.io/features/downloads
+[12]: ../../reference/transport/#transport-configuration
+[13]: ../../reference/clients/#client-configuration
+[14]: ../../reference/redis/#configure-sensu
+[15]: https://wiki.debian.org/DebianReleases
+[16]: https://wiki.ubuntu.com/LTS

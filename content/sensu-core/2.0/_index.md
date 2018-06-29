@@ -1,5 +1,6 @@
 ---
 title: "Sensu Core"
+description: "Sensu is an infrastructure and application monitoring and telemetry solution that provides a framework for monitoring infrastructure, service & application health, and business KPIs."
 date: 2018-02-05T06:06:31-07:00
 weight: -100
 menu: "sensu-core-2.0"

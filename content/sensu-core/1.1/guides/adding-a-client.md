@@ -1,5 +1,6 @@
 ---
 title: "Adding a Client"
+description: "Configure and start a Sensu Client"
 product: "Sensu Core"
 version: "1.1"
 next: ../intro-to-checks
@@ -69,37 +70,34 @@ note the following steps that are required to add a remote Sensu client:
    `/etc/sensu/conf.d/client.json` with the following contents (replacing the
    values for the client `name`, `address`, and `subscriptions` with the
    corresponding values for the client you are adding):
-
    {{< highlight json >}}
-   {
-     "client": {
-       "name": "i-041256",
-       "address": "8.8.8.8",
-       "subscriptions": [
-         "default",
-         "webserver"
-       ]
-     }
-   }{{< /highlight >}}
+{
+  "client": {
+    "name": "i-041256",
+    "address": "8.8.8.8",
+    "subscriptions": [
+      "default",
+      "webserver"
+    ]
+  }
+}{{< /highlight >}}
 
 2. **Tell the client which transport to use**. Create a transport definition at
    `/etc/sensu/conf.d/transport.json` with the following contents (replacing the
    value for the transport `name` with the corresponding value for the transport
    you are using; e.g. use `"transport": "redis"` if you are using the Redis
    transport).
-
    {{< highlight json >}}
-   {
-     "transport": {
-       "name": "rabbitmq",
-       "reconnect_on_error": true
-     }
-   }{{< /highlight >}}
+{
+  "transport": {
+    "name": "rabbitmq",
+    "reconnect_on_error": true
+  }
+}{{< /highlight >}}
 
 3. **Tell the client how to connect to the transport**. Create a transport
    definition at `/etc/sensu/conf.d/rabbitmq.json` (or
    `/etc/sensu/conf.d/redis.json` if you are using the Redis transport).
-
    _NOTE: please consult the corresponding reference documentation for
    [RabbitMQ][11] or [Redis][13] for more configuration examples and detailed
    information on how to configure Sensu's connection._
@@ -107,12 +105,10 @@ note the following steps that are required to add a remote Sensu client:
 4. **Start the client**
    Start the Sensu client and verify connectivity by consulting the Sensu client
    log file:
-
    _NOTE: The `service` command will not work on CentOS 5, the
    sysvinit script must be used, e.g. `sudo /etc/init.d/sensu-client start`_
-
    {{< highlight shell >}}
-   sudo service sensu-client start{{< /highlight >}}
+sudo service sensu-client start{{< /highlight >}}
 
 ## Proxy Clients
 

@@ -11,6 +11,7 @@ _NOTE: Sensu Enterprise is built on Sensu Core. Sensu Core changes are documente
 
 ## Releases
 
+- [Enterprise 3.0.1 Release Notes](#enterprise-v3-0-1)
 - [Enterprise 3.0.0 Release Notes](#enterprise-v3-0-0)
 - [Enterprise 2.8.3 Release Notes](#enterprise-v2-8-3)
 - [Enterprise 2.8.2 Release Notes](#enterprise-v2-8-2)
@@ -43,6 +44,24 @@ _NOTE: Sensu Enterprise is built on Sensu Core. Sensu Core changes are documente
 - [Enterprise 1.14.0 Release Notes](#enterprise-v1-14-0)
 - [Enterprise 1.13.0 Release Notes](#enterprise-v1-13-0)
 
+## Enterprise 3.0.1 Release Notes {#enterprise-v3-0-1}
+
+**June 28, 2018** &mdash; Sensu Enterprise version 3.0.1 has been
+released and is available for immediate download. Please note the
+following improvements:
+
+### CHANGES {#enterprise-v3-0-1-changes}
+
+- **BUGFIX**: A bug in error logging for HTTP requests caused the log
+  to describe errors as "unknown method to_hash" instead of providing insight
+  into the actual HTTP response. Logs now include details of the HTTP
+  response header in the error message.
+
+- **BUGFIX**: A bug in the OpsGenie integration prevented Sensu Enterprise from
+  creating alerts when the [client attribute][custom-client-attr]
+  `environment` contained an array instead of a string. The
+  integration now properly handles  `environment` values as a string
+  or an array of strings.
 
 ## Enterprise 3.0.0 Release Notes {#enterprise-v3-0-0}
 
@@ -590,6 +609,7 @@ This release includes potentially breaking, backwards-incompatible changes:
 [core-v1-4-2]: /sensu-core/1.4/changelog/#core-v1-4-2
 [opsgenie-integration-doc]: /sensu-enterprise/3.0/integrations/opsgenie
 [3-0-upgrade]: /sensu-enterprise/3.0/upgrading
+[custom-client-attr]: /sensu-core/1.4/reference/clients/#custom-attributes
 
 <!-- core -->
 [core-v0-26-0-important] /sensu-core/1.2/changelog/#core-v0-26-0-important

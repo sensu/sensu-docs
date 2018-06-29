@@ -14,7 +14,7 @@ steps be taken when upgrading.
 ## Upgrading the Sensu Enterprise package
 
 The following instructions assume that you have already installed
-Sensu Enterprise by using the steps detailed in the[Sensu Installation
+Sensu Enterprise by using the steps detailed in the [Sensu Installation
 Guide][overview].
 
 _NOTE: If your machines do not have direct access to the internet and
