@@ -1,5 +1,6 @@
 ---
 title: "Install Redis on RHEL/CentOS"
+description: "The complete Sensu installation guide."
 weight: 6
 product: "Sensu Core"
 version: "1.4"

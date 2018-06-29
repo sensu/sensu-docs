@@ -45,7 +45,7 @@ Ready? Let's get started!
 The following installation steps will help you get Sensu Core installed in a
 [standalone][4] on a system running [CentOS 7][5], only. For installation on
 other platforms, and/or alternative installation configurations, please consult
-the [installation guide](2).
+the [installation guide][2].
 
 **0. Install EPEL (if not already done)**
 
@@ -90,14 +90,15 @@ sudo systemctl start redis{{< /highlight >}}
 
 **5. Install Sensu:**
 
-{{< highlight shell >}}
-sudo yum install sensu -y{{< /highlight >}}
-
-...and if you're using [Sensu Enterprise][9], let's go ahead and install
-Sensu Enterprise as well:
+For Sensu Core:
 
 {{< highlight shell >}}
-sudo yum install sensu-enterprise sensu-enterprise-dashboard -y{{< /highlight >}}
+sudo yum install sensu uchiwa -y{{< /highlight >}}
+
+Or for [Sensu Enterprise][9]:
+
+{{< highlight shell >}}
+sudo yum install sensu sensu-enterprise sensu-enterprise-dashboard -y{{< /highlight >}}
 
 **6. Configure Sensu server**
 
@@ -130,7 +131,24 @@ Run the following to set up a minimal client config:
 
 **8. Configure a Sensu dashboard**
 
-Run the following to set up a minimal dashboard config:
+Sensu Core users:
+
+{{< highlight shell >}}
+ echo '{
+   "sensu": [
+     {
+       "name": "sensu",
+       "host": "127.0.0.1",
+       "port": 4567
+     }
+   ],
+   "uchiwa": {
+     "host": "0.0.0.0",
+     "port": 3000
+   }
+ }' |sudo tee /etc/sensu/uchiwa.json{{< /highlight >}}
+
+Sensu Enterprise users:
 
 {{< highlight shell >}}
  echo '{
@@ -158,7 +176,9 @@ Sensu Core users:
 
 {{< highlight shell >}}
 sudo systemctl enable sensu-{server,api,client}
-sudo systemctl start sensu-{server,api,client}{{< /highlight >}}
+sudo systemctl start sensu-{server,api,client}
+sudo systemctl enable uchiwa
+sudo systemctl start uchiwa{{< /highlight >}}
 
 Sensu Enterprise users:
 
@@ -196,10 +216,7 @@ $ curl -s http://127.0.0.1:4567/clients | jq .
 
 ...you have successfully installed and configured Sensu!
 
-If you you're using Sensu Enterprise, you should also be able to load the
-Sensu Enterprise Dashboard in your browser by visiting
-[http://hostname:3000](http://hostname:3000) (replacing `hostname` with the
-hostname or IP address of the system where the dashboard is installed).
+Whether you're using Uchiwa or Sensu Enterprise Dashboard, you now be able to view it in your browser by visiting [http://hostname:3000](http://hostname:3000) (replacing `hostname` with the hostname or IP address of the system where the dashboard is installed).
 
 ![five-minute-dashboard-1](/images/five-minute-dashboard-1.png)
 ![five-minute-dashboard-2](/images/five-minute-dashboard-2.png)

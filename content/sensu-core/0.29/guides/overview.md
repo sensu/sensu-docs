@@ -1,5 +1,6 @@
 ---
 title: "Getting Started"
+description: "Get started with Sensu by understanding the components of a comprehensive monitoring solution: clients, checks, handlers, filters, and mutators."
 version: "0.29"
 product: "Sensu Core"
 weight: 1

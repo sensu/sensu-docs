@@ -104,7 +104,7 @@ The Sensu Transport uses the `"transport": {}` [definition scope][3].
 #### Transport attributes {#transport-attributes}
 
 The following attributes are defined within the `"transport": {}`
-[definition scope](configuration#configuration-scopes).
+[definition scope][5].
 
 name           | 
 ---------------|------
@@ -128,3 +128,4 @@ example            | {{< highlight shell >}}"reconnect_on_error": "false"{{< /hi
 [2]:  http://github.com/sensu/sensu-transport
 [3]:  ../configuration#configuration-scopes
 [4]:  ../../api/health-and-info
+[5]:  ../../reference/configuration#configuration-scopes

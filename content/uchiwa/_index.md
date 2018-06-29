@@ -6,5 +6,3 @@ weight: 0
 menu: "uchiwa"
 layout: "product-versions"
 ---
-
-{{< redirect "https://docs.uchiwa.io" >}}
