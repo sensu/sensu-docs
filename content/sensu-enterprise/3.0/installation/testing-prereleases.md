@@ -21,39 +21,48 @@ repository installation instructions. We are slowly adding prerelease
 repositories for other platforms.
 
 _NOTE: The Sensu prerelease repository instructions replace the
-existing Sensu repository configuration files, you will need to revert
+existing Sensu repository configuration files, so you will need to revert
 these changes in order to return to using stable releases._
 
-## Install Prerelease Repository - Sensu Enterprise
+## Install Prerelease Repository
 
 ### Ubuntu/Debian
 
 1. Install the GPG public key:
 {{< highlight shell >}}
-wget -q http://$SE_USER:$SE_PASS@enterprise.sensuapp.com/apt/pubkey.gpg -O- | sudo apt-key add -{{< /highlight >}}
+wget -q https://sensu.global.ssl.fastly.net/apt/pubkey.gpg -O- | sudo apt-key add -{{< /highlight >}}
 
-1. Create an APT configuration file at `/etc/apt/sources.list.d/sensu.list`:
+2. Determine the codename of the Ubuntu/Debian release on your system:
 {{< highlight shell >}}
-echo "deb     https://sensu.global.ssl.fastly.net/apt $CODENAME unstable" | sudo tee /etc/apt/sources.list.d/sensu-unstable.list{{< /highlight >}}
+. /etc/os-release && echo $VERSION
+"14.04.4 LTS, Trusty Tahr" # codename for this system is "trusty"{{< /highlight >}}
 
-3. Update APT:
+3. Create an APT configuration file at `/etc/apt/sources.list.d/sensu.list`:
 {{< highlight shell >}}
-sudo apt-get update && sudo upgrade sensu{{< /highlight >}}
+export CODENAME=your_release_codename_here # e.g. "trusty"
+echo "deb     https://sensu.global.ssl.fastly.net/apt $CODENAME unstable" | sudo tee /etc/apt/sources.list.d/sensu.list{{< /highlight >}}
+
+4. Update APT:
+{{< highlight shell >}}
+sudo apt-get update && sudo apt-get upgrade sensu{{< /highlight >}}
 
 ### RHEL/CentOS
 
 1. Create the YUM repository configuration file for the Sensu Core repository at
    `/etc/yum.repos.d/sensu.repo`:
-   {{< highlight shell >}}
-echo "[sensu-enterprise]
-name=sensu-enterprise
-baseurl=http://$SE_USER:$SE_PASS@enterprise.sensuapp.com/yum-unstable/noarch/
-gpgcheck=0
-enabled=1" | sudo tee /etc/yum.repos.d/sensu-enterprise.repo{{< /highlight >}}
 
-2. Install Sensu
+{{< highlight shell >}}
+echo '[sensu]
+name=sensu
+baseurl=https://sensu.global.ssl.fastly.net/yum-unstable/$releasever/$basearch/
+gpgcheck=0
+enabled=1' | sudo tee /etc/yum.repos.d/sensu.repo{{< /highlight >}}
+
+2. Install Sensu:
+
 {{< highlight shell >}}
 sudo yum update sensu{{< /highlight >}}
+
 ## Reporting issues
 
 If you encounter an issue while installing or using a Sensu

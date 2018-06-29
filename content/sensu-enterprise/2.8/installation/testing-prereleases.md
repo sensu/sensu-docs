@@ -21,7 +21,7 @@ repository installation instructions. We are slowly adding prerelease
 repositories for other platforms.
 
 _NOTE: The Sensu prerelease repository instructions replace the
-existing Sensu repository configuration files, you will need to revert
+existing Sensu repository configuration files, so you will need to revert
 these changes in order to return to using stable releases._
 
 ## Install Prerelease Repository
@@ -50,14 +50,16 @@ sudo apt-get update && sudo apt-get upgrade sensu{{< /highlight >}}
 
 1. Create the YUM repository configuration file for the Sensu Core repository at
    `/etc/yum.repos.d/sensu.repo`:
-   {{< highlight shell >}}
+
+{{< highlight shell >}}
 echo '[sensu]
 name=sensu
 baseurl=https://sensu.global.ssl.fastly.net/yum-unstable/$releasever/$basearch/
 gpgcheck=0
 enabled=1' | sudo tee /etc/yum.repos.d/sensu.repo{{< /highlight >}}
 
-2. Install Sensu
+2. Install Sensu:
+
 {{< highlight shell >}}
 sudo yum update sensu{{< /highlight >}}
 
