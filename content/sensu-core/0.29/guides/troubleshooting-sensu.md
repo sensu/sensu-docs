@@ -305,12 +305,26 @@ In the output above, we're specifically interested in the `TLS Web Server Authen
 
 ## Redis Connectivity
 
+In this section, we'll go over common issues faced when connecting to Redis and how to troubleshoot the.
+
 ### Behavior
 
 
 ## Renaming checks/clients
 
 It's often the case that checks and clients will be renamed. We'll now walk through what happens when a check and/or client is renamed, and how you can avoid some of the "gotchas" when renaming a client, or check.
+
+### Renaming Clients
+
+
+
+### Renaming Checks
+
+Let's start by first taking a look at what happens when a client is renamed
+
+<INSERT FLOWCHART DESC PROCESS WHEN RENAMING CLIENTS>
+
+
 
 [1]: /uchiwa/latest/getting-started/installation/
 [2]: /sensu-core/latest/platforms/sensu-on-rhel-centos/#sensu-enterprise
