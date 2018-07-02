@@ -301,30 +301,13 @@ This will give you quite a bit, but the most important thing to note here is a s
             X509v3 Extended Key Usage:
                 TLS Web Server Authentication{{< /highlight >}}
 
-In the output above, we're specifically interested in the `TLS Web Server Authentication` extension. In a non-working certificate, _you will not see this present._ Instead, you'll end up seeing a value that looks similar to a SMTP MIB.
+In the output above, we're specifically interested in the `TLS Web Server Authentication` extension. In a non-working certificate, _you will not see this present._ Instead, you'll end up seeing a value that looks similar to a SMTP MIB. See the image below for an example.
 
-## Redis Connectivity
+![ssl_example][9]
 
-In this section, we'll go over common issues faced when connecting to Redis and how to troubleshoot the.
+## Additional Issue Troubleshooting
 
-### Behavior
-
-
-## Renaming checks/clients
-
-It's often the case that checks and clients will be renamed. We'll now walk through what happens when a check and/or client is renamed, and how you can avoid some of the "gotchas" when renaming a client, or check.
-
-### Renaming Clients
-
-
-
-### Renaming Checks
-
-Let's start by first taking a look at what happens when a client is renamed
-
-<INSERT FLOWCHART DESC PROCESS WHEN RENAMING CLIENTS>
-
-
+Have an issue that isn't listed here? [Open an issue] with what you think should be added to this guide!
 
 [1]: /uchiwa/latest/getting-started/installation/
 [2]: /sensu-core/latest/platforms/sensu-on-rhel-centos/#sensu-enterprise
@@ -334,3 +317,5 @@ Let's start by first taking a look at what happens when a client is renamed
 [6]: https://medium.freecodecamp.org/openssl-command-cheatsheet-b441be1e8c4a
 [7]: /sensu-core/latest/reference/ssl/
 [8]: /sensu-core/latest/files/sensu_ssl_tool.tar
+[9]: /images/ssl_example.png
+[10]: https://github.com/sensu/sensu-docs/issues/new
