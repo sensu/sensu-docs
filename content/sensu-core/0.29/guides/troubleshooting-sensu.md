@@ -292,7 +292,7 @@ openssl x509 -in server/cert.pem -text -noout{{< /highlight >}}
 
 This will give you quite a bit, but the most important thing to note here is a specific extension:
 
-{{< highlight shell >}}        
+{{< highlight shell >}}
         X509v3 extensions:
             X509v3 Basic Constraints:
                 CA:FALSE
