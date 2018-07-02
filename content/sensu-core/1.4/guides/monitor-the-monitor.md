@@ -9,14 +9,16 @@ menu:
     parent: guides
 ---
 
-_NOTE: In order to completely monitor a Sensu stack (Sensu services, Redis, RabbitMQ), you will need to have at least one other independent Sensu stack to do so. This is due to a single Sensu stack can not monitor itself completely, as if some components are down, Sensu will not be able to alert on itself properly_
-
 In this guide, we'll walk you through the best practices and strategies for monitoring Sensu with Sensu. By the end of the guide, you should have a thorough understanding of what is required to ensure your Sensu components are properly monitored, including:
 
 * How to monitor your Sensu server and Sensu API instance(s)
-* How to monitor your Uchiwa instance(s)
+* How to monitor your Uchiwa Dashboard instance(s)
 * How to monitor your RabbitMQ instance(s)
 * How to monitor your Redis instance(s)
+
+_NOTE: In order to completely monitor a Sensu stack (Sensu services, Redis, RabbitMQ), you will need to have at least one other independent Sensu stack to do so. This is due to a single Sensu stack can not monitor itself completely, as if some components are down, Sensu will not be able to alert on itself properly_
+
+_NOTE: This guide assumes you are not using Sensu clustering, RabbitMQ clustering or using Redis Sentinels. You can still monitor each server using the below described strategies, but it may not be the best way to do so._
 
 ## Objectives
 
@@ -25,8 +27,8 @@ We'll cover the following in this guide:
 * [Monitoring Sensu](#monitoring-sensu)
   * [Monitoring Sensu Server](#monitoring-sensu-server)
   * [Monitoring Sensu API](#monitoring-sensu-api)
-  * [Monitoring Uchiwa](#monitoring-sensu-uchiwa)
-* [Monitoring RabbitMQ](#monitoring-RabbitMQ)
+  * [Monitoring Uchiwa](#monitoring-uchiwa-dashboard)
+* [Monitoring RabbitMQ](#monitoring-rabbitmq)
 * [Monitoring Redis](#monitoring-redis)
 
 ## Monitoring Sensu
@@ -44,7 +46,7 @@ Monitoring the host that the `sensu-server` process runs on should be done just 
 
 #### Monitoring Sensu Server Remotely
 
-To monitor the `sensu-server` Server process, you will need another independent Sensu stack that can reach in. This can be done by reaching out to Sensu's [API health endpoint][6] and using the [check-http sensu plugin][7].
+To monitor the `sensu-server` Server process, you will need another independent Sensu stack that can reach in to properly monitor the service. This can be done by reaching out to Sensu's [API health endpoint][6] and using the [check-http sensu plugin][7] using the following check definition.
 
 {{< highlight json >}}
 {
@@ -62,9 +64,7 @@ To monitor the `sensu-server` Server process, you will need another independent 
 
 ### Monitoring Sensu API{#monitoring-sensu-api}
 
-To monitor the `sensu-api` Server process, you will need another independent Sensu stack that can reach in. This can be done by reach out to the port that the API is listening on using the [check-port sensu plugin][8]
-
-Sensu API needs to be monitored remotely via port checks or API health endpoints as events were not handled in testing.
+To monitor the `sensu-api` Server process, you will need another independent Sensu stack that can reach in to properly monitor the service. This can be done by reach out to the port that the API is listening on using the [check-port sensu plugin][8] using the following check definition.
 
 {{< highlight json >}}
 {
@@ -80,18 +80,19 @@ Sensu API needs to be monitored remotely via port checks or API health endpoints
 }
 {{< /highlight >}}
 
-### Monitoring Uchiwa{#monitoring-sensu-uchiwa}
+### Monitoring Uchiwa{#monitoring-uchiwa-dashboard}
 
-Examples:
+Method 1
 
-Needs testing
+To monitor the Uchiwa Dashboard, you will need to check for two processes named `uchiwa` using [check-process sensu plugin][9] using the following check definition. This check will return a check result with status 2 if less than 2 processes are running with the string `/opt/uchiwa/bin/uchiwa`. We look for two as there is a parent and child process for the `uchiwa service`
+
 {{< highlight json >}}
 {
   "checks": {
     "check_uchiwa_process": {
-      "command": "check-process.rb -p uchiwa",
+      "command": "/opt/sensu/embedded/bin/check-process.rb -p /opt/uchiwa/bin/uchiwa -C 2",
       "subscribers": [
-        "uchiwa"
+        "monitor_local_uchiwa_processes"
       ],
       "interval": 60
     }
@@ -99,17 +100,15 @@ Needs testing
 }
 {{< /highlight >}}
 
-Add for more information on this plugin, visit: https://github.com/sensu-plugins/sensu-plugins-process-checks
+Method 2
 
-AND/OR?
+You can also monitor the `uchiwa` Dashboard with a remote port check using the [check-port sensu plugin][8] with the following check definition.
 
-Needs testing and note about port assumption maybe?
-Context about or proxy check? Proxy check would clash with already defined host through real sensu client.
 {{< highlight json >}}
 {
   "checks": {
     "check_uchiwa_port": {
-      "command": "check-ports.rb -H remote.uchiwa.server.hostname -p 3000",
+      "command": "check-ports.rb -H uchiwa.remote.hostname -p 3000",
       "subscribers": [
         "monitor_remote_uchiwa_port"
       ],
@@ -119,13 +118,12 @@ Context about or proxy check? Proxy check would clash with already defined host 
 }
 {{< /highlight >}}
 
-Add for more information on this plugin, visit: https://github.com/sensu-plugins/sensu-plugins-network-checks
+_PRO TIP: Use both checks for complete monitoring of your Uchiwa dashboard: catch when both processes are not running and when a firewall port is not open_
 
-## Monitoring RabbitMQ
+## Monitoring RabbitMQ{#monitoring-rabbitmq}
 
-Use RabbitMQ alive check for remote monitoring from other Sensu stack
+To monitor that your RabbitMQ instance is responding, you will need another independent Sensu stack that can reach in to properly monitor the service.
 
-Example:
 TODO: needs testing
 Call out redaction/token substituion to hide password?
 {{< highlight json >}}
@@ -142,11 +140,7 @@ Call out redaction/token substituion to hide password?
 }
 {{< /highlight >}}
 
-Add for more information on this plugin, visit: https://github.com/sensu-plugins/sensu-plugins-rabbitmq/blob/master/bin/check-rabbitmq-alive.rb
-
-Other RabbitMQ maybes
-
-Examples:
+Metric collecting options
 
 https://github.com/sensu-plugins/sensu-plugins-rabbitmq/blob/master/bin/metrics-rabbitmq-queue.rb
 
@@ -181,7 +175,7 @@ https://github.com/sensu-plugins/sensu-plugins-rabbitmq/blob/master/bin/check-ra
 }
 {{< /highlight >}}
 
-## Monitoring Redis
+## Monitoring Redis{#monitoring-redis}
 
 Use Redis ping check for remote monitoring from another Sensu stack
 
@@ -230,3 +224,5 @@ Add for more information on this plugin, visit: https://github.com/sensu-plugins
 [6]: http://docs.sensu.io/sensu-core/1.4/api/health-and-info/#reference-documentation
 [7]: https://github.com/sensu-plugins/sensu-plugins-http/blob/master/bin/check-http.rb
 [8]: https://github.com/sensu-plugins/sensu-plugins-network-checks/blob/master/bin/check-ports.rb
+[9]: https://github.com/sensu-plugins/sensu-plugins-process-checks/blob/master/bin/check-process.rb
+[10]: https://github.com/sensu-plugins/sensu-plugins-rabbitmq/blob/master/bin/check-rabbitmq-alive.rb
