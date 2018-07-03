@@ -33,7 +33,7 @@ upgrade to Sensu Enterprise 3.0 and update your Sensu Enterprise
 OpsGenie configuration before June 30, 2018._
 
 Sensu Enterprise 3.0 updates the OpsGenie integration to use
-OpsGenie's new v2 Alert, necessitating a breaking change to Sensu
+OpsGenie's new v2 Alert API, necessitating a breaking change to Sensu
 Enterprise's OpsGenie configuration specification.
 
 #### Update OpsGenie configuration for `responders`
