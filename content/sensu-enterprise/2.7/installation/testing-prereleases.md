@@ -50,7 +50,6 @@ sudo apt-get update && sudo apt-get upgrade sensu{{< /highlight >}}
 
 1. Create the YUM repository configuration file for the Sensu Core repository at
    `/etc/yum.repos.d/sensu.repo`:
-
 {{< highlight shell >}}
 echo '[sensu]
 name=sensu
@@ -59,7 +58,6 @@ gpgcheck=0
 enabled=1' | sudo tee /etc/yum.repos.d/sensu.repo{{< /highlight >}}
 
 2. Install Sensu:
-
 {{< highlight shell >}}
 sudo yum update sensu{{< /highlight >}}
 
