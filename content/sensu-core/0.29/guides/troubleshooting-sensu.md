@@ -1,5 +1,6 @@
 ---
 title: "Troubleshooting Sensu"
+linkTitle: "Troubleshooting"
 subtitle: "Common Problems and How to Solve Them"
 product: "Sensu Core"
 version: "0.29"
@@ -11,17 +12,14 @@ menu:
 
 In this guide, we'll cover some of the more common issues to run into when deploying Sensu. For each section, we'll start with the behavior that's most commonly observed, and then walk through some possible solutions to solve that issue. 
 
-# Objectives
+- [Setting Log Levels](#setting-log-levels)
+- [Printing Configurations](#printing-configurations)
+- [Restarting Services](#restarting-services)
+- [Collecting Logs](#collecting-logs)
+- [RabbitMQ Authentication Failures](#authentication-failures)
+- [RabbitMQ SSL Issues](#ssl)
 
-- Recognize common problems in Sensu
-- Understand how to troubleshoot and resolve common problems in Sensu
-
-## Prerequisites
-
-- A working Sensu deployment including sensu-server/sensu-api (or sensu-enterprise), sensu-client, and transport/datastore components
-- [Uchiwa][1], or [Sensu Enterprise Dashboard][2] installed and configured
-
-If you don’t have Sensu spun up yet, we encourage you to go through our [5 minute install guide][3].
+Have an issue that isn't listed here? [Open an issue][11] with what you think should be added to this guide!
 
 ## Initial Troubleshooting
 
@@ -60,10 +58,10 @@ Keep in mind that to set log levels back to normal, you can either run `sudo kil
 Frequently, Sensu staff or community members may ask you to print your configuration. It's fairly easy to print the configuration for your Sensu deployment:
 
 **Sensu Core**:
-`/opt/sensu/bin/sensu-client --print_config | tee sensu-core-config.json`
+{{< highlight shell >}}/opt/sensu/bin/sensu-client --print_config | tee sensu-core-config.json{{< /highlight >}}
 
-**Sensu Enterprise**
-`sudo -u sensu java -jar /usr/lib/sensu-enterprise/sensu-enterprise.jar -c /etc/sensu/config.json -d /etc/sensu/conf.d --print_config | tee se-config.json`
+**Sensu Enterprise**:
+{{< highlight shell >}}sudo -u sensu java -jar /usr/lib/sensu-enterprise/sensu-enterprise.jar -c /etc/sensu/config.json -d /etc/sensu/conf.d --print_config | tee se-config.json{{< /highlight >}}
 
 This command will result in output that will list the entire configuration for your Sensu deployment. This can be especially useful when comparing the configuration that Sensu is aware of, versus the configuration living on-disk. If the values of a particular file differ from what you're expecting, then see the next section for how to proceed.
 
@@ -95,7 +93,7 @@ Sensu's logs provide a wealth of information when troubleshooting issues. They l
 Sensu staff, or community members may ask to see your logs. You can view them at the paths above, or provide them in an archive:
 
 {{< highlight shell >}}
-tail -n 10000 /var/log/sensu/sensu-server.log > sensu-server-10k.log && gzip -9 sensu-server-10k.log`{{< /highlight >}}
+tail -n 10000 /var/log/sensu/sensu-server.log > sensu-server-10k.log && gzip -9 sensu-server-10k.log{{< /highlight >}}
 
 ## RabbitMQ Connectivity
 
@@ -304,10 +302,6 @@ In the output above, we're specifically interested in the `TLS Web Server Authen
 
 ![ssl_example][10]
 
-## Additional Issue Troubleshooting
-
-Have an issue that isn't listed here? [Open an issue][11] with what you think should be added to this guide!
-
 [1]: /uchiwa/latest/getting-started/installation/
 [2]: /sensu-core/latest/platforms/sensu-on-rhel-centos/#sensu-enterprise
 [3]: /sensu-core/latest/quick-start/five-minute-install/
@@ -317,5 +311,5 @@ Have an issue that isn't listed here? [Open an issue][11] with what you think sh
 [7]: https://medium.freecodecamp.org/openssl-command-cheatsheet-b441be1e8c4a
 [8]: /sensu-core/latest/reference/ssl/
 [9]: /sensu-core/latest/files/sensu_ssl_tool.tar
-[10]: /images/ssl_example.png
+[10]: /images/ssl_example.PNG
 [11]: https://github.com/sensu/sensu-docs/issues/new
