@@ -38,14 +38,14 @@ Perhaps the quickest way to set your log level is to use the following command:
 This will toggle the `debug` log level on/off for Sensu. In practice, it looks something like this:
 
 {{< highlight shell >}}
-$ sudo ps aux | grep [s]ensu-server
+sudo ps aux | grep [s]ensu-server
 sensu     5992  1.7  0.3 177232 24352 ...
-$ sudo kill -TRAP 5992{{< /highlight >}}
+sudo kill -TRAP 5992{{< /highlight >}}
 
 Additionally, you can set the log level to `info` or `debug` by using the configuration directive in `/etc/default/sensu`. Let's take a look at an example:
 
 {{< highlight shell >}}
-$ sudo cat /etc/default/sensu
+sudo cat /etc/default/sensu
 LOG_LEVEL=info{{< /highlight >}}
 
 And after setting that directive, restarting the respective Sensu services:
@@ -60,10 +60,10 @@ Keep in mind that to set log levels back to normal, you can either run `sudo kil
 Frequently, Sensu staff or community members may ask you to print your configuration. It's fairly easy to print the configuration for your Sensu deployment:
 
 **Sensu Core**:
-`$ /opt/sensu/bin/sensu-client --print_config | tee sensu-core-config.json`
+`/opt/sensu/bin/sensu-client --print_config | tee sensu-core-config.json`
 
 **Sensu Enterprise**
-`$ sudo -u sensu java -jar /usr/lib/sensu-enterprise/sensu-enterprise.jar -c /etc/sensu/config.json -d /etc/sensu/conf.d --print_config | tee se-config.json`
+`sudo -u sensu java -jar /usr/lib/sensu-enterprise/sensu-enterprise.jar -c /etc/sensu/config.json -d /etc/sensu/conf.d --print_config | tee se-config.json`
 
 This command will result in output that will list the entire configuration for your Sensu deployment. This can be especially useful when comparing the configuration that Sensu is aware of, versus the configuration living on-disk. If the values of a particular file differ from what you're expecting, then see the next section for how to proceed.
 
@@ -114,7 +114,7 @@ One of the more common issues that you'll encounter when having RabbitMQ connect
 }{{< /highlight >}}
 
 {{< highlight shell >}}
-$ tail -f /var/log/rabbitmq/rabbit\@sensu.log
+tail -f /var/log/rabbitmq/rabbit\@sensu.log
 2018-06-26 01:28:00.439 [info] <0.618.0> accepting AMQP connection <0.618.0> (192.168.1.3:44788 -> 192.168.1.2:5671)
 2018-06-26 01:28:00.442 [error] <0.618.0> Error on AMQP connection <0.618.0> (192.168.1.3:44788 -> 192.168.1.2:5671, state: starting):
 PLAIN login refused: user 'sensu' - invalid credentials
@@ -129,7 +129,7 @@ We'll start by going through the process of setting up RabbitMQ manually. If you
 Ensure that you've created the correct vhost:
 
 {{< highlight shell >}}
-$ sudo rabbitmqctl list_vhosts
+sudo rabbitmqctl list_vhosts
 {{< /highlight >}}
 
 This should give you output that looks like:
@@ -144,12 +144,12 @@ _NOTE: The `/` in front the `sensu` vhost is required. If you're missing the sla
 If your vhost output doesn't look like the output above, create the vhost:
 
 {{< highlight shell >}}
-$ sudo rabbitmqctl add_vhost /sensu{{< /highlight >}}
+sudo rabbitmqctl add_vhost /sensu{{< /highlight >}}
 
 - Ensure that the `sensu` user is present:
 
 {{< highlight shell >}}
-$ sudo rabbitmqctl list_users{{< /highlight >}}
+sudo rabbitmqctl list_users{{< /highlight >}}
 
 This should give you output that looks like:
 
@@ -161,7 +161,7 @@ guest   [administrator]{{< /highlight >}}
 If the user isn't present, add the user and the password for the user:
 
 {{< highlight shell >}}
-$ sudo rabbitmqctl add_user sensu secret
+sudo rabbitmqctl add_user sensu secret
 {{< /highlight >}}
 
 _NOTE: If the user is present, and the password needs to be reset, you can reset it by using `sudo rabbitmqctl change_password sensu secret`_
@@ -169,7 +169,7 @@ _NOTE: If the user is present, and the password needs to be reset, you can reset
 - Ensure that the `sensu` user has the correct permissions for the vhost:
 
 {{< highlight shell >}}
-$ sudo rabbitmqctl list_permissions -p /sensu{{< /highlight >}}
+sudo rabbitmqctl list_permissions -p /sensu{{< /highlight >}}
 
 You should see output that looks like the following:
 
@@ -180,13 +180,13 @@ sensu   .*      .*      .*{{< /highlight >}}
 If the permissions are not correct, you can set them via:
 
 {{< highlight shell >}}
-$ sudo rabbitmqctl set_permissions -p /sensu sensu ".*" ".*" ".*"
+sudo rabbitmqctl set_permissions -p /sensu sensu ".*" ".*" ".*"
 {{< /highlight >}}
 
 Once we've ensured that our credentials are correct, we can see that RabbitMQ starts showing connections being accepted again:
 
 {{< highlight shell >}}
-$ tail -f /var/log/rabbitmq/rabbit\@sensu.log
+tail -f /var/log/rabbitmq/rabbit\@sensu.log
 2018-06-26 01:28:35.191 [info] <0.642.0> accepting AMQP connection <0.642.0> (192.168.1.3:44816 -> 192.168.1.2:5671)
 2018-06-26 01:28:35.194 [info] <0.642.0> connection <0.642.0> (192.168.1.3:44816 -> 192.168.1.2:5671): user 'sensu' authenticated and granted access to vhost '/sensu'{{< /highlight >}}
 
@@ -202,7 +202,7 @@ _PRO TIP: For troubleshooting SSL issues, the openssl tool provides a wealth of 
 
 #### Handshake Failures
 
-There are several layers of the proverbial onion when it comes to diagnosing down to handshake failures. We'll start by looking at the obvious errors that you'll see in logs, and dive deeper from there. The assumption here is that you've already configured Sensu to use SSL. If not, you'll want to refer back to our [SSL Configuration Reference material][8] before you proceed. Now, on to examining the errors you'll likely encounter in a handshake failure scenario:
+There are several layers of the proverbial onion when it comes to diagnosing handshake failures. We'll start by looking at the obvious errors that you'll see in logs, and dive deeper from there. The assumption here is that you've already configured Sensu to use SSL. If not, you'll want to refer back to our [SSL Configuration Reference material][8] before you proceed. Now, on to examining the errors you'll likely encounter in a handshake failure scenario:
 
 **Sensu Logs**:
 {{< highlight json >}}{"timestamp":"2018-06-10T16:39:15.988000+0200","level":"warn","message":"transport connection error","reason":"tcp connection lost"}
@@ -248,17 +248,17 @@ sensu_ssl_tool
 From the `sensu_ssl_tool` directory, we'll check for a match between the cert and key used inside of the RabbitMQ configuration:
 
 {{< highlight shell >}}
-$ openssl x509 -noout -modulus -in server/cert.pem | openssl md5
+openssl x509 -noout -modulus -in server/cert.pem | openssl md5
 (stdin)= 32df80471e2d4e7d0453f60cfb66b2b2
-$ openssl rsa -noout -modulus -in server/key.pem | openssl md5
+openssl rsa -noout -modulus -in server/key.pem | openssl md5
 (stdin)= 32df80471e2d4e7d0453f60cfb66b2b2{{< /highlight >}}
 
 And then the same with our client cert and key (cert and key being used inside of the Sensu configuration):
 
 {{< highlight shell >}}
-$ openssl x509 -noout -modulus -in client/cert.pem | openssl md5
+openssl x509 -noout -modulus -in client/cert.pem | openssl md5
 (stdin)= c2a6a5a28a629653741e7674c3b95b19
-$ openssl rsa -noout -modulus -in client/key.pem | openssl md5
+openssl rsa -noout -modulus -in client/key.pem | openssl md5
 (stdin)= c2a6a5a28a629653741e7674c3b95b19{{< /highlight >}}
 
 _WARNING: Should the values here NOT match, you'll need to regenerate your cert/key pairs._
@@ -266,7 +266,7 @@ _WARNING: Should the values here NOT match, you'll need to regenerate your cert/
 And just to test to ensure that we can indeed connect with our cert/key pairs, we can use openssl to connect to our RabbitMQ instance directly:
 
 {{< highlight shell >}}
-$ openssl s_client -connect localhost:5671 -key client/key.pem{{< /highlight >}}
+openssl s_client -connect localhost:5671 -key client/key.pem{{< /highlight >}}
 
 Which should give you output that will look similar to the following:
 
