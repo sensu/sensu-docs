@@ -25,16 +25,13 @@ from a Sensu Enterprise version prior to 3.0.
 
 ### Changes in OpsGenie integration
 
-OpsGenie has deprecated and will shut down their v1 API on
-June 30, 2018.
-
-_WARNING: To continue using the Sensu Enterprise OpsGenie integration, you must
-upgrade to Sensu Enterprise 3.0 and update your Sensu Enterprise
-OpsGenie configuration before June 30, 2018._
-
+As of June 30, 2018, OpsGenie has shut down their v1 API.
 Sensu Enterprise 3.0 updates the OpsGenie integration to use
 OpsGenie's new v2 Alert API, necessitating a breaking change to Sensu
 Enterprise's OpsGenie configuration specification.
+
+_WARNING: To continue using the Sensu Enterprise OpsGenie integration, you must upgrade to
+Sensu Enterprise 3.0 or later and update your Sensu Enterprise OpsGenie configuration._
 
 #### Update OpsGenie configuration for `responders`
 
