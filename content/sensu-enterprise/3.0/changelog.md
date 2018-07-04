@@ -11,6 +11,7 @@ _NOTE: Sensu Enterprise is built on Sensu Core. Sensu Core changes are documente
 
 ## Releases
 
+- [Enterprise 3.0.2 Release Notes](#enterprise-v3-0-2)
 - [Enterprise 3.0.1 Release Notes](#enterprise-v3-0-1)
 - [Enterprise 3.0.0 Release Notes](#enterprise-v3-0-0)
 - [Enterprise 2.8.3 Release Notes](#enterprise-v2-8-3)
@@ -43,6 +44,19 @@ _NOTE: Sensu Enterprise is built on Sensu Core. Sensu Core changes are documente
 - [Enterprise 1.14.1 Release Notes](#enterprise-v1-14-1)
 - [Enterprise 1.14.0 Release Notes](#enterprise-v1-14-0)
 - [Enterprise 1.13.0 Release Notes](#enterprise-v1-13-0)
+
+## Enterprise 3.0.2 Release Notes {#enterprise-v3-0-2}
+
+**July 3, 2018** &mdash; Sensu Enterprise version 3.0.2 has been
+released and is available for immediate download. Please note the
+following improvements:
+
+### CHANGES {#enterprise-v3-0-2-changes}
+
+- **BUGFIX**: A bug in the EC2 integration caused errors when
+`instance_id` was provided in [client `ec2`
+attributes][ec2-client-attr]. The integration now functions as expected
+when these attributes are provided.
 
 ## Enterprise 3.0.1 Release Notes {#enterprise-v3-0-1}
 
@@ -610,6 +624,7 @@ This release includes potentially breaking, backwards-incompatible changes:
 [opsgenie-integration-doc]: /sensu-enterprise/3.0/integrations/opsgenie
 [3-0-upgrade]: /sensu-enterprise/3.0/upgrading
 [custom-client-attr]: /sensu-core/1.4/reference/clients/#custom-attributes
+[ec2-client-attr]: /sensu-core/1.4/reference/clients/#ec2-attributes
 
 <!-- core -->
 [core-v0-26-0-important] /sensu-core/1.2/changelog/#core-v0-26-0-important
