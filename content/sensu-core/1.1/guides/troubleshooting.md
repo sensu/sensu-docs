@@ -3,10 +3,10 @@ title: "Troubleshooting Sensu"
 linkTitle: "Troubleshooting"
 subtitle: "Common Problems and How to Solve Them"
 product: "Sensu Core"
-version: "0.29"
+version: "1.1"
 weight: 10
 menu:
- sensu-core-0.29:
+ sensu-core-1.1:
    parent: guides
 ---
 
