@@ -10,13 +10,12 @@ menu: "plugins-1.0"
 
 **Table of Contents**
 
-- [Infrastructure](#Infrastructure)
-    - [Github](#github)
-    - [Trello](#trello)
-    - [Website](#website)
-- [Policies](#policies)
-    - [Organization Access](#organization-access)
-    - [Organization Structure](#organization-structure)
+- [Sensu-Plugin Org Guidelines](#sensu-plugin-org-guidelines)
+    - [Infrastructure](#infrastructure)
+        - [Github](#github)
+    - [Policies](#policies)
+        - [Organization Access](#organization-access)
+        - [Organization Structure](#organization-structure)
 
 ## Sensu-Plugin Org Guidelines
 
@@ -32,13 +31,11 @@ Github and the issues and milestones within it are the primary way the project i
 * Core Infra - write access to sensu-plugin, sensu-plugin-spec, GIR, Kryten, sensu-plugin.github.io, tom_servo, and the hubots
 * Documentation - write access to the documentation repo
 
+We also use the [Community Github repo](https://github.com/sensu-plugins/community) for communicating any project-wide items.
+
 **Note**
 
 Members in the Owners or Core Infra team must provide a voice number.  Due to the permissions and far reaching affect of these teams security practices are heavily enforced and any compromises must be dealt with immediately.
-
-#### Trello
-
-There is a public Trello [board](https://trello.com/b/QjkJ8CS3/sensu-community-plugins) used for communicating various project wide items. This is still a work in progress but it works for now.  Ideas are always welcome.
 
 ### Policies
 
