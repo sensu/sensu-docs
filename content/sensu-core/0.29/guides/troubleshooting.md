@@ -305,14 +305,14 @@ In the output above, we're specifically interested in the `TLS Web Server Authen
 ![ssl_example][11]
 
 [1]: /uchiwa/latest/getting-started/installation/
-[2]: /sensu-core/latest/platforms/sensu-on-rhel-centos/#sensu-enterprise
-[3]: /sensu-core/latest/quick-start/five-minute-install/
-[4]: /sensu-core/latest/reference/configuration/#sensu-service-script-configuration-variables
-[5]: /sensu-core/latest/reference/checks/#standalone-checks
-[6]: /sensu-core/latest/installation/install-rabbitmq-on-rhel-centos/#configure-rabbitmq-access-controls
-[7]: sensu-core/latest/guides/securing-rabbitmq/
+[2]: ../../platforms/sensu-on-rhel-centos/#sensu-enterprise
+[3]: ../../quick-start/five-minute-install/
+[4]: ../../reference/configuration/#sensu-service-script-configuration-variables
+[5]: ../../reference/checks/#standalone-checks
+[6]: ../../installation/install-rabbitmq-on-rhel-centos/#configure-rabbitmq-access-controls
+[7]: ../securing-rabbitmq/
 [8]: https://medium.freecodecamp.org/openssl-command-cheatsheet-b441be1e8c4a
-[9]: /sensu-core/latest/reference/ssl/
-[10]: /sensu-core/latest/files/sensu_ssl_tool.tar
+[9]: ../../reference/ssl/
+[10]: ../../files/sensu_ssl_tool.tar
 [11]: /images/ssl_example.png
 [12]: https://github.com/sensu/sensu-docs/issues/new
