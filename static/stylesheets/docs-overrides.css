@@ -1869,3 +1869,10 @@ a {
   -webkit-box-shadow: 0 0 3px #2C3458;
           box-shadow: 0 0 3px #2C3458;
 }
+
+img[alt=ssl_example] {
+  width: 50%;
+  border: none;
+  background: none;
+}
+
