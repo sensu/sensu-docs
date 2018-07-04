@@ -46,7 +46,7 @@ Additionally, you can set the log level to `info` or `debug` by using the config
 
 {{< highlight shell >}}
 sudo cat /etc/default/sensu
-LOG_LEVEL=info{{< /highlight >}}
+LOG_LEVEL=debug{{< /highlight >}}
 
 And after setting that directive, restarting the respective Sensu services:
 
@@ -54,6 +54,8 @@ And after setting that directive, restarting the respective Sensu services:
 sudo systemctl restart sensu-{server,api,client}{{< /highlight >}}
 
 Keep in mind that to set log levels back to normal, you can either run `sudo kill -TRAP $SENSUPID` (if you've used that method), or revert the change in `/etc/default/sensu` and restart the Sensu processes for the change to take place.
+
+_NOTE: By default, Sensu's logging level is set to `info`. However, there are more log levels available than just `info` and `debug`. You can find the full list of available log levels in the [configuration reference documentation][4]. It's worth noting that `debug` is the most granular log level, while `fatal` is the least granular._
 
 ### Printing Configurations
 
@@ -80,7 +82,7 @@ In the event that you're using a system where `sysvinit` is the service manager 
 sudo service sensu-server restart
 sudo service sensu-api restart{{< /highlight >}}
 
-It's especially important to restart the `sensu-client` process if you're making use of any [standalone][4] checks, as the client will be responsible for check scheduling and execution.
+It's especially important to restart the `sensu-client` process if you're making use of any [standalone][5] checks, as the client will be responsible for check scheduling and execution.
 
 ### Collecting Logs
 
@@ -124,7 +126,7 @@ As you can see, both RabbitMQ and Sensu will give errors if the credentials are 
 
 #### Troubleshooting Authenticating Failures
 
-We'll start by going through the process of setting up RabbitMQ manually. If you've gone through our [RabbitMQ installation guide][5], these commands should be familiar.
+We'll start by going through the process of setting up RabbitMQ manually. If you've gone through our [RabbitMQ installation guide][6], these commands should be familiar.
 
 Ensure that you've created the correct vhost:
 
@@ -190,7 +192,7 @@ tail -f /var/log/rabbitmq/rabbit\@sensu.log
 2018-06-26 01:28:35.191 [info] <0.642.0> accepting AMQP connection <0.642.0> (192.168.1.3:44816 -> 192.168.1.2:5671)
 2018-06-26 01:28:35.194 [info] <0.642.0> connection <0.642.0> (192.168.1.3:44816 -> 192.168.1.2:5671): user 'sensu' authenticated and granted access to vhost '/sensu'{{< /highlight >}}
 
-_WARNING: The credentials in this guide shouldn't be used in any production environment. If you're curious about how to better secure RabbitMQ, see our [Securing RabbitMQ Guide][6]._
+_WARNING: The credentials in this guide shouldn't be used in any production environment. If you're curious about how to better secure RabbitMQ, see our [Securing RabbitMQ Guide][7]._
 
 ### SSL
 
@@ -198,11 +200,11 @@ SSL issues are one of the more difficult ones to troubleshoot inside of Sensu. W
 
 If you've already gone through the steps in the previous section to confirm that your Sensu instance is using the correct credentials to connect to your RabbitMQ instance, then you'll want to proceed through this part of the guide to rule out any issues with SSL.
 
-_PRO TIP: For troubleshooting SSL issues, the openssl tool provides a wealth of troubleshooting capabilities. To see what is possible with the tool, take a look at this [handy cheat sheet][7]._
+_PRO TIP: For troubleshooting SSL issues, the openssl tool provides a wealth of troubleshooting capabilities. To see what is possible with the tool, take a look at this [handy cheat sheet][8]._
 
 #### Handshake Failures
 
-There are several layers of the proverbial onion when it comes to diagnosing handshake failures. We'll start by looking at the obvious errors that you'll see in logs, and dive deeper from there. The assumption here is that you've already configured Sensu to use SSL. If not, you'll want to refer back to our [SSL Configuration Reference material][8] before you proceed. Now, on to examining the errors you'll likely encounter in a handshake failure scenario:
+There are several layers of the proverbial onion when it comes to diagnosing handshake failures. We'll start by looking at the obvious errors that you'll see in logs, and dive deeper from there. The assumption here is that you've already configured Sensu to use SSL. If not, you'll want to refer back to our [SSL Configuration Reference material][9] before you proceed. Now, on to examining the errors you'll likely encounter in a handshake failure scenario:
 
 **Sensu Logs**:
 {{< highlight json >}}{"timestamp":"2018-06-10T16:39:15.988000+0200","level":"warn","message":"transport connection error","reason":"tcp connection lost"}
@@ -212,7 +214,7 @@ Much like the errors seen in the previous section, the failure to connect to Rab
 
 {{< highlight shell >}}2018-06-11 15:31:03.515 [info] <0.1540.0> TLS server: In state certify at ssl_handshake.erl:1289 generated SERVER ALERT: Fatal - Handshake Failure - {bad_cert,invalid_ext_key_usage}{{< /highlight >}}
 
-_NOTE: We'll presume that if you've gone through our SSL guide, that you're using the [SSL tool][9] to generate the certificates used in your deployment. If not, this is not a problem, as the commands we'll use for troubleshooting this particular scenario will prove useful no matter how your cert and key pairs are generated._
+_NOTE: We'll presume that if you've gone through our SSL guide, that you're using the [SSL tool][10] to generate the certificates used in your deployment. If not, this is not a problem, as the commands we'll use for troubleshooting this particular scenario will prove useful no matter how your cert and key pairs are generated._
 
 Let's start off by manually verifying our certificate and key pairs. Sensu's SSL tool will place the certs/keys in the following directory:
 
@@ -302,20 +304,21 @@ This will give you quite a bit, but the most important thing to note here is a s
 
 In the output above, we're specifically interested in the `TLS Web Server Authentication` extension. In a non-working certificate, _you will not see this present._ Instead, you'll end up seeing a value that looks similar to a SNMP MIB. See the image below for an example.
 
-![ssl_example][10]
+![ssl_example][11]
 
 ## Additional Issue Troubleshooting
 
-Have an issue that isn't listed here? [Open an issue][11] with what you think should be added to this guide!
+Have an issue that isn't listed here? [Open an issue][12] with what you think should be added to this guide!
 
 [1]: /uchiwa/latest/getting-started/installation/
 [2]: /sensu-core/latest/platforms/sensu-on-rhel-centos/#sensu-enterprise
 [3]: /sensu-core/latest/quick-start/five-minute-install/
-[4]: https://docs.sensu.io/sensu-core/latest/reference/checks/#standalone-checks
-[5]: /sensu-core/1.4/installation/install-rabbitmq-on-rhel-centos/#configure-rabbitmq-access-controls
-[6]: sensu-core/latest/guides/securing-rabbitmq/
-[7]: https://medium.freecodecamp.org/openssl-command-cheatsheet-b441be1e8c4a
-[8]: /sensu-core/latest/reference/ssl/
-[9]: /sensu-core/latest/files/sensu_ssl_tool.tar
-[10]: /images/ssl_example.png
-[11]: https://github.com/sensu/sensu-docs/issues/new
+[4]: /sensu-core/latest/reference/configuration/#sensu-service-script-configuration-variables
+[5]: /sensu-core/latest/reference/checks/#standalone-checks
+[6]: /sensu-core/latest/installation/install-rabbitmq-on-rhel-centos/#configure-rabbitmq-access-controls
+[7]: sensu-core/latest/guides/securing-rabbitmq/
+[8]: https://medium.freecodecamp.org/openssl-command-cheatsheet-b441be1e8c4a
+[9]: /sensu-core/latest/reference/ssl/
+[10]: /sensu-core/latest/files/sensu_ssl_tool.tar
+[11]: /images/ssl_example.png
+[12]: https://github.com/sensu/sensu-docs/issues/new
