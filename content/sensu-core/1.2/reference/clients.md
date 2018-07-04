@@ -858,6 +858,11 @@ Enterprise AWS EC2 integration][39].**
   "client": {
     "name": "i-424242",
     "...": "...",
+    "keepalive": {
+      "handlers": [
+        "ec2"
+      ]
+    },
     "ec2": {
       "instance_id": "i-424242",
       "allowed_instance_states": [
@@ -866,8 +871,9 @@ Enterprise AWS EC2 integration][39].**
       ]
     }
   }
-}
-{{< /highlight >}}
+}{{< /highlight >}}
+
+_NOTE: In order for the EC2 integration to perform automatic deregistration, the `ec2` handler must be specified in the `keepalive` scope as in the example above._
 
 ##### ATTRIBUTES {#ec2-attributes-specification}
 
