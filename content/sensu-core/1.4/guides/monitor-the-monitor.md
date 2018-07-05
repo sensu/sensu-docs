@@ -1,9 +1,9 @@
 ---
 title: "Monitoring Sensu with Sensu"
 description: "Strategies and best practices for monitoring Sensu with Sensu"
+product: "Sensu Core"
 version: "1.4"
-weight: 10
-previous: ../securing-redis
+weight: 11
 menu:
   sensu-core-1.4:
     parent: guides
@@ -19,7 +19,7 @@ In this guide, we'll walk you through the best practices and strategies for moni
 
 In order to completely monitor a Sensu stack (Sensu services, Redis, RabbitMQ), you will need to have at least one other independent Sensu stack to do so. This is due to a single Sensu stack can not monitor itself completely, as if some components are down, Sensu will not be able to alert on itself properly
 
-_NOTE: This guide assumes you are not using Sensu clustering, RabbitMQ clustering or using Redis Sentinels. You can still monitor each server using the below described strategies, but it may not be the best way to do so._
+_NOTE: This guide assumes you are not using Sensu clustering, RabbitMQ clustering or using Redis Sentinels. You can still monitor each server using the below described strategies, but note that in order to effectively monitor clustered instances, you'll need to employ a different methodology._
 
 ## Monitoring Sensu
 
@@ -27,12 +27,12 @@ _NOTE: This guide assumes you are not using Sensu clustering, RabbitMQ clusterin
 
 The host running the `sensu-server` service should be monitored in two ways:
 
-* Locally by a `sensu-client` process for Operating System checks/metrics and Sensu services like Uchiwa that are not part of the Sensu event system.
+* Locally by a `sensu-client` process for operating system checks/metrics and Sensu services like Uchiwa that are not part of the Sensu event system.
 * Remotely from an entirely independent Sensu stack to monitor pieces of the Sensu stack that if down, will make Sensu unable to create events. 
 
 #### Monitoring Sensu Server Locally
 
-Monitoring the host that the `sensu-server` process runs on should be done just like any other node in your infrastructure. This includes, but not limited to, checks and metrics for [CPU][1], [memory][2], [disk][3], and [networking][4]. You can find more plugins at the [Sensu Community Homepage][5].
+Monitoring the host that the `sensu-server` process runs on should be done just like any other node in your infrastructure. This includes, but is not limited to, checks and metrics for [CPU][1], [memory][2], [disk][3], and [networking][4]. You can find more plugins at the [Sensu Community Homepage][5].
 
 #### Monitoring Sensu Server Remotely
 
@@ -54,7 +54,7 @@ To monitor the `sensu-server` Server process, you will need to do so from an ind
 
 ### Monitoring Sensu API{#monitoring-sensu-api}
 
-To monitor the `sensu-api` API service, you will need to do so from an independent Sensu stack. This can be done by reach out to the port that the API is listening on using the [check-port sensu plugin][8] with the following check definition.
+To monitor the `sensu-api` API service, you will need to do so from an independent Sensu stack. This can be done by reaching out to the port that the API is listening on using the [check-port sensu plugin][8] with the following check definition.
 
 {{< highlight json >}}
 {
@@ -108,7 +108,7 @@ You can also monitor the `uchiwa` Dashboard with a remote port check using the [
 }
 {{< /highlight >}}
 
-_PRO TIP: Use both checks for complete monitoring of your Uchiwa dashboard: catch when both processes are not running and when a firewall port is not open_
+_PRO TIP: Use both checks for complete monitoring of Uchiwa. This way, you are able to catch when the processes are not running and when a firewall port is not open_
 
 ## Monitoring RabbitMQ{#monitoring-rabbitmq}
 
@@ -128,7 +128,7 @@ To monitor that your RabbitMQ instance is responding, you will need to do so fro
 }
 {{< /highlight >}}
 
-While Sensu does not provide benchmarks for a healthy RabbitMQ queue, you can trend the data using the [metrics-rabbitmq-queue sensu plugin][11] metrics check for your instances. In the below check definition, metrics collection is done on the same host as RabbitMQ lives.
+While Sensu does not provide benchmarks for a healthy RabbitMQ queue, you can trend the data using the [metrics-rabbitmq-queue sensu plugin][11] metrics for the keepalives queue.
 
 {{< highlight json >}}
 {
@@ -136,7 +136,7 @@ While Sensu does not provide benchmarks for a healthy RabbitMQ queue, you can tr
     "collect_rabbitmq_queue": {
       "command": "metrics-rabbitmq-queue.rb --host localhost --password :::rabbitmq.password::: --port 15672 --user sensu --filter keepalives",
       "subscribers": [
-        "rabbitmq"
+        "rabbitmq_keepalive_queue"
       ],
       "interval": 60,
       "type": "metric"
@@ -153,7 +153,7 @@ then make a check using the [check-rabbitmq-check sensu plugin][12] to then prov
     "check_rabbitmq_queue": {
       "command": "TODO",
       "subscribers": [
-        "rabbitmq"
+        "monitor_rabbitmq_keepalive_queue"
       ],
       "interval": 60
     }
@@ -171,15 +171,13 @@ To monitor that your Redis instance is responding, you will need to do so from a
     "redis_ping": {
       "command": "check-redis-ping.rb -h remote.redis.hostname -P redis.password",
       "subscribers": [
-        "redis"
+        "monitor_remote_redis"
       ],
       "interval": 60
     }
   }
 }
 {{< /highlight >}}
-
-
 
 [1]: https://github.com/sensu-plugins/sensu-plugins-cpu-checks
 [2]: https://github.com/sensu-plugins/sensu-plugins-memory-checks
