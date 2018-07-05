@@ -1,4 +1,5 @@
-baseurl = "//docs.sensu.io/"
+baseurl = ""
+relativeurls = true
 languageCode = "en-us"
 title = "Sensu Docs"
 theme = "hugo-material-docs"
