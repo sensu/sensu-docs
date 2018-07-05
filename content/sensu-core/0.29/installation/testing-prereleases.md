@@ -1,5 +1,6 @@
 ---
 title: "Testing Prereleases"
+description: "The complete Sensu installation guide."
 weight: 15
 product: "Sensu Core"
 version: "0.29"
@@ -30,23 +31,22 @@ these changes in order to return to using stable releases._
 ### Ubuntu/Debian
 
 1. Install the GPG public key:
-   {{< highlight shell >}}
+{{< highlight shell >}}
 wget -q https://sensu.global.ssl.fastly.net/apt/pubkey.gpg -O- | sudo apt-key add -{{< /highlight >}}
 
 2. Determine the codename of the Ubuntu/Debian release on your system:
-   {{< highlight shell >}}
+{{< highlight shell >}}
 . /etc/os-release && echo $VERSION
 "14.04.4 LTS, Trusty Tahr" # codename for this system is "trusty"{{< /highlight >}}
 
-3. Create an APT configuration file at
-   `/etc/apt/sources.list.d/sensu.list`:
-   {{< highlight shell >}}
+3. Create an APT configuration file at `/etc/apt/sources.list.d/sensu.list`:
+{{< highlight shell >}}
 export CODENAME=your_release_codename_here # e.g. "trusty"
 echo "deb     https://sensu.global.ssl.fastly.net/apt $CODENAME unstable" | sudo tee /etc/apt/sources.list.d/sensu.list{{< /highlight >}}
 
 4. Update APT:
-   {{< highlight shell >}}
-sudo apt-get update{{< /highlight >}}
+{{< highlight shell >}}
+sudo apt-get update && sudo apt-get upgrade sensu{{< /highlight >}}
 
 ### RHEL/CentOS
 
@@ -58,6 +58,10 @@ name=sensu
 baseurl=https://sensu.global.ssl.fastly.net/yum-unstable/$releasever/$basearch/
 gpgcheck=0
 enabled=1' | sudo tee /etc/yum.repos.d/sensu.repo{{< /highlight >}}
+
+2. Install Sensu
+{{< highlight shell >}}
+sudo yum update sensu{{< /highlight >}}
 
 ## Reporting issues
 

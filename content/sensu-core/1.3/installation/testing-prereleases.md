@@ -1,5 +1,6 @@
 ---
 title: "Testing Prereleases"
+description: "The complete Sensu installation guide."
 weight: 15
 product: "Sensu Core"
 version: "1.3"

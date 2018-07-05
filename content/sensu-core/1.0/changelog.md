@@ -1226,8 +1226,8 @@ available for immediate download. Please note the following improvements:
 
 [1]:  https://www.ruby-lang.org/en/news/2015/12/25/ruby-2-3-0-released/
 [2]:  http://redis.io/topics/sentinel
-[3]:  redis.html#redis-high-availability-configuration
-[4]:  configuration.html#sensu-command-line-interfaces-and-arguments
+[3]:  /sensu-core/0.29/reference/redis#redis-high-availability-configuration
+[4]:  /sensu-core/0.29/reference/configuration#sensu-command-line-interfaces-and-arguments
 [5]:  https://github.com/JuanitoFatas/fast-ruby
 [6]:  https://github.com/eventmachine/eventmachine/blob/master/CHANGELOG.md#1201-march-15-2016
 
@@ -1236,7 +1236,7 @@ available for immediate download. Please note the following improvements:
 [7]:  /sensu-core/0.29/reference/aggregates
 [8]:  https://uchiwa.io/
 [9]:  /sensu-core/0.29/reference/events#event-data-specification
-[10]: /sensu-core/0.29/api/health-and-info-api#health-get
+[10]: /sensu-core/0.29/api/health-and-info#health-get
 [11]: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.13
 [12]: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.5.4
 [13]: /sensu-core/0.29/reference/events#event-data-specification
@@ -1246,8 +1246,8 @@ available for immediate download. Please note the following improvements:
 [17]: /sensu-core/0.29/reference/checks#check-token-substitution
 [18]: http://code.macournoyer.com/thin/
 [19]: https://github.com/guyboertje/jrjackson
-[20]: /sensu-core/0.29/api/health-and-info-api.html
-[21]: /sensu-core/0.29/reference/clients.html#client-definition-specification
+[20]: /sensu-core/0.29/api/health-and-info
+[21]: /sensu-core/0.29/reference/clients#client-definition-specification
 
 <!-- 0.25 -->
 
@@ -1262,10 +1262,10 @@ available for immediate download. Please note the following improvements:
 [27]: /sensu-core/0.29/reference/filters#when-attributes
 [28]: /sensu-core/0.29/reference/extensions
 [29]: /sensu-core/0.29/reference/aggregates
-[30]: /sensu-core/0.29/reference/configuration.html#sensu-environment-variables
+[30]: /sensu-core/0.29/reference/configuration#sensu-environment-variables
 [31]: https://github.com/sensu-extensions/sensu-extensions-occurrences/
 [32]: https://sensuapp.org/blog/2016/07/07/sensu-plugin-filter-deprecation.html
-[33]: /sensu-core/0.29/api/silenced-api
+[33]: /sensu-core/0.29/api/silenced
 [34]: /sensu-core/0.29/reference/handlers#handler-attributes
 
 <!-- 0.27 -->

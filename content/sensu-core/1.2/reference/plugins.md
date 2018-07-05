@@ -23,4 +23,4 @@ For more about Sensu plugins, please refer to the [Plugins reference documentati
 [2]:  ../handlers
 [3]:  ../events#event-data
 [4]:  ../mutators
-[5]:  ../../../../plugins/2.3/reference
+[5]:  ../../../../plugins/latest/reference
