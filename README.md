@@ -14,7 +14,6 @@ Contribution was too complicated when working with the now-deprecated [sensu-doc
 ## Known limitations
 
 - There is no Extensions documentation at this time
-- Sensu Core 2.0 documentation will be partially missing until the Beta milestone is reached
 
 ## Project wiki
 
