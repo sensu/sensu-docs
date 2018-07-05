@@ -13,10 +13,7 @@ Contribution was too complicated when working with the now-deprecated [sensu-doc
 
 ## Known limitations
 
-- Uchiwa links to the existing website
 - There is no Extensions documentation at this time
-- Plugin documentation is very out of date. Help fix that by participating in [this issue](https://github.com/sensu-plugins/community/issues/58)
-- Sensu Core 2.0 documentation will be partially missing until the Beta milestone is reached
 
 ## Project wiki
 
