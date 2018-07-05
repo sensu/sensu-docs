@@ -31,7 +31,7 @@ Github and the issues and milestones within it are the primary way the project i
 * Core Infra - write access to sensu-plugin, sensu-plugin-spec, GIR, Kryten, sensu-plugin.github.io, tom_servo, and the hubots
 * Documentation - write access to the documentation repo
 
-We also use the [Community Github repo](https://github.com/sensu-plugins/community) for communicating any project-wide items.
+We use the [Community Github repo](https://github.com/sensu-plugins/community) for communicating any project-wide items.
 
 **Note**
 
