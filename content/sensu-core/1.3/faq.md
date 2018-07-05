@@ -174,6 +174,20 @@ Due to [AMQP's][1] implementation in RabbitMQ, it's often difficult to distingui
 
 It's also worth noting that as of Sensu 0.27, our build processes changed and we [upgraded the version of OpenSSL][3], and upgrading your client (if < 0.27) may solve the issue.
 
+> What Firewall Rules Does Sensu Require?
+
+See the below table for a listing of services, ports, and protocols Sensu uses.
+
+| Service                           | Protocol | Port |
+|-----------------------------------|----------|------|
+| Sensu API                         | TCP      | 4567 |
+| Sensu API (SSL)                   | TCP      | 4568 |
+| Redis                             | TCP      | 6379 |
+| RabbitMQ (AMQP)                   | TCP      | 5672 |
+| RabbitMQ (AMQPS)                  | TCP      | 5671 |
+| Sensu Client Socket               | TCP      | 3030 |
+| Uchiwa/Sensu Enterprise Dashboard | TCP      | 3000 |
+
 [downloads]: https://sensuapp.org/downloads
 [1]: https://www.amqp.org/
 [2]: https://www.rabbitmq.com/which-erlang.html
