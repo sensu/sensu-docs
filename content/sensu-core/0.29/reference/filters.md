@@ -315,7 +315,7 @@ For example:
 {{< /highlight >}}
 
 
-The `occurrences` filter uses two custom check definition attributes, `occurrences` 
+The `occurrences` filter uses two check definition attributes, `occurrences` 
 and `refresh`. 
 
 `occurrences`: The number of events that must occur before an event is handled for 
@@ -403,24 +403,6 @@ We can define a more detailed dependency by specifying the `client` and `check` 
 }
 {{< /highlight >}}
 
-Lastly we can specify a dependency on any `mysql` check in the `mysql_nodes` subscription:
-
-{{< highlight json >}}
-{
-  "checks": {
-    "web_application_api": {
-      "command": "check-http.rb -u https://localhost:8080/api/v1/health",
-      "subscribers": [
-        "web_application"
-      ],
-      "interval": 20,
-      "dependencies": [
-        "subscription:mysql_nodes/mysql"
-      ]
-    }
-  }
-}
-{{< /highlight >}}
 
 ### Example filter definition {#example-filter-definition}
 

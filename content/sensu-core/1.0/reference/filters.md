@@ -315,7 +315,7 @@ For example:
 {{< /highlight >}}
 
 
-The `occurrences` filter uses two custom check definition attributes, `occurrences` 
+The `occurrences` filter uses two check definition attributes, `occurrences` 
 and `refresh`. 
 
 `occurrences`: The number of events that must occur before an event is handled for 
