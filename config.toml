@@ -26,8 +26,8 @@ ignoreFiles = [ "sensu-doc-template.md" ]
 	repo_url = "https://github.com/sensu/sensu-docs"
 
 	version = "1.0"
-	logo = "images/sensu-logo-icon-dark@128px.png"
-	favicon = "images/favicon.png"
+	logo = "/images/sensu-logo-icon-dark@128px.png"
+	favicon = "/images/favicon.png"
 
 	permalink = "#"
 
@@ -36,7 +36,7 @@ ignoreFiles = [ "sensu-doc-template.md" ]
 	custom_js  = []
 
 	# Syntax highlighting theme
-	highlight_css  = "stylesheets/syntax.css"
+	highlight_css  = "/stylesheets/syntax.css"
 
 	[params.palette]
     	primary = "green"
