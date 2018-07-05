@@ -340,11 +340,9 @@ For example:
 
 ### Built-in Filters - check_dependencies {#built-in-filters-check-dependencies}
 
-The `check_dependencies` filter is included in every install of Sensu. This 
-filter can be applied to a handler using the "filters" handler definition
-attribute. The `check_dependencies` filter matches events when an event already exists,
-enabling the user to reduce notification noise, only being notified for the "root cause"
-of a given failure.
+The `check_dependencies` filter uses a custom check definition attribute `dependencies`.
+The `dependencies` attribute should define an array containing names of checks or
+client/check pairs.
 
 The example below shows `checks_dependencies` filter being applied to `custom_mailer`:
 {{< highlight json >}}

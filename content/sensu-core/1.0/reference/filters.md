@@ -347,6 +347,7 @@ enabling the user to reduce notification noise, only being notified for the "roo
 of a given failure.
 
 The example below shows `checks_dependencies` filter being applied to `custom_mailer`:
+
 {{< highlight json >}}
 {
   "handlers": {
@@ -362,8 +363,8 @@ The example below shows `checks_dependencies` filter being applied to `custom_ma
 #### Defining Dependencies {#defining-dependencies}
 
 The `check_dependencies` filter uses a custom check definition attribute `dependencies`.
-`dependencies` is defined as an array with attributes such as `checks`, Sensu client/check
-pairs or subscription/check pairs. 
+The `dependencies` attribute should define an array containing names of checks or 
+client/check pairs.
 
 This example showcases a check configured to depend on any check called `mysql`:
 
