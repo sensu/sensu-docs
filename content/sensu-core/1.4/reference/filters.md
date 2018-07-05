@@ -345,6 +345,7 @@ The `dependencies` attribute should define an array containing names of checks o
 client/check pairs.
 
 The example below shows `checks_dependencies` filter being applied to `custom_mailer`:
+
 {{< highlight json >}}
 {
   "handlers": {
