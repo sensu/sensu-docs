@@ -403,25 +403,6 @@ We can define a more detailed dependency by specifying the `client` and `check` 
 }
 {{< /highlight >}}
 
-Lastly we can specify a dependency on any `mysql` check in the `mysql_nodes` subscription:
-
-{{< highlight json >}}
-{
-  "checks": {
-    "web_application_api": {
-      "command": "check-http.rb -u https://localhost:8080/api/v1/health",
-      "subscribers": [
-        "web_application"
-      ],
-      "interval": 20,
-      "dependencies": [
-        "subscription:mysql_nodes/mysql"
-      ]
-    }
-  }
-}
-{{< /highlight >}}
-
 ### Example filter definition {#example-filter-definition}
 
 The following is an example Sensu filter definition, a JSON configuration file
