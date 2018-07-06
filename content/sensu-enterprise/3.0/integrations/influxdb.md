@@ -119,6 +119,14 @@ type         | Integer
 default      | `10`
 example      | {{< highlight shell >}}"timeout": 3{{< /highlight >}}
 
+ssl          | 
+-------------|------
+description  | Enables communication over HTTPS 
+required     | false
+type         | Boolean
+default      | `false`
+example      | {{< highlight shell >}}"ssl": true{{< /highlight >}}
+
 
 [1]:  /sensu-enterprise
 [2]:  https://influxdata.com?ref=sensu-enterprise
