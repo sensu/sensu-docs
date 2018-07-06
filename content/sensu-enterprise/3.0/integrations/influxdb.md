@@ -121,7 +121,7 @@ example      | {{< highlight shell >}}"timeout": 3{{< /highlight >}}
 
 ssl          | 
 -------------|------
-description  | Enables communication over HTTPS 
+description  | Enables communication over HTTPS.
 required     | false
 type         | Boolean
 default      | `false`
