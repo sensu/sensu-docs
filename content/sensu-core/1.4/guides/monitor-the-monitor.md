@@ -17,7 +17,7 @@ In this guide, we'll walk you through the best practices and strategies for moni
 * [How to monitor your RabbitMQ instance(s)](#monitoring-rabbitmq)
 * [How to monitor your Redis instance(s)](#monitoring-redis)
 
-In order to completely monitor a Sensu stack (Sensu services, Redis, RabbitMQ), you will need to have at least one other independent Sensu stack to do so. This is due to a single Sensu stack can not monitor itself completely, as if some components are down, Sensu will not be able to alert on itself properly
+In order to completely monitor a Sensu stack (Sensu server, Sensu API, Redis, RabbitMQ), you will need to have at least one other independent Sensu stack to do so. A single Sensu stack can not monitor itself completely, as if some components are down, Sensu will not be able to create events on itself properly
 
 _NOTE: This guide assumes you are not using Sensu clustering, RabbitMQ clustering or using Redis Sentinels. You can still monitor each server using the below described strategies, but note that in order to effectively monitor clustered instances, you'll need to employ a different methodology._
 
@@ -74,7 +74,7 @@ To monitor the `sensu-api` API service, you will need to do so from an independe
 
 *Method 1: Monitor Uchiwa with a process check*
 
-To monitor the Uchiwa Dashboard, you will need to check for two processes named `uchiwa` using [check-process sensu plugin][9] using the following check definition. This check will return a check result with status 2 if less than 2 processes are running with the string `/opt/uchiwa/bin/uchiwa`. We look for two as there is a parent and child process for the `uchiwa service`
+To monitor the Uchiwa Dashboard, you will need to check for two processes named `uchiwa` using [check-process sensu plugin][9] using the following check definition. This check will return a check result with status 2 if less than 2 processes are running with the string `/opt/uchiwa/bin/uchiwa`. We look for two as the `uchiwa service` has a parent and child process.
 
 {{< highlight json >}}
 {
@@ -114,6 +114,8 @@ _PRO TIP: Use both checks for complete monitoring of Uchiwa. This way, you are a
 
 To monitor that your RabbitMQ instance is responding, you will need to do so from an independent Sensu stack. The [rabbitmq-alive sensu plugin][10] provides that ability using the below configuration with your RabbitMQ credentials.
 
+**NEEDS TESTED**
+
 {{< highlight json >}}
 {
   "checks": {
@@ -128,13 +130,21 @@ To monitor that your RabbitMQ instance is responding, you will need to do so fro
 }
 {{< /highlight >}}
 
-While Sensu does not provide benchmarks for a healthy RabbitMQ queue, you can trend the data using the [metrics-rabbitmq-queue sensu plugin][11] metrics for the keepalives queue.
+RabbitMQ has a management plugin that must be enabled to allow the Sensu RabbitMQ metric plugins to work. You can find more about enabling RabbitMQ's [Management Plugin][14] documentation. You will also need an administrative level user that has read access to your /sensu virtualhost. Below is an example of how to create one using the [rabbitmqctl][15] command line tool.
+
+{{< highlight shell >}}
+rabbitmqctl add_user monitor_user password
+rabbitmqctl set_user_tags monitor_user administrator
+rabbitmqctl set_permissions -p /sensu test "" "" ".*"
+{{< /highlight >}}
+
+While Sensu does not provide benchmarks for a healthy RabbitMQ keepalives and results queue, you can use the [metrics-rabbitmq-queue sensu plugin][11] to establish a baseline for what looks normal for your environment.
 
 {{< highlight json >}}
 {
   "checks": {
     "collect_rabbitmq_queue": {
-      "command": "metrics-rabbitmq-queue.rb --host localhost --password :::rabbitmq.password::: --port 15672 --user sensu --filter keepalives",
+      "command": "metrics-rabbitmq-queue.rb --user monitor_user --password password --host localhost --port 15672 --filter keepalives\|results",
       "subscribers": [
         "rabbitmq_keepalive_queue"
       ],
@@ -145,13 +155,13 @@ While Sensu does not provide benchmarks for a healthy RabbitMQ queue, you can tr
 }
 {{< /highlight >}}
 
-then make a check using the [check-rabbitmq-check sensu plugin][12] to then provide an alert when the queue starts to fill up using the following definition
+then use the [check-rabbitmq-check sensu plugin][12] to create checks for both the keepalives and results queue based on your benchmarks. The below check definition uses 250 as the normal depth for both queues.
 
 {{< highlight json >}}
 {
   "checks": {
     "check_rabbitmq_queue": {
-      "command": "TODO",
+      "command": "/opt/sensu/embedded/bin/check-rabbitmq-queue.rb --username monitor_user --password password --port 15672 --queue keepalives,results -w 500 -c 1000",
       "subscribers": [
         "monitor_rabbitmq_keepalive_queue"
       ],
@@ -162,6 +172,8 @@ then make a check using the [check-rabbitmq-check sensu plugin][12] to then prov
 {{< /highlight >}}
 
 ## Monitoring Redis{#monitoring-redis}
+
+**NEEDS TESTING**
 
 To monitor that your Redis instance is responding, you will need to do so from an independent Sensu stack. You can use the [check-redis-ping sensu plugin][13].
 
@@ -192,4 +204,5 @@ To monitor that your Redis instance is responding, you will need to do so from a
 [11]: https://github.com/sensu-plugins/sensu-plugins-rabbitmq/blob/master/bin/metrics-rabbitmq-queue.rb
 [12]: https://github.com/sensu-plugins/sensu-plugins-rabbitmq/blob/master/bin/check-rabbitmq-queue.rb
 [13]: https://github.com/sensu-plugins/sensu-plugins-redis/blob/master/bin/check-redis-ping.rb
-[14]: https://github.com/sensu-plugins/sensu-plugins-redis/blob/master/bin/metrics-redis-graphite.rb
+[14]: https://www.rabbitmq.com/management.html
+[15]: https://www.rabbitmq.com/rabbitmqctl.8.html
