@@ -17,7 +17,7 @@ In this guide, we'll cover configuring and using the Sensu Enterprise Amazon Web
     - [Client Configuration](#client-configuration)
   - [IAM Roles and Sensu](#iam-roles-and-sensu)
   - [Wrapping Up](#wrapping-up)
-  - [Resources](#resources)
+  - [References](#references)
 
 # Prerequisites
 
@@ -90,7 +90,7 @@ In the example above, there are several key attributes that you'll need to be aw
 
 `keepalive` scope: Inside of the `keepalive` scope, you must specify the `ec2` handler as in the example above.
 
-`ec2` scope: The `ec2` scope contains a [number of attributes][] that you'll want to be familiar with.
+`ec2` scope: The `ec2` scope contains a [number of attributes][5] that you'll want to be familiar with.
 
 `instance_id`: This attribute _must_ be present if an instance's `name` attribute does not _exactly_ match the instance's EC2 instance id. If this is not set, and the attributes do not match exactly, automatic deregistration will not take place.
 
@@ -115,9 +115,9 @@ That's all for this guide on configuring and using the Sensu Enterprise AWS EC2 
 - Configuring the client for use with EC2
 - Using IAM roles in lieu of keys
 
-We hope you've found this useful
+We hope you've found this useful. For additional resources about the EC2 integration or client EC2 attributes, see the reference links below.
 
-## Resources
+## References
 
 - [EC2 Reference document][4]
 - [EC2 Client attributes][5]
