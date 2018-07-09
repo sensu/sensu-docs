@@ -58,7 +58,7 @@ If the site builds successfully, you can run the Hugo server and view the site i
 yarn run server
 ```
 
-Then visit http://127.0.0.1:1313/ in the browser of your choice.
+Then visit http://localhost:1313/ in the browser of your choice.
 
 #### Troubleshooting Hugo
 Here are some things you might try if you encounter an issue working with the site:
