@@ -58,12 +58,17 @@ If the site builds successfully, you can run the Hugo server and view the site i
 yarn run server
 ```
 
+Then visit http://localhost:1313/ in the browser of your choice.
+
 #### Troubleshooting Hugo
 Here are some things you might try if you encounter an issue working with the site:
 
 * Run `yarn hugo-version` to print the running version of Hugo. Version 0.34 or newer is required.
 * If you are seeing stale page content, try using `yarn server --disableFastRender` to ensure all pages are rebuilt as you make changes.
 * If you're still having trouble viewing the site, open an issue, and we'll be happy to help!
+
+#### Updating the theme
+This project uses the [hugo-material-docs](https://github.com/digitalcraftsman/hugo-material-docs) theme with some local modifications. Should you choose to update the theme, please take care to ensure leading slashes are not removed from links to Javascript, CSS and other assets.
 
 ### Pushing to GitHub
 This is the same as any other project. Follow GitHub's instructions if you're unsure. No additional steps are needed.
