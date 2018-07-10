@@ -27,17 +27,15 @@ By the end of the end of this article, you should be able to confidently:
   * rabbitmq
   * redis
 
-If you don't have a fully functioning Sensu deployment, consider running through our ["Five Minute Install"][] guide to stand up a single Sensu instance. Alternatively, you can use the Vagrantfile found [here][] to stand up a development instance.
-
-## Scaling at a Single Site {#scaling-sensu-at-a-single-site}
-
-Sensu made of multiple components, each has its own scaling considerations. For a real-life example of how to scale a Sensu Cluster, see [Failshell.io's excellent writeup](http://failshell.io/sensu/high-availability-sensu/)
+If you don't have a fully functioning Sensu deployment, consider running through our ["Five Minute Install"][1] guide to stand up a single Sensu instance. Alternatively, you can use the Vagrantfile found [here][2]. We'll start by discussing each of the components involved in a Sensu deployment and then discuss various scaling methodologies for Sensu, as well as the advantages and disadvantages to each one. Let's start by discussing the `sensu-server` component.
 
 ## Sensu Server
 
-The Sensu server component scales easily. Simply run multiple instances of the sensu-server process pointing to the same Rabbitmq and Redis instances.
+The `sensu-server` component is the crux of any deployment. Not only does it perform the function of scheduling check requests, it is also responsible for consuming messages from RabbitMQ. It is often the case that if you see your RabbitMQ queue depth start to creep up, you'll need to add additional consumers (`sensu-server` instances) to your deployment.  
 
-The sensu-server component does its own internal master election.
+The `sensu-server` component is best scaled using a "scale out" methodology i.e., adding more instances running `sensu-server`. The component itself does its own internal master election, so there's no need to tell a cluster of Sensu servers which server will be performing as the master. It's worth noting that when scaling out your `sensu-server` component, that you'll want to ensure that each additional instance is configured the same as your initial instance. If you're ever in doubt as to whether your `sensu-server` instances have their configuration in sync, you can validate the configuration using [`hexdigest` value from the `sensu-api`'s `info` endpoint][3].
+
+_WARNING: If your `sensu-server`'s hexdigests differ from each other, there can be unexpected behavior when it comes to check execution and results. Use a configuration management software like Chef, Puppet, or Ansible to ensure that your configurations are in sync._
 
 ## Sensu API
 
@@ -45,7 +43,7 @@ The Sensu API component is a stateless http frontend. It can be scaled with trad
 
 ## RabbitMQ
 
-Please see the RabbitMQ [documentation][1] on clustering for building a RabbitMQ cluster.
+Clustering RabbitMQ with Sensu deployments is generally not advised due to the way that RabbitMQ functions. Please see the RabbitMQ [documentation][1] on clustering for building a RabbitMQ cluster. 
 
 ## Redis
 
@@ -63,7 +61,7 @@ This strategy involves building isolated, independent Sensu server/clusters at e
 
 ### Pros
 
-* WAN instability does *not* lead to flapping sensu checks
+* WAN instability does *not* lead to flapping Sensu checks
 * Sensu operation continues un-interrupted during a WAN outage
 * The overall architecture is easier to understand and troubleshoot
 
@@ -109,7 +107,10 @@ All Sensu clients execute checks locally. Their only interaction with Sensu serv
 * All clients "appear" to be in the same datacenter in Uchiwa
 
 <!-- LINKS -->
-[1]: https://www.rabbitmq.com/clustering.html
+[1]: ../../quick-start/five-minute-install/
+[2]: https://github.com/sensu/training-vagrant/blob/master/workshops/intro-to-sensu/Vagrantfile
+[3]: ../../api/health-and-info/#info-get
+https://www.rabbitmq.com/clustering.html
 [2]: http://redis.io/topics/sentinel
 [3]: https://www.rabbitmq.com/federation.html
 [4]: https://www.rabbitmq.com/shovel.html
