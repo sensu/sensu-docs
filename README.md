@@ -74,4 +74,4 @@ This project uses the [hugo-material-docs](https://github.com/digitalcraftsman/h
 This is the same as any other project. Follow GitHub's instructions if you're unsure. No additional steps are needed.
 
 ### Deploying to Heroku
-This project uses [Travis CI Deployment support for Heroku](https://docs.travis-ci.com/user/deployment/heroku/) to automatically deploy the site once changes are merged to `master`. For additional details on Heroku configuration and deployment, see [our wiki page](https://github.com/sensu/sensu-docs/wiki/Heroku-Configuration-and-Publishing).
+Any time changes are merged to `master` branch, this project is automatically deployed to https://docs.sensu.io using Heroku's own Github integration. For additional details on Heroku configuration and deployment, see [our wiki page](https://github.com/sensu/sensu-docs/wiki/Heroku-Configuration-and-Publishing).
