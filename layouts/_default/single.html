@@ -1,6 +1,6 @@
 {{ partial "head" . }}
 
-<script type="text/javascript" src="{{ "javascripts/application.js" | absURL }}"></script>
+<script type="text/javascript" src="{{ "/javascripts/application.js" | absURL }}"></script>
 
 {{ if (eq (trim .Site.Params.provider " " | lower) "github") | and (isset .Site.Params "repo_url") }}
   {{ $repo_id := replace .Site.Params.repo_url "https://github.com/" ""}}
@@ -105,6 +105,11 @@ function boldFirstWord(element) {
   element.html(newElement);
 }
 
+function boldFirstTwoWords(element) {
+  newElement = element.html().replace(/(^\w+ \w+)/, '<strong>$1</strong>');
+  element.html(newElement);
+}
+
 function applyTipBoxes() {
   $("em").wrap(function() {
     if ($(this).text().includes("NOTE:")) {
@@ -114,7 +119,7 @@ function applyTipBoxes() {
       boldFirstWord($(this));
       return '<div class="warning"></div>';
     } else if ($(this).text().includes("PRO TIP:")) {
-      boldFirstWord($(this));
+      boldFirstTwoWords($(this));
       return '<div class="pro-tip"></div>';
     }
   });
