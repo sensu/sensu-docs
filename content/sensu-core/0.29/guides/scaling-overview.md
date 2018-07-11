@@ -108,7 +108,7 @@ Now that we've covered the components involved in scaling Sensu from a high leve
 <!-- LINKS -->
 [1]: ../../reference/server/#what-is-the-sensu-server
 [2]: ../../reference/redis/
-[3]: ../..reference/rabbitmq/
+[3]: ../../reference/rabbitmq/
 [4]: https://www.rabbitmq.com/federation.html
 [5]: https://www.rabbitmq.com/shovel.html
 [6]: https://www.rabbitmq.com/distributed.html
