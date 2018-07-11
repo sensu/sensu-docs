@@ -19,7 +19,7 @@ In this guide, we'll walk you through the best practices and strategies for moni
 
 In order to completely monitor a Sensu stack (Sensu server, Sensu API, Redis, RabbitMQ), you will need to have at least one other independent Sensu stack to do so. A single Sensu stack can not monitor itself completely, as if some components are down, Sensu will not be able to create events on itself properly
 
-_NOTE: This guide assumes you are not using Sensu clustering, RabbitMQ clustering or using Redis Sentinels. You can still monitor each server using the below described strategies, but note that in order to effectively monitor clustered instances, you'll need to employ a different methodology._
+_NOTE: This guide assumes you are not using Sensu clustering, RabbitMQ clustering or Redis Sentinels. You can still monitor each server using the below described strategies, but note that in order to effectively monitor clustered instances, you'll need to employ a different methodology._
 
 ## Monitoring Sensu
 
@@ -112,15 +112,23 @@ _PRO TIP: Use both checks for complete monitoring of Uchiwa. This way, you are a
 
 ## Monitoring RabbitMQ{#monitoring-rabbitmq}
 
-To monitor that your RabbitMQ instance is responding, you will need to do so from an independent Sensu stack. The [rabbitmq-alive sensu plugin][10] provides that ability using the below configuration with your RabbitMQ credentials.
+RabbitMQ has a management plugin that must be enabled to allow the Sensu RabbitMQ check and metric plugins to function properly. You can find more about enabling it in RabbitMQ's [Management Plugin][14] documentation. You will also need an administrative level user that has full access to your /sensu virtualhost. Below is an example of how to create monitor user using the [rabbitmqctl][15] command line tool.
 
-**NEEDS TESTED**
+_NOTE: You can use the same RabbitMQ user that Sensu uses if you do not want to create another user, as they are role and permission equivalent. This guide will continue to use the monitor\_user in examples._
+
+{{< highlight shell >}}
+rabbitmqctl add_user monitor_user password
+rabbitmqctl set_user_tags monitor_user monitoring
+rabbitmqctl set_permissions -p /sensu monitor_user "" "" ".*"
+{{< /highlight >}}
+
+To monitor that your RabbitMQ instance is responding, you will need to do so from an independent Sensu stack. The [rabbitmq-alive sensu plugin][10] provides that ability using the below configuration with your RabbitMQ credentials.
 
 {{< highlight json >}}
 {
   "checks": {
     "check_rabbitmq_alive": {
-      "command": "check-rabbitmq-alive.rb -w remote-rabbitmq-host -v remote-rabbitmq-vhost -u remote-rabbitmq-username -p remote-rabbitmq-password -P remote-rabbitmq-listen-port",
+      "command": "check-rabbitmq-alive.rb -w remote-rabbitmq-host -v %2Fsensu -u monitor_user -p password -P 15672",
       "subscribers": [
         "monitor_remote_rabbitmq"
       ],
@@ -130,21 +138,13 @@ To monitor that your RabbitMQ instance is responding, you will need to do so fro
 }
 {{< /highlight >}}
 
-RabbitMQ has a management plugin that must be enabled to allow the Sensu RabbitMQ metric plugins to work. You can find more about enabling RabbitMQ's [Management Plugin][14] documentation. You will also need an administrative level user that has read access to your /sensu virtualhost. Below is an example of how to create one using the [rabbitmqctl][15] command line tool.
-
-{{< highlight shell >}}
-rabbitmqctl add_user monitor_user password
-rabbitmqctl set_user_tags monitor_user administrator
-rabbitmqctl set_permissions -p /sensu test "" "" ".*"
-{{< /highlight >}}
-
 While Sensu does not provide benchmarks for a healthy RabbitMQ keepalives and results queue, you can use the [metrics-rabbitmq-queue sensu plugin][11] to establish a baseline for what looks normal for your environment.
 
 {{< highlight json >}}
 {
   "checks": {
     "collect_rabbitmq_queue": {
-      "command": "metrics-rabbitmq-queue.rb --user monitor_user --password password --host localhost --port 15672 --filter keepalives\|results",
+      "command": "metrics-rabbitmq-queue.rb --user monitor_user --password password --vhost /sensu --host localhost --port 15672 --filter keepalives\|results",
       "subscribers": [
         "rabbitmq_keepalive_queue"
       ],
@@ -161,7 +161,7 @@ then use the [check-rabbitmq-check sensu plugin][12] to create checks for both t
 {
   "checks": {
     "check_rabbitmq_queue": {
-      "command": "/opt/sensu/embedded/bin/check-rabbitmq-queue.rb --username monitor_user --password password --port 15672 --queue keepalives,results -w 500 -c 1000",
+      "command": "/opt/sensu/embedded/bin/check-rabbitmq-queue.rb --username monitor_user --password password --vhost /sensu --port 15672 --queue keepalives,results -w 500 -c 1000",
       "subscribers": [
         "monitor_rabbitmq_keepalive_queue"
       ],
@@ -173,15 +173,13 @@ then use the [check-rabbitmq-check sensu plugin][12] to create checks for both t
 
 ## Monitoring Redis{#monitoring-redis}
 
-**NEEDS TESTING**
-
-To monitor that your Redis instance is responding, you will need to do so from an independent Sensu stack. You can use the [check-redis-ping sensu plugin][13].
+To monitor that your Redis instance is responding, you will need to do so from an independent Sensu stack. You will also need to configure Redis to bind to an interface that your independent Sensu stack can reach and open TCP port 6379. You can use the [check-redis-ping sensu plugin][13] with the following check definition.
 
 {{< highlight json >}}
 {
   "checks": {
     "redis_ping": {
-      "command": "check-redis-ping.rb -h remote.redis.hostname -P redis.password",
+      "command": "check-redis-ping.rb -h remote.redis.hostname",
       "subscribers": [
         "monitor_remote_redis"
       ],
