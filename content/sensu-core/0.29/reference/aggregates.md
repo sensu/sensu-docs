@@ -123,6 +123,7 @@ The following is an example [check definition][6], a JSON configuration file loc
     "example_check_aggregate": {
       "command": "do_something.rb -o option",
       "aggregate": "example_aggregate",
+      "interval": 60,
       "handle": false
     }
   }

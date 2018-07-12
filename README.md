@@ -13,10 +13,7 @@ Contribution was too complicated when working with the now-deprecated [sensu-doc
 
 ## Known limitations
 
-- Uchiwa links to the existing website
 - There is no Extensions documentation at this time
-- Plugin documentation is very out of date. Help fix that by participating in [this issue](https://github.com/sensu-plugins/community/issues/58)
-- Sensu Core 2.0 documentation will be partially missing until the Beta milestone is reached
 
 ## Project wiki
 
@@ -61,6 +58,8 @@ If the site builds successfully, you can run the Hugo server and view the site i
 yarn run server
 ```
 
+Then visit http://localhost:1313/ in the browser of your choice.
+
 #### Troubleshooting Hugo
 Here are some things you might try if you encounter an issue working with the site:
 
@@ -68,8 +67,11 @@ Here are some things you might try if you encounter an issue working with the si
 * If you are seeing stale page content, try using `yarn server --disableFastRender` to ensure all pages are rebuilt as you make changes.
 * If you're still having trouble viewing the site, open an issue, and we'll be happy to help!
 
+#### Updating the theme
+This project uses the [hugo-material-docs](https://github.com/digitalcraftsman/hugo-material-docs) theme with some local modifications. Should you choose to update the theme, please take care to ensure leading slashes are not removed from links to Javascript, CSS and other assets.
+
 ### Pushing to GitHub
 This is the same as any other project. Follow GitHub's instructions if you're unsure. No additional steps are needed.
 
 ### Deploying to Heroku
-This project uses [Travis CI Deployment support for Heroku](https://docs.travis-ci.com/user/deployment/heroku/) to automatically deploy the site once changes are merged to `master`. For additional details on Heroku configuration and deployment, see [our wiki page](https://github.com/sensu/sensu-docs/wiki/Heroku-Configuration-and-Publishing).
+Any time changes are merged to `master` branch, this project is automatically deployed to https://docs.sensu.io using Heroku's own Github integration. For additional details on Heroku configuration and deployment, see [our wiki page](https://github.com/sensu/sensu-docs/wiki/Heroku-Configuration-and-Publishing).
