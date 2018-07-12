@@ -9,7 +9,8 @@ menu:
     parent: guides
 ---
 
-In this guide, we'll walk you through the best practices and strategies for monitoring Sensu with Sensu. By the end of the guide, you should have a thorough understanding of what is required to ensure your Sensu components are properly monitored, including:
+In this guide, we'll walk you through the best practices and strategies for monitoring Sensu with Sensu.
+By the end of the guide, you should have a thorough understanding of what is required to ensure your Sensu components are properly monitored, including:
 
 * [How to monitor your Sensu Server instance(s)](#monitoring-sensu-server)
 * [How to monitor your Sensu API instance(s)](#monitoring-sensu-api)
@@ -17,9 +18,11 @@ In this guide, we'll walk you through the best practices and strategies for moni
 * [How to monitor your RabbitMQ instance(s)](#monitoring-rabbitmq)
 * [How to monitor your Redis instance(s)](#monitoring-redis)
 
-In order to completely monitor a Sensu stack (Sensu server, Sensu API, Redis, RabbitMQ), you will need to have at least one other independent Sensu stack to do so. A single Sensu stack can not monitor itself completely, as if some components are down, Sensu will not be able to create events on itself properly
+In order to completely monitor a Sensu stack (Sensu server, Sensu API, Redis, RabbitMQ), you will need to have at least one other independent Sensu stack to do so.
+A single Sensu stack can not monitor itself completely, as if some components are down, Sensu will not be able to create events on itself properly
 
-_NOTE: This guide assumes you are not using Sensu clustering, RabbitMQ clustering or Redis Sentinels. You can still monitor each server using the below described strategies, but note that in order to effectively monitor clustered instances, you'll need to employ a different methodology._
+_NOTE: This guide assumes you are not using Sensu clustering, RabbitMQ clustering or Redis Sentinels.
+You can still monitor each server using the below described strategies, but note that in order to effectively monitor clustered instances, you'll need to employ a different methodology._
 
 ## Monitoring Sensu
 
@@ -32,11 +35,14 @@ The host running the `sensu-server` service should be monitored in two ways:
 
 #### Monitoring Sensu Server Locally
 
-Monitoring the host that the `sensu-server` process runs on should be done just like any other node in your infrastructure. This includes, but is not limited to, checks and metrics for [CPU][1], [memory][2], [disk][3], and [networking][4]. You can find more plugins at the [Sensu Community Homepage][5].
+Monitoring the host that the `sensu-server` process runs on should be done just like any other node in your infrastructure.
+This includes, but is not limited to, checks and metrics for [CPU][1], [memory][2], [disk][3], and [networking][4].
+You can find more plugins at the [Sensu Community Homepage][5].
 
 #### Monitoring Sensu Server Remotely
 
-To monitor the `sensu-server` Server process, you will need to do so from an independent Sensu stack. This can be done by reaching out to Sensu's [API health endpoint][6] and using the [check-http sensu plugin][7] with the following check definition.
+To monitor the `sensu-server` Server process, you will need to do so from an independent Sensu stack.
+This can be done by reaching out to Sensu's [API health endpoint][6] and using the [check-http sensu plugin][7] with the following check definition.
 
 {{< highlight json >}}
 {
@@ -54,7 +60,8 @@ To monitor the `sensu-server` Server process, you will need to do so from an ind
 
 ### Monitoring Sensu API{#monitoring-sensu-api}
 
-To monitor the `sensu-api` API service, you will need to do so from an independent Sensu stack. This can be done by reaching out to the port that the API is listening on using the [check-port sensu plugin][8] with the following check definition.
+To monitor the `sensu-api` API service, you will need to do so from an independent Sensu stack.
+This can be done by reaching out to the port that the API is listening on using the [check-port sensu plugin][8] with the following check definition.
 
 {{< highlight json >}}
 {
@@ -74,7 +81,9 @@ To monitor the `sensu-api` API service, you will need to do so from an independe
 
 *Method 1: Monitor Uchiwa with a process check*
 
-To monitor the Uchiwa Dashboard, you will need to check for two processes named `uchiwa` using [check-process sensu plugin][9] using the following check definition. This check will return a check result with status 2 if less than 2 processes are running with the string `/opt/uchiwa/bin/uchiwa`. We look for two as the `uchiwa service` has a parent and child process.
+To monitor the Uchiwa Dashboard, you will need to check for two processes named `uchiwa` using [check-process sensu plugin][9] using the following check definition.
+This check will return a check result with status 2 if less than 2 processes are running with the string `/opt/uchiwa/bin/uchiwa`.
+We look for two as the `uchiwa service` has a parent and child process.
 
 {{< highlight json >}}
 {
@@ -108,13 +117,17 @@ You can also monitor the `uchiwa` Dashboard with a remote port check using the [
 }
 {{< /highlight >}}
 
-_PRO TIP: Use both checks for complete monitoring of Uchiwa. This way, you are able to catch when the processes are not running and when a firewall port is not open_
+_PRO TIP: Use both checks for complete monitoring of Uchiwa.
+This way, you are able to catch when the processes are not running and when a firewall port is not open_
 
 ## Monitoring RabbitMQ{#monitoring-rabbitmq}
 
-RabbitMQ has a management plugin that must be enabled to allow the Sensu RabbitMQ check and metric plugins to function properly. You can find more about enabling it in RabbitMQ's [Management Plugin][14] documentation. You will also need an administrative level user that has full access to your /sensu virtualhost. Below is an example of how to create monitor user using the [rabbitmqctl][15] command line tool.
+RabbitMQ has a management plugin that must be enabled to allow the Sensu RabbitMQ check and metric plugins to function properly.
+You can find more about enabling it in RabbitMQ's [Management Plugin][14] documentation. You will also need an administrative level user that has full access to your /sensu virtualhost.
+Below is an example of how to create monitor user using the [rabbitmqctl][15] command line tool.
 
-_NOTE: You can use the same RabbitMQ user that Sensu uses if you do not want to create another user, as they are role and permission equivalent. This guide will continue to use the monitor\_user in examples._
+_NOTE: You can use the same RabbitMQ user that Sensu uses if you do not want to create another user, as they are role and permission equivalent.
+This guide will continue to use the monitor\_user in examples._
 
 {{< highlight shell >}}
 rabbitmqctl add_user monitor_user password
@@ -122,7 +135,8 @@ rabbitmqctl set_user_tags monitor_user monitoring
 rabbitmqctl set_permissions -p /sensu monitor_user "" "" ".*"
 {{< /highlight >}}
 
-To monitor that your RabbitMQ instance is responding, you will need to do so from an independent Sensu stack. The [rabbitmq-alive sensu plugin][10] provides that ability using the below configuration with your RabbitMQ credentials.
+To monitor that your RabbitMQ instance is responding, you will need to do so from an independent Sensu stack.
+The [rabbitmq-alive sensu plugin][10] provides that ability using the below configuration with your RabbitMQ credentials.
 
 {{< highlight json >}}
 {
@@ -155,7 +169,8 @@ While Sensu does not provide benchmarks for a healthy RabbitMQ keepalives and re
 }
 {{< /highlight >}}
 
-then use the [check-rabbitmq-check sensu plugin][12] to create checks for both the keepalives and results queue based on your benchmarks. The below check definition uses 250 as the normal depth for both queues.
+then use the [check-rabbitmq-check sensu plugin][12] to create checks for both the keepalives and results queue based on your benchmarks.
+The below check definition uses 250 as the normal depth for both queues.
 
 {{< highlight json >}}
 {
@@ -173,7 +188,9 @@ then use the [check-rabbitmq-check sensu plugin][12] to create checks for both t
 
 ## Monitoring Redis{#monitoring-redis}
 
-To monitor that your Redis instance is responding, you will need to do so from an independent Sensu stack. You will also need to configure Redis to bind to an interface that your independent Sensu stack can reach and open TCP port 6379. You can use the [check-redis-ping sensu plugin][13] with the following check definition.
+To monitor that your Redis instance is responding, you will need to do so from an independent Sensu stack.
+You will also need to configure Redis to bind to an interface that your independent Sensu stack can reach and open TCP port 6379.
+You can use the [check-redis-ping sensu plugin][13] with the following check definition.
 
 {{< highlight json >}}
 {
