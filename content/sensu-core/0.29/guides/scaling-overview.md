@@ -1,6 +1,7 @@
 ---
 title: "Scaling Sensu - Overview"
 linkTitle: "Scaling Overview"
+product: "Sensu Core"
 description: "Overview of strategies and best practices for scaling Sensu"
 version: "0.29"
 weight: 11
@@ -12,38 +13,42 @@ menu:
 
 In this article we'll provide brief overviews of the various ways that you can scale your Sensu deployment, from scaling individual components, to scaling across regions.
 
+- [Scaling Sensu at a Single Site](#scaling-sensu-at-a-single-site)
+- [Scaling Sensu Across Multiple Sites](#scaling-sensu-across-multiple-sites-scaling)
+  - [Strategy 1: Isolated Clusters Aggregated by Uchiwa](#strategy-1-isolated-clusters-aggregated-by-uchiwa)
+  - [Strategy 2: Centralized Sensu and Distributed RabbitMQ](#strategy-2-centralized-sensu-and-distributed-rabbitmq)
+  - [Strategy 3: Centralized Sensu and Directly Connected Clients](#strategy-3-centralized-sensu-and-directly-connected-clients)
+
 # Sensu Components
 
 A typical Sensu deployment consists of four pieces:
 
-* `sensu-server`
-* `sensu-api`
-* RabbitMQ (message bus)
-* Redis (data store)
+- [Sensu Server](#sensu-server)
+- [Sensu API](#sensu-api)
+- [Redis (data store)](#redis)
+- [RabbitMQ (message bus)](#rabbitmq)
 
-There can be variation when it comes to the message bus and data store components, but using Redis as the data store and RabbitMQ as the message bus is the most common (and supported) way of deploying those deployment components.
+There can be variation when it comes to the message bus and data store components, but using Redis as the data store and RabbitMQ as the message bus is the most common (and supported) way of deploying those components.
 
-## Sensu Server
+### Sensu Server
 
-The `sensu-server` process is the workhorse of any deployment. It performs a [number of tasks][1] including check scheduling and publishing, monitoring clients via keepalives, and event processing. To scale this component, you need only add the desired number of Sensu servers and point them at your RabbitMQ instance where they'll do their own internal master election.
+The `sensu-server` process is the workhorse of any deployment. It performs a [number of tasks][1] including check scheduling and publishing, monitoring clients via keepalives, and event processing. To scale this component, add the desired number of Sensu servers and point them at your RabbitMQ instance where they'll do their own internal leader election.
 
-## Sensu API
+### Sensu API
 
-The `sensu-api` component is a stateless http frontend. It can be scaled with traditional http load-balancing strategies (HAproxy, Nginx, etc.). Each additional API instance will need to be configured to point to your Redis instance, and can then be added to your load balancing pool.
+The `sensu-api` component is a stateless HTTP frontend. It can be scaled with traditional HTTP load-balancing strategies (HAproxy, Nginx, etc.). Configure each additional API instance to point to your Redis instance, and add the API instance to your load balancing pool.
 
-## Redis
+### Redis
 
-Redis can be scaled out in several different ways. Using Redis Sentinel is the primary supported way of scaling Redis. You can read more about installing and configuring Sentinel in our [Redis reference documentation][2].
+Redis can be scaled out in several different ways. Using Redis Sentinel is the primarily supported way of scaling Redis. You can read more about installing and configuring Sentinel in our [Redis reference documentation][2].
 
-## RabbitMQ
+### RabbitMQ
 
 RabbitMQ can be used in a clustered configuration for Sensu. You can read more about configuring RabbitMQ clusters in our [RabbitMQ reference documentation][3].
 
 ## Scaling Sensu at a Single Site
 
-Each Sensu component can be scaled independently at a single site, whether you need to scale out the number of consumers (`sensu-server` instances) to keep your RabbitMQ queue depth to manageable level, or you need to ensure that Redis is highly available. We'll put all of these elements together in the next guide.
-
-Keep reading for more information about multi-site scaling strategies.
+Each Sensu component can be scaled independently at a single site, whether you need to ensure that Redis is highly available or you need to scale out the number of consumers (`sensu-server` instances) to keep your RabbitMQ queue depth to manageable levels. We'll put all of these elements together in the next guide.
 
 ## Scaling Sensu Across Multiple Sites {#scaling-sensu-across-multiple-sites}
 
@@ -63,7 +68,7 @@ This strategy involves building isolated, independent Sensu server/clusters at e
 
 #### Cons
 
-* WAN outages mean a whole Datacenter can go dark and not set off alerts (cross-datacenter checks are therefor essential)
+* WAN outages mean a whole datacenter can go dark and not set off alerts (cross-datacenter checks are therefore essential)
 * WAN instability can lead to a lack of visibility as Uchiwa may not be able to connect to the remote Sensu APIs
 * Requires all the Sensu infrastructure in every datacenter
 
@@ -73,17 +78,17 @@ Sensu clients only need to connect to a RabbitMQ server to submit events. One sc
 
 This is done either by the RabbitMQ [Federation plugin][4] or via the [Shovel][5] plugin. (See a comparison [here][6])
 
-_NOTE: This is picking Availability and Partition Tolerance over Consistency with RabbitMQ._
+_NOTE: This is picking availability and partition tolerance over consistency with RabbitMQ._
 
 #### Pros
 
-* Decreased infrastructure necessary at remote Datacenters
+* Fewer infrastructure components necessary at remote datacenters
 * All Sensu server alerts originate from a single source
 
 #### Cons
 
-* WAN instability can result in floods of client keepalive alerts. ([Check Dependencies][6] can help with this)
-* Increased RabbitMQ configuration complexity.
+* WAN instability can result in floods of client keepalive alerts. (The [Sensu Enterprise check dependencies filter][7] can help with this.)
+* Increased RabbitMQ configuration complexity
 * All clients appear to be in the same datacenter in Uchiwa
 
 ### Strategy 3: Centralized Sensu and Directly Connected Clients
