@@ -757,7 +757,7 @@ if ("document" in self && ("classList" in document.createElement("_") ? ! functi
                 var o = lunr(function() {
                         this.field("title", {
                             boost: 10
-                        }), this.field("text"), this.ref("location")
+                        }), this.field("content"), this.ref("location")
                     }),
                     s = {};
                 e.map(function(t) {
