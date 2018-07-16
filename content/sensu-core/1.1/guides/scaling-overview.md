@@ -19,7 +19,7 @@ In this article we'll provide brief overviews of the various ways that you can s
   - [Strategy 2: Centralized Sensu and Distributed RabbitMQ](#strategy-2-centralized-sensu-and-distributed-rabbitmq)
   - [Strategy 3: Centralized Sensu and Directly Connected Clients](#strategy-3-centralized-sensu-and-directly-connected-clients)
 
-# Sensu Components
+## Sensu Components
 
 A typical Sensu deployment consists of four pieces:
 
