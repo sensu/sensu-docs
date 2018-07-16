@@ -3,11 +3,11 @@ title: "Scaling Sensu - Overview"
 linkTitle: "Scaling Overview"
 product: "Sensu Core"
 description: "Overview of strategies and best practices for scaling Sensu"
-version: "1.1"
+version: "1.2"
 weight: 11
 next: ../scaling-sensu-components
 menu:
-  sensu-core-1.1:
+  sensu-core-1.2:
     parent: guides
 ---
 
