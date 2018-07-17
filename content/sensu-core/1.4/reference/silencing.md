@@ -12,10 +12,8 @@ menu:
 ## Reference documentation
 
 - [What is Sensu Silencing?](#what-is-sensu-silencing)
-  - [When to use silencing](#when-to-use-silencing)
 - [How does silencing work?](#how-does-silencing-work)
 - [Silencing entry specification](#silencing-entry-specification)
-  - [Silencing entry attributes](#silencing-entry-attributes)
 - [Examples](#examples)
   - [Silence all checks on a specific client](#silence-all-checks-on-a-specific-client)
   - [Silence a specific check on a specific client](#silence-a-specific-check-on-a-specific-client)
@@ -24,8 +22,6 @@ menu:
   - [Silence a specific check on every client regardless of subscriptions](#silence-a-specific-check-on-every-client)
   - [Deleting silencing entries](#deleting-silencing-entries)
 - [Appendix: Deprecated stash-based silencing](#appendix-deprecated-stash-based-silencing)
-  - [Comparing stash-based and native silencing](#comparing-stash-based-and-native-silencing)
-  - [Migrating from stash-based silencing](#migrating-from-stash-based-silencing)
 
 ## What is Sensu Silencing?
 
