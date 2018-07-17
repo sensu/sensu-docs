@@ -251,6 +251,12 @@ curl -s -X GET 127.0.0.1:4567/silenced | jq .
 ]
 {{< /highlight >}}
 
+_PRO TIP: Due to performance considerations, silencing entries cannot match
+events using regular expressions. Instead, use [client subscriptions][4]
+to create easily-silenceable groups of clients or checks. For example, create a
+site-specific subscription to silence all events when performing maintenance
+at that site._
+
 Now, imagine that we'd like to make this entry expire in 3600 seconds:
 
 {{< highlight shell >}}
