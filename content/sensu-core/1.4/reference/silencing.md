@@ -81,13 +81,13 @@ These silencing entries are persisted to the `silenced` registry in the [Sensu
 data store][10]. When the Sensu server processes subsequent check results, it
 consults this registry to determine whether or not a matching silencing entry
 exists. If one or more matching entries exist in the registry, the event context
-for the check result is updated to indicate that the event is silenced and the
+for the check result is updated to indicate that the event is silenced and include the
 ID of the entries which the check result matched.
 
 When creating a silencing entry, a combination of check and subscription can
 be specified, but only one or the other is strictly required.
 
-For example, when a silencing entry is created specifying only a check, it's ID
+For example, when a silencing entry is created specifying only a check, its ID
 will contain an asterisk (or wildcard) in the `$SUBSCRIPTION` position. This
 indicates that any event with a matching check name will be marked as silenced,
 regardless of the originating client's subscriptions.
@@ -108,7 +108,7 @@ subscription._
 
 Silencing entries are composed as a JSON document containing at least one of the
 required `subscription` or `check` attributes, and additional optional
-attributes as desired. Silencing entries are created, updated and deleted by
+attributes as desired. Silencing entries are created, updated, and deleted by
 submitting JSON documents to endpoints on the [`/silenced` API][2] via HTTP POST
 as shown in the examples below.
 
