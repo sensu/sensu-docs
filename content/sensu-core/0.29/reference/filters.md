@@ -330,6 +330,7 @@ The `occurrences` filter uses two check definition attributes, `occurrences` and
   "checks": {
     "check-http": {
       "...": "...",
+      "handlers": ["email"],
       "occurrences": 2,
       "refresh": 3600
     }
@@ -343,7 +344,7 @@ description  | The number of events that must occur before an event is handled f
 required     | True
 type         | Integer
 default      | 1
-example      | {{< highlight shell >}}"negate": true{{< /highlight >}}
+example      | {{< highlight shell >}}"occurrences": 1{{< /highlight >}}
 
 refresh      | 
 -------------|------
