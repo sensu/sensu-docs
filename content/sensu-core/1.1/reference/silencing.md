@@ -12,10 +12,8 @@ menu:
 ## Reference documentation
 
 - [What is Sensu Silencing?](#what-is-sensu-silencing)
-  - [When to use silencing](#when-to-use-silencing)
 - [How does silencing work?](#how-does-silencing-work)
 - [Silencing entry specification](#silencing-entry-specification)
-  - [Silencing entry attributes](#silencing-entry-attributes)
 - [Examples](#examples)
   - [Silence all checks on a specific client](#silence-all-checks-on-a-specific-client)
   - [Silence a specific check on a specific client](#silence-a-specific-check-on-a-specific-client)
@@ -24,8 +22,6 @@ menu:
   - [Silence a specific check on every client regardless of subscriptions](#silence-a-specific-check-on-every-client)
   - [Deleting silencing entries](#deleting-silencing-entries)
 - [Appendix: Deprecated stash-based silencing](#appendix-deprecated-stash-based-silencing)
-  - [Comparing stash-based and native silencing](#comparing-stash-based-and-native-silencing)
-  - [Migrating from stash-based silencing](#migrating-from-stash-based-silencing)
 
 ## What is Sensu Silencing?
 
@@ -85,13 +81,13 @@ These silencing entries are persisted to the `silenced` registry in the [Sensu
 data store][10]. When the Sensu server processes subsequent check results, it
 consults this registry to determine whether or not a matching silencing entry
 exists. If one or more matching entries exist in the registry, the event context
-for the check result is updated to indicate that the event is silenced and the
+for the check result is updated to indicate that the event is silenced and include the
 ID of the entries which the check result matched.
 
 When creating a silencing entry, a combination of check and subscription can
 be specified, but only one or the other is strictly required.
 
-For example, when a silencing entry is created specifying only a check, it's ID
+For example, when a silencing entry is created specifying only a check, its ID
 will contain an asterisk (or wildcard) in the `$SUBSCRIPTION` position. This
 indicates that any event with a matching check name will be marked as silenced,
 regardless of the originating client's subscriptions.
@@ -112,7 +108,7 @@ subscription._
 
 Silencing entries are composed as a JSON document containing at least one of the
 required `subscription` or `check` attributes, and additional optional
-attributes as desired. Silencing entries are created, updated and deleted by
+attributes as desired. Silencing entries are created, updated, and deleted by
 submitting JSON documents to endpoints on the [`/silenced` API][2] via HTTP POST
 as shown in the examples below.
 
@@ -254,6 +250,12 @@ curl -s -X GET 127.0.0.1:4567/silenced | jq .
   }
 ]
 {{< /highlight >}}
+
+_PRO TIP: Due to performance considerations, silencing entries cannot match
+events using regular expressions. Instead, use [client subscriptions][4]
+to create easily-silenceable groups of clients or checks. For example, create a
+site-specific subscription to silence all events when performing maintenance
+at that site._
 
 Now, imagine that we'd like to make this entry expire in 3600 seconds:
 
