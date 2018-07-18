@@ -1,12 +1,12 @@
 ---
 title: "RBAC"
 product: "Sensu Enterprise Dashboard"
-version: "2.10"
+version: "2.12"
 weight: -1
 layout: "base-for-directory-listing"
 menu:
-  sensu-enterprise-dashboard-2.10:
+  sensu-enterprise-dashboard-2.12:
     parent: rbac
 ---
 
-{{< directoryListing "content/sensu-enterprise-dashboard/2.10/rbac" >}}
+{{< directoryListing "content/sensu-enterprise-dashboard/2.12/rbac" >}}

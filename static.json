@@ -16,7 +16,7 @@
             "status": 302
         },
         "~ ^/sensu-enterprise-dashboard/latest/?(.*)$": {
-            "url": "/sensu-enterprise-dashboard/2.11/$1",
+            "url": "/sensu-enterprise-dashboard/2.12/$1",
             "status": 302
         },
         "~ ^/plugins/latest/?(.*)$": {
