@@ -3,10 +3,10 @@ title: "RBAC for OpenID Connect (OIDC)"
 linkTitle: "RBAC for OpenID Connect"
 description: "Reference documentation for the Sensu Enterprise Dashboard Role Based Access Controls (RBAC) for OpenID Connect (OIDC)"
 product: "Sensu Enterprise Dashboard"
-version: "2.11"
+version: "2.12"
 weight: 3
 menu:
-  sensu-enterprise-dashboard-2.11:
+  sensu-enterprise-dashboard-2.12:
     parent: rbac
 ---
 **ENTERPRISE: Role based access controls are available for [Sensu Enterprise][3]

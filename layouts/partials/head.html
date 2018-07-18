@@ -31,48 +31,48 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
-    <link rel="shortcut icon" type="image/x-icon" href="{{ with .Site.Params.favicon }}{{ . | absURL }}{{ else }}{{ "images/favicon.ico" | absURL }}{{ end }}">
-    <link rel="icon" type="image/x-icon" href="{{ with .Site.Params.favicon }}{{ . | absURL }}{{ else }}{{ "images/favicon.ico" | absURL }}{{ end }}">
+    <link rel="shortcut icon" type="image/x-icon" href="{{ with .Site.Params.favicon }}{{ . | absURL }}{{ else }}{{ "/images/favicon.ico" | absURL }}{{ end }}">
+    <link rel="icon" type="image/x-icon" href="{{ with .Site.Params.favicon }}{{ . | absURL }}{{ else }}{{ "/images/favicon.ico" | absURL }}{{ end }}">
 
     <style>
       @font-face {
         font-family: 'Icon';
-        src: url('{{ "fonts/icon.eot?52m981" | absURL }}');
-        src: url('{{ "fonts/icon.eot?#iefix52m981" | absURL }}')
+        src: url('{{ "/fonts/icon.eot?52m981" | absURL }}');
+        src: url('{{ "/fonts/icon.eot?#iefix52m981" | absURL }}')
                format('embedded-opentype'),
-             url('{{ "fonts/icon.woff?52m981" | absURL }}')
+             url('{{ "/fonts/icon.woff?52m981" | absURL }}')
                format('woff'),
-             url('{{ "fonts/icon.ttf?52m981" | absURL }}')
+             url('{{ "/fonts/icon.ttf?52m981" | absURL }}')
                format('truetype'),
-             url('{{ "fonts/icon.svg?52m981#icon" | absURL }}')
+             url('{{ "/fonts/icon.svg?52m981#icon" | absURL }}')
                format('svg');
         font-weight: normal;
         font-style: normal;
       }
     </style>
 
-    <link rel="stylesheet" href="{{ "stylesheets/application.css" | absURL }}">
-    <link rel="stylesheet" href="{{ "stylesheets/temporary.css" | absURL }}">
-    <link rel="stylesheet" href="{{ "stylesheets/palettes.css" | absURL }}">
-    <link rel="stylesheet" href="{{ with .Site.Params.highlight_css }}{{ . | absURL }}{{ else }}{{ "stylesheets/highlight/highlight.css" | absURL }}{{ end }}">
-    <link rel="stylesheet" href="{{ "stylesheets/override.css" | absURL }}">
+    <link rel="stylesheet" href="{{ "/stylesheets/application.css" | absURL }}">
+    <link rel="stylesheet" href="{{ "/stylesheets/temporary.css" | absURL }}">
+    <link rel="stylesheet" href="{{ "/stylesheets/palettes.css" | absURL }}">
+    <link rel="stylesheet" href="{{ with .Site.Params.highlight_css }}{{ . | absURL }}{{ else }}{{ "/stylesheets/highlight/highlight.css" | absURL }}{{ end }}">
+    <link rel="stylesheet" href="{{ "/stylesheets/override.css" | absURL }}">
     {{ if .IsHome }}
-        <link rel="stylesheet" href="{{ "stylesheets/homepage.css" | absURL }}">
+        <link rel="stylesheet" href="{{ "/stylesheets/homepage.css" | absURL }}">
     {{ end }}
-    <link rel="stylesheet" href="{{ "stylesheets/docs-overrides.css" | absURL }}">
+    <link rel="stylesheet" href="{{ "/stylesheets/docs-overrides.css" | absURL }}">
 
     {{ range .Site.Params.custom_css }}
     <link rel="stylesheet" href="{{ . | absURL }}">
     {{ end }}
-    <script src="{{ "javascripts/modernizr.js" | absURL }}"></script>
+    <script src="{{ "/javascripts/modernizr.js" | absURL }}"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
       crossorigin="anonymous"></script>
     <script src="https://use.fontawesome.com/ea9395e21e.js"></script>
-    <script type="text/javascript" src="{{ "js/vendor/lunr.min.js" | absURL }}"></script>
-    <script type="text/javascript" src="{{ "js/js-cookie.js" | absURL }}"></script>
-    <script type="text/javascript" src="{{ "js/platformDropdowns.js" | absURL }}"></script>
-    <script type="text/javascript" src="{{ "js/noframework.waypoints.min.js" | absURL }}"></script>
-    <!-- <script type="text/javascript" src="{{ "javascripts/application.js" | absURL }}"></script> -->
+    <script type="text/javascript" src="{{ "/js/vendor/lunr.min.js" | absURL }}"></script>
+    <script type="text/javascript" src="{{ "/js/js-cookie.js" | absURL }}"></script>
+    <script type="text/javascript" src="{{ "/js/platformDropdowns.js" | absURL }}"></script>
+    <script type="text/javascript" src="{{ "/js/noframework.waypoints.min.js" | absURL }}"></script>
+    <!-- <script type="text/javascript" src="{{ "/javascripts/application.js" | absURL }}"></script> -->
     {{ with .RSSLink }}
     <link href="{{ . }}" rel="alternate" type="application/rss+xml" title="{{ $.Site.Title }}" />
     <link href="{{ . }}" rel="feed" type="application/rss+xml" title="{{ $.Site.Title }}" />
