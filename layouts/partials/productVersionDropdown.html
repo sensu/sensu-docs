@@ -60,6 +60,7 @@
         {{ $product := .Section }}
         {{ $product2 := replace $product "-" "_" }}
         {{ $product_info := (index .Site.Params.products $product2) }}
+        {{ $endbit := split .URL "/"}}{{ $arraybit := after 3 $endbit}}
 
         <!-- There is not an easy way to reverse the versions map
              so we need to do all this extra stuff just to do so -->
@@ -69,7 +70,12 @@
         {{ $versionList := (default (slice) ($.Scratch.GetSortedMapValues "versionList")) }}
         {{ range $index := seq (len $versionList) }}
           {{ $index := sub (len $versionList) $index }}
-          <li class="hiddenItem"><a href="/{{ $product }}/{{ index $versionList $index }}">{{ index $versionList $index }}</a></li>
+          {{ $currentversion := index $versionList $index }}
+          {{ if ne $currentversion "2.0" }}
+            <li class="hiddenItem"><a href="/{{ $product }}/{{ index $versionList $index }}/{{delimit $arraybit "/"}}">{{ index $versionList $index }}</a></li>
+          {{ else }}
+            <li class="hiddenItem"><a href="/{{ $product }}/{{ index $versionList $index }}">{{ index $versionList $index }}</a></li>
+          {{ end }}
         {{ end }}
       </ul>
     </div>
