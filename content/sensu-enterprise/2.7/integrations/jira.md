@@ -87,7 +87,7 @@ issue_type   |
 description  | Specifies default issue type for projects.
 required     | false
 type         | String
-default      | `incident`
+default      | `Incident`
 example      | {{< highlight shell >}}"issue_type": "Bug"{{< /highlight >}}
 
 root_url     | 
