@@ -12,8 +12,8 @@ users only.**
 
 - [Overview](#overview)
 - [Configuration](#configuration)
-  - [Example(s)](#examples)
-  - [Integration specification](#integration-specification)
+  - [Example(s) {#examples}](#examples-examples)
+  - [Integration Specification](#integration-specification)
     - [`jira` attributes](#jira-attributes)
 
 ## Overview
@@ -81,6 +81,14 @@ description  | The JIRA project key to use for issues. This option allows the in
 required     | false
 type         | String
 example      | {{< highlight shell >}}"project_key": "SEN"{{< /highlight >}}
+
+issue_type   | 
+-------------|------
+description  | Specifies default issue type for projects.
+required     | false
+type         | String
+default      | `incident`
+example      | {{< highlight shell >}}"issue_type": "Bug"{{< /highlight >}}
 
 root_url     | 
 -------------|------
