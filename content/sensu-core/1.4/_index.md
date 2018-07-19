@@ -10,7 +10,7 @@ tags: ["sensu", "core", "sensu core", "1.4", "index"]
 layout: "single"
 ---
 
-<iframe src="https://ghbtns.com/github-btn.html?user=sensu&repo=sensu&type=star&count=true" frameborder="0" scrolling="0" width="95px" height="20px"></iframe> | [Learn about Sensu Enterprise](dd)
+<iframe src="https://ghbtns.com/github-btn.html?user=sensu&repo=sensu&type=star&count=true" frameborder="0" scrolling="0" width="95px" height="20px"></iframe> | [Learn about Sensu Enterprise](/sensu-enterprise/latest/)
 
 Sensu is the open-source monitoring event pipeline built to reduce operator burden and make developers and business owners happy.
 Started in 2011, Sensu's pipeline approach solves the challenges of monitoring hybrid-cloud and ephemeral infrastructures with flexible, automated workflows and integrations with tools you already use.
@@ -18,17 +18,17 @@ Started in 2011, Sensu's pipeline approach solves the challenges of monitoring h
 
 <img src="/images/simple-pipe.jpeg">
 
-**Replace Nagios**: Keep running Nagios plugins & consolidate monitoring tools with an architecture designed to sustain large scale deployments across multiple clouds.
+**Replace Nagios**: Keep running Nagios plugins and consolidate monitoring tools with an architecture designed to sustain large scale deployments across multiple clouds.
 
-**Empower Dev & Ops**: Automate system reliability & improve SRE retention.  Sensu provides a single platform for availability and performance monitoring.
+**Empower Dev & Ops**: Automate system reliability and improve SRE retention. Sensu provides a single platform for availability and performance monitoring.
 
-**Limitless Pipelines**: Validate & correlate events, send alerts, manage incidents, update CMDBs, trigger automated remediations, route telemetry data to TSDBs, & more.
+**Limitless Pipelines**: Validate and correlate events, send alerts, manage incidents, update CMDBs, trigger automated remediations, route telemetry data to TSDBs, and more.
 
 <img src="/images/multi-pipe.jpeg">
 
 ### Monitoring for your Infrastructure
 
-> Monitoring is the action of observing and checking the behaviors and outputs of a system and its components over time. - [@grepory](d), [Monitorama 2016](s)
+> Monitoring is the action of observing and checking the behaviors and outputs of a system and its components over time. - [@grepory](https://twitter.com/grepory), [Monitorama 2016](https://vimeo.com/173610062)
 
 <img src="/images/sys-context.jpeg">
 
