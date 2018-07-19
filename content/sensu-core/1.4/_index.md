@@ -10,12 +10,27 @@ tags: ["sensu", "core", "sensu core", "1.4", "index"]
 layout: "single"
 ---
 
-Sensu is an infrastructure and application monitoring and telemetry solution.
-Sensu provides a framework for monitoring infrastructure, service & application
-health, and business KPIs. Sensu is specifically designed to solve monitoring
-challenges introduced by modern infrastructure platforms with a mix of static,
-dynamic, and ephemeral infrastructure at scale (i.e. public, private, and hybrid
-clouds).
+<iframe src="https://ghbtns.com/github-btn.html?user=sensu&repo=sensu&type=star&count=true" frameborder="0" scrolling="0" width="95px" height="20px"></iframe> | [Learn about Sensu Enterprise](dd)
+
+Sensu is the open-source monitoring event pipeline built to reduce operator burden and make developers and business owners happy.
+Started in 2011, Sensu's pipeline approach solves the challenges of monitoring hybrid-cloud and ephemeral infrastructures with flexible, automated workflows and integrations with tools you already use.
+<b>Get started now: [Learn Sensu in 15 minutes](quick-start/learn-sensu-basics/).</b>
+
+<img src="/images/simple-pipe.jpeg">
+
+**Replace Nagios**: Keep running Nagios plugins & consolidate monitoring tools with an architecture designed to sustain large scale deployments across multiple clouds.
+
+**Empower Dev & Ops**: Automate system reliability & improve SRE retention.  Sensu provides a single platform for availability and performance monitoring.
+
+**Limitless Pipelines**: Validate & correlate events, send alerts, manage incidents, update CMDBs, trigger automated remediations, route telemetry data to TSDBs, & more.
+
+<img src="/images/multi-pipe.jpeg">
+
+### Monitoring for your Infrastructure
+
+> Monitoring is the action of observing and checking the behaviors and outputs of a system and its components over time. - [@grepory](d), [Monitorama 2016](s)
+
+<img src="/images/sys-context.jpeg">
 
 Sensu allows organizations to compose comprehensive monitoring & telemetry
 solutions to meet unique business requirements. By providing a platform to build
@@ -24,13 +39,7 @@ _how_. Sensu is installed on your organizations infrastructure &ndash; it is not
 a Software-as-a-Service (SaaS) solution &ndash; which means Sensu gives you full
 control over the availability of your monitoring solution.
 
-## Get Started
-
-- [The Five Minute Install](quick-start/five-minute-install/)
-- [Learn Sensu in 15 Minutes](quick-start/learn-sensu-basics/)
-- [Intro to Checks](guides/intro-to-checks)
-
-## Benefits
+### Benefits
 
 Sensu is a comprehensive infrastructure and application monitoring solution that
 provides the following benefits:
