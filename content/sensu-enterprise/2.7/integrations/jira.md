@@ -12,7 +12,7 @@ users only.**
 
 - [Overview](#overview)
 - [Configuration](#configuration)
-  - [Example(s) {#examples}](#examples-examples)
+  - [Example](#example)
   - [Integration Specification](#integration-specification)
     - [`jira` attributes](#jira-attributes)
 
@@ -22,7 +22,7 @@ Create and resolve [Jira][2] issues for [Sensu events][3].
 
 ## Configuration
 
-### Example(s) {#examples}
+### Example
 
 The following is an example global configuration for the `jira` enterprise
 event handler (integration).
