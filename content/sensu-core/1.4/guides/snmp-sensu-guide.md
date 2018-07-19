@@ -57,7 +57,7 @@ As well as change the configuration of the extension in `/etc/sensu/conf.d/snmp_
 {{< highlight json >}}
 {
   "snmp_trap": {
-    "community": "sensutest",
+    "community": "sensutest"
   }
 }{{< /highlight >}}
 
