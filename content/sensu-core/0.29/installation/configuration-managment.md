@@ -1,6 +1,5 @@
 ---
 title: "Configuration Management"
-date: 2017-10-26T12:53:47-07:00
 description: "Configuration Management with Sensu"
 weight: 16
 product: "Sensu Core"
@@ -10,9 +9,13 @@ menu:
     parent: installation
 ---
 
-## Overview
-Configuration management (CM) is highly recommended to get Sensu deployed in production and at scale.
-There are number of CM tools that have well defined modules to assist in that effort. 
+Configuration management is highly recommended to get Sensu deployed into production and at scale. Here are a few reasons why:
+
+* Version pin Sensu related software to avoid issues due to version drift as new Sensu components are deployed.
+* Quickly scale horizontally with Sensu Servers, RabbitMQ servers and Redis servers.
+* Ensure configuration between Sensu Servers remains the same.
+
+There are number of configuration management tools that have well defined modules to assist in that effort. 
 Below are resources to help get you started.
 
 ### Puppet
