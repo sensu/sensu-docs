@@ -456,6 +456,8 @@ sudo sensu-install -p mailer{{< /highlight >}}
 With this plugin package installed, the `handler-mailer.rb`
 executable is now available at `/opt/sensu/embedded/bin/handler-mailer.rb`.
 
+_NOTE: Some Sensu plugins and extensions require standard build tools like gcc and make, which may not be installed on a brand-new system. Without these build tools, installation will fail. You can obtain these tools using your package manager. Debian/Ubuntu users can install the build-essential metapackage, while RHEL/CentOS users can install gcc, gcc-c++, and make._
+
 * Similar to the check definition we wrote above, we will now need a
 definition to describe execution of the mailer handler.
 
