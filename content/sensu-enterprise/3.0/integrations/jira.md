@@ -12,8 +12,8 @@ users only.**
 
 - [Overview](#overview)
 - [Configuration](#configuration)
-  - [Example(s)](#examples)
-  - [Integration specification](#integration-specification)
+  - [Example](#example)
+  - [Integration Specification](#integration-specification)
     - [`jira` attributes](#jira-attributes)
 
 ## Overview
@@ -22,7 +22,7 @@ Create and resolve [Jira][2] issues for [Sensu events][3].
 
 ## Configuration
 
-### Example(s) {#examples}
+### Example
 
 The following is an example global configuration for the `jira` enterprise
 event handler (integration).
@@ -81,6 +81,14 @@ description  | The JIRA project key to use for issues. This option allows the in
 required     | false
 type         | String
 example      | {{< highlight shell >}}"project_key": "SEN"{{< /highlight >}}
+
+issue_type   | 
+-------------|------
+description  | Specifies default issue type for projects.
+required     | false
+type         | String
+default      | `Incident`
+example      | {{< highlight shell >}}"issue_type": "Bug"{{< /highlight >}}
 
 root_url     | 
 -------------|------

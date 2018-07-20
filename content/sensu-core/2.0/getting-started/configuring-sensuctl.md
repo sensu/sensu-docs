@@ -135,10 +135,8 @@ Usage:	sensuctl COMMAND
 
 Flags:
       --api-url string        host URL of Sensu installation
-      --cache-dir string      path to directory containing cache & temporary files (default
-                              "/Users/username/Library/Caches/sensu/sensuctl")
-      --config-dir string     path to directory containing configuration files (default
-                              "/Users/username/.config/sensu/sensuctl")
+      --cache-dir string      path to directory containing cache & temporary files (default "/home/eric/.cache/sensu/sensuctl")
+      --config-dir string     path to directory containing configuration files (default "/home/eric/.config/sensu/sensuctl")
       --environment string    environment in which we perform actions (default "default")
   -h, --help                  help for sensuctl
       --organization string   organization in which we perform actions (default "default")
@@ -146,7 +144,7 @@ Flags:
 Commands:
   completion   Output shell completion code for the specified shell (bash or zsh)
   configure    Initialize sensuctl configuration
-  import       import resources from STDIN
+  create       create new resources from file or STDIN
   logout       Logout from sensuctl
   version      Show the sensu-ctl version information
 
@@ -157,6 +155,7 @@ Management Commands:
   entity       Manage entities
   environment  Manage environments
   event        Manage events
+  extension    Manage extension registry
   filter       Manage filters
   handler      Manage handlers
   hook         Manage hooks
@@ -169,31 +168,9 @@ Management Commands:
 Run 'sensuctl COMMAND --help' for more information on a command.
 {{< /highlight >}}
 
-## Import
-
-On top of being able to create new resources interactively and with flags,
-sensuctl provides `import` commands for creating & updating resources via STDIN.
-
-{{< highlight json >}}
-{
-  "name": "marketing-site",
-  "command": "check-http.rb -u https://dean-learner.book",
-  "subscriptions": ["demo"],
-  "interval": 15,
-  "handlers": ["slack"],
-  "organization": "default",
-  "environment": "default"
-}
-{{< /highlight >}}
-
-{{< highlight shell >}}
-# cat my-check.json | sensuctl check import
-OK
-{{< /highlight >}}
-
 ## Create
 
-Similar to the `import` command, `sensuctl create` allows you to create and/or
+The `sensuctl create` command allows you to create and/or
 update resources by reading from STDIN or a flag configured file (`-f`). The
 accepted format of the `create` command is `wrapped-json`, which wraps the
 contents of the resource in `spec` and identifies its 2.x `type` (see below for
