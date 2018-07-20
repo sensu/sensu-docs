@@ -23,8 +23,10 @@
             {{ partial "nav" . }}
           </ul>
         {{ end }}
-
-        <a href="{{.Site.Params.repo_url}}/edit/master/content/{{.File.Path}}">Edit this page</a>
+        <a href="https://github.com/sensu/sensu-docs/issues/new">Was this page helpful?</a><br><br>
+        <iframe src="https://ghbtns.com/github-btn.html?user=sensu&repo=sensu-docs&type=star&count=true" frameborder="0" scrolling="0" width="170px" height="20px"></iframe><br><br><br>
+        <a href="{{.Site.Params.repo_url}}/edit/master/content/{{.File.Path}}">Edit on GitHub</a><br><br>
+        <a href="https://github.com/sensu/sensu-docs/blob/master/CONTRIBUTING.md">Read the contributing guide</a><br><br><br>
 
         <!-- Small section for Sensu links -->
         {{ if isset .Site.Params "author" }}
