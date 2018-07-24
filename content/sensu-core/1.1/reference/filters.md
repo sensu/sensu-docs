@@ -11,18 +11,12 @@ menu:
 
 ## Reference documentation
 
-- [What are Sensu Filters?](#what-are-sensu-filters)
-  - [When to use a filter](#when-to-use-a-filter)
 - [How do Sensu filters work?](#how-do-sensu-filters-work)
   - [Inclusive and exclusive filtering](#inclusive-and-exclusive-filtering)
   - [Filter attribute comparison](#filter-attribute-comparison)
   - [Filter attribute evaluation](#filter-attribute-evaluation)
 - [Filter attribute eval tokens](#filter-attribute-eval-tokens)
-  - [What are filter attribute eval tokens?](#what-are-filter-attribute-eval-tokens)
-  - [Example filter attribute eval token](#example-filter-attribute-eval-token)
-  - [Filter attribute eval token specification](#filter-attribute-eval-token-specification)
-    - [Eval token interpolation](#filter-attribute-eval-token-specification)
-    - [Eval token default values](#eval-token-default-values)
+- [Built-in Filters](#built-in-filters)
 - [Filter configuration](#filter-configuration)
   - [Filter definition specification](#filter-definition-specification)
     - [Filter naming](#filter-naming)
