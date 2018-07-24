@@ -292,7 +292,7 @@ tokens"` will be published to the Sensu server log._
 ## Built-in Filters
 ### Occurrences filter {#built-in-filters-occurrences}
 
-The occurrences filter is included in every install of Sensu.
+The occurrences filter is included in every installation of Sensu.
 It lets you control the number of duplicate events that reach the handler.
 You can apply the occurrences filter to a handler using the `filters` handler definition attribute.
 
@@ -314,7 +314,7 @@ Here's an example of a handler definition that uses the occurrences filter:
 
 The occurrences filter lets you configure the number of occurrences and the refresh interval at the check level using two check definition attributes: `occurrences` and `refresh`.
 
-Here's an example of a check definition that passes events to the `email` handler starting with the third occurrence every 60 minutes:
+Here's an example of a check definition that passes events to the `email` handler starting with the second occurrence every 60 minutes:
 
 {{< highlight json >}}
 {
@@ -349,9 +349,11 @@ example      | {{< highlight shell >}}"refresh": 3600{{< /highlight >}}
 
 ### Check dependencies filter {#check-dependencies-filter}
 
-The check dependencies filter is included in every install of Sensu.
-This filter can be applied to a handler using the `filters` handler definition attribute.
-The check dependencies filter lets you reduce notification noise by matching events when an event already exists, thereby only notifying for the root cause of a given failure.
+The check dependencies filter is included in every installation of Sensu.
+It lets you specify checks that are dependencies of a given check,
+so if the dependent check is already alerting, Sensu won't handle the check that is alerting as a result of its dependency.
+This lets you reduce notification noise by only alerting for the root cause of a given failure.
+The check dependencies filter can be applied to a handler using the `filters` handler definition attribute.
 
 Here's an example of a handler definition that uses the checks dependencies filter:
 
@@ -367,13 +369,13 @@ Here's an example of a handler definition that uses the checks dependencies filt
 }
 {{< /highlight >}}
 
-#### Defining check dependencies {#defining-check-dependencies}
+#### Check dependencies filter attributes {#check-dependencies-attributes}
 
-The check dependencies filter uses a custom check definition attribute `dependencies`.
+The check dependencies filter uses a custom check definition attribute: `dependencies`.
 The `dependencies` attribute should define an array containing names of checks or
 client/check pairs.
 
-Here's an example of a check definition that depends on a check named `mysql`:
+Here's an example of a check definition that will be filtered if a check named `mysql` from the same client is already alerting:
 
 {{< highlight json >}}
 {
@@ -382,17 +384,14 @@ Here's an example of a check definition that depends on a check named `mysql`:
       "command": "check-http.rb -u https://localhost:8080/api/v1/health",
       "subscribers": ["web_application"],
       "interval": 20,
-      "dependencies": [
-        "mysql"
-      ]
+      "dependencies": ["mysql"]
     }
   }
 }
 {{< /highlight >}}
 
 You can also define a more detailed dependency by specifying the client and check pair.
-
-Here's an example of a check definition that depends on a check named `mysql` coming from client `db-01`:
+Here's an example of a check definition that will be filtered if a check named `mysql` from client `db-01` is already alerting:
 
 {{< highlight json >}}
 {
@@ -401,20 +400,16 @@ Here's an example of a check definition that depends on a check named `mysql` co
       "command": "check-http.rb -u https://localhost:8080/api/v1/health",
       "subscribers": ["web_application"],
       "interval": 20,
-      "dependencies": [
-        "db-01/mysql"
-      ]
+      "dependencies": ["db-01/mysql"]
     }
   }
 }
 {{< /highlight >}}
 
-#### Check dependencies filter attributes {#check-dependencies-attributes}
-
 dependencies | 
 -------------|------
 description  | An array containing names of checks or client/check pairs
-required     | False
+required     | True if specified handler uses the check dependencies filter
 type         | Array
 example      | {{< highlight shell >}}"dependencies": ["db-01/mysql", "apache"]{{< /highlight >}}
 
