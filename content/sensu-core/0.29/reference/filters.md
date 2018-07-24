@@ -24,11 +24,6 @@ menu:
     - [Eval token interpolation](#filter-attribute-eval-token-specification)
     - [Eval token default values](#eval-token-default-values)
 - [Built-in Filters](#built-in-filters)
-  - [occurrences Filter](#built-in-filters-occurrences)
-    - [occurrences Filter Attributes](#occurrences-filter-attributes)
-  - [check_dependencies Filter](#check-dependencies-filter)
-    - [Defining Check Dependencies](#defining-check-dependencies)
-    - [check_dependencies Attributes](#check-dependencies-attributes)
 - [Filter configuration](#filter-configuration)
   - [Filter definition specification](#filter-definition-specification)
     - [Filter naming](#filter-naming)
@@ -302,34 +297,39 @@ attribute][13], an log entry indicating an error called `"filter eval unmatched
 tokens"` will be published to the Sensu server log._
 
 ## Built-in Filters
-### occurrences Filter {#built-in-filters-occurrences}
+### Occurrences filter {#built-in-filters-occurrences}
 
-The `occurrences` filter is included in every install of Sensu. This filter can 
-be applied to a handler using the "filters" handler definition attribute.
+The occurrences filter is included in every install of Sensu.
+It lets you control the number of duplicate events that reach the handler.
+You can apply the occurrences filter to a handler using the `filters` handler definition attribute.
 
-For example:
+Here's an example of a handler definition that uses the occurrences filter:
+
 {{< highlight json >}}
 {
   "handlers": {
     "email": {
-      "...": "...",
+      "type": "pipe",
+      "command": "email.rb",
       "filters": ["occurrences"]
     }
   }
 }
 {{< /highlight >}}
 
+#### Occurrences filter attributes {#occurrences-filter-attributes}
 
-The `occurrences` filter uses two check definition attributes, `occurrences` 
-and `refresh`. 
-#### occurrences Filter Attributes {#occurrences-filter-attributes}
+The occurrences filter lets you configure the number of occurrences and the refresh interval at the check level using two check definition attributes: `occurrences` and `refresh`.
 
-The `occurrences` filter uses two check definition attributes, `occurrences` and `refresh`. 
+Here's an example of a check definition that passes events to the `email` handler starting with the third occurrence every 60 minutes:
+
 {{< highlight json >}}
 {
   "checks": {
     "check-http": {
-      "...": "...",
+      "command": "check-http.rb -u https://localhost:8080/api/v1/health",
+      "subscribers": ["web_application"],
+      "interval": 20,
       "handlers": ["email"],
       "occurrences": 2,
       "refresh": 3600
@@ -340,29 +340,27 @@ The `occurrences` filter uses two check definition attributes, `occurrences` and
 
 occurrences  | 
 -------------|------
-description  | The number of events that must occur before an event is handled for the check.
-required     | True
+description  | The number of events that must occur before an event is handled for the check
+required     | True if the specified handler uses the occurrences filter
 type         | Integer
 default      | 1
-example      | {{< highlight shell >}}"occurrences": 1{{< /highlight >}}
+example      | {{< highlight shell >}}"occurrences": 2{{< /highlight >}}
 
 refresh      | 
 -------------|------
-description  | Time in seconds until event occurrences are handled for the check again.
+description  | Time in seconds until event occurrences are handled for the check again
 required     | False
 type         | Integer
 default      | 1800
 example      | {{< highlight shell >}}"refresh": 3600{{< /highlight >}}
 
-### check_dependencies Filter {#check-dependencies-filter}
+### Check dependencies filter {#check-dependencies-filter}
 
-The `check_dependencies` filter is included in every install of Sensu. This 
-filter can be applied to a handler using the `filters` handler definition
-attribute. The `check_dependencies` filter matches events when an event already exists,
-enabling the user to reduce notification noise, only being notified for the "root cause"
-of a given failure.
+The check dependencies filter is included in every install of Sensu.
+This filter can be applied to a handler using the `filters` handler definition attribute.
+The check dependencies filter lets you reduce notification noise by matching events when an event already exists, thereby only notifying for the root cause of a given failure.
 
-The example below shows `checks_dependencies` filter being applied to `custom_mailer`:
+Here's an example of a handler definition that uses the checks dependencies filter:
 
 {{< highlight json >}}
 {
@@ -376,22 +374,20 @@ The example below shows `checks_dependencies` filter being applied to `custom_ma
 }
 {{< /highlight >}}
 
-#### Defining check_dependencies {#defining-check-dependencies}
+#### Defining check dependencies {#defining-check-dependencies}
 
-The `check_dependencies` filter uses a custom check definition attribute `dependencies`.
+The check dependencies filter uses a custom check definition attribute `dependencies`.
 The `dependencies` attribute should define an array containing names of checks or
 client/check pairs.
 
-This example showcases a check configured to depend on any check called `mysql`:
+Here's an example of a check definition that depends on a check named `mysql`:
 
 {{< highlight json >}}
 {
   "checks": {
     "web_application_api": {
       "command": "check-http.rb -u https://localhost:8080/api/v1/health",
-      "subscribers": [
-        "web_application"
-      ],
+      "subscribers": ["web_application"],
       "interval": 20,
       "dependencies": [
         "mysql"
@@ -401,16 +397,16 @@ This example showcases a check configured to depend on any check called `mysql`:
 }
 {{< /highlight >}}
 
-We can define a more detailed dependency by specifying the `client` and `check` pair:
+You can also define a more detailed dependency by specifying the client and check pair.
+
+Here's an example of a check definition that depends on a check named `mysql` coming from client `db-01`:
 
 {{< highlight json >}}
 {
   "checks": {
     "web_application_api": {
       "command": "check-http.rb -u https://localhost:8080/api/v1/health",
-      "subscribers": [
-        "web_application"
-      ],
+      "subscribers": ["web_application"],
       "interval": 20,
       "dependencies": [
         "db-01/mysql"
@@ -420,18 +416,14 @@ We can define a more detailed dependency by specifying the `client` and `check` 
 }
 {{< /highlight >}}
 
-#### Attributes {#check-dependencies-attributes}
+#### Check dependencies filter attributes {#check-dependencies-attributes}
 
 dependencies | 
 -------------|------
-description  | An array containing names of checks or client/check pairs.
+description  | An array containing names of checks or client/check pairs
 required     | False
 type         | Array
-example      | {{< highlight shell >}}"dependencies": [
-        "db-01/mysql",
-        "apache"
-      ]{{< /highlight >}}
-
+example      | {{< highlight shell >}}"dependencies": ["db-01/mysql", "apache"]{{< /highlight >}}
 
 ## Filter configuration
 
