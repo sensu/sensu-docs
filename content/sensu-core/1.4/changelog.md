@@ -67,7 +67,7 @@ Source: [GitHub.com][61]
   for the check `source` attribute could cause the value of `source`
   to be returned as an empty string, causing strange display and user
   experience behaviors in the dashboard. The `source` attribute is now
-  removed by client when it's value is empty.
+  removed by the client when its value is empty.
 
 - **BUGFIX**: When using a handler extension, a bug in filter log
   messages made it possible for handler extension class variables to
