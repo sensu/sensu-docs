@@ -63,30 +63,35 @@ Source: [GitHub.com][61]
 
 ### CHANGES {#core-v1-4-3-changes}
 
-- **BUGFIX*: Failures when using token substitution to provide a value
+- **BUGFIX**: Failures when using token substitution to provide a value
   for the check `source` attribute could cause the value of `source`
   to be returned as an empty string, causing strange display and user
   experience behaviors in the dashboard. The `source` attribute is now
   removed by client when it's value is empty.
 
-- **BUGFIX*: When using a handler extension, a bug in filter log
+- **BUGFIX**: When using a handler extension, a bug in filter log
   messages made it possible for handler extension class variables to
   be leaked into Sensu's log files. Some users experienced very large
   logfiles as a symptom of this behavior. Handler extensions may now
   use class instance variables without having them leak into the log
   file.
 
-- **BUGFIX*: Lack of validation for check result `ttl` attribute on
+- **BUGFIX**: Lack of validation for check result `ttl` attribute on
   the /results API endpoint made it possible to submit check results
   with invalid TTL values and subsequently cause the Sensu server to
   crash. The /results API endpoint now appropriately applies
   validation to check result `ttl` attribute values.
 
-- **BUGFIX*: Check definitions generated using token substitution and
+- **BUGFIX**: Check definitions generated using token substitution and
   `proxy_requests` check definition attributes were not updated when
   token values changed, causing proxy request checks to
   misbehave. This has been fixed in the Sensu server by preventing the
   original check definition from being mutated.
+
+- **BUGFIX**: Under systemd, post-installation package scripts did not
+  properly execute `systemctl daemon-reload` when moving/updating Sensu
+  unit files. Daemon reload is now called appropriately when installing
+  via RPM or DEB packages.
 
 ## Core 1.4.2 Release Notes {#core-v1-4-2}
 
