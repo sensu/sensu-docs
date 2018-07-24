@@ -65,7 +65,7 @@ Source: [GitHub.com][61]
 
 - **BUGFIX**: Failures when using token substitution to provide a value
   for the check `source` attribute could cause the value of `source`
-  to be returned as an empty string, causing strange display and user
+  to be returned as an empty string, causing unexpected display and user
   experience behaviors in the dashboard. The `source` attribute is now
   removed by the client when its value is empty.
 
@@ -84,8 +84,8 @@ Source: [GitHub.com][61]
 
 - **BUGFIX**: Check definitions generated using token substitution and
   `proxy_requests` check definition attributes were not updated when
-  token values changed, causing proxy request checks to
-  misbehave. This has been fixed in the Sensu server by preventing the
+  token values changed, causing unexpected behavior in proxy request checks.
+	This has been fixed in the Sensu server by preventing the
   original check definition from being mutated.
 
 - **BUGFIX**: Under systemd, post-installation package scripts did not
