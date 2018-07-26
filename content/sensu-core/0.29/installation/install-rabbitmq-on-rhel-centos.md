@@ -26,24 +26,23 @@ RabbitMQ runs on the [Erlang runtime][1], so before you can install and run
 RabbitMQ, you'll need to install Erlang.
 
 Although Erlang runtime packages are included in the RPM repositories
-for most distributions, the versions included are often lag behind
+for most distributions, the included versions often lag behind
 what is supported by RabbitMQ releases. Per the [RabbitMQ Erlang
-Version Requirements][9] documentation:
+version requirements documentation][9]:
 
 > Erlang/OTP versions older than 19.3 are not supported by currently
 > maintained RabbitMQ release series.
 
 As a result, you will probably get better results installing a newer
 version of Erlang from an alternative source.
-
-Please see the [Erlang Version Requirements document][9]
+Please see the [Erlang version requirements documentation][9]
 for information on selecting and installing a compatible version of
 the Erlang runtime.
 
 ## Install RabbitMQ
 
 Although RabbitMQ packages are included in the RPM-based distribution
-repositories, the versions included often lag behind the supported
+repositories, the included versions often lag behind the supported
 RabbitMQ release series.
 
 Please see the [official RabbitMQ installation guide][2] for
