@@ -11,7 +11,7 @@ menu:
 
 We highly recommend using configuration management tools to deploy Sensu in production and at scale.
 
-* Pin versions of Sensu-related software to avoid issues due to version drift as new Sensu components are deployed.
+* Pin versions of Sensu-related software to ensure repeatable Sensu deployments.
 * Scale Sensu horizontally with additional Sensu, RabbitMQ, and Redis servers.
 * Ensure consistent configuration between Sensu Servers.
 
