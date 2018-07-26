@@ -2,16 +2,15 @@
 title: "CHANGELOG"
 description: "Release notes for Sensu Enterprise"
 product: "Sensu Enterprise"
-version: "3.0"
+version: "3.1"
 weight: 1
-menu: "sensu-enterprise-3.0"
+menu: "sensu-enterprise-3.1"
 ---
 
 _NOTE: Sensu Enterprise is built on Sensu Core. Sensu Core changes are documented in the [Sensu Core changelog][core-changelog]._
 
 ## Releases
 
-- [Enterprise 3.0.3 Release Notes](#enterprise-v3-0-3)
 - [Enterprise 3.0.2 Release Notes](#enterprise-v3-0-2)
 - [Enterprise 3.0.1 Release Notes](#enterprise-v3-0-1)
 - [Enterprise 3.0.0 Release Notes](#enterprise-v3-0-0)
@@ -45,18 +44,6 @@ _NOTE: Sensu Enterprise is built on Sensu Core. Sensu Core changes are documente
 - [Enterprise 1.14.1 Release Notes](#enterprise-v1-14-1)
 - [Enterprise 1.14.0 Release Notes](#enterprise-v1-14-0)
 - [Enterprise 1.13.0 Release Notes](#enterprise-v1-13-0)
-
-## Enterprise 3.0.3 Release Notes {#enterprise-v3-0-3}
-
-**July 20, 2018** &mdash; Sensu Enterprise version 3.0.3 has been
-released and is available for immediate download. Please note the
-following improvements:
-
-### CHANGES {#enterprise-v3-0-3-changes}
-
-- **BUGFIX**: A bug prevented Enterprise integrations from responding to
-notification failures correctly. Integrations now have more robust handling for
-contact notification failures.
 
 ## Enterprise 3.0.2 Release Notes {#enterprise-v3-0-2}
 
