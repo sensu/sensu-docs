@@ -17,6 +17,9 @@ previous: ../install-rabbitmq
   - [Example standalone configuration](#example-standalone-configuration)
   - [Example distributed configuration](#example-distributed-configuration)
 
+_NOTE: [Sensu Support][3] is available for RabbitMQ versions 3.6.4 and
+newer ([on Erlang version 19.3 or newer][4])._
+
 ## Install Erlang (the RabbitMQ runtime) {#install-erlang}
 
 RabbitMQ runs on the [Erlang runtime][1], so before you can install and run
@@ -39,16 +42,12 @@ the Erlang runtime.
 
 ## Install RabbitMQ
 
-According to the [official RabbitMQ installation guide][2], although RabbitMQ
-packages are included in the RPM-based distribution repositories,
-the versions included often lag behind RabbitMQ releases.
+Although RabbitMQ packages are included in the RPM-based distribution
+repositories, the versions included often lag behind the supported
+RabbitMQ release series.
 
 Please see the [official RabbitMQ installation guide][2] for
 recommended installation strategies.
-
-[Sensu Support][3] is available for RabbitMQ versions 3.6.4 and newer ([on
-Erlang version 19.3 or newer][4]).
-
 
 ## Managing the RabbitMQ service/process {#managing-the-rabbitmq-serviceprocess}
 
