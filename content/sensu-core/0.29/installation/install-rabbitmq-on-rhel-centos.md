@@ -17,11 +17,6 @@ previous: ../install-rabbitmq
   - [Example standalone configuration](#example-standalone-configuration)
   - [Example distributed configuration](#example-distributed-configuration)
 
-
-_NOTE: this guide uses the official software repositories and packages for
-Erlang and RabbitMQ, as many Linux distributions provide outdated versions that
-contain known security vulnerabilities and bugs._
-
 ## Install Erlang (the RabbitMQ runtime) {#install-erlang}
 
 RabbitMQ runs on the [Erlang runtime][1], so before you can install and run
