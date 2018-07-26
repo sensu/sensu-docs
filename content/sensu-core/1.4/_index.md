@@ -1,7 +1,6 @@
 ---
 title: "Sensu Core"
 description: "Sensu is an infrastructure and application monitoring and telemetry solution that provides a framework for monitoring infrastructure, service & application health, and business KPIs."
-date: 2017-07-21T13:06:31-07:00
 weight: -100
 menu: "sensu-core-1.4"
 version: "1.4"
@@ -18,23 +17,22 @@ Started in 2011, Sensu's pipeline approach solves the challenges of monitoring h
 
 <img src="/images/new-multi-pipe.jpeg">
 
-**Automate Monitoring Workflows**: Take advantage of Sensu's limitless pipelines to validate and correlate events, mutate data types, send alerts, manage incidents, route metrics to time series databases, integrate with custom tooling, and more.
+**Automate Monitoring Workflows**: Take advantage of limitless pipelines to validate and correlate events, mutate data formats, send alerts, manage incidents, route metrics to time series databases, integrate with custom tooling, and more.
 
 **Reduce Alert Fatigue**: Empower operators and developers with context-rich alerting, reporting, event handling, and auto-remediation.
 
-**Replace Nagios**: Re-use Nagios plugins while consolidating monitoring tools with an architecture designed to sustain large scale deployments across multiple clouds.
+**Replace Nagios**: Reuse Nagios plugins while consolidating monitoring tools with an architecture designed to sustain large scale deployments across multiple clouds.
 
-### Monitoring for your Infrastructure
+### Monitoring for Your Infrastructure
 
-> Monitoring is the action of observing and checking the behaviors and outputs of a system and its components over time. - [@grepory](https://twitter.com/grepory), [Monitorama 2016](https://vimeo.com/173610062)
+> Monitoring is the action of observing and checking the behaviors and outputs of a system and its components over time. - [Greg Poirier, Monitorama 2016](https://vimeo.com/173610062)
 
 <img src="/images/sys-context.jpeg">
 
-Sensu allows organizations to compose comprehensive monitoring & telemetry
-solutions to meet unique business requirements. By providing flexible pipelines,
-Sensu enables you to focus on _what_ to monitor, rather than _how_.
-Sensu is installed on your organizations infrastructure &ndash; it is not
-a Software-as-a-Service (SaaS) solution &ndash; which means Sensu gives you full
+Sensu allows organizations to craft monitoring workflows that meet unique business requirements.
+By providing flexible pipelines, Sensu enables you to focus on _what_ to monitor, rather than _how_.
+Sensu is installed on your organizations infrastructure&mdash;not
+a software-as-a-service solution&mdash;which means Sensu gives you full
 control over the availability of your monitoring solution.
 
 - **Monitor containers, microservices, and physical infrastructure using the same automated workflows.**
@@ -48,7 +46,8 @@ or integrate with the Sensu API.
 
 Get meaningful alerts when and where you need them.
 Sensu integrates with the tools and services your organization already
-uses like [PagerDuty][1], [Slack][2], and more. Check out the voer
+uses like [PagerDuty][1], [Slack][2], and more. Check out the
+[100+ plugins shared by the Sensu community][3].
 
 - **Support cloud-based infrastructure with dynamic client registration and de-registration.**
 
@@ -58,7 +57,7 @@ Sensu, so there's no need to manually add or configure new servers.
 - **Use infrastructure-as-code best practices and industry-standard tools.**
 
 Sensu exposes 100% of its configuration as JSON files, making it easy
-to integrate with tools like [Chef][9], [Puppet][10], and [Ansible][11]).
+to integrate with tools like [Chef][9], [Puppet][10], and [Ansible][11].
 
 - **Open source software backed by Sensu Inc.**
 
@@ -69,6 +68,7 @@ control, training, and other benefits, check out [Sensu Enterprise][14].
 
 [1]:  https://www.pagerduty.com
 [2]:  https://slack.com
+[3]:  https://github.com/sensu-plugins
 [4]:  /plugins/latest/reference/
 [9]:  http://www.chef.io
 [10]: https://puppetlabs.com
