@@ -23,6 +23,8 @@ Started in 2011, Sensu's pipeline approach solves the challenges of monitoring h
 
 **Replace Nagios**: Reuse Nagios plugins while consolidating monitoring tools with an architecture designed to sustain large scale deployments across multiple clouds.
 
+<i class="fa fa-youtube-play" aria-hidden="true"></i> <a target="_blank" href="https://www.youtube.com/watch?v=jUW4rAqazwA">I'd rather watch a video.</a>
+
 ### Monitoring for Your Infrastructure
 
 > Monitoring is the action of observing and checking the behaviors and outputs of a system and its components over time. - [Greg Poirier, Monitorama 2016](https://vimeo.com/173610062)
