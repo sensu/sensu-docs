@@ -9,14 +9,13 @@ menu:
     parent: installation
 ---
 
-Configuration management is highly recommended to get Sensu deployed into production and at scale. Here are a few reasons why:
+We highly recommend using configuration management tools to deploy Sensu in production and at scale.
 
-* Version pin Sensu related software to avoid issues due to version drift as new Sensu components are deployed.
-* Quickly scale horizontally with Sensu Servers, RabbitMQ servers and Redis servers.
-* Ensure configuration between Sensu Servers remains the same.
+* Pin versions of Sensu-related software to avoid issues due to version drift as new Sensu components are deployed.
+* Scale Sensu horizontally with additional Sensu, RabbitMQ, and Redis servers.
+* Ensure consistent configuration between Sensu Servers.
 
-There are number of configuration management tools that have well defined modules to assist in that effort. 
-Below are resources to help get you started.
+The following configuration management tools have well-defined Sensu modules to help you get started.
 
 ### Puppet
 The [Puppet][1] Sensu module can be found on the [Puppet Forge][2].
@@ -26,10 +25,10 @@ Sensu has [partnered][8] with [Learn Puppet][7] to enhance the Puppet module wit
 The [Chef][3] cookbook for Sensu can be found on the [Chef Supermarket][4].
 
 ### Ansible
-The [Ansible][5] Playbook for Sensu can be found on [Ansible Galaxy][6].
+The [Ansible][5] playbook for Sensu can be found on [Ansible Galaxy][6].
 
 ### Saltstack
-The [SaltStack][10] Formula for Sensu can be found at [SlatStack][11]
+The [SaltStack][10] formula for Sensu can be found at [SaltStack][11]
 
 
 [1]: https://puppet.com/
