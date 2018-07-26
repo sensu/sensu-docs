@@ -18,9 +18,9 @@ Started in 2011, Sensu's pipeline approach solves the challenges of monitoring h
 
 <img src="/images/new-multi-pipe.jpeg">
 
-**Automate Monitoring Workflows**: Take advantage of Sensu's limitless pipelines to validate and correlate events, mutate data types, send alerts, manage incidents, update configuration management databases, route metrics to time series databases, integrate with custom tooling, and more.
+**Automate Monitoring Workflows**: Take advantage of Sensu's limitless pipelines to validate and correlate events, mutate data types, send alerts, manage incidents, route metrics to time series databases, integrate with custom tooling, and more.
 
-**Reduce Alert Fatigue**: Empower Operators and Developers with context-rich alerting, reporting, event handling, and auto-remediation.
+**Reduce Alert Fatigue**: Empower operators and developers with context-rich alerting, reporting, event handling, and auto-remediation.
 
 **Replace Nagios**: Re-use Nagios plugins while consolidating monitoring tools with an architecture designed to sustain large scale deployments across multiple clouds.
 
@@ -37,30 +37,30 @@ Sensu is installed on your organizations infrastructure &ndash; it is not
 a Software-as-a-Service (SaaS) solution &ndash; which means Sensu gives you full
 control over the availability of your monitoring solution.
 
-- **Monitor containers, microservices, and physical infrastructure using the same automated workflows**
+- **Monitor containers, microservices, and physical infrastructure using the same automated workflows.**
 
 Sensu is a flexible, scalable monitoring event pipeline that works with
 everything from the server closet to Kubernetes. Using custom-built tools?
 Write your own [Sensu plugins][4] in the language of your choice (Ruby, Go, Python, you name it)
 or integrate with the Sensu API.
 
-- **Send context-rich alerts and notifications**
+- **Improve team signal by sending context-rich alerts and notifications.**
 
 Get meaningful alerts when and where you need them.
 Sensu integrates with the tools and services your organization already
 uses like [PagerDuty][1], [Slack][2], and more. Check out the voer
 
-- **Support cloud-based infrastructure with dynamic client registration and de-registration**
+- **Support cloud-based infrastructure with dynamic client registration and de-registration.**
 
 When servers are provisioned, they automatically register themselves with
 Sensu, so there's no need to manually add or configure new servers.
 
-- **Use infrastructure-as-code best practices**
+- **Use infrastructure-as-code best practices and industry-standard tools.**
 
 Sensu exposes 100% of its configuration as JSON files, making it easy
 to integrate with tools like [Chef][9], [Puppet][10], and [Ansible][11]).
 
-- **Open source software with commercial support**
+- **Open source software backed by Sensu Inc.**
 
 Sensu Core is open-source software freely available under a
 permissive [MIT License][12] and publicly available on [GitHub][13].
