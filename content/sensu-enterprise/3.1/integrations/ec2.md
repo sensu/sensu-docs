@@ -39,7 +39,13 @@ handler (integration).
     "access_key_id": "AlygD0X6Z4Xr2m3gl70J",
     "secret_access_key": "y9Jt5OqNOqdy5NCFjhcUsHMb6YqSbReLAJsy4d6obSZIWySv",
     "allowed_instance_states": ["running"],
-    "timeout": 10
+    "timeout": 10,
+    "accounts": [
+      {
+        "name": "sensuapp",
+        "role_arn": "arn:aws:iam::921689585014:role/CrossAccountSignin"
+      }
+    ]
   }
 }
 {{< /highlight >}}
@@ -102,14 +108,33 @@ type           | Array
 allowed values | `ok`, `warning`, `critical`, `unknown`
 example        | {{< highlight shell >}} "severities": ["critical", "unknown"]{{< /highlight >}}
 
-timeout      | 
+accounts     | 
 -------------|------
-description  | The handler execution duration timeout in seconds (hard stop).
+description  | List of trusted client names and roles? See [`name` and `role_arn` attributes][7].
 required     | false
-type         | Integer
-default      | `10`
-example      | {{< highlight shell >}}"timeout": 30{{< /highlight >}}
+type         | Array of hashes
+example      | {{< highlight shell >}}"accounts": [
+  {
+    "name": "sensuapp",
+    "role_arn": "arn:aws:iam::921689585014:role/CrossAccountSignin"
+  }
+]{{< /highlight >}}
 
+#### `accounts` attributes
+
+name         | 
+-------------|------
+description  | AWS account name?
+required     | false
+type         | String
+example      | {{< highlight shell >}}"name": "sensuapp"{{< /highlight >}}
+
+role_arn     | 
+-------------|------
+description  | Amazon resource role names?
+required     | false
+type         | String
+example      | {{< highlight shell >}}"role_arn": "arn:aws:iam::921689585014:role/CrossAccountSignin"{{< /highlight >}}
 
 [?]:  #
 [1]:  /sensu-enterprise
@@ -118,3 +143,4 @@ example      | {{< highlight shell >}}"timeout": 30{{< /highlight >}}
 [4]:  /sensu-core/1.2/reference/clients#ec2-attributes
 [5]:  /sensu-core/1.2/reference/events#event-data
 [6]:  /sensu-core/1.2/reference/configuration#configuration-scopes
+[7]:  #accounts-attributes
