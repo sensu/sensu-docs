@@ -15,6 +15,9 @@ users only.**
   - [Example(s)](#examples)
   - [Integration Specification](#integration-specification)
     - [`ec2` attributes](#ec2-attributes)
+- [Multi-Account Access](#multi-account-access)
+	- [Client Configuration](#client-configuration)
+	- [Integration Configuration](#integration-configuration)
 
 ## Overview
 
@@ -39,13 +42,7 @@ handler (integration).
     "access_key_id": "AlygD0X6Z4Xr2m3gl70J",
     "secret_access_key": "y9Jt5OqNOqdy5NCFjhcUsHMb6YqSbReLAJsy4d6obSZIWySv",
     "allowed_instance_states": ["running"],
-    "timeout": 10,
-    "accounts": [
-      {
-        "name": "sensuapp",
-        "role_arn": "arn:aws:iam::921689585014:role/CrossAccountSignin"
-      }
-    ]
+    "timeout": 10
   }
 }
 {{< /highlight >}}
@@ -108,9 +105,69 @@ type           | Array
 allowed values | `ok`, `warning`, `critical`, `unknown`
 example        | {{< highlight shell >}} "severities": ["critical", "unknown"]{{< /highlight >}}
 
+timeout      | 
+-------------|------
+description  | The handler execution duration timeout in seconds (hard stop).
+required     | false
+type         | Integer
+default      | `10`
+example      | {{< highlight shell >}}"timeout": 30{{< /highlight >}}
+
+## Multi-Account Access
+
+### Client Configuration
+The EC2 integration supports account configuration at the client level when accessing EC2.
+To configure multi-account access, add the `account` attribute to the Sensu client configuration within the `ec2` scope.
+
+#### Client Configuration Example
+
+{{< highlight json >}}{
+    "client": {
+      "name": "i-424242",
+      "subscriptions": ["production"],
+      "ec2": {
+          "account": "sensuapp"
+      }
+    }
+}{{< /highlight >}}
+
+#### `ec2` attributes
+
+account      | 
+-------------|------
+description  | The name of the account Sensu Enterprise should use to access EC2, used internally to Sensu only
+required     | false
+type         | String
+example      | {{< highlight shell >}}"account": "sensuapp"{{< /highlight >}}
+
+### Integration Configuration
+To enable multi-account support in the EC2 integration, add the `accounts` attributes, `name` and `role_arn`, to the EC2 integration configuration in Sensu.
+When processing events from clients with an `ec2.account` attribute, Sensu Enterprise applies the matching Amazon resource name (`role_arn`) stored in the integration configuration to access EC2.
+
+#### Integration Configuration Example
+
+{{< highlight json >}}
+{
+  "ec2": {
+    "region": "us-west-2",
+    "access_key_id": "AlygD0X6Z4Xr2m3gl70J",
+    "secret_access_key": "y9Jt5OqNOqdy5NCFjhcUsHMb6YqSbReLAJsy4d6obSZIWySv",
+    "allowed_instance_states": ["running"],
+    "timeout": 10,
+    "accounts": [
+      {
+        "name": "sensuapp",
+        "role_arn": "arn:aws:iam::921689585014:role/CrossAccountSignin"
+      }
+    ]
+  }
+}
+{{< /highlight >}}
+
+#### `accounts` attributes
 accounts     | 
 -------------|------
-description  | List of trusted client names and roles? See [`name` and `role_arn` attributes][7].
+description  | Amazon resource names to use to access EC2
 required     | false
 type         | Array of hashes
 example      | {{< highlight shell >}}"accounts": [
@@ -120,18 +177,16 @@ example      | {{< highlight shell >}}"accounts": [
   }
 ]{{< /highlight >}}
 
-#### `accounts` attributes
-
 name         | 
 -------------|------
-description  | AWS account name?
+description  | Account name configured in the Sensu client
 required     | false
 type         | String
 example      | {{< highlight shell >}}"name": "sensuapp"{{< /highlight >}}
 
 role_arn     | 
 -------------|------
-description  | Amazon resource role names?
+description  | Amazon resource name for the account
 required     | false
 type         | String
 example      | {{< highlight shell >}}"role_arn": "arn:aws:iam::921689585014:role/CrossAccountSignin"{{< /highlight >}}
@@ -143,4 +198,3 @@ example      | {{< highlight shell >}}"role_arn": "arn:aws:iam::921689585014:rol
 [4]:  /sensu-core/1.2/reference/clients#ec2-attributes
 [5]:  /sensu-core/1.2/reference/events#event-data
 [6]:  /sensu-core/1.2/reference/configuration#configuration-scopes
-[7]:  #accounts-attributes
