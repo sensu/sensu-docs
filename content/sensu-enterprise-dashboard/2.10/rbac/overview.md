@@ -357,8 +357,8 @@ example        | {{< highlight shell >}}"methods": {
 [2]:  https://enterprise.github.com/home
 [3]:  https://gitlab.com
 [4]:  ../../#what-is-a-sensu-datacenter
-[5]:  /sensu-core/1.0/reference/clients#client-subscriptions
-[6]:  /sensu-enterprise/2.8/api
+[5]:  /sensu-core/latest/reference/clients#client-subscriptions
+[6]:  /sensu-enterprise/latest/api
 [7]:  ../rbac-for-ldap
 [8]:  ../rbac-for-github
 [9]:  ../rbac-for-gitlab
@@ -367,7 +367,7 @@ example        | {{< highlight shell >}}"methods": {
 [12]: https://gitlab.com/groups/heavywater
 [14]: ../../#what-is-the-sensu-enterprise-console
 [15]: #roles-attributes
-[16]: /sensu-core/1.0/api/clients
-[17]: /sensu-core/1.0/reference/configuration#configuration-scopes
+[16]: /sensu-core/latest/api/clients
+[17]: /sensu-core/latest/reference/configuration#configuration-scopes
 [18]: #methods-attributes
 [19]: #providing-an-access-token

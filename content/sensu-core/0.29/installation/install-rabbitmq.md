@@ -1,7 +1,7 @@
 ---
 title: "Install RabbitMQ"
 description: "The complete Sensu installation guide."
-version: 0.29
+version: "0.29"
 product: "Sensu Core"
 weight: 7
 previous: ../install-redis

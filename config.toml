@@ -68,6 +68,7 @@ ignoreFiles = [ "sensu-doc-template.md" ]
         weight = 2
         latest = "3.0"
         [params.products.sensu_enterprise.versions]
+            "3.1" = ["Ubuntu/Debian", "RHEL/CentOS"]
             "3.0" = ["Ubuntu/Debian", "RHEL/CentOS"]
             "2.8" = ["Ubuntu/Debian", "RHEL/CentOS"]
             "2.7" = ["Ubuntu/Debian", "RHEL/CentOS"]
@@ -78,8 +79,9 @@ ignoreFiles = [ "sensu-doc-template.md" ]
         name = "Sensu Enterprise Dashboard"
         description = "The dashboard for Sensu Enterprise with RBAC and more, built on Uchiwa."
         weight = 3
-        latest = "2.11"
+        latest = "2.12"
         [params.products.sensu_enterprise_dashboard.versions]
+            "2.12" = ["Ubuntu/Debian", "RHEL/CentOS"]
             "2.11" = ["Ubuntu/Debian", "RHEL/CentOS"]
             "2.10" = ["Ubuntu/Debian", "RHEL/CentOS"]
             "2.9" = ["Ubuntu/Debian", "RHEL/CentOS"]
