@@ -47,7 +47,7 @@ The following attributes are configured within the `{"pagerduty": {} }`
 
 routing_key  | 
 -------------|------
-description  | The PagerDuty integration key to use when creating and resolving incidents.
+description  | The PagerDuty integration key to use when creating and resolving incidents. _NOTE: If you're using an integration key for PagerDuty's Events API v1, you can continue to use `service_key` instead of `routing_key`._
 required     | true
 type         | String
 example      | {{< highlight shell >}}"routing_key": "r3FPuDvNOTEDyQYCc7trBkymIFcy2NkE"{{< /highlight >}}
