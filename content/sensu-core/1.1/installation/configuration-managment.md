@@ -22,7 +22,7 @@ The [Puppet][1] Sensu module can be found on the [Puppet Forge][2].
 Sensu has [partnered][8] with [Learn Puppet][7] to enhance the Puppet module with new features, bug fixes, and ensure Sensu 2.0 has a supported [Puppet module][9].
 
 ### Chef
-The [Chef][3] cookbook for Sensu can be found on the [Chef Supermarket][4].
+The [Chef][3] cookbook for Sensu can be found on the [Chef Supermarket][4]. Interested in more information on Sensu + Chef? Get some helpful assets [here][12].
 
 ### Ansible
 The [Ansible][5] playbook for Sensu can be found on [Ansible Galaxy][6].
