@@ -2,10 +2,10 @@
 title: "Monitoring Sensu with Sensu"
 description: "Strategies and best practices for monitoring Sensu with Sensu"
 product: "Sensu Core"
-version: "1.4"
+version: "1.0"
 weight: 11
 menu:
-  sensu-core-1.4:
+  sensu-core-1.0:
     parent: guides
 ---
 
