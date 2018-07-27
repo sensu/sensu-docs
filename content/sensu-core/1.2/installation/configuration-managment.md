@@ -42,3 +42,4 @@ The [SaltStack][10] formula for Sensu can be found at [SaltStack][11]
 [9]: https://github.com/sensu/sensu-puppet/issues/901
 [10]: https://saltstack.com/
 [11]: https://github.com/saltstack-formulas/sensu-formula
+[12]: http://monitoringlove.sensu.io/chef
