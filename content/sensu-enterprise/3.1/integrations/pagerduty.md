@@ -19,8 +19,8 @@ users only.**
 ## Overview
 
 Create and resolve [PagerDuty][2] incidents for events. After [configuring a
-service in PagerDuty][3], configure the handler (integration) with the provided
-service key.
+service in PagerDuty for Events API v2][3], configure the handler (integration) with the provided
+integration key.
 
 ## Configuration
 
@@ -32,7 +32,7 @@ event handler (integration).
 {{< highlight json >}}
 {
   "pagerduty": {
-    "service_key": "r3FPuDvNOTEDyQYCc7trBkymIFcy2NkE",
+    "routing_key": "r3FPuDvNOTEDyQYCc7trBkymIFcy2NkE",
     "timeout": 10
   }
 }
@@ -45,12 +45,12 @@ event handler (integration).
 The following attributes are configured within the `{"pagerduty": {} }`
 [configuration scope][4].
 
-service_key  | 
+routing_key  | 
 -------------|------
-description  | The PagerDuty service key to use when creating and resolving incidents.
+description  | The PagerDuty integration key to use when creating and resolving incidents.
 required     | true
 type         | String
-example      | {{< highlight shell >}}"service_key": "r3FPuDvNOTEDyQYCc7trBkymIFcy2NkE"{{< /highlight >}}
+example      | {{< highlight shell >}}"routing_key": "r3FPuDvNOTEDyQYCc7trBkymIFcy2NkE"{{< /highlight >}}
 
 filters        | 
 ---------------|------
