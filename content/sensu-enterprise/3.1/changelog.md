@@ -11,6 +11,7 @@ _NOTE: Sensu Enterprise is built on Sensu Core. Sensu Core changes are documente
 
 ## Releases
 
+- [Enterprise 3.1.0 Release Notes](#enterprise-v3-1-0)
 - [Enterprise 3.0.2 Release Notes](#enterprise-v3-0-2)
 - [Enterprise 3.0.1 Release Notes](#enterprise-v3-0-1)
 - [Enterprise 3.0.0 Release Notes](#enterprise-v3-0-0)
@@ -44,6 +45,20 @@ _NOTE: Sensu Enterprise is built on Sensu Core. Sensu Core changes are documente
 - [Enterprise 1.14.1 Release Notes](#enterprise-v1-14-1)
 - [Enterprise 1.14.0 Release Notes](#enterprise-v1-14-0)
 - [Enterprise 1.13.0 Release Notes](#enterprise-v1-13-0)
+
+## Enterprise 3.1.0 Release Notes {#enterprise-v3-1-0}
+
+**July 31, 2018** &mdash; Sensu Enterprise version 3.1.0 has been
+released and is available for immediate download. Please note the
+following improvements:
+
+### CHANGES {#enterprise-v3-1-0-changes}
+
+- **IMPROVEMENT**: The EC2 integration now supports...
+
+- **IMPROVEMENT**: The PagerDuty integration now supports PagerDuty Events API v2.
+See the [PagerDuty integration docs](../../integrations/pagerduty) to add a v2 API key to Sensu Enterprise.
+No changes are required for existing `service-key`
 
 ## Enterprise 3.0.2 Release Notes {#enterprise-v3-0-2}
 
