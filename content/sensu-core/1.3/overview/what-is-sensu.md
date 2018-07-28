@@ -30,7 +30,8 @@ exit status codes used are 0 for OK, 1 for WARNING, 2 for CRITICAL, and 3 or
 greater to indicate UNKNOWN or CUSTOM. Sensu checks use the same specification
 as Nagios, therefore, Nagios check plugins may be used with Sensu. Service
 checks produce results that are processed by the event processor (i.e. the Sensu
-server). You can learn more about how to reuse your existing Nagios checks with Sensu [here][19].
+server).
+You can learn more about how to reuse your existing Nagios checks with Sensu [here][19].
 
 [Learn more >][17]
 
