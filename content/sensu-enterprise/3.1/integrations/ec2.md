@@ -15,7 +15,7 @@ users only.**
   - [Example(s)](#examples)
   - [Integration Specification](#integration-specification)
     - [`ec2` attributes](#ec2-attributes)
-- [Multi-Account Access](#multi-account-access)
+- [Cross-Account Access](#cross-account-access)
 	- [Client Configuration](#client-configuration)
 	- [Integration Configuration](#integration-configuration)
 
@@ -113,11 +113,12 @@ type         | Integer
 default      | `10`
 example      | {{< highlight shell >}}"timeout": 30{{< /highlight >}}
 
-## Multi-Account Access
+## Cross-Account Access
+Cross-account access allows you to use IAM-defined trust relationships to access a Sensu Enterprise instance from EC2 clients across multiple AWS accounts.
 
 ### Client Configuration
-The EC2 integration supports account configuration at the client level when accessing EC2.
-To configure multi-account access, add the `account` attribute to the Sensu client configuration within the `ec2` scope.
+The EC2 integration supports account access configuration at the client level.
+To configure account access, add the `account` attribute to the Sensu client configuration within the `ec2` scope.
 
 #### Client Configuration Example
 
@@ -141,7 +142,7 @@ type         | String
 example      | {{< highlight shell >}}"account": "sensuapp"{{< /highlight >}}
 
 ### Integration Configuration
-To enable multi-account support in the EC2 integration, add the `accounts` attributes, `name` and `role_arn`, to the EC2 integration configuration in Sensu.
+To enable cross-account support in the EC2 integration, add the `accounts` attributes, `name` and `role_arn`, to the EC2 integration configuration in Sensu.
 When processing events from clients with an `ec2.account` attribute, Sensu Enterprise applies the matching Amazon resource name (`role_arn`) stored in the integration configuration to access EC2.
 
 #### Integration Configuration Example
