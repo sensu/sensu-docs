@@ -31,6 +31,7 @@ greater to indicate UNKNOWN or CUSTOM. Sensu checks use the same specification
 as Nagios, therefore, Nagios check plugins may be used with Sensu. Service
 checks produce results that are processed by the event processor (i.e. the Sensu
 server).
+You can learn more about how to reuse your existing Nagios checks with Sensu [here][19].
 
 [Learn more >][17]
 
@@ -47,7 +48,9 @@ Graphite).
 
 [Learn more >][18]
 
+
 [7]:  #event-processing
 [16]: #service-checks
 [17]: ../../reference/clients/
 [18]: ../../reference/handlers/
+[19]: http://monitoringlove.sensu.io/nagios
