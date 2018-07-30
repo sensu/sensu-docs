@@ -57,11 +57,11 @@ following improvements:
 - **IMPROVEMENT**: The EC2 integration now supports cross-account access,
 allowing you to use IAM-defined trust relationships to access a Sensu Enterprise
 instance from EC2 clients across multiple AWS accounts. See the
-[EC2 integration docs](../../integrations/ec2#cross-account-access)
+[EC2 integration docs](../integrations/ec2#cross-account-access)
 to learn about setting up cross-account access.
 
 - **IMPROVEMENT**: The PagerDuty integration now supports PagerDuty Events API v2.
-See the [PagerDuty integration docs](../../integrations/pagerduty) to add a v2 API key to Sensu Enterprise.
+See the [PagerDuty integration docs](../integrations/pagerduty) to add a v2 API key to Sensu Enterprise.
 No changes are required for existing v1 API integrations using a `service_key` attribute.
 
 - **IMPROVEMENT**: Contact routing now lets you configure contacts that will receive alerts only for certain severities, giving you even more flexibility in handling and responding to alerts.
