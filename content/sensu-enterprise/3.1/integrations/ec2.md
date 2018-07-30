@@ -39,8 +39,8 @@ handler (integration).
 {
   "ec2": {
     "region": "us-west-2",
-    "access_key_id": "AlygD0X6Z4Xr2m3gl70J",
-    "secret_access_key": "y9Jt5OqNOqdy5NCFjhcUsHMb6YqSbReLAJsy4d6obSZIWySv",
+    "access_key_id": "xxxxxxxxxxxxx",
+    "secret_access_key": "xxxxxxxxxxxxxxxxxxxxxxxxx",
     "allowed_instance_states": ["running"],
     "timeout": 10
   }
@@ -71,14 +71,14 @@ access_key_id |
 description   | The AWS IAM user access key ID to use when querying the EC2 API.
 required      | true
 type          | String
-example       | {{< highlight shell >}}"access_key_id": "AlygD0X6Z4Xr2m3gl70J"{{< /highlight >}}
+example       | {{< highlight shell >}}"access_key_id": "xxxxxxxxxxxxx"{{< /highlight >}}
 
 secret_access_key | 
 ------------------|------
 description       | The AWS IAM user secret access key to use when querying the EC2 API.
 required          | true
 type              | String
-example           | {{< highlight shell >}}"secret_access_key": "y9Jt5OqNOqdy5NCFjhcUsHMb6YqSbReLAJsy4d6obSZIWySv"{{< /highlight >}}
+example           | {{< highlight shell >}}"secret_access_key": "xxxxxxxxxxxxxxxxxxxxxxxxx"{{< /highlight >}}
 
 allowed_instance_states | 
 ------------------------|------
@@ -151,14 +151,14 @@ When processing events from clients with an `ec2.account` attribute, Sensu Enter
 {
   "ec2": {
     "region": "us-west-2",
-    "access_key_id": "AlygD0X6Z4Xr2m3gl70J",
-    "secret_access_key": "y9Jt5OqNOqdy5NCFjhcUsHMb6YqSbReLAJsy4d6obSZIWySv",
+    "access_key_id": "xxxxxxxxxxxxx",
+    "secret_access_key": "xxxxxxxxxxxxxxxxxxxxxxxxx",
     "allowed_instance_states": ["running"],
     "timeout": 10,
     "accounts": [
       {
         "name": "sensuapp",
-        "role_arn": "arn:aws:iam::921689585014:role/CrossAccountSignin"
+        "role_arn": "arn:aws:iam::xxxxxxxxxx:role/CrossAccountSignin"
       }
     ]
   }
@@ -174,7 +174,7 @@ type         | Array of hashes
 example      | {{< highlight shell >}}"accounts": [
   {
     "name": "sensuapp",
-    "role_arn": "arn:aws:iam::921689585014:role/CrossAccountSignin"
+    "role_arn": "arn:aws:iam::xxxxxxxxxx:role/CrossAccountSignin"
   }
 ]{{< /highlight >}}
 
@@ -190,7 +190,7 @@ role_arn     |
 description  | Amazon resource name for the account
 required     | false
 type         | String
-example      | {{< highlight shell >}}"role_arn": "arn:aws:iam::921689585014:role/CrossAccountSignin"{{< /highlight >}}
+example      | {{< highlight shell >}}"role_arn": "arn:aws:iam::xxxxxxxxxx:role/CrossAccountSignin"{{< /highlight >}}
 
 [?]:  #
 [1]:  /sensu-enterprise
