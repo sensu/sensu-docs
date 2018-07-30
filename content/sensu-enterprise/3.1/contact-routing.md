@@ -88,7 +88,7 @@ JSON configuration file located at `/etc/sensu/conf.d/contacts/ops.json`.
   "contacts": {
     "support": {
       "pagerduty": {
-        "service_key": "r3FPuDvNOTEDyQYCc7trBkymIFcy2NkE"
+        "routing_key": "r3FPuDvNOTEDyQYCc7trBkymIFcy2NkE"
       },
       "slack": {
         "channel": "#support",
@@ -178,7 +178,7 @@ For example, the following [PagerDuty integration][6] configuration sends alerts
 
 {
   "pagerduty": {
-    "service_key": "r3FPuDvNOTEDyQYCc7trBkymIFcy2NkE",
+    "routing_key": "r3FPuDvNOTEDyQYCc7trBkymIFcy2NkE",
     "timeout": 10,
     "severities": ["warning", "critical"]
   }
@@ -193,7 +193,7 @@ The following example shows a contact configured to receive alerts through the P
   "contacts": {
     "support": {
       "pagerduty": {
-        "service_key": "r3FPuDvNOTEDyQYCc7trBkymIFcy2NkE",
+        "routing_key": "r3FPuDvNOTEDyQYCc7trBkymIFcy2NkE",
         "severities": ["critical"]
       }
     }
