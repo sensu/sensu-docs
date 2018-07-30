@@ -14,6 +14,7 @@ menu: "sensu-enterprise-3.1"
   - [Example Contact Routing definition](#example-contact-routing-definition)
   - [Contact Routing definition specification](#contact-routing-definition-specification)
     - [`CONTACT` attributes](#contact-attributes)
+    - [Severities](#severities)
 
 ## What is contact routing?
 
