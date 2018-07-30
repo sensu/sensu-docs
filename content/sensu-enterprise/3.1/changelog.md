@@ -11,6 +11,7 @@ _NOTE: Sensu Enterprise is built on Sensu Core. Sensu Core changes are documente
 
 ## Releases
 
+- [Enterprise 3.1.0 Release Notes](#enterprise-v3-1-0)
 - [Enterprise 3.0.2 Release Notes](#enterprise-v3-0-2)
 - [Enterprise 3.0.1 Release Notes](#enterprise-v3-0-1)
 - [Enterprise 3.0.0 Release Notes](#enterprise-v3-0-0)
@@ -44,6 +45,29 @@ _NOTE: Sensu Enterprise is built on Sensu Core. Sensu Core changes are documente
 - [Enterprise 1.14.1 Release Notes](#enterprise-v1-14-1)
 - [Enterprise 1.14.0 Release Notes](#enterprise-v1-14-0)
 - [Enterprise 1.13.0 Release Notes](#enterprise-v1-13-0)
+
+## Enterprise 3.1.0 Release Notes {#enterprise-v3-1-0}
+
+**July 30, 2018** &mdash; Sensu Enterprise version 3.1.0 has been
+released and is available for immediate download. Please note the
+following improvements:
+
+### CHANGES {#enterprise-v3-1-0-changes}
+
+- **IMPROVEMENT**: The EC2 integration now supports cross-account access,
+allowing you to use IAM-defined trust relationships to access a Sensu Enterprise
+instance from EC2 clients across multiple AWS accounts. See the
+[EC2 integration docs](../integrations/ec2#cross-account-access)
+to learn about setting up cross-account access.
+
+- **IMPROVEMENT**: The PagerDuty integration now supports PagerDuty Events API v2.
+See the [PagerDuty integration docs](../integrations/pagerduty) to add a v2 API key to Sensu Enterprise.
+No changes are required for existing v1 API integrations using a `service_key` attribute.
+
+- **IMPROVEMENT**: Contact routing now lets you configure contacts that will receive alerts only for certain severities, giving you even more flexibility in handling and responding to alerts.
+See the [contact routing docs](../contact-routing#severities) to configure contact severities.
+
+- **IMPROVEMENT**: Built on [Sensu Core 1.4.3][core-v1-4-3].
 
 ## Enterprise 3.0.2 Release Notes {#enterprise-v3-0-2}
 
@@ -626,5 +650,5 @@ This release includes potentially breaking, backwards-incompatible changes:
 [custom-client-attr]: /sensu-core/1.4/reference/clients/#custom-attributes
 [ec2-client-attr]: /sensu-core/1.4/reference/clients/#ec2-attributes
 
-<!-- core -->
-[core-v0-26-0-important] /sensu-core/1.2/changelog/#core-v0-26-0-important
+<!-- 3.1 -->
+[core-v1-4-3]: /sensu-core/1.4/changelog/#core-v1-4-3
