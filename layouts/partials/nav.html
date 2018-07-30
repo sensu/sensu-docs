@@ -31,7 +31,7 @@
           <li><a class="menu-title" href="/{{ $url }}/{{ $.Params.version }}">{{ $niceName }}</a><ul class="toc-menu-container">
 
           <!-- Loop through the menus pages -->
-          {{ range $y, $x := $v }}
+          {{ range $y, $x := sort $v "Weight" }}
 
           <!-- Determine if one the children of this menu is active so we can apply the proper styling -->
             {{ $isCurrent := ($currentNode.HasMenuCurrent $k $x) }}
