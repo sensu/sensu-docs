@@ -1,6 +1,6 @@
 ---
 title: "Sensu Core"
-description: "Sensu is an infrastructure and application monitoring and telemetry solution that provides a framework for monitoring infrastructure, service & application health, and business KPIs."
+description: "Sensu is the open-source monitoring event pipeline built to reduce operator burden and meet the challenges of monitoring hybrid-cloud and container-based infrastructures."
 weight: -100
 menu: "sensu-core-1.4"
 version: "1.4"
@@ -23,7 +23,7 @@ Started in 2011, Sensu's pipeline approach solves the challenges of monitoring h
 
 **Replace Nagios**: Reuse Nagios plugins while consolidating monitoring tools with an architecture designed to sustain large scale deployments across multiple clouds.
 
-<i class="fa fa-youtube-play" aria-hidden="true"></i> <a target="_blank" href="https://www.youtube.com/watch?v=jUW4rAqazwA">I'd rather watch a video.</a>
+<i class="fa fa-youtube-play" aria-hidden="true"></i> <a target="_blank" href="https://www.youtube.com/watch?v=jUW4rAqazwA">Hear Sensu Inc. CEO Caleb Hailey explain the Sensu monitoring event pipeline.</a>
 
 ### Monitoring for Your Infrastructure
 
@@ -33,18 +33,16 @@ Started in 2011, Sensu's pipeline approach solves the challenges of monitoring h
 
 Sensu allows organizations to craft monitoring workflows that meet unique business requirements.
 By providing flexible pipelines, Sensu enables you to focus on _what_ to monitor, rather than _how_.
-Sensu is installed on your organizations infrastructure&mdash;not
-a software-as-a-service solution&mdash;which means Sensu gives you full
-control over the availability of your monitoring solution.
+Sensu is installed on your organization's infrastructure&mdash;it is not a software-as-a-service solution&mdash;which means Sensu gives you full control over the availability of your monitoring solution.
 
-- **Monitor containers, microservices, and physical infrastructure using the same automated workflows.**
+- **Monitor containers, microservices, applications, and that server under your desk.**
 
 Sensu is a flexible, scalable monitoring event pipeline that works with
 everything from the server closet to Kubernetes. Using custom-built tools?
 Write your own [Sensu plugins][4] in the language of your choice (Ruby, Go, Python, you name it)
 or integrate with the Sensu API.
 
-- **Improve team signal by sending context-rich alerts and notifications.**
+- **Improve incident response by sending context-rich alerts and notifications.**
 
 Get meaningful alerts when and where you need them.
 Sensu integrates with the tools and services your organization already
