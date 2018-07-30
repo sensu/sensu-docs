@@ -62,9 +62,9 @@ to learn about setting up cross-account access.
 
 - **IMPROVEMENT**: The PagerDuty integration now supports PagerDuty Events API v2.
 See the [PagerDuty integration docs](../../integrations/pagerduty) to add a v2 API key to Sensu Enterprise.
-No changes are required for existing v1 API integrations using a `service-key`.
+No changes are required for existing v1 API integrations using a `service-key` attribute.
 
-- **IMPROVEMENT**: Contact routing now lets you configure contacts that will receive alerts only for certain severities, giving you more flexibility in handling and responding to alerts.
+- **IMPROVEMENT**: Contact routing now lets you configure contacts that will receive alerts only for certain severities, giving you even more flexibility in handling and responding to alerts.
 See the [contact routing docs](../contact-routing#severities) to configure contact severities.
 
 - **IMPROVEMENT**: Built on [Sensu Core 1.4.3][core-v1-4-3].
