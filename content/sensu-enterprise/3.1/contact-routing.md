@@ -193,7 +193,7 @@ The following example shows a contact configured to receive alerts through the P
   "contacts": {
     "support": {
       "pagerduty": {
-        "routing_key": "r3FPuDvNOTEDyQYCc7trBkymIFcy2NkE",
+        "routing_key": "s2TZrJmMTTTHDfSMFe3woPqenBCxa7WtY",
         "severities": ["critical"]
       }
     }
@@ -203,7 +203,7 @@ The following example shows a contact configured to receive alerts through the P
 
 severities     | 
 ---------------|------
-description    | An array of check result severities that Sensu will route to the contact._NOTE: Contact-configured severities must be included within the scope of an individual integration (like `pagerduty`), not under the scope of the contact name (like `support`)._
+description    | An array of check result severities that Sensu will route to the contact. _NOTE: Contact-configured severities must be included within the scope of an individual integration (like `pagerduty`), not under the scope of the contact name (like `support`)._
 required       | false
 type           | Array
 allowed values | `ok`, `warning`, `critical`, `unknown`
