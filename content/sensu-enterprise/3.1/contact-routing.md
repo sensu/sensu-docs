@@ -165,6 +165,49 @@ configuration:
 }
 {{< /highlight >}}
 
+##### Severities
+
+You can use the `severities` attribute to configure the event severities that Sensu Enterprise will route to a contact.
+However, unlike other contact attributes, the `severities` attribute doesn't override `severities` configured in the integration handler definition.
+Sensu Enterprise processes contact-configured severities _after_ integration-configured severities, so contacts can only access severities allowed by the integration configuration.
+
+For example, the following [PagerDuty integration][6] configuration sends alerts for only `warning` and `critical` severities.
+
+{{< highlight json >}}
+
+{
+  "pagerduty": {
+    "service_key": "r3FPuDvNOTEDyQYCc7trBkymIFcy2NkE",
+    "timeout": 10,
+    "severities": ["warning", "critical"]
+  }
+}
+{{< /highlight >}}
+
+Therefore, contacts using the integration above only have access to `warning` and `critical` alerts.
+The following example shows a contact configured to receive alerts through the PagerDuty integration shown above, but filtered for only `critical` alerts. As with integration-configured severities, event resolution bypasses this filtering.
+
+{{< highlight json >}}
+{
+  "contacts": {
+    "support": {
+      "pagerduty": {
+        "service_key": "r3FPuDvNOTEDyQYCc7trBkymIFcy2NkE",
+        "severities": ["critical"]
+      }
+    }
+  }
+}
+{{< /highlight >}}
+
+severities     | 
+---------------|------
+description    | An array of check result severities that Sensu will route to the contact._NOTE: Contact-configured severities must be included within the scope of an individual integration (like `pagerduty`), not under the scope of the contact name (like `support`)._
+required       | false
+type           | Array
+allowed values | `ok`, `warning`, `critical`, `unknown`
+example        | {{< highlight shell >}} "severities": ["critical", "unknown"]{{< /highlight >}}
+
 [?]:  #
 [1]:  ../built-in-handlers
 [2]:  /sensu-core/1.2/reference/configuration#configuration-scopes
