@@ -114,7 +114,7 @@ default      | `10`
 example      | {{< highlight shell >}}"timeout": 30{{< /highlight >}}
 
 ## Cross-Account Access
-Cross-account access allows you to use IAM-defined trust relationships to access a Sensu Enterprise instance from EC2 clients across multiple AWS accounts.
+Cross-account access lets you use IAM-defined trust relationships to access a Sensu Enterprise instance from EC2 clients across multiple AWS accounts.
 
 ### Client Configuration
 The EC2 integration supports account access configuration at the client level.
