@@ -166,6 +166,21 @@ You can download the following files to follow along:
 * [Cross Account Assume Role Policy][14]
 * [Cross Account Assume Role Policy Role][15]
 
+You'll also need to configure the EC2 integration file at `/etc/sensu/conf.d/ec2.json` so that it knows which account should be used when querying the API. See the example below:
+
+{{< highlight json >}}{
+  "ec2": {
+    "accounts": [
+      {
+        "name": "sensu-testing",
+        "role_arn": "arn:aws:iam::111111111111:role/cross-account-readonly"
+      }
+    ]
+  }
+}{{< /highlight >}}
+
+Where the account in the ARN above is the account that will be queried. 
+
 #### Trusting account
 
 1. Create 'read-only' IAM policy
