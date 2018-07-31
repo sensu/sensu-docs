@@ -20,7 +20,7 @@ cryptographically signed documents that can easily be managed with
 ## Installing and renewing your license
 
 The license file will be provided as a JSON file, which should be saved on your
-local computer. We will then use `sensuctl` to upload it to Sensu Backend:
+local computer. We will then use `sensuctl` to upload it to the Sensu Backend:
 
 ```
 sensuctl license install -f license.json
@@ -38,7 +38,7 @@ EOF
 
 The details of the installed Sensu license can easily be displayed using
 `sensuctl`, which will provide you with information like your current plan, the
-features enabled and your license expiry date.
+enabled features and your license expiry date.
 
 ```
 sensuctl license info
@@ -50,6 +50,6 @@ sensuctl license info
 Sensu Backend will start issuing regular warnings via the log messages 30 days
 before the expiration of your license.
 
-If your license expire and you do not renew it, the Sensu EE
+If your license expires and you do not renew it, the Sensu EE
 features will no longer be available but all Sensu CE features will continue to
 work seamlessly.
