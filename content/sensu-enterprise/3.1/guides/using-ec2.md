@@ -172,7 +172,7 @@ You can download the following files to follow along:
 {{< highlight shell >}}
 aws iam create-policy --profile trusting --policy-name cross-account-readonly --policy-document file://cross-account-readonly-policy.json
 {{< /highlight >}}
-Note the ARN for this policy, needed for step 3
+Note the ARN for the policy created above, as it's needed for step 3.
 
 2. Create 'cross-account' IAM role
 {{< highlight shell >}}
@@ -190,7 +190,7 @@ aws iam attach-role-policy --profile trusting --role-name cross-account-readonly
 {{< highlight shell >}}
 aws iam create-policy --profile trusted --policy-name cross-account-assumerole --policy-document file://cross-account-assumerole-policy.json
 {{< /highlight >}}
-Note the ARN for this policy, needed for step 3
+Note the ARN for the policy created above, as it's needed for step 3.
 
 2. Create 'cross-account-assumerole' IAM instance role
 {{< highlight shell >}}
