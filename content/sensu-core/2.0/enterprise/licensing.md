@@ -1,6 +1,6 @@
 ---
 title: "Licensing"
-description: "Managing Sensu EE license."
+description: "Managing a Sensu EE license."
 weight: 10
 version: "2.0"
 product: "Sensu Core"
@@ -13,8 +13,8 @@ menu:
 ## How Sensu Enterprise licensing works
 
 A Sensu Enterprise license allows customers to enable additional features in
-Sensu Enterprise Edition (EE) compared to Sensu Core Edition (CE). Licenses are
-cryptographically signed documents that can easily be managed with
+Sensu Enterprise Edition (EE) that are not available in Sensu Core Edition (CE).
+Licenses are cryptographically signed documents that can easily be managed with
 [sensuctl][1].
 
 ## Installing and renewing your license
