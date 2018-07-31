@@ -43,7 +43,6 @@ enabled features and your license expiry date.
 ```
 sensuctl license info
 ```
-[1]: ../../reference/sensuctl
 
 ## Expiration of your license
 
@@ -53,3 +52,5 @@ before the expiration of your license.
 If your license expires and you do not renew it, the Sensu EE
 features will no longer be available but all Sensu CE features will continue to
 work seamlessly.
+
+[1]: ../../reference/sensuctl
