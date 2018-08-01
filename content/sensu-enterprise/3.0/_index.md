@@ -1,21 +1,14 @@
 ---
 title: "Sensu Enterprise"
 product: "Sensu Enterprise"
+description: "Sensu is the open-source monitoring event pipeline built to reduce operator burden and meet the challenges of monitoring hybrid-cloud and containerized infrastructures."
 version: "3.0"
 weight: 1
 menu: "sensu-enterprise-3.0"
 layout: "single"
 ---
 
-## Overview
-
-- [What is Sensu Enterprise?](#what-is-sensu-enterprise)
-- [Installing Sensu Enterprise](#installing-sensu-enterprise)
-- [Upgrading to Sensu Enterprise](#upgrading-to-sensu-enterprise)
-
-## What is Sensu Enterprise?
-
-[Sensu Enterprise][1] is a drop-in replacement for Sensu Core (the FREE, open
+[Sensu Enterprise][1] is a drop-in replacement for Sensu Core (the free, open
 source version of Sensu), that provides added-value features like [contact
 routing][2], several built-in [third-party integrations][3], and more. Sensu
 Enterprise also includes FREE annual training and [enterprise-class
@@ -29,6 +22,8 @@ has to offer. Sensu Enterprise integrates with third-party tools & services to
 provide support for creating/resolving incidents, on-call rotation scheduling,
 storing time series data (metrics), relaying events, deregistering sensu-clients
 for terminated nodes, and/or notifying contacts via various media.
+
+**> Get started with Sensu Enterprise:** [Sign up for a free trial.][10]
 
 ## Installing Sensu Enterprise
 
@@ -59,3 +54,4 @@ or added-value features (e.g. [contact routing][2]).
 [7]:  /sensu-core/latest/api/overview
 [8]:  /sensu-core/latest/installation/install-sensu-server-api/#sensu-enterprise
 [9]:  integrations
+[10]: https://sensu.io/pricing
