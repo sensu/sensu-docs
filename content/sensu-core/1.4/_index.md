@@ -34,7 +34,7 @@ Started in 2011, Sensu’s flexible approach solves the challenges of monitoring
 Sensu is a client-based monitoring tool that you install on your organization's infrastructure.
 The Sensu client gives you visibility into everything you care about; the Sensu server gives you flexible, automated workflows to route metrics and alerts.
 
-- **Monitor containers, instances, applications, and that server under your desk.**
+- **Monitor containers, instances, applications, and on-premises infrastructure.**
 
 Sensu is designed to monitor everything from the server closet to the cloud.
 [Install the Sensu client][15] on the hosts you want to monitor, integrate with the [Sensu API][16], or take advantage of [proxy clients][17] to monitor anything on your network.
@@ -47,7 +47,7 @@ Use [event filters][18] to reduce noise and [check hooks][19] to add context and
 Sensu integrates with the tools and services your organization already uses like [PagerDuty][1], [Slack][2], and more.
 Check out the [200+ plugins shared by the Sensu community][3], or write your own [Sensu plugins][4] in any language.
 
-- **Metrics and alerting in the same tool**
+- **Collect metrics and generate alerts with the same tool**
 
 Know what's going on everywhere in your system.
 Use the Sensu client to collect metrics alongside check results, then use the event pipeline to route the data to industry-standard tools like Graphite or InfluxDB.
