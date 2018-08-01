@@ -44,10 +44,10 @@ Below, we have an example configuration that would typically live under `/etc/se
 
 Let's take a moment to walk through what we're specifying in that config file:
 
-* We three required attributes: `"host"`, `"user"`, and `"password"`
+* We've provided three required attributes: `"host"`, `"user"`, and `"password"`
 * We then provide five additional attributes:
   * `"create_cmdb_ci"` - this will create the configuration items automatically for Sensu clients. By default, this is `true`
-  * `"cmdb_ci_table"` - specifies which cmdb table is used for the items created above. The default here is `cmdb_ci_server`
+  * `"cmdb_ci_table"` - specifies which cmdb table is used for the items created above. The default this is `cmdb_ci_server`
   * `"incident_management"` - specifies if we want SNOW incidents created for Sensu incidents. By default, this is `true`
   * `"incident_table"` - specifies which table will be used for creating/resolving incidents. By default, this is `incident`
 
@@ -85,7 +85,7 @@ Let's walk through some of the key items in the configuration:
 
 * For registration, we provide `"servicenow"` inside of our `"handlers"` array
 * We set `"deregister"` to `true` to remove tell Sensu that we want clients deregistered
-* We the `"servicenow"` handler under `"deregistration"` so that our Sensu client will use the SNOW integration to deregister the client
+* We add the `"servicenow"` handler under `"deregistration"` so that our Sensu client will use the SNOW integration to deregister the client
 * We then provide a hash of items under `"servicenow"`
 
 After restarting our client to pick up the configuration, we can then see it in our dashboard:
@@ -155,4 +155,4 @@ We hope you've found this useful. For additional resources about the SNOW integr
 [5]: /images/snow_incident.png
 [6]: /images/snow_incident_detail.png
 [7]: ../../integrations/servicenow/
-[8]: /sensu-core/latest/reference/clients/#servicenow-attributes
+[8]: /sensu-core/1.3/reference/clients/#servicenow-attributes
