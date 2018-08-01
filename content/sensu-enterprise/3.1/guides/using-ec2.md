@@ -146,6 +146,7 @@ action, with a policy that allows the trusted account's instance role
 to assume the read-only role.
 
 For the purposes of this document:
+
 * The AWS account number for the trusting account is assumed to be `111111111111`
 * The AWS CLI is assumed to be configured with a profile `trusting`
 
@@ -154,10 +155,11 @@ EC2 instance is created here with an instance role attached allowing
 the instance to assume a role in the trusting account.
 
 For the purposes of this document:
+
 * The AWS account number for the trusted account is assumed to be `222222222222`
 * The AWS CLI is assumed to be configured with a profile `trusted`
 
-### Setup
+### Configuration
 
 You can download the following files to follow along:
 
@@ -166,7 +168,9 @@ You can download the following files to follow along:
 * [Cross Account Assume Role Policy][14]
 * [Cross Account Assume Role Policy Role][15]
 
-You'll also need to configure the EC2 integration file at `/etc/sensu/conf.d/ec2.json` so that it knows which account should be used when querying the API. See the example below:
+#### Integration Configuration
+
+You'll need to configure the EC2 integration file at `/etc/sensu/conf.d/ec2.json` so that it knows which account should be used when querying the API. See the example below:
 
 {{< highlight json >}}{
   "ec2": {
@@ -181,7 +185,34 @@ You'll also need to configure the EC2 integration file at `/etc/sensu/conf.d/ec2
 
 Where the account in the ARN above is the account that will be queried. 
 
+#### Client Configuration
+
+Clients will also need to be configured to use a specific account. This is done by the `"name"` specified in `/etc/sensu/conf.d/ec2.json`. See the example below:
+
+{{< highlight json >}}
+{
+  "client": {
+    "name": "i-424242",
+    "...": "...",
+    "keepalive": {
+      "handlers": [
+        "ec2"
+      ]
+    },
+    "ec2": {
+      "account": "sensu-testing"
+      "instance_id": "i-424242",
+      "allowed_instance_states": [
+        "running",
+        "rebooting"
+      ]
+    }
+  }
+}{{< /highlight >}}
+
 #### Trusting account
+
+Now, let's walk through the steps to create the requisite policies and roles in the AWS test accounts. We'll start with the trusting account.
 
 1. Create 'read-only' IAM policy
 {{< highlight shell >}}
@@ -200,6 +231,8 @@ aws iam attach-role-policy --profile trusting --role-name cross-account-readonly
 {{< /highlight >}}
 
 #### Trusted account
+
+Now, let's take a look at what's needed to create the policy and role in our trusted AWS account:
 
 1. Create 'cross-account-assumerole' IAM policy
 {{< highlight shell >}}
