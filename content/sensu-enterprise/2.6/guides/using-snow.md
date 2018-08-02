@@ -38,6 +38,8 @@ Below, we have an example configuration that would typically live under `/etc/se
     "cmdb_ci_table": "cmdb_ci_server",
     "incident_management": true,
     "incident_table": "incident",
+    "event_management": true,
+    "event_table": "em_event",
     "timeout": 10
   }
 }{{< /highlight >}}
