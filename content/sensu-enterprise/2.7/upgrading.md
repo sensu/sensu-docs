@@ -1,8 +1,8 @@
 ---
 title: "Upgrading Sensu Enterprise"
-weight: 14
 product: "Sensu Enterprise"
 version: "2.7"
+weight: 3
 menu: "sensu-enterprise-2.7"
 ---
 

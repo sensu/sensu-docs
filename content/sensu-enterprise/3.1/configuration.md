@@ -1,8 +1,9 @@
 ---
 title: "Enterprise Configuration"
+linkTitle: "Configuration"
 product: "Sensu Enterprise"
 version: "3.1"
-weight: 2
+weight: 4
 menu: "sensu-enterprise-3.1"
 ---
 

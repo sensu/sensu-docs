@@ -2,7 +2,7 @@
 title: "Built-in Handlers"
 product: "Sensu Enterprise"
 version: "3.0"
-weight: 6
+weight: 10
 menu: "sensu-enterprise-3.0"
 ---
 **ENTERPRISE: Built-in handlers are available for [Sensu Enterprise][0]
