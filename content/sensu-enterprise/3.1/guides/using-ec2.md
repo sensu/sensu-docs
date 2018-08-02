@@ -187,7 +187,7 @@ Where the account in the ARN above is the account that will be queried.
 
 #### Client Configuration
 
-Clients will also need to be configured to use a specific account. This is done by the `"name"` specified in `/etc/sensu/conf.d/ec2.json`. See the example below:
+Clients will also need to be configured to use a specific account. This is done by the "account" attribute specified in client.ec2 scope of /etc/sensu/conf.d/ec2.json. See the example below:
 
 {{< highlight json >}}
 {
