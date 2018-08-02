@@ -15,7 +15,7 @@ Sensu is the open source monitoring event pipeline built to reduce operator burd
 Started in 2011, Sensu’s flexible approach solves the challenges of monitoring hybrid-cloud and containerized infrastructures with scalable, automated workflows and integrations with tools you already use.
 <b>Get started now and feel the #monitoringlove: [Learn Sensu in 15 minutes](quick-start/learn-sensu-basics/).</b>
 
-<img src="/images/new-multi-pipe.png">
+<img src="/images/bigger-pipe.svg">
 
 **Automate your monitoring workflows**: Limitless pipelines let you validate and correlate events, mutate data formats, send alerts, manage incidents, collect and store metrics, and more.
 
