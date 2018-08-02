@@ -1104,6 +1104,13 @@ code {
   color: #89C967;
 }
 
+.drawer .feedback {
+  font-family: 'Work Sans';
+  font-weight: 400;
+  font-size: 13px;
+  color: #2C3458;
+}
+
 /**
 ***  Sidebar Nav override, and media queries
 **/
