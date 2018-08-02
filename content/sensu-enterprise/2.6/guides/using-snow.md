@@ -63,10 +63,6 @@ In order for the SNOW configuration to shine, we need to set attributes for SNOW
    "registration": {
      "handlers": ["servicenow"]
    },
-   "deregister": true,
-   "deregistration": {
-     "handlers": ["servicenow"]
-   },
    "servicenow": {
      "configuration_item": {
        "name": "sensu-enterprise-test",
@@ -84,8 +80,6 @@ In order for the SNOW configuration to shine, we need to set attributes for SNOW
 Let's walk through some of the key items in the configuration:
 
 * For registration, we provide `"servicenow"` inside of our `"handlers"` array
-* We set `"deregister"` to `true` to remove tell Sensu that we want clients deregistered
-* We add the `"servicenow"` handler under `"deregistration"` so that our Sensu client will use the SNOW integration to deregister the client
 * We then provide a hash of items under `"servicenow"`
 
 After restarting our client to pick up the configuration, we can then see it in our dashboard:
