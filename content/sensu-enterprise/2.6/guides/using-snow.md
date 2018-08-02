@@ -47,11 +47,13 @@ Below, we have an example configuration that would typically live under `/etc/se
 Let's take a moment to walk through what we're specifying in that config file:
 
 * We've provided three required attributes: `"host"`, `"user"`, and `"password"`
-* We then provide five additional attributes:
-  * `"create_cmdb_ci"` - this will create the configuration items automatically for Sensu clients. By default, this is `true`
-  * `"cmdb_ci_table"` - specifies which cmdb table is used for the items created above. The default this is `cmdb_ci_server`
-  * `"incident_management"` - specifies if we want SNOW incidents created for Sensu incidents. By default, this is `true`
-  * `"incident_table"` - specifies which table will be used for creating/resolving incidents. By default, this is `incident`
+* We then provide 6 additional attributes:
+  * `"create_cmdb_ci"` - this will create the configuration items automatically for Sensu clients. By default, this is `true`.
+  * `"cmdb_ci_table"` - specifies which cmdb table is used for the items created above. By default, this is `cmdb_ci_server`.
+  * `"incident_management"` - specifies if we want SNOW incidents created for Sensu incidents. By default, this is `true`.
+  * `"incident_table"` - specifies which table will be used for creating/resolving incidents. By default, this is `incident`.
+  * `"event_management"` - specifies if we want SNOW events created for Sensu events. By default, this is `false`.
+  * `"event_table"` - specifies which table will be used for creating events. By default, this is `em_event`.
 
 After reloading Sensu Enterprise with `systemctl restart sensu-enterprise`, our configuration is activated. Let's take a look at how we provide SNOW attributes at the client level.
 
