@@ -1,6 +1,6 @@
 ---
 title: "Upgrading Sensu Enterprise"
-weight: 14
+weight: 3
 product: "Sensu Enterprise"
 version: "2.6"
 menu: "sensu-enterprise-2.6"
