@@ -64,7 +64,7 @@ ignoreFiles = [ "sensu-doc-template.md" ]
     [params.products.sensu_enterprise]
         identifier = "sensu-enterprise"
         name = "Sensu Enterprise"
-        description = "The powerful and simple monitoring product, built on Sensu Core."
+        description = "The powerful and simple monitoring product, built on Sensu Core"
         weight = 2
         latest = "3.1"
         [params.products.sensu_enterprise.versions]
@@ -77,7 +77,7 @@ ignoreFiles = [ "sensu-doc-template.md" ]
     [params.products.sensu_enterprise_dashboard]
         identifier = "sensu-enterprise-dashboard"
         name = "Sensu Enterprise Dashboard"
-        description = "The dashboard for Sensu Enterprise with RBAC and more, built on Uchiwa."
+        description = "The dashboard for Sensu Enterprise with RBAC and more, built on Uchiwa"
         weight = 3
         latest = "2.12"
         [params.products.sensu_enterprise_dashboard.versions]
@@ -99,7 +99,7 @@ ignoreFiles = [ "sensu-doc-template.md" ]
     [params.products.plugins]
         identifier = "plugins"
         name = "Plugins"
-        description = "Checks, handlers and other plugins to power your Sensu deployment."
+        description = "Checks, handlers, and other plugins to power your Sensu deployment."
         weight = 5
         latest = "1.0"
         [params.products.plugins.versions]
@@ -108,7 +108,7 @@ ignoreFiles = [ "sensu-doc-template.md" ]
     [params.products.extensions]
         identifier = "extensions"
         name = "Extensions"
-        description = "High performance integrations for Sensu Core."
+        description = "High performance integrations for Sensu Core"
         weight = 6
         latest = "1.0"
         [params.products.extensions.versions]
