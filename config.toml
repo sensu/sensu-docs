@@ -49,7 +49,7 @@ ignoreFiles = [ "sensu-doc-template.md" ]
     [params.products.sensu_core]
         identifier = "sensu-core"
         name = "Sensu Core"
-        description = "The open source extensible monitoring framework."
+        description = "The open source monitoring event pipeline"
         weight = 1
         latest = "1.4"
         [params.products.sensu_core.versions]
@@ -90,7 +90,7 @@ ignoreFiles = [ "sensu-doc-template.md" ]
     [params.products.uchiwa]
         identifier = "uchiwa"
         name = "Uchiwa"
-        description = "An open source dashboard for the Sensu monitoring framework."
+        description = "An open source dashboard for the Sensu monitoring event pipeline"
         weight = 4
         latest = "1.0"
         [params.products.uchiwa.versions]
