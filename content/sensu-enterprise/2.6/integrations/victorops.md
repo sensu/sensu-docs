@@ -73,7 +73,7 @@ description    | An array of check result severities the handler will handle. _N
 required       | false
 type           | Array
 allowed values | `ok`, `warning`, `critical`, `unknown`
-default        | {{< highlight shell >}}["ok", "info", "warning", "critical"]{{< /highlight >}}
+default        | {{< highlight shell >}}["ok", "warning", "critical", "unknown"]{{< /highlight >}}
 example        | {{< highlight shell >}} "severities": ["critical", "unknown"]{{< /highlight >}}
 
 timeout      | 
