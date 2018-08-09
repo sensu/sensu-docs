@@ -15,7 +15,7 @@ menu:
 
 Congratulations - you have successfully installed and configured the Sensu
 services, one or more Sensu clients, and a Sensu dashboard! With this basic
-implementation in place, you have the core Sensu framework available for
+implementation in place, you have the core Sensu platform available for
 development, testing and evaluation purposes. What's next?
 
 ## Next steps
@@ -35,7 +35,7 @@ about how Sensu Works][5], or in preparing Sensu for production.
 
 Conceptually, building out a monitoring solution using Sensu requires one or
 more [Sensu servers][6], and automating the installation of Sensu
-clients on all of your machines. With this core framework in place, you'll also
+clients on all of your machines. With this core platform in place, you'll also
 need to define [monitoring checks][7] for all of the services in your
 application stack (e.g. proxy services, web services, database services, etc).
 Additionally, it may be prudent to collect and analyze metrics for the same
