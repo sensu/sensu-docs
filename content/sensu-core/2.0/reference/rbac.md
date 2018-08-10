@@ -16,7 +16,6 @@ Sensu RBAC allows management and access of users and resources based on a heirar
 ### Authentication
 
 Sensu 2.0 offers local users management. Users can be managed with `sensuctl`.
-Support for external directories (such as LDAP) is planned for future releases.
 
 ## Terminology
 

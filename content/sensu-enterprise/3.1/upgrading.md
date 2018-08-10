@@ -1,9 +1,9 @@
 ---
 title: "Upgrading Sensu Enterprise"
-weight: 14
 product: "Sensu Enterprise"
 version: "3.1"
 menu: "sensu-enterprise-3.1"
+weight: 3
 ---
 
 In most cases, you can upgrade Sensu Enterprise by installing the
