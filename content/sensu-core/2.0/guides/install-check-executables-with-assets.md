@@ -47,7 +47,7 @@ and extract the checksum from the output manually, before adding it to the sensu
 
 {{< highlight shell >}}
 $ sensuctl check create check_website \
-  --command check_website -a www.example.com -C 3000 -w 1500 
+  --command "check_website -a www.example.com -C 3000 -w 1500" \
   --subscriptions web \
   --interval 10 \
   --runtime-assets check_website.tar.gz 
