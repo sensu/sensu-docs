@@ -3,11 +3,11 @@ title: "Microsoft Windows"
 description: "User documentation for installing and operating Sensu on Microsoft
   Windows."
 weight: 4
-version: "0.29"
+version: "1.0"
 product: "Sensu Core"
 platformContent: true
 menu:
-  sensu-core-0.29:
+  sensu-core-1.0:
     parent: platforms
 ---
 
