@@ -39,7 +39,7 @@ To install or upgrade to the latest version of Sensu, please ensure you have upd
 
 1. Download Sensu from the [Sensu Downloads][1] page.
 
-2. Double-click the `sensu-1.2.0-1-x64.msi` installer package to launch the
+2. Double-click the `sensu-1.4.1-1-x64.msi` installer package to launch the
    installer, accept the Sensu Core [MIT License][4] and install Sensu using the
    default settings (e.g. install location, etc).
    _WARNING: changing the default installation path from `C:\opt` is strongly
@@ -183,7 +183,7 @@ sc stop sensu-client{{< /highlight >}}
 
 [1]:  https://sensuapp.org/download
 [2]:  https://sensu.global.ssl.fastly.net/msi/
-[3]:  https://sensu.global.ssl.fastly.net/msi/2012r2/sensu-1.2.0-1-x64.msi
+[3]:  https://sensu.global.ssl.fastly.net/msi/2012r2/sensu-1.4.1-1-x64.msi
 [4]:  https://sensuapp.org/mit-license
 [5]:  ../../reference/configuration/
 [6]:  ../../reference/transport/
