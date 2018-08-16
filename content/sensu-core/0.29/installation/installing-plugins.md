@@ -10,15 +10,13 @@ menu:
     parent: installation
 ---
 
-# Installing Sensu Plugins
-
 Sensu's functionality can be extended through the use of plugins. Plugins can provide executables for performing status or metric checks, mutators for changing data to a desired format, or handlers for performing an action on a Sensu event. You can find a number of plugins in the [Sensu Plugins][1] repository.
 
-_NOTE: Plugins found in the Sensu Plugins Github organziation are community-maintained, meaning that anyone can improve on a plugin found there. If you have a question about how you can get involved in adding to, or providing a plugin, head to the [Sensu Community Slack channel][2]. Our maintainers are always happy to help answer questions and point you in the right direction._
+_NOTE: Plugins found in the Sensu Plugins GitHub organization are community-maintained, meaning that anyone can improve on a plugin found there. If you have a question about how you can get involved in adding to, or providing a plugin, head to the [Sensu Community Slack channel][2]. Our maintainers are always happy to help answer questions and point you in the right direction._
 
 ## Linux
 
-To install a plugin, you can use the `sensu-install` tool provided as part of the Sensu package.
+To install a Ruby-based plugin, you can use the `sensu-install` tool provided as part of the Sensu package.
 
 {{< highlight shell >}} 
 sensu-install --help
@@ -36,7 +34,7 @@ Usage: sensu-install [options]
 As an example, let's install the [disk checks plugin][3]:
 
 {{< highlight shell >}}
-sensu-install -p disk-checks
+$ sudo sensu-install -p disk-checks
 [SENSU-INSTALL] installing Sensu plugins ...
 [SENSU-INSTALL] determining if Sensu gem 'sensu-plugins-disk-checks' is already installed ...
 false
@@ -48,12 +46,19 @@ Successfully installed sensu-plugins-disk-checks-3.1.0
 1 gem installed
 [SENSU-INSTALL] successfully installed Sensu plugins: ["sensu-plugins-disk-checks"]{{< /highlight >}}
 
+### Removing Plugins
+
+If you find that you need to remove a plugin, you can use the embedded `gem` command to remove a plugin. See the example below:
+
+{{< highlight shell >}}
+/opt/sensu/embedded/bin/gem uninstall sensu-plugins-disk-checks{{< /highlight >}}
+
 ## Windows
 
 For Windows systems, this differs slightly, as the Windows msi package installs all Sensu components to `C:\opt\sensu`:
 
 {{< highlight shell >}}
-c:\opt\sensu\embedded\bin\sensu-install -p windows
+$ c:\opt\sensu\embedded\bin\sensu-install -p windows
 [SENSU-INSTALL] installing Sensu plugins ...
 [SENSU-INSTALL] determining if Sensu gem 'sensu-plugins-windows' is already installed ...
 false
@@ -67,14 +72,14 @@ Successfully installed sensu-plugins-windows-2.8.1
 
 Here we use the `sensu-install` utility located in `C:\opt\sensu\embedded\bin` to install the plugin. 
 
-_NOTE: When installing plugins on Windows, double check that the executable you're using is compatible with Windows. You can always check by examining the executable in the respective Github repo in the `bin` directory._
+_NOTE: When installing plugins on Windows, double check that the executable you're using is compatible with Windows. You can always check by examining the executable in the respective GitHub repo in the `bin` directory._
 
-## Removing Plugins
+### Removing Plugins
 
 If you find that you need to remove a plugin, you can use the embedded `gem` command to remove a plugin. See the example below:
 
 {{< highlight shell >}}
-c:\opt\sensu\embedded\bin\gem uninstall sensu-plugins-windows
+$ c:\opt\sensu\embedded\bin\gem uninstall sensu-plugins-windows
 Remove executables:
         check-windows-cpu-load.rb, check-windows-disk.rb, check-windows-process.rb, check-windows-processor-queue-length.rb, check-windows-ram.rb, check-windows-service.rb, metric-windows-cpu-load.rb, metric-windows-disk-usage.rb, metric-windows-network.rb, metric-windows-processor-queue-length.rb, metric-windows-ram-usage.rb, metric-windows-uptime.rb, powershell_helper.rb
 
@@ -94,7 +99,7 @@ Removing metric-windows-uptime.rb
 Removing powershell_helper.rb
 Successfully uninstalled sensu-plugins-windows-2.8.1{{< /highlight >}}
 
-Hopefully you've found this useful! If you find any issues or have a question, feel free to reach out in our [Community Slack][2], or [open an issue][4] on Github.
+Hopefully you've found this useful! If you find any issues or have a question, feel free to reach out in our [Community Slack][2], or [open an issue][4] on GitHub.
 
 <!-- LINKS -->
 [1]: https://github.com/sensu-plugins
