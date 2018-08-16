@@ -9,6 +9,10 @@ menu:
   sensu-core-2.0:
     parent: reference
 ---
+
+- [Specification](#events-specification)
+- [Examples](#example-check-only-event-data)
+
 ## How do Events work?
 
 An event is a generic container used by Sensu to provide context to checks

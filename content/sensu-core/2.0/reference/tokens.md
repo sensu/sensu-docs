@@ -9,17 +9,20 @@ menu:
     parent: reference
 ---
 
+- [Specification](#sensu-tokens-specification)
+- [Examples](#examples)
+
 ## How do tokens work?
 When a check is scheduled to be executed by an agent, it first goes through a token substitution step. Any tokens matching attribute values in the check are applied, and then the check is executed. Invalid templates or unmatched tokens will return an error, which is logged and sent to the Sensu backend message transport. Checks with token matching errors will not be executed.
 
 ## New and improved tokens
-Sensu 2.0 uses the [Go template][1] package to implement token substitution. Instead of using triple colons `:::` as in [1.x token substitution][2], 2.0 token substitution uses double curly braces around the token, and a dot before the attribute to be subtituted, such as: `{{ .System.Hostname }}`
+Sensu 2.0 uses the [Go template][1] package to implement token substitution. Instead of using triple colons `:::` as in [1.x token substitution][2], 2.0 token substitution uses double curly braces around the token, and a dot before the attribute to be substituted, such as: `{{ .System.Hostname }}`.
 
 ## Sensu tokens specification
 
 ### Token substitution syntax
 
-Tokens are invoked by wrapping references to entity or custom attributes with double curly braces, such as `{{ .ID }}` to substitute an entity's ID value. Nested Sensu [entity attributes][3] can be accessed via dot notation (e.g. `System.Arch`).
+Tokens are invoked by wrapping references to entity or custom attributes with double curly braces, such as `{{ .ID }}` to substitute an entity's ID value. Nested Sensu [entity attributes][3] can be accessed via dot notation (ex: `System.Arch`).
 
 - `{{ .ID }}` would be replaced with the [entity `ID` attribute][3]
 - `{{ .URL }}` would be replaced with a custom attribute called `url`
@@ -142,7 +145,7 @@ tokens declared above.
 {{< /highlight >}}
 
 [1]: https://golang.org/pkg/text/template/
-[2]: ../../../1.2/reference/checks/#check-token-substitution
+[2]: ../../../latest/reference/checks/#check-token-substitution
 [3]: ../entities/#entity-attributes
 [4]: ../entities/
 [5]: ../checks/

@@ -11,6 +11,9 @@ menu:
     parent: reference
 ---
 
+- [Specification](#assets-specification)
+- [Examples](#examples)
+
 ## How do assets work?
 At runtime, the agent sequentially fetches assets and stores them in its local
 cache. Asset dependencies are then injected into the `PATH` so they are
@@ -33,8 +36,8 @@ The following are injected into the execution context:
   variable.
 - `{PATH_TO_ASSET}/include` is injected into the `CPATH` environment variable.
 
-**N.B.** GitHub source code archives [can't currently be used][2] as Sensu
-assets archives.
+_NOTE: GitHub source code archives [can't currently be used][2] as Sensu
+assets archives._
 
 ## Assets specification
 

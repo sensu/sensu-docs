@@ -10,17 +10,25 @@ menu:
     parent: reference
 ---
 
+- [Entities specification](#entities-specification)
+	- [Entity Attributes](#entity-attributes)
+	- [System Attributes](#system-attributes)
+	- [Network Attributes](#network-attributes)
+	- [NetworkInterface Attributes](#networkinterface-attributes)
+	- [Deregistration Attributes](#deregistration-attributes)
+- [Examples](#examples)
+
 ## How do entities work?
 
-Agent entities are monitoring agents, which are installed and run on every system that needs to be monitored. The entity is responsible for registering the system with the Sensu backend service, sending keepalive messages (the Sensu heartbeat mechanism), and executing monitoring checks. Each entity is a member of one or more `subscriptions` – a list of roles and/or responsibilities assigned to the agent entity (e.g. a webserver, database, etc). Sensu entities will "subscribe" to (or watch for) check requests published by the Sensu server (via the Sensu Transport), execute the corresponding requests locally, and publish the results of the check back to the transport (to be processed by a Sensu server).
+Agent entities are monitoring agents, which are installed and run on every system that needs to be monitored. The entity is responsible for registering the system with the Sensu backend service, sending keepalive messages (the Sensu heartbeat mechanism), and executing monitoring checks. Each entity is a member of one or more `subscriptions` – a list of roles and/or responsibilities assigned to the agent entity (ex: a webserver or a database). Sensu entities will "subscribe" to (or watch for) check requests published by the Sensu server (via the Sensu Transport), execute the corresponding requests locally, and publish the results of the check back to the transport (to be processed by a Sensu server).
 
 ## Proxy Entities
 
-Proxy entities (formerly known as proxy clients, "Just-in-time" or "JIT" clients) are dynamically created entities, added to the entity store if an entity does not already exist for a check result. Proxy entity registration differs from keepalive-based registration because the registration event happens while processing a check result (not a keepalive message). Sensu proxy entities allow Sensu to monitor external resources (e.g. on systems and/or devices where a sensu-agent cannot be installed, such a network switches), using the defined check ProxyEntityID to create a proxy entity for the external resource. Once created, proxy entities work much in the same way as any other Sensu entity.
+Proxy entities (formerly known as proxy clients, "Just-in-time" or "JIT" clients) are dynamically created entities, added to the entity store if an entity does not already exist for a check result. Proxy entity registration differs from keepalive-based registration because the registration event happens while processing a check result (not a keepalive message). Sensu proxy entities allow Sensu to monitor external resources on systems and/or devices where a sensu-agent cannot be installed (such a network switch) using the defined check ProxyEntityID to create a proxy entity for the external resource. Once created, proxy entities work much in the same way as any other Sensu entity.
 
 ## New and improved entities
 
-An `entity`, formally known as a `client` in Sensu 1.x, represents anything (e.g. server, container, network switch, etc) that needs to be monitored. Sensu 2.0 uses an updated data model that allows for it to acknowledge the full range of infrastructure, runtime and application types that compose a complete monitoring environment (from server hardware to "serverless" functions). Sensu no longer focuses on the object doing the monitoring and instead focuses on the object it monitors. We call these monitored parts of an infrastructure "entities." An entity not only provides context to event data (what/where the event is from) but an event's uniqueness is determined by the check name and the ID of the entity upon which the check ran. In addition, an entity can contain system information such as the hostname, OS, platform, and version. 
+An `entity`, formally known as a `client` in Sensu 1.x, represents anything (ex: server, container, network switch) that needs to be monitored. Sensu 2.0 uses an updated data model that allows for it to acknowledge the full range of infrastructure, runtime and application types that compose a complete monitoring environment (from server hardware to "serverless" functions). Sensu no longer focuses on the object doing the monitoring and instead focuses on the object it monitors. We call these monitored parts of an infrastructure "entities." An entity not only provides context to event data (what/where the event is from) but an event's uniqueness is determined by the check name and the ID of the entity upon which the check ran. In addition, an entity can contain system information such as the hostname, OS, platform, and version. 
 
 ## Entities specification
 

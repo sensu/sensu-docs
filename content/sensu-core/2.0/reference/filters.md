@@ -10,12 +10,20 @@ menu:
     parent: reference
 ---
 
+- [Specification](#filter-specification)
+- [Examples](#filter-examples)
+	- [Handling production events](#handling-production-events)
+	- [Handling non-production events](#handling-non-production-events)
+	- [Handling state change only](#handling-state-change-only)
+	- [Handling repeated events](#handling-repeated-events)
+	- [Handling events during “office hours” only](#handling-events-during-office-hours-only)
+
 ## How do Sensu filters work?
 
 Sensu filters are applied when **event handlers** are configured to use one or
 more filters. Prior to executing a handler, the Sensu server will apply any
 filters configured for the handler to the **event** data. If the event is not
-removed by the filter(s) (i.e. filtered out), the handler will be executed. The
+removed by the filter(s), the handler will be executed. The
 filter analysis flow performs these steps:
 
 * When the Sensu server is processing an event, it will check for the definition
@@ -26,22 +34,20 @@ sequentially.
 * Filter `statements` are compared with event data.
 * Filters can be inclusive (only matching events are handled) or exclusive
 (matching events are not handled).
-* As soon as a filter removes an event (i.e. filters it out), no further
+* As soon as a filter removes an event, no further
 analysis is performed and the event handler will not be executed.
 
-{{< note title="Note" >}}
-Filters specified in a **handler set** definition have no effect. Filters must
-be specified in individual handler definitions.
-{{< /note >}}
+_NOTE: Filters specified in a **handler set** definition have no effect. Filters must
+be specified in individual handler definitions._
 
 ### Inclusive and exclusive filtering
 
 Filters can be _inclusive_ `"action": "allow"` (replaces `"negate": false` in
 Sensu 1) or _exclusive_ `"action": "deny"` (replaces `"negate": true` in Sensu
 1). Configuring a handler to use multiple _inclusive_ filters is the equivalent
-of using an `AND` query operator (i.e. only handle events if they match
+of using an `AND` query operator (only handle events if they match
 _inclusive_ filter `x AND y AND z`). Configuring a handler to use multiple
-_exclusive_ filters is the equivalent of using an `OR` operator (i.e. only
+_exclusive_ filters is the equivalent of using an `OR` operator (only
 handle events if they don’t match `x OR y OR z`).
 
 * **Inclusive filtering**: by setting the filter definition attribute `"action":
@@ -53,11 +59,11 @@ statements.
 ### Filter statement comparison
 
 Filter statements are compared directly with their event data counterparts. For
-inclusive filter definitions (i.e. `"action": "allow"`), matching statements
+inclusive filter definitions (like `"action": "allow"`), matching statements
 will result in the filter returning a `true` value; for exclusive filter
-definitions (i.e. `"action": "deny"`), matching statements will result in the
-filter returning a `false` value (i.e. the event does not pass through the
-filter). Filters that return a true value will continue to be processed — via
+definitions (like `"action": "deny"`), matching statements will result in the
+filter returning a `false` value, and the event will not pass through the
+filter. Filters that return a true value will continue to be processed via
 additional filters (if defined), mutators (if defined), and handlers.
 
 ### Filter statement evaluation
@@ -121,26 +127,22 @@ organization |
 description  | The Sensu RBAC organization that this filter belongs to.
 required     | false 
 type         | String
-default      | current organization value configured for `sensuctl` (ie `default`) 
-example      | {{< highlight shell >}}
-  "organization": "default"
-{{</ highlight >}}
+default      | current organization value configured for `sensuctl` (for example: `default`) 
+example      | {{< highlight shell >}}"organization": "default"{{</ highlight >}}
 
 environment  | 
 -------------|------ 
 description  | The Sensu RBAC environment that this filter belongs to.
 required     | false 
 type         | String 
-default      | current environment value configured for `sensuctl` (ie `default`) 
-example      | {{< highlight shell >}}
-  "environment": "default"
-{{</ highlight >}}
+default      | current environment value configured for `sensuctl` (for example: `default`) 
+example      | {{< highlight shell >}}"environment": "default"{{</ highlight >}}
 
 ### `when` attributes
 
 days         | 
 -------------|------
-description  | A hash of days of the week (i.e., `monday`) and/or `all`. Each day specified can define one or more time windows, in which the filter is applied. See the [sensuctl documentation][3] for the supported time formats.
+description  | A hash of days of the week (ex: `monday`) and/or `all`. Each day specified can define one or more time windows, in which the filter is applied. See the [sensuctl documentation][3] for the supported time formats.
 required     | false (unless `when` is configured)
 type         | Hash
 example      | {{< highlight shell >}}"days": {
@@ -215,10 +217,10 @@ old monitoring system which alerts only on state change. This
 
 The following example filter definition, entitled `filter_interval_60_hourly`,
 will match event data with a check `interval` of `60` seconds, and an
-`occurrences` value of `1` (i.e. the first occurrence) -OR- any `occurrences`
-value that is evenly divisible by 60 (via a [modulo
-operator](https://en.wikipedia.org/wiki/Modulo_operation) calculation; i.e.
-calculating the remainder after dividing `occurrences` by 60).
+`occurrences` value of `1` (the first occurrence) -OR- any `occurrences`
+value that is evenly divisible by 60 via a [modulo
+operator](https://en.wikipedia.org/wiki/Modulo_operation) calculation
+(calculating the remainder after dividing `occurrences` by 60).
 
 {{< highlight json >}}
 {
@@ -264,10 +266,8 @@ same result.
 }
 {{< /highlight >}}
 
-{{< note title="Note" >}}
-Sensu handles dates and times in UTC (Coordinated Universal Time), therefore
-when comparing the weekday or the hour, you should provide values in UTC.
-{{< /note >}}
+_NOTE: Sensu handles dates and times in UTC (Coordinated Universal Time), therefore
+when comparing the weekday or the hour, you should provide values in UTC._
 
 [1]: #inclusive-and-exclusive-filtering
 [2]: #when-attributes

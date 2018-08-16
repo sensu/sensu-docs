@@ -10,6 +10,9 @@ menu:
     parent: reference
 ---
 
+- [Specification](#handler-specification)
+- [Examples](#handler-examples)
+
 ## How do Sensu handlers work?
 
 Handlers actions are executed by the Sensu backend on events, and there are
@@ -19,8 +22,7 @@ interact with almost any computer program via [standard streams][2].
 
 - **Pipe handlers**. Pipe handlers pipe event data into arbitrary commands via
   `STDIN`.
-- **TCP/UDP handlers**. TCP and UDP handlers send event data to a remote socket
-  (i.e., external API).
+- **TCP/UDP handlers**. TCP and UDP handlers send event data to a remote socket.
 - **Handler sets**. Handler sets (also called "set handlers") are used to group
   event handlers, making it easy to manage groups of actions that should be
   executed for certain types of events.
@@ -42,11 +44,11 @@ controlling the behavior of the `command` executable.
 ### TCP/UDP handlers
 
 TCP and UDP handlers enable Sensu to forward event data to arbitrary TCP or UDP
-sockets for external services to consume (i.e., third-party APIs).
+sockets for external services to consume.
 
 ### Handler sets
 
-Handler set definitions allow groups of handlers (i.e., individual collections
+Handler set definitions allow groups of handlers (individual collections
 of actions to take on event data) to be referenced via a single named handler
 set.
 
@@ -65,7 +67,7 @@ not provide a built-in default handler.
 ### Transport handlers
 
 Sensu architecture considerably changed between the 1.x and 2.x versions, and a
-dedicated message bus (i.e., RabbitMQ) is no longer used. Therefore, [transport
+dedicated message bus (like RabbitMQ) is no longer used. Therefore, [transport
 handlers][5] have been removed but a similar functionality could be achieved
 using a pipe handler that connects to a message bus and injects event data into
 a queue.
@@ -77,7 +79,7 @@ are automatically sent to the check handlers, no matter their status, whereas
 only non-zero check results were considered as events and sent to handlers in
 Sensu 1.x.
 
-That being said, 1.x behaviour can be replicated in Sensu 2.x by using the
+That being said, 1.x behavior can be replicated in Sensu 2.x by using the
 built-in `is_incident` filter.
 
 ## Handler specification
@@ -204,7 +206,7 @@ configured webhook URL, using the `handler-slack` executable command.
 
 ### Sending event data to a TCP socket
 
-This handler will forward event data to a TCP socket (i.e., 10.0.1.99:4444) and
+This handler will forward event data to a TCP socket (10.0.1.99:4444) and
 will timeout if an acknowledgement (`ACK`) is not received within 30 seconds.
 
 {{< highlight json >}}
@@ -222,7 +224,7 @@ will timeout if an acknowledgement (`ACK`) is not received within 30 seconds.
 ### Sending event data to a UDP socket
 
 The following example will also forward event data but to UDP socket instead
-(i.e., 10.0.1.99:4444).
+(ex: 10.0.1.99:4444).
 
 {{< highlight json >}}
 {
@@ -237,8 +239,8 @@ The following example will also forward event data but to UDP socket instead
 
 ### Executing multiple handlers
 
-The following example handler will execute three handlers (e.g., `slack`,
-`tcp_handler` and `udp_handler`).
+The following example handler will execute three handlers: `slack`,
+`tcp_handler`, and `udp_handler`.
 
 {{< highlight json >}}
 {

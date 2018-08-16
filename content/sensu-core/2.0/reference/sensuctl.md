@@ -11,6 +11,12 @@ menu:
     parent: reference
 ---
 
+- [Commands](#commands)
+- [Subcommands](#subcommands)
+- [Flags](#flags)
+- [Output](#output)
+- [Time formats](#time-formats)
+
 ## How does sensuctl work?
 Sensuctl is a command line tool for managing resources within Sensu. It works by
 calling Sensu's underlying API to create, read, update, and delete resources,
@@ -154,10 +160,10 @@ For example, the `check` command has the following local flags:
 ## Output
 
 sensuctl can be configured to return JSON instead of the default human-readable
-format.
+format:
 
 {{< highlight shell >}}
-$ sensuctl check info marketing-site --format json
+sensuctl check info marketing-site --format json
 {{</ highlight >}}
 
 {{< highlight json >}}
@@ -178,11 +184,10 @@ $ sensuctl check info marketing-site --format json
 {{< /highlight >}}
 
 If you do not want to explicitly use the format flag with each command, you can
-set the global default.
+set the global default:
 
 {{< highlight shell >}}
-$ sensuctl config set-format json
-OK
+sensuctl config set-format json
 {{< /highlight >}}
 
 ## Time formats
