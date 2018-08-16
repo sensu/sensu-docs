@@ -5,7 +5,7 @@ description: "The assets reference guide."
 weight: 1
 version: "2.0"
 product: "Sensu Core"
-platformContent: false
+platformContent: false 
 menu:
   sensu-core-2.0:
     parent: reference
@@ -37,51 +37,51 @@ The following are injected into the execution context:
 
 ### Attributes
 
-name         |
--------------|------
+name         | 
+-------------|------ 
 description  | The unique name of the asset, validated with go regex [`\A[\w\.\-]+\z`](https://regex101.com/r/zo9mQU/2)
 required     | true
-type         | String
+type         | String 
 example      | {{< highlight shell >}}"name": "check_script"{{</ highlight >}}
 
 
-url          |
--------------|------
-description  | The URL location of the asset.
+url          | 
+-------------|------ 
+description  | The URL location of the asset. 
 required     | true
-type         | String
+type         | String 
 example      | {{< highlight shell >}}"url": "http://example.com/asset.tar.gz"{{</ highlight >}}
 
-sha512       |
--------------|------
-description  | The checksum of the asset.
+sha512       | 
+-------------|------ 
+description  | The checksum of the asset. 
 required     | true
-type         | String
+type         | String 
 example      | {{< highlight shell >}}"sha512": "4f926bf4328..."{{</ highlight >}}
 
-metadata     |
--------------|------
-description  | Information about the asset, in the form of key value pairs.
-required     | false
-type         | Map
+metadata     | 
+-------------|------ 
+description  | Information about the asset, in the form of key value pairs. 
+required     | false 
+type         | Map 
 example      | {{< highlight shell >}}"metadata": {
-"Content-Type": "application/zip",
+"Content-Type": "application/zip", 
 "X-Intended-Distribution": "trusty-14"}
 {{</ highlight >}}
 
-filters      |
--------------|------
-description  | A set of [filters][1] used by the agent to determine of the asset should be installed.
-required     | false
-type         | Array
+filters      | 
+-------------|------ 
+description  | A set of [filters][1] used by the agent to determine of the asset should be installed. 
+required     | false 
+type         | Array 
 example      | {{< highlight shell >}}"filters": ["System.OS=='linux'", "System.Arch=='amd64'"] {{</ highlight >}}
 
-organization |
--------------|------
+organization | 
+-------------|------ 
 description  | The Sensu RBAC organization that this asset belongs to.
-required     | false
+required     | false 
 type         | String
-default      | current organization value configured for `sensuctl` (ie `default`)
+default      | current organization value configured for `sensuctl` (ie `default`) 
 example      | {{< highlight shell >}}
   "organization": "default"
 {{</ highlight >}}
