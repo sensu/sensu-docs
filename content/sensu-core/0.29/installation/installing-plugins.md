@@ -94,7 +94,7 @@ Removing metric-windows-uptime.rb
 Removing powershell_helper.rb
 Successfully uninstalled sensu-plugins-windows-2.8.1{{< /highlight >}}
 
-Hopefully you've found this useful! If you find any issues or question, feel free to reach out in our [Community Slack][2], or [open an issue][4] on Github.
+Hopefully you've found this useful! If you find any issues or have a question, feel free to reach out in our [Community Slack][2], or [open an issue][4] on Github.
 
 <!-- LINKS -->
 [1]: https://github.com/sensu-plugins
