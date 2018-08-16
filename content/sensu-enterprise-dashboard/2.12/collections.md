@@ -1,9 +1,10 @@
 ---
 title: "Collections"
-product: "Sensu Enterprise"
-version: "2.6"
+product: "Sensu Enterprise Dashboard"
+version: "2.12"
+description: "Collections are easily sharable groups of items returned by a collection query."
 weight: 12
-menu: "sensu-enterprise-2.6"
+menu: "sensu-enterprise-dashboard-2.12"
 ---
 
 Collections are a grouping of items returned by a collection query. This query
