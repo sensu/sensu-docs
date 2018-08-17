@@ -23,11 +23,11 @@
             {{ partial "nav" . }}
           </ul>
         {{ end }}
-        <a class="feedback" target="_blank" href="https://github.com/sensu/sensu-docs/issues/new?title=Feedback&body=%3C!---Thanks%20for%20submitting%20feedback!--%3E%0A%0ALink%20to%20page%3A%20%0A%0A%23%23%23%20Feedback">Was this page helpful?</a><br><br>
-        <iframe src="https://ghbtns.com/github-btn.html?user=sensu&repo=sensu-docs&type=star&count=true" frameborder="0" scrolling="0" width="170px" height="20px"></iframe><br><br><br>
-        <a class="feedback" target="_blank" href="{{.Site.Params.repo_url}}/edit/master/content/{{.File.Path}}">Edit on GitHub</a><br><br>
-        <a class="feedback" target="_blank" href="https://github.com/sensu/sensu-docs/blob/master/CONTRIBUTING.md">Read the contributing guide</a><br><br>
-
+        <!-- Feedback links -->
+        <br><iframe src="https://ghbtns.com/github-btn.html?user=sensu&repo=sensu-docs&type=star&count=true" frameborder="0" scrolling="0" width="170px" height="20px"></iframe><br><br>
+        <a class="feedback" target="_blank" href="https://github.com/sensu/sensu-docs/issues/new?title=Docs%20Feedback&body=%3C!--Thanks%20for%20submitting%20feedback%20to%20the%20Sensu%20docs!--%3E%0A%0ALink%20to%20page%3A%20%0A%0A%23%23%23%20Feedback">Open an issue</a><br><br>
+        <a class="feedback" target="_blank" href="{{.Site.Params.repo_url}}/edit/master/content/{{.File.Path}}">Edit this page</a><br><br>
+        <a class="feedback" target="_blank" href="https://github.com/sensu/sensu-docs/blob/master/CONTRIBUTING.md">Read the contributing guide</a>
         <!-- Small section for Sensu links -->
         {{ if isset .Site.Params "author" }}
           <ul>
