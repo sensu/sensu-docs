@@ -8,7 +8,7 @@ menu: "sensu-enterprise-3.0"
 layout: "single"
 ---
 
-[[Get started with a free trial of Sensu Enterprise][1] | [Upgrade from Sensu Core][24]
+[Get started with a free trial of Sensu Enterprise][1] | [Upgrade from Sensu Core][24]
 
 Sensu Enterprise is the reliable, scalable monitoring event pipeline built to reduce operator burden and make developers and business owners happy.
 Built on [Sensu Core][3], Sensu Enterprise includes built-in integrations and features designed to solve your organization's unique monitoring challenges.
@@ -80,7 +80,7 @@ process to resume operation of your Sensu instance. Some configuration
 changes may be required to take advantage of [built-in integrations][4]
 or added-value features like [contact routing][23].
 
-[1]: https://account.sensu.io/users/sign_up?plan=silver
+[1]: https://account.sensu.io/users/sign_up?plan=gold
 [2]: #upgrading-to-sensu-enterprise
 [3]: /sensu-core/latest
 [4]: built-in-handlers/#list-of-built-in-handlers
