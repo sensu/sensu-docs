@@ -124,11 +124,13 @@ The following is an example [check definition][6], a JSON configuration file loc
       "command": "do_something.rb -o option",
       "aggregate": "example_aggregate",
       "interval": 60,
+      "subscribers": [
+        "my_aggregate"
+      ],
       "handle": false
     }
   }
-}
-{{< /highlight >}}
+}{{< /highlight >}}
 
 ### Aggregate definition specification
 
