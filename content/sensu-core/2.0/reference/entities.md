@@ -339,7 +339,7 @@ example      | {{< highlight shell >}}"handler": "email-handler"{{</ highlight >
       ]
     },
     "arch": "amd64"
-  }
+  },
   "user": "agent",
   "region": "us-west-1",
   "team": "ops"

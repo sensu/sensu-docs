@@ -53,7 +53,7 @@ arguments to indicate the thresholds (as percentages) for creating warning or cr
 {{< highlight json >}}
 {
   "check_hooks": null,
-  "command": "check-disk-usage.rb -w {{.Disk.Warning | default 80}} -c {{.Disk.Critical | default 90}}"
+  "command": "check-disk-usage.rb -w {{.Disk.Warning | default 80}} -c {{.Disk.Critical | default 90}}",
   "environment": "{{ .Environment | default "production" }}",
   "handlers": [],
   "high_flap_threshold": 0,
