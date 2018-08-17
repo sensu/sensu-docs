@@ -10,8 +10,6 @@ previous: ../install-rabbitmq
 
 - [Install Erlang (the RabbitMQ runtime)](#install-erlang)
 - [Install RabbitMQ](#install-rabbitmq)
-  - [Download and install RabbitMQ using `rpm` (recommended)](#download-and-install-rabbitmq-using-rpm)
-  - [Install RabbitMQ using YUM](#install-rabbitmq-using-yum)
 - [Managing the RabbitMQ service/process](#managing-the-rabbitmq-serviceprocess)
 - [Configure RabbitMQ access controls](#configure-rabbitmq-access-controls)
 - [Configure system limits on Linux](#configure-system-limits-on-linux)
@@ -19,66 +17,36 @@ previous: ../install-rabbitmq
   - [Example standalone configuration](#example-standalone-configuration)
   - [Example distributed configuration](#example-distributed-configuration)
 
-
-_NOTE: this guide uses the official software repositories and packages for
-Erlang and RabbitMQ, as many Linux distributions provide outdated versions that
-contain known security vulnerabilities and bugs._
+_NOTE: [Sensu Support][3] is available for RabbitMQ versions 3.6.4 and
+newer ([on Erlang version 19.3 or newer][4])._
 
 ## Install Erlang (the RabbitMQ runtime) {#install-erlang}
 
 RabbitMQ runs on the [Erlang runtime][1], so before you can install and run
 RabbitMQ, you'll need to install Erlang.
 
-1. Add the EPEL repository:
-   {{< highlight shell >}}
-sudo yum install epel-release{{< /highlight >}}
+Although Erlang runtime packages are included in the RPM repositories
+for most distributions, the included versions often lag behind
+what is supported by RabbitMQ releases. Per the [RabbitMQ Erlang
+version requirements documentation][9]:
 
-2. Add the Erlang Solutions YUM repository:
-   {{< highlight shell >}}
-sudo wget https://packages.erlang-solutions.com/erlang-solutions-1.0-1.noarch.rpm
-sudo rpm -Uvh erlang-solutions-1.0-1.noarch.rpm{{< /highlight >}}
+> Erlang/OTP versions older than 19.3 are not supported by currently
+> maintained RabbitMQ release series.
 
-3. Install Erlang:
-   {{< highlight shell >}}
-sudo yum install -y erlang-19.3{{< /highlight >}}
+As a result, you will probably get better results installing a newer
+version of Erlang from an alternative source.
+Please see the [Erlang version requirements documentation][9]
+for information on selecting and installing a compatible version of
+the Erlang runtime.
 
 ## Install RabbitMQ
 
-According to the [official RabbitMQ installation guide][2], although RabbitMQ
-packages are included in the RPM-based distribution repositories, downloading
-and installing RabbitMQ from the RabbitMQ website is the recommended
-installation method.
+Although RabbitMQ packages are included in the RPM-based distribution
+repositories, the included versions often lag behind the supported
+RabbitMQ release series.
 
-> `rabbitmq-server` is included in [RPM-based distributions]. However, the
-  versions included are often quite old. You will probably get better results
-  installing the .rpm from our website. Check the [distribution] package details
-  for which version of the server is available for which versions of the
-  distribution.
-
-[Sensu Support][3] is available for RabbitMQ versions 3.6.4 and newer ([on
-Erlang version 19.3 or newer][4]).
-
-### Download and install RabbitMQ using `rpm`
-
-1. Install the `socat` package, required by RabbitMQ rpm:
-   {{< highlight shell >}}
-sudo yum install -y socat{{< /highlight >}}
-
-2. Download the signing key for the RabbitMQ YUM repository, and then download
-   and install RabbitMQ 3.6.9 using the `rpm` utility:
-   {{< highlight shell >}}
-sudo rpm --import https://www.rabbitmq.com/rabbitmq-signing-key-public.asc
-sudo rpm -Uvh https://www.rabbitmq.com/releases/rabbitmq-server/v3.6.9/rabbitmq-server-3.6.9-1.el6.noarch.rpm{{< /highlight >}}
-
-### Install RabbitMQ using YUM
-
-The RabbitMQ website provides [instructions for installing from the official
-RabbitMQ YUM repository][2].
-
-_WARNING: this installation method is not recommended for Sensu Enterprise
-users, as the repository is labeled as a "testing" repo, because (according to
-the RabbitMQ website) "[they] release somewhat frequently", and there shouldn't
-be a reason to upgrade RabbitMQ versions frequently._
+Please see the [official RabbitMQ installation guide][2] for
+recommended installation strategies.
 
 ## Managing the RabbitMQ service/process {#managing-the-rabbitmq-serviceprocess}
 
@@ -208,3 +176,4 @@ configuration.
 [6]:  https://www.rabbitmq.com/access-control.html
 [7]:  ../../reference/rabbitmq
 [8]:  ../../reference/configuration
+[9]:  https://www.rabbitmq.com/which-erlang.html

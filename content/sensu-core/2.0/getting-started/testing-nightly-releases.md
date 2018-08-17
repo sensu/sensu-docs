@@ -181,7 +181,7 @@ Coming soon.
 
 ## Docker
 
-Sensu 2.0 can be run via [Docker](https://www.docker.com/) or [rkt](https://coreos.com/rkt) using the [sensuapp/sensu](https://hub.docker.com/r/sensuapp/sensu-go/) image. When running Sensu from Docker there are a couple of things to take into consideration.
+Sensu 2.0 can be run via [Docker](https://www.docker.com/) or [rkt](https://coreos.com/rkt) using the [sensu/sensu](https://hub.docker.com/r/sensu/sensu/) image. When running Sensu from Docker there are a couple of things to take into consideration.
 
 The backend requires 3 exposed ports and persistent storage. This example uses a shared filesystem. Sensu 2.0 is backed by a distributed database, and its storage should be provisioned accordingly.  We recommend local storage or something like Throughtput Optimized or Provisioned IOPS EBS if local storage is unavailable.  The 3 exposed ports are:
 
@@ -198,7 +198,7 @@ We suggest, but do not require, persistent storage for sensu-agents. The Sensu A
 
 {{< highlight shell >}}
 docker run -v /var/lib/sensu:/var/lib/sensu -d --name sensu-backend -p 2380:2380 \
--p 3000:3000 -p 8080:8080 -p 8081:8081 sensuapp/sensu-go:2.0.0-alpha sensu-backend start
+-p 3000:3000 -p 8080:8080 -p 8081:8081 sensu/sensu:nightly sensu-backend start
 {{< /highlight >}}
 2. Start an agent
 
@@ -206,7 +206,7 @@ In this case, we're starting an agent whose ID is the hostname with the webserve
 
 {{< highlight shell >}}
 docker run -v /var/lib/sensu:/var/lib/sensu -d --name sensu-agent \ 
-sensuapp/sensu-go:2.0.0-alpha sensu-agent start --backend-url ws://sensu.yourdomain.com:8081 \
+sensu/sensu:nightly sensu-agent start --backend-url ws://sensu.yourdomain.com:8081 \
 --subscriptions webserver,system --cache-dir /var/lib/sensu
 {{< /highlight >}}
 

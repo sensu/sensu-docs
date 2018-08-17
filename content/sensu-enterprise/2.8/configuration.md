@@ -2,7 +2,7 @@
 title: "Enterprise Configuration"
 product: "Sensu Enterprise"
 version: "2.8"
-weight: 2
+weight: 4
 menu: "sensu-enterprise-2.8"
 ---
 

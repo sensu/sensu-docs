@@ -2,7 +2,7 @@
 title: "Contact Routing"
 product: "Sensu Enterprise"
 version: "3.0"
-weight: 5
+weight: 6
 menu: "sensu-enterprise-3.0"
 ---
 

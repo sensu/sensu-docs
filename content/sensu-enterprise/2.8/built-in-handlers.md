@@ -2,7 +2,7 @@
 title: "Built-in Handlers"
 product: "Sensu Enterprise"
 version: "2.8"
-weight: 6
+weight: 10
 menu: "sensu-enterprise-2.8"
 ---
 **ENTERPRISE: Built-in handlers are available for [Sensu Enterprise][0]
@@ -95,7 +95,7 @@ Built-in event handlers:
 - [Chef](../integrations/chef) - deregister Sensu clients without an associated Chef node
 - [EC2](../integrations/ec2) - deregister Sensu clients without an allowed EC2 instance state
 - [Event Stream](../integrations/event_stream) - send all Sensu events to a remote TCP socket
-- [InfluxDB](../integrations/influxdb) - send metrics to InfluxDB
+- [InfluxDB](../integrations/influxdb) - send metrics to InfluxDB. Learn how to easily route and translate data with InfluxDB and Sensu [here][5].
 - [Graphite](../integrations/graphite) - send metrics to Graphite
 - [Wavefront](../integrations/wavefront) - send metrics to Wavefront
 - [Librato](../integrations/librato) - send metrics to Librato Metrics
@@ -108,3 +108,4 @@ Built-in event handlers:
 [2]:  /sensu-core/1.2/reference/checks
 [3]:  ../contact-routing
 [4]:  #list-of-built-in-handlers
+[5]: http://monitoringlove.sensu.io/influxdb
