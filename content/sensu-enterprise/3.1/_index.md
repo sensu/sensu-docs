@@ -8,7 +8,7 @@ menu: "sensu-enterprise-3.1"
 layout: "single"
 ---
 
-[Get started with a free trial of Sensu Enterprise][1] | [Learn about upgrading from Sensu Core][24]
+[Get started with a free trial of Sensu Enterprise][1] | [Upgrade from Sensu Core][24]
 
 Sensu Enterprise is the reliable, scalable monitoring event pipeline built to reduce operator burden and make developers and business owners happy.
 Built on [Sensu Core][3], Sensu Enterprise includes built-in integrations and features designed to solve your organization's unique monitoring challenges.
@@ -19,7 +19,7 @@ Built on [Sensu Core][3], Sensu Enterprise includes built-in integrations and fe
 
 <i class="fa fa-youtube-play" aria-hidden="true"></i> <a target="_blank" href="https://www.youtube.com/watch?v=jUW4rAqazwA">Listen to Sensu Inc. CEO Caleb Hailey explain the Sensu monitoring event pipeline.</a>
 
-**Reduce alert fatigue**: Sensu Enterprise gives you full control over your alerts with flexible filters, context-rich notifications, reporting, event handling, and auto-remediation.
+**Reduce alert fatigue**: Sensu Enterprise gives you full control over your alerts with flexible filters, context-rich notifications, contact routing, reporting, event handling, and auto-remediation.
 
 **Integrate anywhere**: With [over 20 built-in handlers][4], Sensu Enterprise makes it easy to integrate monitoring with tools you already use like [email][5], [PagerDuty][6], [Slack][7], [Puppet][8], [Chef][9], [InfluxDB][10], [DataDog][11], and even [SNMP][12].
 
@@ -49,16 +49,16 @@ Sensu Enterprise includes built-in integrations with the tools and services your
 - **Collect metrics and generate alerts with the same tool**
 
 Know what's going on everywhere in your system.
-Use the Sensu client to collect metrics alongside check results, then use the event pipeline to route the data to industry-standard tools like Graphite or InfluxDB.
+Use the Sensu client to collect metrics in [industry-standard formats][26], then use the event pipeline to route the data to industry-standard tools like Graphite or InfluxDB.
 
 - **Reduce mean time to recovery with contact routing**
 
 Every incident or outage has an ideal first responder, a team or individual with the knowledge to triage and address the issue. Sensu Enterprise [contact routing][23] makes it possible to assign checks to specific teams and individuals, reducing mean time to incident response and recovery.
 
-- **Intuitive API and dashboard interfaces**
+- **Intuitive API and dashboard interfaces with role-based access control**
 
-Sensu Enterprise includes a [dashboard][18] to provide a unified view of your clients, checks, and events, as well as a user-friendly silencing tool, all-in-one heads-up display, and [role-based access control][25].
-The [Sensu Enterprise API][15] allows you (and your internal customers) to create checks, register clients, manage configuration, and more.
+Sensu Enterprise includes a [dashboard][18] to provide a unified view of your clients, checks, and events, as well as a user-friendly silencing tool and all-in-one heads-up display.
+The Sensu Enterprise Dashboard provides comprehensive and granular [role-based access controls][25] with support for LDAP, GitHub, GitHub Enterprise, and GitLab authentication.
 
 **Sensu Enterprise Dashboard:**
 
@@ -105,3 +105,4 @@ or added-value features like [contact routing][23].
 [23]: contact-routing
 [24]: #upgrading-to-sensu-enterprise
 [25]: /sensu-enterprise-dashboard/latest/rbac/overview
+[26]: built-in-mutators
