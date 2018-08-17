@@ -54,8 +54,9 @@ description  | System information about the entity, such as operating system and
 required     | false 
 type         | [System][1] 
 example      | {{< highlight json >}}
-"system": {
-"hostname": "example-hostname",
+{
+  "system": {
+    "hostname": "example-hostname",
     "os": "linux",
     "platform": "ubuntu",
     "platform_family": "debian",
@@ -80,8 +81,8 @@ example      | {{< highlight json >}}
       ]
     },
     "arch": "amd64"
-}
-{{</ highlight >}}
+  }
+}{{< /highlight >}}
 
 last_seen    | 
 -------------|------ 
@@ -105,10 +106,11 @@ description  | A map containing a handler name, for use when an entity is deregi
 required     | false 
 type         | [Deregistration][2] 
 example      | {{< highlight json >}}
+{
   "deregistration": {
     "handler": "email-handler"
-}
-{{</ highlight >}}
+  }
+}{{< /highlight >}}
 
 keepalive_timeout  | 
 -------------|------ 
@@ -146,10 +148,12 @@ description  | List of items to redact from log messages. If a value is provided
 required     | false 
 type         | array 
 default      | ["password", "passwd", "pass", "api_key", "api_token", "access_key", "secret_key", "private_key", "secret"]
-example      | {{< highlight json >}}"redact": [
-  "extra_secret_tokens"
-]
-{{</ highlight >}}
+example      | {{< highlight json >}}
+{
+  "redact": [
+    "extra_secret_tokens"
+  ]
+}{{< /highlight >}}
 
 ### System Attributes
 
@@ -194,26 +198,27 @@ description  | The entity's network interface list.
 required     | false 
 type         | [Network][3] 
 example      | {{< highlight json >}}
-"network": {
-      "interfaces": [
-        {
-          "name": "lo",
-          "addresses": [
-            "127.0.0.1/8",
-            "::1/128"
-          ]
-        },
-        {
-          "name": "eth0",
-          "mac": "52:54:00:20:1b:3c",
-          "addresses": [
-            "93.184.216.34/24",
-            "2606:2800:220:1:248:1893:25c8:1946/10"
-          ]
-        }
-      ]
-}
-{{</ highlight >}}
+{
+  "network": {
+    "interfaces": [
+      {
+        "name": "lo",
+        "addresses": [
+          "127.0.0.1/8",
+          "::1/128"
+        ]
+      },
+      {
+        "name": "eth0",
+        "mac": "52:54:00:20:1b:3c",
+        "addresses": [
+          "93.184.216.34/24",
+          "2606:2800:220:1:248:1893:25c8:1946/10"
+        ]
+      }
+    ]
+  }
+}{{< /highlight >}}
 
 arch         | 
 -------------|------ 
@@ -230,24 +235,25 @@ description  | The list of network interfaces available on the entity, with thei
 required     | false 
 type         | array [NetworkInterface][4] 
 example      | {{< highlight json >}}
-      "interfaces": [
-        {
-          "name": "lo",
-          "addresses": [
-            "127.0.0.1/8",
-            "::1/128"
-          ]
-        },
-        {
-          "name": "eth0",
-          "mac": "52:54:00:20:1b:3c",
-          "addresses": [
-            "93.184.216.34/24",
-            "2606:2800:220:1:248:1893:25c8:1946/10"
-          ]
-        }
+{
+  "interfaces": [
+    {
+      "name": "lo",
+      "addresses": [
+        "127.0.0.1/8",
+        "::1/128"
       ]
-{{</ highlight >}}
+    },
+    {
+      "name": "eth0",
+      "mac": "52:54:00:20:1b:3c",
+      "addresses": [
+        "93.184.216.34/24",
+        "2606:2800:220:1:248:1893:25c8:1946/10"
+      ]
+    }
+  ]
+}{{< /highlight >}}
 
 ### NetworkInterface Attributes
 
@@ -270,11 +276,7 @@ addresses    |
 description  | The list of IP addresses for the interface.
 required     | false 
 type         | array 
-example      | {{< highlight json >}}  "addresses": [
-    "93.184.216.34/24",
-    "2606:2800:220:1:248:1893:25c8:1946/10"
-]
-{{</ highlight >}}
+example      | {{< highlight shell >}} "addresses": ["93.184.216.34/24", "2606:2800:220:1:248:1893:25c8:1946/10"]{{< /highlight >}}
 
 ### Deregistration Attributes
 
@@ -321,21 +323,21 @@ example      | {{< highlight shell >}}"handler": "email-handler"{{</ highlight >
     "platform_version": "16.04",
     "network": {
       "interfaces": [
-      {
-        "name": "lo",
-        "addresses": [
-          "127.0.0.1/8",
-        "::1/128"
-        ]
-      },
-      {
-        "name": "eth0",
-        "mac": "52:54:00:20:1b:3c",
-        "addresses": [
-          "93.184.216.34/24",
-        "2606:2800:220:1:248:1893:25c8:1946/10"
-        ]
-      }
+        {
+          "name": "lo",
+          "addresses": [
+            "127.0.0.1/8",
+            "::1/128"
+          ]
+        },
+        {
+          "name": "eth0",
+          "mac": "52:54:00:20:1b:3c",
+          "addresses": [
+            "93.184.216.34/24",
+            "2606:2800:220:1:248:1893:25c8:1946/10"
+          ]
+        }
       ]
     },
     "arch": "amd64"
@@ -343,8 +345,7 @@ example      | {{< highlight shell >}}"handler": "email-handler"{{</ highlight >
   "user": "agent",
   "region": "us-west-1",
   "team": "ops"
-}
-{{< /highlight >}}
+}{{< /highlight >}}
 
 [1]: #system-attributes
 [2]: #deregistration-attributes
