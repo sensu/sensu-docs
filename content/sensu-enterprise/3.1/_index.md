@@ -46,19 +46,19 @@ Get meaningful alerts when and where you need them.
 Use [event filters][17] to reduce noise and [check hooks][19] to add context and speed up incident response.
 Sensu Enterprise includes built-in integrations with the tools and services your organization already uses like [PagerDuty][20], [Slack][21], and more.
 
-- **Collect metrics and generate alerts with the same tool**
+- **Collect and store metrics with built-in support for industry-standard tools**
 
 Know what's going on everywhere in your system.
-Use the Sensu client to collect metrics in [industry-standard formats][26], then use the event pipeline to route the data to industry-standard tools like Graphite or InfluxDB.
+Sensu Enterprise collects metrics in [industry-standard formats][26] (like Nagios performance data) and automatically translates the data for storage in Graphite, InfluxDB, OpenTSDB, and more.
 
 - **Reduce mean time to recovery with contact routing**
 
-Every incident or outage has an ideal first responder, a team or individual with the knowledge to triage and address the issue. Sensu Enterprise [contact routing][23] makes it possible to assign checks to specific teams and individuals, reducing mean time to incident response and recovery.
+Every incident or outage has an ideal first responder, a team or individual with the knowledge to triage and address the issue. Sensu Enterprise [contact routing][23] makes it possible to assign events to specific teams and individuals, reducing mean time to incident response and recovery.
 
-- **Intuitive API and dashboard interfaces with role-based access control**
+- **Intuitive API and dashboard interfaces with scalable access control**
 
-Sensu Enterprise includes a [dashboard][18] to provide a unified view of your clients, checks, and events, as well as a user-friendly silencing tool and all-in-one heads-up display.
-The Sensu Enterprise Dashboard provides comprehensive and granular [role-based access controls][25] with support for LDAP, GitHub, GitHub Enterprise, and GitLab authentication.
+Sensu Enterprise includes a [dashboard][18] to aggregate monitoring data across multiple datacenters and provide a unified view of your system.
+The Sensu Enterprise Dashboard delivers visibility at scale with comprehensive and granular [role-based access controls][25] featuring support for LDAP, GitHub, GitHub Enterprise, and GitLab authentication.
 
 **Sensu Enterprise Dashboard:**
 
