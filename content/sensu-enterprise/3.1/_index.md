@@ -23,7 +23,7 @@ Built on [Sensu Core][3], Sensu Enterprise includes built-in integrations and fe
 
 **Integrate anywhere**: With [over 20 built-in handlers][4], Sensu Enterprise makes it easy to integrate monitoring with tools you already use like [email][5], [PagerDuty][6], [Slack][7], [Puppet][8], [Chef][9], [InfluxDB][10], [DataDog][11], and even [SNMP][12].
 
-**Get enterprise-class support**: Every Sensu Enterprise subscription includes [Enterprise Support][13], an SLA that guarantees a four-hour response and a next-business-day resolution. Upgrade to Premium Support for 24x7 support, faster response times, training, and more.
+**Get enterprise-class support**: Sensu Enterprise includes [SLA-backed production support][13] for added peace of mind. Upgrade to Premium Support for 24x7 support, faster response times, training, and more.
 
 ### Monitoring for Your Infrastructure
 
