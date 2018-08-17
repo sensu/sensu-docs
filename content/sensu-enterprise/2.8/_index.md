@@ -1,6 +1,7 @@
 ---
 title: "Sensu Enterprise"
 product: "Sensu Enterprise"
+description: "Sensu is the open source monitoring event pipeline built to reduce operator burden and meet the challenges of monitoring hybrid-cloud and containerized infrastructures."
 version: "2.8"
 weight: 1
 menu: "sensu-enterprise-2.8"
@@ -56,7 +57,7 @@ Every incident or outage has an ideal first responder, a team or individual with
 
 - **Intuitive API and dashboard interfaces with scalable access control**
 
-Sensu Enterprise includes a [dashboard][18] to aggregate monitoring data across multiple datacenters and provide a unified view of your system.
+Sensu Enterprise includes a [dashboard][18] to aggregate monitoring data across multiple environments, providing a unified view.
 The Sensu Enterprise Dashboard delivers visibility at scale with comprehensive and granular [role-based access controls][25] featuring support for LDAP, GitHub, GitHub Enterprise, and GitLab authentication.
 
 **Sensu Enterprise Dashboard:**
