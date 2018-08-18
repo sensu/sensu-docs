@@ -76,7 +76,7 @@ _NOTE: When installing plugins on Windows, double check that the executable you'
 
 ### Removing Plugins
 
-If you find that you need to remove a plugin, you can use the embedded `gem` command to remove a plugin. See the example below:
+If you find that you need to remove a plugin, you can use the embedded `gem` command to remove a plugin. See the example below as run from an administrative command prompt:
 
 {{< highlight shell >}}
 $ c:\opt\sensu\embedded\bin\gem uninstall sensu-plugins-windows
