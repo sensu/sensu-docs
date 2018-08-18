@@ -112,9 +112,10 @@ In this section, we'll cover some strategies for how you can secure your dashboa
 In addition to being able to add an SSL certificate to our configuration, we can also specify the cipher suites that we want to use, as well as set our minimum TLS version. Those are added inside of the `ssl` scope, and look like:
 
 {{< highlight json >}}
-"ssl": {
-  ...
-  "ciphersuite": [
+{
+  "ssl": {
+    "...": "...",
+    "ciphersuite": [
       "TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256",
       "TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305",
       "TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305",
@@ -123,8 +124,9 @@ In addition to being able to add an SSL certificate to our configuration, we can
       "TLS_RSA_WITH_AES_128_GCM_SHA256",
       "TLS_RSA_WITH_AES_128_CBC_SHA",
       "TLS_RSA_WITH_AES_256_CBC_SHA"
-      ],
-  "tlsminversion": "tls10"
+    ],
+    "tlsminversion": "tls10"
+  }
 }{{< /highlight >}}
 
 ### Disabling Client TCP/HTTP Sockets{#disabling-client-sockets}
@@ -193,7 +195,8 @@ Sensu Enterprise also provides a method for implementing roles and auth tokens i
         }
       ]
     }
-  }{{< /highlight >}}
+  }
+}{{< /highlight >}} 
 
 Note that there are also options for restricting API methods to roles, as well as the ability to restrict read/write access to the dashboard, which you can see more of in the [RBAC drivers documentation][14]
 
@@ -207,7 +210,7 @@ We covered the `signature` and `redact` attributes at the beginning of the guide
 
 {{< highlight json >}}
 {
-  client: {
+  "client": {
     "name": "test_client",
     "subscriptions": [
       "dev"
@@ -247,10 +250,15 @@ _NOTE: One element not present is the discussion of minimum viable permissions f
 Just like our client, we've added the following inside of our RabbitMQ configuration:
 
 {{< highlight json >}}
- "ssl": {
-   "cert_chain_file": "/etc/sensu/ssl/cert.pem",
-   "private_key_file": "/etc/sensu/ssl/key.pem"
- }{{< /highlight >}}
+{
+  "rabbitmq": {
+    "...": "...",
+    "ssl": {
+      "cert_chain_file": "/etc/sensu/ssl/cert.pem",
+      "private_key_file": "/etc/sensu/ssl/key.pem"
+    }
+  }
+}{{< /highlight >}}
 
 #### Dashboard Configuration
 
@@ -279,7 +287,7 @@ Which will look like the following:
         "TLS_RSA_WITH_AES_128_GCM_SHA256",
         "TLS_RSA_WITH_AES_256_GCM_SHA384",
         "TLS_RSA_WITH_AES_128_CBC_SHA",
-        "TLS_RSA_WITH_AES_256_CBC_SHA",
+        "TLS_RSA_WITH_AES_256_CBC_SHA"
       ],
       "tlsminversion": "tls10"
     },
@@ -296,6 +304,7 @@ Which will look like the following:
         "accessToken": "hrKMW3uIt2RGxuMIoXQ-bVp-TL1MP4St5Hap3KAanMxI3OovFV48ww__",
         "readonly": true
       }
+    ]
   }
 }{{< /highlight >}}
 
