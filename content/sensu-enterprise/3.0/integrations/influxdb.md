@@ -103,7 +103,7 @@ tags           |
 description    | Configurable custom tags (key/value pairs) to add to every InfluxDB measurement.
 required       | false
 type           | Hash
-default        | {{< highlight shell >}}{}{{</ highlight >}}
+default        | {{< highlight shell >}}{}{{< /highlight >}}
 example        | {{< highlight json >}}
 "tags": {
   "dc": "us-central-1"

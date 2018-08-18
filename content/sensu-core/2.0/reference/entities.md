@@ -39,14 +39,14 @@ ID           |
 description  | The unique ID of the entity, validated with go regex [`\A[\w\.\-]+\z`](https://regex101.com/r/zo9mQU/2)
 required     | true
 type         | string 
-example      | {{< highlight shell >}}"ID": "example-hostname"{{</ highlight >}}
+example      | {{< highlight shell >}}"ID": "example-hostname"{{< /highlight >}}
 
 class        | 
 -------------|------ 
 description  | The entity type, validated with go regex [`\A[\w\.\-]+\z`](https://regex101.com/r/zo9mQU/2). This value is not user configurable; it is set directly by the agent. An entity that runs an agent will be of `agent`, while a proxy entity will have class `proxy`.
 required     | true
 type         | string 
-example      | {{< highlight shell >}}"class": "agent"{{</ highlight >}}
+example      | {{< highlight shell >}}"class": "agent"{{< /highlight >}}
 
 subscriptions| 
 -------------|------ 
@@ -54,7 +54,7 @@ description  | A list of subscription names for the entity. The entity by defaul
 required     | false 
 type         | array 
 default      | The entity-specific subscription.
-example      | {{< highlight shell >}}"subscriptions": ["web", "prod", "entity:example-entity"]{{</ highlight >}}
+example      | {{< highlight shell >}}"subscriptions": ["web", "prod", "entity:example-entity"]{{< /highlight >}}
 
 system       | 
 -------------|------ 
@@ -89,14 +89,14 @@ example      | {{< highlight json >}}
     },
     "arch": "amd64"
 }
-{{</ highlight >}}
+{{< /highlight >}}
 
 last_seen    | 
 -------------|------ 
 description  | Timestamp the entity was last seen, in epoch time. 
 required     | false 
 type         | integer 
-example      | {{< highlight shell >}}"last_seen": 1522798317 {{</ highlight >}}
+example      | {{< highlight shell >}}"last_seen": 1522798317 {{< /highlight >}}
 
 
 deregister   | 
@@ -105,7 +105,7 @@ description  | If the entity should be removed when it stops sending keepalive m
 required     | false 
 type         | boolean 
 default      | false
-example      | {{< highlight shell >}}"deregister": false {{</ highlight >}}
+example      | {{< highlight shell >}}"deregister": false {{< /highlight >}}
 
 deregistration  | 
 -------------|------ 
@@ -116,7 +116,7 @@ example      | {{< highlight json >}}
   "deregistration": {
     "handler": "email-handler"
 }
-{{</ highlight >}}
+{{< /highlight >}}
 
 keepalive_timeout  | 
 -------------|------ 
@@ -124,14 +124,14 @@ description  | The time in seconds until an entity keepalive is considered stale
 required     | false 
 type         | integer 
 default      | 120
-example      | {{< highlight shell >}}"keepalive_timeout": 120 {{</ highlight >}}
+example      | {{< highlight shell >}}"keepalive_timeout": 120 {{< /highlight >}}
 
 organization | 
 -------------|------ 
 description  | The Sensu RBAC organization that this entity belongs to.
 required     | false 
 type         | string 
-example      | {{< highlight shell >}}"organization": "default"{{</ highlight >}}
+example      | {{< highlight shell >}}"organization": "default"{{< /highlight >}}
 
 environment  | 
 -------------|------ 
@@ -139,14 +139,14 @@ description  | The Sensu RBAC environment that this entity belongs to.
 required     | false 
 type         | string 
 default      | current environment value configured for `sensuctl` (ie `default`) 
-example      | {{< highlight shell >}}"environment": "default"{{</ highlight >}}
+example      | {{< highlight shell >}}"environment": "default"{{< /highlight >}}
 
 extended_attributes | 
 -------------|------ 
 description  | Custom attributes to include as with the entity, that appear as outer-level attributes.
 required     | false 
 type         | byte 
-example      | {{< highlight shell >}}"team":"ops"{{</ highlight >}}
+example      | {{< highlight shell >}}"team":"ops"{{< /highlight >}}
 
 redact       | 
 -------------|------ 
@@ -157,7 +157,7 @@ default      | ["password", "passwd", "pass", "api_key", "api_token", "access_ke
 example      | {{< highlight json >}}"redact": [
   "extra_secret_tokens"
 ]
-{{</ highlight >}}
+{{< /highlight >}}
 
 ### System Attributes
 
@@ -166,35 +166,35 @@ hostname     |
 description  | The hostname of the entity. 
 required     | false 
 type         | string 
-example      | {{< highlight shell >}}"hostname": "example-hostname" {{</ highlight >}}
+example      | {{< highlight shell >}}"hostname": "example-hostname" {{< /highlight >}}
 
 os           | 
 -------------|------ 
 description  | The entity's operating system. 
 required     | false 
 type         | string 
-example      | {{< highlight shell >}}"os": "linux" {{</ highlight >}}
+example      | {{< highlight shell >}}"os": "linux" {{< /highlight >}}
 
 platform     | 
 -------------|------ 
 description  | The entity's operating system distribution. 
 required     | false 
 type         | string 
-example      | {{< highlight shell >}}"platform": "ubuntu" {{</ highlight >}}
+example      | {{< highlight shell >}}"platform": "ubuntu" {{< /highlight >}}
 
 platform_family     | 
 -------------|------ 
 description  | The entity's operating system family. 
 required     | false 
 type         | string 
-example      | {{< highlight shell >}}"platform_family": "debian" {{</ highlight >}}
+example      | {{< highlight shell >}}"platform_family": "debian" {{< /highlight >}}
 
 platform_version     | 
 -------------|------ 
 description  | The entity's operating system version. 
 required     | false 
 type         | string 
-example      | {{< highlight shell >}}"platform_version": "16.04" {{</ highlight >}}
+example      | {{< highlight shell >}}"platform_version": "16.04" {{< /highlight >}}
 
 network     | 
 -------------|------ 
@@ -221,14 +221,14 @@ example      | {{< highlight json >}}
         }
       ]
 }
-{{</ highlight >}}
+{{< /highlight >}}
 
 arch         | 
 -------------|------ 
 description  | The entity's system architecture. This value is determined by the Go binary architecture, as a function of runtime.GOARCH. An `amd` system running a `386` binary will report the arch as `386`.
 required     | false 
 type         | string 
-example      | {{< highlight shell >}}"arch": "amd64" {{</ highlight >}}
+example      | {{< highlight shell >}}"arch": "amd64" {{< /highlight >}}
 
 ### Network Attributes
 
@@ -255,7 +255,7 @@ example      | {{< highlight json >}}
           ]
         }
       ]
-{{</ highlight >}}
+{{< /highlight >}}
 
 ### NetworkInterface Attributes
 
@@ -264,14 +264,14 @@ name         |
 description  | The network interface name.
 required     | false 
 type         | string 
-example      | {{< highlight shell >}}"name": "eth0"{{</ highlight >}}
+example      | {{< highlight shell >}}"name": "eth0"{{< /highlight >}}
 
 mac          | 
 -------------|------ 
 description  | The network interface's MAC address.
 required     | false 
 type         | string 
-example      | {{< highlight shell >}}"mac": "52:54:00:20:1b:3c"{{</ highlight >}}
+example      | {{< highlight shell >}}"mac": "52:54:00:20:1b:3c"{{< /highlight >}}
 
 addresses    | 
 -------------|------ 
@@ -282,7 +282,7 @@ example      | {{< highlight json >}}  "addresses": [
     "93.184.216.34/24",
     "2606:2800:220:1:248:1893:25c8:1946/10"
 ]
-{{</ highlight >}}
+{{< /highlight >}}
 
 ### Deregistration Attributes
 
@@ -291,7 +291,7 @@ handler      |
 description  | The name of the handler to be called when an entity is deregistered.
 required     | false 
 type         | string 
-example      | {{< highlight shell >}}"handler": "email-handler"{{</ highlight >}}
+example      | {{< highlight shell >}}"handler": "email-handler"{{< /highlight >}}
 
 ## Examples
 

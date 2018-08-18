@@ -42,7 +42,7 @@ If a token is unmatched during check preparation, the agent check handler will r
 
 {{< highlight shell >}}
 error: unmatched token: template: :1:22: executing "" at <.System.Hostname>: map has no entry for key "System"
-{{</ highlight >}}
+{{< /highlight >}}
 
 Check config token errors will be logged by the agent, and sent to Sensu backend message transport as a check failure.
 

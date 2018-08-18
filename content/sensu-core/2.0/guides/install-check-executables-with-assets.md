@@ -69,7 +69,7 @@ scheduled and start emitting events. When the check has been scheduled, you shou
 see a log entry for that check's execution.
 {{< highlight shell >}}
 {"component":"agent","level":"info","msg":"scheduling check execution: check_website","time":"2018-04-06T20:46:32Z"}
-{{</ highlight >}}
+{{< /highlight >}}
 
 You can verify that the asset is working by using `sensuctl` to list the most recent events:
 {{< highlight shell >}}
@@ -77,7 +77,7 @@ $ sensuctl event list
     Entity           Check                     Output               Status   Silenced             Timestamp
  ───────────── ────────────────── ──────────────────────────────── ──────── ────────── ───────────────────────────────
   sensu-agent    check_website      CheckHttpResponseTime OK: 345      0       false    2018-04-06 20:38:34 +0000 UTC
-{{</ highlight >}}
+{{< /highlight >}}
 
 ## Next steps
 

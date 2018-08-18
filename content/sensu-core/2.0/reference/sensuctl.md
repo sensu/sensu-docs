@@ -164,7 +164,7 @@ format:
 
 {{< highlight shell >}}
 sensuctl check info marketing-site --format json
-{{</ highlight >}}
+{{< /highlight >}}
 
 {{< highlight json >}}
 {

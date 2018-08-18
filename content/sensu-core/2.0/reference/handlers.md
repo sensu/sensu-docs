@@ -161,7 +161,7 @@ type         | String
 default      | current organization value configured for `sensuctl` (i.e., `default`) 
 example      | {{< highlight shell >}}
   "organization": "default"
-{{</ highlight >}}
+{{< /highlight >}}
 
 environment  | 
 -------------|------ 
@@ -171,7 +171,7 @@ type         | String
 default      | current environment value configured for `sensuctl` (i.e., `default`) 
 example      | {{< highlight shell >}}
   "environment": "default"
-{{</ highlight >}}
+{{< /highlight >}}
 
 ### `socket` attributes
 

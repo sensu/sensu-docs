@@ -294,7 +294,7 @@ required     | false
 type         | String
 example      | {{< highlight shell >}}
   "organization": "default"
-{{</ highlight >}}
+{{< /highlight >}}
 
 |environment |      |
 -------------|------
@@ -304,13 +304,13 @@ type         | String
 default      | current environment value configured for `sensuctl` (ie `default`)
 example      | {{< highlight shell >}}
   "environment": "default"
-{{</ highlight >}}
+{{< /highlight >}}
 
 |silenced    |      |
 -------------|------
 description  | If the event is to be silenced.
 type         | boolean
-example      | {{< highlight shell >}}"silenced": false{{</ highlight >}}
+example      | {{< highlight shell >}}"silenced": false{{< /highlight >}}
 
 ### Proxy requests attributes
 
@@ -320,7 +320,7 @@ description  | Sensu entity attributes to match entities in the registry, using 
 required     | false
 type         | Array
 default      | current environment value configured for `sensuctl` (ie `default`)
-example      | {{< highlight shell >}}"entity_attributes": ["entity.Class == 'proxy'"]{{</ highlight >}}
+example      | {{< highlight shell >}}"entity_attributes": ["entity.Class == 'proxy'"]{{< /highlight >}}
 
 |splay       |      |
 -------------|------
@@ -328,7 +328,7 @@ description  | If proxy check requests should be splayed, published evenly over 
 required     | false
 type         | Boolean
 default      | false
-example      | {{< highlight shell >}}"splay": true{{</ highlight >}}
+example      | {{< highlight shell >}}"splay": true{{< /highlight >}}
 
 |splay_coverage  | |
 -------------|------
@@ -336,7 +336,7 @@ description  | The splay coverage percentage use for proxy check request splay c
 required     | false
 type         | Integer
 default      | 90
-example      | {{< highlight shell >}}"splay_coverage": 65{{</ highlight >}}
+example      | {{< highlight shell >}}"splay_coverage": 65{{< /highlight >}}
 
 ### Subdue attributes
 

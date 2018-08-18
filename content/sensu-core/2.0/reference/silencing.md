@@ -68,7 +68,7 @@ check        |
 description  | The name of the check the entry should match 
 required     | true, unless `subscription` is provided
 type         | String
-example      | {{< highlight shell >}}"check": "haproxy_status"{{</ highlight >}}
+example      | {{< highlight shell >}}"check": "haproxy_status"{{< /highlight >}}
 
 
 subscription | 
@@ -83,14 +83,14 @@ id           |
 description  | Silencing identifier generated from the combination of a subsription name and check name. 
 required     | false - this value cannot be modified 
 type         | String
-example      | {{< highlight shell >}}"id": "appserver:mysql_status"{{</ highlight >}}
+example      | {{< highlight shell >}}"id": "appserver:mysql_status"{{< /highlight >}}
 
 begin        | 
 -------------|------ 
 description  | Time at which silence entry goes into effect, in epoch. 
 required     | false 
 type         | Integer 
-example      | {{< highlight shell >}}"begin": 1512512023{{</ highlight >}}
+example      | {{< highlight shell >}}"begin": 1512512023{{< /highlight >}}
 
 expire       | 
 -------------|------ 
@@ -98,7 +98,7 @@ description  | Number of seconds until this entry should be deleted.
 required     | false 
 type         | Integer 
 default      | -1
-example      | {{< highlight shell >}}"expire": 3600{{</ highlight >}}
+example      | {{< highlight shell >}}"expire": 3600{{< /highlight >}}
 
 expire_on_resolve       | 
 -------------|------ 
@@ -106,7 +106,7 @@ description  | If the entry should be deleted when a check begins return OK stat
 required     | false 
 type         | Boolean 
 default      | false 
-example      | {{< highlight shell >}}"expire_on_resolve": true{{</ highlight >}}
+example      | {{< highlight shell >}}"expire_on_resolve": true{{< /highlight >}}
 
 
 creator      | 
@@ -115,7 +115,7 @@ description  | Person/application/entity responsible for creating the entry.
 required     | false 
 type         | String 
 default      | null 
-example      | {{< highlight shell >}}"creator": "Application Deploy Tool 5.0"{{</ highlight >}}
+example      | {{< highlight shell >}}"creator": "Application Deploy Tool 5.0"{{< /highlight >}}
 
 reason       | 
 -------------|------ 
@@ -123,7 +123,7 @@ description  | Explanation for the creation of this entry.
 required     | false 
 type         | String 
 default      | null 
-example      | {{< highlight shell >}}"reason": "rebooting the world"{{</ highlight >}}
+example      | {{< highlight shell >}}"reason": "rebooting the world"{{< /highlight >}}
 
 organization | 
 -------------|------ 
@@ -131,7 +131,7 @@ description  | The Sensu RBAC organization that this check belongs to.
 required     | false 
 type         | String 
 default      | current organization value configured for `sensuctl` (ie `default`) 
-example      | {{< highlight shell >}}"organization": "default"{{</ highlight >}}
+example      | {{< highlight shell >}}"organization": "default"{{< /highlight >}}
 
 environment  | 
 -------------|------ 
@@ -139,7 +139,7 @@ description  | The Sensu RBAC environment that this check belongs to.
 required     | false 
 type         | String 
 default      | current environment value configured for `sensuctl` (ie `default`) 
-example      | {{< highlight shell >}}"environment": "default"{{</ highlight >}}
+example      | {{< highlight shell >}}"environment": "default"{{< /highlight >}}
 
 ## Examples
 
@@ -157,7 +157,7 @@ do this by taking advantage of per-entity subscriptions:
   "subscription": "entity:i-424242",
   "id": "entity:i-424242:*"
 }
-{{</ highlight >}}
+{{< /highlight >}}
 
 ### Silence a specific check on a specific entity
 Following on the previous example, silence a check named `check_ntp` on entity
@@ -170,7 +170,7 @@ resolved:
   "check": "check_ntp", 
   "expire_on_resolve": true 
 }
-{{</ highlight >}}
+{{< /highlight >}}
 
 The optional `expire_on_resolve` attribute used here indicates that when the
 server processes a matching check from the specified entity with status OK, this
@@ -190,7 +190,7 @@ create a silencing entry specifying only the `appserver` subscription:
 {
   "subscription": "appserver", 
 }
-{{</ highlight >}}
+{{< /highlight >}}
 
 ### Silence a specific check on entities with a specific subscription
 Assume a check `mysql_status` which we wish to silence, running on Sensu
@@ -201,7 +201,7 @@ entities with the subscription `appserver`:
   "subscription": "appserver", 
   "check": "mysql_status"
 }
-{{</ highlight >}}
+{{< /highlight >}}
 
 ### Silence a specific check on every entity
 To silence the check `mysql_status` on every entity in our infrastructure,
@@ -211,7 +211,7 @@ regardless of subscriptions, we only need to provide the check name:
 {
   "check": "mysql_status"
 }
-{{</ highlight >}}
+{{< /highlight >}}
 
 ### Deleting silencing entries
 To delete a silencing entry, you will need to provide its id. Subscription only
@@ -220,13 +220,13 @@ silencing entry ids will be similar to this:
 {
   "id": "appserver:*"
 }
-{{</ highlight >}}
+{{< /highlight >}}
 
 Check only silencing entry ids will be similar to this:
 {{< highlight json >}}
 {
   "id": "*:mysql_status"
 }
-{{</ highlight >}}
+{{< /highlight >}}
 
 [1]: ../events/#attributes
