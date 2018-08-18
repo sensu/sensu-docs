@@ -227,8 +227,8 @@ operator](https://en.wikipedia.org/wiki/Modulo_operation) calculation
   "name": "filter_interval_60_hourly",
   "action": "allow",
   "statements": [
-    "event.Check.Interval == 60"
-    "event.Check.Occurrences == 1 || event.Check.Occurrences % 60 == 0",
+    "event.Check.Interval == 60",
+    "event.Check.Occurrences == 1 || event.Check.Occurrences % 60 == 0"
   ]
 }
 {{< /highlight >}}
@@ -241,8 +241,8 @@ checks with a 30 second `interval`.
   "name": "filter_interval_30_hourly",
   "action": "allow",
   "statements": [
-    "event.Check.Interval == 30"
-    "event.Check.Occurrences == 1 || event.Check.Occurrences % 120 == 0",
+    "event.Check.Interval == 30",
+    "event.Check.Occurrences == 1 || event.Check.Occurrences % 120 == 0"
   ]
 }
 {{< /highlight >}}

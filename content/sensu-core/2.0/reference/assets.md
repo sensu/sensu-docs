@@ -36,9 +36,6 @@ The following are injected into the execution context:
   variable.
 - `{PATH_TO_ASSET}/include` is injected into the `CPATH` environment variable.
 
-_NOTE: GitHub source code archives [can't currently be used][2] as Sensu
-assets archives._
-
 ## Assets specification
 
 ### Attributes
@@ -109,4 +106,3 @@ example      | {{< highlight shell >}}
 {{< /highlight >}}
 
 [1]: ../../reference/filters/
-[2]: https://github.com/mholt/archiver/issues/27

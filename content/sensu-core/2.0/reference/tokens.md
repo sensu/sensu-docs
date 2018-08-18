@@ -56,8 +56,8 @@ arguments to indicate the thresholds (as percentages) for creating warning or cr
 {{< highlight json >}}
 {
   "check_hooks": null,
-  "command": "check-disk-usage.rb -w {{.Disk.Warning | default 80}} -c {{.Disk.Critical | default 90}}"
-  "environment": "{{ .Environment | default "production" }}",
+  "command": "check-disk-usage.rb -w {{.Disk.Warning | default 80}} -c {{.Disk.Critical | default 90}}",
+  "environment": "{{ .Environment | default \"production\" }}",
   "handlers": [],
   "high_flap_threshold": 0,
   "interval": 60,
@@ -74,9 +74,7 @@ arguments to indicate the thresholds (as percentages) for creating warning or cr
     "staging"
   ],
   "timeout": 0
-}
-
-{{< /highlight >}}
+}{{< /highlight >}}
 
 The following example [entity][4] would provide the necessary
 attributes to override the `.Disk.Warning`, `.Disk.Critical`, and `.Environment`
@@ -115,34 +113,33 @@ tokens declared above.
     "platform_version": "16.04",
     "network": {
       "interfaces": [
-      {
-        "name": "lo",
-        "addresses": [
-          "127.0.0.1/8",
-        "::1/128"
-        ]
-      },
-      {
-        "name": "eth0",
-        "mac": "52:54:00:20:1b:3c",
-        "addresses": [
-          "93.184.216.34/24",
-        "2606:2800:220:1:248:1893:25c8:1946/10"
-        ]
-      }
+        {
+          "name": "lo",
+          "addresses": [
+            "127.0.0.1/8",
+            "::1/128"
+          ]
+        },
+        {
+          "name": "eth0",
+          "mac": "52:54:00:20:1b:3c",
+          "addresses": [
+            "93.184.216.34/24",
+            "2606:2800:220:1:248:1893:25c8:1946/10"
+          ]
+        }
       ]
     },
     "arch": "amd64"
-  }
+  },
   "user": "agent",
   "region": "us-west-1",
   "team": "ops",
   "disk": {
     "warning": 75,
     "critical": 85
-  },
-}
-{{< /highlight >}}
+  }
+}{{< /highlight >}}
 
 [1]: https://golang.org/pkg/text/template/
 [2]: ../../../latest/reference/checks/#check-token-substitution
