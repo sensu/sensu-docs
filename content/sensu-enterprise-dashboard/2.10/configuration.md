@@ -199,6 +199,14 @@ example      | {{< highlight shell >}}"audit": {
 }
 {{< /highlight >}}
 
+requireSilencingReason | 
+-------------|------
+description  | Determines whether a reason must be provided or not when creating a silence entry.
+required     | false
+type         | Boolean
+default      | false
+example      | {{< highlight shell >}}"requireSilencingReason": false{{< /highlight >}}
+
 github       | 
 -------------|------
 description  | The [`github` definition scope][14], used to configure [Role Based Access Controls][3] with the [RBAC for GitHub driver][5]. Overrides simple authentication.
