@@ -38,11 +38,11 @@ the simple netcat utility command:
 echo "foo:1|c" | nc -u -w0 127.0.0.1 8125
 {{< /highlight >}}
 
+Metrics received through the StatsD listener are not stored in etcd, so
+it is important to configure an event handler(s)!
+
 _NOTE: On Windows machines running Sensu, the statsd UDP port is not supported,
 rather the TCP port is exposed!_
-
-_NOTE: Metrics received through the StatsD listener are not stored in etcd, so
-it is important to configure an event handler(s)!_
 
 ### Configuring the StatsD listener
 
@@ -58,7 +58,7 @@ and port:
 --statsd-metrics-port int             port used for the statsd metrics server (default 8125)
 {{< /highlight >}}
 
-ex.
+For example:
 {{< highlight shell >}}
 sensu-agent --statsd-event-handlers influx-db --statsd-flush-interval 1 --statsd-metrics-host "123.4.5.6" --statsd-metrics-port 8125
 {{< /highlight >}}
