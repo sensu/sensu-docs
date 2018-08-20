@@ -10,14 +10,17 @@ menu:
     parent: reference
 ---
 
+- [Specification](#hooks-specification)
+- [Examples](#examples)
+
 ## How do hooks work?
 
-Hooks are executed in response to the result of a command execution (e.g.,
-check command) and based on the exit status code of that command (e.g., `1`).
+Hooks are executed in response to the result of a check command execution
+and based on the exit status code of that command (ex: `1`).
 Hook commands can optionally receive JSON serialized Sensu client data via
 STDIN.
 
-Each **type** of response (e.g., `non-zero`) can contain one or more hooks, and
+Each **type** of response (ex: `non-zero`) can contain one or more hooks, and
 correspond to one or more exit status code. Hooks are executed, in order of
 precedence, based on their type:
 
@@ -85,20 +88,20 @@ organization |
 description  | The Sensu RBAC organization that this hook belongs to.
 required     | false 
 type         | String
-default      | current organization value configured for `sensuctl` (ie `default`) 
+default      | current organization value configured for `sensuctl` (ex: `default`) 
 example      | {{< highlight shell >}}
   "organization": "default"
-{{</ highlight >}}
+{{< /highlight >}}
 
 environment  | 
 -------------|------ 
 description  | The Sensu RBAC environment that this hook belongs to.
 required     | false 
 type         | String 
-default      | current environment value configured for `sensuctl` (ie `default`) 
+default      | current environment value configured for `sensuctl` (ex: `default`) 
 example      | {{< highlight shell >}}
   "environment": "default"
-{{</ highlight >}}
+{{< /highlight >}}
 
 ## Examples
 

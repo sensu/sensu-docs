@@ -1,7 +1,8 @@
 ---
-title: "Configuring sensuctl"
+title: "Sensu CLI (sensuctl)"
+linkTitle: "Configuring sensuctl"
 description: "The sensuctl configuration guide."
-weight: 1
+weight: 2
 version: "2.0"
 product: "Sensu Core"
 platformContent: true
@@ -10,9 +11,13 @@ menu:
     parent: getting-started
 ---
 
-## Sensu CLI (sensuctl)
-
 Sensu 2.0 can be configured and used with the sensuctl (pronounced "sensu cuddle") command line utility.
+
+- [Installation](#installation)
+- [Configuration](#configure)
+- [Getting Help](#getting-help)
+- [Create](#create)
+- [Shell Auto-Completion](#shell-auto-completion)
 
 ## Installation
 

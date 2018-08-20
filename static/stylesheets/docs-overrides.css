@@ -1104,6 +1104,17 @@ code {
   color: #89C967;
 }
 
+.toc .feedback {
+  font-family: 'Work Sans';
+  font-weight: 400;
+  font-size: 13px;
+  color: #2C3458;
+}
+
+.drawer .toc a:hover {
+    color: #414868;
+}
+
 /**
 ***  Sidebar Nav override, and media queries
 **/

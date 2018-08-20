@@ -14,6 +14,11 @@ menu:
 
 The Sensu 2.0 binaries are statically linked and can be deployed to any Linux or Windows operating system.
 
+- [Installation](#installation)
+- [Configuration](#configuration)
+- [Starting the services](#starting-the-services)
+- [Docker](#docker)
+
 ### Backend
 
 The Sensu Backend (sensu-backend) is a single statically linked binary that can be deployed via packages (.deb or .rpm) or Docker image.
@@ -90,7 +95,7 @@ sudo cp /etc/sensu/agent.yml.example /etc/sensu/agent.yml
 {{< /highlight >}}
 
 In order for the agent to function, it will need to have a list of one or more backends to point to. This can be set
-by setting `backend-url` to the ip and port of a sensu backend..
+by setting `backend-url` to the ip and port of a Sensu backend.
 
 {{< highlight yaml >}}
 backend-url:
@@ -176,23 +181,21 @@ We suggest, but do not require, persistent storage for sensu-agents. The Sensu A
 ### How To
 
 1. Start the sensu-backend process
-
 {{< highlight shell >}}
 docker run -v /var/lib/sensu:/var/lib/sensu -d --name sensu-backend -p 2380:2380 \
 -p 3000:3000 -p 8080:8080 -p 8081:8081 sensu/sensu:2.0.0-beta.3 sensu-backend start
 {{< /highlight >}}
+
 2. Start an agent
-
 In this case, we're starting an agent whose ID is the hostname with the webserver and system subscriptions. This assumes that sensu-backend is running on another host named sensu.yourdomain.com. If you are running these locally on the same system, be sure to add `--link sensu-backend` to your Docker arguments and change the backend URL `--backend-url ws://sensu-backend:8081`.
-
 {{< highlight shell >}}
 docker run -v /var/lib/sensu:/var/lib/sensu -d --name sensu-agent \
 sensu/sensu:2.0.0-beta.3 sensu-agent start --backend-url ws://sensu.yourdomain.com:8081 \
 --subscriptions webserver,system --cache-dir /var/lib/sensu
 {{< /highlight >}}
 
-**Note** You can configure the sensu-backend and sensu-agent log levels by using the `--log-level` flag on either process. Log levels include `panic`, `fatal`, `error`, `warn`, `info`, and `debug`, defaulting to `warn`.
+_NOTE: You can configure the sensu-backend and sensu-agent log levels by using the `--log-level` flag on either process. Log levels include `panic`, `fatal`, `error`, `warn`, `info`, and `debug`, defaulting to `warn`._
 
-A note about sensuctl and Docker:
+### sensuctl and Docker
 
 It's best to run sensuctl locally and point it at the exposed API port for your sensu-backend process. The sensuctl utility stores configuration locally, and you'll likely want to persist it across uses. While it can be run from the docker container, doing so may be problematic.
