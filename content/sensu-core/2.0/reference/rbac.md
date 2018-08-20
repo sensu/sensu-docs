@@ -10,6 +10,13 @@ menu:
     parent: reference
 ---
 
+- [Organization](#organization)
+- [Environment](#environment)
+- [User](#user)
+- [Group](#group)
+- [Role](#role)
+- [Rule](#rule)
+
 ## How does Role Based Access Control work?
 Sensu RBAC allows management and access of users and resources based on a heirarchy of *organizations*, *environments*, *roles*, *rules*, and *users*. Each `environment` belongs to only one `organization`, and each `resource` (user, check, asset, etc) belongs to only one `environment`. A Sensu installation can have multiple organizations, each with their own set of environments and resources belonging to them.
 
@@ -23,6 +30,7 @@ Sensu 2.0 offers local users management. Users can be managed with `sensuctl`.
 
 An organization is the top-level resource for RBAC. Each organization can
 contain one or multiple environments. Sensu ships with a `default` organization.
+
 #### Attributes
 
 description  | 
@@ -111,7 +119,6 @@ Not available yet!
 ### Role
 
 A role contains a set of rules, which represent permissions to Sensu resources.
-
 Roles can be assigned to one or multiple users. Each user can be a member of one
 or multiple roles. Users inherit all of the permissions from each role they are
 in.
@@ -158,9 +165,7 @@ type         |
 description  | The type of resource the rule has permission to access. 
 required     | true 
 type         | String
-example      | {{< highlight shell >}}"type": "*"{{</highlight>}}
-example      | {{< highlight shell >}}"type": "checks"{{</highlight>}}
-example      | {{< highlight shell >}}"type": "environments"{{</highlight>}}
+example      | {{< highlight shell >}}"type": "*"{{</highlight>}}{{< highlight shell >}}"type": "checks"{{</highlight>}}{{< highlight shell >}}"type": "environments"{{</highlight>}}
 
 organization | 
 -------------|------ 

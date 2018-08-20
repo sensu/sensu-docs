@@ -10,6 +10,15 @@ menu:
     parent: reference
 ---
 
+- [Check commands](#check-commands)
+- [Check scheduling](#check-scheduling)
+- [Check result specification](#check-result-specification)
+- [Token substitution](#check-token-substitution)
+- [Hooks](#check-hooks)
+- [Proxy requests](#proxy-requests)
+- [New and improved checks](#new-and-improved-checks)
+- [Specification](#check-specification)
+
 ## How do checks work?
 
 ### Check commands
@@ -25,20 +34,20 @@ arguments for reusability.
 #### How and where are check commands executed?
 
 All check commands are executed by Sensu agents as the `sensu` user. Commands
-must be executable files that are discoverable on the Sensu agent system (i.e.
+must be executable files that are discoverable on the Sensu agent system (ex:
 installed in a system `$PATH` directory).
 
 ### Check scheduling
 
 Checks are exclusively scheduled by the Sensu backend, which schedules and
 publishes check execution requests to entities via a [Publish/Subscribe
-model][2] (i.e., **subscription checks**).
+model][2].
 
-Subscription checks have a defined set of subscribers, a list of transport
+Checks have a defined set of subscribers, a list of transport
 topics that check requests will be published to. Sensu entities become
-subscribers to these topics (i.e., subscriptions) via their individual
+subscribers to these topics (called subscriptions) via their individual
 subscriptions attribute. In practice, subscriptions will typically correspond to
-a specific role and/or responsibility (e.g., a webserver, database, etc).
+a specific role and/or responsibility (ex: a webserver or database).
 
 Subscriptions are a powerful primitives in the monitoring context because they
 allow you to effectively monitor for specific behaviors or characteristics
@@ -67,16 +76,14 @@ adherence to a simple specification.
     - exit status codes other than `0`, `1`, or `2` indicate an “UNKNOWN” or
       custom status
 
-{{< note title="PRO TIP" >}}
-Those familiar with the **Nagios** monitoring
+_PRO TIP: Those familiar with the **Nagios** monitoring
 system may recognize this specification, as it is the same one used by Nagios
 plugins. As a result, Nagios plugins can be used with Sensu without any
-modification.
-{{< /note >}}
+modification._
 
 At every execution of a check command – regardless of success or failure – the
 Sensu agent publishes the check’s result for eventual handling by the **event
-processor** (i.e. the Sensu backend.)
+processor** (the Sensu backend).
 
 ### Check token substitution
 
@@ -90,16 +97,14 @@ corresponding entity definition attributes values (including custom attributes).
 Learn how to use check tokens with the [Sensu tokens reference
 documentation][5].
 
-{{< note title="Note" >}}
-Check tokens are processed before check execution, therefore token substitutions
-will not apply to check data delivered via the local agent socket input.
-{{< /note >}}
+_NOTE: Check tokens are processed before check execution, therefore token substitutions
+will not apply to check data delivered via the local agent socket input._
 
 ### Check hooks
 
 Check hooks are commands run by the Sensu agent in response to the result of
 check command execution. The Sensu agent will execute the appropriate configured
-hook command, depending on the check execution status (e.g. 1).
+hook command, depending on the check execution status (ex: 0, 1, 2).
 
 Learn how to use check hooks with the [Sensu hooks reference
 documentation][6].
@@ -289,7 +294,7 @@ required     | false
 type         | String
 example      | {{< highlight shell >}}
   "organization": "default"
-{{</ highlight >}}
+{{< /highlight >}}
 
 |environment |      |
 -------------|------
@@ -299,13 +304,13 @@ type         | String
 default      | current environment value configured for `sensuctl` (ie `default`)
 example      | {{< highlight shell >}}
   "environment": "default"
-{{</ highlight >}}
+{{< /highlight >}}
 
 |silenced    |      |
 -------------|------
 description  | If the event is to be silenced.
 type         | boolean
-example      | {{< highlight shell >}}"silenced": false{{</ highlight >}}
+example      | {{< highlight shell >}}"silenced": false{{< /highlight >}}
 
 ### Proxy requests attributes
 
@@ -315,7 +320,7 @@ description  | Sensu entity attributes to match entities in the registry, using 
 required     | false
 type         | Array
 default      | current environment value configured for `sensuctl` (ie `default`)
-example      | {{< highlight shell >}}"entity_attributes": ["entity.Class == 'proxy'"]{{</ highlight >}}
+example      | {{< highlight shell >}}"entity_attributes": ["entity.Class == 'proxy'"]{{< /highlight >}}
 
 |splay       |      |
 -------------|------
@@ -323,7 +328,7 @@ description  | If proxy check requests should be splayed, published evenly over 
 required     | false
 type         | Boolean
 default      | false
-example      | {{< highlight shell >}}"splay": true{{</ highlight >}}
+example      | {{< highlight shell >}}"splay": true{{< /highlight >}}
 
 |splay_coverage  | |
 -------------|------
@@ -331,7 +336,7 @@ description  | The splay coverage percentage use for proxy check request splay c
 required     | false
 type         | Integer
 default      | 90
-example      | {{< highlight shell >}}"splay_coverage": 65{{</ highlight >}}
+example      | {{< highlight shell >}}"splay_coverage": 65{{< /highlight >}}
 
 ### Subdue attributes
 
