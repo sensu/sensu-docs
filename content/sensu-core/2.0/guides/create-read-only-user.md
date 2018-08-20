@@ -27,6 +27,7 @@ Create a new user, and apply the read-only role.
 {{< highlight shell >}}
 $ sensuctl user create 'read-only-user'  --password 'password' --roles 'read-only'
 {{< /highlight >}}
+
 You may also apply the read-only role to an existing user account. Users can
 have multiple roles spanning multiple organizations, each with their own set of
 permissions.
@@ -46,6 +47,7 @@ Username           Roles      Enabled
 sensu             read-only    true
 read-only-user    read-only    true
 {{< /highlight >}}
+
 Note that a default readonly user called `sensu` also exists.
 
 ## Next steps
