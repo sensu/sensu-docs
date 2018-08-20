@@ -200,7 +200,7 @@ Clients will also need to be configured to use a specific account. This is done 
       ]
     },
     "ec2": {
-      "account": "sensu-testing"
+      "account": "sensu-testing",
       "instance_id": "i-424242",
       "allowed_instance_states": [
         "running",
