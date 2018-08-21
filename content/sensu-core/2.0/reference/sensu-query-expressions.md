@@ -10,12 +10,15 @@ menu:
     parent: reference
 ---
 
+- [Specification](#sensu-query-expressions-specification)
+- [Examples](#sensu-query-expressions-examples)
+
 ## How do Sensu query expressions work?
 
 Sensu query expressions (**SQE**) are based on [govaluate][1] expressions, and
-provide additional functionalities for Sensu usage (e.g., nested parameters,
+provide additional functionalities for Sensu usage (like nested parameters and
 custom functions) so Sensu resources can be directly evaluated. SQE should
-always return **false** or **true**.
+always return **true** or **false**.
 
 ## New and improved expressions
 
@@ -55,7 +58,7 @@ weekday(event.Timestamp) == 0
 ### Simple evaluation of an event attribute
 
 The following example returns true if the event's entity contains a custom
-attribute named `Environment` that equals to `production`.
+attribute named `Environment` that is equal to `production`.
 
 {{< highlight javascript >}}
 event.Entity.Environment == 'production'
@@ -80,5 +83,5 @@ hour(event.Timestamp) >= 9 && hour(event.Timestamp) <= 17
 {{< /highlight >}}
 
 [1]: https://github.com/Knetic/govaluate
-[2]: ../../../1.2/reference/filters/#what-are-filter-attribute-eval-tokens
+[2]: ../../../latest/reference/filters/#what-are-filter-attribute-eval-tokens
 [3]: https://github.com/Knetic/govaluate/blob/master/MANUAL.md#operators

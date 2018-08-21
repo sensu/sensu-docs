@@ -61,11 +61,11 @@ sensuctl check create check-cpu \
 --subscriptions linux
 {{< /highlight >}}
 
-**Note** Sensu advises against requiring root privileges to execute check
+_NOTE: Sensu advises against requiring root privileges to execute check
 commands or scripts. The Sensu user is not permitted to kill timed out processes
-invoked by the root user, which _could_ result in zombie processes. While Sensu
+invoked by the root user, which could result in zombie processes. While Sensu
 discourages the use of `sudo` in check commands, you are free to configure your
-checks as you see fit, but please do so at your own risk.
+checks as you see fit, but please do so at your own risk._
 
 ### Validating the check
 

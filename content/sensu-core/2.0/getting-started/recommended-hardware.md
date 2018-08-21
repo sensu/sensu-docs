@@ -2,7 +2,7 @@
 title: "Hardware Requirements and Recommendations"
 linkTitle: "Hardware Requirements"
 description: "Guidelines for what you'll need for deploying Sensu Core to production."
-weight: 1
+weight: 3
 version: "2.0"
 product: "Sensu Core"
 platformContent: false
