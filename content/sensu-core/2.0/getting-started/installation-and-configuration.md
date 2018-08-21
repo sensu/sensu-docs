@@ -65,7 +65,9 @@ sudo yum install sensu-backend sensu-agent
 {{< platformBlock "Windows" >}}
 ### Windows
 
-Coming soon.
+Download the [Sensu agent binary](https://storage.googleapis.com/sensu-binaries/2.0.0-beta.4-1/windows/amd64/sensu-agent).
+
+Download the [Sensu backend binary](https://storage.googleapis.com/sensu-binaries/2.0.0-beta.4-1/windows/amd64/sensu-backend).
 {{< platformBlockClose >}}
 
 ## Configuration
