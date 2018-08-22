@@ -94,7 +94,7 @@ description    | Configurable custom tags (key/value pairs) to add to every Open
 required       | false
 type           | Hash
 default        | {{< highlight shell >}}{}{{< /highlight >}}
-example        | {{< highlight json >}}
+example        | {{< highlight shell >}}
 "tags": {
   "dc": "us-central-1"
 }
