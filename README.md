@@ -1,56 +1,53 @@
-# Sensu Documentation
+![Sensu<sDocs](static/images/sensu-docs.png)
 
-Welcome to Sensu Docs! This repository is the new home of all Sensu-related documentation and we appreciate your help in maintaining it. You can view the live site at [docs.sensu.io](https://docs.sensu.io).
+Welcome to the Sensu Docs project! This repository is the home of [docs.sensu.io][site].
 
-## Why this project
+[Read the docs][site] | [Contributing guide](CONTRIBUTING.md) | [Project wiki][wiki] | [Code of conduct][coc] | [Contact admins][email] | [Open an issue][issue]
 
-Contribution was too complicated when working with the now-deprecated [sensu-docs-legacy](https://github.com/sensu/sensu-docs-legacy) project. Building it depended on proprietary website code. In addition to making the build independent of our marketing website, this new project gives us:
+![Travis build status](https://travis-ci.org/sensu/sensu-docs.svg?branch=master)
 
-- **Much faster** rendering times
-- Versioned documentation per project all in one place
-- Easier contribution experience running Hugo locally
-- Full-text search 😍
+---
 
-## Known limitations
+**We welcome all contributions!
+Read the [contributing guide](CONTRIBUTING.md) to get started.**
 
-- There is no Extensions documentation at this time
+For details on formatting and style, see our [project wiki][wiki].
+If you have any questions, please [submit an issue][issue], or feel free to reach out in #documentation in the [Sensu Community Slack][slack].
 
-## Project wiki
+### Contributing quick start
 
-This README is focused on helping you get started with the sensu-docs project as a whole. For detail on formatting, layouts and other aspects of adding to or modifying content, please see our [project wiki](https://github.com/sensu/sensu-docs/wiki).
+From the docs site, select "Edit this page" to go to the corresponding markdown file in GitHub.
+From there, GitHub will prompt you to create a fork and submit a pull request.
+You can also submit documentation feedback by [opening an issue][issue].
 
-## Running Sensu Docs
+### Running the site locally
 
-Unlike the old sensu-docs project, this site can be run locally with Hugo. There are some new steps to learn, but don't worry, we've documented how to do so (and some common [troubleshooting](https://github.com/sensu/sensu-docs/blob/master/README.md#troubleshooting-hugo) if you need it):
+The Sensu Docs site is a static site built with [Hugo][hugo] and markdown.
+These instructions will help you get the site running locally.
+To contribute to the Sensu Docs, please read the [contributing guide](CONTRIBUTING.md).
 
-### Getting Started with Hugo
+#### 1. Download
 
-#### [Cloning the project](#cloning-the-project)
-
-To view the Sensu docs locally, clone this repository with:
+[Download from GitHub](https://github.com/sensu/sensu-docs/archive/master.zip) or clone the repository:
 
 ```
-git clone https://github.com/sensu/sensu-docs.git
+git clone git@github.com:sensu/sensu-docs.git && cd sensu-docs
 ```
 
-#### Installing Yarn
+#### 2. Install packages
 
-This project uses [Yarn](https://yarnpkg.com/) to manage dependencies and the build process. For information on installing yarn, [view their documentation](https://yarnpkg.com/lang/en/docs/install/).
+This project uses [Yarn][yarn] to manage dependencies and the build process.
+For information on installing Yarn, [view their documentation][yarn-install].
 
-#### Building the site
-
-After installing yarn we suggest that you test the build of the site in your local environment:
+After installing yarn, run:
 
 ```
 yarn
 ```
 
-Yarn will install and run Hugo to render the site into the `public` directory.
+This will install Hugo and build the site into the `public` directory.
 
-This is the same build process used by TravisCI to test changes. If this command produces any errors, please open an issue.
-
-
-#### Viewing locally
+#### 3. Run the site locally
 
 If the site builds successfully, you can run the Hugo server and view the site in a local web browser:
 
@@ -60,18 +57,27 @@ yarn run server
 
 Then visit http://localhost:1313/ in the browser of your choice.
 
-#### Troubleshooting Hugo
+### Troubleshooting
 Here are some things you might try if you encounter an issue working with the site:
 
 * Run `yarn hugo-version` to print the running version of Hugo. Version 0.34 or newer is required.
-* If you are seeing stale page content, try using `yarn server --disableFastRender` to ensure all pages are rebuilt as you make changes.
-* If you're still having trouble viewing the site, open an issue, and we'll be happy to help!
+* If you're seeing stale page content, try using `yarn server --disableFastRender` to ensure all pages are rebuilt as you make changes.
+* If you're still having trouble viewing the site, [open an issue](), and we'll be happy to help!
 
-#### Updating the theme
-This project uses the [hugo-material-docs](https://github.com/digitalcraftsman/hugo-material-docs) theme with some local modifications. Should you choose to update the theme, please take care to ensure leading slashes are not removed from links to Javascript, CSS and other assets.
+### Theme
+This project uses a [fork](themes/hugo-material-docs/) of the wonderful [hugo-material-docs](https://github.com/digitalcraftsman/hugo-material-docs) theme.
 
-### Pushing to GitHub
-This is the same as any other project. Follow GitHub's instructions if you're unsure. No additional steps are needed.
+### Deploying the site
+Any time changes are merged to the `master` branch, this project is automatically deployed to [docs.sensu.io][site] using Heroku's own Github integration. For additional details on Heroku configuration and deployment, see [our wiki page](https://github.com/sensu/sensu-docs/wiki/Heroku-Configuration-and-Publishing).
 
-### Deploying to Heroku
-Any time changes are merged to `master` branch, this project is automatically deployed to https://docs.sensu.io using Heroku's own Github integration. For additional details on Heroku configuration and deployment, see [our wiki page](https://github.com/sensu/sensu-docs/wiki/Heroku-Configuration-and-Publishing).
+[slack]: http://slack.sensu.io
+[wiki]: https://github.com/sensu/sensu-docs/wiki
+[coc]: https://sensu.io/conduct
+[email]: mailto:docs@sensu.io
+[git]: https://git-scm.com/book/en/v2/Getting-Started-Installing-Git
+[yarn]: https://yarnpkg.com/
+[yarn-install]: https://yarnpkg.com/lang/en/docs/install/
+[hugo]: https://gohugo.io/documentation/
+[site]: https://docs.sensu.io
+[issue]: https://github.com/sensu/sensu-docs/issues/new
+
