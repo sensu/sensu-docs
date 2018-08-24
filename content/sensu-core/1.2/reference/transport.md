@@ -54,11 +54,11 @@ recommended solution for running Sensu in production environments.
 
 ### The Redis Transport
 
-The Redis Transport was an obvious alternative to the original RabbitMQ
-Transport because Sensu already depends on Redis as a data store. Using Redis as
+Because Sensu already depends on Redis as a data store, using Redis as
 a transport greatly simplifies Sensu's architecture by removing the need to
-install/configure RabbitMQ _and_ [Erlang](https://www.erlang.org/) (RabbitMQ's
-runtime).
+install/configure RabbitMQ and its dependencies. That said, Redis transport
+is only considered suitable for simple development environments. **Redis
+transport is NOT recommended for production environments!**
 
 #### Pros {#redis-transport-pros}
 
@@ -70,6 +70,9 @@ runtime).
 
 - No native support for SSL
 - No support for transport "consumers" metrics (see [Health & Info API][4])
+- Not Battle tested: [known bugs][6] in this transport may cause
+  unexpected behavior
+- Best-effort support only
 
 ## Transport configuration
 
@@ -129,3 +132,4 @@ example            | {{< highlight shell >}}"reconnect_on_error": "false"{{< /hi
 [3]:  ../configuration#configuration-scopes
 [4]:  ../../api/health-and-info
 [5]:  ../../reference/configuration#configuration-scopes
+[6]:  https://github.com/sensu/sensu-transport/issues/31
