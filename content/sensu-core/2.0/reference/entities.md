@@ -145,10 +145,10 @@ example      | {{< highlight shell >}}"environment": "default"{{< /highlight >}}
 
 extended_attributes | 
 -------------|------ 
-description  | Custom attributes to include as with the entity, that appear as outer-level attributes.
+description  | Custom attributes to include with the entity, which can be queried like regular attributes.
 required     | false 
-type         | byte 
-example      | {{< highlight shell >}}"team":"ops"{{< /highlight >}}
+type         | JSON object
+example      | {{< highlight shell >}}{"team":"ops"}{{< /highlight >}}
 
 redact       | 
 -------------|------ 
