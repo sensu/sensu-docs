@@ -37,11 +37,13 @@ Returns status of **Sensu API** or **Uchiwa** service.
 
 ### Response Example (Status 200)
 {{< highlight json >}}
-"us-east-1": {
-  "output": "ok"
-},
-"us-west-1":{
-  "output": "ok"
+{
+  "us-east-1": {
+    "output": "ok"
+  },
+  "us-west-1": {
+    "output": "ok"
+  }
 }{{< /highlight >}}
 
 ### Parameters

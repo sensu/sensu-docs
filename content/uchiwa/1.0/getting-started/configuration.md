@@ -77,10 +77,10 @@ The *uchiwa* hash can contain the following attributes:
     "refresh": 10,
     "user": "admin",
     "pass": "secret",
-    "users": {...},
-    "auth": {...},
-    "ssl": {...},
-    "usersOptions": {...}
+    "users": {"...":"..."},
+    "auth": {"...":"..."},
+    "ssl": {"...":"..."},
+    "usersOptions": {"...":"..."}
   }
 }{{< /highlight >}}
 
