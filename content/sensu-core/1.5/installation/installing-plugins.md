@@ -51,14 +51,14 @@ Successfully installed sensu-plugins-disk-checks-3.1.0
 If you find that you need to remove a plugin, you can use the embedded `gem` command to remove a plugin. See the example below:
 
 {{< highlight shell >}}
-/opt/sensu/embedded/bin/gem uninstall sensu-plugins-disk-checks{{< /highlight >}}
+sudo /opt/sensu/embedded/bin/gem uninstall sensu-plugins-disk-checks{{< /highlight >}}
 
 ## Windows
 
 For Windows systems, this differs slightly, as the Windows msi package installs all Sensu components to `C:\opt\sensu`:
 
 {{< highlight shell >}}
-$ c:\opt\sensu\embedded\bin\sensu-install -p windows
+$ c:\opt\sensu\embedded\bin\sensu-install -p sensu-plugins-windows
 [SENSU-INSTALL] installing Sensu plugins ...
 [SENSU-INSTALL] determining if Sensu gem 'sensu-plugins-windows' is already installed ...
 false
