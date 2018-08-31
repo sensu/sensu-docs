@@ -12,6 +12,9 @@ menu:
 
 Sensu's functionality can be extended through the use of plugins. Plugins can provide executables for performing status or metric checks, mutators for changing data to a desired format, or handlers for performing an action on a Sensu event. You can find a number of plugins in the [Sensu Plugins][1] repository.
 
+- [Linux](#linux)
+- [Windows](#windows)
+
 _NOTE: Plugins found in the Sensu Plugins GitHub organization are community-maintained, meaning that anyone can improve on a plugin found there. If you have a question about how you can get involved in adding to, or providing a plugin, head to the [Sensu Community Slack channel][2]. Our maintainers are always happy to help answer questions and point you in the right direction._
 
 ## Linux
@@ -31,7 +34,7 @@ Usage: sensu-install [options]
     -c, --clean                      Clean up (remove) other installed versions of the plugin(s) and/or extension(s)
     -x, --proxy PROXY                Install Sensu plugins and extensions via a PROXY URL{{< /highlight >}}
 
-As an example, let's install the [disk checks plugin][3]:
+As an example, let's install the [Sensu Disk Checks Plugin][3]:
 
 {{< highlight shell >}}
 $ sudo sensu-install -p disk-checks
@@ -64,7 +67,9 @@ sudo /opt/sensu/embedded/bin/gem uninstall sensu-plugins-disk-checks{{< /highlig
 
 ## Windows
 
-For Windows systems, this differs slightly, as the Windows msi package installs all Sensu components to `C:\opt\sensu`:
+To install a Ruby-based plugin on Windows, you can use the `sensu-install` utility provided as part of the Sensu MSI package, located in `C:\opt\sensu\embedded\bin`.
+
+For example, to install the [Sensu Windows Plugin][5], run the following from an administrative command prompt:
 
 {{< highlight shell >}}
 $ c:\opt\sensu\embedded\bin\sensu-install -p sensu-plugins-windows
@@ -79,7 +84,6 @@ Successfully installed sensu-plugins-windows-2.8.1
 1 gem installed
 [SENSU-INSTALL] successfully installed Sensu plugins: ["sensu-plugins-windows"]{{< /highlight >}}
 
-Here we use the `sensu-install` utility located in `C:\opt\sensu\embedded\bin` to install the plugin. 
 
 _NOTE: When installing plugins on Windows, double check that the executable you're using is compatible with Windows. You can always check by examining the executable in the respective GitHub repo in the `bin` directory._
 ### Pinning Versions
