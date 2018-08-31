@@ -63,7 +63,7 @@ In order for the SNOW configuration to shine, we need to set attributes for SNOW
 
 {{< highlight json >}}{
  "client": {
-   ...
+   "...": "...",
    "registration": {
      "handlers": ["servicenow"]
    },

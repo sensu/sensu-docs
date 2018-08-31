@@ -83,7 +83,7 @@ templates    |
 description  | A set of attributes that configure Slack notification [`templates` configuration][5].
 required     | false
 type         | Hash
-example      | {{< highlight json >}}
+example      | {{< highlight shell >}}
 "templates": {
   "text": "/etc/sensu/slack/text_template.erb"
 }

@@ -11,6 +11,9 @@ menu:
     parent: reference
 ---
 
+- [Specification](#assets-specification)
+- [Examples](#examples)
+
 ## How do assets work?
 At runtime, the agent sequentially fetches assets and stores them in its local
 cache. Asset dependencies are then injected into the `PATH` so they are
@@ -33,9 +36,6 @@ The following are injected into the execution context:
   variable.
 - `{PATH_TO_ASSET}/include` is injected into the `CPATH` environment variable.
 
-**N.B.** GitHub source code archives [can't currently be used][2] as Sensu
-assets archives.
-
 ## Assets specification
 
 ### Attributes
@@ -45,7 +45,7 @@ name         |
 description  | The unique name of the asset, validated with go regex [`\A[\w\.\-]+\z`](https://regex101.com/r/zo9mQU/2)
 required     | true
 type         | String 
-example      | {{< highlight shell >}}"name": "check_script"{{</ highlight >}}
+example      | {{< highlight shell >}}"name": "check_script"{{< /highlight >}}
 
 
 url          | 
@@ -53,14 +53,14 @@ url          |
 description  | The URL location of the asset. 
 required     | true
 type         | String 
-example      | {{< highlight shell >}}"url": "http://example.com/asset.tar.gz"{{</ highlight >}}
+example      | {{< highlight shell >}}"url": "http://example.com/asset.tar.gz"{{< /highlight >}}
 
 sha512       | 
 -------------|------ 
 description  | The checksum of the asset. 
 required     | true
 type         | String 
-example      | {{< highlight shell >}}"sha512": "4f926bf4328..."{{</ highlight >}}
+example      | {{< highlight shell >}}"sha512": "4f926bf4328..."{{< /highlight >}}
 
 metadata     | 
 -------------|------ 
@@ -70,14 +70,14 @@ type         | Map
 example      | {{< highlight shell >}}"metadata": {
 "Content-Type": "application/zip", 
 "X-Intended-Distribution": "trusty-14"}
-{{</ highlight >}}
+{{< /highlight >}}
 
 filters      | 
 -------------|------ 
 description  | A set of [filters][1] used by the agent to determine of the asset should be installed. 
 required     | false 
 type         | Array 
-example      | {{< highlight shell >}}"filters": ["System.OS=='linux'", "System.Arch=='amd64'"] {{</ highlight >}}
+example      | {{< highlight shell >}}"filters": ["System.OS=='linux'", "System.Arch=='amd64'"] {{< /highlight >}}
 
 organization | 
 -------------|------ 
@@ -87,7 +87,7 @@ type         | String
 default      | current organization value configured for `sensuctl` (ie `default`) 
 example      | {{< highlight shell >}}
   "organization": "default"
-{{</ highlight >}}
+{{< /highlight >}}
 
 ## Examples
 
@@ -103,7 +103,6 @@ example      | {{< highlight shell >}}
   ],
   "organization": "default"
 }
-{{</ highlight >}}
+{{< /highlight >}}
 
 [1]: ../../reference/filters/
-[2]: https://github.com/mholt/archiver/issues/27
