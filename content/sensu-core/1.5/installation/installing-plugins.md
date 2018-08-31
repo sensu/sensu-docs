@@ -84,8 +84,8 @@ Successfully installed sensu-plugins-windows-2.8.1
 1 gem installed
 [SENSU-INSTALL] successfully installed Sensu plugins: ["sensu-plugins-windows"]{{< /highlight >}}
 
-
 _NOTE: When installing plugins on Windows, double check that the executable you're using is compatible with Windows. You can always check by examining the executable in the respective GitHub repo in the `bin` directory._
+
 ### Pinning Versions
 
 We strongly recommend pinning the versions of any plugins installed in production.
