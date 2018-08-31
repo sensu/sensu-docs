@@ -46,6 +46,15 @@ Successfully installed sensu-plugins-disk-checks-3.1.0
 1 gem installed
 [SENSU-INSTALL] successfully installed Sensu plugins: ["sensu-plugins-disk-checks"]{{< /highlight >}}
 
+### Pinning Versions
+
+We strongly recommend pinning the versions of any plugins installed in production.
+To install the [Sensu Disk Checks Plugin][3] and pin the version, use:
+
+{{< highlight shell >}}
+sudo sensu-install -p 'sensu-plugins-disk-checks:3.1.0'
+{{< /highlight >}}
+
 ### Removing Plugins
 
 If you find that you need to remove a plugin, you can use the embedded `gem` command to remove a plugin. See the example below:
@@ -73,6 +82,15 @@ Successfully installed sensu-plugins-windows-2.8.1
 Here we use the `sensu-install` utility located in `C:\opt\sensu\embedded\bin` to install the plugin. 
 
 _NOTE: When installing plugins on Windows, double check that the executable you're using is compatible with Windows. You can always check by examining the executable in the respective GitHub repo in the `bin` directory._
+### Pinning Versions
+
+We strongly recommend pinning the versions of any plugins installed in production.
+To install the [Sensu Windows Plugin][5] and pin the version,
+run the following from an administrative command prompt:
+
+{{< highlight shell >}}
+c:\opt\sensu\embedded\bin\sensu-install -p 'sensu-plugins-windows:2.8.1'
+{{< /highlight >}}
 
 ### Removing Plugins
 
@@ -106,3 +124,4 @@ Hopefully you've found this useful! If you find any issues or have a question, f
 [2]: https://slack.sensu.io
 [3]: https://github.com/sensu-plugins/sensu-plugins-disk-checks
 [4]: https://github.com/sensu/sensu-docs/issues/new
+[5]: https://github.com/sensu-plugins/sensu-plugins-windows
