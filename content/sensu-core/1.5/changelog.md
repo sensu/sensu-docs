@@ -8,6 +8,7 @@ menu: "sensu-core-1.5"
 
 ## Releases
 
+- [Core 1.5.0 Release Notes](#core-v1-5-0)
 - [Core 1.4.3 Release Notes](#core-v1-4-3)
 - [Core 1.4.2 Release Notes](#core-v1-4-2)
 - [Core 1.4.1 Release Notes](#core-v1-4-1)
@@ -52,6 +53,33 @@ menu: "sensu-core-1.5"
 - [Core 0.23.1 Release Notes](#core-v0-23-1)
 - [Core 0.23.0 Release Notes](#core-v0-23-0)
 
+## Core 1.5.0 Release Notes {#core-v1-5-0}
+
+Source: [GitHub.com][62]
+
+**September 4, 2018** &mdash; Sensu Core version 1.5.0 has been released
+  and is available for immediate download. Please note the following
+  improvements:
+
+### CHANGES {#core-v1-5-0-changes}
+
+- **IMPORTANT**: Sensu packages now include Ruby 2.4.4. This includes a fix
+  for a bug in Ruby 2.4 that impacted Sensu clients on AIX. Upgrading from
+  releases of Sensu prior to 1.0.0 will require all plugin or
+  extension gems to be re-installed under the new Ruby environment.
+
+- **IMPROVEMENT**: The built-in check dependencies filter lets you
+  reduce noise by only alerting for the root cause of a given failure.
+  Sensu Core 1.5 gives you the option to specify check dependencies by subscription
+  instead of by client, making this useful filter even more flexible.
+  See the [filter reference doc](/sensu-core/1.5/reference/filters#check-dependencies-filter) for more information.
+
+- **BUGFIX**: Improved validation for check results created using the
+  results API and the client socket. Sensu now validates check result
+  attributes with the same methods used to validate check definitions.
+
+- **BUGFIX**: Fixed a bug in the Sensu package that prevented Linux builds
+  from applying LDAP user and group parameters.
 
 ## Core 1.4.3 Release Notes {#core-v1-4-3}
 
@@ -1644,6 +1672,9 @@ available for immediate download. Please note the following improvements:
 [59]: https://github.com/sensu/sensu/blob/master/CHANGELOG.md#141---2018-05-04
 [60]: https://github.com/sensu/sensu/blob/master/CHANGELOG.md#142---2018-05-10
 [61]: https://github.com/sensu/sensu/blob/master/CHANGELOG.md#143---2018-07-23
+
+<!-- 1.5 -->
+[62]: https://github.com/sensu/sensu/blob/master/CHANGELOG.md#150---2018-09-04
 
 <!-- GH Issues/PR's -->
 
