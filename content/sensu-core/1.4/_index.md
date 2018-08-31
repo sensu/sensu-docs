@@ -1,6 +1,6 @@
 ---
 title: "Sensu Core"
-description: "Sensu is the open source monitoring event pipeline built to reduce operator burden and meet the challenges of monitoring hybrid-cloud and containerized infrastructures."
+description: "Sensu is the open source monitoring event pipeline built to reduce operator burden and meet the challenges of monitoring hybrid-cloud and ephemeral infrastructures."
 weight: -100
 menu: "sensu-core-1.4"
 version: "1.4"
@@ -12,7 +12,7 @@ layout: "single"
 <iframe src="https://ghbtns.com/github-btn.html?user=sensu&repo=sensu&type=star&count=true" frameborder="0" scrolling="0" width="95px" height="20px"></iframe> | [Learn about Sensu Enterprise](/sensu-enterprise/latest/)
 
 Sensu is the open source monitoring event pipeline built to reduce operator burden and make developers and business owners happy.
-Started in 2011, Sensu’s flexible approach solves the challenges of monitoring hybrid-cloud and containerized infrastructures with scalable, automated workflows and integrations with tools you already use.
+Started in 2011, Sensu’s flexible approach solves the challenges of monitoring hybrid-cloud and ephemeral infrastructures with scalable, automated workflows and integrations with tools you already use.
 <b>Get started now and feel the #monitoringlove: [Learn Sensu in 15 minutes](quick-start/learn-sensu-basics/).</b>
 
 **Automate your monitoring workflows**: Limitless pipelines let you validate and correlate events, mutate data formats, send alerts, manage incidents, collect and store metrics, and more.
