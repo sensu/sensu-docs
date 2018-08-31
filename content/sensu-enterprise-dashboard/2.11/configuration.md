@@ -201,7 +201,7 @@ example      | {{< highlight shell >}}"audit": {
 
 requireSilencingReason | 
 -------------|------
-description  | Determines whether a reason must be provided or not when creating a silence entry.
+description  | Determines whether or not a reason must be provided when creating a silencing entry.
 required     | false
 type         | Boolean
 default      | false
