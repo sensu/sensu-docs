@@ -15,26 +15,27 @@ menu:
 
 ## Reference documentation
 
-- [Installing Sensu Core](#sensu-core)
-  - [Install Sensu using YUM](#install-sensu-core-repository)
-- [Installing Sensu Enterprise](#sensu-enterprise)
-  - [Install the Sensu Enterprise repository](#install-sensu-enterprise-repository)
-  - [Install Sensu Enterprise (server & API)](#install-sensu-enterprise)
-- [Configure Sensu](#configure-sensu)
-  - [Create the Sensu configuration directory](#create-the-sensu-configuration-directory)
-  - [Example client configuration](#example-client-configuration)
-  - [Example transport configuration](#example-transport-configuration)
-  - [Example data store configuration](#example-data-store-configuration)
-  - [Example API configurations](#example-api-configurations)
-    - [Standalone configuration](#api-standalone-configuration)
-    - [Distributed configuration](#api-distributed-configuration)
-  - [Example Sensu Enterprise Dashboard configurations](#example-sensu-enterprise-dashboard-configurations)
-    - [Standalone configuration](#dashboard-standalone-configuration)
-    - [Distributed configuration](#dashboard-distributed-configuration)
-  - [Enable the Sensu services to start on boot](#enable-the-sensu-services-to-start-on-boot)
-  - [Disable the Sensu services on boot](#disable-the-sensu-services-on-boot)
-- [Operating Sensu](#operating-sensu)
-  - [Managing the Sensu services/processes](#service-management)
+- [Sensu on RHEL/CentOS](#sensu-on-rhelcentos)
+  - [Reference documentation](#reference-documentation)
+  - [Install Sensu Core {#sensu-core}](#install-sensu-core-sensu-core)
+    - [Install Sensu using YUM (recommended) {#install-sensu-core-repository}](#install-sensu-using-yum-recommended-install-sensu-core-repository)
+  - [Install Sensu Enterprise {#sensu-enterprise}](#install-sensu-enterprise-sensu-enterprise)
+    - [Install the Sensu Enterprise repository {#install-sensu-enterprise-repository}](#install-the-sensu-enterprise-repository-install-sensu-enterprise-repository)
+  - [Configure Sensu](#configure-sensu)
+    - [Create the Sensu configuration directory](#create-the-sensu-configuration-directory)
+    - [Example client configuration](#example-client-configuration)
+    - [Example transport configuration](#example-transport-configuration)
+    - [Example data store configuration](#example-data-store-configuration)
+    - [Example API configurations](#example-api-configurations)
+      - [Standalone configuration {#api-standalone-configuration}](#standalone-configuration-api-standalone-configuration)
+      - [Distributed configuration {#api-distributed-configuration}](#distributed-configuration-api-distributed-configuration)
+    - [Example Sensu Enterprise Dashboard configurations](#example-sensu-enterprise-dashboard-configurations)
+      - [Standalone configuration {#dashboard-standalone-configuration}](#standalone-configuration-dashboard-standalone-configuration)
+      - [Distributed configuration {#dashboard-distributed-configuration}](#distributed-configuration-dashboard-distributed-configuration)
+    - [Enable the Sensu services to start on boot](#enable-the-sensu-services-to-start-on-boot)
+    - [Disable the Sensu services on boot](#disable-the-sensu-services-on-boot)
+  - [Operating Sensu](#operating-sensu)
+    - [Managing the Sensu services/processes {#service-management}](#managing-the-sensu-servicesprocesses-service-management)
 
 ## Install Sensu Core {#sensu-core}
 
@@ -69,7 +70,8 @@ repository configurations._
 echo '[sensu]
 name=sensu
 baseurl=https://sensu.global.ssl.fastly.net/yum/$releasever/$basearch/
-gpgcheck=0
+gpgkey=https://repositories.sensuapp.org/yum/pubkey.gpg
+gpgcheck=1
 enabled=1' | sudo tee /etc/yum.repos.d/sensu.repo{{< /highlight >}}
 
 2. Install Sensu:
@@ -126,7 +128,8 @@ $ echo $SE_USER:$SE_PASS
 echo "[sensu-enterprise]
 name=sensu-enterprise
 baseurl=http://$SE_USER:$SE_PASS@enterprise.sensuapp.com/yum/noarch/
-gpgcheck=0
+gpgkey=https://repositories.sensuapp.org/yum/pubkey.gpg
+gpgcheck=1
 enabled=1" | sudo tee /etc/yum.repos.d/sensu-enterprise.repo{{< /highlight >}}
 
 3. Create a YUM repository configuration file for the Sensu Enterprise Dashboard
@@ -135,7 +138,8 @@ enabled=1" | sudo tee /etc/yum.repos.d/sensu-enterprise.repo{{< /highlight >}}
 echo "[sensu-enterprise-dashboard]
 name=sensu-enterprise-dashboard
 baseurl=http://$SE_USER:$SE_PASS@enterprise.sensuapp.com/yum/\$basearch/
-gpgcheck=0
+gpgkey=https://repositories.sensuapp.org/yum/pubkey.gpg
+gpgcheck=1
 enabled=1" | sudo tee /etc/yum.repos.d/sensu-enterprise-dashboard.repo{{< /highlight >}}
 
 4. Install Sensu Enterprise
