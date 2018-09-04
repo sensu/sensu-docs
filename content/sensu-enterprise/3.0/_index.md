@@ -1,7 +1,7 @@
 ---
 title: "Sensu Enterprise"
 product: "Sensu Enterprise"
-description: "Sensu is the open source monitoring event pipeline built to reduce operator burden and meet the challenges of monitoring hybrid-cloud and containerized infrastructures."
+description: "Sensu is the open source monitoring event pipeline built to reduce operator burden and meet the challenges of monitoring hybrid-cloud and ephemeral infrastructures."
 version: "3.0"
 weight: 1
 menu: "sensu-enterprise-3.0"

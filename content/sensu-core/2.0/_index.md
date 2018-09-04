@@ -1,6 +1,6 @@
 ---
 title: "Sensu Core"
-description: "Sensu is the open source monitoring event pipeline built to reduce operator burden and meet the challenges of monitoring hybrid-cloud and containerized infrastructures."
+description: "Sensu is the open source monitoring event pipeline built to reduce operator burden and meet the challenges of monitoring hybrid-cloud and ephemeral infrastructures."
 date: 2018-02-05T06:06:31-07:00
 weight: -100
 menu: "sensu-core-2.0"
@@ -15,7 +15,7 @@ layout: "single"
 ## Welcome to the Sensu 2.0 Beta!
 
 Sensu is the open source monitoring event pipeline built to reduce operator burden and make developers and business owners happy.
-Started in 2011, Sensu’s flexible approach solves the challenges of monitoring hybrid-cloud and containerized infrastructures with scalable, automated workflows and integrations with tools you already use.
+Started in 2011, Sensu’s flexible approach solves the challenges of monitoring hybrid-cloud and ephemeral infrastructures with scalable, automated workflows and integrations with tools you already use.
 
 Sensu 2.0 is a new platform, written in Go and designed from the ground up to be more portable, easier and faster to deploy, and (even more) friendly to containerized and ephemeral environments.
 But above all, it was designed to support the features and functionality you’ve come to know and love about Sensu.
