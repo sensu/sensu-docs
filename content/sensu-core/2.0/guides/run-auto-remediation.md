@@ -42,6 +42,8 @@ sensuctl hook create nginx-restart  \
 --timeout 10
 {{< /highlight >}}
 
+**NOTE** - If running hook commands as sudo you may need to update your /etc/sudoers to allow the sensu user to run the commands without a password, otherwise you may get a '**_sudo: no tty present and no askpass program specified_**' error.
+
 ### Assigning the hook to a check
 
 Now that the `nginx-restart` hook has been created, it can be assigned to a
@@ -73,7 +75,7 @@ $ sensuctl event info i-424242 nginx_process --format json
       {
         "config": {
           "name": "nginx-restart",
-          "command": "systemctl restart nginx",
+          "command": "sudo systemctl restart nginx",
           "timeout": 10,
           "environment": "default",
           "organization": "default"
