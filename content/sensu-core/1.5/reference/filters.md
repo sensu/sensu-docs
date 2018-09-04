@@ -407,7 +407,8 @@ Here's an example of a check definition that will be filtered if a check named `
 {{< /highlight >}}
 
 Or, define a dependency by specifying the subscription and the check.
-Here's an example of a check definition that will be filtered if any check named `mysql` on any client subscribed to the `db-nodes` subscription is already alerting:
+Here's an example of a check definition that will be filtered if a check named `mysql`
+is already alerting on any client subscribed to the `db-nodes` subscription:
 
 {{< highlight json >}}
 {
@@ -423,7 +424,8 @@ Here's an example of a check definition that will be filtered if any check named
 {{< /highlight >}}
 
 _WARNING: Specifying a subscription/check pair in the check dependencies filter
-may impact Sensu's performance in large-scale installations._
+may impact Sensu's performance in cases where the [events API][17] regularly
+returns thousands of events._
 
 dependencies | 
 -------------|------
@@ -579,3 +581,4 @@ example      | {{< highlight shell >}}"days": {
 [14]: #when-attributes
 [15]: #filter-naming
 [16]: ../handlers#handler-sets
+[17]: ../../api/events#events-get
