@@ -1,51 +1,42 @@
 # Contributing
 
-Thank you for wanting to contribute back to the Sensu Community! Take a look through here to be ready to get your PR quickly reviewed 👌.
+[Code of conduct][coc] | [Contact admins][email] | [Open an Issue][issue]
 
-## Guidelines
-We ask that you keep the following guidelines in mind when planning your contribution:
+Thank you for wanting to contribute back to the Sensu Community!
+Please read and follow our [code of conduct][coc].
+Anyone can reach out to administrators at [docs@sensu.io][email] if needed.
 
-* Whether your contribution is for a bug fix or a feature request, **create an [Issue](https://github.com/sensu/sensu-docs/issues)** to let us know what you are thinking before you fix it. It helps us give a LGTM much faster (with fewer cases of saying no to a PR)
-* **For bugs**, if you have already found a fix, feel free to submit a Pull Request referencing the Issue you created. Include the `Fixes #` syntax to link it to the issue you're addressing.
-* **For feature requests**, we want to improve upon the documentation incrementally which means small changes at a time. In order to ensure your PR can be reviewed in a timely manner, please keep PRs small. If you think this is unrealistic, then mention that within the issue and we can discuss it.
-* **For adding a guide/doc**, use the [guide/doc template](static/files/sensu-doc-template.md). We would super :heart: it if when you write your doc, you ensure that it's written for a specific version and any other version in which it applies, though that's not a requirement. We would also super :heart: it that if you're writing OS-specific content, you standardize it on CentOS. 
+## Browser workflow
 
-### Updating Multiple Versions of the Docs
-Some contributions apply to multiple versions of Sensu, or other sections of the documentation. **We appreciate if you have a chance to copy these edits to all applicable versions.** 🙏
+From any documentation page on [docs.sensu.io][site], select "Edit this page".
+This will take you to the corresponding markdown file in GitHub, create a fork of this repository, and create a new branch for your contribution.
+Make your changes to the markdown content, then select "Propose file change" and follow the prompts to submit a pull request.
+If you have any questions, feel free to [open an issue][issue].
 
-If you have a good idea on how to script this type of behavior, please comment on [this issue discussing ideas](https://github.com/sensu/sensu-docs/issues/95).
+## Command line workflow
+These instructions will help you fork this repository, create a branch, and submit a pull request.
 
-## Workflow
-
-Once you're ready to contribute code back to this repo, ensure you setup your environment to be prepared for upstream contributions.
-
-### 1) Fork on GitHub
+#### 1) Fork on GitHub
 
 Fork the appropriate repository by clicking the Fork button (top right) on GitHub.
 
-### 2) Create a Local Fork
+#### 2) Create a local fork
 
-From whatever directory you want to have this code, clone this repository and setup some sane defaults:
+From whatever directory you want to have this code, clone this repository and set up the upstream remote:
 
 ```
-$ git clone https://github.com/sensu/sensu-docs/
-# or: git clone git@github.com:$user/sensu-docs.git
+$ git clone https://github.com/REPLACEME/sensu-docs/
+# or: git clone git@github.com:REPLACEME/sensu-docs.git
 
 $ cd sensu-docs
 
 $ git remote add upstream https://github.com/sensu/sensu-docs.git
 # or: git remote add upstream git@github.com:sensu/sensu-docs.git
-
-# Never allow a push to upstream master
-$ git remote set-url --push upstream no_push
-
-# Confirm that your remotes make sense:
-$ git remote -v
 ```
 
-### 3) Create a Branch for Your Contribution
+#### 3) Create a branch for your contribution
 
-Begin by updating your local fork of the plugin:
+Begin by updating your local fork:
 
 ```
 $ git fetch upstream
@@ -56,25 +47,21 @@ $ git rebase upstream/master
 Create a new, descriptively named branch to contain your change:
 
 ```
-$ git checkout -b feature/myfeature
-$ yarn
+$ git checkout -b fix-code-samples
 ```
 
-Now hack away at your awesome feature on the `feature/myfeature` branch.
+#### 4) Build and test
+See the [project wiki][wiki] for formatting instructions and style conventions.
 
-### 4) Building and Testing Your Code
+To build the site, run [`yarn`][yarn-install]. This builds the search index and compiles the static content.
+You can then run `yarn run server` to view the site real-time as you edit.
 
-To build the site, run `yarn`. This builds the search index and compiles the static content.
-You can then run `hugo server` to view the site real-time as you develop.
+#### 5) Commit
 
-### 5) Committing Code
-
-Commit your changes with a thoughtful commit message.
+Commit your changes with a descriptive commit message.
 
 ```
-$ git commit -am "Adding a check for Foo
-
-Foo is a particularly helpful status when working with Bar. Designed to gather XYZ from the foobar interface."
+$ git commit -am "fix invalid JSON"
 ```
 
 Repeat the commit process as often as you need and then edit/test/repeat. Minor edits can be added to your last commit quite easily:
@@ -84,7 +71,9 @@ $ git add -u
 $ git commit --amend
 ```
 
-### 6) Pushing to GitHub
+This project uses commit hooks to test the build whenever making a commit.
+
+#### 6) Push to GitHub
 
 When ready to review (or just to establish an offsite backup or your work), push your branch to your fork on GitHub:
 
@@ -98,26 +87,38 @@ If you recently used `commit --amend`, you may need to force push:
 $ git push -f origin feature/myfeature
 ```
 
-### 7) Create a Pull Request
+#### 7) Create a Pull Request
 
-Create a pull request by visiting https://github.com/sensu/sensu-docs/ and following the instructions at the top of the screen.
+Create a pull request by visiting [sensu/sensu-docs on GitHub](https://github.com/sensu/sensu-docs) and following the prompts.
 
 After the PR is submitted, project maintainers will review it.
+If you'd like to mark your PR as work in progress, add `[WIP]` to the PR title.
 
-### 8) Responding to your Pull Request
+If you have questions or want to ensure a PR is reviewed, reach out in the `#documentation` channel of the [Sensu Community Slack][slack].
 
-PRs are rarely merged without some discussion with a maintainer. This is to ensure the larger Sensu community benefits from all code contributions.
+## Guidelines
 
-They will use a system of labels, like `Status: Awaiting Response`, to indicate they need your feedback. Please regularly check your open PRs, easily found at https://github.com/pulls, to help maintainer's get the information needed to merge your code.
+### Updating Multiple Versions of the Docs
+Some contributions apply to multiple versions of Sensu, or other sections of the documentation. **We appreciate if you have a chance to copy these edits to all applicable versions.** 🙏
 
-If you have questions or want to ensure a PR is reviewed, bring it up on the `#contributing` channel of [Sensu Community Slack](http://slack.sensu.io).
-
-## Contributing Examples
-One of the most helpful ways you can benefit the Sensu community is by writing about how you use Sensu. Write up something on [Medium](https://medium.com), embed Gists for longer code samples and let us know in Slack! We'll publish it to the blog at [blog.sensuapp.org](https://blog.sensuapp.org/).
+If you have a good idea on how to script this type of behavior, please comment on [this issue discussing ideas](https://github.com/sensu/sensu-docs/issues/95).
 
 ## Contribute Elsewhere
 This repository is one of **many** that are community supported around Sensu. See all the ways you can get involved by [visiting the Community repository](https://github.com/sensu-plugins/community#how-you-can-help).
 
+One of the most helpful ways you can benefit the Sensu community is by writing about how you use Sensu. Write up something on [Medium](https://medium.com), embed Gists for longer code samples and let us know in Slack! We'll publish it to the blog at [blog.sensu.io](https://blog.sensu.io/).
+
 ## Thank You
 
-We :heart: your participation and appreciate the unique perspective you bring to our community. Keep sharing in the #monitoringlove.
+We :heart: your participation and appreciate the unique perspective you bring to our community. Keep sharing the #monitoringlove.
+
+[slack]: http://slack.sensu.io
+[wiki]: https://github.com/sensu/sensu-docs/wiki
+[coc]: https://sensu.io/conduct
+[email]: mailto:docs@sensu.io
+[git]: https://git-scm.com/book/en/v2/Getting-Started-Installing-Git
+[yarn]: https://yarnpkg.com/
+[yarn-install]: https://yarnpkg.com/lang/en/docs/install/
+[hugo]: https://gohugo.io/documentation/
+[site]: https://docs.sensu.io
+[issue]: https://github.com/sensu/sensu-docs/issues/new

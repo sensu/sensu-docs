@@ -86,7 +86,7 @@ However, if we are outside the defined business hours, the [`sensu-backend`
 logs][2] will have entries similar to this:
 
 {{< highlight json >}}
-{"component":"schedulerd","level":"debug","msg":"check is not scheduled to be executed","name":"check-cpu",[...]}
+{"component":"schedulerd","level":"debug","msg":"check is not scheduled to be executed","name":"check-cpu","etc": ["..."]}
 {{< /highlight >}}
 
 ## Next steps

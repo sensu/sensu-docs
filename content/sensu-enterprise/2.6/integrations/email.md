@@ -30,7 +30,7 @@ Send email notifications for events, using SMTP.
 As of Sensu Enterprise version 2.3, the Sensu Enterprise email integration
 provides support for creating custom email templates using ERB (a templating
 language based on Ruby). Sensu Enterprise makes an `@event` variable available to
-the ERB template containing the complete [event data payload][4].
+the ERB template containing the complete [event data payload][4]. To use a custom email template, the [`templates`][3] hash is required inside the `email` scope.
 
 _NOTE: the Puppet reference documentation provides a helpful [introduction to
 ERB templating syntax][5]._
@@ -40,7 +40,7 @@ ERB templating syntax][5]._
 The following example demonstrates how to access the Sensu `@event` variable from
 a custom ERB template.
 
-_NOTE: This example includes the `datacenter` attribute, which is only available to be used in a template when defined as a [client custom attribute][6]_
+_NOTE: This example includes the `datacenter` attribute, which is only available to be used in a template when defined as a [client custom attribute][6]._
 
 {{< highlight erb >}}
 Hi there,

@@ -1,8 +1,8 @@
 ---
 title: "Upgrading Sensu Enterprise"
-weight: 14
 product: "Sensu Enterprise"
 version: "3.0"
+weight: 3
 menu: "sensu-enterprise-3.0"
 ---
 
@@ -50,7 +50,7 @@ Example OpsGenie configuration for Sensu Enterprise prior to 3.0:
     "recipients": ["afterhours"]
   }
 }
-{{</ highlight >}}
+{{< /highlight >}}
 
 Assuming `afterhours` is an escalation plan, the values supplied for
 `teams` and `recipients` above can be translated to the new
@@ -76,7 +76,7 @@ Assuming `afterhours` is an escalation plan, the values supplied for
     ]
   }
 }
-{{</ highlight >}}
+{{< /highlight >}}
 
 As shown above, the `responders` attribute expects an array of hashes
 specifying the `type` and `name` for each object. Depending on the
@@ -100,7 +100,7 @@ Example OpsGenie configuration for Sensu Enterprise 3.0:
     "overwrite_quiet_hours": true
   }
 }
-{{</ highlight >}}
+{{< /highlight >}}
 
 ### Changes in Java package dependency
 

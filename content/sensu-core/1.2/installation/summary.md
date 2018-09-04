@@ -1,5 +1,6 @@
 ---
-title: "Summary"
+title: "Installation Guide Summary"
+linkTitle: "Summary"
 description: "The complete Sensu installation guide."
 weight: 13
 product: "Sensu Core"
@@ -11,11 +12,9 @@ menu:
     parent: installation
 ---
 
-# Installation Guide Summary
-
 Congratulations - you have successfully installed and configured the Sensu
 services, one or more Sensu clients, and a Sensu dashboard! With this basic
-implementation in place, you have the core Sensu framework available for
+implementation in place, you have the core Sensu platform available for
 development, testing and evaluation purposes. What's next?
 
 ## Next steps
@@ -35,7 +34,7 @@ about how Sensu Works][5], or in preparing Sensu for production.
 
 Conceptually, building out a monitoring solution using Sensu requires one or
 more [Sensu servers][6], and automating the installation of Sensu
-clients on all of your machines. With this core framework in place, you'll also
+clients on all of your machines. With this core platform in place, you'll also
 need to define [monitoring checks][7] for all of the services in your
 application stack (e.g. proxy services, web services, database services, etc).
 Additionally, it may be prudent to collect and analyze metrics for the same
@@ -46,18 +45,9 @@ defining alerting and escalation policies via [Sensu Handlers][10].
 
 ### Deploying Sensu into Production Environments
 
-Coming soon. If you have questions about deploying Sensu into production
-environments, please contact [Sensu Support][11].
-
-### Hardening Sensu
-
-Coming soon. If you have questions about hardening Sensu, please contact [Sensu
-Support][11].
-
-### Scaling Sensu
-
-Coming soon. If you have questions about scaling Sensu, please contact [Sensu
-Support][11].
+- [Deploying Sensu using configuration management tools][14]
+- [Securing Sensu][12]
+- [Scaling Sensu][13]
 
 [1]:  http://puppet.com
 [2]:  http://www.chef.io
@@ -70,3 +60,6 @@ Support][11].
 [9]:  ../../guides/intro-to-checks#create-a-metric-analysis-check
 [10]: ../../guides/intro-to-handlers
 [11]: https://helpdesk.sensuapp.com
+[12]: ../../guides/securing-sensu
+[13]: ../../guides/scaling-overview
+[14]: ../configuration-management

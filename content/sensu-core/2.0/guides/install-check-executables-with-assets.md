@@ -18,8 +18,8 @@ install them by consulting each of the assets' URLs.
 
 ## Why use assets?
 When configuration management is unavailable, assets can help manage runtime 
-dependencies such as scripts (e.g. check-haproxy.sh) and tar files (e.g. sensu-ruby-runtime.tar.gz)
-entirely within sensu. 
+dependencies such as scripts (ex: check-haproxy.sh) and tar files (ex: sensu-ruby-runtime.tar.gz)
+entirely within Sensu. 
 
 ## How to create a check that depends on an asset 
 
@@ -34,12 +34,13 @@ $ sensuctl asset create check_website.tar.gz \
   --sha512 "$(sha512sum check_website.tar.gz | cut -f1 -d ' ')"
 {{< /highlight >}}
 
-If you're using a mac, you'll need to use `$(shasum -a 512 check_website.tar.gz | cut -f1 -d ' ')` to generate a checksum.
+If you're using macOS, you'll need to use `$(shasum -a 512 check_website.tar.gz | cut -f1 -d ' ')` to generate a checksum.
 
-If you're using windows, you'll need to use the `CertFile` utility to generate the checksum:
+If you're using Windows, you'll need to use the `CertFile` utility to generate the checksum:
 {{< highlight shell >}}
 CertUtil -hashfile check_website.tar.gz SHA512
 {{< /highlight >}}
+
 and extract the checksum from the output manually, before adding it to the sensuctl command.
 
 
@@ -47,7 +48,7 @@ and extract the checksum from the output manually, before adding it to the sensu
 
 {{< highlight shell >}}
 $ sensuctl check create check_website \
-  --command check_website -a www.example.com -C 3000 -w 1500 
+  --command "check_website -a www.example.com -C 3000 -w 1500" \
   --subscriptions web \
   --interval 10 \
   --runtime-assets check_website.tar.gz 
@@ -68,14 +69,15 @@ scheduled and start emitting events. When the check has been scheduled, you shou
 see a log entry for that check's execution.
 {{< highlight shell >}}
 {"component":"agent","level":"info","msg":"scheduling check execution: check_website","time":"2018-04-06T20:46:32Z"}
-{{</ highlight >}}
+{{< /highlight >}}
+
 You can verify that the asset is working by using `sensuctl` to list the most recent events:
 {{< highlight shell >}}
 $ sensuctl event list
     Entity           Check                     Output               Status   Silenced             Timestamp
  ───────────── ────────────────── ──────────────────────────────── ──────── ────────── ───────────────────────────────
   sensu-agent    check_website      CheckHttpResponseTime OK: 345      0       false    2018-04-06 20:38:34 +0000 UTC
-{{</ highlight >}}
+{{< /highlight >}}
 
 ## Next steps
 

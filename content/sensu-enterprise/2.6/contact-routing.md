@@ -2,7 +2,7 @@
 title: "Contact Routing"
 product: "Sensu Enterprise"
 version: "2.6"
-weight: 5
+weight: 6
 menu: "sensu-enterprise-2.6"
 ---
 
@@ -22,6 +22,8 @@ the knowledge to triage and address the issue. Sensu Enterprise contact routing
 makes it possible to assign checks to specific teams and/or individuals,
 reducing mean time to response and recovery (MTTR). Contact routing works with
 all of the Sensu Enterprise third-party notification and metric integrations.
+
+_NOTE: Contact routing does not work with the Sensu Enterprise integrations for EC2, Puppet, Chef, Flapjack, and Event Stream._
 
 ## How does contact routing work?
 

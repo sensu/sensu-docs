@@ -81,7 +81,7 @@ $ sensuctl event list
 {{< /highlight >}}
 
 _WARNING: By default, a silenced event will be handled unless the handler uses
-the not_silenced filter to discard silenced events._
+the `not_silenced` filter to discard silenced events._
 
 ## Next steps
 
