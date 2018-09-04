@@ -166,6 +166,7 @@ While Sensu does not provide benchmarks for healthy RabbitMQ keepalives and resu
       ],
       "interval": 60,
       "type": "metric"
+    }
   }
 }
 {{< /highlight >}}
@@ -180,6 +181,7 @@ While Sensu does not provide benchmarks for healthy RabbitMQ keepalives and resu
       ],
       "interval": 60,
       "type": "metric"
+    }
   }
 }
 {{< /highlight >}}
