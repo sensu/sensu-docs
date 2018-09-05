@@ -73,8 +73,9 @@ Source: [GitHub.com][62]
   results API and the client socket. Sensu now validates check result
   attributes with the same methods used to validate check definitions.
 
-- **BUGFIX**: Fixed a bug in the Sensu package that prevented Linux builds
-  from applying LDAP user and group parameters.
+- **BUGFIX**: Fixed a bug in the Sensu package that impacted user and group
+  creation on Linux. Sensu now checks for an existing “sensu” user and group
+  against multiple providers.
 
 - **BUGFIX**: Sensu packages now include Ruby 2.4.4. This includes a fix
   for a bug in Ruby 2.4.1 that impacted Sensu clients on AIX.
