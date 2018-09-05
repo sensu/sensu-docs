@@ -43,7 +43,7 @@ to populate.
 sensuctl handler create influx-db \
 --type pipe \
 --command "sensu-influxdb-handler \
---addr '123.4.5.6' \
+--addr 'http://123.4.5.6:8086' \
 --db-name 'myDB' \
 --username 'foo' \
 --password 'bar'"
