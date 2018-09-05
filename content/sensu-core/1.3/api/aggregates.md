@@ -177,7 +177,7 @@ $ curl -s http://localhost:4567/aggregates/elasticsearch/clients | jq .
     "checks": [
       "elasticsearch_service"
     ]
-  },
+  }
 ]
 {{< /highlight >}}
 
@@ -202,7 +202,7 @@ output                          | {{< highlight json >}}[
     "checks": [
       "elasticsearch_service"
     ]
-  },
+  }
 ]
 {{< /highlight >}}
 
