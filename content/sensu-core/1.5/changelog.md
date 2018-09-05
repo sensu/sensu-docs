@@ -63,11 +63,6 @@ Source: [GitHub.com][62]
 
 ### CHANGES {#core-v1-5-0-changes}
 
-- **IMPORTANT**: Sensu packages now include Ruby 2.4.4. This includes a fix
-  for a bug in Ruby 2.4 that impacted Sensu clients on AIX. Upgrading from
-  releases of Sensu prior to 1.0.0 will require all plugin or
-  extension gems to be re-installed under the new Ruby environment.
-
 - **IMPROVEMENT**: The built-in check dependencies filter lets you
   reduce noise by only alerting for the root cause of a given failure.
   Sensu Core 1.5 gives you the option to specify check dependencies by subscription
@@ -80,6 +75,9 @@ Source: [GitHub.com][62]
 
 - **BUGFIX**: Fixed a bug in the Sensu package that prevented Linux builds
   from applying LDAP user and group parameters.
+
+- **BUGFIX**: Sensu packages now include Ruby 2.4.4. This includes a fix
+  for a bug in Ruby 2.4.1 that impacted Sensu clients on AIX.
 
 ## Core 1.4.3 Release Notes {#core-v1-4-3}
 
