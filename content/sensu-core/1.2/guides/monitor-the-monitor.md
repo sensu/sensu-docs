@@ -159,10 +159,25 @@ While Sensu does not provide benchmarks for healthy RabbitMQ keepalives and resu
 {{< highlight json >}}
 {
   "checks": {
-    "collect_rabbitmq_queue": {
-      "command": "metrics-rabbitmq-queue.rb --user monitor_user --password password --vhost /sensu --host localhost --port 15672 --filter keepalives\|results",
+    "collect_rabbitmq_keepalives_queue": {
+      "command": "metrics-rabbitmq-queue.rb --user monitor_user --password password --vhost /sensu --host localhost --port 15672 --filter keepalives",
       "subscribers": [
         "rabbitmq_keepalive_queue"
+      ],
+      "interval": 60,
+      "type": "metric"
+    }
+  }
+}
+{{< /highlight >}}
+
+{{< highlight json >}}
+{
+  "checks": {
+    "collect_rabbitmq_results_queue": {
+      "command": "metrics-rabbitmq-queue.rb --user monitor_user --password password --vhost /sensu --host localhost --port 15672 --filter results",
+      "subscribers": [
+        "rabbitmq_results_queue"
       ],
       "interval": 60,
       "type": "metric"

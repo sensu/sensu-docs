@@ -10,14 +10,14 @@ menu:
     parent: overview
 ---
 
-## A Simple, Yet Powerful Framework
+## A Simple, Yet Powerful Monitoring Event Pipeline
 
 Sensu is a comprehensive monitoring solution that is powerful enough to solve
 complex monitoring problems at scale, yet simple enough to use for traditional
 monitoring scenarios and small environments. It achieves this broad appeal via
 building upon two simple, yet powerful monitoring primitives: [Service
-Checks][16] and [Event Processing][7]. These building blocks also provide an
-infinitely extensible framework for composing monitoring solutions.
+Checks][16] and [Event Processing][7]. These building blocks also provide
+infinitely extensible pipelines for composing monitoring solutions.
 
 ### What is a Service Check? {#service-checks}
 

@@ -34,10 +34,8 @@ installer package (i.e. a .msi file), which is available for download from the
 
 ### Download and install Sensu using the Sensu MSI {#download-and-install-sensu-core}
 
-_NOTE: As of Sensu version 1.0 repository URLs have changed.  To
-install or upgrade to the latest version of Sensu, please ensure you
-have updated existing configurations to follow the repository URL
-format specified below._
+_NOTE: As of Sensu version 0.29, repository URLs have changed.
+To install or upgrade to the latest version of Sensu, please ensure you have updated existing configurations to follow the repository URL format specified below._
 
 1. Download Sensu from the [Sensu Downloads][1] page.
 
@@ -55,7 +53,11 @@ format specified below._
 
 ## Configure Sensu
 
-_DANGER: Many text editors on Windows, including Notepad, save text in a format that is not suitable for Sensu configuration. While we require UTF-8, there are similar-looking character sets that are not actually 'UTF-8', such as 'UTF-8 BOM'. A more modern text editor, such as Atom or Notepad++, will allow you to do this easily, fortunately. For more about editor encodings, see [this discussion on StackOverflow][16]. If you're automating JSON creation with e.g. PowerShell, make sure that you're speaking UTF-8 in your shell, too! See [here][17] for more details._
+_WARNING: Many text editors on Windows, including Notepad, save text in a format that is not suitable for Sensu configuration.
+While we require UTF-8, there are similar-looking character sets that are not actually 'UTF-8', such as 'UTF-8 BOM'.
+A more modern text editor, such as Atom or Notepad++, will allow you to do this easily, fortunately.
+For more about editor encodings, see [this discussion on StackOverflow][16].
+If you're automating JSON creation with e.g. PowerShell, make sure that you're speaking UTF-8 in your shell, too! See [here][17] for more details._
 
 
 By default, all of the Sensu services on Microsoft Windows systems will load
@@ -64,13 +66,15 @@ configuration from the following locations:
 - `C:\opt\sensu\config.json`
 - `C:\opt\sensu\conf.d\`
 
+_WARNING: Ensure that the configure files you create have a `.json` file extension and not, for example, a `.json.txt` file extension.
+Sensu will only load files that have a `.json` file extension._
+
 _NOTE: in general, where references to configuration file locations found
 elsewhere in the Sensu documentation suggest paths beginning with `/etc/sensu`,
-these will correspond to `C:\opt\sensu` on Microsoft Windows systems. Additional
-or alternative configuration file and directory locations may be used by
-modifying Sensu's service configuration XML and/or by starting the Sensu
-services with the corresponding CLI arguments. For more information, please
-consult the [Sensu Configuration][5] reference documentation._
+these will correspond to `C:\opt\sensu` on Microsoft Windows systems.
+Additional or alternative configuration file and directory locations may be used by
+modifying Sensu's service configuration XML and/or by starting the Sensu services with the corresponding CLI arguments.
+For more information, please consult the [Sensu Configuration][5] reference documentation._
 
 The following Sensu configuration files are provided as examples. Please review
 the [Sensu configuration reference documentation][5] for additional information
@@ -121,8 +125,8 @@ connect to the configured [Sensu Transport][6].
   }
 }{{< /highlight >}}
    _NOTE: if you are using Redis as your transport, please use `"name": "redis"`
-   for your transport configuration. For more information, please visit the
-   [transport definition specification][15]._
+   for your transport configuration.
+   For more information, please visit the [transport definition specification][15]._
 
 2. Please refer to the configuration instructions for the corresponding
    transport for configuration file examples (see [Redis][7], or [RabbitMQ][8]
@@ -156,8 +160,7 @@ file path to `C:\opt\sensu\config.json`, the Sensu configuration directory to
 
 ### Install the Sensu client Windows service
 
-Open a Command Prompt and use the [Windows SC][10] utility to create the Windows
-service for the Sensu client:
+Open an Administrative Command Prompt and use the [Windows SC][10] utility to create the Windows service for the Sensu client:
 
 {{< highlight shell>}}
 sc create sensu-client start= delayed-auto binPath= c:\opt\sensu\bin\sensu-client.exe DisplayName= "Sensu Client"{{< /highlight >}}

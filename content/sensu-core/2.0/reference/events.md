@@ -9,6 +9,10 @@ menu:
   sensu-core-2.0:
     parent: reference
 ---
+
+- [Specification](#events-specification)
+- [Examples](#example-check-only-event-data)
+
 ## How do Events work?
 
 An event is a generic container used by Sensu to provide context to checks
@@ -53,13 +57,13 @@ stored inside the event. Event handlers from `event.Check.Handlers` and
 -------------|------
 description  | The time of the Event occurrence in epoch time.
 type         | integer
-example      | {{< highlight shell >}}"timestamp": 1522099512{{</ highlight >}}
+example      | {{< highlight shell >}}"timestamp": 1522099512{{< /highlight >}}
 
 |silenced (deprecated)    |      |
 -------------|------
 description  | If the event is to be silenced.
 type         | boolean
-example      | {{< highlight shell >}}"silenced": false{{</ highlight >}}
+example      | {{< highlight shell >}}"silenced": false{{< /highlight >}}
 _NOTE: Silenced has been deprecated from Event. Please see [check specification][7]._
 
 |check       |      |
@@ -107,7 +111,7 @@ example      | {{< highlight json >}}
     "total_state_change": 0
   }
 }
-{{</ highlight >}}
+{{< /highlight >}}
 
 |metrics     |      |
 -------------|------
@@ -153,7 +157,7 @@ example      | {{< highlight json >}}
     ]
   }
 }
-{{</ highlight >}}
+{{< /highlight >}}
 
 |entity      |      |
 -------------|------
@@ -214,7 +218,7 @@ example      | {{< highlight json >}}
     "user": "agent"
   }
 }
-{{</ highlight >}}
+{{< /highlight >}}
 
 ## Example check-only event data
 
@@ -323,7 +327,7 @@ example      | {{< highlight json >}}
       "total_state_change": 0
     }
   }
-{{</ highlight >}}
+{{< /highlight >}}
 
 [1]: ../checks/#check-attributes
 [2]: ../entities/#entity-attributes

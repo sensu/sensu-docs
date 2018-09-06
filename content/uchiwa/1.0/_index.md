@@ -9,7 +9,7 @@ layout: "base-for-directory-listing"
 ## What is Uchiwa?
 
 Uchiwa is a simple yet effective open-source dashboard for the
-[Sensu](https://sensuapp.org/) monitoring framework.
+[Sensu](https://sensuapp.org/) monitoring event pipeline.
 
 With Uchiwa, you are able to enhance your monitoring platform:
 

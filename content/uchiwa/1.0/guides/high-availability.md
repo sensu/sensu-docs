@@ -64,9 +64,8 @@ Adjust the *uchiwa* object in your configuration file in order to specify the pa
 }{{< /highlight >}}
 
 Finally, restart Uchiwa and you should see the following entry in your log:
-{{< highlight json >}}
-[...]
+{{< highlight shell >}}
 "message":"Provided RSA keys successfully loaded"
-[...]{{< /highlight >}}
+{{< /highlight >}}
 
 [1]:  ../../getting-started/configuration/#datacenters-configuration-sensu

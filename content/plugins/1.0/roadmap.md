@@ -24,7 +24,7 @@ There are big plans in store for the sensu-plugins.  Not just in terms of code b
 
 **Umbrella Org**
 
-Sensu itself is a framework and the plugins are just one piece of it.  Many of the companies that use Sensu have created custom workflows, checks, and handlers, then open sourced them.  These could solve another user's problem but if the user doesn't know about them it won't do them any good.
+Sensu itself is a platform and the plugins are just one piece of it.  Many of the companies that use Sensu have created custom workflows, checks, and handlers, then open sourced them.  These could solve another user's problem but if the user doesn't know about them it won't do them any good.
 
 ### Website
 
