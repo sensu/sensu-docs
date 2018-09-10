@@ -51,7 +51,7 @@ ignoreFiles = [ "sensu-doc-template.md" ]
         name = "Sensu Core"
         description = "The open source monitoring event pipeline"
         weight = 1
-        latest = "1.4"
+        latest = "1.5"
         [params.products.sensu_core.versions]
             "2.0" = ["Ubuntu/Debian", "RHEL/CentOS"]
             "1.5" = ["Ubuntu/Debian", "RHEL/CentOS"]
