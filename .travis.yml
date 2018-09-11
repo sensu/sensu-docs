@@ -17,7 +17,9 @@ matrix:
     - language: python
       python:
         - "2.7"
+
       before_script:
         - cd tests
+        
       script: 
         - python json-validator.py --directory ../content --extension .md
