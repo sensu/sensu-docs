@@ -119,26 +119,15 @@ sudo systemctl start redis{{< /highlight >}}
 
 **6. Install and start RabbitMQ:**
 
-Add the RabbitMQ Erlang repository (required for RabbitMQ):
-
-{{< highlight shell >}}
-echo ' [rabbitmq-erlang]
-name=rabbitmq-erlang
-baseurl=https://dl.bintray.com/rabbitmq/rpm/erlang/20/el/7
-gpgcheck=1
-gpgkey=https://www.rabbitmq.com/rabbitmq-release-signing-key.asc
-repo_gpgcheck=0
-enabled=1' | sudo tee /etc/yum.repos.d/rabbitmq-erlang.repo{{< /highlight >}}
-
 Install Erlang (required for RabbitMQ):
 
 {{< highlight shell >}}
-sudo yum install erlang -y{{< /highlight >}}
+sudo yum install https://dl.bintray.com/rabbitmq/rpm/erlang/20/el/7/x86_64/erlang-20.1.7.1-1.el7.centos.x86_64.rpm{{< /highlight >}}
 
 Install RabbitMQ:
 
 {{< highlight shell >}}
-sudo yum install https://dl.bintray.com/rabbitmq/rabbitmq-server-rpm/rabbitmq-server-3.6.12-1.el7.noarch.rpm -y{{< /highlight >}}
+sudo yum install https://dl.bintray.com/rabbitmq/rabbitmq-server-rpm/rabbitmq-server-3.6.12-1.el7.noarch.rpm{{< /highlight >}}
 
 Configure RabbitMQ to work with Sensu:
 
