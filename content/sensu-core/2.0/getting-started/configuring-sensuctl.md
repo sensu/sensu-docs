@@ -181,7 +181,7 @@ accepted format of the `create` command is `wrapped-json`, which wraps the
 contents of the resource in `spec` and identifies its 2.x `type` (see below for
 an example, and [this table][2] for a list of supported types).
 
-{{< highlight json >}}
+{{< highlight shell >}}
 {
   "type": "CheckConfig",
   "spec": {
@@ -192,7 +192,9 @@ an example, and [this table][2] for a list of supported types).
     "handlers": ["slack"],
     "organization": "default",
     "environment": "default"
-  },
+   }
+}
+{
   "type": "Handler",
   "spec": {
     "name": "slack",
