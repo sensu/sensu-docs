@@ -81,7 +81,7 @@ gpgkey=https://repositories.sensuapp.org/yum/pubkey.gpg
 gpgcheck=1
 enabled=1" | sudo tee /etc/yum.repos.d/sensu-enterprise-dashboard.repo{{< /highlight >}}
 
-Add the Sensu Core repository (required for Sensu Enterprise to use the Sensu Client):
+Add the Sensu Core repository (required for Sensu Enterprise to use the Sensu client):
 
 {{< highlight shell >}}
 echo '[sensu]
@@ -161,7 +161,7 @@ Start RabbitMQ:
 sudo systemctl start rabbitmq-server
 sudo systemctl enable rabbitmq-server{{< /highlight >}}
 
-**7. Install Sensu Enterprise:**
+**7. Install Sensu Enterprise and the Sensu Enterprise Dashboard:**
 
 {{< highlight shell >}}
 sudo yum install sensu sensu-enterprise sensu-enterprise-dashboard -y{{< /highlight >}}
@@ -180,7 +180,7 @@ echo '{
   }
 }' |sudo tee /etc/sensu/conf.d/client.json{{< /highlight >}}
 
-**9. Configure the Sensu Enterprise dashboard:**
+**9. Configure the Sensu Enterprise Dashboard:**
 
 {{< highlight shell >}}
 echo '{
@@ -202,7 +202,7 @@ echo '{
 {{< highlight shell >}}
 sudo chown -R sensu:sensu /etc/sensu{{< /highlight >}}
 
-**11. Start the Sensu services:**
+**11. Start Sensu Enterprise, the Sensu Enterprise Dashboard, and the Sensu client:**
 
 {{< highlight shell >}}
 sudo systemctl enable sensu-{enterprise,enterprise-dashboard,client}
@@ -243,7 +243,7 @@ You can also use the settings API to see Sensu Enterprise's full configuration:
 {{< highlight shell >}}
 curl -s http://127.0.0.1:4567/settings | jq .{{< /highlight >}}
 
-You now be able to view the Sensu Enterprise dashboard in your browser by visiting [http://hostname:3000](http://hostname:3000) (replacing `hostname` with the hostname or IP address of the system where the dashboard is installed).
+You now be able to view the Sensu Enterprise Dashboard in your browser by visiting [http://hostname:3000](http://hostname:3000) (replacing `hostname` with the hostname or IP address of the system where the dashboard is installed).
 
 ![five-minute-dashboard-1](/images/five-minute-dashboard-1.png)
 ![five-minute-dashboard-2](/images/five-minute-dashboard-2.png)
@@ -265,6 +265,6 @@ Now you're ready to start building monitoring event pipelines with Sensu!
 [redis-security]: https://redis.io/topics/security
 [11]: /sensu-core/latest/installation/configuration-management
 [13]: ../../integrations/slack
-[14]: ../built-in-filters
+[14]: ../../built-in-filters
 [15]: ../../integrations/influxdb
 [16]: /sensu-enterprise-dashboard/latest/rbac/overview/

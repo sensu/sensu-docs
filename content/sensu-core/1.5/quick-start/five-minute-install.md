@@ -124,7 +124,7 @@ Start RabbitMQ:
 sudo systemctl start rabbitmq-server
 sudo systemctl enable rabbitmq-server{{< /highlight >}}
 
-**6. Install Sensu:**
+**6. Install Sensu and the Uchiwa dashboard:**
 
 {{< highlight shell >}}
 sudo yum install sensu uchiwa -y{{< /highlight >}}
