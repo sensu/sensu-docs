@@ -192,9 +192,7 @@ an example, and [this table][2] for a list of supported types).
     "handlers": ["slack"],
     "organization": "default",
     "environment": "default"
-  }
-}
-{
+  },
   "type": "Handler",
   "spec": {
     "name": "slack",
