@@ -185,7 +185,6 @@ curl -s http://127.0.0.1:4567/clients | jq .{{< /highlight >}}
 The Sensu API should return a JSON array of Sensu clients similar to this:
 
 {{< highlight shell >}}
-$ curl -s http://127.0.0.1:4567/clients | jq .
 [
   {
     "timestamp": 1458625739,
