@@ -25,13 +25,14 @@ You can interact with the backend using the API, command line, and dashboard int
 [Read more.][2]
 
 #### Check
-A script run by the agent to determine the state of a system component or collect metrics.
-Check definitions specify the location of the script, an interval for execution, one or more subscriptions, and one or more handlers that will process the resulting event data.
+A recurring check run by the agent to determine the state of a system component or collect metrics.
+The backend is responsible for storing check definitions, scheduling checks, and processing event data.
+Check definitions specify the command to be executed, an interval for execution, one or more subscriptions, and one or more handlers that will process the resulting event data.
 Once run, a check produces a check result that includes the output of the command and an exit status code.
 [Read more.][3]
 
 #### Check asset
-A script that a check can specify as a dependency.
+An executable that a check can specify as a dependency.
 Assets must be a tar archive (optionally gzipped) with scripts or executables within a bin folder.
 At runtime, the agent installs required assets using the specified URL.
 Assets let you manage runtime dependencies without using configuration management tools.
@@ -39,13 +40,23 @@ Assets let you manage runtime dependencies without using configuration managemen
 
 #### Check hook
 A command executed by the agent in response to a check result, before creating a monitoring event.
-Hooks create context-rich events by gathering related information based on the exit status code.
+Hooks create context-rich events by gathering related information based on the check status.
 [Read more.][5]
 
 #### Check plugin
-Checks require a script that the agent runs on the corresponding entity when executing the check.
-You can write your own check scripts in Go, Ruby, Python, and more, or use one of over 100 check plugins shared by the Sensu community.
+Checks require an executable that the agent runs on the corresponding entity when executing the check.
+You can write your own check executables in Go, Ruby, Python, and more, or use one of over 100 check plugins shared by the Sensu community.
 [Read more.][6]
+
+#### Check subdue
+A time window applied to one or more days of the week during which the backend will not schedule a check for execution.
+Check subdues are configured within the check definition.
+[Read more.][15]
+
+#### Check token
+A placeholder used in a check definition that the agent replaces with local information before executing the check.
+Tokens let you fine-tune check attributes (like thresholds) on a per-entity level while re-using the check definition.
+[Read more.][16]
 
 #### Entity
 Infrastructure components that you want to monitor.
@@ -64,12 +75,12 @@ Filters can instruct handlers to allow or deny matching events based on day, tim
 [Read more.][9]
 
 #### Handler
-A script run by the backend to act on events.
-Handlers can send monitoring event data to a script (or handler plugin), a TCP socket, or a UDP socket.
+A component of the monitoring event pipeline that acts on events.
+Handlers can send monitoring event data to an executable (or handler plugin), a TCP socket, or a UDP socket.
 [Read more.][10]
 
 #### Mutator
-A script run by the backend prior to the handler to transform event data.
+An executable run by the backend prior to the handler to transform event data.
 [Read more.][11]
 
 #### Proxy Entity
@@ -87,6 +98,11 @@ Command line tool that lets you interact with the backend.
 You can use sensuctl to create checks, view events, create users, manage cluster, and more.
 [Read more.][14]
 
+#### Silencing
+Silencing entries allow you to suppress execution of event handlers on an ad-hoc basis.
+You can use silencing to schedule maintenances without being overloaded with alerts.
+[Read more.][17]
+
 [1]: ../../getting-started/installation-and-configuration/
 [2]: ../../getting-started/installation-and-configuration/
 [3]: ../../reference/checks
@@ -101,3 +117,6 @@ You can use sensuctl to create checks, view events, create users, manage cluster
 [12]: ../../reference/entities#proxy-entities
 [13]: ../../reference/rbac
 [14]: ../../reference/sensuctl
+[15]: ../../reference/checks/#subdue-attributes
+[16]: ../../reference/tokens
+[17]: ../../reference/silencing
