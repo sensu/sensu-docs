@@ -372,8 +372,8 @@ Here's an example of a handler definition that uses the checks dependencies filt
 #### Check dependencies filter attributes {#check-dependencies-attributes}
 
 The check dependencies filter uses a custom check definition attribute: `dependencies`.
-The `dependencies` attribute should define an array containing names of checks or
-client/check pairs.
+The `dependencies` attribute should define an array containing names of checks,
+client/check pairs, or subscription/check pairs.
 
 Here's an example of a check definition that will be filtered if a check named `mysql` from the same client is already alerting:
 
@@ -390,7 +390,7 @@ Here's an example of a check definition that will be filtered if a check named `
 }
 {{< /highlight >}}
 
-You can also define a more detailed dependency by specifying the client and check pair.
+You can also define a dependency by specifying the client and the check.
 Here's an example of a check definition that will be filtered if a check named `mysql` from client `db-01` is already alerting:
 
 {{< highlight json >}}
@@ -406,12 +406,33 @@ Here's an example of a check definition that will be filtered if a check named `
 }
 {{< /highlight >}}
 
+Or, define a dependency by specifying the subscription and the check.
+Here's an example of a check definition that will be filtered if a check named `mysql`
+is already alerting on any client subscribed to the `db-nodes` subscription:
+
+{{< highlight json >}}
+{
+  "checks": {
+    "web_application_api": {
+      "command": "check-http.rb -u https://localhost:8080/api/v1/health",
+      "subscribers": ["web_application"],
+      "interval": 20,
+      "dependencies": ["subscription:db-nodes/mysql"]
+    }
+  }
+}
+{{< /highlight >}}
+
+_WARNING: Specifying a subscription/check pair in the check dependencies filter
+may impact Sensu's performance in cases where the [events API][17] regularly
+returns thousands of events._
+
 dependencies | 
 -------------|------
-description  | An array containing names of checks or client/check pairs
+description  | An array containing names of checks, client/check pairs, or subscription/check pairs. Subscription/check pairs must be in the format `subscription:subscription-name/check-name`.
 required     | True if specified handler uses the check dependencies filter
 type         | Array
-example      | {{< highlight shell >}}"dependencies": ["db-01/mysql", "apache"]{{< /highlight >}}
+example      | {{< highlight shell >}}"dependencies": ["db-01/mysql", "apache", "subscription:db-nodes/mysql"]{{< /highlight >}}
 
 ## Filter configuration
 
@@ -560,3 +581,4 @@ example      | {{< highlight shell >}}"days": {
 [14]: #when-attributes
 [15]: #filter-naming
 [16]: ../handlers#handler-sets
+[17]: ../../api/events#events-get

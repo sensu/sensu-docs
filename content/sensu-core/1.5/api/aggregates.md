@@ -202,7 +202,7 @@ output                          | {{< highlight json >}}[
     "checks": [
       "elasticsearch_service"
     ]
-  },
+  }
 ]
 {{< /highlight >}}
 
