@@ -163,22 +163,7 @@ sudo systemctl enable rabbitmq-server{{< /highlight >}}
 {{< highlight shell >}}
 sudo yum install sensu sensu-enterprise sensu-enterprise-dashboard -y{{< /highlight >}}
 
-**8. Configure Sensu Enterprise server:**
-
-Run the following to set up a minimal server config:
-
-{{< highlight shell >}}
-echo '{
-  "transport": {
-    "name": "rabbitmq"
-  },
-  "api": {
-    "host": "127.0.0.1",
-    "port": 4567
-  }
-}' | sudo tee /etc/sensu/config.json{{< /highlight >}}
-
-**9. Configure the Sensu client:**
+**8. Configure the Sensu client:**
 
 Run the following to set up a minimal client config:
 
@@ -192,7 +177,7 @@ echo '{
   }
 }' |sudo tee /etc/sensu/conf.d/client.json{{< /highlight >}}
 
-**10. Configure the Sensu Enterprise dashboard:**
+**9. Configure the Sensu Enterprise dashboard:**
 
 {{< highlight shell >}}
 echo '{
@@ -209,12 +194,12 @@ echo '{
   }
 }' |sudo tee /etc/sensu/dashboard.json{{< /highlight >}}
 
-**11. Make sure that the `sensu` user owns all of the Sensu configuration files:**
+**10. Make sure that the `sensu` user owns all of the Sensu configuration files:**
 
 {{< highlight shell >}}
 sudo chown -R sensu:sensu /etc/sensu{{< /highlight >}}
 
-**12. Start the Sensu services:**
+**11. Start the Sensu services:**
 
 {{< highlight shell >}}
 sudo systemctl enable sensu-{enterprise,enterprise-dashboard,client}

@@ -128,22 +128,7 @@ sudo systemctl enable rabbitmq-server{{< /highlight >}}
 {{< highlight shell >}}
 sudo yum install sensu uchiwa -y{{< /highlight >}}
 
-**7. Configure Sensu server:**
-
-Run the following to set up a minimal server config:
-
-{{< highlight shell >}}
-echo '{
-  "transport": {
-    "name": "rabbitmq"
-  },
-  "api": {
-    "host": "127.0.0.1",
-    "port": 4567
-  }
-}' | sudo tee /etc/sensu/config.json{{< /highlight >}}
-
-**8. Configure the Sensu client:**
+**7. Configure the Sensu client:**
 
 Run the following to set up a minimal client config:
 
@@ -157,7 +142,7 @@ echo '{
   }
 }' |sudo tee /etc/sensu/conf.d/client.json{{< /highlight >}}
 
-**9. Configure the Uchiwa dashboard:**
+**8. Configure the Uchiwa dashboard:**
 
 {{< highlight shell >}}
  echo '{
@@ -174,12 +159,12 @@ echo '{
    }
  }' |sudo tee /etc/sensu/uchiwa.json{{< /highlight >}}
 
-**10. Make sure that the `sensu` user owns all of the Sensu configuration files:**
+**9. Make sure that the `sensu` user owns all of the Sensu configuration files:**
 
 {{< highlight shell >}}
 sudo chown -R sensu:sensu /etc/sensu{{< /highlight >}}
 
-**11. Start the Sensu services:**
+**10. Start the Sensu services:**
 
 {{< highlight shell >}}
 sudo systemctl enable sensu-{server,api,client}
