@@ -161,6 +161,14 @@ Start RabbitMQ:
 sudo systemctl start rabbitmq-server
 sudo systemctl enable rabbitmq-server{{< /highlight >}}
 
+Create a RabbitMQ vhost and user to allow Sensu services to connect to RabbitMQ:
+
+{{< highlight shell >}}
+sudo rabbitmqctl add_vhost /sensu
+sudo rabbitmqctl add_user sensu secret
+sudo rabbitmqctl set_permissions -p /sensu sensu ".*" ".*" ".*"
+{{< /highlight >}}
+
 **7. Install Sensu Enterprise and the Sensu Enterprise Dashboard:**
 
 {{< highlight shell >}}
