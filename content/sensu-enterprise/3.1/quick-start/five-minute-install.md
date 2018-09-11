@@ -223,18 +223,15 @@ The Sensu Enterprise API should return a JSON array of Sensu clients similar to 
 {{< highlight shell >}}
 [
   {
-    "timestamp": 1458625739,
-    "version": "0.28.0",
-    "socket": {
-      "port": 3030,
-      "bind": "127.0.0.1"
-    },
-    "subscriptions": [
-      "dev"
-    ],
+    "name": "localhost.localdomain",
+    "address": "10.0.2.15",
     "environment": "development",
-    "address": "127.0.0.1",
-    "name": "client-01"
+    "subscriptions": [
+      "dev",
+      "client:localhost.localdomain"
+    ],
+    "version": "1.5.0",
+    "timestamp": 1536689795
   }
 ]{{< /highlight >}}
 
