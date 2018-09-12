@@ -285,7 +285,10 @@ example      | {{< highlight shell >}}"round_robin": false{{< /highlight >}}
 
 |extended_attributes|      |
 -------------|------
-description  | Coming soon.
+description  | Custom attributes to include with the event data, which can be queried like regular attributes.
+required     | false
+type         | JSON object
+example      | {{< highlight shell >}}{"team":"ops"}{{< /highlight >}}
 
 |organization|      |
 -------------|------
