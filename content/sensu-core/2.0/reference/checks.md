@@ -315,6 +315,13 @@ description  | If the event is to be silenced.
 type         | boolean
 example      | {{< highlight shell >}}"silenced": false{{< /highlight >}}
 
+|env_vars    |      |
+-------------|------
+description  | An array of environment variables to use with command execution. _NOTE: To add `env_vars` to a check, use [`sensuctl create`][create]._
+required     | false
+type         | Array
+example      | {{< highlight shell >}}"env_vars": ["RUBY_VERSION=2.5.0", "CHECK_HOST=my.host.internal"]{{< /highlight >}}
+
 ### Proxy requests attributes
 
 |entity_attributes| |
