@@ -30,7 +30,7 @@ specifically the CPU usage, by configuring a check named `check-cpu` with a
 **subscription** named `linux`, in order to target all **entities** subscribed
 to the `linux` subscription.
 
-### Installating a script
+### Installing a script
 
 The `check-cpu.sh` script provided by the [Sensu CPU Checks Plugin][1] can
 reliably detect the percentage of CPU usage. The following command will provide
