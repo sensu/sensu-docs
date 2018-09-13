@@ -1,0 +1,170 @@
+---
+title: "Installation Overview"
+description: "Sensu Enterprise installation resources"
+weight: 1
+product: "Sensu Enterprise"
+version: "3.1"
+platformContent: true
+platforms: ["RHEL/CentOS", "Ubuntu/Debian"]
+menu:
+  sensu-enterprise-3.1:
+    parent: installation
+---
+
+## Installing Sensu Enterprise
+
+Sensu Enterprise is supported on RHEL/CentOS and Ubuntu/Debian Linux
+distributions. Please see the relevant section below for information
+on installing Sensu Enterprise and its prerequisites.
+
+Prior to working through either the installation or upgrade
+instructions linked below, you'll need to obtain your Sensu Enterprise
+repository credentials via the [Sensu Account Manager
+portal](https://account.sensu.io). These credentials are comprised of
+a username and password which are required to access Sensu Enterprise
+software packages.
+
+_**NOTE: manual installation is recommended for pre-production environments
+only.** Please note that this guide is not intended to provide instructions for
+deploying Sensu Enterprise into "production" environments. Production
+deployment strategies &ndash; including using automation tools like
+Chef, Puppet, or Ansible to install and configure Sensu &ndash; are
+be discussed [at the conclusion of the Sensu Core installation guide][1]._
+
+{{< platformBlock "RHEL/CentOS" >}}
+### Install Sensu Enterprise and prerequisites (RHEL/Centos)
+
+If you are a new Sensu user getting started with Sensu Enterprise,
+Please refer to the following installation guides for installing Sensu
+Enterprise and its prerequisites:
+
+1. [Install and Configure Redis](/sensu-core/1.4/install-redis-on-rhel-centos)
+2. [Install and Configure RabbitMQ](/sensu-core/1.4/install-rabbitmq-on-rhel-centos)
+3. [Install Sensu Enterprise](/sensu-core/1.4/platforms/sensu-on-rhel-centos/#sensu-enterprise)   
+
+### Upgrading from Sensu Core to Sensu Enterprise (RHEL/Centos)
+
+Sensu Enterprise is designed as a drop-in replacement for Sensu Core's
+sensu-server and sensu-api services. If you are already a Sensu Core
+user, the following steps will guide you through a manual upgrade to
+Sensu Enterprise:
+
+1. Install the `sensu-enterprise` package as described in [Install Sensu Enterprise](/sensu-core/1.4/platforms/sensu-on-rhel-centos/#sensu-enterprise).
+2. Stop `sensu-server` and `sensu-api` services
+{{< highlight shell >}}
+sudo service sensu-server stop && sudo service sensu-api stop
+{{< /highlight >}}
+3. Start `sensu-enterprise` service
+{{< highlight shell >}}
+sudo service sensu-enterprise start
+{{< /highlight >}}
+4. Disable `sensu-server` and `sensu-api` services to avoid starting
+them at boot
+{{< highlight shell >}}
+sudo chkconfig sensu-server off
+sudo chkconfig sensu-api off
+{{< /highlight >}}
+5. Enable `sensu-enterprise` to ensure it is started at boot
+{{< highlight shell >}}
+sudo chkconfig --add sensu-enterprise
+{{< /highlight >}}
+
+_NOTE: No configuration changes are required before resuming monitoring with
+the sensu-enterprise service. However, taking advantage of [Sensu
+Enterprise's built-in integration features](../../integrations/) will
+require some changes, e.g. providing integration-specific
+configuration and potentially reconfiguring check definitions to use
+those integrations._
+
+The process for upgrading from the open source Uchiwa dashboard to
+Sensu Enterprise Dashboard is similar:
+
+1. Install the `sensu-enterprise` package as described in [Install Sensu Enterprise](/sensu-core/1.4/platforms/sensu-on-rhel-centos/#sensu-enterprise).
+2. Stop `uchiwa` service
+{{< highlight shell >}}
+sudo service uchiwa stop
+{{< /highlight >}}
+3. Rename `/etc/sensu/uchiwa.json` to `/etc/sensu/dashboard.json`
+{{< highlight shell >}}
+sudo mv /etc/sensu/uchiwa.json /etc/sensu/dashboard.json
+{{< /highlight >}}
+4. Start `sensu-enterprise-dashboard` service
+{{< highlight shell >}}
+sudo service sensu-enterprise-dashboard start
+{{< /highlight >}}
+5. Disable `uchiwa` service to avoid starting it at boot
+{{< highlight shell >}}
+sudo chkconfig uchiwa off
+{{< /highlight >}}
+6. Enable `sensu-enterprise` to ensure it is started at boot
+{{< highlight shell >}}
+sudo chkconfig --add sensu-enterprise-dashboard
+{{< /highlight >}}
+{{< platformBlockClose >}}
+
+{{< platformBlock "Ubuntu/Debian" >}}
+### Install Sensu Enterprise and prerequisites (Ubuntu/Debian)
+
+1. [Install and Configure Redis](/sensu-core/1.4/installation/install-redis-on-ubuntu-debian)
+2. [Install and Configure RabbitMQ](/sensu-core/1.4/installation/install-rabbitmq-on-ubuntu-debian)
+3. [Install Sensu Enterprise](/sensu-core/1.4/platforms/sensu-on-ubuntu-debian/#sensu-enterprise)
+
+### Upgrading from Sensu Core to Sensu Enterprise (Ubuntu/Debian)
+
+Sensu Enterprise is designed as a drop-in replacement for Sensu Core's
+sensu-server and sensu-api services.
+
+1. Install the `sensu-enterprise` package as described in [Install Sensu Enterprise](/sensu-core/1.4/platforms/sensu-on-rhel-centos/#sensu-enterprise).
+2. Stop `sensu-server` and `sensu-api` services
+{{< highlight shell >}}
+sudo service sensu-server stop && sudo service sensu-api stop
+{{< /highlight >}}
+3. Start `sensu-enterprise` service
+{{< highlight shell >}}
+sudo service sensu-enterprise start
+{{< /highlight >}}
+4. Disable `sensu-server` and `sensu-api` services to avoid starting
+them at boot
+{{< highlight shell >}}
+sudo update-rc.d -f sensu-server remove
+sudo update-rc.d -f sensu-api remove
+{{< /highlight >}}
+5. Enable `sensu-enterprise` to ensure it is started at boot
+{{< highlight shell >}}
+sudo update-rc.d sensu-enterprise defaults
+{{< /highlight >}}
+
+_NOTE: No configuration changes are required before resuming monitoring with
+the sensu-enterprise service. However, taking advantage of [Sensu
+Enterprise's built-in integration features](../../integrations/) will
+require some changes, e.g. providing integration-specific
+configuration and potentially reconfiguring check definitions to use
+those integrations._
+
+The process for upgrading from the open source Uchiwa dashboard to
+Sensu Enterprise Dashboard is similar:
+
+1. Install the `sensu-enterprise` package as described in [Install Sensu Enterprise](/sensu-core/1.4/platforms/sensu-on-rhel-centos/#sensu-enterprise).
+2. Stop `uchiwa` service
+{{< highlight shell >}}
+sudo service uchiwa stop
+{{< /highlight >}}
+3. Rename `/etc/sensu/uchiwa.json` to `/etc/sensu/dashboard.json`
+{{< highlight shell >}}
+sudo mv /etc/sensu/uchiwa.json /etc/sensu/dashboard.json
+{{< /highlight >}}
+4. Start `sensu-enterprise-dashboard` service
+{{< highlight shell >}}
+sudo service sensu-enterprise-dashboard start
+{{< /highlight >}}
+5. Disable `uchiwa` service to avoid starting it at boot
+{{< highlight shell >}}
+sudo update-rc.d -f uchiwa remove
+{{< /highlight >}}
+6. Enable `sensu-enterprise` to ensure it is started at boot
+{{< highlight shell >}}
+sudo update-rc.d sensu-enterprise-dashboard defaults
+{{< /highlight >}}
+{{< platformBlockClose >}}
+
+[1]: /sensu-core/1.4/installation/summary
