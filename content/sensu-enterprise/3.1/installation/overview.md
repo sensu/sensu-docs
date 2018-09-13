@@ -32,7 +32,7 @@ Chef, Puppet, or Ansible to install and configure Sensu &ndash; are
 be discussed [at the conclusion of the Sensu Core installation guide][2]._
 
 {{< platformBlock "RHEL/CentOS" >}}
-### Installing Sensu Enterprise and prerequisites (RHEL/Centos)
+### Installing Sensu Enterprise and prerequisites on RHEL/Centos
 
 Sensu Enterprise builds on the same architecture as Sensu Core.
 
@@ -46,7 +46,7 @@ please see to the following selected sections of the [Sensu installation guide][
 {{< platformBlockClose >}}
 
 {{< platformBlock "Ubuntu/Debian" >}}
-### Installing Sensu Enterprise and prerequisites (Ubuntu/Debian)
+### Installing Sensu Enterprise and prerequisites on Ubuntu/Debian
 
 Sensu Enterprise builds on the same architecture as Sensu Core.
 
