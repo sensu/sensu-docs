@@ -36,8 +36,8 @@ be discussed [at the conclusion of the Sensu Core installation guide][2]._
 
 Sensu Enterprise builds on the same architecture as Sensu Core.
 
-If you are a new Sensu user getting started with Sensu Enterprise,
 please see to the following selected sections of the [Sensu installation guide][3]:
+If you're a new Sensu user getting started with Sensu Enterprise,
 
 1. [Install and Configure Redis](/sensu-core/1.4/install-redis-on-rhel-centos)
 2. [Install and Configure RabbitMQ](/sensu-core/1.4/install-rabbitmq-on-rhel-centos)
@@ -50,8 +50,8 @@ please see to the following selected sections of the [Sensu installation guide][
 
 Sensu Enterprise builds on the same architecture as Sensu Core.
 
-If you are a new Sensu user getting started with Sensu Enterprise,
 please see to the following selected sections of the [Sensu installation guide][3]:
+If you're a new Sensu user getting started with Sensu Enterprise,
 
 1. [Install and Configure Redis](/sensu-core/1.4/install-redis-on-ubuntu-debian)
 2. [Install and Configure RabbitMQ](/sensu-core/1.4/install-rabbitmq-on-ubuntu-debian)
@@ -72,7 +72,7 @@ or added-value features like [contact routing][5].
 {{< platformBlock "RHEL/CentOS" >}}
 ### Upgrading from Sensu Core to Sensu Enterprise on RHEL/Centos
 
-If you are already a Sensu Core user, the following steps will guide
+If you're already a Sensu Core user, the following steps will guide
 you through a manual upgrade to Sensu Enterprise:
 
 1. Install the `sensu-enterprise` package as described in [Install Sensu Enterprise](/sensu-core/1.4/platforms/sensu-on-rhel-centos/#sensu-enterprise).
@@ -134,7 +134,7 @@ sudo yum remove uchiwa
 {{< platformBlock "Ubuntu/Debian" >}}
 ### Upgrading from Sensu Core to Sensu Enterprise on Ubuntu/Debian
 
-If you are already a Sensu Core user, the following steps will guide
+If you're already a Sensu Core user, the following steps will guide
 you through a manual upgrade to Sensu Enterprise:
 
 1. Install the `sensu-enterprise` package as described in [Install Sensu Enterprise](/sensu-core/1.4/platforms/sensu-on-ubuntu-debian/#sensu-enterprise).
