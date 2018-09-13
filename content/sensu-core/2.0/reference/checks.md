@@ -18,6 +18,7 @@ menu:
 - [Proxy requests](#proxy-requests)
 - [New and improved checks](#new-and-improved-checks)
 - [Specification](#check-specification)
+- [Examples](#examples)
 
 ## How do checks work?
 
@@ -373,6 +374,28 @@ example      | {{< highlight shell >}}"days": {
     }
   ]
 }}{{< /highlight >}}
+
+## Examples
+
+### Metric check
+
+{{< highlight json >}}
+{
+  "type": "CheckConfig",
+  "spec": {
+    "name": "collect-metrics",
+    "environment": "default",
+    "organization": "default",
+    "subscriptions": [
+      "system"
+    ],
+    "command": "collect.sh",
+    "interval": 10,
+    "publish": true,
+    "output_metric_format": "graphite_plaintext",
+    "output_metric_handlers": ["influx-db"]
+  }
+}{{< /highlight >}}
 
 [1]: #subscription-checks
 [2]: https://en.wikipedia.org/wiki/Publish%E2%80%93subscribe_pattern
