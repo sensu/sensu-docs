@@ -37,10 +37,10 @@ be discussed [at the conclusion of the Sensu Core installation guide][2]._
 {{< platformBlock "RHEL/CentOS" >}}
 ### Installing Sensu Enterprise and prerequisites on RHEL/Centos
 
-Sensu Enterprise builds on the same [architecture][arch] as Sensu Core.
+Sensu Enterprise builds on the same [architecture][3] as Sensu Core.
 
 If you're a new Sensu user getting started with Sensu Enterprise,
-please complete the following selected sections of the [Sensu installation guide][3]:
+please complete the following selected sections of the Sensu installation guide:
 
 1. [Install and Configure Redis](/sensu-core/latest/installation/install-redis-on-rhel-centos)
 2. [Install and Configure RabbitMQ](/sensu-core/latest/installation/install-rabbitmq-on-rhel-centos)
@@ -51,10 +51,10 @@ please complete the following selected sections of the [Sensu installation guide
 {{< platformBlock "Ubuntu/Debian" >}}
 ### Installing Sensu Enterprise and prerequisites on Ubuntu/Debian
 
-Sensu Enterprise builds on the same [architecture][arch] as Sensu Core.
+Sensu Enterprise builds on the same [architecture][3] as Sensu Core.
 
 If you're a new Sensu user getting started with Sensu Enterprise,
-please complete the following selected sections of the [Sensu installation guide][3]:
+please complete the following selected sections of the Sensu installation guide:
 
 1. [Install and Configure Redis](/sensu-core/latest/installation/install-redis-on-ubuntu-debian)
 2. [Install and Configure RabbitMQ](/sensu-core/latest/installation/install-rabbitmq-on-ubuntu-debian)
@@ -190,8 +190,6 @@ sudo update-rc.d sensu-enterprise-dashboard defaults
 {{< platformBlockClose >}}
 
 [1]: https://account.sensu.io/
-[3]: /sensu-core/latest/installation/summary
-[3]: /sensu-core/latest/installation/summary
+[2]: /sensu-core/latest/overview/architecture
 [4]: ../../built-in-handlers
 [5]: ../../contact-routing
-[arch]: /sensu-core/latest/overview/architecture
