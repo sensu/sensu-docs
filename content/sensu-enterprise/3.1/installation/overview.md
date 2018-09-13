@@ -11,6 +11,9 @@ menu:
     parent: installation
 ---
 
+- [Installing Sensu Enterprise](#installing-sensu-enterprise)
+- [Upgrading from Sensu Core to Sensu Enterprise](#upgrading-from-sensu-core-to-sensu-enterprise)
+
 ## Installing Sensu Enterprise
 
 Sensu Enterprise is supported on RHEL/CentOS and Ubuntu/Debian Linux
