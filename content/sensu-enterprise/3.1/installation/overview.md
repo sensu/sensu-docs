@@ -39,9 +39,9 @@ Sensu Enterprise builds on the same architecture as Sensu Core.
 please see to the following selected sections of the [Sensu installation guide][3]:
 If you're a new Sensu user getting started with Sensu Enterprise,
 
-1. [Install and Configure Redis](/sensu-core/1.4/install-redis-on-rhel-centos)
-2. [Install and Configure RabbitMQ](/sensu-core/1.4/install-rabbitmq-on-rhel-centos)
-3. [Install Sensu Enterprise](/sensu-core/1.4/platforms/sensu-on-rhel-centos/#sensu-enterprise)   
+1. [Install and Configure Redis](/sensu-core/latest/installation/install-redis-on-rhel-centos)
+2. [Install and Configure RabbitMQ](/sensu-core/latest/installation/install-rabbitmq-on-rhel-centos)
+3. [Install Sensu Enterprise](/sensu-core/latest/platforms/sensu-on-rhel-centos/#sensu-enterprise)
 
 {{< platformBlockClose >}}
 
@@ -53,9 +53,9 @@ Sensu Enterprise builds on the same architecture as Sensu Core.
 please see to the following selected sections of the [Sensu installation guide][3]:
 If you're a new Sensu user getting started with Sensu Enterprise,
 
-1. [Install and Configure Redis](/sensu-core/1.4/install-redis-on-ubuntu-debian)
-2. [Install and Configure RabbitMQ](/sensu-core/1.4/install-rabbitmq-on-ubuntu-debian)
-3. [Install Sensu Enterprise](/sensu-core/1.4/platforms/sensu-on-ubuntu-debian/#sensu-enterprise)
+1. [Install and Configure Redis](/sensu-core/latest/installation/install-redis-on-ubuntu-debian)
+2. [Install and Configure RabbitMQ](/sensu-core/latest/installation/install-rabbitmq-on-ubuntu-debian)
+3. [Install Sensu Enterprise](/sensu-core/latest/platforms/sensu-on-ubuntu-debian/#sensu-enterprise)
 
 {{< platformBlockClose >}}
 
@@ -75,7 +75,7 @@ or added-value features like [contact routing][5].
 If you're already a Sensu Core user, the following steps will guide
 you through a manual upgrade to Sensu Enterprise:
 
-1. Install the `sensu-enterprise` package as described in [Install Sensu Enterprise](/sensu-core/1.4/platforms/sensu-on-rhel-centos/#sensu-enterprise).
+1. Install the `sensu-enterprise` package as described in [Install Sensu Enterprise](/sensu-core/latest/platforms/sensu-on-rhel-centos/#sensu-enterprise).
 2. Stop `sensu-server` and `sensu-api` services
 {{< highlight shell >}}
 sudo service sensu-server stop && sudo service sensu-api stop
@@ -104,7 +104,7 @@ Sensu Enterprise instances.
 The process for upgrading from the open source Uchiwa dashboard to
 Sensu Enterprise Dashboard is similar:
 
-1. Install the `sensu-enterprise` package as described in [Install Sensu Enterprise](/sensu-core/1.4/platforms/sensu-on-rhel-centos/#sensu-enterprise).
+1. Install the `sensu-enterprise` package as described in [Install Sensu Enterprise](/sensu-core/latest/platforms/sensu-on-rhel-centos/#sensu-enterprise).
 2. Stop `uchiwa` service
 {{< highlight shell >}}
 sudo service uchiwa stop
@@ -137,7 +137,7 @@ sudo yum remove uchiwa
 If you're already a Sensu Core user, the following steps will guide
 you through a manual upgrade to Sensu Enterprise:
 
-1. Install the `sensu-enterprise` package as described in [Install Sensu Enterprise](/sensu-core/1.4/platforms/sensu-on-ubuntu-debian/#sensu-enterprise).
+1. Install the `sensu-enterprise` package as described in [Install Sensu Enterprise](/sensu-core/latest/platforms/sensu-on-ubuntu-debian/#sensu-enterprise).
 2. Stop `sensu-server` and `sensu-api` services
 {{< highlight shell >}}
 sudo service sensu-server stop && sudo service sensu-api stop
@@ -166,7 +166,7 @@ Sensu Enterprise instances.
 Please follow these steps to manually upgrade from Uchiwa to Sensu
 Enterprise Dashboard:
 
-1. Install the `sensu-enterprise-dashboard` package as described in [Install Sensu Enterprise](/sensu-core/1.4/platforms/sensu-on-ubuntu-debian/#sensu-enterprise).
+1. Install the `sensu-enterprise-dashboard` package as described in [Install Sensu Enterprise](/sensu-core/latest/platforms/sensu-on-ubuntu-debian/#sensu-enterprise).
 2. Stop `uchiwa` service
 {{< highlight shell >}}
 sudo service uchiwa stop
@@ -194,7 +194,7 @@ sudo dpkg --remove uchiwa
 {{< platformBlockClose >}}
 
 [1]: https://account.sensu.io/
-[2]: /sensu-core/1.4/installation/
-[3]: /sensu-core/1.4/installation/summary
-[4]: ../built-in-handlers/#list-of-built-in-handlers
-[5]: ../contact-routing
+[3]: /sensu-core/latest/installation/summary
+[3]: /sensu-core/latest/installation/summary
+[4]: ../../built-in-handlers
+[5]: ../../contact-routing
