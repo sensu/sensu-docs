@@ -137,7 +137,7 @@ sudo yum remove uchiwa
 If you are already a Sensu Core user, the following steps will guide
 you through a manual upgrade to Sensu Enterprise:
 
-1. Install the `sensu-enterprise` package as described in [Install Sensu Enterprise](/sensu-core/1.4/platforms/sensu-on-rhel-centos/#sensu-enterprise).
+1. Install the `sensu-enterprise` package as described in [Install Sensu Enterprise](/sensu-core/1.4/platforms/sensu-on-ubuntu-debian/#sensu-enterprise).
 2. Stop `sensu-server` and `sensu-api` services
 {{< highlight shell >}}
 sudo service sensu-server stop && sudo service sensu-api stop
@@ -166,7 +166,7 @@ Sensu Enterprise instances.
 Please follow these steps to manually upgrade from Uchiwa to Sensu
 Enterprise Dashboard:
 
-1. Install the `sensu-enterprise-dashboard` package as described in [Install Sensu Enterprise](/sensu-core/1.4/platforms/sensu-on-rhel-centos/#sensu-enterprise).
+1. Install the `sensu-enterprise-dashboard` package as described in [Install Sensu Enterprise](/sensu-core/1.4/platforms/sensu-on-ubuntu-debian/#sensu-enterprise).
 2. Stop `uchiwa` service
 {{< highlight shell >}}
 sudo service uchiwa stop
