@@ -38,9 +38,9 @@ the `check-cpu.sh` script and should be run on every Sensu agent that has an
 entity subscribed to the `linux` subscription.
 
 {{< highlight shell >}}
-curl https://raw.githubusercontent.com/sensu-plugins/sensu-plugins-cpu-checks/03a99bab0237c81121ce702b0c5a5a3b44908535/bin/check-cpu.sh \
+sudo curl https://raw.githubusercontent.com/sensu-plugins/sensu-plugins-cpu-checks/03a99bab0237c81121ce702b0c5a5a3b44908535/bin/check-cpu.sh \
 -o /usr/local/bin/check-cpu.sh && \
-chmod +x /usr/local/bin/check-cpu.sh
+sudo chmod +x /usr/local/bin/check-cpu.sh
 {{< /highlight >}}
 
 While this command is appropriate when running a few agents, you should consider
