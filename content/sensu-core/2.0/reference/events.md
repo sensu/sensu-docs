@@ -113,6 +113,8 @@ example      | {{< highlight json >}}
 }
 {{< /highlight >}}
 
+<a name="metrics">
+
 |metrics     |      |
 -------------|------
 description  | The metrics collected by the entity.
