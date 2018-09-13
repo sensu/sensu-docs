@@ -32,7 +32,7 @@ Chef, Puppet, or Ansible to install and configure Sensu &ndash; are
 be discussed [at the conclusion of the Sensu Core installation guide][2]._
 
 {{< platformBlock "RHEL/CentOS" >}}
-### Install Sensu Enterprise and prerequisites (RHEL/Centos)
+### Installing Sensu Enterprise and prerequisites (RHEL/Centos)
 
 Sensu Enterprise builds on the same architecture as Sensu Core.
 
@@ -113,7 +113,7 @@ sudo yum remove uchiwa
 {{< platformBlockClose >}}
 
 {{< platformBlock "Ubuntu/Debian" >}}
-### Install Sensu Enterprise and prerequisites (Ubuntu/Debian)
+### Installing Sensu Enterprise and prerequisites (Ubuntu/Debian)
 
 1. [Install and Configure Redis](/sensu-core/1.4/installation/install-redis-on-ubuntu-debian)
 2. [Install and Configure RabbitMQ](/sensu-core/1.4/installation/install-rabbitmq-on-ubuntu-debian)
