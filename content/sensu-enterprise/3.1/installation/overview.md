@@ -124,11 +124,7 @@ sudo yum remove uchiwa
 {{< highlight shell >}}
 sudo service sensu-enterprise-dashboard start
 {{< /highlight >}}
-6. Disable `uchiwa` service to avoid starting it at boot
-{{< highlight shell >}}
-sudo chkconfig uchiwa off
-{{< /highlight >}}
-7. Enable `sensu-enterprise-dashboard` to ensure it is started at boot
+6. Enable `sensu-enterprise-dashboard` to ensure it is started at boot
 {{< highlight shell >}}
 sudo chkconfig --add sensu-enterprise-dashboard
 {{< /highlight >}}
@@ -186,11 +182,7 @@ sudo dpkg --remove uchiwa
 {{< highlight shell >}}
 sudo service sensu-enterprise-dashboard start
 {{< /highlight >}}
-6. Disable `uchiwa` service to avoid starting it at boot
-{{< highlight shell >}}
-sudo update-rc.d -f uchiwa remove
-{{< /highlight >}}
-7. Enable `sensu-enterprise` to ensure it is started at boot
+6. Enable `sensu-enterprise` to ensure it is started at boot
 {{< highlight shell >}}
 sudo update-rc.d sensu-enterprise-dashboard defaults
 {{< /highlight >}}
