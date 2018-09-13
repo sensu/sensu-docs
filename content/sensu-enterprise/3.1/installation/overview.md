@@ -43,7 +43,23 @@ please see to the following selected sections of the [Sensu installation guide][
 2. [Install and Configure RabbitMQ](/sensu-core/1.4/install-rabbitmq-on-rhel-centos)
 3. [Install Sensu Enterprise](/sensu-core/1.4/platforms/sensu-on-rhel-centos/#sensu-enterprise)   
 
-### Upgrading from Sensu Core to Sensu Enterprise (RHEL/Centos)
+{{< platformBlockClose >}}
+
+{{< platformBlock "Ubuntu/Debian" >}}
+### Installing Sensu Enterprise and prerequisites (Ubuntu/Debian)
+
+Sensu Enterprise builds on the same architecture as Sensu Core.
+
+If you are a new Sensu user getting started with Sensu Enterprise,
+please see to the following selected sections of the [Sensu installation guide][3]:
+
+1. [Install and Configure Redis](/sensu-core/1.4/install-redis-on-ubuntu-debian)
+2. [Install and Configure RabbitMQ](/sensu-core/1.4/install-rabbitmq-on-ubuntu-debian)
+3. [Install Sensu Enterprise](/sensu-core/1.4/platforms/sensu-on-ubuntu-debian/#sensu-enterprise)
+
+{{< platformBlockClose >}}
+
+## Upgrading from Sensu Core to Sensu Enterprise
 
 For those already running Sensu Core, Sensu Enterprise is designed to be a
 drop-in replacement for the Sensu Core server and API. Once installed,
@@ -52,6 +68,9 @@ no configuration changes are required – simply terminate the
 process to resume operation of your Sensu instance. Some configuration
 changes may be required to take advantage of [built-in integrations][4]
 or added-value features like [contact routing][5].
+
+{{< platformBlock "RHEL/CentOS" >}}
+### Upgrading from Sensu Core to Sensu Enterprise (RHEL/Centos)
 
 If you are already a Sensu Core user, the following steps will guide
 you through a manual upgrade to Sensu Enterprise:
@@ -113,21 +132,7 @@ sudo yum remove uchiwa
 {{< platformBlockClose >}}
 
 {{< platformBlock "Ubuntu/Debian" >}}
-### Installing Sensu Enterprise and prerequisites (Ubuntu/Debian)
-
-1. [Install and Configure Redis](/sensu-core/1.4/installation/install-redis-on-ubuntu-debian)
-2. [Install and Configure RabbitMQ](/sensu-core/1.4/installation/install-rabbitmq-on-ubuntu-debian)
-3. [Install Sensu Enterprise](/sensu-core/1.4/platforms/sensu-on-ubuntu-debian/#sensu-enterprise)
-
 ### Upgrading from Sensu Core to Sensu Enterprise (Ubuntu/Debian)
-
-For those already running Sensu Core, Sensu Enterprise is designed to be a
-drop-in replacement for the Sensu Core server and API. Once installed,
-no configuration changes are required – simply terminate the
-`sensu-server` and `sensu-api` processes, and start the `sensu-enterprise`
-process to resume operation of your Sensu instance. Some configuration
-changes may be required to take advantage of [built-in integrations][4]
-or added-value features like [contact routing][5].
 
 If you are already a Sensu Core user, the following steps will guide
 you through a manual upgrade to Sensu Enterprise:
@@ -151,13 +156,6 @@ sudo update-rc.d -f sensu-api remove
 {{< highlight shell >}}
 sudo update-rc.d sensu-enterprise defaults
 {{< /highlight >}}
-
-_NOTE: No configuration changes are required before resuming monitoring with
-the sensu-enterprise service. However, taking advantage of [Sensu
-Enterprise's built-in integration features](../../integrations/) will
-require some changes, e.g. providing integration-specific
-configuration and potentially reconfiguring check definitions to use
-those integrations._
 
 ### Upgrading from Uchiwa to Sensu Enterprise Dashboard (Ubuntu/Debian)
 
