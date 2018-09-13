@@ -70,7 +70,7 @@ changes may be required to take advantage of [built-in integrations][4]
 or added-value features like [contact routing][5].
 
 {{< platformBlock "RHEL/CentOS" >}}
-### Upgrading from Sensu Core to Sensu Enterprise (RHEL/Centos)
+### Upgrading from Sensu Core to Sensu Enterprise on RHEL/Centos
 
 If you are already a Sensu Core user, the following steps will guide
 you through a manual upgrade to Sensu Enterprise:
@@ -95,7 +95,7 @@ sudo chkconfig sensu-api off
 sudo chkconfig --add sensu-enterprise
 {{< /highlight >}}
 
-### Upgrading from Uchiwa to Sensu Enterprise Dashboard (RHEL/CentOS)
+### Upgrading from Uchiwa to Sensu Enterprise Dashboard on RHEL/CentOS
 
 Sensu Enterprise Dashboard is built on the popular Uchiwa dashboard
 for Sensu Core, providing advanced features for managing one or more
@@ -132,7 +132,7 @@ sudo yum remove uchiwa
 {{< platformBlockClose >}}
 
 {{< platformBlock "Ubuntu/Debian" >}}
-### Upgrading from Sensu Core to Sensu Enterprise (Ubuntu/Debian)
+### Upgrading from Sensu Core to Sensu Enterprise on Ubuntu/Debian
 
 If you are already a Sensu Core user, the following steps will guide
 you through a manual upgrade to Sensu Enterprise:
@@ -157,7 +157,7 @@ sudo update-rc.d -f sensu-api remove
 sudo update-rc.d sensu-enterprise defaults
 {{< /highlight >}}
 
-### Upgrading from Uchiwa to Sensu Enterprise Dashboard (Ubuntu/Debian)
+### Upgrading from Uchiwa to Sensu Enterprise Dashboard on Ubuntu/Debian
 
 Sensu Enterprise Dashboard is built on the popular Uchiwa dashboard
 for Sensu Core, providing advanced features for managing one or more
