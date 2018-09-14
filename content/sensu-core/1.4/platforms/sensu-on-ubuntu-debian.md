@@ -19,6 +19,7 @@ menu:
   - [Install Sensu using APT](#install-sensu-core-repository)
 - [Installing Sensu Enterprise](#sensu-enterprise)
   - [Install the Sensu Enterprise repository](#install-sensu-enterprise-repository)
+  - [Install the Sensu Enterprise Dashboard repository](#install-sensu-enterprise-dashboard-repository)
   - [Install Sensu Enterprise (server & API)](#install-sensu-enterprise)
 - [Configure Sensu](#configure-sensu)
   - [Create the Sensu configuration directory](#create-the-sensu-configuration-directory)
