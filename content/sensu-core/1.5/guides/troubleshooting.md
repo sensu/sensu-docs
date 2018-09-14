@@ -19,7 +19,7 @@ In this guide, we'll cover some of the more common issues to run into when deplo
 - [RabbitMQ Authentication Failures](#authentication-failures)
 - [RabbitMQ SSL Issues](#ssl)
 
-Have an issue that isn't listed here? [Open an issue][11] with what you think should be added to this guide!
+Have an issue that isn't listed here? [Open an issue][12] with what you think should be added to this guide!
 
 ## Initial Troubleshooting
 
