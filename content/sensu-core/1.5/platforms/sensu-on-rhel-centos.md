@@ -115,7 +115,7 @@ SE_USER=1234567890
 SE_PASS=PASSWORD{{< /highlight >}}
    _NOTE: please replace `1234567890` and `PASSWORD` with the access credentials
    provided with your Sensu Enterprise subscription. These access
-   credentials can be found by logging into the [Sensu Account Manager portal][15].
+   credentials can be found by logging into the [Sensu Account Manager portal][15]._
    Confirm that you have correctly set your access credentials as environment
    variables
    {{< highlight shell >}}
