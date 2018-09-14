@@ -117,7 +117,8 @@ monitored by Sensu._
 SE_USER=1234567890
 SE_PASS=PASSWORD{{< /highlight >}}
    _NOTE: please replace `1234567890` and `PASSWORD` with the access credentials
-   provided with your Sensu Enterprise subscription._
+   provided with your Sensu Enterprise subscription. These access
+   credentials can be found by logging into the [Sensu Account Manager portal][17]._
    Confirm that you have correctly set your access credentials as environment
    variables
    {{< highlight shell >}}
@@ -130,7 +131,7 @@ wget -q http://$SE_USER:$SE_PASS@enterprise.sensuapp.com/apt/pubkey.gpg -O- | su
 
 3. Create an APT configuration file at `/etc/apt/sources.list.d/sensu-enterprise.list`:
    {{< highlight shell >}}
-echo "deb     http://$SE_USER:$SE_PASS@enterprise.sensuapp.com/apt sensu-enterprise main" | sudo tee etc/apt/sources.list.d/sensu-enterprise.list{{< /highlight >}}
+echo "deb     http://$SE_USER:$SE_PASS@enterprise.sensuapp.com/apt sensu-enterprise main" | sudo tee /etc/apt/sources.list.d/sensu-enterprise.list{{< /highlight >}}
 
 4. Update APT:
    {{< highlight shell >}}
@@ -138,12 +139,48 @@ sudo apt-get update{{< /highlight >}}
 
 5. Install Sensu Enterprise:
    {{< highlight shell >}}
-sudo apt-get install sensu-enterprise sensu-enterprise-dashboard{{< /highlight >}}
+sudo apt-get install sensu-enterprise{{< /highlight >}}
 
 6. Configure Sensu Enterprise. **No "default" configuration is provided with
    Sensu Enterprise**, so Sensu Enterprise will run without the corresponding
    configuration. Please refer to the ["Configure Sensu" section][11] (below)
    for more information on configuring Sensu Enterprise.
+
+### Install the Sensu Enterprise Dashboard repository {#install-sensu-enterprise-dashboard-repository}
+
+1. Set access credentials as environment variables:
+   {{< highlight shell >}}
+SE_USER=1234567890
+SE_PASS=PASSWORD{{< /highlight >}}
+   _NOTE: please replace `1234567890` and `PASSWORD` with the access credentials
+   provided with your Sensu Enterprise subscription. These access
+   credentials can be found by logging into the [Sensu Account Manager portal][17]._
+   Confirm that you have correctly set your access credentials as environment
+   variables
+   {{< highlight shell >}}
+$ echo $SE_USER:$SE_PASS
+1234567890:PASSWORD{{< /highlight >}}
+
+2. Install the GPG public key:
+   {{< highlight shell >}}
+wget -q http://$SE_USER:$SE_PASS@enterprise.sensuapp.com/apt/pubkey.gpg -O- | sudo apt-key add -{{< /highlight >}}
+
+3. Create an APT configuration file at `/etc/apt/sources.list.d/sensu-enterprise.list`:
+   {{< highlight shell >}}
+echo "deb     http://$SE_USER:$SE_PASS@enterprise.sensuapp.com/apt sensu-enterprise main" | sudo tee /etc/apt/sources.list.d/sensu-enterprise.list{{< /highlight >}}
+
+4. Update APT:
+   {{< highlight shell >}}
+sudo apt-get update{{< /highlight >}}
+
+5. Install Sensu Enterprise Dashboard:
+   {{< highlight shell >}}
+sudo apt-get install sensu-enterprise-dashboard{{< /highlight >}}
+
+6. Configure Sensu Enterprise Dashboard. **The default configuration
+   will not work without modification** Please refer to the
+   ["Example Sensu Enterprise Dashboard configurations" section][18] (below) for more information on
+   configuring Sensu Enterprise Dashboard.
 
 ## Configure Sensu
 
@@ -427,3 +464,5 @@ sudo service sensu-enterprise-dashboard stop{{< /highlight >}}
 [14]: #example-data-store-configuration
 [15]: https://wiki.debian.org/DebianReleases
 [16]: https://wiki.ubuntu.com/LTS
+[17]: https://account.sensu.io
+[18]: #example-sensu-enterprise-dashboard-configurations
