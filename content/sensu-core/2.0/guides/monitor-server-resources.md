@@ -29,6 +29,7 @@ The purpose of this guide is to help you monitor server resources, more
 specifically the CPU usage, by configuring a check named `check-cpu` with a
 **subscription** named `linux`, in order to target all **entities** subscribed
 to the `linux` subscription.
+This guide requires a Sensu backend and at least one Sensu agent running on Linux.
 
 ### Installing a script
 
