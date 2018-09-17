@@ -73,22 +73,17 @@ checks as you see fit, but please do so at your own risk._
 
 ### Validating the check
 
-You can verify the proper behavior of this check against a specific entity using `sensuctl`.
-First, make sure there's an entity with the subscription `linux` that will run the check.
+You can verify the proper behavior of this check against a specific entity by using `sensuctl`.
+Replace `example-entity-name` in the following command with the name of a `linux`-subscribed entity.
+It might take a few moments, once the check is created,
+for the check to be scheduled on the entity and the result sent back to Sensu backend.
 
 {{< highlight shell >}}
-sensuctl entity list
+sensuctl event info example-entity-name check-cpu
 {{< /highlight >}}
 
-If you don't see at least one entity with the subscription `linux`,
-make sure you've [installed the Sensu agent][install], then add the `linux` subscription to `/etc/sensu/agent.yml` and [restart the agent][start].
-
-Now you can use the entity name to see the event data produced by the `check-cpu` check.
-It might take a few moments, once the check is created, for the check to be scheduled on the entity and the result sent back to Sensu backend.
-
-{{< highlight shell >}}
-sensuctl event info entity-name check-cpu
-{{< /highlight >}}
+_NOTE: To create an entity to run the `check-cpu` check, [install the Sensu agent][install],
+then add the `linux` subscription to `/etc/sensu/agent.yml` and [restart the agent][start]._
 
 ## Next steps
 
