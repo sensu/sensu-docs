@@ -286,7 +286,10 @@ example      | {{< highlight shell >}}"round_robin": false{{< /highlight >}}
 
 |extended_attributes|      |
 -------------|------
-description  | Coming soon.
+description  | Custom attributes to include with the event data, which can be queried like regular attributes.
+required     | false
+type         | Serialized JSON object
+example      | {{< highlight shell >}}"{\"team\":\"ops\"}"{{< /highlight >}}
 
 |organization|      |
 -------------|------
@@ -312,6 +315,13 @@ example      | {{< highlight shell >}}
 description  | If the event is to be silenced.
 type         | boolean
 example      | {{< highlight shell >}}"silenced": false{{< /highlight >}}
+
+|env_vars    |      |
+-------------|------
+description  | An array of environment variables to use with command execution. _NOTE: To add `env_vars` to a check, use [`sensuctl create`][create]._
+required     | false
+type         | Array
+example      | {{< highlight shell >}}"env_vars": ["RUBY_VERSION=2.5.0", "CHECK_HOST=my.host.internal"]{{< /highlight >}}
 
 |output_metric_format    |      |
 -------------|------
