@@ -43,12 +43,12 @@ sudo curl https://raw.githubusercontent.com/sensu-plugins/sensu-plugins-cpu-chec
 sudo chmod +x /usr/local/bin/check-cpu.sh
 {{< /highlight >}}
 
-_NOTE: On RHEL/CentOS, the `check-cpu.sh` plugin requires [bc](https://www.gnu.org/software/bc/).
-Run `sudo yum install bc` to install bc._
-
 While this command is appropriate when running a few agents, you should consider
 using a **configuration management** tool or use [Sensu assets][2] to provide
 runtime dependencies to checks on bigger environments.
+
+_NOTE: On RHEL/CentOS, the `check-cpu.sh` plugin requires [bc](https://www.gnu.org/software/bc/).
+Run `sudo yum install bc` to install bc._
 
 ### Creating the check
 
