@@ -55,7 +55,7 @@ We strongly recommend pinning the versions of any plugins installed in productio
 To install the [Sensu Disk Checks Plugin][3] and pin the version, use:
 
 {{< highlight shell >}}
-sudo sensu-install -p 'sensu-plugins-disk-checks:3.1.0'
+sensu-install -p 'sensu-plugins-disk-checks:3.1.0'
 {{< /highlight >}}
 
 ### Removing Plugins
@@ -63,7 +63,7 @@ sudo sensu-install -p 'sensu-plugins-disk-checks:3.1.0'
 If you find that you need to remove a plugin, you can use the embedded `gem` command to remove a plugin. See the example below:
 
 {{< highlight shell >}}
-sudo /opt/sensu/embedded/bin/gem uninstall sensu-plugins-disk-checks{{< /highlight >}}
+/opt/sensu/embedded/bin/gem uninstall sensu-plugins-disk-checks{{< /highlight >}}
 
 ## Windows
 
