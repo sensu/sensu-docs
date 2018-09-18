@@ -28,7 +28,6 @@ You can interact with the backend using the API, command line, and dashboard int
 A recurring check run by the agent to determine the state of a system component or collect metrics.
 The backend is responsible for storing check definitions, scheduling checks, and processing event data.
 Check definitions specify the command to be executed, an interval for execution, one or more subscriptions, and one or more handlers that will process the resulting event data.
-Once run, a check produces a check result that includes the output of the command and an exit status code.
 [Read more.][3]
 
 #### Check asset
