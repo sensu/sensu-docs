@@ -80,7 +80,7 @@ process to resume operation of your Sensu instance. Some configuration
 changes may be required to take advantage of [built-in integrations][4]
 or added-value features like [contact routing][23].
 
-[1]: https://account.sensu.io/users/sign_up?plan=gold
+[1]: https://account.sensu.io/users/sign_up?plan=platinum
 [2]: #upgrading-to-sensu-enterprise
 [3]: /sensu-core/latest
 [4]: built-in-handlers/#list-of-built-in-handlers

@@ -29,8 +29,9 @@ The purpose of this guide is to help you monitor server resources, more
 specifically the CPU usage, by configuring a check named `check-cpu` with a
 **subscription** named `linux`, in order to target all **entities** subscribed
 to the `linux` subscription.
+This guide requires a Sensu backend and at least one Sensu agent running on Linux.
 
-### Installating a script
+### Installing a script
 
 The `check-cpu.sh` script provided by the [Sensu CPU Checks Plugin][1] can
 reliably detect the percentage of CPU usage. The following command will provide
@@ -38,14 +39,17 @@ the `check-cpu.sh` script and should be run on every Sensu agent that has an
 entity subscribed to the `linux` subscription.
 
 {{< highlight shell >}}
-curl https://raw.githubusercontent.com/sensu-plugins/sensu-plugins-cpu-checks/03a99bab0237c81121ce702b0c5a5a3b44908535/bin/check-cpu.sh \
+sudo curl https://raw.githubusercontent.com/sensu-plugins/sensu-plugins-cpu-checks/03a99bab0237c81121ce702b0c5a5a3b44908535/bin/check-cpu.sh \
 -o /usr/local/bin/check-cpu.sh && \
-chmod +x /usr/local/bin/check-cpu.sh
+sudo chmod +x /usr/local/bin/check-cpu.sh
 {{< /highlight >}}
 
 While this command is appropriate when running a few agents, you should consider
 using a **configuration management** tool or use [Sensu assets][2] to provide
 runtime dependencies to checks on bigger environments.
+
+_NOTE: On RHEL/CentOS, the `check-cpu.sh` plugin requires [bc](https://www.gnu.org/software/bc/).
+Run `sudo yum install bc` to install bc._
 
 ### Creating the check
 
@@ -69,14 +73,17 @@ checks as you see fit, but please do so at your own risk._
 
 ### Validating the check
 
-You can verify the proper behavior of this check against a specific entity, here
-named `i-424242`, by using `sensuctl`. It might take a few moments, once the
-check is created, for the check to be scheduled on the entity and the result
-sent back to Sensu backend.
+You can verify the proper behavior of this check against a specific entity by using `sensuctl`.
+Replace `example-entity-name` in the following command with the name of a `linux`-subscribed entity.
+It might take a few moments, once the check is created,
+for the check to be scheduled on the entity and the result sent back to Sensu backend.
 
 {{< highlight shell >}}
-sensuctl event info i-424242 check-cpu
+sensuctl event info example-entity-name check-cpu
 {{< /highlight >}}
+
+_NOTE: To create an entity to run the `check-cpu` check, [install the Sensu agent][install],
+then add the `linux` subscription to `/etc/sensu/agent.yml` and [restart the agent][start]._
 
 ## Next steps
 
@@ -94,3 +101,5 @@ here are some recommended resources:
 [4]: ../
 [5]: ../monitor-external-resources
 [6]: ../send-slack-alerts
+[install]: ../../getting-started/installation-and-configuration
+[start]: ../../getting-started/installation-and-configuration/#starting-the-services
