@@ -188,7 +188,7 @@ create a silencing entry specifying only the `appserver` subscription:
 
 {{< highlight json >}}
 {
-  "subscription": "appserver", 
+  "subscription": "appserver" 
 }
 {{< /highlight >}}
 
