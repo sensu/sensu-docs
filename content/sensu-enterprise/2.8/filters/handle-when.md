@@ -59,6 +59,8 @@ enterprise filter will have events filtered unless these conditions are met.
 The following is an example of how to apply the `handle_when` enterprise filter
 to a standard Sensu `pipe` handler.
 
+_NOTE: The default values for `occurrences` and `reset` attributes can be overridden by specifying custom values in your check definitions as shown above. Specifying values for `handle_when` attributes in a handler definition will have no effect._
+
 {{< highlight json >}}
 {
   "handlers": {
