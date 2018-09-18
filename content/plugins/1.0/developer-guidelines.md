@@ -26,7 +26,7 @@ menu: "plugins-1.0"
 - Any repos created need to follow the format of *sensu-plugins-app*, where *app* is the name such as windows, disk-checks, or influxdb.  The exception to the rule are repos used for the site or tooling such as GIR or sensu-plugins.github.io.  This is done so that the rake tasks and other automation tools can easily parse Github and effectively work with the 150+ repos.
 
 ## Coding Style
-- When developing plugins please use the [sensu plugin class][1], this ensures all plugins have an identical run structure.
+- When developing plugins please use the [Sensu plugin class][1], this ensures all plugins have an identical run structure.
 - When using options please use the following structure.  At the very least the option needs to include a description to assist the user with configuration and deployment.
 
 {{< highlight ruby >}}
@@ -90,11 +90,11 @@ If you see something wrong or come across a bug please open up an issue, try to 
 
 Pull requests need to follow the guidelines below for the quickest possible merge.  These not only make our lives easier, but also keep the repo and commit history as clean as possible.
 - Please do a  `git pull --rebase` both before you start working on the repo and then before you commit.  This will help ensure the most up to date codebase, Rubocop rules, and documentation is available.  It will also go along way towards cutting down or eliminating(hopefully) annoying merge commits.
-- The CHANGELOG follows the standard conventions laid out [here][20]. Every PR has to include an updated CHANGELOG and README (if needed), this makes our lives eaiser, increases the accuracy of the codebase, and gets your PR deployed much faster.
+- The CHANGELOG follows the standard conventions laid out [here][20]. Every PR has to include an updated CHANGELOG and README (if needed), this makes our lives easier, increases the accuracy of the codebase, and gets your PR deployed much faster.
 - When updating the version in the changelog please keep the following in mind
     - the patch version is for any **non-breaking** changes to existing scripts or the addition of minor functionality to existing scripts
-    - the minor version is for the addition of **any* new scripts.  Even though this is generally non-breaking, it is a major change to the gem and should be indicitated as such
-    - the major version should only be bumped by a core contributor.  This is for major breaking or non-breaking changes that affect widespreadspread functionality.  Examples of this would be a wholesale refactor of the repo or a switch away from an established method such as going from SOAP to REST across multiple checks.
+    - the minor version is for the addition of **any* new scripts.  Even though this is generally non-breaking, it is a major change to the gem and should be indicated as such
+    - the major version should only be bumped by a core contributor.  This is for major breaking or non-breaking changes that affect widespread functionality.  Examples of this would be a wholesale refactor of the repo or a switch away from an established method such as going from SOAP to REST across multiple checks.
 - All new scripts, modules, or classes must be fully tested. There are well documented examples in the [pagerduty][21] plugin
 
 Tracking the status of your PR or issue, or seeing all open tickets in the org regardless of repo is simple using Github [filters][16].  To get started click on the Github logo in the upper left and select either _Pull Requests_ or _Issues_.  In the search box you will see several terms predefined for you, change **author:name** to **user:sensu-plugins** to see across the entire org.
