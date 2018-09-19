@@ -16,8 +16,9 @@ a unified view of your events, entities, and checks with user-friendly tools to 
 ![Sensu dashboard events view](/images/dashboard-events.png)
 
 ### Accessing the Dashboard
-After [starting the Sensu backend][1], you can access the dashboard at http://localhost:3000.
-By default, the dashboard is available at http://127.0.0.1:3000.
+After [starting the Sensu backend][1], you can access the dashboard in your browser
+by visiting http://localhost:3000. You may need to replace `localhost` with the
+host name or IP address of the machine where the backend is installed.
 
 ### Signing In
 Sign in to the dashboard with your sensuctl username and password.
