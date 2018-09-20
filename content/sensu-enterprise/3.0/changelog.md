@@ -275,7 +275,7 @@ improvements:
 ### CHANGES {#enterprise-v2-6-3-changes}
 
 - **IMPROVEMENT**: JIRA issue type is now configurable. See 
-[JIRA integration documentation][9] for details. 
+[JIRA integration documentation][jira-integration] for details. 
 
 ## Enterprise 2.6.2 Release Notes {#enterprise-v2-6-2}
 
@@ -416,7 +416,7 @@ improvements:
   additional metric formats: InfluxDB Line Protocol, and the Wavefront Data 
   Format. 
 
-- **IMPROVEMENT**: Now using JRuby 9.1.7.0 for bugfixes and improved performance.
+- **IMPROVEMENT**: Now using JRuby 9.1.7.0 for bug fixes and improved performance.
 
 ## Enterprise 2.2.0 Release Notes {#enterprise-v2-2-0}
 
@@ -576,21 +576,21 @@ This release includes potentially breaking, backwards-incompatible changes:
 
 - **NEW:** Built on [Sensu Core 0.24.1][core-v0-24-1].
 
-- **NEW:** [Event Stream integration][event-stream-integration]. The Sensu Enterprise "event stream"
+- **NEW:** Event Stream integration. The Sensu Enterprise "event stream"
   integration sends **all** Sensu events to a remote TCP socket for complex
   event processing (e.g. "stream processing") and/or long-term storage. Please
-  refer to the [Event Stream integration reference documentation][39] for
+  refer to the [Event Stream integration reference documentation][event-stream-integration] for
   additional information.
 
-- **NEW:** [Graylog integration][graylog-integration]. The Sensu Enterprise Graylog integration
+- **NEW:** Graylog integration. The Sensu Enterprise Graylog integration
   sends Sensu events to a a Graylog Raw/Plaintext TCP input. Please refer to the
-  [Graylog integration reference documentation][40] for additional information.
+  [Graylog integration reference documentation][graylog-integration] for additional information.
 
 - **IMPROVEMENT:** [ServiceNow integration][service-now-integration] adds support for configurable
   "incident table" name (previously hard-coded to `"incident"`), for
   organizations with customized ServiceNow configurations.
 
-- **IMMPROVEMENT:** Built on JRuby 9K.
+- **IMPROVEMENT:** Built on JRuby 9K.
 
 [core-changelog]:  /sensu-core/1.2/changelog
 
@@ -599,6 +599,7 @@ This release includes potentially breaking, backwards-incompatible changes:
 [core-v0-24-1]: /sensu-core/1.0/changelog/#core-v0-24-1
 [event-stream-integration]: ../integrations/event_stream
 [graylog-integration]: ../integrations/graylog
+[jira-integration]: ../integrations/jira
 [service-now-integration]: ../integrations/servicenow
 
 <!-- 1.14 -->
