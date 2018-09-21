@@ -16,9 +16,9 @@ Sensu event handlers are actions executed by the Sensu server on [events][1].
 
 ## Why use a handler?
 
-Handlers can be used for sending email alert, creating or resolving an incident
-(e.g., in PagerDuty, ServiceNow, etc), or storing metrics in a time-series
-database (e.g., Graphite).
+Handlers can be used for sending an email alert, creating or resolving an incident
+(in PagerDuty, for example), or storing metrics in a time-series
+database (InfluxDB, for example).
 
 ## Using a handler to send alerts to Slack
 
@@ -72,7 +72,7 @@ sensuctl check set-handlers check-cpu slack
 ### Validating the handler
 
 It might take a few moments, once the handler is assigned to the check, for the
-check to be scheduled on the entites and the result sent back to Sensu backend,
+check to be scheduled on the entities and the result sent back to Sensu backend,
 but once an event is handled, you should see the following message in
 Slack.
 
