@@ -29,22 +29,28 @@ great place to start.
 
 ### Installing the handler command
 
-The first step is to create an executable script named `handler-slack`, which is
-responsible for sending the event data to Slack. The source code of this script
-is available on [GitHub][3] and can easily be compiled or [cross compiled][10]
+The first step is to create an executable script named `slack-handler`, which is
+responsible for sending the event data to Slack. You can download a release of
+this handler from [GitHub][11], then extract it by running:
+
+{{< highlight shell >}}
+sudo tar -C /usr/local/bin -xzf REPLACE-WITH-DOWNLOAD-FILENAME
+{{< /highlight >}}
+
+Alternatively, you can compile or [cross compile][10] the handler from the [source code][3]
 using the [Go tools][4]. The generated binary will be placed into one of the
 Sensu backend [`$PATH` directories][5], more precisely `/usr/local/bin`.
 
 {{< highlight shell >}}
-# From the local path of the sensu-go repository
-go build -o /usr/local/bin/handler-slack handlers/slack/main.go
+# From the local path of the slack-handler repository
+go build -o /usr/local/bin/slack-handler main.go
 {{< /highlight >}}
 
 ### Creating the handler
 
 Now that our handler command is installed, the second step is to create a
 handler that we will call `slack`, which is a **pipe** handler that pipes event
-data into our previous script named `handler-slack`. We will also pass the
+data into our previous script named `slack-handler`. We will also pass the
 [Slack webhook URL][6] and the Slack channel name to this script. Finally, in
 order to avoid silenced events from being sent to Slack, we will use the
 `not_silenced` built-in filter, in addition to the `is_incident` built-in filter
@@ -53,7 +59,7 @@ so zero status events are also discarded.
 {{< highlight shell >}}
 sensuctl handler create slack \
 --type pipe \
---command 'handler-slack \
+--command 'slack-handler \
   --webhook-url https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX \
   --channel monitoring' \
 --filters is_incident,not_silenced
@@ -101,7 +107,7 @@ this point, here are some recommended resources:
 
 [1]: ../../reference/events/
 [2]: ../monitor-server-resources/
-[3]: https://github.com/sensu/sensu-go/blob/e52f6e06c9983a804e4f1ea369f9ab3bd265d07a/handlers/slack/main.go
+[3]: https://github.com/sensu/slack-handler
 [4]: https://golang.org/doc/install
 [5]: https://en.wikipedia.org/wiki/PATH_(variable)
 [6]: https://api.slack.com/incoming-webhooks
@@ -109,3 +115,5 @@ this point, here are some recommended resources:
 [8]: ../../reference/handlers
 [9]: ../reduce-alert-fatigue/
 [10]: https://rakyll.org/cross-compilation/
+[11]: https://github.com/sensu/slack-handler/releases
+[12]: https://slack.com/get-started#create
