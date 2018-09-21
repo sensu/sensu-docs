@@ -101,7 +101,7 @@ this point, here are some recommended resources:
 
 [1]: ../../reference/events/
 [2]: ../monitor-server-resources/
-[3]: https://github.com/sensu/sensu-go/blob/e52f6e06c9983a804e4f1ea369f9ab3bd265d07a/handlers/slack/main.go
+[3]: https://github.com/sensu/slack-handler/blob/master/main.go
 [4]: https://golang.org/doc/install
 [5]: https://en.wikipedia.org/wiki/PATH_(variable)
 [6]: https://api.slack.com/incoming-webhooks
