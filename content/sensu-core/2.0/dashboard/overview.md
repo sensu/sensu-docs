@@ -18,15 +18,15 @@ a unified view of your events, entities, and checks with user-friendly tools to 
 ### Accessing the Dashboard
 After [starting the Sensu backend][1], you can access the dashboard in your browser
 by visiting http://localhost:3000. You may need to replace `localhost` with the
-host name or IP address of the machine where the backend is installed.
+hostname or IP address where the Sensu backend is running.
 
 ### Signing In
-Sign in to the dashboard with your sensuctl username and password.
-If you haven't [configured sensuctl][2], you can sign in as the
+Sign in to the dashboard with your Sensuctl username and password.
+If you haven't [configured Sensuctl][2], you can sign in as the
 default read-only user (username: `sensu`, password: `sensu`).
 
 ### Themes
-Use the Preferences menu to change the theme or switch to the dark theme.
+Use the preferences menu to change the theme or switch to the dark theme.
 
 [1]: ../../getting-started/installation-and-configuration/#starting-the-services
 [2]: ../../getting-started/configuring-sensuctl
