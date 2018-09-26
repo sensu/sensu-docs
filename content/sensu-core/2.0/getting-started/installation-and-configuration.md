@@ -137,6 +137,9 @@ sudo systemctl start sensu-agent
 Coming soon.
 {{< platformBlockClose >}}
 
+You can access the Sensu dashboard at http://127.0.0.1:3000.
+See the [dashboard docs][1] for more information about the Sensu dashboard.
+
 ## Validating the services
 
 {{< platformBlock "Ubuntu/Debian RHEL/CentOS" >}}
@@ -199,3 +202,5 @@ _NOTE: You can configure the sensu-backend and sensu-agent log levels by using t
 ### sensuctl and Docker
 
 It's best to run sensuctl locally and point it at the exposed API port for your sensu-backend process. The sensuctl utility stores configuration locally, and you'll likely want to persist it across uses. While it can be run from the docker container, doing so may be problematic.
+
+[1]: ../../dashboard/overview
