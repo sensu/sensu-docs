@@ -137,9 +137,6 @@ sudo systemctl start sensu-agent
 Coming soon.
 {{< platformBlockClose >}}
 
-You can access the Sensu dashboard at http://127.0.0.1:3000.
-See the [dashboard docs][1] for more information about the Sensu dashboard.
-
 ## Validating the services
 
 {{< platformBlock "Ubuntu/Debian RHEL/CentOS" >}}
