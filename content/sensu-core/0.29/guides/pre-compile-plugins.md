@@ -40,12 +40,12 @@ printf '[sensu]
 name=sensu
 baseurl=https://repositories.sensuapp.org/yum/$releasever/$basearch/
 gpgcheck=0
-enabled=1' | sudo tee /etc/yum.repos.d/sensu.repo && yum install -y sensu{{< /highlight >}}
+enabled=1' | sudo tee /etc/yum.repos.d/sensu.repo && sudo yum install -y sensu{{< /highlight >}}
 
-And then install EPEL and Dev tools
+And then install EPEL, Dev tools and libs required for the next steps
 
 {{< highlight shell >}}
-sudo yum install -y epel-release
+sudo yum install -y epel-release libxml2 libxslt
 sudo yum groupinstall -y "Development Tools"{{< /highlight >}}
 
 Finally we'll add Sensu's embedded bin to our path
@@ -64,7 +64,8 @@ We'll now install the source gems into a cache directory
 
 {{< highlight shell >}}
 mkdir /tmp/gems
-gem install --no-ri --no-rdoc --install-dir /tmp/gems sensu-plugins-aws{{< /highlight >}}
+gem install --no-ri --no-rdoc --install-dir /tmp/gems sensu-plugins-aws
+gem install --no-ri --no-rdoc --install-dir /tmp/gems mini_portile2{{< /highlight >}}
 
 Observing the `gem install` output, we can see that nokogiri and unf_ext build native extensions.
 These are the gems we will compile so we can install them from our own repository.
