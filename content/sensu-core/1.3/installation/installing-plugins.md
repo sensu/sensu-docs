@@ -5,6 +5,8 @@ description: "Installing and Managing Plugins"
 weight: 17
 product: "Sensu Core"
 version: "1.3"
+platformContent: true
+platforms: ["Linux", "Windows"]
 menu:
   sensu-core-1.3:
     parent: installation
@@ -12,16 +14,15 @@ menu:
 
 Sensu's functionality can be extended through the use of plugins. Plugins can provide executables for performing status or metric checks, mutators for changing data to a desired format, or handlers for performing an action on a Sensu event. You can find a number of plugins in the [Sensu Plugins][1] repository.
 
-- [Linux](#linux)
-- [Windows](#windows)
-
 _NOTE: Plugins found in the Sensu Plugins GitHub organization are community-maintained, meaning that anyone can improve on a plugin found there. If you have a question about how you can get involved in adding to, or providing a plugin, head to the [Sensu Community Slack channel][2]. Our maintainers are always happy to help answer questions and point you in the right direction._
+
+{{< platformBlock "Linux" >}}
 
 ## Linux
 
 To install a Ruby-based plugin, you can use the `sensu-install` tool provided as part of the Sensu package.
 
-{{< highlight shell >}} 
+{{< highlight shell >}}
 sensu-install --help
 Usage: sensu-install [options]
     -h, --help                       Display this message
@@ -37,7 +38,7 @@ Usage: sensu-install [options]
 As an example, let's install the [Sensu Disk Checks Plugin][3]:
 
 {{< highlight shell >}}
-$ sudo sensu-install -p disk-checks
+$ sensu-install -p disk-checks
 [SENSU-INSTALL] installing Sensu plugins ...
 [SENSU-INSTALL] determining if Sensu gem 'sensu-plugins-disk-checks' is already installed ...
 false
@@ -49,14 +50,14 @@ Successfully installed sensu-plugins-disk-checks-3.1.0
 1 gem installed
 [SENSU-INSTALL] successfully installed Sensu plugins: ["sensu-plugins-disk-checks"]{{< /highlight >}}
 
-### Pinning Versions
-
-We strongly recommend pinning the versions of any plugins installed in production.
-To install the [Sensu Disk Checks Plugin][3] and pin the version, use:
+To install a specific version of the [Sensu Disk Checks Plugin][3] with `sensu-install`, run:
 
 {{< highlight shell >}}
 sensu-install -p 'sensu-plugins-disk-checks:3.1.0'
 {{< /highlight >}}
+
+We strongly recommend using a configuration management or orchestration tool to pin the versions of any plugins installed in production.
+For more information about enforcing plugin versions with configuration management, see the [Sensu Community best practices documentation][6].
 
 ### Removing Plugins
 
@@ -64,6 +65,10 @@ If you find that you need to remove a plugin, you can use the embedded `gem` com
 
 {{< highlight shell >}}
 /opt/sensu/embedded/bin/gem uninstall sensu-plugins-disk-checks{{< /highlight >}}
+
+{{< platformBlockClose >}}
+
+{{< platformBlock "Windows" >}}
 
 ## Windows
 
@@ -86,15 +91,14 @@ Successfully installed sensu-plugins-windows-2.8.1
 
 _NOTE: When installing plugins on Windows, double check that the executable you're using is compatible with Windows. You can always check by examining the executable in the respective GitHub repo in the `bin` directory._
 
-### Pinning Versions
-
-We strongly recommend pinning the versions of any plugins installed in production.
-To install the [Sensu Windows Plugin][5] and pin the version,
-run the following from an administrative command prompt:
+To install a specific version of the [Sensu Windows Plugin][5], run the following from an administrative command prompt:
 
 {{< highlight shell >}}
 c:\opt\sensu\embedded\bin\sensu-install -p 'sensu-plugins-windows:2.8.1'
 {{< /highlight >}}
+
+We strongly recommend using a configuration management or orchestration tool to pin the versions of any plugins installed in production.
+For more information about enforcing plugin versions with configuration management, see the [Sensu Community best practices documentation][6].
 
 ### Removing Plugins
 
@@ -121,7 +125,9 @@ Removing metric-windows-uptime.rb
 Removing powershell_helper.rb
 Successfully uninstalled sensu-plugins-windows-2.8.1{{< /highlight >}}
 
-Hopefully you've found this useful! If you find any issues or have a question, feel free to reach out in our [Community Slack][2], or [open an issue][4] on GitHub.
+{{< platformBlockClose >}}
+
+We hope you've found this useful! If you find any issues or have a question, feel free to reach out in our [Community Slack][2], or [open an issue][4] on GitHub.
 
 <!-- LINKS -->
 [1]: https://github.com/sensu-plugins
@@ -129,3 +135,4 @@ Hopefully you've found this useful! If you find any issues or have a question, f
 [3]: https://github.com/sensu-plugins/sensu-plugins-disk-checks
 [4]: https://github.com/sensu/sensu-docs/issues/new
 [5]: https://github.com/sensu-plugins/sensu-plugins-windows
+[6]: https://github.com/sensu-plugins/community/blob/master/best_practices/production_deployments/plugins/PINNING_VERSIONS.md
