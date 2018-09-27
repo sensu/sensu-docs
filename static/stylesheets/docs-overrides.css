@@ -839,7 +839,7 @@ code {
 .drawer h2 {
   font-family: 'Work Sans';
   font-weight: 600;
-  font-size: 24px;
+  font-size: 27px;
   line-height: 1.16;
   color: #2C3458;
   margin-bottom: 15px;
@@ -937,7 +937,7 @@ code {
 
 .article li > div > pre,
 .drawer li > div > pre {
-  margin: 10px 0 35px 0;
+  margin: 10px 0 15px 0;
 }
 
 .article pre code,

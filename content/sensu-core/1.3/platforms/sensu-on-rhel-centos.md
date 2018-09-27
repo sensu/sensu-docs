@@ -19,6 +19,7 @@ menu:
   - [Install Sensu using YUM](#install-sensu-core-repository)
 - [Installing Sensu Enterprise](#sensu-enterprise)
   - [Install the Sensu Enterprise repository](#install-sensu-enterprise-repository)
+  - [Install the Sensu Enterprise Dashboard repository](#install-sensu-enterprise-dashboard-repository)
   - [Install Sensu Enterprise (server & API)](#install-sensu-enterprise)
 - [Configure Sensu](#configure-sensu)
   - [Create the Sensu configuration directory](#create-the-sensu-configuration-directory)
@@ -114,7 +115,8 @@ monitored by Sensu._
 SE_USER=1234567890
 SE_PASS=PASSWORD{{< /highlight >}}
    _NOTE: please replace `1234567890` and `PASSWORD` with the access credentials
-   provided with your Sensu Enterprise subscription._
+   provided with your Sensu Enterprise subscription. These access
+   credentials can be found by logging into the [Sensu Account Manager portal][15]._
    Confirm that you have correctly set your access credentials as environment
    variables
    {{< highlight shell >}}
@@ -131,7 +133,31 @@ gpgkey=https://repositories.sensuapp.org/yum/pubkey.gpg
 gpgcheck=1
 enabled=1" | sudo tee /etc/yum.repos.d/sensu-enterprise.repo{{< /highlight >}}
 
-3. Create a YUM repository configuration file for the Sensu Enterprise Dashboard
+3. Install Sensu Enterprise
+   {{< highlight shell >}}
+sudo yum install sensu-enterprise{{< /highlight >}}
+
+4. Configure Sensu Enterprise. **No "default" configuration is provided with
+   Sensu Enterprise**, so Sensu Enterprise will run without the corresponding
+   configuration. Please refer to the ["Configure Sensu" section][11] (below)
+   for more information on configuring Sensu Enterprise.
+
+### Install the Sensu Enterprise Dashboard repository {#install-sensu-enterprise-dashboard-repository}
+
+1. Set access credentials as environment variables
+   {{< highlight shell >}}
+SE_USER=1234567890
+SE_PASS=PASSWORD{{< /highlight >}}
+   _NOTE: please replace `1234567890` and `PASSWORD` with the access credentials
+   provided with your Sensu Enterprise subscription. These access
+   credentials can be found by logging into the [Sensu Account Manager portal][15]._
+   Confirm that you have correctly set your access credentials as environment
+   variables
+   {{< highlight shell >}}
+$ echo $SE_USER:$SE_PASS
+1234567890:PASSWORD{{< /highlight >}}
+
+2. Create a YUM repository configuration file for the Sensu Enterprise Dashboard
    repository at `/etc/yum.repos.d/sensu-enterprise-dashboard.repo`:
    {{< highlight shell >}}
 echo "[sensu-enterprise-dashboard]
@@ -141,14 +167,14 @@ gpgkey=https://repositories.sensuapp.org/yum/pubkey.gpg
 gpgcheck=1
 enabled=1" | sudo tee /etc/yum.repos.d/sensu-enterprise-dashboard.repo{{< /highlight >}}
 
-4. Install Sensu Enterprise
+4. Install Sensu Enterprise Dashboard
    {{< highlight shell >}}
-sudo yum install sensu-enterprise sensu-enterprise-dashboard{{< /highlight >}}
+sudo yum install sensu-enterprise-dashboard{{< /highlight >}}
 
-5. Configure Sensu Enterprise. **No "default" configuration is provided with
-   Sensu Enterprise**, so Sensu Enterprise will run without the corresponding
-   configuration. Please refer to the ["Configure Sensu" section][11] (below)
-   for more information on configuring Sensu Enterprise.
+5. Configure Sensu Enterprise Dashboard. **The default configuration
+   will not work without modification** Please refer to the
+   ["Example Sensu Enterprise Dashboard configurations" section][16] (below) for more information on
+   configuring Sensu Enterprise Dashboard.
 
 ## Configure Sensu
 
@@ -325,7 +351,7 @@ sudo chkconfig sensu-api on{{< /highlight >}}
   - For Sensu Enterprise users
 
     {{< highlight shell >}}
-  sudo chkconfig sensu-enterprise on{{< /highlight >}}
+sudo chkconfig sensu-enterprise on{{< /highlight >}}
 
     _WARNING: the `sensu-enterprise` process is intended to be a drop-in
     replacement for the Sensu Core `sensu-server` and `sensu-api` processes.
@@ -431,4 +457,6 @@ sudo service sensu-enterprise-dashboard stop{{< /highlight >}}
 [12]: #example-client-configuration
 [13]: #example-data-store-configuration
 [14]: https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/6/html/Deployment_Guide/sec-Using_Yum_Variables.html
+[15]: https://account.sensu.io
+[16]: #example-sensu-enterprise-dashboard-configurations
 [epel]: https://www.fedoraproject.org/wiki/EPEL

@@ -67,8 +67,29 @@
     <script src="{{ "/javascripts/modernizr.js" | absURL }}"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
       crossorigin="anonymous"></script>
-    <script src="https://use.fontawesome.com/ea9395e21e.js"></script>
-    <script type="text/javascript" src="{{ "/js/vendor/lunr.min.js" | absURL }}"></script>
+	<!-- commented out until we figure out how to do a proper local fallback -->	
+	<!-- <script src="https://use.fontawesome.com/ea9395e21e.js"></script> -->
+	<!--
+		<script type="text/javascript">
+				function css(element, property) {
+					return window.getComputedStyle(element, null).getPropertyValue(property);
+				}
+				window.onload = function () {
+					var span = document.createElement('span');
+						span.className = 'fa';
+						span.style.display = 'none';
+						document.body.insertBefore(span, document.body.firstChild);
+						
+						if ((css(span, 'font-family')) !== 'FontAwesome') {
+						    	document.write('<script type="text/javascript" src="{{ "/js/vendor/fontawesome-all.min.js" | absURL }}"></script>');
+						}
+						document.body.removeChild(span);
+				};
+		</script>
+		-->	
+    
+	<script type="text/javascript" src="{{ "/js/vendor/fontawesome-all.min.js" | absURL }}"></script>
+	<script type="text/javascript" src="{{ "/js/vendor/lunr.min.js" | absURL }}"></script>
     <script type="text/javascript" src="{{ "/js/js-cookie.js" | absURL }}"></script>
     <script type="text/javascript" src="{{ "/js/platformDropdowns.js" | absURL }}"></script>
     <script type="text/javascript" src="{{ "/js/noframework.waypoints.min.js" | absURL }}"></script>

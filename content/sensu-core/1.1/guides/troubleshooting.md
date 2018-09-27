@@ -19,7 +19,7 @@ In this guide, we'll cover some of the more common issues to run into when deplo
 - [RabbitMQ Authentication Failures](#authentication-failures)
 - [RabbitMQ SSL Issues](#ssl)
 
-Have an issue that isn't listed here? [Open an issue][11] with what you think should be added to this guide!
+Have an issue that isn't listed here? [Open an issue][12] with what you think should be added to this guide!
 
 ## Initial Troubleshooting
 
@@ -205,7 +205,7 @@ _PRO TIP: For troubleshooting SSL issues, the openssl tool provides a wealth of 
 There are several layers of the proverbial onion when it comes to diagnosing handshake failures. We'll start by looking at the obvious errors that you'll see in logs, and dive deeper from there. The assumption here is that you've already configured Sensu to use SSL. If not, you'll want to refer back to our [SSL Configuration Reference material][9] before you proceed. Now, on to examining the errors you'll likely encounter in a handshake failure scenario:
 
 **Sensu Logs**:
-{{< highlight json >}}{"timestamp":"2018-06-10T16:39:15.988000+0200","level":"warn","message":"transport connection error","reason":"tcp connection lost"}
+{{< highlight shell >}}{"timestamp":"2018-06-10T16:39:15.988000+0200","level":"warn","message":"transport connection error","reason":"tcp connection lost"}
 {"timestamp":"2018-06-10T16:39:15.989000+0200","level":"warn","message":"transport connection error","reason":"possible authentication failure. wrong credentials?","user":"sensu"}{{< /highlight >}}
 
 Much like the errors seen in the previous section, the failure to connect to RabbitMQ appears to be one related to credentials. However, we can go a bit deeper by looking at the RabbitMQ logs, which present an error similar to the following:
