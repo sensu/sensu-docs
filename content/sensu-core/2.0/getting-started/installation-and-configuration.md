@@ -202,14 +202,14 @@ We suggest, but do not require, persistent storage for sensu-agents. The Sensu A
 1. Start the sensu-backend process
 {{< highlight shell >}}
 docker run -v /var/lib/sensu:/var/lib/sensu -d --name sensu-backend -p 2380:2380 \
--p 3000:3000 -p 8080:8080 -p 8081:8081 sensu/sensu:2.0.0-beta.3 sensu-backend start
+-p 3000:3000 -p 8080:8080 -p 8081:8081 sensu/sensu:latest sensu-backend start
 {{< /highlight >}}
 
 2. Start an agent
 In this case, we're starting an agent whose ID is the hostname with the webserver and system subscriptions. This assumes that sensu-backend is running on another host named sensu.yourdomain.com. If you are running these locally on the same system, be sure to add `--link sensu-backend` to your Docker arguments and change the backend URL `--backend-url ws://sensu-backend:8081`.
 {{< highlight shell >}}
 docker run -v /var/lib/sensu:/var/lib/sensu -d --name sensu-agent \
-sensu/sensu:2.0.0-beta.3 sensu-agent start --backend-url ws://sensu.yourdomain.com:8081 \
+sensu/sensu:latest sensu-agent start --backend-url ws://sensu.yourdomain.com:8081 \
 --subscriptions webserver,system --cache-dir /var/lib/sensu
 {{< /highlight >}}
 
