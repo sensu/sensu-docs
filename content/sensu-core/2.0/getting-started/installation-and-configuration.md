@@ -218,4 +218,3 @@ _NOTE: You can configure the sensu-backend and sensu-agent log levels by using t
 ### sensuctl and Docker
 
 It's best to run sensuctl locally and point it at the exposed API port for your sensu-backend process. The sensuctl utility stores configuration locally, and you'll likely want to persist it across uses. While it can be run from the docker container, doing so may be problematic.
-{{< platformBlockClose >}}

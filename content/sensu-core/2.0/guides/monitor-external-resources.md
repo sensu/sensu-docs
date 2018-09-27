@@ -26,14 +26,8 @@ entity and not the agent's entity that emitted the result.
 ## Why use proxy requests and entities?
 
 Sensu proxy requests and entities allow Sensu to monitor external resources
-(e.g., on systems and/or devices where a sensu-agent cannot be installed, such a
-network switches).
-
-## Using proxy requests to monitor networking devices
-
-<!-- Depends on https://github.com/sensu/sensu-go/issues/1099 -->
-
-Coming soon.
+on systems or devices where a Sensu agent cannot be installed, like a
+network switch or a website.
 
 ## Using a proxy entity to monitor a website
 
@@ -41,16 +35,17 @@ The purpose of this guide is to help you monitor an external resource, more
 specifically a website, by configuring a check with a **proxy entity ID** so an
 entity representing our website is created and the status of this website is
 reported under this entity and not the agent running the actual check.
+This guide requires a Sensu backend and a Sensu agent.
 
-### Installating a script
+### Installing a script
 
-We will use a [simple bash script][4], named `http_check.sh`, to perform an HTTP
+We will use a [bash script][4], named `http_check.sh`, to perform an HTTP
 request using **curl**.
 
 {{< highlight shell >}}
-curl https://raw.githubusercontent.com/sensu/sensu-go/60e6a68aecb0c8e0c2dc51714e08462eb81b4413/examples/checks/http_check.sh \
+sudo curl https://raw.githubusercontent.com/sensu/sensu-go/60e6a68aecb0c8e0c2dc51714e08462eb81b4413/examples/checks/http_check.sh \
 -o /usr/local/bin/http_check.sh && \
-chmod +x /usr/local/bin/http_check.sh
+sudo chmod +x /usr/local/bin/http_check.sh
 {{< /highlight >}}
 
 While this command is appropriate when running a few agents, you should consider
@@ -60,33 +55,50 @@ runtime dependencies to checks on bigger environments.
 ### Creating the check
 
 Now that our script is installed, the second step is to create a check named
-`check-sensuapp`, which runs the command `http_check.sh https://sensuapp.org`, at an
+`check-sensuapp`, which runs the command `http_check.sh https://sensu.io`, at an
 **interval** of 60 seconds, for all entities subscribed to the `sensu-app`
-subscription, using the `sensuapp.org` proxy entity ID.
+subscription, using the `sensu.io` proxy entity ID.
 
 {{< highlight shell >}}
 sensuctl check create check-sensuapp \
---command 'http_check.sh https://sensuapp.org' \
+--command 'http_check.sh https://sensu.io' \
 --interval 60 \
 --subscriptions sensu-app \
---proxy-entity-id sensuapp.org
+--proxy-entity-id sensu.io
 {{< /highlight >}}
+
+### Adding the subscription
+To run the the check, you'll need an agent with the subscription `sensu-app`.
+After [installing an agent][install], open `/etc/sensu/agent.yml`
+and add the `sensu-app` subscription so the subscription configuration looks like:
+
+{{< highlight yml >}}
+subscriptions: "sensu-app"
+{{< /highlight >}}
+
+Then restart the agent.
+
+{{< highlight shell >}}
+sudo systemctl restart sensu-agent
+{{< /highlight >}}
+
+_NOTE: For CentOS 6 and RHEL 6, use `sudo /etc/init.d/sensu-agent restart`._
 
 ### Validating the check
 
-You can verify the proper behavior of this check against the proxy entity, here
-named `sensuapp.org`, by using `sensuctl`. It might take a few moments, once the
+You can verify the proper behavior of this check against the proxy entity,
+`sensu.io`, by using sensuctl. It might take a few moments, once the
 check is created, for the check to be scheduled on the agent and the result
 sent back to Sensu backend.
 
 {{< highlight shell >}}
-sensuctl event info sensuapp.org check-sensuapp
+sensuctl event info sensu.io check-sensuapp
 {{< /highlight >}}
 
 ## Next steps
 
-You now know how to run a simple check to verify the CPU usage. From this point,
-here are some recommended resources:
+You now know how to run a simple check to verify the status of a website.
+From this point, here are some recommended resources:
 
 * Read the [checks reference][6] for in-depth documentation on checks.
 * Read our guide on [providing runtime dependencies to checks with assets][5].
@@ -99,3 +111,5 @@ here are some recommended resources:
 [5]: #
 [6]: ../../reference/checks/
 [7]: ../send-slack-alerts/
+[install]: ../../getting-started/installation-and-configuration
+[start]: ../../getting-started/installation-and-configuration/#starting-the-services
