@@ -22,8 +22,10 @@
     "test": "bin/test"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.3.1",
     "grunt-env": "^0.4.4",
-    "hugo-cli": "^0.5.4"
+    "hugo-cli": "^0.5.4",
+    "jquery": "3.2.1"
   },
   "engines": {
     "node": ">= 8"

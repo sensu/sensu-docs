@@ -60,6 +60,11 @@ on a file server. Subscriptions also allow you to configure check requests for
 an entire group or subgroup of systems rather than require a traditional 1:1
 mapping.
 
+Checks can be scheduled in an interval or cron fashion. It's important to note
+that for interval checks, an initial offset is calculated to splay the check's
+_first_ scheduled request. This helps to balance the load of both the backend
+and the agent, and may result in a delay before initial check execution.
+
 ### Check result specification
 
 Although the Sensu agent will attempt to execute any
