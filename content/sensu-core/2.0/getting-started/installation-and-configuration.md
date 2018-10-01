@@ -211,6 +211,119 @@ _NOTE: On Ubuntu 14.04, CentOS 6, and RHEL 6, use `sudo /etc/init.d/sensu-agent 
 Coming soon.
 
 {{< platformBlockClose >}}
+
+{{< platformBlock "macOS RHEL/CentOS Ubuntu/Debian" >}}
+
+## Install sensuctl
+Sensu 2.0 can be configured and used with the sensuctl (pronounced “Sensu cuddle”) command line utility.
+Sensu CLI (sensuctl) packages are available for macOS, Ubuntu/Debian, and RHEL/CentOS.
+
+### 1. Install the package
+
+{{< platformBlockClose >}}
+
+{{< platformBlock "macOS" >}}
+
+#### macOS
+
+Download the latest release.
+
+{{< highlight shell >}}
+curl -LO https://storage.googleapis.com/sensu-binaries/$(curl -s https://storage.googleapis.com/sensu-binaries/latest.txt)/darwin/amd64/sensuctl
+{{< /highlight >}}
+
+**Optionally**, if you would like to download a specific [release][1], replace
+`{VERSION}` in the command below.
+
+{{< highlight shell >}}
+curl -LO https://storage.googleapis.com/sensu-binaries/{VERSION}/darwin/amd64/sensuctl
+{{< /highlight >}}
+
+Make the sensuctl binary executable.
+
+{{< highlight shell >}}
+chmod +x sensuctl
+{{< /highlight >}}
+
+Move the executable into your PATH.
+
+{{< highlight shell >}}
+sudo mv sensuctl /usr/local/bin/
+{{< /highlight >}}
+
+{{< platformBlockClose >}}
+
+{{< platformBlock "Ubuntu/Debian" >}}
+
+#### Ubuntu/Debian
+
+Add the Sensu repository.
+
+{{< highlight shell >}}
+curl -s https://packagecloud.io/install/repositories/sensu/beta/script.deb.sh | sudo bash
+{{< /highlight >}}
+
+Install the sensu-cli package.
+
+{{< highlight shell >}}
+sudo apt-get install sensu-cli
+{{< /highlight >}}
+
+{{< platformBlockClose >}}
+
+{{< platformBlock "RHEL/CentOS" >}}
+
+#### RHEL/CentOS
+
+Add the Sensu repository.
+
+{{< highlight shell >}}
+curl -s https://packagecloud.io/install/repositories/sensu/beta/script.rpm.sh | sudo bash
+{{< /highlight >}}
+
+Install the sensu-cli package.
+
+{{< highlight shell >}}
+sudo yum install sensu-cli
+{{< /highlight >}}
+
+{{< platformBlockClose >}}
+
+{{< platformBlock "macOS RHEL/CentOS Ubuntu/Debian" >}}
+
+### 2. Configure sensuctl
+
+You must configure sensuctl before it can connect to your Sensu cluster.
+Run the `configure` command to get started.
+
+{{< highlight shell >}}
+$ sensuctl configure
+? Sensu Backend URL: http://127.0.0.1:8080
+? Username: admin
+? Password: *********
+? Organization: default
+? Environment: default
+? Preferred output format: tabular
+{{< /highlight >}}
+
+By default, your Sensu installation comes with a user named `admin` with password `P@ssw0rd!`.
+We **strongly** recommended that you change the password immediately.
+Once authenticated, you can change the password using the `change-password` command.
+
+{{< highlight shell >}}
+$ sensuctl user change-password --interactive
+? Current Password:  *********
+? Password:          *********
+? Confirm:           *********
+{{< /highlight >}}
+
+You can change individual values of your sensuctl configuration with the `config` subcommand.
+
+{{< highlight shell >}}
+sensuctl config set-organization default
+sensuctl config set-environment prod
+{{< /highlight >}}
+
 {{< platformBlockClose >}}
 
 {{< platformBlock "Docker" >}}
