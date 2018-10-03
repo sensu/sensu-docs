@@ -10,13 +10,10 @@ menu:
 
 - [The `/clients` API endpoint](#the-clients-api-endpoint)
   - [`/clients` (GET)](#clients-get)
-  - [`/clients` (POST)](#clients-post)
 - [The `/clients/:client` API endpoint(s)](#the-clientsclient-api-endpoints)
   - [`/clients/:client` (GET)](#clientsclient-get)
   - [`/clients/:client` (DELETE)](#clientsclient-delete)
 - [The `/clients/:client/history` API endpoint(s)](#the-clientsclienthistory-api-endpoints)
-
---------------------------------------------------------------------------------
 
 ## The `/clients` API Endpoint
 
@@ -91,54 +88,6 @@ output         | {{< highlight shell >}}[
   }
 ]
 {{< /highlight >}}
-
-### `/clients` (POST)
-
-The `/clients` endpoint provides HTTP POST access to the [client registry][1].
-
-### EXAMPLES {#clients-post-example}
-
-The following example demonstrates submitting an HTTP POST to the `/clients`
-API, resulting in a [201 (Created) HTTP response code][5] (i.e.
-`HTTP/1.1 201 Created`) and a JSON Hash containing the client `name`.
-
-{{< highlight shell >}}
-$ curl -s -i \
--X POST \
--H 'Content-Type: application/json' \
--d '{"name": "api-example","address": "10.0.2.100","subscriptions":["default"],"environment":"production"}' \
-http://127.0.0.1:3000/clients
-
-HTTP/1.1 201 Created
-Content-Type: application/json
-Access-Control-Allow-Origin: *
-Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS
-Access-Control-Allow-Credentials: true
-Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept, Authorization
-Content-Length: 22
-Connection: keep-alive
-Server: thin
-
-{"name":"api-example"}
-{{< /highlight >}}
-
-### API Specification {#clients-post-specification}
-
-/clients (POST) | 
-----------------|------
-description     | Create or update client data (e.g. [Sensu proxy clients][3]).
-example URL     | http://hostname:3000/clients
-payload         | {{< highlight shell >}}{
-  "name": "gateway-router",
-  "address": "192.168.0.1",
-  "subscriptions": [
-    "network",
-    "snmp"
-  ],
-  "environment": "production"
-}
-{{< /highlight >}}
-response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 ## The `/clients/:client` API Endpoint(s) {#the-clientsclient-api-endpoints}
 
