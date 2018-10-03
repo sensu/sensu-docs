@@ -14,7 +14,6 @@ menu:
   - [`/aggregates/:name` (GET)](#aggregatesname-get)
   - [`/aggregates/:name` (DELETE)](#aggregatesname-delete)
 
-
 ## The `/aggregates` API endpoint {#the-aggregates-api-endpoint}
 
 The `/aggregates` API endpoint provides HTTP GET access to [named aggregate
@@ -28,11 +27,18 @@ The following example demonstrates a `/aggregates` API query which results in a
 JSON Array of JSON Hashes containing named [check aggregates][1].
 
 {{< highlight shell >}}
-$ curl -s http://localhost:3000/aggregates | jq .
+$ curl -s http://127.0.0.1:3000/aggregates | jq .
 [
-  {"name": "check_http"},
-  {"name": "check_web_app"},
-  {"name": "elasticsearch_health"}
+  {
+    "_id": "us_east1/check_web_app",
+    "dc": "us_east1",
+    "name": "check_web_app"
+  },
+  {
+    "_id": "us_west1/elasticsearch_health",
+    "dc": "us_west1",
+    "name": "elasticsearch_health"
+  }
 ]
 {{< /highlight >}}
 
@@ -40,17 +46,23 @@ $ curl -s http://localhost:3000/aggregates | jq .
 
 /aggregates (GET) | 
 ------------------|------
-description       | Returns the list of named aggregates.
+description       | Returns the list of named aggregates by `name` and datacenter (`dc`)
 example url       | http://hostname:3000/aggregates
 parameters        | <ul><li>`max_age`:<ul><li>**required**: false</li><li>**type**: Integer</li><li>**description**: the maximum age of results to include, in seconds.</li></ul></li></ul>
 response type     | Array
 response codes    | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output            | {{< highlight json >}}[
-  {"name": "check_http"},
-  {"name": "check_web_app"},
-  {"name": "elasticsearch_health"}
-]
-{{< /highlight >}}
+  {
+    "_id": "us_east1/check_web_app",
+    "dc": "us_east1",
+    "name": "check_web_app"
+  },
+  {
+    "_id": "us_west1/elasticsearch_health",
+    "dc": "us_west1",
+    "name": "elasticsearch_health"
+  }
+]{{< /highlight >}}
 
 ## The `/aggregates/:name` API endpoints {#the-aggregatesname-api-endpoints}
 
@@ -65,7 +77,7 @@ The following example demonstrates a `/aggregates/:name` API query for the
 check result data for the aggregate named `example_aggregate`.
 
 {{< highlight shell >}}
-$ curl -s http://localhost:3000/aggregates/example_aggregate | jq .
+$ curl -s http://127.0.0.1:3000/aggregates/example_aggregate | jq .
 {
   "clients": 15,
   "checks": 2,
@@ -108,12 +120,11 @@ output                  | {{< highlight json >}}{
 #### EXAMPLES {#aggregatesname-delete-examples}
 
 The following example demonstrates a `/aggregates/:name` API request to delete
-named aggregate data for the aggregate named `example_aggregate`, resulting in a
-[204 (No Content) HTTP response code][2] (i.e. `HTTP/1.1 204 No Content`).
+named aggregate data for the aggregate named `example_aggregate`.
 
 {{< highlight shell >}}
 $ curl -s -i -X DELETE http://localhost:3000/aggregates/example_aggregate
-HTTP/1.1 204 No Content
+HTTP/1.1 202 Accepted
 Access-Control-Allow-Origin: *
 Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS
 Access-Control-Allow-Credentials: true
@@ -129,8 +140,8 @@ Server: thin
 description                | Deletes all aggregate data for a named aggregate.
 example url                | http://hostname:3000/aggregates/elasticsearch
 response type              | [HTTP-header][3] only (no output)
-response codes             | <ul><li>**Success**: 204 (No Content)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-output                     | {{< highlight shell >}}HTTP/1.1 204 No Content
+response codes             | <ul><li>**Success**: 202 (Accepted)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+output                     | {{< highlight shell >}}HTTP/1.1 202 Accepted
 Access-Control-Allow-Origin: *
 Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS
 Access-Control-Allow-Credentials: true
@@ -139,6 +150,5 @@ Connection: close
 Server: thin
 {{< /highlight >}}
 
-[1]:  ../../reference/aggregates
-[2]:  https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
+[1]:  /sensu-core/latest/reference/aggregates
 [3]:  https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html

@@ -25,12 +25,11 @@ The following example demonstrates a `/events` API query which returns a JSON
 Array of JSON Hashes containing [event data][1].
 
 {{< highlight shell >}}
-$ curl -s http://localhost:3000/events | jq .
+$ curl -s http://127.0.0.1:3000/events | jq .
 [
   {
-    "timestamp": 1460303502,
+    "_id": "us_west1/client-01/sensu_website",
     "action": "create",
-    "occurrences": 1,
     "check": {
       "total_state_change": 14,
       "history": [
@@ -58,7 +57,7 @@ $ curl -s http://localhost:3000/events | jq .
       ],
       "status": 1,
       "output": "CheckHttp WARNING: 301\n",
-      "command": "check-http.rb -u :::website|http://sensuapp.org:::",
+      "command": "check-http.rb -u :::website|http://sensu.io:::",
       "subscribers": [
         "production"
       ],
@@ -71,7 +70,7 @@ $ curl -s http://localhost:3000/events | jq .
     },
     "client": {
       "timestamp": 1460303501,
-      "version": "1.0.0",
+      "version": "1.5.0",
       "website": "http://google.com",
       "socket": {
         "port": 3030,
@@ -82,9 +81,18 @@ $ curl -s http://localhost:3000/events | jq .
       ],
       "environment": "development",
       "address": "127.0.0.1",
-      "name": "client-01"
+      "name": "client-01",
+      "silenced": false
     },
-    "id": "0f42ec94-12bf-4918-a0b9-52fd57e8ee96"
+    "dc": "us_west1",
+    "id": "0f42ec94-12bf-4918-a0b9-52fd57e8ee96",
+    "last_ok": 1460303501,
+    "last_state_change": 1460303502,
+    "occurrences": 1,
+    "occurrences_watermark": 1,
+    "silenced": false,
+    "silenced_by": null,
+    "timestamp": 1460303502
   }
 ]
 {{< /highlight >}}
@@ -93,42 +101,54 @@ $ curl -s http://localhost:3000/events | jq .
 
 /events (GET)  | 
 ---------------|------
-description    | Returns the list of current events.
+description    | Returns the list of current events with check, client, and datacenter (`dc`) information
 example url    | http://hostname:3000/events
 response type  | Array
 response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output         | {{< highlight json >}}[
   {
-    "id": "1ccfdf59-d9ab-447c-ac11-fd84072b905a",
-    "client": {
-      "name": "i-424242",
-      "address": "127.0.0.1",
-      "subscriptions": [
-        "webserver",
-        "production"
-      ],
-      "timestamp": 1389374650
-    },
+    "_id": "us_west1/client-01/sensu_website",
+    "action": "create",
     "check": {
-      "name": "chef_client_process",
-      "command": "check-procs -p chef-client -W 1",
+      "total_state_change": 14,
+      "history": [
+        "0",
+        "1"
+      ],
+      "status": 1,
+      "output": "CheckHttp WARNING: 301\n",
+      "command": "check-http.rb -u :::website|http://sensu.io:::",
       "subscribers": [
         "production"
       ],
       "interval": 60,
-      "issued": 1389374667,
-      "executed": 1389374667,
-      "output": "WARNING Found 0 matching processes\n",
-      "status": 1,
-      "duration": 0.032,
-      "history": [
-        "0",
-        "1",
-        "1"
-      ]
+      "handler": "mail",
+      "name": "sensu_website",
+      "issued": 1460303502,
+      "executed": 1460303502,
+      "duration": 0.032
     },
-    "occurrences": 2,
-    "action": "create"
+    "client": {
+      "timestamp": 1460303501,
+      "version": "1.5.0",
+      "website": "http://google.com",
+      "subscriptions": [
+        "production"
+      ],
+      "environment": "development",
+      "address": "127.0.0.1",
+      "name": "client-01",
+      "silenced": false
+    },
+    "dc": "us_west1",
+    "id": "0f42ec94-12bf-4918-a0b9-52fd57e8ee96",
+    "last_ok": 1460303501,
+    "last_state_change": 1460303502,
+    "occurrences": 1,
+    "occurrences_watermark": 1,
+    "silenced": false,
+    "silenced_by": null,
+    "timestamp": 1460303502
   }
 ]
 {{< /highlight >}}
@@ -145,11 +165,10 @@ current [event data][1] for a named `:client` and `:check`.
 The following example demonstrates a `/events/:client/:check` API request to
 to delete event data for a `:client` named `:client-01` and a `:check` named
 `sensu_website`, resulting in a [202 (Accepted) HTTP response code][2] (i.e.
-`HTTP/1.1 202 Accepted`) and a payload containing a JSON Hash with the delete
-request `issued` timestamp.
+`HTTP/1.1 202 Accepted`).
 
 {{< highlight shell >}}
-curl -s -i -X DELETE http://localhost:3000/events/client-01/sensu_website
+curl -s -i -X DELETE http://127.0.0.1:3000/events/client-01/sensu_website
 HTTP/1.1 202 Accepted
 Content-Type: application/json
 Access-Control-Allow-Origin: *
@@ -159,8 +178,6 @@ Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept, Au
 Content-Length: 21
 Connection: keep-alive
 Server: thin
-
-{"issued":1460304359}
 {{< /highlight >}}
 
 #### API specification {#eventsclientcheck-delete-specification}
@@ -171,6 +188,6 @@ description                     | Resolves an event for a given check on a given
  example url                    | http://hostname:3000/events/i-424242/chef_client_process
 response codes                  | <ul><li>**Success**: 202 (Accepted)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
-[1]:  ../../reference/events#event-data
+[1]:  /sensu-core/latest/reference/events#event-data
 [2]:  https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
-[3]:  ../../reference/events
+[3]:  /sensu-core/latest/reference/events

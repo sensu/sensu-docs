@@ -36,18 +36,22 @@ registry][1]).
 $ curl -s http://127.0.0.1:3000/clients | jq .
 [
   {
-    "timestamp": 1458625739,
-    "version": "1.0.0",
+    "_id": "us_west1/client-01",
+    "address": "127.0.0.1",
+    "dc": "us_west1",
+    "name": "client-01",
+    "silenced": false,
+    "status": 0,
+    "subscriptions": [
+      "dev"
+    ],
     "socket": {
       "port": 3030,
       "bind": "127.0.0.1"
     },
-    "subscriptions": [
-      "dev"
-    ],
     "environment": "development",
-    "address": "127.0.0.1",
-    "name": "client-01"
+    "timestamp": 1458625739,
+    "version": "1.5.0"
   }
 ]
 {{< /highlight >}}
@@ -61,22 +65,29 @@ below)._
 
 /clients (GET) | 
 ---------------|------
-description    | Returns a list of clients.
+description    | Returns a list of clients by `name` and datacenter (`dc`). Since clients use the Sensu Core package, the `version` returned by this endpoint reflects the current version of Sensu Core instead of Sensu Enterprise.
 example url    | http://hostname:3000/clients
 parameters     | <ul><li>`limit`<ul><li>**required**: false</li><li>**type**: Integer</li><li>**description**: The number of clients to return.</li><li>**example**: `http://hostname:3000/clients?limit=100`</li></ul></li><li>`offset`<ul><li>**required**: false</li><li>**type**: Integer</li><li>**depends**: `limit`</li><li>**description**: The number of clients to offset before returning items.</li><li>**example**: `http://hostname:3000/clients?limit=100&offset=100`</li></ul></li></ul>
 response type  | Array
 response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output         | {{< highlight shell >}}[
   {
+    "_id": "us_west1/i-334455",
+    "dc": "us_west1",
     "name": "i-334455",
     "address": "192.168.0.2",
     "subscriptions": [
       "chef-client",
       "sensu-server"
     ],
-    "timestamp": 1324674972
+    "silenced": false,
+    "status": 0,
+    "timestamp": 1324674972,
+    "version": "1.5.0"
   },
   {
+    "_id": "us_east1/i-424242",
+    "dc": "us_east1",
     "name": "i-424242",
     "address": "192.168.0.3",
     "subscriptions": [
@@ -84,7 +95,10 @@ output         | {{< highlight shell >}}[
       "webserver",
       "memcached"
     ],
-    "timestamp": 1324674956
+    "silenced": false,
+    "status": 0,
+    "timestamp": 1324674956,
+    "version": "1.5.0"
   }
 ]
 {{< /highlight >}}
@@ -110,18 +124,21 @@ Hash containing the requested `:client` data (i.e. for the client named
 {{< highlight shell >}}
 $ curl -s http://127.0.0.1:3000/clients/client-01 | jq .
 {
-  "timestamp": 1458625739,
-  "version": "1.0.0",
+  "_id": "us_west1/client-01",
+  "address": "127.0.0.1",
+  "dc": "us_west1",
+  "name": "client-01",
+  "environment": "development",
+  "silenced": false,
+  "subscriptions": [
+    "dev"
+  ],
   "socket": {
     "port": 3030,
     "bind": "127.0.0.1"
   },
-  "subscriptions": [
-    "dev"
-  ],
-  "environment": "development",
-  "address": "127.0.0.1",
-  "name": "client-01"
+  "timestamp": 1458625739,
+  "version": "1.5.0"
 }
 {{< /highlight >}}
 
@@ -146,19 +163,23 @@ Server: thin
 
 /clients/:client (GET) | 
 -----------------------|------
-description            | Returns a client.
+description            | Returns a client with the `name` and datacenter (`dc`)
 example url            | http://hostname:3000/clients/i-424242
 response type          | Hash
 response codes         | <ul><li>**Success**: 200 (OK)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output                 | {{< highlight shell >}}{
-  "name": "i-424242",
+  "_id": "us_east1/i-424242",
   "address": "192.168.0.3",
+  "dc": "us_east1",
+  "name": "i-424242",
+  "silenced": false,
   "subscriptions": [
     "chef-client",
     "webserver",
     "memcached"
   ],
-  "timestamp": 1324674956
+  "timestamp": 1324674956,
+  "version": "1.5.0"
 }
 {{< /highlight >}}
 
@@ -171,7 +192,7 @@ definitions in the [client registry][1].
 
 The following example demonstrates a request to delete a `:client` named
 `api-example`, resulting in a [202 (Accepted) HTTP response code][5] (i.e.
-`HTTP/1.1 202 Accepted`) and a JSON Hash containing an `issued` timestamp.
+`HTTP/1.1 202 Accepted`).
 
 {{< highlight shell >}}
 $ curl -s -i -X DELETE http://127.0.0.1:3000/clients/api-example
@@ -185,8 +206,6 @@ Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept, Au
 Content-Length: 21
 Connection: keep-alive
 Server: thin
-
-{"issued":1460136855}
 {{< /highlight >}}
 
 The following example demonstrates a request to delete a non-existent `:client`
@@ -222,9 +241,9 @@ The `/clients/:client/history` API is being deprecated in favor of the [Sensu
 Results API][6]. This API predates the `/results` APIs and provides less
 functionality than the newer alternative.
 
-[1]:  ../../reference/clients#registration-and-registry
-[2]:  ../../reference/clients#client-keepalives
-[3]:  ../../reference/clients#proxy-clients
+[1]:  /sensu-core/latest/reference/clients#registration-and-registry
+[2]:  /sensu-core/latest/reference/clients#client-keepalives
+[3]:  /sensu-core/latest/reference/clients#proxy-clients
 [4]:  #clients-post
 [5]:  https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
 [6]:  ../results

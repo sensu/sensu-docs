@@ -33,11 +33,13 @@ $ curl -s http://127.0.0.1:3000/checks | jq .
 [
   {
     "name": "sensu_website",
+    "_id": "us_east1/sensu_website",
+    "dc": "us_east1",
     "interval": 60,
     "subscribers": [
       "production"
     ],
-    "command": "check-http.rb -u https://sensuapp.org"
+    "command": "check-http.rb -u https://sensu.io"
   }
 ]
 {{< /highlight >}}
@@ -46,13 +48,15 @@ $ curl -s http://127.0.0.1:3000/checks | jq .
 
 /checks (GET)  | 
 ---------------|------
-description    | Returns the list of checks.
+description    | Returns the list of checks with the `name` and datacenter (`dc`)
 example url    | http://hostname:3000/checks
 response type  | Array
 response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output         | {{< highlight shell >}}[
   {
     "name": "chef_client_process",
+    "_id": "us_east1/chef_client_process",
+    "dc": "us_east1",
     "command": "check-procs.rb -p /usr/bin/chef-client -W 1 -w 2 -c 3",
     "subscribers": [
       "production"
@@ -60,7 +64,9 @@ output         | {{< highlight shell >}}[
     "interval": 60
   },
   {
-     "name": "website",
+    "name": "website",
+    "_id": "us_west1/website",
+    "dc": "us_west1",
     "command": "check-http.rb -h localhost -p /health -P 80 -q Passed -t 30",
     "subscribers": [
       "webserver"
@@ -87,11 +93,14 @@ containing the requested [`:check` definition][2] (i.e. for the `:check` named
 $ curl -s http://127.0.0.1:3000/checks/sensu_website | jq .
 {
   "name": "sensu_website",
+  "dc": "us_west1",
   "interval": 60,
+  "silenced": false,
+  "silenced_by": null,
   "subscribers": [
     "production"
   ],
-  "command": "check-http.rb -u https://sensuapp.org"
+  "command": "check-http.rb -u https://sensu.io"
 }
 {{< /highlight >}}
 
@@ -122,12 +131,15 @@ example url          | http://hostname:3000/checks/sensu_website
 response type        | Hash
 response codes       | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output               | {{< highlight json >}}{
-  "name": "chef_client_process",
-  "command": "check-procs.rb -p /usr/bin/chef-client -W 1 -w 2 -c 3",
+  "name": "sensu_website",
+  "dc": "us_west1",
+  "interval": 60,
+  "silenced": false,
+  "silenced_by": null,
   "subscribers": [
     "production"
   ],
-  "interval": 60
+  "command": "check-http.rb -u https://sensu.io"
 }
 {{< /highlight >}}
 
@@ -139,7 +151,7 @@ definitions in the [check registry][1].
 #### EXAMPLE {#checkscheck-delete-example}
 
 The following example demonstrates a request to delete a `:check` named
-`api-example`, resulting in a [202 (Accepted) HTTP response code][5] (i.e.
+`api-example`, resulting in a [202 (Accepted) HTTP response code][3] (i.e.
 `HTTP/1.1 202 Accepted`) and a JSON Hash containing an `issued` timestamp.
 
 {{< highlight shell >}}
@@ -160,7 +172,7 @@ Server: thin
 
 The following example demonstrates a request to delete a non-existent `:check`
 named `non-existent-check`, resulting in a [404 (Not Found) HTTP response
-code][5] (i.e. `HTTP/1.1 404 Not Found`).
+code][3] (i.e. `HTTP/1.1 404 Not Found`).
 
 {{< highlight shell >}}
 $ curl -s -i -X DELETE http://127.0.0.1:3000/checks/non-existent-check
@@ -196,17 +208,17 @@ requests via the Sensu API.
 
 In the following example, an HTTP POST is submitted to the `/request` API,
 requesting a check execution for the `sensu_website` [subscription check][1],
-resulting in a [202 (Accepted) HTTP response code][3] (i.e. `HTTP/1.1 202
-Accepted`) and a JSON Hash containing an `issued` timestamp.
+resulting in a [200 (OK) HTTP response code][3] (i.e. `HTTP/1.1 200
+OK`).
 
 {{< highlight shell >}}
 curl -s -i \
 -X POST \
 -H 'Content-Type: application/json' \
--d '{"check": "sensu_website"}' \
+-d '{"check": "sensu_website", "dc": "us_west1"}' \
 http://127.0.0.1:3000/request
 
-HTTP/1.1 202 Accepted
+HTTP/1.1 200 OK
 Content-Type: application/json
 Access-Control-Allow-Origin: *
 Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS
@@ -215,8 +227,6 @@ Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept, Au
 Content-Length: 21
 Connection: keep-alive
 Server: thin
-
-{"issued":1460142533}
 {{< /highlight >}}
 
 _PRO TIP: the `/request` API can be a powerful utility when combined with check
@@ -251,19 +261,20 @@ Server: thin
 
 /request (POST) | 
 ----------------|------
-description     | Issues a check execution request.
+description     | Issues a check execution request by check name (`check`) and datacenter (`dc`)
 example url     | http://hostname:3000/request
 payload         | {{< highlight json >}}{
   "check": "chef_client_process",
+  "dc": "us_east1",
   "subscribers": [
     "production"
   ],
   "creator": "sysop@example.com",
   "reason": "triggered application deployment"
 }{{< /highlight >}}_NOTE: the `subscribers` attribute is not required for requesting a check execution, however it may be provided to override the `subscribers` [check definition attribute][2]._ _NOTE: the `creator` and `reason` attributes are not required for requesting a check execution, however they may be provided to add more context to the check request and in turn the check result(s). The check request `creator` and `reason` are added to the check request payload under `api_requested`._
-response codes  | <ul><li>**Success**: 202 (Accepted)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+response codes  | <ul><li>**Success**: 200 (OK)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 [?]:  #
-[1]:  ../../reference/checks#subscription-checks
-[2]:  ../../reference/checks#check-configuration
+[1]:  /sensu-core/latest/reference/checks#subscription-checks
+[2]:  /sensu-core/latest/reference/checks#check-configuration
 [3]:  https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
