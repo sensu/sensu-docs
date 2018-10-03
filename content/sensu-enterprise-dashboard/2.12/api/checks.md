@@ -132,6 +132,60 @@ output               | {{< highlight json >}}{
 }
 {{< /highlight >}}
 
+### `/checks/:check` (DELETE) {#checkscheck-delete}
+
+The `/checks/:check` endpoint provides HTTP DELETE access to specific check
+definitions in the [check registry][1].
+
+#### EXAMPLE {#checkscheck-delete-example}
+
+The following example demonstrates a request to delete a `:check` named
+`api-example`, resulting in a [202 (Accepted) HTTP response code][5] (i.e.
+`HTTP/1.1 202 Accepted`) and a JSON Hash containing an `issued` timestamp.
+
+{{< highlight shell >}}
+$ curl -s -i -X DELETE http://127.0.0.1:3000/checks/api-example
+
+HTTP/1.1 202 Accepted
+Content-Type: application/json
+Access-Control-Allow-Origin: *
+Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS
+Access-Control-Allow-Credentials: true
+Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept, Authorization
+Content-Length: 21
+Connection: keep-alive
+Server: thin
+
+{"issued":1460136855}
+{{< /highlight >}}
+
+The following example demonstrates a request to delete a non-existent `:check`
+named `non-existent-check`, resulting in a [404 (Not Found) HTTP response
+code][5] (i.e. `HTTP/1.1 404 Not Found`).
+
+{{< highlight shell >}}
+$ curl -s -i -X DELETE http://127.0.0.1:3000/checks/non-existent-check
+
+HTTP/1.1 404 Not Found
+Content-Type: application/json
+Access-Control-Allow-Origin: *
+Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS
+Access-Control-Allow-Credentials: true
+Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept, Authorization
+Content-Length: 0
+Connection: keep-alive
+Server: thin
+{{< /highlight >}}
+
+#### API Specification {#checkscheck-delete-specification}
+
+/checks/:check (DELETE) | 
+--------------------------|------
+description               | Removes a check, resolving its current events. (delayed action)
+example url               | http://hostname:3000/checks/i-424242
+parameters                | <ul><li>`invalidate`<ul><li>**required**: false</li><li>**type**: Boolean</li><li>**description**: If the Sensu check should be invalidated, disallowing further check keepalives and check results until the check is successfully removed from the check registry.</li><li>**example**: `http://hostname:3000/checks/i-424242?invalidate=true`</li></ul><li>`invalidate_expire`<ul><li>**required**: false</li><li>**type**: Integer</li><li>**description**: If the Sensu check should be invalidated for a specified amount of time (in seconds), disallowing further check keepalives and check results even after the check is successfully removed from the check registry.</li><li>**example**: `http://hostname:3000/checks/i-424242?invalidate=true&invalidate_expire=3600`</li></ul></li></ul>
+response codes            | <ul><li>**Success**: 202 (Accepted)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+
 ## The `/request` API endpoint
 
 ### `/request` (POST)

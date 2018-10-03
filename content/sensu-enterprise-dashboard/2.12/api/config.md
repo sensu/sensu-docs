@@ -1,35 +1,34 @@
 ---
-title: "Settings API"
-description: "Sensu Settings API reference documentation."
-product: "Sensu Enterprise"
+title: "Configuration API"
+description: "Sensu Configuration API reference documentation."
+product: "Sensu Enterprise Dashboard"
 version: "2.12"
-weight: 9
 menu:
-  sensu-enterprise-2.12:
+  sensu-enterprise-dashboard-2.12:
     parent: api
 ---
 
 ## Reference documentation
 
-- [The `/settings` API endpoint](#the-settings-endpoint)
-  - [`/settings` (GET)](#settings-get)
+- [The `/config` API endpoint](#the-config-endpoint)
+  - [`/config` (GET)](#config-get)
 
-## The `/settings` API endpoint {#the-settings-endpoint}
+## The `/config` API endpoint {#the-config-endpoint}
 
-### `/settings` (GET)
+### `/config` (GET)
 
-The `/settings` API provides HTTP GET access to the APIs running
-configuration settings. Sensitive setting values are redacted by
+The `/config` API provides HTTP GET access to the APIs running
+configuration config. Sensitive setting values are redacted by
 default, unless the URL query parameter `redacted` is set to `false`,
-e.g. `/settings?redacted=false.`
+e.g. `/config?redacted=false.`
 
-#### EXAMPLE {#settings-get-example}
+#### EXAMPLE {#config-get-example}
 
-The following example demonstrates a request to the `/settings` API, resulting in
-a JSON Hash containing the APIs running configuration settings.
+The following example demonstrates a request to the `/config` API, resulting in
+a JSON Hash containing the APIs running configuration config.
 
 {{< highlight shell >}}
-$ curl -s http://127.0.0.1:3000/settings | jq .
+$ curl -s http://127.0.0.1:3000/config | jq .
 {
   "api": {
     "cors": {
@@ -48,12 +47,12 @@ $ curl -s http://127.0.0.1:3000/settings | jq .
 }
 {{< /highlight >}}
 
-#### API Specification {#settings-get-specification}
+#### API Specification {#config-get-specification}
 
-/settings (GET) | 
+/config (GET) | 
 ----------------|------
-description     | Returns the APIs running configuration settings.
-example url     | http://hostname:3000/settings
+description     | Returns the APIs running configuration config.
+example url     | http://hostname:3000/config
 parameters      | <ul><li>`redacted`:<ul><li>**required**: false</li><li>**type**: Boolean</li><li>**description**: If sensitive setting values should be redacted.</li><li>**default**: true</li></ul>
 response type   | Hash
 response codes  | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
