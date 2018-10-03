@@ -1,13 +1,10 @@
 ---
 title: "Aggregates API"
 description: "Sensu Aggregates API reference documentation."
-product: "Sensu Enterprise"
+product: "Sensu Enterprise Dashboard"
 version: "2.12"
-weight: 5
-next: "../checks"
-previous: "../clients"
 menu:
-  sensu-enterprise-2.12:
+  sensu-enterprise-dashboard-2.12:
     parent: api
 ---
 

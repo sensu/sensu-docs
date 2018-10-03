@@ -1,13 +1,13 @@
 ---
 title: "API"
 description: "Sensu Enterprise Console API reference documentation"
-product: "Sensu Enterprise"
+product: "Sensu Enterprise Dashboard"
 version: "2.12"
-weight: 50
+weight: 1.5
 layout: "base-for-directory-listing"
 menu: 
-  sensu-enterprise-2.12:
+  sensu-enterprise-dashboard-2.12:
     identifier: api
 ---
 
-{{< directoryListing "content/sensu-enterprise/2.12/api" >}}
+{{< directoryListing "content/sensu-enterprise-dashboard/2.12/api" >}}

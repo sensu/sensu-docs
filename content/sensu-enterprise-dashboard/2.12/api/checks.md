@@ -1,11 +1,10 @@
 ---
 title: "Checks API"
 description: "Sensu Checks API reference documentation."
-product: "Sensu Enterprise"
+product: "Sensu Enterprise Dashboard"
 version: "2.12"
-weight: 3
 menu:
-  sensu-enterprise-2.12:
+  sensu-enterprise-dashboard-2.12:
     parent: api
 ---
 

@@ -1,11 +1,10 @@
 ---
 title: "Silenced API"
-product: "Sensu Enterprise"
+product: "Sensu Enterprise Dashboard"
 description: "Sensu Silenced API reference documentation."
 version: "2.12"
-weight: 7
 menu:
-  sensu-enterprise-2.12:
+  sensu-enterprise-dashboard-2.12:
     parent: api
 ---
 

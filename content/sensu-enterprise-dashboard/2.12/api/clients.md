@@ -1,11 +1,10 @@
 ---
 title: "Clients API"
 description: "Sensu Clients API reference documentation."
-product: "Sensu Enterprise"
+product: "Sensu Enterprise Dashboard"
 version: "2.12"
-weight: 2
 menu:
-  sensu-enterprise-2.12:
+  sensu-enterprise-dashboard-2.12:
     parent: api
 ---
 

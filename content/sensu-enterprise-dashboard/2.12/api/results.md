@@ -1,11 +1,10 @@
 ---
 title: "Results API"
 description: "Sensu Results API reference documentation."
-product: "Sensu Enterprise"
+product: "Sensu Enterprise Dashboard"
 version: "2.12"
-weight: 4
 menu:
-  sensu-enterprise-2.12:
+  sensu-enterprise-dashboard-2.12:
     parent: api
 ---
 
