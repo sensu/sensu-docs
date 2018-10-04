@@ -185,7 +185,7 @@ example      | {{< highlight shell >}}"subscriptions": ["production"]{{< /highli
 |handlers    |      |
 -------------|------
 description  | An array of Sensu event handlers (names) to use for events created by the check. Each array item must be a string.
-required     | true
+required     | false
 type         | Array
 example      | {{< highlight shell >}}"handlers": ["pagerduty", "email"]{{< /highlight >}}
 
