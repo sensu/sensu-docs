@@ -35,7 +35,7 @@ configurable (see [Configuring the StatsD listener](#configuring-the-statsd-list
 and can be accessed with the netcat utility command:
 
 {{< highlight shell >}}
-echo "foo:1|c" | nc -u -w0 127.0.0.1 8125
+echo 'abc.def.g:10|c' | nc -w1 -u localhost 8125
 {{< /highlight >}}
 
 Metrics received through the StatsD listener are not stored in etcd, so
