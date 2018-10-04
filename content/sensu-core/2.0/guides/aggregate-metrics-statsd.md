@@ -21,28 +21,28 @@ according to the line protocol `<metricname>:<value>|<type>`.
 
 StatsD allows you to measure anything and everything. You can monitor
 application performance by collecting custom metrics in your code and sending
-them to a StatsD server or you can monitor system levels of cpu, i/o, network
+them to a StatsD server or you can monitor system levels of CPU, I/O, network
 etc. with collection daemons. The metrics that StatsD aggregates can be fed to
 multiple different backends to store or visualize the data.
 
 ## How does Sensu implement StatsD?
 
-Sensu implements a StatsD listener on it's agents. Each `sensu-agent` will
+Sensu implements a StatsD listener on its agents. Each `sensu-agent` will
 listen on the default port 8125 for UDP messages which follow the StatsD line
 protocol. StatsD aggregates the metrics, and Sensu translates them to Sensu
 metrics and events to be passed to the event pipeline. The listener is
-configurable (see "Configuring the StatsD listener") and can be accessed with
-the simple netcat utility command:
+configurable (see [Configuring the StatsD listener](#configuring-the-statsd-listener))
+and can be accessed with the netcat utility command:
 
 {{< highlight shell >}}
 echo "foo:1|c" | nc -u -w0 127.0.0.1 8125
 {{< /highlight >}}
 
 Metrics received through the StatsD listener are not stored in etcd, so
-it is important to configure an event handler(s)!
+it is important to configure an event handler(s).
 
-_NOTE: On Windows machines running Sensu, the statsd UDP port is not supported,
-rather the TCP port is exposed!_
+_NOTE: On Windows machines running Sensu, the StatsD UDP port is not supported,
+rather the TCP port is exposed._
 
 ### Configuring the StatsD listener
 
@@ -69,7 +69,7 @@ Now that you know how to feed StatsD metrics into Sensu, check out the following
 resources to learn how to handle those metrics:
 
 * Read the [handlers reference][2] for in-depth documentation on handlers.
-* Read the [influx-db handler guide][3] for instructions on Sensu's built-in
+* Read the [InfluxDB handler guide][3] for instructions on Sensu's built-in
 metric handler.
 
 [1]: https://github.com/etsy/statsd/
