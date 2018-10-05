@@ -49,6 +49,8 @@ handler (integration).
 The following attributes are configured within the `{"graphite": {} }`
 [configuration scope][4].
 
+_PRO TIP: You can override `graphite` attributes on a per-contact basis using [contact routing][5]._
+
 host         | 
 -------------|------
 description  | The Graphite Carbon host address.
@@ -86,3 +88,4 @@ example      | {{< highlight shell >}}"prefix": "production"{{< /highlight >}}
 [2]:  http://graphite.wikidot.com?ref=sensu-enterprise
 [3]:  https://www.hostedgraphite.com?ref=sensu-enterprise
 [4]:  /sensu-core/1.2/reference/configuration#configuration-scopes
+[5]: ../../contact-routing
