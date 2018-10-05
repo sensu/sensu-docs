@@ -45,8 +45,10 @@ enabled=1' | sudo tee /etc/yum.repos.d/sensu.repo && sudo yum install -y sensu{{
 And then install EPEL, Dev tools and libs required for the next steps
 
 {{< highlight shell >}}
-sudo yum install -y epel-release libxml2 libxslt
-sudo yum groupinstall -y "Development Tools"{{< /highlight >}}
+sudo yum install -y epel-release
+sudo yum groupinstall -y "Development Tools
+# installing dependencies for nokogiri
+sudo yum install -y libxml2 libxslt libxslt-devel libxml2-devel"{{< /highlight >}}
 
 Finally we'll add Sensu's embedded bin to our path
 
@@ -64,10 +66,10 @@ We'll now install the source gems into a cache directory
 
 {{< highlight shell >}}
 mkdir /tmp/gems
-gem install --no-ri --no-rdoc --install-dir /tmp/gems sensu-plugins-aws
+gem install --no-ri --no-rdoc --install-dir /tmp/gems sensu-plugins-aws --version '=12.3.0'
 gem install --no-ri --no-rdoc --install-dir /tmp/gems mini_portile2{{< /highlight >}}
 
-Observing the `gem install` output, we can see that nokogiri and unf_ext build native extensions.
+Observing the `gem install` output, we can see that nokogiri and unf_ext both build native extensions.
 These are the gems we will compile so we can install them from our own repository.
 
 ### Compile the Gems for packaging
@@ -76,8 +78,8 @@ We'll use `gem-compiler` to rebuild the gem packages with the included native ex
 
 {{< highlight shell >}}
 cd /tmp/gems/cache
-gem compile unf_ext-*.gem
-gem compile nokogiri-1.8.*.gem --prune{{< /highlight >}}
+gem compile unf_ext-0.0.7.5.gem
+gem compile nokogiri-1.8.4.gem --prune{{< /highlight >}}
 
 _NOTE: `nokogiri` requires --prune flag per gem-compiler readme notes _
 
@@ -99,8 +101,8 @@ Here we've copied the compiled gems to a system with Sensu installed, but no gcc
  _NOTE: nokogiri needs libxml2 and possibly libxslt to be present on your system._
 
 {{< highlight shell >}}
-$ /opt/sensu/embedded/bin/gem install unf_ext-0.0.7.4-x86_64-linux.gem
-$ /opt/sensu/embedded/bin/gem install nokogiri-1.8.1-x86_64-linux.gem{{< /highlight >}}
+$ /opt/sensu/embedded/bin/gem install unf_ext-*-x86_64-linux.gem
+$ /opt/sensu/embedded/bin/gem install nokogiri-*-x86_64-linux.gem{{< /highlight >}}
 
 ### Install Sensu plugins as normal
 With these prerequisites in place we can install sensu-plugins-aws without a compiler. You can use `sensu-install` or `gem` commands:
