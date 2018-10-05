@@ -101,6 +101,7 @@ Built-in event handlers:
 - [Librato](../integrations/librato) - send metrics to Librato Metrics
 - [OpenTSDB](../integrations/opentsdb) - send metrics to OpenTSDB
 - [DataDog](../integrations/datadog) - create Datadog events
+- [TimescaleDB](../integrations/timescaledb) - send metrics to TimescaleDB
 
 [?]:  #
 [0]:  /sensu-enterprise
