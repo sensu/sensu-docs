@@ -43,6 +43,8 @@ menu:
     - [`chef` attributes](#chef-attributes)
     - [`puppet` attributes](#puppet-attributes)
     - [`servicenow` attributes](#servicenow-attributes)
+    - [`influxdb` attributes](#influxdb-attributes)
+    - [`opsgenie` attributes](#opsgenie-attributes)
     - [Custom attributes](#custom-attributes)
 
 ## What is a Sensu client?
@@ -578,6 +580,20 @@ description  | The [`servicenow` definition scope][45], used to configure the [S
 required     | false
 type         | Hash
 example      | {{< highlight shell >}}"servicenow": {}{{< /highlight >}}
+
+influxdb     | 
+-------------|------
+description  | The [`influxdb` definition scope][61], used to configure the [Sensu Enterprise InfluxDB integration][62] ([Sensu Enterprise][60] users only).
+required     | false
+type         | Hash
+example      | {{< highlight shell >}}"influxdb": {}{{< /highlight >}}
+
+opsgenie     | 
+-------------|------
+description  | The [`opsgenie` definition scope][63], used to configure the [Sensu Enterprise OpsGenie integration][64] ([Sensu Enterprise][60] users only).
+required     | false
+type         | Hash
+example      | {{< highlight shell >}}"opsgenie": {}{{< /highlight >}}
 
 #### `socket` attributes
 
@@ -1117,6 +1133,76 @@ example            | {{< highlight shell >}}"configuration_item": {
 }
 {{< /highlight >}}
 
+#### `influxdb` attributes
+
+The following attributes are configured within the `{ "client": { "influxdb": {} }
+}` [configuration scope][24].
+
+**ENTERPRISE: This configuration is provided for using the built-in [Sensu
+Enterprise InfluxDB integration][62].**
+
+##### EXAMPLE {#influxdb-attributes-example}
+
+{{< highlight json >}}
+{
+  "client": {
+    "name": "i-424242",
+    "...": "...",
+    "influxdb": {
+      "tags": {
+        "dc": "us-central-1"
+      }
+    }
+  }
+}
+{{< /highlight >}}
+
+##### ATTRIBUTES {#influxdb-attributes-specification}
+
+tags           | 
+---------------|------
+description    | Configurable custom tags (key/value pairs) to add to every InfluxDB measurement.
+required       | false
+type           | Hash
+default        | {{< highlight shell >}}{}{{< /highlight >}}
+example        | {{< highlight shell >}}
+"tags": {
+  "dc": "us-central-1"
+}
+{{< /highlight >}}
+
+#### `opsgenie` attributes
+
+The following attributes are configured within the `{ "client": { "opsgenie": {} }
+}` [configuration scope][24].
+
+**ENTERPRISE: This configuration is provided for using the built-in [Sensu
+Enterprise OpsGenie integration][64].**
+
+##### EXAMPLE {#opsgenie-attributes-example}
+
+{{< highlight json >}}
+{
+  "client": {
+    "name": "i-424242",
+    "...": "...",
+    "opsgenie": {
+      "tags": ["production"]
+    }
+  }
+}
+{{< /highlight >}}
+
+##### ATTRIBUTES {#opsgenie-attributes-specification}
+
+tags         | 
+-------------|------
+description  | An array of OpsGenie alert tags that will be added to created alerts.
+required     | false
+type         | Array
+default      | `[]`
+example      | {{< highlight shell >}}"tags": ["production"]{{< /highlight >}}
+
 #### `configuration_item` attributes
 
 The following attributes are configured within the `{ "client": { "servicenow":
@@ -1247,3 +1333,8 @@ information for operations teams can be extremely valuable._
 [48]: #deregistration-attributes
 [49]: ../../api/checks#the-request-api-endpoint
 [50]: #http-socket-attributes
+[60]: /sensu-enterprise/latest
+[61]: #influxdb-attributes
+[62]: /sensu-enterprise/latest/integrations/influxdb
+[63]: #opsgenie-attributes
+[64]: /sensu-enterprise/latest/integrations/opsgenie

@@ -40,6 +40,8 @@ menu:
     - [Check naming](#check-names)
     - [`CHECK` attributes](#check-attributes)
     - [`subdue` attributes](#subdue-attributes)
+    - [`influxdb` attributes](#influxdb-attributes)
+    - [`opsgenie` attributes](#opsgenie-attributes)
     - [`hooks` attributes](#hooks-attributes)
     - [Custom attributes](#custom-attributes)
   - [Check result specification](#check-result-specification)
@@ -635,6 +637,20 @@ required     | false
 type         | String
 example      | {{< highlight shell >}}"notification": "the shopping cart application is not responding to requests"{{< /highlight >}}
 
+influxdb     | 
+-------------|------
+description  | The [`influxdb` definition scope][61], used to configure the [Sensu Enterprise InfluxDB integration][62] ([Sensu Enterprise][60] users only).
+required     | false
+type         | Hash
+example      | {{< highlight shell >}}"influxdb": {}{{< /highlight >}}
+
+opsgenie     | 
+-------------|------
+description  | The [`opsgenie` definition scope][63], used to configure the [Sensu Enterprise OpsGenie integration][64] ([Sensu Enterprise][60] users only).
+required     | false
+type         | Hash
+example      | {{< highlight shell >}}"opsgenie": {}{{< /highlight >}}
+
 #### `subdue` attributes
 
 The following attributes are configured within the `{"checks": { "CHECK": {
@@ -686,6 +702,75 @@ example      | {{< highlight shell >}}"days": {
 }
 {{< /highlight >}}
 
+#### `influxdb` attributes
+
+The following attributes are configured within the `{ "check": { "influxdb": {} }
+}` [configuration scope][29].
+
+**ENTERPRISE: This configuration is provided for using the built-in [Sensu
+Enterprise InfluxDB integration][62].**
+
+##### EXAMPLE {#influxdb-attributes-example}
+
+{{< highlight json >}}
+{
+  "check": {
+    "name": "nginx_process",
+    "...": "...",
+    "influxdb": {
+      "tags": {
+        "dc": "us-central-1"
+      }
+    }
+  }
+}
+{{< /highlight >}}
+
+##### ATTRIBUTES {#influxdb-attributes-specification}
+
+tags           | 
+---------------|------
+description    | Configurable custom tags (key/value pairs) to add to every InfluxDB measurement.
+required       | false
+type           | Hash
+default        | {{< highlight shell >}}{}{{< /highlight >}}
+example        | {{< highlight shell >}}
+"tags": {
+  "dc": "us-central-1"
+}
+{{< /highlight >}}
+
+#### `opsgenie` attributes
+
+The following attributes are configured within the `{ "check": { "opsgenie": {} }
+}` [configuration scope][29].
+
+**ENTERPRISE: This configuration is provided for using the built-in [Sensu
+Enterprise OpsGenie integration][64].**
+
+##### EXAMPLE {#opsgenie-attributes-example}
+
+{{< highlight json >}}
+{
+  "check": {
+    "name": "nginx_process",
+    "...": "...",
+    "opsgenie": {
+      "tags": ["production"]
+    }
+  }
+}
+{{< /highlight >}}
+
+##### ATTRIBUTES {#opsgenie-attributes-specification}
+
+tags         | 
+-------------|------
+description  | An array of OpsGenie alert tags that will be added to created alerts.
+required     | false
+type         | Array
+default      | `[]`
+example      | {{< highlight shell >}}"tags": ["production"]{{< /highlight >}}
 
 #### `hooks` attributes {#hooks-attributes}
 
@@ -988,4 +1073,9 @@ example      | {{< highlight shell >}}"output": "i-424242"{{< /highlight >}}
 [48]: #proxy-requests-attributes
 [49]: ../../guides/intro-to-checks/#proxy-clients
 [50]: ../../guides/adding-a-client/#proxy-clients
-
+[60]: /sensu-enterprise/latest
+[61]: #influxdb-attributes
+[62]: /sensu-enterprise/latest/integrations/influxdb
+[63]: #opsgenie-attributes
+[64]: /sensu-enterprise/latest/integrations/opsgenie
+[65]: ../configuration#configuration-scopes

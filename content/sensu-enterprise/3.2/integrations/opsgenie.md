@@ -141,7 +141,7 @@ example      | {{< highlight shell >}}"actions": ["ViewLogs", "ShowProcesses"]{{
 
 tags         | 
 -------------|------
-description  | An array of OpsGenie alert tags that will be added to created alerts.
+description  | An array of OpsGenie alert tags that will be added to created alerts. _PRO TIP: Augment the tags applied to each measurement by specifying additional OpsGenie tags in check and client definitions. See the Sensu Core reference docs to configure OpsGenie [check attributes][6] and [client attributes][7]._
 required     | false
 type         | Array
 default      | `[]`
@@ -186,3 +186,5 @@ example      | {{< highlight shell >}}"timeout": 30{{< /highlight >}}
 [3]: /sensu-core/1.2/reference/configuration#configuration-scopes
 [4]: /sensu-enterprise/3.0/upgrading#changes-in-opsgenie-integration
 [5]: https://docs.opsgenie.com/docs/alert-api
+[6]:  /sensu-core/latest/reference/checks#opsgenie-attributes
+[7]:  /sensu-core/latest/reference/clients#opsgenie-attributes
