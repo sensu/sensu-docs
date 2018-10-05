@@ -49,7 +49,7 @@ handler (integration).
 The following attributes are configured within the `{"opentsdb": {} }`
 [configuration scope][3].
 
- _PRO TIP: You can override `opentsdb` attributes on a per-contact basis using [contact routing][5]._
+_PRO TIP: You can override `opentsdb` attributes on a per-contact basis using [contact routing][5]._
 
 host         | 
 -------------|------

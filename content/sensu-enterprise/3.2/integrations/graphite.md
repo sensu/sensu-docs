@@ -49,7 +49,7 @@ handler (integration).
 The following attributes are configured within the `{"graphite": {} }`
 [configuration scope][4].
 
- _PRO TIP: You can override `graphite` attributes on a per-contact basis using [contact routing][5]._
+_PRO TIP: You can override `graphite` attributes on a per-contact basis using [contact routing][5]._
 
 host         | 
 -------------|------
