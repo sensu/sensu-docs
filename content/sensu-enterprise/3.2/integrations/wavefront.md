@@ -54,6 +54,8 @@ handler (integration).
 The following attributes are configured within the `{"wavefront": {} }`
 [configuration scope][3].
 
+_PRO TIP: You can override `wavefront` attributes on a per-contact basis using [contact routing][6]._
+
 host         | 
 -------------|------
 description  | The Wavefront host address.
@@ -82,9 +84,25 @@ example        | {{< highlight shell >}}
 }
 {{< /highlight >}}
 
+retry_limit    | 
+---------------|------
+description    | The number of times the integration will attempt to re-send metrics after encountering an error.
+required       | false
+type           | Integer
+default        | `3`
+example        | {{< highlight shell >}} "retry_limit": "3"{{< /highlight >}}
+
+retry_delay    | 
+---------------|------
+description    | How long the integration will wait between retries, in seconds.
+required       | false
+type           | Integer
+default        | `1`
+example        | {{< highlight shell >}} "retry_delay": "1"{{< /highlight >}}
 
 [1]:  /sensu-enterprise
 [2]:  https://www.wavefront.com?ref=sensu-enterprise
 [3]:  /sensu-core/1.2/reference/configuration#configuration-scopes
 [4]:  https://community.wavefront.com/docs/DOC-1031
 [5]:  https://community.wavefront.com/docs/DOC-1041
+[6]: ../../contact-routing
