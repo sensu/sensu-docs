@@ -15,8 +15,8 @@ For information about troubleshooting the Sensu client and RabbitMQ connection, 
 - [Reloading Configuration](#reloading-configuration)
 - [Collecting Logs](#collecting-logs)
 - [Settings Log Levels](#setting-log-levels)
-- [Printing Configuration](#printing-configuration)
-- [Resolving Private Key Errors](#resolving-private-key-erors)
+- [Printing Configurations](#printing-configurations)
+- [Resolving Private Key Errors](#resolving-private-key-errors)
 
 ### Reloading Configuration
 
@@ -43,7 +43,7 @@ Sensu's logs provide a wealth of information when troubleshooting issues. They l
 ├── sensu-enterprise.log
 └── sensu-enterprise-dashboard.log{{< /highlight >}}
 
-You can view the Sensu Enterprise logs at the paths above, or provide them in an archive:
+You can view the Sensu Enterprise logs at the paths above, or provide the last 10,000 lines in an archive:
 
 {{< highlight shell >}}
 tail -n 10000 /var/log/sensu/sensu-enterprise.log > sensu-enterprise-10k.log && gzip -9 sensu-enterprise-10k.log{{< /highlight >}}
@@ -79,9 +79,11 @@ _NOTE: By default, Sensu's logging level is set to `info`. However, there are mo
 Frequently, Sensu staff or community members may ask you to print your configuration.
 To print the configuration for Sensu Enterprise:
 
-{{< highlight shell >}}sudo -u sensu java -jar /usr/lib/sensu-enterprise/sensu-enterprise.jar -c /etc/sensu/config.json -d /etc/sensu/conf.d --print_config | tee se-config.json{{< /highlight >}}
+{{< highlight shell >}}sudo -u sensu java -jar /usr/lib/sensu-enterprise/sensu-enterprise.jar -c /etc/sensu/config.json -d /etc/sensu/conf.d --print_config | tee /tmp/se-config.json{{< /highlight >}}
 
-This command will result in output that will list the entire configuration for your Sensu deployment. This can be especially useful when comparing the configuration that Sensu is aware of, versus the configuration living on-disk. If the values of a particular file differ from what you're expecting, then see the next section for how to proceed.
+This command will create a file (`/tmp/se-config.json`) containing the entire configuration for your Sensu deployment.
+This can be especially useful when comparing the configuration that Sensu is aware of, versus the configuration living on-disk.
+If the values of a particular file differ from what you're expecting, then see the next section for how to proceed.
 
 ### Resolving Private Key Errors
 
