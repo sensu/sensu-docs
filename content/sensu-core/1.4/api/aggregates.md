@@ -53,6 +53,7 @@ $ curl -s http://localhost:4567/aggregates | jq .
 ------------------|------
 description       | Returns the list of named aggregates.
 example url       | http://hostname:4567/aggregates
+pagination        | see [pagination][4]
 parameters        | <ul><li>`max_age`:<ul><li>**required**: false</li><li>**type**: Integer</li><li>**description**: the maximum age of results to include, in seconds.</li></ul></li></ul>
 response type     | Array
 response codes    | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
@@ -317,3 +318,4 @@ output                                    | {{< highlight json >}}[
 [1]:  ../../reference/aggregates
 [2]:  https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
 [3]:  https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html
+[4]:  ../overview#pagination
