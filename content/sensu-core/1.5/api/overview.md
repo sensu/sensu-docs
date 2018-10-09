@@ -45,9 +45,9 @@ request, e.g.
 `/events?filter.client.environment=production&filter.check.contact=ops`.
 
 ## Response Content Pagination {#pagination}
-By default, the Sensu API will return all of the results. And sometimes this result can be massive.
+By default, the Sensu API will return all available results, but sometimes this result can be massive.
 To paginate the returned result, the `limit` and `offset` query string parameters can be used.
-This method also set the "X-Pagination" HTTP response header to a JSON object containing the `limit`, `offset` and `total` number of items that are being paginated.
+This method also sets the "X-Pagination" HTTP response header to a JSON object containing the `limit`, `offset`, and `total` number of items that are being paginated.
 
 parameters  |  description
 ------------|----------
@@ -55,7 +55,7 @@ limit       |  The number of items to return
 offset      |  The number of items to offset before returning.
 
 ### Examples
-The following example demonstrates a /clients API query with limit=1 and offset=1
+The following example demonstrates a /clients API query with limit=1 and offset=1.
 {{< highlight shell >}}
 $ curl -i 'http://127.0.0.1:4567/clients?limit=1&offset=1'
 
