@@ -141,7 +141,7 @@ example      | {{< highlight shell >}}"actions": ["ViewLogs", "ShowProcesses"]{{
 
 tags         | 
 -------------|------
-description  | An array of OpsGenie alert tags that will be added to created alerts. _PRO TIP: Augment the tags applied to each measurement by specifying additional OpsGenie tags in check and client definitions. See the Sensu Core reference docs to configure OpsGenie [check attributes][6] and [client attributes][7]._
+description  | An array of OpsGenie alert tags that will be added to created alerts. _PRO TIP: Augment the tags applied to each incident by specifying additional OpsGenie tags in check and client definitions. See the Sensu Core reference docs to configure OpsGenie [check attributes][6] and [client attributes][7]._
 required     | false
 type         | Array
 default      | `[]`
