@@ -60,6 +60,10 @@ following improvements:
   See the [integration docs][timescale] to create a pipeline to store monitoring
   event metrics with TimescaleDB.
 
+- **NEW**: Introducing Docker for Sensu Enterprise!
+  [Submit a support request through the Sensu account portal][support-ticket]
+  to request access to the official Docker image for Sensu Enterprise.
+
 - **IMPROVEMENT**: The [InfluxDB][influx] and [OpsGenie][og] integrations now
   support custom tags specified in client and check definitions. See the Sensu
   Core reference docs to configure [check attributes][core-check-influx] and
@@ -732,3 +736,4 @@ This release includes potentially breaking, backwards-incompatible changes:
 [graphite]: ../integrations/graphite
 [wave]: ../integrations/wavefront
 [open]: ../integrations/opentsdb
+[support-ticket]: https://account.sensu.io/support
