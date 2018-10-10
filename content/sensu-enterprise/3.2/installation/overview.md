@@ -67,7 +67,7 @@ please complete the following sections of the Sensu installation guide:
 ### Deploying Sensu Enterprise with Docker
 
 Interested in deploying Sensu Enterprise with Docker?
-[Submit a support request through the Sensu account portal][10] to request access to the official Docker image for Sensu Enterprise.
+[Submit a support request through the Sensu account portal][10] to request access to the [official Docker image for Sensu Enterprise][11].
 
 {{< platformBlockClose >}}
 
@@ -234,3 +234,4 @@ sudo update-rc.d sensu-enterprise-dashboard defaults
 [8]: ../../built-in-filters/
 [9]: /sensu-enterprise-dashboard/latest/rbac/overview
 [10]: https://account.sensu.io/support
+[11]: https://hub.docker.com/r/sensu/sensu-classic-enterprise/
