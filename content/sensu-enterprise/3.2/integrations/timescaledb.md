@@ -12,17 +12,21 @@ users only.**
 
 - [Overview](#overview)
 - [Configuration](#configuration)
-  - [Example(s)](#examples)
+  - [Examples](#examples)
   - [Integration Specification](#integration-specification)
     - [`timescaledb` attributes](#timescaledb-attributes)
 
 ## Overview
 
-Send metrics to [TimescaleDB][2] using a PostgreSQL connection.
+[TimescaleDB][2] is an open source time series database powered by PostgreSQL.
+This integration allows Sensu Enterprise to send metrics directly to TimescaleDB using the [PostgreSQL protocol][4].
 
 ## Configuration
 
-### Example(s) {#examples}
+The TimescaleDB integration requires a TimescaleDB user with access privileges for an existing table.
+Configure the TimescaleDB database, table, and user before integrating with Sensu.
+
+### Examples {#examples}
 
 The following is an example global configuration for the Sensu Enterprise
 TimescaleDB integration.
@@ -68,7 +72,7 @@ example      | {{< highlight shell >}}"port": 5432{{< /highlight >}}
 
 user         | 
 -------------|------
-description  | The TimescaleDB username.
+description  | The TimescaleDB username. This user must have access privileges for the table specified in the `table` attribute.
 required     | false
 type         | String
 default      | `postgres`
@@ -84,7 +88,7 @@ example      | {{< highlight shell >}}"password": "secret"{{< /highlight >}}
 
 database     | 
 -------------|------
-description  | The TimescaleDB database (name) to use.
+description  | The TimescaleDB database name.
 required     | false
 type         | String
 default      | `sensu`
@@ -92,7 +96,7 @@ example      | {{< highlight shell >}}"database": "sensu"{{< /highlight >}}
 
 table        | 
 -------------|------
-description  | The TimescaleDB table name.
+description  | The TimescaleDB table where Sensu will send metrics. See the [TimescaleDB docs][5] for information about creating a table.
 required     | false
 type         | String
 default      | `metrics`
@@ -110,6 +114,8 @@ example      | {{< highlight shell >}}
 }
 {{< /highlight >}}
 
-[1]:  /sensu-enterprise
-[2]:  https://www.timescale.com/
-[3]:  /sensu-core/latest/reference/configuration#configuration-scopes
+[1]: /sensu-enterprise
+[2]: https://www.timescale.com/
+[3]: /sensu-core/latest/reference/configuration#configuration-scopes
+[4]: https://www.postgresql.org/docs/current/static/protocol.html
+[5]: https://docs.timescale.com
