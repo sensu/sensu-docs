@@ -54,6 +54,8 @@ handler (integration).
 The following attributes are configured within the `{"wavefront": {} }`
 [configuration scope][3].
 
+_PRO TIP: You can override `wavefront` attributes on a per-contact basis using [contact routing][6]._
+
 host         | 
 -------------|------
 description  | The Wavefront host address.
@@ -88,3 +90,4 @@ example        | {{< highlight shell >}}
 [3]:  /sensu-core/1.2/reference/configuration#configuration-scopes
 [4]:  https://community.wavefront.com/docs/DOC-1031
 [5]:  https://community.wavefront.com/docs/DOC-1041
+[6]: ../../contact-routing

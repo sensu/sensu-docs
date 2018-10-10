@@ -60,7 +60,7 @@ $ curl -s -X GET http://localhost:4567/silenced |jq .
 ----------------|------
 description     | Returns a list of silence entries.
 example url     | http://hostname:4567/silenced
-parameters      | <ul><li>`limit`:<ul><li>**required**: false</li><li>**type**: Integer</li><li>**description**: The number of silence entries to return.</li></ul><li>`offset`:<ul><li>**required**: false</li><li>**type**: Integer</li><li>**depends**: `limit`</li><li>**description**: The number of silence entries to offset before returning items.</li></ul></li></ul>
+pagination      | see [pagination][1]
 response type   | Array
 response codes  | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output          | {{< highlight json >}}[
@@ -163,6 +163,7 @@ $ curl -s -X GET http://localhost:4567/silenced/ids/load-balancer:check_haproxy 
 ------------------------|------
 description             | Returns a specific silenced override by it's ID.
 example url             | http://hostname:4567/silenced/webserver:check_nginx
+pagination              | see [pagination][1]
 response type           | Hash
 response codes          | <ul><li>**Success**: 200 (OK)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output                  | {{< highlight json >}}{
@@ -289,8 +290,8 @@ $ curl -s -X GET http://localhost:4567/silenced/subscriptions/load-balancer | jq
 --------------------------------------------|------
 description                                 | Returns a list of silence entries matching the specified subscription name.
 example url                                 | http://hostname:4567/silenced/subscriptions/load-balancer
+pagination                                  | see [pagination][1]
 response type                               | Array
-parameters                                  | <ul><li>`limit`<ul><li>**required**: false</li><li>**type**: Integer</li><li>**description**: The number of clients to return.</li><li>**example**: `http://hostname:4567/subscriptions/load-balancer?limit=100`</li></ul></li><li>`offset`<ul><li>**required**: false</li><li>**type**: Integer</li><li>**depends**: `limit`</li><li>**description**: The number of clients to offset before returning items.</li><li>**example**: `http://hostname:4567/subscriptions/load-balancer?limit=100&offset=100`</li></ul></li></ul>
 response codes                              | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 ### `/silenced/checks/:check` (GET) {#silenced-checks-get}
@@ -329,6 +330,8 @@ $ curl -s -X GET http://localhost:4567/silenced/checks/check_ntpd | jq .
 ------------------------------|------
 desc                          | Returns a list of silence entries matching the specified check name.
 example url                   | http://hostname:4567/silenced/checks/check_ntpd
+pagination                    | see [pagination][1]
 response type                 | Array
-parameters                    | <ul><li>`limit`<ul><li>**required**: false</li><li>**type**: Integer</li><li>**description**: The number of silence entries to return.</li><li>**example**: `http://hostname:4567/silenced/checks/check_ntpd?limit=100`</li></ul></li><li>`offset`<ul><li>**required**: false</li><li>**type**: Integer</li><li>**depends**: `limit`</li><li>**description**: The number of clients to offset before returning items.</li><li>**example**: `http://hostname:4567/silenced/checks/check_ntpd?limit=100&offset=100`</li></ul></li></ul>
 response codes                | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+
+[1]:  ../overview#pagination
