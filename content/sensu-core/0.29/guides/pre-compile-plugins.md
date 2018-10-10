@@ -98,8 +98,8 @@ Here we've copied the compiled gems to a system with Sensu installed, but no gcc
  _NOTE: nokogiri needs libxml2 and libxslt to be present on your system._
 
 {{< highlight shell >}}
-# /opt/sensu/embedded/bin/gem install unf_ext-0.0.7.5-x86_64-linux.gem
-# /opt/sensu/embedded/bin/gem install nokogiri-1.8.5-x86_64-linux.gem{{< /highlight >}}
+sudo /opt/sensu/embedded/bin/gem install unf_ext-0.0.7.5-x86_64-linux.gem
+sudo /opt/sensu/embedded/bin/gem install nokogiri-1.8.5-x86_64-linux.gem{{< /highlight >}}
 
 ### Install pre-complied Sensu plugins
 With these prerequisites in place we can install sensu-plugins-aws without a compiler. You can use `sensu-install` or `gem` commands:
@@ -132,9 +132,9 @@ Successfully installed sensu-plugins-aws-10.0.3
 To test our pre-compiled gems we can use `check-elb-health-fog.rb` as it should exercise the nokogiri dependency:
 
 {{< highlight shell >}}
-# export AWS_ACCESS_KEY=fatchance
-# export AWS_SECRET_KEY=noway
-# /opt/sensu/embedded/bin/check-elb-health-fog.rb -n foo -r us-east-1
+sudo export AWS_ACCESS_KEY=fatchance
+sudo export AWS_SECRET_KEY=noway
+sudo /opt/sensu/embedded/bin/check-elb-health-fog.rb -n foo -r us-east-1
 ELBHealth WARNING: An issue occured while communicating with the AWS EC2 API:
 There is no ACTIVE Load Balancer named 'foo'{{< /highlight >}}
 
