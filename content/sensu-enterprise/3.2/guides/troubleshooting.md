@@ -87,9 +87,9 @@ If the values of a particular file differ from what you're expecting, then see t
 
 ### Resolving Private Key Errors
 
-Sensu Enterprise can use PEM-formatted TLS/SSL certificates and private keys to secure communication with Redis, RabbitMQ, and the Sensu Enterprise Dashboard.
+Sensu Enterprise can use PEM-formatted TLS/SSL certificates and private keys to secure communication with Redis and RabbitMQ.
 (See the [securing Sensu guide][3] for more information.)
-These keys must be in a plain, unencrypted format, otherwise you may see the following error:
+These keys must be in a plaintext, unencrypted format, otherwise you may see the following error:
 
 {{< highlight text >}}
 Unexpected exception: undefined method `get_private_key_info' for #
@@ -97,7 +97,7 @@ An error was encountered while loading an SSL private key.
 {{< /highlight >}}
 
 If you see the word `ENCRYPTED` in the first few lines of the PEM private key, the key is in an unsupported, encrypted format.
-You can resolve this issue by converting the key to a plain format using the OpenSSL RSA key processing tool:
+You can resolve this issue by converting the key to a plaintext format using the OpenSSL RSA key processing tool:
 
 {{< highlight shell >}}
 openssl rsa -in [encrypted.pem] -out [plaintext.pem]
