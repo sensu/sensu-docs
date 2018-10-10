@@ -23,8 +23,38 @@ This integration allows Sensu Enterprise to send metrics directly to TimescaleDB
 
 ## Configuration
 
-The TimescaleDB integration requires a TimescaleDB user with access privileges for an existing table.
-Configure the TimescaleDB database, table, and user before integrating with Sensu.
+The TimescaleDB integration requires a TimescaleDB table with following columns and types.
+
+| column | type | reference |
+| --- | --- | --- |
+| `time` | `timestamptz` | [Date/Time Types][6]
+| `name` | `text` | [Character Types][7]
+| `value` | `double precision` | [Numeric Types][8]
+| `source` | `text` | [Character Types][7]
+| `tags` | `jsonb` | [JSON Types][9]
+
+For example, the following commands create a `sensu` database, a `metrics` table with the required table structure, and a `sensu` user with access privileges for the `metrics` table:
+
+{{< highlight shell >}}
+CREATE database sensu;
+
+\c sensu
+
+CREATE EXTENSION IF NOT EXISTS timescaledb CASCADE;
+
+CREATE TABLE metrics (
+    time    TIMESTAMPTZ        NOT NULL,
+    name    TEXT               NOT NULL,
+    value   DOUBLE PRECISION   NULL,
+    source  TEXT               NOT NULL,
+    tags    JSONB
+);
+
+SELECT create_hypertable('metrics', 'time');
+
+CREATE USER sensu WITH PASSWORD 'secret';
+GRANT ALL PRIVILEGES ON TABLE metrics TO sensu;
+{{< /highlight >}}
 
 ### Examples {#examples}
 
@@ -96,7 +126,7 @@ example      | {{< highlight shell >}}"database": "sensu"{{< /highlight >}}
 
 table        | 
 -------------|------
-description  | The TimescaleDB table where Sensu will send metrics. See the [TimescaleDB docs][5] for information about creating a table.
+description  | The TimescaleDB table where Sensu will send metrics, configured with [required columns and types][10]. See the [TimescaleDB docs][5] for information about creating a table.
 required     | false
 type         | String
 default      | `metrics`
@@ -119,3 +149,8 @@ example      | {{< highlight shell >}}
 [3]: /sensu-core/latest/reference/configuration#configuration-scopes
 [4]: https://www.postgresql.org/docs/current/static/protocol.html
 [5]: https://docs.timescale.com
+[6]: https://www.postgresql.org/docs/current/static/datatype-datetime.html
+[7]: https://www.postgresql.org/docs/current/static/datatype-character.html
+[8]: https://www.postgresql.org/docs/current/static/datatype-numeric.html
+[9]: https://www.postgresql.org/docs/current/static/datatype-json.html
+[10]: #configuration
