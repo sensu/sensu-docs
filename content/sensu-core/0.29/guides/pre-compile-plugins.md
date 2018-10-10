@@ -105,7 +105,7 @@ Here we've copied the compiled gems to a system with Sensu installed, but no gcc
 With these prerequisites in place we can install sensu-plugins-aws without a compiler. You can use `sensu-install` or `gem` commands:
 
 {{< highlight shell >}}
-# sensu-install -p aws
+sudo /op/sensu/embedded/bin/sensu-install -p aws
 [SENSU-INSTALL] installing Sensu plugins ...
 [SENSU-INSTALL] determining if Sensu gem 'sensu-plugins-aws' is already installed ...
 false
