@@ -36,7 +36,7 @@ We'll first add the Sensu yum repository definition and install Sensu
 {{< highlight shell >}}
 printf '[sensu]
 name=sensu
-baseurl=https://repositories.sensuapp.org/yum/#releasever/#basearch/
+baseurl=https://repositories.sensuapp.org/yum/$releasever/$basearch/
 gpgcheck=0
 enabled=1' | sudo tee /etc/yum.repos.d/sensu.repo && sudo yum install -y sensu{{< /highlight >}}
 
