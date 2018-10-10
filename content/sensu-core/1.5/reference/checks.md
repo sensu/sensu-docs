@@ -730,7 +730,7 @@ Enterprise InfluxDB integration][62].**
 
 tags           | 
 ---------------|------
-description    | Configurable custom tags (key/value pairs) to add to every InfluxDB measurement.
+description    | Custom tags (key/value pairs) to add to every InfluxDB measurement. Check tags will override any [InfluxDB integration tags][62] with the same key.
 required       | false
 type           | Hash
 default        | {{< highlight shell >}}{}{{< /highlight >}}

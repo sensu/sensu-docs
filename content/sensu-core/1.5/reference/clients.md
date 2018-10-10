@@ -1161,7 +1161,7 @@ Enterprise InfluxDB integration][62].**
 
 tags           | 
 ---------------|------
-description    | Configurable custom tags (key/value pairs) to add to every InfluxDB measurement.
+description    | Custom tags (key/value pairs) to add to every InfluxDB measurement. Client tags will override any [InfluxDB check tags][65] or [InfluxDB integration tags][62] with the same key.
 required       | false
 type           | Hash
 default        | {{< highlight shell >}}{}{{< /highlight >}}
@@ -1338,3 +1338,4 @@ information for operations teams can be extremely valuable._
 [62]: /sensu-enterprise/latest/integrations/influxdb
 [63]: #opsgenie-attributes
 [64]: /sensu-enterprise/latest/integrations/opsgenie
+[65]: ../checks#influxdb-attributes
