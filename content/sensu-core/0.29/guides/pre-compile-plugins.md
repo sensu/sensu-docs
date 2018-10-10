@@ -26,7 +26,7 @@ This guide assumes the following:
 * Centos 7 platform
 * You have some way to store these artifacts and make them available for systems in your environment
 
-_NOTE: Compiled gems are tied to the Ruby version they are compiled for. If Sensu upgrade Ruby 2.4 -> Ruby 2.5, packages will need to be rebuilt._
+_NOTE: Compiled gems are tied to the Ruby version they are compiled for. If Sensu upgrades Ruby 2.4 -> Ruby 2.5, packages will need to be rebuilt._
 _NOTE: Compiled gems are tied to CPU architecture for which they are compiled on._
 
 ## Installing The Build Toolchain
