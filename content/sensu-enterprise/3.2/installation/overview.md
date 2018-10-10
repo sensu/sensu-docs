@@ -5,7 +5,7 @@ weight: 1
 product: "Sensu Enterprise"
 version: "3.2"
 platformContent: true
-platforms: ["RHEL/CentOS", "Ubuntu/Debian"]
+platforms: ["RHEL/CentOS", "Ubuntu/Debian", "Docker"]
 menu:
   sensu-enterprise-3.2:
     parent: installation
@@ -60,6 +60,14 @@ please complete the following sections of the Sensu installation guide:
 1. [Install and Configure Redis](/sensu-core/latest/installation/install-redis-on-ubuntu-debian)
 2. [Install and Configure RabbitMQ](/sensu-core/latest/installation/install-rabbitmq-on-ubuntu-debian)
 3. [Install Sensu Enterprise](/sensu-core/latest/platforms/sensu-on-ubuntu-debian/#sensu-enterprise)
+
+{{< platformBlockClose >}}
+
+{{< platformBlock "Docker" >}}
+### Deploying Sensu Enterprise with Docker
+
+Interested in deploying Sensu Enterprise with Docker?
+[Submit a support request through the Sensu account portal][10] to request access to the official Docker image for Sensu Enterprise.
 
 {{< platformBlockClose >}}
 
@@ -225,3 +233,4 @@ sudo update-rc.d sensu-enterprise-dashboard defaults
 [7]: /sensu-core/latest/api/health-and-info/#health-get
 [8]: ../../built-in-filters/
 [9]: /sensu-enterprise-dashboard/latest/rbac/overview
+[10]: https://account.sensu.io/support
