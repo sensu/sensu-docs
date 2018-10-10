@@ -56,7 +56,7 @@ following improvements:
 
 ### CHANGES {#enterprise-v3-2-0-changes}
 
-- **NEW**: Sensu Enterprise now includes a built-in integration with TimescaleDB.
+- **NEW**: Sensu Enterprise 3.2 includes a built-in integration with TimescaleDB.
   See the [integration docs][timescale] to create a pipeline to store monitoring
   event metrics with TimescaleDB.
 
@@ -67,9 +67,9 @@ following improvements:
   and [client attributes][core-client-opsgenie] for OpsGenie.
 
 - **IMPROVEMENT**: The [Graphite][graphite], [OpenTSDB][open], and [Wavefront][wave]
-  integrations now support configurable retry logic for event handling. Configure
-  the `retry_limit` and `retry_delay` attributes to customize event handling per
-  integration or per contact.
+  integrations now provide more robust event handling with automated retries.
+  Configure the `retry_limit` and `retry_delay` attributes to customize
+  retry logic per integration or per contact.
 
 - **IMPROVEMENT**: Sensu Enterprise 3.2 includes improved error messaging for
   a common issue with unsupported formats for private keys. See the
