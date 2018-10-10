@@ -36,7 +36,7 @@ We'll first add the Sensu yum repository definition and install Sensu
 {{< highlight shell >}}
 printf '[sensu]
 name=sensu
-baseurl=https://repositories.sensuapp.org/yum/$releasever/$basearch/
+baseurl=https://repositories.sensuapp.org/yum/#releasever/#basearch/
 gpgcheck=0
 enabled=1' | sudo tee /etc/yum.repos.d/sensu.repo && sudo yum install -y sensu{{< /highlight >}}
 
@@ -48,24 +48,21 @@ sudo yum groupinstall -y "Development Tools"
 # installing dependencies for nokogiri
 sudo yum install -y libxml2 libxslt libxslt-devel libxml2-devel gcc ruby-devel zlib-devel{{< /highlight >}}
 
-Finally we'll add Sensu's embedded bin to our path
 
-{{< highlight shell >}}
-export PATH=$PATH:/opt/sensu/embedded/bin{{< /highlight >}}
 
 ## Installing a Gem to a tmp directory
 
 Install the gem-compiler package
 
 {{< highlight shell >}}
-gem install gem-compiler{{< /highlight >}}
+sudo /opt/sensu/embedded/bin/gem install gem-compiler{{< /highlight >}}
 
 We'll now install the source gems into a cache directory
 
 {{< highlight shell >}}
 mkdir /tmp/gems
-gem install --no-ri --no-rdoc --install-dir /tmp/gems sensu-plugins-aws --version '=12.3.0'
-gem install --no-ri --no-rdoc --install-dir /tmp/gems mini_portile2 --version '=2.3.0'{{< /highlight >}}
+sudo /opt/sensu/embedded/bin/gem install --no-ri --no-rdoc --install-dir /tmp/gems sensu-plugins-aws --version '=12.3.0'
+sudo /opt/sensu/embedded/bin/gem install --no-ri --no-rdoc --install-dir /tmp/gems mini_portile2 --version '=2.3.0'{{< /highlight >}}
 
 Observing the `gem install` output, we can see that nokogiri and unf_ext both build native extensions.
 These are the gems we will compile so we can install them from our own repository.
@@ -76,8 +73,8 @@ We'll use `gem-compiler` to rebuild the gem packages with the included native ex
 
 {{< highlight shell >}}
 cd /tmp/gems/cache
-gem compile unf_ext-0.0.7.5.gem
-gem compile nokogiri-1.8.5.gem --prune -- --use-system-libraries{{< /highlight >}}
+sudo /opt/sensu/embedded/bin/gem compile unf_ext-0.0.7.5.gem
+sudo /opt/sensu/embedded/bin/gem compile nokogiri-1.8.5.gem --prune -- --use-system-libraries{{< /highlight >}}
 
 _NOTE: `nokogiri` requires --prune flag per gem-compiler readme notes_
 _NOTE: For `nokogiri` we also use `-- --use-system-libraries` so `gem compile` uses the system gcc and lib's installed earlier_
@@ -86,7 +83,7 @@ _NOTE: For `nokogiri` we also use `-- --use-system-libraries` so `gem compile` u
 The resulting compiled gem files have a x86_64-linux in their file name denoting their system architech:
 
 {{< highlight shell >}}
-$ ls  -1 *-x86_64-linux.gem
+# ls  -1 *-x86_64-linux.gem
 nokogiri-1.8.5-x86_64-linux.gem
 unf_ext-0.0.7.5-x86_64-linux.gem{{< /highlight >}}
 
@@ -98,17 +95,17 @@ In a production or development enviroment, you'd want to put these in a rubygems
 
 Here we've copied the compiled gems to a system with Sensu installed, but no gcc or other compile toolchain
 
- _NOTE: nokogiri needs libxml2 and possibly libxslt to be present on your system._
+ _NOTE: nokogiri needs libxml2 and libxslt to be present on your system._
 
 {{< highlight shell >}}
-$ /opt/sensu/embedded/bin/gem install unf_ext-0.0.7.5-x86_64-linux.gem
-$ /opt/sensu/embedded/bin/gem install nokogiri-1.8.5-x86_64-linux.gem{{< /highlight >}}
+# /opt/sensu/embedded/bin/gem install unf_ext-0.0.7.5-x86_64-linux.gem
+# /opt/sensu/embedded/bin/gem install nokogiri-1.8.5-x86_64-linux.gem{{< /highlight >}}
 
-### Install Sensu plugins as normal
+### Install pre-complied Sensu plugins
 With these prerequisites in place we can install sensu-plugins-aws without a compiler. You can use `sensu-install` or `gem` commands:
 
 {{< highlight shell >}}
-$ sensu-install -p aws
+# sensu-install -p aws
 [SENSU-INSTALL] installing Sensu plugins ...
 [SENSU-INSTALL] determining if Sensu gem 'sensu-plugins-aws' is already installed ...
 false
@@ -135,8 +132,14 @@ Successfully installed sensu-plugins-aws-10.0.3
 To test our pre-compiled gems we can use `check-elb-health-fog.rb` as it should exercise the nokogiri dependency:
 
 {{< highlight shell >}}
-$ export AWS_ACCESS_KEY=fatchance
-$ export AWS_SECRET_KEY=noway
-$ /opt/sensu/embedded/bin/check-elb-health-fog.rb -n foo -r us-east-1
+# export AWS_ACCESS_KEY=fatchance
+# export AWS_SECRET_KEY=noway
+# /opt/sensu/embedded/bin/check-elb-health-fog.rb -n foo -r us-east-1
 ELBHealth WARNING: An issue occured while communicating with the AWS EC2 API:
 There is no ACTIVE Load Balancer named 'foo'{{< /highlight >}}
+
+_NOTE: This is to demostrate that there are no errors while executing the plugin._
+
+## Recap
+
+
