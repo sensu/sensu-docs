@@ -105,7 +105,7 @@ sudo /opt/sensu/embedded/bin/gem install nokogiri-1.8.5-x86_64-linux.gem{{< /hig
 With these prerequisites in place we can install sensu-plugins-aws without a compiler. You can use `sensu-install` or `gem` commands:
 
 {{< highlight shell >}}
-sudo /op/sensu/embedded/bin/sensu-install -p aws
+sudo /opt/sensu/embedded/bin/sensu-install -p aws
 [SENSU-INSTALL] installing Sensu plugins ...
 [SENSU-INSTALL] determining if Sensu gem 'sensu-plugins-aws' is already installed ...
 false
