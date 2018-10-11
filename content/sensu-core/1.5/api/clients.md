@@ -60,8 +60,7 @@ $ curl -s http://127.0.0.1:4567/clients | jq .
 
 _NOTE: for larger Sensu installations it may be undesirable to get the entire
 [client registry][1] in a single API request. The `/clients` API provides
-pagination controls via the [`limit` and `offset` url parameters][7] (see
-below)._
+[pagination controls via url parameters][7]
 
 #### API Specification {#clients-get-specification}
 
@@ -69,7 +68,7 @@ below)._
 ---------------|------
 description    | Returns a list of clients.
 example url    | http://hostname:4567/clients
-parameters     | <ul><li>`limit`<ul><li>**required**: false</li><li>**type**: Integer</li><li>**description**: The number of clients to return.</li><li>**example**: `http://hostname:4567/clients?limit=100`</li></ul></li><li>`offset`<ul><li>**required**: false</li><li>**type**: Integer</li><li>**depends**: `limit`</li><li>**description**: The number of clients to offset before returning items.</li><li>**example**: `http://hostname:4567/clients?limit=100&offset=100`</li></ul></li></ul>
+pagination     | see [pagination][7]
 response type  | Array
 response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output         | {{< highlight shell >}}[
@@ -282,4 +281,4 @@ functionality than the newer alternative.
 [4]:  #clients-post
 [5]:  https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
 [6]:  ../results
-[7]:  #clients-get-specification
+[7]:  ../overview#pagination
