@@ -270,11 +270,11 @@ Sensu Enterprise Console API access controls may be fine tuned using the
           "methods": {
             "get": [],
             "post": [
-              "clients",
               "stashes"
             ],
             "delete": [
-              "none"
+              "clients",
+              "events"
             ]
           }
         }
@@ -291,7 +291,7 @@ get            |
 description    | Used to configure HTTP `GET` access to one or more [Sensu Enterprise Console API][14] endpoints.
 required       | false
 type           | Array of Strings
-allowed values | `aggregates`, `checks`, `clients`, `events`, `results`, `stashes`, `subscriptions`, and `datacenters`.
+allowed values | `aggregates`, `checks`, `clients`, `datacenters`, `events`, `stashes`, `subscriptions`
 default        | `[]` (an empty array, which is equivalent to "allow all")
 example        | {{< highlight shell >}}"methods": {
   "get": [
@@ -307,13 +307,11 @@ post           |
 description    | Used to configure HTTP `POST` access to one or more [Sensu Enterprise Console API][14] endpoints.
 required       | false
 type           | Array of Strings
-allowed values | `aggregates`, `checks`, `clients`, `events`, `results`, `stashes`, `subscriptions`, and `datacenters`.
+allowed values | `results`, `stashes`
 default        | `[]` (an empty array, which is equivalent to "allow all")
 example        | {{< highlight shell >}}"methods": {
   "post": [
-    "clients",
-    "checks",
-    "events"
+    "results"
   ]
 }
 {{< /highlight >}}
@@ -323,12 +321,11 @@ delete         |
 description    | Used to configure HTTP `DELETE` access to one or more [Sensu Enterprise Console API][14] endpoints.
 required       | false
 type           | Array of Strings
-allowed values | `aggregates`, `checks`, `clients`, `events`, `results`, `stashes`, `subscriptions`, and `datacenters`.
+allowed values | `aggregates`, `clients`, `events`, `results`, `stashes`
 default        | `[]` (an empty array, which is equivalent to "allow all")
 example        | {{< highlight shell >}}"methods": {
   "delete": [
     "clients",
-    "checks",
     "events"
   ]
 }
@@ -339,7 +336,7 @@ head           |
 description    | Used to configure HTTP `HEAD` access to one or more [Sensu Enterprise Console API][14] endpoints.
 required       | false
 type           | Array of Strings
-allowed values | `aggregates`, `checks`, `clients`, `events`, `results`, `stashes`, `subscriptions`, and `datacenters`.
+allowed values | `aggregates`, `checks`, `clients`, `datacenters`, `events`, `stashes`, `subscriptions`
 default        | `[]` (an empty array, which is equivalent to "allow all")
 example        | {{< highlight shell >}}"methods": {
   "head": [
@@ -365,9 +362,9 @@ example        | {{< highlight shell >}}"methods": {
 [10]: #driver-attributes
 [11]: https://github.com/orgs/sensu/teams/docs
 [12]: https://gitlab.com/groups/heavywater
-[14]: ../../#what-is-the-sensu-enterprise-console
+[14]: ../../api/overview
 [15]: #roles-attributes
-[16]: /sensu-core/latest/api/clients
+[16]: ../../api/clients
 [17]: /sensu-core/latest/reference/configuration#configuration-scopes
 [18]: #methods-attributes
 [19]: #providing-an-access-token
