@@ -11,6 +11,8 @@ _NOTE: Sensu Enterprise is built on Sensu Core. Sensu Core changes are documente
 
 ## Releases
 
+- [Enterprise 3.2.2 Release Notes](#enterprise-v3-2-2)
+- [Enterprise 3.2.1 Release Notes](#enterprise-v3-2-1)
 - [Enterprise 3.2.0 Release Notes](#enterprise-v3-2-0)
 - [Enterprise 3.1.0 Release Notes](#enterprise-v3-1-0)
 - [Enterprise 3.0.3 Release Notes](#enterprise-v3-0-3)
@@ -47,6 +49,28 @@ _NOTE: Sensu Enterprise is built on Sensu Core. Sensu Core changes are documente
 - [Enterprise 1.14.1 Release Notes](#enterprise-v1-14-1)
 - [Enterprise 1.14.0 Release Notes](#enterprise-v1-14-0)
 - [Enterprise 1.13.0 Release Notes](#enterprise-v1-13-0)
+
+## Enterprise 3.2.2 Release Notes {#enterprise-v3-2-2}
+
+**October 11, 2018** &mdash; Sensu Enterprise version 3.2.2 has been
+released and is available for immediate download. Please note the
+following improvements:
+
+### CHANGES {#enterprise-v3-2-2-changes}
+
+- **BUGFIX**: Sensu Enterprise 3.2.2 fixes a bug in the Sensu transport
+  causing exceptions while handling connections.
+
+## Enterprise 3.2.1 Release Notes {#enterprise-v3-2-1}
+
+**October 11, 2018** &mdash; Sensu Enterprise version 3.2.1 has been
+released and is available for immediate download. Please note the
+following improvements:
+
+### CHANGES {#enterprise-v3-2-1-changes}
+
+- **BUGFIX**: Sensu Enterprise 3.2.1 removes an incorrect error message resulting
+  from unconfigured integration tags in check and client definitions.
 
 ## Enterprise 3.2.0 Release Notes {#enterprise-v3-2-0}
 
