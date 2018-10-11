@@ -100,7 +100,7 @@ example        | {{< highlight shell >}}"api_version": "0.9"{{< /highlight >}}
 
 tags           | 
 ---------------|------
-description    | Configurable custom tags (key/value pairs) to add to every InfluxDB measurement.
+description    | Configurable custom tags (key/value pairs) to add to every InfluxDB measurement. _PRO TIP: Augment the tags applied to each measurement by specifying additional InfluxDB tags in check and client definitions. See the Sensu Core reference docs to configure InfluxDB [check attributes][4] and [client attributes][5]._
 required       | false
 type           | Hash
 default        | {{< highlight shell >}}{}{{< /highlight >}}
@@ -131,3 +131,5 @@ example      | {{< highlight shell >}}"ssl": true{{< /highlight >}}
 [1]:  /sensu-enterprise
 [2]:  https://influxdata.com?ref=sensu-enterprise
 [3]:  /sensu-core/1.2/reference/configuration#configuration-scopes
+[4]:  /sensu-core/latest/reference/checks#influxdb-attributes
+[5]:  /sensu-core/latest/reference/clients#influxdb-attributes
