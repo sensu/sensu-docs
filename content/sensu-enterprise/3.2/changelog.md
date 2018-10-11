@@ -11,6 +11,9 @@ _NOTE: Sensu Enterprise is built on Sensu Core. Sensu Core changes are documente
 
 ## Releases
 
+- [Enterprise 3.2.2 Release Notes](#enterprise-v3-2-2)
+- [Enterprise 3.2.1 Release Notes](#enterprise-v3-2-1)
+- [Enterprise 3.2.0 Release Notes](#enterprise-v3-2-0)
 - [Enterprise 3.1.0 Release Notes](#enterprise-v3-1-0)
 - [Enterprise 3.0.3 Release Notes](#enterprise-v3-0-3)
 - [Enterprise 3.0.2 Release Notes](#enterprise-v3-0-2)
@@ -46,6 +49,83 @@ _NOTE: Sensu Enterprise is built on Sensu Core. Sensu Core changes are documente
 - [Enterprise 1.14.1 Release Notes](#enterprise-v1-14-1)
 - [Enterprise 1.14.0 Release Notes](#enterprise-v1-14-0)
 - [Enterprise 1.13.0 Release Notes](#enterprise-v1-13-0)
+
+## Enterprise 3.2.2 Release Notes {#enterprise-v3-2-2}
+
+**October 11, 2018** &mdash; Sensu Enterprise version 3.2.2 has been
+released and is available for immediate download. Please note the
+following improvements:
+
+### CHANGES {#enterprise-v3-2-2-changes}
+
+- **BUGFIX**: Sensu Enterprise 3.2.2 fixes a bug in the Sensu transport
+  causing exceptions while handling connections.
+
+## Enterprise 3.2.1 Release Notes {#enterprise-v3-2-1}
+
+**October 11, 2018** &mdash; Sensu Enterprise version 3.2.1 has been
+released and is available for immediate download. Please note the
+following improvements:
+
+### CHANGES {#enterprise-v3-2-1-changes}
+
+- **BUGFIX**: Sensu Enterprise 3.2.1 removes an incorrect error message resulting
+  from unconfigured integration tags in check and client definitions.
+
+## Enterprise 3.2.0 Release Notes {#enterprise-v3-2-0}
+
+**October 10, 2018** &mdash; Sensu Enterprise version 3.2.0 has been
+released and is available for immediate download. Please note the
+following improvements:
+
+### CHANGES {#enterprise-v3-2-0-changes}
+
+- **NEW**: Sensu Enterprise 3.2 includes a built-in integration with TimescaleDB.
+  See the [integration docs][timescale] to create a pipeline to store monitoring
+  event metrics with TimescaleDB.
+
+- **NEW**: Introducing Docker for Sensu Enterprise!
+  [Submit a support request through the Sensu account portal][support-ticket]
+  to request access to the official Docker image for Sensu Enterprise.
+
+- **IMPROVEMENT**: The [InfluxDB][influx] and [OpsGenie][og] integrations now
+  support custom tags specified in client and check definitions. See the Sensu
+  Core reference docs to configure [check attributes][core-check-influx] and
+  [client attributes][core-client-influx] for InfluxDB and [check attributes][core-check-opsgenie]
+  and [client attributes][core-client-opsgenie] for OpsGenie.
+
+- **IMPROVEMENT**: The [Graphite][graphite], [OpenTSDB][open], and [Wavefront][wave]
+  integrations now provide more robust event handling with automated retries.
+  Configure the `retry_limit` and `retry_delay` attributes to customize
+  retry logic per integration or per contact.
+
+- **IMPROVEMENT**: Sensu Enterprise 3.2 includes improved error messaging for
+  a common issue with unsupported formats for private keys. See the
+  [troubleshooting guide][troubleshooting-guide] for information about
+  identifying and resolving this error.
+
+- **BUGFIX**: Sensu Enterprise 3.2 fixes a bug in the VictorOps integration
+  that prevented events in VictorOps from resolving due to an incorrect message
+  type.
+
+Built on [Sensu Core 1.5][core-v1-5-0]:
+
+- **IMPROVEMENT**: The built-in check dependencies filter lets you
+  reduce noise by only alerting for the root cause of a given failure.
+  Sensu Core 1.5 gives you the option to specify check dependencies by subscription
+  instead of by client, making this useful filter even more flexible.
+  See the [filter reference doc](/sensu-core/1.5/reference/filters#check-dependencies-filter) for more information.
+
+- **BUGFIX**: Improved validation for check results created using the
+  results API and the client socket. Sensu now validates check result
+  attributes with the same methods used to validate check definitions.
+
+- **BUGFIX**: Fixed a bug in the Sensu package that impacted user and group
+  creation on Linux. Sensu now checks for an existing “sensu” user and group
+  against multiple providers.
+
+- **BUGFIX**: Sensu packages now include Ruby 2.4.4. This includes a fix
+  for a bug in Ruby 2.4.1 that impacted Sensu clients on AIX.
 
 ## Enterprise 3.1.0 Release Notes {#enterprise-v3-1-0}
 
@@ -666,3 +746,18 @@ This release includes potentially breaking, backwards-incompatible changes:
 
 <!-- 3.1 -->
 [core-v1-4-3]: /sensu-core/1.4/changelog/#core-v1-4-3
+
+<!-- 3.2 -->
+[core-v1-5-0]: /sensu-core/1.5/changelog/#core-v1-5-0
+[timescale]: ../integrations/timescaledb
+[troubleshooting-guide]: ../guides/troubleshooting
+[core-check-influx]: /sensu-core/latest/reference/checks#influxdb-attributes
+[core-client-influx]: /sensu-core/latest/reference/clients#influxdb-attributes
+[core-check-opsgenie]: /sensu-core/latest/reference/checks#opsgenie-attributes
+[core-client-opsgenie]: /sensu-core/latest/reference/clients#opsgenie-attributes
+[og]: ../integrations/opsgenie
+[influx]: ../integrations/influxdb
+[graphite]: ../integrations/graphite
+[wave]: ../integrations/wavefront
+[open]: ../integrations/opentsdb
+[support-ticket]: https://account.sensu.io/support
