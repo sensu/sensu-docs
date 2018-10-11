@@ -223,7 +223,7 @@ accessToken    |
 description    | A unique token for [authenticating][19] against the [Sensu Enterprise Console API][14] as a member of that role.
 required       | false
 type           | String
-allowed values | any length string that only contains URL-friendly characters. _PRO TIP: we recommend using a random string generator for access tokens; e.g.: <br><code>openssl rand -base64 40 &#124;  tr -- '+=/' '-&#95;~'</code>._
+allowed values | any length string that only contains URL-friendly characters. _PRO TIP: we recommend using a random string generator for access tokens; e.g.:_ {{< highlight shell >}}openssl rand -base64 40 | tr -- '+=/' '-_~'{{< /highlight >}}
 example        | {{< highlight shell >}}"accessToken": "OrIXC7ezuq0AZKoRHhf~oIl-98dX5B23hf8KudfcqJt5eTeQjDDGDQ__"{{< /highlight >}}
 
 methods      | 
