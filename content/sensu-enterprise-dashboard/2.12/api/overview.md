@@ -1,6 +1,7 @@
 ---
-title: "RESTful API Overview"
-description: "Overview of Sensu API endpoints"
+title: "Sensu Enterprise Console API Overview"
+linkTitle: "Overview"
+description: "Overview of Sensu Enterprise Console API endpoints"
 product: "Sensu Enterprise Dashboard"
 version: "2.12"
 weight: 1
@@ -10,12 +11,12 @@ menu:
 ---
 
 The Sensu Enterprise Console API provides access to monitoring data across datacenters,
-such as a [client registry][1], [check results][2], and [event data][3]. The API can be
-used to request adhoc check executions, and resolve events, among other things.
+including clients, checks, and events.
+Use the Console API to request adhoc check executions, silence check results, resolve events, and more.
 
 ## RESTful JSON API
 
-The Sensu API is [JSON][4]-based [RESTful API][5] using standard [HTTP response codes][6].
+The Console API is [JSON][4]-based [RESTful API][5] using standard [HTTP response codes][6].
 
 ## Reference documentation
 
@@ -26,25 +27,30 @@ The Sensu API is [JSON][4]-based [RESTful API][5] using standard [HTTP response 
 - [Datacenters API](../datacenters)
 - [Events API](../events)
 - [Results API](../results)
-- [Silencing API](../silenced)
+- [Silenced API](../silenced)
 - [Stashes API](../stashes)
 - [Subscriptions API](../subscriptions)
 
-## Response Content Filtering
+## RBAC for the Sensu Enterprise Console API
 
-Sensu API endpoints that support the `GET` HTTP method, support HTTP
-response content filtering, using one or more filter attributes. To
-use response content filtering, construct the URL for your API request
-using a dot notation query string parameter beginning with `filter.`,
-e.g. `/events?filter.client.environment=production`. The Sensu API will
-only return response content objects that match the specified response
-content filter attributes. Multiple attributes may be specified for a
-request, e.g.
-`/events?filter.client.environment=production&filter.check.contact=ops`.
+Sensu Enterprise integrates role-based access controls with the Console API to help give your users the right level of API functionality.
+See the [RBAC reference docs][7] to create role-based access tokens and define the methods (`get`, `post`, `delete`, and `head`) and APIs available to each role per API.
+To access the API using a role-based access token, provide the token as a header or query parameter.
+The examples below show an access token used to access the Events API.
 
-[1]:  ../../reference/clients#registration-and-registry
-[2]:  ../../reference/checks#check-results
-[3]:  ../../reference/events#event-data
+In a header:
+
+{{< highlight shell >}}
+$ curl -H "Authorization: token TOKEN" https://localhost:3000/events
+{{< /highlight >}}
+
+As a parameter:
+
+{{< highlight shell >}}
+$ curl https://localhost:3000/events?token=TOKEN
+{{< /highlight >}}
+
 [4]:  http://www.json.org/
 [5]:  https://en.wikipedia.org/wiki/Representational_state_transfer
 [6]:  https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
+[7]:  ../../rbac/overview/#rbac-for-the-sensu-enterprise-console-api
