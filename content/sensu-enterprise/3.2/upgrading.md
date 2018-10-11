@@ -11,12 +11,37 @@ latest package. Certain versions of Sensu Enterprise may include
 changes that are *not backwards compatible* and require additional
 steps be taken when upgrading.
 
+- [Upgrading the Sensu Enterprise package](#upgrading-the-sensu-enterprise-package)
 - [Upgrading from Sensu Enterprise < 3.0](#upgrading-from-sensu-enterprise-3-0)
 	- [Changes in OpsGenie integration](#changes-in-opsgenie-integration)
-		- [Configure OpsGenie for `responders`](#configure-opsgenie-for-responders)
-		- [Update `overwrites_quiet_hours`](#update-overwrites-quiet-hours)
 	- [Changes in Java package dependency](#changes-in-java-package-dependency)
-- [Upgrading the Sensu Enterprise package](#upgrading-the-sensu-enterprise-package)
+
+## Upgrading the Sensu Enterprise package
+
+The following instructions assume that you have already installed
+Sensu Enterprise using the steps detailed in the [Sensu
+Installation Guide][overview].
+
+_NOTE: If your machines do not have direct access to the internet and
+cannot reach the Sensu software repositories, you must mirror the
+repositories and keep them up-to-date._
+
+1. Download the latest package.<br><br>CentOS/RHEL:
+{{< highlight shell >}}
+sudo yum install sensu-enterprise{{< /highlight >}}
+Ubuntu/Debian:
+{{< highlight shell >}}
+sudo apt-get update
+sudo apt-get -y install sensu-enterprise{{< /highlight >}}
+
+2. Restart Sensu Enterprise:
+{{< highlight shell >}}
+sudo systemctl restart sensu-enterprise{{< /highlight >}}
+_NOTE: For Linux distributions using `sysvinit`, use `sudo service sensu-enterprise restart`._
+
+3. Use the [Info API][info] to confirm that Sensu Enterprise has upgraded to the [latest version][change]:
+{{< highlight shell >}}
+curl -s http://127.0.0.1:4567/info | jq .{{< /highlight >}}
 
 ## Upgrading from Sensu Enterprise < 3.0
 
@@ -119,27 +144,8 @@ The aim of this change is to help our customers stay up-to-date with
 their chosen Linux distributions and remain in compliance with security
 policies.
 
-## Upgrading the Sensu Enterprise package
-
-The following instructions assume that you have already installed
-Sensu Enterprise by using the steps detailed in the [Sensu
-Installation Guide][overview].
-
-_NOTE: If your machines do not have direct access to the internet and
-cannot reach the Sensu software repositories, you must mirror the
-repositories and keep them up-to-date._
-
-#### Ubuntu/Debian
-
-{{< highlight shell >}}
-sudo apt-get update
-sudo apt-get -y install sensu-enterprise{{< /highlight >}}
-
-#### CentOS/RHEL
-
-{{< highlight shell >}}
-sudo yum install sensu-enterprise{{< /highlight >}}
-
-[overview]:  /sensu-core/latest/installation/install-sensu-server-api/#sensu-enterprise
+[overview]: ../installation/overview
 [opsgenie-api-migration]: https://docs.opsgenie.com/docs/migration-guide-for-alert-rest-api
 [epel]: https://www.fedoraproject.org/wiki/EPEL
+[info]: /sensu-core/latest/api/health-and-info
+[change]: ../changelog
