@@ -37,7 +37,7 @@ $ curl -s http://127.0.0.1:3000/config | jq .
         "DisableKeepAlives": false,
         "Tracing": false
       },
-      "Name": "sensu-CE-sandbox",
+      "Name": "sensu1",
       "Host": "127.0.0.1",
       "Port": 4567,
       "Ssl": false,
@@ -77,7 +77,7 @@ output          | {{< highlight json >}}{
         "DisableKeepAlives": false,
         "Tracing": false
       },
-      "Name": "sensu-CE-sandbox",
+      "Name": "sensu1",
       "Host": "127.0.0.1",
       "Port": 4567,
       "Ssl": false,
