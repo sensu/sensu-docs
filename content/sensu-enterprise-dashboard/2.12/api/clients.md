@@ -165,8 +165,9 @@ Server: thin
 -----------------------|------
 description            | Returns a client with the `name` and datacenter (`dc`)
 example url            | http://hostname:3000/clients/i-424242
+parameters             | <ul><li>`dc`:<ul><li>**required**: false</li><li>**type**: String</li><li>**description**: If the client name is present in multiple datacenters, specifying the `dc` parameter will return only the client found in that datacenter.</li><li>**example**: `http://hostname:3000/clients/i-424242?dc=us_west1`</li></ul></li></ul>
 response type          | Hash
-response codes         | <ul><li>**Success**: 200 (OK)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+response codes         | <ul><li>**Success**: 200 (OK)</li><li>**Found in multiple datacenters**: 300 (Multiple Choices)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output                 | {{< highlight shell >}}{
   "_id": "us_east1/i-424242",
   "address": "192.168.0.3",
@@ -232,8 +233,8 @@ Server: thin
 --------------------------|------
 description               | Removes a client, resolving its current events. (delayed action)
 example url               | http://hostname:3000/clients/i-424242
-parameters                | <ul><li>`invalidate`<ul><li>**required**: false</li><li>**type**: Boolean</li><li>**description**: If the Sensu client should be invalidated, disallowing further client keepalives and check results until the client is successfully removed from the client registry.</li><li>**example**: `http://hostname:3000/clients/i-424242?invalidate=true`</li></ul><li>`invalidate_expire`<ul><li>**required**: false</li><li>**type**: Integer</li><li>**description**: If the Sensu client should be invalidated for a specified amount of time (in seconds), disallowing further client keepalives and check results even after the client is successfully removed from the client registry.</li><li>**example**: `http://hostname:3000/clients/i-424242?invalidate=true&invalidate_expire=3600`</li></ul></li></ul>
-response codes            | <ul><li>**Success**: 202 (Accepted)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+parameters                | <ul><li>`invalidate`<ul><li>**required**: false</li><li>**type**: Boolean</li><li>**description**: If the Sensu client should be invalidated, disallowing further client keepalives and check results until the client is successfully removed from the client registry.</li><li>**example**: `http://hostname:3000/clients/i-424242?invalidate=true`</li></ul><li>`invalidate_expire`<ul><li>**required**: false</li><li>**type**: Integer</li><li>**description**: If the Sensu client should be invalidated for a specified amount of time (in seconds), disallowing further client keepalives and check results even after the client is successfully removed from the client registry.</li><li>**example**: `http://hostname:3000/clients/i-424242?invalidate=true&invalidate_expire=3600`</li></ul></li></ul><ul><li>`dc`:<ul><li>**required**: false</li><li>**type**: String</li><li>**description**: If the client name is present in multiple datacenters, specifying the `dc` parameter will access only the client found in that datacenter.</li><li>**example**: `http://hostname:3000/clients/i-424242?dc=us_west1`</li></ul></li></ul>
+response codes            | <ul><li>**Success**: 202 (Accepted)</li><li>**Found in multiple datacenters**: 300 (Multiple Choices)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 ## The `/clients/:client/history` API Endpoint(s) {#the-clientsclienthistory-api-endpoints}
 

@@ -127,8 +127,9 @@ Server: thin
 ---------------------|------
 description          | Returns a check.
 example url          | http://hostname:3000/checks/sensu_website
+parameters           | <ul><li>`dc`:<ul><li>**required**: false</li><li>**type**: String</li><li>**description**: If the check name is present in multiple datacenters, specifying the `dc` parameter will return only the check found in that datacenter.</li><li>**example**: `http://hostname:3000/checks/sensu_website?dc=us_west1`</li></ul></li></ul>
 response type        | Hash
-response codes       | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+response codes       | <ul><li>**Success**: 200 (OK)</li><li>**Found in multiple datacenters**: 300 (Multiple Choices)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output               | {{< highlight json >}}{
   "name": "sensu_website",
   "dc": "us_west1",

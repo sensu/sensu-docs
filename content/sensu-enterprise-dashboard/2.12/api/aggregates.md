@@ -98,9 +98,9 @@ $ curl -s http://127.0.0.1:3000/aggregates/example_aggregate | jq .
 ------------------------|------
 description             | Returns the list of aggregates for a given check.
 example url             | http://hostname:3000/aggregates/elasticsearch
-parameters              | <ul><li>`max_age`:<ul><li>**required**: false</li><li>**type**: Integer</li><li>**description**: the maximum age of results to include, in seconds.</li></ul></li></ul>
+parameters              | <ul><li>`max_age`:<ul><li>**required**: false</li><li>**type**: Integer</li><li>**description**: the maximum age of results to include, in seconds.</li></ul></li></ul><ul><li>`dc`:<ul><li>**required**: false</li><li>**type**: String</li><li>**description**: If the aggregate name is present in multiple datacenters, specifying the `dc` parameter will return only the aggregate found in that datacenter.</li><li>**example**: `http://hostname:3000/aggregates/elasticsearch?dc=us_west1`</li></ul></li></ul>
 response type           | Array
-response codes          | <ul><li>**Success**: 200 (OK)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+response codes          | <ul><li>**Success**: 200 (OK)</li><li>**Found in multiple datacenters**: 300 (Multiple Choices)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output                  | {{< highlight json >}}{
   "clients": 15,
   "checks": 2,
