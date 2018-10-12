@@ -103,6 +103,7 @@ $ curl -s http://localhost:4567/events | jq .
 ---------------|------
 description    | Returns the list of current events.
 example url    | http://hostname:4567/events
+pagination     | see [pagination][4]
 response type  | Array
 response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output         | {{< highlight json >}}[
@@ -225,6 +226,7 @@ $ curl -s http://localhost:4567/events/client-01 | jq .
 ----------------------|------
 description           | Returns the list of current events for a given client.
 example url           | http://hostname:4567/events/i-424242
+pagination            | see [pagination][4]
 response type         | Array
 response codes        | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output                | {{< highlight json >}}[
@@ -484,3 +486,4 @@ response codes  | <ul><li>**Success**: 202 (Accepted)</li><li>**Missing**: 404 (
 [1]:  ../../reference/events#event-data
 [2]:  https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
 [3]:  ../../reference/events
+[4]:  ../overview#pagination
