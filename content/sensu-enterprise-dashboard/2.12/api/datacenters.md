@@ -10,20 +10,20 @@ menu:
 
 - [The `/datacenters` API endpoint](#the-datacenters-api-endpoint)
   - [`/datacenters` (GET)](#datacenters-get)
-- [The `/datacenters/:datacenter` API endpoint(s)](#the-datacentersdatacenter-api-endpoints)
+- [The `/datacenters/:datacenter` API endpoint](#the-datacentersdatacenter-api-endpoint)
   - [`/datacenters/:datacenter` (GET)](#datacentersdatacenter-get)
 
 ## The `/datacenters` API endpoint
 
-### `/datacenters` (GET)
-
 The `/datacenters` API endpoint provides HTTP GET access to datacenter
-definitions.
+information.
+
+### `/datacenters` (GET)
 
 #### EXAMPLE {#datacenters-get-example}
 
 The following example demonstrates a request to the `/datacenters` API, resulting in
-a JSON Array of JSON Hashes containing datacenter definitions.
+a JSON Array of JSON Hashes containing datacenter information.
 
 {{< highlight shell >}}
 $ curl -s http://127.0.0.1:3000/datacenters | jq .
@@ -53,7 +53,7 @@ $ curl -s http://127.0.0.1:3000/datacenters | jq .
 
 /datacenters (GET)  | 
 ---------------|------
-description    | Returns the list of datacenters. See the [`/datacenters/:datacenter` endpoint](#datacentersdatacenter-get) for a complete example of a datacenter definition.
+description    | Returns a list of datacenters. See the [`/datacenters/:datacenter` endpoint](#datacentersdatacenter-get) for a complete example of a datacenter response.
 example url    | http://hostname:3000/datacenters
 response type  | Array
 response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
@@ -79,18 +79,17 @@ output         | {{< highlight shell >}}[
 ]
 {{< /highlight >}}
 
-## The `/datacenters/:datacenter` API endpoint(s) {#the-datacentersdatacenter-api-endpoints}
-
-### `/datacenters/:datacenter` (GET) {#datacentersdatacenter-get}
+## The `/datacenters/:datacenter` API endpoint {#the-datacentersdatacenter-api-endpoint}
 
 The `/datacenters/:datacenter` API endpoints provide HTTP GET access to
-specific `:datacenter` definitions, by datacenter `name`.
+specific datacenter information, by datacenter name.
+
+### `/datacenters/:datacenter` (GET) {#datacentersdatacenter-get}
 
 #### EXAMPLE {#datacentersdatacenter-get-example}
 
 In the following example, querying the `/datacenters/:datacenter` API returns a JSON Hash
-containing the requested `:datacenter` definition (i.e. for the `:datacenter` named
-`us_west1`).
+containing information for the datacenter named `us_west1`.
 
 {{< highlight shell >}}
 $ curl -s http://127.0.0.1:3000/datacenters/us_west1 | jq .
@@ -157,9 +156,9 @@ $ curl -s http://127.0.0.1:3000/datacenters/us_west1 | jq .
   }
 }{{< /highlight >}}
 
-The following example demonstrates a request for datacenter data for a non-existent
-`:datacenter` named `non_existent_datacenter`, which results in a [404 (Not Found) HTTP
-response code][3] (i.e. `HTTP/1.1 404 Not Found`).
+The following example demonstrates a request for datacenter information for a non-existent
+datacenter named `non_existent_datacenter`, which results in a [404 (Not Found) HTTP
+response code][3].
 
 {{< highlight shell >}}
 $ curl -s -i http://127.0.0.1:3000/datacenters/non_existent_datacenter
@@ -179,7 +178,7 @@ Server: thin
 /datacenters/:datacenter (GET) | 
 ---------------------|------
 description          | Returns a datacenter.
-example url          | http://hostname:3000/datacenters/sensu_website
+example url          | http://hostname:3000/datacenters/us_west1
 response type        | Hash
 response codes       | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output               | {{< highlight json >}}{

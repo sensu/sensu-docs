@@ -11,7 +11,7 @@ menu:
 - [The `/stashes` API endpoints](#the-stashes-api-endpoints)
   - [`/stashes` (GET)](#stashes-get)
   - [`/stashes` (POST)](#stashes-post)
-- [The `/stashes/:path` API endpoints](#the-stashespath-api-endpoints)
+- [The `/stashes/:path` API endpoint](#the-stashespath-api-endpoint)
   - [`/stashes/:path` (DELETE)](#stashespath-delete)
 
 ## The `/stashes` API endpoints
@@ -59,7 +59,6 @@ $ curl -s http://127.0.0.1:3000/stashes | jq .
 ---------------|------
 description    | Returns a list of stashes by `path` and datacenter (`dc`).
 example url    | http://hostname:3000/stashes
-parameters     | <ul><li>`limit`:<ul><li>**required**: false</li><li>**type**: Integer</li><li>**description**: The number of stashes to return.</li></ul></li><li>`offset`:<ul><li>**required**: false</li><li>**type**: Integer</li><li>**depends**: `limit`</li><li>**description**: The number of stashes to offset before returning items.</li></ul></li></ul>
 response type  | Array
 response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output         | {{< highlight json >}}[
@@ -89,12 +88,14 @@ output         | {{< highlight json >}}[
 
 ### `/stashes` (POST)
 
+The `/stashes` API provides HTTP POST access to create [a Sensu stash][3].
+
 #### EXAMPLES {#stashes-post-examples}
 
-The following example demonstrates submitting an HTTP POST containing a JSON
+The following example demonstrates submitting an HTTP POST request containing a JSON
 document payload to the `/stashes` API, resulting in a [200 (OK) HTTP
 response code][5] and a payload containing a JSON Hash confirming the stash
-`path` (i.e. the "key" where the stash can be accessed).
+`path`.
 
 {{< highlight shell >}}
 $ curl -s -i -X POST \
@@ -119,7 +120,7 @@ Server: thin
 
 /stashes (POST) | 
 ----------------|------
-description     | Create a stash. (JSON document)
+description     | Create a [Sensu stash][3].
 example URL     | http://hostname:3000/stashes
 payload         | {{< highlight json >}}{
   "dc": "us_west1",
@@ -133,19 +134,18 @@ payload         | {{< highlight json >}}{
 payload parameters | <ul><li>`dc`<ul><li>**required**: true</li><li>**type**: String</li><li>**description**: Specifies the name of the datacenter where the stash applies.</li><li>**example**: `"us_west1"`</li></ul><li>`path`<ul><li>**required**: true</li><li>**type**: String</li><li>**description**: The path (or “key”) the stash will be created and accessible at.</li><li>**example**: `"example/stash"`</li></ul><li>`content`<ul><li>**required**: false</li><li>**type**: Hash</li><li>**description**: Arbitrary JSON data.</li><li>**example**: `{"message": "example"}`</li></ul><li>`expire`<ul><li>**required**: false</li><li>**type**: Integer</li><li>**description**: How long the stash exists before it is removed by the API, in seconds</li><li>**example**: `3600`</li></ul>
 response codes  | <ul><li>**Success**: 200 (OK)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
-## The `/stashes/:path` API endpoints {#the-stashespath-api-endpoints}
+## The `/stashes/:path` API endpoint {#the-stashespath-api-endpoint}
 
 The `/stashes/:path` API endpoint provides HTTP DELETE
-access to [Sensu stash data][3] for specified `:path`s (i.e. "keys") via the
-[Sensu key/value store][4].
+access to [Sensu stash data][3] for a stash specified by its path.
 
 ### `/stashes/:path` (DELETE) {#stashespath-delete}
 
 #### EXAMPLES {#stashespath-delete-examples}
 
-The following example demonstrates submitting an HTTP DELETE to the
-`/stashes/:path` API with a `:path` called `my/example/path`, resulting in a
-[202 (Accepted) HTTP response code][5] (i.e. `HTTP/1.1 202 Accepted`).
+The following example demonstrates submitting an HTTP DELETE request to the
+`/stashes/:path` API to delete a stash with the path `my/example/path`, resulting in a
+[202 (Accepted) HTTP response code][5].
 
 {{< highlight shell >}}
 $ curl -s -i -X DELETE http://127.0.0.1:3000/stashes/my/example/path                                                                                                                                                                                        
@@ -162,7 +162,7 @@ Server: thin
 
 /stashes/:path (DELETE) | 
 ------------------------|------
-description             | Delete a stash. (JSON document)
+description             | Delete a [Sensu stash][3].
 example URL             | http://hostname:3000/stashes/example/stash
 response type           | [HTTP-header][10] only (no output)
 response codes          | <ul><li>**Success**: 202 (Accepted)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>

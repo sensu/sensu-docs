@@ -15,12 +15,17 @@ menu:
 
 ## The `/silenced` API endpoints
 
-The Silence API provides endpoint HTTP POST and GET access to create, query and
-clear (delete) a silence entry via the Sensu API.
+The Silenced API provides HTTP POST and GET access to create, query, and
+clear (delete) a silencing entry.
 
 ### `/silenced` (GET)
 
-#### Example: Querying for all silence entries
+The `/silenced` endpoint provides HTTP GET access to [silencing entry specifications][1].
+
+#### EXAMPLES
+
+The following example demonstrates a `/silenced` API query which returns a JSON
+Array of JSON Hashes containing all silencing entry specifications.
 
 {{< highlight shell >}}
 $ curl -s -X GET http://127.0.0.1:3000/silenced |jq .
@@ -58,9 +63,8 @@ $ curl -s -X GET http://127.0.0.1:3000/silenced |jq .
 
 /silenced (GET) | 
 ----------------|------
-description     | Returns a list of silence entries.
+description     | Returns a list of silencing entries.
 example url     | http://hostname:3000/silenced
-parameters      | <ul><li>`limit`:<ul><li>**required**: false</li><li>**type**: Integer</li><li>**description**: The number of silence entries to return.</li></ul><li>`offset`:<ul><li>**required**: false</li><li>**type**: Integer</li><li>**depends**: `limit`</li><li>**description**: The number of silence entries to offset before returning items.</li></ul></li></ul>
 response type   | Array
 response codes  | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output          | {{< highlight json >}}[
@@ -95,11 +99,13 @@ output          | {{< highlight json >}}[
 
 ### `/silenced` (POST)
 
-#### Example: Creating a silence entry {#silence-post-examples}
+The `/silenced` API provides HTTP POST access to create [a silencing entry][1].
 
-The following example demonstrates a `/silenced` query, which creates a
-silence entry for the check "check_haproxy" on clients with the
-"load-balancer" subscription, with an expiration of 3600 seconds:
+#### EXAMPLE {#request-post-example}
+
+The following example demonstrates a `/silenced` query that creates a silencing
+entry with an expiration of 3600 seconds for the check `check_haproxy` on
+clients with the `load-balancer` subscription within the `us_west1` datacenter.
 
 {{< highlight shell >}}
 $ curl -s -i -X POST \
@@ -137,7 +143,7 @@ $ curl -s -X GET http://127.0.0.1:3000/silenced | jq .
 
 /silenced (POST)   | 
 -------------------|------
-description        | Create a silence entry.
+description        | Create a silencing entry.
 example URL        | http://hostname:3000/silenced
 payload            | {{< highlight json >}}{
   "dc": "us_west1",
@@ -152,28 +158,14 @@ response codes     | <ul><li>**Success**: 200 (OK)</li><li>**Malformed**: 400 (B
 
 ### `/silenced/clear` (POST)
 
-#### Example: Clearing a silence entry
+The `/silenced` API provides HTTP POST access to delete [a silencing entry][1].
 
-A silence entry can be cleared (deleted) by its ID:
+#### EXAMPLE {#request-post-example-clear}
+
+The following example demonstrates a `/silenced` query that deletes a silencing
+entry with the id `load-balancer:check_haproxy` within the `us_west1` datacenter.
 
 {{< highlight shell >}}
-$ curl -s -X GET http://127.0.0.1:3000/silenced | jq .
-[
-  {
-    "_id": "us_west1:load-balancer:check_haproxy",
-    "expire": 3530,
-    "expire_on_resolve": false,
-    "begin": null,
-    "creator": null,
-    "dc": "us_west1",
-    "reason": null,
-    "check": "check_haproxy",
-    "subscription": "load-balancer",
-    "id": "load-balancer:check_haproxy",
-    "timestamp": 1538599295
-  }
-]
-
 $ curl -s -i -X POST \
 -H 'Content-Type: application/json' \
 -d '{ "dc": "us_west1", "id": "load-balancer:check_haproxy" }' \
@@ -186,16 +178,13 @@ Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS
 Access-Control-Allow-Origin: *
 Connection: close
 Content-length: 0
-
-$ curl -s -X GET http://127.0.0.1:3000/silenced | jq .
-[]
 {{< /highlight >}}
 
 #### API specification {#silenced-clear-post-specification}
 
 /silenced/clear (POST) | 
 -----------------------|------
-description            | Clear a silence entry.
+description            | Clear a silencing entry.
 example URL            | http://hostname:3000/silenced/clear
 payload                | {{< highlight json >}}{
   "dc": "us_west1",
@@ -204,3 +193,5 @@ payload                | {{< highlight json >}}{
 {{< /highlight >}}
 payload parameters     | <ul><li>`dc`<ul><li>**required**: true</li><li>**type**: String</li><li>**description**: Specifies the name of the datacenter where the silence entry applies.</li><li>**example**: `"us_west1"`</li></ul><li>`check`<ul><li>**required**: true, unless `subscription` or `id` is specified</li><li>**type**: String</li><li>**description**: Specifies the name of the check for which the silence entry should be cleared.</li><li>**example**: "check_haproxy"</li></ul></li><li>`subscription`:<ul><li>**required**: true, unless `client` is specified</li><li>**type:** String</li><li>**description**: Specifies the name of the subscription for which the silence entry should be cleared.</li></ul></li><li>`id`:<ul><li>**required**: true, unless `client` or is specified</li><li>**type:** String</li><li>**description**: Specifies the id (intersection of subscription and check) of the subscription for which the silence entry should be cleared.</li></ul></li></ul>
 response codes         | <ul><li>**Success**: 200 (OK)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+
+[1]: /sensu-core/latest/reference/silencing/

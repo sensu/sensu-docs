@@ -15,12 +15,11 @@ menu:
 
 ## The `/config` API endpoint {#the-config-endpoint}
 
-### `/config` (GET)
-
 The `/config` API provides HTTP GET access to the Sensu Enterprise
 configuration. Sensitive setting values are redacted by
-default, unless the URL query parameter `redacted` is set to `false`,
-e.g. `/config?redacted=false.`
+default.
+
+### `/config` (GET)
 
 #### EXAMPLE {#config-get-example}
 
@@ -66,7 +65,6 @@ $ curl -s http://127.0.0.1:3000/config | jq .
 ----------------|------
 description     | Returns the Sensu Enterprise configuration.
 example url     | http://hostname:3000/config
-parameters      | <ul><li>`redacted`:<ul><li>**required**: false</li><li>**type**: Boolean</li><li>**description**: If sensitive setting values should be redacted.</li><li>**default**: true</li></ul>
 response type   | Hash
 response codes  | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output          | {{< highlight json >}}{

@@ -10,14 +10,14 @@ menu:
 
 - [The `/events` API endpoint](#the-events-api-endpoint)
   - [`/events` (GET)](#events-get)
-- [The `/events/:client/:check` API endpoints](#the-eventsclientcheck-api-endpoints)
+- [The `/events/:client/:check` API endpoint](#the-eventsclientcheck-api-endpoint)
   - [`/events/:client/:check` (DELETE)](#eventsclientcheck-delete)
 
 ## The `/events` API endpoint
 
-### `/events` (GET)
-
 The `/events` API endpoint provide HTTP GET access to the Sensu event registry.
+
+### `/events` (GET)
 
 #### EXAMPLES {#events-get-examples}
 
@@ -153,19 +153,18 @@ output         | {{< highlight json >}}[
 ]
 {{< /highlight >}}
 
-## The `/events/:client/:check` API endpoints {#the-eventsclientcheck-api-endpoints}
+## The `/events/:client/:check` API endpoint {#the-eventsclientcheck-api-endpoint}
 
 The `/events/:client/:check` API provides HTTP DELETE access to
-current [event data][1] for a named `:client` and `:check`.
+current [event data][1] for a named client and check.
 
 ### `/events/:client/:check` (DELETE) {#eventsclientcheck-delete}
 
 #### EXAMPLES {#eventsclientcheck-delete-examples}
 
 The following example demonstrates a `/events/:client/:check` API request to
-to delete event data for a `:client` named `:client-01` and a `:check` named
-`sensu_website`, resulting in a [202 (Accepted) HTTP response code][2] (i.e.
-`HTTP/1.1 202 Accepted`).
+to delete event data for a client named `client-01` and a check named
+`sensu_website`, resulting in a [202 (Accepted) HTTP response code][2].
 
 {{< highlight shell >}}
 curl -s -i -X DELETE http://127.0.0.1:3000/events/client-01/sensu_website

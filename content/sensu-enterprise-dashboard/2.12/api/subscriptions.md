@@ -13,10 +13,10 @@ menu:
 
 ## The `/subscriptions` API endpoint
 
-### `/subscriptions` (GET)
-
 The `/subscriptions` API endpoint provides HTTP GET access to subscription
 data.
+
+### `/subscriptions` (GET)
 
 #### EXAMPLE {#subscriptions-get-example}
 
@@ -40,7 +40,7 @@ $ curl -s http://127.0.0.1:3000/subscriptions | jq .
 
 /subscriptions (GET)  | 
 ---------------|------
-description    | Returns the list of subscriptions by `name` and datacenter (`dc`).
+description    | Returns a list of subscriptions by `name` and datacenter (`dc`).
 example url    | http://hostname:3000/subscriptions
 response type  | Array
 response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>

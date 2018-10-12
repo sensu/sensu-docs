@@ -48,7 +48,6 @@ $ curl -s http://127.0.0.1:3000/aggregates | jq .
 ------------------|------
 description       | Returns the list of named aggregates by `name` and datacenter (`dc`)
 example url       | http://hostname:3000/aggregates
-parameters        | <ul><li>`max_age`:<ul><li>**required**: false</li><li>**type**: Integer</li><li>**description**: the maximum age of results to include, in seconds.</li></ul></li></ul>
 response type     | Array
 response codes    | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output            | {{< highlight json >}}[
@@ -96,9 +95,9 @@ $ curl -s http://127.0.0.1:3000/aggregates/example_aggregate | jq .
 
 /aggregates/:name (GET) | 
 ------------------------|------
-description             | Returns the list of aggregates for a given check.
+description             | Returns the aggregate check result for a given aggregate.
 example url             | http://hostname:3000/aggregates/elasticsearch
-parameters              | <ul><li>`max_age`:<ul><li>**required**: false</li><li>**type**: Integer</li><li>**description**: the maximum age of results to include, in seconds.</li></ul></li></ul><ul><li>`dc`:<ul><li>**required**: false</li><li>**type**: String</li><li>**description**: If the aggregate name is present in multiple datacenters, specifying the `dc` parameter will return only the aggregate found in that datacenter.</li><li>**example**: `http://hostname:3000/aggregates/elasticsearch?dc=us_west1`</li></ul></li></ul>
+parameters              | <ul><li>`dc`:<ul><li>**required**: false</li><li>**type**: String</li><li>**description**: If the aggregate name is present in multiple datacenters, specifying the `dc` parameter will return only the aggregate found in that datacenter.</li><li>**example**: `http://hostname:3000/aggregates/elasticsearch?dc=us_west1`</li></ul></li></ul>
 response type           | Array
 response codes          | <ul><li>**Success**: 200 (OK)</li><li>**Found in multiple datacenters**: 300 (Multiple Choices)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output                  | {{< highlight json >}}{
@@ -120,10 +119,10 @@ output                  | {{< highlight json >}}{
 #### EXAMPLES {#aggregatesname-delete-examples}
 
 The following example demonstrates a `/aggregates/:name` API request to delete
-named aggregate data for the aggregate named `example_aggregate`.
+aggregate data for the aggregate named `example_aggregate`.
 
 {{< highlight shell >}}
-$ curl -s -i -X DELETE http://localhost:3000/aggregates/example_aggregate
+$ curl -s -i -X DELETE http://127.0.0.1:3000/aggregates/example_aggregate
 HTTP/1.1 202 Accepted
 Access-Control-Allow-Origin: *
 Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS
@@ -139,8 +138,9 @@ Server: thin
 ---------------------------|------
 description                | Deletes all aggregate data for a named aggregate.
 example url                | http://hostname:3000/aggregates/elasticsearch
+parameters              | <ul><li>`dc`:<ul><li>**required**: false</li><li>**type**: String</li><li>**description**: If the aggregate name is present in multiple datacenters, specifying the `dc` parameter will access only the aggregate found in that datacenter.</li><li>**example**: `http://hostname:3000/aggregates/elasticsearch?dc=us_west1`</li></ul></li></ul>
 response type              | [HTTP-header][3] only (no output)
-response codes             | <ul><li>**Success**: 202 (Accepted)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+response codes             | <ul><li>**Success**: 202 (Accepted)</li><li>**Found in multiple datacenters**: 300 (Multiple Choices)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output                     | {{< highlight shell >}}HTTP/1.1 202 Accepted
 Access-Control-Allow-Origin: *
 Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS

@@ -16,7 +16,7 @@ Use the Console API to request adhoc check executions, silence check results, re
 
 ## RESTful JSON API
 
-The Console API is [JSON][4]-based [RESTful API][5] using standard [HTTP response codes][6].
+The Console API is a [JSON][4]-based [RESTful API][5] that uses standard [HTTP response codes][6].
 
 ## Reference documentation
 
@@ -26,6 +26,7 @@ The Console API is [JSON][4]-based [RESTful API][5] using standard [HTTP respons
 - [Configuration API](../config)
 - [Datacenters API](../datacenters)
 - [Events API](../events)
+- [Health API](../health)
 - [Results API](../results)
 - [Silenced API](../silenced)
 - [Stashes API](../stashes)
@@ -34,7 +35,7 @@ The Console API is [JSON][4]-based [RESTful API][5] using standard [HTTP respons
 ## RBAC for the Sensu Enterprise Console API
 
 Sensu Enterprise integrates role-based access controls with the Console API to help give your users the right level of API functionality.
-See the [RBAC reference docs][7] to create role-based access tokens and define the methods (`get`, `post`, `delete`, and `head`) and APIs available to each role per API.
+See the [RBAC reference docs][7] to create role-based access tokens and define the methods (`get`, `post`, `delete`, and `head`) and APIs available to each role.
 To access the API using a role-based access token, provide the token as a header or query parameter.
 The examples below show an access token used to access the Events API.
 

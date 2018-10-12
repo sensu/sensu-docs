@@ -8,23 +8,22 @@ menu:
     parent: api
 ---
 
-- [The `/results/:client/:check` API endpoints](#the-resultsclientcheck-api-endpoints)
+- [The `/results/:client/:check` API endpoint](#the-resultsclientcheck-api-endpoint)
   - [`/results/:client/:check` (DELETE)](#resultsclientcheck-delete)
 
-## The `/results/:client/:check` API endpoints {#the-resultsclientcheck-api-endpoints}
+## The `/results/:client/:check` API endpoint {#the-resultsclientcheck-api-endpoint}
 
 The `/results/:client/:check` API endpoint provides HTTP DELETE
-access to [check result data][1] for a named `:client` and `:check`.
+access to [check result data][1] for a named client and check.
 
 ### `/results/:client/:check` (DELETE) {#resultsclientcheck-delete}
 
 #### EXAMPLES {#resultsclientcheck-delete-examples}
 
 The following example demonstrates a `/results/:client/:check` request to delete
-check result data for a `:client` named `client-01` and a `:check` named
-`sensu_website`, resulting in a [202 (Accepted) HTTP response code][2] (i.e.
-`HTTP/1.1 202 Accepted`), indicating that the result was successful, but that
-no content is provided as output.
+check result data for a client named `client-01` and a check named
+`sensu_website`, resulting in a [202 (Accepted) HTTP response code][2]
+indicating that the result was successful, but that no content is provided as output.
 
 {{< highlight shell >}}
 curl -s -i -X DELETE http://127.0.0.1:3000/results/client-01/sensu_website

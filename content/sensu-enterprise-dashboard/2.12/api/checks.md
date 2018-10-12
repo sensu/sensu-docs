@@ -10,17 +10,17 @@ menu:
 
 - [The `/checks` API endpoint](#the-checks-api-endpoint)
   - [`/checks` (GET)](#checks-get)
-- [The `/checks/:check` API endpoint(s)](#the-checkscheck-api-endpoints)
+- [The `/checks/:check` API endpoint](#the-checkscheck-api-endpoint)
   - [`/checks/:check` (GET)](#checkscheck-get)
 - [The `/request` API endpoint](#the-request-api-endpoint)
   - [`/request` (POST)](#request-post)
 
 ## The `/checks` API endpoint
 
-### `/checks` (GET)
-
 The `/checks` API endpoint provides HTTP GET access to [subscription check][1]
 data.
+
+### `/checks` (GET)
 
 #### EXAMPLE {#checks-get-example}
 
@@ -47,7 +47,7 @@ $ curl -s http://127.0.0.1:3000/checks | jq .
 
 /checks (GET)  | 
 ---------------|------
-description    | Returns the list of checks with the `name` and datacenter (`dc`)
+description    | Returns a list of checks by `name` and datacenter (`dc`)
 example url    | http://hostname:3000/checks
 response type  | Array
 response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
@@ -75,18 +75,18 @@ output         | {{< highlight shell >}}[
 ]
 {{< /highlight >}}
 
-## The `/checks/:check` API endpoint(s) {#the-checkscheck-api-endpoints}
+## The `/checks/:check` API endpoint {#the-checkscheck-api-endpoint}
+
+The `/checks/:check` API endpoint provide HTTP GET access to
+[subscription check data][1] for a specific check, by check name.
 
 ### `/checks/:check` (GET) {#checkscheck-get}
-
-The `/checks/:check` API endpoints provide HTTP GET access to
-[subcription check data][1] for specific `:check` definitions, by check `name`.
 
 #### EXAMPLE {#checkscheck-get-example}
 
 In the following example, querying the `/checks/:check` API returns a JSON Hash
-containing the requested [`:check` definition][2] (i.e. for the `:check` named
-`sensu_website`).
+containing the requested [check definition][2] for the check named
+`sensu_website`.
 
 {{< highlight shell >}}
 $ curl -s http://127.0.0.1:3000/checks/sensu_website | jq .
@@ -104,8 +104,8 @@ $ curl -s http://127.0.0.1:3000/checks/sensu_website | jq .
 {{< /highlight >}}
 
 The following example demonstrates a request for check data for a non-existent
-`:check` named `non_existent_check`, which results in a [404 (Not Found) HTTP
-response code][3] (i.e. `HTTP/1.1 404 Not Found`).
+check named `non_existent_check`, which results in a [404 (Not Found) HTTP
+response code][3].
 
 {{< highlight shell >}}
 $ curl -s -i http://127.0.0.1:3000/checks/non_existent_check
@@ -125,7 +125,7 @@ Server: thin
 
 /checks/:check (GET) | 
 ---------------------|------
-description          | Returns a check.
+description          | Returns a check definition.
 example url          | http://hostname:3000/checks/sensu_website
 parameters           | <ul><li>`dc`:<ul><li>**required**: false</li><li>**type**: String</li><li>**description**: If the check name is present in multiple datacenters, specifying the `dc` parameter will return only the check found in that datacenter.</li><li>**example**: `http://hostname:3000/checks/sensu_website?dc=us_west1`</li></ul></li></ul>
 response type        | Hash
@@ -145,17 +145,16 @@ output               | {{< highlight json >}}{
 
 ## The `/request` API endpoint
 
-### `/request` (POST)
-
 The `/request` API provides HTTP POST access to publish [subscription check][1]
-requests via the Sensu API.
+requests.
+
+### `/request` (POST)
 
 #### EXAMPLE {#request-post-example}
 
 In the following example, an HTTP POST is submitted to the `/request` API,
 requesting a check execution for the `sensu_website` [subscription check][1],
-resulting in a [200 (OK) HTTP response code][3] (i.e. `HTTP/1.1 200
-OK`).
+resulting in a [200 (OK) HTTP response code][3].
 
 {{< highlight shell >}}
 curl -s -i \
@@ -183,7 +182,7 @@ on an as-needed basis._
 
 The following example demonstrates a request for a check execution for a
 non-existent check named `non_existent_check`, which results in a [404 (Not
-Found) HTTP response code][3] (i.e. `HTTP/1.1 404 Not Found`).
+Found) HTTP response code][3].
 
 {{< highlight shell >}}
 curl -s -i \
