@@ -3,9 +3,7 @@ title: "Pre-Compiling Plugins"
 description: "Pre-Compiling Sensu Plugins for Distribution"
 product: "Sensu Core"
 version: "1.1"
-weight: 2
-next: ../intro-to-checks
-previous: ../overview
+weight: 12
 menu:
   sensu-core-1.1:
     parent: guides
