@@ -90,7 +90,8 @@ unf_ext-0.0.7.5-x86_64-linux.gem{{< /highlight >}}
 ## Install Pre-Compiled Gems on Targeted System and Testing
 
 ### Install compiled gem into embedded Ruby
-Now we can copy these gems to another system, install them into the sensu embedded ruby. 
+
+Now we can copy these gems to another system and install them into the sensu embedded ruby.
 In a production or development enviroment, you'd want to put these in a rubygems server of your own (e.g. [Geminabox(https://github.com/geminabox/geminabox), [Artifactory](https://jfrog.com/artifactory/) or similar). You can also use a tool like `fpm` to convert the gems into a system package.
 
 Here we've copied the compiled gems to a system with Sensu installed, but no gcc or other compile toolchain
@@ -105,7 +106,7 @@ sudo /opt/sensu/embedded/bin/gem install nokogiri-1.8.5-x86_64-linux.gem{{< /hig
 With these prerequisites in place we can install sensu-plugins-aws without a compiler. You can use `sensu-install` or `gem` commands:
 
 {{< highlight shell >}}
-sudo /opt/sensu/embedded/bin/sensu-install -p aws
+sudo /opt/sensu/embedded/bin/gem -p aws
 [SENSU-INSTALL] installing Sensu plugins ...
 [SENSU-INSTALL] determining if Sensu gem 'sensu-plugins-aws' is already installed ...
 false
@@ -130,6 +131,7 @@ Successfully installed sensu-plugins-aws-10.0.3
 [SENSU-INSTALL] successfully installed Sensu plugins: ["sensu-plugins-aws"]{{< /highlight >}}
 
 To test our pre-compiled gems we can use `check-elb-health-fog.rb` as it should exercise the nokogiri dependency:
+_NOTE: This is to demostrate that there are no errors while executing the plugin._
 
 {{< highlight shell >}}
 sudo export AWS_ACCESS_KEY=fatchance
@@ -138,8 +140,6 @@ sudo /opt/sensu/embedded/bin/check-elb-health-fog.rb -n foo -r us-east-1
 ELBHealth WARNING: An issue occured while communicating with the AWS EC2 API:
 There is no ACTIVE Load Balancer named 'foo'{{< /highlight >}}
 
-_NOTE: This is to demostrate that there are no errors while executing the plugin._
-
 ## Recap
 
-
+In this guide we covered the components involved in building out Sensu pre-compiled plugins. This allows system builders a method to pre-compile gems for systems that you may not want all the build tools required installed on them or for an easy to ship package for deploying gems on systems that may not have access to the internet.
