@@ -8,6 +8,7 @@ menu: "sensu-core-1.6"
 
 ## Releases
 
+- [Core 1.6.0 Release Notes](#core-v1-6-0)
 - [Core 1.5.0 Release Notes](#core-v1-5-0)
 - [Core 1.4.3 Release Notes](#core-v1-4-3)
 - [Core 1.4.2 Release Notes](#core-v1-4-2)
@@ -52,6 +53,38 @@ menu: "sensu-core-1.6"
 - [Core 0.23.2 Release Notes](#core-v0-23-2)
 - [Core 0.23.1 Release Notes](#core-v0-23-1)
 - [Core 0.23.0 Release Notes](#core-v0-23-0)
+
+## Core 1.6.0 Release Notes {#core-v1-6-0}
+
+Source: [GitHub.com][63]
+
+**October 12, 2018** &mdash; Sensu Core version 1.6.0 has been released
+  and is available for immediate download. Please note the following
+  improvements:
+
+### CHANGES {#core-v1-6-0-changes}
+
+- **NEW**: The [Checks API][64] now provides an endpoint to delete check history and
+  check results, giving you an easy way to clean up unused checks.
+
+- **IMPROVEMENT**: Sensu Core 1.6 reduces the impact of RabbitMQ flow control by
+  splitting communication with the transport into two connections. Sensu clients
+  now use separate connections to publish keepalives and check results, doubling
+  the number of connections RabbitMQ will receive.
+
+- **IMPROVEMENT**: Sensu now redacts additional fields (such as webhook URLs)
+  when displaying configuration files.
+
+- **IMPROVEMENT**: Commands in check results from proxy clients can often contain
+  sensitive information following token substitution. Clients now reset
+  commands to remove tokens before publishing check results, providing
+  better handling for sensitive information.
+
+- **BUGFIX**: Fixed a bug impacting macOS packages using Ruby 2.4.4.
+
+- **BUGFIX**: Fixed a bug impacting FreeBSD packages causing incompatibility with newer compilers.
+
+- **BUGFIX**: Fixed a bug impacting the installation process for Solaris 10 packages.
 
 ## Core 1.5.0 Release Notes {#core-v1-5-0}
 
@@ -1674,6 +1707,10 @@ available for immediate download. Please note the following improvements:
 
 <!-- 1.5 -->
 [62]: https://github.com/sensu/sensu/blob/master/CHANGELOG.md#150---2018-09-04
+
+<!-- 1.6 -->
+[63]: https://github.com/sensu/sensu/blob/master/CHANGELOG.md#160---2018-10-12
+[64]: /sensu-core/1.6/api/checks#checkscheck-delete
 
 <!-- GH Issues/PR's -->
 
