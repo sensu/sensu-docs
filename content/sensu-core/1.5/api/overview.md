@@ -44,6 +44,40 @@ content filter attributes. Multiple attributes may be specified for a
 request, e.g.
 `/events?filter.client.environment=production&filter.check.contact=ops`.
 
+## Response Content Pagination {#pagination}
+By default, the Sensu API will return all available results, but sometimes this result can be massive.
+To paginate the returned result, the `limit` and `offset` query string parameters can be used.
+This method also sets the "X-Pagination" HTTP response header to a JSON object containing the `limit`, `offset`, and `total` number of items that are being paginated.
+
+parameters  |  description
+------------|----------
+limit       |  The number of items to return
+offset      |  The number of items to offset before returning.
+
+### Examples
+The following example demonstrates a /clients API query with limit=1 and offset=1.
+{{< highlight shell >}}
+$ curl -i 'http://127.0.0.1:4567/clients?limit=1&offset=1'
+
+HTTP/1.1 200 OK
+Content-type: application/json
+Access-Control-Allow-Origin: *
+Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS
+Access-Control-Allow-Credentials: true
+Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept, Authorization
+Connection: close
+X-Pagination: {"limit":1,"offset":1,"total":848}
+
+[
+  {
+    "name": "client-02",
+    "address": "127.0.0.1",
+    "subscriptions": [],
+    "timestamp": 1538843586
+  }
+]
+{{< /highlight >}}
+
 [1]:  ../../reference/clients#registration-and-registry
 [2]:  ../../reference/checks#check-results
 [3]:  ../../reference/events#event-data

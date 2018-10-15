@@ -6,32 +6,27 @@ weight: 1
 version: "2.0"
 product: "Sensu Core"
 platformContent: true
-platforms: ["Ubuntu/Debian", "RHEL/CentOS", "Windows"]
+platforms: ["Ubuntu/Debian", "RHEL/CentOS", "Windows", "Docker"]
 menu:
   sensu-core-2.0:
     parent: getting-started
 ---
 
 The Sensu 2.0 binaries are statically linked and can be deployed to any Linux or Windows operating system.
+Select a platform from the dropdown above.
 
-- [Installation](#installation)
-- [Configuration](#configuration)
-- [Starting the services](#starting-the-services)
-- [Docker](#docker)
+{{< platformBlock "Ubuntu/Debian RHEL/CentOS" >}}
 
-### Backend
+## Install the Sensu Backend
+The Sensu backend (sensu-backend) is a single statically linked binary that can be deployed via packages (.deb or .rpm) or [Docker image](#docker). Sensu backend packages are available for Ubuntu/Debian and RHEL/CentOS.
 
-The Sensu Backend (sensu-backend) is a single statically linked binary that can be deployed via packages (.deb or .rpm) or Docker image.
+### 1. Install the package
 
-### Agent
-
-The Sensu Agent (sensu-agent) is a single statically linked binary that can be deployed via packages (.deb or .rpm) or Docker image.
-
-## Installation
+{{< platformBlockClose >}}
 
 {{< platformBlock "Ubuntu/Debian" >}}
-### Ubuntu/Debian
 
+#### Ubuntu/Debian
 Add the Sensu beta repository.
 
 {{< highlight shell >}}
@@ -41,13 +36,14 @@ curl -s https://packagecloud.io/install/repositories/sensu/beta/script.deb.sh | 
 Install the packages from the Sensu beta repository.
 
 {{< highlight shell >}}
-sudo apt-get install sensu-backend sensu-agent
+sudo apt-get install sensu-backend
 {{< /highlight >}}
 
 {{< platformBlockClose >}}
 
 {{< platformBlock "RHEL/CentOS" >}}
-### RHEL/CentOS
+
+#### RHEL/CentOS
 
 Add the Sensu beta repository.
 
@@ -58,24 +54,13 @@ curl -s https://packagecloud.io/install/repositories/sensu/beta/script.rpm.sh | 
 Install the Sensu backend and agent packages.
 
 {{< highlight shell >}}
-sudo yum install sensu-backend sensu-agent
+sudo yum install sensu-backend
 {{< /highlight >}}
 {{< platformBlockClose >}}
 
-{{< platformBlock "Windows" >}}
-### Windows
-
-Download the [Sensu agent binary](https://storage.googleapis.com/sensu-binaries/2.0.0-beta.4-1/windows/amd64/sensu-agent).
-{{< platformBlockClose >}}
-
-## Configuration
-
-The example config files list all of the configurable options for each service.
-
 {{< platformBlock "Ubuntu/Debian RHEL/CentOS" >}}
-### Linux
 
-#### Sensu Backend
+### 2. Create the configuration file
 
 Copy the example backend config file to the default config path.
 
@@ -86,7 +71,75 @@ sudo cp /etc/sensu/backend.yml.example /etc/sensu/backend.yml
 The backend config requires `state-dir` to be set. The example config sets `state-dir` to `/var/lib/sensu` by
 default.
 
-#### Sensu Agent
+### 3. Start the service
+
+Start the services using systemd.
+
+{{< highlight shell >}}
+sudo systemctl start sensu-backend
+{{< /highlight >}}
+
+You can verify that the services are properly running using the log files.
+
+{{< highlight shell >}}
+journalctl -u sensu-backend -f
+{{< /highlight >}}
+
+_NOTE: On Ubuntu 14.04, CentOS 6, and RHEL 6, use `sudo /etc/init.d/sensu-backend start` to start the backend and `tail -f /var/log/sensu/sensu-backend.log` to verify it._
+{{< platformBlockClose >}}
+
+{{< platformBlock "Ubuntu/Debian RHEL/CentOS Windows" >}}
+
+## Agent Installation
+The Sensu Agent (sensu-agent) is a single statically linked binary that can be deployed via packages (.deb or .rpm) or Docker image. The agent is available for Ubuntu/Debian, RHEL/CentOS, and Windows.
+
+### 1. Install the package
+
+{{< platformBlockClose >}}
+
+{{< platformBlock "Ubuntu/Debian" >}}
+
+#### Ubuntu/Debian
+
+Add the Sensu beta repository.
+
+{{< highlight shell >}}
+curl -s https://packagecloud.io/install/repositories/sensu/beta/script.deb.sh | sudo bash
+{{< /highlight >}}
+
+Install the packages from the Sensu beta repository.
+
+{{< highlight shell >}}
+sudo apt-get install sensu-agent
+{{< /highlight >}}
+
+{{< platformBlockClose >}}
+
+{{< platformBlock "RHEL/CentOS" >}}
+#### RHEL/CentOS
+
+Add the Sensu beta repository.
+
+{{< highlight shell >}}
+curl -s https://packagecloud.io/install/repositories/sensu/beta/script.rpm.sh | sudo bash
+{{< /highlight >}}
+
+Install the Sensu backend and agent packages.
+
+{{< highlight shell >}}
+sudo yum install sensu-agent
+{{< /highlight >}}
+{{< platformBlockClose >}}
+
+{{< platformBlock "Windows" >}}
+#### Windows
+
+Download the [Sensu agent binary](https://storage.googleapis.com/sensu-binaries/2.0.0-beta.4-1/windows/amd64/sensu-agent).
+{{< platformBlockClose >}}
+
+{{< platformBlock "Ubuntu/Debian RHEL/CentOS Windows" >}}
+
+### 2. Create the configuration file
 
 Copy the example agent config file to the default config path.
 
@@ -101,78 +154,41 @@ by setting `backend-url` to the ip and port of a Sensu backend.
 backend-url:
   - "ws://127.0.0.1:8081"
 {{< /highlight >}}
+
+### 3. Start the service
+
 {{< platformBlockClose >}}
-
-{{< platformBlock "Windows" >}}
-### Windows
-
-Coming soon.
-{{< platformBlockClose >}}
-
-## Starting the services
 
 {{< platformBlock "Ubuntu/Debian RHEL/CentOS" >}}
-### Ubuntu 14.04 / CentOS 6 / RHEL 6
-
-Start the services using the sysvinit scripts.
-
-{{< highlight shell >}}
-sudo /etc/init.d/sensu-backend start
-sudo /etc/init.d/sensu-agent start
-{{< /highlight >}}
-
-### Ubuntu 16.04 / CentOS 7 / RHEL 7
+#### Ubuntu/Debian/RHEL/CentOS
 
 Start the services using systemd.
 
 {{< highlight shell >}}
-sudo systemctl start sensu-backend
 sudo systemctl start sensu-agent
 {{< /highlight >}}
-{{< platformBlockClose >}}
 
-{{< platformBlock "Windows" >}}
-### Windows
-
-Coming soon.
-{{< platformBlockClose >}}
-
-You can access the Sensu dashboard at http://127.0.0.1:3000.
-See the [dashboard docs][1] for more information about the Sensu dashboard.
-
-## Validating the services
-
-{{< platformBlock "Ubuntu/Debian RHEL/CentOS" >}}
-### Ubuntu 14.04 / CentOS 6 / RHEL 6
-
-Verify that the services are properly running using `journalctl`.
+You can verify that the services are properly running using the log files.
 
 {{< highlight shell >}}
-tail -f /var/log/sensu/sensu-backend.log
-tail -f /var/log/sensu-agent.log
-{{< /highlight >}}
-
-### Ubuntu 16.04 / CentOS 7 / RHEL 7
-
-Verify that the services are properly running using the log files.
-
-{{< highlight shell >}}
-journalctl -u sensu-backend -f
 journalctl -u sensu-agent -f
 {{< /highlight >}}
+
+_NOTE: On Ubuntu 14.04, CentOS 6, and RHEL 6, use `sudo /etc/init.d/sensu-backend start` to start the backend and `tail -f /var/log/sensu/sensu-backend.log` to verify it._
 {{< platformBlockClose >}}
 
 {{< platformBlock "Windows" >}}
-### Windows
+#### Windows
 
 Coming soon.
 {{< platformBlockClose >}}
 
+{{< platformBlock "Docker" >}}
 ## Docker
 
 Sensu 2.0 can be run via [Docker](https://www.docker.com/) or [rkt](https://coreos.com/rkt) using the [sensu/sensu](https://hub.docker.com/r/sensu/sensu/) image. When running Sensu from Docker there are a couple of things to take into consideration.
 
-The backend requires 3 exposed ports and persistent storage. This example uses a shared filesystem. Sensu 2.0 is backed by a distributed database, and its storage should be provisioned accordingly.  We recommend local storage or something like Throughtput Optimized or Provisioned IOPS EBS if local storage is unavailable.  The 3 exposed ports are:
+The backend requires 3 exposed ports and persistent storage. This example uses a shared filesystem. Sensu 2.0 is backed by a distributed database, and its storage should be provisioned accordingly.  We recommend local storage or something like Throughput Optimized or Provisioned IOPS EBS if local storage is unavailable.  The 3 exposed ports are:
 
 - 2380: Sensu storage peer listener (only other sensu-backends need access to this port)
 - 3000: Sensu dashboard (not yet complete)
@@ -202,5 +218,3 @@ _NOTE: You can configure the sensu-backend and sensu-agent log levels by using t
 ### sensuctl and Docker
 
 It's best to run sensuctl locally and point it at the exposed API port for your sensu-backend process. The sensuctl utility stores configuration locally, and you'll likely want to persist it across uses. While it can be run from the docker container, doing so may be problematic.
-
-[1]: ../../dashboard/overview

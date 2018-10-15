@@ -80,6 +80,7 @@ $ curl -s http://localhost:4567/results | jq .
 ---------------|------
 description    | Returns a list of current check results for all clients.
 example url    | http://hostname:4567/results
+pagination     | see [pagination][6]
 response type  | Array
 response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output         | {{< highlight json >}}[
@@ -220,6 +221,7 @@ $ curl -s http://localhost:4567/results/client-01 | jq .
 -----------------------|------
 description            | Returns a list of current check results for a given client.
 example url            | http://hostname:4567/results/i-424242
+pagination             | see [pagination][6]
 response type          | Array
 response codes         | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output                 | {{< highlight json >}}[
@@ -349,3 +351,4 @@ Server: thin
 [3]:  https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html
 [4]:  ../../reference/clients#proxy-clients
 [5]:  ../../reference/checks#check-definition-specification
+[6]:  ../overview#pagination

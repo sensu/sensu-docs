@@ -67,8 +67,43 @@
     <script src="{{ "/javascripts/modernizr.js" | absURL }}"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
       crossorigin="anonymous"></script>
-    <script src="https://use.fontawesome.com/ea9395e21e.js"></script>
-    <script type="text/javascript" src="{{ "/js/vendor/lunr.min.js" | absURL }}"></script>
+
+	<script src="https://use.fontawesome.com/ea9395e21e.js"></script>
+	<script src="//rum-static.pingdom.net/pa-5bacf02ccea07b00160001cc.js" async></script>
+
+  <!-- Local fallback for assets in case of cdn failure -->
+	<script type="text/javascript">
+    function css(element, property) {
+      return window.getComputedStyle(element, null).getPropertyValue(property);
+    }
+
+    window.onload = function () {
+      var span = document.createElement('span');
+      span.className = 'fa';
+      span.style.display = 'none';
+      document.body.insertBefore(span, document.body.firstChild);
+
+      var faScript = document.createElement('script');
+      faScript.type = 'text/javascript'
+      faScript.src = encodeURI('{{ "/js/vendor/fontawesome-all.min.js" | absURL }}')
+
+      var jQueryScript = document.createElement('script');
+      jQueryScript.type = 'text/javascript';
+      jQueryScript.src = encodeURI('{{ "/js/vendor/jquery-3.2.1.min.js" | absURL }}')
+      var head = document.getElementsByTagName('head')[0];
+      
+      if ((css(span, 'font-family')) !== 'FontAwesome') {
+        head.appendChild(faScript);
+      }
+      if (!window.jQuery) {
+        console.log("apending jquery local script");
+        head.appendChild(jQueryScript);
+      }
+      document.body.removeChild(span);
+    };
+	</script>
+    
+	  <script type="text/javascript" src="{{ "/js/vendor/lunr.min.js" | absURL }}"></script>
     <script type="text/javascript" src="{{ "/js/js-cookie.js" | absURL }}"></script>
     <script type="text/javascript" src="{{ "/js/platformDropdowns.js" | absURL }}"></script>
     <script type="text/javascript" src="{{ "/js/noframework.waypoints.min.js" | absURL }}"></script>

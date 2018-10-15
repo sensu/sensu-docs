@@ -67,21 +67,18 @@ The Sensu Enterprise Dashboard delivers visibility at scale with comprehensive a
 ## Installing Sensu Enterprise
 
 Sensu Enterprise builds on the same architecture as Sensu Core.
-Please see the [Sensu installation guide][22] for instructions on installing
+Please see the [Sensu Enterprise installation overview][22] for instructions on installing
 Sensu Enterprise, the Sensu Enterprise Dashboard, and the Sensu client.
 
 ## Upgrading to Sensu Enterprise
 
 For those already running Sensu Core, Sensu Enterprise is designed to be a
-drop-in replacement for the Sensu Core server and API. Once installed,
-no configuration changes are required – simply terminate the
-`sensu-server` and `sensu-api` processes, and start the `sensu-enterprise`
-process to resume operation of your Sensu instance. Some configuration
-changes may be required to take advantage of [built-in integrations][4]
-or added-value features like [contact routing][23].
+drop-in replacement for the Sensu Core server and API.
+Please see the [Sensu Enterprise installation overview][2] for instructions on
+upgrading from Sensu Core to Sensu Enterprise and Sensu Enterprise Dashboard.
 
 [1]: https://account.sensu.io/users/sign_up?plan=platinum
-[2]: #upgrading-to-sensu-enterprise
+[2]: installation/overview/#upgrading-from-sensu-core-to-sensu-enterprise
 [3]: /sensu-core/latest
 [4]: built-in-handlers/#list-of-built-in-handlers
 [5]: integrations/email
