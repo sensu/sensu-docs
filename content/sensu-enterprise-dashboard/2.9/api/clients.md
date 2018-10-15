@@ -158,7 +158,7 @@ Server: thin
 -----------------------|------
 description            | Returns a client with the `name` and datacenter (`dc`)
 example url            | http://hostname:3000/clients/i-424242
-parameters             | <ul><li>`dc`:<ul><li>**required**: false</li><li>**type**: String</li><li>**description**: If the client name is present in multiple datacenters, specifying the `dc` parameter will return only the client found in that datacenter.</li><li>**example**: `http://hostname:3000/clients/i-424242?dc=us_west1`</li></ul></li></ul>
+parameters             | <ul><li>`dc`:<ul><li>**required**: false</li><li>**type**: String</li><li>**description**: If the client name is present in multiple datacenters, specifying the `dc` parameter returns only the client found in that datacenter.</li><li>**example**: `http://hostname:3000/clients/i-424242?dc=us_west1`</li></ul></li></ul>
 response type          | Hash
 response codes         | <ul><li>**Success**: 200 (OK)</li><li>**Found in multiple datacenters**: 300 (Multiple Choices)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output                 | {{< highlight shell >}}{
@@ -225,7 +225,7 @@ Server: thin
 --------------------------|------
 description               | Removes a client, resolving its current events. (delayed action)
 example url               | http://hostname:3000/clients/i-424242
-parameters                | <ul><li>`dc`:<ul><li>**required**: false</li><li>**type**: String</li><li>**description**: If the client name is present in multiple datacenters, specifying the `dc` parameter will access only the client found in that datacenter.</li><li>**example**: `http://hostname:3000/clients/i-424242?dc=us_west1`</li></ul></li></ul>
+parameters                | <ul><li>`dc`:<ul><li>**required**: false</li><li>**type**: String</li><li>**description**: If the client name is present in multiple datacenters, specifying the `dc` parameter accesses only the client found in that datacenter.</li><li>**example**: `http://hostname:3000/clients/i-424242?dc=us_west1`</li></ul></li></ul>
 response codes            | <ul><li>**Success**: 202 (Accepted)</li><li>**Found in multiple datacenters**: 300 (Multiple Choices)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 ## The `/clients/:client/history` API Endpoint {#the-clientsclienthistory-api-endpoint}
@@ -298,7 +298,7 @@ $ curl -s http://127.0.0.1:3000/clients/i-424242/history | jq .
 -------------------------------|------
 description            | Returns an array of check results by check `name` and datacenter (`dc`)
 example url            | http://hostname:3000/clients/i-424242/history
-parameters             | <ul><li>`dc`:<ul><li>**required**: false</li><li>**type**: String</li><li>**description**: If the client name is present in multiple datacenters, specifying the `dc` parameter will return only check results for the client found in that datacenter.</li><li>**example**: `http://hostname:3000/clients/i-424242/history?dc=us_east1`</li></ul></li></ul>
+parameters             | <ul><li>`dc`:<ul><li>**required**: false</li><li>**type**: String</li><li>**description**: If the client name is present in multiple datacenters, specifying the `dc` parameter returns only check results for the client found in that datacenter.</li><li>**example**: `http://hostname:3000/clients/i-424242/history?dc=us_east1`</li></ul></li></ul>
 response type          | Array
 response codes         | <ul><li>**Success**: 200 (OK)</li><li>**Found in multiple datacenters**: 300 (Multiple Choices)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output                 | {{< highlight shell >}}[

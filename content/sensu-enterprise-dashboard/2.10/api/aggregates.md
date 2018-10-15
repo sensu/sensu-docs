@@ -97,7 +97,7 @@ $ curl -s http://127.0.0.1:3000/aggregates/example_aggregate | jq .
 ------------------------|------
 description             | Returns the aggregate check result for a given aggregate.
 example url             | http://hostname:3000/aggregates/elasticsearch
-parameters              | <ul><li>`dc`:<ul><li>**required**: false</li><li>**type**: String</li><li>**description**: If the aggregate name is present in multiple datacenters, specifying the `dc` parameter will return only the aggregate found in that datacenter.</li><li>**example**: `http://hostname:3000/aggregates/elasticsearch?dc=us_west1`</li></ul></li></ul>
+parameters              | <ul><li>`dc`:<ul><li>**required**: false</li><li>**type**: String</li><li>**description**: If the aggregate name is present in multiple datacenters, specifying the `dc` parameter returns only the aggregate found in that datacenter.</li><li>**example**: `http://hostname:3000/aggregates/elasticsearch?dc=us_west1`</li></ul></li></ul>
 response type           | Array
 response codes          | <ul><li>**Success**: 200 (OK)</li><li>**Found in multiple datacenters**: 300 (Multiple Choices)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output                  | {{< highlight json >}}{
@@ -138,7 +138,7 @@ Server: thin
 ---------------------------|------
 description                | Deletes all aggregate data for a named aggregate.
 example url                | http://hostname:3000/aggregates/elasticsearch
-parameters              | <ul><li>`dc`:<ul><li>**required**: false</li><li>**type**: String</li><li>**description**: If the aggregate name is present in multiple datacenters, specifying the `dc` parameter will access only the aggregate found in that datacenter.</li><li>**example**: `http://hostname:3000/aggregates/elasticsearch?dc=us_west1`</li></ul></li></ul>
+parameters              | <ul><li>`dc`:<ul><li>**required**: false</li><li>**type**: String</li><li>**description**: If the aggregate name is present in multiple datacenters, specifying the `dc` parameter accesses only the aggregate found in that datacenter.</li><li>**example**: `http://hostname:3000/aggregates/elasticsearch?dc=us_west1`</li></ul></li></ul>
 response type              | [HTTP-header][3] only (no output)
 response codes             | <ul><li>**Success**: 202 (Accepted)</li><li>**Found in multiple datacenters**: 300 (Multiple Choices)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output                     | {{< highlight shell >}}HTTP/1.1 202 Accepted

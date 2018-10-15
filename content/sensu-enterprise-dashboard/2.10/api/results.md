@@ -42,7 +42,7 @@ Server: thin
 ---------------------------------|------
 description                      | Delete a check result for a given client & check name.
 example url                      | http://hostname:3000/results/i-424242/chef_client_process
-parameters                       | <ul><li>`dc`:<ul><li>**required**: false</li><li>**type**: String</li><li>**description**: If the check name is present in multiple datacenters, specifying the `dc` parameter will access only the check found in that datacenter.</li><li>**example**: `http://hostname:3000/results/i-424242/chef_client_process?dc=us_west1`</li></ul></li></ul>
+parameters                       | <ul><li>`dc`:<ul><li>**required**: false</li><li>**type**: String</li><li>**description**: If the check name is present in multiple datacenters, specifying the `dc` parameter accesses only the check found in that datacenter.</li><li>**example**: `http://hostname:3000/results/i-424242/chef_client_process?dc=us_west1`</li></ul></li></ul>
 response type                    | [HTTP-header][3] only (No Content)
 response codes                   | <ul><li>**Success**: 202 (Accepted)</li><li>**Found in multiple datacenters**: 300 (Multiple Choices)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output                           | {{< highlight shell >}}HTTP/1.1 202 Accepted
