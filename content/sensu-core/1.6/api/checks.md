@@ -143,7 +143,8 @@ and history.
 #### EXAMPLE {#checkscheck-delete-example}
 
 The following example demonstrates a request to delete a check named
-`sensu_website`, resulting in a [202 (Accepted) HTTP response code][3].
+`sensu_website`, resulting in a [202 (Accepted) HTTP response code][3] and
+and a JSON Hash containing an `issued` timestamp.
 
 {{< highlight shell >}}
 $ curl -s -i -X DELETE http://127.0.0.1:4567/checks/sensu_website
@@ -157,6 +158,8 @@ Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept, Au
 Content-Length: 21
 Connection: keep-alive
 Server: thin
+
+{"issued":1539627787}
 {{< /highlight >}}
 
 #### API Specification {#clientsclient-delete-specification}
@@ -175,6 +178,8 @@ Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept, Au
 Content-Length: 21
 Connection: keep-alive
 Server: thin
+
+{"issued":1539627787}
 {{< /highlight >}}
 
 ## The `/request` API endpoint
