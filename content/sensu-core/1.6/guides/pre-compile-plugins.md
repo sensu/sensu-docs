@@ -2,10 +2,10 @@
 title: "Pre-Compiling Plugins"
 description: "Pre-Compiling Sensu Plugins for Distribution"
 product: "Sensu Core"
-version: "1.5"
+version: "1.6"
 weight: 12
 menu:
-  sensu-core-1.5:
+  sensu-core-1.6:
     parent: guides
 ---
 
