@@ -10,7 +10,7 @@ menu: "plugins-1.0"
 
 ### Gems
 
-Installing via the built-in `sensu-install` is the preferred method if one exists.
+Installing via the built-in `sensu-install` is the preferred method of installing a plugin.
 
 **Standard Installation**
 
