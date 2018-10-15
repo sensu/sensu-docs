@@ -350,7 +350,33 @@ outputting the last 100 lines of an error log.
 
 ## Managing checks
 
-To delete a check from Sensu, remove the JSON configuration file and use the [Checks API][66] to delete check results and history.
+### Delete a check
+
+To delete a check from Sensu, remove the configuration file for the check, then restart the Sensu server and API.
+The following example deletes a check named `check-sensu-website`:
+
+{{< highlight shell >}}
+# Delete the configuration file
+sudo rm /etc/sensu/conf.d/check-sensu-website.json
+# Restart the Sensu server and API
+sudo systemctl restart sensu-{server,api}
+{{< /highlight >}}
+
+_NOTE: On Ubuntu 14.04, CentOS 6, and RHEL 6, use `sudo service sensu-{server,api} restart` to restart the Sensu server and API._
+
+While removing the configuration file removes the check from the registry, it doesn't affect the history of the check or any existing check results.
+To remove a deleted check's results and history from Sensu, use the [Checks API DELETE endpoint][66].
+The following example deletes all check results and check history for a check named `check-sensu-website`:
+
+{{< highlight shell >}}
+# Delete check results and check history
+curl -s -i -X DELETE http://127.0.0.1:4567/checks/check-sensu-website
+{{< /highlight >}}
+
+### Rename a check
+
+Since checks are defined by their name, checks cannot be renamed.
+In practice, you can rename a check by [deleting it](#delete a check) and re-creating it with a new name.
 
 ## Check configuration
 
