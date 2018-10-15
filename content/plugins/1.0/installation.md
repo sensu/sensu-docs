@@ -18,11 +18,13 @@ Installing via the built-in `sensu-install` is the preferred method of installin
 sensu-install -p disk-checks
 ```
 
+For further details, please see the [plugin installation guide][1].
+
 ### Gems
 
 If you're not able to install a plugin via `sensu-install`, you may use the `gem` command from Sensu's embedded ruby. 
 
-For production deployments make sure you [pin your gems](https://github.com/sensu-plugins/community/blob/master/best_practices/production_deployments/plugins/PINNING_VERSIONS.md)
+For production deployments make sure you [pin your gems][2].
 
 _NOTE: If the gem has an alpha tag then you will need to use the `--prerelease` flag or the gem will not be found._
 
@@ -89,3 +91,7 @@ Depending on ruby environment you may need to call ruby directly
 ```
 
 For details check the header file of a given plugin.
+
+<!-- LINKS -->
+[1]: /sensu-core/latest/installation/installing-plugins/
+[2]: https://github.com/sensu-plugins/community/blob/master/best_practices/production_deployments/plugins/PINNING_VERSIONS.md
