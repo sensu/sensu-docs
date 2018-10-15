@@ -166,9 +166,9 @@ Server: thin
 
 /clients/:client (DELETE) | 
 --------------------------|------
-description               | Removes check results and check history for a specified check across all clients. This endpoint does not modify any configuration files.
+description               | Asynchronously removes check results and check history for a specified check across all clients. This endpoint does not modify any configuration files.
 example url               | http://hostname:4567/checks/sensu_website
-response codes            | <ul><li>**Success**: 202 (Accepted)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+response codes            | <ul><li>**Success**: 202 (Accepted)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output                  | {{< highlight shell >}}HTTP/1.1 202 Accepted
 Content-Type: application/json
 Access-Control-Allow-Origin: *
