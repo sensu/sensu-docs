@@ -34,6 +34,7 @@ menu:
 - [Check hooks](#check-hooks)
   - [What are check hooks?](#what-are-check-hooks)
   - [Example check hooks](#example-check-hooks)
+- [Managing checks](#managing-checks)
 - [Check configuration](#check-configuration)
   - [Example check definition](#example-check-definition)
   - [Check definition specification](#check-definition-specification)
@@ -346,6 +347,10 @@ outputting the last 100 lines of an error log.
   }
 }
 {{< /highlight >}}
+
+## Managing checks
+
+To delete a check from Sensu, remove the JSON configuration file and use the [Checks API][66] to delete check results and history.
 
 ## Check configuration
 
@@ -1079,3 +1084,4 @@ example      | {{< highlight shell >}}"output": "i-424242"{{< /highlight >}}
 [63]: #opsgenie-attributes
 [64]: /sensu-enterprise/latest/integrations/opsgenie
 [65]: ../configuration#configuration-scopes
+[66]: ../../api/checks#checkscheck-delete

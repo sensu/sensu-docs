@@ -15,6 +15,7 @@ menu:
   - [`/checks` (GET)](#checks-get)
 - [The `/checks/:check` API endpoint(s)](#the-checkscheck-api-endpoints)
   - [`/checks/:check` (GET)](#checkscheck-get)
+  - [`/checks/:check` (DELETE)](#checkscheck-delete)
 - [The `/request` API endpoint](#the-request-api-endpoint)
   - [`/request` (POST)](#request-post)
 
@@ -132,6 +133,48 @@ output               | {{< highlight json >}}{
   ],
   "interval": 60
 }
+{{< /highlight >}}
+
+### `/checks/:check` (DELETE) {#checkscheck-delete}
+
+The `/checks/:check` endpoint provides HTTP DELETE access to check results
+and history.
+
+#### EXAMPLE {#checkscheck-delete-example}
+
+The following example demonstrates a request to delete a check named
+`sensu_website`, resulting in a [202 (Accepted) HTTP response code][3].
+
+{{< highlight shell >}}
+$ curl -s -i -X DELETE http://127.0.0.1:4567/checks/sensu_website
+
+HTTP/1.1 202 Accepted
+Content-Type: application/json
+Access-Control-Allow-Origin: *
+Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS
+Access-Control-Allow-Credentials: true
+Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept, Authorization
+Content-Length: 21
+Connection: keep-alive
+Server: thin
+{{< /highlight >}}
+
+#### API Specification {#clientsclient-delete-specification}
+
+/clients/:client (DELETE) | 
+--------------------------|------
+description               | Removes check results and check history for a specified check across all clients. This endpoint does not modify any configuration files.
+example url               | http://hostname:4567/checks/sensu_website
+response codes            | <ul><li>**Success**: 202 (Accepted)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+output                  | {{< highlight shell >}}HTTP/1.1 202 Accepted
+Content-Type: application/json
+Access-Control-Allow-Origin: *
+Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS
+Access-Control-Allow-Credentials: true
+Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept, Authorization
+Content-Length: 21
+Connection: keep-alive
+Server: thin
 {{< /highlight >}}
 
 ## The `/request` API endpoint
