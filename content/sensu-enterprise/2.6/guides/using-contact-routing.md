@@ -10,9 +10,8 @@ menu:
    parent: guides
 ---
 
-In this guide we'll cover configuring and using Sensu Enterprise Contact Routing for routing events to different contacts and services.
-
 - [Prerequisites](#prerequisites)
+- [Overview](#overview)
   - [Contact Routing Basics](#contact-routing-basics)
     - [Contact Configuration](#contact-configuration)
     - [Check Configuration](#check-configuration)
@@ -28,9 +27,17 @@ Before diving into this guide, we recommend having the following components read
 - A working Sensu Enterprise deployment
 - Two or more handlers configured
 
-If you've not already signed up for Sensu Enterprise, you can do so via [this link][1]. 
+If you've not already signed up for Sensu Enterprise, you can do so via [this link][1].
 
-In this guide we'll be using [Slack][2] and [Email][3] handlers for our demostration
+In this guide we'll be using [Slack][2] and [Email][3] handlers for our demostration.
+
+# Overview
+
+Every incident, outage or event has an ideal first responder. This can be either a team or invdividual with the knowledge to tirage and address the issue. Sensu Enterprise contact routing makes it possible to assign checks to specific teams and/or individuals, reducing mean time to response and recovery (MTTR). Contact routing works with all of the Sensu Enterprise third-party notification and metric integrations.
+
+_NOTE: Sensu Enterprise supports contact routing for all integrations except EC2, Puppet, Chef, Flapjack, and Event Stream._
+
+In this guide we'll cover configuring and using Sensu Enterprise Contact
 
 ## Contact Routing Basics
 
@@ -61,9 +68,228 @@ In the example above we have a contact named **support**. For **support** we hav
 
 Once a contact has been defined, we can now apply which contact to use in a check configuration. The use case for having it on a check could be that the client is owned by a particular team or group, the same can be done for specific checks. For instance 
 
+{{< highlight json >}}
+{
+  "checks": {
+    "example_check": {
+      "command": "do_something.rb",
+      "interval": 30,
+      "handler": "email",
+      "contact": "support"
+    }
+  }
+}
+{{< /highlight >}}
+
 ### Client Configuration
 
+A client configuration can include a contact to add. This will override the c
+{{< highlight json >}}
+{
+  "client": {
+    "name": "ec2-west-id-12345",
+    "address": "8.8.8.8",
+    "subscriptions": [
+      "production",
+      "aws"
+    ],
+    "contact": "aws-team"
+  }
+}
+{{< /highlight >}}
+
 # Example Implementaiton
+
+TODO: DEFAULT CONFIGURATION
+For the examples we'll be working with we want to define what our default handlers will be.
+
+Bellow is the default configuration for the handlers we'll be working with in our examples:
+
+{{< highlight json >}}
+{
+  "handlers": {
+    "slack": {
+      "webhook_url": "https://hooks.slack.com/services/foo/bar/foobar",
+      "username": "sensu",
+      "channel": "#support",
+      "timeout": 10
+    },
+    "email": {
+      "smtp": {
+        "address": "smtp.example.com",
+        "port": 587,
+        "openssl_verify_mode": "none",
+        "enable_starttls_auto": true,
+        "authentication": "plain",
+        "user_name": "postmaster@example.com",
+        "password": "SECRET"
+      },
+      "to": "support@example.com",
+      "from": "noreply@example.com",
+      "timeout": 10
+    },
+    "pagerduty": {
+      "service_key": "someservicekey ",
+      "timeout": 10
+    }
+  }
+}
+{{< /highlight >}}
+
+## Multiple Handlers With Single Contact Examples
+TODO: Check with email and slack handler, contact with only email
+{{< highlight json >}}
+{
+  "checks": {
+    "example_check": {
+      "command": "do_something.rb",
+      "interval": 30,
+      "handler": [
+        "email",
+        "slack"
+      ],
+      "contact": "support"
+    }
+  }
+}
+{{< /highlight >}}
+
+{{< highlight json >}}
+{
+  "contacts": {
+    "support": {
+      "email": {
+        "to": "support@sensuapp.com"
+      }
+    }
+  }
+}
+{{< /highlight >}}
+
+TODO: Check with email and slack handler, contact with email and slack
+{{< highlight json >}}
+{
+  "checks": {
+    "example_check": {
+      "command": "do_something.rb",
+      "interval": 30,
+      "handler": [
+        "email",
+        "slack"
+      ],
+      "contact": "support"
+    }
+  }
+}
+{{< /highlight >}}
+
+{{< highlight json >}}
+{
+  "contacts": {
+    "support": {
+      "email": {
+        "to": "support@sensuapp.com"
+      },
+      "slack": {
+        "channel": "#support"
+      }
+    }
+  }
+}
+{{< /highlight >}}
+
+TODO: Check with PagerDuty and slack handler, contact with only email
+{{< highlight json >}}
+{
+  "checks": {
+    "example_check": {
+      "command": "do_something.rb",
+      "interval": 30,
+      "handler": [
+        "pagerduty",
+        "slack"
+      ],
+      "contact": "support"
+    }
+  }
+}
+{{< /highlight >}}
+
+
+
+## Single Handler Examples With Single Contact Examples
+
+TODO: Check with PagerDuty handler, contact with email and slack
+{{< highlight json >}}
+{
+  "checks": {
+    "example_check": {
+      "command": "do_something.rb",
+      "interval": 30,
+      "handler": [
+        "pagerduty"
+      ],
+      "contact": "support"
+    }
+  }
+}
+{{< /highlight >}}
+
+TODO: Check with email and slack handler, contact with pagerduty
+{{< highlight json >}}
+{
+  "checks": {
+    "example_check": {
+      "command": "do_something.rb",
+      "interval": 30,
+      "handler": [
+        "email",
+        "slack"
+      ],
+      "contact": "support"
+    }
+  }
+}
+{{< /highlight >}}
+
+## Multiple Handler with Multipe Contacts Examples
+TODO: Check with email and slack handler, contact with only email, contact with slack
+{{< highlight json >}}
+{
+  "checks": {
+    "example_check": {
+      "command": "do_something.rb",
+      "interval": 30,
+      "handler": [
+        "email",
+        "slack"
+      ],
+      "contact": "support"
+    }
+  }
+}
+{{< /highlight >}}
+TODO: Check with email and slack handler, contact with only pagerduty, contact with slack and email, contact with 
+{{< highlight json >}}
+{
+  "checks": {
+    "example_check": {
+      "command": "do_something.rb",
+      "interval": 30,
+      "handler": [
+        "email",
+        "slack"
+      ],
+      "contact": "support"
+    }
+  }
+}
+{{< /highlight >}}
+
+
+## Single Handler with Single Contact Example
+
+
 # Wrapping Up
 # References
 # Additional Resources
