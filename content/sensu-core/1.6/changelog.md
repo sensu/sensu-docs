@@ -67,10 +67,12 @@ Source: [GitHub.com][63]
 - **NEW**: The [Checks API][64] now provides an endpoint to delete check history and
   check results, giving you an easy way to clean up unused checks.
 
-- **IMPROVEMENT**: Sensu Core 1.6 reduces the impact of RabbitMQ flow control by
-  splitting communication with the transport into two connections. Sensu clients
-  now use separate connections to publish keepalives and check results, doubling
-  the number of connections RabbitMQ will receive.
+- **IMPROVEMENT**: Sensu Core 1.6 implements changes in RabbitMQ communication
+  by using two discrete connections to the transport instead of two channels
+  on a single connection, thereby doubling the number of concurrent connections
+  RabbitMQ receives. This change prevents check result processing rates from
+  being impacted by check execution request publishing rates and reduces the
+  possibility of false keepalive alerts under certain conditions.
 
 - **IMPROVEMENT**: Sensu now redacts additional fields (such as webhook URLs)
   when displaying configuration files.
