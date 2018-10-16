@@ -162,9 +162,9 @@ Server: thin
 {"issued":1539627787}
 {{< /highlight >}}
 
-#### API Specification {#clientsclient-delete-specification}
+#### API Specification {#checkscheck-delete-specification}
 
-/clients/:client (DELETE) | 
+/checks/:check (DELETE) | 
 --------------------------|------
 description               | Asynchronously removes check results and check history for a specified check across all clients. This endpoint does not modify any configuration files.
 example url               | http://hostname:4567/checks/sensu_website
