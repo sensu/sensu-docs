@@ -375,8 +375,7 @@ curl -s -i -X DELETE http://127.0.0.1:4567/checks/check-sensu-website
 
 ### Rename a check
 
-Since checks are defined by their name, checks cannot be renamed.
-In practice, you can rename a check by [deleting it](#delete a check) and re-creating it with a new name.
+To rename a check, modify the [check name](#check-names) in the check configuration, then restart the Sensu server and API and use the [Checks API DELETE endpoint][66] to remove the history and check results tied to the former name.
 
 ## Check configuration
 

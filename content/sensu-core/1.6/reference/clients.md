@@ -424,12 +424,12 @@ synchronized via [NTP][23]).
 
 ### Delete a client
 
-While shutting down a client stops all check and keepalive processes, it doesn't affect the history of the client or remove existing keepalive results.
-To delete a client's history from Sensu, use the [clients API DELETE endpoint][66] or the `x` icon in the dashboard client view.
+While shutting down a client stops all check results and keepalives, it doesn't affect the history of the client or remove existing keepalive results.
+To delete a client's history from Sensu, use the [Clients API DELETE endpoint][66] or the `x` icon in the dashboard client view.
 
 ### Rename a client
 
-To rename a client, modify the [`name` attribute][15] in the client configuration, then restart the client and use the [clients API DELETE endpoint][66] or the `x` icon in the dashboard client view to remove the history and keepalive results tied to the old client name.
+To rename a client, modify the [`name` attribute][15] in the client configuration, then restart the client and use the [Clients API DELETE endpoint][66] or the `x` icon in the dashboard client view to remove the history and keepalive results tied to the former client name.
 See the appropriate [platform page][67] for instructions on restarting the Sensu client.
 
 ## Client configuration
