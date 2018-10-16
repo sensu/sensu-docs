@@ -1,12 +1,12 @@
 ---
-title: "Getting Started with Sensu"
-linkTitle: "Get Started with Sensu"
-description: "Get started with Sensu."
+title: "Getting Started with Sensu Enterprise"
+linkTitle: "Get Started with Sensu Enterprise"
+description: "Get started with Sensu Enterprise."
 weight: 1
-version: "1.6"
-product: "Sensu Core"
+version: "3.2"
+product: "Sensu Enterprise"
 menu:
-  sensu-core-1.6:
+  sensu-enterprise-3.2:
     parent: quick-start
 ---
 
@@ -14,16 +14,7 @@ menu:
 
 The Sensu sandbox is a virtual environment that makes it easy to get started building monitoring workflows.
 
-- [Learn Sensu Core][1]
 - [Learn Sensu Enterprise][2]
-
-### Install Sensu Core
-
-Sensu Core is the free and open source monitoring event pipeline.
-
-- [Install Sensu with configuration management][3]
-- [Sensu Core installation guide][4]
-- [Discover Sensu Community Plugins][5]
 
 ### Try Sensu Enterprise
 
@@ -33,10 +24,6 @@ Sensu Enterprise offers features designed for organizations, like contact routin
 - [Get started with the Sensu Enterprise sandbox][2]
 - [Sensu Enterprise installation guide][7]
 
-[1]:  https://github.com/sensu/sandbox/tree/master/sensu/core
 [2]:  https://github.com/sensu/sandbox/tree/master/sensu/enterprise
-[3]:  ../../installation/configuration-management
-[4]: ../../installation/overview
-[5]: https://github.com/sensu-plugins
 [6]: https://account.sensu.io/users/sign_up?plan=platinum
 [7]: /sensu-enterprise/latest/installation/overview

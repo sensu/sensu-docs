@@ -1,10 +1,10 @@
 ---
 title: "Sensu Dashboards"
 description: "The complete Sensu installation guide."
-weight: 6
+weight: 3.3
 product: "Sensu Core"
 version: "1.1"
-next: ../summary
+next: ../install-redis
 previous: ../install-sensu-client
 menu:
   sensu-core-1.1:

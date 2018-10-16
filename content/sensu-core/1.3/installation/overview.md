@@ -37,34 +37,27 @@ By default, this installation guide will focus on the instructions for
 configuring a [standalone][10] installation, however instructions **are
 available** for other configurations including [distributed][11] and
 [high-availability][12]. Please consult the [installation strategies reference
-documentation][13] for more information
+documentation][13] for more information.
 
 ### Installation overview
 
 What will be covered in this guide:
 
-1. [How to install and configure Sensu's prerequisites](../installation-prerequisites)
-  - [How to install and configure Redis](../install-redis)
-  - [How to install and configure RabbitMQ](../install-rabbitmq)
-2. [How to install and configure the Sensu server and API](../install-sensu-server-api) (Sensu Core or Sensu Enterprise)
-3. [How to install and configure a Sensu Client](../install-sensu-client)
-4. [How to install and configure a Sensu Dashboard](../install-a-dashboard) (Uchiwa or Sensu Enterprise Console)
-5. [Next steps](../summary)
-  - [Monitoring infrastructure and applications with Sensu](../summary/#instrumentation)
-  - [Automating Sensu installation](../summary/#automation)
-  - [Hardening Sensu](../summary/#hardening)
-  - [Running Sensu at scale](../summary/#scaling-sensu)
+1. [Install and configure the Sensu server and API](../install-sensu-server-api) (Sensu Core or Sensu Enterprise)
+2. [Install and configure a Sensu Client](../install-sensu-client)
+3. [Install and configure a Sensu Dashboard](../install-a-dashboard) (Uchiwa or Sensu Enterprise Console)
+4. [Install and configure the Redis datastore](../install-redis)
+5. [Install and configure the RabbitMQ transport](../install-rabbitmq)
+6. [Next steps](../summary)
+  - [Securing Sensu][12]
+  - [Scaling Sensu][13]
+  - [Deploying Sensu using configuration management tools][14]
 
-Upon the completion of the first four (4) steps in this guide, you should have a
+Upon the completion of these steps, you should have a
 fully functional Sensu installation, with one or more Sensu clients reporting
 [keepalives][7] (Sensu's built-in "heartbeat" mechanism) back to the Sensu
 server, _and_ a web-based Sensu dashboard providing visibility into the health
 of your infrastructure.
-
-Once you have  a fully functional Sensu installation, you will be encouraged to
-move on to the  [Getting Started Guide][8], which will introduce you to  Sensu's
-four primary building blocks (Checks, Handlers, Filters, and Mutators). But
-let's not get ahead of ourselves...
 
 ### Installation requirements
 
