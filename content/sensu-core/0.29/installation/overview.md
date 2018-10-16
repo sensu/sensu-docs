@@ -85,3 +85,4 @@ Ready? Let's get started with selecting an installation strategy!
 [11]: ../installation-strategies/#distributed
 [12]: ../installation-strategies/#high-availability
 [13]: ../installation-strategies
+[14]: ../../installation/configuration-management
