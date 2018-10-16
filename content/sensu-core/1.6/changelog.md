@@ -72,7 +72,10 @@ Source: [GitHub.com][63]
   on a single connection, thereby doubling the number of concurrent connections
   RabbitMQ receives. This change prevents check result processing rates from
   being impacted by check execution request publishing rates and reduces the
-  possibility of false keepalive alerts under certain conditions.
+  possibility of false keepalive alerts under certain conditions. To support
+  the increased number of concurrent connections, we recommend making sure
+  the open file limit is configured according to RabbitMQ's guidelines for
+  [Ubuntu/Debian][65] and [RHEL/CentOS][66].
 
 - **IMPROVEMENT**: Sensu now redacts additional fields (such as webhook URLs)
   when displaying configuration files.
@@ -1713,6 +1716,8 @@ available for immediate download. Please note the following improvements:
 <!-- 1.6 -->
 [63]: https://github.com/sensu/sensu/blob/master/CHANGELOG.md#160---2018-10-12
 [64]: /sensu-core/1.6/api/checks#checkscheck-delete
+[65]: http://www.rabbitmq.com/install-debian.html#kernel-resource-limits
+[66]: http://www.rabbitmq.com/install-rpm.html#kernel-resource-limits
 
 <!-- GH Issues/PR's -->
 
