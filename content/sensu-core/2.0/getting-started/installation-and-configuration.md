@@ -212,11 +212,11 @@ Coming soon.
 
 {{< platformBlockClose >}}
 
-{{< platformBlock "macOS RHEL/CentOS Ubuntu/Debian" >}}
+{{< platformBlock "macOS RHEL/CentOS Ubuntu/Debian Windows" >}}
 
 ## Install sensuctl
 Sensu 2.0 can be configured and used with the sensuctl (pronounced “Sensu cuddle”) command line utility.
-Sensu CLI (sensuctl) packages are available for macOS, Ubuntu/Debian, and RHEL/CentOS.
+Sensu CLI (sensuctl) packages are available for macOS, Ubuntu/Debian, RHEL/CentOS, and Windows.
 
 ### 1. Install the package
 
@@ -289,7 +289,15 @@ sudo yum install sensu-cli
 
 {{< platformBlockClose >}}
 
-{{< platformBlock "macOS RHEL/CentOS Ubuntu/Debian" >}}
+{{< platformBlock "Windows" >}}
+
+#### Windows
+
+Download [sensuctl for 64-bit Windows](http://storage.googleapis.com/sensu-binaries/2.0.0-beta.4-1/windows/amd64/sensuctl).
+
+{{< platformBlockClose >}}
+
+{{< platformBlock "macOS RHEL/CentOS Ubuntu/Debian Windows" >}}
 
 ### 2. Configure sensuctl
 
