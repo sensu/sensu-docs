@@ -140,7 +140,7 @@ sudo service rabbitmq-server stop{{< /highlight >}}
 ].
 {{< /highlight >}}
 
-_NOTE: If using multiple CA's, it may be necessary to include the `{depth, 2},` parameter under `ssl_options`. For more information about this attribute, see the [RabbitMQ SSL Reference documentation][rmq-ssl-depth]._
+_NOTE: If using multiple CAs, it may be necessary to include the `{depth, 2},` parameter under `ssl_options`. For more information about this attribute, see the [RabbitMQ SSL Reference documentation][rmq-ssl-depth]._
 
 3. Start RabbitMQ
    _NOTE: The `service` command will not work on CentOS 5, the
