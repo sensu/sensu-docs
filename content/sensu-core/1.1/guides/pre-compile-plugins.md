@@ -9,7 +9,6 @@ menu:
     parent: guides
 ---
 
-
 This guide will walk you through an example on how to pre-compile Sensu Plugins for distribution among clients.
 The goal of this guide is to showcase how you can quickly install plugins on ephemeral instances where time to compile can affect time to production.
 We'll be using `sensu-plugins-aws` as it requires `nokogiri`,  usually requiring a longer build time.
