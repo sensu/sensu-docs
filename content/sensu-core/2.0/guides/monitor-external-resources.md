@@ -130,6 +130,7 @@ Make a file called `check_and_entities.json` with the following contents:
     "subscriptions": ["sensu-app"],
     "organization": "default",
     "environment": "default",
+    "publish": true,
     "proxy_requests": {
       "entity_attributes": ["entity.Class == 'proxy'"]
      }
