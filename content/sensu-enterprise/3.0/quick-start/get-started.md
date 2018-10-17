@@ -3,10 +3,10 @@ title: "Getting Started with Sensu Enterprise"
 linkTitle: "Get Started with Sensu Enterprise"
 description: "Get started with Sensu Enterprise."
 weight: 1
-version: "3.2"
+version: "3.0"
 product: "Sensu Enterprise"
 menu:
-  sensu-enterprise-3.2:
+  sensu-enterprise-3.0:
     parent: quick-start
 ---
 
