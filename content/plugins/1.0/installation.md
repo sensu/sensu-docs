@@ -30,7 +30,8 @@ _NOTE: If the gem has an alpha tag then you will need to use the `--prerelease` 
 
 **Using Gems**
 
-`/opt/sensu/embedded/bin/gem install sensu-plugins-disk-checks`
+{{< highlight shell >}}
+/opt/sensu/embedded/bin/gem install sensu-plugins-disk-checks{{< /highlight >}}
 
 #### Bundle
 
