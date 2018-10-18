@@ -8,19 +8,30 @@ version: "1.0"
 menu: "plugins-1.0"
 ---
 
-### Gems
+### Sensu-install
 
-Installing via gem is the preferred method if one exists.
-
-For production deployments make sure you [pin your gems](https://github.com/sensu-plugins/community/blob/master/best_practices/production_deployments/plugins/PINNING_VERSIONS.md)
+Installing via the built-in `sensu-install` tool is the preferred method of installing a plugin.
 
 **Standard Installation**
 
-```
-gem install sensu-plugins-disk-checks
-```
+{{< highlight shell >}}
+sensu-install -p disk-checks{{< /highlight >}}
+
+
+For further details, please see the [plugin installation guide][1].
+
+### Gems
+
+If you're not able to install a plugin via `sensu-install`, you may use the `gem` command from Sensu's embedded ruby. 
+
+For production deployments make sure you [pin your gems][2].
 
 _NOTE: If the gem has an alpha tag then you will need to use the `--prerelease` flag or the gem will not be found._
+
+**Using Gems**
+
+{{< highlight shell >}}
+/opt/sensu/embedded/bin/gem install sensu-plugins-disk-checks{{< /highlight >}}
 
 #### Bundle
 
@@ -81,3 +92,7 @@ Depending on ruby environment you may need to call ruby directly
 ```
 
 For details check the header file of a given plugin.
+
+<!-- LINKS -->
+[1]: /sensu-core/latest/installation/installing-plugins/
+[2]: https://github.com/sensu-plugins/community/blob/master/best_practices/production_deployments/plugins/PINNING_VERSIONS.md
