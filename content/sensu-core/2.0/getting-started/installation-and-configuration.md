@@ -206,7 +206,7 @@ Start the agent using systemd.
 sudo systemctl start sensu-agent
 {{< /highlight >}}
 
-You can verify that the agent is running properly using the log files.
+You can verify that sensu-agent is running properly using the log files.
 
 {{< highlight shell >}}
 journalctl -u sensu-agent -f
