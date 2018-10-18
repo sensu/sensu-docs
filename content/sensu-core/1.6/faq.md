@@ -188,19 +188,21 @@ See the below table for a listing of services, ports, and protocols Sensu uses.
 | Sensu Client Socket               | TCP      | 3030 |
 | Uchiwa/Sensu Enterprise Dashboard | TCP      | 3000 |
 
-> What configuration files do I need for Sensu to function?
+> What configuration files does Sensu require?
 
-See the table below for the location of the respective files needed inside of `/etc/sensu/conf.d`:
+See the table below for the location of the respective files needed:
 
 | Filename      | Client | Server |
 |---------------|--------|--------|
 | api.json      |        | ✅       |
-| client.json   | ✅       | ✅       |
+| client.json   | ✅     | ✅       |
 | config.json (see note)  |        |        |
+| dashboard.json|        | ✅       |
 | rabbitmq.json | ✅       |        |
 | redis.json    |        | ✅       |
+| transport.json| ✅     | ✅       |
 
-_NOTE: For `config.json`, it is not necessary to have this file present on either a Sensu client or server, provided that you have the rest of the configuration files present. While we reference this file both in the docs, and in log messages, it is a historical artifact from Sensu's bygone days. You do not, in fact, need a file named `config.json` inside of `/etc/sensu` for Sensu to function._
+_NOTE: For `config.json`, it is not necessary to have this file present on either a Sensu client or server, provided that you have the rest of the configuration files present._
 
 [downloads]: https://sensuapp.org/downloads
 [1]: https://www.amqp.org/
