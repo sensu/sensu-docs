@@ -93,7 +93,7 @@ _NOTE: On Ubuntu 14.04, CentOS 6, and RHEL 6, use `sudo /etc/init.d/sensu-backen
 
 {{< platformBlock "Ubuntu/Debian RHEL/CentOS" >}}
 
-### 4. Next steps
+### Next steps
 
 Now that you've installed the Sensu backend:
 
