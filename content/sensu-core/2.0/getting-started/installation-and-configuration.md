@@ -91,6 +91,18 @@ _NOTE: On Ubuntu 14.04, CentOS 6, and RHEL 6, use `sudo /etc/init.d/sensu-backen
 
 {{< platformBlockClose >}}
 
+{{< platformBlock "Ubuntu/Debian RHEL/CentOS" >}}
+
+### 4. Next steps
+
+Now that you've installed the Sensu backend:
+
+- [Install the Sensu agent](#install-the-sensu-agent)
+- [Install sensuctl](#install-sensuctl)
+- [Log in to the dashboard][3]
+
+{{< platformBlockClose >}}
+
 {{< platformBlock "Ubuntu/Debian RHEL/CentOS Windows" >}}
 
 ## Install the Sensu agent
@@ -174,7 +186,7 @@ backend-url:
 
 #### Windows
 
-Coming soon.
+Download the [example agent configuration file][2].
 
 {{< platformBlockClose >}}
 
@@ -376,3 +388,5 @@ While it can be run from the docker container, doing so may be problematic.
 {{< platformBlockClose >}}
 
 [1]: https://github.com/sensu/sensu-go/releases
+[2]: https://github.com/sensu/sensu-go/blob/master/packaging/files/windows/agent.yml.example
+[3]: ../../dashboard/overview
