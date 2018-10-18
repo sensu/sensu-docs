@@ -10,12 +10,12 @@ menu:
    parent: guides
 ---
 
-# Objectives
+## Objectives
 - Set up a Sensu client as an SNMP trap receiver
 - Send a test SNMP trap to simulate a real world circumstance
 - Demonstrate the results of the SNMP trap test in Uchiwa/Sensu Enterprise Dashboard
 
-# Prerequisites
+## Prerequisites
 - A working Sensu deployment including sensu-server/sensu-api (or sensu-enterprise), sensu-client, and transport/datastore components
 - [Uchiwa][1], or [Sensu Enterprise Dashboard][2] installed and configured
 - `snmptrap` command installed on a Linux device (we’ll use CentOS 7) 
@@ -27,11 +27,11 @@ For installing the `snmptrap` command, you’ll want to run the following to ins
 {{< highlight shell >}}
 sudo yum install -y net-snmp-utils{{< /highlight >}}
 
-# Additional Resources
+## Additional Resources
 - DigitalOcean's [Intro to SNMP][4]
 - [SNMP extension Github repository][5] 
 
-# Sensu Client Configuration
+## Sensu Client Configuration
 As the Sensu monitoring agent cannot be installed on most networking gear, hosts that send SNMP traps in Sensu function as [proxy clients][6]. In this example, the general flow will be as follows:
 
 SNMP trap generated→ SNMP trap received by Sensu client → Sensu client sends result to transport/Sensu server → event is created
@@ -83,7 +83,7 @@ sudo netstat -plunt | grep 1062{{< /highlight >}}
 
 At this point, it’s worth noting that the configuration provided here is a basic, bare-minimum configuration. There are additional options you can add to your SNMP extension configuration to suit your needs. We cover those [here](#additional-snmp-extension-options). But to get a general sense of how SNMP traps function with Sensu, continue reading below.
 
-# Testing the SNMP Extension
+## Testing the SNMP Extension
 So far, we’ve done the following:
 - Installed the SNMP trap extension
 - Configured the extension
@@ -129,7 +129,7 @@ Which yields:
 
 You can then delete the result from the dashboard. 
 
-# Additional SNMP Extension Options{#additional-snmp-extension-options}
+## Additional SNMP Extension Options{#additional-snmp-extension-options}
 Earlier in the guide, we mentioned that there are some additional options you can configure for the SNMP trap listener. Let's take a look starting with some of the more basic ones:
 
 bind         | 

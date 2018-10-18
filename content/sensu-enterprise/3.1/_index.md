@@ -77,7 +77,7 @@ drop-in replacement for the Sensu Core server and API.
 Please see the [Sensu Enterprise installation overview][2] for instructions on
 upgrading from Sensu Core to Sensu Enterprise and Sensu Enterprise Dashboard.
 
-[1]: https://account.sensu.io/users/sign_up?plan=platinum
+[1]: quick-start/get-started
 [2]: installation/overview/#upgrading-from-sensu-core-to-sensu-enterprise
 [3]: /sensu-core/latest
 [4]: built-in-handlers/#list-of-built-in-handlers

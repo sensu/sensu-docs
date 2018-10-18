@@ -15,7 +15,7 @@ menu:
 
 Infrastructure sometimes includes hardware or services that don't necessarily support running the **Sensu client software** but still needs to be monitored. For those cases, [**proxy clients**](#proxy-clients) let you monitor anything you can tell Sensu about.
 
-# Adding a Sensu Client
+## Adding a Sensu Client
 
 One of the first challenges new Sensu users often encounter is learning what
 is required to get a remote [Sensu client][1] to communicate with the [Sensu
