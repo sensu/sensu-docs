@@ -87,7 +87,7 @@ You can verify that sensu-backend is running properly using the log files.
 journalctl -u sensu-backend -f
 {{< /highlight >}}
 
-_NOTE: On Ubuntu 14.04, CentOS 6, and RHEL 6, use `sudo /etc/init.d/sensu-backend start` to start the backend and `tail -f /var/log/sensu/sensu-backend.log` to verify it._
+_NOTE: On Ubuntu 14.04, CentOS 6, and RHEL 6, use `sudo service sensu-backend start` to start the backend and `tail -f /var/log/sensu/sensu-backend.log` to verify it._
 
 {{< platformBlockClose >}}
 
@@ -212,7 +212,7 @@ You can verify that sensu-agent is running properly using the log files.
 journalctl -u sensu-agent -f
 {{< /highlight >}}
 
-_NOTE: On Ubuntu 14.04, CentOS 6, and RHEL 6, use `sudo /etc/init.d/sensu-agent start` to start the agent and `tail -f /var/log/sensu/sensu-agent.log` to verify it._
+_NOTE: On Ubuntu 14.04, CentOS 6, and RHEL 6, use `sudo service sensu-agent start` to start the agent and `tail -f /var/log/sensu/sensu-agent.log` to verify it._
 
 {{< platformBlockClose >}}
 
