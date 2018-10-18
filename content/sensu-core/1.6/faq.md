@@ -198,7 +198,7 @@ See the table below for the location of the respective files needed:
 | client.json   | ✅     | ✅       |
 | config.json (see note)  |        |        |
 | dashboard.json|        | ✅       |
-| rabbitmq.json | ✅       |        |
+| rabbitmq.json | ✅       | ✅       |
 | redis.json    |        | ✅       |
 | transport.json| ✅     | ✅       |
 
