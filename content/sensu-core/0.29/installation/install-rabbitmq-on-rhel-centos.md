@@ -4,7 +4,7 @@ description: "The complete Sensu installation guide."
 weight: 9
 product: "Sensu Core"
 version: "0.29"
-next: ../install-sensu-server-api
+next: ../summary
 previous: ../install-rabbitmq
 ---
 

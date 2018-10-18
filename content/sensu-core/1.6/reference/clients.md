@@ -29,6 +29,7 @@ menu:
   - [Example client socket usage](#example-client-socket-usage)
   - [Client socket configuration](#socket-attributes)
 - [Standalone check execution scheduler](#standalone-check-execution-scheduler)
+- [Managing clients](#managing-clients)
 - [Client configuration](#client-configuration)
   - [Example client definition](#example-client-definition)
   - [Client definition specification](#client-definition-specification)
@@ -418,6 +419,18 @@ checks][22] and standalone checks &mdash; it's also possible to maintain <abbr
 title="typically accurate within 500ms">consistency</abbr> between standalone
 checks _across an entire infrastructure_ (assuming that system clocks are
 synchronized via [NTP][23]).
+
+## Managing clients
+
+### Delete a client
+
+While shutting down a client stops all check results and keepalives, it doesn't affect the history of the client or remove existing keepalive results.
+To delete a client's history from Sensu, use the [Clients API DELETE endpoint][66] or the `x` icon in the dashboard client view.
+
+### Rename a client
+
+To rename a client, modify the [`name` attribute][15] in the client configuration, then restart the client and use the [Clients API DELETE endpoint][66] or the `x` icon in the dashboard client view to remove the history and keepalive results tied to the former client name.
+See the appropriate [platform page][67] for instructions on restarting the Sensu client.
 
 ## Client configuration
 
@@ -1339,3 +1352,5 @@ information for operations teams can be extremely valuable._
 [63]: #opsgenie-attributes
 [64]: /sensu-enterprise/latest/integrations/opsgenie
 [65]: ../checks#influxdb-attributes
+[66]: ../../api/clients/#clientsclient-delete
+[67]: ../../platforms
