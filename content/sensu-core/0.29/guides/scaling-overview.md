@@ -5,7 +5,6 @@ product: "Sensu Core"
 description: "Overview of strategies and best practices for scaling Sensu"
 version: "0.29"
 weight: 11
-next: ../scaling-sensu-components
 menu:
   sensu-core-0.29:
     parent: guides
