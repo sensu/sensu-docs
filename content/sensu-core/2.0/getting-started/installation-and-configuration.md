@@ -81,7 +81,7 @@ Start the backend using systemd.
 sudo systemctl start sensu-backend
 {{< /highlight >}}
 
-You can verify that the backend is running properly using the log files.
+You can verify that sensu-backend is running properly using the log files.
 
 {{< highlight shell >}}
 journalctl -u sensu-backend -f
