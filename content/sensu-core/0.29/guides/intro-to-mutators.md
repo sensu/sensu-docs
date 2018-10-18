@@ -11,8 +11,6 @@ menu:
     parent: guides
 ---
 
-# Getting Started with Mutators
-
 The purpose of this guide is to help Sensu users create event data mutators. At
 the conclusion of this guide, you - the user - should have several Sensu
 mutators in place to mutate (transform) event data for one or more event
@@ -44,7 +42,6 @@ error will be logged.
 
 Coming soon. Please see the [Mutators][1] reference documentation. If you have
 questions about event data mutators, please contact [Sensu Support][2].
-
 
 [1]:  ../../reference/mutators/
 [2]:  http://helpdesk.sensuapp.com
