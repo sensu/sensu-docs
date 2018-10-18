@@ -11,8 +11,6 @@ menu:
     parent: guides
 ---
 
-# Getting Started with Mutators
-
 The purpose of this guide is to help Sensu users create event data mutators. At
 the conclusion of this guide, you - the user - should have several Sensu
 mutators in place to mutate (transform) event data for one or more event

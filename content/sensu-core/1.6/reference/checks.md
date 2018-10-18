@@ -34,6 +34,7 @@ menu:
 - [Check hooks](#check-hooks)
   - [What are check hooks?](#what-are-check-hooks)
   - [Example check hooks](#example-check-hooks)
+- [Managing checks](#managing-checks)
 - [Check configuration](#check-configuration)
   - [Example check definition](#example-check-definition)
   - [Check definition specification](#check-definition-specification)
@@ -346,6 +347,35 @@ outputting the last 100 lines of an error log.
   }
 }
 {{< /highlight >}}
+
+## Managing checks
+
+### Delete a check
+
+To delete a check from Sensu, remove the configuration file for the check, then restart the Sensu server and API.
+The following example deletes a check named `check-sensu-website`:
+
+{{< highlight shell >}}
+# Delete the configuration file
+sudo rm /etc/sensu/conf.d/check-sensu-website.json
+# Restart the Sensu server and API
+sudo systemctl restart sensu-{server,api}
+{{< /highlight >}}
+
+_NOTE: On Ubuntu 14.04, CentOS 6, and RHEL 6, use `sudo service sensu-{server,api} restart` to restart the Sensu server and API._
+
+While removing the configuration file removes the check from the registry, it doesn't affect the history of the check or any existing check results.
+To remove a deleted check's results and history from Sensu, use the [Checks API DELETE endpoint][66].
+The following example deletes all check results and check history for a check named `check-sensu-website`:
+
+{{< highlight shell >}}
+# Delete check results and check history
+curl -s -i -X DELETE http://127.0.0.1:4567/checks/check-sensu-website
+{{< /highlight >}}
+
+### Rename a check
+
+To rename a check, modify the [check name](#check-names) in the check configuration, then restart the Sensu server and API and use the [Checks API DELETE endpoint][66] to remove the history and check results tied to the former name.
 
 ## Check configuration
 
@@ -1079,3 +1109,4 @@ example      | {{< highlight shell >}}"output": "i-424242"{{< /highlight >}}
 [63]: #opsgenie-attributes
 [64]: /sensu-enterprise/latest/integrations/opsgenie
 [65]: ../configuration#configuration-scopes
+[66]: ../../api/checks#checkscheck-delete

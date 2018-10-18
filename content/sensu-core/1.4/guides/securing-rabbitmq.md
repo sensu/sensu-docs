@@ -15,7 +15,7 @@ As the supported transport mechanism for any Sensu deployment, RabbitMQ has its 
 
 Before we dive too deep in the article, you may want to familiarize yourself with [RabbitMQ permissions][1]. It's important to note that RabbitMQ makes a distinction between _configure_, _write_, and _read_ permissions. With that in mind, let's move on to what we'll cover in this guide.
 
-# Objectives
+## Objectives
 
 This guide will discuss the following:
 
