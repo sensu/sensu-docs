@@ -110,6 +110,8 @@ backend logs.
 
 {{< highlight json >}}
 {"assets":["sensu-influxdb-handler"],"component":"pipelined","environment":"default","handler":"influx-db","level":"debug","msg":"fetching assets for handler","organization":"default","time":"2018-10-16T13:17:33-07:00"}
+{{< /highlight >}}
+{{< highlight json >}}
 {"component":"pipelined","environment":"default","handler":"influx-db","level":"info","msg":"event pipe handler executed","organization":"default","output":"metric sent to influx-db","status":0,"time":"2018-10-16T13:17:33-07:00"}
 {{< /highlight >}}
 
@@ -138,6 +140,8 @@ backend logs.
 
 {{< highlight json >}}
 {"assets":["transformer"],"component":"pipelined","environment":"default","mutator":"transform-metrics","level":"debug","msg":"fetching assets for mutator","organization":"default","time":"2018-10-16T13:17:33-07:00"}
+{{< /highlight >}}
+{{< highlight json >}}
 {"component":"pipelined","environment":"default","mutator":"transform-metrics","level":"info","msg":"event pipe mutator executed","organization":"default","output":"metric transformed","status":0,"time":"2018-10-16T13:17:33-07:00"}
 {{< /highlight >}}
 
