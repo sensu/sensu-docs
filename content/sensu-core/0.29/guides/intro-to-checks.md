@@ -11,8 +11,6 @@ menu:
     parent: guides
 ---
 
-# An Introduction to Checks
-
 The purpose of this guide is to help Sensu users create monitoring checks. At
 the conclusion of this guide, you - the user - should have several Sensu checks
 in place to monitor and measure machine resources, applications, and services.
