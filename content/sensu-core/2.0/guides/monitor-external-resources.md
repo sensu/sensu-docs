@@ -10,7 +10,7 @@ menu:
     parent: guides
 ---
 
-## Sensu proxy requests and entities
+## What are Sensu proxy requests and entities?
 
 Sensu [proxy entities][1] are **entities** dynamically created via either the
 API (and **sensuctl**) or the [`proxy_entity_id` attribute][2] of a check.
@@ -23,7 +23,7 @@ matched, regardless of whether that entity is a Sensu agent’s entity or a prox
 entity, and the result of each check request will be reported under the matched
 entity and not the agent's entity that emitted the result.
 
-## Use of proxy requests and entities
+## Why use proxy requests and entities?
 
 Sensu proxy requests and entities allow Sensu to monitor external resources
 on systems or devices where a Sensu agent cannot be installed, like a
