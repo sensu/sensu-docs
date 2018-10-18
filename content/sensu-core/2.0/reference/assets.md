@@ -14,16 +14,32 @@ menu:
 - [Specification](#assets-specification)
 - [Examples](#examples)
 
+## What is an asset?
+An asset is an executable that a check, handler, or mutator can specify as a
+dependency. Assets must be a tar archive (optionally gzipped) with scripts or
+executables within a bin folder. At runtime, the backend or agent installs
+required assets using the specified URL. Assets let you manage runtime
+dependencies without using configuration management tools.
+
 ## How do assets work?
-At runtime, the agent sequentially fetches assets and stores them in its local
-cache. Asset dependencies are then injected into the `PATH` so they are
-available when the command is executed. Subsequent check executions look for the
-asset in local cache and ensure the contents match the checksum. An agent's
-local cache can be set using the `--cache-dir` flag; it defaults to
-`/var/cache/sensu/sensu-agent` (`C:\\ProgramData\sensu\cache\sensu-agent` on
-Windows systems). If the requested asset is not in the local cache, it is
-downloaded from the asset url. The Sensu backend does not currently provide any
-storage for assets; they are expected to be retrieved over HTTP or HTTPS.
+Assets can be executed by the backend (for handler and mutator assets), or
+by the agent (for check assets). At runtime, the entity sequentially fetches
+assets and stores them in its local cache. Asset dependencies are then
+injected into the `PATH` so they are available when the command is executed.
+Subsequent check, handler, or mutator executions look for the asset in local
+cache and ensure the contents match the checksum. An entity's local cache can
+be set using the `--cache-dir` flag.
+
+### Default cache directory
+
+system  | sensu-backend                               | sensu-agent
+--------|---------------------------------------------|-------------
+default | `/var/cache/sensu/sensu-backend`            | `/var/cache/sensu/sensu-agent`
+Windows | `C:\\ProgramData\sensu\cache\sensu-backend` | `C:\\ProgramData\sensu\cache\sensu-agent`
+
+If the requested asset is not in the local cache, it is downloaded from the asset
+url. The Sensu backend does not currently provide any storage for assets; they
+are expected to be retrieved over HTTP or HTTPS.
 
 The agent expects that an asset is a `TAR` archive that may optionally be
 GZip'd. Any scripts or executables should be within a `bin/` folder within in
@@ -45,7 +61,7 @@ name         |
 description  | The unique name of the asset, validated with go regex [`\A[\w\.\-]+\z`](https://regex101.com/r/zo9mQU/2)
 required     | true
 type         | String 
-example      | {{< highlight shell >}}"name": "check_script"{{< /highlight >}}
+example      | {{< highlight shell >}}"name": "asset_example"{{< /highlight >}}
 
 
 url          | 
@@ -53,7 +69,7 @@ url          |
 description  | The URL location of the asset. 
 required     | true
 type         | String 
-example      | {{< highlight shell >}}"url": "http://example.com/asset.tar.gz"{{< /highlight >}}
+example      | {{< highlight shell >}}"url": "http://example.com/asset/example.tar"{{< /highlight >}}
 
 sha512       | 
 -------------|------ 
@@ -99,7 +115,8 @@ example      | {{< highlight shell >}}
   "sha512": "4f926bf4328fbad2b9cac873d117f771914f4b837c9c85584c38ccf55a3ef3c2e8d154812246e5dda4a87450576b2c58ad9ab40c9e2edc31b288d066b195b21b",
   "metadata": null,
   "filters": [
-    "System.OS==linux"
+    "System.OS==linux",
+    "System.Arch=='amd64'"
   ],
   "organization": "default"
 }
