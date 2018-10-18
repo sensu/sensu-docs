@@ -8,15 +8,15 @@ version: "1.0"
 menu: "plugins-1.0"
 ---
 
-### Gems
+### Sensu-install
 
-Installing via the built-in `sensu-install` is the preferred method of installing a plugin.
+Installing via the built-in `sensu-install` tool is the preferred method of installing a plugin.
 
 **Standard Installation**
 
-```
-sensu-install -p disk-checks
-```
+{{< highlight shell >}}
+sensu-install -p disk-checks{{< /highlight >}}
+
 
 For further details, please see the [plugin installation guide][1].
 
