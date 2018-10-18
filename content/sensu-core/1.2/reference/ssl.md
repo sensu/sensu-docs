@@ -140,6 +140,8 @@ sudo service rabbitmq-server stop{{< /highlight >}}
 ].
 {{< /highlight >}}
 
+_NOTE: If using multiple CAs, it may be necessary to include the `{depth, 2},` parameter under `ssl_options`. For more information about this attribute, see the [RabbitMQ SSL Reference documentation][rmq-ssl-depth]._
+
 3. Start RabbitMQ
    _NOTE: The `service` command will not work on CentOS 5, the
    sysvinit script must be used, e.g. `sudo /etc/init.d/rabbitmq-server start`_
@@ -201,3 +203,6 @@ certificates and providing fast/simple revocation facilities.
 [7]:  ../rabbitmq#ssl-attributes
 [8]:  ../rabbitmq#rabbitmq-definition-specification
 [9]:  ../rabbitmq#standalone-configuration
+
+<!-- Supplemental Links -->
+[rmq-ssl-depth]: https://www.rabbitmq.com/ssl.html#peer-verification-depth
