@@ -305,7 +305,7 @@ In the output above, we're specifically interested in the `TLS Web Server Authen
 ![ssl_example][11]
 
 #### Unknown CA
-There is a possibility that you may encounter an error inside of RabbitMQ when configuring SSL/TLS that states the following: "Unknown CA". To remedy this issue, ensure that the _full certificate chain_ is present on every client connecting to RabbitMQ (e.g., Sensu clients, Sensu Servers.)
+There is a possibility that you may encounter an error inside of RabbitMQ when configuring SSL/TLS that states the following: "Unknown CA". To remedy this issue, ensure that the _full certificate chain_ is present on every system connecting to RabbitMQ (e.g., Sensu clients, Sensu Servers.)
 
 [1]: /uchiwa/latest/getting-started/installation/
 [2]: ../../platforms/sensu-on-rhel-centos/#sensu-enterprise
