@@ -33,19 +33,39 @@ In this guide we'll be using [Slack][2] and [Email][3] handlers for our demostra
 
 # Overview
 
-Every incident, outage or event has an ideal first responder. This can be either a team or invdividual with the knowledge to tirage and address the issue. Sensu Enterprise contact routing makes it possible to assign checks to specific teams and/or individuals, reducing mean time to response and recovery (MTTR). Contact routing works with all of the Sensu Enterprise third-party notification and metric integrations.
+Every incident, outage or event has an ideal first responder. This can be either
+a team or invdividual with the knowledge to tirage and address the issue. Sensu
+Enterprise contact routing makes it possible to assign checks to specific teams
+and/or individuals, reducing mean time to response and recovery (MTTR). Contact
+routing works with all of the Sensu Enterprise third-party notification and
+metric integrations.
 
-_NOTE: Sensu Enterprise supports contact routing for all integrations except EC2, Puppet, Chef, Flapjack, and Event Stream._
+_NOTE: Sensu Enterprise supports contact routing for all integrations except
+EC2, Puppet, Chef, Flapjack, and Event Stream._
 
 In this guide we'll cover configuring and using Sensu Enterprise Contact
 
 ## Contact Routing Basics
 
-In Sensu Enterprise Contact Routing, contacts are composed of a name and configuration overrides for one or more of Sensu Enterprise's built-in integrations or handler configurations. A contact in Sensu Enterprise is not too dissimilar from a contact on your phone, which usually have a name and one or more _identifiers_ for various communication **channels** (e.g. a **phone** _number_, **email** _address_, **Twitter** _username_, etc).
+In Sensu Enterprise Contact Routing, contacts are composed of a name and
+configuration overrides for one or more of Sensu Enterprise's built-in
+integrations or handler configurations. A contact in Sensu Enterprise is not too
+dissimilar from a contact on your phone, which usually have a name and one or
+more _identifiers_ for various communication **channels** (e.g. a **phone**
+_number_, **email** _address_, **Twitter** _username_, etc).
+
+### Contact Routing and Sensu Event Pipeline
+TODO
+
+When a check is executed and an event is generated, Sensu splits handling
+of the event for each handler defined. When multiple handlers are defined, each
+handler is managed independently. This means that each handler is processed
+independent of any other handler configured.
 
 ### Contact Configuration
 
-Configuring a contact requires you to define the name of the contact and the services plus configuration override for that contact.
+Configuring a contact requires you to define the name of the contact and the
+services plus configuration override for that contact.
 
 {{< highlight json >}}
 {
@@ -62,18 +82,24 @@ Configuring a contact requires you to define the name of the contact and the ser
 }
 {{< /highlight >}}
 
-In the example above we have a contact named **support**. For **support** we have an override configuration for email and slack. In our usecase we're having this contact email _support@sensuapp.com_ instead of the email intergration's default **to** address. For Slack, we're defining the channel the event should post to, in this case _#support_.
+In the example above we have a contact named **support**. For **support** we
+have an override configuration for email and slack. In our example we're having
+this contact email _support@sensuapp.com_ instead of the email intergration's
+default **to** address. For Slack, we're defining the channel the event should
+post to, in this case _#support_.
 
 ### Check Configuration
 
-Once a contact has been defined, we can now apply which contact to use in a check configuration. The use case for having it on a check could be that the client is owned by a particular team or group, the same can be done for specific checks. For instance 
+Once a contact has been defined, we can now apply which contact to use in a
+check configuration. The use case for having it on a check could be that the
+client is owned by a particular team or group, the same can be done for specific
+checks. For instance 
 
 {{< highlight json >}}
 {
   "checks": {
     "example_check": {
       "command": "do_something.rb",
-      "interval": 30,
       "handler": "email",
       "contact": "support"
     }
@@ -83,7 +109,8 @@ Once a contact has been defined, we can now apply which contact to use in a chec
 
 ### Client Configuration
 
-A client configuration can include a contact to add. This will override the c
+A client configuration can include a contact to use.
+
 {{< highlight json >}}
 {
   "client": {
@@ -98,10 +125,12 @@ A client configuration can include a contact to add. This will override the c
 }
 {{< /highlight >}}
 
-# Example Implementaiton
+# Example Implementations
 
 TODO: DEFAULT CONFIGURATION
 For the examples we'll be working with we want to define what our default handlers will be.
+
+In the following section we'll be going over different scenarios and showcase how contactrouting would be used and how contact routing affects notifications being sent.
 
 Bellow is the default configuration for the handlers we'll be working with in our examples:
 
@@ -138,13 +167,20 @@ Bellow is the default configuration for the handlers we'll be working with in ou
 
 ## Multiple Handlers With Single Contact Examples
 TODO: Check with email and slack handler, contact with only email
+
+When having a check with multiple handlers define it is important to note that
+Sensu does not skip a handler if a contact does not contain configuration for
+said handler. Sensu will use the default configuration in these cases.
+
+A typical scenario when using contacts is that you'll have a single service
+configured for the contact and a check with multiple handlers.
+
 {{< highlight json >}}
 {
   "checks": {
     "example_check": {
       "command": "do_something.rb",
-      "interval": 30,
-      "handler": [
+      "handlers": [
         "email",
         "slack"
       ],
@@ -166,14 +202,61 @@ TODO: Check with email and slack handler, contact with only email
 }
 {{< /highlight >}}
 
-TODO: Check with email and slack handler, contact with email and slack
+For an event generated by the above check, we sould receive an email at
+"support@sensuapp.com" and a slack message in our default channel, #support.
+
+TODO: Check with PagerDuty and slack handler, contact with only email
+
+Similar to the above example here we have a check that has both a pagerduty and
+slack handler configured. Our contact is configured with email and slack
+configuration.
+
 {{< highlight json >}}
 {
   "checks": {
     "example_check": {
       "command": "do_something.rb",
-      "interval": 30,
-      "handler": [
+      "handlers": [
+        "pagerduty",
+        "slack"
+      ],
+      "contact": "support"
+    }
+  }
+}
+{{< /highlight >}}
+
+{{< highlight json >}}
+{
+  "contacts": {
+    "support": {
+      "email": {
+        "to": "support@sensuapp.com"
+      },
+      "slack": {
+        "channel": "#t1support"
+      }
+    }
+  }
+}
+{{< /highlight >}}
+
+With this example, any event generated by the check will have a pagerduty event
+generated and a message posted to #t1support. There would not be an email sent
+to support@sesuapp.com since the check does not have "email" defined as a
+handler.
+
+TODO: Check with email and slack handler, contact with email and slack
+
+In this configuration we see that our contact and check both have a
+configuration for email and slack.
+
+{{< highlight json >}}
+{
+  "checks": {
+    "example_check": {
+      "command": "do_something.rb",
+      "handlers": [
         "email",
         "slack"
       ],
@@ -191,29 +274,14 @@ TODO: Check with email and slack handler, contact with email and slack
         "to": "support@sensuapp.com"
       },
       "slack": {
-        "channel": "#support"
+        "channel": "#t1support"
       }
     }
   }
 }
 {{< /highlight >}}
 
-TODO: Check with PagerDuty and slack handler, contact with only email
-{{< highlight json >}}
-{
-  "checks": {
-    "example_check": {
-      "command": "do_something.rb",
-      "interval": 30,
-      "handler": [
-        "pagerduty",
-        "slack"
-      ],
-      "contact": "support"
-    }
-  }
-}
-{{< /highlight >}}
+An event generated by this check would have an email sent to "support@sensuapp.com" and to the #t1support channel. 
 
 
 
@@ -225,8 +293,7 @@ TODO: Check with PagerDuty handler, contact with email and slack
   "checks": {
     "example_check": {
       "command": "do_something.rb",
-      "interval": 30,
-      "handler": [
+      "handlers": [
         "pagerduty"
       ],
       "contact": "support"
@@ -241,8 +308,7 @@ TODO: Check with email and slack handler, contact with pagerduty
   "checks": {
     "example_check": {
       "command": "do_something.rb",
-      "interval": 30,
-      "handler": [
+      "handlers": [
         "email",
         "slack"
       ],
@@ -252,31 +318,99 @@ TODO: Check with email and slack handler, contact with pagerduty
 }
 {{< /highlight >}}
 
-## Multiple Handler with Multipe Contacts Examples
+## Multiple Handlers with Multipe Contacts Examples
 TODO: Check with email and slack handler, contact with only email, contact with slack
+
+With contact routing, each handler configured for each contact will be applied
+and processed independent of eachother. This gives you the added benefit of
+being able to have multiple contacts applied to a single check or client and
+override the same values for the same handler.
+
+In our example bellow we have two contacts, both of which are configured with
+email values override.
+
 {{< highlight json >}}
 {
   "checks": {
     "example_check": {
       "command": "do_something.rb",
-      "interval": 30,
-      "handler": [
+      "handlers": [
         "email",
         "slack"
       ],
-      "contact": "support"
+      "contacts": [
+        "support",
+        "helpdesk"
+      ]
     }
   }
 }
 {{< /highlight >}}
-TODO: Check with email and slack handler, contact with only pagerduty, contact with slack and email, contact with 
+
+{{< highlight json >}}
+{
+  "contacts": {
+    "support": {
+      "email": {
+        "to": "support@sensuapp.com"
+      }
+    },
+    "helpdesk":{
+      "email": {
+        "to": "helpdesk@sensuapp.com"
+      }
+    }
+  }
+}
+{{< /highlight >}}
+
+When an event is generated for the above check, two emails will be sent. One to
+support@ and one to helpdesk@. A single slack notification would be sent in this case.
+
+In the bellow example we have 
 {{< highlight json >}}
 {
   "checks": {
     "example_check": {
       "command": "do_something.rb",
-      "interval": 30,
-      "handler": [
+      "handlers": [
+        "email",
+        "slack"
+      ],
+      "contacts": [
+        "support",
+        "helpdesk"
+      ]
+    }
+  }
+}
+{{< /highlight >}}
+
+{{< highlight json >}}
+{
+  "contacts": {
+    "support": {
+      "email": {
+        "to": "support@sensuapp.com"
+      }
+    },
+    "helpdesk":{
+      "email": {
+        "to": "helpdesk@sensuapp.com"
+      }
+    }
+  }
+}
+{{< /highlight >}}
+
+TODO: Check with email and slack handler, contact with only pagerduty, contact with slack and email, contact with 
+
+{{< highlight json >}}
+{
+  "checks": {
+    "example_check": {
+      "command": "do_something.rb",
+      "handlers": [
         "email",
         "slack"
       ],
