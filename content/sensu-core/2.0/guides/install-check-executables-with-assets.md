@@ -99,10 +99,10 @@ $ sensuctl handler create influx-db \
 
 ### Validating the handler asset
 
-Once the handler is setup, it must be attached to a check to handle the event output (ex. `collect-metrics.sh`).
+Once the handler is setup, it must be attached to a check to handle the event output (ex. `collect-metrics`).
 
 {{< highlight shell >}}
-$ sensuctl check set-handlers collect-metrics.sh influx-db
+$ sensuctl check set-handlers collect-metrics influx-db
 {{< /highlight >}}
 
 You can verify that the handler has fetched/installed the asset, and executed the dependency by checking the

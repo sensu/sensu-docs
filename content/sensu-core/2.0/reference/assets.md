@@ -61,7 +61,7 @@ name         |
 description  | The unique name of the asset, validated with go regex [`\A[\w\.\-]+\z`](https://regex101.com/r/zo9mQU/2)
 required     | true
 type         | String 
-example      | {{< highlight shell >}}"name": "asset_example"{{< /highlight >}}
+example      | {{< highlight shell >}}"name": "check_script"{{< /highlight >}}
 
 
 url          | 
@@ -69,7 +69,7 @@ url          |
 description  | The URL location of the asset. 
 required     | true
 type         | String 
-example      | {{< highlight shell >}}"url": "http://example.com/asset/example.tar"{{< /highlight >}}
+example      | {{< highlight shell >}}"url": "http://example.com/asset.tar.gz"{{< /highlight >}}
 
 sha512       | 
 -------------|------ 
@@ -110,8 +110,8 @@ example      | {{< highlight shell >}}
 ### Asset definition
 {{< highlight json >}}
 {
-  "name": "asset_example",
-  "url": "http://example.com/asset/example.tar",
+  "name": "check_script",
+  "url": "http://example.com/asset.tar.gz",
   "sha512": "4f926bf4328fbad2b9cac873d117f771914f4b837c9c85584c38ccf55a3ef3c2e8d154812246e5dda4a87450576b2c58ad9ab40c9e2edc31b288d066b195b21b",
   "metadata": null,
   "filters": [
