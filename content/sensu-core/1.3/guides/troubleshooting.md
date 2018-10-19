@@ -3,10 +3,10 @@ title: "Troubleshooting Sensu"
 linkTitle: "Troubleshooting"
 subtitle: "Common Problems and How to Solve Them"
 product: "Sensu Core"
-version: "1.3"
+version: "0.29"
 weight: 10
 menu:
- sensu-core-1.3:
+ sensu-core-0.29:
    parent: guides
 ---
 
@@ -303,6 +303,9 @@ This will give you quite a bit, but the most important thing to note here is a s
 In the output above, we're specifically interested in the `TLS Web Server Authentication` extension. In a non-working certificate, _you will not see this present._ Instead, you'll end up seeing a value that looks similar to a SNMP MIB. See the image below for an example.
 
 ![ssl_example][11]
+
+#### Unknown CA
+There is a possibility that you may encounter an error inside of RabbitMQ when configuring SSL/TLS that states the following: "Unknown CA". To remedy this issue, ensure that the _full certificate chain_ is present on every system connecting to RabbitMQ (e.g., Sensu clients, Sensu Servers.)
 
 [1]: /uchiwa/latest/getting-started/installation/
 [2]: ../../platforms/sensu-on-rhel-centos/#sensu-enterprise

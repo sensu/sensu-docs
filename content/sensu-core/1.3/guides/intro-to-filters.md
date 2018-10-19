@@ -11,8 +11,6 @@ menu:
     parent: guides
 ---
 
-# Getting Started with Filters
-
 The purpose of this guide is to help Sensu users create event filters. At the
 conclusion of this guide, you - the user - should have several Sensu event
 filters in place to filter events for one or more event handlers. Each Sensu
