@@ -1,6 +1,6 @@
 ---
-title: "How to install Check Executables using Assets"
-linkTitle: "Using Assets in Checks"
+title: "How to install Executables using Assets"
+linkTitle: "Using Assets in Checks, Handlers, and Mutators"
 weight: 100
 version: "2.0"
 product: "Sensu Core"
@@ -10,8 +10,8 @@ menu:
     parent: guides
 ---
 
-## What are assets?
-Sensu assets are resources that checks can specify as dependencies. When an
+## What are check assets?
+Check assets are resources that checks can specify as dependencies. When an
 agent runs a check, it will ensure that all of the check's required assets
 are available to the agent during check runtime. If they aren't, the agent will
 install them by consulting each of the assets' URLs.
@@ -62,7 +62,7 @@ sensuctl check set-runtime-assets check_website.tar.gz
 
 This command will set a check's assets to `check_website.tar.gz`.
 
-### Validating the asset
+### Validating the check asset
 
 Once the check is setup, it should only take a few moments for it to be
 scheduled and start emitting events. When the check has been scheduled, you should 
@@ -79,9 +79,76 @@ $ sensuctl event list
   sensu-agent    check_website      CheckHttpResponseTime OK: 345      0       false    2018-04-06 20:38:34 +0000 UTC
 {{< /highlight >}}
 
+## What are handler and mutator assets?
+
+Handler and mutator assets are much like check assets. They are resources that handlers
+and mutators can specify as dependencies, and since those are executed server side, it
+is the backend that ensures all of the required assets are available during runtime.
+
+## How to create a handler that depends on an asset 
+
+### Adding an asset to a handler on creation
+
+[Create an asset][2] (ex.`sensu-influxdb-handler`), and create a handler (ex. `influx-db`).
+
+{{< highlight shell >}}
+$ sensuctl handler create influx-db \
+  --command "sensu-influxdb-handler --addr 'http://123.4.5.6:8086' --username 'foo' --password 'bar' --db-name 'myDB'" \
+  --runtime-assets sensu-influxdb-handler
+{{< /highlight >}}
+
+### Validating the handler asset
+
+Once the handler is setup, it must be attached to a check to handle the event output (ex. `collect-metrics`).
+
+{{< highlight shell >}}
+$ sensuctl check set-handlers collect-metrics influx-db
+{{< /highlight >}}
+
+You can verify that the handler has fetched/installed the asset, and executed the dependency by checking the
+backend logs.
+
+{{< highlight json >}}
+{"assets":["sensu-influxdb-handler"],"component":"pipelined","environment":"default","handler":"influx-db","level":"debug","msg":"fetching assets for handler","organization":"default","time":"2018-10-16T13:17:33-07:00"}
+{{< /highlight >}}
+{{< highlight json >}}
+{"component":"pipelined","environment":"default","handler":"influx-db","level":"info","msg":"event pipe handler executed","organization":"default","output":"metric sent to influx-db","status":0,"time":"2018-10-16T13:17:33-07:00"}
+{{< /highlight >}}
+
+## How to create a mutator that depends on an asset 
+
+### Adding an asset to a mutator on creation
+
+[Create an asset][2] (ex. `transformer`), and create a mutator (ex. `transform-metrics`).
+
+{{< highlight shell >}}
+$ sensuctl mutator create transform-metrics \
+  --command "transform --type metrics" \
+  --runtime-assets transformer
+{{< /highlight >}}
+
+### Validating the mutator asset
+
+Once the mutator is setup, it must be attached to a handler to mutate the event output (ex. `influx-db`).
+
+{{< highlight shell >}}
+$ sensuctl handler update influx-db
+{{< /highlight >}}
+
+You can verify that the mutator has fetched/installed the asset, and executed the dependency by checking the
+backend logs.
+
+{{< highlight json >}}
+{"assets":["transformer"],"component":"pipelined","environment":"default","mutator":"transform-metrics","level":"debug","msg":"fetching assets for mutator","organization":"default","time":"2018-10-16T13:17:33-07:00"}
+{{< /highlight >}}
+{{< highlight json >}}
+{"component":"pipelined","environment":"default","mutator":"transform-metrics","level":"info","msg":"event pipe mutator executed","organization":"default","output":"metric transformed","status":0,"time":"2018-10-16T13:17:33-07:00"}
+{{< /highlight >}}
+
 ## Next steps
 
-You now know how to create an asset and add it to a check as a dependency. For
-further reading, check out the [assets reference][1].
+You now know how to create an asset and add it to a check, handler, and mutator as a dependency.
+For further reading, check out the [assets reference][1].
 
 [1]: ../../reference/assets/
+[2]: #creating-an-asset

@@ -50,6 +50,7 @@ $ curl -s http://127.0.0.1:4567/checks | jq .
 ---------------|------
 description    | Returns the list of checks.
 example url    | http://hostname:4567/checks
+pagination     | see [pagination][4]
 response type  | Array
 response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output         | {{< highlight shell >}}[
@@ -215,3 +216,4 @@ response codes  | <ul><li>**Success**: 202 (Accepted)</li><li>**Malformed**: 400
 [1]:  ../../reference/checks#subscription-checks
 [2]:  ../../reference/checks#check-configuration
 [3]:  https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
+[4]:  ../overview#pagination

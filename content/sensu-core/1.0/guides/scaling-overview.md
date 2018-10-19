@@ -5,7 +5,6 @@ product: "Sensu Core"
 description: "Overview of strategies and best practices for scaling Sensu"
 version: "1.0"
 weight: 11
-next: ../scaling-sensu-components
 menu:
   sensu-core-1.0:
     parent: guides
@@ -105,10 +104,6 @@ All Sensu clients execute checks locally. Their only interaction with Sensu serv
 * Keepalive failures are now indistinguishable from WAN instability
 * Lots of remote clients means lots of TCP connections over the WAN
 * All clients appear to be in the same datacenter in Uchiwa
-
-## Next Steps
-
-Now that we've covered the components involved in scaling Sensu from a high level, we'll dig deeper into the individual components of a Sensu deployment, and discuss _how_ you know when you need to start scaling the various components. Click the link at the bottom of the article to go to the next guide in this series.
 
 <!-- LINKS -->
 [1]: ../../reference/server/#what-is-the-sensu-server

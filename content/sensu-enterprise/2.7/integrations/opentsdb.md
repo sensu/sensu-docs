@@ -46,6 +46,8 @@ handler (integration).
 The following attributes are configured within the `{"opentsdb": {} }`
 [configuration scope][3].
 
+_PRO TIP: You can override `opentsdb` attributes on a per-contact basis using [contact routing][5]._
+
 host         | 
 -------------|------
 description  | The OpenTSDB host address.
@@ -88,3 +90,4 @@ example      | {{< highlight shell >}}"prefix": "production"{{< /highlight >}}
 [1]:  /sensu-enterprise
 [2]:  http://opentsdb.net?ref=sensu-enterprise
 [3]:  /sensu-core/1.0/reference/configuration#configuration-scopes
+[5]: ../../contact-routing

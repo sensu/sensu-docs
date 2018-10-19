@@ -70,6 +70,13 @@ required     | false
 type         | integer 
 example      | {{< highlight shell >}}"timeout": 30{{</highlight>}}
 
+runtime_assets | 
+---------------|------
+description    | An array of [Sensu assets][1] (names), required at runtime for the execution of the `command`
+required       | false
+type           | Array
+example        | {{< highlight shell >}}"runtime_assets": ["ruby-2.5.0"]{{< /highlight >}}
+
 
 ## Examples
 
@@ -87,3 +94,5 @@ to modify event data prior to handling the event.
   "organization": "default"
 }
 {{< /highlight >}}
+
+[1]: ../assets

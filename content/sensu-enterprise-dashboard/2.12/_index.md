@@ -38,7 +38,7 @@ many contributions to the open-source Uchiwa dashboard project.
 
 ### What is the Sensu Enterprise Console?
 
-The Sensu Enterprise Console is a federated API endpoint provided by the Sensu
+The [Sensu Enterprise Console][19] is a set of federated API endpoints provided by the Sensu
 Enterprise Dashboard for API access to multiple [Sensu datacenters][1]
 (available in Sensu Enterprise Dashboard version 1.10 and newer). This API
 provides added-value features including token-based authentication and [granular
@@ -46,10 +46,8 @@ role-based access controls][16].
 
 _NOTE: the Sensu Enterprise Dashboard is comprised of two components: a backend
 service (API) for aggregating monitoring data from one or more [Sensu
-datacenters][5], and a web application for displaying this information. As of
-Sensu Enterprise Dashboard version 1.10, this Sensu Enterprise Dashboard backend
-has been updated so that it provides the same API endpoints as the [Sensu
-API][1]. Prior to version 1.10, the Sensu Enterprise Dashboard backend used
+datacenters][5], and a web application for displaying this information.
+Prior to version 1.10, the Sensu Enterprise Dashboard backend used
 different API routes for accessing data from specific datacenters; for example,
 client data was accessible via `/clients/us-west-1/:client` instead of
 `/clients/:client?dc=us-west-1`. Version 1.11 introduced access token-based
@@ -66,19 +64,20 @@ installation or cluster).
 
 [1]:  #what-is-a-sensu-datacenter
 [2]:  http://www.uchiwa.io
-[3]:  /sensu-enterprise-dashboard/2.11/rbac/overview
-[4]:  /sensu-enterprise-dashboard/2.11/rbac/rbac-for-ldap
-[5]:  /sensu-enterprise-dashboard/2.11/rbac/rbac-for-github
-[6]:  /sensu-enterprise-dashboard/2.11/rbac/rbac-for-gitlab
-[7]:  /sensu-enterprise-dashboard/2.11/rbac/audit-logging
+[3]:  rbac/overview
+[4]:  rbac/rbac-for-ldap
+[5]:  rbac/rbac-for-github
+[6]:  rbac/rbac-for-gitlab
+[7]:  rbac/audit-logging
 [8]:  #dashboard-definition-specification
-[9]:  /sensu-core/1.2/reference/configuration#configuration-scopes
-[10]: /sensu-core/1.2/reference/configuration#configuration-merging
+[9]:  /sensu-core/latest/reference/configuration#configuration-scopes
+[10]: /sensu-core/latest/reference/configuration#configuration-merging
 [11]: #auth-attributes
 [12]: #audit-attributes
 [13]: #ldap-attributes
 [14]: #github-attributes
 [15]: #gitlab-attributes
-[16]: /sensu-enterprise-dashboard/2.11/rbac/overview#rbac-for-the-sensu-enterprise-console-api
-[17]: /sensu-enterprise-dashboard/2.11/rbac/rbac-for-oidc
+[16]: rbac/overview#rbac-for-the-sensu-enterprise-console-api
+[17]: rbac/rbac-for-oidc
 [18]: #oidc-attributes
+[19]: api/overview

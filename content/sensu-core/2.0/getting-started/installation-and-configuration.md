@@ -358,7 +358,7 @@ The backend requires four exposed ports and persistent storage. This example use
 - 8080: Sensu API (all users need access to this port)
 - 8081: Agent API (all agents need access to this port)
 
-We suggest, but do not require, persistent storage for Sensu agents. The Sensu agent will cache runtime assets locally for each check. This storage should be unique per sensu-agent process.
+We suggest, but do not require, persistent storage for Sensu backends and Sensu agents. The Sensu agent will cache runtime assets locally for each check, and the Sensu backend will cache runtime assets locally for each handler and mutator. This storage should be unique per sensu-backend/sensu-agent process.
 
 ### Start a Sensu backend
 {{< highlight shell >}}

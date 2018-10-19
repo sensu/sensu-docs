@@ -1,7 +1,7 @@
 ---
 title: "Sensu Server and API"
 description: "The complete Sensu installation guide."
-weight: 10
+weight: 3.1
 product: "Sensu Core"
 version: "0.29"
 next: ../install-sensu-client
@@ -11,9 +11,7 @@ menu:
     parent: installation
 ---
 
-Once you have installed [Sensu's prerequisites][1] (RabbitMQ and/or Redis), you
-are ready to install a Sensu Server and API. The Sensu Server and API are
-available in two flavors:
+The Sensu Server and API are available in two flavors:
 
 - [Sensu Core](#sensu-core)
 - [Sensu Enterprise](#sensu-enterprise)
