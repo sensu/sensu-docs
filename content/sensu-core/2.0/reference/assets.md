@@ -38,7 +38,7 @@ default | `/var/cache/sensu/sensu-backend`            | `/var/cache/sensu/sensu-
 Windows | `C:\\ProgramData\sensu\cache\sensu-backend` | `C:\\ProgramData\sensu\cache\sensu-agent`
 
 If the requested asset is not in the local cache, it is downloaded from the asset
-url. The Sensu backend does not currently provide any storage for assets; they
+URL. The Sensu backend does not currently provide any storage for assets; they
 are expected to be retrieved over HTTP or HTTPS.
 
 The agent expects that an asset is a `TAR` archive that may optionally be
