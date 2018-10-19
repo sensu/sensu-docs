@@ -9,13 +9,19 @@ platformContent: false
 menu:
   sensu-core-2.0:
     parent: reference
+aliases:
+  - /sensu-core/2.0/getting-started/configuring-sensuctl/
 ---
 
+- [Install and configure sensuctl][4]
 - [Commands](#commands)
 - [Subcommands](#subcommands)
 - [Flags](#flags)
 - [Output](#output)
 - [Time formats](#time-formats)
+- [Getting help](#getting-help)
+- [Creating resources](#create)
+- [Shell auto-completion](#shell-auto-completion)
 
 ## How does sensuctl work?
 Sensuctl is a command line tool for managing resources within Sensu. It works by
@@ -222,5 +228,170 @@ used with silenced entries for example. The following formats are supported:
 * Sensu alpha legacy format with canonical zone ID: `May 10 2018 7:04AM
   America/Vancouver`
 
+## Getting help
+
+All Sensu sub-commands have a `--help` flag that returns more information on
+using the command and if applicable any sub-commands _it_ has.
+
+{{< highlight shell >}}
+$ sensuctl --help
+sensuctl controls Sensu instances
+
+Usage:	sensuctl COMMAND
+
+Flags:
+      --api-url string        host URL of Sensu installation
+      --cache-dir string      path to directory containing cache & temporary files (default "/home/eric/.cache/sensu/sensuctl")
+      --config-dir string     path to directory containing configuration files (default "/home/eric/.config/sensu/sensuctl")
+      --environment string    environment in which we perform actions (default "default")
+  -h, --help                  help for sensuctl
+      --organization string   organization in which we perform actions (default "default")
+
+Commands:
+  completion   Output shell completion code for the specified shell (bash or zsh)
+  configure    Initialize sensuctl configuration
+  create       create new resources from file or STDIN
+  logout       Logout from sensuctl
+  version      Show the sensu-ctl version information
+
+Management Commands:
+  asset        Manage assets
+  check        Manage checks
+  config       Modify sensuctl configuration
+  entity       Manage entities
+  environment  Manage environments
+  event        Manage events
+  extension    Manage extension registry
+  filter       Manage filters
+  handler      Manage handlers
+  hook         Manage hooks
+  mutator      Manage mutators
+  organization Manage organizations
+  role         Manage roles
+  silenced     Manage silenced subscriptions and checks
+  user         Manage users
+
+Run 'sensuctl COMMAND --help' for more information on a command.
+{{< /highlight >}}
+
+## Create
+
+The `sensuctl create` command allows you to create and/or
+update resources by reading from STDIN or a flag configured file (`-f`). The
+accepted format of the `create` command is `wrapped-json`, which wraps the
+contents of the resource in `spec` and identifies its 2.x `type` (see below for
+an example, and [this table][3] for a list of supported types).
+
+{{< highlight shell >}}
+{
+  "type": "CheckConfig",
+  "spec": {
+    "name": "marketing-site",
+    "command": "check-http.rb -u https://dean-learner.book",
+    "subscriptions": ["demo"],
+    "interval": 15,
+    "handlers": ["slack"],
+    "organization": "default",
+    "environment": "default"
+   }
+}
+{
+  "type": "Handler",
+  "spec": {
+    "name": "slack",
+    "type": "pipe",
+    "command": "handler-slack --webhook-url https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX --channel monitoring'",
+    "environment": "default",
+    "organization": "default"
+  }
+}
+{{< /highlight >}}
+
+Write all checks to `my-resources.json` in `wrapped-json` format:
+{{< highlight shell >}}
+sensuctl check list --format wrapped-json > my-resources.json
+{{< /highlight >}}
+
+Create all resources in `wrapped-json` format from `my-resources.json`:
+{{< highlight shell >}}
+cat my-resources.json | sensuctl create
+{{< /highlight >}}
+
+### Supported types
+
+|wrapped-json types |   |   |   |
+--------------------|---|---|---|
+`AdhocRequest` | `adhoc_request` | `Asset` | `asset`
+`Check` | `check` | `CheckConfig` | `check_config`
+`Entity` | `entity` | `Environment` | `environment`
+`Event` | `event` | `EventFilter` | `event_filter`
+`Extension` | `extension` | `Handler` | `handler`
+`Hook` | `hook` | `HookConfig` | `hook_config`
+`Mutator` | `mutator` | `Organization` | `organization`
+`Role` | `role` | `Silenced` | `silenced`
+
+## Shell auto-completion
+
+### Installation (Bash Shell)
+
+Make sure bash completion is installed. If you use a current Linux
+in a non-minimal installation, bash completion should be available.
+On a Mac, install with:
+
+{{< highlight shell >}}
+brew install bash-completion
+{{< /highlight >}}
+
+Then add the following to your `~/.bash_profile`:
+
+{{< highlight shell >}}
+if [ -f $(brew --prefix)/etc/bash_completion ]; then
+. $(brew --prefix)/etc/bash_completion
+fi
+{{< /highlight >}}
+
+When bash-completion is available we can add the following to your `~/.bash_profile`:
+
+{{< highlight shell >}}
+source <(sensuctl completion bash)
+{{< /highlight >}}
+
+You can now source your `~/.bash_profile` or launch a new terminal to utilize completion.
+
+{{< highlight shell >}}
+source ~/.bash_profile
+{{< /highlight >}}
+
+### Installation (ZSH)
+
+Add the following to your `~/.zshrc`:
+
+{{< highlight shell >}}
+source <(sensuctl completion zsh)
+{{< /highlight >}}
+
+You can now source your `~/.zshrc` or launch a new terminal to utilize completion.
+
+{{< highlight shell >}}
+source ~/.zshrc
+{{< /highlight >}}
+
+### Usage
+
+sensuctl:
+{{< highlight shell >}}
+> $ sensuctl <kbd>Tab</kbd>
+check       configure   event       user
+asset       completion  entity      handler
+{{< /highlight >}}
+
+sensuctl:
+{{< highlight shell >}}
+> $ sensuctl check <kbd>Tab</kbd>
+create  delete  import  list
+{{< /highlight >}}
+
 [1]: ../../reference/rbac
 [2]: https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+[3]: #supported-types
+[4]: ../../getting-started/installation-and-configuration/#install-sensuctl
