@@ -105,4 +105,4 @@ openssl rsa -in [encrypted.pem] -out [plaintext.pem]
 [1]: /sensu-core/latest/guides/troubleshooting
 [2]: /sensu-core/latest/guides/troubleshooting#restarting-services
 [3]: /sensu-core/latest/guides/securing-sensu
-[4]: ../../reference/configuration/#sensu-service-script-configuration-variables
+[4]: /sensu-core/latest/reference/configuration/#sensu-service-script-configuration-variables
