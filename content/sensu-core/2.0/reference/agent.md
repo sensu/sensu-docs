@@ -1,0 +1,803 @@
+---
+title: "Agent Reference"
+linkTitle: "Agent"
+description: "Sensu agent reference documentation"
+weight: 1
+version: "2.0"
+product: "Sensu Core"
+platformContent: true
+platforms: ["Linux", "Windows"]
+menu:
+  sensu-core-2.0:
+    parent: reference
+---
+
+- [Installation][1]
+- [Creating events using service checks](#creating-events-using-service-checks)
+- [Creating events using the agent socket](#creating-events-using-the-agent-socket)
+- [Creating events using the StatsD listener](#creating-events-using-the-statsd-listener)
+- [Keepalive monitoring](#keepalive-monitoring)
+- [Operation](#operation)
+	- [Starting the agent](#starting-the-service)
+	- [Service management](#stopping-the-service)
+	- [Registration and deregistration](#registration)
+	- [Clustering](#clustering)
+- [Configuration](#configuration)
+  - [API configuration](#api-configuration-flags)
+  - [Ephemeral agent configuration](#ephemeral-agent-configuration-flags)
+  - [Keepalive configuration](#keepalive-configuration-flags)
+  - [Security configuration](#security-configuration-flags)
+  - [Socket configuration](#socket-configuration-flags)
+  - [StatsD configuration](#statsd-configuration-flags)
+
+The Sensu agent is a lightweight client that runs on the infrastructure components you want to monitor.
+Agents are responsible for creating [check and metrics events][7] to send to the [backend event pipeline][2].
+
+_NOTE: The commands in this reference may require administrative privileges or use of `sudo`._
+
+## Creating events using service checks
+
+Sensu's use of the [publish/subscribe pattern of communication][15] allows for automated registration and deregistration of ephemeral systems.
+At the core of this model are Sensu agent subscriptions.
+
+Each Sensu agent has a defined set of [`subscriptions`][28], a list of roles and responsibilities assigned to the system (for example: for a webserver or database).
+These subscriptions determine which [monitoring checks][14] are executed by the agent.
+Agent subscriptions allow Sensu to request check executions on a group of systems at a time, instead of a traditional 1:1 mapping of configured hosts to monitoring checks.
+Sensu checks target Sensu agent subscriptions, using the [check definition attribute `subscriptions`][14].
+
+After receiving the check request from the Sensu backend, the agent:
+
+1. Applies any [tokens][27] matching attribute values in the check definition.
+2. Fetches [assets][29] and stores them in its local cache. By default, agents cache asset data at `/var/cache/sensu/sensu-agent` (`C:\\ProgramData\sensu\cache\sensu-agent` on Windows systems) or as specified by the the [`--cache-dir` flag][30].
+3. Executes the [check `command`][14].
+4. Executes any [hooks][31] specified by the check based on the exit status.
+5. Creates an [event][7] containing information about the applicable entity, check, and metric.
+
+### Subscription configuration
+
+In order for an agent to execute a service check, you must specify the same subscription in the [agent configuration][24] and the [check configuration][32].
+To configure subscriptions for an agent, see [the `subscriptions` flag reference][28].
+
+In addition to the subscriptions defined in the agent configuration, Sensu agents also subscribe automatically to a subscription matching their agent `id`.
+For example, an agent with the ID `i-424242` will subscribe to check requests with the subscription `agent:i-424242`.
+This makes it possible to generate ad-hoc check requests targeting specific clients via the API.
+
+### Proxy entities
+
+Sensu proxy entities allow Sensu to monitor external resources on systems or devices where a Sensu agent cannot be installed (such a network switch) using the defined [check `proxy_entity_id`][14] to create a proxy entity for the external resource.
+See the [entity reference documentation][3] and the [guide to monitoring external resources][33] for more information about proxy entities.
+
+## Creating events using the agent socket
+
+Every Sensu agent has a TCP, UDP, and HTTP socket listening for external check result input.
+The TCP and UDP sockets listen on the address and port specified by the [socket configuration flags][17]; the HTTP socket listens on the address and port specified by the [API configuration flags][18].
+
+These sockets expect JSON formatted check results, allowing external sources (such as your web application or backup scripts) to push check results without needing to know anything about Sensu's internal implementation.
+An excellent agent socket use case example is a web application pushing check results to indicate database connectivity issues.
+
+### Using the TCP socket
+
+The following is an example demonstrating external check result input via the Sensu agent TCP socket.
+The example uses Bash's built-in `/dev/tcp` file to communicate with the Sensu agent socket.
+
+{{< highlight shell >}}
+echo '{"name": "app_01", "output": "could not connect to mysql", "status": 1}' > /dev/tcp/localhost/3030
+{{< /highlight >}}
+
+You can also use [Netcat][19]:
+
+{{< highlight shell >}}
+echo '{"name": "app_01", "output": "could not connect to mysql", "status": 1}' | nc localhost 3030
+{{< /highlight >}}
+
+### Using the HTTP socket
+
+The HTTP socket, just like the TCP and UDP sockets, accepts check results, but it requires a well-formed HTTP request and exposes other functionality that is not possible with the raw TCP/UDP sockets.
+In exchange for a bit more complexity, the HTTP socket interface has the advantage of being more expressive than a TCP/UDP socket, both in the requests that it accepts and how it responds, and so exposes more functionality.
+The following endpoints are available for the HTTP socket:
+
+#### `/healthz` (GET)
+
+This endpoint returns `ok` if the agent is active and connected to a Sensu backend and `sensu backend unavailable` is the agent is unable to connect to a Sensu backend. For example:
+
+{{< highlight shell >}}
+curl -s http://127.0.0.1:3031/healthz
+{{< /highlight >}}
+
+#### `/events` (POST)
+
+This endpoint accepts a JSON [event][7] body and passes the event to the Sensu backend event pipeline for processing. For example:
+
+{{< highlight shell >}}
+curl -s -i \
+-X POST \
+-H 'Content-Type: application/json' \
+-d '{"name": "app_01", "output": "could not connect to mysql", "status": 1}' \
+http://127.0.0.1:3031/events{{< /highlight >}}
+
+#### `/brew` (GET)
+
+This endpoint gets you some fresh coffee. Try it!
+
+Any requests for unknown endpoints results in a 404 Not Found response.
+At the moment only unsecured HTTP (no HTTPS) is supported.
+
+### Creating a "dead man's switch"
+
+The Sensu agent socket in combination with check TTLs can be used to create what's commonly referred to as a "dead man's switch".
+Outside of the software industry, a dead man's switch is a switch that is triggered automatically if a human operator becomes incapacitated (source: [Wikipedia][20]).
+However, Sensu is more interested in detecting silent failures than incapacitated human operators.
+
+By using check TTLs, Sensu is able to set an expectation that a Sensu agent continues to publish results for a check at a regular interval.
+If a Sensu agent fails to publish a check result and the check TTL expires, Sensu creates an alert to indicate the silent failure.
+For more information on check TTLs, please refer to [the check attributes reference][14].
+
+A great use case for the Sensu agent socket is to create a dead man's switch to ensure that backup scripts continue to run successfully at regular intervals.
+If an external source sends a Sensu check result with a check TTL to the Sensu agent socket, Sensu expects another check result from the same external source before the TTL expires.
+
+The following is an example of external check result input via the Sensu agent TCP socket using a check TTL to create a dead man's switch for MySQL backups.
+The example uses a check TTL of `25200` seconds (7 hours).
+A MySQL backup script using the following code would be expected to continue to send a check
+result at least once every 7 hours or Sensu creates an alert to indicate the silent failure.
+
+{{< highlight shell >}}
+echo '{"name": "backup_mysql", "ttl": 25200, "output": "backed up mysql successfully | size_mb=568", "status": 0}' | nc localhost 3030
+{{< /highlight >}}
+
+{{< highlight shell >}}
+echo '{"name": "backup_mysql", "ttl": 25200, "output": "failed to backup mysql", "status": 1}' | nc localhost 3030
+{{< /highlight >}}
+
+## Creating events using the StatsD listener
+
+Sensu agents include a listener to send [StatsD][21] metrics to the event pipeline.
+By default, Sensu agents listen on UDP socket 8125 (TCP on Windows systems) for messages that follow the [StatsD line protocol][21] and send metric events for handling by the Sensu backend.
+
+For example, you can use the Netcat utility to send metrics to the StatsD listener:
+
+{{< highlight shell >}}
+echo 'abc.def.g:10|c' | nc -w1 -u localhost 8125
+{{< /highlight >}}
+
+Metrics received through the StatsD listener are not stored by Sensu, so
+it's important to configure [event handlers][8].
+
+### StatsD line protocol
+
+The Sensu StatsD listener accepts messages formatted according to the StatsD line protocol:
+
+{{< highlight text >}}
+<metricname>:<value>|<type>
+{{< /highlight >}}
+
+For more information, see the [StatsD documentation][21].
+
+### Configuring the StatsD listener
+
+To configure the StatsD listener, specify the [`statsd-event-handlers` configuration flag][22] in the [agent configuration][24], and start the agent.
+
+{{< highlight shell >}}
+# Start an agent that sends StatsD metrics to InfluxDB
+sensu-agent --statsd-event-handlers influx-db
+{{< /highlight >}}
+
+You can use the [StatsD configuration flags][22] to change the default settings for the StatsD listener address, port, and [flush interval][23].
+
+{{< highlight shell >}}
+# Start an agent with a customized address and flush interval
+sensu-agent --statsd-event-handlers influx-db --statsd-flush-interval 1 --statsd-metrics-host 123.4.5.6 --statsd-metrics-port 8125
+{{< /highlight >}}
+
+## Keepalive monitoring
+
+Sensu `keepalives` are the heartbeat mechanism used to ensure that all registered agents are operational and able to reach the [Sensu backend][2].
+Sensu agents publish keepalive events containing [entity][3] configuration data to the Sensu backend according to the interval specified by the [`keepalive-interval` flag][4].
+If a Sensu agent fails to send keepalive events over the period specified by the [`keepalive-timeout` flag][4], the Sensu backend creates a keepalive alert.
+You can use keepalives to identify unhealthy systems and network partitions, send notifications, trigger [auto-remediation][5], and other useful actions.
+
+_NOTE: Keepalive monitoring is not supported for [proxy entities][3], as they are inherently unable to run a Sensu agent._
+
+## Operation
+
+### Starting the service
+Use the `sensu-agent` tool to start the agent and apply configuration flags.
+
+To start the agent with [configuration flags][24]:
+
+{{< highlight shell >}}
+sensu-agent start --subscriptions disk-checks --log-level debug
+{{< /highlight >}}
+
+To see available configuration flags and defaults:
+
+{{< highlight shell >}}
+sensu-agent start --help
+{{< /highlight >}}
+
+If no configuration flags are provided, the agent loads configuration from [`/etc/sensu/agent.yml`][25] by default.
+
+To start the agent using a service manager:
+
+{{< platformBlock "Linux" >}}
+
+**Linux**
+
+{{< highlight shell >}}
+service sensu-agent start
+{{< /highlight >}}
+
+{{< platformBlockClose >}}
+
+{{< platformBlock "Windows" >}}
+
+**Windows**
+
+{{< highlight shell >}}
+net start sensu-agent
+{{< /highlight >}}
+
+{{< platformBlockClose >}}
+
+### Stopping the service
+
+To stop the agent service using a service manager:
+
+{{< platformBlock "Linux" >}}
+
+**Linux**
+
+{{< highlight shell >}}
+service sensu-agent stop
+{{< /highlight >}}
+
+{{< platformBlockClose >}}
+
+{{< platformBlock "Windows" >}}
+
+**Windows**
+
+{{< highlight shell >}}
+net stop sensu-agent
+{{< /highlight >}}
+
+{{< platformBlockClose >}}
+
+### Restarting the service
+
+You must restart the agent to implement any configuration updates.
+
+To restart the agent using a service manager:
+
+{{< platformBlock "Linux" >}}
+
+**Linux**
+
+{{< highlight shell >}}
+service sensu-agent restart
+{{< /highlight >}}
+
+{{< platformBlockClose >}}
+
+{{< platformBlock "Windows" >}}
+
+**Windows**
+
+{{< highlight shell >}}
+net restart sensu-agent
+{{< /highlight >}}
+
+{{< platformBlockClose >}}
+
+### Enabling on boot
+
+To enable the agent to start on system boot:
+
+{{< platformBlock "Linux" >}}
+
+**Linux**
+
+{{< highlight shell >}}
+systemctl enable sensu-agent
+{{< /highlight >}}
+
+Disable the agent from starting on system boot:
+
+{{< highlight shell >}}
+systemctl disable sensu-agent
+{{< /highlight >}}
+
+_NOTE: On older distributions of Linux, use `sudo chkconfig sensu-server on` to enable the agent and `sudo chkconfig sensu-server off` to disable._
+
+{{< platformBlockClose >}}
+
+### Getting service status
+
+See the status of the agent service using a service manager:
+
+{{< platformBlock "Linux" >}}
+
+**Linux**
+
+{{< highlight shell >}}
+service sensu-agent status
+{{< /highlight >}}
+
+{{< platformBlockClose >}}
+
+{{< platformBlock "Windows" >}}
+
+**Windows**
+{{< highlight shell >}}
+sc query sensu-agent
+{{< /highlight >}}
+
+{{< platformBlockClose >}}
+
+### Getting service version
+
+Use the `sensu-agent` tool to get the current agent version:
+
+{{< highlight shell >}}
+sensu-agent version
+{{< /highlight >}}
+
+### Getting help
+
+The `sensu-agent` tool provides general and command-specific help flags:
+
+{{< highlight shell >}}
+# Show sensu-agent commands
+sensu-agent help
+
+# Show options for the sensu-agent start subcommand
+sensu-agent start --help
+{{< /highlight >}}
+
+## Registration
+
+In practice, agent registration happens when a Sensu backend processes an agent keepalive event for an agent that is not already registered in the Sensu agent registry (based on the configured agent `id`).
+This agent registry is stored in the Sensu [backend][2], and is accessible via [`sensuctl entity list`][6].
+
+All Sensu agent data provided in keepalive events gets stored in the agent registry and used to add context to Sensu [events][7] and detect Sensu agents in an unhealthy state.
+
+### Registration events
+
+If a [Sensu event handler][8] named `registration` is configured, the [Sensu backend][2] creates and process an [event][7] for agent registration, applying any configured [filters][9] and [mutators][10] before executing the configured [handler][8].
+
+_PRO TIP: Use a [handler set][34] to execute multiple handlers in response to registration events._
+
+Registration events are useful for executing one-time handlers for new Sensu agents.
+For example, registration event handlers can be used to update external [configuration management databases (CMDBs)][11] such as [ServiceNow][12].
+
+To configure a registration event handler, please refer to the [Sensu event handler documentation][8] for instructions on creating a handler named `registration`.
+
+_WARNING: Registration events are not stored in the event registry, so they are not accessible via the Sensu API; however, all registration events are logged in the [Sensu backend][2] log._
+
+### Deregistration events
+
+Similarly to registration events, the Sensu backend can create and process a deregistration event when the Sensu agent process stops.
+You can use deregistration events to trigger a handler that updates external CMDBs or performs an action to update ephemeral infrastructures.
+To enable deregistration events, use the [`deregister` flag][13] and specify the event handler using the [`deregistration-handler` flag][13].
+
+### Clustering
+
+Agents can connect to a Sensu cluster by specifying any Sensu backend URL in the cluster in the [`backend-url` configuration flag][16]. For more information about clustering, see [Sensu backend datastore configuration flags][35] and the [guide to running a Sensu cluster][36].
+
+## Configuration
+
+You can specify the agent configuration using a [`/etc/sensu/agent.yml`][25] file or using `sensu-agent start` [configuration flags][24].
+See the example [`/etc/sensu/agent.yml`][25] file used during the [installation process][1] on [GitHub][25].
+The agent loads configuration upon startup, so you must restart the agent for any configuration updates to take effect.
+
+### Configuration summary
+
+{{< highlight text >}}
+$ sensu-agent start --help
+start the sensu agent
+
+Usage:
+  sensu-agent start [flags]
+
+Flags:
+      --api-host string                     address to bind the Sensu client HTTP API to (default "127.0.0.1")
+      --api-port int                        port the Sensu client HTTP API listens on (default 3031)
+      --backend-url stringSlice             ws/wss URL of Sensu backend server (to specify multiple backends use this flag multiple times) (default [ws://127.0.0.1:8081])
+      --cache-dir string                    path to store cached data (default "/var/cache/sensu/sensu-agent")
+  -c, --config-file string                  path to sensu-agent config file
+      --deregister                          ephemeral agent
+      --deregistration-handler string       deregistration handler that should process the entity deregistration event.
+      --disable-api                         disable the Agent HTTP API
+      --disable-sockets                     disable the Agent TCP and UDP event sockets
+      --environment string                  agent environment (default "default")
+      --extended-attributes string          extended attributes to include in the agent entity in serialized json format (ex: {"team":"ops"})
+  -h, --help                                help for start
+      --id string                           agent ID (defaults to hostname) (default "sensu2-centos")
+      --keepalive-interval int              number of seconds to send between keepalive events (default 20)
+      --keepalive-timeout uint32            number of seconds until agent is considered dead by backend (default 120)
+      --log-level string                    logging level [panic, fatal, error, warn, info, debug] (default "warn")
+      --organization string                 agent organization (default "default")
+      --password string                     agent password (default "P@ssw0rd!")
+      --redact string                       comma-delimited customized list of fields to redact
+      --socket-host string                  address to bind the Sensu client socket to (default "127.0.0.1")
+      --socket-port int                     port the Sensu client socket listens on (default 3030)
+      --statsd-disable                      disables the statsd listener and metrics server
+      --statsd-event-handlers stringSlice   comma-delimited list of event handlers for statsd metrics
+      --statsd-flush-interval int           number of seconds between statsd flush (default 10)
+      --statsd-metrics-host string          address used for the statsd metrics server (default "127.0.0.1")
+      --statsd-metrics-port int             port used for the statsd metrics server (default 8125)
+      --subscriptions string                comma-delimited list of agent subscriptions
+      --user string                         agent user (default "agent")
+{{< /highlight >}}
+
+### General configuration flags
+
+| backend-url |      |
+--------------|------
+description   | ws or wss URL of the Sensu backend server. To specify multiple backends using `sensu-agent start`, use this flag multiple times.
+type          | String
+default       | `ws://127.0.0.1:8081`
+example       | {{< highlight shell >}}# Command line example
+sensu-agent start --backend-url ws://0.0.0.0:8081
+
+# /etc/sensu/agent.yml example
+backend-url:
+  - "ws://0.0.0.0:8081"{{< /highlight >}}
+
+<a name="cache-dir">
+
+| cache-dir   |      |
+--------------|------
+description   | Path to store cached data
+type          | String
+default       | <ul><li>Windows: `C:\\ProgramData\sensu\cache\sensu-agent`</li><li>Linux: `/var/cache/sensu/sensu-agent`</li></ul>
+example       | {{< highlight shell >}}# Command line example
+sensu-agent start --cache-dir /cache/sensu-agent
+
+# /etc/sensu/agent.yml example
+cache-dir: "/cache/sensu-agent"{{< /highlight >}}
+
+
+| config-file |      |
+--------------|------
+description   | Path to Sensu agent config file
+type          | String
+default       | <ul><li>Windows: `C:\\ProgramData\sensu\config\agent.yml`</li><li>FreeBSD: `/usr/local/etc/sensu/agent.yml`</li><li>Linux: `/etc/sensu/agent.yml`</li></ul>
+example       | {{< highlight shell >}}# Command line example
+sensu-agent start --config-file /sensu/agent.yml
+sensu-agent start --c /sensu/agent.yml
+
+# /etc/sensu/agent.yml example
+config-file: "/sensu/agent.yml"{{< /highlight >}}
+
+
+| extended-attributes |      |
+----------------------|------
+description           | Extended attributes to include in the agent entity in serialized JSON format
+type                  | Serialized JSON object
+example               | {{< highlight shell >}}# Command line example
+sensu-agent start --extended-attributes '{"team":"ops"}'
+
+# /etc/sensu/agent.yml example
+extended-attributes: "{\"team\":\"ops\"}"{{< /highlight >}}
+
+
+| id          |      |
+--------------|------
+description   | Agent ID
+type          | String
+default       | Defaults to hostname, for example: `sensu2-centos`
+example       | {{< highlight shell >}}# Command line example
+sensu-agent start --id agent-01
+
+# /etc/sensu/agent.yml example
+id: "agent-01" {{< /highlight >}}
+
+
+| log-level   |      |
+--------------|------
+description   | Logging level: `panic`, `fatal`, `error`, `warn`, `info`, or `debug`
+type          | String
+default       | `warn`
+example       | {{< highlight shell >}}# Command line example
+sensu-agent start --log-level debug
+
+# /etc/sensu/agent.yml example
+log-level: "debug"{{< /highlight >}}
+
+<a name="subscriptions-flag">
+
+| subscriptions |      |
+----------------|------
+description     | Comma-separated list of agent subscriptions. Agents execute the checks with the same specified subscriptions.
+type            | String
+example         | {{< highlight shell >}}# Command line example
+sensu-agent start --subscriptions disk-checks,process-checks
+
+# /etc/sensu/agent.yml example
+subscriptions: "disk-checks,process-checks"{{< /highlight >}}
+
+
+### API configuration flags
+
+| api-host    |      |
+--------------|------
+description   | Bind address for the Sensu agent HTTP API
+type          | String
+default       | `127.0.0.1`
+example       | {{< highlight shell >}}# Command line example
+sensu-agent start --api-host 0.0.0.0
+
+# /etc/sensu/agent.yml example
+api-host: "0.0.0.0"{{< /highlight >}}
+
+
+| api-port    |      |
+--------------|------
+description   | Listening port for the Sensu agent HTTP API
+type          | Integer
+default       | `3031`
+example       | {{< highlight shell >}}# Command line example
+sensu-agent start --api-port 4041
+
+# /etc/sensu/agent.yml example
+api-port: 4041{{< /highlight >}}
+
+
+| disable-api |      |
+--------------|------
+description   | Disable the agent HTTP API
+type          | Boolean
+default       | `false`
+example       | {{< highlight shell >}}# Command line example
+sensu-agent start --disable-api
+
+# /etc/sensu/agent.yml example
+disable-api: true{{< /highlight >}}
+
+### Ephemeral agent configuration flags
+
+| deregister  |      |
+--------------|------
+description   | Indicates whether a deregistration event should be created upon Sensu agent process stop
+type          | Boolean
+default       | `false`
+example       | {{< highlight shell >}}# Command line example
+sensu-agent start --deregister
+
+# /etc/sensu/agent.yml example
+deregister: true{{< /highlight >}}
+
+
+| deregistration-handler |      |
+-------------------------|------
+description              | The name of a deregistration handler that processes agent deregistration events
+type                     | String
+example                  | {{< highlight shell >}}# Command line example
+sensu-agent start --deregistration-handler deregister
+
+# /etc/sensu/agent.yml example
+deregistration-handler: "deregister"{{< /highlight >}}
+
+
+### Keepalive configuration flags
+
+| keepalive-interval |      |
+---------------------|------
+description          | Number of seconds between keepalive events
+type                 | Integer
+default              | `20`
+example              | {{< highlight shell >}}# Command line example
+sensu-agent start --keepalive-interval 30
+
+# /etc/sensu/agent.yml example
+keepalive-interval: 30{{< /highlight >}}
+
+
+| keepalive-timeout |      |
+--------------------|------
+description         | Number of seconds after a missing keepalive event until the agent is considered unresponsive by the Sensu backend
+type                | Integer
+default             | `120`
+example             | {{< highlight shell >}}# Command line example
+sensu-agent start --keepalive-timeout 300
+
+# /etc/sensu/agent.yml example
+keepalive-timeout: 300{{< /highlight >}}
+
+
+### Security configuration flags
+
+| environment |      |
+--------------|------
+description   | Agent environment
+type          | String
+default       | `default`
+example       | {{< highlight shell >}}# Command line example
+sensu-agent start --environment production
+
+# /etc/sensu/agent.yml example
+environment: "production"{{< /highlight >}}
+
+
+| organization |      |
+---------------|------
+description    | Agent organization
+type           | String
+default        | `default`
+example        | {{< highlight shell >}}# Command line example
+sensu-agent start --organization ops
+
+# /etc/sensu/agent.yml example
+organization: "ops"{{< /highlight >}}
+
+
+| password    |      |
+--------------|------
+description   | Agent password
+type          | String
+default       | `P@ssw0rd!`
+example       | {{< highlight shell >}}# Command line example
+sensu-agent start --password secure-password
+
+# /etc/sensu/agent.yml example
+password: "secure-password"{{< /highlight >}}
+
+
+| redact      |      |
+--------------|------
+description   | Comma-separated list of fields to redact
+type          | String
+default       | By default, Sensu redacts the following fields: `password`, `passwd`, `pass`, `api_key`, `api_token`, `access_key`, `secret_key`, `private_key`, `secret`
+example       | {{< highlight shell >}}# Command line example
+sensu-agent start --redact secure-key,secure-password
+
+# /etc/sensu/agent.yml example
+redact: "secure-key,secure-password"{{< /highlight >}}
+
+
+| user |      |
+--------------|------
+description   | Agent user
+type          | String
+default       | `agent`
+example       | {{< highlight shell >}}# Command line example
+sensu-agent start --user agent-01
+
+# /etc/sensu/agent.yml example
+user: "agent-01"{{< /highlight >}}
+
+
+### Socket configuration flags
+
+| socket-host |      |
+--------------|------
+description   | Address to bind the Sensu agent socket to
+type          | String
+default       | `127.0.0.1`
+example       | {{< highlight shell >}}# Command line example
+sensu-agent start --socket-host 0.0.0.0
+
+# /etc/sensu/agent.yml example
+socket-host: "0.0.0.0"{{< /highlight >}}
+
+
+| socket-port |      |
+--------------|------
+description   | Port the Sensu agent socket listens on
+type          | Integer
+default       | `3030`
+example       | {{< highlight shell >}}# Command line example
+sensu-agent start --socket-port 4030
+
+# /etc/sensu/agent.yml example
+socket-port: 4030{{< /highlight >}}
+
+
+| disable-sockets |      |
+------------------|------
+description       | Disable the agent TCP and UDP event sockets
+type              | Boolean
+default           | `false`
+example           | {{< highlight shell >}}# Command line example
+sensu-agent start --disable-sockets
+
+# /etc/sensu/agent.yml example
+disable-sockets: true{{< /highlight >}}
+
+
+### StatsD configuration flags
+
+| statsd-disable |      |
+-----------------|------
+description      | Disables the StatsD listener and metrics server
+type             | Boolean
+default          | `false`
+example          | {{< highlight shell >}}# Command line example
+sensu-agent start --statsd-disable
+
+# /etc/sensu/agent.yml example
+statsd-disable: true{{< /highlight >}}
+
+
+| statsd-event-handlers |      |
+------------------------|------
+description             | Comma-separated list of event handlers for StatsD metrics
+type                    | String
+example                 | {{< highlight shell >}}# Command line example
+sensu-agent start --statsd-event-handlers influxdb,opentsdb
+
+# /etc/sensu/agent.yml example
+statsd-event-handlers: "influxdb,opentsdb"{{< /highlight >}}
+
+
+| statsd-flush-interval  |      |
+-------------------------|------
+description              | Number of seconds between StatsD flush
+type                     | Integer
+default                  | `10`
+example                  | {{< highlight shell >}}# Command line example
+sensu-agent start --statsd-flush-interval 30
+
+# /etc/sensu/agent.yml example
+statsd-flush-interval: 30{{< /highlight >}}
+
+
+| statsd-metrics-host |      |
+----------------------|------
+description           | Address used for the StatsD metrics server
+type                  | String
+default               | `127.0.0.1`
+example               | {{< highlight shell >}}# Command line example
+sensu-agent start --statsd-metrics-host 0.0.0.0
+
+# /etc/sensu/agent.yml example
+statsd-metrics-host: "0.0.0.0"{{< /highlight >}}
+
+
+| statsd-metrics-port |      |
+----------------------|------
+description           | Port used for the StatsD metrics server
+type                  | Integer
+default               | `8125`
+example               | {{< highlight shell >}}# Command line example
+sensu-agent start --statsd-metrics-port 6125
+
+# /etc/sensu/agent.yml example
+statsd-metrics-port: 6125{{< /highlight >}}
+
+[1]: ../../getting-started/installation-and-configuration#install-the-sensu-agent
+[2]: ../backend
+[3]: ../entities
+[4]: #keepalive-configuration-flags
+[5]: ../../guides/run-auto-remediation
+[6]: ../sensuctl
+[7]: ../events
+[8]: ../handlers
+[9]: ../filters
+[10]: ../mutators
+[11]: https://en.wikipedia.org/wiki/Configuration_management_database
+[12]: https://www.servicenow.com/products/it-operations-management.html
+[13]: #ephemeral-agent-configuration-flags
+[14]: ../checks
+[15]: https://en.wikipedia.org/wiki/Publish%E2%80%93subscribe_pattern
+[16]: #general-configuration-flags
+[17]: #socket-configuration-flags
+[18]: #api-configuration-flags
+[19]: http://nc110.sourceforge.net/
+[20]: http://en.wikipedia.org/wiki/Dead_man%27s_switch
+[21]: https://github.com/etsy/statsd
+[22]: #statsd-configuration-flags
+[23]: https://github.com/etsy/statsd#key-concepts
+[24]: #configuration
+[25]: https://github.com/sensu/sensu-go/blob/master/packaging/files/agent.yml.example
+[26]: #keepalives
+[27]: ../tokens
+[28]: #subscriptions-flag
+[29]: ../assets
+[30]: #cache-dir
+[31]: ../hooks
+[32]: ../checks/#how-do-checks-work
+[33]: ../../guides/monitor-external-resources
+[34]: ../../handlers#handler-sets
+[35]: ../backend#datastore-and-cluster-configuration-flags
+[36]: ../../guides/clustering
