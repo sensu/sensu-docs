@@ -101,7 +101,7 @@ You can also start the backend using `systemd`:
 sudo systemctl start sensu-backend
 {{< /highlight >}}
 
-_NOTE: On Ubuntu 14.04, CentOS 6, and RHEL 6, use `sudo service sensu-backend start` to start the backend._
+_NOTE: On older distributions of Linux, use `sudo service sensu-backend start` to start the backend._
 
 ### Stopping the service
 
@@ -111,7 +111,7 @@ Stop the backend service using `systemd`:
 sudo systemctl stop sensu-backend
 {{< /highlight >}}
 
-_NOTE: On Ubuntu 14.04, CentOS 6, and RHEL 6, use `sudo service sensu-backend stop` to stop the backend._
+_NOTE: On older distributions of Linux, use `sudo service sensu-backend stop` to stop the backend._
 
 ### Restarting the service
 
@@ -123,21 +123,22 @@ Restart the backend using `systemd`:
 sudo systemctl restart sensu-backend
 {{< /highlight >}}
 
-_NOTE: On Ubuntu 14.04, CentOS 6, and RHEL 6, use `sudo service sensu-backend restart` to restart the backend._
 
 ### Enabling on boot
 
 Enable the backend to start on system boot:
 
 {{< highlight shell >}}
-sudo chkconfig sensu-server on
+sudo systemctl enable sensu-backend
 {{< /highlight >}}
 
 Disable the backend from starting on system boot:
 
 {{< highlight shell >}}
-sudo chkconfig sensu-server off
+sudo systemctl disable sensu-backend
 {{< /highlight >}}
+
+_NOTE: On older distributions of Linux, use `sudo chkconfig sensu-server on` to enable the backend and `sudo chkconfig sensu-server off` to disable._
 
 ### Getting service status
 
@@ -147,7 +148,7 @@ See the status of the backend service using `systemd`:
 systemctl status sensu-backend
 {{< /highlight >}}
 
-_NOTE: On Ubuntu 14.04, CentOS 6, and RHEL 6, use `service sensu-backend status` to see the status of the backend._
+_NOTE: On older distributions of Linux, use `service sensu-backend status` to see the status of the backend._
 
 ### Getting service version
 
