@@ -1,6 +1,6 @@
 ---
-title: "How to install Executables using Assets"
-linkTitle: "Using Assets in Checks, Handlers, and Mutators"
+title: "How to install executables using assets"
+linkTitle: "Using Assets in Checks"
 weight: 100
 version: "2.0"
 product: "Sensu Core"
@@ -80,6 +80,8 @@ $ sensuctl event list
 {{< /highlight >}}
 
 ## What are handler and mutator assets?
+
+_NOTE: This feature will be part of a future release of Sensu Core 2.0 beta._
 
 Handler and mutator assets are much like check assets. They are resources that handlers
 and mutators can specify as dependencies, and since those are executed server side, it
