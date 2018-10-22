@@ -35,6 +35,7 @@ and `dashboard` (see [Dashboard definition specification][8], below)._
 
 For a more advanced configuration making use of RBAC and SSL, consider the example below:
 
+{{< highlight json >}}
 {
   "sensu": [
     {
@@ -107,7 +108,7 @@ For a more advanced configuration making use of RBAC and SSL, consider the examp
       ]
      }
    }
-}
+}{{< /highlight >}}
 
 This example makes use of the following:
 
@@ -517,3 +518,7 @@ to configure the dashboard for RBAC with OpenID Connect (OIDC).
 [16]: ../rbac/overview/#rbac-for-the-sensu-enterprise-console-api
 [17]: ../rbac/rbac-for-oidc
 [18]: #oidc-attributes
+
+<!-- Supplemental Links -->
+[golang-ssl]: https://golang.org/pkg/crypto/tls/#pkg-constants
+[uchiwa-options]: /uchiwa/latest/getting-started/configuration/#users-options
