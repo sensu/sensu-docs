@@ -173,6 +173,13 @@ example      | {{< highlight shell >}}
   "environment": "default"
 {{< /highlight >}}
 
+runtime_assets | 
+---------------|------
+description    | An array of [Sensu assets][7] (names), required at runtime for the execution of the `command`
+required       | false
+type           | Array
+example        | {{< highlight shell >}}"runtime_assets": ["ruby-2.5.0"]{{< /highlight >}}
+
 ### `socket` attributes
 
 host         | 
@@ -260,3 +267,4 @@ The following example handler will execute three handlers: `slack`,
 [4]: ../../../1.2/reference/handlers/#the-default-handler
 [5]: ../../../1.2/reference/handlers/#transport-handlers
 [6]: #socket-attributes
+[7]: ../assets
