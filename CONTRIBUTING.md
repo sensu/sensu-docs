@@ -90,6 +90,7 @@ $ git push -f origin feature/myfeature
 #### 7) Create a Pull Request
 
 Create a pull request by visiting [sensu/sensu-docs on GitHub](https://github.com/sensu/sensu-docs) and following the prompts.
+We'd appreciate it if you could [allow edits to your PR from Sensu docs maintainers](https://help.github.com/articles/allowing-changes-to-a-pull-request-branch-created-from-a-fork/).
 
 After the PR is submitted, project maintainers will review it.
 If you'd like to mark your PR as work in progress, add `[WIP]` to the PR title.
