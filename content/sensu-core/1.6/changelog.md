@@ -8,6 +8,7 @@ menu: "sensu-core-1.6"
 
 ## Releases
 
+- [Core 1.6.1 Release Notes](#core-v1-6-1)
 - [Core 1.6.0 Release Notes](#core-v1-6-0)
 - [Core 1.5.0 Release Notes](#core-v1-5-0)
 - [Core 1.4.3 Release Notes](#core-v1-4-3)
@@ -53,6 +54,18 @@ menu: "sensu-core-1.6"
 - [Core 0.23.2 Release Notes](#core-v0-23-2)
 - [Core 0.23.1 Release Notes](#core-v0-23-1)
 - [Core 0.23.0 Release Notes](#core-v0-23-0)
+
+## Core 1.6.1 Release Notes {#core-v1-6-1}
+
+Source: [GitHub.com][67]
+
+**October 23, 2018** &mdash; Sensu Core version 1.6.1 has been released
+  and is available for immediate download. Please note the following
+  improvements:
+
+### CHANGES {#core-v1-6-1-changes}
+
+- **BUGFIX**: Fixed an issue causing Sensu to freeze when reconnecting to RabbitMQ.
 
 ## Core 1.6.0 Release Notes {#core-v1-6-0}
 
@@ -1718,6 +1731,9 @@ available for immediate download. Please note the following improvements:
 [64]: /sensu-core/1.6/api/checks#checkscheck-delete
 [65]: http://www.rabbitmq.com/install-debian.html#kernel-resource-limits
 [66]: http://www.rabbitmq.com/install-rpm.html#kernel-resource-limits
+
+<!-- 1.6.1 -->
+[67]: https://github.com/sensu/sensu/blob/master/CHANGELOG.md#161---2018-10-23
 
 <!-- GH Issues/PR's -->
 
