@@ -65,7 +65,8 @@ Source: [GitHub.com][67]
 
 ### CHANGES {#core-v1-6-1-changes}
 
-- **BUGFIX**: Fixed an issue causing Sensu to freeze when reconnecting to RabbitMQ.
+- **BUGFIX**: Fixed an issue preventing Sensu clients from resuming activities
+  after reconnecting to RabbitMQ.
 
 ## Core 1.6.0 Release Notes {#core-v1-6-0}
 
