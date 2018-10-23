@@ -95,34 +95,29 @@ See available configuration flags and defaults:
 sensu-backend start --help
 {{< /highlight >}}
 
-You can also start the backend using `systemd`:
+You can also start the backend using a service manager:
 
 {{< highlight shell >}}
-sudo systemctl start sensu-backend
+sudo service sensu-backend start
 {{< /highlight >}}
-
-_NOTE: On older distributions of Linux, use `sudo service sensu-backend start` to start the backend._
 
 ### Stopping the service
 
-Stop the backend service using `systemd`:
+Stop the backend service using a service manager:
 
 {{< highlight shell >}}
-sudo systemctl stop sensu-backend
+sudo service sensu-backend stop
 {{< /highlight >}}
-
-_NOTE: On older distributions of Linux, use `sudo service sensu-backend stop` to stop the backend._
 
 ### Restarting the service
 
 You must restart the backend to implement any configuration updates.
 
-Restart the backend using `systemd`:
+Restart the backend using a service manager:
 
 {{< highlight shell >}}
-sudo systemctl restart sensu-backend
+sudo service sensu-backend restart
 {{< /highlight >}}
-
 
 ### Enabling on boot
 
@@ -142,13 +137,11 @@ _NOTE: On older distributions of Linux, use `sudo chkconfig sensu-server on` to 
 
 ### Getting service status
 
-See the status of the backend service using `systemd`:
+See the status of the backend service using a service manager:
 
 {{< highlight shell >}}
-systemctl status sensu-backend
+service sensu-backend status
 {{< /highlight >}}
-
-_NOTE: On older distributions of Linux, use `service sensu-backend status` to see the status of the backend._
 
 ### Getting service version
 
