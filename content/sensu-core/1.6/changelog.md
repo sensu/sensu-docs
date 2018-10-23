@@ -87,7 +87,7 @@ Source: [GitHub.com][63]
 
 - **BUGFIX**: Fixed a bug impacting macOS packages using Ruby 2.4.4.
 
-- **BUGFIX**: Fixed a bug impacting FreeBSD packages causing incompatibility with newer compilers.
+- **BUGFIX**: Fixed an issue impacting FreeBSD packages causing incompatibility with newer compilers.
 
 - **BUGFIX**: Fixed a bug impacting the installation process for Solaris 10 packages.
 
