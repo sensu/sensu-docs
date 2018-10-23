@@ -168,7 +168,7 @@ sensu-backend start --help
 You can specify the backend configuration using a [`/etc/sensu/backend.yml`][14] file or using `sensu-backend start` [configuration flags][15].
 See the example [`/etc/sensu/backend.yml`][14] file used during the [installation process][1] on [GitHub][14].
 All required configuration flags have assigned defaults, so no manual configuration is required to start the backend.
-The backend loads configuration upon startup, so you must restart the backend for any configuration updates to take affect.
+The backend loads configuration upon startup, so you must restart the backend for any configuration updates to take effect.
 
 ### Configuration summary
 
