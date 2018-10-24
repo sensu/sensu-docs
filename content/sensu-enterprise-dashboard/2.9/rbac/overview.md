@@ -137,6 +137,7 @@ of the following:
 - `ldap` (see [RBAC for LDAP][7])
 - `github` (see [RBAC for GitHub][8])
 - `gitlab` (see [RBAC for GitLab][9])
+- `OIDC` (see [RBAC for OIDC][20])
 
 #### `roles` attributes
 
@@ -371,3 +372,4 @@ example        | {{< highlight shell >}}"methods": {
 [17]: /sensu-core/latest/reference/configuration#configuration-scopes
 [18]: #methods-attributes
 [19]: #providing-an-access-token
+[20]:  ../rbac-for-oidc
