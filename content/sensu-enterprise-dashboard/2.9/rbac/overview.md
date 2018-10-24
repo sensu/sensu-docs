@@ -227,6 +227,20 @@ type           | String
 allowed values | any length string that only contains URL-friendly characters. _PRO TIP: we recommend using a random string generator for access tokens; e.g.: <br><code>openssl rand -base64 40 &#124;  tr -- '+=/' '-&#95;~'</code>._
 example        | {{< highlight shell >}}"accessToken": "OrIXC7ezuq0AZKoRHhf~oIl-98dX5B23hf8KudfcqJt5eTeQjDDGDQ__"{{< /highlight >}}
 
+fallback    | 
+---------------|------
+description    | Used to give an authenticated user the attributes defined in that role if that user is not found in any other defined dashboard role.
+required       | false
+type           | Boolean
+default        | false
+example        | {{< highlight shell >}}{
+  "name": "readonly_fallback",
+  "datacenters": [],
+  "subscriptions": [],
+  "fallback": true,
+  "readonly": true
+}{{< /highlight >}}
+
 methods      | 
 -------------|------
 description  | The [`methods` definition scope][18], used to configure access to the [Sensu Enterprise Console API][14].
