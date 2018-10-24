@@ -15,7 +15,7 @@ Redis is a key-value database, which describes itself as “an open source, BSD 
 
 This guide will discuss best practices to use with Redis for use with Sensu.
 
-### Objectives
+## Objectives
 
 This guide will discuss the following:
 
