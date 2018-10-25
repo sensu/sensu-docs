@@ -33,6 +33,93 @@ Enterprise Dashboard configuration.
 _NOTE: the Sensu Enterprise Dashboard requires two configuration scopes: `sensu`
 and `dashboard` (see [Dashboard definition specification][8], below)._
 
+For a more advanced configuration making use of RBAC and SSL, consider the example below:
+
+{{< highlight json >}}
+{
+  "sensu": [
+    {
+      "name": "Sensu Deployment 1",
+      "host": "localhost",
+      "port": 4567,
+      "timeout": 5
+    },
+    {
+      "name": "Sensu Deployment 2",
+      "host": "10.0.1.10",
+      "port": 4567,
+      "timeout": 5
+    }
+  ],
+  "dashboard": {
+    "host": "0.0.0.0",
+    "port": 3000,
+    "interval": 5,
+    "users": [
+      {
+        "username": "sensu_user_1",
+        "password": "{crypt}EXAMPLEPASSFORUSER1"
+      },
+      {
+        "username": "sensu_user_1",
+        "password": "{crypt}EXAMPLEPASSFORUSER2"
+      }
+    ],
+    "ssl": {
+      "certfile": "/etc/sensu/ssl/cert.pem",
+      "keyfile": "/etc/sensu/ssl/key.pem",
+      "ciphersuite": [
+        "TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256",
+        "TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384",
+        "TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305",
+        "TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA",
+        "TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA",
+        "TLS_RSA_WITH_AES_128_GCM_SHA256",
+        "TLS_RSA_WITH_AES_256_GCM_SHA384",
+        "TLS_RSA_WITH_AES_128_CBC_SHA",
+        "TLS_RSA_WITH_AES_256_CBC_SHA"
+      ],
+      "tlsminversion": "tls12"
+     },
+    "usersOptions": {
+    "dateFormat": "YYYY-MM-DD HH:mm:ss",
+    "defaultTheme": "uchiwa-default",
+    "disableNoExpiration": false,
+    "favicon": "/etc/sensu/favicon.png",
+    "logoURL": "/etc/sensu/logo.jpg",
+    "requireSilencingReason": false,
+    "silenceDurations": [ 0.5, 2 ]
+    },
+    "github": {
+      "clientId": "GITHUBCLIENTID",
+      "clientSecret": "GITHUBCLIENTSECRET",
+      "server": "https://github.com",
+      "roles": [
+        {
+          "name": "admin",
+          "members": [
+             "my-github-org/admins"
+          ],
+          "datacenters": [],
+          "subscriptions": [],
+          "readonly": false,
+          "accessToken": "MYACCESSTOKEN"
+        }
+      ]
+     }
+   }
+}{{< /highlight >}}
+
+This example makes use of the following:
+
+* Multiple Sensu datacenters
+* Local users (for fallback in the event Github cannot be reached)
+* SSL (a full list of supperted ciphers can be found [here][golang-ssl])
+* Default options (which you can view under the [Uchiwa docmentation][uchiwa-options])
+* RBAC via [Github][5]
+
+_NOTE: Local users can only be used for fallback with Github, Gitlab, and OIDC RBAC providers. It is not possible to have a local fallback with LDAP._
+
 ### Dashboard definition specification {#dashboard-configuration-attributes}
 
 The Sensu Enterprise dashboard uses two [configuration scopes][9]: the
@@ -431,3 +518,7 @@ to configure the dashboard for RBAC with OpenID Connect (OIDC).
 [16]: ../rbac/overview/#rbac-for-the-sensu-enterprise-console-api
 [17]: ../rbac/rbac-for-oidc
 [18]: #oidc-attributes
+
+<!-- Supplemental Links -->
+[golang-ssl]: https://golang.org/pkg/crypto/tls/#pkg-constants
+[uchiwa-options]: /uchiwa/latest/getting-started/configuration/#users-options

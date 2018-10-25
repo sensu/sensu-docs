@@ -114,7 +114,7 @@ sudo service sensu-client start{{< /highlight >}}
 
 Sometimes, a logical piece of infrastructure isn't a device we can run Sensu on. Fundamentally, Sensu gives you the flexibility to separate **how** checks run from **where** they run, which lets you monitor arbitrary, named 'black box' devices or services.
 
-For example, you may have a router that you can't run Sensu on but publishes interesting information over SNMP that you want to gather metrics from. Or maybe your monitor which other datacenters are visible/online to you, or have any number of creative use cases. You can create a [**proxy client**][16] that can have attributes for use in check execution, allowing you to use the **client registry** naturally for 'managed' an 'unmanaged' infrastructure. See [the reference for creating proxy clients][16] or [details on writing checks against them][17] for more.
+For example, you may have a router that you can't run Sensu on but publishes interesting information over SNMP that you want to gather metrics from. Or maybe you monitor which other datacenters are visible/online to you, or have any number of creative use cases. You can create a [**proxy client**][16] that can have attributes for use in check execution, allowing you to use the **client registry** naturally for 'managed' and 'unmanaged' infrastructure. See [the reference for creating proxy clients][16] or [details on writing checks against them][17] for more.
 
 [?]:  #
 [1]:  ../../reference/clients/

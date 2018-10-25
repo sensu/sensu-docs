@@ -17,6 +17,13 @@ Each agent belongs to one or more subscriptions that determine which checks the 
 An agent can run checks on the entity it’s installed on or by connecting to a remote proxy entity.
 [Read more.][1]
 
+#### Asset
+An asset is an executable that a check, handler, or mutator can specify as a dependency.
+Assets must be a tar archive (optionally gzipped) with scripts or executables within a bin folder.
+At runtime, the backend or agent installs required assets using the specified URL.
+Assets let you manage runtime dependencies without using configuration management tools.
+[Read more.][4]
+
 #### Backend
 A flexible, scalable monitoring event pipeline.
 The backend processes event data using filters, mutators, and handlers.
@@ -29,13 +36,6 @@ A recurring check run by the agent to determine the state of a system component 
 The backend is responsible for storing check definitions, scheduling checks, and processing event data.
 Check definitions specify the command to be executed, an interval for execution, one or more subscriptions, and one or more handlers that will process the resulting event data.
 [Read more.][3]
-
-#### Check asset
-An executable that a check can specify as a dependency.
-Assets must be a tar archive (optionally gzipped) with scripts or executables within a bin folder.
-At runtime, the agent installs required assets using the specified URL.
-Assets let you manage runtime dependencies without using configuration management tools.
-[Read more.][4]
 
 #### Check hook
 A command executed by the agent in response to a check result, before creating a monitoring event.
