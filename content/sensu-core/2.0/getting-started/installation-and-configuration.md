@@ -313,7 +313,10 @@ Download [sensuctl for 64-bit Windows](http://storage.googleapis.com/sensu-binar
 
 ### 2. Configure sensuctl
 
-You must configure sensuctl before it can connect to your Sensu cluster.
+You must configure sensuctl before it can connect to your Sensu backend.
+
+_NOTE: For clustered sensu backends, you only need to add one of the cluster members to setup sensuctl._
+
 Run the `configure` command to get started.
 
 {{< highlight shell >}}
