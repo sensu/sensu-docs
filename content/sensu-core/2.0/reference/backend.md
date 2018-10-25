@@ -12,14 +12,12 @@ menu:
 ---
 
 - [Installation][1]
+- [Scheduling checks](#check-scheduling)
+- [Creating event pipelines](#event-pipeline)
 - [Operation](#operation)
   - [Starting the service](#starting-the-service)
-  - [Stopping the service](#stopping-the-service)
-  - [Restarting the service](#restarting-the-service)
-  - [Enabling on boot](#enabling-on-boot)
-  - [Getting service status](#getting-service-status)
-  - [Getting service version](#getting-service-version)
-  - [Getting help](#getting-help)
+  - [Service management](#stopping-the-service)
+  - [Clustering](#clustering)
 - [Configuration](#configuration)
   - [General configuration](#general-configuration-flags)
   - [Agent communication configuration](#agent-communication-configuration-flags)
@@ -27,18 +25,10 @@ menu:
   - [Dashboard configuration](#dashboard-configuration-flags)
   - [Datastore and cluster configuration](#datastore-and-cluster-configuration-flags)
 
-## How does the backend work?
-
 The Sensu backend is a service that manages check requests and event data.
-You can run the backend as a standalone service, but running a cluster of backends makes Sensu more highly available, reliable, and durable.
-Every Sensu backend includes:
+Every Sensu backend includes an integrated transport for scheduling checks using subscriptions, an event processing pipeline that applies filters, mutators, and handlers, an embedded [etcd][2] datastore for storing configuration and state, a Sensu API, [Sensu dashboard][6], and `sensu-backend` command-line tool.
 
-- Integrated transport for scheduling checks using subscriptions
-- Embedded [etcd][2] datastore for storing configuration and state
-- Event processing pipeline
-- [Sensu dashboard][6]
-- Sensu API
-- `sensu-backend` CLI tool
+_NOTE: The commands in this reference may require administrative privileges or use of `sudo`._
 
 ### Check scheduling
 
@@ -63,81 +53,68 @@ To learn more about filters, mutators, and handlers, see:
 - [Mutators reference documentation][10]
 - [Handlers reference documentation][11]
 
-### Clustering
-
-Sensu backend clusters build on the clustering system used by [etcd][2].
-Clustering lets you synchronize data between backends and get the benefits of a highly available configuration.
-To configure a cluster, see:
-
-- [Datastore configuration flags][12]
-- [Guide to running a Sensu cluster][13]
-
 ## Operation
 
 ### Starting the service
 Use the `sensu-backend` tool to start the backend and apply configuration flags.
 
-Start the backend and load configuration from [`/etc/sensu/backend.yml`][14]:
+To start the backend with [configuration flags][15]:
 
 {{< highlight shell >}}
-sensu-backend start
+sensu-backend start --state-dir /data/sensu --log-level debug
 {{< /highlight >}}
 
-Start the backend with [configuration flags][15]:
-
-{{< highlight shell >}}
-sensu-backend start --state-dir /var/lib/sensu --log-level debug
-{{< /highlight >}}
-
-See available configuration flags and defaults:
+To see available configuration flags and defaults:
 
 {{< highlight shell >}}
 sensu-backend start --help
 {{< /highlight >}}
 
-You can also start the backend using a service manager:
+If no configuration flags are provided, the backend loads configuration from [`/etc/sensu/backend.yml`][14] by default.
+
+To start the backend using a service manager:
 
 {{< highlight shell >}}
-sudo service sensu-backend start
+service sensu-backend start
 {{< /highlight >}}
 
 ### Stopping the service
 
-Stop the backend service using a service manager:
+To stop the backend service using a service manager:
 
 {{< highlight shell >}}
-sudo service sensu-backend stop
+service sensu-backend stop
 {{< /highlight >}}
 
 ### Restarting the service
 
 You must restart the backend to implement any configuration updates.
 
-Restart the backend using a service manager:
+To restart the backend using a service manager:
 
 {{< highlight shell >}}
-sudo service sensu-backend restart
+service sensu-backend restart
 {{< /highlight >}}
 
 ### Enabling on boot
 
-Enable the backend to start on system boot:
+To enable the backend to start on system boot:
 
 {{< highlight shell >}}
-sudo systemctl enable sensu-backend
+systemctl enable sensu-backend
 {{< /highlight >}}
 
-Disable the backend from starting on system boot:
+To disable the backend from starting on system boot:
 
 {{< highlight shell >}}
-sudo systemctl disable sensu-backend
+systemctl disable sensu-backend
 {{< /highlight >}}
 
 _NOTE: On older distributions of Linux, use `sudo chkconfig sensu-server on` to enable the backend and `sudo chkconfig sensu-server off` to disable._
 
 ### Getting service status
 
-See the status of the backend service using a service manager:
+To see the status of the backend service using a service manager:
 
 {{< highlight shell >}}
 service sensu-backend status
@@ -145,7 +122,7 @@ service sensu-backend status
 
 ### Getting service version
 
-Use the `sensu-backend` tool to get the current backend version:
+To get the current backend version using the `sensu-backend` tool:
 
 {{< highlight shell >}}
 sensu-backend version
@@ -162,6 +139,16 @@ sensu-backend help
 # Show options for the sensu-backend start subcommand
 sensu-backend start --help
 {{< /highlight >}}
+
+### Clustering
+
+You can run the backend as a standalone service, but running a cluster of backends makes Sensu more highly available, reliable, and durable.
+Sensu backend clusters build on the clustering system used by [etcd][2].
+Clustering lets you synchronize data between backends and get the benefits of a highly available configuration.
+To configure a cluster, see:
+
+- [Datastore configuration flags][12]
+- [Guide to running a Sensu cluster][13]
 
 ## Configuration
 
@@ -222,7 +209,7 @@ Store Flags:
 --------------|------
 description   | Path to Sensu backend config file
 type          | String
-default       | <ul><li>Windows: `C:\\ProgramData\sensu\config\backend.yml`</li><li>FreeBSD: `/usr/local/etc/sensu/backend.yml`</li><li>Linux: `/etc/sensu/backend.yml`</li></ul>
+default       | <ul><li>Linux: `/etc/sensu/backend.yml`</li><li>FreeBSD: `/usr/local/etc/sensu/backend.yml`</li><li>Windows: `C:\\ProgramData\sensu\config\backend.yml`</li></ul>
 example       | {{< highlight shell >}}# Command line example
 sensu-backend start --config-file /etc/sensu/backend.yml
 sensu-backend start -c /etc/sensu/backend.yml
@@ -245,7 +232,7 @@ debug: true{{< /highlight >}}
 
 | deregistration-handler |      |
 -------------------------|------
-description              | Default deregistration handler
+description              | Default event handler to use when processing agent deregistration events.
 type                     | String
 default                  | `""`
 example                  | {{< highlight shell >}}# Command line example
@@ -259,7 +246,7 @@ deregistration-handler: "/path/to/handler.sh"{{< /highlight >}}
 -------------|------
 description  | Logging level: `panic`, `fatal`, `error`, `warn`, `info`, or `debug`
 type         | String
-default      | `"warn"`
+default      | `warn`
 example      | {{< highlight shell >}}# Command line example
 sensu-backend start --log-level debug
 
@@ -271,7 +258,7 @@ log-level: "debug"{{< /highlight >}}
 -------------|------
 description  | Path to Sensu state storage 
 type         | String
-default      | <ul><li>Windows: `C:\\ProgramData\sensu\data`</li><li>FreeBSD: `/usr/local/etc/sensu/backend.yml`</li><li>Linux: `/var/lib/sensu`</li></ul>
+default      | <ul><li>Linux: `/var/lib/sensu`</li><li>Windows: `C:\\ProgramData\sensu\data`</li></ul>
 example      | {{< highlight shell >}}# Command line example
 sensu-backend start --state-dir /var/lib/sensu
 sensu-backend start -d /var/lib/sensu
@@ -286,7 +273,7 @@ state-dir: "/var/lib/sensu"{{< /highlight >}}
 ---------------|------
 description    | agent listener host, listens on all IPv4 and IPv6 addresses by default
 type           | String
-default        | `"[::]"`
+default        | `[::]`
 example        | {{< highlight shell >}}# Command line example
 sensu-backend start --agent-host 127.0.0.1
 
@@ -345,7 +332,7 @@ trusted-ca-file: "/path/to/trusted-certificate-authorities.pem"{{< /highlight >}
 
 | insecure-skip-tls-verify |      |
 ---------------------------|------
-description                | skip ssl verification
+description                | Skip SSL verification. _WARNING: This configuration flag is intended for use in development systems only. Do not use this flag in production._
 type                       | Boolean
 default                    | `false`
 example                    | {{< highlight shell >}}# Command line example
@@ -360,7 +347,7 @@ insecure-skip-tls-verify: true{{< /highlight >}}
 -----------------|------
 description      | Dashboard listener host
 type             | String
-default          | `"[::]"`
+default          | `[::]`
 example          | {{< highlight shell >}}# Command line example
 sensu-backend start --dashboard-host 127.0.0.1
 
@@ -409,7 +396,7 @@ etcd-client-cert-auth: true{{< /highlight >}}
 -----------------------------------|------
 description                        | List of this member's peer URLs to advertise to the rest of the cluster, separated by commas
 type                               | String
-default                            | `"http://127.0.0.1:2380"`
+default                            | `http://127.0.0.1:2380`
 example                            | {{< highlight shell >}}# Command line example
 sensu-backend start --etcd-listen-peer-urls https://10.0.0.1:2380
 
@@ -421,7 +408,7 @@ etcd-listen-peer-urls: "https://10.0.0.1:2380"{{< /highlight >}}
 -----------------------|------
 description            | Initial cluster configuration for bootstrapping
 type                   | String
-default                | `"http://127.0.0.1:2380"`
+default                | `http://127.0.0.1:2380`
 example                | {{< highlight shell >}}# Command line example
 sensu-backend start --etcd-initial-cluster backend-0=https://10.0.0.1:2380,backend-1=https://10.1.0.1:2380,backend-2=https://10.2.0.1:2380
 
@@ -433,7 +420,7 @@ etcd-initial-cluster: "backend-0=https://10.0.0.1:2380,backend-1=https://10.1.0.
 -----------------------------|------
 description                  | Initial cluster state (`new` or `existing`)
 type                         | String
-default                      | `"new"`
+default                      | `new`
 example                      | {{< highlight shell >}}# Command line example
 sensu-backend start --etcd-initial-cluster-state existing
 
@@ -468,7 +455,7 @@ etcd-key-file: "./client-key.pem"{{< /highlight >}}
 --------------------------|------
 description               | List of URLs to listen on for client traffic, separated by commas
 type                      | String
-default                   | `"http://127.0.0.1:2379"`
+default                   | `http://127.0.0.1:2379`
 example                   | {{< highlight shell >}}# Command line example
 sensu-backend start --etcd-listen-client-urls https://10.0.0.1:2379,https://10.1.0.1:2379,https://10.2.0.1:2379
 
@@ -480,7 +467,7 @@ etcd-listen-client-urls: "https://10.0.0.1:2379,https://10.1.0.1:2379,https://10
 ------------------------|------
 description             | List of URLs to listen on for peer traffic, separated by commas
 type                    | String
-default                 | `"http://127.0.0.1:2380"`
+default                 | `http://127.0.0.1:2380`
 example                 | {{< highlight shell >}}# Command line example
 sensu-backend start --etcd-listen-peer-urls https://10.0.0.1:2380
 
@@ -492,7 +479,7 @@ etcd-listen-peer-urls: "https://10.0.0.1:2380"{{< /highlight >}}
 -----------------|------
 description      | Human-readable name for this member
 type             | String
-default          | `"default"`
+default          | `default`
 example          | {{< highlight shell >}}# Command line example
 sensu-backend start --etcd-name backend-0
 
