@@ -18,7 +18,7 @@ menu:
 - [Creating events using the StatsD listener](#creating-events-using-the-statsd-listener)
 - [Keepalive monitoring](#keepalive-monitoring)
 - [Operation](#operation)
-	- [Starting the agent](#starting-the-service)
+	- [Starting the service](#starting-the-service)
 	- [Service management](#stopping-the-service)
 	- [Registration and deregistration](#registration)
 	- [Clustering](#clustering)
@@ -40,7 +40,7 @@ _NOTE: The commands in this reference may require administrative privileges or u
 Sensu's use of the [publish/subscribe pattern of communication][15] allows for automated registration and deregistration of ephemeral systems.
 At the core of this model are Sensu agent subscriptions.
 
-Each Sensu agent has a defined set of [`subscriptions`][28], a list of roles and responsibilities assigned to the system (for example: for a webserver or database).
+Each Sensu agent has a defined set of [`subscriptions`][28], a list of roles and responsibilities assigned to the system (for example: a webserver or database).
 These subscriptions determine which [monitoring checks][14] are executed by the agent.
 Agent subscriptions allow Sensu to request check executions on a group of systems at a time, instead of a traditional 1:1 mapping of configured hosts to monitoring checks.
 Sensu checks target Sensu agent subscriptions, using the [check definition attribute `subscriptions`][14].
@@ -72,7 +72,7 @@ See the [entity reference documentation][3] and the [guide to monitoring externa
 Every Sensu agent has a TCP, UDP, and HTTP socket listening for external check result input.
 The TCP and UDP sockets listen on the address and port specified by the [socket configuration flags][17]; the HTTP socket listens on the address and port specified by the [API configuration flags][18].
 
-These sockets expect JSON formatted check results, allowing external sources (such as your web application or backup scripts) to push check results without needing to know anything about Sensu's internal implementation.
+These sockets expect JSON formatted check results, allowing external sources to push check results without needing to know anything about Sensu's internal implementation.
 An excellent agent socket use case example is a web application pushing check results to indicate database connectivity issues.
 
 ### Using the TCP socket
@@ -98,7 +98,8 @@ The following endpoints are available for the HTTP socket:
 
 #### `/healthz` (GET)
 
-This endpoint returns `ok` if the agent is active and connected to a Sensu backend and `sensu backend unavailable` is the agent is unable to connect to a Sensu backend. For example:
+This endpoint returns `ok` if the agent is active and connected to a Sensu backend; if the agent is unable to connect to a backend, this endpoint returns `sensu backend unavailable`.
+For example:
 
 {{< highlight shell >}}
 curl -s http://127.0.0.1:3031/healthz
@@ -233,7 +234,7 @@ service sensu-agent start
 **Windows**
 
 {{< highlight shell >}}
-net start sensu-agent
+sc start sensu-agent
 {{< /highlight >}}
 
 {{< platformBlockClose >}}
@@ -257,7 +258,7 @@ service sensu-agent stop
 **Windows**
 
 {{< highlight shell >}}
-net stop sensu-agent
+sc stop sensu-agent
 {{< /highlight >}}
 
 {{< platformBlockClose >}}
@@ -283,7 +284,7 @@ service sensu-agent restart
 **Windows**
 
 {{< highlight shell >}}
-net restart sensu-agent
+sc restart sensu-agent
 {{< /highlight >}}
 
 {{< platformBlockClose >}}
@@ -300,7 +301,7 @@ To enable the agent to start on system boot:
 systemctl enable sensu-agent
 {{< /highlight >}}
 
-Disable the agent from starting on system boot:
+To disable the agent from starting on system boot:
 
 {{< highlight shell >}}
 systemctl disable sensu-agent
@@ -310,9 +311,25 @@ _NOTE: On older distributions of Linux, use `sudo chkconfig sensu-server on` to 
 
 {{< platformBlockClose >}}
 
+{{< platformBlock "Windows" >}}
+
+**Windows**
+
+{{< highlight shell >}}
+sc config sensu-agent start=auto
+{{< /highlight >}}
+
+To disable the agent from starting on system boot:
+
+{{< highlight shell >}}
+sc config sensu-agent start=disabled
+{{< /highlight >}}
+
+{{< platformBlockClose >}}
+
 ### Getting service status
 
-See the status of the agent service using a service manager:
+To see the status of the agent service using a service manager:
 
 {{< platformBlock "Linux" >}}
 
@@ -335,7 +352,7 @@ sc query sensu-agent
 
 ### Getting service version
 
-Use the `sensu-agent` tool to get the current agent version:
+To get the current agent version using the `sensu-agent` tool:
 
 {{< highlight shell >}}
 sensu-agent version
@@ -378,6 +395,7 @@ _WARNING: Registration events are not stored in the event registry, so they are 
 Similarly to registration events, the Sensu backend can create and process a deregistration event when the Sensu agent process stops.
 You can use deregistration events to trigger a handler that updates external CMDBs or performs an action to update ephemeral infrastructures.
 To enable deregistration events, use the [`deregister` flag][13] and specify the event handler using the [`deregistration-handler` flag][13].
+You can specify a deregistration handler per agent using the [`deregistration-handler` agent flag][13] or by setting a default for all agents using the [`deregistration-handler` backend configuration flag][37].
 
 ### Clustering
 
@@ -449,7 +467,7 @@ backend-url:
 --------------|------
 description   | Path to store cached data
 type          | String
-default       | <ul><li>Windows: `C:\\ProgramData\sensu\cache\sensu-agent`</li><li>Linux: `/var/cache/sensu/sensu-agent`</li></ul>
+default       | <ul><li>Linux: `/var/cache/sensu/sensu-agent`</li><li>Windows: `C:\\ProgramData\sensu\cache\sensu-agent`</li></ul>
 example       | {{< highlight shell >}}# Command line example
 sensu-agent start --cache-dir /cache/sensu-agent
 
@@ -461,7 +479,7 @@ cache-dir: "/cache/sensu-agent"{{< /highlight >}}
 --------------|------
 description   | Path to Sensu agent config file
 type          | String
-default       | <ul><li>Windows: `C:\\ProgramData\sensu\config\agent.yml`</li><li>FreeBSD: `/usr/local/etc/sensu/agent.yml`</li><li>Linux: `/etc/sensu/agent.yml`</li></ul>
+default       | <ul><li>Linux: `/etc/sensu/agent.yml`</li><li>FreeBSD: `/usr/local/etc/sensu/agent.yml`</li><li>Windows: `C:\\ProgramData\sensu\config\agent.yml`</li></ul>
 example       | {{< highlight shell >}}# Command line example
 sensu-agent start --config-file /sensu/agent.yml
 sensu-agent start --c /sensu/agent.yml
@@ -570,7 +588,7 @@ deregister: true{{< /highlight >}}
 
 | deregistration-handler |      |
 -------------------------|------
-description              | The name of a deregistration handler that processes agent deregistration events
+description              | The name of a deregistration handler that processes agent deregistration events. This flag overrides any handlers applied by the [`deregistration-handler` backend configuration flag][37].
 type                     | String
 example                  | {{< highlight shell >}}# Command line example
 sensu-agent start --deregistration-handler deregister
@@ -709,7 +727,7 @@ disable-sockets: true{{< /highlight >}}
 
 | statsd-disable |      |
 -----------------|------
-description      | Disables the StatsD listener and metrics server
+description      | Disables the [StatsD][21] listener and metrics server
 type             | Boolean
 default          | `false`
 example          | {{< highlight shell >}}# Command line example
@@ -732,7 +750,7 @@ statsd-event-handlers: "influxdb,opentsdb"{{< /highlight >}}
 
 | statsd-flush-interval  |      |
 -------------------------|------
-description              | Number of seconds between StatsD flush
+description              | Number of seconds between [StatsD flush][23]
 type                     | Integer
 default                  | `10`
 example                  | {{< highlight shell >}}# Command line example
@@ -801,3 +819,4 @@ statsd-metrics-port: 6125{{< /highlight >}}
 [34]: ../../handlers#handler-sets
 [35]: ../backend#datastore-and-cluster-configuration-flags
 [36]: ../../guides/clustering
+[37]: ../backend#general-configuration-flags
