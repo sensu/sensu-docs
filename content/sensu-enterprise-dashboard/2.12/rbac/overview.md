@@ -137,6 +137,7 @@ of the following:
 - `ldap` (see [RBAC for LDAP][7])
 - `github` (see [RBAC for GitHub][8])
 - `gitlab` (see [RBAC for GitLab][9])
+- `OIDC` (see [RBAC for OIDC][20])
 
 #### `roles` attributes
 
@@ -225,6 +226,20 @@ required       | false
 type           | String
 allowed values | any length string that only contains URL-friendly characters. _PRO TIP: we recommend using a random string generator for access tokens; e.g.:_ {{< highlight shell >}}openssl rand -base64 40 | tr -- '+=/' '-_~'{{< /highlight >}}
 example        | {{< highlight shell >}}"accessToken": "OrIXC7ezuq0AZKoRHhf~oIl-98dX5B23hf8KudfcqJt5eTeQjDDGDQ__"{{< /highlight >}}
+
+fallback    | 
+---------------|------
+description    | Used to give an authenticated user the attributes defined in that role if that user is not found in any other defined dashboard role.
+required       | false
+type           | Boolean
+default        | false
+example        | {{< highlight shell >}}{
+  "name": "readonly_fallback",
+  "datacenters": [],
+  "subscriptions": [],
+  "fallback": true,
+  "readonly": true
+}{{< /highlight >}}
 
 methods      | 
 -------------|------
@@ -368,3 +383,4 @@ example        | {{< highlight shell >}}"methods": {
 [17]: /sensu-core/latest/reference/configuration#configuration-scopes
 [18]: #methods-attributes
 [19]: #providing-an-access-token
+[20]:  ../rbac-for-oidc
