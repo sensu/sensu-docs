@@ -99,12 +99,14 @@ $ sensuctl cluster health
 
 Add a new member node to an existing cluster.
 
+#TODO: Test results of adding a cluster member but not updating disk configuration, restarting backend.
+
 {{< highlight shell >}}
-$ sensuctl cluster member-add backend-3 https://10.3.0.1:2380
+$ sensuctl cluster member-add backend-4 https://10.4.0.1:2380
 added member 2f7ae42c315f8c2d to cluster
 
 ETCD_NAME="backend-3"
-ETCD_INITIAL_CLUSTER="backend-3=https://10.3.0.1:2380,backend-0=https://10.0.0.1:2380,backend-1=https://10.1.0.1:2380,backend-2=https://10.2.0.1:2380"
+ETCD_INITIAL_CLUSTER="backend-1=https://10.1.0.1:2380,backend-2=https://10.2.0.1:2380,backend-3=https://10.3.0.1:2380",backend-4=https://10.4.0.1:2380"
 ETCD_INITIAL_CLUSTER_STATE="existing"
 {{< /highlight >}}
 
@@ -114,12 +116,12 @@ List the ID, name, peer urls, and client urls of all nodes in a cluster.
 
 {{< highlight shell >}}
 $ sensuctl cluster member-list
-         ID            Name             Peer URLs                Client URLs        
- ────────────────── ─────────── ───────────────────────── ───────────────────────── 
-  a32e8f613b529ad4   backend-0    https://10.0.0.1:2380     https://10.0.0.1:2379  
-  c3d9f4b8d0dd1ac9   backend-1    https://10.1.0.1:2380     https://10.1.0.1:2379   
-  c8f63ae435a5e6bf   backend-2    https://10.2.0.1:2380     https://10.2.0.1:2379
-  2f7ae42c315f8c2d   backend-3    https://10.3.0.1:2380     https://10.3.0.1:2379
+         ID            Name             Peer URLs                Client URLs
+ ────────────────── ─────────── ───────────────────────── ─────────────────────────
+  a32e8f613b529sad4   backend-1    https://10.1.0.1:2380     https://10.1.0.1:2379  
+  c3d9f4b8d0dd1ac9   backend-2    https://10.2.0.1:2380     https://10.2.0.1:2379
+  c8f63ae435a5e6bf   backend-3    https://10.3.0.1:2380     https://10.3.0.1:2379
+  2f7ae42c315f8c2d   backend-4    https://10.4.0.1:2380     https://10.4.0.1:2379
 {{< /highlight >}}
 
 ### Remove a cluster member
@@ -132,6 +134,8 @@ Removed member 2f7ae42c315f8c2d from cluster
 {{< /highlight >}}
 
 ### Update a cluster member
+
+#TODO: Test results of doing this and the impact on configurtion on disk, then reload sensu-backend.
 
 Update the peer urls of a member in a cluster.
 
