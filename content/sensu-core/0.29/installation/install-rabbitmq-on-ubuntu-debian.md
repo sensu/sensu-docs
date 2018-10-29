@@ -22,6 +22,8 @@ Although RabbitMQ packages are included in the distribution repositories, the in
 
 Please see the [official RabbitMQ installation guide][2] for recommended installation strategies.
 
+_NOTE: It's expected that if you install the `rabbitmq-server` package from the repository listed in the source above, that the requisite packages for Erlang will also be installed._
+
 ## Managing the RabbitMQ service/process {#managing-the-rabbitmq-serviceprocess}
 
 1. To enable the RabbitMQ service, you'll need to install its init scripts using
