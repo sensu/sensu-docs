@@ -29,7 +29,8 @@ menu:
   - [StatsD configuration](#statsd-configuration-flags)
 
 The Sensu agent is a lightweight client that runs on the infrastructure components you want to monitor.
-Agents are responsible for creating [check and metrics events][7] to send to the [backend event pipeline][2].
+Agents register with the Sensu backend as [monitoring entities][3] with `type: "agent"`.
+Agent entities are responsible for creating [check and metrics events][7] to send to the [backend event pipeline][2].
 
 ## Creating monitoring events using service checks
 
@@ -54,14 +55,16 @@ After receiving a check request from the Sensu backend, the agent:
 To configure subscriptions for an agent, set [the `subscriptions` flag][28].
 To configure subscriptions for a check, set the [check definition attribute `subscriptions`][14].
 
-In addition to the subscriptions defined in the agent configuration, Sensu agents also subscribe automatically to a subscription matching their agent `id`.
-For example, an agent with the ID `i-424242` will subscribe to check requests with the subscription `agent:i-424242`.
-This makes it possible to generate ad-hoc check requests targeting specific clients via the API.
+In addition to the subscriptions defined in the agent configuration, Sensu agent entities also subscribe automatically to a subscription matching their [entity `id`][38].
+For example, an agent entity with the `id: "i-424242"` subscribes to check requests with the subscription `entity:i-424242`.
+This makes it possible to generate ad-hoc check requests targeting specific entities via the API.
 
 ### Proxy entities
 
-Sensu proxy entities allow Sensu to monitor external resources on systems or devices where a Sensu agent cannot be installed (such a network switch) using the defined [check `proxy_entity_id`][14] to create a proxy entity for the external resource.
-See the [entity reference documentation][3] and the [guide to monitoring external resources][33] for more information about proxy entities.
+Sensu proxy entities allow Sensu to monitor external resources on systems or devices where a Sensu agent cannot be installed (such a network switch).
+Unlike agent entities, proxy entity definitions are stored by the [Sensu backend][2].
+When the backend requests a check that includes a [`proxy_entity_id`][14], the agent includes the provided entity information in the event data in place of the agent entity data.
+See the [entity reference][3] and the [guide to monitoring external resources][33] for more information about monitoring proxy entities.
 
 ## Creating monitoring events using the agent socket
 
@@ -544,10 +547,11 @@ sensu-agent start --extended-attributes '{"team":"ops"}'
 # /etc/sensu/agent.yml example
 extended-attributes: '{"team":"ops"}'{{< /highlight >}}
 
+<a name="id">
 
 | id          |      |
 --------------|------
-description   | Agent ID
+description   | Entity ID assigned to the agent entity
 type          | String
 default       | Defaults to hostname, for example: `sensu2-centos`
 example       | {{< highlight shell >}}# Command line example
@@ -866,3 +870,5 @@ statsd-metrics-port: 6125{{< /highlight >}}
 [35]: ../backend#datastore-and-cluster-configuration-flags
 [36]: ../../guides/clustering
 [37]: ../backend#general-configuration-flags
+[38]: #id
+[39]: ../checks#check-result-specification
