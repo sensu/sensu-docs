@@ -270,7 +270,7 @@ To start the agent using a service manager:
 **Linux**
 
 {{< highlight shell >}}
-service sensu-agent start
+sudo service sensu-agent start
 {{< /highlight >}}
 
 {{< platformBlockClose >}}
@@ -294,7 +294,7 @@ To stop the agent service using a service manager:
 **Linux**
 
 {{< highlight shell >}}
-service sensu-agent stop
+sudo service sensu-agent stop
 {{< /highlight >}}
 
 {{< platformBlockClose >}}
@@ -320,7 +320,7 @@ To restart the agent using a service manager:
 **Linux**
 
 {{< highlight shell >}}
-service sensu-agent restart
+sudo service sensu-agent restart
 {{< /highlight >}}
 
 {{< platformBlockClose >}}
@@ -344,13 +344,13 @@ To enable the agent to start on system boot:
 **Linux**
 
 {{< highlight shell >}}
-systemctl enable sensu-agent
+sudo systemctl enable sensu-agent
 {{< /highlight >}}
 
 To disable the agent from starting on system boot:
 
 {{< highlight shell >}}
-systemctl disable sensu-agent
+sudo systemctl disable sensu-agent
 {{< /highlight >}}
 
 _NOTE: On older distributions of Linux, use `sudo chkconfig sensu-server on` to enable the agent and `sudo chkconfig sensu-server off` to disable._
