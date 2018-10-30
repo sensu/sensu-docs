@@ -77,42 +77,90 @@ The following is an example demonstrating external monitoring data input via the
 The example uses Bash's built-in `/dev/tcp` file to communicate with the Sensu agent socket.
 
 {{< highlight shell >}}
-echo '{"name": "app_01", "output": "could not connect to mysql", "status": 1}' > /dev/tcp/localhost/3030
+echo '{"name": "web_service01", "output": "error!", "status": 1, "handlers": ["slack"]}' > /dev/tcp/localhost/3030
 {{< /highlight >}}
 
 You can also use the [Netcat][19] utility to send monitoring data to the agent socket:
 
 {{< highlight shell >}}
-echo '{"name": "app_01", "output": "could not connect to mysql", "status": 1}' | nc localhost 3030
+echo '{"name": "web_service02", "output": "error!", "status": 1, "handlers": ["slack"]}' | nc localhost 3030
 {{< /highlight >}}
 
-### Using the HTTP socket
+At a minimum, the agent TCP socket requires the `name`, `output`, and `status` attributes to be set in the payload, but you can also add any attributes allowed in the [check definition][14], like `handlers` and `extended_attributes`.
+
+#### Socket input specification
+
+TCP socket        | 
+------------------|------
+description       | Accepts a JSON [check result][14] body and passes the event to the Sensu backend event pipeline for processing
+example command   | {{< highlight shell >}}# Example using /dev/tcp
+echo '{"name": "web_service01", "output": "error!", "status": 1, "handlers": ["slack"]}' > /dev/tcp/localhost/3030
+
+# Example using Netcat
+echo '{"name": "web_service02", "output": "error!", "status": 1, "handlers": ["slack"]}' | nc localhost 3030
+{{< /highlight >}}
+payload attributes| <ul><li>`name` (required): A string representing the name of the monitoring check</li><li>`output` (required): A string representing the output of the check</li><li>`status` (required): An integer representing the status of the check result, following the [check result specification][39]. (`0`: OK, `1`: warning, `2`: critical)</li><li>Any other attributes supported by the [Sensu check specification][14] (optional)</li></ul>
+
+## Using the HTTP socket
 
 The HTTP socket, just like the TCP and UDP sockets, accepts check results, but it requires a well-formed HTTP request and exposes other functionality that is not possible with the raw TCP/UDP sockets.
 In exchange for a bit more complexity, the HTTP socket interface has the advantage of being more expressive than a TCP/UDP socket, both in the requests that it accepts and how it responds, and so exposes more functionality.
 The following endpoints are available for the HTTP socket:
 
-#### `/healthz` (GET)
+### `/healthz` (GET)
 
-This endpoint returns `ok` if the agent is active and connected to a Sensu backend; if the agent is unable to connect to a backend, this endpoint returns `sensu backend unavailable`.
-For example:
+The `/healthz` API provides HTTP GET access to the status of the Sensu agent via the agent API.
+
+#### Example {#healthz-get-example}
+
+In the following example, an HTTP GET is submitted to the `/healthz` API:
 
 {{< highlight shell >}}
 curl -s http://127.0.0.1:3031/healthz
 {{< /highlight >}}
 
-#### `/events` (POST)
+Resulting in a healthy response:
 
-This endpoint accepts a JSON [event][7] body and passes the event to the Sensu backend event pipeline for processing. For example:
+{{< highlight shell >}}
+ok
+{{< /highlight >}}
+
+#### API specification {#healthz-get-specification}
+
+/healthz (GET) | 
+----------------|------
+description     | Returns `ok` if the agent is active and connected to a Sensu backend; returns `sensu backend unavailable` if the agent is unable to connect to a backend.
+example url     | http://hostname:3031/healthz
+
+### `/events` (POST)
+
+The `/events` API provides HTTP POST access to publish [monitoring events][1] to the Sensu backend pipeline via the agent API.
+
+#### Example {#events-post-example}
+
+In the following example, an HTTP POST is submitted to the `/events` API, creating an event for a check named `check-mysql-status` with the output `could not connect to mysql` and a status of `1` (warning), resulting in a 201 (Created) HTTP response code.
 
 {{< highlight shell >}}
 curl -s -i \
 -X POST \
 -H 'Content-Type: application/json' \
--d '{"name": "app_01", "output": "could not connect to mysql", "status": 1}' \
-http://127.0.0.1:3031/events{{< /highlight >}}
+-d '{"check": {"name": "web_service03", "output": "error!", "status": 1, "handlers": ["slack"]}}' \
+http://127.0.0.1:3031/events
 
-#### `/brew` (GET)
+HTTP/1.1 202 Accepted
+{{< /highlight >}}
+
+#### API specification {#events-post-specification}
+
+/events (POST)     | 
+-------------------|------
+description        | Accepts a JSON [check result][14] body and passes the event to the Sensu backend event pipeline for processing
+example url        | http://hostname:3031/events
+payload example    | {{< highlight json >}}{"check": {"name": "web_service01", "output": "error!", "status": 1, "handlers": ["slack"]}}{{< /highlight >}}
+payload attributes | <ul><li>`check` (required): All check data must be within the `check` scope.</li><li>`name` (required): A string representing the name of the monitoring check</li><li>Any other attributes supported by the [Sensu check specification][14] (optional)</li></ul>
+response codes     | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+
+### `/brew` (GET)
 
 This endpoint gets you some fresh coffee. Try it!
 
