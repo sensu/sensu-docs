@@ -182,23 +182,10 @@ output                  | {{< highlight json >}}{
 
 #### Example: Clearing a silence entry
 
-A silence entry can be cleared (deleted) by its ID:
+You can use the `/silenced/clear POST` endpoint to delete a single silence entry by its ID.
+The following example deletes a silence entry with the ID `load-balancer:check_haproxy`, resulting in a 204 (No Content) HTTP response code:
 
 {{< highlight shell >}}
-$ curl -s -X GET http://localhost:4567/silenced | jq .
-[
-  {
-    "expire": 3594,
-    "expire_on_resolve": false,
-    "begin": null,
-    "creator": null,
-    "reason": null,
-    "check": "check_haproxy",
-    "subscription": "load-balancer",
-    "id": "load-balancer:check_haproxy"
-  }
-]
-
 $ curl -s -i -X POST \
 -H 'Content-Type: application/json' \
 -d '{ "id": "load-balancer:check_haproxy" }' \
@@ -211,29 +198,13 @@ Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS
 Access-Control-Allow-Origin: *
 Connection: close
 Content-length: 0
-
-$ curl -s -X GET http://localhost:4567/silenced | jq .
-[]
 {{< /highlight >}}
 
 A silence entry can also be cleared by specifying the intersection of
-subscription and/or handler to which the entry applies:
+subscription _and_ check to which the entry applies.
+The following example deletes the silence entry applied to the `check_ntpd` check for `all` subscriptions:
 
 {{< highlight shell >}}
-$ curl -s -X GET http://localhost:4567/silenced | jq .
-[
-  {
-    "expire": null,
-    "expire_on_resolve": false,
-    "begin": null,
-    "creator": null,
-    "reason": null,
-    "check": "check_ntpd",
-    "subscription": "all",
-    "id": "all:check_ntpd"
-  }
-]
-
 $ curl -s -i -X POST \
 -H 'Content-Type: application/json' \
 -d '{ "subscription": "all", "check": "check_ntpd" }' \
@@ -246,22 +217,19 @@ Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS
 Access-Control-Allow-Origin: *
 Connection: close
 Content-length: 0
-
-$ curl -s -X GET http://localhost:4567/silenced | jq .
-[]
 {{< /highlight >}}
 
 #### API specification {#silenced-clear-post-specification}
 
 /silenced/clear (POST) | 
 -----------------------|------
-description            | Clear a silence entry.
+description            | Clear a single silence entry.
 example URL            | http://hostname:4567/silenced/clear
 payload                | {{< highlight json >}}{
   "id": "load-balancer:ha_proxy"
 }
 {{< /highlight >}}
-payload parameters     | <ul><li>`check`<ul><li>**required**: true, unless `subscription` or `id` is specified</li><li>**type**: String</li><li>**description**: Specifies the name of the check for which the silence entry should be cleared.</li><li>**example**: "check_haproxy"</li></ul></li><li>`subscription`:<ul><li>**required**: true, unless `client` is specified</li><li>**type:** String</li><li>**description**: Specifies the name of the subscription for which the silence entry should be cleared.</li></ul></li><li>`id`:<ul><li>**required**: true, unless `client` or is specified</li><li>**type:** String</li><li>**description**: Specifies the id (intersection of subscription and check) of the subscription for which the silence entry should be cleared.</li></ul></li></ul>
+payload parameters     | <ul><li>`check`<ul><li>**required**: true, unless `id` is specified</li><li>**type**: String</li><li>**description**: Specifies the name of the check for which the silence entry should be cleared.</li><li>**example**: "check_haproxy"</li></ul></li><li>`subscription`:<ul><li>**required**: true, unless `id` is specified</li><li>**type:** String</li><li>**description**: Specifies the name of the subscription for which the silence entry should be cleared.</li></ul></li><li>`id`:<ul><li>**required**: true, unless `check` and `subscription` are specified</li><li>**type:** String</li><li>**description**: Specifies the id (intersection of subscription and check) of the silence entry to clear.</li></ul></li></ul>
 response codes         | <ul><li>**Success**: 204 (No Content)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 ### `/silenced/subscriptions/:subscription` (GET) {#silenced-subscriptions-get}
