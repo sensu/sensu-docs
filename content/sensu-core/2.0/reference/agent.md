@@ -542,7 +542,7 @@ example               | {{< highlight shell >}}# Command line example
 sensu-agent start --extended-attributes '{"team":"ops"}'
 
 # /etc/sensu/agent.yml example
-extended-attributes: "{\"team\":\"ops\"}"{{< /highlight >}}
+extended-attributes: '{"team":"ops"}'{{< /highlight >}}
 
 
 | id          |      |
