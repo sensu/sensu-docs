@@ -13,13 +13,11 @@ menu:
 ---
 
 - [Installation][1]
-- [Creating events using service checks](#creating-events-using-service-checks)
-- [Creating events using the agent socket](#creating-events-using-the-agent-socket)
-- [Creating events using the StatsD listener](#creating-events-using-the-statsd-listener)
+- [Creating events using service checks](#creating-monitoring-events-using-service-checks)
+- [Creating events using the agent socket](#creating-events-monitoring-using-the-agent-socket)
+- [Creating events using the StatsD listener](#creating-events-monitoring-using-the-statsd-listener)
 - [Keepalive monitoring](#keepalive-monitoring)
-- [Operation](#operation)
-	- [Starting the service](#starting-the-service)
-	- [Service management](#stopping-the-service)
+- [Service management](#operation)
 	- [Registration and deregistration](#registration)
 	- [Clustering](#clustering)
 - [Configuration](#configuration)
@@ -33,9 +31,7 @@ menu:
 The Sensu agent is a lightweight client that runs on the infrastructure components you want to monitor.
 Agents are responsible for creating [check and metrics events][7] to send to the [backend event pipeline][2].
 
-_NOTE: The commands in this reference may require administrative privileges or use of `sudo`._
-
-## Creating events using service checks
+## Creating monitoring events using service checks
 
 Sensu's use of the [publish/subscribe pattern of communication][15] allows for automated registration and deregistration of ephemeral systems.
 At the core of this model are Sensu agent subscriptions.
@@ -43,20 +39,20 @@ At the core of this model are Sensu agent subscriptions.
 Each Sensu agent has a defined set of [`subscriptions`][28], a list of roles and responsibilities assigned to the system (for example: a webserver or database).
 These subscriptions determine which [monitoring checks][14] are executed by the agent.
 Agent subscriptions allow Sensu to request check executions on a group of systems at a time, instead of a traditional 1:1 mapping of configured hosts to monitoring checks.
-Sensu checks target Sensu agent subscriptions, using the [check definition attribute `subscriptions`][14].
+In order for an agent to execute a service check, you must specify the same subscription in the [agent configuration][28] and the [check definition][32].
 
-After receiving the check request from the Sensu backend, the agent:
+After receiving a check request from the Sensu backend, the agent:
 
 1. Applies any [tokens][27] matching attribute values in the check definition.
-2. Fetches [assets][29] and stores them in its local cache. By default, agents cache asset data at `/var/cache/sensu/sensu-agent` (`C:\\ProgramData\sensu\cache\sensu-agent` on Windows systems) or as specified by the the [`--cache-dir` flag][30].
+2. Fetches [assets][29] and stores them in its local cache. By default, agents cache asset data at `/var/cache/sensu/sensu-agent` (`C:\\ProgramData\sensu\cache\sensu-agent` on Windows systems) or as specified by the the [`cache-dir` flag][30].
 3. Executes the [check `command`][14].
 4. Executes any [hooks][31] specified by the check based on the exit status.
 5. Creates an [event][7] containing information about the applicable entity, check, and metric.
 
 ### Subscription configuration
 
-In order for an agent to execute a service check, you must specify the same subscription in the [agent configuration][24] and the [check configuration][32].
-To configure subscriptions for an agent, see [the `subscriptions` flag reference][28].
+To configure subscriptions for an agent, set [the `subscriptions` flag][28].
+To configure subscriptions for a check, set the [check definition attribute `subscriptions`][14].
 
 In addition to the subscriptions defined in the agent configuration, Sensu agents also subscribe automatically to a subscription matching their agent `id`.
 For example, an agent with the ID `i-424242` will subscribe to check requests with the subscription `agent:i-424242`.
@@ -67,24 +63,24 @@ This makes it possible to generate ad-hoc check requests targeting specific clie
 Sensu proxy entities allow Sensu to monitor external resources on systems or devices where a Sensu agent cannot be installed (such a network switch) using the defined [check `proxy_entity_id`][14] to create a proxy entity for the external resource.
 See the [entity reference documentation][3] and the [guide to monitoring external resources][33] for more information about proxy entities.
 
-## Creating events using the agent socket
+## Creating monitoring events using the agent socket
 
-Every Sensu agent has a TCP, UDP, and HTTP socket listening for external check result input.
+Every Sensu agent has a TCP, UDP, and HTTP socket listening for external monitoring data.
 The TCP and UDP sockets listen on the address and port specified by the [socket configuration flags][17]; the HTTP socket listens on the address and port specified by the [API configuration flags][18].
 
-These sockets expect JSON formatted check results, allowing external sources to push check results without needing to know anything about Sensu's internal implementation.
+These sockets expect JSON formatted [check results][14], allowing external sources to send monitoring data to Sensu without needing to know anything about Sensu's internal implementation.
 An excellent agent socket use case example is a web application pushing check results to indicate database connectivity issues.
 
-### Using the TCP socket
+## Using the TCP socket
 
-The following is an example demonstrating external check result input via the Sensu agent TCP socket.
+The following is an example demonstrating external monitoring data input via the Sensu agent TCP socket.
 The example uses Bash's built-in `/dev/tcp` file to communicate with the Sensu agent socket.
 
 {{< highlight shell >}}
 echo '{"name": "app_01", "output": "could not connect to mysql", "status": 1}' > /dev/tcp/localhost/3030
 {{< /highlight >}}
 
-You can also use [Netcat][19]:
+You can also use the [Netcat][19] utility to send monitoring data to the agent socket:
 
 {{< highlight shell >}}
 echo '{"name": "app_01", "output": "could not connect to mysql", "status": 1}' | nc localhost 3030
@@ -121,7 +117,7 @@ http://127.0.0.1:3031/events{{< /highlight >}}
 This endpoint gets you some fresh coffee. Try it!
 
 Any requests for unknown endpoints results in a 404 Not Found response.
-At the moment only unsecured HTTP (no HTTPS) is supported.
+Only unsecured HTTP (no HTTPS) is supported.
 
 ### Creating a "dead man's switch"
 
@@ -149,7 +145,7 @@ echo '{"name": "backup_mysql", "ttl": 25200, "output": "backed up mysql successf
 echo '{"name": "backup_mysql", "ttl": 25200, "output": "failed to backup mysql", "status": 1}' | nc localhost 3030
 {{< /highlight >}}
 
-## Creating events using the StatsD listener
+## Creating monitoring events using the StatsD listener
 
 Sensu agents include a listener to send [StatsD][21] metrics to the event pipeline.
 By default, Sensu agents listen on UDP socket 8125 (TCP on Windows systems) for messages that follow the [StatsD line protocol][21] and send metric events for handling by the Sensu backend.
@@ -199,6 +195,8 @@ You can use keepalives to identify unhealthy systems and network partitions, sen
 _NOTE: Keepalive monitoring is not supported for [proxy entities][3], as they are inherently unable to run a Sensu agent._
 
 ## Operation
+
+_NOTE: Commands in this section may require administrative privileges._
 
 ### Starting the service
 Use the `sensu-agent` tool to start the agent and apply configuration flags.
