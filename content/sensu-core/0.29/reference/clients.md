@@ -132,7 +132,6 @@ Proxy clients are created when a check result includes a `source` attribute. See
 {{< highlight json >}}
 {
   "check": {
-    "status": 0,
     "command": "check-http.rb -u https://sensu.io",
     "subscribers": [
       "demo"
