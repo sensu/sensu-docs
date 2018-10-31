@@ -127,7 +127,7 @@ inherently unable to run a `sensu-client`._
 
 ##### Proxy client example
 
-Proxy clients are created when a check result includes a `source` attribute. See the check example below:
+Proxy clients are created when a check result includes a `source` attribute. See the example check definition below:
 
 {{< highlight json >}}
 {
