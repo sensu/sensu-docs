@@ -6,7 +6,7 @@ weight: 1
 version: "2.0"
 product: "Sensu Core"
 platformContent: true
-platforms: ["Linux", "Windows"]
+platforms: ["Linux"]
 menu:
   sensu-core-2.0:
     parent: reference
@@ -278,16 +278,6 @@ sudo service sensu-agent start
 
 {{< platformBlockClose >}}
 
-{{< platformBlock "Windows" >}}
-
-**Windows**
-
-{{< highlight shell >}}
-sc start sensu-agent
-{{< /highlight >}}
-
-{{< platformBlockClose >}}
-
 ### Stopping the service
 
 To stop the agent service using a service manager:
@@ -298,16 +288,6 @@ To stop the agent service using a service manager:
 
 {{< highlight shell >}}
 sudo service sensu-agent stop
-{{< /highlight >}}
-
-{{< platformBlockClose >}}
-
-{{< platformBlock "Windows" >}}
-
-**Windows**
-
-{{< highlight shell >}}
-sc stop sensu-agent
 {{< /highlight >}}
 
 {{< platformBlockClose >}}
@@ -324,16 +304,6 @@ To restart the agent using a service manager:
 
 {{< highlight shell >}}
 sudo service sensu-agent restart
-{{< /highlight >}}
-
-{{< platformBlockClose >}}
-
-{{< platformBlock "Windows" >}}
-
-**Windows**
-
-{{< highlight shell >}}
-sc restart sensu-agent
 {{< /highlight >}}
 
 {{< platformBlockClose >}}
@@ -360,22 +330,6 @@ _NOTE: On older distributions of Linux, use `sudo chkconfig sensu-server on` to 
 
 {{< platformBlockClose >}}
 
-{{< platformBlock "Windows" >}}
-
-**Windows**
-
-{{< highlight shell >}}
-sc config sensu-agent start=auto
-{{< /highlight >}}
-
-To disable the agent from starting on system boot:
-
-{{< highlight shell >}}
-sc config sensu-agent start=disabled
-{{< /highlight >}}
-
-{{< platformBlockClose >}}
-
 ### Getting service status
 
 To see the status of the agent service using a service manager:
@@ -386,15 +340,6 @@ To see the status of the agent service using a service manager:
 
 {{< highlight shell >}}
 service sensu-agent status
-{{< /highlight >}}
-
-{{< platformBlockClose >}}
-
-{{< platformBlock "Windows" >}}
-
-**Windows**
-{{< highlight shell >}}
-sc query sensu-agent
 {{< /highlight >}}
 
 {{< platformBlockClose >}}
