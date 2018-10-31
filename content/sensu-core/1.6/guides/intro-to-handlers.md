@@ -10,8 +10,6 @@ menu:
     parent: guides
 ---
 
-# Getting Started with Handlers
-
 The purpose of this guide is to help Sensu users create event handlers. At the
 conclusion of this guide, you - the user - should have several Sensu handlers in
 place to handle events. Each Sensu event handler in this guide demonstrates one

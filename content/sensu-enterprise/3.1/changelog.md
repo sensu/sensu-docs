@@ -139,7 +139,7 @@ details on these important changes.
 
 ### CHANGES {#enterprise-v3-0-0-changes}
 
-- **IMPROVEMENT**: Built on [JRuby 9.1.17.0](http://jruby.org/2018/04/23/jruby-9-1-17-0.html)
+- **IMPROVEMENT**: Built on [JRuby 9.1.17.0](https://www.jruby.org/2018/04/23/jruby-9-1-17-0.html)
 
 - **IMPROVEMENT**: Built on [Sensu Core 1.4.2][core-v1-4-2].
 

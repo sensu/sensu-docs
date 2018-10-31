@@ -10,8 +10,6 @@ menu:
     parent: guides
 ---
 
-# Getting Started Guide
-
 ## The complete getting started guide
 
 The purpose of this guide is to help new Sensu users to obtain a basic

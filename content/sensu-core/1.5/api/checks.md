@@ -78,7 +78,7 @@ output         | {{< highlight shell >}}[
 ### `/checks/:check` (GET) {#checkscheck-get}
 
 The `/checks/:check` API endpoints provide HTTP GET access to
-[subcription check data][1] for specific `:check` definitions, by check `name`.
+[subscription check data][1] for specific `:check` definitions, by check `name`.
 
 #### EXAMPLE {#checkscheck-get-example}
 

@@ -3,7 +3,7 @@ title: "Install Redis"
 description: "The complete Sensu installation guide."
 product: "Sensu Core"
 version: "1.0"
-weight: 4
+weight: 6
 previous: ../installation-prerequisites
 menu:
   sensu-core-1.0:

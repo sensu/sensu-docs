@@ -8,6 +8,8 @@ menu: "sensu-core-1.6"
 
 ## Releases
 
+- [Core 1.6.1 Release Notes](#core-v1-6-1)
+- [Core 1.6.0 Release Notes](#core-v1-6-0)
 - [Core 1.5.0 Release Notes](#core-v1-5-0)
 - [Core 1.4.3 Release Notes](#core-v1-4-3)
 - [Core 1.4.2 Release Notes](#core-v1-4-2)
@@ -52,6 +54,56 @@ menu: "sensu-core-1.6"
 - [Core 0.23.2 Release Notes](#core-v0-23-2)
 - [Core 0.23.1 Release Notes](#core-v0-23-1)
 - [Core 0.23.0 Release Notes](#core-v0-23-0)
+
+## Core 1.6.1 Release Notes {#core-v1-6-1}
+
+Source: [GitHub.com][67]
+
+**October 23, 2018** &mdash; Sensu Core version 1.6.1 has been released
+  and is available for immediate download. Please note the following
+  improvements:
+
+### CHANGES {#core-v1-6-1-changes}
+
+- **BUGFIX**: Fixed an issue preventing Sensu clients from resuming activities
+  after reconnecting to RabbitMQ.
+
+## Core 1.6.0 Release Notes {#core-v1-6-0}
+
+Source: [GitHub.com][63]
+
+**October 12, 2018** &mdash; Sensu Core version 1.6.0 has been released
+  and is available for immediate download. Please note the following
+  improvements:
+
+### CHANGES {#core-v1-6-0-changes}
+
+- **NEW**: The [Checks API][64] now provides an endpoint to delete check history and
+  check results, giving you an easy way to clean up unused checks.
+
+- **IMPROVEMENT**: Sensu Core 1.6 implements changes in RabbitMQ communication
+  by using two discrete connections to the transport instead of two channels
+  on a single connection, thereby doubling the number of concurrent connections
+  RabbitMQ receives. This change prevents check result processing rates from
+  being impacted by check execution request publishing rates and reduces the
+  possibility of false keepalive alerts under certain conditions. To support
+  the increased number of concurrent connections, we recommend making sure
+  the open file limit is configured according to RabbitMQ's guidelines for
+  [Ubuntu/Debian][65] and [RHEL/CentOS][66].
+
+- **IMPROVEMENT**: Sensu now redacts additional fields (such as webhook URLs)
+  when displaying configuration files.
+
+- **IMPROVEMENT**: Commands in check results from proxy clients can often contain
+  sensitive information following token substitution. Clients now reset
+  commands to remove tokens before publishing check results, providing
+  better handling for sensitive information.
+
+- **BUGFIX**: Fixed a bug impacting macOS packages using Ruby 2.4.4.
+
+- **BUGFIX**: Fixed an issue impacting FreeBSD packages causing incompatibility with newer compilers.
+
+- **BUGFIX**: Fixed a bug impacting the installation process for Solaris 10 packages.
 
 ## Core 1.5.0 Release Notes {#core-v1-5-0}
 
@@ -1674,6 +1726,15 @@ available for immediate download. Please note the following improvements:
 
 <!-- 1.5 -->
 [62]: https://github.com/sensu/sensu/blob/master/CHANGELOG.md#150---2018-09-04
+
+<!-- 1.6 -->
+[63]: https://github.com/sensu/sensu/blob/master/CHANGELOG.md#160---2018-10-12
+[64]: /sensu-core/1.6/api/checks#checkscheck-delete
+[65]: http://www.rabbitmq.com/install-debian.html#kernel-resource-limits
+[66]: http://www.rabbitmq.com/install-rpm.html#kernel-resource-limits
+
+<!-- 1.6.1 -->
+[67]: https://github.com/sensu/sensu/blob/master/CHANGELOG.md#161---2018-10-23
 
 <!-- GH Issues/PR's -->
 

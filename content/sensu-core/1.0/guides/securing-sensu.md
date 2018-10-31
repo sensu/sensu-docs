@@ -18,7 +18,7 @@ Securing Sensu is a multifaceted process that requires several different compone
 
 We'll also walk through securing the additional components like RabbitMQ and Redis in the guides following this one.
 
-# Objectives
+## Objectives
 
 We'll cover the following in this guide:
 
