@@ -58,8 +58,7 @@ Grep for the error message, specifically the check "name" attribute.
 {{< highlight json >}}
 {"timestamp":"2018-10-11T11:02:00.576261-0500","level":"info","message":"processing event","event":{"id":"f4a9453f-ac70-4e91-a601-a97ff31c589a","client":{"name":"sensu.test.local","address":"192.168.156.176","environment":"testing","subscriptions":["dev","linux-hosts","roundrobin:web_probe","client:sensu.test.local"],"version":"1.5.0","timestamp":1539273717},"check":{"name":"testing","output":"THIS IS AN ERROR","status":2,"refresh":10,"executed":1539273720,"issued":1539273720,"type":"standard","history":["2"],"total_state_change":0},"occurrences":1,"occurrences_watermark":1,"last_ok":null,"action":"create","timestamp":1539273720,"last_state_change":1539273720,"silenced":false,"silenced_by":[]}}{{< /highlight >}}
 
-
-Note the id of the event
+It's also recommended that you note the event ID, as this will persist and you to track an event throughout its lifecycle.
 
 {{< highlight json >}}
 "event":{"id":"f4a9453f-ac70-4e91-a601-a97ff31c589a"{{< /highlight >}}
