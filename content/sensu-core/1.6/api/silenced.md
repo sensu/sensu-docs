@@ -223,7 +223,7 @@ Content-length: 0
 
 /silenced/clear (POST) | 
 -----------------------|------
-description            | Clear a single silence entry.
+description            | Clear a single silence entry specified by its ID or by the applicable check and subscription.
 example URL            | http://hostname:4567/silenced/clear
 payload                | {{< highlight json >}}{
   "id": "load-balancer:ha_proxy"
