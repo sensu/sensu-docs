@@ -130,30 +130,23 @@ inherently unable to run a `sensu-client`._
 
 ##### Proxy client example
 
-Proxy clients are created when a check result includes a `source` attribute, as
-follows:
+Proxy clients are created when a check result includes a `source` attribute. See the example check definition below:
 
 {{< highlight json >}}
 {
   "check": {
-    "status": 0,
-    "command": "check-http.rb -u https://sensuapp.org",
+    "command": "check-http.rb -u https://sensu.io",
     "subscribers": [
       "demo"
     ],
     "interval": 60,
     "name": "sensu-website",
-    "source": "sensuapp.org",
-    "issued": 1458934742,
-    "executed": 1458934742,
-    "duration": 0.637,
-    "output": "CheckHttp OK: 200, 78572 bytes\n"
-  },
-  "client": "sensu-docs"
+    "source": "sensuapp.org"
+  }
 }
 {{< /highlight >}}
 
-_NOTE: this `source` attribute can be provided in a [check definition][14], or
+_NOTE: This `source` attribute can be provided in a [check definition][14], or
 included in a check result published to the Sensu [client input socket][36]._
 
 By default, proxy client data includes a minimal number of attributes. The

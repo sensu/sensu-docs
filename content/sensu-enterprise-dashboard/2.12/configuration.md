@@ -35,6 +35,7 @@ and `dashboard` (see [Dashboard definition specification][8], below)._
 
 For a more advanced configuration making use of RBAC and SSL, consider the example below:
 
+{{< highlight json >}}
 {
   "sensu": [
     {
@@ -107,7 +108,7 @@ For a more advanced configuration making use of RBAC and SSL, consider the examp
       ]
      }
    }
-}
+}{{< /highlight >}}
 
 This example makes use of the following:
 
