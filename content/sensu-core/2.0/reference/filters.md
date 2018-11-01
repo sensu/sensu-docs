@@ -10,6 +10,7 @@ menu:
     parent: reference
 ---
 
+- [Built-in filters](#built-in-filters)
 - [Specification](#filter-specification)
 - [Examples](#filter-examples)
 	- [Handling production events](#handling-production-events)
@@ -73,6 +74,90 @@ comparison, Sensu filters provide support for statements evaluation using
 [govaluate](https://github.com/Knetic/govaluate/blob/master/MANUAL.md)
 expressions. If the evaluated expression returns true,
 the statement is a match.
+
+## Built-in filters
+
+Sensu includes built-in filters to help you customize event pipelines for metrics and alerts.
+To start using built-in filters, see the guides to [sending Slack alerts][4] and [planning maintenances][5].
+
+### Built-in filter: only incidents
+
+The incidents filter is included in every installation of the [Sensu backend][8].
+You can use the incidents filter to allow only high priority events through a Sensu pipeline.
+For example, you can use the incidents filter to reduce noise when sending notifications to Slack.
+When applied to a handler, the incidents filter allows only warning (`"status": 1`), critical (`"status": 2`), and resolution events to be processed.
+
+To use the incidents filter, include the `is_incident` filter in the handler configuration `filters` array:
+
+{{< highlight json >}}
+{
+  "type": "Handler",
+  "spec": {
+    "name": "slack",
+    "type": "pipe",
+    "command": "slack-handler --webhook-url https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX --channel monitoring",
+    "filters": [
+      "is_incident"
+    ]
+  }
+}
+{{< /highlight >}}
+
+The `is_incident` filter applies the following filtering logic:
+
+| event | allow | discard |     |     |     |     |
+| ----- | ----- | ------- | --- | --- | --- | --- |
+|`"status": 0`     |   |❌| | | | |
+|`"status": 1`     |✅ |  | | | | |
+|`"status": 2`     |✅ |  | | | | |
+|`"status":` other |   |❌| | | | |
+|resolution event  |✅ |  | | | | |
+
+### Built-in filter: allow silencing
+
+[Sensu silencing][6] lets you suppress execution of event handlers on an on-demand basis, giving you the ability to quiet incoming alerts and [plan maintenances][5].
+
+To allow silencing for an event handler, add the `not_silenced` filter to the handler configuration `filters` array:
+
+{{< highlight json >}}
+{
+  "type": "Handler",
+  "spec": {
+    "name": "slack",
+    "type": "pipe",
+    "command": "slack-handler --webhook-url https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX --channel monitoring",
+    "filters": [
+      "is_incident",
+      "not_silenced"
+    ]
+  }
+}
+{{< /highlight >}}
+
+When applied to a handler configuration, the `not_silenced` filter silences events that include the `"silenced": true` attribute. The handler in the example above uses both the silencing and [incidents][7] filters, preventing low priority and silenced events from being sent to Slack.
+
+### Built-in filter: only metrics
+
+The metrics filter is included in every installation of the [Sensu backend][8].
+When applied to a handler, the metrics filter allows only events containing [Sensu metrics][9] to be processed.
+
+To use the metrics filter, include the `has_metrics` filter in the handler configuration `filters` array:
+
+{{< highlight json >}}
+{
+  "type": "Handler",
+  "spec": {
+    "name": "influx-db",
+    "type": "pipe",
+    "command": "sensu-influxdb-handler --addr 'http://123.4.5.6:8086' --db-name 'myDB' --username 'foo' --password 'bar'",
+    "filters": [
+      "has_metrics"
+    ]
+  }
+}
+{{< /highlight >}}
+
+When applied to a handler configuration, the `has_metrics` filter allows only events that include a [`metrics` scope][9].
 
 ## Filter specification
 
@@ -272,3 +357,9 @@ when comparing the weekday or the hour, you should provide values in UTC._
 [1]: #inclusive-and-exclusive-filtering
 [2]: #when-attributes
 [3]: ../../reference/sensuctl/#time-windows
+[4]: ../../guides/send-slack-alerts
+[5]: ../../guides/plan-maintenance/
+[6]: ../silencing
+[7]: #built-in-filter-only-incidents
+[8]: ../backend
+[9]: ../events
