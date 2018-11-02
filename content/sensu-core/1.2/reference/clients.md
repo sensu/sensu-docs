@@ -858,6 +858,7 @@ Enterprise AWS EC2 integration][39].**
     },
     "ec2": {
       "instance_id": "i-424242",
+      "account": "sensu-testing",
       "allowed_instance_states": [
         "running",
         "rebooting"
@@ -921,6 +922,13 @@ required     | false
 type         | Integer
 default      | `10`
 example      | {{< highlight shell >}}"timeout": 30{{< /highlight >}}
+
+account      | 
+-------------|------
+description  | The account name as specified in `/etc/sensu/conf.d/ec2.json` if using Sensu across AWS accounts.
+required     | false
+type         | String
+example      | {{< highlight shell >}}"account": "sensu-testing"{{< /highlight >}}
 
 #### `chef` attributes
 
