@@ -185,7 +185,7 @@ example      | {{< highlight shell >}}"subscriptions": ["production"]{{< /highli
 |handlers    |      |
 -------------|------
 description  | An array of Sensu event handlers (names) to use for events created by the check. Each array item must be a string.
-required     | true
+required     | false
 type         | Array
 example      | {{< highlight shell >}}"handlers": ["pagerduty", "email"]{{< /highlight >}}
 
@@ -337,7 +337,7 @@ example      | {{< highlight shell >}}"output_metric_format": "graphite_plaintex
 
 |output_metric_handlers    |      |
 -------------|------
-description  | An array of Sensu handlers to use for events created by the check. Each array item must be a string. `output_metric_handlers` should be used in place of the `handlers` attribute if `output_metric_format` is configured. Metric handlers must be able to process [Sensu metric format][sensu-metric-format]. For an example, see the [Sensu InfluxDB handler](https://github.com/nikkiki/sensu-influxdb-handler).
+description  | An array of Sensu handlers to use for events created by the check. Each array item must be a string. `output_metric_handlers` should be used in place of the `handlers` attribute if `output_metric_format` is configured. Metric handlers must be able to process [Sensu metric format][sensu-metric-format]. For an example, see the [Sensu InfluxDB handler](https://github.com/sensu/sensu-influxdb-handler).
 required     | false
 type         | Array
 example      | {{< highlight shell >}}"output_metric_handlers": ["influx-db"]{{< /highlight >}}

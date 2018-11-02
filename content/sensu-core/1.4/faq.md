@@ -188,6 +188,22 @@ See the below table for a listing of services, ports, and protocols Sensu uses.
 | Sensu Client Socket               | TCP      | 3030 |
 | Uchiwa/Sensu Enterprise Dashboard | TCP      | 3000 |
 
+> What configuration files does Sensu require?
+
+See the table below for the location of the respective files needed:
+
+| Filename      | Client | Server |
+|---------------|--------|--------|
+| api.json      |        | ✅       |
+| client.json   | ✅     | ✅       |
+| config.json (see note)  |        |        |
+| dashboard.json|        | ✅       |
+| rabbitmq.json | ✅       | ✅       |
+| redis.json    |        | ✅       |
+| transport.json| ✅     | ✅       |
+
+_NOTE: For `config.json`, it is not necessary to have this file present on either a Sensu client or server, provided that you have the rest of the configuration files present._
+
 [downloads]: https://sensuapp.org/downloads
 [1]: https://www.amqp.org/
 [2]: https://www.rabbitmq.com/which-erlang.html

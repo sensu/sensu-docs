@@ -43,6 +43,8 @@ menu:
     - [`chef` attributes](#chef-attributes)
     - [`puppet` attributes](#puppet-attributes)
     - [`servicenow` attributes](#servicenow-attributes)
+    - [`influxdb` attributes](#influxdb-attributes)
+    - [`opsgenie` attributes](#opsgenie-attributes)
     - [Custom attributes](#custom-attributes)
 
 ## What is a Sensu client?
@@ -127,30 +129,23 @@ inherently unable to run a `sensu-client`._
 
 ##### Proxy client example
 
-Proxy clients are created when a check result includes a `source` attribute, as
-follows:
+Proxy clients are created when a check result includes a `source` attribute. See the example check definition below:
 
 {{< highlight json >}}
 {
   "check": {
-    "status": 0,
-    "command": "check-http.rb -u https://sensuapp.org",
+    "command": "check-http.rb -u https://sensu.io",
     "subscribers": [
       "demo"
     ],
     "interval": 60,
     "name": "sensu-website",
-    "source": "sensuapp.org",
-    "issued": 1458934742,
-    "executed": 1458934742,
-    "duration": 0.637,
-    "output": "CheckHttp OK: 200, 78572 bytes\n"
-  },
-  "client": "sensu-docs"
+    "source": "sensuapp.org"
+  }
 }
 {{< /highlight >}}
 
-_NOTE: this `source` attribute can be provided in a [check definition][14], or
+_NOTE: This `source` attribute can be provided in a [check definition][14], or
 included in a check result published to the Sensu [client input socket][36]._
 
 By default, proxy client data includes a minimal number of attributes. The
@@ -578,6 +573,20 @@ description  | The [`servicenow` definition scope][45], used to configure the [S
 required     | false
 type         | Hash
 example      | {{< highlight shell >}}"servicenow": {}{{< /highlight >}}
+
+influxdb     | 
+-------------|------
+description  | The [`influxdb` definition scope][61], used to configure the [Sensu Enterprise InfluxDB integration][62] ([Sensu Enterprise][60] users only).
+required     | false
+type         | Hash
+example      | {{< highlight shell >}}"influxdb": {}{{< /highlight >}}
+
+opsgenie     | 
+-------------|------
+description  | The [`opsgenie` definition scope][63], used to configure the [Sensu Enterprise OpsGenie integration][64] ([Sensu Enterprise][60] users only).
+required     | false
+type         | Hash
+example      | {{< highlight shell >}}"opsgenie": {}{{< /highlight >}}
 
 #### `socket` attributes
 
@@ -1117,6 +1126,76 @@ example            | {{< highlight shell >}}"configuration_item": {
 }
 {{< /highlight >}}
 
+#### `influxdb` attributes
+
+The following attributes are configured within the `{ "client": { "influxdb": {} }
+}` [configuration scope][24].
+
+**ENTERPRISE: This configuration is provided for using the built-in [Sensu
+Enterprise InfluxDB integration][62].**
+
+##### EXAMPLE {#influxdb-attributes-example}
+
+{{< highlight json >}}
+{
+  "client": {
+    "name": "i-424242",
+    "...": "...",
+    "influxdb": {
+      "tags": {
+        "dc": "us-central-1"
+      }
+    }
+  }
+}
+{{< /highlight >}}
+
+##### ATTRIBUTES {#influxdb-attributes-specification}
+
+tags           | 
+---------------|------
+description    | Custom tags (key/value pairs) to add to every InfluxDB measurement. Client tags will override any [InfluxDB check tags][65] or [InfluxDB integration tags][62] with the same key.
+required       | false
+type           | Hash
+default        | {{< highlight shell >}}{}{{< /highlight >}}
+example        | {{< highlight shell >}}
+"tags": {
+  "dc": "us-central-1"
+}
+{{< /highlight >}}
+
+#### `opsgenie` attributes
+
+The following attributes are configured within the `{ "client": { "opsgenie": {} }
+}` [configuration scope][24].
+
+**ENTERPRISE: This configuration is provided for using the built-in [Sensu
+Enterprise OpsGenie integration][64].**
+
+##### EXAMPLE {#opsgenie-attributes-example}
+
+{{< highlight json >}}
+{
+  "client": {
+    "name": "i-424242",
+    "...": "...",
+    "opsgenie": {
+      "tags": ["production"]
+    }
+  }
+}
+{{< /highlight >}}
+
+##### ATTRIBUTES {#opsgenie-attributes-specification}
+
+tags         | 
+-------------|------
+description  | An array of OpsGenie alert tags that will be added to created alerts.
+required     | false
+type         | Array
+default      | `[]`
+example      | {{< highlight shell >}}"tags": ["production"]{{< /highlight >}}
+
 #### `configuration_item` attributes
 
 The following attributes are configured within the `{ "client": { "servicenow":
@@ -1247,3 +1326,9 @@ information for operations teams can be extremely valuable._
 [48]: #deregistration-attributes
 [49]: ../../api/checks#the-request-api-endpoint
 [50]: #http-socket-attributes
+[60]: /sensu-enterprise/latest
+[61]: #influxdb-attributes
+[62]: /sensu-enterprise/latest/integrations/influxdb
+[63]: #opsgenie-attributes
+[64]: /sensu-enterprise/latest/integrations/opsgenie
+[65]: ../checks#influxdb-attributes

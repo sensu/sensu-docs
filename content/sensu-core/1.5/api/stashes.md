@@ -60,7 +60,7 @@ $ curl -s http://localhost:4567/stashes | jq .
 ---------------|------
 description    | Returns a list of stashes.
 example url    | http://hostname:4567/stashes
-parameters     | <ul><li>`limit`:<ul><li>**required**: false</li><li>**type**: Integer</li><li>**description**: The number of stashes to return.</li></ul></li><li>`offset`:<ul><li>**required**: false</li><li>**type**: Integer</li><li>**depends**: `limit`</li><li>**description**: The number of stashes to offset before returning items.</li></ul></li></ul>
+pagination     | see [pagination][11]
 response type  | Array
 response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output         | {{< highlight json >}}[
@@ -266,3 +266,4 @@ Server: thin
 [8]:  ../../reference/stashes#content-attributes
 [9]:  ../../reference/stashes#stash-definition-specification
 [10]: https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html
+[11]:  ../overview#pagination

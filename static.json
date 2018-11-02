@@ -4,7 +4,7 @@
     "error_page": "/404.html",
     "rewrites": {
         "~ ^/sensu-core/latest/?(.*)$": {
-            "url": "/sensu-core/1.5/$1",
+            "url": "/sensu-core/1.6/$1",
             "status": 302
         },
         "~ ^/uchiwa/latest/?(.*)$": {
@@ -12,7 +12,7 @@
             "status": 302
         },
         "~ ^/sensu-enterprise/latest/?(.*)$": {
-            "url": "/sensu-enterprise/3.1/$1",
+            "url": "/sensu-enterprise/3.2/$1",
             "status": 302
         },
         "~ ^/sensu-enterprise-dashboard/latest/?(.*)$": {

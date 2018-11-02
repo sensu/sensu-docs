@@ -94,11 +94,11 @@ and extract metrics using Sensu checks.
 [1]: ../../reference/events/
 [2]: https://github.com/influxdata/influxdb
 [3]: ../aggregate-metrics-statsd/
-[4]: https://github.com/nikkiki/sensu-influxdb-handler#installation
+[4]: https://github.com/sensu/sensu-influxdb-handler#installation
 [5]: https://rakyll.org/cross-compilation/
 [6]: https://golang.org/doc/install
 [7]: https://en.wikipedia.org/wiki/PATH_(variable)
 [8]: ../../getting-started/installation-and-configuration/#validating-the-services
 [9]: ../../reference/handlers
 [10]: ../extract-metrics-with-checks
-[11]: https://github.com/nikkiki/sensu-influxdb-handler/releases
+[11]: https://github.com/sensu/sensu-influxdb-handler/releases

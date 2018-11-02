@@ -4,14 +4,11 @@ description: "The complete Sensu installation guide."
 weight: 8
 product: "Sensu Core"
 version: "1.5"
-next: ../install-sensu-server-api
+next: ../summary
 previous: ../install-rabbitmq
 ---
 
-- [Install Erlang (the RabbitMQ runtime)](#install-erlang)
 - [Install RabbitMQ](#install-rabbitmq)
-  - [Download and install RabbitMQ using `dpkg` (recommended)](#download-and-install-rabbitmq-using-dpkg)
-  - [Install RabbitMQ using APT](#install-rabbitmq-using-apt)
 - [Managing the RabbitMQ service/process](#managing-the-rabbitmq-serviceprocess)
 - [Configure RabbitMQ access controls](#configure-rabbitmq-access-controls)
 - [Configure system limits on Linux](#configure-system-limits-on-linux)
@@ -19,57 +16,13 @@ previous: ../install-rabbitmq
   - [Example standalone configuration](#example-standalone-configuration)
   - [Example distributed configuration](#example-distributed-configuration)
 
-## Install Erlang (the RabbitMQ runtime) {#install-erlang}
-
-RabbitMQ runs on the [Erlang runtime][1], so before you can install and run
-RabbitMQ, you'll need to install Erlang.
-
-1. Add the Erlang Solutions APT repository
-   {{< highlight shell >}}
-sudo wget http://packages.erlang-solutions.com/erlang-solutions_1.0_all.deb
-sudo dpkg -i erlang-solutions_1.0_all.deb
-sudo apt-get update{{< /highlight >}}
-
-2. Install Erlang
-   {{< highlight shell >}}
-sudo apt-get -y install socat erlang-base erlang-nox{{< /highlight >}}
-
 ## Install RabbitMQ
 
-According to the [official RabbitMQ installation guide][2], although RabbitMQ
-packages are included in the Ubuntu and Debian distribution repositories,
-downloading and installing RabbitMQ from the RabbitMQ website is the recommended
-installation method.
+Although RabbitMQ packages are included in the distribution repositories, the included versions often lag behind the supported RabbitMQ release series.
 
-> `rabbitmq-server` is included in Debian since 6.0 (squeeze) and in Ubuntu
-  since 9.04. However, the versions included are often quite old. You will
-  _probably_ get better results installing the `.deb` from our website. Check
-  the Debian package and Ubuntu package details for which version of the server
-  is available for which versions of the distribution.
+Please see the [official RabbitMQ installation guide][2] for recommended installation strategies.
 
-[Sensu Support][3] is available for RabbitMQ versions 3.6.4 and newer ([on
-Erlang version 19.3 or newer][4]).
-
-### Download and install RabbitMQ using `dpkg`
-
-1. Download the official RabbitMQ 3.6.9 .deb installer package, as suggested in
-   the [official RabbitMQ installation guide][2]:
-   {{< highlight shell >}}
-sudo wget http://www.rabbitmq.com/releases/rabbitmq-server/v3.6.9/rabbitmq-server_3.6.9-1_all.deb{{< /highlight >}}
-
-2. Install the package using `dpkg`
-   {{< highlight shell >}}
-sudo dpkg -i rabbitmq-server_3.6.9-1_all.deb{{< /highlight >}}
-
-### Install RabbitMQ using APT
-
-The RabbitMQ website provides [instructions for installing from the official
-RabbitMQ APT repository][2].
-
-_WARNING: this installation method is not recommended for Sensu Enterprise
-users, as the repository is labeled as a "testing" repo, because (according to
-the RabbitMQ website) "[they] release somewhat frequently", and there shouldn't
-be a reason to upgrade RabbitMQ versions frequently._
+_NOTE: It's expected that if you install the `rabbitmq-server` package from the repository listed in the source above, that the requisite packages for Erlang will also be installed._
 
 ## Managing the RabbitMQ service/process {#managing-the-rabbitmq-serviceprocess}
 
@@ -174,15 +127,15 @@ configuration.
 
 1. Copy the following contents to a configuration file located at
    `/etc/sensu/conf.d/rabbitmq.json`:
-  {{< highlight json>}}
+   {{< highlight json>}}
 {
- "rabbitmq": {
-   "host": "127.0.0.1",
-   "port": 5672,
-   "vhost": "/sensu",
-   "user": "sensu",
-   "password": "secret"
- }
+  "rabbitmq": {
+    "host": "127.0.0.1",
+    "port": 5672,
+    "vhost": "/sensu",
+    "user": "sensu",
+    "password": "secret"
+  }
 }{{< /highlight >}}
 
 ### Example Distributed Configuration
@@ -193,7 +146,7 @@ configuration.
 2. Create a configuration file  with the following contents at
    `/etc/sensu/conf.d/rabbitmq.json` on the Sensu server and API system(s), and
    all systems running the Sensu client:
-  {{< highlight json>}}
+   {{< highlight json>}}
 {
   "rabbitmq": {
     "host": "10.0.1.6",
