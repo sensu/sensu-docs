@@ -240,10 +240,32 @@ sensu-agent --statsd-event-handlers influx-db --statsd-flush-interval 1 --statsd
 
 Sensu `keepalives` are the heartbeat mechanism used to ensure that all registered agents are operational and able to reach the [Sensu backend][2].
 Sensu agents publish keepalive events containing [entity][3] configuration data to the Sensu backend according to the interval specified by the [`keepalive-interval` flag][4].
-If a Sensu agent fails to send keepalive events over the period specified by the [`keepalive-timeout` flag][4], the Sensu backend creates a keepalive alert.
+If a Sensu agent fails to send keepalive events over the period specified by the [`keepalive-timeout` flag][4], the Sensu backend creates a keepalive alert in the Sensu dashboard.
 You can use keepalives to identify unhealthy systems and network partitions, send notifications, trigger [auto-remediation][5], and other useful actions.
 
 _NOTE: Keepalive monitoring is not supported for [proxy entities][3], as they are inherently unable to run a Sensu agent._
+
+### Handling keepalive events
+
+You can connect keepalive events to your monitoring workflows using a keepalive handler.
+Sensu looks for an [event handler][8] named `keepalive` and automatically uses it to process keepalive events.
+
+Let's say you want to receive Slack notifications for keepalive alerts, and you already have a [Slack handler set up to process events][40].
+To process keepalive events using the Slack pipeline, create a handler set named `keepalive` and add the `slack` handler to the `handlers` array.
+The resulting `keepalive` handler set configuration looks like this:
+
+{{< highlight json >}}
+{
+  "type": "Handler",
+  "spec": {
+    "name": "keepalive",
+    "type": "set",
+    "handlers": [
+      "slack"
+    ]
+  }
+}
+{{< /highlight >}}
 
 ## Operation
 
@@ -817,3 +839,4 @@ statsd-metrics-port: 6125{{< /highlight >}}
 [37]: ../backend#general-configuration-flags
 [38]: #id
 [39]: ../checks#check-result-specification
+[40]: ../../guides/send-slack-alerts
