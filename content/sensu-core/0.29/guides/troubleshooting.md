@@ -153,7 +153,7 @@ It's also recommended that you note the event ID, as this persists and allows yo
 
 Ensure that the event is being handled by the mailer handler (you can do this by searching for the `event_id` and looking at additional log entries to confirm that the event is handled as expected). It's worth noting that in the mailer example, the issue that is typically seen is that the handler doing its own event filtering. The solution is to set a low refresh value in the check configuration. 
 
-#### Most Common Issues Surfaced
+#### Most common issues surfaced
 Troubleshooting via the local client socket typically surfaces the following types of issues:
 
 * Misconfiguration (either of Sensu, or a handler’s/integration’s corresponding service)
