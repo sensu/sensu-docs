@@ -114,7 +114,7 @@ Before we start, let’s take a look at the prerequisites for using the client s
 * sensu-client running (Can be verified with `systemctl status sensu-client`)
 * Local socket is open (Can be verified with `netstat -tnlp | grep 3030` and `nc -vz localhost 3030`)
 
-Once the prerequisites have been met, we can move to troubleshooting.
+Once the prerequisites have been met, we can move on to troubleshooting.
 
 #### Troubleshooting steps
 
