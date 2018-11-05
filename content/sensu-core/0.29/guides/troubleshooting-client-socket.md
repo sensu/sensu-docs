@@ -60,7 +60,7 @@ Grep for the error message, specifically the check "name" attribute.
 
 It's also recommended that you note the event ID, as this will persist and you to track an event throughout its lifecycle.
 
-{{< highlight json >}}
+{{< highlight shell >}}
 "event":{"id":"f4a9453f-ac70-4e91-a601-a97ff31c589a"}{{< /highlight >}}
 
 Ensure that the event is being handled by the mailer handler (you can do this by searching for the `event_id` and looking at additional log entries to confirm that the event is handled as expected). It's worth noting that in the mailer example, the issue that is typically seen is that the handler doing its own event filtering. The solution is to set a low refresh value in the check configuration. 
