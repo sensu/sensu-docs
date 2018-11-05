@@ -101,7 +101,7 @@ tail -n 10000 /var/log/sensu/sensu-server.log > sensu-server-10k.log && gzip -9 
 This checklist is intended to be a step-by-step walkthrough of how to troubleshoot Sensu via the local client socket. There will be various examples for you to use and build on as you troubleshoot. 
 
 #### Local Client Socket
-By default the sensu-client process listens for check results on a TCP socket. This allows you to submit ad-hoc check results, a capability which is very useful in  troubleshooting issues with Sensu, as well as testing and verifying that a particular configuration works as expected.
+By default the sensu-client process listens for check results on a TCP socket. This allows you to submit ad-hoc check results, a capability which is very useful in troubleshooting issues with Sensu, as well as testing and verifying that a particular configuration works as expected.
 
 This client socket can be disabled, but does provide a few configurable attributes. See the [client reference documentation][13] for further information. 
 
