@@ -118,7 +118,7 @@ List the ID, name, peer urls, and client urls of all nodes in a cluster.
 $ sensuctl cluster member-list
          ID            Name             Peer URLs                Client URLs
  ────────────────── ─────────── ───────────────────────── ─────────────────────────
-  a32e8f613b529sad4   backend-1    https://10.1.0.1:2380     https://10.1.0.1:2379  
+  a32e8f613b529ad4   backend-1    https://10.1.0.1:2380     https://10.1.0.1:2379  
   c3d9f4b8d0dd1ac9   backend-2    https://10.2.0.1:2380     https://10.2.0.1:2379
   c8f63ae435a5e6bf   backend-3    https://10.3.0.1:2380     https://10.3.0.1:2379
   2f7ae42c315f8c2d   backend-4    https://10.4.0.1:2380     https://10.4.0.1:2379
