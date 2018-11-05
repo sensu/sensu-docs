@@ -78,16 +78,6 @@ required     | true
 type         | String 
 example      | {{< highlight shell >}}"sha512": "4f926bf4328..."{{< /highlight >}}
 
-metadata     | 
--------------|------ 
-description  | Information about the asset, in the form of key value pairs. 
-required     | false 
-type         | Map 
-example      | {{< highlight shell >}}"metadata": {
-"Content-Type": "application/zip", 
-"X-Intended-Distribution": "trusty-14"}
-{{< /highlight >}}
-
 filters      | 
 -------------|------ 
 description  | A set of [Sensu query expressions][1] used by the agent to determine if the asset should be installed. If multiple expressions are included, each expression must return true in order for the agent to install the asset. [Modifier operators][2] (for example: `+`, `-`, and `!`) _cannot_ be used in asset filters.
