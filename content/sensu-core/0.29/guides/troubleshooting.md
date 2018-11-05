@@ -97,7 +97,7 @@ Sensu staff, or community members may ask to see your logs. You can view them at
 {{< highlight shell >}}
 tail -n 10000 /var/log/sensu/sensu-server.log > sensu-server-10k.log && gzip -9 sensu-server-10k.log{{< /highlight >}}
 
-### Troubleshooting via the Local Client Socket
+### Troubleshooting via the local client socket
 This checklist is intended to be a step-by-step walkthrough of how to troubleshoot Sensu via the local client socket. There will be various examples for you to use and build on as you troubleshoot. 
 
 #### Local Client Socket
