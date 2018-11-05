@@ -140,7 +140,7 @@ _NOTE: A successfully submitted check result will also be logged to the sensu-cl
 {{< highlight JSON >}}
 {"timestamp":"2018-10-12T18:28:43.204565+0000","level":"info","message":"publishing check result","payload":{"client":"sensu-enterprise","check":{"name":"testing_error","output":"its just a test","status":2,"handler":"opsgenie","opsgenie":{"tags":{"this":"is wrong"}},"refresh":2,"executed":1539368923,"issued":1539368923}}}{{< /highlight >}}
 
-Review the logs on the Sensu server to determine if the issue is making it through to the server
+Review the logs on the Sensu server to determine if the issue is making it through to the server.
 Grep for the error message, specifically the check "name" attribute.
 
 {{< highlight json >}}
