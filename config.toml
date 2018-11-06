@@ -46,11 +46,20 @@ ignoreFiles = [ "sensu-doc-template.md" ]
     	text = "Ubuntu"
     	code = "Ubuntu Mono"
 
+    [params.products.sensu_go]
+        identifier = "sensu-go"
+        name = "Sensu Go"
+        description = "The next-generation open source monitoring event pipeline, written in Go. Currently in Beta."
+        weight = 1
+        latest = "5.0"
+        [params.products.sensu_go.versions]
+            "5.0" = []
+
     [params.products.sensu_core]
         identifier = "sensu-core"
         name = "Sensu Core"
         description = "The open source monitoring event pipeline"
-        weight = 1
+        weight = 2
         latest = "1.6"
         [params.products.sensu_core.versions]
             "2.0" = ["Ubuntu/Debian", "RHEL/CentOS"]
@@ -67,7 +76,7 @@ ignoreFiles = [ "sensu-doc-template.md" ]
         identifier = "sensu-enterprise"
         name = "Sensu Enterprise"
         description = "The powerful and simple monitoring product, built on Sensu Core"
-        weight = 2
+        weight = 3
         latest = "3.2"
         [params.products.sensu_enterprise.versions]
             "3.2" = ["Ubuntu/Debian", "RHEL/CentOS"]
@@ -81,7 +90,7 @@ ignoreFiles = [ "sensu-doc-template.md" ]
         identifier = "sensu-enterprise-dashboard"
         name = "Sensu Enterprise Dashboard"
         description = "The dashboard for Sensu Enterprise with RBAC and more, built on Uchiwa"
-        weight = 3
+        weight = 4
         latest = "2.12"
         [params.products.sensu_enterprise_dashboard.versions]
             "2.12" = ["Ubuntu/Debian", "RHEL/CentOS"]
@@ -94,7 +103,7 @@ ignoreFiles = [ "sensu-doc-template.md" ]
         identifier = "uchiwa"
         name = "Uchiwa"
         description = "An open source dashboard for the Sensu monitoring event pipeline"
-        weight = 4
+        weight = 5
         latest = "1.0"
         [params.products.uchiwa.versions]
             "1.0" = []
@@ -103,18 +112,9 @@ ignoreFiles = [ "sensu-doc-template.md" ]
         identifier = "plugins"
         name = "Plugins"
         description = "Checks, handlers, and other plugins to power your Sensu deployment."
-        weight = 5
-        latest = "1.0"
-        [params.products.plugins.versions]
-            "1.0" = []
-
-    [params.products.extensions]
-        identifier = "extensions"
-        name = "Extensions"
-        description = "High performance integrations for Sensu Core"
         weight = 6
         latest = "1.0"
-        [params.products.extensions.versions]
+        [params.products.plugins.versions]
             "1.0" = []
 
 [social]

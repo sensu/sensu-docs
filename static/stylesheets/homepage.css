@@ -1,20 +1,20 @@
 :root {
---color-1: #2C3458; /* sensu core*/
+--color-1: #2C3458; /* sensu go*/
 --color-1-hover: #072D71;
 
---color-2: #448E2D; /* sensu enterprise */
+--color-2: #448E2D; /* sensu core */
 --color-2-hover: #2C6E18;
 
---color-3: #502665; /* sensu enterprise dashboard */
+--color-3: #502665; /* sensu enterprise */
 --color-3-hover: #450765;
 
---color-4: #5380D1; /* uchiwa */
+--color-4: #5380D1; /* enterprise dashboard */
 --color-4-hover: #538BEF;
 
---color-5: #66B350; /* plugins */
+--color-5: #66B350; /* uchiwa */
 --color-5-hover: #4CB32E;
 
---color-6: #7B4496; /* extensions */
+--color-6: #7B4496; /* plugins */
 --color-6-hover: #6F2493;
 }
 
@@ -119,30 +119,29 @@
   height: 100%;
 }
 
-#product-sensu-core {
-  background: var(--color-1);
+#product-sensu-go {
+ background: var(--color-1);
 }
 
-#product-sensu-enterprise {
+#product-sensu-core {
   background: var(--color-2);
 }
 
-#product-sensu-enterprise-dashboard {
+#product-sensu-enterprise {
   background: var(--color-3);
 }
 
-#product-uchiwa {
+#product-sensu-enterprise-dashboard {
   background: var(--color-4);
 }
 
-
-#product-plugins {
+#product-uchiwa {
   background: var(--color-5);
 }
 
 
-#product-extensions {
- background: var(--color-6);
+#product-plugins {
+  background: var(--color-6);
 }
 
 
