@@ -11,6 +11,7 @@ _NOTE: Sensu Enterprise is built on Sensu Core. Sensu Core changes are documente
 
 ## Releases
 
+- [Enterprise 3.3.0 Release Notes](#enterprise-v3-3-0)
 - [Enterprise 3.2.2 Release Notes](#enterprise-v3-2-2)
 - [Enterprise 3.2.1 Release Notes](#enterprise-v3-2-1)
 - [Enterprise 3.2.0 Release Notes](#enterprise-v3-2-0)
@@ -49,6 +50,46 @@ _NOTE: Sensu Enterprise is built on Sensu Core. Sensu Core changes are documente
 - [Enterprise 1.14.1 Release Notes](#enterprise-v1-14-1)
 - [Enterprise 1.14.0 Release Notes](#enterprise-v1-14-0)
 - [Enterprise 1.13.0 Release Notes](#enterprise-v1-13-0)
+
+## Enterprise 3.3.0 Release Notes {#enterprise-v3-3-0}
+
+**November 7, 2018** &mdash; Sensu Enterprise version 3.3.0 has been
+released and is available for immediate download. Please note the
+following improvements:
+
+### CHANGES {#enterprise-v3-3-0-changes}
+
+Built on [Sensu Core 1.6.1][core-v1-6-1]:
+
+- **NEW**: The [Checks API][64] now provides an endpoint to delete check history and
+  check results, giving you an easy way to clean up unused checks.
+
+- **IMPROVEMENT**: Sensu Core 1.6 implements changes in RabbitMQ communication
+  by using two discrete connections to the transport instead of two channels
+  on a single connection, thereby doubling the number of concurrent connections
+  RabbitMQ receives. This change prevents check result processing rates from
+  being impacted by check execution request publishing rates and reduces the
+  possibility of false keepalive alerts under certain conditions. To support
+  the increased number of concurrent connections, we recommend making sure
+  the open file limit is configured according to RabbitMQ's guidelines for
+  [Ubuntu/Debian][65] and [RHEL/CentOS][66].
+
+- **IMPROVEMENT**: Sensu now redacts additional fields (such as webhook URLs)
+  when displaying configuration files.
+
+- **IMPROVEMENT**: Commands in check results from proxy clients can often contain
+  sensitive information following token substitution. Clients now reset
+  commands to remove tokens before publishing check results, providing
+  better handling for sensitive information.
+
+- **BUGFIX**: Fixed a bug impacting macOS packages using Ruby 2.4.4.
+
+- **BUGFIX**: Fixed an issue impacting FreeBSD packages causing incompatibility with newer compilers.
+
+- **BUGFIX**: Fixed a bug impacting the installation process for Solaris 10 packages.
+
+- **BUGFIX**: Fixed an issue preventing Sensu clients from resuming activities
+  after reconnecting to RabbitMQ.
 
 ## Enterprise 3.2.2 Release Notes {#enterprise-v3-2-2}
 
@@ -761,3 +802,9 @@ This release includes potentially breaking, backwards-incompatible changes:
 [wave]: ../integrations/wavefront
 [open]: ../integrations/opentsdb
 [support-ticket]: https://account.sensu.io/support
+
+<!-- 3.3 -->
+[core-v1-6-1]: /sensu-core/1.6/changelog/#core-v1-6-1
+[64]: /sensu-core/1.6/api/checks#checkscheck-delete
+[65]: http://www.rabbitmq.com/install-debian.html#kernel-resource-limits
+[66]: http://www.rabbitmq.com/install-rpm.html#kernel-resource-limits
