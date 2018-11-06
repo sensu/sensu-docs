@@ -59,6 +59,9 @@ following improvements:
 
 ### CHANGES {#enterprise-v3-3-0-changes}
 
+- **IMPROVEMENT**: The OpsGenie integration now supports [OpsGenie's European
+  service region][og-eu]. See the [OpsGenie integration docs][og] to configure the European API.
+
 Built on [Sensu Core 1.6.1][core-v1-6-1]:
 
 - **NEW**: The [Checks API][64] now provides an endpoint to delete check history and
@@ -808,3 +811,4 @@ This release includes potentially breaking, backwards-incompatible changes:
 [64]: /sensu-core/1.6/api/checks#checkscheck-delete
 [65]: http://www.rabbitmq.com/install-debian.html#kernel-resource-limits
 [66]: http://www.rabbitmq.com/install-rpm.html#kernel-resource-limits
+[og-eu]: https://docs.opsgenie.com/docs/european-service-region
