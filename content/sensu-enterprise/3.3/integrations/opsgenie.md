@@ -65,6 +65,14 @@ The following attributes are configured within the `{"opsgenie": {} }`
 
 _NOTE: Some attributes are only available for certain OpsGenie subscription tiers._
 
+api_endpoint | 
+-------------|------
+description  | The OpsGenie Alert API endpoint to use when connecting to OpsGenie: `api.opsgenie.com` for the US service region or `api.eu.opsgenie.com` for the [European service region][8].
+required     | false
+default      | `api.opsgenie.com` (US service region)
+type         | String
+example      | {{< highlight shell >}}"api_endpoint": "api.eu.opsgenie.com"{{< /highlight >}}
+
 api_key      | 
 -------------|------
 description  | The OpsGenie Alert API key to use when creating/closing alerts.
@@ -188,3 +196,4 @@ example      | {{< highlight shell >}}"timeout": 30{{< /highlight >}}
 [5]: https://docs.opsgenie.com/docs/alert-api
 [6]:  /sensu-core/latest/reference/checks#opsgenie-attributes
 [7]:  /sensu-core/latest/reference/clients#opsgenie-attributes
+[8]: https://docs.opsgenie.com/docs/european-service-region
