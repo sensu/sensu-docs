@@ -121,7 +121,11 @@ function applyTipBoxes() {
     } else if ($(this).text().includes("PRO TIP:")) {
       boldFirstTwoWords($(this));
       return '<div class="pro-tip"></div>';
+    } else if ($(this).text().includes("DANGER:")) {
+      boldFirstWord($(this));
+      return '<div class="danger"></div>';
     }
+    
   });
 }
 </script>

@@ -148,12 +148,20 @@ p code, li code, td code, h1 code, h2 code, h3 code, h4 code, h5 code, h6 code {
  border: 1px solid #d6e9c6
 }
 
+.danger {
+  margin: 10px 0;
+  padding: 10px;
+  background-color: #f39c9b;
+ color: #9e3937;
+ border: 1px solid #d6e9c6
+}
+
 .article h2 {
   margin-top: -70px;
   font-size: 30px;
 }
 
-table .note, table .warning, table .pro-tip {
+table .note, table .warning, table .pro-tip, table .danger {
   margin-top: 10px;
 }
 
