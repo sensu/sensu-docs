@@ -97,11 +97,12 @@ Sensu staff, or community members may ask to see your logs. You can view them at
 {{< highlight shell >}}
 tail -n 10000 /var/log/sensu/sensu-server.log > sensu-server-10k.log && gzip -9 sensu-server-10k.log{{< /highlight >}}
 
-### Troubleshooting via the local client socket
-This checklist is intended to be a step-by-step walkthrough of how to troubleshoot Sensu via the local client socket. There will be various examples for you to use and build on as you troubleshoot. 
+## Local Client Socket
+By default the sensu-client process listens for check results on a TCP socket. There are several reasons for using the client socket to as a troubleshooting tool when deploying Sensu:
 
-#### Local Client Socket
-By default the sensu-client process listens for check results on a TCP socket. This allows you to submit ad-hoc check results, a capability which is very useful in troubleshooting issues with Sensu, as well as testing and verifying that a particular configuration works as expected.
+1. Less configuration overhead. I.e., you don't have to push a check via configuration management.
+2. The ability to issue a check and subsequently resolve it is instantaneous. There is no waiting on a check interval to elapse before the result is published.
+3. The ability to individually test handler configurations
 
 This client socket can be disabled, but does provide a few configurable attributes. See the [client reference documentation][13] for further information. 
 
@@ -116,15 +117,11 @@ Before we start, let’s take a look at the prerequisites for using the client s
 
 Once the prerequisites have been met, we can move on to troubleshooting.
 
-#### Troubleshooting steps
+### Troubleshooting steps
 
 Consider the following scenario: Sensu has been installed, has been verified to be working correctly (alerts are seen in the dashboard), and is configured to send alerts via the [mailer handler][14]. However, mail doesn't appear to be coming through.
 
-We'll start by crafting a test command to send to the local socket. Why? There are several reasons for using the client socket to troubleshoot:
-
-1. Less configuration overhead. I.e., you don't have to push a check via configuration management.
-2. The ability to issue a check and subsequently resolve it is instantaneous. There is no waiting on a check interval to elapse before the result is published.
-3. The ability to customize what sort
+We'll start by crafting a test command to send to the local socket:
 
 echo ‘{“name”: “testing”, “output”: “THIS IS AN ERROR”, “status”: 2, “refresh”: 10, “handlers”: [“mailer”]}’ | nc localhost 3030
 
@@ -151,9 +148,9 @@ It's also recommended that you note the event ID, as this persists and allows yo
 {{< highlight shell >}}
 "event":{"id":"f4a9453f-ac70-4e91-a601-a97ff31c589a"}{{< /highlight >}}
 
-Ensure that the event is being handled by the mailer handler (you can do this by searching for the `event_id` and looking at additional log entries to confirm that the event is handled as expected). It's worth noting that in the mailer example, the issue that is typically seen is that the handler doing its own event filtering. The solution is to set a low refresh value in the check configuration. 
+Ensure that the event is being handled by the mailer handler (you can do this by searching for the `event_id` and looking at additional log entries to confirm that the event is handled as expected). It's worth noting that in the mailer example, the issue typically seen is a lack of notifications due to the handler performing its own event filtering. The solution is to set a low refresh value in the check configuration. 
 
-#### Most common issues surfaced
+### Most common issues surfaced
 Troubleshooting via the local client socket typically surfaces the following types of issues:
 
 * Misconfiguration (either of Sensu, or a handler’s/integration’s corresponding service)
