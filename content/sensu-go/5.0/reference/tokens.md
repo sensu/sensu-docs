@@ -57,13 +57,12 @@ arguments to indicate the thresholds (as percentages) for creating warning or cr
 {
   "check_hooks": null,
   "command": "check-disk-usage.rb -w {{.Disk.Warning | default 80}} -c {{.Disk.Critical | default 90}}",
-  "environment": "{{ .Environment | default \"production\" }}",
+  "namespace": "{{ .Namespace | default \"production\" }}",
   "handlers": [],
   "high_flap_threshold": 0,
   "interval": 60,
   "low_flap_threshold": 0,
   "name": "check-disk-usage",
-  "organization": "default",
   "proxy_entity_id": "",
   "publish": true,
   "round_robin": false,
@@ -77,7 +76,7 @@ arguments to indicate the thresholds (as percentages) for creating warning or cr
 }{{< /highlight >}}
 
 The following example [entity][4] would provide the necessary
-attributes to override the `.Disk.Warning`, `.Disk.Critical`, and `.Environment`
+attributes to override the `.Disk.Warning`, `.Disk.Critical`, and `.Namespace`
 tokens declared above.
 
 {{< highlight json >}}
@@ -85,11 +84,10 @@ tokens declared above.
   "class": "agent",
   "deregister": false,
   "deregistration": {},
-  "environment": "staging",
+  "namespace": "staging",
   "id": "example-hostname",
   "keepalive_timeout": 60,
   "last_seen": 1523387195,
-  "organization": "default",
   "redact": [
     "password",
     "passwd",

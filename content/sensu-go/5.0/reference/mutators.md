@@ -36,8 +36,7 @@ fails to execute, an error will be logged, and the handler will not be executed.
   * exit codes other than `0` indicate failure
 
 ### Naming
-Each mutator definition must have a unique name within its organization and
-environment.
+Each mutator definition must have a unique name within its namespace.
 
 * A unique string used to identify the mutator
 * Cannot contain special characters or spaces
@@ -90,8 +89,7 @@ to modify event data prior to handling the event.
   "command": "example_mutator.rb",
   "timeout": 60,
   "env_vars": null,
-  "environment": "default",
-  "organization": "default"
+  "namespace": "default"
 }
 {{< /highlight >}}
 

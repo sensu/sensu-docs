@@ -111,10 +111,10 @@ You can verify that the handler has fetched/installed the asset, and executed th
 backend logs.
 
 {{< highlight json >}}
-{"assets":["sensu-influxdb-handler"],"component":"pipelined","environment":"default","handler":"influx-db","level":"debug","msg":"fetching assets for handler","organization":"default","time":"2018-10-16T13:17:33-07:00"}
+{"assets":["sensu-influxdb-handler"],"component":"pipelined","namespace":"default","handler":"influx-db","level":"debug","msg":"fetching assets for handler","time":"2018-10-16T13:17:33-07:00"}
 {{< /highlight >}}
 {{< highlight json >}}
-{"component":"pipelined","environment":"default","handler":"influx-db","level":"info","msg":"event pipe handler executed","organization":"default","output":"metric sent to influx-db","status":0,"time":"2018-10-16T13:17:33-07:00"}
+{"component":"pipelined","namespace":"default","handler":"influx-db","level":"info","msg":"event pipe handler executed","output":"metric sent to influx-db","status":0,"time":"2018-10-16T13:17:33-07:00"}
 {{< /highlight >}}
 
 ## How to create a mutator that depends on an asset 
@@ -141,10 +141,10 @@ You can verify that the mutator has fetched/installed the asset, and executed th
 backend logs.
 
 {{< highlight json >}}
-{"assets":["transformer"],"component":"pipelined","environment":"default","mutator":"transform-metrics","level":"debug","msg":"fetching assets for mutator","organization":"default","time":"2018-10-16T13:17:33-07:00"}
+{"assets":["transformer"],"component":"pipelined","namespace":"default","mutator":"transform-metrics","level":"debug","msg":"fetching assets for mutator","time":"2018-10-16T13:17:33-07:00"}
 {{< /highlight >}}
 {{< highlight json >}}
-{"component":"pipelined","environment":"default","mutator":"transform-metrics","level":"info","msg":"event pipe mutator executed","organization":"default","output":"metric transformed","status":0,"time":"2018-10-16T13:17:33-07:00"}
+{"component":"pipelined","namespace":"default","mutator":"transform-metrics","level":"info","msg":"event pipe mutator executed","output":"metric transformed","status":0,"time":"2018-10-16T13:17:33-07:00"}
 {{< /highlight >}}
 
 ## Next steps

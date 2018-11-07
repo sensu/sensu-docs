@@ -159,8 +159,7 @@ enabled directly with the [round_robin][13] attribute in the check configuration
 
 ### Check naming
 
-Each check definition must have a unique name within its organization and
-environment.
+Each check definition must have a unique name within its namespace.
 
 * A unique string used to name/identify the check
 * Cannot contain special characters or spaces
@@ -296,23 +295,13 @@ required     | false
 type         | Serialized JSON object
 example      | {{< highlight shell >}}"{\"team\":\"ops\"}"{{< /highlight >}}
 
-|organization|      |
+|namespace|      |
 -------------|------
-description  | The Sensu RBAC organization that this check belongs to.
+description  | The Sensu RBAC namespace that this check belongs to.
 required     | false
 type         | String
 example      | {{< highlight shell >}}
-  "organization": "default"
-{{< /highlight >}}
-
-|environment |      |
--------------|------
-description  | The Sensu RBAC environment that this check belongs to.
-required     | false
-type         | String
-default      | current environment value configured for `sensuctl` (ie `default`)
-example      | {{< highlight shell >}}
-  "environment": "default"
+  "namespace": "default"
 {{< /highlight >}}
 
 |silenced    |      |
@@ -349,7 +338,7 @@ example      | {{< highlight shell >}}"output_metric_handlers": ["influx-db"]{{<
 description  | Sensu entity attributes to match entities in the registry, using [Sensu Query Expressions][20]
 required     | false
 type         | Array
-default      | current environment value configured for `sensuctl` (ie `default`)
+default      | current namespace value configured for `sensuctl` (ie `default`)
 example      | {{< highlight shell >}}"entity_attributes": ["entity.Class == 'proxy'"]{{< /highlight >}}
 
 |splay       |      |
@@ -399,8 +388,7 @@ example      | {{< highlight shell >}}"days": {
   "type": "CheckConfig",
   "spec": {
     "name": "collect-metrics",
-    "environment": "default",
-    "organization": "default",
+    "namespace": "default",
     "subscriptions": [
       "system"
     ],

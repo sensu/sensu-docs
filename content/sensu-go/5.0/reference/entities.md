@@ -128,20 +128,12 @@ type         | integer
 default      | 120
 example      | {{< highlight shell >}}"keepalive_timeout": 120 {{< /highlight >}}
 
-organization | 
+namespace | 
 -------------|------ 
-description  | The Sensu RBAC organization that this entity belongs to.
+description  | The Sensu RBAC namespace that this entity belongs to.
 required     | false 
 type         | string 
-example      | {{< highlight shell >}}"organization": "default"{{< /highlight >}}
-
-environment  | 
--------------|------ 
-description  | The Sensu RBAC environment that this entity belongs to.
-required     | false 
-type         | string 
-default      | current environment value configured for `sensuctl` (ie `default`) 
-example      | {{< highlight shell >}}"environment": "default"{{< /highlight >}}
+example      | {{< highlight shell >}}"namespace": "default"{{< /highlight >}}
 
 extended_attributes | 
 -------------|------ 
@@ -304,11 +296,10 @@ example      | {{< highlight shell >}}"handler": "email-handler"{{< /highlight >
   "class": "agent",
   "deregister": false,
   "deregistration": {},
-  "environment": "default",
   "id": "example-hostname",
   "keepalive_timeout": 60,
   "last_seen": 1523387195,
-  "organization": "default",
+  "namespace": "default",
   "redact": [
     "password",
     "passwd",

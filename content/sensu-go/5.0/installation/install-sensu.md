@@ -323,8 +323,7 @@ $ sensuctl configure
 ? Sensu Backend URL: http://127.0.0.1:8080
 ? Username: admin
 ? Password: *********
-? Organization: default
-? Environment: default
+? Namespace: default
 ? Preferred output format: tabular
 {{< /highlight >}}
 
@@ -342,8 +341,7 @@ $ sensuctl user change-password --interactive
 You can change individual values of your sensuctl configuration with the `config` subcommand.
 
 {{< highlight shell >}}
-sensuctl config set-organization default
-sensuctl config set-environment prod
+sensuctl config set-namespace default
 {{< /highlight >}}
 
 {{< platformBlockClose >}}

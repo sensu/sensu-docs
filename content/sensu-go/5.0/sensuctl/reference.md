@@ -67,13 +67,12 @@ Management Commands:
   check        Manage checks
   config       Modify sensuctl configuration
   entity       Manage entities
-  environment  Manage environments
   event        Manage events
   filter       Manage filters
   handler      Manage handlers
   hook         Manage hooks
   mutator      Manage mutators
-  organization Manage organizations
+  namespace    Manage namespaces
   role         Manage roles
   silenced     Manage silenced subscriptions and checks
   user         Manage users
@@ -136,8 +135,7 @@ Global flags modify settings specific to `sensuctl`, such as a Sensu host URL or
 --api-url string        host URL of Sensu installation
 --cache-dir string      path to directory containing cache & temporary files 
 --config-dir string     path to directory containing configuration files
---environment string    environment in which we perform actions (default "default")
---organization string   organization in which we perform actions (default "default")
+--namespace string   namespace in which we perform actions (default "default")
 {{< /highlight >}}
 
 ### Local
@@ -185,8 +183,7 @@ sensuctl check info marketing-site --format json
     "slack"
   ],
   "runtime_assets": [],
-  "environment": "default",
-  "organization": "default"
+  "namespace": "default"
 }
 {{< /highlight >}}
 
@@ -244,9 +241,8 @@ Flags:
       --api-url string        host URL of Sensu installation
       --cache-dir string      path to directory containing cache & temporary files (default "/home/eric/.cache/sensu/sensuctl")
       --config-dir string     path to directory containing configuration files (default "/home/eric/.config/sensu/sensuctl")
-      --environment string    environment in which we perform actions (default "default")
   -h, --help                  help for sensuctl
-      --organization string   organization in which we perform actions (default "default")
+      --namespace string      namespace in which we perform actions (default "default")
 
 Commands:
   completion   Output shell completion code for the specified shell (bash or zsh)
@@ -260,14 +256,13 @@ Management Commands:
   check        Manage checks
   config       Modify sensuctl configuration
   entity       Manage entities
-  environment  Manage environments
   event        Manage events
   extension    Manage extension registry
   filter       Manage filters
   handler      Manage handlers
   hook         Manage hooks
   mutator      Manage mutators
-  organization Manage organizations
+  namespace    Manage namespaces
   role         Manage roles
   silenced     Manage silenced subscriptions and checks
   user         Manage users
@@ -292,9 +287,7 @@ an example, and [this table][3] for a list of supported types).
     "subscriptions": ["demo"],
     "interval": 15,
     "handlers": ["slack"],
-    "organization": "default",
-    "environment": "default"
-   }
+    "namespace": "default"   }
 }
 {
   "type": "Handler",
@@ -302,8 +295,7 @@ an example, and [this table][3] for a list of supported types).
     "name": "slack",
     "type": "pipe",
     "command": "handler-slack --webhook-url https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX --channel monitoring'",
-    "environment": "default",
-    "organization": "default"
+    "namespace": "default"
   }
 }
 {{< /highlight >}}
@@ -324,13 +316,13 @@ cat my-resources.json | sensuctl create
 --------------------|---|---|---|
 `AdhocRequest` | `adhoc_request` | `Asset` | `asset`
 `Check` | `check` | `CheckConfig` | `check_config`
-`Entity` | `entity` | `Environment` | `environment`
-`Event` | `event` | `EventFilter` | `event_filter`
-`Extension` | `extension` | `Handler` | `handler`
-`Hook` | `hook` | `HookConfig` | `hook_config`
-`Mutator` | `mutator` | `Organization` | `organization`
-`Role` | `role` | `Silenced` | `silenced`
-
+`Entity` | `entity` | `Event` | `event`
+`EventFilter` | `event_filter` | `Extension` | `extension`
+`Handler` | `handler` | `Hook` | `hook`
+`HookConfig` | `hook_config`  | `Mutator` | `mutator`
+`Namespace` | `namespace` | `Role` | `role`
+`Silenced` | `silenced`
+  
 ## Shell auto-completion
 
 ### Installation (Bash Shell)

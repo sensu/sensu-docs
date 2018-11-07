@@ -77,8 +77,7 @@ $ sensuctl event info i-424242 nginx_process --format json
           "name": "nginx-restart",
           "command": "sudo systemctl restart nginx",
           "timeout": 10,
-          "environment": "default",
-          "organization": "default"
+          "namespace": "default"
         },
         "duration": 0.008713605,
         "executed": 1521724622,
