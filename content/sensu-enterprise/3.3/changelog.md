@@ -60,7 +60,8 @@ following improvements:
 ### CHANGES {#enterprise-v3-3-0-changes}
 
 - **IMPROVEMENT**: The OpsGenie integration now supports [OpsGenie's European
-  service region][og-eu]. See the [OpsGenie integration docs][og] to configure the European API.
+  service region][og-eu]. See the [OpsGenie integration docs][og] to configure
+  the `api_endpoint` attribute.
 
 Built on [Sensu Core 1.6.1][core-v1-6-1]:
 
