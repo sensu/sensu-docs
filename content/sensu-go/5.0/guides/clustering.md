@@ -26,24 +26,50 @@ The sensu-backend arguments for its store mirror the [etcd configuration flags][
 
 You can configure a Sensu cluster in a couple different ways (we'll show you a few below) but it's recommended to adhere to some etcd cluster guidelines as well.
 
-> The recommended etcd cluster size is 3, 5 or 7, which is decided by the fault tolerance requirement. A 7-member cluster can provide enough fault tolerance in most cases. While a larger cluster provides better fault tolerance the write performance reduces since data needs to be replicated to more machines. It is recommended to have an odd number of members in a cluster. Having an odd cluster size doesn't change the number needed for majority, but you gain a higher tolerance for failure by adding the extra member *(Core OS).*
+> The recommended etcd cluster size is 3, 5 or 7, which is decided by the fault tolerance requirement. A 7-member cluster can provide enough fault tolerance in most cases. While a larger cluster provides better fault tolerance, the write performance reduces since data needs to be replicated to more machines. It is recommended to have an odd number of members in a cluster. Having an odd cluster size doesn't change the number needed for majority, but you gain a higher tolerance for failure by adding the extra member *(Core OS).*
 
 We also recommend using stable platforms to support your etcd instances (see [Supported Platforms][5]).
 
 ### backend.yml
 
-Below is an example configuration snippet from `backend.yml` where `10.n.0.1` and `backend-n` correspond to the names and addresses of the etcd nodes in the cluster (ex. `"backend-0=https://10.0.0.1:2380,backend-1=https://10.1.0.1:2380..."`).
+Below are example configuration snippets from `/etc/sensu/backend.yml` on three sensu backends named `backend-1`, `backend-2` and `backend-3` with IP addresses `10.1.0.1`, `10.2.0.0` and `10.3.0.0` respectively.
 {{< highlight shell >}}
 ##
-# store configuration
+# store configuration for backend-1/10.1.0.1
 ##
-etcd-listen-client-urls: "https://10.0.0.1:2379"
+etcd-listen-client-urls: "https://10.1.0.1:2379"
 etcd-listen-peer-urls: "https://0.0.0.0:2380"
-etcd-initial-cluster: "backend-0=https://10.0.0.1:2380,backend-1=https://10.1.0.1:2380,backend-2=https://10.2.0.1:2380"
-etcd-initial-advertise-peer-urls: "https://10.0.0.1:2380"
+etcd-initial-cluster: "backend-1=https://10.1.0.1:2380,backend-2=https://10.2.0.1:2380,backend-3=https://10.3.0.1:2380"
+etcd-initial-advertise-peer-urls: "https://10.1.0.1:2380"
 etcd-initial-cluster-state: "new"
 etcd-initial-cluster-token: ""
-etcd-name: "backend-0"
+etcd-name: "backend-1"
+{{< /highlight >}}
+
+{{< highlight shell >}}
+##
+# store configuration for backend-2/10.2.0.1
+##
+etcd-listen-client-urls: "https://10.2.0.1:2379"
+etcd-listen-peer-urls: "https://0.0.0.0:2380"
+etcd-initial-cluster: "backend-1=https://10.1.0.1:2380,backend-2=https://10.2.0.1:2380,backend-3=https://10.3.0.1:2380"
+etcd-initial-advertise-peer-urls: "https://10.2.0.1:2380"
+etcd-initial-cluster-state: "new"
+etcd-initial-cluster-token: ""
+etcd-name: "backend-2"
+{{< /highlight >}}
+
+{{< highlight shell >}}
+##
+# store configuration for backend-3/10.3.0.1
+##
+etcd-listen-client-urls: "https://10.3.0.1:2379"
+etcd-listen-peer-urls: "https://0.0.0.0:2380"
+etcd-initial-cluster: "backend-1=https://10.1.0.1:2380,backend-2=https://10.2.0.1:2380,backend-3=https://10.3.0.1:2380"
+etcd-initial-advertise-peer-urls: "https://10.3.0.1:2380"
+etcd-initial-cluster-state: "new"
+etcd-initial-cluster-token: ""
+etcd-name: "backend-3"
 {{< /highlight >}}
 
 Using this configuration file at the start up of each sensu-backend accordingly, you should have a highly available Sensu Cluster! You can verify its health and try other cluster management commands using [sensuctl][6].
@@ -54,7 +80,7 @@ If you'd prefer to stand up your Sensu Cluster within docker containers, check o
 
 ## Sensuctl
 
-Sensuctl has several commands to help you manage and monitor your cluster. See `sensuctl cluster -h` for additional help usage.
+Sensuctl has several commands to help you manage and monitor your cluster. See `sensuctl cluster -h` for additional help usage. If you have not installed and configured sensuctl, our [installation and configuration guide][14] will help you.
 
 ### Cluster health
 
@@ -63,9 +89,9 @@ Get cluster health status and etcd alarm information.
 {{< highlight shell >}}
 $ sensuctl cluster health
          ID            Name      Error   Healthy  
- ────────────────── ─────────── ─────── ───────── 
-  a32e8f613b529ad4   backend-0           true     
-  c3d9f4b8d0dd1ac9   backend-1    wat    false     
+ ────────────────── ─────────── ─────── ─────────
+  a32e8f613b529ad4   backend-0           true
+  c3d9f4b8d0dd1ac9   backend-1    wat    false
   c8f63ae435a5e6bf   backend-2           true
 {{< /highlight >}}
 
@@ -73,12 +99,14 @@ $ sensuctl cluster health
 
 Add a new member node to an existing cluster.
 
+#TODO: Test results of adding a cluster member but not updating disk configuration, restarting backend.
+
 {{< highlight shell >}}
-$ sensuctl cluster member-add backend-3 https://10.3.0.1:2380
+$ sensuctl cluster member-add backend-4 https://10.4.0.1:2380
 added member 2f7ae42c315f8c2d to cluster
 
 ETCD_NAME="backend-3"
-ETCD_INITIAL_CLUSTER="backend-3=https://10.3.0.1:2380,backend-0=https://10.0.0.1:2380,backend-1=https://10.1.0.1:2380,backend-2=https://10.2.0.1:2380"
+ETCD_INITIAL_CLUSTER="backend-1=https://10.1.0.1:2380,backend-2=https://10.2.0.1:2380,backend-3=https://10.3.0.1:2380",backend-4=https://10.4.0.1:2380"
 ETCD_INITIAL_CLUSTER_STATE="existing"
 {{< /highlight >}}
 
@@ -88,12 +116,12 @@ List the ID, name, peer urls, and client urls of all nodes in a cluster.
 
 {{< highlight shell >}}
 $ sensuctl cluster member-list
-         ID            Name             Peer URLs                Client URLs        
- ────────────────── ─────────── ───────────────────────── ───────────────────────── 
-  a32e8f613b529ad4   backend-0    https://10.0.0.1:2380     https://10.0.0.1:2379  
-  c3d9f4b8d0dd1ac9   backend-1    https://10.1.0.1:2380     https://10.1.0.1:2379   
-  c8f63ae435a5e6bf   backend-2    https://10.2.0.1:2380     https://10.2.0.1:2379
-  2f7ae42c315f8c2d   backend-3    https://10.3.0.1:2380     https://10.3.0.1:2379
+         ID            Name             Peer URLs                Client URLs
+ ────────────────── ─────────── ───────────────────────── ─────────────────────────
+  a32e8f613b529ad4   backend-1    https://10.1.0.1:2380     https://10.1.0.1:2379  
+  c3d9f4b8d0dd1ac9   backend-2    https://10.2.0.1:2380     https://10.2.0.1:2379
+  c8f63ae435a5e6bf   backend-3    https://10.3.0.1:2380     https://10.3.0.1:2379
+  2f7ae42c315f8c2d   backend-4    https://10.4.0.1:2380     https://10.4.0.1:2379
 {{< /highlight >}}
 
 ### Remove a cluster member
@@ -106,6 +134,8 @@ Removed member 2f7ae42c315f8c2d from cluster
 {{< /highlight >}}
 
 ### Update a cluster member
+
+#TODO: Test results of doing this and the impact on configurtion on disk, then reload sensu-backend.
 
 Update the peer urls of a member in a cluster.
 
@@ -292,3 +322,4 @@ sensu-backend start \
 [11]: https://coreos.com/os/docs/latest/generate-self-signed-certificates.html
 [12]: https://coreos.com/etcd/docs/latest/op-guide/clustering.html
 [13]: #creating-self-signed-certificates
+[14]: ../../getting-started/installation-and-configuration/
