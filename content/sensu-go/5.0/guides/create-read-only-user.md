@@ -11,15 +11,15 @@ menu:
 ---
 
 ## What is RBAC?
-**Role-Based Access Control** (RBAC) is Sensu's local user management system. RBAC currently supports the management of users and permissions with *organizations*, *environments*, *roles*, and *users*. Support for external directories (such as LDAP) will be available in a future release.
+**Role-Based Access Control** (RBAC) is Sensu's local user management system. RBAC currently supports the management of users and permissions with *namespaces*, *roles*, and *users*. Support for external directories (such as LDAP) will be available in a future release.
 
 ## Why use RBAC
 RBAC allows you to exercise fine-grained control over how Sensu users interact 
 with Sensu resources. Using RBAC rules, you can easily achieve **multitenancy** 
-so users only have access to resources within their own organization and environment. 
+so different projects and teams can share a Sensu instance. 
 
 ## How to create a Read Only user
-The initial installation of Sensu includes a `default` environment, included in the `default` organization, and an `admin` user with full permissions to create, modify, or delete resouces within Sensu. Using `sensuctl`, you can create new roles for users that give as much or as little access as you see fit. The purpose of this guide is to help you create a new user with read-only access to resources within the `default` organization and environment.
+The initial installation of Sensu includes a `default` namespace and an `admin` user with full permissions to create, modify, or delete resources within Sensu. Using `sensuctl`, you can create new roles for users that give as much or as little access as you see fit. The purpose of this guide is to help you create a new user with read-only access to resources within the `default` namespace.
 
 Sensu creates a default read-only role on startup, and you can use that role when creating a read-only user.
 
@@ -29,15 +29,15 @@ $ sensuctl user create 'read-only-user'  --password 'password' --roles 'read-onl
 {{< /highlight >}}
 
 You may also apply the read-only role to an existing user account. Users can
-have multiple roles spanning multiple organizations, each with their own set of
+have multiple roles spanning multiple namespaces, each with their own set of
 permissions.
 
 Using sensuctl, you can verify that the role and user have the correct permissions.
 {{< highlight shell >}}
 $ sensuctl role list-rules read-only
-  Type     Org.      Env.    Permissions
- ────── ───────── ───────── ─────────────
-  *      default    default     read
+  Type   Namespace   Permissions
+ ────── ─────────── ─────────────
+  *       default       read
 {{< /highlight >}}
 
 {{< highlight shell >}}
