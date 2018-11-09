@@ -6,7 +6,7 @@ product: "Sensu Enterprise"
 version: "2.6"
 weight: 7
 menu:
- sensu-Enterprise-2.6:
+ sensu-enterprise-2.6:
    parent: guides
 ---
 
@@ -152,31 +152,29 @@ Bellow is the default configuration for the handlers we'll be working with in ou
 
 {{< highlight json >}}
 {
-  "handlers": {
-    "slack": {
-      "webhook_url": "https://hooks.slack.com/services/foo/bar/foobar",
-      "username": "sensu",
-      "channel": "#alerts",
-      "timeout": 10
+  "slack": {
+    "webhook_url": "https://hooks.slack.com/services/foo/bar/foobar",
+    "username": "sensu",
+    "channel": "#alerts",
+    "timeout": 10
+  },
+  "email": {
+    "smtp": {
+      "address": "smtp.example.com",
+      "port": 587,
+      "openssl_verify_mode": "none",
+      "enable_starttls_auto": true,
+      "authentication": "plain",
+      "user_name": "postmaster@example.com",
+      "password": "SECRET"
     },
-    "email": {
-      "smtp": {
-        "address": "smtp.example.com",
-        "port": 587,
-        "openssl_verify_mode": "none",
-        "enable_starttls_auto": true,
-        "authentication": "plain",
-        "user_name": "postmaster@example.com",
-        "password": "SECRET"
-      },
-      "to": "default@example.com",
-      "from": "noreply@example.com",
-      "timeout": 10
-    },
-    "pagerduty": {
-      "service_key": "someservicekey ",
-      "timeout": 10
-    }
+    "to": "default@example.com",
+    "from": "noreply@example.com",
+    "timeout": 10
+  },
+  "pagerduty": {
+    "service_key": "someservicekey ",
+    "timeout": 10
   }
 }
 {{< /highlight >}}
