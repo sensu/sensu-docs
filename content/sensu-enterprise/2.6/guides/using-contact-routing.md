@@ -16,12 +16,26 @@ menu:
     - [Contact Configuration](#contact-configuration)
     - [Check Configuration](#check-configuration)
     - [Client Configuration](#client-configuration)
-- [Example Implementation](#example Implementation)
+  - [Default Configuration](#default-configuration)
+  - [Single Handler](#single-handler)
+    - [Single Handler Single Matching Contact](#single-handler-single-matching-contact)
+    - [Single Handler Single Non-Matching Contact](#single-handler-single-non-matching-contact)
+    - [Single Handler Multiple Matching Contacts](#single-handler-multiple-matching-contacts)
+    - [Single Handler Multiple Non-Matching Contacts](#single-handler-multiple-non-matching-contacts)
+    - [Single Handler Some Matching Contacts](#single-handler-some-matching-contacts)
+  - [Multiple Handlers](#multiple-handlers)
+    - [Multiple Handlers Matching Contact](#multiple-handler-matching-contact)
+    - [Multiple Handlers Single Matching Contact](#multiple-handler-single-matching-contact)
+    - [Multiple Handlers Single Non-Matching Contact](#multiple-handler-single-non-matching-contact)
+    - [Multiple Handlers Multiple Matching Contacts](#multiple-handler-multiple-matching-contacts)
+    - [Multiple Handlers Multiple Non-Matching Contacts](#multiple-handler-multiple-non-matching-contacts)
+    - [Multiple Handlers Some Matching Contacts](#multiple-handler-some-matching-contacts)
 - [Wrapping Up](#wrapping-up)
 - [References](#references)
 
 TODO: add filters to handlers
-TODO: add severitesi to contacts
+TODO: add severities to contacts
+
 # Prerequisites
 
 Before diving into this guide, we recommend having the following components ready:
@@ -31,12 +45,12 @@ Before diving into this guide, we recommend having the following components read
 
 If you've not already signed up for Sensu Enterprise, you can do so via [this link][1].
 
-In this guide we'll be using [Slack][2] and [Email][3] handlers for our demostration.
+In this guide we'll be using [Slack][2] and [Email][3] handlers for our demonstration.
 
 # Overview
 
 Every incident, outage or event has an ideal first responder. This can be either
-a team or invdividual with the knowledge to tirage and address the issue. Sensu
+a team or individual with the knowledge to tirage and address the issue. Sensu
 Enterprise contact routing makes it possible to assign checks to specific teams
 and/or individuals, reducing mean time to response and recovery (MTTR). Contact
 routing works with all of the Sensu Enterprise third-party notification and
@@ -56,18 +70,7 @@ dissimilar from a contact on your phone, which usually have a name and one or
 more _identifiers_ for various communication **channels** (e.g. a **phone**
 _number_, **email** _address_, **Twitter** _username_, etc).
 
-### Contact Routing and Sensu Event Pipeline
-
-When a check is executed and an event is generated, Sensu splits handling
-of the event for each handler defined. When multiple handlers are defined, each
-handler is managed independently. This means that each handler is processed
-independent of any other handler configured.
-
-<img alt="Contact Routing and Monitoring Event Pipeline" title="Contact Routing and Monitoring Event Pipeline" src="/images/contact-routing-MEP.png">
-
-Contacts are merged into the check handlers after filters are applied. After merging in the different valid contacts, a handler is executed for each valid contact. If a contact does not have a configuration for a handler, then the default configuration for that handler is used instead.
-
-## Contact Configuration
+### Contact Configuration
 
 Configuring a contact requires you to define the name of the contact and the
 services plus configuration override for that contact.
@@ -89,30 +92,34 @@ services plus configuration override for that contact.
 
 In the example above we have a contact named **support**. For **support** we
 have an override configuration for email and slack. In our example we're having
-this contact email _support@sensuapp.com_ instead of the email intergration's
+this contact email _support@sensuapp.com_ instead of the email integration's
 default **to** address. For Slack, we're defining the channel the event should
 post to, in this case _#support_.
 
-## Check Configuration
+### Check Configuration
 
 Once a contact has been defined, we can now apply which contact to use in a
 check configuration. The use case for having it on a check could be that the
 client is owned by a particular team or group, the same can be done for specific
-checks. For instance 
+checks. For instance:
 
 {{< highlight json >}}
 {
   "checks": {
     "example_check": {
       "command": "do_something.rb",
-      "handler": "email",
-      "contact": "support"
+      "handlers": [
+        "email"
+      ],
+      "contacts": [
+        "support"
+      ]
     }
   }
 }
 {{< /highlight >}}
 
-## Client Configuration
+### Client Configuration
 
 A client configuration can include a contact to use.
 
@@ -132,9 +139,11 @@ A client configuration can include a contact to use.
 
 # Example Implementations
 
-## Default Configuration
+In this section we will be showcasing how contact routing interacts depending on the different possible configurations.
 
-For the examples we'll be working with we want to define what our default handlers will be.
+## Global Configuration
+
+For the examples we'll be working with we want to define what our global handlers will be.
 
 In the following section we'll be going over different scenarios and showcase how contact routing would be used and how contact routing affects notifications being sent. We'll be using Email, Slack and Pagerduty as our example handlers.
 
@@ -159,7 +168,7 @@ Bellow is the default configuration for the handlers we'll be working with in ou
         "user_name": "postmaster@example.com",
         "password": "SECRET"
       },
-      "to": "support@example.com",
+      "to": "default@example.com",
       "from": "noreply@example.com",
       "timeout": 10
     },
@@ -171,12 +180,11 @@ Bellow is the default configuration for the handlers we'll be working with in ou
 }
 {{< /highlight >}}
 
-## Multiple Handlers With Matching Contacts
+## Single Handler
 
-TODO: Check with email and slack handler, contact with email and slack
+### Single Handler with Single Matching Contact
 
-In this configuration we see that our contact and check both have a
-configuration for email and slack.
+This configuration we have a single handler (email) a contact (support) configured. The support contact has a configuration override for email that will change the default "to" email address from "default@example.com" to "support@sensuapp.com".
 
 {{< highlight json >}}
 {
@@ -184,10 +192,203 @@ configuration for email and slack.
     "example_check": {
       "command": "do_something.rb",
       "handlers": [
-        "email",
-        "slack"
+        "email"
       ],
-      "contact": "support"
+      "contacts": [
+        "support"
+      ]
+    }
+  },
+  "contacts": {
+    "support": {
+      "email": {
+        "to": "support@sensuapp.com"
+      }
+    }
+  }
+}
+{{< /highlight >}}
+
+Because the contact configuration matches the handler being used, any event generated for this check will use this contact's configuration.
+
+TODO: ADD IMAGE
+<img alt="Single Handler with Single Matching Contact" title="Single Handler with Single Matching Contact" src="/images/contact-routing-single-handler-single-matching-contact.png">
+
+### Single Handler Single Non-Matching Contact
+
+This configuration has a single handler (email) a contact (support) configured. The support contact does not have a configuration override for email.
+
+{{< highlight json >}}
+{
+  "checks": {
+    "example_check": {
+      "command": "do_something.rb",
+      "handlers": [
+        "email"
+      ],
+      "contacts": [
+        "support"
+      ]
+    }
+  },
+  "contacts": {
+    "support": {
+      "pagerduty": {
+        "service_key": "foobarkey"
+      }
+    }
+  }
+}
+{{< /highlight >}}
+
+Even though the contact "support" matches in both the check and contacts, since there is no configuration under the support contact for "email", no change to the default email configuration is made and the default configuration is used. In our example the email will be sent to "default@example.com".
+
+TODO: ADD IMAGE
+<img alt="Single Handler with Single Non-Matching Contact" title="Single Handler with Single Non-Matching Contact" src="/images/contact-routing-single-handler-single-non-matching-contact.png">
+
+
+### Single Handler Multiple Matching Contacts
+
+In this configuration we have a single handler (email) and multiple contacts (support and dev) configured. The support and dev contacts have a configuration override for email handler to send their emails to "support@sensuapp.org" and "dev@sensuapp.org" respectively.
+
+{{< highlight json >}}
+{
+  "checks": {
+    "example_check": {
+      "command": "do_something.rb",
+      "handlers": [
+        "email"
+      ],
+      "contacts": [
+        "support",
+        "dev"
+      ]
+    }
+  },
+  "contacts": {
+    "support": {
+      "email": {
+        "to": "support@sensuapp.org"
+      }
+    },
+    "dev": {
+      "email": {
+        "to": "dev@sensuapp.org"
+      }
+    }
+  }
+}
+{{< /highlight >}}
+
+In this instance, although we are using only one handler (email), the handler is ran multiple times to send an email once to "support@sensuapp.org" and once to "dev@sensuapp.org":
+
+TODO: ADD IMAGE
+<img alt="Single Handler with Single Matching Contact" title="Single Handler with Single Matching Contact" src="/images/contact-routing-single-handler-single-matching-contact.png">
+
+### Single Handler Multiple Non-Matching Contacts
+
+In this configuration we have a single handler (email) and multiple contacts (support and dev) configured. The "support" contact has an override configuration for "slack" and the "dev" contact has an override configuration for "pagerduty", neither of which have an override configuration for "email".
+
+{{< highlight json >}}
+{
+  "checks": {
+    "example_check": {
+      "command": "do_something.rb",
+      "handlers": [
+        "email"
+      ],
+      "contacts": [
+        "support",
+        "dev"
+      ]
+    }
+  },
+  "contacts": {
+    "support": {
+      "slack": {
+        "channel": "#support"
+      }
+    },
+    "dev": {
+      "pagerduty": {
+        "service_key": "foobarkey"
+      }
+    }
+  }
+}
+{{< /highlight >}}
+
+In this instance, since the contacts defined do not have an override configuration for "email" the default configuration for "email" will be used, in our example an email will be sent to "default@example.com"
+
+TODO: ADD IMAGE
+<img alt="Single Handler with Single Matching Contact" title="Single Handler with Single Matching Contact" src="/images/contact-routing-single-handler-single-matching-contact.png">
+
+### Single Handler Some Matching Contacts
+
+In this configuration we have a single handler (email) and multiple contacts (support, dev and engineering) configured. The "support" contact has an override configuration for "email", the "dev" contact has an override configuration for "pagerduty" and the "engineering" contact has an override configuration for "slack".
+
+Since two contacts 
+
+{{< highlight json >}}
+{
+  "checks": {
+    "example_check": {
+      "command": "do_something.rb",
+      "handlers": [
+        "email"
+      ],
+      "contacts": [
+        "support",
+        "dev"
+      ]
+    }
+  },
+  "contacts": {
+    "support": {
+      "email": {
+        "to": "support@sensuapp.org"
+      }
+    },
+    "dev": {
+      "pagerduty": {
+        "service_key": "foobarkey"
+      }
+    },
+    "engineering": {
+      "slack": {
+        "channel": "#engineering"
+      }
+    },
+  }
+}
+{{< /highlight >}}
+
+For this instance two emails will be generated. The first email will be sent to "support" contact at "support@sensuapp.org". The second email will be sent to our default email at "default@exmaple.com". 
+
+The reason for this is that since we have one or more contacts that do not have a configuration override for "email", we use the default configuration.
+
+TODO: possibly make the above a note. 
+
+TODO: ADD IMAGE
+<img alt="Single Handler with Single Matching Contact" title="Single Handler with Single Matching Contact" src="/images/contact-routing-single-handler-single-matching-contact.png">
+
+## Multiple Handlers
+
+### Multiple Handlers Matching Contact
+
+This configuration we have two handlers (email and slack) a contact (support) configured. The support contact has a configuration override for email that will change the default "to" email address from "default@example.com" to "support@sensuapp.com" and a configuration override for slack to change the channel from "#alerts" to "#support"
+
+{{< highlight json >}}
+{
+  "checks": {
+    "example_check": {
+      "command": "do_something.rb",
+      "handlers": [
+        "email"
+      ],
+      "contacts": [
+        "support"
+      ]
     }
   },
   "contacts": {
@@ -196,24 +397,22 @@ configuration for email and slack.
         "to": "support@sensuapp.com"
       },
       "slack": {
-        "channel": "#t1support"
+        "channel": "#support"
       }
     }
   }
 }
 {{< /highlight >}}
 
-An event generated by this check would have an email sent to "support@sensuapp.com" and to the #t1support channel. 
-<img alt="Contact Routing Multiple Handlers with Matching Contact" title="Contact Routing Multiple Handlers with Matching Contact" src="/images/contact-routing-multiple-handlers-matching-single-contact.png">
+Because the contact configuration matches both handlers being used, any event generated for this check will use this contact's configuration.
 
-## Multiple Handlers With Single Matching Contact
+TODO: ADD IMAGE
+<img alt="Single Handler with Single Matching Contact" title="Single Handler with Single Matching Contact" src="/images/contact-routing-single-handler-single-matching-contact.png">
 
-When having a check with multiple handlers define it is important to note that
-Sensu does not skip a handler if a contact does not contain configuration for
-said handler. Sensu will use the default configuration in these cases.
 
-A typical scenario when using contacts is that you'll have a single service
-configured for the contact and a check with multiple handlers.
+### Multiple Handlers Single Matching Contact
+
+This configuration we have two handlers (email and slack) a contact (support) configured. The support contact has a configuration override for only email that will change the default "to" email address from "default@example.com" to "support@sensuapp.com". The support contact does not have a handler override for the slack handler. 
 
 {{< highlight json >}}
 {
@@ -221,10 +420,11 @@ configured for the contact and a check with multiple handlers.
     "example_check": {
       "command": "do_something.rb",
       "handlers": [
-        "email",
-        "slack"
+        "email"
       ],
-      "contact": "support"
+      "contacts": [
+        "support"
+      ]
     }
   },
   "contacts": {
@@ -237,69 +437,15 @@ configured for the contact and a check with multiple handlers.
 }
 {{< /highlight >}}
 
-For an event generated by the above check, we sould receive an email at
-"support@sensuapp.com" and a slack message in our default channel, #support.
+Because the contact configuration on only the email handler, only the email handler will be override. The default configuration for slack will be used.
 
-<img alt="Contact Routing Multiple Handlers with Single Contact" title="Contact Routing Multiple Handlers with Single Contact" src="/images/contact-routing-multiple-handlers-single-contact.png">
+TODO: ADD IMAGE
+<img alt="Single Handler with Single Matching Contact" title="Single Handler with Single Matching Contact" src="/images/contact-routing-single-handler-single-matching-contact.png">
 
-## Mulitple Handlers with Single Matching Contact
+###  Multiple Handlers Single Non-Matching Contact
 
-TODO: Check with PagerDuty and slack handler, contact with only email
+Similar to the previous configuration, we have two handlers (email and slack) a contact (support) configured. The support contact has a configuration override for pagerduty that will change the default "service_key". The support contact does not have a handler override for the slack or email handler. 
 
-Similar to the above example here we have a check that has both a pagerduty and
-slack handler configured. Our contact is configured with email and slack
-configuration.
-
-{{< highlight json >}}
-{
-  "checks": {
-    "example_check": {
-      "command": "do_something.rb",
-      "handlers": [
-        "pagerduty",
-        "slack"
-      ],
-      "contact": "support"
-    }
-  },
-  "contacts": {
-    "support": {
-      "email": {
-        "to": "support@sensuapp.com"
-      },
-      "slack": {
-        "channel": "#t1support"
-      }
-    }
-  }
-}
-{{< /highlight >}}
-
-With this example, any event generated by the check will have a pagerduty event
-generated and a message posted to #t1support. There would not be an email sent
-to support@sesuapp.com since the check does not have "email" defined as a
-handler.
-
-<img alt="Contact Routing Multiple Handlers with Single Matching Contact" title="Contact Routing Multiple Handlers with Single Matching Contact" src="/images/contact-routing-multiple-handlers-single-matching-contact.png">
-
-## Single Handler Examples With Single Contact Examples
-
-TODO: Check with PagerDuty handler, contact with email and slack
-{{< highlight json >}}
-{
-  "checks": {
-    "example_check": {
-      "command": "do_something.rb",
-      "handlers": [
-        "pagerduty"
-      ],
-      "contact": "support"
-    }
-  }
-}
-{{< /highlight >}}
-
-TODO: Check with email and slack handler, contact with pagerduty
 {{< highlight json >}}
 {
   "checks": {
@@ -309,22 +455,29 @@ TODO: Check with email and slack handler, contact with pagerduty
         "email",
         "slack"
       ],
-      "contact": "support"
+      "contacts": [
+        "support"
+      ]
+    }
+  },
+  "contacts": {
+    "support": {
+      "pagerduty": {
+        "service_key": "foobarkey"
+      }
     }
   }
 }
 {{< /highlight >}}
 
-## Multiple Handlers with Multipe Contacts Examples
-TODO: Check with email and slack handler, contact with only email, contact with slack
+Since the contact does not have a configuration override for email or slack the default configuration for those handlers are used instead.
 
-With contact routing, each handler configured for each contact will be applied
-and processed independent of eachother. This gives you the added benefit of
-being able to have multiple contacts applied to a single check or client and
-override the same values for the same handler.
+TODO: ADD IMAGE
+<img alt="Single Handler with Single Matching Contact" title="Single Handler with Single Matching Contact" src="/images/contact-routing-single-handler-single-matching-contact.png">
 
-In our example bellow we have two contacts, both of which are configured with
-email values override.
+###  Multiple Handlers Multiple Matching Contacts
+
+In this example we have two handlers configured for our check, email and slack. We have two contacts being used, support and dev, and both contacts have configuration override for both email and slack. 
 
 {{< highlight json >}}
 {
@@ -337,34 +490,40 @@ email values override.
       ],
       "contacts": [
         "support",
-        "helpdesk"
+        "dev"
       ]
     }
-  }
-}
-{{< /highlight >}}
-
-{{< highlight json >}}
-{
+  },
   "contacts": {
     "support": {
       "email": {
-        "to": "support@sensuapp.com"
+        "to": "support@sensuapp.org"
+      },
+      "slack": {
+        "channel": "#support"
       }
     },
-    "helpdesk":{
+    "dev": {
       "email": {
-        "to": "helpdesk@sensuapp.com"
+        "to": "dev@sensuapp.org"
+      },
+      "slack": {
+        "channel": "#dev"
       }
     }
   }
 }
 {{< /highlight >}}
 
-When an event is generated for the above check, two emails will be sent. One to
-support@ and one to helpdesk@. A single slack notification would be sent in this case.
+Since both contacts match and both contacts have configuration overrides for both handlers, four handler events are generated. Two emails will be sent, one for support contact to "support@sensuapp.org" and one to dev contact to "dev@sensuapp.org". The same is true for the slack handler with the support contact creating a message in "#support" slack channel and the dev contact creating a message in "#dev" slack channel.
 
-In the bellow example we have 
+TODO: ADD IMAGE
+<img alt="Single Handler with Single Matching Contact" title="Single Handler with Single Matching Contact" src="/images/contact-routing-single-handler-single-matching-contact.png">
+
+###  Multiple Handler Multiple Non-Matching Contacts
+
+In this example we have two handlers configured for our check, email and slack. We have two contacts being used, support and dev, and both contacts have configuration override for pagerduty and do not include any override for slack or email. 
+
 {{< highlight json >}}
 {
   "checks": {
@@ -376,31 +535,33 @@ In the bellow example we have
       ],
       "contacts": [
         "support",
-        "helpdesk"
+        "dev"
       ]
     }
-  }
-}
-{{< /highlight >}}
-
-{{< highlight json >}}
-{
+  },
   "contacts": {
     "support": {
-      "email": {
-        "to": "support@sensuapp.com"
+      "pagerduty": {
+        "service_key": "supportfoobarkey"
       }
     },
-    "helpdesk":{
-      "email": {
-        "to": "helpdesk@sensuapp.com"
+    "dev": {
+      "pagerduty": {
+        "service_key": "devfoobarkey"
       }
     }
   }
 }
 {{< /highlight >}}
 
-TODO: Check with email and slack handler, contact with only pagerduty, contact with slack and email, contact with 
+Since both contacts match and both contacts have configuration overrides for both handlers, four handler events are generated. Two emails will be sent, one for support contact to "support@sensuapp.org" and one to dev contact to "dev@sensuapp.org". The same is true for the slack handler with the support contact creating a message in "#support" slack channel and the dev contact creating a message in "#dev" slack channel.
+
+TODO: ADD IMAGE
+<img alt="Single Handler with Single Matching Contact" title="Single Handler with Single Matching Contact" src="/images/contact-routing-single-handler-single-matching-contact.png">
+
+###  Multiple Handler Some Matching Contacts
+
+In this example we have two handlers configured for our check, email and slack. We have three contacts being used, support, dev and eng. Support has a contact override for email and dev has a contact override for slack. eng has a contact override for pagerduty which is not a handler that the check is using.
 
 {{< highlight json >}}
 {
@@ -411,17 +572,53 @@ TODO: Check with email and slack handler, contact with only pagerduty, contact w
         "email",
         "slack"
       ],
-      "contact": "support"
+      "contacts": [
+        "support",
+        "dev",
+        "eng"
+      ]
+    }
+  },
+  "contacts": {
+    "support": {
+      "email": {
+        "to": "support@sensuapp.org"
+      }
+    },
+    "dev": {
+      "slack": {
+        "channel": "#dev"
+      }
+    },
+    "eng": {
+      "pagerduty": {
+        "service_key": "foobarkey"
+      }
     }
   }
 }
 {{< /highlight >}}
 
+With some contacts having at least one single matching contact override we can expect that there will be four different handler events generated. 
 
-## Single Handler with Single Contact Example
+For email handler we will be sending an email to the support contact override of "support@sensuapp.org". Since dev and eng do not have a contact override for email a single email will be sent to our default email configured, which in our case is "default@example.com".
 
+For slack handler, similar to our email handler, we'll be creating a message for our dev contact override to "#dev" channel. With support and eng both not having a contact override for slack, an message will be sent to our default slack channel configured, in our case "#alerts". 
+
+TODO: ADD IMAGE
+<img alt="Single Handler with Single Matching Contact" title="Single Handler with Single Matching Contact" src="/images/contact-routing-single-handler-single-matching-contact.png">
 
 # Wrapping Up
+### Contact Routing and Sensu Event Pipeline
+
+When a check is executed and an event is generated, Sensu splits handling
+of the event for each handler defined. When multiple handlers are defined, each
+handler is managed independently. This means that each handler is processed
+independent of any other handler configured.
+
+<img alt="Contact Routing and Monitoring Event Pipeline" title="Contact Routing and Monitoring Event Pipeline" src="/images/contact-routing-MEP.png">
+
+Contacts are merged into the check handlers after filters are applied. After merging in the different valid contacts, a handler is executed for each valid contact. If a contact does not have a configuration for a handler, then the default configuration for that handler is used instead.
 # References
 # Additional Resources
 
