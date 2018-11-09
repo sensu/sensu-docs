@@ -367,7 +367,7 @@ The Sensu client socket(s) in combination with check TTLs can be used to create
 what's commonly referred to as "dead man's switches". Outside of the software
 industry, a dead man's switch is a switch that is automatically triggered if a
 human operator becomes incapacitated (source: [Wikipedia][18]). Sensu is more
-interested in detecting silent failures than incapacited human operators. By
+interested in detecting silent failures than incapacitated human operators. By
 using Check TTLs, Sensu is able to set an expectation that a Sensu client will
 continue to publish results for a check at a regular interval. If a Sensu client
 fails to publish a check result and the check TTL expires, Sensu will create an
@@ -866,6 +866,7 @@ Enterprise AWS EC2 integration][39].**
     },
     "ec2": {
       "instance_id": "i-424242",
+      "account": "sensu-testing",
       "allowed_instance_states": [
         "running",
         "rebooting"
@@ -929,6 +930,13 @@ required     | false
 type         | Integer
 default      | `10`
 example      | {{< highlight shell >}}"timeout": 30{{< /highlight >}}
+
+account      | 
+-------------|------
+description  | The account name as specified in `/etc/sensu/conf.d/ec2.json` if using Sensu across AWS accounts.
+required     | false
+type         | String
+example      | {{< highlight shell >}}"account": "sensu-testing"{{< /highlight >}}
 
 #### `chef` attributes
 
