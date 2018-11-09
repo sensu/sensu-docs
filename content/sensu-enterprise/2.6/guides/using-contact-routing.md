@@ -16,6 +16,7 @@ menu:
     - [Contact Configuration](#contact-configuration)
     - [Check Configuration](#check-configuration)
     - [Client Configuration](#client-configuration)
+- [Example Implementation](#example-implementation)
   - [Default Configuration](#default-configuration)
   - [Single Handler](#single-handler)
     - [Single Handler Single Matching Contact](#single-handler-single-matching-contact)
