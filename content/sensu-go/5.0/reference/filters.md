@@ -31,7 +31,7 @@ of a `handler` (or `handlers`). Prior to executing each handler, the Sensu
 server will first apply any configured `filters` for the handler.
 * If multiple `filters` are configured for a handler, they are executed
 sequentially.
-* Filter `statements` are compared with event data.
+* Filter `expressions` are compared with event data.
 * Filters can be inclusive (only matching events are handled) or exclusive
 (matching events are not handled).
 * As soon as a filter removes an event, no further
@@ -51,28 +51,37 @@ _exclusive_ filters is the equivalent of using an `OR` operator (only
 handle events if they don’t match `x OR y OR z`).
 
 * **Inclusive filtering**: by setting the filter definition attribute `"action":
-"allow"`, only events that match the defined filter statements are handled.
+"allow"`, only events that match the defined filter expressions are handled.
 * **Exclusive filtering**: by setting the filter definition attribute `"action":
 "deny"`, events are only handled if they do not match the defined filter 
-statements.
+expressions.
 
-### Filter statement comparison
+### Filter expression comparison
 
-Filter statements are compared directly with their event data counterparts. For
-inclusive filter definitions (like `"action": "allow"`), matching statements
+Filter expressions are compared directly with their event data counterparts. For
+inclusive filter definitions (like `"action": "allow"`), matching expressions
 will result in the filter returning a `true` value; for exclusive filter
-definitions (like `"action": "deny"`), matching statements will result in the
+definitions (like `"action": "deny"`), matching expressions will result in the
 filter returning a `false` value, and the event will not pass through the
 filter. Filters that return a true value will continue to be processed via
 additional filters (if defined), mutators (if defined), and handlers.
 
-### Filter statement evaluation
+### Filter expression evaluation
 
-When more complex conditional logic is needed than direct filter statement
-comparison, Sensu filters provide support for statements evaluation using
-[govaluate](https://github.com/Knetic/govaluate/blob/master/MANUAL.md)
-expressions. If the evaluated expression returns true,
-the statement is a match.
+When more complex conditional logic is needed than direct filter expression
+comparison, Sensu filters provide support for expression evaluation using
+[otto](https://github.com/robertkrimen/otto). Otto is an ECMA5 (Javascript) VM,
+and will evaluate javascript expressions that are provided in the filter.
+There are some caveats to using Otto; most notably, the regular expressions
+specified in ECMA5 do not all work. See the Otto readme for more details.
+
+### Filter Assets
+
+Sensu filters can have assets that are included in their execution context.
+When valid assets are associated with a filter, Sensu will evaluate any
+files it finds that have a ".js" extension before executing a filter. The
+result of evaluating the scripts is cached for a given asset set, for the
+sake of performance.
 
 ## Filter specification
 
@@ -89,19 +98,19 @@ environment.
 
 action       | 
 -------------|------
-description  | Action to take with the event if the filter statements match. _NOTE: see [Inclusive and exclusive filtering][1] for more information._
+description  | Action to take with the event if the filter expressions match. _NOTE: see [Inclusive and exclusive filtering][1] for more information._
 required     | true
 type         | String
 allowed values | `allow`, `deny`
 example      | {{< highlight shell >}}"action": "allow"{{< /highlight >}}
 
-statements   | 
+expressions   | 
 -------------|------
-description  | Filter statements to be compared with event data.
+description  | Filter expressions to be compared with event data.
 required     | true
 type         | Array
-example      | {{< highlight shell >}}"statements": [
-  "event.Check.Team == 'ops'"
+example      | {{< highlight shell >}}"expressions": [
+  "event.check.team == 'ops'"
 ]
 {{< /highlight >}}
 
@@ -173,8 +182,8 @@ match event data with a custom entity definition attribute `"environment":
 {
   "name": "production_filter",
   "action": "allow",
-  "statements": [
-    "event.Entity.Environment == 'production'"
+  "expressions": [
+    "event.entity.environment == 'production'"
   ]
 }
 {{< /highlight >}}
@@ -191,8 +200,8 @@ returns false, the event will be handled.
 {
   "name": "development_filter",
   "action": "deny",
-  "statements": [
-    "event.Entity.Environment == 'production'"
+  "expressions": [
+    "event.entity.environment == 'production'"
   ]
 }
 {{< /highlight >}}
@@ -207,8 +216,8 @@ old monitoring system which alerts only on state change. This
 {
   "name": "state_change_only",
   "action": "allow",
-  "statements": [
-    "event.Check.Occurrences == 1"
+  "expressions": [
+    "event.check.occurrences == 1"
   ]
 }
 {{< /highlight >}}
@@ -226,9 +235,9 @@ operator](https://en.wikipedia.org/wiki/Modulo_operation) calculation
 {
   "name": "filter_interval_60_hourly",
   "action": "allow",
-  "statements": [
-    "event.Check.Interval == 60",
-    "event.Check.Occurrences == 1 || event.Check.Occurrences % 60 == 0"
+  "expressions": [
+    "event.check.interval == 60",
+    "event.check.occurrences == 1 || event.check.occurrences % 60 == 0"
   ]
 }
 {{< /highlight >}}
@@ -240,9 +249,9 @@ checks with a 30 second `interval`.
 {
   "name": "filter_interval_30_hourly",
   "action": "allow",
-  "statements": [
-    "event.Check.Interval == 30",
-    "event.Check.Occurrences == 1 || event.Check.Occurrences % 120 == 0"
+  "expressions": [
+    "event.check.interval == 30",
+    "event.check.occurrences == 1 || event.check.occurrences % 120 == 0"
   ]
 }
 {{< /highlight >}}
@@ -259,15 +268,33 @@ same result.
 {
   "name": "nine_to_fiver",
   "action": "allow",
-  "statements": [
-    "weekday(event.Timestamp) >= 1 && weekday(event.Timestamp) <= 5",
-    "hour(event.Timestamp) >= 9 && hour(event.Timestamp) <= 17"
+  "expressions": [
+    "weekday(event.timestamp) >= 1 && weekday(event.timestamp) <= 5",
+    "hour(event.timestamp) >= 9 && hour(event.timestamp) <= 17"
   ]
 }
 {{< /highlight >}}
 
 _NOTE: Sensu handles dates and times in UTC (Coordinated Universal Time), therefore
 when comparing the weekday or the hour, you should provide values in UTC._
+
+### Using javascript libraries with Sensu filters
+
+Users can include javascript libraries in their filter execution context with
+assets. For instance, assuming a user packaged underscore.js into a Sensu
+asset, they could then use functions from the underscore library for filter
+expressions.
+
+{{< highlight json >}}
+{
+  "name": "deny_if_failure_in_history",
+  "action": "deny",
+  "runtime_assets": ["underscore"],
+  "expressions": [
+    "_.reduce(event.check.history, function(memo, h) { return (memo || h.status != 0); })"
+  ]
+}
+{{< /highlight >}}
 
 [1]: #inclusive-and-exclusive-filtering
 [2]: #when-attributes

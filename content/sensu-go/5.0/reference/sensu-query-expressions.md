@@ -15,23 +15,25 @@ menu:
 
 ## How do Sensu query expressions work?
 
-Sensu query expressions (**SQE**) are based on [govaluate][1] expressions, and
+Sensu query expressions (**SQE**) are based on [javascript][3] expressions, and
 provide additional functionalities for Sensu usage (like nested parameters and
 custom functions) so Sensu resources can be directly evaluated. SQE should
 always return **true** or **false**.
 
-## New and improved expressions
+## Javascript for expressions instead of Ruby
 
 Sensu 1 uses [Ruby expressions][2], which are not available in Sensu 2, being
-written in Go. Therefore, the syntax has been changed a bit but in return, it is
-now possible to use custom functions, which allow more complex expressions.
+written in Go. The existence of a Go library that provides a Javascript VM has
+allowed us to embed a Javascript execution engine for filters instead. Sadly,
+there is no equivalent Ruby VM library.
 
-## Sensu query expressions specification
+## Sensu Query Expressions specification
 
-### Govaluate operators
+### Javascript 
 
-All [govaluate operators][3] are available in Sensu query expressions. However
-**modifier operators** may not be used in Sensu **assets**.
+Sensu query expressions are valid ECMA5 (Javascript) expressions that return
+**true** or **false**. Other values are not allowed. If other values are
+returned, an error will be logged and the filter will evaluate to false.
 
 ### Custom functions
 
@@ -39,21 +41,21 @@ All [govaluate operators][3] are available in Sensu query expressions. However
   Epoch time.
 
 {{< highlight go >}}
-// event.Timestamp equals to 1520275913, which is Monday, March 5, 2018 6:51:53 PM UTC
+// event.timestamp equals to 1520275913, which is Monday, March 5, 2018 6:51:53 PM UTC
 // The following expression returns true
-hour(event.Timestamp) >= 17
+hour(event.timestamp) >= 17
 {{< /highlight >}}
 
 * `weekday`: returns a number representing the day of the week, where Sunday
   equals `0`, of a UNIX Epoch time.
 
 {{< highlight go >}}
-// event.Timestamp equals to 1520275913, which is Monday, March 5, 2018 6:51:53 PM UTC
+// event.timestamp equals to 1520275913, which is Monday, March 5, 2018 6:51:53 PM UTC
 // The following expression returns false
-weekday(event.Timestamp) == 0
+weekday(event.timestamp) == 0
 {{< /highlight >}}
 
-## Sensu query expressions examples
+## Sensu Query Expressions examples
 
 ### Simple evaluation of an event attribute
 
@@ -64,12 +66,12 @@ attribute named `Environment` that is equal to `production`.
 event.Entity.Environment == 'production'
 {{< /highlight >}}
 
-### Evaluating the weekday
+### Evaluating the day of the week
 
 The following example returns true if the event occurred on a weekday.
 
 {{< highlight javascript >}}
-weekday(event.Timestamp) >= 1 && weekday(event.Timestamp) <= 5
+weekday(event.timestamp) >= 1 && weekday(event.timestamp) <= 5
 {{< /highlight >}}
 
 
@@ -79,9 +81,8 @@ The following example returns true if the event occurred between 9 AM and 5 PM
 UTC.
 
 {{< highlight javascript >}}
-hour(event.Timestamp) >= 9 && hour(event.Timestamp) <= 17
+hour(event.timestamp) >= 9 && hour(event.timestamp) <= 17
 {{< /highlight >}}
 
-[1]: https://github.com/Knetic/govaluate
 [2]: ../../../latest/reference/filters/#what-are-filter-attribute-eval-tokens
-[3]: https://github.com/Knetic/govaluate/blob/master/MANUAL.md#operators
+[3]: https://github.com/robertkrimen/otto
