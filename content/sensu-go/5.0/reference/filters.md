@@ -70,15 +70,15 @@ additional filters (if defined), mutators (if defined), and handlers.
 
 When more complex conditional logic is needed than direct filter expression
 comparison, Sensu filters provide support for expression evaluation using
-[otto](https://github.com/robertkrimen/otto). Otto is an ECMA5 (Javascript) VM,
-and will evaluate javascript expressions that are provided in the filter.
+[Otto](https://github.com/robertkrimen/otto). Otto is an ECMAScript 5 (JavaScript) VM,
+and evaluates javascript expressions that are provided in the filter.
 There are some caveats to using Otto; most notably, the regular expressions
-specified in ECMA5 do not all work. See the Otto readme for more details.
+specified in ECMAScript 5 do not all work. See the Otto README for more details.
 
 ### Filter Assets
 
 Sensu filters can have assets that are included in their execution context.
-When valid assets are associated with a filter, Sensu will evaluate any
+When valid assets are associated with a filter, Sensu evaluates any
 files it finds that have a ".js" extension before executing a filter. The
 result of evaluating the scripts is cached for a given asset set, for the
 sake of performance.
@@ -278,11 +278,11 @@ same result.
 _NOTE: Sensu handles dates and times in UTC (Coordinated Universal Time), therefore
 when comparing the weekday or the hour, you should provide values in UTC._
 
-### Using javascript libraries with Sensu filters
+### Using JavaScript libraries with Sensu filters
 
-Users can include javascript libraries in their filter execution context with
-assets. For instance, assuming a user packaged underscore.js into a Sensu
-asset, they could then use functions from the underscore library for filter
+You can include JavaScript libraries in their filter execution context with
+assets. For instance, assuming you've packaged underscore.js into a Sensu
+asset, you could then use functions from the underscore library for filter
 expressions.
 
 {{< highlight json >}}

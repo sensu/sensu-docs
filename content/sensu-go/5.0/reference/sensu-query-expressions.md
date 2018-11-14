@@ -15,25 +15,24 @@ menu:
 
 ## How do Sensu query expressions work?
 
-Sensu query expressions (**SQE**) are based on [javascript][3] expressions, and
+Sensu query expressions (**SQE**) are based on [JavaScript][3] expressions, and
 provide additional functionalities for Sensu usage (like nested parameters and
 custom functions) so Sensu resources can be directly evaluated. SQE should
 always return **true** or **false**.
 
-## Javascript for expressions instead of Ruby
+## New and improved expressions
 
 Sensu 1 uses [Ruby expressions][2], which are not available in Sensu 2, being
-written in Go. The existence of a Go library that provides a Javascript VM has
+written in Go. The existence of a Go library that provides a JavaScript VM has
 allowed us to embed a Javascript execution engine for filters instead. Sadly,
 there is no equivalent Ruby VM library.
 
-## Sensu Query Expressions specification
+## Sensu query expressions specification
 
-### Javascript 
 
-Sensu query expressions are valid ECMA5 (Javascript) expressions that return
+Sensu query expressions are valid ECMAScript 5 (JavaScript) expressions that return
 **true** or **false**. Other values are not allowed. If other values are
-returned, an error will be logged and the filter will evaluate to false.
+returned, an error is logged and the filter evaluates to false.
 
 ### Custom functions
 
@@ -55,7 +54,7 @@ hour(event.timestamp) >= 17
 weekday(event.timestamp) == 0
 {{< /highlight >}}
 
-## Sensu Query Expressions examples
+## Sensu query expressions examples
 
 ### Simple evaluation of an event attribute
 
