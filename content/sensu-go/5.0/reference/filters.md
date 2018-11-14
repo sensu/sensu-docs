@@ -147,6 +147,14 @@ type         | String
 default      | current environment value configured for `sensuctl` (for example: `default`) 
 example      | {{< highlight shell >}}"environment": "default"{{< /highlight >}}
 
+runtime_assets |
+---------------|------
+description    | Assets to be applied to the filter's execution context. JavaScript files in the lib directory of the asset will be evaluated.
+required       | false
+type           | Array of String
+default        | []
+example        | {{< highlight shell >}}"runtime_assets": ["underscore"]{{< /highlight >}}
+
 ### `when` attributes
 
 days         | 
