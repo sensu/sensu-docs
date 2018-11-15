@@ -58,10 +58,10 @@ weekday(event.Timestamp) == 0
 ### Simple evaluation of an event attribute
 
 The following example returns true if the event's entity contains a custom
-attribute named `Environment` that is equal to `production`.
+attribute named `Namespace` that is equal to `production`.
 
 {{< highlight javascript >}}
-event.Entity.Environment == 'production'
+event.Entity.Namespace == 'production'
 {{< /highlight >}}
 
 ### Evaluating the weekday
