@@ -45,7 +45,7 @@ You can use [sensuctl][2] to view all namespaces within Sensu:
 
 {{< highlight shell >}}
 sensuctl namespace list
-{{</highlight>}}
+{{< /highlight >}}
 
 ### Creating a namespace
 
@@ -54,7 +54,7 @@ For example, the following command creates a namespace called `production`:
 
 {{< highlight shell >}}
 sensuctl namespace create production
-{{</highlight>}}
+{{< /highlight >}}
 
 Namespace names can contain alphanumeric characters and hyphens, but must begin and end with an alphanumeric character.
 
@@ -66,7 +66,7 @@ To delete a namespace:
 
 {{< highlight shell >}}
 sensuctl namespace delete [NAMESPACE-NAME]
-{{</highlight>}}
+{{< /highlight >}}
 
 _WARNING: This deletes every resource definition associated with the namespace._
 
@@ -74,7 +74,7 @@ To get help managing namespaces with sensuctl:
 
 {{< highlight shell >}}
 sensuctl namespace help
-{{</highlight>}}
+{{< /highlight >}}
 
 ### Assigning a resource to a namespace
 
@@ -96,7 +96,7 @@ For example, to assign a check called `check-cpu` to the `production` namespace,
     "interval": 30,
     "publish": true
   }
-}{{</highlight>}}
+}{{< /highlight >}}
 
 See [reference docs][16] for the corresponding [resource type][17] to create resource definitions.
 
@@ -109,7 +109,7 @@ name         |
 description  | The name of the namespace. Names can contain alphanumeric characters and hyphens, but must begin and end with an alphanumeric character.
 required     | true 
 type         | String
-example      | {{< highlight shell >}}"name": "production"{{</highlight>}}
+example      | {{< highlight shell >}}"name": "production"{{< /highlight >}}
 
 ## Resources
 Permissions within Sensu are scoped to resource types, like checks, handlers, and users.
@@ -182,19 +182,19 @@ You can use [sensuctl][2] to see a list of all roles within Sensu:
 
 {{< highlight shell >}}
 sensuctl role list
-{{</highlight>}}
+{{< /highlight >}}
 
 To see the permissions and scope for a specific role:
 
 {{< highlight shell >}}
 sensuctl role info admin
-{{</highlight>}}
+{{< /highlight >}}
 
 To view cluster roles, use the `cluster-role` command:
 
 {{< highlight shell >}}
 sensuctl cluster-role list
-{{</highlight>}}
+{{< /highlight >}}
 
 ### Creating a role
 
@@ -203,7 +203,7 @@ For example, the following command creates an admin role restricted to the produ
 
 {{< highlight shell >}}
 sensuctl role create prod-admin --create --get --update --delete --namespace production --type *
-{{</highlight>}}
+{{< /highlight >}}
 
 You can also create a role using a JSON role definition.
 
@@ -219,7 +219,7 @@ You can also create a role using a JSON role definition.
     }
   ]
 }
-{{</highlight>}}
+{{< /highlight >}}
 
 ### Creating a cluster-wide role
 
@@ -228,7 +228,7 @@ For example, the following command creates a global event reader role that can r
 
 {{< highlight shell >}}
 sensuctl cluster-role create global-event-reader --read --type events
-{{</highlight>}}
+{{< /highlight >}}
 
 You can also create a role using a JSON role definition.
 
@@ -243,7 +243,7 @@ You can also create a role using a JSON role definition.
     }
   ]
 }
-{{</highlight>}}
+{{< /highlight >}}
 
 ### Managing roles
 
@@ -254,25 +254,25 @@ To add permissions to a role:
 
 {{< highlight shell >}}
 sensuctl role add-rule [ROLE-NAME] [flags]
-{{</highlight>}}
+{{< /highlight >}}
 
 To remove permissions from a role:
 
 {{< highlight shell >}}
 sensuctl role remove-rule [ROLE-NAME] [flags]
-{{</highlight>}}
+{{< /highlight >}}
 
 To delete a role:
 
 {{< highlight shell >}}
 sensuctl role delete [ROLE-NAME]
-{{</highlight>}}
+{{< /highlight >}}
 
 To get help managing roles with sensuctl:
 
 {{< highlight shell >}}
 sensuctl role help
-{{</highlight>}}
+{{< /highlight >}}
 
 ### Role and cluster role specification
 
@@ -283,14 +283,14 @@ name         |
 description  | Name of the role 
 required     | true 
 type         | String
-example      | {{< highlight shell >}}"name": "admin"{{</highlight>}}
+example      | {{< highlight shell >}}"name": "admin"{{< /highlight >}}
 
 namespace    | 
 -------------|------ 
 description  | Namespace the role is restricted to. If no namespace is specified in a cluster role, the role applies cluster wide.
 required     | false
 type         | String
-example      | {{< highlight shell >}}"namespace": "production"{{</highlight>}}
+example      | {{< highlight shell >}}"namespace": "production"{{< /highlight >}}
 
 rules        | 
 -------------|------ 
@@ -303,7 +303,7 @@ example      | {{< highlight shell >}}"rules": [
     "resources": ["checks"],
     "resourceNames": [""]
   }
-]{{</highlight>}}
+]{{< /highlight >}}
 
 #### Rule attributes
 A rule is an explicit statement which grants a particular permission to a resource.
@@ -313,21 +313,21 @@ verbs  |
 description  | The permissions to be applied by the rule: `create`, `get`, `update`, or `delete`. 
 required     | true 
 type         | Array
-example      | {{< highlight shell >}}"verbs": ["get", "list"]{{</highlight>}}
+example      | {{< highlight shell >}}"verbs": ["get", "list"]{{< /highlight >}}
 
 resources         | 
 -------------|------ 
 description  | The type of resource that the rule has permission to access. Roles can only access [namespaced resource types][17] while cluster roles can access namespaced and [cluster-wide resource types][18]. See [resource types][4] for available types.
 required     | true 
 type         | Array
-example      | {{< highlight shell >}}"resources": ["checks"]{{</highlight>}}
+example      | {{< highlight shell >}}"resources": ["checks"]{{< /highlight >}}
 
 resourceNames    | 
 -------------|------ 
 description  | Specific resource names that the rule has permission to access. Resource name permissions are only available for `get`, `delete`, and `update` verbs.
 required     | false
 type         | Array
-example      | {{< highlight shell >}}"resourceNames": ["check-cpu"]{{</highlight>}}
+example      | {{< highlight shell >}}"resourceNames": ["check-cpu"]{{< /highlight >}}
 
 ## Users
 A user represents a person or an agent which interacts with Sensu.
@@ -410,21 +410,21 @@ username     |
 description  | The name of the user. Cannot contain special characters.
 required     | true 
 type         | String
-example      | {{< highlight shell >}}"name": "alice"{{</highlight>}}
+example      | {{< highlight shell >}}"name": "alice"{{< /highlight >}}
 
 password     | 
 -------------|------ 
 description  | The user's password. Cannot be empty. 
 required     | true 
 type         | String
-example      | {{< highlight shell >}}"password": "P@ssw0rd!"{{</highlight>}}
+example      | {{< highlight shell >}}"password": "P@ssw0rd!"{{< /highlight >}}
 
 groups     | 
 -------------|------ 
 description  | Groups to which the user belongs.
 required     | false 
 type         | Array
-example      | {{< highlight shell >}}"groups": ["dev", "ops"]{{</highlight>}}
+example      | {{< highlight shell >}}"groups": ["dev", "ops"]{{< /highlight >}}
 
 disabled     | 
 -------------|------ 
@@ -432,7 +432,7 @@ description  | The state of the user's account.
 required     | false 
 type         | Boolean 
 default      | false
-example      | {{< highlight shell >}}"disabled": false{{</highlight>}}
+example      | {{< highlight shell >}}"disabled": false{{< /highlight >}}
 
 ## Groups
 
@@ -495,19 +495,19 @@ You can use [sensuctl][2] to see a list of role bindings within Sensu:
 
 {{< highlight shell >}}
 sensuctl role-binding list
-{{</highlight>}}
+{{< /highlight >}}
 
 To see the details for a specific role binding:
 
 {{< highlight shell >}}
 sensuctl role-binding info [BINDING-NAME]
-{{</highlight>}}
+{{< /highlight >}}
 
 To see a list of cluster role bindings:
 
 {{< highlight shell >}}
 sensuctl cluster-role-binding list
-{{</highlight>}}
+{{< /highlight >}}
 
 ### Creating a role binding
 
@@ -515,13 +515,13 @@ You can use [sensuctl][2] to see a create a role binding:
 
 {{< highlight shell >}}
 sensuctl role-binding create [NAME] --role=NAME [--user=username] [--group=groupname]
-{{</highlight>}}
+{{< /highlight >}}
 
 To create a cluster role binding:
 
 {{< highlight shell >}}
 sensuctl cluster-role-binding create [NAME] --cluster-role=NAME [--user=username] [--group=groupname]
-{{</highlight>}}
+{{< /highlight >}}
 
 ### Assigning user permissions
 
@@ -540,13 +540,13 @@ To delete a role binding:
 
 {{< highlight shell >}}
 sensuctl role-binding delete [ROLE-NAME]
-{{</highlight>}}
+{{< /highlight >}}
 
 To get help managing role bindings with sensuctl:
 
 {{< highlight shell >}}
 sensuctl role-binding help
-{{</highlight>}}
+{{< /highlight >}}
 
 ### Role binding and cluster role binding specification
 
@@ -558,7 +558,7 @@ type         | Hash
 example      | {{< highlight shell >}}"roleRef": {
   "type": "Role",
   "name": "event-reader"
-}{{</highlight>}}
+}{{< /highlight >}}
 
 subjects     | 
 -------------|------ 
@@ -570,7 +570,7 @@ example      | {{< highlight shell >}}"subjects": [
     "kind": "User",
     "name": "alice"
   }
-]{{</highlight>}}
+]{{< /highlight >}}
 
 ### `roleRef` specification
 
@@ -579,14 +579,14 @@ type         |
 description  | `Role` for a role binding or `ClusterRole` for a cluster role binding.
 required     | true 
 type         | String
-example      | {{< highlight shell >}}"type": "Role"{{</highlight>}}
+example      | {{< highlight shell >}}"type": "Role"{{< /highlight >}}
 
 name         | 
 -------------|------ 
 description  | The name of the role or cluster role being assigned.
 required     | true 
 type         | String
-example      | {{< highlight shell >}}"name": "event-reader"{{</highlight>}}
+example      | {{< highlight shell >}}"name": "event-reader"{{< /highlight >}}
 
 ### `subjects` specification
 
@@ -595,14 +595,14 @@ kind         |
 description  | `User` for assigning a user or `Group` for assigning a group.
 required     | true 
 type         | String
-example      | {{< highlight shell >}}"kind": "User"{{</highlight>}}
+example      | {{< highlight shell >}}"kind": "User"{{< /highlight >}}
 
 name         | 
 -------------|------ 
 description  | Username or group name.
 required     | true 
 type         | String
-example      | {{< highlight shell >}}"name": "alice"{{</highlight>}}
+example      | {{< highlight shell >}}"name": "alice"{{< /highlight >}}
 
 [1]: ../backend
 [2]: ../../sensuctl/reference
