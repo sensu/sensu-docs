@@ -18,7 +18,7 @@ A Sensu Cluster is a group of [at least 3][1] sensu-backend nodes, each connecte
 
 Clustering is important to make Sensu more highly available, reliable, and durable. It will help you cope with the loss of a backend node, prevent data loss, and distribute the network load of agents.
 
-**Note:** We recommend using a load balancer to _evenly_ distribute agent connections across the cluster.
+_NOTE: We recommend using a load balancer to evenly distribute agent connections across the cluster._
 
 ## Configuring a cluster
 
@@ -32,14 +32,27 @@ We also recommend using stable platforms to support your etcd instances (see [Su
 
 ### backend.yml
 
-Below are example configuration snippets from `/etc/sensu/backend.yml` on three sensu backends named `backend-1`, `backend-2` and `backend-3` with IP addresses `10.1.0.1`, `10.2.0.0` and `10.3.0.0` respectively.
+Below are example configuration snippets from `/etc/sensu/backend.yml` on three sensu backends named `backend-0`, `backend-1` and `backend-2` with IP addresses `10.0.0.1`, `10.1.0.1` and `10.2.0.1` respectively.
+{{< highlight shell >}}
+##
+# store configuration for backend-0/10.0.0.1
+##
+etcd-listen-client-urls: "https://10.0.0.1:2379"
+etcd-listen-peer-urls: "https://0.0.0.0:2380"
+etcd-initial-cluster: "backend-0=https://10.0.0.1:2380,backend-1=https://10.1.0.1:2380,backend-2=https://10.2.0.1:2380"
+etcd-initial-advertise-peer-urls: "https://10.0.0.1:2380"
+etcd-initial-cluster-state: "new"
+etcd-initial-cluster-token: ""
+etcd-name: "backend-0"
+{{< /highlight >}}
+
 {{< highlight shell >}}
 ##
 # store configuration for backend-1/10.1.0.1
 ##
 etcd-listen-client-urls: "https://10.1.0.1:2379"
 etcd-listen-peer-urls: "https://0.0.0.0:2380"
-etcd-initial-cluster: "backend-1=https://10.1.0.1:2380,backend-2=https://10.2.0.1:2380,backend-3=https://10.3.0.1:2380"
+etcd-initial-cluster: "backend-0=https://10.0.0.1:2380,backend-1=https://10.1.0.1:2380,backend-2=https://10.2.0.1:2380"
 etcd-initial-advertise-peer-urls: "https://10.1.0.1:2380"
 etcd-initial-cluster-state: "new"
 etcd-initial-cluster-token: ""
@@ -52,24 +65,11 @@ etcd-name: "backend-1"
 ##
 etcd-listen-client-urls: "https://10.2.0.1:2379"
 etcd-listen-peer-urls: "https://0.0.0.0:2380"
-etcd-initial-cluster: "backend-1=https://10.1.0.1:2380,backend-2=https://10.2.0.1:2380,backend-3=https://10.3.0.1:2380"
+etcd-initial-cluster: "backend-0=https://10.0.0.1:2380,backend-1=https://10.1.0.1:2380,backend-2=https://10.2.0.1:2380"
 etcd-initial-advertise-peer-urls: "https://10.2.0.1:2380"
 etcd-initial-cluster-state: "new"
 etcd-initial-cluster-token: ""
 etcd-name: "backend-2"
-{{< /highlight >}}
-
-{{< highlight shell >}}
-##
-# store configuration for backend-3/10.3.0.1
-##
-etcd-listen-client-urls: "https://10.3.0.1:2379"
-etcd-listen-peer-urls: "https://0.0.0.0:2380"
-etcd-initial-cluster: "backend-1=https://10.1.0.1:2380,backend-2=https://10.2.0.1:2380,backend-3=https://10.3.0.1:2380"
-etcd-initial-advertise-peer-urls: "https://10.3.0.1:2380"
-etcd-initial-cluster-state: "new"
-etcd-initial-cluster-token: ""
-etcd-name: "backend-3"
 {{< /highlight >}}
 
 Using this configuration file at the start up of each sensu-backend accordingly, you should have a highly available Sensu Cluster! You can verify its health and try other cluster management commands using [sensuctl][6].
@@ -106,8 +106,7 @@ $ sensuctl cluster member-add backend-4 https://10.4.0.1:2380
 added member 2f7ae42c315f8c2d to cluster
 
 ETCD_NAME="backend-3"
-ETCD_INITIAL_CLUSTER="backend-1=https://10.1.0.1:2380,backend-2=https://10.2.0.1:2380,backend-3=https://10.3.0.1:2380",backend-4=https://10.4.0.1:2380"
-ETCD_INITIAL_CLUSTER_STATE="existing"
+ETCD_INITIAL_CLUSTER="backend-3=https://10.3.0.1:2380,backend-0=https://10.0.0.1:2380,backend-1=https://10.1.0.1:2380,backend-2=https://10.2.0.1:2380"
 {{< /highlight >}}
 
 ### List cluster members
@@ -118,10 +117,10 @@ List the ID, name, peer urls, and client urls of all nodes in a cluster.
 $ sensuctl cluster member-list
          ID            Name             Peer URLs                Client URLs
  ────────────────── ─────────── ───────────────────────── ─────────────────────────
-  a32e8f613b529ad4   backend-1    https://10.1.0.1:2380     https://10.1.0.1:2379  
-  c3d9f4b8d0dd1ac9   backend-2    https://10.2.0.1:2380     https://10.2.0.1:2379
-  c8f63ae435a5e6bf   backend-3    https://10.3.0.1:2380     https://10.3.0.1:2379
-  2f7ae42c315f8c2d   backend-4    https://10.4.0.1:2380     https://10.4.0.1:2379
+  a32e8f613b529ad4   backend-0    https://10.0.0.1:2380     https://10.0.0.1:2379  
+  c3d9f4b8d0dd1ac9   backend-1    https://10.1.0.1:2380     https://10.1.0.1:2379
+  c8f63ae435a5e6bf   backend-2    https://10.2.0.1:2380     https://10.2.0.1:2379
+  2f7ae42c315f8c2d   backend-3    https://10.3.0.1:2380     https://10.3.0.1:2379
 {{< /highlight >}}
 
 ### Remove a cluster member
