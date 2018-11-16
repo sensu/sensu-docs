@@ -80,7 +80,7 @@ example      | {{< highlight shell >}}"sha512": "4f926bf4328..."{{< /highlight >
 
 filters      | 
 -------------|------ 
-description  | A set of [Sensu query expressions][1] used by the agent to determine if the asset should be installed. If multiple expressions are included, each expression must return true in order for the agent to install the asset. [Modifier operators][2] (for example: `+`, `-`, and `!`) _cannot_ be used in asset filters.
+description  | A set of [Sensu query expressions][1] used by the agent to determine if the asset should be installed. If multiple expressions are included, each expression must return true in order for the agent to install the asset.
 required     | false 
 type         | Array 
 example      | {{< highlight shell >}}"filters": ["System.OS=='linux'", "System.Arch=='amd64'"] {{< /highlight >}}
@@ -113,4 +113,3 @@ example      | {{< highlight shell >}}
 {{< /highlight >}}
 
 [1]: ../../reference/sensu-query-expressions/
-[2]: https://github.com/Knetic/govaluate/blob/master/MANUAL.md#modifiers
