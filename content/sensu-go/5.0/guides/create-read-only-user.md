@@ -39,9 +39,9 @@ sensuctl role-binding create read-only-user --role=view --user=alice
 Now let's say you want to create a user that has read-only access to only events within the `default` namespace.
 Since this user needs different permissions from those provided by the default `view` role, you'll need to create a role before creating the user and role binding.
 
-1. Create an `event-reader` role with `get` permissions for `events` within the `default` namespace:
+1. Create an `event-reader` role with `get` and `list` permissions for `events` within the `default` namespace:
 {{< highlight shell >}}
-sensuctl role create event-reader --get --namespace default --type events
+sensuctl role create event-reader --verb get,list --resource events --namespace default
 {{< /highlight >}}
 
 2. Create a user with the username `bob`:
