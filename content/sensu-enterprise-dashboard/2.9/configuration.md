@@ -255,7 +255,7 @@ user         |
 description  | A username to enable simple authentication and restrict access to the dashboard. Leave blank along with `pass` to disable simple authentication.
 required     | false
 type         | String
-example      | "user": "admin"
+example      | {{< highlight shell >}}"user": "admin"{{< /highlight >}}
 
 pass         | 
 -------------|------
