@@ -543,13 +543,15 @@ log-level: "debug"{{< /highlight >}}
 
 | subscriptions |      |
 ----------------|------
-description     | Comma-separated list of agent subscriptions. Agents execute the checks with the same specified subscriptions.
-type            | String
+description     | An array of agent subscriptions which determine which monitoring checks are executed by the agent. The subscriptions array items must be strings.
+type            | Array
 example         | {{< highlight shell >}}# Command line example
 sensu-agent start --subscriptions disk-checks,process-checks
 
 # /etc/sensu/agent.yml example
-subscriptions: "disk-checks,process-checks"{{< /highlight >}}
+subscriptions:
+  - "disk-checks"
+  - "process-checks"{{< /highlight >}}
 
 
 ### API configuration flags
