@@ -111,7 +111,7 @@ The `is_incident` filter applies the following filtering logic:
 | 1     |✅ |  | | | | |
 | 2     |✅ |  | | | | |
 | other |   |❌| | | | |
-| 1->0 OR 2->0 (resolution event)  |✅ |  | | | | |
+| 1 --> 0 or 2 --> 0<br>(resolution event)  |✅ |  | | | | |
 
 ### Built-in filter: allow silencing
 
