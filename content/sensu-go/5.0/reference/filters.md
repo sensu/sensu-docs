@@ -136,10 +136,11 @@ To allow silencing for an event handler, add the `not_silenced` filter to the ha
 
 When applied to a handler configuration, the `not_silenced` filter silences events that include the `"silenced": true` attribute. The handler in the example above uses both the silencing and [incidents][7] filters, preventing low priority and silenced events from being sent to Slack.
 
-### Built-in filter: only metrics
+### Built-in filter: has metrics
 
 The metrics filter is included in every installation of the [Sensu backend][8].
 When applied to a handler, the metrics filter allows only events containing [Sensu metrics][9] to be processed.
+You can use the metrics filter to prevent handlers that require metrics from failing in case of an error in metric collection.
 
 To use the metrics filter, include the `has_metrics` filter in the handler configuration `filters` array:
 
