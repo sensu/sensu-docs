@@ -329,9 +329,9 @@ Every [Sensu backend][1] includes:
 | Role name       | Type          | Description |
 | --------------- | ------------- | ----------- |
 | `cluster-admin` | `ClusterRole` | Full access to all [resource types][4] across namespaces, including access to [cluster-wide resource types][18].
-| `admin`         | `Role`        | Full access to all [resource types][4] within a namespace. |
-| `edit`          | `Role`        | Read and write access to most resources within a namespace with the exception of roles and role bindings.
-| `view`          | `Role`        | Read-only permission to most [resource types][4] within a namespace with the exception of roles and role bindings.  |
+| `admin`         | `ClusterRole` | Full access to all [resource types][4]. You can apply this cluster role within a namespace by using a role binding (not a cluster role binding).  |
+| `edit`          | `ClusterRole` | Read and write access to most resources with the exception of roles and role bindings.  You can apply this cluster role within a namespace by using a role binding (not a cluster role binding).
+| `view`          | `ClusterRole` | Read-only permission to most [resource types][4] with the exception of roles and role bindings.  You can apply this cluster role within a namespace by using a role binding (not a cluster role binding).  |
 | `system:agent`  | `ClusterRole` | Used internally by Sensu agents. _WARNING: Modification of this cluster role can result in non-functional Sensu agents._ |
 
 ### Viewing roles
@@ -518,10 +518,16 @@ sensuctl cluster-role-binding list
 
 ### Creating a role binding
 
-You can use [sensuctl][2] to see a create a role binding:
+You can use [sensuctl][2] to see a create a role binding that assigns a role:
 
 {{< highlight shell >}}
 sensuctl role-binding create [NAME] --role=NAME [--user=username] [--group=groupname]
+{{< /highlight >}}
+
+Or a role binding that assigns a cluster role:
+
+{{< highlight shell >}}
+sensuctl role-binding create [NAME] --cluster-role=NAME [--user=username] [--group=groupname]
 {{< /highlight >}}
 
 To create a cluster role binding:

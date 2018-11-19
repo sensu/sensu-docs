@@ -32,7 +32,7 @@ sensuctl user create alice --password 'password'
 
 2. Create a `read-only-user` role binding to assign the `view` role to the `alice` user:
 {{< highlight shell >}}
-sensuctl role-binding create read-only-user --role=view --user=alice
+sensuctl role-binding create read-only-user --cluster-role=view --user=alice
 {{< /highlight >}}
 
 ## How to create an event-reader user
