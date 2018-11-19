@@ -73,7 +73,8 @@ After [installing an agent][install], open `/etc/sensu/agent.yml`
 and add the `sensu-app` subscription so the subscription configuration looks like:
 
 {{< highlight yml >}}
-subscriptions: "sensu-app"
+subscriptions:
+  - "sensu-app"
 {{< /highlight >}}
 
 Then restart the agent.

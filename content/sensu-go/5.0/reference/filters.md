@@ -10,6 +10,7 @@ menu:
     parent: reference
 ---
 
+- [Built-in filters](#built-in-filters)
 - [Specification](#filter-specification)
 - [Examples](#filter-examples)
 	- [Handling production events](#handling-production-events)
@@ -31,7 +32,7 @@ of a `handler` (or `handlers`). Prior to executing each handler, the Sensu
 server will first apply any configured `filters` for the handler.
 * If multiple `filters` are configured for a handler, they are executed
 sequentially.
-* Filter `statements` are compared with event data.
+* Filter `expressions` are compared with event data.
 * Filters can be inclusive (only matching events are handled) or exclusive
 (matching events are not handled).
 * As soon as a filter removes an event, no further
@@ -51,28 +52,122 @@ _exclusive_ filters is the equivalent of using an `OR` operator (only
 handle events if they don’t match `x OR y OR z`).
 
 * **Inclusive filtering**: by setting the filter definition attribute `"action":
-"allow"`, only events that match the defined filter statements are handled.
+"allow"`, only events that match the defined filter expressions are handled.
 * **Exclusive filtering**: by setting the filter definition attribute `"action":
 "deny"`, events are only handled if they do not match the defined filter 
-statements.
+expressions.
 
-### Filter statement comparison
+### Filter expression comparison
 
-Filter statements are compared directly with their event data counterparts. For
-inclusive filter definitions (like `"action": "allow"`), matching statements
+Filter expressions are compared directly with their event data counterparts. For
+inclusive filter definitions (like `"action": "allow"`), matching expressions
 will result in the filter returning a `true` value; for exclusive filter
-definitions (like `"action": "deny"`), matching statements will result in the
+definitions (like `"action": "deny"`), matching expressions will result in the
 filter returning a `false` value, and the event will not pass through the
 filter. Filters that return a true value will continue to be processed via
 additional filters (if defined), mutators (if defined), and handlers.
 
-### Filter statement evaluation
+### Filter expression evaluation
 
-When more complex conditional logic is needed than direct filter statement
-comparison, Sensu filters provide support for statements evaluation using
-[govaluate](https://github.com/Knetic/govaluate/blob/master/MANUAL.md)
-expressions. If the evaluated expression returns true,
-the statement is a match.
+When more complex conditional logic is needed than direct filter expression
+comparison, Sensu filters provide support for expression evaluation using
+[Otto](https://github.com/robertkrimen/otto). Otto is an ECMAScript 5 (JavaScript) VM,
+and evaluates javascript expressions that are provided in the filter.
+There are some caveats to using Otto; most notably, the regular expressions
+specified in ECMAScript 5 do not all work. See the Otto README for more details.
+
+### Filter Assets
+
+Sensu filters can have assets that are included in their execution context.
+When valid assets are associated with a filter, Sensu evaluates any
+files it finds that have a ".js" extension before executing a filter. The
+result of evaluating the scripts is cached for a given asset set, for the
+sake of performance.
+
+## Built-in filters
+
+Sensu includes built-in filters to help you customize event pipelines for metrics and alerts.
+To start using built-in filters, see the guides to [sending Slack alerts][4] and [planning maintenances][5].
+
+### Built-in filter: only incidents
+
+The incidents filter is included in every installation of the [Sensu backend][8].
+You can use the incidents filter to allow only high priority events through a Sensu pipeline.
+For example, you can use the incidents filter to reduce noise when sending notifications to Slack.
+When applied to a handler, the incidents filter allows only warning (`"status": 1`), critical (`"status": 2`), and resolution events to be processed.
+
+To use the incidents filter, include the `is_incident` filter in the handler configuration `filters` array:
+
+{{< highlight json >}}
+{
+  "type": "Handler",
+  "spec": {
+    "name": "slack",
+    "type": "pipe",
+    "command": "slack-handler --webhook-url https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX --channel monitoring",
+    "filters": [
+      "is_incident"
+    ]
+  }
+}
+{{< /highlight >}}
+
+The `is_incident` filter applies the following filtering logic:
+
+| status | allow | discard |     |     |     |     |
+| ----- | ----- | ------- | --- | --- | --- | --- |
+| 0     |   |❌| | | | |
+| 1     |✅ |  | | | | |
+| 2     |✅ |  | | | | |
+| other |   |❌| | | | |
+| 1 --> 0 or 2 --> 0<br>(resolution event)  |✅ |  | | | | |
+
+### Built-in filter: allow silencing
+
+[Sensu silencing][6] lets you suppress execution of event handlers on an on-demand basis, giving you the ability to quiet incoming alerts and [plan maintenances][5].
+
+To allow silencing for an event handler, add the `not_silenced` filter to the handler configuration `filters` array:
+
+{{< highlight json >}}
+{
+  "type": "Handler",
+  "spec": {
+    "name": "slack",
+    "type": "pipe",
+    "command": "slack-handler --webhook-url https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX --channel monitoring",
+    "filters": [
+      "is_incident",
+      "not_silenced"
+    ]
+  }
+}
+{{< /highlight >}}
+
+When applied to a handler configuration, the `not_silenced` filter silences events that include the `"silenced": true` attribute. The handler in the example above uses both the silencing and [incidents][7] filters, preventing low priority and silenced events from being sent to Slack.
+
+### Built-in filter: has metrics
+
+The metrics filter is included in every installation of the [Sensu backend][8].
+When applied to a handler, the metrics filter allows only events containing [Sensu metrics][9] to be processed.
+You can use the metrics filter to prevent handlers that require metrics from failing in case of an error in metric collection.
+
+To use the metrics filter, include the `has_metrics` filter in the handler configuration `filters` array:
+
+{{< highlight json >}}
+{
+  "type": "Handler",
+  "spec": {
+    "name": "influx-db",
+    "type": "pipe",
+    "command": "sensu-influxdb-handler --addr 'http://123.4.5.6:8086' --db-name 'myDB' --username 'foo' --password 'bar'",
+    "filters": [
+      "has_metrics"
+    ]
+  }
+}
+{{< /highlight >}}
+
+When applied to a handler configuration, the `has_metrics` filter allows only events that include a [`metrics` scope][9].
 
 ## Filter specification
 
@@ -88,19 +183,19 @@ Each filter definition must have a unique name within its namespace.
 
 action       | 
 -------------|------
-description  | Action to take with the event if the filter statements match. _NOTE: see [Inclusive and exclusive filtering][1] for more information._
+description  | Action to take with the event if the filter expressions match. _NOTE: see [Inclusive and exclusive filtering][1] for more information._
 required     | true
 type         | String
 allowed values | `allow`, `deny`
 example      | {{< highlight shell >}}"action": "allow"{{< /highlight >}}
 
-statements   | 
+expressions   | 
 -------------|------
-description  | Filter statements to be compared with event data.
+description  | Filter expressions to be compared with event data.
 required     | true
 type         | Array
-example      | {{< highlight shell >}}"statements": [
-  "event.Check.Team == 'ops'"
+example      | {{< highlight shell >}}"expressions": [
+  "event.check.team == 'ops'"
 ]
 {{< /highlight >}}
 
@@ -128,6 +223,14 @@ required     | false
 type         | String
 default      | current namespace value configured for `sensuctl` (for example: `default`) 
 example      | {{< highlight shell >}}"namespace": "default"{{< /highlight >}}
+
+runtime_assets |
+---------------|------
+description    | Assets to be applied to the filter's execution context. JavaScript files in the lib directory of the asset will be evaluated.
+required       | false
+type           | Array of String
+default        | []
+example        | {{< highlight shell >}}"runtime_assets": ["underscore"]{{< /highlight >}}
 
 ### `when` attributes
 
@@ -164,7 +267,7 @@ match event data with a custom entity definition attribute `"namespace":
 {
   "name": "production_filter",
   "action": "allow",
-  "statements": [
+  "expressions": [
     "event.Entity.Namespace == 'production'"
   ]
 }
@@ -182,7 +285,7 @@ returns false, the event will be handled.
 {
   "name": "development_filter",
   "action": "deny",
-  "statements": [
+  "expressions": [
     "event.Entity.Namespace == 'production'"
   ]
 }
@@ -198,8 +301,8 @@ old monitoring system which alerts only on state change. This
 {
   "name": "state_change_only",
   "action": "allow",
-  "statements": [
-    "event.Check.Occurrences == 1"
+  "expressions": [
+    "event.check.occurrences == 1"
   ]
 }
 {{< /highlight >}}
@@ -217,9 +320,9 @@ operator](https://en.wikipedia.org/wiki/Modulo_operation) calculation
 {
   "name": "filter_interval_60_hourly",
   "action": "allow",
-  "statements": [
-    "event.Check.Interval == 60",
-    "event.Check.Occurrences == 1 || event.Check.Occurrences % 60 == 0"
+  "expressions": [
+    "event.check.interval == 60",
+    "event.check.occurrences == 1 || event.check.occurrences % 60 == 0"
   ]
 }
 {{< /highlight >}}
@@ -231,9 +334,9 @@ checks with a 30 second `interval`.
 {
   "name": "filter_interval_30_hourly",
   "action": "allow",
-  "statements": [
-    "event.Check.Interval == 30",
-    "event.Check.Occurrences == 1 || event.Check.Occurrences % 120 == 0"
+  "expressions": [
+    "event.check.interval == 30",
+    "event.check.occurrences == 1 || event.check.occurrences % 120 == 0"
   ]
 }
 {{< /highlight >}}
@@ -250,9 +353,9 @@ same result.
 {
   "name": "nine_to_fiver",
   "action": "allow",
-  "statements": [
-    "weekday(event.Timestamp) >= 1 && weekday(event.Timestamp) <= 5",
-    "hour(event.Timestamp) >= 9 && hour(event.Timestamp) <= 17"
+  "expressions": [
+    "weekday(event.timestamp) >= 1 && weekday(event.timestamp) <= 5",
+    "hour(event.timestamp) >= 9 && hour(event.timestamp) <= 17"
   ]
 }
 {{< /highlight >}}
@@ -260,6 +363,30 @@ same result.
 _NOTE: Sensu handles dates and times in UTC (Coordinated Universal Time), therefore
 when comparing the weekday or the hour, you should provide values in UTC._
 
+### Using JavaScript libraries with Sensu filters
+
+You can include JavaScript libraries in their filter execution context with
+assets. For instance, assuming you've packaged underscore.js into a Sensu
+asset, you could then use functions from the underscore library for filter
+expressions.
+
+{{< highlight json >}}
+{
+  "name": "deny_if_failure_in_history",
+  "action": "deny",
+  "runtime_assets": ["underscore"],
+  "expressions": [
+    "_.reduce(event.check.history, function(memo, h) { return (memo || h.status != 0); })"
+  ]
+}
+{{< /highlight >}}
+
 [1]: #inclusive-and-exclusive-filtering
 [2]: #when-attributes
 [3]: ../../reference/sensuctl/#time-windows
+[4]: ../../guides/send-slack-alerts
+[5]: ../../guides/plan-maintenance/
+[6]: ../silencing
+[7]: #built-in-filter-only-incidents
+[8]: ../backend
+[9]: ../events
