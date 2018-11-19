@@ -85,14 +85,14 @@ required     | false
 type         | Array 
 example      | {{< highlight shell >}}"filters": ["System.OS=='linux'", "System.Arch=='amd64'"] {{< /highlight >}}
 
-organization | 
+namespace | 
 -------------|------ 
-description  | The Sensu RBAC organization that this asset belongs to.
+description  | The Sensu RBAC namespace that this asset belongs to.
 required     | false 
 type         | String
-default      | current organization value configured for `sensuctl` (ie `default`) 
+default      | current namespace value configured for `sensuctl` (ie `default`) 
 example      | {{< highlight shell >}}
-  "organization": "default"
+  "namespace": "default"
 {{< /highlight >}}
 
 ## Examples
@@ -108,7 +108,7 @@ example      | {{< highlight shell >}}
     "System.OS==linux",
     "System.Arch=='amd64'"
   ],
-  "organization": "default"
+  "namespace": "default"
 }
 {{< /highlight >}}
 

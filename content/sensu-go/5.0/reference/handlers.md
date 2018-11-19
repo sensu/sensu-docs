@@ -86,8 +86,7 @@ built-in `is_incident` filter.
 
 ### Handler naming
 
-Each handler definition must have a unique name within its organization and
-environment.
+Each handler definition must have a unique name within its namespace.
 
 * A unique string used to name/identify the handler
 * Cannot contain special characters or spaces
@@ -153,24 +152,14 @@ required     | true (if `type` equals `set`)
 type         | Array
 example      | {{< highlight shell >}}"handlers": ["pagerduty", "email", "ec2"]{{< /highlight >}}
 
-organization | 
+namespace | 
 -------------|------ 
-description  | The Sensu RBAC organization that this handler belongs to.
+description  | The Sensu RBAC namespace that this handler belongs to.
 required     | false 
 type         | String
-default      | current organization value configured for `sensuctl` (i.e., `default`) 
+default      | current namespace value configured for `sensuctl` (i.e., `default`) 
 example      | {{< highlight shell >}}
-  "organization": "default"
-{{< /highlight >}}
-
-environment  | 
--------------|------ 
-description  | The Sensu RBAC environment that this handler belongs to.
-required     | false 
-type         | String 
-default      | current environment value configured for `sensuctl` (i.e., `default`) 
-example      | {{< highlight shell >}}
-  "environment": "default"
+  "namespace": "default"
 {{< /highlight >}}
 
 runtime_assets | 

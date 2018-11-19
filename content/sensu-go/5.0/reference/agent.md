@@ -442,14 +442,13 @@ Flags:
       --deregistration-handler string       deregistration handler that should process the entity deregistration event.
       --disable-api                         disable the Agent HTTP API
       --disable-sockets                     disable the Agent TCP and UDP event sockets
-      --environment string                  agent environment (default "default")
       --extended-attributes string          extended attributes to include in the agent entity in serialized json format (ex: {"team":"ops"})
   -h, --help                                help for start
       --id string                           agent ID (defaults to hostname) (default "sensu2-centos")
       --keepalive-interval int              number of seconds to send between keepalive events (default 20)
       --keepalive-timeout uint32            number of seconds until agent is considered dead by backend (default 120)
       --log-level string                    logging level [panic, fatal, error, warn, info, debug] (default "warn")
-      --organization string                 agent organization (default "default")
+      --namespace string                    agent namespace (default "default")
       --password string                     agent password (default "P@ssw0rd!")
       --redact string                       comma-delimited customized list of fields to redact
       --socket-host string                  address to bind the Sensu client socket to (default "127.0.0.1")
@@ -644,28 +643,16 @@ keepalive-timeout: 300{{< /highlight >}}
 
 ### Security configuration flags
 
-| environment |      |
---------------|------
-description   | Agent environment
-type          | String
-default       | `default`
-example       | {{< highlight shell >}}# Command line example
-sensu-agent start --environment production
-
-# /etc/sensu/agent.yml example
-environment: "production"{{< /highlight >}}
-
-
-| organization |      |
+| namespace |      |
 ---------------|------
-description    | Agent organization
+description    | Agent namespace
 type           | String
 default        | `default`
 example        | {{< highlight shell >}}# Command line example
-sensu-agent start --organization ops
+sensu-agent start --namespace ops
 
 # /etc/sensu/agent.yml example
-organization: "ops"{{< /highlight >}}
+namespace: "ops"{{< /highlight >}}
 
 
 | password    |      |

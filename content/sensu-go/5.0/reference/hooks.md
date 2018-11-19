@@ -51,8 +51,7 @@ Sensu for auto-remediation tasks!
 
 ### Hook naming
 
-Each hook definition must have a unique name within its organization and
-environment.
+Each hook definition must have a unique name within its namespace.
 
 * A unique string used to name/identify the hook
 * Cannot contain special characters or spaces
@@ -83,24 +82,14 @@ type         | Boolean
 default      | false
 example      | {{< highlight shell >}}"stdin": true{{< /highlight >}}
 
-organization | 
+namespace | 
 -------------|------ 
-description  | The Sensu RBAC organization that this hook belongs to.
+description  | The Sensu RBAC namespace that this hook belongs to.
 required     | false 
 type         | String
-default      | current organization value configured for `sensuctl` (ex: `default`) 
+default      | current namespace value configured for `sensuctl` (ex: `default`) 
 example      | {{< highlight shell >}}
-  "organization": "default"
-{{< /highlight >}}
-
-environment  | 
--------------|------ 
-description  | The Sensu RBAC environment that this hook belongs to.
-required     | false 
-type         | String 
-default      | current environment value configured for `sensuctl` (ex: `default`) 
-example      | {{< highlight shell >}}
-  "environment": "default"
+  "namespace": "default"
 {{< /highlight >}}
 
 ## Examples
@@ -115,8 +104,7 @@ a process that is no longer running.
   "name": "restart_nginx",
   "command": "sudo systemctl start nginx",
   "timeout": 60,
-  "environment": "default",
-  "organization": "default"
+  "namespace": "default"
 }
 {{< /highlight >}}
 
@@ -131,8 +119,7 @@ has been determined to be not running etc.
   "name": "process_tree",
   "command": "ps aux",
   "timeout": 60,
-  "environment": "default",
-  "organization": "default"
+  "namespace": "default"
 }
 {{< /highlight >}}
 

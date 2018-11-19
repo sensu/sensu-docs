@@ -173,8 +173,7 @@ When applied to a handler configuration, the `has_metrics` filter allows only ev
 
 ### Filter naming
 
-Each filter definition must have a unique name within its organization and
-environment.
+Each filter definition must have a unique name within its namespace.
 
 * A unique string used to name/identify the filter
 * Cannot contain special characters or spaces
@@ -217,21 +216,13 @@ example      | {{< highlight shell >}}"when": {
 }
 {{< /highlight >}}
 
-organization | 
+namespace | 
 -------------|------ 
-description  | The Sensu RBAC organization that this filter belongs to.
+description  | The Sensu RBAC namespace that this filter belongs to.
 required     | false 
 type         | String
-default      | current organization value configured for `sensuctl` (for example: `default`) 
-example      | {{< highlight shell >}}"organization": "default"{{< /highlight >}}
-
-environment  | 
--------------|------ 
-description  | The Sensu RBAC environment that this filter belongs to.
-required     | false 
-type         | String 
-default      | current environment value configured for `sensuctl` (for example: `default`) 
-example      | {{< highlight shell >}}"environment": "default"{{< /highlight >}}
+default      | current namespace value configured for `sensuctl` (for example: `default`) 
+example      | {{< highlight shell >}}"namespace": "default"{{< /highlight >}}
 
 runtime_assets |
 ---------------|------
@@ -269,7 +260,7 @@ example      | {{< highlight shell >}}"days": {
 ### Handling production events
 
 The following example filter definition, entitled `production_filter`, will
-match event data with a custom entity definition attribute `"environment":
+match event data with a custom entity definition attribute `"namespace":
 "production"`.
 
 {{< highlight json >}}
@@ -277,7 +268,7 @@ match event data with a custom entity definition attribute `"environment":
   "name": "production_filter",
   "action": "allow",
   "expressions": [
-    "event.entity.environment == 'production'"
+    "event.Entity.Namespace == 'production'"
   ]
 }
 {{< /highlight >}}
@@ -285,7 +276,7 @@ match event data with a custom entity definition attribute `"environment":
 ### Handling non-production events
 
 The following example filter definition, entitled `development_filter`, will
-discard event data with a custom entity definition attribute `"environment":
+discard event data with a custom entity definition attribute `"namespace":
 "production"`.
 
 Note that `action` is `deny`, making this an exclusive filter; if evaluation
@@ -295,7 +286,7 @@ returns false, the event will be handled.
   "name": "development_filter",
   "action": "deny",
   "expressions": [
-    "event.entity.environment == 'production'"
+    "event.Entity.Namespace == 'production'"
   ]
 }
 {{< /highlight >}}
