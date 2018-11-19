@@ -98,7 +98,7 @@ Sensu staff, or community members may ask to see your logs. You can view them at
 tail -n 10000 /var/log/sensu/sensu-server.log > sensu-server-10k.log && gzip -9 sensu-server-10k.log{{< /highlight >}}
 
 ## Local Client Socket
-By default the sensu-client process listens for check results on a TCP socket. There are several reasons for using the client socket to as a troubleshooting tool when deploying Sensu:
+By default the sensu-client process listens for check results on a local socket. There are several reasons for using the client socket to as a troubleshooting tool when deploying Sensu:
 
 1. Less configuration overhead. I.e., you don't have to push a check via configuration management.
 2. The ability to issue a check and subsequently resolve it is instantaneous. There is no waiting on a check interval to elapse before the result is published.
@@ -125,10 +125,10 @@ We'll start by crafting a test command to send to the local socket:
 
 echo ‘{“name”: “testing”, “output”: “THIS IS AN ERROR”, “status”: 2, “refresh”: 10, “handlers”: [“mailer”]}’ | nc localhost 3030
 
-_WARNING: Successfully submitting a check result this way will be indicated by `ok` being printed on the next line -- typically this is appears ahead of the command prompt so it can be easily missed. See below for an example._
+_NOTE: Successfully submitting a check result this way will be indicated by `ok` being printed on the next line -- typically this is appears ahead of the command prompt so it can be easily missed. See below for an example._
 
 {{< highlight shell >}}
-[root@sensu ~]# echo '{"name": "testing_error", "status": 2, "output": "An error event should be created", "refresh": 10, "handlers": [ "mailer"]}' | nc 127.0.0.1 3030
+$ echo '{"name": "testing_error", "status": 2, "output": "An error event should be created", "refresh": 10, "handlers": [ "mailer"]}' | nc 127.0.0.1 3030
 ok{{< /highlight >}}
 
 
