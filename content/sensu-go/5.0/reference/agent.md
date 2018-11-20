@@ -55,15 +55,15 @@ After receiving a check request from the Sensu backend, the agent:
 To configure subscriptions for an agent, set [the `subscriptions` flag][28].
 To configure subscriptions for a check, set the [check definition attribute `subscriptions`][14].
 
-In addition to the subscriptions defined in the agent configuration, Sensu agent entities also subscribe automatically to a subscription matching their [entity `id`][38].
-For example, an agent entity with the `id: "i-424242"` subscribes to check requests with the subscription `entity:i-424242`.
+In addition to the subscriptions defined in the agent configuration, Sensu agent entities also subscribe automatically to a subscription matching their [entity `name`][38].
+For example, an agent entity with the `name: "i-424242"` subscribes to check requests with the subscription `entity:i-424242`.
 This makes it possible to generate ad-hoc check requests targeting specific entities via the API.
 
 ### Proxy entities
 
 Sensu proxy entities allow Sensu to monitor external resources on systems or devices where a Sensu agent cannot be installed (such a network switch).
 Unlike agent entities, proxy entity definitions are stored by the [Sensu backend][2].
-When the backend requests a check that includes a [`proxy_entity_id`][14], the agent includes the provided entity information in the event data in place of the agent entity data.
+When the backend requests a check that includes a [`proxy_entity_name`][14], the agent includes the provided entity information in the event data in place of the agent entity data.
 See the [entity reference][3] and the [guide to monitoring external resources][33] for more information about monitoring proxy entities.
 
 ## Creating monitoring events using the agent socket
@@ -89,7 +89,7 @@ You can also use the [Netcat][19] utility to send monitoring data to the agent s
 echo '{"name": "web_service02", "output": "error!", "status": 1, "handlers": ["slack"]}' | nc localhost 3030
 {{< /highlight >}}
 
-At a minimum, the agent TCP socket requires the `name`, `output`, and `status` attributes to be set in the payload, but you can also add any attributes allowed in the [check definition][14], like `handlers` and `extended_attributes`.
+At a minimum, the agent TCP socket requires the `name`, `output`, and `status` attributes to be set in the payload, but you can also add any attributes allowed in the [check definition][14], like `handlers` and `subscriptions`.
 
 #### Socket input specification
 
@@ -388,7 +388,7 @@ sensu-agent start --help
 
 ## Registration
 
-In practice, agent registration happens when a Sensu backend processes an agent keepalive event for an agent that is not already registered in the Sensu agent registry (based on the configured agent `id`).
+In practice, agent registration happens when a Sensu backend processes an agent keepalive event for an agent that is not already registered in the Sensu agent registry (based on the configured agent `name`).
 This agent registry is stored in the Sensu [backend][2], and is accessible via [`sensuctl entity list`][6].
 
 All Sensu agent data provided in keepalive events gets stored in the agent registry and used to add context to Sensu [events][7] and detect Sensu agents in an unhealthy state.
@@ -433,33 +433,33 @@ Usage:
   sensu-agent start [flags]
 
 Flags:
-      --api-host string                     address to bind the Sensu client HTTP API to (default "127.0.0.1")
-      --api-port int                        port the Sensu client HTTP API listens on (default 3031)
-      --backend-url stringSlice             ws/wss URL of Sensu backend server (to specify multiple backends use this flag multiple times) (default [ws://127.0.0.1:8081])
-      --cache-dir string                    path to store cached data (default "/var/cache/sensu/sensu-agent")
-  -c, --config-file string                  path to sensu-agent config file
-      --deregister                          ephemeral agent
-      --deregistration-handler string       deregistration handler that should process the entity deregistration event.
-      --disable-api                         disable the Agent HTTP API
-      --disable-sockets                     disable the Agent TCP and UDP event sockets
-      --extended-attributes string          extended attributes to include in the agent entity in serialized json format (ex: {"team":"ops"})
-  -h, --help                                help for start
-      --id string                           agent ID (defaults to hostname) (default "sensu2-centos")
-      --keepalive-interval int              number of seconds to send between keepalive events (default 20)
-      --keepalive-timeout uint32            number of seconds until agent is considered dead by backend (default 120)
-      --log-level string                    logging level [panic, fatal, error, warn, info, debug] (default "warn")
-      --namespace string                    agent namespace (default "default")
-      --password string                     agent password (default "P@ssw0rd!")
-      --redact string                       comma-delimited customized list of fields to redact
-      --socket-host string                  address to bind the Sensu client socket to (default "127.0.0.1")
-      --socket-port int                     port the Sensu client socket listens on (default 3030)
-      --statsd-disable                      disables the statsd listener and metrics server
-      --statsd-event-handlers stringSlice   comma-delimited list of event handlers for statsd metrics
-      --statsd-flush-interval int           number of seconds between statsd flush (default 10)
-      --statsd-metrics-host string          address used for the statsd metrics server (default "127.0.0.1")
-      --statsd-metrics-port int             port used for the statsd metrics server (default 8125)
-      --subscriptions string                comma-delimited list of agent subscriptions
-      --user string                         agent user (default "agent")
+      --api-host string                 address to bind the Sensu client HTTP API to (default "127.0.0.1")
+      --api-port int                    port the Sensu client HTTP API listens on (default 3031)
+      --backend-url strings             ws/wss URL of Sensu backend server (to specify multiple backends use this flag multiple times) (default [ws://127.0.0.1:8081])
+      --cache-dir string                path to store cached data (default "/var/cache/sensu/sensu-agent")
+  -c, --config-file string              path to sensu-agent config file
+      --deregister                      ephemeral agent
+      --deregistration-handler string   deregistration handler that should process the entity deregistration event.
+      --disable-api                     disable the Agent HTTP API
+      --disable-sockets                 disable the Agent TCP and UDP event sockets
+  -h, --help                            help for start
+      --keepalive-interval int          number of seconds to send between keepalive events (default 20)
+      --keepalive-timeout uint32        number of seconds until agent is considered dead by backend (default 120)
+      --labels stringToString           entity labels map (default [])
+      --log-level string                logging level [panic, fatal, error, warn, info, debug] (default "warn")
+      --name string                     agent name (defaults to hostname) (default "sensu2-centos")
+      --namespace string                agent namespace (default "default")
+      --password string                 agent password (default "P@ssw0rd!")
+      --redact string                   comma-delimited customized list of fields to redact
+      --socket-host string              address to bind the Sensu client socket to (default "127.0.0.1")
+      --socket-port int                 port the Sensu client socket listens on (default 3030)
+      --statsd-disable                  disables the statsd listener and metrics server
+      --statsd-event-handlers strings   comma-delimited list of event handlers for statsd metrics
+      --statsd-flush-interval int       number of seconds between statsd flush (default 10)
+      --statsd-metrics-host string      address used for the statsd metrics server (default "127.0.0.1")
+      --statsd-metrics-port int         port used for the statsd metrics server (default 8125)
+      --subscriptions string            comma-delimited list of agent subscriptions
+      --user string                     agent user (default "agent")
 {{< /highlight >}}
 
 ### General configuration flags
@@ -503,28 +503,32 @@ sensu-agent start --c /sensu/agent.yml
 config-file: "/sensu/agent.yml"{{< /highlight >}}
 
 
-| extended-attributes |      |
-----------------------|------
-description           | Extended attributes to include in the agent entity in serialized JSON format
-type                  | Serialized JSON object
+| labels     |      |
+-------------|------
+description  | Custom attributes to include with event data, which can be queried like regular attributes. You can use labels to organize entities into meaningful collections that can be selected using [filters][9] and [tokens][27].
+required     | false
+type         | Map of key-value pairs. Keys and values can be any valid UTF-8 string.
+default      | `null`
 example               | {{< highlight shell >}}# Command line example
-sensu-agent start --extended-attributes '{"team":"ops"}'
+sensu-agent start --labels region=us-west-2
 
 # /etc/sensu/agent.yml example
-extended-attributes: '{"team":"ops"}'{{< /highlight >}}
+labels:
+  region: us-west-2
+{{< /highlight >}}
 
-<a name="id">
+<a name="name">
 
-| id          |      |
+| name        |      |
 --------------|------
-description   | Entity ID assigned to the agent entity
+description   | Entity name assigned to the agent entity
 type          | String
-default       | Defaults to hostname, for example: `sensu2-centos`
+default       | Defaults to hostname, for example: `sensu-centos`
 example       | {{< highlight shell >}}# Command line example
-sensu-agent start --id agent-01
+sensu-agent start --name agent-01
 
 # /etc/sensu/agent.yml example
-id: "agent-01" {{< /highlight >}}
+name: "agent-01" {{< /highlight >}}
 
 
 | log-level   |      |
@@ -826,6 +830,6 @@ statsd-metrics-port: 6125{{< /highlight >}}
 [35]: ../backend#datastore-and-cluster-configuration-flags
 [36]: ../../guides/clustering
 [37]: ../backend#general-configuration-flags
-[38]: #id
+[38]: #name
 [39]: ../checks#check-result-specification
 [40]: ../../guides/send-slack-alerts

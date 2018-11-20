@@ -35,13 +35,6 @@ fails to execute, an error will be logged, and the handler will not be executed.
   * `0` indicates OK status
   * exit codes other than `0` indicate failure
 
-### Naming
-Each mutator definition must have a unique name within its namespace.
-
-* A unique string used to identify the mutator
-* Cannot contain special characters or spaces
-* Validated with Go regex [`\A[\w\.\-]+\z`](https://regex101.com/r/zo9mQU/2)
-
 ### Commands
 Each Sensu mutator definition defines a command to be executed. Mutator commands are executable commands which will be executed on a Sensu server, run as the `sensu user`. Most mutator commands are provided by Sensu Plugins.
 
@@ -55,6 +48,23 @@ As mentioned above, all mutator commands are executed by a Sensu server as the `
 _NOTE: By default, the Sensu installer packages will modify the system `$PATH` for the Sensu processes to include `/etc/sensu/plugins`. As a result, executable scripts (like plugins) located in `/etc/sensu/plugins` will be valid commands. This allows `command` attributes to use “relative paths” for Sensu plugin commands, for example: `"command": "check-http.rb -u https://sensuapp.org"`._
 
 ### Attributes
+
+|metadata    |      |
+-------------|------
+description  | Collection of metadata about the mutator, including the `name` and `namespace` as well as custom `labels` and `annotations`. See the [metadata attributes reference][2] for details.
+required     | true
+type         | Map of key-value pairs
+example      | {{< highlight shell >}}"metadata": {
+  "name": "example-mutator",
+  "namespace": "default",
+  "labels": {
+    "region": "us-west-1"
+  },
+  "annotations": {
+    "slack-channel" : "#monitoring"
+  }
+}{{< /highlight >}}
+
 command      | 
 -------------|------ 
 description  | The mutator command to be executed by Sensu server. 
@@ -76,6 +86,45 @@ required       | false
 type           | Array
 example        | {{< highlight shell >}}"runtime_assets": ["ruby-2.5.0"]{{< /highlight >}}
 
+### Metadata attributes
+
+| name       |      |
+-------------|------
+description  | A unique string used to identify the mutator. Mutator names cannot contain special characters or spaces (validated with Go regex [`\A[\w\.\-]+\z`](https://regex101.com/r/zo9mQU/2)). Each mutator must have a unique name within its namespace.
+required     | true
+type         | String
+example      | {{< highlight shell >}}"name": "example-mutator"{{< /highlight >}}
+
+| namespace  |      |
+-------------|------
+description  | The Sensu [RBAC namespace][3] that this mutator belongs to.
+required     | false
+type         | String
+default      | `default`
+example      | {{< highlight shell >}}"namespace": "production"{{< /highlight >}}
+
+| labels     |      |
+-------------|------
+description  | Custom attributes to include with event data, which can be queried like regular attributes. You can use labels to organize mutators into meaningful collections that can be selected using [filters][4] and [tokens][5].
+required     | false
+type         | Map of key-value pairs. Keys and values can be any valid UTF-8 string.
+default      | `null`
+example      | {{< highlight shell >}}"labels": {
+  "environment": "development",
+  "region": "us-west-2"
+}{{< /highlight >}}
+
+| annotations |    |
+-------------|------
+description  | Arbitrary, non-identifying metadata to include with event data. In contrast to labels, annotations are not used internally by Sensu and cannot be used to identify mutators. You can use annotations to add data that helps people or external tools interacting with Sensu.
+required     | false
+type         | Map of key-value pairs. Keys and values can be any valid UTF-8 string.
+default      | `null`
+example      | {{< highlight shell >}} "annotations": {
+  "managed-by": "ops",
+  "slack-channel": "#monitoring",
+  "playbook": "www.example.url"
+}{{< /highlight >}}
 
 ## Examples
 
@@ -85,12 +134,26 @@ to modify event data prior to handling the event.
 ### Mutator definition
 {{< highlight json >}}
 {
-  "name": "example-mutator",
-  "command": "example_mutator.rb",
-  "timeout": 60,
-  "env_vars": null,
-  "namespace": "default"
+  "type": "Mutator",
+  "spec": {
+    "metadata": {
+      "name": "example-mutator",
+      "namespace": "default",
+      "labels": null,
+      "annotations": null
+    },
+    "command": "example_mutator.go",
+    "timeout": 0,
+    "env_vars": [],
+    "runtime_assets": []
+  }
 }
 {{< /highlight >}}
 
+
+
 [1]: ../assets
+[2]: #metadata-attributes
+[3]: ../rbac#namespaces
+[4]: ../filters
+[5]: ../tokens

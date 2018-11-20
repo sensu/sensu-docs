@@ -24,7 +24,7 @@ Agent entities are monitoring agents, which are installed and run on every syste
 
 ## Proxy Entities
 
-Proxy entities (formerly known as proxy clients, "Just-in-time" or "JIT" clients) are dynamically created entities, added to the entity store if an entity does not already exist for a check result. Proxy entity registration differs from keepalive-based registration because the registration event happens while processing a check result (not a keepalive message). Sensu proxy entities allow Sensu to monitor external resources on systems and/or devices where a sensu-agent cannot be installed (such a network switch) using the defined check ProxyEntityID to create a proxy entity for the external resource. Once created, proxy entities work much in the same way as any other Sensu entity.
+Proxy entities (formerly known as proxy clients, "Just-in-time" or "JIT" clients) are dynamically created entities, added to the entity store if an entity does not already exist for a check result. Proxy entity registration differs from keepalive-based registration because the registration event happens while processing a check result (not a keepalive message). Sensu proxy entities allow Sensu to monitor external resources on systems and/or devices where a sensu-agent cannot be installed (such a network switch) using the defined check ProxyEntityName to create a proxy entity for the external resource. Once created, proxy entities work much in the same way as any other Sensu entity.
 
 ## New and improved entities
 
@@ -34,23 +34,32 @@ An `entity`, formally known as a `client` in Sensu 1.x, represents anything (ex:
 
 ### Entity Attributes
 
-ID           | 
--------------|------ 
-description  | The unique ID of the entity, validated with go regex [`\A[\w\.\-]+\z`](https://regex101.com/r/zo9mQU/2)
+|metadata    |      |
+-------------|------
+description  | Collection of metadata about the entity, including the `name` and `namespace` as well as custom `labels` and `annotations`. See the [metadata attributes reference][8] for details.
 required     | true
-type         | string 
-example      | {{< highlight shell >}}"ID": "example-hostname"{{< /highlight >}}
+type         | Map of key-value pairs
+example      | {{< highlight shell >}}"metadata": {
+  "name": "webserver01",
+  "namespace": "default",
+  "labels": {
+    "region": "us-west-1"
+  },
+  "annotations": {
+    "slack-channel" : "#monitoring"
+  }
+}{{< /highlight >}}
 
-class        | 
+entity_class |     |
 -------------|------ 
 description  | The entity type, validated with go regex [`\A[\w\.\-]+\z`](https://regex101.com/r/zo9mQU/2). This value is not user configurable; it is set directly by the agent. An entity that runs an agent will be of `agent`, while a proxy entity will have class `proxy`.
 required     | true
 type         | string 
-example      | {{< highlight shell >}}"class": "agent"{{< /highlight >}}
+example      | {{< highlight shell >}}"entity_class": "agent"{{< /highlight >}}
 
 subscriptions| 
 -------------|------ 
-description  | A list of subscription names for the entity. The entity by default has an entity-specific subscription, in the format of `entity:{ID}` where `ID` is the entity's hostname.
+description  | A list of subscription names for the entity. The entity by default has an entity-specific subscription, in the format of `entity:{name}` where `name` is the entity's hostname.
 required     | false 
 type         | array 
 default      | The entity-specific subscription.
@@ -128,20 +137,6 @@ type         | integer
 default      | 120
 example      | {{< highlight shell >}}"keepalive_timeout": 120 {{< /highlight >}}
 
-namespace | 
--------------|------ 
-description  | The Sensu RBAC namespace that this entity belongs to.
-required     | false 
-type         | string 
-example      | {{< highlight shell >}}"namespace": "default"{{< /highlight >}}
-
-extended_attributes | 
--------------|------ 
-description  | Custom attributes to include with the entity, which can be queried like regular attributes.
-required     | false 
-type         | JSON object
-example      | {{< highlight shell >}}{"team":"ops"}{{< /highlight >}}
-
 redact       | 
 -------------|------ 
 description  | List of items to redact from log messages. If a value is provided, it overwrites the default list of items to be redacted.
@@ -153,6 +148,46 @@ example      | {{< highlight json >}}
   "redact": [
     "extra_secret_tokens"
   ]
+}{{< /highlight >}}
+
+### Metadata attributes
+
+| name       |      |
+-------------|------
+description  | The unique name of the entity, validated with Go regex `\A[\w\.\-]+\z`.
+required     | true
+type         | String
+example      | {{< highlight shell >}}"name": "example-hostname"{{< /highlight >}}
+
+| namespace  |      |
+-------------|------
+description  | The [Sensu RBAC namespace][5] that this entity belongs to.
+required     | false
+type         | String
+default      | `default`
+example      | {{< highlight shell >}}"namespace": "production"{{< /highlight >}}
+
+| labels     |      |
+-------------|------
+description  | Custom attributes to include with event data, which can be queried like regular attributes. You can use labels to organize entities into meaningful collections that can be selected using [filters][6] and [tokens][7].
+required     | false
+type         | Map of key-value pairs. Keys and values can be any valid UTF-8 string.
+default      | `null`
+example      | {{< highlight shell >}}"labels": {
+  "environment": "development",
+  "region": "us-west-2"
+}{{< /highlight >}}
+
+| annotations |     |
+-------------|------
+description  | Arbitrary, non-identifying metadata to include with event data. In contrast to labels, annotations are _not_ used internally by Sensu and cannot be used to identify entities. You can use annotations to add data that helps people or external tools interacting with Sensu.
+required     | false
+type         | Map of key-value pairs. Keys and values can be any valid UTF-8 string.
+default      | `null`
+example      | {{< highlight shell >}} "annotations": {
+  "managed-by": "ops",
+  "slack-channel": "#monitoring",
+  "playbook": "www.example.url"
 }{{< /highlight >}}
 
 ### System Attributes
@@ -293,60 +328,77 @@ example      | {{< highlight shell >}}"handler": "email-handler"{{< /highlight >
 
 {{< highlight json >}}
 {
-  "class": "agent",
-  "deregister": false,
-  "deregistration": {},
-  "id": "example-hostname",
-  "keepalive_timeout": 60,
-  "last_seen": 1523387195,
-  "namespace": "default",
-  "redact": [
-    "password",
-    "passwd",
-    "pass",
-    "api_key",
-    "api_token",
-    "access_key",
-    "secret_key",
-    "private_key",
-    "secret"
-  ],
-  "subscriptions": [
-    "entity:example-hostname"
-  ],
-  "system": {
-    "hostname": "example-hostname",
-    "os": "linux",
-    "platform": "ubuntu",
-    "platform_family": "debian",
-    "platform_version": "16.04",
-    "network": {
-      "interfaces": [
-        {
-          "name": "lo",
-          "addresses": [
-            "127.0.0.1/8",
-            "::1/128"
-          ]
-        },
-        {
-          "name": "eth0",
-          "mac": "52:54:00:20:1b:3c",
-          "addresses": [
-            "93.184.216.34/24",
-            "2606:2800:220:1:248:1893:25c8:1946/10"
-          ]
-        }
-      ]
+  "type": "Entity",
+  "spec": {
+    "entity_class": "agent",
+    "system": {
+      "hostname": "sensu2-centos",
+      "os": "linux",
+      "platform": "centos",
+      "platform_family": "rhel",
+      "platform_version": "7.4.1708",
+      "network": {
+        "interfaces": [
+          {
+            "name": "lo",
+            "addresses": [
+              "127.0.0.1/8",
+              "::1/128"
+            ]
+          },
+          {
+            "name": "enp0s3",
+            "mac": "08:00:27:11:ad:d2",
+            "addresses": [
+              "10.0.2.15/24",
+              "fe80::26a5:54ec:cf0d:9704/64"
+            ]
+          },
+          {
+            "name": "enp0s8",
+            "mac": "08:00:27:bc:be:60",
+            "addresses": [
+              "172.28.128.3/24",
+              "fe80::a00:27ff:febc:be60/64"
+            ]
+          }
+        ]
+      },
+      "arch": "amd64"
     },
-    "arch": "amd64"
-  },
-  "user": "agent",
-  "region": "us-west-1",
-  "team": "ops"
-}{{< /highlight >}}
+    "subscriptions": [
+      "entity:webserver01"
+    ],
+    "last_seen": 1542667231,
+    "deregister": false,
+    "deregistration": {},
+    "user": "agent",
+    "redact": [
+      "password",
+      "passwd",
+      "pass",
+      "api_key",
+      "api_token",
+      "access_key",
+      "secret_key",
+      "private_key",
+      "secret"
+    ],
+    "metadata": {
+      "name": "webserver01",
+      "namespace": "default",
+      "labels": null,
+      "annotations": null
+    }
+  }
+}
+{{< /highlight >}}
 
 [1]: #system-attributes
 [2]: #deregistration-attributes
 [3]: #network-attributes
 [4]: #networkinterface-attributes
+[5]: ../rbac#namespaces
+[6]: ../filters
+[7]: ../tokens
+[8]: #metadata-attributes
