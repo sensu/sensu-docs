@@ -161,11 +161,11 @@ Updated member with ID c8f63ae435a5e6bf in cluster
 
 ### Failures modes
 
-See [https://coreos.com/etcd/docs/latest/op-guide/failures.html][8]
+See [etcd Failure Modes][8] for more infromation.
 
 ### Disaster recovery
 
-See [https://coreos.com/etcd/docs/latest/op-guide/recovery.html][9]
+See [etcd Recovery][9] for more information.
 
 ## Security
 
@@ -173,7 +173,7 @@ See [https://coreos.com/etcd/docs/latest/op-guide/recovery.html][9]
 
 We will use the [cfssl][10] tool to generate our self-signed certificates.
 
-The first step is to create a **Certificate Authority (CA)**. In order to keep things simple, we will generate all our clients and peer certificates using this CA but you might eventually want to  create distinct CA.
+The first step is to create a **Certificate Authority (CA)**. In order to keep things simple, we will generate all our clients and peer certificates using this CA but you might eventually want to create distinct CA.
 
 {{< highlight shell >}}
 echo '{"CN":"CA","key":{"algo":"rsa","size":2048}}' | cfssl gencert -initca - | cfssljson -bare ca -
@@ -203,7 +203,7 @@ export NAME=client
 echo '{"CN":"'$NAME'","hosts":[""],"key":{"algo":"rsa","size":2048}}' | cfssl gencert -config=ca-config.json -ca=ca.pem -ca-key=ca-key.pem -hostname="" -profile=client - | cfssljson -bare $NAME
 {{< /highlight >}}
 
-See [https://coreos.com/os/docs/latest/generate-self-signed-certificates.html][11] for detailed instructions.
+See [Generating Self Signed Certificates][11] for detailed instructions.
 
 Once done, you should have the following files created:
 {{< highlight shell >}}
@@ -243,6 +243,9 @@ https://127.0.0.1:2379/v2/keys/foo -XPUT -d value=bar
 {{< /highlight >}}
 
 ### Client-to-server authentication with HTTPS client certificates
+
+
+Below are example configuration snippets from `/etc/sensu/backend.yml` that will be the same for `backend-1`, `backend-2` and `backend-3` and assumes your client certificates are in `/etc/sensu/certs/` and your CA certificate is in `/usr/local/share/ca-certificates/sensu/`.
 
 {{< highlight shell >}}
 etcd-cert-file: "/etc/sensu/certs/client.pem"
@@ -310,8 +313,8 @@ etcd-name: "backend-2"
 # etcd peer ssl configuration for backend-2/10.0.0.2
 ##
 
-etcd-peer-cert-file: "/etc/sensu/certs/backend-1.pem"
-etcd-peer-key-file: "/etc/sensu/certs/backend-1-key.pem"
+etcd-peer-cert-file: "/etc/sensu/certs/backend-2.pem"
+etcd-peer-key-file: "/etc/sensu/certs/backend-2-key.pem"
 etcd-peer-trusted-ca-file: "/usr/local/share/ca-certificates/sensu/ca.pem"
 etcd-peer-client-cert-auth: true
 {{< /highlight >}}
@@ -335,8 +338,8 @@ etcd-name: "backend-3"
 # etcd peer ssl configuration for backend-3/10.0.0.3
 ##
 
-etcd-peer-cert-file: "/etc/sensu/certs/backend-1.pem"
-etcd-peer-key-file: "/etc/sensu/certs/backend-1-key.pem"
+etcd-peer-cert-file: "/etc/sensu/certs/backend-3.pem"
+etcd-peer-key-file: "/etc/sensu/certs/backend-3-key.pem"
 etcd-peer-trusted-ca-file: "/usr/local/share/ca-certificates/sensu/ca.pem"
 etcd-peer-client-cert-auth: true
 {{< /highlight >}}
