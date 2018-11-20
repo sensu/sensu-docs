@@ -148,7 +148,7 @@ It's also recommended that you note the event ID, as this persists and allows yo
 {{< highlight shell >}}
 "event":{"id":"f4a9453f-ac70-4e91-a601-a97ff31c589a"}{{< /highlight >}}
 
-Ensure that the event is being handled by the mailer handler (you can do this by searching for the `event_id` and looking at additional log entries to confirm that the event is handled as expected). It's worth noting that in the mailer example, the issue typically seen is a lack of notifications due to the handler performing its own event filtering. The solution is to set a low refresh value in the check configuration. 
+Ensure that the event is being handled by the mailer handler (you can do this by searching for the `event_id` and looking at additional log entries to confirm that the event is handled as expected).
 
 ### Most common issues surfaced
 Troubleshooting via the local client socket typically surfaces the following types of issues:
