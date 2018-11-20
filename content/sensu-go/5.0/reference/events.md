@@ -70,51 +70,53 @@ _NOTE: Silenced has been deprecated from Event. Please see [check specification]
 -------------|------
 description  | The [Check attributes][1] used to obtain the check result.
 type         | Check
-example      | {{< highlight json >}}
-"check": {
-  "command": "http_check.sh http://localhost:80",
-  "handlers": [
-    "slack"
-  ],
-  "high_flap_threshold": 0,
-  "interval": 20,
-  "low_flap_threshold": 0,
-  "publish": true,
-  "runtime_assets": [],
-  "subscriptions": [
-    "testing"
-  ],
-  "proxy_entity_name": "",
-  "check_hooks": null,
-  "stdin": false,
-  "subdue": null,
-  "ttl": 0,
-  "timeout": 0,
-  "round_robin": false,
-  "duration": 0.010849143,
-  "executed": 1542667666,
-  "history": [
-    {
-      "status": 1,
-      "executed": 1542667666
+example      | {{< highlight shell >}}
+{
+  "check": {
+    "command": "http_check.sh http://localhost:80",
+    "handlers": [
+      "slack"
+    ],
+    "high_flap_threshold": 0,
+    "interval": 20,
+    "low_flap_threshold": 0,
+    "publish": true,
+    "runtime_assets": [],
+    "subscriptions": [
+      "testing"
+    ],
+    "proxy_entity_name": "",
+    "check_hooks": null,
+    "stdin": false,
+    "subdue": null,
+    "ttl": 0,
+    "timeout": 0,
+    "round_robin": false,
+    "duration": 0.010849143,
+    "executed": 1542667666,
+    "history": [
+      {
+        "status": 1,
+        "executed": 1542667666
+      }
+    ],
+    "issued": 1542667666,
+    "output": "",
+    "state": "failing",
+    "status": 1,
+    "total_state_change": 0,
+    "last_ok": 0,
+    "occurrences": 1,
+    "occurrences_watermark": 1,
+    "output_metric_format": "",
+    "output_metric_handlers": [],
+    "env_vars": null,
+    "metadata": {
+      "name": "check-nginx",
+      "namespace": "default",
+      "labels": null,
+      "annotations": null
     }
-  ],
-  "issued": 1542667666,
-  "output": "",
-  "state": "failing",
-  "status": 1,
-  "total_state_change": 0,
-  "last_ok": 0,
-  "occurrences": 1,
-  "occurrences_watermark": 1,
-  "output_metric_format": "",
-  "output_metric_handlers": [],
-  "env_vars": null,
-  "metadata": {
-    "name": "check-nginx",
-    "namespace": "default",
-    "labels": null,
-    "annotations": null
   }
 }
 {{< /highlight >}}
@@ -172,67 +174,69 @@ example      | {{< highlight json >}}
 description  | The [entity attributes][2] from the originating entity (agent or proxy).
 type         | Entity
 example      | {{< highlight json >}}
-"entity": {
-  "entity_class": "agent",
-  "system": {
-    "hostname": "webserver01",
-    "os": "linux",
-    "platform": "centos",
-    "platform_family": "rhel",
-    "platform_version": "7.4.1708",
-    "network": {
-      "interfaces": [
-        {
-          "name": "lo",
-          "addresses": [
-            "127.0.0.1/8",
-            "::1/128"
-          ]
-        },
-        {
-          "name": "enp0s3",
-          "mac": "08:00:27:11:ad:d2",
-          "addresses": [
-            "10.0.2.15/24",
-            "fe80::26a5:54ec:cf0d:9704/64"
-          ]
-        },
-        {
-          "name": "enp0s8",
-          "mac": "08:00:27:bc:be:60",
-          "addresses": [
-            "172.28.128.3/24",
-            "fe80::a00:27ff:febc:be60/64"
-          ]
-        }
-      ]
+{
+  "entity": {
+    "entity_class": "agent",
+    "system": {
+      "hostname": "webserver01",
+      "os": "linux",
+      "platform": "centos",
+      "platform_family": "rhel",
+      "platform_version": "7.4.1708",
+      "network": {
+        "interfaces": [
+          {
+            "name": "lo",
+            "addresses": [
+              "127.0.0.1/8",
+              "::1/128"
+            ]
+          },
+          {
+            "name": "enp0s3",
+            "mac": "08:00:27:11:ad:d2",
+            "addresses": [
+              "10.0.2.15/24",
+              "fe80::26a5:54ec:cf0d:9704/64"
+            ]
+          },
+          {
+            "name": "enp0s8",
+            "mac": "08:00:27:bc:be:60",
+            "addresses": [
+              "172.28.128.3/24",
+              "fe80::a00:27ff:febc:be60/64"
+            ]
+          }
+        ]
+      },
+      "arch": "amd64"
     },
-    "arch": "amd64"
-  },
-  "subscriptions": [
-    "testing",
-    "entity:webserver01"
-  ],
-  "last_seen": 1542667635,
-  "deregister": false,
-  "deregistration": {},
-  "user": "agent",
-  "redact": [
-    "password",
-    "passwd",
-    "pass",
-    "api_key",
-    "api_token",
-    "access_key",
-    "secret_key",
-    "private_key",
-    "secret"
-  ],
-  "metadata": {
-    "name": "webserver01",
-    "namespace": "default",
-    "labels": null,
-    "annotations": null
+    "subscriptions": [
+      "testing",
+      "entity:webserver01"
+    ],
+    "last_seen": 1542667635,
+    "deregister": false,
+    "deregistration": {},
+    "user": "agent",
+    "redact": [
+      "password",
+      "passwd",
+      "pass",
+      "api_key",
+      "api_token",
+      "access_key",
+      "secret_key",
+      "private_key",
+      "secret"
+    ],
+    "metadata": {
+      "name": "webserver01",
+      "namespace": "default",
+      "labels": null,
+      "annotations": null
+    }
   }
 }
 {{< /highlight >}}
