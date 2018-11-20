@@ -348,7 +348,7 @@ returns false, the event will be handled.
     },
     "action": "deny",
     "expressions": [
-      "event.Entity.Namespace == 'production'"
+      "event.entity.metadata.namespace == 'production'"
     ],
     "runtime_assets": []
   }
