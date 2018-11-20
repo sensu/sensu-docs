@@ -266,13 +266,13 @@ required     | false
 type         | Hash
 example      | {{< highlight shell >}}"subdue": {}{{< /highlight >}}
 
-|proxy_entity_id|   |
+|proxy_entity_name|   |
 -------------|------
 description  | The check ID, used to create a [proxy entity][18] for an external resource (i.e., a network switch).
 required     | false
 type         | String
 validated    | [`\A[\w\.\-]+\z`](https://regex101.com/r/zo9mQU/2)
-example      | {{< highlight shell >}}"proxy_entity_id": "switch-dc-01"{{< /highlight >}}
+example      | {{< highlight shell >}}"proxy_entity_name": "switch-dc-01"{{< /highlight >}}
 
 |proxy_requests|    |
 -------------|------

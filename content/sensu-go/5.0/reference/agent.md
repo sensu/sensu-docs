@@ -63,7 +63,7 @@ This makes it possible to generate ad-hoc check requests targeting specific enti
 
 Sensu proxy entities allow Sensu to monitor external resources on systems or devices where a Sensu agent cannot be installed (such a network switch).
 Unlike agent entities, proxy entity definitions are stored by the [Sensu backend][2].
-When the backend requests a check that includes a [`proxy_entity_id`][14], the agent includes the provided entity information in the event data in place of the agent entity data.
+When the backend requests a check that includes a [`proxy_entity_name`][14], the agent includes the provided entity information in the event data in place of the agent entity data.
 See the [entity reference][3] and the [guide to monitoring external resources][33] for more information about monitoring proxy entities.
 
 ## Creating monitoring events using the agent socket
