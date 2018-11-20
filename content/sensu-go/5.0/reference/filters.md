@@ -224,7 +224,7 @@ type         | String
 default      | current namespace value configured for `sensuctl` (for example: `default`) 
 example      | {{< highlight shell >}}"namespace": "default"{{< /highlight >}}
 
-runtime_assets |
+runtime_assets |      |
 ---------------|------
 description    | Assets to be applied to the filter's execution context. JavaScript files in the lib directory of the asset will be evaluated.
 required       | false

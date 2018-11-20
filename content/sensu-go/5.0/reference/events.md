@@ -74,7 +74,7 @@ example      | {{< highlight json >}}
 {
   "check": {
     "check_hooks": null,
-    "command": "check-http-response-time.rb -a example.com -C 5000 -w 3000",
+    "command": "check-http-response-time.go -a example.com -C 5000 -w 3000",
     "duration": 1.903135228,
     "executed": 1522100915,
     "handlers": [],
@@ -278,7 +278,7 @@ example      | {{< highlight json >}}
     },
     "check": {
       "check_hooks": null,
-      "command": "check-http-response-time.rb -a example.com -C 5000 -w 3000",
+      "command": "check-http-response-time.go -a example.com -C 5000 -w 3000",
       "duration": 2.033888684,
       "executed": 1522170513,
       "handlers": [

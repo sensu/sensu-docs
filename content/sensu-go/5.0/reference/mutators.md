@@ -52,7 +52,7 @@ provide support for command line arguments for reusability.
 ### How and where are mutator commands executed?
 As mentioned above, all mutator commands are executed by a Sensu server as the `sensu` user. Commands must be executable files that are discoverable on the Sensu server system (installed in a system `$PATH` directory).
 
-_NOTE: By default, the Sensu installer packages will modify the system `$PATH` for the Sensu processes to include `/etc/sensu/plugins`. As a result, executable scripts (like plugins) located in `/etc/sensu/plugins` will be valid commands. This allows `command` attributes to use “relative paths” for Sensu plugin commands, for example: `"command": "check-http.rb -u https://sensuapp.org"`._
+_NOTE: By default, the Sensu installer packages will modify the system `$PATH` for the Sensu processes to include `/etc/sensu/plugins`. As a result, executable scripts (like plugins) located in `/etc/sensu/plugins` will be valid commands. This allows `command` attributes to use “relative paths” for Sensu plugin commands, for example: `"command": "check-http.go -u https://sensuapp.org"`._
 
 ### Attributes
 command      | 
@@ -60,7 +60,7 @@ command      |
 description  | The mutator command to be executed by Sensu server. 
 required     | true
 type         | String
-example      | {{< highlight shell >}}"command": "/etc/sensu/plugins/mutated.rb"{{</highlight>}}
+example      | {{< highlight shell >}}"command": "/etc/sensu/plugins/mutated.go"{{</highlight>}}
 
 timeout      | 
 -------------|------ 
@@ -79,14 +79,14 @@ example        | {{< highlight shell >}}"runtime_assets": ["ruby-2.5.0"]{{< /hig
 
 ## Examples
 
-The following Sensu mutator definition uses an imaginary Sensu plugin called `example_mutator.rb`
+The following Sensu mutator definition uses an imaginary Sensu plugin called `example_mutator.go`
 to modify event data prior to handling the event.
 
 ### Mutator definition
 {{< highlight json >}}
 {
   "name": "example-mutator",
-  "command": "example_mutator.rb",
+  "command": "example_mutator.go",
   "timeout": 60,
   "env_vars": null,
   "namespace": "default"
