@@ -265,11 +265,20 @@ match event data with a custom entity definition attribute `"namespace":
 
 {{< highlight json >}}
 {
-  "name": "production_filter",
-  "action": "allow",
-  "expressions": [
-    "event.Entity.Namespace == 'production'"
-  ]
+  "type": "EventFilter",
+  "spec": {
+    "metadata": {
+      "name": "production_filter",
+      "namespace": "default",
+      "labels": null,
+      "annotations": null
+    },
+    "action": "allow",
+    "expressions": [
+      "event.Entity.Namespace == 'production'"
+    ],
+    "runtime_assets": []
+  }
 }
 {{< /highlight >}}
 
@@ -283,11 +292,20 @@ Note that `action` is `deny`, making this an exclusive filter; if evaluation
 returns false, the event will be handled.
 {{< highlight json >}}
 {
-  "name": "development_filter",
-  "action": "deny",
-  "expressions": [
-    "event.Entity.Namespace == 'production'"
-  ]
+  "type": "EventFilter",
+  "spec": {
+    "metadata": {
+      "name": "development_filter",
+      "namespace": "default",
+      "labels": null,
+      "annotations": null
+    },
+    "action": "deny",
+    "expressions": [
+      "event.Entity.Namespace == 'production'"
+    ],
+    "runtime_assets": []
+  }
 }
 {{< /highlight >}}
 
@@ -299,11 +317,20 @@ old monitoring system which alerts only on state change. This
 
 {{< highlight json >}}
 {
-  "name": "state_change_only",
-  "action": "allow",
-  "expressions": [
-    "event.check.occurrences == 1"
-  ]
+  "type": "EventFilter",
+  "spec": {
+    "metadata": {
+      "name": "state_change_only",
+      "namespace": "default",
+      "labels": null,
+      "annotations": null
+    },
+    "action": "allow",
+    "expressions": [
+      "event.check.occurrences == 1"
+    ],
+    "runtime_assets": []
+  }
 }
 {{< /highlight >}}
 
@@ -318,12 +345,21 @@ operator](https://en.wikipedia.org/wiki/Modulo_operation) calculation
 
 {{< highlight json >}}
 {
-  "name": "filter_interval_60_hourly",
-  "action": "allow",
-  "expressions": [
-    "event.check.interval == 60",
-    "event.check.occurrences == 1 || event.check.occurrences % 60 == 0"
-  ]
+  "type": "EventFilter",
+  "spec": {
+    "metadata": {
+      "name": "filter_interval_60_hourly",
+      "namespace": "default",
+      "labels": null,
+      "annotations": null
+    },
+    "action": "allow",
+    "expressions": [
+      "event.check.interval == 60",
+      "event.check.occurrences == 1 || event.check.occurrences % 60 == 0"
+    ],
+    "runtime_assets": []
+  }
 }
 {{< /highlight >}}
 
@@ -332,12 +368,21 @@ checks with a 30 second `interval`.
 
 {{< highlight json >}}
 {
-  "name": "filter_interval_30_hourly",
-  "action": "allow",
-  "expressions": [
-    "event.check.interval == 30",
-    "event.check.occurrences == 1 || event.check.occurrences % 120 == 0"
-  ]
+  "type": "EventFilter",
+  "spec": {
+    "metadata": {
+      "name": "filter_interval_30_hourly",
+      "namespace": "default",
+      "labels": null,
+      "annotations": null
+    },
+    "action": "allow",
+    "expressions": [
+      "event.check.interval == 30",
+      "event.check.occurrences == 1 || event.check.occurrences % 120 == 0"
+    ],
+    "runtime_assets": []
+  }
 }
 {{< /highlight >}}
 
@@ -351,12 +396,21 @@ same result.
 
 {{< highlight json >}}
 {
-  "name": "nine_to_fiver",
-  "action": "allow",
-  "expressions": [
-    "weekday(event.timestamp) >= 1 && weekday(event.timestamp) <= 5",
-    "hour(event.timestamp) >= 9 && hour(event.timestamp) <= 17"
-  ]
+  "type": "EventFilter",
+  "spec": {
+    "metadata": {
+      "name": "nine_to_fiver",
+      "namespace": "default",
+      "labels": null,
+      "annotations": null
+    },
+    "action": "allow",
+    "expressions": [
+      "weekday(event.timestamp) >= 1 && weekday(event.timestamp) <= 5",
+      "hour(event.timestamp) >= 9 && hour(event.timestamp) <= 17"
+    ],
+    "runtime_assets": []
+  }
 }
 {{< /highlight >}}
 
@@ -372,12 +426,20 @@ expressions.
 
 {{< highlight json >}}
 {
-  "name": "deny_if_failure_in_history",
-  "action": "deny",
-  "runtime_assets": ["underscore"],
-  "expressions": [
-    "_.reduce(event.check.history, function(memo, h) { return (memo || h.status != 0); })"
-  ]
+  "type": "EventFilter",
+  "spec": {
+    "metadata": {
+      "name": "deny_if_failure_in_history",
+      "namespace": "default",
+      "labels": null,
+      "annotations": null
+    },
+    "action": "deny",
+    "expressions": [
+      "_.reduce(event.check.history, function(memo, h) { return (memo || h.status != 0); })"
+    ],
+    "runtime_assets": ["underscore"]
+  }
 }
 {{< /highlight >}}
 

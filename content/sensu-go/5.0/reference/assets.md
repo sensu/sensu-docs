@@ -98,17 +98,27 @@ example      | {{< highlight shell >}}
 ## Examples
 
 ### Asset definition
+
 {{< highlight json >}}
 {
-  "name": "check_script",
-  "url": "http://example.com/asset.tar.gz",
-  "sha512": "4f926bf4328fbad2b9cac873d117f771914f4b837c9c85584c38ccf55a3ef3c2e8d154812246e5dda4a87450576b2c58ad9ab40c9e2edc31b288d066b195b21b",
-  "metadata": null,
-  "filters": [
-    "System.OS==linux",
-    "System.Arch=='amd64'"
-  ],
-  "namespace": "default"
+  "type": "Asset",
+  "spec": {
+    "url": "http://example.com/asset.tar.gz",
+    "sha512": "4f926bf4328fbad2b9cac873d117f771914f4b837c9c85584c38ccf55a3ef3c2e8d154812246e5dda4a87450576b2c58ad9ab40c9e2edc31b288d066b195b21b",
+    "filters": [
+      "System.OS==linux",
+      "System.Arch=='amd64'"
+    ],    "metadata": {
+      "name": "check_script",
+      "namespace": "default",
+      "labels": {
+        "region": "us-west-1"
+      },
+      "annotations": {
+        "slack-channel" : "#monitoring"
+      }
+    }
+  }
 }
 {{< /highlight >}}
 

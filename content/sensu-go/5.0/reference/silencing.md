@@ -141,13 +141,22 @@ do this by taking advantage of per-entity subscriptions:
 
 {{< highlight json >}}
 {
-  "expire": -1,
-  "expire_on_resolve": false,
-  "creator": null,
-  "reason": null,
-  "check": null,
-  "subscription": "entity:i-424242",
-  "id": "entity:i-424242:*"
+  "type": "Silenced",
+  "spec": {
+    "metadata": {
+      "name": "entity:i-424242:*",
+      "namespace": "default",
+      "labels": null,
+      "annotations": null
+    },
+    "expire": -1,
+    "expire_on_resolve": false,
+    "creator": "admin",
+    "reason": null,
+    "check": null,
+    "subscription": "entity:i-424242",
+    "begin": 1542671205
+  }
 }
 {{< /highlight >}}
 

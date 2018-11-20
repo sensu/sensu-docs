@@ -85,11 +85,19 @@ to modify event data prior to handling the event.
 ### Mutator definition
 {{< highlight json >}}
 {
-  "name": "example-mutator",
-  "command": "example_mutator.rb",
-  "timeout": 60,
-  "env_vars": null,
-  "namespace": "default"
+  "type": "Mutator",
+  "spec": {
+    "metadata": {
+      "name": "example-mutator",
+      "namespace": "default",
+      "labels": null,
+      "annotations": null
+    },
+    "command": "example_mutator.go",
+    "timeout": 0,
+    "env_vars": [],
+    "runtime_assets": []
+  }
 }
 {{< /highlight >}}
 

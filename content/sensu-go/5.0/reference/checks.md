@@ -387,18 +387,41 @@ example      | {{< highlight shell >}}"days": {
 {
   "type": "CheckConfig",
   "spec": {
-    "name": "collect-metrics",
-    "namespace": "default",
+    "command": "collect.sh",
+    "handlers": [],
+    "high_flap_threshold": 0,
+    "interval": 10,
+    "low_flap_threshold": 0,
+    "publish": true,
+    "runtime_assets": null,
     "subscriptions": [
       "system"
     ],
-    "command": "collect.sh",
-    "interval": 10,
-    "publish": true,
+    "proxy_entity_name": "",
+    "check_hooks": null,
+    "stdin": false,
+    "subdue": null,
+    "ttl": 0,
+    "timeout": 0,
+    "round_robin": false,
     "output_metric_format": "graphite_plaintext",
-    "output_metric_handlers": ["influx-db"]
+    "output_metric_handlers": [
+      "influx-db"
+    ],
+    "env_vars": null,
+    "metadata": {
+      "name": "collect-metrics",
+      "namespace": "default",
+      "labels": {
+        "region": "us-west-1"
+      },
+      "annotations": {
+        "slack-channel" : "#monitoring"
+      }
+    }
   }
-}{{< /highlight >}}
+}
+{{< /highlight >}}
 
 [1]: #subscription-checks
 [2]: https://en.wikipedia.org/wiki/Publish%E2%80%93subscribe_pattern

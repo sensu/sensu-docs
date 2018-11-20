@@ -168,22 +168,27 @@ sensuctl can be configured to return JSON instead of the default human-readable
 format:
 
 {{< highlight shell >}}
-sensuctl check info marketing-site --format json
+sensuctl check info marketing-site --format wrapped-json
 {{< /highlight >}}
 
 {{< highlight json >}}
 {
-  "name": "marketing-site",
-  "interval": 10,
-  "subscriptions": [
-    "web"
-  ],
-  "command": "check-http.rb -u https://dean-learner.book",
-  "handlers": [
-    "slack"
-  ],
-  "runtime_assets": [],
-  "namespace": "default"
+  "type": "CheckConfig",
+  "spec": {
+    "interval": 10,
+    "subscriptions": [
+      "web"
+    ],
+    "command": "check-http.rb -u https://dean-learner.book",
+    "handlers": [
+      "slack"
+    ],
+    "runtime_assets": [],
+    "metadata" : {
+      "name": "marketing-site",
+      "namespace": "default"
+    }
+  }
 }
 {{< /highlight >}}
 

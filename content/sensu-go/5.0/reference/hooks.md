@@ -101,10 +101,18 @@ a process that is no longer running.
 
 {{< highlight json >}}
 {
-  "name": "restart_nginx",
-  "command": "sudo systemctl start nginx",
-  "timeout": 60,
-  "namespace": "default"
+  "type": "HookConfig",
+  "spec": {
+    "metadata": {
+      "name": "restart_nginx",
+      "namespace": "default",
+      "labels": null,
+      "annotations": null
+    },
+    "command": "sudo systemctl start nginx",
+    "timeout": 60,
+    "stdin": false
+  }
 }
 {{< /highlight >}}
 
@@ -116,10 +124,18 @@ has been determined to be not running etc.
 
 {{< highlight json >}}
 {
-  "name": "process_tree",
-  "command": "ps aux",
-  "timeout": 60,
-  "namespace": "default"
+  "type": "HookConfig",
+  "spec": {
+    "metadata": {
+      "name": "process_tree",
+      "namespace": "default",
+      "labels": null,
+      "annotations": null
+    },
+    "command": "ps aux",
+    "timeout": 60,
+    "stdin": false
+  }
 }
 {{< /highlight >}}
 
