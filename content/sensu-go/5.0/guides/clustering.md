@@ -30,35 +30,28 @@ You can configure a Sensu cluster in a couple different ways (we'll show you a f
 
 We also recommend using stable platforms to support your etcd instances (see [Supported Platforms][5]).
 
-### backend.yml
+### Docker
 
-Below are example configuration snippets from `/etc/sensu/backend.yml` on three sensu backends named `backend-0`, `backend-1` and `backend-2` with IP addresses `10.0.0.1`, `10.0.0.2` and `10.0.0.3` respectively.
+If you'd prefer to stand up your Sensu Cluster within docker containers, check out the sensu-go [docker configuration][7]. This configuration defines 3 sensu-backend containers and 3 sensu-agent containers.
 
-**backend-0**
+### Traditional Computer Instance
 
-{{< highlight shell >}}
-##
-# store configuration for backend-0/10.0.0.1
-##
-etcd-listen-client-urls: "http://10.0.0.1:2379"
-etcd-listen-peer-urls: "http://0.0.0.0:2380"
-etcd-initial-cluster: "backend-0=http://10.0.0.1:2380,backend-1=http://10.0.0.2:2380,backend-2=http://10.0.0.3:2380"
-etcd-initial-advertise-peer-urls: "http://10.0.0.1:2380"
-etcd-initial-cluster-state: "new"
-etcd-initial-cluster-token: ""
-etcd-name: "backend-0"
-{{< /highlight >}}
+#### Sensu Backend Configuration
+
+Below are example configuration snippets from `/etc/sensu/backend.yml` using a 3 node cluster. The nodes are named `backend-1`, `backend-2` and `backend-3` with IP addresses `10.0.0.1`, `10.0.0.2` and `10.0.0.3`, respectively.
+
+_NOTE: This backend configuration assumes you have setup and installed the sensu-backend on all the nodes you will use in your cluster. You can use our [installation and configuration guide][14] guide to do so._
 
 **backend-1**
 
 {{< highlight shell >}}
 ##
-# store configuration for backend-1/10.0.0.2
+# store configuration for backend-1/10.0.0.1
 ##
-etcd-listen-client-urls: "http://10.0.0.2:2379"
+etcd-listen-client-urls: "http://10.0.0.1:2379"
 etcd-listen-peer-urls: "http://0.0.0.0:2380"
-etcd-initial-cluster: "backend-0=http://10.0.0.1:2380,backend-1=http://10.0.0.2:2380,backend-2=http://10.0.0.3:2380"
-etcd-initial-advertise-peer-urls: "http://10.0.0.2:2380"
+etcd-initial-cluster: "backend-1=http://10.0.0.1:2380,backend-2=http://10.0.0.2:2380,backend-3=http://10.0.0.3:2380"
+etcd-initial-advertise-peer-urls: "http://10.0.0.1:2380"
 etcd-initial-cluster-state: "new"
 etcd-initial-cluster-token: ""
 etcd-name: "backend-1"
@@ -68,27 +61,39 @@ etcd-name: "backend-1"
 
 {{< highlight shell >}}
 ##
-# store configuration for backend-2/10.0.0.3
+# store configuration for backend-2/10.0.0.2
 ##
-etcd-listen-client-urls: "http://10.0.0.3:2379"
+etcd-listen-client-urls: "http://10.0.0.2:2379"
 etcd-listen-peer-urls: "http://0.0.0.0:2380"
-etcd-initial-cluster: "backend-0=http://10.0.0.1:2380,backend-1=http://10.0.0.2:2380,backend-2=http://10.0.0.3:2380"
-etcd-initial-advertise-peer-urls: "http://10.0.0.3:2380"
+etcd-initial-cluster: "backend-1=http://10.0.0.1:2380,backend-2=http://10.0.0.2:2380,backend-3=http://10.0.0.3:2380"
+etcd-initial-advertise-peer-urls: "http://10.0.0.2:2380"
 etcd-initial-cluster-state: "new"
 etcd-initial-cluster-token: ""
 etcd-name: "backend-2"
 {{< /highlight >}}
 
-Once added, startup each sensu backend:
+**backend-3**
 
 {{< highlight shell >}}
+##
+# store configuration for backend-3/10.0.0.3
+##
+etcd-listen-client-urls: "http://10.0.0.3:2379"
+etcd-listen-peer-urls: "http://0.0.0.0:2380"
+etcd-initial-cluster: "backend-1=http://10.0.0.1:2380,backend-2=http://10.0.0.2:2380,backend-3=http://10.0.0.3:2380"
+etcd-initial-advertise-peer-urls: "http://10.0.0.3:2380"
+etcd-initial-cluster-state: "new"
+etcd-initial-cluster-token: ""
+etcd-name: "backend-3"
 {{< /highlight >}}
 
-Using this configuration file at the start up of each sensu-backend accordingly, you should have a highly available Sensu Cluster! You can verify its health and try other cluster management commands using [sensuctl][6].
+Once each node has the configuration described above, start each sensu-backend:
 
-### docker-compose.yml
+{{< highlight shell >}}
+sudo systemctl start sensu-backend
+{{< /highlight >}}
 
-If you'd prefer to stand up your Sensu Cluster within docker containers, check out the sensu-go [docker configuration][7]. This configuration defines 3 sensu-backend containers and 3 sensu-agent containers.
+You should now have a highly available Sensu Cluster! You can verify its health and try other cluster management commands using [sensuctl][6].
 
 ## Sensuctl
 
@@ -102,9 +107,9 @@ Get cluster health status and etcd alarm information.
 $ sensuctl cluster health
          ID            Name      Error   Healthy  
  ────────────────── ─────────── ─────── ─────────
-  a32e8f613b529ad4   backend-0           true
-  c3d9f4b8d0dd1ac9   backend-1    wat    false
-  c8f63ae435a5e6bf   backend-2           true
+  a32e8f613b529ad4   backend-1           true
+  c3d9f4b8d0dd1ac9   backend-2    wat    false
+  c8f63ae435a5e6bf   backend-3           true
 {{< /highlight >}}
 
 ### Add a cluster member
@@ -112,11 +117,11 @@ $ sensuctl cluster health
 Add a new member node to an existing cluster.
 
 {{< highlight shell >}}
-$ sensuctl cluster member-add backend-3 https://10.3.0.1:2380
+$ sensuctl cluster member-add backend-4 https://10.0.0.4:2380
 added member 2f7ae42c315f8c2d to cluster
 
-ETCD_NAME="backend-3"
-ETCD_INITIAL_CLUSTER="backend-3=https://10.3.0.1:2380,backend-0=https://10.0.0.1:2380,backend-1=https://10.0.0.2:2380,backend-2=https://10.0.0.3:2380"
+ETCD_NAME="backend-4"
+ETCD_INITIAL_CLUSTER="backend-4=https://10.0.0.4:2380,backend-1=https://10.0.0.1:2380,backend-2=https://10.0.0.2:2380,backend-3=https://10.0.0.3:2380"
 ETCD_INITIAL_CLUSTER_STATE="existing"
 {{< /highlight >}}
 
@@ -128,10 +133,10 @@ List the ID, name, peer urls, and client urls of all nodes in a cluster.
 $ sensuctl cluster member-list
          ID            Name             Peer URLs                Client URLs
  ────────────────── ─────────── ───────────────────────── ─────────────────────────
-  a32e8f613b529ad4   backend-0    https://10.0.0.1:2380     https://10.0.0.1:2379  
-  c3d9f4b8d0dd1ac9   backend-1    https://10.0.0.2:2380     https://10.0.0.2:2379
-  c8f63ae435a5e6bf   backend-2    https://10.0.0.3:2380     https://10.0.0.3:2379
-  2f7ae42c315f8c2d   backend-3    https://10.3.0.1:2380     https://10.3.0.1:2379
+  a32e8f613b529ad4   backend-1    https://10.0.0.1:2380     https://10.0.0.1:2379  
+  c3d9f4b8d0dd1ac9   backend-2    https://10.0.0.2:2380     https://10.0.0.2:2379
+  c8f63ae435a5e6bf   backend-3    https://10.0.0.3:2380     https://10.0.0.3:2379
+  2f7ae42c315f8c2d   backend-4    https://10.0.0.4:2380     https://10.0.0.4:2379
 {{< /highlight >}}
 
 ### Remove a cluster member
@@ -148,7 +153,7 @@ Removed member 2f7ae42c315f8c2d from cluster
 Update the peer urls of a member in a cluster.
 
 {{< highlight shell >}}
-$ sensuctl cluster member-update c8f63ae435a5e6bf https://10.4.0.1:2380
+$ sensuctl cluster member-update c8f63ae435a5e6bf https://10.0.0.4:2380
 Updated member with ID c8f63ae435a5e6bf in cluster
 {{< /highlight >}}
 
@@ -178,16 +183,16 @@ echo '{"signing":{"default":{"expiry":"43800h","usages":["signing","key encipher
 Then, using that CA, we can generate certificates and keys for each peer (backend server) by specifying their **Common Name (CN)** and their **hosts**. A `*.pem`, `*.csr` and `*.pem` will be created for each backend.
 
 {{< highlight shell >}}
-export ADDRESS=10.0.0.1,backend-0
-export NAME=backend-0
-echo '{"CN":"'$NAME'","hosts":[""],"key":{"algo":"rsa","size":2048}}' | cfssl gencert -config=ca-config.json -ca=ca.pem -ca-key=ca-key.pem -hostname="$ADDRESS" -profile=peer - | cfssljson -bare $NAME
-
-export ADDRESS=10.0.0.2,backend-1
+export ADDRESS=10.0.0.1,backend-1
 export NAME=backend-1
 echo '{"CN":"'$NAME'","hosts":[""],"key":{"algo":"rsa","size":2048}}' | cfssl gencert -config=ca-config.json -ca=ca.pem -ca-key=ca-key.pem -hostname="$ADDRESS" -profile=peer - | cfssljson -bare $NAME
 
-export ADDRESS=10.0.0.3,backend-2
+export ADDRESS=10.0.0.2,backend-2
 export NAME=backend-2
+echo '{"CN":"'$NAME'","hosts":[""],"key":{"algo":"rsa","size":2048}}' | cfssl gencert -config=ca-config.json -ca=ca.pem -ca-key=ca-key.pem -hostname="$ADDRESS" -profile=peer - | cfssljson -bare $NAME
+
+export ADDRESS=10.0.0.3,backend-3
+export NAME=backend-3
 echo '{"CN":"'$NAME'","hosts":[""],"key":{"algo":"rsa","size":2048}}' | cfssl gencert -config=ca-config.json -ca=ca.pem -ca-key=ca-key.pem -hostname="$ADDRESS" -profile=peer - | cfssljson -bare $NAME
 {{< /highlight >}}
 
@@ -202,15 +207,15 @@ See [https://coreos.com/os/docs/latest/generate-self-signed-certificates.html][1
 
 Once done, you should have the following files created:
 {{< highlight shell >}}
-backend-0-key.pem
-backend-0.csr
-backend-0.pem
 backend-1-key.pem
 backend-1.csr
 backend-1.pem
 backend-2-key.pem
 backend-2.csr
 backend-2.pem
+backend-3-key.pem
+backend-3.csr
+backend-3.pem
 ca-config.json
 ca-key.pem
 ca.csr
@@ -222,7 +227,7 @@ client.pem
 
 ### Client-to-server transport security with HTTPS
 
-Below are example configuration snippets from `/etc/sensu/backend.yml` that will be the same for `backend-0`, `backend-1` and `backend-2` and assumes your client certificates are in `/etc/sensu/certs/` and your CA certificate is in `/usr/local/share/ca-certificates/sensu/`.
+Below are example configuration snippets from `/etc/sensu/backend.yml` that will be the same for `backend-1`, `backend-2` and `backend-3` and assumes your client certificates are in `/etc/sensu/certs/` and your CA certificate is in `/usr/local/share/ca-certificates/sensu/`.
 
 {{< highlight shell >}}
 etcd-cert-file: "/etc/sensu/certs/client.pem"
@@ -257,56 +262,31 @@ curl --cacert /usr/local/share/ca-certificates/sensu/ca.pem \
 
 ### Peer communication authentication with HTTPS client certificates
 
-Below are example configuration snippets from `/etc/sensu/backend.yml` on three sensu backends named `backend-0`, `backend-1` and `backend-2` with IP addresses `10.0.0.1`, `10.0.0.2` and `10.0.0.3` respectively.
+Below are example configuration snippets from `/etc/sensu/backend.yml` on three sensu backends named `backend-1`, `backend-2` and `backend-3` with IP addresses `10.0.0.1`, `10.0.0.2` and `10.0.0.3` respectively.
 
 _NOTE: If you ran through the first part of the guide, you will not need to repeat the store configuration any of the backends._
-
-**backend-0**
-
-{{< highlight shell >}}
-##
-# store configuration for backend-0/10.0.0.1
-##
-
-etcd-listen-client-urls: "https://10.0.0.1:2379"
-etcd-listen-peer-urls: "https://0.0.0.0:2380"
-etcd-initial-cluster: "backend-0=https://10.0.0.1:2380,backend-1=https://10.0.0.2:2380,backend-2=https://10.0.0.3:2380"
-etcd-initial-advertise-peer-urls: "https://10.0.0.1:2380"
-etcd-initial-cluster-state: "new"
-etcd-initial-cluster-token: "sensu"
-etcd-name: "backend-0"
-
-##
-# etcd peer ssl configuration for backend-0/10.0.0.1
-##
-
-etcd-peer-cert-file: "/etc/sensu/certs/backend-0.pem"
-etcd-peer-key-file: "/etc/sensu/certs/backend-0-key.pem"
-etcd-peer-trusted-ca-file: "/usr/local/share/ca-certificates/sensu/ca.pem"
-etcd-peer-client-cert-auth: true
-{{< /highlight >}}
 
 **backend-1**
 
 {{< highlight shell >}}
 ##
-# store configuration for backend-1/10.0.0.2
+# store configuration for backend-1/10.0.0.1
 ##
 
-etcd-listen-client-urls: "https://10.0.0.2:2379"
+etcd-listen-client-urls: "https://10.0.0.1:2379"
 etcd-listen-peer-urls: "https://0.0.0.0:2380"
-etcd-initial-cluster: "backend-0=https://10.0.0.1:2380,backend-1=https://10.0.0.2:2380,backend-2=https://10.0.0.3:2380"
-etcd-initial-advertise-peer-urls: "https://10.0.0.2:2380"
+etcd-initial-cluster: "backend-1=https://10.0.0.1:2380,backend-2=https://10.0.0.2:2380,backend-3=https://10.0.0.3:2380"
+etcd-initial-advertise-peer-urls: "https://10.0.0.1:2380"
 etcd-initial-cluster-state: "new"
 etcd-initial-cluster-token: "sensu"
 etcd-name: "backend-1"
 
 ##
-# etcd peer ssl configuration for backend-1/10.0.0.2
+# etcd peer ssl configuration for backend-1/10.0.0.1
 ##
 
-etcd-peer-cert-file: "/etc/sensu/certs/backend-0.pem"
-etcd-peer-key-file: "/etc/sensu/certs/backend-0-key.pem"
+etcd-peer-cert-file: "/etc/sensu/certs/backend-1.pem"
+etcd-peer-key-file: "/etc/sensu/certs/backend-1-key.pem"
 etcd-peer-trusted-ca-file: "/usr/local/share/ca-certificates/sensu/ca.pem"
 etcd-peer-client-cert-auth: true
 {{< /highlight >}}
@@ -315,23 +295,48 @@ etcd-peer-client-cert-auth: true
 
 {{< highlight shell >}}
 ##
-# store configuration for backend-2/10.0.0.3
+# store configuration for backend-2/10.0.0.2
 ##
 
-etcd-listen-client-urls: "https://10.0.0.3:2379"
+etcd-listen-client-urls: "https://10.0.0.2:2379"
 etcd-listen-peer-urls: "https://0.0.0.0:2380"
-etcd-initial-cluster: "backend-0=https://10.0.0.1:2380,backend-1=https://10.0.0.2:2380,backend-2=https://10.0.0.3:2380"
-etcd-initial-advertise-peer-urls: "https://10.0.0.3:2380"
+etcd-initial-cluster: "backend-1=https://10.0.0.1:2380,backend-2=https://10.0.0.2:2380,backend-3=https://10.0.0.3:2380"
+etcd-initial-advertise-peer-urls: "https://10.0.0.2:2380"
 etcd-initial-cluster-state: "new"
 etcd-initial-cluster-token: "sensu"
 etcd-name: "backend-2"
 
 ##
-# etcd peer ssl configuration for backend-2/10.0.0.3
+# etcd peer ssl configuration for backend-2/10.0.0.2
 ##
 
-etcd-peer-cert-file: "/etc/sensu/certs/backend-0.pem"
-etcd-peer-key-file: "/etc/sensu/certs/backend-0-key.pem"
+etcd-peer-cert-file: "/etc/sensu/certs/backend-1.pem"
+etcd-peer-key-file: "/etc/sensu/certs/backend-1-key.pem"
+etcd-peer-trusted-ca-file: "/usr/local/share/ca-certificates/sensu/ca.pem"
+etcd-peer-client-cert-auth: true
+{{< /highlight >}}
+
+**backend-3**
+
+{{< highlight shell >}}
+##
+# store configuration for backend-3/10.0.0.3
+##
+
+etcd-listen-client-urls: "https://10.0.0.3:2379"
+etcd-listen-peer-urls: "https://0.0.0.0:2380"
+etcd-initial-cluster: "backend-1=https://10.0.0.1:2380,backend-2=https://10.0.0.2:2380,backend-3=https://10.0.0.3:2380"
+etcd-initial-advertise-peer-urls: "https://10.0.0.3:2380"
+etcd-initial-cluster-state: "new"
+etcd-initial-cluster-token: "sensu"
+etcd-name: "backend-3"
+
+##
+# etcd peer ssl configuration for backend-3/10.0.0.3
+##
+
+etcd-peer-cert-file: "/etc/sensu/certs/backend-1.pem"
+etcd-peer-key-file: "/etc/sensu/certs/backend-1-key.pem"
 etcd-peer-trusted-ca-file: "/usr/local/share/ca-certificates/sensu/ca.pem"
 etcd-peer-client-cert-auth: true
 {{< /highlight >}}
@@ -340,24 +345,24 @@ etcd-peer-client-cert-auth: true
 
 To stand up an external etcd cluster, you can follow etcd's [Clustering Guide][12] using the same store configuration.
 
-In this example, we will enable client-to-server and peer communication authentication, [using self-signed TLS certificates][13]. Below is how you would start etcd for `backend-0` from our 3 node configuration example above.
+In this example, we will enable client-to-server and peer communication authentication, [using self-signed TLS certificates][13]. Below is how you would start etcd for `backend-1` from our 3 node configuration example above.
 
 {{< highlight shell >}}
 etcd \
 --listen-client-urls "https://10.0.0.1:2379" \
 --advertise-client-urls "https://10.0.0.1:2379" \
 --listen-peer-urls "https://10.0.0.1:2380" \
---initial-cluster "backend-0=https://10.0.0.1:2380,backend-1=https://10.0.0.2:2380,backend-2=https://10.0.0.3:2380" \
+--initial-cluster "backend-1=https://10.0.0.1:2380,backend-2=https://10.0.0.2:2380,backend-3=https://10.0.0.3:2380" \
 --initial-advertise-peer-urls "https://10.0.0.1:2380" \
 --initial-cluster-state "new" \
---name "backend-0" \
+--name "backend-1" \
 --trusted-ca-file=./ca.pem \
---cert-file=./backend-0.pem \
---key-file=./backend-0-key.pem \
+--cert-file=./backend-1.pem \
+--key-file=./backend-1-key.pem \
 --client-cert-auth \
 --peer-trusted-ca-file=./ca.pem \
---peer-cert-file=./backend-0.pem \
---peer-key-file=./backend-0-key.pem \
+--peer-cert-file=./backend-1.pem \
+--peer-key-file=./backend-1-key.pem \
 --peer-client-cert-auth
 {{< /highlight >}}
 
