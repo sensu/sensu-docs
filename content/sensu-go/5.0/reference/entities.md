@@ -34,12 +34,21 @@ An `entity`, formally known as a `client` in Sensu 1.x, represents anything (ex:
 
 ### Entity Attributes
 
-ID           | 
--------------|------ 
-description  | The unique ID of the entity, validated with go regex [`\A[\w\.\-]+\z`](https://regex101.com/r/zo9mQU/2)
+|metadata    |      |
+-------------|------
+description  | Collection of metadata about the entity, including the `name` and `namespace` as well as custom `labels` and `annotations`. See the [metadata attributes reference][8] for details.
 required     | true
-type         | string 
-example      | {{< highlight shell >}}"ID": "example-hostname"{{< /highlight >}}
+type         | Map of key-value pairs
+example      | {{< highlight shell >}}"metadata": {
+  "name": "webserver01",
+  "namespace": "default",
+  "labels": {
+    "region": "us-west-1"
+  },
+  "annotations": {
+    "slack-channel" : "#monitoring"
+  }
+}{{< /highlight >}}
 
 entity_class |     |
 -------------|------ 
@@ -50,7 +59,7 @@ example      | {{< highlight shell >}}"entity_class": "agent"{{< /highlight >}}
 
 subscriptions| 
 -------------|------ 
-description  | A list of subscription names for the entity. The entity by default has an entity-specific subscription, in the format of `entity:{ID}` where `ID` is the entity's hostname.
+description  | A list of subscription names for the entity. The entity by default has an entity-specific subscription, in the format of `entity:{name}` where `name` is the entity's hostname.
 required     | false 
 type         | array 
 default      | The entity-specific subscription.
@@ -128,20 +137,6 @@ type         | integer
 default      | 120
 example      | {{< highlight shell >}}"keepalive_timeout": 120 {{< /highlight >}}
 
-namespace | 
--------------|------ 
-description  | The Sensu RBAC namespace that this entity belongs to.
-required     | false 
-type         | string 
-example      | {{< highlight shell >}}"namespace": "default"{{< /highlight >}}
-
-extended_attributes | 
--------------|------ 
-description  | Custom attributes to include with the entity, which can be queried like regular attributes.
-required     | false 
-type         | JSON object
-example      | {{< highlight shell >}}{"team":"ops"}{{< /highlight >}}
-
 redact       | 
 -------------|------ 
 description  | List of items to redact from log messages. If a value is provided, it overwrites the default list of items to be redacted.
@@ -153,6 +148,46 @@ example      | {{< highlight json >}}
   "redact": [
     "extra_secret_tokens"
   ]
+}{{< /highlight >}}
+
+### Metadata attributes
+
+| name       |      |
+-------------|------
+description  | The unique name of the entity, validated with Go regex `\A[\w\.\-]+\z`.
+required     | true
+type         | String
+example      | {{< highlight shell >}}"name": "example-hostname"{{< /highlight >}}
+
+| namespace  |      |
+-------------|------
+description  | The [Sensu RBAC namespace][5] that this entity belongs to.
+required     | false
+type         | String
+default      | `default`
+example      | {{< highlight shell >}}"namespace": "production"{{< /highlight >}}
+
+| labels     |      |
+-------------|------
+description  | Custom attributes to include with event data, which can be queried like regular attributes. You can use labels to organize entities into meaningful collections that can be selected using [filters][6] and [tokens][7].
+required     | false
+type         | Map of key-value pairs. Keys and values can be any valid UTF-8 string.
+default      | `null`
+example      | {{< highlight shell >}}"labels": {
+  "environment": "development",
+  "region": "us-west-2"
+}{{< /highlight >}}
+
+| annotations |     |
+-------------|------
+description  | Arbitrary, non-identifying metadata to include with event data. In contrast to labels, annotations are _not_ used internally by Sensu and cannot be used to identify entities. You can use annotations to add data that helps people or external tools interacting with Sensu.
+required     | false
+type         | Map of key-value pairs. Keys and values can be any valid UTF-8 string.
+default      | `null`
+example      | {{< highlight shell >}} "annotations": {
+  "managed-by": "ops",
+  "slack-channel": "#monitoring",
+  "playbook": "www.example.url"
 }{{< /highlight >}}
 
 ### System Attributes
@@ -363,3 +398,7 @@ example      | {{< highlight shell >}}"handler": "email-handler"{{< /highlight >
 [2]: #deregistration-attributes
 [3]: #network-attributes
 [4]: #networkinterface-attributes
+[5]: ../rbac#namespaces
+[6]: ../filters
+[7]: ../tokens
+[8]: #metadata-attributes

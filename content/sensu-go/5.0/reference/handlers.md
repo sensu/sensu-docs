@@ -84,15 +84,23 @@ built-in `is_incident` filter.
 
 ## Handler specification
 
-### Handler naming
-
-Each handler definition must have a unique name within its namespace.
-
-* A unique string used to name/identify the handler
-* Cannot contain special characters or spaces
-* Validated with Go regex [`\A[\w\.\-]+\z`](https://regex101.com/r/zo9mQU/2)
-
 ### Handler attributes
+
+|metadata    |      |
+-------------|------
+description  | Collection of metadata about the handler, including the `name` and `namespace` as well as custom `labels` and `annotations`. See the [metadata attributes reference][8] for details.
+required     | true
+type         | Map of key-value pairs
+example      | {{< highlight shell >}}"metadata": {
+  "name": "handler-slack",
+  "namespace": "default",
+  "labels": {
+    "region": "us-west-1"
+  },
+  "annotations": {
+    "slack-channel" : "#monitoring"
+  }
+}{{< /highlight >}}
 
 type         | 
 -------------|------
@@ -152,22 +160,52 @@ required     | true (if `type` equals `set`)
 type         | Array
 example      | {{< highlight shell >}}"handlers": ["pagerduty", "email", "ec2"]{{< /highlight >}}
 
-namespace | 
--------------|------ 
-description  | The Sensu RBAC namespace that this handler belongs to.
-required     | false 
-type         | String
-default      | current namespace value configured for `sensuctl` (i.e., `default`) 
-example      | {{< highlight shell >}}
-  "namespace": "default"
-{{< /highlight >}}
-
 runtime_assets | 
 ---------------|------
 description    | An array of [Sensu assets][7] (names), required at runtime for the execution of the `command`
 required       | false
 type           | Array
 example        | {{< highlight shell >}}"runtime_assets": ["ruby-2.5.0"]{{< /highlight >}}
+
+### Metadata attributes
+
+| name       |      |
+-------------|------
+description  | A unique string used to identify the handler. Handler names cannot contain special characters or spaces (validated with Go regex [`\A[\w\.\-]+\z`](https://regex101.com/r/zo9mQU/2)). Each handler must have a unique name within its namespace.
+required     | true
+type         | String
+example      | {{< highlight shell >}}"name": "handler-slack"{{< /highlight >}}
+
+| namespace  |      |
+-------------|------
+description  | The Sensu [RBAC namespace][9] that this handler belongs to.
+required     | false
+type         | String
+default      | `default`
+example      | {{< highlight shell >}}"namespace": "production"{{< /highlight >}}
+
+| labels     |      |
+-------------|------
+description  | Custom attributes to include with event data, which can be queried like regular attributes. You can use labels to organize handlers into meaningful collections that can be selected using [filters][10] and [tokens][11].
+required     | false
+type         | Map of key-value pairs. Keys and values can be any valid UTF-8 string.
+default      | `null`
+example      | {{< highlight shell >}}"labels": {
+  "environment": "development",
+  "region": "us-west-2"
+}{{< /highlight >}}
+
+| annotations |     |
+-------------|------
+description  | Arbitrary, non-identifying metadata to include with event data. In contrast to labels, annotations are _not_ used internally by Sensu and cannot be used to identify handlers. You can use annotations to add data that helps people or external tools interacting with Sensu.
+required     | false
+type         | Map of key-value pairs. Keys and values can be any valid UTF-8 string.
+default      | `null`
+example      | {{< highlight shell >}} "annotations": {
+  "managed-by": "ops",
+  "slack-channel": "#monitoring",
+  "playbook": "www.example.url"
+}{{< /highlight >}}
 
 ### `socket` attributes
 
@@ -280,3 +318,7 @@ The following example handler will execute three handlers: `slack`,
 [5]: ../../../1.2/reference/handlers/#transport-handlers
 [6]: #socket-attributes
 [7]: ../assets
+[8]: #metadata-attributes
+[9]: ../rbac#namespaces
+[10]: ../filters
+[11]: ../tokens

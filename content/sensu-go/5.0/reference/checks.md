@@ -157,15 +157,23 @@ enabled directly with the [round_robin][13] attribute in the check configuration
 
 ## Check specification
 
-### Check naming
-
-Each check definition must have a unique name within its namespace.
-
-* A unique string used to name/identify the check
-* Cannot contain special characters or spaces
-* Validated with Go regex [`\A[\w\.\-]+\z`](https://regex101.com/r/zo9mQU/2)
-
 ### Check attributes
+
+|metadata     |      |
+-------------|------
+description  | Collection of metadata about the check, including the `name` and `namespace` as well as custom `labels` and `annotations`. See the [metadata attributes reference][25] for details.
+required     | true
+type         | Map of key-value pairs
+example      | {{< highlight shell >}}"metadata": {
+  "name": "collect-metrics",
+  "namespace": "default",
+  "labels": {
+    "region": "us-west-1"
+  },
+  "annotations": {
+    "slack-channel" : "#monitoring"
+  }
+}{{< /highlight >}}
 
 |command     |      |
 -------------|------
@@ -288,22 +296,6 @@ required     | false
 type         | Boolean
 example      | {{< highlight shell >}}"round_robin": false{{< /highlight >}}
 
-|extended_attributes|      |
--------------|------
-description  | Custom attributes to include with the event data, which can be queried like regular attributes.
-required     | false
-type         | Serialized JSON object
-example      | {{< highlight shell >}}"{\"team\":\"ops\"}"{{< /highlight >}}
-
-|namespace|      |
--------------|------
-description  | The Sensu RBAC namespace that this check belongs to.
-required     | false
-type         | String
-example      | {{< highlight shell >}}
-  "namespace": "default"
-{{< /highlight >}}
-
 |silenced    |      |
 -------------|------
 description  | If the event is to be silenced.
@@ -330,6 +322,46 @@ description  | An array of Sensu handlers to use for events created by the check
 required     | false
 type         | Array
 example      | {{< highlight shell >}}"output_metric_handlers": ["influx-db"]{{< /highlight >}}
+
+### Metadata attributes
+
+| name       |      |
+-------------|------
+description  | A unique string used to identify the check. Check names cannot contain special characters or spaces (validated with Go regex [`\A[\w\.\-]+\z`](https://regex101.com/r/zo9mQU/2)). Each check must have a unique name within its namespace.
+required     | true
+type         | String
+example      | {{< highlight shell >}}"name": "check-cpu"{{< /highlight >}}
+
+| namespace  |      |
+-------------|------
+description  | The Sensu [RBAC namespace][26] that this check belongs to.
+required     | false
+type         | String
+default      | `default`
+example      | {{< highlight shell >}}"namespace": "production"{{< /highlight >}}
+
+| labels     |      |
+-------------|------
+description  | Custom attributes to include with event data, which can be queried like regular attributes. You can use labels to organize checks into meaningful collections that can be selected using [filters][27] and [tokens][5].
+required     | false
+type         | Map of key-value pairs. Keys and values can be any valid UTF-8 string.
+default      | `null`
+example      | {{< highlight shell >}}"labels": {
+  "environment": "development",
+  "region": "us-west-2"
+}{{< /highlight >}}
+
+| annotations |     |
+-------------|------
+description  | Arbitrary, non-identifying metadata to include with event data. In contrast to labels, annotations are _not_ used internally by Sensu and cannot be used to identify checks. You can use annotations to add data that helps people or external tools interacting with Sensu.
+required     | false
+type         | Map of key-value pairs. Keys and values can be any valid UTF-8 string.
+default      | `null`
+example      | {{< highlight shell >}} "annotations": {
+  "managed-by": "ops",
+  "slack-channel": "#monitoring",
+  "playbook": "www.example.url"
+}{{< /highlight >}}
 
 ### Proxy requests attributes
 
@@ -453,3 +485,6 @@ example      | {{< highlight shell >}}"days": {
 [influx]: https://docs.influxdata.com/influxdb/v1.4/write_protocols/line_protocol_tutorial/#measurement
 [open]: http://opentsdb.net/docs/build/html/user_guide/writing.html#data-specification
 [sensu-metric-format]: ../../reference/events/#metrics
+[25]: #metadata-attributes
+[26]: ../rbac#namespaces
+[27]: ../filters

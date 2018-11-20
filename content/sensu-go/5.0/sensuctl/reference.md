@@ -287,20 +287,24 @@ an example, and [this table][3] for a list of supported types).
 {
   "type": "CheckConfig",
   "spec": {
-    "name": "marketing-site",
     "command": "check-http.rb -u https://dean-learner.book",
     "subscriptions": ["demo"],
     "interval": 15,
     "handlers": ["slack"],
-    "namespace": "default"   }
+    "metadata" : {
+      "name": "marketing-site",
+      "namespace": "default"
+    }
 }
 {
   "type": "Handler",
   "spec": {
-    "name": "slack",
     "type": "pipe",
     "command": "handler-slack --webhook-url https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX --channel monitoring'",
-    "namespace": "default"
+    "metadata" : {
+      "name": "slack",
+      "namespace": "default"
+    }
   }
 }
 {{< /highlight >}}
