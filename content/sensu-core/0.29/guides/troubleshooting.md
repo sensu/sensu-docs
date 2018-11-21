@@ -123,7 +123,9 @@ Consider the following scenario: Sensu has been installed, has been verified to 
 
 We'll start by crafting a test command to send to the local socket:
 
+{{< highlight shell >}}
 echo ‘{“name”: “testing”, “output”: “THIS IS AN ERROR”, “status”: 2, “refresh”: 10, “handlers”: [“mailer”]}’ | nc localhost 3030
+{{< /highlight >}}
 
 _NOTE: Successfully submitting a check result this way will be indicated by `ok` being printed on the next line -- typically this is appears ahead of the command prompt so it can be easily missed. See below for an example._
 
@@ -132,7 +134,7 @@ $ echo '{"name": "testing_error", "status": 2, "output": "An error event should 
 ok{{< /highlight >}}
 
 
-_NOTE: A successfully submitted check result will also be logged to the sensu-client.log (viewable while in debug logging mode)._
+_NOTE: A successfully submitted check result is also logged to the sensu-client.log (viewable while in debug logging mode)._
 
 {{< highlight JSON >}}
 {"timestamp":"2018-10-12T18:28:43.204565+0000","level":"info","message":"publishing check result","payload":{"client":"sensu-enterprise","check":{"name":"testing_error","output":"its just a test","status":2,"handler":"opsgenie","opsgenie":{"tags":{"this":"is wrong"}},"refresh":2,"executed":1539368923,"issued":1539368923}}}{{< /highlight >}}
