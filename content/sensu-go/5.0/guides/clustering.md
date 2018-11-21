@@ -36,11 +36,13 @@ If you'd prefer to stand up your Sensu Cluster within docker containers, check o
 
 ### Traditional Computer Instance
 
+_NOTE: The remainder of this guide uses on disk configuration. If you are using an ephemeral computer instance, you can use `sensu-backend start help` to see examples of etcd command line flags. The below configuration file entries will translate to sensu-backend flags._
+
 #### Sensu Backend Configuration
 
 Below are example configuration snippets from `/etc/sensu/backend.yml` using a 3 node cluster. The nodes are named `backend-1`, `backend-2` and `backend-3` with IP addresses `10.0.0.1`, `10.0.0.2` and `10.0.0.3`, respectively.
 
-_NOTE: This backend configuration assumes you have setup and installed the sensu-backend on all the nodes you will use in your cluster. You can use our [installation and configuration guide][14] guide to do so._
+_NOTE: This backend configuration assumes you have setup and installed the sensu-backend on all the nodes you will use in your cluster. You can use our [installation and configuration guide][14] guide if you have not done so_
 
 **backend-1**
 
@@ -157,16 +159,6 @@ $ sensuctl cluster member-update c8f63ae435a5e6bf https://10.0.0.4:2380
 Updated member with ID c8f63ae435a5e6bf in cluster
 {{< /highlight >}}
 
-## Troubleshooting
-
-### Failures modes
-
-See [etcd Failure Modes][8] for more infromation.
-
-### Disaster recovery
-
-See [etcd Recovery][9] for more information.
-
 ## Security
 
 ### Creating self-signed certificates
@@ -205,7 +197,7 @@ echo '{"CN":"'$NAME'","hosts":[""],"key":{"algo":"rsa","size":2048}}' | cfssl ge
 
 See [Generating Self Signed Certificates][11] for detailed instructions.
 
-Once done, you should have the following files created:
+Once done, you should have the following files created. The `*.csr` files will not be used in this guide.
 {{< highlight shell >}}
 backend-1-key.pem
 backend-1.csr
@@ -267,7 +259,7 @@ curl --cacert /usr/local/share/ca-certificates/sensu/ca.pem \
 
 Below are example configuration snippets from `/etc/sensu/backend.yml` on three sensu backends named `backend-1`, `backend-2` and `backend-3` with IP addresses `10.0.0.1`, `10.0.0.2` and `10.0.0.3` respectively.
 
-_NOTE: If you ran through the first part of the guide, you will not need to repeat the store configuration any of the backends._
+_NOTE: If you ran through the first part of the guide, you will not need to repeat the store configuration for any of the backends._
 
 **backend-1**
 
@@ -379,6 +371,16 @@ sensu-backend start \
 --etcd-listen-client-urls=https://10.0.0.1:2379,https://10.0.0.2:2379,https://10.0.0.3:2379 \
 --no-embed-etcd
 {{< /highlight >}}
+
+## Troubleshooting
+
+### Failures modes
+
+See [etcd Failure Modes][8] for more infromation.
+
+### Disaster recovery
+
+See [etcd Recovery][9] for more information.
 
 [1]: https://coreos.com/etcd/docs/latest/v2/admin_guide.html#optimal-cluster-size
 [2]: https://coreos.com/etcd/docs/latest/v2/clustering.html
