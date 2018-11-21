@@ -51,7 +51,7 @@ $ git checkout -b fix-code-samples
 ```
 
 #### 4) Build and test
-See the [project wiki][wiki] for formatting instructions and style conventions.
+See the [Sensu Docs style guide][wiki] for formatting instructions and style conventions.
 
 To build the site, run [`yarn`][yarn-install]. This builds the search index and compiles the static content.
 You can then run `yarn run server` to view the site real-time as you edit.
@@ -114,7 +114,7 @@ One of the most helpful ways you can benefit the Sensu community is by writing a
 We :heart: your participation and appreciate the unique perspective you bring to our community. Keep sharing the #monitoringlove.
 
 [slack]: http://slack.sensu.io
-[wiki]: https://github.com/sensu/sensu-docs/wiki
+[wiki]: https://github.com/sensu/sensu-docs/wiki/Sensu-docs-style-guide
 [coc]: https://sensu.io/conduct
 [email]: mailto:docs@sensu.io
 [git]: https://git-scm.com/book/en/v2/Getting-Started-Installing-Git

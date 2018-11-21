@@ -3,6 +3,10 @@
     "https_only": true,
     "error_page": "/404.html",
     "rewrites": {
+      "~ ^/sensu-core/2.0/?(.*)$": {
+          "url": "/sensu-go/5.0/$1",
+          "status": 302
+      },
         "~ ^/sensu-core/latest/?(.*)$": {
             "url": "/sensu-core/1.6/$1",
             "status": 302
@@ -12,11 +16,15 @@
             "status": 302
         },
         "~ ^/sensu-enterprise/latest/?(.*)$": {
-            "url": "/sensu-enterprise/3.2/$1",
+            "url": "/sensu-enterprise/3.3/$1",
             "status": 302
         },
         "~ ^/sensu-enterprise-dashboard/latest/?(.*)$": {
             "url": "/sensu-enterprise-dashboard/2.12/$1",
+            "status": 302
+        },
+        "~ ^/sensu-go/latest/?(.*)$": {
+            "url": "/sensu-go/5.0/$1",
             "status": 302
         },
         "~ ^/plugins/latest/?(.*)$": {
