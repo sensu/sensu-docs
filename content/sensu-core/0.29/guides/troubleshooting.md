@@ -10,12 +10,13 @@ menu:
    parent: guides
 ---
 
-In this guide, we'll cover some of the more common issues to run into when deploying Sensu. For each section, we'll start with the behavior that's most commonly observed, and then walk through some possible solutions to solve that issue. 
+In this guide, we'll cover some of the more common issues to run into when deploying Sensu. For each section, we'll start with the behavior that's most commonly observed, and then walk through some possible solutions to solve that issue.
 
 - [Setting Log Levels](#setting-log-levels)
 - [Printing Configurations](#printing-configurations)
 - [Restarting Services](#restarting-services)
 - [Collecting Logs](#collecting-logs)
+- [Local Client Socket](#local-client-socket)
 - [RabbitMQ Authentication Failures](#authentication-failures)
 - [RabbitMQ SSL Issues](#ssl)
 
@@ -104,12 +105,12 @@ By default the sensu-client process listens for check results on a local socket.
 2. The ability to issue a check and subsequently resolve it is instantaneous. There is no waiting on a check interval to elapse before the result is published.
 3. The ability to individually test handler configurations
 
-This client socket can be disabled, but does provide a few configurable attributes. See the [client reference documentation][13] for further information. 
+This client socket can be disabled, but does provide a few configurable attributes. See the [client reference documentation][13] for further information.
 
 Before we start, let’s take a look at the prerequisites for using the client socket:
 
 * sensu package installed
-* nc package installed 
+* nc package installed
 * jq package installed (not required, but will help when reading JSON results)
 * sensu-client has minimal working configuration (client's keepalive timestamp (visible in dashboard or /clients API endpoint) is consistently being updated)
 * sensu-client running (Can be verified with `systemctl status sensu-client`)
