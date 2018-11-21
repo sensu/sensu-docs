@@ -102,12 +102,14 @@ To use the incidents filter, include the `is_incident` filter in the handler con
 {
   "type": "Handler",
   "spec": {
-    "name": "slack",
     "type": "pipe",
     "command": "slack-handler --webhook-url https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX --channel monitoring",
     "filters": [
       "is_incident"
-    ]
+    ],
+    "metadata": {
+      "name": "slack"
+    }
   }
 }
 {{< /highlight >}}
@@ -132,13 +134,15 @@ To allow silencing for an event handler, add the `not_silenced` filter to the ha
 {
   "type": "Handler",
   "spec": {
-    "name": "slack",
     "type": "pipe",
     "command": "slack-handler --webhook-url https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX --channel monitoring",
     "filters": [
       "is_incident",
       "not_silenced"
-    ]
+    ],
+    "metadata": {
+      "name": "slack"
+    }
   }
 }
 {{< /highlight >}}
@@ -157,12 +161,14 @@ To use the metrics filter, include the `has_metrics` filter in the handler confi
 {
   "type": "Handler",
   "spec": {
-    "name": "influx-db",
     "type": "pipe",
     "command": "sensu-influxdb-handler --addr 'http://123.4.5.6:8086' --db-name 'myDB' --username 'foo' --password 'bar'",
     "filters": [
       "has_metrics"
-    ]
+    ],
+    "metadata": {
+      "name": "slack"
+    }
   }
 }
 {{< /highlight >}}
@@ -171,16 +177,23 @@ When applied to a handler configuration, the `has_metrics` filter allows only ev
 
 ## Filter specification
 
-### Filter naming
-
-Each filter definition must have a unique name within its organization and
-environment.
-
-* A unique string used to name/identify the filter
-* Cannot contain special characters or spaces
-* Validated with Go regex [`\A[\w\.\-]+\z`](https://regex101.com/r/zo9mQU/2)
-
 ### Filter attributes
+
+|metadata    |      |
+-------------|------
+description  | Collection of metadata about the filter, including the `name` and `namespace` as well as custom `labels` and `annotations`. See the [metadata attributes reference][11] for details.
+required     | true
+type         | Map of key-value pairs
+example      | {{< highlight shell >}}"metadata": {
+  "name": "filter-weekdays-only",
+  "namespace": "default",
+  "labels": {
+    "region": "us-west-1"
+  },
+  "annotations": {
+    "slack-channel" : "#monitoring"
+  }
+}{{< /highlight >}}
 
 action       | 
 -------------|------
@@ -217,29 +230,53 @@ example      | {{< highlight shell >}}"when": {
 }
 {{< /highlight >}}
 
-organization | 
--------------|------ 
-description  | The Sensu RBAC organization that this filter belongs to.
-required     | false 
-type         | String
-default      | current organization value configured for `sensuctl` (for example: `default`) 
-example      | {{< highlight shell >}}"organization": "default"{{< /highlight >}}
-
-environment  | 
--------------|------ 
-description  | The Sensu RBAC environment that this filter belongs to.
-required     | false 
-type         | String 
-default      | current environment value configured for `sensuctl` (for example: `default`) 
-example      | {{< highlight shell >}}"environment": "default"{{< /highlight >}}
-
-runtime_assets |
+runtime_assets |      |
 ---------------|------
 description    | Assets to be applied to the filter's execution context. JavaScript files in the lib directory of the asset will be evaluated.
 required       | false
 type           | Array of String
 default        | []
 example        | {{< highlight shell >}}"runtime_assets": ["underscore"]{{< /highlight >}}
+
+### Metadata attributes
+
+| name       |      |
+-------------|------
+description  | A unique string used to identify the filter. Filter names cannot contain special characters or spaces (validated with Go regex [`\A[\w\.\-]+\z`](https://regex101.com/r/zo9mQU/2)). Each filter must have a unique name within its namespace.
+required     | true
+type         | String
+example      | {{< highlight shell >}}"name": "filter-weekdays-only"{{< /highlight >}}
+
+| namespace  |      |
+-------------|------
+description  | The Sensu [RBAC namespace][10] that this filter belongs to.
+required     | false
+type         | String
+default      | `default`
+example      | {{< highlight shell >}}"namespace": "production"{{< /highlight >}}
+
+| labels     |      |
+-------------|------
+description  | Custom attributes to include with event data, which can be queried like regular attributes.
+required     | false
+type         | Map of key-value pairs. Keys and values can be any valid UTF-8 string.
+default      | `null`
+example      | {{< highlight shell >}}"labels": {
+  "environment": "development",
+  "region": "us-west-2"
+}{{< /highlight >}}
+
+| annotations |     |
+-------------|------
+description  | Arbitrary, non-identifying metadata to include with event data. In contrast to labels, annotations are _not_ used internally by Sensu and cannot be used to identify filters. You can use annotations to add data that helps people or external tools interacting with Sensu.
+required     | false
+type         | Map of key-value pairs. Keys and values can be any valid UTF-8 string.
+default      | `null`
+example      | {{< highlight shell >}} "annotations": {
+  "managed-by": "ops",
+  "slack-channel": "#monitoring",
+  "playbook": "www.example.url"
+}{{< /highlight >}}
 
 ### `when` attributes
 
@@ -269,34 +306,52 @@ example      | {{< highlight shell >}}"days": {
 ### Handling production events
 
 The following example filter definition, entitled `production_filter`, will
-match event data with a custom entity definition attribute `"environment":
+match event data with a custom entity definition attribute `"namespace":
 "production"`.
 
 {{< highlight json >}}
 {
-  "name": "production_filter",
-  "action": "allow",
-  "expressions": [
-    "event.entity.environment == 'production'"
-  ]
+  "type": "EventFilter",
+  "spec": {
+    "metadata": {
+      "name": "production_filter",
+      "namespace": "default",
+      "labels": null,
+      "annotations": null
+    },
+    "action": "allow",
+    "expressions": [
+      "event.Entity.Namespace == 'production'"
+    ],
+    "runtime_assets": []
+  }
 }
 {{< /highlight >}}
 
 ### Handling non-production events
 
 The following example filter definition, entitled `development_filter`, will
-discard event data with a custom entity definition attribute `"environment":
+discard event data with a custom entity definition attribute `"namespace":
 "production"`.
 
 Note that `action` is `deny`, making this an exclusive filter; if evaluation
 returns false, the event will be handled.
 {{< highlight json >}}
 {
-  "name": "development_filter",
-  "action": "deny",
-  "expressions": [
-    "event.entity.environment == 'production'"
-  ]
+  "type": "EventFilter",
+  "spec": {
+    "metadata": {
+      "name": "development_filter",
+      "namespace": "default",
+      "labels": null,
+      "annotations": null
+    },
+    "action": "deny",
+    "expressions": [
+      "event.entity.metadata.namespace == 'production'"
+    ],
+    "runtime_assets": []
+  }
 }
 {{< /highlight >}}
 
@@ -308,11 +363,20 @@ old monitoring system which alerts only on state change. This
 
 {{< highlight json >}}
 {
-  "name": "state_change_only",
-  "action": "allow",
-  "expressions": [
-    "event.check.occurrences == 1"
-  ]
+  "type": "EventFilter",
+  "spec": {
+    "metadata": {
+      "name": "state_change_only",
+      "namespace": "default",
+      "labels": null,
+      "annotations": null
+    },
+    "action": "allow",
+    "expressions": [
+      "event.check.occurrences == 1"
+    ],
+    "runtime_assets": []
+  }
 }
 {{< /highlight >}}
 
@@ -327,12 +391,21 @@ operator](https://en.wikipedia.org/wiki/Modulo_operation) calculation
 
 {{< highlight json >}}
 {
-  "name": "filter_interval_60_hourly",
-  "action": "allow",
-  "expressions": [
-    "event.check.interval == 60",
-    "event.check.occurrences == 1 || event.check.occurrences % 60 == 0"
-  ]
+  "type": "EventFilter",
+  "spec": {
+    "metadata": {
+      "name": "filter_interval_60_hourly",
+      "namespace": "default",
+      "labels": null,
+      "annotations": null
+    },
+    "action": "allow",
+    "expressions": [
+      "event.check.interval == 60",
+      "event.check.occurrences == 1 || event.check.occurrences % 60 == 0"
+    ],
+    "runtime_assets": []
+  }
 }
 {{< /highlight >}}
 
@@ -341,12 +414,21 @@ checks with a 30 second `interval`.
 
 {{< highlight json >}}
 {
-  "name": "filter_interval_30_hourly",
-  "action": "allow",
-  "expressions": [
-    "event.check.interval == 30",
-    "event.check.occurrences == 1 || event.check.occurrences % 120 == 0"
-  ]
+  "type": "EventFilter",
+  "spec": {
+    "metadata": {
+      "name": "filter_interval_30_hourly",
+      "namespace": "default",
+      "labels": null,
+      "annotations": null
+    },
+    "action": "allow",
+    "expressions": [
+      "event.check.interval == 30",
+      "event.check.occurrences == 1 || event.check.occurrences % 120 == 0"
+    ],
+    "runtime_assets": []
+  }
 }
 {{< /highlight >}}
 
@@ -360,12 +442,21 @@ same result.
 
 {{< highlight json >}}
 {
-  "name": "nine_to_fiver",
-  "action": "allow",
-  "expressions": [
-    "weekday(event.timestamp) >= 1 && weekday(event.timestamp) <= 5",
-    "hour(event.timestamp) >= 9 && hour(event.timestamp) <= 17"
-  ]
+  "type": "EventFilter",
+  "spec": {
+    "metadata": {
+      "name": "nine_to_fiver",
+      "namespace": "default",
+      "labels": null,
+      "annotations": null
+    },
+    "action": "allow",
+    "expressions": [
+      "weekday(event.timestamp) >= 1 && weekday(event.timestamp) <= 5",
+      "hour(event.timestamp) >= 9 && hour(event.timestamp) <= 17"
+    ],
+    "runtime_assets": []
+  }
 }
 {{< /highlight >}}
 
@@ -381,12 +472,20 @@ expressions.
 
 {{< highlight json >}}
 {
-  "name": "deny_if_failure_in_history",
-  "action": "deny",
-  "runtime_assets": ["underscore"],
-  "expressions": [
-    "_.reduce(event.check.history, function(memo, h) { return (memo || h.status != 0); })"
-  ]
+  "type": "EventFilter",
+  "spec": {
+    "metadata": {
+      "name": "deny_if_failure_in_history",
+      "namespace": "default",
+      "labels": null,
+      "annotations": null
+    },
+    "action": "deny",
+    "expressions": [
+      "_.reduce(event.check.history, function(memo, h) { return (memo || h.status != 0); })"
+    ],
+    "runtime_assets": ["underscore"]
+  }
 }
 {{< /highlight >}}
 
@@ -399,3 +498,5 @@ expressions.
 [7]: #built-in-filter-only-incidents
 [8]: ../backend
 [9]: ../events
+[10]: ../rbac#namespaces
+[11]: #metadata-attributes

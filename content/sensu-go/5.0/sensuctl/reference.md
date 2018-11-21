@@ -67,13 +67,12 @@ Management Commands:
   check        Manage checks
   config       Modify sensuctl configuration
   entity       Manage entities
-  environment  Manage environments
   event        Manage events
   filter       Manage filters
   handler      Manage handlers
   hook         Manage hooks
   mutator      Manage mutators
-  organization Manage organizations
+  namespace    Manage namespaces
   role         Manage roles
   silenced     Manage silenced subscriptions and checks
   user         Manage users
@@ -136,8 +135,7 @@ Global flags modify settings specific to `sensuctl`, such as a Sensu host URL or
 --api-url string        host URL of Sensu installation
 --cache-dir string      path to directory containing cache & temporary files 
 --config-dir string     path to directory containing configuration files
---environment string    environment in which we perform actions (default "default")
---organization string   organization in which we perform actions (default "default")
+--namespace string   namespace in which we perform actions (default "default")
 {{< /highlight >}}
 
 ### Local
@@ -170,23 +168,27 @@ sensuctl can be configured to return JSON instead of the default human-readable
 format:
 
 {{< highlight shell >}}
-sensuctl check info marketing-site --format json
+sensuctl check info marketing-site --format wrapped-json
 {{< /highlight >}}
 
 {{< highlight json >}}
 {
-  "name": "marketing-site",
-  "interval": 10,
-  "subscriptions": [
-    "web"
-  ],
-  "command": "check-http.rb -u https://dean-learner.book",
-  "handlers": [
-    "slack"
-  ],
-  "runtime_assets": [],
-  "environment": "default",
-  "organization": "default"
+  "type": "CheckConfig",
+  "spec": {
+    "interval": 10,
+    "subscriptions": [
+      "web"
+    ],
+    "command": "check-http.rb -u https://dean-learner.book",
+    "handlers": [
+      "slack"
+    ],
+    "runtime_assets": [],
+    "metadata" : {
+      "name": "marketing-site",
+      "namespace": "default"
+    }
+  }
 }
 {{< /highlight >}}
 
@@ -244,9 +246,8 @@ Flags:
       --api-url string        host URL of Sensu installation
       --cache-dir string      path to directory containing cache & temporary files (default "/home/eric/.cache/sensu/sensuctl")
       --config-dir string     path to directory containing configuration files (default "/home/eric/.config/sensu/sensuctl")
-      --environment string    environment in which we perform actions (default "default")
   -h, --help                  help for sensuctl
-      --organization string   organization in which we perform actions (default "default")
+      --namespace string      namespace in which we perform actions (default "default")
 
 Commands:
   completion   Output shell completion code for the specified shell (bash or zsh)
@@ -260,14 +261,13 @@ Management Commands:
   check        Manage checks
   config       Modify sensuctl configuration
   entity       Manage entities
-  environment  Manage environments
   event        Manage events
   extension    Manage extension registry
   filter       Manage filters
   handler      Manage handlers
   hook         Manage hooks
   mutator      Manage mutators
-  organization Manage organizations
+  namespace    Manage namespaces
   role         Manage roles
   silenced     Manage silenced subscriptions and checks
   user         Manage users
@@ -280,30 +280,31 @@ Run 'sensuctl COMMAND --help' for more information on a command.
 The `sensuctl create` command allows you to create and/or
 update resources by reading from STDIN or a flag configured file (`-f`). The
 accepted format of the `create` command is `wrapped-json`, which wraps the
-contents of the resource in `spec` and identifies its 2.x `type` (see below for
+contents of the resource in `spec` and identifies its Sensu Go `type` (see below for
 an example, and [this table][3] for a list of supported types).
 
 {{< highlight shell >}}
 {
   "type": "CheckConfig",
   "spec": {
-    "name": "marketing-site",
-    "command": "check-http.rb -u https://dean-learner.book",
+    "command": "check-http.go -u https://dean-learner.book",
     "subscriptions": ["demo"],
     "interval": 15,
     "handlers": ["slack"],
-    "organization": "default",
-    "environment": "default"
-   }
+    "metadata" : {
+      "name": "marketing-site",
+      "namespace": "default"
+    }
 }
 {
   "type": "Handler",
   "spec": {
-    "name": "slack",
     "type": "pipe",
     "command": "handler-slack --webhook-url https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX --channel monitoring'",
-    "environment": "default",
-    "organization": "default"
+    "metadata" : {
+      "name": "slack",
+      "namespace": "default"
+    }
   }
 }
 {{< /highlight >}}
@@ -324,13 +325,13 @@ cat my-resources.json | sensuctl create
 --------------------|---|---|---|
 `AdhocRequest` | `adhoc_request` | `Asset` | `asset`
 `Check` | `check` | `CheckConfig` | `check_config`
-`Entity` | `entity` | `Environment` | `environment`
-`Event` | `event` | `EventFilter` | `event_filter`
-`Extension` | `extension` | `Handler` | `handler`
-`Hook` | `hook` | `HookConfig` | `hook_config`
-`Mutator` | `mutator` | `Organization` | `organization`
-`Role` | `role` | `Silenced` | `silenced`
-
+`Entity` | `entity` | `Event` | `event`
+`EventFilter` | `event_filter` | `Extension` | `extension`
+`Handler` | `handler` | `Hook` | `hook`
+`HookConfig` | `hook_config`  | `Mutator` | `mutator`
+`Namespace` | `namespace` | `Role` | `role`
+`Silenced` | `silenced`
+  
 ## Shell auto-completion
 
 ### Installation (Bash Shell)

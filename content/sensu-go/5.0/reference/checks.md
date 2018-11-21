@@ -157,23 +157,30 @@ enabled directly with the [round_robin][13] attribute in the check configuration
 
 ## Check specification
 
-### Check naming
-
-Each check definition must have a unique name within its organization and
-environment.
-
-* A unique string used to name/identify the check
-* Cannot contain special characters or spaces
-* Validated with Go regex [`\A[\w\.\-]+\z`](https://regex101.com/r/zo9mQU/2)
-
 ### Check attributes
+
+|metadata     |      |
+-------------|------
+description  | Collection of metadata about the check, including the `name` and `namespace` as well as custom `labels` and `annotations`. See the [metadata attributes reference][25] for details.
+required     | true
+type         | Map of key-value pairs
+example      | {{< highlight shell >}}"metadata": {
+  "name": "collect-metrics",
+  "namespace": "default",
+  "labels": {
+    "region": "us-west-1"
+  },
+  "annotations": {
+    "slack-channel" : "#monitoring"
+  }
+}{{< /highlight >}}
 
 |command     |      |
 -------------|------
 description  | The check command to be executed.
 required     | true
 type         | String
-example      | {{< highlight shell >}}"command": "/etc/sensu/plugins/check-chef-client.rb"{{< /highlight >}}
+example      | {{< highlight shell >}}"command": "/etc/sensu/plugins/check-chef-client.go"{{< /highlight >}}
 
 |subscriptions|     |
 -------------|------
@@ -267,13 +274,13 @@ required     | false
 type         | Hash
 example      | {{< highlight shell >}}"subdue": {}{{< /highlight >}}
 
-|proxy_entity_id|   |
+|proxy_entity_name|   |
 -------------|------
 description  | The check ID, used to create a [proxy entity][18] for an external resource (i.e., a network switch).
 required     | false
 type         | String
 validated    | [`\A[\w\.\-]+\z`](https://regex101.com/r/zo9mQU/2)
-example      | {{< highlight shell >}}"proxy_entity_id": "switch-dc-01"{{< /highlight >}}
+example      | {{< highlight shell >}}"proxy_entity_name": "switch-dc-01"{{< /highlight >}}
 
 |proxy_requests|    |
 -------------|------
@@ -288,32 +295,6 @@ description  | If the check should be executed on a single entity within a subsc
 required     | false
 type         | Boolean
 example      | {{< highlight shell >}}"round_robin": false{{< /highlight >}}
-
-|extended_attributes|      |
--------------|------
-description  | Custom attributes to include with the event data, which can be queried like regular attributes.
-required     | false
-type         | Serialized JSON object
-example      | {{< highlight shell >}}"{\"team\":\"ops\"}"{{< /highlight >}}
-
-|organization|      |
--------------|------
-description  | The Sensu RBAC organization that this check belongs to.
-required     | false
-type         | String
-example      | {{< highlight shell >}}
-  "organization": "default"
-{{< /highlight >}}
-
-|environment |      |
--------------|------
-description  | The Sensu RBAC environment that this check belongs to.
-required     | false
-type         | String
-default      | current environment value configured for `sensuctl` (ie `default`)
-example      | {{< highlight shell >}}
-  "environment": "default"
-{{< /highlight >}}
 
 |silenced    |      |
 -------------|------
@@ -342,6 +323,46 @@ required     | false
 type         | Array
 example      | {{< highlight shell >}}"output_metric_handlers": ["influx-db"]{{< /highlight >}}
 
+### Metadata attributes
+
+| name       |      |
+-------------|------
+description  | A unique string used to identify the check. Check names cannot contain special characters or spaces (validated with Go regex [`\A[\w\.\-]+\z`](https://regex101.com/r/zo9mQU/2)). Each check must have a unique name within its namespace.
+required     | true
+type         | String
+example      | {{< highlight shell >}}"name": "check-cpu"{{< /highlight >}}
+
+| namespace  |      |
+-------------|------
+description  | The Sensu [RBAC namespace][26] that this check belongs to.
+required     | false
+type         | String
+default      | `default`
+example      | {{< highlight shell >}}"namespace": "production"{{< /highlight >}}
+
+| labels     |      |
+-------------|------
+description  | Custom attributes to include with event data, which can be queried like regular attributes. You can use labels to organize checks into meaningful collections that can be selected using [filters][27] and [tokens][5].
+required     | false
+type         | Map of key-value pairs. Keys and values can be any valid UTF-8 string.
+default      | `null`
+example      | {{< highlight shell >}}"labels": {
+  "environment": "development",
+  "region": "us-west-2"
+}{{< /highlight >}}
+
+| annotations |     |
+-------------|------
+description  | Arbitrary, non-identifying metadata to include with event data. In contrast to labels, annotations are _not_ used internally by Sensu and cannot be used to identify checks. You can use annotations to add data that helps people or external tools interacting with Sensu.
+required     | false
+type         | Map of key-value pairs. Keys and values can be any valid UTF-8 string.
+default      | `null`
+example      | {{< highlight shell >}} "annotations": {
+  "managed-by": "ops",
+  "slack-channel": "#monitoring",
+  "playbook": "www.example.url"
+}{{< /highlight >}}
+
 ### Proxy requests attributes
 
 |entity_attributes| |
@@ -349,8 +370,8 @@ example      | {{< highlight shell >}}"output_metric_handlers": ["influx-db"]{{<
 description  | Sensu entity attributes to match entities in the registry, using [Sensu Query Expressions][20]
 required     | false
 type         | Array
-default      | current environment value configured for `sensuctl` (ie `default`)
-example      | {{< highlight shell >}}"entity_attributes": ["entity.Class == 'proxy'"]{{< /highlight >}}
+default      | current namespace value configured for `sensuctl` (ie `default`)
+example      | {{< highlight shell >}}"entity_attributes": ["entity.EntityClass == 'proxy'"]{{< /highlight >}}
 
 |splay       |      |
 -------------|------
@@ -398,19 +419,41 @@ example      | {{< highlight shell >}}"days": {
 {
   "type": "CheckConfig",
   "spec": {
-    "name": "collect-metrics",
-    "environment": "default",
-    "organization": "default",
+    "command": "collect.sh",
+    "handlers": [],
+    "high_flap_threshold": 0,
+    "interval": 10,
+    "low_flap_threshold": 0,
+    "publish": true,
+    "runtime_assets": null,
     "subscriptions": [
       "system"
     ],
-    "command": "collect.sh",
-    "interval": 10,
-    "publish": true,
+    "proxy_entity_name": "",
+    "check_hooks": null,
+    "stdin": false,
+    "subdue": null,
+    "ttl": 0,
+    "timeout": 0,
+    "round_robin": false,
     "output_metric_format": "graphite_plaintext",
-    "output_metric_handlers": ["influx-db"]
+    "output_metric_handlers": [
+      "influx-db"
+    ],
+    "env_vars": null,
+    "metadata": {
+      "name": "collect-metrics",
+      "namespace": "default",
+      "labels": {
+        "region": "us-west-1"
+      },
+      "annotations": {
+        "slack-channel" : "#monitoring"
+      }
+    }
   }
-}{{< /highlight >}}
+}
+{{< /highlight >}}
 
 [1]: #subscription-checks
 [2]: https://en.wikipedia.org/wiki/Publish%E2%80%93subscribe_pattern
@@ -442,3 +485,7 @@ example      | {{< highlight shell >}}"days": {
 [influx]: https://docs.influxdata.com/influxdb/v1.4/write_protocols/line_protocol_tutorial/#measurement
 [open]: http://opentsdb.net/docs/build/html/user_guide/writing.html#data-specification
 [sensu-metric-format]: ../../reference/events/#metrics
+[create]: ../../sensuctl/reference#create
+[25]: #metadata-attributes
+[26]: ../rbac#namespaces
+[27]: ../filters
