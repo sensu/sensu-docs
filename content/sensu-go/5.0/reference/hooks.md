@@ -38,7 +38,7 @@ and published in the resulting event.
 
 ## New and improved hooks
 
-In Sensu 2.0, we’ve redesigned and expanded on the concept of 1.0 check hooks.
+In Sensu Go, we’ve redesigned and expanded on the concept of 1.0 check hooks.
 Hooks are now their own resource, and can be created and managed independent of
 the check configuration scope. With unique and descriptive identifiers, hooks
 are now reusable! And that's not all, you can now execute multiple hooks for any

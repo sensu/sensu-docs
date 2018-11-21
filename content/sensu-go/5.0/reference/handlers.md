@@ -66,7 +66,7 @@ not provide a built-in default handler.
 
 ### Transport handlers
 
-Sensu architecture considerably changed between the 1.x and 2.x versions, and a
+Sensu architecture considerably changed between the 1.x and Sensu Go versions, and a
 dedicated message bus (like RabbitMQ) is no longer used. Therefore, [transport
 handlers][5] have been removed but a similar functionality could be achieved
 using a pipe handler that connects to a message bus and injects event data into
@@ -79,7 +79,7 @@ are automatically sent to the check handlers, no matter their status, whereas
 only non-zero check results were considered as events and sent to handlers in
 Sensu 1.x.
 
-That being said, 1.x behavior can be replicated in Sensu 2.x by using the
+That being said, 1.x behavior can be replicated in Sensu Go by using the
 built-in `is_incident` filter.
 
 ## Handler specification
@@ -137,7 +137,7 @@ command      |
 description  | The handler command to be executed. The event data is passed to the process via `STDIN`._NOTE: the `command` attribute is only supported for Pipe handlers (i.e. handlers configured with `"type": "pipe"`)._
 required     | true (if `type` equals `pipe`)
 type         | String
-example      | {{< highlight shell >}}"command": "/etc/sensu/plugins/pagerduty.rb"{{< /highlight >}}
+example      | {{< highlight shell >}}"command": "/etc/sensu/plugins/pagerduty.go"{{< /highlight >}}
 
 env_vars      | 
 -------------|------

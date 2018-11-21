@@ -14,7 +14,7 @@ aliases:
   - /sensu-go/5.0/getting-started/installation-and-configuration/
 ---
 
-The Sensu 2.0 binaries are statically linked and can be deployed to any Linux or Windows operating system.
+The Sensu Go binaries are statically linked and can be deployed to any Linux or Windows operating system.
 Select a platform from the dropdown above.
 
 {{< platformBlock "Ubuntu/Debian RHEL/CentOS" >}}
@@ -229,7 +229,7 @@ Coming soon.
 {{< platformBlock "macOS RHEL/CentOS Ubuntu/Debian Windows" >}}
 
 ## Install sensuctl
-Sensu 2.0 can be configured and used with the sensuctl (pronounced “Sensu cuddle”) command line utility.
+Sensu Go can be configured and used with the sensuctl (pronounced “Sensu cuddle”) command line utility.
 Sensu CLI (sensuctl) packages are available for macOS, Ubuntu/Debian, RHEL/CentOS, and Windows.
 
 ### 1. Install the package
@@ -349,9 +349,9 @@ sensuctl config set-namespace default
 {{< platformBlock "Docker" >}}
 ## Deploy Sensu with Docker
 
-Sensu 2.0 can be run via [Docker](https://www.docker.com/) or [rkt](https://coreos.com/rkt) using the [sensu/sensu](https://hub.docker.com/r/sensu/sensu/) image. When running Sensu from Docker there are a couple of things to take into consideration.
+Sensu Go can be run via [Docker](https://www.docker.com/) or [rkt](https://coreos.com/rkt) using the [sensu/sensu](https://hub.docker.com/r/sensu/sensu/) image. When running Sensu from Docker there are a couple of things to take into consideration.
 
-The backend requires four exposed ports and persistent storage. This example uses a shared filesystem. Sensu 2.0 is backed by a distributed database, and its storage should be provisioned accordingly.  We recommend local storage or something like Throughput Optimized or Provisioned IOPS EBS if local storage is unavailable.  The exposed ports are:
+The backend requires four exposed ports and persistent storage. This example uses a shared filesystem. Sensu Go is backed by a distributed database, and its storage should be provisioned accordingly.  We recommend local storage or something like Throughput Optimized or Provisioned IOPS EBS if local storage is unavailable.  The exposed ports are:
 
 - 2380: Sensu storage peer listener (only other Sensu backends need access to this port)
 - 3000: Sensu dashboard

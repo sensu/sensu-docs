@@ -180,7 +180,7 @@ example      | {{< highlight shell >}}"metadata": {
 description  | The check command to be executed.
 required     | true
 type         | String
-example      | {{< highlight shell >}}"command": "/etc/sensu/plugins/check-chef-client.rb"{{< /highlight >}}
+example      | {{< highlight shell >}}"command": "/etc/sensu/plugins/check-chef-client.go"{{< /highlight >}}
 
 |subscriptions|     |
 -------------|------
@@ -485,6 +485,7 @@ example      | {{< highlight shell >}}"days": {
 [influx]: https://docs.influxdata.com/influxdb/v1.4/write_protocols/line_protocol_tutorial/#measurement
 [open]: http://opentsdb.net/docs/build/html/user_guide/writing.html#data-specification
 [sensu-metric-format]: ../../reference/events/#metrics
+[create]: ../../sensuctl/reference#create
 [25]: #metadata-attributes
 [26]: ../rbac#namespaces
 [27]: ../filters

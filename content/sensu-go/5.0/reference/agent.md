@@ -14,8 +14,8 @@ menu:
 
 - [Installation][1]
 - [Creating events using service checks](#creating-monitoring-events-using-service-checks)
-- [Creating events using the agent socket](#creating-events-monitoring-using-the-agent-socket)
-- [Creating events using the StatsD listener](#creating-events-monitoring-using-the-statsd-listener)
+- [Creating events using the agent socket](#creating-monitoring-events-using-the-agent-socket)
+- [Creating events using the StatsD listener](#creating-monitoring-events-using-the-statsd-listener)
 - [Keepalive monitoring](#keepalive-monitoring)
 - [Service management](#operation)
 	- [Registration and deregistration](#registration)
