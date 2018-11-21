@@ -230,7 +230,7 @@ example      | {{< highlight shell >}}"when": {
 }
 {{< /highlight >}}
 
-runtime_assets |
+runtime_assets |      |
 ---------------|------
 description    | Assets to be applied to the filter's execution context. JavaScript files in the lib directory of the asset will be evaluated.
 required       | false

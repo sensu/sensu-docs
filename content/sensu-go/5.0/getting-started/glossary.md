@@ -94,7 +94,7 @@ RBAC lets you manage users and permissions with namespaces, users, roles, and ro
 
 ### Resources
 Objects within Sensu that can be used to specify access permissions in Sensu roles and cluster roles.
-Resources can be specific to a namespace (like checks and handlers) or cluster-wide (like users and role).
+Resources can be specific to a namespace (like checks and handlers) or cluster-wide (like users and cluster roles).
 [Read more.][18]
 
 #### Sensuctl

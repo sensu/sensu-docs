@@ -73,6 +73,17 @@ type         | Check
 example      | {{< highlight shell >}}
 {
   "check": {
+    "check_hooks": null,
+    "duration": 1.903135228,
+    "executed": 1522100915,
+    "high_flap_threshold": 0,
+    "history": [
+      {
+        "executed": 1522100315
+      },
+      {
+        "executed": 1522100915
+      }
     "command": "http_check.sh http://localhost:80",
     "handlers": [
       "slack"
@@ -312,6 +323,9 @@ example      | {{< highlight json >}}
       }
     },
     "check": {
+      "check_hooks": null,
+      "duration": 2.033888684,
+      "executed": 1522170513,
       "command": "http_check.sh http://localhost:80",
       "handlers": [
         "slack"

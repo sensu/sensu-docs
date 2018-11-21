@@ -36,7 +36,7 @@ new events (where the event's `occurrences` is equal to `1`) or hourly events
 (so every hour after the first occurrence, calculated with the check's
 `interval` and the event's `occurrences`).
 
-Note that unlike in Sensu 1.x, events in Sensu 2.x are handled regardless of
+Note that unlike in Sensu 1.x, events in Sensu Go are handled regardless of
 check execution status; even successful check events are passed through the
 pipeline. Therefore, it's necessary to add a clause for non-zero status.
 

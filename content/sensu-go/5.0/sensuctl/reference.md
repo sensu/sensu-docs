@@ -280,14 +280,14 @@ Run 'sensuctl COMMAND --help' for more information on a command.
 The `sensuctl create` command allows you to create and/or
 update resources by reading from STDIN or a flag configured file (`-f`). The
 accepted format of the `create` command is `wrapped-json`, which wraps the
-contents of the resource in `spec` and identifies its 2.x `type` (see below for
+contents of the resource in `spec` and identifies its Sensu Go `type` (see below for
 an example, and [this table][3] for a list of supported types).
 
 {{< highlight shell >}}
 {
   "type": "CheckConfig",
   "spec": {
-    "command": "check-http.rb -u https://dean-learner.book",
+    "command": "check-http.go -u https://dean-learner.book",
     "subscriptions": ["demo"],
     "interval": 15,
     "handlers": ["slack"],

@@ -16,7 +16,7 @@ menu:
 When a check is scheduled to be executed by an agent, it first goes through a token substitution step. Any tokens matching attribute values in the check are applied, and then the check is executed. Invalid templates or unmatched tokens will return an error, which is logged and sent to the Sensu backend message transport. Checks with token matching errors will not be executed.
 
 ## New and improved tokens
-Sensu 2.0 uses the [Go template][1] package to implement token substitution. Instead of using triple colons `:::` as in [1.x token substitution][2], 2.0 token substitution uses double curly braces around the token, and a dot before the attribute to be substituted, such as: `{{ .System.Hostname }}`.
+Sensu Go uses the [Go template][1] package to implement token substitution. Instead of using triple colons `:::` as in [1.x token substitution][2], 2.0 token substitution uses double curly braces around the token, and a dot before the attribute to be substituted, such as: `{{ .System.Hostname }}`.
 
 ## Sensu tokens specification
 
@@ -50,7 +50,7 @@ Check config token errors will be logged by the agent, and sent to Sensu backend
 
 ### Token substitution for check thresholds 
 
-In this example [check configuration][5], the `check-disk-usage.rb` command accepts `-w` (warning) and `-c` (critical)
+In this example [check configuration][5], the `check-disk-usage.go` command accepts `-w` (warning) and `-c` (critical)
 arguments to indicate the thresholds (as percentages) for creating warning or critical events. If no token substitutions are provided by a check configuration, it will use default values to create a warning event at 80% disk capacity (i.e. `{{ .Disk.Warning | default 80 }}`), and a critical event at 90% capacity (i.e. `{{ .Disk.Critical | default 90 }}`).
 
 {{< highlight json >}}
