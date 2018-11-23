@@ -262,10 +262,21 @@ example      | {{< highlight shell >}}"runtime_assets": ["ruby-2.5.0"]{{< /highl
 
 |check_hooks |      |
 -------------|------
-description  | An array of [Sensu hooks][6] (names), which are commands run by the Sensu agent in response to the result of the check command execution.
+description  | An array of check response types with respective arrays of [Sensu hook names][6]. Sensu hooks are commands run by the Sensu agent in response to the result of the check command execution. Hooks are executed, in order of precedence, based on their severity type: `1` to `255`, `ok`, `warning`, `critical`, `unknown`, and finally `non-zero`.
 required     | false
 type         | Array
-example      | {{< highlight shell >}}"check_hooks": ["nginx_restart"]{{< /highlight >}}
+example      | {{< highlight shell >}}"check_hooks": [
+  {
+    "0": [
+      "passing-hook","always-run-this-hook"
+    ]
+  },
+  {
+    "critical": [
+      "failing-hook","collect-diagnostics","always-run-this-hook"
+    ]
+  }
+]{{< /highlight >}}
 
 |proxy_entity_name|   |
 -------------|------
