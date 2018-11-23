@@ -22,6 +22,7 @@ aliases:
 - [Time formats](#time-formats)
 - [Getting help](#getting-help)
 - [Creating resources](#create)
+- [Editing resources](#edit)
 - [Shell auto-completion](#shell-auto-completion)
 
 ## How does sensuctl work?
@@ -319,6 +320,19 @@ cat my-resources.json | sensuctl create
 `HookConfig` | `hook_config`  | `Mutator` | `mutator`
 `Namespace` | `namespace` | `Role` | `role`
 `Silenced` | `silenced`
+
+## Edit
+
+Sensuctl allows you to edit resource definitions using `sensuctl edit`.
+To use `sensuclt edit`, specify the resource [type][3] and resource name.
+
+For example, to edit a handler named `slack` using `sensuctl edit`:
+
+{{< highlight shell >}}
+sensuctl edit handler slack
+{{< /highlight >}}
+
+Sensuctl resource editing is available in YAML format only.
   
 ## Shell auto-completion
 
