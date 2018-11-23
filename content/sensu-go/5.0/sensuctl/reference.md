@@ -312,7 +312,7 @@ _NOTE: Commas cannot be included between resource definitions when using `sensuc
 To create all resources in `wrapped-json` format from `my-resources.json` using `sensuctl create`:
 
 {{< highlight shell >}}
-sensuctl create -f my-resources.json
+sensuctl create --file my-resources.json
 {{< /highlight >}}
 
 Or:
