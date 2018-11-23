@@ -345,7 +345,6 @@ For example, to edit a handler named `slack` using `sensuctl edit`:
 sensuctl edit handler slack
 {{< /highlight >}}
 
-Sensuctl resource editing is available in YAML format only.
   
 ## Shell auto-completion
 
