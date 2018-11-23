@@ -235,7 +235,7 @@ configured webhook URL, using the `handler-slack` executable command.
   "type": "Handler",
   "spec": {
     "type": "pipe",
-    "command": "handler-slack --webhook-url https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX --channel monitoring'",
+    "command": "handler-slack --webhook-url https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX --channel monitoring",
     "metadata" : {
       "name": "slack",
       "namespace": "default"
