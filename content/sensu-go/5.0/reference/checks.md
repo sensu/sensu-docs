@@ -267,13 +267,6 @@ required     | false
 type         | Array
 example      | {{< highlight shell >}}"check_hooks": ["nginx_restart"]{{< /highlight >}}
 
-|subdue      |      |
--------------|------
-description  | A [Sensu subdue][17], a hash of days of the week, which define one or more time windows in which the check is not scheduled to be executed.
-required     | false
-type         | Hash
-example      | {{< highlight shell >}}"subdue": {}{{< /highlight >}}
-
 |proxy_entity_name|   |
 -------------|------
 description  | The check ID, used to create a [proxy entity][18] for an external resource (i.e., a network switch).
@@ -389,28 +382,6 @@ type         | Integer
 default      | 90
 example      | {{< highlight shell >}}"splay_coverage": 65{{< /highlight >}}
 
-### Subdue attributes
-
-|days | |
--------------|------
-description  | A hash of days of the week or `all`, each day specified must define one or more time windows in which the check is not scheduled to be executed. See the [sensuctl documentation][22] for the supported time formats.
-required     | false (unless `subdue` is configured)
-type         | Hash
-example      | {{< highlight shell >}}"days": {
-  "all": [
-    {
-      "begin": "17:00 UTC",
-      "end": "08:00 UTC"
-    }
-  ],
-  "friday": [
-    {
-      "begin": "12:00 UTC",
-      "end": "17:00 UTC"
-    }
-  ]
-}}{{< /highlight >}}
-
 ## Examples
 
 ### Metric check
@@ -432,7 +403,6 @@ example      | {{< highlight shell >}}"days": {
     "proxy_entity_name": "",
     "check_hooks": null,
     "stdin": false,
-    "subdue": null,
     "ttl": 0,
     "timeout": 0,
     "round_robin": false,

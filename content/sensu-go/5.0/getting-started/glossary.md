@@ -47,11 +47,6 @@ Checks require an executable that the agent runs on the corresponding entity whe
 You can write your own check executables in Go, Ruby, Python, and more, or use one of over 100 check plugins shared by the Sensu community.
 [Read more.][6]
 
-#### Check subdue
-A time window applied to one or more days of the week during which the backend will not schedule a check for execution.
-Check subdues are configured within the check definition.
-[Read more.][15]
-
 #### Check token
 A placeholder used in a check definition that the agent replaces with local information before executing the check.
 Tokens let you fine-tune check attributes (like thresholds) on a per-entity level while re-using the check definition.
