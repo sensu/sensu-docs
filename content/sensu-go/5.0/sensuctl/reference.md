@@ -104,7 +104,6 @@ Commands:
   remove-proxy-entity-id     removes proxy entity id from a check
   remove-proxy-requests      removes proxy requests from a check
   remove-runtime-assets      removes runtime assets from a check
-  remove-subdue              removes subdue from a check
   remove-timeout             removes timeout from a check
   remove-ttl                 removes ttl from a check
   set-command                set command of a check
@@ -119,7 +118,6 @@ Commands:
   set-publish                set publish of a check
   set-runtime-assets         set runtime assets of a check
   set-stdin                  set stdin of a check
-  set-subdue                 set subdue of a check from file or stdin
   set-subscriptions          set subscriptions of a check
   set-timeout                set timeout of a check
   set-ttl                    set ttl of a check
