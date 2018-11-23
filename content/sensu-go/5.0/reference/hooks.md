@@ -31,6 +31,9 @@ precedence, based on their type:
 * `unknown`
 * `non-zero`
 
+You can assign one or more hooks to a check in the check definition.
+See the [check specification][6] to configure the `check_hooks` attribute.
+
 ### Check hooks
 
 The hook command output, status, executed timestamp and duration are captured
@@ -182,3 +185,4 @@ has been determined to be not running etc.
 [3]: ../rbac#namespaces
 [4]: ../filters
 [5]: ../tokens
+[6]: ../checks#check-attributes
