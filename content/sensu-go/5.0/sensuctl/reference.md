@@ -307,7 +307,7 @@ For example, the following file `my-resources.json` specifies two resources: a `
 }
 {{< /highlight >}}
 
-_NOTE: Commas cannot be included between resource definitions when using `sensuctl create -f`._
+_NOTE: Commas cannot be included between resource definitions when using `sensuctl create --file`._
 
 To create all resources in `wrapped-json` format from `my-resources.json` using `sensuctl create`:
 
