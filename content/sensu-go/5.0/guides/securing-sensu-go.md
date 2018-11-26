@@ -29,6 +29,7 @@ For a visual reference, see the diagram below:
 
 Sensu Go, similar to Sensu Classic, has its own components that need to be secured. These are:
 
+* Sensu agent to server communication
 * Etcd peer communication
 * Backend API
 * Agent API
@@ -38,9 +39,38 @@ Let's take a look at an architectural diagram for Sensu Go:
 
 ![sensu go architecture diagram][4]
 
-Now we'll cover securing each one of those pieces, starting with etcd peer communication.
+Now we'll cover securing each one of those pieces, starting with Sensu agent to server communication.
+
+## Securing Sensu agent to server communication
+
+The Sensu agent uses WebSockets for communication between the agent and the server. By default, an agent will use the insecure `ws://` transport:
+
+{{< highlight shell >}}
+---
+##
+# agent configuration
+##
+...
+backend-url:
+  - "ws://127.0.0.1:8081"
+{{< /highlight >}}
+
+In order to use WebSockets over SSL/TLS (wss), change the `backend-url` value to the `wss://` schema:
+
+{{< highlight shell >}}
+---
+##
+# agent configuration
+##
+...
+backend-url:
+  - "wss://127.0.0.1:8081"
+{{< /highlight >}}
+
+The agent will then connect Sensu servers over wss. Let's move on to securing Etcd peer communication.
 
 ## Securing etcd peer communication
+
 
 
 ## Securing the backend API
@@ -52,6 +82,7 @@ The agent API
 
 ## Securing the dashboard
 
+The Sensu dashboard makes use of the stanza mentioned
 
 
 <!-- LINKS -->
