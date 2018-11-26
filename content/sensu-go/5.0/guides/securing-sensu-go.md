@@ -113,6 +113,6 @@ We then need to ensure that our backend is configured to use TLS/SSL:
 <!-- LINKS -->
 [1]: /sensu-core/latest/guides/securing-sensu/
 [2]: https://redis.io/topics/security
-[3]:
-[4]:
+[3]: /images/architecture-classic.png
+[4]: /images/architecture-ce.png
 [5]: ../clustering.md
