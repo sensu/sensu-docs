@@ -30,7 +30,7 @@ For a visual reference, see the diagram below:
 Sensu Go, similar to Sensu Classic, has its own components that need to be secured. These are:
 
 * Sensu agent to server communication
-* Etcd peer communication
+* etcd peer communication
 * Backend API
 * Agent API
 * Dashboard
@@ -67,22 +67,47 @@ backend-url:
   - "wss://127.0.0.1:8081"
 {{< /highlight >}}
 
-The agent will then connect Sensu servers over wss. Let's move on to securing Etcd peer communication.
+The agent will then connect Sensu servers over wss. Let's move on to securing etcd peer communication.
+
+_NOTE: If creating a Sensu Go cluster, every cluster member will need to be present in the configuration. See the [Sensu Go clustering guide][5] for more information on how to configure agents for a clustered configuration._
 
 ## Securing etcd peer communication
 
+While enabling secure agent-to-server communication involves the change of one line, securing etcd peer communication is more involved and modifying several attributes inside of the configuration at `/etc/sensu/backend.yml`. Let's start by configuring the SSL parameters:
 
+{{< highlight shell >}}
+##
+# ssl configuration
+##
+cert-file: "/path/to/ssl/cert.pem"
+key-file: "/path/to/ssl/key.pem"
+trusted-ca-file: "/path/to/trusted-certificate-authorities.pem"
+insecure-skip-tls-verify: false
+{{< /highlight >}}
+
+Here, we provide the respective paths to our certificate, our key, and our CA file.
+
+We then need to ensure that our backend is configured to use TLS/SSL:
+
+{{< highlight shell >}}
+##
+# store configuration
+##
+#etcd-listen-client-urls: ""
+#etcd-listen-peer-urls: ""
+#etcd-initial-cluster: ""
+#etcd-initial-advertise-peer-urls: ""
+#etcd-initial-cluster-state: ""
+#etcd-initial-cluster-token: ""
+#etcd-name: ""
+{{< /highlight >}}
 
 ## Securing the backend API
-The backend API is impleme
-
 
 ## Securing the agent API
-The agent API
 
 ## Securing the dashboard
 
-The Sensu dashboard makes use of the stanza mentioned
 
 
 <!-- LINKS -->
@@ -90,3 +115,4 @@ The Sensu dashboard makes use of the stanza mentioned
 [2]: https://redis.io/topics/security
 [3]:
 [4]:
+[5]: ../clustering.md
