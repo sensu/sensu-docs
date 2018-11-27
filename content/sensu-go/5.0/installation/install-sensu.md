@@ -344,6 +344,8 @@ You can change individual values of your sensuctl configuration with the `config
 sensuctl config set-namespace default
 {{< /highlight >}}
 
+See the [sensuctl reference][4] for more information about using sensuctl.
+
 {{< platformBlockClose >}}
 
 {{< platformBlock "Docker" >}}
@@ -390,3 +392,4 @@ While it can be run from the docker container, doing so may be problematic.
 [1]: https://github.com/sensu/sensu-go/releases
 [2]: https://github.com/sensu/sensu-go/blob/master/packaging/files/windows/agent.yml.example
 [3]: ../../dashboard/overview
+[4]: ../../sensuctl/reference
