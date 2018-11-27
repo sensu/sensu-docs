@@ -52,7 +52,7 @@ example      | {{< highlight shell >}}"metadata": {
 
 entity_class |     |
 -------------|------ 
-description  | The entity type, validated with go regex [`\A[\w\.\-]+\z`](https://regex101.com/r/zo9mQU/2). This value is not user configurable; it is set directly by the agent. An entity that runs an agent will be of `agent`, while a proxy entity will have class `proxy`.
+description  | The entity type, validated with go regex [`\A[\w\.\-]+\z`](https://regex101.com/r/zo9mQU/2). Class names have special meaning. An entity that runs an agent will be of `agent` and is reserved. A proxy entity will have class `proxy`, otherwise the field isn’t required or the user can use it to indicate an arbitrary type of entity. E.g. “lambda” “switch” etc.
 required     | true
 type         | string 
 example      | {{< highlight shell >}}"entity_class": "agent"{{< /highlight >}}
