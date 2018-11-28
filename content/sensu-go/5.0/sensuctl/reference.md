@@ -101,10 +101,10 @@ For more information about configuring Sensu access control, see the [RBAC refer
 
 Sensuctl supports the following output formats:
 
-- `tabular`: user-friendly format with columns
-- `wrapped-json`: required format for use with [`sensuctl create`][8]
-- `json`
-- `yaml`
+- `tabular`: user-friendly, columnar format
+- `wrapped-json`: accepted format for use with [`sensuctl create`][8]
+- `yaml`: accepted format for use with [`sensuctl create`][8]
+- `json`: format used by the [Sensu API][25]
 
 Once logged in, you can change the output format using `sensuctl config set-format` or set it per command using the `--format` flag.
 
@@ -509,3 +509,4 @@ create  delete  import  list
 [22]: ../../reference/rbac#users
 [23]: #subcommands
 [24]: #sensuctl-edit-resource-types
+[25]: ../../api/overview
