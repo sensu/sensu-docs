@@ -185,6 +185,7 @@ General Flags:
       --trusted-ca-file string          tls certificate authority
 
 Store Flags:
+      --etcd-advertise-client-urls                list of this member's client URLs to advertise to the rest of the cluster
       --etcd-cert-file string                     path to the client server TLS cert file
       --etcd-client-cert-auth                     enable client cert authentication
       --etcd-initial-advertise-peer-urls string   list of this member's peer URLs to advertise to the rest of the cluster (default "http://127.0.0.1:2380")
@@ -367,6 +368,18 @@ sensu-backend start --dashboard-port 4000
 dashboard-port: 4000{{< /highlight >}}
 
 ### Datastore and cluster configuration flags
+
+| etcd-advertise-client-urls |      |
+--------------|------
+description   | List of this member's client URLs to advertise to the rest of the cluster.
+type          | String
+default       | `http://localhost:2379`
+example       | {{< highlight shell >}}# Command line example
+sensu-backend start --etcd-advertise-client-urls http://localhost:2379
+
+# /etc/sensu/backend.yml example
+etcd-advertise-client-urls: "http://localhost:2379"{{< /highlight >}}
+
 
 | etcd-cert-file |      |
 -----------------|------
