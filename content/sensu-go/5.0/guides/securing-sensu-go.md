@@ -46,7 +46,7 @@ backend-url:
 
 The agent will then connect Sensu servers over wss. Let's move on to securing etcd peer communication.
 
-_NOTE: If creating a Sensu Go cluster, every cluster member will need to be present in the configuration. See the [Sensu Go clustering guide][2] for more information on how to configure agents for a clustered configuration._
+_NOTE: If creating a Sensu cluster, every cluster member needs to be present in the configuration. See the [Sensu Go clustering guide][2] for more information on how to configure agents for a clustered configuration._
 
 ## Securing etcd peer communication
 
