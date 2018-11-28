@@ -15,7 +15,7 @@ Sensu Go includes a REST API to make it even easier to manage your monitoring wo
 
 ### URL format
 
-Sensu API endpoints use the standard URL format `/apis/{group}/{version}/namespaces/{namespace}` where:
+Sensu API endpoints use the standard URL format `/api/{group}/{version}/namespaces/{namespace}` where:
 
 - `{group}` is the API group. All currently existing Sensu API endpoints are of group `core`.
 - `{version}` is the API version. Sensu Go 5.0 uses API v2.
@@ -59,7 +59,7 @@ The access token should be included in the output:
 
 3. Copy the access token into the authentication header of the API request. For example:
 {{< highlight shell >}}
-curl http://127.0.0.1:8080/apis/core/v2/namespaces/default/events -v -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIs..."
+curl http://127.0.0.1:8080/api/core/v2/namespaces/default/events -v -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIs..."
 {{< /highlight >}}
 
 Access tokens last for around 15 minutes.

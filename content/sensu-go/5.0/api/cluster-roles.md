@@ -21,7 +21,7 @@ The following example demonstrates a request to the `/cluster-roles` API, result
 a JSON Array containing [cluster role definitions][1].
 
 {{< highlight shell >}}
-curl -s http://127.0.0.1:8080/apis/core/v2/cluster-roles -H "Authorization: Bearer TOKEN"
+curl -s http://127.0.0.1:8080/api/core/v2/cluster-roles -H "Authorization: Bearer TOKEN"
 [
   {
     "name": "global-event-reader",
@@ -48,7 +48,7 @@ curl -s http://127.0.0.1:8080/apis/core/v2/cluster-roles -H "Authorization: Bear
 /cluster-roles (GET)  | 
 ---------------|------
 description    | Returns the list of cluster roles.
-example url    | http://hostname:8080/apis/core/v2/cluster-roles
+example url    | http://hostname:8080/api/core/v2/cluster-roles
 response type  | Array
 response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output         | {{< highlight shell >}}
@@ -86,7 +86,7 @@ containing the requested [`:cluster-role` definition][1] (in this example: for t
 `global-event-reader`).
 
 {{< highlight shell >}}
-curl -s http://127.0.0.1:8080/apis/core/v2/cluster-roles/global-event-reader -H "Authorization: Bearer TOKEN"
+curl -s http://127.0.0.1:8080/api/core/v2/cluster-roles/global-event-reader -H "Authorization: Bearer TOKEN"
 {
   "name": "global-event-reader",
   "rules": [
@@ -111,7 +111,7 @@ curl -s http://127.0.0.1:8080/apis/core/v2/cluster-roles/global-event-reader -H 
 /cluster-roles/:cluster-role (GET) | 
 ---------------------|------
 description          | Returns a cluster role.
-example url          | http://hostname:8080/apis/core/v2/cluster-roles/global-event-reader
+example url          | http://hostname:8080/api/core/v2/cluster-roles/global-event-reader
 response type        | Map
 response codes       | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output               | {{< highlight json >}}

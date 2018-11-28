@@ -20,7 +20,7 @@ The following example demonstrates a request to the `/events` API, resulting in
 a JSON Array containing [event definitions][1].
 
 {{< highlight shell >}}
-curl -s http://127.0.0.1:8080/apis/core/v2/namespaces/default/events -H "Authorization: Bearer TOKEN"
+curl -s http://127.0.0.1:8080/api/core/v2/namespaces/default/events -H "Authorization: Bearer TOKEN"
 [
   {
     "timestamp": 1542667666,
@@ -51,7 +51,7 @@ curl -s http://127.0.0.1:8080/apis/core/v2/namespaces/default/events -H "Authori
 /events (GET)  | 
 ---------------|------
 description    | Returns the list of events.
-example url    | http://hostname:8080/apis/core/v2/namespaces/default/events
+example url    | http://hostname:8080/api/core/v2/namespaces/default/events
 response type  | Array
 response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output         | {{< highlight shell >}}

@@ -20,7 +20,7 @@ The following example demonstrates a request to the `/silenced` API, resulting i
 a JSON Array containing [silencing entry definitions][1].
 
 {{< highlight shell >}}
-curl -s http://127.0.0.1:8080/apis/core/v2/namespaces/default/silenced -H "Authorization: Bearer TOKEN"
+curl -s http://127.0.0.1:8080/api/core/v2/namespaces/default/silenced -H "Authorization: Bearer TOKEN"
 [
   {
     "metadata": {
@@ -43,7 +43,7 @@ curl -s http://127.0.0.1:8080/apis/core/v2/namespaces/default/silenced -H "Autho
 /silenced (GET)  | 
 ---------------|------
 description    | Returns the list of silencing entries.
-example url    | http://hostname:8080/apis/core/v2/namespaces/default/silenced
+example url    | http://hostname:8080/api/core/v2/namespaces/default/silenced
 response type  | Array
 response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output         | {{< highlight shell >}}
@@ -78,7 +78,7 @@ containing the requested [silencing entry definition][1] (in this example: for t
 Silencing entry names are generated from the combination of a subscription name and check name.
 
 {{< highlight shell >}}
-curl -s http://127.0.0.1:8080/apis/core/v2/namespaces/default/silenced/linux:check-cpu -H "Authorization: Bearer TOKEN"
+curl -s http://127.0.0.1:8080/api/core/v2/namespaces/default/silenced/linux:check-cpu -H "Authorization: Bearer TOKEN"
 {
   "metadata": {
     "name": "linux:check-cpu",
@@ -99,7 +99,7 @@ curl -s http://127.0.0.1:8080/apis/core/v2/namespaces/default/silenced/linux:che
 /silenced/:silenced (GET) | 
 ---------------------|------
 description          | Returns a silencing entry.
-example url          | http://hostname:8080/apis/core/v2/namespaces/default/silenced/linux:check-cpu
+example url          | http://hostname:8080/api/core/v2/namespaces/default/silenced/linux:check-cpu
 response type        | Map
 response codes       | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output               | {{< highlight json >}}

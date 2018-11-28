@@ -20,7 +20,7 @@ The following example demonstrates a request to the `/filters` API, resulting in
 a JSON Array containing [filter definitions][1].
 
 {{< highlight shell >}}
-curl -s http://127.0.0.1:8080/apis/core/v2/namespaces/default/filters -H "Authorization: Bearer TOKEN"
+curl -s http://127.0.0.1:8080/api/core/v2/namespaces/default/filters -H "Authorization: Bearer TOKEN"
 [
   {
     "metadata": {
@@ -43,7 +43,7 @@ curl -s http://127.0.0.1:8080/apis/core/v2/namespaces/default/filters -H "Author
 /filters (GET)  | 
 ---------------|------
 description    | Returns the list of filters.
-example url    | http://hostname:8080/apis/core/v2/namespaces/default/filters
+example url    | http://hostname:8080/api/core/v2/namespaces/default/filters
 response type  | Array
 response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output         | {{< highlight shell >}}
@@ -90,7 +90,7 @@ containing the requested [`:filter` definition][1] (in this example: for the `:f
 `state_change_only`).
 
 {{< highlight shell >}}
-curl -s http://127.0.0.1:8080/apis/core/v2/namespaces/default/filters/state_change_only -H "Authorization: Bearer TOKEN"
+curl -s http://127.0.0.1:8080/api/core/v2/namespaces/default/filters/state_change_only -H "Authorization: Bearer TOKEN"
 {
   "metadata": {
     "name": "state_change_only",
@@ -111,7 +111,7 @@ curl -s http://127.0.0.1:8080/apis/core/v2/namespaces/default/filters/state_chan
 /filters/:filter (GET) | 
 ---------------------|------
 description          | Returns a filter.
-example url          | http://hostname:8080/apis/core/v2/namespaces/default/filters/state_change_only
+example url          | http://hostname:8080/api/core/v2/namespaces/default/filters/state_change_only
 response type        | Map
 response codes       | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output               | {{< highlight json >}}

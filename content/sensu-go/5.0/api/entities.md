@@ -20,7 +20,7 @@ The following example demonstrates a request to the `/entities` API, resulting i
 a JSON Array containing [entity definitions][1].
 
 {{< highlight shell >}}
-curl -s http://127.0.0.1:8080/apis/core/v2/namespaces/default/entities -H "Authorization: Bearer TOKEN"
+curl -s http://127.0.0.1:8080/api/core/v2/namespaces/default/entities -H "Authorization: Bearer TOKEN"
 [
   {
     "entity_class": "agent",
@@ -92,7 +92,7 @@ curl -s http://127.0.0.1:8080/apis/core/v2/namespaces/default/entities -H "Autho
 /entities (GET)  | 
 ---------------|------
 description    | Returns the list of entities.
-example url    | http://hostname:8080/apis/core/v2/namespaces/default/entities
+example url    | http://hostname:8080/api/core/v2/namespaces/default/entities
 response type  | Array
 response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output         | {{< highlight shell >}}
@@ -175,7 +175,7 @@ containing the requested [`:entity` definition][1] (in this example: for the `:e
 `sensu-centos`).
 
 {{< highlight shell >}}
-curl -s http://127.0.0.1:8080/apis/core/v2/namespaces/default/entities/sensu-centos -H "Authorization: Bearer TOKEN"
+curl -s http://127.0.0.1:8080/api/core/v2/namespaces/default/entities/sensu-centos -H "Authorization: Bearer TOKEN"
 {
   "entity_class": "agent",
   "system": {
@@ -245,7 +245,7 @@ curl -s http://127.0.0.1:8080/apis/core/v2/namespaces/default/entities/sensu-cen
 /entities/:entity (GET) | 
 ---------------------|------
 description          | Returns a entity.
-example url          | http://hostname:8080/apis/core/v2/namespaces/default/entities/sensu-centos
+example url          | http://hostname:8080/api/core/v2/namespaces/default/entities/sensu-centos
 response type        | Map
 response codes       | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output               | {{< highlight json >}}

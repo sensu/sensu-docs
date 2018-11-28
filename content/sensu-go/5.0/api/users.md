@@ -20,7 +20,7 @@ The following example demonstrates a request to the `/users` API, resulting in
 a JSON Array containing [user definitions][1].
 
 {{< highlight shell >}}
-curl -s http://127.0.0.1:8080/apis/core/v2/users -H "Authorization: Bearer TOKEN"
+curl -s http://127.0.0.1:8080/api/core/v2/users -H "Authorization: Bearer TOKEN"
 [
   {
     "username": "alice",
@@ -46,7 +46,7 @@ curl -s http://127.0.0.1:8080/apis/core/v2/users -H "Authorization: Bearer TOKEN
 /users (GET)  | 
 ---------------|------
 description    | Returns the list of users.
-example url    | http://hostname:8080/apis/core/v2/users
+example url    | http://hostname:8080/api/core/v2/users
 response type  | Array
 response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output         | {{< highlight shell >}}
@@ -83,7 +83,7 @@ containing the requested [`:user` definition][1] (in this example: for the `:use
 `alice`).
 
 {{< highlight shell >}}
-curl -s http://127.0.0.1:8080/apis/core/v2/users/alice -H "Authorization: Bearer TOKEN"
+curl -s http://127.0.0.1:8080/api/core/v2/users/alice -H "Authorization: Bearer TOKEN"
 {
   "username": "alice",
   "groups": [
@@ -99,7 +99,7 @@ curl -s http://127.0.0.1:8080/apis/core/v2/users/alice -H "Authorization: Bearer
 /users/:user (GET) | 
 ---------------------|------
 description          | Returns a user.
-example url          | http://hostname:8080/apis/core/v2/users/alice
+example url          | http://hostname:8080/api/core/v2/users/alice
 response type        | Map
 response codes       | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output               | {{< highlight json >}}

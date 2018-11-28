@@ -20,7 +20,7 @@ The following example demonstrates a request to the `/mutators` API, resulting i
 a JSON Array containing [mutator definitions][1].
 
 {{< highlight shell >}}
-curl -s http://127.0.0.1:8080/apis/core/v2/namespaces/default/mutators -H "Authorization: Bearer TOKEN"
+curl -s http://127.0.0.1:8080/api/core/v2/namespaces/default/mutators -H "Authorization: Bearer TOKEN"
 [
   {
     "metadata": {
@@ -42,7 +42,7 @@ curl -s http://127.0.0.1:8080/apis/core/v2/namespaces/default/mutators -H "Autho
 /mutators (GET)  | 
 ---------------|------
 description    | Returns the list of mutators.
-example url    | http://hostname:8080/apis/core/v2/namespaces/default/mutators
+example url    | http://hostname:8080/api/core/v2/namespaces/default/mutators
 response type  | Array
 response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output         | {{< highlight shell >}}
@@ -75,7 +75,7 @@ containing the requested [`:mutator` definition][1] (in this example: for the `:
 `example-mutator`).
 
 {{< highlight shell >}}
-curl -s http://127.0.0.1:8080/apis/core/v2/namespaces/default/mutators/example-mutator -H "Authorization: Bearer TOKEN"
+curl -s http://127.0.0.1:8080/api/core/v2/namespaces/default/mutators/example-mutator -H "Authorization: Bearer TOKEN"
 {
   "metadata": {
     "name": "example-mutator",
@@ -95,7 +95,7 @@ curl -s http://127.0.0.1:8080/apis/core/v2/namespaces/default/mutators/example-m
 /mutators/:mutator (GET) | 
 ---------------------|------
 description          | Returns a mutator.
-example url          | http://hostname:8080/apis/core/v2/namespaces/default/mutators/mutator-name
+example url          | http://hostname:8080/api/core/v2/namespaces/default/mutators/mutator-name
 response type        | Map
 response codes       | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output               | {{< highlight json >}}

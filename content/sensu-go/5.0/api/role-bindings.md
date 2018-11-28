@@ -21,7 +21,7 @@ The following example demonstrates a request to the `/role-bindings` API, result
 a JSON Array containing [role binding definitions][1].
 
 {{< highlight shell >}}
-curl -s http://127.0.0.1:8080/apis/core/v2/namespaces/default/role-bindings -H "Authorization: Bearer TOKEN"
+curl -s http://127.0.0.1:8080/api/core/v2/namespaces/default/role-bindings -H "Authorization: Bearer TOKEN"
 [
   {
     "name": "alice-binder",
@@ -45,7 +45,7 @@ curl -s http://127.0.0.1:8080/apis/core/v2/namespaces/default/role-bindings -H "
 /role-bindings (GET)  | 
 ---------------|------
 description    | Returns the list of role bindings.
-example url    | http://hostname:8080/apis/core/v2/namespaces/default/role-bindings
+example url    | http://hostname:8080/api/core/v2/namespaces/default/role-bindings
 response type  | Array
 response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output         | {{< highlight shell >}}
@@ -80,7 +80,7 @@ containing the requested [`:role-binding` definition][1] (in this example: for t
 `alice`).
 
 {{< highlight shell >}}
-curl -s http://127.0.0.1:8080/apis/core/v2/namespaces/default/role-bindings/alice -H "Authorization: Bearer TOKEN"
+curl -s http://127.0.0.1:8080/api/core/v2/namespaces/default/role-bindings/alice -H "Authorization: Bearer TOKEN"
 {
   "name": "alice-binder",
   "namespace": "default",
@@ -102,7 +102,7 @@ curl -s http://127.0.0.1:8080/apis/core/v2/namespaces/default/role-bindings/alic
 /role-bindings/:role-binding (GET) | 
 ---------------------|------
 description          | Returns a role binding.
-example url          | http://hostname:8080/apis/core/v2/namespaces/default/role-bindings/alice
+example url          | http://hostname:8080/api/core/v2/namespaces/default/role-bindings/alice
 response type        | Map
 response codes       | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output               | {{< highlight json >}}

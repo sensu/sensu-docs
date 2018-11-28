@@ -21,7 +21,7 @@ The following example demonstrates a request to the `/cluster-role-bindings` API
 a JSON Array containing [cluster role binding definitions][1].
 
 {{< highlight shell >}}
-curl -s http://127.0.0.1:8080/apis/core/v2/cluster-role-bindings -H "Authorization: Bearer TOKEN"
+curl -s http://127.0.0.1:8080/api/core/v2/cluster-role-bindings -H "Authorization: Bearer TOKEN"
 [
   {
     "name": "bob-binder",
@@ -44,7 +44,7 @@ curl -s http://127.0.0.1:8080/apis/core/v2/cluster-role-bindings -H "Authorizati
 /cluster-role-bindings (GET)  | 
 ---------------|------
 description    | Returns the list of cluster role bindings.
-example url    | http://hostname:8080/apis/core/v2/cluster-role-bindings
+example url    | http://hostname:8080/api/core/v2/cluster-role-bindings
 response type  | Array
 response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output         | {{< highlight shell >}}
@@ -78,7 +78,7 @@ containing the requested [`:cluster-role-binding` definition][1] (in this exampl
 `bob`).
 
 {{< highlight shell >}}
-curl -s http://127.0.0.1:8080/apis/core/v2/cluster-role-bindings/bob -H "Authorization: Bearer TOKEN"
+curl -s http://127.0.0.1:8080/api/core/v2/cluster-role-bindings/bob -H "Authorization: Bearer TOKEN"
 {
   "name": "bob-binder",
   "roleRef": {
@@ -99,7 +99,7 @@ curl -s http://127.0.0.1:8080/apis/core/v2/cluster-role-bindings/bob -H "Authori
 /cluster-role-bindings/:cluster-role-binding (GET) | 
 ---------------------|------
 description          | Returns a cluster role binding.
-example url          | http://hostname:8080/apis/core/v2/cluster-role-bindings/bob
+example url          | http://hostname:8080/api/core/v2/cluster-role-bindings/bob
 response type        | Map
 response codes       | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output               | {{< highlight json >}}

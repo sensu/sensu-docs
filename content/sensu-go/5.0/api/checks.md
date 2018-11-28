@@ -20,7 +20,7 @@ The following example demonstrates a request to the `/checks` API, resulting in
 a JSON Array containing [check definitions][1].
 
 {{< highlight shell >}}
-curl -s http://127.0.0.1:8080/apis/core/v2/namespaces/default/checks -H "Authorization: Bearer TOKEN"
+curl -s http://127.0.0.1:8080/api/core/v2/namespaces/default/checks -H "Authorization: Bearer TOKEN"
 [
   {
     "command": "check-cpu.sh -w 75 -c 90",
@@ -45,7 +45,7 @@ curl -s http://127.0.0.1:8080/apis/core/v2/namespaces/default/checks -H "Authori
 /checks (GET)  | 
 ---------------|------
 description    | Returns the list of checks.
-example url    | http://hostname:8080/apis/core/v2/namespaces/default/checks
+example url    | http://hostname:8080/api/core/v2/namespaces/default/checks
 response type  | Array
 response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output         | {{< highlight shell >}}
@@ -97,7 +97,7 @@ containing the requested [`:check` definition][1] (in this example: for the `:ch
 `check-cpu`).
 
 {{< highlight shell >}}
-curl -s http://127.0.0.1:8080/apis/core/v2/namespaces/default/checks/check-cpu -H "Authorization: Bearer TOKEN"
+curl -s http://127.0.0.1:8080/api/core/v2/namespaces/default/checks/check-cpu -H "Authorization: Bearer TOKEN"
 {
   "command": "check-cpu.sh -w 75 -c 90",
   "handlers": [
@@ -120,7 +120,7 @@ curl -s http://127.0.0.1:8080/apis/core/v2/namespaces/default/checks/check-cpu -
 /checks/:check (GET) | 
 ---------------------|------
 description          | Returns a check.
-example url          | http://hostname:8080/apis/core/v2/namespaces/default/checks/check-cpu
+example url          | http://hostname:8080/api/core/v2/namespaces/default/checks/check-cpu
 response type        | Map
 response codes       | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output               | {{< highlight json >}}
