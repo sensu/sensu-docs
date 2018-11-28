@@ -262,17 +262,21 @@ example      | {{< highlight shell >}}"runtime_assets": ["ruby-2.5.0"]{{< /highl
 
 |check_hooks |      |
 -------------|------
-description  | An array of [Sensu hooks][6] (names), which are commands run by the Sensu agent in response to the result of the check command execution.
+description  | An array of check response types with respective arrays of [Sensu hook names][6]. Sensu hooks are commands run by the Sensu agent in response to the result of the check command execution. Hooks are executed, in order of precedence, based on their severity type: `1` to `255`, `ok`, `warning`, `critical`, `unknown`, and finally `non-zero`.
 required     | false
 type         | Array
-example      | {{< highlight shell >}}"check_hooks": ["nginx_restart"]{{< /highlight >}}
-
-|subdue      |      |
--------------|------
-description  | A [Sensu subdue][17], a hash of days of the week, which define one or more time windows in which the check is not scheduled to be executed.
-required     | false
-type         | Hash
-example      | {{< highlight shell >}}"subdue": {}{{< /highlight >}}
+example      | {{< highlight shell >}}"check_hooks": [
+  {
+    "0": [
+      "passing-hook","always-run-this-hook"
+    ]
+  },
+  {
+    "critical": [
+      "failing-hook","collect-diagnostics","always-run-this-hook"
+    ]
+  }
+]{{< /highlight >}}
 
 |proxy_entity_name|   |
 -------------|------
@@ -389,28 +393,6 @@ type         | Integer
 default      | 90
 example      | {{< highlight shell >}}"splay_coverage": 65{{< /highlight >}}
 
-### Subdue attributes
-
-|days | |
--------------|------
-description  | A hash of days of the week or `all`, each day specified must define one or more time windows in which the check is not scheduled to be executed. See the [sensuctl documentation][22] for the supported time formats.
-required     | false (unless `subdue` is configured)
-type         | Hash
-example      | {{< highlight shell >}}"days": {
-  "all": [
-    {
-      "begin": "17:00 UTC",
-      "end": "08:00 UTC"
-    }
-  ],
-  "friday": [
-    {
-      "begin": "12:00 UTC",
-      "end": "17:00 UTC"
-    }
-  ]
-}}{{< /highlight >}}
-
 ## Examples
 
 ### Metric check
@@ -432,7 +414,6 @@ example      | {{< highlight shell >}}"days": {
     "proxy_entity_name": "",
     "check_hooks": null,
     "stdin": false,
-    "subdue": null,
     "ttl": 0,
     "timeout": 0,
     "round_robin": false,

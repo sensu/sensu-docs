@@ -235,7 +235,7 @@ username     |
 description  | The name of the user. Cannot contain special characters.
 required     | true 
 type         | String
-example      | {{< highlight shell >}}"name": "alice"{{< /highlight >}}
+example      | {{< highlight shell >}}"username": "alice"{{< /highlight >}}
 
 password     | 
 -------------|------ 
@@ -580,7 +580,7 @@ required     | true
 type         | Array 
 example      | {{< highlight shell >}}"subjects": [
   {
-    "kind": "User",
+    "type": "User",
     "name": "alice"
   }
 ]{{< /highlight >}}
@@ -603,12 +603,12 @@ example      | {{< highlight shell >}}"name": "event-reader"{{< /highlight >}}
 
 ### `subjects` specification
 
-kind         | 
+type         | 
 -------------|------ 
 description  | `User` for assigning a user or `Group` for assigning a group.
 required     | true 
 type         | String
-example      | {{< highlight shell >}}"kind": "User"{{< /highlight >}}
+example      | {{< highlight shell >}}"type": "User"{{< /highlight >}}
 
 name         | 
 -------------|------ 

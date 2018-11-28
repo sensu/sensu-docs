@@ -22,6 +22,7 @@ aliases:
 - [Time formats](#time-formats)
 - [Getting help](#getting-help)
 - [Creating resources](#create)
+- [Editing resources](#edit)
 - [Shell auto-completion](#shell-auto-completion)
 
 ## How does sensuctl work?
@@ -104,7 +105,6 @@ Commands:
   remove-proxy-entity-id     removes proxy entity id from a check
   remove-proxy-requests      removes proxy requests from a check
   remove-runtime-assets      removes runtime assets from a check
-  remove-subdue              removes subdue from a check
   remove-timeout             removes timeout from a check
   remove-ttl                 removes ttl from a check
   set-command                set command of a check
@@ -119,7 +119,6 @@ Commands:
   set-publish                set publish of a check
   set-runtime-assets         set runtime assets of a check
   set-stdin                  set stdin of a check
-  set-subdue                 set subdue of a check from file or stdin
   set-subscriptions          set subscriptions of a check
   set-timeout                set timeout of a check
   set-ttl                    set ttl of a check
@@ -199,6 +198,12 @@ set the global default:
 sensuctl config set-format json
 {{< /highlight >}}
 
+To write all checks to `my-resources.json` in `wrapped-json` format:
+
+{{< highlight shell >}}
+sensuctl check list --format wrapped-json > my-resources.json
+{{< /highlight >}}
+
 ## Time formats
 
 sensuctl supports multiple time formats, varying depending on the manipulated
@@ -208,16 +213,6 @@ Supported canonical time zone IDs are defined in the [tz database][2].
 
 _WARNING: Canonical zone IDs (i.e. `America/Vancouver`) are not supported on
 Windows._
-
-### Time windows
-
-Time windows are used by various resources, such as check and filters. The
-following formats can be used:
-
-* 24-hour kitchen with canonical zone ID: `07:04 America/Vancouver` or `15:04
-  UTC`
-* 24-hour kitchen with numeric zone offset: `07:04 -08:00`
-* 12-hour kitchen with canonical zone ID: `7:04AM America/Vancouver`
 
 ### Dates with time
 
@@ -283,6 +278,8 @@ accepted format of the `create` command is `wrapped-json`, which wraps the
 contents of the resource in `spec` and identifies its Sensu Go `type` (see below for
 an example, and [this table][3] for a list of supported types).
 
+For example, the following file `my-resources.json` specifies two resources: a `marketing-site` check and a `slack` handler.
+
 {{< highlight shell >}}
 {
   "type": "CheckConfig",
@@ -295,12 +292,13 @@ an example, and [this table][3] for a list of supported types).
       "name": "marketing-site",
       "namespace": "default"
     }
+  }
 }
 {
   "type": "Handler",
   "spec": {
     "type": "pipe",
-    "command": "handler-slack --webhook-url https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX --channel monitoring'",
+    "command": "handler-slack --webhook-url https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX --channel monitoring",
     "metadata" : {
       "name": "slack",
       "namespace": "default"
@@ -309,12 +307,16 @@ an example, and [this table][3] for a list of supported types).
 }
 {{< /highlight >}}
 
-Write all checks to `my-resources.json` in `wrapped-json` format:
+_NOTE: Commas cannot be included between resource definitions when using `sensuctl create --file`._
+
+To create all resources in `wrapped-json` format from `my-resources.json` using `sensuctl create`:
+
 {{< highlight shell >}}
-sensuctl check list --format wrapped-json > my-resources.json
+sensuctl create --file my-resources.json
 {{< /highlight >}}
 
-Create all resources in `wrapped-json` format from `my-resources.json`:
+Or:
+
 {{< highlight shell >}}
 cat my-resources.json | sensuctl create
 {{< /highlight >}}
@@ -331,6 +333,18 @@ cat my-resources.json | sensuctl create
 `HookConfig` | `hook_config`  | `Mutator` | `mutator`
 `Namespace` | `namespace` | `Role` | `role`
 `Silenced` | `silenced`
+
+## Edit
+
+Sensuctl allows you to edit resource definitions using `sensuctl edit`.
+To use `sensuclt edit`, specify the resource [type][3] and resource name.
+
+For example, to edit a handler named `slack` using `sensuctl edit`:
+
+{{< highlight shell >}}
+sensuctl edit handler slack
+{{< /highlight >}}
+
   
 ## Shell auto-completion
 

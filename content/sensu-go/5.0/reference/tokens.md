@@ -70,7 +70,6 @@ arguments to indicate the thresholds (as percentages) for creating warning or cr
     "proxy_entity_name": "",
     "check_hooks": null,
     "stdin": false,
-    "subdue": null,
     "ttl": 0,
     "timeout": 0,
     "round_robin": false,
