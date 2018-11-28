@@ -9,7 +9,7 @@ menu:
     parent: guides
 ---
 
-As with any piece of software, it is critical to minimize any attack surface exposed by the software. Sensu is no different. If you are familiar with Sensu, you are already aware of the [component pieces that need to be secured][1]. Sensu Go, while different its deployment architecture, still contains component pieces that will need to be secured in order to be considered "production ready":
+As with any piece of software, it is critical to minimize any attack surface exposed by the software. Sensu is no different. The following component pieces need to be secured in order for Sensu to be considered production ready:
 
 * Sensu agent to server communication
 * etcd peer communication
