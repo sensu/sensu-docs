@@ -1,5 +1,5 @@
 ---
-title: "How to Secure Sensu Go"
+title: "Securing Sensu"
 weight: 12
 version: "5.0"
 product: "Sensu Go"
