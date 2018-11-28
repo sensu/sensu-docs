@@ -20,7 +20,7 @@ We'll cover securing each one of those pieces, starting with Sensu agent to serv
 
 ## Securing Sensu agent to server communication
 
-The Sensu agent uses WebSockets for communication between the agent and the server. By default, an agent will use the insecure `ws://` transport:
+The Sensu agent uses WebSockets for communication between the agent and the server. By default, an agent uses the insecure `ws://` transport. Let's look at the example from `/etc/sensu/agent.yml`:
 
 {{< highlight shell >}}
 ---
