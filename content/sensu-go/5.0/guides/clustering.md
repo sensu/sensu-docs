@@ -82,6 +82,7 @@ etcd-name: "backend-2"
 ##
 # store configuration for backend-3/10.0.0.3
 ##
+etcd-advertise-client-urls: "https://10.0.0.3:2379"
 etcd-listen-client-urls: "http://10.0.0.3:2379"
 etcd-listen-peer-urls: "http://0.0.0.0:2380"
 etcd-initial-cluster: "backend-1=http://10.0.0.1:2380,backend-2=http://10.0.0.2:2380,backend-3=http://10.0.0.3:2380"
