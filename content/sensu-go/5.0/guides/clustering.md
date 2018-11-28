@@ -110,11 +110,11 @@ Get cluster health status and etcd alarm information.
 
 {{< highlight shell >}}
 $ sensuctl cluster health
-         ID            Name      Error   Healthy  
- ────────────────── ─────────── ─────── ─────────
-  a32e8f613b529ad4   backend-1           true
-  c3d9f4b8d0dd1ac9   backend-2    wat    false
-  c8f63ae435a5e6bf   backend-3           true
+         ID            Name                          Error                           Healthy  
+ ────────────────── ─────────── ─────────────────────────────────────────────────── ─────────
+  a32e8f613b529ad4   backend-1                                                        true
+  c3d9f4b8d0dd1ac9   backend-2  dial tcp 10.0.0.2:2379: connect: connection refused   false
+  c8f63ae435a5e6bf   backend-3                                                        true
 {{< /highlight >}}
 
 ### Add a cluster member
