@@ -315,8 +315,8 @@ Download [sensuctl for 64-bit Windows](http://storage.googleapis.com/sensu-binar
 
 ### 2. Configure sensuctl
 
-You must configure sensuctl before it can connect to your Sensu cluster.
-Run the `configure` command to get started.
+You must configure sensuctl before it can connect to Sensu Go.
+Run `sensuctl configure` to get started.
 
 {{< highlight shell >}}
 $ sensuctl configure
@@ -343,6 +343,8 @@ You can change individual values of your sensuctl configuration with the `config
 {{< highlight shell >}}
 sensuctl config set-namespace default
 {{< /highlight >}}
+
+See the [sensuctl reference][4] for more information about using sensuctl.
 
 {{< platformBlockClose >}}
 
@@ -390,3 +392,4 @@ While it can be run from the docker container, doing so may be problematic.
 [1]: https://github.com/sensu/sensu-go/releases
 [2]: https://github.com/sensu/sensu-go/blob/master/packaging/files/windows/agent.yml.example
 [3]: ../../dashboard/overview
+[4]: ../../sensuctl/reference
