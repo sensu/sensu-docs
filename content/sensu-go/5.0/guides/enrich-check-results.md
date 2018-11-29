@@ -1,11 +1,11 @@
 ---
-title: "How to run auto-remediation tasks with check hooks"
-linkTitle: "Running Auto-Remediation"
+title: "How to enrich check results using check hooks"
+linkTitle: "Enrich check result data with check hooks"
 weight: 40
 version: "5.0"
 product: "Sensu Go"
 platformContent: false
-menu: 
+menu:
   sensu-go-5.0:
     parent: guides
 ---
@@ -18,38 +18,35 @@ configured hook, depending on the exit status code (e.g., `1`).
 
 ## Why use check hooks?
 
-Check hooks allow Sensu users to automate actions routinely performed by
-operators in response to monitoring alerts, freeing precious operators time to
-be used elsewhere and to greater effect! They can be used for rudimentary
-auto-remediation tasks, such as (re)starting a process, and providing additional
-context.
+Check hooks allow Sensu users to automate data collection  routinely performed by
+operators investigating monitoring alerts, freeing precious operator time! While 
+check hooks can be used for rudimentary auto-remediation tasks, they are intended
+for enrichment of monitoring event data.
 
-## Using check hooks to run auto-remediation tasks
+## Using check hooks to gather context
 
-The purpose of this guide is to help you put in place a rudimentary
-auto-remediation task, more specifically restarting the `nginx` service if our
-check `nginx_process` returns a status of `2` (critical, not running).
+The purpose of this guide is to help you put in place a check hook which captures
+the process tree if our check `nginx_process` returns a status of `2` (critical,
+not running).
 
 ### Creating the hook
 
 The first step is to create a new hook that will run a specific command to
-restart the `nginx` service. We will set an execution **timeout** of 10 seconds
+capture the process tree. We will set an execution **timeout** of 10 seconds
 for this command.
 
 {{< highlight shell >}}
-sensuctl hook create nginx-restart  \
---command 'sudo systemctl restart nginx' \
+sensuctl hook create process_tree  \
+--command 'ps aux' \
 --timeout 10
 {{< /highlight >}}
 
-**NOTE** - If running hook commands as sudo you may need to update your /etc/sudoers to allow the sensu user to run the commands without a password, otherwise you may get a '**_sudo: no tty present and no askpass program specified_**' error.
-
 ### Assigning the hook to a check
 
-Now that the `nginx-restart` hook has been created, it can be assigned to a
-check. Here, since we want to restart the `nginx` service, we will apply our
-hook to an already existing check that verifies this nginx process, named
-`nginx_process`, whenever the check command returns a critical status.
+Now that the `process_tree` hook has been created, it can be assigned to a
+check. Here we will apply our hook to an already existing check that verifies
+this nginx process, named `nginx_process`, whenever the check command returns
+a critical status.
 
 {{< highlight shell >}}
 sensuctl check set-hooks nginx_process  \
@@ -74,8 +71,8 @@ $ sensuctl event info i-424242 nginx_process --format json
     "hooks": [
       {
         "config": {
-          "name": "nginx-restart",
-          "command": "sudo systemctl restart nginx",
+          "name": "process_tree",
+          "command": "ps aux",
           "timeout": 10,
           "namespace": "default"
         },
@@ -92,8 +89,8 @@ $ sensuctl event info i-424242 nginx_process --format json
 
 ## Next steps
 
-You now know how to run auto-remediation tasks. From this point, here are some
-recommended resources:
+You now know how to run data collection tasks using check hooks. From this point, 
+here are some recommended resources:
 
 * Read the [hooks reference][1] for in-depth documentation on hooks.
 
