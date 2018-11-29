@@ -8,6 +8,13 @@ menu:
     parent: api
 ---
 
+- [The `/handlers` API endpoint](#the-handlers-api-endpoint)
+	- [`/handlers` (GET)](#handlers-get)
+	- [`/handlers` (POST)](#handlers-post)
+	- [`/handlers` (PUT)](#handlers-put)
+- [The `/handlers/:handler` API endpoint](#the-handlershandler-api-endpoint)
+	- [`/handlers/:handler` (GET)](#handlershandler-get)
+
 ## The `/handlers` API endpoint
 
 ### `/handlers` (GET)
@@ -82,6 +89,56 @@ output         | {{< highlight shell >}}
   }
 ]
 {{< /highlight >}}
+
+### `/handlers` (POST)
+
+/handlers (POST) | 
+----------------|------
+description     | Create a Sensu handler.
+example URL     | http://hostname:8080/api/core/v2/namespaces/default/handlers
+payload         | {{< highlight shell >}}
+{
+  "metadata": {
+    "name": "influx-db",
+    "namespace": "default",
+    "labels": null,
+    "annotations": null
+  },
+  "type": "pipe",
+  "command": "sensu-influxdb-handler --addr 'http://123.4.5.6:8086' --db-name 'sensu' --username 'sensu' --password 'password'",
+  "timeout": 0,
+  "handlers": null,
+  "filters": null,
+  "env_vars": null,
+  "runtime_assets": null
+}
+{{< /highlight >}}
+response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+
+### `/handlers` (PUT)
+
+/handlers (PUT) | 
+----------------|------
+description     | Create or update a Sensu handler.
+example URL     | http://hostname:8080/api/core/v2/namespaces/default/handlers
+payload         | {{< highlight shell >}}
+{
+  "metadata": {
+    "name": "influx-db",
+    "namespace": "default",
+    "labels": null,
+    "annotations": null
+  },
+  "type": "pipe",
+  "command": "sensu-influxdb-handler --addr 'http://123.4.5.6:8086' --db-name 'sensu' --username 'sensu' --password 'password'",
+  "timeout": 0,
+  "handlers": null,
+  "filters": null,
+  "env_vars": null,
+  "runtime_assets": null
+}
+{{< /highlight >}}
+response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 ## The `/handlers/:handler` API endpoint {#the-handlershandler-api-endpoint}
 

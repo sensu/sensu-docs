@@ -8,6 +8,13 @@ menu:
     parent: api
 ---
 
+- [The `/entities` API endpoint](#the-entities-api-endpoint)
+	- [`/entities` (GET)](#entities-get)
+	- [`/entities` (POST)](#entities-post)
+	- [`/entities` (PUT)](#entities-put)
+- [The `/entities/:entity` API endpoint](#the-entitiesentity-api-endpoint)
+	- [`/entities/:entity` (GET)](#entitiesentity-get)
+
 ## The `/entities` API endpoint
 
 ### `/entities` (GET)
@@ -161,6 +168,54 @@ output         | {{< highlight shell >}}
   }
 ]
 {{< /highlight >}}
+
+### `/entities` (POST)
+
+/entities (POST) | 
+----------------|------
+description     | Create a Sensu entity.
+example URL     | http://hostname:8080/api/core/v2/namespaces/default/entities
+payload         | {{< highlight shell >}}
+{
+  "entity_class": "proxy",
+  "subscriptions": [
+    "web"
+  ],
+  "deregister": false,
+  "deregistration": {},
+  "metadata": {
+    "name": "sensu-centos",
+    "namespace": "default",
+    "labels": null,
+    "annotations": null
+  }
+}
+{{< /highlight >}}
+response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+
+### `/entities` (PUT)
+
+/entities (PUT) | 
+----------------|------
+description     | Create or update a Sensu entity.
+example URL     | http://hostname:8080/api/core/v2/namespaces/default/entities
+payload         | {{< highlight shell >}}
+{
+  "entity_class": "proxy",
+  "subscriptions": [
+    "web"
+  ],
+  "deregister": false,
+  "deregistration": {},
+  "metadata": {
+    "name": "sensu-centos",
+    "namespace": "default",
+    "labels": null,
+    "annotations": null
+  }
+}
+{{< /highlight >}}
+response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 ## The `/entities/:entity` API endpoint {#the-entitiesentity-api-endpoint}
 

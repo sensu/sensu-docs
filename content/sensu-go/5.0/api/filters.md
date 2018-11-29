@@ -8,6 +8,13 @@ menu:
     parent: api
 ---
 
+- [The `/filters` API endpoint](#the-filters-api-endpoint)
+	- [`/filters` (GET)](#filters-get)
+	- [`/filters` (POST)](#filters-post)
+	- [`/filters` (PUT)](#filters-put)
+- [The `/filters/:filter` API endpoint](#the-filtersfilter-api-endpoint)
+	- [`/filters/:filter` (GET)](#filtersfilter-get)
+
 ## The `/filters` API endpoint
 
 ### `/filters` (GET)
@@ -76,6 +83,52 @@ output         | {{< highlight shell >}}
   }
 ]
 {{< /highlight >}}
+
+### `/filters` (POST)
+
+/filters (POST) | 
+----------------|------
+description     | Create a Sensu filter.
+example URL     | http://hostname:8080/api/core/v2/namespaces/default/filters
+payload         | {{< highlight shell >}}
+{
+  "metadata": {
+    "name": "development_filter",
+    "namespace": "default",
+    "labels": null,
+    "annotations": null
+  },
+  "action": "deny",
+  "expressions": [
+    "event.entity.metadata.namespace == 'production'"
+  ],
+  "runtime_assets": []
+}
+{{< /highlight >}}
+response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+
+### `/filters` (PUT)
+
+/filters (PUT) | 
+----------------|------
+description     | Create or update a Sensu filter.
+example URL     | http://hostname:8080/api/core/v2/namespaces/default/filters
+payload         | {{< highlight shell >}}
+{
+  "metadata": {
+    "name": "development_filter",
+    "namespace": "default",
+    "labels": null,
+    "annotations": null
+  },
+  "action": "deny",
+  "expressions": [
+    "event.entity.metadata.namespace == 'production'"
+  ],
+  "runtime_assets": []
+}
+{{< /highlight >}}
+response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 ## The `/filters/:filter` API endpoint {#the-filtersfilter-api-endpoint}
 

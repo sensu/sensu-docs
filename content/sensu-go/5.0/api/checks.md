@@ -8,6 +8,13 @@ menu:
     parent: api
 ---
 
+- [The `/checks` API endpoint](#the-checks-api-endpoint)
+	- [`/checks` (GET)](#checks-get)
+	- [`/checks` (POST)](#checks-post)
+	- [`/checks` (PUT)](#checks-put)
+- [The `/checks/:check` API endpoint](#the-checkscheck-api-endpoint)
+	- [`/checks/:check` (GET)](#checkscheck-get)
+
 ## The `/checks` API endpoint
 
 ### `/checks` (GET)
@@ -83,6 +90,58 @@ output         | {{< highlight shell >}}
   }
 ]
 {{< /highlight >}}
+
+### `/checks` (POST)
+
+/checks (POST) | 
+----------------|------
+description     | Create a Sensu check.
+example URL     | http://hostname:8080/api/core/v2/namespaces/default/checks
+payload         | {{< highlight shell >}}
+{
+  "command": "http_check.sh https://sensu.io",
+  "handlers": [
+    "slack"
+  ],
+  "interval": 15,
+  "proxy_entity_name": "sensu.io",
+  "publish": true,
+  "subscriptions": [
+    "site"
+  ],
+  "metadata": {
+    "name": "check-sensu-site",
+    "namespace": "default"
+  }
+}
+{{< /highlight >}}
+response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+
+### `/checks` (PUT)
+
+/checks (PUT) | 
+----------------|------
+description     | Create or update a Sensu check.
+example URL     | http://hostname:8080/api/core/v2/namespaces/default/checks
+payload         | {{< highlight shell >}}
+{
+  "command": "http_check.sh https://sensu.io",
+  "handlers": [
+    "slack"
+  ],
+  "interval": 15,
+  "proxy_entity_name": "sensu.io",
+  "publish": true,
+  "subscriptions": [
+    "site"
+  ],
+  "metadata": {
+    "name": "check-sensu-site",
+    "namespace": "default"
+  }
+}
+{{< /highlight >}}
+response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 ## The `/checks/:check` API endpoint {#the-checkscheck-api-endpoint}
 
