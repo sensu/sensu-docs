@@ -20,7 +20,7 @@ The following example demonstrates a request to the `/cluster/members` API, resu
 a JSON Array containing a Sensu cluster definition.
 
 {{< highlight shell >}}
-curl -s http://127.0.0.1:8080/api/core/v2//cluster/members -H "Authorization: Bearer TOKEN"
+curl -s http://127.0.0.1:8080/api/core/v2/cluster/members -H "Authorization: Bearer TOKEN"
 {
   "header": {
     "cluster_id": 4255616304056076734,
