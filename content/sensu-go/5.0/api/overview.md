@@ -19,7 +19,7 @@ Sensu API endpoints use the standard URL format `/api/{group}/{version}/namespac
 
 - `{group}` is the API group. All currently existing Sensu API endpoints are of group `core`.
 - `{version}` is the API version. Sensu Go 5.0 uses API v2.
-- `{namespace}` is the namespace name. The examples in these API docs use the `default` namespace.
+- `{namespace}` is the namespace name. The examples in these API docs use the `default` namespace. The Sensu API requires that the authenticated user have the correct access permissions for the namespace specified in the URL. If the authenticated user has the correct cluster-wide permissions, you can leave out the `/namespaces/{namespace}` portion of the URL to access Sensu resources across namespaces. See the [RBAC reference][3] for more information about configuring Sensu users and access controls.
 
 ### Data format
 
@@ -28,11 +28,12 @@ In terms of [sensuctl output types][1], the Sensu API uses the `json` format, no
 
 ### Data size
 
-API responses are limited to 0.512 MB in size.
+API request bodies are limited to 0.512 MB in size.
 
 ### Versioning
 
 The Sensu Go API is versioned according to the format `v{majorVersion}{stabilityLevel}{iterationNumber}`, in which `v2` is stable version 2.
+The Sensu API guarantees backward compatibility for stable versions of the API.
 
 Sensu makes no guarantee that an alpha or beta APIs will be maintained for any period of time.
 Alpha versions should be considered under active development and may not be published for every release.
@@ -69,3 +70,4 @@ To create a new token, first run any sensuctl command (like `sensuctl event list
 
 [1]: ../../sensuctl/reference#preferred-output-format
 [2]: ../../installation/install-sensu#install-sensuctl
+[3]: ../../reference/rbac
