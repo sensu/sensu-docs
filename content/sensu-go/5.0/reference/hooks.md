@@ -52,14 +52,29 @@ Sensu for auto-remediation tasks!
 
 ## Hooks specification
 
-### Hook attributes
+### Top-level attributes
 
-|metadata    |      |
+type         | 
 -------------|------
-description  | Collection of metadata about the hook, including the `name` and `namespace` as well as custom `labels` and `annotations`. See the [metadata attributes reference][2] for details.
-required     | true
+description  | Top-level attribute specifying the [`sensuctl create`][sc] resource type. Hooks should always be of type `HookConfig`.
+required     | Required for hook definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][sc].
+type         | String
+example      | {{< highlight shell >}}"type": "HookConfig"{{< /highlight >}}
+
+api_version  | 
+-------------|------
+description  | Top-level attribute specifying the Sensu API group and version. For hooks in Sensu backend version 5.0, this attribute should always be `core/v2`.
+required     | Required for hook definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][sc].
+type         | String
+example      | {{< highlight shell >}}"api_version": "core/v2"{{< /highlight >}}
+
+metadata     | 
+-------------|------
+description  | Top-level collection of metadata about the hook, including the `name` and `namespace` as well as custom `labels` and `annotations`. The `metadata` map is always at the top level of the hook definition. This means that in `wrapped-json` and `yaml` formats, the `metadata` scope occurs outside the `spec` scope.  See the [metadata attributes reference][2] for details.
+required     | Required for hook definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][sc].
 type         | Map of key-value pairs
-example      | {{< highlight shell >}}"metadata": {
+example      | {{< highlight shell >}}
+"metadata": {
   "name": "process_tree",
   "namespace": "default",
   "labels": {
@@ -68,7 +83,23 @@ example      | {{< highlight shell >}}"metadata": {
   "annotations": {
     "slack-channel" : "#monitoring"
   }
-}{{< /highlight >}}
+}
+{{< /highlight >}}
+
+spec         | 
+-------------|------
+description  | Top-level map that includes the hook [spec attributes][sp].
+required     | Required for handler definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][sc].
+type         | Map of key-value pairs
+example      | {{< highlight shell >}}
+"spec": {
+  "command": "ps aux",
+  "timeout": 60,
+  "stdin": false
+}
+{{< /highlight >}}
+
+### Spec attributes
 
 command      | 
 -------------|------
@@ -143,13 +174,14 @@ a process that is no longer running.
 {{< highlight json >}}
 {
   "type": "HookConfig",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "restart_nginx",
+    "namespace": "default",
+    "labels": null,
+    "annotations": null
+  },
   "spec": {
-    "metadata": {
-      "name": "restart_nginx",
-      "namespace": "default",
-      "labels": null,
-      "annotations": null
-    },
     "command": "sudo systemctl start nginx",
     "timeout": 60,
     "stdin": false
@@ -166,13 +198,14 @@ has been determined to be not running etc.
 {{< highlight json >}}
 {
   "type": "HookConfig",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "process_tree",
+    "namespace": "default",
+    "labels": null,
+    "annotations": null
+  },
   "spec": {
-    "metadata": {
-      "name": "process_tree",
-      "namespace": "default",
-      "labels": null,
-      "annotations": null
-    },
     "command": "ps aux",
     "timeout": 60,
     "stdin": false
@@ -186,3 +219,5 @@ has been determined to be not running etc.
 [4]: ../filters
 [5]: ../tokens
 [6]: ../checks#check-attributes
+[sc]: ../../sensuctl/reference#creating-resources
+[sp]: #spec-attributes

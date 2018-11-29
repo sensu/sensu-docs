@@ -47,14 +47,31 @@ As mentioned above, all mutator commands are executed by a Sensu server as the `
 
 _NOTE: By default, the Sensu installer packages will modify the system `$PATH` for the Sensu processes to include `/etc/sensu/plugins`. As a result, executable scripts (like plugins) located in `/etc/sensu/plugins` will be valid commands. This allows `command` attributes to use “relative paths” for Sensu plugin commands, for example: `"command": "check-http.go -u https://sensuapp.org"`._
 
-### Attributes
+## Mutators specification
 
-|metadata    |      |
+### Top-level attributes
+
+type         | 
 -------------|------
-description  | Collection of metadata about the mutator, including the `name` and `namespace` as well as custom `labels` and `annotations`. See the [metadata attributes reference][2] for details.
-required     | true
+description  | Top-level attribute specifying the [`sensuctl create`][sc] resource type. Mutators should always be of type `Mutator`.
+required     | Required for mutator definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][sc].
+type         | String
+example      | {{< highlight shell >}}"type": "Mutator"{{< /highlight >}}
+
+api_version  | 
+-------------|------
+description  | Top-level attribute specifying the Sensu API group and version. For mutators in Sensu backend version 5.0, this attribute should always be `core/v2`.
+required     | Required for mutator definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][sc].
+type         | String
+example      | {{< highlight shell >}}"api_version": "core/v2"{{< /highlight >}}
+
+metadata     | 
+-------------|------
+description  | Top-level collection of metadata about the mutator, including the `name` and `namespace` as well as custom `labels` and `annotations`. The `metadata` map is always at the top level of the mutator definition. This means that in `wrapped-json` and `yaml` formats, the `metadata` scope occurs outside the `spec` scope.  See the [metadata attributes reference][2] for details.
+required     | Required for mutator definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][sc].
 type         | Map of key-value pairs
-example      | {{< highlight shell >}}"metadata": {
+example      | {{< highlight shell >}}
+"metadata": {
   "name": "example-mutator",
   "namespace": "default",
   "labels": {
@@ -63,7 +80,24 @@ example      | {{< highlight shell >}}"metadata": {
   "annotations": {
     "slack-channel" : "#monitoring"
   }
-}{{< /highlight >}}
+}
+{{< /highlight >}}
+
+spec         | 
+-------------|------
+description  | Top-level map that includes the mutator [spec attributes][sp].
+required     | Required for handler definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][sc].
+type         | Map of key-value pairs
+example      | {{< highlight shell >}}
+"spec": {
+  "command": "example_mutator.go",
+  "timeout": 0,
+  "env_vars": [],
+  "runtime_assets": []
+}
+{{< /highlight >}}
+
+### Spec attributes
 
 command      | 
 -------------|------ 
@@ -135,13 +169,14 @@ to modify event data prior to handling the event.
 {{< highlight json >}}
 {
   "type": "Mutator",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "example-mutator",
+    "namespace": "default",
+    "labels": null,
+    "annotations": null
+  },  
   "spec": {
-    "metadata": {
-      "name": "example-mutator",
-      "namespace": "default",
-      "labels": null,
-      "annotations": null
-    },
     "command": "example_mutator.go",
     "timeout": 0,
     "env_vars": [],
@@ -157,3 +192,5 @@ to modify event data prior to handling the event.
 [3]: ../rbac#namespaces
 [4]: ../filters
 [5]: ../tokens
+[sc]: ../../sensuctl/reference#creating-resources
+[sp]: #spec-attributes
