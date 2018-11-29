@@ -62,23 +62,54 @@ identified by the combination of `$SUBSCRIPTION:$CHECK`. If a check or
 subscription is not provided, it will be substituted with a wildcard (asterisk):
 `$SUBSCRIPTION:*` or `*:$CHECK`.
 
-### Attributes
+### Top-level attributes
 
-|metadata    |      |
+type         | 
 -------------|------
-description  | Collection of metadata about the silencing entry, including the `name` and `namespace` as well as custom `labels` and `annotations`. See the [metadata attributes reference][3] for details.
-required     | true
+description  | Top-level attribute specifying the [`sensuctl create`][sc] resource type. Silencing entries should always be of type `Silenced`.
+required     | Required for silencing entry definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][sc].
+type         | String
+example      | {{< highlight shell >}}"type": "Silenced"{{< /highlight >}}
+
+api_version  | 
+-------------|------
+description  | Top-level attribute specifying the Sensu API group and version. For silencing entries in Sensu backend version 5.0, this attribute should always be `core/v2`.
+required     | Required for silencing entry definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][sc].
+type         | String
+example      | {{< highlight shell >}}"api_version": "core/v2"{{< /highlight >}}
+
+metadata     | 
+-------------|------
+description  | Top-level collection of metadata about the silencing entry, including the `name` and `namespace` as well as custom `labels` and `annotations`. The `metadata` map is always at the top level of the silencing entry definition. This means that in `wrapped-json` and `yaml` formats, the `metadata` scope occurs outside the `spec` scope.  See the [metadata attributes reference][3] for details.
+required     | Required for silencing entry definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][sc].
 type         | Map of key-value pairs
-example      | {{< highlight shell >}}"metadata": {
+example      | {{< highlight shell >}}
+"metadata": {
   "name": "appserver:mysql_status",
   "namespace": "default",
   "labels": {
     "region": "us-west-1"
-  },
-  "annotations": {
-    "slack-channel" : "#monitoring"
   }
-}{{< /highlight >}}
+{{< /highlight >}}
+
+spec         | 
+-------------|------
+description  | Top-level map that includes the silencing entry [spec attributes][sp].
+required     | Required for handler definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][sc].
+type         | Map of key-value pairs
+example      | {{< highlight shell >}}
+"spec": {
+  "expire": -1,
+  "expire_on_resolve": false,
+  "creator": "admin",
+  "reason": null,
+  "check": null,
+  "subscription": "entity:i-424242",
+  "begin": 1542671205
+}
+{{< /highlight >}}
+
+### Spec attributes
 
 check        | 
 -------------|------ 
@@ -184,13 +215,14 @@ do this by taking advantage of per-entity subscriptions:
 {{< highlight json >}}
 {
   "type": "Silenced",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "entity:i-424242:*",
+    "namespace": "default",
+    "labels": null,
+    "annotations": null
+  },
   "spec": {
-    "metadata": {
-      "name": "entity:i-424242:*",
-      "namespace": "default",
-      "labels": null,
-      "annotations": null
-    },
     "expire": -1,
     "expire_on_resolve": false,
     "creator": "admin",
@@ -259,6 +291,7 @@ regardless of subscriptions, we only need to provide the check name:
 ### Deleting silencing entries
 To delete a silencing entry, you will need to provide its name. Subscription only
 silencing entry names will be similar to this:
+
 {{< highlight json >}}
 {
   "name": "appserver:*"
@@ -266,6 +299,7 @@ silencing entry names will be similar to this:
 {{< /highlight >}}
 
 Check only silencing entry names will be similar to this:
+
 {{< highlight json >}}
 {
   "name": "*:mysql_status"
@@ -275,3 +309,5 @@ Check only silencing entry names will be similar to this:
 [1]: ../events/#attributes
 [2]: ../rbac#namespaces
 [3]: #metadata-attributes
+[sc]: ../../sensuctl/reference#creating-resources
+[sp]: #spec-attributes

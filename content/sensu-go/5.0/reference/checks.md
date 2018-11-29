@@ -157,12 +157,26 @@ enabled directly with the [round_robin][13] attribute in the check configuration
 
 ## Check specification
 
-### Check attributes
+### Top-level attributes
 
-|metadata     |      |
+type         | 
 -------------|------
-description  | Collection of metadata about the check, including the `name` and `namespace` as well as custom `labels` and `annotations`. See the [metadata attributes reference][25] for details.
-required     | true
+description  | Top-level attribute specifying the [`sensuctl create`][sc] resource type. Checks should always be of type `CheckConfig`.
+required     | Required for check definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][sc].
+type         | String
+example      | {{< highlight shell >}}"type": "CheckConfig"{{< /highlight >}}
+
+api_version  | 
+-------------|------
+description  | Top-level attribute specifying the Sensu API group and version. For checks in Sensu backend version 5.0, this attribute should always be `core/v2`.
+required     | Required for check definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][sc].
+type         | String
+example      | {{< highlight shell >}}"api_version": "core/v2"{{< /highlight >}}
+
+metadata     | 
+-------------|------
+description  | Top-level collection of metadata about the check, including the `name` and `namespace` as well as custom `labels` and `annotations`. The `metadata` map is always at the top level of the check definition. This means that in `wrapped-json` and `yaml` formats, the `metadata` scope occurs outside the `spec` scope.  See the [metadata attributes reference][25] for details.
+required     | Required for check definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][sc].
 type         | Map of key-value pairs
 example      | {{< highlight shell >}}"metadata": {
   "name": "collect-metrics",
@@ -174,6 +188,16 @@ example      | {{< highlight shell >}}"metadata": {
     "slack-channel" : "#monitoring"
   }
 }{{< /highlight >}}
+
+spec         | 
+-------------|------
+description  | Top-level map that includes the check [spec attributes][sp].
+required     | Required for check definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][sc].
+type         | Map of key-value pairs
+example      | {{< highlight shell >}}
+{{< /highlight >}}
+
+### Spec attributes
 
 |command     |      |
 -------------|------
@@ -400,6 +424,17 @@ example      | {{< highlight shell >}}"splay_coverage": 65{{< /highlight >}}
 {{< highlight json >}}
 {
   "type": "CheckConfig",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "collect-metrics",
+    "namespace": "default",
+    "labels": {
+      "region": "us-west-1"
+    },
+    "annotations": {
+      "slack-channel" : "#monitoring"
+    }
+  },
   "spec": {
     "command": "collect.sh",
     "handlers": [],
@@ -421,17 +456,7 @@ example      | {{< highlight shell >}}"splay_coverage": 65{{< /highlight >}}
     "output_metric_handlers": [
       "influx-db"
     ],
-    "env_vars": null,
-    "metadata": {
-      "name": "collect-metrics",
-      "namespace": "default",
-      "labels": {
-        "region": "us-west-1"
-      },
-      "annotations": {
-        "slack-channel" : "#monitoring"
-      }
-    }
+    "env_vars": null
   }
 }
 {{< /highlight >}}
@@ -470,3 +495,5 @@ example      | {{< highlight shell >}}"splay_coverage": 65{{< /highlight >}}
 [25]: #metadata-attributes
 [26]: ../rbac#namespaces
 [27]: ../filters
+[sc]: ../../sensuctl/reference#creating-resources
+[sp]: #spec-attributes
