@@ -79,7 +79,6 @@ arguments to indicate the thresholds (as percentages) for creating warning or cr
     "stdin": false,
     "ttl": 0,
     "timeout": 0,
-    "round_robin": false,
     "env_vars": null
   }
 }{{< /highlight >}}

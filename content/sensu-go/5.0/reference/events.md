@@ -101,7 +101,6 @@ example      | {{< highlight shell >}}
     "stdin": false,
     "ttl": 0,
     "timeout": 0,
-    "round_robin": false,
     "duration": 0.010849143,
     "executed": 1542667666,
     "history": [
@@ -343,7 +342,6 @@ example      | {{< highlight json >}}
       "stdin": false,
       "ttl": 0,
       "timeout": 0,
-      "round_robin": false,
       "duration": 0.010849143,
       "executed": 1542667666,
       "history": [
