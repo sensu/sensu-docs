@@ -47,11 +47,6 @@ Checks require an executable that the agent runs on the corresponding entity whe
 You can write your own check executables in Go, Ruby, Python, and more, or use one of over 100 check plugins shared by the Sensu community.
 [Read more.][6]
 
-#### Check subdue
-A time window applied to one or more days of the week during which the backend will not schedule a check for execution.
-Check subdues are configured within the check definition.
-[Read more.][15]
-
 #### Check token
 A placeholder used in a check definition that the agent replaces with local information before executing the check.
 Tokens let you fine-tune check attributes (like thresholds) on a per-entity level while re-using the check definition.
@@ -70,7 +65,7 @@ Event data includes the result of the check or metric (or both), the executing a
 
 #### Filter
 Logical statements that handlers evaluate before processing monitoring events.
-Filters can instruct handlers to allow or deny matching events based on day, time, organization, environment, or any attribute in the event data.
+Filters can instruct handlers to allow or deny matching events based on day, time, namespace, or any attribute in the event data.
 [Read more.][9]
 
 #### Handler
@@ -89,8 +84,13 @@ Agents create events with information about the proxy entity in place of the loc
 
 #### RBAC
 Role-based access control (RBAC) is Sensu’s local user management system.
-RBAC lets you manage users and permissions with organizations, environments, and roles.
+RBAC lets you manage users and permissions with namespaces, users, roles, and role bindings.
 [Read more.][13]
+
+### Resources
+Objects within Sensu that can be used to specify access permissions in Sensu roles and cluster roles.
+Resources can be specific to a namespace (like checks and handlers) or cluster-wide (like users and cluster roles).
+[Read more.][18]
 
 #### Sensuctl
 Command line tool that lets you interact with the backend.
@@ -119,3 +119,4 @@ You can use silencing to schedule maintenances without being overloaded with ale
 [15]: ../../reference/checks/#subdue-attributes
 [16]: ../../reference/tokens
 [17]: ../../reference/silencing
+[18]: ../../reference/rbac#resources

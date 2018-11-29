@@ -151,29 +151,59 @@ independently of the check configuration.
 
 Round-robin checks, which allow checks to be executed on a single entity within
 a subscription in a round-robin fashion, were configured via the client
-subscriptions in [Sensu 1][12]. Prepending `roundrobin:` in front of
-subscriptions is no longer required in Sensu 2 since round-robin can now be
-enabled directly with the [round_robin][13] attribute in the check configuration.
+subscriptions in [Sensu 1][12].
+Round robin checks are not yet supported in Sensu 5.0.
 
 ## Check specification
 
-### Check naming
+### Top-level attributes
 
-Each check definition must have a unique name within its organization and
-environment.
+type         | 
+-------------|------
+description  | Top-level attribute specifying the [`sensuctl create`][sc] resource type. Checks should always be of type `CheckConfig`.
+required     | Required for check definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][sc].
+type         | String
+example      | {{< highlight shell >}}"type": "CheckConfig"{{< /highlight >}}
 
-* A unique string used to name/identify the check
-* Cannot contain special characters or spaces
-* Validated with Go regex [`\A[\w\.\-]+\z`](https://regex101.com/r/zo9mQU/2)
+api_version  | 
+-------------|------
+description  | Top-level attribute specifying the Sensu API group and version. For checks in Sensu backend version 5.0, this attribute should always be `core/v2`.
+required     | Required for check definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][sc].
+type         | String
+example      | {{< highlight shell >}}"api_version": "core/v2"{{< /highlight >}}
 
-### Check attributes
+metadata     | 
+-------------|------
+description  | Top-level collection of metadata about the check, including the `name` and `namespace` as well as custom `labels` and `annotations`. The `metadata` map is always at the top level of the check definition. This means that in `wrapped-json` and `yaml` formats, the `metadata` scope occurs outside the `spec` scope.  See the [metadata attributes reference][25] for details.
+required     | Required for check definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][sc].
+type         | Map of key-value pairs
+example      | {{< highlight shell >}}"metadata": {
+  "name": "collect-metrics",
+  "namespace": "default",
+  "labels": {
+    "region": "us-west-1"
+  },
+  "annotations": {
+    "slack-channel" : "#monitoring"
+  }
+}{{< /highlight >}}
+
+spec         | 
+-------------|------
+description  | Top-level map that includes the check [spec attributes][sp].
+required     | Required for check definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][sc].
+type         | Map of key-value pairs
+example      | {{< highlight shell >}}
+{{< /highlight >}}
+
+### Spec attributes
 
 |command     |      |
 -------------|------
 description  | The check command to be executed.
 required     | true
 type         | String
-example      | {{< highlight shell >}}"command": "/etc/sensu/plugins/check-chef-client.rb"{{< /highlight >}}
+example      | {{< highlight shell >}}"command": "/etc/sensu/plugins/check-chef-client.go"{{< /highlight >}}
 
 |subscriptions|     |
 -------------|------
@@ -255,25 +285,29 @@ example      | {{< highlight shell >}}"runtime_assets": ["ruby-2.5.0"]{{< /highl
 
 |check_hooks |      |
 -------------|------
-description  | An array of [Sensu hooks][6] (names), which are commands run by the Sensu agent in response to the result of the check command execution.
+description  | An array of check response types with respective arrays of [Sensu hook names][6]. Sensu hooks are commands run by the Sensu agent in response to the result of the check command execution. Hooks are executed, in order of precedence, based on their severity type: `1` to `255`, `ok`, `warning`, `critical`, `unknown`, and finally `non-zero`.
 required     | false
 type         | Array
-example      | {{< highlight shell >}}"check_hooks": ["nginx_restart"]{{< /highlight >}}
+example      | {{< highlight shell >}}"check_hooks": [
+  {
+    "0": [
+      "passing-hook","always-run-this-hook"
+    ]
+  },
+  {
+    "critical": [
+      "failing-hook","collect-diagnostics","always-run-this-hook"
+    ]
+  }
+]{{< /highlight >}}
 
-|subdue      |      |
--------------|------
-description  | A [Sensu subdue][17], a hash of days of the week, which define one or more time windows in which the check is not scheduled to be executed.
-required     | false
-type         | Hash
-example      | {{< highlight shell >}}"subdue": {}{{< /highlight >}}
-
-|proxy_entity_id|   |
+|proxy_entity_name|   |
 -------------|------
 description  | The check ID, used to create a [proxy entity][18] for an external resource (i.e., a network switch).
 required     | false
 type         | String
 validated    | [`\A[\w\.\-]+\z`](https://regex101.com/r/zo9mQU/2)
-example      | {{< highlight shell >}}"proxy_entity_id": "switch-dc-01"{{< /highlight >}}
+example      | {{< highlight shell >}}"proxy_entity_name": "switch-dc-01"{{< /highlight >}}
 
 |proxy_requests|    |
 -------------|------
@@ -281,39 +315,6 @@ description  | A [Sensu Proxy Requests][10], representing Sensu entity attribute
 required     | false
 type         | Hash
 example      | {{< highlight shell >}}"proxy_requests": {}{{< /highlight >}}
-
-|round_robin |      |
--------------|------
-description  | If the check should be executed on a single entity within a subscription in a [round-robin fashion][19].
-required     | false
-type         | Boolean
-example      | {{< highlight shell >}}"round_robin": false{{< /highlight >}}
-
-|extended_attributes|      |
--------------|------
-description  | Custom attributes to include with the event data, which can be queried like regular attributes.
-required     | false
-type         | Serialized JSON object
-example      | {{< highlight shell >}}"{\"team\":\"ops\"}"{{< /highlight >}}
-
-|organization|      |
--------------|------
-description  | The Sensu RBAC organization that this check belongs to.
-required     | false
-type         | String
-example      | {{< highlight shell >}}
-  "organization": "default"
-{{< /highlight >}}
-
-|environment |      |
--------------|------
-description  | The Sensu RBAC environment that this check belongs to.
-required     | false
-type         | String
-default      | current environment value configured for `sensuctl` (ie `default`)
-example      | {{< highlight shell >}}
-  "environment": "default"
-{{< /highlight >}}
 
 |silenced    |      |
 -------------|------
@@ -342,6 +343,46 @@ required     | false
 type         | Array
 example      | {{< highlight shell >}}"output_metric_handlers": ["influx-db"]{{< /highlight >}}
 
+### Metadata attributes
+
+| name       |      |
+-------------|------
+description  | A unique string used to identify the check. Check names cannot contain special characters or spaces (validated with Go regex [`\A[\w\.\-]+\z`](https://regex101.com/r/zo9mQU/2)). Each check must have a unique name within its namespace.
+required     | true
+type         | String
+example      | {{< highlight shell >}}"name": "check-cpu"{{< /highlight >}}
+
+| namespace  |      |
+-------------|------
+description  | The Sensu [RBAC namespace][26] that this check belongs to.
+required     | false
+type         | String
+default      | `default`
+example      | {{< highlight shell >}}"namespace": "production"{{< /highlight >}}
+
+| labels     |      |
+-------------|------
+description  | Custom attributes to include with event data, which can be queried like regular attributes. You can use labels to organize checks into meaningful collections that can be selected using [filters][27] and [tokens][5].
+required     | false
+type         | Map of key-value pairs. Keys and values can be any valid UTF-8 string.
+default      | `null`
+example      | {{< highlight shell >}}"labels": {
+  "environment": "development",
+  "region": "us-west-2"
+}{{< /highlight >}}
+
+| annotations |     |
+-------------|------
+description  | Arbitrary, non-identifying metadata to include with event data. In contrast to labels, annotations are _not_ used internally by Sensu and cannot be used to identify checks. You can use annotations to add data that helps people or external tools interacting with Sensu.
+required     | false
+type         | Map of key-value pairs. Keys and values can be any valid UTF-8 string.
+default      | `null`
+example      | {{< highlight shell >}} "annotations": {
+  "managed-by": "ops",
+  "slack-channel": "#monitoring",
+  "playbook": "www.example.url"
+}{{< /highlight >}}
+
 ### Proxy requests attributes
 
 |entity_attributes| |
@@ -349,8 +390,8 @@ example      | {{< highlight shell >}}"output_metric_handlers": ["influx-db"]{{<
 description  | Sensu entity attributes to match entities in the registry, using [Sensu Query Expressions][20]
 required     | false
 type         | Array
-default      | current environment value configured for `sensuctl` (ie `default`)
-example      | {{< highlight shell >}}"entity_attributes": ["entity.Class == 'proxy'"]{{< /highlight >}}
+default      | current namespace value configured for `sensuctl` (ie `default`)
+example      | {{< highlight shell >}}"entity_attributes": ["entity.EntityClass == 'proxy'"]{{< /highlight >}}
 
 |splay       |      |
 -------------|------
@@ -368,28 +409,6 @@ type         | Integer
 default      | 90
 example      | {{< highlight shell >}}"splay_coverage": 65{{< /highlight >}}
 
-### Subdue attributes
-
-|days | |
--------------|------
-description  | A hash of days of the week or `all`, each day specified must define one or more time windows in which the check is not scheduled to be executed. See the [sensuctl documentation][22] for the supported time formats.
-required     | false (unless `subdue` is configured)
-type         | Hash
-example      | {{< highlight shell >}}"days": {
-  "all": [
-    {
-      "begin": "17:00 UTC",
-      "end": "08:00 UTC"
-    }
-  ],
-  "friday": [
-    {
-      "begin": "12:00 UTC",
-      "end": "17:00 UTC"
-    }
-  ]
-}}{{< /highlight >}}
-
 ## Examples
 
 ### Metric check
@@ -397,20 +416,41 @@ example      | {{< highlight shell >}}"days": {
 {{< highlight json >}}
 {
   "type": "CheckConfig",
-  "spec": {
+  "api_version": "core/v2",
+  "metadata": {
     "name": "collect-metrics",
-    "environment": "default",
-    "organization": "default",
+    "namespace": "default",
+    "labels": {
+      "region": "us-west-1"
+    },
+    "annotations": {
+      "slack-channel" : "#monitoring"
+    }
+  },
+  "spec": {
+    "command": "collect.sh",
+    "handlers": [],
+    "high_flap_threshold": 0,
+    "interval": 10,
+    "low_flap_threshold": 0,
+    "publish": true,
+    "runtime_assets": null,
     "subscriptions": [
       "system"
     ],
-    "command": "collect.sh",
-    "interval": 10,
-    "publish": true,
+    "proxy_entity_name": "",
+    "check_hooks": null,
+    "stdin": false,
+    "ttl": 0,
+    "timeout": 0,
     "output_metric_format": "graphite_plaintext",
-    "output_metric_handlers": ["influx-db"]
+    "output_metric_handlers": [
+      "influx-db"
+    ],
+    "env_vars": null
   }
-}{{< /highlight >}}
+}
+{{< /highlight >}}
 
 [1]: #subscription-checks
 [2]: https://en.wikipedia.org/wiki/Publish%E2%80%93subscribe_pattern
@@ -423,14 +463,13 @@ example      | {{< highlight shell >}}"days": {
 [9]: ../assets
 [10]: #proxy-requests-attributes
 [11]: #
-[12]: ../../../1.2/reference/clients/#round-robin-client-subscriptions
+[12]: /sensu-core/latest/reference/clients/#round-robin-client-subscriptions
 [13]: #check-attributes
 [14]: https://en.wikipedia.org/wiki/Cron#CRON_expression
 [15]: https://godoc.org/github.com/robfig/cron#hdr-Predefined_schedules
 [16]: https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/3/en/flapping.html
 [17]: #subdue-attributes
 [18]: #
-[19]: #round-robin-checks
 [20]: #../entities/#proxy_entities
 [21]: #../entities/#entity_attributes
 [22]: ../../reference/sensuctl/#time-windows
@@ -442,3 +481,9 @@ example      | {{< highlight shell >}}"days": {
 [influx]: https://docs.influxdata.com/influxdb/v1.4/write_protocols/line_protocol_tutorial/#measurement
 [open]: http://opentsdb.net/docs/build/html/user_guide/writing.html#data-specification
 [sensu-metric-format]: ../../reference/events/#metrics
+[create]: ../../sensuctl/reference#create
+[25]: #metadata-attributes
+[26]: ../rbac#namespaces
+[27]: ../filters
+[sc]: ../../sensuctl/reference#creating-resources
+[sp]: #spec-attributes

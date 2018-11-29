@@ -13,9 +13,9 @@ menu:
 ## What are Sensu proxy requests and entities?
 
 Sensu [proxy entities][1] are **entities** dynamically created via either the
-API (and **sensuctl**) or the [`proxy_entity_id` attribute][2] of a check.
+API (and **sensuctl**) or the [`proxy_entity_name` attribute][2] of a check.
 
-Check definitions that include the `proxy_entity_id` attribute will have their
+Check definitions that include the `proxy_entity_name` attribute will have their
 results reported under this proxy entity ID instead of the agent's entity that
 emitted the result. In comparison, check definitions including the
 [`proxy_requests` attribute][3] will trigger a check request for each entity
@@ -73,7 +73,8 @@ After [installing an agent][install], open `/etc/sensu/agent.yml`
 and add the `sensu-app` subscription so the subscription configuration looks like:
 
 {{< highlight yml >}}
-subscriptions: "sensu-app"
+subscriptions:
+  - "sensu-app"
 {{< /highlight >}}
 
 Then restart the agent.

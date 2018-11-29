@@ -54,15 +54,53 @@ The following are injected into the execution context:
 
 ## Assets specification
 
-### Attributes
+### Top-level attributes
 
-name         | 
--------------|------ 
-description  | The unique name of the asset, validated with go regex [`\A[\w\.\-]+\z`](https://regex101.com/r/zo9mQU/2)
-required     | true
-type         | String 
-example      | {{< highlight shell >}}"name": "check_script"{{< /highlight >}}
+type         | 
+-------------|------
+description  | Top-level attribute specifying the [`sensuctl create`][sc] resource type. Assets should always be of type `Asset`.
+required     | Required for asset definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][sc].
+type         | String
+example      | {{< highlight shell >}}"type": "Asset"{{< /highlight >}}
 
+api_version  | 
+-------------|------
+description  | Top-level attribute specifying the Sensu API group and version. For assets in Sensu backend version 5.0, this attribute should always be `core/v2`.
+required     | Required for asset definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][sc].
+type         | String
+example      | {{< highlight shell >}}"api_version": "core/v2"{{< /highlight >}}
+
+metadata     | 
+-------------|------
+description  | Top-level collection of metadata about the asset, including the `name` and `namespace` as well as custom `labels` and `annotations`. The `metadata` map is always at the top level of the asset definition. This means that in `wrapped-json` and `yaml` formats, the `metadata` scope occurs outside the `spec` scope.  See the [metadata attributes reference][5] for details.
+required     | Required for asset definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][sc].
+type         | Map of key-value pairs
+example      | {{< highlight shell >}}"metadata": {
+  "name": "check_script",
+  "namespace": "default",
+  "labels": {
+    "region": "us-west-1"
+  },
+  "annotations": {
+    "slack-channel" : "#monitoring"
+  }
+}{{< /highlight >}}
+
+spec         | 
+-------------|------
+description  | Top-level map that includes the asset [spec attributes][sp].
+required     | Required for asset definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][sc].
+type         | Map of key-value pairs
+example      | {{< highlight shell >}}"spec": {
+  "url": "http://example.com/asset.tar.gz",
+  "sha512": "4f926bf4328fbad2b9cac873d117f771914f4b837c9c85584c38ccf55a3ef3c2e8d154812246e5dda4a87450576b2c58ad9ab40c9e2edc31b288d066b195b21b",
+  "filters": [
+    "system.os == 'linux'",
+    "system.arch == 'amd64'"
+  ]
+}{{< /highlight >}}
+
+### Spec attributes
 
 url          | 
 -------------|------ 
@@ -80,37 +118,84 @@ example      | {{< highlight shell >}}"sha512": "4f926bf4328..."{{< /highlight >
 
 filters      | 
 -------------|------ 
-description  | A set of [Sensu query expressions][1] used by the agent to determine if the asset should be installed. If multiple expressions are included, each expression must return true in order for the agent to install the asset. [Modifier operators][2] (for example: `+`, `-`, and `!`) _cannot_ be used in asset filters.
+description  | A set of [Sensu query expressions][1] used by the agent to determine if the asset should be installed. If multiple expressions are included, each expression must return true in order for the agent to install the asset.
 required     | false 
 type         | Array 
 example      | {{< highlight shell >}}"filters": ["System.OS=='linux'", "System.Arch=='amd64'"] {{< /highlight >}}
 
-organization | 
+### Metadata attributes
+
+name         |      |
 -------------|------ 
-description  | The Sensu RBAC organization that this asset belongs to.
-required     | false 
+description  | The unique name of the asset, validated with Go regex [`\A[\w\.\-]+\z`](https://regex101.com/r/zo9mQU/2).
+required     | true
 type         | String
-default      | current organization value configured for `sensuctl` (ie `default`) 
-example      | {{< highlight shell >}}
-  "organization": "default"
-{{< /highlight >}}
+example      | {{< highlight shell >}}"name": "check_script"{{< /highlight >}}
+
+| namespace  |      |
+-------------|------
+description  | The [Sensu RBAC namespace][2] that this asset belongs to.
+required     | false
+type         | String
+default      | `default`
+example      | {{< highlight shell >}}"namespace": "production"{{< /highlight >}}
+
+| labels     |      |
+-------------|------
+description  | Custom attributes to include with event data, which can be queried like regular attributes. You can use labels to organize assets into meaningful collections that can be selected using [filters][3] and [tokens][4].
+required     | false
+type         | Map of key-value pairs. Keys and values can be any valid UTF-8 string.
+default      | `null`
+example      | {{< highlight shell >}}"labels": {
+  "environment": "development",
+  "region": "us-west-2"
+}{{< /highlight >}}
+
+| annotations | |
+-------------|------
+description  | Arbitrary, non-identifying metadata to include with event data. In contrast to labels, annotations are _not_ used internally by Sensu and cannot be used to identify assets. You can use annotations to add data that helps people or external tools interacting with Sensu.
+required     | false
+type         | Map of key-value pairs. Keys and values can be any valid UTF-8 string.
+default      | `null`
+example      | {{< highlight shell >}} "annotations": {
+  "managed-by": "ops",
+  "slack-channel": "#monitoring",
+  "playbook": "www.example.url"
+}{{< /highlight >}}
 
 ## Examples
 
 ### Asset definition
+
 {{< highlight json >}}
 {
-  "name": "check_script",
-  "url": "http://example.com/asset.tar.gz",
-  "sha512": "4f926bf4328fbad2b9cac873d117f771914f4b837c9c85584c38ccf55a3ef3c2e8d154812246e5dda4a87450576b2c58ad9ab40c9e2edc31b288d066b195b21b",
-  "metadata": null,
-  "filters": [
-    "System.OS==linux",
-    "System.Arch=='amd64'"
-  ],
-  "organization": "default"
+  "type": "Asset",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "check_script",
+    "namespace": "default",
+    "labels": {
+      "region": "us-west-1"
+    },
+    "annotations": {
+      "slack-channel" : "#monitoring"
+    }
+  },
+  "spec": {
+    "url": "http://example.com/asset.tar.gz",
+    "sha512": "4f926bf4328fbad2b9cac873d117f771914f4b837c9c85584c38ccf55a3ef3c2e8d154812246e5dda4a87450576b2c58ad9ab40c9e2edc31b288d066b195b21b",
+    "filters": [
+      "system.os == 'linux'",
+      "system.arch == 'amd64'"
+    ]
+  }
 }
 {{< /highlight >}}
 
 [1]: ../../reference/sensu-query-expressions/
-[2]: https://github.com/Knetic/govaluate/blob/master/MANUAL.md#modifiers
+[2]: ../rbac#namespaces
+[3]: ../filters
+[4]: ../tokens
+[5]: #metadata-attributes
+[sc]: ../../sensuctl/reference#creating-resources
+[sp]: #spec-attributes

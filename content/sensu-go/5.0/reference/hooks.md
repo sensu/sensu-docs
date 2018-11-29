@@ -31,6 +31,9 @@ precedence, based on their type:
 * `unknown`
 * `non-zero`
 
+You can assign one or more hooks to a check in the check definition.
+See the [check specification][6] to configure the `check_hooks` attribute.
+
 ### Check hooks
 
 The hook command output, status, executed timestamp and duration are captured
@@ -38,7 +41,7 @@ and published in the resulting event.
 
 ## New and improved hooks
 
-In Sensu 2.0, we’ve redesigned and expanded on the concept of 1.0 check hooks.
+In Sensu Go, we’ve redesigned and expanded on the concept of 1.0 check hooks.
 Hooks are now their own resource, and can be created and managed independent of
 the check configuration scope. With unique and descriptive identifiers, hooks
 are now reusable! And that's not all, you can now execute multiple hooks for any
@@ -49,16 +52,54 @@ Sensu for auto-remediation tasks!
 
 ## Hooks specification
 
-### Hook naming
+### Top-level attributes
 
-Each hook definition must have a unique name within its organization and
-environment.
+type         | 
+-------------|------
+description  | Top-level attribute specifying the [`sensuctl create`][sc] resource type. Hooks should always be of type `HookConfig`.
+required     | Required for hook definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][sc].
+type         | String
+example      | {{< highlight shell >}}"type": "HookConfig"{{< /highlight >}}
 
-* A unique string used to name/identify the hook
-* Cannot contain special characters or spaces
-* Validated with Go regex [`\A[\w\.\-]+\z`](https://regex101.com/r/zo9mQU/2)
+api_version  | 
+-------------|------
+description  | Top-level attribute specifying the Sensu API group and version. For hooks in Sensu backend version 5.0, this attribute should always be `core/v2`.
+required     | Required for hook definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][sc].
+type         | String
+example      | {{< highlight shell >}}"api_version": "core/v2"{{< /highlight >}}
 
-### Hook attributes
+metadata     | 
+-------------|------
+description  | Top-level collection of metadata about the hook, including the `name` and `namespace` as well as custom `labels` and `annotations`. The `metadata` map is always at the top level of the hook definition. This means that in `wrapped-json` and `yaml` formats, the `metadata` scope occurs outside the `spec` scope.  See the [metadata attributes reference][2] for details.
+required     | Required for hook definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][sc].
+type         | Map of key-value pairs
+example      | {{< highlight shell >}}
+"metadata": {
+  "name": "process_tree",
+  "namespace": "default",
+  "labels": {
+    "region": "us-west-1"
+  },
+  "annotations": {
+    "slack-channel" : "#monitoring"
+  }
+}
+{{< /highlight >}}
+
+spec         | 
+-------------|------
+description  | Top-level map that includes the hook [spec attributes][sp].
+required     | Required for handler definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][sc].
+type         | Map of key-value pairs
+example      | {{< highlight shell >}}
+"spec": {
+  "command": "ps aux",
+  "timeout": 60,
+  "stdin": false
+}
+{{< /highlight >}}
+
+### Spec attributes
 
 command      | 
 -------------|------
@@ -83,25 +124,45 @@ type         | Boolean
 default      | false
 example      | {{< highlight shell >}}"stdin": true{{< /highlight >}}
 
-organization | 
--------------|------ 
-description  | The Sensu RBAC organization that this hook belongs to.
-required     | false 
-type         | String
-default      | current organization value configured for `sensuctl` (ex: `default`) 
-example      | {{< highlight shell >}}
-  "organization": "default"
-{{< /highlight >}}
+### Metadata attributes
 
-environment  | 
--------------|------ 
-description  | The Sensu RBAC environment that this hook belongs to.
-required     | false 
-type         | String 
-default      | current environment value configured for `sensuctl` (ex: `default`) 
-example      | {{< highlight shell >}}
-  "environment": "default"
-{{< /highlight >}}
+| name       |      |
+-------------|------
+description  | A unique string used to identify the hook. Hook names cannot contain special characters or spaces (validated with Go regex [`\A[\w\.\-]+\z`](https://regex101.com/r/zo9mQU/2)). Each hook must have a unique name within its namespace.
+required     | true
+type         | String
+example      | {{< highlight shell >}}"name": "process_tree"{{< /highlight >}}
+
+| namespace  |      |
+-------------|------
+description  | The Sensu [RBAC namespace][3] that this hook belongs to.
+required     | false
+type         | String
+default      | `default`
+example      | {{< highlight shell >}}"namespace": "production"{{< /highlight >}}
+
+| labels     |      |
+-------------|------
+description  | Custom attributes to include with event data, which can be queried like regular attributes. You can use labels to organize hooks into meaningful collections that can be selected using [filters][4] and [tokens][5].
+required     | false
+type         | Map of key-value pairs. Keys and values can be any valid UTF-8 string.
+default      | `null`
+example      | {{< highlight shell >}}"labels": {
+  "environment": "development",
+  "region": "us-west-2"
+}{{< /highlight >}}
+
+| annotations |     |
+-------------|------
+description  | Arbitrary, non-identifying metadata to include with event data. In contrast to labels, annotations are _not_ used internally by Sensu and cannot be used to identify hooks. You can use annotations to add data that helps people or external tools interacting with Sensu.
+required     | false
+type         | Map of key-value pairs. Keys and values can be any valid UTF-8 string.
+default      | `null`
+example      | {{< highlight shell >}} "annotations": {
+  "managed-by": "ops",
+  "slack-channel": "#monitoring",
+  "playbook": "www.example.url"
+}{{< /highlight >}}
 
 ## Examples
 
@@ -112,11 +173,19 @@ a process that is no longer running.
 
 {{< highlight json >}}
 {
-  "name": "restart_nginx",
-  "command": "sudo systemctl start nginx",
-  "timeout": 60,
-  "environment": "default",
-  "organization": "default"
+  "type": "HookConfig",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "restart_nginx",
+    "namespace": "default",
+    "labels": null,
+    "annotations": null
+  },
+  "spec": {
+    "command": "sudo systemctl start nginx",
+    "timeout": 60,
+    "stdin": false
+  }
 }
 {{< /highlight >}}
 
@@ -128,12 +197,27 @@ has been determined to be not running etc.
 
 {{< highlight json >}}
 {
-  "name": "process_tree",
-  "command": "ps aux",
-  "timeout": 60,
-  "environment": "default",
-  "organization": "default"
+  "type": "HookConfig",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "process_tree",
+    "namespace": "default",
+    "labels": null,
+    "annotations": null
+  },
+  "spec": {
+    "command": "ps aux",
+    "timeout": 60,
+    "stdin": false
+  }
 }
 {{< /highlight >}}
 
 [1]: https://blog.sensuapp.org/using-check-hooks-a739a362961f
+[2]: #metadata-attributes
+[3]: ../rbac#namespaces
+[4]: ../filters
+[5]: ../tokens
+[6]: ../checks#check-attributes
+[sc]: ../../sensuctl/reference#creating-resources
+[sp]: #spec-attributes

@@ -70,15 +70,12 @@ _NOTE: Silenced has been deprecated from Event. Please see [check specification]
 -------------|------
 description  | The [Check attributes][1] used to obtain the check result.
 type         | Check
-example      | {{< highlight json >}}
+example      | {{< highlight shell >}}
 {
   "check": {
     "check_hooks": null,
-    "command": "check-http-response-time.rb -a example.com -C 5000 -w 3000",
     "duration": 1.903135228,
-    "environment": "default",
     "executed": 1522100915,
-    "handlers": [],
     "high_flap_threshold": 0,
     "history": [
       {
@@ -87,28 +84,48 @@ example      | {{< highlight json >}}
       {
         "executed": 1522100915
       }
+    "command": "http_check.sh http://localhost:80",
+    "handlers": [
+      "slack"
     ],
-    "interval": 300,
-    "last_ok": 1522100916,
+    "high_flap_threshold": 0,
+    "interval": 20,
     "low_flap_threshold": 0,
-    "name": "example-check",
+    "publish": true,
+    "runtime_assets": [],
+    "subscriptions": [
+      "testing"
+    ],
+    "proxy_entity_name": "",
+    "check_hooks": null,
+    "stdin": false,
+    "ttl": 0,
+    "timeout": 0,
+    "duration": 0.010849143,
+    "executed": 1542667666,
+    "history": [
+      {
+        "status": 1,
+        "executed": 1542667666
+      }
+    ],
+    "issued": 1542667666,
+    "output": "",
+    "state": "failing",
+    "status": 1,
+    "total_state_change": 0,
+    "last_ok": 0,
     "occurrences": 1,
     "occurrences_watermark": 1,
-    "organization": "default",
-    "output": "CheckHttpResponseTime OK: 1635 is acceptable\n",
-    "proxy_entity_id": "",
-    "publish": true,
-    "round_robin": false,
-    "runtime_assets": [],
-    "state": "passing",
-    "status": 0,
-    "stdin": false,
-    "subdue": null,
-    "subscriptions": [
-      "web"
-    ],
-    "timeout": 30,
-    "total_state_change": 0
+    "output_metric_format": "",
+    "output_metric_handlers": [],
+    "env_vars": null,
+    "metadata": {
+      "name": "check-nginx",
+      "namespace": "default",
+      "labels": null,
+      "annotations": null
+    }
   }
 }
 {{< /highlight >}}
@@ -168,13 +185,50 @@ type         | Entity
 example      | {{< highlight json >}}
 {
   "entity": {
-    "class": "agent",
+    "entity_class": "agent",
+    "system": {
+      "hostname": "webserver01",
+      "os": "linux",
+      "platform": "centos",
+      "platform_family": "rhel",
+      "platform_version": "7.4.1708",
+      "network": {
+        "interfaces": [
+          {
+            "name": "lo",
+            "addresses": [
+              "127.0.0.1/8",
+              "::1/128"
+            ]
+          },
+          {
+            "name": "enp0s3",
+            "mac": "08:00:27:11:ad:d2",
+            "addresses": [
+              "10.0.2.15/24",
+              "fe80::26a5:54ec:cf0d:9704/64"
+            ]
+          },
+          {
+            "name": "enp0s8",
+            "mac": "08:00:27:bc:be:60",
+            "addresses": [
+              "172.28.128.3/24",
+              "fe80::a00:27ff:febc:be60/64"
+            ]
+          }
+        ]
+      },
+      "arch": "amd64"
+    },
+    "subscriptions": [
+      "testing",
+      "entity:webserver01"
+    ],
+    "last_seen": 1542667635,
     "deregister": false,
     "deregistration": {},
-    "environment": "default",
-    "id": "example-entity",
-    "keepalive_timeout": 120,
-    "organization": "default",
+    "user": "agent",
     "redact": [
       "password",
       "passwd",
@@ -186,38 +240,12 @@ example      | {{< highlight json >}}
       "private_key",
       "secret"
     ],
-    "subscriptions": [
-      "web",
-      "entity:example-entity"
-    ],
-    "system": {
-      "hostname": "example",
-      "os": "linux",
-      "platform": "ubuntu",
-      "platform_family": "debian",
-      "platform_version": "16.04",
-      "network": {
-        "interfaces": [
-          {
-            "name": "lo",
-            "addresses": [
-              "127.0.0.1/8",
-              "::1/128"
-            ]
-          },
-          {
-            "name": "eth0",
-            "mac": "52:54:00:20:1b:3c",
-            "addresses": [
-              "93.184.216.34/24",
-              "2606:2800:220:1:248:1893:25c8:1946/10"
-            ]
-          }
-        ]
-      },
-      "arch": "amd64"
-    },
-    "user": "agent"
+    "metadata": {
+      "name": "webserver01",
+      "namespace": "default",
+      "labels": null,
+      "annotations": null
+    }
   }
 }
 {{< /highlight >}}
@@ -225,37 +253,25 @@ example      | {{< highlight json >}}
 ## Example check-only event data
 
 {{< highlight json >}}
-  {
-    "timestamp": 1522170515,
+{
+  "type": "Event",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "webserver01",
+    "namespace": "default",
+    "labels": null,
+    "annotations": null
+  },
+  "spec": {
+    "timestamp": 1542667666,
     "entity": {
-      "class": "agent",
-      "deregister": false,
-      "deregistration": {},
-      "environment": "default",
-      "id": "example-entity",
-      "keepalive_timeout": 120,
-      "organization": "default",
-      "redact": [
-        "password",
-        "passwd",
-        "pass",
-        "api_key",
-        "api_token",
-        "access_key",
-        "secret_key",
-        "private_key",
-        "secret"
-      ],
-      "subscriptions": [
-        "web",
-        "entity:example-entity"
-      ],
+      "entity_class": "agent",
       "system": {
-        "hostname": "example-entity",
+        "hostname": "webserver01",
         "os": "linux",
-        "platform": "ubuntu",
-        "platform_family": "debian",
-        "platform_version": "16.04",
+        "platform": "centos",
+        "platform_family": "rhel",
+        "platform_version": "7.4.1708",
         "network": {
           "interfaces": [
             {
@@ -266,69 +282,94 @@ example      | {{< highlight json >}}
               ]
             },
             {
-              "name": "eth0",
-              "mac": "52:54:00:20:1b:3c",
+              "name": "enp0s3",
+              "mac": "08:00:27:11:ad:d2",
               "addresses": [
-                "192.168.1.1/25",
-                "fd9e:a92d:eddd:12d1:119/10"
+                "10.0.2.15/24",
+                "fe80::26a5:54ec:cf0d:9704/64"
+              ]
+            },
+            {
+              "name": "enp0s8",
+              "mac": "08:00:27:bc:be:60",
+              "addresses": [
+                "172.28.128.3/24",
+                "fe80::a00:27ff:febc:be60/64"
               ]
             }
           ]
         },
         "arch": "amd64"
       },
-      "user": "agent"
+      "subscriptions": [
+        "testing",
+        "entity:webserver01"
+      ],
+      "last_seen": 1542667635,
+      "deregister": false,
+      "deregistration": {},
+      "user": "agent",
+      "redact": [
+        "password",
+        "passwd",
+        "pass",
+        "api_key",
+        "api_token",
+        "access_key",
+        "secret_key",
+        "private_key",
+        "secret"
+      ]
     },
     "check": {
       "check_hooks": null,
-      "command": "check-http-response-time.rb -a example.com -C 5000 -w 3000",
       "duration": 2.033888684,
-      "environment": "default",
       "executed": 1522170513,
+      "command": "http_check.sh http://localhost:80",
       "handlers": [
-        "example-handler"
+        "slack"
       ],
       "high_flap_threshold": 0,
+      "interval": 20,
+      "low_flap_threshold": 0,
+      "publish": true,
+      "runtime_assets": [],
+      "subscriptions": [
+        "testing"
+      ],
+      "proxy_entity_name": "",
+      "check_hooks": null,
+      "stdin": false,
+      "ttl": 0,
+      "timeout": 0,
+      "duration": 0.010849143,
+      "executed": 1542667666,
       "history": [
         {
-          "executed": 1522169313
-        },
-        {
-          "executed": 1522169613
-        },
-        {
-          "executed": 1522169913
-        },
-        {
-          "executed": 1522170213
-        },
-        {
-          "executed": 1522170513
+          "status": 1,
+          "executed": 1542667666
         }
       ],
-      "interval": 300,
-      "last_ok": 1522170515,
-      "low_flap_threshold": 0,
-      "name": "example-http-check",
+      "issued": 1542667666,
+      "output": "",
+      "state": "failing",
+      "status": 1,
+      "total_state_change": 0,
+      "last_ok": 0,
       "occurrences": 1,
       "occurrences_watermark": 1,
-      "organization": "default",
-      "output": "CheckHttpResponseTime OK: 1771 is acceptable\n",
-      "proxy_entity_id": "",
-      "publish": true,
-      "round_robin": false,
-      "runtime_assets": [],
-      "state": "passing",
-      "status": 0,
-      "stdin": false,
-      "subdue": null,
-      "subscriptions": [
-        "web"
-      ],
-      "timeout": 30,
-      "total_state_change": 0
+      "output_metric_format": "",
+      "output_metric_handlers": [],
+      "env_vars": null,
+      "metadata": {
+        "name": "check-nginx",
+        "namespace": "default",
+        "labels": null,
+        "annotations": null
+      }
     }
   }
+}
 {{< /highlight >}}
 
 [1]: ../checks/#check-attributes

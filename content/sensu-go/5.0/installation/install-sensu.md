@@ -14,7 +14,7 @@ aliases:
   - /sensu-go/5.0/getting-started/installation-and-configuration/
 ---
 
-The Sensu 2.0 binaries are statically linked and can be deployed to any Linux or Windows operating system.
+The Sensu Go binaries are statically linked and can be deployed to any Linux or Windows operating system.
 Select a platform from the dropdown above.
 
 {{< platformBlock "Ubuntu/Debian RHEL/CentOS" >}}
@@ -229,7 +229,7 @@ Coming soon.
 {{< platformBlock "macOS RHEL/CentOS Ubuntu/Debian Windows" >}}
 
 ## Install sensuctl
-Sensu 2.0 can be configured and used with the sensuctl (pronounced “Sensu cuddle”) command line utility.
+Sensu Go can be configured and used with the sensuctl (pronounced “Sensu cuddle”) command line utility.
 Sensu CLI (sensuctl) packages are available for macOS, Ubuntu/Debian, RHEL/CentOS, and Windows.
 
 ### 1. Install the package
@@ -315,16 +315,15 @@ Download [sensuctl for 64-bit Windows](http://storage.googleapis.com/sensu-binar
 
 ### 2. Configure sensuctl
 
-You must configure sensuctl before it can connect to your Sensu cluster.
-Run the `configure` command to get started.
+You must configure sensuctl before it can connect to Sensu Go.
+Run `sensuctl configure` to get started.
 
 {{< highlight shell >}}
 $ sensuctl configure
 ? Sensu Backend URL: http://127.0.0.1:8080
 ? Username: admin
 ? Password: *********
-? Organization: default
-? Environment: default
+? Namespace: default
 ? Preferred output format: tabular
 {{< /highlight >}}
 
@@ -342,18 +341,19 @@ $ sensuctl user change-password --interactive
 You can change individual values of your sensuctl configuration with the `config` subcommand.
 
 {{< highlight shell >}}
-sensuctl config set-organization default
-sensuctl config set-environment prod
+sensuctl config set-namespace default
 {{< /highlight >}}
+
+See the [sensuctl reference][4] for more information about using sensuctl.
 
 {{< platformBlockClose >}}
 
 {{< platformBlock "Docker" >}}
 ## Deploy Sensu with Docker
 
-Sensu 2.0 can be run via [Docker](https://www.docker.com/) or [rkt](https://coreos.com/rkt) using the [sensu/sensu](https://hub.docker.com/r/sensu/sensu/) image. When running Sensu from Docker there are a couple of things to take into consideration.
+Sensu Go can be run via [Docker](https://www.docker.com/) or [rkt](https://coreos.com/rkt) using the [sensu/sensu](https://hub.docker.com/r/sensu/sensu/) image. When running Sensu from Docker there are a couple of things to take into consideration.
 
-The backend requires four exposed ports and persistent storage. This example uses a shared filesystem. Sensu 2.0 is backed by a distributed database, and its storage should be provisioned accordingly.  We recommend local storage or something like Throughput Optimized or Provisioned IOPS EBS if local storage is unavailable.  The exposed ports are:
+The backend requires four exposed ports and persistent storage. This example uses a shared filesystem. Sensu Go is backed by a distributed database, and its storage should be provisioned accordingly.  We recommend local storage or something like Throughput Optimized or Provisioned IOPS EBS if local storage is unavailable.  The exposed ports are:
 
 - 2380: Sensu storage peer listener (only other Sensu backends need access to this port)
 - 3000: Sensu dashboard
@@ -392,3 +392,4 @@ While it can be run from the docker container, doing so may be problematic.
 [1]: https://github.com/sensu/sensu-go/releases
 [2]: https://github.com/sensu/sensu-go/blob/master/packaging/files/windows/agent.yml.example
 [3]: ../../dashboard/overview
+[4]: ../../sensuctl/reference

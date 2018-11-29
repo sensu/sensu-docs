@@ -16,7 +16,7 @@ menu:
 When a check is scheduled to be executed by an agent, it first goes through a token substitution step. Any tokens matching attribute values in the check are applied, and then the check is executed. Invalid templates or unmatched tokens will return an error, which is logged and sent to the Sensu backend message transport. Checks with token matching errors will not be executed.
 
 ## New and improved tokens
-Sensu 2.0 uses the [Go template][1] package to implement token substitution. Instead of using triple colons `:::` as in [1.x token substitution][2], 2.0 token substitution uses double curly braces around the token, and a dot before the attribute to be substituted, such as: `{{ .System.Hostname }}`.
+Sensu Go uses the [Go template][1] package to implement token substitution. Instead of using triple colons `:::` as in [1.x token substitution][2], 2.0 token substitution uses double curly braces around the token, and a dot before the attribute to be substituted, such as: `{{ .System.Hostname }}`.
 
 ## Sensu tokens specification
 
@@ -50,94 +50,113 @@ Check config token errors will be logged by the agent, and sent to Sensu backend
 
 ### Token substitution for check thresholds 
 
-In this example [check configuration][5], the `check-disk-usage.rb` command accepts `-w` (warning) and `-c` (critical)
+In this example [check configuration][5], the `check-disk-usage.go` command accepts `-w` (warning) and `-c` (critical)
 arguments to indicate the thresholds (as percentages) for creating warning or critical events. If no token substitutions are provided by a check configuration, it will use default values to create a warning event at 80% disk capacity (i.e. `{{ .Disk.Warning | default 80 }}`), and a critical event at 90% capacity (i.e. `{{ .Disk.Critical | default 90 }}`).
 
 {{< highlight json >}}
 {
-  "check_hooks": null,
-  "command": "check-disk-usage.rb -w {{.Disk.Warning | default 80}} -c {{.Disk.Critical | default 90}}",
-  "environment": "{{ .Environment | default \"production\" }}",
-  "handlers": [],
-  "high_flap_threshold": 0,
-  "interval": 60,
-  "low_flap_threshold": 0,
-  "name": "check-disk-usage",
-  "organization": "default",
-  "proxy_entity_id": "",
-  "publish": true,
-  "round_robin": false,
-  "runtime_assets": [],
-  "stdin": false,
-  "subdue": null,
-  "subscriptions": [
+  "type": "CheckConfig",
+  "api_version": "core/v1",
+  "metadata": {
+    "name": "check-disk-usage",
+    "namespace": "{{ .Namespace | default \"production\" }}",
+    "labels": null,
+    "annotations": null
+  },
+  "spec": {
+    "command": "check-disk-usage.rb -w {{.Disk.Warning | default 80}} -c {{.Disk.Critical | default 90}}",
+    "handlers": [],
+    "high_flap_threshold": 0,
+    "interval": 10,
+    "low_flap_threshold": 0,
+    "publish": true,
+    "runtime_assets": null,
+    "subscriptions": [
     "staging"
-  ],
-  "timeout": 0
+    ],
+    "proxy_entity_name": "",
+    "check_hooks": null,
+    "stdin": false,
+    "ttl": 0,
+    "timeout": 0,
+    "env_vars": null
+  }
 }{{< /highlight >}}
 
 The following example [entity][4] would provide the necessary
-attributes to override the `.Disk.Warning`, `.Disk.Critical`, and `.Environment`
+attributes to override the `.Disk.Warning`, `.Disk.Critical`, and `.Namespace`
 tokens declared above.
 
 {{< highlight json >}}
 {
-  "class": "agent",
-  "deregister": false,
-  "deregistration": {},
-  "environment": "staging",
-  "id": "example-hostname",
-  "keepalive_timeout": 60,
-  "last_seen": 1523387195,
-  "organization": "default",
-  "redact": [
-    "password",
-    "passwd",
-    "pass",
-    "api_key",
-    "api_token",
-    "access_key",
-    "secret_key",
-    "private_key",
-    "secret"
-  ],
-  "subscriptions": [
-    "entity:example-hostname",
-    "staging"
-  ],
-  "system": {
-    "hostname": "example-hostname",
-    "os": "linux",
-    "platform": "ubuntu",
-    "platform_family": "debian",
-    "platform_version": "16.04",
-    "network": {
-      "interfaces": [
-        {
-          "name": "lo",
-          "addresses": [
-            "127.0.0.1/8",
-            "::1/128"
-          ]
-        },
-        {
-          "name": "eth0",
-          "mac": "52:54:00:20:1b:3c",
-          "addresses": [
-            "93.184.216.34/24",
-            "2606:2800:220:1:248:1893:25c8:1946/10"
-          ]
-        }
-      ]
-    },
-    "arch": "amd64"
+  "type": "Entity",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "example-hostname",
+    "namespace": "staging",
+    "labels": null,
+    "annotations": null
   },
-  "user": "agent",
-  "region": "us-west-1",
-  "team": "ops",
-  "disk": {
-    "warning": 75,
-    "critical": 85
+  "spec": {
+    "entity_class": "agent",
+    "system": {
+      "hostname": "example-hostname",
+      "os": "linux",
+      "platform": "centos",
+      "platform_family": "rhel",
+      "platform_version": "7.4.1708",
+      "network": {
+        "interfaces": [
+          {
+            "name": "lo",
+            "addresses": [
+              "127.0.0.1/8",
+              "::1/128"
+            ]
+          },
+          {
+            "name": "enp0s3",
+            "mac": "08:00:27:11:ad:d2",
+            "addresses": [
+              "10.0.2.15/24",
+              "fe80::26a5:54ec:cf0d:9704/64"
+            ]
+          },
+          {
+            "name": "enp0s8",
+            "mac": "08:00:27:bc:be:60",
+            "addresses": [
+              "172.28.128.3/24",
+              "fe80::a00:27ff:febc:be60/64"
+            ]
+          }
+        ]
+      },
+      "arch": "amd64"
+    },
+    "subscriptions": [
+      "entity:example-hostname",
+      "staging"
+    ],
+    "last_seen": 1542667231,
+    "deregister": false,
+    "deregistration": {},
+    "user": "agent",
+    "redact": [
+      "password",
+      "passwd",
+      "pass",
+      "api_key",
+      "api_token",
+      "access_key",
+      "secret_key",
+      "private_key",
+      "secret"
+    ],
+    "disk": {
+      "warning": 75,
+      "critical": 85
+    }
   }
 }{{< /highlight >}}
 
