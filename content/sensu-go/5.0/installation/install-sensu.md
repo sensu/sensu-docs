@@ -315,8 +315,8 @@ Download [sensuctl for 64-bit Windows](http://storage.googleapis.com/sensu-binar
 
 ### 2. Configure sensuctl
 
-You must configure sensuctl before it can connect to your Sensu cluster.
-Run the `configure` command to get started.
+You must configure sensuctl before it can connect to Sensu Go.
+Run `sensuctl configure` to get started.
 
 {{< highlight shell >}}
 $ sensuctl configure
