@@ -124,7 +124,6 @@ Namespaced resources must belong to a single namespace and can be accessed by [r
 | `checks` | [Check][6] resources within a namespace |
 | `entities` | [Entity][7] resources within a namespace |
 | `events` | [Event][8] resources within a namespace |
-| `extensions`   | Extensions within a namespace  |
 | `filters`   | [Filter][22] resources within a namespace  |
 | `handlers` | [Handler][9] resources within a namespace |
 | `hooks` | [Hook][10] resources within a namespace |
