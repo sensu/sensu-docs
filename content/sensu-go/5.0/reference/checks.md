@@ -151,9 +151,8 @@ independently of the check configuration.
 
 Round-robin checks, which allow checks to be executed on a single entity within
 a subscription in a round-robin fashion, were configured via the client
-subscriptions in [Sensu 1][12]. Prepending `roundrobin:` in front of
-subscriptions is no longer required in Sensu 2 since round-robin can now be
-enabled directly with the [round_robin][13] attribute in the check configuration.
+subscriptions in [Sensu 1][12].
+Round robin checks are not yet supported in Sensu 5.0.
 
 ## Check specification
 
@@ -317,13 +316,6 @@ required     | false
 type         | Hash
 example      | {{< highlight shell >}}"proxy_requests": {}{{< /highlight >}}
 
-|round_robin |      |
--------------|------
-description  | If the check should be executed on a single entity within a subscription in a [round-robin fashion][19].
-required     | false
-type         | Boolean
-example      | {{< highlight shell >}}"round_robin": false{{< /highlight >}}
-
 |silenced    |      |
 -------------|------
 description  | If the event is to be silenced.
@@ -451,7 +443,6 @@ example      | {{< highlight shell >}}"splay_coverage": 65{{< /highlight >}}
     "stdin": false,
     "ttl": 0,
     "timeout": 0,
-    "round_robin": false,
     "output_metric_format": "graphite_plaintext",
     "output_metric_handlers": [
       "influx-db"
@@ -472,14 +463,13 @@ example      | {{< highlight shell >}}"splay_coverage": 65{{< /highlight >}}
 [9]: ../assets
 [10]: #proxy-requests-attributes
 [11]: #
-[12]: ../../../1.2/reference/clients/#round-robin-client-subscriptions
+[12]: /sensu-core/latest/reference/clients/#round-robin-client-subscriptions
 [13]: #check-attributes
 [14]: https://en.wikipedia.org/wiki/Cron#CRON_expression
 [15]: https://godoc.org/github.com/robfig/cron#hdr-Predefined_schedules
 [16]: https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/3/en/flapping.html
 [17]: #subdue-attributes
 [18]: #
-[19]: #round-robin-checks
 [20]: #../entities/#proxy_entities
 [21]: #../entities/#entity_attributes
 [22]: ../../reference/sensuctl/#time-windows
