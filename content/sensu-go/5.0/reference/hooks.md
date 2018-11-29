@@ -143,13 +143,12 @@ a process that is no longer running.
 {{< highlight json >}}
 {
   "type": "HookConfig",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "restart_nginx",
+    "namespace": "default"
+  },
   "spec": {
-    "metadata": {
-      "name": "restart_nginx",
-      "namespace": "default",
-      "labels": null,
-      "annotations": null
-    },
     "command": "sudo systemctl start nginx",
     "timeout": 60,
     "stdin": false
@@ -166,13 +165,12 @@ has been determined to be not running etc.
 {{< highlight json >}}
 {
   "type": "HookConfig",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "process_tree",
+    "namespace": "default"
+  },
   "spec": {
-    "metadata": {
-      "name": "process_tree",
-      "namespace": "default",
-      "labels": null,
-      "annotations": null
-    },
     "command": "ps aux",
     "timeout": 60,
     "stdin": false

@@ -135,13 +135,12 @@ to modify event data prior to handling the event.
 {{< highlight json >}}
 {
   "type": "Mutator",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "example-mutator",
+    "namespace": "default"
+  },
   "spec": {
-    "metadata": {
-      "name": "example-mutator",
-      "namespace": "default",
-      "labels": null,
-      "annotations": null
-    },
     "command": "example_mutator.go",
     "timeout": 0,
     "env_vars": [],

@@ -101,15 +101,17 @@ To use the incidents filter, include the `is_incident` filter in the handler con
 {{< highlight json >}}
 {
   "type": "Handler",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "slack"
+    "namespace": "default"
+  },
   "spec": {
     "type": "pipe",
     "command": "slack-handler --webhook-url https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX --channel monitoring",
     "filters": [
       "is_incident"
     ],
-    "metadata": {
-      "name": "slack"
-    }
   }
 }
 {{< /highlight >}}
@@ -272,16 +274,15 @@ match event data with a custom entity definition attribute `"namespace":
 {{< highlight json >}}
 {
   "type": "EventFilter",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "production_filter",
+    "namespace": "default",
+  },
   "spec": {
-    "metadata": {
-      "name": "production_filter",
-      "namespace": "default",
-      "labels": null,
-      "annotations": null
-    },
     "action": "allow",
     "expressions": [
-      "event.Entity.Namespace == 'production'"
+      "event.entity.namespace == 'production'"
     ],
     "runtime_assets": []
   }
@@ -299,13 +300,12 @@ returns false, the event will be handled.
 {{< highlight json >}}
 {
   "type": "EventFilter",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "development_filter",
+    "namespace": "default",
+  },
   "spec": {
-    "metadata": {
-      "name": "development_filter",
-      "namespace": "default",
-      "labels": null,
-      "annotations": null
-    },
     "action": "deny",
     "expressions": [
       "event.entity.metadata.namespace == 'production'"
@@ -324,13 +324,12 @@ old monitoring system which alerts only on state change. This
 {{< highlight json >}}
 {
   "type": "EventFilter",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "state_change_only",
+    "namespace": "default",
+  },
   "spec": {
-    "metadata": {
-      "name": "state_change_only",
-      "namespace": "default",
-      "labels": null,
-      "annotations": null
-    },
     "action": "allow",
     "expressions": [
       "event.check.occurrences == 1"
@@ -352,13 +351,12 @@ operator](https://en.wikipedia.org/wiki/Modulo_operation) calculation
 {{< highlight json >}}
 {
   "type": "EventFilter",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "filter_interval_60_hourly",
+    "namespace": "default",
+  },
   "spec": {
-    "metadata": {
-      "name": "filter_interval_60_hourly",
-      "namespace": "default",
-      "labels": null,
-      "annotations": null
-    },
     "action": "allow",
     "expressions": [
       "event.check.interval == 60",
@@ -375,13 +373,12 @@ checks with a 30 second `interval`.
 {{< highlight json >}}
 {
   "type": "EventFilter",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "filter_interval_30_hourly",
+    "namespace": "default",
+  },
   "spec": {
-    "metadata": {
-      "name": "filter_interval_30_hourly",
-      "namespace": "default",
-      "labels": null,
-      "annotations": null
-    },
     "action": "allow",
     "expressions": [
       "event.check.interval == 30",
@@ -402,13 +399,12 @@ will not be handled.
 {{< highlight json >}}
 {
   "type": "EventFilter",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "nine_to_fiver",
+    "namespace": "default",
+  },
   "spec": {
-    "metadata": {
-      "name": "nine_to_fiver",
-      "namespace": "default",
-      "labels": null,
-      "annotations": null
-    },
     "action": "allow",
     "expressions": [
       "weekday(event.timestamp) >= 1 && weekday(event.timestamp) <= 5",
@@ -429,13 +425,12 @@ expressions.
 {{< highlight json >}}
 {
   "type": "EventFilter",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "deny_if_failure_in_history",
+    "namespace": "default",
+  },
   "spec": {
-    "metadata": {
-      "name": "deny_if_failure_in_history",
-      "namespace": "default",
-      "labels": null,
-      "annotations": null
-    },
     "action": "deny",
     "expressions": [
       "_.reduce(event.check.history, function(memo, h) { return (memo || h.status != 0); })"

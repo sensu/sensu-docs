@@ -256,6 +256,11 @@ example      | {{< highlight json >}}
 {{< highlight json >}}
 {
   "type": "Event",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "webserver01",
+    "namespace": "default"
+  },
   "spec": {
     "timestamp": 1542667666,
     "entity": {
@@ -314,12 +319,6 @@ example      | {{< highlight json >}}
         "private_key",
         "secret"
       ],
-      "metadata": {
-        "name": "webserver01",
-        "namespace": "default",
-        "labels": null,
-        "annotations": null
-      }
     },
     "check": {
       "check_hooks": null,

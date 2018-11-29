@@ -400,6 +400,16 @@ example      | {{< highlight shell >}}"splay_coverage": 65{{< /highlight >}}
 {{< highlight json >}}
 {
   "type": "CheckConfig",
+  "metadata": {
+    "name": "collect-metrics",
+    "namespace": "default",
+    "labels": {
+      "region": "us-west-1"
+    },
+    "annotations": {
+      "slack-channel" : "#monitoring"
+    }
+  },
   "spec": {
     "command": "collect.sh",
     "handlers": [],
@@ -421,17 +431,7 @@ example      | {{< highlight shell >}}"splay_coverage": 65{{< /highlight >}}
     "output_metric_handlers": [
       "influx-db"
     ],
-    "env_vars": null,
-    "metadata": {
-      "name": "collect-metrics",
-      "namespace": "default",
-      "labels": {
-        "region": "us-west-1"
-      },
-      "annotations": {
-        "slack-channel" : "#monitoring"
-      }
-    }
+    "env_vars": null
   }
 }
 {{< /highlight >}}

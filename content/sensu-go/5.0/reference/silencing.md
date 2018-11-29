@@ -184,13 +184,12 @@ do this by taking advantage of per-entity subscriptions:
 {{< highlight json >}}
 {
   "type": "Silenced",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "entity:i-424242:*",
+    "namespace": "default"
+  },
   "spec": {
-    "metadata": {
-      "name": "entity:i-424242:*",
-      "namespace": "default",
-      "labels": null,
-      "annotations": null
-    },
     "expire": -1,
     "expire_on_resolve": false,
     "creator": "admin",

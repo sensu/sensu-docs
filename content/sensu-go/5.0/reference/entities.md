@@ -329,6 +329,13 @@ example      | {{< highlight shell >}}"handler": "email-handler"{{< /highlight >
 {{< highlight json >}}
 {
   "type": "Entity",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "webserver01",
+    "namespace": "default",
+    "labels": null,
+    "annotations": null
+  },
   "spec": {
     "entity_class": "agent",
     "system": {
@@ -383,13 +390,7 @@ example      | {{< highlight shell >}}"handler": "email-handler"{{< /highlight >
       "secret_key",
       "private_key",
       "secret"
-    ],
-    "metadata": {
-      "name": "webserver01",
-      "namespace": "default",
-      "labels": null,
-      "annotations": null
-    }
+    ]
   }
 }
 {{< /highlight >}}

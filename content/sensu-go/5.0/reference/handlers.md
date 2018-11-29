@@ -233,13 +233,14 @@ configured webhook URL, using the `handler-slack` executable command.
 {{< highlight json >}}
 {
   "type": "Handler",
+  "api_version": "core/v2",
+  "metadata" : {
+    "name": "slack",
+    "namespace": "default"
+  },
   "spec": {
     "type": "pipe",
     "command": "handler-slack --webhook-url https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX --channel monitoring",
-    "metadata" : {
-      "name": "slack",
-      "namespace": "default"
-    }
   }
 }
 {{< /highlight >}}
@@ -252,16 +253,17 @@ will timeout if an acknowledgement (`ACK`) is not received within 30 seconds.
 {{< highlight json >}}
 {
   "type": "Handler",
+  "api_version": "core/v2",
+  "metadata" : {
+    "name": "tcp_handler",
+    "namespace": "default"
+  },
   "spec": {
     "type": "tcp",
     "socket": {
       "host": "10.0.1.99",
       "port": 4444
     },
-    "metadata" : {
-      "name": "tcp_handler",
-      "namespace": "default"
-    }
   }
 }
 {{< /highlight >}}
@@ -274,16 +276,17 @@ The following example will also forward event data but to UDP socket instead
 {{< highlight json >}}
 {
   "type": "Handler",
+  "api_version": "core/v2",
+  "metadata" : {
+    "name": "udp_handler",
+    "namespace": "default"
+  },
   "spec": {
     "type": "udp",
     "socket": {
       "host": "10.0.1.99",
       "port": 4444
     },
-    "metadata" : {
-      "name": "udp_handler",
-      "namespace": "default"
-    }
   }
 }
 {{< /highlight >}}
@@ -296,6 +299,11 @@ The following example handler will execute three handlers: `slack`,
 {{< highlight json >}}
 {
   "type": "Handler",
+  "api_version": "core/v2",
+  "metadata" : {
+    "name": "notify_all_the_things",
+    "namespace": "default"
+  },
   "spec": {
     "type": "set",
     "handlers": [
@@ -303,10 +311,6 @@ The following example handler will execute three handlers: `slack`,
       "tcp_handler",
       "udp_handler"
     ],
-    "metadata" : {
-      "name": "notify_all_the_things",
-      "namespace": "default"
-    }
   }
 }
 {{< /highlight >}}
