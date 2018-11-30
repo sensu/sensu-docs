@@ -8,6 +8,8 @@ platformContent: false
 menu:
   sensu-go-5.0:
     parent: guides
+aliases:
+  - /sensu-go/5.0/guides/run-auto-remediation/
 ---
 
 ## What are check hooks?
