@@ -12,9 +12,10 @@ menu:
 - [The `/cluster-roles` API endpoint](#the-cluster-roles-api-endpoint)
 	- [`/cluster-roles` (GET)](#cluster-roles-get)
 	- [`/cluster-roles` (POST)](#cluster-roles-post)
-	- [`/cluster-roles` (PUT)](#cluster-roles-put)
 - [The `/cluster-roles/:cluster-role` API endpoint](#the-cluster-rolescluster-role-api-endpoint)
 	- [`/cluster-roles/:cluster-role` (GET)](#cluster-rolescluster-role-get)
+  - [`/cluster-roles/:cluster-role` (PUT)](#cluster-rolescluster-put)
+  - [`/cluster-roles/:cluster-role` (DELETE)](#cluster-rolescluster-role-delete)
 
 ## The `/cluster-roles` API endpoint
 
@@ -107,33 +108,6 @@ payload         | {{< highlight shell >}}
 {{< /highlight >}}
 response codes  | <ul><li>**Success**: 200 (OK)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
-### `/cluster-roles` (PUT)
-
-/cluster-roles (PUT) | 
-----------------|------
-description     | Create or update a Sensu cluster role.
-example URL     | http://hostname:8080/api/core/v2/namespaces/default/cluster-roles
-payload         | {{< highlight shell >}}
-{
-  "name": "global-event-reader",
-  "rules": [
-    {
-      "verbs": [
-        "get",
-        "list"
-      ],
-      "resources": [
-        "events"
-      ],
-      "resourceNames": [
-        ""
-      ]
-    }
-  ]
-}
-{{< /highlight >}}
-response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-
 ## The `/cluster-roles/:cluster-role` API endpoint {#the-cluster-rolescluster-role-api-endpoint}
 
 ### `/cluster-roles/:cluster-role` (GET) {#cluster-rolescluster-role-get}
@@ -194,6 +168,45 @@ output               | {{< highlight json >}}
   ]
 }
 {{< /highlight >}}
+
+### `/cluster-roles/:cluster-role` (PUT) {#cluster-rolescluster-role-put}
+
+#### API Specification {#cluster-rolescluster-role-put-specification}
+
+/cluster-roles/:cluster-role (PUT) | 
+----------------|------
+description     | Create or update a Sensu cluster role.
+example URL     | http://hostname:8080/api/core/v2/namespaces/default/cluster-roles/global-event-reader
+payload         | {{< highlight shell >}}
+{
+  "name": "global-event-reader",
+  "rules": [
+    {
+      "verbs": [
+        "get",
+        "list"
+      ],
+      "resources": [
+        "events"
+      ],
+      "resourceNames": [
+        ""
+      ]
+    }
+  ]
+}
+{{< /highlight >}}
+response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+
+### `/cluster-roles/:cluster-role` (DELETE) {#cluster-rolescluster-role-delete}
+
+#### API Specification {#cluster-rolescluster-role-delete-specification}
+
+/cluster-roles/:cluster-role (DELETE) | 
+--------------------------|------
+description               | Removes a cluster role from Sensu given the cluster role name.
+example url               | http://hostname:8080/api/core/v2/namespaces/default/cluster-roles/global-event-reader
+response codes            | <ul><li>**Success**: 202 (Accepted)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 [1]: ../../reference/rbac
 
