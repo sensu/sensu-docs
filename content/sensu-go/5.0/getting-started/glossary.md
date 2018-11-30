@@ -64,7 +64,7 @@ Event data includes the result of the check or metric (or both), the executing a
 [Read more.][8]
 
 #### Filter
-Logical statements that handlers evaluate before processing monitoring events.
+Logical expressions that handlers evaluate before processing monitoring events.
 Filters can instruct handlers to allow or deny matching events based on day, time, namespace, or any attribute in the event data.
 [Read more.][9]
 
