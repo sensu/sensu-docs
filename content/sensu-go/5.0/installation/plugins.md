@@ -40,18 +40,18 @@ Usage: sensu-install [options]
 For example, to install the [Sensu Disk Checks Plugin][3]:
 
 {{< highlight shell >}}
-sensu-install -p disk-checks
+sudo sensu-install -p disk-checks
 {{< /highlight >}}
 
 To install a specific version of the [Sensu Disk Checks Plugin][3] with `sensu-install`, run:
 
 {{< highlight shell >}}
-sensu-install -p 'sensu-plugins-disk-checks:3.1.0'
+sudo sensu-install -p 'sensu-plugins-disk-checks:3.1.0'
 {{< /highlight >}}
 
 We strongly recommend using a configuration management tool or using [Sensu assets][5] to pin the versions of any plugins installed in production.
 
-_NOTE: Sensu Go is compatible with all check plugins in the [Sensu Plugins organization][1]. Handler and mutator plugins are not yet compatible with Sensu Go._
+_NOTE: Sensu Go is compatible with all check executables in the [Sensu Plugins organization][1]. Handler and mutator executables are not yet compatible with Sensu Go._
 
 [1]: https://github.com/sensu-plugins
 [2]: https://packagecloud.io/sensu/community
