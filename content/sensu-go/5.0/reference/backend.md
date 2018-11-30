@@ -268,6 +268,28 @@ sensu-backend start -d /var/lib/sensu
 state-dir: "/var/lib/sensu"{{< /highlight >}}
 
 
+| api-listen-address  |      |
+-------------|------
+description  | Address the API daemon will listen for requests on
+type         | String
+default      | `[::]:8080`
+example      | {{< highlight shell >}}# Command line example
+sensu-backend start --api-listen-address [::]:8080
+
+# /etc/sensu/backend.yml example
+api-listen-address: "[::]:8080"{{< /highlight >}}
+
+| api-url  |      |
+-------------|------
+description  | URL used to connect to the API
+type         | String
+default      | `http://localhost:8080`
+example      | {{< highlight shell >}}# Command line example
+sensu-backend start --api-url http://localhost:8080
+
+# /etc/sensu/backend.yml example
+api-url: "http://localhost:8080"{{< /highlight >}}
+
 ### Agent communication configuration flags
 
 | agent-host   |      |
