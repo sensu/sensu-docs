@@ -5,7 +5,7 @@ description: "Reference documentation for the Sensu backend"
 weight: 1
 version: "5.0"
 product: "Sensu Go"
-platformContent: false 
+platformContent: false
 menu:
   sensu-go-5.0:
     parent: reference
@@ -169,8 +169,8 @@ Usage:
 General Flags:
       --agent-host string               agent listener host (default "[::]")
       --agent-port int                  agent listener port (default 8081)
-      --api-host string                 http api listener host (default "[::]")
-      --api-port int                    http api port (default 8080)
+      --api-listen-address string       api daemon listen address (default "[::]8080")
+      --api-url string                  http api URL (default http://localhost:8080)
       --cert-file string                tls certificate
   -c, --config-file string              path to sensu-backend config file
       --dashboard-host string           dashboard listener host (default "[::]")
@@ -257,7 +257,7 @@ log-level: "debug"{{< /highlight >}}
 
 | state-dir  |      |
 -------------|------
-description  | Path to Sensu state storage 
+description  | Path to Sensu state storage
 type         | String
 default      | <ul><li>Linux: `/var/lib/sensu`</li><li>Windows: `C:\\ProgramData\sensu\data`</li></ul>
 example      | {{< highlight shell >}}# Command line example
@@ -515,7 +515,7 @@ etcd-peer-cert-file: "./backend-0.pem"{{< /highlight >}}
 -----------------------------|------
 description                  | Enable peer client cert authentication
 type                         | Boolean
-default                      | `false` 
+default                      | `false`
 example                      | {{< highlight shell >}}# Command line example
 sensu-backend start --etcd-peer-client-cert-auth
 
@@ -561,7 +561,7 @@ etcd-trusted-ca-file: "./ca.pem"{{< /highlight >}}
 -----------------|------
 description      | Don't embed etcd, use external etcd instead
 type             | Boolean
-default          | `false`  
+default          | `false`
 example          | {{< highlight shell >}}# Command line example
 sensu-backend start --no-embed-etcd
 
