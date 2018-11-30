@@ -11,9 +11,10 @@ menu:
 - [The `/handlers` API endpoint](#the-handlers-api-endpoint)
 	- [`/handlers` (GET)](#handlers-get)
 	- [`/handlers` (POST)](#handlers-post)
-	- [`/handlers` (PUT)](#handlers-put)
 - [The `/handlers/:handler` API endpoint](#the-handlershandler-api-endpoint)
 	- [`/handlers/:handler` (GET)](#handlershandler-get)
+  - [`/handlers/:handler` (PUT)](#handlershandler-put)
+  - [`/handlers/:handler` (DELETE)](#handlershandler-delete)
 
 ## The `/handlers` API endpoint
 
@@ -115,31 +116,6 @@ payload         | {{< highlight shell >}}
 {{< /highlight >}}
 response codes  | <ul><li>**Success**: 200 (OK)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
-### `/handlers` (PUT)
-
-/handlers (PUT) | 
-----------------|------
-description     | Create or update a Sensu handler.
-example URL     | http://hostname:8080/api/core/v2/namespaces/default/handlers
-payload         | {{< highlight shell >}}
-{
-  "metadata": {
-    "name": "influx-db",
-    "namespace": "default",
-    "labels": null,
-    "annotations": null
-  },
-  "type": "pipe",
-  "command": "sensu-influxdb-handler --addr 'http://123.4.5.6:8086' --db-name 'sensu' --username 'sensu' --password 'password'",
-  "timeout": 0,
-  "handlers": null,
-  "filters": null,
-  "env_vars": null,
-  "runtime_assets": null
-}
-{{< /highlight >}}
-response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-
 ## The `/handlers/:handler` API endpoint {#the-handlershandler-api-endpoint}
 
 ### `/handlers/:handler` (GET) {#handlershandler-get}
@@ -196,5 +172,42 @@ output               | {{< highlight json >}}
   "runtime_assets": null
 }
 {{< /highlight >}}
+
+### `/handlers/:handler` (PUT) {#handlershandler-put}
+
+#### API Specification {#handlershandler-put-specification}
+
+/handlers/:handler (PUT) | 
+----------------|------
+description     | Create or update a Sensu handler.
+example URL     | http://hostname:8080/api/core/v2/namespaces/default/handlers/influx-db
+payload         | {{< highlight shell >}}
+{
+  "metadata": {
+    "name": "influx-db",
+    "namespace": "default",
+    "labels": null,
+    "annotations": null
+  },
+  "type": "pipe",
+  "command": "sensu-influxdb-handler --addr 'http://123.4.5.6:8086' --db-name 'sensu' --username 'sensu' --password 'password'",
+  "timeout": 0,
+  "handlers": null,
+  "filters": null,
+  "env_vars": null,
+  "runtime_assets": null
+}
+{{< /highlight >}}
+response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+
+### `/handlers/:handler` (DELETE) {#handlershandler-delete}
+
+#### API Specification {#handlershandler-delete-specification}
+
+/handlers/:handler (DELETE) | 
+--------------------------|------
+description               | Removes a handler from Sensu given the handler name.
+example url               | http://hostname:8080/api/core/v2/namespaces/default/handlers/slack
+response codes            | <ul><li>**Success**: 202 (Accepted)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 [1]: ../../reference/handlers

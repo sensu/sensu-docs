@@ -11,7 +11,9 @@ menu:
 - [The `/namespaces` API endpoint](#the-namespaces-api-endpoint)
 	- [`/namespaces` (GET)](#namespaces-get)
 	- [`/namespaces` (POST)](#namespaces-post)
-	- [`/namespaces` (PUT)](#namespaces-put)
+- [The `/namespaces/:namespace` API endpoint](#the-namespacesnamespace-api-endpoint)
+  - [`/namespaces/:namespace` (PUT)](#namespacesnamespace-put)
+  - [`/namespaces/:namespace` (DELETE)](#namespacesnamespace-delete)
 
 ## The `/namespaces` API endpoint
 
@@ -68,18 +70,32 @@ payload         | {{< highlight shell >}}
 {{< /highlight >}}
 response codes  | <ul><li>**Success**: 200 (OK)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
-### `/namespaces` (PUT)
+## The `/namespaces/:namespace` API endpoint {#the-namespacesnamespace-api-endpoint}
 
-/namespaces (PUT) | 
+### `/namespaces/:namespace` (PUT) {#namespacesnamespace-put}
+
+#### API Specification {#namespacesnamespace-put-specification}
+
+/namespaces/:namespace (PUT) | 
 ----------------|------
 description     | Create or update a Sensu namespace.
-example URL     | http://hostname:8080/api/core/v2/namespaces/default/namespaces
+example URL     | http://hostname:8080/api/core/v2/namespaces/default/namespaces/development
 payload         | {{< highlight shell >}}
 {
   "name": "development"
 }
 {{< /highlight >}}
 response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+
+### `/namespaces/:namespace` (DELETE) {#namespacesnamespace-delete}
+
+#### API Specification {#namespacesnamespace-delete-specification}
+
+/namespaces/:namespace (DELETE) | 
+--------------------------|------
+description               | Removes a namespace from Sensu given the namespace name.
+example url               | http://hostname:8080/api/core/v2/namespaces/default/namespaces/development
+response codes            | <ul><li>**Success**: 202 (Accepted)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 [1]: ../../reference/rbac
 
