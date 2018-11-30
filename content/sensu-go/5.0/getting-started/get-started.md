@@ -18,7 +18,7 @@ The Sensu sandbox is a virtual environment that makes it easy to get started bui
 
 ### Install Sensu Go (OSS)
 
-Sensu Go is the free and open source monitoring event pipeline, written in Go and designed for hybrid-cloud infrastructures.
+Sensu Go is the free and open source monitoring event pipeline, written in Go and designed for container-based and hybrid-cloud infrastructures.
 
 - [Install Sensu Go][2]
 
