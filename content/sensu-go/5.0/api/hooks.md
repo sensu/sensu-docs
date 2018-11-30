@@ -8,6 +8,13 @@ menu:
     parent: api
 ---
 
+- [The `/hooks` API endpoint](#the-hooks-api-endpoint)
+	- [`/hooks` (GET)](#hooks-get)
+	- [`/hooks` (POST)](#hooks-post)
+	- [`/hooks` (PUT)](#hooks-put)
+- [The `/hooks/:hook` API endpoint](#the-hookshook-api-endpoint)
+	- [`/hooks/:hook` (GET)](#hookshook-get)
+
 ## The `/hooks` API endpoint
 
 ### `/hooks` (GET)
@@ -70,6 +77,48 @@ output         | {{< highlight shell >}}
   }
 ]
 {{< /highlight >}}
+
+### `/hooks` (POST)
+
+/hooks (POST) | 
+----------------|------
+description     | Create a Sensu hook.
+example URL     | http://hostname:8080/api/core/v2/namespaces/default/hooks
+payload         | {{< highlight shell >}}
+{
+  "metadata": {
+    "name": "process-tree",
+    "namespace": "default",
+    "labels": null,
+    "annotations": null
+  },
+  "command": "ps aux",
+  "timeout": 10,
+  "stdin": false
+}
+{{< /highlight >}}
+response codes  | <ul><li>**Success**: 200 (OK)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+
+### `/hooks` (PUT)
+
+/hooks (PUT) | 
+----------------|------
+description     | Create or update a Sensu hook.
+example URL     | http://hostname:8080/api/core/v2/namespaces/default/hooks
+payload         | {{< highlight shell >}}
+{
+  "metadata": {
+    "name": "process-tree",
+    "namespace": "default",
+    "labels": null,
+    "annotations": null
+  },
+  "command": "ps aux",
+  "timeout": 10,
+  "stdin": false
+}
+{{< /highlight >}}
+response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 ## The `/hooks/:hook` API endpoint {#the-hookshook-api-endpoint}
 

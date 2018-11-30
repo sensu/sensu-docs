@@ -8,6 +8,13 @@ menu:
     parent: api
 ---
 
+- [The `/mutators` API endpoint](#the-mutators-api-endpoint)
+	- [`/mutators` (GET)](#mutators-get)
+	- [`/mutators` (POST)](#mutators-post)
+	- [`/mutators` (PUT)](#mutators-put)
+- [The `/mutators/:mutator` API endpoint](#the-mutatorsmutator-api-endpoint)
+	- [`/mutators/:mutator` (GET)](#mutatorsmutator-get)
+
 ## The `/mutators` API endpoint
 
 ### `/mutators` (GET)
@@ -61,6 +68,50 @@ output         | {{< highlight shell >}}
   }
 ]
 {{< /highlight >}}
+
+### `/mutators` (POST)
+
+/mutators (POST) | 
+----------------|------
+description     | Create a Sensu mutator.
+example URL     | http://hostname:8080/api/core/v2/namespaces/default/mutators
+payload         | {{< highlight shell >}}
+{
+  "metadata": {
+    "name": "example-mutator",
+    "namespace": "default",
+    "labels": null,
+    "annotations": null
+  },
+  "command": "example_mutator.go",
+  "timeout": 0,
+  "env_vars": [],
+  "runtime_assets": []
+}
+{{< /highlight >}}
+response codes  | <ul><li>**Success**: 200 (OK)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+
+### `/mutators` (PUT)
+
+/mutators (PUT) | 
+----------------|------
+description     | Create or update a Sensu mutator.
+example URL     | http://hostname:8080/api/core/v2/namespaces/default/mutators
+payload         | {{< highlight shell >}}
+{
+  "metadata": {
+    "name": "example-mutator",
+    "namespace": "default",
+    "labels": null,
+    "annotations": null
+  },
+  "command": "example_mutator.go",
+  "timeout": 0,
+  "env_vars": [],
+  "runtime_assets": []
+}
+{{< /highlight >}}
+response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 ## The `/mutators/:mutator` API endpoint {#the-mutatorsmutator-api-endpoint}
 

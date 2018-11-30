@@ -9,6 +9,13 @@ menu:
     parent: api
 ---
 
+- [The `/cluster-roles` API endpoint](#the-cluster-roles-api-endpoint)
+	- [`/cluster-roles` (GET)](#cluster-roles-get)
+	- [`/cluster-roles` (POST)](#cluster-roles-post)
+	- [`/cluster-roles` (PUT)](#cluster-roles-put)
+- [The `/cluster-roles/:cluster-role` API endpoint](#the-cluster-rolescluster-role-api-endpoint)
+	- [`/cluster-roles/:cluster-role` (GET)](#cluster-rolescluster-role-get)
+
 ## The `/cluster-roles` API endpoint
 
 ### `/cluster-roles` (GET)
@@ -72,6 +79,60 @@ output         | {{< highlight shell >}}
   }
 ]
 {{< /highlight >}}
+
+### `/cluster-roles` (POST)
+
+/cluster-roles (POST) | 
+----------------|------
+description     | Create a Sensu cluster role.
+example URL     | http://hostname:8080/api/core/v2/cluster-roles/default/cluster-roles
+payload         | {{< highlight shell >}}
+{
+  "name": "global-event-reader",
+  "rules": [
+    {
+      "verbs": [
+        "get",
+        "list"
+      ],
+      "resources": [
+        "events"
+      ],
+      "resourceNames": [
+        ""
+      ]
+    }
+  ]
+}
+{{< /highlight >}}
+response codes  | <ul><li>**Success**: 200 (OK)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+
+### `/cluster-roles` (PUT)
+
+/cluster-roles (PUT) | 
+----------------|------
+description     | Create or update a Sensu cluster role.
+example URL     | http://hostname:8080/api/core/v2/namespaces/default/cluster-roles
+payload         | {{< highlight shell >}}
+{
+  "name": "global-event-reader",
+  "rules": [
+    {
+      "verbs": [
+        "get",
+        "list"
+      ],
+      "resources": [
+        "events"
+      ],
+      "resourceNames": [
+        ""
+      ]
+    }
+  ]
+}
+{{< /highlight >}}
+response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 ## The `/cluster-roles/:cluster-role` API endpoint {#the-cluster-rolescluster-role-api-endpoint}
 
