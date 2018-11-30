@@ -109,7 +109,6 @@ check hook we created. Now when we are alerted that nginx is not
 running, we can review the check hook output to confirm this was the
 case, without ever firing up an SSH session to investigate!
 
-
 ## Next steps
 
 You now know how to run data collection tasks using check hooks. From this point, 
