@@ -38,9 +38,11 @@ sensu-agent start --log-level debug
 {{< /highlight >}}
 
 Changes to log level via configuration file or command line arguments require
-restarting the service.
+restarting the service. For guidance on restarting a service, please
+consult the Operating section of the [agent][agent-ref] or
+[backend][backend-ref] reference, respectively.
 
-### Log File Locations
+### Log file locations
 
 Sensu services print [structured log messages][structured] to standard output.
 In order to capture these log messages to disk or another logging facility, Sensu services
@@ -69,3 +71,5 @@ supercede the documented [supported platforms][platforms]._
 [structured]: https://dzone.com/articles/what-is-structured-logging
 [journalctl]: https://www.digitalocean.com/community/tutorials/how-to-use-journalctl-to-view-and-manipulate-systemd-logs
 [platforms]: ../../getting-started/platforms
+[agent-ref]: ../../reference/agent/#stopping-the-service
+[backend-ref]: ../../reference/backend/#stopping-the-service
