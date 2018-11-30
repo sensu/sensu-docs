@@ -101,7 +101,6 @@ example      | {{< highlight shell >}}
     "stdin": false,
     "ttl": 0,
     "timeout": 0,
-    "round_robin": false,
     "duration": 0.010849143,
     "executed": 1542667666,
     "history": [
@@ -256,6 +255,13 @@ example      | {{< highlight json >}}
 {{< highlight json >}}
 {
   "type": "Event",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "webserver01",
+    "namespace": "default",
+    "labels": null,
+    "annotations": null
+  },
   "spec": {
     "timestamp": 1542667666,
     "entity": {
@@ -313,13 +319,7 @@ example      | {{< highlight json >}}
         "secret_key",
         "private_key",
         "secret"
-      ],
-      "metadata": {
-        "name": "webserver01",
-        "namespace": "default",
-        "labels": null,
-        "annotations": null
-      }
+      ]
     },
     "check": {
       "check_hooks": null,
@@ -342,7 +342,6 @@ example      | {{< highlight json >}}
       "stdin": false,
       "ttl": 0,
       "timeout": 0,
-      "round_robin": false,
       "duration": 0.010849143,
       "executed": 1542667666,
       "history": [

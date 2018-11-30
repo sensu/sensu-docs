@@ -124,7 +124,6 @@ Namespaced resources must belong to a single namespace and can be accessed by [r
 | `checks` | [Check][6] resources within a namespace |
 | `entities` | [Entity][7] resources within a namespace |
 | `events` | [Event][8] resources within a namespace |
-| `extensions`   | Extensions within a namespace  |
 | `filters`   | [Filter][22] resources within a namespace  |
 | `handlers` | [Handler][9] resources within a namespace |
 | `hooks` | [Hook][10] resources within a namespace |
@@ -317,7 +316,7 @@ To create and manage roles within a namespace, [create a role][25] with `roles` 
 
 ### Cluster roles
 
-Cluster roles can specify access permissions for [cluster-wide resources][18] like users and namespaces as well as [namespaced resources][17] like checks and handlers.
+Cluster roles can specify access permissions for [cluster-wide resources][18] like users and namespaces as well as [namespaced resources][17] like checks and handlers. They can also be used to grant access to namespaced resources across all namespaces (needed to run `sensuctl check list --all-namespaces`, for example) when used in conjunction with cluster role bindings.
 Cluster roles use the same [specification][24] as roles and can be managed using the same sensuctl commands with `cluster-role` substituted for `role`.
 
 To create and manage cluster roles, [configure sensuctl][26] as the [default `admin` user][20] or [create a cluster role][25] with permissions for `clusterroles`.

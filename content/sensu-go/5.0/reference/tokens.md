@@ -56,6 +56,13 @@ arguments to indicate the thresholds (as percentages) for creating warning or cr
 {{< highlight json >}}
 {
   "type": "CheckConfig",
+  "api_version": "core/v1",
+  "metadata": {
+    "name": "check-disk-usage",
+    "namespace": "{{ .Namespace | default \"production\" }}",
+    "labels": null,
+    "annotations": null
+  },
   "spec": {
     "command": "check-disk-usage.rb -w {{.Disk.Warning | default 80}} -c {{.Disk.Critical | default 90}}",
     "handlers": [],
@@ -72,14 +79,7 @@ arguments to indicate the thresholds (as percentages) for creating warning or cr
     "stdin": false,
     "ttl": 0,
     "timeout": 0,
-    "round_robin": false,
-    "env_vars": null,
-    "metadata": {
-      "name": "check-disk-usage",
-      "namespace": "{{ .Namespace | default \"production\" }}",
-      "labels": null,
-      "annotations": null
-    }
+    "env_vars": null
   }
 }{{< /highlight >}}
 
@@ -90,6 +90,13 @@ tokens declared above.
 {{< highlight json >}}
 {
   "type": "Entity",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "example-hostname",
+    "namespace": "staging",
+    "labels": null,
+    "annotations": null
+  },
   "spec": {
     "entity_class": "agent",
     "system": {
@@ -146,12 +153,6 @@ tokens declared above.
       "private_key",
       "secret"
     ],
-    "metadata": {
-      "name": "example-hostname",
-      "namespace": "staging",
-      "labels": null,
-      "annotations": null
-    },
     "disk": {
       "warning": 75,
       "critical": 85
