@@ -26,7 +26,7 @@ APT (for Ubuntu/Debian systems), and YUM (for RHEL/CentOS).
 _NOTE: although Sensu Core packages are available for a variety of platforms
 &ndash; thus making it technically possible to run the `sensu-server` and
 `sensu-api` processes on non-Linux operating systems &ndash; **we strongly
-recommended running the Sensu Server and API on a Linux-based platform**. Sensu
+recommend running the Sensu Server and API on a Linux-based platform**. Sensu
 Core installer packages for non-Linux platforms are provided for the purpose of
 making the `sensu-client` available, and are not tested as extensively for
 running the `sensu-server` and `sensu-api` processes._

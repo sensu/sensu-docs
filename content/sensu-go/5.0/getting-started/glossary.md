@@ -64,7 +64,7 @@ Event data includes the result of the check or metric (or both), the executing a
 [Read more.][8]
 
 #### Filter
-Logical statements that handlers evaluate before processing monitoring events.
+Logical expressions that handlers evaluate before processing monitoring events.
 Filters can instruct handlers to allow or deny matching events based on day, time, namespace, or any attribute in the event data.
 [Read more.][9]
 
@@ -87,7 +87,7 @@ Role-based access control (RBAC) is Sensu’s local user management system.
 RBAC lets you manage users and permissions with namespaces, users, roles, and role bindings.
 [Read more.][13]
 
-### Resources
+#### Resources
 Objects within Sensu that can be used to specify access permissions in Sensu roles and cluster roles.
 Resources can be specific to a namespace (like checks and handlers) or cluster-wide (like users and cluster roles).
 [Read more.][18]

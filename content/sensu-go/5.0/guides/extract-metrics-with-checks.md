@@ -1,7 +1,7 @@
 ---
 title: "How to collect and extract metrics from checks"
 linkTitle: "Check Output Metric Extraction"
-weight: 110
+weight: 35
 version: "5.0"
 product: "Sensu Go"
 platformContent: false

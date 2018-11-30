@@ -121,7 +121,7 @@ filters      |
 description  | A set of [Sensu query expressions][1] used by the agent to determine if the asset should be installed. If multiple expressions are included, each expression must return true in order for the agent to install the asset.
 required     | false 
 type         | Array 
-example      | {{< highlight shell >}}"filters": ["System.OS=='linux'", "System.Arch=='amd64'"] {{< /highlight >}}
+example      | {{< highlight shell >}}"filters": ["system.os=='linux'", "system.arch=='amd64'"] {{< /highlight >}}
 
 ### Metadata attributes
 

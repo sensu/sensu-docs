@@ -8,6 +8,11 @@ menu:
     parent: api
 ---
 
+- [The `/namespaces` API endpoint](#the-namespaces-api-endpoint)
+	- [`/namespaces` (GET)](#namespaces-get)
+	- [`/namespaces` (POST)](#namespaces-post)
+	- [`/namespaces` (PUT)](#namespaces-put)
+
 ## The `/namespaces` API endpoint
 
 ### `/namespaces` (GET)
@@ -49,6 +54,32 @@ output         | {{< highlight shell >}}
   }
 ]
 {{< /highlight >}}
+
+### `/namespaces` (POST)
+
+/namespaces (POST) | 
+----------------|------
+description     | Create a Sensu namespace.
+example URL     | http://hostname:8080/api/core/v2/namespaces/default/namespaces
+payload         | {{< highlight shell >}}
+{
+  "name": "development"
+}
+{{< /highlight >}}
+response codes  | <ul><li>**Success**: 200 (OK)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+
+### `/namespaces` (PUT)
+
+/namespaces (PUT) | 
+----------------|------
+description     | Create or update a Sensu namespace.
+example URL     | http://hostname:8080/api/core/v2/namespaces/default/namespaces
+payload         | {{< highlight shell >}}
+{
+  "name": "development"
+}
+{{< /highlight >}}
+response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 [1]: ../../reference/rbac
 
