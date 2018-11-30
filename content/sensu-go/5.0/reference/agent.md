@@ -826,7 +826,7 @@ statsd-metrics-port: 6125{{< /highlight >}}
 [31]: ../hooks
 [32]: ../checks/#how-do-checks-work
 [33]: ../../guides/monitor-external-resources
-[34]: ../../handlers#handler-sets
+[34]: ../handlers#handler-sets
 [35]: ../backend#datastore-and-cluster-configuration-flags
 [36]: ../../guides/clustering
 [37]: ../backend#general-configuration-flags
