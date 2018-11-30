@@ -364,7 +364,7 @@ sensuctl role create prod-admin --verb get,list,create,update,delete --resource 
 
 You can also create a role using a JSON role definition.
 
-{{< highlight shell >}}
+{{< highlight json >}}
 {
   "name": "prod-admin",
   "namespace": "production",

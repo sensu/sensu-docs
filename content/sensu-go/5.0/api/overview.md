@@ -35,7 +35,7 @@ API request bodies are limited to 0.512 MB in size.
 The Sensu Go API is versioned according to the format `v{majorVersion}{stabilityLevel}{iterationNumber}`, in which `v2` is stable version 2.
 The Sensu API guarantees backward compatibility for stable versions of the API.
 
-Sensu makes no guarantee that an alpha or beta APIs will be maintained for any period of time.
+Sensu makes no guarantee that an alpha or beta API will be maintained for any period of time.
 Alpha versions should be considered under active development and may not be published for every release.
 Beta APIs, while more stable than alpha versions, offer similarly short-lived lifespans and also provide no guarantee of programmatic conversions when the API is updated.
 

@@ -101,15 +101,17 @@ To use the incidents filter, include the `is_incident` filter in the handler con
 {{< highlight json >}}
 {
   "type": "Handler",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "slack",
+    "namespace": "default"
+  },
   "spec": {
     "type": "pipe",
     "command": "slack-handler --webhook-url https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX --channel monitoring",
     "filters": [
       "is_incident"
-    ],
-    "metadata": {
-      "name": "slack"
-    }
+    ]
   }
 }
 {{< /highlight >}}
@@ -135,7 +137,8 @@ To allow silencing for an event handler, add the `not_silenced` filter to the ha
   "type": "Handler",
   "api_version": "core/v2",
   "metadata": {
-    "name": "slack"
+    "name": "slack",
+    "namespace": "default"
   },
   "spec": {
     "type": "pipe",
@@ -161,15 +164,17 @@ To use the metrics filter, include the `has_metrics` filter in the handler confi
 {{< highlight json >}}
 {
   "type": "Handler",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "slack",
+    "namespace": "default"
+  },
   "spec": {
     "type": "pipe",
     "command": "sensu-influxdb-handler --addr 'http://123.4.5.6:8086' --db-name 'myDB' --username 'foo' --password 'bar'",
     "filters": [
       "has_metrics"
-    ],
-    "metadata": {
-      "name": "slack"
-    }
+    ]
   }
 }
 {{< /highlight >}}
@@ -232,7 +237,7 @@ example      | {{< highlight shell >}}"action": "allow"{{< /highlight >}}
 
 expressions   | 
 -------------|------
-description  | Filter expressions to be compared with event data.
+description  | Filter expressions to be compared with event data. Note that event metadata can be referenced without including the `metadata` scope, for example: `event.entity.namespace`.
 required     | true
 type         | Array
 example      | {{< highlight shell >}}"expressions": [
