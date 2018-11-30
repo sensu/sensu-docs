@@ -1,6 +1,6 @@
 ---
 title: "Securing Sensu"
-weight: 12
+weight: 1000
 version: "5.0"
 product: "Sensu Go"
 platformContent: false
@@ -90,6 +90,6 @@ Hopefully you've found this useful! If you find any issues or have any questions
 
 <!-- LINKS -->
 [1]: /sensu-core/latest/guides/securing-sensu/
-[2]: ../clustering.md
+[2]: ../clustering
 [3]: https://slack.sensu.io
 [4]: https://github.com/sensu/sensu-docs/issues/new
