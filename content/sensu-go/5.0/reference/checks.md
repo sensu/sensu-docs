@@ -134,7 +134,7 @@ entities with particular subscriptions.
 ## New and improved checks
 
 Here is some useful information for Sensu 1 users around modifications made to
-checks in Sensu 2.
+checks in Sensu Go.
 
 ### Standalone checks
 
