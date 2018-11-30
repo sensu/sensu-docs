@@ -51,7 +51,7 @@ a critical status.
 {{< highlight shell >}}
 sensuctl check set-hooks nginx_process  \
 --type critical \
---hooks nginx-restart
+--hooks process_tree
 {{< /highlight >}}
 
 ### Validating the check hook
@@ -86,6 +86,29 @@ $ sensuctl event info i-424242 nginx_process --format json
   }
 }
 {{< /highlight >}}
+
+Having confirmed that the hook is attached to our check, we can stop
+nginx and observe the check hook in action on the next check
+execution. Here we use sensuctl to query event info and send the
+response to `jq` so we can isolate the check hook output:
+
+{{< highlight shell >}}
+$ sensuctl event info i-424242 nginx_process --format json | jq -r '.check.hooks[0].output' 
+USER       PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
+root         1  0.0  0.3  46164  6704 ?        Ss   Nov17   0:11 /usr/lib/systemd/systemd --switched-root --system --deserialize 20
+root         2  0.0  0.0      0     0 ?        S    Nov17   0:00 [kthreadd]
+root         3  0.0  0.0      0     0 ?        S    Nov17   0:01 [ksoftirqd/0]
+root         7  0.0  0.0      0     0 ?        S    Nov17   0:01 [migration/0]
+root         8  0.0  0.0      0     0 ?        S    Nov17   0:00 [rcu_bh]
+root         9  0.0  0.0      0     0 ?        S    Nov17   0:34 [rcu_sched]
+{{< /highlight >}}
+
+Note that the above output, although truncated in the interest of
+brevity, reflects the output of the `ps aux` command specified in the
+check hook we created. Now when we are alerted that nginx is not
+running, we can review the check hook output to confirm this was the
+case, without ever firing up an SSH session to investigate!
+
 
 ## Next steps
 
