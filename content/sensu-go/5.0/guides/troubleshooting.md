@@ -1,21 +1,20 @@
 ---
-title: "How to troubleshoot Sensu Go services"
-linkTitle: "Troubleshooting Sensu Go"
+title: "Troubleshooting"
 weight: 20
 version: "5.0"
 product: "Sensu Go"
 platformContent: false
-menu: 
+menu:
   sensu-go-5.0:
     parent: guides
 ---
 
-## Service Logging
+## Service logging
 
 Logs produced by Sensu services -- i.e. sensu-backend and sensu-agent -- are
-often the best place to start when troubleshooting a variety of issues. 
+often the best place to start when troubleshooting a variety of issues.
 
-### Log Levels
+### Log levels
 
 Each log message is associated with a log level, indicative of the relative severity of the event being
 logged:
@@ -38,8 +37,8 @@ command line flag:
 sensu-agent start --log-level debug
 {{< /highlight >}}
 
-Changes to log level via configuration file or command line arguments requires
-restarting the service. 
+Changes to log level via configuration file or command line arguments require
+restarting the service.
 
 ### Log File Locations
 
