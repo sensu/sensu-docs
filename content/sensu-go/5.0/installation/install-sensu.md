@@ -33,7 +33,7 @@ Sensu backend packages are available for Ubuntu/Debian and RHEL/CentOS.
 Add the Sensu repository.
 
 {{< highlight shell >}}
-curl -s https://packagecloud.io/install/repositories/sensu/beta/script.deb.sh | sudo bash
+curl -s https://packagecloud.io/install/repositories/sensu/stable/script.deb.sh | sudo bash
 {{< /highlight >}}
 
 Install the sensu-backend package.
@@ -51,7 +51,7 @@ sudo apt-get install sensu-backend
 Add the Sensu repository.
 
 {{< highlight shell >}}
-curl -s https://packagecloud.io/install/repositories/sensu/beta/script.rpm.sh | sudo bash
+curl -s https://packagecloud.io/install/repositories/sensu/stable/script.rpm.sh | sudo bash
 {{< /highlight >}}
 
 Install the sensu-backend package.
@@ -122,7 +122,7 @@ Sensu agent packages are available for Ubuntu/Debian, RHEL/CentOS, and Windows.
 Add the Sensu repository.
 
 {{< highlight shell >}}
-curl -s https://packagecloud.io/install/repositories/sensu/beta/script.deb.sh | sudo bash
+curl -s https://packagecloud.io/install/repositories/sensu/stable/script.deb.sh | sudo bash
 {{< /highlight >}}
 
 Install the sensu-agent package.
@@ -139,7 +139,7 @@ sudo apt-get install sensu-agent
 Add the Sensu repository.
 
 {{< highlight shell >}}
-curl -s https://packagecloud.io/install/repositories/sensu/beta/script.rpm.sh | sudo bash
+curl -s https://packagecloud.io/install/repositories/sensu/stable/script.rpm.sh | sudo bash
 {{< /highlight >}}
 
 Install the sensu-agent package.
@@ -274,7 +274,7 @@ sudo mv sensuctl /usr/local/bin/
 Add the Sensu repository.
 
 {{< highlight shell >}}
-curl -s https://packagecloud.io/install/repositories/sensu/beta/script.deb.sh | sudo bash
+curl -s https://packagecloud.io/install/repositories/sensu/stable/script.deb.sh | sudo bash
 {{< /highlight >}}
 
 Install the sensu-cli package.
@@ -292,7 +292,7 @@ sudo apt-get install sensu-cli
 Add the Sensu repository.
 
 {{< highlight shell >}}
-curl -s https://packagecloud.io/install/repositories/sensu/beta/script.rpm.sh | sudo bash
+curl -s https://packagecloud.io/install/repositories/sensu/stable/script.rpm.sh | sudo bash
 {{< /highlight >}}
 
 Install the sensu-cli package.
