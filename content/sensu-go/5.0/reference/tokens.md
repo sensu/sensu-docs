@@ -16,7 +16,7 @@ menu:
 When a check is scheduled to be executed by an agent, it first goes through a token substitution step. Any tokens matching attribute values in the check are applied, and then the check is executed. Invalid templates or unmatched tokens will return an error, which is logged and sent to the Sensu backend message transport. Checks with token matching errors will not be executed.
 
 ## New and improved tokens
-Sensu Go uses the [Go template][1] package to implement token substitution. Instead of using triple colons `:::` as in [1.x token substitution][2], 2.0 token substitution uses double curly braces around the token, and a dot before the attribute to be substituted, such as: `{{ .System.Hostname }}`.
+Sensu Go uses the [Go template][1] package to implement token substitution. Instead of using triple colons `:::` as in [1.x token substitution][2], Sensu Go token substitution uses double curly braces around the token, and a dot before the attribute to be substituted, such as: `{{ .System.Hostname }}`.
 
 ## Sensu tokens specification
 
