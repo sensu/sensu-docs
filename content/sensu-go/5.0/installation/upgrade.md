@@ -1,8 +1,8 @@
 ---
 title: "Upgrading to Sensu Go"
 linkTitle: "Upgrade Sensu"
-description: "Guide to upgrading to Sensu Go from Sensu Core"
-weight: 2
+description: "Guide to upgrading to Sensu Go from Sensu Core 1.x"
+weight: 3
 version: "5.0"
 product: "Sensu Go"
 platformContent: false
@@ -11,8 +11,8 @@ menu:
     parent: installation
 ---
 
-This guide provides general information for upgrading your Sensu instance from [Sensu Core 1.6][19] to Sensu Go 5.0.
-See the [Sensu translator project][18] to translate your Sensu configuration from Sensu Core to Sensu Go automatically.
+This guide provides general information for upgrading your Sensu instance from [Sensu Core 1.x][19] to Sensu Go 5.0.
+See the [Sensu translator project][18] to translate your Sensu configuration from Sensu Core 1.x to Sensu Go automatically.
 
 Sensu Go includes important changes to all parts of Sensu: architecture, installation, resource definitions, event data model, check dependencies, filter evaluation, and more.
 Sensu Go also includes a lot of powerful features to make monitoring easier to build, scale, and offer as a self-service tool to your internal customers.
@@ -33,11 +33,11 @@ Sensu Go also includes a lot of powerful features to make monitoring easier to b
 
 ### Packaging
 Sensu is now provided as three packages: sensu-backend, sensu-agent, and sensu-cli (sensuctl).
-This results in a fundamental change in Sensu terminology from Sensu Core: the server is now the backend; the client is now the agent.
+This results in a fundamental change in Sensu terminology from Sensu Core 1.x: the server is now the backend; the client is now the agent.
 To learn more about new terminology in Sensu Go, see the [glossary][1].
 
 ### Architecture
-The external RabbitMQ transport and Redis datastore in Sensu Core have been replaced with an embedded transport and [etcd datastore][2] in Sensu Go.
+The external RabbitMQ transport and Redis datastore in Sensu Core 1.x have been replaced with an embedded transport and [etcd datastore][2] in Sensu Go.
 The Sensu backend and agent are configured using YAML files or using the `sensu-backend` or `sensu-agent` command-line tools, instead of using JSON files.
 Sensu checks and pipeline elements are now configured via the API or sensuctl tool instead of JSON files.
 See the [backend][3], [agent][4], and [sensuctl][5] reference docs for more information. 
@@ -49,27 +49,27 @@ See the [entity reference][6] and the guide to [monitoring external resources][7
 
 ### Checks
 Standalone checks are no longer supported in Sensu Go, although similar functionality can be achieved using role-based access control, assets, and entity subscriptions.
-There are also a few changes to check definitions to be aware of. The `stdin` check attribute is no longer supported in Sensu Go, and Sensu Go no longer tries to run a "default" handler when executing a check without a specified handler. Additionally, round-robin subscriptions are not yet available in Sensu Go 5.0
+There are also a few changes to check definitions to be aware of. The `stdin` check attribute is no longer supported in Sensu Go, and Sensu Go no longer tries to run a "default" handler when executing a check without a specified handler. Additionally, round-robin subscriptions and check subdues are not yet available in Sensu Go 5.0
 
 [Check hooks][8] are now a resource type in Sensu Go, meaning that hooks can be created, managed, and reused independently of check definitions.
 You can also execute multiple hooks for any given response code.
 
 ### Events
 All check results are now considered events and are processed by event handlers.
-You can use the built-in [incidents filter][9] to recreate the Sensu Core behavior in which only non-zero check results are considered events.
+You can use the built-in [incidents filter][9] to recreate the Sensu Core 1.x behavior in which only check results with a non-zero status are considered events.
 
 ### Handlers
 Transport handlers are no longer supported by Sensu Go, but you can create similar functionality using a pipe handler that connects to a message bus and injects event data into a queue.
 
 ### Filters
 Ruby eval logic has been replaced with JavaScript expressions in Sensu Go, opening up powerful possibilities to filter events based on occurrences and other event attributes.
-As a result, the built-in occurrences filter in Sensu Core is not provided in Sensu Go, but you can replicate its functionality using [this filter definition][10].
+As a result, the built-in occurrences filter in Sensu Core 1.x is not provided in Sensu Go, but you can replicate its functionality using [this filter definition][10].
 Sensu Go includes three [new built-in filters][11]: only-incidents, only-metrics, and allow-silencing.
-Sensu Go 5.0 does not yet include the built-in check dependencies filter from Sensu Core.
+Sensu Go 5.0 does not yet include a built-in check dependencies filter or a filter-when feature.
 
 ### Assets
 The sensu-install tool has been replaced in Sensu Go by [assets][12], a powerful new primitive that helps you manage check dependencies without configuration management tools.
-Sensu Plugins in Ruby can be installed...
+[Sensu Plugins][21] in Ruby can still be installed via sensu-install by installing [sensu-plugins-ruby][20]; see the [installing plugins guide][22] for more information.
 
 ### Role-based access control
 Role-based access control (RBAC) is a built-in feature of the open-source version of Sensu Go.
@@ -83,7 +83,7 @@ Silencing is now disabled by default in Sensu Go and must be enabled explicitly 
 The syntax for using token substitution has changed from using triple colons to using [double curly braces][16].
 
 ### Aggregates
-Sensu Go 5.0 does not yet support aggregates.
+Sensu Go 5.0 does not yet support check aggregates.
 
 ### API
 In addition to the changes to resource definitions, Sensu Go includes a new, versioned API. See the [API overview][17] for more information.
@@ -107,3 +107,6 @@ In addition to the changes to resource definitions, Sensu Go includes a new, ver
 [17]: ../../api/overview
 [18]: https://github.com/sensu/sensu-translator
 [19]: /sensu-core/1.6/
+[20]: https://packagecloud.io/sensu/community
+[21]: https://github.com/sensu-plugins
+[22]: ../plugins
