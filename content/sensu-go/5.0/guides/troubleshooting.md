@@ -1,6 +1,6 @@
 ---
 title: "Troubleshooting"
-weight: 20
+weight: 2000
 version: "5.0"
 product: "Sensu Go"
 platformContent: false
@@ -71,5 +71,5 @@ supercede the documented [supported platforms][platforms]._
 [structured]: https://dzone.com/articles/what-is-structured-logging
 [journalctl]: https://www.digitalocean.com/community/tutorials/how-to-use-journalctl-to-view-and-manipulate-systemd-logs
 [platforms]: ../../getting-started/platforms
-[agent-ref]: ../../reference/agent/#stopping-the-service
-[backend-ref]: ../../reference/backend/#stopping-the-service
+[agent-ref]: ../../reference/agent/#restarting-the-service
+[backend-ref]: ../../reference/backend/#restarting-the-service
