@@ -11,7 +11,7 @@ menu:
 
 **Sensu Go 5.0 includes API v2.**
 
-Sensu Go includes a REST API to make it even easier to manage your monitoring workflows.
+The Sensu REST API provides access to Sensu workflow configurations and monitoring event data.
 
 ### URL format
 
@@ -25,10 +25,6 @@ Sensu API endpoints use the standard URL format `/api/{group}/{version}/namespac
 
 The API uses JSON formatted requests and responses.
 In terms of [sensuctl output types][1], the Sensu API uses the `json` format, not `wrapped-json`.
-
-### Data size
-
-API request bodies are limited to 0.512 MB in size.
 
 ### Versioning
 
@@ -60,13 +56,18 @@ The access token should be included in the output:
 
 3. Copy the access token into the authentication header of the API request. For example:
 {{< highlight shell >}}
-curl http://127.0.0.1:8080/api/core/v2/namespaces/default/events -v -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIs..."
+curl http://127.0.0.1:8080/api/core/v2/namespaces/default/events -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIs..."
 {{< /highlight >}}
 
 Access tokens last for around 15 minutes.
 If your token expires, you should see a 401 Unauthorized response from the API.
 
 To create a new token, first run any sensuctl command (like `sensuctl event list`) then repeat the steps above.
+
+### Request size
+
+API request bodies are limited to 0.512 MB in size.
+
 
 [1]: ../../sensuctl/reference#preferred-output-format
 [2]: ../../installation/install-sensu#install-sensuctl

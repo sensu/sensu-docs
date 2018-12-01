@@ -1,6 +1,6 @@
 ---
-title: "How to collect and extract metrics from checks"
-linkTitle: "Check Output Metric Extraction"
+title: "How to collect and extract metrics using Sensu checks"
+linkTitle: "Collecting Service Metrics"
 weight: 35
 version: "5.0"
 product: "Sensu Go"
@@ -22,7 +22,7 @@ continue.
 
 In order to extract metrics from check output, you'll need to do the following:
 
-1. Configure the check `command` such that the command execution will output
+1. Configure the check `command` such that the command execution outputs
 metrics in one of the [supported output metric formats][3].
 2. Configure the check `output_metric_format` to one of the
 [supported output metric formats][3].

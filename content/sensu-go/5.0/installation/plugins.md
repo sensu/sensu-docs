@@ -17,7 +17,7 @@ You can find a number of plugins in the [Sensu Plugins][1] organization on GitHu
 _NOTE: Plugins found in the Sensu Plugins GitHub organization are community-maintained, meaning that anyone can improve on a plugin found there. If you have a question about how you can get involved in adding to, or providing a plugin, head to the [Sensu Community Slack channel][4]. Maintainers are always happy to help answer questions and point you in the right direction._
 
 ### Installing Sensu Plugins
-To install a Sensu Community Plugin with Sensu Go:
+To install a [Sensu Community Plugin][1] with Sensu Go:
 
 1. Install the [sensu-plugins-ruby package][2] from packagecloud.
 

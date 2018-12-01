@@ -1,5 +1,5 @@
 ---
-title: "Agent Reference"
+title: "Agent reference"
 linkTitle: "Agent"
 description: "Sensu agent reference documentation"
 weight: 1
@@ -18,6 +18,7 @@ menu:
 - [Creating events using the StatsD listener](#creating-monitoring-events-using-the-statsd-listener)
 - [Keepalive monitoring](#keepalive-monitoring)
 - [Service management](#operation)
+  - [Starting and stopping the service](#starting-the-service)
 	- [Registration and deregistration](#registration)
 	- [Clustering](#clustering)
 - [Configuration](#configuration)
@@ -31,6 +32,8 @@ menu:
 The Sensu agent is a lightweight client that runs on the infrastructure components you want to monitor.
 Agents register with the Sensu backend as [monitoring entities][3] with `type: "agent"`.
 Agent entities are responsible for creating [check and metrics events][7] to send to the [backend event pipeline][2].
+The Sensu agent is available for Linux, macOS, and Windows.
+See the [installation guide][1] to install the agent.
 
 ## Creating monitoring events using service checks
 
@@ -268,8 +271,6 @@ The resulting `keepalive` handler set configuration looks like this:
 {{< /highlight >}}
 
 ## Operation
-
-_NOTE: Commands in this section may require administrative privileges._
 
 ### Starting the service
 Use the `sensu-agent` tool to start the agent and apply configuration flags.

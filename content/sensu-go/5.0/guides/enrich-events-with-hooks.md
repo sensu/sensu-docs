@@ -1,6 +1,6 @@
 ---
-title: "How to enrich event data using check hooks"
-linkTitle: "Enrich Event Data with Hooks"
+title: "How to augment event data using check hooks"
+linkTitle: "Augmenting Event Data"
 weight: 60
 version: "5.0"
 product: "Sensu Go"

@@ -12,11 +12,10 @@ menu:
 ---
 
 - [Installation][1]
-- [Scheduling checks](#check-scheduling)
 - [Creating event pipelines](#event-pipeline)
-- [Operation](#operation)
-  - [Starting the service](#starting-the-service)
-  - [Service management](#stopping-the-service)
+- [Scheduling checks](#check-scheduling)
+- [Service management](#operation)
+  - [Starting and stopping the service](#starting-the-service)
   - [Clustering](#clustering)
 - [Configuration](#configuration)
   - [General configuration](#general-configuration-flags)
@@ -27,19 +26,8 @@ menu:
 
 The Sensu backend is a service that manages check requests and event data.
 Every Sensu backend includes an integrated transport for scheduling checks using subscriptions, an event processing pipeline that applies filters, mutators, and handlers, an embedded [etcd][2] datastore for storing configuration and state, a Sensu API, [Sensu dashboard][6], and `sensu-backend` command-line tool.
-
-_NOTE: The commands in this reference may require administrative privileges or use of `sudo`._
-
-### Check scheduling
-
-The backend is responsible for storing check definitions and scheduling check requests.
-Check scheduling is subscription-based; the backend sends check requests to subscriptions where they're picked up by subscribing agents.
-
-For information about creating and managing checks, see:
-
-- [Guide to monitoring server resources with checks][3]
-- [Guide to collecting metrics with checks][4]
-- [Checks reference documentation][5]
+The Sensu backend is available for Ubuntu/Debian and RHEL/CentOS distributions of Linux.
+See the [installation guide][1] to install the backend.
 
 ### Event pipeline
 
@@ -53,7 +41,20 @@ To learn more about filters, mutators, and handlers, see:
 - [Mutators reference documentation][10]
 - [Handlers reference documentation][11]
 
+### Check scheduling
+
+The backend is responsible for storing check definitions and scheduling check requests.
+Check scheduling is subscription-based; the backend sends check requests to subscriptions where they're picked up by subscribing agents.
+
+For information about creating and managing checks, see:
+
+- [Guide to monitoring server resources with checks][3]
+- [Guide to collecting metrics with checks][4]
+- [Checks reference documentation][5]
+
 ## Operation
+
+_NOTE: Commands in this section may require administrative privileges._
 
 ### Starting the service
 Use the `sensu-backend` tool to start the backend and apply configuration flags.
