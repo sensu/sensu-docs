@@ -8,6 +8,14 @@ menu:
     parent: api
 ---
 
+- [The `/filters` API endpoint](#the-filters-api-endpoint)
+	- [`/filters` (GET)](#filters-get)
+	- [`/filters` (POST)](#filters-post)
+- [The `/filters/:filter` API endpoint](#the-filtersfilter-api-endpoint)
+	- [`/filters/:filter` (GET)](#filtersfilter-get)
+  - [`/filters/:filter` (PUT)](#filtersfilter-put)
+  - [`/filters/:filter` (DELETE)](#filtersfilter-delete)
+
 ## The `/filters` API endpoint
 
 ### `/filters` (GET)
@@ -77,6 +85,29 @@ output         | {{< highlight shell >}}
 ]
 {{< /highlight >}}
 
+### `/filters` (POST)
+
+/filters (POST) | 
+----------------|------
+description     | Create a Sensu filter.
+example URL     | http://hostname:8080/api/core/v2/namespaces/default/filters
+payload         | {{< highlight shell >}}
+{
+  "metadata": {
+    "name": "development_filter",
+    "namespace": "default",
+    "labels": null,
+    "annotations": null
+  },
+  "action": "deny",
+  "expressions": [
+    "event.entity.metadata.namespace == 'production'"
+  ],
+  "runtime_assets": []
+}
+{{< /highlight >}}
+response codes  | <ul><li>**Success**: 200 (OK)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+
 ## The `/filters/:filter` API endpoint {#the-filtersfilter-api-endpoint}
 
 ### `/filters/:filter` (GET) {#filtersfilter-get}
@@ -129,5 +160,40 @@ output               | {{< highlight json >}}
   "runtime_assets": []
 }
 {{< /highlight >}}
+
+### `/filters/:filter` (PUT) {#filtersfilter-put}
+
+#### API Specification {#filtersfilter-put-specification}
+
+/filters/:filter (PUT) | 
+----------------|------
+description     | Create or update a Sensu filter.
+example URL     | http://hostname:8080/api/core/v2/namespaces/default/filters/development_filter
+payload         | {{< highlight shell >}}
+{
+  "metadata": {
+    "name": "development_filter",
+    "namespace": "default",
+    "labels": null,
+    "annotations": null
+  },
+  "action": "deny",
+  "expressions": [
+    "event.entity.metadata.namespace == 'production'"
+  ],
+  "runtime_assets": []
+}
+{{< /highlight >}}
+response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+
+### `/filters/:filter` (DELETE) {#filtersfilter-delete}
+
+#### API Specification {#filtersfilter-delete-specification}
+
+/filters/:filter (DELETE) | 
+--------------------------|------
+description               | Removes a filter from Sensu given the filter name.
+example url               | http://hostname:8080/api/core/v2/namespaces/default/filters/state_change_only
+response codes            | <ul><li>**Success**: 202 (Accepted)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 [1]: ../../reference/filters

@@ -9,6 +9,14 @@ menu:
     parent: api
 ---
 
+- [The `/cluster-role-bindings` API endpoint](#the-cluster-role-bindings-api-endpoint)
+	- [`/cluster-role-bindings` (GET)](#cluster-role-bindings-get)
+	- [`/cluster-role-bindings` (POST)](#cluster-role-bindings-post)
+- [The `/cluster-role-bindings/:cluster-role-binding` API endpoint](#the-cluster-role-bindingscluster-role-binding-api-endpoint)
+	- [`/cluster-role-bindings/:cluster-role-binding` (GET)](#cluster-role-bindingscluster-role-binding-get)
+  - [`/cluster-role-bindings/:cluster-role-binding` (PUT)](#cluster-role-bindingscluster-role-binding-put)
+	- [`/cluster-role-bindings/:cluster-role-binding` (DELETE)](#cluster-role-bindingscluster-role-binding-delete)
+
 ## The `/cluster-role-bindings` API endpoint
 
 ### `/cluster-role-bindings` (GET)
@@ -65,6 +73,29 @@ output         | {{< highlight shell >}}
 ]
 {{< /highlight >}}
 
+### `/cluster-role-bindings` (POST)
+
+/cluster-role-bindings (POST) | 
+----------------|------
+description     | Create a Sensu cluster role binding.
+example URL     | http://hostname:8080/api/core/v2/cluster-role-bindings/default/cluster-role-bindings
+payload         | {{< highlight shell >}}
+{
+  "name": "bob-binder",
+  "roleRef": {
+    "type": "ClusterRole",
+    "name": "admin"
+  },
+  "subjects": [
+    {
+      "type": "User",
+      "name": "bob"
+    }
+  ]
+}
+{{< /highlight >}}
+response codes  | <ul><li>**Success**: 200 (OK)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+
 ## The `/cluster-role-bindings/:cluster-role-binding` API endpoint {#the-cluster-role-bindingscluster-role-binding-api-endpoint}
 
 ### `/cluster-role-bindings/:cluster-role-binding` (GET) {#cluster-role-bindingscluster-role-binding-get}
@@ -117,6 +148,41 @@ output               | {{< highlight json >}}
   ]
 }
 {{< /highlight >}}
+
+### `/cluster-role-bindings/:cluster-role-binding` (PUT) {#cluster-role-bindingscluster-role-binding-put}
+
+#### API Specification {#cluster-role-bindingscluster-role-binding-put-specification}
+
+/cluster-role-bindings/:cluster-role-binding (PUT) | 
+----------------|------
+description     | Create or update a Sensu cluster role binding.
+example URL     | http://hostname:8080/api/core/v2/namespaces/default/cluster-role-bindings/bob-binder
+payload         | {{< highlight shell >}}
+{
+  "name": "bob-binder",
+  "roleRef": {
+    "type": "ClusterRole",
+    "name": "admin"
+  },
+  "subjects": [
+    {
+      "type": "User",
+      "name": "bob"
+    }
+  ]
+}
+{{< /highlight >}}
+response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+
+### `/cluster-role-bindings/:cluster-role-binding` (DELETE) {#cluster-role-bindingscluster-role-binding-delete}
+
+#### API Specification {#cluster-role-bindingscluster-role-binding-delete-specification}
+
+/cluster-role-bindings/:cluster-role-binding (DELETE) | 
+--------------------------|------
+description               | Removes a cluster role binding from Sensu given the cluster role binding name.
+example url               | http://hostname:8080/api/core/v2/namespaces/default/cluster-role-bindings/bob-binder
+response codes            | <ul><li>**Success**: 202 (Accepted)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 [1]: ../../reference/rbac
 

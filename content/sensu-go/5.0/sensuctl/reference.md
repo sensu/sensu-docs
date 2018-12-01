@@ -234,12 +234,11 @@ cat my-resources.json | sensuctl create
 |sensuctl create types |   |   |   |
 --------------------|---|---|---|
 `AdhocRequest` | `adhoc_request` | `Asset` | `asset`
-`Check` | `check` | `CheckConfig` | `check_config`
-`ClusterRole`  | `cluster-role`  | `ClusterRoleBinding`  | `cluster-role-binding`  
-`Entity` | `entity` | `Event` | `event`
-`EventFilter` | `event_filter` | `Extension` | `extension`
+`CheckConfig` | `check_config` | `ClusterRole`  | `cluster-role`
+`ClusterRoleBinding`  | `cluster-role-binding` | `Entity` | `entity`
+`Event` | `event` | `EventFilter` | `event_filter`
 `Handler` | `handler` | `Hook` | `hook`
-`HookConfig` | `hook_config`  | `Mutator` | `mutator`
+`HookConfig` | `hook_config` | `Mutator` | `mutator`
 `Namespace` | `namespace` | `Role` | `role`
 `RoleBinding` | `role-binding` | `Silenced` | `silenced`
 
@@ -259,10 +258,9 @@ sensuctl edit handler slack
 |sensuctl edit types |   |   |   |
 --------------------|---|---|---|
 `asset` | `check` | `cluster` | `cluster-role`
-`cluster-role-binding` | `entity` | `event` | `extension`
-`filter` | `handler` | `hook` | `mutator`
-`namespace` | `role` | `role-binding` | `silenced`
-`user` | 
+`cluster-role-binding` | `entity` | `event` | `filter`
+`handler` | `hook` | `mutator` | `namespace`
+`role` | `role-binding` | `silenced` | `user`
 
 ## Managing resources
 
@@ -275,7 +273,6 @@ Sensuctl provides the following commands to manage Sensu resources.
 - [`sensuctl cluster-role-binding`][1]
 - [`sensuctl entity`][14]
 - [`sensuctl event`][15]
-- `sensuctl extension`
 - [`sensuctl filter`][16]
 - [`sensuctl handler`][17]
 - [`sensuctl hook`][18]
@@ -372,28 +369,6 @@ For example, the following command manually resolves an event created by the ent
 
 {{< highlight shell >}}
 sensuctl event resolve webserver1 check-http
-{{< /highlight >}}
-
-#### sensuctl extension
-
-Sensuctl lets you manage Sensu extensions.
-
-To list extensions:
-
-{{< highlight shell >}}
-sensuctl extension list
-{{< /highlight >}}
-
-To register an extension:
-
-{{< highlight shell >}}
-sensuctl extension register NAME URL
-{{< /highlight >}}
-
-To deregister an extension:
-
-{{< highlight shell >}}
-sensuctl extension deregister NAME
 {{< /highlight >}}
 
 #### sensuctl namespace

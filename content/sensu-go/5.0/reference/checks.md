@@ -151,9 +151,8 @@ independently of the check configuration.
 
 Round-robin checks, which allow checks to be executed on a single entity within
 a subscription in a round-robin fashion, were configured via the client
-subscriptions in [Sensu 1][12]. Prepending `roundrobin:` in front of
-subscriptions is no longer required in Sensu 2 since round-robin can now be
-enabled directly with the [round_robin][13] attribute in the check configuration.
+subscriptions in [Sensu 1][12].
+Round robin checks are not yet supported in Sensu 5.0.
 
 ## Check specification
 
@@ -304,7 +303,7 @@ example      | {{< highlight shell >}}"check_hooks": [
 
 |proxy_entity_name|   |
 -------------|------
-description  | The check ID, used to create a [proxy entity][18] for an external resource (i.e., a network switch).
+description  | The check ID, used to create a [proxy entity][20] for an external resource (i.e., a network switch).
 required     | false
 type         | String
 validated    | [`\A[\w\.\-]+\z`](https://regex101.com/r/zo9mQU/2)
@@ -316,13 +315,6 @@ description  | A [Sensu Proxy Requests][10], representing Sensu entity attribute
 required     | false
 type         | Hash
 example      | {{< highlight shell >}}"proxy_requests": {}{{< /highlight >}}
-
-|round_robin |      |
--------------|------
-description  | If the check should be executed on a single entity within a subscription in a [round-robin fashion][19].
-required     | false
-type         | Boolean
-example      | {{< highlight shell >}}"round_robin": false{{< /highlight >}}
 
 |silenced    |      |
 -------------|------
@@ -451,7 +443,6 @@ example      | {{< highlight shell >}}"splay_coverage": 65{{< /highlight >}}
     "stdin": false,
     "ttl": 0,
     "timeout": 0,
-    "round_robin": false,
     "output_metric_format": "graphite_plaintext",
     "output_metric_handlers": [
       "influx-db"
@@ -467,21 +458,19 @@ example      | {{< highlight shell >}}"splay_coverage": 65{{< /highlight >}}
 [4]: #check-commands
 [5]: ../tokens
 [6]: ../hooks/
-[7]: ../../../1.2/reference/checks/#standalone-checks
+[7]: /sensu-core/latest/reference/checks/#standalone-checks
 [8]: ../rbac
 [9]: ../assets
 [10]: #proxy-requests-attributes
-[11]: #
-[12]: ../../../1.2/reference/clients/#round-robin-client-subscriptions
+[11]: ../sensu-query-expressions
+[12]: /sensu-core/latest/reference/clients/#round-robin-client-subscriptions
 [13]: #check-attributes
 [14]: https://en.wikipedia.org/wiki/Cron#CRON_expression
 [15]: https://godoc.org/github.com/robfig/cron#hdr-Predefined_schedules
 [16]: https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/3/en/flapping.html
 [17]: #subdue-attributes
-[18]: #
-[19]: #round-robin-checks
-[20]: #../entities/#proxy_entities
-[21]: #../entities/#entity_attributes
+[20]: ../entities/#proxy_entities
+[21]: ../entities/#spec-attributes
 [22]: ../../reference/sensuctl/#time-windows
 [22]: ../../reference/sensuctl/#time-windows
 [23]: ../../guides/extract-metrics-with-checks/

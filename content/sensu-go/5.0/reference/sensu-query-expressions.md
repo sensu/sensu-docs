@@ -1,5 +1,6 @@
 ---
-title: "Sensu Query Expressions"
+title: "Sensu query expressions"
+linkTitle: "Sensu Query Expressions"
 description: "The Sensu query expressions reference guide."
 weight: 1
 version: "5.0"
