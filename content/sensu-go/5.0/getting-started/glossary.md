@@ -34,7 +34,7 @@ You can interact with the backend using the API, command line, and dashboard int
 #### Check
 A recurring check run by the agent to determine the state of a system component or collect metrics.
 The backend is responsible for storing check definitions, scheduling checks, and processing event data.
-Check definitions specify the command to be executed, an interval for execution, one or more subscriptions, and one or more handlers that will process the resulting event data.
+Check definitions specify the command to be executed, an interval for execution, one or more subscriptions, and one or more handlers to process the resulting event data.
 [Read more.][3]
 
 #### Check hook

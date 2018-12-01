@@ -21,7 +21,7 @@ menu:
 
 ## How does silencing work?
 Silencing entries are created on an ad-hoc basis via `sensuctl`. When silencing
-entries are successfully created, they are assigned an `ID` in the format
+entries are successfully created, they are assigned a `name` in the format
 `$SUBSCRIPTION:$CHECK`, where `$SUBSCRIPTION` is the name of a Sensu entity
 subscription and `$CHECK` is the name of a Sensu check. Silencing entries can be
 used to silence checks on specific entities by taking advantage of per-entity
