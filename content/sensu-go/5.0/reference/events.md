@@ -84,6 +84,7 @@ example      | {{< highlight shell >}}
       {
         "executed": 1522100915
       }
+    ],
     "command": "http_check.sh http://localhost:80",
     "handlers": [
       "slack"
