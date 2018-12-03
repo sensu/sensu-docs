@@ -169,7 +169,7 @@ Usage:
 General Flags:
       --agent-host string               agent listener host (default "[::]")
       --agent-port int                  agent listener port (default 8081)
-      --api-listen-address string       api daemon listen address (default "[::]8080")
+      --api-listen-address string       api daemon listen address (default "[::]:8080")
       --api-url string                  http api URL (default http://localhost:8080)
       --cert-file string                tls certificate
   -c, --config-file string              path to sensu-backend config file
