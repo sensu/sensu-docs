@@ -234,14 +234,13 @@ cat my-resources.json | sensuctl create
 |sensuctl create types |   |   |   |
 --------------------|---|---|---|
 `AdhocRequest` | `adhoc_request` | `Asset` | `asset`
-`Check` | `check` | `CheckConfig` | `check_config`
-`ClusterRole`  | `cluster-role`  | `ClusterRoleBinding`  | `cluster-role-binding`  
-`Entity` | `entity` | `Event` | `event`
-`EventFilter` | `event_filter` | `Handler` | `handler`
-`Hook` | `hook` | `HookConfig` | `hook_config`
-`Mutator` | `mutator` | `Namespace` | `namespace`
-`Role` | `role` | `RoleBinding` | `role-binding`
-`Silenced` | `silenced`
+`CheckConfig` | `check_config` | `ClusterRole`  | `cluster-role`
+`ClusterRoleBinding`  | `cluster-role-binding` | `Entity` | `entity`
+`Event` | `event` | `EventFilter` | `event_filter`
+`Handler` | `handler` | `Hook` | `hook`
+`HookConfig` | `hook_config` | `Mutator` | `mutator`
+`Namespace` | `namespace` | `Role` | `role`
+`RoleBinding` | `role-binding` | `Silenced` | `silenced`
 
 ## Editing resources
 

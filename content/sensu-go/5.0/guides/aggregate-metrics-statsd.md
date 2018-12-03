@@ -1,7 +1,7 @@
 ---
-title: "How to aggregate metrics with the StatsD listener"
-linkTitle: "Aggregating Metrics with StatsD"
-weight: 120
+title: "How to aggregate metrics with the Sensu StatsD listener"
+linkTitle: "Aggregating StatsD Metrics"
+weight: 30
 version: "5.0"
 product: "Sensu Go"
 platformContent: false
@@ -27,8 +27,8 @@ multiple different backends to store or visualize the data.
 
 ## How does Sensu implement StatsD?
 
-Sensu implements a StatsD listener on its agents. Each `sensu-agent` will
-listen on the default port 8125 for UDP messages which follow the StatsD line
+Sensu implements a StatsD listener on its agents. Each `sensu-agent`
+listens on the default port 8125 for UDP messages which follow the StatsD line
 protocol. StatsD aggregates the metrics, and Sensu translates them to Sensu
 metrics and events to be passed to the event pipeline. The listener is
 configurable (see [Configuring the StatsD listener](#configuring-the-statsd-listener))

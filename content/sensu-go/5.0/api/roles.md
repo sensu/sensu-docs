@@ -8,6 +8,14 @@ menu:
     parent: api
 ---
 
+- [The `/roles` API endpoint](#the-roles-api-endpoint)
+	- [`/roles` (GET)](#roles-get)
+	- [`/roles` (POST)](#roles-post)
+- [The `/roles/:role` API endpoint](#the-rolesrole-api-endpoint)
+	- [`/roles/:role` (GET)](#rolesrole-get)
+  - [`/roles/:role` (PUT)](#rolesrole-put)
+  - [`/roles/:role` (DELETE)](#rolesrole-delete)
+
 ## The `/roles` API endpoint
 
 ### `/roles` (GET)
@@ -92,6 +100,28 @@ output         | {{< highlight shell >}}
 ]
 {{< /highlight >}}
 
+### `/roles` (POST)
+
+/roles (POST) | 
+----------------|------
+description     | Create a Sensu role.
+example URL     | http://hostname:8080/api/core/v2/roles/default/roles
+payload         | {{< highlight shell >}}
+{
+  "name": "read-only",
+  "rules": [
+    {
+      "type": "*",
+      "permissions": [
+        "read"
+      ],
+      "namespace": "*"
+    }
+  ]
+}
+{{< /highlight >}}
+response codes  | <ul><li>**Success**: 200 (OK)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+
 ## The `/roles/:role` API endpoint {#the-rolesrole-api-endpoint}
 
 ### `/roles/:role` (GET) {#rolesrole-get}
@@ -142,5 +172,39 @@ output               | {{< highlight json >}}
   ]
 }
 {{< /highlight >}}
+
+### `/roles/:role` (PUT) {#rolesrole-put}
+
+#### API Specification {#rolesrole-put-specification}
+
+/roles/:role (PUT) | 
+----------------|------
+description     | Create or update a Sensu role.
+example URL     | http://hostname:8080/api/core/v2/namespaces/default/roles/ready-only
+payload         | {{< highlight shell >}}
+{
+  "name": "read-only",
+  "rules": [
+    {
+      "type": "*",
+      "permissions": [
+        "read"
+      ],
+      "namespace": "*"
+    }
+  ]
+}
+{{< /highlight >}}
+response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+
+### `/roles/:role` (DELETE) {#rolesrole-delete}
+
+#### API Specification {#rolesrole-delete-specification}
+
+/roles/:role (DELETE) | 
+--------------------------|------
+description               | Removes a role from Sensu given the role name.
+example url               | http://hostname:8080/api/core/v2/namespaces/default/roles/ready-only
+response codes            | <ul><li>**Success**: 202 (Accepted)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 [1]: ../../reference/rbac

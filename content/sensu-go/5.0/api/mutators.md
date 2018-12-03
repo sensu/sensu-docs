@@ -8,6 +8,14 @@ menu:
     parent: api
 ---
 
+- [The `/mutators` API endpoint](#the-mutators-api-endpoint)
+	- [`/mutators` (GET)](#mutators-get)
+	- [`/mutators` (POST)](#mutators-post)
+- [The `/mutators/:mutator` API endpoint](#the-mutatorsmutator-api-endpoint)
+	- [`/mutators/:mutator` (GET)](#mutatorsmutator-get)
+  - [`/mutators/:mutator` (PUT)](#mutatorsmutator-put)
+  - [`/mutators/:mutator` (DELETE)](#mutatorsmutator-delete)
+
 ## The `/mutators` API endpoint
 
 ### `/mutators` (GET)
@@ -62,6 +70,28 @@ output         | {{< highlight shell >}}
 ]
 {{< /highlight >}}
 
+### `/mutators` (POST)
+
+/mutators (POST) | 
+----------------|------
+description     | Create a Sensu mutator.
+example URL     | http://hostname:8080/api/core/v2/namespaces/default/mutators
+payload         | {{< highlight shell >}}
+{
+  "metadata": {
+    "name": "example-mutator",
+    "namespace": "default",
+    "labels": null,
+    "annotations": null
+  },
+  "command": "example_mutator.go",
+  "timeout": 0,
+  "env_vars": [],
+  "runtime_assets": []
+}
+{{< /highlight >}}
+response codes  | <ul><li>**Success**: 200 (OK)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+
 ## The `/mutators/:mutator` API endpoint {#the-mutatorsmutator-api-endpoint}
 
 ### `/mutators/:mutator` (GET) {#mutatorsmutator-get}
@@ -112,6 +142,40 @@ output               | {{< highlight json >}}
   "runtime_assets": []
 }
 {{< /highlight >}}
+
+### `/mutators/:mutator` (PUT) {#mutatorsmutator-put}
+
+#### API Specification {#mutatorsmutator-put-specification}
+
+/mutators/:mutator (PUT) | 
+----------------|------
+description     | Create or update a Sensu mutator.
+example URL     | http://hostname:8080/api/core/v2/namespaces/default/mutators/example-mutator
+payload         | {{< highlight shell >}}
+{
+  "metadata": {
+    "name": "example-mutator",
+    "namespace": "default",
+    "labels": null,
+    "annotations": null
+  },
+  "command": "example_mutator.go",
+  "timeout": 0,
+  "env_vars": [],
+  "runtime_assets": []
+}
+{{< /highlight >}}
+response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+
+### `/mutators/:mutator` (DELETE) {#mutatorsmutator-delete}
+
+#### API Specification {#mutatorsmutator-delete-specification}
+
+/mutators/:mutator (DELETE) | 
+--------------------------|------
+description               | Removes a mutator from Sensu given the mutator name.
+example url               | http://hostname:8080/api/core/v2/namespaces/default/mutators/example-mutator
+response codes            | <ul><li>**Success**: 202 (Accepted)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 [1]: ../../reference/mutators
 

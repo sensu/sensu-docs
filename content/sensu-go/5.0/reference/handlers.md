@@ -359,8 +359,8 @@ The following example handler will execute three handlers: `slack`,
 [1]: ../checks/
 [2]: https://en.wikipedia.org/wiki/Standard_streams
 [3]: ../events/
-[4]: ../../../1.2/reference/handlers/#the-default-handler
-[5]: ../../../1.2/reference/handlers/#transport-handlers
+[4]: /sensu-core/latest/reference/handlers/#the-default-handler
+[5]: /sensu-core/latest/reference/handlers/#transport-handlers
 [6]: #socket-attributes
 [7]: ../assets
 [8]: #metadata-attributes

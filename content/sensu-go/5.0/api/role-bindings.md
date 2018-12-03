@@ -9,6 +9,14 @@ menu:
     parent: api
 ---
 
+- [The `/role-bindings` API endpoint](#the-role-bindings-api-endpoint)
+	- [`/role-bindings` (GET)](#role-bindings-get)
+	- [`/role-bindings` (POST)](#role-bindings-post)
+- [The `/role-bindings/:role-binding` API endpoint](#the-role-bindingsrole-binding-api-endpoint)
+	- [`/role-bindings/:role-binding` (GET)](#role-bindingsrole-binding-get)
+  - [`/role-bindings/:role-binding` (PUT)](#role-bindingsrole-binding-put)
+  - [`/role-bindings/:role-binding` (DELETE)](#role-bindingsrole-binding-delete)
+
 ## The `/role-bindings` API endpoint
 
 ### `/role-bindings` (GET)
@@ -67,6 +75,30 @@ output         | {{< highlight shell >}}
 ]
 {{< /highlight >}}
 
+### `/role-bindings` (POST)
+
+/role-bindings (POST) | 
+----------------|------
+description     | Create a Sensu role binding.
+example URL     | http://hostname:8080/api/core/v2/role-bindings/default/role-bindings
+payload         | {{< highlight shell >}}
+{
+  "name": "alice-binder",
+  "namespace": "default",
+  "roleRef": {
+    "type": "Role",
+    "name": "event-reader"
+  },
+  "subjects": [
+    {
+      "type": "User",
+      "name": "alice"
+    }
+  ]
+}
+{{< /highlight >}}
+response codes  | <ul><li>**Success**: 200 (OK)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+
 ## The `/role-bindings/:role-binding` API endpoint {#the-role-bindingsrole-binding-api-endpoint}
 
 ### `/role-bindings/:role-binding` (GET) {#role-bindingsrole-binding-get}
@@ -121,5 +153,41 @@ output               | {{< highlight json >}}
   ]
 }
 {{< /highlight >}}
+
+### `/role-bindings/:role-binding` (PUT) {#role-bindingsrole-binding-put}
+
+#### API Specification {#role-bindingsrole-binding-put-specification}
+
+/role-bindings/:role-binding (PUT) | 
+----------------|------
+description     | Create or update a Sensu role binding.
+example URL     | http://hostname:8080/api/core/v2/namespaces/default/role-bindings/alice-binder
+payload         | {{< highlight shell >}}
+{
+  "name": "alice-binder",
+  "namespace": "default",
+  "roleRef": {
+    "type": "Role",
+    "name": "event-reader"
+  },
+  "subjects": [
+    {
+      "type": "User",
+      "name": "alice"
+    }
+  ]
+}
+{{< /highlight >}}
+response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+
+### `/role-bindings/:role-binding` (DELETE) {#role-bindingsrole-binding-delete}
+
+#### API Specification {#role-bindingsrole-binding-delete-specification}
+
+/role-bindings/:role-binding (DELETE) | 
+--------------------------|------
+description               | Removes a role binding from Sensu given the role binding name.
+example url               | http://hostname:8080/api/core/v2/namespaces/default/role-bindings/alice-binder
+response codes            | <ul><li>**Success**: 202 (Accepted)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 [1]: ../../reference/rbac

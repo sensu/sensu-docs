@@ -8,6 +8,14 @@ menu:
     parent: api
 ---
 
+- [The `/hooks` API endpoint](#the-hooks-api-endpoint)
+	- [`/hooks` (GET)](#hooks-get)
+	- [`/hooks` (POST)](#hooks-post)
+- [The `/hooks/:hook` API endpoint](#the-hookshook-api-endpoint)
+	- [`/hooks/:hook` (GET)](#hookshook-get)
+  - [`/hooks/:hook` (PUT)](#hookshook-put)
+  - [`/hooks/:hook` (DELETE)](#hookshook-delete)
+
 ## The `/hooks` API endpoint
 
 ### `/hooks` (GET)
@@ -71,6 +79,27 @@ output         | {{< highlight shell >}}
 ]
 {{< /highlight >}}
 
+### `/hooks` (POST)
+
+/hooks (POST) | 
+----------------|------
+description     | Create a Sensu hook.
+example URL     | http://hostname:8080/api/core/v2/namespaces/default/hooks
+payload         | {{< highlight shell >}}
+{
+  "metadata": {
+    "name": "process-tree",
+    "namespace": "default",
+    "labels": null,
+    "annotations": null
+  },
+  "command": "ps aux",
+  "timeout": 10,
+  "stdin": false
+}
+{{< /highlight >}}
+response codes  | <ul><li>**Success**: 200 (OK)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+
 ## The `/hooks/:hook` API endpoint {#the-hookshook-api-endpoint}
 
 ### `/hooks/:hook` (GET) {#hookshook-get}
@@ -119,5 +148,38 @@ output               | {{< highlight json >}}
   "stdin": false
 }
 {{< /highlight >}}
+
+### `/hooks/:hook` (PUT) {#hookshook-put}
+
+#### API Specification {#hookshook-put-specification}
+
+/hooks/:hook (PUT) | 
+----------------|------
+description     | Create or update a Sensu hook.
+example URL     | http://hostname:8080/api/core/v2/namespaces/default/hooks/process-tree
+payload         | {{< highlight shell >}}
+{
+  "metadata": {
+    "name": "process-tree",
+    "namespace": "default",
+    "labels": null,
+    "annotations": null
+  },
+  "command": "ps aux",
+  "timeout": 10,
+  "stdin": false
+}
+{{< /highlight >}}
+response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+
+### `/hooks/:hook` (DELETE) {#hookshook-delete}
+
+#### API Specification {#hookshook-delete-specification}
+
+/hooks/:hook (DELETE) | 
+--------------------------|------
+description               | Removes a hook from Sensu given the hook name.
+example url               | http://hostname:8080/api/core/v2/namespaces/default/hooks/process-tree
+response codes            | <ul><li>**Success**: 202 (Accepted)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 [1]: ../../reference/hooks

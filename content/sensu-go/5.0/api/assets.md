@@ -8,6 +8,13 @@ menu:
     parent: api
 ---
 
+- [The `/assets` API endpoint](#the-assets-api-endpoint)
+	- [`/assets` (GET)](#assets-get)
+	- [`/assets` (POST)](#assets-post)
+- [The `/assets/:asset` API endpoint](#the-assetsasset-api-endpoint)
+	- [`/assets/:asset` (GET)](#assetsasset-get)
+  - [`/assets/:asset` (PUT)](#assetsasset-put)
+
 ## The `/assets` API endpoint
 
 ### `/assets` (GET)
@@ -68,6 +75,26 @@ output         | {{< highlight shell >}}
 ]
 {{< /highlight >}}
 
+### `/assets` (POST)
+
+/assets (POST) | 
+----------------|------
+description     | Create a Sensu asset.
+example URL     | http://hostname:8080/api/core/v2/namespaces/default/assets
+payload         | {{< highlight shell >}}
+{
+  "url": "http://example.com/asset1.tar.gz",
+  "sha512": "4f926bf4328fbad2b9cac873d117f771914f4b837c9c85584c38ccf55a3ef3c2e8d154812246e5dda4a87450576b2c58ad9ab40c9e2edc31b288d066b195b21b",
+  "metadata": {
+    "name": "check_script1",
+    "namespace": "default",
+    "labels": null,
+    "annotations": null
+  }
+}
+{{< /highlight >}}
+response codes  | <ul><li>**Success**: 200 (OK)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+
 ## The `/assets/:asset` API endpoint {#the-assetsasset-api-endpoint}
 
 ### `/assets/:asset` (GET) {#assetsasset-get}
@@ -122,5 +149,27 @@ output               | {{< highlight json >}}
   }
 }
 {{< /highlight >}}
+
+### `/assets/:asset` (PUT) {#assetsasset-put}
+
+#### API Specification {#assetsasset-put-specification}
+
+/assets/:asset (PUT) | 
+----------------|------
+description     | Create or update a Sensu asset.
+example URL     | http://hostname:8080/api/core/v2/namespaces/default/assets/check_script
+payload         | {{< highlight shell >}}
+{
+  "url": "http://example.com/asset1.tar.gz",
+  "sha512": "4f926bf4328fbad2b9cac873d117f771914f4b837c9c85584c38ccf55a3ef3c2e8d154812246e5dda4a87450576b2c58ad9ab40c9e2edc31b288d066b195b21b",
+  "metadata": {
+    "name": "check_script1",
+    "namespace": "default",
+    "labels": null,
+    "annotations": null
+  }
+}
+{{< /highlight >}}
+response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 [1]: ../../reference/assets

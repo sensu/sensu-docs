@@ -21,7 +21,7 @@ The [Puppet][1] Sensu module can be found on the [GitHub][2].
 Sensu has partnered with [Learn Puppet][7] to enhance the Puppet module with new features and bug fixes.
 
 ### Chef
-The [Chef][3] cookbook for Sensu can be found on the [GitHub][4]. Interested in more information on Sensu + Chef? Get some helpful assets [here][12].
+The [Chef][3] cookbook for Sensu can be found on the [GitHub][4]. Interested in more information on Sensu + Chef? Get some helpful resources [here][12].
 
 [1]: https://puppet.com/
 [2]: https://github.com/sensu/sensu-puppet

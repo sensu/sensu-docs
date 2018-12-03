@@ -8,6 +8,10 @@ menu:
     parent: api
 ---
 
+- [The `/events` API endpoint](#the-events-api-endpoint)
+	- [`/events` (GET)](#events-get)
+	- [`/events` (POST)](#events-post)
+
 ## The `/events` API endpoint
 
 ### `/events` (GET)
@@ -35,6 +39,44 @@ curl -s http://127.0.0.1:8080/api/core/v2/namespaces/default/events -H "Authoriz
         "testing",
         "entity:webserver01"
       ],
+      "metadata": {
+        "name": "check-nginx",
+        "namespace": "default",
+        "labels": null,
+        "annotations": null
+      }
+    },
+    "check": {
+      "check_hooks": null,
+      "duration": 2.033888684,
+      "command": "http_check.sh http://localhost:80",
+      "handlers": [
+        "slack"
+      ],
+      "high_flap_threshold": 0,
+      "interval": 20,
+      "low_flap_threshold": 0,
+      "publish": true,
+      "runtime_assets": [],
+      "subscriptions": [
+        "testing"
+      ],
+      "proxy_entity_name": "",
+      "check_hooks": null,
+      "stdin": false,
+      "ttl": 0,
+      "timeout": 0,
+      "duration": 0.010849143,
+      "output": "",
+      "state": "failing",
+      "status": 1,
+      "total_state_change": 0,
+      "last_ok": 0,
+      "occurrences": 1,
+      "occurrences_watermark": 1,
+      "output_metric_format": "",
+      "output_metric_handlers": [],
+      "env_vars": null,
       "metadata": {
         "name": "check-nginx",
         "namespace": "default",
@@ -75,10 +117,117 @@ output         | {{< highlight shell >}}
         "labels": null,
         "annotations": null
       }
+    },
+    "check": {
+      "check_hooks": null,
+      "duration": 2.033888684,
+      "command": "http_check.sh http://localhost:80",
+      "handlers": [
+        "slack"
+      ],
+      "high_flap_threshold": 0,
+      "interval": 20,
+      "low_flap_threshold": 0,
+      "publish": true,
+      "runtime_assets": [],
+      "subscriptions": [
+        "testing"
+      ],
+      "proxy_entity_name": "",
+      "check_hooks": null,
+      "stdin": false,
+      "ttl": 0,
+      "timeout": 0,
+      "duration": 0.010849143,
+      "output": "",
+      "state": "failing",
+      "status": 1,
+      "total_state_change": 0,
+      "last_ok": 0,
+      "occurrences": 1,
+      "occurrences_watermark": 1,
+      "output_metric_format": "",
+      "output_metric_handlers": [],
+      "env_vars": null,
+      "metadata": {
+        "name": "check-nginx",
+        "namespace": "default",
+        "labels": null,
+        "annotations": null
+      }
     }
   }
 ]
 {{< /highlight >}}
+
+### `/events` (POST)
+
+/events (POST) | 
+----------------|------
+description     | Create a Sensu event.
+example URL     | http://hostname:8080/api/core/v2/namespaces/default/events
+payload         | {{< highlight shell >}}
+{
+  "timestamp": 1542667666,
+  "entity": {
+    "entity_class": "agent",
+    "system": {
+      "hostname": "webserver01",
+      "...": "...",
+      "arch": "amd64"
+    },
+    "subscriptions": [
+      "testing",
+      "entity:webserver01"
+    ],
+    "metadata": {
+      "name": "check-nginx",
+      "namespace": "default",
+      "labels": null,
+      "annotations": null
+    }
+  },
+  "check": {
+    "check_hooks": null,
+    "duration": 2.033888684,
+    "command": "http_check.sh http://localhost:80",
+    "handlers": [
+      "slack"
+    ],
+    "high_flap_threshold": 0,
+    "interval": 20,
+    "low_flap_threshold": 0,
+    "publish": true,
+    "runtime_assets": [],
+    "subscriptions": [
+      "testing"
+    ],
+    "proxy_entity_name": "",
+    "check_hooks": null,
+    "stdin": false,
+    "ttl": 0,
+    "timeout": 0,
+    "duration": 0.010849143,
+    "output": "",
+    "state": "failing",
+    "status": 1,
+    "total_state_change": 0,
+    "last_ok": 0,
+    "occurrences": 1,
+    "occurrences_watermark": 1,
+    "output_metric_format": "",
+    "output_metric_handlers": [],
+    "env_vars": null,
+    "metadata": {
+      "name": "check-nginx",
+      "namespace": "default",
+      "labels": null,
+      "annotations": null
+    }
+  }
+}
+{{< /highlight >}}
+response codes  | <ul><li>**Success**: 200 (OK)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 [1]: ../../reference/events
 
