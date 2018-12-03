@@ -19,7 +19,9 @@ menu:
 ### Blog posts
 
 - [Greg Schofield - Sensu Habitat Core Plans are Here](https://blog.chef.io/2018/08/22/guest-post-sensu-habitat-core-plans-are-here/)
-- [Anna Plotkin - Announcing the Sensu roadmap](https://blog.sensu.io/announcing-the-sensu-roadmap-sensu-go-release-date)
+- [Nikki Attea - Check output metric extraction with InfluxDB & Grafana](http://blog.sensu.io/check-output-metric-extraction-with-influxdb-grafana)
+- [Jef Spaleta - Migrating to 5.0](https://blog.sensu.io/migrating-to-2.0-the-good-the-bad-the-ugly)
+- [Anna Plotkin - Sensu Go is here!](https://blog.sensu.io/sensu-go-is-here)
 
 ### Tutorials
 
