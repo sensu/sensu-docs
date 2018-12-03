@@ -11,9 +11,10 @@ menu:
 - [The `/silenced` API endpoint](#the-silenced-api-endpoint)
 	- [`/silenced` (GET)](#silenced-get)
 	- [`/silenced` (POST)](#silenced-post)
-	- [`/silenced` (PUT)](#silenced-put)
 - [The `/silenced/:silenced` API endpoint](#the-silencedsilenced-api-endpoint)
 	- [`/silenced/:silenced` (GET)](#silencedsilenced-get)
+  - [`/silenced/:silenced` (PUT)](#silencedsilenced-put)
+  - [`/silenced/:silenced` (DELETE)](#silencedsilenced-delete)
 
 ## The `/silenced` API endpoint
 
@@ -94,29 +95,6 @@ payload         | {{< highlight shell >}}
 {{< /highlight >}}
 response codes  | <ul><li>**Success**: 200 (OK)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
-### `/silenced` (PUT)
-
-/silenced (PUT) | 
-----------------|------
-description     | Create or update a Sensu silencing entry.
-example URL     | http://hostname:8080/api/core/v2/namespaces/default/silenced
-payload         | {{< highlight shell >}}
-{
-  "metadata": {
-    "name": "linux:check-cpu",
-    "namespace": "default",
-    "labels": null,
-    "annotations": null
-  },
-  "expire": -1,
-  "expire_on_resolve": false,
-  "creator": "admin",
-  "subscription": "linux",
-  "begin": 1542671205
-}
-{{< /highlight >}}
-response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-
 ## The `/silenced/:silenced` API endpoint {#the-silencedsilenced-api-endpoint}
 
 ### `/silenced/:silenced` (GET) {#silencedsilenced-get}
@@ -170,6 +148,41 @@ output               | {{< highlight json >}}
   "begin": 1542671205
 }
 {{< /highlight >}}
+
+### `/silenced/:silenced` (PUT) {#silencedsilenced-put}
+
+#### API Specification {#silencedsilenced-put-specification}
+
+/silenced/:silenced (PUT) | 
+----------------|------
+description     | Create or update a Sensu silencing entry.
+example URL     | http://hostname:8080/api/core/v2/namespaces/default/silenced/linux:check-cpu
+payload         | {{< highlight shell >}}
+{
+  "metadata": {
+    "name": "linux:check-cpu",
+    "namespace": "default",
+    "labels": null,
+    "annotations": null
+  },
+  "expire": -1,
+  "expire_on_resolve": false,
+  "creator": "admin",
+  "subscription": "linux",
+  "begin": 1542671205
+}
+{{< /highlight >}}
+response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+
+### `/silenced/:silenced` (DELETE) {#silencedsilenced-delete}
+
+#### API Specification {#silencedsilenced-delete-specification}
+
+/silenced/:silenced (DELETE) | 
+--------------------------|------
+description               | Removes a silencing entry from Sensu given the silencing entry name.
+example url               | http://hostname:8080/api/core/v2/namespaces/default/silenced/linux:check-cpu
+response codes            | <ul><li>**Success**: 202 (Accepted)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 [1]: ../../reference/silencing
 

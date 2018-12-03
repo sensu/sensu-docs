@@ -37,7 +37,7 @@ See the [check specification][6] to configure the `check_hooks` attribute.
 ### Check hooks
 
 The hook command output, status, executed timestamp and duration are captured
-and published in the resulting event. 
+and published in the resulting event.
 
 ## New and improved hooks
 
@@ -170,6 +170,10 @@ example      | {{< highlight shell >}} "annotations": {
 
 Hooks can be used for rudimentary auto-remediation tasks, for example, starting
 a process that is no longer running.
+
+_NOTE: Using hooks for auto-remediation should be approached
+carefully, as they run without regard to the number of event
+occurrences._
 
 {{< highlight json >}}
 {
