@@ -54,12 +54,26 @@ The following are injected into the execution context:
 
 ## Assets specification
 
-### Attributes
+### Top-level attributes
 
-|metadata     |      |
+type         | 
 -------------|------
-description  | Collection of metadata about the asset, including the `name` and `namespace` as well as custom `labels` and `annotations`. See the [metadata attributes reference][5] for details.
-required     | true
+description  | Top-level attribute specifying the [`sensuctl create`][sc] resource type. Assets should always be of type `Asset`.
+required     | Required for asset definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][sc].
+type         | String
+example      | {{< highlight shell >}}"type": "Asset"{{< /highlight >}}
+
+api_version  | 
+-------------|------
+description  | Top-level attribute specifying the Sensu API group and version. For assets in Sensu backend version 5.0, this attribute should always be `core/v2`.
+required     | Required for asset definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][sc].
+type         | String
+example      | {{< highlight shell >}}"api_version": "core/v2"{{< /highlight >}}
+
+metadata     | 
+-------------|------
+description  | Top-level collection of metadata about the asset, including the `name` and `namespace` as well as custom `labels` and `annotations`. The `metadata` map is always at the top level of the asset definition. This means that in `wrapped-json` and `yaml` formats, the `metadata` scope occurs outside the `spec` scope.  See the [metadata attributes reference][5] for details.
+required     | Required for asset definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][sc].
 type         | Map of key-value pairs
 example      | {{< highlight shell >}}"metadata": {
   "name": "check_script",
@@ -71,6 +85,22 @@ example      | {{< highlight shell >}}"metadata": {
     "slack-channel" : "#monitoring"
   }
 }{{< /highlight >}}
+
+spec         | 
+-------------|------
+description  | Top-level map that includes the asset [spec attributes][sp].
+required     | Required for asset definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][sc].
+type         | Map of key-value pairs
+example      | {{< highlight shell >}}"spec": {
+  "url": "http://example.com/asset.tar.gz",
+  "sha512": "4f926bf4328fbad2b9cac873d117f771914f4b837c9c85584c38ccf55a3ef3c2e8d154812246e5dda4a87450576b2c58ad9ab40c9e2edc31b288d066b195b21b",
+  "filters": [
+    "system.os == 'linux'",
+    "system.arch == 'amd64'"
+  ]
+}{{< /highlight >}}
+
+### Spec attributes
 
 url          | 
 -------------|------ 
@@ -91,7 +121,7 @@ filters      |
 description  | A set of [Sensu query expressions][1] used by the agent to determine if the asset should be installed. If multiple expressions are included, each expression must return true in order for the agent to install the asset.
 required     | false 
 type         | Array 
-example      | {{< highlight shell >}}"filters": ["System.OS=='linux'", "System.Arch=='amd64'"] {{< /highlight >}}
+example      | {{< highlight shell >}}"filters": ["system.os=='linux'", "system.arch=='amd64'"] {{< /highlight >}}
 
 ### Metadata attributes
 
@@ -140,22 +170,24 @@ example      | {{< highlight shell >}} "annotations": {
 {{< highlight json >}}
 {
   "type": "Asset",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "check_script",
+    "namespace": "default",
+    "labels": {
+      "region": "us-west-1"
+    },
+    "annotations": {
+      "slack-channel" : "#monitoring"
+    }
+  },
   "spec": {
     "url": "http://example.com/asset.tar.gz",
     "sha512": "4f926bf4328fbad2b9cac873d117f771914f4b837c9c85584c38ccf55a3ef3c2e8d154812246e5dda4a87450576b2c58ad9ab40c9e2edc31b288d066b195b21b",
     "filters": [
       "system.os == 'linux'",
       "system.arch == 'amd64'"
-    ],    "metadata": {
-      "name": "check_script",
-      "namespace": "default",
-      "labels": {
-        "region": "us-west-1"
-      },
-      "annotations": {
-        "slack-channel" : "#monitoring"
-      }
-    }
+    ]
   }
 }
 {{< /highlight >}}
@@ -165,3 +197,5 @@ example      | {{< highlight shell >}} "annotations": {
 [3]: ../filters
 [4]: ../tokens
 [5]: #metadata-attributes
+[sc]: ../../sensuctl/reference#creating-resources
+[sp]: #spec-attributes

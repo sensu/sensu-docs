@@ -84,14 +84,29 @@ built-in `is_incident` filter.
 
 ## Handler specification
 
-### Handler attributes
+### Top-level attributes
 
-|metadata    |      |
+type         | 
 -------------|------
-description  | Collection of metadata about the handler, including the `name` and `namespace` as well as custom `labels` and `annotations`. See the [metadata attributes reference][8] for details.
-required     | true
+description  | Top-level attribute specifying the [`sensuctl create`][sc] resource type. Handlers should always be of type `Handler`.
+required     | Required for handler definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][sc].
+type         | String
+example      | {{< highlight shell >}}"type": "Handler"{{< /highlight >}}
+
+api_version  | 
+-------------|------
+description  | Top-level attribute specifying the Sensu API group and version. For handlers in Sensu backend version 5.0, this attribute should always be `core/v2`.
+required     | Required for handler definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][sc].
+type         | String
+example      | {{< highlight shell >}}"api_version": "core/v2"{{< /highlight >}}
+
+metadata     | 
+-------------|------
+description  | Top-level collection of metadata about the handler, including the `name` and `namespace` as well as custom `labels` and `annotations`. The `metadata` map is always at the top level of the handler definition. This means that in `wrapped-json` and `yaml` formats, the `metadata` scope occurs outside the `spec` scope. See the [metadata attributes reference][8] for details.
+required     | Required for handler definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][sc].
 type         | Map of key-value pairs
-example      | {{< highlight shell >}}"metadata": {
+example      | {{< highlight shell >}}
+"metadata": {
   "name": "handler-slack",
   "namespace": "default",
   "labels": {
@@ -100,7 +115,29 @@ example      | {{< highlight shell >}}"metadata": {
   "annotations": {
     "slack-channel" : "#monitoring"
   }
-}{{< /highlight >}}
+}
+{{< /highlight >}}
+
+spec         | 
+-------------|------
+description  | Top-level map that includes the handler [spec attributes][sp].
+required     | Required for handler definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][sc].
+type         | Map of key-value pairs
+example      | {{< highlight shell >}}
+"spec": {
+  "type": "tcp",
+  "socket": {
+    "host": "10.0.1.99",
+    "port": 4444
+  },
+  "metadata" : {
+    "name": "tcp_handler",
+    "namespace": "default"
+  }
+}
+{{< /highlight >}}
+
+### Spec attributes
 
 type         | 
 -------------|------
@@ -233,13 +270,14 @@ configured webhook URL, using the `handler-slack` executable command.
 {{< highlight json >}}
 {
   "type": "Handler",
+  "api_version": "core/v2",
+  "metadata" : {
+    "name": "slack",
+    "namespace": "default"
+  },
   "spec": {
     "type": "pipe",
-    "command": "handler-slack --webhook-url https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX --channel monitoring",
-    "metadata" : {
-      "name": "slack",
-      "namespace": "default"
-    }
+    "command": "handler-slack --webhook-url https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX --channel monitoring"
   }
 }
 {{< /highlight >}}
@@ -252,6 +290,11 @@ will timeout if an acknowledgement (`ACK`) is not received within 30 seconds.
 {{< highlight json >}}
 {
   "type": "Handler",
+  "api_version": "core/v2",
+  "metadata" : {
+    "name": "tcp_handler",
+    "namespace": "default"
+  },
   "spec": {
     "type": "tcp",
     "socket": {
@@ -274,15 +317,16 @@ The following example will also forward event data but to UDP socket instead
 {{< highlight json >}}
 {
   "type": "Handler",
+  "api_version": "core/v2",
+  "metadata" : {
+    "name": "udp_handler",
+    "namespace": "default"
+  },
   "spec": {
     "type": "udp",
     "socket": {
       "host": "10.0.1.99",
       "port": 4444
-    },
-    "metadata" : {
-      "name": "udp_handler",
-      "namespace": "default"
     }
   }
 }
@@ -296,17 +340,18 @@ The following example handler will execute three handlers: `slack`,
 {{< highlight json >}}
 {
   "type": "Handler",
+  "api_version": "core/v2",
+  "metadata" : {
+    "name": "notify_all_the_things",
+    "namespace": "default"
+  },
   "spec": {
     "type": "set",
     "handlers": [
       "slack",
       "tcp_handler",
       "udp_handler"
-    ],
-    "metadata" : {
-      "name": "notify_all_the_things",
-      "namespace": "default"
-    }
+    ]
   }
 }
 {{< /highlight >}}
@@ -314,11 +359,13 @@ The following example handler will execute three handlers: `slack`,
 [1]: ../checks/
 [2]: https://en.wikipedia.org/wiki/Standard_streams
 [3]: ../events/
-[4]: ../../../1.2/reference/handlers/#the-default-handler
-[5]: ../../../1.2/reference/handlers/#transport-handlers
+[4]: /sensu-core/latest/reference/handlers/#the-default-handler
+[5]: /sensu-core/latest/reference/handlers/#transport-handlers
 [6]: #socket-attributes
 [7]: ../assets
 [8]: #metadata-attributes
 [9]: ../rbac#namespaces
 [10]: ../filters
 [11]: ../tokens
+[sc]: ../../sensuctl/reference#creating-resources
+[sp]: #spec-attributes

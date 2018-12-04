@@ -101,15 +101,17 @@ To use the incidents filter, include the `is_incident` filter in the handler con
 {{< highlight json >}}
 {
   "type": "Handler",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "slack",
+    "namespace": "default"
+  },
   "spec": {
     "type": "pipe",
     "command": "slack-handler --webhook-url https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX --channel monitoring",
     "filters": [
       "is_incident"
-    ],
-    "metadata": {
-      "name": "slack"
-    }
+    ]
   }
 }
 {{< /highlight >}}
@@ -133,16 +135,18 @@ To allow silencing for an event handler, add the `not_silenced` filter to the ha
 {{< highlight json >}}
 {
   "type": "Handler",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "slack",
+    "namespace": "default"
+  },
   "spec": {
     "type": "pipe",
     "command": "slack-handler --webhook-url https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX --channel monitoring",
     "filters": [
       "is_incident",
       "not_silenced"
-    ],
-    "metadata": {
-      "name": "slack"
-    }
+    ]
   }
 }
 {{< /highlight >}}
@@ -160,15 +164,17 @@ To use the metrics filter, include the `has_metrics` filter in the handler confi
 {{< highlight json >}}
 {
   "type": "Handler",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "slack",
+    "namespace": "default"
+  },
   "spec": {
     "type": "pipe",
     "command": "sensu-influxdb-handler --addr 'http://123.4.5.6:8086' --db-name 'myDB' --username 'foo' --password 'bar'",
     "filters": [
       "has_metrics"
-    ],
-    "metadata": {
-      "name": "slack"
-    }
+    ]
   }
 }
 {{< /highlight >}}
@@ -177,14 +183,29 @@ When applied to a handler configuration, the `has_metrics` filter allows only ev
 
 ## Filter specification
 
-### Filter attributes
+### Top-level attributes
 
-|metadata    |      |
+type         | 
 -------------|------
-description  | Collection of metadata about the filter, including the `name` and `namespace` as well as custom `labels` and `annotations`. See the [metadata attributes reference][11] for details.
-required     | true
+description  | Top-level attribute specifying the [`sensuctl create`][sc] resource type. Filters should always be of type `EventFilter`.
+required     | Required for filter definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][sc].
+type         | String
+example      | {{< highlight shell >}}"type": "EventFilter"{{< /highlight >}}
+
+api_version  | 
+-------------|------
+description  | Top-level attribute specifying the Sensu API group and version. For filters in Sensu backend version 5.0, this attribute should always be `core/v2`.
+required     | Required for filter definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][sc].
+type         | String
+example      | {{< highlight shell >}}"api_version": "core/v2"{{< /highlight >}}
+
+metadata     | 
+-------------|------
+description  | Top-level collection of metadata about the filter, including the `name` and `namespace` as well as custom `labels` and `annotations`. The `metadata` map is always at the top level of the filter definition. This means that in `wrapped-json` and `yaml` formats, the `metadata` scope occurs outside the `spec` scope.  See the [metadata attributes reference][11] for details.
+required     | Required for filter definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][sc].
 type         | Map of key-value pairs
-example      | {{< highlight shell >}}"metadata": {
+example      | {{< highlight shell >}}
+"metadata": {
   "name": "filter-weekdays-only",
   "namespace": "default",
   "labels": {
@@ -193,7 +214,25 @@ example      | {{< highlight shell >}}"metadata": {
   "annotations": {
     "slack-channel" : "#monitoring"
   }
-}{{< /highlight >}}
+}
+{{< /highlight >}}
+
+spec         | 
+-------------|------
+description  | Top-level map that includes the filter [spec attributes][sp].
+required     | Required for filter definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][sc].
+type         | Map of key-value pairs
+example      | {{< highlight shell >}}
+"spec": {
+  "action": "allow",
+  "expressions": [
+    "event.entity.namespace == 'production'"
+  ],
+  "runtime_assets": []
+}
+{{< /highlight >}}
+
+### Spec attributes
 
 action       | 
 -------------|------
@@ -205,7 +244,7 @@ example      | {{< highlight shell >}}"action": "allow"{{< /highlight >}}
 
 expressions   | 
 -------------|------
-description  | Filter expressions to be compared with event data.
+description  | Filter expressions to be compared with event data. Note that event metadata can be referenced without including the `metadata` scope, for example: `event.entity.namespace`.
 required     | true
 type         | Array
 example      | {{< highlight shell >}}"expressions": [
@@ -272,16 +311,17 @@ match event data with a custom entity definition attribute `"namespace":
 {{< highlight json >}}
 {
   "type": "EventFilter",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "production_filter",
+    "namespace": "default",
+    "labels": null,
+    "annotations": null
+  },
   "spec": {
-    "metadata": {
-      "name": "production_filter",
-      "namespace": "default",
-      "labels": null,
-      "annotations": null
-    },
     "action": "allow",
     "expressions": [
-      "event.Entity.Namespace == 'production'"
+      "event.entity.namespace == 'production'"
     ],
     "runtime_assets": []
   }
@@ -299,13 +339,14 @@ returns false, the event will be handled.
 {{< highlight json >}}
 {
   "type": "EventFilter",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "development_filter",
+    "namespace": "default",
+    "labels": null,
+    "annotations": null
+  },
   "spec": {
-    "metadata": {
-      "name": "development_filter",
-      "namespace": "default",
-      "labels": null,
-      "annotations": null
-    },
     "action": "deny",
     "expressions": [
       "event.entity.metadata.namespace == 'production'"
@@ -324,13 +365,14 @@ old monitoring system which alerts only on state change. This
 {{< highlight json >}}
 {
   "type": "EventFilter",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "state_change_only",
+    "namespace": "default",
+    "labels": null,
+    "annotations": null
+  },
   "spec": {
-    "metadata": {
-      "name": "state_change_only",
-      "namespace": "default",
-      "labels": null,
-      "annotations": null
-    },
     "action": "allow",
     "expressions": [
       "event.check.occurrences == 1"
@@ -352,13 +394,14 @@ operator](https://en.wikipedia.org/wiki/Modulo_operation) calculation
 {{< highlight json >}}
 {
   "type": "EventFilter",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "filter_interval_60_hourly",
+    "namespace": "default",
+    "labels": null,
+    "annotations": null
+  },
   "spec": {
-    "metadata": {
-      "name": "filter_interval_60_hourly",
-      "namespace": "default",
-      "labels": null,
-      "annotations": null
-    },
     "action": "allow",
     "expressions": [
       "event.check.interval == 60",
@@ -375,13 +418,14 @@ checks with a 30 second `interval`.
 {{< highlight json >}}
 {
   "type": "EventFilter",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "filter_interval_30_hourly",
+    "namespace": "default",
+    "labels": null,
+    "annotations": null
+  },
   "spec": {
-    "metadata": {
-      "name": "filter_interval_30_hourly",
-      "namespace": "default",
-      "labels": null,
-      "annotations": null
-    },
     "action": "allow",
     "expressions": [
       "event.check.interval == 30",
@@ -402,13 +446,14 @@ will not be handled.
 {{< highlight json >}}
 {
   "type": "EventFilter",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "nine_to_fiver",
+    "namespace": "default",
+    "labels": null,
+    "annotations": null
+  },
   "spec": {
-    "metadata": {
-      "name": "nine_to_fiver",
-      "namespace": "default",
-      "labels": null,
-      "annotations": null
-    },
     "action": "allow",
     "expressions": [
       "weekday(event.timestamp) >= 1 && weekday(event.timestamp) <= 5",
@@ -429,13 +474,14 @@ expressions.
 {{< highlight json >}}
 {
   "type": "EventFilter",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "deny_if_failure_in_history",
+    "namespace": "default",
+    "labels": null,
+    "annotations": null
+  },
   "spec": {
-    "metadata": {
-      "name": "deny_if_failure_in_history",
-      "namespace": "default",
-      "labels": null,
-      "annotations": null
-    },
     "action": "deny",
     "expressions": [
       "_.reduce(event.check.history, function(memo, h) { return (memo || h.status != 0); })"
@@ -456,3 +502,5 @@ expressions.
 [9]: ../events
 [10]: ../rbac#namespaces
 [11]: #metadata-attributes
+[sc]: ../../sensuctl/reference#creating-resources
+[sp]: #spec-attributes

@@ -1,7 +1,7 @@
 ---
 title: "How to reduce alert fatigue with filters"
 linkTitle: "Reducing Alert Fatigue"
-weight: 30
+weight: 25
 version: "5.0"
 product: "Sensu Go"
 platformContent: False
@@ -13,7 +13,7 @@ menu:
 ## What are Sensu filters?
 
 Sensu filters allow you to filter **events** destined for one or more event
-**handlers**. Sensu filters evaluate their statements against the event data, to
+**handlers**. Sensu filters evaluate their expressions against the event data, to
 determine if the event should be passed to an event handler.
 
 ## Why use a filter?
@@ -42,8 +42,8 @@ pipeline. Therefore, it's necessary to add a clause for non-zero status.
 
 {{< highlight shell >}}
 sensuctl filter create hourly \
-  --action allow \
-  --statements "event.Check.Occurrences == 1 || event.Check.Occurrences % (3600 / event.Check.Interval) == 0"
+--action allow \
+--expressions "event.check.occurrences == 1 || event.check.occurrences % (3600 / event.check.interval) == 0"
 {{< /highlight >}}
 
 ### Assigning the filter to a handler

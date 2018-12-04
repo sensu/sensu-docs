@@ -10,12 +10,11 @@ menu:
     parent: reference
 ---
 
-- [Namespaces](#namespaces)
-- [Resources](#resources)
-- [Users](#users)
-- [Groups](#groups)
-- [Roles and cluster roles](#roles-and-cluster-roles)
-- [Role bindings and cluster role bindings](#role-bindings-and-cluster-role-bindings)
+- [Namespaces](#namespaces): [Managing namespaces](#viewing-namespaces) | [Specification](#namespace-specification) | [Examples](#namespace-examples)
+- [Resources](#resources): [Namespaced resource types](#namespaced-resource-types) | [Cluster-wide resource types](#cluster-wide-resource-types)
+- [Users](#users): [Managing users](#viewing-users) | [Specification](#user-specification) | [Groups](#groups)
+- [Roles and cluster roles](#roles-and-cluster-roles): [Managing roles](#viewing-roles) | [Specification](#role-and-cluster-role-specification) | [Examples](#role-examples)
+- [Role bindings and cluster role bindings](#role-bindings-and-cluster-role-bindings): [Managing role bindings](#viewing-role-bindings) | [Specification](#role-binding-and-cluster-role-binding-specification) | [Examples](#role-binding-examples)
 
 Sensu role-based access control (RBAC) helps different teams and projects share a Sensu instance.
 RBAC allows management and access of users and resources based on **namespaces**, **groups**, **roles**, and **bindings**.
@@ -86,15 +85,23 @@ For example, to assign a check called `check-cpu` to the `production` namespace,
 {{< highlight json >}}
 {
   "type": "CheckConfig",
-  "spec": {
+  "api_version": "core/v2",
+  "metadata": {
     "name": "check-cpu",
-    "namespace": "production",
+    "namespace": "default"
+  },
+  "spec": {
+    "check_hooks": null,
+    "command": "check-cpu.sh -w 75 -c 90",
+    "handlers": [
+      "slack"
+    ],
+    "interval": 30,
     "subscriptions": [
       "system"
     ],
-    "command": "check-cpu.sh -w 75 -c 90",
-    "interval": 30,
-    "publish": true
+    "timeout": 0,
+    "ttl": 0
   }
 }{{< /highlight >}}
 
@@ -111,6 +118,21 @@ required     | true
 type         | String
 example      | {{< highlight shell >}}"name": "production"{{< /highlight >}}
 
+### Namespace examples
+
+The following examples are in `wrapped-json` format for use with [`sensuctl create`][31].
+
+{{< highlight json >}}
+{
+  "type": "Namespace",
+  "api_version": "core/v2",
+  "metadata": {},
+  "spec": {
+    "name": "default"
+  }
+}
+{{< /highlight >}}
+
 ## Resources
 Permissions within Sensu are scoped to resource types, like checks, handlers, and users.
 You can use resource types to configure permissions in Sensu roles and cluster roles. 
@@ -124,7 +146,6 @@ Namespaced resources must belong to a single namespace and can be accessed by [r
 | `checks` | [Check][6] resources within a namespace |
 | `entities` | [Entity][7] resources within a namespace |
 | `events` | [Event][8] resources within a namespace |
-| `extensions`   | Extensions within a namespace  |
 | `filters`   | [Filter][22] resources within a namespace  |
 | `handlers` | [Handler][9] resources within a namespace |
 | `hooks` | [Hook][10] resources within a namespace |
@@ -317,7 +338,7 @@ To create and manage roles within a namespace, [create a role][25] with `roles` 
 
 ### Cluster roles
 
-Cluster roles can specify access permissions for [cluster-wide resources][18] like users and namespaces as well as [namespaced resources][17] like checks and handlers.
+Cluster roles can specify access permissions for [cluster-wide resources][18] like users and namespaces as well as [namespaced resources][17] like checks and handlers. They can also be used to grant access to namespaced resources across all namespaces (needed to run `sensuctl check list --all-namespaces`, for example) when used in conjunction with cluster role bindings.
 Cluster roles use the same [specification][24] as roles and can be managed using the same sensuctl commands with `cluster-role` substituted for `role`.
 
 To create and manage cluster roles, [configure sensuctl][26] as the [default `admin` user][20] or [create a cluster role][25] with permissions for `clusterroles`.
@@ -363,22 +384,6 @@ For example, the following command creates an admin role restricted to the produ
 sensuctl role create prod-admin --verb get,list,create,update,delete --resource * --namespace production
 {{< /highlight >}}
 
-You can also create a role using a JSON role definition.
-
-{{< highlight shell >}}
-{
-  "name": "prod-admin",
-  "namespace": "production",
-  "rules": [
-    {
-      "verbs": ["get", "list", "create", "update", "delete"],
-      "resources": ["*"],
-      "resourceNames": [""]
-    }
-  ]
-}
-{{< /highlight >}}
-
 ### Creating a cluster-wide role
 
 You can use [sensuctl][2] to create a cluster role.
@@ -386,21 +391,6 @@ For example, the following command creates a global event reader role that can r
 
 {{< highlight shell >}}
 sensuctl cluster-role create global-event-reader --verb get,list --resource events
-{{< /highlight >}}
-
-You can also create a role using a JSON role definition.
-
-{{< highlight json >}}
-{
-  "name": "global-event-reader",
-  "rules": [
-    {
-      "verbs": ["get", "list"],
-      "resources": ["events"],
-      "resourceNames": [""]
-    }
-  ]
-}
 {{< /highlight >}}
 
 ### Managing roles
@@ -480,6 +470,63 @@ description  | Specific resource names that the rule has permission to access. R
 required     | false
 type         | Array
 example      | {{< highlight shell >}}"resourceNames": ["check-cpu"]{{< /highlight >}}
+
+### Role examples
+
+The following examples are in `wrapped-json` format for use with [`sensuctl create`][31].
+
+{{< highlight json >}}
+{
+  "type": "Role",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "event-reader",
+    "namespace": "default"
+  },
+  "spec": {
+    "rules": [
+      {
+        "resource_names": [],
+        "resources": [
+          "events"
+        ],
+        "verbs": [
+          "get",
+          "list"
+        ]
+      }
+    ]
+  }
+}
+{{< /highlight >}}
+
+### Cluster role examples
+
+The following examples are in `wrapped-json` format for use with [`sensuctl create`][31].
+
+{{< highlight json >}}
+{
+  "type": "ClusterRole",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "global-event-reader"
+  },
+  "spec": {
+    "rules": [
+      {
+        "resource_names": [],
+        "resources": [
+          "events"
+        ],
+        "verbs": [
+          "get",
+          "list"
+        ]
+      }
+    ]
+  }
+}
+{{< /highlight >}}
 
 ## Role bindings and cluster role bindings
 
@@ -585,7 +632,7 @@ example      | {{< highlight shell >}}"subjects": [
   }
 ]{{< /highlight >}}
 
-### `roleRef` specification
+#### `roleRef` specification
 
 type         | 
 -------------|------ 
@@ -601,7 +648,7 @@ required     | true
 type         | String
 example      | {{< highlight shell >}}"name": "event-reader"{{< /highlight >}}
 
-### `subjects` specification
+#### `subjects` specification
 
 type         | 
 -------------|------ 
@@ -616,6 +663,59 @@ description  | Username or group name.
 required     | true 
 type         | String
 example      | {{< highlight shell >}}"name": "alice"{{< /highlight >}}
+
+### Role binding examples
+
+The following examples are in `wrapped-json` format for use with [`sensuctl create`][31].
+
+{{< highlight json >}}
+{
+  "type": "RoleBinding",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "event-reader-binding",
+    "namespace": "default"
+  },
+  "spec": {
+    "role_ref": {
+      "name": "event-reader",
+      "type": "Role"
+    },
+    "subjects": [
+      {
+        "name": "bob",
+        "type": "User"
+      }
+    ]
+  }
+}
+{{< /highlight >}}
+
+### Cluster role binding examples
+
+The following examples are in `wrapped-json` format for use with [`sensuctl create`][31].
+
+{{< highlight json >}}
+{
+  "type": "ClusterRoleBinding",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "cluster-admin"
+  },
+  "spec": {
+    "role_ref": {
+      "name": "cluster-admin",
+      "type": "ClusterRole"
+    },
+    "subjects": [
+      {
+        "name": "cluster-admins",
+        "type": "Group"
+      }
+    ]
+  }
+}
+{{< /highlight >}}
 
 [1]: ../backend
 [2]: ../../sensuctl/reference
@@ -647,3 +747,4 @@ example      | {{< highlight shell >}}"name": "alice"{{< /highlight >}}
 [28]: #creating-a-cluster-wide-role
 [29]: #creating-a-role-binding
 [30]: #role-binding-and-cluster-role-binding-specification
+[31]: ../../sensuctl/reference#creating-resources

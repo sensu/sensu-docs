@@ -32,14 +32,29 @@ An `entity`, formally known as a `client` in Sensu 1.x, represents anything (ex:
 
 ## Entities specification
 
-### Entity Attributes
+### Top-level attributes
 
-|metadata    |      |
+type         | 
 -------------|------
-description  | Collection of metadata about the entity, including the `name` and `namespace` as well as custom `labels` and `annotations`. See the [metadata attributes reference][8] for details.
-required     | true
+description  | Top-level attribute specifying the [`sensuctl create`][sc] resource type. Entities should always be of type `Entity`.
+required     | Required for entity definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][sc].
+type         | String
+example      | {{< highlight shell >}}"type": "Entity"{{< /highlight >}}
+
+api_version  | 
+-------------|------
+description  | Top-level attribute specifying the Sensu API group and version. For entities in Sensu backend version 5.0, this attribute should always be `core/v2`.
+required     | Required for entity definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][sc].
+type         | String
+example      | {{< highlight shell >}}"api_version": "core/v2"{{< /highlight >}}
+
+metadata     | 
+-------------|------
+description  | Top-level collection of metadata about the entity, including the `name` and `namespace` as well as custom `labels` and `annotations`. The `metadata` map is always at the top level of the entity definition. This means that in `wrapped-json` and `yaml` formats, the `metadata` scope occurs outside the `spec` scope.  See the [metadata attributes reference][8] for details.
+required     | Required for entity definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][sc].
 type         | Map of key-value pairs
-example      | {{< highlight shell >}}"metadata": {
+example      | {{< highlight shell >}}
+"metadata": {
   "name": "webserver01",
   "namespace": "default",
   "labels": {
@@ -48,7 +63,18 @@ example      | {{< highlight shell >}}"metadata": {
   "annotations": {
     "slack-channel" : "#monitoring"
   }
-}{{< /highlight >}}
+}
+{{< /highlight >}}
+
+spec         | 
+-------------|------
+description  | Top-level map that includes the entity [spec attributes][sp].
+required     | Required for entity definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][sc].
+type         | Map of key-value pairs
+example      | {{< highlight shell >}}
+{{< /highlight >}}
+
+### Spec Attributes
 
 entity_class |     |
 -------------|------ 
@@ -329,6 +355,13 @@ example      | {{< highlight shell >}}"handler": "email-handler"{{< /highlight >
 {{< highlight json >}}
 {
   "type": "Entity",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "webserver01",
+    "namespace": "default",
+    "labels": null,
+    "annotations": null
+  },
   "spec": {
     "entity_class": "agent",
     "system": {
@@ -383,13 +416,7 @@ example      | {{< highlight shell >}}"handler": "email-handler"{{< /highlight >
       "secret_key",
       "private_key",
       "secret"
-    ],
-    "metadata": {
-      "name": "webserver01",
-      "namespace": "default",
-      "labels": null,
-      "annotations": null
-    }
+    ]
   }
 }
 {{< /highlight >}}
@@ -402,3 +429,5 @@ example      | {{< highlight shell >}}"handler": "email-handler"{{< /highlight >
 [6]: ../filters
 [7]: ../tokens
 [8]: #metadata-attributes
+[sc]: ../../sensuctl/reference#creating-resources
+[sp]: #spec-attributes
