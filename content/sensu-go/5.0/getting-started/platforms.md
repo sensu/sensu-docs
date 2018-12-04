@@ -1,7 +1,7 @@
 ---
 title: "Supported platforms"
 linkTitle: "Supported Platforms"
-description: "List of supported platforms for Sensu backend, agent, and command-line tool"
+description: "List of supported platforms for the Sensu backend, agent, and command-line tool"
 version: "5.0"
 weight: 5
 product: "Sensu Go"
