@@ -5,6 +5,7 @@ weight: 60
 version: "5.0"
 product: "Sensu Go"
 platformContent: false
+lastTested: 2018-12-04
 menu:
   sensu-go-5.0:
     parent: guides
@@ -28,7 +29,7 @@ for enrichment of monitoring event data.
 ## Using check hooks to gather context
 
 The purpose of this guide is to help you put in place a check hook which captures
-the process tree in the event that our `nginx_process` check returns a status of `2` (critical,
+the process tree in the event that an `nginx_process` check returns a status of `2` (critical,
 not running).
 
 ### Creating the hook
@@ -64,7 +65,8 @@ backend. The check hook command result is available in the `hooks` array,
 within the `check` scope.
 
 {{< highlight shell >}}
-$ sensuctl event info i-424242 nginx_process --format json
+sensuctl event info i-424242 nginx_process --format json
+
 {
   [...]
   "check": {
@@ -94,7 +96,8 @@ execution. Here we use sensuctl to query event info and send the
 response to `jq` so we can isolate the check hook output:
 
 {{< highlight shell >}}
-$ sensuctl event info i-424242 nginx_process --format json | jq -r '.check.hooks[0].output' 
+sensuctl event info i-424242 nginx_process --format json | jq -r '.check.hooks[0].output' 
+
 USER       PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
 root         1  0.0  0.3  46164  6704 ?        Ss   Nov17   0:11 /usr/lib/systemd/systemd --switched-root --system --deserialize 20
 root         2  0.0  0.0      0     0 ?        S    Nov17   0:00 [kthreadd]

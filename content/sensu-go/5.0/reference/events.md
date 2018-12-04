@@ -68,7 +68,7 @@ _NOTE: Silenced has been deprecated from Event. Please see [check specification]
 
 |check       |      |
 -------------|------
-description  | The [Check attributes][1] used to obtain the check result.
+description  | The [check attributes][1] used to obtain the check result.
 type         | Check
 example      | {{< highlight shell >}}
 {
