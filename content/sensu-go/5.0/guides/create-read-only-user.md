@@ -5,6 +5,7 @@ weight: 100
 version: "5.0"
 product: "Sensu Go"
 platformContent: False
+lastTested: 2018-12-04
 menu: 
   sensu-go-5.0:
     parent: guides

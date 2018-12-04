@@ -59,11 +59,11 @@ With the `influx-db` handler now created, it can be assigned to a check for
 sensuctl check set-output-metric-handlers collect-metrics influx-db
 {{< /highlight >}}
 
-And/or, the handler can be assigned to the [Sensu StatsD Listener][3] to pass
+The handler can also be assigned to the [Sensu StatsD listener][3] at agent startup to pass
 all StatsD metrics into InfluxDB:
 
 {{< highlight shell >}}
-sensu-agent --statsd-event-handlers influx-db
+sensu-agent start --statsd-event-handlers influx-db
 {{< /highlight >}}
 
 ### Validating the handler
@@ -86,7 +86,7 @@ You now know how to apply a handler to metrics and take action on events. From
 this point, here are some recommended resources:
 
 * Read the [handlers reference][9] for in-depth documentation on handlers.
-* Read the [statsd listener guide][3] for instructions on how to aggregate
+* Read the [StatsD listener guide][3] for instructions on how to aggregate
 StatsD metrics in Sensu.
 * Read the [check output metric extraction guide][10] to learn how to collect
 and extract metrics using Sensu checks.
