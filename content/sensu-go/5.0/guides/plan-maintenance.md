@@ -5,6 +5,7 @@ weight: 50
 version: "5.0"
 product: "Sensu Go"
 platformContent: False
+lastTested: 2018-12-04
 menu: 
   sensu-go-5.0:
     parent: guides
@@ -66,18 +67,18 @@ You can verify that the silenced entry against our entity, here named
 `i-424242`, has been properly created, by using `sensuctl`.
 
 {{< highlight shell >}}
-sensuctl silenced info \
---subscription 'entity:i-424242:check-http'
+sensuctl silenced info 'entity:i-424242:check-http'
 {{< /highlight >}}
 
 Once the silenced entry starts to take effect, events that are silenced will be
 marked as so in `sensuctl events`.
 
 {{< highlight shell >}}
-$ sensuctl event list
-     Entity         Check        Output       Status     Silenced          Timestamp
- ──────────────   ─────────    ─────────   ──────────── ────────── ───────────────────────────────
-  scotch.local    check-http                    0          true     2018-03-16 13:22:16 -0400 EDT
+sensuctl event list
+
+   Entity         Check        Output       Status     Silenced          Timestamp
+──────────────   ─────────    ─────────   ──────────── ────────── ───────────────────────────────
+   i-424242      check-http                    0          true     2018-03-16 13:22:16 -0400 EDT
 {{< /highlight >}}
 
 _WARNING: By default, a silenced event will be handled unless the handler uses
