@@ -1,7 +1,7 @@
 ---
 title: "Installing Sensu Plugins"
 linkTitle: "Install Plugins"
-description: "The Sensu Core installation guide."
+description: "How to install Sensu Plugins for use with Sensu Go"
 weight: 2
 version: "5.0"
 product: "Sensu Go"
