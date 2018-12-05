@@ -36,10 +36,10 @@ Add the Sensu repository.
 curl -s https://packagecloud.io/install/repositories/sensu/stable/script.deb.sh | sudo bash
 {{< /highlight >}}
 
-Install the sensu-backend package.
+Install the `sensu-go-backend` package.
 
 {{< highlight shell >}}
-sudo apt-get install sensu-backend
+sudo apt-get install sensu-go-backend
 {{< /highlight >}}
 
 {{< platformBlockClose >}}
@@ -54,10 +54,10 @@ Add the Sensu repository.
 curl -s https://packagecloud.io/install/repositories/sensu/stable/script.rpm.sh | sudo bash
 {{< /highlight >}}
 
-Install the sensu-backend package.
+Install the `sensu-go-backend` package.
 
 {{< highlight shell >}}
-sudo yum install sensu-backend
+sudo yum install sensu-go-backend
 {{< /highlight >}}
 
 {{< platformBlockClose >}}
@@ -121,10 +121,10 @@ Add the Sensu repository.
 curl -s https://packagecloud.io/install/repositories/sensu/stable/script.deb.sh | sudo bash
 {{< /highlight >}}
 
-Install the sensu-agent package.
+Install the `sensu-go-agent` package.
 
 {{< highlight shell >}}
-sudo apt-get install sensu-agent
+sudo apt-get install sensu-go-agent
 {{< /highlight >}}
 
 {{< platformBlockClose >}}
@@ -138,10 +138,10 @@ Add the Sensu repository.
 curl -s https://packagecloud.io/install/repositories/sensu/stable/script.rpm.sh | sudo bash
 {{< /highlight >}}
 
-Install the sensu-agent package.
+Install the `sensu-go-agent` package.
 
 {{< highlight shell >}}
-sudo yum install sensu-agent
+sudo yum install sensu-go-agent
 {{< /highlight >}}
 
 {{< platformBlockClose >}}
@@ -276,10 +276,10 @@ Add the Sensu repository.
 curl -s https://packagecloud.io/install/repositories/sensu/stable/script.deb.sh | sudo bash
 {{< /highlight >}}
 
-Install the sensu-cli package.
+Install the `sensu-go-cli` package.
 
 {{< highlight shell >}}
-sudo apt-get install sensu-cli
+sudo apt-get install sensu-go-cli
 {{< /highlight >}}
 
 {{< platformBlockClose >}}
@@ -294,10 +294,10 @@ Add the Sensu repository.
 curl -s https://packagecloud.io/install/repositories/sensu/stable/script.rpm.sh | sudo bash
 {{< /highlight >}}
 
-Install the sensu-cli package.
+Install the `sensu-go-cli` package.
 
 {{< highlight shell >}}
-sudo yum install sensu-cli
+sudo yum install sensu-go-cli
 {{< /highlight >}}
 
 {{< platformBlockClose >}}
