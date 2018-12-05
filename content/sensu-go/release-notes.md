@@ -33,9 +33,9 @@ The Sensu Team
 
 [changelog]: https://github.com/sensu/sensu-go/blob/master/CHANGELOG.md
 [blog]: https://blog.sensu.io/sensu-go-is-here
-[1]: ../../dashboard/overview
-[2]: ../../sensuctl/reference
-[3]: .../../api/overview
+[1]: dashboard/overview
+[2]: sensuctl/reference
+[3]: api/overview
 [4]: ../../reference/rbac#namespaces
 [5]: ../../reference/rbac
 [6]: ../../reference/filters
