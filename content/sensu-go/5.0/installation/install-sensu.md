@@ -245,16 +245,16 @@ Download the latest release.
 curl -LO https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.0.0/sensu-go-5.0.0-darwin-amd64.tar.gz
 {{< /highlight >}}
 
-Make the sensuctl binary executable.
+Extract the archive.
 
 {{< highlight shell >}}
-chmod +x sensuctl
+tar -xvf sensu-go-5.0.0-darwin-amd64.tar.gz
 {{< /highlight >}}
 
-Move the executable into your PATH.
+Copy the executable into your PATH.
 
 {{< highlight shell >}}
-sudo mv sensuctl /usr/local/bin/
+cp bin/sensuctl /usr/local/bin/
 {{< /highlight >}}
 
 {{< platformBlockClose >}}
