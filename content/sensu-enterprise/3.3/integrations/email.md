@@ -295,13 +295,13 @@ example      | {{< highlight shell >}}"body": "/etc/sensu/email/body_template.er
 
 ##### Example Templates
 
-{{< highlight shell >}}
+```
+/etc/sensu/email/subject_template.erb
 
-/etc/sensu/email/subject_template.erb"
+<%= ["ok","warning","critical","unknown"][@event[:check][:status]] %> - <%= @event[:client][:name] %>/<%= @event[:check][:name] %>: <%= @event[:check][:output] %>
+```
 
-<%= ["ok","warning","critical","unknown"][@event[:check][:status]] %> - <%= @event[:client][:name] %>/<%= @event[:check][:name] %>: <%= @event[:check][:output] %>{< /highlight >}}
-
-{{< highlight shell >}}
+```
 /etc/sensu/email/body_template.erb"
 
 Hi there,
@@ -318,7 +318,9 @@ Output: <%= @event[:check][:output] %>
 
 For more information, please consult the Sensu Enterprise dashboard:
 
-https://localhost:3000/#/client/<%= @event[:client][:datacenter] %>/<%= @event[:client][:name] %>?check=<%= @event[:check][:name] %>{< /highlight >}}
+https://localhost:3000/#/client/<%= @event[:client][:datacenter] %>/<%= @event[:client][:name] %>?check=<%= @event[:check][:name] %>
+```
+
 [?]:  #
 [1]:  /sensu-enterprise
 [2]:  /sensu-core/1.2/reference/configuration#configuration-scopes
