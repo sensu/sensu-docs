@@ -60,7 +60,7 @@ and port:
 
 For example:
 {{< highlight shell >}}
-sensu-agent --statsd-event-handlers influx-db --statsd-flush-interval 1 --statsd-metrics-host "123.4.5.6" --statsd-metrics-port 8125
+sensu-agent start --statsd-event-handlers influx-db --statsd-flush-interval 1 --statsd-metrics-host "123.4.5.6" --statsd-metrics-port 8125
 {{< /highlight >}}
 
 ## Next steps

@@ -42,8 +42,8 @@ pipeline. Therefore, it's necessary to add a clause for non-zero status.
 
 {{< highlight shell >}}
 sensuctl filter create hourly \
-  --action allow \
-  --expressions "event.Check.Occurrences == 1 || event.Check.Occurrences % (3600 / event.Check.Interval) == 0"
+--action allow \
+--expressions "event.check.occurrences == 1 || event.check.occurrences % (3600 / event.check.interval) == 0"
 {{< /highlight >}}
 
 ### Assigning the filter to a handler

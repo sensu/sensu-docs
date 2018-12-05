@@ -81,9 +81,15 @@ we used would yield an event similar to the one below:
 
 {{< highlight json >}}
 {
-  "event": {
+  "type": "Event",
+  "api_version": "core/v2",
+  "metadata": {},
+  "spec": {
     "check": {
-      "name": "collect-metrics",
+      "metadata": {
+        "name": "collect-metrics",
+        "namespace": "default"
+      },
       "command": "collect_metrics.sh",
       "output": "cpu.idle_percentage 61 1525462242\nmem.sys 104448 1525462242",
       "output_metric_format": "graphite_plaintext",
