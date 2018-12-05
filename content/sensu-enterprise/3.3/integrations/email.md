@@ -13,13 +13,16 @@ users only.**
 
 - [Overview](#overview)
 - [Custom email templates](#custom-email-templates)
-  - [Example(s)](#custom-email-templates-example)
+  - [Example(s) {#custom-email-templates-example}](#examples-custom-email-templates-example)
 - [Configuration](#configuration)
-  - [Example(s)](#examples)
-  - [Integration Specification](#integration-specification)
+  - [Example(s) {#examples}](#examples-examples)
+  - [Integration specification](#integration-specification)
     - [`email` attributes](#email-attributes)
     - [`smtp` attributes](#smtp-attributes)
+      - [EXAMPLE {#smtp-attributes-example}](#example-smtp-attributes-example)
+      - [ATTRIBUTES {#smtp-attributes-specification}](#attributes-smtp-attributes-specification)
     - [`templates` attributes](#templates-attributes)
+      - [Example Templates](#example-templates)
 
 ## Overview
 
@@ -290,8 +293,32 @@ type         | String
 required     | false
 example      | {{< highlight shell >}}"body": "/etc/sensu/email/body_template.erb"{{< /highlight >}}
 
+##### Example Templates
 
+{{< highlight shell >}}
 
+/etc/sensu/email/subject_template.erb"
+
+<%= ["ok","warning","critical","unknown"][@event[:check][:status]] %> - <%= @event[:client][:name] %>/<%= @event[:check][:name] %>: <%= @event[:check][:output] %>{< /highlight >}}
+
+{{< highlight shell >}}
+/etc/sensu/email/body_template.erb"
+
+Hi there,
+
+Sensu has detected a <%= @event[:check][:name] %> monitoring event.
+
+Please note the following details:
+
+Client: <%= @event[:client][:name] %>
+
+Check: <%= @event[:check][:name] %>
+
+Output: <%= @event[:check][:output] %>
+
+For more information, please consult the Sensu Enterprise dashboard:
+
+https://localhost:3000/#/client/<%= @event[:client][:datacenter] %>/<%= @event[:client][:name] %>?check=<%= @event[:check][:name] %>{< /highlight >}}
 [?]:  #
 [1]:  /sensu-enterprise
 [2]:  /sensu-core/1.2/reference/configuration#configuration-scopes
