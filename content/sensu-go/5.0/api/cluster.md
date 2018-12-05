@@ -25,7 +25,7 @@ The following example demonstrates a request to the `/cluster/members` API, resu
 a JSON Map containing a Sensu cluster definition.
 
 {{< highlight shell >}}
-curl H "Authorization: Bearer TOKEN" \
+curl -H "Authorization: Bearer TOKEN" \
 http://127.0.0.1:8080/api/core/v2/cluster/members
 
 HTTP/1.1 200 OK
