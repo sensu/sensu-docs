@@ -167,7 +167,7 @@ example payload | {{< highlight shell >}}
   }
 }
 {{< /highlight >}}
-payload parameters | Required check attributes: `command` (string), `subscriptions` (array of strings), `interval` (integer), `publish` (set to `true`), and a `metadata` scope containing `name` (string) and `namespace` (string). For more information about creating checks, see the [check reference][1]. 
+payload parameters | Required check attributes: `command` (string), `subscriptions` (array of strings), `interval` (integer) OR `cron` (string), `publish` (set to `true`), and a `metadata` scope containing `name` (string) and `namespace` (string). For more information about creating checks, see the [check reference][1]. 
 response codes  | <ul><li>**Success**: 200 (OK)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 ## The `/checks/:check` API endpoint {#the-checkscheck-api-endpoint}
