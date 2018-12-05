@@ -8,19 +8,27 @@ menu:
     parent: api
 ---
 
-## The `/cluster/members` API endpoints
+- [The `/cluster/members` API endpoint](#the-clustermembers-API-endpoint)
+  - [`/cluster/members` (GET)](#clustermembers-get)
+- [The `/cluster/members/:member` API endpoint](#the-clustermembersmember-API-endpoint)
+  - [`/cluster/members/:member` (DELETE)](#clustermembersmember-delete)
 
-### `/cluster/members` (GET)
+## The `/cluster/members` API endpoint {#the-clustermembers-API-endpoint}
+
+### `/cluster/members` (GET) {#clustermembers-get}
 
 The `/cluster/members` API endpoint provides HTTP GET access to [Sensu cluster][1] data.
 
 #### EXAMPLE {#clustermembers-get-example}
 
 The following example demonstrates a request to the `/cluster/members` API, resulting in
-a JSON Array containing a Sensu cluster definition.
+a JSON Map containing a Sensu cluster definition.
 
 {{< highlight shell >}}
-curl -s http://127.0.0.1:8080/api/core/v2/cluster/members -H "Authorization: Bearer TOKEN"
+curl -H "Authorization: Bearer TOKEN" \
+http://127.0.0.1:8080/api/core/v2/cluster/members
+
+HTTP/1.1 200 OK
 {
   "header": {
     "cluster_id": 4255616304056076734,
@@ -50,7 +58,7 @@ description    | Returns the cluster definition.
 example url    | http://hostname:8080/api/core/v2/cluster/members
 response type  | Map
 response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-output         | {{< highlight shell >}}
+example output | {{< highlight shell >}}
 {
   "header": {
     "cluster_id": 4255616304056076734,
@@ -71,5 +79,19 @@ output         | {{< highlight shell >}}
   ]
 }
 {{< /highlight >}}
+
+## The `/cluster/members/:member` API endpoint {#the-clustermembersmember-API-endpoint}
+
+### `/cluster/members/:member` (DELETE) {#clustermembersmember-delete}
+
+The `/cluster/members/:member` API endpoint provides HTTP DELETE access to remove a Sensu cluster member.
+
+#### API Specification {#clustermembersmember-delete-specification}
+
+/cluster/ members/:member (DELETE) | 
+--------------------------|------
+description               | Removes a member from a Sensu cluster given the member ID.
+example url               | http://hostname:8080/api/core/v2/cluster/members/9882886658148554927
+response codes            | <ul><li>**Success**: 202 (Accepted)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 [1]: ../../guides/clustering

@@ -448,7 +448,7 @@ Flags:
       --keepalive-timeout uint32        number of seconds until agent is considered dead by backend (default 120)
       --labels stringToString           entity labels map (default [])
       --log-level string                logging level [panic, fatal, error, warn, info, debug] (default "warn")
-      --name string                     agent name (defaults to hostname) (default "sensu2-centos")
+      --name string                     agent name (defaults to hostname) (default "sensu-go-sandbox")
       --namespace string                agent namespace (default "default")
       --password string                 agent password (default "P@ssw0rd!")
       --redact string                   comma-delimited customized list of fields to redact
