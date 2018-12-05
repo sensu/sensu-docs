@@ -1,7 +1,7 @@
 ---
 title: "Installing Sensu"
 linkTitle: "Install Sensu"
-description: "The Sensu Core installation guide."
+description: "The Sensu Go installation guide"
 weight: 1
 version: "5.0"
 product: "Sensu Go"
