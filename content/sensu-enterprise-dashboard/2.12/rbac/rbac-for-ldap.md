@@ -89,11 +89,13 @@ compatible with any standards-compliant LDAP provider.
 }
 {{< /highlight >}}
 
+_NOTE: You'll notice in the example there are no attributes defined in dashboard.users. This is due to the way that the LDAP integration works. When using this provider, there will not be an option to have local users as a fall back option._
+
 ### RBAC for LDAP definition specification
 
 #### `ldap` attributes
 
-debug        | 
+debug        |
 -------------|------
 description  | Determines whether or not to output debug information about the LDAP connection. _WARNING: not recommended for production use. Sensitive information including usernames and passwords may be sent to the log files when enabled._
 required     | false
@@ -101,7 +103,7 @@ type         | Boolean
 default      | false
 example      | {{< highlight shell >}}"debug": true{{< /highlight >}}
 
-servers      | 
+servers      |
 -------------|------
 description  | An array of [LDAP servers][6] that each represent a LDAP directory or a Microsoft Active Directory domain controller. _NOTE: each LDAP server will be tried in sequence until one of them authenticates the username and password provided or the end of the array._
 required     | true
@@ -120,7 +122,7 @@ example      | {{< highlight shell >}}"servers": [
 ]
 {{< /highlight >}}
 
-roles        | 
+roles        |
 -------------|------
 description  | An array of [Role definitions][3] for LDAP groups.
 required     | true
@@ -153,21 +155,21 @@ example      | {{< highlight shell >}}"roles": [
 
 #### `servers` attributes
 
-server       | 
+server       |
 -------------|------
 description  | **IP address** or **FQDN** of the LDAP directory or the Microsoft Active Directory domain controller.
 required     | true
 type         | String
 example      | {{< highlight shell >}}"server": "localhost"{{< /highlight >}}
 
-port         | 
+port         |
 -------------|------
 description  | Port of the LDAP/AD service (usually `389` or `636`)
 required     | true
 type         | Integer
 example      | {{< highlight shell >}}"port": 389{{< /highlight >}}
 
-dialect        | 
+dialect        |
 ---------------|------
 description    | Which LDAP dialect to use (Microsoft Active Directory, or OpenLDAP).
 required       | false
@@ -175,42 +177,42 @@ type           | String
 allowed values | `ad`, `openldap`
 example        | {{< highlight shell >}}"dialect": "ad"{{< /highlight >}}
 
-basedn       | 
+basedn       |
 -------------|------
 description  | Tells which part of the directory tree to search. For example, `cn=users,dc=domain,dc=tld` will search into all `users` of the `domain.tld` directory.
 required     | true
 type         | String
 example      | {{< highlight shell >}}"basedn": "cn=users,dc=domain,dc=tld"{{< /highlight >}}
 
-groupbasedn  | 
+groupbasedn  |
 -------------|------
 description  | Overrides the `basedn` attribute for the group lookups.
 required     | false
 type         | String
 example      | {{< highlight shell >}}"groupbasedn": "cn=groups,dc=domain,dc=tld"{{< /highlight >}}
 
-userbasedn   | 
+userbasedn   |
 -------------|------
 description  | Overrides the `basedn` attribute for the user lookups.
 required     | false
 type         | String
 example      | {{< highlight shell >}}"userbasedn": "cn=admins,dc=domain,dc=tld"{{< /highlight >}}
 
-binduser     | 
+binduser     |
 -------------|------
 description  | The LDAP account that performs user lookups. We recommend to use a read-only account. Use the distinguished name (DN) format, such as `cn=binder,cn=users,dc=domain,dc=tld`. _NOTE: using a binder account is not required with Active Directory, although it is highly recommended._
 required     | true
 type         | String
 example      | {{< highlight shell >}}"binduser": "cn=binder,cn=users,dc=domain,dc=tld"{{< /highlight >}}
 
-bindpass     | 
+bindpass     |
 -------------|------
 description  | The password for the binduser.
 required     | true
 type         | String
 example      | {{< highlight shell >}}"bindpass": "secret"{{< /highlight >}}
 
-insecure     | 
+insecure     |
 -------------|------
 description  | Determines whether or not to skip SSL certificate verification (e.g. for self-signed certificates).
 required     | false
@@ -218,7 +220,7 @@ type         | Boolean
 default      | false
 example      | {{< highlight shell >}}"insecure": true{{< /highlight >}}
 
-security       | 
+security       |
 ---------------|------
 description    | Determines the encryption type to be used for the connection to the LDAP server.
 required       | true
@@ -226,7 +228,7 @@ type           | String
 allowed values | `none`, `starttls`, or `tls`
 example        | {{< highlight shell >}}"security": "none"{{< /highlight >}}
 
-userattribute | 
+userattribute |
 --------------|------
 description   | The LDAP attribute used to identify an account. You should typically use `sAMAccountName` for Active Directory and `uid` for other LDAP softwares, such as OpenLDAP, but it may vary.
 required      | false
@@ -234,7 +236,7 @@ type          | String
 default       | `sAMAccountName`
 example       | {{< highlight shell >}}"userattribute": "uid"{{< /highlight >}}
 
-groupmemberattribute | 
+groupmemberattribute |
 ---------------------|------
 description          | The LDAP attribute used to identify the group memberships.
 required             | false
@@ -242,7 +244,7 @@ type                 | String
 default              | `member`
 example              | {{< highlight shell >}}"groupmemberattribute": "uniqueMember"{{< /highlight >}}
 
-userobjectclass | 
+userobjectclass |
 ----------------|------
 description     | The LDAP object class used for the user accounts.
 required        | false
@@ -250,7 +252,7 @@ type            | String
 default         | `person`
 example         | {{< highlight shell >}}"userobjectclass": "inetOrgPerson"{{< /highlight >}}
 
-groupobjectclass | 
+groupobjectclass |
 -----------------|------
 description      | The LDAP object class used for the groups.
 required         | false
