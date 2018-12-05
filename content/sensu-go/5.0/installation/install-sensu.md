@@ -150,7 +150,7 @@ sudo yum install sensu-go-agent
 
 #### Windows
 
-Download the [Sensu agent for Windows](https://storage.googleapis.com/sensu-binaries/2.0.0-beta.4-1/windows/amd64/sensu-agent).
+Download the [Sensu agent for Windows](https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.0.0/sensu-go-5.0.0-windows-amd64.tar.gz).
 
 {{< platformBlockClose >}}
 
@@ -242,14 +242,7 @@ Ssensuctl is available for Ubuntu, RHEL/CentOS, Windows, and macOS.
 Download the latest release.
 
 {{< highlight shell >}}
-curl -LO https://storage.googleapis.com/sensu-binaries/$(curl -s https://storage.googleapis.com/sensu-binaries/latest.txt)/darwin/amd64/sensuctl
-{{< /highlight >}}
-
-**Optionally**, if you would like to download a specific [release][1], replace
-`{VERSION}` in the command below.
-
-{{< highlight shell >}}
-curl -LO https://storage.googleapis.com/sensu-binaries/{VERSION}/darwin/amd64/sensuctl
+curl -LO https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.0.0/sensu-go-5.0.0-darwin-amd64.tar.gz
 {{< /highlight >}}
 
 Make the sensuctl binary executable.
@@ -306,7 +299,7 @@ sudo yum install sensu-go-cli
 
 #### Windows
 
-Download [sensuctl for Windows](http://storage.googleapis.com/sensu-binaries/2.0.0-beta.4-1/windows/amd64/sensuctl).
+Download [sensuctl for Windows](https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.0.0/sensu-go-5.0.0-windows-amd64.tar.gz).
 
 {{< platformBlockClose >}}
 
