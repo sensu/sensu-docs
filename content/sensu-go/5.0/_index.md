@@ -62,7 +62,7 @@ The [Sensu API][23] and the [`sensuctl` command-line tool][26] allow you (and yo
 
 - **Open source software backed by Sensu Inc.**
 
-Sensu Core is open source software freely available under a
+Sensu Go is open source software freely available under a
 permissive [MIT License][12] and publicly available on [GitHub][13].
 
 [1]: getting-started/get-started
