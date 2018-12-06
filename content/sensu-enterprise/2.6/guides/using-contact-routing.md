@@ -351,7 +351,7 @@ Since two contacts
       "slack": {
         "channel": "#engineering"
       }
-    },
+    }
   }
 }
 {{< /highlight >}}
