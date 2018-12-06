@@ -66,11 +66,7 @@ sudo yum install sensu-go-backend
 
 ### 2. Create the configuration file
 
-Copy the example backend config file to the default config path.
-
-{{< highlight shell >}}
-sudo cp /etc/sensu/backend.yml.example /etc/sensu/backend.yml
-{{< /highlight >}}
+Download the [example configuration file][11] and save it as `/etc/sensu/backend.yml`.
 
 _NOTE: The Sensu backend can be configured using a `/etc/sensu/backend.yml` configuration file or using `sensu-backend start` configuration flags. For more information, see the [backend reference][6]._
 
@@ -82,10 +78,10 @@ Start the backend using a service manager.
 sudo service sensu-backend start
 {{< /highlight >}}
 
-You can verify that the backend is running properly using the [service log][8].
+You can verify that the backend is running properly using the `sensu-backend` tool.
 
 {{< highlight shell >}}
-journalctl -u sensu-backend -f
+sensu-backend -h
 {{< /highlight >}}
 
 {{< platformBlockClose >}}
@@ -164,11 +160,7 @@ Download the [Sensu agent for Windows](https://s3-us-west-2.amazonaws.com/sensu.
 
 #### Ubuntu/RHEL/CentOS
 
-Copy the example agent config file to the default config path.
-
-{{< highlight shell >}}
-sudo cp /etc/sensu/agent.yml.example /etc/sensu/agent.yml
-{{< /highlight >}}
+Download the [example configuration file][2] and save it as `/etc/sensu/agent.yml`.
 
 _NOTE: The Sensu agent can be configured using a `/etc/sensu/agent.yml` configuration file or using `sensu-agent start` configuration flags. For more information, see the [agent reference][7]._
 
@@ -178,7 +170,7 @@ _NOTE: The Sensu agent can be configured using a `/etc/sensu/agent.yml` configur
 
 #### Windows
 
-Download the [example agent configuration file][2].
+Download the [example agent configuration file][2] and save it as `C:\\ProgramData\sensu\config\agent.yml`.
 
 {{< platformBlockClose >}}
 
@@ -198,10 +190,10 @@ Start the agent using a service manager.
 sudo service sensu-agent start
 {{< /highlight >}}
 
-You can verify that the agent is running properly using the [service log][8].
+You can verify that the agent is running properly using the `sensu-agent` tool.
 
 {{< highlight shell >}}
-journalctl -u sensu-agent -f
+sensu-agent -h
 {{< /highlight >}}
 
 {{< platformBlockClose >}}
@@ -232,30 +224,6 @@ Sensu Go can be configured and used with the sensuctl command line utility.
 Ssensuctl is available for Ubuntu, RHEL/CentOS, Windows, and macOS.
 
 ### 1. Install the package
-
-{{< platformBlockClose >}}
-
-{{< platformBlock "macOS" >}}
-
-#### macOS
-
-Download the latest release.
-
-{{< highlight shell >}}
-curl -LO https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.0.0/sensu-go-5.0.0-darwin-amd64.tar.gz
-{{< /highlight >}}
-
-Extract the archive.
-
-{{< highlight shell >}}
-tar -xvf sensu-go-5.0.0-darwin-amd64.tar.gz
-{{< /highlight >}}
-
-Copy the executable into your PATH.
-
-{{< highlight shell >}}
-cp bin/sensuctl /usr/local/bin/
-{{< /highlight >}}
 
 {{< platformBlockClose >}}
 
@@ -303,6 +271,30 @@ Download [sensuctl for Windows](https://s3-us-west-2.amazonaws.com/sensu.io/sens
 
 {{< platformBlockClose >}}
 
+{{< platformBlock "macOS" >}}
+
+#### macOS
+
+Download the latest release.
+
+{{< highlight shell >}}
+curl -LO https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.0.0/sensu-go-5.0.0-darwin-amd64.tar.gz
+{{< /highlight >}}
+
+Extract the archive.
+
+{{< highlight shell >}}
+tar -xvf sensu-go-5.0.0-darwin-amd64.tar.gz
+{{< /highlight >}}
+
+Copy the executable into your PATH.
+
+{{< highlight shell >}}
+sudo cp bin/sensuctl /usr/local/bin/
+{{< /highlight >}}
+
+{{< platformBlockClose >}}
+
 {{< platformBlock "macOS RHEL/CentOS Ubuntu Windows" >}}
 
 ### 2. Configure sensuctl
@@ -340,7 +332,7 @@ See the [sensuctl reference][4] for more information about using sensuctl.
 
 ### Next steps
 
-Now that you've installed the sensuctl:
+Now that you've installed sensuctl:
 
 - [See the sensuctl quick reference][4]
 - [Create a monitoring event pipeline][10]
@@ -398,3 +390,4 @@ While it can be run from the docker container, doing so may be problematic.
 [8]: ../../guides/troubleshooting
 [9]: ../../guides/monitor-external-resources
 [10]: ../../guides/send-slack-alerts
+[11]: https://github.com/sensu/sensu-go/blob/master/packaging/files/backend.yml.example
