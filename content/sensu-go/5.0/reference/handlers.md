@@ -66,7 +66,7 @@ not provide a built-in default handler.
 
 ### Transport handlers
 
-Sensu architecture considerably changed between the 1.x and 2.x versions, and a
+Sensu architecture considerably changed between the 1.x and Sensu Go versions, and a
 dedicated message bus (like RabbitMQ) is no longer used. Therefore, [transport
 handlers][5] have been removed but a similar functionality could be achieved
 using a pipe handler that connects to a message bus and injects event data into
@@ -79,21 +79,65 @@ are automatically sent to the check handlers, no matter their status, whereas
 only non-zero check results were considered as events and sent to handlers in
 Sensu 1.x.
 
-That being said, 1.x behavior can be replicated in Sensu 2.x by using the
+That being said, 1.x behavior can be replicated in Sensu Go by using the
 built-in `is_incident` filter.
 
 ## Handler specification
 
-### Handler naming
+### Top-level attributes
 
-Each handler definition must have a unique name within its organization and
-environment.
+type         | 
+-------------|------
+description  | Top-level attribute specifying the [`sensuctl create`][sc] resource type. Handlers should always be of type `Handler`.
+required     | Required for handler definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][sc].
+type         | String
+example      | {{< highlight shell >}}"type": "Handler"{{< /highlight >}}
 
-* A unique string used to name/identify the handler
-* Cannot contain special characters or spaces
-* Validated with Go regex [`\A[\w\.\-]+\z`](https://regex101.com/r/zo9mQU/2)
+api_version  | 
+-------------|------
+description  | Top-level attribute specifying the Sensu API group and version. For handlers in Sensu backend version 5.0, this attribute should always be `core/v2`.
+required     | Required for handler definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][sc].
+type         | String
+example      | {{< highlight shell >}}"api_version": "core/v2"{{< /highlight >}}
 
-### Handler attributes
+metadata     | 
+-------------|------
+description  | Top-level collection of metadata about the handler, including the `name` and `namespace` as well as custom `labels` and `annotations`. The `metadata` map is always at the top level of the handler definition. This means that in `wrapped-json` and `yaml` formats, the `metadata` scope occurs outside the `spec` scope. See the [metadata attributes reference][8] for details.
+required     | Required for handler definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][sc].
+type         | Map of key-value pairs
+example      | {{< highlight shell >}}
+"metadata": {
+  "name": "handler-slack",
+  "namespace": "default",
+  "labels": {
+    "region": "us-west-1"
+  },
+  "annotations": {
+    "slack-channel" : "#monitoring"
+  }
+}
+{{< /highlight >}}
+
+spec         | 
+-------------|------
+description  | Top-level map that includes the handler [spec attributes][sp].
+required     | Required for handler definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][sc].
+type         | Map of key-value pairs
+example      | {{< highlight shell >}}
+"spec": {
+  "type": "tcp",
+  "socket": {
+    "host": "10.0.1.99",
+    "port": 4444
+  },
+  "metadata" : {
+    "name": "tcp_handler",
+    "namespace": "default"
+  }
+}
+{{< /highlight >}}
+
+### Spec attributes
 
 type         | 
 -------------|------
@@ -130,7 +174,7 @@ command      |
 description  | The handler command to be executed. The event data is passed to the process via `STDIN`._NOTE: the `command` attribute is only supported for Pipe handlers (i.e. handlers configured with `"type": "pipe"`)._
 required     | true (if `type` equals `pipe`)
 type         | String
-example      | {{< highlight shell >}}"command": "/etc/sensu/plugins/pagerduty.rb"{{< /highlight >}}
+example      | {{< highlight shell >}}"command": "/etc/sensu/plugins/pagerduty.go"{{< /highlight >}}
 
 env_vars      | 
 -------------|------
@@ -153,32 +197,52 @@ required     | true (if `type` equals `set`)
 type         | Array
 example      | {{< highlight shell >}}"handlers": ["pagerduty", "email", "ec2"]{{< /highlight >}}
 
-organization | 
--------------|------ 
-description  | The Sensu RBAC organization that this handler belongs to.
-required     | false 
-type         | String
-default      | current organization value configured for `sensuctl` (i.e., `default`) 
-example      | {{< highlight shell >}}
-  "organization": "default"
-{{< /highlight >}}
-
-environment  | 
--------------|------ 
-description  | The Sensu RBAC environment that this handler belongs to.
-required     | false 
-type         | String 
-default      | current environment value configured for `sensuctl` (i.e., `default`) 
-example      | {{< highlight shell >}}
-  "environment": "default"
-{{< /highlight >}}
-
 runtime_assets | 
 ---------------|------
 description    | An array of [Sensu assets][7] (names), required at runtime for the execution of the `command`
 required       | false
 type           | Array
 example        | {{< highlight shell >}}"runtime_assets": ["ruby-2.5.0"]{{< /highlight >}}
+
+### Metadata attributes
+
+| name       |      |
+-------------|------
+description  | A unique string used to identify the handler. Handler names cannot contain special characters or spaces (validated with Go regex [`\A[\w\.\-]+\z`](https://regex101.com/r/zo9mQU/2)). Each handler must have a unique name within its namespace.
+required     | true
+type         | String
+example      | {{< highlight shell >}}"name": "handler-slack"{{< /highlight >}}
+
+| namespace  |      |
+-------------|------
+description  | The Sensu [RBAC namespace][9] that this handler belongs to.
+required     | false
+type         | String
+default      | `default`
+example      | {{< highlight shell >}}"namespace": "production"{{< /highlight >}}
+
+| labels     |      |
+-------------|------
+description  | Custom attributes to include with event data, which can be queried like regular attributes. You can use labels to organize handlers into meaningful collections that can be selected using [filters][10] and [tokens][11].
+required     | false
+type         | Map of key-value pairs. Keys and values can be any valid UTF-8 string.
+default      | `null`
+example      | {{< highlight shell >}}"labels": {
+  "environment": "development",
+  "region": "us-west-2"
+}{{< /highlight >}}
+
+| annotations |     |
+-------------|------
+description  | Arbitrary, non-identifying metadata to include with event data. In contrast to labels, annotations are _not_ used internally by Sensu and cannot be used to identify handlers. You can use annotations to add data that helps people or external tools interacting with Sensu.
+required     | false
+type         | Map of key-value pairs. Keys and values can be any valid UTF-8 string.
+default      | `null`
+example      | {{< highlight shell >}} "annotations": {
+  "managed-by": "ops",
+  "slack-channel": "#monitoring",
+  "playbook": "www.example.url"
+}{{< /highlight >}}
 
 ### `socket` attributes
 
@@ -205,9 +269,16 @@ configured webhook URL, using the `handler-slack` executable command.
 
 {{< highlight json >}}
 {
-  "name": "slack",
-  "type": "pipe",
-  "command": "handler-slack --webhook-url https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX --channel monitoring"
+  "type": "Handler",
+  "api_version": "core/v2",
+  "metadata" : {
+    "name": "slack",
+    "namespace": "default"
+  },
+  "spec": {
+    "type": "pipe",
+    "command": "handler-slack --webhook-url https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX --channel monitoring"
+  }
 }
 {{< /highlight >}}
 
@@ -218,13 +289,23 @@ will timeout if an acknowledgement (`ACK`) is not received within 30 seconds.
 
 {{< highlight json >}}
 {
-  "name": "tcp_handler",
-  "type": "tcp",
-  "socket": {
-    "host": "10.0.1.99",
-    "port": 4444
+  "type": "Handler",
+  "api_version": "core/v2",
+  "metadata" : {
+    "name": "tcp_handler",
+    "namespace": "default"
   },
-  "timeout": 30
+  "spec": {
+    "type": "tcp",
+    "socket": {
+      "host": "10.0.1.99",
+      "port": 4444
+    },
+    "metadata" : {
+      "name": "tcp_handler",
+      "namespace": "default"
+    }
+  }
 }
 {{< /highlight >}}
 
@@ -235,11 +316,18 @@ The following example will also forward event data but to UDP socket instead
 
 {{< highlight json >}}
 {
-  "name": "udp_handler",
-  "type": "udp",
-  "socket": {
-    "host": "10.0.1.99",
-    "port": 4444
+  "type": "Handler",
+  "api_version": "core/v2",
+  "metadata" : {
+    "name": "udp_handler",
+    "namespace": "default"
+  },
+  "spec": {
+    "type": "udp",
+    "socket": {
+      "host": "10.0.1.99",
+      "port": 4444
+    }
   }
 }
 {{< /highlight >}}
@@ -251,20 +339,33 @@ The following example handler will execute three handlers: `slack`,
 
 {{< highlight json >}}
 {
-  "name": "notify_all_the_things",
-  "type": "set",
-  "handlers": [
-    "slack",
-    "tcp_handler",
-    "udp_handler"
-  ]
+  "type": "Handler",
+  "api_version": "core/v2",
+  "metadata" : {
+    "name": "notify_all_the_things",
+    "namespace": "default"
+  },
+  "spec": {
+    "type": "set",
+    "handlers": [
+      "slack",
+      "tcp_handler",
+      "udp_handler"
+    ]
+  }
 }
 {{< /highlight >}}
 
 [1]: ../checks/
 [2]: https://en.wikipedia.org/wiki/Standard_streams
 [3]: ../events/
-[4]: ../../../1.2/reference/handlers/#the-default-handler
-[5]: ../../../1.2/reference/handlers/#transport-handlers
+[4]: /sensu-core/latest/reference/handlers/#the-default-handler
+[5]: /sensu-core/latest/reference/handlers/#transport-handlers
 [6]: #socket-attributes
 [7]: ../assets
+[8]: #metadata-attributes
+[9]: ../rbac#namespaces
+[10]: ../filters
+[11]: ../tokens
+[sc]: ../../sensuctl/reference#creating-resources
+[sp]: #spec-attributes

@@ -49,7 +49,7 @@ ignoreFiles = [ "sensu-doc-template.md" ]
     [params.products.sensu_go]
         identifier = "sensu-go"
         name = "Sensu Go"
-        description = "The next-generation open source monitoring event pipeline, written in Go. Currently in Beta."
+        description = "The next-generation open source monitoring event pipeline, written in Go."
         weight = 1
         latest = "5.0"
         [params.products.sensu_go.versions]

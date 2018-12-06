@@ -21,12 +21,14 @@ by visiting http://localhost:3000. You may need to replace `localhost` with the
 hostname or IP address where the Sensu backend is running.
 
 ### Signing In
-Sign in to the dashboard with your sensuctl username and password.
-If you haven't [configured sensuctl][2], you can sign in as the
-default read-only user (username: `sensu`, password: `sensu`).
+Sign in to the dashboard with your [sensuctl][2] username and password.
+See the [role-based access control reference][3] for [default user credentials][4] and instructions for [creating new users][5].
 
 ### Themes
 Use the preferences menu to change the theme or switch to the dark theme.
 
 [1]: ../../getting-started/installation-and-configuration/#starting-the-services
 [2]: ../../getting-started/configuring-sensuctl
+[3]: ../../reference/rbac
+[4]: ../../reference/rbac#default-user
+[5]: ../../reference/rbac#creating-a-user

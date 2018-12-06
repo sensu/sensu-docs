@@ -14,322 +14,390 @@ aliases:
   - /sensu-go/5.0/reference/sensuctl/
 ---
 
-- [Install and configure sensuctl][4]
-- [Commands](#commands)
-- [Subcommands](#subcommands)
-- [Flags](#flags)
-- [Output](#output)
+- [First-time setup](#first-time-setup)
+- [Managing sensuctl](#managing-sensuctl)
+- [Creating resources](#creating-resources)
+- [Editing resources](#editing-resources)
+- [Managing resources](#managing-resources)
 - [Time formats](#time-formats)
-- [Getting help](#getting-help)
-- [Creating resources](#create)
 - [Shell auto-completion](#shell-auto-completion)
 
-## How does sensuctl work?
 Sensuctl is a command line tool for managing resources within Sensu. It works by
 calling Sensu's underlying API to create, read, update, and delete resources,
-events, and entities.
+events, and entities. Sensuctl is available for Linux, macOS, and Windows.
+See the [installation guide][4] to install and configure sensuctl.
 
-## Sensuctl specification
-* Allows CRUD management of resources with options interactively or with flags
-* Displays output in JSON or tabular format
-
-## Command syntax
-`sensuctl` uses the following syntax to run commands:
-{{< highlight shell >}}
-sensuctl [TYPE] [command] [NAME] [flags]
-{{< /highlight >}}
-
-* `TYPE`: specifies the resource type you would like to manage or view, such as
-  `check`, `user`, `event`, etc.
-* `command`: specifies what type of operation on a resource, such as `create`, `read`, `update`, `delete`
-* `NAME`: specifies the name of the resource.
-* `flags`: specifies modifier flags.
-
-## Commands
-To get the full list of commands available in `sensuctl`, run `sensuctl -h` at
-the command prompt.
-
-Sensuctl has a few commands to configure and get info about the `sensuctl`
-command line tool:
-{{< highlight line >}}
-Commands:
-  completion   Output shell completion code for the specified shell (bash or zsh)
-  configure    Initialize sensuctl configuration
-  import       import resources from STDIN
-  logout       Logout from sensuctl
-  version      Show the sensu-ctl version information
-{{< /highlight >}}
-
-As well as commands to manage sensu resources:
-{{< highlight shell >}}
-Management Commands:
-  asset        Manage assets
-  check        Manage checks
-  config       Modify sensuctl configuration
-  entity       Manage entities
-  environment  Manage environments
-  event        Manage events
-  filter       Manage filters
-  handler      Manage handlers
-  hook         Manage hooks
-  mutator      Manage mutators
-  organization Manage organizations
-  role         Manage roles
-  silenced     Manage silenced subscriptions and checks
-  user         Manage users
-{{< /highlight >}}
-
-## Subcommands
-Management commands have secondary commands that can create or modify attributes on
-resources. For a list of subcommands specific to a resource, run `sensuctl
-[TYPE] -h`. Most commands should have at the following CRUD operations available:
+### Quick reference
 
 {{< highlight shell >}}
-create                     create new [TYPE] 
-delete                     delete [TYPE] given name
-info                       show detailed [TYPE] information
-list                       list [TYPE]
-update                     update [TYPE]
+# Configure and log in with defaults
+sensuctl configure
+? Sensu Backend URL: http://127.0.0.1:8080
+? Username: admin
+? Password: P@ssw0rd!
+
+# Create resources from a file containing JSON resource definitions
+sensuctl create --file filename.json
+
+# See monitored entities
+sensuctl entity list
+
+# See monitoring events
+sensuctl event list
+
+# Edit a check named check-cpu
+sensuctl edit check check-cpu
+
+# See the JSON configuration for a check named check-cpu
+sensuctl check info check-cpu --format wrapped-json
 {{< /highlight >}}
 
-In addition to the standard management commands, management commands may have single 
-use commands that allow you to set or remove a particular attribute on a resource. For example, 
-the `check` command has the following list of subcommands available:
+### Getting help
 
-{{< highlight line >}}
-Commands:
-  remove-handlers            removes handlers from a check
-  remove-high-flap-threshold removes high flap threshold from a check
-  remove-hook                removes a hook from a check
-  remove-low-flap-threshold  removes low flap threshold from a check
-  remove-proxy-entity-id     removes proxy entity id from a check
-  remove-proxy-requests      removes proxy requests from a check
-  remove-runtime-assets      removes runtime assets from a check
-  remove-subdue              removes subdue from a check
-  remove-timeout             removes timeout from a check
-  remove-ttl                 removes ttl from a check
-  set-command                set command of a check
-  set-cron                   set cron of a check
-  set-handlers               set handlers of a check
-  set-high-flap-threshold    set high flap threshold of a check
-  set-hooks                  set hooks of a check
-  set-interval               set interval of a check
-  set-low-flap-threshold     set low flap threshold of a check
-  set-proxy-entity-id        set proxy entity id of a check
-  set-proxy-requests         set proxy requests for a check from file or stdin
-  set-publish                set publish of a check
-  set-runtime-assets         set runtime assets of a check
-  set-stdin                  set stdin of a check
-  set-subdue                 set subdue of a check from file or stdin
-  set-subscriptions          set subscriptions of a check
-  set-timeout                set timeout of a check
-  set-ttl                    set ttl of a check
+Sensuctl supports a `--help` flag for each command and subcommand.
+
+{{< highlight shell >}}
+# See command and global flags
+sensuctl --help
+
+# See subcommands and flags
+sensuctl check --help
+
+# See usage and flags
+sensuctl check delete --help
 {{< /highlight >}}
 
-## Flags
+## First-time setup
 
-### Global
-Global flags modify settings specific to `sensuctl`, such as a Sensu host URL or
-[RBAC][1] information.
+To set up sensuctl, run `sensuctl configure` to log in to sensuctl and connect to the Sensu backend.
+
+{{< highlight shell >}}
+sensuctl configure
+{{< /highlight >}}
+
+When prompted, input the [Sensu backend URL][9] and your [Sensu access credentials][11].
+
+{{< highlight shell >}}
+? Sensu Backend URL: http://127.0.0.1:8080
+? Username: admin
+? Password: P@ssw0rd!
+? Namespace: default
+? Preferred output format: tabular
+{{< /highlight >}}
+
+### Sensu backend URL
+
+The HTTP or HTTPS URL where sensuctl can connect to the Sensu backend server, defaulting to `http://127.0.0.1:8080`.
+When connecting to a [Sensu cluster][7], connect sensuctl to any single backend in the cluster.
+For more information on configuring the Sensu backend URL, see the [backend reference][5].
+
+### Username | password | namespace
+
+By default, Sensu includes a user named `admin` with password `P@ssw0rd!` and a `default` namespace.
+Your ability to get, list, create, update, and delete resources with sensuctl depends on the permissions assigned to your Sensu user.
+For more information about configuring Sensu access control, see the [RBAC reference][1].
+
+### Preferred output format
+
+Sensuctl supports the following output formats:
+
+- `tabular`: user-friendly, columnar format
+- `wrapped-json`: accepted format for use with [`sensuctl create`][8]
+- `yaml`: accepted format for use with [`sensuctl create`][8]
+- `json`: format used by the [Sensu API][25]
+
+Once logged in, you can change the output format using `sensuctl config set-format` or set it per command using the `--format` flag.
+
+## Managing sensuctl
+
+The `sencutl config` command lets you view the current sensuctl configuration and set the namespace and output format.
+
+### View sensuctl config
+To view the active configuration for sensuctl:
+
+{{< highlight shell >}}
+sensuctl config view
+{{< /highlight >}}
+
+Sensuctl configuration includes the [Sensu backend url][9], Sensu edition (Core or Enterprise), the default [output format][10] for the current user, and the default [namespace][11] for the current user.
+
+{{< highlight shell >}}
+api-url: http://127.0.0.1:8080
+edition: core
+format: wrapped-json
+namespace: default
+{{< /highlight >}}
+
+### Set output format
+
+You can use the `set-format` command to change the default [output format][10] for the current user.
+For example, to change the output format to `tabular`:
+
+{{< highlight shell >}}
+sensuctl config set-format tabular
+{{< /highlight >}}
+
+### Set namespace
+
+You can use the `set-namespace` command to change the default [namespace][11] for the current user.
+For more information about configuring Sensu access control, see the [RBAC reference][1].
+For example, to change the default namespace to `development`:
+
+{{< highlight shell >}}
+sensuctl config set-namespace development
+{{< /highlight >}}
+
+### Log out of sensuctl
+
+To log out of sensuctl:
+
+{{< highlight shell >}}
+sensuctl logout
+{{< /highlight >}}
+
+To log back in:
+
+{{< highlight shell >}}
+sensuctl configure
+{{< /highlight >}}
+
+### View the sensuctl version number
+
+To display the current version of sensuctl:
+
+{{< highlight shell >}}
+sensuctl version
+{{< /highlight >}}
+
+### Global flags
+Global flags modify settings specific to sensuctl, such as the Sensu backend URL and [namespace][11].
+You can use global flags with most sensuctl commands.
 
 {{< highlight shell >}}
 --api-url string        host URL of Sensu installation
 --cache-dir string      path to directory containing cache & temporary files 
 --config-dir string     path to directory containing configuration files
---environment string    environment in which we perform actions (default "default")
---organization string   organization in which we perform actions (default "default")
+--namespace string      namespace in which we perform actions (default: "default")
 {{< /highlight >}}
 
-### Local
-Local flags modify attributes on resources within Sensu. They differ per
-operation and per resource. Many, but not all, flags have shorthand flag
-equivalents. A list of flags can be found by running `sensuctl [TYPE] [command] -h`. 
-For example, the `check` command has the following local flags:
+## Creating resources
+The `sensuctl create` command allows you to create or update resources by reading from STDIN or a flag configured file (`-f`).
+The `create` command accepts Sensu resource definitions in `wrapped-json` and `yaml`.
+Both JSON and YAML resource definitions wrap the contents of the resource in `spec` and identify the resource `type` (see below for an example, and [this table][3] for a list of supported types).
+See the [reference docs][6] for information about creating resource definitions.
 
-{{< highlight line >}}
-  -c, --command string               the command the check should run
-      --cron string                  the cron schedule at which the check is run
-      --handlers string              comma separated list of handlers to invoke when check fails
-  -h, --help                         help for create
-      --high-flap-threshold string   flap detection high threshold (percent state change) for the check
-      --interactive                  Determines if CLI is in interactive mode
-  -i, --interval string              interval, in seconds, at which the check is run
-      --low-flap-threshold string    flap detection low threshold (percent state change) for the check
-      --proxy-entity-id string       the check proxy entity, used to create a proxy entity for an external resource
-  -p, --publish                      publish check requests (default true)
-  -r, --runtime-assets string        comma separated list of assets this check depends on
-      --stdin                        accept event data via STDIN
-  -s, --subscriptions string         comma separated list of topics check requests will be sent to
-  -t, --timeout string               timeout, in seconds, at which the check has to run
-      --ttl string                   time to live in seconds for which a check result is valid
-{{< /highlight >}}
-
-## Output
-
-sensuctl can be configured to return JSON instead of the default human-readable
-format:
-
-{{< highlight shell >}}
-sensuctl check info marketing-site --format json
-{{< /highlight >}}
-
-{{< highlight json >}}
-{
-  "name": "marketing-site",
-  "interval": 10,
-  "subscriptions": [
-    "web"
-  ],
-  "command": "check-http.rb -u https://dean-learner.book",
-  "handlers": [
-    "slack"
-  ],
-  "runtime_assets": [],
-  "environment": "default",
-  "organization": "default"
-}
-{{< /highlight >}}
-
-If you do not want to explicitly use the format flag with each command, you can
-set the global default:
-
-{{< highlight shell >}}
-sensuctl config set-format json
-{{< /highlight >}}
-
-## Time formats
-
-sensuctl supports multiple time formats, varying depending on the manipulated
-resource.
-
-Supported canonical time zone IDs are defined in the [tz database][2].
-
-_WARNING: Canonical zone IDs (i.e. `America/Vancouver`) are not supported on
-Windows._
-
-### Time windows
-
-Time windows are used by various resources, such as check and filters. The
-following formats can be used:
-
-* 24-hour kitchen with canonical zone ID: `07:04 America/Vancouver` or `15:04
-  UTC`
-* 24-hour kitchen with numeric zone offset: `07:04 -08:00`
-* 12-hour kitchen with canonical zone ID: `7:04AM America/Vancouver`
-
-### Dates with time
-
-Full dates with time are used to specify an exact point in time, which can be
-used with silenced entries for example. The following formats are supported:
-
-* RFC3339 with numeric zone offset: `2018-05-10T07:04:00-08:00` or
-  `2018-05-10T15:04:00Z` 
-* RFC3339 with space delimiters and numeric zone offset: `2018-05-10 07:04:00
-  -08:00`
-* Sensu alpha legacy format with canonical zone ID: `May 10 2018 7:04AM
-  America/Vancouver`
-
-## Getting help
-
-All Sensu sub-commands have a `--help` flag that returns more information on
-using the command and if applicable any sub-commands _it_ has.
-
-{{< highlight shell >}}
-$ sensuctl --help
-sensuctl controls Sensu instances
-
-Usage:	sensuctl COMMAND
-
-Flags:
-      --api-url string        host URL of Sensu installation
-      --cache-dir string      path to directory containing cache & temporary files (default "/home/eric/.cache/sensu/sensuctl")
-      --config-dir string     path to directory containing configuration files (default "/home/eric/.config/sensu/sensuctl")
-      --environment string    environment in which we perform actions (default "default")
-  -h, --help                  help for sensuctl
-      --organization string   organization in which we perform actions (default "default")
-
-Commands:
-  completion   Output shell completion code for the specified shell (bash or zsh)
-  configure    Initialize sensuctl configuration
-  create       create new resources from file or STDIN
-  logout       Logout from sensuctl
-  version      Show the sensu-ctl version information
-
-Management Commands:
-  asset        Manage assets
-  check        Manage checks
-  config       Modify sensuctl configuration
-  entity       Manage entities
-  environment  Manage environments
-  event        Manage events
-  extension    Manage extension registry
-  filter       Manage filters
-  handler      Manage handlers
-  hook         Manage hooks
-  mutator      Manage mutators
-  organization Manage organizations
-  role         Manage roles
-  silenced     Manage silenced subscriptions and checks
-  user         Manage users
-
-Run 'sensuctl COMMAND --help' for more information on a command.
-{{< /highlight >}}
-
-## Create
-
-The `sensuctl create` command allows you to create and/or
-update resources by reading from STDIN or a flag configured file (`-f`). The
-accepted format of the `create` command is `wrapped-json`, which wraps the
-contents of the resource in `spec` and identifies its 2.x `type` (see below for
-an example, and [this table][3] for a list of supported types).
+For example, the following file `my-resources.json` specifies two resources: a `marketing-site` check and a `slack` handler.
 
 {{< highlight shell >}}
 {
   "type": "CheckConfig",
   "spec": {
-    "name": "marketing-site",
-    "command": "check-http.rb -u https://dean-learner.book",
+    "command": "check-http.go -u https://dean-learner.book",
     "subscriptions": ["demo"],
     "interval": 15,
     "handlers": ["slack"],
-    "organization": "default",
-    "environment": "default"
-   }
+    "metadata" : {
+      "name": "marketing-site",
+      "namespace": "default"
+    }
+  }
 }
 {
   "type": "Handler",
   "spec": {
-    "name": "slack",
     "type": "pipe",
-    "command": "handler-slack --webhook-url https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX --channel monitoring'",
-    "environment": "default",
-    "organization": "default"
+    "command": "handler-slack --webhook-url https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX --channel monitoring",
+    "metadata" : {
+      "name": "slack",
+      "namespace": "default"
+    }
   }
 }
 {{< /highlight >}}
 
-Write all checks to `my-resources.json` in `wrapped-json` format:
+_NOTE: Commas cannot be included between JSON resource definitions when using `sensuctl create`._
+
+To create all resources from `my-resources.json` using `sensuctl create`:
+
 {{< highlight shell >}}
-sensuctl check list --format wrapped-json > my-resources.json
+sensuctl create --file my-resources.json
 {{< /highlight >}}
 
-Create all resources in `wrapped-json` format from `my-resources.json`:
+Or:
+
 {{< highlight shell >}}
 cat my-resources.json | sensuctl create
 {{< /highlight >}}
 
-### Supported types
+### sensuctl create resource types
 
-|wrapped-json types |   |   |   |
+|sensuctl create types |   |   |   |
 --------------------|---|---|---|
 `AdhocRequest` | `adhoc_request` | `Asset` | `asset`
-`Check` | `check` | `CheckConfig` | `check_config`
-`Entity` | `entity` | `Environment` | `environment`
+`CheckConfig` | `check_config` | `ClusterRole`  | `cluster-role`
+`ClusterRoleBinding`  | `cluster-role-binding` | `Entity` | `entity`
 `Event` | `event` | `EventFilter` | `event_filter`
-`Extension` | `extension` | `Handler` | `handler`
-`Hook` | `hook` | `HookConfig` | `hook_config`
-`Mutator` | `mutator` | `Organization` | `organization`
-`Role` | `role` | `Silenced` | `silenced`
+`Handler` | `handler` | `Hook` | `hook`
+`HookConfig` | `hook_config` | `Mutator` | `mutator`
+`Namespace` | `namespace` | `Role` | `role`
+`RoleBinding` | `role-binding` | `Silenced` | `silenced`
+
+## Editing resources
+
+Sensuctl allows you to edit resource definitions using a text editor.
+To use `sensuctl edit`, specify the resource [type][24] and resource name.
+
+For example, to edit a handler named `slack` using `sensuctl edit`:
+
+{{< highlight shell >}}
+sensuctl edit handler slack
+{{< /highlight >}}
+
+### sensuctl edit resource types
+
+|sensuctl edit types |   |   |   |
+--------------------|---|---|---|
+`asset` | `check` | `cluster` | `cluster-role`
+`cluster-role-binding` | `entity` | `event` | `filter`
+`handler` | `hook` | `mutator` | `namespace`
+`role` | `role-binding` | `silenced` | `user`
+
+## Managing resources
+
+Sensuctl provides the following commands to manage Sensu resources.
+
+- [`sensuctl asset`][12]
+- [`sensuctl check`][13]
+- [`sensuctl cluster`][7]
+- [`sensuctl cluster-role`][1]
+- [`sensuctl cluster-role-binding`][1]
+- [`sensuctl entity`][14]
+- [`sensuctl event`][15]
+- [`sensuctl filter`][16]
+- [`sensuctl handler`][17]
+- [`sensuctl hook`][18]
+- [`sensuctl mutator`][19]
+- [`sensuctl namespace`][1]
+- [`sensuctl role`][1]
+- [`sensuctl role-binding`][1]
+- [`sensuctl silenced`][20]
+- [`sensuctl user`][1]
+
+### Subcommands
+Sensuctl provides a standard set of list, info, and delete operations for most resource types.
+
+{{< highlight shell >}}
+list                       list resources
+info NAME                  show detailed resource information given resource name
+delete NAME                delete resource given resource name
+{{< /highlight >}}
+
+For example, to list all monitoring checks:
+
+{{< highlight shell >}}
+sensuctl check list
+{{< /highlight >}}
+
+To write all checks to `my-resources.json` in `wrapped-json` format:
+
+{{< highlight shell >}}
+sensuctl check list --format wrapped-json > my-resources.json
+{{< /highlight >}}
+
+To see the definition for a check named `check-cpu` in [`wrapped-json` format][10]:
+
+{{< highlight shell >}}
+sensuctl check info check-cpu --format wrapped-json
+{{< /highlight >}}
+
+In addition to the standard operations, commands may support subcommands or flags that allow you to take special action based on the resource type; the following sections call out those resource-specific operations.
+For a list of subcommands specific to a resource, run `sensuctl TYPE --help`.
+
+#### sensuctl check
+
+In addition to the [standard subcommands][23], sensuctl provides a command to execute a check on demand, given the check name.
+
+{{< highlight shell >}}
+sensuctl check execute NAME
+{{< /highlight >}}
+
+For example, the following command executes the `check-cpu` check with an attached message:
+
+{{< highlight shell >}}
+sensuctl check execute check-cpu --reason "giving a sensuctl demo"
+{{< /highlight >}}
+
+You can also use the `--subscriptions` flag to override the subscriptions in the check definition:
+
+{{< highlight shell >}}
+sensuctl check execute check-cpu --subscriptions demo,webserver
+{{< /highlight >}}
+
+#### sensuctl cluster
+
+The `sensuctl cluster` command lets you manage a Sensu cluster using the following subcommands.
+
+{{< highlight shell >}}
+health           get sensu health status
+member-add       add cluster member to an existing cluster, with comma-separated peer addresses
+member-list      list cluster members
+member-remove    remove cluster member by ID
+member-update    update cluster member by ID with comma-separated peer addresses
+{{< /highlight >}}
+
+To view cluster members:
+
+{{< highlight shell >}}
+sensuctl cluster member-list
+{{< /highlight >}}
+
+To see the health of your Sensu cluster:
+
+{{< highlight shell >}}
+sensuctl cluster health
+{{< /highlight >}}
+
+#### sensuctl event
+
+In addition to the [standard subcommands][23], sensuctl provides a command to resolve an event.
+
+{{< highlight shell >}}
+sensuctl event resolve ENTITY CHECK
+{{< /highlight >}}
+
+For example, the following command manually resolves an event created by the entity `webserver1` and the check `check-http`:
+
+{{< highlight shell >}}
+sensuctl event resolve webserver1 check-http
+{{< /highlight >}}
+
+#### sensuctl namespace
+
+See the [RBAC reference][21] for information about using access control with namespaces.
+
+#### sensuctl user
+
+See the [RBAC reference][22] for information about local user management with sensuctl.
+
+## Time formats
+
+Sensuctl supports multiple time formats depending on the manipulated resource.
+Supported canonical time zone IDs are defined in the [tz database][2].
+
+_WARNING: Canonical zone IDs (i.e. `America/Vancouver`) are not supported on
+Windows._
+
+### Dates with time
+
+Full dates with time are used to specify an exact point in time, which can be
+used with silencing entries, for example. The following formats are supported:
+
+* RFC3339 with numeric zone offset: `2018-05-10T07:04:00-08:00` or
+  `2018-05-10T15:04:00Z`
+* RFC3339 with space delimiters and numeric zone offset: `2018-05-10 07:04:00
+  -08:00`
+* Sensu alpha legacy format with canonical zone ID: `May 10 2018 7:04AM
+  America/Vancouver`
 
 ## Shell auto-completion
 
@@ -337,7 +405,7 @@ cat my-resources.json | sensuctl create
 
 Make sure bash completion is installed. If you use a current Linux
 in a non-minimal installation, bash completion should be available.
-On a Mac, install with:
+On macOS, install with:
 
 {{< highlight shell >}}
 brew install bash-completion
@@ -351,7 +419,7 @@ if [ -f $(brew --prefix)/etc/bash_completion ]; then
 fi
 {{< /highlight >}}
 
-When bash-completion is available we can add the following to your `~/.bash_profile`:
+Once bash-completion is available, add the following to your `~/.bash_profile`:
 
 {{< highlight shell >}}
 source <(sensuctl completion bash)
@@ -379,20 +447,41 @@ source ~/.zshrc
 
 ### Usage
 
-sensuctl:
+`sensuctl` <kbd>Tab</kbd>
+
 {{< highlight shell >}}
-> $ sensuctl <kbd>Tab</kbd>
 check       configure   event       user
 asset       completion  entity      handler
 {{< /highlight >}}
 
-sensuctl:
+`sensuctl check` <kbd>Tab</kbd>
+
 {{< highlight shell >}}
-> $ sensuctl check <kbd>Tab</kbd>
 create  delete  import  list
 {{< /highlight >}}
 
 [1]: ../../reference/rbac
 [2]: https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
-[3]: #supported-types
-[4]: ../../getting-started/installation-and-configuration/#install-sensuctl
+[3]: #sensuctl-create-resource-types
+[4]: ../../installation/install-sensu/#install-sensuctl
+[5]: ../../reference/agent/#general-configuration-flags
+[6]: ../../reference
+[7]: ../../guides/clustering
+[8]: #creating-resources
+[9]: #sensu-backend-url
+[10]: #preferred-output-format
+[11]: #username-password-namespace
+[12]: ../../reference/assets
+[13]: ../../reference/checks
+[14]: ../../reference/entities
+[15]: ../../reference/events
+[16]: ../../reference/filters
+[17]: ../../reference/handlers
+[18]: ../../reference/hooks
+[19]: ../../reference/mutators
+[20]: ../../reference/silencing
+[21]: ../../reference/rbac#namespaces
+[22]: ../../reference/rbac#users
+[23]: #subcommands
+[24]: #sensuctl-edit-resource-types
+[25]: ../../api/overview
