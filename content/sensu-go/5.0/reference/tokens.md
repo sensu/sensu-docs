@@ -25,16 +25,16 @@ Sensu Go uses the [Go template][1] package to implement token substitution. Inst
 Tokens are invoked by wrapping references to entity attributes and labels with double curly braces, such as `{{ .name }}` to substitute an entity's name. Nested Sensu [entity attributes][3] can be accessed via dot notation (ex: `system.arch`).
 
 - `{{ .name }}` would be replaced with the [entity `name` attribute][3]
-- `{{ .url }}` would be replaced with a custom label called `url`
-- `{{ .disk.warning }}` would be replaced with a custom label called
-  `warning` nested inside of a JSON hash called `disk`
+- `{{ .labels.url }}` would be replaced with a custom label called `url`
+- `{{ .labels.disk-warning }}` would be replaced with a custom label called
+  `disk-warning`
 
 ### Token substitution default values
 
 In the event that an attribute is not provided by the [entity][3], a token's default
 value will be substituted. Token default values are separated by a pipe character and the word `default` (`| default`), and can be used to provide a "fallback value" for entities that are missing a specified token attribute.
 
-- `{{.url | default "https://sensu.io"}}` would be replaced with a custom label called `url`. If no such attribute called `url` is included in the entity definition, the default (or fallback) value of `https://sensu.io` will be used to substitute the token.
+- `{{.labels.url | default "https://sensu.io"}}` would be replaced with a custom label called `url`. If no such attribute called `url` is included in the entity definition, the default (or fallback) value of `https://sensu.io` will be used to substitute the token.
 
 ### Unmatched tokens
 
@@ -51,7 +51,7 @@ Check config token errors will be logged by the agent, and sent to Sensu backend
 ### Token substitution for check thresholds 
 
 In this example [check configuration][5], the `check-disk-usage.go` command accepts `-w` (warning) and `-c` (critical)
-arguments to indicate the thresholds (as percentages) for creating warning or critical events. If no token substitutions are provided by a check configuration, it will use default values to create a warning event at 80% disk capacity (i.e. `{{ .disk.warning | default 80 }}`), and a critical event at 90% capacity (i.e. `{{ .disk.critical | default 90 }}`).
+arguments to indicate the thresholds (as percentages) for creating warning or critical events. If no token substitutions are provided by an entity configuration, Sensu will use default values to create a warning event at 80% disk capacity (i.e. `{{ .labels.disk-warning | default 80 }}`), and a critical event at 90% capacity (i.e. `{{ .labels.disk-critical | default 90 }}`).
 
 {{< highlight json >}}
 {
@@ -84,7 +84,7 @@ arguments to indicate the thresholds (as percentages) for creating warning or cr
 }{{< /highlight >}}
 
 The following example [entity][4] would provide the necessary
-attributes to override the `.Disk.Warning`, `.Disk.Critical`, and `.Namespace`
+attributes to override the `.labels.disk-warning`, `labels.disk-critical`, and `.namespace`
 tokens declared above.
 
 {{< highlight json >}}
@@ -95,10 +95,8 @@ tokens declared above.
     "name": "example-hostname",
     "namespace": "staging",
     "labels": {
-      "disk": {
-        "warning": 75,
-        "critical": 85
-      }
+      "disk-warning": "80",
+      "disk-critical": "90"
     },
     "annotations": null
   },
