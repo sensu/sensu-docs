@@ -670,7 +670,9 @@ required     | false
 type         | Hash
 example      | {{< highlight json >}}{
   "sensu": {
-     "spawn": 24
+    "spawn": {
+      "limit": 24
+    }
   }
 }
 {{< /highlight >}}
