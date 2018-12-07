@@ -16,17 +16,17 @@ menu:
 When a check is scheduled to be executed by an agent, it first goes through a token substitution step. Any tokens matching attribute values in the check are applied, and then the check is executed. Invalid templates or unmatched tokens will return an error, which is logged and sent to the Sensu backend message transport. Checks with token matching errors will not be executed.
 
 ## New and improved tokens
-Sensu Go uses the [Go template][1] package to implement token substitution. Instead of using triple colons `:::` as in [1.x token substitution][2], Sensu Go token substitution uses double curly braces around the token, and a dot before the attribute to be substituted, such as: `{{ .System.Hostname }}`.
+Sensu Go uses the [Go template][1] package to implement token substitution. Instead of using triple colons `:::` as in [1.x token substitution][2], Sensu Go token substitution uses double curly braces around the token, and a dot before the attribute to be substituted, such as: `{{ .system.hostname }}`.
 
 ## Sensu tokens specification
 
 ### Token substitution syntax
 
-Tokens are invoked by wrapping references to entity or custom attributes with double curly braces, such as `{{ .ID }}` to substitute an entity's ID value. Nested Sensu [entity attributes][3] can be accessed via dot notation (ex: `System.Arch`).
+Tokens are invoked by wrapping references to entity attributes and labels with double curly braces, such as `{{ .name }}` to substitute an entity's name. Nested Sensu [entity attributes][3] can be accessed via dot notation (ex: `system.arch`).
 
-- `{{ .ID }}` would be replaced with the [entity `ID` attribute][3]
-- `{{ .URL }}` would be replaced with a custom attribute called `url`
-- `{{ .Disk.Warning }}` would be replaced with a custom attribute called
+- `{{ .name }}` would be replaced with the [entity `name` attribute][3]
+- `{{ .url }}` would be replaced with a custom label called `url`
+- `{{ .disk.warning }}` would be replaced with a custom label called
   `warning` nested inside of a JSON hash called `disk`
 
 ### Token substitution default values
@@ -34,14 +34,14 @@ Tokens are invoked by wrapping references to entity or custom attributes with do
 In the event that an attribute is not provided by the [entity][3], a token's default
 value will be substituted. Token default values are separated by a pipe character and the word `default` (`| default`), and can be used to provide a "fallback value" for entities that are missing a specified token attribute.
 
-- `{{.URL | default "https://sensu.io"}}` would be replaced with a [custom  attribute][3] called `url`. If no such attribute called `url` is included in the client definition, the default (or fallback) value of `https://sensu.io` will be used to substitute the token.
+- `{{.url | default "https://sensu.io"}}` would be replaced with a custom label called `url`. If no such attribute called `url` is included in the entity definition, the default (or fallback) value of `https://sensu.io` will be used to substitute the token.
 
 ### Unmatched tokens
 
 If a token is unmatched during check preparation, the agent check handler will return an error, and the check will not be executed. Unmatched token errors will look similar to the following:
 
 {{< highlight shell >}}
-error: unmatched token: template: :1:22: executing "" at <.System.Hostname>: map has no entry for key "System"
+error: unmatched token: template: :1:22: executing "" at <.system.hostname>: map has no entry for key "System"
 {{< /highlight >}}
 
 Check config token errors will be logged by the agent, and sent to Sensu backend message transport as a check failure.
@@ -51,7 +51,7 @@ Check config token errors will be logged by the agent, and sent to Sensu backend
 ### Token substitution for check thresholds 
 
 In this example [check configuration][5], the `check-disk-usage.go` command accepts `-w` (warning) and `-c` (critical)
-arguments to indicate the thresholds (as percentages) for creating warning or critical events. If no token substitutions are provided by a check configuration, it will use default values to create a warning event at 80% disk capacity (i.e. `{{ .Disk.Warning | default 80 }}`), and a critical event at 90% capacity (i.e. `{{ .Disk.Critical | default 90 }}`).
+arguments to indicate the thresholds (as percentages) for creating warning or critical events. If no token substitutions are provided by a check configuration, it will use default values to create a warning event at 80% disk capacity (i.e. `{{ .disk.warning | default 80 }}`), and a critical event at 90% capacity (i.e. `{{ .disk.critical | default 90 }}`).
 
 {{< highlight json >}}
 {
@@ -59,12 +59,12 @@ arguments to indicate the thresholds (as percentages) for creating warning or cr
   "api_version": "core/v1",
   "metadata": {
     "name": "check-disk-usage",
-    "namespace": "{{ .Namespace | default \"production\" }}",
+    "namespace": "{{ .namespace | default \"production\" }}",
     "labels": null,
     "annotations": null
   },
   "spec": {
-    "command": "check-disk-usage.rb -w {{.Disk.Warning | default 80}} -c {{.Disk.Critical | default 90}}",
+    "command": "check-disk-usage.rb -w {{.disk.warning | default 80}} -c {{.disk.critical | default 90}}",
     "handlers": [],
     "high_flap_threshold": 0,
     "interval": 10,
@@ -94,7 +94,12 @@ tokens declared above.
   "metadata": {
     "name": "example-hostname",
     "namespace": "staging",
-    "labels": null,
+    "labels": {
+      "disk": {
+        "warning": 75,
+        "critical": 85
+      }
+    },
     "annotations": null
   },
   "spec": {
@@ -152,11 +157,7 @@ tokens declared above.
       "secret_key",
       "private_key",
       "secret"
-    ],
-    "disk": {
-      "warning": 75,
-      "critical": 85
-    }
+    ]
   }
 }{{< /highlight >}}
 
