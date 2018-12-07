@@ -64,7 +64,7 @@ arguments to indicate the thresholds (as percentages) for creating warning or cr
     "annotations": null
   },
   "spec": {
-    "command": "check-disk-usage.rb -w {{.disk.warning | default 80}} -c {{.disk.critical | default 90}}",
+    "command": "check-disk-usage.rb -w {{.labels.disk-warning | default 80}} -c {{.labels.disk-critical | default 90}}",
     "handlers": [],
     "high_flap_threshold": 0,
     "interval": 10,
