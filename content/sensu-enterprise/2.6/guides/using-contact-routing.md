@@ -16,11 +16,11 @@ menu:
     - [Contact Configuration](#contact-configuration)
     - [Check Configuration](#check-configuration)
     - [Client Configuration](#client-configuration)
-- [Example Implementation](#example-implementation)
-  - [Default Configuration](#default-configuration)
+- [Example Implementations](#example-implementations)
+  - [Global Configuration](#global-configuration)
   - [Single Handler](#single-handler)
       - [Single Handler with a Single Matching Contact](#single-handler-with-a-single-matching-contact)
-      - [Single Handler with a Single Non-Matching Contact](#single-handler-a-single-non-matching-contact)
+      - [Single Handler with a Single Non-Matching Contact](#single-handler-with-a-single-non-matching-contact)
       - [Single Handler with Multiple Matching Contacts](#single-handler-with-multiple-matching-contacts)
       - [Single Handler with Multiple Non-Matching Contacts](#single-handler-with-multiple-non-matching-contacts)
       - [Single Handler with Some Matching Contacts](#single-handler-with-some-matching-contacts)
@@ -30,7 +30,7 @@ menu:
       - [Multiple Handlers with a Single Non-Matching Contact](#multiple-handlers-with-a-single-non-matching-contact)
       - [Multiple Handlers with Multiple Matching Contacts](#multiple-handlers-with-multiple-matching-contacts)
       - [Multiple Handlers with Multiple Non-Matching Contacts](#multiple-handlers-with-multiple-non-matching-contacts)
-      - [Multiple Handlers With Some Matching Contacts](#multiple-handlers-some-matching-contacts)
+      - [Multiple Handlers with Some Matching Contacts](#multiple-handlers-with-some-matching-contacts)
 - [Wrapping Up](#wrapping-up)
   - [Contact Routing and Sensu Event Pipeline](#contact-routing-and-sensu-event-pipeline)
 - [References](#references)
@@ -59,7 +59,7 @@ metric integrations.
 _NOTE: Sensu Enterprise supports contact routing for all integrations except
 EC2, Puppet, Chef, Flapjack, and Event Stream._
 
-In this guide we'll cover configuring and using Sensu Enterprise Contact
+In this guide we'll cover configuring and using Sensu Enterprise Contact Routing.
 
 ## Contact Routing Basics
 
