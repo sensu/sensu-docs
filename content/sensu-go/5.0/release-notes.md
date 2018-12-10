@@ -33,10 +33,10 @@ The Sensu Team
 
 [changelog]: https://github.com/sensu/sensu-go/blob/master/CHANGELOG.md
 [blog]: https://blog.sensu.io/sensu-go-is-here
-[1]: dashboard/overview
-[2]: sensuctl/reference
-[3]: api/overview
-[4]: ../../reference/rbac#namespaces
-[5]: ../../reference/rbac
-[6]: ../../reference/filters
-[7]: ../../guides/aggregate-metrics-statsd
+[1]: /sensu-go/5.0/dashboard/overview
+[2]: /sensu-go/5.0/sensuctl/reference
+[3]: /sensu-go/5.0/api/overview
+[4]: /sensu-go/5.0/reference/rbac#namespaces
+[5]: /sensu-go/5.0/reference/rbac
+[6]: /sensu-go/5.0/reference/filters
+[7]: /sensu-go/5.0/guides/aggregate-metrics-statsd

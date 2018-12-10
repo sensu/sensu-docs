@@ -66,7 +66,11 @@ sudo yum install sensu-go-backend
 
 ### 2. Create the configuration file
 
-Download the [example configuration file][11] and save it as `/etc/sensu/backend.yml`.
+Copy the example backend config file to the default config path.
+
+{{< highlight shell >}}
+sudo cp /usr/share/doc/sensu-go-backend-5.0.0/backend.yml.example /etc/sensu/backend.yml
+{{< /highlight >}}
 
 _NOTE: The Sensu backend can be configured using a `/etc/sensu/backend.yml` configuration file or using `sensu-backend start` configuration flags. For more information, see the [backend reference][6]._
 
@@ -160,7 +164,11 @@ Download the [Sensu agent for Windows](https://s3-us-west-2.amazonaws.com/sensu.
 
 #### Ubuntu/RHEL/CentOS
 
-Download the [example configuration file][2] and save it as `/etc/sensu/agent.yml`.
+Copy the example agent config file to the default config path.
+
+{{< highlight shell >}}
+sudo cp /usr/share/doc/sensu-go-agent-5.0.0/agent.yml.example /etc/sensu/agent.yml
+{{< /highlight >}}
 
 _NOTE: The Sensu agent can be configured using a `/etc/sensu/agent.yml` configuration file or using `sensu-agent start` configuration flags. For more information, see the [agent reference][7]._
 
