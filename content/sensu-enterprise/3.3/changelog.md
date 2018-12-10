@@ -62,11 +62,6 @@ following improvements:
 
 Built on [Sensu Core 1.6.2][core-v1-6-2]:
 
-- **IMPROVEMENT**: Sensu Core now includes the Sensu Translator: a command-line
-  tool to help you transfer your Sensu Core 1.x configuration to Sensu Go 5.0.
-  For more information, see the [Sensu Translator on GitHub][69], and stay tuned
-  to the [Sensu Go upgrade guide][70].
-
 - **BUGFIX**: Sensu Core 1.6.2 improves error handling for Redis Sentinel
   connections. In the event of a Sentinel DNS lookup error, Sensu now
   retries the failing Sentinel instances until they become available, but
@@ -836,5 +831,3 @@ This release includes potentially breaking, backwards-incompatible changes:
 [66]: http://www.rabbitmq.com/install-rpm.html#kernel-resource-limits
 [og-eu]: https://docs.opsgenie.com/docs/european-service-region
 [core-v1-6-2]: /sensu-core/1.6/changelog/#core-v1-6-2
-[69]: https://github.com/sensu/sensu-translator
-[70]: /sensu-go/latest/installation/upgrade
