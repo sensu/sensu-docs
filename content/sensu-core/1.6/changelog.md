@@ -66,6 +66,11 @@ Source: [GitHub.com][68]
 
 ### CHANGES {#core-v1-6-2-changes}
 
+- **IMPROVEMENT**: Sensu Core now includes the Sensu Translator: a command-line
+  tool to help you transfer your Sensu Core 1.6.2 configuration to Sensu Go 5.0.
+  For more information, see the [Sensu Translator on GitHub][69], and stay tuned
+  to the [Sensu Go upgrade guide][70].
+
 - **BUGFIX**: Sensu Core 1.6.2 improves error handling for Redis Sentinel
   connections. In the event of a Sentinel connection error, Sensu now
   retries the failing Sentinel instances until they become available, but
@@ -1755,6 +1760,8 @@ available for immediate download. Please note the following improvements:
 
 <!-- 1.6.2 -->
 [68]: https://github.com/sensu/sensu/blob/master/CHANGELOG.md#162---2018-12-07
+[69]: https://github.com/sensu/sensu-translator
+[70]: /sensu-go/latest/installation/upgrade
 
 <!-- GH Issues/PR's -->
 
