@@ -150,7 +150,25 @@ sudo yum install sensu-go-agent
 
 #### Windows
 
-Download the [Sensu agent for Windows](https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.0.0/sensu-go-5.0.0-windows-amd64.tar.gz).
+Download the Sensu agent for Windows.
+
+{{< highlight text >}}
+Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.0.0/sensu-go-5.0.0-windows-amd64.tar.gz  -OutFile C:\Users\Administrator\sensu-go-5.0.0-windows-amd64.tar.gz
+{{< /highlight >}}
+
+You can verify the download by generating a SHA-512 checksum.
+
+{{< highlight text >}}
+Get-FileHash C:\Users\Administrator\sensu-go-5.0.0-windows-amd64.tar.gz -Algorithm SHA512 | Format-List
+{{< /highlight >}}
+
+The result should match (with the exception of capitalization) the output from the following commands.
+
+{{< highlight text >}}
+Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.0.0/sensu-go-5.0.0-windows-amd64.sha512sum -OutFile C:\Users\Administrator\sensu-go-5.0.0-windows-amd64.sha512sum
+
+Get-Content C:\Users\Administrator\sensu-go-5.0.0-windows-amd64.sha512sum
+{{< /highlight >}}
 
 {{< platformBlockClose >}}
 
@@ -275,7 +293,25 @@ sudo yum install sensu-go-cli
 
 #### Windows
 
-Download [sensuctl for Windows](https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.0.0/sensu-go-5.0.0-windows-amd64.tar.gz).
+Download the sensuctl for Windows.
+
+{{< highlight text >}}
+Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.0.0/sensu-go-5.0.0-windows-amd64.tar.gz  -OutFile C:\Users\Administrator\sensu-go-5.0.0-windows-amd64.tar.gz
+{{< /highlight >}}
+
+You can verify the download by generating a SHA-512 checksum.
+
+{{< highlight text >}}
+Get-FileHash C:\Users\Administrator\sensu-go-5.0.0-windows-amd64.tar.gz -Algorithm SHA512 | Format-List
+{{< /highlight >}}
+
+The result should match (with the exception of capitalization) the output from the following commands.
+
+{{< highlight text >}}
+Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.0.0/sensu-go-5.0.0-windows-amd64.sha512sum -OutFile C:\Users\Administrator\sensu-go-5.0.0-windows-amd64.sha512sum
+
+Get-Content C:\Users\Administrator\sensu-go-5.0.0-windows-amd64.sha512sum
+{{< /highlight >}}
 
 {{< platformBlockClose >}}
 
@@ -299,6 +335,18 @@ Copy the executable into your PATH.
 
 {{< highlight shell >}}
 sudo cp bin/sensuctl /usr/local/bin/
+{{< /highlight >}}
+
+You can verify the download by generating a SHA-512 checksum.
+
+{{< highlight shell >}}
+shasum -a 512 sensu-go-5.0.0-darwin-amd64.tar.gz
+{{< /highlight >}}
+
+The result should match the output from the following command.
+
+{{< highlight shell >}}
+curl -LO https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.0.0/sensu-go-5.0.0-darwin-amd64.sha512sum && shasum -a 512 sensu-go-5.0.0-darwin-amd64.sha512sum
 {{< /highlight >}}
 
 {{< platformBlockClose >}}
