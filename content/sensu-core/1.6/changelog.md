@@ -72,7 +72,7 @@ Source: [GitHub.com][68]
   to the [Sensu Go upgrade guide][70].
 
 - **BUGFIX**: Sensu Core 1.6.2 improves error handling for Redis Sentinel
-  connections. In the event of a Sentinel connection error, Sensu now
+  connections. In the event of a Sentinel DNS lookup error, Sensu now
   retries the failing Sentinel instances until they become available, but
   proceeds with normal operation as long as one Sentinel can direct Sensu to
   the current Redis leader.
