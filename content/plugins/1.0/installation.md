@@ -18,7 +18,7 @@ Installing via the built-in `sensu-install` tool is the preferred method of inst
 sensu-install -p disk-checks{{< /highlight >}}
 
 
-For further details, please see the [plugin installation guide][1].
+For further details, please see the [Sensu Core 1.x plugin installation guide][1] or the [Sensu Go plugin installation guide][3].
 
 ### Gems
 
@@ -96,3 +96,4 @@ For details check the header file of a given plugin.
 <!-- LINKS -->
 [1]: /sensu-core/latest/installation/installing-plugins/
 [2]: https://github.com/sensu-plugins/community/blob/master/best_practices/production_deployments/plugins/PINNING_VERSIONS.md
+[3]: /sensu-go/latest/installation/plugins
