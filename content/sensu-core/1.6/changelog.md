@@ -8,6 +8,7 @@ menu: "sensu-core-1.6"
 
 ## Releases
 
+- [Core 1.6.2 Release Notes](#core-v1-6-2)
 - [Core 1.6.1 Release Notes](#core-v1-6-1)
 - [Core 1.6.0 Release Notes](#core-v1-6-0)
 - [Core 1.5.0 Release Notes](#core-v1-5-0)
@@ -54,6 +55,22 @@ menu: "sensu-core-1.6"
 - [Core 0.23.2 Release Notes](#core-v0-23-2)
 - [Core 0.23.1 Release Notes](#core-v0-23-1)
 - [Core 0.23.0 Release Notes](#core-v0-23-0)
+
+## Core 1.6.2 Release Notes {#core-v1-6-2}
+
+Source: [GitHub.com][68]
+
+**December 10, 2018** &mdash; Sensu Core version 1.6.2 has been released
+  and is available for immediate download. Please note the following
+  improvements:
+
+### CHANGES {#core-v1-6-2-changes}
+
+- **BUGFIX**: Sensu Core 1.6.2 improves error handling for Redis Sentinel
+  connections. In the event of a Sentinel connection error, Sensu now
+  retries the failing Sentinel instances until they become available, but
+  proceeds with normal operation as long as one Sentinel can direct Sensu to
+  the current Redis leader.
 
 ## Core 1.6.1 Release Notes {#core-v1-6-1}
 
@@ -1735,6 +1752,9 @@ available for immediate download. Please note the following improvements:
 
 <!-- 1.6.1 -->
 [67]: https://github.com/sensu/sensu/blob/master/CHANGELOG.md#161---2018-10-23
+
+<!-- 1.6.2 -->
+[68]: https://github.com/sensu/sensu/blob/master/CHANGELOG.md#162---2018-12-07
 
 <!-- GH Issues/PR's -->
 
