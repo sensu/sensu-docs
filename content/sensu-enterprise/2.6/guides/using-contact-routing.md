@@ -68,7 +68,7 @@ configuration overrides for one or more of Sensu Enterprise's built-in
 integrations or handler configurations. A contact in Sensu Enterprise is not too
 dissimilar from a contact on your phone, in which they have a name and one or
 more _identifiers_ for various communication **channels** (e.g. a **phone**
-_number_, **email** _address_, **Twitter** _username_, etc). As an example your contact may have the following **email** _address, **slack** _channel_, **pangerduty** _service\_key_, etc.
+_number_, **email** _address_, **Twitter** _username_, etc). As an example your contact may have the following **email** _address, **slack** _channel_, **pagerduty** _service\_key_, etc.
 
 ### Contact Configuration
 
