@@ -67,7 +67,7 @@ Source: [GitHub.com][68]
 ### CHANGES {#core-v1-6-2-changes}
 
 - **IMPROVEMENT**: Sensu Core now includes the Sensu Translator: a command-line
-  tool to help you transfer your Sensu Core 1.6.2 configuration to Sensu Go 5.0.
+  tool to help you transfer your Sensu Core 1.x configuration to Sensu Go 5.0.
   For more information, see the [Sensu Translator on GitHub][69], and stay tuned
   to the [Sensu Go upgrade guide][70].
 
