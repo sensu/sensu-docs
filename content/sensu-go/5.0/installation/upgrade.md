@@ -28,7 +28,7 @@ sudo service sensu-agent restart
 sudo service sensu-backend restart
 {{< /highlight >}}
 
-For systems using `systemd`, you may need to run `sudo systemctl daemon-reload` after restarting the services.
+For systems using `systemd`, you should run `sudo systemctl daemon-reload` before restarting the services.
 
 You can use the `version` command to determine the installed version using the `sensu-agent`, `sensu-backend`, and `sensuctl` tools. For example: `sensu-backend version`.
 
