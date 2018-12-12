@@ -25,7 +25,7 @@ Then restart the services.
 sudo service sensu-agent restart
 
 # Restart the Sensu backend
-sudo service sensu-agent restart
+sudo service sensu-backend restart
 {{< /highlight >}}
 
 You can verify the version using the Sensu command line tools.
