@@ -283,6 +283,8 @@ required     | false
 type         | Array
 example      | {{< highlight shell >}}"runtime_assets": ["ruby-2.5.0"]{{< /highlight >}}
 
+<a name="check-hooks-attribute">
+
 |check_hooks |      |
 -------------|------
 description  | An array of check response types with respective arrays of [Sensu hook names][6]. Sensu hooks are commands run by the Sensu agent in response to the result of the check command execution. Hooks are executed, in order of precedence, based on their severity type: `1` to `255`, `ok`, `warning`, `critical`, `unknown`, and finally `non-zero`.

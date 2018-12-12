@@ -212,6 +212,7 @@ sensuctl user list
 ### Creating a user
 You can use [sensuctl][2] to create a user.
 For example, the following command creates a user with the username `alice` and the password `password`.
+Passwords must have at least eight characters.
 
 {{< highlight shell >}}
 sensuctl user create alice --password 'password'
