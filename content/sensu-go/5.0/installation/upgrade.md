@@ -32,7 +32,7 @@ Sensu Go also includes a lot of powerful features to make monitoring easier to b
 - [API](#api)
 
 ### Packaging
-Sensu is now provided as three packages: sensu-backend, sensu-agent, and sensu-cli (sensuctl).
+Sensu is now provided as three packages: sensu-go-backend, sensu-go-agent, and sensu-go-cli (sensuctl).
 This results in a fundamental change in Sensu terminology from Sensu Core 1.x: the server is now the backend; the client is now the agent.
 To learn more about new terminology in Sensu Go, see the [glossary][1].
 

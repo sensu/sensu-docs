@@ -134,7 +134,7 @@ entities with particular subscriptions.
 ## New and improved checks
 
 Here is some useful information for Sensu 1 users around modifications made to
-checks in Sensu 2.
+checks in Sensu Go.
 
 ### Standalone checks
 
@@ -478,7 +478,7 @@ example      | {{< highlight shell >}}"splay_coverage": 65{{< /highlight >}}
 [nagios]: https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/3/en/perfdata.html
 [graphite]: http://graphite.readthedocs.io/en/latest/feeding-carbon.html#the-plaintext-protocol
 [influx]: https://docs.influxdata.com/influxdb/v1.4/write_protocols/line_protocol_tutorial/#measurement
-[open]: http://opentsdb.net/docs/build/html/user_guide/writing.html#data-specification
+[open]: http://opentsdb.net/docs/build/html/user_guide/writing/index.html#data-specification
 [sensu-metric-format]: ../../reference/events/#metrics
 [create]: ../../sensuctl/reference#create
 [25]: #metadata-attributes
