@@ -41,9 +41,9 @@ To create an asset, we'll need a name, a URL to the asset location,
 and a `SHA-512 checksum`.
 
 {{< highlight shell >}}
-$ sensuctl asset create check_website.tar.gz \
-  -u http://example.com/check_website.tar.gz \
-  --sha512 "$(sha512sum check_website.tar.gz | cut -f1 -d ' ')"
+sensuctl asset create check_website.tar.gz \
+-u http://example.com/check_website.tar.gz \
+--sha512 "$(sha512sum check_website.tar.gz | cut -f1 -d ' ')"
 {{< /highlight >}}
 
 If you're using macOS, you'll need to use `$(shasum -a 512 check_website.tar.gz | cut -f1 -d ' ')` to generate a checksum.
@@ -59,11 +59,11 @@ and extract the checksum from the output manually, before adding it to the sensu
 ### Adding an asset to a check on creation
 
 {{< highlight shell >}}
-$ sensuctl check create check_website \
-  --command "check_website -a www.example.com -C 3000 -w 1500" \
-  --subscriptions web \
-  --interval 10 \
-  --runtime-assets check_website.tar.gz 
+sensuctl check create check_website \
+--command "check_website -a www.example.com -C 3000 -w 1500" \
+--subscriptions web \
+--interval 10 \
+--runtime-assets check_website.tar.gz 
 {{< /highlight >}}
 
 ### Adding an asset to an existing check's dependencies
@@ -85,10 +85,10 @@ see a log entry for that check's execution.
 
 You can verify that the asset is working by using `sensuctl` to list the most recent events:
 {{< highlight shell >}}
-$ sensuctl event list
-    Entity           Check                     Output               Status   Silenced             Timestamp
- ───────────── ────────────────── ──────────────────────────────── ──────── ────────── ───────────────────────────────
-  sensu-agent    check_website      CheckHttpResponseTime OK: 345      0       false    2018-04-06 20:38:34 +0000 UTC
+sensuctl event list
+  Entity           Check                     Output               Status   Silenced             Timestamp
+───────────── ────────────────── ──────────────────────────────── ──────── ────────── ───────────────────────────────
+sensu-agent    check_website      CheckHttpResponseTime OK: 345      0       false    2018-04-06 20:38:34 +0000 UTC
 {{< /highlight >}}
 
 ## How to create a handler that depends on an asset 
@@ -98,9 +98,9 @@ $ sensuctl event list
 [Create an asset][2] (ex.`sensu-influxdb-handler`), and create a handler (ex. `influx-db`).
 
 {{< highlight shell >}}
-$ sensuctl handler create influx-db \
-  --command "sensu-influxdb-handler --addr 'http://123.4.5.6:8086' --username 'foo' --password 'bar' --db-name 'myDB'" \
-  --runtime-assets sensu-influxdb-handler
+sensuctl handler create influx-db \
+--command "sensu-influxdb-handler --addr 'http://123.4.5.6:8086' --username 'foo' --password 'bar' --db-name 'myDB'" \
+--runtime-assets sensu-influxdb-handler
 {{< /highlight >}}
 
 ### Validating the handler asset
@@ -128,9 +128,9 @@ backend logs.
 [Create an asset][2] (ex. `transformer`), and create a mutator (ex. `transform-metrics`).
 
 {{< highlight shell >}}
-$ sensuctl mutator create transform-metrics \
-  --command "transform --type metrics" \
-  --runtime-assets transformer
+sensuctl mutator create transform-metrics \
+--command "transform --type metrics" \
+--runtime-assets transformer
 {{< /highlight >}}
 
 ### Validating the mutator asset
@@ -138,7 +138,7 @@ $ sensuctl mutator create transform-metrics \
 Once the mutator is setup, it must be attached to a handler to mutate the event output (ex. `influx-db`).
 
 {{< highlight shell >}}
-$ sensuctl handler update influx-db
+sensuctl handler update influx-db
 {{< /highlight >}}
 
 You can verify that the mutator has fetched/installed the asset, and executed the dependency by checking the

@@ -64,7 +64,7 @@ sensuctl check create check-sensuapp \
 --command 'http_check.sh https://sensu.io' \
 --interval 60 \
 --subscriptions sensu-app \
---proxy-entity-id sensu.io
+--proxy-entity-name sensu.io
 {{< /highlight >}}
 
 ### Adding the subscription

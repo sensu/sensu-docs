@@ -11,6 +11,11 @@ menu:
 - [The `/events` API endpoint](#the-events-api-endpoint)
 	- [`/events` (GET)](#events-get)
 	- [`/events` (POST)](#events-post)
+- [The `/events/:entity` API endpoint](#the-eventsentity-api-endpoint)
+	- [`/events/:entity` (GET)](#eventsentity-get)
+- [The `/events/:entity/:check` API endpoint](#the-eventsentitycheck-api-endpoint)
+	- [`/events/:entity/:check` (GET)](#eventsentitycheck-get)
+  - [`/events/:entity/:check` (DELETE)](#eventsentitycheck-delete)
 
 ## The `/events` API endpoint
 
@@ -24,7 +29,10 @@ The following example demonstrates a request to the `/events` API, resulting in
 a JSON Array containing [event definitions][1].
 
 {{< highlight shell >}}
-curl -s http://127.0.0.1:8080/api/core/v2/namespaces/default/events -H "Authorization: Bearer TOKEN"
+curl -H "Authorization: Bearer TOKEN" \
+http://127.0.0.1:8080/api/core/v2/namespaces/default/events
+
+HTTP/1.1 200 OK
 [
   {
     "timestamp": 1542667666,
@@ -229,5 +237,249 @@ payload         | {{< highlight shell >}}
 {{< /highlight >}}
 response codes  | <ul><li>**Success**: 200 (OK)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
-[1]: ../../reference/events
+## The `/events/:entity` API endpoint {#the-eventsentity-api-endpoint}
 
+### `/events/:entity` (GET) {#eventsentity-get}
+
+The `/events/:entity` API endpoint provides HTTP GET access to [event data][1] specific to an `:entity`, by entity `name`.
+
+#### EXAMPLE {#eventsentity-get-example}
+
+In the following example, querying the `/events/:entity` API returns a list of Sensu events for the `sensu-go-sandbox` entity and a successful HTTP 200 OK response.
+
+{{< highlight shell >}}
+curl -H "Authorization: Bearer TOKEN" \
+http://127.0.0.1:8080/api/core/v2/namespaces/default/events/sensu-go-sandbox
+
+HTTP/1.1 200 OK
+[
+  {
+    "timestamp": 1543871497,
+    "entity": {
+      "entity_class": "agent",
+      "system": {
+        "hostname": "webserver01",
+        "...": "...",
+        "arch": "amd64"
+      },
+      "subscriptions": [
+        "linux",
+        "entity:sensu-go-sandbox"
+      ],
+      "last_seen": 1543858763,
+      "metadata": {
+        "name": "sensu-go-sandbox",
+        "namespace": "default"
+      }
+    },
+    "check": {
+      "command": "check-cpu.sh -w 75 -c 90",
+      "duration": 1.054253257,
+      "executed": 1543871496,
+      "history": [
+        {
+          "status": 0,
+          "executed": 1543870296
+        }
+      ],
+      "issued": 1543871496,
+      "output": "CPU OK - Usage:.50\n",
+      "state": "passing",
+      "status": 0,
+      "total_state_change": 0,
+      "last_ok": 1543871497,
+      "occurrences": 1,
+      "metadata": {
+        "name": "check-cpu",
+        "namespace": "default"
+      }
+    },
+    "metadata": {
+      "namespace": "default"
+    }
+  },
+  {
+    "timestamp": 1543871524,
+    "entity": {
+      "entity_class": "agent",
+      "system": {
+        "hostname": "webserver01",
+        "...": "...",
+        "arch": "amd64"
+      },
+      "subscriptions": [
+        "linux",
+        "entity:sensu-go-sandbox"
+      ],
+      "last_seen": 1543871523,
+      "metadata": {
+        "name": "sensu-go-sandbox",
+        "namespace": "default"
+      }
+    },
+    "check": {
+      "handlers": [
+        "keepalive"
+      ],
+      "executed": 1543871524,
+      "history": [
+        {
+          "status": 0,
+          "executed": 1543871124
+        }
+      ],
+      "issued": 1543871524,
+      "output": "",
+      "state": "passing",
+      "status": 0,
+      "total_state_change": 0,
+      "last_ok": 1543871524,
+      "occurrences": 1,
+      "metadata": {
+        "name": "keepalive",
+        "namespace": "default"
+      }
+    },
+    "metadata": {}
+  }
+]
+{{< /highlight >}}
+
+#### API Specification {#eventsentity-get-specification}
+
+/events/:entity (GET) | 
+---------------------|------
+description          | Returns a list of events for the specified entity.
+example url          | http://hostname:8080/api/core/v2/namespaces/default/events/sensu-go-sandbox
+response type        | Array
+response codes       | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+output               | {{< highlight json >}}
+[
+  {
+    "timestamp": 1543871524,
+    "entity": {
+      "entity_class": "agent",
+      "system": {
+        "hostname": "webserver01",
+        "...": "...",
+        "arch": "amd64"
+      },
+      "subscriptions": [
+        "linux",
+        "entity:sensu-go-sandbox"
+      ],
+      "last_seen": 1543871523,
+      "metadata": {
+        "name": "sensu-go-sandbox",
+        "namespace": "default"
+      }
+    },
+    "check": {
+      "handlers": [
+        "keepalive"
+      ],
+      "executed": 1543871524,
+      "history": [
+        {
+          "status": 0,
+          "executed": 1543871124
+        }
+      ],
+      "issued": 1543871524,
+      "output": "",
+      "state": "passing",
+      "status": 0,
+      "total_state_change": 0,
+      "last_ok": 1543871524,
+      "occurrences": 1,
+      "metadata": {
+        "name": "keepalive",
+        "namespace": "default"
+      }
+    },
+    "metadata": {}
+  }
+]
+{{< /highlight >}}
+
+## The `/events/:entity/:check` API endpoint {#the-eventsentitycheck-api-endpoint}
+
+### `/events/:entity/:check` (GET) {#eventsentitycheck-get}
+
+#### API Specification {#eventsentitycheck-get-specification}
+
+/events/:entity/:check (GET) | 
+---------------------|------
+description          | Returns an event for a given entity and check.
+example url          | http://hostname:8080/api/core/v2/namespaces/default/events/sensu-go-sandbox/check-cpu
+response type        | Map
+response codes       | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+output               | {{< highlight json >}}
+{
+  "timestamp": 1543871524,
+  "entity": {
+    "entity_class": "agent",
+    "system": {
+      "hostname": "webserver01",
+      "...": "...",
+      "arch": "amd64"
+    },
+    "subscriptions": [
+      "linux",
+      "entity:sensu-go-sandbox"
+    ],
+    "last_seen": 1543871523,
+    "metadata": {
+      "name": "sensu-go-sandbox",
+      "namespace": "default"
+    }
+  },
+  "check": {
+    "handlers": [
+      "keepalive"
+    ],
+    "executed": 1543871524,
+    "history": [
+      {
+        "status": 0,
+        "executed": 1543871124
+      }
+    ],
+    "issued": 1543871524,
+    "output": "",
+    "state": "passing",
+    "status": 0,
+    "total_state_change": 0,
+    "last_ok": 1543871524,
+    "occurrences": 1,
+    "metadata": {
+      "name": "keepalive",
+      "namespace": "default"
+    }
+  },
+  "metadata": {}
+}
+{{< /highlight >}}
+
+### `/events/:entity/:check` (DELETE) {#eventsentitycheck-delete}
+
+### EXAMPLE
+The following example shows a request to delete the event produced by the `sensu-go-sandbox` entity and `check-cpu` check, resulting in a successful HTTP 204 No Content response.
+
+{{< highlight shell >}}
+curl -X DELETE \
+-H "TOKEN" \
+http://127.0.0.1:8080/api/core/v2/namespaces/default/events/sensu-go-sandbox/check-cpu 
+
+HTTP/1.1 204 No Content
+{{< /highlight >}}
+
+#### API Specification {#eventsentitycheck-delete-specification}
+
+/events/:entity/:check (DELETE) | 
+--------------------------|------
+description               | Deletes the event created by the specified entity using the specified check
+example url               | http://hostname:8080/api/core/v2/namespaces/default/events/sensu-go-sandbox/check-cpu 
+response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+
+[1]: ../../reference/events

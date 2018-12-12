@@ -386,7 +386,7 @@ sensu-backend start \
 --etcd-trusted-ca-file=./ca.pem \
 --etcd-cert-file=./client.pem \
 --etcd-key-file=./client-key.pem \
---etcd-listen-client-urls=https://10.0.0.1:2379,https://10.0.0.2:2379,https://10.0.0.3:2379 \
+--etcd-advertise-client-urls=https://10.0.0.1:2379,https://10.0.0.2:2379,https://10.0.0.3:2379 \
 --no-embed-etcd
 {{< /highlight >}}
 
