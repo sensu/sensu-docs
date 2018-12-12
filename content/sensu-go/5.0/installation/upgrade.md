@@ -28,15 +28,9 @@ sudo service sensu-agent restart
 sudo service sensu-backend restart
 {{< /highlight >}}
 
-You can verify the version using the Sensu command line tools.
+For systems using `systemd`, you may need to run `sudo systemctl daemon-reload` after restarting the services.
 
-{{< highlight shell >}}
-sensu-agent version
-
-sensu-backend version
-
-sensuctl version
-{{< /highlight >}}
+You can use the `version` command to verify the version using the `sensu-agent`, `sensu-backend`, and `sensuctl` tools. For example: `sensu-backend version`.
 
 ## Upgrading to Sensu Go from Sensu Core 1.x
 
