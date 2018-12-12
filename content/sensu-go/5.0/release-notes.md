@@ -24,7 +24,7 @@ goodness.
   fixed.
     * Environment variables are now correctly included when executing checks.
     * Command arguments are no longer escaped on Windows.
-    * Added backend environment to handler & mutator execution requests.
+    * Added backend environment to handler and mutator execution requests.
 
 ## 5.0 Release Notes
 
