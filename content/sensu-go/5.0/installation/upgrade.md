@@ -28,7 +28,7 @@ sudo service sensu-agent restart
 sudo service sensu-agent restart
 {{< /highlight >}}
 
-You can verify the verson using the Sensu command line tools.
+You can verify the version using the Sensu command line tools.
 
 {{< highlight shell >}}
 sensu-agent version
