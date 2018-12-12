@@ -1,5 +1,5 @@
 ---
-title: "Upgrading to Sensu Go"
+title: "Upgrading Sensu"
 linkTitle: "Upgrade Sensu"
 description: "Guide to upgrading to Sensu Go from Sensu Core 1.x"
 weight: 3
@@ -10,6 +10,35 @@ menu:
   sensu-go-5.0:
     parent: installation
 ---
+
+- [Upgrading from 5.0.0 or later](#upgrading-to-the-latest-version-of-sensu-go-from-5-0-0-or-later)
+- [Upgrading from 1.x or later](#upgrading-to-sensu-go-from-sensu-core-1-x)
+
+## Upgrading to the latest version of Sensu Go from 5.0.0 or later
+
+To upgrade to the latest version of Sensu Go from version 5.0.0 or later, first [install the latest packages][23].
+
+Then restart the services.
+
+{{< highlight shell >}}
+# Restart the Sensu agent
+sudo service sensu-agent restart
+
+# Restart the Sensu backend
+sudo service sensu-agent restart
+{{< /highlight >}}
+
+You can verify the verson using the Sensu command line tools.
+
+{{< highlight shell >}}
+sensu-agent version
+
+sensu-backend version
+
+sensuctl version
+{{< /highlight >}}
+
+## Upgrading to Sensu Go from Sensu Core 1.x
 
 This guide provides general information for upgrading your Sensu instance from [Sensu Core 1.x][19] to Sensu Go 5.0.
 See the [Sensu translator project][18] to translate your Sensu configuration from Sensu Core 1.x to Sensu Go automatically.
@@ -110,3 +139,4 @@ In addition to the changes to resource definitions, Sensu Go includes a new, ver
 [20]: https://packagecloud.io/sensu/community
 [21]: https://github.com/sensu-plugins
 [22]: ../plugins
+[23]: ../../installation/install-sensu

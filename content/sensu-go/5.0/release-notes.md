@@ -9,16 +9,38 @@ aliases:
   - /sensu-go/5.0/changelog
 ---
 
+- [5.0.1 Release Notes](#5-0-1-release-notes)
+- [5.0.0 Release Notes](#5-0-0-release-notes)
+
+### Versioning
+Sensu Go adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html) using MAJOR.MINOR.PATCH release numbers, starting at 5.0.0. MAJOR version changes indicate incompatible API changes; MINOR versions add backwards-compatible functionality; PATCH versions include backwards-compatible bug fixes.
+
+### Upgrading
+
+To upgrade to the latest version of Sensu Go from version 5.0.0 or later, first [install the latest packages][8].
+
+Then restart the services.
+
+{{< highlight shell >}}
+# Restart the Sensu agent
+sudo service sensu-agent restart
+
+# Restart the Sensu backend
+sudo service sensu-agent restart
+{{< /highlight >}}
+
+You can use the `version` command to verify the version using the `sensu-agent`, `sensu-backend`, and `sensuctl` tools. For example: `sensu-backend version`.
+
+---
+
 ## 5.0.1 Release Notes
 
 **December 12, 2018** &mdash; We’re excited to announce the latest
-version of Sensu Go! Please read on for the detailed release
-goodness.
+version of Sensu Go!
 
 ### CHANGES {#go-5.0.1-changes}
 
-- **FIXED**: External etcd clusters can now be used.
-    * Resolved an issue where external etcd could not be used in backend configuration.
+- **FIXED**: Resolved an issue where external etcd could not be used in backend configuration.
 
 - **FIXED**: Issues around command execution in the agent are now
   fixed.
@@ -26,7 +48,7 @@ goodness.
     * Command arguments are no longer escaped on Windows.
     * Added backend environment to handler and mutator execution requests.
 
-## 5.0 Release Notes
+## 5.0.0 Release Notes
 
 **December 5, 2018** &mdash; It’s here! This marks the inaugural stable release of Sensu Go. 
 
@@ -57,3 +79,4 @@ The Sensu Team
 [5]: /sensu-go/5.0/reference/rbac
 [6]: /sensu-go/5.0/reference/filters
 [7]: /sensu-go/5.0/guides/aggregate-metrics-statsd
+[8]: /sensu-go/5.0/installation/install-sensu
