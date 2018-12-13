@@ -473,6 +473,7 @@ curl -X PUT \
 -H "Authorization: Bearer TOKEN" \
 -H 'Content-Type: application/json' \
 -d '{
+  "timestamp": 1542667666,
   "entity": {
     "entity_class": "agent",
     "metadata": {
@@ -502,6 +503,7 @@ description     | Creates an event for a given entity and check.
 example url     | http://hostname:8080/api/core/v2/namespaces/default/events/sensu-go-sandbox/check-cpu
 payload         | {{< highlight shell >}}
 {
+  "timestamp": 1542667666,
   "entity": {
     "entity_class": "agent",
     "metadata": {
@@ -518,7 +520,7 @@ payload         | {{< highlight shell >}}
   }
 }
 {{< /highlight >}}
-payload parameters | <ul><li>`entity` scope containing the `entity_class` and a `metadata` scope containing `name` (string) and `namespace` (string)</li><li>`check` scope containing `interval` (integer) or `cron` (string), and a `metadata` scope containing `name` (string) and `namespace` (string)</li>
+payload parameters | <ul><li>`timestamp` (required, integer): Unix timestamp for the event, for example `1542667666`</li><li>`entity` scope containing the `entity_class` and a `metadata` scope containing `name` (string) and `namespace` (string)</li><li>`check` scope containing `interval` (integer) or `cron` (string), and a `metadata` scope containing `name` (string) and `namespace` (string)</li>
 response codes   | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 ### `/events/:entity/:check` (DELETE) {#eventsentitycheck-delete}
