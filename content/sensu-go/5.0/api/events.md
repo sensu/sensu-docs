@@ -15,6 +15,7 @@ menu:
 	- [`/events/:entity` (GET)](#eventsentity-get)
 - [The `/events/:entity/:check` API endpoint](#the-eventsentitycheck-api-endpoint)
 	- [`/events/:entity/:check` (GET)](#eventsentitycheck-get)
+  - [`/events/:entity/:check` (PUT)](#eventsentitycheck-put)
   - [`/events/:entity/:check` (DELETE)](#eventsentitycheck-delete)
 
 ## The `/events` API endpoint
@@ -460,6 +461,65 @@ output               | {{< highlight json >}}
   "metadata": {}
 }
 {{< /highlight >}}
+
+### `/events/:entity/:check` (PUT) {#eventsentitycheck-put}
+
+#### EXAMPLE {#eventsentitycheck-put-example}
+
+In the following example, an HTTP PUT request is submitted to the `/events/:entity/:check` API to create an event for the `sensu-go-entity` entity and the `check-cpu` check, resulting in a 200 (OK) HTTP response code.
+
+{{< highlight shell >}}
+curl -X PUT \
+-H "Authorization: Bearer TOKEN" \
+-H 'Content-Type: application/json' \
+-d '{
+  "entity": {
+    "entity_class": "agent",
+    "metadata": {
+      "name": "sensu-go-sandbox",
+      "namespace": "default"
+    }
+  },
+  "check": {
+    "interval": 60,
+    "metadata": {
+      "name": "check-cpu",
+      "namespace": "default"
+    }
+  }
+}' \
+http://127.0.0.1:8080/api/core/v2/namespaces/default/events/sensu-go-sandbox/check-cpu
+
+HTTP/1.1 200 OK
+{{< /highlight >}}
+
+
+#### API Specification {#eventsentitycheck-put-specification}
+
+/events/:entity/:check (PUT) | 
+----------------|------
+description     | Creates an event for a given entity and check.
+example url     | http://hostname:8080/api/core/v2/namespaces/default/events/sensu-go-sandbox/check-cpu
+payload         | {{< highlight shell >}}
+{
+  "entity": {
+    "entity_class": "agent",
+    "metadata": {
+      "name": "sensu-go-sandbox",
+      "namespace": "default"
+    }
+  },
+  "check": {
+    "interval": 60,
+    "metadata": {
+      "name": "check-cpu",
+      "namespace": "default"
+    }
+  }
+}
+{{< /highlight >}}
+payload parameters | <ul><li>`entity` scope containing the `entity_class` and a `metadata` scope containing `name` (string) and `namespace` (string)</li><li>`check` scope containing `interval` (integer) or `cron` (string), and a `metadata` scope containing `name` (string) and `namespace` (string)</li>
+response codes   | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 ### `/events/:entity/:check` (DELETE) {#eventsentitycheck-delete}
 
