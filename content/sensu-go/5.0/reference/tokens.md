@@ -26,8 +26,8 @@ Tokens are invoked by wrapping references to entity attributes and labels with d
 
 - `{{ .name }}` would be replaced with the [entity `name` attribute][3]
 - `{{ .labels.url }}` would be replaced with a custom label called `url`
-- `{{ .labels.disk-warning }}` would be replaced with a custom label called
-  `disk-warning`
+- `{{ .labels.disk_warning }}` would be replaced with a custom label called
+  `disk_warning`
 
 ### Token substitution default values
 
@@ -51,7 +51,7 @@ Check config token errors will be logged by the agent, and sent to Sensu backend
 ### Token substitution for check thresholds 
 
 In this example [check configuration][5], the `check-disk-usage.go` command accepts `-w` (warning) and `-c` (critical)
-arguments to indicate the thresholds (as percentages) for creating warning or critical events. If no token substitutions are provided by an entity configuration, Sensu will use default values to create a warning event at 80% disk capacity (i.e. `{{ .labels.disk-warning | default 80 }}`), and a critical event at 90% capacity (i.e. `{{ .labels.disk-critical | default 90 }}`).
+arguments to indicate the thresholds (as percentages) for creating warning or critical events. If no token substitutions are provided by an entity configuration, Sensu will use default values to create a warning event at 80% disk capacity (i.e. `{{ .labels.disk_warning | default 80 }}`), and a critical event at 90% capacity (i.e. `{{ .labels.disk_critical | default 90 }}`).
 
 {{< highlight json >}}
 {
@@ -64,7 +64,7 @@ arguments to indicate the thresholds (as percentages) for creating warning or cr
     "annotations": null
   },
   "spec": {
-    "command": "check-disk-usage.rb -w {{.labels.disk-warning | default 80}} -c {{.labels.disk-critical | default 90}}",
+    "command": "check-disk-usage.rb -w {{.labels.disk_warning | default 80}} -c {{.labels.disk_critical | default 90}}",
     "handlers": [],
     "high_flap_threshold": 0,
     "interval": 10,
@@ -84,7 +84,7 @@ arguments to indicate the thresholds (as percentages) for creating warning or cr
 }{{< /highlight >}}
 
 The following example [entity][4] would provide the necessary
-attributes to override the `.labels.disk-warning`, `labels.disk-critical`, and `.namespace`
+attributes to override the `.labels.disk_warning`, `labels.disk_critical`, and `.namespace`
 tokens declared above.
 
 {{< highlight json >}}
@@ -95,8 +95,8 @@ tokens declared above.
     "name": "example-hostname",
     "namespace": "staging",
     "labels": {
-      "disk-warning": "80",
-      "disk-critical": "90"
+      "disk_warning": "80",
+      "disk_critical": "90"
     },
     "annotations": null
   },

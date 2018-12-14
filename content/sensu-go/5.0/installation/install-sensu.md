@@ -69,7 +69,7 @@ sudo yum install sensu-go-backend
 Copy the example backend config file to the default config path.
 
 {{< highlight shell >}}
-sudo cp /usr/share/doc/sensu-go-backend-5.0.0/backend.yml.example /etc/sensu/backend.yml
+sudo cp /usr/share/doc/sensu-go-backend-5.0.1/backend.yml.example /etc/sensu/backend.yml
 {{< /highlight >}}
 
 _NOTE: The Sensu backend can be configured using a `/etc/sensu/backend.yml` configuration file or using `sensu-backend start` configuration flags. For more information, see the [backend reference][6]._
@@ -150,7 +150,7 @@ sudo yum install sensu-go-agent
 
 #### Windows
 
-Download the [Sensu agent for Windows](https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.0.0/sensu-go-5.0.0-windows-amd64.tar.gz).
+Download the [Sensu agent for Windows](https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.0.1/sensu-go-5.0.1-windows-amd64.tar.gz).
 
 {{< platformBlockClose >}}
 
@@ -167,7 +167,7 @@ Download the [Sensu agent for Windows](https://s3-us-west-2.amazonaws.com/sensu.
 Copy the example agent config file to the default config path.
 
 {{< highlight shell >}}
-sudo cp /usr/share/doc/sensu-go-agent-5.0.0/agent.yml.example /etc/sensu/agent.yml
+sudo cp /usr/share/doc/sensu-go-agent-5.0.1/agent.yml.example /etc/sensu/agent.yml
 {{< /highlight >}}
 
 _NOTE: The Sensu agent can be configured using a `/etc/sensu/agent.yml` configuration file or using `sensu-agent start` configuration flags. For more information, see the [agent reference][7]._
@@ -275,7 +275,7 @@ sudo yum install sensu-go-cli
 
 #### Windows
 
-Download [sensuctl for Windows](https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.0.0/sensu-go-5.0.0-windows-amd64.tar.gz).
+Download [sensuctl for Windows](https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.0.1/sensu-go-5.0.1-windows-amd64.tar.gz).
 
 {{< platformBlockClose >}}
 
@@ -286,13 +286,13 @@ Download [sensuctl for Windows](https://s3-us-west-2.amazonaws.com/sensu.io/sens
 Download the latest release.
 
 {{< highlight shell >}}
-curl -LO https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.0.0/sensu-go-5.0.0-darwin-amd64.tar.gz
+curl -LO https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.0.1/sensu-go-5.0.1-darwin-amd64.tar.gz
 {{< /highlight >}}
 
 Extract the archive.
 
 {{< highlight shell >}}
-tar -xvf sensu-go-5.0.0-darwin-amd64.tar.gz
+tar -xvf sensu-go-5.0.1-darwin-amd64.tar.gz
 {{< /highlight >}}
 
 Copy the executable into your PATH.

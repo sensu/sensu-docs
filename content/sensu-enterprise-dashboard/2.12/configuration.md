@@ -120,7 +120,7 @@ This example makes use of the following:
 
 _NOTE: Local users can only be used for fallback with Github, Gitlab, and OIDC RBAC providers. It is not possible to have a local fallback with LDAP._
 
-### Dashboard definition specification {#dashboard-configuration-attributes}
+### Dashboard definition specification {#dashboard-definition-specification}
 
 The Sensu Enterprise dashboard uses two [configuration scopes][9]: the
 `{ "sensu": {} }` configuration scope provides connection details for one or
