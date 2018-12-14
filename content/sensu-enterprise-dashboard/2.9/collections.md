@@ -59,6 +59,10 @@ The familiar operators, `AND`, `OR`, and `NOT`, are supported. You may use
 multiple operators within a single query. Be aware that the use of many
 operators may cause higher than normal resource usage.
 
+_NOTE: When using operators, all letters must be capitalized. Operators in lowercase letters are not supported._
+
+#### Examples
+
 `dc:us-east-1 AND name:centos`
 Includes all items from the datacenter **us-east-1** that have **centos** in
 their name.
