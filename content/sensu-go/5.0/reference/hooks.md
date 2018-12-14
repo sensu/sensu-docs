@@ -47,7 +47,7 @@ the check configuration scope. With unique and descriptive identifiers, hooks
 are now reusable! And that's not all, you can now execute multiple hooks for any
 given response code.
 
-Check out Sean’s [blog post][1] about Sensu Core check hooks to see how you can use
+Check out Sean’s [blog post][1] about Sensu Core 1.x check hooks to see how you can use
 Sensu for auto-remediation tasks!
 
 ## Hooks specification
