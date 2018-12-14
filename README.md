@@ -4,7 +4,7 @@ Welcome to the Sensu Docs project! This repository is the home of [docs.sensu.io
 
 [Read the docs][site] | [Contributing guide](CONTRIBUTING.md) | [Style guide][wiki] | [Code of conduct][coc] | [Contact admins][email] | [Open an issue][issue]
 
-![Travis build status](https://travis-ci.org/sensu/sensu-docs.svg?branch=master)
+![Travis build status](https://travis-ci.com/sensu/sensu-docs.svg?branch=master)
 
 ---
 
