@@ -229,7 +229,7 @@ Now that you've installed the Sensu agent:
 
 ## Install sensuctl
 Sensu Go can be configured and used with the sensuctl command line utility.
-Ssensuctl is available for Ubuntu, RHEL/CentOS, Windows, and macOS.
+Sensuctl is available for Ubuntu, RHEL/CentOS, Windows, and macOS.
 
 ### 1. Install the package
 
