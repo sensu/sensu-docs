@@ -72,6 +72,62 @@ description  | Top-level map that includes the entity [spec attributes][sp].
 required     | Required for entity definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][sc].
 type         | Map of key-value pairs
 example      | {{< highlight shell >}}
+"spec": {
+    "entity_class": "agent",
+    "system": {
+      "hostname": "sensu2-centos",
+      "os": "linux",
+      "platform": "centos",
+      "platform_family": "rhel",
+      "platform_version": "7.4.1708",
+      "network": {
+        "interfaces": [
+          {
+            "name": "lo",
+            "addresses": [
+              "127.0.0.1/8",
+              "::1/128"
+            ]
+          },
+          {
+            "name": "enp0s3",
+            "mac": "08:00:27:11:ad:d2",
+            "addresses": [
+              "10.0.2.15/24",
+              "fe80::26a5:54ec:cf0d:9704/64"
+            ]
+          },
+          {
+            "name": "enp0s8",
+            "mac": "08:00:27:bc:be:60",
+            "addresses": [
+              "172.28.128.3/24",
+              "fe80::a00:27ff:febc:be60/64"
+            ]
+          }
+        ]
+      },
+      "arch": "amd64"
+    },
+    "subscriptions": [
+      "entity:webserver01"
+    ],
+    "last_seen": 1542667231,
+    "deregister": false,
+    "deregistration": {},
+    "user": "agent",
+    "redact": [
+      "password",
+      "passwd",
+      "pass",
+      "api_key",
+      "api_token",
+      "access_key",
+      "secret_key",
+      "private_key",
+      "secret"
+    ]
+  }
 {{< /highlight >}}
 
 ### Spec Attributes
