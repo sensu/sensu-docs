@@ -287,7 +287,7 @@ To see available configuration flags and defaults:
 sensu-agent start --help
 {{< /highlight >}}
 
-If no configuration flags are provided, the agent loads configuration from [`/etc/sensu/agent.yml`][25] by default.
+If no configuration flags are provided, the agent loads configuration from `/etc/sensu/agent.yml` by default.
 
 To start the agent using a service manager:
 
@@ -420,8 +420,8 @@ Agents can connect to a Sensu cluster by specifying any Sensu backend URL in the
 
 ## Configuration
 
-You can specify the agent configuration using a [`/etc/sensu/agent.yml`][25] file or using `sensu-agent start` [configuration flags][24].
-See the example [`/etc/sensu/agent.yml`][25] file used during the [installation process][1] on [GitHub][25].
+You can specify the agent configuration using a `/etc/sensu/agent.yml` file or using `sensu-agent start` [configuration flags][24].
+See the example config file provided with Sensu at `/usr/share/doc/sensu-go-agent-5.0.0/agent.yml.example`.
 The agent loads configuration upon startup, so you must restart the agent for any configuration updates to take effect.
 
 ### Configuration summary
@@ -818,7 +818,6 @@ statsd-metrics-port: 6125{{< /highlight >}}
 [22]: #statsd-configuration-flags
 [23]: https://github.com/etsy/statsd#key-concepts
 [24]: #configuration
-[25]: https://github.com/sensu/sensu-go/blob/master/packaging/files/agent.yml.example
 [26]: #keepalives
 [27]: ../tokens
 [28]: #subscriptions-flag

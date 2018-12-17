@@ -16,4 +16,4 @@ visit the [sensu-docs][2] project on GitHub.
 Otherwise, please [click here for the latest Sensu Enterprise documentation][1].
 
 [1]:  /sensu-enterprise/latest
-[2]:  https://github.com/sensu/sensu-docs/tree/master/legacy
+[2]:  https://github.com/sensu/sensu-docs-legacy
