@@ -165,7 +165,7 @@ response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 
 
 /users/:user (DELETE) | 
 --------------------------|------
-description               | Removes a user from Sensu given the username.
+description               | Disables a user given the username.
 example url               | http://hostname:8080/api/core/v2/namespaces/default/users/alice
 response codes            | <ul><li>**Success**: 202 (Accepted)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
