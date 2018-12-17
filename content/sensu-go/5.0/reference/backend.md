@@ -1,6 +1,6 @@
 ---
-title: "Backend reference"
-linkTitle: "Backend"
+title: "Sensu backend"
+linkTitle: "Sensu Backend"
 description: "Reference documentation for the Sensu backend"
 weight: 1
 version: "5.0"

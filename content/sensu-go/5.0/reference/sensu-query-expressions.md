@@ -2,7 +2,7 @@
 title: "Sensu query expressions"
 linkTitle: "Sensu Query Expressions"
 description: "The Sensu query expressions reference guide."
-weight: 1
+weight: 10
 version: "5.0"
 product: "Sensu Go"
 platformContent: false 
