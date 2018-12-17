@@ -260,8 +260,12 @@ The resulting `keepalive` handler set configuration looks like this:
 {{< highlight json >}}
 {
   "type": "Handler",
-  "spec": {
+  "api_version": "core/v2",
+  "metadata" : {
     "name": "keepalive",
+    "namespace": "default"
+  },
+  "spec": {
     "type": "set",
     "handlers": [
       "slack"
