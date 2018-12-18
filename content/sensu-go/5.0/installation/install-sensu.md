@@ -152,6 +152,12 @@ sudo yum install sensu-go-agent
 
 Download the [Sensu agent for Windows](https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.0.1/sensu-go-5.0.1-windows-amd64.tar.gz).
 
+{{< highlight text >}}
+Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.0.1/sensu-go-5.0.1-windows-amd64.tar.gz  -OutFile C:\Users\Administrator\sensu-go-5.0.1-windows-amd64.tar.gz
+{{< /highlight >}}
+
+See the [verifying Sensu guide][12] to verify your download using checksums.
+
 {{< platformBlockClose >}}
 
 {{< platformBlock "Ubuntu RHEL/CentOS Windows" >}}
@@ -277,13 +283,19 @@ sudo yum install sensu-go-cli
 
 Download [sensuctl for Windows](https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.0.1/sensu-go-5.0.1-windows-amd64.tar.gz).
 
+{{< highlight text >}}
+Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.0.1/sensu-go-5.0.1-windows-amd64.tar.gz  -OutFile C:\Users\Administrator\sensu-go-5.0.1-windows-amd64.tar.gz
+{{< /highlight >}}
+
+See the [verifying Sensu guide][12] to verify your download using checksums.
+
 {{< platformBlockClose >}}
 
 {{< platformBlock "macOS" >}}
 
 #### macOS
 
-Download the latest release.
+Download the latest release. See the [verifying Sensu guide][12] to verify your download using checksums.
 
 {{< highlight shell >}}
 curl -LO https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.0.1/sensu-go-5.0.1-darwin-amd64.tar.gz
@@ -399,3 +411,4 @@ While it can be run from the docker container, doing so may be problematic.
 [9]: ../../guides/monitor-external-resources
 [10]: ../../guides/send-slack-alerts
 [11]: https://github.com/sensu/sensu-go/blob/master/packaging/files/backend.yml.example
+[12]: ../verify
