@@ -1,6 +1,6 @@
 ---
-title: "Agent reference"
-linkTitle: "Agent"
+title: "Sensu agent"
+linkTitle: "Sensu Agent"
 description: "Sensu agent reference documentation"
 weight: 1
 version: "5.0"
@@ -512,7 +512,7 @@ config-file: "/sensu/agent.yml"{{< /highlight >}}
 -------------|------
 description  | Custom attributes to include with event data, which can be queried like regular attributes. You can use labels to organize entities into meaningful collections that can be selected using [filters][9] and [tokens][27].
 required     | false
-type         | Map of key-value pairs. Keys and values can be any valid UTF-8 string.
+type         | Map of key-value pairs. Keys can contain only letters, numbers, and underscores, but must start with a letter. Values can be any valid UTF-8 string.
 default      | `null`
 example               | {{< highlight shell >}}# Command line example
 sensu-agent start --labels region=us-west-2

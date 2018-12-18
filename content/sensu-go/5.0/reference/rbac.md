@@ -2,7 +2,7 @@
 title: "Role-based access control"
 linkTitle: "Role-Based Access Control"
 description: "Sensu RBAC reference documentation"
-weight: 1
+weight: 10
 version: "5.0"
 product: "Sensu Go"
 menu:
