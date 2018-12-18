@@ -10,25 +10,112 @@ menu:
     parent: reference
 ---
 
+- [How do entities work?](#how-do-entities-work)
+- [Proxy entities](#proxy-entities)
+- [Managing entity labels](#managing-entity-labels)
 - [Entities specification](#entities-specification)
-	- [Entity Attributes](#entity-attributes)
-	- [System Attributes](#system-attributes)
-	- [Network Attributes](#network-attributes)
-	- [NetworkInterface Attributes](#networkinterface-attributes)
-	- [Deregistration Attributes](#deregistration-attributes)
+	- [Entity attributes](#entity-attributes)
+	- [System attributes](#system-attributes)
+	- [Network attributes](#network-attributes)
+	- [NetworkInterface attributes](#networkinterface-attributes)
+	- [Deregistration attributes](#deregistration-attributes)
 - [Examples](#examples)
 
 ## How do entities work?
 
 Agent entities are monitoring agents, which are installed and run on every system that needs to be monitored. The entity is responsible for registering the system with the Sensu backend service, sending keepalive messages (the Sensu heartbeat mechanism), and executing monitoring checks. Each entity is a member of one or more `subscriptions` – a list of roles and/or responsibilities assigned to the agent entity (ex: a webserver or a database). Sensu entities will "subscribe" to (or watch for) check requests published by the Sensu server (via the Sensu Transport), execute the corresponding requests locally, and publish the results of the check back to the transport (to be processed by a Sensu server).
 
-## Proxy Entities
+An entity represents anything (ex: server, container, network switch) that needs to be monitored, including the full range of infrastructure, runtime and application types that compose a complete monitoring environment (from server hardware to serverless functions).
+We call these monitored parts of an infrastructure "entities".
+An entity not only provides context to event data (what/where the event is from) but an event's uniqueness is determined by the check name and the ID of the entity upon which the check ran.
+In addition, an entity can contain system information such as the hostname, OS, platform, and version.
+
+## Proxy entities
 
 Proxy entities (formerly known as proxy clients, "Just-in-time" or "JIT" clients) are dynamically created entities, added to the entity store if an entity does not already exist for a check result. Proxy entity registration differs from keepalive-based registration because the registration event happens while processing a check result (not a keepalive message). Sensu proxy entities allow Sensu to monitor external resources on systems and/or devices where a sensu-agent cannot be installed (such a network switch) using the defined check ProxyEntityName to create a proxy entity for the external resource. Once created, proxy entities work much in the same way as any other Sensu entity.
 
-## New and improved entities
+## Managing entity labels
 
-An `entity`, formally known as a `client` in Sensu 1.x, represents anything (ex: server, container, network switch) that needs to be monitored. Sensu Go uses an updated data model that allows for it to acknowledge the full range of infrastructure, runtime and application types that compose a complete monitoring environment (from server hardware to "serverless" functions). Sensu no longer focuses on the object doing the monitoring and instead focuses on the object it monitors. We call these monitored parts of an infrastructure "entities." An entity not only provides context to event data (what/where the event is from) but an event's uniqueness is determined by the check name and the ID of the entity upon which the check ran. In addition, an entity can contain system information such as the hostname, OS, platform, and version. 
+Custom labels let you organize entities into meaningful collections that can be selected using [filters][6] and [tokens][7].
+
+### Proxy entities
+
+For entities with class `proxy`, you can create and manage labels using sensuctl.
+For example, to create a proxy entity with a `url` label using sensuctl `create`, create a file called `example.json` with an entity definition that includes `labels`.
+
+{{< highlight json >}}
+{
+  "type": "Entity",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "sensu-docs",
+    "namespace": "web",
+    "labels": {
+      "url": "docs.sensu.io"
+    }
+  },
+  "spec": {
+    "deregister": false,
+    "deregistration": {},
+    "entity_class": "proxy",
+    "last_seen": 0,
+    "subscriptions": [],
+    "system": {
+      "network": {
+        "interfaces": null
+      }
+    }
+  }
+}
+{{< /highlight >}}
+
+Then run `sensuctl create` to create the entity based on the definition.
+
+{{< highlight shell >}}
+sensuctl create --file entity.json
+{{< /highlight >}}
+
+To add a label to an existing entity, you can use sensuctl `edit`.
+For example, run `sensuctl edit` to add a `url` label to a `sensu-docs` entity.
+
+{{< highlight shell >}}
+sensuctl edit entity sensu-docs
+{{< /highlight >}}
+
+And update the `metadata` scope to include `labels`.
+
+{{< highlight json >}}
+{
+  "type": "Entity",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "sensu-docs",
+    "namespace": "web",
+    "labels": {
+      "url": "docs.sensu.io"
+    }
+  },
+  "spec": {
+    "...": "..."
+  }
+}
+{{< /highlight >}}
+
+### Agent entities
+
+For entities with class `agent`, you can define entity attributes in the `/etc/sensu/agent.yml` configuration file.
+For example, to add a `url` label, open `/etc/sensu/agent.yml` and add configuration for `labels`.
+
+{{< highlight yml >}}
+labels:
+  url: sensu.docs.io
+{{< /highlight >}}
+
+Or using `sensu-agent start` configuration flags.
+
+{{< highlight shell >}}
+sensu-agent start --labels url=sensu.docs.io
+{{< /highlight >}}
 
 ## Entities specification
 
