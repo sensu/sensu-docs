@@ -193,8 +193,14 @@ spec         |
 description  | Top-level map that includes the check [spec attributes][sp].
 required     | Required for check definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][sc].
 type         | Map of key-value pairs
-example      | {{< highlight shell >}}
-{{< /highlight >}}
+example      | {{< highlight shell >}}"spec": {
+  "command": "/etc/sensu/plugins/check-chef-client.go",
+  "interval": 10,
+  "publish": true,
+  "subscriptions": [
+    "production"
+  ]
+}{{< /highlight >}}
 
 ### Spec attributes
 
