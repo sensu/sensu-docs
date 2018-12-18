@@ -530,7 +530,7 @@ The following example shows a request to delete the event produced by the `sensu
 
 {{< highlight shell >}}
 curl -X DELETE \
--H "TOKEN" \
+-H "Authorization: Bearer TOKEN" \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/events/sensu-go-sandbox/check-cpu 
 
 HTTP/1.1 204 No Content

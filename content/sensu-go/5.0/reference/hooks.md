@@ -20,16 +20,18 @@ and based on the exit status code of that command (ex: `1`).
 Hook commands can optionally receive JSON serialized Sensu client data via
 STDIN.
 
+### Check response types
+
 Each **type** of response (ex: `non-zero`) can contain one or more hooks, and
 correspond to one or more exit status code. Hooks are executed, in order of
 precedence, based on their type:
 
-* `1` to `255`
-* `ok`
-* `warning`
-* `critical`
-* `unknown`
-* `non-zero`
+1. `1` to `255`
+2. `ok`
+3. `warning`
+4. `critical`
+5. `unknown`
+6. `non-zero`
 
 You can assign one or more hooks to a check in the check definition.
 See the [check specification][6] to configure the `check_hooks` attribute.
@@ -222,6 +224,6 @@ has been determined to be not running etc.
 [3]: ../rbac#namespaces
 [4]: ../filters
 [5]: ../tokens
-[6]: ../checks#check-attributes
+[6]: ../checks#check-hooks-attribute
 [sc]: ../../sensuctl/reference#creating-resources
 [sp]: #spec-attributes
