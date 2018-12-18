@@ -309,7 +309,7 @@ example      | {{< highlight shell >}}"check_hooks": [
 
 |proxy_entity_name|   |
 -------------|------
-description  | The check ID, used to create a [proxy entity][20] for an external resource (i.e., a network switch).
+description  | The entity name, used to create a [proxy entity][20] for an external resource (i.e., a network switch).
 required     | false
 type         | String
 validated    | [`\A[\w\.\-]+\z`](https://regex101.com/r/zo9mQU/2)
