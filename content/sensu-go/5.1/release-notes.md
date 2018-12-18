@@ -40,18 +40,16 @@ You can use the `version` command to determine the installed version using the `
 
 ## 5.0.1 Release Notes
 
-**December 12, 2018** &mdash; We’re excited to announce the latest
-version of Sensu Go!
+**December 12, 2018** &mdash; Sensu Go 5.0.1 includes our top bug fixes following last week's general availability release.
 
 ### CHANGES {#5.0.1-changes}
 
-- **FIXED**: Resolved an issue where external etcd could not be used in backend configuration.
-
-- **FIXED**: Issues around command execution in the agent are now
-  fixed.
-    * Environment variables are now correctly included when executing checks.
-    * Command arguments are no longer escaped on Windows.
-    * Added backend environment to handler and mutator execution requests.
+- **FIXED**: The Sensu backend can now successfully connect to an external etcd cluster.
+- **FIXED**: The Sensu dashboard now sorts silencing entries in ascending order, correctly displays status values, and reduces shuffling in the event list.
+- **FIXED**: Sensu agents on Windows now execute command arguments correctly.
+- **FIXED**: Sensu agents now correctly include environment variables when executing checks.
+- **FIXED**: Command arguments are no longer escaped on Windows.
+- **FIXED**: Sensu backend environments now include handler and mutator execution requests.
 
 ## 5.0.0 Release Notes
 
