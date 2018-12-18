@@ -9,9 +9,6 @@ platformContent: false
 menu:
   sensu-go-5.1:
     parent: sensuctl
-aliases:
-  - /sensu-go/5.0/getting-started/configuring-sensuctl/
-  - /sensu-go/5.0/reference/sensuctl/
 ---
 
 - [First-time setup](#first-time-setup)

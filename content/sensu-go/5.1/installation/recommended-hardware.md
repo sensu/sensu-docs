@@ -9,8 +9,6 @@ platformContent: false
 menu:
   sensu-go-5.1:
     parent: installation
-aliases:
-  - /sensu-go/5.0/getting-started/recommended-hardware/
 ---
 
 ### Backend minimum requirements

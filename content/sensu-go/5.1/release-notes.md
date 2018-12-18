@@ -5,15 +5,14 @@ description: "Release notes for Sensu Go"
 product: "Sensu Go"
 version: "5.1"
 menu: "sensu-go-5.1"
-aliases:
-  - /sensu-go/5.0/changelog
 ---
 
+- [5.1.0 Release Notes](#5-1-0-release-notes)
 - [5.0.1 Release Notes](#5-0-1-release-notes)
 - [5.0.0 Release Notes](#5-0-0-release-notes)
 
 ### Versioning
-Sensu Go adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html) using MAJOR.MINOR.PATCH release numbers, starting at 5.0.0. MAJOR version changes indicate incompatible API changes; MINOR versions add backwards-compatible functionality; PATCH versions include backwards-compatible bug fixes.
+Sensu Go adheres to [semantic versioning](https://semver.org/spec/v2.0.0.html) using MAJOR.MINOR.PATCH release numbers, starting at 5.0.0. MAJOR version changes indicate incompatible API changes; MINOR versions add backwards-compatible functionality; PATCH versions include backwards-compatible bug fixes.
 
 ### Upgrading
 
@@ -35,12 +34,16 @@ You can use the `version` command to determine the installed version using the `
 
 ---
 
+## 5.1.0 Release Notes
+
+### CHANGES {#5.1.0-changes}
+
 ## 5.0.1 Release Notes
 
 **December 12, 2018** &mdash; We’re excited to announce the latest
 version of Sensu Go!
 
-### CHANGES {#go-5.0.1-changes}
+### CHANGES {#5.0.1-changes}
 
 - **FIXED**: Resolved an issue where external etcd could not be used in backend configuration.
 
