@@ -511,11 +511,11 @@ required     | false
 type         | Map of key-value pairs. Keys can contain only letters, numbers, and underscores, but must start with a letter. Values can be any valid UTF-8 string.
 default      | `null`
 example               | {{< highlight shell >}}# Command line example
-sensu-agent start --labels region=us_west2
+sensu-agent start --labels region=us-west-2
 
 # /etc/sensu/agent.yml example
 labels:
-  region: us_west2
+  region: us-west-2
 {{< /highlight >}}
 
 <a name="name">

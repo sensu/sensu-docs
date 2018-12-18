@@ -75,7 +75,7 @@ example      | {{< highlight shell >}}
   "name": "example-mutator",
   "namespace": "default",
   "labels": {
-    "region": "us_west1"
+    "region": "us-west-1"
   },
   "annotations": {
     "slack-channel" : "#monitoring"
@@ -145,7 +145,7 @@ type         | Map of key-value pairs. Keys can contain only letters, numbers, a
 default      | `null`
 example      | {{< highlight shell >}}"labels": {
   "environment": "development",
-  "region": "us_west2"
+  "region": "us-west-2"
 }{{< /highlight >}}
 
 | annotations |    |
