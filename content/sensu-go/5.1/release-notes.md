@@ -36,7 +36,20 @@ You can use the `version` command to determine the installed version using the `
 
 ## 5.1.0 Release Notes
 
+**December 19, 2018** &mdash; We’re excited to announce the first minor version release of Sensu Go.
+A big thank you to all our users who have found bugs in Sensu Go so far!
+We're looking forward to bringing you even more bug fixed and new features in 2019.
+
 ### CHANGES {#5.1.0-changes}
+
+- **ADDED**: Sensu [agents][9] now include `trusted-ca-file` and `insecure-skip-tls-verify` configuration flags, giving you more flexibility with certificates when connecting agents to the backend over TLS.
+- **ADDED**: Sensu now includes support for Ubuntu 14.04.
+- **FIXED**: The Sensu backend now successfully connects to an external etcd cluster without creating a panic.
+- **FIXED**: SysVinit scripts for the Sensu agent and backend now include correct run and log paths.
+- **FIXED**: Once created, keepalive alerts and check TTL failure events now continue to occur until a successful event is observed.
+- **FIXED**: When querying for an empty list of assets, sensuctl and the Sensu API now return an empty array instead of null.
+- **FIXED**: The sensuctl `create` command now successfully creates hooks when provided with the correct definition.
+- **FIXED**: The Sensu dashboard now renders status icons correctly in Firefox.
 
 ## 5.0.1 Release Notes
 
@@ -83,3 +96,4 @@ The Sensu Team
 [6]: /sensu-go/5.0/reference/filters
 [7]: /sensu-go/5.0/guides/aggregate-metrics-statsd
 [8]: /sensu-go/5.0/installation/install-sensu
+[9]: /sensu-go/5.1/reference/agent
