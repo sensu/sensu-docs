@@ -9,8 +9,6 @@ lastTested: 2018-12-04
 menu:
   sensu-go-5.1:
     parent: guides
-aliases:
-  - /sensu-go/5.0/guides/run-auto-remediation/
 ---
 
 ## What are check hooks?

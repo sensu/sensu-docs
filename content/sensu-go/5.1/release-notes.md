@@ -5,8 +5,6 @@ description: "Release notes for Sensu Go"
 product: "Sensu Go"
 version: "5.1"
 menu: "sensu-go-5.1"
-aliases:
-  - /sensu-go/5.0/changelog
 ---
 
 - [5.0.1 Release Notes](#5-0-1-release-notes)

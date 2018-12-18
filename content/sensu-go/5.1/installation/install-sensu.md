@@ -10,8 +10,6 @@ platforms: ["Ubuntu", "RHEL/CentOS", "Windows", "macOS", "Docker"]
 menu:
   sensu-go-5.1:
     parent: installation
-aliases:
-  - /sensu-go/5.0/getting-started/installation-and-configuration/
 ---
 
 Select a platform from the dropdown above.
