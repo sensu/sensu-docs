@@ -27,7 +27,7 @@ Agent entities are monitoring agents, which are installed and run on every syste
 
 An entity represents anything (ex: server, container, network switch) that needs to be monitored, including the full range of infrastructure, runtime and application types that compose a complete monitoring environment (from server hardware to serverless functions).
 We call these monitored parts of an infrastructure "entities".
-An entity not only provides context to event data (what/where the event is from) but an event's uniqueness is determined by the check name and the ID of the entity upon which the check ran.
+An entity not only provides context to event data (what/where the event is from) but an event's uniqueness is determined by the check name and the name of the entity upon which the check ran.
 In addition, an entity can contain system information such as the hostname, OS, platform, and version.
 
 ## Proxy entities
