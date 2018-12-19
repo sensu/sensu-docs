@@ -108,7 +108,7 @@ The Sensu Team
 [changelog]: https://github.com/sensu/sensu-go/blob/master/CHANGELOG.md
 [contact]: https://sensu.io/contact
 [blog]: https://blog.sensu.io/sensu-go-is-here
-[install]: https://docs.sensu.io/sensu-go/5.1/installation/install-sensu/
+[install]: /sensu-go/5.1/installation/install-sensu/
 [1]: /sensu-go/5.0/dashboard/overview
 [2]: /sensu-go/5.0/sensuctl/reference
 [3]: /sensu-go/5.0/api/overview
