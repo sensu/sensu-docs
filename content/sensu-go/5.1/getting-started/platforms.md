@@ -20,6 +20,7 @@ See the [backend installation guide][1] for more information.
 | CentOS/RHEL 5      | ✅     |      | | |
 | CentOS/RHEL 6      | ✅     |      | | |
 | CentOS/RHEL 7      | ✅     |      | | |
+| Ubuntu 14.04       | ✅     |      | | |
 | Ubuntu 16.04       | ✅     |      | | |
 | Ubuntu 18.04       | ✅     |      | | |
 | Ubuntu 18.10       | ✅     |      | | |
@@ -34,6 +35,7 @@ See the [agent installation guide][2] for more information.
 | CentOS 5/RHEL      | ✅     |    | | |
 | CentOS 6/RHEL      | ✅     |     | | |
 | CentOS 7/RHEL      | ✅     |     | | |
+| Ubuntu 14.04       | ✅     |     | | |
 | Ubuntu 16.04       | ✅     |     | | |
 | Ubuntu 18.04       | ✅     |     | | |
 | Ubuntu 18.10       | ✅     |     | | |
@@ -49,6 +51,7 @@ See the [sensuctl installation guide][3] for more information.
 | CentOS 5/RHEL      | ✅     |     | | |
 | CentOS 6/RHEL      | ✅     |     | | |
 | CentOS 7/RHEL      | ✅     |     | | |
+| Ubuntu 14.04       | ✅     |     | | |
 | Ubuntu 16.04       | ✅     |     | | |
 | Ubuntu 18.04       | ✅     |     | | |
 | Ubuntu 18.10       | ✅     |     | | |

@@ -12,6 +12,7 @@ menu:
 ---
 
 - [Upgrading from 5.0.0 or later](#upgrading-to-the-latest-version-of-sensu-go-from-5-0-0-or-later)
+- [Upgrading Sensu backend binaries to 5.1.0](#upgrading-sensu-backend-binaries-to-5-1-0)
 - [Upgrading from 1.x or later](#upgrading-to-sensu-go-from-sensu-core-1-x)
 
 ## Upgrading to the latest version of Sensu Go from 5.0.0 or later
@@ -31,6 +32,21 @@ sudo service sensu-backend restart
 For systems using `systemd`, you should run `sudo systemctl daemon-reload` before restarting the services.
 
 You can use the `version` command to determine the installed version using the `sensu-agent`, `sensu-backend`, and `sensuctl` tools. For example: `sensu-backend version`.
+
+## Upgrading Sensu backend binaries to 5.1.0
+
+_NOTE: This applies only to Sensu backend binaries downloaded from `s3-us-west-2.amazonaws.com/sensu.io/sensu-go`, not to Sensu RPM or DEB packages._
+
+For Sensu backend binaries, the default `state-dir` in 5.1.0 is now `/var/lib/sensu/sensu-backend` instead of `/var/lib/sensu`.
+To upgrade your Sensu backend binary to 5.1.0, first [download the latest version][23], then make sure the `/etc/sensu/backend.yml` configuration file specifies a `state-dir`.
+To continue using `/var/lib/sensu` as the `state-dir`, add the following configuration to `/etc/sensu/backend.yml`.
+
+{{< highlight yml >}}
+# /etc/sensu/backend.yml configuration to store backend data at /var/lib/sensu
+state-dir: "/var/lib/sensu"
+{{< /highlight >}}
+
+Then restart the backend.
 
 ## Upgrading to Sensu Go from Sensu Core 1.x
 

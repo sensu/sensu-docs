@@ -448,6 +448,7 @@ Flags:
       --disable-api                     disable the Agent HTTP API
       --disable-sockets                 disable the Agent TCP and UDP event sockets
   -h, --help                            help for start
+      --insecure-skip-tls-verify        skip ssl verification
       --keepalive-interval int          number of seconds to send between keepalive events (default 20)
       --keepalive-timeout uint32        number of seconds until agent is considered dead by backend (default 120)
       --labels stringToString           entity labels map (default [])
@@ -464,6 +465,7 @@ Flags:
       --statsd-metrics-host string      address used for the statsd metrics server (default "127.0.0.1")
       --statsd-metrics-port int         port used for the statsd metrics server (default 8125)
       --subscriptions string            comma-delimited list of agent subscriptions
+      --trusted-ca-file string          tls certificate authority
       --user string                     agent user (default "agent")
 {{< /highlight >}}
 
@@ -698,6 +700,29 @@ sensu-agent start --user agent-01
 
 # /etc/sensu/agent.yml example
 user: "agent-01"{{< /highlight >}}
+
+| trusted-ca-file |      |
+------------------|------
+description       | SSL/TLS certificate authority
+type              | String
+default           | `""`
+example           | {{< highlight shell >}}# Command line example
+sensu-agent start --trusted-ca-file /path/to/trusted-certificate-authorities.pem
+
+# /etc/sensu/agent.yml example
+trusted-ca-file: "/path/to/trusted-certificate-authorities.pem"{{< /highlight >}}
+
+
+| insecure-skip-tls-verify |      |
+---------------------------|------
+description                | Skip SSL verification. _WARNING: This configuration flag is intended for use in development systems only. Do not use this flag in production._
+type                       | Boolean
+default                    | `false`
+example                    | {{< highlight shell >}}# Command line example
+sensu-agent start --insecure-skip-tls-verify
+
+# /etc/sensu/agent.yml example
+insecure-skip-tls-verify: true{{< /highlight >}}
 
 
 ### Socket configuration flags
