@@ -50,6 +50,23 @@ _NOTE: This only affects users who are not using the provided RPM or DEB package
 
 See the [upgrade guide][10] for more information.
 
+### Upgrading Sensu backend binaries to 5.1.0
+
+_NOTE: This applies only to Sensu backend binaries downloaded from `s3-us-west-2.amazonaws.com/sensu.io/sensu-go`, not to Sensu RPM or DEB packages._
+
+For Sensu backend binaries, the default `state-dir` in 5.1.0 is now `/var/lib/sensu/sensu-backend` instead of `/var/lib/sensu`.
+To upgrade your Sensu backend binary to 5.1.0, first [download the latest version][23], then make sure the `/etc/sensu/backend.yml` configuration file specifies a `state-dir`.
+To continue using `/var/lib/sensu` as the `state-dir`, add the following configuration to `/etc/sensu/backend.yml`.
+
+{{< highlight yml >}}
+# /etc/sensu/backend.yml configuration to store backend data at /var/lib/sensu
+state-dir: "/var/lib/sensu"
+{{< /highlight >}}
+
+Then restart the backend.
+
+See the [upgrade guide][10] for more information.
+
 ### CHANGES {#5.1.0-changes}
 
 **IMPROVEMENTS:**
