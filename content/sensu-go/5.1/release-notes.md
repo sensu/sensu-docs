@@ -36,38 +36,34 @@ You can use the `version` command to determine the installed version using the `
 
 ## 5.1.0 Release Notes
 
-**December 19, 2018** &mdash; We’re excited to announce the first minor version release of Sensu Go.
-This release includes an important change to the Sensu backend state directory as well as support for Ubuntu 14.04 and some key bug fixes.
-A big thank you to all our users who have found bugs in Sensu Go so far!
-We're looking forward to bringing you even more bug fixes and new features in 2019.
+**December 19, 2018** &mdash; We’re excited to announce the latest version of Sensu Go! Please read on for the detailed release goodness and peruse the changelog [here][changelog].
 
-### Upgrading Sensu backend binaries to 5.1.0
+### Upgrading Instructions:
 
-_NOTE: This applies only to Sensu backend binaries downloaded from `s3-us-west-2.amazonaws.com/sensu.io/sensu-go`, not to Sensu RPM or DEB packages._
+For 5.1.0, we made necessary breaking changes that will require upgrade instructions in some cases:
 
-For Sensu backend binaries, the default `state-dir` in 5.1.0 is now `/var/lib/sensu/sensu-backend` instead of `/var/lib/sensu`.
-To upgrade your Sensu backend binary to 5.1.0, first [download the latest version][23], then make sure the `/etc/sensu/backend.yml` configuration file specifies a `state-dir`.
-To continue using `/var/lib/sensu` as the `state-dir`, add the following configuration to `/etc/sensu/backend.yml`.
+- For Sensu backend binaries, the default `state-dir` in 5.1.0 is now `/var/lib/sensu/sensu-backend` instead of `/var/lib/sensu`.
+  To upgrade your Sensu backend binary to 5.1.0, first [download the latest version][23], then make sure the `/etc/sensu/backend.yml` configuration file specifies a `state-dir`.
+  To continue using `/var/lib/sensu` as the `state-dir`, add the following configuration to `/etc/sensu/backend.yml`.
 
-{{< highlight yml >}}
-# /etc/sensu/backend.yml configuration to store backend data at /var/lib/sensu
-state-dir: "/var/lib/sensu"
-{{< /highlight >}}
-
-Then restart the backend.
+_NOTE: This only affects users who are not using the provided RPM or DEB packages, or who do not have an existing `state-dir` setting in their `/etc/sensu/backend.yml`."_
 
 See the [upgrade guide][10] for more information.
 
 ### CHANGES {#5.1.0-changes}
 
-- **ADDED**: Sensu [agents][9] now include `trusted-ca-file` and `insecure-skip-tls-verify` configuration flags, giving you more flexibility with certificates when connecting agents to the backend over TLS.
-- **ADDED**: Sensu now includes support for Ubuntu 14.04.
-- **FIXED**: The Sensu backend now successfully connects to an external etcd cluster without creating a panic.
-- **FIXED**: SysVinit scripts for the Sensu agent and backend now include correct run and log paths.
-- **FIXED**: Once created, keepalive alerts and check TTL failure events now continue to occur until a successful event is observed.
-- **FIXED**: When querying for an empty list of assets, sensuctl and the Sensu API now return an empty array instead of null.
-- **FIXED**: The sensuctl `create` command now successfully creates hooks when provided with the correct definition.
-- **FIXED**: The Sensu dashboard now renders status icons correctly in Firefox.
+**IMPROVEMENTS:**
+
+  - Added support for Ubuntu 14.04
+  - Agents have been updated to include configuration flags to give you greater flexibility with certificates when connecting to the backend over TLS. 
+
+**FIXES:**
+
+  - The Sensu backend now successfully connects to an external etcd cluster without creating a panic.
+  - SysVinit scripts for the Sensu agent and backend now include correct run and log paths.
+  - Once created, keepalive alerts and check TTL failure events now continue to occur until a successful  evrved.
+  - When querying for an empty list of assets, sensuctl and the Sensu API now return an empty array instead   ofThe sensuctl `create` command now successfully creates hooks when provided with the correct definition.
+  - The Sensu dashboard now renders status icons correctly in Firefox.
 
 ## 5.0.1 Release Notes
 
