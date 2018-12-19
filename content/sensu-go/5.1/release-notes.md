@@ -65,6 +65,10 @@ See the [upgrade guide][10] for more information.
   - When querying for an empty list of assets, sensuctl and the Sensu API now return an empty array instead   ofThe sensuctl `create` command now successfully creates hooks when provided with the correct definition.
   - The Sensu dashboard now renders status icons correctly in Firefox.
 
+We love to hear from you! Please feel free to reach out to us [here][contact].
+
+The Sensu Team #monitoringlove 
+
 ## 5.0.1 Release Notes
 
 **December 12, 2018** &mdash; Sensu Go 5.0.1 includes our top bug fixes following last week's general availability release.
@@ -101,6 +105,7 @@ Happy monitoring,
 The Sensu Team 
 
 [changelog]: https://github.com/sensu/sensu-go/blob/master/CHANGELOG.md
+[contact]: https://sensu.io/contact
 [blog]: https://blog.sensu.io/sensu-go-is-here
 [1]: /sensu-go/5.0/dashboard/overview
 [2]: /sensu-go/5.0/sensuctl/reference
