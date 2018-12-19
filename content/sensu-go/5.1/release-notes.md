@@ -41,9 +41,25 @@ This release includes an important change to the Sensu backend state directory a
 A big thank you to all our users who have found bugs in Sensu Go so far!
 We're looking forward to bringing you even more bug fixes and new features in 2019.
 
+### Upgrading Sensu backend binaries to 5.1.0
+
+_NOTE: This applies only to Sensu backend binaries downloaded from `s3-us-west-2.amazonaws.com/sensu.io/sensu-go`, not to Sensu RPM or DEB packages._
+
+For Sensu backend binaries, the default `state-dir` in 5.1.0 is now `/var/lib/sensu/sensu-backend` instead of `/var/lib/sensu`.
+To upgrade your Sensu backend binary to 5.1.0, first [download the latest version][23], then make sure the `/etc/sensu/backend.yml` configuration file specifies a `state-dir`.
+To continue using `/var/lib/sensu` as the `state-dir`, add the following configuration to `/etc/sensu/backend.yml`.
+
+{{< highlight yml >}}
+# /etc/sensu/backend.yml configuration to store backend data at /var/lib/sensu
+state-dir: "/var/lib/sensu"
+{{< /highlight >}}
+
+Then restart the backend.
+
+See the [upgrade guide][10] for more information.
+
 ### CHANGES {#5.1.0-changes}
 
-- **IMPORTANT**: This applies only to Sensu backend binaries downloaded from `s3-us-west-2.amazonaws.com/sensu.io/sensu-go`, not to Sensu RPM or DEB packages. For Sensu backend binaries, the default `state-dir` is now `/var/lib/sensu/sensu-backend` instead of `/var/lib/sensu`. To upgrade your Sensu backend binary to 5.1.0, make sure your `/etc/sensu/backend.yml` configuration file specifies a `state-dir`. See the [upgrade guide][10] for more information.
 - **ADDED**: Sensu [agents][9] now include `trusted-ca-file` and `insecure-skip-tls-verify` configuration flags, giving you more flexibility with certificates when connecting agents to the backend over TLS.
 - **ADDED**: Sensu now includes support for Ubuntu 14.04.
 - **FIXED**: The Sensu backend now successfully connects to an external etcd cluster without creating a panic.
