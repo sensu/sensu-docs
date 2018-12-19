@@ -48,10 +48,6 @@ state-dir: "/var/lib/sensu"
 
 Then restart the backend.
 
-{{< highlight shell >}}
-sudo service sensu-backend restart
-{{< /highlight >}}
-
 ## Upgrading to Sensu Go from Sensu Core 1.x
 
 This guide provides general information for upgrading your Sensu instance from [Sensu Core 1.x][19] to Sensu Go 5.0.
