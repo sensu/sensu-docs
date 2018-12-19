@@ -43,10 +43,10 @@ You can use the `version` command to determine the installed version using the `
 For 5.1.0, we made necessary breaking changes that will require upgrade instructions in some cases:
 
 - For Sensu backend binaries, the default `state-dir` in 5.1.0 is now `/var/lib/sensu/sensu-backend` instead of `/var/lib/sensu`.
-  To upgrade your Sensu backend binary to 5.1.0, first [download the latest version][23], then make sure the `/etc/sensu/backend.yml` configuration file specifies a `state-dir`.
+  To upgrade your Sensu backend binary to 5.1.0, first [download the latest version][install], then make sure the `/etc/sensu/backend.yml` configuration file specifies a `state-dir`.
   To continue using `/var/lib/sensu` as the `state-dir`, add the following configuration to `/etc/sensu/backend.yml`.
 
-_NOTE: This only affects users who are not using the provided RPM or DEB packages, or who do not have an existing `state-dir` setting in their `/etc/sensu/backend.yml`."_
+_NOTE: This only affects users who are not using the provided RPM or DEB packages, or who do not have an existing `state-dir` setting in their `/etc/sensu/backend.yml`._
 
 See the [upgrade guide][10] for more information.
 
@@ -61,8 +61,9 @@ See the [upgrade guide][10] for more information.
 
   - The Sensu backend now successfully connects to an external etcd cluster without creating a panic.
   - SysVinit scripts for the Sensu agent and backend now include correct run and log paths.
-  - Once created, keepalive alerts and check TTL failure events now continue to occur until a successful  evrved.
-  - When querying for an empty list of assets, sensuctl and the Sensu API now return an empty array instead   ofThe sensuctl `create` command now successfully creates hooks when provided with the correct definition.
+  - Once created, keepalive alerts and check TTL failure events now continue to occur until a successful event is observed.
+  - When querying for an empty list of assets, sensuctl and the Sensu API now return an empty array instead of `null`.
+  - The sensuctl `create` command now successfully creates hooks when provided with the correct definition.
   - The Sensu dashboard now renders status icons correctly in Firefox.
 
 We love to hear from you! Please feel free to reach out to us [here][contact].
@@ -107,6 +108,7 @@ The Sensu Team
 [changelog]: https://github.com/sensu/sensu-go/blob/master/CHANGELOG.md
 [contact]: https://sensu.io/contact
 [blog]: https://blog.sensu.io/sensu-go-is-here
+[install]: /sensu-go/5.1/installation/install-sensu/
 [1]: /sensu-go/5.0/dashboard/overview
 [2]: /sensu-go/5.0/sensuctl/reference
 [3]: /sensu-go/5.0/api/overview
