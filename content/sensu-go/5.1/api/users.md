@@ -129,7 +129,7 @@ HTTP/1.1 200 OK
 /users (POST) | 
 ----------------|------
 description     | Create a Sensu user.
-example URL     | http://hostname:8080/api/core/v2/users/default/users
+example URL     | http://hostname:8080/api/core/v2/users
 payload         | {{< highlight shell >}}
 {
   "username": "alice",
@@ -221,7 +221,7 @@ HTTP/1.1 200 OK
 /users/:user (PUT) | 
 ----------------|------
 description     | Create or update a Sensu user given the username.
-example URL     | http://hostname:8080/api/core/v2/namespaces/default/users/alice
+example URL     | http://hostname:8080/api/core/v2/users/alice
 payload         | {{< highlight shell >}}
 {
   "username": "alice",
@@ -253,7 +253,7 @@ HTTP/1.1 204 No Content
 /users/:user (DELETE) | 
 --------------------------|------
 description               | Disables a user given the username as a URL parameter.
-example url               | http://hostname:8080/api/core/v2/namespaces/default/users/alice
+example url               | http://hostname:8080/api/core/v2/users/alice
 response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 ## The `/users/:user/password` API endpoint {#the-usersuserpassword-api-endpoint}
@@ -284,7 +284,7 @@ HTTP/1.1 200 OK
 /users/:user/password (PUT) | 
 ----------------|------
 description     | Update the password for a Sensu user.
-example URL     | http://hostname:8080/api/core/v2/namespaces/default/users/alice/password
+example URL     | http://hostname:8080/api/core/v2/users/alice/password
 payload         | {{< highlight shell >}}
 {
   "username": "admin",
@@ -318,7 +318,7 @@ HTTP/1.1 200 OK
 /users/:user/reinstate (PUT) | 
 ----------------|------
 description     | Reinstate a disabled user.
-example URL     | http://hostname:8080/api/core/v2/namespaces/default/users/alice/reinstate
+example URL     | http://hostname:8080/api/core/v2/users/alice/reinstate
 response codes  | <ul><li>**Success**: 200 (OK)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 ## The `/users/:user/groups` API endpoint {#the-usersusergroups-api-endpoint}
@@ -344,7 +344,7 @@ HTTP/1.1 204 No Content
 /users/:user/groups (DELETE) | 
 --------------------------|------
 description               | Removes a user from all groups.
-example url               | http://hostname:8080/api/core/v2/namespaces/default/users/alice/groups
+example url               | http://hostname:8080/api/core/v2/users/alice/groups
 response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 ## The `/users/:user/groups/:group` API endpoints {#the-usersusergroupsgroup-api-endpoints}
@@ -370,7 +370,7 @@ HTTP/1.1 204 No Content
 /users/:user/groups/:group (PUT) | 
 ----------------|------
 description     | Add a user to a group.
-example URL     | http://hostname:8080/api/core/v2/namespaces/default/users/alice/groups/ops
+example URL     | http://hostname:8080/api/core/v2/users/alice/groups/ops
 payload         | {{< highlight shell >}}
 
 {{< /highlight >}}
@@ -397,7 +397,7 @@ HTTP/1.1 204 No Content
 /users/:user/groups/:group (DELETE) | 
 --------------------------|------
 description               | Removes a user from a group.
-example url               | http://hostname:8080/api/core/v2/namespaces/default/users/alice/groups/ops
+example url               | http://hostname:8080/api/core/v2/users/alice/groups/ops
 response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 [1]: ../../reference/rbac#user-specification
