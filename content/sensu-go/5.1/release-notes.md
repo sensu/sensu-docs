@@ -61,7 +61,7 @@ See the [upgrade guide][10] for more information.
 
   - The Sensu backend now successfully connects to an external etcd cluster without creating a panic.
   - SysVinit scripts for the Sensu agent and backend now include correct run and log paths.
-  - Once created, keepalive alerts and check TTL failure events now continue to occur until a successful  evrved.
+  - Once created, keepalive alerts and check TTL failure events now continue to occur until a successful event is observed.
   - When querying for an empty list of assets, sensuctl and the Sensu API now return an empty array instead of `null`.
   - The sensuctl `create` command now successfully creates hooks when provided with the correct definition.
   - The Sensu dashboard now renders status icons correctly in Firefox.
