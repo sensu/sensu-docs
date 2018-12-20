@@ -163,7 +163,7 @@ HTTP/1.1 200 OK
 ----------------|------
 description     | Creates a cluster member.
 example url     | http://hostname:8080/api/core/v2/cluster/members/8927110dc66458af?peer-addrs=http://127.0.0.1:2380
-url parameters  | <ul><li>`8927110dc66458af` (required): Required cluster member ID generated using `sensuctl cluster member-list`</li></ul>
+url parameters  | <ul><li>`8927110dc66458af` (required): Required hex-encoded uint64 cluster member ID generated using `sensuctl cluster member-list`</li></ul>
 query parameters| <ul><li>`peer-addrs` (required): A comma-delimited list of peer addresses</li></ul>
 response codes   | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
@@ -177,7 +177,7 @@ The `/cluster/members/:member` API endpoint provides HTTP DELETE access to remov
 --------------------------|------
 description               | Removes a member from a Sensu cluster given the member ID.
 example url               | http://hostname:8080/api/core/v2/cluster/members/8927110dc66458af
-url parameters            | <ul><li>`8927110dc66458af` (required): Required cluster member ID generated using `sensuctl cluster member-list`</li></ul>
+url parameters            | <ul><li>`8927110dc66458af` (required): Required hex-encoded uint64 cluster member ID generated using `sensuctl cluster member-list`</li></ul>
 response codes            | <ul><li>**Success**: 202 (Accepted)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 [1]: ../../guides/clustering

@@ -95,8 +95,8 @@ example      | {{< highlight shell >}}"spec": {
   "url": "http://example.com/asset.tar.gz",
   "sha512": "4f926bf4328fbad2b9cac873d117f771914f4b837c9c85584c38ccf55a3ef3c2e8d154812246e5dda4a87450576b2c58ad9ab40c9e2edc31b288d066b195b21b",
   "filters": [
-    "system.os == 'linux'",
-    "system.arch == 'amd64'"
+    "entity.system.os == 'linux'",
+    "entity.system.arch == 'amd64'"
   ]
 }{{< /highlight >}}
 
@@ -121,7 +121,7 @@ filters      |
 description  | A set of [Sensu query expressions][1] used by the agent to determine if the asset should be installed. If multiple expressions are included, each expression must return true in order for the agent to install the asset.
 required     | false 
 type         | Array 
-example      | {{< highlight shell >}}"filters": ["system.os=='linux'", "system.arch=='amd64'"] {{< /highlight >}}
+example      | {{< highlight shell >}}"filters": ["entity.system.os=='linux'", "entity.system.arch=='amd64'"] {{< /highlight >}}
 
 ### Metadata attributes
 
@@ -185,8 +185,8 @@ example      | {{< highlight shell >}} "annotations": {
     "url": "http://example.com/asset.tar.gz",
     "sha512": "4f926bf4328fbad2b9cac873d117f771914f4b837c9c85584c38ccf55a3ef3c2e8d154812246e5dda4a87450576b2c58ad9ab40c9e2edc31b288d066b195b21b",
     "filters": [
-      "system.os == 'linux'",
-      "system.arch == 'amd64'"
+      "entity.system.os == 'linux'",
+      "entity.system.arch == 'amd64'"
     ]
   }
 }
