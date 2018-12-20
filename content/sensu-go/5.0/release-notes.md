@@ -1,5 +1,5 @@
 ---
-title: "Sensu Go Release Notes"
+title: "Sensu Go release notes"
 linkTitle: "Release Notes"
 description: "Release notes for Sensu Go"
 product: "Sensu Go"

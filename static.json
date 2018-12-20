@@ -24,7 +24,7 @@
             "status": 302
         },
         "~ ^/sensu-go/latest/?(.*)$": {
-            "url": "/sensu-go/5.0/$1",
+            "url": "/sensu-go/5.1/$1",
             "status": 302
         },
         "~ ^/plugins/latest/?(.*)$": {
