@@ -83,7 +83,7 @@ sensuctl event info example-entity-name check-cpu
 {{< /highlight >}}
 
 _NOTE: To create an entity to run the `check-cpu` check, [install the Sensu agent][install],
-then add the `linux` subscription to `/etc/sensu/agent.yml` and [restart the agent][start]._
+then add the `linux` subscription to `/etc/sensu/agent.yml` and restart the agent._
 
 ## Next steps
 
@@ -101,5 +101,4 @@ here are some recommended resources:
 [4]: ../
 [5]: ../monitor-external-resources
 [6]: ../send-slack-alerts
-[install]: ../../getting-started/installation-and-configuration
-[start]: ../../getting-started/installation-and-configuration/#starting-the-services
+[install]: ../../installation/install-sensu/#install-the-sensu-agent
