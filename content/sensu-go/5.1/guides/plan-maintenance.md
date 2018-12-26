@@ -98,4 +98,4 @@ avoid false positive. From this point, here are some recommended resources:
 [5]: ../../reference/silencing/#silence-a-specific-check-on-entities-with-a-specific-subscription
 [6]: ../../reference/silencing/#silence-a-specific-check-on-every-entity
 [7]: ../../reference/silencing/
-[8]: ../../reference/sensuctl/#dates-with-time
+[8]: ../../sensuctl/reference/#dates-with-time
