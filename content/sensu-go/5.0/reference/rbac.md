@@ -2,7 +2,7 @@
 title: "Role-based access control"
 linkTitle: "Role-Based Access Control"
 description: "Sensu RBAC reference documentation"
-weight: 1
+weight: 10
 version: "5.0"
 product: "Sensu Go"
 menu:
@@ -212,6 +212,7 @@ sensuctl user list
 ### Creating a user
 You can use [sensuctl][2] to create a user.
 For example, the following command creates a user with the username `alice` and the password `password`.
+Passwords must have at least eight characters.
 
 {{< highlight shell >}}
 sensuctl user create alice --password 'password'

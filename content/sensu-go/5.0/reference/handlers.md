@@ -1,7 +1,7 @@
 ---
 title: "Handlers"
 description: "The handlers reference guide."
-weight: 1
+weight: 10
 version: "5.0"
 product: "Sensu Go"
 platformContent: false
@@ -10,7 +10,17 @@ menu:
     parent: reference
 ---
 
+- [How do Sensu handlers work?](#how-do-sensu-handlers-work)
+	- [Pipe handlers](#pipe-handlers)
+	- [TCP/UDP handlers](#tcp-udp-handlers)
+	- [Handler sets](#handler-sets)
+- [New and improved handlers](#new-and-improved-handlers)
+- [Handling keepalive events](#handling-keepalive-events)
 - [Specification](#handler-specification)
+	- [Top-level attributes](#top-level-attributes)
+	- [Spec attributes](#spec-attributes)
+	- [Metadata attributes](#metadata-attributes)
+	- [`socket` attributes](#socket-attributes)
 - [Examples](#handler-examples)
 
 ## How do Sensu handlers work?
@@ -81,6 +91,33 @@ Sensu 1.x.
 
 That being said, 1.x behavior can be replicated in Sensu Go by using the
 built-in `is_incident` filter.
+
+## Handling keepalive events
+
+Sensu [keepalives][12] are the heartbeat mechanism used to ensure that all registered [Sensu agents][13] are operational and able to reach the [Sensu backend][14].
+You can connect keepalive events to your monitoring workflows using a keepalive handler.
+Sensu looks for an event handler named `keepalive` and automatically uses it to process keepalive events.
+
+Let's say you want to receive Slack notifications for keepalive alerts, and you already have a [Slack handler set up to process events][15].
+To process keepalive events using the Slack pipeline, create a handler set named `keepalive` and add the `slack` handler to the `handlers` array.
+The resulting `keepalive` handler set configuration looks like this:
+
+{{< highlight json >}}
+{
+  "type": "Handler",
+  "api_version": "core/v2",
+  "metadata" : {
+    "name": "keepalive",
+    "namespace": "default"
+  },
+  "spec": {
+    "type": "set",
+    "handlers": [
+      "slack"
+    ]
+  }
+}
+{{< /highlight >}}
 
 ## Handler specification
 
@@ -225,7 +262,7 @@ example      | {{< highlight shell >}}"namespace": "production"{{< /highlight >}
 -------------|------
 description  | Custom attributes to include with event data, which can be queried like regular attributes. You can use labels to organize handlers into meaningful collections that can be selected using [filters][10] and [tokens][11].
 required     | false
-type         | Map of key-value pairs. Keys and values can be any valid UTF-8 string.
+type         | Map of key-value pairs. Keys can contain only letters, numbers, and underscores, but must start with a letter. Values can be any valid UTF-8 string.
 default      | `null`
 example      | {{< highlight shell >}}"labels": {
   "environment": "development",
@@ -369,3 +406,7 @@ The following example handler will execute three handlers: `slack`,
 [11]: ../tokens
 [sc]: ../../sensuctl/reference#creating-resources
 [sp]: #spec-attributes
+[12]: ../agent#keepalive-monitoring
+[13]: ../agent
+[14]: ../backend
+[15]: ../../guides/send-slack-alerts

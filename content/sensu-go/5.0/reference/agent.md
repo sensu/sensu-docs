@@ -1,6 +1,6 @@
 ---
-title: "Agent reference"
-linkTitle: "Agent"
+title: "Sensu agent"
+linkTitle: "Sensu Agent"
 description: "Sensu agent reference documentation"
 weight: 1
 version: "5.0"
@@ -260,8 +260,12 @@ The resulting `keepalive` handler set configuration looks like this:
 {{< highlight json >}}
 {
   "type": "Handler",
-  "spec": {
+  "api_version": "core/v2",
+  "metadata" : {
     "name": "keepalive",
+    "namespace": "default"
+  },
+  "spec": {
     "type": "set",
     "handlers": [
       "slack"
@@ -287,7 +291,7 @@ To see available configuration flags and defaults:
 sensu-agent start --help
 {{< /highlight >}}
 
-If no configuration flags are provided, the agent loads configuration from [`/etc/sensu/agent.yml`][25] by default.
+If no configuration flags are provided, the agent loads configuration from `/etc/sensu/agent.yml` by default.
 
 To start the agent using a service manager:
 
@@ -420,8 +424,8 @@ Agents can connect to a Sensu cluster by specifying any Sensu backend URL in the
 
 ## Configuration
 
-You can specify the agent configuration using a [`/etc/sensu/agent.yml`][25] file or using `sensu-agent start` [configuration flags][24].
-See the example [`/etc/sensu/agent.yml`][25] file used during the [installation process][1] on [GitHub][25].
+You can specify the agent configuration using a `/etc/sensu/agent.yml` file or using `sensu-agent start` [configuration flags][24].
+See the example config file provided with Sensu at `/usr/share/doc/sensu-go-agent-5.0.0/agent.yml.example`.
 The agent loads configuration upon startup, so you must restart the agent for any configuration updates to take effect.
 
 ### Configuration summary
@@ -448,7 +452,7 @@ Flags:
       --keepalive-timeout uint32        number of seconds until agent is considered dead by backend (default 120)
       --labels stringToString           entity labels map (default [])
       --log-level string                logging level [panic, fatal, error, warn, info, debug] (default "warn")
-      --name string                     agent name (defaults to hostname) (default "sensu2-centos")
+      --name string                     agent name (defaults to hostname) (default "sensu-go-sandbox")
       --namespace string                agent namespace (default "default")
       --password string                 agent password (default "P@ssw0rd!")
       --redact string                   comma-delimited customized list of fields to redact
@@ -508,7 +512,7 @@ config-file: "/sensu/agent.yml"{{< /highlight >}}
 -------------|------
 description  | Custom attributes to include with event data, which can be queried like regular attributes. You can use labels to organize entities into meaningful collections that can be selected using [filters][9] and [tokens][27].
 required     | false
-type         | Map of key-value pairs. Keys and values can be any valid UTF-8 string.
+type         | Map of key-value pairs. Keys can contain only letters, numbers, and underscores, but must start with a letter. Values can be any valid UTF-8 string.
 default      | `null`
 example               | {{< highlight shell >}}# Command line example
 sensu-agent start --labels region=us-west-2
@@ -818,7 +822,6 @@ statsd-metrics-port: 6125{{< /highlight >}}
 [22]: #statsd-configuration-flags
 [23]: https://github.com/etsy/statsd#key-concepts
 [24]: #configuration
-[25]: https://github.com/sensu/sensu-go/blob/master/packaging/files/agent.yml.example
 [26]: #keepalives
 [27]: ../tokens
 [28]: #subscriptions-flag

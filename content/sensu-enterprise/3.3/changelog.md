@@ -11,6 +11,7 @@ _NOTE: Sensu Enterprise is built on Sensu Core. Sensu Core changes are documente
 
 ## Releases
 
+- [Enterprise 3.3.1 Release Notes](#enterprise-v3-3-1)
 - [Enterprise 3.3.0 Release Notes](#enterprise-v3-3-0)
 - [Enterprise 3.2.2 Release Notes](#enterprise-v3-2-2)
 - [Enterprise 3.2.1 Release Notes](#enterprise-v3-2-1)
@@ -50,6 +51,22 @@ _NOTE: Sensu Enterprise is built on Sensu Core. Sensu Core changes are documente
 - [Enterprise 1.14.1 Release Notes](#enterprise-v1-14-1)
 - [Enterprise 1.14.0 Release Notes](#enterprise-v1-14-0)
 - [Enterprise 1.13.0 Release Notes](#enterprise-v1-13-0)
+
+## Enterprise 3.3.1 Release Notes {#enterprise-v3-3-1}
+
+**December 10, 2018** &mdash; Sensu Enterprise version 3.3.1 has been
+released and is available for immediate download. Please note the
+following improvements:
+
+### CHANGES {#enterprise-v3-3-1-changes}
+
+Built on [Sensu Core 1.6.2][core-v1-6-2]:
+
+- **BUGFIX**: Sensu Core 1.6.2 improves error handling for Redis Sentinel
+  connections. In the event of a Sentinel DNS lookup error, Sensu now
+  retries the failing Sentinel instances until they become available, but
+  proceeds with normal operation as long as one Sentinel can direct Sensu to
+  the current Redis leader.
 
 ## Enterprise 3.3.0 Release Notes {#enterprise-v3-3-0}
 
@@ -813,3 +830,4 @@ This release includes potentially breaking, backwards-incompatible changes:
 [65]: http://www.rabbitmq.com/install-debian.html#kernel-resource-limits
 [66]: http://www.rabbitmq.com/install-rpm.html#kernel-resource-limits
 [og-eu]: https://docs.opsgenie.com/docs/european-service-region
+[core-v1-6-2]: /sensu-core/1.6/changelog/#core-v1-6-2

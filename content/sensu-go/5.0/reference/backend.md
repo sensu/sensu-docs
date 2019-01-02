@@ -1,6 +1,6 @@
 ---
-title: "Backend reference"
-linkTitle: "Backend"
+title: "Sensu backend"
+linkTitle: "Sensu Backend"
 description: "Reference documentation for the Sensu backend"
 weight: 1
 version: "5.0"
@@ -62,7 +62,7 @@ Use the `sensu-backend` tool to start the backend and apply configuration flags.
 To start the backend with [configuration flags][15]:
 
 {{< highlight shell >}}
-sensu-backend start --state-dir /data/sensu --log-level debug
+sensu-backend start --state-dir /var/lib/sensu/sensu-backend --log-level debug
 {{< /highlight >}}
 
 To see available configuration flags and defaults:
@@ -71,7 +71,7 @@ To see available configuration flags and defaults:
 sensu-backend start --help
 {{< /highlight >}}
 
-If no configuration flags are provided, the backend loads configuration from [`/etc/sensu/backend.yml`][14] by default.
+If no configuration flags are provided, the backend loads configuration from `/etc/sensu/backend.yml` by default.
 
 To start the backend using a service manager:
 
@@ -153,9 +153,9 @@ To configure a cluster, see:
 
 ## Configuration
 
-You can specify the backend configuration using a [`/etc/sensu/backend.yml`][14] file or using `sensu-backend start` [configuration flags][15].
-See the example [`/etc/sensu/backend.yml`][14] file used during the [installation process][1] on [GitHub][14].
-All required configuration flags have assigned defaults, so no manual configuration is required to start the backend.
+You can specify the backend configuration using a `/etc/sensu/backend.yml` file or using `sensu-backend start` [configuration flags][15].
+The backend requires that the `state-dir` flag be set before starting; all other required flags have default values.
+See the example config file provided with Sensu at `/usr/share/doc/sensu-go-backend-5.0.0/backend.yml.example`.
 The backend loads configuration upon startup, so you must restart the backend for any configuration updates to take effect.
 
 ### Configuration summary
@@ -258,15 +258,15 @@ log-level: "debug"{{< /highlight >}}
 
 | state-dir  |      |
 -------------|------
-description  | Path to Sensu state storage
+description  | Path to Sensu state storage: `/var/lib/sensu/sensu-backend` for Linux and `C:\\ProgramData\sensu\data` for Windows.
 type         | String
-default      | <ul><li>Linux: `/var/lib/sensu`</li><li>Windows: `C:\\ProgramData\sensu\data`</li></ul>
+required     | true
 example      | {{< highlight shell >}}# Command line example
-sensu-backend start --state-dir /var/lib/sensu
-sensu-backend start -d /var/lib/sensu
+sensu-backend start --state-dir /var/lib/sensu/sensu-backend
+sensu-backend start -d /var/lib/sensu/sensu-backend
 
 # /etc/sensu/backend.yml example
-state-dir: "/var/lib/sensu"{{< /highlight >}}
+state-dir: "/var/lib/sensu/sensu-backend"{{< /highlight >}}
 
 
 | api-listen-address  |      |
@@ -604,5 +604,4 @@ no-embed-etcd: true{{< /highlight >}}
 [11]: ../../reference/handlers
 [12]: #datastore-and-cluster-configuration-flags
 [13]: ../../guides/clustering
-[14]: https://github.com/sensu/sensu-go/blob/master/packaging/files/backend.yml.example
 [15]: #general-configuration-flags

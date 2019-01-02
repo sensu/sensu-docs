@@ -1,7 +1,7 @@
 ---
 title: "Hardware requirements"
 linkTitle: "Hardware Requirements"
-description: "Guidelines for what you'll need for deploying Sensu Core to production."
+description: "Guidelines for what you'll need to deploy Sensu Go"
 weight: 5
 version: "5.0"
 product: "Sensu Go"

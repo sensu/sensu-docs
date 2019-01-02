@@ -1,7 +1,7 @@
 ---
 title: "Events"
 description: "The Events reference guide."
-weight: 1
+weight: 10
 version: "5.0"
 product: "Sensu Go"
 platformContent: false

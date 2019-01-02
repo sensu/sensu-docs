@@ -2,7 +2,7 @@
 title: "Mutators"
 description: "The mutators reference guide."
 product: "Sensu Go"
-weight: 1
+weight: 10
 version: "5.0"
 platformContent: False 
 menu:
@@ -141,7 +141,7 @@ example      | {{< highlight shell >}}"namespace": "production"{{< /highlight >}
 -------------|------
 description  | Custom attributes to include with event data, which can be queried like regular attributes. You can use labels to organize mutators into meaningful collections that can be selected using [filters][4] and [tokens][5].
 required     | false
-type         | Map of key-value pairs. Keys and values can be any valid UTF-8 string.
+type         | Map of key-value pairs. Keys can contain only letters, numbers, and underscores, but must start with a letter. Values can be any valid UTF-8 string.
 default      | `null`
 example      | {{< highlight shell >}}"labels": {
   "environment": "development",

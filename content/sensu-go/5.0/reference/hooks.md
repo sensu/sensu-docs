@@ -1,7 +1,7 @@
 ---
 title: "Hooks"
 description: "The hooks reference guide."
-weight: 1
+weight: 10
 version: "5.0"
 product: "Sensu Go"
 platformContent: false
@@ -20,16 +20,18 @@ and based on the exit status code of that command (ex: `1`).
 Hook commands can optionally receive JSON serialized Sensu client data via
 STDIN.
 
+### Check response types
+
 Each **type** of response (ex: `non-zero`) can contain one or more hooks, and
 correspond to one or more exit status code. Hooks are executed, in order of
 precedence, based on their type:
 
-* `1` to `255`
-* `ok`
-* `warning`
-* `critical`
-* `unknown`
-* `non-zero`
+1. `1` to `255`
+2. `ok`
+3. `warning`
+4. `critical`
+5. `unknown`
+6. `non-zero`
 
 You can assign one or more hooks to a check in the check definition.
 See the [check specification][6] to configure the `check_hooks` attribute.
@@ -47,7 +49,7 @@ the check configuration scope. With unique and descriptive identifiers, hooks
 are now reusable! And that's not all, you can now execute multiple hooks for any
 given response code.
 
-Check out Sean’s [blog post][1] about Sensu Core check hooks to see how you can use
+Check out Sean’s [blog post][1] about Sensu Core 1.x check hooks to see how you can use
 Sensu for auto-remediation tasks!
 
 ## Hooks specification
@@ -145,7 +147,7 @@ example      | {{< highlight shell >}}"namespace": "production"{{< /highlight >}
 -------------|------
 description  | Custom attributes to include with event data, which can be queried like regular attributes. You can use labels to organize hooks into meaningful collections that can be selected using [filters][4] and [tokens][5].
 required     | false
-type         | Map of key-value pairs. Keys and values can be any valid UTF-8 string.
+type         | Map of key-value pairs. Keys can contain only letters, numbers, and underscores, but must start with a letter. Values can be any valid UTF-8 string.
 default      | `null`
 example      | {{< highlight shell >}}"labels": {
   "environment": "development",
@@ -222,6 +224,6 @@ has been determined to be not running etc.
 [3]: ../rbac#namespaces
 [4]: ../filters
 [5]: ../tokens
-[6]: ../checks#check-attributes
+[6]: ../checks#check-hooks-attribute
 [sc]: ../../sensuctl/reference#creating-resources
 [sp]: #spec-attributes
