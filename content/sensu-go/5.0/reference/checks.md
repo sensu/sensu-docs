@@ -399,7 +399,7 @@ description  | Sensu entity attributes to match entities in the registry, using 
 required     | false
 type         | Array
 default      | current namespace value configured for `sensuctl` (ie `default`)
-example      | {{< highlight shell >}}"entity_attributes": ["entity.EntityClass == 'proxy'"]{{< /highlight >}}
+example      | {{< highlight shell >}}"entity_attributes": ["entity.entity_class == 'proxy'"]{{< /highlight >}}
 
 |splay       |      |
 -------------|------
