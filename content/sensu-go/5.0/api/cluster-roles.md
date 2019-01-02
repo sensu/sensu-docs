@@ -42,7 +42,7 @@ curl -s http://127.0.0.1:8080/api/core/v2/cluster-roles -H "Authorization: Beare
         "resources": [
           "events"
         ],
-        "resourceNames": [
+        "resource_names": [
           ""
         ]
       }
@@ -72,7 +72,7 @@ output         | {{< highlight shell >}}
         "resources": [
           "events"
         ],
-        "resourceNames": [
+        "resource_names": [
           ""
         ]
       }
@@ -99,7 +99,7 @@ payload         | {{< highlight shell >}}
       "resources": [
         "events"
       ],
-      "resourceNames": [
+      "resource_names": [
         ""
       ]
     }
@@ -133,7 +133,7 @@ curl -s http://127.0.0.1:8080/api/core/v2/cluster-roles/global-event-reader -H "
       "resources": [
         "events"
       ],
-      "resourceNames": [
+      "resource_names": [
         ""
       ]
     }
@@ -161,7 +161,7 @@ output               | {{< highlight json >}}
       "resources": [
         "events"
       ],
-      "resourceNames": [
+      "resource_names": [
         ""
       ]
     }
@@ -189,7 +189,7 @@ payload         | {{< highlight shell >}}
       "resources": [
         "events"
       ],
-      "resourceNames": [
+      "resource_names": [
         ""
       ]
     }
