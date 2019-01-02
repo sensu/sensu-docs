@@ -38,15 +38,17 @@ handler that we will call `influx-db`, which is a **pipe** handler that pipes
 event data into our previous script named `sensu-influxdb-handler`. We will also
 pass the database name, address, username, and password of the InfluxDB you wish
 to populate.
+We'll use environment variables (`env-vars`) to pass the username and password to the command.
 
 {{< highlight shell >}}
 sensuctl handler create influx-db \
 --type pipe \
+--env-vars "INFLUX_USER='admin', INFLUX_PASSWORD='password'" \
 --command "sensu-influxdb-handler \
 --addr 'http://123.4.5.6:8086' \
 --db-name 'myDB' \
---username 'foo' \
---password 'bar'"
+--username \${INFLUX_USER} \
+--password \${INFLUX_PASSWORD}"
 {{< /highlight >}}
 
 ### Assigning the handler to an event
