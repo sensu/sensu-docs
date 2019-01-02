@@ -298,14 +298,6 @@ example      | {{< highlight json >}}
   }
 }{{< /highlight >}}
 
-keepalive_timeout  | 
--------------|------ 
-description  | The time in seconds until an entity keepalive is considered stale. 
-required     | false 
-type         | integer 
-default      | 120
-example      | {{< highlight shell >}}"keepalive_timeout": 120 {{< /highlight >}}
-
 redact       | 
 -------------|------ 
 description  | List of items to redact from log messages. If a value is provided, it overwrites the default list of items to be redacted.
