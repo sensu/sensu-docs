@@ -47,7 +47,7 @@ Let's take a look at what the full configuration looks like:
       "password": "xxxxxxxxxxxxxxxx"
     },
     "to": "ops-team@mydomain.com",
-    "from": "sensu@mydomain.com",
+    "from": "sensu@mydomain.com"
     }
   }
 }{{< /highlight >}}
