@@ -62,7 +62,7 @@ output         | {{< highlight shell >}}
 /namespaces (POST) | 
 ----------------|------
 description     | Create a Sensu namespace.
-example URL     | http://hostname:8080/api/core/v2/namespaces/default/namespaces
+example URL     | http://hostname:8080/api/core/v2/namespaces
 payload         | {{< highlight shell >}}
 {
   "name": "development"
@@ -79,7 +79,7 @@ response codes  | <ul><li>**Success**: 200 (OK)</li><li>**Malformed**: 400 (Bad 
 /namespaces/:namespace (PUT) | 
 ----------------|------
 description     | Create or update a Sensu namespace.
-example URL     | http://hostname:8080/api/core/v2/namespaces/default/namespaces/development
+example URL     | http://hostname:8080/api/core/v2/namespaces/development
 payload         | {{< highlight shell >}}
 {
   "name": "development"
@@ -94,8 +94,7 @@ response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 
 /namespaces/:namespace (DELETE) | 
 --------------------------|------
 description               | Removes a namespace from Sensu given the namespace name.
-example url               | http://hostname:8080/api/core/v2/namespaces/default/namespaces/development
+example url               | http://hostname:8080/api/core/v2/namespaces/development
 response codes            | <ul><li>**Success**: 202 (Accepted)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 [1]: ../../reference/rbac
-
