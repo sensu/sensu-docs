@@ -50,7 +50,7 @@ Let's take a look at what the full configuration looks like:
     "from": "sensu@mydomain.com"
     }
   }
-}{{< /highlight >}}
+{{< /highlight >}}
 
 Once we've written that configuration to disk, we'll need to reload the Sensu Enterprise process via `systemctl reload sensu-enterprise` to pick up the configuration.
 
