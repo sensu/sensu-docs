@@ -74,8 +74,16 @@ _NOTE: Sensu Enterprise Dashboard is built on Uchiwa. Uchiwa changes are documen
 ## Enterprise Dashboard 2.13.2 Release Notes {#enterprise-dashboard-v2-13-2}
 **December 18, 2018** &mdash; Sensu Enterprise Dashboard version 2.13.2 has been released and is available for immediate download. 
 
+### CHANGES {#enterprise-dashboard-v2-13-2-changes}
+
+- **FIX**: Resolved build dependencies.
+
 ## Enterprise Dashboard 2.13.1 Release Notes {#enterprise-dashboard-v2-13-1}
 **December 18, 2018** &mdash; Sensu Enterprise Dashboard version 2.13.3 has been released and is available for immediate download. 
+
+### CHANGES {#enterprise-dashboard-v2-13-1-changes}
+
+- **FIX**: Resolved build dependencies.
 
 ## Enterprise Dashboard 2.13.0 Release Notes {#enterprise-dashboard-v2-13-0}
 **December 18, 2018** &mdash; Sensu Enterprise Dashboard version 2.13.0 has been released and is available for immediate download. 
@@ -83,6 +91,7 @@ _NOTE: Sensu Enterprise Dashboard is built on Uchiwa. Uchiwa changes are documen
 ### CHANGES {#enterprise-dashboard-v2-13-0-changes}
 
 - **IMPROVEMENT**: Built on [Uchiwa 1.4.1][uchiwa-v1-4-1].
+- **FIX**: Dashboard search now correctly queries for `source`.
 
 ## Enterprise Dashboard 2.12.0 Release Notes {#enterprise-dashboard-v2-12-0}
 **June 12, 2018** &mdash; Sensu Enterprise Dashboard version 2.12.0 has been released and is available for immediate download. 
