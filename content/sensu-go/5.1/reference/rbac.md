@@ -444,7 +444,7 @@ example      | {{< highlight shell >}}"rules": [
   {
     "verbs": ["get", "list"],
     "resources": ["checks"],
-    "resourceNames": [""]
+    "resource_names": [""]
   }
 ]{{< /highlight >}}
 
@@ -465,12 +465,12 @@ required     | true
 type         | Array
 example      | {{< highlight shell >}}"resources": ["checks"]{{< /highlight >}}
 
-resourceNames    | 
+resource_names    | 
 -------------|------ 
 description  | Specific resource names that the rule has permission to access. Resource name permissions are only available for `get`, `delete`, and `update` verbs.
 required     | false
 type         | Array
-example      | {{< highlight shell >}}"resourceNames": ["check-cpu"]{{< /highlight >}}
+example      | {{< highlight shell >}}"resource_names": ["check-cpu"]{{< /highlight >}}
 
 ### Role examples
 
