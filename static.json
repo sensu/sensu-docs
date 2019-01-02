@@ -20,7 +20,7 @@
             "status": 302
         },
         "~ ^/sensu-enterprise-dashboard/latest/?(.*)$": {
-            "url": "/sensu-enterprise-dashboard/2.13/$1",
+            "url": "/sensu-enterprise-dashboard/2.14/$1",
             "status": 302
         },
         "~ ^/sensu-go/latest/?(.*)$": {
