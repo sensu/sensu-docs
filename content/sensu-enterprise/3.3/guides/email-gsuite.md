@@ -32,7 +32,7 @@ Port: 587
 
 Let's take a look at what the full configuration looks like:
 
-{{< highlight json >}}
+{{< highlight text >}}
 /etc/sensu/conf.d/handlers/email.json
 
 {
