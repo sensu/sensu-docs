@@ -15,7 +15,7 @@ Before we configure Sensu to use the gateway, we'll have to first set up a user 
 
 ## Set Up User and App Password
 
-The first step to using G Suite as our SMTP relay for Sensu is to set up a user and an app password. We generally recommend adding Sensu user to be used specifically with our deployment. If this isn't possible, we can use any G Suite user account.
+The first step to using G Suite as our SMTP relay for Sensu is to set up a user and an app password. We generally recommend adding a Sensu user to be used specifically with our deployment. If this isn't possible, we can use any G Suite user account.
 
 Once we have an account that will be used for sending email via Sensu, we'll then need to [create an app password][1]. When we generate the password, we need to ensure that we label it with "Sensu" so that we'll know what the app password is being used for.
 
