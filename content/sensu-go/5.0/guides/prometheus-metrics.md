@@ -24,12 +24,9 @@ The [Sensu Prometheus Collector][1] is a sensu check plugin that can collect met
 
 ## In this guide
 
-This guide uses CentOS 7 as the operating system with all compoments running on the same compute resource. Commands and steps may change for different distributions or if compenetes are running off machine.
+This guide uses CentOS 7 as the operating system with all compoments running on the same compute resource. Commands and steps may change for different distributions or if components are running on different compute resources.
 
-* Install and Configure Prometheus
-* Install and Configure Sensu Go with Sensu Proemetheus Collector
-* Install and Configure InfluxDB
-* Install and Configure Grafana
+At the end, you will have Prometheus scraping metrics. The Sensu Prometheus Exporter will then query the Prometheus API as a Sensu check, send those to an InfluxDB Sensu handler, which will send metrics to an InfluxDB instance. Finally, Grafana will query InfluxDB to display those collected metrics.
 
 ### Install and Configure Prometheus
 
@@ -62,7 +59,11 @@ Start Prometheus in the background
 nohup .prometheus --config.file=prometheus.yml > prometheus.log 2>&1 &
 {{< /highlight >}}
 
-TODO: confirmation that prometheus is running (log or process table check as we aren't doing prometheus as service)
+Ensure Pormetheus is running
+
+{{< highlight shell >}}
+ps -ef | grep prometheus
+{{< /highlight >}}
 
 ### Install and Configure Sensu Go
 
@@ -75,7 +76,7 @@ subscriptions:
   - "app_tier"
 {{< /highlight >}}
 
-Restart the sensu agent:
+Restart the sensu agent to apply the configuration change:
 {{< highlight shell >}}
 systemctl restart sensu-agent
 {{< /highlight >}}
@@ -91,9 +92,9 @@ systemctl status sensu-agent
 TODO: align these wget commands.
 TODO: See about not having version hard coded
 {{< highlight shell >}}
-wget https://github.com/sensu/sensu-prometheus-collector/releases/download/1.1.4/sensu-prometheus-collector_1.1.4_linux_386.tar.gz
-tar xvfz sensu-prometheus-collector_1.1.4_linux_386.tar.gz
-cp /home/vagrant/bin/sensu-prometheus-collector /usr/local/bin/
+wget -q -nc https://github.com/sensu/sensu-prometheus-collector/releases/download/1.1.4/sensu-prometheus-collector_1.1.4_linux_386.tar.gz -P /tmp/
+tar xvfz /tmp/sensu-prometheus-collector_1.1.4_linux_386.tar.gz -C /tmp/
+cp /tmp/bin/sensu-prometheus-collector /usr/local/bin/
 {{< /highlight >}}
 
 Confirm it can get metrics from prometheus
@@ -106,7 +107,7 @@ Confirm it can get metrics from prometheus
 
 {{< highlight shell >}}
 wget -q -nc https://github.com/sensu/sensu-influxdb-handler/releases/download/3.0.1/sensu-influxdb-handler_3.0.1_linux_amd64.tar.gz -P /tmp/
-tar xvzf /tmp/sensu-influxdb-handler_3.0.1_linux_amd64.tar.gz -C /tmp/
+tar xvfz /tmp/sensu-influxdb-handler_3.0.1_linux_amd64.tar.gz -C /tmp/
 cp /tmp/bin/sensu-influxdb-handler /usr/local/bin/
 {{< /highlight >}}
 
@@ -185,7 +186,7 @@ spec:
   type: pipe
 {{< /highlight >}}
 
-run `sensuctl` to add them to the sensu backend:
+use `sensuctl` to add the check and handler to the sensu backend:
 
 {{< highlight shell >}}
 sudo sensuctl create -f resources.yml
@@ -233,7 +234,6 @@ sudo systemctl start grafana-server
 
 Create dashboard from a file `up_or_down_dashboard.json`
 
-TODO: Best way to provide large-ish JSON file.
 {{< highlight shell >}}
 curl -s -XPOST -H 'Content-Type: application/json' -d@up_or_down_dashboard.json HTTP://admin:admin@127.0.0.1:4000/api/dashboards/db
 {{< /highlight >}}
