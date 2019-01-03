@@ -130,32 +130,54 @@ Make a file called `check_and_entities.json` with the following contents:
     "command": "http_check.sh {{ .Url }}",
     "interval": 10,
     "subscriptions": ["sensu-app"],
-    "organization": "default",
-    "environment": "default",
     "publish": true,
     "proxy_requests": {
-      "entity_attributes": ["entity.Class == 'proxy'"]
+      "entity_attributes": ["event.Entity.Class == 'proxy'"]
      }
   }
 }
 {
   "type": "Entity",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "sensu-docs",
+    "namespace": "web",
+    "labels": {
+      "url": "docs.sensu.io"
+    }
+  },
   "spec": {
-    "class": "proxy",
-    "environment": "default",
-    "organization": "default",
-    "id": "sensu-doc-site",
-    "url": "https://docs.sensu.io"
+    "entity_class": "proxy",
+    "last_seen": 0,
+    "subscriptions": [],
+    "system": {
+      "network": {
+        "interfaces": null
+      }
+    }
   }
 }
 {
   "type": "Entity",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "sensu-docs",
+    "namespace": "web",
+    "labels": {
+      "url": "docs.sensu.io"
+    }
+  },
   "spec": {
-    "class": "proxy",
-    "environment": "default",
-    "organization": "default",
-    "id": "sensu-web-site",
-    "url": "https://sensu.io"
+    "deregister": false,
+    "deregistration": {},
+    "entity_class": "proxy",
+    "last_seen": 0,
+    "subscriptions": [],
+    "system": {
+      "network": {
+        "interfaces": null
+      }
+    }
   }
 }
 {{< /highlight >}}
