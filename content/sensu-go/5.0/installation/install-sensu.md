@@ -1,12 +1,12 @@
 ---
 title: "Installing Sensu"
 linkTitle: "Install Sensu"
-description: "The Sensu Core installation guide."
+description: "The Sensu Go installation guide"
 weight: 1
 version: "5.0"
 product: "Sensu Go"
 platformContent: true
-platforms: ["Ubuntu/Debian", "RHEL/CentOS", "Windows", "macOS", "Docker"]
+platforms: ["Ubuntu", "RHEL/CentOS", "Windows", "macOS", "Docker"]
 menu:
   sensu-go-5.0:
     parent: installation
@@ -14,32 +14,32 @@ aliases:
   - /sensu-go/5.0/getting-started/installation-and-configuration/
 ---
 
-The Sensu 2.0 binaries are statically linked and can be deployed to any Linux or Windows operating system.
 Select a platform from the dropdown above.
+Sensu Go is available for Linux, Windows (agent and CLI only), macOS (CLI only), and Docker.
+See the list of [supported platforms][5] for more information.
 
-{{< platformBlock "Ubuntu/Debian RHEL/CentOS" >}}
+{{< platformBlock "Ubuntu RHEL/CentOS" >}}
 
 ## Install the Sensu backend
-The Sensu backend (sensu-backend) is a single statically linked binary that can be deployed via packages (.deb or .rpm) or [Docker image](#docker).
-Sensu backend packages are available for Ubuntu/Debian and RHEL/CentOS.
+The Sensu backend is available for Ubuntu, RHEL/CentOS, and [Docker](#deploy-sensu-with-docker).
 
 ### 1. Install the package
 
 {{< platformBlockClose >}}
 
-{{< platformBlock "Ubuntu/Debian" >}}
+{{< platformBlock "Ubuntu" >}}
 
-#### Ubuntu/Debian
+#### Ubuntu
 Add the Sensu repository.
 
 {{< highlight shell >}}
-curl -s https://packagecloud.io/install/repositories/sensu/beta/script.deb.sh | sudo bash
+curl -s https://packagecloud.io/install/repositories/sensu/stable/script.deb.sh | sudo bash
 {{< /highlight >}}
 
-Install the sensu-backend package.
+Install the `sensu-go-backend` package.
 
 {{< highlight shell >}}
-sudo apt-get install sensu-backend
+sudo apt-get install sensu-go-backend
 {{< /highlight >}}
 
 {{< platformBlockClose >}}
@@ -51,49 +51,46 @@ sudo apt-get install sensu-backend
 Add the Sensu repository.
 
 {{< highlight shell >}}
-curl -s https://packagecloud.io/install/repositories/sensu/beta/script.rpm.sh | sudo bash
+curl -s https://packagecloud.io/install/repositories/sensu/stable/script.rpm.sh | sudo bash
 {{< /highlight >}}
 
-Install the sensu-backend package.
+Install the `sensu-go-backend` package.
 
 {{< highlight shell >}}
-sudo yum install sensu-backend
+sudo yum install sensu-go-backend
 {{< /highlight >}}
 
 {{< platformBlockClose >}}
 
-{{< platformBlock "Ubuntu/Debian RHEL/CentOS" >}}
+{{< platformBlock "Ubuntu RHEL/CentOS" >}}
 
 ### 2. Create the configuration file
 
 Copy the example backend config file to the default config path.
 
 {{< highlight shell >}}
-sudo cp /etc/sensu/backend.yml.example /etc/sensu/backend.yml
+sudo cp /usr/share/doc/sensu-go-backend-5.0.1/backend.yml.example /etc/sensu/backend.yml
 {{< /highlight >}}
 
-The backend config requires `state-dir` to be set.
-The example config sets `state-dir` to `/var/lib/sensu` by default.
+_NOTE: The Sensu backend can be configured using a `/etc/sensu/backend.yml` configuration file or using `sensu-backend start` configuration flags. For more information, see the [backend reference][6]._
 
 ### 3. Start the service
 
-Start the backend using systemd.
+Start the backend using a service manager.
 
 {{< highlight shell >}}
-sudo systemctl start sensu-backend
+sudo service sensu-backend start
 {{< /highlight >}}
 
-You can verify that sensu-backend is running properly using the log files.
+You can verify that the backend is running properly using the `sensu-backend` tool.
 
 {{< highlight shell >}}
-journalctl -u sensu-backend -f
+sensu-backend -h
 {{< /highlight >}}
-
-_NOTE: On older distributions of Linux, use `sudo service sensu-backend start` to start the backend and `tail -f /var/log/sensu/sensu-backend.log` to verify it._
 
 {{< platformBlockClose >}}
 
-{{< platformBlock "Ubuntu/Debian RHEL/CentOS" >}}
+{{< platformBlock "Ubuntu RHEL/CentOS" >}}
 
 ### Next steps
 
@@ -101,34 +98,33 @@ Now that you've installed the Sensu backend:
 
 - [Install the Sensu agent](#install-the-sensu-agent)
 - [Install sensuctl](#install-sensuctl)
-- [Log in to the dashboard][3]
+- [Sign in to the dashboard][3]
 
 {{< platformBlockClose >}}
 
-{{< platformBlock "Ubuntu/Debian RHEL/CentOS Windows" >}}
+{{< platformBlock "Ubuntu RHEL/CentOS Windows" >}}
 
 ## Install the Sensu agent
-The Sensu agent is a single statically linked binary that can be deployed via packages (.deb or .rpm) or Docker image.
-Sensu agent packages are available for Ubuntu/Debian, RHEL/CentOS, and Windows.
+The Sensu agent is available for Ubuntu, RHEL/CentOS, Windows, and [Docker](#deploy-sensu-with-docker).
 
 ### 1. Install the package
 
 {{< platformBlockClose >}}
 
-{{< platformBlock "Ubuntu/Debian" >}}
+{{< platformBlock "Ubuntu" >}}
 
-#### Ubuntu/Debian
+#### Ubuntu
 
 Add the Sensu repository.
 
 {{< highlight shell >}}
-curl -s https://packagecloud.io/install/repositories/sensu/beta/script.deb.sh | sudo bash
+curl -s https://packagecloud.io/install/repositories/sensu/stable/script.deb.sh | sudo bash
 {{< /highlight >}}
 
-Install the sensu-agent package.
+Install the `sensu-go-agent` package.
 
 {{< highlight shell >}}
-sudo apt-get install sensu-agent
+sudo apt-get install sensu-go-agent
 {{< /highlight >}}
 
 {{< platformBlockClose >}}
@@ -139,13 +135,13 @@ sudo apt-get install sensu-agent
 Add the Sensu repository.
 
 {{< highlight shell >}}
-curl -s https://packagecloud.io/install/repositories/sensu/beta/script.rpm.sh | sudo bash
+curl -s https://packagecloud.io/install/repositories/sensu/stable/script.rpm.sh | sudo bash
 {{< /highlight >}}
 
-Install the sensu-agent package.
+Install the `sensu-go-agent` package.
 
 {{< highlight shell >}}
-sudo yum install sensu-agent
+sudo yum install sensu-go-agent
 {{< /highlight >}}
 
 {{< platformBlockClose >}}
@@ -154,33 +150,33 @@ sudo yum install sensu-agent
 
 #### Windows
 
-Download the [Sensu agent binary](https://storage.googleapis.com/sensu-binaries/2.0.0-beta.4-1/windows/amd64/sensu-agent).
+Download the [Sensu agent for Windows](https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.0.1/sensu-go-5.0.1-windows-amd64.tar.gz).
+
+{{< highlight text >}}
+Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.0.1/sensu-go-5.0.1-windows-amd64.tar.gz  -OutFile C:\Users\Administrator\sensu-go-5.0.1-windows-amd64.tar.gz
+{{< /highlight >}}
+
+See the [verifying Sensu guide][12] to verify your download using checksums.
 
 {{< platformBlockClose >}}
 
-{{< platformBlock "Ubuntu/Debian RHEL/CentOS Windows" >}}
+{{< platformBlock "Ubuntu RHEL/CentOS Windows" >}}
 
 ### 2. Create the configuration file
 
 {{< platformBlockClose >}}
 
-{{< platformBlock "Ubuntu/Debian RHEL/CentOS" >}}
+{{< platformBlock "Ubuntu RHEL/CentOS" >}}
 
-#### Ubuntu/Debian/RHEL/CentOS
+#### Ubuntu/RHEL/CentOS
 
 Copy the example agent config file to the default config path.
 
 {{< highlight shell >}}
-sudo cp /etc/sensu/agent.yml.example /etc/sensu/agent.yml
+sudo cp /usr/share/doc/sensu-go-agent-5.0.1/agent.yml.example /etc/sensu/agent.yml
 {{< /highlight >}}
 
-In order for the agent to function, it will need to have a list of one or more backends to point to.
-Open `/etc/sensu/agent.yml` and set `backend-url` to the IP and port of a Sensu backend.
-
-{{< highlight yaml >}}
-backend-url:
-  - "ws://127.0.0.1:8081"
-{{< /highlight >}}
+_NOTE: The Sensu agent can be configured using a `/etc/sensu/agent.yml` configuration file or using `sensu-agent start` configuration flags. For more information, see the [agent reference][7]._
 
 {{< platformBlockClose >}}
 
@@ -188,33 +184,31 @@ backend-url:
 
 #### Windows
 
-Download the [example agent configuration file][2].
+Download the [example agent configuration file][2] and save it as `C:\\ProgramData\sensu\config\agent.yml`.
 
 {{< platformBlockClose >}}
 
-{{< platformBlock "Ubuntu/Debian RHEL/CentOS Windows" >}}
+{{< platformBlock "Ubuntu RHEL/CentOS Windows" >}}
 
 ### 3. Start the service
 
 {{< platformBlockClose >}}
 
-{{< platformBlock "Ubuntu/Debian RHEL/CentOS" >}}
+{{< platformBlock "Ubuntu RHEL/CentOS" >}}
 
-#### Ubuntu/Debian/RHEL/CentOS
+#### Ubuntu/RHEL/CentOS
 
-Start the agent using systemd.
-
-{{< highlight shell >}}
-sudo systemctl start sensu-agent
-{{< /highlight >}}
-
-You can verify that sensu-agent is running properly using the log files.
+Start the agent using a service manager.
 
 {{< highlight shell >}}
-journalctl -u sensu-agent -f
+sudo service sensu-agent start
 {{< /highlight >}}
 
-_NOTE: On older distributions of Linux, use `sudo service sensu-agent start` to start the agent and `tail -f /var/log/sensu/sensu-agent.log` to verify it._
+You can verify that the agent is running properly using the `sensu-agent` tool.
+
+{{< highlight shell >}}
+sensu-agent -h
+{{< /highlight >}}
 
 {{< platformBlockClose >}}
 
@@ -226,61 +220,41 @@ Coming soon.
 
 {{< platformBlockClose >}}
 
-{{< platformBlock "macOS RHEL/CentOS Ubuntu/Debian Windows" >}}
+{{< platformBlock "Ubuntu RHEL/CentOS Windows" >}}
+
+### Next steps
+
+Now that you've installed the Sensu agent:
+
+- [Install sensuctl](#install-sensuctl)
+- [Create a monitoring event][9]
+
+{{< platformBlockClose >}}
+
+{{< platformBlock "macOS RHEL/CentOS Ubuntu Windows" >}}
 
 ## Install sensuctl
-Sensu 2.0 can be configured and used with the sensuctl (pronounced “Sensu cuddle”) command line utility.
-Sensu CLI (sensuctl) packages are available for macOS, Ubuntu/Debian, RHEL/CentOS, and Windows.
+Sensu Go can be configured and used with the sensuctl command line utility.
+Sensuctl is available for Ubuntu, RHEL/CentOS, Windows, and macOS.
 
 ### 1. Install the package
 
 {{< platformBlockClose >}}
 
-{{< platformBlock "macOS" >}}
+{{< platformBlock "Ubuntu" >}}
 
-#### macOS
-
-Download the latest release.
-
-{{< highlight shell >}}
-curl -LO https://storage.googleapis.com/sensu-binaries/$(curl -s https://storage.googleapis.com/sensu-binaries/latest.txt)/darwin/amd64/sensuctl
-{{< /highlight >}}
-
-**Optionally**, if you would like to download a specific [release][1], replace
-`{VERSION}` in the command below.
-
-{{< highlight shell >}}
-curl -LO https://storage.googleapis.com/sensu-binaries/{VERSION}/darwin/amd64/sensuctl
-{{< /highlight >}}
-
-Make the sensuctl binary executable.
-
-{{< highlight shell >}}
-chmod +x sensuctl
-{{< /highlight >}}
-
-Move the executable into your PATH.
-
-{{< highlight shell >}}
-sudo mv sensuctl /usr/local/bin/
-{{< /highlight >}}
-
-{{< platformBlockClose >}}
-
-{{< platformBlock "Ubuntu/Debian" >}}
-
-#### Ubuntu/Debian
+#### Ubuntu
 
 Add the Sensu repository.
 
 {{< highlight shell >}}
-curl -s https://packagecloud.io/install/repositories/sensu/beta/script.deb.sh | sudo bash
+curl -s https://packagecloud.io/install/repositories/sensu/stable/script.deb.sh | sudo bash
 {{< /highlight >}}
 
-Install the sensu-cli package.
+Install the `sensu-go-cli` package.
 
 {{< highlight shell >}}
-sudo apt-get install sensu-cli
+sudo apt-get install sensu-go-cli
 {{< /highlight >}}
 
 {{< platformBlockClose >}}
@@ -292,13 +266,13 @@ sudo apt-get install sensu-cli
 Add the Sensu repository.
 
 {{< highlight shell >}}
-curl -s https://packagecloud.io/install/repositories/sensu/beta/script.rpm.sh | sudo bash
+curl -s https://packagecloud.io/install/repositories/sensu/stable/script.rpm.sh | sudo bash
 {{< /highlight >}}
 
-Install the sensu-cli package.
+Install the `sensu-go-cli` package.
 
 {{< highlight shell >}}
-sudo yum install sensu-cli
+sudo yum install sensu-go-cli
 {{< /highlight >}}
 
 {{< platformBlockClose >}}
@@ -307,24 +281,53 @@ sudo yum install sensu-cli
 
 #### Windows
 
-Download [sensuctl for 64-bit Windows](http://storage.googleapis.com/sensu-binaries/2.0.0-beta.4-1/windows/amd64/sensuctl).
+Download [sensuctl for Windows](https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.0.1/sensu-go-5.0.1-windows-amd64.tar.gz).
+
+{{< highlight text >}}
+Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.0.1/sensu-go-5.0.1-windows-amd64.tar.gz  -OutFile C:\Users\Administrator\sensu-go-5.0.1-windows-amd64.tar.gz
+{{< /highlight >}}
+
+See the [verifying Sensu guide][12] to verify your download using checksums.
 
 {{< platformBlockClose >}}
 
-{{< platformBlock "macOS RHEL/CentOS Ubuntu/Debian Windows" >}}
+{{< platformBlock "macOS" >}}
+
+#### macOS
+
+Download the latest release. See the [verifying Sensu guide][12] to verify your download using checksums.
+
+{{< highlight shell >}}
+curl -LO https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.0.1/sensu-go-5.0.1-darwin-amd64.tar.gz
+{{< /highlight >}}
+
+Extract the archive.
+
+{{< highlight shell >}}
+tar -xvf sensu-go-5.0.1-darwin-amd64.tar.gz
+{{< /highlight >}}
+
+Copy the executable into your PATH.
+
+{{< highlight shell >}}
+sudo cp bin/sensuctl /usr/local/bin/
+{{< /highlight >}}
+
+{{< platformBlockClose >}}
+
+{{< platformBlock "macOS RHEL/CentOS Ubuntu Windows" >}}
 
 ### 2. Configure sensuctl
 
-You must configure sensuctl before it can connect to your Sensu cluster.
-Run the `configure` command to get started.
+You must configure sensuctl before it can connect to Sensu Go.
+Run `sensuctl configure` to get started.
 
 {{< highlight shell >}}
 $ sensuctl configure
 ? Sensu Backend URL: http://127.0.0.1:8080
 ? Username: admin
 ? Password: *********
-? Organization: default
-? Environment: default
+? Namespace: default
 ? Preferred output format: tabular
 {{< /highlight >}}
 
@@ -342,18 +345,26 @@ $ sensuctl user change-password --interactive
 You can change individual values of your sensuctl configuration with the `config` subcommand.
 
 {{< highlight shell >}}
-sensuctl config set-organization default
-sensuctl config set-environment prod
+sensuctl config set-namespace default
 {{< /highlight >}}
+
+See the [sensuctl reference][4] for more information about using sensuctl.
+
+### Next steps
+
+Now that you've installed sensuctl:
+
+- [See the sensuctl quick reference][4]
+- [Create a monitoring event pipeline][10]
 
 {{< platformBlockClose >}}
 
 {{< platformBlock "Docker" >}}
 ## Deploy Sensu with Docker
 
-Sensu 2.0 can be run via [Docker](https://www.docker.com/) or [rkt](https://coreos.com/rkt) using the [sensu/sensu](https://hub.docker.com/r/sensu/sensu/) image. When running Sensu from Docker there are a couple of things to take into consideration.
+Sensu Go can be run via [Docker](https://www.docker.com/) or [rkt](https://coreos.com/rkt) using the [sensu/sensu](https://hub.docker.com/r/sensu/sensu/) image. When running Sensu from Docker there are a couple of things to take into consideration.
 
-The backend requires four exposed ports and persistent storage. This example uses a shared filesystem. Sensu 2.0 is backed by a distributed database, and its storage should be provisioned accordingly.  We recommend local storage or something like Throughput Optimized or Provisioned IOPS EBS if local storage is unavailable.  The exposed ports are:
+The backend requires four exposed ports and persistent storage. This example uses a shared filesystem. Sensu Go is backed by a distributed database, and its storage should be provisioned accordingly.  We recommend local storage or something like Throughput Optimized or Provisioned IOPS EBS if local storage is unavailable.  The exposed ports are:
 
 - 2380: Sensu storage peer listener (only other Sensu backends need access to this port)
 - 3000: Sensu dashboard
@@ -392,3 +403,12 @@ While it can be run from the docker container, doing so may be problematic.
 [1]: https://github.com/sensu/sensu-go/releases
 [2]: https://github.com/sensu/sensu-go/blob/master/packaging/files/windows/agent.yml.example
 [3]: ../../dashboard/overview
+[4]: ../../sensuctl/reference
+[5]: ../../getting-started/platforms
+[6]: ../../reference/backend
+[7]: ../../reference/agent
+[8]: ../../guides/troubleshooting
+[9]: ../../guides/monitor-external-resources
+[10]: ../../guides/send-slack-alerts
+[11]: https://github.com/sensu/sensu-go/blob/master/packaging/files/backend.yml.example
+[12]: ../verify

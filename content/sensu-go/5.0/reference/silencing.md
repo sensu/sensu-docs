@@ -1,7 +1,7 @@
 ---
 title: "Silencing"
 description: "The silencing reference guide."
-weight: 1
+weight: 10
 version: "5.0"
 product: "Sensu Go"
 platformContent: false
@@ -21,7 +21,7 @@ menu:
 
 ## How does silencing work?
 Silencing entries are created on an ad-hoc basis via `sensuctl`. When silencing
-entries are successfully created, they are assigned an `ID` in the format
+entries are successfully created, they are assigned a `name` in the format
 `$SUBSCRIPTION:$CHECK`, where `$SUBSCRIPTION` is the name of a Sensu entity
 subscription and `$CHECK` is the name of a Sensu check. Silencing entries can be
 used to silence checks on specific entities by taking advantage of per-entity
@@ -32,19 +32,19 @@ subscription described in a silencing entry match an event and a handler use the
 These silencing entries are persisted in the Sensu data store. When the Sensu
 server processes subsequent check results, matching silencing entries are
 retrieved from the store. If one or more matching entries exist, the event is
-updated with a list of silenced entry ids. The presence of silencing entries
+updated with a list of silenced entry names. The presence of silencing entries
 indicates that the event is silenced.
 
 When creating a silencing entry, a combination of check and subscription can be
 specified, but only one or the other is strictly required.
 
-For example, when a silencing entry is created specifying only a check, its ID
+For example, when a silencing entry is created specifying only a check, its name
 will contain an asterisk (or wildcard) in the `$SUBSCRIPTION` position. This
 indicates that any event with a matching check name will be marked as silenced,
 regardless of the originating entities’ subscriptions.
 
-Conversely, a silencing entry which specifies only a subscription will have an
-ID with an asterisk in the `$CHECK` position. This indicates that any event
+Conversely, a silencing entry which specifies only a subscription will have a
+name with an asterisk in the `$CHECK` position. This indicates that any event
 where the originating entities’ subscriptions match the subscription specified
 in the entry will be marked as silenced, regardless of the check name.
 
@@ -56,13 +56,61 @@ handled accordingly.
 
 ## Silencing specification
 
-### Silenced entry ID 
-Silencing entries must contain either a subscription or check id, and are
+### Silenced entry names
+Silencing entries must contain either a subscription or check name, and are
 identified by the combination of `$SUBSCRIPTION:$CHECK`. If a check or
 subscription is not provided, it will be substituted with a wildcard (asterisk):
 `$SUBSCRIPTION:*` or `*:$CHECK`.
 
-### Attributes
+### Top-level attributes
+
+type         | 
+-------------|------
+description  | Top-level attribute specifying the [`sensuctl create`][sc] resource type. Silencing entries should always be of type `Silenced`.
+required     | Required for silencing entry definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][sc].
+type         | String
+example      | {{< highlight shell >}}"type": "Silenced"{{< /highlight >}}
+
+api_version  | 
+-------------|------
+description  | Top-level attribute specifying the Sensu API group and version. For silencing entries in Sensu backend version 5.0, this attribute should always be `core/v2`.
+required     | Required for silencing entry definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][sc].
+type         | String
+example      | {{< highlight shell >}}"api_version": "core/v2"{{< /highlight >}}
+
+metadata     | 
+-------------|------
+description  | Top-level collection of metadata about the silencing entry, including the `name` and `namespace` as well as custom `labels` and `annotations`. The `metadata` map is always at the top level of the silencing entry definition. This means that in `wrapped-json` and `yaml` formats, the `metadata` scope occurs outside the `spec` scope.  See the [metadata attributes reference][3] for details.
+required     | Required for silencing entry definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][sc].
+type         | Map of key-value pairs
+example      | {{< highlight shell >}}
+"metadata": {
+  "name": "appserver:mysql_status",
+  "namespace": "default",
+  "labels": {
+    "region": "us-west-1"
+  }
+{{< /highlight >}}
+
+spec         | 
+-------------|------
+description  | Top-level map that includes the silencing entry [spec attributes][sp].
+required     | Required for handler definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][sc].
+type         | Map of key-value pairs
+example      | {{< highlight shell >}}
+"spec": {
+  "expire": -1,
+  "expire_on_resolve": false,
+  "creator": "admin",
+  "reason": null,
+  "check": null,
+  "subscription": "entity:i-424242",
+  "begin": 1542671205
+}
+{{< /highlight >}}
+
+### Spec attributes
+
 check        | 
 -------------|------ 
 description  | The name of the check the entry should match 
@@ -77,13 +125,6 @@ description  | The name of the subscription the entry should match
 required     | true, unless `check` is provided
 type         | String
 example      | {{< highlight shell >}}"subscription": "entity:i-424242"{{</highlight>}}
-
-id           | 
--------------|------ 
-description  | Silencing identifier generated from the combination of a subsription name and check name. 
-required     | false - this value cannot be modified 
-type         | String
-example      | {{< highlight shell >}}"id": "appserver:mysql_status"{{< /highlight >}}
 
 begin        | 
 -------------|------ 
@@ -125,21 +166,45 @@ type         | String
 default      | null 
 example      | {{< highlight shell >}}"reason": "rebooting the world"{{< /highlight >}}
 
-organization | 
--------------|------ 
-description  | The Sensu RBAC organization that this check belongs to.
-required     | false 
-type         | String 
-default      | current organization value configured for `sensuctl` (ie `default`) 
-example      | {{< highlight shell >}}"organization": "default"{{< /highlight >}}
+### Metadata attributes
 
-environment  | 
+| name       |      |
 -------------|------ 
-description  | The Sensu RBAC environment that this check belongs to.
-required     | false 
-type         | String 
-default      | current environment value configured for `sensuctl` (ie `default`) 
-example      | {{< highlight shell >}}"environment": "default"{{< /highlight >}}
+description  | Silencing identifier generated from the combination of a subscription name and check name.
+required     | false - This value cannot be modified.
+type         | String
+example      | {{< highlight shell >}}"name": "appserver:mysql_status"{{< /highlight >}}
+
+| namespace  |      |
+-------------|------
+description  | The Sensu [RBAC namespace][2] that this silencing entry belongs to.
+required     | false
+type         | String
+default      | `default`
+example      | {{< highlight shell >}}"namespace": "production"{{< /highlight >}}
+
+| labels     |      |
+-------------|------
+description  | Custom attributes to include with event data, which can be queried like regular attributes.
+required     | false
+type         | Map of key-value pairs. Keys can contain only letters, numbers, and underscores, but must start with a letter. Values can be any valid UTF-8 string.
+default      | `null`
+example      | {{< highlight shell >}}"labels": {
+  "environment": "development",
+  "region": "us-west-2"
+}{{< /highlight >}}
+
+| annotations |     |
+-------------|------
+description  | Arbitrary, non-identifying metadata to include with event data. You can use annotations to add data that helps people or external tools interacting with Sensu.
+required     | false
+type         | Map of key-value pairs. Keys and values can be any valid UTF-8 string.
+default      | `null`
+example      | {{< highlight shell >}} "annotations": {
+  "managed-by": "ops",
+  "slack-channel": "#monitoring",
+  "playbook": "www.example.url"
+}{{< /highlight >}}
 
 ## Examples
 
@@ -149,13 +214,23 @@ do this by taking advantage of per-entity subscriptions:
 
 {{< highlight json >}}
 {
-  "expire": -1,
-  "expire_on_resolve": false,
-  "creator": null,
-  "reason": null,
-  "check": null,
-  "subscription": "entity:i-424242",
-  "id": "entity:i-424242:*"
+  "type": "Silenced",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "entity:i-424242:*",
+    "namespace": "default",
+    "labels": null,
+    "annotations": null
+  },
+  "spec": {
+    "expire": -1,
+    "expire_on_resolve": false,
+    "creator": "admin",
+    "reason": null,
+    "check": null,
+    "subscription": "entity:i-424242",
+    "begin": 1542671205
+  }
 }
 {{< /highlight >}}
 
@@ -214,19 +289,25 @@ regardless of subscriptions, we only need to provide the check name:
 {{< /highlight >}}
 
 ### Deleting silencing entries
-To delete a silencing entry, you will need to provide its id. Subscription only
-silencing entry ids will be similar to this:
+To delete a silencing entry, you will need to provide its name. Subscription only
+silencing entry names will be similar to this:
+
 {{< highlight json >}}
 {
-  "id": "appserver:*"
+  "name": "appserver:*"
 }
 {{< /highlight >}}
 
-Check only silencing entry ids will be similar to this:
+Check only silencing entry names will be similar to this:
+
 {{< highlight json >}}
 {
-  "id": "*:mysql_status"
+  "name": "*:mysql_status"
 }
 {{< /highlight >}}
 
 [1]: ../events/#attributes
+[2]: ../rbac#namespaces
+[3]: #metadata-attributes
+[sc]: ../../sensuctl/reference#creating-resources
+[sp]: #spec-attributes

@@ -1,7 +1,7 @@
 ---
-title: "How to collect and extract metrics from checks"
-linkTitle: "Check Output Metric Extraction"
-weight: 110
+title: "How to collect and extract metrics using Sensu checks"
+linkTitle: "Collecting Service Metrics"
+weight: 35
 version: "5.0"
 product: "Sensu Go"
 platformContent: false
@@ -22,7 +22,7 @@ continue.
 
 In order to extract metrics from check output, you'll need to do the following:
 
-1. Configure the check `command` such that the command execution will output
+1. Configure the check `command` such that the command execution outputs
 metrics in one of the [supported output metric formats][3].
 2. Configure the check `output_metric_format` to one of the
 [supported output metric formats][3].
@@ -81,9 +81,15 @@ we used would yield an event similar to the one below:
 
 {{< highlight json >}}
 {
-  "event": {
+  "type": "Event",
+  "api_version": "core/v2",
+  "metadata": {},
+  "spec": {
     "check": {
-      "name": "collect-metrics",
+      "metadata": {
+        "name": "collect-metrics",
+        "namespace": "default"
+      },
       "command": "collect_metrics.sh",
       "output": "cpu.idle_percentage 61 1525462242\nmem.sys 104448 1525462242",
       "output_metric_format": "graphite_plaintext",
@@ -133,4 +139,4 @@ metric handler.
 [6]: https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/3/en/perfdata.html
 [7]: http://graphite.readthedocs.io/en/latest/feeding-carbon.html#the-plaintext-protocol
 [8]: https://docs.influxdata.com/influxdb/v1.4/write_protocols/line_protocol_tutorial/#measurement
-[9]: http://opentsdb.net/docs/build/html/user_guide/writing.html#data-specification
+[9]: http://opentsdb.net/docs/build/html/user_guide/writing/index.html#data-specification

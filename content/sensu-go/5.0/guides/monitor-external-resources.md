@@ -13,10 +13,10 @@ menu:
 ## What are Sensu proxy requests and entities?
 
 Sensu [proxy entities][1] are **entities** dynamically created via either the
-API (and **sensuctl**) or the [`proxy_entity_id` attribute][2] of a check.
+API (and **sensuctl**) or the [`proxy_entity_name` attribute][2] of a check.
 
-Check definitions that include the `proxy_entity_id` attribute will have their
-results reported under this proxy entity ID instead of the agent's entity that
+Check definitions that include the `proxy_entity_name` attribute will have their
+results reported under this proxy entity name instead of the agent's entity that
 emitted the result. In comparison, check definitions including the
 [`proxy_requests` attribute][3] will trigger a check request for each entity
 matched, regardless of whether that entity is a Sensu agent’s entity or a proxy
@@ -31,9 +31,10 @@ network switch or a website.
 
 ## Using a proxy entity to monitor a website
 
-The purpose of this section is to help you monitor an external resource, more
-specifically a website, by configuring a check with a **proxy entity ID** so an
-entity representing our website is created and the status of this website is
+
+The purpose of this guide is to help you monitor an external resource, more
+specifically a website, by configuring a check with a **proxy entity name** so an
+entity representing the website is created and the status of this website is
 reported under this entity and not the agent running the actual check.
 This section requires a Sensu backend, a Sensu agent and sensuctl to be configured
 with the backend.
@@ -58,14 +59,14 @@ runtime dependencies to checks on bigger environments.
 Now that our script is installed, the second step is to create a check named
 `check-sensuapp`, which runs the command `http_check.sh https://sensu.io`, at an
 **interval** of 60 seconds, for all entities subscribed to the `sensu-app`
-subscription, using the `sensu.io` proxy entity ID.
+subscription, using the `sensu.io` proxy entity name.
 
 {{< highlight shell >}}
 sensuctl check create check-sensuapp \
 --command 'http_check.sh https://sensu.io' \
 --interval 60 \
 --subscriptions sensu-app \
---proxy-entity-id sensu.io
+--proxy-entity-name sensu.io
 {{< /highlight >}}
 
 ### Adding the subscription
@@ -74,7 +75,8 @@ After [installing an agent][install], open `/etc/sensu/agent.yml`
 and add the `sensu-app` subscription so the subscription configuration looks like:
 
 {{< highlight yml >}}
-subscriptions: "sensu-app"
+subscriptions:
+  - "sensu-app"
 {{< /highlight >}}
 
 Then restart the agent.
@@ -204,14 +206,14 @@ well as using proxy_requests to run a single check on multiple proxy entities.
 From this point, here are some recommended resources:
 
 * Read the [checks reference][6] for in-depth documentation on checks.
-* Read our guide on [providing runtime dependencies to checks with assets][5].
-* Read our guide on [sending alerts to Slack with handlers][7].
+* Read the guide to [providing runtime dependencies to checks with assets][5].
+* Read the guide to [sending alerts to Slack with handlers][7].
 
 [1]: ../../reference/entities/#what-is-a-proxy-entity
 [2]: ../../reference/checks/#check-attributes
 [3]: ../../reference/checks/#proxy-requests
 [4]: https://raw.githubusercontent.com/sensu/sensu-go/dccfeb9093c21e45fd6505d3b32da354bdf8a136/examples/checks/http_check.sh
-[5]: ../install-check-executables-with-assets
+[5]: ../../reference/assets
 [6]: ../../reference/checks/
 [7]: ../send-slack-alerts/
 [install]: ../../getting-started/installation-and-configuration

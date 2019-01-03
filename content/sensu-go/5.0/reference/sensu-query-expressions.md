@@ -1,7 +1,8 @@
 ---
-title: "Sensu Query Expressions"
+title: "Sensu query expressions"
+linkTitle: "Sensu Query Expressions"
 description: "The Sensu query expressions reference guide."
-weight: 1
+weight: 10
 version: "5.0"
 product: "Sensu Go"
 platformContent: false 
@@ -22,7 +23,7 @@ always return **true** or **false**.
 
 ## New and improved expressions
 
-Sensu 1 uses [Ruby expressions][2], which are not available in Sensu 2, being
+Sensu 1 uses [Ruby expressions][2], which are not available in Sensu Go, being
 written in Go. The existence of a Go library that provides a JavaScript VM has
 allowed us to embed a Javascript execution engine for filters instead. Sadly,
 there is no equivalent Ruby VM library.
@@ -59,10 +60,10 @@ weekday(event.timestamp) == 0
 ### Simple evaluation of an event attribute
 
 The following example returns true if the event's entity contains a custom
-attribute named `Environment` that is equal to `production`.
+attribute named `Namespace` that is equal to `production`.
 
 {{< highlight javascript >}}
-event.Entity.Environment == 'production'
+event.Entity.Namespace == 'production'
 {{< /highlight >}}
 
 ### Evaluating the day of the week

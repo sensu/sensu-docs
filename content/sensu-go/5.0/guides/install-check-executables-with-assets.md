@@ -1,6 +1,6 @@
 ---
 title: "How to install executables using assets"
-linkTitle: "Using Assets in Checks"
+linkTitle: "Installing Plugins with Assets"
 weight: 100
 version: "5.0"
 product: "Sensu Go"
@@ -10,11 +10,16 @@ menu:
     parent: guides
 ---
 
-## What are check assets?
-Check assets are resources that checks can specify as dependencies. When an
-agent runs a check, it will ensure that all of the check's required assets
-are available to the agent during check runtime. If they aren't, the agent will
-install them by consulting each of the assets' URLs.
+- [How to create a check that depends on an asset](#how-to-create-a-check-that-depends-on-an-asset)
+- [How to create a handler that depends on an asset](#how-to-create-a-handler-that-depends-on-an-asset)
+- [How to create a mutator that depends on an asset](#how-to-create-a-mutator-that-depends-on-an-asset)
+- [Next steps](#next-steps)
+
+## What are assets?
+Assets are executables that checks, handlers, and mutators can specify as dependencies.
+When an agent runs a check or when a backend runs a handler or mutator, it ensures that all of the required assets
+are available during runtime.
+If they aren't, Sensu installs them by consulting each of the assets' URLs.
 
 ## Why use assets?
 When configuration management is unavailable, assets can help manage runtime 
@@ -24,14 +29,21 @@ entirely within Sensu.
 ## How to create a check that depends on an asset 
 
 ### Creating an asset
-In this example, we'll create an asset from a `tar` archive, and show you how to
+In this example, we'll create an asset from a tar archive, and show you how to
 create a new check with that asset as a dependency, as well as apply it to an
-existing check. To create an asset, we'll need a name, a URL to the asset location, 
+existing check.
+
+Sensu expects that an asset is a tar archive that may optionally be gzipped.
+Any scripts or executables should be within a bin/ folder within the archive.
+For more information about the expected format of assets, see the [assets reference][1].
+
+To create an asset, we'll need a name, a URL to the asset location,
 and a `SHA-512 checksum`.
+
 {{< highlight shell >}}
-$ sensuctl asset create check_website.tar.gz \
-  -u http://example.com/check_website.tar.gz \
-  --sha512 "$(sha512sum check_website.tar.gz | cut -f1 -d ' ')"
+sensuctl asset create check_website.tar.gz \
+-u http://example.com/check_website.tar.gz \
+--sha512 "$(sha512sum check_website.tar.gz | cut -f1 -d ' ')"
 {{< /highlight >}}
 
 If you're using macOS, you'll need to use `$(shasum -a 512 check_website.tar.gz | cut -f1 -d ' ')` to generate a checksum.
@@ -47,11 +59,11 @@ and extract the checksum from the output manually, before adding it to the sensu
 ### Adding an asset to a check on creation
 
 {{< highlight shell >}}
-$ sensuctl check create check_website \
-  --command "check_website -a www.example.com -C 3000 -w 1500" \
-  --subscriptions web \
-  --interval 10 \
-  --runtime-assets check_website.tar.gz 
+sensuctl check create check_website \
+--command "check_website -a www.example.com -C 3000 -w 1500" \
+--subscriptions web \
+--interval 10 \
+--runtime-assets check_website.tar.gz 
 {{< /highlight >}}
 
 ### Adding an asset to an existing check's dependencies
@@ -73,17 +85,11 @@ see a log entry for that check's execution.
 
 You can verify that the asset is working by using `sensuctl` to list the most recent events:
 {{< highlight shell >}}
-$ sensuctl event list
-    Entity           Check                     Output               Status   Silenced             Timestamp
- ───────────── ────────────────── ──────────────────────────────── ──────── ────────── ───────────────────────────────
-  sensu-agent    check_website      CheckHttpResponseTime OK: 345      0       false    2018-04-06 20:38:34 +0000 UTC
+sensuctl event list
+  Entity           Check                     Output               Status   Silenced             Timestamp
+───────────── ────────────────── ──────────────────────────────── ──────── ────────── ───────────────────────────────
+sensu-agent    check_website      CheckHttpResponseTime OK: 345      0       false    2018-04-06 20:38:34 +0000 UTC
 {{< /highlight >}}
-
-## What are handler and mutator assets?
-
-Handler and mutator assets are much like check assets. They are resources that handlers
-and mutators can specify as dependencies, and since those are executed server side, it
-is the backend that ensures all of the required assets are available during runtime.
 
 ## How to create a handler that depends on an asset 
 
@@ -92,9 +98,9 @@ is the backend that ensures all of the required assets are available during runt
 [Create an asset][2] (ex.`sensu-influxdb-handler`), and create a handler (ex. `influx-db`).
 
 {{< highlight shell >}}
-$ sensuctl handler create influx-db \
-  --command "sensu-influxdb-handler --addr 'http://123.4.5.6:8086' --username 'foo' --password 'bar' --db-name 'myDB'" \
-  --runtime-assets sensu-influxdb-handler
+sensuctl handler create influx-db \
+--command "sensu-influxdb-handler --addr 'http://123.4.5.6:8086' --username 'foo' --password 'bar' --db-name 'myDB'" \
+--runtime-assets sensu-influxdb-handler
 {{< /highlight >}}
 
 ### Validating the handler asset
@@ -109,10 +115,10 @@ You can verify that the handler has fetched/installed the asset, and executed th
 backend logs.
 
 {{< highlight json >}}
-{"assets":["sensu-influxdb-handler"],"component":"pipelined","environment":"default","handler":"influx-db","level":"debug","msg":"fetching assets for handler","organization":"default","time":"2018-10-16T13:17:33-07:00"}
+{"assets":["sensu-influxdb-handler"],"component":"pipelined","namespace":"default","handler":"influx-db","level":"debug","msg":"fetching assets for handler","time":"2018-10-16T13:17:33-07:00"}
 {{< /highlight >}}
 {{< highlight json >}}
-{"component":"pipelined","environment":"default","handler":"influx-db","level":"info","msg":"event pipe handler executed","organization":"default","output":"metric sent to influx-db","status":0,"time":"2018-10-16T13:17:33-07:00"}
+{"component":"pipelined","namespace":"default","handler":"influx-db","level":"info","msg":"event pipe handler executed","output":"metric sent to influx-db","status":0,"time":"2018-10-16T13:17:33-07:00"}
 {{< /highlight >}}
 
 ## How to create a mutator that depends on an asset 
@@ -122,9 +128,9 @@ backend logs.
 [Create an asset][2] (ex. `transformer`), and create a mutator (ex. `transform-metrics`).
 
 {{< highlight shell >}}
-$ sensuctl mutator create transform-metrics \
-  --command "transform --type metrics" \
-  --runtime-assets transformer
+sensuctl mutator create transform-metrics \
+--command "transform --type metrics" \
+--runtime-assets transformer
 {{< /highlight >}}
 
 ### Validating the mutator asset
@@ -132,17 +138,17 @@ $ sensuctl mutator create transform-metrics \
 Once the mutator is setup, it must be attached to a handler to mutate the event output (ex. `influx-db`).
 
 {{< highlight shell >}}
-$ sensuctl handler update influx-db
+sensuctl handler update influx-db
 {{< /highlight >}}
 
 You can verify that the mutator has fetched/installed the asset, and executed the dependency by checking the
 backend logs.
 
 {{< highlight json >}}
-{"assets":["transformer"],"component":"pipelined","environment":"default","mutator":"transform-metrics","level":"debug","msg":"fetching assets for mutator","organization":"default","time":"2018-10-16T13:17:33-07:00"}
+{"assets":["transformer"],"component":"pipelined","namespace":"default","mutator":"transform-metrics","level":"debug","msg":"fetching assets for mutator","time":"2018-10-16T13:17:33-07:00"}
 {{< /highlight >}}
 {{< highlight json >}}
-{"component":"pipelined","environment":"default","mutator":"transform-metrics","level":"info","msg":"event pipe mutator executed","organization":"default","output":"metric transformed","status":0,"time":"2018-10-16T13:17:33-07:00"}
+{"component":"pipelined","namespace":"default","mutator":"transform-metrics","level":"info","msg":"event pipe mutator executed","output":"metric transformed","status":0,"time":"2018-10-16T13:17:33-07:00"}
 {{< /highlight >}}
 
 ## Next steps

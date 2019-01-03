@@ -1,7 +1,7 @@
 ---
 title: "How to reduce alert fatigue with filters"
 linkTitle: "Reducing Alert Fatigue"
-weight: 30
+weight: 25
 version: "5.0"
 product: "Sensu Go"
 platformContent: False
@@ -13,7 +13,7 @@ menu:
 ## What are Sensu filters?
 
 Sensu filters allow you to filter **events** destined for one or more event
-**handlers**. Sensu filters evaluate their statements against the event data, to
+**handlers**. Sensu filters evaluate their expressions against the event data, to
 determine if the event should be passed to an event handler.
 
 ## Why use a filter?
@@ -25,8 +25,8 @@ environments.
 ## Using filters to reduce alert fatigue
 
 The purpose of this guide is to help you reduce alert fatigue by configuring a
-filter named `hourly`, for a handler named `mail`, in order to prevent alerts
-from being sent by email every minute. If you don't already have a handler in
+filter named `hourly`, for a handler named `slack`, in order to prevent alerts
+from being sent to Slack every minute. If you don't already have a handler in
 place, learn [how to send alerts with handlers][3].
 
 ### Creating the filter
@@ -36,38 +36,38 @@ new events (where the event's `occurrences` is equal to `1`) or hourly events
 (so every hour after the first occurrence, calculated with the check's
 `interval` and the event's `occurrences`).
 
-Note that unlike in Sensu 1.x, events in Sensu 2.x are handled regardless of
+Events in Sensu Go are handled regardless of
 check execution status; even successful check events are passed through the
 pipeline. Therefore, it's necessary to add a clause for non-zero status.
 
 {{< highlight shell >}}
 sensuctl filter create hourly \
-  --action allow \
-  --statements "event.Check.Occurrences == 1 || event.Check.Occurrences % (3600 / event.Check.Interval) == 0"
+--action allow \
+--expressions "event.check.occurrences == 1 || event.check.occurrences % (3600 / event.check.interval) == 0"
 {{< /highlight >}}
 
 ### Assigning the filter to a handler
 
 Now that the `hourly` filter has been created, it can be assigned to a handler.
-Here, since we want to reduce the number of emails sent by Sensu, we will apply
-our filter to an already existing handler named `mail`, in addition to the
-built-in `is_incident` filter so only failing events will handled.
+Here, since we want to reduce the number of Slack messages sent by Sensu, we will apply
+our filter to an already existing handler named `slack`, in addition to the
+built-in `is_incident` filter so only failing events are handled.
 
 {{< highlight shell >}}
-sensuctl handler update mail
+sensuctl handler update slack
 {{< /highlight >}}
 
-Follow the prompts to add the `hourly` & `is_incident` filters to the mail
+Follow the prompts to add the `hourly` and `is_incident` filters to the Slack
 handler.
 
 ### Validating the filter
 
 You can verify the proper behavior of this filter by using `sensu-backend` logs.
 The default location of these logs varies based on the platform used, but the
-[installation and configuration][2] documentation provides this information.
+[troubleshooting guide][2] provides this information.
 
 Whenever an event is being handled, a log entry is added with the message
-`"handler":"mail","level":"debug","msg":"sending event to handler"`, followed by
+`"handler":"slack","level":"debug","msg":"sending event to handler"`, followed by
 a second one with the message `"msg":"pipelined executed event pipe
 handler","output":"","status":0`. However, if the event is being discarded by
 our filter, a log entry with the message `event filtered` will appear instead.
@@ -81,5 +81,5 @@ fatigue. From this point, here are some recommended resources:
   documentation on filters. 
 
 [1]:  ../../reference/filters
-[2]: ../../getting-started/installation-and-configuration/#validating-the-services
+[2]: ../troubleshooting#log-file-locations
 [3]: ../send-slack-alerts

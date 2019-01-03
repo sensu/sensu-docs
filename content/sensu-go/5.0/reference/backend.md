@@ -1,22 +1,21 @@
 ---
-title: "Backend reference"
-linkTitle: "Backend"
+title: "Sensu backend"
+linkTitle: "Sensu Backend"
 description: "Reference documentation for the Sensu backend"
 weight: 1
 version: "5.0"
 product: "Sensu Go"
-platformContent: false 
+platformContent: false
 menu:
   sensu-go-5.0:
     parent: reference
 ---
 
 - [Installation][1]
-- [Scheduling checks](#check-scheduling)
 - [Creating event pipelines](#event-pipeline)
-- [Operation](#operation)
-  - [Starting the service](#starting-the-service)
-  - [Service management](#stopping-the-service)
+- [Scheduling checks](#check-scheduling)
+- [Service management](#operation)
+  - [Starting and stopping the service](#starting-the-service)
   - [Clustering](#clustering)
 - [Configuration](#configuration)
   - [General configuration](#general-configuration-flags)
@@ -27,19 +26,8 @@ menu:
 
 The Sensu backend is a service that manages check requests and event data.
 Every Sensu backend includes an integrated transport for scheduling checks using subscriptions, an event processing pipeline that applies filters, mutators, and handlers, an embedded [etcd][2] datastore for storing configuration and state, a Sensu API, [Sensu dashboard][6], and `sensu-backend` command-line tool.
-
-_NOTE: The commands in this reference may require administrative privileges or use of `sudo`._
-
-### Check scheduling
-
-The backend is responsible for storing check definitions and scheduling check requests.
-Check scheduling is subscription-based; the backend sends check requests to subscriptions where they're picked up by subscribing agents.
-
-For information about creating and managing checks, see:
-
-- [Guide to monitoring server resources with checks][3]
-- [Guide to collecting metrics with checks][4]
-- [Checks reference documentation][5]
+The Sensu backend is available for Ubuntu/Debian and RHEL/CentOS distributions of Linux.
+See the [installation guide][1] to install the backend.
 
 ### Event pipeline
 
@@ -53,7 +41,20 @@ To learn more about filters, mutators, and handlers, see:
 - [Mutators reference documentation][10]
 - [Handlers reference documentation][11]
 
+### Check scheduling
+
+The backend is responsible for storing check definitions and scheduling check requests.
+Check scheduling is subscription-based; the backend sends check requests to subscriptions where they're picked up by subscribing agents.
+
+For information about creating and managing checks, see:
+
+- [Guide to monitoring server resources with checks][3]
+- [Guide to collecting metrics with checks][4]
+- [Checks reference documentation][5]
+
 ## Operation
+
+_NOTE: Commands in this section may require administrative privileges._
 
 ### Starting the service
 Use the `sensu-backend` tool to start the backend and apply configuration flags.
@@ -61,7 +62,7 @@ Use the `sensu-backend` tool to start the backend and apply configuration flags.
 To start the backend with [configuration flags][15]:
 
 {{< highlight shell >}}
-sensu-backend start --state-dir /data/sensu --log-level debug
+sensu-backend start --state-dir /var/lib/sensu/sensu-backend --log-level debug
 {{< /highlight >}}
 
 To see available configuration flags and defaults:
@@ -70,7 +71,7 @@ To see available configuration flags and defaults:
 sensu-backend start --help
 {{< /highlight >}}
 
-If no configuration flags are provided, the backend loads configuration from [`/etc/sensu/backend.yml`][14] by default.
+If no configuration flags are provided, the backend loads configuration from `/etc/sensu/backend.yml` by default.
 
 To start the backend using a service manager:
 
@@ -152,9 +153,9 @@ To configure a cluster, see:
 
 ## Configuration
 
-You can specify the backend configuration using a [`/etc/sensu/backend.yml`][14] file or using `sensu-backend start` [configuration flags][15].
-See the example [`/etc/sensu/backend.yml`][14] file used during the [installation process][1] on [GitHub][14].
-All required configuration flags have assigned defaults, so no manual configuration is required to start the backend.
+You can specify the backend configuration using a `/etc/sensu/backend.yml` file or using `sensu-backend start` [configuration flags][15].
+The backend requires that the `state-dir` flag be set before starting; all other required flags have default values.
+See the example config file provided with Sensu at `/usr/share/doc/sensu-go-backend-5.0.0/backend.yml.example`.
 The backend loads configuration upon startup, so you must restart the backend for any configuration updates to take effect.
 
 ### Configuration summary
@@ -169,8 +170,8 @@ Usage:
 General Flags:
       --agent-host string               agent listener host (default "[::]")
       --agent-port int                  agent listener port (default 8081)
-      --api-host string                 http api listener host (default "[::]")
-      --api-port int                    http api port (default 8080)
+      --api-listen-address string       api daemon listen address (default "[::]:8080")
+      --api-url string                  http api URL (default http://localhost:8080)
       --cert-file string                tls certificate
   -c, --config-file string              path to sensu-backend config file
       --dashboard-host string           dashboard listener host (default "[::]")
@@ -185,6 +186,7 @@ General Flags:
       --trusted-ca-file string          tls certificate authority
 
 Store Flags:
+      --etcd-advertise-client-urls                list of this member's client URLs to advertise to the rest of the cluster
       --etcd-cert-file string                     path to the client server TLS cert file
       --etcd-client-cert-auth                     enable client cert authentication
       --etcd-initial-advertise-peer-urls string   list of this member's peer URLs to advertise to the rest of the cluster (default "http://127.0.0.1:2380")
@@ -256,16 +258,38 @@ log-level: "debug"{{< /highlight >}}
 
 | state-dir  |      |
 -------------|------
-description  | Path to Sensu state storage 
+description  | Path to Sensu state storage: `/var/lib/sensu/sensu-backend` for Linux and `C:\\ProgramData\sensu\data` for Windows.
 type         | String
-default      | <ul><li>Linux: `/var/lib/sensu`</li><li>Windows: `C:\\ProgramData\sensu\data`</li></ul>
+required     | true
 example      | {{< highlight shell >}}# Command line example
-sensu-backend start --state-dir /var/lib/sensu
-sensu-backend start -d /var/lib/sensu
+sensu-backend start --state-dir /var/lib/sensu/sensu-backend
+sensu-backend start -d /var/lib/sensu/sensu-backend
 
 # /etc/sensu/backend.yml example
-state-dir: "/var/lib/sensu"{{< /highlight >}}
+state-dir: "/var/lib/sensu/sensu-backend"{{< /highlight >}}
 
+
+| api-listen-address  |      |
+-------------|------
+description  | Address the API daemon will listen for requests on
+type         | String
+default      | `[::]:8080`
+example      | {{< highlight shell >}}# Command line example
+sensu-backend start --api-listen-address [::]:8080
+
+# /etc/sensu/backend.yml example
+api-listen-address: "[::]:8080"{{< /highlight >}}
+
+| api-url  |      |
+-------------|------
+description  | URL used to connect to the API
+type         | String
+default      | `http://localhost:8080`
+example      | {{< highlight shell >}}# Command line example
+sensu-backend start --api-url http://localhost:8080
+
+# /etc/sensu/backend.yml example
+api-url: "http://localhost:8080"{{< /highlight >}}
 
 ### Agent communication configuration flags
 
@@ -367,6 +391,18 @@ sensu-backend start --dashboard-port 4000
 dashboard-port: 4000{{< /highlight >}}
 
 ### Datastore and cluster configuration flags
+
+| etcd-advertise-client-urls |      |
+--------------|------
+description   | List of this member's client URLs to advertise to the rest of the cluster.
+type          | String
+default       | `http://localhost:2379`
+example       | {{< highlight shell >}}# Command line example
+sensu-backend start --etcd-advertise-client-urls http://localhost:2379
+
+# /etc/sensu/backend.yml example
+etcd-advertise-client-urls: "http://localhost:2379"{{< /highlight >}}
+
 
 | etcd-cert-file |      |
 -----------------|------
@@ -502,7 +538,7 @@ etcd-peer-cert-file: "./backend-0.pem"{{< /highlight >}}
 -----------------------------|------
 description                  | Enable peer client cert authentication
 type                         | Boolean
-default                      | `false` 
+default                      | `false`
 example                      | {{< highlight shell >}}# Command line example
 sensu-backend start --etcd-peer-client-cert-auth
 
@@ -548,7 +584,7 @@ etcd-trusted-ca-file: "./ca.pem"{{< /highlight >}}
 -----------------|------
 description      | Don't embed etcd, use external etcd instead
 type             | Boolean
-default          | `false`  
+default          | `false`
 example          | {{< highlight shell >}}# Command line example
 sensu-backend start --no-embed-etcd
 
@@ -568,5 +604,4 @@ no-embed-etcd: true{{< /highlight >}}
 [11]: ../../reference/handlers
 [12]: #datastore-and-cluster-configuration-flags
 [13]: ../../guides/clustering
-[14]: https://github.com/sensu/sensu-go/blob/master/packaging/files/backend.yml.example
 [15]: #general-configuration-flags
