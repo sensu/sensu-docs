@@ -106,6 +106,13 @@ required     | true
 type         | String
 example      | {{< highlight shell >}}"command": "/etc/sensu/plugins/mutated.go"{{</highlight>}}
 
+env_vars      | 
+-------------|------
+description  | An array of environment variables to use with command execution.
+required     | false
+type         | Array
+example      | {{< highlight shell >}}"env_vars": ["RUBY_VERSION=2.5.0"]{{< /highlight >}}
+
 timeout      | 
 -------------|------ 
 description  | The mutator execution duration timeout in seconds (hard stop). 

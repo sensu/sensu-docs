@@ -9,27 +9,29 @@ menu:
     parent: api
 ---
 
-- [The `/role-bindings` API endpoint](#the-role-bindings-api-endpoint)
-	- [`/role-bindings` (GET)](#role-bindings-get)
-	- [`/role-bindings` (POST)](#role-bindings-post)
-- [The `/role-bindings/:role-binding` API endpoint](#the-role-bindingsrole-binding-api-endpoint)
-	- [`/role-bindings/:role-binding` (GET)](#role-bindingsrole-binding-get)
-  - [`/role-bindings/:role-binding` (PUT)](#role-bindingsrole-binding-put)
-  - [`/role-bindings/:role-binding` (DELETE)](#role-bindingsrole-binding-delete)
+- [The `/rolebindings` API endpoint](#the-rolebindings-api-endpoint)
+	- [`/rolebindings` (GET)](#rolebindings-get)
+	- [`/rolebindings` (POST)](#rolebindings-post)
+- [The `/rolebindings/:rolebinding` API endpoint](#the-rolebindingsrolebinding-api-endpoint)
+	- [`/rolebindings/:rolebinding` (GET)](#rolebindingsrolebinding-get)
+  - [`/rolebindings/:rolebinding` (PUT)](#rolebindingsrolebinding-put)
+  - [`/rolebindings/:rolebinding` (DELETE)](#rolebindingsrolebinding-delete)
 
-## The `/role-bindings` API endpoint
+## The `/rolebindings` API endpoint
 
-### `/role-bindings` (GET)
+### `/rolebindings` (GET)
 
-The `/role-bindings` API endpoint provides HTTP GET access to [role-binding][1] data.
+The `/rolebindings` API endpoint provides HTTP GET access to [role binding][1] data.
 
-#### EXAMPLE {#role-bindings-get-example}
+#### EXAMPLE {#rolebindings-get-example}
 
-The following example demonstrates a request to the `/role-bindings` API, resulting in
+The following example demonstrates a request to the `/rolebindings` API, resulting in
 a JSON Array containing [role binding definitions][1].
 
 {{< highlight shell >}}
-curl -s http://127.0.0.1:8080/api/core/v2/namespaces/default/role-bindings -H "Authorization: Bearer TOKEN"
+curl http://127.0.0.1:8080/api/core/v2/namespaces/default/rolebindings -H "Authorization: Bearer TOKEN"
+
+HTTP/1.1 200 OK
 [
   {
     "name": "alice-binder",
@@ -48,12 +50,12 @@ curl -s http://127.0.0.1:8080/api/core/v2/namespaces/default/role-bindings -H "A
 ]
 {{< /highlight >}}
 
-#### API Specification {#role-bindings-get-specification}
+#### API Specification {#rolebindings-get-specification}
 
-/role-bindings (GET)  | 
+/rolebindings (GET)  | 
 ---------------|------
 description    | Returns the list of role bindings.
-example url    | http://hostname:8080/api/core/v2/namespaces/default/role-bindings
+example url    | http://hostname:8080/api/core/v2/namespaces/default/rolebindings
 response type  | Array
 response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output         | {{< highlight shell >}}
@@ -75,12 +77,12 @@ output         | {{< highlight shell >}}
 ]
 {{< /highlight >}}
 
-### `/role-bindings` (POST)
+### `/rolebindings` (POST)
 
-/role-bindings (POST) | 
+/rolebindings (POST) | 
 ----------------|------
 description     | Create a Sensu role binding.
-example URL     | http://hostname:8080/api/core/v2/role-bindings/default/role-bindings
+example URL     | http://hostname:8080/api/core/v2/namespaces/default/rolebindings
 payload         | {{< highlight shell >}}
 {
   "name": "alice-binder",
@@ -99,20 +101,20 @@ payload         | {{< highlight shell >}}
 {{< /highlight >}}
 response codes  | <ul><li>**Success**: 200 (OK)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
-## The `/role-bindings/:role-binding` API endpoint {#the-role-bindingsrole-binding-api-endpoint}
+## The `/rolebindings/:rolebinding` API endpoint {#the-rolebindingsrolebinding-api-endpoint}
 
-### `/role-bindings/:role-binding` (GET) {#role-bindingsrole-binding-get}
+### `/rolebindings/:rolebinding` (GET) {#rolebindingsrolebinding-get}
 
-The `/role-bindings/:role-binding` API endpoint provides HTTP GET access to [role-binding data][1] for specific `:role-binding` definitions, by role-binding `name`.
+The `/rolebindings/:rolebinding` API endpoint provides HTTP GET access to [role binding data][1] for specific `:rolebinding` definitions, by role binding `name`.
 
-#### EXAMPLE {#role-bindingsrole-binding-get-example}
+#### EXAMPLE {#rolebindingsrolebinding-get-example}
 
-In the following example, querying the `/role-bindings/:role-binding` API returns a JSON Map
-containing the requested [`:role-binding` definition][1] (in this example: for the `:role-binding` named
+In the following example, querying the `/rolebindings/:rolebinding` API returns a JSON Map
+containing the requested [`:rolebinding` definition][1] (in this example: for the `:rolebinding` named
 `alice`).
 
 {{< highlight shell >}}
-curl -s http://127.0.0.1:8080/api/core/v2/namespaces/default/role-bindings/alice -H "Authorization: Bearer TOKEN"
+curl -s http://127.0.0.1:8080/api/core/v2/namespaces/default/rolebindings/alice -H "Authorization: Bearer TOKEN"
 {
   "name": "alice-binder",
   "namespace": "default",
@@ -129,12 +131,12 @@ curl -s http://127.0.0.1:8080/api/core/v2/namespaces/default/role-bindings/alice
 }
 {{< /highlight >}}
 
-#### API Specification {#role-bindingsrole-binding-get-specification}
+#### API Specification {#rolebindingsrolebinding-get-specification}
 
-/role-bindings/:role-binding (GET) | 
+/rolebindings/:rolebinding (GET) | 
 ---------------------|------
 description          | Returns a role binding.
-example url          | http://hostname:8080/api/core/v2/namespaces/default/role-bindings/alice
+example url          | http://hostname:8080/api/core/v2/namespaces/default/rolebindings/alice
 response type        | Map
 response codes       | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output               | {{< highlight json >}}
@@ -154,14 +156,14 @@ output               | {{< highlight json >}}
 }
 {{< /highlight >}}
 
-### `/role-bindings/:role-binding` (PUT) {#role-bindingsrole-binding-put}
+### `/rolebindings/:rolebinding` (PUT) {#rolebindingsrolebinding-put}
 
-#### API Specification {#role-bindingsrole-binding-put-specification}
+#### API Specification {#rolebindingsrolebinding-put-specification}
 
-/role-bindings/:role-binding (PUT) | 
+/rolebindings/:rolebinding (PUT) | 
 ----------------|------
 description     | Create or update a Sensu role binding.
-example URL     | http://hostname:8080/api/core/v2/namespaces/default/role-bindings/alice-binder
+example URL     | http://hostname:8080/api/core/v2/namespaces/default/rolebindings/alice-binder
 payload         | {{< highlight shell >}}
 {
   "name": "alice-binder",
@@ -180,14 +182,14 @@ payload         | {{< highlight shell >}}
 {{< /highlight >}}
 response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
-### `/role-bindings/:role-binding` (DELETE) {#role-bindingsrole-binding-delete}
+### `/rolebindings/:rolebinding` (DELETE) {#rolebindingsrolebinding-delete}
 
-#### API Specification {#role-bindingsrole-binding-delete-specification}
+#### API Specification {#rolebindingsrolebinding-delete-specification}
 
-/role-bindings/:role-binding (DELETE) | 
+/rolebindings/:rolebinding (DELETE) | 
 --------------------------|------
 description               | Removes a role binding from Sensu given the role binding name.
-example url               | http://hostname:8080/api/core/v2/namespaces/default/role-bindings/alice-binder
+example url               | http://hostname:8080/api/core/v2/namespaces/default/rolebindings/alice-binder
 response codes            | <ul><li>**Success**: 202 (Accepted)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 [1]: ../../reference/rbac
