@@ -11,12 +11,28 @@ menu:
 
 As with any piece of software, it is critical to minimize any attack surface exposed by the software. Sensu is no different. The following component pieces need to be secured in order for Sensu to be considered production ready:
 
-* Sensu agent to server communication
-* etcd peer communication
 * Backend API
 * Dashboard
+* Sensu agent to server communication
+* etcd peer communication
 
 We'll cover securing each one of those pieces, starting with Sensu agent to server communication.
+
+## Securing the API and the dashboard
+
+Both the Sensu Go API and the dashboard use a common stanza in `/etc/sensu/backend.yml` to provide the certificate, key, and CA file needed to provide secure communication. Let's look at the attributes you'll need to configure:
+
+{{< highlight shell >}}
+##
+# ssl configuration
+##
+#cert-file: "/path/to/ssl/cert.pem"
+#key-file: "/path/to/ssl/key.pem"
+#trusted-ca-file: "/path/to/trusted-certificate-authorities.pem"
+#insecure-skip-tls-verify: false
+{{< /highlight >}}
+
+In the example above, we provide the path to the cert, key and CA file. After restarting the `sensu-backend` service, the parameters are loaded and you are able to access the dashboard at https://localhost:3000. Let's move on to securing agent communication to the Sensu backend.
 
 ## Securing Sensu agent to server communication
 
@@ -68,23 +84,7 @@ While enabling secure agent-to-server communication involves the change of one l
 #etcd-peer-trusted-ca-file: "/path/to/your/peer/ca/file"
 {{< /highlight >}}
 
-While all of the
-
-## Securing the API and the dashboard
-
-Both the Sensu Go API and the dashboard use a common stanza in `/etc/sensu/backend.yml` to provide the certificate, key, and CA file needed to provide secure communication. Let's look at the attributes you'll need to configure:
-
-{{< highlight shell >}}
-##
-# ssl configuration
-##
-#cert-file: "/path/to/ssl/cert.pem"
-#key-file: "/path/to/ssl/key.pem"
-#trusted-ca-file: "/path/to/trusted-certificate-authorities.pem"
-#insecure-skip-tls-verify: false
-{{< /highlight >}}
-
-In the example above, we provide the path to the cert, key and CA file. After restarting the `sensu-backend` service, the parameters are loaded and you are able to access the dashboard at https://localhost:3000.
+Once you've provided the values above, your etcd peers will then communicate over TLS/SSL.
 
 Hopefully you've found this useful! If you find any issues or have any questions, feel free to reach out in our [Community Slack][3], or [open an issue][4] on Github.
 
