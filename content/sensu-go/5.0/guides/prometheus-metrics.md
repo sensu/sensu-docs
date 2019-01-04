@@ -20,13 +20,13 @@ menu:
 
 ## What is the Sensu Prometheus Collector?
 
-The [Sensu Prometheus Collector][1] is a sensu check plugin that can collect metrics from a [Prometheus exporter][2] or the [Prometheus query API][3]. The allows Sensu to then send metrics to one or more time-series databases, such as InfluxDB or Graphite.
+The [Sensu Prometheus Collector][1] is a check plugin that collects metrics from a [Prometheus exporter][2] or the [Prometheus query API][3]. This allows Sensu to route the collected metrics to one or more time-series databases, such as InfluxDB or Graphite.
 
 ## In this guide
 
 This guide uses CentOS 7 as the operating system with all compoments running on the same compute resource. Commands and steps may change for different distributions or if components are running on different compute resources.
 
-At the end, you will have Prometheus scraping metrics. The Sensu Prometheus Exporter will then query the Prometheus API as a Sensu check, send those to an InfluxDB Sensu handler, which will send metrics to an InfluxDB instance. Finally, Grafana will query InfluxDB to display those collected metrics.
+At the end, you will have Prometheus scraping metrics. The Sensu Prometheus Collector will then query the Prometheus API as a Sensu check, send those to an InfluxDB Sensu handler, which will send metrics to an InfluxDB instance. Finally, Grafana will query InfluxDB to display those collected metrics.
 
 ### Install and Configure Prometheus
 
@@ -154,7 +154,7 @@ influx -execute "GRANT ALL ON sensu TO sensu"
 
 ### Add Sensu check and handler to complete the pipeline
 
-Using the following resource definition in a file called `resources.yml`:
+Given the following resource definition in a file called `resources.yml`:
 
 {{< highlight yml >}}
 type: CheckConfig
