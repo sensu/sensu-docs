@@ -102,3 +102,4 @@ here are some recommended resources:
 [5]: ../monitor-external-resources
 [6]: ../send-slack-alerts
 [install]: ../../installation/install-sensu/#install-the-sensu-agent
+[start]: ../../reference/agent/#restarting-the-service
