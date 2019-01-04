@@ -26,7 +26,7 @@ The [Sensu Prometheus Collector][1] is a check plugin that collects metrics from
 
 This guide uses CentOS 7 as the operating system with all compoments running on the same compute resource. Commands and steps may change for different distributions or if components are running on different compute resources.
 
-At the end, you will have Prometheus scraping metrics. The Sensu Prometheus Exporter will then query the Prometheus API as a Sensu check, send those to an InfluxDB Sensu handler, which will send metrics to an InfluxDB instance. Finally, Grafana will query InfluxDB to display those collected metrics.
+At the end, you will have Prometheus scraping metrics. The Sensu Prometheus Collector will then query the Prometheus API as a Sensu check, send those to an InfluxDB Sensu handler, which will send metrics to an InfluxDB instance. Finally, Grafana will query InfluxDB to display those collected metrics.
 
 ### Install and Configure Prometheus
 
