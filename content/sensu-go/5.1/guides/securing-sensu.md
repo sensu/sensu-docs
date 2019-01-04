@@ -52,7 +52,7 @@ While enabling secure agent-to-server communication involves the change of one l
 
 {{< highlight yml >}}
 ##
-# store configuration
+# backend store configuration
 ##
 etcd-listen-client-urls: "https://localhost:2379"
 etcd-listen-peer-urls: "https://localhost:2380"
@@ -72,12 +72,23 @@ Both the Sensu Go API and the dashboard use a common stanza in `/etc/sensu/backe
 
 {{< highlight yml >}}
 ##
-# ssl configuration
+# backend ssl configuration
 ##
 cert-file: "/path/to/ssl/cert.pem"
 key-file: "/path/to/ssl/key.pem"
 trusted-ca-file: "/path/to/trusted-certificate-authorities.pem"
 insecure-skip-tls-verify: false
+{{< /highlight >}}
+
+Providing the above cert-file and key-file parameters will cause the API to serve HTTP requests over
+SSL/TLS (https). As a result, you will also need to specify `https://` schema
+for the `api-url` parameter:
+
+{{< highlight yml >}}
+##
+# backend api configuration
+##
+api-url: "https://localhost:8080"
 {{< /highlight >}}
 
 In the example above, we provide the path to the cert, key and CA file. After restarting the `sensu-backend` service, the parameters are loaded and you are able to access the dashboard at https://localhost:3000.
