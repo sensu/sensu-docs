@@ -154,7 +154,7 @@ influx -execute "GRANT ALL ON sensu TO sensu"
 
 ### Add Sensu check and handler to complete the pipeline
 
-Using the following resource definition in a file called `resources.yml`:
+Given the following resource definition in a file called `resources.yml`:
 
 {{< highlight yml >}}
 type: CheckConfig
