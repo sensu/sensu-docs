@@ -9,27 +9,27 @@ menu:
     parent: api
 ---
 
-- [The `/cluster-roles` API endpoint](#the-cluster-roles-api-endpoint)
-	- [`/cluster-roles` (GET)](#cluster-roles-get)
-	- [`/cluster-roles` (POST)](#cluster-roles-post)
-- [The `/cluster-roles/:cluster-role` API endpoint](#the-cluster-rolescluster-role-api-endpoint)
-	- [`/cluster-roles/:cluster-role` (GET)](#cluster-rolescluster-role-get)
-  - [`/cluster-roles/:cluster-role` (PUT)](#cluster-rolescluster-put)
-  - [`/cluster-roles/:cluster-role` (DELETE)](#cluster-rolescluster-role-delete)
+- [The `/clusterroles` API endpoint](#the-clusterroles-api-endpoint)
+	- [`/clusterroles` (GET)](#clusterroles-get)
+	- [`/clusterroles` (POST)](#clusterroles-post)
+- [The `/clusterroles/:clusterrole` API endpoint](#the-clusterrolesclusterrole-api-endpoint)
+	- [`/clusterroles/:clusterrole` (GET)](#clusterrolesclusterrole-get)
+  - [`/clusterroles/:clusterrole` (PUT)](#clusterrolescluster-put)
+  - [`/clusterroles/:clusterrole` (DELETE)](#clusterrolesclusterrole-delete)
 
-## The `/cluster-roles` API endpoint
+## The `/clusterroles` API endpoint
 
-### `/cluster-roles` (GET)
+### `/clusterroles` (GET)
 
-The `/cluster-roles` API endpoint provides HTTP GET access to [cluster role][1] data.
+The `/clusterroles` API endpoint provides HTTP GET access to [cluster role][1] data.
 
-#### EXAMPLE {#cluster-roles-get-example}
+#### EXAMPLE {#clusterroles-get-example}
 
-The following example demonstrates a request to the `/cluster-roles` API, resulting in
+The following example demonstrates a request to the `/clusterroles` API, resulting in
 a JSON Array containing [cluster role definitions][1].
 
 {{< highlight shell >}}
-curl -s http://127.0.0.1:8080/api/core/v2/cluster-roles -H "Authorization: Bearer TOKEN"
+curl -s http://127.0.0.1:8080/api/core/v2/clusterroles -H "Authorization: Bearer TOKEN"
 [
   {
     "name": "global-event-reader",
@@ -42,7 +42,7 @@ curl -s http://127.0.0.1:8080/api/core/v2/cluster-roles -H "Authorization: Beare
         "resources": [
           "events"
         ],
-        "resourceNames": [
+        "resource_names": [
           ""
         ]
       }
@@ -51,12 +51,12 @@ curl -s http://127.0.0.1:8080/api/core/v2/cluster-roles -H "Authorization: Beare
 ]
 {{< /highlight >}}
 
-#### API Specification {#cluster-roles-get-specification}
+#### API Specification {#clusterroles-get-specification}
 
-/cluster-roles (GET)  | 
+/clusterroles (GET)  | 
 ---------------|------
 description    | Returns the list of cluster roles.
-example url    | http://hostname:8080/api/core/v2/cluster-roles
+example url    | http://hostname:8080/api/core/v2/clusterroles
 response type  | Array
 response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output         | {{< highlight shell >}}
@@ -72,7 +72,7 @@ output         | {{< highlight shell >}}
         "resources": [
           "events"
         ],
-        "resourceNames": [
+        "resource_names": [
           ""
         ]
       }
@@ -81,12 +81,12 @@ output         | {{< highlight shell >}}
 ]
 {{< /highlight >}}
 
-### `/cluster-roles` (POST)
+### `/clusterroles` (POST)
 
-/cluster-roles (POST) | 
+/clusterroles (POST) | 
 ----------------|------
 description     | Create a Sensu cluster role.
-example URL     | http://hostname:8080/api/core/v2/cluster-roles/default/cluster-roles
+example URL     | http://hostname:8080/api/core/v2/clusterroles
 payload         | {{< highlight shell >}}
 {
   "name": "global-event-reader",
@@ -99,7 +99,7 @@ payload         | {{< highlight shell >}}
       "resources": [
         "events"
       ],
-      "resourceNames": [
+      "resource_names": [
         ""
       ]
     }
@@ -108,20 +108,20 @@ payload         | {{< highlight shell >}}
 {{< /highlight >}}
 response codes  | <ul><li>**Success**: 200 (OK)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
-## The `/cluster-roles/:cluster-role` API endpoint {#the-cluster-rolescluster-role-api-endpoint}
+## The `/clusterroles/:clusterrole` API endpoint {#the-clusterrolesclusterrole-api-endpoint}
 
-### `/cluster-roles/:cluster-role` (GET) {#cluster-rolescluster-role-get}
+### `/clusterroles/:clusterrole` (GET) {#clusterrolesclusterrole-get}
 
-The `/cluster-roles/:cluster-role` API endpoint provides HTTP GET access to [cluster-role data][1] for specific `:cluster-role` definitions, by cluster-role `name`.
+The `/clusterroles/:clusterrole` API endpoint provides HTTP GET access to [cluster role data][1] for specific `:clusterrole` definitions, by cluster role `name`.
 
-#### EXAMPLE {#cluster-rolescluster-role-get-example}
+#### EXAMPLE {#clusterrolesclusterrole-get-example}
 
-In the following example, querying the `/cluster-roles/:cluster-role` API returns a JSON Map
-containing the requested [`:cluster-role` definition][1] (in this example: for the `:cluster-role` named
+In the following example, querying the `/clusterroles/:clusterrole` API returns a JSON Map
+containing the requested [`:clusterrole` definition][1] (in this example: for the `:clusterrole` named
 `global-event-reader`).
 
 {{< highlight shell >}}
-curl -s http://127.0.0.1:8080/api/core/v2/cluster-roles/global-event-reader -H "Authorization: Bearer TOKEN"
+curl -s http://127.0.0.1:8080/api/core/v2/clusterroles/global-event-reader -H "Authorization: Bearer TOKEN"
 {
   "name": "global-event-reader",
   "rules": [
@@ -133,7 +133,7 @@ curl -s http://127.0.0.1:8080/api/core/v2/cluster-roles/global-event-reader -H "
       "resources": [
         "events"
       ],
-      "resourceNames": [
+      "resource_names": [
         ""
       ]
     }
@@ -141,12 +141,12 @@ curl -s http://127.0.0.1:8080/api/core/v2/cluster-roles/global-event-reader -H "
 }
 {{< /highlight >}}
 
-#### API Specification {#cluster-rolescluster-role-get-specification}
+#### API Specification {#clusterrolesclusterrole-get-specification}
 
-/cluster-roles/:cluster-role (GET) | 
+/clusterroles/:clusterrole (GET) | 
 ---------------------|------
 description          | Returns a cluster role.
-example url          | http://hostname:8080/api/core/v2/cluster-roles/global-event-reader
+example url          | http://hostname:8080/api/core/v2/clusterroles/global-event-reader
 response type        | Map
 response codes       | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output               | {{< highlight json >}}
@@ -161,7 +161,7 @@ output               | {{< highlight json >}}
       "resources": [
         "events"
       ],
-      "resourceNames": [
+      "resource_names": [
         ""
       ]
     }
@@ -169,14 +169,14 @@ output               | {{< highlight json >}}
 }
 {{< /highlight >}}
 
-### `/cluster-roles/:cluster-role` (PUT) {#cluster-rolescluster-role-put}
+### `/clusterroles/:clusterrole` (PUT) {#clusterrolesclusterrole-put}
 
-#### API Specification {#cluster-rolescluster-role-put-specification}
+#### API Specification {#clusterrolesclusterrole-put-specification}
 
-/cluster-roles/:cluster-role (PUT) | 
+/clusterroles/:clusterrole (PUT) | 
 ----------------|------
 description     | Create or update a Sensu cluster role.
-example URL     | http://hostname:8080/api/core/v2/namespaces/default/cluster-roles/global-event-reader
+example URL     | http://hostname:8080/api/core/v2/clusterroles/global-event-reader
 payload         | {{< highlight shell >}}
 {
   "name": "global-event-reader",
@@ -189,7 +189,7 @@ payload         | {{< highlight shell >}}
       "resources": [
         "events"
       ],
-      "resourceNames": [
+      "resource_names": [
         ""
       ]
     }
@@ -198,15 +198,14 @@ payload         | {{< highlight shell >}}
 {{< /highlight >}}
 response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
-### `/cluster-roles/:cluster-role` (DELETE) {#cluster-rolescluster-role-delete}
+### `/clusterroles/:clusterrole` (DELETE) {#clusterrolesclusterrole-delete}
 
-#### API Specification {#cluster-rolescluster-role-delete-specification}
+#### API Specification {#clusterrolesclusterrole-delete-specification}
 
-/cluster-roles/:cluster-role (DELETE) | 
+/clusterroles/:clusterrole (DELETE) | 
 --------------------------|------
 description               | Removes a cluster role from Sensu given the cluster role name.
-example url               | http://hostname:8080/api/core/v2/namespaces/default/cluster-roles/global-event-reader
+example url               | http://hostname:8080/api/core/v2/clusterroles/global-event-reader
 response codes            | <ul><li>**Success**: 202 (Accepted)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 [1]: ../../reference/rbac
-

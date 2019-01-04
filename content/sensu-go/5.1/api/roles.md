@@ -105,7 +105,7 @@ output         | {{< highlight shell >}}
 /roles (POST) | 
 ----------------|------
 description     | Create a Sensu role.
-example URL     | http://hostname:8080/api/core/v2/roles/default/roles
+example URL     | http://hostname:8080/api/core/v2/namespaces/default/roles
 payload         | {{< highlight shell >}}
 {
   "name": "read-only",
