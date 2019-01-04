@@ -232,13 +232,7 @@ Start Grafana
 sudo systemctl start grafana-server
 {{< /highlight >}}
 
-Create dashboard from a file `up_or_down_dashboard.json`
-
-{{< highlight shell >}}
-curl -s -XPOST -H 'Content-Type: application/json' -d@up_or_down_dashboard.json HTTP://admin:admin@127.0.0.1:4000/api/dashboards/db
-{{< /highlight >}}
-
-Confirm metrics in Grafana with `admin:admin` login. TODO: Show screenshot.
+Create a file named `up_or_down_dashboard.json` with the following JSON
 
 {{< highlight json >}}
 {
@@ -448,6 +442,20 @@ Confirm metrics in Grafana with `admin:admin` login. TODO: Show screenshot.
   }
 }
 {{< /highlight >}}
+
+Using the just created file, add the dashboard to Grafana using an API call
+
+{{< highlight shell >}}
+curl -s -XPOST -H 'Content-Type: application/json' -d@up_or_down_dashboard.json HTTP://admin:admin@127.0.0.1:4000/api/dashboards/db
+{{< /highlight >}}
+
+Confirm metrics in Grafana with `admin:admin` login.
+
+TODO: Need screenshot showing Grafana.
+
+You should now have a working setup with Prometheus scraping metrics. The Sensu Prometheus Collecting is being ran via a Sensu check and collecting those metrics from Prometheus' API. The metrics are then handled by the InfluxDB handler, sent to InfluxDB and then visualzied by a Grafana Dashboard.
+
+Using this information, you can now plugin the Sensu Prometheus Collector into your Sensu ecosystem and leverage Prometheus' to gather metrics and Sensu to send them to the proper final desitnation.
 
 [1]: https://github.com/sensu/sensu-prometheus-collector
 [2]: https://prometheus.io/docs/instrumenting/exporters/
