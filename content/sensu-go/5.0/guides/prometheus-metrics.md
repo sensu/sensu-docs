@@ -20,7 +20,7 @@ menu:
 
 ## What is the Sensu Prometheus Collector?
 
-The [Sensu Prometheus Collector][1] is a sensu check plugin that can collect metrics from a [Prometheus exporter][2] or the [Prometheus query API][3]. The allows Sensu to then send metrics to one or more time-series databases, such as InfluxDB or Graphite.
+The [Sensu Prometheus Collector][1] is a check plugin that collects metrics from a [Prometheus exporter][2] or the [Prometheus query API][3]. This allows Sensu to route the collected metrics to one or more time-series databases, such as InfluxDB or Graphite.
 
 ## In this guide
 
