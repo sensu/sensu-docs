@@ -19,6 +19,7 @@ Hooks are executed in response to the result of a check command execution
 and based on the exit status code of that command (ex: `1`).
 Hook commands can optionally receive JSON serialized Sensu client data via
 STDIN.
+You can create, manage, and reuse hooks independently of checks.
 
 ### Check response types
 
@@ -40,17 +41,6 @@ See the [check specification][6] to configure the `check_hooks` attribute.
 
 The hook command output, status, executed timestamp and duration are captured
 and published in the resulting event.
-
-## New and improved hooks
-
-In Sensu Go, we’ve redesigned and expanded on the concept of 1.0 check hooks.
-Hooks are now their own resource, and can be created and managed independent of
-the check configuration scope. With unique and descriptive identifiers, hooks
-are now reusable! And that's not all, you can now execute multiple hooks for any
-given response code.
-
-Check out Sean’s [blog post][1] about Sensu Core 1.x check hooks to see how you can use
-Sensu for auto-remediation tasks!
 
 ## Hooks specification
 

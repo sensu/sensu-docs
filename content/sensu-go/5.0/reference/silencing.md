@@ -48,12 +48,6 @@ name with an asterisk in the `$CHECK` position. This indicates that any event
 where the originating entities’ subscriptions match the subscription specified
 in the entry will be marked as silenced, regardless of the check name.
 
-## New and improved silencing
-
-Silencing no longer determines whether an event will be handled or not, it
-simply mutates the event by setting the [`silenced` attribute][1], so it can be
-handled accordingly.
-
 ## Silencing specification
 
 ### Silenced entry names
