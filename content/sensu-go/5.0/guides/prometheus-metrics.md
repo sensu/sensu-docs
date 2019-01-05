@@ -89,8 +89,6 @@ systemctl status sensu-agent
 
 ### Install Sensu Prometheus Collector
 
-TODO: align these wget commands.
-TODO: See about not having version hard coded
 {{< highlight shell >}}
 wget -q -nc https://github.com/sensu/sensu-prometheus-collector/releases/download/1.1.4/sensu-prometheus-collector_1.1.4_linux_386.tar.gz -P /tmp/
 tar xvfz /tmp/sensu-prometheus-collector_1.1.4_linux_386.tar.gz -C /tmp/
