@@ -200,7 +200,7 @@ Install Grafana
 sudo yum install -y https://s3-us-west-2.amazonaws.com/grafana-releases/release/grafana-5.1.4-1.x86_64.rpm
 {{< /highlight >}}
 
-Change Grafana's listen port to not conflich with Sensu's Dashboard
+Change Grafana's listen port to not conflict with Sensu's Dashboard
 
 {{< highlight shell >}}
 sudo sed -i 's/^;http_port = 3000/http_port = 4000/' /etc/grafana/grafana.ini
@@ -332,7 +332,7 @@ Create a file named `up_or_down_dashboard.json` with the following JSON
               },
               {
                 "params": [
-                  "null"
+                  "none"
                 ],
                 "type": "fill"
               }
@@ -400,6 +400,7 @@ Create a file named `up_or_down_dashboard.json` with the following JSON
         }
       }
     ],
+    "refresh": "10s",
     "schemaVersion": 16,
     "style": "dark",
     "tags": [],
@@ -407,7 +408,7 @@ Create a file named `up_or_down_dashboard.json` with the following JSON
       "list": []
     },
     "time": {
-      "from": "now-24h",
+      "from": "now-15m",
       "to": "now"
     },
     "timepicker": {
@@ -449,9 +450,14 @@ Using the just created file, add the dashboard to Grafana using an API call
 curl -s -XPOST -H 'Content-Type: application/json' -d@up_or_down_dashboard.json HTTP://admin:admin@127.0.0.1:4000/api/dashboards/db
 {{< /highlight >}}
 
-Confirm metrics in Grafana with `admin:admin` login.
+Confirm metrics in Grafana with `admin:admin` login at http://127.0.0.1:4000.
 
-TODO: Need screenshot showing Grafana.
+Once logged in, click on Home in the upper left corner, then below click on the Up or Down Sample 2 dashboard. Once there, you should see a graph that has started showing metrics like this
+
+ ![up_or_down_detail](/images/prometheus-collector/up_or_down_detail.png)
+
+
+## Conclusion
 
 You should now have a working setup with Prometheus scraping metrics. The Sensu Prometheus Collecting is being ran via a Sensu check and collecting those metrics from Prometheus' API. The metrics are then handled by the InfluxDB handler, sent to InfluxDB and then visualzied by a Grafana Dashboard.
 
