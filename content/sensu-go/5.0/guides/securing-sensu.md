@@ -63,7 +63,7 @@ for the `api-url` parameter:
 api-url: "https://localhost:8080"
 {{< /highlight >}}
 
-In the example above, we provide the path to the cert, key and CA file. After restarting the `sensu-backend` service, the parameters are loaded and you are able to access the dashboard at https://localhost:3000. Let's move on to securing agent to server communication.
+In the example above, we provide the path to the cert, key and CA file. After restarting the `sensu-backend` service, the parameters are loaded and you are able to access the dashboard at https://localhost:3000. Configuring these attributes will also ensure that agents are able to communicate securely. Let's move on to securing agent to server communication.
 
 ## Securing Sensu agent to server communication
 
@@ -89,7 +89,7 @@ backend-url:
   - "wss://127.0.0.1:8081"
 {{< /highlight >}}
 
-The agent will then connect Sensu servers over wss. Let's move on to securing etcd peer communication.
+The agent will then connect Sensu servers over wss. Do note that by changing the configuration to wss, plaintext communication will not be possible.
 
 _NOTE: If creating a Sensu cluster, every cluster member needs to be present in the configuration. See the [Sensu Go clustering guide][2] for more information on how to configure agents for a clustered configuration._
 
