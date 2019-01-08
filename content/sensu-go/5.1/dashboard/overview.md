@@ -28,7 +28,7 @@ See the [role-based access control reference][3] for [default user credentials][
 Use the preferences menu to change the theme or switch to the dark theme.
 
 [1]: ../../getting-started/installation-and-configuration/#starting-the-services
-[2]: ../../getting-started/configuring-sensuctl
+[2]: ../../sensuctl/reference/
 [3]: ../../reference/rbac
 [4]: ../../reference/rbac#default-user
 [5]: ../../reference/rbac#creating-a-user
