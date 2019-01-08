@@ -60,7 +60,7 @@ $ curl -s http://127.0.0.1:4567/clients | jq .
 
 _NOTE: for larger Sensu installations it may be undesirable to get the entire
 [client registry][1] in a single API request. The `/clients` API provides
-[pagination controls via url parameters][7]
+pagination controls via the [`limit` and `offset` url parameters][7]._
 
 #### API Specification {#clients-get-specification}
 

@@ -1,7 +1,7 @@
 ---
 title: "Silencing"
 description: "The silencing reference guide."
-weight: 1
+weight: 10
 version: "5.0"
 product: "Sensu Go"
 platformContent: false
@@ -47,12 +47,6 @@ Conversely, a silencing entry which specifies only a subscription will have a
 name with an asterisk in the `$CHECK` position. This indicates that any event
 where the originating entities’ subscriptions match the subscription specified
 in the entry will be marked as silenced, regardless of the check name.
-
-## New and improved silencing
-
-Silencing no longer determines whether an event will be handled or not, it
-simply mutates the event by setting the [`silenced` attribute][1], so it can be
-handled accordingly.
 
 ## Silencing specification
 
@@ -187,7 +181,7 @@ example      | {{< highlight shell >}}"namespace": "production"{{< /highlight >}
 -------------|------
 description  | Custom attributes to include with event data, which can be queried like regular attributes.
 required     | false
-type         | Map of key-value pairs. Keys and values can be any valid UTF-8 string.
+type         | Map of key-value pairs. Keys can contain only letters, numbers, and underscores, but must start with a letter. Values can be any valid UTF-8 string.
 default      | `null`
 example      | {{< highlight shell >}}"labels": {
   "environment": "development",

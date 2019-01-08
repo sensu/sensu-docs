@@ -1,5 +1,5 @@
 ---
-title: "Sensu Go Release Notes"
+title: "Sensu Go release notes"
 linkTitle: "Release Notes"
 description: "Release notes for Sensu Go"
 product: "Sensu Go"
@@ -9,7 +9,46 @@ aliases:
   - /sensu-go/5.0/changelog
 ---
 
-## 5.0 Release Notes
+- [5.0.1 Release Notes](#5-0-1-release-notes)
+- [5.0.0 Release Notes](#5-0-0-release-notes)
+
+### Versioning
+Sensu Go adheres to [semantic versioning](https://semver.org/spec/v2.0.0.html) using MAJOR.MINOR.PATCH release numbers, starting at 5.0.0. MAJOR version changes indicate incompatible API changes; MINOR versions add backwards-compatible functionality; PATCH versions include backwards-compatible bug fixes.
+
+### Upgrading
+
+To upgrade to the latest version of Sensu Go from version 5.0.0 or later, first [install the latest packages][8].
+
+Then restart the services.
+
+_NOTE: For systems using `systemd`, run `sudo systemctl daemon-reload` before restarting the services._
+
+{{< highlight shell >}}
+# Restart the Sensu agent
+sudo service sensu-agent restart
+
+# Restart the Sensu backend
+sudo service sensu-backend restart
+{{< /highlight >}}
+
+You can use the `version` command to determine the installed version using the `sensu-agent`, `sensu-backend`, and `sensuctl` tools. For example: `sensu-backend version`.
+
+---
+
+## 5.0.1 Release Notes
+
+**December 12, 2018** &mdash; Sensu Go 5.0.1 includes our top bug fixes following last week's general availability release.
+
+### CHANGES {#5.0.1-changes}
+
+- **FIXED**: The Sensu backend can now successfully connect to an external etcd cluster.
+- **FIXED**: The Sensu dashboard now sorts silencing entries in ascending order, correctly displays status values, and reduces shuffling in the event list.
+- **FIXED**: Sensu agents on Windows now execute command arguments correctly.
+- **FIXED**: Sensu agents now correctly include environment variables when executing checks.
+- **FIXED**: Command arguments are no longer escaped on Windows.
+- **FIXED**: Sensu backend environments now include handler and mutator execution requests.
+
+## 5.0.0 Release Notes
 
 **December 5, 2018** &mdash; It’s here! This marks the inaugural stable release of Sensu Go. 
 
@@ -40,3 +79,4 @@ The Sensu Team
 [5]: /sensu-go/5.0/reference/rbac
 [6]: /sensu-go/5.0/reference/filters
 [7]: /sensu-go/5.0/guides/aggregate-metrics-statsd
+[8]: /sensu-go/5.0/installation/install-sensu

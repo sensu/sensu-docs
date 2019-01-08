@@ -1,7 +1,7 @@
 ---
 title: "Entities"
 description: "The entities reference guide."
-weight: 1
+weight: 10
 version: "5.0"
 product: "Sensu Go"
 platformContent: false 
@@ -10,25 +10,112 @@ menu:
     parent: reference
 ---
 
+- [How do entities work?](#how-do-entities-work)
+- [Proxy entities](#proxy-entities)
+- [Managing entity labels](#managing-entity-labels)
 - [Entities specification](#entities-specification)
-	- [Entity Attributes](#entity-attributes)
-	- [System Attributes](#system-attributes)
-	- [Network Attributes](#network-attributes)
-	- [NetworkInterface Attributes](#networkinterface-attributes)
-	- [Deregistration Attributes](#deregistration-attributes)
+	- [Entity attributes](#entity-attributes)
+	- [System attributes](#system-attributes)
+	- [Network attributes](#network-attributes)
+	- [NetworkInterface attributes](#networkinterface-attributes)
+	- [Deregistration attributes](#deregistration-attributes)
 - [Examples](#examples)
 
 ## How do entities work?
 
 Agent entities are monitoring agents, which are installed and run on every system that needs to be monitored. The entity is responsible for registering the system with the Sensu backend service, sending keepalive messages (the Sensu heartbeat mechanism), and executing monitoring checks. Each entity is a member of one or more `subscriptions` – a list of roles and/or responsibilities assigned to the agent entity (ex: a webserver or a database). Sensu entities will "subscribe" to (or watch for) check requests published by the Sensu server (via the Sensu Transport), execute the corresponding requests locally, and publish the results of the check back to the transport (to be processed by a Sensu server).
 
-## Proxy Entities
+An entity represents anything (ex: server, container, network switch) that needs to be monitored, including the full range of infrastructure, runtime and application types that compose a complete monitoring environment (from server hardware to serverless functions).
+We call these monitored parts of an infrastructure "entities".
+An entity not only provides context to event data (what/where the event is from) but an event's uniqueness is determined by the check name and the name of the entity upon which the check ran.
+In addition, an entity can contain system information such as the hostname, OS, platform, and version.
+
+## Proxy entities
 
 Proxy entities (formerly known as proxy clients, "Just-in-time" or "JIT" clients) are dynamically created entities, added to the entity store if an entity does not already exist for a check result. Proxy entity registration differs from keepalive-based registration because the registration event happens while processing a check result (not a keepalive message). Sensu proxy entities allow Sensu to monitor external resources on systems and/or devices where a sensu-agent cannot be installed (such a network switch) using the defined check ProxyEntityName to create a proxy entity for the external resource. Once created, proxy entities work much in the same way as any other Sensu entity.
 
-## New and improved entities
+## Managing entity labels
 
-An `entity`, formally known as a `client` in Sensu 1.x, represents anything (ex: server, container, network switch) that needs to be monitored. Sensu Go uses an updated data model that allows for it to acknowledge the full range of infrastructure, runtime and application types that compose a complete monitoring environment (from server hardware to "serverless" functions). Sensu no longer focuses on the object doing the monitoring and instead focuses on the object it monitors. We call these monitored parts of an infrastructure "entities." An entity not only provides context to event data (what/where the event is from) but an event's uniqueness is determined by the check name and the ID of the entity upon which the check ran. In addition, an entity can contain system information such as the hostname, OS, platform, and version. 
+Custom labels let you organize entities into meaningful collections that can be selected using [filters][6] and [tokens][7].
+
+### Proxy entities
+
+For entities with class `proxy`, you can create and manage labels using sensuctl.
+For example, to create a proxy entity with a `url` label using sensuctl `create`, create a file called `example.json` with an entity definition that includes `labels`.
+
+{{< highlight json >}}
+{
+  "type": "Entity",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "sensu-docs",
+    "namespace": "web",
+    "labels": {
+      "url": "docs.sensu.io"
+    }
+  },
+  "spec": {
+    "deregister": false,
+    "deregistration": {},
+    "entity_class": "proxy",
+    "last_seen": 0,
+    "subscriptions": [],
+    "system": {
+      "network": {
+        "interfaces": null
+      }
+    }
+  }
+}
+{{< /highlight >}}
+
+Then run `sensuctl create` to create the entity based on the definition.
+
+{{< highlight shell >}}
+sensuctl create --file entity.json
+{{< /highlight >}}
+
+To add a label to an existing entity, you can use sensuctl `edit`.
+For example, run `sensuctl edit` to add a `url` label to a `sensu-docs` entity.
+
+{{< highlight shell >}}
+sensuctl edit entity sensu-docs
+{{< /highlight >}}
+
+And update the `metadata` scope to include `labels`.
+
+{{< highlight json >}}
+{
+  "type": "Entity",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "sensu-docs",
+    "namespace": "web",
+    "labels": {
+      "url": "docs.sensu.io"
+    }
+  },
+  "spec": {
+    "...": "..."
+  }
+}
+{{< /highlight >}}
+
+### Agent entities
+
+For entities with class `agent`, you can define entity attributes in the `/etc/sensu/agent.yml` configuration file.
+For example, to add a `url` label, open `/etc/sensu/agent.yml` and add configuration for `labels`.
+
+{{< highlight yml >}}
+labels:
+  url: sensu.docs.io
+{{< /highlight >}}
+
+Or using `sensu-agent start` configuration flags.
+
+{{< highlight shell >}}
+sensu-agent start --labels url=sensu.docs.io
+{{< /highlight >}}
 
 ## Entities specification
 
@@ -72,9 +159,65 @@ description  | Top-level map that includes the entity [spec attributes][sp].
 required     | Required for entity definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][sc].
 type         | Map of key-value pairs
 example      | {{< highlight shell >}}
+"spec": {
+    "entity_class": "agent",
+    "system": {
+      "hostname": "sensu2-centos",
+      "os": "linux",
+      "platform": "centos",
+      "platform_family": "rhel",
+      "platform_version": "7.4.1708",
+      "network": {
+        "interfaces": [
+          {
+            "name": "lo",
+            "addresses": [
+              "127.0.0.1/8",
+              "::1/128"
+            ]
+          },
+          {
+            "name": "enp0s3",
+            "mac": "08:00:27:11:ad:d2",
+            "addresses": [
+              "10.0.2.15/24",
+              "fe80::26a5:54ec:cf0d:9704/64"
+            ]
+          },
+          {
+            "name": "enp0s8",
+            "mac": "08:00:27:bc:be:60",
+            "addresses": [
+              "172.28.128.3/24",
+              "fe80::a00:27ff:febc:be60/64"
+            ]
+          }
+        ]
+      },
+      "arch": "amd64"
+    },
+    "subscriptions": [
+      "entity:webserver01"
+    ],
+    "last_seen": 1542667231,
+    "deregister": false,
+    "deregistration": {},
+    "user": "agent",
+    "redact": [
+      "password",
+      "passwd",
+      "pass",
+      "api_key",
+      "api_token",
+      "access_key",
+      "secret_key",
+      "private_key",
+      "secret"
+    ]
+  }
 {{< /highlight >}}
 
-### Spec Attributes
+### Spec attributes
 
 entity_class |     |
 -------------|------ 
@@ -155,14 +298,6 @@ example      | {{< highlight json >}}
   }
 }{{< /highlight >}}
 
-keepalive_timeout  | 
--------------|------ 
-description  | The time in seconds until an entity keepalive is considered stale. 
-required     | false 
-type         | integer 
-default      | 120
-example      | {{< highlight shell >}}"keepalive_timeout": 120 {{< /highlight >}}
-
 redact       | 
 -------------|------ 
 description  | List of items to redact from log messages. If a value is provided, it overwrites the default list of items to be redacted.
@@ -197,7 +332,7 @@ example      | {{< highlight shell >}}"namespace": "production"{{< /highlight >}
 -------------|------
 description  | Custom attributes to include with event data, which can be queried like regular attributes. You can use labels to organize entities into meaningful collections that can be selected using [filters][6] and [tokens][7].
 required     | false
-type         | Map of key-value pairs. Keys and values can be any valid UTF-8 string.
+type         | Map of key-value pairs. Keys can contain only letters, numbers, and underscores, but must start with a letter. Values can be any valid UTF-8 string.
 default      | `null`
 example      | {{< highlight shell >}}"labels": {
   "environment": "development",
@@ -216,7 +351,7 @@ example      | {{< highlight shell >}} "annotations": {
   "playbook": "www.example.url"
 }{{< /highlight >}}
 
-### System Attributes
+### System attributes
 
 hostname     | 
 -------------|------ 
@@ -288,7 +423,7 @@ required     | false
 type         | string 
 example      | {{< highlight shell >}}"arch": "amd64" {{< /highlight >}}
 
-### Network Attributes
+### Network attributes
 
 network_interface         | 
 -------------|------ 
@@ -316,7 +451,7 @@ example      | {{< highlight json >}}
   ]
 }{{< /highlight >}}
 
-### NetworkInterface Attributes
+### NetworkInterface attributes
 
 name         | 
 -------------|------ 
@@ -339,7 +474,7 @@ required     | false
 type         | array 
 example      | {{< highlight shell >}} "addresses": ["93.184.216.34/24", "2606:2800:220:1:248:1893:25c8:1946/10"]{{< /highlight >}}
 
-### Deregistration Attributes
+### Deregistration attributes
 
 handler      | 
 -------------|------ 

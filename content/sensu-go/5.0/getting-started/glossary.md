@@ -102,8 +102,8 @@ Silencing entries allow you to suppress execution of event handlers on an ad-hoc
 You can use silencing to schedule maintenances without being overloaded with alerts.
 [Read more.][17]
 
-[1]: ../../getting-started/installation-and-configuration/
-[2]: ../../getting-started/installation-and-configuration/
+[1]: ../../reference/agent/
+[2]: ../../reference/backend/
 [3]: ../../reference/checks
 [4]: ../../reference/assets
 [5]: ../../reference/hooks
@@ -115,7 +115,7 @@ You can use silencing to schedule maintenances without being overloaded with ale
 [11]: ../../reference/mutators
 [12]: ../../reference/entities#proxy-entities
 [13]: ../../reference/rbac
-[14]: ../../reference/sensuctl
+[14]: ../../sensuctl/reference/
 [15]: ../../reference/checks/#subdue-attributes
 [16]: ../../reference/tokens
 [17]: ../../reference/silencing

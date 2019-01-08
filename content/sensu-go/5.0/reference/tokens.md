@@ -1,7 +1,7 @@
 ---
 title: "Tokens"
 description: "The tokens reference guide."
-weight: 1
+weight: 10
 version: "5.0"
 product: "Sensu Go"
 menu: 
@@ -9,16 +9,25 @@ menu:
     parent: reference
 ---
 
-- [Specification](#sensu-tokens-specification)
+- [Specification](#sensu-token-specification)
 - [Examples](#examples)
 
+Tokens are placeholders included in a check definition that the agent replaces with entity information before executing the check.
+You can use tokens to fine-tune check attributes (like alert thresholds) on a per-entity level while re-using the check definition.
+
 ## How do tokens work?
-When a check is scheduled to be executed by an agent, it first goes through a token substitution step. Any tokens matching attribute values in the check are applied, and then the check is executed. Invalid templates or unmatched tokens will return an error, which is logged and sent to the Sensu backend message transport. Checks with token matching errors will not be executed.
 
-## New and improved tokens
-Sensu Go uses the [Go template][1] package to implement token substitution. Instead of using triple colons `:::` as in [1.x token substitution][2], Sensu Go token substitution uses double curly braces around the token, and a dot before the attribute to be substituted, such as: `{{ .system.hostname }}`.
+When a check is scheduled to be executed by an agent, it first goes through a token substitution step. The agent replaces any tokens with matching attributes from the entity definition, and then the check is executed. Invalid templates or unmatched tokens will return an error, which is logged and sent to the Sensu backend message transport. Checks with token matching errors will not be executed.
 
-## Sensu tokens specification
+## Managing entity labels
+
+You can use token substitution with any defined [entity attributes][4], including custom labels.
+See the [entity reference][6] for information on managing entity labels for proxy entities and agent entities.
+
+## Sensu token specification
+
+Sensu Go uses the [Go template][1] package to implement token substitution.
+Sensu Go token substitution uses double curly braces around the token, and a dot before the attribute to be substituted, such as: `{{ .system.hostname }}`.
 
 ### Token substitution syntax
 
@@ -26,8 +35,8 @@ Tokens are invoked by wrapping references to entity attributes and labels with d
 
 - `{{ .name }}` would be replaced with the [entity `name` attribute][3]
 - `{{ .labels.url }}` would be replaced with a custom label called `url`
-- `{{ .labels.disk-warning }}` would be replaced with a custom label called
-  `disk-warning`
+- `{{ .labels.disk_warning }}` would be replaced with a custom label called
+  `disk_warning`
 
 ### Token substitution default values
 
@@ -51,7 +60,7 @@ Check config token errors will be logged by the agent, and sent to Sensu backend
 ### Token substitution for check thresholds 
 
 In this example [check configuration][5], the `check-disk-usage.go` command accepts `-w` (warning) and `-c` (critical)
-arguments to indicate the thresholds (as percentages) for creating warning or critical events. If no token substitutions are provided by an entity configuration, Sensu will use default values to create a warning event at 80% disk capacity (i.e. `{{ .labels.disk-warning | default 80 }}`), and a critical event at 90% capacity (i.e. `{{ .labels.disk-critical | default 90 }}`).
+arguments to indicate the thresholds (as percentages) for creating warning or critical events. If no token substitutions are provided by an entity configuration, Sensu will use default values to create a warning event at 80% disk capacity (i.e. `{{ .labels.disk_warning | default 80 }}`), and a critical event at 90% capacity (i.e. `{{ .labels.disk_critical | default 90 }}`).
 
 {{< highlight json >}}
 {
@@ -64,7 +73,7 @@ arguments to indicate the thresholds (as percentages) for creating warning or cr
     "annotations": null
   },
   "spec": {
-    "command": "check-disk-usage.rb -w {{.labels.disk-warning | default 80}} -c {{.labels.disk-critical | default 90}}",
+    "command": "check-disk-usage.rb -w {{.labels.disk_warning | default 80}} -c {{.labels.disk_critical | default 90}}",
     "handlers": [],
     "high_flap_threshold": 0,
     "interval": 10,
@@ -84,7 +93,7 @@ arguments to indicate the thresholds (as percentages) for creating warning or cr
 }{{< /highlight >}}
 
 The following example [entity][4] would provide the necessary
-attributes to override the `.labels.disk-warning`, `labels.disk-critical`, and `.namespace`
+attributes to override the `.labels.disk_warning`, `labels.disk_critical`, and `.namespace`
 tokens declared above.
 
 {{< highlight json >}}
@@ -95,8 +104,8 @@ tokens declared above.
     "name": "example-hostname",
     "namespace": "staging",
     "labels": {
-      "disk-warning": "80",
-      "disk-critical": "90"
+      "disk_warning": "80",
+      "disk_critical": "90"
     },
     "annotations": null
   },
@@ -164,3 +173,4 @@ tokens declared above.
 [3]: ../entities/#entity-attributes
 [4]: ../entities/
 [5]: ../checks/
+[6]: ../entities#managing-entity-labels

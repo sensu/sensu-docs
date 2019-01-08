@@ -1,7 +1,7 @@
 ---
 title: "Checks"
 description: "The checks reference guide."
-weight: 1
+weight: 10
 version: "5.0"
 product: "Sensu Go"
 platformContent: false
@@ -16,7 +16,6 @@ menu:
 - [Token substitution](#check-token-substitution)
 - [Hooks](#check-hooks)
 - [Proxy requests](#proxy-requests)
-- [New and improved checks](#new-and-improved-checks)
 - [Specification](#check-specification)
 - [Examples](#examples)
 
@@ -131,29 +130,6 @@ any special meaning, but you can still use [Sensu query expressions][11] to
 perform more complicated filtering on the available value, such as finding
 entities with particular subscriptions.
 
-## New and improved checks
-
-Here is some useful information for Sensu 1 users around modifications made to
-checks in Sensu Go.
-
-### Standalone checks
-
-Standalone checks, which are checks scheduled and executed by the monitoring
-agent in [Sensu 1][7], are effectively replaced by the [Role-base access control
-(RBAC)][8], [agent's entity subscription][21] and [Sensu assets][9] features.
-
-### Reusable check hooks
-
-[Sensu check hooks][6] are now a distinct resource and are created and managed
-independently of the check configuration.
-
-### Round-robin checks
-
-Round-robin checks, which allow checks to be executed on a single entity within
-a subscription in a round-robin fashion, were configured via the client
-subscriptions in [Sensu 1][12].
-Round robin checks are not yet supported in Sensu 5.0.
-
 ## Check specification
 
 ### Top-level attributes
@@ -193,8 +169,14 @@ spec         |
 description  | Top-level map that includes the check [spec attributes][sp].
 required     | Required for check definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][sc].
 type         | Map of key-value pairs
-example      | {{< highlight shell >}}
-{{< /highlight >}}
+example      | {{< highlight shell >}}"spec": {
+  "command": "/etc/sensu/plugins/check-chef-client.go",
+  "interval": 10,
+  "publish": true,
+  "subscriptions": [
+    "production"
+  ]
+}{{< /highlight >}}
 
 ### Spec attributes
 
@@ -283,6 +265,8 @@ required     | false
 type         | Array
 example      | {{< highlight shell >}}"runtime_assets": ["ruby-2.5.0"]{{< /highlight >}}
 
+<a name="check-hooks-attribute">
+
 |check_hooks |      |
 -------------|------
 description  | An array of check response types with respective arrays of [Sensu hook names][6]. Sensu hooks are commands run by the Sensu agent in response to the result of the check command execution. Hooks are executed, in order of precedence, based on their severity type: `1` to `255`, `ok`, `warning`, `critical`, `unknown`, and finally `non-zero`.
@@ -303,7 +287,7 @@ example      | {{< highlight shell >}}"check_hooks": [
 
 |proxy_entity_name|   |
 -------------|------
-description  | The check ID, used to create a [proxy entity][20] for an external resource (i.e., a network switch).
+description  | The entity name, used to create a [proxy entity][20] for an external resource (i.e., a network switch).
 required     | false
 type         | String
 validated    | [`\A[\w\.\-]+\z`](https://regex101.com/r/zo9mQU/2)
@@ -364,7 +348,7 @@ example      | {{< highlight shell >}}"namespace": "production"{{< /highlight >}
 -------------|------
 description  | Custom attributes to include with event data, which can be queried like regular attributes. You can use labels to organize checks into meaningful collections that can be selected using [filters][27] and [tokens][5].
 required     | false
-type         | Map of key-value pairs. Keys and values can be any valid UTF-8 string.
+type         | Map of key-value pairs. Keys can contain only letters, numbers, and underscores, but must start with a letter. Values can be any valid UTF-8 string.
 default      | `null`
 example      | {{< highlight shell >}}"labels": {
   "environment": "development",
@@ -387,11 +371,11 @@ example      | {{< highlight shell >}} "annotations": {
 
 |entity_attributes| |
 -------------|------
-description  | Sensu entity attributes to match entities in the registry, using [Sensu Query Expressions][20]
+description  | Sensu entity attributes to match entities in the registry, using [Sensu Query Expressions][11]
 required     | false
 type         | Array
 default      | current namespace value configured for `sensuctl` (ie `default`)
-example      | {{< highlight shell >}}"entity_attributes": ["entity.EntityClass == 'proxy'"]{{< /highlight >}}
+example      | {{< highlight shell >}}"entity_attributes": ["entity.entity_class == 'proxy'"]{{< /highlight >}}
 
 |splay       |      |
 -------------|------
