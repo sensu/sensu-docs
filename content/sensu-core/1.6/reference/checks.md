@@ -301,6 +301,18 @@ value), _and_ the Sensu client definition does not have a matching definition
 attribute, a [check result][4] indicating "unmatched tokens" will be published
 for the check execution (e.g.: `"Unmatched check token(s): disk.warning"`).
 
+#### Token data type limitations
+
+Tokens will be converted to strings before they are evaluated. This means that integers can not be used, as they will end up as strings and type error will be thrown.
+
+While lists can be used in tokens, individual list items can notbe accessed. If used, a quoted representation will be shown.
+
+For example, in trying to access a subscriptions list of **sensu, rhel, all, client:sensu-enterprise** via tokens, the result would be:
+
+{{< highlight shell >}}
+[\"sensu\", \"rhel\", \"all\", \"client:sensu-enterprise\"]
+{{< /highlight >}}
+
 ## Check hooks
 
 ### What are check hooks? {#what-are-check-hooks}
