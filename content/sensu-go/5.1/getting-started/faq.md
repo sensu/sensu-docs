@@ -10,10 +10,76 @@ menu:
     parent: getting-started
 ---
 
+Thank you for visiting the Sensu FAQ!
+For a list of Sensu terms and their definitions, see the [glossary][7].
+
+> What platforms does Sensu support?
+
+Sensu Go is available for Linux, Windows (agent and CLI only), macOS (CLI only), and Docker.
+See the list of [supported platforms][1] and the [installation guide][2] for more information.
+
+> Is Sensu available as a hosted solution?
+
+No, Sensu is installed on your organization’s infrastructure alongside other applications and services.
+See the list of [supported platforms][1] and the [installation guide][2] for more information.
+
+> What are the hardware requirements for running a Sensu Go backed?
+
+See the [hardware requirements guide][5] for minimum and recommended hardware to run a Sensu Go backend.
+
 > Is there an enterprise version of Sensu Go?
 
-Yes! Sensu Go for enterprise is coming soon. Check out this [Sensu blog post](https://blog.sensu.io/announcing-the-sensu-roadmap-sensu-go-release-date) for more information about Sensu Enterprise 5.1.
+Yes! Sensu Go for enterprise is coming soon. Check out this [Sensu blog post](https://blog.sensu.io/announcing-the-sensu-roadmap-sensu-go-release-date) for more information about Sensu Go for enterprise.
+
+> How can I contact the Sensu sales team?
+
+We'd love to chat about solving your organization's monitoring challenges with Sensu.
+Get in touch with us using [this form][6].
 
 > Can I connect Sensu Go to clients and servers from earlier versions of Sensu Core and Sensu Enterprise?
 
 No, Sensu Go agents and backends are not compatible with Sensu Core or Sensu Enterprise services.
+
+> Can I upgrade my Sensu version 1.x deployment to Sensu Go?
+
+Sensu Go is a complete redesign of the original Sensu; it uses separate packages, dependencies, and data models to bring you new, powerful features.
+(See the [Sensu Go release announcement][3] for more information.)
+Due to these changes, [some features][4] of Sensu 1.x are no longer supported in Sensu Go, such as standalone checks.
+To upgrade your Sensu 1.x deployment to Sensu Go, you'll need to translate your Sensu 1.x configuration to the format expected by Sensu Go and install the new Sensu Go services on your infrastructure.
+The [Sensu Go upgrading guide][4] includes a detailed features comparison between Sensu Go and Sensu 1.x as well as tools to help you translate your configuration.
+
+> What can I monitor with Sensu?
+
+Sensu supports a wide range of plugins for monitoring everything from the server closet to the cloud.
+[Install the Sensu agent][8] on the hosts you want to monitor, integrate with the [Sensu API][9], or take advantage of [proxy entities][10] to monitor anything on your network.
+Check out the [200+ plugins shared by the Sensu community][11], including monitoring checks for [AWS][13], [Jenkins][14], [Puppet][15], [InfluxDB][16], and [SNMP][17].
+You can also write your own Sensu Plugins in any language by following the [Sensu Plugins spec][12].
+
+> Does Sensu Go include a time series database for long term storage?
+
+No, Sensu Go does not store event data.
+We recommend integrating Sensu with a time series database, like [InfluxDB][19], to store event data.
+See the [guide to storing metrics with InfluxDB][18] to get started.
+
+> Can one Sensu Go backend monitor multiple sites?
+
+
+[1]: ../platforms
+[2]: ../../installation/install-sensu
+[3]: https://blog.sensu.io/sensu-go-is-here
+[4]: ../../installation/upgrade/#upgrading-to-sensu-go-from-sensu-core-1-x
+[5]: /installation/recommended-hardware/
+[6]: https://sensu.io/sales/
+[7]: ../glossary
+[8]: ../../installation/install-sensu#install-the-sensu-agent
+[9]: ../../api/overview
+[10]: ../../reference/entities/#proxy-entities
+[11]: https://github.com/sensu-plugins
+[12]: /plugins/latest/reference/
+[13]: https://github.com/sensu-plugins/sensu-plugins-aws
+[14]: https://github.com/sensu-plugins/sensu-plugins-jenkins
+[15]: https://github.com/sensu-plugins/sensu-plugins-puppet
+[16]: https://github.com/sensu-plugins/sensu-plugins-influxdb
+[17]: https://github.com/sensu-plugins/sensu-plugins-snmp
+[18]: ../..//guides/influx-db-metric-handler/
+[19]: https://www.influxdata.com/
