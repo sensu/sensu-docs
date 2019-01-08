@@ -13,14 +13,14 @@ users only.**
 
 - [Overview](#overview)
 - [Custom email templates](#custom-email-templates)
-  - [Example(s) {#custom-email-templates-example}](#examples-custom-email-templates-example)
+  - [Example(s)](#examples-custom-email-templates-example)
 - [Configuration](#configuration)
-  - [Example(s) {#examples}](#examples-examples)
+  - [Example(s)](#examples-examples)
   - [Integration specification](#integration-specification)
     - [`email` attributes](#email-attributes)
     - [`smtp` attributes](#smtp-attributes)
-      - [EXAMPLE {#smtp-attributes-example}](#example-smtp-attributes-example)
-      - [ATTRIBUTES {#smtp-attributes-specification}](#attributes-smtp-attributes-specification)
+      - [EXAMPLE](#example-smtp-attributes-example)
+      - [ATTRIBUTES](#attributes-smtp-attributes-specification)
     - [`templates` attributes](#templates-attributes)
       - [Example Templates](#example-templates)
 
@@ -104,7 +104,7 @@ handler (integration).
 The following attributes are configured within the `{"email": {} }`
 [configuration scope][2].
 
-smtp         |
+smtp         | 
 -------------|------
 description  | A set of attributes that provides SMTP connection information to the email event handler.
 required     | false
@@ -125,7 +125,7 @@ example      |  {{< highlight shell >}}"smtp": {
 }
 {{< /highlight >}}
 
-to           |
+to           | 
 -------------|------
 description  | The default email address to send notification to.
 required     | false
@@ -133,7 +133,7 @@ type         | String
 default      | `root@localhost`
 example      | {{< highlight shell >}}"to": "support@example.com"{{< /highlight >}}
 
-from         |
+from         | 
 -------------|------
 description  | The default email address to use as the sender.
 required     | false
@@ -141,7 +141,7 @@ type         | String
 default      | `sensu@localhost`
 example      | {{< highlight shell >}}"from": "noreply@example.com"{{< /highlight >}}
 
-content_type |
+content_type | 
 -------------|------
 description  | The email content type header. Can be used to enable HTML body content.
 required     | false
@@ -149,7 +149,7 @@ type         | String
 default      | `text/plain`
 example      | {{< highlight shell >}}"content_type": "text/html"{{< /highlight >}}
 
-templates    |
+templates    | 
 -------------|------
 description  | A set of attributes that provides email [`templates` configuration][3].
 required     | false
@@ -160,7 +160,7 @@ example      | {{< highlight shell >}}"templates": {
 }
 {{< /highlight >}}
 
-filters        |
+filters        | 
 ---------------|------
 description    | An array of Sensu event filters (names) to use when filtering events for the handler. Each array item must be a string. Specified filters are merged with default values.
 required       | false
@@ -168,7 +168,7 @@ type           | Array
 default        | {{< highlight shell >}}["handle_when", "check_dependencies"]{{< /highlight >}}
 example        | {{< highlight shell >}}"filters": ["recurrence", "production"]{{< /highlight >}}
 
-severities     |
+severities     | 
 ---------------|------
 description    | An array of check result severities the handler will handle. _NOTE: event resolution bypasses this filtering._
 required       | false
@@ -177,7 +177,7 @@ allowed values | `ok`, `warning`, `critical`, `unknown`
 default        | {{< highlight shell >}}["warning", "critical", "unknown"]{{< /highlight >}}
 example        | {{< highlight shell >}} "severities": ["critical", "unknown"]{{< /highlight >}}
 
-timeout      |
+timeout      | 
 -------------|------
 description  | The handler execution duration timeout in seconds (hard stop).
 required     | false
@@ -209,7 +209,7 @@ The following attributes are configured within the `{"email": { "smtp": {} } }`
 
 ##### ATTRIBUTES {#smtp-attributes-specification}
 
-address      |
+address      | 
 -------------|------
 description  | The hostname or IP address of the SMTP server
 type         | String
@@ -217,7 +217,7 @@ required     | false
 default      | "127.0.0.1"
 example      | {{< highlight shell >}}"address": "smtp.example.com"{{< /highlight >}}
 
-port         |
+port         | 
 -------------|------
 description  | The SMTP sever port
 type         | Integer
@@ -225,7 +225,7 @@ required     | false
 default      | `25`
 example      | {{< highlight shell >}}"port": 25{{< /highlight >}}
 
-domain       |
+domain       | 
 -------------|------
 description  | The domain the SMTP server should use to send email from.
 type         | String
@@ -233,7 +233,7 @@ required     | false
 default      | `localhost.localdomain`
 example      | {{< highlight shell >}}"domain": "localhost.localdomain"{{< /highlight >}}
 
-openssl_verify_mode |
+openssl_verify_mode | 
 --------------------|------
 description         | What SSL verification mode Sensu should use to establish a connection with the SMTP server.
 type                | String
@@ -241,7 +241,7 @@ required            | false
 default             | `none`
 example             | {{< highlight shell >}}"openssl_verify_mode": "none"{{< /highlight >}}
 
-enable_starttls_auto |
+enable_starttls_auto | 
 ---------------------|------
 description          | Whether Sensu should use `STARTTLS` (or "Opportunistic TLS") to upgrade insecure connections with TLS encryption, when possible. Sensu Enterprise uses TLSv1.2, ONLY supporting TLSv1.0+.
 type                 | Boolean
@@ -249,7 +249,7 @@ required             | false
 default              | `true`
 example              | {{< highlight shell >}}"enable_starttls_auto": true{{< /highlight >}}
 
-tls          |
+tls          | 
 -------------|------
 description  | Whether Sensu should use TLS encryption for connections. Sensu Enterprise uses TLSv1.2, ONLY supporting TLSv1.0+.
 type         | Boolean
@@ -257,21 +257,21 @@ required     | false
 default      | `false`
 example      | {{< highlight shell >}}"tls": true{{< /highlight >}}
 
-user_name    |
+user_name    | 
 -------------|------
 description  | The username credential Sensu should use to authenticate to the SMTP server.
 type         | String
 required     | false
 example      | {{< highlight shell >}}"username": "monitoring@example.com"{{< /highlight >}}
 
-password     |
+password     | 
 -------------|------
 description  | The password credential Sensu should use to authenticate to the SMTP server.
 type         | String
 required     | false
 example      | {{< highlight shell >}}"passsword": "PASSWORD"{{< /highlight >}}
 
-authentication |
+authentication | 
 ---------------|------
 description    | The authentication method should Sensu use when connecting to the SMTP server.
 type           | String
@@ -284,14 +284,14 @@ example        | {{< highlight shell >}}"authentication": "plain"{{< /highlight 
 The following attributes are configured within the `{"email": { "templates": {}
 } }` [configuration scope][2].
 
-subject      |
+subject      | 
 -------------|------
 description  | Path to the email subject [ERB][5] template file, which must be accessible by the `sensu` system user. If an email subject template is not provided, a built-in default template will be used.
 type         | String
 required     | false
 example      | {{< highlight shell >}}"subject": "/etc/sensu/email/subject_template.erb"{{< /highlight >}}
 
-body         |
+body         | 
 -------------|------
 description  | Path to the email body [ERB][5] template file, which must be accessible by the `sensu` system user. If an email body template is not provided, a built-in default template will be used.
 type         | String
