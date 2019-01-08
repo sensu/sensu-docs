@@ -14,7 +14,6 @@ menu:
 	- [Pipe handlers](#pipe-handlers)
 	- [TCP/UDP handlers](#tcp-udp-handlers)
 	- [Handler sets](#handler-sets)
-- [New and improved handlers](#new-and-improved-handlers)
 - [Handling keepalive events](#handling-keepalive-events)
 - [Specification](#handler-specification)
 	- [Top-level attributes](#top-level-attributes)
@@ -65,32 +64,6 @@ set.
 _NOTE: Attributes defined on handler sets do not apply to the handlers they
 include. For example, `filters`, and `mutator` attributes defined 
 in a handler set will have no effect._
-
-## New and improved handlers
-
-### Default handler
-
-Sensu no longer attempts to handle events using a handler named `default`, which
-caused confusion as this default handler was only a reference, since Sensu did
-not provide a built-in default handler.
-
-### Transport handlers
-
-Sensu architecture considerably changed between the 1.x and Sensu Go versions, and a
-dedicated message bus (like RabbitMQ) is no longer used. Therefore, [transport
-handlers][5] have been removed but a similar functionality could be achieved
-using a pipe handler that connects to a message bus and injects event data into
-a queue.
-
-### Each and every check results are handled
-
-All check results are now considered to be events, and therefore these events
-are automatically sent to the check handlers, no matter their status, whereas
-only non-zero check results were considered as events and sent to handlers in
-Sensu 1.x.
-
-That being said, 1.x behavior can be replicated in Sensu Go by using the
-built-in `is_incident` filter.
 
 ## Handling keepalive events
 

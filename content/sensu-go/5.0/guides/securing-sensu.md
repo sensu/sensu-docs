@@ -93,6 +93,7 @@ The agent will then connect Sensu servers over wss. Do note that by changing the
 
 _NOTE: If creating a Sensu cluster, every cluster member needs to be present in the configuration. See the [Sensu Go clustering guide][2] for more information on how to configure agents for a clustered configuration._
 
+
 Hopefully you've found this useful! If you find any issues or have any questions, feel free to reach out in our [Community Slack][3], or [open an issue][4] on Github.
 
 <!-- LINKS -->

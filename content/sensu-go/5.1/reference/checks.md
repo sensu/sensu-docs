@@ -16,7 +16,6 @@ menu:
 - [Token substitution](#check-token-substitution)
 - [Hooks](#check-hooks)
 - [Proxy requests](#proxy-requests)
-- [New and improved checks](#new-and-improved-checks)
 - [Specification](#check-specification)
 - [Examples](#examples)
 
@@ -130,29 +129,6 @@ supplied must normally match exactly as stated- no variables or directives have
 any special meaning, but you can still use [Sensu query expressions][11] to
 perform more complicated filtering on the available value, such as finding
 entities with particular subscriptions.
-
-## New and improved checks
-
-Here is some useful information for Sensu 1 users around modifications made to
-checks in Sensu Go.
-
-### Standalone checks
-
-Standalone checks, which are checks scheduled and executed by the monitoring
-agent in [Sensu 1][7], are effectively replaced by the [Role-base access control
-(RBAC)][8], [agent's entity subscription][21] and [Sensu assets][9] features.
-
-### Reusable check hooks
-
-[Sensu check hooks][6] are now a distinct resource and are created and managed
-independently of the check configuration.
-
-### Round-robin checks
-
-Round-robin checks, which allow checks to be executed on a single entity within
-a subscription in a round-robin fashion, were configured via the client
-subscriptions in [Sensu 1][12].
-Round robin checks are not yet supported in Sensu 5.0.
 
 ## Check specification
 
@@ -395,7 +371,7 @@ example      | {{< highlight shell >}} "annotations": {
 
 |entity_attributes| |
 -------------|------
-description  | Sensu entity attributes to match entities in the registry, using [Sensu Query Expressions][20]
+description  | Sensu entity attributes to match entities in the registry, using [Sensu Query Expressions][11]
 required     | false
 type         | Array
 default      | current namespace value configured for `sensuctl` (ie `default`)

@@ -425,7 +425,7 @@ Agents can connect to a Sensu cluster by specifying any Sensu backend URL in the
 ## Configuration
 
 You can specify the agent configuration using a `/etc/sensu/agent.yml` file or using `sensu-agent start` [configuration flags][24].
-See the example config file provided with Sensu at `/usr/share/doc/sensu-go-agent-5.0.0/agent.yml.example`.
+See the example config file provided with Sensu at `/usr/share/doc/sensu-go-agent-5.1.0/agent.yml.example`.
 The agent loads configuration upon startup, so you must restart the agent for any configuration updates to take effect.
 
 ### Configuration summary
