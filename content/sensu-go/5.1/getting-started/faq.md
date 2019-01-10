@@ -61,14 +61,32 @@ No, Sensu Go does not store event data.
 We recommend integrating Sensu with a time series database, like [InfluxDB][19], to store event data.
 See the [guide to storing metrics with InfluxDB][18] to get started.
 
+> Which ports does Sensu use?
+
+The [Sensu backend][25] uses:
+
+- 3000 (HTTP or HTTPS): [Sensu dashboard][24]
+- 8080 (HTTP or HTTPS): [Sensu API][9] (all users need access to this port)
+- 8081 (WS or WSS): Agent API (all Sensu agents need access to this port)
+- 2380 (HTTP or HTTPS): Sensu storage peer listener (only other Sensu backends in a [cluster][27] need access to this port)
+
+The [Sensu agent][26] uses:
+
+- 3030 (TCP): Sensu [agent socket][21]
+- 3031 (HTTP): Sensu [agent API][22]
+- 8125 (UDP): [StatsD listener][23] (TCP on Windows systems)
+
+For more information, see the [guide to securing Sensu][20].
+
 > Can one Sensu Go backend monitor multiple sites?
 
+Yes, as long as the port requirements described above are met, a single Sensu Go backend can monitor agents at multiple sites.
 
 [1]: ../platforms
 [2]: ../../installation/install-sensu
 [3]: https://blog.sensu.io/sensu-go-is-here
 [4]: ../../installation/upgrade/#upgrading-to-sensu-go-from-sensu-core-1-x
-[5]: /installation/recommended-hardware/
+[5]: ../../installation/recommended-hardware/
 [6]: https://sensu.io/sales/
 [7]: ../glossary
 [8]: ../../installation/install-sensu#install-the-sensu-agent
@@ -81,5 +99,13 @@ See the [guide to storing metrics with InfluxDB][18] to get started.
 [15]: https://github.com/sensu-plugins/sensu-plugins-puppet
 [16]: https://github.com/sensu-plugins/sensu-plugins-influxdb
 [17]: https://github.com/sensu-plugins/sensu-plugins-snmp
-[18]: ../..//guides/influx-db-metric-handler/
+[18]: ../../guides/influx-db-metric-handler/
 [19]: https://www.influxdata.com/
+[20]: ../../guides/securing-sensu
+[21]: ../../reference/agent#creating-monitoring-events-using-the-agent-socket
+[22]: ../../reference/agent/#using-the-http-socket
+[23]: ../../reference/agent/#creating-monitoring-events-using-the-statsd-listener
+[24]: ../../dashboard/overview
+[25]: ../../reference/backend
+[26]: ../../reference/agent
+[27]: ../../guides/clustering
