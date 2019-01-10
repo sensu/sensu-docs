@@ -371,7 +371,7 @@ example      | {{< highlight shell >}} "annotations": {
 
 |entity_attributes| |
 -------------|------
-description  | Sensu entity attributes to match entities in the registry, using [Sensu Query Expressions][20]
+description  | Sensu entity attributes to match entities in the registry, using [Sensu Query Expressions][11]
 required     | false
 type         | Array
 default      | current namespace value configured for `sensuctl` (ie `default`)

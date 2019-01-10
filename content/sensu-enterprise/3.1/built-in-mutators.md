@@ -49,6 +49,7 @@ handlers: one for notifications (`pagerduty`), another for metric storage
 {
   "checks": {
     "ntp": {
+      "type": "metric",
       "command": "/usr/lib/nagios/plugins/check_ntp -H time.nrc.ca",
       "subscribers": [
         "production"
