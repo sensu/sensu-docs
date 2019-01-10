@@ -34,7 +34,7 @@ You can use the `version` command to determine the installed version using the `
 
 ## Upgrading to Sensu Go from Sensu Core 1.x
 
-his guide provides general information for upgrading your Sensu instance from [Sensu Core 1.x][19] to Sensu Go 5.0.
+This guide provides general information for upgrading your Sensu instance from [Sensu Core 1.x][19] to Sensu Go 5.0.
 For instructions and tools to help you translate your Sensu configuration from Sensu Core 1.x to Sensu Go, see the following resources.
 
 - [Sensu translator project][18]
