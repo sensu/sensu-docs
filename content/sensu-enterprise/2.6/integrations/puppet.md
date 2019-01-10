@@ -164,6 +164,21 @@ required            | true
 type                | String
 example             | {{< highlight shell >}}"truststore_password": "secret"{{< /highlight >}}
 
+http_proxy   | |
+-------------|------
+description  | The URL of a proxy to be used for HTTP requests.
+required     | false
+type         | String
+example      | {{< highlight shell >}}"http_proxy": "http://192.168.250.11:3128"{{< /highlight >}}
+
+timeout      | 
+-------------|------
+description  | The handler execution duration timeout in seconds (hard stop).
+required     | false
+type         | Integer
+default      | `10`
+example      | {{< highlight shell >}}"timeout": 30{{< /highlight >}}
+
 
 [?]:  #
 [1]:  /sensu-enterprise
