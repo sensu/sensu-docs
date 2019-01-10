@@ -97,6 +97,13 @@ required     | false
 type         | String
 example      | {{< highlight shell >}}"root_url": "https://services.example.com/proxy/jira"{{< /highlight >}}
 
+http_proxy   | |
+-------------|------
+description  | The URL of a proxy to be used for HTTP requests.
+required     | false
+type         | String
+example      | {{< highlight shell >}}"http_proxy": "http://192.168.250.11:3128"{{< /highlight >}}
+
 filters        | 
 ---------------|------
 description    | An array of Sensu event filters (names) to use when filtering events for the handler. Each array item must be a string. Specified filters are merged with default values.
