@@ -9,7 +9,7 @@ menu:
     parent: api
 ---
 
-**Sensu Go 5.0 includes API v2.**
+**Sensu Go 5.1 includes API v2.**
 
 The Sensu REST API provides access to Sensu workflow configurations and monitoring event data.
 
