@@ -171,7 +171,7 @@ required     | false
 type         | String
 example      | {{< highlight shell >}}"http_proxy": "http://192.168.250.11:3128"{{< /highlight >}}
 
-timeout      | 
+timeout      | |
 -------------|------
 description  | The handler execution duration timeout in seconds (hard stop).
 required     | false
