@@ -11,6 +11,7 @@ _NOTE: Sensu Enterprise is built on Sensu Core. Sensu Core changes are documente
 
 ## Releases
 
+- [Enterprise 3.3.2 Release Notes](#enterprise-v3-3-2)
 - [Enterprise 3.3.1 Release Notes](#enterprise-v3-3-1)
 - [Enterprise 3.3.0 Release Notes](#enterprise-v3-3-0)
 - [Enterprise 3.2.2 Release Notes](#enterprise-v3-2-2)
@@ -51,6 +52,16 @@ _NOTE: Sensu Enterprise is built on Sensu Core. Sensu Core changes are documente
 - [Enterprise 1.14.1 Release Notes](#enterprise-v1-14-1)
 - [Enterprise 1.14.0 Release Notes](#enterprise-v1-14-0)
 - [Enterprise 1.13.0 Release Notes](#enterprise-v1-13-0)
+
+## Enterprise 3.3.2 Release Notes {#enterprise-v3-3-2}
+
+**January 10, 2019** &mdash; Sensu Enterprise version 3.3.2 has been
+released and is available for immediate download. Please note the
+following improvements:
+
+### CHANGES {#enterprise-v3-3-2-changes}
+
+- **BUGFIX**: Sensu Enterprise integrations can now use an HTTP proxy (configured via the `http_proxy` attribute) alongside basic HTTP authentication.
 
 ## Enterprise 3.3.1 Release Notes {#enterprise-v3-3-1}
 
