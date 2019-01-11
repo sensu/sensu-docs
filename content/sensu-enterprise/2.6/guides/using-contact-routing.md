@@ -138,11 +138,11 @@ A client configuration can include a contact to use. This is helpful for definin
 
 # Example Implementations
 
-In this section we will be illustrating contact routing behaviors in a few example scenarios.
+In this section we will illustrate contact routing behaviors in a few example scenarios.
 
 ## Global Configuration
 
-In the following section we'll be going over different scenarios and illustrating how contact routing would be used and how contact routing affects notifications being sent. We'll be using Email, Slack and PagerDuty as our example integrations/handlers.
+The following section describes different scenarios and illustrates how contact routing how contact routing affects notifications being sent in each. We'll be using Email, Slack and PagerDuty as our example integrations.
 
 Below is the base configuration for the integrations we'll be working with in our examples:
 
@@ -243,7 +243,7 @@ This configuration has a single handler `email` a contact `support` configured. 
 }
 {{< /highlight >}}
 
-Even though the contact `support` matches in both the `checks` and `contacts`, there is no configuration under the `support` contact for `email`. This means no change will be made to the default email configuration. In our example the email will be sent to "default@example.com".
+Although the contact `support` is defined under `contacts` and specified correctly in the check definition, the contact does not provide configuration the for `email` integration. This means no change will be made to the default `email` configuration. In this case, an email will be sent to "default@example.com".
 
 ![Single Handler with Single Non-Matching Contact](/images/contact-routing/single-handler/single-non-matching-contact.png)
 
@@ -381,7 +381,7 @@ The reason for this is that since we have one or more contacts that do not have 
 
 ### Multiple Handlers with a Matching Contact
 
-This configuration we have two handlers, `email` and `slack`, a contact `support` configured. The `support` contact has a configuration override for `email` that will change the default `to` email address from "default@example.com" to "support@sensuapp.io" and a configuration override for `slack` to change the `channel` from "#alerts" to "#support"
+In this configuration we have two handlers, `email` and `slack`,  and a contact `support` configured. The `support` contact has a configuration override for `email` that will change the default `to` email address from "default@example.com" to "support@sensuapp.io" and a configuration override for `slack` to change the `channel` from "#alerts" to "#support"
 
 {{< highlight json >}}
 {
@@ -420,7 +420,7 @@ Because the contact configuration matches both handlers being used, any event ge
 
 ### Multiple Handlers with a Single Matching Contact
 
-This configuration we have two handlers `email` and `slack` a contact `support` configured. The `support` contact has a configuration override for only `email` that will change the default `to` email address from "default@example.com" to "support@sensuapp.com". The `support` contact does not have a handler override for the `slack` handler.
+In this configuration we have two handlers,`email` and `slack`, and a contact `support` configured. The `support` contact has a configuration override for only `email` that will change the default `to` email address from "default@example.com" to "support@sensuapp.com". The `support` contact does not have a handler override for the `slack` handler.
 
 {{< highlight json >}}
 {
@@ -576,7 +576,7 @@ In this example we have two handlers configured for our check, `email` and `slac
 }
 {{< /highlight >}}
 
-Since both contacts match and but both contacts do not have configuration overrides for both handlers, two handler events are generated. The default configuration for both handlers will be used
+Since both contacts match and neither contact provides configuration overrides for either handler, two handler events are generated. The default configuration for both handlers will be used.
 
 ![Multiple Handlers with Multiple Non-Matching Contact](/images/contact-routing/multiple-handlers/multiple-non-matching-contacts.png)
 
@@ -624,11 +624,11 @@ In this example we have two handlers configured for our check, `email` and `slac
 }
 {{< /highlight >}}
 
-With some contacts having at least one single matching contact override we can expect that there will be four different handler events generated.
+With some contacts providing at least one applicable settings override, we expect that there will be four different handler events generated.
 
 For `email` handler we will be sending an email to the `support` contact override of "support@sensuapp.io". Since `dev` and `eng` do not have a contact override for `email` a single email will be sent to our default email configured, which in our case is "default@example.com".
 
-For `slack` handler, similar to our email handler, we'll be creating a message for our `dev` contact override to `#dev` channel. With `support` and `eng` both not having a contact override for `slack`, an message will be sent to our default `slack` channel configured, in our case "#alerts".
+For `slack` handler, similar to our email handler, we'll be creating a message for our `dev` contact override to `#dev` channel. Because neither `support` or `eng` contacts provide an override for `slack`, a single notification will be sent to our default `slack` channel, in our case "#alerts".
 
 
 ![Multiple Handlers with Some Matching Contact](/images/contact-routing/multiple-handlers/some-matching-contacts.png)
@@ -637,8 +637,8 @@ For `slack` handler, similar to our email handler, we'll be creating a message f
 
 ## Contact Routing and Sensu Event Pipeline
 
-When a check is executed and an event is generated, Sensu splits handling
-of the event for each handler defined allowing each handler to be managed
+When a check is executed and an event is generated, Sensu sends a copy of
+of the event to each defined handler, allowing the workflow for each handler to be managed
 independently.
 
 ![Contact Routing and Monitoring Event Pipeline](/images/contact-routing/contact-routing-MEP.png)
