@@ -11,40 +11,12 @@ menu:
 
 As with any piece of software, it is critical to minimize any attack surface exposed by the software. Sensu is no different. The following component pieces need to be secured in order for Sensu to be considered production ready:
 
-* [Sensu agent to server communication](#securing-sensu-agent-to-server-communication)
 * [etcd peer communication](#securing-etcd-peer-communication)
 * [Backend API](#securing-the-api-and-the-dashboard)
 * [Dashboard](#securing-the-api-and-the-dashboard)
+* [Sensu agent to server communication](#securing-sensu-agent-to-server-communication)
 
-We'll cover securing each one of those pieces, starting with Sensu agent to server communication.
-
-## Securing Sensu agent to server communication
-
-The Sensu agent uses WebSockets for communication between the agent and the server. By default, an agent uses the insecure `ws://` transport. Let's look at the example from `/etc/sensu/agent.yml`:
-
-{{< highlight yml >}}
----
-##
-# agent configuration
-##
-backend-url:
-  - "ws://127.0.0.1:8081"
-{{< /highlight >}}
-
-In order to use WebSockets over SSL/TLS (wss), change the `backend-url` value to the `wss://` schema:
-
-{{< highlight yml >}}
----
-##
-# agent configuration
-##
-backend-url:
-  - "wss://127.0.0.1:8081"
-{{< /highlight >}}
-
-The agent will then connect Sensu servers over wss. Let's move on to securing etcd peer communication.
-
-_NOTE: If creating a Sensu cluster, every cluster member needs to be present in the configuration. See the [Sensu Go clustering guide][2] for more information on how to configure agents for a clustered configuration._
+We'll cover securing each one of those pieces, starting with etcd peer communication.
 
 ## Securing etcd peer communication
 
@@ -91,7 +63,35 @@ for the `api-url` parameter:
 api-url: "https://localhost:8080"
 {{< /highlight >}}
 
-In the example above, we provide the path to the cert, key and CA file. After restarting the `sensu-backend` service, the parameters are loaded and you are able to access the dashboard at https://localhost:3000.
+In the example above, we provide the path to the cert, key and CA file. After restarting the `sensu-backend` service, the parameters are loaded and you are able to access the dashboard at https://localhost:3000. Configuring these attributes will also ensure that agents are able to communicate securely. Let's move on to securing agent to server communication.
+
+## Securing Sensu agent to server communication
+
+The Sensu agent uses WebSockets for communication between the agent and the server. By default, an agent uses the insecure `ws://` transport. Let's look at the example from `/etc/sensu/agent.yml`:
+
+{{< highlight yml >}}
+---
+##
+# agent configuration
+##
+backend-url:
+  - "ws://127.0.0.1:8081"
+{{< /highlight >}}
+
+In order to use WebSockets over SSL/TLS (wss), change the `backend-url` value to the `wss://` schema:
+
+{{< highlight yml >}}
+---
+##
+# agent configuration
+##
+backend-url:
+  - "wss://127.0.0.1:8081"
+{{< /highlight >}}
+
+The agent will then connect Sensu servers over wss. Do note that by changing the configuration to wss, plaintext communication will not be possible.
+
+_NOTE: If creating a Sensu cluster, every cluster member needs to be present in the configuration. See the [Sensu Go clustering guide][2] for more information on how to configure agents for a clustered configuration._
 
 Hopefully you've found this useful! If you find any issues or have any questions, feel free to reach out in our [Community Slack][3], or [open an issue][4] on Github.
 
