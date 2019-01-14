@@ -17,6 +17,8 @@ menu:
   - [`/checks/:check` (DELETE)](#checkscheck-delete)
 - [The `/checks/:check/execute` API endpoint](#the-checkscheckexecute-api-endpoint)
   - [`/checks/:check/execute` (POST)](#checkscheckexecute-post)
+- [The `/checks/:check/hooks/:type` API endpoint](#the-checkscheckhooks-api-endpoint)
+  - [`/checks/:check/hooks/:type` (PUT)](#checkscheckhooks-put)
 - [The `/checks/:check/hooks/:type/hook/:hook` API endpoint](#the-checkscheckhookshook-api-endpoint)
   - [`/checks/:check/hooks/:type/hook/:hook` (DELETE)](#checkscheckhookshook-delete)
 
@@ -167,7 +169,7 @@ example payload | {{< highlight shell >}}
   }
 }
 {{< /highlight >}}
-payload parameters | Required check attributes: `command` (string), `subscriptions` (array of strings), `interval` (integer) OR `cron` (string), `publish` (set to `true`), and a `metadata` scope containing `name` (string) and `namespace` (string). For more information about creating checks, see the [check reference][1]. 
+payload parameters | Required check attributes: `interval` (integer) or `cron` (string), and a `metadata` scope containing `name` (string) and `namespace` (string). For more information about creating checks, see the [check reference][1]. 
 response codes  | <ul><li>**Success**: 200 (OK)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 ## The `/checks/:check` API endpoint {#the-checkscheck-api-endpoint}
@@ -232,31 +234,59 @@ output               | {{< highlight json >}}
 
 ### `/checks/:check` (PUT) {#checkscheck-put}
 
+#### EXAMPLE {#checkscheckhooks-put-example}
+
+In the following example, an HTTP PUT request is submitted to the `/checks/:check` API to update the `check-cpu` check, resulting in a 200 (OK) HTTP response code and the updated check definition.
+
+{{< highlight shell >}}
+curl -X PUT \
+-H "Authorization: Bearer TOKEN" \
+-H 'Content-Type: application/json' \
+-d '{
+  "command": "check-cpu.sh -w 75 -c 90",
+  "handlers": [
+    "slack"
+  ],
+  "interval": 60,
+  "publish": true,
+  "subscriptions": [
+    "linux"
+  ],
+  "metadata": {
+    "name": "check-cpu",
+    "namespace": "default"
+  }
+}' \
+http://127.0.0.1:8080/api/core/v2/namespaces/default/checks/check-cpu
+
+HTTP/1.1 200 OK
+{{< /highlight >}}
+
 #### API Specification {#checkscheck-put-specification}
 
 /checks/:check (PUT) | 
 ----------------|------
-description     | Create or update a Sensu check.
-example URL     | http://hostname:8080/api/core/v2/namespaces/default/checks/check-sensu-site
+description     | Create or update a Sensu check given the name of the check as a URL parameter.
+example URL     | http://hostname:8080/api/core/v2/namespaces/default/checks/check-cpu
 payload         | {{< highlight shell >}}
 {
-  "command": "http_check.sh https://sensu.io",
+  "command": "check-cpu.sh -w 75 -c 90",
   "handlers": [
     "slack"
   ],
-  "interval": 15,
-  "proxy_entity_name": "sensu.io",
+  "interval": 60,
   "publish": true,
   "subscriptions": [
-    "site"
+    "linux"
   ],
   "metadata": {
-    "name": "check-sensu-site",
+    "name": "check-cpu",
     "namespace": "default"
   }
 }
 {{< /highlight >}}
-response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+payload parameters | Required check attributes: `interval` (integer) or `cron` (string), and a `metadata` scope containing `name` (string) and `namespace` (string). For more information about creating checks, see the [check reference][1].
+response codes  | <ul><li>**Success**: 200 (OK)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 ### `/checks/:check` (DELETE) {#checkscheck-delete}
 
@@ -300,13 +330,55 @@ payload         | {{< highlight shell >}}{"check": "check-sensu-site"}{{< /highl
 payload parameters | `check` (required): the name of the check to execute
 response codes  | <ul><li>**Success**: 200 (OK)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
+## The `/checks/:check/hooks/:type` API endpoint {#the-checkscheckhooks-api-endpoint}
+
+### `/checks/:check/hooks/:type` (PUT) {#checkscheckhooks-put}
+
+The `/checks/:check/hooks/:type` API endpoint provides HTTP PUT access to assign a [hook][2] to a check.
+
+#### EXAMPLE {#checkscheckhooks-put-example}
+
+In the following example, an HTTP PUT request is submitted to the `/checks/:check/hooks/:type` API,
+assigning the `process_tree` hook to the `check-cpu` check in the event of a `critical` type check result, resulting in a successful 204 (No Content) HTTP response code.
+
+{{< highlight shell >}}
+curl -X PUT \
+-H "Authorization: Bearer TOKEN" \
+-H 'Content-Type: application/json' \
+-d '{
+  "critical": [
+    "process_tree"
+  ]
+}' \
+http://127.0.0.1:8080/api/core/v2/namespaces/default/checks/check-cpu/hooks/critical
+
+HTTP/1.1 204 No Content
+{{< /highlight >}}
+
+#### API Specification {#checkscheckhooks-put-specification}
+
+checks/:check/hooks/:type (PUT) | 
+----------------|------
+description     | Assigns a hook to a check given the check name and [check response type][3].
+example URL     | http://hostname:8080/api/core/v2/namespaces/default/checks/check-cpu/hooks/critical
+example payload | {{< highlight shell >}}
+{
+  "critical": [
+    "example-hook1",
+    "example-hook2"
+  ]
+}
+{{< /highlight >}}
+payload parameters | This endpoint requires a JSON map of [check response types][3] (for example: `critical`, `warning`), each containing an array of hook names.
+response codes  | <ul><li>**Success**: 204 (No Content)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+
 ## The `/checks/:check/hooks/:type/hook/:hook` API endpoint {#the-checkscheckhookshook-api-endpoint}
 
 ### `/checks/:check/hooks/:type/hook/:hook` (DELETE) {#checkscheckhookshook-delete}
-This endpoint provides HTTP DELETE access to a [hook][2] assigned to a [check][1].
+This endpoint provides HTTP DELETE access to a remove a [hook][2] from a [check][1].
 
 ### EXAMPLE
-The following example shows a request to remove the `process-tree` hook from the `check-cpu` check, resulting in a successful HTTP 204 No Content response.
+The following example shows a request to remove the `process_tree` hook from the `check-cpu` check, resulting in a successful 204 (No Content) HTTP response code.
 
 {{< highlight shell >}}
 curl -X DELETE \
@@ -320,9 +392,10 @@ HTTP/1.1 204 No Content
 
 /checks/:check/hooks/ :type/hook/:hook (DELETE) | 
 --------------------------|------
-description               | Removes a single hook from a check given the check name, hook type, and hook name. See the [hooks reference][2] for available types.
-example url               | http://hostname:8080/api/core/v2/namespaces/default/checks/check-cpu/hooks/critical/hook/process-tree
+description               | Removes a single hook from a check given the check name, check response type, and hook name. See the [checks reference][3] for available types.
+example url               | http://hostname:8080/api/core/v2/namespaces/default/checks/check-cpu/hooks/critical/hook/process_tree
 response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 [1]: ../../reference/checks
 [2]: ../../reference/hooks
+[3]: ../../reference/checks#check-hooks-attribute
