@@ -15,11 +15,11 @@ users only.**
 - [Custom email templates](#custom-email-templates)
   - [Example(s)](#examples-custom-email-templates-example)
 - [Configuration](#configuration)
-  - [Example(s)](#examples-examples)
+  - [Example(s)](#examples)
   - [Integration specification](#integration-specification)
     - [`email` attributes](#email-attributes)
     - [`smtp` attributes](#smtp-attributes)
-      - [EXAMPLE](#example-smtp-attributes-example)
+      - [EXAMPLE](#smtp-attributes-example)
       - [ATTRIBUTES](#attributes-smtp-attributes-specification)
     - [`templates` attributes](#templates-attributes)
       - [Example Templates](#example-templates)
@@ -38,7 +38,7 @@ the ERB template containing the complete [event data payload][4].
 _NOTE: the Puppet reference documentation provides a helpful [introduction to
 ERB templating syntax][5]._
 
-### Example(s) {#custom-email-templates-example}
+### Example(s) {#examples-custom-email-templates-example}
 
 The following examples demonstrate how to access the Sensu `@event` variable from custom ERB templates.
 
