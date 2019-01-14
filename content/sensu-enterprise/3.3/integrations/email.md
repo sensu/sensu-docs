@@ -22,7 +22,7 @@ users only.**
       - [EXAMPLE](#smtp-attributes-example)
       - [ATTRIBUTES](#attributes-smtp-attributes-specification)
     - [`templates` attributes](#templates-attributes)
-      - [Example Templates](#example-templates)
+      - [Example Templates](#examples-custom-email-templates-example)
 
 ## Overview
 
