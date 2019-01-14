@@ -888,7 +888,8 @@ code {
 }
 
 .article p,
-.drawer p {
+.drawer p,
+.article td {
   font-family: 'Work Sans';
   font-weight: 400;
   font-size: 16px;
