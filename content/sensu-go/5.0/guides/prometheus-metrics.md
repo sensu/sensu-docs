@@ -157,7 +157,7 @@ influx -execute "GRANT ALL ON sensu TO sensu"
 
 ### Add Sensu check and handler to complete the pipeline
 
-Given the following resource definition in a file called `resources.yml`:
+Given the following resource definition in a file called `resources.json`:
 
 {{< highlight shell >}}
 {
@@ -201,7 +201,7 @@ Given the following resource definition in a file called `resources.yml`:
 use `sensuctl` to add the check and handler to the sensu backend:
 
 {{< highlight shell >}}
-sudo sensuctl create -f resources.yml
+sudo sensuctl create -f resources.json
 {{< /highlight >}}
 
 ### Install and Configure Grafana
