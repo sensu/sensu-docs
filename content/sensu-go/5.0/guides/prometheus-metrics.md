@@ -11,6 +11,7 @@ menu:
 ---
 
 - [What is the Sensu Prometheus Collector?](#what-is-the-sensu-prometheus-collector)
+- [Why use Sensu with Prometheus?](#why-use-sensu-with-prometheus)
 - [Install and Configure Prometheus](#install-and-configure-prometheus)
 - [Install and Configure Sensu Go](#install-and-configure-sensu-go)
 - [Install Sensu Prometheus Collector](#install-sensu-prometheus-collector)
@@ -21,6 +22,10 @@ menu:
 ## What is the Sensu Prometheus Collector?
 
 The [Sensu Prometheus Collector][1] is a check plugin that collects metrics from a [Prometheus exporter][2] or the [Prometheus query API][3]. This allows Sensu to route the collected metrics to one or more time-series databases, such as InfluxDB or Graphite.
+
+## Why use Sensu with Prometheus?
+
+Prometheus offers an actively maintained [node exportor][5] for reporting hardware and operating system metrics. With those metrics exposed, Sensu can route them to one or more time-series databases, such as InfluxDB or Graphite. Both Sensu and Prometheus can run in parallel, complimenting each other and making use of environments where Prometheus is already deployed.  
 
 ## In this guide
 
@@ -463,7 +468,6 @@ Once logged in, click on Home in the upper left corner, then below click on the 
 
  ![up_or_down_detail](/images/prometheus-collector/up_or_down_detail.png)
 
-
 ## Conclusion
 
 You should now have a working setup with Prometheus scraping metrics. The Sensu Prometheus Collecting is being ran via a Sensu check and collecting those metrics from Prometheus' API. The metrics are then handled by the InfluxDB handler, sent to InfluxDB and then visualzied by a Grafana Dashboard.
@@ -474,3 +478,4 @@ Using this information, you can now plugin the Sensu Prometheus Collector into y
 [2]: https://prometheus.io/docs/instrumenting/exporters/
 [3]: https://prometheus.io/docs/prometheus/latest/querying/api/
 [4]: ../../installation/install-sensu/
+[5]: https://github.com/prometheus/node_exporter
