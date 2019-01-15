@@ -147,14 +147,23 @@ The `/events` API provides HTTP POST access to publish [monitoring events][1] to
 In the following example, an HTTP POST is submitted to the `/events` API, creating an event for a check named `check-mysql-status` with the output `could not connect to mysql` and a status of `1` (warning), resulting in a 201 (Created) HTTP response code.
 
 {{< highlight shell >}}
-curl -s -i \
--X POST \
+curl -X POST \
 -H 'Content-Type: application/json' \
--d '{"check": {"name": "web_service03", "output": "error!", "status": 1, "handlers": ["slack"]}}' \
+-d '{
+  "check": {
+    "metadata": {
+      "name": "check-mysql-status"
+    },
+    "status": 1,
+    "output": "could not connect to mysql"
+  }
+}' \
 http://127.0.0.1:3031/events
 
-HTTP/1.1 202 Accepted
+HTTP/1.1 201 Created
 {{< /highlight >}}
+
+_PRO TIP: You can use the agent API `/events` endpoint to create proxy entities by including a `proxy_entity_name` attribute within the `check` scope._
 
 #### API specification {#events-post-specification}
 
@@ -162,8 +171,16 @@ HTTP/1.1 202 Accepted
 -------------------|------
 description        | Accepts a JSON [check result][14] body and passes the event to the Sensu backend event pipeline for processing
 example url        | http://hostname:3031/events
-payload example    | {{< highlight json >}}{"check": {"name": "web_service01", "output": "error!", "status": 1, "handlers": ["slack"]}}{{< /highlight >}}
-payload attributes | <ul><li>`check` (required): All check data must be within the `check` scope.</li><li>`name` (required): A string representing the name of the monitoring check</li><li>Any other attributes supported by the [Sensu check specification][14] (optional)</li></ul>
+payload example    | {{< highlight json >}}{
+  "check": {
+    "metadata": {
+      "name": "check-mysql-status"
+    },
+    "status": 1,
+    "output": "could not connect to mysql"
+  }
+}{{< /highlight >}}
+payload attributes | <ul><li>`check` (required): All check data must be within the `check` scope.</li><li>`metadata` (required): The `check` scope must contain a `metadata` scope.</li><li>`name` (required): The `metadata` scope must contain the `name` attribute with a string representing the name of the monitoring check.</li><li>Any other attributes supported by the [Sensu check specification][14] (optional)</li></ul>
 response codes     | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 ### `/brew` (GET)
