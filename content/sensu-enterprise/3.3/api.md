@@ -16,6 +16,12 @@ menu: "sensu-enterprise-3.3"
     - [`ssl` attributes](#ssl-attributes)
 - [Create an SSL keystore](#create-an-ssl-keystore)
 - [Configure the Enterprise API for SSL](#configure-the-enterprise-api-for-ssl)
+- [The `/metrics` API endpoints](#the-metrics-api-endpoints)
+  - [`/metrics/check_requests` (GET)](#metricscheckrequests-get)
+  - [`/metrics/clients` (GET)](#metricsclients-get)
+  - [`/metrics/events` (GET)](#metricsevents-get)
+  - [`/metrics/keepalives` (GET)](#metricskeepalives-get)
+  - [`/metrics/results` (GET)](#metricsresults-get)
 
 --------------------------------------------------------------------------------
 
@@ -239,6 +245,250 @@ script must be used, e.g. `sudo /etc/init.d/sensu-enterprise start`_
 {{< highlight shell >}}
 sudo service sensu-enterprise reload
 {{< /highlight >}}
+
+## The `/metrics` API endpoints {#the-metrics-api-endpoints}
+
+The `/metrics` API endpoints provides HTTP GET access to Sensu client and monitoring event data.
+
+### `/metrics/check_requests` (GET) {#metricscheckrequests-get}
+
+#### EXAMPLES {#metricscheckrequests-get-examples}
+
+The following example demonstrates a `/metrics/check_requests` API query which results in a
+JSON Hash containing the metric name and historical data points.
+
+{{< highlight shell >}}
+curl http://127.0.0.1:4567/metrics/check_requests
+
+HTTP/1.1 200 OK
+{
+  "metric": "check_requests",
+  "points": [
+    [
+      1547499950,
+      85
+    ],
+    [
+      1547500010,
+      80
+    ]
+  ]
+}
+{{< /highlight >}}
+
+#### API specification {#metricscheckrequests-get-specification}
+
+/metrics/check_requests (GET) | 
+------------------|------
+description       | Returns historical metrics for the number of Sensu check requests in the format `[timestamp, value]`.
+example url       | http://hostname:4567/metrics/check_requests
+response type     | Hash
+response codes    | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+output            | {{< highlight json >}}{
+  "metric": "check_requests",
+  "points": [
+    [
+      1547499950,
+      85
+    ],
+    [
+      1547500010,
+      80
+    ]
+  ]
+}{{< /highlight >}}
+
+### `/metrics/clients` (GET) {#metricsclients-get}
+
+#### EXAMPLES {#metricsclients-get-examples}
+
+The following example demonstrates a `/metrics/clients` API query which results in a
+JSON Hash containing the metric name and historical data points.
+
+{{< highlight shell >}}
+curl http://127.0.0.1:4567/metrics/clients
+
+HTTP/1.1 200 OK
+{
+  "metric": "clients",
+  "points": [
+    [
+      1547499950,
+      12
+    ],
+    [
+      1547500010,
+      12
+    ]
+  ]
+}
+{{< /highlight >}}
+
+#### API specification {#metricsclients-get-specification}
+
+/metrics/clients (GET) | 
+------------------|------
+description       | Returns historical metrics for the number of Sensu clients in the format `[timestamp, value]`.
+example url       | http://hostname:4567/metrics/clients
+response type     | Hash
+response codes    | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+output            | {{< highlight json >}}{
+  "metric": "clients",
+  "points": [
+    [
+      1547499950,
+      12
+    ],
+    [
+      1547500010,
+      12
+    ]
+  ]
+}{{< /highlight >}}
+
+### `/metrics/events` (GET) {#metricsevents-get}
+
+#### EXAMPLES {#metricsevents-get-examples}
+
+The following example demonstrates a `/metrics/events` API query which results in a
+JSON Hash containing the metric name and historical data points.
+
+{{< highlight shell >}}
+curl http://127.0.0.1:4567/metrics/events
+
+HTTP/1.1 200 OK
+{
+  "metric": "events",
+  "points": [
+    [
+      1547499950,
+      15
+    ],
+    [
+      1547500010,
+      13
+    ]
+  ]
+}
+{{< /highlight >}}
+
+#### API specification {#metricsevents-get-specification}
+
+/metrics/events (GET) | 
+------------------|------
+description       | Returns historical metrics for the number of Sensu events in the format `[timestamp, value]`.
+example url       | http://hostname:4567/metrics/events
+response type     | Hash
+response codes    | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+output            | {{< highlight json >}}{
+  "metric": "events",
+  "points": [
+    [
+      1547499950,
+      15
+    ],
+    [
+      1547500010,
+      13
+    ]
+  ]
+}{{< /highlight >}}
+
+### `/metrics/keepalives` (GET) {#metricskeepalives-get}
+
+#### EXAMPLES {#metricskeepalives-get-examples}
+
+The following example demonstrates a `/metrics/keepalives` API query which results in a
+JSON Hash containing the metric name and historical data points.
+
+{{< highlight shell >}}
+curl http://127.0.0.1:4567/metrics/keepalives
+
+HTTP/1.1 200 OK
+{
+  "metric": "keepalives",
+  "points": [
+    [
+      1547499950,
+      64
+    ],
+    [
+      1547500010,
+      62
+    ]
+  ]
+}
+{{< /highlight >}}
+
+#### API specification {#metricskeepalives-get-specification}
+
+/metrics/keepalives (GET) | 
+------------------|------
+description       | Returns historical metrics for the number of Sensu keepalives in the format `[timestamp, value]`.
+example url       | http://hostname:4567/metrics/keepalives
+response type     | Hash
+response codes    | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+output            | {{< highlight json >}}{
+  "metric": "keepalives",
+  "points": [
+    [
+      1547499950,
+      64
+    ],
+    [
+      1547500010,
+      62
+    ]
+  ]
+}{{< /highlight >}}
+
+### `/metrics/results` (GET) {#metricsresults-get}
+
+#### EXAMPLES {#metricsresults-get-examples}
+
+The following example demonstrates a `/metrics/results` API query which results in a
+JSON Hash containing the metric name and historical data points.
+
+{{< highlight shell >}}
+curl http://127.0.0.1:4567/metrics/results
+
+HTTP/1.1 200 OK
+{
+  "metric": "results",
+  "points": [
+    [
+      1547499950,
+      54
+    ],
+    [
+      1547500010,
+      48
+    ]
+  ]
+}
+{{< /highlight >}}
+
+#### API specification {#metricsresults-get-specification}
+
+/metrics/results (GET) | 
+------------------|------
+description       | Returns historical metrics for the number of Sensu check results in the format `[timestamp, value]`.
+example url       | http://hostname:4567/metrics/results
+response type     | Hash
+response codes    | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+output            | {{< highlight json >}}{
+  "metric": "results",
+  "points": [
+    [
+      1547499950,
+      54
+    ],
+    [
+      1547500010,
+      48
+    ]
+  ]
+}{{< /highlight >}}
 
 [?]:  #
 [1]:  /sensu-core/1.0/api/overview
