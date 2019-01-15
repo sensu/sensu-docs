@@ -114,7 +114,7 @@ sudo systemctl start sensu-backend
 
 #### Adding sensu agents to the cluster
 
-Each Sensu agent should have the following entries in `/etc/sensu/agent.xml` to ensure they are aware of all cluster members. This allows the agent to reconnect to a working backend in the scenrio where the one it is currently connected to goes into an unhealthy state.
+Each Sensu agent should have the following entries in `/etc/sensu/agent.yml` to ensure they are aware of all cluster members. This allows the agent to reconnect to a working backend in the scenrio where the one it is currently connected to goes into an unhealthy state.
 
 {{< highlight yml >}}
 ##
