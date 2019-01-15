@@ -83,13 +83,13 @@ The following is an example demonstrating external monitoring data input via the
 The example uses Bash's built-in `/dev/tcp` file to communicate with the Sensu agent socket.
 
 {{< highlight shell >}}
-echo '{"name": "web_service01", "output": "error!", "status": 1, "handlers": ["slack"]}' > /dev/tcp/localhost/3030
+echo '{"name": "check-mysql-status", "output": "error!", "status": 1, "handlers": ["slack"]}' > /dev/tcp/localhost/3030
 {{< /highlight >}}
 
 You can also use the [Netcat][19] utility to send monitoring data to the agent socket:
 
 {{< highlight shell >}}
-echo '{"name": "web_service02", "output": "error!", "status": 1, "handlers": ["slack"]}' | nc localhost 3030
+echo '{"name": "check-mysql-status", "output": "error!", "status": 1, "handlers": ["slack"]}' | nc localhost 3030
 {{< /highlight >}}
 
 At a minimum, the agent TCP socket requires the `name`, `output`, and `status` attributes to be set in the payload, but you can also add any attributes allowed in the [check definition][14], like `handlers` and `subscriptions`.
@@ -100,10 +100,10 @@ TCP socket        |
 ------------------|------
 description       | Accepts a JSON [check result][14] body and passes the event to the Sensu backend event pipeline for processing
 example command   | {{< highlight shell >}}# Example using /dev/tcp
-echo '{"name": "web_service01", "output": "error!", "status": 1, "handlers": ["slack"]}' > /dev/tcp/localhost/3030
+echo '{"name": "check-mysql-status", "output": "error!", "status": 1, "handlers": ["slack"]}' > /dev/tcp/localhost/3030
 
 # Example using Netcat
-echo '{"name": "web_service02", "output": "error!", "status": 1, "handlers": ["slack"]}' | nc localhost 3030
+echo '{"name": "check-mysql-status", "output": "error!", "status": 1, "handlers": ["slack"]}' | nc localhost 3030
 {{< /highlight >}}
 payload attributes| <ul><li>`name` (required): A string representing the name of the monitoring check</li><li>`output` (required): A string representing the output of the check</li><li>`status` (required): An integer representing the status of the check result, following the [check result specification][39]. (`0`: OK, `1`: warning, `2`: critical)</li><li>Any other attributes supported by the [Sensu check specification][14] (optional)</li></ul>
 
