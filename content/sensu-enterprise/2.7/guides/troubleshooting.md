@@ -92,7 +92,7 @@ Sensu Enterprise can use PEM-formatted TLS/SSL certificates and private keys to 
 These keys must be in a plaintext, unencrypted format, otherwise you may see an error containing the following:
 
 {{< highlight text >}}
-Unexpected exception: undefined method `get_private_key_info'
+Unexpected exception: undefined method `get_private_key_info' for #
 {{< /highlight >}}
 
 If you see the word `ENCRYPTED` in the first few lines of the PEM private key, the key is in an unsupported, encrypted format.
