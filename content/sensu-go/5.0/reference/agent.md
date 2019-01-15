@@ -654,7 +654,7 @@ keepalive-timeout: 300{{< /highlight >}}
 
 | namespace |      |
 ---------------|------
-description    | Agent namespace
+description    | Agent namespace _NOTE: Agents can only have one namespace._
 type           | String
 default        | `default`
 example        | {{< highlight shell >}}# Command line example

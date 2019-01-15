@@ -19,7 +19,7 @@ menu:
 Sensu role-based access control (RBAC) helps different teams and projects share a Sensu instance.
 RBAC allows management and access of users and resources based on **namespaces**, **groups**, **roles**, and **bindings**.
 
-- **Namespaces** partition resources within Sensu. Sensu checks, handlers, and other [namespaced resources][17] belong to a single namespace.
+- **Namespaces** partition resources within Sensu. Sensu checks, handlers, agents and other [namespaced resources][17] belong to a single namespace.
 - **Roles** create sets of permissions (get, delete, etc.) tied to resource types. **Cluster roles** apply permissions across namespaces and include access to [cluster-wide resources][18] like users and namespaces. 
 - **Users** represent a person or agent that interacts with Sensu. Users can belong to one or more **groups**.
 - **Role bindings** assign a role to a set of users and groups within a namespace; **cluster role bindings** assign a cluster role to a set of users and groups cluster-wide.
@@ -30,6 +30,7 @@ Sensu access controls apply to [sensuctl][2], the Sensu [API][19], and the Sensu
 Namespaces help teams use different resources (checks, handlers, etc.) within Sensu and impose their own controls on those resources.
 A Sensu instance can have multiple namespaces, each with their own set of managed resources.
 Resource names need to be unique within a namespace, but not across namespaces.
+Sensu agents can only belong to a single namespace.
 
 To create and manage namespaces, [configure sensuctl][26] as the [default `admin` user][20] or create a [cluster role][21] with `namespaces` permissions.
 
