@@ -217,7 +217,7 @@ Sensu Plugins are open-source collections of Sensu building blocks shared by the
 sensuctl create -f go/config/assets/slack-handler.yaml
 {{< /highlight >}}
 
-**2. Get your Slack webhook URL and add it to `go/config/handlers/slack.json`.**
+**2. Get your Slack webhook URL and add it to `go/config/handlers/slack.yaml`.**
 
 If you're already an admin of a Slack, visit `https://YOUR WORKSPACE NAME HERE.slack.com/services/new/incoming-webhook` and follow the steps to add the Incoming WebHooks integration and save the settings.
 (If you're not yet a Slack admin, start [here](https://slack.com/get-started#create) to create a new workspace.)
