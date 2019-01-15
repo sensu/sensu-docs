@@ -154,34 +154,43 @@ influx -execute "GRANT ALL ON sensu TO sensu"
 
 Given the following resource definition in a file called `resources.yml`:
 
-{{< highlight yml >}}
-type: CheckConfig
-api_version: core/v2
-metadata:
-  name: prometheus_metrics
-  namespace: default
-spec:
-  command: /usr/local/bin/sensu-prometheus-collector -prom-url http://localhost:9090 -prom-query up
-  handlers:
-  - influxdb
-  interval: 10
-  publish: true
-  output_metric_format: influxdb_line
-  output_metric_handlers: []
-  subscriptions:
-  - app_tier
-  timeout: 0
----
-type: Handler
-api_version: core/v2
-metadata:
-  name: influxdb
-  namespace: default
-spec:
-  command: /usr/local/bin/sensu-influxdb-handler -a 'http://127.0.0.1:8086' -d sensu -u sensu -p sensu
-  env_vars: []
-  timeout: 10
-  type: pipe
+{{< highlight shell >}}
+{
+  "type": "CheckConfig",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "prometheus_metrics",
+    "namespace": "default"
+  },
+  "spec": {
+    "command": "/usr/local/bin/sensu-prometheus-collector -prom-url http://localhost:9090 -prom-query up",
+    "handlers": [
+      "influxdb"
+    ],
+    "interval": 10,
+    "publish": true,
+    "output_metric_format": "influxdb_line",
+    "output_metric_handlers": [],
+    "subscriptions": [
+      "app_tier"
+    ],
+    "timeout": 0
+  }
+}
+{
+  "type": "Handler",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "influxdb",
+    "namespace": "default"
+  },
+  "spec": {
+    "command": "/usr/local/bin/sensu-influxdb-handler -a 'http://127.0.0.1:8086' -d sensu -u sensu -p sensu",
+    "env_vars": [],
+    "timeout": 10,
+    "type": "pipe"
+  }
+}
 {{< /highlight >}}
 
 use `sensuctl` to add the check and handler to the sensu backend:
