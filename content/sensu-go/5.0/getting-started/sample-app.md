@@ -33,6 +33,8 @@ The dummy app has three endpoints: `/` returns the local hostname, `/metrics` re
 The sample app requires Kubernetes and a Kubernetes Ingress controller.
 Most hosted Kubernetes offerings, such as GKE, include a Kubernetes Ingress controller.
 
+For the purpose of this guide, we'll be using [Minikube](https://kubernetes.io/docs/tasks/tools/install-minikube/), a cross-platform application for running a local single-node Kubernetes cluster. After you've installed Minikube, proceed through the rest of the guide.
+
 ## Setup
 
 **1. Clone the sample app.**
@@ -43,9 +45,13 @@ git clone git@github.com:sensu/sensu-kube-demo.git
 cd sensu-kube-demo
 {{< /highlight >}}
 
-**2. Create Kubernetes Ingress Resources.**
+**2. Create the Kubernetes ingress resources.**
 
 {{< highlight shell >}}
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/mandatory.yaml
+
+minikube addons enable ingress
+
 kubectl create -f go/ingress-nginx/ingress/sensu-go.yaml
 {{< /highlight >}}
 
@@ -60,13 +66,13 @@ kubectl apply -f kube-state-metrics/kubernetes
 **4. Open your `/etc/hosts` file and add the following hostnames.**
 
 {{< highlight shell >}}
-127.0.0.1       sensu.local webui.sensu.local sensu-enterprise.local dashboard.sensu-enterprise.local
-127.0.0.1       influxdb.local grafana.local dummy.local
+192.168.99.100       sensu.local webui.sensu.local sensu-enterprise.local dashboard.sensu-enterprise.local
+192.168.99.100       influxdb.local grafana.local dummy.local
 {{< /highlight >}}
 
 **5. Install sensuctl.**
 
-Jump over to the [sensuctl installation guide](https://docs.sensu.io/sensu-go/5.0/installation/install-sensu/#install-sensuctl), and follow the instructions to install sensuctl on Windows, macOS, or Linux.
+Jump over to the [sensuctl installation guide](https://docs.sensu.io/sensu-go/latest/installation/install-sensu/#install-sensuctl), and follow the instructions to install sensuctl on Windows, macOS, or Linux.
 
 **6. Deploy two instances of a dummy app behind a load balancer.**
 
@@ -191,15 +197,13 @@ Let's take a look at what we're monitoring.
 sensuctl entity list
 {{< /highlight >}}
 
-We can see the Sensu agents we have installed on the dummp app, InfluxDB, and Grafana pods with their last seen timestamp.
+We can see the Sensu agents we have installed on the dummy app with their last seen timestamp.
 
 {{< highlight shell >}}
 ID               Class    OS                   Subscriptions                           Last Seen            
 ─────────────────────────── ─────── ─────── ─────────────────────────────────────────── ─────────────────────────────── 
 dummy-6c57b8f868-ft5dz      agent   linux   dummy,entity:dummy-6c57b8f868-ft5dz         2018-11-20 18:43:15 -0800 PST  
-dummy-6c57b8f868-m24hw      agent   linux   dummy,entity:dummy-6c57b8f868-m24hw         2018-11-20 18:43:15 -0800 PST  
-grafana-5b88f8df8d-vgjtm    agent   linux   grafana,entity:grafana-5b88f8df8d-vgjtm     2018-11-20 18:43:14 -0800 PST  
-influxdb-78d64bcfd9-8km56   agent   linux   influxdb,entity:influxdb-78d64bcfd9-8km56   2018-11-20 18:43:12 -0800 PST  
+dummy-6c57b8f868-m24hw      agent   linux   dummy,entity:dummy-6c57b8f868-m24hw         2018-11-20 18:43:15 -0800 PST   
 {{< /highlight >}}
 
 ### Create a Sensu pipeline to Slack
@@ -315,6 +319,17 @@ kubectl apply -f go/deploy/grafana.sensu.yaml
 kubectl get pods
 
 sensuctl entity list
+{{< /highlight >}}
+
+Now we can see the Sensu agents we have installed on the dummy app, InfluxDB, and Grafana pods.
+
+{{< highlight shell >}}
+ID               Class    OS                   Subscriptions                           Last Seen            
+─────────────────────────── ─────── ─────── ─────────────────────────────────────────── ─────────────────────────────── 
+dummy-6c57b8f868-ft5dz      agent   linux   dummy,entity:dummy-6c57b8f868-ft5dz         2018-11-20 18:43:15 -0800 PST  
+dummy-6c57b8f868-m24hw      agent   linux   dummy,entity:dummy-6c57b8f868-m24hw         2018-11-20 18:43:15 -0800 PST  
+grafana-5b88f8df8d-vgjtm    agent   linux   grafana,entity:grafana-5b88f8df8d-vgjtm     2018-11-20 18:43:14 -0800 PST  
+influxdb-78d64bcfd9-8km56   agent   linux   influxdb,entity:influxdb-78d64bcfd9-8km56   2018-11-20 18:43:12 -0800 PST  
 {{< /highlight >}}
 
 **2. Log in to Grafana.**
