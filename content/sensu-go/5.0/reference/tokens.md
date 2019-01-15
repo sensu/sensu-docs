@@ -1,7 +1,7 @@
 ---
 title: "Tokens"
 description: "The tokens reference guide."
-weight: 1
+weight: 10
 version: "5.0"
 product: "Sensu Go"
 menu: 
@@ -9,16 +9,25 @@ menu:
     parent: reference
 ---
 
-- [Specification](#sensu-tokens-specification)
+- [Specification](#sensu-token-specification)
 - [Examples](#examples)
 
+Tokens are placeholders included in a check definition that the agent replaces with entity information before executing the check.
+You can use tokens to fine-tune check attributes (like alert thresholds) on a per-entity level while re-using the check definition.
+
 ## How do tokens work?
-When a check is scheduled to be executed by an agent, it first goes through a token substitution step. Any tokens matching attribute values in the check are applied, and then the check is executed. Invalid templates or unmatched tokens will return an error, which is logged and sent to the Sensu backend message transport. Checks with token matching errors will not be executed.
 
-## New and improved tokens
-Sensu Go uses the [Go template][1] package to implement token substitution. Instead of using triple colons `:::` as in [1.x token substitution][2], Sensu Go token substitution uses double curly braces around the token, and a dot before the attribute to be substituted, such as: `{{ .system.hostname }}`.
+When a check is scheduled to be executed by an agent, it first goes through a token substitution step. The agent replaces any tokens with matching attributes from the entity definition, and then the check is executed. Invalid templates or unmatched tokens will return an error, which is logged and sent to the Sensu backend message transport. Checks with token matching errors will not be executed.
 
-## Sensu tokens specification
+## Managing entity labels
+
+You can use token substitution with any defined [entity attributes][4], including custom labels.
+See the [entity reference][6] for information on managing entity labels for proxy entities and agent entities.
+
+## Sensu token specification
+
+Sensu Go uses the [Go template][1] package to implement token substitution.
+Sensu Go token substitution uses double curly braces around the token, and a dot before the attribute to be substituted, such as: `{{ .system.hostname }}`.
 
 ### Token substitution syntax
 
@@ -164,3 +173,4 @@ tokens declared above.
 [3]: ../entities/#entity-attributes
 [4]: ../entities/
 [5]: ../checks/
+[6]: ../entities#managing-entity-labels

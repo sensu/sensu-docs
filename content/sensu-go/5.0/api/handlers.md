@@ -37,13 +37,18 @@ curl -s http://127.0.0.1:8080/api/core/v2/namespaces/default/handlers -H "Author
       "labels": null,
       "annotations": null
     },
-    "type": "pipe",
-    "command": "handler-slack --webhook-url https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX --channel monitoring",
+    "command": "sensu-slack-handler --channel '#monitoring'",
+    "env_vars": [
+      "SLACK_WEBHOOK_URL=https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX"
+    ],
+    "filters": [
+      "is_incident",
+      "not_silenced"
+    ],
+    "handlers": [],
+    "runtime_assets": [],
     "timeout": 0,
-    "handlers": null,
-    "filters": null,
-    "env_vars": null,
-    "runtime_assets": null
+    "type": "pipe"
   }
 ]
 {{< /highlight >}}
@@ -65,13 +70,18 @@ output         | {{< highlight shell >}}
       "labels": null,
       "annotations": null
     },
-    "type": "pipe",
-    "command": "handler-slack --webhook-url https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX --channel monitoring",
+    "command": "sensu-slack-handler --channel '#monitoring'",
+    "env_vars": [
+      "SLACK_WEBHOOK_URL=https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX"
+    ],
+    "filters": [
+      "is_incident",
+      "not_silenced"
+    ],
+    "handlers": [],
+    "runtime_assets": [],
     "timeout": 0,
-    "handlers": null,
-    "filters": null,
-    "env_vars": null,
-    "runtime_assets": null
+    "type": "pipe"
   },
   {
     "metadata": {
@@ -80,13 +90,17 @@ output         | {{< highlight shell >}}
       "labels": null,
       "annotations": null
     },
-    "type": "pipe",
-    "command": "sensu-influxdb-handler --addr 'http://123.4.5.6:8086' --db-name 'sensu' --username 'sensu' --password 'password'",
+    "command": "sensu-influxdb-handler -d sensu",
+    "env_vars": [
+      "INFLUXDB_ADDR=http://influxdb.default.svc.cluster.local:8086",
+      "INFLUX_USER=sensu",
+      "INFLUX_PASSWORD=password"
+    ],
+    "filters": [],
+    "handlers": [],
+    "runtime_assets": [],
     "timeout": 0,
-    "handlers": null,
-    "filters": null,
-    "env_vars": null,
-    "runtime_assets": null
+    "type": "pipe"
   }
 ]
 {{< /highlight >}}
@@ -105,13 +119,17 @@ payload         | {{< highlight shell >}}
     "labels": null,
     "annotations": null
   },
-  "type": "pipe",
-  "command": "sensu-influxdb-handler --addr 'http://123.4.5.6:8086' --db-name 'sensu' --username 'sensu' --password 'password'",
+  "command": "sensu-influxdb-handler -d sensu",
+  "env_vars": [
+    "INFLUXDB_ADDR=http://influxdb.default.svc.cluster.local:8086",
+    "INFLUX_USER=sensu",
+    "INFLUX_PASSWORD=password"
+  ],
+  "filters": [],
+  "handlers": [],
+  "runtime_assets": [],
   "timeout": 0,
-  "handlers": null,
-  "filters": null,
-  "env_vars": null,
-  "runtime_assets": null
+  "type": "pipe"
 }
 {{< /highlight >}}
 response codes  | <ul><li>**Success**: 200 (OK)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
@@ -137,13 +155,18 @@ curl -s http://127.0.0.1:8080/api/core/v2/namespaces/default/handlers/slack -H "
     "labels": null,
     "annotations": null
   },
-  "type": "pipe",
-  "command": "handler-slack --webhook-url https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX --channel monitoring",
+  "command": "sensu-slack-handler --channel '#monitoring'",
+  "env_vars": [
+    "SLACK_WEBHOOK_URL=https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX"
+  ],
+  "filters": [
+    "is_incident",
+    "not_silenced"
+  ],
+  "handlers": [],
+  "runtime_assets": [],
   "timeout": 0,
-  "handlers": null,
-  "filters": null,
-  "env_vars": null,
-  "runtime_assets": null
+  "type": "pipe"
 }
 {{< /highlight >}}
 
@@ -163,13 +186,18 @@ output               | {{< highlight json >}}
     "labels": null,
     "annotations": null
   },
-  "type": "pipe",
-  "command": "handler-slack --webhook-url https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX --channel monitoring",
+  "command": "sensu-slack-handler --channel '#monitoring'",
+  "env_vars": [
+    "SLACK_WEBHOOK_URL=https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX"
+  ],
+  "filters": [
+    "is_incident",
+    "not_silenced"
+  ],
+  "handlers": [],
+  "runtime_assets": [],
   "timeout": 0,
-  "handlers": null,
-  "filters": null,
-  "env_vars": null,
-  "runtime_assets": null
+  "type": "pipe"
 }
 {{< /highlight >}}
 
@@ -189,13 +217,17 @@ payload         | {{< highlight shell >}}
     "labels": null,
     "annotations": null
   },
-  "type": "pipe",
-  "command": "sensu-influxdb-handler --addr 'http://123.4.5.6:8086' --db-name 'sensu' --username 'sensu' --password 'password'",
+  "command": "sensu-influxdb-handler -d sensu",
+  "env_vars": [
+    "INFLUXDB_ADDR=http://influxdb.default.svc.cluster.local:8086",
+    "INFLUX_USER=sensu",
+    "INFLUX_PASSWORD=password"
+  ],
+  "filters": [],
+  "handlers": [],
+  "runtime_assets": [],
   "timeout": 0,
-  "handlers": null,
-  "filters": null,
-  "env_vars": null,
-  "runtime_assets": null
+  "type": "pipe"
 }
 {{< /highlight >}}
 response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>

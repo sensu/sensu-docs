@@ -21,7 +21,7 @@ logged:
 
 | Log Level          | Description |
 |--------------------|------------------------------------------------------------|
-| panic              | 😱 An error caused the service to exit uncleanly           |
+| panic              | 😰 An error caused the service to exit uncleanly           |
 | fatal              | 👋 An error caused the service to exit cleanly (status 0)  |
 | error              | ❗❗ You should definitely look into this                  |
 | warn               | ❗❓ Maybe you should look into this?                       |

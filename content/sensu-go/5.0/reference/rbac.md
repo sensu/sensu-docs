@@ -2,7 +2,7 @@
 title: "Role-based access control"
 linkTitle: "Role-Based Access Control"
 description: "Sensu RBAC reference documentation"
-weight: 1
+weight: 10
 version: "5.0"
 product: "Sensu Go"
 menu:
@@ -212,6 +212,7 @@ sensuctl user list
 ### Creating a user
 You can use [sensuctl][2] to create a user.
 For example, the following command creates a user with the username `alice` and the password `password`.
+Passwords must have at least eight characters.
 
 {{< highlight shell >}}
 sensuctl user create alice --password 'password'
@@ -443,7 +444,7 @@ example      | {{< highlight shell >}}"rules": [
   {
     "verbs": ["get", "list"],
     "resources": ["checks"],
-    "resourceNames": [""]
+    "resource_names": [""]
   }
 ]{{< /highlight >}}
 
@@ -464,12 +465,12 @@ required     | true
 type         | Array
 example      | {{< highlight shell >}}"resources": ["checks"]{{< /highlight >}}
 
-resourceNames    | 
+resource_names    | 
 -------------|------ 
 description  | Specific resource names that the rule has permission to access. Resource name permissions are only available for `get`, `delete`, and `update` verbs.
 required     | false
 type         | Array
-example      | {{< highlight shell >}}"resourceNames": ["check-cpu"]{{< /highlight >}}
+example      | {{< highlight shell >}}"resource_names": ["check-cpu"]{{< /highlight >}}
 
 ### Role examples
 

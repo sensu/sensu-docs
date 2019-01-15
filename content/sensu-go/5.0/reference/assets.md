@@ -2,7 +2,7 @@
 title: "Assets"
 linkTitle: "Assets"
 description: "The assets reference guide."
-weight: 1
+weight: 10
 version: "5.0"
 product: "Sensu Go"
 platformContent: false 
@@ -95,8 +95,8 @@ example      | {{< highlight shell >}}"spec": {
   "url": "http://example.com/asset.tar.gz",
   "sha512": "4f926bf4328fbad2b9cac873d117f771914f4b837c9c85584c38ccf55a3ef3c2e8d154812246e5dda4a87450576b2c58ad9ab40c9e2edc31b288d066b195b21b",
   "filters": [
-    "system.os == 'linux'",
-    "system.arch == 'amd64'"
+    "entity.system.os == 'linux'",
+    "entity.system.arch == 'amd64'"
   ]
 }{{< /highlight >}}
 
@@ -121,7 +121,7 @@ filters      |
 description  | A set of [Sensu query expressions][1] used by the agent to determine if the asset should be installed. If multiple expressions are included, each expression must return true in order for the agent to install the asset.
 required     | false 
 type         | Array 
-example      | {{< highlight shell >}}"filters": ["system.os=='linux'", "system.arch=='amd64'"] {{< /highlight >}}
+example      | {{< highlight shell >}}"filters": ["entity.system.os=='linux'", "entity.system.arch=='amd64'"] {{< /highlight >}}
 
 ### Metadata attributes
 
@@ -144,7 +144,7 @@ example      | {{< highlight shell >}}"namespace": "production"{{< /highlight >}
 -------------|------
 description  | Custom attributes to include with event data, which can be queried like regular attributes. You can use labels to organize assets into meaningful collections that can be selected using [filters][3] and [tokens][4].
 required     | false
-type         | Map of key-value pairs. Keys and values can be any valid UTF-8 string.
+type         | Map of key-value pairs. Keys can contain only letters, numbers, and underscores, but must start with a letter. Values can be any valid UTF-8 string.
 default      | `null`
 example      | {{< highlight shell >}}"labels": {
   "environment": "development",
@@ -185,8 +185,8 @@ example      | {{< highlight shell >}} "annotations": {
     "url": "http://example.com/asset.tar.gz",
     "sha512": "4f926bf4328fbad2b9cac873d117f771914f4b837c9c85584c38ccf55a3ef3c2e8d154812246e5dda4a87450576b2c58ad9ab40c9e2edc31b288d066b195b21b",
     "filters": [
-      "system.os == 'linux'",
-      "system.arch == 'amd64'"
+      "entity.system.os == 'linux'",
+      "entity.system.arch == 'amd64'"
     ]
   }
 }

@@ -1,7 +1,7 @@
 ---
 title: "Handlers"
 description: "The handlers reference guide."
-weight: 1
+weight: 10
 version: "5.0"
 product: "Sensu Go"
 platformContent: false
@@ -10,7 +10,16 @@ menu:
     parent: reference
 ---
 
+- [How do Sensu handlers work?](#how-do-sensu-handlers-work)
+	- [Pipe handlers](#pipe-handlers)
+	- [TCP/UDP handlers](#tcp-udp-handlers)
+	- [Handler sets](#handler-sets)
+- [Handling keepalive events](#handling-keepalive-events)
 - [Specification](#handler-specification)
+	- [Top-level attributes](#top-level-attributes)
+	- [Spec attributes](#spec-attributes)
+	- [Metadata attributes](#metadata-attributes)
+	- [`socket` attributes](#socket-attributes)
 - [Examples](#handler-examples)
 
 ## How do Sensu handlers work?
@@ -56,31 +65,32 @@ _NOTE: Attributes defined on handler sets do not apply to the handlers they
 include. For example, `filters`, and `mutator` attributes defined 
 in a handler set will have no effect._
 
-## New and improved handlers
+## Handling keepalive events
 
-### Default handler
+Sensu [keepalives][12] are the heartbeat mechanism used to ensure that all registered [Sensu agents][13] are operational and able to reach the [Sensu backend][14].
+You can connect keepalive events to your monitoring workflows using a keepalive handler.
+Sensu looks for an event handler named `keepalive` and automatically uses it to process keepalive events.
 
-Sensu no longer attempts to handle events using a handler named `default`, which
-caused confusion as this default handler was only a reference, since Sensu did
-not provide a built-in default handler.
+Let's say you want to receive Slack notifications for keepalive alerts, and you already have a [Slack handler set up to process events][15].
+To process keepalive events using the Slack pipeline, create a handler set named `keepalive` and add the `slack` handler to the `handlers` array.
+The resulting `keepalive` handler set configuration looks like this:
 
-### Transport handlers
-
-Sensu architecture considerably changed between the 1.x and Sensu Go versions, and a
-dedicated message bus (like RabbitMQ) is no longer used. Therefore, [transport
-handlers][5] have been removed but a similar functionality could be achieved
-using a pipe handler that connects to a message bus and injects event data into
-a queue.
-
-### Each and every check results are handled
-
-All check results are now considered to be events, and therefore these events
-are automatically sent to the check handlers, no matter their status, whereas
-only non-zero check results were considered as events and sent to handlers in
-Sensu 1.x.
-
-That being said, 1.x behavior can be replicated in Sensu Go by using the
-built-in `is_incident` filter.
+{{< highlight json >}}
+{
+  "type": "Handler",
+  "api_version": "core/v2",
+  "metadata" : {
+    "name": "keepalive",
+    "namespace": "default"
+  },
+  "spec": {
+    "type": "set",
+    "handlers": [
+      "slack"
+    ]
+  }
+}
+{{< /highlight >}}
 
 ## Handler specification
 
@@ -225,7 +235,7 @@ example      | {{< highlight shell >}}"namespace": "production"{{< /highlight >}
 -------------|------
 description  | Custom attributes to include with event data, which can be queried like regular attributes. You can use labels to organize handlers into meaningful collections that can be selected using [filters][10] and [tokens][11].
 required     | false
-type         | Map of key-value pairs. Keys and values can be any valid UTF-8 string.
+type         | Map of key-value pairs. Keys can contain only letters, numbers, and underscores, but must start with a letter. Values can be any valid UTF-8 string.
 default      | `null`
 example      | {{< highlight shell >}}"labels": {
   "environment": "development",
@@ -271,13 +281,23 @@ configured webhook URL, using the `handler-slack` executable command.
 {
   "type": "Handler",
   "api_version": "core/v2",
-  "metadata" : {
+  "metadata": {
     "name": "slack",
     "namespace": "default"
   },
   "spec": {
-    "type": "pipe",
-    "command": "handler-slack --webhook-url https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX --channel monitoring"
+    "command": "sensu-slack-handler --channel '#monitoring'",
+    "env_vars": [
+      "SLACK_WEBHOOK_URL=https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX"
+    ],
+    "filters": [
+      "is_incident",
+      "not_silenced"
+    ],
+    "handlers": [],
+    "runtime_assets": [],
+    "timeout": 0,
+    "type": "pipe"
   }
 }
 {{< /highlight >}}
@@ -369,3 +389,7 @@ The following example handler will execute three handlers: `slack`,
 [11]: ../tokens
 [sc]: ../../sensuctl/reference#creating-resources
 [sp]: #spec-attributes
+[12]: ../agent#keepalive-monitoring
+[13]: ../agent
+[14]: ../backend
+[15]: ../../guides/send-slack-alerts
