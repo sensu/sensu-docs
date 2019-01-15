@@ -20,7 +20,7 @@ We'll cover securing each one of those pieces, starting with etcd peer communica
 
 ## Securing etcd peer communication
 
-While enabling secure agent-to-server communication involves the change of one line, securing etcd peer communication is more involved and requires modifying several attributes inside of the configuration at `/etc/sensu/backend.yml`. Let's look at the parameters you'll need to configure:
+Let' start by covering how to secure etcd peer communication via the configuration at `/etc/sensu/backend.yml`. Let's look at the parameters you'll need to configure:
 
 {{< highlight yml >}}
 ##
