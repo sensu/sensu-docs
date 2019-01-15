@@ -1,5 +1,5 @@
 ---
-title: "Sensu Frequently Asked Questions"
+title: "Sensu frequently asked questions"
 linkTitle: "FAQs"
 description: "Sensu Frequently Asked Questions"
 version: "5.1"
@@ -65,16 +65,17 @@ See the [guide to storing metrics with InfluxDB][18] to get started.
 
 The [Sensu backend][25] uses:
 
-- 3000 (HTTP or HTTPS): [Sensu dashboard][24]
-- 8080 (HTTP or HTTPS): [Sensu API][9] (all users need access to this port)
-- 8081 (WS or WSS): Agent API (all Sensu agents need access to this port)
-- 2380 (HTTP or HTTPS): Sensu storage peer listener (only other Sensu backends in a [cluster][27] need access to this port)
+- 2379 (HTTP/HTTPS) Sensu storage client: Required for Sensu backends using an external etcd instance
+- 2380 (HTTP/HTTPS) Sensu storage peer: Required for other Sensu backends in a [cluster][27]
+- 3000 (HTTP/HTTPS) [Sensu dashboard][24]: Required for all Sensu backends using a Sensu dashboard
+- 8080 (HTTP/HTTPS) [Sensu API][9]: Required for all users accessing the Sensu API
+- 8081 (WS/WSS) Agent API: Required for all Sensu agents connecting to a Sensu backend
 
 The [Sensu agent][26] uses:
 
-- 3030 (TCP): Sensu [agent socket][21]
-- 3031 (HTTP): Sensu [agent API][22]
-- 8125 (UDP): [StatsD listener][23] (TCP on Windows systems)
+- 3030 (TCP/UDP) Sensu [agent socket][21]: Required for Sensu agents using the agent socket
+- 3031 (HTTP) Sensu [agent API][22]: Required for all users accessing the agent API
+- 8125 (UDP, TCP on Windows) [StatsD listener][23]: Required for all Sensu agents using the StatsD listener
 
 For more information, see the [guide to securing Sensu][20].
 
