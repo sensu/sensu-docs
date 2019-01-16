@@ -654,7 +654,7 @@ keepalive-timeout: 300{{< /highlight >}}
 
 | namespace |      |
 ---------------|------
-description    | Agent namespace _NOTE: Agents can only belong to a single namespace._
+description    | Agent namespace _NOTE: Agents are represented in the backend as a class of entity. Entities can only belong to a [single namespace][41]._
 type           | String
 default        | `default`
 example        | {{< highlight shell >}}# Command line example
@@ -837,3 +837,4 @@ statsd-metrics-port: 6125{{< /highlight >}}
 [38]: #name
 [39]: ../checks#check-result-specification
 [40]: ../../guides/send-slack-alerts
+[41]: ../rbac/#namespaced-resource-types
