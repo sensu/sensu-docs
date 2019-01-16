@@ -44,7 +44,7 @@ We'll use environment variables (`env-vars`) to pass the InfluxDB address, usern
 sensuctl handler create influx-db \
 --type pipe \
 --command "sensu-influxdb-handler -d sensu" \
---env-vars "INFLUXDB_ADDR=http://influxdb.default.svc.cluster.local:8086, INFLUX_USER=sensu, INFLUX_PASSWORD=password"
+--env-vars "INFLUXDB_ADDR=http://influxdb.default.svc.cluster.local:8086, INFLUXDB_USER=sensu, INFLUXDB_PASSWORD=password"
 {{< /highlight >}}
 
 ### Assigning the handler to an event

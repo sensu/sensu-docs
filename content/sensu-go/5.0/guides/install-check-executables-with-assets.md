@@ -102,7 +102,7 @@ sensuctl handler create influx-db \
 --type pipe \
 --runtime-assets sensu-influxdb-handler \
 --command "sensu-influxdb-handler -d sensu" \
---env-vars "INFLUXDB_ADDR=http://influxdb.default.svc.cluster.local:8086, INFLUX_USER=sensu, INFLUX_PASSWORD=password"
+--env-vars "INFLUXDB_ADDR=http://influxdb.default.svc.cluster.local:8086, INFLUXDB_USER=sensu, INFLUXDB_PASSWORD=password"
 {{< /highlight >}}
 
 ### Validating the handler asset
