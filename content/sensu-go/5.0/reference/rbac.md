@@ -27,7 +27,7 @@ RBAC allows management and access of users and resources based on **namespaces**
 Sensu access controls apply to [sensuctl][2], the Sensu [API][19], and the Sensu [dashboard][3].
 
 ## Namespaces
-Namespaces help teams use different resources (checks, handlers, etc.) within Sensu and impose their own controls on those resources.
+Namespaces help teams use different resources (entities, checks, handlers, etc.) within Sensu and impose their own controls on those resources.
 A Sensu instance can have multiple namespaces, each with their own set of managed resources.
 Resource names need to be unique within a namespace, but not across namespaces.
 
