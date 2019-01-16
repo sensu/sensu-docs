@@ -17,9 +17,11 @@ menu:
 
 ## Upgrading to the latest version of Sensu Go from 5.0.0 or later
 
-To upgrade to the latest version of Sensu Go from version 5.0.0 or later, first [install the latest packages][23].
+To upgrade to the latest version of Sensu Go from version 5.0.0 or later, first [install the latest packages][8].
 
 Then restart the services.
+
+_NOTE: For systems using `systemd`, run `sudo systemctl daemon-reload` before restarting the services._
 
 {{< highlight shell >}}
 # Restart the Sensu agent
@@ -28,8 +30,6 @@ sudo service sensu-agent restart
 # Restart the Sensu backend
 sudo service sensu-backend restart
 {{< /highlight >}}
-
-For systems using `systemd`, you should run `sudo systemctl daemon-reload` before restarting the services.
 
 You can use the `version` command to determine the installed version using the `sensu-agent`, `sensu-backend`, and `sensuctl` tools. For example: `sensu-backend version`.
 
