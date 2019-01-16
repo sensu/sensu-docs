@@ -281,13 +281,23 @@ configured webhook URL, using the `handler-slack` executable command.
 {
   "type": "Handler",
   "api_version": "core/v2",
-  "metadata" : {
+  "metadata": {
     "name": "slack",
     "namespace": "default"
   },
   "spec": {
-    "type": "pipe",
-    "command": "handler-slack --webhook-url https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX --channel monitoring"
+    "command": "sensu-slack-handler --channel '#monitoring'",
+    "env_vars": [
+      "SLACK_WEBHOOK_URL=https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX"
+    ],
+    "filters": [
+      "is_incident",
+      "not_silenced"
+    ],
+    "handlers": [],
+    "runtime_assets": [],
+    "timeout": 0,
+    "type": "pipe"
   }
 }
 {{< /highlight >}}
