@@ -107,11 +107,17 @@ To use the incidents filter, include the `is_incident` filter in the handler con
     "namespace": "default"
   },
   "spec": {
-    "type": "pipe",
-    "command": "slack-handler --webhook-url https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX --channel monitoring",
+    "command": "sensu-slack-handler --channel '#monitoring'",
+    "env_vars": [
+      "SLACK_WEBHOOK_URL=https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX"
+    ],
     "filters": [
       "is_incident"
-    ]
+    ],
+    "handlers": [],
+    "runtime_assets": [],
+    "timeout": 0,
+    "type": "pipe"
   }
 }
 {{< /highlight >}}
@@ -141,12 +147,18 @@ To allow silencing for an event handler, add the `not_silenced` filter to the ha
     "namespace": "default"
   },
   "spec": {
-    "type": "pipe",
-    "command": "slack-handler --webhook-url https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX --channel monitoring",
+    "command": "sensu-slack-handler --channel '#monitoring'",
+    "env_vars": [
+      "SLACK_WEBHOOK_URL=https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX"
+    ],
     "filters": [
       "is_incident",
       "not_silenced"
-    ]
+    ],
+    "handlers": [],
+    "runtime_assets": [],
+    "timeout": 0,
+    "type": "pipe"
   }
 }
 {{< /highlight >}}
@@ -166,15 +178,23 @@ To use the metrics filter, include the `has_metrics` filter in the handler confi
   "type": "Handler",
   "api_version": "core/v2",
   "metadata": {
-    "name": "slack",
+    "name": "influx-db",
     "namespace": "default"
   },
   "spec": {
-    "type": "pipe",
-    "command": "sensu-influxdb-handler --addr 'http://123.4.5.6:8086' --db-name 'myDB' --username 'foo' --password 'bar'",
+    "command": "sensu-influxdb-handler -d sensu",
+    "env_vars": [
+      "INFLUXDB_ADDR=http://influxdb.default.svc.cluster.local:8086",
+      "INFLUXDB_USER=sensu",
+      "INFLUXDB_PASSWORD=password"
+    ],
     "filters": [
       "has_metrics"
-    ]
+    ],
+    "handlers": [],
+    "runtime_assets": [],
+    "timeout": 0,
+    "type": "pipe"
   }
 }
 {{< /highlight >}}
