@@ -30,7 +30,6 @@ Sensu access controls apply to [sensuctl][2], the Sensu [API][19], and the Sensu
 Namespaces help teams use different resources (entities, checks, handlers, etc.) within Sensu and impose their own controls on those resources.
 A Sensu instance can have multiple namespaces, each with their own set of managed resources.
 Resource names need to be unique within a namespace, but not across namespaces.
-Sensu agents can only belong to a single namespace.
 
 To create and manage namespaces, [configure sensuctl][26] as the [default `admin` user][20] or create a [cluster role][21] with `namespaces` permissions.
 
