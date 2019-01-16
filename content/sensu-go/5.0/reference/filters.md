@@ -185,8 +185,8 @@ To use the metrics filter, include the `has_metrics` filter in the handler confi
     "command": "sensu-influxdb-handler -d sensu",
     "env_vars": [
       "INFLUXDB_ADDR=http://influxdb.default.svc.cluster.local:8086",
-      "INFLUX_USER=sensu",
-      "INFLUX_PASSWORD=password"
+      "INFLUXDB_USER=sensu",
+      "INFLUXDB_PASSWORD=password"
     ],
     "filters": [
       "has_metrics"
