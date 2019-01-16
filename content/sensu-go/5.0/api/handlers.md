@@ -93,8 +93,8 @@ output         | {{< highlight shell >}}
     "command": "sensu-influxdb-handler -d sensu",
     "env_vars": [
       "INFLUXDB_ADDR=http://influxdb.default.svc.cluster.local:8086",
-      "INFLUX_USER=sensu",
-      "INFLUX_PASSWORD=password"
+      "INFLUXDB_USER=sensu",
+      "INFLUXDB_PASSWORD=password"
     ],
     "filters": [],
     "handlers": [],
@@ -122,8 +122,8 @@ payload         | {{< highlight shell >}}
   "command": "sensu-influxdb-handler -d sensu",
   "env_vars": [
     "INFLUXDB_ADDR=http://influxdb.default.svc.cluster.local:8086",
-    "INFLUX_USER=sensu",
-    "INFLUX_PASSWORD=password"
+    "INFLUXDB_USER=sensu",
+    "INFLUXDB_PASSWORD=password"
   ],
   "filters": [],
   "handlers": [],
@@ -220,8 +220,8 @@ payload         | {{< highlight shell >}}
   "command": "sensu-influxdb-handler -d sensu",
   "env_vars": [
     "INFLUXDB_ADDR=http://influxdb.default.svc.cluster.local:8086",
-    "INFLUX_USER=sensu",
-    "INFLUX_PASSWORD=password"
+    "INFLUXDB_USER=sensu",
+    "INFLUXDB_PASSWORD=password"
   ],
   "filters": [],
   "handlers": [],

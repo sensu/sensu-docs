@@ -327,6 +327,16 @@ required     | false
 type         | Array
 example      | {{< highlight shell >}}"output_metric_handlers": ["influx-db"]{{< /highlight >}}
 
+|round_robin |      |
+-------------|------
+description  | Round-robin check subscriptions are not yet implemented in Sensu Go. Although the `round_robin` attribute appears in check definitions by default, it is a placeholder and should not be modified.
+example      | {{< highlight shell >}}"round_robin": false{{< /highlight >}}
+
+|subdue      |      |
+-------------|------
+description  | Check subdues are not yet implemented in Sensu Go. Although the `subdue` attribute appears in check definitions by default, it is a placeholder and should not be modified.
+example      | {{< highlight shell >}}"subdue": null{{< /highlight >}}
+
 ### Metadata attributes
 
 | name       |      |
