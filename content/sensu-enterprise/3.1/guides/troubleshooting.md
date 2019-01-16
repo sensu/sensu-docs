@@ -89,7 +89,7 @@ If the values of a particular file differ from what you're expecting, then see t
 
 Sensu Enterprise can use PEM-formatted TLS/SSL certificates and private keys to secure communication with Redis and RabbitMQ.
 (See the [securing Sensu guide][3] for more information.)
-These keys must be in a plaintext, unencrypted format, otherwise you may see the following error:
+These keys must be in a plaintext, unencrypted format, otherwise you may see an error containing the following:
 
 {{< highlight text >}}
 Unexpected exception: undefined method `get_private_key_info' for #
