@@ -269,7 +269,7 @@ HTTP/1.1 200 OK
       85
     ],
     [
-      1547500010,
+      1547499960,
       80
     ]
   ]
@@ -280,7 +280,7 @@ HTTP/1.1 200 OK
 
 /metrics/check_requests (GET) | 
 ------------------|------
-description       | Returns historical metrics for the number of Sensu check requests in the format `[timestamp, value]`.
+description       | Returns the number of Sensu check requests over the past hour at 10 second intervals in the format `[timestamp, value]`.
 example url       | http://hostname:4567/metrics/check_requests
 response type     | Hash
 response codes    | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
@@ -292,7 +292,7 @@ output            | {{< highlight json >}}{
       85
     ],
     [
-      1547500010,
+      1547499960,
       80
     ]
   ]
@@ -317,7 +317,7 @@ HTTP/1.1 200 OK
       12
     ],
     [
-      1547500010,
+      1547499960,
       12
     ]
   ]
@@ -328,7 +328,7 @@ HTTP/1.1 200 OK
 
 /metrics/clients (GET) | 
 ------------------|------
-description       | Returns historical metrics for the number of Sensu clients in the format `[timestamp, value]`.
+description       | Returns the number of Sensu clients over the past hour at 10 second intervals in the format `[timestamp, value]`.
 example url       | http://hostname:4567/metrics/clients
 response type     | Hash
 response codes    | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
@@ -340,7 +340,7 @@ output            | {{< highlight json >}}{
       12
     ],
     [
-      1547500010,
+      1547499960,
       12
     ]
   ]
@@ -365,7 +365,7 @@ HTTP/1.1 200 OK
       15
     ],
     [
-      1547500010,
+      1547499960,
       13
     ]
   ]
@@ -376,7 +376,7 @@ HTTP/1.1 200 OK
 
 /metrics/events (GET) | 
 ------------------|------
-description       | Returns historical metrics for the number of Sensu events in the format `[timestamp, value]`.
+description       | Returns the number of Sensu events over the past hour at 10 second intervals in the format `[timestamp, value]`.
 example url       | http://hostname:4567/metrics/events
 response type     | Hash
 response codes    | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
@@ -388,7 +388,7 @@ output            | {{< highlight json >}}{
       15
     ],
     [
-      1547500010,
+      1547499960,
       13
     ]
   ]
@@ -413,7 +413,7 @@ HTTP/1.1 200 OK
       64
     ],
     [
-      1547500010,
+      1547499960,
       62
     ]
   ]
@@ -424,7 +424,7 @@ HTTP/1.1 200 OK
 
 /metrics/keepalives (GET) | 
 ------------------|------
-description       | Returns historical metrics for the number of Sensu keepalives in the format `[timestamp, value]`.
+description       | Returns the number of Sensu keepalives over the past hour at 10 second intervals in the format `[timestamp, value]`.
 example url       | http://hostname:4567/metrics/keepalives
 response type     | Hash
 response codes    | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
@@ -436,7 +436,7 @@ output            | {{< highlight json >}}{
       64
     ],
     [
-      1547500010,
+      1547499960,
       62
     ]
   ]
@@ -461,7 +461,7 @@ HTTP/1.1 200 OK
       54
     ],
     [
-      1547500010,
+      1547499960,
       48
     ]
   ]
@@ -472,7 +472,7 @@ HTTP/1.1 200 OK
 
 /metrics/results (GET) | 
 ------------------|------
-description       | Returns historical metrics for the number of Sensu check results in the format `[timestamp, value]`.
+description       | Returns the number of Sensu check results over the past hour at 10 second intervals in the format `[timestamp, value]`.
 example url       | http://hostname:4567/metrics/results
 response type     | Hash
 response codes    | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
@@ -484,7 +484,7 @@ output            | {{< highlight json >}}{
       54
     ],
     [
-      1547500010,
+      1547499960,
       48
     ]
   ]
