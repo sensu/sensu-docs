@@ -201,7 +201,6 @@ sensuctl entity list
   packagecloud-site   proxy                                       N/A                            
   sensu-centos        agent   linux   proxy,entity:sensu-centos   2019-01-16 23:05:03 +0000 UTC  
   sensu-docs          proxy                                       N/A                            
-  sensu-site          proxy           entity:sensu-site           N/A    
 {{< /highlight >}}
 
 ### Creating a reusable HTTP check
