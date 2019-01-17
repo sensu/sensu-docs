@@ -1,5 +1,5 @@
 ---
-title: "Sensu Frequently Asked Questions"
+title: "Sensu frequently asked questions"
 linkTitle: "FAQs"
 description: "Sensu Frequently Asked Questions"
 version: "5.0"
