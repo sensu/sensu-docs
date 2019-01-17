@@ -11,7 +11,7 @@ menu:
 ---
 
 Thank you for visiting the Sensu FAQ!
-For a list of Sensu terms and their definitions, see the [glossary][7].
+For a list of Sensu terms and definitions, see the [glossary][7].
 
 > What platforms does Sensu support?
 
@@ -23,9 +23,9 @@ See the list of [supported platforms][1] and the [installation guide][2] for mor
 No, Sensu is installed on your organization’s infrastructure alongside other applications and services.
 See the list of [supported platforms][1] and the [installation guide][2] for more information.
 
-> What are the hardware requirements for running a Sensu Go backed?
+> What are the hardware requirements for running a Sensu backed?
 
-See the [hardware requirements guide][5] for minimum and recommended hardware to run a Sensu Go backend.
+See the [hardware requirements guide][5] for minimum and recommended hardware to run a Sensu backend.
 
 > Is there an enterprise version of Sensu Go?
 
@@ -36,30 +36,30 @@ Yes! Sensu Go for enterprise is coming soon. Check out this [Sensu blog post](ht
 We'd love to chat about solving your organization's monitoring challenges with Sensu.
 Get in touch with us using [this form][6].
 
+> What can I monitor with Sensu?
+
+Sensu supports a wide range of plugins for monitoring everything from the server closet to the cloud.
+[Install the Sensu agent][8] on the hosts you want to monitor, integrate with the [Sensu API][9], or take advantage of [proxy entities][10] to monitor anything on your network.
+Check out the [200+ plugins shared by the Sensu community][11], including monitoring checks for [AWS][13], [Jenkins][14], [Puppet][15], [InfluxDB][16], and [SNMP][17].
+You can also get started writing your own Sensu Plugins in any language using the [Sensu Plugins spec][12].
+
+> Does Sensu include a time series database for long term storage?
+
+No, Sensu does not store event data.
+We recommend integrating Sensu with a time series database, like [InfluxDB][19], to store event data.
+See the [guide to storing metrics with InfluxDB][18] to get started.
+
 > Can I connect Sensu Go to clients and servers from earlier versions of Sensu Core and Sensu Enterprise?
 
 No, Sensu Go agents and backends are not compatible with Sensu Core or Sensu Enterprise services.
 
 > Can I upgrade my Sensu version 1.x deployment to Sensu Go?
 
-Sensu Go is a complete redesign of the original Sensu; it uses separate packages, dependencies, and data models to bring you new, powerful features.
+Sensu Go is a complete redesign of the original Sensu; it uses separate packages, dependencies, and data models to bring you powerful new features.
 (See the [Sensu Go release announcement][3] for more information.)
 Due to these changes, [some features][4] of Sensu 1.x are no longer supported in Sensu Go, such as standalone checks.
 To upgrade your Sensu 1.x deployment to Sensu Go, you'll need to translate your Sensu 1.x configuration to the format expected by Sensu Go and install the new Sensu Go services on your infrastructure.
-The [Sensu Go upgrading guide][4] includes a detailed features comparison between Sensu Go and Sensu 1.x as well as tools to help you translate your configuration.
-
-> What can I monitor with Sensu?
-
-Sensu supports a wide range of plugins for monitoring everything from the server closet to the cloud.
-[Install the Sensu agent][8] on the hosts you want to monitor, integrate with the [Sensu API][9], or take advantage of [proxy entities][10] to monitor anything on your network.
-Check out the [200+ plugins shared by the Sensu community][11], including monitoring checks for [AWS][13], [Jenkins][14], [Puppet][15], [InfluxDB][16], and [SNMP][17].
-You can also write your own Sensu Plugins in any language by following the [Sensu Plugins spec][12].
-
-> Does Sensu Go include a time series database for long term storage?
-
-No, Sensu Go does not store event data.
-We recommend integrating Sensu with a time series database, like [InfluxDB][19], to store event data.
-See the [guide to storing metrics with InfluxDB][18] to get started.
+The [Sensu Go upgrading guide][4] includes a detailed feature comparison between Sensu Go and Sensu 1.x as well as tools to help you get started.
 
 > Which ports does Sensu use?
 
@@ -79,9 +79,9 @@ The [Sensu agent][26] uses:
 
 For more information, see the [guide to securing Sensu][20].
 
-> Can one Sensu Go backend monitor multiple sites?
+> Can one Sensu backend monitor multiple sites?
 
-Yes, as long as the port requirements described above are met, a single Sensu Go backend can monitor agents at multiple sites.
+Yes, as long as the port requirements described above are met, a single Sensu backend can monitor Sensu agents at multiple sites.
 
 [1]: ../platforms
 [2]: ../../installation/install-sensu
