@@ -37,7 +37,7 @@ The [SaltStack][10] formula for Sensu can be found at [SaltStack][11]
 [4]: https://supermarket.chef.io/cookbooks/sensu
 [5]: https://www.ansible.com/
 [6]: https://galaxy.ansible.com/sensu/sensu/
-[7]: https://learn.puppet.com/
+[7]: http://learnpuppet.com/
 [8]: https://blog.sensuapp.org/a-better-experience-for-sensu-puppet-users-a1f9cf1ab46
 [9]: https://github.com/sensu/sensu-puppet/issues/901
 [10]: https://saltstack.com/
