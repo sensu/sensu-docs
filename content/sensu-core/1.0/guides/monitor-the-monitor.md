@@ -2,10 +2,10 @@
 title: "Monitoring Sensu with Sensu"
 description: "Strategies and best practices for monitoring Sensu with Sensu"
 product: "Sensu Core"
-version: "1.5"
+version: "1.0"
 weight: 11
 menu:
-  sensu-core-1.5:
+  sensu-core-1.0:
     parent: guides
 ---
 
@@ -61,7 +61,7 @@ This can be done by reaching out to Sensu's [API health endpoint][6] and using t
 
 ### Monitoring Sensu API{#monitoring-sensu-api}
 
- To monitor the `sensu-api` service, you will need to do so from an independent Sensu stack.
+To monitor the `sensu-api` service, you will need to do so from an independent Sensu stack.
 This can be done by reaching out to the port that the API is listening on using the [check-port plugin][8] with the following check definition.
 
 {{< highlight json >}}
