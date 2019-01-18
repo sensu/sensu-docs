@@ -1,7 +1,7 @@
 ---
 title: "How to install executables using assets"
 linkTitle: "Installing Plugins with Assets"
-weight: 100
+weight: 40
 version: "5.0"
 product: "Sensu Go"
 platformContent: False
