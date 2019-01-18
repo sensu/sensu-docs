@@ -260,8 +260,8 @@ Below are example configuration snippets from `/etc/sensu/backend.yml` that will
 This configuration assumes that your client certificates are in `/etc/sensu/certs/` and your CA certificate is in `/usr/local/share/ca-certificates/sensu/`.
 
 {{< highlight shell >}}
-etcd-cert-file: "/etc/sensu/certs/client.pem"
-etcd-key-file: "/etc/sensu/certs/client-key.pem"
+etcd-cert-file: "/etc/sensu/certs/backend-1.pem"
+etcd-key-file: "/etc/sensu/certs/backend-1-key.pem"
 etcd-trusted-ca-file: "/usr/local/share/ca-certificates/sensu/ca.pem"
 {{< /highlight >}}
 
