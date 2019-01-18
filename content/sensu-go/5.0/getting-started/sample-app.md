@@ -33,7 +33,7 @@ The dummy app has three endpoints: `/` returns the local hostname, `/metrics` re
 The sample app requires Kubernetes and a Kubernetes Ingress controller.
 Most hosted Kubernetes offerings, such as GKE, include a Kubernetes Ingress controller.
 
-For the purpose of this guide, we'll be using [Minikube](https://kubernetes.io/docs/tasks/tools/install-minikube/), a cross-platform application for running a local single-node Kubernetes cluster. After you've installed Minikube, proceed through the rest of the guide.
+For the purpose of this guide, we'll be using [Minikube](https://kubernetes.io/docs/tasks/tools/install-minikube/), a cross-platform application for running a local single-node Kubernetes cluster. After you've installed and started Minikube, proceed through the rest of the guide.
 
 ## Setup
 
@@ -202,10 +202,11 @@ sensuctl entity list
 We can see the Sensu agents we have installed on the dummy app with their last seen timestamp.
 
 {{< highlight shell >}}
-ID               Class    OS                   Subscriptions                           Last Seen            
+            ID               Class    OS                   Subscriptions                           Last Seen            
 ─────────────────────────── ─────── ─────── ─────────────────────────────────────────── ─────────────────────────────── 
-dummy-6c57b8f868-ft5dz      agent   linux   dummy,entity:dummy-6c57b8f868-ft5dz         2018-11-20 18:43:15 -0800 PST  
-dummy-6c57b8f868-m24hw      agent   linux   dummy,entity:dummy-6c57b8f868-m24hw         2018-11-20 18:43:15 -0800 PST   
+dummy-76d8fb7bdf-967q7      agent   linux   dummy,entity:dummy-76d8fb7bdf-967q7         2019-01-18 10:56:56 -0800 PST  
+dummy-76d8fb7bdf-knh7r      agent   linux   dummy,entity:dummy-76d8fb7bdf-knh7r         2019-01-18 10:56:56 -0800 PST  
+influxdb-64b7d5f884-f9ptg   agent   linux   influxdb,entity:influxdb-64b7d5f884-f9ptg   2019-01-18 10:56:59 -0800 PST  
 {{< /highlight >}}
 
 ### Create a Sensu pipeline to Slack
@@ -317,16 +318,13 @@ Deploy Grafana with a Sensu Agent sidecar.
 
 {{< highlight shell >}}
 kubectl apply -f go/deploy/grafana.sensu.yaml
-
-kubectl get pods
-
-sensuctl entity list
 {{< /highlight >}}
 
 Now we can see the Sensu agents we have installed on the dummy app, InfluxDB, and Grafana pods.
 
 {{< highlight shell >}}
-ID               Class    OS                   Subscriptions                           Last Seen            
+sensuctl entity list
+            ID               Class    OS                   Subscriptions                           Last Seen            
 ─────────────────────────── ─────── ─────── ─────────────────────────────────────────── ─────────────────────────────── 
 dummy-6c57b8f868-ft5dz      agent   linux   dummy,entity:dummy-6c57b8f868-ft5dz         2018-11-20 18:43:15 -0800 PST  
 dummy-6c57b8f868-m24hw      agent   linux   dummy,entity:dummy-6c57b8f868-m24hw         2018-11-20 18:43:15 -0800 PST  
@@ -343,9 +341,15 @@ To see the metrics we're collecting from the dummy app, log into [Grafana](http:
 Create a new dashboard using the InfluxDB datasource to see live metrics from the dummy app.
 
 ## Collecting Kubernetes metrics
-Now that we have a pipeline set up to send metrics, we can easily create a check that collects Prometheus metrics from Kubernetes and connect it to the pipeline.
+Now that we have a pipeline set up to send metrics, we can create a check that collects Prometheus metrics from Kubernetes and connect it to the pipeline.
 
-Create a check to collect Prometheus metrics from Kubernetes that uses the `prometheus-collector` asset and the `influxdb` handler.
+Deploy a Sensu agent sidebar for Kubernetes.
+
+{{< highlight shell >}}
+kubectl apply -f go/deploy/sensu-agent-daemonset.yaml
+{{< /highlight >}}
+
+Then create a check to collect Prometheus metrics from Kubernetes that uses the `prometheus-collector` asset and the `influxdb` handler.
 
 {{< highlight shell >}}
 sensuctl create -f go/config/checks/kube-state-prometheus.yaml
@@ -360,21 +364,3 @@ For more information about monitoring with Sensu, check out the following resour
 - [Reducing alert fatigue with Sensu filters](https://docs.sensu.io/sensu-go/latest/guides/reduce-alert-fatigue/)
 - [Aggregating StatD metrics with Sensu](https://docs.sensu.io/sensu-go/latest/guides/aggregate-metrics-statsd/)
 - [Aggregating Nagios metrics with Sensu](https://docs.sensu.io/sensu-go/latest/guides/extract-metrics-with-checks/)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
