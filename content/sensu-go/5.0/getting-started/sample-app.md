@@ -340,7 +340,7 @@ To see the metrics we're collecting from the dummy app, log into [Grafana](http:
 
 **3. Create a dashboard.**
 
-Create a new dashboard using the InfluxDB datasource to live metrics from the dummy app.
+Create a new dashboard using the InfluxDB datasource to see live metrics from the dummy app.
 
 ## Collecting Kubernetes metrics
 Now that we have a pipeline set up to send metrics, we can easily create a check that collects Prometheus metrics from Kubernetes and connect it to the pipeline.
