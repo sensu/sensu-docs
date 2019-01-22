@@ -83,13 +83,13 @@ The following is an example demonstrating external monitoring data input via the
 The example uses Bash's built-in `/dev/tcp` file to communicate with the Sensu agent socket.
 
 {{< highlight shell >}}
-echo '{"name": "web_service01", "output": "error!", "status": 1, "handlers": ["slack"]}' > /dev/tcp/localhost/3030
+echo '{"name": "check-mysql-status", "output": "error!", "status": 1, "handlers": ["slack"]}' > /dev/tcp/localhost/3030
 {{< /highlight >}}
 
 You can also use the [Netcat][19] utility to send monitoring data to the agent socket:
 
 {{< highlight shell >}}
-echo '{"name": "web_service02", "output": "error!", "status": 1, "handlers": ["slack"]}' | nc localhost 3030
+echo '{"name": "check-mysql-status", "output": "error!", "status": 1, "handlers": ["slack"]}' | nc localhost 3030
 {{< /highlight >}}
 
 At a minimum, the agent TCP socket requires the `name`, `output`, and `status` attributes to be set in the payload, but you can also add any attributes allowed in the [check definition][14], like `handlers` and `subscriptions`.
@@ -100,10 +100,10 @@ TCP socket        |
 ------------------|------
 description       | Accepts a JSON [check result][14] body and passes the event to the Sensu backend event pipeline for processing
 example command   | {{< highlight shell >}}# Example using /dev/tcp
-echo '{"name": "web_service01", "output": "error!", "status": 1, "handlers": ["slack"]}' > /dev/tcp/localhost/3030
+echo '{"name": "check-mysql-status", "output": "error!", "status": 1, "handlers": ["slack"]}' > /dev/tcp/localhost/3030
 
 # Example using Netcat
-echo '{"name": "web_service02", "output": "error!", "status": 1, "handlers": ["slack"]}' | nc localhost 3030
+echo '{"name": "check-mysql-status", "output": "error!", "status": 1, "handlers": ["slack"]}' | nc localhost 3030
 {{< /highlight >}}
 payload attributes| <ul><li>`name` (required): A string representing the name of the monitoring check</li><li>`output` (required): A string representing the output of the check</li><li>`status` (required): An integer representing the status of the check result, following the [check result specification][39]. (`0`: OK, `1`: warning, `2`: critical)</li><li>Any other attributes supported by the [Sensu check specification][14] (optional)</li></ul>
 
@@ -147,14 +147,23 @@ The `/events` API provides HTTP POST access to publish [monitoring events][1] to
 In the following example, an HTTP POST is submitted to the `/events` API, creating an event for a check named `check-mysql-status` with the output `could not connect to mysql` and a status of `1` (warning), resulting in a 201 (Created) HTTP response code.
 
 {{< highlight shell >}}
-curl -s -i \
--X POST \
+curl -X POST \
 -H 'Content-Type: application/json' \
--d '{"check": {"name": "web_service03", "output": "error!", "status": 1, "handlers": ["slack"]}}' \
+-d '{
+  "check": {
+    "metadata": {
+      "name": "check-mysql-status"
+    },
+    "status": 1,
+    "output": "could not connect to mysql"
+  }
+}' \
 http://127.0.0.1:3031/events
 
-HTTP/1.1 202 Accepted
+HTTP/1.1 201 Created
 {{< /highlight >}}
+
+_PRO TIP: You can use the agent API `/events` endpoint to create proxy entities by including a `proxy_entity_name` attribute within the `check` scope._
 
 #### API specification {#events-post-specification}
 
@@ -162,8 +171,16 @@ HTTP/1.1 202 Accepted
 -------------------|------
 description        | Accepts a JSON [check result][14] body and passes the event to the Sensu backend event pipeline for processing
 example url        | http://hostname:3031/events
-payload example    | {{< highlight json >}}{"check": {"name": "web_service01", "output": "error!", "status": 1, "handlers": ["slack"]}}{{< /highlight >}}
-payload attributes | <ul><li>`check` (required): All check data must be within the `check` scope.</li><li>`name` (required): A string representing the name of the monitoring check</li><li>Any other attributes supported by the [Sensu check specification][14] (optional)</li></ul>
+payload example    | {{< highlight json >}}{
+  "check": {
+    "metadata": {
+      "name": "check-mysql-status"
+    },
+    "status": 1,
+    "output": "could not connect to mysql"
+  }
+}{{< /highlight >}}
+payload attributes | <ul><li>`check` (required): All check data must be within the `check` scope.</li><li>`metadata` (required): The `check` scope must contain a `metadata` scope.</li><li>`name` (required): The `metadata` scope must contain the `name` attribute with a string representing the name of the monitoring check.</li><li>Any other attributes supported by the [Sensu check specification][14] (optional)</li></ul>
 response codes     | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 ### `/brew` (GET)
@@ -656,7 +673,7 @@ keepalive-timeout: 300{{< /highlight >}}
 
 | namespace |      |
 ---------------|------
-description    | Agent namespace
+description    | Agent namespace _NOTE: Agents are represented in the backend as a class of entity. Entities can only belong to a [single namespace][41]._
 type           | String
 default        | `default`
 example        | {{< highlight shell >}}# Command line example
@@ -862,3 +879,4 @@ statsd-metrics-port: 6125{{< /highlight >}}
 [38]: #name
 [39]: ../checks#check-result-specification
 [40]: ../../guides/send-slack-alerts
+[41]: ../rbac/#namespaced-resource-types

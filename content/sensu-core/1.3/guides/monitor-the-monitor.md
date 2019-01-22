@@ -18,8 +18,9 @@ By the end of the guide, you should have a thorough understanding of what is req
 * [How to monitor your RabbitMQ instance(s)](#monitoring-rabbitmq)
 * [How to monitor your Redis instance(s)](#monitoring-redis)
 
-In order to completely monitor a Sensu stack (Sensu server, Sensu API, Redis, RabbitMQ), you will need to have at least one other independent Sensu stack to do so.
-A single Sensu stack cannot monitor itself completely, as if some components are down, Sensu will not be able to create events properly.
+In order to completely monitor a Sensu stack (Sensu server, Sensu API, Redis, RabbitMQ), you will need to have at least one other independent Sensu.
+A single Sensu stack cannot monitor itself completely, as if some components are down, Sensu will not be able to create events.
+As Sensu plugins are used in this guide, [installing plugins][16] has more information on how to install those.
 
 _NOTE: This guide assumes you are not using Sensu clustering, RabbitMQ clustering, or Redis Sentinels.
 You can still monitor each server using the strategies described in this guide, but note that in order to effectively monitor clustered instances, you'll need to employ a different methodology._
@@ -35,7 +36,7 @@ The host running the `sensu-server` service should be monitored in two ways:
 
 #### Monitoring Sensu Server Locally
 
-Monitoring the host that the `sensu-server` process runs on should be done just like any other node in your infrastructure.
+Monitoring the host that the `sensu-server` process runs on should be done like any other node in your infrastructure.
 This includes, but is not limited to, checks and metrics for [CPU][1], [memory][2], [disk][3], and [networking][4].
 You can find more plugins at the [Sensu Community Homepage][5].
 
@@ -60,7 +61,7 @@ This can be done by reaching out to Sensu's [API health endpoint][6] and using t
 
 ### Monitoring Sensu API{#monitoring-sensu-api}
 
-To monitor the `sensu-api` API service, you will need to do so from an independent Sensu stack.
+To monitor the `sensu-api` service, you will need to do so from an independent Sensu stack.
 This can be done by reaching out to the port that the API is listening on using the [check-port plugin][8] with the following check definition.
 
 {{< highlight json >}}
@@ -237,3 +238,4 @@ Then you can use the [check-redis-ping plugin][13] to monitor whether Redis is r
 [13]: https://github.com/sensu-plugins/sensu-plugins-redis/blob/master/bin/check-redis-ping.rb
 [14]: https://www.rabbitmq.com/management.html
 [15]: https://www.rabbitmq.com/rabbitmqctl.8.html
+[16]: ../../installation/installing-plugins
