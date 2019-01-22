@@ -69,7 +69,7 @@ In the example above, we provide the path to the cert, key and CA file. After re
 
 ## Securing Sensu agent to server communication
 
-We'll now discuss securing agent to server communication. Please note: by changing the agent configuration to communicate via WebSocket Secure protocol, the agent will no longer communicate over a plaintext connection. If the server is not secured as in the [section above](#securing-the-api-and-the-dashboard), communication between the agent and server will not function.
+We'll now discuss securing agent to server communication. Please note: by changing the agent configuration to communicate via WebSocket Secure protocol, the agent will no longer communicate over a plaintext connection. If the server is not secured as described in the [section above](#securing-the-api-and-the-dashboard), communication between the agent and server will not function.
 
 By default, an agent uses the insecure `ws://` transport. Let's look at the example from `/etc/sensu/agent.yml`:
 
