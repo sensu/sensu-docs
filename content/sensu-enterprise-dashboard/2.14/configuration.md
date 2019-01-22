@@ -187,7 +187,7 @@ password. For example:
 {{< highlight shell >}}
 "password": "{crypt}$1$MteWnoFT$yhEi8KMxO794K0TIriZcI0"{{< /highlight >}}
 
-The following algorithms are supported (along the commands to create the hashes):
+The following algorithms are supported (along with the commands to create the hashes):
 
 Algorithm | Command
 ----------|---------
