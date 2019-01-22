@@ -37,7 +37,7 @@ willingness to Google) industry standard RESTful API behaviors &ndash; including
 Sensu API endpoints that support the `GET` HTTP method support HTTP
 response content filtering on one or more Sensu attributes.
 To use response content filtering, construct the URL for your API request
-using a dot notation query beginning with `filter.`.
+using a dot notation query beginning with `filter`.
 
 For example, to return only events that match the `production` environment and `ops` contact, use the following request.
 
