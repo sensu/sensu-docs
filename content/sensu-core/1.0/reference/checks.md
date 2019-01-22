@@ -28,9 +28,6 @@ menu:
   - [What is check token substitution?](#what-is-check-token-substitution)
   - [Example check tokens](#example-check-tokens)
   - [Check token specification](#check-token-specification)
-    - [Token substitution syntax](#token-substitution-syntax)
-    - [Token substitution default values](#token-substitution-default-values)
-    - [Unmatched tokens](#unmatched-tokens)
 - [Check configuration](#check-configuration)
   - [Example check definition](#example-check-definition)
   - [Check definition specification](#check-definition-specification)
@@ -275,7 +272,7 @@ definition attributes][16] can be accessed via "dot notation" (e.g.
 - `:::disk.warning:::` would be replaced with a [custom attribute][24] called
   `warning` nested inside of a JSON hash called `disk`
 
-#### Token substitution default values {check-token-default-values}
+#### Token substitution default values {#check-token-default-values}
 
 Check token default values can be used as a fallback in the event that an
 attribute is not provided by the [client definition][16]. Check token default
@@ -293,6 +290,64 @@ If a [token substitution default value][25] is not provided (i.e. as a fallback
 value), _and_ the Sensu client definition does not have a matching definition
 attribute, a [check result][4] indicating "unmatched tokens" will be published
 for the check execution (e.g.: `"Unmatched check token(s): disk.warning"`).
+
+#### Token data type limitations
+
+As part of the substitution process, Sensu converts all tokens to strings.
+This means that tokens cannot be used for bare integer values or to access individual list items.
+
+For example, token substitution **cannot** be used for specifying a check interval because the interval attribute requires an _integer_ value. But token substitution **can** be used for alerting thresholds since those values are included within the command _string_.
+
+**Invalid use of token substitution:**
+
+The resulting interval value is a string (`"60"`) instead of an integer (`60`), causing an invalid check request.
+
+{{< highlight json >}}
+{
+  "checks": {
+    "check_disk_usage": {
+      "command": "check-disk-usage.rb -w 80 -c 90",
+      "interval": ":::interval|60:::"
+    }
+  }
+}
+{{< /highlight >}}
+
+**Valid use of token substitution:**
+
+The resulting tokens are included within the command string, producing a valid check request.
+
+{{< highlight json >}}
+{
+  "checks": {
+    "check_disk_usage": {
+      "command": "check-disk-usage.rb -w :::disk.warning|80::: -c :::disk.critical|90:::",
+      "interval": 60
+    }
+  }
+}
+{{< /highlight >}}
+
+When accessing a list using token substitution, Sensu returns the list in a fixed format.
+For example, for the following check definition executed on a client with the subscriptions `["sensu", "rhel", "all"]`:
+
+{{< highlight shell >}}
+{
+  "checks": {
+    "token_test": {
+      "command": "echo ':::subscriptions:::'",
+      "standalone": true,
+      "interval": 15
+    }
+  }
+}
+{{< /highlight >}}
+
+The resulting command output would be:
+
+{{< highlight shell >}}
+[\"sensu\", \"rhel\", \"all\"]
+{{< /highlight >}}
 
 ## Check configuration
 
