@@ -303,7 +303,7 @@ for the check execution (e.g.: `"Unmatched check token(s): disk.warning"`).
 As part of the substitution process, Sensu converts all tokens to strings.
 This means that tokens cannot be used for bare integer values or to access individual list items.
 
-For example, token substitution **cannot** be used for a check interval because the interval attribute requires an _integer_ value. But token substitution **can** be used for alerting thresholds since those values are included within the command _string_.
+For example, token substitution **cannot** be used for specifying a check interval because the interval attribute requires an _integer_ value. But token substitution **can** be used for alerting thresholds since those values are included within the command _string_.
 
 **Invalid use of token substitution:**
 
