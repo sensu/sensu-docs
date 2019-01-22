@@ -20,7 +20,7 @@ We'll cover securing each one of those pieces, starting with etcd peer communica
 
 ## Securing etcd peer communication
 
-While enabling secure agent-to-server communication involves the change of one line, securing etcd peer communication is more involved and requires modifying several attributes inside of the configuration at `/etc/sensu/backend.yml`. Let's look at the parameters you'll need to configure:
+Let' start by covering how to secure etcd peer communication via the configuration at `/etc/sensu/backend.yml`. Let's look at the parameters you'll need to configure:
 
 {{< highlight yml >}}
 ##
@@ -39,6 +39,8 @@ etcd-peer-trusted-ca-file: "/path/to/your/peer/ca/file"
 {{< /highlight >}}
 
 ## Securing the API and the dashboard
+
+Let's go over how to secure the API and dashboard. Please note that by changing the parameters below, the server will now communicate over TLS and expect agents connecting to it to use the WebSocket secure protocol. In order for communication to continue, both this section and the [following section](#securing-sensu-agent-to-server-communication) must be completed. 
 
 Both the Sensu Go API and the dashboard use a common stanza in `/etc/sensu/backend.yml` to provide the certificate, key, and CA file needed to provide secure communication. Let's look at the attributes you'll need to configure:
 
@@ -67,7 +69,9 @@ In the example above, we provide the path to the cert, key and CA file. After re
 
 ## Securing Sensu agent to server communication
 
-The Sensu agent uses WebSockets for communication between the agent and the server. By default, an agent uses the insecure `ws://` transport. Let's look at the example from `/etc/sensu/agent.yml`:
+We'll now discuss securing agent to server communication. Please note: by changing the agent configuration to communicate via WebSocket Secure protocol, the agent will no longer communicate over a plaintext connection. If the server is not secured as described in the [section above](#securing-the-api-and-the-dashboard), communication between the agent and server will not function.
+
+By default, an agent uses the insecure `ws://` transport. Let's look at the example from `/etc/sensu/agent.yml`:
 
 {{< highlight yml >}}
 ---
