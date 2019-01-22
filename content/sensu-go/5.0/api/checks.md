@@ -326,8 +326,15 @@ HTTP/1.1 202 Accepted
 ----------------|------
 description     | Creates an adhoc request to execute a check given the check name.
 example URL     | http://hostname:8080/api/core/v2/namespaces/default/checks/check-sensu-site/execute
-payload         | {{< highlight shell >}}{"check": "check-sensu-site"}{{< /highlight >}}
-payload parameters | `check` (required): the name of the check to execute
+payload         | {{< highlight shell >}}
+{
+  "check": "check-sensu-site",
+  "subscriptions": [
+    "entity:i-424242"
+  ]
+}
+{{< /highlight >}}
+payload parameters | `check` (required): the name of the check to execute, and `subscriptions` (optional): an array of subscriptions to publish the check request to.
 response codes  | <ul><li>**Success**: 200 (OK)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 ## The `/checks/:check/hooks/:type` API endpoint {#the-checkscheckhooks-api-endpoint}
