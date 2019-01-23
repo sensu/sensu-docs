@@ -1,7 +1,7 @@
 ---
 title: "How to populate InfluxDB metrics using handlers"
 linkTitle: "Storing Metrics with InfluxDB"
-weight: 27
+weight: 35
 version: "5.0"
 product: "Sensu Go"
 platformContent: false

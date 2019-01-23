@@ -34,15 +34,18 @@ willingness to Google) industry standard RESTful API behaviors &ndash; including
 
 ## Response Content Filtering
 
-Sensu API endpoints that support the `GET` HTTP method, support HTTP
-response content filtering, using one or more filter attributes. To
-use response content filtering, construct the URL for your API request
-using a dot notation query string parameter beginning with `filter.`,
-e.g. `/events?filter.client.environment=production`. The Sensu API will
-only return response content objects that match the specified response
-content filter attributes. Multiple attributes may be specified for a
-request, e.g.
-`/events?filter.client.environment=production&filter.check.contact=ops`.
+Sensu API endpoints that support the `GET` HTTP method support HTTP
+response content filtering on one or more Sensu attributes.
+To use response content filtering, construct the URL for your API request
+using a dot notation query beginning with `filter`.
+
+For example, to return only events that match the `production` environment and `ops` contact, use the following request.
+
+{{< highlight shell >}}
+curl -i 'http://127.0.0.1:4567/events?filter.client.environment=production&filter.check.contact=ops'
+{{< /highlight >}}
+
+Response filtering is only available for string values; integers (for example: `filter.check.status=2`) are not supported.
 
 ## Response Content Pagination {#pagination}
 By default, the Sensu API will return all available results, but sometimes this result can be massive.

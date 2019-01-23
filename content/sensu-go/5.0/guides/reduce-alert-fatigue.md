@@ -1,7 +1,7 @@
 ---
 title: "How to reduce alert fatigue with filters"
 linkTitle: "Reducing Alert Fatigue"
-weight: 25
+weight: 38
 version: "5.0"
 product: "Sensu Go"
 platformContent: False
