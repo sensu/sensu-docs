@@ -321,7 +321,7 @@ sensuctl handler list
 **5. See the HTTP response code events for Nginx in [Grafana](http://localhost:4002/d/go01/sensu-go-sandbox).**
 
 Log in to Grafana as username: `admin` and password: `admin`.
-We should see a graph of real HTTP response codes for Nginx.
+We should see a graph of live HTTP response codes for Nginx.
 
 Now if we turn Nginx off, we should see the impact in Grafana:
 

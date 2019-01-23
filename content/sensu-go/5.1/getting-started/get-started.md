@@ -10,7 +10,7 @@ menu:
     parent: getting-started
 ---
 
-### Download the sandbox
+### Try the sandbox
 
 The Sensu sandbox is a virtual environment that makes it easy to get started building monitoring workflows.
 
