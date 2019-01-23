@@ -236,22 +236,24 @@ To test the password for a user:
 sensuctl user test-creds USERNAME --password 'password'
 {{< /highlight >}}
 
+An empty response indicates valid credentials; a request-unauthorized response indicates invalid credentials.
+
 To change the password for a user:
 
 {{< highlight shell >}}
-sensuctl user change-password USERNAME
+sensuctl user change-password [USERNAME]
 {{< /highlight >}}
 
 To disable a user:
 
 {{< highlight shell >}}
-sensuctl user disable USERNAME
+sensuctl user disable [USERNAME]
 {{< /highlight >}}
 
 To re-enable a disabled user:
 
 {{< highlight shell >}}
-sensuctl user reinstate USERNAME
+sensuctl user reinstate [USERNAME]
 {{< /highlight >}}
 
 ### User specification
