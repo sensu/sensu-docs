@@ -256,13 +256,33 @@ client.pem
 
 ### Client-to-server transport security with HTTPS {#client-to-server-with-https}
 
-Below are example configuration snippets from `/etc/sensu/backend.yml` that will be the same for `backend-1`, `backend-2` and `backend-3`.
+Below are example configuration snippets from `/etc/sensu/backend.yml` on three Sensu backends named `backend-1`, `backend-2` and `backend-3` with IP addresses `10.0.0.1`, `10.0.0.2` and `10.0.0.3` respectively.
 This configuration assumes that your client certificates are in `/etc/sensu/certs/` and your CA certificate is in `/usr/local/share/ca-certificates/sensu/`.
 
 {{< highlight shell >}}
-etcd-cert-file: "/etc/sensu/certs/backend-1.pem"
-etcd-key-file: "/etc/sensu/certs/backend-1-key.pem"
-etcd-trusted-ca-file: "/usr/local/share/ca-certificates/sensu/ca.pem"
+##
+# etcd peer ssl configuration for backend-1/10.0.0.1
+##
+
+etcd-peer-cert-file: "/etc/sensu/certs/backend-1.pem"
+etcd-peer-key-file: "/etc/sensu/certs/backend-1-key.pem"
+etcd-peer-trusted-ca-file: "/usr/local/share/ca-certificates/sensu/ca.pem"
+
+##
+# etcd peer ssl configuration for backend-2/10.0.0.2
+##
+
+etcd-peer-cert-file: "/etc/sensu/certs/backend-2.pem"
+etcd-peer-key-file: "/etc/sensu/certs/backend-2-key.pem"
+etcd-peer-trusted-ca-file: "/usr/local/share/ca-certificates/sensu/ca.pem"
+
+##
+# etcd peer ssl configuration for backend-3/10.0.0.3
+##
+
+etcd-peer-cert-file: "/etc/sensu/certs/backend-3.pem"
+etcd-peer-key-file: "/etc/sensu/certs/backend-3-key.pem"
+etcd-peer-trusted-ca-file: "/usr/local/share/ca-certificates/sensu/ca.pem"
 {{< /highlight >}}
 
 Validating with curl:
@@ -274,13 +294,35 @@ https://127.0.0.1:2379/v2/keys/foo -XPUT -d value=bar
 
 ### Client-to-server authentication with HTTPS client certificates {#client-to-server-auth-with-https}
 
-Below are example configuration snippets from `/etc/sensu/backend.yml` that will be the same for `backend-1`, `backend-2` and `backend-3`.
+Below are example configuration snippets from `/etc/sensu/backend.yml` on three Sensu backends named `backend-1`, `backend-2` and `backend-3` with IP addresses `10.0.0.1`, `10.0.0.2` and `10.0.0.3` respectively.
 This configuration assumes your client certificates are in `/etc/sensu/certs/` and your CA certificate is in `/usr/local/share/ca-certificates/sensu/`.
 
 {{< highlight shell >}}
-etcd-cert-file: "/etc/sensu/certs/client.pem"
-etcd-key-file: "/etc/sensu/certs/client-key.pem"
-etcd-trusted-ca-file: "/usr/local/share/ca-certificates/sensu/ca.pem"
+##
+# etcd peer ssl configuration for backend-1/10.0.0.1
+##
+
+etcd-peer-cert-file: "/etc/sensu/certs/backend-1.pem"
+etcd-peer-key-file: "/etc/sensu/certs/backend-1-key.pem"
+etcd-peer-trusted-ca-file: "/usr/local/share/ca-certificates/sensu/ca.pem"
+etcd-client-cert-auth: true
+
+##
+# etcd peer ssl configuration for backend-2/10.0.0.2
+##
+
+etcd-peer-cert-file: "/etc/sensu/certs/backend-2.pem"
+etcd-peer-key-file: "/etc/sensu/certs/backend-2-key.pem"
+etcd-peer-trusted-ca-file: "/usr/local/share/ca-certificates/sensu/ca.pem"
+etcd-client-cert-auth: true
+
+##
+# etcd peer ssl configuration for backend-3/10.0.0.3
+##
+
+etcd-peer-cert-file: "/etc/sensu/certs/backend-3.pem"
+etcd-peer-key-file: "/etc/sensu/certs/backend-3-key.pem"
+etcd-peer-trusted-ca-file: "/usr/local/share/ca-certificates/sensu/ca.pem"
 etcd-client-cert-auth: true
 {{< /highlight >}}
 
