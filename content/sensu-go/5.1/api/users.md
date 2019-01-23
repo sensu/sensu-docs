@@ -25,6 +25,8 @@ menu:
 - [The `/users/:user/groups/:group` API endpoints](#the-usersusergroupsgroup-api-endpoints)
   - [`/users/:user/groups/:group` (PUT)](#usersusergroupsgroup-put)
   - [`/users/:user/groups/:group` (DELETE)](#usersusergroupsgroup-delete)
+- [The `/users/auth/test` API endpoint](#the-usersauthtest-api-endpoint)
+  - [`/users/auth/test` (GET)](#usersauthtest-get)
 
 ## Authentication
 
@@ -400,5 +402,34 @@ description               | Removes a user from a group.
 example url               | http://hostname:8080/api/core/v2/users/alice/groups/ops
 response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
-[1]: ../../reference/rbac#user-specification
+## The `/users/auth/test` API endpoint {#the-usersauthtest-api-endpoint}
 
+### `/users/auth/test` (GET) {#usersauthtest-get}
+
+The `/users/auth/test` API endpoint provides HTTP GET access to test user credentials.
+
+#### EXAMPLE {#usersauthtest-get-example}
+
+In the following example, querying the `/users/auth/test` API for a given username and password returns a... indicating that the credentials are valid.
+
+{{< highlight shell >}}
+curl -H "Authorization: Bearer TOKEN" \
+http://127.0.0.1:8080/api/core/v2/users/auth/test
+
+HTTP/1.1 
+
+{{< /highlight >}}
+
+#### API Specification {#usersuser-get-specification}
+
+/users/auth/test (GET) | 
+---------------------|------
+description          | Tests a given username and password.
+example url          | http://hostname:8080/api/core/v2/users/auth/test
+response type        | 
+response codes       | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+output               | {{< highlight json >}}
+
+{{< /highlight >}}
+
+[1]: ../../reference/rbac#user-specification
