@@ -320,6 +320,8 @@ HTTP/1.1 202 Accepted
 {"issued":1543861798}
 {{< /highlight >}}
 
+_PRO TIP: Include the `subscriptions` attribute with the request body to override the subscriptions configured in the check definition. This gives you the flexibility to execute a check on any Sensu entity or group of entities on demand._
+
 #### API Specification {#checkscheckexecute-post-specification}
 
 /checks/:check/execute (POST) | 
@@ -334,7 +336,7 @@ payload         | {{< highlight shell >}}
   ]
 }
 {{< /highlight >}}
-payload parameters | `check` (required): the name of the check to execute, and `subscriptions` (optional): an array of subscriptions to publish the check request to.
+payload parameters | `check` (required): the name of the check to execute, and `subscriptions` (optional): an array of subscriptions to publish the check request to. When provided with the request, the `subscriptions` attribute overrides any subscriptions configured in the check definition.
 response codes  | <ul><li>**Success**: 200 (OK)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 ## The `/checks/:check/hooks/:type` API endpoint {#the-checkscheckhooks-api-endpoint}
