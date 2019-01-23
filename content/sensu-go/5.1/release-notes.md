@@ -29,9 +29,13 @@ See the [upgrading guide][1] to upgrade Sensu to version 5.1.1.
 
 ### Changes to Sensu Go {#5.1.1-changes}
 
+**NEW FEATURES:**
+
+- Sensu now includes a sensuctl command and API endpoint to test user credentials. See the [access control reference][10] and [API docs][11] for more information.
+
 **IMPROVEMENTS:**
 
-- Sensu now includes a sensuctl command and API endpoint to test user credentials. See the [sensuctl][] and [API][] docs for more information.
+- The Sensu agent and sensuctl tool are now available for 32-bit Windows. See the [installation guide][12] for instructions.
 - Keepalive events now include an output attribute specifying the entity name and time last sent.
 - Sensu 5.1.1 is built with Go version 1.11.4.
 - The Sensu backend includes refactored authentication and licensing to support future enterprise features.
@@ -118,3 +122,6 @@ To get started with Sensu Go:
 [7]: https://github.com/sensu/sandbox/tree/master/sensu-go/core
 [8]: /sensu-go/5.0/installation/install-sensu
 [9]: /sensu-go/5.0/guides/monitor-server-resources
+[10]: /sensu-go/5.1/reference/rbac#managing-users
+[11]: /sensu-go/5.1/api/auth
+[12]: /sensu-go/5.1/installation/install-sensu
