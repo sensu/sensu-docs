@@ -7,6 +7,7 @@ version: "5.1"
 menu: "sensu-go-5.1"
 ---
 
+- [5.1.1 release notes](#5-1-1-release-notes)
 - [5.1.0 release notes](#5-1-0-release-notes)
 - [5.0.1 release notes](#5-0-1-release-notes)
 - [5.0.0 release notes](#5-0-0-release-notes)
@@ -19,6 +20,33 @@ Sensu Go adheres to [semantic versioning][2] using MAJOR.MINOR.PATCH release num
 Read the [upgrading guide][1] for information on upgrading to the latest version of Sensu Go.
 
 ---
+
+## 5.1.1 release notes
+
+**January 24, 2019** &mdash; The latest patch release of Sensu Go, version 5.1.1, is now available for download. 
+This release includes...
+See the [upgrading guide][1] to upgrade Sensu to version 5.1.1.
+
+### Changes to Sensu Go {#5.1.1-changes}
+
+**IMPROVEMENTS:**
+
+- Sensu now includes a sensuctl command and API endpoint to test user credentials. See the [sensuctl][] and [API][] docs for more information.
+- Keepalive events now include an output attribute specifying the entity name and time last sent.
+- Sensu 5.1.1 is built with Go version 1.11.4.
+- The Sensu backend includes refactored authentication and licensing to support future enterprise features.
+
+**FIXES:**
+
+- Keepalive events now continue to execute after a Sensu cluster restarts.
+- When requested, on-demand check executions now correctly retrieve asset dependencies.
+- Checks now maintain a consistent execution schedule following updates to the check definition.
+- Proxy check request errors now include the check name and namespace.
+- When encountering an invalid line during metric extraction, Sensu now logs an error and continues extraction.
+- sensuctl now returns an error when attempting to delete a non-existent entity.
+- sensuctl now removes the temporary file it creates when executing the `sensuctl edit` command.
+- The Sensu dashboard now recovers from errors correctly when shutting down.
+- The Sensu dashboard includes better visibility for buttons and menus in the dark theme.
 
 ## 5.1.0 release notes
 
