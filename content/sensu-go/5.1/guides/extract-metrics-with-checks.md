@@ -1,7 +1,7 @@
 ---
 title: "How to collect and extract metrics using Sensu checks"
 linkTitle: "Collecting Service Metrics"
-weight: 35
+weight: 17
 version: "5.1"
 product: "Sensu Go"
 platformContent: false
