@@ -36,8 +36,11 @@ See the [upgrading guide][1] to upgrade Sensu to version 5.1.1.
 
 - The Sensu agent and sensuctl tool are now available for 32-bit Windows. See the [installation guide][12] for instructions.
 - Keepalive events now include an output attribute specifying the entity name and time last sent.
-- Sensu 5.1.1 is built with Go version 1.11.5.
 - The Sensu backend includes refactored authentication and licensing to support future enterprise features.
+
+**SECURITY:**
+
+- Sensu 5.1.1 is built with Go version 1.11.5. Go 1.11.5 addresses a security vulnerability impacting TLS handshakes and JWT tokens. See the [CVE][13] for more information.
 
 **FIXES:**
 
@@ -124,3 +127,4 @@ To get started with Sensu Go:
 [10]: /sensu-go/5.1/reference/rbac#managing-users
 [11]: /sensu-go/5.1/api/auth
 [12]: /sensu-go/5.1/installation/install-sensu
+[13]: https://nvd.nist.gov/vuln/detail/CVE-2019-6486
