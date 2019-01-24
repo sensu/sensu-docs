@@ -491,5 +491,5 @@ See [the etcd recovery guide][9] for more information.
 [11]: https://coreos.com/os/docs/latest/generate-self-signed-certificates.html
 [12]: https://coreos.com/etcd/docs/latest/op-guide/clustering.html
 [13]: #creating-self-signed-certificates
-[14]: ../../getting-started/installation-and-configuration/
+[14]: ../../installation/install-sensu/
 [15]: ../../reference/backend

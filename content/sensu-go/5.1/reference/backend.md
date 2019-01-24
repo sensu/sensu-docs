@@ -591,7 +591,7 @@ sensu-backend start --no-embed-etcd
 # /etc/sensu/backend.yml example
 no-embed-etcd: true{{< /highlight >}}
 
-[1]: ../../getting-started/installation-and-configuration#install-the-sensu-backend
+[1]: ../../installation/install-sensu#install-the-sensu-backend
 [2]: https://github.com/etcd-io/etcd/blob/master/Documentation/docs.md
 [3]: ../../guides/monitor-server-resources/
 [4]: ../../guides/extract-metrics-with-checks/

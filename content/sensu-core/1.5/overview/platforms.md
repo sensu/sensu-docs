@@ -73,5 +73,5 @@ by Sensu**.
 [3]:  ../../api/overview/
 [4]:  ../../reference/clients/
 [5]:  https://sensuapp.org/download
-[6]:  https://sensuapp.org/enterprise
-[7]:  https://sensuapp.org/enterprise#advantage
+[6]:  https://sensu.io/products/enterprise
+[7]:  https://sensu.io/products/enterprise
