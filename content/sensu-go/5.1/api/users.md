@@ -26,11 +26,6 @@ menu:
   - [`/users/:user/groups/:group` (PUT)](#usersusergroupsgroup-put)
   - [`/users/:user/groups/:group` (DELETE)](#usersusergroupsgroup-delete)
 
-## Authentication
-
-The Users API requires this type of permissions.
-See the API overview to get an authorization token.
-
 ## The `/users` API endpoint
 
 ### `/users` (GET)

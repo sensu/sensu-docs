@@ -1,7 +1,7 @@
 ---
 title: "How to send alerts to Slack with handlers"
 linkTitle: "Sending Slack Alerts"
-weight: 20
+weight: 30
 version: "5.0"
 product: "Sensu Go"
 platformContent: false
