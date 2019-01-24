@@ -1,7 +1,7 @@
 ---
 title: "How to send alerts to Slack with handlers"
 linkTitle: "Sending Slack Alerts"
-weight: 20
+weight: 30
 version: "5.1"
 product: "Sensu Go"
 platformContent: false
@@ -56,8 +56,8 @@ After saving, you'll see your webhook URL under Integration Settings.
 
 Now that our handler command is installed, the second step is to create a
 handler that we will call `slack`, which is a **pipe** handler that pipes event
-data into our previous script named `slack-handler`. We will also pass the
-[Slack webhook URL][6] and the Slack channel name to this script. Finally, in
+data into our previous script named `slack-handler`. We'll also use environment variables
+to pass the [Slack webhook URL][6] to this script. Finally, in
 order to avoid silenced events from being sent to Slack, we will use the
 `not_silenced` built-in filter, in addition to the `is_incident` built-in filter
 so zero status events are also discarded.
@@ -65,9 +65,8 @@ so zero status events are also discarded.
 {{< highlight shell >}}
 sensuctl handler create slack \
 --type pipe \
---command 'slack-handler \
-  --webhook-url https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX \
-  --channel monitoring' \
+--env-vars "SLACK_WEBHOOK_URL=https://hooks.slack.com/services/T0000/B000/XXXXXXXX" \
+--command "sensu-slack-handler --channel '#monitoring'" \
 --filters is_incident,not_silenced
 {{< /highlight >}}
 

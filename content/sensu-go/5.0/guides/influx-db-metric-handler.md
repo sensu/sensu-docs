@@ -1,7 +1,7 @@
 ---
 title: "How to populate InfluxDB metrics using handlers"
 linkTitle: "Storing Metrics with InfluxDB"
-weight: 27
+weight: 35
 version: "5.0"
 product: "Sensu Go"
 platformContent: false
@@ -38,15 +38,13 @@ handler that we will call `influx-db`, which is a **pipe** handler that pipes
 event data into our previous script named `sensu-influxdb-handler`. We will also
 pass the database name, address, username, and password of the InfluxDB you wish
 to populate.
+We'll use environment variables (`env-vars`) to pass the InfluxDB address, username, and password to the handler.
 
 {{< highlight shell >}}
 sensuctl handler create influx-db \
 --type pipe \
---command "sensu-influxdb-handler \
---addr 'http://123.4.5.6:8086' \
---db-name 'myDB' \
---username 'foo' \
---password 'bar'"
+--command "sensu-influxdb-handler -d sensu" \
+--env-vars "INFLUXDB_ADDR=http://influxdb.default.svc.cluster.local:8086, INFLUXDB_USER=sensu, INFLUXDB_PASSWORD=password"
 {{< /highlight >}}
 
 ### Assigning the handler to an event

@@ -13,9 +13,14 @@ menu:
 - [What is a Sensu cluster?](#what-is-a-sensu-cluster)
 - [Why use clustering?](#why-use-clustering)
 - [Configuring a cluster](#configuring-a-cluster)
+- [Adding sensu agents to the cluster](#adding-sensu-agents-to-the-cluster)
 - [Cluster health](#cluster-health)
 - [Managing cluster members](#add-a-cluster-member)
 - [Security](#security)
+  - [Client-to-server transport security with HTTPS](#client-to-server-with-https)
+  - [Client-to-server authentication with HTTPS client certificates](#client-to-server-auth-with-https)
+  - [Peer communication authentication with HTTPS client certificates](#peer-auth-https)
+  - [Sensu agent with HTTPS](#sensu-agent-https)
 - [Using an external etcd cluster](#using-an-external-etcd-cluster)
 - [Troubleshooting](#troubleshooting)
 
@@ -59,7 +64,7 @@ _NOTE: This backend configuration assumes you have set up and installed the sens
 ##
 # store configuration for backend-1/10.0.0.1
 ##
-etcd-advertise-client-urls: "https://10.0.0.1:2379"
+ etcd-advertise-client-urls: "http://10.0.0.1:2379"
 etcd-listen-client-urls: "http://10.0.0.1:2379"
 etcd-listen-peer-urls: "http://0.0.0.0:2380"
 etcd-initial-cluster: "backend-1=http://10.0.0.1:2380,backend-2=http://10.0.0.2:2380,backend-3=http://10.0.0.3:2380"
@@ -75,7 +80,7 @@ etcd-name: "backend-1"
 ##
 # store configuration for backend-2/10.0.0.2
 ##
-etcd-advertise-client-urls: "https://10.0.0.2:2379"
+ etcd-advertise-client-urls: "http://10.0.0.2:2379"
 etcd-listen-client-urls: "http://10.0.0.2:2379"
 etcd-listen-peer-urls: "http://0.0.0.0:2380"
 etcd-initial-cluster: "backend-1=http://10.0.0.1:2380,backend-2=http://10.0.0.2:2380,backend-3=http://10.0.0.3:2380"
@@ -91,7 +96,7 @@ etcd-name: "backend-2"
 ##
 # store configuration for backend-3/10.0.0.3
 ##
-etcd-advertise-client-urls: "https://10.0.0.3:2379"
+ etcd-advertise-client-urls: "http://10.0.0.3:2379"
 etcd-listen-client-urls: "http://10.0.0.3:2379"
 etcd-listen-peer-urls: "http://0.0.0.0:2380"
 etcd-initial-cluster: "backend-1=http://10.0.0.1:2380,backend-2=http://10.0.0.2:2380,backend-3=http://10.0.0.3:2380"
@@ -105,6 +110,21 @@ Once each node has the configuration described above, start each sensu-backend:
 
 {{< highlight shell >}}
 sudo systemctl start sensu-backend
+{{< /highlight >}}
+
+#### Adding sensu agents to the cluster
+
+Each Sensu agent should have the following entries in `/etc/sensu/agent.yml` to ensure they are aware of all cluster members. This allows the agent to reconnect to a working backend in the scenrio where the one it is currently connected to goes into an unhealthy state.
+
+{{< highlight yml >}}
+##
+# backend-url configuration for all agents connecting to cluster over ws
+##
+
+backend-url:
+  - "ws://10.0.0.1:8081"
+  - "ws://10.0.0.2:8081"
+  - "ws://10.0.0.3:8081"
 {{< /highlight >}}
 
 You should now have a highly available Sensu cluster! You can verify its health and try other cluster management commands using [sensuctl][6].
@@ -234,15 +254,35 @@ client.csr
 client.pem
 {{< /highlight >}}
 
-### Client-to-server transport security with HTTPS
+### Client-to-server transport security with HTTPS {#client-to-server-with-https}
 
-Below are example configuration snippets from `/etc/sensu/backend.yml` that will be the same for `backend-1`, `backend-2` and `backend-3`.
+Below are example configuration snippets from `/etc/sensu/backend.yml` on three Sensu backends named `backend-1`, `backend-2` and `backend-3` with IP addresses `10.0.0.1`, `10.0.0.2` and `10.0.0.3` respectively.
 This configuration assumes that your client certificates are in `/etc/sensu/certs/` and your CA certificate is in `/usr/local/share/ca-certificates/sensu/`.
 
 {{< highlight shell >}}
-etcd-cert-file: "/etc/sensu/certs/client.pem"
-etcd-key-file: "/etc/sensu/certs/client-key.pem"
-etcd-trusted-ca-file: "/usr/local/share/ca-certificates/sensu/ca.pem"
+##
+# etcd peer ssl configuration for backend-1/10.0.0.1
+##
+
+etcd-peer-cert-file: "/etc/sensu/certs/backend-1.pem"
+etcd-peer-key-file: "/etc/sensu/certs/backend-1-key.pem"
+etcd-peer-trusted-ca-file: "/usr/local/share/ca-certificates/sensu/ca.pem"
+
+##
+# etcd peer ssl configuration for backend-2/10.0.0.2
+##
+
+etcd-peer-cert-file: "/etc/sensu/certs/backend-2.pem"
+etcd-peer-key-file: "/etc/sensu/certs/backend-2-key.pem"
+etcd-peer-trusted-ca-file: "/usr/local/share/ca-certificates/sensu/ca.pem"
+
+##
+# etcd peer ssl configuration for backend-3/10.0.0.3
+##
+
+etcd-peer-cert-file: "/etc/sensu/certs/backend-3.pem"
+etcd-peer-key-file: "/etc/sensu/certs/backend-3-key.pem"
+etcd-peer-trusted-ca-file: "/usr/local/share/ca-certificates/sensu/ca.pem"
 {{< /highlight >}}
 
 Validating with curl:
@@ -252,15 +292,37 @@ curl --cacert /usr/local/share/ca-certificates/sensu/ca.pem \
 https://127.0.0.1:2379/v2/keys/foo -XPUT -d value=bar
 {{< /highlight >}}
 
-### Client-to-server authentication with HTTPS client certificates
+### Client-to-server authentication with HTTPS client certificates {#client-to-server-auth-with-https}
 
-Below are example configuration snippets from `/etc/sensu/backend.yml` that will be the same for `backend-1`, `backend-2` and `backend-3`.
+Below are example configuration snippets from `/etc/sensu/backend.yml` on three Sensu backends named `backend-1`, `backend-2` and `backend-3` with IP addresses `10.0.0.1`, `10.0.0.2` and `10.0.0.3` respectively.
 This configuration assumes your client certificates are in `/etc/sensu/certs/` and your CA certificate is in `/usr/local/share/ca-certificates/sensu/`.
 
 {{< highlight shell >}}
-etcd-cert-file: "/etc/sensu/certs/client.pem"
-etcd-key-file: "/etc/sensu/certs/client-key.pem"
-etcd-trusted-ca-file: "/usr/local/share/ca-certificates/sensu/ca.pem"
+##
+# etcd peer ssl configuration for backend-1/10.0.0.1
+##
+
+etcd-peer-cert-file: "/etc/sensu/certs/backend-1.pem"
+etcd-peer-key-file: "/etc/sensu/certs/backend-1-key.pem"
+etcd-peer-trusted-ca-file: "/usr/local/share/ca-certificates/sensu/ca.pem"
+etcd-client-cert-auth: true
+
+##
+# etcd peer ssl configuration for backend-2/10.0.0.2
+##
+
+etcd-peer-cert-file: "/etc/sensu/certs/backend-2.pem"
+etcd-peer-key-file: "/etc/sensu/certs/backend-2-key.pem"
+etcd-peer-trusted-ca-file: "/usr/local/share/ca-certificates/sensu/ca.pem"
+etcd-client-cert-auth: true
+
+##
+# etcd peer ssl configuration for backend-3/10.0.0.3
+##
+
+etcd-peer-cert-file: "/etc/sensu/certs/backend-3.pem"
+etcd-peer-key-file: "/etc/sensu/certs/backend-3-key.pem"
+etcd-peer-trusted-ca-file: "/usr/local/share/ca-certificates/sensu/ca.pem"
 etcd-client-cert-auth: true
 {{< /highlight >}}
 
@@ -273,11 +335,11 @@ curl --cacert /usr/local/share/ca-certificates/sensu/ca.pem \
 -L https://127.0.0.1:2379/v2/keys/foo -XPUT -d value=bar
 {{< /highlight >}}
 
-### Peer communication authentication with HTTPS client certificates
+### Peer communication authentication with HTTPS client certificates {#peer-auth-https}
 
 Below are example configuration snippets from `/etc/sensu/backend.yml` on three Sensu backends named `backend-1`, `backend-2` and `backend-3` with IP addresses `10.0.0.1`, `10.0.0.2` and `10.0.0.3` respectively.
 
-_NOTE: If you ran through the first part of the guide, you will not need to repeat the store configuration for any of the backends._
+_NOTE: If you ran through the first part of the guide, you will need to update the store configuration for all backends to use http**s** instead of http._
 
 **backend-1**
 
@@ -353,6 +415,24 @@ etcd-peer-key-file: "/etc/sensu/certs/backend-3-key.pem"
 etcd-peer-trusted-ca-file: "/usr/local/share/ca-certificates/sensu/ca.pem"
 etcd-peer-client-cert-auth: true
 {{< /highlight >}}
+
+### Sensu agent with HTTPS {#sensu-agent-https}
+
+Below is a sample configuration for an agent that would connect to the cluster using `wss` from `/etc/sensu/agent.yml`.
+
+{{< highlight yml >}}
+##
+# backend-url configuration for all agents connecting to cluster over wss
+##
+
+backend-url:
+  - "wss://10.0.0.1:8081"
+  - "wss://10.0.0.2:8081"
+  - "wss://10.0.0.3:8081"
+
+{{< /highlight >}}
+
+
 
 ## Using an external etcd cluster
 
