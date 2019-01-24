@@ -23,8 +23,7 @@ Read the [upgrading guide][1] for information on upgrading to the latest version
 
 ## 5.1.1 release notes
 
-**January 24, 2019** &mdash; The latest patch release of Sensu Go, version 5.1.1, is now available for download. 
-This release includes...
+**January 24, 2019** &mdash; The latest patch release of Sensu Go, version 5.1.1, is now available for download. This release includes some key fixes and improvements, including refactored keepalive functionality with increased reliability. Additionally, based on Community feedback, we have added support for the Sensu agent and sensuctl for 32-bit Windows systems.
 See the [upgrading guide][1] to upgrade Sensu to version 5.1.1.
 
 ### Changes to Sensu Go {#5.1.1-changes}
