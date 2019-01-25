@@ -30,7 +30,7 @@ First, we'll install a [bash script][4], named `http_check.sh`, to perform an HT
 check using **curl**.
 
 {{< highlight shell >}}
-sudo curl https://raw.githubusercontent.com/sensu/sensu-go/60e6a68aecb0c8e0c2dc51714e08462eb81b4413/examples/checks/http_check.sh \
+sudo curl https://raw.githubusercontent.com/sensu/sensu-go/5.1.0/examples/checks/http_check.sh \
 -o /usr/local/bin/http_check.sh && \
 sudo chmod +x /usr/local/bin/http_check.sh
 {{< /highlight >}}
