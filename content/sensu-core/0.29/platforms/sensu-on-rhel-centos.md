@@ -444,7 +444,7 @@ sudo service sensu-enterprise-dashboard stop{{< /highlight >}}
 
 
 [1]:  https://sensuapp.org/download
-[2]:  https://sensuapp.org/enterprise
+[2]:  https://sensu.io/products/enterprise
 [3]:  ../../reference/configuration/
 [4]:  ../../reference/transport/
 [5]:  ../../reference/redis/#sensu-redis-configuration

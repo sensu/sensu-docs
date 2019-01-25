@@ -261,7 +261,7 @@ sensu-agent --statsd-event-handlers influx-db --statsd-flush-interval 1 --statsd
 Sensu `keepalives` are the heartbeat mechanism used to ensure that all registered agents are operational and able to reach the [Sensu backend][2].
 Sensu agents publish keepalive events containing [entity][3] configuration data to the Sensu backend according to the interval specified by the [`keepalive-interval` flag][4].
 If a Sensu agent fails to send keepalive events over the period specified by the [`keepalive-timeout` flag][4], the Sensu backend creates a keepalive alert in the Sensu dashboard.
-You can use keepalives to identify unhealthy systems and network partitions, send notifications, trigger [auto-remediation][5], and other useful actions.
+You can use keepalives to identify unhealthy systems and network partitions, send notifications, trigger auto-remediation, and other useful actions.
 
 _NOTE: Keepalive monitoring is not supported for [proxy entities][3], as they are inherently unable to run a Sensu agent._
 
@@ -815,12 +815,11 @@ sensu-agent start --statsd-metrics-port 6125
 # /etc/sensu/agent.yml example
 statsd-metrics-port: 6125{{< /highlight >}}
 
-[1]: ../../getting-started/installation-and-configuration#install-the-sensu-agent
+[1]: ../../installation/install-sensu#install-the-sensu-agent
 [2]: ../backend
 [3]: ../entities
 [4]: #keepalive-configuration-flags
-[5]: ../../guides/run-auto-remediation
-[6]: ../sensuctl
+[6]: ../../sensuctl/reference
 [7]: ../events
 [8]: ../handlers
 [9]: ../filters

@@ -1060,7 +1060,7 @@ code {
 .drawer .toc li .panel > li a {
   font-family: 'Work Sans';
   font-weight: 400;
-  font-size: 16px;
+  font-size: 15px;
   line-height: 1.375;
   color: #2C3458;
   padding: 0;
@@ -1071,7 +1071,7 @@ code {
 .drawer .toc li .panel > li a.current {
   font-family: 'Work Sans';
   font-weight: 600;
-  font-size: 16px;
+  font-size: 15px;
   line-height: 1.375;
   color: #89C967;
 }

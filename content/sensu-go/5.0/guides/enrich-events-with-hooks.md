@@ -1,7 +1,7 @@
 ---
 title: "How to augment event data using check hooks"
 linkTitle: "Augmenting Event Data"
-weight: 60
+weight: 25
 version: "5.0"
 product: "Sensu Go"
 platformContent: false
