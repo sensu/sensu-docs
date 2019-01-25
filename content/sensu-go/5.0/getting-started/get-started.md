@@ -10,7 +10,7 @@ menu:
     parent: getting-started
 ---
 
-### Download the sandbox
+### Try the sandbox
 
 The Sensu sandbox is a virtual environment that makes it easy to get started building monitoring workflows.
 
@@ -38,7 +38,7 @@ Get started by following one of the Sensu Go guides.
 - [Collect StatsD metrics][5]
 - [Store metrics with InfluxDB][6]
 
-[1]: https://github.com/sensu/sandbox/tree/master/sensu-go/core
+[1]: ../sandbox
 [2]: ../../installation/install-sensu
 [3]: ../../guides/monitor-server-resources
 [4]: ../../guides/send-slack-alerts
