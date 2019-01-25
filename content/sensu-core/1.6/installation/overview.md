@@ -79,7 +79,7 @@ Ready? Let's get started with selecting an installation strategy!
 [6]:  ../summary
 [7]:  ../../reference/clients/#client-keepalives
 [8]:  ../../guides/overview
-[9]:  https://sensuapp.org/enterprise
+[9]:  https://sensu.io/products/enterprise
 [10]: ../installation-strategies/#standalone
 [11]: ../installation-strategies/#distributed
 [12]: ../installation-strategies/#high-availability

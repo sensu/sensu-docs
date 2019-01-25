@@ -1,82 +1,59 @@
 ---
 title: "Sensu Go release notes"
 linkTitle: "Release Notes"
-description: "Release notes for Sensu Go"
+description: "Sensu Go version 5.0.0 release notes"
 product: "Sensu Go"
 version: "5.0"
 menu: "sensu-go-5.0"
-aliases:
-  - /sensu-go/5.0/changelog
 ---
 
-- [5.0.1 Release Notes](#5-0-1-release-notes)
-- [5.0.0 Release Notes](#5-0-0-release-notes)
+- [5.0.1 release notes](#5-0-1-release-notes)
+- [5.0.0 release notes](#5-0-0-release-notes)
 
 ### Versioning
-Sensu Go adheres to [semantic versioning](https://semver.org/spec/v2.0.0.html) using MAJOR.MINOR.PATCH release numbers, starting at 5.0.0. MAJOR version changes indicate incompatible API changes; MINOR versions add backwards-compatible functionality; PATCH versions include backwards-compatible bug fixes.
+Sensu Go adheres to [semantic versioning][2] using MAJOR.MINOR.PATCH release numbers, starting at 5.0.0. MAJOR version changes indicate incompatible API changes; MINOR versions add backwards-compatible functionality; PATCH versions include backwards-compatible bug fixes.
 
 ### Upgrading
 
-To upgrade to the latest version of Sensu Go from version 5.0.0 or later, first [install the latest packages][8].
-
-Then restart the services.
-
-_NOTE: For systems using `systemd`, run `sudo systemctl daemon-reload` before restarting the services._
-
-{{< highlight shell >}}
-# Restart the Sensu agent
-sudo service sensu-agent restart
-
-# Restart the Sensu backend
-sudo service sensu-backend restart
-{{< /highlight >}}
-
-You can use the `version` command to determine the installed version using the `sensu-agent`, `sensu-backend`, and `sensuctl` tools. For example: `sensu-backend version`.
+Read the [upgrading guide][1] for information on upgrading to the latest version of Sensu Go.
 
 ---
 
-## 5.0.1 Release Notes
+## 5.0.1 release notes
 
 **December 12, 2018** &mdash; Sensu Go 5.0.1 includes our top bug fixes following last week's general availability release.
+See the [upgrading guide][1] to upgrade Sensu to version 5.0.1.
 
-### CHANGES {#5.0.1-changes}
+### Changes to Sensu Go {#5.0.1-changes}
 
-- **FIXED**: The Sensu backend can now successfully connect to an external etcd cluster.
-- **FIXED**: The Sensu dashboard now sorts silencing entries in ascending order, correctly displays status values, and reduces shuffling in the event list.
-- **FIXED**: Sensu agents on Windows now execute command arguments correctly.
-- **FIXED**: Sensu agents now correctly include environment variables when executing checks.
-- **FIXED**: Command arguments are no longer escaped on Windows.
-- **FIXED**: Sensu backend environments now include handler and mutator execution requests.
+**FIXED:**
 
-## 5.0.0 Release Notes
+- The Sensu backend can now successfully connect to an external etcd cluster.
+- The Sensu dashboard now sorts silencing entries in ascending order, correctly displays status values, and reduces shuffling in the event list.
+- Sensu agents on Windows now execute command arguments correctly.
+- Sensu agents now correctly include environment variables when executing checks.
+- Command arguments are no longer escaped on Windows.
+- Sensu backend environments now include handler and mutator execution requests.
 
-**December 5, 2018** &mdash; It’s here! This marks the inaugural stable release of Sensu Go. 
+## 5.0.0 release notes
 
-We’ve got a lot of awesome functionality and new features to share. Here are a few highlights:
+**December 5, 2018** &mdash; We're excited to announce the general availability release of Sensu Go!
+Sensu Go is the free and open source monitoring event pipeline, written in Go and designed for container-based and hybrid-cloud infrastructures.
+Check out the [Sensu blog][6] for more information about Sensu Go and version 5.0.
 
-- Updated [Sensu UI][1] built in with the backend 
-- [sensuctl][2], our new command-line tool for managing all things Sensu 
-- A slick new versioned [API][3]
-- True multi-tenancy with the switch to [namespaces][4] and [RBAC][5], modeled after Kubernetes 
-- Enhanced [event filtering][6] with JavaScript for managing event flows 
-- Object metadata, which replaces custom attributes and offers a richer way to interact with your data 
-- Built-in support for [StatsD metric collection][7] 
-- Embedded transport and etcd datastore to replace RabbitMQ and Redis
+For a complete list of changes from Beta 8-1, see the [Sensu Go changelog][5].
+Going forward, this page will be the official home for the Sensu Go changelog and release notes.
 
-All this and more is included in our general availability [release changelog][changelog] and [announcement][blog].
-The team has been working incredibly hard for two years, and we couldn’t be more excited to get this awesome, next-gen product into your hands! 
+To get started with Sensu Go:
 
-Happy monitoring, 
+- [Download the sandbox][7]
+- [Install Sensu Go][8]
+- [Get started monitoring server resources][9]
 
-The Sensu Team 
-
-[changelog]: https://github.com/sensu/sensu-go/blob/master/CHANGELOG.md
-[blog]: https://blog.sensu.io/sensu-go-is-here
-[1]: /sensu-go/5.0/dashboard/overview
-[2]: /sensu-go/5.0/sensuctl/reference
-[3]: /sensu-go/5.0/api/overview
-[4]: /sensu-go/5.0/reference/rbac#namespaces
-[5]: /sensu-go/5.0/reference/rbac
-[6]: /sensu-go/5.0/reference/filters
-[7]: /sensu-go/5.0/guides/aggregate-metrics-statsd
+[1]: /sensu-go/latest/installation/upgrade
+[2]: https://semver.org/spec/v2.0.0.html
+[5]: https://github.com/sensu/sensu-go/blob/master/CHANGELOG.md#500---2018-11-30
+[6]: https://blog.sensu.io/sensu-go-is-here
+[7]: https://github.com/sensu/sandbox/tree/master/sensu-go/core
 [8]: /sensu-go/5.0/installation/install-sensu
+[9]: /sensu-go/5.0/guides/monitor-server-resources

@@ -287,8 +287,8 @@ From this point, here are some recommended resources:
 [5]: ../../reference/assets
 [6]: ../../reference/checks/#proxy-requests
 [7]: ../send-slack-alerts/
-[install]: ../../getting-started/installation-and-configuration
-[start]: ../../getting-started/installation-and-configuration/#starting-the-services
+[install]: ../../installation/install-sensu
+[start]: ../../reference/agent#restarting-the-service
 [8]: ../../sensuctl/reference
 [9]: ../../api/entities
 [10]: ../../dashboard/overview

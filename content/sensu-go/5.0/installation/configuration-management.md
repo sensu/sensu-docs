@@ -27,5 +27,5 @@ The [Chef][3] cookbook for Sensu can be found on the [GitHub][4]. Interested in 
 [2]: https://github.com/sensu/sensu-puppet
 [3]: https://www.chef.io/
 [4]: https://github.com/sensu/sensu-go-chef
-[7]: https://learn.puppet.com/
+[7]: http://learnpuppet.com/
 [12]: http://monitoringlove.sensu.io/chef

@@ -42,11 +42,6 @@ A command executed by the agent in response to a check result, before creating a
 Hooks create context-rich events by gathering related information based on the check status.
 [Read more.][5]
 
-#### Check plugin
-Checks require an executable that the agent runs on the corresponding entity when executing the check.
-You can write your own check executables in Go, Ruby, Python, and more, or use one of over 100 check plugins shared by the Sensu community.
-[Read more.][6]
-
 #### Check token
 A placeholder used in a check definition that the agent replaces with local information before executing the check.
 Tokens let you fine-tune check attributes (like thresholds) on a per-entity level while re-using the check definition.
@@ -76,6 +71,11 @@ Handlers can send monitoring event data to an executable (or handler plugin), a 
 #### Mutator
 An executable run by the backend prior to the handler to transform event data.
 [Read more.][11]
+
+#### Plugin
+Sensu Plugins are executables designed to work with Sensu event data, either as a check plugin, mutator plugin, or handler plugin. 
+You can write your own check executables in Go, Ruby, Python, and more, or use one of over 200 plugins shared by the Sensu Community.
+[Read more.][6]
 
 #### Proxy Entity
 Components of your infrastructure that can’t run the agent locally (like a network switch or a website) but still need to be monitored.

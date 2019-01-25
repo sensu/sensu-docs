@@ -1,7 +1,7 @@
 ---
 title: "How to aggregate metrics with the Sensu StatsD listener"
 linkTitle: "Aggregating StatsD Metrics"
-weight: 30
+weight: 20
 version: "5.1"
 product: "Sensu Go"
 platformContent: false

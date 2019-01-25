@@ -1336,7 +1336,7 @@ information for operations teams can be extremely valuable._
 [37]: #registration-and-registry
 [38]: #ec2-attributes
 [39]: /sensu-enterprise/2.8/integrations/ec2
-[40]: https://sensuapp.org/enterprise
+[40]: https://sensu.io/products/enterprise
 [41]: #chef-attributes
 [42]: /sensu-enterprise/2.8/integrations/chef
 [43]: #puppet-attributes
