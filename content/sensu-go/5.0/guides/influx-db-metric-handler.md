@@ -1,7 +1,7 @@
 ---
 title: "How to populate InfluxDB metrics using handlers"
 linkTitle: "Storing Metrics with InfluxDB"
-weight: 27
+weight: 35
 version: "5.0"
 product: "Sensu Go"
 platformContent: false
@@ -44,7 +44,7 @@ We'll use environment variables (`env-vars`) to pass the InfluxDB address, usern
 sensuctl handler create influx-db \
 --type pipe \
 --command "sensu-influxdb-handler -d sensu" \
---env-vars "INFLUXDB_ADDR=http://influxdb.default.svc.cluster.local:8086, INFLUX_USER=sensu, INFLUX_PASSWORD=password"
+--env-vars "INFLUXDB_ADDR=http://influxdb.default.svc.cluster.local:8086, INFLUXDB_USER=sensu, INFLUXDB_PASSWORD=password"
 {{< /highlight >}}
 
 ### Assigning the handler to an event
@@ -69,9 +69,8 @@ sensu-agent start --statsd-event-handlers influx-db
 It might take a few moments once the handler is assigned to the check or StatsD
 server, for Sensu to receive the metrics, but once an event is handled, you
 should start to see your InfluxDB being populated! Otherwise, you can verify the
-proper behavior of this handler by using `sensu-backend` logs. The default
-location of these logs varies based on the platform used, but the
-[installation and configuration][8] documentation provides this information.
+proper behavior of this handler by using `sensu-backend` logs.
+See the [troubleshooting guide][8] for log locations by platform.
 
 Whenever an event is being handled, a log entry is added with the message
 `"handler":"influx-db","level":"debug","msg":"sending event to handler"`,
@@ -96,7 +95,7 @@ and extract metrics using Sensu checks.
 [5]: https://rakyll.org/cross-compilation/
 [6]: https://golang.org/doc/install
 [7]: https://en.wikipedia.org/wiki/PATH_(variable)
-[8]: ../../getting-started/installation-and-configuration/#validating-the-services
+[8]: ../troubleshooting
 [9]: ../../reference/handlers
 [10]: ../extract-metrics-with-checks
 [11]: https://github.com/sensu/sensu-influxdb-handler/releases

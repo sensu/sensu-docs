@@ -11,7 +11,8 @@ menu:
 
 **Sensu Go 5.1 includes API v2.**
 
-The Sensu REST API provides access to Sensu workflow configurations and monitoring event data.
+The Sensu backend REST API provides access to Sensu workflow configurations and monitoring event data.
+For the Sensu agent API, see the [agent reference][4].
 
 ### URL format
 
@@ -72,3 +73,4 @@ API request bodies are limited to 0.512 MB in size.
 [1]: ../../sensuctl/reference#preferred-output-format
 [2]: ../../installation/install-sensu#install-sensuctl
 [3]: ../../reference/rbac
+[4]: ../../reference/agent#using-the-http-socket
