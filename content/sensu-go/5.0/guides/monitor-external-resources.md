@@ -35,7 +35,7 @@ sudo curl https://raw.githubusercontent.com/sensu/sensu-go/5.1.0/examples/checks
 sudo chmod +x /usr/local/bin/http_check.sh
 {{< /highlight >}}
 
-_PRO TIP: While this command is appropriate when running a few agents, you should consider
+_PRO TIP: While this command may be appropriate when running a few agents, you should consider
 using [Sensu assets][5] or a [configuration management][15] tool to provide
 runtime dependencies for checks in bigger environments._
 
