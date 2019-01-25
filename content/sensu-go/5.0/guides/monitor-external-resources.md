@@ -37,7 +37,7 @@ sudo chmod +x /usr/local/bin/http_check.sh
 
 _PRO TIP: While this command may be appropriate when running a few agents, you should consider
 using [Sensu assets][5] or a [configuration management][15] tool to provide
-runtime dependencies for checks in bigger environments._
+runtime dependencies._
 
 ### Creating the check
 
