@@ -1151,7 +1151,7 @@ available for immediate download. Please note the following improvements:
 [30]: /sensu-core/0.29/reference/aggregates
 [31]: /sensu-core/0.29/reference/configuration#sensu-environment-variables
 [32]: https://github.com/sensu-extensions/sensu-extensions-occurrences/
-[33]: https://sensuapp.org/blog/2016/07/07/sensu-plugin-filter-deprecation.html
+[33]: https://blog.sensu.io/deprecating-event-filtering-in-sensu-plugin-b60c7c500be3
 [33]: /sensu-core/0.29/api/silenced
 [35]: /sensu-core/0.29/reference/handlers#handler-attributes
 

@@ -35,7 +35,7 @@ To install Uchiwa, please visit the [Uchiwa installation guide][uchiwa-install].
 _NOTE: as mentioned above &ndash; installation and use of a dashboard is not
 required for operating Sensu Core or Sensu Enterprise._
 
-[sensu-enterprise]:       https://sensuapp.org/enterprise
+[sensu-enterprise]:       https://sensu.io/products/enterprise
 [core-api]:               ../../api/overview
 [enterprise-api]:         /sensu-enterprise/latest/api/
 [uchiwa-install]:         /uchiwa/latest/getting-started/installation
