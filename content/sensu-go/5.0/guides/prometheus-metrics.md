@@ -25,11 +25,11 @@ The [Sensu Prometheus Collector][1] is a check plugin that collects metrics from
 
 ## Why use Sensu with Prometheus?
 
-The Prometheus ecosystem contains a number of actively maintained exporters, such as the [node exporter][5] for reporting hardware and operating system metrics or Google's cAdvisor exporter for monitoring containers. These exporters expose metrics which Sensu can collect and route to one or more time-series databases, such as InfluxDB or Graphite. Both Sensu and Prometheus can run in parallel, complimenting each other and making use of environments where Prometheus is already deployed.  
+The Prometheus ecosystem contains a number of actively maintained exporters, such as the [node exporter][5] for reporting hardware and operating system metrics or Google's [cAdvisor exporter][6] for monitoring containers. These exporters expose metrics which Sensu can collect and route to one or more time-series databases, such as InfluxDB or Graphite. Both Sensu and Prometheus can run in parallel, complimenting each other and making use of environments where Prometheus is already deployed.  
 
 ## In this guide
 
-This guide uses CentOS 7 as the operating system with all compoments running on the same compute resource. Commands and steps may change for different distributions or if components are running on different compute resources.
+This guide uses CentOS 7 as the operating system with all components running on the same compute resource. Commands and steps may change for different distributions or if components are running on different compute resources.
 
 At the end, you will have Prometheus scraping metrics. The Sensu Prometheus Collector will then query the Prometheus API as a Sensu check, send those to an InfluxDB Sensu handler, which will send metrics to an InfluxDB instance. Finally, Grafana will query InfluxDB to display those collected metrics.
 
@@ -470,12 +470,14 @@ Once logged in, click on Home in the upper left corner, then below click on the 
 
 ## Conclusion
 
-You should now have a working setup with Prometheus scraping metrics. The Sensu Prometheus Collecting is being ran via a Sensu check and collecting those metrics from Prometheus' API. The metrics are then handled by the InfluxDB handler, sent to InfluxDB and then visualzied by a Grafana Dashboard.
+You should now have a working setup with Prometheus scraping metrics. The Sensu Prometheus Collecting is being ran via a Sensu check and collecting those metrics from Prometheus' API. The metrics are then handled by the InfluxDB handler, sent to InfluxDB and then visualized by a Grafana Dashboard.
 
-Using this information, you can now plugin the Sensu Prometheus Collector into your Sensu ecosystem and leverage Prometheus' to gather metrics and Sensu to send them to the proper final desitnation.
+Using this information, you can now plugin the Sensu Prometheus Collector into your Sensu ecosystem and leverage Prometheus' to gather metrics and Sensu to send them to the proper final destination. Prometheus has a [comprehensive list][7] of additional exporters to pull in metrics.
 
 [1]: https://github.com/sensu/sensu-prometheus-collector
 [2]: https://prometheus.io/docs/instrumenting/exporters/
 [3]: https://prometheus.io/docs/prometheus/latest/querying/api/
 [4]: ../../installation/install-sensu/
 [5]: https://github.com/prometheus/node_exporter
+[6]: https://github.com/google/cadvisor
+[7]: https://prometheus.io/docs/instrumenting/exporters/
