@@ -233,19 +233,19 @@ You can use [sensuctl][2] to view, create, and manage users.
 To change the password for a user:
 
 {{< highlight shell >}}
-sensuctl user change-password [USERNAME]
+sensuctl user change-password USERNAME
 {{< /highlight >}}
 
 To disable a user:
 
 {{< highlight shell >}}
-sensuctl user disable [USERNAME]
+sensuctl user disable USERNAME
 {{< /highlight >}}
 
 To re-enable a disabled user:
 
 {{< highlight shell >}}
-sensuctl user reinstate [USERNAME]
+sensuctl user reinstate USERNAME
 {{< /highlight >}}
 
 ### User specification
@@ -302,7 +302,7 @@ You can use [sensuctl][2] to add users to groups.
 To add a user to a group:
 
 {{< highlight shell >}}
-sensuctl user add-group [USERNAME] [GROUP]
+sensuctl user add-group USERNAME GROUP
 {{< /highlight >}}
 
 To set the groups for a user:
@@ -318,13 +318,13 @@ You can use [sensuctl][2] to remove users from groups.
 To remove a user from a group:
 
 {{< highlight shell >}}
-sensuctl user remove-group [USERNAME] [GROUP]
+sensuctl user remove-group USERNAME GROUP
 {{< /highlight >}}
 
 To remove a user from all groups:
 
 {{< highlight shell >}}
-sensuctl user remove-groups [USERNAME]
+sensuctl user remove-groups USERNAME
 {{< /highlight >}}
 
 ## Roles and cluster roles

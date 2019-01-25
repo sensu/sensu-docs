@@ -74,7 +74,7 @@ training, and other benefits, check out [Sensu Enterprise][14].
 [11]: http://www.ansible.com
 [12]: https://github.com/sensu/sensu/blob/master/MIT-LICENSE.txt
 [13]: http://github.com/sensu/sensu
-[14]: https://sensuapp.org/enterprise
+[14]: https://sensu.io/products/enterprise
 [15]: installation/install-sensu-client
 [16]: api/overview
 [17]: reference/clients#proxy-clients
