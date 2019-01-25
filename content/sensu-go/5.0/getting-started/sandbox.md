@@ -1,7 +1,7 @@
 ---
 title: "Learn Sensu Go"
 description: "Get started with the Sensu sandbox."
-version: "5.1"
+version: "5.0"
 product: "Sensu Go"
 ---
 
