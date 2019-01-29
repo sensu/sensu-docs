@@ -186,7 +186,7 @@ sc stop sensu-client{{< /highlight >}}
 [4]:  https://sensuapp.org/mit-license
 [5]:  ../../reference/configuration/
 [6]:  ../../reference/transport/
-[7]:  ../../reference/redis/#sensu-redis-configuration
+[7]:  ../../reference/redis/#configure-sensu
 [8]:  ../../reference/rabbitmq/#sensu-rabbitmq-configuration
 [9]:  ../../reference/configuration/#sensu-service-cli-arguments
 [10]: https://technet.microsoft.com/en-us/library/bb490995.aspx

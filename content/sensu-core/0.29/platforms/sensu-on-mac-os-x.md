@@ -190,7 +190,7 @@ $ sudo -u _sensu /opt/sensu/bin/sensu-client -V
 [4]:  #configure-the-sensu-client-launchd-daemon
 [5]:  ../../reference/configuration/
 [6]:  ../../reference/transport/
-[7]:  ../../reference/redis/#sensu-redis-configuration
+[7]:  ../../reference/redis/#configure-sensu
 [8]:  ../../reference/rabbitmq/#sensu-rabbitmq-configuration
 [10]: ../../reference/configuration#sensu-service-cli-arguments/
 [11]: https://ss64.com/osx/launchctl.html

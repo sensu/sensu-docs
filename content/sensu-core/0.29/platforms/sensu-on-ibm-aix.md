@@ -166,7 +166,7 @@ support will be enabled in a future release.
 [4]:  https://sensuapp.org/mit-license
 [5]:  ../../reference/configuration/
 [6]:  ../../reference/transport/
-[7]:  ../../reference/redis/#sensu-redis-configuration
+[7]:  ../../reference/redis/#configure-sensu
 [8]:  ../../reference/rabbitmq/#sensu-rabbitmq-configuration
 [9]:  https://github.com/ffi/ffi
 [10]: #configure-sensu

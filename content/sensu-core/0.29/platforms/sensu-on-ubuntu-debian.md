@@ -452,7 +452,7 @@ sudo service sensu-enterprise-dashboard stop{{< /highlight >}}
 [2]:  https://sensu.io/products/enterprise
 [3]:  ../../reference/configuration
 [4]:  ../../reference/transport
-[5]:  ../../reference/redis/#sensu-redis-configuration
+[5]:  ../../reference/redis/#configure-sensu
 [6]:  ../../reference/rabbitmq/#sensu-rabbitmq-configuration
 [7]:  http://smarden.org/runit/
 [8]:  #disable-the-sensu-services-on-boot
