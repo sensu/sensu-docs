@@ -2,11 +2,11 @@
 title: "Checks"
 description: "The checks reference guide."
 weight: 10
-version: "5.0"
+version: "5.2"
 product: "Sensu Go"
 platformContent: false
 menu:
-  sensu-go-5.0:
+  sensu-go-5.2:
     parent: reference
 ---
 
@@ -490,4 +490,3 @@ example      | {{< highlight shell >}}"splay_coverage": 90{{< /highlight >}}
 [27]: ../filters
 [sc]: ../../sensuctl/reference#creating-resources
 [sp]: #spec-attributes
-[28]: ../../guides/monitor-external-resources#using-proxy-requests-to-monitor-a-group-of-websites

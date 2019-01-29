@@ -2,11 +2,11 @@
 title: "How to monitor external resources with proxy requests and entities"
 linkTitle: "Monitoring External Resources"
 weight: 15
-version: "5.1"
+version: "5.2"
 product: "Sensu Go"
 platformContent: false
 menu: 
-  sensu-go-5.1:
+  sensu-go-5.2:
     parent: guides
 ---
 
