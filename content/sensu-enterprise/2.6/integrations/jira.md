@@ -90,6 +90,8 @@ type         | String
 default      | `Incident`
 example      | {{< highlight shell >}}"issue_type": "Bug"{{< /highlight >}}
 
+_NOTE: The `"issue_type": "Incident"` is not presented by default in some installations of Jira, including hosted versions. This can cause the integration to fail._
+
 root_url     | 
 -------------|------
 description  | The JIRA root URL. When set, this option overrides the `host` option, most commonly used when a service proxy is in use.
