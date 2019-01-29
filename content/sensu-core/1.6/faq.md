@@ -29,9 +29,9 @@ Enterprise](https://sensu.io/features/enterprise) a try.
 | CentOS 7           | ✅     | ❌     | No official 32bit images |
 | FreeBSD 10         | ✅     | ❌     | Official 32bit images are out of date |
 | FreeBSD 11         | ✅     | ❌     | No official 32bit images |
-| Solaris 10         | ✅     | ❌     | No official 32bit images |
-| Solaris 11         | ✅     | ❌     | No official 32bit images |
-| IBM AIX 6.1 +      | ✅     | ❌     | No official 32bit images |
+| Solaris 10         | ❌     | ✅     | No official 64bit images |
+| Solaris 11         | ❌     | ✅     | No official 64bit images |
+| IBM AIX 6.1 +      | ❌     | ✅     | No official 64bit images |
 | Windows 2012r2     | ✅     | ✅     | 32bit artifact built on 64bit platform |
 | Mac OS X 10.10     | ✅     | ❌     | See [Mac platform notes][4] for instructions |
 | Mac OS X 10.11     | ✅     | ❌     | See [Mac platform notes][4] for instructions |
