@@ -413,6 +413,22 @@ required     | required if `splay` attribute is set to `true`
 type         | Integer
 example      | {{< highlight shell >}}"splay_coverage": 90{{< /highlight >}}
 
+### Check output truncation attributes
+
+|max_output_size  | |
+-------------|-------
+description  | Maximum output size, in bytes, that stored check outputs will have. When set to a non-zero value, check output will be truncated before being stored to etcd, if the output size is larger than this value. Filters, handlers, and mutators will still get access to the full check output.
+required     | false
+type         | Integer
+example      | {{< highlight shell >}}"max_output_size": 1024{{< /highlight >}}
+
+|discard_output  | |
+-------------|------
+description  | Discard check output after extracting metrics on the agent. No check output will be sent to the backend.
+required     | false
+type         | Boolean
+example      | {{< highlight shell >}}"discard_output": true{{< /highlight >}}
+
 ## Examples
 
 ### Metric check
@@ -451,7 +467,8 @@ example      | {{< highlight shell >}}"splay_coverage": 90{{< /highlight >}}
     "output_metric_handlers": [
       "influx-db"
     ],
-    "env_vars": null
+    "env_vars": null,
+    "discard_output": true
   }
 }
 {{< /highlight >}}
