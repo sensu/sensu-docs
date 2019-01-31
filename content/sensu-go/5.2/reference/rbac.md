@@ -164,6 +164,7 @@ Cluster-wide resources cannot be assigned to a namespace and can only be accesse
 | `clusterroles`   | Cluster-wide permission sets  |
 | `namespaces` | Resource partitions within a Sensu instance |
 | `users` | People or agents interacting with Sensu |
+| `providers` | [Authentication provider][32] configuration (enterprise-only)|
 
 ### Special resource types
 Special resources types can be accessed by both [roles][13] and [cluster roles][21].
@@ -757,3 +758,4 @@ The following examples are in `wrapped-json` format for use with [`sensuctl crea
 [29]: #creating-a-role-binding
 [30]: #role-binding-and-cluster-role-binding-specification
 [31]: ../../sensuctl/reference#creating-resources
+[32]: ../../installation/auth
