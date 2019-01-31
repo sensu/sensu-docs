@@ -84,13 +84,11 @@ example      | {{< highlight shell >}}"project_key": "SEN"{{< /highlight >}}
 
 issue_type   | 
 -------------|------
-description  | Specifies default issue type for projects.
+description  | Specifies default issue type for projects. _NOTE: The project used with this integration must include the `issue_type` defined here._
 required     | false
 type         | String
 default      | `Incident`
 example      | {{< highlight shell >}}"issue_type": "Bug"{{< /highlight >}}
-
-_NOTE: The `"issue_type": "Incident"` is not presented by default in some installations of Jira, including hosted versions. This can cause the integration to fail._
 
 root_url     | 
 -------------|------
