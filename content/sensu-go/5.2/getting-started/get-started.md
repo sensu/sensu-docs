@@ -22,21 +22,21 @@ The sandbox is the best place to get started with Sensu and try out new features
 Sensu Go is the free and open source monitoring event pipeline, written in Go and designed for container-based and hybrid-cloud infrastructures.
 
 - [Install Sensu Go][2]
+- [Discover Sensu assets][6]]
 
-### Create a monitoring workflow
+### Try Sensu Enterprise
 
-Sensu lets you create automated monitoring workflows to route system metrics and alerts.
-Get started by following one of the Sensu Go guides.
+Sensu Enterprise offers features designed for enterprises, like LDAP authentication and enterprise-class support.
 
-- [Monitor server resources][3]
-- [Send Slack alerts][4]
-- [Collect StatsD metrics][5]
-- [Store metrics with InfluxDB][6]
+- [Learn more about Sensu Enterprise][3]
+- [Contact the Sensu sales team to schedule a demo][4]
+- [Get started with Sensu Enterprise][5]
+
 
 [1]: ../sandbox
 [2]: ../../installation/install-sensu
-[3]: ../../guides/monitor-server-resources
-[4]: ../../guides/send-slack-alerts
-[5]: ../../guides/aggregate-metrics-statsd
-[6]: ../../guides/influx-db-metric-handler
+[3]: https://sensu.io/products/enterprise
+[4]: https://sensu.io/sales/
+[5]: ../enterprise
+[6]: https://bonsai.sensu.io
 [7]: ../learn-sensu
