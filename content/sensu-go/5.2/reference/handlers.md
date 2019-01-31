@@ -22,6 +22,17 @@ menu:
 	- [`socket` attributes](#socket-attributes)
 - [Examples](#handler-examples)
 
+## Install Sensu handlers assets
+Discover, download, and share Sensu handlers assets using [Bonsai][16], the Sensu asset index.
+Sensu Inc. supports the following handler assets for Sensu Go:
+
+- [Sensu PagerDuty handler][19]
+- [Sensu email handler][20]
+- [Sensu ServiceNow handler][21] ([enterprise only][17])
+- [Sensu Jira handler][22] ([enterprise only][17])
+
+Read the [guide to using assets][23] to get started.
+
 ## How do Sensu handlers work?
 
 Handlers actions are executed by the Sensu backend on events, and there are
@@ -393,3 +404,10 @@ The following example handler will execute three handlers: `slack`,
 [13]: ../agent
 [14]: ../backend
 [15]: ../../guides/send-slack-alerts
+[16]: https://bonsai.sensu.io
+[17]: ../../getting-started/enterprise
+[19]: https://bonsai.sensu.io/assets/sensu/sensu-pagerduty-handler
+[20]: https://bonsai.sensu.io/assets/sensu/sensu-email-handler
+[21]: https://bonsai.sensu.io/assets/portertech/sensu-servicenow-handler
+[22]: https://bonsai.sensu.io/assets/portertech/sensu-jira-handler
+[23]: ../../guides/install-check-executables-with-assets

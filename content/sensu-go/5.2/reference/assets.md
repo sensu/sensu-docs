@@ -11,15 +11,39 @@ menu:
     parent: reference
 ---
 
-- [Specification](#assets-specification)
+- [Install Sensu assets](#install-sensu-assets)
+- [What is an asset?](#what-is-an-asset)
+- [How do assets work?](#how-do-assets-work)
+- [Asset format specification](#asset-format-specification)
+- [Creating an asset](#creating-an-asset)
+- [Sharing an asset on Bonsai](#sharing-an-asset-on-bonsai)
+- [Asset specification](#asset-specification)
 - [Examples](#examples)
 
+## Install Sensu assets
+Discover, download, and share assets using [Bonsai, the Sensu asset index][16].
+Sensu Inc. supports the following assets for Sensu Go:
+
+- [Sensu AWS plugins][26]
+- [Sensu Prometheus collector][27]
+- [Sensu PagerDuty handler][19]
+- [Sensu email handler][20]
+- [Sensu ServiceNow handler][21] ([enterprise only][17])
+- [Sensu Jira handler][22] ([enterprise only][17])
+
+Read the [guide to using assets][23] to get started.
+
 ## What is an asset?
-An asset is an executable that a check, handler, or mutator can specify as a
-dependency. Assets must be a tar archive (optionally gzipped) with scripts or
-executables within a bin folder. At runtime, the backend or agent installs
-required assets using the specified URL. Assets let you manage runtime
-dependencies without using configuration management tools.
+Assets are shareable, reusable packages that help you manage plugins in Sensu.
+Sensu supports runtime assets for [checks][6], [filters][7], [mutators][8], and [handlers][9].
+
+### Asset tiers
+
+Assets shared on [Bonsai][16] belong to one of three tiers.
+
+- **Community** - Open-source assets shared by the Sensu Community. Collaborate, share, and star your favorite assets with Bonsai.
+- **Supported** - Open-source assets supported by Sensu Inc, including supported AWS, PagerDuty, and email assets.
+- **Enterprise** - Hosted assets included with [Sensu Enterprise][17]. These assets require a [Sensu Enterprise][17] license.
 
 ## How do assets work?
 Assets can be executed by the backend (for handler and mutator assets), or
@@ -29,6 +53,19 @@ injected into the `PATH` so they are available when the command is executed.
 Subsequent check, handler, or mutator executions look for the asset in local
 cache and ensure the contents match the checksum. An entity's local cache can
 be set using the `--cache-dir` flag.
+
+## Asset format specification
+
+Sensu expects an asset to be a tar archive (optionally gzipped) containing one or more executables within a bin folder.
+Any scripts or executables should be within a `bin/` folder within in the archive.
+See the [Sensu Go Plugin template][] for an example asset and Bonsai configuration.
+
+The following are injected into the execution context:
+
+- `{PATH_TO_ASSET}/bin` is injected into the `PATH` environment variable.
+- `{PATH_TO_ASSET}/lib` is injected into the `LD_LIBRARY_PATH` environment
+  variable.
+- `{PATH_TO_ASSET}/include` is injected into the `CPATH` environment variable.
 
 ### Default cache directory
 
@@ -41,18 +78,119 @@ If the requested asset is not in the local cache, it is downloaded from the asse
 URL. The Sensu backend does not currently provide any storage for assets; they
 are expected to be retrieved over HTTP or HTTPS.
 
-The agent expects that an asset is a `TAR` archive that may optionally be
-GZip'd. Any scripts or executables should be within a `bin/` folder within in
-the archive.
+### Example structure
+{{< highlight shell >}}
+sensu-example-handler_1.0.0_linux_amd64
+├── CHANGELOG.md
+├── LICENSE
+├── README.md
+└── bin
+└── lib
+└── include
+{{< /highlight >}}
 
-The following are injected into the execution context:
+## Sharing an asset on Bonsai
 
-- `{PATH_TO_ASSET}/bin` is injected into the `PATH` environment variable.
-- `{PATH_TO_ASSET}/lib` is injected into the `LD_LIBRARY_PATH` environment
-  variable.
-- `{PATH_TO_ASSET}/include` is injected into the `CPATH` environment variable.
+Share your open-source assets on Bonsai and connect with the Sensu Community.
+Bonsai supports assets released using GitHub releases.
 
-## Assets specification
+Bonsai requires a [`bonsai.yml` configuration file](#bonsai-yml-specification) in the root directory of your repository that includes the project description, platforms, asset filenames, and SHA-512 checksums.
+For a Bonsai-compatible asset template using Go and Go releaser, see the [Sensu Go plugin skeleton](https://github.com/sensu/sensu-go-plugin).
+
+To share your asset on Bonsai, [log in to Bonsai](https://bonsai.sensu.io/sign-in) with your GitHub account and authorize Sensu on GitHub.
+Once logged in, you can [register your asset on Bonsai](https://bonsai.sensu.io/new) by adding the GitHub repository, description, and tags.
+Make sure to provide a helpful README for your asset with configuration examples.
+
+### `bonsai.yml` example
+
+{{< highlight yml >}}
+---
+description: "#{repo}"
+builds:
+- platform: "linux"
+  arch: "amd64"
+  asset_filename: "#{repo}_#{version}_linux_amd64.tar.gz"
+  sha_filename: "#{repo}_#{version}_sha512-checksums.txt"
+  filter:
+  -  "entity.system.os == 'linux'"
+  -  "entity.system.arch == 'amd64'"
+
+- platform: "Windows"
+  arch: "amd64"
+  asset_filename: "#{repo}_#{version}_windows_amd64.tar.gz"
+  sha_filename: "#{repo}_#{version}_sha512-checksums.txt"
+  filter:
+  -  "entity.system.os == 'windows'"
+  -  "entity.system.arch == 'amd64'"
+{{< /highlight >}}
+
+### `bonsai.yml` specification
+
+ description | 
+-------------|------
+description  | The project description
+required     | true
+type         | String
+example      | {{< highlight yml >}}description: "#{repo}"{{< /highlight >}}
+
+ builds      | 
+-------------|------
+description  | An array of asset details per platform
+required     | true
+type         | Array
+example      | {{< highlight yml >}}
+builds:
+- platform: "linux"
+  arch: "amd64"
+  asset_filename: "#{repo}_#{version}_linux_amd64.tar.gz"
+  sha_filename: "#{repo}_#{version}_sha512-checksums.txt"
+  filter:
+  -  "entity.system.os == 'linux'"
+  -  "entity.system.arch == 'amd64'"
+{{< /highlight >}}
+
+### Builds specification
+
+ platform    | 
+-------------|------
+description  | The platform supported by the asset
+required     | true
+type         | String
+example      | {{< highlight yml >}}- platform: "linux"{{< /highlight >}}
+
+ arch        | 
+-------------|------
+description  | The architecture supported bu the asset
+required     | true
+type         | String
+example      | {{< highlight yml >}}  arch: "amd64"{{< /highlight >}}
+
+asset_filename | 
+-------------|------
+description  | The filename of the archive containing the asset
+required     | true
+type         | String
+example      | {{< highlight yml >}}asset_filename: "#{repo}_#{version}_linux_amd64.tar.gz"{{< /highlight >}}
+
+sha_filename | 
+-------------|------
+description  | The SHA-512 checksum for the archive
+required     | true
+type         | String
+example      | {{< highlight yml >}}sha_filename: "#{repo}_#{version}_sha512-checksums.txt"{{< /highlight >}}
+
+ filter      | 
+-------------|------
+description  | Entity filters specifying the operating system and architecture supported by the asset
+required     | false
+type         | Array
+example      | {{< highlight yml >}}
+  filter:
+  -  "entity.system.os == 'linux'"
+  -  "entity.system.arch == 'amd64'"
+{{< /highlight >}}
+
+## Asset specification
 
 ### Top-level attributes
 
@@ -197,5 +335,18 @@ example      | {{< highlight shell >}} "annotations": {
 [3]: ../filters
 [4]: ../tokens
 [5]: #metadata-attributes
+[6]: ../checks
+[7]: ../filters
+[8]: ../mutators
+[9]: ../handlers
 [sc]: ../../sensuctl/reference#creating-resources
 [sp]: #spec-attributes
+[16]: https://bonsai.sensu.io
+[17]: ../../getting-started/enterprise
+[19]: https://bonsai.sensu.io/assets/sensu/sensu-pagerduty-handler
+[20]: https://bonsai.sensu.io/assets/sensu/sensu-email-handler
+[21]: https://bonsai.sensu.io/assets/portertech/sensu-servicenow-handler
+[22]: https://bonsai.sensu.io/assets/portertech/sensu-jira-handler
+[23]: ../../guides/install-check-executables-with-assets
+[26]: https://bonsai.sensu.io/assets/sensu/sensu-aws
+[27]: https://bonsai.sensu.io/assets/sensu/sensu-prometheus-collector

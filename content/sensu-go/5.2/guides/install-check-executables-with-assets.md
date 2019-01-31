@@ -1,6 +1,6 @@
 ---
-title: "How to install executables using assets"
-linkTitle: "Installing Plugins with Assets"
+title: "How to use Sensu assets"
+linkTitle: "Using Bonsai Assets"
 weight: 40
 version: "5.2"
 product: "Sensu Go"
@@ -10,147 +10,207 @@ menu:
     parent: guides
 ---
 
-- [How to create a check that depends on an asset](#how-to-create-a-check-that-depends-on-an-asset)
-- [How to create a handler that depends on an asset](#how-to-create-a-handler-that-depends-on-an-asset)
-- [How to create a mutator that depends on an asset](#how-to-create-a-mutator-that-depends-on-an-asset)
-- [Next steps](#next-steps)
+Assets are shareable, reusable packages that help you manage plugins in Sensu.
+Sensu supports runtime assets for [checks][6], [filters][7], [mutators][8], and [handlers][9].
+You can discover, download, and share assets using [Bonsai, the Sensu asset index][16].
+See the [asset reference](../../reference/assets) more information about creating and sharing assets.
 
-## What are assets?
-Assets are executables that checks, handlers, and mutators can specify as dependencies.
-When an agent runs a check or when a backend runs a handler or mutator, it ensures that all of the required assets
-are available during runtime.
-If they aren't, Sensu installs them by consulting each of the assets' URLs.
+In this guide, we'll get started using the [Sensu AWS plugins][26] and [Sensu ServiceNow handler][27] assets.
 
-## Why use assets?
-When configuration management is unavailable, assets can help manage runtime 
-dependencies such as scripts (ex: check-haproxy.sh) and tar files (ex: sensu-ruby-runtime.tar.gz)
-entirely within Sensu. 
+## Monitoring EC2 with the Sensu AWS plugins asset
 
-## How to create a check that depends on an asset 
+### 1. Download the asset definition from Bonsai
 
-### Creating an asset
-In this example, we'll create an asset from a tar archive, and show you how to
-create a new check with that asset as a dependency, as well as apply it to an
-existing check.
+Visit the asset page in [Bonsai][4], and select the Download button to download the asset definition for your platform and architecture.
+For example, for Linux AMD64, Bonsai provides the following asset definition.
 
-Sensu expects that an asset is a tar archive that may optionally be gzipped.
-Any scripts or executables should be within a bin/ folder within the archive.
-For more information about the expected format of assets, see the [assets reference][1].
-
-To create an asset, we'll need a name, a URL to the asset location,
-and a `SHA-512 checksum`.
-
-{{< highlight shell >}}
-sensuctl asset create check_website.tar.gz \
--u http://example.com/check_website.tar.gz \
---sha512 "$(sha512sum check_website.tar.gz | cut -f1 -d ' ')"
-{{< /highlight >}}
-
-If you're using macOS, you'll need to use `$(shasum -a 512 check_website.tar.gz | cut -f1 -d ' ')` to generate a checksum.
-
-If you're using Windows, you'll need to use the `CertFile` utility to generate the checksum:
-{{< highlight shell >}}
-CertUtil -hashfile check_website.tar.gz SHA512
-{{< /highlight >}}
-
-and extract the checksum from the output manually, before adding it to the sensuctl command.
-
-
-### Adding an asset to a check on creation
-
-{{< highlight shell >}}
-sensuctl check create check_website \
---command "check_website -a www.example.com -C 3000 -w 1500" \
---subscriptions web \
---interval 10 \
---runtime-assets check_website.tar.gz 
-{{< /highlight >}}
-
-### Adding an asset to an existing check's dependencies
-
-{{< highlight shell >}}
-sensuctl check set-runtime-assets check_website.tar.gz 
-{{< /highlight >}}
-
-This command will set a check's assets to `check_website.tar.gz`.
-
-### Validating the check asset
-
-Once the check is setup, it should only take a few moments for it to be
-scheduled and start emitting events. When the check has been scheduled, you should 
-see a log entry for that check's execution.
-{{< highlight shell >}}
-{"component":"agent","level":"info","msg":"scheduling check execution: check_website","time":"2018-04-06T20:46:32Z"}
-{{< /highlight >}}
-
-You can verify that the asset is working by using `sensuctl` to list the most recent events:
-{{< highlight shell >}}
-sensuctl event list
-  Entity           Check                     Output               Status   Silenced             Timestamp
-───────────── ────────────────── ──────────────────────────────── ──────── ────────── ───────────────────────────────
-sensu-agent    check_website      CheckHttpResponseTime OK: 345      0       false    2018-04-06 20:38:34 +0000 UTC
-{{< /highlight >}}
-
-## How to create a handler that depends on an asset 
-
-### Adding an asset to a handler on creation
-
-[Create an asset][2] (ex.`sensu-influxdb-handler`), and create a handler (ex. `influx-db`).
-
-{{< highlight shell >}}
-sensuctl handler create influx-db \
---type pipe \
---runtime-assets sensu-influxdb-handler \
---command "sensu-influxdb-handler -d sensu" \
---env-vars "INFLUXDB_ADDR=http://influxdb.default.svc.cluster.local:8086, INFLUXDB_USER=sensu, INFLUXDB_PASSWORD=password"
-{{< /highlight >}}
-
-### Validating the handler asset
-
-Once the handler is setup, it must be attached to a check to handle the event output (ex. `collect-metrics`).
-
-{{< highlight shell >}}
-$ sensuctl check set-handlers collect-metrics influx-db
-{{< /highlight >}}
-
-You can verify that the handler has fetched/installed the asset, and executed the dependency by checking the
-backend logs.
+`sensu-sensu-aws-0.0.2-linux-amd64.json`
 
 {{< highlight json >}}
-{"assets":["sensu-influxdb-handler"],"component":"pipelined","namespace":"default","handler":"influx-db","level":"debug","msg":"fetching assets for handler","time":"2018-10-16T13:17:33-07:00"}
+{
+  "type": "Asset",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "sensu-aws",
+    "namespace": "default",
+    "labels": {},
+    "annotations": {}
+  },
+  "spec": {
+    "url": "https://github.com/sensu/sensu-aws/releases/download/0.0.2/sensu-aws_0.0.2_linux_amd64.tar.gz",
+    "sha512": "5d8a17324da4e0793418c144b269f4a7c3ebffb7b9f222008432b6804e243400ee9aaa09cd367ece8a9216950f314283e290995eb53bb0ebd5f8594b09e7003f",
+    "filters": [
+      "entity.system.os == 'linux'",
+      "entity.system.arch == 'amd64'"
+    ]
+  }
+}
 {{< /highlight >}}
-{{< highlight json >}}
-{"component":"pipelined","namespace":"default","handler":"influx-db","level":"info","msg":"event pipe handler executed","output":"metric sent to influx-db","status":0,"time":"2018-10-16T13:17:33-07:00"}
-{{< /highlight >}}
 
-## How to create a mutator that depends on an asset 
-
-### Adding an asset to a mutator on creation
-
-[Create an asset][2] (ex. `transformer`), and create a mutator (ex. `transform-metrics`).
+Once you've downloaded the asset definition, you can register the asset with Sensu using sensuctl.
 
 {{< highlight shell >}}
-sensuctl mutator create transform-metrics \
---command "transform --type metrics" \
---runtime-assets transformer
+sensuctl create --file sensu-sensu-aws-0.0.2-linux-amd64.json
 {{< /highlight >}}
 
-### Validating the mutator asset
-
-Once the mutator is setup, it must be attached to a handler to mutate the event output (ex. `influx-db`).
+You should now have the `sensu-aws` asset ready to use with Sensu.
 
 {{< highlight shell >}}
-sensuctl handler update influx-db
+sensuctl asset list
+
+            Name                                     URL                            Hash    
+ ────────────────────────── ───────────────────────────────────────────────────── ───────── 
+  sensu-aws                  //github.com/.../sensu-aws_0.0.2_linux_amd64.tar.gz   5d8a173  
 {{< /highlight >}}
 
-You can verify that the mutator has fetched/installed the asset, and executed the dependency by checking the
-backend logs.
+### 2. Create a Sensu check that uses the asset
+
+Now that you've registered the AWS asset with Sensu, we'll create a Sensu service check to monitor EC2.
+Asset pages in Bonsai are your best resource for learning how to create Sensu resources that use assets.
+
+To monitor the CPU balance in EC2, we can use the following check definition.
+
+`ec2-cpu-balance.json`
 
 {{< highlight json >}}
-{"assets":["transformer"],"component":"pipelined","namespace":"default","mutator":"transform-metrics","level":"debug","msg":"fetching assets for mutator","time":"2018-10-16T13:17:33-07:00"}
+{
+  "type": "CheckConfig",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "ec2-cpu-balance",
+    "namespace": "default"
+  },
+  "spec": {
+    "command": "check-ec2-cpu_balance --critical=1 --warning=5",
+    "handlers": ["pagerduty"],
+    "interval": 10,
+    "publish": true,
+    "runtime_assets": ["sensu-aws"],
+    "subscriptions": [
+      "ec2"
+    ]
+  }
+}
 {{< /highlight >}}
+
+We can see that the check specifies the `sensu-aws` asset and includes the command for the EC2 CPU plugin.
+See the [AWS asset in Bonsai][26] for instructions on configuring your AWS instance to connect to Sensu.
+
+You can create the `ec2-cpu-balance` check in Sensu using sensuctl.
+
+{{< highlight shell >}}
+sensuctl create --file ec2-cpu-balance.json
+{{< /highlight >}}
+
+You should now have the `ec2-cpu-balance` check ready to use with Sensu.
+
+{{< highlight shell >}}
+sensuctl check list
+
+       Name                            Command                       Interval   Cron   Timeout   TTL   Subscriptions   Handlers     Assets     Hooks   Publish?   Stdin?   Metric Format   Metric Handlers  
+ ───────────────── ──────────────────────────────────────────────── ────────── ────── ───────── ───── ─────────────── ─────────── ─────────── ─────── ────────── ──────── ─────────────── ───────────────── 
+  ec2-cpu-balance   check-ec2-cpu_balance --critical=1 --warning=5         10                0     0   ec2             pagerduty   sensu-aws           true       false                              
+{{< /highlight >}}
+
+## Creating incidents using the Sensu ServiceNow handler asset
+
+Now we'll use the [Sensu ServiceNow handler asset][21] to automate incident management in ServiceNow.
+
+**ENTERPRISE ONLY**: The Sensu ServiceNow handler asset requires a [Sensu Enterprise](http://sensu.io/products/enterprsie) license. To activate your Sensu Enterprise license, see the [getting started guide][17].
+
+### 1. Download the asset definition from Bonsai
+
+Visit the asset page in [Bonsai][21], and select the Download button to download the asset definition for your platform and architecture.
+For example, for Linux AMD64, Bonsai provides the following asset definition.
+
+`portertech-sensu-servicenow-handler-0.0.10-linux-amd64.json`
+
 {{< highlight json >}}
-{"component":"pipelined","namespace":"default","mutator":"transform-metrics","level":"info","msg":"event pipe mutator executed","output":"metric transformed","status":0,"time":"2018-10-16T13:17:33-07:00"}
+{
+  "type": "Asset",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "sensu-servicenow-handler",
+    "namespace": "default",
+    "labels": {},
+    "annotations": {
+      "bonsai.sensu.io.message": "This asset is for users with a valid Enterprise license"
+    }
+  },
+  "spec": {
+    "url": "https://bonsai.sensu.io/release_assets/portertech/sensu-servicenow-handler/0.0.10/linux/amd64/asset_file",
+    "sha512": "b654682749ee985b72484cfed6da9380d723e5b2b7d4bd15b09b65bf60048392a259ada22471937e205fc45d7fa8bfb7f5cc86cd61fac346fa2ed188c0fbc20a",
+    "filters": [
+      "entity.system.os == linux",
+      "entity.system.arch == amd64"
+    ]
+  }
+}
+{{< /highlight >}}
+
+Once you've downloaded the asset definition, you can register the asset with Sensu using sensuctl.
+
+{{< highlight shell >}}
+sensuctl create --file portertech-sensu-servicenow-handler-0.0.10-linux-amd64.json
+{{< /highlight >}}
+
+You should now have the `sensu-servicenow-handler` asset ready to use with Sensu.
+
+{{< highlight shell >}}
+sensuctl asset list
+
+            Name                                     URL                            Hash    
+ ────────────────────────── ───────────────────────────────────────────────────── ───────── 
+  sensu-servicenow-handler   //bonsai.sensu.io/.../asset_file                      b654682  
+{{< /highlight >}}
+
+### 2. Create a Sensu handler that uses the asset
+
+Now that you've registered the ServiceNow handler asset with Sensu, you can create a Sensu event handler that installs and executes the asset to manage incidents in ServiceNow.
+Asset pages in Bonsai are your best resource for learning how to create Sensu resources with assets.
+
+To manage incidents in ServiceNow, you can use the following handler definition.
+
+`servicenow.json`
+
+{{< highlight json >}}
+{
+    "api_version": "core/v2",
+    "type": "Handler",
+    "metadata": {
+        "namespace": "default",
+        "name": "servicenow"
+    },
+    "spec": {
+        "type": "pipe",
+        "command": "sensu-servicenow-handler -H mycompany.service-now.com -u sn_user -p sn_password -c cmdb_ci_server -i incident -e em_event -t 30",
+        "runtime_assets": ["sensu-servicenow-handler"],
+        "timeout": 10,
+        "filters": [
+            "is_incident"
+        ]
+    }
+}
+{{< /highlight >}}
+
+We can see that the handler specifies the `sensu-servicenow-handler` asset.
+Edit the command to include your ServiceNow instance host, username, password, and other ServiceNow configuration attributes.
+See the [Sensu ServiceNow asset in Bonsai][21] for configuration instructions.
+
+You create the `servicenow` handler in Sensu using sensuctl.
+
+{{< highlight shell >}}
+sensuctl create --file servicenow.json
+{{< /highlight >}}
+
+You should now have the `servicenow` handler ready to use with Sensu.
+
+{{< highlight shell >}}
+sensuctl handler list
+
+     Name      Type   Timeout     Filters     Mutator                                                                  Execute                                                                  Environment Variables            Assets           
+ ──────────── ────── ───────── ───────────── ───────── ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── ─────────────────────── ────────────────────────── 
+  servicenow   pipe        10   is_incident             RUN:  sensu-servicenow-handler -H mycompany.service-now.com -u sn_user -p sn_password -c cmdb_ci_server -i incident -e em_event -t 30                           sensu-servicenow-handler  
 {{< /highlight >}}
 
 ## Next steps
@@ -160,3 +220,17 @@ For further reading, check out the [assets reference][1].
 
 [1]: ../../reference/assets/
 [2]: #creating-an-asset
+[3]: https://bonsai.sensu.io
+[4]: https://bonsai.sensu.io/assets/sensu/sensu-aws
+[6]: ../checks
+[7]: ../filters
+[8]: ../mutators
+[9]: ../handlers
+[16]: https://bonsai.sensu.io
+[17]: ../../getting-started/enterprise
+[19]: https://bonsai.sensu.io/assets/sensu/sensu-pagerduty-handler
+[20]: https://bonsai.sensu.io/assets/sensu/sensu-email-handler
+[21]: https://bonsai.sensu.io/assets/portertech/sensu-servicenow-handler
+[22]: https://bonsai.sensu.io/assets/portertech/sensu-jira-handler
+[26]: https://bonsai.sensu.io/assets/sensu/sensu-aws
+[27]: https://bonsai.sensu.io/assets/sensu/sensu-prometheus-collector
