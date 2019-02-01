@@ -154,7 +154,7 @@ You can use global flags with most sensuctl commands.
 --trusted-ca-file string     TLS CA certificate bundle in PEM format
 {{< /highlight >}}
 
-Additionally, these flags can be set permanently by editing `$HOME/.config/sensu/sensuctl/{cluster.json, profile.json}`.
+Additionally, these flags can be set permanently by editing `.config/sensu/sensuctl/{cluster, profile}`.
 
 ## Creating resources
 The `sensuctl create` command allows you to create or update resources by reading from STDIN or a flag configured file (`-f`).
