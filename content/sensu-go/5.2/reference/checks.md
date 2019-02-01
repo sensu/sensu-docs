@@ -417,14 +417,14 @@ example      | {{< highlight shell >}}"splay_coverage": 90{{< /highlight >}}
 
 |max_output_size  | |
 -------------|-------
-description  | Maximum output size, in bytes, that stored check outputs will have. When set to a non-zero value, check output will be truncated before being stored to etcd, if the output size is larger than this value. Filters, handlers, and mutators will still get access to the full check output.
+description  | Maximum size, in bytes, of stored check outputs. When this attribute is set to a non-zero value, the Sensu backend truncates check outputs larger than this value before storing to etcd. `max_output_size` does not affect data sent to Sensu filters, mutators, and handlers.
 required     | false
 type         | Integer
 example      | {{< highlight shell >}}"max_output_size": 1024{{< /highlight >}}
 
 |discard_output  | |
 -------------|------
-description  | Discard check output after extracting metrics on the agent. No check output will be sent to the backend.
+description  | Discard check output after extracting metrics. No check output will be sent to the Sensu backend.
 required     | false
 type         | Boolean
 example      | {{< highlight shell >}}"discard_output": true{{< /highlight >}}
