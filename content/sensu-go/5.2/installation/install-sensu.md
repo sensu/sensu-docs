@@ -15,9 +15,7 @@ menu:
 Select a platform from the dropdown above.
 Sensu Go is available for Linux, Windows (agent and CLI only), macOS (CLI only), and Docker.
 See the list of [supported platforms][5] for more information.
-
-Official Sensu Go builds described here are provided under the terms of the
-[Sensu License][13].
+Sensu downloads are provided under the [Sensu License][13].
 
 {{< platformBlock "Ubuntu RHEL/CentOS" >}}
 
