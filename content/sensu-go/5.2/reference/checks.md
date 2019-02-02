@@ -143,7 +143,7 @@ example      | {{< highlight shell >}}"type": "CheckConfig"{{< /highlight >}}
 
 api_version  | 
 -------------|------
-description  | Top-level attribute specifying the Sensu API group and version. For checks in Sensu backend version 5.0, this attribute should always be `core/v2`.
+description  | Top-level attribute specifying the Sensu API group and version. For checks in Sensu backend version 5.2, this attribute should always be `core/v2`.
 required     | Required for check definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][sc].
 type         | String
 example      | {{< highlight shell >}}"api_version": "core/v2"{{< /highlight >}}
@@ -413,6 +413,22 @@ required     | required if `splay` attribute is set to `true`
 type         | Integer
 example      | {{< highlight shell >}}"splay_coverage": 90{{< /highlight >}}
 
+### Check output truncation attributes
+
+|max_output_size  | |
+-------------|-------
+description  | Maximum size, in bytes, of stored check outputs. When this attribute is set to a non-zero value, the Sensu backend truncates check outputs larger than this value before storing to etcd. `max_output_size` does not affect data sent to Sensu filters, mutators, and handlers.
+required     | false
+type         | Integer
+example      | {{< highlight shell >}}"max_output_size": 1024{{< /highlight >}}
+
+|discard_output  | |
+-------------|------
+description  | Discard check output after extracting metrics. No check output will be sent to the Sensu backend.
+required     | false
+type         | Boolean
+example      | {{< highlight shell >}}"discard_output": true{{< /highlight >}}
+
 ## Examples
 
 ### Metric check
@@ -451,7 +467,8 @@ example      | {{< highlight shell >}}"splay_coverage": 90{{< /highlight >}}
     "output_metric_handlers": [
       "influx-db"
     ],
-    "env_vars": null
+    "env_vars": null,
+    "discard_output": true
   }
 }
 {{< /highlight >}}

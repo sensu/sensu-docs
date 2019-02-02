@@ -1,6 +1,6 @@
 ---
-title: "Get started with the Sensu sample app"
-description: "Container and application monitoring with Sensu"
+title: "Container and application monitoring with Sensu"
+description: "Deploy a sample app with Kubernetes and monitor it with Sensu."
 weight: 3
 version: "5.1"
 product: "Sensu Go"
