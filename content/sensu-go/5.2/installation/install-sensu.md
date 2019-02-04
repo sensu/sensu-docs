@@ -6,7 +6,7 @@ weight: 1
 version: "5.2"
 product: "Sensu Go"
 platformContent: true
-platforms: ["Ubuntu", "RHEL/CentOS", "Windows", "macOS", "Docker"]
+platforms: ["Ubuntu/Debian", "RHEL/CentOS", "Windows", "macOS", "Docker"]
 menu:
   sensu-go-5.2:
     parent: installation
@@ -17,18 +17,18 @@ Sensu Go is available for Linux, Windows (agent and CLI only), macOS (CLI only),
 See the list of [supported platforms][5] for more information.
 Sensu downloads are provided under the [Sensu License][13].
 
-{{< platformBlock "Ubuntu RHEL/CentOS" >}}
+{{< platformBlock "Ubuntu/Debian RHEL/CentOS" >}}
 
 ## Install the Sensu backend
-The Sensu backend is available for Ubuntu, RHEL/CentOS, and [Docker](#deploy-sensu-with-docker).
+The Sensu backend is available for Ubuntu/Debian, RHEL/CentOS, and [Docker](#deploy-sensu-with-docker).
 
 ### 1. Install the package
 
 {{< platformBlockClose >}}
 
-{{< platformBlock "Ubuntu" >}}
+{{< platformBlock "Ubuntu/Debian" >}}
 
-#### Ubuntu
+#### Ubuntu/Debian
 Add the Sensu repository.
 
 {{< highlight shell >}}
@@ -61,7 +61,7 @@ sudo yum install sensu-go-backend
 
 {{< platformBlockClose >}}
 
-{{< platformBlock "Ubuntu RHEL/CentOS" >}}
+{{< platformBlock "Ubuntu/Debian RHEL/CentOS" >}}
 
 ### 2. Create the configuration file
 
@@ -89,7 +89,7 @@ sensu-backend -h
 
 {{< platformBlockClose >}}
 
-{{< platformBlock "Ubuntu RHEL/CentOS" >}}
+{{< platformBlock "Ubuntu/Debian RHEL/CentOS" >}}
 
 ### Next steps
 
@@ -101,18 +101,18 @@ Now that you've installed the Sensu backend:
 
 {{< platformBlockClose >}}
 
-{{< platformBlock "Ubuntu RHEL/CentOS Windows" >}}
+{{< platformBlock "Ubuntu/Debian RHEL/CentOS Windows" >}}
 
 ## Install the Sensu agent
-The Sensu agent is available for Ubuntu, RHEL/CentOS, Windows, and [Docker](#deploy-sensu-with-docker).
+The Sensu agent is available for Ubuntu/Debian, RHEL/CentOS, Windows, and [Docker](#deploy-sensu-with-docker).
 
 ### 1. Install the package
 
 {{< platformBlockClose >}}
 
-{{< platformBlock "Ubuntu" >}}
+{{< platformBlock "Ubuntu/Debian" >}}
 
-#### Ubuntu
+#### Ubuntu/Debian
 
 Add the Sensu repository.
 
@@ -165,15 +165,15 @@ See the [verifying Sensu guide][12] to verify your download using checksums.
 
 {{< platformBlockClose >}}
 
-{{< platformBlock "Ubuntu RHEL/CentOS Windows" >}}
+{{< platformBlock "Ubuntu/Debian RHEL/CentOS Windows" >}}
 
 ### 2. Create the configuration file
 
 {{< platformBlockClose >}}
 
-{{< platformBlock "Ubuntu RHEL/CentOS" >}}
+{{< platformBlock "Ubuntu/Debian RHEL/CentOS" >}}
 
-#### Ubuntu/RHEL/CentOS
+#### Linux
 
 Copy the example agent config file to the default config path.
 
@@ -193,15 +193,15 @@ Download the [example agent configuration file][2] and save it as `C:\\ProgramDa
 
 {{< platformBlockClose >}}
 
-{{< platformBlock "Ubuntu RHEL/CentOS Windows" >}}
+{{< platformBlock "Ubuntu/Debian RHEL/CentOS Windows" >}}
 
 ### 3. Start the service
 
 {{< platformBlockClose >}}
 
-{{< platformBlock "Ubuntu RHEL/CentOS" >}}
+{{< platformBlock "Ubuntu/Debian RHEL/CentOS" >}}
 
-#### Ubuntu/RHEL/CentOS
+#### Linux
 
 Start the agent using a service manager.
 
@@ -225,7 +225,7 @@ Coming soon.
 
 {{< platformBlockClose >}}
 
-{{< platformBlock "Ubuntu RHEL/CentOS Windows" >}}
+{{< platformBlock "Ubuntu/Debian RHEL/CentOS Windows" >}}
 
 ### Next steps
 
@@ -236,19 +236,19 @@ Now that you've installed the Sensu agent:
 
 {{< platformBlockClose >}}
 
-{{< platformBlock "macOS RHEL/CentOS Ubuntu Windows" >}}
+{{< platformBlock "macOS RHEL/CentOS Ubuntu/Debian Windows" >}}
 
 ## Install sensuctl
 Sensu Go can be configured and used with the sensuctl command line utility.
-Sensuctl is available for Ubuntu, RHEL/CentOS, Windows, and macOS.
+Sensuctl is available for Ubuntu/Debian, RHEL/CentOS, Windows, and macOS.
 
 ### 1. Install the package
 
 {{< platformBlockClose >}}
 
-{{< platformBlock "Ubuntu" >}}
+{{< platformBlock "Ubuntu/Debian" >}}
 
-#### Ubuntu
+#### Ubuntu/Debian
 
 Add the Sensu repository.
 
@@ -326,7 +326,7 @@ sudo cp bin/sensuctl /usr/local/bin/
 
 {{< platformBlockClose >}}
 
-{{< platformBlock "macOS RHEL/CentOS Ubuntu Windows" >}}
+{{< platformBlock "macOS RHEL/CentOS Ubuntu/Debian Windows" >}}
 
 ### 2. Configure sensuctl
 
