@@ -95,8 +95,15 @@ backend-url:
 
 The agent will then connect Sensu servers over wss. Do note that by changing the configuration to wss, plaintext communication will not be possible.
 
-_NOTE: If creating a Sensu cluster, every cluster member needs to be present in the configuration. See the [Sensu Go clustering guide][2] for more information on how to configure agents for a clustered configuration._
+It is also possible to provide a trusted CA as part of the agent configuration by passing `--trusted-ca-file` if starting the agent via `sensu-agent start`.
 
+You you may include it as part of the agent configuration in `/etc/sensu/agent.yml` as: 
+
+{{< highlight yaml>}}
+trusted-ca-file: "/path/to/trusted-certificate-authorities.pem"
+{{< /highlight >}}
+
+_NOTE: If creating a Sensu cluster, every cluster member needs to be present in the configuration. See the [Sensu Go clustering guide][2] for more information on how to configure agents for a clustered configuration._
 
 Hopefully you've found this useful! If you find any issues or have any questions, feel free to reach out in our [Community Slack][3], or [open an issue][4] on Github.
 
