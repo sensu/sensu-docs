@@ -1,6 +1,6 @@
 ---
 title: "Authentication"
-description: ""
+description: "In addition to built-in RBAC, Sensu includes enterprise-only support for authentication using a Lightweight Directory Access Protocol (LDAP) provider."
 weight: 4
 version: "5.2"
 product: "Sensu Go"
@@ -18,8 +18,7 @@ menu:
 Sensu requires username and password authentication to access the [Sensu dashboard][1], [API][8], and command line tool ([sensuctl][2]).
 For Sensu's [default user credentials][3] and more information about configuring Sensu role based access control, see the [RBAC reference][4] and [guide to creating users][5].
 
-In addition to built-in RBAC, [Sensu Enterprise][6] supports authentication using a Lightweight Directory Access Protocol (LDAP) provider.
-This guide describes the configuration process for enabling LDAP authentication with Sensu.
+In addition to built-in RBAC, Sensu includes [enterprise-only][6] support for authentication using a Lightweight Directory Access Protocol (LDAP) provider.
 
 ## Managing authentication providers
 
@@ -34,16 +33,16 @@ To view active authentication providers:
 sensuctl auth list
 {{< /highlight >}}
 
-To view configuration details for an LDAP authentication named `default`:
+To view configuration details for an LDAP authentication named `openldap`:
 
 {{< highlight shell >}}
-sensuctl auth info default
+sensuctl auth info openldap
 {{< /highlight >}}
 
-To delete an LDAP authentication provider named `default`:
+To delete an LDAP authentication provider named `openldap`:
 
 {{< highlight shell >}}
-sensuctl auth delete default
+sensuctl auth delete openldap
 {{< /highlight >}}
 
 ## LDAP authentication
@@ -89,8 +88,6 @@ See the [RBAC reference][4] for a complete guide to creating permissions with Se
 Once you've configured the correct roles and bindings, your users can log in to sensuctl and the Sensu dashboard using their single-sign-on username and password (no prefix required).
 
 ### Configuration examples
-
-_NOTE: These examples are in `wrapped-json` format for use with [`sensuctl create`][sc]. The [authentication API][9] also use `wrapped-json` format as shown in the [API docs][9]._
 
 **Example LDAP configuration: Minimum required attributes**
 
@@ -168,32 +165,32 @@ _NOTE: These examples are in `wrapped-json` format for use with [`sensuctl creat
 type         | 
 -------------|------
 description  | Top-level attribute specifying the [`sensuctl create`][sc] resource type. LDAP definitions should always be of type `ldap`.
-required     | Required for LDAP definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][sc].
+required     | true
 type         | String
 example      | {{< highlight shell >}}"type": "ldap"{{< /highlight >}}
 
 api_version  | 
 -------------|------
 description  | Top-level attribute specifying the Sensu API group and version. For LDAP definitions, this attribute should always be `authproviders/v2`.
-required     | Required for LDAP definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][sc].
+required     | true
 type         | String
 example      | {{< highlight shell >}}"api_version": "authproviders/v2"{{< /highlight >}}
 
 metadata     | 
 -------------|------
-description  | Top-level map containing the LDAP definition `name`, usually `ldap`. See the [metadata attributes reference][8] for details.
-required     | Required for LDAP definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][sc].
+description  | Top-level map containing the LDAP definition `name`. See the [metadata attributes reference][8] for details.
+required     | true
 type         | Map of key-value pairs
 example      | {{< highlight shell >}}
 "metadata": {
-  "name": "default"
+  "name": "openldap"
 }
 {{< /highlight >}}
 
 spec         | 
 -------------|------
 description  | Top-level map that includes the LDAP [spec attributes][sp].
-required     | Required for LDAP definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][sc].
+required     | true
 type         | Map of key-value pairs
 example      | {{< highlight shell >}}
 "spec": {
@@ -419,7 +416,7 @@ example      | {{< highlight shell >}}"object_class": "person"{{< /highlight >}}
 description  | A unique string used to identify the LDAP configuration. Names cannot contain special characters or spaces (validated with Go regex [`\A[\w\.\-]+\z`](https://regex101.com/r/zo9mQU/2)).
 required     | true
 type         | String
-example      | {{< highlight shell >}}"name": "default"{{< /highlight >}}
+example      | {{< highlight shell >}}"name": "openldap"{{< /highlight >}}
 
 [sc]: ../../sensuctl/reference#creating-resources
 [sp]: #spec-attributes
