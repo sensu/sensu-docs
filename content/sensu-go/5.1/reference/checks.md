@@ -24,8 +24,8 @@ menu:
 ### Check commands
 
 Each Sensu check definition defines a **command** and the **interval** at which
-it should be executed. Check commands are literally executable commands which
-will be executed on the Sensu agent.
+it should be executed. Check commands are executable commands which
+will be executed by the Sensu agent.
 
 A command may include command line arguments for controlling the behavior of the
 command executable. Most Sensu check plugins provide support for command line
@@ -143,7 +143,7 @@ example      | {{< highlight shell >}}"type": "CheckConfig"{{< /highlight >}}
 
 api_version  | 
 -------------|------
-description  | Top-level attribute specifying the Sensu API group and version. For checks in Sensu backend version 5.0, this attribute should always be `core/v2`.
+description  | Top-level attribute specifying the Sensu API group and version. For checks in Sensu backend version 5.1, this attribute should always be `core/v2`.
 required     | Required for check definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][sc].
 type         | String
 example      | {{< highlight shell >}}"api_version": "core/v2"{{< /highlight >}}
