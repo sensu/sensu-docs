@@ -129,7 +129,8 @@ connect to the configured [Sensu Transport][6].
    for your transport configuration. For more information, please visit the
    [transport definition specification][13]._
 
- 2. If the transport being used is running on a different host, additional configuration is required to tell the sensu client how to connect to the transport.
+2. If the transport being used is running on a different host, additional configuration is required to tell the sensu client how to connect to the transport.
+Please see [Redis][7] or [RabbitMQ][8] reference documentation for examples.
 
 ## Operating Sensu
 
