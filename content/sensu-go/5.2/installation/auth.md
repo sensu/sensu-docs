@@ -94,7 +94,7 @@ Once you've configured the correct roles and bindings, your users can log in to 
 {{< highlight json >}}
 {
   "Type": "ldap",
-  "api_version": "authproviders/v2",
+  "api_version": "authentication/v2",
   "spec": {
     "servers": [
       {
@@ -123,7 +123,7 @@ Once you've configured the correct roles and bindings, your users can log in to 
 {{< highlight json >}}
 {
   "type": "ldap",
-  "api_version": "authproviders/v2",
+  "api_version": "authentication/v2",
   "spec": {
     "servers": [
       {
@@ -171,10 +171,10 @@ example      | {{< highlight shell >}}"type": "ldap"{{< /highlight >}}
 
 api_version  | 
 -------------|------
-description  | Top-level attribute specifying the Sensu API group and version. For LDAP definitions, this attribute should always be `authproviders/v2`.
+description  | Top-level attribute specifying the Sensu API group and version. For LDAP definitions, this attribute should always be `authentication/v2`.
 required     | true
 type         | String
-example      | {{< highlight shell >}}"api_version": "authproviders/v2"{{< /highlight >}}
+example      | {{< highlight shell >}}"api_version": "authentication/v2"{{< /highlight >}}
 
 metadata     | 
 -------------|------
