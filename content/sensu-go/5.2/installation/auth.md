@@ -37,13 +37,13 @@ sensuctl auth list
 To view configuration details for an LDAP authentication named `default`:
 
 {{< highlight shell >}}
-sensuctl auth info ldap default
+sensuctl auth info default
 {{< /highlight >}}
 
 To delete an LDAP authentication provider named `default`:
 
 {{< highlight shell >}}
-sensuctl auth delete ldap default
+sensuctl auth delete default
 {{< /highlight >}}
 
 ## LDAP authentication
