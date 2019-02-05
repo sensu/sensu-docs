@@ -33,13 +33,13 @@ To view active authentication providers:
 sensuctl auth list
 {{< /highlight >}}
 
-To view configuration details for an LDAP authentication named `openldap`:
+To view configuration details for an authentication provider named `openldap`:
 
 {{< highlight shell >}}
 sensuctl auth info openldap
 {{< /highlight >}}
 
-To delete an LDAP authentication provider named `openldap`:
+To delete an authentication provider named `openldap`:
 
 {{< highlight shell >}}
 sensuctl auth delete openldap
