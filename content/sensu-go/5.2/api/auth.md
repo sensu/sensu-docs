@@ -10,13 +10,12 @@ menu:
 
 - [The `/auth/test` API endpoint](#the-authtest-api-endpoint)
   - [`/auth/test` (GET)](#authtest-get)
-- [The `providers` API endpoints](#the-providers-api-endpoints) (enterprise-only)
-  - [`/providers` (GET)](#providers-get)
-  - [`/providers` (POST)](#providers-post)
-- [The `providers/:type/:name` API endpoints](#the-providerstypename-api-endpoints) (enterprise-only)
-  - [`providers/:type/:name` (GET)](#providerstypename-get)
-  - [`providers/:type/:name` (PUT)](#providerstypename-put)
-  - [`providers/:type/:name` (DELETE)](#providerstypename-delete)
+- [The `authproviders` API endpoints](#the-authproviders-api-endpoints) (enterprise-only)
+  - [`/authproviders` (GET)](#authproviders-get)
+- [The `authproviders/:name` API endpoints](#the-providersname-api-endpoints) (enterprise-only)
+  - [`authproviders/:name` (GET)](#providersname-get)
+  - [`authproviders/:name` (PUT)](#providersname-put)
+  - [`authproviders/:name` (DELETE)](#authprovidersname-delete)
 
 ## The `/auth/test` API endpoint {#the-authtest-api-endpoint}
 
@@ -42,25 +41,72 @@ description          | Tests a given username and password.
 example url          | http://hostname:8080/api/core/v2/auth/test
 response codes       | <ul><li>**Valid credentials**: 200 (OK)</li><li> **Invalid credentials**: 401 (Unauthorized)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
-## The `/providers` API endpoints {#the-providers-api-endpoints}
+## The `/authproviders` API endpoints {#the-authproviders-api-endpoints}
 
 **ENTERPRISE ONLY**: Authentication providers in Sensu Go require a Sensu Enterprise license. To activate your Sensu Enterprise license, see the [getting started guide][2].
 
-### `/providers` (GET) {#providers-get}
+### `/authproviders` (GET) {#authproviders-get}
 
-The `/providers` API endpoint provides HTTP GET access to authentication provider configuration in Sensu.
+The `/authproviders` API endpoint provides HTTP GET access to authentication provider configuration in Sensu.
 
-#### API Specification {#providers-get-specification}
+#### API Specification {#authproviders-get-specification}
 
 /providers (GET)  | 
 ---------------|------
 description    | Returns the list of active authentication providers.
-example url    | http://hostname:8080/api/enterprise/v2/providers
+example url    | http://hostname:8080/api/enterprise/authproviders/v2
 response type  | Array
 response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output         | {{< highlight json >}}
 [
   {
+    "Type": "ldap",
+    "api_version": "authproviders/v2",
+    "spec": {
+      "servers": [
+        {
+          "host": "127.0.0.1",
+          "binding": {
+            "user_dn": "cn=binder,dc=acme,dc=org",
+            "password": "P@ssw0rd!"
+          },
+          "group_search": {
+            "base_dn": "dc=acme,dc=org"
+          },
+          "user_search": {
+            "base_dn": "dc=acme,dc=org"
+          }
+        }
+      ]
+    },
+    "metadata": {
+      "name": "openldap"
+    }
+  }
+]
+{{< /highlight >}}
+
+## The `providers/:name` API endpoints {#the-authprovidersname-api-endpoints}
+
+**ENTERPRISE ONLY**: Authentication providers in Sensu Go require a Sensu Enterprise license. To activate your Sensu Enterprise license, see the [getting started guide][2].
+
+### `/providers/:name` (GET) {#authprovidersname-get}
+
+The `/providers/:name` API endpoint provides HTTP GET access to authentication provider configuration for a specific `:name`.
+
+#### API Specification {#authprovidersname-get-specification}
+
+/providers/:name (GET) | 
+---------------------|------
+description          | Returns the configuration for an authentication provider given the type (must be `ldap`) and the name.
+example url          | http://hostname:8080/api/enterprise/authproviders/v2/openldap
+response type        | Map
+response codes       | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+output               | {{< highlight json >}}
+{
+  "Type": "ldap",
+  "api_version": "authproviders/v2",
+  "spec": {
     "servers": [
       {
         "host": "127.0.0.1",
@@ -75,133 +121,63 @@ output         | {{< highlight json >}}
           "base_dn": "dc=acme,dc=org"
         }
       }
-    ],
-    "metadata": {
-      "name": "default"
-    }
-  }
-]
-{{< /highlight >}}
-
-### `/providers` (POST) {#providers-post}
-
-The `/providers` API endpoint provides HTTP POST access to apply an [authentication provider][1] configuration to Sensu.
-
-#### API Specification {#providers-post-specification}
-
-/providers (POST) | 
-----------------|------
-description     | Configures an authentication provider in Sensu. See the [authentication guide][1] for more information about supported providers.
-example url     | http://hostname:8080/api/enterprise/v2/providers
-example payload | {{< highlight shell >}}
-{
-  "servers": [
-    {
-      "host": "127.0.0.1",
-      "binding": {
-        "user_dn": "cn=binder,dc=acme,dc=org",
-        "password": "P@ssw0rd!"
-      },
-      "group_search": {
-        "base_dn": "dc=acme,dc=org"
-      },
-      "user_search": {
-        "base_dn": "dc=acme,dc=org"
-      }
-    }
-  ],
+    ]
+  },
   "metadata": {
-    "name": "default"
-  }
-}
-{{< /highlight >}}
-payload parameters | All attributes shown in the example payload are required. For more information about configuring authentication providers, see the [authentication guide][1].
-response codes  | <ul><li>**Success**: 200 (OK)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-
-## The `providers/:type/:name` API endpoints {#the-providerstypename-api-endpoints}
-
-**ENTERPRISE ONLY**: Authentication providers in Sensu Go require a Sensu Enterprise license. To activate your Sensu Enterprise license, see the [getting started guide][2].
-
-### `/providers/:type/:name` (GET) {#providerstypename-get}
-
-The `/providers/:type/:name` API endpoint provides HTTP GET access to authentication provider configuration for a specific `:type` (example: `ldap`) and `:name`.
-
-#### API Specification {#providerstypename-get-specification}
-
-/providers/:type/:name (GET) | 
----------------------|------
-description          | Returns the configuration for an authentication provider given the type (must be `ldap`) and the name.
-example url          | http://hostname:8080/api/enterprise/v2/providers/ldap/default
-response type        | Map
-response codes       | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-output               | {{< highlight json >}}
-{
-  "servers": [
-    {
-      "host": "127.0.0.1",
-      "binding": {
-        "user_dn": "cn=binder,dc=acme,dc=org",
-        "password": "P@ssw0rd!"
-      },
-      "group_search": {
-        "base_dn": "dc=acme,dc=org"
-      },
-      "user_search": {
-        "base_dn": "dc=acme,dc=org"
-      }
-    }
-  ],
-  "metadata": {
-    "name": "default"
+    "name": "openldap"
   }
 }
 {{< /highlight >}}
 
-### `/providers/:type/:name` (PUT) {#providerstypename-put}
+### `/authproviders/:name` (PUT) {#authprovidersname-put}
 
-The `/providers/:type/:name` API endpoint provides HTTP PUT access to create or update an [authentication provider][1] configuration given the `:type` (example: `ldap`) and `:name`.
+The `/authproviders/:name` API endpoint provides HTTP PUT access to create or update an [authentication provider][1] configuration given `:name`.
 
-#### API Specification {#providerstypename-put-specification}
+#### API Specification {#authprovidersname-put-specification}
 
-/providers/:type/:name (PUT) | 
+/authproviders/:name (PUT) | 
 ----------------|------
-description     | Create or update an authentication provider configuration given the type (must be `ldap`) and the name. See the [authentication guide][1] for more information about supported providers.
-example url     | http://hostname:8080/api/enterprise/v2/providers/ldap/default
+description     | Create or update an authentication provider configuration given the name. See the [authentication guide][1] for more information about supported providers.
+example url     | http://hostname:8080/api/enterprise/authproviders/v2/openldap
 payload         | {{< highlight shell >}}
 {
-  "servers": [
-    {
-      "host": "127.0.0.1",
-      "binding": {
-        "user_dn": "cn=binder,dc=acme,dc=org",
-        "password": "P@ssw0rd!"
-      },
-      "group_search": {
-        "base_dn": "dc=acme,dc=org"
-      },
-      "user_search": {
-        "base_dn": "dc=acme,dc=org"
+  "Type": "ldap",
+  "api_version": "authproviders/v2",
+  "spec": {
+    "servers": [
+      {
+        "host": "127.0.0.1",
+        "binding": {
+          "user_dn": "cn=binder,dc=acme,dc=org",
+          "password": "P@ssw0rd!"
+        },
+        "group_search": {
+          "base_dn": "dc=acme,dc=org"
+        },
+        "user_search": {
+          "base_dn": "dc=acme,dc=org"
+        }
       }
-    }
-  ],
+    ]
+  },
   "metadata": {
-    "name": "default"
+    "name": "openldap"
   }
 }
 {{< /highlight >}}
 payload parameters | All attributes shown in the example payload are required. For more information about configuring authentication providers, see the [authentication guide][1].
 response codes  | <ul><li>**Success**: 200 (OK)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
-### `/providers/:type/:name` (DELETE) {#providerstypename-delete}
+### `/authproviders/:name` (DELETE) {#authprovidersname-delete}
 
-The `/providers/:type/:name` API endpoint provides HTTP DELETE access to delete an authentication provider configuration from Sensu given the `:type` (example: `ldap`) and `:name`.
+The `/authproviders/:name` API endpoint provides HTTP DELETE access to delete an authentication provider configuration from Sensu given the `:name`.
 
-#### API Specification {#providerstypename-delete-specification}
+#### API Specification {#authprovidersname-delete-specification}
 
-/providers/:type/:name (DELETE) | 
+/authproviders/:name (DELETE) | 
 --------------------------|------
-description               | Deletes an authentication provide configuration from Sensu given the type (must be `ldap`) and the name.
-example url               | http://hostname:8080/api/enterprise/v2/providers/ldap/default
+description               | Deletes an authentication provide configuration from Sensu given the name.
+example url               | http://hostname:8080/api/enterprise/authproviders/v2/openldap
 response codes            | <ul><li>**Success**: 202 (Accepted)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 [1]: ../../installation/auth

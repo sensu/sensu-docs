@@ -90,14 +90,14 @@ Once you've configured the correct roles and bindings, your users can log in to 
 
 ### Configuration examples
 
-_NOTE: These examples are in `wrapped-json` format for use with [`sensuctl create`][sc]. To use the [authentication API][9], use `json` format as shown in the [API docs][9]._
+_NOTE: These examples are in `wrapped-json` format for use with [`sensuctl create`][sc]. The [authentication API][9] also use `wrapped-json` format as shown in the [API docs][9]._
 
 **Example LDAP configuration: Minimum required attributes**
 
 {{< highlight json >}}
 {
   "Type": "ldap",
-  "api_version": "enterprise/v2",
+  "api_version": "authproviders/v2",
   "spec": {
     "servers": [
       {
@@ -116,7 +116,7 @@ _NOTE: These examples are in `wrapped-json` format for use with [`sensuctl creat
     ]
   },
   "metadata": {
-    "name": "default"
+    "name": "openldap"
   }
 }
 {{< /highlight >}}
@@ -126,7 +126,7 @@ _NOTE: These examples are in `wrapped-json` format for use with [`sensuctl creat
 {{< highlight json >}}
 {
   "type": "ldap",
-  "api_version": "enterprise/v2",
+  "api_version": "authproviders/v2",
   "spec": {
     "servers": [
       {
@@ -156,7 +156,7 @@ _NOTE: These examples are in `wrapped-json` format for use with [`sensuctl creat
     "username_prefix": "ldap"
   },
   "metadata": {
-    "name": "default"
+    "name": "openldap"
   }
 }
 {{< /highlight >}}
@@ -174,14 +174,14 @@ example      | {{< highlight shell >}}"type": "ldap"{{< /highlight >}}
 
 api_version  | 
 -------------|------
-description  | Top-level attribute specifying the Sensu API group and version. For LDAP definitions, this attribute should always be `enterprise/v2`.
+description  | Top-level attribute specifying the Sensu API group and version. For LDAP definitions, this attribute should always be `authproviders/v2`.
 required     | Required for LDAP definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][sc].
 type         | String
-example      | {{< highlight shell >}}"api_version": "enterprise/v2"{{< /highlight >}}
+example      | {{< highlight shell >}}"api_version": "authproviders/v2"{{< /highlight >}}
 
 metadata     | 
 -------------|------
-description  | Top-level map containing the LDAP definition `name`, usually `default`. See the [metadata attributes reference][8] for details.
+description  | Top-level map containing the LDAP definition `name`, usually `ldap`. See the [metadata attributes reference][8] for details.
 required     | Required for LDAP definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][sc].
 type         | Map of key-value pairs
 example      | {{< highlight shell >}}
@@ -247,7 +247,6 @@ example      | {{< highlight shell >}}
 description  | The prefix added to all LDAP groups. Use this prefix when integrating LDAP groups with Sensu RBAC [role bindings][12] and [cluster role bindings][13].
 required     | false
 type         | String
-default      | `"ldap"`
 example      | {{< highlight shell >}}"groups_prefix": "ldap"{{< /highlight >}}
 
 <a name="username-prefix">
@@ -257,7 +256,6 @@ example      | {{< highlight shell >}}"groups_prefix": "ldap"{{< /highlight >}}
 description  | The prefix added to all LDAP usernames. Use this prefix when integrating LDAP users with Sensu RBAC [role bindings][12] and [cluster role bindings][13]. Users _do not_ need to provide this prefix when logging in to Sensu.
 required     | false
 type         | String
-default      | `"ldap"`
 example      | {{< highlight shell >}}"username_prefix": "ldap"{{< /highlight >}}
 
 ### Server attributes
