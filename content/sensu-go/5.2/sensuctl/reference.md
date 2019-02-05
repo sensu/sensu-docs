@@ -228,6 +228,7 @@ cat my-resources.json | sensuctl create
 `HookConfig` | `hook_config` | `Mutator` | `mutator`
 `Namespace` | `namespace` | `Role` | `role`
 `RoleBinding` | `role-binding` | `Silenced` | `silenced`
+`ldap`
 
 ## Editing resources
 
