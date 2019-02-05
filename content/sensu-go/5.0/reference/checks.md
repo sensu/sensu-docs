@@ -117,15 +117,15 @@ documentation][6].
 ### Proxy requests
 
 Sensu supports running checks where the results are considered to be for an
-entity that isn’t actually the one executing the check- regardless of whether
-that entity is a Sensu agent's entity or simply a **proxy entity**. There are a
-number of reasons for this use case, but fundamentally, Sensu handles it the
-same.
+entity that isn’t actually the one executing the check, regardless of whether
+that entity is a Sensu agent entity or a **proxy entity**.
+Proxy entities allow Sensu to monitor external resources
+on systems or devices where a Sensu agent cannot be installed, like a
+network switch or a website.
 
-Checks are normally scheduled, but by specifying the [proxy_requests
-attribute][10] in your check, entities that match certain definitions (their
-`entity_attributes`) cause the check to run for each one. The attributes
-supplied must normally match exactly as stated- no variables or directives have
+By specifying the [proxy_requests attributes](#proxy-requests-top-level) in a check, Sensu runs the check
+for each entity that matches certain definitions specified in the `entity_attributes`.
+The attributes supplied must match exactly as stated; no variables or directives have
 any special meaning, but you can still use [Sensu query expressions][11] to
 perform more complicated filtering on the available value, such as finding
 entities with particular subscriptions.
@@ -293,12 +293,21 @@ type         | String
 validated    | [`\A[\w\.\-]+\z`](https://regex101.com/r/zo9mQU/2)
 example      | {{< highlight shell >}}"proxy_entity_name": "switch-dc-01"{{< /highlight >}}
 
+<a name="proxy-requests-top-level">
+
 |proxy_requests|    |
 -------------|------
-description  | A [Sensu Proxy Requests][10], representing Sensu entity attributes to match entities in the registry.
+description  | [Sensu proxy request attributes][10] allow you to assign the check to run for multiple entities according to their `entity_attributes`. In the example below, the check executes for all entities with entity class `proxy` and the custom proxy type label `website`. Proxy requests are a great way to reuse check definitions for a group of entities. For more information, see the [proxy requests specification][10] and the [guide to monitoring external resources][28].
 required     | false
 type         | Hash
-example      | {{< highlight shell >}}"proxy_requests": {}{{< /highlight >}}
+example      | {{< highlight shell >}}"proxy_requests": {
+  "entity_attributes": [
+    "entity.entity_class == 'proxy'",
+    "entity.labels.proxy_type == 'website'"
+  ],
+  "splay": true,
+  "splay_coverage": 90
+}{{< /highlight >}}
 
 |silenced    |      |
 -------------|------
@@ -384,8 +393,10 @@ example      | {{< highlight shell >}} "annotations": {
 description  | Sensu entity attributes to match entities in the registry, using [Sensu Query Expressions][11]
 required     | false
 type         | Array
-default      | current namespace value configured for `sensuctl` (ie `default`)
-example      | {{< highlight shell >}}"entity_attributes": ["entity.entity_class == 'proxy'"]{{< /highlight >}}
+example      | {{< highlight shell >}}"entity_attributes": [
+  "entity.entity_class == 'proxy'",
+  "entity.labels.proxy_type == 'website'"
+]{{< /highlight >}}
 
 |splay       |      |
 -------------|------
@@ -397,11 +408,10 @@ example      | {{< highlight shell >}}"splay": true{{< /highlight >}}
 
 |splay_coverage  | |
 -------------|------
-description  | The splay coverage percentage use for proxy check request splay calculation. The splay coverage is used to determine the amount of time check requests can be published over (before the next check interval).
-required     | false
+description  | The **percentage** of the check interval over which Sensu can execute the check for all applicable entities, as defined in the entity attributes. Sensu uses the splay coverage attribute to determine the amount of time check requests can be published over (before the next check interval).
+required     | required if `splay` attribute is set to `true`
 type         | Integer
-default      | 90
-example      | {{< highlight shell >}}"splay_coverage": 65{{< /highlight >}}
+example      | {{< highlight shell >}}"splay_coverage": 90{{< /highlight >}}
 
 ## Examples
 
@@ -480,3 +490,4 @@ example      | {{< highlight shell >}}"splay_coverage": 65{{< /highlight >}}
 [27]: ../filters
 [sc]: ../../sensuctl/reference#creating-resources
 [sp]: #spec-attributes
+[28]: ../../guides/monitor-external-resources#using-proxy-requests-to-monitor-a-group-of-websites
