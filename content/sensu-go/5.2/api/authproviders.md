@@ -152,7 +152,7 @@ The `/authproviders/:name` API endpoint provides HTTP DELETE access to delete an
 /authproviders/:name (DELETE) | 
 --------------------------|------
 description               | Deletes an authentication provide configuration from Sensu given the name.
-example url               | http://hostname:8080/api/enterprise/aauthentication/v2/authproviders/openldap
+example url               | http://hostname:8080/api/enterprise/authentication/v2/authproviders/openldap
 response codes            | <ul><li>**Success**: 202 (Accepted)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 [1]: ../../installation/auth
