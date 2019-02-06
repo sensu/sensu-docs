@@ -6,16 +6,40 @@ weight: 16
 product: "Sensu Go"
 version: "5.2"
 platformContent: true
-platforms: ["Windows", "macOS"]
+platforms: ["Windows", "macOS", "Linux"]
 menu:
   sensu-go-5.2:
     parent: installation
 ---
 
-Sensu tar archives are available for Linux, Windows, and macOS.
+Sensu binaries are available for download for Linux, Windows, and macOS.
 See the [installation guide][1] for more information.
 
 You can verify a Sensu download using SHA-512 checksums.
+
+{{< platformBlock "Linux" >}}
+
+### Linux
+
+Download Sensu for Linux.
+
+{{< highlight shell >}}
+curl -LO https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.2.0/sensu-go-5.2.0-linux-amd64.tar.gz
+{{< /highlight >}}
+
+Generate a SHA-512 checksum for the downloaded artifact.
+
+{{< highlight shell >}}
+sha512sum sensu-go-5.2.0-linux-amd64.tar.gz
+{{< /highlight >}}
+
+The result should match the output from the following command.
+
+{{< highlight shell >}}
+curl -LO https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.2.0/sensu-go-5.2.0-linux-amd64.sha512sum && cat sensu-go-5.2.0-linux-amd64.sha512sum
+{{< /highlight >}}
+
+{{< platformBlockClose >}}
 
 {{< platformBlock "Windows" >}}
 

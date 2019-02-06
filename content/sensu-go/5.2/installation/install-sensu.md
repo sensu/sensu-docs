@@ -17,6 +17,9 @@ Sensu Go is available for Linux, Windows (agent and CLI only), macOS (CLI only),
 See the list of [supported platforms][5] for more information.
 Sensu downloads are provided under the [Sensu License][13].
 
+In addition to packages, a binary-only distribution for Linux is available for [`amd64`][14], [`arm64`][15], [`arm5`][16], [`arm6`][17], [`arm7`][18], and [`386`][19] architectures.
+See the [verifying Sensu guide][12] to verify your download using checksums.
+
 {{< platformBlock "Ubuntu/Debian RHEL/CentOS" >}}
 
 ## Install the Sensu backend
@@ -424,3 +427,9 @@ While it can be run from the docker container, doing so may be problematic.
 [11]: https://github.com/sensu/sensu-go/blob/master/packaging/files/backend.yml.example
 [12]: ../verify
 [13]: https://sensu.io/sensu-license
+[14]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.2.0/sensu-go-5.2.0-linux-amd64.tar.gz
+[15]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.2.0/sensu-go-5.2.0-linux-arm64.tar.gz
+[16]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.2.0/sensu-go-5.2.0-linux-arm5.tar.gz
+[17]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.2.0/sensu-go-5.2.0-linux-arm6.tar.gz
+[18]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.2.0/sensu-go-5.2.0-linux-arm7.tar.gz
+[19]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.2.0/sensu-go-5.2.0-linux-386.tar.gz
