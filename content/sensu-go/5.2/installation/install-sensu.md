@@ -71,7 +71,7 @@ sudo yum install sensu-go-backend
 Copy the example backend config file to the default config path.
 
 {{< highlight shell >}}
-sudo cp /usr/share/doc/sensu-go-backend-5.1.1/backend.yml.example /etc/sensu/backend.yml
+sudo cp /usr/share/doc/sensu-go-backend-5.2.0/backend.yml.example /etc/sensu/backend.yml
 {{< /highlight >}}
 
 _NOTE: The Sensu backend can be configured using a `/etc/sensu/backend.yml` configuration file or using `sensu-backend start` configuration flags. For more information, see the [backend reference][6]._
@@ -152,16 +152,16 @@ sudo yum install sensu-go-agent
 
 #### Windows
 
-Download the [Sensu agent for Windows `amd64`](https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.1.1/sensu-go-5.1.1-windows-amd64.tar.gz).
+Download the [Sensu agent for Windows `amd64`](https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.2.0/sensu-go-5.2.0-windows-amd64.tar.gz).
 
 {{< highlight text >}}
-Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.1.1/sensu-go-5.1.1-windows-amd64.tar.gz  -OutFile C:\Users\Administrator\sensu-go-5.1.1-windows-amd64.tar.gz
+Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.2.0/sensu-go-5.2.0-windows-amd64.tar.gz  -OutFile C:\Users\Administrator\sensu-go-5.2.0-windows-amd64.tar.gz
 {{< /highlight >}}
 
-Or download the [Sensu agent for Windows `386`](https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.1.1/sensu-go-5.1.1-windows-386.tar.gz).
+Or download the [Sensu agent for Windows `386`](https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.2.0/sensu-go-5.2.0-windows-386.tar.gz).
 
 {{< highlight text >}}
-Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.1.1/sensu-go-5.1.1-windows-386.tar.gz  -OutFile C:\Users\Administrator\sensu-go-5.1.1-windows-386.tar.gz
+Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.2.0/sensu-go-5.2.0-windows-386.tar.gz  -OutFile C:\Users\Administrator\sensu-go-5.2.0-windows-386.tar.gz
 {{< /highlight >}}
 
 See the [verifying Sensu guide][12] to verify your download using checksums.
@@ -181,7 +181,7 @@ See the [verifying Sensu guide][12] to verify your download using checksums.
 Copy the example agent config file to the default config path.
 
 {{< highlight shell >}}
-sudo cp /usr/share/doc/sensu-go-agent-5.1.1/agent.yml.example /etc/sensu/agent.yml
+sudo cp /usr/share/doc/sensu-go-agent-5.2.0/agent.yml.example /etc/sensu/agent.yml
 {{< /highlight >}}
 
 _NOTE: The Sensu agent can be configured using a `/etc/sensu/agent.yml` configuration file or using `sensu-agent start` configuration flags. For more information, see the [agent reference][7]._
@@ -289,16 +289,16 @@ sudo yum install sensu-go-cli
 
 #### Windows
 
-Download [sensuctl for Windows `amd64`](https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.1.1/sensu-go-5.1.1-windows-amd64.tar.gz).
+Download [sensuctl for Windows `amd64`](https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.2.0/sensu-go-5.2.0-windows-amd64.tar.gz).
 
 {{< highlight text >}}
-Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.1.1/sensu-go-5.1.1-windows-amd64.tar.gz  -OutFile C:\Users\Administrator\sensu-go-5.1.1-windows-amd64.tar.gz
+Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.2.0/sensu-go-5.2.0-windows-amd64.tar.gz  -OutFile C:\Users\Administrator\sensu-go-5.2.0-windows-amd64.tar.gz
 {{< /highlight >}}
 
-Or download [sensuctl for Windows `386`](https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.1.1/sensu-go-5.1.1-windows-386.tar.gz).
+Or download [sensuctl for Windows `386`](https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.2.0/sensu-go-5.2.0-windows-386.tar.gz).
 
 {{< highlight text >}}
-Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.1.1/sensu-go-5.1.1-windows-386.tar.gz  -OutFile C:\Users\Administrator\sensu-go-5.1.1-windows-386.tar.gz
+Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.2.0/sensu-go-5.2.0-windows-386.tar.gz  -OutFile C:\Users\Administrator\sensu-go-5.2.0-windows-386.tar.gz
 {{< /highlight >}}
 
 See the [verifying Sensu guide][12] to verify your download using checksums.
@@ -312,13 +312,13 @@ See the [verifying Sensu guide][12] to verify your download using checksums.
 Download the latest release. See the [verifying Sensu guide][12] to verify your download using checksums.
 
 {{< highlight shell >}}
-curl -LO https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.1.1/sensu-go-5.1.1-darwin-amd64.tar.gz
+curl -LO https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.2.0/sensu-go-5.2.0-darwin-amd64.tar.gz
 {{< /highlight >}}
 
 Extract the archive.
 
 {{< highlight shell >}}
-tar -xvf sensu-go-5.1.1-darwin-amd64.tar.gz
+tar -xvf sensu-go-5.2.0-darwin-amd64.tar.gz
 {{< /highlight >}}
 
 Copy the executable into your PATH.
