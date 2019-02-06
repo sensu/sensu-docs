@@ -10,8 +10,8 @@ menu:
 ---
 
 - [The `/license` API endpoints](#the-license-api-endpoints)
-	- [`/license` (GET)](#license-get)
-	- [`/license` (PUT)](#license-put)
+  - [`/license` (GET)](#license-get)
+  - [`/license` (PUT)](#license-put)
 
 ## The `/license` API endpoints
 
