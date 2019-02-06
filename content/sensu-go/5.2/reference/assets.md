@@ -34,7 +34,8 @@ Sensu Inc. supports the following assets for Sensu Go:
 Read the [guide to using assets][23] to get started.
 
 ## What is an asset?
-Assets are shareable, reusable packages that help you manage plugins in Sensu.
+Assets are shareable, reusable packages that make it easy to deploy Sensu plugins.
+You can use assets to provide the plugins, libraries, and runtimes you need to create automated monitoring workflows with Sensu.
 Sensu supports runtime assets for [checks][6], [filters][7], [mutators][8], and [handlers][9].
 
 ### Asset tiers
@@ -42,8 +43,8 @@ Sensu supports runtime assets for [checks][6], [filters][7], [mutators][8], and 
 Assets shared on [Bonsai][16] belong to one of three tiers.
 
 - **Community** - Open-source assets shared by the Sensu Community. Collaborate, share, and star your favorite assets with Bonsai.
-- **Supported** - Open-source assets supported by Sensu Inc, including supported AWS, PagerDuty, and email assets.
-- **Enterprise** - Hosted assets included with [Sensu Enterprise][17]. These assets require a [Sensu Enterprise][17] license.
+- **Supported** - Open-source assets supported by Sensu Inc, including supported AWS, PagerDuty, and email plugins.
+- **Enterprise** - Hosted assets included with [Sensu Enterprise][17]. Enterprise assets require a [Sensu Enterprise][17] license.
 
 ## How do assets work?
 Assets can be executed by the backend (for handler and mutator assets), or
@@ -58,7 +59,7 @@ be set using the `--cache-dir` flag.
 
 Sensu expects an asset to be a tar archive (optionally gzipped) containing one or more executables within a bin folder.
 Any scripts or executables should be within a `bin/` folder within in the archive.
-See the [Sensu Go Plugin template][] for an example asset and Bonsai configuration.
+See the [Sensu Go Plugin template][28] for an example asset and Bonsai configuration.
 
 The following are injected into the execution context:
 
@@ -91,13 +92,14 @@ sensu-example-handler_1.0.0_linux_amd64
 
 ## Sharing an asset on Bonsai
 
-Share your open-source assets on Bonsai and connect with the Sensu Community.
-Bonsai supports assets released using GitHub releases.
+Share your open-source assets on [Bonsai][16] and connect with the Sensu Community.
+Bonsai supports assets hosted on [GitHub](https://github.com) and released using [GitHub releases](https://help.github.com/articles/about-releases/).
+For more information about creating Sensu Plugins, see the [Sensu Plugin specification][29].
 
 Bonsai requires a [`bonsai.yml` configuration file](#bonsai-yml-specification) in the root directory of your repository that includes the project description, platforms, asset filenames, and SHA-512 checksums.
-For a Bonsai-compatible asset template using Go and Go releaser, see the [Sensu Go plugin skeleton](https://github.com/sensu/sensu-go-plugin).
+For a Bonsai-compatible asset template using Go and [GoReleaser](https://goreleaser.com/), see the [Sensu Go plugin skeleton][28].
 
-To share your asset on Bonsai, [log in to Bonsai](https://bonsai.sensu.io/sign-in) with your GitHub account and authorize Sensu on GitHub.
+To share your asset on Bonsai, [log in to Bonsai](https://bonsai.sensu.io/sign-in) with your GitHub account and authorize Sensu.
 Once logged in, you can [register your asset on Bonsai](https://bonsai.sensu.io/new) by adding the GitHub repository, description, and tags.
 Make sure to provide a helpful README for your asset with configuration examples.
 
@@ -160,7 +162,7 @@ example      | {{< highlight yml >}}- platform: "linux"{{< /highlight >}}
 
  arch        | 
 -------------|------
-description  | The architecture supported bu the asset
+description  | The architecture supported by the asset
 required     | true
 type         | String
 example      | {{< highlight yml >}}  arch: "amd64"{{< /highlight >}}
@@ -350,3 +352,5 @@ example      | {{< highlight shell >}} "annotations": {
 [23]: ../../guides/install-check-executables-with-assets
 [26]: https://bonsai.sensu.io/assets/sensu/sensu-aws
 [27]: https://bonsai.sensu.io/assets/sensu/sensu-prometheus-collector
+[28]: https://github.com/sensu/sensu-go-plugin
+[29]: /plugins/latest/reference/

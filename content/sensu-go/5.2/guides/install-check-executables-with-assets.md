@@ -1,6 +1,8 @@
 ---
-title: "How to use Sensu assets"
-linkTitle: "Using Bonsai Assets"
+title: "How to install plugins using assets"
+linkTitle: "Installing Plugins with Assets"
+description: "Assets are shareable, reusable packages that make it easy to deploy Sensu plugins.
+You can use assets to provide the plugins, libraries, and runtimes you need to power your monitoring workflows."
 weight: 40
 version: "5.2"
 product: "Sensu Go"
@@ -10,21 +12,20 @@ menu:
     parent: guides
 ---
 
-Assets are shareable, reusable packages that help you manage plugins in Sensu.
+Assets are shareable, reusable packages that make it easy to deploy Sensu plugins.
+You can use assets to provide the plugins, libraries, and runtimes you need to power your monitoring workflows.
 Sensu supports runtime assets for [checks][6], [filters][7], [mutators][8], and [handlers][9].
-You can discover, download, and share assets using [Bonsai, the Sensu asset index][16].
-See the [asset reference](../../reference/assets) more information about creating and sharing assets.
-
-In this guide, we'll take you through discovering and configuring an asset from Bonsai.
+Discover, download, and share assets using [Bonsai, the Sensu asset index][16].
 
 ### 1. Download the asset definition from Bonsai
 
-Bonsai is a central hub for discovering Sensu assets.
-Assets come in one of three tiers: community support, Sensu Inc. supported, and Sensu Enterprise only.
-Make sure to review the docs and the source before adding an asset to your Sensu installation.
+Bonsai is a central hub for discovering Sensu assets hosted on GitHub.
+Assets are available in three tiers: community supported, Sensu Inc. supported, and Sensu Enterprise only.
 
-To use an asset in Sensu, select the Download button in Bonsai and download the asset definition.
-Asset definitions tell Sensu how to download the asset if required by a check, filter, mutator, or handler.
+**ENTERPRISE ONLY**: Enterprise assets require a Sensu Enterprise license. To activate your Sensu Enterprise license, see the [getting started guide].
+
+To use an asset, select the Download button in Bonsai and download the asset definition for your platform and architecture.
+Asset definitions tell Sensu how to download and verify the asset when required by a check, filter, mutator, or handler.
 
 For example, here's the asset definition for version 1.0.1 of the [Sensu PagerDuty handler asset][19] for Linux AMD64.
 
@@ -67,8 +68,7 @@ Once you've downloaded the asset definition, create a Sensu resource definition 
 Depending on the asset, this could be a check, filter, mutator, or handler.
 See the Bonsai asset page for information about asset capabilities and configuration.
 
-For example, the [Sensu PagerDuty handler asset][19] requires a `pagerduty` handler.
-Use the examples in Bonsai to write a handler definition that uses your PagerDuty service API key and the `sensu-pagerduty-handler` runtime asset.
+For the PagerDuty example, create a `pagerduty` handler that includes a PagerDuty service API key and the `sensu-pagerduty-handler` runtime asset.
 
 {{< highlight json >}}
 {
@@ -96,12 +96,15 @@ Save the resource definition to a file, and add to Sensu using sensuctl.
 sensuctl create --file filename.json
 {{< /highlight >}}
 
-You can see your available resources in Sensu using `sensuctl handler list`, `sensuctl check list`, etc.
+You can use `sensuctl resource-type list` to see your available checks, filters, mutators, and handlers.
+
+{{< highlight shell >}}
+sensuctl handler list
+{{< /highlight >}}
 
 ## Next steps
 
-You now know how to create an asset and add it to a check, handler, and mutator as a dependency.
-For further reading, check out the [assets reference][1].
+See the [asset reference](../../reference/assets) more information about creating and sharing assets.
 
 [1]: ../../reference/assets/
 [2]: #creating-an-asset
