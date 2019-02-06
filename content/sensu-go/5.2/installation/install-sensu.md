@@ -152,16 +152,16 @@ sudo yum install sensu-go-agent
 
 #### Windows
 
-Download the [Sensu agent for Windows `amd64`](https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.2.0/sensu-go-5.2.0-windows-amd64.tar.gz).
+Download the [Sensu agent for Windows `amd64`](https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.2.0/sensu-enterprise-go_5.2.0_windows_amd64.tar.gz).
 
 {{< highlight text >}}
-Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.2.0/sensu-go-5.2.0-windows-amd64.tar.gz  -OutFile C:\Users\Administrator\sensu-go-5.2.0-windows-amd64.tar.gz
+Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.2.0/sensu-enterprise-go_5.2.0_windows_amd64.tar.gz  -OutFile C:\Users\Administrator\sensu-enterprise-go_5.2.0_windows_amd64.tar.gz
 {{< /highlight >}}
 
-Or download the [Sensu agent for Windows `386`](https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.2.0/sensu-go-5.2.0-windows-386.tar.gz).
+Or download the [Sensu agent for Windows `386`](https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.2.0/sensu-enterprise-go_5.2.0_windows_386.tar.gz).
 
 {{< highlight text >}}
-Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.2.0/sensu-go-5.2.0-windows-386.tar.gz  -OutFile C:\Users\Administrator\sensu-go-5.2.0-windows-386.tar.gz
+Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.2.0/sensu-enterprise-go_5.2.0_windows_386.tar.gz  -OutFile C:\Users\Administrator\sensu-enterprise-go_5.2.0_windows_amd64.tar.gz
 {{< /highlight >}}
 
 See the [verifying Sensu guide][12] to verify your download using checksums.
@@ -289,16 +289,16 @@ sudo yum install sensu-go-cli
 
 #### Windows
 
-Download [sensuctl for Windows `amd64`](https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.2.0/sensu-go-5.2.0-windows-amd64.tar.gz).
+Download [sensuctl for Windows `amd64`](https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.2.0/sensu-enterprise-go_5.2.0_windows_amd64.tar.gz).
 
 {{< highlight text >}}
-Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.2.0/sensu-go-5.2.0-windows-amd64.tar.gz  -OutFile C:\Users\Administrator\sensu-go-5.2.0-windows-amd64.tar.gz
+Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.2.0/sensu-enterprise-go_5.2.0_windows_amd64.tar.gz  -OutFile C:\Users\Administrator\sensu-enterprise-go_5.2.0_windows_amd64.tar.gz
 {{< /highlight >}}
 
-Or download [sensuctl for Windows `386`](https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.2.0/sensu-go-5.2.0-windows-386.tar.gz).
+Or download [sensuctl for Windows `386`](https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.2.0/sensu-enterprise-go_5.2.0_windows_386.tar.gz).
 
 {{< highlight text >}}
-Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.2.0/sensu-go-5.2.0-windows-386.tar.gz  -OutFile C:\Users\Administrator\sensu-go-5.2.0-windows-386.tar.gz
+Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.2.0/sensu-enterprise-go_5.2.0_windows_386.tar.gz  -OutFile C:\Users\Administrator\sensu-enterprise-go_5.2.0_windows_386.tar.gz
 {{< /highlight >}}
 
 See the [verifying Sensu guide][12] to verify your download using checksums.
@@ -312,13 +312,13 @@ See the [verifying Sensu guide][12] to verify your download using checksums.
 Download the latest release. See the [verifying Sensu guide][12] to verify your download using checksums.
 
 {{< highlight shell >}}
-curl -LO https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.2.0/sensu-go-5.2.0-darwin-amd64.tar.gz
+curl -LO https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.2.0/sensu-enterprise-go_5.2.0_darwin_amd64.tar.gz
 {{< /highlight >}}
 
 Extract the archive.
 
 {{< highlight shell >}}
-tar -xvf sensu-go-5.2.0-darwin-amd64.tar.gz
+tar -xvf sensu-enterprise-go_5.2.0_darwin_amd64.tar.gz
 {{< /highlight >}}
 
 Copy the executable into your PATH.
@@ -427,9 +427,9 @@ While it can be run from the docker container, doing so may be problematic.
 [11]: https://github.com/sensu/sensu-go/blob/master/packaging/files/backend.yml.example
 [12]: ../verify
 [13]: https://sensu.io/sensu-license
-[14]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.2.0/sensu-go-5.2.0-linux-amd64.tar.gz
-[15]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.2.0/sensu-go-5.2.0-linux-arm64.tar.gz
-[16]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.2.0/sensu-go-5.2.0-linux-arm5.tar.gz
-[17]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.2.0/sensu-go-5.2.0-linux-arm6.tar.gz
-[18]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.2.0/sensu-go-5.2.0-linux-arm7.tar.gz
-[19]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.2.0/sensu-go-5.2.0-linux-386.tar.gz
+[14]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.2.0/sensu-enterprise-go_5.2.0_linux_amd64.tar.gz
+[15]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.2.0/sensu-enterprise-go_5.2.0_linux_arm64.tar.gz
+[16]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.2.0/sensu-enterprise-go_5.2.0_linux_armv5.tar.gz
+[17]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.2.0/sensu-enterprise-go_5.2.0_linux_armv6.tar.gz
+[18]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.2.0/sensu-enterprise-go_5.2.0_linux_armv7.tar.gz
+[19]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.2.0/sensu-enterprise-go_5.2.0_linux_386.tar.gz
