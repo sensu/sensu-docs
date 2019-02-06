@@ -1,6 +1,6 @@
 ---
-title: "Authorization API"
-description: "Sensu Go authorization API reference documentation"
+title: "Authentication API"
+description: "Sensu Go authentication API reference documentation"
 version: "5.2"
 product: "Sensu Go"
 menu:

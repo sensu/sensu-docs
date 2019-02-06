@@ -24,8 +24,8 @@ menu:
 ### Check commands
 
 Each Sensu check definition defines a **command** and the **interval** at which
-it should be executed. Check commands are literally executable commands which
-will be executed on the Sensu agent.
+it should be executed. Check commands are executable commands which
+will be executed by the Sensu agent.
 
 A command may include command line arguments for controlling the behavior of the
 command executable. Most Sensu check plugins provide support for command line
@@ -413,6 +413,22 @@ required     | required if `splay` attribute is set to `true`
 type         | Integer
 example      | {{< highlight shell >}}"splay_coverage": 90{{< /highlight >}}
 
+### Check output truncation attributes
+
+|max_output_size  | |
+-------------|-------
+description  | Maximum size, in bytes, of stored check outputs. When this attribute is set to a non-zero value, the Sensu backend truncates check outputs larger than this value before storing to etcd. `max_output_size` does not affect data sent to Sensu filters, mutators, and handlers.
+required     | false
+type         | Integer
+example      | {{< highlight shell >}}"max_output_size": 1024{{< /highlight >}}
+
+|discard_output  | |
+-------------|------
+description  | Discard check output after extracting metrics. No check output will be sent to the Sensu backend.
+required     | false
+type         | Boolean
+example      | {{< highlight shell >}}"discard_output": true{{< /highlight >}}
+
 ## Examples
 
 ### Metric check
@@ -451,7 +467,8 @@ example      | {{< highlight shell >}}"splay_coverage": 90{{< /highlight >}}
     "output_metric_handlers": [
       "influx-db"
     ],
-    "env_vars": null
+    "env_vars": null,
+    "discard_output": true
   }
 }
 {{< /highlight >}}
