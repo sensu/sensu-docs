@@ -18,7 +18,7 @@ menu:
 
 - [Log in to your Sensu account](https://account.sensu.io/)
 - [Configure LDAP authentication](../../installation/auth)
-- [Guide to using assets](../../guides/enterprise-assets)
+- [Guide to using assets](../../guides/install-check-executables-with-assets)
 - [Contact Sensu support](https://account.sensu.io/support)
 - [Contact Sensu sales](https://sensu.io/sales)
 
