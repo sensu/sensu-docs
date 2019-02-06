@@ -150,9 +150,8 @@ connect to the configured [Sensu Transport][6].
    for your transport configuration. For more information, please visit the
    [transport definition specification][10]._
 
-2. Please refer to the configuration instructions for the corresponding
-   transport for configuration file examples (see [Redis][7], or [RabbitMQ][8]
-   reference documentation).
+2. If the transport being used is running on a different host, additional configuration is required to tell the sensu client how to connect to the transport.
+Please see [Redis][7] or [RabbitMQ][8] reference documentation for examples.
 
 ## Operating Sensu
 
@@ -172,7 +171,7 @@ $ svcadm restart sensu-client{{< /highlight >}}
 [4]:  https://sensuapp.org/mit-license
 [5]:  ../../reference/configuration/
 [6]:  ../../reference/transport/
-[7]:  ../../reference/redis/#sensu-redis-configuration
+[7]:  ../../reference/redis/#configure-sensu
 [8]:  ../../reference/rabbitmq/#sensu-rabbitmq-configuration
 [9]:  #configure-sensu
 [10]: #example-transport-configuration
