@@ -1,7 +1,7 @@
 ---
 title: "License management API"
 linkTitle: "License API"
-description: "Activate and manage your enterprise license for Sensu Go."
+description: "Sensu Go license management API reference documentation"
 version: "5.2"
 product: "Sensu Go"
 menu:

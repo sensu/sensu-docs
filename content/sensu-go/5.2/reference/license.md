@@ -1,7 +1,7 @@
 ---
 title: "License management"
 linkTitle: "License Management"
-description: "Activate and manage your license for enterprise features in Sensu Go."
+description: "Activate and manage your enterprise license for Sensu Go."
 weight: 100
 version: "5.2"
 product: "Sensu Go"
@@ -45,5 +45,3 @@ To see your license expiration date, log in to your Sensu account at [account.se
 
 If your license is within 30 days of expiration, Sensu issues regular warnings in the Sensu [backend logs](../../guides/troubleshooting).
 If your license expires, you will no longer have access to [enterprise features](../../getting-started/enterprise) within Sensu Go.
-
-[1]: ../../sensuctl/reference
