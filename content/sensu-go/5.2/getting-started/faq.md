@@ -29,9 +29,8 @@ See the [hardware requirements guide][5] for minimum and recommended hardware to
 
 > Is there an enterprise version of Sensu Go?
 
-Yes! Sensu Enterprise is available now.
-Sensu Enterprise offers enterprise-class support and access to features within Sensu Go designed for enterprises, like LDAP authentication and support for industry-standard tools.
-[Contact the Sensu sales team][6] for a personalized demo, and see the [getting started guide][28] for more information about Sensu Enterprise.
+Yes! Sensu Inc. offers support packages for Sensu Go as well as license-activated features designed for enterprises, like LDAP authentication and support for industry-standard tools.
+[Contact the Sensu sales team][6] for a personalized demo, and see the [getting started guide][28] for more information.
 
 > How can I contact the Sensu sales team?
 

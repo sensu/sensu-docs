@@ -24,13 +24,13 @@ Sensu Go is the free and open source monitoring event pipeline, written in Go an
 - [Install Sensu Go][2]
 - [Discover Sensu assets][6]
 
-### Try Sensu Enterprise
+### Try enterprise features
 
-Sensu Go offers license-activated features designed for enterprises, like LDAP authentication and enterprise-class support.
+Sensu Inc. offers support packages for Sensu Go as well as license-activated features designed for enterprises, like LDAP authentication and integrations with industry-standard tools.
 
-- [Contact the sales team to schedule a demo][4]
-- [Learn more about Sensu Enterprise][3]
-- [Get started with Sensu Enterprise][5]
+- [Contact the sales team for a free trial][4]
+- [Learn more about enterprise features in Sensu Go][3]
+- [Get started with enterprise features in Sensu Go][5]
 
 
 [1]: ../sandbox

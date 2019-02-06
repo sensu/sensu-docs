@@ -1,9 +1,9 @@
 ---
-title: "Getting started with Sensu Enterprise"
-linkTitle: "Sensu Enterprise"
-description: "Sensu Go is the free and open source monitoring event pipeline, written in Go and designed for container-based and hybrid-cloud infrastructures. Sensu Enterprise offers enterprise-class support and access to features within Sensu Go designed for enterprises, like LDAP authentication and support for industry-standard tools."
+title: "Getting started with enterprise features"
+linkTitle: "Enterprise Features"
+description: "Sensu Go is the free and open source monitoring event pipeline, written in Go and designed for container-based and hybrid-cloud infrastructures. Sensu Inc. offers support packages for Sensu Go as well as license-activated features designed for enterprises, like LDAP authentication and integrations with industry-standard tools."
 version: "5.2"
-weight: 1
+weight: 2
 product: "Sensu Go"
 menu:
   sensu-go-5.2:
@@ -11,33 +11,32 @@ menu:
 ---
 
 Sensu Go offers license-activated features designed for enterprises, like LDAP authentication and enterprise-class support.
-[Contact the Sensu sales team][1] for a personalized demo.
+[Contact the Sensu sales team][1] for a personalized demo and free trial.
 
 **Enterprise-only features in Sensu Go:**
 
 - [LDAP authentication](../../installation/auth)
-- Incident automation using the [Sensu ServiceNow handler](https://bonsai.sensu.io/assets/portertech/sensu-servicenow-handler)
-- Issue automation using the [Sensu JIRA handler](https://bonsai.sensu.io/assets/portertech/sensu-jira-handler)
+- [Sensu ServiceNow event handler](https://bonsai.sensu.io/assets/portertech/sensu-servicenow-handler): Create and update incidents automatically based on your monitoring events.
+- [Sensu Jira event handler](https://bonsai.sensu.io/assets/portertech/sensu-jira-handler): Create and update issues automatically based on your monitoring events.
 - [Enterprise-class support for Sensu Go](https://sensu.io/support/)
 
-### Schedule a demo
+### Contact us for a free trial
 
-For a personalized demo of Sensu Enterprise, [contact the Sensu sales team][1].
-You can manage your Sensu Enterprise account and contact Sensu support through [account.sensu.io][2].
+For a personalized demo and free trial of enterprise features in Sensu Go, [contact the Sensu sales team][1].
+You can manage your Sensu account and contact support through [account.sensu.io][2].
 
 - [Contact the Sensu sales team](https://sensu.io/sales/)
-- [Log in to the Sensu account portal][2]
+- [Log in to your Sensu account][2]
 - [Contact Sensu support](https://account.sensu.io/support)
 
-### Get started with Sensu Enterprise
+### Get started with enterprise features in Sensu Go
 
 If you haven't already, [install the Sensu Go backend, agent, and sensuctl tool](../../installation/install-sensu) and [configure sensuctl](../../sensuctl/reference/#first-time-setup).
 
-Log in to your Sensu account at [account.sensu.io](https://account.sensu.io/) and download your license file.
-Then activate your license using sensuctl.
+Log in to your Sensu account at [account.sensu.io](https://account.sensu.io/) and download your license file, then activate your license using sensuctl.
 
 {{< highlight shell >}}
-sensuctl license install --file license.json
+sensuctl create --file license.json
 {{< /highlight >}}
 
 You can use sensuctl to view your license details at any time.
@@ -50,8 +49,8 @@ See these resources to get started using enterprise-only features in Sensu Go.
 
 - [Set up LDAP authentication](../../installation/auth)
 - [Automate ServiceNow incidents with Sensu](../../guides/enterprise-assets)
-- [Manage your Sensu Enterprise license](../../reference/enterprise)
-- [Log in to your Sensu Enterprise account](https://account.sensu.io)
+- [Manage your enterprise license](../../reference/enterprise)
+- [Log in to your Sensu account](https://account.sensu.io)
 - [Contact Sensu support](https://account.sensu.io/support)
 
 [1]: https://sensu.io/sales/

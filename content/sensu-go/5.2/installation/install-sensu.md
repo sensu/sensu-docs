@@ -362,11 +362,11 @@ See the [sensuctl reference][4] for more information about using sensuctl.
 
 ### 3. Activate enterprise-only features
 
-Sensu Enterprise offers features designed for enterprises, like LDAP authentication and enterprise-class support.
-To learn more about Sensu Enterprise, [contact the Sensu sales team](http://sensu.io.sales) to schedule a demo.
+Sensu Inc. offers support packages for Sensu Go as well as license-activated features designed for enterprises, like LDAP authentication and integrations with industry-standard tools.
 
-If you already have a Sensu Enterprise account, log in to your Sensu account at [account.sensu.io](https://account.sensu.io/) and download your license file.
-Then apply your license using sensuctl.
+To learn more about enterprise features in Sensu Go, [contact the Sensu sales team](http://sensu.io.sales) for a free trial.
+
+If you already have an enterprise license account, log in to your Sensu account at [account.sensu.io](https://account.sensu.io/) and download your license file, then apply your license using sensuctl.
 
 {{< highlight shell >}}
 sensuctl license install --file license.json
