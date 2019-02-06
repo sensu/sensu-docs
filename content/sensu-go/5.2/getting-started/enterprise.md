@@ -48,8 +48,8 @@ sensuctl license info
 See these resources to get started using enterprise-only features in Sensu Go.
 
 - [Set up LDAP authentication](../../installation/auth)
-- [Automate ServiceNow incidents with Sensu](../../guides/enterprise-assets)
-- [Manage your enterprise license](../../reference/enterprise)
+- [Get started with assets](../../guides/install-check-executables-with-assets)
+- [Manage your enterprise license](../../reference/license)
 - [Log in to your Sensu account](https://account.sensu.io)
 - [Contact Sensu support](https://account.sensu.io/support)
 
