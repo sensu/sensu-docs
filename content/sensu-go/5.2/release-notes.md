@@ -7,6 +7,7 @@ version: "5.2"
 menu: "sensu-go-5.2"
 ---
 
+- [5.2.0 release notes](#5-2-0-release-notes)
 - [5.1.1 release notes](#5-1-1-release-notes)
 - [5.1.0 release notes](#5-1-0-release-notes)
 - [5.0.1 release notes](#5-0-1-release-notes)
@@ -20,6 +21,36 @@ Sensu Go adheres to [semantic versioning][2] using MAJOR.MINOR.PATCH release num
 Read the [upgrading guide][1] for information on upgrading to the latest version of Sensu Go.
 
 ---
+
+## 5.2.0 release notes
+
+**February 7, 2019** &mdash; The latest release of Sensu Go, version 5.2.0, is now available for download. This release has a ton of exciting content, including the availability of our first enterprise-only features. For more details on these features, see our [blog post][14]. 5.2.0 also has some key improvements and fixes; we added support for self-signed CA certificates for sensuctl, check output truncation, and the ability to manage silencing from the event details page on our web UI just to name a few.
+See the [upgrading guide][1] to upgrade Sensu to version 5.2.0.
+
+### Changes to Sensu Go {#5.2.0-changes}
+
+**NEW FEATURES:**
+
+- Announcing our first enterprise-only features for Sensu Go: [LDAP authentication](/sensu-go/5.2/installation/auth), the [Sensu ServiceNow handler](https://bonsai.sensu.io/assets/portertech/sensu-servicenow-handler), and the [Sensu JIRA handler](https://bonsai.sensu.io/assets/portertech/sensu-jira-handler). See the [getting started guide](/sensu-go/5.2/getting-started/enterprise) for more information.
+- Sensu now provides the option to limit check output size or to drop check outputs following metric extraction. See the [checks reference][15] for more information.
+
+**IMPROVEMENTS:**
+
+- Sensu now includes support for Debian 8 and 9. See the [installation guide][16] to install Sensu for Debian.
+- Sensu's binary-only distribution for Linux is now available for `arm64`, `armv5`, `armv6`, `armv7`, and `386` in addition to `amd64`.  See the [installation guide][16] for download links.
+- The Sensu dashboard now provides the ability to silence and unsilence events from the events page.
+- The Sensu dashboard entity page now displays the platform version and deregistration configuration.
+- sensuctl now supports TLS configuration options, allowing you to use a self-signed certificate without adding it to the operating system's CA store, either by explicitly trusting the signer or by disabling TLS hostname verification. See the [sensuctl reference][17] for more information.
+- sensuctl now provides action-specific confirmation messages, like `Created`, `Deleted`, and `Updated`.
+
+**FIXES:**
+
+- Check TTL failure events now persist through cluster member failures and cluster restarts.
+- The Sensu backend now correctly handles errors for missing keepalive events.
+- Token substituted values are now omitted from event data to protect sensitive information.
+- Sensu now correctly processes keepalive and check TTL states following entity deletion.
+- sensuctl can now run `sensuctl version` without being configured.
+- When disabling users, sensuctl now provides the correct prompt for the action.
 
 ## 5.1.1 release notes
 
@@ -128,3 +159,7 @@ To get started with Sensu Go:
 [11]: /sensu-go/5.1/api/auth
 [12]: /sensu-go/5.1/installation/install-sensu
 [13]: https://nvd.nist.gov/vuln/detail/CVE-2019-6486
+[14]: https://blog.sensu.io/enterprise-features-in-sensu-go
+[15]: https://docs.sensu.io/sensu-go/5.2/reference/checks/#check-output-truncation-attributes
+[16]: /sensu-go/5.2/installation/install-sensu
+[17]: /sensu-go/5.2/sensuctl/reference/#global-flags
