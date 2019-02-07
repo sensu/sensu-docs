@@ -132,6 +132,29 @@ entities with particular subscriptions.
 
 ## Check specification
 
+### Minimum Check Configuration
+
+While checks have many attributes, below is the minimum required configuration for Sensu to accept a check.
+
+_NOTE: The attribute `publish` is not required, however without it the check will not be sent to entities subscribed to the subscription(s) defined in the check._
+
+_NOTE: The attribute `interval` is not required if a valid `cron` schedule is defined._
+
+{{< highlight json >}}
+{
+  "type": "CheckConfig",
+  "api_version": "core/v2",
+  "metadata": {
+    "namespace": "default",
+    "name": "check-minimum"
+  },
+  "spec": {
+    "interval": 10,
+    "publish": true
+  }
+}
+{{< /highlight >}}
+
 ### Top-level attributes
 
 type         | 
