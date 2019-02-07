@@ -146,11 +146,15 @@ Global flags modify settings specific to sensuctl, such as the Sensu backend URL
 You can use global flags with most sensuctl commands.
 
 {{< highlight shell >}}
---api-url string        host URL of Sensu installation
---cache-dir string      path to directory containing cache & temporary files 
---config-dir string     path to directory containing configuration files
---namespace string      namespace in which we perform actions (default: "default")
+--api-url string             host URL of Sensu installation
+--cache-dir string           path to directory containing cache & temporary files
+--config-dir string          path to directory containing configuration files
+--insecure-skip-tls-verify   skip TLS certificate verification (not recommended!)
+--namespace string           namespace in which we perform actions
+--trusted-ca-file string     TLS CA certificate bundle in PEM format
 {{< /highlight >}}
+
+Additionally, these flags can be set permanently by editing `.config/sensu/sensuctl/{cluster, profile}`.
 
 ## Creating resources
 The `sensuctl create` command allows you to create or update resources by reading from STDIN or a flag configured file (`-f`).
@@ -224,6 +228,7 @@ cat my-resources.json | sensuctl create
 `HookConfig` | `hook_config` | `Mutator` | `mutator`
 `Namespace` | `namespace` | `Role` | `role`
 `RoleBinding` | `role-binding` | `Silenced` | `silenced`
+`ldap`
 
 ## Editing resources
 

@@ -244,9 +244,8 @@ connect to the configured [Sensu Transport][4].
    for your transport configuration. For more information, please visit the
    [transport definition specification][10]._
 
-2. Please refer to the configuration instructions for the corresponding
-   transport for configuration file examples (see [Redis][5], or [RabbitMQ][6]
-   reference documentation).
+2. If the transport being used is running on a different host, additional configuration is required to tell the sensu client how to connect to the transport.
+Please see [Redis][5] or [RabbitMQ][6] reference documentation for examples.
 
 ### Example data store configuration
 
@@ -453,7 +452,7 @@ sudo service sensu-enterprise-dashboard stop{{< /highlight >}}
 [2]:  https://sensu.io/products/enterprise
 [3]:  ../../reference/configuration
 [4]:  ../../reference/transport
-[5]:  ../../reference/redis/#sensu-redis-configuration
+[5]:  ../../reference/redis/#configure-sensu
 [6]:  ../../reference/rabbitmq/#sensu-rabbitmq-configuration
 [7]:  http://smarden.org/runit/
 [8]:  #disable-the-sensu-services-on-boot
