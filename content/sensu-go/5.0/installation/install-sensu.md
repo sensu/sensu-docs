@@ -17,6 +17,7 @@ aliases:
 Select a platform from the dropdown above.
 Sensu Go is available for Linux, Windows (agent and CLI only), macOS (CLI only), and Docker.
 See the list of [supported platforms][5] for more information.
+Sensu downloads are provided under the [Sensu License][13].
 
 {{< platformBlock "Ubuntu RHEL/CentOS" >}}
 
@@ -412,3 +413,4 @@ While it can be run from the docker container, doing so may be problematic.
 [10]: ../../guides/send-slack-alerts
 [11]: https://github.com/sensu/sensu-go/blob/master/packaging/files/backend.yml.example
 [12]: ../verify
+[13]: https://sensu.io/sensu-license

@@ -7,6 +7,20 @@ weight: 2
 menu: "sensu-enterprise-dashboard-2.10"
 ---
 
+- [Dashboard configuration](#dashboard-configuration)
+	- [Example configuration](#example-dashboard-configuration)
+	- [Configuring multiple users](#configuring-multiple-users)
+	- [Encrypting passwords](#encrypting-passwords)
+- [Dashboard definition specification](#dashboard-definition-specification)
+	- [`sensu` attributes](#sensu-attributes)
+	- [`dashboard` attributes](#dashboard-attributes)
+	  - [`auth` attributes](#auth-attributes)
+	  - [`audit` attributes](#audit-attributes)
+	  - [`github` attributes](#github-attributes)
+	  - [`gitlab` attributes](#gitlab-attributes)
+	  - [`ldap` attributes](#ldap-attributes)
+	  - [`oidc` attributes](#oidc-attributes)
+
 ## Dashboard configuration
 
 ### Example dashboard configuration
@@ -120,7 +134,72 @@ This example makes use of the following:
 
 _NOTE: Local users can only be used for fallback with Github, Gitlab, and OIDC RBAC providers. It is not possible to have a local fallback with LDAP._
 
-### Dashboard definition specification {#dashboard-definition-specification}
+### Configuring multiple users
+
+You can define multiple users, including read-only users, within your
+users attribute. The **users** attribute has precedence over the **user** attribute.
+
+
+{{< highlight json >}}
+{
+  "sensu": [
+    {
+      "name": "sensu-server-1",
+      "host": "api1.example.com",
+      "port": 4567
+    }
+  ],
+  "dashboard": {
+    "host": "0.0.0.0",
+    "port": 3000,
+    "users": [
+      {
+        "username" : "admin",
+        "password": "secret",
+        "accessToken": "vFzX6rFDAn3G9ieuZ4ZhN-XrfdRow4Hd5CXXOUZ5NsTw4h3k3l4jAw__",
+        "readonly": false
+      },
+      {
+        "username" : "guest",
+        "password": "secret",
+        "accessToken": "hrKMW3uIt2RGxuMIoXQ-bVp-TL1MP4St5Hap3KAanMxI3OovFV48ww__",
+        "readonly": true
+      }
+    ]
+  }
+}
+{{< /highlight >}}
+
+Key     | Required | Type | Description
+--------|----------|------|------
+username | true | string | Username of the user.
+password | true | string | Password of the user. Also see the [encrypting passwords documentation](#encrypting-passwords).
+accessToken | false | string | A unique and secure token to interact with the Sensu Enterprise Dashboard API as the related user. Remember to keep your access tokens secret. Must only contain friendly URL characters. See [API authentication](../api/overview).
+readonly | false | boolean | Restrict write access to the dashboard (create stashes, delete clients, etc.). The default value is `false`.
+
+### Encrypting passwords
+You can place hashed passwords in the *password*
+attributes, but only within the **dashboard** object, in order to obfuscate
+users passwords in your configuration files.
+
+Please note that you must **absolutely** use the `{crypt}` prefix when using an encrypted
+password. For example:
+{{< highlight shell >}}
+"password": "{crypt}$1$MteWnoFT$yhEi8KMxO794K0TIriZcI0"{{< /highlight >}}
+
+The following algorithms are supported (along with the commands to create the hashes):
+
+Algorithm | Command
+----------|---------
+APR1 | `openssl passwd -apr1 MY_PASSWORD`
+MD5 | `mkpasswd --method=MD5 MY_PASSWORD`
+SHA-256 | `mkpasswd --method=SHA-256 MY_PASSWORD`
+SHA-512 | `mkpasswd --method=SHA-512 MY_PASSWORD`
+
+Alternatively, you could use the [Passlib hashing library for Python 2 & 3]
+(https://passlib.readthedocs.io/en/stable/).
+
+## Dashboard definition specification {#dashboard-definition-specification}
 
 The Sensu Enterprise dashboard uses two [configuration scopes][9]: the
 `{ "sensu": {} }` configuration scope provides connection details for one or
@@ -132,7 +211,7 @@ _NOTE: by default, the Sensu Enterprise Dashboard will load configuration from
 `/etc/sensu/dashboard.d/**.json`, with the same configuration merging behavior
 as described [here][2]._
 
-#### `sensu` attributes {#sensu-attributes}
+### `sensu` attributes {#sensu-attributes}
 
 name         | 
 -------------|------
@@ -202,7 +281,7 @@ required     | false
 type         | String
 example      | {{< highlight shell >}}"pass": "my_sensu_api_password"{{< /highlight >}}
 
-#### `dashboard` attributes {#dashboard-attributes}
+### `dashboard` attributes {#dashboard-attributes}
 
 host         | 
 -------------|------
@@ -252,14 +331,14 @@ example      | {{< highlight shell >}}"ssl": {
 
 user         | 
 -------------|------
-description  | A username to enable simple authentication and restrict access to the dashboard. Leave blank along with `pass` to disable simple authentication.
+description  | A username to enable simple authentication and restrict access to the dashboard. Leave blank along with `pass` to disable simple authentication. You can also configure multiple users with the [`users` attribute](#configuring-multiple-users).
 required     | false
 type         | String
 example      | {{< highlight shell >}}"user": "admin"{{< /highlight >}}
 
 pass         | 
 -------------|------
-description  | A password to enable simple authentication and restrict access to the dashboard. Leave blank along with `user` to disable simple authentication.
+description  | A password to enable simple authentication and restrict access to the dashboard. Leave blank along with `user` to disable simple authentication. Sensu also supports [encrypted passwords](#encrypting-passwords).
 required     | false
 type         | String
 example      | {{< highlight shell >}}"pass": "secret"{{< /highlight >}}
@@ -518,6 +597,8 @@ to configure the dashboard for RBAC with OpenID Connect (OIDC).
 [16]: ../rbac/overview/#rbac-for-the-sensu-enterprise-console-api
 [17]: ../rbac/rbac-for-oidc
 [18]: #oidc-attributes
+[19]: https://docs.sensu.io/uchiwa/1.0/getting-started/configuration/#multiple-users
+[20]: https://docs.sensu.io/uchiwa/1.0/guides/security/#encrypted-passwords
 
 <!-- Supplemental Links -->
 [golang-ssl]: https://golang.org/pkg/crypto/tls/#pkg-constants
