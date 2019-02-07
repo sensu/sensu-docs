@@ -29,6 +29,10 @@ See the [upgrading guide][1] to upgrade Sensu to version 5.2.0.
 
 ### Changes to Sensu Go {#5.2.0-changes}
 
+**IMPORTANT:**
+
+- Due to changes in the release process, Sensu binaries are now named `sensu-enterprise-go_5.2.0_os_arch.tar.gz` and include all files in the top level directory. See the [installation guide][16] for the latest download links.
+
 **NEW FEATURES:**
 
 - Announcing our first enterprise-only features for Sensu Go: [LDAP authentication](/sensu-go/5.2/installation/auth), the [Sensu ServiceNow handler](https://bonsai.sensu.io/assets/portertech/sensu-servicenow-handler), and the [Sensu JIRA handler](https://bonsai.sensu.io/assets/portertech/sensu-jira-handler). See the [getting started guide](/sensu-go/5.2/getting-started/enterprise) for more information.
