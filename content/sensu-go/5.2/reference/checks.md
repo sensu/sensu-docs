@@ -19,6 +19,9 @@ menu:
 - [Specification](#check-specification)
 - [Examples](#examples)
 
+Discover, download, and share Sensu check assets using [Bonsai][25], the Sensu asset index.
+Read the [guide to installing plugins using assets][28] to get started.
+
 ## How do checks work?
 
 ### Check commands
@@ -507,3 +510,5 @@ example      | {{< highlight shell >}}"discard_output": true{{< /highlight >}}
 [27]: ../filters
 [sc]: ../../sensuctl/reference#creating-resources
 [sp]: #spec-attributes
+[25]: https://bonsai.sensu.io
+[28]: ../../guides/install-check-executables-with-assets
