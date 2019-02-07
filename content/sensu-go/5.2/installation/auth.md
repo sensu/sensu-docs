@@ -14,6 +14,7 @@ menu:
   - [Configuration](#configuring-ldap-authentication)
   - [Examples](#configuration-examples)
   - [Specification](#ldap-specification)
+  - [Troubleshooting](#ldap-troubleshooting)
 
 Sensu requires username and password authentication to access the [Sensu dashboard][1], [API][8], and command line tool ([sensuctl][2]).
 For Sensu's [default user credentials][3] and more information about configuring Sensu role based access control, see the [RBAC reference][4] and [guide to creating users][5].
@@ -294,7 +295,7 @@ example      | {{< highlight shell >}}
 ]
 {{< /highlight >}}
 
-<a name="groups-prefix">
+<a name="groups-prefix"></a>
 
 | groups_prefix |   |
 -------------|------
@@ -303,7 +304,7 @@ required     | false
 type         | String
 example      | {{< highlight shell >}}"groups_prefix": "ldap"{{< /highlight >}}
 
-<a name="username-prefix">
+<a name="username-prefix"></a>
 
 | username_prefix | |
 -------------|------
@@ -358,7 +359,7 @@ example      | {{< highlight shell >}}
 
 | group_search |    |
 -------------|------
-description  | Search configuration for groups. See the [group search attributes](#group-search-attributes) for more information.
+description  | Search configuration for groups. See the [group search attributes][21] for more information.
 required     | true
 type         | Map
 example      | {{< highlight shell >}}
@@ -372,7 +373,7 @@ example      | {{< highlight shell >}}
 
 | user_search |     |
 -------------|------
-description  | Search configuration for users. See the [user search attributes](#user-search-attributes) for more information.
+description  | Search configuration for users. See the [user search attributes][22] for more information.
 required     | true
 type         | Map
 example      | {{< highlight shell >}}
@@ -475,6 +476,100 @@ required     | true
 type         | String
 example      | {{< highlight shell >}}"name": "openldap"{{< /highlight >}}
 
+## LDAP troubleshooting
+
+In order to thoubleshoot any issue with LDAP authentication, the first step
+should always be to [increase log verbosity][19] of sensu-backend. Most
+authentication and authorization errors are only displayed on the debug log
+level, in order to avoid flooding the log files.
+
+_NOTE: If you can't locate any log entry around LDAP authentication, make sure
+the LDAP provider was successfully installed using [sensuctl][20]_
+
+### Authentication problems
+
+Here are some common error messages and possible solutions:
+
+**Error message**: `failed to connect: LDAP Result Code 200 "Network Error"`
+
+The LDAP provider couldn't establish a TCP connection to the LDAP server. Verify
+the `host` & `port` attributes. If you are not using LDAP over TLS/SSL , make
+sure to adjust `security` attribute because its default value is `"tls"`. 
+
+**Error message**: `certificate signed by unknown authority`
+
+If you are using a self-signed certificate, make sure to set the `insecure`
+attribute to `true`.
+
+**Error message**: `failed to bind: ...`
+
+The first step for authenticating a user with the LDAP provider is to bind to
+the LDAP server using the service account specified in the [`binding`
+object](#binding-attributes). Make sure the `user_dn` specifies a valid **DN**,
+and its password is the right one.
+
+**Error message**: `user <username> was not found`
+
+The user search failed, no user account could be found with the given username.
+Go look at the [`user_search` object][22] and make sure that:
+
+- The specified `base_dn` contains the requested user entry DN
+- The specified `attribute` contains the _username_ as its value in the user entry
+- The `object_class` attribute corresponds to the user entry object class
+
+**Error message**: `ldap search for user <username> returned x results, expected only 1`
+
+The user search returned more than 1 user entry, therefore the provider could
+not determine which of these entries should be used. The [`user_search`
+object][22] needs to be tweaked so the provided *username* can be used to
+uniquely identify a user entry. Here's few possible way of doing it:
+
+- Adjust the `attribute` so its value (which corresponds to the *username*) is
+  unique amongst the user entries
+- Adjust the `base_dn` so it only includes one of the user entries
+
+**Error message**: `ldap entry <DN> missing required attribute <name_attribute>`
+
+The user entry returned (identified by `<DN>`) doesn't include the attribute
+specified by [`name_attribute` object][22]. Therefore the LDAP provider could
+not determine which attribute to use as the username in the user entry. The
+`name_attribute` should be adjusted so it specifies a human friendly name for
+the user. 
+
+**Error message**: `ldap group entry <DN> missing <name_attribute> and cn attributes`
+
+The group search returned a group entry (identified by `<DN>`) that doesn't have
+the [`name_attribute` attribute][21] nor a `cn` attribute. Therefore the LDAP
+provider could not determine which attribute to use as the group name in the
+group entry. The `name_attribute` should be adjusted so it specifies a human
+friendly name for the group.
+
+### Authorization problems
+
+Once authenticated, a user needs to be granted permissions via either a
+`ClusterRoleBinding` or a `RoleBinding`.
+
+The way in which LDAP users and LDAP groups can be referred as subjects depends
+on the `groups_prefix` and `username_prefix` configuration attributes values of
+the [LDAP provider][sp]. For example, for the groups prefix `ldap`
+and the group `dev`, the resulting group name in Sensu is `ldap:dev`.
+
+**Problem**: Permissions are not granted via the LDAP group(s)
+
+During authentication, the LDAP provider will print in the logs all groups found
+in LDAP, e.g. `found 1 group(s): [dev]`. Keep in mind that this group name does
+not contain the `groups_prefix` at this point.
+
+The RBAC component will print in the logs each attempts made to authorize a
+request. This is useful for determining why a specific binding didn't granted
+the request. For example:
+
+```
+[...] the user is not a subject of the ClusterRoleBinding cluster-admin [...]
+[...] could not authorize the request with the ClusterRoleBinding system:user [...]
+[...] could not authorize the request with any ClusterRoleBindings [...]
+```
+
 [sc]: ../../sensuctl/reference#creating-resources
 [sp]: #spec-attributes
 [1]: ../../dashboard/overview
@@ -492,3 +587,7 @@ example      | {{< highlight shell >}}"name": "openldap"{{< /highlight >}}
 [13]: ../../reference/rbac#cluster-role-bindings
 [17]: ../../reference/rbac#namespaced-resource-types
 [18]: ../../reference/rbac#cluster-wide-resource-types
+[19]: ../../guides/troubleshooting#log-levels
+[20]: #managing-authentication-providers
+[21]: #group-search-attributes
+[22]: #user-search-attributes
