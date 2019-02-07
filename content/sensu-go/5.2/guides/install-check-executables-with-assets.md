@@ -1,6 +1,8 @@
 ---
-title: "How to install executables using assets"
+title: "How to install plugins using assets"
 linkTitle: "Installing Plugins with Assets"
+description: "Assets are shareable, reusable packages that make it easy to deploy Sensu plugins.
+You can use assets to provide the plugins, libraries, and runtimes you need to power your monitoring workflows."
 weight: 40
 version: "5.2"
 product: "Sensu Go"
@@ -10,153 +12,119 @@ menu:
     parent: guides
 ---
 
-- [How to create a check that depends on an asset](#how-to-create-a-check-that-depends-on-an-asset)
-- [How to create a handler that depends on an asset](#how-to-create-a-handler-that-depends-on-an-asset)
-- [How to create a mutator that depends on an asset](#how-to-create-a-mutator-that-depends-on-an-asset)
+- [1. Download an asset definition from Bonsai](#1-download-an-asset-definition-from-bonsai)
+- [2. Register the asset with Sensu](#2-register-the-asset-with-sensu)
+- [3. Create a workflow](#3-create-a-workflow)
 - [Next steps](#next-steps)
 
-## What are assets?
-Assets are executables that checks, handlers, and mutators can specify as dependencies.
-When an agent runs a check or when a backend runs a handler or mutator, it ensures that all of the required assets
-are available during runtime.
-If they aren't, Sensu installs them by consulting each of the assets' URLs.
+Assets are shareable, reusable packages that make it easy to deploy Sensu plugins.
+You can use assets to provide the plugins, libraries, and runtimes you need to power your monitoring workflows.
+See the [asset reference](../../reference/assets) for more information about assets.
 
-## Why use assets?
-When configuration management is unavailable, assets can help manage runtime 
-dependencies such as scripts (ex: check-haproxy.sh) and tar files (ex: sensu-ruby-runtime.tar.gz)
-entirely within Sensu. 
+### 1. Download an asset definition from Bonsai
 
-## How to create a check that depends on an asset 
+You can discover, download, and share assets using [Bonsai, the Sensu asset index][16].
+To use an asset, select the Download button on the asset page in Bonsai to download the asset definition for your platform and architecture.
+Asset definitions tell Sensu how to download and verify the asset when required by a check, filter, mutator, or handler.
 
-### Creating an asset
-In this example, we'll create an asset from a tar archive, and show you how to
-create a new check with that asset as a dependency, as well as apply it to an
-existing check.
-
-Sensu expects that an asset is a tar archive that may optionally be gzipped.
-Any scripts or executables should be within a bin/ folder within the archive.
-For more information about the expected format of assets, see the [assets reference][1].
-
-To create an asset, we'll need a name, a URL to the asset location,
-and a `SHA-512 checksum`.
-
-{{< highlight shell >}}
-sensuctl asset create check_website.tar.gz \
--u http://example.com/check_website.tar.gz \
---sha512 "$(sha512sum check_website.tar.gz | cut -f1 -d ' ')"
-{{< /highlight >}}
-
-If you're using macOS, you'll need to use `$(shasum -a 512 check_website.tar.gz | cut -f1 -d ' ')` to generate a checksum.
-
-If you're using Windows, you'll need to use the `CertFile` utility to generate the checksum:
-{{< highlight shell >}}
-CertUtil -hashfile check_website.tar.gz SHA512
-{{< /highlight >}}
-
-and extract the checksum from the output manually, before adding it to the sensuctl command.
-
-
-### Adding an asset to a check on creation
-
-{{< highlight shell >}}
-sensuctl check create check_website \
---command "check_website -a www.example.com -C 3000 -w 1500" \
---subscriptions web \
---interval 10 \
---runtime-assets check_website.tar.gz 
-{{< /highlight >}}
-
-### Adding an asset to an existing check's dependencies
-
-{{< highlight shell >}}
-sensuctl check set-runtime-assets check_website.tar.gz 
-{{< /highlight >}}
-
-This command will set a check's assets to `check_website.tar.gz`.
-
-### Validating the check asset
-
-Once the check is setup, it should only take a few moments for it to be
-scheduled and start emitting events. When the check has been scheduled, you should 
-see a log entry for that check's execution.
-{{< highlight shell >}}
-{"component":"agent","level":"info","msg":"scheduling check execution: check_website","time":"2018-04-06T20:46:32Z"}
-{{< /highlight >}}
-
-You can verify that the asset is working by using `sensuctl` to list the most recent events:
-{{< highlight shell >}}
-sensuctl event list
-  Entity           Check                     Output               Status   Silenced             Timestamp
-───────────── ────────────────── ──────────────────────────────── ──────── ────────── ───────────────────────────────
-sensu-agent    check_website      CheckHttpResponseTime OK: 345      0       false    2018-04-06 20:38:34 +0000 UTC
-{{< /highlight >}}
-
-## How to create a handler that depends on an asset 
-
-### Adding an asset to a handler on creation
-
-[Create an asset][2] (ex.`sensu-influxdb-handler`), and create a handler (ex. `influx-db`).
-
-{{< highlight shell >}}
-sensuctl handler create influx-db \
---type pipe \
---runtime-assets sensu-influxdb-handler \
---command "sensu-influxdb-handler -d sensu" \
---env-vars "INFLUXDB_ADDR=http://influxdb.default.svc.cluster.local:8086, INFLUXDB_USER=sensu, INFLUXDB_PASSWORD=password"
-{{< /highlight >}}
-
-### Validating the handler asset
-
-Once the handler is setup, it must be attached to a check to handle the event output (ex. `collect-metrics`).
-
-{{< highlight shell >}}
-$ sensuctl check set-handlers collect-metrics influx-db
-{{< /highlight >}}
-
-You can verify that the handler has fetched/installed the asset, and executed the dependency by checking the
-backend logs.
+For example, here's the asset definition for version 1.0.1 of the [Sensu PagerDuty handler asset][19] for Linux AMD64.
 
 {{< highlight json >}}
-{"assets":["sensu-influxdb-handler"],"component":"pipelined","namespace":"default","handler":"influx-db","level":"debug","msg":"fetching assets for handler","time":"2018-10-16T13:17:33-07:00"}
+{
+  "type": "Asset",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "sensu-pagerduty-handler",
+    "namespace": "default",
+    "labels": {},
+    "annotations": {}
+  },
+  "spec": {
+    "url": "https://github.com/sensu/sensu-pagerduty-handler/releases/download/1.0.1/sensu-pagerduty-handler_1.0.1_linux_amd64.tar.gz",
+    "sha512": "5facfb0706e5e36edc5d13993ecc813a4689c5ca502d70670268ca1c0679e9e2af79af75ee4f7a423b48f2e55524f6d81ce81485975eb3b70048cfa58f4af961",
+    "filters": [
+      "entity.system.os == 'linux'",
+      "entity.system.arch == 'amd64'"
+    ]
+  }
+}
 {{< /highlight >}}
-{{< highlight json >}}
-{"component":"pipelined","namespace":"default","handler":"influx-db","level":"info","msg":"event pipe handler executed","output":"metric sent to influx-db","status":0,"time":"2018-10-16T13:17:33-07:00"}
-{{< /highlight >}}
 
-## How to create a mutator that depends on an asset 
+**Enterprise-only assets** (like the [ServiceNow](https://bonsai.sensu.io/assets/portertech/sensu-servicenow-handler) and [Jira event handlers](https://bonsai.sensu.io/assets/portertech/sensu-jira-handler)) require an active enterprise license. For more information about enterprise-only features and to active your license, see the [getting started guide](../../getting-started/enterprise).
 
-### Adding an asset to a mutator on creation
+### 2. Register the asset with Sensu
 
-[Create an asset][2] (ex. `transformer`), and create a mutator (ex. `transform-metrics`).
+Once you've downloaded the asset definition, you can register the asset with Sensu using sensuctl.
 
 {{< highlight shell >}}
-sensuctl mutator create transform-metrics \
---command "transform --type metrics" \
---runtime-assets transformer
+sensuctl create --file sensu-sensu-pagerduty-handler-1.0.1-linux-amd64.json
 {{< /highlight >}}
 
-### Validating the mutator asset
-
-Once the mutator is setup, it must be attached to a handler to mutate the event output (ex. `influx-db`).
+You can use sensuctl to verify that the asset is registered and ready to use.
 
 {{< highlight shell >}}
-sensuctl handler update influx-db
+sensuctl asset list
 {{< /highlight >}}
 
-You can verify that the mutator has fetched/installed the asset, and executed the dependency by checking the
-backend logs.
+### 3. Create a workflow
+
+Now we can use assets in a monitoring workflow.
+Depending on the asset, you may want to create Sensu checks, filters, mutators, and handlers.
+The asset details in Bonsai are the best resource for information about asset capabilities and configuration.
+
+For example, to use the [Sensu PagerDuty handler asset][19], create a `pagerduty` handler that includes your PagerDuty service API key and `sensu-pagerduty-handler` as a runtime asset.
 
 {{< highlight json >}}
-{"assets":["transformer"],"component":"pipelined","namespace":"default","mutator":"transform-metrics","level":"debug","msg":"fetching assets for mutator","time":"2018-10-16T13:17:33-07:00"}
-{{< /highlight >}}
-{{< highlight json >}}
-{"component":"pipelined","namespace":"default","mutator":"transform-metrics","level":"info","msg":"event pipe mutator executed","output":"metric transformed","status":0,"time":"2018-10-16T13:17:33-07:00"}
+{
+    "api_version": "core/v2",
+    "type": "Handler",
+    "metadata": {
+        "namespace": "default",
+        "name": "pagerduty"
+    },
+    "spec": {
+        "type": "pipe",
+        "command": "sensu-pagerduty-handler --token SECRET",
+        "runtime_assets": ["sensu-pagerduty-handler"],
+        "timeout": 10,
+        "filters": [
+            "is_incident"
+        ]
+    }
+}
 {{< /highlight >}}
 
-## Next steps
+Save the definition to a file, and add to Sensu using sensuctl.
 
-You now know how to create an asset and add it to a check, handler, and mutator as a dependency.
-For further reading, check out the [assets reference][1].
+{{< highlight shell >}}
+sensuctl create --file filename.json
+{{< /highlight >}}
+
+Now that Sensu can create incidents in PagerDuty, we can automate this workflow by adding the `pagerduty` handler to our Sensu service checks.
+To get started with checks, see the [guide to monitoring server resources](../monitor-server-resources).
+
+You can use sensuctl to see available checks, handlers, and other Sensu resources.
+
+{{< highlight shell >}}
+sensuctl check list
+
+sensuctl mutator list
+
+sensuctl handler list
+{{< /highlight >}}
+
+### Next steps
+
+See the [asset reference](../../reference/assets) more information about creating and sharing assets.
 
 [1]: ../../reference/assets/
 [2]: #creating-an-asset
+[3]: https://bonsai.sensu.io
+[4]: https://bonsai.sensu.io/assets/sensu/sensu-aws
+[6]: ../checks
+[7]: ../filters
+[8]: ../mutators
+[9]: ../handlers
+[16]: https://bonsai.sensu.io
+[17]: ../../getting-started/enterprise
+[19]: https://bonsai.sensu.io/assets/sensu/sensu-pagerduty-handler

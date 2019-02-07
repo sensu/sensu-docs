@@ -29,7 +29,8 @@ See the [hardware requirements guide][5] for minimum and recommended hardware to
 
 > Is there an enterprise version of Sensu Go?
 
-Yes! Sensu Go for enterprise is coming soon. Check out this [Sensu blog post](https://blog.sensu.io/announcing-the-sensu-roadmap-sensu-go-release-date) for more information about Sensu Go for enterprise.
+[Yes!](https://blog.sensu.io/enterprise-features-in-sensu-go) Sensu Inc. offers support packages for Sensu Go as well as license-activated features designed for enterprises.
+[Contact the Sensu sales team][6] for a personalized demo, and see the [getting started guide][28] for more information.
 
 > How can I contact the Sensu sales team?
 
@@ -110,3 +111,4 @@ Yes, as long as the port requirements described above are met, a single Sensu ba
 [25]: ../../reference/backend
 [26]: ../../reference/agent
 [27]: ../../guides/clustering
+[28]: ../enterprise
