@@ -478,7 +478,7 @@ example      | {{< highlight shell >}}"name": "openldap"{{< /highlight >}}
 
 ## LDAP troubleshooting
 
-In order to thoubleshoot any issue with LDAP authentication, the first step
+In order to troubleshoot any issue with LDAP authentication, the first step
 should always be to [increase log verbosity][19] of sensu-backend. Most
 authentication and authorization errors are only displayed on the debug log
 level, in order to avoid flooding the log files.
@@ -494,12 +494,14 @@ Here are some common error messages and possible solutions:
 
 The LDAP provider couldn't establish a TCP connection to the LDAP server. Verify
 the `host` & `port` attributes. If you are not using LDAP over TLS/SSL , make
-sure to adjust `security` attribute because its default value is `"tls"`. 
+sure to set the value of the `security` attribute to `"insecure"` for plaintext
+communication.
 
-**Error message**: `certificate signed by unknown authority`
+ **Error message**: `certificate signed by unknown authority`
 
 If you are using a self-signed certificate, make sure to set the `insecure`
-attribute to `true`.
+attribute to `true`. This will bypass verification of the certificate's signing
+authority.
 
 **Error message**: `failed to bind: ...`
 
@@ -549,10 +551,11 @@ friendly name for the group.
 Once authenticated, a user needs to be granted permissions via either a
 `ClusterRoleBinding` or a `RoleBinding`.
 
-The way in which LDAP users and LDAP groups can be referred as subjects depends
-on the `groups_prefix` and `username_prefix` configuration attributes values of
-the [LDAP provider][sp]. For example, for the groups prefix `ldap`
-and the group `dev`, the resulting group name in Sensu is `ldap:dev`.
+The way in which LDAP users and LDAP groups can be referred as subjects of a
+cluster role or role binding depends on the `groups_prefix` and
+`username_prefix` configuration attributes values of the [LDAP provider][sp].
+For example, for the groups prefix `ldap` and the group `dev`, the resulting
+group name in Sensu is `ldap:dev`.
 
 **Problem**: Permissions are not granted via the LDAP group(s)
 
