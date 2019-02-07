@@ -46,8 +46,8 @@ Sensu agents automatically register and de-register themselves with the Sensu se
 
 Get meaningful alerts when and where you need them.
 Use [event filters][18] to reduce noise and [check hooks][19] to add context and speed up incident response.
-Sensu integrates with the tools and services your organization already uses like [InfluxDB][6], [Slack][7], and more.
-Check out the [200+ plugins shared by the Sensu community][8], or write your own [Sensu Plugins][9] in any language.
+Sensu integrates with the tools and services your organization already uses like [PagerDuty][31], [AWS][29], and more.
+Check out [Bonsai, the Sensu asset index][30], or write your own [Sensu Plugins][9] in any language.
 
 - **Collect and store metrics with built-in support for industry-standard tools**
 
@@ -89,4 +89,7 @@ Learn about [support packages](https://sensu.io/support) and [license-activated 
 [25]: dashboard/overview
 [26]: sensuctl/reference
 [27]: reference/handlers
+[31]: https://bonsai.sensu.io/assets/sensu/sensu-pagerduty-handler
+[29]: https://bonsai.sensu.io/assets/sensu/sensu-aws
+[30]: https://bonsai.sensu.io
 [28]: getting-started/enterprise
