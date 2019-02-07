@@ -103,11 +103,33 @@ Below is the minimum required configuration for Sensu to accept a pipe handler.
   "type": "Handler",
   "api_version": "core/v2",
   "metadata": {
-    "name": "handler-minimum",
+    "name": "pipe-handler-minimum",
     "namespace": "default"
   },
   "spec": {
     "type": "pipe"
+  }
+}
+{{< /highlight >}}
+
+Below is the minimum required configuration for Sensu to accept a tcp or udp handler.
+
+_NOTE: This handler is a `tcp` handler. Swapping that out for `udp` gives you the minimum configuration for `udp` as well_
+
+{{< highlight json >}}
+{
+  "type": "Handler",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "tcp-udp-handler-minimum",
+    "namespace": "default"
+  },
+  "spec": {
+    "type": "tcp",
+    "socket": {
+      "host": "10.0.1.99",
+      "port": 4444
+    }
   }
 }
 {{< /highlight >}}
