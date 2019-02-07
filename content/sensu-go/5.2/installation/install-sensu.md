@@ -364,6 +364,25 @@ sensuctl config set-namespace default
 
 See the [sensuctl reference][4] for more information about using sensuctl.
 
+### 3. Activate enterprise-only features
+
+Sensu Inc. offers support packages for Sensu Go as well as license-activated features designed for enterprises.
+To learn more about enterprise features in Sensu Go, [contact the Sensu sales team](https://sensu.io/sales).
+
+If you already have an enterprise license, [log in to your Sensu account](https://account.sensu.io/) and download your license file, then activate your license using sensuctl.
+
+{{< highlight shell >}}
+sensuctl license install --file license.json
+{{< /highlight >}}
+
+You can use sensuctl to view your license details at any time.
+
+{{< highlight shell >}}
+sensuctl license info
+{{< /highlight >}}
+
+For more information about enterprise features in Sensu Go, see the [getting started guide](../../getting-started/enterprise).
+
 ### Next steps
 
 Now that you've installed sensuctl:
