@@ -134,7 +134,7 @@ entities with particular subscriptions.
 
 ### Minimum Check Configuration
 
-While checks have many attributes, below is the minimum required configuration for Sensu to accept a check.
+Below is the minimum required configuration for Sensu to accept a check.
 
 _NOTE: The attribute `publish` is not required, however without it the check will not be sent to entities subscribed to the subscription(s) defined in the check._
 

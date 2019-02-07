@@ -94,6 +94,24 @@ The resulting `keepalive` handler set configuration looks like this:
 
 ## Handler specification
 
+### Minimum Handler Configuration
+
+Below is the minimum required configuration for Sensu to accept a pipe handler.
+
+{{< highlight json >}}
+{
+  "type": "Handler",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "handler-minimum",
+    "namespace": "default"
+  },
+  "spec": {
+    "type": "pipe"
+  }
+}
+{{< /highlight >}}
+
 ### Top-level attributes
 
 type         | 
