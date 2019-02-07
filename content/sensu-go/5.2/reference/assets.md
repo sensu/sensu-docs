@@ -11,26 +11,14 @@ menu:
     parent: reference
 ---
 
-- [Install Sensu assets](#install-sensu-assets)
 - [What is an asset?](#what-is-an-asset)
 - [How do assets work?](#how-do-assets-work)
 - [Asset format specification](#asset-format-specification)
-- [Creating an asset](#creating-an-asset)
 - [Sharing an asset on Bonsai](#sharing-an-asset-on-bonsai)
 - [Asset specification](#asset-specification)
 - [Examples](#examples)
 
-## Install Sensu assets
-Discover, download, and share assets using [Bonsai, the Sensu asset index][16].
-Sensu Inc. supports the following assets for Sensu Go:
-
-- [Sensu AWS plugins][26]
-- [Sensu Prometheus collector][27]
-- [Sensu PagerDuty handler][19]
-- [Sensu email handler][20]
-- [Sensu ServiceNow handler][21] ([enterprise only][17])
-- [Sensu Jira handler][22] ([enterprise only][17])
-
+You can discover, download, and share assets using [Bonsai, the Sensu asset index][16].
 Read the [guide to using assets][23] to get started.
 
 ## What is an asset?
@@ -38,20 +26,12 @@ Assets are shareable, reusable packages that make it easy to deploy Sensu plugin
 You can use assets to provide the plugins, libraries, and runtimes you need to create automated monitoring workflows with Sensu.
 Sensu supports runtime assets for [checks][6], [filters][7], [mutators][8], and [handlers][9].
 
-### Asset tiers
-
-Assets shared on [Bonsai][16] belong to one of three tiers.
-
-- **Community** - Open-source assets shared by the Sensu Community. Collaborate, share, and star your favorite assets with Bonsai.
-- **Supported** - Open-source assets supported by Sensu Inc, including supported AWS, PagerDuty, and email plugins.
-- **Enterprise** - Hosted assets included with [Sensu Enterprise][17]. Enterprise assets require a [Sensu Enterprise][17] license.
-
 ## How do assets work?
-Assets can be executed by the backend (for handler and mutator assets), or
+Assets can be executed by the backend (for handler, filter, and mutator assets), or
 by the agent (for check assets). At runtime, the entity sequentially fetches
 assets and stores them in its local cache. Asset dependencies are then
 injected into the `PATH` so they are available when the command is executed.
-Subsequent check, handler, or mutator executions look for the asset in local
+Subsequent check, handler, filter, or mutator executions look for the asset in local
 cache and ensure the contents match the checksum. An entity's local cache can
 be set using the `--cache-dir` flag.
 

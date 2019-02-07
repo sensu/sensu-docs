@@ -19,14 +19,8 @@ menu:
 - [Specification](#check-specification)
 - [Examples](#examples)
 
-## Install Sensu check assets
 Discover, download, and share Sensu check assets using [Bonsai][25], the Sensu asset index.
-Sensu Inc. supports the following check assets for Sensu Go:
-
-- [Sensu AWS plugins][26]
-- [Sensu Prometheus collector][27]
-
-Read the [guide to installing check plugins using assets][28] to get started.
+Read the [guide to installing plugins using assets][28] to get started.
 
 ## How do checks work?
 
@@ -500,6 +494,4 @@ example      | {{< highlight shell >}}"splay_coverage": 90{{< /highlight >}}
 [sc]: ../../sensuctl/reference#creating-resources
 [sp]: #spec-attributes
 [25]: https://bonsai.sensu.io
-[26]: https://bonsai.sensu.io/assets/sensu/sensu-aws
-[27]: https://bonsai.sensu.io/assets/sensu/sensu-prometheus-collector
 [28]: ../../guides/install-check-executables-with-assets
