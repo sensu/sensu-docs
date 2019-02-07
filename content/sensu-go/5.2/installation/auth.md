@@ -25,7 +25,7 @@ In addition to built-in RBAC, Sensu includes [enterprise-only][6] support for au
 You can view and delete authentication providers using sensuctl.
 To set up LDAP authentication for Sensu, see the section on [configuring LDAP authentication](#configuring-ldap-authentication).
 
-**ENTERPRISE ONLY**: Authentication providers in Sensu Go require a Sensu Enterprise license. To activate your Sensu Enterprise license, see the [getting started guide][6].
+**ENTERPRISE ONLY**: Authentication providers in Sensu Go require an enterprise license. To activate your enterprise license, see the [getting started guide][6].
 
 To view active authentication providers:
 
@@ -47,10 +47,11 @@ sensuctl auth delete openldap
 
 ## LDAP authentication
 
-Sensu Enterprise offers support for using a standards-compliant Lightweight Directory Access Protocol tool (like [OpenLDAP][7]) for authentication to the Sensu dashboard, API, and sensuctl.
+Sensu offers enterprise-only support for using a standards-compliant Lightweight Directory Access Protocol tool for authentication to the Sensu dashboard, API, and sensuctl.
+The Sensu LDAP authentication provider is tested with [OpenLDAP][7].
 Sensu does not yet support Active Directory for LDAP authentication or other authentication providers.
 
-**ENTERPRISE ONLY**: LDAP authentication in Sensu Go requires a Sensu Enterprise license. To activate your Sensu Enterprise license, see the [getting started guide][6].
+**ENTERPRISE ONLY**: LDAP authentication in Sensu Go requires an enterprise license. To activate your enterprise license, see the [getting started guide][6].
 
 ### Configuring LDAP authentication
 
@@ -84,6 +85,62 @@ Sensu RBAC allows management and access of users and resources based on namespac
 To enable permissions for LDAP users and groups within Sensu, create a set of [roles][10], [cluster roles][11], [role bindings][12], and [cluster role bindings][13] that map to the usernames or group names in your LDAP directory.
 Make sure to include the [group prefix](#groups-prefix) and [username prefix](#username-prefix) when creating Sensu role bindings and cluster role bindings.
 See the [RBAC reference][4] for a complete guide to creating permissions with Sensu.
+
+For example, the following role and role binding gives a `dev` group access to create Sensu workflows within the `development` namespace.
+
+{{< highlight text >}}
+{
+  "type": "Role",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "workflow-creator",
+    "namespace": "development"
+  },
+  "spec": {
+    "rules": [
+      {
+        "resource_names": [],
+        "resources": [
+          "checks",
+          "hooks",
+          "filters",
+          "events",
+          "filters",
+          "mutators",
+          "handlers"
+        ],
+        "verbs": [
+          "get",
+          "list",
+          "create",
+          "update",
+          "delete"
+        ]
+      }
+    ]
+  }
+}
+{
+  "type": "RoleBinding",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "dev-binding",
+    "namespace": "development"
+  },
+  "spec": {
+    "role_ref": {
+      "name": "workflow-creator",
+      "type": "Role"
+    },
+    "subjects": [
+      {
+        "name": "dev",
+        "type": "Group"
+      }
+    ]
+  }
+}
+{{< /highlight >}}
 
 Once you've configured the correct roles and bindings, your users can log in to sensuctl and the Sensu dashboard using their single-sign-on username and password (no prefix required).
 
@@ -241,7 +298,7 @@ example      | {{< highlight shell >}}
 
 | groups_prefix |   |
 -------------|------
-description  | The prefix added to all LDAP groups. Use this prefix when integrating LDAP groups with Sensu RBAC [role bindings][12] and [cluster role bindings][13].
+description  | The prefix added to all LDAP groups. Sensu prepends prefixes with a colon. For example, for the groups prefix `ldap` and the group `dev`, the resulting group name in Sensu is `ldap:dev`. Use this prefix when integrating LDAP groups with Sensu RBAC [role bindings][12] and [cluster role bindings][13].
 required     | false
 type         | String
 example      | {{< highlight shell >}}"groups_prefix": "ldap"{{< /highlight >}}
@@ -250,7 +307,7 @@ example      | {{< highlight shell >}}"groups_prefix": "ldap"{{< /highlight >}}
 
 | username_prefix | |
 -------------|------
-description  | The prefix added to all LDAP usernames. Use this prefix when integrating LDAP users with Sensu RBAC [role bindings][12] and [cluster role bindings][13]. Users _do not_ need to provide this prefix when logging in to Sensu.
+description  | The prefix added to all LDAP usernames.  Sensu prepends prefixes with a colon. For example, for the username prefix `ldap` and the user `alice`, the resulting username in Sensu is `ldap:alice`. Use this prefix when integrating LDAP users with Sensu RBAC [role bindings][12] and [cluster role bindings][13]. Users _do not_ need to provide this prefix when logging in to Sensu.
 required     | false
 type         | String
 example      | {{< highlight shell >}}"username_prefix": "ldap"{{< /highlight >}}
