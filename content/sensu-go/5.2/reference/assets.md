@@ -66,6 +66,7 @@ sensu-example-handler_1.0.0_linux_amd64
 ├── LICENSE
 ├── README.md
 └── bin
+  └── my-check.sh
 └── lib
 └── include
 {{< /highlight >}}
@@ -325,12 +326,6 @@ example      | {{< highlight shell >}} "annotations": {
 [sp]: #spec-attributes
 [16]: https://bonsai.sensu.io
 [17]: ../../getting-started/enterprise
-[19]: https://bonsai.sensu.io/assets/sensu/sensu-pagerduty-handler
-[20]: https://bonsai.sensu.io/assets/sensu/sensu-email-handler
-[21]: https://bonsai.sensu.io/assets/portertech/sensu-servicenow-handler
-[22]: https://bonsai.sensu.io/assets/portertech/sensu-jira-handler
 [23]: ../../guides/install-check-executables-with-assets
-[26]: https://bonsai.sensu.io/assets/sensu/sensu-aws
-[27]: https://bonsai.sensu.io/assets/sensu/sensu-prometheus-collector
 [28]: https://github.com/sensu/sensu-go-plugin
 [29]: /plugins/latest/reference/

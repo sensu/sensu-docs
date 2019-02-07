@@ -120,7 +120,6 @@ See the [asset reference](../../reference/assets) more information about creatin
 [1]: ../../reference/assets/
 [2]: #creating-an-asset
 [3]: https://bonsai.sensu.io
-[4]: https://bonsai.sensu.io/assets/sensu/sensu-aws
 [6]: ../checks
 [7]: ../filters
 [8]: ../mutators
