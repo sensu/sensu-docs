@@ -479,14 +479,14 @@ example      | {{< highlight shell >}}"name": "openldap"{{< /highlight >}}
 ## LDAP troubleshooting
 
 In order to troubleshoot any issue with LDAP authentication, the first step
-should always be to [increase log verbosity][19] of sensu-backend. Most
-authentication and authorization errors are only displayed on the debug log
-level, in order to avoid flooding the log files.
+should always be to [increase log verbosity][19] of sensu-backend to the debug
+log level. Most authentication and authorization errors are only displayed on
+the debug log level, in order to avoid flooding the log files.
 
-_NOTE: If you can't locate any log entry around LDAP authentication, make sure
-the LDAP provider was successfully installed using [sensuctl][20]_
+_NOTE: If you can't locate any log entries referencing LDAP authentication, make
+sure the LDAP provider was successfully installed using [sensuctl][20]_
 
-### Authentication problems
+### Authentication errors
 
 Here are some common error messages and possible solutions:
 
@@ -521,7 +521,7 @@ Go look at the [`user_search` object][22] and make sure that:
 
 **Error message**: `ldap search for user <username> returned x results, expected only 1`
 
-The user search returned more than 1 user entry, therefore the provider could
+The user search returned more than one user entry, therefore the provider could
 not determine which of these entries should be used. The [`user_search`
 object][22] needs to be tweaked so the provided *username* can be used to
 uniquely identify a user entry. Here's few possible way of doing it:
@@ -546,7 +546,7 @@ provider could not determine which attribute to use as the group name in the
 group entry. The `name_attribute` should be adjusted so it specifies a human
 friendly name for the group.
 
-### Authorization problems
+### Authorization issues
 
 Once authenticated, a user needs to be granted permissions via either a
 `ClusterRoleBinding` or a `RoleBinding`.
@@ -557,15 +557,15 @@ cluster role or role binding depends on the `groups_prefix` and
 For example, for the groups prefix `ldap` and the group `dev`, the resulting
 group name in Sensu is `ldap:dev`.
 
-**Problem**: Permissions are not granted via the LDAP group(s)
+**Issue**: Permissions are not granted via the LDAP group(s)
 
 During authentication, the LDAP provider will print in the logs all groups found
 in LDAP, e.g. `found 1 group(s): [dev]`. Keep in mind that this group name does
 not contain the `groups_prefix` at this point.
 
-The RBAC component will print in the logs each attempts made to authorize a
-request. This is useful for determining why a specific binding didn't granted
-the request. For example:
+The Sensu backend logs each attempt made to authorize an RBAC request. This is
+useful for determining why a specific binding didn't grant the request. For
+example:
 
 ```
 [...] the user is not a subject of the ClusterRoleBinding cluster-admin [...]
