@@ -24,8 +24,8 @@ menu:
 ### Check commands
 
 Each Sensu check definition defines a **command** and the **interval** at which
-it should be executed. Check commands are literally executable commands which
-will be executed on the Sensu agent.
+it should be executed. Check commands are executable commands which
+will be executed by the Sensu agent.
 
 A command may include command line arguments for controlling the behavior of the
 command executable. Most Sensu check plugins provide support for command line
