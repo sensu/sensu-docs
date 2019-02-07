@@ -156,7 +156,7 @@ example      | {{< highlight yml >}}asset_filename: "#{repo}_#{version}_linux_am
 
 sha_filename | 
 -------------|------
-description  | The SHA-512 checksum for the archive
+description  | The SHA-512 checksum for the asset archive
 required     | true
 type         | String
 example      | {{< highlight yml >}}sha_filename: "#{repo}_#{version}_sha512-checksums.txt"{{< /highlight >}}
