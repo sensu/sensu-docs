@@ -17,7 +17,7 @@ Sensu Go is available for Linux, Windows (agent and CLI only), macOS (CLI only),
 See the list of [supported platforms][5] for more information.
 Sensu downloads are provided under the [Sensu License][13].
 
-In addition to packages, a binary-only distribution for Linux is available for [`amd64`][14], [`arm64`][15], [`arm5`][16], [`arm6`][17], [`arm7`][18], and [`386`][19] architectures.
+In addition to packages, a binary-only distribution for Linux is available for [`amd64`][14], [`arm64`][15], [`armv5`][16], [`armv6`][17], [`armv7`][18], and [`386`][19] architectures.
 See the [verifying Sensu guide][12] to verify your download using checksums.
 
 {{< platformBlock "Ubuntu/Debian RHEL/CentOS" >}}
