@@ -24,7 +24,7 @@ See the [asset reference](../../reference/assets) for more information about ass
 ### 1. Download an asset definition from Bonsai
 
 You can discover, download, and share assets using [Bonsai, the Sensu asset index][16].
-To use an asset, select the Download button in Bonsai and download the asset definition for your platform and architecture.
+To use an asset, select the Download button on an asset's page in Bonsai and select the asset definition for your platform and architecture.
 Asset definitions tell Sensu how to download and verify the asset when required by a check, filter, mutator, or handler.
 
 For example, here's the asset definition for version 1.0.1 of the [Sensu PagerDuty handler asset][19] for Linux AMD64.
