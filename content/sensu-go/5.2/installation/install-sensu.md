@@ -434,7 +434,7 @@ While it can be run from the docker container, doing so may be problematic.
 {{< platformBlockClose >}}
 
 [1]: https://github.com/sensu/sensu-go/releases
-[2]: https://github.com/sensu/sensu-go/blob/master/packaging/files/windows/agent.yml.example
+[2]: https://github.com/sensu/sensu-go/blob/5.1.1/packaging/files/windows/agent.yml.example
 [3]: ../../dashboard/overview
 [4]: ../../sensuctl/reference
 [5]: ../../getting-started/platforms
