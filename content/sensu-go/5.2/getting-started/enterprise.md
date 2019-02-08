@@ -12,6 +12,7 @@ menu:
 
 Sensu Go offers license-activated features designed for enterprises.
 [Contact the Sensu sales team][1] for a personalized demo and free trial.
+Enterprise features are available for all Sensu Go packages and downloads.
 
 **Enterprise-only features in Sensu Go:**
 
