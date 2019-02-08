@@ -1,7 +1,7 @@
 ---
 title: "Glossary of Terms"
 linkTitle: "Glossary"
-description: "Introduction to Sensu terms and concepts"
+description: "Wondering about Sensu terminology? Read our glossary to learn the definition of common Sensu terms, including agent, asset, backend, check, event, and many more. Bonus: each term links to a corresponding guide!"
 weight: 10
 version: "5.0"
 product: "Sensu Go"
