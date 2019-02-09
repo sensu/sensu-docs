@@ -1,7 +1,7 @@
 ---
 title: "Sensu Go release notes"
 linkTitle: "Release Notes"
-description: "Sensu Go version 5.2.0 release notes"
+description: "Read the Sensu Go 5.2.0 release notes to learn about what's new in our latest release, including LDAP, Jira, and ServiceNow integrations, as well as bug fixes."
 product: "Sensu Go"
 version: "5.2"
 menu: "sensu-go-5.2"
