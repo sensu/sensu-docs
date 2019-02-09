@@ -1,6 +1,6 @@
 ---
 title: "Authentication"
-description: "In addition to built-in RBAC, Sensu includes enterprise-only support for authentication using a Lightweight Directory Access Protocol (LDAP) provider."
+description: "In addition to built-in RBAC, Sensu includes enterprise-only support for authentication using a Lightweight Directory Access Protocol (LDAP) provider. Read the guide to configure a provider."
 weight: 4
 version: "5.2"
 product: "Sensu Go"

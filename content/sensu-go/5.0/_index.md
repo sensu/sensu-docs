@@ -1,6 +1,6 @@
 ---
 title: "Sensu Go"
-description: "Sensu is the open source monitoring event pipeline built to reduce operator burden and meet the challenges of monitoring hybrid-cloud and ephemeral infrastructures."
+description: "Sensu is the open source monitoring event pipeline built to reduce operator burden and meet the challenges of monitoring hybrid-cloud and ephemeral infrastructures. Read the docs to learn more about Sensu."
 date: 2018-02-05T06:06:31-07:00
 weight: -100
 menu: "sensu-go-5.0"

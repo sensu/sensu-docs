@@ -1,7 +1,7 @@
 ---
 title: "Getting started with enterprise features"
 linkTitle: "Enterprise Features"
-description: "Sensu Go is the free and open source monitoring event pipeline, written in Go and designed for container-based and hybrid-cloud infrastructures. Sensu Inc. offers support packages for Sensu Go as well as license-activated features designed for enterprises."
+description: "Get started with enterprise features in Sensu Go. Read this guide to learn about the latest, enterprise-only features, and contact our sales team for a free trial."
 version: "5.2"
 weight: 2
 product: "Sensu Go"
@@ -12,6 +12,7 @@ menu:
 
 Sensu Go offers license-activated features designed for enterprises.
 [Contact the Sensu sales team][1] for a personalized demo and free trial.
+Enterprise features are available for all Sensu Go packages and downloads.
 
 **Enterprise-only features in Sensu Go:**
 
