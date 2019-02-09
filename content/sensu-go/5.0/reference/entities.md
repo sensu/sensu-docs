@@ -119,6 +119,24 @@ sensu-agent start --labels url=sensu.docs.io
 
 ## Entities specification
 
+### Minimum Entity Configuration
+
+Below is the minimum required configuration for Sensu to accept an entity.
+
+{{< highlight json >}}
+{
+  "type": "Entity",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "entity_minimum",
+    "namespace": "default"
+  },
+  "spec": {
+    "entity_class": "agent"
+  }
+}
+{{< /highlight >}}
+
 ### Top-level attributes
 
 type         | 

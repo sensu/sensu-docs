@@ -54,6 +54,27 @@ The following are injected into the execution context:
 
 ## Assets specification
 
+### Minimum Filter Configuration
+
+Below is the minimum required configuration for Sensu to accept a filter.
+
+{{< highlight json >}}
+{
+  "type": "EventFilter",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "filter_minimum",
+    "namespace": "default"
+  },
+  "spec": {
+    "action": "allow",
+    "expressions": [
+      "event.check.occurrences == 1"
+    ]
+  }
+}
+{{< /highlight >}}
+
 ### Top-level attributes
 
 type         | 

@@ -146,7 +146,7 @@ _NOTE: The attribute `interval` is not required if a valid `cron` schedule is de
   "api_version": "core/v2",
   "metadata": {
     "namespace": "default",
-    "name": "check-minimum"
+    "name": "check_minimum"
   },
   "spec": {
     "interval": 10,

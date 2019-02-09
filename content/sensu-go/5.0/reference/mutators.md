@@ -49,6 +49,25 @@ _NOTE: By default, the Sensu installer packages will modify the system `$PATH` f
 
 ## Mutators specification
 
+### Minimum Mutator Configuration
+
+Below is the minimum required configuration for Sensu to accept a mutator.
+
+{{< highlight json >}}
+{
+  "type": "Mutator",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "mutator_minimum",
+    "namespace": "default"
+  },
+  "spec": {
+    "command": "example_mutator.go"
+  }
+}
+{{< /highlight >}}
+
+
 ### Top-level attributes
 
 type         | 

@@ -103,7 +103,7 @@ Below is the minimum required configuration for Sensu to accept a pipe handler.
   "type": "Handler",
   "api_version": "core/v2",
   "metadata": {
-    "name": "pipe-handler-minimum",
+    "name": "pipe_handler_minimum",
     "namespace": "default"
   },
   "spec": {
@@ -121,7 +121,7 @@ _NOTE: This handler is a `tcp` handler. Swapping that out for `udp` gives you th
   "type": "Handler",
   "api_version": "core/v2",
   "metadata": {
-    "name": "tcp-udp-handler-minimum",
+    "name": "tcp_udp_handler_minimum",
     "namespace": "default"
   },
   "spec": {
