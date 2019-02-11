@@ -1,6 +1,6 @@
 ---
 title: "Sensu Go"
-description: "Sensu is the open source monitoring event pipeline built to reduce operator burden and meet the challenges of monitoring hybrid-cloud and ephemeral infrastructures."
+description: "Sensu is the open source monitoring event pipeline built to reduce operator burden and meet the challenges of monitoring hybrid-cloud and ephemeral infrastructures. Read the docs to learn more about Sensu."
 date: 2018-02-05T06:06:31-07:00
 weight: -100
 menu: "sensu-go-5.0"
@@ -50,10 +50,11 @@ Use [event filters][18] to reduce noise and [check hooks][19] to add context and
 Sensu integrates with the tools and services your organization already uses like [InfluxDB][6], [Slack][7], and more.
 Check out the [200+ plugins shared by the Sensu community][8], or write your own [Sensu Plugins][9] in any language.
 
-- **Collect metrics and generate alerts with the same tool**
+- **Collect and store metrics with built-in support for industry-standard tools**
 
 Know what's going on everywhere in your system.
-Use the Sensu agent to [collect StatsD metrics][24] alongside check results, then use the event pipeline to route the data to industry-standard tools like [InfluxDB][6].
+Sensu supports industry-standard [metric formats][20] like Nagios Performance Data, Graphite Plaintext Protocol, InfluxDB Line Protocol, OpenTSDB Data Specification, and [StatsD metrics][24].
+Use the Sensu agent to collect metrics alongside check results, then use the event pipeline to route the data to a time series database like [InfluxDB][6].
 
 - **Intuitive API and dashboard interfaces**
 

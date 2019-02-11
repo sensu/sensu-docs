@@ -1,6 +1,7 @@
 ---
 title: "How to Run a Sensu Cluster"
 linkTitle: "Running a Sensu Cluster"
+description: "Clustering is important to make Sensu more highly available, reliable, and durable. It can help you cope with the loss of a backend node, prevent data loss, and distribute the network load of agents. Read the guide to configure a Sensu cluster."
 weight: 120
 version: "5.1"
 product: "Sensu Go"
@@ -491,5 +492,5 @@ See [the etcd recovery guide][9] for more information.
 [11]: https://coreos.com/os/docs/latest/generate-self-signed-certificates.html
 [12]: https://coreos.com/etcd/docs/latest/op-guide/clustering.html
 [13]: #creating-self-signed-certificates
-[14]: ../../getting-started/installation-and-configuration/
+[14]: ../../installation/install-sensu/
 [15]: ../../reference/backend

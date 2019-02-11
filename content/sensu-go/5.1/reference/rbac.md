@@ -230,6 +230,14 @@ To assign permissions to a user:
 
 You can use [sensuctl][2] to view, create, and manage users.
 
+To test the password for a user:
+
+{{< highlight shell >}}
+sensuctl user test-creds USERNAME --password 'password'
+{{< /highlight >}}
+
+An empty response indicates valid credentials; a request-unauthorized response indicates invalid credentials.
+
 To change the password for a user:
 
 {{< highlight shell >}}

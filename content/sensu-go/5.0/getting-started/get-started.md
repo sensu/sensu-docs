@@ -1,7 +1,7 @@
 ---
 title: "Get started with Sensu"
 linkTitle: "Get Started with Sensu"
-description: "Sensu Go is the free and open source monitoring event pipeline, written in Go and designed for container-based and hybrid-cloud infrastructures. Get started with the Sensu sandbox, sample app, or one of our guided walkthroughs."
+description: "It’s easy to get started with Sensu Go. Download the sandbox, install our open source monitoring software, or try our enterprise features. Get started with Sensu today."
 version: "5.0"
 weight: 1
 product: "Sensu Go"
@@ -10,17 +10,12 @@ menu:
     parent: getting-started
 ---
 
-### Download the sandbox
+### Try the sandbox
 
-The Sensu sandbox is a virtual environment that makes it easy to get started building monitoring workflows.
+The sandbox is the best place to get started with Sensu and try out new features.
 
-- [Download the sandbox and learn Sensu Go][1]
-
-### Monitor a sample app
-
-Get started with container monitoring using Sensu and Kubernetes.
-
-- [Read the tutorial][7]
+- [Download the sandbox and learn Sensu Go][7]
+- [See more sandbox lessons][1]
 
 ### Install Sensu Go (OSS)
 
@@ -38,10 +33,10 @@ Get started by following one of the Sensu Go guides.
 - [Collect StatsD metrics][5]
 - [Store metrics with InfluxDB][6]
 
-[1]: https://github.com/sensu/sandbox/tree/master/sensu-go/core
+[1]: ../sandbox
 [2]: ../../installation/install-sensu
 [3]: ../../guides/monitor-server-resources
 [4]: ../../guides/send-slack-alerts
 [5]: ../../guides/aggregate-metrics-statsd
 [6]: ../../guides/influx-db-metric-handler
-[7]: ../sample-app
+[7]: ../learn-sensu

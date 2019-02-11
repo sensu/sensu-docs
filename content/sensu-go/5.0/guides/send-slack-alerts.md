@@ -1,6 +1,7 @@
 ---
 title: "How to send alerts to Slack with handlers"
 linkTitle: "Sending Slack Alerts"
+description: "Here’s how to send alerts to Slack with Sensu handlers, which are actions executed by the Sensu server on events. Handlers can be sent to your technology of choice (in this case, Slack) to alert you of incidents and help you resolve them faster. Learn how."
 weight: 30
 version: "5.0"
 product: "Sensu Go"
@@ -92,9 +93,8 @@ Slack.
 </div>
 
 Otherwise, you can verify the proper behavior of this handler by using
-`sensu-backend` logs. The default location of these logs varies based on the
-platform used, but the [installation and configuration][7] documentation
-provides this information.
+`sensu-backend` logs.
+See the [troubleshooting guide][7] for log locations by platform.
 
 Whenever an event is being handled, a log entry is added with the message
 `"handler":"slack","level":"debug","msg":"sending event to handler"`, followed
@@ -116,7 +116,7 @@ this point, here are some recommended resources:
 [4]: https://golang.org/doc/install
 [5]: https://en.wikipedia.org/wiki/PATH_(variable)
 [6]: https://api.slack.com/incoming-webhooks
-[7]: ../../getting-started/installation-and-configuration/#validating-the-services
+[7]: ../troubleshooting
 [8]: ../../reference/handlers
 [9]: ../reduce-alert-fatigue/
 [10]: https://rakyll.org/cross-compilation/

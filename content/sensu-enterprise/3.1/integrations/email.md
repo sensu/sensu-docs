@@ -13,12 +13,14 @@ users only.**
 
 - [Overview](#overview)
 - [Custom email templates](#custom-email-templates)
-  - [Example(s)](#custom-email-templates-example)
+  - [Example(s)](#examples-custom-email-templates-example)
 - [Configuration](#configuration)
   - [Example(s)](#examples)
-  - [Integration Specification](#integration-specification)
+  - [Integration specification](#integration-specification)
     - [`email` attributes](#email-attributes)
     - [`smtp` attributes](#smtp-attributes)
+      - [EXAMPLE](#smtp-attributes-example)
+      - [ATTRIBUTES](#attributes-smtp-attributes-specification)
     - [`templates` attributes](#templates-attributes)
 
 ## Overview
@@ -35,13 +37,18 @@ the ERB template containing the complete [event data payload][4].
 _NOTE: the Puppet reference documentation provides a helpful [introduction to
 ERB templating syntax][5]._
 
-### Example(s) {#custom-email-templates-example}
+### Example(s) {#examples-custom-email-templates-example}
 
-The following example demonstrates how to access the Sensu `@event` variable from
-a custom ERB template.
+The following examples demonstrate how to access the Sensu `@event` variable from custom ERB templates.
 
-_NOTE: This example includes the `datacenter` attribute, which is only available to be used in a template when defined as a [client custom attribute][6]_
+_NOTE: The body template example includes the `datacenter` attribute, which is only available to be used in a template when defined as a [client custom attribute][6]_
 
+**/etc/sensu/email/subject_template.erb**
+{{< highlight erb >}}
+<%= ["ok","warning","critical","unknown"][@event[:check][:status]] %> - <%= @event[:client][:name] %>/<%= @event[:check][:name] %>: <%= @event[:check][:output] %>
+{{< /highlight >}}
+
+**/etc/sensu/email/body_template.erb**
 {{< highlight erb >}}
 Hi there,
 
@@ -289,8 +296,6 @@ description  | Path to the email body [ERB][5] template file, which must be acce
 type         | String
 required     | false
 example      | {{< highlight shell >}}"body": "/etc/sensu/email/body_template.erb"{{< /highlight >}}
-
-
 
 [?]:  #
 [1]:  /sensu-enterprise

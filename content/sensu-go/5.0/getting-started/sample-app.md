@@ -1,6 +1,6 @@
 ---
-title: "Get started with the Sensu sample app"
-description: "Container and application monitoring with Sensu"
+title: "Container and application monitoring with Sensu"
+description: "The Sensu sample app is another great way to learn Sensu, featuring a hands-on tutorial. With this tutorial, you’ll deploy a sample app with Kubernetes and monitor it with Sensu."
 weight: 3
 version: "5.0"
 product: "Sensu Go"

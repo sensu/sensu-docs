@@ -55,7 +55,7 @@ example      | {{< highlight shell >}}"type": "HookConfig"{{< /highlight >}}
 
 api_version  | 
 -------------|------
-description  | Top-level attribute specifying the Sensu API group and version. For hooks in Sensu backend version 5.0, this attribute should always be `core/v2`.
+description  | Top-level attribute specifying the Sensu API group and version. For hooks in Sensu backend version 5.1, this attribute should always be `core/v2`.
 required     | Required for hook definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][sc].
 type         | String
 example      | {{< highlight shell >}}"api_version": "core/v2"{{< /highlight >}}

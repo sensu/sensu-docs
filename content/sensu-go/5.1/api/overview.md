@@ -1,6 +1,6 @@
 ---
 title: "API Overview"
-description: "Sensu Go 5.0 includes API v2."
+description: "Sensu Go 5.1 includes API v2."
 weight: 10
 version: "5.1"
 product: "Sensu Go"
@@ -19,7 +19,7 @@ For the Sensu agent API, see the [agent reference][4].
 Sensu API endpoints use the standard URL format `/api/{group}/{version}/namespaces/{namespace}` where:
 
 - `{group}` is the API group. All currently existing Sensu API endpoints are of group `core`.
-- `{version}` is the API version. Sensu Go 5.0 uses API v2.
+- `{version}` is the API version. Sensu Go 5.1 uses API v2.
 - `{namespace}` is the namespace name. The examples in these API docs use the `default` namespace. The Sensu API requires that the authenticated user have the correct access permissions for the namespace specified in the URL. If the authenticated user has the correct cluster-wide permissions, you can leave out the `/namespaces/{namespace}` portion of the URL to access Sensu resources across namespaces. See the [RBAC reference][3] for more information about configuring Sensu users and access controls.
 
 ### Data format

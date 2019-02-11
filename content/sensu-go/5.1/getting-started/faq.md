@@ -1,7 +1,7 @@
 ---
 title: "Sensu frequently asked questions"
 linkTitle: "FAQs"
-description: "Sensu Frequently Asked Questions"
+description: "Questions about Sensu Go? Read our FAQ to get answers to questions like, What platforms does Sensu support? and What can I monitor with Sensu?"
 version: "5.1"
 weight: 100
 product: "Sensu Go"

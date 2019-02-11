@@ -150,7 +150,7 @@ Coming soon...
 [3]:  ../checks#pubsub-checks
 [4]:  ../../overview/architecture#event-processor
 [5]:  https://sensuapp.org/
-[6]:  https://sensuapp.org/enterprise
+[6]:  https://sensu.io/products/enterprise
 [7]:  https://sensuapp.org/features#compare
 [8]:  #automated-task-election
 [9]:  ../checks#check-results
