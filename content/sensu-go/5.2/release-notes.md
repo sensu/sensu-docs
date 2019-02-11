@@ -25,7 +25,7 @@ Read the [upgrading guide][1] for information on upgrading to the latest version
 
 ## 5.2.1 release notes
 
-**February 11, 2019** &mdash; The latest release of Sensu Go, version 5.2.1, is now available for download.
+**February 11, 2019** &mdash; The latest release of Sensu Go, version 5.2.1, is now available for download. This release is a stability release with a key bug fix for proxy check functionality.
 See the [upgrading guide][1] to upgrade Sensu to version 5.2.1.
 
 ### Changes to Sensu Go {#5.2.1-changes}
