@@ -1,12 +1,13 @@
 ---
 title: "Sensu Go release notes"
 linkTitle: "Release Notes"
-description: "Read the Sensu Go 5.2.0 release notes to learn about what's new in our latest release, including LDAP, Jira, and ServiceNow integrations, as well as bug fixes."
+description: "Read the Sensu Go 5.2.1 release notes to learn about what's new in our latest release, including LDAP, Jira, and ServiceNow integrations, as well as bug fixes."
 product: "Sensu Go"
 version: "5.2"
 menu: "sensu-go-5.2"
 ---
 
+- [5.2.1 release notes](#5-2-1-release-notes)
 - [5.2.0 release notes](#5-2-0-release-notes)
 - [5.1.1 release notes](#5-1-1-release-notes)
 - [5.1.0 release notes](#5-1-0-release-notes)
@@ -21,6 +22,17 @@ Sensu Go adheres to [semantic versioning][2] using MAJOR.MINOR.PATCH release num
 Read the [upgrading guide][1] for information on upgrading to the latest version of Sensu Go.
 
 ---
+
+## 5.2.1 release notes
+
+**February 11, 2019** &mdash; The latest release of Sensu Go, version 5.2.1, is now available for download. This release is a stability release with a key bug fix for proxy check functionality.
+See the [upgrading guide][1] to upgrade Sensu to version 5.2.1.
+
+### Changes to Sensu Go {#5.2.1-changes}
+
+**FIXES:**
+
+- Sensu agents now execute checks for proxy entities at the expected interval.
 
 ## 5.2.0 release notes
 
