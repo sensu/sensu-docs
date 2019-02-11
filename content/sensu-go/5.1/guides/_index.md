@@ -1,6 +1,6 @@
 ---
 title: "Guides"
-description: "Guides documentation for Sensu."
+description: "Sensu is the open source monitoring event pipeline built to reduce operator burden and meet the challenges of monitoring hybrid-cloud and ephemeral infrastructures. Get started with a guided walkthrough."
 product: "Sensu Go"
 version: "5.1"
 weight: 30

@@ -1,7 +1,7 @@
 ---
 title: "Supported platforms"
 linkTitle: "Supported Platforms"
-description: "List of supported platforms for the Sensu backend, agent, and command-line tool"
+description: "Sensu Go is available on a wide range of platforms, including Linux, Windows, and macOS. Read the guide to learn which platforms you can use the Sensu backend, Sensu agent, and the sensuctl command-line tool."
 version: "5.2"
 weight: 5
 product: "Sensu Go"
@@ -24,6 +24,8 @@ See the [backend installation guide][1] for more information.
 | Ubuntu 16.04       | ✅     |      | | |
 | Ubuntu 18.04       | ✅     |      | | |
 | Ubuntu 18.10       | ✅     |      | | |
+| Debian 8           | ✅     |      | | |
+| Debian 9           | ✅     |      | | |
 
 ### Sensu agent
 
@@ -39,6 +41,8 @@ See the [agent installation guide][2] for more information.
 | Ubuntu 16.04       | ✅  | | | | | |
 | Ubuntu 18.04       | ✅  | | | | | |
 | Ubuntu 18.10       | ✅  | | | | | |
+| Debian 8           | ✅     |      | | |
+| Debian 9           | ✅     |      | | |
 | Windows Server 2008 R2 and later| ✅  | ✅  | | | | |
 
 ### Sensuctl command-line tool
@@ -55,6 +59,8 @@ See the [sensuctl installation guide][3] for more information.
 | Ubuntu 16.04       | ✅     |     | | | | |
 | Ubuntu 18.04       | ✅     |     | | | | |
 | Ubuntu 18.10       | ✅     |     | | | | |
+| Debian 8           | ✅     |      | | |
+| Debian 9           | ✅     |      | | |
 | Windows 7 and later| ✅     |     | | | | |
 | Windows Server 2008 R2 and later| ✅  | ✅  | | | | |
 | macOS 10.10 and later | ✅  |     | | | | |

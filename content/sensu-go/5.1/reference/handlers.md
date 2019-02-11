@@ -320,10 +320,6 @@ will timeout if an acknowledgement (`ACK`) is not received within 30 seconds.
     "socket": {
       "host": "10.0.1.99",
       "port": 4444
-    },
-    "metadata" : {
-      "name": "tcp_handler",
-      "namespace": "default"
     }
   }
 }

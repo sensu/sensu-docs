@@ -22,6 +22,9 @@ menu:
 	- [`socket` attributes](#socket-attributes)
 - [Examples](#handler-examples)
 
+Discover, download, and share Sensu handlers assets using [Bonsai][16], the Sensu asset index.
+Read the [guide to installing plugins using assets][23] to get started.
+
 ## How do Sensu handlers work?
 
 Handlers actions are executed by the Sensu backend on events, and there are
@@ -320,10 +323,6 @@ will timeout if an acknowledgement (`ACK`) is not received within 30 seconds.
     "socket": {
       "host": "10.0.1.99",
       "port": 4444
-    },
-    "metadata" : {
-      "name": "tcp_handler",
-      "namespace": "default"
     }
   }
 }
@@ -393,3 +392,6 @@ The following example handler will execute three handlers: `slack`,
 [13]: ../agent
 [14]: ../backend
 [15]: ../../guides/send-slack-alerts
+[16]: https://bonsai.sensu.io
+[17]: ../../getting-started/enterprise
+[23]: ../../guides/install-check-executables-with-assets

@@ -1,6 +1,7 @@
 ---
 title: "How to reduce alert fatigue with filters"
 linkTitle: "Reducing Alert Fatigue"
+description: "Here’s how to reduce alert fatigue with Sensu. In this guide, you’ll learn about Sensu filters — why to use them, how they reduce alert fatigue, and how to put them into action."
 weight: 38
 version: "5.2"
 product: "Sensu Go"

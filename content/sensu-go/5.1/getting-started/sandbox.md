@@ -1,7 +1,7 @@
 ---
 title: "Sensu sandbox"
 linkTitle: "Sandbox"
-description: "Sensu Go is the free and open source monitoring event pipeline, written in Go and designed for container-based and hybrid-cloud infrastructures. Get started with the Sensu sandbox, sample app, or one of our guided walkthroughs."
+description: "The Sensu sandbox makes it easy to learn Sensu Go. You’ll learn Sensu by building your first monitoring workflow and setting up container and application monitoring. There’s also a lesson plan for upgrading from Sensu 1.x to Sensu Go!"
 version: "5.1"
 weight: 2
 product: "Sensu Go"

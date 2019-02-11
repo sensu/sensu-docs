@@ -1,7 +1,7 @@
 ---
 title: "Sensu Go Media"
 linkTitle: "Media"
-description: "Talks, blog posts, and other media related to Sensu Go"
+description: "Looking for resources on Sensu Go? Check out our media guide, which includes a collection of blog posts, videos, tutorials, and podcasts, all covering Sensu Go."
 version: "5.0"
 weight: 100
 product: "Sensu Go"

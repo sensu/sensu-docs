@@ -16,7 +16,7 @@ menu:
 
 ## Upgrading to the latest version of Sensu Go from 5.0.0 or later
 
-To upgrade to the latest version of Sensu Go from version 5.0.0 or later, first [install the latest packages][8].
+To upgrade to the latest version of Sensu Go from version 5.0.0 or later, first [install the latest packages][23].
 
 Then restart the services.
 
