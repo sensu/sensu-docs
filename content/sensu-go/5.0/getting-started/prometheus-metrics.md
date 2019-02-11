@@ -254,7 +254,7 @@ systemctl start grafana-server
 
 Download the Grafana dashboard configuration file from the Sensu docs.
 
-{{< highlight json >}}
+{{< highlight shell >}}
 wget https://docs.sensu.io/sensu-go/5.0/files/up_or_down_dashboard.json
 {{< /highlight >}}
 
