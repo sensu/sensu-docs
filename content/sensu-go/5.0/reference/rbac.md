@@ -19,7 +19,7 @@ menu:
 Sensu role-based access control (RBAC) helps different teams and projects share a Sensu instance.
 RBAC allows management and access of users and resources based on **namespaces**, **groups**, **roles**, and **bindings**.
 
-- **Namespaces** partition resources within Sensu. Sensu checks, handlers, and other [namespaced resources][17] belong to a single namespace.
+- **Namespaces** partition resources within Sensu. Sensu entities, checks, handlers, and other [namespaced resources][17] belong to a single namespace.
 - **Roles** create sets of permissions (get, delete, etc.) tied to resource types. **Cluster roles** apply permissions across namespaces and include access to [cluster-wide resources][18] like users and namespaces. 
 - **Users** represent a person or agent that interacts with Sensu. Users can belong to one or more **groups**.
 - **Role bindings** assign a role to a set of users and groups within a namespace; **cluster role bindings** assign a cluster role to a set of users and groups cluster-wide.
@@ -27,7 +27,7 @@ RBAC allows management and access of users and resources based on **namespaces**
 Sensu access controls apply to [sensuctl][2], the Sensu [API][19], and the Sensu [dashboard][3].
 
 ## Namespaces
-Namespaces help teams use different resources (checks, handlers, etc.) within Sensu and impose their own controls on those resources.
+Namespaces help teams use different resources (entities, checks, handlers, etc.) within Sensu and impose their own controls on those resources.
 A Sensu instance can have multiple namespaces, each with their own set of managed resources.
 Resource names need to be unique within a namespace, but not across namespaces.
 
@@ -233,19 +233,19 @@ You can use [sensuctl][2] to view, create, and manage users.
 To change the password for a user:
 
 {{< highlight shell >}}
-sensuctl user change-password [USERNAME]
+sensuctl user change-password USERNAME
 {{< /highlight >}}
 
 To disable a user:
 
 {{< highlight shell >}}
-sensuctl user disable [USERNAME]
+sensuctl user disable USERNAME
 {{< /highlight >}}
 
 To re-enable a disabled user:
 
 {{< highlight shell >}}
-sensuctl user reinstate [USERNAME]
+sensuctl user reinstate USERNAME
 {{< /highlight >}}
 
 ### User specification
@@ -302,7 +302,7 @@ You can use [sensuctl][2] to add users to groups.
 To add a user to a group:
 
 {{< highlight shell >}}
-sensuctl user add-group [USERNAME] [GROUP]
+sensuctl user add-group USERNAME GROUP
 {{< /highlight >}}
 
 To set the groups for a user:
@@ -318,13 +318,13 @@ You can use [sensuctl][2] to remove users from groups.
 To remove a user from a group:
 
 {{< highlight shell >}}
-sensuctl user remove-group [USERNAME] [GROUP]
+sensuctl user remove-group USERNAME GROUP
 {{< /highlight >}}
 
 To remove a user from all groups:
 
 {{< highlight shell >}}
-sensuctl user remove-groups [USERNAME]
+sensuctl user remove-groups USERNAME
 {{< /highlight >}}
 
 ## Roles and cluster roles
@@ -444,7 +444,7 @@ example      | {{< highlight shell >}}"rules": [
   {
     "verbs": ["get", "list"],
     "resources": ["checks"],
-    "resourceNames": [""]
+    "resource_names": [""]
   }
 ]{{< /highlight >}}
 
@@ -465,12 +465,12 @@ required     | true
 type         | Array
 example      | {{< highlight shell >}}"resources": ["checks"]{{< /highlight >}}
 
-resourceNames    | 
+resource_names    | 
 -------------|------ 
 description  | Specific resource names that the rule has permission to access. Resource name permissions are only available for `get`, `delete`, and `update` verbs.
 required     | false
 type         | Array
-example      | {{< highlight shell >}}"resourceNames": ["check-cpu"]{{< /highlight >}}
+example      | {{< highlight shell >}}"resource_names": ["check-cpu"]{{< /highlight >}}
 
 ### Role examples
 

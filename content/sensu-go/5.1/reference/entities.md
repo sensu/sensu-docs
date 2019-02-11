@@ -130,7 +130,7 @@ example      | {{< highlight shell >}}"type": "Entity"{{< /highlight >}}
 
 api_version  | 
 -------------|------
-description  | Top-level attribute specifying the Sensu API group and version. For entities in Sensu backend version 5.0, this attribute should always be `core/v2`.
+description  | Top-level attribute specifying the Sensu API group and version. For entities in Sensu backend version 5.1, this attribute should always be `core/v2`.
 required     | Required for entity definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][sc].
 type         | String
 example      | {{< highlight shell >}}"api_version": "core/v2"{{< /highlight >}}
@@ -297,14 +297,6 @@ example      | {{< highlight json >}}
     "handler": "email-handler"
   }
 }{{< /highlight >}}
-
-keepalive_timeout  | 
--------------|------ 
-description  | The time in seconds until an entity keepalive is considered stale. 
-required     | false 
-type         | integer 
-default      | 120
-example      | {{< highlight shell >}}"keepalive_timeout": 120 {{< /highlight >}}
 
 redact       | 
 -------------|------ 

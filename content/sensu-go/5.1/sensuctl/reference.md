@@ -2,7 +2,7 @@
 title: "Sensuctl"
 linkTitle: "Reference"
 description: "The sensuctl reference guide"
-weight: 1
+weight: 2
 version: "5.1"
 product: "Sensu Go"
 platformContent: false 
@@ -23,31 +23,6 @@ Sensuctl is a command line tool for managing resources within Sensu. It works by
 calling Sensu's underlying API to create, read, update, and delete resources,
 events, and entities. Sensuctl is available for Linux, macOS, and Windows.
 See the [installation guide][4] to install and configure sensuctl.
-
-### Quick reference
-
-{{< highlight shell >}}
-# Configure and log in with defaults
-sensuctl configure
-? Sensu Backend URL: http://127.0.0.1:8080
-? Username: admin
-? Password: P@ssw0rd!
-
-# Create resources from a file containing JSON resource definitions
-sensuctl create --file filename.json
-
-# See monitored entities
-sensuctl entity list
-
-# See monitoring events
-sensuctl event list
-
-# Edit a check named check-cpu
-sensuctl edit check check-cpu
-
-# See the JSON configuration for a check named check-cpu
-sensuctl check info check-cpu --format wrapped-json
-{{< /highlight >}}
 
 ### Getting help
 
@@ -201,13 +176,24 @@ For example, the following file `my-resources.json` specifies two resources: a `
 }
 {
   "type": "Handler",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "slack",
+    "namespace": "default"
+  },
   "spec": {
-    "type": "pipe",
-    "command": "handler-slack --webhook-url https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX --channel monitoring",
-    "metadata" : {
-      "name": "slack",
-      "namespace": "default"
-    }
+    "command": "sensu-slack-handler --channel '#monitoring'",
+    "env_vars": [
+      "SLACK_WEBHOOK_URL=https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX"
+    ],
+    "filters": [
+      "is_incident",
+      "not_silenced"
+    ],
+    "handlers": [],
+    "runtime_assets": [],
+    "timeout": 0,
+    "type": "pipe"
   }
 }
 {{< /highlight >}}

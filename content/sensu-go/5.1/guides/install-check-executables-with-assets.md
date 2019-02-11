@@ -1,7 +1,8 @@
 ---
 title: "How to install executables using assets"
 linkTitle: "Installing Plugins with Assets"
-weight: 100
+description: "Assets are shareable, reusable packages that make it easy to deploy Sensu plugins. You can use assets to provide the plugins, libraries, and runtimes you need to power your monitoring workflows. Read the guide to get started using assets."
+weight: 40
 version: "5.1"
 product: "Sensu Go"
 platformContent: False
@@ -99,8 +100,10 @@ sensu-agent    check_website      CheckHttpResponseTime OK: 345      0       fal
 
 {{< highlight shell >}}
 sensuctl handler create influx-db \
---command "sensu-influxdb-handler --addr 'http://123.4.5.6:8086' --username 'foo' --password 'bar' --db-name 'myDB'" \
---runtime-assets sensu-influxdb-handler
+--type pipe \
+--runtime-assets sensu-influxdb-handler \
+--command "sensu-influxdb-handler -d sensu" \
+--env-vars "INFLUXDB_ADDR=http://influxdb.default.svc.cluster.local:8086, INFLUXDB_USER=sensu, INFLUXDB_PASSWORD=password"
 {{< /highlight >}}
 
 ### Validating the handler asset

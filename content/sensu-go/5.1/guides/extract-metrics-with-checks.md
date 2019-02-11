@@ -1,7 +1,8 @@
 ---
 title: "How to collect and extract metrics using Sensu checks"
 linkTitle: "Collecting Service Metrics"
-weight: 35
+description: "Sensu supports industry-standard metric formats like Nagios Performance Data, Graphite Plaintext Protocol, InfluxDB Line Protocol, and OpenTSDB Data Specification. Read the guide to get started collecting metrics with Sensu."
+weight: 17
 version: "5.1"
 product: "Sensu Go"
 platformContent: false

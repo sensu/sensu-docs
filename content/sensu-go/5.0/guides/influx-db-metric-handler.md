@@ -1,7 +1,8 @@
 ---
 title: "How to populate InfluxDB metrics using handlers"
 linkTitle: "Storing Metrics with InfluxDB"
-weight: 27
+description: "Sensu event handlers are actions executed by the Sensu backend on events. This guide helps you populate Sensu metrics into the time series database InfluxDB. "
+weight: 35
 version: "5.0"
 product: "Sensu Go"
 platformContent: false
@@ -38,15 +39,13 @@ handler that we will call `influx-db`, which is a **pipe** handler that pipes
 event data into our previous script named `sensu-influxdb-handler`. We will also
 pass the database name, address, username, and password of the InfluxDB you wish
 to populate.
+We'll use environment variables (`env-vars`) to pass the InfluxDB address, username, and password to the handler.
 
 {{< highlight shell >}}
 sensuctl handler create influx-db \
 --type pipe \
---command "sensu-influxdb-handler \
---addr 'http://123.4.5.6:8086' \
---db-name 'myDB' \
---username 'foo' \
---password 'bar'"
+--command "sensu-influxdb-handler -d sensu" \
+--env-vars "INFLUXDB_ADDR=http://influxdb.default.svc.cluster.local:8086, INFLUXDB_USER=sensu, INFLUXDB_PASSWORD=password"
 {{< /highlight >}}
 
 ### Assigning the handler to an event
@@ -71,9 +70,8 @@ sensu-agent start --statsd-event-handlers influx-db
 It might take a few moments once the handler is assigned to the check or StatsD
 server, for Sensu to receive the metrics, but once an event is handled, you
 should start to see your InfluxDB being populated! Otherwise, you can verify the
-proper behavior of this handler by using `sensu-backend` logs. The default
-location of these logs varies based on the platform used, but the
-[installation and configuration][8] documentation provides this information.
+proper behavior of this handler by using `sensu-backend` logs.
+See the [troubleshooting guide][8] for log locations by platform.
 
 Whenever an event is being handled, a log entry is added with the message
 `"handler":"influx-db","level":"debug","msg":"sending event to handler"`,
@@ -98,7 +96,7 @@ and extract metrics using Sensu checks.
 [5]: https://rakyll.org/cross-compilation/
 [6]: https://golang.org/doc/install
 [7]: https://en.wikipedia.org/wiki/PATH_(variable)
-[8]: ../../getting-started/installation-and-configuration/#validating-the-services
+[8]: ../troubleshooting
 [9]: ../../reference/handlers
 [10]: ../extract-metrics-with-checks
 [11]: https://github.com/sensu/sensu-influxdb-handler/releases

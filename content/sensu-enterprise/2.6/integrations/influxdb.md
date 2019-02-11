@@ -95,6 +95,13 @@ allowed values | `0.8`, `0.9`
 default        | `0.8`
 example        | {{< highlight shell >}}"api_version": "0.9"{{< /highlight >}}
 
+http_proxy   | |
+-------------|------
+description  | The URL of a proxy to be used for HTTP requests.
+required     | false
+type         | String
+example      | {{< highlight shell >}}"http_proxy": "http://192.168.250.11:3128"{{< /highlight >}}
+
 timeout      | 
 -------------|------
 description  | The InfluxDB HTTP API POST timeout (write).

@@ -16,7 +16,6 @@ menu:
 - [Token substitution](#check-token-substitution)
 - [Hooks](#check-hooks)
 - [Proxy requests](#proxy-requests)
-- [New and improved checks](#new-and-improved-checks)
 - [Specification](#check-specification)
 - [Examples](#examples)
 
@@ -25,8 +24,8 @@ menu:
 ### Check commands
 
 Each Sensu check definition defines a **command** and the **interval** at which
-it should be executed. Check commands are literally executable commands which
-will be executed on the Sensu agent.
+it should be executed. Check commands are executable commands which
+will be executed by the Sensu agent.
 
 A command may include command line arguments for controlling the behavior of the
 command executable. Most Sensu check plugins provide support for command line
@@ -118,41 +117,18 @@ documentation][6].
 ### Proxy requests
 
 Sensu supports running checks where the results are considered to be for an
-entity that isn’t actually the one executing the check- regardless of whether
-that entity is a Sensu agent's entity or simply a **proxy entity**. There are a
-number of reasons for this use case, but fundamentally, Sensu handles it the
-same.
+entity that isn’t actually the one executing the check, regardless of whether
+that entity is a Sensu agent entity or a **proxy entity**.
+Proxy entities allow Sensu to monitor external resources
+on systems or devices where a Sensu agent cannot be installed, like a
+network switch or a website.
 
-Checks are normally scheduled, but by specifying the [proxy_requests
-attribute][10] in your check, entities that match certain definitions (their
-`entity_attributes`) cause the check to run for each one. The attributes
-supplied must normally match exactly as stated- no variables or directives have
+By specifying the [proxy_requests attributes](#proxy-requests-top-level) in a check, Sensu runs the check
+for each entity that matches certain definitions specified in the `entity_attributes`.
+The attributes supplied must match exactly as stated; no variables or directives have
 any special meaning, but you can still use [Sensu query expressions][11] to
 perform more complicated filtering on the available value, such as finding
 entities with particular subscriptions.
-
-## New and improved checks
-
-Here is some useful information for Sensu 1 users around modifications made to
-checks in Sensu Go.
-
-### Standalone checks
-
-Standalone checks, which are checks scheduled and executed by the monitoring
-agent in [Sensu 1][7], are effectively replaced by the [Role-base access control
-(RBAC)][8], [agent's entity subscription][21] and [Sensu assets][9] features.
-
-### Reusable check hooks
-
-[Sensu check hooks][6] are now a distinct resource and are created and managed
-independently of the check configuration.
-
-### Round-robin checks
-
-Round-robin checks, which allow checks to be executed on a single entity within
-a subscription in a round-robin fashion, were configured via the client
-subscriptions in [Sensu 1][12].
-Round robin checks are not yet supported in Sensu 5.0.
 
 ## Check specification
 
@@ -167,7 +143,7 @@ example      | {{< highlight shell >}}"type": "CheckConfig"{{< /highlight >}}
 
 api_version  | 
 -------------|------
-description  | Top-level attribute specifying the Sensu API group and version. For checks in Sensu backend version 5.0, this attribute should always be `core/v2`.
+description  | Top-level attribute specifying the Sensu API group and version. For checks in Sensu backend version 5.1, this attribute should always be `core/v2`.
 required     | Required for check definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][sc].
 type         | String
 example      | {{< highlight shell >}}"api_version": "core/v2"{{< /highlight >}}
@@ -317,12 +293,21 @@ type         | String
 validated    | [`\A[\w\.\-]+\z`](https://regex101.com/r/zo9mQU/2)
 example      | {{< highlight shell >}}"proxy_entity_name": "switch-dc-01"{{< /highlight >}}
 
+<a name="proxy-requests-top-level">
+
 |proxy_requests|    |
 -------------|------
-description  | A [Sensu Proxy Requests][10], representing Sensu entity attributes to match entities in the registry.
+description  | [Sensu proxy request attributes][10] allow you to assign the check to run for multiple entities according to their `entity_attributes`. In the example below, the check executes for all entities with entity class `proxy` and the custom proxy type label `website`. Proxy requests are a great way to reuse check definitions for a group of entities. For more information, see the [proxy requests specification][10] and the [guide to monitoring external resources][28].
 required     | false
 type         | Hash
-example      | {{< highlight shell >}}"proxy_requests": {}{{< /highlight >}}
+example      | {{< highlight shell >}}"proxy_requests": {
+  "entity_attributes": [
+    "entity.entity_class == 'proxy'",
+    "entity.labels.proxy_type == 'website'"
+  ],
+  "splay": true,
+  "splay_coverage": 90
+}{{< /highlight >}}
 
 |silenced    |      |
 -------------|------
@@ -350,6 +335,16 @@ description  | An array of Sensu handlers to use for events created by the check
 required     | false
 type         | Array
 example      | {{< highlight shell >}}"output_metric_handlers": ["influx-db"]{{< /highlight >}}
+
+|round_robin |      |
+-------------|------
+description  | Round-robin check subscriptions are not yet implemented in Sensu Go. Although the `round_robin` attribute appears in check definitions by default, it is a placeholder and should not be modified.
+example      | {{< highlight shell >}}"round_robin": false{{< /highlight >}}
+
+|subdue      |      |
+-------------|------
+description  | Check subdues are not yet implemented in Sensu Go. Although the `subdue` attribute appears in check definitions by default, it is a placeholder and should not be modified.
+example      | {{< highlight shell >}}"subdue": null{{< /highlight >}}
 
 ### Metadata attributes
 
@@ -395,11 +390,13 @@ example      | {{< highlight shell >}} "annotations": {
 
 |entity_attributes| |
 -------------|------
-description  | Sensu entity attributes to match entities in the registry, using [Sensu Query Expressions][20]
+description  | Sensu entity attributes to match entities in the registry, using [Sensu Query Expressions][11]
 required     | false
 type         | Array
-default      | current namespace value configured for `sensuctl` (ie `default`)
-example      | {{< highlight shell >}}"entity_attributes": ["entity.EntityClass == 'proxy'"]{{< /highlight >}}
+example      | {{< highlight shell >}}"entity_attributes": [
+  "entity.entity_class == 'proxy'",
+  "entity.labels.proxy_type == 'website'"
+]{{< /highlight >}}
 
 |splay       |      |
 -------------|------
@@ -411,11 +408,10 @@ example      | {{< highlight shell >}}"splay": true{{< /highlight >}}
 
 |splay_coverage  | |
 -------------|------
-description  | The splay coverage percentage use for proxy check request splay calculation. The splay coverage is used to determine the amount of time check requests can be published over (before the next check interval).
-required     | false
+description  | The **percentage** of the check interval over which Sensu can execute the check for all applicable entities, as defined in the entity attributes. Sensu uses the splay coverage attribute to determine the amount of time check requests can be published over (before the next check interval).
+required     | required if `splay` attribute is set to `true`
 type         | Integer
-default      | 90
-example      | {{< highlight shell >}}"splay_coverage": 65{{< /highlight >}}
+example      | {{< highlight shell >}}"splay_coverage": 90{{< /highlight >}}
 
 ## Examples
 

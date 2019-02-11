@@ -1,6 +1,7 @@
 ---
 title: "How to monitor server resources with checks"
 linkTitle: "Monitoring Server Resources"
+description: "Here’s how to monitor server resources with checks. You’ll learn about Sensu checks, why you should use checks, and how to use them to monitor a service. Read the guide to learn more."
 weight: 10
 version: "5.0"
 product: "Sensu Go"
@@ -101,5 +102,5 @@ here are some recommended resources:
 [4]: ../
 [5]: ../monitor-external-resources
 [6]: ../send-slack-alerts
-[install]: ../../getting-started/installation-and-configuration
-[start]: ../../getting-started/installation-and-configuration/#starting-the-services
+[install]: ../../installation/install-sensu/#install-the-sensu-agent
+[start]: ../../reference/agent/#restarting-the-service

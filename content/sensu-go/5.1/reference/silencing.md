@@ -48,12 +48,6 @@ name with an asterisk in the `$CHECK` position. This indicates that any event
 where the originating entities’ subscriptions match the subscription specified
 in the entry will be marked as silenced, regardless of the check name.
 
-## New and improved silencing
-
-Silencing no longer determines whether an event will be handled or not, it
-simply mutates the event by setting the [`silenced` attribute][1], so it can be
-handled accordingly.
-
 ## Silencing specification
 
 ### Silenced entry names
@@ -73,7 +67,7 @@ example      | {{< highlight shell >}}"type": "Silenced"{{< /highlight >}}
 
 api_version  | 
 -------------|------
-description  | Top-level attribute specifying the Sensu API group and version. For silencing entries in Sensu backend version 5.0, this attribute should always be `core/v2`.
+description  | Top-level attribute specifying the Sensu API group and version. For silencing entries in Sensu backend version 5.1, this attribute should always be `core/v2`.
 required     | Required for silencing entry definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][sc].
 type         | String
 example      | {{< highlight shell >}}"api_version": "core/v2"{{< /highlight >}}

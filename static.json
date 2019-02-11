@@ -5,31 +5,31 @@
     "rewrites": {
       "~ ^/sensu-core/2.0/?(.*)$": {
           "url": "/sensu-go/5.0/$1",
-          "status": 302
+          "status": 301
       },
         "~ ^/sensu-core/latest/?(.*)$": {
             "url": "/sensu-core/1.6/$1",
-            "status": 302
+            "status": 301
         },
         "~ ^/uchiwa/latest/?(.*)$": {
             "url": "/uchiwa/1.0/$1",
-            "status": 302
+            "status": 301
         },
         "~ ^/sensu-enterprise/latest/?(.*)$": {
             "url": "/sensu-enterprise/3.3/$1",
-            "status": 302
+            "status": 301
         },
         "~ ^/sensu-enterprise-dashboard/latest/?(.*)$": {
-            "url": "/sensu-enterprise-dashboard/2.13/$1",
-            "status": 302
+            "url": "/sensu-enterprise-dashboard/2.14/$1",
+            "status": 301
         },
         "~ ^/sensu-go/latest/?(.*)$": {
-            "url": "/sensu-go/5.1/$1",
-            "status": 302
+            "url": "/sensu-go/5.2/$1",
+            "status": 301
         },
         "~ ^/plugins/latest/?(.*)$": {
             "url": "/plugins/1.0/$1",
-            "status": 302
+            "status": 301
         }
     }
 }

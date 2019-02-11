@@ -26,11 +26,6 @@ menu:
   - [`/users/:user/groups/:group` (PUT)](#usersusergroupsgroup-put)
   - [`/users/:user/groups/:group` (DELETE)](#usersusergroupsgroup-delete)
 
-## Authentication
-
-The Users API requires this type of permissions.
-See the API overview to get an authorization token.
-
 ## The `/users` API endpoint
 
 ### `/users` (GET)
@@ -401,4 +396,3 @@ example url               | http://hostname:8080/api/core/v2/users/alice/groups/
 response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 [1]: ../../reference/rbac#user-specification
-
