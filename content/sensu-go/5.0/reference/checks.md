@@ -432,6 +432,9 @@ _NOTE: The attribute `interval` is not required if a valid `cron` schedule is de
     "subscriptions": [
       "system"
     ],
+    "handlers": [
+      "slack"
+    ],
     "interval": 10,
     "publish": true
   }
