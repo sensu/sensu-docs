@@ -6,14 +6,20 @@ product: "Sensu Go"
 platformContent: false
 ---
 
-- [What is the Sensu Prometheus Collector?](#what-is-the-sensu-prometheus-collector)
-- [Why use Sensu with Prometheus?](#why-use-sensu-with-prometheus)
-- [Install and configure Prometheus](#install-and-configure-prometheus)
-- [Install and configure Sensu Go](#install-and-configure-sensu-go)
-- [Install Sensu Prometheus Collector](#install-sensu-prometheus-collector)
-- [Install Sensu InfluxDB Handler](#install-sensu-influxdb-handler)
-- [Install and configure InfluxDB](#install-and-configure-influxdb)
-- [Install and configure Grafana](#install-and-configure-grafana)
+- [Set up](#set-up)
+  - [Install and configure Prometheus](#install-and-configure-prometheus)
+  - [Install and configure Sensu Go](#install-and-configure-sensu-go)
+  - [Install and configure InfluxDB](#install-and-configure-influxdb)
+  - [Install and configure Grafana](#install-and-configure-grafana)
+- [Create a Sensu InfluxDB pipeline](#create-a-sensu-influxdb-pipeline)
+  - [Install Sensu InfluxDB handler](#install-sensu-influxdb-handler)
+  - [Create a Sensu handler](#create-a-sensu-handler)
+- [Collect Prometheus metrics with Sensu](#collect-prometheus-metrics-with-sensu)
+  - [Add Sensu Prometheus Collector asset](#add-sensu-prometheus-collector-asset)
+  - [Add Sensu check to complete the pipeline](#add-sensu-check-to-complete-the-pipeline)
+- [Visualize metrics with Grafana](#visualize-metrics-with-grafana)
+  - [Configure a dashboard in Grafana](#configure-a-dashboard-in-grafana)
+  - [View metrics in Grafana](#view-metrics-in-grafana)
 
 ## What is the Sensu Prometheus Collector?
 
@@ -29,7 +35,9 @@ This guide uses CentOS 7 as the operating system with all components running on 
 
 At the end, you will have Prometheus scraping metrics. The Sensu Prometheus Collector will then query the Prometheus API as a Sensu check, send those to an InfluxDB Sensu handler, which will send metrics to an InfluxDB instance. Finally, Grafana will query InfluxDB to display those collected metrics.
 
-### Install and Configure Prometheus
+## Set up
+
+### Install and configure Prometheus
 
 Download and extract Prometheus.
 
@@ -94,32 +102,6 @@ systemctl status sensu-backend
 systemctl status sensu-agent
 {{< /highlight >}}
 
-### Install Sensu Prometheus Collector
-
-{{< highlight shell >}}
-wget -q -nc https://github.com/sensu/sensu-prometheus-collector/releases/download/1.1.4/sensu-prometheus-collector_1.1.4_linux_386.tar.gz -P /tmp/
-
-tar xvfz /tmp/sensu-prometheus-collector_1.1.4_linux_386.tar.gz -C /tmp/
-
-cp /tmp/bin/sensu-prometheus-collector /usr/local/bin/
-{{< /highlight >}}
-
-Confirm the collector can get metrics from Prometheus.
-
-{{< highlight shell >}}
-/usr/local/bin/sensu-prometheus-collector -prom-url http://localhost:9090 -prom-query up
-{{< /highlight >}}
-
-### Install Sensu InfluxDB handler
-
-{{< highlight shell >}}
-wget -q -nc https://github.com/sensu/sensu-influxdb-handler/releases/download/3.0.1/sensu-influxdb-handler_3.0.1_linux_amd64.tar.gz -P /tmp/
-
-tar xvfz /tmp/sensu-influxdb-handler_3.0.1_linux_amd64.tar.gz -C /tmp/
-
-cp /tmp/bin/sensu-influxdb-handler /usr/local/bin/
-{{< /highlight >}}
-
 ### Install and configure InfluxDB
 
 Add InfluxDB repo.
@@ -163,55 +145,6 @@ influx -execute "CREATE USER sensu WITH PASSWORD 'sensu'"
 influx -execute "GRANT ALL ON sensu TO sensu"
 {{< /highlight >}}
 
-### Add Sensu check and handler to complete the pipeline
-
-Given the following resource definition in a file called `resources.json`:
-
-{{< highlight shell >}}
-{
-  "type": "CheckConfig",
-  "api_version": "core/v2",
-  "metadata": {
-    "name": "prometheus_metrics",
-    "namespace": "default"
-  },
-  "spec": {
-    "command": "/usr/local/bin/sensu-prometheus-collector -prom-url http://localhost:9090 -prom-query up",
-    "handlers": [
-      "influxdb"
-    ],
-    "interval": 10,
-    "publish": true,
-    "output_metric_format": "influxdb_line",
-    "output_metric_handlers": [],
-    "subscriptions": [
-      "app_tier"
-    ],
-    "timeout": 0
-  }
-}
-{
-  "type": "Handler",
-  "api_version": "core/v2",
-  "metadata": {
-    "name": "influxdb",
-    "namespace": "default"
-  },
-  "spec": {
-    "command": "/usr/local/bin/sensu-influxdb-handler -a 'http://127.0.0.1:8086' -d sensu -u sensu -p sensu",
-    "env_vars": [],
-    "timeout": 10,
-    "type": "pipe"
-  }
-}
-{{< /highlight >}}
-
-Use `sensuctl` to add the check and handler to the Sensu backend.
-
-{{< highlight shell >}}
-sensuctl create -f resources.json
-{{< /highlight >}}
-
 ### Install and configure Grafana
 
 Install Grafana.
@@ -252,6 +185,134 @@ Start Grafana.
 systemctl start grafana-server
 {{< /highlight >}}
 
+## Create a Sensu InfluxDB pipeline
+
+### Install Sensu InfluxDB handler
+
+{{< highlight shell >}}
+wget -q -nc https://github.com/sensu/sensu-influxdb-handler/releases/download/3.0.1/sensu-influxdb-handler_3.0.1_linux_amd64.tar.gz -P /tmp/
+
+tar xvfz /tmp/sensu-influxdb-handler_3.0.1_linux_amd64.tar.gz -C /tmp/
+
+cp /tmp/bin/sensu-influxdb-handler /usr/local/bin/
+{{< /highlight >}}
+
+### Create a Sensu handler
+
+Given the following handler definition in a file called `handler.json`:
+
+{{< highlight shell >}}
+{
+  "type": "Handler",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "influxdb",
+    "namespace": "default"
+  },
+  "spec": {
+    "command": "/usr/local/bin/sensu-influxdb-handler -a 'http://127.0.0.1:8086' -d sensu -u sensu -p sensu",
+    "env_vars": [],
+    "timeout": 10,
+    "type": "pipe"
+  }
+}
+{{< /highlight >}}
+
+Use `sensuctl` to add the handler to Sensu.
+
+{{< highlight shell >}}
+sensuctl create --file handler.json
+{{< /highlight >}}
+
+## Collect Prometheus metrics with Sensu
+
+### Add Sensu Prometheus Collector asset
+
+Visit the [Sensu Prometheus Collector](https://bonsai.sensu.io/assets/sensu/sensu-prometheus-collector) on Bonsai, the Sensu asset index, and download the asset definition.
+For example, here's the Sensu Prometheus Collector asset definition for version 1.1.5.
+
+{{< highlight json >}}
+{
+  "type": "Asset",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "sensu-prometheus-collector",
+    "namespace": "default",
+    "labels": {},
+    "annotations": {}
+  },
+  "spec": {
+    "url": "https://github.com/sensu/sensu-prometheus-collector/releases/download/1.1.5/sensu-prometheus-collector_1.1.5_linux_amd64.tar.gz",
+    "sha512": "2b183e1262f13f427f8846758b339844812d6a802d5b98ef28ba7959290aefdd4a62060bee867a3faffc9bad1427997c4b50a69e1680b1cda205062b8d8f3be9",
+    "filters": [
+      "entity.system.os == linux",
+      "entity.system.arch == amd64"
+    ]
+  }
+}
+{{< /highlight >}}
+
+Use `sensuctl` to register the asset with Sensu.
+
+{{< highlight shell >}}
+sensuctl create --file sensu-sensu-prometheus-collector-1.1.5-linux-amd64.json
+{{< /highlight >}}
+
+_PRO TIP: `sensuctl create -f` also accepts files containing multiple resources definitions._
+
+### Add Sensu check to complete the pipeline
+
+Given the following check definition in a file called `check.json`:
+
+{{< highlight shell >}}
+{
+  "type": "CheckConfig",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "prometheus_metrics",
+    "namespace": "default"
+  },
+  "spec": {
+    "command": "/usr/local/bin/sensu-prometheus-collector -prom-url http://localhost:9090 -prom-query up",
+    "runtime_assets": ["sensu-prometheus-collector"],
+    "handlers": [
+      "influxdb"
+    ],
+    "interval": 10,
+    "publish": true,
+    "output_metric_format": "influxdb_line",
+    "output_metric_handlers": [],
+    "subscriptions": [
+      "app_tier"
+    ],
+    "timeout": 0
+  }
+}
+{{< /highlight >}}
+
+Use `sensuctl` to add the check to Sensu.
+
+{{< highlight shell >}}
+sensuctl create --file check.json
+{{< /highlight >}}
+
+We can see the events generated by the `prometheus_metrics` check in the Sensu dashboard.
+Visit http://127.0.0.1:4000, and log in as the default admin user: username `admin` and password `P@ssw0rd!`.
+
+We can also see the metric event data using sensuctl.
+
+{{< highlight shell >}}
+sensuctl event list
+    Entity            Check                                          Output                                   Status   Silenced             Timestamp            
+────────────── ──────────────────── ──────────────────────────────────────────────────────────────────────── ──────── ────────── ─────────────────────────────── 
+sensu-centos   keepalive            Keepalive last sent from sensu-centos at 2019-02-12 01:01:37 +0000 UTC        0   false      2019-02-12 01:01:37 +0000 UTC  
+sensu-centos   prometheus_metrics   up,instance=localhost:9090,job=prometheus value=1 1549933306                  0   false      2019-02-12 01:01:46 +0000 UTC  
+{{< /highlight >}}
+
+## Visualize metrics with Grafana
+
+### Configure a dashboard in Grafana
+
 Download the Grafana dashboard configuration file from the Sensu docs.
 
 {{< highlight shell >}}
@@ -263,6 +324,8 @@ Using the just created file, add the dashboard to Grafana using an API call.
 {{< highlight shell >}}
 curl -s -XPOST -H 'Content-Type: application/json' -d@up_or_down_dashboard.json HTTP://admin:admin@127.0.0.1:4000/api/dashboards/db
 {{< /highlight >}}
+
+### View metrics in Grafana
 
 Confirm metrics in Grafana with `admin:admin` login at http://127.0.0.1:4000.
 
