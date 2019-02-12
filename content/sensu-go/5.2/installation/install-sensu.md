@@ -324,7 +324,7 @@ tar -xvf sensu-enterprise-go_5.2.1_darwin_amd64.tar.gz
 Copy the executable into your PATH.
 
 {{< highlight shell >}}
-sudo cp bin/sensuctl /usr/local/bin/
+sudo cp sensuctl /usr/local/bin/
 {{< /highlight >}}
 
 {{< platformBlockClose >}}
