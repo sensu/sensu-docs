@@ -48,21 +48,21 @@ curl -LO https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.2.1/sensu-enterp
 Download Sensu for Windows.
 
 {{< highlight text >}}
-Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.2.1/sensu-go-5.2.1-windows-amd64.tar.gz  -OutFile C:\Users\Administrator\sensu-go-5.2.1-windows-amd64.tar.gz
+Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.2.1/sensu-go-5.2.1-windows-amd64.tar.gz  -OutFile "$env:userprofile\sensu-go-5.2.1-windows-amd64.tar.gz"
 {{< /highlight >}}
 
 Generate a SHA-512 checksum for the downloaded artifact.
 
 {{< highlight text >}}
-Get-FileHash C:\Users\Administrator\sensu-go-5.2.1-windows-amd64.tar.gz -Algorithm SHA512 | Format-List
+Get-FileHash "$env:userprofile\sensu-go-5.2.1-windows-amd64.tar.gz" -Algorithm SHA512 | Format-List
 {{< /highlight >}}
 
 The result should match (with the exception of capitalization) the checksum for your platform.
 
 {{< highlight text >}}
-Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.2.1/sensu-enterprise-go_5.2.1_checksums.txt -OutFile C:\Users\Administrator\sensu-enterprise-go_5.2.1_checksums.txt
+Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.2.1/sensu-enterprise-go_5.2.1_checksums.txt -OutFile "$env:userprofile\sensu-enterprise-go_5.2.1_checksums.txt"
 
-Get-Content C:\Users\Administrator\sensu-enterprise-go_5.2.1_checksums.txt
+Get-Content "$env:userprofile\sensu-enterprise-go_5.2.1_checksums.txt"
 {{< /highlight >}}
 
 {{< platformBlockClose >}}
