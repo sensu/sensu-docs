@@ -18,5 +18,8 @@ Welcome to the Sensu sandbox! The sandbox is the best place to get started with 
 ### Container monitoring
 - [Container and application monitoring with Sensu](../sample-app): Monitoring a sample app on Kubernetes
 
+### Metrics
+- [Sensu + Prometheus](../prometheus-metrics): Collecting Prometheus metrics with Sensu
+
 ### Upgrading from Sensu 1.x to Sensu Go
 - [Sensu translator](https://github.com/sensu/sandbox/tree/master/sensu-go/lesson_plans/check-upgrade): Translating check configuration

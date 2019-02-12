@@ -1,6 +1,6 @@
 ---
 title: "Using the Sensu Prometheus Collector"
-version: "5.0"
+version: "5.2"
 description: "The Sensu Prometheus Collector is a check plugin that collects metrics from a Prometheus exporter or the Prometheus query API. This allows Sensu to route the collected metrics to a time series database, like InfluxDB. Follow the guide to get started collecting Prometheus metrics with Sensu."
 product: "Sensu Go"
 platformContent: false
@@ -300,7 +300,7 @@ sensu-centos   prometheus_metrics   up,instance=localhost:9090,job=prometheus va
 Download the Grafana dashboard configuration file from the Sensu docs.
 
 {{< highlight shell >}}
-wget https://docs.sensu.io/sensu-go/5.0/files/up_or_down_dashboard.json
+wget https://docs.sensu.io/sensu-go/5.2/files/up_or_down_dashboard.json
 {{< /highlight >}}
 
 Using the downloaded file, add the dashboard to Grafana using an API call.
