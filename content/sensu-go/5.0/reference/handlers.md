@@ -291,7 +291,7 @@ example      | {{< highlight shell >}}"port": 4242{{< /highlight >}}
 
 ### Minimum required TCP/UDP handler attributes
 
-_NOTE: This example is a `tcp` handler. Changing `tcp` to `udp` gives you the minimum configuration for `udp` as well_
+This is an example of a `tcp` type handler. Changing the type from `tcp` to `udp` gives you the minimum configuration for a `udp` type handler. 
 
 {{< highlight json >}}
 {
