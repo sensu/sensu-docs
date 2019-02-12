@@ -15,7 +15,7 @@ platformContent: false
   - [Install Sensu InfluxDB handler](#install-sensu-influxdb-handler)
   - [Create a Sensu handler](#create-a-sensu-handler)
 - [Collect Prometheus metrics with Sensu](#collect-prometheus-metrics-with-sensu)
-  - [Add Sensu Prometheus Collector asset](#add-sensu-prometheus-collector-asset)
+  - [Install Sensu Prometheus Collector](#isntall-sensu-prometheus-collector)
   - [Add Sensu check to complete the pipeline](#add-sensu-check-to-complete-the-pipeline)
 - [Visualize metrics with Grafana](#visualize-metrics-with-grafana)
   - [Configure a dashboard in Grafana](#configure-a-dashboard-in-grafana)
@@ -226,39 +226,21 @@ sensuctl create --file handler.json
 
 ## Collect Prometheus metrics with Sensu
 
-### Add Sensu Prometheus Collector asset
-
-Visit the [Sensu Prometheus Collector](https://bonsai.sensu.io/assets/sensu/sensu-prometheus-collector) on Bonsai, the Sensu asset index, and download the asset definition.
-For example, here's the Sensu Prometheus Collector asset definition for version 1.1.5.
-
-{{< highlight json >}}
-{
-  "type": "Asset",
-  "api_version": "core/v2",
-  "metadata": {
-    "name": "sensu-prometheus-collector",
-    "namespace": "default",
-    "labels": {},
-    "annotations": {}
-  },
-  "spec": {
-    "url": "https://github.com/sensu/sensu-prometheus-collector/releases/download/1.1.5/sensu-prometheus-collector_1.1.5_linux_amd64.tar.gz",
-    "sha512": "2b183e1262f13f427f8846758b339844812d6a802d5b98ef28ba7959290aefdd4a62060bee867a3faffc9bad1427997c4b50a69e1680b1cda205062b8d8f3be9",
-    "filters": [
-      "entity.system.os == linux",
-      "entity.system.arch == amd64"
-    ]
-  }
-}
-{{< /highlight >}}
-
-Use `sensuctl` to register the asset with Sensu.
+### Install Sensu Prometheus Collector
 
 {{< highlight shell >}}
-sensuctl create --file sensu-sensu-prometheus-collector-1.1.5-linux-amd64.json
+wget -q -nc https://github.com/sensu/sensu-prometheus-collector/releases/download/1.1.4/sensu-prometheus-collector_1.1.4_linux_386.tar.gz -P /tmp/
+
+tar xvfz /tmp/sensu-prometheus-collector_1.1.4_linux_386.tar.gz -C /tmp/
+
+cp /tmp/bin/sensu-prometheus-collector /usr/local/bin/
 {{< /highlight >}}
 
-_PRO TIP: `sensuctl create -f` also accepts files containing multiple resources definitions._
+Confirm the collector can get metrics from Prometheus.
+
+{{< highlight shell >}}
+/usr/local/bin/sensu-prometheus-collector -prom-url http://localhost:9090 -prom-query up
+{{< /highlight >}}
 
 ### Add Sensu check to complete the pipeline
 
@@ -274,7 +256,6 @@ Given the following check definition in a file called `check.json`:
   },
   "spec": {
     "command": "/usr/local/bin/sensu-prometheus-collector -prom-url http://localhost:9090 -prom-query up",
-    "runtime_assets": ["sensu-prometheus-collector"],
     "handlers": [
       "influxdb"
     ],
@@ -289,6 +270,8 @@ Given the following check definition in a file called `check.json`:
   }
 }
 {{< /highlight >}}
+
+_PRO TIP: `sensuctl create -f` also accepts files containing multiple resources definitions._
 
 Use `sensuctl` to add the check to Sensu.
 
