@@ -434,6 +434,32 @@ example      | {{< highlight shell >}}"discard_output": true{{< /highlight >}}
 
 ## Examples
 
+### Minimum recommended check attributes
+
+_NOTE: The attribute `interval` is not required if a valid `cron` schedule is defined._
+
+{{< highlight json >}}
+{
+  "type": "CheckConfig",
+  "api_version": "core/v2",
+  "metadata": {
+    "namespace": "default",
+    "name": "check_minimum"
+  },
+  "spec": {
+    "command": "collect.sh",
+    "subscriptions": [
+      "system"
+    ],
+    "handlers": [
+      "slack"
+    ],
+    "interval": 10,
+    "publish": true
+  }
+}
+{{< /highlight >}}
+
 ### Metric check
 
 {{< highlight json >}}
