@@ -94,46 +94,6 @@ The resulting `keepalive` handler set configuration looks like this:
 
 ## Handler specification
 
-### Minimum Handler Configuration
-
-Below is the minimum required configuration for Sensu to accept a pipe handler.
-
-{{< highlight json >}}
-{
-  "type": "Handler",
-  "api_version": "core/v2",
-  "metadata": {
-    "name": "pipe_handler_minimum",
-    "namespace": "default"
-  },
-  "spec": {
-    "type": "pipe"
-  }
-}
-{{< /highlight >}}
-
-Below is the minimum required configuration for Sensu to accept a tcp or udp handler.
-
-_NOTE: This handler is a `tcp` handler. Swapping that out for `udp` gives you the minimum configuration for `udp` as well_
-
-{{< highlight json >}}
-{
-  "type": "Handler",
-  "api_version": "core/v2",
-  "metadata": {
-    "name": "tcp_udp_handler_minimum",
-    "namespace": "default"
-  },
-  "spec": {
-    "type": "tcp",
-    "socket": {
-      "host": "10.0.1.99",
-      "port": 4444
-    }
-  }
-}
-{{< /highlight >}}
-
 ### Top-level attributes
 
 type         | 
@@ -311,6 +271,45 @@ type         | Integer
 example      | {{< highlight shell >}}"port": 4242{{< /highlight >}}
 
 ## Handler examples
+
+### Minimum required pipe handler attributes
+
+{{< highlight json >}}
+{
+  "type": "Handler",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "pipe_handler_minimum",
+    "namespace": "default"
+  },
+  "spec": {
+    "command": "command-example",
+    "type": "pipe"
+  }
+}
+{{< /highlight >}}
+
+### Minimum required tcp/udp handler attributes
+
+_NOTE: This example is a `tcp` handler. Changing `tcp` to `udp` gives you the minimum configuration for `udp` as well_
+
+{{< highlight json >}}
+{
+  "type": "Handler",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "tcp_udp_handler_minimum",
+    "namespace": "default"
+  },
+  "spec": {
+    "type": "tcp",
+    "socket": {
+      "host": "10.0.1.99",
+      "port": 4444
+    }
+  }
+}
+{{< /highlight >}}
 
 ### Sending slack alerts
 

@@ -49,25 +49,6 @@ _NOTE: By default, the Sensu installer packages will modify the system `$PATH` f
 
 ## Mutators specification
 
-### Minimum Mutator Configuration
-
-Below is the minimum required configuration for Sensu to accept a mutator.
-
-{{< highlight json >}}
-{
-  "type": "Mutator",
-  "api_version": "core/v2",
-  "metadata": {
-    "name": "mutator_minimum",
-    "namespace": "default"
-  },
-  "spec": {
-    "command": "example_mutator.go"
-  }
-}
-{{< /highlight >}}
-
-
 ### Top-level attributes
 
 type         | 
@@ -187,6 +168,22 @@ example      | {{< highlight shell >}} "annotations": {
 }{{< /highlight >}}
 
 ## Examples
+
+### Minimum required mutator attributes
+
+{{< highlight json >}}
+{
+  "type": "Mutator",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "mutator_minimum",
+    "namespace": "default"
+  },
+  "spec": {
+    "command": "example_mutator.go"
+  }
+}
+{{< /highlight >}}
 
 The following Sensu mutator definition uses an imaginary Sensu plugin called `example_mutator.go`
 to modify event data prior to handling the event.
