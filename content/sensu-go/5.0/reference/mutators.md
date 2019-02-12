@@ -169,22 +169,6 @@ example      | {{< highlight shell >}} "annotations": {
 
 ## Examples
 
-### Minimum required mutator attributes
-
-{{< highlight json >}}
-{
-  "type": "Mutator",
-  "api_version": "core/v2",
-  "metadata": {
-    "name": "mutator_minimum",
-    "namespace": "default"
-  },
-  "spec": {
-    "command": "example_mutator.go"
-  }
-}
-{{< /highlight >}}
-
 The following Sensu mutator definition uses an imaginary Sensu plugin called `example_mutator.go`
 to modify event data prior to handling the event.
 
@@ -208,7 +192,21 @@ to modify event data prior to handling the event.
 }
 {{< /highlight >}}
 
+### Minimum required mutator attributes
 
+{{< highlight json >}}
+{
+  "type": "Mutator",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "mutator_minimum",
+    "namespace": "default"
+  },
+  "spec": {
+    "command": "example_mutator.go"
+  }
+}
+{{< /highlight >}}
 
 [1]: ../assets
 [2]: #metadata-attributes
