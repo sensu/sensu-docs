@@ -289,7 +289,7 @@ example      | {{< highlight shell >}}"port": 4242{{< /highlight >}}
 }
 {{< /highlight >}}
 
-### Minimum required tcp/udp handler attributes
+### Minimum required TCP/UDP handler attributes
 
 _NOTE: This example is a `tcp` handler. Changing `tcp` to `udp` gives you the minimum configuration for `udp` as well_
 
