@@ -16,7 +16,7 @@ platformContent: false
   - [Create a Sensu handler](#create-a-sensu-handler)
 - [Collect Prometheus metrics with Sensu](#collect-prometheus-metrics-with-sensu)
   - [Install Sensu Prometheus Collector](#isntall-sensu-prometheus-collector)
-  - [Add Sensu check to complete the pipeline](#add-sensu-check-to-complete-the-pipeline)
+  - [Add a Sensu check to complete the pipeline](#add-a-sensu-check-to-complete-the-pipeline)
 - [Visualize metrics with Grafana](#visualize-metrics-with-grafana)
   - [Configure a dashboard in Grafana](#configure-a-dashboard-in-grafana)
   - [View metrics in Grafana](#view-metrics-in-grafana)
@@ -242,7 +242,7 @@ Confirm the collector can get metrics from Prometheus.
 /usr/local/bin/sensu-prometheus-collector -prom-url http://localhost:9090 -prom-query up
 {{< /highlight >}}
 
-### Add Sensu check to complete the pipeline
+### Add a Sensu check to complete the pipeline
 
 Given the following check definition in a file called `check.json`:
 
