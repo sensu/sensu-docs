@@ -415,7 +415,7 @@ example      | {{< highlight shell >}}"splay_coverage": 90{{< /highlight >}}
 
 ## Examples
 
-### Minimum required check attributes
+### Minimum recommended check attributes
 
 _NOTE: The attribute `interval` is not required if a valid `cron` schedule is defined._
 
