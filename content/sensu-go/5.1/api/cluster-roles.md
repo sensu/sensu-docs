@@ -29,7 +29,9 @@ The following example demonstrates a request to the `/clusterroles` API, resulti
 a JSON Array containing [cluster role definitions][1].
 
 {{< highlight shell >}}
-curl -s http://127.0.0.1:8080/api/core/v2/clusterroles -H "Authorization: Bearer TOKEN"
+curl http://127.0.0.1:8080/api/core/v2/clusterroles -H "Authorization: Bearer TOKEN"
+
+HTTP/1.1 200 OK
 [
   {
     "rules": [
@@ -156,7 +158,9 @@ containing the requested [`:clusterrole` definition][1] (in this example: for th
 `global-event-reader`).
 
 {{< highlight shell >}}
-curl -s http://127.0.0.1:8080/api/core/v2/clusterroles/global-event-reader -H "Authorization: Bearer TOKEN"
+curl http://127.0.0.1:8080/api/core/v2/clusterroles/global-event-reader -H "Authorization: Bearer TOKEN"
+
+HTTP/1.1 200 OK
 {
   "metadata": {
     "name": "global-event-reader"

@@ -120,7 +120,7 @@ containing the requested [`:rolebinding` definition][1] (in this example: for th
 `readers-group-binding`).
 
 {{< highlight shell >}}
-curl -s http://127.0.0.1:8080/api/core/v2/namespaces/default/rolebindings/readers-group-binding -H "Authorization: Bearer TOKEN"
+curl http://127.0.0.1:8080/api/core/v2/namespaces/default/rolebindings/readers-group-binding -H "Authorization: Bearer TOKEN"
 
 HTTP/1.1 200 OK
 {
