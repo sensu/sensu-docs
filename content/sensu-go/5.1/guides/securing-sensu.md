@@ -98,7 +98,7 @@ The agent will then connect Sensu servers over wss. Do note that by changing the
 
 It is also possible to provide a trusted CA as part of the agent configuration by passing `--trusted-ca-file` if starting the agent via `sensu-agent start`.
 
-You you may include it as part of the agent configuration in `/etc/sensu/agent.yml` as: 
+You may include it as part of the agent configuration in `/etc/sensu/agent.yml` as: 
 
 {{< highlight yaml>}}
 trusted-ca-file: "/path/to/trusted-certificate-authorities.pem"
