@@ -29,33 +29,25 @@ a JSON Array containing [role definitions][1].
 
 {{< highlight shell >}}
 curl -s http://127.0.0.1:8080/api/core/v2/namespaces/default/roles -H "Authorization: Bearer TOKEN"
+
+HTTP/1.1 200 OK
 [
   {
-    "name": "admin",
     "rules": [
       {
-        "type": "*",
-        "permissions": [
-          "create",
-          "read",
-          "update",
-          "delete"
-        ],
-        "namespace": "*"
-      }
-    ]
-  },
-  {
-    "name": "read-only",
-    "rules": [
-      {
-        "type": "*",
-        "permissions": [
+        "verbs": [
           "read"
         ],
-        "namespace": "*"
+        "resources": [
+          "*"
+        ],
+        "resource_names": null
       }
-    ]
+    ],
+    "metadata": {
+      "name": "read-only",
+      "namespace": "default"
+    }
   }
 ]
 {{< /highlight >}}
@@ -71,31 +63,21 @@ response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal 
 output         | {{< highlight shell >}}
 [
   {
-    "name": "admin",
     "rules": [
       {
-        "type": "*",
-        "permissions": [
-          "create",
-          "read",
-          "update",
-          "delete"
-        ],
-        "namespace": "*"
-      }
-    ]
-  },
-  {
-    "name": "read-only",
-    "rules": [
-      {
-        "type": "*",
-        "permissions": [
+        "verbs": [
           "read"
         ],
-        "namespace": "*"
+        "resources": [
+          "*"
+        ],
+        "resource_names": null
       }
-    ]
+    ],
+    "metadata": {
+      "name": "read-only",
+      "namespace": "default"
+    }
   }
 ]
 {{< /highlight >}}
@@ -108,16 +90,22 @@ description     | Create a Sensu role.
 example URL     | http://hostname:8080/api/core/v2/namespaces/default/roles
 payload         | {{< highlight shell >}}
 {
-  "name": "read-only",
   "rules": [
     {
-      "type": "*",
-      "permissions": [
-        "read"
+      "verbs": [
+        "get",
+        "list"
       ],
-      "namespace": "*"
+      "resources": [
+        "events"
+      ],
+      "resource_names": []
     }
-  ]
+  ],
+  "metadata": {
+    "name": "event-reader",
+    "namespace": "default"
+  }
 }
 {{< /highlight >}}
 response codes  | <ul><li>**Success**: 200 (OK)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
@@ -136,17 +124,24 @@ containing the requested [`:role` definition][1] (in this example: for the `:rol
 
 {{< highlight shell >}}
 curl -s http://127.0.0.1:8080/api/core/v2/namespaces/default/roles/read-only -H "Authorization: Bearer TOKEN"
+
+HTTP/1.1 200 OK
 {
-  "name": "read-only",
   "rules": [
     {
-      "type": "*",
-      "permissions": [
+      "verbs": [
         "read"
       ],
-      "namespace": "*"
+      "resources": [
+        "*"
+      ],
+      "resource_names": null
     }
-  ]
+  ],
+  "metadata": {
+    "name": "read-only",
+    "namespace": "default"
+  }
 }
 {{< /highlight >}}
 
@@ -160,16 +155,21 @@ response type        | Map
 response codes       | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output               | {{< highlight json >}}
 {
-  "name": "read-only",
   "rules": [
     {
-      "type": "*",
-      "permissions": [
+      "verbs": [
         "read"
       ],
-      "namespace": "*"
+      "resources": [
+        "*"
+      ],
+      "resource_names": null
     }
-  ]
+  ],
+  "metadata": {
+    "name": "read-only",
+    "namespace": "default"
+  }
 }
 {{< /highlight >}}
 
@@ -180,19 +180,25 @@ output               | {{< highlight json >}}
 /roles/:role (PUT) | 
 ----------------|------
 description     | Create or update a Sensu role.
-example URL     | http://hostname:8080/api/core/v2/namespaces/default/roles/ready-only
+example URL     | http://hostname:8080/api/core/v2/namespaces/default/roles/event-reader
 payload         | {{< highlight shell >}}
 {
-  "name": "read-only",
   "rules": [
     {
-      "type": "*",
-      "permissions": [
-        "read"
+      "verbs": [
+        "get",
+        "list"
       ],
-      "namespace": "*"
+      "resources": [
+        "events"
+      ],
+      "resource_names": []
     }
-  ]
+  ],
+  "metadata": {
+    "name": "event-reader",
+    "namespace": "default"
+  }
 }
 {{< /highlight >}}
 response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>

@@ -30,6 +30,8 @@ a JSON Array containing [cluster role binding definitions][1].
 
 {{< highlight shell >}}
 curl http://127.0.0.1:8080/api/core/v2/clusterrolebindings -H "Authorization: Bearer TOKEN"
+
+HTTP/1.1 200 OK
 [
   {
     "subjects": [
