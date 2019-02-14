@@ -133,14 +133,7 @@ To configure account access, add the `account` attribute to the Sensu client con
     }
 }{{< /highlight >}}
 
-#### `ec2` attributes
-
-account      | 
--------------|------
-description  | The name of the account Sensu Enterprise should use to access EC2, used internally to Sensu only
-required     | false
-type         | String
-example      | {{< highlight shell >}}"account": "sensuapp"{{< /highlight >}}
+For additional EC2 attributes possible at the client scope, see the [client EC2 attributes][4]
 
 ### Integration Configuration
 To enable cross-account support in the EC2 integration, add the `accounts` attributes, `name` and `role_arn`, to the EC2 integration configuration in Sensu.
@@ -197,6 +190,6 @@ example      | {{< highlight shell >}}"role_arn": "arn:aws:iam::xxxxxxxxxx:role/
 [1]:  /sensu-enterprise
 [2]:  http://aws.amazon.com?ref=sensu-enterprise
 [3]:  http://aws.amazon.com/iam/
-[4]:  /sensu-core/1.2/reference/clients#ec2-attributes
-[5]:  /sensu-core/1.2/reference/events#event-data
-[6]:  /sensu-core/1.2/reference/configuration#configuration-scopes
+[4]:  /sensu-core/latest/reference/clients#ec2-attributes
+[5]:  /sensu-core/latest/reference/events#event-data
+[6]:  /sensu-core/latest/reference/configuration#configuration-scopes
