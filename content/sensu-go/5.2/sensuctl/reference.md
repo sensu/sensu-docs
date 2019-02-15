@@ -18,7 +18,7 @@ menu:
 - [Managing resources](#managing-resources)
 - [Time formats](#time-formats)
 - [Shell auto-completion](#shell-auto-completion)
-- [Config files](#)
+- [Config files](#configuration-files)
 
 Sensuctl is a command line tool for managing resources within Sensu. It works by
 calling Sensu's underlying API to create, read, update, and delete resources,
