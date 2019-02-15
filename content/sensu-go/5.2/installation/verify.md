@@ -54,7 +54,7 @@ Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.2.1/sen
 Generate a SHA-512 checksum for the downloaded artifact.
 
 {{< highlight text >}}
-Get-FileHash "$env:userprofile\sensu-go-5.2.1-windows-amd64.tar.gz" -Algorithm SHA512 | Format-List
+Get-FileHash "$env:userprofile\sensu-enterprise-go_5.2.1_windows_amd64.tar.gz" -Algorithm SHA512 | Format-List
 {{< /highlight >}}
 
 The result should match (with the exception of capitalization) the checksum for your platform.
