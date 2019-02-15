@@ -19,6 +19,9 @@ menu:
 - [Specification](#check-specification)
 - [Examples](#examples)
 
+Discover, download, and share Sensu check assets using [Bonsai][25], the Sensu asset index.
+Read the [guide to installing plugins using assets][28] to get started.
+
 ## How do checks work?
 
 ### Check commands
@@ -431,6 +434,32 @@ example      | {{< highlight shell >}}"discard_output": true{{< /highlight >}}
 
 ## Examples
 
+### Minimum recommended check attributes
+
+_NOTE: The attribute `interval` is not required if a valid `cron` schedule is defined._
+
+{{< highlight json >}}
+{
+  "type": "CheckConfig",
+  "api_version": "core/v2",
+  "metadata": {
+    "namespace": "default",
+    "name": "check_minimum"
+  },
+  "spec": {
+    "command": "collect.sh",
+    "subscriptions": [
+      "system"
+    ],
+    "handlers": [
+      "slack"
+    ],
+    "interval": 10,
+    "publish": true
+  }
+}
+{{< /highlight >}}
+
 ### Metric check
 
 {{< highlight json >}}
@@ -507,3 +536,5 @@ example      | {{< highlight shell >}}"discard_output": true{{< /highlight >}}
 [27]: ../filters
 [sc]: ../../sensuctl/reference#creating-resources
 [sp]: #spec-attributes
+[25]: https://bonsai.sensu.io
+[28]: ../../guides/install-check-executables-with-assets

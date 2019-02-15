@@ -1,7 +1,7 @@
 ---
 title: "Installing Sensu"
 linkTitle: "Install Sensu"
-description: "The Sensu Go installation guide"
+description: "Sensu Go is available for Linux, Windows (agent and CLI only), macOS (CLI only), and Docker. Read the installation guide to installed the Sensu backend, agent, and sensuctl CLI tool."
 weight: 1
 version: "5.1"
 product: "Sensu Go"
@@ -152,13 +152,13 @@ sudo yum install sensu-go-agent
 Download the [Sensu agent for Windows `amd64`](https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.1.1/sensu-go-5.1.1-windows-amd64.tar.gz).
 
 {{< highlight text >}}
-Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.1.1/sensu-go-5.1.1-windows-amd64.tar.gz  -OutFile C:\Users\Administrator\sensu-go-5.1.1-windows-amd64.tar.gz
+Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.1.1/sensu-go-5.1.1-windows-amd64.tar.gz  -OutFile "$env:userprofile\sensu-go-5.1.1-windows-amd64.tar.gz"
 {{< /highlight >}}
 
 Or download the [Sensu agent for Windows `386`](https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.1.1/sensu-go-5.1.1-windows-386.tar.gz).
 
 {{< highlight text >}}
-Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.1.1/sensu-go-5.1.1-windows-386.tar.gz  -OutFile C:\Users\Administrator\sensu-go-5.1.1-windows-386.tar.gz
+Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.1.1/sensu-go-5.1.1-windows-386.tar.gz  -OutFile "$env:userprofile\sensu-go-5.1.1-windows-386.tar.gz"
 {{< /highlight >}}
 
 See the [verifying Sensu guide][12] to verify your download using checksums.
@@ -412,7 +412,7 @@ While it can be run from the docker container, doing so may be problematic.
 {{< platformBlockClose >}}
 
 [1]: https://github.com/sensu/sensu-go/releases
-[2]: https://github.com/sensu/sensu-go/blob/master/packaging/files/windows/agent.yml.example
+[2]: https://github.com/sensu/sensu-go/blob/5.1.1/packaging/files/windows/agent.yml.example
 [3]: ../../dashboard/overview
 [4]: ../../sensuctl/reference
 [5]: ../../getting-started/platforms

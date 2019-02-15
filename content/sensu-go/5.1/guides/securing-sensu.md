@@ -1,5 +1,6 @@
 ---
 title: "Securing Sensu"
+description: "As with all software, it’s important to minimize any attack surface exposed by the software. Sensu is no different. In this guide, you’ll learn about the components that need to be secured (and how to do so)."
 weight: 1000
 version: "5.1"
 product: "Sensu Go"
@@ -94,6 +95,14 @@ backend-url:
 {{< /highlight >}}
 
 The agent will then connect Sensu servers over wss. Do note that by changing the configuration to wss, plaintext communication will not be possible.
+
+It is also possible to provide a trusted CA as part of the agent configuration by passing `--trusted-ca-file` if starting the agent via `sensu-agent start`.
+
+You may include it as part of the agent configuration in `/etc/sensu/agent.yml` as: 
+
+{{< highlight yaml>}}
+trusted-ca-file: "/path/to/trusted-certificate-authorities.pem"
+{{< /highlight >}}
 
 _NOTE: If creating a Sensu cluster, every cluster member needs to be present in the configuration. See the [Sensu Go clustering guide][2] for more information on how to configure agents for a clustered configuration._
 

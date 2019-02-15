@@ -1,7 +1,7 @@
 ---
 title: "Sensu frequently asked questions"
 linkTitle: "FAQs"
-description: "Sensu Frequently Asked Questions"
+description: "Questions about Sensu Go? Read our FAQ to get answers to questions like, What platforms does Sensu support? and What can I monitor with Sensu?"
 version: "5.0"
 weight: 100
 product: "Sensu Go"
@@ -83,6 +83,10 @@ For more information, see the [guide to securing Sensu][20].
 
 Yes, as long as the port requirements described above are met, a single Sensu backend can monitor Sensu agents at multiple sites.
 
+> Is it possible to use Uchiwa with Sensu Go?
+
+Due to Sensu Go's implementation, it is not possible to use Uchiwa with Sensu Go. Sensu Go does have a [built-in dashboard][29] that you can use to visually interact with your Sensu Go deployment.
+
 [1]: ../platforms
 [2]: ../../installation/install-sensu
 [3]: https://blog.sensu.io/sensu-go-is-here
@@ -110,3 +114,4 @@ Yes, as long as the port requirements described above are met, a single Sensu ba
 [25]: ../../reference/backend
 [26]: ../../reference/agent
 [27]: ../../guides/clustering
+[29]: ../../dashboard/overview/

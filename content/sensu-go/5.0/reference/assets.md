@@ -165,6 +165,23 @@ example      | {{< highlight shell >}} "annotations": {
 
 ## Examples
 
+### Minimum required asset attributes
+
+{{< highlight json >}}
+{
+  "type": "Asset",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "check_script",
+    "namespace": "default"
+  },
+  "spec": {
+    "url": "http://example.com/asset.tar.gz",
+    "sha512": "4f926bf4328fbad2b9cac873d117f771914f4b837c9c85584c38ccf55a3ef3c2e8d154812246e5dda4a87450576b2c58ad9ab40c9e2edc31b288d066b195b21b"
+  }
+}
+{{< /highlight >}}
+
 ### Asset definition
 
 {{< highlight json >}}

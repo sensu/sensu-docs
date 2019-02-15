@@ -10,7 +10,7 @@ menu:
     parent: reference
 ---
 
-- [Activating your license](#enterprise-features-in-sensu-go)
+- [Activating your license](#activating-your-sensu-enterprise-license)
 - [License expiration](#license-expiration)
 - [License management API](../../api/license)
 

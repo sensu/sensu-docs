@@ -12,15 +12,17 @@ menu:
 
 ### `/health` (GET)
 
-The `/health` API endpoint provides HTTP GET access to [health][1] data for your Sensu instance.
+The `/health` API endpoint provides HTTP GET access to health data for your Sensu instance.
 
-#### EXAMPLE {#healths-get-example}
+#### EXAMPLE {#health-get-example}
 
-The following example demonstrates a request to the `/healths` API, resulting in
-a JSON map containing Sensu [health data][1].
+The following example demonstrates a request to the `/health` API, resulting in
+a JSON map containing Sensu health data.
 
 {{< highlight shell >}}
-curl -s http://127.0.0.1:8080/api/core/v2/health -H "Authorization: Bearer TOKEN"
+curl http://127.0.0.1:8080/health -H "Authorization: Bearer TOKEN"
+
+HTTP/1.1 200 OK
 {
   "Alarms": null,
   "ClusterHealth": [
@@ -34,12 +36,12 @@ curl -s http://127.0.0.1:8080/api/core/v2/health -H "Authorization: Bearer TOKEN
 }
 {{< /highlight >}}
 
-#### API Specification {#healths-get-specification}
+#### API Specification {#health-get-specification}
 
 /health (GET)  | 
 ---------------|------
 description    | Returns health information about the Sensu instance
-example url    | http://hostname:8080/api/core/v2/health
+example url    | http://hostname:8080/health
 response type  | Map
 response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output         | {{< highlight shell >}}

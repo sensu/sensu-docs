@@ -1,7 +1,7 @@
 ---
 title: "Sensu frequently asked questions"
 linkTitle: "FAQs"
-description: "Sensu Frequently Asked Questions"
+description: "Questions about Sensu Go? Read our FAQ to get answers to questions like, What platforms does Sensu support? and What can I monitor with Sensu?"
 version: "5.2"
 weight: 100
 product: "Sensu Go"
@@ -29,7 +29,8 @@ See the [hardware requirements guide][5] for minimum and recommended hardware to
 
 > Is there an enterprise version of Sensu Go?
 
-Yes! Sensu Go for enterprise is coming soon. Check out this [Sensu blog post](https://blog.sensu.io/announcing-the-sensu-roadmap-sensu-go-release-date) for more information about Sensu Go for enterprise.
+[Yes!](https://blog.sensu.io/enterprise-features-in-sensu-go) Sensu Inc. offers support packages for Sensu Go as well as license-activated features designed for enterprises.
+[Contact the Sensu sales team][6] for a personalized demo, and see the [getting started guide][28] for more information.
 
 > How can I contact the Sensu sales team?
 
@@ -83,6 +84,10 @@ For more information, see the [guide to securing Sensu][20].
 
 Yes, as long as the port requirements described above are met, a single Sensu backend can monitor Sensu agents at multiple sites.
 
+> Is it possible to use Uchiwa with Sensu Go?
+
+Due to Sensu Go's implementation, it is not possible to use Uchiwa with Sensu Go. Sensu Go does have a [built-in dashboard][29] that you can use to visually interact with your Sensu Go deployment.
+
 [1]: ../platforms
 [2]: ../../installation/install-sensu
 [3]: https://blog.sensu.io/sensu-go-is-here
@@ -110,3 +115,5 @@ Yes, as long as the port requirements described above are met, a single Sensu ba
 [25]: ../../reference/backend
 [26]: ../../reference/agent
 [27]: ../../guides/clustering
+[28]: ../enterprise
+[29]: ../../dashboard/overview/

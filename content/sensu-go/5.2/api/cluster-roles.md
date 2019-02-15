@@ -29,24 +29,62 @@ The following example demonstrates a request to the `/clusterroles` API, resulti
 a JSON Array containing [cluster role definitions][1].
 
 {{< highlight shell >}}
-curl -s http://127.0.0.1:8080/api/core/v2/clusterroles -H "Authorization: Bearer TOKEN"
+curl http://127.0.0.1:8080/api/core/v2/clusterroles -H "Authorization: Bearer TOKEN"
+
+HTTP/1.1 200 OK
 [
   {
-    "name": "global-event-reader",
     "rules": [
+      {
+        "verbs": [
+          "*"
+        ],
+        "resources": [
+          "assets",
+          "checks",
+          "entities",
+          "extensions",
+          "events",
+          "filters",
+          "handlers",
+          "hooks",
+          "mutators",
+          "silenced",
+          "roles",
+          "rolebindings"
+        ],
+        "resource_names": null
+      },
       {
         "verbs": [
           "get",
           "list"
         ],
         "resources": [
-          "events"
+          "namespaces"
         ],
-        "resource_names": [
-          ""
-        ]
+        "resource_names": null
       }
-    ]
+    ],
+    "metadata": {
+      "name": "admin"
+    }
+  },
+  {
+    "rules": [
+      {
+        "verbs": [
+          "*"
+        ],
+        "resources": [
+          "*"
+        ],
+        "resource_names": null
+      }
+    ],
+    "metadata": {
+      "name": "cluster-admin"
+    }
   }
 ]
 {{< /highlight >}}
@@ -62,21 +100,20 @@ response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal 
 output         | {{< highlight shell >}}
 [
   {
-    "name": "global-event-reader",
     "rules": [
       {
         "verbs": [
-          "get",
-          "list"
+          "*"
         ],
         "resources": [
-          "events"
+          "*"
         ],
-        "resource_names": [
-          ""
-        ]
+        "resource_names": null
       }
-    ]
+    ],
+    "metadata": {
+      "name": "cluster-admin"
+    }
   }
 ]
 {{< /highlight >}}
@@ -89,7 +126,9 @@ description     | Create a Sensu cluster role.
 example URL     | http://hostname:8080/api/core/v2/clusterroles
 payload         | {{< highlight shell >}}
 {
-  "name": "global-event-reader",
+  "metadata": {
+    "name": "global-event-reader"
+  },
   "rules": [
     {
       "verbs": [
@@ -99,9 +138,7 @@ payload         | {{< highlight shell >}}
       "resources": [
         "events"
       ],
-      "resource_names": [
-        ""
-      ]
+      "resource_names": null
     }
   ]
 }
@@ -121,9 +158,13 @@ containing the requested [`:clusterrole` definition][1] (in this example: for th
 `global-event-reader`).
 
 {{< highlight shell >}}
-curl -s http://127.0.0.1:8080/api/core/v2/clusterroles/global-event-reader -H "Authorization: Bearer TOKEN"
+curl http://127.0.0.1:8080/api/core/v2/clusterroles/global-event-reader -H "Authorization: Bearer TOKEN"
+
+HTTP/1.1 200 OK
 {
-  "name": "global-event-reader",
+  "metadata": {
+    "name": "global-event-reader"
+  },
   "rules": [
     {
       "verbs": [
@@ -133,9 +174,7 @@ curl -s http://127.0.0.1:8080/api/core/v2/clusterroles/global-event-reader -H "A
       "resources": [
         "events"
       ],
-      "resource_names": [
-        ""
-      ]
+      "resource_names": null
     }
   ]
 }
@@ -151,7 +190,9 @@ response type        | Map
 response codes       | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output               | {{< highlight json >}}
 {
-  "name": "global-event-reader",
+  "metadata": {
+    "name": "global-event-reader"
+  },
   "rules": [
     {
       "verbs": [
@@ -161,9 +202,7 @@ output               | {{< highlight json >}}
       "resources": [
         "events"
       ],
-      "resource_names": [
-        ""
-      ]
+      "resource_names": null
     }
   ]
 }
@@ -179,7 +218,9 @@ description     | Create or update a Sensu cluster role.
 example URL     | http://hostname:8080/api/core/v2/clusterroles/global-event-reader
 payload         | {{< highlight shell >}}
 {
-  "name": "global-event-reader",
+  "metadata": {
+    "name": "global-event-reader"
+  },
   "rules": [
     {
       "verbs": [
@@ -189,9 +230,7 @@ payload         | {{< highlight shell >}}
       "resources": [
         "events"
       ],
-      "resource_names": [
-        ""
-      ]
+      "resource_names": null
     }
   ]
 }

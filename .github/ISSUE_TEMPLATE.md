@@ -6,6 +6,7 @@
 - [ ] Errata (fix needed for doc content)
 - [ ] New content (guide wanted)
 - [ ] Update (Add missing or refresh existing content)
+- [ ] Enhancement (add new site functionality)
 
 ## Expected Behavior
 <!--- If describing a bug, tell us what should happen -->
