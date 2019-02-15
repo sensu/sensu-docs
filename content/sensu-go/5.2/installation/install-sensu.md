@@ -372,7 +372,7 @@ To learn more about enterprise features in Sensu Go, [contact the Sensu sales te
 If you already have an enterprise license, [log in to your Sensu account](https://account.sensu.io/) and download your license file, then activate your license using sensuctl.
 
 {{< highlight shell >}}
-sensuctl license install --file license.json
+sensuctl create --file license.json
 {{< /highlight >}}
 
 You can use sensuctl to view your license details at any time.
