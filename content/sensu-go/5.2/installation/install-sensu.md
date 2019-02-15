@@ -324,7 +324,7 @@ tar -xvf sensu-enterprise-go_5.2.1_darwin_amd64.tar.gz
 Copy the executable into your PATH.
 
 {{< highlight shell >}}
-sudo cp bin/sensuctl /usr/local/bin/
+sudo cp sensuctl /usr/local/bin/
 {{< /highlight >}}
 
 {{< platformBlockClose >}}
@@ -372,7 +372,7 @@ To learn more about enterprise features in Sensu Go, [contact the Sensu sales te
 If you already have an enterprise license, [log in to your Sensu account](https://account.sensu.io/) and download your license file, then activate your license using sensuctl.
 
 {{< highlight shell >}}
-sensuctl license install --file license.json
+sensuctl create --file license.json
 {{< /highlight >}}
 
 You can use sensuctl to view your license details at any time.
