@@ -193,7 +193,7 @@ Attributes specified in socket events appear in the resulting event data passed 
   "status": 1,
   "output": "404",
   "client": "sensu-docs-site",
-  "executed": "1550013435",
+  "executed": 1550013435,
   "duration": 1.903135228
 }
 {{< /highlight >}}
