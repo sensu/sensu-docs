@@ -14,7 +14,7 @@ menu:
 - [First-time setup](#first-time-setup)
 - [Managing sensuctl](#managing-sensuctl)
 - [Creating resources](#creating-resources)
-- [Editing resources](#editing-resources)
+- [Updating resources](#updating-resources)
 - [Managing resources](#managing-resources)
 - [Time formats](#time-formats)
 - [Shell auto-completion](#shell-auto-completion)
@@ -221,18 +221,18 @@ cat my-resources.json | sensuctl create
 |sensuctl create types |   |   |   |
 --------------------|---|---|---|
 `AdhocRequest` | `adhoc_request` | `Asset` | `asset`
-`CheckConfig` | `check_config` | `ClusterRole`  | `cluster-role`
-`ClusterRoleBinding`  | `cluster-role-binding` | `Entity` | `entity`
+`CheckConfig` | `check_config` | `ClusterRole`  | `cluster_role`
+`ClusterRoleBinding`  | `cluster_role_binding` | `Entity` | `entity`
 `Event` | `event` | `EventFilter` | `event_filter`
 `Handler` | `handler` | `Hook` | `hook`
 `HookConfig` | `hook_config` | `Mutator` | `mutator`
 `Namespace` | `namespace` | `Role` | `role`
-`RoleBinding` | `role-binding` | `Silenced` | `silenced`
-`ldap`
+`RoleBinding` | `role_binding` | `Silenced` | `silenced`
+`ldap` | | |
 
-## Editing resources
+## Updating resources
 
-Sensuctl allows you to edit resource definitions using a text editor.
+Sensuctl allows you to update resource definitions using a text editor.
 To use `sensuctl edit`, specify the resource [type][24] and resource name.
 
 For example, to edit a handler named `slack` using `sensuctl edit`:
@@ -255,6 +255,7 @@ sensuctl edit handler slack
 Sensuctl provides the following commands to manage Sensu resources.
 
 - [`sensuctl asset`][12]
+- [`sensuctl auth`](../../installation/auth) (enterprise only)
 - [`sensuctl check`][13]
 - [`sensuctl cluster`][7]
 - [`sensuctl cluster-role`][1]
@@ -264,6 +265,7 @@ Sensuctl provides the following commands to manage Sensu resources.
 - [`sensuctl filter`][16]
 - [`sensuctl handler`][17]
 - [`sensuctl hook`][18]
+- [`sensuctl license](../../reference/enterprise) (enterprise only)
 - [`sensuctl mutator`][19]
 - [`sensuctl namespace`][1]
 - [`sensuctl role`][1]
