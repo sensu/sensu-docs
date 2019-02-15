@@ -48,7 +48,7 @@ curl -LO https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.2.1/sensu-enterp
 Download Sensu for Windows.
 
 {{< highlight text >}}
-Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.2.1/sensu-go-5.2.1-windows-amd64.tar.gz  -OutFile "$env:userprofile\sensu-go-5.2.1-windows-amd64.tar.gz"
+Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.2.1/sensu-enterprise-go_5.2.1_windows_amd64.tar.gz  -OutFile "$env:userprofile\sensu-enterprise-go_5.2.1_windows_amd64.tar.gz"
 {{< /highlight >}}
 
 Generate a SHA-512 checksum for the downloaded artifact.
