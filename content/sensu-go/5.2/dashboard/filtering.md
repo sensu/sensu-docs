@@ -1,6 +1,7 @@
 ---
 title: "Dashboard filtering"
 linkTitle: "Filtering"
+description: "The Sensu dashboard supports filtering on the events, entities, checks, and silences pages using Sensu query expression syntax, including regular expressions. Read the doc to learn more."
 version: "5.2"
 product: "Sensu Go"
 platformContent: false
@@ -9,10 +10,10 @@ menu:
     parent: dashboard
 ---
 
-- [Event filtering](#event-filtering)
-- [Entity filtering](#entity-filtering)
-- [Check filtering](#check-filtering)
-- [Silence filtering](#silence-filtering)
+- [Events page filtering](#events-page-filtering)
+- [Entities page filtering](#entities-page-filtering)
+- [Checks page filtering](#checks-page-filtering)
+- [Silences page filtering](#silences-page-filtering)
 - [Arrays](#arrays)
 - [Regular expressions](#regular-expressions)
 
@@ -21,13 +22,38 @@ Dashboard filtering uses [Sensu query expression](../../reference/sensu-query-ex
 
 ### Syntax quick reference
 
-- `===` / `!==` -- Identity operator / Nonidentity operator
-- `==` / `!=` -- Equality operator / Inequality operator
-- `&&` / `||` -- Logical AND / Logical OR
-- `<` / `>` -- Less than / Greater than
-- `<=` / `>=` -- Less than or equal to / Greater than or equal to
+<table>
+<thead>
+<tr>
+<th>operator</th>
+<th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>===</code> / <code>!==</code></td>
+<td>Identity operator / Nonidentity operator</td>
+</tr>
+<tr>
+<td><code>==</code> / <code>!=</code></td>
+<td>Equality operator / Inequality operator</td>
+</tr>
+<tr>
+<td><code>&&</code> / <code>||</code></td>
+<td>Logical AND / Logical OR</td>
+</tr>
+<tr>
+<td><code><</code> / <code>></code></td>
+<td>Less than / Greater than</td>
+</tr>
+<tr>
+<td><code><=</code> / <code>>=</code></td>
+<td>Less than or equal to / Greater than or equal to</td>
+</tr>
+</tbody>
+</table>
 
-### Event filtering
+### Events page filtering
 
 Filtering on the events page supports all entity and check attributes present in the [event data](../../reference/events), prefixed with `entity.` or `check.` respectively.
 
@@ -43,7 +69,7 @@ To show only events with a warning or critical status produced by the check name
 check.status > 0 && check.name === "check_http"
 {{< /highlight >}}
 
-### Entity filtering
+### Entities page filtering
 
 Filtering on the entities page assumes the entity scope and supports all [entity](../../reference/entities) attributes.
 
@@ -59,7 +85,7 @@ To show only entities running on Linux or Windows:
 system.os === "linux" || system.os === "windows"
 {{< /highlight >}}
 
-### Check filtering
+### Checks page filtering
 
 Filtering on the check page assumes the check scope and supports all [check](../../reference/checks) attributes.
 
@@ -75,7 +101,7 @@ To show only checks with the `publish` attribute set to `false`:
 !publish
 {{< /highlight >}}
 
-### Silence filtering
+### Silences page filtering
 
 Filtering on the silences page assumes the silences scope and supports all [silencing entry](../../reference/silencing) attributes.
 
