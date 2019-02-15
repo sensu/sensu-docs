@@ -463,7 +463,6 @@ cat .config/sensu/sensuctl/profile
 cat .config/sensu/sensuctl/cluster 
 {
   "api-url": "http://localhost:8080",
-  "edition": "enterprise",
   "trusted-ca-file": "",
   "insecure-skip-tls-verify": false,
   "access_token": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
