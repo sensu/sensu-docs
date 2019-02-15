@@ -275,6 +275,45 @@ example      | {{< highlight shell >}}"port": 4242{{< /highlight >}}
 
 ## Handler examples
 
+### Minimum required pipe handler attributes
+
+{{< highlight json >}}
+{
+  "type": "Handler",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "pipe_handler_minimum",
+    "namespace": "default"
+  },
+  "spec": {
+    "command": "command-example",
+    "type": "pipe"
+  }
+}
+{{< /highlight >}}
+
+### Minimum required TCP/UDP handler attributes
+
+This is an example of a `tcp` type handler. Changing the type from `tcp` to `udp` gives you the minimum configuration for a `udp` type handler. 
+
+{{< highlight json >}}
+{
+  "type": "Handler",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "tcp_udp_handler_minimum",
+    "namespace": "default"
+  },
+  "spec": {
+    "type": "tcp",
+    "socket": {
+      "host": "10.0.1.99",
+      "port": 4444
+    }
+  }
+}
+{{< /highlight >}}
+
 ### Sending slack alerts
 
 This handler will send alerts to a channel named `monitoring` with the

@@ -322,6 +322,25 @@ example      | {{< highlight shell >}} "annotations": {
 
 ## Filter Examples
 
+### Minimum required filter attributes
+
+{{< highlight json >}}
+{
+  "type": "EventFilter",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "filter_minimum",
+    "namespace": "default"
+  },
+  "spec": {
+    "action": "allow",
+    "expressions": [
+      "event.check.occurrences == 1"
+    ]
+  }
+}
+{{< /highlight >}}
+
 ### Handling production events
 
 The following example filter definition, entitled `production_filter`, will
