@@ -207,7 +207,7 @@ name         |
 description  | The check name
 required     | true
 type         | String
-example      | {{< highlight shell >}}"name": "sensu-website"{{< /highlight >}}
+example      | {{< highlight shell >}}"name": "check-mysql-status"{{< /highlight >}}
 
 status       | 
 -------------|------
@@ -221,7 +221,7 @@ output       |
 description  | The output produced by the check `command`.
 required     | true
 type         | String
-example      | {{< highlight shell >}}"output": "CheckHttp OK: 200, 78572 bytes\n"{{< /highlight >}}
+example      | {{< highlight shell >}}"output": "CheckHttp OK: 200, 78572 bytes"{{< /highlight >}}
 
 client       | 
 -------------|------
@@ -233,7 +233,7 @@ example      | {{< highlight shell >}}"client": "sensu-docs-site"{{< /highlight 
 
 executed     | 
 -------------|------
-description  | The time the check was executed, stored as an integer (i.e. `Time.now.to_i`).
+description  | The time the check was executed, stored as an integer.
 required     | false
 default      | The time the event was received by the agent
 type         | Integer
@@ -244,18 +244,18 @@ duration     |
 description  | The amount of time (in seconds) it took to execute the check.
 required     | false
 type         | Float
-example      | {{< highlight shell >}}"duration": 0.637{{< /highlight >}}
+example      | {{< highlight shell >}}"duration": 1.903135228{{< /highlight >}}
 
 command      | 
 -------------|------
-description  | Historical event data
+description  | The command executed to produce the event. You can use this attribute to add context to the event data; Sensu does not execute the command included in this attribute.
 required     | false
 type         | String
 example      | {{< highlight shell >}}"command": "check-http.rb -u https://sensuapp.org"{{< /highlight >}}
 
 interval     | 
 -------------|------
-description  | Historical event data
+description  | The interval used to produce the event. You can use this attribute to add context to the event data; Sensu does not act on the value provided in this attribute.
 required     | false
 default      | `1`
 type         | Integer
