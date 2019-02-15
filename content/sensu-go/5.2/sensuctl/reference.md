@@ -451,7 +451,7 @@ create  delete  import  list
 
 ## Configuration files
 
-When configuring sensuctl, configuration files will be created that contain information for connecting to your Sensu Go deployment. You can find them at `$HOME/.config/sensu/sensuctl/profile` and `$HOME/.config/sensu/sensuctl/profile`. Here are two examples:
+During configuration, sensuctl creates configuration files that contain information for connecting to your Sensu Go deployment. You can find them at `$HOME/.config/sensu/sensuctl/profile` and `$HOME/.config/sensu/sensuctl/profile`. For example:
 
 {{< highlight shell >}}
 cat .config/sensu/sensuctl/profile
