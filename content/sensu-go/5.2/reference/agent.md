@@ -233,7 +233,7 @@ example      | {{< highlight shell >}}"client": "sensu-docs-site"{{< /highlight 
 
 executed     | 
 -------------|------
-description  | The time the check was executed, stored as an integer.
+description  | The time the check was executed, in seconds since the Unix epoch.
 required     | false
 default      | The time the event was received by the agent
 type         | Integer
