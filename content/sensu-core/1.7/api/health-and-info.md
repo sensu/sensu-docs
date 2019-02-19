@@ -90,8 +90,14 @@ Sensu servers which may be registered and processing check results._
 description    | Returns health information on transport & Redis connections.
 example url    | http://hostname:4567/health
 parameters     | <ul><li>`consumers`:<ul><li>**required**: true</li><li>**type**: Integer</li><li>**description**: The minimum number of transport consumers to be considered healthy</li><li>**notes**: not supported for Sensu installations using Redis as the transport</li></ul></li><li>`messages`:<ul><li>**required**: true</li><li>**type**: Integer</li><li>**description**: The maximum amount of transport queued messages to be considered healthy</li></ul></li></ul>
-response type  | [HTTP-header][11] only (no content)
+response type  | [HTTP-header][11] only (no content) or array
 response codes | <ul><li>**Success**: 204 (No Content)</li><li>**Error**: 412 (Precondition Failed)</li></ul>
+response body | {{< highlight json >}}
+[
+  "keepalive consumers (0) less than min_consumers (1000)",
+  "result consumers (0) less than min_consumers (1000)"
+]
+{{< /highlight >}}
 output         | {{< highlight shell >}}HTTP/1.1 412 Precondition Failed
 Access-Control-Allow-Origin: *
 Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS
