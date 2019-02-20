@@ -47,7 +47,7 @@ See the [upgrading guide][1] to upgrade Sensu to version 5.2.0.
 
 **NEW FEATURES:**
 
-- Announcing our first enterprise-only features for Sensu Go: [LDAP authentication](/sensu-go/5.2/installation/auth), the [Sensu ServiceNow handler](https://bonsai.sensu.io/assets/portertech/sensu-servicenow-handler), and the [Sensu JIRA handler](https://bonsai.sensu.io/assets/portertech/sensu-jira-handler). See the [getting started guide](/sensu-go/5.2/getting-started/enterprise) for more information.
+- Announcing our first enterprise-only features for Sensu Go: [LDAP authentication](/sensu-go/5.2/installation/auth), the [Sensu ServiceNow handler](https://bonsai.sensu.io/assets/sensu/sensu-servicenow-handler), and the [Sensu JIRA handler](https://bonsai.sensu.io/assets/sensu/sensu-jira-handler). See the [getting started guide](/sensu-go/5.2/getting-started/enterprise) for more information.
 - Sensu now provides the option to limit check output size or to drop check outputs following metric extraction. See the [checks reference][15] for more information.
 
 **IMPROVEMENTS:**
