@@ -49,7 +49,7 @@ For example, here's the asset definition for version 1.0.1 of the [Sensu PagerDu
 }
 {{< /highlight >}}
 
-**Enterprise-only assets** (like the [ServiceNow](https://bonsai.sensu.io/assets/portertech/sensu-servicenow-handler) and [Jira event handlers](https://bonsai.sensu.io/assets/portertech/sensu-jira-handler)) require an active enterprise license. For more information about enterprise-only features and to active your license, see the [getting started guide](../../getting-started/enterprise).
+**Enterprise-only assets** (like the [ServiceNow](https://bonsai.sensu.io/assets/sensu/sensu-servicenow-handler) and [Jira event handlers](https://bonsai.sensu.io/assets/sensu/sensu-jira-handler)) require an active enterprise license. For more information about enterprise-only features and to active your license, see the [getting started guide](../../getting-started/enterprise).
 
 ### 2. Register the asset with Sensu
 
