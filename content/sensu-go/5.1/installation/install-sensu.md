@@ -152,13 +152,13 @@ sudo yum install sensu-go-agent
 Download the [Sensu agent for Windows `amd64`](https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.1.1/sensu-go-5.1.1-windows-amd64.tar.gz).
 
 {{< highlight text >}}
-Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.1.1/sensu-go-5.1.1-windows-amd64.tar.gz  -OutFile C:\Users\Administrator\sensu-go-5.1.1-windows-amd64.tar.gz
+Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.1.1/sensu-go-5.1.1-windows-amd64.tar.gz  -OutFile "$env:userprofile\sensu-go-5.1.1-windows-amd64.tar.gz"
 {{< /highlight >}}
 
 Or download the [Sensu agent for Windows `386`](https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.1.1/sensu-go-5.1.1-windows-386.tar.gz).
 
 {{< highlight text >}}
-Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.1.1/sensu-go-5.1.1-windows-386.tar.gz  -OutFile C:\Users\Administrator\sensu-go-5.1.1-windows-386.tar.gz
+Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.1.1/sensu-go-5.1.1-windows-386.tar.gz  -OutFile "$env:userprofile\sensu-go-5.1.1-windows-386.tar.gz"
 {{< /highlight >}}
 
 See the [verifying Sensu guide][12] to verify your download using checksums.
