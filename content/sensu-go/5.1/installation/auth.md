@@ -18,5 +18,5 @@ See the [upgrading guide][6] to upgrade your Sensu installation, and visit the [
 [5]: ../../guides/create-read-only-user
 [6]: /sensu-go/latest/installation/upgrade
 [7]: /sensu-go/latest/installation/auth
-[8]: ../../overview/api
+[8]: ../../api/overview
 [9]: /sensu-go/latest/getting-started/enterprise
