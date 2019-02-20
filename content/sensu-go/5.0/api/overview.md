@@ -39,11 +39,9 @@ Beta APIs, while more stable than alpha versions, offer similarly short-lived li
 
 ### Access control
 
-The Sensu API requires authentication using a JWT access token.
+With the exception of the [health API][5], the Sensu API requires authentication using a JWT access token.
 Sensuctl provides an easy way to generate access tokens for short-lived use with the Sensu API.
 The user credentials that you use to log in to senscutl determine your permissions to get, list, create, update, and delete resources using the Sensu API.
-
-_NOTE: The [`/health`][5] API endpoint does not require authorization._
 
 To generate an API access token using sensuctl:
 
