@@ -755,7 +755,7 @@ The following attributes are defined within the `"sensu": {}` definition scope.
 
 global_error_handler | |
 ---------------|------
-description    | Enables catch-all error handling. If enabled, Sensu ignores any unexpected errors and logs the event with the message `"unexpected error - please address this immediately"` . You can use this attribute to prevent Sensu services from crashing as a result of unknown errors or invalid data. _WARNING: This attribute is experimental and not recommended in most cases._
+description    | Enables catch-all error handling. If enabled, Sensu ignores any unexpected errors and logs the event with the message `"unexpected error - please address this immediately"`. You can use this attribute to prevent Sensu services from crashing as a result of unknown errors or invalid data. _WARNING: This attribute is experimental and not recommended unless you're encountering persistent crashing._
 required       | false
 type           | Boolean
 default        | false
