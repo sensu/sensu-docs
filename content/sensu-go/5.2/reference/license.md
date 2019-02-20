@@ -1,7 +1,7 @@
 ---
 title: "License management"
 linkTitle: "License Management"
-description: "Sensu Go includes license-activated features designed for enterprises. Activate and manage your enterprise license for with sensuctl and your Sensu account. Read the reference documentation to learn more."
+description: "Sensu Go includes license-activated features designed for enterprises. Activate and manage your enterprise license with sensuctl and your Sensu account. Read the reference documentation to learn more."
 weight: 100
 version: "5.2"
 product: "Sensu Go"
@@ -32,7 +32,7 @@ You can activate your license using sensuctl or the [license API](../../api/lice
 To activate your license using sensuctl:
 
 {{< highlight shell >}}
-sensuctl create --file license.json
+sensuctl create --file sensu_license.json
 {{< /highlight >}}
 
 You can use sensuctl to view your license details at any time.
