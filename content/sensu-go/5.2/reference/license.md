@@ -1,7 +1,7 @@
 ---
 title: "License management"
 linkTitle: "License Management"
-description: "Activate and manage your enterprise license for Sensu Go."
+description: "Sensu Go includes license-activated features designed for enterprises. Activate and manage your enterprise license with sensuctl and your Sensu account. Read the reference documentation to learn more."
 weight: 100
 version: "5.2"
 product: "Sensu Go"
@@ -10,7 +10,7 @@ menu:
     parent: reference
 ---
 
-- [Activating your license](#activating-your-sensu-enterprise-license)
+- [Activating your license](#activating-your-license)
 - [License expiration](#license-expiration)
 - [License management API](../../api/license)
 
@@ -22,21 +22,38 @@ menu:
 - [Contact Sensu support](https://account.sensu.io/support)
 - [Contact Sensu sales](https://sensu.io/sales)
 
-## Activating your Sensu Enterprise license
+## Activating your license
 
 If you haven't already, [install the backend, agent, and sensuctl](../../installation/install-sensu) and [configure sensuctl](../../sensuctl/reference/#first-time-setup).
 
 Log in to your Sensu account at [account.sensu.io](https://account.sensu.io/) and download your license file.
-Then apply your license using sensuctl.
+You can activate your license using sensuctl or the [license API](../../api/license).
+
+To activate your license using sensuctl:
 
 {{< highlight shell >}}
-sensuctl create --file license.json
+sensuctl create --file sensu_license.json
 {{< /highlight >}}
 
-You can view your license details at any time with:
+You can use sensuctl to view your license details at any time.
 
 {{< highlight shell >}}
+# Active license
 sensuctl license info
+=== Training Team - Sensu
+Account Name: Training Team - Sensu
+Account ID:   123
+Plan:         managed
+Version:      1
+Features:     all
+Issuer:       Sensu, Inc.
+Issued:       2019-02-15 15:01:44 -0500 -0500
+Valid:        true
+Valid Until:  2019-03-15 00:00:00 -0800 -0800
+
+# No license found
+sensuctl license info
+Error: not found
 {{< /highlight >}}
 
 ## License expiration

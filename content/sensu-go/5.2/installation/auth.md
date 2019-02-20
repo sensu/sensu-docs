@@ -23,7 +23,7 @@ In addition to built-in RBAC, Sensu includes [enterprise-only][6] support for au
 
 ## Managing authentication providers
 
-You can view and delete authentication providers using sensuctl.
+You can view and delete authentication providers using sensuctl and the [authentication providers API](../../api/authproviders).
 To set up LDAP authentication for Sensu, see the section on [configuring LDAP authentication](#configuring-ldap-authentication).
 
 **ENTERPRISE ONLY**: Authentication providers in Sensu Go require an enterprise license. To activate your enterprise license, see the [getting started guide][6].
@@ -72,6 +72,10 @@ You can verify that your LDAP configuration has been applied successfully using 
 
 {{< highlight shell >}}
 sensuctl auth list
+
+ Type     Name    
+────── ────────── 
+ ldap   openldap  
 {{< /highlight >}}
 
 **3. Integrate with Sensu RBAC**
@@ -83,67 +87,13 @@ Sensu RBAC allows management and access of users and resources based on namespac
 - **Roles** create sets of permissions (get, delete, etc.) tied to resource types. **Cluster roles** apply permissions across namespaces and include access to [cluster-wide resources][18] like users and namespaces. 
 - **Role bindings** assign a role to a set of users and groups within a namespace; **cluster role bindings** assign a cluster role to a set of users and groups cluster-wide.
 
-To enable permissions for LDAP users and groups within Sensu, create a set of [roles][10], [cluster roles][11], [role bindings][12], and [cluster role bindings][13] that map to the usernames or group names in your LDAP directory.
+To enable permissions for LDAP users and groups within Sensu, create a set of [roles][10], [cluster roles][11], [role bindings][12], and [cluster role bindings][13] that map to the usernames and group names in your LDAP directory.
 Make sure to include the [group prefix](#groups-prefix) and [username prefix](#username-prefix) when creating Sensu role bindings and cluster role bindings.
-See the [RBAC reference][4] for a complete guide to creating permissions with Sensu.
+See the [RBAC reference][4] for more information about configuring permissions in Sensu and [implementation examples](../../reference/rbac/#role-and-role-binding-examples).
 
-For example, the following role and role binding gives a `dev` group access to create Sensu workflows within the `development` namespace.
+**4. Log in to Sensu**
 
-{{< highlight text >}}
-{
-  "type": "Role",
-  "api_version": "core/v2",
-  "metadata": {
-    "name": "workflow-creator",
-    "namespace": "development"
-  },
-  "spec": {
-    "rules": [
-      {
-        "resource_names": [],
-        "resources": [
-          "checks",
-          "hooks",
-          "filters",
-          "events",
-          "filters",
-          "mutators",
-          "handlers"
-        ],
-        "verbs": [
-          "get",
-          "list",
-          "create",
-          "update",
-          "delete"
-        ]
-      }
-    ]
-  }
-}
-{
-  "type": "RoleBinding",
-  "api_version": "core/v2",
-  "metadata": {
-    "name": "dev-binding",
-    "namespace": "development"
-  },
-  "spec": {
-    "role_ref": {
-      "name": "workflow-creator",
-      "type": "Role"
-    },
-    "subjects": [
-      {
-        "name": "dev",
-        "type": "Group"
-      }
-    ]
-  }
-}
-{{< /highlight >}}
-
-Once you've configured the correct roles and bindings, your users can log in to sensuctl and the Sensu dashboard using their single-sign-on username and password (no prefix required).
+Once you've configured the correct roles and bindings, log in to [sensuctl](../../sensuctl/reference#first-time-setup) and the [Sensu dashboard](../../dashboard/overview) using your single-sign-on username and password (no prefix required).
 
 ### Configuration examples
 

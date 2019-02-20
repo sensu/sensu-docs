@@ -17,8 +17,8 @@ Enterprise features are available for all Sensu Go packages and downloads.
 **Enterprise-only features in Sensu Go:**
 
 - [LDAP authentication](../../installation/auth)
-- [Sensu ServiceNow event handler](https://bonsai.sensu.io/assets/portertech/sensu-servicenow-handler): Create and update incidents automatically based on your monitoring events.
-- [Sensu Jira event handler](https://bonsai.sensu.io/assets/portertech/sensu-jira-handler): Create and update issues automatically based on your monitoring events.
+- [Sensu ServiceNow event handler](https://bonsai.sensu.io/assets/sensu/sensu-servicenow-handler): Create and update incidents automatically based on your monitoring events.
+- [Sensu Jira event handler](https://bonsai.sensu.io/assets/sensu/sensu-jira-handler): Create and update issues automatically based on your monitoring events.
 - [Enterprise-class support for Sensu Go](https://sensu.io/support/)
 
 ### Contact us for a free trial
@@ -37,7 +37,7 @@ If you haven't already, [install the Sensu Go backend, agent, and sensuctl tool]
 Log in to your Sensu account at [account.sensu.io](https://account.sensu.io/) and download your license file, then activate your license using sensuctl.
 
 {{< highlight shell >}}
-sensuctl create --file license.json
+sensuctl create --file sensu_license.json
 {{< /highlight >}}
 
 You can use sensuctl to view your license details at any time.
