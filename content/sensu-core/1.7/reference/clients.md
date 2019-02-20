@@ -112,7 +112,8 @@ registration events are logged in the [Sensu server][5] log._
 
 Similarly to registration events, Sensu can create and process a deregistration event when the Sensu client process stops.
 You can use deregistration events to trigger a handler that updates external CMDBs or performs an action to update ephemeral infrastructures.
-To enable deregistration events, set the `deregister` flag to `true` and specify the event handler using the [`deregistration` definition scope][48].
+By default, registration events trigger the built-in deregistration extension.
+To enable deregistration events, set the client `deregister` flag to `true` and specify the event handler using the client [`deregistration` definition scope][48].
 
 #### Proxy clients
 
@@ -873,7 +874,7 @@ provided as recommendations for controlling client deregistration behavior._
 
 handler      | 
 -------------|------
-description  | The deregistration handler that should process the client deregistration event. By default, Sensu uses the built-in deregistration extension to remove clients from Sensu when a client process stops.
+description  | The deregistration handler that should process the client deregistration event. By default, Sensu uses the built-in deregistration extension to remove clients from Sensu when a client process stops. To configure the host and port used by the deregistration extension, see the [configuration reference][68].
 required     | false
 type         | String
 default      | `deregistration`
@@ -1361,3 +1362,4 @@ information for operations teams can be extremely valuable._
 [65]: ../checks#influxdb-attributes
 [66]: ../../api/clients/#clientsclient-delete
 [67]: ../../platforms
+[68]: ../configuration
