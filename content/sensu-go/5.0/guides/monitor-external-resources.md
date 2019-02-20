@@ -133,6 +133,21 @@ Now let's say that, instead of monitoring just sensu.io, we want to monitor mult
 In this section of the guide, we'll use the [`proxy_requests` check attribute][3], along with [entity labels][11] and [token substitution][12], to monitor three sites using the same check.
 Before we get started, go ahead and [install the HTTP check script][13] if you haven't already.
 
+### Installing an HTTP check script
+
+First, we'll install a [bash script][4], named `http_check.sh`, to perform an HTTP
+check using **curl**.
+
+{{< highlight shell >}}
+sudo curl https://raw.githubusercontent.com/sensu/sensu-go/5.1.0/examples/checks/http_check.sh \
+-o /usr/local/bin/http_check.sh && \
+sudo chmod +x /usr/local/bin/http_check.sh
+{{< /highlight >}}
+
+_PRO TIP: While this command may be appropriate when running a few agents, you should consider
+using [Sensu assets][5] or a [configuration management][15] tool to provide
+runtime dependencies._
+
 ### Creating proxy entities
 
 Instead of creating a proxy entity using the `proxy_entity_name` check attribute, we'll be using sensuctl to create proxy entities to represent the three sites we want to monitor.
