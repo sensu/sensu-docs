@@ -92,7 +92,8 @@ example url    | http://hostname:4567/health
 parameters     | <ul><li>`consumers`:<ul><li>**required**: true</li><li>**type**: Integer</li><li>**description**: The minimum number of transport consumers to be considered healthy</li><li>**notes**: not supported for Sensu installations using Redis as the transport</li></ul></li><li>`messages`:<ul><li>**required**: true</li><li>**type**: Integer</li><li>**description**: The maximum amount of transport queued messages to be considered healthy</li></ul></li></ul>
 response type  | [HTTP-header][11] only (no content) or array
 response codes | <ul><li>**Success**: 204 (No Content)</li><li>**Error**: 412 (Precondition Failed)</li></ul>
-response body | {{< highlight json >}}
+response body  | If applicable, the health API includes a response body containing information about the unhealthy Sensu instance. For example:<ul><li>`not connected to redis`</li><li>`not connected to transport`</li><li>`keepalive messages (x) greater than max_messages (x)`</li><li>`result messages (x) greater than max_messages (x)`</li><li>`keepalive consumers (x) less than min_consumers (x)`</li><li>`result consumers (x) less than min_consumers (x)`</li></ul> See the Sensu reference docs to configure [Redis][12] and the [RabbitMQ transport][13], and visit the [RabbitMQ docs][14] for more information about messages and consumers. To detect unhealthy states and monitor RabbitMQ metrics, see the [guide to monitoring Sensu][15].
+response example | {{< highlight json >}}
 [
   "keepalive consumers (0) less than min_consumers (1000)",
   "result consumers (0) less than min_consumers (1000)"
@@ -240,3 +241,7 @@ output         | {{< highlight json >}}{
 [9]:  https://www.rabbitmq.com/
 [10]: http://redis.io/
 [11]: https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html
+[12]: ../../reference/redis
+[13]: ../../reference/rabbitmq
+[14]: https://www.rabbitmq.com/documentation.html
+[15]: ../../guides/monitor-the-monitor
