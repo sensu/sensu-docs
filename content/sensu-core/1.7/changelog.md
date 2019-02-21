@@ -1793,7 +1793,7 @@ available for immediate download. Please note the following improvements:
 <!-- 1.7.0 -->
 [71]: https://github.com/sensu/sensu/blob/master/CHANGELOG.md#170---2019-02-19
 [72]: /sensu-core/1.7/reference/configuration#sensu-definition-specification
-[73]: /sensu-core/1.7/api/health
+[73]: /sensu-core/1.7/api/health-and-info
 [74]: /sensu-core/1.7/reference/clients/#client-attributes
 [75]: /sensu-core/1.7/reference/clients/#deregistration-events
 
