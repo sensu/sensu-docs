@@ -39,9 +39,9 @@ Beta APIs, while more stable than alpha versions, offer similarly short-lived li
 
 ### Access control
 
-The Sensu API requires authentication using a JWT access token.
+With the exception of the [health API][5], the Sensu API requires authentication using a JWT access token.
 Sensuctl provides an easy way to generate access tokens for short-lived use with the Sensu API.
-The user credentials that you use to log in to senscutl determine your permissions to get, list, create, update, and delete resources using the Sensu API.
+The user credentials that you use to log in to sensuctl determine your permissions to get, list, create, update, and delete resources using the Sensu API.
 
 To generate an API access token using sensuctl:
 
@@ -75,3 +75,4 @@ API request bodies are limited to 0.512 MB in size.
 [2]: ../../installation/install-sensu#install-sensuctl
 [3]: ../../reference/rbac
 [4]: ../../reference/agent#using-the-http-socket
+[5]: ../health/
