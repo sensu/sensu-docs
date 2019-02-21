@@ -31,6 +31,7 @@ client registry][1].
 The `/clients` endpoint provides HTTP GET access to [client registry data][1] as
 published via [client keepalives][2], generated for a [proxy client][3], or
 created [via HTTP POST to the `/clients` API][4].
+Sensitive values are redacted as specified by the [client `redact` attribute](../../reference/clients/#client-attributes).
 
 #### EXAMPLES {#clients-get-example}
 
@@ -153,6 +154,7 @@ The `/clients/:client` endpoint provides HTTP GET access to specific client
 definitions in the [client registry][1] as published via [client keepalives][2],
 generated for a [proxy  client][3], or created [via POST to the `/clients`
 API][4].
+Sensitive values are redacted as specified by the [client `redact` attribute](../../reference/clients/#client-attributes).
 
 ### EXAMPLE {#clients-client-get-example}
 
