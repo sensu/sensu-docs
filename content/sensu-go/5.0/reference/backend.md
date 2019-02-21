@@ -52,6 +52,8 @@ For information about creating and managing checks, see:
 - [Guide to collecting metrics with checks][4]
 - [Checks reference documentation][5]
 
+_Note: Time system clocks should be synchronized to a central NTP server. Out of sync time clocks may cause issues with metrics and check alerts._
+
 ## Operation
 
 _NOTE: Commands in this section may require administrative privileges._

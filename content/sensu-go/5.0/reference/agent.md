@@ -35,6 +35,8 @@ Agent entities are responsible for creating [check and metrics events][7] to sen
 The Sensu agent is available for Linux, macOS, and Windows.
 See the [installation guide][1] to install the agent.
 
+_Note: Time clocks should be synchronized to a central NTP server. Out of sync time clocks may cause issues with metric and check alerts._
+
 ## Creating monitoring events using service checks
 
 Sensu's use of the [publish/subscribe pattern of communication][15] allows for automated registration and deregistration of ephemeral systems.
