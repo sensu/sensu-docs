@@ -1362,4 +1362,4 @@ information for operations teams can be extremely valuable._
 [65]: ../checks#influxdb-attributes
 [66]: ../../api/clients/#clientsclient-delete
 [67]: ../../platforms
-[68]: ../configuration
+[68]: ../configuration#top-level-configuration-scopes
