@@ -33,6 +33,9 @@
       {{ end }}
       {{ .Content }}
 
+      <script async type="text/javascript" src="{{"/js/clip.js" | absURL }}"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
+      
       {{ partial "pagination.html" . }}
     </div>
   </article>
