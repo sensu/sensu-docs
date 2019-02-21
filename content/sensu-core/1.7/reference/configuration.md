@@ -745,6 +745,19 @@ example      | {{< highlight json >}}{
 }
 {{< /highlight >}}
 
+deregistration | 
+-------------|------
+description  | Host and port configuration for the built-in deregistration extension. By default, the deregistration extension communicates with the Sensu API running on 127.0.0.1 port 4567.
+required     | false
+type         | Hash
+example      | {{< highlight json >}}{
+  "deregistration": {
+    "host": "10.0.0.1",
+    "port": 14567
+  }
+}
+{{< /highlight >}}
+
 ## Sensu definition specification
 
 Sensu uses the `"sensu": {}` definition scope.
