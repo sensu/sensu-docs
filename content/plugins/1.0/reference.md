@@ -14,7 +14,7 @@ menu: "plugins-1.0"
   - [The Sensu Plugins project](#the-sensu-plugins-project)
   - [Featured Sensu Plugins](#featured-sensu-plugins)
   - [Nagios plugins and the Nagios exchange](#nagios-plugins-and-the-nagios-exchange)
-  - [Write you own custom plugins](#write-your-own-custom-plugins)
+  - [Write your own custom plugins](#write-your-own-custom-plugins)
 - [Plugin execution](#plugin-execution)
   - [How and where are plugins executed?](#how-and-where-are-mutator-commands-executed)
   - [What programming languages are supported?](#what-programming-languages-are-supported)

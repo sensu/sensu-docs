@@ -8,6 +8,7 @@ menu: "sensu-core-1.6"
 
 ## Releases
 
+- [Core 1.6.2 Release Notes](#core-v1-6-2)
 - [Core 1.6.1 Release Notes](#core-v1-6-1)
 - [Core 1.6.0 Release Notes](#core-v1-6-0)
 - [Core 1.5.0 Release Notes](#core-v1-5-0)
@@ -54,6 +55,27 @@ menu: "sensu-core-1.6"
 - [Core 0.23.2 Release Notes](#core-v0-23-2)
 - [Core 0.23.1 Release Notes](#core-v0-23-1)
 - [Core 0.23.0 Release Notes](#core-v0-23-0)
+
+## Core 1.6.2 Release Notes {#core-v1-6-2}
+
+Source: [GitHub.com][68]
+
+**December 10, 2018** &mdash; Sensu Core version 1.6.2 has been released
+  and is available for immediate download. Please note the following
+  improvements:
+
+### CHANGES {#core-v1-6-2-changes}
+
+- **IMPROVEMENT**: Sensu Core now includes the Sensu Translator: a command-line
+  tool to help you transfer your Sensu Core 1.x configuration to Sensu Go 5.0.
+  For more information, see the [Sensu Translator on GitHub][69], and stay tuned
+  to the [Sensu Go upgrade guide][70].
+
+- **BUGFIX**: Sensu Core 1.6.2 improves error handling for Redis Sentinel
+  connections. In the event of a Sentinel DNS lookup error, Sensu now
+  retries the failing Sentinel instances until they become available, but
+  proceeds with normal operation as long as one Sentinel can direct Sensu to
+  the current Redis leader.
 
 ## Core 1.6.1 Release Notes {#core-v1-6-1}
 
@@ -1676,7 +1698,7 @@ available for immediate download. Please note the following improvements:
 [29]: /sensu-core/0.29/reference/aggregates
 [30]: /sensu-core/0.29/reference/configuration#sensu-environment-variables
 [31]: https://github.com/sensu-extensions/sensu-extensions-occurrences/
-[32]: https://sensuapp.org/blog/2016/07/07/sensu-plugin-filter-deprecation.html
+[32]: https://blog.sensu.io/deprecating-event-filtering-in-sensu-plugin-b60c7c500be3
 [33]: /sensu-core/0.29/api/silenced
 [34]: /sensu-core/0.29/reference/handlers#handler-attributes
 
@@ -1735,6 +1757,11 @@ available for immediate download. Please note the following improvements:
 
 <!-- 1.6.1 -->
 [67]: https://github.com/sensu/sensu/blob/master/CHANGELOG.md#161---2018-10-23
+
+<!-- 1.6.2 -->
+[68]: https://github.com/sensu/sensu/blob/master/CHANGELOG.md#162---2018-12-07
+[69]: https://github.com/sensu/sensu-translator
+[70]: /sensu-go/latest/installation/upgrade
 
 <!-- GH Issues/PR's -->
 

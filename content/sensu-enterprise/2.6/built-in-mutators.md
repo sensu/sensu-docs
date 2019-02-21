@@ -49,6 +49,7 @@ handlers: one for notifications (`pagerduty`), another for metric storage
 {
   "checks": {
     "ntp": {
+      "type": "metric",
       "command": "/usr/lib/nagios/plugins/check_ntp -H time.nrc.ca",
       "subscribers": [
         "production"
@@ -80,7 +81,7 @@ example        | {{< highlight shell >}}"output_format": "graphite_plaintext"{{<
 [2]:  #sensu-metric-format
 [3]:  http://graphite.readthedocs.org/en/latest/feeding-carbon.html#the-plaintext-protocol
 [4]:  http://nagios.sourceforge.net/docs/3_0/perfdata.html
-[5]:  http://opentsdb.net/docs/build/html/user_guide/writing.html
+[5]:  http://opentsdb.net/docs/build/html/user_guide/writing/index.html
 [6]:  http://metrics20.org/spec/
 [7]:  https://github.com/opinionlab/sensu-metrics-relay#json-metric-format
 [8]:  https://docs.influxdata.com/influxdb/v1.1/write_protocols/line_protocol_tutorial/

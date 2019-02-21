@@ -15,24 +15,27 @@ Enterprise](https://sensu.io/features/enterprise) a try.
 
 > What platforms does Sensu support?
 
-| Platform & Version | 64bit | 32bit | Comments                 |
-|--------------------|-------|-------|--------------------------|
-| Ubuntu 12.04       | ✅     | ✅     |                          |
-| Ubuntu 14.04       | ✅     | ✅     |                          |
-| Ubuntu 16.04       | ✅     | ❌     | No official 32bit images |
-| Ubuntu 18.04       | ✅     | ❌     | No official 32bit images |
-| Debian 7           | ✅     | ✅     |                          |
-| Debian 8           | ✅     | ❌     | No official 32bit images |
-| Debian 9           | ✅     | ❌     | No official 32bit images |
-| CentOS 5           | ✅     | ✅     | 32 and 64bit images built with [sensu-omnibus-packer](https://github.com/sensu/sensu-omnibus-packer) |
-| CentOS 6           | ✅     | ✅     | Using unofficial 32bit image |
-| CentOS 7           | ✅     | ❌     | No official 32bit images |
-| FreeBSD 10         | ✅     | ❌     | Official 32bit images are out of date |
-| FreeBSD 11         | ✅     | ❌     | No official 32bit images |
-| Windows 2012r2     | ✅     | ✅     | 32bit artifact built on 64bit platform |
-| Mac OS X 10.10     | ✅     | ❌     | See [Mac platform notes][4] for instructions |
-| Mac OS X 10.11     | ✅     | ❌     | See [Mac platform notes][4] for instructions |
-| Mac OS X 10.12     | ✅     | ❌     | See [Mac platform notes][4] for instructions |
+| Platform & Version | 64bit | 32bit | Arch     | Comments                  |
+|--------------------|-------|-------|----------|---------------------------|
+| Ubuntu 12.04       | ✅     | ✅     | x86     |                          |
+| Ubuntu 14.04       | ✅     | ✅     | x86     |                          |
+| Ubuntu 16.04       | ✅     | ❌     | x86     | No official 32bit images |
+| Ubuntu 18.04       | ✅     | ❌     | x86     | No official 32bit images |
+| Debian 7           | ✅     | ✅     | x86     |                          |
+| Debian 8           | ✅     | ❌     | x86     | No official 32bit images |
+| Debian 9           | ✅     | ❌     | x86     | No official 32bit images |
+| CentOS 5           | ✅     | ✅     | x86     | 32 and 64bit images built with [sensu-omnibus-packer](https://github.com/sensu/sensu-omnibus-packer) |
+| CentOS 6           | ✅     | ✅     | x86     | Using unofficial 32bit image |
+| CentOS 7           | ✅     | ❌     | x86     | No official 32bit images |
+| FreeBSD 10         | ✅     | ❌     | x86     | Official 32bit images are out of date |
+| FreeBSD 11         | ✅     | ❌     | x86     | No official 32bit images |
+| Solaris 10         | ❌     | ✅     | sparc   |                          |
+| Solaris 11         | ❌     | ✅     | sparc   |                          |
+| IBM AIX 6.1 +      | ❌     | ✅     | powerpc |                          |
+| Windows 2012r2     | ✅     | ✅     | x86     | 32bit artifact built on 64bit platform |
+| Mac OS X 10.10     | ✅     | ❌     | x86     | See [Mac platform notes][4] for instructions |
+| Mac OS X 10.11     | ✅     | ❌     | x86     | See [Mac platform notes][4] for instructions |
+| Mac OS X 10.12     | ✅     | ❌     | x86     | See [Mac platform notes][4] for instructions |
 
 > Do I need RabbitMQ to be installed on every system I wish to monitor?
 

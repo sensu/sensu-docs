@@ -1,5 +1,5 @@
 ---
-title: "Configuration"
+title: "Sensu Configuration"
 description: "Reference documentation for Sensu Configuration, including service init scripts, command line arguments, and environment variables."
 product: "Sensu Core"
 version: "0.29"
@@ -670,7 +670,9 @@ required     | false
 type         | Hash
 example      | {{< highlight json >}}{
   "sensu": {
-     "spawn": 24
+    "spawn": {
+      "limit": 24
+    }
   }
 }
 {{< /highlight >}}

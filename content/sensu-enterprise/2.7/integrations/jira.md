@@ -84,7 +84,7 @@ example      | {{< highlight shell >}}"project_key": "SEN"{{< /highlight >}}
 
 issue_type   | 
 -------------|------
-description  | Specifies default issue type for projects.
+description  | Specifies default issue type for projects. _NOTE: The project used with this integration must include the `issue_type` defined here. For more info please see Atlassian's documentation [here][5]._
 required     | false
 type         | String
 default      | `Incident`
@@ -96,6 +96,13 @@ description  | The JIRA root URL. When set, this option overrides the `host` opt
 required     | false
 type         | String
 example      | {{< highlight shell >}}"root_url": "https://services.example.com/proxy/jira"{{< /highlight >}}
+
+http_proxy   | |
+-------------|------
+description  | The URL of a proxy to be used for HTTP requests.
+required     | false
+type         | String
+example      | {{< highlight shell >}}"http_proxy": "http://192.168.250.11:3128"{{< /highlight >}}
 
 filters        | 
 ---------------|------
@@ -127,3 +134,4 @@ example      | {{< highlight shell >}}"timeout": 30{{< /highlight >}}
 [2]:  https://www.atlassian.com/software/jira
 [3]:  /sensu-core/1.0/reference/events
 [4]:  /sensu-core/1.0/reference/configuration#configuration-scopes
+[5]:  https://confluence.atlassian.com/adminjiraserver073/associating-issue-types-with-projects-861253240.html

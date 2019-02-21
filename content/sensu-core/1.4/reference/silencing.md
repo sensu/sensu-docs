@@ -217,6 +217,13 @@ example      | {{< highlight json >}}{
 }
 {{< /highlight >}}
 
+begin        |      |
+-------------|------|
+description  | Time at which the silence entry goes into effect, in UNIX epoch time. You can use the `begin` attribute to schedule a silencing entry for a planned maintenance.
+required     | false
+type         | Integer
+example      | {{< highlight shell >}}"begin": 1512512023{{< /highlight >}}
+
 ## Examples
 
 ### Silence all checks on a specific client
@@ -479,6 +486,6 @@ upgrading Uchiwa 0.18+ or Sensu Enterprise Console 2.0+.
 [6]: http://github.com/sensu-plugins/sensu-plugin
 [7]: ../stashes
 [8]: https://github.com/sensu-plugins/sensu-plugin/issues/134
-[9]: https://sensuapp.org/blog/2016/07/07/sensu-plugin-filter-deprecation.html
+[9]: https://blog.sensu.io/deprecating-event-filtering-in-sensu-plugin-b60c7c500be3
 [10]: ../data-store
 [11]: ../filters

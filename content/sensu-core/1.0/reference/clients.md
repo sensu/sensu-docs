@@ -127,30 +127,23 @@ inherently unable to run a `sensu-client`._
 
 ##### Proxy client example
 
-Proxy clients are created when a check result includes a `source` attribute, as
-follows:
+Proxy clients are created when a check result includes a `source` attribute. See the example check definition below:
 
 {{< highlight json >}}
 {
   "check": {
-    "status": 0,
-    "command": "check-http.rb -u https://sensuapp.org",
+    "command": "check-http.rb -u https://sensu.io",
     "subscribers": [
       "demo"
     ],
     "interval": 60,
     "name": "sensu-website",
-    "source": "sensuapp.org",
-    "issued": 1458934742,
-    "executed": 1458934742,
-    "duration": 0.637,
-    "output": "CheckHttp OK: 200, 78572 bytes\n"
-  },
-  "client": "sensu-docs"
+    "source": "sensuapp.org"
+  }
 }
 {{< /highlight >}}
 
-_NOTE: this `source` attribute can be provided in a [check definition][14], or
+_NOTE: This `source` attribute can be provided in a [check definition][14], or
 included in a check result published to the Sensu [client input socket][36]._
 
 By default, proxy client data includes a minimal number of attributes. The
@@ -374,7 +367,7 @@ The Sensu client socket(s) in combination with check TTLs can be used to create
 what's commonly referred to as "dead man's switches". Outside of the software
 industry, a dead man's switch is a switch that is automatically triggered if a
 human operator becomes incapacitated (source: [Wikipedia][18]). Sensu is more
-interested in detecting silent failures than incapacited human operators. By
+interested in detecting silent failures than incapacitated human operators. By
 using Check TTLs, Sensu is able to set an expectation that a Sensu client will
 continue to publish results for a check at a regular interval. If a Sensu client
 fails to publish a check result and the check TTL expires, Sensu will create an
@@ -829,7 +822,7 @@ provided as recommendations for controlling client deregistration behavior._
 
 handler      | 
 -------------|------
-description  | The deregistration handler that should process the client deregistration event.
+description  | The deregistration handler that should process the client deregistration event. To add a deregistration handler to Sensu, install [Sensu Plugins Sensu][68] to use the [`handler-sensu-deregister.rb` handler][69] or [upgrade][70] to Sensu Core [1.7 or later][71] to use the built-in deregistration extension.
 required     | false
 type         | String
 default      | `deregistration`
@@ -857,6 +850,7 @@ Enterprise AWS EC2 integration][39].**
     },
     "ec2": {
       "instance_id": "i-424242",
+      "account": "sensu-testing",
       "allowed_instance_states": [
         "running",
         "rebooting"
@@ -920,6 +914,13 @@ required     | false
 type         | Integer
 default      | `10`
 example      | {{< highlight shell >}}"timeout": 30{{< /highlight >}}
+
+account      | 
+-------------|------
+description  | The account name as specified in `/etc/sensu/conf.d/ec2.json` if using Sensu across AWS accounts.
+required     | false
+type         | String
+example      | {{< highlight shell >}}"account": "sensu-testing"{{< /highlight >}}
 
 #### `chef` attributes
 
@@ -1220,7 +1221,7 @@ information for operations teams can be extremely valuable._
 [37]: #registration-and-registry
 [38]: #ec2-attributes
 [39]: /sensu-enterprise/2.8/integrations/ec2
-[40]: https://sensuapp.org/enterprise
+[40]: https://sensu.io/products/enterprise
 [41]: #chef-attributes
 [42]: /sensu-enterprise/2.8/integrations/chef
 [43]: #puppet-attributes
@@ -1231,3 +1232,7 @@ information for operations teams can be extremely valuable._
 [48]: #deregistration-attributes
 [49]: ../../api/checks#the-request-api-endpoint
 [50]: #http-socket-attributes
+[68]: https://github.com/sensu-plugins/sensu-plugins-sensu
+[69]: https://github.com/sensu-plugins/sensu-plugins-sensu/blob/master/bin/handler-sensu-deregister.rb
+[70]: /sensu-core/1.7/installation/upgrading/#upgrading-the-sensu-package
+[71]: /sensu-core/1.7/changelog/#core-v1-7-0

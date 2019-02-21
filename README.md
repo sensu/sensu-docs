@@ -2,16 +2,16 @@
 
 Welcome to the Sensu Docs project! This repository is the home of [docs.sensu.io][site].
 
-[Read the docs][site] | [Contributing guide](CONTRIBUTING.md) | [Project wiki][wiki] | [Code of conduct][coc] | [Contact admins][email] | [Open an issue][issue]
+[Read the docs][site] | [Contributing guide](CONTRIBUTING.md) | [Style guide][wiki] | [Code of conduct][coc] | [Contact admins][email] | [Open an issue][issue]
 
-![Travis build status](https://travis-ci.org/sensu/sensu-docs.svg?branch=master)
+[![Travis build status](https://travis-ci.com/sensu/sensu-docs.svg?branch=master)](https://travis-ci.com/sensu/sensu-docs)
 
 ---
 
 **We welcome all contributions!
 Read the [contributing guide](CONTRIBUTING.md) to get started.**
 
-For details on formatting and style, see our [project wiki][wiki].
+For details on formatting and style, see the [Sensu Docs style guide][wiki].
 If you have any questions, please [submit an issue][issue], or feel free to reach out in #documentation in the [Sensu Community Slack][slack].
 
 ### Contributing quick start
@@ -71,7 +71,7 @@ This project uses a [fork](themes/hugo-material-docs/) of the wonderful [hugo-ma
 Any time changes are merged to the `master` branch, this project is automatically deployed to [docs.sensu.io][site] using Heroku's own Github integration. For additional details on Heroku configuration and deployment, see [our wiki page](https://github.com/sensu/sensu-docs/wiki/Heroku-Configuration-and-Publishing).
 
 [slack]: http://slack.sensu.io
-[wiki]: https://github.com/sensu/sensu-docs/wiki
+[wiki]: https://github.com/sensu/sensu-docs/wiki/Sensu-docs-style-guide
 [coc]: https://sensu.io/conduct
 [email]: mailto:docs@sensu.io
 [git]: https://git-scm.com/book/en/v2/Getting-Started-Installing-Git
