@@ -29,7 +29,8 @@ See the [hardware requirements guide][5] for minimum and recommended hardware to
 
 > Is there an enterprise version of Sensu Go?
 
-Yes! Sensu Go for enterprise is coming soon. Check out this [Sensu blog post](https://blog.sensu.io/announcing-the-sensu-roadmap-sensu-go-release-date) for more information about Sensu Go for enterprise.
+Yes! Enterprise features for Sensu Go are available in version 5.2.0 and later.
+See the [upgrading guide][30] to upgrade your Sensu installation, and visit the [latest documentation][31] to get started.
 
 > How can I contact the Sensu sales team?
 
@@ -115,3 +116,5 @@ Due to Sensu Go's implementation, it is not possible to use Uchiwa with Sensu Go
 [26]: ../../reference/agent
 [27]: ../../guides/clustering
 [29]: ../../dashboard/overview/
+[30]: /sensu-go/latest/installation/upgrade
+[31]: /sensu-go/latest/getting-started/enterprise

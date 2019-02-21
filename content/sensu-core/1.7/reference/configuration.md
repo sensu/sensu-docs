@@ -745,6 +745,19 @@ example      | {{< highlight json >}}{
 }
 {{< /highlight >}}
 
+deregistration | 
+-------------|------
+description  | Host and port configuration for the built-in deregistration extension. By default, the deregistration extension communicates with the Sensu API running on 127.0.0.1 port 4567.
+required     | false
+type         | Hash
+example      | {{< highlight json >}}{
+  "deregistration": {
+    "host": "10.0.0.1",
+    "port": 14567
+  }
+}
+{{< /highlight >}}
+
 ## Sensu definition specification
 
 Sensu uses the `"sensu": {}` definition scope.
@@ -752,6 +765,19 @@ Sensu uses the `"sensu": {}` definition scope.
 ### Sensu attributes
 
 The following attributes are defined within the `"sensu": {}` definition scope.
+
+global_error_handler | |
+---------------|------
+description    | Enables catch-all error handling. If enabled, Sensu ignores any unexpected errors and logs the event with the message `"unexpected error - please address this immediately"`. You can use this attribute to prevent Sensu services from crashing as a result of unknown errors or invalid data. _WARNING: This attribute is experimental and not recommended unless you're encountering persistent crashing._
+required       | false
+type           | Boolean
+default        | false
+example        | {{< highlight json >}}{
+  "sensu": {
+    "global_error_handler": true
+  }
+}
+{{< /highlight >}}
 
 spawn          | 
 ---------------|------

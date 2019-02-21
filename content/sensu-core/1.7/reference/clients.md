@@ -15,7 +15,7 @@ menu:
 - [Client keepalives](#client-keepalives)
   - [What is a client keepalive?](#what-is-a-client-keepalive)
   - [Client registration & the client registry](#registration-and-registry)
-    - [Registration events](#registration-events)
+    - [Registration and deregistration events](#registration-events)
     - [Proxy clients](#proxy-clients)
   - [How are keepalive events created?](#keepalive-events)
   - [Client keepalive configuration](#client-keepalive-configuration)
@@ -107,6 +107,13 @@ attributes][31], below.
 _WARNING: registration events are not stored in the event registry (in the Sensu
 [data store][8]), so they are not accessible via the Sensu API; however, all
 registration events are logged in the [Sensu server][5] log._
+
+#### Deregistration events
+
+Similarly to registration events, Sensu can create and process a deregistration event when the Sensu client process stops.
+You can use deregistration events to trigger a handler that updates external CMDBs or performs an action to update ephemeral infrastructures.
+By default, registration events trigger the built-in deregistration extension.
+To enable deregistration events, set the client `deregister` flag to `true` and specify the event handler using the client [`deregistration` definition scope][48].
 
 #### Proxy clients
 
@@ -867,7 +874,7 @@ provided as recommendations for controlling client deregistration behavior._
 
 handler      | 
 -------------|------
-description  | The deregistration handler that should process the client deregistration event.
+description  | The deregistration handler that should process the client deregistration event. By default, Sensu uses the built-in deregistration extension to remove clients from Sensu when a client process stops. To configure the host and port used by the deregistration extension, see the [configuration reference][68].
 required     | false
 type         | String
 default      | `deregistration`
@@ -1355,3 +1362,4 @@ information for operations teams can be extremely valuable._
 [65]: ../checks#influxdb-attributes
 [66]: ../../api/clients/#clientsclient-delete
 [67]: ../../platforms
+[68]: ../configuration#top-level-configuration-scopes
