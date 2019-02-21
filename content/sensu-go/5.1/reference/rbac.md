@@ -726,6 +726,50 @@ The following examples are in `wrapped-json` format for use with [`sensuctl crea
 }
 {{< /highlight >}}
 
+### Role and role binding examples
+
+The following role and role binding give a `dev` group access to create and manage Sensu workflows within the `development` namespace.
+
+{{< highlight text >}}
+{
+  "type": "Role",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "workflow-creator",
+    "namespace": "development"
+  },
+  "spec": {
+    "rules": [
+      {
+        "resource_names": [],
+        "resources": ["checks", "hooks", "filters", "events", "filters", "mutators", "handlers"],
+        "verbs": ["get", "list", "create", "update", "delete"]
+      }
+    ]
+  }
+}
+{
+  "type": "RoleBinding",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "dev-binding",
+    "namespace": "development"
+  },
+  "spec": {
+    "role_ref": {
+      "name": "workflow-creator",
+      "type": "Role"
+    },
+    "subjects": [
+      {
+        "name": "dev",
+        "type": "Group"
+      }
+    ]
+  }
+}
+{{< /highlight >}}
+
 [1]: ../backend
 [2]: ../../sensuctl/reference
 [3]: ../../dashboard/overview
