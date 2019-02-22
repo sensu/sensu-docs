@@ -516,6 +516,21 @@ You can specify the agent configuration using a `/etc/sensu/agent.yml` file or u
 See the example config file provided with Sensu at `/usr/share/doc/sensu-go-agent-5.2.1/agent.yml.example`.
 The agent loads configuration upon startup, so you must restart the agent for any configuration updates to take effect.
 
+Sensu agents can also be configured using environment variables.
+With the exception of `labels`, all agent configuration flags can be applied using environment variables in the format `SENSU_$FLAG_NAME` where `$FLAG_NAME` is the name of the configuration flag.
+Environment variables syntax depends on type; configuration flags of type array must use a space-separated list.
+For example:
+
+{{< highlight shell >}}
+# string | integer | boolean
+export SENSU_NAME=webserver01
+export SENSU_KEEPALIVE_INTERVAL=60
+export SENSU_DISABLE_API=true
+
+# array
+export SENSU_SUBSCRIPTIONS="subscription1 subscription2 subscription3"
+{{< /highlight >}}
+
 ### Configuration summary
 
 {{< highlight text >}}
