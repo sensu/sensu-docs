@@ -266,7 +266,7 @@ Sensuctl provides the following commands to manage Sensu resources.
 - [`sensuctl filter`][16]
 - [`sensuctl handler`][17]
 - [`sensuctl hook`][18]
-- [`sensuctl license`](../../reference/enterprise) (enterprise only)
+- [`sensuctl license`](../../reference/license) (enterprise only)
 - [`sensuctl mutator`][19]
 - [`sensuctl namespace`][1]
 - [`sensuctl role`][1]
