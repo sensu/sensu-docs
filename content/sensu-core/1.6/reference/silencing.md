@@ -217,6 +217,13 @@ example      | {{< highlight json >}}{
 }
 {{< /highlight >}}
 
+begin        |      |
+-------------|------|
+description  | Time at which the silence entry goes into effect, in UNIX epoch time. You can use the `begin` attribute to schedule a silencing entry for a planned maintenance.
+required     | false
+type         | Integer
+example      | {{< highlight shell >}}"begin": 1512512023{{< /highlight >}}
+
 ## Examples
 
 ### Silence all checks on a specific client

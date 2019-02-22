@@ -14,7 +14,7 @@ menu:
 - [First-time setup](#first-time-setup)
 - [Managing sensuctl](#managing-sensuctl)
 - [Creating resources](#creating-resources)
-- [Editing resources](#editing-resources)
+- [Updating resources](#updating-resources)
 - [Managing resources](#managing-resources)
 - [Time formats](#time-formats)
 - [Shell auto-completion](#shell-auto-completion)
@@ -218,17 +218,17 @@ cat my-resources.json | sensuctl create
 |sensuctl create types |   |   |   |
 --------------------|---|---|---|
 `AdhocRequest` | `adhoc_request` | `Asset` | `asset`
-`CheckConfig` | `check_config` | `ClusterRole`  | `cluster-role`
-`ClusterRoleBinding`  | `cluster-role-binding` | `Entity` | `entity`
+`CheckConfig` | `check_config` | `ClusterRole`  | `cluster_role`
+`ClusterRoleBinding`  | `cluster_role_binding` | `Entity` | `entity`
 `Event` | `event` | `EventFilter` | `event_filter`
 `Handler` | `handler` | `Hook` | `hook`
 `HookConfig` | `hook_config` | `Mutator` | `mutator`
 `Namespace` | `namespace` | `Role` | `role`
-`RoleBinding` | `role-binding` | `Silenced` | `silenced`
+`RoleBinding` | `role_binding` | `Silenced` | `silenced`
 
-## Editing resources
+## Updating resources
 
-Sensuctl allows you to edit resource definitions using a text editor.
+Sensuctl allows you to update resource definitions using a text editor.
 To use `sensuctl edit`, specify the resource [type][24] and resource name.
 
 For example, to edit a handler named `slack` using `sensuctl edit`:

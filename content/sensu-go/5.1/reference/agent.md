@@ -69,78 +69,15 @@ Unlike agent entities, proxy entity definitions are stored by the [Sensu backend
 When the backend requests a check that includes a [`proxy_entity_name`][14], the agent includes the provided entity information in the event data in place of the agent entity data.
 See the [entity reference][3] and the [guide to monitoring external resources][33] for more information about monitoring proxy entities.
 
-## Creating monitoring events using the agent socket
+## Creating monitoring events using the agent API
 
-Every Sensu agent has a TCP, UDP, and HTTP socket listening for external monitoring data.
-The TCP and UDP sockets listen on the address and port specified by the [socket configuration flags][17]; the HTTP socket listens on the address and port specified by the [API configuration flags][18].
-
-These sockets expect JSON formatted [check results][14], allowing external sources to send monitoring data to Sensu without needing to know anything about Sensu's internal implementation.
-An excellent agent socket use case example is a web application pushing check results to indicate database connectivity issues.
-
-## Using the TCP socket
-
-The following is an example demonstrating external monitoring data input via the Sensu agent TCP socket.
-The example uses Bash's built-in `/dev/tcp` file to communicate with the Sensu agent socket.
-
-{{< highlight shell >}}
-echo '{"name": "check-mysql-status", "output": "error!", "status": 1, "handlers": ["slack"]}' > /dev/tcp/localhost/3030
-{{< /highlight >}}
-
-You can also use the [Netcat][19] utility to send monitoring data to the agent socket:
-
-{{< highlight shell >}}
-echo '{"name": "check-mysql-status", "output": "error!", "status": 1, "handlers": ["slack"]}' | nc localhost 3030
-{{< /highlight >}}
-
-At a minimum, the agent TCP socket requires the `name`, `output`, and `status` attributes to be set in the payload, but you can also add any attributes allowed in the [check definition][14], like `handlers` and `subscriptions`.
-
-#### Socket input specification
-
-TCP socket        | 
-------------------|------
-description       | Accepts a JSON [check result][14] body and passes the event to the Sensu backend event pipeline for processing
-example command   | {{< highlight shell >}}# Example using /dev/tcp
-echo '{"name": "check-mysql-status", "output": "error!", "status": 1, "handlers": ["slack"]}' > /dev/tcp/localhost/3030
-
-# Example using Netcat
-echo '{"name": "check-mysql-status", "output": "error!", "status": 1, "handlers": ["slack"]}' | nc localhost 3030
-{{< /highlight >}}
-payload attributes| <ul><li>`name` (required): A string representing the name of the monitoring check</li><li>`output` (required): A string representing the output of the check</li><li>`status` (required): An integer representing the status of the check result, following the [check result specification][39]. (`0`: OK, `1`: warning, `2`: critical)</li><li>Any other attributes supported by the [Sensu check specification][14] (optional)</li></ul>
-
-## Using the HTTP socket
-
-The HTTP socket, just like the TCP and UDP sockets, accepts check results, but it requires a well-formed HTTP request and exposes other functionality that is not possible with the raw TCP/UDP sockets.
-In exchange for a bit more complexity, the HTTP socket interface has the advantage of being more expressive than a TCP/UDP socket, both in the requests that it accepts and how it responds, and so exposes more functionality.
-The following endpoints are available for the HTTP socket:
-
-### `/healthz` (GET)
-
-The `/healthz` API provides HTTP GET access to the status of the Sensu agent via the agent API.
-
-#### Example {#healthz-get-example}
-
-In the following example, an HTTP GET is submitted to the `/healthz` API:
-
-{{< highlight shell >}}
-curl -s http://127.0.0.1:3031/healthz
-{{< /highlight >}}
-
-Resulting in a healthy response:
-
-{{< highlight shell >}}
-ok
-{{< /highlight >}}
-
-#### API specification {#healthz-get-specification}
-
-/healthz (GET) | 
-----------------|------
-description     | Returns `ok` if the agent is active and connected to a Sensu backend; returns `sensu backend unavailable` if the agent is unable to connect to a backend.
-example url     | http://hostname:3031/healthz
+The Sensu agent API allows external sources to send monitoring data to Sensu without needing to know anything about Sensu's internal implementation.
+The agent API listens on the address and port specified by the [API configuration flags][18]; only unsecured HTTP (no HTTPS) is supported at this time.
+Any requests for unknown endpoints result in a 404 Not Found response.
 
 ### `/events` (POST)
 
-The `/events` API provides HTTP POST access to publish [monitoring events][1] to the Sensu backend pipeline via the agent API.
+The `/events` API provides HTTP POST access to publish [monitoring events][7] to the Sensu backend pipeline via the agent API.
 
 #### Example {#events-post-example}
 
@@ -169,7 +106,7 @@ _PRO TIP: You can use the agent API `/events` endpoint to create proxy entities 
 
 /events (POST)     | 
 -------------------|------
-description        | Accepts a JSON [check result][14] body and passes the event to the Sensu backend event pipeline for processing
+description        | Accepts JSON [event data][7] and passes the event to the Sensu backend event pipeline for processing
 example url        | http://hostname:3031/events
 payload example    | {{< highlight json >}}{
   "check": {
@@ -183,12 +120,145 @@ payload example    | {{< highlight json >}}{
 payload attributes | <ul><li>`check` (required): All check data must be within the `check` scope.</li><li>`metadata` (required): The `check` scope must contain a `metadata` scope.</li><li>`name` (required): The `metadata` scope must contain the `name` attribute with a string representing the name of the monitoring check.</li><li>Any other attributes supported by the [Sensu check specification][14] (optional)</li></ul>
 response codes     | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
-### `/brew` (GET)
+### `/healthz` (GET)
 
-This endpoint gets you some fresh coffee. Try it!
+The `/healthz` API provides HTTP GET access to the status of the Sensu agent via the agent API.
 
-Any requests for unknown endpoints results in a 404 Not Found response.
-Only unsecured HTTP (no HTTPS) is supported.
+#### Example {#healthz-get-example}
+
+In the following example, an HTTP GET is submitted to the `/healthz` API:
+
+{{< highlight shell >}}
+curl -s http://127.0.0.1:3031/healthz
+{{< /highlight >}}
+
+Resulting in a healthy response:
+
+{{< highlight shell >}}
+ok
+{{< /highlight >}}
+
+#### API specification {#healthz-get-specification}
+
+/healthz (GET) | 
+----------------|------
+description     | Returns `ok` if the agent is active and connected to a Sensu backend; returns `sensu backend unavailable` if the agent is unable to connect to a backend.
+example url     | http://hostname:3031/healthz
+
+## Creating monitoring events using the agent TCP and UDP sockets
+
+Sensu agents listen for external monitoring data using TCP and UDP sockets.
+The TCP and UDP sockets listen on the address and port specified by the [socket configuration flags][17].
+
+These sockets allow external sources to send monitoring data to Sensu without needing to know anything about Sensu's internal implementation.
+An excellent agent socket use case example is a web application pushing check results to indicate database connectivity issues.
+
+## Using the TCP socket
+
+The Sensu agent's TCP socket accepts JSON event data and passes the event to the Sensu backend event pipeline for processing.
+The following is an example demonstrating external monitoring data input via the Sensu agent TCP socket.
+The example uses Bash's built-in `/dev/tcp` file to communicate with the Sensu agent socket.
+
+{{< highlight shell >}}
+echo '{"name": "check-mysql-status", "status": 1, "output": "error!"}' > /dev/tcp/localhost/3030
+{{< /highlight >}}
+
+You can also use the [Netcat][19] utility to send monitoring data to the agent socket:
+
+{{< highlight shell >}}
+echo '{"name": "check-mysql-status", "status": 1, "output": "error!"}' | nc localhost 3030
+{{< /highlight >}}
+
+### TCP socket event format
+
+The agent TCP socket uses a special event data format designed for simplicity and backwards compatibility with [Sensu 1.x check results][42].
+Attributes specified in socket events appear in the resulting event data passed to the Sensu backend.
+
+**Example TCP socket input: Minimum required attributes**
+
+{{< highlight json >}}
+{
+  "name": "check-mysql-status",
+  "status": 1,
+  "output": "error!"
+}
+{{< /highlight >}}
+
+**Example TCP socket input: All attributes**
+
+{{< highlight json >}}
+{
+  "name": "check-http",
+  "status": 1,
+  "output": "404",
+  "client": "sensu-docs-site",
+  "executed": 1550013435,
+  "duration": 1.903135228
+}
+{{< /highlight >}}
+
+### TCP socket event specification
+
+The Sensu agent socket ignores any attributes not included in this specification.
+
+name         | 
+-------------|------
+description  | The check name
+required     | true
+type         | String
+example      | {{< highlight shell >}}"name": "check-mysql-status"{{< /highlight >}}
+
+status       | 
+-------------|------
+description  | The check execution exit status code. An exit status code of `0` (zero) indicates `OK`, `1` indicates `WARNING`, and `2` indicates `CRITICAL`; exit status codes other than `0`, `1`, or `2` indicate an `UNKNOWN` or custom status.
+required     | true
+type         | Integer
+example      | {{< highlight shell >}}"status": 0{{< /highlight >}}
+
+output       | 
+-------------|------
+description  | The output produced by the check `command`.
+required     | true
+type         | String
+example      | {{< highlight shell >}}"output": "CheckHttp OK: 200, 78572 bytes"{{< /highlight >}}
+
+client       | 
+-------------|------
+description  | The name of the Sensu entity associated with the event. The `client` attribute gives you the ability to tie the event to a proxy entity while providing compatibility with [Sensu 1.x check results][42]. Use this attribute to specify the name of the [proxy entity][43] tied to the event.
+required     | false
+default      | The agent entity receiving the event data
+type         | String
+example      | {{< highlight shell >}}"client": "sensu-docs-site"{{< /highlight >}}
+
+executed     | 
+-------------|------
+description  | The time the check was executed, in seconds since the Unix epoch.
+required     | false
+default      | The time the event was received by the agent
+type         | Integer
+example      | {{< highlight shell >}}"executed": 1458934742{{< /highlight >}}
+
+duration     | 
+-------------|------
+description  | The amount of time (in seconds) it took to execute the check.
+required     | false
+type         | Float
+example      | {{< highlight shell >}}"duration": 1.903135228{{< /highlight >}}
+
+command      | 
+-------------|------
+description  | The command executed to produce the event. You can use this attribute to add context to the event data; Sensu does not execute the command included in this attribute.
+required     | false
+type         | String
+example      | {{< highlight shell >}}"command": "check-http.rb -u https://sensuapp.org"{{< /highlight >}}
+
+interval     | 
+-------------|------
+description  | The interval used to produce the event. You can use this attribute to add context to the event data; Sensu does not act on the value provided in this attribute.
+required     | false
+default      | `1`
+type         | Integer
+example      | {{< highlight shell >}}"interval": 60{{< /highlight >}}
 
 ### Creating a "dead man's switch"
 
@@ -879,3 +949,5 @@ statsd-metrics-port: 6125{{< /highlight >}}
 [39]: ../checks#check-result-specification
 [40]: ../../guides/send-slack-alerts
 [41]: ../rbac/#namespaced-resource-types
+[42]: /sensu-core/latest/reference/checks/#check-result-specification
+[43]: ../entities#proxy-entities
