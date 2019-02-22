@@ -34,7 +34,12 @@ You can manage your Sensu account and contact support through [account.sensu.io]
 
 If you haven't already, [install the Sensu Go backend, agent, and sensuctl tool](../../installation/install-sensu) and [configure sensuctl](../../sensuctl/reference/#first-time-setup).
 
-Log in to your Sensu account at [account.sensu.io](https://account.sensu.io/) and download your license file, then activate your license using sensuctl.
+Log in to your Sensu account at [account.sensu.io](https://account.sensu.io/)
+and download your license file using the "Download license" link.
+
+<img alt="Screenshot of Sensu Account License Download" src="/images/go-license-download.png" width="500px">
+
+With the license file downloaded, you can install your license using sensuctl.
 
 {{< highlight shell >}}
 sensuctl create --file sensu_license.json
