@@ -49,7 +49,7 @@ For example, to create a proxy entity with a `url` label using sensuctl `create`
   "api_version": "core/v2",
   "metadata": {
     "name": "sensu-docs",
-    "namespace": "web",
+    "namespace": "default",
     "labels": {
       "url": "docs.sensu.io"
     }
@@ -90,7 +90,7 @@ And update the `metadata` scope to include `labels`.
   "api_version": "core/v2",
   "metadata": {
     "name": "sensu-docs",
-    "namespace": "web",
+    "namespace": "default",
     "labels": {
       "url": "docs.sensu.io"
     }

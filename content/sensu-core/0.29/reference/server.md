@@ -67,7 +67,7 @@ servers &ndash; check requests for a given check (based on the check name) will
 be published at the <abbr title="typically accurate within 500ms">exact same
 time</abbr>. The also means that in the event of a Sensu server restart and/or
 Sensu server task re-election (i.e. if a new Sensu server is elected
-to become reponsible for check execution scheduling), check execution
+to become responsible for check execution scheduling), check execution
 scheduling intervals will remain consistent.
 
 In fact, because this algorithm is also shared by the Sensu client &ndash; which
@@ -137,7 +137,7 @@ the cluster will force a redistribution of tasks.
   responsible for monitoring check aggregates and pruning stale
   aggregate results.
 
-To observe which Sensu server is currently reponsible for one or more
+To observe which Sensu server is currently responsible for one or more
 tasks, see [API /info][23].
 
 ## Scaling Sensu
