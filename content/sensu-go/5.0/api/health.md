@@ -20,7 +20,7 @@ The following example demonstrates a request to the `/health` API, resulting in
 a JSON map containing Sensu health data.
 
 {{< highlight shell >}}
-curl http://127.0.0.1:8080/health -H "Authorization: Bearer TOKEN"
+curl http://127.0.0.1:8080/health
 
 HTTP/1.1 200 OK
 {

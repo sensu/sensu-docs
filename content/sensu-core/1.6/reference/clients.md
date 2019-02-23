@@ -867,7 +867,7 @@ provided as recommendations for controlling client deregistration behavior._
 
 handler      | 
 -------------|------
-description  | The deregistration handler that should process the client deregistration event.
+description  | The deregistration handler that should process the client deregistration event. To add a deregistration handler to Sensu, install [Sensu Plugins Sensu][68] to use the [`handler-sensu-deregister.rb` handler][69] or [upgrade][70] to Sensu Core [1.7 or later][71] to use the built-in deregistration extension.
 required     | false
 type         | String
 default      | `deregistration`
@@ -1355,3 +1355,7 @@ information for operations teams can be extremely valuable._
 [65]: ../checks#influxdb-attributes
 [66]: ../../api/clients/#clientsclient-delete
 [67]: ../../platforms
+[68]: https://github.com/sensu-plugins/sensu-plugins-sensu
+[69]: https://github.com/sensu-plugins/sensu-plugins-sensu/blob/master/bin/handler-sensu-deregister.rb
+[70]: /sensu-core/1.7/installation/upgrading/#upgrading-the-sensu-package
+[71]: /sensu-core/1.7/changelog/#core-v1-7-0

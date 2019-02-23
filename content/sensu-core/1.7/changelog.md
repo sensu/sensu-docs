@@ -8,6 +8,7 @@ menu: "sensu-core-1.7"
 
 ## Releases
 
+- [Core 1.7.0 Release Notes](#core-v1-7-0)
 - [Core 1.6.2 Release Notes](#core-v1-6-2)
 - [Core 1.6.1 Release Notes](#core-v1-6-1)
 - [Core 1.6.0 Release Notes](#core-v1-6-0)
@@ -55,6 +56,32 @@ menu: "sensu-core-1.7"
 - [Core 0.23.2 Release Notes](#core-v0-23-2)
 - [Core 0.23.1 Release Notes](#core-v0-23-1)
 - [Core 0.23.0 Release Notes](#core-v0-23-0)
+
+## Core 1.7.0 Release Notes {#core-v1-7-0}
+
+Source: [GitHub.com][71]
+
+**February 21, 2019** &mdash; Sensu Core version 1.7.0 has been released
+  and is available for immediate download. Please note the following
+  improvements:
+
+### CHANGES {#core-v1-7-0-changes}
+
+- **NEW**: Sensu now includes a built-in client deregistration extension. See the [client reference][75] to configure the deregistration extension.
+
+- **NEW**: Sensu now provides opt-in global error handling. See the [Sensu configuration reference][72] for more information.
+
+- **IMPROVEMENT**: The health API now returns information to help diagnose an unhealthy Sensu instance, including transport consumer and message counts. See the [API docs][73] for more information.
+
+- **BUGFIX**: The clients API GET endpoints now redact sensitive attributes as defined in the [client configuration][74].
+
+- **BUGFIX**: Stale server registry entries now expire after 30 seconds without an update.
+
+- **BUGFIX**: Token substitution now splits default values on the first instance of the pipe character, fixing a bug impacting regular expressions in token substitution default values.
+
+- **BUGFIX**: Fixed a bug causing incorrect tokens in check requests created using the Sensu API.
+
+- **BUGFIX**: Improved error logging.
 
 ## Core 1.6.2 Release Notes {#core-v1-6-2}
 
@@ -1762,6 +1789,13 @@ available for immediate download. Please note the following improvements:
 [68]: https://github.com/sensu/sensu/blob/master/CHANGELOG.md#162---2018-12-07
 [69]: https://github.com/sensu/sensu-translator
 [70]: /sensu-go/latest/installation/upgrade
+
+<!-- 1.7.0 -->
+[71]: https://github.com/sensu/sensu/blob/master/CHANGELOG.md#170---2019-02-19
+[72]: /sensu-core/1.7/reference/configuration#sensu-definition-specification
+[73]: /sensu-core/1.7/api/health-and-info
+[74]: /sensu-core/1.7/reference/clients/#client-attributes
+[75]: /sensu-core/1.7/reference/clients/#deregistration-events
 
 <!-- GH Issues/PR's -->
 
