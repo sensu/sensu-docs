@@ -135,7 +135,7 @@ Before we get started, go ahead and [install the HTTP check script][13] if you h
 
 ### Installing an HTTP check script
 
-First, we'll install a [bash script][4], named `http_check.sh`, to perform an HTTP
+If you haven't already, install a [bash script][4], named `http_check.sh`, to perform an HTTP
 check using **curl**.
 
 {{< highlight shell >}}
