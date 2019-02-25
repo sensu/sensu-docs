@@ -128,11 +128,11 @@ $ echo $SE_USER:$SE_PASS
 
 2. Install the GPG public key:
    {{< highlight shell >}}
-wget -q http://$SE_USER:$SE_PASS@enterprise.sensuapp.com/apt/pubkey.gpg -O- | sudo apt-key add -{{< /highlight >}}
+wget -q https://$SE_USER:$SE_PASS@enterprise.sensuapp.com/apt/pubkey.gpg -O- | sudo apt-key add -{{< /highlight >}}
 
 3. Create an APT configuration file at `/etc/apt/sources.list.d/sensu-enterprise.list`:
    {{< highlight shell >}}
-echo "deb     http://$SE_USER:$SE_PASS@enterprise.sensuapp.com/apt sensu-enterprise main" | sudo tee /etc/apt/sources.list.d/sensu-enterprise.list{{< /highlight >}}
+echo "deb     https://$SE_USER:$SE_PASS@enterprise.sensuapp.com/apt sensu-enterprise main" | sudo tee /etc/apt/sources.list.d/sensu-enterprise.list{{< /highlight >}}
 
 4. Update APT:
    {{< highlight shell >}}
@@ -164,11 +164,11 @@ $ echo $SE_USER:$SE_PASS
 
 2. Install the GPG public key:
    {{< highlight shell >}}
-wget -q http://$SE_USER:$SE_PASS@enterprise.sensuapp.com/apt/pubkey.gpg -O- | sudo apt-key add -{{< /highlight >}}
+wget -q https://$SE_USER:$SE_PASS@enterprise.sensuapp.com/apt/pubkey.gpg -O- | sudo apt-key add -{{< /highlight >}}
 
 3. Create an APT configuration file at `/etc/apt/sources.list.d/sensu-enterprise.list`:
    {{< highlight shell >}}
-echo "deb     http://$SE_USER:$SE_PASS@enterprise.sensuapp.com/apt sensu-enterprise main" | sudo tee /etc/apt/sources.list.d/sensu-enterprise.list{{< /highlight >}}
+echo "deb     https://$SE_USER:$SE_PASS@enterprise.sensuapp.com/apt sensu-enterprise main" | sudo tee /etc/apt/sources.list.d/sensu-enterprise.list{{< /highlight >}}
 
 4. Update APT:
    {{< highlight shell >}}
