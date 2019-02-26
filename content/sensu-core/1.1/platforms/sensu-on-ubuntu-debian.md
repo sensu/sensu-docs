@@ -126,23 +126,28 @@ SE_PASS=PASSWORD{{< /highlight >}}
 $ echo $SE_USER:$SE_PASS
 1234567890:PASSWORD{{< /highlight >}}
 
-2. Install the GPG public key:
+2. Install the `apt-transport-https` package:
+{{< highlight shell >}}
+sudo apt-get install apt-transport-https
+{{< /highlight >}}
+
+3. Install the GPG public key:
    {{< highlight shell >}}
 wget -q https://$SE_USER:$SE_PASS@enterprise.sensuapp.com/apt/pubkey.gpg -O- | sudo apt-key add -{{< /highlight >}}
 
-3. Create an APT configuration file at `/etc/apt/sources.list.d/sensu-enterprise.list`:
+4. Create an APT configuration file at `/etc/apt/sources.list.d/sensu-enterprise.list`:
    {{< highlight shell >}}
 echo "deb     https://$SE_USER:$SE_PASS@enterprise.sensuapp.com/apt sensu-enterprise main" | sudo tee /etc/apt/sources.list.d/sensu-enterprise.list{{< /highlight >}}
 
-4. Update APT:
+5. Update APT:
    {{< highlight shell >}}
 sudo apt-get update{{< /highlight >}}
 
-5. Install Sensu Enterprise:
+6. Install Sensu Enterprise:
    {{< highlight shell >}}
 sudo apt-get install sensu-enterprise{{< /highlight >}}
 
-6. Configure Sensu Enterprise. **No "default" configuration is provided with
+7. Configure Sensu Enterprise. **No "default" configuration is provided with
    Sensu Enterprise**, so Sensu Enterprise will run without the corresponding
    configuration. Please refer to the ["Configure Sensu" section][11] (below)
    for more information on configuring Sensu Enterprise.
@@ -162,23 +167,28 @@ SE_PASS=PASSWORD{{< /highlight >}}
 $ echo $SE_USER:$SE_PASS
 1234567890:PASSWORD{{< /highlight >}}
 
-2. Install the GPG public key:
+2. Install the `apt-transport-https` package:
+{{< highlight shell >}}
+sudo apt-get install apt-transport-https
+{{< /highlight >}}
+
+3. Install the GPG public key:
    {{< highlight shell >}}
 wget -q https://$SE_USER:$SE_PASS@enterprise.sensuapp.com/apt/pubkey.gpg -O- | sudo apt-key add -{{< /highlight >}}
 
-3. Create an APT configuration file at `/etc/apt/sources.list.d/sensu-enterprise.list`:
+4. Create an APT configuration file at `/etc/apt/sources.list.d/sensu-enterprise.list`:
    {{< highlight shell >}}
 echo "deb     https://$SE_USER:$SE_PASS@enterprise.sensuapp.com/apt sensu-enterprise main" | sudo tee /etc/apt/sources.list.d/sensu-enterprise.list{{< /highlight >}}
 
-4. Update APT:
+5. Update APT:
    {{< highlight shell >}}
 sudo apt-get update{{< /highlight >}}
 
-5. Install Sensu Enterprise Dashboard:
+6. Install Sensu Enterprise Dashboard:
    {{< highlight shell >}}
 sudo apt-get install sensu-enterprise-dashboard{{< /highlight >}}
 
-6. Configure Sensu Enterprise Dashboard. **The default configuration
+7. Configure Sensu Enterprise Dashboard. **The default configuration
    will not work without modification** Please refer to the
    ["Example Sensu Enterprise Dashboard configurations" section][18] (below) for more information on
    configuring Sensu Enterprise Dashboard.
