@@ -1,7 +1,7 @@
 ---
 title: "Get started with Sensu"
 linkTitle: "Get Started with Sensu"
-description: "It’s easy to get started with Sensu Go. Download the sandbox, install our open source monitoring software, or try our enterprise features. Get started with Sensu today."
+description: "It’s easy to get started with Sensu Go. Download the sandbox, install our flexible monitoring software, and try our enterprise features. Get started with Sensu today."
 version: "5.1"
 weight: 1
 product: "Sensu Go"
