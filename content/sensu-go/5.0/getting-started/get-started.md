@@ -17,9 +17,9 @@ The sandbox is the best place to get started with Sensu and try out new features
 - [Download the sandbox and learn Sensu Go][7]
 - [See more sandbox lessons][1]
 
-### Install Sensu Go (OSS)
+### Install Sensu Go
 
-Sensu Go is the free and open source monitoring event pipeline, written in Go and designed for container-based and hybrid-cloud infrastructures.
+Sensu Go is the flexible monitoring event pipeline, written in Go and designed for container-based and hybrid-cloud infrastructures.
 
 - [Install Sensu Go][2]
 
