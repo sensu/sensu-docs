@@ -61,7 +61,7 @@ menu: "sensu-core-1.7"
 
 Source: [GitHub.com][71]
 
-**February 20, 2019** &mdash; Sensu Core version 1.7.0 has been released
+**February 21, 2019** &mdash; Sensu Core version 1.7.0 has been released
   and is available for immediate download. Please note the following
   improvements:
 

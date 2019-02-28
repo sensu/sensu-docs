@@ -277,7 +277,6 @@ form {
 }
 
 img {
-  width: 100%;
   height: auto;
 }
 
@@ -1903,6 +1902,7 @@ img[alt=ssl_example] {
   background-color: #F1F2F6;
   float: right;
 }
+
 .copy:hover {
   background-color: #c2cad6;
 }
