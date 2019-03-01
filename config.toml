@@ -56,6 +56,7 @@ ignoreFiles = [ "sensu-doc-template.md" ]
             "5.0" = []
             "5.1" = []
             "5.2" = []
+            "5.3" = []
 
     [params.products.sensu_core]
         identifier = "sensu-core"
