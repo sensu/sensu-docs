@@ -127,39 +127,73 @@ Now that we know the sandbox is working properly, let's get to the fun stuff: cr
 In this lesson, we'll create a workflow that sends keepalive alerts to Slack.
 (If you'd rather not create a Slack account, you can skip ahead to [lesson 3](#lesson-3-automate-event-production-with-the-sensu-agent).)
 
-We'll use the [Sensu Slack handler](https://github.com/sensu/sensu-slack-handler) to process Sensu events. For convenience, this handler has been installed as part of sandbox provisioning. 
-
 **1. Get your Slack webhook URL**
 
 If you're already an admin of a Slack, visit `https://YOUR WORKSPACE NAME HERE.slack.com/services/new/incoming-webhook` and follow the steps to add the Incoming WebHooks integration, choose a channel, and save the settings.
 (If you're not yet a Slack admin, start [here](https://slack.com/get-started#create) to create a new workspace.)
 After saving, you'll see your webhook URL under Integration Settings.
 
-**2. Create a Sensu Slack handler**
+**2. Register the Sensu Slack handler asset**
 
-Open the `sensu-slack-handler.json` handler definition provided with the sandbox, and edit the `env_vars` attribute to include your Slack channel and webhook URL.
+[Assets][2] are shareable, reusable packages that make it easy to deploy Sensu plugins.
+In this lesson, we'll use the [Sensu Slack handler asset][1] to power a `slack` handler.
+
+Use sensuctl to register the [Sensu Slack handler asset][1].
+
+{{< highlight shell >}}
+sensuctl asset create sensu-slack-handler --url "https://github.com/sensu/sensu-slack-handler/releases/download/1.0.3/sensu-slack-handler_1.0.3_linux_amd64.tar.gz" --sha512 "68720865127fbc7c2fe16ca4d7bbf2a187a2df703f4b4acae1c93e8a66556e9079e1270521999b5871473e6c851f51b34097c54fdb8d18eedb7064df9019adc8"
+{{< /highlight >}}
+
+You should see a confirmation message from sensuctl.
+
+{{< highlight shell >}}
+Created
+{{< /highlight >}}
+
+The `sensu-slack-handler` asset is now ready to use with Sensu.
+You can use sensuctl to see the complete asset definition.
+
+{{< highlight shell >}}
+sensuctl asset info sensu-slack-handler --format yaml
+{{< /highlight >}}
+
+_PRO TIP: You can use resources definition to create and update resources (like assets) using `sensuctl create --file filename.yaml`. See the [sensuctl docs][3] for more information._
+
+**3. Create a Sensu Slack handler**
+
+Open the `sensu-slack-handler.json` handler definition provided with the sandbox, and edit the definition to include your Slack channel, webhook URL, and the `sensu-slack-handler` asset.
 
 {{< highlight shell >}}
 "env_vars": [
   "KEEPALIVE_SLACK_WEBHOOK=https://hooks.slack.com/services/AAA/BBB/CCC",
-  "KEEPALIVE_SLACK_CHANNEL=#sensu-sandbox"
+  "KEEPALIVE_SLACK_CHANNEL=#monitoring"
 ],
+"runtime_assets": ["sensu-slack-handler"]
 {{< /highlight >}}
 
 Now we can create a Slack handler named `keepalive` to process keepalive events.
 
 {{< highlight shell >}}
 sensuctl create --file sensu-slack-handler.json
- 
+{{< /highlight >}}
+
+You can use sensuctl to see available event handlers.
+
+{{< highlight shell >}}
 sensuctl handler list
-   Name      Type   Timeout   Filters   Mutator                                                   Execute                                                                                               Environment Variables                                              Assets  
-─────────── ────── ───────── ───────── ───────── ────────────────────────────────────────────────────────────────────────────────────────────────────────── ───────────────────────────────────────────────────────────────────────────────────────────────────────────── ──────── 
-keepalive   pipe         0                       RUN:  /usr/local/bin/sensu-slack-handler -c "${KEEPALIVE_SLACK_CHANNEL}" -w "${KEEPALIVE_SLACK_WEBHOOK}"   KEEPALIVE_SLACK_WEBHOOK=https://hooks.slack.com/services/AAA/BBB/CCC,KEEPALIVE_SLACK_CHANNEL=#sensu-sandbox 
+{{< /highlight >}}
+
+You should see the `keepalive` handler.
+
+{{< highlight shell >}}
+  Name      Type   Timeout   Filters   Mutator                                                   Execute                                                                                                              Environment Variables                            Assets         
+─────────── ────── ───────── ───────── ───────── ────────────────────────────────────────────────────────────────────────────────────────────────────────── ────────────────────────────────────────────────────────────────────────────────────────────────── ───────────────────── 
+ keepalive   pipe         0                       RUN:  /usr/local/bin/sensu-slack-handler -c "${KEEPALIVE_SLACK_CHANNEL}" -w "${KEEPALIVE_SLACK_WEBHOOK}"   KEEPALIVE_SLACK_WEBHOOK=https://hooks.slack.com/services/XXX,KEEPALIVE_SLACK_CHANNEL=#monitoring   sensu-slack-handler  
 {{< /highlight >}}
 
 You should now see monitoring events in Slack indicating that the sandbox entity is in an OK state.
 
-**3. Filter keepalive events**
+**4. Filter keepalive events**
 
 Now that we're generating Slack alerts, let's reduce the potential for alert fatigue by adding a filter that only sends only warning, critical, and resolution alerts to Slack.
 
@@ -301,23 +335,45 @@ Now let's create the InfluxDB handler to store these metrics and visualize them 
 
 **4. Create an InfluxDB pipeline**
 
-Since we've already installed InfluxDB as part of the sandbox, all we need to do to create an InfluxDB pipeline is create a Sensu handler.
+To create a pipeline to send metric events to InfluxDB, start by registering the [Sensu InfluxDB handler asset][4].
 
-Use the `influx-handler.json` file provided with the sandbox and sensuctl to create the handler:
+{{< highlight shell >}}
+sensuctl asset create sensu-influxdb-handler --url "https://github.com/sensu/sensu-influxdb-handler/releases/download/3.1.2/sensu-influxdb-handler_3.1.2_linux_arm64.tar.gz" --sha512 "9936dce7416345b98df1076673b5713d0a9f1d7aebd02e4a3794e491d4716e039acae16a4360030b0bc3128f6fced3abc42e3208a55d8ff89e645cc5c3905765"
+{{< /highlight >}}
+
+You should see a confirmation message from sensuctl.
+
+{{< highlight shell >}}
+Created
+{{< /highlight >}}
+
+The `sensu-influxdb-handler` asset is now ready to use with Sensu.
+You can use sensuctl to see the complete asset definition.
+
+{{< highlight shell >}}
+sensuctl asset info sensu-influxdb-handler --format yaml
+{{< /highlight >}}
+
+Open the `influx-handler.json` handler definition provided with the sandbox, and edit the `runtime_assets` attribute to include the `sensu-influxdb-handler` asset.
+
+{{< highlight shell >}}
+"runtime_assets": ["sensu-slack-handler"]
+{{< /highlight >}}
+
+Now you can use sensuctl to create the `influx-db` handler.
 
 {{< highlight shell >}}
 sensuctl create --file influx-handler.json
 {{< /highlight >}}
 
-We can use sensuctl to confirm that the handler has been created successfully:
+We can use sensuctl to confirm that the handler has been created successfully.
 
 {{< highlight shell >}}
 sensuctl handler list
-
-   Name      Type   Timeout     Filters     Mutator                                                          Execute                                                                                                                 Environment Variables                                                          Assets  
-─────────── ────── ───────── ───────────── ───────── ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── ───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── ──────── 
-influx-db   pipe         0                           RUN:  /usr/local/bin/sensu-influxdb-handler  --addr 'http://127.0.0.1:8086' --db-name 'sensu' -u 'sensu' -p 'sandbox'
 {{< /highlight >}}
+
+You should see the `influx-db` handler.
+(If you've completed [lesson \#2](#lesson-2-pipe-keepalive-events-into-slack), you'll also see the `keepalive` handler.)
 
 **5. See the HTTP response code events for Nginx in [Grafana](http://localhost:4002/d/go01/sensu-go-sandbox).**
 
@@ -377,3 +433,8 @@ Here are some resources to help continue your journey:
 - [Install Sensu Go](../../installation/install-sensu)
 - [Collect StatsD metrics](../../guides/aggregate-metrics-statsd)
 - [Create a ready-only user](../../guides/create-read-only-user/)
+
+[1]: https://bonsai.sensu.io/assets/sensu/sensu-slack-handler
+[2]: ../../reference/assets
+[3]: ../../sensuctl/reference#creating-resources
+[4]: https://bonsai.sensu.io/assets/sensu/sensu-influxdb-handler
