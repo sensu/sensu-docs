@@ -277,7 +277,6 @@ form {
 }
 
 img {
-  width: 100%;
   height: auto;
 }
 
@@ -1888,3 +1887,22 @@ img[alt=ssl_example] {
   background: none;
 }
 
+.copy {
+  background-image: url(../images/clippy.svg);
+  background-position: 50% 50%;
+  background-size: 16px 16px;
+  background-repeat: no-repeat;
+  width: 27px;
+  height: 1.45rem;
+  top: -1px;
+  display: inline-block;
+  vertical-align: middle;
+  position: relative;
+  color: #5e5e5e;
+  background-color: #F1F2F6;
+  float: right;
+}
+
+.copy:hover {
+  background-color: #c2cad6;
+}
