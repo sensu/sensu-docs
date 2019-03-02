@@ -79,7 +79,7 @@ Files and folders within `/var/cache/sensu/` need to be owned by the sensu user 
 {"component":"agent","error":"open /var/cache/sensu/sensu-agent/assets.db: permission denied","level":"fatal","msg":"error executing sensu-agent","time":"2019-02-21T22:01:04Z"}
 {{< /highlight >}}
 
-You can use a rescusive `chown` to resolve permission issues with the sensu-backend:
+You can use a recursive `chown` to resolve permission issues with the sensu-backend:
 
 {{< highlight shell >}}
 sudo chown -R sensu:sensu /var/cache/sensu/sensu-backend
