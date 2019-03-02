@@ -46,6 +46,7 @@ please complete the following sections of the Sensu installation guide:
 1. [Install and Configure Redis](/sensu-core/latest/installation/install-redis-on-rhel-centos)
 2. [Install and Configure RabbitMQ](/sensu-core/latest/installation/install-rabbitmq-on-rhel-centos)
 3. [Install Sensu Enterprise](/sensu-core/latest/platforms/sensu-on-rhel-centos/#sensu-enterprise)
+4. [Install Sensu Core (to get Sensu Client)](/sensu-core/latest/platforms/sensu-on-rhel-centos/#sensu-core)
 
 {{< platformBlockClose >}}
 
@@ -60,6 +61,7 @@ please complete the following sections of the Sensu installation guide:
 1. [Install and Configure Redis](/sensu-core/latest/installation/install-redis-on-ubuntu-debian)
 2. [Install and Configure RabbitMQ](/sensu-core/latest/installation/install-rabbitmq-on-ubuntu-debian)
 3. [Install Sensu Enterprise](/sensu-core/latest/platforms/sensu-on-ubuntu-debian/#sensu-enterprise)
+4. [Install Sensu Core (to get Sensu Client)](/sensu-core/latest/platforms/sensu-on-ubuntu-debian/)
 
 {{< platformBlockClose >}}
 
