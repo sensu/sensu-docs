@@ -36,7 +36,8 @@ event handler (integration).
     "host": "127.0.0.1",
     "port": 3000,
     "filter_metrics": true,
-    "filter_ok_keepalives": true
+    "filter_ok_keepalives": true,
+    "ring_buffer_size": 500
   }
 }
 {{< /highlight >}}
@@ -77,6 +78,14 @@ required             | false
 type                 | Boolean
 default              | `false`
 example              | {{< highlight shell >}}"filter_ok_keepalives": true{{< /highlight >}}
+
+ring_buffer_size     | 
+---------------------|------
+description          | By default, the event stream integration uses a data stream buffer. The `ring_buffer_size` attribute sets the limit for writes to the buffer. To disable the buffer, set to `0`.
+required             | false
+type                 | Integer
+default              | `1000`
+example              | {{< highlight shell >}}"ring_buffer_size": 500{{< /highlight >}}
 
 [1]:  /sensu-enterprise
 [2]:  /sensu-core/1.2/reference/events
