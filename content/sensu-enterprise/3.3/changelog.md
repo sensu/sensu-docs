@@ -11,6 +11,7 @@ _NOTE: Sensu Enterprise is built on Sensu Core. Sensu Core changes are documente
 
 ## Releases
 
+- [Enterprise 3.3.3 Release Notes](#enterprise-v3-3-3)
 - [Enterprise 3.3.2 Release Notes](#enterprise-v3-3-2)
 - [Enterprise 3.3.1 Release Notes](#enterprise-v3-3-1)
 - [Enterprise 3.3.0 Release Notes](#enterprise-v3-3-0)
@@ -52,6 +53,16 @@ _NOTE: Sensu Enterprise is built on Sensu Core. Sensu Core changes are documente
 - [Enterprise 1.14.1 Release Notes](#enterprise-v1-14-1)
 - [Enterprise 1.14.0 Release Notes](#enterprise-v1-14-0)
 - [Enterprise 1.13.0 Release Notes](#enterprise-v1-13-0)
+
+## Enterprise 3.3.3 Release Notes {#enterprise-v3-3-3}
+
+**January 31, 2019** &mdash; Sensu Enterprise version 3.3.3 has been
+released and is available for immediate download. Please note the
+following improvements:
+
+### CHANGES {#enterprise-v3-3-3-changes}
+
+- **IMPROVEMENT**: Sensu Enterprise now logs additional information in API exceptions.
 
 ## Enterprise 3.3.2 Release Notes {#enterprise-v3-3-2}
 
