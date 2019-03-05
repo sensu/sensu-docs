@@ -10,11 +10,15 @@ menu:
 ---
 
 - [Managing authentication providers](#managing-authentication-providers) (enterprise-only)
+- [Configuring authentication providers](#configuring-authentication-providers) (enterprise-only)
 - [LDAP authentication](#ldap-authentication) (enterprise-only)
-  - [Configuration](#configuring-ldap-authentication)
-  - [Examples](#configuration-examples)
+  - [Examples](#ldap-configuration-examples)
   - [Specification](#ldap-specification)
   - [Troubleshooting](#ldap-troubleshooting)
+- [Active Directory authentication](#active-directory-authentication) (enterprise-only)
+  - [Examples](#active-directory-configuration-examples)
+  - [Specification](#active-directory-specification)
+  - [Troubleshooting](#active-directory-troubleshooting)
 
 Sensu requires username and password authentication to access the [Sensu dashboard][1], [API][8], and command line tool ([sensuctl][2]).
 For Sensu's [default user credentials][3] and more information about configuring Sensu role based access control, see the [RBAC reference][4] and [guide to creating users][5].
@@ -24,7 +28,7 @@ In addition to built-in RBAC, Sensu includes [enterprise-only][6] support for au
 ## Managing authentication providers
 
 You can view and delete authentication providers using sensuctl and the [authentication providers API](../../api/authproviders).
-To set up LDAP authentication for Sensu, see the section on [configuring LDAP authentication](#configuring-ldap-authentication).
+To set up an authentication provider for Sensu, see the section on [configuring authentication providers](#configuring-authentication-providers).
 
 **ENTERPRISE ONLY**: Authentication providers in Sensu Go require an enterprise license. To activate your enterprise license, see the [getting started guide][6].
 
@@ -46,19 +50,14 @@ To delete an authentication provider named `openldap`:
 sensuctl auth delete openldap
 {{< /highlight >}}
 
-## LDAP authentication
+## Configuring authentication providers
 
-Sensu offers enterprise-only support for using a standards-compliant Lightweight Directory Access Protocol tool for authentication to the Sensu dashboard, API, and sensuctl.
-The Sensu LDAP authentication provider is tested with [OpenLDAP][7].
-Sensu does not yet support Active Directory for LDAP authentication or other authentication providers.
+**1. Write an authentication provider configuration definition**
 
-**ENTERPRISE ONLY**: LDAP authentication in Sensu Go requires an enterprise license. To activate your enterprise license, see the [getting started guide][6].
+Write an authentication provider configuration definition.
 
-### Configuring LDAP authentication
-
-**1. Write an LDAP configuration definition**
-
-Write an LDAP configuration definition using the [examples](#configuration-examples) and [specification](#ldap-specification) in this guide.
+For standards-compliant Lightweight Directory Access Protocol tools like OpenLDAP, see the [LDAP configuration examples](#ldap-configuration-examples) and [specification](#ldap-specification).
+For Microsoft Active Directory, see the [AD configuration examples](#active-directory-configuration-examples) and [specification](#active-directory-authentication).
 
 **2. Apply the configuration using sensuctl**
 
@@ -68,7 +67,7 @@ Log in to sensuctl as the [default admin user][3] and apply the configuration to
 sensuctl create --file filename.json
 {{< /highlight >}}
 
-You can verify that your LDAP configuration has been applied successfully using sensuctl.
+You can verify that your provider configuration has been applied successfully using sensuctl.
 
 {{< highlight shell >}}
 sensuctl auth list
@@ -80,14 +79,14 @@ sensuctl auth list
 
 **3. Integrate with Sensu RBAC**
 
-Now that you've configured LDAP authentication, you'll need to configure Sensu RBAC to give those users permissions within Sensu.
+Now that you've configured an authentication provider, you'll need to configure Sensu RBAC to give those users permissions within Sensu.
 Sensu RBAC allows management and access of users and resources based on namespaces, groups, roles, and bindings.
 
 - **Namespaces** partition resources within Sensu. Sensu entities, checks, handlers, and other [namespaced resources][17] belong to a single namespace.
 - **Roles** create sets of permissions (get, delete, etc.) tied to resource types. **Cluster roles** apply permissions across namespaces and include access to [cluster-wide resources][18] like users and namespaces. 
 - **Role bindings** assign a role to a set of users and groups within a namespace; **cluster role bindings** assign a cluster role to a set of users and groups cluster-wide.
 
-To enable permissions for LDAP users and groups within Sensu, create a set of [roles][10], [cluster roles][11], [role bindings][12], and [cluster role bindings][13] that map to the usernames and group names in your LDAP directory.
+To enable permissions for external users and groups within Sensu, create a set of [roles][10], [cluster roles][11], [role bindings][12], and [cluster role bindings][13] that map to the usernames and group names found in your authentication providers.
 Make sure to include the [group prefix](#groups-prefix) and [username prefix](#username-prefix) when creating Sensu role bindings and cluster role bindings.
 See the [RBAC reference][4] for more information about configuring permissions in Sensu and [implementation examples](../../reference/rbac/#role-and-role-binding-examples).
 
@@ -95,7 +94,16 @@ See the [RBAC reference][4] for more information about configuring permissions i
 
 Once you've configured the correct roles and bindings, log in to [sensuctl](../../sensuctl/reference#first-time-setup) and the [Sensu dashboard](../../dashboard/overview) using your single-sign-on username and password (no prefix required).
 
-### Configuration examples
+
+## LDAP authentication
+
+Sensu offers enterprise-only support for using a standards-compliant Lightweight Directory Access Protocol tool for authentication to the Sensu dashboard, API, and sensuctl.
+The Sensu LDAP authentication provider is tested with [OpenLDAP][7].
+Active Directory users should head over to the [Active Directory section](#active-directory-authentication).
+
+**ENTERPRISE ONLY**: LDAP authentication in Sensu Go requires an enterprise license. To activate your enterprise license, see the [getting started guide][6].
+
+### LDAP configuration examples
 
 **Example LDAP configuration: Minimum required attributes**
 
@@ -186,7 +194,7 @@ example      | {{< highlight shell >}}"api_version": "authentication/v2"{{< /hig
 
 metadata     | 
 -------------|------
-description  | Top-level map containing the LDAP definition `name`. See the [metadata attributes reference][8] for details.
+description  | Top-level map containing the LDAP definition `name`. See the [metadata attributes reference][24] for details.
 required     | true
 type         | Map of key-value pairs
 example      | {{< highlight shell >}}
@@ -523,6 +531,347 @@ example:
 [...] could not authorize the request with any ClusterRoleBindings [...]
 ```
 
+## Active Directory authentication
+
+Sensu offers enterprise-only support for using Microsoft Active Directory (AD) for authentication to the Sensu dashboard, API, and sensuctl. The AD authentication provider is based on the [LDAP authentication provider](#ldap-authentication).
+
+**ENTERPRISE ONLY**: AD authentication in Sensu Go requires an enterprise license. To activate your enterprise license, see the [getting started guide][6].
+
+### Active Directory configuration examples
+
+**Example AD configuration: Minimum required attributes**
+
+{{< highlight json >}}
+{
+  "Type": "ad",
+  "api_version": "authentication/v2",
+  "spec": {
+    "servers": [
+      {
+        "host": "127.0.0.1",
+        "binding": {
+          "user_dn": "cn=binder,cn=users,dc=acme,dc=org",
+          "password": "P@ssw0rd!"
+        },
+        "group_search": {
+          "base_dn": "dc=acme,dc=org"
+        },
+        "user_search": {
+          "base_dn": "dc=acme,dc=org"
+        }
+      }
+    ]
+  },
+  "metadata": {
+    "name": "activedirectory"
+  }
+}
+{{< /highlight >}}
+
+**Example AD configuration: All attributes**
+
+{{< highlight json >}}
+{
+  "type": "ad",
+  "api_version": "authentication/v2",
+  "spec": {
+    "servers": [
+      {
+        "host": "127.0.0.1",
+        "port": 636,
+        "insecure": false,
+        "security": "tls",
+        "binding": {
+          "user_dn": "cn=binder,cn=users,dc=acme,dc=org",
+          "password": "P@ssw0rd!"
+        },
+        "group_search": {
+          "base_dn": "dc=acme,dc=org",
+          "attribute": "member",
+          "name_attribute": "cn",
+          "object_class": "group"
+        },
+        "user_search": {
+          "base_dn": "dc=acme,dc=org",
+          "attribute": "sAMAccountName",
+          "name_attribute": "displayName",
+          "object_class": "person"
+        }
+      }
+    ],
+    "groups_prefix": "ad",
+    "username_prefix": "ad"
+  },
+  "metadata": {
+    "name": "activedirectory"
+  }
+}
+{{< /highlight >}}
+
+## Active Directory specification
+
+### Top-level attributes
+
+type         | 
+-------------|------
+description  | Top-level attribute specifying the [`sensuctl create`][sc] resource type. AD definitions should always be of type `ad`.
+required     | true
+type         | String
+example      | {{< highlight shell >}}"type": "ad"{{< /highlight >}}
+
+api_version  | 
+-------------|------
+description  | Top-level attribute specifying the Sensu API group and version. For AD definitions, this attribute should always be `authentication/v2`.
+required     | true
+type         | String
+example      | {{< highlight shell >}}"api_version": "authentication/v2"{{< /highlight >}}
+
+metadata     | 
+-------------|------
+description  | Top-level map containing the AD definition `name`. See the [metadata attributes reference][23] for details.
+required     | true
+type         | Map of key-value pairs
+example      | {{< highlight shell >}}
+"metadata": {
+  "name": "activedirectory"
+}
+{{< /highlight >}}
+
+spec         | 
+-------------|------
+description  | Top-level map that includes the AD [spec attributes](#active-directory-spec-attributes).
+required     | true
+type         | Map of key-value pairs
+example      | {{< highlight shell >}}
+"spec": {
+  "servers": [
+    {
+      "host": "127.0.0.1",
+      "binding": {
+        "user_dn": "cn=binder,cn=users,dc=acme,dc=org",
+        "password": "P@ssw0rd!"
+      },
+      "group_search": {
+        "base_dn": "dc=acme,dc=org"
+      },
+      "user_search": {
+        "base_dn": "dc=acme,dc=org"
+      }
+    }
+  ]
+}
+{{< /highlight >}}
+
+### Active Directory spec attributes
+
+| servers    |      |
+-------------|------
+description  | An array of [AD servers](#active-directory-server-attributes) for your directory. During the authentication process, Sensu attempts to authenticate using each AD server in sequence.
+required     | true
+type         | Array
+example      | {{< highlight shell >}}
+"servers": [
+  {
+    "host": "127.0.0.1",
+    "binding": {
+      "user_dn": "cn=binder,cn=users,dc=acme,dc=org",
+      "password": "P@ssw0rd!"
+    },
+    "group_search": {
+      "base_dn": "dc=acme,dc=org"
+    },
+    "user_search": {
+      "base_dn": "dc=acme,dc=org"
+    }
+  }
+]
+{{< /highlight >}}
+
+<a name="ad-groups-prefix"></a>
+
+| groups_prefix |   |
+-------------|------
+description  | The prefix added to all AD groups. Sensu prepends prefixes with a colon. For example, for the groups prefix `ad` and the group `dev`, the resulting group name in Sensu is `ad:dev`. Use this prefix when integrating AD groups with Sensu RBAC [role bindings][12] and [cluster role bindings][13].
+required     | false
+type         | String
+example      | {{< highlight shell >}}"groups_prefix": "ad"{{< /highlight >}}
+
+<a name="ad-username-prefix"></a>
+
+| username_prefix | |
+-------------|------
+description  | The prefix added to all AD usernames.  Sensu prepends prefixes with a colon. For example, for the username prefix `ad` and the user `alice`, the resulting username in Sensu is `ad:alice`. Use this prefix when integrating AD users with Sensu RBAC [role bindings][12] and [cluster role bindings][13]. Users _do not_ need to provide this prefix when logging in to Sensu.
+required     | false
+type         | String
+example      | {{< highlight shell >}}"username_prefix": "ad"{{< /highlight >}}
+
+### Active Directory server attributes
+
+| host       |      |
+-------------|------
+description  | AD server IP address or [FQDN](https://en.wikipedia.org/wiki/Fully_qualified_domain_name)
+required     | true
+type         | String
+example      | {{< highlight shell >}}"host": "127.0.0.1"{{< /highlight >}}
+
+| port       |      |
+-------------|------
+description  | AD server port
+required     | true
+type         | Integer
+default      | `389` for insecure connections, `636` for TLS connections
+example      | {{< highlight shell >}}"port": 636{{< /highlight >}}
+
+| insecure   |      |
+-------------|------
+description  | Skips SSL certificate verification when set to `true`. _WARNING: Do not use an insecure connection in production environments._
+required     | false
+type         | Boolean
+default      | `false`
+example      | {{< highlight shell >}}"insecure": false{{< /highlight >}}
+
+| security   |      |
+-------------|------
+description  | Determines the encryption type to be used for the connection to the AD server: `insecure` (unencrypted connection, not recommended for production), `tls` (secure encrypted connection), or `starttls` (unencrypted connection upgrades to a secure connection).
+type         | String
+default      | `"tls"`
+example      | {{< highlight shell >}}"security": "tls"{{< /highlight >}}
+
+| binding    |      |
+-------------|------
+description  | The AD account that performs user and group lookups.
+required     | true
+type         | Map
+example      | {{< highlight shell >}}
+"binding": {
+  "user_dn": "cn=binder,cn=users,dc=acme,dc=org",
+  "password": "P@ssw0rd!"
+}
+{{< /highlight >}}
+
+| group_search |    |
+-------------|------
+description  | Search configuration for groups. See the [group search attributes](#active-directory-group-search-attributes) for more information.
+required     | true
+type         | Map
+example      | {{< highlight shell >}}
+"group_search": {
+  "base_dn": "dc=acme,dc=org",
+  "attribute": "member",
+  "name_attribute": "cn",
+  "object_class": "group"
+}
+{{< /highlight >}}
+
+| user_search |     |
+-------------|------
+description  | Search configuration for users. See the [user search attributes](#active-directory-user-search-attributes) for more information.
+required     | true
+type         | Map
+example      | {{< highlight shell >}}
+"user_search": {
+  "base_dn": "dc=acme,dc=org",
+  "attribute": "sAMAccountName",
+  "name_attribute": "displayName",
+  "object_class": "person"
+}
+{{< /highlight >}}
+
+### Active Directory binding attributes
+
+| user_dn    |      |
+-------------|------
+description  | The AD account that performs user and group lookups. We recommend using a read-only account. Use the distinguished name (DN) format, such as `cn=binder,cn=users,dc=domain,dc=tld`.
+required     | true
+type         | String
+example      | {{< highlight shell >}}"user_dn": "cn=binder,cn=users,dc=acme,dc=org"{{< /highlight >}}
+
+| password   |      |
+-------------|------
+description  | Password for the `user_dn` account.
+required     | true
+type         | String
+example      | {{< highlight shell >}}"password": "P@ssw0rd!"{{< /highlight >}}
+
+### Active Directory group search attributes
+
+| base_dn    |      |
+-------------|------
+description  | Tells Sensu which part of the directory tree to search. For example, `dc=acme,dc=org` searches within the `acme.org` directory.
+required     | true
+type         | String
+example      | {{< highlight shell >}}"base_dn": "dc=acme,dc=org"{{< /highlight >}}
+
+| attribute  |      |
+-------------|------
+description  | Used for comparing result entries. This is combined with other filters as <br> `"(<Attribute>=<value>)"`.
+required     | false
+type         | String
+default      | `"member"`
+example      | {{< highlight shell >}}"attribute": "member"{{< /highlight >}}
+
+| name_attribute |  |
+-------------|------
+description  | Represents the attribute to use as the entry name.
+required     | false
+type         | String
+default      | `"cn"`
+example      | {{< highlight shell >}}"name_attribute": "cn"{{< /highlight >}}
+
+| object_class |   |
+-------------|------
+description  | Identifies the class of objects returned in the search result. This is combined with other filters as `"(objectClass=<ObjectClass>)"`.
+required     | false
+type         | String
+default      | `"group"`
+example      | {{< highlight shell >}}"object_class": "group"{{< /highlight >}}
+
+### Active Directory user search attributes
+
+| base_dn    |      |
+-------------|------
+description  | Tells Sensu which part of the directory tree to search. For example, `dc=acme,dc=org` searches within the `acme.org` directory.
+required     | true
+type         | String
+example      | {{< highlight shell >}}"base_dn": "dc=acme,dc=org"{{< /highlight >}}
+
+| attribute  |      |
+-------------|------
+description  | Used for comparing result entries. This is combined with other filters as <br> `"(<Attribute>=<value>)"`.
+required     | false
+type         | String
+default      | `"sAMAccountName"`
+example      | {{< highlight shell >}}"attribute": "sAMAccountName"{{< /highlight >}}
+
+| name_attribute |  |
+-------------|------
+description  | Represents the attribute to use as the entry name.
+required     | false
+type         | String
+default      | `"displayName"`
+example      | {{< highlight shell >}}"name_attribute": "displayName"{{< /highlight >}}
+
+| object_class |   |
+-------------|------
+description  | Identifies the class of objects returned in the search result. This is combined with other filters as `"(objectClass=<ObjectClass>)"`.
+required     | false
+type         | String
+default      | `"person"`
+example      | {{< highlight shell >}}"object_class": "person"{{< /highlight >}}
+
+### Active Directory metadata attributes
+
+| name       |      |
+-------------|------
+description  | A unique string used to identify the AD configuration. Names cannot contain special characters or spaces (validated with Go regex [`\A[\w\.\-]+\z`](https://regex101.com/r/zo9mQU/2)).
+required     | true
+type         | String
+example      | {{< highlight shell >}}"name": "activedirectory"{{< /highlight >}}
+
+## Active Directory troubleshooting
+
+See the [LDAP troubleshooting](#ldap-troubleshooting) section.
+
 [sc]: ../../sensuctl/reference#creating-resources
 [sp]: #spec-attributes
 [1]: ../../dashboard/overview
@@ -544,3 +893,5 @@ example:
 [20]: #managing-authentication-providers
 [21]: #group-search-attributes
 [22]: #user-search-attributes
+[23]: #active-directory-metadata-attributes
+[24]: #metadata-attributes
