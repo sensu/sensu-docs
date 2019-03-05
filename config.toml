@@ -80,7 +80,7 @@ ignoreFiles = [ "sensu-doc-template.md" ]
         name = "Sensu Enterprise"
         description = "The powerful and simple monitoring product, built on Sensu Core"
         weight = 3
-        latest = "3.3"
+        latest = "3.4"
         [params.products.sensu_enterprise.versions]
             "3.4" = ["Ubuntu/Debian", "RHEL/CentOS"]
             "3.3" = ["Ubuntu/Debian", "RHEL/CentOS"]
