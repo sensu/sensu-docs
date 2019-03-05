@@ -517,18 +517,19 @@ See the example config file provided with Sensu at `/usr/share/doc/sensu-go-agen
 The agent loads configuration upon startup, so you must restart the agent for any configuration updates to take effect.
 
 Sensu agents can also be configured using environment variables.
+Environment variables can be a useful configuration tool for container-based workflows.
 With the exception of `labels`, all agent configuration flags can be applied using environment variables in the format `SENSU_$FLAG_NAME` where `$FLAG_NAME` is the name of the configuration flag.
 Environment variables syntax depends on type; configuration flags of type array must use a space-separated list.
 For example:
 
 {{< highlight shell >}}
 # string | integer | boolean
-export SENSU_NAME=webserver01
-export SENSU_KEEPALIVE_INTERVAL=60
-export SENSU_DISABLE_API=true
+SENSU_NAME=webserver01
+SENSU_KEEPALIVE_INTERVAL=60
+SENSU_DISABLE_API=true
 
 # array
-export SENSU_SUBSCRIPTIONS="subscription1 subscription2 subscription3"
+SENSU_SUBSCRIPTIONS="subscription1 subscription2 subscription3"
 {{< /highlight >}}
 
 ### Configuration summary
