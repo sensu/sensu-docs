@@ -10,6 +10,7 @@ _NOTE: Sensu Enterprise Dashboard is built on Uchiwa. Uchiwa changes are documen
 
 ## Releases
 
+- [Enterprise Dashboard 2.15.0 Release Notes](#enterprise-dashboard-v2-15-0)
 - [Enterprise Dashboard 2.14.0 Release Notes](#enterprise-dashboard-v2-14-0)
 - [Enterprise Dashboard 2.13.2 Release Notes](#enterprise-dashboard-v2-13-2)
 - [Enterprise Dashboard 2.13.1 Release Notes](#enterprise-dashboard-v2-13-1)
@@ -71,6 +72,15 @@ _NOTE: Sensu Enterprise Dashboard is built on Uchiwa. Uchiwa changes are documen
 - [Enterprise Dashboard 0.1.2 Release Notes](#enterprise-dashboard-v0-1-2)
 - [Enterprise Dashboard 0.1.1 Release Notes](#enterprise-dashboard-v0-1-1)
 - [Enterprise Dashboard 0.1.0 Release Notes](#enterprise-dashboard-v0-1-0)
+
+## Enterprise Dashboard 2.15.0 Release Notes {#enterprise-dashboard-v2-15-0}
+**March 5, 2019** &mdash; Sensu Enterprise Dashboard version 2.15.0 has been released and is available for immediate download. 
+
+### CHANGES {#enterprise-dashboard-v2-15-0-changes}
+
+- **IMPROVEMENT**: Built on [Uchiwa 1.6.0][uchiwa-v1-6-0].
+
+- **FIX**: The NOT operator now filters events correctly when used at the beginning of a query and in conjunction with a check name.
 
 ## Enterprise Dashboard 2.14.0 Release Notes {#enterprise-dashboard-v2-14-0}
 **January 2, 2019** &mdash; Sensu Enterprise Dashboard version 2.14.0 has been released and is available for immediate download. 
@@ -612,6 +622,8 @@ _NOTE: Sensu Enterprise Dashboard is built on Uchiwa. Uchiwa changes are documen
 - **IMPROVEMENT?**: Building unstable packages for testing purposes.
 
 [uchiwa-changelog]:  https://github.com/sensu/uchiwa/blob/master/CHANGELOG.md
+<!-- Uchiwa 6.0 -->
+[uchiwa-v1-6-0]: https://github.com/sensu/uchiwa/blob/master/CHANGELOG.md#160-2019-02-27
 <!-- Uchiwa 5.0 -->
 [uchiwa-v1-5-0]: https://github.com/sensu/uchiwa/blob/master/CHANGELOG.md#150-2018-12-20
 <!-- Uchiwa 4.1 -->
