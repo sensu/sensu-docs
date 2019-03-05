@@ -100,7 +100,7 @@ Active Directory users should head over to the [Active Directory section](#activ
 
 **ENTERPRISE ONLY**: LDAP authentication in Sensu Go requires an enterprise license. To activate your enterprise license, see the [getting started guide][6].
 
-### LDAP Configuration examples
+### LDAP configuration examples
 
 **Example LDAP configuration: Minimum required attributes**
 
@@ -534,7 +534,7 @@ Sensu offers enterprise-only support for using Microsoft Active Directory (AD) f
 
 **ENTERPRISE ONLY**: AD authentication in Sensu Go requires an enterprise license. To activate your enterprise license, see the [getting started guide][6].
 
-### Active Directory Configuration examples
+### Active Directory configuration examples
 
 **Example AD configuration: Minimum required attributes**
 
@@ -659,7 +659,7 @@ example      | {{< highlight shell >}}
 }
 {{< /highlight >}}
 
-### Active Directory Spec attributes
+### Active Directory spec attributes
 
 | servers    |      |
 -------------|------
@@ -702,7 +702,7 @@ required     | false
 type         | String
 example      | {{< highlight shell >}}"username_prefix": "ad"{{< /highlight >}}
 
-### Active Directory Server attributes
+### Active Directory server attributes
 
 | host       |      |
 -------------|------
@@ -774,7 +774,7 @@ example      | {{< highlight shell >}}
 }
 {{< /highlight >}}
 
-### Active Directory Binding attributes
+### Active Directory binding attributes
 
 | user_dn    |      |
 -------------|------
@@ -790,7 +790,7 @@ required     | true
 type         | String
 example      | {{< highlight shell >}}"password": "P@ssw0rd!"{{< /highlight >}}
 
-### Active Directory Group search attributes
+### Active Directory group search attributes
 
 | base_dn    |      |
 -------------|------
@@ -823,7 +823,7 @@ type         | String
 default      | `"group"`
 example      | {{< highlight shell >}}"object_class": "group"{{< /highlight >}}
 
-### Active Directory User search attributes
+### Active Directory user search attributes
 
 | base_dn    |      |
 -------------|------
@@ -856,7 +856,7 @@ type         | String
 default      | `"person"`
 example      | {{< highlight shell >}}"object_class": "person"{{< /highlight >}}
 
-### Active Directory Metadata attributes
+### Active Directory metadata attributes
 
 | name       |      |
 -------------|------
