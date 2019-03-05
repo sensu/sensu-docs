@@ -63,7 +63,7 @@ following improvements:
 
 ### CHANGES {#enterprise-v3-4-0-changes}
 
-- **IMPROVEMENT**: The event stream integration now uses a data buffer with a configurable limit, making Sensu Enterprise more resilient to crashes due to loss of connection. See the [event stream docs][67] to configure the `ring_buffer_size` attribute.
+- **IMPROVEMENT**: The event stream integration now uses a data buffer with a configurable limit to protect Sensu Enterprise from reaching an out-of-memory state. See the [event stream docs][67] to configure the `ring_buffer_size` attribute.
 
 - **IMPROVEMENT**: The [VictorOps integration][68] now supports connecting to VictorOps using an HTTP proxy, configured via the `http_proxy` attribute.
 
