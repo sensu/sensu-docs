@@ -81,7 +81,7 @@ example              | {{< highlight shell >}}"filter_ok_keepalives": true{{< /h
 
 ring_buffer_size     | 
 ---------------------|------
-description          | By default, the event stream integration uses a data stream buffer to protect Sensu Enterprise from reaching an out-of-memory state. The `ring_buffer_size` attribute sets the limit for writes to the buffer. In the event of a connection interruption, the buffer begins discarding older data once it reaches the limit. Once the connection is re-established, the event stream sends the remaining data in the buffer. To disable the buffer, set `ring_buffer_size` to `0`.
+description          | By default, the event stream integration uses a data stream buffer to protect Sensu Enterprise from reaching an out-of-memory state. The `ring_buffer_size` attribute sets the limit for writes to the buffer. In the event of a connection interruption, the buffer begins discarding older data once it reaches the limit. Once the connection is re-established, the event stream sends the remaining data in the buffer. To disable the buffer, set `ring_buffer_size` to `nil`.
 required             | false
 type                 | Integer
 default              | `1000`
