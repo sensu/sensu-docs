@@ -186,6 +186,6 @@ example      | {{< highlight shell >}}"role_arn": "arn:aws:iam::xxxxxxxxxx:role/
 [1]:  /sensu-enterprise
 [2]:  http://aws.amazon.com?ref=sensu-enterprise
 [3]:  http://aws.amazon.com/iam/
-[4]:  /sensu-core/1.2/reference/clients#ec2-attributes
-[5]:  /sensu-core/1.2/reference/events#event-data
-[6]:  /sensu-core/1.2/reference/configuration#configuration-scopes
+[4]:  /sensu-core/latest/reference/clients#ec2-attributes
+[5]:  /sensu-core/latest/reference/events#event-data
+[6]:  /sensu-core/latest/reference/configuration#configuration-scopes
