@@ -191,7 +191,7 @@ example      | {{< highlight shell >}}"api_version": "authentication/v2"{{< /hig
 
 metadata     | 
 -------------|------
-description  | Top-level map containing the LDAP definition `name`. See the [metadata attributes reference][8] for details.
+description  | Top-level map containing the LDAP definition `name`. See the [metadata attributes reference][24] for details.
 required     | true
 type         | Map of key-value pairs
 example      | {{< highlight shell >}}
@@ -625,7 +625,7 @@ example      | {{< highlight shell >}}"api_version": "authentication/v2"{{< /hig
 
 metadata     | 
 -------------|------
-description  | Top-level map containing the AD definition `name`. See the [metadata attributes reference][8] for details.
+description  | Top-level map containing the AD definition `name`. See the [metadata attributes reference][23] for details.
 required     | true
 type         | Map of key-value pairs
 example      | {{< highlight shell >}}
@@ -890,3 +890,5 @@ See the [LDAP troubleshooting](#ldap-troubleshooting) section.
 [20]: #managing-authentication-providers
 [21]: #group-search-attributes
 [22]: #user-search-attributes
+[23]: #active-directory-metadata-attributes
+[24]: #metadata-attributes
