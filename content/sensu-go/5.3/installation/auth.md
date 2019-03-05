@@ -54,7 +54,10 @@ sensuctl auth delete openldap
 
 **1. Write an authentication provider configuration definition**
 
-Write an authentication provider configuration definition using the various [examples](#ldap-configuration-examples) and [specifications](#ldap-specification) in this guide.
+Write an authentication provider configuration definition.
+
+For standards-compliant Lightweight Directory Access Protocol tools like OpenLDAP, see the [LDAP configuration examples](#ldap-configuration-examples) and [specification](#ldap-specification).
+For Microsoft Active Directory, see the [AD configuration examples](#active-directory-configuration-examples) and [specification](#active-directory-authentication).
 
 **2. Apply the configuration using sensuctl**
 
@@ -295,14 +298,14 @@ example      | {{< highlight shell >}}"insecure": false{{< /highlight >}}
 
 | security   |      |
 -------------|------
-description  | Determines the encryption type to be used for the connection to the AD server: `insecure` (unencrypted connection, not recommended for production), `tls` (secure encrypted connection), or `starttls` (unencrypted connection upgrades to a secure connection).
+description  | Determines the encryption type to be used for the connection to the LDAP server: `insecure` (unencrypted connection, not recommended for production), `tls` (secure encrypted connection), or `starttls` (unencrypted connection upgrades to a secure connection).
 type         | String
 default      | `"tls"`
 example      | {{< highlight shell >}}"security": "tls"{{< /highlight >}}
 
 | binding    |      |
 -------------|------
-description  | The AD account that performs user and group lookups.
+description  | The LDAP account that performs user and group lookups.
 required     | true
 type         | Map
 example      | {{< highlight shell >}}
