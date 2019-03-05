@@ -96,7 +96,7 @@ ignoreFiles = [ "sensu-doc-template.md" ]
         name = "Sensu Enterprise Dashboard"
         description = "The dashboard for Sensu Enterprise with RBAC and more, built on Uchiwa"
         weight = 4
-        latest = "2.14"
+        latest = "2.15"
         [params.products.sensu_enterprise_dashboard.versions]
             "2.15" = ["Ubuntu/Debian", "RHEL/CentOS"]
             "2.14" = ["Ubuntu/Debian", "RHEL/CentOS"]
