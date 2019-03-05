@@ -85,7 +85,7 @@ description          | By default, the event stream integration uses a data stre
 required             | false
 type                 | Integer
 default              | `1000`
-example              | {{< highlight shell >}}"ring_buffer_size": 500{{< /highlight >}}
+example              | {{< highlight shell >}}"ring_buffer_size": 1500{{< /highlight >}}
 
 [1]:  /sensu-enterprise
 [2]:  /sensu-core/1.2/reference/events
