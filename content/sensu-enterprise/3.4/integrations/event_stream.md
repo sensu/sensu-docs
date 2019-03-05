@@ -37,7 +37,7 @@ event handler (integration).
     "port": 3000,
     "filter_metrics": true,
     "filter_ok_keepalives": true,
-    "ring_buffer_size": 500
+    "ring_buffer_size": 1500
   }
 }
 {{< /highlight >}}
