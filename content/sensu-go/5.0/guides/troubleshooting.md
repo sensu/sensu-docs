@@ -69,7 +69,7 @@ following those logs are described. The name of the desired service, e.g.
 _NOTE: Platform versions described above are for reference only and do not
 supercede the documented [supported platforms][platforms]._
 
-### Log Messages
+### Log messages
 
 #### Permission Issues
 
