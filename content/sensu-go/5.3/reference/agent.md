@@ -279,7 +279,7 @@ example      | {{< highlight shell >}}"interval": 60{{< /highlight >}}
 
 handlers     | 
 -------------|------
-description  | An array of Sensu event handler to use for the event. Each handler name in the array must be a string.
+description  | An array of Sensu handler names to use for handling the event. Each handler name in the array must be a string.
 required     | false
 type         | Array
 example      | {{< highlight shell >}}"handlers": ["slack", "influxdb"]{{< /highlight >}}
