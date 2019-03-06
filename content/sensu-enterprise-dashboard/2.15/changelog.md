@@ -74,7 +74,7 @@ _NOTE: Sensu Enterprise Dashboard is built on Uchiwa. Uchiwa changes are documen
 - [Enterprise Dashboard 0.1.0 Release Notes](#enterprise-dashboard-v0-1-0)
 
 ## Enterprise Dashboard 2.15.0 Release Notes {#enterprise-dashboard-v2-15-0}
-**March 5, 2019** &mdash; Sensu Enterprise Dashboard version 2.15.0 has been released and is available for immediate download. 
+**March 6, 2019** &mdash; Sensu Enterprise Dashboard version 2.15.0 has been released and is available for immediate download. 
 
 ### CHANGES {#enterprise-dashboard-v2-15-0-changes}
 
