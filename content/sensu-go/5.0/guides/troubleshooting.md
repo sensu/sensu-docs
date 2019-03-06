@@ -71,7 +71,7 @@ supercede the documented [supported platforms][platforms]._
 
 ### Log messages
 
-#### Permission Issues
+#### Permission issues
 
 Files and folders within `/var/cache/sensu/` need to be owned by the sensu user and group. You will see a logged error similar to the following if there is a permission issue with either the sensu-backend or the sensu-agent:
 
