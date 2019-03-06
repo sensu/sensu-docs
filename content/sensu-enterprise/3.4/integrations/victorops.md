@@ -32,7 +32,26 @@ event handler (integration).
   "victorops": {
     "api_key": "a53265cd-d2ef-fa32-fc54de52659a",
     "routing_key": "everyone",
-    "timeout": 10
+    "timeout": 10,
+    "filters": [
+      "handle_when",
+      "check_dependencies"
+    ],
+    "severities": [
+      "critical",
+      "unknown"
+    ],
+    "http_proxy": "http://192.168.250.11:3128"
+  }
+}
+{{< /highlight >}}
+
+#### Minimum required attributes
+
+{{< highlight json >}}
+{
+  "victorops": {
+    "api_key": "a53265cd-d2ef-fa32-fc54de52659a"
   }
 }
 {{< /highlight >}}
@@ -83,6 +102,13 @@ required     | false
 type         | Integer
 default      | `10`
 example      | {{< highlight shell >}}"timeout": 30{{< /highlight >}}
+
+http_proxy   | |
+-------------|------
+description  | The URL of a proxy to be used for HTTP requests.
+required     | false
+type         | String
+example      | {{< highlight shell >}}"http_proxy": "http://192.168.250.11:3128"{{< /highlight >}}
 
 [?]:  #
 [1]:  /sensu-enterprise
