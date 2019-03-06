@@ -11,6 +11,7 @@ _NOTE: Sensu Enterprise is built on Sensu Core. Sensu Core changes are documente
 
 ## Releases
 
+- [Enterprise 3.4.0 Release Notes](#enterprise-v3-4-0)
 - [Enterprise 3.3.3 Release Notes](#enterprise-v3-3-3)
 - [Enterprise 3.3.2 Release Notes](#enterprise-v3-3-2)
 - [Enterprise 3.3.1 Release Notes](#enterprise-v3-3-1)
@@ -53,6 +54,40 @@ _NOTE: Sensu Enterprise is built on Sensu Core. Sensu Core changes are documente
 - [Enterprise 1.14.1 Release Notes](#enterprise-v1-14-1)
 - [Enterprise 1.14.0 Release Notes](#enterprise-v1-14-0)
 - [Enterprise 1.13.0 Release Notes](#enterprise-v1-13-0)
+
+## Enterprise 3.4.0 Release Notes {#enterprise-v3-4-0}
+
+**March 6, 2019** &mdash; Sensu Enterprise version 3.4.0 has been
+released and is available for immediate download. Please note the
+following improvements:
+
+### CHANGES {#enterprise-v3-4-0-changes}
+
+- **IMPROVEMENT**: The event stream integration now uses a data buffer with a configurable limit to protect Sensu Enterprise from reaching an out-of-memory state. See the [event stream docs][67] to configure the `ring_buffer_size` attribute.
+
+- **IMPROVEMENT**: The [VictorOps integration][68] now supports connecting to VictorOps using an HTTP proxy, configured via the `http_proxy` attribute.
+
+- **BUGFIX**: Metrics generated using the InfluxDB integration now include only one host tag.
+
+- **BUGFIX**: Slack and email integrations now handle ERB template syntax errors.
+
+Built on [Sensu Core 1.7.0][core-v1-7-0]:
+
+- **NEW**: Sensu now includes a built-in client deregistration extension. See the [client reference][72] to configure the deregistration extension.
+
+- **NEW**: Sensu now provides opt-in global error handling. See the [Sensu configuration reference][69] for more information.
+
+- **IMPROVEMENT**: The health API now returns information to help diagnose an unhealthy Sensu instance, including transport consumer and message counts. See the [API docs][70] for more information.
+
+- **BUGFIX**: The clients API GET endpoints now redact sensitive attributes as defined in the [client configuration][71].
+
+- **BUGFIX**: Stale server registry entries now expire after 30 seconds without an update.
+
+- **BUGFIX**: Token substitution now splits default values on the first instance of the pipe character, fixing a bug impacting regular expressions in token substitution default values.
+
+- **BUGFIX**: Fixed a bug causing incorrect tokens in check requests created using the Sensu API.
+
+- **BUGFIX**: Improved error logging.
 
 ## Enterprise 3.3.3 Release Notes {#enterprise-v3-3-3}
 
@@ -853,3 +888,12 @@ This release includes potentially breaking, backwards-incompatible changes:
 [66]: http://www.rabbitmq.com/install-rpm.html#kernel-resource-limits
 [og-eu]: https://docs.opsgenie.com/docs/european-service-region
 [core-v1-6-2]: /sensu-core/1.6/changelog/#core-v1-6-2
+
+<!-- 3.4 -->
+[core-v1-7-0]: /sensu-core/1.7/changelog/#core-v1-7-0
+[67]: ../integrations/event_stream
+[68]: ../integrations/victorops
+[69]: /sensu-core/latest/reference/configuration#sensu-definition-specification
+[70]: /sensu-core/latest/api/health-and-info
+[71]: /sensu-core/latest/reference/clients#client-attributes
+[72]: /sensu-core/latest/reference/clients#deregistration-events
