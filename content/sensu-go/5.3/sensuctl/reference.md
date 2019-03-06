@@ -92,11 +92,10 @@ To view the active configuration for sensuctl:
 sensuctl config view
 {{< /highlight >}}
 
-Sensuctl configuration includes the [Sensu backend url][9], Sensu edition (Core or Enterprise), the default [output format][10] for the current user, and the default [namespace][11] for the current user.
+Sensuctl configuration includes the [Sensu backend url][9], default [output format][10] for the current user, and default [namespace][11] for the current user.
 
 {{< highlight shell >}}
 api-url: http://127.0.0.1:8080
-edition: core
 format: wrapped-json
 namespace: default
 {{< /highlight >}}
