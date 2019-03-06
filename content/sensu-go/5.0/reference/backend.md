@@ -17,6 +17,7 @@ menu:
 - [Service management](#operation)
   - [Starting and stopping the service](#starting-the-service)
   - [Clustering](#clustering)
+  - [Time synchronization](#time-synchronization)
 - [Configuration](#configuration)
   - [General configuration](#general-configuration-flags)
   - [Agent communication configuration](#agent-communication-configuration-flags)
@@ -51,8 +52,6 @@ For information about creating and managing checks, see:
 - [Guide to monitoring server resources with checks][3]
 - [Guide to collecting metrics with checks][4]
 - [Checks reference documentation][5]
-
-_Note: Time system clocks should be synchronized to a central NTP server. Out of sync time clocks may cause issues with metrics and check alerts._
 
 ## Operation
 
@@ -152,6 +151,10 @@ To configure a cluster, see:
 
 - [Datastore configuration flags][12]
 - [Guide to running a Sensu cluster][13]
+
+### Time Synchronization
+
+Time clocks between agents and the backend should be synchronized to a central NTP server. Out of sync time clocks may cause issues with metric and check alerts.
 
 ## Configuration
 

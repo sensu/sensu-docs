@@ -21,6 +21,7 @@ menu:
   - [Starting and stopping the service](#starting-the-service)
 	- [Registration and deregistration](#registration)
 	- [Clustering](#clustering)
+  - [Time synchronization](#time-synchronization)
 - [Configuration](#configuration)
   - [API configuration](#api-configuration-flags)
   - [Ephemeral agent configuration](#ephemeral-agent-configuration-flags)
@@ -34,8 +35,6 @@ Agents register with the Sensu backend as [monitoring entities][3] with `type: "
 Agent entities are responsible for creating [check and metrics events][7] to send to the [backend event pipeline][2].
 The Sensu agent is available for Linux, macOS, and Windows.
 See the [installation guide][1] to install the agent.
-
-_Note: Time clocks should be synchronized to a central NTP server. Out of sync time clocks may cause issues with metric and check alerts._
 
 ## Creating monitoring events using service checks
 
@@ -510,6 +509,10 @@ You can specify a deregistration handler per agent using the [`deregistration-ha
 ### Clustering
 
 Agents can connect to a Sensu cluster by specifying any Sensu backend URL in the cluster in the [`backend-url` configuration flag][16]. For more information about clustering, see [Sensu backend datastore configuration flags][35] and the [guide to running a Sensu cluster][36].
+
+### Time Synchronization
+
+Time clocks between agents and the backend should be synchronized to a central NTP server. Out of sync time clocks may cause issues with metric and check alerts.
 
 ## Configuration
 
