@@ -41,7 +41,7 @@ See the [upgrading guide][1] to upgrade Sensu to version 5.3.0.
 
 - The agent socket event format now supports the `handlers` attribute, giving you the ability to send socket events to a Sensu pipeline. See the [agent reference][21] to learn more about creating and handling monitoring events using the agent socket.
 - Assets now feature improved download performance using buffered I/O.
-- sensuctl now uses a 15-second timeout period when connecting to the Sensu backend.
+- The sensuctl CLI now uses a 15-second timeout period when connecting to the Sensu backend.
 - The dashboard now includes expandable configuration details sections on the check and entity pages. You can now use the dashboard to review check details like command, subscriptions, and scheduling, as well as entity details like platform, IP address, and hostname.
 
 **SECURITY:**
