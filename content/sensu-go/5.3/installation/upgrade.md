@@ -92,7 +92,7 @@ See the [entity reference][6] and the guide to [monitoring external resources][7
 
 ### Checks
 Standalone checks are no longer supported in Sensu Go, although similar functionality can be achieved using role-based access control, assets, and entity subscriptions.
-There are also a few changes to check definitions to be aware of. The `stdin` check attribute is no longer supported in Sensu Go, and Sensu Go no longer tries to run a "default" handler when executing a check without a specified handler. Additionally, round-robin subscriptions and check subdues are not yet available in Sensu Go.
+There are also a few changes to check definitions to be aware of. The `stdin` check attribute is no longer supported in Sensu Go, and Sensu Go no longer tries to run a "default" handler when executing a check without a specified handler. Additionally, check subdues are not yet available in Sensu Go.
 
 [Check hooks][8] are now a resource type in Sensu Go, meaning that hooks can be created, managed, and reused independently of check definitions.
 You can also execute multiple hooks for any given response code.

@@ -209,7 +209,8 @@ Attributes specified in socket events appear in the resulting event data passed 
   "output": "404",
   "client": "sensu-docs-site",
   "executed": 1550013435,
-  "duration": 1.903135228
+  "duration": 1.903135228,
+  "handlers": ["slack", "influxdb"]
 }
 {{< /highlight >}}
 
@@ -275,6 +276,13 @@ required     | false
 default      | `1`
 type         | Integer
 example      | {{< highlight shell >}}"interval": 60{{< /highlight >}}
+
+handlers     | 
+-------------|------
+description  | An array of Sensu handler names to use for handling the event. Each handler name in the array must be a string.
+required     | false
+type         | Array
+example      | {{< highlight shell >}}"handlers": ["slack", "influxdb"]{{< /highlight >}}
 
 ### Creating a "dead man's switch"
 
