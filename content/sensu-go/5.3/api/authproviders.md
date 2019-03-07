@@ -16,9 +16,9 @@ menu:
   - [`authproviders/:name` (PUT)](#providersname-put)
   - [`authproviders/:name` (DELETE)](#authprovidersname-delete)
 
-## The `/authproviders` API endpoints {#the-authproviders-api-endpoints}
-
 **ENTERPRISE ONLY**: Authentication providers in Sensu Go require a Sensu Enterprise license. To activate your Sensu Enterprise license, see the [getting started guide][2].
+
+## The `/authproviders` API endpoints {#the-authproviders-api-endpoints}
 
 ### `/authproviders` (GET) {#authproviders-get}
 
@@ -63,8 +63,6 @@ output         | {{< highlight json >}}
 
 ## The `/authproviders/:name` API endpoints {#the-authprovidersname-api-endpoints}
 
-**ENTERPRISE ONLY**: Authentication providers in Sensu Go require a Sensu Enterprise license. To activate your Sensu Enterprise license, see the [getting started guide][2].
-
 ### `/authproviders/:name` (GET) {#authprovidersname-get}
 
 The `/authproviders/:name` API endpoint provides HTTP GET access to authentication provider configuration for a specific `:name`.
@@ -73,7 +71,7 @@ The `/authproviders/:name` API endpoint provides HTTP GET access to authenticati
 
 /authproviders/:name (GET) | 
 ---------------------|------
-description          | Returns the configuration for an authentication provider given the type (must be `ldap`) and the name.
+description          | Returns the configuration for an authentication provider given the configured provider name.
 example url          | http://hostname:8080/api/enterprise/authentication/v2/authproviders/openldap
 response type        | Map
 response codes       | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
