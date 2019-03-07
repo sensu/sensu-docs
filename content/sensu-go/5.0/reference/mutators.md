@@ -9,7 +9,7 @@ menu:
   sensu-go-5.0:
     parent: reference
 ---
-
+- [Built-in mutators](#built-in-mutators)
 - [Specification](#mutator-specification)
 - [Examples](#examples)
 
@@ -46,6 +46,38 @@ provide support for command line arguments for reusability.
 As mentioned above, all mutator commands are executed by a Sensu server as the `sensu` user. Commands must be executable files that are discoverable on the Sensu server system (installed in a system `$PATH` directory).
 
 _NOTE: By default, the Sensu installer packages will modify the system `$PATH` for the Sensu processes to include `/etc/sensu/plugins`. As a result, executable scripts (like plugins) located in `/etc/sensu/plugins` will be valid commands. This allows `command` attributes to use “relative paths” for Sensu plugin commands, for example: `"command": "check-http.go -u https://sensuapp.org"`._
+
+## Built-in mutators
+
+Sensu includes built-in mutators to help you customize event pipelines for metrics and alerts.
+
+### Built-in mutator: only check output
+
+For some check results, only the check output is required before it is handled. For example, when sending metrics to a TSDB like InfluxDB.
+
+To use the only check output mutator, include the `only_check_output` mutator in the handler configuration `mutator` string:
+
+{{< highlight json >}}
+{
+  "type": "Handler",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "influxdb",
+    "namespace": "default"
+  },
+  "spec": {
+    "command": "sensu-influxdb-handler -d sensu",
+    "mutator": "only_check_output",
+    "handlers": [],
+    "runtime_assets": [],
+    "timeout": 0,
+    "filters": [
+      "has_metrics"
+    ],
+    "type": "pipe"
+  }
+}
+{{< /highlight >}}
 
 ## Mutators specification
 
