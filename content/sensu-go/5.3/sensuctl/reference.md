@@ -228,7 +228,7 @@ cat my-resources.json | sensuctl create
 `HookConfig` | `hook_config` | `Mutator` | `mutator`
 `Namespace` | `namespace` | `Role` | `role`
 `RoleBinding` | `role_binding` | `Silenced` | `silenced`
-`ldap` | | |
+[`ldap`][26] | [`ad`][26] | |
 
 ## Updating resources
 
@@ -249,13 +249,14 @@ sensuctl edit handler slack
 `cluster-role-binding` | `entity` | `event` | `filter`
 `handler` | `hook` | `mutator` | `namespace`
 `role` | `role-binding` | `silenced` | `user`
+[`auth`][26] | | |
 
 ## Managing resources
 
 Sensuctl provides the following commands to manage Sensu resources.
 
 - [`sensuctl asset`][12]
-- [`sensuctl auth`](../../installation/auth) (enterprise only)
+- [`sensuctl auth`][26] (enterprise only)
 - [`sensuctl check`][13]
 - [`sensuctl cluster`][7]
 - [`sensuctl cluster-role`][1]
@@ -501,3 +502,4 @@ These are useful if you want to know what cluster you're connecting to, or what 
 [23]: #subcommands
 [24]: #sensuctl-edit-resource-types
 [25]: ../../api/overview
+[26]: ../../installation/auth

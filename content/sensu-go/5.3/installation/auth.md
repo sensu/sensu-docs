@@ -9,13 +9,13 @@ menu:
     parent: installation
 ---
 
-- [Managing authentication providers](#managing-authentication-providers) (enterprise-only)
-- [Configuring authentication providers](#configuring-authentication-providers) (enterprise-only)
-- [LDAP authentication](#ldap-authentication) (enterprise-only)
+- [Managing authentication providers](#managing-authentication-providers)
+- [Configuring authentication providers](#configuring-authentication-providers)
+- [LDAP authentication](#ldap-authentication)
   - [Examples](#ldap-configuration-examples)
   - [Specification](#ldap-specification)
   - [Troubleshooting](#ldap-troubleshooting)
-- [Active Directory authentication](#active-directory-authentication) (enterprise-only)
+- [Active Directory authentication](#active-directory-authentication)
   - [Examples](#active-directory-configuration-examples)
   - [Specification](#active-directory-specification)
   - [Troubleshooting](#active-directory-troubleshooting)
@@ -23,14 +23,15 @@ menu:
 Sensu requires username and password authentication to access the [Sensu dashboard][1], [API][8], and command line tool ([sensuctl][2]).
 For Sensu's [default user credentials][3] and more information about configuring Sensu role based access control, see the [RBAC reference][4] and [guide to creating users][5].
 
-In addition to built-in RBAC, Sensu includes [enterprise-only][6] support for authentication using a Lightweight Directory Access Protocol (LDAP) provider.
+In addition to built-in RBAC, Sensu includes [enterprise-only][6] support for authentication using external authentication providers.
+Sensu currently supports Microsoft Active Directory and standards-compliant Lightweight Directory Access Protocol tools like OpenLDAP.
+
+**ENTERPRISE ONLY**: Authentication providers in Sensu Go require an enterprise license. To activate your enterprise license, see the [getting started guide][6].
 
 ## Managing authentication providers
 
 You can view and delete authentication providers using sensuctl and the [authentication providers API](../../api/authproviders).
 To set up an authentication provider for Sensu, see the section on [configuring authentication providers](#configuring-authentication-providers).
-
-**ENTERPRISE ONLY**: Authentication providers in Sensu Go require an enterprise license. To activate your enterprise license, see the [getting started guide][6].
 
 To view active authentication providers:
 
@@ -100,8 +101,6 @@ Once you've configured the correct roles and bindings, log in to [sensuctl](../.
 Sensu offers enterprise-only support for using a standards-compliant Lightweight Directory Access Protocol tool for authentication to the Sensu dashboard, API, and sensuctl.
 The Sensu LDAP authentication provider is tested with [OpenLDAP][7].
 Active Directory users should head over to the [Active Directory section](#active-directory-authentication).
-
-**ENTERPRISE ONLY**: LDAP authentication in Sensu Go requires an enterprise license. To activate your enterprise license, see the [getting started guide][6].
 
 ### LDAP configuration examples
 
@@ -534,8 +533,6 @@ example:
 ## Active Directory authentication
 
 Sensu offers enterprise-only support for using Microsoft Active Directory (AD) for authentication to the Sensu dashboard, API, and sensuctl. The AD authentication provider is based on the [LDAP authentication provider](#ldap-authentication).
-
-**ENTERPRISE ONLY**: AD authentication in Sensu Go requires an enterprise license. To activate your enterprise license, see the [getting started guide][6].
 
 ### Active Directory configuration examples
 
