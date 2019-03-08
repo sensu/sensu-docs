@@ -149,14 +149,14 @@ example url     | http://hostname:3031/healthz
 ## Creating monitoring events using the agent TCP and UDP sockets
 
 Sensu agents listen for external monitoring data using TCP and UDP sockets.
+The agent sockets accept JSON event data and pass the event to the Sensu backend event pipeline for processing.
 The TCP and UDP sockets listen on the address and port specified by the [socket configuration flags][17].
 
 These sockets allow external sources to send monitoring data to Sensu without needing to know anything about Sensu's internal implementation.
 An excellent agent socket use case example is a web application pushing check results to indicate database connectivity issues.
 
-## Using the TCP socket
+### Using the TCP socket
 
-The Sensu agent's TCP socket accepts JSON event data and passes the event to the Sensu backend event pipeline for processing.
 The following is an example demonstrating external monitoring data input via the Sensu agent TCP socket.
 The example uses Bash's built-in `/dev/tcp` file to communicate with the Sensu agent socket.
 
@@ -170,12 +170,27 @@ You can also use the [Netcat][19] utility to send monitoring data to the agent s
 echo '{"name": "check-mysql-status", "status": 1, "output": "error!"}' | nc localhost 3030
 {{< /highlight >}}
 
-### TCP socket event format
+### Using the UDP socket
 
-The agent TCP socket uses a special event data format designed for simplicity and backwards compatibility with [Sensu 1.x check results][42].
+The following is an example demonstrating external monitoring data input via the Sensu agent UDP socket.
+The example uses Bash's built-in `/dev/udp` file to communicate with the Sensu agent socket.
+
+{{< highlight shell >}}
+echo '{"name": "check-mysql-status", "status": 1, "output": "error!"}' > /dev/udp/127.0.0.1/3030
+{{< /highlight >}}
+
+You can also use the [Netcat][19] utility to send monitoring data to the agent socket:
+
+{{< highlight shell >}}
+echo '{"name": "check-mysql-status", "status": 1, "output": "error!"}' | nc -u -v 127.0.0.1 3030
+{{< /highlight >}}
+
+### Socket event format
+
+The agent TCP and UDP sockets use a special event data format designed for simplicity and backwards compatibility with [Sensu 1.x check results][42].
 Attributes specified in socket events appear in the resulting event data passed to the Sensu backend.
 
-**Example TCP socket input: Minimum required attributes**
+**Example socket input: Minimum required attributes**
 
 {{< highlight json >}}
 {
@@ -185,7 +200,7 @@ Attributes specified in socket events appear in the resulting event data passed 
 }
 {{< /highlight >}}
 
-**Example TCP socket input: All attributes**
+**Example socket input: All attributes**
 
 {{< highlight json >}}
 {
@@ -198,7 +213,7 @@ Attributes specified in socket events appear in the resulting event data passed 
 }
 {{< /highlight >}}
 
-### TCP socket event specification
+### Socket event specification
 
 The Sensu agent socket ignores any attributes not included in this specification.
 

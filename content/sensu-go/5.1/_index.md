@@ -1,6 +1,6 @@
 ---
 title: "Sensu Go"
-description: "Sensu is the open source monitoring event pipeline built to reduce operator burden and meet the challenges of monitoring hybrid-cloud and ephemeral infrastructures. Read the docs to learn more about Sensu."
+description: "Sensu is the flexible monitoring event pipeline built to reduce operator burden and meet the challenges of monitoring hybrid-cloud and ephemeral infrastructures. Read the docs to learn more about Sensu."
 date: 2018-02-05T06:06:31-07:00
 weight: -100
 menu: "sensu-go-5.1"
@@ -11,7 +11,7 @@ layout: "single"
 
 <iframe src="https://ghbtns.com/github-btn.html?user=sensu&repo=sensu-go&type=star&count=true" frameborder="0" scrolling="0" width="87px" height="20px"></iframe> | [Share your feedback][2]
 
-Sensu is the open source monitoring event pipeline built to reduce operator burden and make developers and business owners happy.
+Sensu is the monitoring event pipeline built to reduce operator burden and make developers and business owners happy.
 Started in 2011, Sensu’s flexible approach solves the challenges of monitoring hybrid-cloud and ephemeral infrastructures with scalable, automated workflows and integrations with tools you already use.
 **Get started now and feel the #monitoringlove:** [Learn Sensu Go][1].
 
@@ -61,9 +61,9 @@ Use the Sensu agent to collect metrics alongside check results, then use the eve
 Sensu includes a [dashboard][25] to provide a unified view of your entities, checks, and events, as well as a user-friendly silencing tool.
 The [Sensu API][23] and the [`sensuctl` command-line tool][26] allow you (and your internal customers) to create checks, register entities, manage configuration, and more.
 
-- **Open source software backed by Sensu Inc.**
+- **Open core software backed by Sensu Inc.**
 
-Sensu Go is open source software freely available under a
+Sensu Go's core is open source software, freely available under a
 permissive [MIT License][12] and publicly available on [GitHub][13].
 
 [1]: getting-started/get-started
