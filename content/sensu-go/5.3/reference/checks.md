@@ -341,7 +341,9 @@ example      | {{< highlight shell >}}"output_metric_handlers": ["influx-db"]{{<
 
 |round_robin |      |
 -------------|------
-description  | Round-robin check subscriptions are not yet implemented in Sensu Go. Although the `round_robin` attribute appears in check definitions by default, it is a placeholder and should not be modified.
+description  | Enables round-robin style check scheduling. When set to `true`, Sensu executes the check for each entity within the subscription in turn.
+required     | false
+type         | Boolean
 example      | {{< highlight shell >}}"round_robin": false{{< /highlight >}}
 
 |subdue      |      |
@@ -492,6 +494,7 @@ _NOTE: The attribute `interval` is not required if a valid `cron` schedule is de
     "stdin": false,
     "ttl": 0,
     "timeout": 0,
+    "round_robin": false,
     "output_metric_format": "graphite_plaintext",
     "output_metric_handlers": [
       "influx-db"
@@ -513,7 +516,6 @@ _NOTE: The attribute `interval` is not required if a valid `cron` schedule is de
 [9]: ../assets
 [10]: #proxy-requests-attributes
 [11]: ../sensu-query-expressions
-[12]: /sensu-core/latest/reference/clients/#round-robin-client-subscriptions
 [13]: #check-attributes
 [14]: https://en.wikipedia.org/wiki/Cron#CRON_expression
 [15]: https://godoc.org/github.com/robfig/cron#hdr-Predefined_schedules

@@ -183,7 +183,7 @@ General Flags:
       --key-file string                 tls certificate key
       --log-level string                logging level [panic, fatal, error, warn, info, debug] (default "warn")
   -d, --state-dir string                path to sensu state storage (default "/var/lib/sensu")
-      --trusted-ca-file string          tls certificate authority
+      --trusted-ca-file string          TLS CA certificate bundle in PEM format used for etcd client (mutual TLS)
 
 Store Flags:
       --etcd-advertise-client-urls                list of this member's client URLs to advertise to the rest of the cluster
@@ -344,7 +344,7 @@ key-file: "/path/to/ssl/key.pem"{{< /highlight >}}
 
 | trusted-ca-file |      |
 ------------------|------
-description       | SSL/TLS certificate authority
+description       | SSL/TLS certificate authority in PEM format used for etcd client (mutual TLS)
 type              | String
 default           | `""`
 example           | {{< highlight shell >}}# Command line example

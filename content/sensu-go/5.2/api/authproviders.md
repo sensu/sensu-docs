@@ -73,7 +73,7 @@ The `/authproviders/:name` API endpoint provides HTTP GET access to authenticati
 
 /authproviders/:name (GET) | 
 ---------------------|------
-description          | Returns the configuration for an authentication provider given the type (must be `ldap`) and the name.
+description          | Returns the configuration for an authentication provider given the configured provider name.
 example url          | http://hostname:8080/api/enterprise/authentication/v2/authproviders/openldap
 response type        | Map
 response codes       | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
