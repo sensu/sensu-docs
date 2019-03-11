@@ -74,7 +74,7 @@ Get-Content "$env:userprofile\sensu-enterprise-go_5.3.0_checksums.txt" | Select-
 Download Sensu for macOS.
 
 {{< highlight shell >}}
-curl -LO https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.3.0/sensu-go-5.3.0-darwin-amd64.tar.gz
+curl -LO https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.3.0/sensu-enterprise-go_5.3.0_darwin_amd64.tar.gz
 {{< /highlight >}}
 
 Generate a SHA-512 checksum for the downloaded artifact.
