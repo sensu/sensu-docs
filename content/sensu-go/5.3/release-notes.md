@@ -1,12 +1,13 @@
 ---
 title: "Sensu Go release notes"
 linkTitle: "Release Notes"
-description: "Read the Sensu Go 5.2.1 release notes to learn about what's new in our latest release."
+description: "Read the Sensu Go 5.3.0 release notes to learn about what's new in our latest release."
 product: "Sensu Go"
 version: "5.3"
 menu: "sensu-go-5.3"
 ---
 
+- [5.3.0 release notes](#5-3-0-release-notes)
 - [5.2.1 release notes](#5-2-1-release-notes)
 - [5.2.0 release notes](#5-2-0-release-notes)
 - [5.1.1 release notes](#5-1-1-release-notes)
@@ -22,6 +23,43 @@ Sensu Go adheres to [semantic versioning][2] using MAJOR.MINOR.PATCH release num
 Read the [upgrading guide][1] for information on upgrading to the latest version of Sensu Go.
 
 ---
+
+## 5.3.0 release notes
+
+**March 11, 2019** &mdash; The latest release of Sensu Go, version 5.3.0, is now available for download. This release has some very exciting feature additions and key bug fixes. 5.3.0 enables Active Directory to be configured as an authentication provider with a valid license key. Additionally, round robin scheduling has been fully re-implemented and is available for use.
+See the [upgrading guide][1] to upgrade Sensu to version 5.3.0.
+
+### Changes to Sensu Go {#5.3.0-changes}
+
+**NEW FEATURES:**
+
+- Round-robin check scheduling lets you distribute check executions evenly over a group of Sensu agents. To enable round-robin scheduling, set the `round_robin` check attribute to `true`. See the [check reference][18] for more information.
+- Sensu now provides [enterprise-only][19] support for using Microsoft Active Directory as an external authentication provider. Read the [authentication guide][20] to configure Active Directory, and check out the [getting started guide][19] for more information about licensing.
+- The dashboard now features offline state detection and displays an alert banner in the event that the dashboard loses connection to the backend.
+
+**IMPROVEMENTS:**
+
+- The agent socket event format now supports the `handlers` attribute, giving you the ability to send socket events to a Sensu pipeline. See the [agent reference][21] to learn more about creating and handling monitoring events using the agent socket.
+- Assets now feature improved download performance using buffered I/O.
+- The sensuctl CLI now uses a 15-second timeout period when connecting to the Sensu backend.
+- The dashboard now includes expandable configuration details sections on the check and entity pages. You can now use the dashboard to review check details like command, subscriptions, and scheduling, as well as entity details like platform, IP address, and hostname.
+
+**SECURITY:**
+
+- Sensu Go 5.3.0 fixes all known TLS vulnerabilities affecting the backend, including increasing the minimum supported TLS version to 1.2 and removing all ciphers except those with perfect forward secrecy.
+- Sensu now enforces uniform TLS configuration for all three backend components: `apid`, `agentd`, `dashboardd`.
+- The backend no longer requires the `trusted-ca-file` flag when using TLS.
+- The backend no longer loads server TLS configuration for the HTTP client.
+
+**FIXES:**
+
+- Sensu can now download assets with download times over 30 seconds without timing out.
+- The agent now communicates entity subscriptions to the backend in the correct format.
+- Sensu no longer includes the `edition` configuration attribute or header.
+- DNS resolution in Alpine Linux containers now uses the built-in Go resolver instead of the glibc resolver.
+- The `sensuctl user list` command can now output `yaml` and `wrapped-json` formats when used with the `--format` flag.
+- The dashboard check details page now displays long commands correctly.
+- The dashboard check details page now displays the `timeout` attribute correctly.
 
 ## 5.2.1 release notes
 
@@ -179,3 +217,7 @@ To get started with Sensu Go:
 [15]: https://docs.sensu.io/sensu-go/5.2/reference/checks/#check-output-truncation-attributes
 [16]: /sensu-go/5.2/installation/install-sensu
 [17]: /sensu-go/5.2/sensuctl/reference/#global-flags
+[18]: /sensu-go/5.3/reference/checks#spec-attributes
+[19]: /sensu-go/5.3/getting-started/enterprise
+[20]: /sensu-go/5.3/installation/auth
+[21]: /sensu-go/5.3/reference/agent#creating-monitoring-events-using-the-agent-tcp-and-udp-sockets
