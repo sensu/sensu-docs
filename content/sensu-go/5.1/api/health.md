@@ -1,6 +1,6 @@
 ---
 title: "Health API"
-description: "Sensu Go health API reference documentation"
+description: "The health API provides HTTP access to health data for your Sensu instance. Here’s a reference for the health API in Sensu Go, including examples for returning health information about your Sensu instance. Read on for the full reference."
 version: "5.1"
 product: "Sensu Go"
 menu:

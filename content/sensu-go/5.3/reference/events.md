@@ -1,6 +1,6 @@
 ---
 title: "Events"
-description: "The Events reference guide."
+description: "An event is a generic container used by Sensu to provide context for checks and metrics. You can use events to represent the state of your infrastructure and create automated monitoring workflows. Read the reference doc to learn about events."
 weight: 10
 version: "5.3"
 product: "Sensu Go"

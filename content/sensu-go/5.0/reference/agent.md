@@ -1,7 +1,7 @@
 ---
 title: "Sensu agent"
 linkTitle: "Sensu Agent"
-description: "Sensu agent reference documentation"
+description: "The Sensu agent is a lightweight client that runs on the infrastructure components you want to monitor. Read the reference doc to get started using the agent to create monitoring events."
 weight: 1
 version: "5.0"
 product: "Sensu Go"

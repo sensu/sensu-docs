@@ -1,6 +1,6 @@
 ---
 title: "Filters API"
-description: "Sensu Go filters API reference documentation"
+description: "The filters API provides HTTP access to filter data. Here’s a reference for the filters API in Sensu Go, including examples for returning lists of filters, creating Sensu filters, and more. Read on for the full reference."
 version: "5.2"
 product: "Sensu Go"
 menu:

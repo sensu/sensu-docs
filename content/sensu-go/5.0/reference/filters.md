@@ -1,6 +1,6 @@
 ---
 title: "Filters"
-description: "The filters reference guide."
+description: "Filters help you reduce alert fatigue by controlling which events acted on by Sensu handlers. Read the reference doc to learn about filters, use Sensu's built-in filters, and create your own filters."
 weight: 10
 version: "5.0"
 product: "Sensu Go"
