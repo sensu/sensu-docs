@@ -1,6 +1,6 @@
 ---
 title: "Sensu Go"
-description: "Monitor your entire infrastructure, from Kubernetes to bare metal. The Sensu monitoring event pipeline empowers businesses to automate their monitoring workflow and gain deep visibility into their infrastructure, applications, and operations. Read the docs to learn more about Sensu."
+description: "Monitor your entire infrastructure, from Kubernetes to bare metal. The Sensu monitoring event pipeline empowers businesses to automate their monitoring workflows and gain deep visibility into their infrastructure, applications, and operations. Read the docs to learn more about Sensu."
 weight: -100
 menu: "sensu-go-5.3"
 version: "5.3"
