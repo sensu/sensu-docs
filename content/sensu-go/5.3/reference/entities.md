@@ -1,6 +1,6 @@
 ---
 title: "Entities"
-description: "The entities reference guide."
+description: "An entity represents anything that needs to be monitored, including the full range of infrastructure, runtime and application types that compose a complete monitoring environment (from server hardware to serverless functions). Read the reference doc to learn about entities."
 weight: 10
 version: "5.3"
 product: "Sensu Go"
