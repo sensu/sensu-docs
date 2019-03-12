@@ -8,6 +8,11 @@ menu: "sensu-enterprise-dashboard-2.15"
 layout: "single"
 ---
 
+[Learn about Sensu Go's built-in dashboard](/sensu-go/latest/dashboard/overview)
+
+_NOTE: The time has come to announce our end of life schedule for the original version of Sensu: **Sensu Enterprise Dashboard 2.x will reach end of life on March 31, 2020**, over 8 years since Sensu Core's inception as an open source software project.
+[Read our blog post](https://blog.sensu.io/eol-schedule-for-sensu-core-and-enterprise) for more information about what this means and helpful resources for upgrading to [Sensu Go](/sensu-go/latest/)._
+
 ## Reference Documentation
 
 - [What is the Sensu Enterprise Dashboard?](#what-is-the-sensu-enterprise-dashboard)

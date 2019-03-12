@@ -341,7 +341,7 @@ example      | {{< highlight shell >}}"output_metric_handlers": ["influx-db"]{{<
 
 |round_robin |      |
 -------------|------
-description  | Enables round-robin style check scheduling. When set to `true`, Sensu executes the check for each entity within the subscription in turn.
+description  | Round-robin check scheduling lets you distribute check executions evenly over a group of Sensu agents. When set to `true`, Sensu executes the check on each subscribing agent in turn.
 required     | false
 type         | Boolean
 example      | {{< highlight shell >}}"round_robin": false{{< /highlight >}}
