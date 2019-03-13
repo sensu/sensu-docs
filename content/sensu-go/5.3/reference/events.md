@@ -52,7 +52,102 @@ stored inside the event. Event handlers from `event.Check.Handlers` and
 
 ## Events specification
 
+### Top-level attributes
+
+type         | 
+-------------|------
+description  | Top-level attribute specifying the [`sensuctl create`][sc] resource type. Events should always be of type `Event`.
+required     | Required for events in `wrapped-json` or `yaml` format for use with [`sensuctl create`][sc].
+type         | String
+example      | {{< highlight shell >}}"type": "CheckConfig"{{< /highlight >}}
+
+api_version  | 
+-------------|------
+description  | Top-level attribute specifying the Sensu API group and version. For checks in Sensu backend version 5.2, this attribute should always be `core/v2`.
+required     | Required for check definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][sc].
+type         | String
+example      | {{< highlight shell >}}"api_version": "core/v2"{{< /highlight >}}
+
+metadata     | 
+-------------|------
+description  | Top-level collection of metadata about the check, including the `name` and `namespace` as well as custom `labels` and `annotations`. The `metadata` map is always at the top level of the check definition. This means that in `wrapped-json` and `yaml` formats, the `metadata` scope occurs outside the `spec` scope.  See the [metadata attributes reference][25] for details.
+required     | Required for check definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][sc].
+type         | Map of key-value pairs
+example      | {{< highlight shell >}}"metadata": {
+  "name": "collect-metrics",
+  "namespace": "default",
+  "labels": {
+    "region": "us-west-1"
+  },
+  "annotations": {
+    "slack-channel" : "#monitoring"
+  }
+}{{< /highlight >}}
+
+spec         | 
+-------------|------
+description  | Top-level map that includes the check [spec attributes][sp].
+required     | Required for check definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][sc].
+type         | Map of key-value pairs
+example      | {{< highlight shell >}}"spec": {
+  "command": "/etc/sensu/plugins/check-chef-client.go",
+  "interval": 10,
+  "publish": true,
+  "subscriptions": [
+    "production"
+  ]
+}{{< /highlight >}}
+
+### Spec attributes
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ### Attributes
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 |timestamp   |      |
 -------------|------
 description  | The time of the Event occurrence in epoch time.
