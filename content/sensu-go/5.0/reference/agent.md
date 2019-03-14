@@ -512,7 +512,7 @@ Agents can connect to a Sensu cluster by specifying any Sensu backend URL in the
 
 ### Time Synchronization
 
-Time clocks between agents and the backend should be synchronized to a central NTP server. Out of sync time clocks may cause issues with metric and check alerts.
+System clocks between agents and the backend should be synchronized to a central NTP server. Out of sync system time may cause issues with keepalive, metric and check alerts.
 
 ## Configuration
 
