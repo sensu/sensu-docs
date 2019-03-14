@@ -38,7 +38,7 @@ See the [upgrading guide][1] to upgrade Sensu to version 5.0.1.
 ## 5.0.0 release notes
 
 **December 5, 2018** &mdash; We're excited to announce the general availability release of Sensu Go!
-Sensu Go is the free and open source monitoring event pipeline, written in Go and designed for container-based and hybrid-cloud infrastructures.
+Sensu Go is the flexible monitoring event pipeline, written in Go and designed for container-based and hybrid-cloud infrastructures.
 Check out the [Sensu blog][6] for more information about Sensu Go and version 5.0.
 
 For a complete list of changes from Beta 8-1, see the [Sensu Go changelog][5].

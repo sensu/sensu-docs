@@ -1,6 +1,6 @@
 ---
 title: "Namespaces API"
-description: "Sensu Go namespaces API reference documentation"
+description: "The namespace API provides HTTP access to namespace data. Here’s a reference for the namespaces API in Sensu Go, including examples for returning lists of namespaces, creating Sensu namespaces, and more. Read on for the full reference."
 version: "5.2"
 product: "Sensu Go"
 menu:

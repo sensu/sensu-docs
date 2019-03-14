@@ -1,7 +1,7 @@
 ---
 title: "Sensuctl"
 linkTitle: "Reference"
-description: "The sensuctl reference guide"
+description: "Sensuctl is a command line tool for managing resources within Sensu. It works by calling Sensu’s underlying API to create, read, update, and delete resources, events, and entities. Read the reference doc to learn about sensuctl."
 weight: 2
 version: "5.2"
 product: "Sensu Go"
@@ -18,6 +18,7 @@ menu:
 - [Managing resources](#managing-resources)
 - [Time formats](#time-formats)
 - [Shell auto-completion](#shell-auto-completion)
+- [Config files](#configuration-files)
 
 Sensuctl is a command line tool for managing resources within Sensu. It works by
 calling Sensu's underlying API to create, read, update, and delete resources,
@@ -228,7 +229,7 @@ cat my-resources.json | sensuctl create
 `HookConfig` | `hook_config` | `Mutator` | `mutator`
 `Namespace` | `namespace` | `Role` | `role`
 `RoleBinding` | `role_binding` | `Silenced` | `silenced`
-`ldap` | | |
+[`ldap`][26] | | |
 
 ## Updating resources
 
@@ -249,13 +250,14 @@ sensuctl edit handler slack
 `cluster-role-binding` | `entity` | `event` | `filter`
 `handler` | `hook` | `mutator` | `namespace`
 `role` | `role-binding` | `silenced` | `user`
+[`auth`][26] | | |
 
 ## Managing resources
 
 Sensuctl provides the following commands to manage Sensu resources.
 
 - [`sensuctl asset`][12]
-- [`sensuctl auth`](../../installation/auth) (enterprise only)
+- [`sensuctl auth`][26] (enterprise only)
 - [`sensuctl check`][13]
 - [`sensuctl cluster`][7]
 - [`sensuctl cluster-role`][1]
@@ -265,7 +267,7 @@ Sensuctl provides the following commands to manage Sensu resources.
 - [`sensuctl filter`][16]
 - [`sensuctl handler`][17]
 - [`sensuctl hook`][18]
-- [`sensuctl license`](../../reference/enterprise) (enterprise only)
+- [`sensuctl license`](../../reference/license) (enterprise only)
 - [`sensuctl mutator`][19]
 - [`sensuctl namespace`][1]
 - [`sensuctl role`][1]
@@ -450,6 +452,32 @@ asset       completion  entity      handler
 create  delete  import  list
 {{< /highlight >}}
 
+## Configuration files
+
+During configuration, sensuctl creates configuration files that contain information for connecting to your Sensu Go deployment. You can find them at `$HOME/.config/sensu/sensuctl/profile` and `$HOME/.config/sensu/sensuctl/profile`. For example:
+
+{{< highlight shell >}}
+cat .config/sensu/sensuctl/profile
+{
+  "format": "tabular",
+  "namespace": "demo"
+}
+{{< /highlight >}}
+
+{{< highlight shell >}}
+cat .config/sensu/sensuctl/cluster 
+{
+  "api-url": "http://localhost:8080",
+  "trusted-ca-file": "",
+  "insecure-skip-tls-verify": false,
+  "access_token": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+  "expires_at": 1550082282,
+  "refresh_token": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+}
+{{< /highlight >}}
+
+These are useful if you want to know what cluster you're connecting to, or what namespace you're currently configured to use. 
+
 [1]: ../../reference/rbac
 [2]: https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
 [3]: #sensuctl-create-resource-types
@@ -475,3 +503,4 @@ create  delete  import  list
 [23]: #subcommands
 [24]: #sensuctl-edit-resource-types
 [25]: ../../api/overview
+[26]: ../../installation/auth

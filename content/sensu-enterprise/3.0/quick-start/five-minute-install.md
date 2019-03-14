@@ -66,7 +66,7 @@ Add the Sensu Enterprise repository:
 {{< highlight shell >}}
 echo "[sensu-enterprise]
 name=sensu-enterprise
-baseurl=http://$SE_USER:$SE_PASS@enterprise.sensuapp.com/yum/noarch/
+baseurl=https://$SE_USER:$SE_PASS@enterprise.sensuapp.com/yum/noarch/
 gpgkey=https://repositories.sensuapp.org/yum/pubkey.gpg
 gpgcheck=1
 enabled=1" | sudo tee /etc/yum.repos.d/sensu-enterprise.repo{{< /highlight >}}
@@ -76,7 +76,7 @@ Add the Sensu Enterprise Dashboard repository:
 {{< highlight shell >}}
 echo "[sensu-enterprise-dashboard]
 name=sensu-enterprise-dashboard
-baseurl=http://$SE_USER:$SE_PASS@enterprise.sensuapp.com/yum/\$basearch/
+baseurl=https://$SE_USER:$SE_PASS@enterprise.sensuapp.com/yum/\$basearch/
 gpgkey=https://repositories.sensuapp.org/yum/pubkey.gpg
 gpgcheck=1
 enabled=1" | sudo tee /etc/yum.repos.d/sensu-enterprise-dashboard.repo{{< /highlight >}}

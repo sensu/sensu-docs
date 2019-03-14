@@ -1,7 +1,7 @@
 ---
 title: "Sensuctl"
 linkTitle: "Reference"
-description: "The sensuctl reference guide"
+description: "Sensuctl is a command line tool for managing resources within Sensu. It works by calling Sensu’s underlying API to create, read, update, and delete resources, events, and entities. Read the reference doc to learn about sensuctl."
 weight: 2
 version: "5.0"
 product: "Sensu Go"
@@ -21,6 +21,7 @@ aliases:
 - [Managing resources](#managing-resources)
 - [Time formats](#time-formats)
 - [Shell auto-completion](#shell-auto-completion)
+- [Config files](#configuration-files)
 
 Sensuctl is a command line tool for managing resources within Sensu. It works by
 calling Sensu's underlying API to create, read, update, and delete resources,
@@ -445,6 +446,32 @@ asset       completion  entity      handler
 {{< highlight shell >}}
 create  delete  import  list
 {{< /highlight >}}
+
+## Configuration files
+
+During configuration, sensuctl creates configuration files that contain information for connecting to your Sensu Go deployment. You can find them at `$HOME/.config/sensu/sensuctl/profile` and `$HOME/.config/sensu/sensuctl/profile`. For example:
+
+{{< highlight shell >}}
+cat .config/sensu/sensuctl/profile
+{
+  "format": "tabular",
+  "namespace": "demo"
+}
+{{< /highlight >}}
+
+{{< highlight shell >}}
+cat .config/sensu/sensuctl/cluster 
+{
+  "api-url": "http://localhost:8080",
+  "trusted-ca-file": "",
+  "insecure-skip-tls-verify": false,
+  "access_token": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+  "expires_at": 1550082282,
+  "refresh_token": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+}
+{{< /highlight >}}
+
+These are useful if you want to know what cluster you're connecting to, or what namespace you're currently configured to use. 
 
 [1]: ../../reference/rbac
 [2]: https://en.wikipedia.org/wiki/List_of_tz_database_time_zones

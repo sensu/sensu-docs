@@ -1,6 +1,6 @@
 ---
 title: "Users API"
-description: "Sensu Go users API reference documentation"
+description: "Here’s all you need to know about the users API in Sensu Go, including some handy examples for creating users, accessing user data by username, and updating users. Learn how you can easily customize Sensu Go to match your workflows."
 version: "5.1"
 product: "Sensu Go"
 lastTested: 2018-12-11

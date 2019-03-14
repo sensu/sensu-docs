@@ -1,7 +1,7 @@
 ---
 title: "Authentication providers API"
 linkTitle: "Authentication Providers API"
-description: "Sensu Go authentication providers API reference documentation"
+description: "The authentication providers API endpoint provides HTTP access to authentication provider configuration in Sensu. Here’s a reference for the authentication providers API in Sensu Go, including returning the list of active authentication providers and creating or updating an authentication provider. Read on for the full reference."
 version: "5.2"
 product: "Sensu Go"
 menu:
@@ -73,7 +73,7 @@ The `/authproviders/:name` API endpoint provides HTTP GET access to authenticati
 
 /authproviders/:name (GET) | 
 ---------------------|------
-description          | Returns the configuration for an authentication provider given the type (must be `ldap`) and the name.
+description          | Returns the configuration for an authentication provider given the configured provider name.
 example url          | http://hostname:8080/api/enterprise/authentication/v2/authproviders/openldap
 response type        | Map
 response codes       | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
