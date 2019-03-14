@@ -751,7 +751,7 @@ if ("document" in self && ("classList" in document.createElement("_") ? ! functi
                 window.removeEventListener("scroll", a), matchMedia("only screen and (max-width: 959px)").matches ? (e.style.position = null, e.style.top = null, e.style.bottom = null) : e.offsetHeight + 96 < t.offsetHeight && (window.addEventListener("scroll", a), a())
             };
         Modernizr.ios || (window.addEventListener("resize", c), c());
-        var l = function() {
+        /*var l = function() {
             var base_url = "";
             pegasus(base_url + "/js/lunr/PagesIndex.json").then(function(e, n) {
                 var o = lunr(function() {
@@ -800,7 +800,7 @@ if ("document" in self && ("classList" in document.createElement("_") ? ! functi
             }, function(t, e) {
                 console.error(t, e.status)
             }), t.removeEventListener("click", l)
-        };
+        };*/
         t.addEventListener("click", l);
         var u = 0;
         t.addEventListener("click", function(t) {
