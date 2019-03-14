@@ -28,25 +28,21 @@ Asset definitions tell Sensu how to download and verify the asset when required 
 
 For example, here's the asset definition for version 1.0.1 of the [Sensu PagerDuty handler asset][19] for Linux AMD64.
 
-{{< highlight json >}}
-{
-  "type": "Asset",
-  "api_version": "core/v2",
-  "metadata": {
-    "name": "sensu-pagerduty-handler",
-    "namespace": "default",
-    "labels": {},
-    "annotations": {}
-  },
-  "spec": {
-    "url": "https://github.com/sensu/sensu-pagerduty-handler/releases/download/1.0.1/sensu-pagerduty-handler_1.0.1_linux_amd64.tar.gz",
-    "sha512": "5facfb0706e5e36edc5d13993ecc813a4689c5ca502d70670268ca1c0679e9e2af79af75ee4f7a423b48f2e55524f6d81ce81485975eb3b70048cfa58f4af961",
-    "filters": [
-      "entity.system.os == 'linux'",
-      "entity.system.arch == 'amd64'"
-    ]
-  }
-}
+{{< highlight yml >}}
+---
+type: Asset
+api_version: core/v2
+metadata:
+  name: sensu-pagerduty-handler
+  namespace: default
+  labels: {}
+  annotations: {}
+spec:
+  url: https://github.com/sensu/sensu-pagerduty-handler/releases/download/1.0.2/sensu-pagerduty-handler_1.0.2_linux_amd64.tar.gz
+  sha512: 65e280e916b693a5041cdf25c6c2e6bd10f1bed37b0f710171cf9a7123bf8c683049ee1cd0ee137344ded19156a69966f5e36ff4313f9306cc59613e1b2d7822
+  filters:
+  - entity.system.os == linux
+  - entity.system.arch == amd64
 {{< /highlight >}}
 
 **Enterprise-only assets** (like the [ServiceNow](https://bonsai.sensu.io/assets/sensu/sensu-servicenow-handler) and [Jira event handlers](https://bonsai.sensu.io/assets/sensu/sensu-jira-handler)) require an active enterprise license. For more information about enterprise-only features and to active your license, see the [getting started guide](../../getting-started/enterprise).
@@ -56,7 +52,7 @@ For example, here's the asset definition for version 1.0.1 of the [Sensu PagerDu
 Once you've downloaded the asset definition, you can register the asset with Sensu using sensuctl.
 
 {{< highlight shell >}}
-sensuctl create --file sensu-sensu-pagerduty-handler-1.0.1-linux-amd64.json
+sensuctl create --file sensu-sensu-pagerduty-handler-1.0.1-linux-amd64.yml
 {{< /highlight >}}
 
 You can use sensuctl to verify that the asset is registered and ready to use.
