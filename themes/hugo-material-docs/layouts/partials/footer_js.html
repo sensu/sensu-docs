@@ -87,5 +87,14 @@
 
     <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/highlight.min.js"></script>
     <script>hljs.initHighlightingOnLoad();</script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
+    <script type="text/javascript"> docsearch({
+    apiKey: 'df5f39dc686fe890d1e1d0dfe325112e',
+    indexName: 'sensu',
+    inputSelector: '#search',
+    algoliaOptions: { 'facetFilters': ["version:3.0", "tags:sensu-core"] },
+    debug: false // Set debug to true if you want to inspect the dropdown
+    });
+    </script>
   </body>
 </html>
