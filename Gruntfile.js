@@ -72,7 +72,7 @@ module.exports = function(grunt) {
     });
 
     // define the actual lunr-index task for cli
-    /*grunt.registerTask("lunr-index", function() {
+    grunt.registerTask("lunr-index", function() {
 
         grunt.log.writeln("Build pages index");
 
@@ -90,7 +90,7 @@ module.exports = function(grunt) {
                 }
             });
             return pagesIndex;
-        };*/
+        };
 
         // call the appropriate process for if it's a content file (md) or html page
         var processFile = function(abspath, filename) {
