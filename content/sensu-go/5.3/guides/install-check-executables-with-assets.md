@@ -17,7 +17,7 @@ menu:
 - [Next steps](#next-steps)
 
 Assets are shareable, reusable packages that make it easy to deploy Sensu plugins.
-You can use assets to provide the plugins, libraries, and runtimes you need to power your monitoring workflows.
+You can use assets to provide the plugins, libraries, and runtimes you need to automate your monitoring workflows.
 See the [asset reference](../../reference/assets) for more information about assets.
 
 ### 1. Download an asset definition from Bonsai

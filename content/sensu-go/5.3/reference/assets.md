@@ -23,7 +23,7 @@ Read the [guide to using assets][23] to get started.
 
 ## What is an asset?
 Assets are shareable, reusable packages that make it easy to deploy Sensu plugins.
-You can use assets to provide the plugins, libraries, and runtimes you need to create automated monitoring workflows with Sensu.
+You can use assets to provide the plugins, libraries, and runtimes you need to automate your monitoring workflows.
 Sensu supports runtime assets for [checks][6], [filters][7], [mutators][8], and [handlers][9].
 
 ## How do assets work?
