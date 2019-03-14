@@ -338,7 +338,7 @@ Now let's create the InfluxDB handler to store these metrics and visualize them 
 To create a pipeline to send metric events to InfluxDB, start by registering the [Sensu InfluxDB handler asset][4].
 
 {{< highlight shell >}}
-sensuctl asset create sensu-influxdb-handler --url "https://github.com/sensu/sensu-influxdb-handler/releases/download/3.1.2/sensu-influxdb-handler_3.1.2_linux_arm64.tar.gz" --sha512 "9936dce7416345b98df1076673b5713d0a9f1d7aebd02e4a3794e491d4716e039acae16a4360030b0bc3128f6fced3abc42e3208a55d8ff89e645cc5c3905765"
+sensuctl asset create sensu-influxdb-handler --url "https://github.com/sensu/sensu-influxdb-handler/releases/download/3.1.2/sensu-influxdb-handler_3.1.2_linux_amd64.tar.gz" --sha512 "612c6ff9928841090c4d23bf20aaf7558e4eed8977a848cf9e2899bb13a13e7540bac2b63e324f39d9b1257bb479676bc155b24e21bf93c722b812b0f15cb3bd"
 {{< /highlight >}}
 
 You should see a confirmation message from sensuctl.
@@ -357,7 +357,7 @@ sensuctl asset info sensu-influxdb-handler --format yaml
 Open the `influx-handler.json` handler definition provided with the sandbox, and edit the `runtime_assets` attribute to include the `sensu-influxdb-handler` asset.
 
 {{< highlight shell >}}
-"runtime_assets": ["sensu-slack-handler"]
+"runtime_assets": ["sensu-influxdb-handler"]
 {{< /highlight >}}
 
 Now you can use sensuctl to create the `influx-db` handler.
