@@ -81,7 +81,7 @@ For example, to use the [Sensu PagerDuty handler asset][19], create a `pagerduty
         "type": "pipe",
         "command": "sensu-pagerduty-handler",
         "env_vars": [
-          "PAGERDUTY_TOKEN=SECRET",
+          "PAGERDUTY_TOKEN=SECRET"
         ],
         "runtime_assets": ["sensu-pagerduty-handler"],
         "timeout": 10,
