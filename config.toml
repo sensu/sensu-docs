@@ -61,7 +61,7 @@ ignoreFiles = [ "sensu-doc-template.md" ]
     [params.products.sensu_core]
         identifier = "sensu-core"
         name = "Sensu Core"
-        description = "The legacy monitoring event pipeline"
+        description = "The original monitoring event pipeline"
         weight = 2
         latest = "1.7"
         [params.products.sensu_core.versions]
@@ -78,7 +78,7 @@ ignoreFiles = [ "sensu-doc-template.md" ]
     [params.products.sensu_enterprise]
         identifier = "sensu-enterprise"
         name = "Sensu Enterprise"
-        description = "The legacy monitoring product for enterprises, built on Sensu Core"
+        description = "The powerful and simple monitoring product, built on Sensu Core"
         weight = 3
         latest = "3.4"
         [params.products.sensu_enterprise.versions]
@@ -94,7 +94,7 @@ ignoreFiles = [ "sensu-doc-template.md" ]
     [params.products.sensu_enterprise_dashboard]
         identifier = "sensu-enterprise-dashboard"
         name = "Sensu Enterprise Dashboard"
-        description = "The legacy dashboard for Sensu Enterprise, built on Uchiwa"
+        description = "The dashboard for Sensu Enterprise, built on Uchiwa"
         weight = 4
         latest = "2.15"
         [params.products.sensu_enterprise_dashboard.versions]
@@ -110,7 +110,7 @@ ignoreFiles = [ "sensu-doc-template.md" ]
     [params.products.uchiwa]
         identifier = "uchiwa"
         name = "Uchiwa"
-        description = "A legacy dashboard for the Sensu monitoring event pipeline"
+        description = "An open source dashboard for Sensu Core"
         weight = 5
         latest = "1.0"
         [params.products.uchiwa.versions]
