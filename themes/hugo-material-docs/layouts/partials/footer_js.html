@@ -92,9 +92,10 @@
     apiKey: 'df5f39dc686fe890d1e1d0dfe325112e',
     indexName: 'sensu',
     inputSelector: '#search',
-    algoliaOptions: { 'facetFilters': ["version: 0.29, 1.0, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 2.0, 2.6, 2.7, 2.8, 2.9, 2.10, 2.11, 2.12, 2.13, 2.14, 2.15, 3.0, 3.1, 3.2, 3.3, 3.4, 5.0, 5.1, 5.2, 5.3", "tags:plugins, sensu-core, sensu-enterprise, sensu-enterprise-dashboard, uchiwa, sensu-go"] },
+    /*algoliaOptions: { 'facetFilters': ['version: 0.29, 1.0, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 2.0, 2.6, 2.7, 2.8, 2.9, 2.10, 2.11, 2.12, 2.13, 2.14, 2.15, 3.0, 3.1, 3.2, 3.3, 3.4, 5.0, 5.1, 5.2, 5.3', 'tags:plugins, sensu-core, sensu-enterprise, sensu-enterprise-dashboard, uchiwa, sensu-go'] },
     debug: false // Set debug to true if you want to inspect the dropdown
-    });
+    });*/
+    algoliaOptions: { 'facetFilters': ['version: 5.3', 'tags: sensu-go'] },
     </script>
   </body>
 </html>
