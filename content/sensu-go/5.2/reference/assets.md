@@ -23,7 +23,7 @@ Read the [guide to using assets][23] to get started.
 
 ## What is an asset?
 Assets are shareable, reusable packages that make it easy to deploy Sensu plugins.
-You can use assets to provide the plugins, libraries, and runtimes you need to create automated monitoring workflows with Sensu.
+You can use assets to provide the plugins, libraries, and runtimes you need to automate your monitoring workflows.
 Sensu supports runtime assets for [checks][6], [filters][7], [mutators][8], and [handlers][9].
 
 ## How do assets work?
@@ -186,7 +186,7 @@ example      | {{< highlight shell >}}"type": "Asset"{{< /highlight >}}
 
 api_version  | 
 -------------|------
-description  | Top-level attribute specifying the Sensu API group and version. For assets in Sensu backend version 5.2, this attribute should always be `core/v2`.
+description  | Top-level attribute specifying the Sensu API group and version. For assets in Sensu backend version 5.3, this attribute should always be `core/v2`.
 required     | Required for asset definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][sc].
 type         | String
 example      | {{< highlight shell >}}"api_version": "core/v2"{{< /highlight >}}
