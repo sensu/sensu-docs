@@ -20,8 +20,8 @@ You can use assets to provide the plugins, libraries, and runtimes you need to a
 Visit [Bonsai](https://bonsai.sensu.io/) to discover, download, and share assets, and get started with these helpful resources.
 
 - [Bonsai, the Sensu asset index](https://bonsai.sensu.io/)
-- [Guide to installing plugins with assets](../../guides/install-check-executables-with-assets)
-- [Guide to sharing assets on Bonsai](../../reference/assets#sharing-an-asset-on-bonsai)
+- [Installing plugins with assets](../../guides/install-check-executables-with-assets)
+- [Sharing assets on Bonsai](../../reference/assets#sharing-an-asset-on-bonsai)
 
 ### Installing plugins using the sensu-install tool
 
