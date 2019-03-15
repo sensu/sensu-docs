@@ -1,7 +1,7 @@
 ---
 title: "Sensuctl"
 linkTitle: "Reference"
-description: "The sensuctl reference guide"
+description: "Sensuctl is a command line tool for managing resources within Sensu. It works by calling Sensu’s underlying API to create, read, update, and delete resources, events, and entities. Read the reference doc to learn about sensuctl."
 weight: 2
 version: "5.2"
 product: "Sensu Go"

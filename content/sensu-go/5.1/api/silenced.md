@@ -1,6 +1,6 @@
 ---
 title: "Silencing API"
-description: "Sensu Go silencing API reference documentation"
+description: "The silencing API provides HTTP access to silencing entries. Here’s a reference for the silencing API in Sensu Go, including examples for creating and removing Sensu silencing entries. Read on for the full reference."
 version: "5.1"
 product: "Sensu Go"
 menu:

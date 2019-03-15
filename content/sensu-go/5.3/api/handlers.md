@@ -1,6 +1,6 @@
 ---
 title: "Handlers API"
-description: "Sensu Go handlers API reference documentation"
+description: "The handlers API provides HTTP access to handler data. Here’s a reference for the handlers API in Sensu Go, including examples for returning lists of handlers, creating a Sensu handler, and more. Read on for the full reference."
 version: "5.3"
 product: "Sensu Go"
 menu:

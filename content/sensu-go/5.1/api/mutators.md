@@ -1,6 +1,6 @@
 ---
 title: "Mutators API"
-description: "Sensu Go mutators API reference documentation"
+description: "The mutator API provides HTTP access to mutator data. Here’s a reference for the mutators API in Sensu Go, including examples for returning lists of mutators, creating Sensu mutator, and more. Read on for the full reference."
 version: "5.1"
 product: "Sensu Go"
 menu:
