@@ -38,11 +38,11 @@ metadata:
   labels: {}
   annotations: {}
 spec:
-  url: https://github.com/sensu/sensu-pagerduty-handler/releases/download/1.0.2/sensu-pagerduty-handler_1.1.0_linux_amd64.tar.gz
-  sha512: 65e280e916b693a5041cdf25c6c2e6bd10f1bed37b0f710171cf9a7123bf8c683049ee1cd0ee137344ded19156a69966f5e36ff4313f9306cc59613e1b2d7822
+  url: https://github.com/sensu/sensu-pagerduty-handler/releases/download/1.1.0/sensu-pagerduty-handler_1.1.0_linux_amd64.tar.gz
+  sha512: e93ec4465af5a2057664e8c3cd68e9352457b81315b97578eaae5e21f0cf7419d4fc36feb0155eeb0dd5a227e267307a58ee58a9f3e85bf3d44da3738bf691ca
   filters:
-  - entity.system.os == linux
-  - entity.system.arch == amd64
+  - entity.system.os == 'linux'
+  - entity.system.arch == 'amd64'
 {{< /highlight >}}
 
 **Enterprise-only assets** (like the [ServiceNow](https://bonsai.sensu.io/assets/sensu/sensu-servicenow-handler) and [Jira event handlers](https://bonsai.sensu.io/assets/sensu/sensu-jira-handler)) require an active enterprise license. For more information about enterprise-only features and to active your license, see the [getting started guide](../../getting-started/enterprise).
