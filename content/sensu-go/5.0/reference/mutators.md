@@ -53,7 +53,7 @@ Sensu includes built-in mutators to help you customize event pipelines for metri
 
 ### Built-in mutator: only check output
 
-For some check results, only the check output is required before it is handled. For example, when sending metrics to a TSDB like InfluxDB.
+There are check results where only the check output is required before for handling. For example, when sending metrics to Graphite using a TCP handler in check output that follows the graphite message format. Graphite will reject the metrics as they will include the entire event payload without the mutator.
 
 To use the only check output mutator, include the `only_check_output` mutator in the handler configuration `mutator` string:
 
@@ -62,19 +62,16 @@ To use the only check output mutator, include the `only_check_output` mutator in
   "type": "Handler",
   "api_version": "core/v2",
   "metadata": {
-    "name": "influxdb",
+    "name": "graphite",
     "namespace": "default"
   },
   "spec": {
-    "command": "sensu-influxdb-handler -d sensu",
-    "mutator": "only_check_output",
-    "handlers": [],
-    "runtime_assets": [],
-    "timeout": 0,
-    "filters": [
-      "has_metrics"
-    ],
-    "type": "pipe"
+    "type": "tcp",
+    "socket": {
+      "host": "10.0.1.99",
+      "port": 2003
+    },
+    "mutator": "only_check_output"
   }
 }
 {{< /highlight >}}
