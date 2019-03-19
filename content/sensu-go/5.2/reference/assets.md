@@ -31,8 +31,8 @@ Assets can be executed by the backend (for handler, filter, and mutator assets),
 by the agent (for check assets). At runtime, the entity sequentially fetches
 assets and stores them in its local cache. Asset dependencies are then
 injected into the `PATH` so they are available when the command is executed.
-Subsequent check, handler, filter, or mutator executions look for the asset in local
-cache and ensure the contents match the checksum. An entity's local cache can
+Subsequent check, handler, filter, or mutator executions look for the asset in the local
+cache and ensure the contents match the checksum. The backend or agent's local cache can
 be set using the `--cache-dir` flag.
 
 ## Asset format specification
