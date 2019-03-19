@@ -1,6 +1,6 @@
 ---
 title: "Silencing"
-description: "The silencing reference guide."
+description: "Sensu’s built-in silencing capability provides the means to suppress execution of event handlers on an ad-hoc basis, letting you plan maintenances and giving you even more tools to reduce alert fatigue. Read the reference doc to learn about silencing in Sensu."
 weight: 10
 version: "5.0"
 product: "Sensu Go"

@@ -1,7 +1,7 @@
 ---
 title: "Assets"
 linkTitle: "Assets"
-description: "The assets reference guide."
+description: "Assets are shareable, reusable packages that make it easy to deploy Sensu plugins. You can use assets to provide the plugins, libraries, and runtimes you need to create automated monitoring workflows. Read the reference doc to learn about assets."
 weight: 10
 version: "5.1"
 product: "Sensu Go"

@@ -1,7 +1,7 @@
 ---
 title: "Assets"
 linkTitle: "Assets"
-description: "The assets reference guide."
+description: "Assets are shareable, reusable packages that make it easy to deploy Sensu plugins. You can use assets to provide the plugins, libraries, and runtimes you need to create automated monitoring workflows. Read the reference doc to learn about assets."
 weight: 10
 version: "5.3"
 product: "Sensu Go"
@@ -186,7 +186,7 @@ example      | {{< highlight shell >}}"type": "Asset"{{< /highlight >}}
 
 api_version  | 
 -------------|------
-description  | Top-level attribute specifying the Sensu API group and version. For assets in Sensu backend version 5.2, this attribute should always be `core/v2`.
+description  | Top-level attribute specifying the Sensu API group and version. For assets in Sensu backend version 5.3, this attribute should always be `core/v2`.
 required     | Required for asset definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][sc].
 type         | String
 example      | {{< highlight shell >}}"api_version": "core/v2"{{< /highlight >}}

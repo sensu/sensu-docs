@@ -1,6 +1,6 @@
 ---
 title: "Assets API"
-description: "Sensu Go assets API reference documentation"
+description: "The assets API provides HTTP access to asset data. Here’s a reference for the assets API in Sensu Go, including examples for returning lists of assets, creating assets, and more. Read on for the full reference."
 version: "5.0"
 product: "Sensu Go"
 menu:

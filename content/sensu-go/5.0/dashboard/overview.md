@@ -1,6 +1,7 @@
 ---
 title: "Dashboard overview"
 linkTitle: "Overview"
+description: "The Sensu backend includes the Sensu dashboard: a unified view of your events, entities, and checks with user-friendly tools to reduce alert fatigue. Read the doc to get started using the dashboard."
 weight: 120
 version: "5.0"
 product: "Sensu Go"

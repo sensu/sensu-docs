@@ -1,6 +1,6 @@
 ---
 title: "Handlers"
-description: "The handlers reference guide."
+description: "Handlers are actions executed by the Sensu backend on events, allowing you to created automated monitoring workflows. Read the reference doc to learn about handlers."
 weight: 10
 version: "5.3"
 product: "Sensu Go"
@@ -108,7 +108,7 @@ example      | {{< highlight shell >}}"type": "Handler"{{< /highlight >}}
 
 api_version  | 
 -------------|------
-description  | Top-level attribute specifying the Sensu API group and version. For handlers in Sensu backend version 5.2, this attribute should always be `core/v2`.
+description  | Top-level attribute specifying the Sensu API group and version. For handlers in Sensu backend version 5.3, this attribute should always be `core/v2`.
 required     | Required for handler definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][sc].
 type         | String
 example      | {{< highlight shell >}}"api_version": "core/v2"{{< /highlight >}}
