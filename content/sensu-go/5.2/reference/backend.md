@@ -207,6 +207,18 @@ Store Flags:
 
 ### General configuration flags
 
+| cache-dir   |      |
+--------------|------
+description   | Path to store cached data
+type          | String
+default       | <ul><li>Linux: `/var/cache/sensu/sensu-backend`</li><li>Windows: `C:\\ProgramData\sensu\cache\sensu-backend`</li></ul>
+example       | {{< highlight shell >}}# Command line example
+sensu-backend start --cache-dir /cache/sensu-backend
+
+# /etc/sensu/backend.yml example
+cache-dir: "/cache/sensu-backend"{{< /highlight >}}
+
+
 | config-file |      |
 --------------|------
 description   | Path to Sensu backend config file
