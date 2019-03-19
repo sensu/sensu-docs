@@ -14,9 +14,9 @@ menu:
 - [What is an asset?](#what-is-an-asset)
 - [How do assets work?](#how-do-assets-work)
 - [Asset format specification](#asset-format-specification)
-- [Sharing an asset on Bonsai](#sharing-an-asset-on-bonsai)
 - [Asset specification](#asset-specification)
 - [Examples](#examples)
+- [Sharing an asset on Bonsai](#sharing-an-asset-on-bonsai)
 
 You can discover, download, and share assets using [Bonsai, the Sensu asset index][16].
 Read the [guide to using assets][23] to get started.
@@ -69,108 +69,6 @@ sensu-example-handler_1.0.0_linux_amd64
   └── my-check.sh
 └── lib
 └── include
-{{< /highlight >}}
-
-## Sharing an asset on Bonsai
-
-Share your open-source assets on [Bonsai][16] and connect with the Sensu Community.
-Bonsai supports assets hosted on [GitHub](https://github.com) and released using [GitHub releases](https://help.github.com/articles/about-releases/).
-For more information about creating Sensu Plugins, see the [Sensu Plugin specification][29].
-
-Bonsai requires a [`bonsai.yml` configuration file](#bonsai-yml-specification) in the root directory of your repository that includes the project description, platforms, asset filenames, and SHA-512 checksums.
-For a Bonsai-compatible asset template using Go and [GoReleaser](https://goreleaser.com/), see the [Sensu Go plugin skeleton][28].
-
-To share your asset on Bonsai, [log in to Bonsai](https://bonsai.sensu.io/sign-in) with your GitHub account and authorize Sensu.
-Once logged in, you can [register your asset on Bonsai](https://bonsai.sensu.io/new) by adding the GitHub repository, description, and tags.
-Make sure to provide a helpful README for your asset with configuration examples.
-
-### `bonsai.yml` example
-
-{{< highlight yml >}}
----
-description: "#{repo}"
-builds:
-- platform: "linux"
-  arch: "amd64"
-  asset_filename: "#{repo}_#{version}_linux_amd64.tar.gz"
-  sha_filename: "#{repo}_#{version}_sha512-checksums.txt"
-  filter:
-  -  "entity.system.os == 'linux'"
-  -  "entity.system.arch == 'amd64'"
-
-- platform: "Windows"
-  arch: "amd64"
-  asset_filename: "#{repo}_#{version}_windows_amd64.tar.gz"
-  sha_filename: "#{repo}_#{version}_sha512-checksums.txt"
-  filter:
-  -  "entity.system.os == 'windows'"
-  -  "entity.system.arch == 'amd64'"
-{{< /highlight >}}
-
-### `bonsai.yml` specification
-
- description | 
--------------|------
-description  | The project description
-required     | true
-type         | String
-example      | {{< highlight yml >}}description: "#{repo}"{{< /highlight >}}
-
- builds      | 
--------------|------
-description  | An array of asset details per platform
-required     | true
-type         | Array
-example      | {{< highlight yml >}}
-builds:
-- platform: "linux"
-  arch: "amd64"
-  asset_filename: "#{repo}_#{version}_linux_amd64.tar.gz"
-  sha_filename: "#{repo}_#{version}_sha512-checksums.txt"
-  filter:
-  -  "entity.system.os == 'linux'"
-  -  "entity.system.arch == 'amd64'"
-{{< /highlight >}}
-
-### Builds specification
-
- platform    | 
--------------|------
-description  | The platform supported by the asset
-required     | true
-type         | String
-example      | {{< highlight yml >}}- platform: "linux"{{< /highlight >}}
-
- arch        | 
--------------|------
-description  | The architecture supported by the asset
-required     | true
-type         | String
-example      | {{< highlight yml >}}  arch: "amd64"{{< /highlight >}}
-
-asset_filename | 
--------------|------
-description  | The filename of the archive containing the asset
-required     | true
-type         | String
-example      | {{< highlight yml >}}asset_filename: "#{repo}_#{version}_linux_amd64.tar.gz"{{< /highlight >}}
-
-sha_filename | 
--------------|------
-description  | The SHA-512 checksum for the asset archive
-required     | true
-type         | String
-example      | {{< highlight yml >}}sha_filename: "#{repo}_#{version}_sha512-checksums.txt"{{< /highlight >}}
-
- filter      | 
--------------|------
-description  | Entity filters specifying the operating system and architecture supported by the asset
-required     | false
-type         | Array
-example      | {{< highlight yml >}}
-  filter:
-  -  "entity.system.os == 'linux'"
-  -  "entity.system.arch == 'amd64'"
 {{< /highlight >}}
 
 ## Asset specification
@@ -328,6 +226,108 @@ example      | {{< highlight shell >}} "annotations": {
     ]
   }
 }
+{{< /highlight >}}
+
+## Sharing an asset on Bonsai
+
+Share your open-source assets on [Bonsai][16] and connect with the Sensu Community.
+Bonsai supports assets hosted on [GitHub](https://github.com) and released using [GitHub releases](https://help.github.com/articles/about-releases/).
+For more information about creating Sensu Plugins, see the [Sensu Plugin specification][29].
+
+Bonsai requires a [`bonsai.yml` configuration file](#bonsai-yml-specification) in the root directory of your repository that includes the project description, platforms, asset filenames, and SHA-512 checksums.
+For a Bonsai-compatible asset template using Go and [GoReleaser](https://goreleaser.com/), see the [Sensu Go plugin skeleton][28].
+
+To share your asset on Bonsai, [log in to Bonsai](https://bonsai.sensu.io/sign-in) with your GitHub account and authorize Sensu.
+Once logged in, you can [register your asset on Bonsai](https://bonsai.sensu.io/new) by adding the GitHub repository, description, and tags.
+Make sure to provide a helpful README for your asset with configuration examples.
+
+### `bonsai.yml` example
+
+{{< highlight yml >}}
+---
+description: "#{repo}"
+builds:
+- platform: "linux"
+  arch: "amd64"
+  asset_filename: "#{repo}_#{version}_linux_amd64.tar.gz"
+  sha_filename: "#{repo}_#{version}_sha512-checksums.txt"
+  filter:
+  -  "entity.system.os == 'linux'"
+  -  "entity.system.arch == 'amd64'"
+
+- platform: "Windows"
+  arch: "amd64"
+  asset_filename: "#{repo}_#{version}_windows_amd64.tar.gz"
+  sha_filename: "#{repo}_#{version}_sha512-checksums.txt"
+  filter:
+  -  "entity.system.os == 'windows'"
+  -  "entity.system.arch == 'amd64'"
+{{< /highlight >}}
+
+### `bonsai.yml` specification
+
+ description | 
+-------------|------
+description  | The project description
+required     | true
+type         | String
+example      | {{< highlight yml >}}description: "#{repo}"{{< /highlight >}}
+
+ builds      | 
+-------------|------
+description  | An array of asset details per platform
+required     | true
+type         | Array
+example      | {{< highlight yml >}}
+builds:
+- platform: "linux"
+  arch: "amd64"
+  asset_filename: "#{repo}_#{version}_linux_amd64.tar.gz"
+  sha_filename: "#{repo}_#{version}_sha512-checksums.txt"
+  filter:
+  -  "entity.system.os == 'linux'"
+  -  "entity.system.arch == 'amd64'"
+{{< /highlight >}}
+
+### Builds specification
+
+ platform    | 
+-------------|------
+description  | The platform supported by the asset
+required     | true
+type         | String
+example      | {{< highlight yml >}}- platform: "linux"{{< /highlight >}}
+
+ arch        | 
+-------------|------
+description  | The architecture supported by the asset
+required     | true
+type         | String
+example      | {{< highlight yml >}}  arch: "amd64"{{< /highlight >}}
+
+asset_filename | 
+-------------|------
+description  | The filename of the archive containing the asset
+required     | true
+type         | String
+example      | {{< highlight yml >}}asset_filename: "#{repo}_#{version}_linux_amd64.tar.gz"{{< /highlight >}}
+
+sha_filename | 
+-------------|------
+description  | The SHA-512 checksum for the asset archive
+required     | true
+type         | String
+example      | {{< highlight yml >}}sha_filename: "#{repo}_#{version}_sha512-checksums.txt"{{< /highlight >}}
+
+ filter      | 
+-------------|------
+description  | Entity filters specifying the operating system and architecture supported by the asset
+required     | false
+type         | Array
+example      | {{< highlight yml >}}
+  filter:
+  -  "entity.system.os == 'linux'"
+  -  "entity.system.arch == 'amd64'"
 {{< /highlight >}}
 
 [1]: ../../reference/sensu-query-expressions/
