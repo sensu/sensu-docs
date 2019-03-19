@@ -30,7 +30,7 @@ The dashboard displays events, entities, checks, and silences for a single names
 By default, the dashboard displays the `default` namespace.
 To switch namespaces, select the menu icon in the upper-left corner, and choose a namespace from the dropdown.
 
-<img src="/images/dashboard-namespace-switcher.png" alt="Screen shot of the Sensu dashboard namespace switcher">
+<img src="/images/dashboard-namespace-switcher.png" alt="Screenshot of the Sensu dashboard namespace switcher">
 
 <p style="text-align:center"><i>Sensu dashboard namespace switcher</i></p>
 
