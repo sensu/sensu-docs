@@ -92,28 +92,20 @@ For example, to use the [Sensu PagerDuty handler asset][19], create a `pagerduty
 }
 {{< /highlight >}}
 
-Save the definition to a file, and add to Sensu using sensuctl.
+Save the definition to a file (for example: `pagerduty-handler.json`), and add to Sensu using sensuctl.
 
 {{< highlight shell >}}
-sensuctl create --file filename.json
+sensuctl create --file pagerduty-handler.json
 {{< /highlight >}}
 
 Now that Sensu can create incidents in PagerDuty, we can automate this workflow by adding the `pagerduty` handler to our Sensu service checks.
 To get started with checks, see the [guide to monitoring server resources](../monitor-server-resources).
 
-You can use sensuctl to see available checks, handlers, and other Sensu resources.
-
-{{< highlight shell >}}
-sensuctl check list
-
-sensuctl mutator list
-
-sensuctl handler list
-{{< /highlight >}}
-
 ### Next steps
 
-See the [asset reference](../../reference/assets) more information about creating and sharing assets.
+- [Learn more about assets](../../reference/assets#how-do-assets-work)
+- [Read the asset specification](../../reference/assets#asset-format-specification)
+- [Share your assets on Bonsai](../../reference/assets#sharing-an-asset-on-bonsai)
 
 [1]: ../../reference/assets/
 [2]: #creating-an-asset
