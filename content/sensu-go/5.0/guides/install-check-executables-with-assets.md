@@ -1,5 +1,5 @@
 ---
-title: "How to install executables using assets"
+title: "How to install plugins using assets"
 linkTitle: "Installing Plugins with Assets"
 description: "Assets are shareable, reusable packages that make it easy to deploy Sensu plugins. You can use assets to provide the plugins, libraries, and runtimes you need to power your monitoring workflows. Read the guide to get started using assets."
 weight: 40
@@ -13,40 +13,36 @@ menu:
 
 - [1. Download an asset definition from Bonsai](#1-download-an-asset-definition-from-bonsai)
 - [2. Register the asset with Sensu](#2-register-the-asset-with-sensu)
-- [3. Create a workflow](#3-create-a-workflow)
+- [3. Create a monitoring workflow](#3-create-a-workflow)
 - [Next steps](#next-steps)
 
 Assets are shareable, reusable packages that make it easy to deploy Sensu plugins.
-You can use assets to provide the plugins, libraries, and runtimes you need to automate your monitoring workflows.
+You can use assets to provide the plugins, libraries, and runtimes you need to power your monitoring workflows.
 See the [asset reference](../../reference/assets) for more information about assets.
 
 ### 1. Download an asset definition from Bonsai
 
 You can discover, download, and share assets using [Bonsai, the Sensu asset index][16].
-To use an asset, select the Download button on the asset page in Bonsai to download the asset definition for your platform and architecture.
+To use an asset, select the Download button on the asset page in Bonsai to download the asset definition for your Sensu backend platform and architecture.
 Asset definitions tell Sensu how to download and verify the asset when required by a check, filter, mutator, or handler.
 
-For example, here's the asset definition for version 1.0.1 of the [Sensu PagerDuty handler asset][19] for Linux AMD64.
+For example, here's the asset definition for version 1.1.0 of the [Sensu PagerDuty handler asset][19] for Linux AMD64.
 
-{{< highlight json >}}
-{
-  "type": "Asset",
-  "api_version": "core/v2",
-  "metadata": {
-    "name": "sensu-pagerduty-handler",
-    "namespace": "default",
-    "labels": {},
-    "annotations": {}
-  },
-  "spec": {
-    "url": "https://github.com/sensu/sensu-pagerduty-handler/releases/download/1.0.1/sensu-pagerduty-handler_1.0.1_linux_amd64.tar.gz",
-    "sha512": "5facfb0706e5e36edc5d13993ecc813a4689c5ca502d70670268ca1c0679e9e2af79af75ee4f7a423b48f2e55524f6d81ce81485975eb3b70048cfa58f4af961",
-    "filters": [
-      "entity.system.os == 'linux'",
-      "entity.system.arch == 'amd64'"
-    ]
-  }
-}
+{{< highlight yml >}}
+---
+type: Asset
+api_version: core/v2
+metadata:
+  name: sensu-pagerduty-handler
+  namespace: default
+  labels: {}
+  annotations: {}
+spec:
+  url: https://github.com/sensu/sensu-pagerduty-handler/releases/download/1.1.0/sensu-pagerduty-handler_1.1.0_linux_amd64.tar.gz
+  sha512: e93ec4465af5a2057664e8c3cd68e9352457b81315b97578eaae5e21f0cf7419d4fc36feb0155eeb0dd5a227e267307a58ee58a9f3e85bf3d44da3738bf691ca
+  filters:
+  - entity.system.os == 'linux'
+  - entity.system.arch == 'amd64'
 {{< /highlight >}}
 
 **Enterprise-only assets** (like the [ServiceNow](https://bonsai.sensu.io/assets/sensu/sensu-servicenow-handler) and [Jira event handlers](https://bonsai.sensu.io/assets/sensu/sensu-jira-handler)) require an active enterprise license. For more information about enterprise-only features and to active your license, see the [getting started guide](../../getting-started/enterprise).
@@ -56,7 +52,7 @@ For example, here's the asset definition for version 1.0.1 of the [Sensu PagerDu
 Once you've downloaded the asset definition, you can register the asset with Sensu using sensuctl.
 
 {{< highlight shell >}}
-sensuctl create --file sensu-sensu-pagerduty-handler-1.0.1-linux-amd64.json
+sensuctl create --file sensu-sensu-pagerduty-handler-1.1.0-linux-amd64.yml
 {{< /highlight >}}
 
 You can use sensuctl to verify that the asset is registered and ready to use.
@@ -71,7 +67,7 @@ Now we can use assets in a monitoring workflow.
 Depending on the asset, you may want to create Sensu checks, filters, mutators, and handlers.
 The asset details in Bonsai are the best resource for information about asset capabilities and configuration.
 
-For example, to use the [Sensu PagerDuty handler asset][19], create a `pagerduty` handler that includes your PagerDuty service API key and `sensu-pagerduty-handler` as a runtime asset.
+For example, to use the [Sensu PagerDuty handler asset][19], create a `pagerduty` handler that includes your PagerDuty service API key in place of `SECRET` and `sensu-pagerduty-handler` as a runtime asset.
 
 {{< highlight json >}}
 {
@@ -83,7 +79,9 @@ For example, to use the [Sensu PagerDuty handler asset][19], create a `pagerduty
     },
     "spec": {
         "type": "pipe",
-        "command": "sensu-pagerduty-handler --token SECRET",
+        "env_vars": [
+          "PAGERDUTY_TOKEN=SECRET"
+        ],
         "runtime_assets": ["sensu-pagerduty-handler"],
         "timeout": 10,
         "filters": [
@@ -93,28 +91,20 @@ For example, to use the [Sensu PagerDuty handler asset][19], create a `pagerduty
 }
 {{< /highlight >}}
 
-Save the definition to a file, and add to Sensu using sensuctl.
+Save the definition to a file (for example: `pagerduty-handler.json`), and add to Sensu using sensuctl.
 
 {{< highlight shell >}}
-sensuctl create --file filename.json
+sensuctl create --file pagerduty-handler.json
 {{< /highlight >}}
 
 Now that Sensu can create incidents in PagerDuty, we can automate this workflow by adding the `pagerduty` handler to our Sensu service checks.
 To get started with checks, see the [guide to monitoring server resources](../monitor-server-resources).
 
-You can use sensuctl to see available checks, handlers, and other Sensu resources.
-
-{{< highlight shell >}}
-sensuctl check list
-
-sensuctl mutator list
-
-sensuctl handler list
-{{< /highlight >}}
-
 ### Next steps
 
-See the [asset reference](../../reference/assets) more information about creating and sharing assets.
+- [Learn more about assets](../../reference/assets#how-do-assets-work)
+- [Read the asset specification](../../reference/assets#asset-format-specification)
+- [Share your assets on Bonsai](../../reference/assets#sharing-an-asset-on-bonsai)
 
 [1]: ../../reference/assets/
 [2]: #creating-an-asset
