@@ -79,7 +79,6 @@ For example, to use the [Sensu PagerDuty handler asset][19], create a `pagerduty
     },
     "spec": {
         "type": "pipe",
-        "command": "sensu-pagerduty-handler",
         "env_vars": [
           "PAGERDUTY_TOKEN=SECRET"
         ],
