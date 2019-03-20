@@ -49,18 +49,19 @@ ignoreFiles = [ "sensu-doc-template.md" ]
     [params.products.sensu_go]
         identifier = "sensu-go"
         name = "Sensu Go"
-        description = "The next-generation open source monitoring event pipeline, written in Go."
+        description = "The next-generation monitoring event pipeline"
         weight = 1
-        latest = "5.2"
+        latest = "5.3"
         [params.products.sensu_go.versions]
             "5.0" = []
             "5.1" = []
             "5.2" = []
+            "5.3" = []
 
     [params.products.sensu_core]
         identifier = "sensu-core"
         name = "Sensu Core"
-        description = "The open source monitoring event pipeline"
+        description = "The original monitoring event pipeline"
         weight = 2
         latest = "1.7"
         [params.products.sensu_core.versions]
@@ -79,8 +80,9 @@ ignoreFiles = [ "sensu-doc-template.md" ]
         name = "Sensu Enterprise"
         description = "The powerful and simple monitoring product, built on Sensu Core"
         weight = 3
-        latest = "3.3"
+        latest = "3.4"
         [params.products.sensu_enterprise.versions]
+            "3.4" = ["Ubuntu/Debian", "RHEL/CentOS"]
             "3.3" = ["Ubuntu/Debian", "RHEL/CentOS"]
             "3.2" = ["Ubuntu/Debian", "RHEL/CentOS"]
             "3.1" = ["Ubuntu/Debian", "RHEL/CentOS"]
@@ -92,10 +94,11 @@ ignoreFiles = [ "sensu-doc-template.md" ]
     [params.products.sensu_enterprise_dashboard]
         identifier = "sensu-enterprise-dashboard"
         name = "Sensu Enterprise Dashboard"
-        description = "The dashboard for Sensu Enterprise with RBAC and more, built on Uchiwa"
+        description = "The dashboard for Sensu Enterprise, built on Uchiwa"
         weight = 4
-        latest = "2.14"
+        latest = "2.15"
         [params.products.sensu_enterprise_dashboard.versions]
+            "2.15" = ["Ubuntu/Debian", "RHEL/CentOS"]
             "2.14" = ["Ubuntu/Debian", "RHEL/CentOS"]
             "2.13" = ["Ubuntu/Debian", "RHEL/CentOS"]
             "2.12" = ["Ubuntu/Debian", "RHEL/CentOS"]
@@ -107,7 +110,7 @@ ignoreFiles = [ "sensu-doc-template.md" ]
     [params.products.uchiwa]
         identifier = "uchiwa"
         name = "Uchiwa"
-        description = "An open source dashboard for the Sensu monitoring event pipeline"
+        description = "An open source dashboard for Sensu Core"
         weight = 5
         latest = "1.0"
         [params.products.uchiwa.versions]
@@ -116,7 +119,7 @@ ignoreFiles = [ "sensu-doc-template.md" ]
     [params.products.plugins]
         identifier = "plugins"
         name = "Plugins"
-        description = "Checks, handlers, and other plugins to power your Sensu deployment."
+        description = "Checks, handlers, and other plugins to power your Sensu deployment"
         weight = 6
         latest = "1.0"
         [params.products.plugins.versions]

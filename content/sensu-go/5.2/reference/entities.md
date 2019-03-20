@@ -1,6 +1,6 @@
 ---
 title: "Entities"
-description: "The entities reference guide."
+description: "An entity represents anything that needs to be monitored, including the full range of infrastructure, runtime and application types that compose a complete monitoring environment (from server hardware to serverless functions). Read the reference doc to learn about entities."
 weight: 10
 version: "5.2"
 product: "Sensu Go"
@@ -13,8 +13,12 @@ menu:
 - [How do entities work?](#how-do-entities-work)
 - [Proxy entities](#proxy-entities)
 - [Managing entity labels](#managing-entity-labels)
+  - [Proxy entities](#proxy-entities-managed)
+  - [Agent entities](#agent-entities-managed)
 - [Entities specification](#entities-specification)
-	- [Entity attributes](#entity-attributes)
+	- [Top-level attributes](#top-level-attributes)
+  - [Spec attributes](#spec-attributes)
+  - [Metadata attributes](#metadata-attributes)
 	- [System attributes](#system-attributes)
 	- [Network attributes](#network-attributes)
 	- [NetworkInterface attributes](#networkinterface-attributes)
@@ -38,7 +42,7 @@ Proxy entities (formerly known as proxy clients, "Just-in-time" or "JIT" clients
 
 Custom labels let you organize entities into meaningful collections that can be selected using [filters][6] and [tokens][7].
 
-### Proxy entities
+### Proxy entities{#proxy-entities-managed}
 
 For entities with class `proxy`, you can create and manage labels using sensuctl.
 For example, to create a proxy entity with a `url` label using sensuctl `create`, create a file called `example.json` with an entity definition that includes `labels`.
@@ -101,7 +105,7 @@ And update the `metadata` scope to include `labels`.
 }
 {{< /highlight >}}
 
-### Agent entities
+### Agent entities{#agent-entities-managed}
 
 For entities with class `agent`, you can define entity attributes in the `/etc/sensu/agent.yml` configuration file.
 For example, to add a `url` label, open `/etc/sensu/agent.yml` and add configuration for `labels`.

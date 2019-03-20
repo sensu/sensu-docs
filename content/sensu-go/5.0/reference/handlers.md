@@ -1,6 +1,6 @@
 ---
 title: "Handlers"
-description: "The handlers reference guide."
+description: "Handlers are actions executed by the Sensu backend on events, allowing you to created automated monitoring workflows. Read the reference doc to learn about handlers."
 weight: 10
 version: "5.0"
 product: "Sensu Go"

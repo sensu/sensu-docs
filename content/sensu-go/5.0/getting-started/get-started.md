@@ -1,7 +1,7 @@
 ---
 title: "Get started with Sensu"
 linkTitle: "Get Started with Sensu"
-description: "It’s easy to get started with Sensu Go. Download the sandbox, install our open source monitoring software, or try our enterprise features. Get started with Sensu today."
+description: "It’s easy to get started with Sensu Go. Download the sandbox, install our flexible monitoring software, and try our enterprise features. Get started with Sensu today."
 version: "5.0"
 weight: 1
 product: "Sensu Go"
@@ -17,9 +17,9 @@ The sandbox is the best place to get started with Sensu and try out new features
 - [Download the sandbox and learn Sensu Go][7]
 - [See more sandbox lessons][1]
 
-### Install Sensu Go (OSS)
+### Install Sensu Go
 
-Sensu Go is the free and open source monitoring event pipeline, written in Go and designed for container-based and hybrid-cloud infrastructures.
+Sensu Go is the flexible monitoring event pipeline, designed for container-based and multi-cloud infrastructures.
 
 - [Install Sensu Go][2]
 
