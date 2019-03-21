@@ -82,10 +82,10 @@ Sensu events contain:
 
 - `entity` scope (required)
   - Information about the source of the event, including any attributes defined in the [entity specification](../entities#specification)
-- `check` scope (required)
+- `check` scope (optional if the `metrics` scope is present)
   - Information about how the event was created, including any attributes defined in the [check specification](../checks#specification)
   - Information about the event and its history, including any check attributes defined in the [event specification on this page](#check-attributes)
-- `metrics` scope (optional)
+- `metrics` scope (optional if the `check` scope is present)
   - Metric points in Sensu metric format, creating using [Sensu metric extraction](../../guides/extract-metrics-with-checks) or the [Sensu agent StatsD listener](../agent#creating-monitoring-events-using-the-statsd-listener)
 - `timestamp`
   - Time that the event occurred in seconds since the Unix epoch

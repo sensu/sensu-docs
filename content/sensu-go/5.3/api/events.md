@@ -197,7 +197,7 @@ curl -X POST \
     "handlers": ["slack"],
     "interval": 60,
     "metadata": {
-      "name": "app-check"
+      "name": "app-health"
     }
   },
   "timestamp": 1552582569
@@ -205,7 +205,7 @@ curl -X POST \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/events
 
 HTTP/1.1 200 OK
-{"timestamp":1552582569,"entity":{"entity_class":"proxy","system":{"network":{"interfaces":null}},"subscriptions":null,"last_seen":0,"deregister":false,"deregistration":{},"metadata":{"name":"my-app","namespace":"default"}},"check":{"handlers":["slack"],"high_flap_threshold":0,"interval":60,"low_flap_threshold":0,"publish":false,"runtime_assets":null,"subscriptions":[],"proxy_entity_name":"","check_hooks":null,"stdin":false,"subdue":null,"ttl":0,"timeout":0,"round_robin":false,"executed":0,"history":null,"issued":0,"output":"Application error message","state":"failing","status":2,"total_state_change":0,"last_ok":0,"occurrences":0,"occurrences_watermark":0,"output_metric_format":"","output_metric_handlers":null,"env_vars":null,"metadata":{"name":"app-check"}},"metadata":{}}
+{"timestamp":1552582569,"entity":{"entity_class":"proxy","system":{"network":{"interfaces":null}},"subscriptions":null,"last_seen":0,"deregister":false,"deregistration":{},"metadata":{"name":"my-app","namespace":"default"}},"check":{"handlers":["slack"],"high_flap_threshold":0,"interval":60,"low_flap_threshold":0,"publish":false,"runtime_assets":null,"subscriptions":[],"proxy_entity_name":"","check_hooks":null,"stdin":false,"subdue":null,"ttl":0,"timeout":0,"round_robin":false,"executed":0,"history":null,"issued":0,"output":"Application error message","state":"failing","status":2,"total_state_change":0,"last_ok":0,"occurrences":0,"occurrences_watermark":0,"output_metric_format":"","output_metric_handlers":null,"env_vars":null,"metadata":{"name":"app-health"}},"metadata":{}}
 {{< /highlight >}}
 
 #### API Specification {#events-post-specification}
@@ -230,7 +230,7 @@ payload         | {{< highlight shell >}}
     "handlers": ["slack"],
     "interval": 60,
     "metadata": {
-      "name": "app-check"
+      "name": "app-health"
     }
   },
   "timestamp": 1552582569
@@ -469,7 +469,8 @@ The `/events/:entity/:check` API endpoint provides HTTP PUT access to create or 
 
 #### EXAMPLE {#eventsentitycheck-put-example}
 
-In the following example, an HTTP PUT request is submitted to the `/events/:entity/:check` API to create an event for the `my-app` entity and the `app-check` check, resulting in a 200 (OK) HTTP response code and the event definition.
+In the following example, an HTTP PUT request is submitted to the `/events/:entity/:check` API to create an event for the `my-app` entity and the `app-health` check and process it using the `slack` event handler.
+The event includes a status code of `1`, indicating a warning, and an output of "Application error message".
 
 {{< highlight shell >}}
 curl -X PUT \
@@ -485,20 +486,37 @@ curl -X PUT \
   },
   "check": {
     "output": "Application error message",
-    "state": "failing",
-    "status": 2,
+    "status": 1,
     "handlers": ["slack"],
     "interval": 60,
     "metadata": {
-      "name": "app-check"
+      "name": "app-health"
     }
   },
   "timestamp": 1552582569
 }' \
-http://127.0.0.1:8080/api/core/v2/namespaces/default/events/my-app/app-check
+http://127.0.0.1:8080/api/core/v2/namespaces/default/events/my-app/app-health
+{{< /highlight >}}
 
+The request returns a 200 (OK) HTTP response code and the resulting event definition.
+
+{{< highlight shell >}}
 HTTP/1.1 200 OK
-{"timestamp":1552582569,"entity":{"entity_class":"proxy","system":{"network":{"interfaces":null}},"subscriptions":null,"last_seen":0,"deregister":false,"deregistration":{},"metadata":{"name":"my-app","namespace":"default"}},"check":{"handlers":["slack"],"high_flap_threshold":0,"interval":60,"low_flap_threshold":0,"publish":false,"runtime_assets":null,"subscriptions":[],"proxy_entity_name":"","check_hooks":null,"stdin":false,"subdue":null,"ttl":0,"timeout":0,"round_robin":false,"executed":0,"history":null,"issued":0,"output":"Application error message","state":"failing","status":2,"total_state_change":0,"last_ok":0,"occurrences":0,"occurrences_watermark":0,"output_metric_format":"","output_metric_handlers":null,"env_vars":null,"metadata":{"name":"app-check"}},"metadata":{}}
+{"timestamp":1552582569,"entity":{"entity_class":"proxy","system":{"network":{"interfaces":null}},"subscriptions":null,"last_seen":0,"deregister":false,"deregistration":{},"metadata":{"name":"my-app","namespace":"default"}},"check":{"handlers":["slack"],"high_flap_threshold":0,"interval":60,"low_flap_threshold":0,"publish":false,"runtime_assets":null,"subscriptions":[],"proxy_entity_name":"","check_hooks":null,"stdin":false,"subdue":null,"ttl":0,"timeout":0,"round_robin":false,"executed":0,"history":null,"issued":0,"output":"Application error message","status":1,"total_state_change":0,"last_ok":0,"occurrences":0,"occurrences_watermark":0,"output_metric_format":"","output_metric_handlers":null,"env_vars":null,"metadata":{"name":"app-health"}},"metadata":{}}
+{{< /highlight >}}
+
+You can use sensuctl or the [Sensu dashboard](../../dashboard/overview) to see the event.
+
+{{< highlight shell >}}
+sensuctl event list
+{{< /highlight >}}
+
+You should see the event with the status and output specified in the request.
+
+{{< highlight shell >}}
+    Entity        Check                   Output                 Status   Silenced             Timestamp            
+────────────── ──────────── ─────────────────────────────────── ──────── ────────── ─────────────────────────────── 
+    my-app      app-health   Application error message             1      false      2019-03-14 16:56:09 +0000 UTC 
 {{< /highlight >}}
 
 #### API Specification {#eventsentitycheck-put-specification}
@@ -506,7 +524,7 @@ HTTP/1.1 200 OK
 /events/:entity/:check (PUT) | 
 ----------------|------
 description     | Creates an event for a given entity and check.
-example url     | http://hostname:8080/api/core/v2/namespaces/default/events/my-app/app-check
+example url     | http://hostname:8080/api/core/v2/namespaces/default/events/my-app/app-health
 payload         | {{< highlight shell >}}
 {
   "entity": {
@@ -518,12 +536,11 @@ payload         | {{< highlight shell >}}
   },
   "check": {
     "output": "Application error message",
-    "state": "failing",
-    "status": 2,
+    "status": 1,
     "handlers": ["slack"],
     "interval": 60,
     "metadata": {
-      "name": "app-check"
+      "name": "app-health"
     }
   },
   "timestamp": 1552582569
@@ -535,18 +552,21 @@ response codes   | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not 
 #### Payload parameters {#eventsentitycheck-put-parameters}
 
 The `/events/:entity/:check` PUT endpoint requires a request payload containing an `entity` scope and a `check` scope.
-The `entity` scope contains information about the component represented by the event.
+The `entity` scope contains information about the component of your infrastructure represented by the event.
 At a minimum, Sensu requires the `entity` scope to contain the `entity_class` (`agent` or `proxy`) and the entity `name` and `namespace` within a `metadata` scope.
 For more information about entity attributes, see the [entity specification](../../reference/entities#specification).
 
-The `check` scope should contain information about the event status and how the event was created.
+The `check` scope contains information about the event status and how the event was created.
 At a minimum, Sensu requires the `check` scope to contain a `name` within a `metadata` scope and either an `interval` or `cron` attribute.
 For more information about check attributes, see the [check specification](../../reference/checks#specification).
 
-**Example event payload with minimum required attributes**
+**Example request with minimum required event attributes**
 
-{{< highlight json >}}
-{
+{{< highlight shell >}}
+curl -X PUT \
+-H "Authorization: Bearer TOKEN" \
+-H 'Content-Type: application/json' \
+-d '{
   "entity": {
     "entity_class": "proxy",
     "metadata": {
@@ -557,22 +577,26 @@ For more information about check attributes, see the [check specification](../..
   "check": {
     "interval": 60,
     "metadata": {
-      "name": "app-check"
+      "name": "app-health"
     }
   }
-}
+}' \
+http://127.0.0.1:8080/api/core/v2/namespaces/default/events/my-app/app-health
 {{< /highlight >}}
 
 The minimum required attributes shown above let you create an event using the `/events/:entity/:check` PUT endpoint, however the request can include any attributes defined in the [event specification](../../reference/events).
-To create useful, actionable events, we recommend check attributes such as `status`, `output`, `state`, and `handlers`.
+To create useful, actionable events, we recommend adding check attributes such as the event `status` (`0` for OK, `1` for warning, `2` for critical), an `output` message, and one or more event `handlers`.
 For more information about these attributes and their available values, see the [event specification](../../reference/events).
 
 While a `timestamp` is not required to create an event, Sensu assigns a timestamp of `0` (January 1, 1970) to events without a specified timestamp, so we recommend adding a Unix timestamp when creating events.
 
-**Example event payload with minimum recommended attributes**
+**Example request with minimum recommended event attributes**
 
-{{< highlight json >}}
-{
+{{< highlight shell >}}
+curl -X PUT \
+-H "Authorization: Bearer TOKEN" \
+-H 'Content-Type: application/json' \
+-d '{
   "entity": {
     "entity_class": "proxy",
     "metadata": {
@@ -582,27 +606,30 @@ While a `timestamp` is not required to create an event, Sensu assigns a timestam
   },
   "check": {
     "output": "Application error message",
-    "state": "failing",
-    "status": 2,
+    "status": 1,
     "handlers": ["slack"],
     "interval": 60,
     "metadata": {
-      "name": "app-check"
+      "name": "app-health"
     }
   },
   "timestamp": 1552582569
-}
+}' \
+http://127.0.0.1:8080/api/core/v2/namespaces/default/events/my-app/app-health
 {{< /highlight >}}
 
 #### Creating metric events
 
-Sensu events can contain metrics in Sensu metric format.
-See the [events reference](../../events) and for more information about Sensu metric format.
+In addition to the `entity` and `check` scopes, Sensu events can include a `metrics` scope containing metrics in Sensu metric format.
+See the [events reference](../../reference/events#metrics) and for more information about Sensu metric format.
 
-**Example event payload including metrics**
+**Example request including metrics**
 
-{{< highlight json >}}
-{
+{{< highlight shell >}}
+curl -X PUT \
+-H "Authorization: Bearer TOKEN" \
+-H 'Content-Type: application/json' \
+-d '{
   "entity": {
     "entity_class": "proxy",
     "metadata": {
@@ -638,7 +665,8 @@ See the [events reference](../../events) and for more information about Sensu me
     ]
   },
   "timestamp": 1552582569
-}
+}' \
+http://127.0.0.1:8080/api/core/v2/namespaces/default/events/my-app/app-metrics
 {{< /highlight >}}
 
 ### `/events/:entity/:check` (DELETE) {#eventsentitycheck-delete}
