@@ -212,7 +212,7 @@ HTTP/1.1 200 OK
 
 /events (POST) | 
 ----------------|------
-description     | Create a Sensu event for a new entity and check combination. The [`/events/:entity/:check` PUT endpoint](#eventsentitycheck-put) offer the same functionality with the added ability to create events for existing checks and entities and to update exiting events.
+description     | Create a Sensu event for a new entity and check combination. The [`/events/:entity/:check` PUT endpoint](#eventsentitycheck-put) offer the same functionality with the added ability to create events for existing checks and entities and to update existing events.
 example URL     | http://hostname:8080/api/core/v2/namespaces/default/events
 payload         | {{< highlight shell >}}
 {
