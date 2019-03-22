@@ -17,6 +17,7 @@ menu:
 - [Service management](#operation)
   - [Starting and stopping the service](#starting-the-service)
   - [Clustering](#clustering)
+  - [Time synchronization](#time-synchronization)
 - [Configuration](#configuration)
   - [General configuration](#general-configuration-flags)
   - [Agent communication configuration](#agent-communication-configuration-flags)
@@ -150,6 +151,10 @@ To configure a cluster, see:
 
 - [Datastore configuration flags][12]
 - [Guide to running a Sensu cluster][13]
+
+### Time Synchronization
+
+System clocks between agents and the backend should be synchronized to a central NTP server. Out of sync system time may cause issues with keepalive, metric and check alerts.
 
 ## Configuration
 
