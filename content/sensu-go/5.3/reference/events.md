@@ -81,18 +81,18 @@ To create an event, send a JSON event definition to the [events API PUT endpoint
 Sensu events contain:
 
 - `entity` scope (required)
-  - Information about the source of the event, including any attributes defined in the [entity specification](../entities#specification)
+  - Information about the source of the event, including any attributes defined in the [entity specification](../entities#entities-specification)
 - `check` scope (optional if the `metrics` scope is present)
-  - Information about how the event was created, including any attributes defined in the [check specification](../checks#specification)
+  - Information about how the event was created, including any attributes defined in the [check specification](../checks#check-specification)
   - Information about the event and its history, including any check attributes defined in the [event specification on this page](#check-attributes)
 - `metrics` scope (optional if the `check` scope is present)
-  - Metric points in Sensu metric format, creating using [Sensu metric extraction](../../guides/extract-metrics-with-checks) or the [Sensu agent StatsD listener](../agent#creating-monitoring-events-using-the-statsd-listener)
+  - Metric points in [Sensu metric format](#metrics)
 - `timestamp`
   - Time that the event occurred in seconds since the Unix epoch
 
 ## Using event data
 
-Event data is powerful tool for creating and automating monitoring workflows.
+Event data is powerful tool for automating monitoring workflows.
 For example, see [the guide to reducing alert fatigue](guides/reduce-alert-fatigue/) by filtering events based on the event `occurrences` attribute.
 
 ## Events specification
@@ -266,8 +266,8 @@ example      | {{< highlight shell >}}"namespace": "production"{{< /highlight >}
 
 |timestamp   |      |
 -------------|------
-description  | The time of the event occurrence in seconds since the Unix epoch.
-required     | While a `timestamp` is not required to create an event, Sensu assigns a timestamp of `0` (January 1, 1970) to events without a specified timestamp, so we recommend adding a Unix timestamp when creating events.
+description  | Time that the event occurred in seconds since the Unix epoch
+required     | true
 type         | Integer
 default      | `0`
 example      | {{< highlight shell >}}"timestamp": 1522099512{{< /highlight >}}
@@ -334,7 +334,7 @@ example      | {{< highlight shell >}}
 
 |check       |      |
 -------------|------
-description  | The [check definition][1] used to create the event and information about the status and history of the event. See the [check attributes on this page](#check-attributes) and the [check specification](../checks#check-specification).
+description  | The [check definition][1] used to create the event and information about the status and history of the event. The check scope includes attributes described in the [event specification](#check-attributes) and the [check specification](../checks#check-specification).
 type         | Map
 required     | true
 example      | {{< highlight shell >}}
@@ -430,7 +430,7 @@ example      | {{< highlight shell >}}"duration": 1.903135228{{< /highlight >}}
 
 executed     |      |
 -------------|------
-description  | The time at which the check request was executed
+description  | Time that the check request was executed
 required     | false
 type         | Integer
 example      | {{< highlight shell >}}"executed": 1522100915{{< /highlight >}}
@@ -455,21 +455,21 @@ example      | {{< highlight shell >}}
 
 issued       |      |
 -------------|------
-description  | The time in which the check request was issued in seconds since the Unix epoch
+description  | Time that the check request was issued in seconds since the Unix epoch
 required     | false
 type         | Integer
 example      | {{< highlight shell >}}"issued": 1552506033{{< /highlight >}}
 
 last_ok      |      |
 -------------|------
-description  | The last time at which the check returned an OK `status` (`0`) in seconds since the Unix epoch.
+description  | The last time that the check returned an OK `status` (`0`) in seconds since the Unix epoch
 required     | false
 type         | Integer
 example      | {{< highlight shell >}}"last_ok": 1552506033{{< /highlight >}}
 
 occurrences  |      |
 -------------|------
-description  | The number of times an event has occurred for an entity/check pair with the same check status
+description  | The number of times an event with the same status has occurred for the given entity and check
 required     | false
 type         | Integer
 example      | {{< highlight shell >}}"occurrences": 1{{< /highlight >}}
@@ -515,7 +515,7 @@ example      | {{< highlight shell >}}"total_state_change": 0{{< /highlight >}}
 
 executed     |      |
 -------------|------
-description  | The time at which the check request was executed in seconds since the Unix epoch
+description  |Time that the check request was executed in seconds since the Unix epoch
 required     | false
 type         | Integer
 example      | {{< highlight shell >}}"executed": 1522100915{{< /highlight >}}
@@ -542,7 +542,7 @@ example      | {{< highlight shell >}}
 
 points       |      |
 -------------|------
-description  | Metric data points including a name, timestamp, value, and tags. See the [points attributes](#points-attributes)
+description  | Metric data points including a name, timestamp, value, and tags. See the [points attributes](#points-attributes).
 required     | false
 type         | Array
 example      | {{< highlight shell >}}
@@ -580,7 +580,7 @@ example      | {{< highlight shell >}}"tags": []{{< /highlight >}}
 
 timestamp    |      |
 -------------|------
-description  | The time the metric was collected in seconds since the Unix epoch
+description  | Time that the metric was collected in seconds since the Unix epoch
 required     | false
 type         | Integer
 example      | {{< highlight shell >}}"timestamp": 1552506033{{< /highlight >}}
@@ -713,6 +713,7 @@ example      | {{< highlight shell >}}"value": 0.005{{< /highlight >}}
 {{< /highlight >}}
 
 ### Example event with check and metric data
+
 {{< highlight json >}}
 {
   "type": "Event",
@@ -769,6 +770,92 @@ example      | {{< highlight shell >}}"value": 0.005{{< /highlight >}}
       "total_state_change": 0,
       "ttl": 0
     },
+    "entity": {
+      "deregister": false,
+      "deregistration": {},
+      "entity_class": "agent",
+      "last_seen": 1552495139,
+      "metadata": {
+        "name": "sensu-go-sandbox",
+        "namespace": "default"
+      },
+      "redact": [
+        "password",
+        "passwd",
+        "pass",
+        "api_key",
+        "api_token",
+        "access_key",
+        "secret_key",
+        "private_key",
+        "secret"
+      ],
+      "subscriptions": [
+        "entity:sensu-go-sandbox"
+      ],
+      "system": {
+        "arch": "amd64",
+        "hostname": "sensu-go-sandbox",
+        "network": {
+          "interfaces": [
+            {
+              "addresses": [
+                "127.0.0.1/8",
+                "::1/128"
+              ],
+              "name": "lo"
+            },
+            {
+              "addresses": [
+                "10.0.2.15/24",
+                "fe80::5a94:f67a:1bfc:a579/64"
+              ],
+              "mac": "08:00:27:8b:c9:3f",
+              "name": "eth0"
+            }
+          ]
+        },
+        "os": "linux",
+        "platform": "centos",
+        "platform_family": "rhel",
+        "platform_version": "7.5.1804"
+      },
+      "user": "agent"
+    },
+    "metrics": {
+      "handlers": [
+        "influx-db"
+      ],
+      "points": [
+        {
+          "name": "sensu-go-sandbox.curl_timings.time_total",
+          "tags": [],
+          "timestamp": 1552506033,
+          "value": 0.005
+        },
+        {
+          "name": "sensu-go-sandbox.curl_timings.time_namelookup",
+          "tags": [],
+          "timestamp": 1552506033,
+          "value": 0.004
+        }
+      ]
+    },
+    "timestamp": 1552506033
+  }
+}
+{{< /highlight >}}
+
+### Example metric-only event
+
+{{< highlight json >}}
+{
+  "type": "Event",
+  "api_version": "core/v2",
+  "metadata": {
+    "namespace": "default"
+  },
+  "spec": {
     "entity": {
       "deregister": false,
       "deregistration": {},
