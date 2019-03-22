@@ -13,6 +13,9 @@ menu:
 - [How do events work?](#how-do-events-work)
 - [Creating events using the Sensu agent](#creating-events-using-the-sensu-agent)
 - [Creating events using the events API](#creating-events-using-the-events-api)
+- [Managing events](#managing-events)
+  - [Deleting events](#deleting-events)
+  - [Resolving events](#resolving-events)
 - [Event format](#event-format)
 - [Using event data](#using-event-data)
 - [Events specification](#events-specification)
@@ -75,6 +78,68 @@ Sensu agents can also act as a collector for metrics throughout your infrastruct
 
 You can send events directly to the Sensu pipeline using the events API.
 To create an event, send a JSON event definition to the [events API PUT endpoint](../../api/events#eventsentitycheck-put).
+
+## Managing events
+
+You can manage event using the [Sensu dashboard](../../dashboard/overview), [events API](../../api/events), and the [sensuctl](../../sensuctl/reference) command line tool.
+
+### Viewing events
+
+To list all events:
+
+{{< highlight shell >}}
+sensuctl event list
+{{< /highlight >}}
+
+To show event details in the default [output format](../../sensuctl/reference/#preferred-output-format):
+
+{{< highlight shell >}}
+sensuctl event info entity-name check-name
+{{< /highlight >}}
+
+With both the `list` and `info` commands, you can specify an [output format](../../sensuctl/reference/#preferred-output-format) using the `--format` flag:
+
+- `yaml` or `wrapped-json` formats for use with [`sensuctl create`][sc]
+- `json` format for use with the [events API](../../api/events)
+
+{{< highlight shell >}}
+sensuctl event info entity-name check-name --format yaml
+{{< /highlight >}}
+
+### Deleting events
+
+To delete an event:
+
+{{< highlight shell >}}
+sensuctl event delete entity-name check-name
+{{< /highlight >}}
+
+You can use the `--skip-confirm` flag to skip the confirmation step.
+
+{{< highlight shell >}}
+sensuctl event delete entity-name check-name --skip-confirm
+{{< /highlight >}}
+
+You should see a confirmation message on success.
+
+{{< highlight shell >}}
+Deleted
+{{< /highlight >}}
+
+### Resolving events
+
+You can use sensuctl to change the status of an event to `0` (OK).
+Events resolved by sensuctl include the output message: "Resolved manually by sensuctl".
+
+{{< highlight shell >}}
+sensuctl event resolve entity-name check-name
+{{< /highlight >}}
+
+You should see a confirmation message on success.
+
+{{< highlight shell >}}
+Resolved
+{{< /highlight >}}
 
 ## Event format
 
