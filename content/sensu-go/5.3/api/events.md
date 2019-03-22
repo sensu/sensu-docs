@@ -642,7 +642,7 @@ curl -X PUT \
     "output_metric_handlers": ["influxdb"],
     "interval": 60,
     "metadata": {
-      "name": "app-metrics"
+      "name": "server-metrics"
     }
   },
   "metrics": {
@@ -651,13 +651,13 @@ curl -X PUT \
     ],
     "points": [
       {
-        "name": "server1.app-metrics.time_total",
+        "name": "server1.server-metrics.time_total",
         "tags": [],
         "timestamp": 1552506033,
         "value": 0.005
       },
       {
-        "name": "server1.app-metrics.time_namelookup",
+        "name": "server1.server-metrics.time_namelookup",
         "tags": [],
         "timestamp": 1552506033,
         "value": 0.004
@@ -666,7 +666,7 @@ curl -X PUT \
   },
   "timestamp": 1552582569
 }' \
-http://127.0.0.1:8080/api/core/v2/namespaces/default/events/server1/app-metrics
+http://127.0.0.1:8080/api/core/v2/namespaces/default/events/server1/server-metrics
 {{< /highlight >}}
 
 ### `/events/:entity/:check` (DELETE) {#eventsentitycheck-delete}
