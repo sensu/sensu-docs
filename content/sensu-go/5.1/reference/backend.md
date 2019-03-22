@@ -176,42 +176,55 @@ Usage:
 General Flags:
       --agent-host string               agent listener host (default "[::]")
       --agent-port int                  agent listener port (default 8081)
-      --api-listen-address string       api daemon listen address (default "[::]:8080")
-      --api-url string                  http api URL (default http://localhost:8080)
-      --cert-file string                tls certificate
+      --api-listen-address string       address to listen on for api traffic (default "[::]:8080")
+      --api-url string                  url of the api to connect to (default "http://localhost:8080")
+      --cache-dir string                path to store cached data (default "/var/cache/sensu/sensu-backend")
+      --cert-file string                TLS certificate in PEM format
   -c, --config-file string              path to sensu-backend config file
       --dashboard-host string           dashboard listener host (default "[::]")
       --dashboard-port int              dashboard listener port (default 3000)
       --debug                           enable debugging and profiling features
       --deregistration-handler string   default deregistration handler
   -h, --help                            help for start
-      --insecure-skip-tls-verify        skip ssl verification
-      --key-file string                 tls certificate key
+      --insecure-skip-tls-verify        skip TLS verification (not recommended!)
+      --key-file string                 TLS certificate key in PEM format
       --log-level string                logging level [panic, fatal, error, warn, info, debug] (default "warn")
-  -d, --state-dir string                path to sensu state storage (default "/var/lib/sensu")
-      --trusted-ca-file string          tls certificate authority
+  -d, --state-dir string                path to sensu state storage (default "/var/lib/sensu/sensu-backend")
+      --trusted-ca-file string          TLS CA certificate bundle in PEM format
 
 Store Flags:
-      --etcd-advertise-client-urls                list of this member's client URLs to advertise to the rest of the cluster
-      --etcd-cert-file string                     path to the client server TLS cert file
-      --etcd-client-cert-auth                     enable client cert authentication
-      --etcd-initial-advertise-peer-urls string   list of this member's peer URLs to advertise to the rest of the cluster (default "http://127.0.0.1:2380")
-      --etcd-initial-cluster string               initial cluster configuration for bootstrapping (default "default=http://127.0.0.1:2380")
-      --etcd-initial-cluster-state string         initial cluster state ("new" or "existing") (default "new")
-      --etcd-initial-cluster-token string         initial cluster token for the etcd cluster during bootstrap
-      --etcd-key-file string                      path to the client server TLS key file
-      --etcd-listen-client-urls string            list of URLs to listen on for client traffic (default "http://127.0.0.1:2379")
-      --etcd-listen-peer-urls string              list of URLs to listen on for peer traffic (default "http://127.0.0.1:2380")
-      --etcd-name string                          human-readable name for this member (default "default")
-      --etcd-peer-cert-file string                path to the peer server TLS cert file
-      --etcd-peer-client-cert-auth                enable peer client cert authentication
-      --etcd-peer-key-file string                 path to the peer server TLS key file
-      --etcd-peer-trusted-ca-file string          path to the peer server TLS trusted CA file
-      --etcd-trusted-ca-file string               path to the client server TLS trusted CA cert file
-      --no-embed-etcd                             don't embed etcd, use external etcd instead
+      --etcd-advertise-client-urls strings         list of this member's client URLs to advertise to the rest of the cluster. (default [http://localhost:2379])
+      --etcd-cert-file string                      path to the client server TLS cert file
+      --etcd-client-cert-auth                      enable client cert authentication
+      --etcd-initial-advertise-peer-urls strings   list of this member's peer URLs to advertise to the rest of the cluster (default [http://127.0.0.1:2380])
+      --etcd-initial-cluster string                initial cluster configuration for bootstrapping (default "default=http://127.0.0.1:2380")
+      --etcd-initial-cluster-state string          initial cluster state ("new" or "existing") (default "new")
+      --etcd-initial-cluster-token string          initial cluster token for the etcd cluster during bootstrap
+      --etcd-key-file string                       path to the client server TLS key file
+      --etcd-listen-client-urls strings            list of URLs to listen on for client traffic (default [http://127.0.0.1:2379])
+      --etcd-listen-peer-urls strings              list of URLs to listen on for peer traffic (default [http://127.0.0.1:2380])
+      --etcd-name string                           human-readable name for this member (default "default")
+      --etcd-peer-cert-file string                 path to the peer server TLS cert file
+      --etcd-peer-client-cert-auth                 enable peer client cert authentication
+      --etcd-peer-key-file string                  path to the peer server TLS key file
+      --etcd-peer-trusted-ca-file string           path to the peer server TLS trusted CA file
+      --etcd-trusted-ca-file string                path to the client server TLS trusted CA cert file
+      --no-embed-etcd                              don't embed etcd, use external etcd instead
 {{< /highlight >}}
 
 ### General configuration flags
+
+| cache-dir   |      |
+--------------|------
+description   | Path to store cached data
+type          | String
+default       | <ul><li>Linux: `/var/cache/sensu/sensu-backend`</li><li>Windows: `C:\\ProgramData\sensu\cache\sensu-backend`</li></ul>
+example       | {{< highlight shell >}}# Command line example
+sensu-backend start --cache-dir /cache/sensu-backend
+
+# /etc/sensu/backend.yml example
+cache-dir: "/cache/sensu-backend"{{< /highlight >}}
+
 
 | config-file |      |
 --------------|------

@@ -1,6 +1,6 @@
 ---
 title: "Sensu Go"
-description: "Sensu is the flexible monitoring event pipeline built to reduce operator burden and meet the challenges of monitoring hybrid-cloud and ephemeral infrastructures. Read the docs to learn more about Sensu."
+description: "Monitor your entire infrastructure, from Kubernetes to bare metal. The Sensu monitoring event pipeline empowers businesses to automate their monitoring workflows and gain deep visibility into their infrastructure, applications, and operations. Read the docs to learn more about Sensu."
 date: 2018-02-05T06:06:31-07:00
 weight: -100
 menu: "sensu-go-5.0"
@@ -11,12 +11,10 @@ layout: "single"
 
 <iframe src="https://ghbtns.com/github-btn.html?user=sensu&repo=sensu-go&type=star&count=true" frameborder="0" scrolling="0" width="87px" height="20px"></iframe> | [Share your feedback][2]
 
-Sensu is the monitoring event pipeline built to reduce operator burden and make developers and business owners happy.
-Started in 2011, Sensu’s flexible approach solves the challenges of monitoring hybrid-cloud and ephemeral infrastructures with scalable, automated workflows and integrations with tools you already use.
+Sensu is the industry leading solution for multi-cloud monitoring at scale. The Sensu monitoring event pipeline empowers businesses to automate their monitoring workflows and gain deep visibility into their multi-cloud environments. Founded in 2017, Sensu offers a comprehensive monitoring solution for enterprises, providing complete visibility across every system, every protocol, every time — from Kubernetes to bare metal.
 **Get started now and feel the #monitoringlove:** [Learn Sensu Go][1].
 
-Sensu Go is the latest version of Sensu, written in Go and designed to be more portable, easier and faster to deploy, and (even more) friendly to containerized and ephemeral environments.
-But above all, it was designed to support the features and functionality you’ve come to know and love about Sensu.
+Sensu Go is the latest version of Sensu, designed to be more portable, easier and faster to deploy, and (even more) friendly to containerized and ephemeral environments.
 
 **Automate your monitoring workflows**: Limitless pipelines let you validate and correlate events, [mutate data formats][20], [send alerts][21], manage incidents, [collect and store metrics][22], and more.
 
@@ -47,8 +45,8 @@ Sensu agents automatically register and de-register themselves with the Sensu se
 
 Get meaningful alerts when and where you need them.
 Use [event filters][18] to reduce noise and [check hooks][19] to add context and speed up incident response.
-Sensu integrates with the tools and services your organization already uses like [InfluxDB][6], [Slack][7], and more.
-Check out the [200+ plugins shared by the Sensu community][8], or write your own [Sensu Plugins][9] in any language.
+Sensu integrates with the tools and services your organization already uses like [PagerDuty][31], [Slack][29], and more.
+Check out [Bonsai, the Sensu asset index][30], or write your own [Sensu Plugins][9] in any language.
 
 - **Collect and store metrics with built-in support for industry-standard tools**
 
@@ -89,3 +87,6 @@ permissive [MIT License][12] and publicly available on [GitHub][13].
 [25]: dashboard/overview
 [26]: sensuctl/reference
 [27]: reference/handlers
+[31]: https://bonsai.sensu.io/assets/sensu/sensu-pagerduty-handler
+[29]: https://bonsai.sensu.io/assets/sensu/sensu-slack-handler
+[30]: https://bonsai.sensu.io
