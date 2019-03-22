@@ -22,6 +22,7 @@ menu:
   - [Starting and stopping the service](#starting-the-service)
 	- [Registration and deregistration](#registration)
 	- [Clustering](#clustering)
+  - [Time synchronization](#time-synchronization)
 - [Configuration](#configuration)
   - [API configuration](#api-configuration-flags)
   - [Ephemeral agent configuration](#ephemeral-agent-configuration-flags)
@@ -532,6 +533,10 @@ You can specify a deregistration handler per agent using the [`deregistration-ha
 ### Clustering
 
 Agents can connect to a Sensu cluster by specifying any Sensu backend URL in the cluster in the [`backend-url` configuration flag][16]. For more information about clustering, see [Sensu backend datastore configuration flags][35] and the [guide to running a Sensu cluster][36].
+
+### Time Synchronization
+
+System clocks between agents and the backend should be synchronized to a central NTP server. Out of sync system time may cause issues with keepalive, metric and check alerts.
 
 ## Configuration
 
