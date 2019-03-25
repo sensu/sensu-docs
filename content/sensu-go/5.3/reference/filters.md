@@ -1,6 +1,6 @@
 ---
 title: "Filters"
-description: "The filters reference guide."
+description: "Filters help you reduce alert fatigue by controlling which events acted on by Sensu handlers. Read the reference doc to learn about filters, use Sensu's built-in filters, and create your own filters."
 weight: 10
 version: "5.3"
 product: "Sensu Go"
@@ -214,7 +214,7 @@ example      | {{< highlight shell >}}"type": "EventFilter"{{< /highlight >}}
 
 api_version  | 
 -------------|------
-description  | Top-level attribute specifying the Sensu API group and version. For filters in Sensu backend version 5.2, this attribute should always be `core/v2`.
+description  | Top-level attribute specifying the Sensu API group and version. For filters in Sensu backend version 5.3, this attribute should always be `core/v2`.
 required     | Required for filter definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][sc].
 type         | String
 example      | {{< highlight shell >}}"api_version": "core/v2"{{< /highlight >}}

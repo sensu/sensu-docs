@@ -1,7 +1,7 @@
 ---
 title: "Sensu agent"
 linkTitle: "Sensu Agent"
-description: "Sensu agent reference documentation"
+description: "The Sensu agent is a lightweight client that runs on the infrastructure components you want to monitor. Read the reference doc to get started using the agent to create monitoring events."
 weight: 1
 version: "5.2"
 product: "Sensu Go"
@@ -22,6 +22,7 @@ menu:
   - [Starting and stopping the service](#starting-the-service)
 	- [Registration and deregistration](#registration)
 	- [Clustering](#clustering)
+  - [Time synchronization](#time-synchronization)
 - [Configuration](#configuration)
   - [API configuration](#api-configuration-flags)
   - [Ephemeral agent configuration](#ephemeral-agent-configuration-flags)
@@ -525,11 +526,32 @@ You can specify a deregistration handler per agent using the [`deregistration-ha
 
 Agents can connect to a Sensu cluster by specifying any Sensu backend URL in the cluster in the [`backend-url` configuration flag][16]. For more information about clustering, see [Sensu backend datastore configuration flags][35] and the [guide to running a Sensu cluster][36].
 
+### Time Synchronization
+
+System clocks between agents and the backend should be synchronized to a central NTP server. Out of sync system time may cause issues with keepalive, metric and check alerts.
+
+
 ## Configuration
 
 You can specify the agent configuration using a `/etc/sensu/agent.yml` file or using `sensu-agent start` [configuration flags][24].
 See the example config file provided with Sensu at `/usr/share/doc/sensu-go-agent-5.2.1/agent.yml.example`.
 The agent loads configuration upon startup, so you must restart the agent for any configuration updates to take effect.
+
+Sensu agents can also be configured using environment variables.
+Environment variables can be a useful configuration tool when deploying agents in containers.
+With the exception of `labels`, all agent configuration flags can be applied using environment variables in the format `SENSU_$FLAG_NAME` where `$FLAG_NAME` is the name of the configuration flag.
+Environment variables syntax depends on type; configuration flags of type array must use a space-separated list.
+For example:
+
+{{< highlight shell >}}
+# string | integer | boolean
+SENSU_NAME=webserver01
+SENSU_KEEPALIVE_INTERVAL=60
+SENSU_DISABLE_API=true
+
+# array
+SENSU_SUBSCRIPTIONS="subscription1 subscription2 subscription3"
+{{< /highlight >}}
 
 ### Configuration summary
 
