@@ -1,7 +1,7 @@
 ---
 title: "Sensuctl quick reference"
 linkTitle: "Quickstart"
-description: "The sensuctl quick reference guide"
+description: "Just need to remember the default password for the sensuctl CLI? This cheat sheet has some helpful commands for quick reference. Visit the quickstart for helpful sensuctl tips."
 weight: 1
 version: "5.1"
 product: "Sensu Go"

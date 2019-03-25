@@ -1,6 +1,6 @@
 ---
 title: "Silencing"
-description: "The silencing reference guide."
+description: "Sensu’s built-in silencing capability provides the means to suppress execution of event handlers on an ad-hoc basis, letting you plan maintenances and giving you even more tools to reduce alert fatigue. Read the reference doc to learn about silencing in Sensu."
 weight: 10
 version: "5.3"
 product: "Sensu Go"
@@ -67,7 +67,7 @@ example      | {{< highlight shell >}}"type": "Silenced"{{< /highlight >}}
 
 api_version  | 
 -------------|------
-description  | Top-level attribute specifying the Sensu API group and version. For silencing entries in Sensu backend version 5.2, this attribute should always be `core/v2`.
+description  | Top-level attribute specifying the Sensu API group and version. For silencing entries in Sensu backend version 5.3, this attribute should always be `core/v2`.
 required     | Required for silencing entry definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][sc].
 type         | String
 example      | {{< highlight shell >}}"api_version": "core/v2"{{< /highlight >}}

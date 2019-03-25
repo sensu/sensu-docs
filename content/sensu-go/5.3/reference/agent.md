@@ -1,7 +1,7 @@
 ---
 title: "Sensu agent"
 linkTitle: "Sensu Agent"
-description: "Sensu agent reference documentation"
+description: "The Sensu agent is a lightweight client that runs on the infrastructure components you want to monitor. Read the reference doc to get started using the agent to create monitoring events."
 weight: 1
 version: "5.3"
 product: "Sensu Go"
@@ -22,6 +22,7 @@ menu:
   - [Starting and stopping the service](#starting-the-service)
 	- [Registration and deregistration](#registration)
 	- [Clustering](#clustering)
+  - [Time synchronization](#time-synchronization)
 - [Configuration](#configuration)
   - [API configuration](#api-configuration-flags)
   - [Ephemeral agent configuration](#ephemeral-agent-configuration-flags)
@@ -209,7 +210,8 @@ Attributes specified in socket events appear in the resulting event data passed 
   "output": "404",
   "client": "sensu-docs-site",
   "executed": 1550013435,
-  "duration": 1.903135228
+  "duration": 1.903135228,
+  "handlers": ["slack", "influxdb"]
 }
 {{< /highlight >}}
 
@@ -275,6 +277,13 @@ required     | false
 default      | `1`
 type         | Integer
 example      | {{< highlight shell >}}"interval": 60{{< /highlight >}}
+
+handlers     | 
+-------------|------
+description  | An array of Sensu handler names to use for handling the event. Each handler name in the array must be a string.
+required     | false
+type         | Array
+example      | {{< highlight shell >}}"handlers": ["slack", "influxdb"]{{< /highlight >}}
 
 ### Creating a "dead man's switch"
 
@@ -524,6 +533,10 @@ You can specify a deregistration handler per agent using the [`deregistration-ha
 ### Clustering
 
 Agents can connect to a Sensu cluster by specifying any Sensu backend URL in the cluster in the [`backend-url` configuration flag][16]. For more information about clustering, see [Sensu backend datastore configuration flags][35] and the [guide to running a Sensu cluster][36].
+
+### Time Synchronization
+
+System clocks between agents and the backend should be synchronized to a central NTP server. Out of sync system time may cause issues with keepalive, metric and check alerts.
 
 ## Configuration
 

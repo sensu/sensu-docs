@@ -1,6 +1,6 @@
 ---
 title: "Checks"
-description: "The checks reference guide."
+description: "Checks work with Sensu agents to let you monitor your infrastructure automatically and send monitoring events to the Sensu pipeline. Read the reference doc to learn about running service checks."
 weight: 10
 version: "5.3"
 product: "Sensu Go"
@@ -146,7 +146,7 @@ example      | {{< highlight shell >}}"type": "CheckConfig"{{< /highlight >}}
 
 api_version  | 
 -------------|------
-description  | Top-level attribute specifying the Sensu API group and version. For checks in Sensu backend version 5.2, this attribute should always be `core/v2`.
+description  | Top-level attribute specifying the Sensu API group and version. For checks in Sensu backend version 5.3, this attribute should always be `core/v2`.
 required     | Required for check definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][sc].
 type         | String
 example      | {{< highlight shell >}}"api_version": "core/v2"{{< /highlight >}}
@@ -341,7 +341,9 @@ example      | {{< highlight shell >}}"output_metric_handlers": ["influx-db"]{{<
 
 |round_robin |      |
 -------------|------
-description  | Round-robin check subscriptions are not yet implemented in Sensu Go. Although the `round_robin` attribute appears in check definitions by default, it is a placeholder and should not be modified.
+description  | Round-robin check scheduling lets you distribute check executions evenly over a group of Sensu agents. When set to `true`, Sensu executes the check on each subscribing agent in turn.
+required     | false
+type         | Boolean
 example      | {{< highlight shell >}}"round_robin": false{{< /highlight >}}
 
 |subdue      |      |
@@ -492,6 +494,7 @@ _NOTE: The attribute `interval` is not required if a valid `cron` schedule is de
     "stdin": false,
     "ttl": 0,
     "timeout": 0,
+    "round_robin": false,
     "output_metric_format": "graphite_plaintext",
     "output_metric_handlers": [
       "influx-db"
@@ -513,7 +516,6 @@ _NOTE: The attribute `interval` is not required if a valid `cron` schedule is de
 [9]: ../assets
 [10]: #proxy-requests-attributes
 [11]: ../sensu-query-expressions
-[12]: /sensu-core/latest/reference/clients/#round-robin-client-subscriptions
 [13]: #check-attributes
 [14]: https://en.wikipedia.org/wiki/Cron#CRON_expression
 [15]: https://godoc.org/github.com/robfig/cron#hdr-Predefined_schedules

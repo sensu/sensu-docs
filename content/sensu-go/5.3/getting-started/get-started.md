@@ -19,7 +19,7 @@ The sandbox is the best place to get started with Sensu and try out new features
 
 ### Install Sensu Go
 
-Sensu Go is the flexible monitoring event pipeline, written in Go and designed for container-based and hybrid-cloud infrastructures.
+Sensu Go is the flexible monitoring event pipeline, designed for container-based and multi-cloud infrastructures.
 
 - [Install Sensu Go][2]
 - [Discover Sensu assets][6]

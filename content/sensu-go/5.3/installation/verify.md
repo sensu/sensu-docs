@@ -51,10 +51,10 @@ Download Sensu for Windows.
 Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.3.0/sensu-enterprise-go_5.3.0_windows_amd64.tar.gz  -OutFile "$env:userprofile\sensu-enterprise-go_5.3.0_windows_amd64.tar.gz"
 {{< /highlight >}}
 
-Generate a SHA-512 checksum for the downloaded artifact.
+Generate a SHA-256 checksum for the downloaded artifact.
 
 {{< highlight text >}}
-Get-FileHash "$env:userprofile\sensu-enterprise-go_5.3.0_windows_amd64.tar.gz" -Algorithm SHA512 | Format-List
+Get-FileHash "$env:userprofile\sensu-enterprise-go_5.3.0_windows_amd64.tar.gz" -Algorithm SHA256 | Format-List
 {{< /highlight >}}
 
 The result should match (with the exception of capitalization) the checksum for your platform.
@@ -62,7 +62,7 @@ The result should match (with the exception of capitalization) the checksum for 
 {{< highlight text >}}
 Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.3.0/sensu-enterprise-go_5.3.0_checksums.txt -OutFile "$env:userprofile\sensu-enterprise-go_5.3.0_checksums.txt"
 
-Get-Content "$env:userprofile\sensu-enterprise-go_5.3.0_checksums.txt"
+Get-Content "$env:userprofile\sensu-enterprise-go_5.3.0_checksums.txt" | Select-String -Pattern windows_amd64
 {{< /highlight >}}
 
 {{< platformBlockClose >}}
@@ -74,7 +74,7 @@ Get-Content "$env:userprofile\sensu-enterprise-go_5.3.0_checksums.txt"
 Download Sensu for macOS.
 
 {{< highlight shell >}}
-curl -LO https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.3.0/sensu-go-5.3.0-darwin-amd64.tar.gz
+curl -LO https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.3.0/sensu-enterprise-go_5.3.0_darwin_amd64.tar.gz
 {{< /highlight >}}
 
 Generate a SHA-512 checksum for the downloaded artifact.

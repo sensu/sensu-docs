@@ -1,6 +1,6 @@
 ---
 title: "Entities"
-description: "The entities reference guide."
+description: "An entity represents anything that needs to be monitored, including the full range of infrastructure, runtime and application types that compose a complete monitoring environment (from server hardware to serverless functions). Read the reference doc to learn about entities."
 weight: 10
 version: "5.3"
 product: "Sensu Go"
@@ -134,7 +134,7 @@ example      | {{< highlight shell >}}"type": "Entity"{{< /highlight >}}
 
 api_version  | 
 -------------|------
-description  | Top-level attribute specifying the Sensu API group and version. For entities in Sensu backend version 5.2, this attribute should always be `core/v2`.
+description  | Top-level attribute specifying the Sensu API group and version. For entities in Sensu backend version 5.3, this attribute should always be `core/v2`.
 required     | Required for entity definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][sc].
 type         | String
 example      | {{< highlight shell >}}"api_version": "core/v2"{{< /highlight >}}

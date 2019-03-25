@@ -84,10 +84,10 @@ Start the backend using a service manager.
 sudo service sensu-backend start
 {{< /highlight >}}
 
-You can verify that the backend is running properly using the `sensu-backend` tool.
+Verify that the backend is running.
 
 {{< highlight shell >}}
-sensu-backend -h
+service sensu-backend status
 {{< /highlight >}}
 
 {{< platformBlockClose >}}
@@ -212,10 +212,10 @@ Start the agent using a service manager.
 sudo service sensu-agent start
 {{< /highlight >}}
 
-You can verify that the agent is running properly using the `sensu-agent` tool.
+Verify that the agent is running.
 
 {{< highlight shell >}}
-sensu-agent -h
+service sensu-agent status
 {{< /highlight >}}
 
 {{< platformBlockClose >}}
