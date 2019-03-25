@@ -9,6 +9,7 @@ menu:
   sensu-go-5.0:
     parent: reference
 ---
+
 - [Built-in mutators](#built-in-mutators)
 - [Specification](#mutator-specification)
 - [Examples](#examples)
