@@ -24,28 +24,41 @@ The purpose of this guide is to help you populate Sensu metrics into the time
 series database [InfluxDB][2]. Metrics can be collected from [check output][10]
 or from the [Sensu StatsD Server][3].
 
-### Installing the handler command
+### Registering the asset
 
-The first thing you'll want to do is create an executable script named
-`sensu-influxdb-handler`, which will be responsible for populating a configurable
-InfluxDB with Sensu metrics. The source code and installation instructions of
-this script is available on [GitHub][4]. You can also download the binaries
-directly from [releases][11].
+[Assets][12] are shareable, reusable packages that make it easy to deploy Sensu plugins.
+In this guide, we'll use the [Sensu InfluxDB handler asset][13] to power an `influx-db` handler.
+
+You can use the following sensuctl example to register the [Sensu InfluxDB handler asset][13] for Linux AMD64, or you can download the latest asset definition for your platform from [Bonsai][13] and register the asset using `sensuctl create --file filename.json`.
+
+{{< highlight shell >}}
+sensuctl asset create sensu-influxdb-handler --url "https://github.com/sensu/sensu-influxdb-handler/releases/download/3.1.2/sensu-influxdb-handler_3.1.2_linux_amd64.tar.gz" --sha512 "612c6ff9928841090c4d23bf20aaf7558e4eed8977a848cf9e2899bb13a13e7540bac2b63e324f39d9b1257bb479676bc155b24e21bf93c722b812b0f15cb3bd"
+{{< /highlight >}}
+
+You should see a confirmation message from sensuctl.
+
+{{< highlight shell >}}
+Created
+{{< /highlight >}}
 
 ### Creating the handler
 
-Now that our handler command is installed, the second step is to create a
-handler that we will call `influx-db`, which is a **pipe** handler that pipes
-event data into our previous script named `sensu-influxdb-handler`. We will also
-pass the database name, address, username, and password of the InfluxDB you wish
-to populate.
-We'll use environment variables (`env-vars`) to pass the InfluxDB address, username, and password to the handler.
+Now we'll use sensuctl to create a handler called `influx-db` that pipes event data to InfluxDB using the `sensu-influxdb-handler` asset.
+Edit the command below to include your database name, address, username, and password.
+For more information about the Sensu InfluxDB handler, see the asset page in [Bonsai][13].
 
 {{< highlight shell >}}
 sensuctl handler create influx-db \
 --type pipe \
 --command "sensu-influxdb-handler -d sensu" \
---env-vars "INFLUXDB_ADDR=http://influxdb.default.svc.cluster.local:8086, INFLUXDB_USER=sensu, INFLUXDB_PASS=password"
+--env-vars "INFLUXDB_ADDR=http://influxdb.default.svc.cluster.local:8086, INFLUXDB_USER=sensu, INFLUXDB_PASS=password" \
+--runtime-assets sensu-influxdb-handler
+{{< /highlight >}}
+
+You should see a confirmation message from sensuctl.
+
+{{< highlight shell >}}
+Created
 {{< /highlight >}}
 
 ### Assigning the handler to an event
@@ -100,3 +113,6 @@ and extract metrics using Sensu checks.
 [9]: ../../reference/handlers
 [10]: ../extract-metrics-with-checks
 [11]: https://github.com/sensu/sensu-influxdb-handler/releases
+[12]: ../../reference/assets
+[13]: https://bonsai.sensu.io/assets/sensu/sensu-influxdb-handler
+[14]: ../../sensuctl/reference#creating-resources
