@@ -10,6 +10,7 @@ menu:
     parent: reference
 ---
 
+- [Built-in mutators](#built-in-mutators)
 - [Specification](#mutator-specification)
 - [Examples](#examples)
 
@@ -46,6 +47,35 @@ provide support for command line arguments for reusability.
 As mentioned above, all mutator commands are executed by a Sensu server as the `sensu` user. Commands must be executable files that are discoverable on the Sensu server system (installed in a system `$PATH` directory).
 
 _NOTE: By default, the Sensu installer packages will modify the system `$PATH` for the Sensu processes to include `/etc/sensu/plugins`. As a result, executable scripts (like plugins) located in `/etc/sensu/plugins` will be valid commands. This allows `command` attributes to use “relative paths” for Sensu plugin commands, for example: `"command": "check-http.go -u https://sensuapp.org"`._
+
+## Built-in mutators
+
+Sensu includes built-in mutators to help you customize event pipelines for metrics and alerts.
+
+### Built-in mutator: only check output
+
+To process an event, some handlers require only the check output, not the entire event definition. For example, when sending metrics to Graphite using a TCP handler, Graphite expects data that follows the Graphite plaintext protocol. By using the built-in `only_check_output` mutator, Sensu reduces the event to only the check output, so it can be accepted by Graphite.
+
+To use the only check output mutator, include the `only_check_output` mutator in the handler configuration `mutator` string:
+
+{{< highlight json >}}
+{
+  "type": "Handler",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "graphite",
+    "namespace": "default"
+  },
+  "spec": {
+    "type": "tcp",
+    "socket": {
+      "host": "10.0.1.99",
+      "port": 2003
+    },
+    "mutator": "only_check_output"
+  }
+}
+{{< /highlight >}}
 
 ## Mutators specification
 
