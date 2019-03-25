@@ -7,6 +7,7 @@ version: "5.4"
 menu: "sensu-go-5.4"
 ---
 
+- [5.4.0 release notes](#5-4-0-release-notes)
 - [5.3.0 release notes](#5-3-0-release-notes)
 - [5.2.1 release notes](#5-2-1-release-notes)
 - [5.2.0 release notes](#5-2-0-release-notes)
@@ -23,6 +24,13 @@ Sensu Go adheres to [semantic versioning][2] using MAJOR.MINOR.PATCH release num
 Read the [upgrading guide][1] for information on upgrading to the latest version of Sensu Go.
 
 ---
+
+## 5.4.0 release notes
+
+**March 27, 2019** &mdash; 
+See the [upgrading guide][1] to upgrade Sensu to version 5.4.0.
+
+### Changes to Sensu Go {#5.4.0-changes}
 
 ## 5.3.0 release notes
 
