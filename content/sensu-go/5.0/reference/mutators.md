@@ -53,7 +53,7 @@ Sensu includes built-in mutators to help you customize event pipelines for metri
 
 ### Built-in mutator: only check output
 
-There are check results where only the check output is required before for handling. For example, when sending metrics to Graphite using a TCP handler in check output that follows the graphite message format. Graphite will reject the metrics as they will include the entire event payload without the mutator.
+To process an event, some handlers require only the check output, not the entire event definition. For example, when sending metrics to Graphite using a TCP handler, Graphite expects data that follows the Graphite plaintext protocol. By using the built-in `only_check_output` mutator, Sensu reduces the event to only the check output, so it can be accepted by Graphite.
 
 To use the only check output mutator, include the `only_check_output` mutator in the handler configuration `mutator` string:
 
