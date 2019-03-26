@@ -174,7 +174,7 @@ example      | {{< highlight shell >}}"type": "Event"{{< /highlight >}}
 
 api_version  | 
 -------------|------
-description  | Top-level attribute specifying the Sensu API group and version. For events in Sensu backend version 5.3, this attribute should always be `core/v2`.
+description  | Top-level attribute specifying the Sensu API group and version. For events in Sensu backend version 5.4, this attribute should always be `core/v2`.
 required     | Required for events in `wrapped-json` or `yaml` format for use with [`sensuctl create`][sc].
 type         | String
 example      | {{< highlight shell >}}"api_version": "core/v2"{{< /highlight >}}
