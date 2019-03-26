@@ -68,7 +68,7 @@ _NOTE: Silenced has been deprecated from Event. Please see [check specification]
 
 |check       |      |
 -------------|------
-description  | The [check attributes][1] used to obtain the check result.
+description  | The [check attributes][1] used to obtain the check result combined with the [check result attribute][8].
 type         | Check
 example      | {{< highlight shell >}}
 {
@@ -79,9 +79,11 @@ example      | {{< highlight shell >}}
     "high_flap_threshold": 0,
     "history": [
       {
+        "status": 0,
         "executed": 1522100315
       },
       {
+        "status": 0,
         "executed": 1522100915
       }
     ],
@@ -179,6 +181,7 @@ example      | {{< highlight json >}}
   }
 }
 {{< /highlight >}}
+</a>
 
 |entity      |      |
 -------------|------
@@ -251,6 +254,84 @@ example      | {{< highlight json >}}
   }
 }
 {{< /highlight >}}
+
+### Check result attributes
+
+|duration    |      |
+-------------|------
+description  | The amount of time (in seconds) it took for the Sensu agent to execute the check.
+type         | float
+example      | {{< highlight shell >}}"duration": 0.637{{< /highlight >}}
+
+|executed    |      |
+-------------|------
+description  | Timestamp the check request was executed by the Sensu agent, in epoch time.
+type         | integer
+example      | {{< highlight shell >}}"executed": 1522170513{{< /highlight >}}
+
+|history     |      |
+-------------|------
+description  | List of the last 21 check results that contains the exit status code and the timestamp the check request was executed.
+type         | array of check history
+example      | {{< highlight shell >}}
+{
+  "history": [
+    {
+      "status": 0,
+      "executed": 1553177998
+    }
+  ]
+}
+{{< /highlight >}}
+
+|issued      |      |
+-------------|------
+description  | Timestamp Sensu issued the check request, in epoch time.
+type         | integer
+example      | {{< highlight shell >}}"issued": 1542667666{{< /highlight >}}
+
+|output      |      |
+-------------|------
+description  | The output produced by the check `command`.
+type         | String
+example      | {{< highlight shell >}}"output": "CheckHttp WARNING: 301\n"{{< /highlight >}}
+
+|state       |      |
+-------------|------
+description  | The event state, providing event handlers with more information about the state change.
+type         | String
+allowed values | `failing`, `flapping`, `passing`
+example      | {{< highlight shell >}}"state": "failing"{{< /highlight >}}
+
+|status      |      |
+-------------|------
+description  | The check execution exit status code. An exit status code of 0 (zero) indicates OK, 1 indicates WARNING, and 2 indicates CRITICAL; exit status codes other than 0, 1, or 2 indicate an UNKNOWN or custom status.
+type         | integer
+example      | {{< highlight shell >}}"status": 2{{< /highlight >}}
+
+|total_state_change |      |
+-------------|------
+description  | Total state change percentage for the check's history
+type         | integer
+example      | {{< highlight shell >}}"total_state_change": 14{{< /highlight >}}
+
+|last_ok     |      |
+-------------|------
+description  | The most recent timestamp, in epoch time, a check result indicated an ‘OK’ status.
+type         | integer
+example      | {{< highlight shell >}}"last_ok": 1553177998{{< /highlight >}}
+
+|occurrences |      |
+-------------|------
+description  | The occurrence count for the event; the number of times an event has been created for an entity/check pair with the same state (check status).
+type         | integer
+example      | {{< highlight shell >}}"occurrences": 3{{< /highlight >}}
+
+|occurrences_watermark |      |
+-------------|------
+description  | The “high water mark” tracking number of occurrences at the current severity.
+type         | integer
+example      | {{< highlight shell >}}"occurrences_watermark": 2{{< /highlight >}}
 
 ## Example check-only event data
 
@@ -382,3 +463,4 @@ example      | {{< highlight json >}}
 [5]: ../../guides/aggregate-metrics-statsd/
 [6]: ../../guides/extract-metrics-with-checks
 [7]: ../checks/#check-specification
+[8]: #check-result-attributes
