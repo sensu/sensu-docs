@@ -558,7 +558,7 @@ example      | {{< highlight shell >}}
 
 state         |      |
 -------------|------
-description  | The state of the check: `passing`, `failing`, or `flapping` (a rapid change in check result status)
+description  | The state of the check: `passing`, `failing`, or `flapping`. You can use the `low_flap_threshold` and `high_flap_threshold` [check attributes](../checks#spec-attributes) to configure `flapping` state detection.
 required     | false
 type         | String
 example      | {{< highlight shell >}}"state": "passing"{{< /highlight >}}
