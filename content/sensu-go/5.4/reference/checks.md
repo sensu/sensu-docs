@@ -62,10 +62,27 @@ on a file server. Subscriptions also allow you to configure check requests for
 an entire group or subgroup of systems rather than require a traditional 1:1
 mapping.
 
-Checks can be scheduled in an interval or cron fashion. It's important to note
-that for interval checks, an initial offset is calculated to splay the check's
+#### Interval scheduling
+
+You can schedule a check to be executed at regular intervals using the `interval` and `publish` check attributes.
+For example, to schedule a check to execute every 60 seconds, set the `interval` attribute to `60` and the `publish` attribute to `true`.
+
+**Example interval check**
+
+When creating an interval check, an initial offset is calculated to splay the check's
 _first_ scheduled request. This helps to balance the load of both the backend
 and the agent, and may result in a delay before initial check execution.
+
+#### Cron scheduling
+
+You can also schedule a check using a cron syntax expression.
+ using the [cron syntax][14] or [these predefined schedules][15].
+
+#### Ad-hoc scheduling
+
+#### Round-robin scheduling
+
+Checks can be scheduled in an interval or cron fashion. 
 
 ### Check result specification
 
@@ -213,7 +230,7 @@ example      | {{< highlight shell >}}"interval": 60{{< /highlight >}}
 
 |cron        |      |
 -------------|------
-description  | When the check should be executed, using the [Cron syntax][14] or [these predefined schedules][15].
+description  | When the check should be executed, using the [cron syntax][14] or [these predefined schedules][15].
 required     | true (unless `publish` is `false` or `interval` is configured)
 type         | String
 example      | {{< highlight shell >}}"cron": "0 0 * * *"{{< /highlight >}}
