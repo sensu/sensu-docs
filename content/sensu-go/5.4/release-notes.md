@@ -51,7 +51,7 @@ See the [upgrading guide][1] to upgrade Sensu to version 5.4.0.
 - The `sensuctl handler delete` and `sensuctl filter delete` commands now correctly delete resources from the currently configured namespace.
 - The agent now terminates consistently on SIGTERM and SIGINT.
 - In the event of a loss of connection with the backend, the agent can now attempt to reconnect to any backends specified in its configuration.
-- The dashboard now handles inaccessible check creators.
+- The dashboard now handles cases in which the the creator of a silence is inaccessible.
 - The dashboard event details page now displays "-" in the command field if no command is associated with the event.
 
 ## 5.3.0 release notes
