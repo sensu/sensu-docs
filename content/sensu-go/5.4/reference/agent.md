@@ -82,13 +82,15 @@ Any requests for unknown endpoints result in a 404 Not Found response.
 The `/events` API provides HTTP POST access to publish [monitoring events][7] to the Sensu backend pipeline via the agent API.
 The agent places events created via the `/events` POST endpoint into a queue, so that, in the event of a loss of connection with the backend, event data is preserved and the agent sends queued events to the backend once a connection is reestablished.
 
-The `/events` API uses configurable burst limit and rate limit.
+Queued events are stored on disk, so they are not lost in the event of an agent shutdown.
+
+The `/events` API uses configurable burst limit and rate limit for relaying events to the backend.
 See the [API configuration flags](#api-configuration-flags) to configure the `events-burst-limit` and `events-rate-limit` flags.
 
 #### Example {#events-post-example}
 
 In the following example, an HTTP POST is submitted to the `/events` API, creating an event for a check named `check-mysql-status` with the output `could not connect to mysql` and a status of `1` (warning).
-The agent responds with a 100 (Continue) HTTP response code followed by a 202 (Accepted) response code to indicate that the event has been added to the queue to be sent to the backend.
+The agent responds with a 202 (Accepted) response code to indicate that the event has been added to the queue to be sent to the backend.
 
 {{< highlight shell >}}
 curl -X POST \
@@ -104,7 +106,6 @@ curl -X POST \
 }' \
 http://127.0.0.1:3031/events
 
-HTTP/1.1 100 Continue
 HTTP/1.1 202 Accepted
 {{< /highlight >}}
 
