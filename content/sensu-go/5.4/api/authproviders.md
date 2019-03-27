@@ -30,6 +30,7 @@ The `/authproviders` API endpoint provides HTTP GET access to authentication pro
 ---------------|------
 description    | Returns the list of active authentication providers.
 example url    | http://hostname:8080/api/enterprise/authentication/v2/authproviders
+pagination     | This endpoint supports pagination using the `limit` and `continue` query parameters. See the [API overview](../overview#pagination) for details.
 response type  | Array
 response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output         | {{< highlight json >}}

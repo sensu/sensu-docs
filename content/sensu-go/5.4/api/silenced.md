@@ -59,6 +59,7 @@ HTTP/1.1 200 OK
 ---------------|------
 description    | Returns the list of silencing entries.
 example url    | http://hostname:8080/api/core/v2/namespaces/default/silenced
+pagination     | This endpoint supports pagination using the `limit` and `continue` query parameters. See the [API overview](../overview#pagination) for details.
 response type  | Array
 response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output         | {{< highlight shell >}}
@@ -233,6 +234,7 @@ HTTP/1.1 200 OK
 ---------------------|------
 description          | Returns all silencing entries for the specified subscription.
 example url          | http://hostname:8080/api/core/v2/namespaces/default/silenced/subscriptions/linux
+pagination           | This endpoint supports pagination using the `limit` and `continue` query parameters. See the [API overview](../overview#pagination) for details.
 response type        | Array
 response codes       | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output               | {{< highlight json >}}
@@ -292,6 +294,7 @@ HTTP/1.1 200 OK
 ---------------------|------
 description          | Returns all silencing entries for the specified check.
 example url          | http://hostname:8080/api/core/v2/namespaces/default/silenced/checks/check-cpu
+pagination           | This endpoint supports pagination using the `limit` and `continue` query parameters. See the [API overview](../overview#pagination) for details.
 response type        | Array
 response codes       | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output               | {{< highlight json >}}
