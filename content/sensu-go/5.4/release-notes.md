@@ -27,10 +27,32 @@ Read the [upgrading guide][1] for information on upgrading to the latest version
 
 ## 5.4.0 release notes
 
-**March 27, 2019** &mdash; 
+**March 27, 2019** &mdash; The latest release of Sensu Go, version 5.4.0, is now available for download. This release has some very exciting feature additions including the introduction of our new homepage. 5.4.0 also includes support for API pagination to more efficiently handle large data sets and agent buffering for robustness in lower connectivity situations along with key bug fixes.
 See the [upgrading guide][1] to upgrade Sensu to version 5.4.0.
 
 ### Changes to Sensu Go {#5.4.0-changes}
+
+**NEW FEATURES:**
+
+- The Sensu dashboard now includes a homepage designed to highlight the most important monitoring data, giving you instant insight into the state of your infrastructure. See the [dashboard docs][23] for a preview.
+- The Sensu API now supports pagination using the `limit` and `continue` query parameters, letting you limit your API responses to a maximum number of objects and making it easier to handle large data sets. See the [API overview][22] for more information.
+
+**IMPROVEMENTS:**
+
+- Sensu now lets you specify a separate TLS certificate and key to secure the dashboard. See the [backend reference][24] to configure the `dashboard-cert-file` and `dashboard-key-file` flags, and check out the [guide to securing Sensu][25] for the complete guide to making your Sensu instance production-ready.
+- The Sensu agent events API now queues events before sending them to the backend, making the agent events API more robust and preventing data loss in the event of a loss of connection with the backend or agent shutdown. See the [agent reference][26] for more information.
+
+**FIXES:**
+
+- The backend now processes events without persisting metrics to etcd.
+- The events API POST and PUT endpoints now add the current timestamp to new events by default.
+- The users API now returns a 404 response code in the event that a username cannot be found.
+- The sensuctl command line tool now correctly accepts global flags when passed after a sub-command flag (for example: `--format yaml --namespace development`).
+- The `sensuctl handler delete` and `sensuctl filter delete` commands now correctly delete resources from the currently configured namespace.
+- The agent now terminates consistently on SIGTERM and SIGINT.
+- In the event of a loss of connection with the backend, the agent can now attempt to reconnect to any backends specified in its configuration.
+- The dashboard now handles inaccessible check creators.
+- The dashboard event details page now displays "-" in the command field if no command is associated with the event.
 
 ## 5.3.0 release notes
 
@@ -229,3 +251,8 @@ To get started with Sensu Go:
 [19]: /sensu-go/5.3/getting-started/enterprise
 [20]: /sensu-go/5.3/installation/auth
 [21]: /sensu-go/5.3/reference/agent#creating-monitoring-events-using-the-agent-tcp-and-udp-sockets
+[22]: /sensu-go/5.4/api/overview#pagination
+[23]: /sensu-go/5.4/dashboard/overview
+[24]: /sensu-go/5.4/reference/backend#dashboard-configuration-flags
+[25]: /sensu-go/5.4/guides/securing-sensu
+[26]: /sensu-go/5.4/reference/agent#events-post
