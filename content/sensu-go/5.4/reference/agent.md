@@ -80,11 +80,10 @@ Any requests for unknown endpoints result in a 404 Not Found response.
 ### `/events` (POST)
 
 The `/events` API provides HTTP POST access to publish [monitoring events][7] to the Sensu backend pipeline via the agent API.
-The agent places events created via the `/events` POST endpoint into a queue, so that, in the event of a loss of connection with the backend, event data is preserved and the agent sends queued events to the backend once a connection is reestablished.
+The agent places events created via the `/events` POST endpoint into a queue stored on disk.
+In the event of a loss of connection with the backend or agent shutdown, queued event data is preserved, and the agent sends queued events to the backend once a connection is reestablished.
 
-Queued events are stored on disk, so they are not lost in the event of an agent shutdown.
-
-The `/events` API uses configurable burst limit and rate limit for relaying events to the backend.
+The `/events` API uses a configurable burst limit and rate limit for relaying events to the backend.
 See the [API configuration flags](#api-configuration-flags) to configure the `events-burst-limit` and `events-rate-limit` flags.
 
 #### Example {#events-post-example}
