@@ -80,10 +80,16 @@ Any requests for unknown endpoints result in a 404 Not Found response.
 ### `/events` (POST)
 
 The `/events` API provides HTTP POST access to publish [monitoring events][7] to the Sensu backend pipeline via the agent API.
+The agent places events created via the `/events` POST endpoint into a queue stored on disk.
+In the event of a loss of connection with the backend or agent shutdown, queued event data is preserved, and the agent sends queued events to the backend once a connection is reestablished.
+
+The `/events` API uses a configurable burst limit and rate limit for relaying events to the backend.
+See the [API configuration flags](#api-configuration-flags) to configure the `events-burst-limit` and `events-rate-limit` flags.
 
 #### Example {#events-post-example}
 
-In the following example, an HTTP POST is submitted to the `/events` API, creating an event for a check named `check-mysql-status` with the output `could not connect to mysql` and a status of `1` (warning), resulting in a 201 (Created) HTTP response code.
+In the following example, an HTTP POST is submitted to the `/events` API, creating an event for a check named `check-mysql-status` with the output `could not connect to mysql` and a status of `1` (warning).
+The agent responds with a 202 (Accepted) response code to indicate that the event has been added to the queue to be sent to the backend.
 
 {{< highlight shell >}}
 curl -X POST \
@@ -99,7 +105,7 @@ curl -X POST \
 }' \
 http://127.0.0.1:3031/events
 
-HTTP/1.1 201 Created
+HTTP/1.1 202 Accepted
 {{< /highlight >}}
 
 _PRO TIP: You can use the agent API `/events` endpoint to create proxy entities by including a `proxy_entity_name` attribute within the `check` scope._
@@ -120,7 +126,7 @@ payload example    | {{< highlight json >}}{
   }
 }{{< /highlight >}}
 payload attributes | <ul><li>`check` (required): All check data must be within the `check` scope.</li><li>`metadata` (required): The `check` scope must contain a `metadata` scope.</li><li>`name` (required): The `metadata` scope must contain the `name` attribute with a string representing the name of the monitoring check.</li><li>Any other attributes supported by the [Sensu check specification][14] (optional)</li></ul>
-response codes     | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+response codes     | <ul><li>**Success**: 202 (Accepted)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 ### `/healthz` (GET)
 
@@ -563,6 +569,8 @@ Flags:
       --deregistration-handler string   deregistration handler that should process the entity deregistration event.
       --disable-api                     disable the Agent HTTP API
       --disable-sockets                 disable the Agent TCP and UDP event sockets
+      --events-burst-limit              /events api burst limit
+      --events-rate-limit               maximum number of events transmitted to the backend through the /events api
   -h, --help                            help for start
       --insecure-skip-tls-verify        skip ssl verification
       --keepalive-interval int          number of seconds to send between keepalive events (default 20)
@@ -716,6 +724,31 @@ sensu-agent start --disable-api
 
 # /etc/sensu/agent.yml example
 disable-api: true{{< /highlight >}}
+
+
+| events-burst-limit | |
+--------------|------
+description   | The maximum amount of burst allowed in a rate interval for the [agent events API](#events-post).
+type          | Integer
+default       | `10`
+example       | {{< highlight shell >}}# Command line example
+sensu-agent start --events-burst-limit 20
+
+# /etc/sensu/agent.yml example
+events-burst-limit: 20{{< /highlight >}}
+
+
+| events-rate-limit | |
+--------------|------
+description   | The maximum number of events per second that can be transmitted to the backend using the [agent events API](#events-post)
+type          | Float
+default       | `10.0`
+example       | {{< highlight shell >}}# Command line example
+sensu-agent start --events-rate-limit 20.0
+
+# /etc/sensu/agent.yml example
+events-rate-limit: 20.0{{< /highlight >}}
+
 
 ### Ephemeral agent configuration flags
 

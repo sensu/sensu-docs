@@ -14,7 +14,11 @@ menu:
 The Sensu backend includes the **Sensu dashboard**:
 a unified view of your events, entities, and checks with user-friendly tools to reduce alert fatigue.
 
-![Sensu dashboard events view](/images/dashboard-events.png)
+<div style="text-align:center">
+<img src="/images/homepage.png" alt="Sensu dashboard homepage" width="750">
+</div>
+
+<p style="text-align:center"><i>Sensu dashboard homepage</i></p>
 
 ### Accessing the dashboard
 After [starting the Sensu backend][1], you can access the dashboard in your browser
