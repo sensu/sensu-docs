@@ -21,7 +21,7 @@ We'll cover securing each one of those pieces, starting with etcd peer communica
 
 ## Securing etcd peer communication
 
-Let' start by covering how to secure etcd peer communication via the configuration at `/etc/sensu/backend.yml`. Let's look at the parameters you'll need to configure:
+Let's start by covering how to secure etcd peer communication via the configuration at `/etc/sensu/backend.yml`. Let's look at the parameters you'll need to configure:
 
 {{< highlight yml >}}
 ##
@@ -64,6 +64,20 @@ for the `api-url` parameter:
 # backend api configuration
 ##
 api-url: "https://localhost:8080"
+{{< /highlight >}}
+
+You can also specify a certificate and key for the dashboard separately from the API using the `dashboard-cert-file` and `dashboard-key-file` parameters as shown in the following example.
+
+{{< highlight yml >}}
+##
+# backend ssl configuration
+##
+cert-file: "/path/to/ssl/cert.pem"
+key-file: "/path/to/ssl/key.pem"
+trusted-ca-file: "/path/to/trusted-certificate-authorities.pem"
+insecure-skip-tls-verify: false
+dashboard-cert-file: "/path/to/ssl/cert.pem"
+dashboard-key-file: "/path/to/ssl/key.pem"
 {{< /highlight >}}
 
 In the example above, we provide the path to the cert, key and CA file. After restarting the `sensu-backend` service, the parameters are loaded and you are able to access the dashboard at https://localhost:3000. Configuring these attributes will also ensure that agents are able to communicate securely. Let's move on to securing agent to server communication.
