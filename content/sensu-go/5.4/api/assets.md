@@ -48,6 +48,7 @@ curl -s http://127.0.0.1:8080/api/core/v2/namespaces/default/assets -H "Authoriz
 ---------------|------
 description    | Returns the list of assets.
 example url    | http://hostname:8080/api/core/v2/namespaces/default/assets
+pagination     | This endpoint supports pagination using the `limit` and `continue` query parameters. See the [API overview](../overview#pagination) for details.
 response type  | Array
 response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output         | {{< highlight shell >}}
