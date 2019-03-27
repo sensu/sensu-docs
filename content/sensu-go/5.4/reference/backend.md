@@ -180,6 +180,8 @@ General Flags:
       --cache-dir string                path to store cached data (default "/var/cache/sensu/sensu-backend")
       --cert-file string                TLS certificate in PEM format
   -c, --config-file string              path to sensu-backend config file
+      --dashboard-cert-file string      dashboard TLS certificate in PEM format
+      --dashboard-key-file string       dashboard TLS certificate key in PEM format
       --dashboard-host string           dashboard listener host (default "[::]")
       --dashboard-port int              dashboard listener port (default 3000)
       --debug                           enable debugging and profiling features
@@ -384,6 +386,30 @@ sensu-backend start --insecure-skip-tls-verify
 insecure-skip-tls-verify: true{{< /highlight >}}
 
 ### Dashboard configuration flags
+
+| dashboard-cert-file | |
+-------------|------
+description  | Dashboard TLS certificate in PEM format. If the `dashboard-cert-file` is not provided in the backend configuration, Sensu uses the certificate specified in the [`cert-file` flag](#security-configuration-flags) for the dashboard.
+type         | String
+default      | `""`
+example      | {{< highlight shell >}}# Command line example
+sensu-backend start --dashboard-cert-file /path/to/tls/cert.pem
+
+# /etc/sensu/backend.yml example
+dashboard-cert-file: "/path/to/tls/cert.pem"{{< /highlight >}}
+
+
+| dashboard-key-file | |
+-------------|------
+description  | Dashboard TLS certificate key in PEM format. If the `dashboard-key-file` is not provided in the backend configuration, Sensu uses the key specified in the [`key-file` flag](#security-configuration-flags) for the dashboard.
+type         | String
+default      | `""`
+example      | {{< highlight shell >}}# Command line example
+sensu-backend start --dashboard-key-file /path/to/tls/key.pem
+
+# /etc/sensu/backend.yml example
+dashboard-key-file: "/path/to/tls/key.pem"{{< /highlight >}}
+
 
 | dashboard-host |      |
 -----------------|------
