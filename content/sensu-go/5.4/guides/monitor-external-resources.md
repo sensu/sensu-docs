@@ -245,8 +245,7 @@ Create a file called `check-proxy-requests.json` and add the following check def
         "entity.entity_class == 'proxy'",
         "entity.labels.proxy_type == 'website'"
       ],
-      "splay": true,
-      "splay_coverage": 90
+      "round_robin": true
     }
   }
 }
@@ -254,9 +253,7 @@ Create a file called `check-proxy-requests.json` and add the following check def
 
 Our `check-http-proxy-requests` check uses the `proxy_requests` attribute to specify the applicable entities.
 In our case, we want to run the `check-http-proxy-requests` check on all entities of entity class `proxy` and proxy type `website`.
-To make sure that Sensu runs the check for all applicable entities, we need to set the splay attribute to `true` with a splay coverage percentage value of `90`.
-This gives Sensu 90% of the check `interval`, 60 seconds in this case, to execute the check for all applicable entities.
-Since we're using this check to monitor multiple sites, we can use token substitution to apply the correct `url` in the check `command`.
+Since we're using this check to monitor multiple sites, we can use token substitution to apply the correct `url` in the check `command`, and we'll use the `round_robin` attribute to distribute the executions evenly across the agents with the `proxy` subscription.
 
 Now we can use sensuctl to add this check to Sensu.
 
