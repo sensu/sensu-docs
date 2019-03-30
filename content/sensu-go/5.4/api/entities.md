@@ -28,7 +28,7 @@ The following example demonstrates a request to the `/entities` API, resulting i
 a JSON Array containing [entity definitions][1].
 
 {{< highlight shell >}}
-curl -s http://127.0.0.1:8080/api/core/v2/namespaces/default/entities -H "Authorization: Bearer TOKEN"
+curl http://127.0.0.1:8080/api/core/v2/namespaces/default/entities -H "Authorization: Bearer $TOKEN"
 [
   {
     "entity_class": "agent",
@@ -208,7 +208,7 @@ containing the requested [`:entity` definition][1] (in this example: for the `:e
 `sensu-centos`).
 
 {{< highlight shell >}}
-curl -s http://127.0.0.1:8080/api/core/v2/namespaces/default/entities/sensu-centos -H "Authorization: Bearer TOKEN"
+curl http://127.0.0.1:8080/api/core/v2/namespaces/default/entities/sensu-centos -H "Authorization: Bearer $TOKEN"
 {
   "entity_class": "agent",
   "system": {

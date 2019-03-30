@@ -30,7 +30,7 @@ The following example demonstrates a request to the `/events` API, resulting in
 a JSON Array containing [event definitions][1].
 
 {{< highlight shell >}}
-curl -H "Authorization: Bearer TOKEN" \
+curl -H "Authorization: Bearer $TOKEN" \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/events
 
 HTTP/1.1 200 OK
@@ -181,7 +181,7 @@ The request includes information about the check and entity represented by the e
 
 {{< highlight shell >}}
 curl -X POST \
--H "Authorization: Bearer TOKEN" \
+-H "Authorization: Bearer $TOKEN" \
 -H 'Content-Type: application/json' \
 -d '{
   "entity": {
@@ -249,7 +249,7 @@ The `/events/:entity` API endpoint provides HTTP GET access to [event data][1] s
 In the following example, querying the `/events/:entity` API returns a list of Sensu events for the `sensu-go-sandbox` entity and a successful HTTP 200 OK response.
 
 {{< highlight shell >}}
-curl -H "Authorization: Bearer TOKEN" \
+curl -H "Authorization: Bearer $TOKEN" \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/events/sensu-go-sandbox
 
 HTTP/1.1 200 OK
@@ -474,7 +474,7 @@ The event includes a status code of `1`, indicating a warning, and an output mes
 
 {{< highlight shell >}}
 curl -X PUT \
--H "Authorization: Bearer TOKEN" \
+-H "Authorization: Bearer $TOKEN" \
 -H 'Content-Type: application/json' \
 -d '{
   "entity": {
@@ -562,7 +562,7 @@ For more information about check attributes, see the [check specification](../..
 
 {{< highlight shell >}}
 curl -X PUT \
--H "Authorization: Bearer TOKEN" \
+-H "Authorization: Bearer $TOKEN" \
 -H 'Content-Type: application/json' \
 -d '{
   "entity": {
@@ -590,7 +590,7 @@ For more information about these attributes and their available values, see the 
 
 {{< highlight shell >}}
 curl -X PUT \
--H "Authorization: Bearer TOKEN" \
+-H "Authorization: Bearer $TOKEN" \
 -H 'Content-Type: application/json' \
 -d '{
   "entity": {
@@ -622,7 +622,7 @@ See the [events reference](../../reference/events#metrics) and for more informat
 
 {{< highlight shell >}}
 curl -X PUT \
--H "Authorization: Bearer TOKEN" \
+-H "Authorization: Bearer $TOKEN" \
 -H 'Content-Type: application/json' \
 -d '{
   "entity": {
@@ -670,7 +670,7 @@ The following example shows a request to delete the event produced by the `sensu
 
 {{< highlight shell >}}
 curl -X DELETE \
--H "Authorization: Bearer TOKEN" \
+-H "Authorization: Bearer $TOKEN" \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/events/sensu-go-sandbox/check-cpu 
 
 HTTP/1.1 204 No Content

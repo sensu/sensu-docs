@@ -18,7 +18,7 @@ ignoreFiles = [ "sensu-doc-template.md" ]
 
 [params]
 	# General information
-	description = "Monitor servers, services, application health, and business KPIs. Collect and analyze custom metrics. Get notified about failures before your users do. Give your business the competitive advantage it deserves."
+	description = "Sensu is the industry leading solution for multi-cloud monitoring at scale. The Sensu monitoring event pipeline empowers businesses to automate their monitoring workflows and gain deep visibility into their multi-cloud environments. Built by operators, for operators, open source is at the heart of the Sensu product and company, with an active, thriving community of contributors."
 	copyright = ""
 
 	# Repository

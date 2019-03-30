@@ -1,7 +1,7 @@
 ---
 title: "Upgrading Sensu"
 linkTitle: "Upgrade Sensu"
-description: "Guide to upgrading to Sensu Go from Sensu Core 1.x"
+description: "Upgrade to the latest version of Sensu. Read the upgrade guide to get the latest features and bug fixes in Sensu Go and learn about upgrading to Sensu Go from Sensu Core 1.x."
 weight: 3
 version: "5.0"
 product: "Sensu Go"

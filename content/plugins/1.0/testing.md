@@ -1,7 +1,7 @@
 ---
 title: "Testing"
 date: 2017-10-26T12:53:47-07:00
-description: ""
+description: "Implement testing for your Sensu plugins, including linting, which only merges pull requests passing rubocop, and Rspec, which is the test framework of choice. You’ll also learn how to build Codeship and Travis test pipelines."
 weight: 9
 product: "Plugins"
 version: "1.0"
