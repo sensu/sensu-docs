@@ -34,7 +34,7 @@ The Sensu backend is available for Ubuntu, RHEL/CentOS, and [Docker](#deploy-sen
 Add the Sensu repository.
 
 {{< highlight shell >}}
- curl https://packagecloud.io/install/repositories/sensu/stable/script.deb.sh | sudo bash
+curl -s https://packagecloud.io/install/repositories/sensu/stable/script.deb.sh | sudo bash
 {{< /highlight >}}
 
 Install the `sensu-go-backend` package.
@@ -52,7 +52,7 @@ sudo apt-get install sensu-go-backend
 Add the Sensu repository.
 
 {{< highlight shell >}}
- curl https://packagecloud.io/install/repositories/sensu/stable/script.rpm.sh | sudo bash
+curl -s https://packagecloud.io/install/repositories/sensu/stable/script.rpm.sh | sudo bash
 {{< /highlight >}}
 
 Install the `sensu-go-backend` package.
@@ -119,7 +119,7 @@ The Sensu agent is available for Ubuntu, RHEL/CentOS, Windows, and [Docker](#dep
 Add the Sensu repository.
 
 {{< highlight shell >}}
- curl https://packagecloud.io/install/repositories/sensu/stable/script.deb.sh | sudo bash
+curl -s https://packagecloud.io/install/repositories/sensu/stable/script.deb.sh | sudo bash
 {{< /highlight >}}
 
 Install the `sensu-go-agent` package.
@@ -136,7 +136,7 @@ sudo apt-get install sensu-go-agent
 Add the Sensu repository.
 
 {{< highlight shell >}}
- curl https://packagecloud.io/install/repositories/sensu/stable/script.rpm.sh | sudo bash
+curl -s https://packagecloud.io/install/repositories/sensu/stable/script.rpm.sh | sudo bash
 {{< /highlight >}}
 
 Install the `sensu-go-agent` package.
@@ -249,7 +249,7 @@ Sensuctl is available for Ubuntu, RHEL/CentOS, Windows, and macOS.
 Add the Sensu repository.
 
 {{< highlight shell >}}
- curl https://packagecloud.io/install/repositories/sensu/stable/script.deb.sh | sudo bash
+curl -s https://packagecloud.io/install/repositories/sensu/stable/script.deb.sh | sudo bash
 {{< /highlight >}}
 
 Install the `sensu-go-cli` package.
@@ -267,7 +267,7 @@ sudo apt-get install sensu-go-cli
 Add the Sensu repository.
 
 {{< highlight shell >}}
- curl https://packagecloud.io/install/repositories/sensu/stable/script.rpm.sh | sudo bash
+curl -s https://packagecloud.io/install/repositories/sensu/stable/script.rpm.sh | sudo bash
 {{< /highlight >}}
 
 Install the `sensu-go-cli` package.
