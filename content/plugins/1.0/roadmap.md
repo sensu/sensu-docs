@@ -1,7 +1,7 @@
 ---
 title: "Roadmap"
 date: 2017-10-26T10:31:16-07:00
-description: "Sensu plugins project roadmap"
+description: "In this roadmap, we offer an overview of future plans for Sensu plugins — not just in terms of code but also in terms of community involvement. You’ll learn about content migration, production readiness of plugins, preparations for Sensu Go, and how you can help."
 weight: 3
 product: "Plugins"
 version: "1.0"

@@ -28,7 +28,7 @@ The following example demonstrates a request to the `/filters` API, resulting in
 a JSON Array containing [filter definitions][1].
 
 {{< highlight shell >}}
-curl -s http://127.0.0.1:8080/api/core/v2/namespaces/default/filters -H "Authorization: Bearer TOKEN"
+curl http://127.0.0.1:8080/api/core/v2/namespaces/default/filters -H "Authorization: Bearer $TOKEN"
 [
   {
     "metadata": {
@@ -122,7 +122,7 @@ containing the requested [`:filter` definition][1] (in this example: for the `:f
 `state_change_only`).
 
 {{< highlight shell >}}
-curl -s http://127.0.0.1:8080/api/core/v2/namespaces/default/filters/state_change_only -H "Authorization: Bearer TOKEN"
+curl http://127.0.0.1:8080/api/core/v2/namespaces/default/filters/state_change_only -H "Authorization: Bearer $TOKEN"
 {
   "metadata": {
     "name": "state_change_only",

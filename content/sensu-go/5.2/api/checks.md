@@ -34,7 +34,7 @@ The following example demonstrates a request to the `/checks` API, resulting in
 a JSON Array containing [check definitions][1].
 
 {{< highlight shell >}}
-curl -H "Authorization: Bearer TOKEN" http://127.0.0.1:8080/api/core/v2/namespaces/default/checks
+curl -H "Authorization: Bearer $TOKEN" http://127.0.0.1:8080/api/core/v2/namespaces/default/checks
 
 HTTP/1.1 200 OK
 [
@@ -109,7 +109,7 @@ The request includes the check definition in the request body and returns a succ
 
 {{< highlight shell >}}
 curl -X POST \
--H "Authorization: Bearer TOKEN" \
+-H "Authorization: Bearer $TOKEN" \
 -H 'Content-Type: application/json' \
 -d '{
   "command": "check-cpu.sh -w 75 -c 90",
@@ -185,7 +185,7 @@ containing the requested [`:check` definition][1] (in this example: for the `:ch
 `check-cpu`).
 
 {{< highlight shell >}}
-curl -H "Authorization: Bearer TOKEN" \
+curl -H "Authorization: Bearer $TOKEN" \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/checks/check-cpu 
 
 HTTP/1.1 200 OK
@@ -240,7 +240,7 @@ In the following example, an HTTP PUT request is submitted to the `/checks/:chec
 
 {{< highlight shell >}}
 curl -X PUT \
--H "Authorization: Bearer TOKEN" \
+-H "Authorization: Bearer $TOKEN" \
 -H 'Content-Type: application/json' \
 -d '{
   "command": "check-cpu.sh -w 75 -c 90",
@@ -311,7 +311,7 @@ The request includes the check name in the request body and returns a successful
 
 {{< highlight shell >}}
 curl -X POST \
--H "Authorization: Bearer TOKEN" \
+-H "Authorization: Bearer $TOKEN" \
 -H 'Content-Type: application/json' \
 -d '{"check": "check-sensu-site"}' \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/checks/check-sensu-site/execute
@@ -352,7 +352,7 @@ assigning the `process_tree` hook to the `check-cpu` check in the event of a `cr
 
 {{< highlight shell >}}
 curl -X PUT \
--H "Authorization: Bearer TOKEN" \
+-H "Authorization: Bearer $TOKEN" \
 -H 'Content-Type: application/json' \
 -d '{
   "critical": [
@@ -391,7 +391,7 @@ The following example shows a request to remove the `process_tree` hook from the
 
 {{< highlight shell >}}
 curl -X DELETE \
--H "Authorization: Bearer TOKEN" \
+-H "Authorization: Bearer $TOKEN" \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/checks/check-cpu/hooks/critical/hook/process_tree 
 
 HTTP/1.1 204 No Content

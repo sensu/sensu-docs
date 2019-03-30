@@ -137,7 +137,7 @@ The `/healthz` API provides HTTP GET access to the status of the Sensu agent via
 In the following example, an HTTP GET is submitted to the `/healthz` API:
 
 {{< highlight shell >}}
-curl -s http://127.0.0.1:3031/healthz
+curl http://127.0.0.1:3031/healthz
 {{< /highlight >}}
 
 Resulting in a healthy response:

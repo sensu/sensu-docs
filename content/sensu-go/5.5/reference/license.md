@@ -18,6 +18,7 @@ menu:
 
 - [Log in to your Sensu account](https://account.sensu.io/)
 - [Configure authentication providers](../../installation/auth)
+- [Discover enterprise assets](https://bonsai.sensu.io/assets?tiers%5B%5D=4)
 - [Guide to using assets](../../guides/install-check-executables-with-assets)
 - [Contact Sensu support](https://account.sensu.io/support)
 - [Contact Sensu sales](https://sensu.io/sales)

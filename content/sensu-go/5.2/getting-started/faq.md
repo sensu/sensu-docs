@@ -60,7 +60,7 @@ Sensu Go is a complete redesign of the original Sensu; it uses separate packages
 (See the [Sensu Go release announcement][3] for more information.)
 Due to these changes, [some features][4] of Sensu 1.x are no longer supported in Sensu Go, such as standalone checks.
 To upgrade your Sensu 1.x deployment to Sensu Go, you'll need to translate your Sensu 1.x configuration to the format expected by Sensu Go and install the new Sensu Go services on your infrastructure.
-The [Sensu Go upgrading guide][4] includes a detailed feature comparison between Sensu Go and Sensu 1.x as well as tools to help you get started.
+The [Sensu Go upgrade guide][4] includes a detailed feature comparison between Sensu Go and Sensu 1.x as well as tools to help you get started.
 
 > Which ports does Sensu use?
 

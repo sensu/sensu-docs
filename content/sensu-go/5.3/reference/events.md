@@ -158,7 +158,7 @@ Sensu events contain:
 ## Using event data
 
 Event data is powerful tool for automating monitoring workflows.
-For example, see [the guide to reducing alert fatigue](guides/reduce-alert-fatigue/) by filtering events based on the event `occurrences` attribute.
+For example, see [the guide to reducing alert fatigue](../../guides/reduce-alert-fatigue/) by filtering events based on the event `occurrences` attribute.
 
 ## Events specification
 

@@ -28,7 +28,7 @@ The following example demonstrates a request to the `/roles` API, resulting in
 a JSON Array containing [role definitions][1].
 
 {{< highlight shell >}}
-curl http://127.0.0.1:8080/api/core/v2/namespaces/default/roles -H "Authorization: Bearer TOKEN"
+curl http://127.0.0.1:8080/api/core/v2/namespaces/default/roles -H "Authorization: Bearer $TOKEN"
 
 HTTP/1.1 200 OK
 [
@@ -123,7 +123,7 @@ containing the requested [`:role` definition][1] (in this example: for the `:rol
 `read-only`).
 
 {{< highlight shell >}}
-curl http://127.0.0.1:8080/api/core/v2/namespaces/default/roles/read-only -H "Authorization: Bearer TOKEN"
+curl http://127.0.0.1:8080/api/core/v2/namespaces/default/roles/read-only -H "Authorization: Bearer $TOKEN"
 
 HTTP/1.1 200 OK
 {

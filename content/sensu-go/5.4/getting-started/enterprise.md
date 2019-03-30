@@ -17,9 +17,8 @@ Enterprise features are available for all Sensu Go packages and downloads.
 **Enterprise-only features in Sensu Go:**
 
 - [Authentication providers](../../installation/auth)
-- [Sensu ServiceNow event handler](https://bonsai.sensu.io/assets/sensu/sensu-servicenow-handler): Create and update incidents automatically based on your monitoring events.
-- [Sensu Jira event handler](https://bonsai.sensu.io/assets/sensu/sensu-jira-handler): Create and update issues automatically based on your monitoring events.
-- [Enterprise-class support for Sensu Go](https://sensu.io/support/)
+- [Enterprise assets](https://bonsai.sensu.io/assets?tiers%5B%5D=4)
+- [Enterprise-class support](https://sensu.io/support/)
 
 ### Contact us for a free trial
 

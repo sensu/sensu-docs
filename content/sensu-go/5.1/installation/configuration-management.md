@@ -1,6 +1,6 @@
 ---
 title: "Configuration Management"
-description: "Configuration Management with Sensu"
+description: "Configuration management tools can help you deploy Sensu in production and at scale. Learn more about the Sensu Puppet module and Sensu Chef cookbook."
 weight: 16
 product: "Sensu Go"
 version: "5.1"

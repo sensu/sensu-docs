@@ -1,5 +1,6 @@
 ---
 title: "Plugins"
+description: "The Sensu plugins project provides a set of community-driven, high-quality plugins, handlers, and other code to maximize the effective use of Sensu in various types of auto-scaling and traditional environments. Read the docs to get started installing, developing, and sharing Sensu plugins."
 date: 2018-05-03T10:31:16-07:00
 weight: -100
 menu: "plugins-1.0"

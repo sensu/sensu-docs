@@ -1,7 +1,7 @@
 ---
 title: "Sensu Plugins: A History"
 date: 2017-10-26T10:58:06-07:00
-description: "History of the Sensu plugins project"
+description: "Creating a set of production grade gems from the Sensu Community Plugins is a huge task that will take considerable time; only with the continued effort of many people can this goal can be achieved. Read on to learn the history of Sensu plugins."
 weight: 7
 product: "Plugins"
 version: "1.0"

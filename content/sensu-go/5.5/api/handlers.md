@@ -28,7 +28,7 @@ The following example demonstrates a request to the `/handlers` API, resulting i
 a JSON Array containing [handler definitions][1].
 
 {{< highlight shell >}}
-curl -s http://127.0.0.1:8080/api/core/v2/namespaces/default/handlers -H "Authorization: Bearer TOKEN"
+curl http://127.0.0.1:8080/api/core/v2/namespaces/default/handlers -H "Authorization: Bearer $TOKEN"
 [
   {
     "metadata": {
@@ -148,7 +148,7 @@ containing the requested [`:handler` definition][1] (in this example: for the `:
 `slack`).
 
 {{< highlight shell >}}
-curl -s http://127.0.0.1:8080/api/core/v2/namespaces/default/handlers/slack -H "Authorization: Bearer TOKEN"
+curl http://127.0.0.1:8080/api/core/v2/namespaces/default/handlers/slack -H "Authorization: Bearer $TOKEN"
 {
   "metadata": {
     "name": "slack",

@@ -20,16 +20,14 @@ Sensu Go adheres to [semantic versioning][2] using MAJOR.MINOR.PATCH release num
 
 ### Upgrading
 
-Read the [upgrading guide][1] for information on upgrading to the latest version of Sensu Go.
+Read the [upgrade guide][1] for information on upgrading to the latest version of Sensu Go.
 
 ---
 
 ## 5.3.0 release notes
 
 **March 11, 2019** &mdash; The latest release of Sensu Go, version 5.3.0, is now available for download. This release has some very exciting feature additions and key bug fixes. 5.3.0 enables Active Directory to be configured as an authentication provider with a valid license key. Additionally, round robin scheduling has been fully re-implemented and is available for use.
-See the [upgrading guide][1] to upgrade Sensu to version 5.3.0.
-
-### Changes to Sensu Go {#5.3.0-changes}
+See the [upgrade guide][1] to upgrade Sensu to version 5.3.0.
 
 **NEW FEATURES:**
 
@@ -64,9 +62,7 @@ See the [upgrading guide][1] to upgrade Sensu to version 5.3.0.
 ## 5.2.1 release notes
 
 **February 11, 2019** &mdash; The latest release of Sensu Go, version 5.2.1, is now available for download. This release is a stability release with a key bug fix for proxy check functionality.
-See the [upgrading guide][1] to upgrade Sensu to version 5.2.1.
-
-### Changes to Sensu Go {#5.2.1-changes}
+See the [upgrade guide][1] to upgrade Sensu to version 5.2.1.
 
 **FIXES:**
 
@@ -75,9 +71,7 @@ See the [upgrading guide][1] to upgrade Sensu to version 5.2.1.
 ## 5.2.0 release notes
 
 **February 7, 2019** &mdash; The latest release of Sensu Go, version 5.2.0, is now available for download. This release has a ton of exciting content, including the availability of our first enterprise-only features. For more details on these features, see our [blog post][14]. 5.2.0 also has some key improvements and fixes; we added support for self-signed CA certificates for sensuctl, check output truncation, and the ability to manage silencing from the event details page on our web UI just to name a few.
-See the [upgrading guide][1] to upgrade Sensu to version 5.2.0.
-
-### Changes to Sensu Go {#5.2.0-changes}
+See the [upgrade guide][1] to upgrade Sensu to version 5.2.0.
 
 **IMPORTANT:**
 
@@ -109,9 +103,7 @@ See the [upgrading guide][1] to upgrade Sensu to version 5.2.0.
 ## 5.1.1 release notes
 
 **January 24, 2019** &mdash; The latest patch release of Sensu Go, version 5.1.1, is now available for download. This release includes some key fixes and improvements, including refactored keepalive functionality with increased reliability. Additionally, based on Community feedback, we have added support for the Sensu agent and sensuctl for 32-bit Windows systems.
-See the [upgrading guide][1] to upgrade Sensu to version 5.1.1.
-
-### Changes to Sensu Go {#5.1.1-changes}
+See the [upgrade guide][1] to upgrade Sensu to version 5.1.1.
 
 **NEW FEATURES:**
 
@@ -143,14 +135,12 @@ See the [upgrading guide][1] to upgrade Sensu to version 5.1.1.
 
 **December 19, 2018** &mdash; The latest release of Sensu Go, version 5.1.0, is now available for download. 
 This release includes an important change to the Sensu backend state directory as well as support for Ubuntu 14.04 and some key bug fixes.
-See the [upgrading guide][1] to upgrade Sensu to version 5.1.0.
-
-### Changes to Sensu Go {#5.1.0-changes}
+See the [upgrade guide][1] to upgrade Sensu to version 5.1.0.
 
 **IMPORTANT:**
 
 - _NOTE: This applies only to Sensu backend binaries downloaded from `s3-us-west-2.amazonaws.com/sensu.io/sensu-go`, not to Sensu RPM or DEB packages._
-For Sensu backend binaries, the default `state-dir` is now `/var/lib/sensu/sensu-backend` instead of `/var/lib/sensu`. To upgrade your Sensu backend binary to 5.1.0, make sure your `/etc/sensu/backend.yml` configuration file specifies a `state-dir`. See the [upgrading guide][3] for more information.
+For Sensu backend binaries, the default `state-dir` is now `/var/lib/sensu/sensu-backend` instead of `/var/lib/sensu`. To upgrade your Sensu backend binary to 5.1.0, make sure your `/etc/sensu/backend.yml` configuration file specifies a `state-dir`. See the [upgrade guide][3] for more information.
 
 **NEW FEATURES:**
 
@@ -172,9 +162,7 @@ For Sensu backend binaries, the default `state-dir` is now `/var/lib/sensu/sensu
 ## 5.0.1 release notes
 
 **December 12, 2018** &mdash; Sensu Go 5.0.1 includes our top bug fixes following last week's general availability release.
-See the [upgrading guide][1] to upgrade Sensu to version 5.0.1.
-
-### Changes to Sensu Go {#5.0.1-changes}
+See the [upgrade guide][1] to upgrade Sensu to version 5.0.1.
 
 **FIXED:**
 

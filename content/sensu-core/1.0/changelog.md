@@ -1244,7 +1244,7 @@ available for immediate download. Please note the following improvements:
 [15]: /sensu-core/0.29/reference/clients#proxy-clients
 [16]: /sensu-core/0.29/reference/events#check-attributes
 [17]: /sensu-core/0.29/reference/checks#check-token-substitution
-[18]: http://code.macournoyer.com/thin/
+[18]: https://github.com/macournoyer/thin/
 [19]: https://github.com/guyboertje/jrjackson
 [20]: /sensu-core/0.29/api/health-and-info
 [21]: /sensu-core/0.29/reference/clients#client-definition-specification

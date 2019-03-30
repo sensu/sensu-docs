@@ -1,7 +1,7 @@
 ---
 title: "Getting Started"
 date: 2017-10-26T10:52:11-07:00
-description: ""
+description: "Here’s how to get started with Sensu plugins in Sensu 1.x. In this doc, you’ll learn about sensu-plugin org guidelines, including infrastructure and policies, and how to become a contributor."
 weight: 5
 product: "Plugins"
 version: "1.0"
