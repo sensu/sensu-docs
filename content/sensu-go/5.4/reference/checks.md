@@ -142,7 +142,7 @@ This helps to balance the load of both the backend and the agent, and may result
 #### Cron scheduling
 
 You can also schedule checks using [cron syntax][14].
-For example, to schedule a check to execute once an hour at the start of the hour, set the `cron` attribute to `0 0 * * * *` and the `publish` attribute to `true`.
+For example, to schedule a check to execute once a minute at the start of the minute, set the `cron` attribute to `* * * * *` and the `publish` attribute to `true`.
 
 **Example cron check**
 
@@ -158,7 +158,7 @@ For example, to schedule a check to execute once an hour at the start of the hou
     "command": "check-cpu.sh -w 75 -c 90",
     "subscriptions": ["system"],
     "handlers": ["slack"],
-    "cron": "0 0 * * * *",
+    "cron": "* * * * *",
     "publish": true
   }
 }
@@ -167,7 +167,7 @@ For example, to schedule a check to execute once an hour at the start of the hou
 #### Ad-hoc scheduling
 
 In addition to automatic execution, you can create checks to be scheduled manually using the [checks API](../../api/check#the-checkscheckexecute-api-endpoint).
-To create a check with ad-hoc scheduling, set the `publish` attribute to `false`.
+To create a check with ad-hoc scheduling, set the `publish` attribute to `false` in addition to an `interval` or `cron` schedule.
 
 **Example ad-hoc check**
 
@@ -183,7 +183,8 @@ To create a check with ad-hoc scheduling, set the `publish` attribute to `false`
     "command": "check-cpu.sh -w 75 -c 90",
     "subscriptions": ["system"],
     "handlers": ["slack"],
-    "publish": true
+    "interval": 60,
+    "publish": false
   }
 }
 {{< /highlight >}}
@@ -379,14 +380,14 @@ example      | {{< highlight shell >}}"handlers": ["pagerduty", "email"]{{< /hig
 |interval    |      |
 -------------|------
 description  | The frequency in seconds the check is executed.
-required     | true (unless `publish` is `false` or `cron` is configured)
+required     | true (unless `cron` is configured)
 type         | Integer
 example      | {{< highlight shell >}}"interval": 60{{< /highlight >}}
 
 |cron        |      |
 -------------|------
 description  | When the check should be executed, using the [cron syntax][14] or [these predefined schedules][15].
-required     | true (unless `publish` is `false` or `interval` is configured)
+required     | true (unless `interval` is configured)
 type         | String
 example      | {{< highlight shell >}}"cron": "0 0 * * *"{{< /highlight >}}
 
