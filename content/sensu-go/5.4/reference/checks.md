@@ -33,7 +33,7 @@ You can discover, download, and share Sensu check assets using [Bonsai][25], the
 
 ## Check commands
 
-Each Sensu check definition defines a command and the schedule at which it should be executed.
+Each Sensu check definition specifies a command and the schedule at which it should be executed.
 Check commands are executable commands which are executed by the Sensu agent.
 
 A command may include command line arguments for controlling the behavior of the
@@ -43,24 +43,24 @@ arguments for reusability.
 ### How and where are check commands executed?
 
 All check commands are executed by Sensu agents as the `sensu` user. Commands
-must be executable files that are discoverable on the Sensu agent system (ex:
+must be executable files that are discoverable on the Sensu agent system (for example:
 installed in a system `$PATH` directory).
 
 ## Check result specification
 
-Although the Sensu agent will attempt to execute any
+Although Sensu agents attempt to execute any
 command defined for a check, successful processing of check results requires
 adherence to a simple specification.
 
 - Result data is output to [STDOUT or STDERR][3]
-    - For standard checks this output is typically a human-readable message
-    - For metrics checks this output contains the measurements gathered by the
-      check
+    - For service checks, this output is typically a human-readable message.
+    - For metrics checks, this output contains the measurements gathered by the
+      check.
 - Exit status code indicates state
     - `0` indicates “OK”
     - `1` indicates “WARNING”
     - `2` indicates “CRITICAL”
-    - exit status codes other than `0`, `1`, or `2` indicate an “UNKNOWN” or
+    - Exit status codes other than `0`, `1`, or `2` indicate an “UNKNOWN” or
       custom status
 
 _PRO TIP: Those familiar with the **Nagios** monitoring
@@ -80,14 +80,11 @@ model][2].
 
 ### Subscriptions
 
-Checks have a defined set of subscribers, a list of transport
-topics that the Sensu backend publishes check requests to. Sensu entities become
+Checks have a defined set of subscriptions, transport
+topics to which the Sensu backend publishes check requests. Sensu entities become
 subscribers to these topics (called subscriptions) via their individual
 subscriptions attribute. In practice, subscriptions typically correspond to
 a specific role or responsibility (for example: a webserver or database).
-
-To configure subscriptions for a check, use the `subscriptions` attribute to specify an array of one or more subscription names.
-In order for Sensu to execute a check, the check definition must include a subscription that matches the subscription of at least one Sensu agent.
 
 Subscriptions are powerful primitives in the monitoring context because they
 allow you to effectively monitor for specific behaviors or characteristics
@@ -98,6 +95,21 @@ or memory usage thresholds might be more important on a caching system than
 on a file server. Subscriptions also allow you to configure check requests for
 an entire group or subgroup of systems rather than requiring a traditional one-to-one
 mapping.
+
+To configure subscriptions for a check, use the `subscriptions` attribute to specify an array of one or more subscription names.
+Sensu schedules checks once per interval for each agent with a matching subscription.
+For example, if we have three agents configured with the `system` subscription, a check configured with the `system` subscription results in three monitoring events per interval: one check execution per agent per interval.
+In order for Sensu to execute a check, the check definition must include a subscription that matches the subscription of at least one Sensu agent.
+
+#### Round-robin checks
+
+By default, Sensu schedules checks once per interval for each agent with a matching subscription: one check execution per agent per interval.
+However, Sensu also supports executing checks only once per interval when configured with the `round_robin` check attribute.
+For checks with `round_robin` set to `true`, Sensu executes the check once per interval, cycling through the available agents alphabetically according to agent name.
+
+For example, for three agents configured with the `system` subscription (agents A, B, and C), a check configured with the `system` subscription and `round_robin` set to `true` results in one monitoring event per interval, with the agent creating the event following the pattern A -> B -> C -> A -> B -> C for the first six intervals.
+
+_PRO TIP: You can use round-robin to distribute check execution workload across multiple agents when using [proxy checks with the proxy requests attributes](#using-a-proxy-check-to-monitor-a-multiple-proxy-entities)._
 
 ### Scheduling
 
@@ -189,16 +201,6 @@ To create a check with ad-hoc scheduling, set the `publish` attribute to `false`
 }
 {{< /highlight >}}
 
-#### Round-robin scheduling
-
-Round-robin check scheduling distributes check executions evenly over a group of Sensu agents.
-You can add round-robin scheduling to interval and cron checks using the `round_robin` attribute.
-
-For example, to execute a check every 60 seconds on only one agent within a subscription, set `interval` to `60`, `publish` to `true`, and `round_robin` to `true`.
-Sensu executes the resulting check on one agent per interval, cycling through the available agents alphabetically according to the agent name.
-
-_PRO TIP: Round-robin scheduling is especially useful for [proxy checks using the `proxy_requests` attributes](#using-a-proxy-check-to-monitor-a-multiple-proxy-entities)._
-
 ## Proxy checks {#proxy-requests}
 
 Sensu supports running proxy checks where the results are considered to be for an
@@ -207,7 +209,7 @@ that entity is a Sensu agent entity or a proxy entity.
 Proxy entities allow Sensu to monitor external resources
 on systems or devices where a Sensu agent cannot be installed, like a
 network switch or a website.
-You can create a proxy check using the `proxy_entity_name` attribute or the `proxy_requests` attributes.
+You can create a proxy check using the [`proxy_entity_name` attribute](#using-a-proxy-check-to-monitor-a-proxy-entity) or the [`proxy_requests` attributes](#using-a-proxy-check-to-monitor-a-multiple-proxy-entities).
 
 ### Using a proxy check to monitor a proxy entity
 
@@ -216,7 +218,7 @@ If the proxy entity doesn't exist, Sensu creates the proxy entity when the event
 
 **Example proxy check using a `proxy_entity_name`**
 
-The following proxy check runs every 60 seconds on agents with the `proxy` subscription as the proxy entity `sensu-site`.
+The following proxy check runs every 60 seconds on agents with the `proxy` subscription for the proxy entity `sensu-site`.
 
 {{< highlight json >}}
 {
@@ -239,17 +241,17 @@ The following proxy check runs every 60 seconds on agents with the `proxy` subsc
 
 ### Using a proxy check to monitor a multiple proxy entities
 
-The [`proxy_requests` check attributes](#proxy-requests-top-level) allow Sensu to run a check for each entity that matches the definitions specified in the `entity_attributes`, resulting in a monitoring event that represents each matching proxy entity.
+The [`proxy_requests` check attributes](#proxy-requests-top-level) allow Sensu to run a check for each entity that matches the definitions specified in the `entity_attributes`, resulting in monitoring events that represents each matching proxy entity.
 The entity attributes must match exactly as stated; no variables or directives have any special meaning, but you can still use [Sensu query expressions][11] to perform more complicated filtering on the available value, such as finding entities with particular subscriptions.
 
-The `proxy_requests` attributes are a great way to monitor multiple of entities using a single check definition when combined with [token substitution](#token-substitution).
+The `proxy_requests` attributes are a great way to monitor multiple entities using a single check definition when combined with [token substitution](#token-substitution).
 Since checks including `proxy_requests` attributes need to be executed for each matching entity, we recommending using the `round_robin` attribute to distribute the check execution workload evenly across your Sensu agents.
 
 **Example proxy check using `proxy_requests`**
 
 The following proxy check runs every 60 seconds, cycling through the agents with the `proxy` subscription alphabetically according to the agent name, for all existing proxy entities with the custom label `proxy_type` set to `website`.
 
-This check uses [token substitution](#token-substitution) to import the value of the custom label `url` to complete the check command.
+This check uses [token substitution](#token-substitution) to import the value of the custom entity label `url` to complete the check command.
 See the [entity reference](../entities#managing-entity-labels) for information about using custom labels.
 
 {{< highlight json >}}
@@ -279,8 +281,8 @@ See the [entity reference](../entities#managing-entity-labels) for information a
 #### Fine-tuning proxy check scheduling with splay
 
 Sensu supports distributing proxy check executions across an interval using the `splay` and `splay_coverage` attributes.
-For example, if we assume that the `proxy_check_proxy_requests` check in the example above matches three proxy entities, we'd expect to see three events every 60 seconds.
-If we add the `splay` attribute (set to `true`) and the `splay_coverage` attribute (set to `90`) to the `proxy_requests` scope, Sensu would distribute the three check executions over 90% of the 60-second interval, resulting in three events splayed evenly across a 54-second period, leaving 6 seconds for the last proxy check execution before the the next round of proxy check requests for the same check.
+For example, if we assume that the `proxy_check_proxy_requests` check in the example above matches three proxy entities, we'd expect to see a burst of three events every 60 seconds.
+If we add the `splay` attribute (set to `true`) and the `splay_coverage` attribute (set to `90`) to the `proxy_requests` scope, Sensu distributes the three check executions over 90% of the 60-second interval, resulting in three events splayed evenly across a 54-second period.
 
 ## Check token substitution
 
@@ -514,10 +516,10 @@ example      | {{< highlight shell >}}"output_metric_handlers": ["influx-db"]{{<
 
 |round_robin |      |
 -------------|------
-description  | Round-robin check scheduling lets you distribute check executions evenly over a group of Sensu agents. When set to `true`, Sensu executes the check on each subscribing agent in turn.<br><br>You can use the `round_robin` attribute with the `proxy_requests` attributes to distribute proxy check executions evenly across multiple agents. See the section on [using a proxy check to monitor a multiple proxy entities](#using-a-proxy-check-to-monitor-a-multiple-proxy-entities) for more information.
+description  | When set to `true`, Sensu executes the check once per interval, cycling through each subscribing agent in turn. See the [round robin section](#round-robin-checks) for more information.<br><br>You can use the `round_robin` attribute with the `proxy_requests` attributes to distribute proxy check executions evenly across multiple agents. See the section on [using a proxy check to monitor a multiple proxy entities](#using-a-proxy-check-to-monitor-a-multiple-proxy-entities) for more information.
 required     | false
 type         | Boolean
-example      | {{< highlight shell >}}"round_robin": false{{< /highlight >}}
+example      | {{< highlight shell >}}"round_robin": true{{< /highlight >}}
 
 |subdue      |      |
 -------------|------

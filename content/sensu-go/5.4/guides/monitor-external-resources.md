@@ -253,7 +253,7 @@ Create a file called `check-proxy-requests.json` and add the following check def
 
 Our `check-http-proxy-requests` check uses the `proxy_requests` attribute to specify the applicable entities.
 In our case, we want to run the `check-http-proxy-requests` check on all entities of entity class `proxy` and proxy type `website`.
-Since we're using this check to monitor multiple sites, we can use token substitution to apply the correct `url` in the check `command`, and we'll use the `round_robin` attribute to distribute the executions evenly across the agents with the `proxy` subscription.
+Since we're using this check to monitor multiple sites, we can use token substitution to apply the correct `url` in the check `command`, and we'll use the `round_robin` attribute to distribute the executions evenly across agents with the `proxy` subscription.
 
 Now we can use sensuctl to add this check to Sensu.
 
