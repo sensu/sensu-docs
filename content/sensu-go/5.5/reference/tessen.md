@@ -28,9 +28,8 @@ All data submissions are logged for complete transparency and transmitted over H
 ## Configuring Tessen
 
 You can use the [Tessen API][2] and [sensuctl][3] to view and manage Tessen configuration.
-Tessen is enabled by default on all Sensu backends.
+Tessen is enabled by default on Sensu backends and required for [licensed][4] Sensu instances.
 To manage Tessen configuration using sensuctl, configure sensuctl as the default [`admin` user](../../reference/rbac#default-user).
-[Licensed][4] Sensu instances cannot opt out of Tessen.
 
 To see the status of Tessen:
 
@@ -43,6 +42,8 @@ To opt-out of Tessen:
 {{< highlight shell >}}
 sensuctl tessen opt-out
 {{< /highlight >}}
+
+_NOTE: [Licensed][4] Sensu instances override Tessen configuration to opt in at runtime._
 
 You can use the `--skip-confirm` flag to skip the confirmation step.
 
