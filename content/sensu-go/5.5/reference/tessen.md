@@ -68,15 +68,6 @@ required     | Required for Tessen configuration in `wrapped-json` or `yaml` for
 type         | String
 example      | {{< highlight shell >}}"api_version": "core/v2"{{< /highlight >}}
 
-metadata     | 
--------------|------
-description  | Empty, top-level scope
-required     | Required for Tessen configuration in `wrapped-json` or `yaml` format for use with [`sensuctl create`][sc].
-type         | Map
-example      | {{< highlight shell >}}
-"metadata": {}
-{{< /highlight >}}
-
 spec         | 
 -------------|------
 description  | Top-level map that includes Tessen configuration [spec attributes][sp].
@@ -107,7 +98,6 @@ To manage Tessen using the [Tessen API][2], use non-wrapped `json` format as sho
 {
   "type": "TessenConfig",
   "api_version": "core/v2",
-  "metadata": {},
   "spec": {
     "opt_out": false
   }
