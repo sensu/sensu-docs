@@ -144,7 +144,7 @@ Namespaced resources must belong to a single namespace and can be accessed by [r
 | `checks` | [Check][6] resources within a namespace |
 | `entities` | [Entity][7] resources within a namespace |
 | `events` | [Event][8] resources within a namespace |
-| `extensions` | placeholder type
+| `extensions` | Placeholder type
 | `filters`   | [Filter][22] resources within a namespace  |
 | `handlers` | [Handler][9] resources within a namespace |
 | `hooks` | [Hook][10] resources within a namespace |
@@ -211,7 +211,7 @@ sensuctl user list --format yaml
 
 ### Creating a user
 You can use [sensuctl][2] to create a user.
-For example, the following command creates a user with the username `alice`, create a password, and assign them to the `ops` and `dev` groups.
+For example, the following command creates a user with the username `alice`, creates a password, and assigns the user to the `ops` and `dev` groups.
 Passwords must have at least eight characters.
 
 {{< highlight shell >}}
