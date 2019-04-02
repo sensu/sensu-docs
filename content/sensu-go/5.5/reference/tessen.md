@@ -16,7 +16,7 @@ menu:
 ## What is Tessen?
 
 Tessen is the Sensu call-home service.
-Included with every Sensu backend, Tessen sends anonymized data about the Sensu instance to Sensu Inc. every six hours, including:
+Included with every Sensu backend, Tessen sends anonymized data about the Sensu instance to Sensu Inc., including:
 
 - The Sensu version
 - The number of Sensu agents and backends in the cluster
