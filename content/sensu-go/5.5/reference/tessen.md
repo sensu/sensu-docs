@@ -44,6 +44,12 @@ To opt-out of Tessen:
 sensuctl tessen opt-out
 {{< /highlight >}}
 
+You can use the `--skip-confirm` flag to skip the confirmation step.
+
+{{< highlight shell >}}
+sensuctl tessen opt-out --skip-confirm
+{{< /highlight >}}
+
 To opt-in to Tessen:
 
 {{< highlight shell >}}
