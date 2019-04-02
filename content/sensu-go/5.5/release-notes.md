@@ -7,6 +7,7 @@ version: "5.5"
 menu: "sensu-go-5.5"
 ---
 
+- [5.5.0 release notes](#5-5-0-release-notes)
 - [5.4.0 release notes](#5-4-0-release-notes)
 - [5.3.0 release notes](#5-3-0-release-notes)
 - [5.2.1 release notes](#5-2-1-release-notes)
@@ -24,6 +25,23 @@ Sensu Go adheres to [semantic versioning][2] using MAJOR.MINOR.PATCH release num
 Read the [upgrade guide][1] for information on upgrading to the latest version of Sensu Go.
 
 ---
+
+## 5.5.0 release notes
+
+**April 4, 2019** &mdash;
+See the [upgrade guide][1] to upgrade Sensu to version 5.5.0.
+
+**NEW FEATURES:**
+
+- Tessen, the Sensu call-home service, is now enabled by default in all Sensu backends. See the [Tessen reference][27] for configuration instructions, and read the [blog post][28] to learn more about the data that Tessen collects.
+
+**IMPROVEMENTS:**
+
+- 
+
+**FIXES:**
+
+- 
 
 ## 5.4.0 release notes
 
@@ -242,3 +260,5 @@ To get started with Sensu Go:
 [24]: /sensu-go/5.4/reference/backend#dashboard-configuration-flags
 [25]: /sensu-go/5.4/guides/securing-sensu
 [26]: /sensu-go/5.4/reference/agent#events-post
+[27]: /sensu-go/5.5/reference/tessen
+[28]: https://blog.sensu.io/announcing-tessen-the-sensu-call-home-service
