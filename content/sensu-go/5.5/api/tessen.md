@@ -14,9 +14,12 @@ menu:
 
 ## The `/tessen` API endpoints {#the-tessen-API-endpoints}
 
+The Tessen API provides HTTP access to manage your [Tessen](../../reference/tessen) configuration.
+Access to the Tessen API is restricted to the default [`admin` user](../../reference/rbac#default-user).
+
 ### `/tessen` (GET) {#tessen-get}
 
-The `/tessen` API endpoint provides HTTP GET access to [Tessen](../../reference/tessen) configuration.
+The `/tessen` API endpoint provides HTTP GET access to Tessen configuration.
 
 #### EXAMPLE {#tessen-get-example}
 
@@ -26,7 +29,7 @@ The following example demonstrates an HTTP GET request to the `/tessen` API.
 curl -H "Authorization: Bearer $TOKEN" http://127.0.0.1:8080/api/core/v2/tessen
 {{< /highlight >}}
 
-The request returns a 200 (OK) HTTP response code and a JSON map containing the Tessen configuration.
+The request returns a 200 (OK) HTTP response code and a JSON map containing Tessen configuration.
 
 {{< highlight shell >}}
 HTTP/1.1 200 OK
@@ -49,7 +52,7 @@ example output | {{< highlight shell >}}
 
 #### EXAMPLE {#tessen-put-example}
 
-In the following example, an HTTP PUT request is submitted to the `/tessen` API to update the Tessen configuration using the `opt_out` attribute.
+In the following example, an HTTP PUT request is submitted to the `/tessen` API to update Tessen configuration using the `opt_out` attribute.
 
 {{< highlight shell >}}
 curl -X PUT \

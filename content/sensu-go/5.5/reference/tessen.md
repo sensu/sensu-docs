@@ -1,6 +1,6 @@
 ---
 title: "Tessen"
-description: "Tessens sends anonymized data about the Sensu instance to Sensu Inc. You can use sensuctl to view and manage the Tessen configuration. Read the reference to configure Tessen."
+description: "Tessens sends anonymized data about the Sensu instance to Sensu Inc. You can use sensuctl to view and manage Tessen configuration. Read the reference to configure Tessen."
 weight: 10
 version: "5.5"
 product: "Sensu Go"
@@ -27,26 +27,27 @@ All data submissions are logged for complete transparency and transmitted over H
 
 ## Configuring Tessen
 
-Tessen is enabled by default.
-You can use the [Tessen API][2] and [sensuctl][3] to view and manage the Tessen configuration.
+You can use the [Tessen API][2] and [sensuctl][3] to view and manage Tessen configuration.
+Tessen is enabled by default on all Sensu backends.
+To manage Tessen configuration using sensuctl, configure sensuctl as the default [`admin` user](../../reference/rbac#default-user).
 [Licensed][4] Sensu instances cannot opt out of Tessen.
 
 To see the status of Tessen:
 
 {{< highlight shell >}}
-tessen info
+sensuctl tessen info
 {{< /highlight >}}
 
 To opt-out of Tessen:
 
 {{< highlight shell >}}
-tessen opt-out
+sensuctl tessen opt-out
 {{< /highlight >}}
 
 To opt-in to Tessen:
 
 {{< highlight shell >}}
-tessen opt-in
+sensuctl tessen opt-in
 {{< /highlight >}}
 
 ## Tessen specification
@@ -78,7 +79,7 @@ example      | {{< highlight shell >}}
 
 spec         | 
 -------------|------
-description  | Top-level map that includes the Tessen configuration [spec attributes][sp].
+description  | Top-level map that includes Tessen configuration [spec attributes][sp].
 required     | Required for Tessen configuration in `wrapped-json` or `yaml` format for use with [`sensuctl create`][sc].
 type         | Map of key-value pairs
 example      | {{< highlight shell >}}
