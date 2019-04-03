@@ -1,6 +1,6 @@
 ---
 title: "Tessen"
-description: "Tessens sends anonymized data about the Sensu instance to Sensu Inc. You can use sensuctl to view and manage Tessen configuration. Read the reference to configure Tessen."
+description: "Tessens sends anonymized data about Sensu instances to Sensu Inc. You can use sensuctl to view and manage Tessen configuration. Read the reference to configure Tessen."
 weight: 10
 version: "5.5"
 product: "Sensu Go"
@@ -16,7 +16,7 @@ menu:
 ## What is Tessen?
 
 Tessen is the Sensu call-home service.
-Included with every Sensu backend, Tessen sends anonymized data about the Sensu instance to Sensu Inc., including:
+Included with every Sensu backend, Tessen sends anonymized data about Sensu instances to Sensu Inc., including:
 
 - The Sensu version
 - The number of Sensu agents and backends in the cluster
@@ -37,7 +37,7 @@ To see the status of Tessen:
 sensuctl tessen info
 {{< /highlight >}}
 
-To opt-out of Tessen:
+To opt out of Tessen:
 
 {{< highlight shell >}}
 sensuctl tessen opt-out
@@ -51,7 +51,7 @@ You can use the `--skip-confirm` flag to skip the confirmation step.
 sensuctl tessen opt-out --skip-confirm
 {{< /highlight >}}
 
-To opt-in to Tessen:
+To opt in to Tessen:
 
 {{< highlight shell >}}
 sensuctl tessen opt-in
@@ -90,7 +90,7 @@ example      | {{< highlight shell >}}
 
 opt_out      | 
 -------------|------ 
-description  | Set to `false` to enable Tessen; set to `true` to opt out of Tessen. [Licensed][4] Sensu instances cannot opt out of Tessen.
+description  | Set to `false` to enable Tessen; set to `true` to opt out of Tessen. [Licensed][4] Sensu instances override the `opt_out` attribute to `false` at runtime.
 required     | true
 default      | `false`
 type         | Boolean
