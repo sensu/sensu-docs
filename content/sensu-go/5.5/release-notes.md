@@ -28,12 +28,12 @@ Read the [upgrade guide][1] for information on upgrading to the latest version o
 
 ## 5.5.0 release notes
 
-**April 4, 2019** &mdash;
+**April 4, 2019** &mdash; The latest release of Sensu Go, version 5.5.0, is now available for download. This release has some key bug fixes and additions including the introduction of Tessen into Sensu Go. For more information, we encourage you to read Sean Porter’s [blog post][28] on Tessen.
 See the [upgrade guide][1] to upgrade Sensu to version 5.5.0.
 
 **NEW FEATURES:**
 
-- Tessen, the Sensu call-home service, is now enabled by default in Sensu backends. See the [Tessen reference][27] for configuration instructions, and read the [blog post][28] to learn more about the data that Tessen collects.
+- Tessen, the Sensu call-home service, is now enabled by default in Sensu backends. See the [Tessen docs][27] to learn about the data that Tessen collects.
 
 **IMPROVEMENTS:**
 
@@ -41,8 +41,8 @@ See the [upgrade guide][1] to upgrade Sensu to version 5.5.0.
 
 **FIXES:**
 
-- The Sensu dashboard now shows silencing entry creators only when the creator is present.
-- The dashboard now uses a secondary text color for quick-navigation buttons.
+- The Sensu web UI now displays silences created by LDAP users.
+- The web UI now uses a secondary text color for quick-navigation buttons.
 
 ## 5.4.0 release notes
 
