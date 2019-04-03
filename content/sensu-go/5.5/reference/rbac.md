@@ -711,7 +711,7 @@ The following example is in `wrapped-json` format for use with [`sensuctl create
 
 ### Cluster role binding example
 
-The following examples is in `wrapped-json` format for use with [`sensuctl create`][31].
+The following example is in `wrapped-json` format for use with [`sensuctl create`][31].
 
 {{< highlight json >}}
 {
