@@ -163,17 +163,19 @@ sudo service rabbitmq-server start
    section of the RabbitMQ reference documentation for more information.
 {{< highlight json >}}
 {
- "host": "127.0.0.1",
- "port": 5671,
- "vhost": "/sensu",
- "user": "sensu",
- "password": "secret",
- "heartbeat": 30,
- "prefetch": 50,
- "ssl": {
-   "cert_chain_file": "/etc/sensu/ssl/cert.pem",
-   "private_key_file": "/etc/sensu/ssl/key.pem"
- }
+  "rabbitmq": {
+    "host": "127.0.0.1",
+    "port": 5671,
+    "vhost": "/sensu",
+    "user": "sensu",
+    "password": "secret",
+    "heartbeat": 30,
+    "prefetch": 50,
+    "ssl": {
+      "cert_chain_file": "/etc/sensu/ssl/cert.pem",
+      "private_key_file": "/etc/sensu/ssl/key.pem"
+    }
+  }
 }{{< /highlight >}}
    _WARNING: please note that by default, RabbitMQ will listen for SSL
    connections on port `5671` instead of `5672`, so if you are upgrading an
