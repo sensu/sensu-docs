@@ -22,14 +22,14 @@ Included with every Sensu backend, Tessen sends anonymized data about Sensu inst
 - The number of Sensu agents and backends in the cluster
 - Whether the Sensu instance uses an [enterprise license][4]
 
-All data submissions are logged for complete transparency and transmitted over HTTPS.
+All data submissions are logged for complete transparency at the [info log level][5] and transmitted over HTTPS.
 [Read the blog post][1] to learn more about Tessen.
 
 ## Configuring Tessen
 
 You can use the [Tessen API][2] and [sensuctl][3] to view and manage Tessen configuration.
 Tessen is enabled by default on Sensu backends and required for [licensed][4] Sensu instances.
-To manage Tessen configuration using sensuctl, configure sensuctl as the default [`admin` user](../../reference/rbac#default-user).
+To manage Tessen configuration using sensuctl, configure sensuctl as the default [`admin` user][6].
 
 To see the status of Tessen:
 
@@ -115,5 +115,7 @@ To manage Tessen using the [Tessen API][2], use non-wrapped `json` format as sho
 [2]: ../../api/tessen
 [3]: ../../sensuctl/reference
 [4]: ../license
+[5]: ../../guides/troubleshooting
+[6]: ../../reference/rbac#default-user
 [sc]: ../../sensuctl/reference#creating-resources
 [sp]: #spec-attributes
