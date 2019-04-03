@@ -33,15 +33,16 @@ See the [upgrade guide][1] to upgrade Sensu to version 5.5.0.
 
 **NEW FEATURES:**
 
-- Tessen, the Sensu call-home service, is now enabled by default in all Sensu backends. See the [Tessen reference][27] for configuration instructions, and read the [blog post][28] to learn more about the data that Tessen collects.
+- Tessen, the Sensu call-home service, is now enabled by default in Sensu backends. See the [Tessen reference][27] for configuration instructions, and read the [blog post][28] to learn more about the data that Tessen collects.
 
 **IMPROVEMENTS:**
 
-- 
+- Sensu now includes more verbose check logging to indicate when a proxy request matches an entity according to its entity attributes.
 
 **FIXES:**
 
-- 
+- The Sensu dashboard now shows silencing entry creators only when the creator is present.
+- The dashboard now uses a secondary text color for quick-navigation buttons.
 
 ## 5.4.0 release notes
 
