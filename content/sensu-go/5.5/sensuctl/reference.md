@@ -228,7 +228,7 @@ cat my-resources.json | sensuctl create
 `HookConfig` | `hook_config` | `Mutator` | `mutator`
 `Namespace` | `namespace` | `Role` | `role`
 `RoleBinding` | `role_binding` | `Silenced` | `silenced`
-[`ldap`][26] | [`ad`][26] | |
+[`ldap`][26] | [`ad`][26] | [`TessenConfig`][27] |
 
 ## Updating resources
 
@@ -272,6 +272,7 @@ Sensuctl provides the following commands to manage Sensu resources.
 - [`sensuctl role`][1]
 - [`sensuctl role-binding`][1]
 - [`sensuctl silenced`][20]
+- [`sensuctl tessen`][27]
 - [`sensuctl user`][1]
 
 ### Subcommands
@@ -503,3 +504,4 @@ These are useful if you want to know what cluster you're connecting to, or what 
 [24]: #sensuctl-edit-resource-types
 [25]: ../../api/overview
 [26]: ../../installation/auth
+[27]: ../../reference/tessen
