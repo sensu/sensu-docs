@@ -1,0 +1,74 @@
+---
+##
+# agent configuration
+##
+#name: "hostname"
+#namespace: "default"
+#subscriptions:
+#  - example1
+#  - example2
+#backend-url:
+#  - "ws://127.0.0.1:8081"
+#cache-dir: "/var/cache/sensu/sensu-agent"
+#config-file: "/etc/sensu/agent.yml"
+#labels:
+#  example_key1: "example value"
+#  example_key2: "example value"
+#log-level: "warn" # available log levels: panic, fatal, error, warn, info, debug
+
+##
+# api configuration
+##
+#api-host: "127.0.0.1"
+#api-port: 3031
+#disable-api: false
+#events-burst-limit: 10
+#events-rate-limit: 10.0
+
+##
+# authentication configuration
+##
+#user: "agent"
+#password: "P@ssw0rd!"
+
+##
+# monitoring configuration
+##
+#deregister: false
+#deregistration-handler: "example_handler1"
+#keepalive-timeout: 120
+#keepalive-interval: 20
+
+##
+# security configuration
+##
+#insecure-skip-tls-verify: false
+#redact:
+#  - password
+#  - passwd
+#  - pass
+#  - api_key
+#  - api_token
+#  - access_key
+#  - secret_key
+#  - private_key
+#  - secret
+#trusted-ca-file: "/path/to/trusted-certificate-authorities.pem"
+
+##
+# socket configuration
+##
+#disable-sockets: false
+#socket-host: "127.0.0.1"
+#socket-port: 3030
+
+##
+# statsd configuration
+##
+#statsd-disable: false
+#statsd-event-handlers:
+#  - example_handler1
+#  - example_handler2
+#statsd-flush-interval: 10
+#statsd-metrics-host: "127.0.0.1"
+#statsd-metrics-port: 8125
