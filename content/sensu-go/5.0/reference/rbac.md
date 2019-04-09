@@ -197,7 +197,7 @@ sensuctl user change-password
 {{< /highlight >}}
 
 Sensu also includes an `agent` user that is used internally by the Sensu agent.
-You can configure an agent's user credentials using the [`user` and `password` agent configuration flags](../reference/agent/#security-configuration-flags).
+You can configure an agent's user credentials using the [`user` and `password` agent configuration flags](../agent/#security-configuration-flags).
 
 ### Viewing users
 You can use [sensuctl][2] to see a list of all users within Sensu.

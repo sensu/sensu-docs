@@ -116,7 +116,7 @@ example      | {{< highlight shell >}}
 spec         | 
 -------------|------
 description  | Top-level map that includes the mutator [spec attributes][sp].
-required     | Required for handler definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][sc].
+required     | Required for mutator definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][sc].
 type         | Map of key-value pairs
 example      | {{< highlight shell >}}
 "spec": {
