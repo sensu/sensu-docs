@@ -89,7 +89,7 @@ example      | {{< highlight shell >}}
 spec         | 
 -------------|------
 description  | Top-level map that includes the silencing entry [spec attributes][sp].
-required     | Required for handler definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][sc].
+required     | Required for silencing entries in `wrapped-json` or `yaml` format for use with [`sensuctl create`][sc].
 type         | Map of key-value pairs
 example      | {{< highlight shell >}}
 "spec": {
