@@ -1,6 +1,8 @@
 ---
+# Sensu backend configuration
+
 ##
-# general configuration
+# backend configuration
 ##
 state-dir: "/var/lib/sensu/sensu-backend"
 #cache-dir: "/var/cache/sensu/sensu-backend"
@@ -22,12 +24,20 @@ state-dir: "/var/lib/sensu/sensu-backend"
 #api-url: "http://localhost:8080"
 
 ##
+# dashboard configuration
+##
+#dashboard-cert-file: "/path/to/ssl/cert.pem"
+#dashboard-key-file: "/path/to/ssl/key.pem"
+#dashboard-host: "[::]" # listen on all IPv4 and IPv6 addresses
+#dashboard-port: 3000
+
+##
 # ssl configuration
 ##
 #cert-file: "/path/to/ssl/cert.pem"
-#insecure-skip-tls-verify: false
 #key-file: "/path/to/ssl/key.pem"
 #trusted-ca-file: "/path/to/trusted-certificate-authorities.pem"
+#insecure-skip-tls-verify: false
 
 ##
 # store configuration
@@ -49,11 +59,3 @@ state-dir: "/var/lib/sensu/sensu-backend"
 #etcd-peer-trusted-ca-file: "/path/to/ssl/key.pem"
 #etcd-trusted-ca-file: "/path/to/ssl/key.pem"
 #no-embed-etcd: false
-
-##
-# dashboard configuration
-##
-#dashboard-cert-file: "/path/to/ssl/cert.pem"
-#dashboard-key-file: "/path/to/ssl/key.pem"
-#dashboard-host: "[::]" # listen on all IPv4 and IPv6 addresses
-#dashboard-port: 3000
