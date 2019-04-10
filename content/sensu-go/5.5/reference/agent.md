@@ -572,14 +572,19 @@ Flags:
 | backend-url |      |
 --------------|------
 description   | ws or wss URL of the Sensu backend server. To specify multiple backends using `sensu-agent start`, use this flag multiple times.
-type          | String
+type          | 
 default       | `ws://127.0.0.1:8081`
 example       | {{< highlight shell >}}# Command line example
 sensu-agent start --backend-url ws://0.0.0.0:8081
 
+# Command line example for multiple backends
+sensu-agent start --backend-url ws://0.0.0.0:8081 --backend-url ws://0.0.0.0:8082
+
 # /etc/sensu/agent.yml example
 backend-url:
-  - "ws://0.0.0.0:8081"{{< /highlight >}}
+  - "ws://0.0.0.0:8081"
+  - "ws://0.0.0.0:8082"
+  {{< /highlight >}}
 
 <a name="cache-dir"></a>
 
@@ -652,14 +657,14 @@ log-level: "debug"{{< /highlight >}}
 | subscriptions |      |
 ----------------|------
 description     | An array of agent subscriptions which determine which monitoring checks are executed by the agent. The subscriptions array items must be strings.
-type            | Array
+type            | 
 example         | {{< highlight shell >}}# Command line example
 sensu-agent start --subscriptions disk-checks,process-checks
 
 # /etc/sensu/agent.yml example
 subscriptions:
-  - "disk-checks"
-  - "process-checks"{{< /highlight >}}
+  - disk-checks
+  - process-checks{{< /highlight >}}
 
 
 ### API configuration flags
@@ -804,13 +809,16 @@ password: "secure-password"{{< /highlight >}}
 | redact      |      |
 --------------|------
 description   | Comma-separated list of fields to redact
-type          | String
+type          | 
 default       | By default, Sensu redacts the following fields: `password`, `passwd`, `pass`, `api_key`, `api_token`, `access_key`, `secret_key`, `private_key`, `secret`
 example       | {{< highlight shell >}}# Command line example
 sensu-agent start --redact secure-key,secure-password
 
 # /etc/sensu/agent.yml example
-redact: "secure-key,secure-password"{{< /highlight >}}
+redact:
+  - secure-key
+  - secure-password
+{{< /highlight >}}
 
 
 | user |      |
@@ -903,12 +911,15 @@ statsd-disable: true{{< /highlight >}}
 | statsd-event-handlers |      |
 ------------------------|------
 description             | Comma-separated list of event handlers for StatsD metrics
-type                    | String
+type                    | 
 example                 | {{< highlight shell >}}# Command line example
 sensu-agent start --statsd-event-handlers influxdb,opentsdb
 
 # /etc/sensu/agent.yml example
-statsd-event-handlers: "influxdb,opentsdb"{{< /highlight >}}
+statsd-event-handlers:
+  - influxdb
+  - opentsdb
+{{< /highlight >}}
 
 
 | statsd-flush-interval  |      |
