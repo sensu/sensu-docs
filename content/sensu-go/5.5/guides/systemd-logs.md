@@ -5,9 +5,6 @@ weight: 2000
 version: "5.5"
 product: "Sensu Go"
 platformContent: false
-menu:
-  sensu-go-5.5:
-    parent: guides
 ---
 
 ## Adding log to disk for systemd
