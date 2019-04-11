@@ -89,7 +89,7 @@
     <script>hljs.initHighlightingOnLoad();</script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
     <script type="text/javascript"> docsearch({
-    apiKey: {{ getenv ALGOLIASEARCH_API_KEY_SEARCH }},
+    apiKey: {{ getenv "ALGOLIASEARCH_API_KEY_SEARCH" }},
     indexName: 'sensu',
     inputSelector: '#search',
     algoliaOptions: { 'facetFilters': [['tags:sensu-go','tags:plugins', 'tags:sensu-core', 'tags:sensu-enterprise', 'tags:sensu-enterprise-dashboard', 'tags:uchiwa'], ['version:5.5','version:1.0','version:2.15','version:1.7','version:3.4']]},
