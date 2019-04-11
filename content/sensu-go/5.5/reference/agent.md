@@ -30,6 +30,7 @@ menu:
   - [Security configuration](#security-configuration-flags)
   - [Socket configuration](#socket-configuration-flags)
   - [StatsD configuration](#statsd-configuration-flags)
+  - [Example](/sensu-go/5.5/files/agent.yml)
 
 The Sensu agent is a lightweight client that runs on the infrastructure components you want to monitor.
 Agents register with the Sensu backend as [monitoring entities][3] with `type: "agent"`.
@@ -521,7 +522,7 @@ System clocks between agents and the backend should be synchronized to a central
 ## Configuration
 
 You can specify the agent configuration using a `/etc/sensu/agent.yml` file or using `sensu-agent start` [configuration flags][24].
-See the example config file provided with Sensu at `/usr/share/doc/sensu-go-agent-5.5.0/agent.yml.example`.
+See the example config file provided with Sensu packages at `/usr/share/doc/sensu-go-agent-5.5.0/agent.yml.example` or [available here](/sensu-go/5.5/files/agent.yml).
 The agent loads configuration upon startup, so you must restart the agent for any configuration updates to take effect.
 
 ### Configuration summary
