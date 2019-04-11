@@ -33,9 +33,10 @@ if $programname == 'sensu-agent' then {
 }
 {{< /highlight >}}
 
-Restart `rsyslog` to apply the new configuration:
+Restart `rsyslog` and `journald` to apply the new configuration:
 
 {{< highlight shell>}}
+systemctl restart systemd-journald
 systemctl restart rsyslog
 {{< /highlight>}}
 
