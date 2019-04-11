@@ -1,5 +1,5 @@
 ---
-title: "systemd log files"
+title: "Sensu service logging with systemd"
 description: "place holder"
 weight: 2000
 version: "5.5"
@@ -7,9 +7,9 @@ product: "Sensu Go"
 platformContent: false
 ---
 
-## Adding log to disk for systemd
+## Adding logging to disk for systemd
 
-By default, systems where `systemd` is the service manager, logs are not written to `/var/log/sensu/` for the `sensu-agent` and the `sensu-backend` services. The following will walk you how to add log forwarding from `journald` to `syslog`, have `rsyslog` write logging data to disk and setup log rotation of the newly created log files.
+By default, systems where `systemd` is the service manager do not write logs to `/var/log/sensu/` for the `sensu-agent` and the `sensu-backend` services. The following will walk you how to add log forwarding from `journald` to `syslog`, have `rsyslog` write logging data to disk and setup log rotation of the newly created log files.
 
 To configure `journald` to forward logging data to `syslog`, modify `/etc/systemd/journald.conf` to include the following line:
 
