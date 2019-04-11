@@ -178,7 +178,7 @@ For example, to schedule a check to execute once a minute at the start of the mi
 
 #### Ad-hoc scheduling
 
-In addition to automatic execution, you can create checks to be scheduled manually using the [checks API](../../api/check#the-checkscheckexecute-api-endpoint).
+In addition to automatic execution, you can create checks to be scheduled manually using the [checks API](../../api/checks#the-checkscheckexecute-api-endpoint).
 To create a check with ad-hoc scheduling, set the `publish` attribute to `false` in addition to an `interval` or `cron` schedule.
 
 **Example ad-hoc check**
