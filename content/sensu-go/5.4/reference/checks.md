@@ -104,12 +104,16 @@ In order for Sensu to execute a check, the check definition must include a subsc
 #### Round-robin checks
 
 By default, Sensu schedules checks once per interval for each agent with a matching subscription: one check execution per agent per interval.
-However, Sensu also supports executing checks only once per interval when configured with the `round_robin` check attribute.
+Sensu also supports deduplicated check execution when configured with the `round_robin` check attribute.
 For checks with `round_robin` set to `true`, Sensu executes the check once per interval, cycling through the available agents alphabetically according to agent name.
 
 For example, for three agents configured with the `system` subscription (agents A, B, and C), a check configured with the `system` subscription and `round_robin` set to `true` results in one monitoring event per interval, with the agent creating the event following the pattern A -> B -> C -> A -> B -> C for the first six intervals.
 
-_PRO TIP: You can use round-robin to distribute check execution workload across multiple agents when using [proxy checks with the proxy requests attributes](#using-a-proxy-check-to-monitor-a-multiple-proxy-entities)._
+<img alt="Round robin check diagram" src="/images/round-robin.svg">
+
+In the diagram above, the standard check is executed by agents A, B, and C every 60 seconds, while the round robin check cycles through the available agents, resulting in each agent executing the check every 180 seconds.
+
+_PRO TIP: You can use round robin to distribute check execution workload across multiple agents when using [proxy checks](#proxy-requests)._
 
 ### Scheduling
 
