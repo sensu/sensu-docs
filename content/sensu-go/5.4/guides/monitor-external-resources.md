@@ -240,12 +240,12 @@ Create a file called `check-proxy-requests.json` and add the following check def
       "proxy"
     ],
     "publish": true,
+    "round_robin": true,
     "proxy_requests": {
       "entity_attributes": [
         "entity.entity_class == 'proxy'",
         "entity.labels.proxy_type == 'website'"
-      ],
-      "round_robin": true
+      ]
     }
   }
 }

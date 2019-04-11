@@ -74,7 +74,7 @@ processor** (the Sensu backend).
 
 ## Check scheduling
 
-Checks are scheduled by the Sensu backend, which schedules and
+Checks are scheduled by the Sensu backend, which
 publishes check execution requests to entities via a [publish-subscribe
 model][2].
 
@@ -245,7 +245,7 @@ The [`proxy_requests` check attributes](#proxy-requests-top-level) allow Sensu t
 The entity attributes must match exactly as stated; no variables or directives have any special meaning, but you can still use [Sensu query expressions][11] to perform more complicated filtering on the available value, such as finding entities with particular subscriptions.
 
 The `proxy_requests` attributes are a great way to monitor multiple entities using a single check definition when combined with [token substitution](#token-substitution).
-Since checks including `proxy_requests` attributes need to be executed for each matching entity, we recommending using the `round_robin` attribute to distribute the check execution workload evenly across your Sensu agents.
+Since checks including `proxy_requests` attributes need to be executed for each matching entity, we recommend using the `round_robin` attribute to distribute the check execution workload evenly across your Sensu agents.
 
 **Example proxy check using `proxy_requests`**
 
