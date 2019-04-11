@@ -13,8 +13,6 @@ menu:
 - [Specification](#tessen-specification)
 - [Example](#tessen-example)
 
-## What is Tessen?
-
 Tessen is the Sensu call-home service.
 Included with every Sensu backend, Tessen sends anonymized data about Sensu instances to Sensu Inc., including:
 

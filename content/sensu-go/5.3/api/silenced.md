@@ -186,13 +186,28 @@ response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 
 
 ### `/silenced/:silenced` (DELETE) {#silencedsilenced-delete}
 
+The `/silenced/:silenced` API endpoint provides HTTP DELETE access to delete a silencing entry by silencing entry `name`.
+
+#### EXAMPLE {#silencedsilenced-delete-example}
+
+In the following example, querying the `/silenced/:silenced` API to delete the the silencing entry named
+`linux:check-cpu` results in a successful 204 No Content response.
+
+{{< highlight shell >}}
+curl -X DELETE \
+-H "Authorization: Bearer $TOKEN" \
+http://127.0.0.1:8080/api/core/v2/namespaces/default/silenced/linux:check-cpu
+
+HTTP/1.1 204 No Content
+{{< /highlight >}}
+
 #### API Specification {#silencedsilenced-delete-specification}
 
 /silenced/:silenced (DELETE) | 
 --------------------------|------
 description               | Removes a silencing entry from Sensu given the silencing entry name.
 example url               | http://hostname:8080/api/core/v2/namespaces/default/silenced/linux:check-cpu
-response codes            | <ul><li>**Success**: 202 (Accepted)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 ## The `/silenced/subscriptions/:subscription` API endpoint {#the-silencedsubscriptions-api-endpoint}
 

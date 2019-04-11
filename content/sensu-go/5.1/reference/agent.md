@@ -564,7 +564,7 @@ sensu-agent start --backend-url ws://0.0.0.0:8081
 backend-url:
   - "ws://0.0.0.0:8081"{{< /highlight >}}
 
-<a name="cache-dir">
+<a name="cache-dir"></a>
 
 | cache-dir   |      |
 --------------|------
@@ -605,7 +605,7 @@ labels:
   region: us-west-2
 {{< /highlight >}}
 
-<a name="name">
+<a name="name"></a>
 
 | name        |      |
 --------------|------
@@ -630,7 +630,7 @@ sensu-agent start --log-level debug
 # /etc/sensu/agent.yml example
 log-level: "debug"{{< /highlight >}}
 
-<a name="subscriptions-flag">
+<a name="subscriptions-flag"></a>
 
 | subscriptions |      |
 ----------------|------
