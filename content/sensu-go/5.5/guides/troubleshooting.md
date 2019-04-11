@@ -47,10 +47,10 @@ consult the Operating section of the [agent][agent-ref] or
 
 Sensu services print [structured log messages][structured] to standard output.
 In order to capture these log messages to disk or another logging facility, Sensu services
-make use of capabilities provided by the underlying operating service's service
+make use of capabilities provided by the underlying operating system's service
 management. For example, logs are sent to the journald when systemd is the service manager,
 whereas log messages are redirected to `/var/log/sensu` when running under sysv
-init schemes.
+init schemes. If you are running systemd as your service manager and would rather have logs written to `/var/log/sensu/`, you can follow our guide on forwarding logs from [journald to syslog][journald-syslog].
 
 In the table below, the common targets for logging and example commands for
 following those logs are described. The name of the desired service, e.g.
@@ -97,3 +97,4 @@ sudo chown -R sensu:sensu /var/cache/sensu/sensu-agent
 [platforms]: ../../getting-started/platforms
 [agent-ref]: ../../reference/agent/#restarting-the-service
 [backend-ref]: ../../reference/backend/#restarting-the-service
+[journald-syslog]: ../systemd-logs
