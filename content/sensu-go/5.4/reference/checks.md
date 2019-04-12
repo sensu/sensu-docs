@@ -54,7 +54,7 @@ adherence to a simple specification.
 
 - Result data is output to [STDOUT or STDERR][3]
     - For service checks, this output is typically a human-readable message.
-    - For metrics checks, this output contains the measurements gathered by the
+    - For metric checks, this output contains the measurements gathered by the
       check.
 - Exit status code indicates state
     - `0` indicates “OK”
@@ -83,7 +83,7 @@ model][2].
 Checks have a defined set of subscriptions, transport
 topics to which the Sensu backend publishes check requests. Sensu entities become
 subscribers to these topics (called subscriptions) via their individual
-subscriptions attribute. In practice, subscriptions typically correspond to
+`subscriptions` attribute. In practice, subscriptions typically correspond to
 a specific role or responsibility (for example: a webserver or database).
 
 Subscriptions are powerful primitives in the monitoring context because they
@@ -111,7 +111,7 @@ For example, for three agents configured with the `system` subscription (agents 
 
 <img alt="Round robin check diagram" src="/images/round-robin.svg">
 
-In the diagram above, the standard check is executed by agents A, B, and C every 60 seconds, while the round robin check cycles through the available agents, resulting in each agent executing the check every 180 seconds.
+In the diagram above, the standard check is executed by agents A, B, and C every 60 seconds, while the round-robin check cycles through the available agents, resulting in each agent executing the check every 180 seconds.
 
 _PRO TIP: You can use round robin to distribute check execution workload across multiple agents when using [proxy checks](#proxy-requests)._
 
@@ -245,7 +245,7 @@ The following proxy check runs every 60 seconds, cycling through the agents with
 }
 {{< /highlight >}}
 
-### Using a proxy check to monitor a multiple proxy entities
+### Using a proxy check to monitor multiple proxy entities
 
 The [`proxy_requests` check attributes](#proxy-requests-top-level) allow Sensu to run a check for each entity that matches the definitions specified in the `entity_attributes`, resulting in monitoring events that represents each matching proxy entity.
 The entity attributes must match exactly as stated; no variables or directives have any special meaning, but you can still use [Sensu query expressions][11] to perform more complicated filtering on the available value, such as finding entities with particular subscriptions.
@@ -257,7 +257,7 @@ Since checks including `proxy_requests` attributes need to be executed for each 
 
 The following proxy check runs every 60 seconds, cycling through the agents with the `proxy` subscription alphabetically according to the agent name, for all existing proxy entities with the custom label `proxy_type` set to `website`.
 
-This check uses [token substitution](#token-substitution) to import the value of the custom entity label `url` to complete the check command.
+This check uses [token substitution](#check-token-substitution) to import the value of the custom entity label `url` to complete the check command.
 See the [entity reference](../entities#managing-entity-labels) for information about using custom labels.
 
 {{< highlight json >}}
@@ -522,7 +522,7 @@ example      | {{< highlight shell >}}"output_metric_handlers": ["influx-db"]{{<
 
 |round_robin |      |
 -------------|------
-description  | When set to `true`, Sensu executes the check once per interval, cycling through each subscribing agent in turn. See the [round robin section](#round-robin-checks) for more information.<br><br>You can use the `round_robin` attribute with the `proxy_requests` attributes to distribute proxy check executions evenly across multiple agents. See the section on [using a proxy check to monitor a multiple proxy entities](#using-a-proxy-check-to-monitor-a-multiple-proxy-entities) for more information.
+description  | When set to `true`, Sensu executes the check once per interval, cycling through each subscribing agent in turn. See the [round robin section](#round-robin-checks) for more information.<br><br>You can use the `round_robin` attribute with proxy checks to avoid duplicate events and distribute proxy check executions evenly across multiple agents. See the section on [proxy checks](#proxy-requests) for more information.
 required     | false
 type         | Boolean
 example      | {{< highlight shell >}}"round_robin": true{{< /highlight >}}
