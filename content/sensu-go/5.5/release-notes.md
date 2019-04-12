@@ -1,12 +1,13 @@
 ---
 title: "Sensu Go release notes"
 linkTitle: "Release Notes"
-description: "Read the Sensu Go 5.5.0 release notes to learn about what's new in our latest release."
+description: "Read the Sensu Go 5.5.1 release notes to learn about what's new in our latest release."
 product: "Sensu Go"
 version: "5.5"
 menu: "sensu-go-5.5"
 ---
 
+- [5.5.1 release notes](#5-5-1-release-notes)
 - [5.5.0 release notes](#5-5-0-release-notes)
 - [5.4.0 release notes](#5-4-0-release-notes)
 - [5.3.0 release notes](#5-3-0-release-notes)
@@ -25,6 +26,13 @@ Sensu Go adheres to [semantic versioning][2] using MAJOR.MINOR.PATCH release num
 Read the [upgrade guide][1] for information on upgrading to the latest version of Sensu Go.
 
 ---
+
+## 5.5.1 release notes
+
+**April 17, 2019** &mdash; The latest release of Sensu Go, version 5.5.1, is now available for download. 
+See the [upgrade guide][1] to upgrade Sensu to version 5.5.1.
+
+**FIXES:**
 
 ## 5.5.0 release notes
 
