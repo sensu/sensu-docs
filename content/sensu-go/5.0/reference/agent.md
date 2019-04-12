@@ -583,7 +583,7 @@ type          | String
 default       | <ul><li>Linux: `/etc/sensu/agent.yml`</li><li>FreeBSD: `/usr/local/etc/sensu/agent.yml`</li><li>Windows: `C:\\ProgramData\sensu\config\agent.yml`</li></ul>
 example       | {{< highlight shell >}}# Command line example
 sensu-agent start --config-file /sensu/agent.yml
-sensu-agent start --c /sensu/agent.yml
+sensu-agent start -c /sensu/agent.yml
 
 # /etc/sensu/agent.yml example
 config-file: "/sensu/agent.yml"{{< /highlight >}}
@@ -596,11 +596,11 @@ required     | false
 type         | Map of key-value pairs. Keys can contain only letters, numbers, and underscores, but must start with a letter. Values can be any valid UTF-8 string.
 default      | `null`
 example               | {{< highlight shell >}}# Command line example
-sensu-agent start --labels region=us-west-2
+sensu-agent start --labels proxy_type=website
 
 # /etc/sensu/agent.yml example
 labels:
-  region: us-west-2
+  proxy_type: "website"
 {{< /highlight >}}
 
 <a name="name"></a>
@@ -745,9 +745,21 @@ sensu-agent start --namespace ops
 namespace: "ops"{{< /highlight >}}
 
 
+| user |      |
+--------------|------
+description   | Sensu [RBAC](../rbac) username used by the agent. Agents require get, list, create, update, and delete permissions for events across all namespaces.
+type          | String
+default       | `agent`
+example       | {{< highlight shell >}}# Command line example
+sensu-agent start --user agent-01
+
+# /etc/sensu/agent.yml example
+user: "agent-01"{{< /highlight >}}
+
+
 | password    |      |
 --------------|------
-description   | Agent password
+description   | Sensu [RBAC](../rbac) password used by the agent
 type          | String
 default       | `P@ssw0rd!`
 example       | {{< highlight shell >}}# Command line example
@@ -768,17 +780,6 @@ sensu-agent start --redact secure-key,secure-password
 # /etc/sensu/agent.yml example
 redact: "secure-key,secure-password"{{< /highlight >}}
 
-
-| user |      |
---------------|------
-description   | Agent user
-type          | String
-default       | `agent`
-example       | {{< highlight shell >}}# Command line example
-sensu-agent start --user agent-01
-
-# /etc/sensu/agent.yml example
-user: "agent-01"{{< /highlight >}}
 
 
 ### Socket configuration flags
