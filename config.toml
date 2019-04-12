@@ -18,7 +18,7 @@ ignoreFiles = [ "sensu-doc-template.md" ]
 
 [params]
 	# General information
-	description = "Monitor servers, services, application health, and business KPIs. Collect and analyze custom metrics. Get notified about failures before your users do. Give your business the competitive advantage it deserves."
+	description = "Sensu is the industry leading solution for multi-cloud monitoring at scale. The Sensu monitoring event pipeline empowers businesses to automate their monitoring workflows and gain deep visibility into their multi-cloud environments. Built by operators, for operators, open source is at the heart of the Sensu product and company, with an active, thriving community of contributors."
 	copyright = ""
 
 	# Repository
@@ -51,13 +51,14 @@ ignoreFiles = [ "sensu-doc-template.md" ]
         name = "Sensu Go"
         description = "The next-generation monitoring event pipeline"
         weight = 1
-        latest = "5.3"
+        latest = "5.5"
         [params.products.sensu_go.versions]
             "5.0" = []
             "5.1" = []
             "5.2" = []
             "5.3" = []
             "5.4" = []
+            "5.5" = []
 
     [params.products.sensu_core]
         identifier = "sensu-core"

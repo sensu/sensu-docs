@@ -27,7 +27,7 @@ The following example demonstrates a request to the `/cluster/members` API, resu
 a JSON Map containing a Sensu cluster definition.
 
 {{< highlight shell >}}
-curl -H "Authorization: Bearer TOKEN" \
+curl -H "Authorization: Bearer $TOKEN" \
 http://127.0.0.1:8080/api/core/v2/cluster/members
 
 HTTP/1.1 200 OK
@@ -90,7 +90,7 @@ The `/cluster/members` API endpoint provides HTTP POST access to create a Sensu 
 
 {{< highlight shell >}}
 curl -X POST \
--H "Authorization: Bearer TOKEN" \
+-H "Authorization: Bearer $TOKEN" \
 http://127.0.0.1:8080/api/core/v2/cluster/members?peer-addrs=http://127.0.0.1:2380
 
 HTTP/1.1 200 OK
@@ -132,7 +132,7 @@ response codes   | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not 
 
 {{< highlight shell >}}
 curl -X PUT \
--H "Authorization: Bearer TOKEN" \
+-H "Authorization: Bearer $TOKEN" \
 http://127.0.0.1:8080/api/core/v2/cluster/members/8927110dc66458af?peer-addrs=http://127.0.0.1:2380
 
 HTTP/1.1 200 OK

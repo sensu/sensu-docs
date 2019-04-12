@@ -29,7 +29,7 @@ The following example demonstrates a request to the `/rolebindings` API, resulti
 a JSON Array containing [role binding definitions][1].
 
 {{< highlight shell >}}
-curl http://127.0.0.1:8080/api/core/v2/namespaces/default/rolebindings -H "Authorization: Bearer TOKEN"
+curl http://127.0.0.1:8080/api/core/v2/namespaces/default/rolebindings -H "Authorization: Bearer $TOKEN"
 
 HTTP/1.1 200 OK
 [
@@ -58,6 +58,7 @@ HTTP/1.1 200 OK
 ---------------|------
 description    | Returns the list of role bindings.
 example url    | http://hostname:8080/api/core/v2/namespaces/default/rolebindings
+pagination     | This endpoint supports pagination using the `limit` and `continue` query parameters. See the [API overview](../overview#pagination) for details.
 response type  | Array
 response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output         | {{< highlight shell >}}
@@ -120,7 +121,7 @@ containing the requested [`:rolebinding` definition][1] (in this example: for th
 `readers-group-binding`).
 
 {{< highlight shell >}}
-curl http://127.0.0.1:8080/api/core/v2/namespaces/default/rolebindings/readers-group-binding -H "Authorization: Bearer TOKEN"
+curl http://127.0.0.1:8080/api/core/v2/namespaces/default/rolebindings/readers-group-binding -H "Authorization: Bearer $TOKEN"
 
 HTTP/1.1 200 OK
 {

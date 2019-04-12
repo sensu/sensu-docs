@@ -28,7 +28,7 @@ The following example demonstrates a request to the `/mutators` API, resulting i
 a JSON Array containing [mutator definitions][1].
 
 {{< highlight shell >}}
-curl -s http://127.0.0.1:8080/api/core/v2/namespaces/default/mutators -H "Authorization: Bearer TOKEN"
+curl http://127.0.0.1:8080/api/core/v2/namespaces/default/mutators -H "Authorization: Bearer $TOKEN"
 [
   {
     "metadata": {
@@ -105,7 +105,7 @@ containing the requested [`:mutator` definition][1] (in this example: for the `:
 `example-mutator`).
 
 {{< highlight shell >}}
-curl -s http://127.0.0.1:8080/api/core/v2/namespaces/default/mutators/example-mutator -H "Authorization: Bearer TOKEN"
+curl http://127.0.0.1:8080/api/core/v2/namespaces/default/mutators/example-mutator -H "Authorization: Bearer $TOKEN"
 {
   "metadata": {
     "name": "example-mutator",

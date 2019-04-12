@@ -15,16 +15,14 @@ Sensu Go adheres to [semantic versioning][2] using MAJOR.MINOR.PATCH release num
 
 ### Upgrading
 
-Read the [upgrading guide][1] for information on upgrading to the latest version of Sensu Go.
+Read the [upgrade guide][1] for information on upgrading to the latest version of Sensu Go.
 
 ---
 
 ## 5.0.1 release notes
 
 **December 12, 2018** &mdash; Sensu Go 5.0.1 includes our top bug fixes following last week's general availability release.
-See the [upgrading guide][1] to upgrade Sensu to version 5.0.1.
-
-### Changes to Sensu Go {#5.0.1-changes}
+See the [upgrade guide][1] to upgrade Sensu to version 5.0.1.
 
 **FIXED:**
 

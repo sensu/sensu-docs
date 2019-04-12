@@ -1,7 +1,7 @@
 ---
 title: "Release Process"
 date: 2017-10-26T10:35:03-07:00
-description: ""
+description: "In this doc, you’ll learn about the release process for Sensu plugins. We use Travis to run tests across forks and deploying the gems; all tag commits that pass tests in all supported runtimes will kick a deploy to Rubygems. Read on for the full process."
 weight: 6
 product: "Plugins"
 version: "1.0"

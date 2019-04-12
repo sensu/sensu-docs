@@ -80,10 +80,16 @@ Any requests for unknown endpoints result in a 404 Not Found response.
 ### `/events` (POST)
 
 The `/events` API provides HTTP POST access to publish [monitoring events][7] to the Sensu backend pipeline via the agent API.
+The agent places events created via the `/events` POST endpoint into a queue stored on disk.
+In the event of a loss of connection with the backend or agent shutdown, queued event data is preserved, and the agent sends queued events to the backend once a connection is reestablished.
+
+The `/events` API uses a configurable burst limit and rate limit for relaying events to the backend.
+See the [API configuration flags](#api-configuration-flags) to configure the `events-burst-limit` and `events-rate-limit` flags.
 
 #### Example {#events-post-example}
 
-In the following example, an HTTP POST is submitted to the `/events` API, creating an event for a check named `check-mysql-status` with the output `could not connect to mysql` and a status of `1` (warning), resulting in a 201 (Created) HTTP response code.
+In the following example, an HTTP POST is submitted to the `/events` API, creating an event for a check named `check-mysql-status` with the output `could not connect to mysql` and a status of `1` (warning).
+The agent responds with a 202 (Accepted) response code to indicate that the event has been added to the queue to be sent to the backend.
 
 {{< highlight shell >}}
 curl -X POST \
@@ -99,7 +105,7 @@ curl -X POST \
 }' \
 http://127.0.0.1:3031/events
 
-HTTP/1.1 201 Created
+HTTP/1.1 202 Accepted
 {{< /highlight >}}
 
 _PRO TIP: You can use the agent API `/events` endpoint to create proxy entities by including a `proxy_entity_name` attribute within the `check` scope._
@@ -120,7 +126,7 @@ payload example    | {{< highlight json >}}{
   }
 }{{< /highlight >}}
 payload attributes | <ul><li>`check` (required): All check data must be within the `check` scope.</li><li>`metadata` (required): The `check` scope must contain a `metadata` scope.</li><li>`name` (required): The `metadata` scope must contain the `name` attribute with a string representing the name of the monitoring check.</li><li>Any other attributes supported by the [Sensu check specification][14] (optional)</li></ul>
-response codes     | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+response codes     | <ul><li>**Success**: 202 (Accepted)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 ### `/healthz` (GET)
 
@@ -131,7 +137,7 @@ The `/healthz` API provides HTTP GET access to the status of the Sensu agent via
 In the following example, an HTTP GET is submitted to the `/healthz` API:
 
 {{< highlight shell >}}
-curl -s http://127.0.0.1:3031/healthz
+curl http://127.0.0.1:3031/healthz
 {{< /highlight >}}
 
 Resulting in a healthy response:
@@ -284,32 +290,6 @@ description  | An array of Sensu handler names to use for handling the event. Ea
 required     | false
 type         | Array
 example      | {{< highlight shell >}}"handlers": ["slack", "influxdb"]{{< /highlight >}}
-
-### Creating a "dead man's switch"
-
-The Sensu agent socket in combination with check TTLs can be used to create what's commonly referred to as a "dead man's switch".
-Outside of the software industry, a dead man's switch is a switch that is triggered automatically if a human operator becomes incapacitated (source: [Wikipedia][20]).
-However, Sensu is more interested in detecting silent failures than incapacitated human operators.
-
-By using check TTLs, Sensu is able to set an expectation that a Sensu agent continues to publish results for a check at a regular interval.
-If a Sensu agent fails to publish a check result and the check TTL expires, Sensu creates an alert to indicate the silent failure.
-For more information on check TTLs, please refer to [the check attributes reference][14].
-
-A great use case for the Sensu agent socket is to create a dead man's switch to ensure that backup scripts continue to run successfully at regular intervals.
-If an external source sends a Sensu check result with a check TTL to the Sensu agent socket, Sensu expects another check result from the same external source before the TTL expires.
-
-The following is an example of external check result input via the Sensu agent TCP socket using a check TTL to create a dead man's switch for MySQL backups.
-The example uses a check TTL of `25200` seconds (7 hours).
-A MySQL backup script using the following code would be expected to continue to send a check
-result at least once every 7 hours or Sensu creates an alert to indicate the silent failure.
-
-{{< highlight shell >}}
-echo '{"name": "backup_mysql", "ttl": 25200, "output": "backed up mysql successfully | size_mb=568", "status": 0}' | nc localhost 3030
-{{< /highlight >}}
-
-{{< highlight shell >}}
-echo '{"name": "backup_mysql", "ttl": 25200, "output": "failed to backup mysql", "status": 1}' | nc localhost 3030
-{{< /highlight >}}
 
 ## Creating monitoring events using the StatsD listener
 
@@ -563,6 +543,8 @@ Flags:
       --deregistration-handler string   deregistration handler that should process the entity deregistration event.
       --disable-api                     disable the Agent HTTP API
       --disable-sockets                 disable the Agent TCP and UDP event sockets
+      --events-burst-limit              /events api burst limit
+      --events-rate-limit               maximum number of events transmitted to the backend through the /events api
   -h, --help                            help for start
       --insecure-skip-tls-verify        skip ssl verification
       --keepalive-interval int          number of seconds to send between keepalive events (default 20)
@@ -599,7 +581,7 @@ sensu-agent start --backend-url ws://0.0.0.0:8081
 backend-url:
   - "ws://0.0.0.0:8081"{{< /highlight >}}
 
-<a name="cache-dir">
+<a name="cache-dir"></a>
 
 | cache-dir   |      |
 --------------|------
@@ -640,7 +622,7 @@ labels:
   region: us-west-2
 {{< /highlight >}}
 
-<a name="name">
+<a name="name"></a>
 
 | name        |      |
 --------------|------
@@ -665,7 +647,7 @@ sensu-agent start --log-level debug
 # /etc/sensu/agent.yml example
 log-level: "debug"{{< /highlight >}}
 
-<a name="subscriptions-flag">
+<a name="subscriptions-flag"></a>
 
 | subscriptions |      |
 ----------------|------
@@ -716,6 +698,31 @@ sensu-agent start --disable-api
 
 # /etc/sensu/agent.yml example
 disable-api: true{{< /highlight >}}
+
+
+| events-burst-limit | |
+--------------|------
+description   | The maximum amount of burst allowed in a rate interval for the [agent events API](#events-post).
+type          | Integer
+default       | `10`
+example       | {{< highlight shell >}}# Command line example
+sensu-agent start --events-burst-limit 20
+
+# /etc/sensu/agent.yml example
+events-burst-limit: 20{{< /highlight >}}
+
+
+| events-rate-limit | |
+--------------|------
+description   | The maximum number of events per second that can be transmitted to the backend using the [agent events API](#events-post)
+type          | Float
+default       | `10.0`
+example       | {{< highlight shell >}}# Command line example
+sensu-agent start --events-rate-limit 20.0
+
+# /etc/sensu/agent.yml example
+events-rate-limit: 20.0{{< /highlight >}}
+
 
 ### Ephemeral agent configuration flags
 

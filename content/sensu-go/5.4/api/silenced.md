@@ -32,7 +32,7 @@ The following example demonstrates a request to the `/silenced` API, resulting i
 a JSON Array containing [silencing entry definitions][1].
 
 {{< highlight shell >}}
-curl -H "Authorization: Bearer TOKEN" \
+curl -H "Authorization: Bearer $TOKEN" \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/silenced
 
 HTTP/1.1 200 OK
@@ -59,6 +59,7 @@ HTTP/1.1 200 OK
 ---------------|------
 description    | Returns the list of silencing entries.
 example url    | http://hostname:8080/api/core/v2/namespaces/default/silenced
+pagination     | This endpoint supports pagination using the `limit` and `continue` query parameters. See the [API overview](../overview#pagination) for details.
 response type  | Array
 response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output         | {{< highlight shell >}}
@@ -116,7 +117,7 @@ containing the requested [silencing entry definition][1] (in this example: for t
 Silencing entry names are generated from the combination of a subscription name and check name.
 
 {{< highlight shell >}}
-curl -H "Authorization: Bearer TOKEN" \
+curl -H "Authorization: Bearer $TOKEN" \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/silenced/linux:check-cpu
 
 HTTP/1.1 200 OK
@@ -186,13 +187,28 @@ response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 
 
 ### `/silenced/:silenced` (DELETE) {#silencedsilenced-delete}
 
+The `/silenced/:silenced` API endpoint provides HTTP DELETE access to delete a silencing entry by silencing entry `name`.
+
+#### EXAMPLE {#silencedsilenced-delete-example}
+
+In the following example, querying the `/silenced/:silenced` API to delete the the silencing entry named
+`linux:check-cpu` results in a successful 204 No Content response.
+
+{{< highlight shell >}}
+curl -X DELETE \
+-H "Authorization: Bearer $TOKEN" \
+http://127.0.0.1:8080/api/core/v2/namespaces/default/silenced/linux:check-cpu
+
+HTTP/1.1 204 No Content
+{{< /highlight >}}
+
 #### API Specification {#silencedsilenced-delete-specification}
 
 /silenced/:silenced (DELETE) | 
 --------------------------|------
 description               | Removes a silencing entry from Sensu given the silencing entry name.
 example url               | http://hostname:8080/api/core/v2/namespaces/default/silenced/linux:check-cpu
-response codes            | <ul><li>**Success**: 202 (Accepted)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 ## The `/silenced/subscriptions/:subscription` API endpoint {#the-silencedsubscriptions-api-endpoint}
 
@@ -206,7 +222,7 @@ In the following example, querying the `silenced/subscriptions/:subscription` AP
 containing the requested [silencing entries][1] for the given subscription (in this example: for the `linux` subscription).
 
 {{< highlight shell >}}
-curl -H "Authorization: Bearer TOKEN" \
+curl -H "Authorization: Bearer $TOKEN" \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/silenced/subscriptions/linux
 
 HTTP/1.1 200 OK
@@ -233,6 +249,7 @@ HTTP/1.1 200 OK
 ---------------------|------
 description          | Returns all silencing entries for the specified subscription.
 example url          | http://hostname:8080/api/core/v2/namespaces/default/silenced/subscriptions/linux
+pagination           | This endpoint supports pagination using the `limit` and `continue` query parameters. See the [API overview](../overview#pagination) for details.
 response type        | Array
 response codes       | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output               | {{< highlight json >}}
@@ -265,7 +282,7 @@ In the following example, querying the `silenced/checks/:check` API returns a JS
 containing the requested [silencing entries][1] for the given check (in this example: for the `check-cpu` check).
 
 {{< highlight shell >}}
-curl -H "Authorization: Bearer TOKEN" \
+curl -H "Authorization: Bearer $TOKEN" \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/silenced/checks/check-cpu
 
 HTTP/1.1 200 OK
@@ -292,6 +309,7 @@ HTTP/1.1 200 OK
 ---------------------|------
 description          | Returns all silencing entries for the specified check.
 example url          | http://hostname:8080/api/core/v2/namespaces/default/silenced/checks/check-cpu
+pagination           | This endpoint supports pagination using the `limit` and `continue` query parameters. See the [API overview](../overview#pagination) for details.
 response type        | Array
 response codes       | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output               | {{< highlight json >}}

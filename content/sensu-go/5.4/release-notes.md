@@ -7,6 +7,7 @@ version: "5.4"
 menu: "sensu-go-5.4"
 ---
 
+- [5.4.0 release notes](#5-4-0-release-notes)
 - [5.3.0 release notes](#5-3-0-release-notes)
 - [5.2.1 release notes](#5-2-1-release-notes)
 - [5.2.0 release notes](#5-2-0-release-notes)
@@ -20,16 +21,41 @@ Sensu Go adheres to [semantic versioning][2] using MAJOR.MINOR.PATCH release num
 
 ### Upgrading
 
-Read the [upgrading guide][1] for information on upgrading to the latest version of Sensu Go.
+Read the [upgrade guide][1] for information on upgrading to the latest version of Sensu Go.
 
 ---
+
+## 5.4.0 release notes
+
+**March 27, 2019** &mdash; The latest release of Sensu Go, version 5.4.0, is now available for download. This release has some very exciting feature additions including the introduction of our new homepage. 5.4.0 also includes support for API pagination to more efficiently handle large data sets and agent buffering for robustness in lower connectivity situations along with key bug fixes.
+See the [upgrade guide][1] to upgrade Sensu to version 5.4.0.
+
+**NEW FEATURES:**
+
+- The Sensu dashboard now includes a homepage designed to highlight the most important monitoring data, giving you instant insight into the state of your infrastructure. See the [dashboard docs][23] for a preview.
+- The Sensu API now supports pagination using the `limit` and `continue` query parameters, letting you limit your API responses to a maximum number of objects and making it easier to handle large data sets. See the [API overview][22] for more information.
+
+**IMPROVEMENTS:**
+
+- Sensu now lets you specify a separate TLS certificate and key to secure the dashboard. See the [backend reference][24] to configure the `dashboard-cert-file` and `dashboard-key-file` flags, and check out the [guide to securing Sensu][25] for the complete guide to making your Sensu instance production-ready.
+- The Sensu agent events API now queues events before sending them to the backend, making the agent events API more robust and preventing data loss in the event of a loss of connection with the backend or agent shutdown. See the [agent reference][26] for more information.
+
+**FIXES:**
+
+- The backend now processes events without persisting metrics to etcd.
+- The events API POST and PUT endpoints now add the current timestamp to new events by default.
+- The users API now returns a 404 response code in the event that a username cannot be found.
+- The sensuctl command line tool now correctly accepts global flags when passed after a sub-command flag (for example: `--format yaml --namespace development`).
+- The `sensuctl handler delete` and `sensuctl filter delete` commands now correctly delete resources from the currently configured namespace.
+- The agent now terminates consistently on SIGTERM and SIGINT.
+- In the event of a loss of connection with the backend, the agent now attempts to reconnect to any backends specified in its configuration.
+- The dashboard now handles cases in which the creator of a silence is inaccessible.
+- The dashboard event details page now displays "-" in the command field if no command is associated with the event.
 
 ## 5.3.0 release notes
 
 **March 11, 2019** &mdash; The latest release of Sensu Go, version 5.3.0, is now available for download. This release has some very exciting feature additions and key bug fixes. 5.3.0 enables Active Directory to be configured as an authentication provider with a valid license key. Additionally, round robin scheduling has been fully re-implemented and is available for use.
-See the [upgrading guide][1] to upgrade Sensu to version 5.3.0.
-
-### Changes to Sensu Go {#5.3.0-changes}
+See the [upgrade guide][1] to upgrade Sensu to version 5.3.0.
 
 **NEW FEATURES:**
 
@@ -64,9 +90,7 @@ See the [upgrading guide][1] to upgrade Sensu to version 5.3.0.
 ## 5.2.1 release notes
 
 **February 11, 2019** &mdash; The latest release of Sensu Go, version 5.2.1, is now available for download. This release is a stability release with a key bug fix for proxy check functionality.
-See the [upgrading guide][1] to upgrade Sensu to version 5.2.1.
-
-### Changes to Sensu Go {#5.2.1-changes}
+See the [upgrade guide][1] to upgrade Sensu to version 5.2.1.
 
 **FIXES:**
 
@@ -75,9 +99,7 @@ See the [upgrading guide][1] to upgrade Sensu to version 5.2.1.
 ## 5.2.0 release notes
 
 **February 7, 2019** &mdash; The latest release of Sensu Go, version 5.2.0, is now available for download. This release has a ton of exciting content, including the availability of our first enterprise-only features. For more details on these features, see our [blog post][14]. 5.2.0 also has some key improvements and fixes; we added support for self-signed CA certificates for sensuctl, check output truncation, and the ability to manage silencing from the event details page on our web UI just to name a few.
-See the [upgrading guide][1] to upgrade Sensu to version 5.2.0.
-
-### Changes to Sensu Go {#5.2.0-changes}
+See the [upgrade guide][1] to upgrade Sensu to version 5.2.0.
 
 **IMPORTANT:**
 
@@ -109,9 +131,7 @@ See the [upgrading guide][1] to upgrade Sensu to version 5.2.0.
 ## 5.1.1 release notes
 
 **January 24, 2019** &mdash; The latest patch release of Sensu Go, version 5.1.1, is now available for download. This release includes some key fixes and improvements, including refactored keepalive functionality with increased reliability. Additionally, based on Community feedback, we have added support for the Sensu agent and sensuctl for 32-bit Windows systems.
-See the [upgrading guide][1] to upgrade Sensu to version 5.1.1.
-
-### Changes to Sensu Go {#5.1.1-changes}
+See the [upgrade guide][1] to upgrade Sensu to version 5.1.1.
 
 **NEW FEATURES:**
 
@@ -143,14 +163,12 @@ See the [upgrading guide][1] to upgrade Sensu to version 5.1.1.
 
 **December 19, 2018** &mdash; The latest release of Sensu Go, version 5.1.0, is now available for download. 
 This release includes an important change to the Sensu backend state directory as well as support for Ubuntu 14.04 and some key bug fixes.
-See the [upgrading guide][1] to upgrade Sensu to version 5.1.0.
-
-### Changes to Sensu Go {#5.1.0-changes}
+See the [upgrade guide][1] to upgrade Sensu to version 5.1.0.
 
 **IMPORTANT:**
 
 - _NOTE: This applies only to Sensu backend binaries downloaded from `s3-us-west-2.amazonaws.com/sensu.io/sensu-go`, not to Sensu RPM or DEB packages._
-For Sensu backend binaries, the default `state-dir` is now `/var/lib/sensu/sensu-backend` instead of `/var/lib/sensu`. To upgrade your Sensu backend binary to 5.1.0, make sure your `/etc/sensu/backend.yml` configuration file specifies a `state-dir`. See the [upgrading guide][3] for more information.
+For Sensu backend binaries, the default `state-dir` is now `/var/lib/sensu/sensu-backend` instead of `/var/lib/sensu`. To upgrade your Sensu backend binary to 5.1.0, make sure your `/etc/sensu/backend.yml` configuration file specifies a `state-dir`. See the [upgrade guide][3] for more information.
 
 **NEW FEATURES:**
 
@@ -172,9 +190,7 @@ For Sensu backend binaries, the default `state-dir` is now `/var/lib/sensu/sensu
 ## 5.0.1 release notes
 
 **December 12, 2018** &mdash; Sensu Go 5.0.1 includes our top bug fixes following last week's general availability release.
-See the [upgrading guide][1] to upgrade Sensu to version 5.0.1.
-
-### Changes to Sensu Go {#5.0.1-changes}
+See the [upgrade guide][1] to upgrade Sensu to version 5.0.1.
 
 **FIXED:**
 
@@ -221,3 +237,8 @@ To get started with Sensu Go:
 [19]: /sensu-go/5.3/getting-started/enterprise
 [20]: /sensu-go/5.3/installation/auth
 [21]: /sensu-go/5.3/reference/agent#creating-monitoring-events-using-the-agent-tcp-and-udp-sockets
+[22]: /sensu-go/5.4/api/overview#pagination
+[23]: /sensu-go/5.4/dashboard/overview
+[24]: /sensu-go/5.4/reference/backend#dashboard-configuration-flags
+[25]: /sensu-go/5.4/guides/securing-sensu
+[26]: /sensu-go/5.4/reference/agent#events-post

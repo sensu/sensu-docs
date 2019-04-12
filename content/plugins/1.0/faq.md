@@ -1,7 +1,7 @@
 ---
 title: "FAQ"
 date: 2017-10-26T09:27:53-07:00
-description: "Frequently asked questions about Sensu plugins"
+description: "Here are the frequently asked questions (FAQs) for Sensu plugins in Sensu 1.x. Topics include splitting repos, repo naming conventions, testing, how to deploy new plugins, and more. Check out our FAQ to learn more about Sensu plugins."
 weight: 2
 product: "Plugins"
 version: "1.0"

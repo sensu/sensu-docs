@@ -9,6 +9,13 @@ menu:
     parent: api
 ---
 
+- [URL format](#url-format)
+- [Data format](#data-format)
+- [Versioning](#versioning)
+- [Access control](#access-control)
+- [Pagination](#pagination)
+- [Request size](#request-size)
+
 **Sensu Go 5.4 includes API v2.**
 
 The Sensu backend REST API provides access to Sensu workflow configurations and monitoring event data.
@@ -65,10 +72,57 @@ If your token expires, you should see a 401 Unauthorized response from the API.
 
 To create a new token, first run any sensuctl command (like `sensuctl event list`) then repeat the steps above.
 
+### Pagination
+
+The Sensu API supports response pagination for all GET endpoints that return an array.
+You can request a paginated response using the `limit` and `continue` query parameters.
+
+For example, the following request limits the response to a maximum of two objects.
+
+{{< highlight shell >}}
+curl http://127.0.0.1:8080/api/core/v2/namespaces?limit=2 -H "Authorization: Bearer $TOKEN"
+{{< /highlight >}}
+
+The response includes the available objects up to the specified limit and, if there are more objects available, a continue token.
+For example, the following response indicates that there are more than two namespaces available and provides a continue token to request the next page of objects.
+
+{{< highlight shell >}}
+HTTP/1.1 200 OK
+Content-Type: application/json
+X-Sensu-Continue: L2RlZmF1bHQvY2N4MWM2L2hlbGxvLXdvcmxkAA
+[
+  {
+    "name": "default"
+  },
+  {
+    "name": "development"
+  }
+]
+{{< /highlight >}}
+
+You can then use the continue token to request the next page of objects.
+The following example requests the next two available namespaces following the request in the example above.
+
+{{< highlight shell >}}
+curl http://127.0.0.1:8080/api/core/v2/namespaces?limit=2&continue=L2RlZmF1bHQvY2N4MWM2L2hlbGxvLXdvcmxkAA -H "Authorization: Bearer $TOKEN"
+{{< /highlight >}}
+
+If the request does not return a continue token, there are no further objects to return.
+For example, the following response indicates that there is only one additional namespace available.
+
+{{< highlight shell >}}
+HTTP/1.1 200 OK
+Content-Type: application/json
+[
+  {
+    "name": "ops"
+  }
+]
+{{< /highlight >}}
+
 ### Request size
 
 API request bodies are limited to 0.512 MB in size.
-
 
 [1]: ../../sensuctl/reference#preferred-output-format
 [2]: ../../installation/install-sensu#install-sensuctl

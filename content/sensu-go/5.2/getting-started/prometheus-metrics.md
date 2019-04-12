@@ -306,7 +306,7 @@ wget https://docs.sensu.io/sensu-go/5.2/files/up_or_down_dashboard.json
 Using the downloaded file, add the dashboard to Grafana using an API call.
 
 {{< highlight shell >}}
-curl -s -XPOST -H 'Content-Type: application/json' -d@up_or_down_dashboard.json HTTP://admin:admin@127.0.0.1:4000/api/dashboards/db
+curl  -XPOST -H 'Content-Type: application/json' -d@up_or_down_dashboard.json HTTP://admin:admin@127.0.0.1:4000/api/dashboards/db
 {{< /highlight >}}
 
 ### View metrics in Grafana

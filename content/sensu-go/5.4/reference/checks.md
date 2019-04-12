@@ -449,7 +449,7 @@ required     | false
 type         | Array
 example      | {{< highlight shell >}}"runtime_assets": ["ruby-2.5.0"]{{< /highlight >}}
 
-<a name="check-hooks-attribute">
+<a name="check-hooks-attribute"></a>
 
 |check_hooks |      |
 -------------|------
@@ -477,8 +477,7 @@ type         | String
 validated    | [`\A[\w\.\-]+\z`](https://regex101.com/r/zo9mQU/2)
 example      | {{< highlight shell >}}"proxy_entity_name": "switch-dc-01"{{< /highlight >}}
 
-<a name="proxy-requests-top-level">
-
+<a name="proxy-requests-top-level"></a>
 |proxy_requests|    |
 -------------|------
 description  | [Sensu proxy request attributes][10] allow you to assign the check to run for multiple entities according to their `entity_attributes`. In the example below, the check executes for all entities with entity class `proxy` and the custom proxy type label `website`. Proxy requests are a great way to reuse check definitions for a group of entities. For more information, see the [proxy requests specification][10] and the [guide to monitoring external resources][28].
