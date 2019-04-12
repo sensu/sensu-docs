@@ -17,9 +17,9 @@ menu:
 Proxy entities allow Sensu to monitor external resources
 on systems or devices where a Sensu agent cannot be installed, like a
 network switch or a website.
-You can create [proxy entities][1] using [sensuctl][8], the [Sensu API][9], or the [`proxy_entity_name` check attribute][2]. When executing checks that include a `proxy_entity_name`, Sensu agents report the resulting event under the proxy entity instead of the agent entity.
+You can create [proxy entities][1] using [sensuctl][8], the [Sensu API][9], or the [`proxy_entity_name` check attribute][2]. When executing checks that include a `proxy_entity_name` or `proxy_requests` attributes, Sensu agents report the resulting event under the proxy entity instead of the agent entity.
 
-This guide requires a running Sensu backend, a running Sensu agent, and a sensuctl instance configured to connect to the backend as a user with read and create permissions for entities, checks, and events.
+This guide requires a running Sensu backend, a running Sensu agent, and a sensuctl instance configured to connect to the backend as a user with get, list, and create permissions for entities, checks, and events.
 
 ## Using a proxy entity to monitor a website
 
@@ -42,10 +42,11 @@ runtime dependencies._
 
 ### Creating the check
 
-Now that our script is installed, we'll create a check named
-`check-http`, which runs the command `http_check.sh https://sensu.io`, at an
-interval of 60 seconds, for all entities subscribed to the `proxy`
+Now that the HTTP check script is installed, we'll create a check named
+`check-sensu-site`, which runs the command `http_check.sh https://sensu.io`, at an
+interval of 60 seconds, for all agents subscribed to the `proxy`
 subscription, using the `sensu-site` proxy entity name.
+To avoid duplicate events, we'll add the [`round_robin` attribute](../../reference/checks#round-robin-checks) to distribute the check execution across all agents subscribed to the `proxy` subscription.
 
 Create a file called `check.json` and add the following check definition.
 
@@ -54,7 +55,7 @@ Create a file called `check.json` and add the following check definition.
   "type": "CheckConfig",
   "api_version": "core/v2",
   "metadata": {
-    "name": "check-http",
+    "name": "check-sensu-site",
     "namespace": "default"
   },
   "spec": {
@@ -62,6 +63,7 @@ Create a file called `check.json` and add the following check definition.
     "interval": 60,
     "proxy_entity_name": "sensu-site",
     "publish": true,
+    "round_robin": true,
     "subscriptions": [
       "proxy"
     ]
@@ -75,9 +77,9 @@ Now we can use sensuctl to add this check to Sensu.
 sensuctl create --file check.json
 
 sensuctl check list
-    Name                 Command               Interval   Cron   Timeout   TTL   Subscriptions   Handlers   Assets   Hooks   Publish?   Stdin?   Metric Format   Metric Handlers  
-──────────── ──────────────────────────────── ────────── ────── ───────── ───── ─────────────── ────────── ──────── ─────── ────────── ──────── ─────────────── ───────────────── 
- check-http   http_check.sh https://sensu.io         60                0     0   proxy                                       true       false                                     
+       Name                    Command               Interval   Cron   Timeout   TTL   Subscriptions   Handlers   Assets   Hooks   Publish?   Stdin?   Metric Format   Metric Handlers  
+────────────────── ──────────────────────────────── ────────── ────── ───────── ───── ─────────────── ────────── ──────── ─────── ────────── ──────── ─────────────── ───────────────── 
+ check-sensu-site   http_check.sh https://sensu.io         60                0     0   proxy                                       true       false                                     
 {{< /highlight >}}
 
 ### Adding the subscription
@@ -88,7 +90,7 @@ and add the `proxy` subscription so the subscription configuration looks like:
 
 {{< highlight yml >}}
 subscriptions:
-  - "proxy"
+  - proxy
 {{< /highlight >}}
 
 Then restart the agent.
@@ -109,21 +111,21 @@ sensu-centos   agent   linux   proxy,entity:sensu-centos   2019-01-16 21:50:03 +
 sensu-site     proxy           entity:sensu-site           N/A  
 {{< /highlight >}}
 
-And that Sensu is now monitoring `sensu-site` using the `check-http` check. 
+_NOTE: It might take a few moments for Sensu to execute the check and create the proxy entity._
+
+And that Sensu is now monitoring `sensu-site` using the `check-sensu-site` check.
 
 {{< highlight shell >}}
-sensuctl event info sensu-site check-http
-=== sensu-site - check-http
+sensuctl event info sensu-site check-sensu-site
+=== sensu-site - check-sensu-site
 Entity:    sensu-site
-Check:     check-http
+Check:     check-sensu-site
 Output:    
 Status:    0
 History:   0,0
 Silenced:  false
 Timestamp: 2019-01-16 21:51:53 +0000 UTC
 {{< /highlight >}}
-
-_NOTE: It might take a few moments for Sensu to execute the check and create the proxy entity._
 
 We can also see our new proxy entity in the [Sensu dashboard][10].
 
@@ -132,21 +134,6 @@ We can also see our new proxy entity in the [Sensu dashboard][10].
 Now let's say that, instead of monitoring just sensu.io, we want to monitor multiple sites, for example: docs.sensu.io, packagecloud.io, and github.com.
 In this section of the guide, we'll use the [`proxy_requests` check attribute][3], along with [entity labels][11] and [token substitution][12], to monitor three sites using the same check.
 Before we get started, go ahead and [install the HTTP check script][13] if you haven't already.
-
-### Installing an HTTP check script
-
-If you haven't already, install a [bash script][4], named `http_check.sh`, to perform an HTTP
-check using **curl**.
-
-{{< highlight shell >}}
-sudo curl https://raw.githubusercontent.com/sensu/sensu-go/5.1.0/examples/checks/http_check.sh \
--o /usr/local/bin/http_check.sh && \
-sudo chmod +x /usr/local/bin/http_check.sh
-{{< /highlight >}}
-
-_PRO TIP: While this command may be appropriate when running a few agents, you should consider
-using [Sensu assets][5] or a [configuration management][15] tool to provide
-runtime dependencies._
 
 ### Creating proxy entities
 
@@ -211,12 +198,12 @@ Now we can use sensuctl to add these proxy entities to Sensu.
 sensuctl create --file entities.json
 
 sensuctl entity list
-         ID           Class    OS           Subscriptions                   Last Seen            
- ─────────────────── ─────── ─────── ─────────────────────────── ─────────────────────────────── 
-  github-site         proxy                                       N/A                            
-  packagecloud-site   proxy                                       N/A                            
-  sensu-centos        agent   linux   proxy,entity:sensu-centos   2019-01-16 23:05:03 +0000 UTC  
-  sensu-docs          proxy                                       N/A                            
+        ID           Class    OS           Subscriptions                   Last Seen            
+─────────────────── ─────── ─────── ─────────────────────────── ─────────────────────────────── 
+ github-site         proxy                                       N/A                            
+ packagecloud-site   proxy                                       N/A                            
+ sensu-centos        agent   linux   proxy,entity:sensu-centos   2019-01-16 23:05:03 +0000 UTC  
+ sensu-docs          proxy                                       N/A                            
 {{< /highlight >}}
 
 ### Creating a reusable HTTP check
@@ -230,7 +217,7 @@ Create a file called `check-proxy-requests.json` and add the following check def
   "type": "CheckConfig",
   "api_version": "core/v2",
   "metadata": {
-    "name": "check-http-proxy-requests",
+    "name": "check-http",
     "namespace": "default"
   },
   "spec": {
@@ -251,9 +238,9 @@ Create a file called `check-proxy-requests.json` and add the following check def
 }
 {{< /highlight >}}
 
-Our `check-http-proxy-requests` check uses the `proxy_requests` attribute to specify the applicable entities.
-In our case, we want to run the `check-http-proxy-requests` check on all entities of entity class `proxy` and proxy type `website`.
-Since we're using this check to monitor multiple sites, we can use token substitution to apply the correct `url` in the check `command`, and we'll use the `round_robin` attribute to distribute the executions evenly across agents with the `proxy` subscription.
+Our `check-http` check uses the `proxy_requests` attribute to specify the applicable entities.
+In our case, we want to run the `check-http` check on all entities of entity class `proxy` and proxy type `website`.
+Since we're using this check to monitor multiple sites, we can use token substitution to apply the correct `url` in the check `command`, and we can use the `round_robin` attribute to distribute the executions evenly across agents with the `proxy` subscription.
 
 Now we can use sensuctl to add this check to Sensu.
 
@@ -261,26 +248,25 @@ Now we can use sensuctl to add this check to Sensu.
 sensuctl create --file check-proxy-requests.json
 
 sensuctl check list
-          Name                          Command               Interval   Cron   Timeout   TTL   Subscriptions   Handlers   Assets   Hooks   Publish?   Stdin?   Metric Format   Metric Handlers  
-─────────────────────────── ───────────────────────────────── ────────── ────── ───────── ───── ─────────────── ────────── ──────── ─────── ────────── ──────── ─────────────── ───────────────── 
-  check-http                  http_check.sh https://sensu.io          60                0     0   proxy                                       true       false                                     
-  check-http-proxy-requests   http_check.sh {{ .labels.url }}         60                0     0   proxy                                       true       false                                                            true       false                                     
+       Name                    Command               Interval   Cron   Timeout   TTL   Subscriptions   Handlers   Assets   Hooks   Publish?   Stdin?   Metric Format   Metric Handlers  
+───────────────── ───────────────────────────────── ────────── ────── ───────── ───── ─────────────── ────────── ──────── ─────── ────────── ──────── ─────────────── ───────────────── 
+  check-http        http_check.sh {{ .labels.url }}         60                0     0   proxy                                       true       false                                     
 {{< /highlight >}}
 
 ### Validating the check
 
-Before validating the check, make sure that you've [added the `proxy` subscription to a Sensu agent][14] if you haven't already.
+Before validating the check, make sure that you've [installed the HTTP check script][13] and [added the `proxy` subscription to a Sensu agent][14] if you haven't already.
 
-Now we can use sensuctl to see that Sensu is monitoring docs.sensu.io, packagecloud.io, and github.com using the `check-http-proxy-requests`.
+Now we can use sensuctl to see that Sensu is monitoring docs.sensu.io, packagecloud.io, and github.com using the `check-http`, returning a status of `0` (OK).
 
 {{< highlight shell >}}
 sensuctl event list
-      Entity                   Check             Output   Status   Silenced             Timestamp            
-─────────────────── ─────────────────────────── ──────── ──────── ────────── ─────────────────────────────── 
-github-site         check-http-proxy-requests                 0   false      2019-01-17 17:10:31 +0000 UTC  
-packagecloud-site   check-http-proxy-requests                 0   false      2019-01-17 17:10:34 +0000 UTC  
-sensu-centos        keepalive                                 0   false      2019-01-17 17:10:34 +0000 UTC  
-sensu-docs          check-http-proxy-requests                 0   false      2019-01-17 17:06:59 +0000 UTC  
+      Entity                Check          Output   Status   Silenced             Timestamp            
+─────────────────── ───────────────────── ──────── ──────── ────────── ─────────────────────────────── 
+github-site         check-http                           0   false      2019-01-17 17:10:31 +0000 UTC  
+packagecloud-site   check-http                           0   false      2019-01-17 17:10:34 +0000 UTC  
+sensu-centos        keepalive               ...          0   false      2019-01-17 17:10:34 +0000 UTC  
+sensu-docs          check-http                           0   false      2019-01-17 17:06:59 +0000 UTC  
 {{< /highlight >}}
 
 ## Next steps
