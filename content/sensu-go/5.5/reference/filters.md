@@ -320,6 +320,47 @@ example      | {{< highlight shell >}} "annotations": {
   "playbook": "www.example.url"
 }{{< /highlight >}}
 
+### Event attributes
+
+_Note: Event attributes are only available to filters and are not available for use with handlers or mutators_
+
+| has_check       |      |
+-------------|------
+description  | Determines if an event has check data.
+required     | false
+type         | String
+example      | {{< highlight shell >}}"has_check": e.HasCheck(){{< /highlight >}}
+
+| has_metrics       |      |
+-------------|------
+description  | Determines if an event has metric data.
+required     | false
+type         | String
+example      | {{< highlight shell >}}"has_metric": e.HasMetrics(){{< /highlight >}}
+
+| is_incident       |      |
+-------------|------
+description  | Determines if an event indicates an incident.
+required     | false
+type         | String
+example      | {{< highlight shell >}}"has_check": e.IsIncident(){{< /highlight >}}
+
+
+| is_silenced       |      |
+-------------|------
+description  | Determines if an event has any silenced entries.
+required     | false
+type         | String
+example      | {{< highlight shell >}}"has_check": e.IsSilenced(){{< /highlight >}}
+
+
+| is_resolution       |      |
+-------------|------
+description  | Determines if an event has just transitioned from a non-zero status.
+required     | false
+type         | String
+example      | {{< highlight shell >}}"is_resolution": e.IsResolution(){{< /highlight >}}
+
 ## Filter Examples
 
 ### Minimum required filter attributes
