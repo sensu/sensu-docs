@@ -535,6 +535,7 @@ Usage:
   sensu-agent start [flags]
 
 Flags:
+      --annotations stringToString      entity annotations map (default [])
       --api-host string                 address to bind the Sensu client HTTP API to (default "127.0.0.1")
       --api-port int                    port the Sensu client HTTP API listens on (default 3031)
       --backend-url strings             ws/wss URL of Sensu backend server (to specify multiple backends use this flag multiple times) (default [ws://127.0.0.1:8081])
@@ -569,6 +570,20 @@ Flags:
 {{< /highlight >}}
 
 ### General configuration flags
+
+| annotations|      |
+-------------|------
+description  |Arbitrary, non-identifying metadata to include with event data. In contrast to labels, annotations are not used internally by Sensu and cannot be used to identify entities. You can use annotations to add data that helps people or external tools interacting with Sensu.
+required     | false
+type         | Map of key-value pairs. Keys can contain only letters, numbers, and underscores, but must start with a letter. Values can be any valid UTF-8 string.
+default      | `null`
+example               | {{< highlight shell >}}# Command line example
+sensu-agent start --annotations sensu.io/plugins/slack/config/webhook-url=https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX
+
+# /etc/sensu/agent.yml example
+annotations:
+  sensu.io/plugins/slack/config/webhook-url: "https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX"
+{{< /highlight >}}
 
 | backend-url |      |
 --------------|------
