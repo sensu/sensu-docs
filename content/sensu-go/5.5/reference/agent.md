@@ -196,7 +196,7 @@ sensu-agent --statsd-event-handlers influx-db --statsd-flush-interval 1 --statsd
 
 ## Creating monitoring events using the agent TCP and UDP sockets
 
-_NOTE: The agent TCP and UDP sockets are deprecated in favor of the [agent events API](#events-post)._
+_NOTE: The agent TCP and UDP sockets are deprecated in favor of the [agent API](#events-post)._
 
 Sensu agents listen for external monitoring data using TCP and UDP sockets.
 The agent sockets accept JSON event data and pass the event to the Sensu backend event pipeline for processing.
@@ -288,7 +288,7 @@ example      | {{< highlight shell >}}"output": "CheckHttp OK: 200, 78572 bytes"
 
 source       | 
 -------------|------
-description  | The name of the Sensu entity associated with the event. Use this attribute to tie the event to a [proxy entity][43]. If no matching entity exists, Sensu creates a proxy entity with the name provided by the `source` attribute.
+description  | The name of the Sensu entity associated with the event. Use this attribute to tie the event to a proxy entity. If no matching entity exists, Sensu creates a proxy entity with the name provided by the `source` attribute.
 required     | false
 default      | The agent entity receiving the event data
 type         | String
@@ -296,7 +296,7 @@ example      | {{< highlight shell >}}"source": "sensu-docs-site"{{< /highlight 
 
 client       | 
 -------------|------
-description  | _NOTE: The `client` attribute is deprecated in favor of the `source` attribute (see above)._ The name of the Sensu entity associated with the event. The `client` attribute gives you the ability to tie the event to a proxy entity while providing compatibility with [Sensu 1.x check results][42]. Use this attribute to specify the name of the [proxy entity][43] tied to the event.
+description  | The name of the Sensu entity associated with the event. Use this attribute to tie the event to an existing proxy entity.
 required     | false
 default      | The agent entity receiving the event data
 type         | String
