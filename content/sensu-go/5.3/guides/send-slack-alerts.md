@@ -28,23 +28,21 @@ The purpose of this guide is to help you send alerts to Slack, on the channel
 `check-cpu`. If you don't already have a check in place, [this guide][2] is a
 great place to start.
 
-### Installing the handler command
+### Registering the asset
 
-The first step is to create an executable script named `slack-handler`, which is
-responsible for sending the event data to Slack. You can download a release of
-this handler from [GitHub][11], then extract it by running:
+[Assets][13] are shareable, reusable packages that make it easy to deploy Sensu plugins.
+In this guide, we'll use the [Sensu Slack handler asset][14] to power a `slack` handler.
+
+You can use the following sensuctl example to register the [Sensu Slack handler asset][14] for Linux AMD64, or you can download the latest asset definition for your platform from [Bonsai][14] and register the asset using `sensuctl create --file filename.json`.
 
 {{< highlight shell >}}
-sudo tar -C /usr/local/bin -xzf REPLACE-WITH-DOWNLOAD-FILENAME
+sensuctl asset create sensu-slack-handler --url "https://github.com/sensu/sensu-slack-handler/releases/download/1.0.3/sensu-slack-handler_1.0.3_linux_amd64.tar.gz" --sha512 "68720865127fbc7c2fe16ca4d7bbf2a187a2df703f4b4acae1c93e8a66556e9079e1270521999b5871473e6c851f51b34097c54fdb8d18eedb7064df9019adc8"
 {{< /highlight >}}
 
-Alternatively, you can compile or [cross compile][10] the handler from the [source code][3]
-using the [Go tools][4]. The generated binary will be placed into one of the
-Sensu backend [`$PATH` directories][5], more precisely `/usr/local/bin`.
+You should see a confirmation message from sensuctl.
 
 {{< highlight shell >}}
-# From the local path of the slack-handler repository
-go build -o /usr/local/bin/slack-handler main.go
+Created
 {{< /highlight >}}
 
 ### Getting a Slack webhook
@@ -55,20 +53,22 @@ After saving, you'll see your webhook URL under Integration Settings.
 
 ### Creating the handler
 
-Now that our handler command is installed, the second step is to create a
-handler that we will call `slack`, which is a **pipe** handler that pipes event
-data into our previous script named `slack-handler`. We'll also use environment variables
-to pass the [Slack webhook URL][6] to this script. Finally, in
-order to avoid silenced events from being sent to Slack, we will use the
-`not_silenced` built-in filter, in addition to the `is_incident` built-in filter
-so zero status events are also discarded.
+Now we'll use sensuctl to create a handler called `slack` that pipes event data to Slack using the `sensu-slack-handler` asset.
+Edit the command below to include your Slack channel and webhook URL.
+For more information about customizing your Sensu slack alerts, see the asset page in [Bonsai][14].
 
 {{< highlight shell >}}
 sensuctl handler create slack \
 --type pipe \
 --env-vars "SLACK_WEBHOOK_URL=https://hooks.slack.com/services/T0000/B000/XXXXXXXX" \
 --command "sensu-slack-handler --channel '#monitoring'" \
---filters is_incident,not_silenced
+--runtime-assets sensu-slack-handler
+{{< /highlight >}}
+
+You should see a confirmation message from sensuctl.
+
+{{< highlight shell >}}
+Created
 {{< /highlight >}}
 
 ### Assigning the handler to a check
@@ -122,3 +122,7 @@ this point, here are some recommended resources:
 [10]: https://rakyll.org/cross-compilation/
 [11]: https://github.com/sensu/slack-handler/releases
 [12]: https://slack.com/get-started#create
+[13]: ../../reference/assets
+[14]: https://bonsai.sensu.io/assets/sensu/sensu-slack-handler
+[15]: ../../sensuctl/reference#creating-resources
+[16]: ../../reference/filters#built-in-filters

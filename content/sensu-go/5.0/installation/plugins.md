@@ -1,7 +1,7 @@
 ---
 title: "Installing Sensu Plugins"
 linkTitle: "Install Plugins"
-description: "How to install Sensu Plugins for use with Sensu Go"
+description: "Sensu plugins provide executables for performing status or metric checks, mutators for changing data to a desired format, or handlers for performing an action on a Sensu event. Read the plugin installation guide to learn about installing plugins using assets and using Sensu Community plugins with Sensu Go."
 weight: 2
 version: "5.0"
 product: "Sensu Go"
@@ -12,11 +12,23 @@ menu:
 
 Sensu's functionality can be extended through the use of plugins.
 Plugins can provide executables for performing status or metric checks, mutators for changing data to a desired format, or handlers for performing an action on a Sensu event.
+
+### Installing plugins using Bonsai, the Sensu asset index
+
+Assets are shareable, reusable packages that make it easy to deploy Sensu plugins.
+You can use assets to provide the plugins, libraries, and runtimes you need to automate your monitoring workflows.
+Visit [Bonsai](https://bonsai.sensu.io/) to discover, download, and share assets, and get started with these helpful resources.
+
+- [Bonsai, the Sensu asset index](https://bonsai.sensu.io/)
+- [Installing plugins with assets](../../guides/install-check-executables-with-assets)
+- [Sharing assets on Bonsai](../../reference/assets#sharing-an-asset-on-bonsai)
+
+### Installing plugins using the sensu-install tool
+
 You can find a number of plugins in the [Sensu Plugins][1] organization on GitHub.
 
 _NOTE: Plugins found in the Sensu Plugins GitHub organization are community-maintained, meaning that anyone can improve on a plugin found there. If you have a question about how you can get involved in adding to, or providing a plugin, head to the [Sensu Community Slack channel][4]. Maintainers are always happy to help answer questions and point you in the right direction._
 
-### Installing Sensu Plugins
 To install a [Sensu Community Plugin][1] with Sensu Go:
 
 1. Install the [sensu-plugins-ruby package][2] from packagecloud.

@@ -1,7 +1,7 @@
 ---
 title: "Reference"
 date: 2017-10-26T14:49:05-07:00
-description: "Sensu plugins reference docs"
+description: "Sensu plugins provide executable scripts or other programs that can be used as a Sensu check command, pipe handler command, or mutator command. Read the plugin reference to learn about the Sensu plugin specification."
 weight: 1
 product: "Plugins"
 version: "1.0"

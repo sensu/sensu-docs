@@ -21,6 +21,7 @@ menu:
   - [Starting and stopping the service](#starting-the-service)
 	- [Registration and deregistration](#registration)
 	- [Clustering](#clustering)
+  - [Time synchronization](#time-synchronization)
 - [Configuration](#configuration)
   - [API configuration](#api-configuration-flags)
   - [Ephemeral agent configuration](#ephemeral-agent-configuration-flags)
@@ -129,7 +130,7 @@ The `/healthz` API provides HTTP GET access to the status of the Sensu agent via
 In the following example, an HTTP GET is submitted to the `/healthz` API:
 
 {{< highlight shell >}}
-curl -s http://127.0.0.1:3031/healthz
+curl http://127.0.0.1:3031/healthz
 {{< /highlight >}}
 
 Resulting in a healthy response:
@@ -274,32 +275,6 @@ required     | false
 default      | `1`
 type         | Integer
 example      | {{< highlight shell >}}"interval": 60{{< /highlight >}}
-
-### Creating a "dead man's switch"
-
-The Sensu agent socket in combination with check TTLs can be used to create what's commonly referred to as a "dead man's switch".
-Outside of the software industry, a dead man's switch is a switch that is triggered automatically if a human operator becomes incapacitated (source: [Wikipedia][20]).
-However, Sensu is more interested in detecting silent failures than incapacitated human operators.
-
-By using check TTLs, Sensu is able to set an expectation that a Sensu agent continues to publish results for a check at a regular interval.
-If a Sensu agent fails to publish a check result and the check TTL expires, Sensu creates an alert to indicate the silent failure.
-For more information on check TTLs, please refer to [the check attributes reference][14].
-
-A great use case for the Sensu agent socket is to create a dead man's switch to ensure that backup scripts continue to run successfully at regular intervals.
-If an external source sends a Sensu check result with a check TTL to the Sensu agent socket, Sensu expects another check result from the same external source before the TTL expires.
-
-The following is an example of external check result input via the Sensu agent TCP socket using a check TTL to create a dead man's switch for MySQL backups.
-The example uses a check TTL of `25200` seconds (7 hours).
-A MySQL backup script using the following code would be expected to continue to send a check
-result at least once every 7 hours or Sensu creates an alert to indicate the silent failure.
-
-{{< highlight shell >}}
-echo '{"name": "backup_mysql", "ttl": 25200, "output": "backed up mysql successfully | size_mb=568", "status": 0}' | nc localhost 3030
-{{< /highlight >}}
-
-{{< highlight shell >}}
-echo '{"name": "backup_mysql", "ttl": 25200, "output": "failed to backup mysql", "status": 1}' | nc localhost 3030
-{{< /highlight >}}
 
 ## Creating monitoring events using the StatsD listener
 
@@ -524,6 +499,10 @@ You can specify a deregistration handler per agent using the [`deregistration-ha
 
 Agents can connect to a Sensu cluster by specifying any Sensu backend URL in the cluster in the [`backend-url` configuration flag][16]. For more information about clustering, see [Sensu backend datastore configuration flags][35] and the [guide to running a Sensu cluster][36].
 
+### Time Synchronization
+
+System clocks between agents and the backend should be synchronized to a central NTP server. Out of sync system time may cause issues with keepalive, metric and check alerts.
+
 ## Configuration
 
 You can specify the agent configuration using a `/etc/sensu/agent.yml` file or using `sensu-agent start` [configuration flags][24].
@@ -583,7 +562,7 @@ sensu-agent start --backend-url ws://0.0.0.0:8081
 backend-url:
   - "ws://0.0.0.0:8081"{{< /highlight >}}
 
-<a name="cache-dir">
+<a name="cache-dir"></a>
 
 | cache-dir   |      |
 --------------|------
@@ -604,7 +583,7 @@ type          | String
 default       | <ul><li>Linux: `/etc/sensu/agent.yml`</li><li>FreeBSD: `/usr/local/etc/sensu/agent.yml`</li><li>Windows: `C:\\ProgramData\sensu\config\agent.yml`</li></ul>
 example       | {{< highlight shell >}}# Command line example
 sensu-agent start --config-file /sensu/agent.yml
-sensu-agent start --c /sensu/agent.yml
+sensu-agent start -c /sensu/agent.yml
 
 # /etc/sensu/agent.yml example
 config-file: "/sensu/agent.yml"{{< /highlight >}}
@@ -617,14 +596,14 @@ required     | false
 type         | Map of key-value pairs. Keys can contain only letters, numbers, and underscores, but must start with a letter. Values can be any valid UTF-8 string.
 default      | `null`
 example               | {{< highlight shell >}}# Command line example
-sensu-agent start --labels region=us-west-2
+sensu-agent start --labels proxy_type=website
 
 # /etc/sensu/agent.yml example
 labels:
-  region: us-west-2
+  proxy_type: "website"
 {{< /highlight >}}
 
-<a name="name">
+<a name="name"></a>
 
 | name        |      |
 --------------|------
@@ -649,7 +628,7 @@ sensu-agent start --log-level debug
 # /etc/sensu/agent.yml example
 log-level: "debug"{{< /highlight >}}
 
-<a name="subscriptions-flag">
+<a name="subscriptions-flag"></a>
 
 | subscriptions |      |
 ----------------|------
@@ -766,9 +745,21 @@ sensu-agent start --namespace ops
 namespace: "ops"{{< /highlight >}}
 
 
+| user |      |
+--------------|------
+description   | Sensu [RBAC](../rbac) username used by the agent. Agents require get, list, create, update, and delete permissions for events across all namespaces.
+type          | String
+default       | `agent`
+example       | {{< highlight shell >}}# Command line example
+sensu-agent start --user agent-01
+
+# /etc/sensu/agent.yml example
+user: "agent-01"{{< /highlight >}}
+
+
 | password    |      |
 --------------|------
-description   | Agent password
+description   | Sensu [RBAC](../rbac) password used by the agent
 type          | String
 default       | `P@ssw0rd!`
 example       | {{< highlight shell >}}# Command line example
@@ -789,17 +780,6 @@ sensu-agent start --redact secure-key,secure-password
 # /etc/sensu/agent.yml example
 redact: "secure-key,secure-password"{{< /highlight >}}
 
-
-| user |      |
---------------|------
-description   | Agent user
-type          | String
-default       | `agent`
-example       | {{< highlight shell >}}# Command line example
-sensu-agent start --user agent-01
-
-# /etc/sensu/agent.yml example
-user: "agent-01"{{< /highlight >}}
 
 
 ### Socket configuration flags

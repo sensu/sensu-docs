@@ -21,7 +21,7 @@ We'll cover securing each one of those pieces, starting with etcd peer communica
 
 ## Securing etcd peer communication
 
-Let' start by covering how to secure etcd peer communication via the configuration at `/etc/sensu/backend.yml`. Let's look at the parameters you'll need to configure:
+Let's start by covering how to secure etcd peer communication via the configuration at `/etc/sensu/backend.yml`. Let's look at the parameters you'll need to configure:
 
 {{< highlight yml >}}
 ##
