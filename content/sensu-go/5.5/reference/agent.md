@@ -254,7 +254,7 @@ Attributes specified in socket events appear in the resulting event data passed 
   "name": "check-http",
   "status": 1,
   "output": "404",
-  "client": "sensu-docs-site",
+  "source": "sensu-docs-site",
   "executed": 1550013435,
   "duration": 1.903135228,
   "handlers": ["slack", "influxdb"]
@@ -286,9 +286,17 @@ required     | true
 type         | String
 example      | {{< highlight shell >}}"output": "CheckHttp OK: 200, 78572 bytes"{{< /highlight >}}
 
+source       | 
+-------------|------
+description  | The name of the Sensu entity associated with the event. Use this attribute to tie the event to a [proxy entity][43]. If no matching entity exists, Sensu creates a proxy entity with the name provided by the `source` attribute.
+required     | false
+default      | The agent entity receiving the event data
+type         | String
+example      | {{< highlight shell >}}"source": "sensu-docs-site"{{< /highlight >}}
+
 client       | 
 -------------|------
-description  | The name of the Sensu entity associated with the event. The `client` attribute gives you the ability to tie the event to a proxy entity while providing compatibility with [Sensu 1.x check results][42]. Use this attribute to specify the name of the [proxy entity][43] tied to the event.
+description  | _NOTE: The `client` attribute is deprecated in favor of the `source` attribute (see above)._ The name of the Sensu entity associated with the event. The `client` attribute gives you the ability to tie the event to a proxy entity while providing compatibility with [Sensu 1.x check results][42]. Use this attribute to specify the name of the [proxy entity][43] tied to the event.
 required     | false
 default      | The agent entity receiving the event data
 type         | String
