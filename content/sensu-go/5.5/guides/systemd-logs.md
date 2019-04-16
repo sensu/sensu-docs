@@ -38,7 +38,7 @@ systemctl restart systemd-journald
 systemctl restart rsyslog
 {{< /highlight>}}
 
-Setup log rotation for newly created log files. This example will rotate all log files in `/var/log/sensu/` weekly, unless the size of 100M is reached first. The last five rotated logs will be kept and they will be compressed, with the exception of the most recent one.
+Set up log rotation for newly created log files. This example rotates all log files in `/var/log/sensu/` weekly, unless the size of 100M is reached first. The last five rotated logs are kept and compressed, with the exception of the most recent one.
 
 {{< highlight shell>}}
 # Inside /etc/logrotate.d/sensu.conf
