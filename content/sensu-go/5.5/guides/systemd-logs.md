@@ -1,7 +1,6 @@
 ---
 title: "Sensu service logging with systemd"
 description: "place holder"
-weight: 2000
 version: "5.5"
 product: "Sensu Go"
 platformContent: false
