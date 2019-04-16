@@ -24,7 +24,9 @@ are not sufficient for production use.
 ### Backend recommended configuration
 
 This configuration is recommended for a good user and operator
-experience, a baseline for real production use. Results will vary
+experience, a baseline for real production use. Using additional
+resources (even over-provisioning) will futher improve stability and
+scalability.
 
 * 64 bit 4-core Intel or AMD CPU
 * 8 GB RAM
