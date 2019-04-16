@@ -745,6 +745,10 @@ code {
   margin: 1.5em 0;
 }
 
+.article table {
+  width: 100%;
+}
+
 .article table th {
   background-color: #2C3458;
   font-family: 'Work Sans';
