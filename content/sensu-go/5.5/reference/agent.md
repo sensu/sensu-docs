@@ -296,7 +296,7 @@ example      | {{< highlight shell >}}"source": "sensu-docs-site"{{< /highlight 
 
 client       | 
 -------------|------
-description  | The name of the Sensu entity associated with the event. Use this attribute to tie the event to an existing proxy entity.
+description  | _NOTE: The `client` attribute is deprecated in favor of the `source` attribute (see above)._ The name of the Sensu entity associated with the event. Use this attribute to tie the event to a proxy entity. If no matching entity exists, Sensu creates a proxy entity with the name provided by the `client` attribute.
 required     | false
 default      | The agent entity receiving the event data
 type         | String
