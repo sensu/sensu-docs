@@ -7,15 +7,15 @@ platformContent: false
 ---
 
 
-By default, systems where `systemd` is the service manager do not write logs to `/var/log/sensu/` for the `sensu-agent` and the `sensu-backend` services. This guide walks you through how to add log forwarding from `journald` to `syslog`, have `rsyslog` write logging data to disk, and set up log rotation of the newly created log files.
+By default, systems where systemd is the service manager do not write logs to `/var/log/sensu/` for the `sensu-agent` and the `sensu-backend` services. This guide walks you through how to add log forwarding from journald to syslog, have rsyslog write logging data to disk, and set up log rotation of the newly created log files.
 
-To configure `journald` to forward logging data to `syslog`, modify `/etc/systemd/journald.conf` to include the following line:
+To configure journald to forward logging data to syslog, modify `/etc/systemd/journald.conf` to include the following line:
 
 {{< highlight shell >}}
 ForwardToSyslog=yes
 {{< /highlight >}}
 
-Next, set up `rsyslog` to write the logging data received from `journald` to `/var/log/sensu/servicename.log`. In this example, the `sensu-backend` and `sensu-agent` logging data is sent to individual files named after the service. The `sensu-backend` is not required if only setting up log forwarding for the `sensu-agent` service.
+Next, set up rsyslog to write the logging data received from journald to `/var/log/sensu/servicename.log`. In this example, the `sensu-backend` and `sensu-agent` logging data is sent to individual files named after the service. The `sensu-backend` is not required if only setting up log forwarding for the `sensu-agent` service.
 
 {{< highlight shell >}}
 # For the sensu-backend service, inside /etc/rsyslog.d/99-sensu-backend.conf
@@ -31,7 +31,7 @@ if $programname == 'sensu-agent' then {
 }
 {{< /highlight >}}
 
-Restart `rsyslog` and `journald` to apply the new configuration:
+Restart rsyslog and journald to apply the new configuration:
 
 {{< highlight shell>}}
 systemctl restart systemd-journald
