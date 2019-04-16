@@ -40,7 +40,6 @@ See the [upgrade guide][1] to upgrade Sensu to version 5.5.1.
 
 **FIXES:**
 
-- Agents now persist labels when applied as command line flags.
 - Backends now reinstate etcd watchers in the event of a watcher failure, fixing an issue causing high CPU usage in some components.
 
 ## 5.5.0 release notes
