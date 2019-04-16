@@ -60,7 +60,7 @@
         <link rel="stylesheet" href="{{ "/stylesheets/homepage.css" | absURL }}">
     {{ end }}
     <link rel="stylesheet" href="{{ "/stylesheets/docs-overrides.css" | absURL }}">
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
     {{ range .Site.Params.custom_css }}
     <link rel="stylesheet" href="{{ . | absURL }}">
     {{ end }}
@@ -103,7 +103,7 @@
     };
 	</script>
     
-	  <script type="text/javascript" src="{{ "/js/vendor/lunr.min.js" | absURL }}"></script>
+	  <!--<script type="text/javascript" src="{{ "/js/vendor/lunr.min.js" | absURL }}"></script>-->
     <script type="text/javascript" src="{{ "/js/js-cookie.js" | absURL }}"></script>
     <script type="text/javascript" src="{{ "/js/platformDropdowns.js" | absURL }}"></script>
     <script type="text/javascript" src="{{ "/js/noframework.waypoints.min.js" | absURL }}"></script>
