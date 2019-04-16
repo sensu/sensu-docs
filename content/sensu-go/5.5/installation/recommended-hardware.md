@@ -11,8 +11,6 @@ menu:
     parent: installation
 ---
 
-### TODO
-
 ### Backend minimum requirements
 
 These minimum requirements are required to simply run the software, they
