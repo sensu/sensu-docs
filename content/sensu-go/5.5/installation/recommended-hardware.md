@@ -1,7 +1,7 @@
 ---
 title: "Hardware requirements"
 linkTitle: "Hardware Requirements"
-description: "Planning a Sensu deployment? Read this guide to learn about the hardware and networking requirements for running Sensu backends and agents on your organization's infrastructure."
+description: "Planning a Sensu deployment? Read this guide to learn about the hardware and networking requirements for running Sensu Backends and Agents on your organization's infrastructure."
 weight: 5
 version: "5.5"
 product: "Sensu Go"
@@ -11,7 +11,12 @@ menu:
     parent: installation
 ---
 
+### TODO
+
 ### Backend minimum requirements
+
+These minimum requirements are required to simply run the software, they
+are not sufficient for production use.
 
 * 64-bit Intel or AMD CPU
 * 4 GB RAM
@@ -20,35 +25,40 @@ menu:
 
 ### Backend recommended configuration
 
+This configuration is recommended for a good user and operator
+experience, a baseline for real production use. Results will vary
+
 * 64 bit 4-core Intel or AMD CPU
 * 8 GB RAM
-* SSD (NVMe or SCSI)
+* SSD (NVMe or SATA3)
 * Gigabit ethernet
 
-The Sensu backend is typically CPU and storage intensive. Its use of these
-resources scales linearly with the total number of checks that all agents
-connecting to the backend are executing.
+The Sensu Backend is typically CPU and storage intensive. Its use of
+these resources generally scales linearly with the total number of
+checks that all Sensu Agents connecting to the Backend are executing.
 
-Sensu backend is a massively parallel application that can scale to any number
-of CPU cores. Provision roughly 1 CPU core for every 50 checks per second,
-including keepalives.
+Sensu Backend is a massively parallel application that can scale to
+any number of CPU cores. Provision roughly 1 CPU core for every 50
+checks per second (including Agent keepalives).
 
 Most installations are fine with 4 CPU cores, but larger installations
-may find that 8 CPU cores are necessary.
+may find that additional CPU cores (8+) are necessary.
 
-Each check that is executed results in writes occurring in the backend.
-When provisioning storage hardware, a good rule of thumb is to have twice as
-many iops as you expect to have checks executing per second. Don't forget to
-include keepalives in this calculation; each agent executes a keepalive
-every 20 seconds. So in a cluster of 100 agents, you can expect those agents
-to consume 10 write iops for keepalives.
+Every executed Sensu Check results in storage plane writes. When
+provisioning storage, a good rule of thumb is to have twice as many
+**sustained disk IOPS** as you expect to have Events per second. Don't
+forget to include Agent keepalives in this calculation; each Agent
+publishes a keepalive every 20 seconds. So in a cluster of 100 Agents,
+you can expect those Agents to consume 10 write IOPS for keepalives.
 
-The Sensu backend uses a relatively modest amount of RAM under most
-circumstances, but some users with a large amount of information stored
-may find that Sensu uses a large amount of RAM (2-4 GB). In many
-installations, 8 GB is more than sufficient.
+The Sensu Backend uses a relatively modest amount of RAM under most
+circumstances. Larger production deployments will use a larger amount
+of RAM (8+ GB).
 
 ### Agent minimum requirements
+
+These minimum requirements are required to simply run the software, they
+are not sufficient for production use.
 
 * 386, amd64, or ARM CPU (armv5 minimum)
 * 128 MB RAM
@@ -56,22 +66,37 @@ installations, 8 GB is more than sufficient.
 
 ### Agent recommended configuration
 
-* 4-core amd64 or ARMv8 CPU
+This configuration is recommended for a good user and operator
+experience, a baseline for real production use.
+
+* 64 bit 4-core Intel or AMD CPU
 * 512 MB RAM
 * Gigabit ethernet
 
-The Sensu agent itself is quite lightweight, and should be able to run on all
-but the most modest hardware. However, since the agent is responsible for
-executing checks, factor the agent's responsibilities into your hardware
-provisioning.
+The Sensu Agent itself is quite lightweight, and should be able to run
+on all but the most modest hardware. However, since the Agent is
+responsible for executing checks, factor the Agent's responsibilities
+into your hardware provisioning.
 
 ### Networking recommendations
 
-Sensu uses websockets for communicating between the backend and the agent. This
-means that all communication between a backend and an agent occurs over a
-single TCP socket.
+#### Agent connections
 
-It's recommended that users connect backends and agents via gigabit ethernet,
-but any somewhat-reliable network link should work. If you see websocket
-timeouts in the backend logs from agentd, then you may need to use a better
-network link between the backend and agents.
+Sensu uses websockets for communication between the Agent and Backend.
+All communication occurs over a single TCP socket.
+
+It's recommended that users connect Backends and Agents via gigabit
+ethernet, but any somewhat-reliable network link should work (e.g.
+WiFi and 4G). If you see websocket timeouts in the Backend logs, you
+may need to use a better network link between the Backend and Agents.
+
+### Cloud recommendations
+
+#### AWS
+
+The recommended EC2 instance type and size for Sensu Backends running
+embedded etcd is **M5d.xlarge**. The
+[M5d instance](https://aws.amazon.com/ec2/instance-types/m5/) provides
+4 vCPU, 16 GB of RAM, up to 10 Gbps network connectivity, and a 150
+NVMe SSD directly attached to the instance host (optimal for sustained
+disk IOPS).
