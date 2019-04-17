@@ -529,7 +529,7 @@ System clocks between agents and the backend should be synchronized to a central
 ## Configuration
 
 You can specify the agent configuration using a `/etc/sensu/agent.yml` file or using `sensu-agent start` [configuration flags][24].
-See the example config file provided with Sensu packages at `/usr/share/doc/sensu-go-agent-5.5.0/agent.yml.example` or [available here](/sensu-go/5.5/files/agent.yml).
+See the example config file provided with Sensu packages at `/usr/share/doc/sensu-go-agent-5.5.1/agent.yml.example` or [available here](/sensu-go/5.5/files/agent.yml).
 The agent loads configuration upon startup, so you must restart the agent for any configuration updates to take effect.
 
 ### Configuration summary
