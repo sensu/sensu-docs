@@ -24,19 +24,19 @@ You can verify a Sensu download using SHA-512 checksums.
 Download Sensu for Linux.
 
 {{< highlight shell >}}
-curl -LO https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.5.0/sensu-enterprise-go_5.5.0_linux_amd64.tar.gz
+curl -LO https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.5.1/sensu-enterprise-go_5.5.1_linux_amd64.tar.gz
 {{< /highlight >}}
 
 Generate a SHA-512 checksum for the downloaded artifact.
 
 {{< highlight shell >}}
-sha512sum sensu-enterprise-go_5.5.0_linux_amd64.tar.gz
+sha512sum sensu-enterprise-go_5.5.1_linux_amd64.tar.gz
 {{< /highlight >}}
 
 The result should match the checksum for your platform.
 
 {{< highlight shell >}}
-curl -LO https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.5.0/sensu-enterprise-go_5.5.0_checksums.txt && cat sensu-enterprise-go_5.5.0_checksums.txt
+curl -LO https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.5.1/sensu-enterprise-go_5.5.1_checksums.txt && cat sensu-enterprise-go_5.5.1_checksums.txt
 {{< /highlight >}}
 
 {{< platformBlockClose >}}
@@ -48,21 +48,21 @@ curl -LO https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.5.0/sensu-enterp
 Download Sensu for Windows.
 
 {{< highlight text >}}
-Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.5.0/sensu-enterprise-go_5.5.0_windows_amd64.tar.gz  -OutFile "$env:userprofile\sensu-enterprise-go_5.5.0_windows_amd64.tar.gz"
+Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.5.1/sensu-enterprise-go_5.5.1_windows_amd64.tar.gz  -OutFile "$env:userprofile\sensu-enterprise-go_5.5.1_windows_amd64.tar.gz"
 {{< /highlight >}}
 
 Generate a SHA-256 checksum for the downloaded artifact.
 
 {{< highlight text >}}
-Get-FileHash "$env:userprofile\sensu-enterprise-go_5.5.0_windows_amd64.tar.gz" -Algorithm SHA256 | Format-List
+Get-FileHash "$env:userprofile\sensu-enterprise-go_5.5.1_windows_amd64.tar.gz" -Algorithm SHA256 | Format-List
 {{< /highlight >}}
 
 The result should match (with the exception of capitalization) the checksum for your platform.
 
 {{< highlight text >}}
-Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.5.0/sensu-enterprise-go_5.5.0_checksums.txt -OutFile "$env:userprofile\sensu-enterprise-go_5.5.0_checksums.txt"
+Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.5.1/sensu-enterprise-go_5.5.1_checksums.txt -OutFile "$env:userprofile\sensu-enterprise-go_5.5.1_checksums.txt"
 
-Get-Content "$env:userprofile\sensu-enterprise-go_5.5.0_checksums.txt" | Select-String -Pattern windows_amd64
+Get-Content "$env:userprofile\sensu-enterprise-go_5.5.1_checksums.txt" | Select-String -Pattern windows_amd64
 {{< /highlight >}}
 
 {{< platformBlockClose >}}
@@ -74,19 +74,19 @@ Get-Content "$env:userprofile\sensu-enterprise-go_5.5.0_checksums.txt" | Select-
 Download Sensu for macOS.
 
 {{< highlight shell >}}
-curl -LO https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.5.0/sensu-enterprise-go_5.5.0_darwin_amd64.tar.gz
+curl -LO https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.5.1/sensu-enterprise-go_5.5.1_darwin_amd64.tar.gz
 {{< /highlight >}}
 
 Generate a SHA-512 checksum for the downloaded artifact.
 
 {{< highlight shell >}}
-shasum -a 512 sensu-go-5.5.0-darwin-amd64.tar.gz
+shasum -a 512 sensu-go-5.5.1-darwin-amd64.tar.gz
 {{< /highlight >}}
 
 The result should match the checksum for your platform.
 
 {{< highlight shell >}}
-curl -LO https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.5.0/sensu-enterprise-go_5.5.0_checksums.txt && cat sensu-enterprise-go_5.5.0_checksums.txt
+curl -LO https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.5.1/sensu-enterprise-go_5.5.1_checksums.txt && cat sensu-enterprise-go_5.5.1_checksums.txt
 {{< /highlight >}}
 
 {{< platformBlockClose >}}

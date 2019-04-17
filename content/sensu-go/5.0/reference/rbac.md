@@ -15,9 +15,7 @@ menu:
 - [Users](#users): [Managing users](#viewing-users) | [Specification](#user-specification) | [Examples](#user-example) | [Groups](#groups)
 - [Roles and cluster roles](#roles-and-cluster-roles): [Managing roles](#viewing-roles) | [Specification](#role-and-cluster-role-specification) | [Examples](#role-examples)
 - [Role bindings and cluster role bindings](#role-bindings-and-cluster-role-bindings): [Managing role bindings](#viewing-role-bindings) | [Specification](#role-binding-and-cluster-role-binding-specification) | [Examples](#role-binding-examples)
-- [Assigning user permissions within a namespace](#assigning-user-permissions-within-a-namespace)
-- [Assigning group permissions within a namespace](#assigning-group-permissions-within-a-namespace)
-- [Assigning group permissions across all namespaces](#assigning-group-permissions-across-all-namespaces)
+- [Example workflows](#example-workflows)
 
 Sensu role-based access control (RBAC) helps different teams and projects share a Sensu instance.
 RBAC allows management and access of users and resources based on **namespaces**, **groups**, **roles**, and **bindings**.
@@ -365,7 +363,7 @@ Every [Sensu backend][1] includes:
 | `admin`         | `ClusterRole` | Full access to all [resource types][4]. You can apply this cluster role within a namespace by using a role binding (not a cluster role binding).  |
 | `edit`          | `ClusterRole` | Read and write access to most resources with the exception of roles and role bindings.  You can apply this cluster role within a namespace by using a role binding (not a cluster role binding).
 | `view`          | `ClusterRole` | Read-only permission to most [resource types][4] with the exception of roles and role bindings.  You can apply this cluster role within a namespace by using a role binding (not a cluster role binding).  |
-| `system:agent`  | `ClusterRole` | Used internally by Sensu agents. _WARNING: Modification of this cluster role can result in non-functional Sensu agents._ |
+| `system:agent`  | `ClusterRole` | Used internally by Sensu agents. You can configure an agent's user credentials using the [`user` and `password` agent configuration flags](../agent/#security-configuration-flags).|
 
 ### Viewing roles
 
@@ -770,6 +768,10 @@ The following role and role binding give a `dev` group access to create and mana
 {{< /highlight >}}
 
 ## Example workflows
+
+- [Assigning user permissions within a namespace](#assigning-user-permissions-within-a-namespace)
+- [Assigning group permissions within a namespace](#assigning-group-permissions-within-a-namespace)
+- [Assigning group permissions across all namespaces](#assigning-group-permissions-across-all-namespaces)
 
 ### Assigning user permissions within a namespace
 
