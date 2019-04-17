@@ -10,11 +10,11 @@ menu:
     parent: reference
 ---
 
-- [Namespaces](#namespaces): [Managing namespaces](#viewing-namespaces) | [Specification](#namespace-specification) | [Examples](#namespace-examples)
+- [Namespaces](#namespaces): [Managing namespaces](#viewing-namespaces) | [Specification](#namespace-specification) | [Examples](#namespace-example)
 - [Resources](#resources): [Namespaced resource types](#namespaced-resource-types) | [Cluster-wide resource types](#cluster-wide-resource-types)
 - [Users](#users): [Managing users](#viewing-users) | [Specification](#user-specification) | [Examples](#user-example) | [Groups](#groups)
-- [Roles and cluster roles](#roles-and-cluster-roles): [Managing roles](#viewing-roles) | [Specification](#role-and-cluster-role-specification) | [Examples](#role-examples)
-- [Role bindings and cluster role bindings](#role-bindings-and-cluster-role-bindings): [Managing role bindings](#viewing-role-bindings) | [Specification](#role-binding-and-cluster-role-binding-specification) | [Examples](#role-binding-examples)
+- [Roles and cluster roles](#roles-and-cluster-roles): [Managing roles](#viewing-roles) | [Specification](#role-and-cluster-role-specification) | [Examples](#role-example)
+- [Role bindings and cluster role bindings](#role-bindings-and-cluster-role-bindings): [Managing role bindings](#viewing-role-bindings) | [Specification](#role-binding-and-cluster-role-binding-specification) | [Examples](#role-binding-example)
 - [Example workflows](#example-workflows)
 
 Sensu role-based access control (RBAC) helps different teams and projects share a Sensu instance.
@@ -285,7 +285,8 @@ The following example is in `wrapped-json` format for use with [`sensuctl create
   "api_version": "core/v2",
   "metadata": {},
   "spec": {
-   "username": "alice",
+    "username": "alice",
+    "password": "P@ssw0rd!",
     "disabled": false,
     "groups": ["ops", "dev"]
   }

@@ -124,7 +124,7 @@ To filter based on an attribute that contains an array of elements, use the `.in
 On the checks page, to show only checks with the handler `slack`:
 
 {{< highlight text >}}
-handlers.indexOf("slack") > 0
+handlers.indexOf("slack") >= 0
 {{< /highlight >}}
 
 ### Regular expressions
