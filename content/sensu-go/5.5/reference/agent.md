@@ -111,6 +111,59 @@ HTTP/1.1 202 Accepted
 
 _PRO TIP: You can use the agent API `/events` endpoint to create proxy entities by including a `proxy_entity_name` attribute within the `check` scope._
 
+#### Creating a "dead man's switch"
+
+The Sensu agent API in combination with check TTLs can be used to create what's commonly referred to as a "dead man's switch".
+Outside of the software industry, a dead man's switch is a switch that is triggered automatically if a human operator becomes incapacitated (source: [Wikipedia][20]).
+
+However, Sensu is more interested in detecting silent failures than incapacitated human operators.
+
+By using check TTLs, Sensu is able to set an expectation that a Sensu agent continues to publish results for a check at a regular interval.
+If a Sensu agent fails to publish a check result and the check TTL expires, Sensu creates an alert to indicate the silent failure.
+For more information on check TTLs, please refer to [the check attributes reference][14].
+
+A great use case for the Sensu agent API is to create a dead man's switch to ensure that backup scripts continue to run successfully at regular intervals.
+
+If an external source sends a Sensu check result with a check TTL to the Sensu agent API, Sensu expects another check result from the same external source before the TTL expires.
+
+The following is an example of external check result input via the Sensu agent API using a check TTL to create a dead man's switch for MySQL backups. The example uses a check TTL of `25200` seconds (7 hours).
+
+A MySQL backup script using the following code would be expected to continue to send a check result at least once every 7 hours or Sensu creates an alert to indicate the silent failure.
+
+{{< highlight shell >}}
+curl -X POST \
+-H 'Content-Type: application/json' \
+-d '{
+  "check": {
+    "metadata": {
+      "name": "check-mysql-backup-status"
+    },
+    "status": 0,
+    "output": "backed up mysql successfully | size_mb=568",
+    "ttl": 60
+  }
+}' \
+http://127.0.0.1:3031/events
+{{< /highlight >}}
+
+{{< highlight shell >}}
+curl -X POST \
+-H 'Content-Type: application/json' \
+-d '{
+  "check": {
+    "metadata": {
+      "name": "check-mysql-backup-status"
+    },
+    "status": 1,
+    "output": "failed to backup mysql",
+    "ttl": 60
+  }
+}' \
+http://127.0.0.1:3031/events
+{{< /highlight >}}
+
+
+
 #### API specification {#events-post-specification}
 
 /events (POST)     | 
