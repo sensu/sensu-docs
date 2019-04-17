@@ -340,7 +340,7 @@ agent-port: 8081{{< /highlight >}}
 
 | cert-file  |      |
 -------------|------
-description  | SSL/TLS certificate
+description  | SSL/TLS certificate used to secure the Sensu Dashboard.
 type         | String
 default      | `""`
 example      | {{< highlight shell >}}# Command line example
@@ -352,7 +352,7 @@ cert-file: "/path/to/ssl/cert.pem"{{< /highlight >}}
 
 | key-file   |      |
 -------------|------
-description  | SSL/TLS certificate key
+description  | SSL/TLS certificate key used to secure the Sensu Dashboard.
 type         | String
 default      | `""`
 example      | {{< highlight shell >}}# Command line example
@@ -364,7 +364,7 @@ key-file: "/path/to/ssl/key.pem"{{< /highlight >}}
 
 | trusted-ca-file |      |
 ------------------|------
-description       | SSL/TLS certificate authority in PEM format used for etcd client (mutual TLS)
+description       | SSL/TLS certificate authority in PEM format used for etcd client (mutual TLS) communication.
 type              | String
 default           | `""`
 example           | {{< highlight shell >}}# Command line example
