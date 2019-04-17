@@ -577,9 +577,7 @@ description  |Arbitrary, non-identifying metadata to include with event data. In
 required     | false
 type         | Map of key-value pairs. Keys and values can be any valid UTF-8 string.
 default      | `null`
-example               | {{< highlight shell >}}# Command line example
-sensu-agent start --annotations sensu.io/plugins/slack/config/webhook-url=https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX
-
+example      | {{< highlight shell >}}
 # /etc/sensu/agent.yml example
 annotations:
   sensu.io/plugins/slack/config/webhook-url: "https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX"
