@@ -34,7 +34,7 @@ See the [upgrade guide][1] to upgrade Sensu to version 5.5.1.
 
 **IMPROVEMENTS:**
 
-- Sensu agents now support annotations, non-identifying metadata that helps people or external tools interacting with Sensu. See the [agent reference][29] to configure annotations in the agent configuration file or as command line flags.
+- Sensu agents now support annotations, non-identifying metadata that helps people or external tools interacting with Sensu. See the [agent reference][29] to add annotations in the agent configuration file.
 - The [agent socket event format][30] now supports the `source` attribute to create a proxy entity.
 - Sensu 5.5.1 is built with Go version 1.12.3.
 
