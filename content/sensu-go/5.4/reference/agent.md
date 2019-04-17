@@ -15,8 +15,8 @@ menu:
 - [Installation][1]
 - [Creating events using service checks](#creating-monitoring-events-using-service-checks)
 - [Creating events using the agent API](#creating-monitoring-events-using-the-agent-api)
-- [Creating events using the agent TCP and UDP sockets](#creating-monitoring-events-using-the-agent-tcp-and-udp-sockets)
 - [Creating events using the StatsD listener](#creating-monitoring-events-using-the-statsd-listener)
+- [Creating events using the agent TCP and UDP sockets](#creating-monitoring-events-using-the-agent-tcp-and-udp-sockets) (deprecated)
 - [Keepalive monitoring](#keepalive-monitoring)
 - [Service management](#operation)
   - [Starting and stopping the service](#starting-the-service)
@@ -153,14 +153,53 @@ ok
 description     | Returns `ok` if the agent is active and connected to a Sensu backend; returns `sensu backend unavailable` if the agent is unable to connect to a backend.
 example url     | http://hostname:3031/healthz
 
+## Creating monitoring events using the StatsD listener
+
+Sensu agents include a listener to send [StatsD][21] metrics to the event pipeline.
+By default, Sensu agents listen on UDP socket 8125 (TCP on Windows systems) for messages that follow the [StatsD line protocol][21] and send metric events for handling by the Sensu backend.
+
+For example, you can use the Netcat utility to send metrics to the StatsD listener:
+
+{{< highlight shell >}}
+echo 'abc.def.g:10|c' | nc -w1 -u localhost 8125
+{{< /highlight >}}
+
+Metrics received through the StatsD listener are not stored by Sensu, so
+it's important to configure [event handlers][8].
+
+### StatsD line protocol
+
+The Sensu StatsD listener accepts messages formatted according to the StatsD line protocol:
+
+{{< highlight text >}}
+<metricname>:<value>|<type>
+{{< /highlight >}}
+
+For more information, see the [StatsD documentation][21].
+
+### Configuring the StatsD listener
+
+To configure the StatsD listener, specify the [`statsd-event-handlers` configuration flag][22] in the [agent configuration][24], and start the agent.
+
+{{< highlight shell >}}
+# Start an agent that sends StatsD metrics to InfluxDB
+sensu-agent --statsd-event-handlers influx-db
+{{< /highlight >}}
+
+You can use the [StatsD configuration flags][22] to change the default settings for the StatsD listener address, port, and [flush interval][23].
+
+{{< highlight shell >}}
+# Start an agent with a customized address and flush interval
+sensu-agent --statsd-event-handlers influx-db --statsd-flush-interval 1 --statsd-metrics-host 123.4.5.6 --statsd-metrics-port 8125
+{{< /highlight >}}
+
 ## Creating monitoring events using the agent TCP and UDP sockets
+
+_NOTE: The agent TCP and UDP sockets are deprecated in favor of the [agent events API](#events-post)._
 
 Sensu agents listen for external monitoring data using TCP and UDP sockets.
 The agent sockets accept JSON event data and pass the event to the Sensu backend event pipeline for processing.
 The TCP and UDP sockets listen on the address and port specified by the [socket configuration flags][17].
-
-These sockets allow external sources to send monitoring data to Sensu without needing to know anything about Sensu's internal implementation.
-An excellent agent socket use case example is a web application pushing check results to indicate database connectivity issues.
 
 ### Using the TCP socket
 
@@ -194,7 +233,7 @@ echo '{"name": "check-mysql-status", "status": 1, "output": "error!"}' | nc -u -
 
 ### Socket event format
 
-The agent TCP and UDP sockets use a special event data format designed for simplicity and backwards compatibility with [Sensu 1.x check results][42].
+The agent TCP and UDP sockets use a special event data format designed for backwards compatibility with [Sensu 1.x check results][42].
 Attributes specified in socket events appear in the resulting event data passed to the Sensu backend.
 
 **Example socket input: Minimum required attributes**
@@ -290,46 +329,6 @@ description  | An array of Sensu handler names to use for handling the event. Ea
 required     | false
 type         | Array
 example      | {{< highlight shell >}}"handlers": ["slack", "influxdb"]{{< /highlight >}}
-
-## Creating monitoring events using the StatsD listener
-
-Sensu agents include a listener to send [StatsD][21] metrics to the event pipeline.
-By default, Sensu agents listen on UDP socket 8125 (TCP on Windows systems) for messages that follow the [StatsD line protocol][21] and send metric events for handling by the Sensu backend.
-
-For example, you can use the Netcat utility to send metrics to the StatsD listener:
-
-{{< highlight shell >}}
-echo 'abc.def.g:10|c' | nc -w1 -u localhost 8125
-{{< /highlight >}}
-
-Metrics received through the StatsD listener are not stored by Sensu, so
-it's important to configure [event handlers][8].
-
-### StatsD line protocol
-
-The Sensu StatsD listener accepts messages formatted according to the StatsD line protocol:
-
-{{< highlight text >}}
-<metricname>:<value>|<type>
-{{< /highlight >}}
-
-For more information, see the [StatsD documentation][21].
-
-### Configuring the StatsD listener
-
-To configure the StatsD listener, specify the [`statsd-event-handlers` configuration flag][22] in the [agent configuration][24], and start the agent.
-
-{{< highlight shell >}}
-# Start an agent that sends StatsD metrics to InfluxDB
-sensu-agent --statsd-event-handlers influx-db
-{{< /highlight >}}
-
-You can use the [StatsD configuration flags][22] to change the default settings for the StatsD listener address, port, and [flush interval][23].
-
-{{< highlight shell >}}
-# Start an agent with a customized address and flush interval
-sensu-agent --statsd-event-handlers influx-db --statsd-flush-interval 1 --statsd-metrics-host 123.4.5.6 --statsd-metrics-port 8125
-{{< /highlight >}}
 
 ## Keepalive monitoring
 
