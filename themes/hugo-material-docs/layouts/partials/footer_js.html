@@ -92,7 +92,7 @@
     apiKey: '2571a2aebb0465db1e7f18e14d8a55ac',
     indexName: 'sensu',
     inputSelector: '#search', 
-    algoliaOptions: { 'facetFilters': [['tags:sensu-go','tags:plugins', 'tags:sensu-core', 'tags:sensu-enterprise', 'tags:sensu-enterprise-dashboard', 'tags:uchiwa'], ['version:5.5','version:1.0','version:2.15','version:1.7','version:3.4']]},
+    algoliaOptions: { 'facetFilters': [[{{ if isset .Page.Params "product" }}'tags:{{ .Section }}'{{ else }}'tags:sensu-go','tags:plugins', 'tags:sensu-core', 'tags:sensu-enterprise', 'tags:sensu-enterprise-dashboard', 'tags:uchiwa'{{end}}], [{{ if isset .Page.Params "product" }}'version:{{ .Page.Params.version }}'{{ else }}'version:5.5','version:1.0','version:2.15','version:1.7','version:3.4'{{end}}]]},
     debug: false
     });
     </script>
