@@ -51,7 +51,7 @@ Most installations are fine with 4 CPU cores, but larger installations
 may find that additional CPU cores (8+) are necessary.
 
 Every executed Sensu check results in storage writes. When
-provisioning storage, a good rule of thumb is to have twice as many
+provisioning storage, a good guideline is to have twice as many
 **sustained disk IOPS** as you expect to have events per second. Don't
 forget to include agent keepalives in this calculation; each agent
 publishes a keepalive every 20 seconds. For example, in a cluster of 100 agents,
