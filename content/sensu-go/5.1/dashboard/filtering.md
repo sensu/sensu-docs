@@ -119,7 +119,7 @@ check === "check_cpu"
 
 ### Arrays
 
-To filter based on an attribute that contains an array of elements, use the `.indexOf` syntax.
+To filter based on an attribute that contains an array of elements, use the `.indexOf` method.
 
 On the checks page, to show only checks with the handler `slack`:
 

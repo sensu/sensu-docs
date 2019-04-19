@@ -93,7 +93,7 @@ event.entity.namespace == 'production'
 
 ### Evaluating an array
 
-To evaluate an attribute that contains an array of elements, use the `.indexOf` syntax.
+To evaluate an attribute that contains an array of elements, use the `.indexOf` method.
 The following example returns true if an entity includes the subscription `system`.
 
 {{< highlight text >}}

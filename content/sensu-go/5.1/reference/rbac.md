@@ -263,7 +263,7 @@ example      | {{< highlight shell >}}"username": "alice"{{< /highlight >}}
 
 password     | 
 -------------|------ 
-description  | The user's password. Cannot be empty. 
+description  | The user's password. Passwords must have at least eight characters.
 required     | true 
 type         | String
 example      | {{< highlight shell >}}"password": "P@ssw0rd!"{{< /highlight >}}

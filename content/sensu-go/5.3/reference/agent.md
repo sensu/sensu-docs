@@ -507,7 +507,7 @@ You can specify a deregistration handler per agent using the [`deregistration-ha
 
 Agents can connect to a Sensu cluster by specifying any Sensu backend URL in the cluster in the [`backend-url` configuration flag][16]. For more information about clustering, see [Sensu backend datastore configuration flags][35] and the [guide to running a Sensu cluster][36].
 
-### Time Synchronization
+### Time synchronization
 
 System clocks between agents and the backend should be synchronized to a central NTP server. Out of sync system time may cause issues with keepalive, metric and check alerts.
 
