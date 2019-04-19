@@ -389,7 +389,7 @@ example      | {{< highlight shell >}} "annotations": {
 
 |entity_attributes| |
 -------------|------
-description  | Sensu entity attributes to match entities in the registry, using [Sensu Query Expressions][11]
+description  | Sensu entity attributes to match entities in the registry, using [Sensu query expressions][11]
 required     | false
 type         | Array
 example      | {{< highlight shell >}}"entity_attributes": [
