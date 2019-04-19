@@ -19,6 +19,12 @@
   {{ partial "header" . }}
 </header>
 
+<aside class="thirdcolumn">
+    {{ if isset .Params "toc" }}
+    {{ partial "toc.html" . }}
+  {{ end }}
+</aside>
+
 <main class="main">
   <div class="drawer">
     {{ partial "drawer" . }}
