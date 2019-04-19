@@ -4,6 +4,10 @@ description: "By default, systems where systemd is the service manager do not wr
 version: "5.0"
 product: "Sensu Go"
 platformContent: false
+weight: 1001
+menu: 
+  sensu-go-5.0:
+    parent: guides
 ---
 
 
