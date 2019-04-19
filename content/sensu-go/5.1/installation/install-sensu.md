@@ -393,7 +393,7 @@ docker run -v /var/lib/sensu:/var/lib/sensu -d --name sensu-backend -p 2380:2380
 ### Start a Sensu agent
 In this case, we're starting an agent with the webserver and system subscriptions as an example.
 This assumes that the Sensu backend is running on another host named sensu.yourdomain.com.
-If you are running these locally on the same system, be sure to add `--link sensu-backend` to your Docker arguments and change the backend URL `--backend-url ws://sensu-backend:8081`.
+If you are running these locally on the same system, add `--link sensu-backend` to your Docker arguments, and change the backend URL to `--backend-url ws://sensu-backend:8081`.
 
 {{< highlight shell >}}
 docker run -v /var/lib/sensu:/var/lib/sensu -d --name sensu-agent \
