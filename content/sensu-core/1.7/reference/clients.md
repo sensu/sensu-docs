@@ -113,7 +113,7 @@ registration events are logged in the [Sensu server][5] log._
 Similarly to registration events, Sensu can create and process a deregistration event when the Sensu client process stops.
 You can use deregistration events to trigger a handler that updates external CMDBs or performs an action to update ephemeral infrastructures.
 
-By default, registration events trigger the built-in deregistration extension. To enable deregistration events, set the client `deregister` flag to `true`. This will result in clients being immediately depopulated from the dashboard. If you require an external servide to be handle the deregistration event (and specify the event handler using the client [`deregistration` definition scope][48].
+By default, registration events trigger the built-in deregistration extension. To enable deregistration events, set the client `deregister` flag to `true`. This will result in clients being immediately depopulated from the dashboard. If you require an external service to be handle the deregistration event (and specify the event handler using the client [`deregistration` definition scope][48].
 
 _NOTE: When setting `"deregister": true`, the default behavior is for the respective client to be immediately depopulated from the dashboard. We recommend instead that users implement a handler inside of the "keepalive" scope, as this will deregister clients based on a keepalive exceeding a threshold. If you require that an external service be notified about the deregistration, we recommend using the  Chef, Puppet, or AWS/EC2 plugins for your respective version (Core, Enterprise) of Sensu._
 
