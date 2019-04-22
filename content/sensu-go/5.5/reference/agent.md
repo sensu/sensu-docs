@@ -115,7 +115,6 @@ _PRO TIP: You can use the agent API `/events` endpoint to create proxy entities 
 
 The Sensu agent API in combination with check TTLs can be used to create what's commonly referred to as a "dead man's switch".
 Outside of the software industry, a dead man's switch is a switch that is triggered automatically if a human operator becomes incapacitated (source: [Wikipedia][20]).
-
 However, Sensu is more interested in detecting silent failures than incapacitated human operators.
 
 By using check TTLs, Sensu is able to set an expectation that a Sensu agent continues to publish results for a check at a regular interval.
