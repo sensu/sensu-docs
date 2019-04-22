@@ -340,7 +340,7 @@ agent-port: 8081{{< /highlight >}}
 
 | cert-file  |      |
 -------------|------
-description  | Specifies a fallback SSL/TLS certificate if the flag `dashboard-cert-file` is not use. This certificate secures communication with the Sensu Dashboard.
+description  | Specifies a fallback SSL/TLS certificate if the flag `dashboard-cert-file` is not use. This certificate secures communication with the Sensu Dashboard and API.
 type         | String
 default      | `""`
 example      | {{< highlight shell >}}# Command line example
@@ -352,7 +352,7 @@ cert-file: "/path/to/ssl/cert.pem"{{< /highlight >}}
 
 | key-file   |      |
 -------------|------
-description  | Specifies a fallback SSL/TLS key if the flag `dashboard-key-file` is not use. This key secures communication with the Sensu Dashboard.
+description  | Specifies a fallback SSL/TLS key if the flag `dashboard-key-file` is not use. This key secures communication with the Sensu Dashboard and API.
 type         | String
 default      | `""`
 example      | {{< highlight shell >}}# Command line example
