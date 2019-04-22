@@ -1,12 +1,13 @@
 ---
 title: "Sensu Go release notes"
 linkTitle: "Release Notes"
-description: "Read the Sensu Go 5.5.0 release notes to learn about what's new in our latest release."
+description: "Read the Sensu Go 5.5.1 release notes to learn about what's new in our latest release."
 product: "Sensu Go"
 version: "5.5"
 menu: "sensu-go-5.5"
 ---
 
+- [5.5.1 release notes](#5-5-1-release-notes)
 - [5.5.0 release notes](#5-5-0-release-notes)
 - [5.4.0 release notes](#5-4-0-release-notes)
 - [5.3.0 release notes](#5-3-0-release-notes)
@@ -25,6 +26,21 @@ Sensu Go adheres to [semantic versioning][2] using MAJOR.MINOR.PATCH release num
 Read the [upgrade guide][1] for information on upgrading to the latest version of Sensu Go.
 
 ---
+
+## 5.5.1 release notes
+
+**April 17, 2019** &mdash; The latest release of Sensu Go, version 5.5.1, is now available for download. This release is a stability release with key bug fixes, including addressing an issue with backend CPU utilization. Additionally, we have added support for honoring the source attribute for events received via agent socket.
+See the [upgrade guide][1] to upgrade Sensu to version 5.5.1.
+
+**IMPROVEMENTS:**
+
+- Sensu agents now support annotations, non-identifying metadata that helps people or external tools interacting with Sensu. See the [agent reference][29] to add annotations in the agent configuration file.
+- The [agent socket event format][30] now supports the `source` attribute to create a proxy entity.
+- Sensu 5.5.1 is built with Go version 1.12.3.
+
+**FIXES:**
+
+- Backends now reinstate etcd watchers in the event of a watcher failure, fixing an issue causing high CPU usage in some components.
 
 ## 5.5.0 release notes
 
@@ -263,3 +279,5 @@ To get started with Sensu Go:
 [26]: /sensu-go/5.4/reference/agent#events-post
 [27]: /sensu-go/5.5/reference/tessen
 [28]: https://blog.sensu.io/announcing-tessen-the-sensu-call-home-service
+[29]: /sensu-go/5.5/reference/agent#general-configuration-flags
+[30]: /sensu-go/5.5/reference/agent#creating-monitoring-events-using-the-agent-tcp-and-udp-sockets
