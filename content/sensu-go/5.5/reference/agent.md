@@ -7,6 +7,7 @@ version: "5.5"
 product: "Sensu Go"
 platformContent: true
 platforms: ["Linux"]
+toc: yep
 menu:
   sensu-go-5.5:
     parent: reference
@@ -572,14 +573,14 @@ You can specify a deregistration handler per agent using the [`deregistration-ha
 
 Agents can connect to a Sensu cluster by specifying any Sensu backend URL in the cluster in the [`backend-url` configuration flag][16]. For more information about clustering, see [Sensu backend datastore configuration flags][35] and the [guide to running a Sensu cluster][36].
 
-### Time Synchronization
+### Time synchronization
 
 System clocks between agents and the backend should be synchronized to a central NTP server. Out of sync system time may cause issues with keepalive, metric and check alerts.
 
 ## Configuration
 
 You can specify the agent configuration using a `/etc/sensu/agent.yml` file or using `sensu-agent start` [configuration flags][24].
-See the example config file provided with Sensu packages at `/usr/share/doc/sensu-go-agent-5.5.0/agent.yml.example` or [available here](/sensu-go/5.5/files/agent.yml).
+See the example config file provided with Sensu packages at `/usr/share/doc/sensu-go-agent-5.5.1/agent.yml.example` or [available here](/sensu-go/5.5/files/agent.yml).
 The agent loads configuration upon startup, so you must restart the agent for any configuration updates to take effect.
 
 ### Configuration summary
@@ -592,6 +593,7 @@ Usage:
   sensu-agent start [flags]
 
 Flags:
+      --annotations stringToString      entity annotations map (default [])
       --api-host string                 address to bind the Sensu client HTTP API to (default "127.0.0.1")
       --api-port int                    port the Sensu client HTTP API listens on (default 3031)
       --backend-url strings             ws/wss URL of Sensu backend server (to specify multiple backends use this flag multiple times) (default [ws://127.0.0.1:8081])
@@ -626,6 +628,18 @@ Flags:
 {{< /highlight >}}
 
 ### General configuration flags
+
+| annotations|      |
+-------------|------
+description  |Arbitrary, non-identifying metadata to include with event data. In contrast to labels, annotations are not used internally by Sensu and cannot be used to identify entities. You can use annotations to add data that helps people or external tools interacting with Sensu.
+required     | false
+type         | Map of key-value pairs. Keys and values can be any valid UTF-8 string.
+default      | `null`
+example      | {{< highlight shell >}}
+# /etc/sensu/agent.yml example
+annotations:
+  sensu.io/plugins/slack/config/webhook-url: "https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX"
+{{< /highlight >}}
 
 | backend-url |      |
 --------------|------
