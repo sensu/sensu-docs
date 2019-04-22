@@ -125,6 +125,7 @@ A great use case for the Sensu agent API is to create a dead man's switch to ens
 If an external source sends a Sensu check result with a check TTL to the Sensu agent API, Sensu expects another check result from the same external source before the TTL expires.
 
 The following is an example of external check result input via the Sensu agent API using a check TTL to create a dead man's switch for MySQL backups. The example uses a check TTL of `25200` seconds (7 hours).
+
 A MySQL backup script using the following code would be expected to continue to send a check result at least once every 7 hours or Sensu creates an alert to indicate the silent failure.
 
 {{< highlight shell >}}
@@ -137,7 +138,7 @@ curl -X POST \
     },
     "status": 0,
     "output": "backed up mysql successfully | size_mb=568",
-    "ttl": 60
+    "ttl": 25200
   }
 }' \
 http://127.0.0.1:3031/events
@@ -153,7 +154,7 @@ curl -X POST \
     },
     "status": 1,
     "output": "failed to backup mysql",
-    "ttl": 60
+    "ttl": 25200
   }
 }' \
 http://127.0.0.1:3031/events
