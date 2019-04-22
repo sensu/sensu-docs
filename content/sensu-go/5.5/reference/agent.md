@@ -123,7 +123,6 @@ If a Sensu agent fails to publish a check result and the check TTL expires, Sens
 For more information on check TTLs, please refer to [the check attributes reference][14].
 
 A great use case for the Sensu agent API is to create a dead man's switch to ensure that backup scripts continue to run successfully at regular intervals.
-
 If an external source sends a Sensu check result with a check TTL to the Sensu agent API, Sensu expects another check result from the same external source before the TTL expires.
 
 The following is an example of external check result input via the Sensu agent API using a check TTL to create a dead man's switch for MySQL backups. The example uses a check TTL of `25200` seconds (7 hours).
