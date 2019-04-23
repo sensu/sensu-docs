@@ -440,13 +440,17 @@ dashboard-port: 4000{{< /highlight >}}
 | etcd-advertise-client-urls |      |
 --------------|------
 description   | List of this member's client URLs to advertise to the rest of the cluster.
-type          | String
+type          | List
 default       | `http://localhost:2379`
-example       | {{< highlight shell >}}# Command line example
-sensu-backend start --etcd-advertise-client-urls http://localhost:2379
+example       | {{< highlight shell >}}# Command line examples
+sensu-backend start --etcd-advertise-client-urls http://localhost:2378,http://localhost:2379
+sensu-backend start --etcd-advertise-client-urls http://localhost:2378 --etcd-advertise-client-urls http://localhost:2379
 
 # /etc/sensu/backend.yml example
-etcd-advertise-client-urls: "http://localhost:2379"{{< /highlight >}}
+etcd-advertise-client-urls:
+  - http://localhost:2378
+  - http://localhost:2379
+{{< /highlight >}}
 
 
 | etcd-cert-file |      |
@@ -475,14 +479,18 @@ etcd-client-cert-auth: true{{< /highlight >}}
 
 | etcd-initial-advertise-peer-urls |      |
 -----------------------------------|------
-description                        | List of this member's peer URLs to advertise to the rest of the cluster, separated by commas
-type                               | String
+description                        | List of this member's peer URLs to advertise to the rest of the cluster
+type                               | List
 default                            | `http://127.0.0.1:2380`
-example                            | {{< highlight shell >}}# Command line example
-sensu-backend start --etcd-listen-peer-urls https://10.0.0.1:2380
+example                            | {{< highlight shell >}}# Command line examples
+sensu-backend start --etcd-listen-peer-urls https://10.0.0.1:2380,https://10.1.0.1:2380
+sensu-backend start --etcd-listen-peer-urls https://10.0.0.1:2380 --etcd-listen-peer-urls https://10.1.0.1:2380
 
 # /etc/sensu/backend.yml example
-etcd-listen-peer-urls: "https://10.0.0.1:2380"{{< /highlight >}}
+etcd-listen-peer-urls:
+  - https://10.0.0.1:2380
+  - https://10.1.0.1:2380
+{{< /highlight >}}
 
 
 | etcd-initial-cluster |      |
@@ -534,26 +542,34 @@ etcd-key-file: "./client-key.pem"{{< /highlight >}}
 
 | etcd-listen-client-urls |      |
 --------------------------|------
-description               | List of URLs to listen on for client traffic, separated by commas
-type                      | String
+description               | List of URLs to listen on for client traffic
+type                      | List
 default                   | `http://127.0.0.1:2379`
-example                   | {{< highlight shell >}}# Command line example
-sensu-backend start --etcd-listen-client-urls https://10.0.0.1:2379,https://10.1.0.1:2379,https://10.2.0.1:2379
+example                   | {{< highlight shell >}}# Command line examples
+sensu-backend start --etcd-listen-client-urls https://10.0.0.1:2379,https://10.1.0.1:2379
+sensu-backend start --etcd-listen-client-urls https://10.0.0.1:2379 --etcd-listen-client-urls https://10.1.0.1:2379
 
 # /etc/sensu/backend.yml example
-etcd-listen-client-urls: "https://10.0.0.1:2379,https://10.1.0.1:2379,https://10.2.0.1:2379"{{< /highlight >}}
+etcd-listen-client-urls:
+  - https://10.0.0.1:2379
+  - https://10.1.0.1:2379
+{{< /highlight >}}
 
 
 | etcd-listen-peer-urls |      |
 ------------------------|------
-description             | List of URLs to listen on for peer traffic, separated by commas
-type                    | String
+description             | List of URLs to listen on for peer traffic
+type                    | List
 default                 | `http://127.0.0.1:2380`
-example                 | {{< highlight shell >}}# Command line example
-sensu-backend start --etcd-listen-peer-urls https://10.0.0.1:2380
+example                 | {{< highlight shell >}}# Command line examples
+sensu-backend start --etcd-listen-peer-urls https://10.0.0.1:2380,https://10.1.0.1:2380
+sensu-backend start --etcd-listen-peer-urls https://10.0.0.1:2380 --etcd-listen-peer-urls https://10.1.0.1:2380
 
 # /etc/sensu/backend.yml example
-etcd-listen-peer-urls: "https://10.0.0.1:2380"{{< /highlight >}}
+etcd-listen-peer-urls:
+  - https://10.0.0.1:2380
+  - https://10.1.0.1:2380
+{{< /highlight >}}
 
 
 | etcd-name      |      |
