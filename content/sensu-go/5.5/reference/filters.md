@@ -351,7 +351,7 @@ example      | {{< highlight shell >}}"has_check": e.IsIncident(){{< /highlight 
 description  | Determines if an event has any silenced entries.
 required     | false
 type         | String
-example      | {{< highlight shell >}}"has_check": e.IsSilenced(){{< /highlight >}}
+example      | {{< highlight shell >}}"is_silenced": e.IsSilenced(){{< /highlight >}}
 
 
 | is_resolution       |      |
