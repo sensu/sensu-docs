@@ -34,6 +34,7 @@ See the [upgrade guide][1] to upgrade Sensu to version 5.4.0.
 
 - The Sensu dashboard now includes a homepage designed to highlight the most important monitoring data, giving you instant insight into the state of your infrastructure. See the [dashboard docs][23] for a preview.
 - The Sensu API now supports pagination using the `limit` and `continue` query parameters, letting you limit your API responses to a maximum number of objects and making it easier to handle large data sets. See the [API overview][22] for more information.
+- Sensu now surfaces internal metrics using the `/metrics` API. See the [metrics API reference][27] for more information.
 
 **IMPROVEMENTS:**
 
@@ -242,3 +243,4 @@ To get started with Sensu Go:
 [24]: /sensu-go/5.4/reference/backend#dashboard-configuration-flags
 [25]: /sensu-go/5.4/guides/securing-sensu
 [26]: /sensu-go/5.4/reference/agent#events-post
+[27]: /sensu-go/5.4/api/metrics
