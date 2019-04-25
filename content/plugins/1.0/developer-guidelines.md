@@ -1,7 +1,7 @@
 ---
 title: "Developer Guidelines"
 date: 2017-10-26T10:36:53-07:00
-description: ""
+description: "Here are the developer guidelines for creating Sensu plugins in Sensu 1.x. In this doc, you’ll learn about naming conventions, coding style, copyright and licensing, documentation, and much more. Read on for the full list of guidelines."
 weight: 4
 product: "Plugins"
 version: "1.0"

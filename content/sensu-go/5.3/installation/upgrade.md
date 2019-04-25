@@ -1,7 +1,7 @@
 ---
 title: "Upgrading Sensu"
 linkTitle: "Upgrade Sensu"
-description: "Guide to upgrading to Sensu Go from Sensu Core 1.x"
+description: "Upgrade to the latest version of Sensu. Read the upgrade guide to get the latest features and bug fixes in Sensu Go and learn about upgrading to Sensu Go from Sensu Core 1.x."
 weight: 3
 version: "5.3"
 product: "Sensu Go"
@@ -91,7 +91,7 @@ Entities include “agent entities” (entities running a Sensu agent) and famil
 See the [entity reference][6] and the guide to [monitoring external resources][7] for more information.
 
 ### Checks
-Standalone checks are no longer supported in Sensu Go, although similar functionality can be achieved using role-based access control, assets, and entity subscriptions.
+Standalone checks are no longer supported in Sensu Go, although [similar functionality can be achieved using role-based access control, assets, and entity subscriptions][26].
 There are also a few changes to check definitions to be aware of. The `stdin` check attribute is no longer supported in Sensu Go, and Sensu Go no longer tries to run a "default" handler when executing a check without a specified handler. Additionally, check subdues are not yet available in Sensu Go.
 
 [Check hooks][8] are now a resource type in Sensu Go, meaning that hooks can be created, managed, and reused independently of check definitions.
@@ -111,7 +111,7 @@ Sensu Go includes three [new built-in filters][11]: only-incidents, only-metrics
 Sensu Go does not yet include a built-in check dependencies filter or a filter-when feature.
 
 ### Assets
-The sensu-install tool has been replaced in Sensu Go by [assets][12], a powerful new primitive that helps you manage check dependencies without configuration management tools.
+The sensu-install tool has been replaced in Sensu Go by [assets][12], shareable, reusable packages that make it easy to deploy Sensu plugins.
 [Sensu Plugins][21] in Ruby can still be installed via sensu-install by installing [sensu-plugins-ruby][20]; see the [installing plugins guide][22] for more information.
 
 ### Role-based access control
@@ -161,3 +161,4 @@ See the metadata attributes section in the reference documentation for more info
 [23]: ../../installation/install-sensu
 [24]: ../../reference/entities#metadata-attributes
 [25]: https://blog.sensu.io/check-configuration-upgrades-with-the-sensu-go-sandbox
+[26]: https://blog.sensu.io/self-service-monitoring-checks-in-sensu-go

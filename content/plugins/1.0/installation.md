@@ -1,7 +1,7 @@
 ---
 title: "Installation"
 date: 2017-10-26T11:06:32-07:00
-description: "How to install Sensu plugins"
+description: "Here’s how to install a Sensu plugin, including steps for standard installation and gems. This guide also includes tips for checking disk usage, which only works for Ruby scripts. Read on to learn more."
 weight: 2
 product: "Plugins"
 version: "1.0"

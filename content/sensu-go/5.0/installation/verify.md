@@ -1,7 +1,7 @@
 ---
 title: "Verifying Sensu downloads"
 linkTitle: "Verify Sensu Downloads"
-description: "How to verify Sensu downloads using checksums"
+description: "Sensu offers binary-only distributions for Linux, Windows, and macOS. Read the guide to learn how to verify your Sensu downloads using checksums."
 weight: 16
 product: "Sensu Go"
 version: "5.0"

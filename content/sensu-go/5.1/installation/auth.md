@@ -9,7 +9,7 @@ Sensu requires username and password authentication to access the [Sensu dashboa
 For Sensu's [default user credentials][3] and more information about configuring Sensu role based access control, see the [RBAC reference][4] and [guide to creating users][5].
 
 In addition to built-in RBAC, [enterprise-only][9] support for authentication using an authentication provider is available in Sensu Go 5.2.0 and later.
-See the [upgrading guide][6] to upgrade your Sensu installation, and visit the [latest documentation][7] to configure an authentication provider.
+See the [upgrade guide][6] to upgrade your Sensu installation, and visit the [latest documentation][7] to configure an authentication provider.
 
 [1]: ../../dashboard/overview
 [2]: ../../sensuctl/reference

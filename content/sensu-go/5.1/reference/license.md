@@ -6,7 +6,7 @@ product: "Sensu Go"
 ---
 
 Enterprise features for Sensu Go are available in version 5.2.0 and later.
-See the [upgrading guide][1] to upgrade your Sensu installation, and visit the [latest documentation][2] to manage your enterprise license.
+See the [upgrade guide][1] to upgrade your Sensu installation, and visit the [latest documentation][2] to manage your enterprise license.
 
 [1]: /sensu-go/latest/installation/upgrade
 [2]: /sensu-go/latest/reference/license
