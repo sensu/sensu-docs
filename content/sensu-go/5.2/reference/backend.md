@@ -160,7 +160,7 @@ System clocks between agents and the backend should be synchronized to a central
 
 You can specify the backend configuration using a `/etc/sensu/backend.yml` file or using `sensu-backend start` [configuration flags][15].
 The backend requires that the `state-dir` flag be set before starting; all other required flags have default values.
-See the example config file provided with Sensu at `/usr/share/doc/sensu-go-backend-5.2.1/backend.yml.example`.
+See the example config file provided with Sensu at `/usr/share/doc/sensu-go-backend-5.3.0/backend.yml.example`.
 The backend loads configuration upon startup, so you must restart the backend for any configuration updates to take effect.
 
 ### Configuration summary
@@ -189,7 +189,7 @@ General Flags:
       --key-file string                 TLS certificate key in PEM format
       --log-level string                logging level [panic, fatal, error, warn, info, debug] (default "warn")
   -d, --state-dir string                path to sensu state storage (default "/var/lib/sensu/sensu-backend")
-      --trusted-ca-file string          TLS CA certificate bundle in PEM format
+      --trusted-ca-file string          TLS CA certificate bundle in PEM format used for etcd client (mutual TLS)
 
 Store Flags:
       --etcd-advertise-client-urls strings         list of this member's client URLs to advertise to the rest of the cluster. (default [http://localhost:2379])
@@ -338,7 +338,7 @@ agent-port: 8081{{< /highlight >}}
 
 | cert-file  |      |
 -------------|------
-description  | SSL/TLS certificate
+description  | This certificate secures communication with the Sensu Dashboard and API.
 type         | String
 default      | `""`
 example      | {{< highlight shell >}}# Command line example
@@ -350,7 +350,7 @@ cert-file: "/path/to/ssl/cert.pem"{{< /highlight >}}
 
 | key-file   |      |
 -------------|------
-description  | SSL/TLS certificate key
+description  | This key secures communication with the Sensu Dashboard and API.
 type         | String
 default      | `""`
 example      | {{< highlight shell >}}# Command line example
@@ -362,7 +362,7 @@ key-file: "/path/to/ssl/key.pem"{{< /highlight >}}
 
 | trusted-ca-file |      |
 ------------------|------
-description       | SSL/TLS certificate authority
+description       | Specifies a fallback SSL/TLS certificate authority in PEM format used for etcd client (mutual TLS) communication if the `etcd-trusted-ca-file` is not used.
 type              | String
 default           | `""`
 example           | {{< highlight shell >}}# Command line example
@@ -428,7 +428,7 @@ etcd-advertise-client-urls:
 
 | etcd-cert-file |      |
 -----------------|------
-description      | Path to the client server TLS cert file
+description      | Path to the client server TLS cert file. Secures communication with the etcd client server.
 type             | String
 default          | `""`
 example          | {{< highlight shell >}}# Command line example
@@ -504,7 +504,7 @@ etcd-initial-cluster-token: "sensu"{{< /highlight >}}
 
 | etcd-key-file  |      |
 -----------------|------
-description      | Path to the client server TLS key file
+description      | Path to the client server TLS key file. Secures communication with the etcd client server.
 type             | String
 example          | {{< highlight shell >}}# Command line example
 sensu-backend start --etcd-key-file ./client-key.pem
@@ -582,7 +582,7 @@ etcd-peer-client-cert-auth: true{{< /highlight >}}
 
 | etcd-peer-key-file |      |
 ---------------------|------
-description          | Path to the peer server TLS key file
+description          | Path to the peer server TLS key file. Secures communication with the etcd peer server.
 type                 | String
 example              | {{< highlight shell >}}# Command line example
 sensu-backend start --etcd-peer-key-file ./backend-0-key.pem
@@ -593,7 +593,7 @@ etcd-peer-key-file: "./backend-0-key.pem"{{< /highlight >}}
 
 | etcd-peer-trusted-ca-file |      |
 ----------------------------|------
-description                 | Path to the peer server TLS key file
+description                 | Path to the peer server TLS CA file. Secures communication with the etcd peer server.
 type                        | String
 example                     | {{< highlight shell >}}# Command line example
 sensu-backend start --etcd-peer-trusted-ca-file ./ca.pem
@@ -604,7 +604,7 @@ etcd-peer-trusted-ca-file: "./ca.pem"{{< /highlight >}}
 
 | etcd-trusted-ca-file |      |
 -----------------------|------
-description            | Path to the client server TLS trusted CA cert file
+description            | Path to the client server TLS trusted CA cert file. Secures communication with the etcd client 
 type                   | String
 default                | `""`
 example                | {{< highlight shell >}}# Command line example
