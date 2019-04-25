@@ -27,12 +27,17 @@ HTTP/1.1 200 OK
   "Alarms": null,
   "ClusterHealth": [
     {
-      "MemberID": 9882886658148554927,
+      "MemberID": 9882886658148555000,
       "Name": "default",
       "Err": "",
       "Healthy": true
     }
-  ]
+  ],
+  "Header": {
+    "cluster_id": 4255616304056077000,
+    "member_id": 9882886658148555000,
+    "raft_term": 26
+  }
 }
 {{< /highlight >}}
 
@@ -49,11 +54,16 @@ output         | {{< highlight shell >}}
   "Alarms": null,
   "ClusterHealth": [
     {
-      "MemberID": 9882886658148554927,
+      "MemberID": 9882886658148555000,
       "Name": "default",
       "Err": "",
       "Healthy": true
     }
-  ]
+  ],
+  "Header": {
+    "cluster_id": 4255616304056077000,
+    "member_id": 9882886658148555000,
+    "raft_term": 26
+  }
 }
 {{< /highlight >}}
