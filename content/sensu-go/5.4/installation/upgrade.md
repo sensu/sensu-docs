@@ -90,6 +90,8 @@ See the [backend][3], [agent][4], and [sensuctl][5] reference docs for more info
 Entities include “agent entities” (entities running a Sensu agent) and familiar “proxy entities”.
 See the [entity reference][6] and the guide to [monitoring external resources][7] for more information.
 
+Instead of prepending `roundrobin` to a subscription in the client definition, Sensu Go offers round-robin checks via a [`round_robin` attribute](../../reference/checks#round-robin-checks) in the check definition.
+
 ### Checks
 Standalone checks are no longer supported in Sensu Go, although [similar functionality can be achieved using role-based access control, assets, and entity subscriptions][26].
 There are also a few changes to check definitions to be aware of. The `stdin` check attribute is no longer supported in Sensu Go, and Sensu Go no longer tries to run a "default" handler when executing a check without a specified handler. Additionally, check subdues are not yet available in Sensu Go.

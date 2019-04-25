@@ -280,7 +280,50 @@ We can test its output using:
 sensu-go-sandbox.curl_timings.http_code 200 1535670975
 {{< /highlight >}}
 
-**3. Create a check to monitor Nginx**
+
+**3. Create an InfluxDB pipeline**
+Now let's create the InfluxDB pipeline to store these metrics and visualize them with Grafana.
+To create a pipeline to send metric events to InfluxDB, start by registering the [Sensu InfluxDB handler asset][4].
+
+{{< highlight shell >}}
+sensuctl asset create sensu-influxdb-handler --url "https://github.com/sensu/sensu-influxdb-handler/releases/download/3.1.2/sensu-influxdb-handler_3.1.2_linux_amd64.tar.gz" --sha512 "612c6ff9928841090c4d23bf20aaf7558e4eed8977a848cf9e2899bb13a13e7540bac2b63e324f39d9b1257bb479676bc155b24e21bf93c722b812b0f15cb3bd"
+{{< /highlight >}}
+
+You should see a confirmation message from sensuctl.
+
+{{< highlight shell >}}
+Created
+{{< /highlight >}}
+
+The `sensu-influxdb-handler` asset is now ready to use with Sensu.
+You can use sensuctl to see the complete asset definition.
+
+{{< highlight shell >}}
+sensuctl asset info sensu-influxdb-handler --format yaml
+{{< /highlight >}}
+
+Open the `influx-handler.json` handler definition provided with the sandbox, and edit the `runtime_assets` attribute to include the `sensu-influxdb-handler` asset.
+
+{{< highlight shell >}}
+"runtime_assets": ["sensu-influxdb-handler"]
+{{< /highlight >}}
+
+Now you can use sensuctl to create the `influx-db` handler.
+
+{{< highlight shell >}}
+sensuctl create --file influx-handler.json
+{{< /highlight >}}
+
+We can use sensuctl to confirm that the handler has been created successfully.
+
+{{< highlight shell >}}
+sensuctl handler list
+{{< /highlight >}}
+
+You should see the `influx-db` handler.
+(If you've completed [lesson \#2](#lesson-2-pipe-keepalive-events-into-slack), you'll also see the `keepalive` handler.)
+
+**4. Create a check to monitor Nginx**
 
 Use the `curl_timings-check.json` file provided with the sandbox to create a service check that runs `metrics-curl.rb` every 10 seconds on all entities with the `entity:sensu-go-sandbox` subscription and sends events to the InfluxDB pipeline:
 
@@ -331,49 +374,7 @@ sensuctl event info sensu-go-sandbox curl_timings --format json | jq .
 
 Because we configured a metric format, the Sensu agent was able to convert the Graphite-formatted metrics provided by the check command into a set of Sensu-formatted metrics.
 Metric support isn't limited to just Graphite; the Sensu agent can extract metrics in multiple line protocol formats, including Nagios performance data.
-Now let's create the InfluxDB handler to store these metrics and visualize them with Grafana.
-
-**4. Create an InfluxDB pipeline**
-
-To create a pipeline to send metric events to InfluxDB, start by registering the [Sensu InfluxDB handler asset][4].
-
-{{< highlight shell >}}
-sensuctl asset create sensu-influxdb-handler --url "https://github.com/sensu/sensu-influxdb-handler/releases/download/3.1.2/sensu-influxdb-handler_3.1.2_linux_amd64.tar.gz" --sha512 "612c6ff9928841090c4d23bf20aaf7558e4eed8977a848cf9e2899bb13a13e7540bac2b63e324f39d9b1257bb479676bc155b24e21bf93c722b812b0f15cb3bd"
-{{< /highlight >}}
-
-You should see a confirmation message from sensuctl.
-
-{{< highlight shell >}}
-Created
-{{< /highlight >}}
-
-The `sensu-influxdb-handler` asset is now ready to use with Sensu.
-You can use sensuctl to see the complete asset definition.
-
-{{< highlight shell >}}
-sensuctl asset info sensu-influxdb-handler --format yaml
-{{< /highlight >}}
-
-Open the `influx-handler.json` handler definition provided with the sandbox, and edit the `runtime_assets` attribute to include the `sensu-influxdb-handler` asset.
-
-{{< highlight shell >}}
-"runtime_assets": ["sensu-influxdb-handler"]
-{{< /highlight >}}
-
-Now you can use sensuctl to create the `influx-db` handler.
-
-{{< highlight shell >}}
-sensuctl create --file influx-handler.json
-{{< /highlight >}}
-
-We can use sensuctl to confirm that the handler has been created successfully.
-
-{{< highlight shell >}}
-sensuctl handler list
-{{< /highlight >}}
-
-You should see the `influx-db` handler.
-(If you've completed [lesson \#2](#lesson-2-pipe-keepalive-events-into-slack), you'll also see the `keepalive` handler.)
+.
 
 **5. See the HTTP response code events for Nginx in [Grafana](http://localhost:4002/d/go01/sensu-go-sandbox).**
 
