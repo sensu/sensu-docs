@@ -18,6 +18,10 @@ menu:
 
 ### Blog posts
 
+- [Simon Plourde: Understanding RBAC in Sensu Go](https://blog.sensu.io/understanding-rbac-in-sensu-go)
+- [Sean Porter: Self-service monitoring checks in Sensu Go](https://blog.sensu.io/self-service-monitoring-checks-in-sensu-go)
+- [Christian Michel - How to monitor 1,000 network devices using Sensu Go and Ansible](https://blog.sensu.io/network-monitoring-tools-sensu-ansible)
+- [Eric Chlebek - Filters: valves for the Sensu monitoring event pipeline](https://blog.sensu.io/filters-valves-for-the-sensu-monitoring-event-pipeline)
 - [Greg Schofield - Sensu Habitat Core Plans are Here](https://blog.chef.io/2018/08/22/guest-post-sensu-habitat-core-plans-are-here/)
 - [Nikki Attea - Check output metric extraction with InfluxDB & Grafana](http://blog.sensu.io/check-output-metric-extraction-with-influxdb-grafana)
 - [Jef Spaleta - Migrating to 5.0](https://blog.sensu.io/migrating-to-2.0-the-good-the-bad-the-ugly)
@@ -25,10 +29,10 @@ menu:
 
 ### Tutorials
 
-- [Sensu Go demo with Docker and Kubernetes](https://github.com/sensu/sensu-kube-demo)
+- [Sensu sandbox tutorials](../sandbox)
 
 ### Podcasts
 
 - [Sensu Community Chat November 2018](https://www.youtube.com/watch?v=5tIPv-rJMZU)
 
-_NOTE: Prior to October 2018, Sensu 5.0 was known as Sensu 2.0._
+_NOTE: Prior to October 2018, Sensu Go was known as Sensu 2.0._

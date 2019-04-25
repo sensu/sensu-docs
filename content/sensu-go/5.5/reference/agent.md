@@ -7,6 +7,7 @@ version: "5.5"
 product: "Sensu Go"
 platformContent: true
 platforms: ["Linux"]
+toc: yep
 menu:
   sensu-go-5.5:
     parent: reference
@@ -522,7 +523,7 @@ You can specify a deregistration handler per agent using the [`deregistration-ha
 
 Agents can connect to a Sensu cluster by specifying any Sensu backend URL in the cluster in the [`backend-url` configuration flag][16]. For more information about clustering, see [Sensu backend datastore configuration flags][35] and the [guide to running a Sensu cluster][36].
 
-### Time Synchronization
+### Time synchronization
 
 System clocks between agents and the backend should be synchronized to a central NTP server. Out of sync system time may cause issues with keepalive, metric and check alerts.
 
@@ -593,14 +594,17 @@ annotations:
 | backend-url |      |
 --------------|------
 description   | ws or wss URL of the Sensu backend server. To specify multiple backends using `sensu-agent start`, use this flag multiple times.
-type          | String
+type          | List
 default       | `ws://127.0.0.1:8081`
-example       | {{< highlight shell >}}# Command line example
+example       | {{< highlight shell >}}# Command line examples
 sensu-agent start --backend-url ws://0.0.0.0:8081
+sensu-agent start --backend-url ws://0.0.0.0:8081 --backend-url ws://0.0.0.0:8082
 
 # /etc/sensu/agent.yml example
 backend-url:
-  - "ws://0.0.0.0:8081"{{< /highlight >}}
+  - "ws://0.0.0.0:8081"
+  - "ws://0.0.0.0:8082"
+  {{< /highlight >}}
 
 <a name="cache-dir"></a>
 
@@ -673,14 +677,15 @@ log-level: "debug"{{< /highlight >}}
 | subscriptions |      |
 ----------------|------
 description     | An array of agent subscriptions which determine which monitoring checks are executed by the agent. The subscriptions array items must be strings.
-type            | Array
-example         | {{< highlight shell >}}# Command line example
+type            | List
+example         | {{< highlight shell >}}# Command line examples
 sensu-agent start --subscriptions disk-checks,process-checks
+sensu-agent start --subscriptions disk-checks --subscriptions process-checks
 
 # /etc/sensu/agent.yml example
 subscriptions:
-  - "disk-checks"
-  - "process-checks"{{< /highlight >}}
+  - disk-checks
+  - process-checks{{< /highlight >}}
 
 
 ### API configuration flags
@@ -836,14 +841,17 @@ password: "secure-password"{{< /highlight >}}
 
 | redact      |      |
 --------------|------
-description   | Comma-separated list of fields to redact
-type          | String
+description   | List of fields to redact when logging and sending keepalives
+type          | List
 default       | By default, Sensu redacts the following fields: `password`, `passwd`, `pass`, `api_key`, `api_token`, `access_key`, `secret_key`, `private_key`, `secret`
 example       | {{< highlight shell >}}# Command line example
-sensu-agent start --redact secure-key,secure-password
+sensu-agent start --redact secret,ec2_access_key
 
 # /etc/sensu/agent.yml example
-redact: "secure-key,secure-password"{{< /highlight >}}
+redact:
+  - secret
+  - ec2_access_key
+{{< /highlight >}}
 
 | trusted-ca-file |      |
 ------------------|------
@@ -923,13 +931,17 @@ statsd-disable: true{{< /highlight >}}
 
 | statsd-event-handlers |      |
 ------------------------|------
-description             | Comma-separated list of event handlers for StatsD metrics
-type                    | String
-example                 | {{< highlight shell >}}# Command line example
+description             | List of event handlers for StatsD metrics
+type                    | List
+example                 | {{< highlight shell >}}# Command line examples
 sensu-agent start --statsd-event-handlers influxdb,opentsdb
+sensu-agent start --statsd-event-handlers influxdb --statsd-event-handlers opentsdb
 
 # /etc/sensu/agent.yml example
-statsd-event-handlers: "influxdb,opentsdb"{{< /highlight >}}
+statsd-event-handlers:
+  - influxdb
+  - opentsdb
+{{< /highlight >}}
 
 
 | statsd-flush-interval  |      |
