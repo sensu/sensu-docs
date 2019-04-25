@@ -24,6 +24,7 @@ menu:
   - [Security configuration](#security-configuration-flags)
   - [Dashboard configuration](#dashboard-configuration-flags)
   - [Datastore and cluster configuration](#datastore-and-cluster-configuration-flags)
+  - [Example](/sensu-go/5.5/files/backend.yml)
 
 The Sensu backend is a service that manages check requests and event data.
 Every Sensu backend includes an integrated transport for scheduling checks using subscriptions, an event processing pipeline that applies filters, mutators, and handlers, an embedded [etcd][2] datastore for storing configuration and state, a Sensu API, [Sensu dashboard][6], and `sensu-backend` command-line tool.
@@ -152,7 +153,7 @@ To configure a cluster, see:
 - [Datastore configuration flags][12]
 - [Guide to running a Sensu cluster][13]
 
-### Time Synchronization
+### Time synchronization
 
 System clocks between agents and the backend should be synchronized to a central NTP server. Out of sync system time may cause issues with keepalive, metric and check alerts.
 
@@ -160,7 +161,7 @@ System clocks between agents and the backend should be synchronized to a central
 
 You can specify the backend configuration using a `/etc/sensu/backend.yml` file or using `sensu-backend start` [configuration flags][15].
 The backend requires that the `state-dir` flag be set before starting; all other required flags have default values.
-See the example config file provided with Sensu at `/usr/share/doc/sensu-go-backend-5.5.0/backend.yml.example`.
+See the example config file provided with Sensu packages at `/usr/share/doc/sensu-go-backend-5.5.1/backend.yml.example` or [available here](/sensu-go/5.5/files/backend.yml).
 The backend loads configuration upon startup, so you must restart the backend for any configuration updates to take effect.
 
 ### Configuration summary
@@ -439,13 +440,17 @@ dashboard-port: 4000{{< /highlight >}}
 | etcd-advertise-client-urls |      |
 --------------|------
 description   | List of this member's client URLs to advertise to the rest of the cluster.
-type          | String
+type          | List
 default       | `http://localhost:2379`
-example       | {{< highlight shell >}}# Command line example
-sensu-backend start --etcd-advertise-client-urls http://localhost:2379
+example       | {{< highlight shell >}}# Command line examples
+sensu-backend start --etcd-advertise-client-urls http://localhost:2378,http://localhost:2379
+sensu-backend start --etcd-advertise-client-urls http://localhost:2378 --etcd-advertise-client-urls http://localhost:2379
 
 # /etc/sensu/backend.yml example
-etcd-advertise-client-urls: "http://localhost:2379"{{< /highlight >}}
+etcd-advertise-client-urls:
+  - http://localhost:2378
+  - http://localhost:2379
+{{< /highlight >}}
 
 
 | etcd-cert-file |      |
@@ -474,14 +479,18 @@ etcd-client-cert-auth: true{{< /highlight >}}
 
 | etcd-initial-advertise-peer-urls |      |
 -----------------------------------|------
-description                        | List of this member's peer URLs to advertise to the rest of the cluster, separated by commas
-type                               | String
+description                        | List of this member's peer URLs to advertise to the rest of the cluster
+type                               | List
 default                            | `http://127.0.0.1:2380`
-example                            | {{< highlight shell >}}# Command line example
-sensu-backend start --etcd-listen-peer-urls https://10.0.0.1:2380
+example                            | {{< highlight shell >}}# Command line examples
+sensu-backend start --etcd-listen-peer-urls https://10.0.0.1:2380,https://10.1.0.1:2380
+sensu-backend start --etcd-listen-peer-urls https://10.0.0.1:2380 --etcd-listen-peer-urls https://10.1.0.1:2380
 
 # /etc/sensu/backend.yml example
-etcd-listen-peer-urls: "https://10.0.0.1:2380"{{< /highlight >}}
+etcd-listen-peer-urls:
+  - https://10.0.0.1:2380
+  - https://10.1.0.1:2380
+{{< /highlight >}}
 
 
 | etcd-initial-cluster |      |
@@ -533,26 +542,34 @@ etcd-key-file: "./client-key.pem"{{< /highlight >}}
 
 | etcd-listen-client-urls |      |
 --------------------------|------
-description               | List of URLs to listen on for client traffic, separated by commas
-type                      | String
+description               | List of URLs to listen on for client traffic
+type                      | List
 default                   | `http://127.0.0.1:2379`
-example                   | {{< highlight shell >}}# Command line example
-sensu-backend start --etcd-listen-client-urls https://10.0.0.1:2379,https://10.1.0.1:2379,https://10.2.0.1:2379
+example                   | {{< highlight shell >}}# Command line examples
+sensu-backend start --etcd-listen-client-urls https://10.0.0.1:2379,https://10.1.0.1:2379
+sensu-backend start --etcd-listen-client-urls https://10.0.0.1:2379 --etcd-listen-client-urls https://10.1.0.1:2379
 
 # /etc/sensu/backend.yml example
-etcd-listen-client-urls: "https://10.0.0.1:2379,https://10.1.0.1:2379,https://10.2.0.1:2379"{{< /highlight >}}
+etcd-listen-client-urls:
+  - https://10.0.0.1:2379
+  - https://10.1.0.1:2379
+{{< /highlight >}}
 
 
 | etcd-listen-peer-urls |      |
 ------------------------|------
-description             | List of URLs to listen on for peer traffic, separated by commas
-type                    | String
+description             | List of URLs to listen on for peer traffic
+type                    | List
 default                 | `http://127.0.0.1:2380`
-example                 | {{< highlight shell >}}# Command line example
-sensu-backend start --etcd-listen-peer-urls https://10.0.0.1:2380
+example                 | {{< highlight shell >}}# Command line examples
+sensu-backend start --etcd-listen-peer-urls https://10.0.0.1:2380,https://10.1.0.1:2380
+sensu-backend start --etcd-listen-peer-urls https://10.0.0.1:2380 --etcd-listen-peer-urls https://10.1.0.1:2380
 
 # /etc/sensu/backend.yml example
-etcd-listen-peer-urls: "https://10.0.0.1:2380"{{< /highlight >}}
+etcd-listen-peer-urls:
+  - https://10.0.0.1:2380
+  - https://10.1.0.1:2380
+{{< /highlight >}}
 
 
 | etcd-name      |      |
