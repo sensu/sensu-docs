@@ -14,8 +14,8 @@ menu:
 
 - [Installation][1]
 - [Creating events using service checks](#creating-monitoring-events-using-service-checks)
-- [Creating events using the agent socket](#creating-monitoring-events-using-the-agent-socket)
 - [Creating events using the StatsD listener](#creating-monitoring-events-using-the-statsd-listener)
+- [Creating events using the agent socket](#creating-monitoring-events-using-the-agent-socket) (deprecated)
 - [Keepalive monitoring](#keepalive-monitoring)
 - [Service management](#operation)
   - [Starting and stopping the service](#starting-the-service)
@@ -146,14 +146,53 @@ ok
 description     | Returns `ok` if the agent is active and connected to a Sensu backend; returns `sensu backend unavailable` if the agent is unable to connect to a backend.
 example url     | http://hostname:3031/healthz
 
+## Creating monitoring events using the StatsD listener
+
+Sensu agents include a listener to send [StatsD][21] metrics to the event pipeline.
+By default, Sensu agents listen on UDP socket 8125 (TCP on Windows systems) for messages that follow the [StatsD line protocol][21] and send metric events for handling by the Sensu backend.
+
+For example, you can use the Netcat utility to send metrics to the StatsD listener:
+
+{{< highlight shell >}}
+echo 'abc.def.g:10|c' | nc -w1 -u localhost 8125
+{{< /highlight >}}
+
+Metrics received through the StatsD listener are not stored by Sensu, so
+it's important to configure [event handlers][8].
+
+### StatsD line protocol
+
+The Sensu StatsD listener accepts messages formatted according to the StatsD line protocol:
+
+{{< highlight text >}}
+<metricname>:<value>|<type>
+{{< /highlight >}}
+
+For more information, see the [StatsD documentation][21].
+
+### Configuring the StatsD listener
+
+To configure the StatsD listener, specify the [`statsd-event-handlers` configuration flag][22] in the [agent configuration][24], and start the agent.
+
+{{< highlight shell >}}
+# Start an agent that sends StatsD metrics to InfluxDB
+sensu-agent --statsd-event-handlers influx-db
+{{< /highlight >}}
+
+You can use the [StatsD configuration flags][22] to change the default settings for the StatsD listener address, port, and [flush interval][23].
+
+{{< highlight shell >}}
+# Start an agent with a customized address and flush interval
+sensu-agent --statsd-event-handlers influx-db --statsd-flush-interval 1 --statsd-metrics-host 123.4.5.6 --statsd-metrics-port 8125
+{{< /highlight >}}
+
 ## Creating monitoring events using the agent TCP and UDP sockets
+
+_NOTE: The agent TCP and UDP sockets are deprecated in favor of the [agent events API](#events-post)._
 
 Sensu agents listen for external monitoring data using TCP and UDP sockets.
 The agent sockets accept JSON event data and pass the event to the Sensu backend event pipeline for processing.
 The TCP and UDP sockets listen on the address and port specified by the [socket configuration flags][17].
-
-These sockets allow external sources to send monitoring data to Sensu without needing to know anything about Sensu's internal implementation.
-An excellent agent socket use case example is a web application pushing check results to indicate database connectivity issues.
 
 ### Using the TCP socket
 
@@ -187,7 +226,7 @@ echo '{"name": "check-mysql-status", "status": 1, "output": "error!"}' | nc -u -
 
 ### Socket event format
 
-The agent TCP and UDP sockets use a special event data format designed for simplicity and backwards compatibility with [Sensu 1.x check results][42].
+The agent TCP and UDP sockets use a special event data format designed for backwards compatibility with [Sensu 1.x check results][42].
 Attributes specified in socket events appear in the resulting event data passed to the Sensu backend.
 
 **Example socket input: Minimum required attributes**
@@ -275,46 +314,6 @@ required     | false
 default      | `1`
 type         | Integer
 example      | {{< highlight shell >}}"interval": 60{{< /highlight >}}
-
-## Creating monitoring events using the StatsD listener
-
-Sensu agents include a listener to send [StatsD][21] metrics to the event pipeline.
-By default, Sensu agents listen on UDP socket 8125 (TCP on Windows systems) for messages that follow the [StatsD line protocol][21] and send metric events for handling by the Sensu backend.
-
-For example, you can use the Netcat utility to send metrics to the StatsD listener:
-
-{{< highlight shell >}}
-echo 'abc.def.g:10|c' | nc -w1 -u localhost 8125
-{{< /highlight >}}
-
-Metrics received through the StatsD listener are not stored by Sensu, so
-it's important to configure [event handlers][8].
-
-### StatsD line protocol
-
-The Sensu StatsD listener accepts messages formatted according to the StatsD line protocol:
-
-{{< highlight text >}}
-<metricname>:<value>|<type>
-{{< /highlight >}}
-
-For more information, see the [StatsD documentation][21].
-
-### Configuring the StatsD listener
-
-To configure the StatsD listener, specify the [`statsd-event-handlers` configuration flag][22] in the [agent configuration][24], and start the agent.
-
-{{< highlight shell >}}
-# Start an agent that sends StatsD metrics to InfluxDB
-sensu-agent --statsd-event-handlers influx-db
-{{< /highlight >}}
-
-You can use the [StatsD configuration flags][22] to change the default settings for the StatsD listener address, port, and [flush interval][23].
-
-{{< highlight shell >}}
-# Start an agent with a customized address and flush interval
-sensu-agent --statsd-event-handlers influx-db --statsd-flush-interval 1 --statsd-metrics-host 123.4.5.6 --statsd-metrics-port 8125
-{{< /highlight >}}
 
 ## Keepalive monitoring
 
@@ -499,7 +498,7 @@ You can specify a deregistration handler per agent using the [`deregistration-ha
 
 Agents can connect to a Sensu cluster by specifying any Sensu backend URL in the cluster in the [`backend-url` configuration flag][16]. For more information about clustering, see [Sensu backend datastore configuration flags][35] and the [guide to running a Sensu cluster][36].
 
-### Time Synchronization
+### Time synchronization
 
 System clocks between agents and the backend should be synchronized to a central NTP server. Out of sync system time may cause issues with keepalive, metric and check alerts.
 
@@ -555,14 +554,17 @@ Flags:
 | backend-url |      |
 --------------|------
 description   | ws or wss URL of the Sensu backend server. To specify multiple backends using `sensu-agent start`, use this flag multiple times.
-type          | String
+type          | List
 default       | `ws://127.0.0.1:8081`
-example       | {{< highlight shell >}}# Command line example
+example       | {{< highlight shell >}}# Command line examples
 sensu-agent start --backend-url ws://0.0.0.0:8081
+sensu-agent start --backend-url ws://0.0.0.0:8081 --backend-url ws://0.0.0.0:8082
 
 # /etc/sensu/agent.yml example
 backend-url:
-  - "ws://0.0.0.0:8081"{{< /highlight >}}
+  - "ws://0.0.0.0:8081"
+  - "ws://0.0.0.0:8082"
+  {{< /highlight >}}
 
 <a name="cache-dir"></a>
 
@@ -635,14 +637,15 @@ log-level: "debug"{{< /highlight >}}
 | subscriptions |      |
 ----------------|------
 description     | An array of agent subscriptions which determine which monitoring checks are executed by the agent. The subscriptions array items must be strings.
-type            | Array
-example         | {{< highlight shell >}}# Command line example
+type            | List
+example         | {{< highlight shell >}}# Command line examples
 sensu-agent start --subscriptions disk-checks,process-checks
+sensu-agent start --subscriptions disk-checks --subscriptions process-checks
 
 # /etc/sensu/agent.yml example
 subscriptions:
-  - "disk-checks"
-  - "process-checks"{{< /highlight >}}
+  - disk-checks
+  - process-checks{{< /highlight >}}
 
 
 ### API configuration flags
@@ -773,14 +776,17 @@ password: "secure-password"{{< /highlight >}}
 
 | redact      |      |
 --------------|------
-description   | Comma-separated list of fields to redact
-type          | String
+description   | List of fields to redact when logging and sending keepalives
+type          | List
 default       | By default, Sensu redacts the following fields: `password`, `passwd`, `pass`, `api_key`, `api_token`, `access_key`, `secret_key`, `private_key`, `secret`
 example       | {{< highlight shell >}}# Command line example
-sensu-agent start --redact secure-key,secure-password
+sensu-agent start --redact secret,ec2_access_key
 
 # /etc/sensu/agent.yml example
-redact: "secure-key,secure-password"{{< /highlight >}}
+redact:
+  - secret
+  - ec2_access_key
+{{< /highlight >}}
 
 
 | trusted-ca-file |      |
@@ -861,13 +867,17 @@ statsd-disable: true{{< /highlight >}}
 
 | statsd-event-handlers |      |
 ------------------------|------
-description             | Comma-separated list of event handlers for StatsD metrics
-type                    | String
-example                 | {{< highlight shell >}}# Command line example
+description             | List of event handlers for StatsD metrics
+type                    | List
+example                 | {{< highlight shell >}}# Command line examples
 sensu-agent start --statsd-event-handlers influxdb,opentsdb
+sensu-agent start --statsd-event-handlers influxdb --statsd-event-handlers opentsdb
 
 # /etc/sensu/agent.yml example
-statsd-event-handlers: "influxdb,opentsdb"{{< /highlight >}}
+statsd-event-handlers:
+  - influxdb
+  - opentsdb
+{{< /highlight >}}
 
 
 | statsd-flush-interval  |      |
