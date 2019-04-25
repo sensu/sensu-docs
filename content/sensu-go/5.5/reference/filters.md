@@ -322,6 +322,8 @@ example      | {{< highlight shell >}} "annotations": {
 
 ### Event attributes
 
+When writing custom filters, event attributes are available for the filter during its execution. 
+
 _Note: Event attributes are only available to filters and are not available for use with handlers or mutators_
 
 | has_check       |      |
