@@ -24,7 +24,7 @@ menu:
   - [Security configuration](#security-configuration-flags)
   - [Dashboard configuration](#dashboard-configuration-flags)
   - [Datastore and cluster configuration](#datastore-and-cluster-configuration-flags)
-  - [Example](/sensu-go/5.5/files/backend.yml)
+  - [Example](/sensu-go/5.6/files/backend.yml)
 
 The Sensu backend is a service that manages check requests and event data.
 Every Sensu backend includes an integrated transport for scheduling checks using subscriptions, an event processing pipeline that applies filters, mutators, and handlers, an embedded [etcd][2] datastore for storing configuration and state, a Sensu API, [Sensu dashboard][6], and `sensu-backend` command-line tool.
@@ -161,7 +161,7 @@ System clocks between agents and the backend should be synchronized to a central
 
 You can specify the backend configuration using a `/etc/sensu/backend.yml` file or using `sensu-backend start` [configuration flags][15].
 The backend requires that the `state-dir` flag be set before starting; all other required flags have default values.
-See the example config file provided with Sensu packages at `/usr/share/doc/sensu-go-backend-5.5.1/backend.yml.example` or [available here](/sensu-go/5.5/files/backend.yml).
+See the example config file provided with Sensu packages at `/usr/share/doc/sensu-go-backend-5.6.0/backend.yml.example` or [available here](/sensu-go/5.6/files/backend.yml).
 The backend loads configuration upon startup, so you must restart the backend for any configuration updates to take effect.
 
 ### Configuration summary
