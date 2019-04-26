@@ -329,7 +329,7 @@ example      | {{< highlight shell >}}"security": "tls"{{< /highlight >}}
 
 | trusted_ca_file | |
 -------------|------
-description  | Path to an alternative CA bundle file to be used instead of the system's default bundle. This CA bundle is used to verify the server's certificate.
+description  | Path to an alternative CA bundle file in PEM format to be used instead of the system's default bundle. This CA bundle is used to verify the server's certificate.
 required     | false
 type         | String
 example      | {{< highlight shell >}}"trusted_ca_file": "/path/to/trusted-certificate-authorities.pem"{{< /highlight >}}
@@ -807,7 +807,7 @@ example      | {{< highlight shell >}}"security": "tls"{{< /highlight >}}
 
 | trusted_ca_file | |
 -------------|------
-description  | Path to an alternative CA bundle file to be used instead of the system's default bundle. This CA bundle is used to verify the server's certificate.
+description  | Path to an alternative CA bundle file in PEM format to be used instead of the system's default bundle. This CA bundle is used to verify the server's certificate.
 required     | false
 type         | String
 example      | {{< highlight shell >}}"trusted_ca_file": "/path/to/trusted-certificate-authorities.pem"{{< /highlight >}}
