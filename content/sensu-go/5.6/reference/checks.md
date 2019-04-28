@@ -719,4 +719,4 @@ _NOTE: The attribute `interval` is not required if a valid `cron` schedule is de
 [sc]: ../../sensuctl/reference#creating-resources
 [sp]: #spec-attributes
 [25]: https://bonsai.sensu.io
-[28]: ../../guides/install-check-executables-with-assets
+[28]: ../../guides/monitor-external-resources
