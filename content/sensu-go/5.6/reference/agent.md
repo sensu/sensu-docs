@@ -643,8 +643,9 @@ description  | Custom attributes to include with event data, which can be querie
 required     | false
 type         | Map of key-value pairs. Keys can contain only letters, numbers, and underscores, but must start with a letter. Values can be any valid UTF-8 string.
 default      | `null`
-example               | {{< highlight shell >}}# Command line example
+example               | {{< highlight shell >}}# Command line examples
 sensu-agent start --labels proxy_type=website
+sensu-agent start --labels example_key1="example value" example_key2="example value"
 
 # /etc/sensu/agent.yml example
 labels:
