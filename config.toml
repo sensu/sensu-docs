@@ -51,7 +51,7 @@ ignoreFiles = [ "sensu-doc-template.md" ]
         name = "Sensu Go"
         description = "The next-generation monitoring event pipeline"
         weight = 1
-        latest = "5.5"
+        latest = "5.6"
         [params.products.sensu_go.versions]
             "5.0" = []
             "5.1" = []
