@@ -38,6 +38,16 @@ To switch namespaces, select the menu icon in the upper-left corner, and choose 
 
 <p style="text-align:center"><i>Sensu dashboard namespace switcher</i></p>
 
+### Managing checks
+
+**ENTERPRISE ONLY**: Check management in Sensu Go requires an enterprise license. To activate your enterprise license, see the [getting started guide][6].
+
+You can create, edit, and delete Sensu checks using the dashboard checks page.
+
+### Managing entities
+
+You can delete Sensu entities using the dashboard entities page.
+
 ### Themes
 Use the preferences menu to change the theme or switch to the dark theme.
 
@@ -46,3 +56,4 @@ Use the preferences menu to change the theme or switch to the dark theme.
 [3]: ../../reference/rbac
 [4]: ../../reference/rbac#default-user
 [5]: ../../reference/rbac#creating-a-user
+[6]: ../../getting-started/enterprise
