@@ -37,7 +37,7 @@ See the [upgrade guide][1] to upgrade Sensu to version 5.6.0.
 **NEW FEATURES:**
 
 - ([Enterprise-only][33]) Manage your Sensu checks from your browser: Sensu's web user interface now supports creating, editing, and deleting checks. See the [docs][32] to get started using the Sensu web UI.
-- The Sensu web UI now includes an option to delete entities.
+- ([Enterprise-only][33]) The Sensu web UI now includes an option to delete entities.
 - ([Enterprise-only][33]) Sensu now supports resource filtering in the Sensu API and sensuctl command line tool. Filter events using custom labels and resource attributes, such as event status and check subscriptions. See the [API docs][34] and [sensuctl reference][35] for usage examples.
 
 **IMPROVEMENTS:**

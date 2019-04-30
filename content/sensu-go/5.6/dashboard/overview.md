@@ -46,6 +46,8 @@ You can create, edit, and delete Sensu checks using the dashboard checks page.
 
 ### Managing entities
 
+**ENTERPRISE ONLY**: Entity management in Sensu Go requires an enterprise license. To activate your enterprise license, see the [getting started guide][6].
+
 You can delete Sensu entities using the dashboard entities page.
 
 ### Themes
