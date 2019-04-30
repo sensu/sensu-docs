@@ -163,14 +163,14 @@ A field selector can use certain fields of resources to organize and select subs
 
 #### Supported operators
 
-There's two _equality-based_ operators supported, `==` (equality) and `!=` (inequality). For example, the following requirements are possible:
+There's two _equality-based_ operators supported, `==` (equality) and `!=` (inequality). For example, the following statements are possible:
 
 {{< highlight shell >}}
 check.publish == true
 check.namespace != "default"
 {{< /highlight >}}
 
-Additionnaly, there's two _set-based_ operators to deal with list of values, `in` and `notin`. For example, the following requirements are possible:
+Additionally, there's two _set-based_ operators to deal with list of values, `in` and `notin`. For example, the following statements are possible:
 
 {{< highlight shell >}}
 linux in check.subscriptions
@@ -178,16 +178,16 @@ slack notin check.handlers
 check.subscriptions in [system,linux]
 {{< /highlight >}}
 
-#### Combining selectors and requirements
+#### Combining selectors and statements
 
-A field or label selector can be made of multiple requirements which are separated with the logical operator `&&` (_AND_). For example, the following curl request would look up checks that are configured to be publish **and** have the slack handler:
+A field or label selector can be made of multiple statements which are separated with the logical operator `&&` (_AND_). For example, the following curl request looks up checks that are configured to be published **and** have the `slack` handler:
 
 {{< highlight shell >}}
 curl -H "Authorization: Bearer $TOKEN" http://127.0.0.1:8080/api/core/v2/checks -G \
 --data-urlencode 'fieldSelector=check.publish == true && slack in check.handlers'
 {{< /highlight >}}
 
-In addition to selectors with multiple requirements, both field and label selectors can be used at the same time:
+In addition to selectors with multiple statements, both field and label selectors can be used at the same time:
 {{< highlight shell >}}
 curl -H "Authorization: Bearer $TOKEN" http://127.0.0.1:8080/api/core/v2/checks -G \
 --data-urlencode 'fieldSelector=slack in check.handlers' \
