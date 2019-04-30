@@ -7,6 +7,7 @@ version: "5.6"
 menu: "sensu-go-5.6"
 ---
 
+- [5.6.0 release notes](#5-6-0-release-notes)
 - [5.5.1 release notes](#5-5-1-release-notes)
 - [5.5.0 release notes](#5-5-0-release-notes)
 - [5.4.0 release notes](#5-4-0-release-notes)
@@ -26,6 +27,30 @@ Sensu Go adheres to [semantic versioning][2] using MAJOR.MINOR.PATCH release num
 Read the [upgrade guide][1] for information on upgrading to the latest version of Sensu Go.
 
 ---
+
+## 5.6.0 release notes
+
+**April 30, 2019** &mdash; The latest release of Sensu Go, version 5.6.0, is now available for download.
+We have added some exciting new features in this release including API filtering and the ability to create and manage checks through the web UI with the presence of a valid license key.
+See the [upgrade guide][1] to upgrade Sensu to version 5.6.0.
+
+**NEW FEATURES:**
+
+- ([Enterprise-only][33]) Manage your Sensu checks from your browser: Sensu's web user interface now supports creating, editing, and deleting checks. See the [docs][32] to get started using the Sensu web UI.
+- The Sensu web UI now includes an option to delete entities.
+- ([Enterprise-only][33]) Sensu now supports resource filtering in the Sensu API and sensuctl command line tool. Filter events using custom labels and resource attributes, such as event status and check subscriptions. See the [API docs][34] and [sensuctl reference][35] for usage examples.
+
+**IMPROVEMENTS:**
+
+- ([Enterprise-only][33]) Sensu's LDAP and Active Directory integrations now support mutual authentication using the `trusted_ca_file`, `client_cert_file`, and `client_key_file` attributes. See the [guide to configuring an authentication provider][37] for more information.
+- ([Enterprise-only][33]) Sensu's LDAP and Active Directory integrations now support connecting to an authentication provider using anonymous binding. See the [LDAP][38] and [AD][39] binding configuration docs to learn more.
+- The [health API][36] response now includes the cluster ID.
+- The `sensuctl cluster health` and `sensuctl cluster member-list` commands now include the cluster ID in tabular format.
+
+**FIXES:**
+
+- You can now configure labels and annotations for Sensu agents using command line flags. For example: `sensu-agent start --label example_key="example value"`. See the [agent reference][40] for more examples.
+- The Sensu web UI now displays the correct checkbox state when no resources are present.
 
 ## 5.5.1 release notes
 
@@ -283,3 +308,12 @@ To get started with Sensu Go:
 [29]: /sensu-go/5.5/reference/agent#general-configuration-flags
 [30]: /sensu-go/5.5/reference/agent#creating-monitoring-events-using-the-agent-tcp-and-udp-sockets
 [31]: /sensu-go/5.4/api/metrics
+[32]: /sensu-go/5.6/dashboard/overview
+[33]: /sensu-go/5.6/getting-started/enterprise
+[34]: /sensu-go/5.6/api/overview#filtering
+[35]: /sensu-go/5.6/sensuctl/reference#filtering
+[36]: /sensu-go/5.6/api/health
+[37]: /sensu-go/5.6/installation/auth/
+[38]: /sensu-go/5.6/installation/auth/#binding-attributes
+[39]: /sensu-go/5.6/installation/auth/#active-directory-binding-attributes
+[40]: /sensu-go/5.6/reference/agent#general-configuration-flags
