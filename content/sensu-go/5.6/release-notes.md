@@ -31,18 +31,20 @@ Read the [upgrade guide][1] for information on upgrading to the latest version o
 ## 5.6.0 release notes
 
 **April 30, 2019** &mdash; The latest release of Sensu Go, version 5.6.0, is now available for download.
+We have added some exciting new features in this release including API filtering and the ability to create and manage checks through the web UI with the presence of a valid license key.
 See the [upgrade guide][1] to upgrade Sensu to version 5.6.0.
 
 **NEW FEATURES:**
 
-- Manage your Sensu checks from your browser: Sensu's web user interface now supports creating, editing, and deleting checks, as well as deleting entities. See the [docs][32] to get started using the Sensu web UI.
-- ([Enterprise-only][33]) Sensu now supports resource filtering in the Sensu API and sensuctl command line tool. Filter events using custom labels and event attributes, such as status, entity, and subscriptions. See the [API docs][34] and [sensuctl reference][35] for usage examples.
+- ([Enterprise-only][33]) Manage your Sensu checks from your browser: Sensu's web user interface now supports creating, editing, and deleting checks. See the [docs][32] to get started using the Sensu web UI.
+- The Sensu web UI now includes an option to delete entities.
+- ([Enterprise-only][33]) Sensu now supports resource filtering in the Sensu API and sensuctl command line tool. Filter events using custom labels and resource attributes, such as event status and check subscriptions. See the [API docs][34] and [sensuctl reference][35] for usage examples.
 
 **IMPROVEMENTS:**
 
 - ([Enterprise-only][33]) Sensu's LDAP and Active Directory integrations now support mutual authentication using the `trusted_ca_file`, `client_cert_file`, `client_key_file` attributes. See the [guide to configuring an authentication provider][37] for more information.
 - ([Enterprise-only][33]) Sensu's LDAP and Active Directory integrations now support connecting to an authentication provider using anonymous binding. See the [LDAP][38] and [AD][39] binding configuration docs to learn more.
-- The [health API][36] response now includes the cluster ID (`cluster_id`).
+- The [health API][36] response now includes the cluster ID.
 - The `sensuctl cluster health` and `sensuctl cluster member-list` commands now include the cluster ID in tabular format.
 
 **FIXES:**
