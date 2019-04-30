@@ -175,7 +175,7 @@ Additionally, there's two _set-based_ operators to deal with list of values, `in
 {{< highlight shell >}}
 linux in check.subscriptions
 slack notin check.handlers
-check.subscriptions in [system,linux]
+check.namespace in [dev,production]
 {{< /highlight >}}
 
 #### Combining selectors and statements
