@@ -16,7 +16,7 @@ menu:
   - [`authproviders/:name` (PUT)](#providersname-put)
   - [`authproviders/:name` (DELETE)](#authprovidersname-delete)
 
-**ENTERPRISE ONLY**: Authentication providers in Sensu Go require a Sensu Enterprise license. To activate your Sensu Enterprise license, see the [getting started guide][2].
+**ENTERPRISE ONLY**: Authentication providers in Sensu Go require an enterprise license. To activate your enterprise license, see the [getting started guide][2].
 
 ## The `/authproviders` API endpoints {#the-authproviders-api-endpoints}
 

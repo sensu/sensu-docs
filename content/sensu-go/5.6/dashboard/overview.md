@@ -11,6 +11,13 @@ menu:
     parent: dashboard
 ---
 
+- [Accessing the dashboard](#accessing-the-dashboard)
+- [Signing in](#signing-in)
+- [Namespaces](#namespaces)
+- [Managing checks](#managing-checks)
+- [Managing entities](#managing-entities)
+- [Themes](#themes)
+
 The Sensu backend includes the **Sensu dashboard**:
 a unified view of your events, entities, and checks with user-friendly tools to reduce alert fatigue.
 
