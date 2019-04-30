@@ -32,7 +32,12 @@ HTTP/1.1 200 OK
       "Err": "",
       "Healthy": true
     }
-  ]
+  ],
+  "Header": {
+    "cluster_id": 4255616304056076734,
+    "member_id": 9882886658148554927,
+    "raft_term": 26
+  }
 }
 {{< /highlight >}}
 
@@ -54,6 +59,11 @@ output         | {{< highlight shell >}}
       "Err": "",
       "Healthy": true
     }
-  ]
+  ],
+  "Header": {
+    "cluster_id": 4255616304056076734,
+    "member_id": 9882886658148554927,
+    "raft_term": 26
+  }
 }
 {{< /highlight >}}
