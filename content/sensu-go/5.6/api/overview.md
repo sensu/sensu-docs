@@ -127,7 +127,7 @@ Content-Type: application/json
 
 The Sensu API supports filtering for all GET endpoints that return an array. You can filter resources based on their labels with a label selector using the `labelSelector` query parameter and on certain pre-determined fields with a field selector using the `fieldSelector` query parameter.
 
-For example, the following request filters the response to only include resources that have a label entry `region` with the value `us-west-1`. We will use the flag `--data-urlencode` in curl so it encodes the query parameter for us, in conjunction with the `-G` flag to it appends the data to the URL.
+For example, the following request filters the response to only include resources that have a label entry `region` with the value `us-west-1`. We will use the flag `--data-urlencode` in curl so it encodes the query parameter for us, in conjunction with the `-G` flag so it appends the data to the URL.
 
 {{< highlight shell >}}
 curl -H "Authorization: Bearer $TOKEN" http://127.0.0.1:8080/api/core/v2/checks -G \
@@ -163,14 +163,14 @@ A field selector can use certain fields of resources to organize and select subs
 
 #### Supported operators
 
-There's two _equality-based_ operators supported, `==` (equality) and `!=` (inequality). For example, the following statements are possible:
+There are two _equality-based_ operators supported, `==` (equality) and `!=` (inequality). For example, the following statements are possible:
 
 {{< highlight shell >}}
 check.publish == true
 check.namespace != "default"
 {{< /highlight >}}
 
-Additionally, there's two _set-based_ operators to deal with list of values, `in` and `notin`. For example, the following statements are possible:
+Additionally, there are two _set-based_ operators to deal with lists of values, `in` and `notin`. For example, the following statements are possible:
 
 {{< highlight shell >}}
 linux in check.subscriptions
