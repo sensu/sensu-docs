@@ -42,7 +42,7 @@ See the [upgrade guide][1] to upgrade Sensu to version 5.6.0.
 
 **IMPROVEMENTS:**
 
-- ([Enterprise-only][33]) Sensu's LDAP and Active Directory integrations now support mutual authentication using the `trusted_ca_file`, `client_cert_file`, `client_key_file` attributes. See the [guide to configuring an authentication provider][37] for more information.
+- ([Enterprise-only][33]) Sensu's LDAP and Active Directory integrations now support mutual authentication using the `trusted_ca_file`, `client_cert_file`, and `client_key_file` attributes. See the [guide to configuring an authentication provider][37] for more information.
 - ([Enterprise-only][33]) Sensu's LDAP and Active Directory integrations now support connecting to an authentication provider using anonymous binding. See the [LDAP][38] and [AD][39] binding configuration docs to learn more.
 - The [health API][36] response now includes the cluster ID.
 - The `sensuctl cluster health` and `sensuctl cluster member-list` commands now include the cluster ID in tabular format.
