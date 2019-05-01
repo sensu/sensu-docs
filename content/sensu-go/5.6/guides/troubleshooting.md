@@ -21,13 +21,13 @@ Each log message is associated with a log level, indicative of the relative seve
 logged:
 
 | Log level          | Description |
-|--------------------|------------------------------------------------------------|
+|--------------------|-----------------------------------------------------------------------|
 | panic              | Severe errors causing the service to shut down in an unexpected state |
-| fatal              | Fatal errors causing the service to shut down (status 0)  |
-| error              | Non-fatal service error messages                                  |
-| warn               | Warning messages indicating potential issues             |
-| info               | Informational messages representing service actions                 |
-| debug              | Detailed service operation messages to help troubleshoot issues |
+| fatal              | Fatal errors causing the service to shut down (status 0)              |
+| error              | Non-fatal service error messages                                      |
+| warn               | Warning messages indicating potential issues                          |
+| info               | Informational messages representing service actions                   |
+| debug              | Detailed service operation messages to help troubleshoot issues       |
 
 These log levels can be configured by specifying the desired log level as the
 value of `log-level` in the service configuration file (e.g. `agent.yml` or
