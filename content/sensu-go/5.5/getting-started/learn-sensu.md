@@ -351,7 +351,7 @@ sensuctl event info sensu-go-sandbox curl_timings --format json | jq .
       "executed": 1556472457
     },
   ],
-  "output": "sensu-go-sandbox.curl_timings.time_total 0.005 1556472657\n...
+  "output": "sensu-go-sandbox.curl_timings.time_total 0.005 1556472657\n...",
   ...
   "output_metric_format": "graphite_plaintext",
   "output_metric_handlers": [
