@@ -343,9 +343,7 @@ example      | {{< highlight shell >}} "annotations": {
 
 ### Handling production events
 
-The following example filter definition, entitled `production_filter`, will
-match event data with a custom entity definition attribute `"namespace":
-"production"`.
+The following filter,`production_filter`, only handles events with a custom entity label `"environment": "production"`.
 
 {{< highlight json >}}
 {
@@ -353,44 +351,36 @@ match event data with a custom entity definition attribute `"namespace":
   "api_version": "core/v2",
   "metadata": {
     "name": "production_filter",
-    "namespace": "default",
-    "labels": null,
-    "annotations": null
+    "namespace": "default"
   },
   "spec": {
     "action": "allow",
     "expressions": [
-      "event.entity.namespace == 'production'"
-    ],
-    "runtime_assets": []
+      "event.entity.labels.environment == 'production'"
+    ]
   }
 }
 {{< /highlight >}}
 
 ### Handling non-production events
 
-The following example filter definition, entitled `development_filter`, will
-discard event data with a custom entity definition attribute `"namespace":
-"production"`.
-
+The following filter,`development_filter`, discards events with a custom entity label `"environment": "production"`.
 Note that `action` is `deny`, making this an exclusive filter; if evaluation
-returns false, the event will be handled.
+returns false, the event is handled.
+
 {{< highlight json >}}
 {
   "type": "EventFilter",
   "api_version": "core/v2",
   "metadata": {
     "name": "development_filter",
-    "namespace": "default",
-    "labels": null,
-    "annotations": null
+    "namespace": "default"
   },
   "spec": {
     "action": "deny",
     "expressions": [
-      "event.entity.metadata.namespace == 'production'"
-    ],
-    "runtime_assets": []
+      "event.entity.labels.environment == 'production'"
+    ]
   }
 }
 {{< /highlight >}}
