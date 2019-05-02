@@ -203,7 +203,7 @@ example      | {{< highlight shell >}}"datacenters": [
 
 subscriptions | 
 --------------|------
-description   | An array of the subscriptions that members of the role should have access to. Provided values will be used to filter which subscriptions members of the role will have access to. _NOTE: omitting this configuration attribute or providing an empty array will allow members of the role access to all subscriptions._
+description   | An array of the subscriptions that members of the role should have access to. Provided values will be used to filter which subscriptions members of the role will have access to. _NOTE: omitting this configuration attribute or providing an empty array will allow members of the role access to all subscriptions. The `subscriptions` attribute has limitations in its use as a selector in RBAC in limiting what data a user has access to. Due to those, it should be considered deprecated._
 required      | false
 type          | Array
 example       | {{< highlight shell >}}"subscriptions": [
