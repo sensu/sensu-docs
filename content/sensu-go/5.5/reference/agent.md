@@ -141,6 +141,26 @@ curl -X POST \
 http://127.0.0.1:3031/events
 {{< /highlight >}}
 
+With this initial event submitted to the Agent API, we have recorded in the backend that our script started, and configured the dead man's switch so that we'll be alerted if the job fails or runs too long. Although it is possible for our script to gracefully handle errors and emit additional monitoring events, this approach allows us to worry less about handling every possible error case, as the lack of additional check result before the 7 hour period elapses will result in an alert.
+
+If our backup script runs successfully, we can send an additional event without the TTL attribute, which removes the dead man's switch:
+
+{{< highlight shell >}}
+curl -X POST \
+-H 'Content-Type: application/json' \
+-d '{
+  "check": {
+    "metadata": {
+      "name": "mysql-backup-job"
+    },
+    "status": 0,
+    "output": "mysql backup ran successfully!"
+  }
+}' \
+http://127.0.0.1:3031/events
+{{< /highlight >}}
+
+By omitting the TTL attribute from this event, the dead man's switch being monitored by the Sensu backend is also removed, effectively sounding the "all clear" for this iteration of the task.
 #### API specification {#events-post-specification}
 
 /events (POST)     | 
