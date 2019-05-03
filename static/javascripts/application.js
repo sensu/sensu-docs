@@ -801,7 +801,7 @@ if ("document" in self && ("classList" in document.createElement("_") ? ! functi
                 console.error(t, e.status)
             }), t.removeEventListener("click", l)
         };*/
-        t.addEventListener("click", l);
+        // t.addEventListener("click", l);
         var u = 0;
         t.addEventListener("click", function(t) {
             var e = document.body.classList,
