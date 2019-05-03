@@ -119,7 +119,7 @@ By using check TTLs, Sensu is able to set an expectation that a Sensu agent will
 If a Sensu agent fails to publish an event before the check TTL expires, the Sensu backend creates an event with a status of `1` (warning) to indicate the expected event was not received.
 For more information on check TTLs, see the [the check reference][44].
 
-A great use case for the Sensu agent API is to create a dead man's switch to ensure that backup scripts continue to run successfully at regular intervals.
+A great use case for the Sensu agent API is to enable tasks which run outside of Sensu's check scheduling to emit events. Using the check TTL attribute, these events create a dead man's switch, ensuring that if the task fails for any reason, the lack of an "all clear" event from the task will notify operators of a silent failures which might otherwise be missed.
 If an external source sends a Sensu event with a check TTL to the Sensu agent API, Sensu expects another event from the same external source before the TTL expires.
 
 The following is an example of external event input via the Sensu agent API using a check TTL to create a dead man's switch for MySQL backups. The example uses a check TTL of `25200` seconds (7 hours).
