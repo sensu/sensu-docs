@@ -131,7 +131,7 @@ curl -X POST \
 -d '{
   "check": {
     "metadata": {
-      "name": "check-mysql-backup-status"
+      "name": "mysql-backup-job"
     },
     "status": 0,
     "output": "mysql backup initiated",
