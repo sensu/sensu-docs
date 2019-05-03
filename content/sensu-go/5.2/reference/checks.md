@@ -19,7 +19,7 @@ menu:
 - [Specification](#check-specification)
 - [Examples](#examples)
 
-Discover, download, and share Sensu check assets using [Bonsai][25], the Sensu asset index.
+Discover, download, and share Sensu check assets using [Bonsai][29], the Sensu asset index.
 Read the [guide to installing plugins using assets][28] to get started.
 
 ## How do checks work?
@@ -536,5 +536,5 @@ _NOTE: The attribute `interval` is not required if a valid `cron` schedule is de
 [27]: ../filters
 [sc]: ../../sensuctl/reference#creating-resources
 [sp]: #spec-attributes
-[25]: https://bonsai.sensu.io
 [28]: ../../guides/monitor-external-resources
+[29]: https://bonsai.sensu.io

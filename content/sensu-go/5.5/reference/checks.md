@@ -29,7 +29,7 @@ menu:
 Checks work with Sensu agents to produce monitoring events automatically.
 You can use checks to monitor server resources, services, and application health as well as collect and analyze metrics.
 Read the [guide to monitoring server resources](../../guides/monitor-server-resources) to get started.
-You can discover, download, and share Sensu check assets using [Bonsai][25], the Sensu asset index.
+You can discover, download, and share Sensu check assets using [Bonsai][29], the Sensu asset index.
 
 ## Check commands
 
@@ -719,5 +719,5 @@ _NOTE: The attribute `interval` is not required if a valid `cron` schedule is de
 [27]: ../filters
 [sc]: ../../sensuctl/reference#creating-resources
 [sp]: #spec-attributes
-[25]: https://bonsai.sensu.io
 [28]: ../../guides/monitor-external-resources
+[29]: https://bonsai.sensu.io
