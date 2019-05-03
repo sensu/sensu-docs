@@ -813,6 +813,30 @@ code {
   color: #46474b;
 }
 
+.article h1 a,
+.article h2 a,
+.article h3 a,
+.article h4 a {
+  color: currentColor;
+  font-size: inherit;
+}
+
+.article h1 a > svg,
+.article h2 a > svg,
+.article h3 a > svg,
+.article h4 a > svg {
+  display:none;
+  fill: currentColor;
+  margin-left: 0.75rem;
+}
+
+.article h1:hover a > svg,
+.article h2:hover a > svg,
+.article h3:hover a > svg,
+.article h4:hover a > svg {
+  display: inline;
+}
+
 .article h1,
 .drawer h1 {
   font-family: 'Work Sans';
