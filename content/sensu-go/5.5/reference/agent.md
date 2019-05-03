@@ -115,7 +115,7 @@ _PRO TIP: You can use the agent API `/events` endpoint to create proxy entities 
 #### Detecting silent failures
 
 You can use the Sensu agent API in combination with the check time-to-live attribute (TTL) to detect silent failures, creating what's commonly referred to as a "dead man's switch" (source: [Wikipedia][20]).
-By using check TTLs, Sensu is able to set an expectation that a Sensu agent continues to publish events for a check at a regular interval.
+By using check TTLs, Sensu is able to set an expectation that a Sensu agent will publish additional events for a check within the period of time specified by the TTL attribute.
 If a Sensu agent fails to publish an event and the check TTL expires, Sensu creates a event with a status of `1` (warning) to indicate the silent failure.
 For more information on check TTLs, see the [the check reference][44].
 
