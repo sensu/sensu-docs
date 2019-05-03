@@ -294,6 +294,7 @@ validated    | [`\A[\w\.\-]+\z`](https://regex101.com/r/zo9mQU/2)
 example      | {{< highlight shell >}}"proxy_entity_name": "switch-dc-01"{{< /highlight >}}
 
 <a name="proxy-requests-top-level"></a>
+
 |proxy_requests|    |
 -------------|------
 description  | [Sensu proxy request attributes][10] allow you to assign the check to run for multiple entities according to their `entity_attributes`. In the example below, the check executes for all entities with entity class `proxy` and the custom proxy type label `website`. Proxy requests are a great way to reuse check definitions for a group of entities. For more information, see the [proxy requests specification][10] and the [guide to monitoring external resources][28].
@@ -515,3 +516,4 @@ _NOTE: The attribute `interval` is not required if a valid `cron` schedule is de
 [27]: ../filters
 [sc]: ../../sensuctl/reference#creating-resources
 [sp]: #spec-attributes
+[28]: ../../guides/monitor-external-resources

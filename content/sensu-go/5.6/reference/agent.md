@@ -492,6 +492,14 @@ sensu-agent help
 sensu-agent start --help
 {{< /highlight >}}
 
+### Clustering
+
+Agents can connect to a Sensu cluster by specifying any Sensu backend URL in the cluster in the [`backend-url` configuration flag][16]. For more information about clustering, see [Sensu backend datastore configuration flags][35] and the [guide to running a Sensu cluster][36].
+
+### Time synchronization
+
+System clocks between agents and the backend should be synchronized to a central NTP server. Out of sync system time may cause issues with keepalive, metric, and check alerts.
+
 ## Registration
 
 In practice, agent registration happens when a Sensu backend processes an agent keepalive event for an agent that is not already registered in the Sensu agent registry (based on the configured agent `name`).
@@ -519,18 +527,11 @@ You can use deregistration events to trigger a handler that updates external CMD
 To enable deregistration events, use the [`deregister` flag][13] and specify the event handler using the [`deregistration-handler` flag][13].
 You can specify a deregistration handler per agent using the [`deregistration-handler` agent flag][13] or by setting a default for all agents using the [`deregistration-handler` backend configuration flag][37].
 
-### Clustering
-
-Agents can connect to a Sensu cluster by specifying any Sensu backend URL in the cluster in the [`backend-url` configuration flag][16]. For more information about clustering, see [Sensu backend datastore configuration flags][35] and the [guide to running a Sensu cluster][36].
-
-### Time synchronization
-
-System clocks between agents and the backend should be synchronized to a central NTP server. Out of sync system time may cause issues with keepalive, metric and check alerts.
-
 ## Configuration
 
-You can specify the agent configuration using a `/etc/sensu/agent.yml` file or using `sensu-agent start` [configuration flags][24].
+You can specify the agent configuration using a `/etc/sensu/agent.yml` file or using `sensu-agent start` command-line flags.
 See the example config file provided with Sensu packages at `/usr/share/doc/sensu-go-agent-5.6.0/agent.yml.example` or [available here](/sensu-go/5.6/files/agent.yml).
+Configuration provided via command-line flags overrides attributes specified in a configuration file.
 The agent loads configuration upon startup, so you must restart the agent for any configuration updates to take effect.
 
 ### Configuration summary
@@ -585,7 +586,10 @@ description  |Arbitrary, non-identifying metadata to include with event data. In
 required     | false
 type         | Map of key-value pairs. Keys and values can be any valid UTF-8 string.
 default      | `null`
-example      | {{< highlight shell >}}
+example      | {{< highlight shell >}}# Command line examples
+sensu-agent start --annotations sensu.io/plugins/slack/config/webhook-url=https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX
+sensu-agent start --annotations example-key="example value" --annotations example-key2="example value"
+
 # /etc/sensu/agent.yml example
 annotations:
   sensu.io/plugins/slack/config/webhook-url: "https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX"
@@ -639,8 +643,9 @@ description  | Custom attributes to include with event data, which can be querie
 required     | false
 type         | Map of key-value pairs. Keys can contain only letters, numbers, and underscores, but must start with a letter. Values can be any valid UTF-8 string.
 default      | `null`
-example               | {{< highlight shell >}}# Command line example
+example               | {{< highlight shell >}}# Command line examples
 sensu-agent start --labels proxy_type=website
+sensu-agent start --labels example_key1="example value" example_key2="example value"
 
 # /etc/sensu/agent.yml example
 labels:

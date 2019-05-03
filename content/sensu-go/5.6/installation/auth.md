@@ -114,10 +114,6 @@ Active Directory users should head over to the [Active Directory section](#activ
     "servers": [
       {
         "host": "127.0.0.1",
-        "binding": {
-          "user_dn": "cn=binder,dc=acme,dc=org",
-          "password": "P@ssw0rd!"
-        },
         "group_search": {
           "base_dn": "dc=acme,dc=org"
         },
@@ -146,6 +142,9 @@ Active Directory users should head over to the [Active Directory section](#activ
         "port": 636,
         "insecure": false,
         "security": "tls",
+        "trusted_ca_file": "/path/to/trusted-certificate-authorities.pem",
+        "client_cert_file": "/path/to/ssl/cert.pem",
+        "client_key_file": "/path/to/ssl/key.pem",
         "binding": {
           "user_dn": "cn=binder,dc=acme,dc=org",
           "password": "P@ssw0rd!"
@@ -212,18 +211,32 @@ example      | {{< highlight shell >}}
   "servers": [
     {
       "host": "127.0.0.1",
+      "port": 636,
+      "insecure": false,
+      "security": "tls",
+      "trusted_ca_file": "/path/to/trusted-certificate-authorities.pem",
+      "client_cert_file": "/path/to/ssl/cert.pem",
+      "client_key_file": "/path/to/ssl/key.pem",
       "binding": {
         "user_dn": "cn=binder,dc=acme,dc=org",
         "password": "P@ssw0rd!"
       },
       "group_search": {
-        "base_dn": "dc=acme,dc=org"
+        "base_dn": "dc=acme,dc=org",
+        "attribute": "member",
+        "name_attribute": "cn",
+        "object_class": "groupOfNames"
       },
       "user_search": {
-        "base_dn": "dc=acme,dc=org"
+        "base_dn": "dc=acme,dc=org",
+        "attribute": "uid",
+        "name_attribute": "cn",
+        "object_class": "person"
       }
     }
-  ]
+  ],
+  "groups_prefix": "ldap",
+  "username_prefix": "ldap"
 }
 {{< /highlight >}}
 
@@ -238,15 +251,27 @@ example      | {{< highlight shell >}}
 "servers": [
   {
     "host": "127.0.0.1",
+    "port": 636,
+    "insecure": false,
+    "security": "tls",
+    "trusted_ca_file": "/path/to/trusted-certificate-authorities.pem",
+    "client_cert_file": "/path/to/ssl/cert.pem",
+    "client_key_file": "/path/to/ssl/key.pem",
     "binding": {
       "user_dn": "cn=binder,dc=acme,dc=org",
       "password": "P@ssw0rd!"
     },
     "group_search": {
-      "base_dn": "dc=acme,dc=org"
+      "base_dn": "dc=acme,dc=org",
+      "attribute": "member",
+      "name_attribute": "cn",
+      "object_class": "groupOfNames"
     },
     "user_search": {
-      "base_dn": "dc=acme,dc=org"
+      "base_dn": "dc=acme,dc=org",
+      "attribute": "uid",
+      "name_attribute": "cn",
+      "object_class": "person"
     }
   }
 ]
@@ -302,10 +327,31 @@ type         | String
 default      | `"tls"`
 example      | {{< highlight shell >}}"security": "tls"{{< /highlight >}}
 
+| trusted_ca_file | |
+-------------|------
+description  | Path to an alternative CA bundle file in PEM format to be used instead of the system's default bundle. This CA bundle is used to verify the server's certificate.
+required     | false
+type         | String
+example      | {{< highlight shell >}}"trusted_ca_file": "/path/to/trusted-certificate-authorities.pem"{{< /highlight >}}
+
+| client_cert_file | |
+-------------|------
+description  | Path to the certificate that should be sent to the server if it requests it
+required     | false
+type         | String
+example      | {{< highlight shell >}}"client_cert_file": "/path/to/ssl/cert.pem"{{< /highlight >}}
+
+| client_key_file | |
+-------------|------
+description  | Path to the key file associated with the `client_cert_file`
+required     | false
+type         | String
+example      | {{< highlight shell >}}"client_key_file": "/path/to/ssl/key.pem"{{< /highlight >}}
+
 | binding    |      |
 -------------|------
-description  | The LDAP account that performs user and group lookups.
-required     | true
+description  | The LDAP account that performs user and group lookups. If your sever supports anonymous binding, you can omit the `user_dn` or `password` attributes to query the directory without credentials.
+required     | false
 type         | Map
 example      | {{< highlight shell >}}
 "binding": {
@@ -346,15 +392,15 @@ example      | {{< highlight shell >}}
 
 | user_dn    |      |
 -------------|------
-description  | The LDAP account that performs user and group lookups. We recommend using a read-only account. Use the distinguished name (DN) format, such as `cn=binder,cn=users,dc=domain,dc=tld`.
-required     | true
+description  | The LDAP account that performs user and group lookups. We recommend using a read-only account. Use the distinguished name (DN) format, such as `cn=binder,cn=users,dc=domain,dc=tld`. If your sever supports anonymous binding, you can omit this attribute to query the directory without credentials.
+required     | false
 type         | String
 example      | {{< highlight shell >}}"user_dn": "cn=binder,dc=acme,dc=org"{{< /highlight >}}
 
 | password   |      |
 -------------|------
-description  | Password for the `user_dn` account.
-required     | true
+description  | Password for the `user_dn` account. If your sever supports anonymous binding, you can omit this attribute to query the directory without credentials.
+required     | false
 type         | String
 example      | {{< highlight shell >}}"password": "P@ssw0rd!"{{< /highlight >}}
 
@@ -546,10 +592,6 @@ Sensu offers enterprise-only support for using Microsoft Active Directory (AD) f
     "servers": [
       {
         "host": "127.0.0.1",
-        "binding": {
-          "user_dn": "cn=binder,cn=users,dc=acme,dc=org",
-          "password": "P@ssw0rd!"
-        },
         "group_search": {
           "base_dn": "dc=acme,dc=org"
         },
@@ -578,6 +620,9 @@ Sensu offers enterprise-only support for using Microsoft Active Directory (AD) f
         "port": 636,
         "insecure": false,
         "security": "tls",
+        "trusted_ca_file": "/path/to/trusted-certificate-authorities.pem",
+        "client_cert_file": "/path/to/ssl/cert.pem",
+        "client_key_file": "/path/to/ssl/key.pem",
         "binding": {
           "user_dn": "cn=binder,cn=users,dc=acme,dc=org",
           "password": "P@ssw0rd!"
@@ -644,18 +689,32 @@ example      | {{< highlight shell >}}
   "servers": [
     {
       "host": "127.0.0.1",
+      "port": 636,
+      "insecure": false,
+      "security": "tls",
+      "trusted_ca_file": "/path/to/trusted-certificate-authorities.pem",
+      "client_cert_file": "/path/to/ssl/cert.pem",
+      "client_key_file": "/path/to/ssl/key.pem",
       "binding": {
         "user_dn": "cn=binder,cn=users,dc=acme,dc=org",
         "password": "P@ssw0rd!"
       },
       "group_search": {
-        "base_dn": "dc=acme,dc=org"
+        "base_dn": "dc=acme,dc=org",
+        "attribute": "member",
+        "name_attribute": "cn",
+        "object_class": "group"
       },
       "user_search": {
-        "base_dn": "dc=acme,dc=org"
+        "base_dn": "dc=acme,dc=org",
+        "attribute": "sAMAccountName",
+        "name_attribute": "displayName",
+        "object_class": "person"
       }
     }
-  ]
+  ],
+  "groups_prefix": "ad",
+  "username_prefix": "ad"
 }
 {{< /highlight >}}
 
@@ -670,15 +729,27 @@ example      | {{< highlight shell >}}
 "servers": [
   {
     "host": "127.0.0.1",
+    "port": 636,
+    "insecure": false,
+    "security": "tls",
+    "trusted_ca_file": "/path/to/trusted-certificate-authorities.pem",
+    "client_cert_file": "/path/to/ssl/cert.pem",
+    "client_key_file": "/path/to/ssl/key.pem",
     "binding": {
       "user_dn": "cn=binder,cn=users,dc=acme,dc=org",
       "password": "P@ssw0rd!"
     },
     "group_search": {
-      "base_dn": "dc=acme,dc=org"
+      "base_dn": "dc=acme,dc=org",
+      "attribute": "member",
+      "name_attribute": "cn",
+      "object_class": "group"
     },
     "user_search": {
-      "base_dn": "dc=acme,dc=org"
+      "base_dn": "dc=acme,dc=org",
+      "attribute": "sAMAccountName",
+      "name_attribute": "displayName",
+      "object_class": "person"
     }
   }
 ]
@@ -734,10 +805,31 @@ type         | String
 default      | `"tls"`
 example      | {{< highlight shell >}}"security": "tls"{{< /highlight >}}
 
+| trusted_ca_file | |
+-------------|------
+description  | Path to an alternative CA bundle file in PEM format to be used instead of the system's default bundle. This CA bundle is used to verify the server's certificate.
+required     | false
+type         | String
+example      | {{< highlight shell >}}"trusted_ca_file": "/path/to/trusted-certificate-authorities.pem"{{< /highlight >}}
+
+| client_cert_file | |
+-------------|------
+description  | Path to the certificate that should be sent to the server if it requests it
+required     | false
+type         | String
+example      | {{< highlight shell >}}"client_cert_file": "/path/to/ssl/cert.pem"{{< /highlight >}}
+
+| client_key_file | |
+-------------|------
+description  | Path to the key file associated with the `client_cert_file`
+required     | false
+type         | String
+example      | {{< highlight shell >}}"client_key_file": "/path/to/ssl/key.pem"{{< /highlight >}}
+
 | binding    |      |
 -------------|------
-description  | The AD account that performs user and group lookups.
-required     | true
+description  | The AD account that performs user and group lookups. If your sever supports anonymous binding, you can omit the `user_dn` or `password` attributes to query the directory without credentials. To use anonymous binding with AD, the `ANONYMOUS LOGON` object requires read permissions for users and groups.
+required     | false
 type         | Map
 example      | {{< highlight shell >}}
 "binding": {
@@ -778,15 +870,15 @@ example      | {{< highlight shell >}}
 
 | user_dn    |      |
 -------------|------
-description  | The AD account that performs user and group lookups. We recommend using a read-only account. Use the distinguished name (DN) format, such as `cn=binder,cn=users,dc=domain,dc=tld`.
-required     | true
+description  | The AD account that performs user and group lookups. We recommend using a read-only account. Use the distinguished name (DN) format, such as `cn=binder,cn=users,dc=domain,dc=tld`. If your sever supports anonymous binding, you can omit this attribute to query the directory without credentials.
+required     | false
 type         | String
 example      | {{< highlight shell >}}"user_dn": "cn=binder,cn=users,dc=acme,dc=org"{{< /highlight >}}
 
 | password   |      |
 -------------|------
-description  | Password for the `user_dn` account.
-required     | true
+description  | Password for the `user_dn` account. If your sever supports anonymous binding, you can omit this attribute to query the directory without credentials.
+required     | false
 type         | String
 example      | {{< highlight shell >}}"password": "P@ssw0rd!"{{< /highlight >}}
 
