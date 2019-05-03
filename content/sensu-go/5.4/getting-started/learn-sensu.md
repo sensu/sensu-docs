@@ -345,36 +345,23 @@ After about 10 seconds, we can see the event produced by the entity:
 {{< highlight shell >}}
 sensuctl event info sensu-go-sandbox curl_timings --format json | jq .
 ...
-  "metrics": {
-    "handlers": [
-      "influx-db"
-    ],
-    "points": [
-      {
-        "name": "sensu-go-sandbox.curl_timings.time_total",
-        "value": 0.005,
-        "timestamp": 1543532948,
-        "tags": []
-      },
-      {
-        "name": "sensu-go-sandbox.curl_timings.time_namelookup",
-        "value": 0.005,
-        "timestamp": 1543532948,
-        "tags": []
-      },
-      {
-        "name": "sensu-go-sandbox.curl_timings.time_connect",
-        "value": 0.005,
-        "timestamp": 1543532948,
-        "tags": []
-      }
-    ]
-  }
+  "history": [
+    {
+      "status": 0,
+      "executed": 1556472457
+    },
+  ],
+  "output": "sensu-go-sandbox.curl_timings.time_total 0.005 1556472657\n...",
+  ...
+  "output_metric_format": "graphite_plaintext",
+  "output_metric_handlers": [
+    "influx-db"
+  ],
+...
 {{< /highlight >}}
 
-Because we configured a metric format, the Sensu agent was able to convert the Graphite-formatted metrics provided by the check command into a set of Sensu-formatted metrics.
+Because we configured a metric format, the Sensu agent is able to convert the Graphite-formatted metrics provided by the check command into a set of Sensu-formatted metrics (not shown in the output), which are then sent to the InfluxDB handler that reads Sensu-formatted metrics and converts them to a format InfluxDB accepts.
 Metric support isn't limited to just Graphite; the Sensu agent can extract metrics in multiple line protocol formats, including Nagios performance data.
-.
 
 **5. See the HTTP response code events for Nginx in [Grafana](http://localhost:4002/d/go01/sensu-go-sandbox).**
 

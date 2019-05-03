@@ -16,6 +16,7 @@ menu:
 - [Creating resources](#creating-resources)
 - [Updating resources](#updating-resources)
 - [Managing resources](#managing-resources)
+- [Filtering](#filtering) (enterprise-only)
 - [Time formats](#time-formats)
 - [Shell auto-completion](#shell-auto-completion)
 - [Config files](#configuration-files)
@@ -371,6 +372,50 @@ See the [RBAC reference][21] for information about using access control with nam
 
 See the [RBAC reference][22] for information about local user management with sensuctl.
 
+## Filtering
+
+**ENTERPRISE ONLY**: sensuctl filtering requires an enterprise license. To activate your enterprise license, see the [getting started guide][30].
+
+Sensuctl supports filtering for all `list` commands using the `--label-selector` and `--field-selector` flags.
+For information about the operators and fields available to use in filters, see the [API docs][28].
+
+### Filtering syntax quick reference
+
+| operator | description     | example                |
+| -------- | --------------- | ---------------------- |
+| `==`     | Equality        | `check.publish == true`
+| `!=`     | Inequality      | `check.namespace != "default"`
+| `in`     | Included in     | `linux in check.subscriptions`
+| `notin`  | Not included in | `slack notin check.handlers`
+| `&&`     | Logical AND     | `check.publish == true && slack in check.handlers`
+
+### Filtering with labels
+
+You can use the `--label-selector` flag to filter using custom labels.
+For example, the following command returns entities with the `proxy_type` label set to `switch`.
+
+{{< highlight shell >}}
+sensuctl entity list --label-selector 'proxy_type == switch'
+{{< /highlight >}}
+
+### Filtering with resource attributes
+
+You can use the `--field-selector` flag to filter using selected resource attributes.
+To see the resource attributes available to use in filter statements, see the [API docs][29].
+
+For example, the following command returns entities with the `switches` subscription.
+
+{{< highlight shell >}}
+sensuctl entity list --field-selector 'switches in entity.subscriptions'
+{{< /highlight >}}
+
+You can also combine the `--label-selector` and `--field-selector` flags.
+For example, the following command returns checks with the `region` label set to `us-west-1` and the `slack` handler.
+
+{{< highlight shell >}}
+sensuctl check list --label-selector 'region == "us-west-1"' --field-selector 'slack in check.handlers'
+{{< /highlight >}}
+
 ## Time formats
 
 Sensuctl supports multiple time formats depending on the manipulated resource.
@@ -505,3 +550,6 @@ These are useful if you want to know what cluster you're connecting to, or what 
 [25]: ../../api/overview
 [26]: ../../installation/auth
 [27]: ../../reference/tessen
+[28]: ../../api/overview#filtering
+[29]: ../../api/overview#field-selector
+[30]: ../../getting-started/enterprise

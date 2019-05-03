@@ -14,6 +14,7 @@ menu:
 - [Versioning](#versioning)
 - [Access control](#access-control)
 - [Pagination](#pagination)
+- [Filtering](#filtering)
 - [Request size](#request-size)
 
 **Sensu Go 5.6 includes API v2.**
@@ -120,6 +121,79 @@ Content-Type: application/json
 ]
 {{< /highlight >}}
 
+### Filtering
+
+**ENTERPRISE ONLY**: API filtering in Sensu Go requires an enterprise license. To activate your enterprise license, see the [getting started guide][7].
+
+The Sensu API supports filtering for all GET endpoints that return an array. You can filter resources based on their labels with a label selector using the `labelSelector` query parameter and on certain pre-determined fields with a field selector using the `fieldSelector` query parameter.
+
+For example, the following request filters the response to only include resources that have a label entry `region` with the value `us-west-1`. We will use the flag `--data-urlencode` in curl so it encodes the query parameter for us, in conjunction with the `-G` flag so it appends the data to the URL.
+
+{{< highlight shell >}}
+curl -H "Authorization: Bearer $TOKEN" http://127.0.0.1:8080/api/core/v2/checks -G \
+--data-urlencode 'labelSelector=region == "us-west-1"'
+{{< /highlight >}}
+
+#### Label selector
+
+A label selector can use any label attributes to group a set of resources. All resources support labels within the metadata object. For example, see [entities metadata attributes][8].
+
+#### Field selector
+
+A field selector can use certain fields of resources to organize and select subsets of resources. Here's the list of available fields.
+
+| Resource      | Fields      |
+| ----------- | ----------- | 
+| Asset | `asset.name` `asset.namespace` `asset.filters` |
+| Check | `check.name` `check.namespace` `check.handlers` `check.publish` `check.round_robin` `check.runtime_assets` `check.subscriptions`|
+| ClusterRole | `clusterrole.name` |
+| ClusterRoleBinding | `clusterrolebinding.name` `clusterrolebinding.role_ref.name` `clusterrolebinding.role_ref.type`|
+| Entity | `entity.name` `entity.namespace` `entity.deregister` `entity.entity_class` `entity.subscriptions` |
+| Event | `event.name` `event.namespace` `event.check.handlers` `event.check.publish` `event.check.round_robin` `event.check.runtime_assets` `event.check.status` `event.check.subscriptions` `event.entity.deregister` `event.entity.entity_class` `event.entity.subscriptions` |
+| Extension | `extension.name` `extension.namespace` |
+| Filter | `filter.name` `filter.namespace` `filter.action` `filter.runtime_assets` |
+| Handler | `handler.name` `handler.namespace` `handler.filters` `handler.handlers` `handler.mutator` `handler.type`| 
+| Hook | `hook.name` `hook.namespace` |
+| Mutator | `mutator.name` `mutator.namespace` `mutator.runtime_assets` |
+| Namespace | `namespace.name` |
+| Role | `role.name` `role.namespace` |
+| RoleBinding | `rolebinding.name` `rolebinding.namespace` `rolebinding.role_ref.name` `rolebinding.role_ref.type`|
+| Silenced | `silenced.name` `silenced.namespace` `silenced.check` `silenced.creator` `silenced.expire_on_resolve` `silenced.subscription` |
+| User | `user.username` `user.disabled` `user.groups` |
+
+#### Supported operators
+
+There are two _equality-based_ operators supported, `==` (equality) and `!=` (inequality). For example, the following statements are possible:
+
+{{< highlight shell >}}
+check.publish == true
+check.namespace != "default"
+{{< /highlight >}}
+
+Additionally, there are two _set-based_ operators to deal with lists of values, `in` and `notin`. For example, the following statements are possible:
+
+{{< highlight shell >}}
+linux in check.subscriptions
+slack notin check.handlers
+check.namespace in [dev,production]
+{{< /highlight >}}
+
+#### Combining selectors and statements
+
+A field or label selector can be made of multiple statements which are separated with the logical operator `&&` (_AND_). For example, the following curl request looks up checks that are configured to be published **and** have the `slack` handler:
+
+{{< highlight shell >}}
+curl -H "Authorization: Bearer $TOKEN" http://127.0.0.1:8080/api/core/v2/checks -G \
+--data-urlencode 'fieldSelector=check.publish == true && slack in check.handlers'
+{{< /highlight >}}
+
+In addition to selectors with multiple statements, both field and label selectors can be used at the same time:
+{{< highlight shell >}}
+curl -H "Authorization: Bearer $TOKEN" http://127.0.0.1:8080/api/core/v2/checks -G \
+--data-urlencode 'fieldSelector=slack in check.handlers' \
+--data-urlencode 'labelSelector=region != "us-west-1"'
+{{< /highlight >}}
+
 ### Request size
 
 API request bodies are limited to 0.512 MB in size.
@@ -130,3 +204,5 @@ API request bodies are limited to 0.512 MB in size.
 [4]: ../../reference/agent#using-the-http-socket
 [5]: ../health/
 [6]: ../metrics
+[7]: ../../getting-started/enterprise
+[8]: ../../reference/entities#metadata-attributes
