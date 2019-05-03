@@ -315,6 +315,15 @@ example      | {{< highlight json >}}
   ]
 }{{< /highlight >}}
 
+| user |      |
+--------------|------
+description   | Sensu [RBAC](../rbac) username used by the entity. Agent entities require get, list, create, update, and delete permissions for events across all namespaces.
+type          | String
+default       | `agent`
+example       | {{< highlight shell >}}
+"user": "agent"
+{{< /highlight >}}
+
 ### Metadata attributes
 
 | name       |      |
