@@ -334,7 +334,7 @@ example      | {{< highlight shell >}}"namespace": "production"{{< /highlight >}
 
 | labels     |      |
 -------------|------
-description  | Custom attributes to include with event data, which can be queried like regular attributes. You can use labels to organize entities into meaningful collections that can be selected using [filters][6] and [tokens][7].
+description  | Custom attributes to include with event data, which can be accessed using [filters][6] and [tokens][7]. You can use labels to organize entities into meaningful collections that can be used in [API filtering][9] and [sensuctl filtering][10].
 required     | false
 type         | Map of key-value pairs. Keys can contain only letters, numbers, and underscores, but must start with a letter. Values can be any valid UTF-8 string.
 default      | `null`
@@ -345,7 +345,7 @@ example      | {{< highlight shell >}}"labels": {
 
 | annotations |     |
 -------------|------
-description  | Arbitrary, non-identifying metadata to include with event data. In contrast to labels, annotations are _not_ used internally by Sensu and cannot be used to identify entities. You can use annotations to add data that helps people or external tools interacting with Sensu.
+description  | Arbitrary metadata to include with event data, which can be accessed using [filters][6] and [tokens][7]. In contrast to labels, annotations cannot be used in [API filtering][9] or [sensuctl filtering][10]. You can use annotations to add data that helps people or external tools interacting with Sensu.
 required     | false
 type         | Map of key-value pairs. Keys and values can be any valid UTF-8 string.
 default      | `null`
@@ -570,3 +570,5 @@ example      | {{< highlight shell >}}"handler": "email-handler"{{< /highlight >
 [8]: #metadata-attributes
 [sc]: ../../sensuctl/reference#creating-resources
 [sp]: #spec-attributes
+[9]: ../../api/overview#filtering
+[10]: ../../sensuctl/reference#filtering
