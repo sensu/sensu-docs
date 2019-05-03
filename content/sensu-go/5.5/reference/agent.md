@@ -134,7 +134,7 @@ curl -X POST \
       "name": "check-mysql-backup-status"
     },
     "status": 0,
-    "output": "backed up mysql successfully | size_mb=568",
+    "output": "mysql backup initiated",
     "ttl": 25200
   }
 }' \
