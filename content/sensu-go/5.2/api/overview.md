@@ -1,5 +1,6 @@
 ---
-title: "API Overview"
+title: "API overview"
+linkTitle: "API Overview"
 description: "The Sensu backend REST API provides access to Sensu workflow configurations and monitoring event data. Read this guide for an overview of the Sensu Go API, including URL format, data format, versioning, and more."
 weight: 10
 version: "5.2"

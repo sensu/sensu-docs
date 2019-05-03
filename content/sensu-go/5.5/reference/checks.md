@@ -387,14 +387,14 @@ example      | {{< highlight shell >}}"handlers": ["pagerduty", "email"]{{< /hig
 
 |interval    |      |
 -------------|------
-description  | The frequency in seconds the check is executed.
+description  | How often the check is executed, in seconds
 required     | true (unless `cron` is configured)
 type         | Integer
 example      | {{< highlight shell >}}"interval": 60{{< /highlight >}}
 
 |cron        |      |
 -------------|------
-description  | When the check should be executed, using the [cron syntax][14] or [these predefined schedules][15].
+description  | When the check should be executed, using [cron syntax][14] or [these predefined schedules][15].
 required     | true (unless `interval` is configured)
 type         | String
 example      | {{< highlight shell >}}"cron": "0 0 * * *"{{< /highlight >}}

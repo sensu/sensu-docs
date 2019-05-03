@@ -9,7 +9,7 @@ layout: "single"
 
 [Learn about Sensu Go's built-in dashboard](/sensu-go/latest/dashboard/overview)
 
-_NOTE: The time has come to announce our end of life schedule for the original version of Sensu: **Uchiwa will reach end of life on December 31, 2019**, over 8 years since Sensu's inception as an open source software project. [Read our blog post](https://blog.sensu.io/eol-schedule-for-sensu-core-and-enterprise) for more information about what this means and helpful resources for upgrading to [Sensu Go](/sensu-go/latest/)._
+_NOTE: The time has come to announce our end of life schedule for the original version of Sensu: **Uchiwa will reach end of life on December 31, 2019**, over 8 years since Sensu's inception as an open source software project. [Read the blog post](https://blog.sensu.io/eol-schedule-for-sensu-core-and-enterprise), and see the [guide to migrating to Sensu Go](/sensu-go/latest/installation/upgrade#upgrading-to-sensu-go-from-sensu-core-1-x) for more information._
 
 ## What is Uchiwa?
 

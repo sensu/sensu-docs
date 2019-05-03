@@ -285,6 +285,12 @@ For example, to list all monitoring checks:
 sensuctl check list
 {{< /highlight >}}
 
+To list checks from all namespaces:
+
+{{< highlight shell >}}
+sensuctl check list --all-namespaces
+{{< /highlight >}}
+
 To write all checks to `my-resources.json` in `wrapped-json` format:
 
 {{< highlight shell >}}
