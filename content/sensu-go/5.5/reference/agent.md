@@ -123,7 +123,7 @@ A great use case for the Sensu agent API is to enable tasks which run outside of
 If an external source sends a Sensu event with a check TTL to the Sensu agent API, Sensu expects another event from the same external source before the TTL expires.
 
 The following is an example of external event input via the Sensu agent API using a check TTL to create a dead man's switch for MySQL backups.
-A MySQL backup script using the following code would be expected to continue to send an event at least once every 7 hours or Sensu creates an alert to indicate the silent failure.
+Imagine that a MySQL backup script runs periodically, and that we expect the job to take a little less than 7 hours to complete. In the case where the job completes successfully, we'd like a record of it, but don't need to be alerted. If the job fails for some reason, or continues running past the expected 7 hours, we'd like to be alerted.  Using the following code, our script sends an event which tells the Sensu backend to expect an additional event with the same name within 7 hours of the first event.
 
 {{< highlight shell >}}
 curl -X POST \
