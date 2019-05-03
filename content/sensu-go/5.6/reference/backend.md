@@ -155,7 +155,7 @@ To configure a cluster, see:
 
 ### Time synchronization
 
-System clocks between agents and the backend should be synchronized to a central NTP server. Out of sync system time may cause issues with keepalive, metric and check alerts.
+System clocks between agents and the backend should be synchronized to a central NTP server. Out of sync system time may cause issues with keepalive, metric, and check alerts.
 
 ## Configuration
 
