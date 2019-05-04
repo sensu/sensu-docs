@@ -90,7 +90,7 @@ For example, the following response indicates that there are more than two names
 {{< highlight shell >}}
 HTTP/1.1 200 OK
 Content-Type: application/json
-X-Sensu-Continue: L2RlZmF1bHQvY2N4MWM2L2hlbGxvLXdvcmxkAA
+Sensu-Continue: L2RlZmF1bHQvY2N4MWM2L2hlbGxvLXdvcmxkAA
 [
   {
     "name": "default"
