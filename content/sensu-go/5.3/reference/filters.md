@@ -77,7 +77,7 @@ and evaluates javascript expressions that are provided in the filter.
 There are some caveats to using Otto; most notably, the regular expressions
 specified in ECMAScript 5 do not all work. See the Otto README for more details.
 
-### Filter Assets
+### Filter assets
 
 Sensu filters can have assets that are included in their execution context.
 When valid assets are associated with a filter, Sensu evaluates any
