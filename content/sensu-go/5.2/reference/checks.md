@@ -34,6 +34,10 @@ A command may include command line arguments for controlling the behavior of the
 command executable. Most Sensu check plugins provide support for command line
 arguments for reusability.
 
+Sensu advises against requiring root privileges to execute check
+commands or scripts. The Sensu user is not permitted to kill timed out processes
+invoked by the root user, which could result in zombie processes.
+
 #### How and where are check commands executed?
 
 All check commands are executed by Sensu agents as the `sensu` user. Commands
