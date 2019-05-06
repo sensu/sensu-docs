@@ -28,13 +28,13 @@ much disk space do I have left?)
 
 The purpose of this guide is to help you monitor server resources, more
 specifically the CPU usage, by configuring a check named `check-cpu` with a
-**subscription** named `linux`, in order to target all **entities** subscribed
-to the `linux` subscription.
+**subscription** named `system`, in order to target all **entities** subscribed
+to the `system` subscription.
 This guide requires a Sensu backend and at least one Sensu agent running on Linux.
 
 ### Registering assets
 
-To power the check, we'll use the [Sensu plugins CPU checks][1] and the [Sensu Ruby runtime asset][7].
+To power the check, we'll use the [Sensu CPU checks asset][1] and the [Sensu Ruby runtime asset][7].
 
 Use the following sensuctl example to register the `sensu-plugins-cpu-checks` asset for CentOS, or download the asset definition for Debian or Alpine from [Bonsai][1] and register the asset using `sensuctl create --file filename.yml`.
 
@@ -60,34 +60,29 @@ sensuctl asset list
 
 ### Creating the check
 
-Now that the assets are registered, the second step is to create a check named
-`check-cpu`, which runs the command `check-cpu.rb` using the `sensu-plugins-cpu-checks` and `sensu-ruby-runtime` assets, at an
-**interval** of 60 seconds, for all entities subscribed to the `linux`
+Now that the assets are registered, we'll create a check named
+`check-cpu`, which runs the command `check-cpu.rb -w 75 -c 90` using the `sensu-plugins-cpu-checks` and `sensu-ruby-runtime` assets, at an
+**interval** of 60 seconds, for all entities subscribed to the `system`
 subscription.
+This checks generates a warning event (`-w`) when CPU usage reaches 75% and a critical alert (`-c`) at 90%.
 
 {{< highlight shell >}}
 sensuctl check create check-cpu \
---command 'check-cpu.rb' \
+--command 'check-cpu.rb -w 75 -c 90' \
 --interval 60 \
---subscriptions linux \
+--subscriptions system \
 --runtime-assets sensu-plugins-cpu-checks,sensu-ruby-runtime
 {{< /highlight >}}
 
-_NOTE: Sensu advises against requiring root privileges to execute check
-commands or scripts. The Sensu user is not permitted to kill timed out processes
-invoked by the root user, which could result in zombie processes. While Sensu
-discourages the use of `sudo` in check commands, you are free to configure your
-checks as you see fit, but please do so at your own risk._
-
 ### Configuring the subscription
 
-To run the check, we'll need a Sensu agent with the subscription `linux`.
+To run the check, we'll need a Sensu agent with the subscription `system`.
 After [installing an agent][install], open `/etc/sensu/agent.yml`
-and add the `linux` subscription so the subscription configuration looks like:
+and add the `system` subscription so the subscription configuration looks like:
 
 {{< highlight yml >}}
 subscriptions:
-  - linux
+  - system
 {{< /highlight >}}
 
 Then restart the agent.
@@ -98,17 +93,12 @@ sudo service sensu-agent restart
 
 ### Validating the check
 
-You can verify the proper behavior of the check using `sensuctl`.
+We can use sensuctl to see that Sensu is monitoring CPU usage using the `check-cpu`, returning an OK status (`0`).
 It might take a few moments, once the check is created,
-for the check to be scheduled on the entity and the result sent back to Sensu backend.
+for the check to be scheduled on the entity and the event returned to Sensu backend.
 
 {{< highlight shell >}}
 sensuctl event list
-{{< /highlight >}}
-
-Within the list of monitoring events, you should see an event representing the result of the `check-cpu` check.
-
-{{< highlight shell >}}
     Entity        Check                                                                    Output                                                                   Status   Silenced             Timestamp            
 ────────────── ─────────── ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── ──────── ────────── ─────────────────────────────── 
  sensu-centos   check-cpu   CheckCPU TOTAL OK: total=0.2 user=0.0 nice=0.0 system=0.2 idle=99.8 iowait=0.0 irq=0.0 softirq=0.0 steal=0.0 guest=0.0 guest_nice=0.0        0   false      2019-04-23 16:42:28 +0000 UTC  
@@ -116,7 +106,7 @@ Within the list of monitoring events, you should see an event representing the r
 
 ## Next steps
 
-You now know how to run a simple check to verify the CPU usage. From this point,
+You now know how to run a simple check to monitor CPU usage. From this point,
 here are some recommended resources:
 
 * Read the [checks reference][3] for in-depth documentation on checks.
