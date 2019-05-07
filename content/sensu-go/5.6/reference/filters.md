@@ -364,7 +364,7 @@ The following filter,`production_filter`, only handles events with a custom enti
 
 ### Handling non-production events
 
-The following filter,`development_filter`, discards events with a custom entity label `"environment": "production"`.
+The following filter,`not_production`, discards events with a custom entity label `"environment": "production"`.
 Note that `action` is `deny`, making this an exclusive filter; if evaluation
 returns false, the event is handled.
 
@@ -373,7 +373,7 @@ returns false, the event is handled.
   "type": "EventFilter",
   "api_version": "core/v2",
   "metadata": {
-    "name": "development_filter",
+    "name": "not_production",
     "namespace": "default"
   },
   "spec": {
