@@ -343,7 +343,7 @@ example      | {{< highlight shell >}} "annotations": {
 
 ### Handling production events
 
-The following filter,`production_filter`, only handles events with a custom entity label `"environment": "production"`.
+The following filter allows only events with a custom entity label `"environment": "production"` to be handled.
 
 {{< highlight json >}}
 {
@@ -364,7 +364,7 @@ The following filter,`production_filter`, only handles events with a custom enti
 
 ### Handling non-production events
 
-The following filter,`not_production`, discards events with a custom entity label `"environment": "production"`.
+The following filter discards events with a custom entity label `"environment": "production"`, allowing only events without an `environment` label or events with `environment` set to something other than `production` to be handled.
 Note that `action` is `deny`, making this an exclusive filter; if evaluation
 returns false, the event is handled.
 
