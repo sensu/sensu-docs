@@ -11,6 +11,7 @@ menu:
 ---
 
 - [Built-in filters](#built-in-filters)
+- [Building filter expressions](#building-filter-expressions)
 - [Specification](#filter-specification)
 - [Examples](#filter-examples)
 	- [Handling production events](#handling-production-events)
@@ -76,7 +77,7 @@ and evaluates javascript expressions that are provided in the filter.
 There are some caveats to using Otto; most notably, the regular expressions
 specified in ECMAScript 5 do not all work. See the Otto README for more details.
 
-### Filter Assets
+### Filter assets
 
 Sensu filters can have assets that are included in their execution context.
 When valid assets are associated with a filter, Sensu evaluates any
@@ -200,6 +201,120 @@ To use the metrics filter, include the `has_metrics` filter in the handler confi
 {{< /highlight >}}
 
 When applied to a handler configuration, the `has_metrics` filter allows only events that include a [`metrics` scope][9].
+
+## Building filter expressions
+
+You can write custom filter expressions as [Sensu query expressions][27] using the event data attributes described in this section.
+For more information about event attributes, see the [event reference][28].
+
+### Syntax quick reference
+
+<table>
+<thead>
+<tr>
+<th>operator</th>
+<th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>===</code> / <code>!==</code></td>
+<td>Identity operator / Nonidentity operator</td>
+</tr>
+<tr>
+<td><code>==</code> / <code>!=</code></td>
+<td>Equality operator / Inequality operator</td>
+</tr>
+<tr>
+<td><code>&&</code> / <code>||</code></td>
+<td>Logical AND / Logical OR</td>
+</tr>
+<tr>
+<td><code><</code> / <code>></code></td>
+<td>Less than / Greater than</td>
+</tr>
+<tr>
+<td><code><=</code> / <code>>=</code></td>
+<td>Less than or equal to / Greater than or equal to</td>
+</tr>
+</tbody>
+</table>
+
+### Event attributes available to filters
+
+| attribute           | type    | description |
+| ------------------- | ------- | ----------- |
+`event.has_check`     | boolean | Returns true if the event contains check data
+`event.has_metrics`   | boolean | Returns true if the event contains metrics
+`event.is_incident`   | boolean | Returns true for critical alerts (status `2`), warnings (status `1`), and resolution events (status `0` transitioning from status `1` or `2`)
+`event.is_resolution` | boolean | Returns true if the event status is OK (`0`) and the previous event was of a non-zero status
+`event.is_silenced`   | boolean | Returns true if the event matches an active silencing entry
+`event.timestamp`     | integer | Time that the event occurred in seconds since the Unix epoch
+
+### Check attributes available to filters
+
+| attribute                          | type    | description |
+| ---------------------------------- | ------- | ----------- |
+`event.check.annotations`            | map     | Custom [annotations][19] applied to the check
+`event.check.command`                | string  | The command executed by the check
+`event.check.cron`                   | string  | [Check execution schedule][21] using cron syntax
+`event.check.discard_output`         | boolean | If the check is configured to discard check output from event data
+`event.check.duration`               | float   | Command execution time in seconds
+`event.check.env_vars`               | array   | Environment variables used with command execution
+`event.check.executed`               | integer | Time that the check was executed in seconds since the Unix epoch
+`event.check.handlers`               | array   | Sensu event [handlers][22] assigned to the check
+`event.check.high_flap_threshold`    | integer | The check's flap detection high threshold in percent state change
+`event.check.history`                | array   | [Check status history][20] for the last 21 check executions
+`event.check.hooks`                  | array   | [Check hook][12] execution data
+`event.check.interval`               | integer | The check execution frequency in seconds
+`event.check.issued`                 | integer | Time that the check request was issued in seconds since the Unix epoch
+`event.check.labels`                 | map     | Custom [labels][19] applied to the check
+`event.check.last_ok`                | integer | The last time that the check returned an OK status (`0`) in seconds since the Unix epoch
+`event.check.low_flap_threshold`     | integer | The check's flap detection low threshold in percent state change
+`event.check.max_output_size`        | integer | Maximum size, in bytes, of stored check outputs
+`event.check.name`                   | string  | Check name
+`event.check.occurrences`            | integer | The number of times an event with the same status has occurred for the given entity and check
+`event.check.occurrences_watermark`  | integer | The highest number of occurrences for the given entity and check at the current status
+`event.check.output`                 | string  | The output from the execution of the check command
+`event.check.output_metric_format`   | string  | The [metric format][13] generated by the check command: `nagios_perfdata`, `graphite_plaintext`, `influxdb_line`, or `opentsdb_line` 
+`event.check.output_metric_handlers` | array   | Sensu metric [handlers][22] assigned to the check
+`event.check.proxy_entity_name`      | string  | The entity name, used to create a [proxy entity][14] for an external resource
+`event.check.proxy_requests`         | map     | [Proxy request][15] configuration
+`event.check.publish`                | boolean | If the check is scheduled automatically
+`event.check.round_robin`            | boolean | If the check is configured to be executed in a [round-robin style][16]
+`event.check.runtime_assets`         | array   | Sensu [assets][17] used by the check
+`event.check.state`                  | string  | The state of the check: `passing` (status `0`), `failing` (status other than `0`), or `flapping`
+`event.check.status`                 | integer | Exit status code produced by the check: `0` (OK), `1` (warning), `2` (critical), or other status (unknown or custom status)
+`event.check.stdin`                  | boolean | If the Sensu agent writes JSON-serialized entity and check data to the command process’ STDIN
+`event.check.subscriptions`          | array   | Subscriptions that the check belongs to
+`event.check.timeout`                | integer | The check execution duration timeout in seconds
+`event.check.total_state_change`     | integer | The total state change percentage for the check’s history
+`event.check.ttl`                    | integer | The time to live (TTL) in seconds until the event is considered stale
+`event.metrics.handlers`             | array   | Sensu metric [handlers][22] assigned to the check
+`event.metrics.points`               | array   | [Metric data points][23] including a name, timestamp, value, and tags
+
+### Entity attributes available to filters
+
+| attribute                            | type    | description |
+| ------------------------------------ | ------- | ----------- |
+`event.entity.annotations`             | map     | Custom [annotations][24] assigned to the entity
+`event.entity.deregister`              | boolean | If the agent entity should be removed when it stops sending [keepalive messages][26]
+`event.entity.deregistration`          | map     | A map containing a handler name, for use when an entity is deregistered
+`event.entity.entity_class`            | string  | The entity type: usually `agent` or `proxy`
+`event.entity.labels`                  | map     | Custom [labels][24] assigned to the entity
+`event.entity.last_seen`               | integer | Timestamp the entity was last seen, in seconds since the Unix epoch
+`event.entity.name`                    | string  | Entity name
+`event.entity.redact`                  | array   | List of items to redact from log messages
+`event.entity.subscriptions`           | array   | List of subscriptions assigned to the entity
+`event.entity.system`                  | map     | Information about the [entity's system][18]
+`event.entity.system.arch`             | string  | The entity's system architecture
+`event.entity.system.hostname`         | string  | The entity's hostname
+`event.entity.system.network`          | map     | The entity's network interface list
+`event.entity.system.os`               | string  | The entity’s operating system
+`event.entity.system.platform`         | string  | The entity’s operating system distribution
+`event.entity.system.platform_family`  | string  | The entity’s operating system family
+`event.entity.system.platform_version` | string  | The entity’s operating system version
+`event.entity.user`                    | string  | Sensu [RBAC][25] username used by the agent entity
 
 ## Filter specification
 
@@ -533,3 +648,20 @@ expressions.
 [11]: #metadata-attributes
 [sc]: ../../sensuctl/reference#creating-resources
 [sp]: #spec-attributes
+[12]: ../hooks
+[13]: ../../guides/extract-metrics-with-checks
+[14]: ../checks#using-a-proxy-check-to-monitor-a-proxy-entity
+[15]: ../checks#using-a-proxy-check-to-monitor-multiple-proxy-entities
+[16]: ../checks#round-robin-checks
+[17]: ../assets
+[18]: ../entities#system-attributes
+[19]: ../checks/#metadata-attributes
+[20]: ../events/#history-attributes
+[21]: ../checks#check-scheduling
+[22]: ../handlers
+[23]: ../events#metric-attributes
+[24]: ../entities#metadata-attributes
+[25]: ../rbac#default-roles
+[26]: ../agent#keepalive-monitoring
+[27]: ../sensu-query-expressions
+[28]: ../events#event-format
