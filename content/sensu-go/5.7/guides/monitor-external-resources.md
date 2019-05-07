@@ -236,7 +236,7 @@ Create a file called `check-proxy-requests.json` and add the following check def
     "namespace": "default"
   },
   "spec": {
-    "command": "check-http.rb {{ .labels.url }}",
+    "command": "check-http.rb -u {{ .labels.url }}",
     "runtime_assets": [
       "sensu-plugins-http",
       "sensu-ruby-runtime"
