@@ -217,13 +217,13 @@ service sensu-agent status
 
 Run the following command as an admin to install and start the agent.
 
-{{< highlight powershell >}}
+{{< highlight text >}}
 sensu-agent service install
 {{< /highlight >}}
 
 Verify that the agent is running.
 
-{{< highlight powershell >}}
+{{< highlight text >}}
 sc.exe query SensuAgent
 {{< /highlight >}}
 

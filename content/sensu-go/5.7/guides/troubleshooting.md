@@ -85,7 +85,7 @@ You can also view agent events using the Windows Event Viewer, under Windows Log
 
 If you're running a [binary-only distribution of the Sensu agent for Windows][2], you can follow the service log printed to standard output using the following command.
 
-{{< highlight powershell >}}
+{{< highlight text >}}
 Get-Content -  Path "C:\scripts\test.txt" -Wait
 {{< /highlight >}}
 

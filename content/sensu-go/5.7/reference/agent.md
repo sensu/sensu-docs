@@ -412,7 +412,7 @@ If no configuration flags are provided, the agent loads configuration from the l
 
 Run the following command as an admin to install and start the agent.
 
-{{< highlight powershell >}}
+{{< highlight text >}}
 sensu-agent service install
 {{< /highlight >}}
 
@@ -420,7 +420,7 @@ By default, the agent loads configuration from `%ALLUSERSPROFILE%\sensu\config\a
 
 You can configure the configuration file and log file locations using the `config-file` and `log-file` flags.
 
-{{< highlight powershell >}}
+{{< highlight text >}}
 sensu-agent service install --config-file 'C:\\monitoring\\sensu\\config\\agent.yml' --log-file 'C:\\monitoring\\sensu\\log\\sensu-agent.log'
 {{< /highlight >}}
 
@@ -444,7 +444,7 @@ sudo service sensu-agent stop
 
 **Windows**
 
-{{< highlight powershell >}}
+{{< highlight text >}}
 sc.exe stop SensuAgent
 {{< /highlight >}}
 
@@ -470,7 +470,7 @@ sudo service sensu-agent restart
 
 **Windows**
 
-{{< highlight powershell >}}
+{{< highlight text >}}
 sc.exe stop SensuAgent
 sc.exe start SensuAgent
 {{< /highlight >}}
@@ -525,7 +525,7 @@ service sensu-agent status
 
 **Windows**
 
-{{< highlight powershell >}}
+{{< highlight text >}}
 sc.exe query SensuAgent
 {{< /highlight >}}
 
@@ -545,7 +545,7 @@ sensu-agent version
 
 **Windows**
 
-{{< highlight powershell >}}
+{{< highlight text >}}
 sensu-agent service uninstall
 {{< /highlight >}}
 
