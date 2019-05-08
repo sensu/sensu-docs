@@ -416,7 +416,7 @@ Run the following command as an admin to install and start the agent.
 sensu-agent service install
 {{< /highlight >}}
 
-By default, the agent loads configuration from the location specified by the `config-file` attribute (default: `C:\ProgramData\sensu\config\agent.yml`) and stores service logs to `C:\ProgramData\sensu\log\sensu-agent.log`.
+By default, the agent loads configuration from `%ALLUSERSPROFILE%\sensu\config\agent.yml` (for example: `C:\ProgramData\sensu\config\agent.yml`) and stores service logs to `%ALLUSERSPROFILE%\sensu\log\sensu-agent.log` (for example: `C:\ProgramData\sensu\log\sensu-agent.log`).
 
 You can configure the configuration file and log file locations using the `config-file` and `log-file` flags.
 
@@ -662,7 +662,7 @@ Flags:
 ### Windows
 
 You can specify the agent configuration using a `.yml` file.
-See the example config file provided with Sensu packages at  `%ALLUSERSPROFILE%\Sensu\config\agent.yml.example` (default: `C:\ProgramData\Sensu\config\agent.yml.example`) or [available here](/sensu-go/5.7/files/windows/agent.yml).
+See the example config file provided with Sensu packages at `%ALLUSERSPROFILE%\sensu\config\agent.yml.example` (default: `C:\ProgramData\sensu\config\agent.yml.example`) or [available here](/sensu-go/5.7/files/windows/agent.yml).
 
 {{< platformBlockClose >}}
 
