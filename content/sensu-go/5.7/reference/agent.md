@@ -52,7 +52,7 @@ In order for an agent to execute a service check, you must specify the same subs
 After receiving a check request from the Sensu backend, the agent:
 
 1. Applies any [tokens][27] matching attribute values in the check definition.
-2. Fetches [assets][29] and stores them in its local cache. By default, agents cache asset data at `/var/cache/sensu/sensu-agent` (`C:\ProgramData\sensu\cache\sensu-agent` on Windows systems) or as specified by the the [`cache-dir` flag][30].
+2. Fetches [assets][29] and stores them in its local cache. By default, agents cache asset data at `/var/cache/sensu/sensu-agent` (`C:\ProgramData\Sensu\cache\sensu-agent` on Windows systems) or as specified by the the [`cache-dir` flag][30].
 3. Executes the [check `command`][14].
 4. Executes any [hooks][31] specified by the check based on the exit status.
 5. Creates an [event][7] containing information about the applicable entity, check, and metric.
@@ -416,7 +416,7 @@ Run the following command as an admin to install and start the agent.
 sensu-agent service install
 {{< /highlight >}}
 
-By default, the agent loads configuration from `%ALLUSERSPROFILE%\sensu\config\agent.yml` (for example: `C:\ProgramData\sensu\config\agent.yml`) and stores service logs to `%ALLUSERSPROFILE%\sensu\log\sensu-agent.log` (for example: `C:\ProgramData\sensu\log\sensu-agent.log`).
+By default, the agent loads configuration from `%ALLUSERSPROFILE%\sensu\config\agent.yml` (for example: `C:\ProgramData\Sensu\config\agent.yml`) and stores service logs to `%ALLUSERSPROFILE%\sensu\log\sensu-agent.log` (for example: `C:\ProgramData\Sensu\log\sensu-agent.log`).
 
 You can configure the configuration file and log file locations using the `config-file` and `log-file` flags.
 
@@ -662,7 +662,7 @@ Flags:
 ### Windows
 
 You can specify the agent configuration using a `.yml` file.
-See the example config file provided with Sensu packages at `%ALLUSERSPROFILE%\sensu\config\agent.yml.example` (default: `C:\ProgramData\sensu\config\agent.yml.example`) or [available here](/sensu-go/5.7/files/windows/agent.yml).
+See the example config file provided with Sensu packages at `%ALLUSERSPROFILE%\sensu\config\agent.yml.example` (default: `C:\ProgramData\Sensu\config\agent.yml.example`) or [available here](/sensu-go/5.7/files/windows/agent.yml).
 
 {{< platformBlockClose >}}
 
@@ -704,7 +704,7 @@ backend-url:
 --------------|------
 description   | Path to store cached data
 type          | String
-default       | <ul><li>Linux: `/var/cache/sensu/sensu-agent`</li><li>Windows: `C:\ProgramData\sensu\cache\sensu-agent`</li></ul>
+default       | <ul><li>Linux: `/var/cache/sensu/sensu-agent`</li><li>Windows: `C:\ProgramData\Sensu\cache\sensu-agent`</li></ul>
 example       | {{< highlight shell >}}# Command line example
 sensu-agent start --cache-dir /cache/sensu-agent
 
@@ -716,7 +716,7 @@ cache-dir: "/cache/sensu-agent"{{< /highlight >}}
 --------------|------
 description   | Path to Sensu agent config file
 type          | String
-default       | <ul><li>Linux: `/etc/sensu/agent.yml`</li><li>FreeBSD: `/usr/local/etc/sensu/agent.yml`</li><li>Windows: `C:\ProgramData\sensu\config\agent.yml`</li></ul>
+default       | <ul><li>Linux: `/etc/sensu/agent.yml`</li><li>FreeBSD: `/usr/local/etc/sensu/agent.yml`</li><li>Windows: `C:\ProgramData\Sensu\config\agent.yml`</li></ul>
 example       | {{< highlight shell >}}# Command line example
 sensu-agent start --config-file /sensu/agent.yml
 sensu-agent start -c /sensu/agent.yml
