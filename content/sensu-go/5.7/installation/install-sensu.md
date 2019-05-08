@@ -183,7 +183,7 @@ _NOTE: The Sensu agent can be configured using a `/etc/sensu/agent.yml` configur
 
 #### Windows
 
-Copy the example agent config file from `%ALLUSERSPROFILE%\Sensu\config\agent.yml.example` (default: `C:\ProgramData\Sensu\config\agent.yml.example`) to `C:\\ProgramData\sensu\config\agent.yml`.
+Copy the example agent config file from `%ALLUSERSPROFILE%\Sensu\config\agent.yml.example` (default: `C:\ProgramData\Sensu\config\agent.yml.example`) to `C:\ProgramData\sensu\config\agent.yml`.
 
 {{< platformBlockClose >}}
 

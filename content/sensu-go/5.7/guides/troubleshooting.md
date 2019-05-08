@@ -79,7 +79,7 @@ supercede the documented [supported platforms][platforms]._
 
 #### Windows
 
-The Sensu agent stores service logs to the location specified by the `log-file` configuration flag (default: `C:\\ProgramData\\sensu\\log\\sensu-agent.log`).
+The Sensu agent stores service logs to the location specified by the `log-file` configuration flag (default: `%ALLUSERSPROFILE%\Sensu\log\sensu-agent.log`).
 For more information about managing the Sensu agent for Windows, see the [agent reference][1].
 You can also view agent events using the Windows Event Viewer, under Windows Logs, as events with source SensuAgent.
 
