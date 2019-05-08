@@ -582,7 +582,7 @@ etcd-peer-client-cert-auth: true{{< /highlight >}}
 
 | etcd-peer-key-file |      |
 ---------------------|------
-description          | Path to the peer server TLS key file. Secures communication with the etcd peer server.
+description          | Path to the etcd peer API TLS key file. Secures communication between etcd cluster members.
 type                 | String
 example              | {{< highlight shell >}}# Command line example
 sensu-backend start --etcd-peer-key-file ./backend-0-key.pem
