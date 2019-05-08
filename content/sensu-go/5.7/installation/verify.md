@@ -42,7 +42,7 @@ curl -LO https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.7.0/sensu-enterp
 
 ### Windows
 
-Download the Sensu agent from Windows [`amd64`](https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.7.0/sensu-enterprise-go_5.7.0_windows_amd64.tar.gz) or [`386`](https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.7.0/sensu-enterprise-go_5.7.0_windows_386.tar.gz) architectures.
+Download the Sensu agent for Windows [`amd64`](https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.7.0/sensu-enterprise-go_5.7.0_windows_amd64.tar.gz) or [`386`](https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.7.0/sensu-enterprise-go_5.7.0_windows_386.tar.gz) architectures.
 
 {{< highlight text >}}
 Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.7.0/sensu-enterprise-go_5.7.0_windows_amd64.tar.gz  -OutFile "$env:userprofile\sensu-enterprise-go_5.7.0_windows_amd64.tar.gz"
@@ -113,7 +113,6 @@ Now that you’ve installed Sensu:
 [3]: ../../reference/agent#operation
 [4]: ../../sensuctl/reference#first-time-setup
 [5]: ../../guides/monitor-server-resources
-
 [1]: ../install-sensu
 [14]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.7.0/sensu-enterprise-go_5.7.0_linux_amd64.tar.gz
 [15]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.7.0/sensu-enterprise-go_5.7.0_linux_arm64.tar.gz
