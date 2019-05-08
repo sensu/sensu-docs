@@ -1,5 +1,6 @@
 ---
-title: "API Overview"
+title: "API overview"
+linkTitle: "API Overview"
 description: "The Sensu backend REST API provides access to Sensu workflow configurations and monitoring event data. Read this guide for an overview of the Sensu Go API, including URL format, data format, versioning, and more."
 weight: 10
 version: "5.4"
@@ -89,7 +90,7 @@ For example, the following response indicates that there are more than two names
 {{< highlight shell >}}
 HTTP/1.1 200 OK
 Content-Type: application/json
-X-Sensu-Continue: L2RlZmF1bHQvY2N4MWM2L2hlbGxvLXdvcmxkAA
+Sensu-Continue: L2RlZmF1bHQvY2N4MWM2L2hlbGxvLXdvcmxkAA
 [
   {
     "name": "default"
