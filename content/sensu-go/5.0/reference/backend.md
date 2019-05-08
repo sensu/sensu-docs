@@ -341,7 +341,7 @@ agent-port: 8081{{< /highlight >}}
 description  | Path to the primary backend certificate file. This certificate secures communications between Sensu Dashboard and end user web browsers, as well as communication between sensuctl and the Sensu API.
 type         | String
 default      | `""`
-  example      | {{< highlight shell >}}# Command line example
+example      | {{< highlight shell >}}# Command line example
 sensu-backend start --cert-file /path/to/ssl/cert.pem
 
 # /etc/sensu/backend.yml example
