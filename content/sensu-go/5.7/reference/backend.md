@@ -220,7 +220,7 @@ Store Flags:
 --------------|------
 description   | Path to store cached data
 type          | String
-default       | <ul><li>Linux: `/var/cache/sensu/sensu-backend`</li><li>Windows: `C:\\ProgramData\sensu\cache\sensu-backend`</li></ul>
+default       | `/var/cache/sensu/sensu-backend`
 example       | {{< highlight shell >}}# Command line example
 sensu-backend start --cache-dir /cache/sensu-backend
 
@@ -232,7 +232,7 @@ cache-dir: "/cache/sensu-backend"{{< /highlight >}}
 --------------|------
 description   | Path to Sensu backend config file
 type          | String
-default       | <ul><li>Linux: `/etc/sensu/backend.yml`</li><li>FreeBSD: `/usr/local/etc/sensu/backend.yml`</li><li>Windows: `C:\\ProgramData\sensu\config\backend.yml`</li></ul>
+default       | `/etc/sensu/backend.yml`
 example       | {{< highlight shell >}}# Command line example
 sensu-backend start --config-file /etc/sensu/backend.yml
 sensu-backend start -c /etc/sensu/backend.yml
@@ -279,7 +279,7 @@ log-level: "debug"{{< /highlight >}}
 
 | state-dir  |      |
 -------------|------
-description  | Path to Sensu state storage: `/var/lib/sensu/sensu-backend` for Linux and `C:\\ProgramData\sensu\data` for Windows.
+description  | Path to Sensu state storage: `/var/lib/sensu/sensu-backend`.
 type         | String
 required     | true
 example      | {{< highlight shell >}}# Command line example
