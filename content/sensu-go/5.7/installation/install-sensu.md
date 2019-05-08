@@ -151,19 +151,11 @@ sudo yum install sensu-go-agent
 
 #### Windows
 
-Download the [Sensu agent for Windows `amd64`](https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.7.0/sensu-enterprise-go_5.7.0_windows_amd64.tar.gz).
+Download the Sensu agent for Windows [`amd64`](https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.7.0/sensu-go-agent_5.7.0_2382_en-US.x64.msi) or [`386`](https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.7.0/sensu-go-agent_5.7.0_2382_en-US.x86.msi) architectures.
 
 {{< highlight text >}}
-Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.7.0/sensu-enterprise-go_5.7.0_windows_amd64.tar.gz  -OutFile "$env:userprofile\sensu-enterprise-go_5.7.0_windows_amd64.tar.gz"
+Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.7.0/sensu-go-agent_5.7.0_2382_en-US.x64.msi  -OutFile "$env:userprofile\sensu-go-agent_5.7.0_2382_en-US.x64.msi"
 {{< /highlight >}}
-
-Or download the [Sensu agent for Windows `386`](https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.7.0/sensu-enterprise-go_5.7.0_windows_386.tar.gz).
-
-{{< highlight text >}}
-Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.7.0/sensu-enterprise-go_5.7.0_windows_386.tar.gz  -OutFile "$env:userprofile\sensu-enterprise-go_5.7.0_windows_amd64.tar.gz"
-{{< /highlight >}}
-
-See the [verifying Sensu guide][12] to verify your download using checksums.
 
 {{< platformBlockClose >}}
 
@@ -191,7 +183,7 @@ _NOTE: The Sensu agent can be configured using a `/etc/sensu/agent.yml` configur
 
 #### Windows
 
-Download the [example agent configuration file][2] and save it as `C:\\ProgramData\sensu\config\agent.yml`.
+Copy the example agent config file from `%ALLUSERSPROFILE%\Sensu\config\agent.yml.example` (default: `C:\ProgramData\Sensu\config\agent.yml.example`) to `C:\\ProgramData\sensu\config\agent.yml`.
 
 {{< platformBlockClose >}}
 
@@ -223,7 +215,17 @@ service sensu-agent status
 
 #### Windows
 
-Coming soon.
+Run the following command as an admin to install and start the agent.
+
+{{< highlight powershell >}}
+sensu-agent service install
+{{< /highlight >}}
+
+Verify that the agent is running.
+
+{{< highlight powershell >}}
+sc.exe query SensuAgent
+{{< /highlight >}}
 
 {{< platformBlockClose >}}
 
