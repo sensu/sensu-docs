@@ -12,7 +12,7 @@ menu:
     parent: installation
 ---
 
-In addition to [packages][1], Sensu binary-only distributions are available for Linux, Windows, and macOS.
+In addition to [packages][1], Sensu binary-only distributions are available for Linux, Windows (agent and CLI only), and macOS (CLI only).
 
 {{< platformBlock "Linux" >}}
 
