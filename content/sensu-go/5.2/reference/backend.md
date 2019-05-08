@@ -338,7 +338,7 @@ agent-port: 8081{{< /highlight >}}
 
 | cert-file  |      |
 -------------|------
-description  | SSL/TLS certificate. This certificate secures communication with the Sensu Dashboard and API.
+description  | Path to the primary backend certificate file. This certificate secures communications between Sensu Dashboard and end user web browsers, as well as communication between sensuctl and the Sensu API.
 type         | String
 default      | `""`
 example      | {{< highlight shell >}}# Command line example
@@ -350,7 +350,7 @@ cert-file: "/path/to/ssl/cert.pem"{{< /highlight >}}
 
 | key-file   |      |
 -------------|------
-description  | SSL/TLS certificate key. This key secures communication with the Sensu Dashboard and API.
+description  | SSL/TLS certificate key. This key secures communication between Sensu Dashboard and end user web browsers, as well as communication between sensuctl and the Sensu API.
 type         | String
 default      | `""`
 example      | {{< highlight shell >}}# Command line example
@@ -428,7 +428,7 @@ etcd-advertise-client-urls:
 
 | etcd-cert-file |      |
 -----------------|------
-description      | Path to the client server TLS cert file. Secures communication with the etcd client server.
+description      | Path to the etcd client API TLS cert file. Secures communication between the embedded etcd client API and any etcd clients.
 type             | String
 default          | `""`
 example          | {{< highlight shell >}}# Command line example
@@ -504,7 +504,7 @@ etcd-initial-cluster-token: "sensu"{{< /highlight >}}
 
 | etcd-key-file  |      |
 -----------------|------
-description      | Path to the client server TLS key file. Secures communication with the etcd client server.
+description      | Path to the etcd client API TLS key file. Secures communication between the embedded etcd client API and any etcd clients.
 type             | String
 example          | {{< highlight shell >}}# Command line example
 sensu-backend start --etcd-key-file ./client-key.pem
@@ -559,7 +559,7 @@ etcd-name: "backend-0"{{< /highlight >}}
 
 | etcd-peer-cert-file |      |
 ----------------------|------
-description           | Path to the peer server TLS cert file
+description           | Path to the peer server TLS certificate file. This certificate secures communication between etcd cluster members.
 type                  | String
 example               | {{< highlight shell >}}# Command line example
 sensu-backend start --etcd-peer-cert-file ./backend-0.pem
@@ -582,7 +582,7 @@ etcd-peer-client-cert-auth: true{{< /highlight >}}
 
 | etcd-peer-key-file |      |
 ---------------------|------
-description          | Path to the peer server TLS key file. Secures communication with the etcd peer server.
+description          | Path to the etcd peer API TLS key file. Secures communication between etcd cluster members.
 type                 | String
 example              | {{< highlight shell >}}# Command line example
 sensu-backend start --etcd-peer-key-file ./backend-0-key.pem
@@ -593,7 +593,7 @@ etcd-peer-key-file: "./backend-0-key.pem"{{< /highlight >}}
 
 | etcd-peer-trusted-ca-file |      |
 ----------------------------|------
-description                 | Path to the peer server TLS CA file. Secures communication with the etcd peer server.
+description                 | Path to the etcd peer API server TLS trusted CA file. This certificate secures communication between etcd cluster members.
 type                        | String
 example                     | {{< highlight shell >}}# Command line example
 sensu-backend start --etcd-peer-trusted-ca-file ./ca.pem
