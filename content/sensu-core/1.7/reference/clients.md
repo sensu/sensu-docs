@@ -75,6 +75,8 @@ Keepalives can be used to identify unhealthy systems and network partitions
 (among other things), and keepalive events can trigger email notifications and
 other useful actions.
 
+Among those actions is communicating with external sources of truth to determine if the client should still be active. Those sources of truth may be something like a Chef server, a Puppet master, or AWS. This is especially useful when combined with [deregistration events](#registration-events). Adopting this pattern results in clients being deregistered only when a client keepalive threshold has been exceeded. 
+
 ### Client registration & the client registry {#registration-and-registry}
 
 In practice, client registrations happens when a Sensu server processes a client
@@ -115,7 +117,7 @@ You can use deregistration events to trigger a handler that updates external CMD
 
 By default, deregistration events trigger the built-in deregistration extension. To enable deregistration events, set the client `deregister` flag to `true`. This results in the client being immediately depopulated from the client registry in the event that the sensu-client process is administratively stopped. If you require additional logic or actions to be applied when deregistration events are received, specify your custom deregistration event handler using the client [`deregistration` definition scope][48].
 
-_NOTE: When the client `deregister` flag is set to `true`, the default behavior is for the respective client to be immediately depopulated from the dashboard in the event that the client process stops. However, to ensure visibility into stopped clients, we recommend implementing a handler inside the keepalive scope to deregister clients based on a keepalive exceeding a threshold. If you require that an external service be notified about client deregistration, we recommend using the Chef, Puppet, or AWS/EC2 plugins for your respective version (Core, Enterprise) of Sensu._
+_NOTE: To ensure visibility into stopped clients, we recommend implementing a handler inside the keepalive scope to deregister clients based on a keepalive exceeding a threshold. For the vast majority of Sensu use cases, having clients deregister immediately does not produce the a desired effect._
 
 #### Proxy clients
 
