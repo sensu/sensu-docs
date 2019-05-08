@@ -1,7 +1,7 @@
 ---
-title: "Verifying Sensu downloads"
-linkTitle: "Verify Sensu Downloads"
-description: "Sensu offers binary-only distributions for Linux, Windows, and macOS. Read the guide to learn how to verify your Sensu downloads using checksums."
+title: "Binary-only distributions"
+linkTitle: "Binary-Only Distributions"
+description: "Sensu offers binary-only distributions for Linux, Windows, and macOS. Read the guide to learn how to download and verify Sensu binaries."
 weight: 16
 product: "Sensu Go"
 version: "5.7"
@@ -12,16 +12,13 @@ menu:
     parent: installation
 ---
 
-Sensu binaries are available for download for Linux, Windows, and macOS.
-See the [installation guide][1] for more information.
-
-You can verify a Sensu download using SHA-512 checksums.
+In addition to [packages][1], Sensu binary-only distributions are available for Linux, Windows, and macOS.
 
 {{< platformBlock "Linux" >}}
 
 ### Linux
 
-Download Sensu for Linux.
+Download Sensu for Linux [`amd64`][14], [`arm64`][15], [`armv5`][16], [`armv6`][17], [`armv7`][18], or [`386`][19] architectures.
 
 {{< highlight shell >}}
 curl -LO https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.7.0/sensu-enterprise-go_5.7.0_linux_amd64.tar.gz
@@ -45,7 +42,7 @@ curl -LO https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.7.0/sensu-enterp
 
 ### Windows
 
-Download Sensu for Windows.
+Download the Sensu agent from Windows [`amd64`](https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.7.0/sensu-enterprise-go_5.7.0_windows_amd64.tar.gz) or [`386`](https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.7.0/sensu-enterprise-go_5.7.0_windows_386.tar.gz) architectures.
 
 {{< highlight text >}}
 Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.7.0/sensu-enterprise-go_5.7.0_windows_amd64.tar.gz  -OutFile "$env:userprofile\sensu-enterprise-go_5.7.0_windows_amd64.tar.gz"
@@ -89,6 +86,38 @@ The result should match the checksum for your platform.
 curl -LO https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.7.0/sensu-enterprise-go_5.7.0_checksums.txt && cat sensu-enterprise-go_5.7.0_checksums.txt
 {{< /highlight >}}
 
+Extract the archive.
+
+{{< highlight shell >}}
+tar -xvf sensu-enterprise-go_5.7.0_darwin_amd64.tar.gz
+{{< /highlight >}}
+
+Copy the executable into your PATH.
+
+{{< highlight shell >}}
+sudo cp sensuctl /usr/local/bin/
+{{< /highlight >}}
+
 {{< platformBlockClose >}}
 
+### Next steps
+
+Now that you’ve installed Sensu:
+
+- [Starting the Sensu backend][2]
+- [Starting the Sensu agent][3]
+- [sensuctl first-time setup][4]
+- [Monitoring server resources][5]
+
+[2]: ../../reference/backend#operation
+[3]: ../../reference/agent#operation
+[4]: ../../sensuctl/reference#first-time-setup
+[5]: ../../guides/monitor-server-resources
+
 [1]: ../install-sensu
+[14]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.7.0/sensu-enterprise-go_5.7.0_linux_amd64.tar.gz
+[15]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.7.0/sensu-enterprise-go_5.7.0_linux_arm64.tar.gz
+[16]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.7.0/sensu-enterprise-go_5.7.0_linux_armv5.tar.gz
+[17]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.7.0/sensu-enterprise-go_5.7.0_linux_armv6.tar.gz
+[18]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.7.0/sensu-enterprise-go_5.7.0_linux_armv7.tar.gz
+[19]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.7.0/sensu-enterprise-go_5.7.0_linux_386.tar.gz
