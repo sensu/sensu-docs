@@ -7,6 +7,7 @@ version: "5.7"
 menu: "sensu-go-5.7"
 ---
 
+- [5.7.0 release notes](#5-7-0-release-notes)
 - [5.6.0 release notes](#5-6-0-release-notes)
 - [5.5.1 release notes](#5-5-1-release-notes)
 - [5.5.0 release notes](#5-5-0-release-notes)
@@ -27,6 +28,26 @@ Sensu Go adheres to [semantic versioning][2] using MAJOR.MINOR.PATCH release num
 Read the [upgrade guide][1] for information on upgrading to the latest version of Sensu Go.
 
 ---
+
+## 5.7.0 release notes
+
+**May 9, 2019** &mdash; The latest release of Sensu Go, version 5.7.0, is now available for download.
+See the [upgrade guide][1] to upgrade Sensu to version 5.7.0.
+
+**NEW FEATURES:**
+
+- Unlicensed Sensu instances now display a notice in the Sensu web UI if the Sensu cluster includes more than 1,000 entities. See the [discourse post][] for more information.
+
+**IMPROVEMENTS:**
+
+- The Sensu agent for Windows now includes a service wrapper. See the [installation guide][] and the [agent reference][] to get started running the agent as a Windows service.
+
+**FIXES:**
+
+- The sensuctl CLI tool now displays correct color output on Windows.
+- The `sensuctl cluster` commands now output correctly in JSON and wrapped JSON formats.
+- Sensu now enforces resource separation between namespaces sharing a similar prefix.
+- The API now returns an error message if label and field selectors are used without a license.
 
 ## 5.6.0 release notes
 
