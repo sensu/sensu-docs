@@ -560,7 +560,7 @@ etcd-name: "backend-0"{{< /highlight >}}
 
 | etcd-peer-cert-file |      |
 ----------------------|------
-description           |  Path to the peer server TLS certificate file. This certificate secures communication between etcd cluster members.
+description           | Path to the peer server TLS certificate file. This certificate secures communication between etcd cluster members.
 type                  | String
 example               | {{< highlight shell >}}# Command line example
 sensu-backend start --etcd-peer-cert-file ./backend-0.pem
