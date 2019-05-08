@@ -504,7 +504,7 @@ etcd-initial-cluster-token: "sensu"{{< /highlight >}}
 
 | etcd-key-file  |      |
 -----------------|------
-description      | Path to the client server TLS key file. Secures communication with the etcd client server.
+description      | Path to the etcd client API TLS key file. Secures communication between the embedded etcd client API and any etcd clients.
 type             | String
 example          | {{< highlight shell >}}# Command line example
 sensu-backend start --etcd-key-file ./client-key.pem
