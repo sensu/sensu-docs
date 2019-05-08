@@ -32,7 +32,7 @@ Read the [upgrade guide][1] for information on upgrading to the latest version o
 ## 5.7.0 release notes
 
 **May 9, 2019** &mdash; The latest release of Sensu Go, version 5.7.0, is now available for download.
-The latest release of Sensu Go, version 5.7.0, is now available for download. This is mainly a stability release with bug fixes. Additionally, we have added support for Windows packages and a modification to our usage policy: unlicensed Sensu instances now display a notice in the Sensu web UI if the Sensu cluster includes more than 1,000 entities. See the [Discourse post][] for more information.
+The latest release of Sensu Go, version 5.7.0, is now available for download. This is mainly a stability release with bug fixes. Additionally, we have added support for Windows packages and [updated our usage policy][].
 See the [upgrade guide][1] to upgrade Sensu to version 5.7.0.
 
 **IMPROVEMENTS:**
