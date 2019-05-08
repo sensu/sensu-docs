@@ -428,7 +428,7 @@ etcd-advertise-client-urls:
 
 | etcd-cert-file |      |
 -----------------|------
-description      | Path to the client server TLS cert file. Secures communication with the etcd client server.
+description      | Path to the etcd client API TLS cert file. Secures communication between the embedded etcd client API and any etcd clients.
 type             | String
 default          | `""`
 example          | {{< highlight shell >}}# Command line example
