@@ -117,7 +117,7 @@ You can use deregistration events to trigger a handler that updates external CMD
 
 By default, deregistration events trigger the built-in deregistration extension. To enable deregistration events, set the client `deregister` flag to `true`. This results in the client being immediately depopulated from the client registry in the event that the sensu-client process is administratively stopped. If you require additional logic or actions to be applied when deregistration events are received, specify your custom deregistration event handler using the client [`deregistration` definition scope][48].
 
-_NOTE: To ensure visibility into stopped clients, we recommend implementing a handler inside the keepalive scope to deregister clients based on a keepalive exceeding a threshold. For the vast majority of Sensu use cases, having clients deregister immediately does not produce the a desired effect._
+_NOTE: To ensure visibility into stopped clients, we recommend implementing a handler inside the keepalive scope to deregister clients based on a keepalive exceeding a threshold. For the vast majority of Sensu use cases, having clients deregister immediately does not produce the desired effect._
 
 #### Proxy clients
 
