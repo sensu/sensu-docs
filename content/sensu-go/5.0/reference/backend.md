@@ -338,7 +338,7 @@ agent-port: 8081{{< /highlight >}}
 
 | cert-file  |      |
 -------------|------
-description  | SSL/TLS certificate. This certificate secures communication with the Sensu Dashboard and API.
+description  | Path to the primary backend certificate file. This certificate secures communications between Sensu Dashboard and end user web browsers, as well as communication between sensuctl and the Sensu API.
 type         | String
 default      | `""`
   example      | {{< highlight shell >}}# Command line example
