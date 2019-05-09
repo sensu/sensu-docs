@@ -337,4 +337,4 @@ To get started with Sensu Go:
 [41]: /sensu-go/5.7/installation/install-sensu#windows-agent
 [42]: /sensu-go/5.7/reference/agent#operation
 [43]: /sensu-go/5.7/api/overview#filtering
-[44]: https://discourse.sensu.io/c/resources
+[44]: https://discourse.sensu.io/t/introducing-usage-limits-in-the-sensu-go-free-tier/1156
