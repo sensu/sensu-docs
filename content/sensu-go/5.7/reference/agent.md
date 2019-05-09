@@ -6,7 +6,7 @@ weight: 1
 version: "5.7"
 product: "Sensu Go"
 platformContent: true
-platforms: ["Linux"]
+platforms: ["Linux", "Windows"]
 toc: yep
 menu:
   sensu-go-5.7:
@@ -52,7 +52,7 @@ In order for an agent to execute a service check, you must specify the same subs
 After receiving a check request from the Sensu backend, the agent:
 
 1. Applies any [tokens][27] matching attribute values in the check definition.
-2. Fetches [assets][29] and stores them in its local cache. By default, agents cache asset data at `/var/cache/sensu/sensu-agent` (`C:\\ProgramData\sensu\cache\sensu-agent` on Windows systems) or as specified by the the [`cache-dir` flag][30].
+2. Fetches [assets][29] and stores them in its local cache. By default, agents cache asset data at `/var/cache/sensu/sensu-agent` (`C:\ProgramData\Sensu\cache\sensu-agent` on Windows systems) or as specified by the the [`cache-dir` flag][30].
 3. Executes the [check `command`][14].
 4. Executes any [hooks][31] specified by the check based on the exit status.
 5. Creates an [event][7] containing information about the applicable entity, check, and metric.
@@ -380,6 +380,10 @@ The resulting `keepalive` handler set configuration looks like this:
 ### Starting the service
 Use the `sensu-agent` tool to start the agent and apply configuration flags.
 
+{{< platformBlock "Linux" >}}
+
+#### Linux
+
 To start the agent with [configuration flags][24]:
 
 {{< highlight shell >}}
@@ -392,16 +396,32 @@ To see available configuration flags and defaults:
 sensu-agent start --help
 {{< /highlight >}}
 
-If no configuration flags are provided, the agent loads configuration from `/etc/sensu/agent.yml` by default.
-
 To start the agent using a service manager:
-
-{{< platformBlock "Linux" >}}
-
-**Linux**
 
 {{< highlight shell >}}
 sudo service sensu-agent start
+{{< /highlight >}}
+
+If no configuration flags are provided, the agent loads configuration from the location specified by the `config-file` attribute (default: `/etc/sensu/agent.yml`).
+
+{{< platformBlockClose >}}
+
+{{< platformBlock "Windows" >}}
+
+#### Windows
+
+Run the following command as an admin to install and start the agent.
+
+{{< highlight text >}}
+sensu-agent service install
+{{< /highlight >}}
+
+By default, the agent loads configuration from `%ALLUSERSPROFILE%\sensu\config\agent.yml` (for example: `C:\ProgramData\Sensu\config\agent.yml`) and stores service logs to `%ALLUSERSPROFILE%\sensu\log\sensu-agent.log` (for example: `C:\ProgramData\Sensu\log\sensu-agent.log`).
+
+You can configure the configuration file and log file locations using the `config-file` and `log-file` flags.
+
+{{< highlight text >}}
+sensu-agent service install --config-file 'C:\\monitoring\\sensu\\config\\agent.yml' --log-file 'C:\\monitoring\\sensu\\log\\sensu-agent.log'
 {{< /highlight >}}
 
 {{< platformBlockClose >}}
@@ -420,6 +440,16 @@ sudo service sensu-agent stop
 
 {{< platformBlockClose >}}
 
+{{< platformBlock "Windows" >}}
+
+**Windows**
+
+{{< highlight text >}}
+sc.exe stop SensuAgent
+{{< /highlight >}}
+
+{{< platformBlockClose >}}
+
 ### Restarting the service
 
 You must restart the agent to implement any configuration updates.
@@ -432,6 +462,17 @@ To restart the agent using a service manager:
 
 {{< highlight shell >}}
 sudo service sensu-agent restart
+{{< /highlight >}}
+
+{{< platformBlockClose >}}
+
+{{< platformBlock "Windows" >}}
+
+**Windows**
+
+{{< highlight text >}}
+sc.exe stop SensuAgent
+sc.exe start SensuAgent
 {{< /highlight >}}
 
 {{< platformBlockClose >}}
@@ -458,6 +499,14 @@ _NOTE: On older distributions of Linux, use `sudo chkconfig sensu-server on` to 
 
 {{< platformBlockClose >}}
 
+{{< platformBlock "Windows" >}}
+
+**Windows**
+
+The service is configured to start automatically on boot by default.
+
+{{< platformBlockClose >}}
+
 ### Getting service status
 
 To see the status of the agent service using a service manager:
@@ -472,6 +521,16 @@ service sensu-agent status
 
 {{< platformBlockClose >}}
 
+{{< platformBlock "Windows" >}}
+
+**Windows**
+
+{{< highlight text >}}
+sc.exe query SensuAgent
+{{< /highlight >}}
+
+{{< platformBlockClose >}}
+
 ### Getting service version
 
 To get the current agent version using the `sensu-agent` tool:
@@ -479,6 +538,18 @@ To get the current agent version using the `sensu-agent` tool:
 {{< highlight shell >}}
 sensu-agent version
 {{< /highlight >}}
+
+### Uninstalling the service
+
+{{< platformBlock "Windows" >}}
+
+**Windows**
+
+{{< highlight text >}}
+sensu-agent service uninstall
+{{< /highlight >}}
+
+{{< platformBlockClose >}}
 
 ### Getting help
 
@@ -529,12 +600,18 @@ You can specify a deregistration handler per agent using the [`deregistration-ha
 
 ## Configuration
 
-You can specify the agent configuration using a `/etc/sensu/agent.yml` file or using `sensu-agent start` command-line flags.
-See the example config file provided with Sensu packages at `/usr/share/doc/sensu-go-agent-5.7.0/agent.yml.example` or [available here](/sensu-go/5.7/files/agent.yml).
-Configuration provided via command-line flags overrides attributes specified in a configuration file.
 The agent loads configuration upon startup, so you must restart the agent for any configuration updates to take effect.
 
-### Configuration summary
+{{< platformBlock "Linux" >}}
+
+### Linux
+
+You can specify the agent configuration using a `.yml` file or using `sensu-agent start` command-line flags.
+Configuration provided via command-line flags overrides attributes specified in a configuration file.
+
+See the example config file provided with Sensu packages at `/usr/share/doc/sensu-go-agent-5.7.0/agent.yml.example` or [available here](/sensu-go/5.7/files/agent.yml).
+
+#### Configuration summary
 
 {{< highlight text >}}
 $ sensu-agent start --help
@@ -578,6 +655,17 @@ Flags:
       --user string                     agent user (default "agent")
 {{< /highlight >}}
 
+{{< platformBlockClose >}}
+
+{{< platformBlock "Windows" >}}
+
+### Windows
+
+You can specify the agent configuration using a `.yml` file.
+See the example config file provided with Sensu packages at `%ALLUSERSPROFILE%\sensu\config\agent.yml.example` (default: `C:\ProgramData\Sensu\config\agent.yml.example`) or [available here](/sensu-go/5.7/files/windows/agent.yml).
+
+{{< platformBlockClose >}}
+
 ### General configuration flags
 
 | annotations|      |
@@ -616,7 +704,7 @@ backend-url:
 --------------|------
 description   | Path to store cached data
 type          | String
-default       | <ul><li>Linux: `/var/cache/sensu/sensu-agent`</li><li>Windows: `C:\\ProgramData\sensu\cache\sensu-agent`</li></ul>
+default       | <ul><li>Linux: `/var/cache/sensu/sensu-agent`</li><li>Windows: `C:\ProgramData\Sensu\cache\sensu-agent`</li></ul>
 example       | {{< highlight shell >}}# Command line example
 sensu-agent start --cache-dir /cache/sensu-agent
 
@@ -628,7 +716,7 @@ cache-dir: "/cache/sensu-agent"{{< /highlight >}}
 --------------|------
 description   | Path to Sensu agent config file
 type          | String
-default       | <ul><li>Linux: `/etc/sensu/agent.yml`</li><li>FreeBSD: `/usr/local/etc/sensu/agent.yml`</li><li>Windows: `C:\\ProgramData\sensu\config\agent.yml`</li></ul>
+default       | <ul><li>Linux: `/etc/sensu/agent.yml`</li><li>FreeBSD: `/usr/local/etc/sensu/agent.yml`</li><li>Windows: `C:\ProgramData\Sensu\config\agent.yml`</li></ul>
 example       | {{< highlight shell >}}# Command line example
 sensu-agent start --config-file /sensu/agent.yml
 sensu-agent start -c /sensu/agent.yml
