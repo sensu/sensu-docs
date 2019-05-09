@@ -230,6 +230,7 @@ h6 {
           -ms-flex: 1;
               flex: 1;
   font: 600 24px/1.16 'Work Sans';
+  min-width: 172px;
   padding: 0 16px 0 0;
   text-decoration: none;
 }
@@ -386,6 +387,7 @@ a .project {
             -ms-flex: none;
                 flex: none;
     padding-left: 16px;
+    min-width: none;
   }
 
   .drawer {
@@ -448,6 +450,15 @@ a .project {
   left: 16px;
   top: 0;
   z-index: 2;
+}
+
+#navbar .algolia-autocomplete .ds-dropdown-menu {
+  max-width: 500px;
+  min-width: 400px;
+}
+#navbar .algolia-autocomplete.algolia-autocomplete-right .ds-dropdown-menu {
+  left: auto !important;
+  right: 50px !important;
 }
 
 .drawer .toc li a.menu-title {
@@ -722,6 +733,11 @@ button.accordion.active, button.accordion:hover {
 
   .drawer {
     width: 260px;
+  }
+
+  #navbar .algolia-autocomplete .ds-dropdown-menu {
+    max-width: 500px;
+    min-width: 300px;
   }
 
   .project {
