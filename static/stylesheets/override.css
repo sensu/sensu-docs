@@ -230,7 +230,7 @@ h6 {
           -ms-flex: 1;
               flex: 1;
   font: 600 24px/1.16 'Work Sans';
-  padding: 0 16px;
+  padding: 0 16px 0 0;
   text-decoration: none;
 }
 
@@ -385,6 +385,7 @@ a .project {
     -webkit-box-flex: 0;
             -ms-flex: none;
                 flex: none;
+    padding-left: 16px;
   }
 
   .drawer {
@@ -418,6 +419,35 @@ a .project {
     margin-left: -40px;
     width: 300px;
   }
+}
+
+#search {
+  border-left: 1px solid #ccc;
+  color: #2C3458;
+  display: block;
+  font: 400 14px/1.4 'Work Sans';
+  height: 100%;
+  padding: 0 12px 0 44px;
+}
+
+#search:active,
+#search:focus {
+  background-color: #f7f7f7;
+}
+
+.algolia-autocomplete {
+  height: 100%;
+}
+
+.algolia-autocomplete::before {
+  color: #999;
+  content: '\f002';
+  display: block;
+  font: 400 16px/4 'FontAwesome';
+  position: absolute;
+  left: 16px;
+  top: 0;
+  z-index: 2;
 }
 
 .drawer .toc li a.menu-title {
@@ -721,6 +751,10 @@ button.accordion.active, button.accordion:hover {
 
   .header {
     height: 50px;
+  }
+
+  .algolia-autocomplete::before {
+    line-height: 50px;
   }
 
   .product-holder {
