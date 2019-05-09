@@ -7,6 +7,7 @@ version: "5.7"
 menu: "sensu-go-5.7"
 ---
 
+- [5.7.0 release notes](#5-7-0-release-notes)
 - [5.6.0 release notes](#5-6-0-release-notes)
 - [5.5.1 release notes](#5-5-1-release-notes)
 - [5.5.0 release notes](#5-5-0-release-notes)
@@ -27,6 +28,22 @@ Sensu Go adheres to [semantic versioning][2] using MAJOR.MINOR.PATCH release num
 Read the [upgrade guide][1] for information on upgrading to the latest version of Sensu Go.
 
 ---
+
+## 5.7.0 release notes
+
+**May 9, 2019** &mdash; The latest release of Sensu Go, version 5.7.0, is now available for download.
+The latest release of Sensu Go, version 5.7.0, is now available for download. This is mainly a stability release with bug fixes. Additionally, we have added support for Windows packages and [updated our usage policy][44].
+See the [upgrade guide][1] to upgrade Sensu to version 5.7.0.
+
+**IMPROVEMENTS:**
+
+- The Sensu agent for Windows is now available as an MSI package, making it easier to install and operate. See the [installation guide][41] and the [agent reference][42] to get started.
+
+**FIXES:**
+
+- Sensu now enforces resource separation between namespaces sharing a similar prefix.
+- The `sensuctl cluster` commands now output correctly in JSON and wrapped JSON formats.
+- The API now returns an error message if [label and field selectors][43] are used without a license.
 
 ## 5.6.0 release notes
 
@@ -317,3 +334,7 @@ To get started with Sensu Go:
 [38]: /sensu-go/5.6/installation/auth/#binding-attributes
 [39]: /sensu-go/5.6/installation/auth/#active-directory-binding-attributes
 [40]: /sensu-go/5.6/reference/agent#general-configuration-flags
+[41]: /sensu-go/5.7/installation/install-sensu#windows-agent
+[42]: /sensu-go/5.7/reference/agent#operation
+[43]: /sensu-go/5.7/api/overview#filtering
+[44]: https://discourse.sensu.io/c/resources
