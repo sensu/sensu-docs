@@ -32,12 +32,12 @@ Read the [upgrade guide][1] for information on upgrading to the latest version o
 ## 5.7.0 release notes
 
 **May 9, 2019** &mdash; The latest release of Sensu Go, version 5.7.0, is now available for download.
-The latest release of Sensu Go, version 5.7.0, is now available for download. This is mainly a stability release with bug fixes. Additionally, we have added support for Windows packages and [updated our usage policy][].
+The latest release of Sensu Go, version 5.7.0, is now available for download. This is mainly a stability release with bug fixes. Additionally, we have added support for Windows packages and [updated our usage policy][44].
 See the [upgrade guide][1] to upgrade Sensu to version 5.7.0.
 
 **IMPROVEMENTS:**
 
-- The Sensu agent for Windows now includes a service wrapper. See the [installation guide][41] and the [agent reference][42] to get started running the agent as a Windows service.
+- The Sensu agent for Windows is now available as an MSI package, making it easier to install and operate. See the [installation guide][41] and the [agent reference][42] to get started.
 
 **FIXES:**
 
@@ -337,3 +337,4 @@ To get started with Sensu Go:
 [41]: /sensu-go/5.7/installation/install-sensu#windows-agent
 [42]: /sensu-go/5.7/reference/agent#operation
 [43]: /sensu-go/5.7/api/overview#filtering
+[44]: https://discourse.sensu.io/c/resources
