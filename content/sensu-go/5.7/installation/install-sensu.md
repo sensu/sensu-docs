@@ -154,7 +154,7 @@ sudo yum install sensu-go-agent
 Download the Sensu agent for Windows [`amd64`](https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.7.0/sensu-go-agent_5.7.0.2380_en-US.x64.msi) or [`386`](https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.7.0/sensu-go-agent_5.7.0_2380_en-US.x86.msi) architectures.
 
 {{< highlight text >}}
-Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.7.0/sensu-go-agent_5.7.0.2380_en-US.x64.msi  -OutFile "$env:userprofile\sensu-go-agent_5.7.0_2380_en-US.x64.msi"
+Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.7.0/sensu-go-agent_5.7.0.2380_en-US.x64.msi  -OutFile "$env:userprofile\sensu-go-agent_5.7.0.2380_en-US.x64.msi"
 {{< /highlight >}}
 
 {{< platformBlockClose >}}
