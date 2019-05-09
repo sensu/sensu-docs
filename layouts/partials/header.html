@@ -1,45 +1,18 @@
 <!-- Nav bar and hamburger icon -->
-<nav aria-label="Header">
-  <div class="bar default">
-    <div class="button button-menu" role="button" aria-label="Menu">
-      <label class="toggle-button icon icon-menu" for="toggle-drawer">
-        <span></span>
-      </label>
-    </div>
-
-    <!-- Title -->
-    <div class="stretch">
-      <div class="title">
-        <a href="https://docs.sensu.io/">
-        Sensu Docs
-      </a>
-      </div>
-    </div>
-    <!-- Render dropdowns if we're not home -->
-    {{ if not .IsHome }}
-      <div id="productVersionNav">
-        {{ partial "productVersionDropdown.html" . }}
-      </div>
-    {{ end }}
-
-    <!-- Search button and search bar -->
-    <div class="button button-search" role="button" aria-label="Search">
-      <label class="toggle-button icon" title="Search" for="toggle-search"><i class="icon fa fa-search" aria-hidden="true"></i></label>
-    </div>
+<nav aria-label="Header" id="navbar">
+  <div class="button button-menu" role="button" aria-label="Menu">
+    <label class="toggle-button icon icon-menu" for="toggle-drawer">
+      <span></span>
+    </label>
   </div>
-  <div class="bar search">
-    <div class="button button-close" onClick="closeResults()" role="button" aria-label="Close">
-      <label class="toggle-button icon" for="toggle-search"><i class="fa fa-arrow-left" aria-hidden="true"></i></label>
-    </div>
-    <div class="stretch">
-      <div class="field">
-        <input id="search" class="query" type="text" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck>
-      </div>
-    </div>
-    <div class="button button-reset" role="button" aria-label="Search">
-      <button class="toggle-button icon icon-close" id="reset-search"></button>
-    </div>
-  </div>
+
+  <a id="logo" href="https://docs.sensu.io/">Sensu Docs</a>
+  <!-- Render dropdowns if we're not home -->
+  {{ if not .IsHome }}
+    {{ partial "productVersionDropdown" . }}
+  {{ end }}
+
+  <input id="search" type="text" placeholder="Search the docs" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck>
 </nav>
 
 <!-- div containing all alerts -->
@@ -47,22 +20,3 @@
   {{ partial "alertSection.html" . }}
 {{ end }}
 
-<!-- Scripts for the search bar -->
-<!--<script>
-  function closeResults() {
-    $results = $("#search");
-    $results.empty();
-    document.getElementById("search").value = "";
-    var r = document.querySelector(".results .meta");
-    for (var t = document.querySelector(".results .list"); t.firstChild;) t.removeChild(t.firstChild);
-      var e = document.querySelector(".bar.search");
-      e.classList.remove("non-empty"), r.innerHTML = ""
-  }
-
-  $(document).on('keyup',function(evt) {
-    // key 27 is esc
-    if (evt.keyCode == 27) {
-       closeResults();
-    }
-  });
-</script>-->

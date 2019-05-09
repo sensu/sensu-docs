@@ -73,12 +73,25 @@
           }
         });
         /* Register handler to log search on blur */
-        var query = document.querySelector('.query');
-        query.addEventListener('blur', function() {
+        var search = document.getElementById('search')
+        search.addEventListener('blur', function() {
           if (this.value) {
             var path = document.location.pathname;
             ga('send', 'pageview', path + '?q=' + this.value);
           }
+        });
+
+        var dropdowns = document.getElementsByClassName('dropdown');
+        for (var i=0; i < dropdowns.length; i++) {
+          dropdowns[i].addEventListener('click', function(e) {
+            e.stopPropagation();
+            e.currentTarget.classList.toggle('open');
+          });
+        }
+        document.addEventListener('click', function(e) {
+          for (var i=0; i < dropdowns.length; i++) {
+            dropdowns[i].classList.remove('open');
+          };
         });
       </script>
     {{ end }}
