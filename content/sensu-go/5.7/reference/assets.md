@@ -54,7 +54,7 @@ The following are injected into the execution context:
 system  | sensu-backend                               | sensu-agent
 --------|---------------------------------------------|-------------
 Linux   | `/var/cache/sensu/sensu-backend`            | `/var/cache/sensu/sensu-agent`
-Windows | N/A                                         | `C:\ProgramData\Sensu\cache\sensu-agent`
+Windows | N/A                                         | `C:\ProgramData\sensu\cache\sensu-agent`
 
 If the requested asset is not in the local cache, it is downloaded from the asset
 URL. The Sensu backend does not currently provide any storage for assets; they

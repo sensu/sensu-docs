@@ -160,7 +160,7 @@ Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.7.0/sen
 Start the installation wizard.
 
 {{< highlight text >}}
-msiexec.exe /i sensu-go-agent_5.7.0.2380_en-US.x64.msi
+msiexec.exe /i $env:userprofile\sensu-go-agent_5.7.0.2380_en-US.x64.msi
 {{< /highlight >}}
 
 {{< platformBlockClose >}}
@@ -189,10 +189,10 @@ _NOTE: The Sensu agent can be configured using a `/etc/sensu/agent.yml` configur
 
 #### Windows
 
-Copy the example agent config file from `%ALLUSERSPROFILE%\sensu\config\agent.yml.example` (default: `C:\ProgramData\Sensu\config\agent.yml.example`) to `C:\ProgramData\Sensu\config\agent.yml`.
+Copy the example agent config file from `%ALLUSERSPROFILE%\sensu\config\agent.yml.example` (default: `C:\ProgramData\sensu\config\agent.yml.example`) to `C:\ProgramData\sensu\config\agent.yml`.
 
 {{< highlight text >}}
-cp C:\ProgramData\Sensu\config\agent.yml.example C:\ProgramData\Sensu\config\agent.yml
+cp C:\ProgramData\sensu\config\agent.yml.example C:\ProgramData\sensu\config\agent.yml
 {{< /highlight >}}
 
 {{< platformBlockClose >}}
