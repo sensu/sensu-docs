@@ -157,6 +157,12 @@ Download the Sensu agent for Windows [`amd64`](https://s3-us-west-2.amazonaws.co
 Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.7.0/sensu-go-agent_5.7.0.2380_en-US.x64.msi  -OutFile "$env:userprofile\sensu-go-agent_5.7.0.2380_en-US.x64.msi"
 {{< /highlight >}}
 
+Start the installation wizard.
+
+{{< highlight text >}}
+msiexec.exe /i sensu-go-agent_5.7.0.2380_en-US.x64.msi
+{{< /highlight >}}
+
 {{< platformBlockClose >}}
 
 {{< platformBlock "Ubuntu/Debian RHEL/CentOS Windows" >}}
@@ -184,6 +190,10 @@ _NOTE: The Sensu agent can be configured using a `/etc/sensu/agent.yml` configur
 #### Windows
 
 Copy the example agent config file from `%ALLUSERSPROFILE%\sensu\config\agent.yml.example` (default: `C:\ProgramData\Sensu\config\agent.yml.example`) to `C:\ProgramData\Sensu\config\agent.yml`.
+
+{{< highlight text >}}
+cp C:\ProgramData\Sensu\config\agent.yml.example C:\ProgramData\Sensu\config\agent.yml
+{{< /highlight >}}
 
 {{< platformBlockClose >}}
 
@@ -215,10 +225,22 @@ service sensu-agent status
 
 #### Windows
 
-Run the following command as an admin to install and start the agent.
+Change to the `sensu\sensu-agent\bin` directory where you've installed Sensu.
 
 {{< highlight text >}}
-sensu-agent service install
+cd 'C:\Program Files\sensu\sensu-agent\bin'
+{{< /highlight >}}
+
+Run the `sensu-agent` executable.
+
+{{< highlight text >}}
+./sensu-agent.exe
+{{< /highlight >}}
+
+Run the following command to install and start the agent.
+
+{{< highlight text >}}
+./sensu-agent service install
 {{< /highlight >}}
 
 Verify that the agent is running.
