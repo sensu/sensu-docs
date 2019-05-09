@@ -68,7 +68,7 @@ arguments to indicate the thresholds (as percentages) for creating warning or cr
   "api_version": "core/v1",
   "metadata": {
     "name": "check-disk-usage",
-    "namespace": "{{ .namespace | default \"production\" }}",
+    "namespace": "default",
     "labels": null,
     "annotations": null
   },
@@ -93,7 +93,7 @@ arguments to indicate the thresholds (as percentages) for creating warning or cr
 }{{< /highlight >}}
 
 The following example [entity][4] would provide the necessary
-attributes to override the `.labels.disk_warning`, `labels.disk_critical`, and `.namespace`
+attributes to override the `.labels.disk_warning` and `labels.disk_critical`
 tokens declared above.
 
 {{< highlight json >}}
@@ -102,7 +102,7 @@ tokens declared above.
   "api_version": "core/v2",
   "metadata": {
     "name": "example-hostname",
-    "namespace": "staging",
+    "namespace": "default",
     "labels": {
       "disk_warning": "80",
       "disk_critical": "90"
