@@ -235,6 +235,14 @@ h6 {
   text-decoration: none;
 }
 
+#home #logo {
+  padding-left: 16px;
+}
+
+#home .button-menu {
+  display: none;
+}
+
 #navbar {
   -webkit-box-align: center;
      -ms-flex-align: center;
@@ -482,6 +490,26 @@ a .project {
 
 .drawer .algolia-autocomplete.algolia-autocomplete-left .ds-dropdown-menu {
   left: -20px!important;
+}
+
+#home #navbar .algolia-autocomplete {
+  display: block !important;
+}
+
+#home .algolia-autocomplete {
+  height: 100%;
+}
+
+#home .algolia-autocomplete::before {
+  line-height: 4;
+}
+
+#home .algolia-search {
+  border-bottom: none;
+  border-radius: 0;
+  border-right: none;
+  border-top: none;
+  padding: 0 12px 0 44px;
 }
 
 #navbar .algolia-autocomplete.algolia-autocomplete-right .ds-dropdown-menu {
@@ -795,6 +823,10 @@ button.accordion.active, button.accordion:hover {
 
   .header {
     height: 50px;
+  }
+
+  #home .algolia-autocomplete::before {
+    line-height: 50px;
   }
 
   .product-holder {
