@@ -28,7 +28,7 @@ The following example demonstrates a request to the `/hooks` API, resulting in
 a JSON Array containing [hook definitions][1].
 
 {{< highlight shell >}}
-curl http://127.0.0.1:8080/api/core/v2/namespaces/default/hooks -H "Authorization: Bearer $TOKEN"
+curl http://127.0.0.1:8080/api/core/v2/namespaces/default/hooks -H "Authorization: Bearer $SENSU_TOKEN"
 [
   {
     "metadata": {
@@ -114,7 +114,7 @@ containing the requested [`:hook` definition][1] (in this example: for the `:hoo
 `process-tree`).
 
 {{< highlight shell >}}
-curl http://127.0.0.1:8080/api/core/v2/namespaces/default/hooks/process-tree -H "Authorization: Bearer $TOKEN"
+curl http://127.0.0.1:8080/api/core/v2/namespaces/default/hooks/process-tree -H "Authorization: Bearer $SENSU_TOKEN"
 {
   "metadata": {
     "name": "process-tree",
@@ -174,6 +174,19 @@ payload         | {{< highlight shell >}}
 response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 ### `/hooks/:hook` (DELETE) {#hookshook-delete}
+
+The `/hooks/:hook` API endpoint provides HTTP DELETE access to delete a check hook from Sensu given the hook name.
+
+### EXAMPLE {#hookshook-delete-example}
+The following example shows a request to delete the hook `process-tree`, resulting in a successful HTTP 204 No Content response.
+
+{{< highlight shell >}}
+curl -X DELETE \
+-H "Authorization: Bearer $SENSU_TOKEN" \
+http://127.0.0.1:8080/api/core/v2/namespaces/default/hooks/process-tree
+
+HTTP/1.1 204 No Content
+{{< /highlight >}}
 
 #### API Specification {#hookshook-delete-specification}
 

@@ -28,7 +28,7 @@ The following example demonstrates a request to the `/filters` API, resulting in
 a JSON Array containing [filter definitions][1].
 
 {{< highlight shell >}}
-curl http://127.0.0.1:8080/api/core/v2/namespaces/default/filters -H "Authorization: Bearer $TOKEN"
+curl http://127.0.0.1:8080/api/core/v2/namespaces/default/filters -H "Authorization: Bearer $SENSU_TOKEN"
 [
   {
     "metadata": {
@@ -121,7 +121,7 @@ containing the requested [`:filter` definition][1] (in this example: for the `:f
 `state_change_only`).
 
 {{< highlight shell >}}
-curl http://127.0.0.1:8080/api/core/v2/namespaces/default/filters/state_change_only -H "Authorization: Bearer $TOKEN"
+curl http://127.0.0.1:8080/api/core/v2/namespaces/default/filters/state_change_only -H "Authorization: Bearer $SENSU_TOKEN"
 {
   "metadata": {
     "name": "state_change_only",
@@ -188,12 +188,25 @@ response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 
 
 ### `/filters/:filter` (DELETE) {#filtersfilter-delete}
 
+The `/filters/:filter` API endpoint provides HTTP DELETE access to delete a filter from Sensu given the filter name.
+
+### EXAMPLE {#filtersfilter-delete-example}
+The following example shows a request to delete the filter `production-only`, resulting in a successful HTTP 204 No Content response.
+
+{{< highlight shell >}}
+curl -X DELETE \
+-H "Authorization: Bearer $SENSU_TOKEN" \
+http://127.0.0.1:8080/api/core/v2/namespaces/default/filters/production-only
+
+HTTP/1.1 204 No Content
+{{< /highlight >}}
+
 #### API Specification {#filtersfilter-delete-specification}
 
 /filters/:filter (DELETE) | 
 --------------------------|------
 description               | Removes a filter from Sensu given the filter name.
-example url               | http://hostname:8080/api/core/v2/namespaces/default/filters/state_change_only
+example url               | http://hostname:8080/api/core/v2/namespaces/default/filters/production-only
 response codes            | <ul><li>**Success**: 202 (Accepted)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 [1]: ../../reference/filters

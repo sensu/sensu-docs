@@ -18,7 +18,7 @@ menu:
 	- [Handling non-production events](#handling-non-production-events)
 	- [Handling state change only](#handling-state-change-only)
 	- [Handling repeated events](#handling-repeated-events)
-	- [Handling events during “office hours” only](#handling-events-during-office-hours-only)
+	- [Handling events during office hours only](#handling-events-during-office-hours-only)
 
 ## How do Sensu filters work?
 
@@ -580,7 +580,7 @@ checks with a 30 second `interval`.
 }
 {{< /highlight >}}
 
-### Handling events during “office hours” only
+### Handling events during office hours only
 
 This filter evaluates the event timestamp to determine if the event occurred
 between 9 AM and 5 PM UTC on a weekday. Remember that `action` is equal to
