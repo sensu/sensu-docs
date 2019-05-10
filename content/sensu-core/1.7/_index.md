@@ -12,7 +12,7 @@ layout: "single"
 <iframe src="https://ghbtns.com/github-btn.html?user=sensu&repo=sensu&type=star&count=true" frameborder="0" scrolling="0" width="95px" height="20px"></iframe> | [Learn about Sensu Go](/sensu-go/latest/)
 
 _NOTE: The time has come to announce our end of life schedule for the original version of Sensu: **Sensu 1.x will reach end of life on December 31, 2019**, over 8 years since its inception as an open source software project.
-[Read our blog post](https://blog.sensu.io/eol-schedule-for-sensu-core-and-enterprise) for more information about what this means and helpful resources for upgrading to [Sensu Go](/sensu-go/latest/)._
+[Read the blog post](https://blog.sensu.io/eol-schedule-for-sensu-core-and-enterprise), and see the [guide to migrating to Sensu Go](/sensu-go/latest/installation/upgrade#upgrading-to-sensu-go-from-sensu-core-1-x) for more information._
 
 Sensu is the open source monitoring event pipeline built to reduce operator burden and make developers and business owners happy.
 Started in 2011, Sensu’s flexible approach solves the challenges of monitoring hybrid-cloud and ephemeral infrastructures with scalable, automated workflows and integrations with tools you already use.

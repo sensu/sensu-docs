@@ -4,7 +4,8 @@ description: "Need to troubleshoot Sensu Go? Here’s how to look into errors, i
 weight: 2000
 version: "5.7"
 product: "Sensu Go"
-platformContent: false
+platformContent: true
+platforms: ["Linux", "Windows"]
 menu:
   sensu-go-5.7:
     parent: guides
@@ -45,6 +46,10 @@ consult the Operating section of the [agent][agent-ref] or
 
 ### Log file locations
 
+{{< platformBlock "Linux" >}}
+
+#### Linux
+
 Sensu services print [structured log messages][structured] to standard output.
 In order to capture these log messages to disk or another logging facility, Sensu services
 make use of capabilities provided by the underlying operating system's service
@@ -64,10 +69,27 @@ following those logs are described. The name of the desired service, e.g.
 | Ubuntu       | <= 14.10   | log file     | {{< highlight shell >}}tail --follow /var/log/sensu/sensu-${service}{{< /highlight >}} |
 | Debian       | >= 8       | journald     | {{< highlight shell >}}journalctl --unit sensu-${service} --follow{{< /highlight >}}   |
 | Debian       | <= 7       | log file     | {{< highlight shell >}}tail --follow /var/log/sensu/sensu-${service}{{< /highlight >}} |
-| Windows      | Any        | log file     | {{< highlight powershell >}}Get-Content -  Path "C:\scripts\test.txt" -Wait{{< /highlight >}}
 
 _NOTE: Platform versions described above are for reference only and do not
 supercede the documented [supported platforms][platforms]._
+
+{{< platformBlockClose >}}
+
+{{< platformBlock "Windows" >}}
+
+#### Windows
+
+The Sensu agent stores service logs to the location specified by the `log-file` configuration flag (default: `%ALLUSERSPROFILE%\sensu\log\sensu-agent.log`, `C:\ProgramData\sensu\log\sensu-agent.log` on standard Windows installations).
+For more information about managing the Sensu agent for Windows, see the [agent reference][1].
+You can also view agent events using the Windows Event Viewer, under Windows Logs, as events with source SensuAgent.
+
+If you're running a [binary-only distribution of the Sensu agent for Windows][2], you can follow the service log printed to standard output using the following command.
+
+{{< highlight text >}}
+Get-Content -  Path "C:\scripts\test.txt" -Wait
+{{< /highlight >}}
+
+{{< platformBlockClose >}}
 
 ### Log messages
 
@@ -98,3 +120,5 @@ sudo chown -R sensu:sensu /var/cache/sensu/sensu-agent
 [agent-ref]: ../../reference/agent/#restarting-the-service
 [backend-ref]: ../../reference/backend/#restarting-the-service
 [journald-syslog]: ../systemd-logs
+[1]: ../../reference/agent#operation
+[2]: ../../installation/verify

@@ -11,6 +11,7 @@ menu:
 ---
 
 - [How do entities work?](#how-do-entities-work)
+- [Usage limits](#usage-limits)
 - [Proxy entities](#proxy-entities)
 - [Managing entity labels](#managing-entity-labels)
   - [Proxy entities](#proxy-entities-managed)
@@ -33,6 +34,10 @@ An entity represents anything (ex: server, container, network switch) that needs
 We call these monitored parts of an infrastructure "entities".
 An entity not only provides context to event data (what/where the event is from) but an event's uniqueness is determined by the check name and the name of the entity upon which the check ran.
 In addition, an entity can contain system information such as the hostname, OS, platform, and version.
+
+## Usage limits
+
+Sensu Go 5.7 has no functional limitations based on entity count. If your Sensu instance includes over 1,000 entities, contact us to learn about [enterprise features for Sensu][9]. See [Discourse][10] for more information about our usage policy. 
 
 ## Proxy entities
 
@@ -240,9 +245,9 @@ example      | {{< highlight shell >}}"subscriptions": ["web", "prod", "entity:e
 
 system       | 
 -------------|------ 
-description  | System information about the entity, such as operating system and platform.
-required     | false 
-type         | [System][1] 
+description  | System information about the entity, such as operating system and platform. See the [system attributes][1] for more information.
+required     | false
+type         | map
 example      | {{< highlight json >}}
 {
   "system": {
@@ -276,7 +281,7 @@ example      | {{< highlight json >}}
 
 last_seen    | 
 -------------|------ 
-description  | Timestamp the entity was last seen, in epoch time. 
+description  | Timestamp the entity was last seen, in seconds since the Unix epoch. 
 required     | false 
 type         | integer 
 example      | {{< highlight shell >}}"last_seen": 1522798317 {{< /highlight >}}
@@ -292,9 +297,9 @@ example      | {{< highlight shell >}}"deregister": false {{< /highlight >}}
 
 deregistration  | 
 -------------|------ 
-description  | A map containing a handler name, for use when an entity is deregistered. 
-required     | false 
-type         | [Deregistration][2] 
+description  | A map containing a handler name, for use when an entity is deregistered. See the [deregistration attributes][2] for more information.
+required     | false
+type         | map
 example      | {{< highlight json >}}
 {
   "deregistration": {
@@ -314,6 +319,15 @@ example      | {{< highlight json >}}
     "extra_secret_tokens"
   ]
 }{{< /highlight >}}
+
+| user |      |
+--------------|------
+description   | Sensu [RBAC](../rbac) username used by the entity. Agent entities require get, list, create, update, and delete permissions for events across all namespaces.
+type          | String
+default       | `agent`
+example       | {{< highlight shell >}}
+"user": "agent"
+{{< /highlight >}}
 
 ### Metadata attributes
 
@@ -393,9 +407,9 @@ example      | {{< highlight shell >}}"platform_version": "16.04" {{< /highlight
 
 network     | 
 -------------|------ 
-description  | The entity's network interface list. 
-required     | false 
-type         | [Network][3] 
+description  | The entity's network interface list. See the [network attributes][3] for more information.
+required     | false
+type         | map
 example      | {{< highlight json >}}
 {
   "network": {
@@ -571,3 +585,5 @@ example      | {{< highlight shell >}}"handler": "email-handler"{{< /highlight >
 [sp]: #spec-attributes
 [api-filter]: ../../api/overview#filtering
 [sensuctl-filter]: ../../sensuctl/reference#filtering
+[9]: ../../getting-started/enterprise
+[10]: https://discourse.sensu.io/t/introducing-usage-limits-in-the-sensu-go-free-tier/1156

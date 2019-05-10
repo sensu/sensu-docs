@@ -44,6 +44,7 @@ See the [agent installation guide][2] for more information.
 | Debian 8           | ✅     |      | | |
 | Debian 9           | ✅     |      | | |
 | Windows Server 2008 R2 and later| ✅  | ✅  | | | | |
+| Windows 7 and later| ✅ | ✅ | | | | |
 
 ### Sensuctl command-line tool
 
