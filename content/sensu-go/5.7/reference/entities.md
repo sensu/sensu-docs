@@ -334,7 +334,7 @@ example      | {{< highlight shell >}}"namespace": "production"{{< /highlight >}
 
 | labels     |      |
 -------------|------
-description  | Custom attributes to include with event data, which can be accessed using [filters][6] and [tokens][7]. You can use labels to organize entities into meaningful collections that can be used in [API filtering][9] and [sensuctl filtering][10].
+description  | Custom attributes to include with event data, which can be accessed using [filters][6] and [tokens][7].<br><br>In contrast to annotations, you can use labels to create meaningful collections that can be selected with [API filtering][9] and [sensuctl filtering][10]. Overusing labels can impact Sensu's internal performance, so we recommend moving complex, non-identifying metadata to annotations.
 required     | false
 type         | Map of key-value pairs. Keys can contain only letters, numbers, and underscores, but must start with a letter. Values can be any valid UTF-8 string.
 default      | `null`
@@ -345,13 +345,12 @@ example      | {{< highlight shell >}}"labels": {
 
 | annotations |     |
 -------------|------
-description  | Arbitrary metadata to include with event data, which can be accessed using [filters][6] and [tokens][7]. In contrast to labels, annotations cannot be used in [API filtering][9] or [sensuctl filtering][10]. You can use annotations to add data that helps people or external tools interacting with Sensu.
+description  | Non-identifying metadata to include with event data, which can be accessed using [filters][6] and [tokens][7]. You can use annotations to add data that helps people or external tools interacting with Sensu.<br><br>In contrast to labels, annotations cannot be used in [API filtering][9] or [sensuctl filtering][10] and do not impact Sensu's internal performance.
 required     | false
 type         | Map of key-value pairs. Keys and values can be any valid UTF-8 string.
 default      | `null`
 example      | {{< highlight shell >}} "annotations": {
   "managed-by": "ops",
-  "slack-channel": "#monitoring",
   "playbook": "www.example.url"
 }{{< /highlight >}}
 
