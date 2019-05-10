@@ -82,7 +82,7 @@ You can request a paginated response using the `limit` and `continue` query para
 For example, the following request limits the response to a maximum of two objects.
 
 {{< highlight shell >}}
-curl http://127.0.0.1:8080/api/core/v2/namespaces?limit=2 -H "Authorization: Bearer $TOKEN"
+curl http://127.0.0.1:8080/api/core/v2/namespaces?limit=2 -H "Authorization: Bearer $SENSU_TOKEN"
 {{< /highlight >}}
 
 The response includes the available objects up to the specified limit and, if there are more objects available, a continue token.
@@ -106,7 +106,7 @@ You can then use the continue token to request the next page of objects.
 The following example requests the next two available namespaces following the request in the example above.
 
 {{< highlight shell >}}
-curl http://127.0.0.1:8080/api/core/v2/namespaces?limit=2&continue=L2RlZmF1bHQvY2N4MWM2L2hlbGxvLXdvcmxkAA -H "Authorization: Bearer $TOKEN"
+curl http://127.0.0.1:8080/api/core/v2/namespaces?limit=2&continue=L2RlZmF1bHQvY2N4MWM2L2hlbGxvLXdvcmxkAA -H "Authorization: Bearer $SENSU_TOKEN"
 {{< /highlight >}}
 
 If the request does not return a continue token, there are no further objects to return.
@@ -131,7 +131,7 @@ The Sensu API supports filtering for all GET endpoints that return an array. You
 For example, the following request filters the response to only include resources that have a label entry `region` with the value `us-west-1`. We will use the flag `--data-urlencode` in curl so it encodes the query parameter for us, in conjunction with the `-G` flag so it appends the data to the URL.
 
 {{< highlight shell >}}
-curl -H "Authorization: Bearer $TOKEN" http://127.0.0.1:8080/api/core/v2/checks -G \
+curl -H "Authorization: Bearer $SENSU_TOKEN" http://127.0.0.1:8080/api/core/v2/checks -G \
 --data-urlencode 'labelSelector=region == "us-west-1"'
 {{< /highlight >}}
 
@@ -184,13 +184,13 @@ check.namespace in [dev,production]
 A field or label selector can be made of multiple statements which are separated with the logical operator `&&` (_AND_). For example, the following curl request looks up checks that are configured to be published **and** have the `slack` handler:
 
 {{< highlight shell >}}
-curl -H "Authorization: Bearer $TOKEN" http://127.0.0.1:8080/api/core/v2/checks -G \
+curl -H "Authorization: Bearer $SENSU_TOKEN" http://127.0.0.1:8080/api/core/v2/checks -G \
 --data-urlencode 'fieldSelector=check.publish == true && slack in check.handlers'
 {{< /highlight >}}
 
 In addition to selectors with multiple statements, both field and label selectors can be used at the same time:
 {{< highlight shell >}}
-curl -H "Authorization: Bearer $TOKEN" http://127.0.0.1:8080/api/core/v2/checks -G \
+curl -H "Authorization: Bearer $SENSU_TOKEN" http://127.0.0.1:8080/api/core/v2/checks -G \
 --data-urlencode 'fieldSelector=slack in check.handlers' \
 --data-urlencode 'labelSelector=region != "us-west-1"'
 {{< /highlight >}}
