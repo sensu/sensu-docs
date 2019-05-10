@@ -378,6 +378,22 @@ a .project {
 }
 
 @media (min-width: 960px) {
+  .algolia-autocomplete {
+    height: 100%;
+  }
+
+  #navbar .algolia-autocomplete::before {
+    line-height: 4;
+  }
+
+  #navbar .algolia-search {
+    border-bottom: none;
+    border-radius: 0;
+    border-right: none;
+    border-top: none;
+    padding: 0 12px 0 44px;
+  }
+
   .button.button-menu {
     display: none
   }
@@ -392,6 +408,10 @@ a .project {
 
   .drawer {
     padding-top: 125px;
+  }
+
+  .drawer .algolia-autocomplete {
+    display: none !important;
   }
 
   .drawer #product-picker {
@@ -423,39 +443,47 @@ a .project {
   }
 }
 
-#search {
-  border-left: 1px solid #ccc;
+.algolia-search {
+  border: 1px solid #ccc;
+  border-radius: 2px;
   color: #2C3458;
   display: block;
   font: 400 14px/1.4 'Work Sans';
   height: 100%;
-  padding: 0 12px 0 44px;
+  padding: 12px 10px 12px 44px;
+  width: 100%;
 }
 
-#search:active,
-#search:focus {
+.algolia-search:active,
+.algolia-search:focus {
   background-color: #f7f7f7;
 }
 
-.algolia-autocomplete {
-  height: 100%;
+.drawer .algolia-autocomplete {
+  margin-bottom: 12px;
+  width: 100%;
 }
 
 .algolia-autocomplete::before {
   color: #999;
   content: '\f002';
   display: block;
-  font: 400 16px/4 'FontAwesome';
+  font: 400 16px/2.625 'FontAwesome';
   position: absolute;
   left: 16px;
   top: 0;
   z-index: 2;
 }
 
-#navbar .algolia-autocomplete .ds-dropdown-menu {
-  max-width: 500px;
-  min-width: 400px;
+.drawer .algolia-autocomplete .ds-dropdown-menu {
+  max-width: 320px;
+  min-width: 270px;
 }
+
+.drawer .algolia-autocomplete.algolia-autocomplete-left .ds-dropdown-menu {
+  left: -20px!important;
+}
+
 #navbar .algolia-autocomplete.algolia-autocomplete-right .ds-dropdown-menu {
   left: auto !important;
   right: 50px !important;
@@ -719,6 +747,10 @@ button.accordion.active, button.accordion:hover {
 }
 
 @media only screen and (max-width: 959px) {
+  #navbar .algolia-autocomplete {
+    display: none !important;
+  }
+
   .article .wrapper {
     padding-top: 30px;
   }
@@ -731,13 +763,9 @@ button.accordion.active, button.accordion:hover {
     top: 0px;
   }
 
-  .drawer {
-    width: 260px;
-  }
-
   #navbar .algolia-autocomplete .ds-dropdown-menu {
     max-width: 500px;
-    min-width: 300px;
+    min-width: 400px;
   }
 
   .project {
@@ -767,10 +795,6 @@ button.accordion.active, button.accordion:hover {
 
   .header {
     height: 50px;
-  }
-
-  .algolia-autocomplete::before {
-    line-height: 50px;
   }
 
   .product-holder {

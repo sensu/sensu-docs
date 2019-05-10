@@ -732,7 +732,7 @@ if ("document" in self && ("classList" in document.createElement("_") ? ! functi
         var t = document.getElementById("toggle-search"),
             e = (document.getElementById("reset-search"), document.querySelector(".drawer")),
             n = document.querySelectorAll(".anchor"),
-            o = document.querySelector("#search"),
+            o = document.querySelectorAll(".algolia-search"),
             i = document.querySelector(".query"),
             r = document.querySelector(".results .meta");
         Array.prototype.forEach.call(n, function(t) {
@@ -764,9 +764,13 @@ if ("document" in self && ("classList" in document.createElement("_") ? ! functi
                     i.focus()
                 }, 200))
             }.bind(this), 450))
-        }), o.addEventListener("touchstart", function() {
+        });
+        for (var iterator=0; iterator < o.length; iterator++) {
+          o[iterator].addEventListener("touchstart", function() {
             i.focus()
-        }), window.addEventListener("keyup", function(e) {
+          });
+        }
+        window.addEventListener("keyup", function(e) {
             var n = e.keyCode || e.which;
             27 == n && (i.blur(), document.body.classList.remove("toggle-search"), document.body.classList.remove("locked"), t.checked = !1)
         });
