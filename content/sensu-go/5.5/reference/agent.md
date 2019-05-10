@@ -119,11 +119,11 @@ By using check TTLs, Sensu is able to set an expectation that a Sensu agent will
 If a Sensu agent fails to publish an event before the check TTL expires, the Sensu backend creates an event with a status of `1` (warning) to indicate the expected event was not received.
 For more information on check TTLs, see the [the check reference][44].
 
-A great use case for the Sensu agent API is to enable tasks which run outside of Sensu's check scheduling to emit events. Using the check TTL attribute, these events create a dead man's switch, ensuring that if the task fails for any reason, the lack of an "all clear" event from the task will notify operators of a silent failures which might otherwise be missed.
+A great use case for the Sensu agent API is to enable tasks which run outside of Sensu's check scheduling to emit events. Using the check TTL attribute, these events create a dead man's switch, ensuring that if the task fails for any reason, the lack of an "all clear" event from the task notifies operators of a silent failure which might otherwise be missed.
 If an external source sends a Sensu event with a check TTL to the Sensu agent API, Sensu expects another event from the same external source before the TTL expires.
 
 The following is an example of external event input via the Sensu agent API using a check TTL to create a dead man's switch for MySQL backups.
-Imagine that a MySQL backup script runs periodically, and that we expect the job to take a little less than 7 hours to complete. In the case where the job completes successfully, we'd like a record of it, but don't need to be alerted. If the job fails for some reason, or continues running past the expected 7 hours, we'd like to be alerted.  Using the following code, our script sends an event which tells the Sensu backend to expect an additional event with the same name within 7 hours of the first event.
+If we assume that a MySQL backup script runs periodically and that we expect the job to take a little less than 7 hours to complete, in the case where the job completes successfully, we'd like a record of it but don't need to be alerted. If the job fails for some reason, or continues running past the expected 7 hours, we'd like to be alerted. In the following example, the script sends an event which tells the Sensu backend to expect an additional event with the same name within 7 hours of the first event.
 
 {{< highlight shell >}}
 curl -X POST \
@@ -141,7 +141,7 @@ curl -X POST \
 http://127.0.0.1:3031/events
 {{< /highlight >}}
 
-With this initial event submitted to the Agent API, we have recorded in the backend that our script started, and configured the dead man's switch so that we'll be alerted if the job fails or runs too long. Although it is possible for our script to gracefully handle errors and emit additional monitoring events, this approach allows us to worry less about handling every possible error case, as the lack of additional check result before the 7 hour period elapses will result in an alert.
+With this initial event submitted to the agent API, we have recorded in the Sensu backend that our script started, and we've configured the dead man's switch so that we'll be alerted if the job fails or runs too long. Although it is possible for our script to handle errors gracefully and emit additional monitoring events, this approach allows us to worry less about handling every possible error case, as the lack of additional events before the 7 hour period elapses results in an alert.
 
 If our backup script runs successfully, we can send an additional event without the TTL attribute, which removes the dead man's switch:
 
@@ -161,6 +161,7 @@ http://127.0.0.1:3031/events
 {{< /highlight >}}
 
 By omitting the TTL attribute from this event, the dead man's switch being monitored by the Sensu backend is also removed, effectively sounding the "all clear" for this iteration of the task.
+
 #### API specification {#events-post-specification}
 
 /events (POST)     | 
