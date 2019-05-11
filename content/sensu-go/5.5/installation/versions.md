@@ -2,12 +2,14 @@
 title: "Supported versions"
 linkTitle: "Supported Versions"
 description: "Sensu supports the latest versions of official distributions, including packages, binary-only distributions, and Docker images. Read the doc to learn about supported versions of Sensu."
-version: "5.0"
-weight: 5
+version: "5.5"
+weight: 100
 product: "Sensu Go"
 menu:
-  sensu-go-5.0:
-    parent: getting-started
+  sensu-go-5.5:
+    parent: installation
+aliases:
+  - /sensu-go/5.5/getting-started/versions
 ---
 
 We recommend updating Sensu frequently to stay in sync with the latest features and fixes.
@@ -18,6 +20,7 @@ To learn more about Sensu support and licensing, see the [getting started guide]
 
 | version                     | release date     | status    | end of support date |
 | --------------------------- | ---------------- | --------- | ------------------- |
+5.8.0 ([docs](/sensu-go/5.8)) |                  | Pre-release
 **5.7.0** ([docs](/sensu-go/5.7)) | [May 9, 2019](/sensu-go/5.7/release-notes/#5-7-0-release-notes)   | Supported
 5.6.0 ([docs](/sensu-go/5.6)) | [April 30, 2019](/sensu-go/5.6/release-notes/#5-6-0-release-notes)    | Supported
 5.5.1 ([docs](/sensu-go/5.5)) | [April 17, 2019](/sensu-go/5.5/release-notes/#5-5-1-release-notes)    | Supported

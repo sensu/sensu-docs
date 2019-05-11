@@ -2,12 +2,14 @@
 title: "Supported platforms"
 linkTitle: "Supported Platforms"
 description: "Sensu Go is available on a wide range of platforms, including Linux, Windows, and macOS. Read the guide to learn which platforms you can use the Sensu backend, Sensu agent, and the sensuctl command-line tool."
-version: "5.7"
-weight: 5
+version: "5.3"
+weight: 100
 product: "Sensu Go"
 menu:
-  sensu-go-5.7:
-    parent: getting-started
+  sensu-go-5.3:
+    parent: installation
+aliases:
+  - /sensu-go/5.3/getting-started/platforms
 ---
 
 ### Sensu backend
@@ -44,7 +46,6 @@ See the [agent installation guide][2] for more information.
 | Debian 8           | ✅     |      | | |
 | Debian 9           | ✅     |      | | |
 | Windows Server 2008 R2 and later| ✅  | ✅  | | | | |
-| Windows 7 and later| ✅ | ✅ | | | | |
 
 ### Sensuctl command-line tool
 
