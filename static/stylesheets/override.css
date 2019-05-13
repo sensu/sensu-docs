@@ -400,6 +400,7 @@ a .project {
     border-right: none;
     border-top: none;
     padding: 0 12px 0 44px;
+    width: 375px;
   }
 
   .button.button-menu {
