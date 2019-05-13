@@ -73,12 +73,27 @@
           }
         });
         /* Register handler to log search on blur */
-        var query = document.querySelector('.query');
-        query.addEventListener('blur', function() {
-          if (this.value) {
-            var path = document.location.pathname;
-            ga('send', 'pageview', path + '?q=' + this.value);
-          }
+        var searchInputs = document.getElementsByClassName('search');
+        for (var i=0; i < searchInputs.length; i++) {
+          searchInputs[i].addEventListener('blur', function() {
+            if (this.value) {
+              var path = document.location.pathname;
+              ga('send', 'pageview', path + '?q=' + this.value);
+            }
+          });
+        }
+
+        var dropdowns = document.getElementsByClassName('dropdown');
+        for (var i=0; i < dropdowns.length; i++) {
+          dropdowns[i].addEventListener('click', function(e) {
+            e.stopPropagation();
+            e.currentTarget.classList.toggle('open');
+          });
+        }
+        document.addEventListener('click', function(e) {
+          for (var i=0; i < dropdowns.length; i++) {
+            dropdowns[i].classList.remove('open');
+          };
         });
       </script>
     {{ end }}
@@ -86,13 +101,17 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/highlight.min.js"></script>
     <script>hljs.initHighlightingOnLoad();</script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
-    <script type="text/javascript"> docsearch({
-    apiKey: '2571a2aebb0465db1e7f18e14d8a55ac',
-    indexName: 'sensu',
-    inputSelector: '#search', 
-    algoliaOptions: { 'facetFilters': [[{{ if isset .Page.Params "product" }}'tags:{{ .Section }}'{{ else }}'tags:sensu-go','tags:plugins', 'tags:sensu-core', 'tags:sensu-enterprise', 'tags:sensu-enterprise-dashboard', 'tags:uchiwa'{{end}}], [{{ if isset .Page.Params "product" }}'version:{{ .Page.Params.version }}'{{ else }}'version:5.7','version:1.0','version:2.15','version:1.7','version:3.4'{{end}}]]},
-    debug: false
-    });
+    <script type="text/javascript">
+      var options = {
+        apiKey: '2571a2aebb0465db1e7f18e14d8a55ac',
+        indexName: 'sensu',
+        inputSelector: '#desktop-search', 
+        algoliaOptions: { 'facetFilters': [[{{ if isset .Page.Params "product" }}'tags:{{ .Section }}'{{ else }}'tags:sensu-go','tags:plugins', 'tags:sensu-core', 'tags:sensu-enterprise', 'tags:sensu-enterprise-dashboard', 'tags:uchiwa'{{end}}], [{{ if isset .Page.Params "product" }}'version:{{ .Page.Params.version }}'{{ else }}'version:5.7','version:1.0','version:2.15','version:1.7','version:3.4'{{end}}]]},
+        debug: false
+      }
+      docsearch(options);
+      options.inputSelector = '#mobile-search';
+      docsearch(options);
     </script>
   </body>
 </html>
