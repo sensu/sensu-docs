@@ -14,11 +14,13 @@ Sensu Go offers license-activated features designed for enterprises.
 [Contact the Sensu sales team][1] for a personalized demo and free trial.
 Enterprise features are available for all Sensu Go packages and downloads.
 
-**Enterprise-only features in Sensu Go:**
+### Enterprise-only features in Sensu Go
 
-- [Authentication providers](../../installation/auth)
-- [Enterprise assets](https://bonsai.sensu.io/assets?tiers%5B%5D=4)
-- [Enterprise-class support](https://sensu.io/support/)
+- **Manage your monitoring checks from your browser**: Create, edit, and delete checks using the Sensu [web UI](../../dashboard/overview).
+- **Authentication providers**: Scale Sensu role-based access control with [LDAP and Active Directory integrations](../../installation/auth).
+- **Resource filtering in the Sensu API and sensuctl command-line tool**: Designed for large installations, label and field selectors let you filter Sensu API and sensuctl responses using custom labels and resource attributes such as event status and check subscriptions.
+- **Enterprise-tier assets**: Connect your monitoring event pipelines to industry-standard tools like ServiceNow and Jira with [enterprise-tier assets](https://bonsai.sensu.io/assets?tiers%5B%5D=4).
+- **Enterprise-class support**: [Sensu support](https://sensu.io/support/) gives you the assurance that help is available if you need it. Our expert in-house team offers best-in-class support to help get you up and running smoothly.
 
 ### Contact us for a free trial
 

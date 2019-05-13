@@ -11,6 +11,7 @@ menu:
 ---
 
 - [How do entities work?](#how-do-entities-work)
+- [Usage limits](#usage-limits)
 - [Proxy entities](#proxy-entities)
 - [Managing entity labels](#managing-entity-labels)
   - [Proxy entities](#proxy-entities-managed)
@@ -33,6 +34,10 @@ An entity represents anything (ex: server, container, network switch) that needs
 We call these monitored parts of an infrastructure "entities".
 An entity not only provides context to event data (what/where the event is from) but an event's uniqueness is determined by the check name and the name of the entity upon which the check ran.
 In addition, an entity can contain system information such as the hostname, OS, platform, and version.
+
+## Usage limits
+
+Sensu Go 5.7 has no functional limitations based on entity count. If your Sensu instance includes over 1,000 entities, contact us to learn about [enterprise features for Sensu][9]. See [Discourse][10] for more information about our usage policy. 
 
 ## Proxy entities
 
@@ -579,3 +584,5 @@ example      | {{< highlight shell >}}"handler": "email-handler"{{< /highlight >
 [8]: #metadata-attributes
 [sc]: ../../sensuctl/reference#creating-resources
 [sp]: #spec-attributes
+[9]: ../../getting-started/enterprise
+[10]: https://discourse.sensu.io/t/introducing-usage-limits-in-the-sensu-go-free-tier/1156

@@ -84,6 +84,14 @@ Sensuctl supports the following output formats:
 
 Once logged in, you can change the output format using `sensuctl config set-format` or set it per command using the `--format` flag.
 
+### Non-interactive
+
+You can run `sensuctl configure` non-interactively using the `-n` (`--non-interactive`) flag.
+
+{{< highlight shell >}}
+sensuctl configure -n --url http://127.0.0.1:8080 --username admin --password P@ssw0rd! --format tabular
+{{< /highlight >}}
+
 ## Managing sensuctl
 
 The `sencutl config` command lets you view the current sensuctl configuration and set the namespace and output format.

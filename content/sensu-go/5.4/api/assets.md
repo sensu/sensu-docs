@@ -27,7 +27,7 @@ The following example demonstrates a request to the `/assets` API, resulting in
 a JSON Array containing [asset definitions][1].
 
 {{< highlight shell >}}
-curl http://127.0.0.1:8080/api/core/v2/namespaces/default/assets -H "Authorization: Bearer $TOKEN"
+curl http://127.0.0.1:8080/api/core/v2/namespaces/default/assets -H "Authorization: Bearer $SENSU_TOKEN"
 [
   {
     "url": "http://example.com/asset1.tar.gz",
@@ -109,7 +109,7 @@ containing the requested [`:asset` definition][1] (in this example: for the `:as
 `check_script`).
 
 {{< highlight shell >}}
-curl http://127.0.0.1:8080/api/core/v2/namespaces/default/assets/check_script -H "Authorization: Bearer $TOKEN"
+curl http://127.0.0.1:8080/api/core/v2/namespaces/default/assets/check_script -H "Authorization: Bearer $SENSU_TOKEN"
 {
   "url": "http://example.com/asset.tar.gz",
   "sha512": "4f926bf4328fbad2b9cac873d117f771914f4b837c9c85584c38ccf55a3ef3c2e8d154812246e5dda4a87450576b2c58ad9ab40c9e2edc31b288d066b195b21b",

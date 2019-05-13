@@ -26,7 +26,7 @@ The `/tessen` API endpoint provides HTTP GET access to Tessen configuration.
 The following example demonstrates an HTTP GET request to the `/tessen` API.
 
 {{< highlight shell >}}
-curl -H "Authorization: Bearer $TOKEN" http://127.0.0.1:8080/api/core/v2/tessen
+curl -H "Authorization: Bearer $SENSU_TOKEN" http://127.0.0.1:8080/api/core/v2/tessen
 {{< /highlight >}}
 
 The request returns a 200 (OK) HTTP response code and a JSON map containing Tessen configuration, indicating that Tessen is enabled.
@@ -59,7 +59,7 @@ In the following example, an HTTP PUT request is submitted to the `/tessen` API 
 
 {{< highlight shell >}}
 curl -X PUT \
--H "Authorization: Bearer $TOKEN" \
+-H "Authorization: Bearer $SENSU_TOKEN" \
 -H 'Content-Type: application/json' \
 -d '{"opt_out": false}' \
 http://127.0.0.1:8080/api/core/v2/tessen

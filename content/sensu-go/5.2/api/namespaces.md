@@ -27,7 +27,7 @@ The following example demonstrates a request to the `/namespaces` API, resulting
 a JSON Array containing [namespace definitions][1].
 
 {{< highlight shell >}}
-curl http://127.0.0.1:8080/api/core/v2/namespaces -H "Authorization: Bearer $TOKEN"
+curl http://127.0.0.1:8080/api/core/v2/namespaces -H "Authorization: Bearer $SENSU_TOKEN"
 [
   {
     "name": "default"
@@ -89,12 +89,25 @@ response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 
 
 ### `/namespaces/:namespace` (DELETE) {#namespacesnamespace-delete}
 
+The `/namespaces/:namespace` API endpoint provides HTTP DELETE access to delete a namespace from Sensu given the namespace name.
+
+### EXAMPLE {#namespacesnamespace-delete-example}
+The following example shows a request to delete the namespace `development`, resulting in a successful HTTP 204 No Content response.
+
+{{< highlight shell >}}
+curl -X DELETE \
+-H "Authorization: Bearer $SENSU_TOKEN" \
+http://127.0.0.1:8080/api/core/v2/namespaces/development
+
+HTTP/1.1 204 No Content
+{{< /highlight >}}
+
 #### API Specification {#namespacesnamespace-delete-specification}
 
 /namespaces/:namespace (DELETE) | 
 --------------------------|------
 description               | Removes a namespace from Sensu given the namespace name.
 example url               | http://hostname:8080/api/core/v2/namespaces/development
-response codes            | <ul><li>**Success**: 202 (Accepted)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 [1]: ../../reference/rbac
