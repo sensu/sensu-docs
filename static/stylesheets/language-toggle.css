@@ -1,0 +1,53 @@
+.language-toggle .languages > * {
+  display: none;
+}
+
+.language-toggle .languages .active {
+  display: block;
+}
+
+.language-toggle .tabs {
+  border: 1px solid #F1F2F6;
+  border-bottom: none;
+  border-radius: 4px 4px 0 0;
+  color: #5F6065;
+  font-size: 13px;
+  overflow: hidden;
+  padding: 0 10px;
+}
+
+.language-toggle .tabs > * {
+  display: inline-block;
+  padding: 12px;
+  position: relative;
+}
+
+.language-toggle .tabs > ::after {
+  border-radius: 3px 3px 0 0;
+  bottom: 0;
+  content: "";
+  display: block;
+  height: 3px;
+  left: 0;
+  margin: 0 auto;
+  position: absolute;
+  right: 0;
+  width: 50%;
+}
+
+.language-toggle .tabs > :hover::after {
+  background: #5F6065;
+}
+
+.language-toggle .tabs .active {
+  color: #2C3458;
+  font-weight: bold;
+}
+
+.language-toggle .tabs .active::after {
+  background: #2C3458;
+}
+
+.language-toggle .tabs .active:hover::after {
+  background: #2C3458;
+}
