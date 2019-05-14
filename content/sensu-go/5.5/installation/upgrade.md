@@ -48,9 +48,9 @@ state-dir: "/var/lib/sensu"
 
 Then restart the backend.
 
-## Upgrading to Sensu Go from Sensu Core 1.x
+## Migrating to Sensu Go from Sensu Core 1.x {#upgrading-to-sensu-go-from-sensu-core-1-x}
 
-This guide provides general information for upgrading your Sensu instance from [Sensu Core 1.x][19] to Sensu Go 5.0.
+This guide provides general information for migrating your Sensu instance from [Sensu Core 1.x][19] to Sensu Go 5.0.
 For instructions and tools to help you translate your Sensu configuration from Sensu Core 1.x to Sensu Go, see the following resources.
 
 - [Sensu translator project][18]

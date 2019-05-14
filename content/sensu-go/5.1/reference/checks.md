@@ -31,6 +31,10 @@ A command may include command line arguments for controlling the behavior of the
 command executable. Most Sensu check plugins provide support for command line
 arguments for reusability.
 
+Sensu advises against requiring root privileges to execute check
+commands or scripts. The Sensu user is not permitted to kill timed out processes
+invoked by the root user, which could result in zombie processes.
+
 #### How and where are check commands executed?
 
 All check commands are executed by Sensu agents as the `sensu` user. Commands
@@ -203,14 +207,14 @@ example      | {{< highlight shell >}}"handlers": ["pagerduty", "email"]{{< /hig
 
 |interval    |      |
 -------------|------
-description  | The frequency in seconds the check is executed.
+description  | How often the check is executed, in seconds
 required     | true (unless `publish` is `false` or `cron` is configured)
 type         | Integer
 example      | {{< highlight shell >}}"interval": 60{{< /highlight >}}
 
 |cron        |      |
 -------------|------
-description  | When the check should be executed, using the [Cron syntax][14] or [these predefined schedules][15].
+description  | When the check should be executed, using [cron syntax][14] or [these predefined schedules][15].
 required     | true (unless `publish` is `false` or `interval` is configured)
 type         | String
 example      | {{< highlight shell >}}"cron": "0 0 * * *"{{< /highlight >}}
