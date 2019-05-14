@@ -95,7 +95,75 @@
             dropdowns[i].classList.remove('open');
           };
         });
-      </script>
+
+        // Language Toggles
+        var languages = {
+          javascript: "JavaScript",
+          json: "JSON",
+          yml: "YML",
+        };
+        var toggles = document.getElementsByClassName('language-toggle');
+        for (var i=0; i < toggles.length; i++) {
+          var children = Array.prototype.slice.call(toggles[i].querySelectorAll('[data-lang]'));
+          console.log(children)
+          var langs = children.map(function(c) { return c.dataset.lang; });
+          console.log(langs)
+
+          // Add tabs
+          langs.forEach(function(lang) {
+            var el = document.createElement('span');
+            el.setAttribute('role', 'tab');
+            el.setAttribute('tabindex', '0');
+            el.setAttribute('data-lang', lang);
+            el.innerText = languages[lang] || lang;
+            el.addEventListener('click', function(e) {
+              return setLanguage(e.currentTarget.dataset.lang);
+            });
+            toggles[i].querySelector('.tabs').appendChild(el);
+          });
+
+          // Preselect preferred language. Default to the first listed.
+          toggles[i].querySelector('.languages').children[0].classList.add('active');
+        }
+
+        // Language Selection Event Handler
+        function setLanguage(lang) {
+          // Store the language
+          localStorage.setItem('lang', lang);
+
+          // Get all tabs in the document
+          var tabLists = Array.prototype.slice.call(document.querySelectorAll('.language-toggle .tabs'));
+          // Activate the correct tab
+          tabLists.forEach(function(tabList) {
+            var activeTab = tabList.querySelector('.active');
+            var selectedTab = tabList.querySelector('[data-lang="' + lang + '"]');
+            var allTabs = Array.prototype.slice.call(tabList.children);
+            allTabs.forEach(function(t) { return t.classList.remove('active'); });
+            if (selectedTab) {
+              selectedTab.classList.add('active');
+            } else if (activeTab) {
+              activeTab.classList.add('active');
+            } else {
+              allTabs[0].classList.add('active');
+            }
+          });
+
+          // Get all code sections that contain the user-selected language
+          var selector = '.language-toggle code[data-lang="' + lang + '"]';
+          var langBlockChildren = document.querySelectorAll(selector);
+          var langBlocks = Array.prototype.slice.call(langBlockChildren).map(function(el) { return el.closest('.languages'); });
+          // Hide all unselected code blocks
+          langBlocks.forEach(function(el) {
+            Array.prototype.slice.call(el.children).forEach(function(c) {
+              return c.classList.remove('active');
+            })
+          });
+          // Show all selected code blocks
+          langBlockChildren.forEach(function(el) { return el.closest('.highlight').classList.add('active'); });
+        }
+        // On load, set the language for all toggles that contain the user-selected language
+        setLanguage(localStorage.getItem('lang'));
+        </script>
     {{ end }}
 
     <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/highlight.min.js"></script>
