@@ -419,6 +419,10 @@ a .project {
     padding-top: 125px;
   }
 
+  #mobile-search {
+    display: none;
+  }
+
   .drawer .algolia-autocomplete {
     display: none !important;
   }
