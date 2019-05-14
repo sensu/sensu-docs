@@ -240,9 +240,9 @@ example      | {{< highlight shell >}}"subscriptions": ["web", "prod", "entity:e
 
 system       | 
 -------------|------ 
-description  | System information about the entity, such as operating system and platform.
-required     | false 
-type         | [System][1] 
+description  | System information about the entity, such as operating system and platform. See the [system attributes][1] for more information.
+required     | false
+type         | map
 example      | {{< highlight json >}}
 {
   "system": {
@@ -276,7 +276,7 @@ example      | {{< highlight json >}}
 
 last_seen    | 
 -------------|------ 
-description  | Timestamp the entity was last seen, in epoch time. 
+description  | Timestamp the entity was last seen, in seconds since the Unix epoch. 
 required     | false 
 type         | integer 
 example      | {{< highlight shell >}}"last_seen": 1522798317 {{< /highlight >}}
@@ -292,9 +292,9 @@ example      | {{< highlight shell >}}"deregister": false {{< /highlight >}}
 
 deregistration  | 
 -------------|------ 
-description  | A map containing a handler name, for use when an entity is deregistered. 
-required     | false 
-type         | [Deregistration][2] 
+description  | A map containing a handler name, for use when an entity is deregistered. See the [deregistration attributes][2] for more information.
+required     | false
+type         | map
 example      | {{< highlight json >}}
 {
   "deregistration": {
@@ -314,6 +314,15 @@ example      | {{< highlight json >}}
     "extra_secret_tokens"
   ]
 }{{< /highlight >}}
+
+| user |      |
+--------------|------
+description   | Sensu [RBAC](../rbac) username used by the entity. Agent entities require get, list, create, update, and delete permissions for events across all namespaces.
+type          | String
+default       | `agent`
+example       | {{< highlight shell >}}
+"user": "agent"
+{{< /highlight >}}
 
 ### Metadata attributes
 
@@ -394,9 +403,9 @@ example      | {{< highlight shell >}}"platform_version": "16.04" {{< /highlight
 
 network     | 
 -------------|------ 
-description  | The entity's network interface list. 
-required     | false 
-type         | [Network][3] 
+description  | The entity's network interface list. See the [network attributes][3] for more information.
+required     | false
+type         | map
 example      | {{< highlight json >}}
 {
   "network": {

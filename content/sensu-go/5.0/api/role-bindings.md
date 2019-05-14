@@ -29,7 +29,7 @@ The following example demonstrates a request to the `/rolebindings` API, resulti
 a JSON Array containing [role binding definitions][1].
 
 {{< highlight shell >}}
-curl http://127.0.0.1:8080/api/core/v2/namespaces/default/rolebindings -H "Authorization: Bearer $TOKEN"
+curl http://127.0.0.1:8080/api/core/v2/namespaces/default/rolebindings -H "Authorization: Bearer $SENSU_TOKEN"
 
 HTTP/1.1 200 OK
 [
@@ -120,7 +120,7 @@ containing the requested [`:rolebinding` definition][1] (in this example: for th
 `readers-group-binding`).
 
 {{< highlight shell >}}
-curl http://127.0.0.1:8080/api/core/v2/namespaces/default/rolebindings/readers-group-binding -H "Authorization: Bearer $TOKEN"
+curl http://127.0.0.1:8080/api/core/v2/namespaces/default/rolebindings/readers-group-binding -H "Authorization: Bearer $SENSU_TOKEN"
 
 HTTP/1.1 200 OK
 {
@@ -198,12 +198,25 @@ response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 
 
 ### `/rolebindings/:rolebinding` (DELETE) {#rolebindingsrolebinding-delete}
 
+The `/rolebindings/:rolebinding` API endpoint provides HTTP DELETE access to delete a role binding from Sensu given the role binding name.
+
+### EXAMPLE {#rolebindingsrolebinding-delete-example}
+The following example shows a request to delete the role binding `dev-binding`, resulting in a successful HTTP 204 No Content response.
+
+{{< highlight shell >}}
+curl -X DELETE \
+-H "Authorization: Bearer $SENSU_TOKEN" \
+http://127.0.0.1:8080/api/core/v2/namespaces/default/rolebindings/dev-binding
+
+HTTP/1.1 204 No Content
+{{< /highlight >}}
+
 #### API Specification {#rolebindingsrolebinding-delete-specification}
 
 /rolebindings/:rolebinding (DELETE) | 
 --------------------------|------
 description               | Removes a role binding from Sensu given the role binding name.
-example url               | http://hostname:8080/api/core/v2/namespaces/default/rolebindings/readers-group-binding
+example url               | http://hostname:8080/api/core/v2/namespaces/default/rolebindings/dev-binding
 response codes            | <ul><li>**Success**: 202 (Accepted)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 [1]: ../../reference/rbac

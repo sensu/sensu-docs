@@ -28,7 +28,7 @@ The following example demonstrates a request to the `/entities` API, resulting i
 a JSON Array containing [entity definitions][1].
 
 {{< highlight shell >}}
-curl http://127.0.0.1:8080/api/core/v2/namespaces/default/entities -H "Authorization: Bearer $TOKEN"
+curl http://127.0.0.1:8080/api/core/v2/namespaces/default/entities -H "Authorization: Bearer $SENSU_TOKEN"
 [
   {
     "entity_class": "agent",
@@ -207,7 +207,7 @@ containing the requested [`:entity` definition][1] (in this example: for the `:e
 `sensu-centos`).
 
 {{< highlight shell >}}
-curl http://127.0.0.1:8080/api/core/v2/namespaces/default/entities/sensu-centos -H "Authorization: Bearer $TOKEN"
+curl http://127.0.0.1:8080/api/core/v2/namespaces/default/entities/sensu-centos -H "Authorization: Bearer $SENSU_TOKEN"
 {
   "entity_class": "agent",
   "system": {
@@ -372,6 +372,19 @@ payload         | {{< highlight shell >}}
 response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 ### `/entities/:entity` (DELETE) {#entitiesentity-delete}
+
+The `/entities/:entity` API endpoint provides HTTP DELETE access to delete an entity from Sensu given the entity name.
+
+### EXAMPLE {#entitiesentity-delete-example}
+The following example shows a request to delete the entity `server1`, resulting in a successful HTTP 204 No Content response.
+
+{{< highlight shell >}}
+curl -X DELETE \
+-H "Authorization: Bearer $SENSU_TOKEN" \
+http://127.0.0.1:8080/api/core/v2/namespaces/default/entities/server1
+
+HTTP/1.1 204 No Content
+{{< /highlight >}}
 
 #### API Specification {#entitiesentity-delete-specification}
 

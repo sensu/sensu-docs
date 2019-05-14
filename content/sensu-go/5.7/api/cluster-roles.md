@@ -29,7 +29,7 @@ The following example demonstrates a request to the `/clusterroles` API, resulti
 a JSON Array containing [cluster role definitions][1].
 
 {{< highlight shell >}}
-curl http://127.0.0.1:8080/api/core/v2/clusterroles -H "Authorization: Bearer $TOKEN"
+curl http://127.0.0.1:8080/api/core/v2/clusterroles -H "Authorization: Bearer $SENSU_TOKEN"
 
 HTTP/1.1 200 OK
 [
@@ -159,7 +159,7 @@ containing the requested [`:clusterrole` definition][1] (in this example: for th
 `global-event-reader`).
 
 {{< highlight shell >}}
-curl http://127.0.0.1:8080/api/core/v2/clusterroles/global-event-reader -H "Authorization: Bearer $TOKEN"
+curl http://127.0.0.1:8080/api/core/v2/clusterroles/global-event-reader -H "Authorization: Bearer $SENSU_TOKEN"
 
 HTTP/1.1 200 OK
 {
@@ -239,6 +239,19 @@ payload         | {{< highlight shell >}}
 response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 ### `/clusterroles/:clusterrole` (DELETE) {#clusterrolesclusterrole-delete}
+
+The `/clusterroles/:clusterrole` API endpoint provides HTTP DELETE access to delete a cluster role from Sensu given the cluster role name.
+
+### EXAMPLE {#clusterrolesclusterrole-delete-example}
+The following example shows a request to delete the cluster role `global-event-reader`, resulting in a successful HTTP 204 No Content response.
+
+{{< highlight shell >}}
+curl -X DELETE \
+-H "Authorization: Bearer $SENSU_TOKEN" \
+http://127.0.0.1:8080/api/core/v2/clusterroles/global-event-reader
+
+HTTP/1.1 204 No Content
+{{< /highlight >}}
 
 #### API Specification {#clusterrolesclusterrole-delete-specification}
 
