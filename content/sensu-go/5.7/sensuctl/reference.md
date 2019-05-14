@@ -438,6 +438,15 @@ Supported canonical time zone IDs are defined in the [tz database][2].
 _WARNING: Canonical zone IDs (i.e. `America/Vancouver`) are not supported on
 Windows._
 
+### Time windows
+
+Time windows can be used by filters. The following formats can be used:
+
+* 24-hour kitchen with canonical zone ID: `07:04 America/Vancouver` or `15:04
+  UTC`
+* 24-hour kitchen with numeric zone offset: `07:04 -08:00`
+* 12-hour kitchen with canonical zone ID: `7:04AM America/Vancouver`
+
 ### Dates with time
 
 Full dates with time are used to specify an exact point in time, which can be

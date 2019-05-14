@@ -387,6 +387,23 @@ example      | {{< highlight shell >}}"expressions": [
 ]
 {{< /highlight >}}
 
+when         | 
+-------------|------
+description  | The [when definition scope][2], used to determine when a filter is applied with time windows. See the [sensuctl documentation][3] for the supported time formats.
+required     | false
+type         | Hash
+example      | {{< highlight shell >}}"when": {
+  "days": {
+    "all": [
+      {
+        "begin": "17:00 UTC",
+        "end": "08:00 UTC"
+      }
+    ]
+  }
+}
+{{< /highlight >}}
+
 runtime_assets |      |
 ---------------|------
 description    | Assets to be applied to the filter's execution context. JavaScript files in the lib directory of the asset will be evaluated.
@@ -434,6 +451,29 @@ example      | {{< highlight shell >}} "annotations": {
   "slack-channel": "#monitoring",
   "playbook": "www.example.url"
 }{{< /highlight >}}
+
+### `when` attributes
+
+days         | 
+-------------|------
+description  | A hash of days of the week (ex: `monday`) and/or `all`. Each day specified can define one or more time windows, in which the filter is applied. See the [sensuctl documentation][3] for the supported time formats.
+required     | false (unless `when` is configured)
+type         | Hash
+example      | {{< highlight shell >}}"days": {
+  "all": [
+    {
+      "begin": "17:00 UTC",
+      "end": "08:00 UTC"
+    }
+  ],
+  "friday": [
+    {
+      "begin": "12:00 UTC",
+      "end": "17:00 UTC"
+    }
+  ]
+}
+{{< /highlight >}}
 
 ## Filter Examples
 
@@ -585,7 +625,8 @@ checks with a 30 second `interval`.
 This filter evaluates the event timestamp to determine if the event occurred
 between 9 AM and 5 PM UTC on a weekday. Remember that `action` is equal to
 `allow`, so this is an inclusive filter. If evaluation returns false, the event
-will not be handled.
+will not be handled. The [`when` attribute][2] could also be used to achieve the
+same result.
 
 {{< highlight json >}}
 {
