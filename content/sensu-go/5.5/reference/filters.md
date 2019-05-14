@@ -18,7 +18,7 @@ menu:
 	- [Handling non-production events](#handling-non-production-events)
 	- [Handling state change only](#handling-state-change-only)
 	- [Handling repeated events](#handling-repeated-events)
-	- [Handling events during “office hours” only](#handling-events-during-office-hours-only)
+	- [Handling events during office hours only](#handling-events-during-office-hours-only)
 
 ## How do Sensu filters work?
 
@@ -458,9 +458,7 @@ example      | {{< highlight shell >}} "annotations": {
 
 ### Handling production events
 
-The following example filter definition, entitled `production_filter`, will
-match event data with a custom entity definition attribute `"namespace":
-"production"`.
+The following filter allows only events with a custom entity label `"environment": "production"` to be handled.
 
 {{< highlight json >}}
 {
@@ -468,44 +466,36 @@ match event data with a custom entity definition attribute `"namespace":
   "api_version": "core/v2",
   "metadata": {
     "name": "production_filter",
-    "namespace": "default",
-    "labels": null,
-    "annotations": null
+    "namespace": "default"
   },
   "spec": {
     "action": "allow",
     "expressions": [
-      "event.entity.namespace == 'production'"
-    ],
-    "runtime_assets": []
+      "event.entity.labels.environment == 'production'"
+    ]
   }
 }
 {{< /highlight >}}
 
 ### Handling non-production events
 
-The following example filter definition, entitled `development_filter`, will
-discard event data with a custom entity definition attribute `"namespace":
-"production"`.
-
+The following filter discards events with a custom entity label `"environment": "production"`, allowing only events without an `environment` label or events with `environment` set to something other than `production` to be handled.
 Note that `action` is `deny`, making this an exclusive filter; if evaluation
-returns false, the event will be handled.
+returns false, the event is handled.
+
 {{< highlight json >}}
 {
   "type": "EventFilter",
   "api_version": "core/v2",
   "metadata": {
-    "name": "development_filter",
-    "namespace": "default",
-    "labels": null,
-    "annotations": null
+    "name": "not_production",
+    "namespace": "default"
   },
   "spec": {
     "action": "deny",
     "expressions": [
-      "event.entity.metadata.namespace == 'production'"
-    ],
-    "runtime_assets": []
+      "event.entity.labels.environment == 'production'"
+    ]
   }
 }
 {{< /highlight >}}
@@ -590,7 +580,7 @@ checks with a 30 second `interval`.
 }
 {{< /highlight >}}
 
-### Handling events during “office hours” only
+### Handling events during office hours only
 
 This filter evaluates the event timestamp to determine if the event occurred
 between 9 AM and 5 PM UTC on a weekday. Remember that `action` is equal to

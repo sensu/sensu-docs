@@ -17,13 +17,11 @@ Sensu Go is available for Linux, Windows (agent and CLI only), macOS (CLI only),
 See the list of [supported platforms][5] for more information.
 Sensu downloads are provided under the [Sensu License][13].
 
-In addition to packages, a binary-only distribution for Linux is available for [`amd64`][14], [`arm64`][15], [`armv5`][16], [`armv6`][17], [`armv7`][18], and [`386`][19] architectures.
-See the [verifying Sensu guide][12] to verify your download using checksums.
-
 {{< platformBlock "Ubuntu/Debian RHEL/CentOS" >}}
 
 ## Install the Sensu backend
 The Sensu backend is available for Ubuntu/Debian, RHEL/CentOS, and [Docker](#deploy-sensu-with-docker).
+In addition to packages, [binary-only distributions][20] for Linux are available for `amd64`, `arm64`, `armv5`, `armv6`, `armv7`, and `386` architectures.
 
 ### 1. Install the package
 
@@ -108,6 +106,7 @@ Now that you've installed the Sensu backend:
 
 ## Install the Sensu agent
 The Sensu agent is available for Ubuntu/Debian, RHEL/CentOS, Windows, and [Docker](#deploy-sensu-with-docker).
+In addition to packages, [binary-only distributions][20] for Linux are available for `amd64`, `arm64`, `armv5`, `armv6`, `armv7`, and `386` architectures and for Windows `amd64` and `386` architectures.
 
 ### 1. Install the package
 
@@ -150,21 +149,19 @@ sudo yum install sensu-go-agent
 
 {{< platformBlock "Windows" >}}
 
-#### Windows
+#### Windows {#windows-agent}
 
-Download the [Sensu agent for Windows `amd64`](https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.7.0/sensu-enterprise-go_5.7.0_windows_amd64.tar.gz).
-
-{{< highlight text >}}
-Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.7.0/sensu-enterprise-go_5.7.0_windows_amd64.tar.gz  -OutFile "$env:userprofile\sensu-enterprise-go_5.7.0_windows_amd64.tar.gz"
-{{< /highlight >}}
-
-Or download the [Sensu agent for Windows `386`](https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.7.0/sensu-enterprise-go_5.7.0_windows_386.tar.gz).
+Download the Sensu agent for Windows [`amd64`](https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.7.0/sensu-go-agent_5.7.0.2380_en-US.x64.msi) or [`386`](https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.7.0/sensu-go-agent_5.7.0_2380_en-US.x86.msi) architectures.
 
 {{< highlight text >}}
-Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.7.0/sensu-enterprise-go_5.7.0_windows_386.tar.gz  -OutFile "$env:userprofile\sensu-enterprise-go_5.7.0_windows_amd64.tar.gz"
+Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.7.0/sensu-go-agent_5.7.0.2380_en-US.x64.msi  -OutFile "$env:userprofile\sensu-go-agent_5.7.0.2380_en-US.x64.msi"
 {{< /highlight >}}
 
-See the [verifying Sensu guide][12] to verify your download using checksums.
+Start the installation wizard.
+
+{{< highlight text >}}
+msiexec.exe /i $env:userprofile\sensu-go-agent_5.7.0.2380_en-US.x64.msi
+{{< /highlight >}}
 
 {{< platformBlockClose >}}
 
@@ -192,7 +189,11 @@ _NOTE: The Sensu agent can be configured using a `/etc/sensu/agent.yml` configur
 
 #### Windows
 
-Download the [example agent configuration file][2] and save it as `C:\\ProgramData\sensu\config\agent.yml`.
+Copy the example agent config file from `%ALLUSERSPROFILE%\sensu\config\agent.yml.example` (default: `C:\ProgramData\sensu\config\agent.yml.example`) to `C:\ProgramData\sensu\config\agent.yml`.
+
+{{< highlight text >}}
+cp C:\ProgramData\sensu\config\agent.yml.example C:\ProgramData\sensu\config\agent.yml
+{{< /highlight >}}
 
 {{< platformBlockClose >}}
 
@@ -224,7 +225,29 @@ service sensu-agent status
 
 #### Windows
 
-Coming soon.
+Change to the `sensu\sensu-agent\bin` directory where you've installed Sensu.
+
+{{< highlight text >}}
+cd 'C:\Program Files\sensu\sensu-agent\bin'
+{{< /highlight >}}
+
+Run the `sensu-agent` executable.
+
+{{< highlight text >}}
+./sensu-agent.exe
+{{< /highlight >}}
+
+Run the following command to install and start the agent.
+
+{{< highlight text >}}
+./sensu-agent service install
+{{< /highlight >}}
+
+Verify that the agent is running.
+
+{{< highlight text >}}
+sc.exe query SensuAgent
+{{< /highlight >}}
 
 {{< platformBlockClose >}}
 
@@ -437,7 +460,7 @@ While it can be run from the docker container, doing so may be problematic.
 [2]: https://github.com/sensu/sensu-go/blob/5.1.1/packaging/files/windows/agent.yml.example
 [3]: ../../dashboard/overview
 [4]: ../../sensuctl/reference
-[5]: ../../getting-started/platforms
+[5]: ../../installation/platforms
 [6]: ../../reference/backend
 [7]: ../../reference/agent
 [8]: ../../guides/troubleshooting
@@ -446,9 +469,4 @@ While it can be run from the docker container, doing so may be problematic.
 [11]: https://github.com/sensu/sensu-go/blob/master/packaging/files/backend.yml.example
 [12]: ../verify
 [13]: https://sensu.io/sensu-license
-[14]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.7.0/sensu-enterprise-go_5.7.0_linux_amd64.tar.gz
-[15]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.7.0/sensu-enterprise-go_5.7.0_linux_arm64.tar.gz
-[16]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.7.0/sensu-enterprise-go_5.7.0_linux_armv5.tar.gz
-[17]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.7.0/sensu-enterprise-go_5.7.0_linux_armv6.tar.gz
-[18]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.7.0/sensu-enterprise-go_5.7.0_linux_armv7.tar.gz
-[19]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.7.0/sensu-enterprise-go_5.7.0_linux_386.tar.gz
+[20]: ../verify

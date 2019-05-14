@@ -973,10 +973,6 @@ code {
   background: none !important;
 }
 
-.drawer {
-  padding-top: 105px;
-}
-
 .drawer ul {
   list-style: none;
   padding-left: 0;
@@ -997,10 +993,6 @@ code {
   .drawer-title img {
     display: none;
   }
-}
-
-.drawer .toc {
-  margin: 0;
 }
 
 .drawer .toc-menu {
@@ -1158,7 +1150,6 @@ code {
   color: #2C3458;
 }
 
-.header #productButton,
 .header #versionButton,
 .header #platformButton,
 .header #productButtonDrawer,
@@ -1177,12 +1168,9 @@ code {
   color: #2C3458;
 }
 
-.header .bar.search .query {
-  font-family: 'Work Sans';
-  font-weight: 500;
-  font-size: 16px;
-  line-height: 1.25;
+#search {
   color: #2C3458;
+  font: 500 16px/1.25 'Work Sans';
 }
 
 /**
@@ -1195,34 +1183,6 @@ code {
 /**
 ***  Drawer overrides, and media queries
 **/
-.drawer {
-  width: 70vw;
-  padding-top: 15px;
-}
-
-@media (max-width: 959px) {
-  .drawer {
-    -webkit-transform: translate3d(-70vw, 0, 0);
-            transform: translate3d(-70vw, 0, 0);
-  }
-}
-
-@media (min-width: 950px) {
-  .drawer {
-    padding-top: 105px;
-    margin-left: 0;
-    padding-left: 0;
-    width: 262px;
-  }
-}
-
-@media (min-width: 1300px) {
-  .drawer {
-    width: 300px;
-    margin-left: -40px;
-  }
-}
-
 .drawer .scrollable {
   top: 0;
   padding-top: 10px;
@@ -1243,18 +1203,6 @@ code {
           box-shadow: none;
 }
 
-#productVersionDrawerHolder {
-  margin-top: 0;
-  height: auto;
-}
-
-@media (min-width: 959px) {
-  #productVersionDrawerHolder {
-    height: 0;
-  }
-}
-
-#productButton,
 #versionButton,
 #platformButton,
 #productButtonDrawer,
