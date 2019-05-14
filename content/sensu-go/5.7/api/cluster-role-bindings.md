@@ -29,7 +29,7 @@ The following example demonstrates a request to the `/clusterrolebindings` API, 
 a JSON Array containing [cluster role binding definitions][1].
 
 {{< highlight shell >}}
-curl http://127.0.0.1:8080/api/core/v2/clusterrolebindings -H "Authorization: Bearer $TOKEN"
+curl http://127.0.0.1:8080/api/core/v2/clusterrolebindings -H "Authorization: Bearer $SENSU_TOKEN"
 
 HTTP/1.1 200 OK
 [
@@ -106,7 +106,7 @@ The request includes the cluster role binding definition in the request body and
 
 {{< highlight shell >}}
 curl -X POST \
--H "Authorization: Bearer $TOKEN" \
+-H "Authorization: Bearer $SENSU_TOKEN" \
 -H 'Content-Type: application/json' \
 -d '{
   "subjects": [
@@ -181,7 +181,7 @@ containing the requested [`:clusterrolebinding` definition][1] (in this example:
 `bob-binder`).
 
 {{< highlight shell >}}
-curl http://127.0.0.1:8080/api/core/v2/clusterrolebindings/bob-binder -H "Authorization: Bearer $TOKEN"
+curl http://127.0.0.1:8080/api/core/v2/clusterrolebindings/bob-binder -H "Authorization: Bearer $SENSU_TOKEN"
 
 HTTP/1.1 200 OK
 {
@@ -238,7 +238,7 @@ The request includes the cluster role binding definition in the request body and
 
 {{< highlight shell >}}
 curl -X PUT \
--H "Authorization: Bearer $TOKEN" \
+-H "Authorization: Bearer $SENSU_TOKEN" \
 -H 'Content-Type: application/json' \
 -d '{
   "subjects": [
@@ -302,12 +302,25 @@ response codes  | <ul><li>**Success**: 200 (OK)</li><li>**Malformed**: 400 (Bad 
 
 ### `/clusterrolebindings/:clusterrolebinding` (DELETE) {#clusterrolebindingsclusterrolebinding-delete}
 
+The `/clusterrolebindings/:clusterrolebinding` API endpoint provides HTTP DELETE access to delete a cluster role binding from Sensu given the cluster role binding name.
+
+### EXAMPLE {#clusterrolebindingsclusterrolebinding-delete-example}
+The following example shows a request to delete the cluster role binding `ops-binding`, resulting in a successful HTTP 204 No Content response.
+
+{{< highlight shell >}}
+curl -X DELETE \
+-H "Authorization: Bearer $SENSU_TOKEN" \
+http://127.0.0.1:8080/api/core/v2/clusterrolebindings/ops-binding
+
+HTTP/1.1 204 No Content
+{{< /highlight >}}
+
 #### API Specification {#clusterrolebindingsclusterrolebinding-delete-specification}
 
 /clusterrolebindings/:clusterrolebinding (DELETE) | 
 --------------------------|------
 description               | Removes a cluster role binding from Sensu given the cluster role binding name.
-example url               | http://hostname:8080/api/core/v2/clusterrolebindings/bob-binder
+example url               | http://hostname:8080/api/core/v2/clusterrolebindings/ops-binding
 response codes            | <ul><li>**Success**: 202 (Accepted)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 [1]: ../../reference/rbac

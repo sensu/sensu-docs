@@ -146,6 +146,18 @@ response codes  | <ul><li>**Success**: 200 (OK)</li><li>**Malformed**: 400 (Bad 
 
 The `/authproviders/:name` API endpoint provides HTTP DELETE access to delete an authentication provider configuration from Sensu given the `:name`.
 
+### EXAMPLE {#authprovidersname-delete-example}
+
+The following example shows a request to delete the configuration for the authentication provider `openldap`, resulting in a successful HTTP 204 No Content response.
+
+{{< highlight shell >}}
+curl -X DELETE \
+-H "Authorization: Bearer $SENSU_TOKEN" \
+http://127.0.0.1:8080/api/core/v2/namespaces/default/authproviders/openldap
+
+HTTP/1.1 204 No Content
+{{< /highlight >}}
+
 #### API Specification {#authprovidersname-delete-specification}
 
 /authproviders/:name (DELETE) | 

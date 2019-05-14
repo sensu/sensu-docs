@@ -732,7 +732,7 @@ if ("document" in self && ("classList" in document.createElement("_") ? ! functi
         var t = document.getElementById("toggle-search"),
             e = (document.getElementById("reset-search"), document.querySelector(".drawer")),
             n = document.querySelectorAll(".anchor"),
-            o = document.querySelector(".search .field"),
+            o = document.querySelectorAll(".algolia-search"),
             i = document.querySelector(".query"),
             r = document.querySelector(".results .meta");
         Array.prototype.forEach.call(n, function(t) {
@@ -751,57 +751,6 @@ if ("document" in self && ("classList" in document.createElement("_") ? ! functi
                 window.removeEventListener("scroll", a), matchMedia("only screen and (max-width: 959px)").matches ? (e.style.position = null, e.style.top = null, e.style.bottom = null) : e.offsetHeight + 96 < t.offsetHeight && (window.addEventListener("scroll", a), a())
             };
         Modernizr.ios || (window.addEventListener("resize", c), c());
-        /*var l = function() {
-            var base_url = "";
-            pegasus(base_url + "/js/lunr/PagesIndex.json").then(function(e, n) {
-                var o = lunr(function() {
-                        this.field("title", {
-                            boost: 10
-                        }), this.field("content"), this.ref("location")
-                    }),
-                    s = {};
-                e.map(function(t) {
-                    t.location = base_url + t.location, s[t.location] = t, o.add(t)
-                }), i.addEventListener("keyup", function() {
-                    for (var e = document.querySelector(".results .list"); e.firstChild;) e.removeChild(e.firstChild);
-                    var n = document.querySelector(".bar.search");
-                    if (!i.value.length) {
-                        for (; r.firstChild;) r.removeChild(r.firstChild);
-                        return void n.classList.remove("non-empty")
-                    }
-                    n.classList.add("non-empty");
-                    var a = o.search(i.value);
-                    a.map(function(n) {
-                        var o = s[n.ref],
-                            i = document.createElement("article");
-                        i.classList.add("result");
-                        var r = document.createElement("h1");
-                        r.innerHTML = o.display_name, i.appendChild(r);
-                        var a = document.createElement("a");
-                        a.href = o.location;
-                        a.appendChild(i);
-                        var c = document.createElement("span");
-                        c.innerHTML = a.href.split("#")[0];
-                        i.appendChild(c);
-                        var l = a.href.split("#");
-                        l[0] == document.location.href.split("#")[0] && a.addEventListener("click", function(e) {
-                            if (document.body.classList.remove("toggle-search"), document.body.classList.remove("locked"), t.checked = !1, !matchMedia("only screen and (min-width: 960px)").matches && (e.preventDefault(), e.stopPropagation(), 1 != l.length)) {
-                                var n = document.getElementById(l[1]);
-                                n && setTimeout(function() {
-                                    n.scrollIntoView && n.scrollIntoView() || window.scrollTo(0, n.offsetTop)
-                                }, 100)
-                            }
-                        }), e.appendChild(a)
-                    });
-                    var c = document.createElement("strong");
-                    for (c.innerHTML = a.length + " search result" + (1 != a.length ? "s" : ""); r.firstChild;) r.removeChild(r.firstChild);
-                    r.appendChild(c)
-                })
-            }, function(t, e) {
-                console.error(t, e.status)
-            }), t.removeEventListener("click", l)
-        };*/
-        // t.addEventListener("click", l);
         var u = 0;
         t.addEventListener("click", function(t) {
             var e = document.body.classList,
@@ -815,17 +764,15 @@ if ("document" in self && ("classList" in document.createElement("_") ? ! functi
                     i.focus()
                 }, 200))
             }.bind(this), 450))
-        }), o.addEventListener("touchstart", function() {
+        });
+        for (var iterator=0; iterator < o.length; iterator++) {
+          o[iterator].addEventListener("touchstart", function() {
             i.focus()
-        }), window.addEventListener("keyup", function(e) {
+          });
+        }
+        window.addEventListener("keyup", function(e) {
             var n = e.keyCode || e.which;
             27 == n && (i.blur(), document.body.classList.remove("toggle-search"), document.body.classList.remove("locked"), t.checked = !1)
-        });
-        var d = document.getElementById("reset-search");
-        d.addEventListener("click", function() {
-            for (var t = document.querySelector(".results .list"); t.firstChild;) t.removeChild(t.firstChild);
-            var e = document.querySelector(".bar.search");
-            e.classList.remove("non-empty"), r.innerHTML = "", i.value = "", i.focus()
         });
         var h = document.querySelectorAll("h2");
         h = Array.prototype.map.call(h, function(t) {
