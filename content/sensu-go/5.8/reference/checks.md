@@ -417,6 +417,8 @@ required     | false
 type         | Integer
 example      | {{< highlight shell >}}"timeout": 30{{< /highlight >}}
 
+<a name="ttl-attribute"></a>
+
 |ttl         |      |
 -------------|------
 description  | The time to live (TTL) in seconds until check results are considered stale. If an agent stops publishing results for the check, and the TTL expires, an event will be created for the agent's entity. The check `ttl` must be greater than the check `interval`, and should accommodate time for the check execution and result processing to complete. For example, if a check has an `interval` of `60` (seconds) and a `timeout` of `30` (seconds), an appropriate `ttl` would be a minimum of `90` (seconds).
