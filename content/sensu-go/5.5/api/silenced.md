@@ -32,7 +32,7 @@ The following example demonstrates a request to the `/silenced` API, resulting i
 a JSON Array containing [silencing entry definitions][1].
 
 {{< highlight shell >}}
-curl -H "Authorization: Bearer $TOKEN" \
+curl -H "Authorization: Bearer $SENSU_TOKEN" \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/silenced
 
 HTTP/1.1 200 OK
@@ -117,7 +117,7 @@ containing the requested [silencing entry definition][1] (in this example: for t
 Silencing entry names are generated from the combination of a subscription name and check name.
 
 {{< highlight shell >}}
-curl -H "Authorization: Bearer $TOKEN" \
+curl -H "Authorization: Bearer $SENSU_TOKEN" \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/silenced/linux:check-cpu
 
 HTTP/1.1 200 OK
@@ -196,7 +196,7 @@ In the following example, querying the `/silenced/:silenced` API to delete the t
 
 {{< highlight shell >}}
 curl -X DELETE \
--H "Authorization: Bearer $TOKEN" \
+-H "Authorization: Bearer $SENSU_TOKEN" \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/silenced/linux:check-cpu
 
 HTTP/1.1 204 No Content
@@ -222,7 +222,7 @@ In the following example, querying the `silenced/subscriptions/:subscription` AP
 containing the requested [silencing entries][1] for the given subscription (in this example: for the `linux` subscription).
 
 {{< highlight shell >}}
-curl -H "Authorization: Bearer $TOKEN" \
+curl -H "Authorization: Bearer $SENSU_TOKEN" \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/silenced/subscriptions/linux
 
 HTTP/1.1 200 OK
@@ -282,7 +282,7 @@ In the following example, querying the `silenced/checks/:check` API returns a JS
 containing the requested [silencing entries][1] for the given check (in this example: for the `check-cpu` check).
 
 {{< highlight shell >}}
-curl -H "Authorization: Bearer $TOKEN" \
+curl -H "Authorization: Bearer $SENSU_TOKEN" \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/silenced/checks/check-cpu
 
 HTTP/1.1 200 OK

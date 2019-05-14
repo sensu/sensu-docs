@@ -94,7 +94,7 @@ sudo chown -R sensu:sensu /var/cache/sensu/sensu-agent
 
 [structured]: https://dzone.com/articles/what-is-structured-logging
 [journalctl]: https://www.digitalocean.com/community/tutorials/how-to-use-journalctl-to-view-and-manipulate-systemd-logs
-[platforms]: ../../getting-started/platforms
+[platforms]: ../../installation/platforms
 [agent-ref]: ../../reference/agent/#restarting-the-service
 [backend-ref]: ../../reference/backend/#restarting-the-service
 [journald-syslog]: ../systemd-logs

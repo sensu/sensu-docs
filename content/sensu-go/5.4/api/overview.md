@@ -81,7 +81,7 @@ You can request a paginated response using the `limit` and `continue` query para
 For example, the following request limits the response to a maximum of two objects.
 
 {{< highlight shell >}}
-curl http://127.0.0.1:8080/api/core/v2/namespaces?limit=2 -H "Authorization: Bearer $TOKEN"
+curl http://127.0.0.1:8080/api/core/v2/namespaces?limit=2 -H "Authorization: Bearer $SENSU_TOKEN"
 {{< /highlight >}}
 
 The response includes the available objects up to the specified limit and, if there are more objects available, a continue token.
@@ -105,7 +105,7 @@ You can then use the continue token to request the next page of objects.
 The following example requests the next two available namespaces following the request in the example above.
 
 {{< highlight shell >}}
-curl http://127.0.0.1:8080/api/core/v2/namespaces?limit=2&continue=L2RlZmF1bHQvY2N4MWM2L2hlbGxvLXdvcmxkAA -H "Authorization: Bearer $TOKEN"
+curl http://127.0.0.1:8080/api/core/v2/namespaces?limit=2&continue=L2RlZmF1bHQvY2N4MWM2L2hlbGxvLXdvcmxkAA -H "Authorization: Bearer $SENSU_TOKEN"
 {{< /highlight >}}
 
 If the request does not return a continue token, there are no further objects to return.

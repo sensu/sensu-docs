@@ -79,7 +79,7 @@ supercede the documented [supported platforms][platforms]._
 
 #### Windows
 
-The Sensu agent stores service logs to the location specified by the `log-file` configuration flag (default: `%ALLUSERSPROFILE%\sensu\log\sensu-agent.log`, `C:\ProgramData\Sensu\log\sensu-agent.log` on standard Windows installations).
+The Sensu agent stores service logs to the location specified by the `log-file` configuration flag (default: `%ALLUSERSPROFILE%\sensu\log\sensu-agent.log`, `C:\ProgramData\sensu\log\sensu-agent.log` on standard Windows installations).
 For more information about managing the Sensu agent for Windows, see the [agent reference][1].
 You can also view agent events using the Windows Event Viewer, under Windows Logs, as events with source SensuAgent.
 
@@ -116,7 +116,7 @@ sudo chown -R sensu:sensu /var/cache/sensu/sensu-agent
 
 [structured]: https://dzone.com/articles/what-is-structured-logging
 [journalctl]: https://www.digitalocean.com/community/tutorials/how-to-use-journalctl-to-view-and-manipulate-systemd-logs
-[platforms]: ../../getting-started/platforms
+[platforms]: ../../installation/platforms
 [agent-ref]: ../../reference/agent/#restarting-the-service
 [backend-ref]: ../../reference/backend/#restarting-the-service
 [journald-syslog]: ../systemd-logs

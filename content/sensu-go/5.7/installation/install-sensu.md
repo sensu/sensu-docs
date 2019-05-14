@@ -149,12 +149,18 @@ sudo yum install sensu-go-agent
 
 {{< platformBlock "Windows" >}}
 
-#### Windows
+#### Windows {#windows-agent}
 
-Download the Sensu agent for Windows [`amd64`](https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.7.0/sensu-go-agent_5.7.0_2382_en-US.x64.msi) or [`386`](https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.7.0/sensu-go-agent_5.7.0_2382_en-US.x86.msi) architectures.
+Download the Sensu agent for Windows [`amd64`](https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.7.0/sensu-go-agent_5.7.0.2380_en-US.x64.msi) or [`386`](https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.7.0/sensu-go-agent_5.7.0_2380_en-US.x86.msi) architectures.
 
 {{< highlight text >}}
-Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.7.0/sensu-go-agent_5.7.0_2382_en-US.x64.msi  -OutFile "$env:userprofile\sensu-go-agent_5.7.0_2382_en-US.x64.msi"
+Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.7.0/sensu-go-agent_5.7.0.2380_en-US.x64.msi  -OutFile "$env:userprofile\sensu-go-agent_5.7.0.2380_en-US.x64.msi"
+{{< /highlight >}}
+
+Start the installation wizard.
+
+{{< highlight text >}}
+msiexec.exe /i $env:userprofile\sensu-go-agent_5.7.0.2380_en-US.x64.msi
 {{< /highlight >}}
 
 {{< platformBlockClose >}}
@@ -183,7 +189,11 @@ _NOTE: The Sensu agent can be configured using a `/etc/sensu/agent.yml` configur
 
 #### Windows
 
-Copy the example agent config file from `%ALLUSERSPROFILE%\sensu\config\agent.yml.example` (default: `C:\ProgramData\Sensu\config\agent.yml.example`) to `C:\ProgramData\Sensu\config\agent.yml`.
+Copy the example agent config file from `%ALLUSERSPROFILE%\sensu\config\agent.yml.example` (default: `C:\ProgramData\sensu\config\agent.yml.example`) to `C:\ProgramData\sensu\config\agent.yml`.
+
+{{< highlight text >}}
+cp C:\ProgramData\sensu\config\agent.yml.example C:\ProgramData\sensu\config\agent.yml
+{{< /highlight >}}
 
 {{< platformBlockClose >}}
 
@@ -215,10 +225,22 @@ service sensu-agent status
 
 #### Windows
 
-Run the following command as an admin to install and start the agent.
+Change to the `sensu\sensu-agent\bin` directory where you've installed Sensu.
 
 {{< highlight text >}}
-sensu-agent service install
+cd 'C:\Program Files\sensu\sensu-agent\bin'
+{{< /highlight >}}
+
+Run the `sensu-agent` executable.
+
+{{< highlight text >}}
+./sensu-agent.exe
+{{< /highlight >}}
+
+Run the following command to install and start the agent.
+
+{{< highlight text >}}
+./sensu-agent service install
 {{< /highlight >}}
 
 Verify that the agent is running.
@@ -438,7 +460,7 @@ While it can be run from the docker container, doing so may be problematic.
 [2]: https://github.com/sensu/sensu-go/blob/5.1.1/packaging/files/windows/agent.yml.example
 [3]: ../../dashboard/overview
 [4]: ../../sensuctl/reference
-[5]: ../../getting-started/platforms
+[5]: ../../installation/platforms
 [6]: ../../reference/backend
 [7]: ../../reference/agent
 [8]: ../../guides/troubleshooting

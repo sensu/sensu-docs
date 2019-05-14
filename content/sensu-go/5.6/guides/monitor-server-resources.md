@@ -20,9 +20,8 @@ used with Sensu.
 
 ## Why use a check?
 
-Checks are commonly used to monitor server resources, services, and application
-health (e.g. is Nginx running?) as well as collect & analyze metrics (e.g. how
-much disk space do I have left?)
+You can use checks to monitor server resources, services, and application
+health (for example: is Nginx running?) as well as collect and analyze metrics (for example: how much disk space do I have left?).
 
 ## Using checks to monitor a service
 

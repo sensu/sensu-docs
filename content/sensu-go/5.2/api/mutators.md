@@ -28,7 +28,7 @@ The following example demonstrates a request to the `/mutators` API, resulting i
 a JSON Array containing [mutator definitions][1].
 
 {{< highlight shell >}}
-curl http://127.0.0.1:8080/api/core/v2/namespaces/default/mutators -H "Authorization: Bearer $TOKEN"
+curl http://127.0.0.1:8080/api/core/v2/namespaces/default/mutators -H "Authorization: Bearer $SENSU_TOKEN"
 [
   {
     "metadata": {
@@ -105,7 +105,7 @@ containing the requested [`:mutator` definition][1] (in this example: for the `:
 `example-mutator`).
 
 {{< highlight shell >}}
-curl http://127.0.0.1:8080/api/core/v2/namespaces/default/mutators/example-mutator -H "Authorization: Bearer $TOKEN"
+curl http://127.0.0.1:8080/api/core/v2/namespaces/default/mutators/example-mutator -H "Authorization: Bearer $SENSU_TOKEN"
 {
   "metadata": {
     "name": "example-mutator",
@@ -169,13 +169,26 @@ response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 
 
 ### `/mutators/:mutator` (DELETE) {#mutatorsmutator-delete}
 
+The `/mutators/:mutator` API endpoint provides HTTP DELETE access to delete a mutator from Sensu given the mutator name.
+
+### EXAMPLE {#mutatorsmutator-delete-example}
+The following example shows a request to delete the mutator `example-mutator`, resulting in a successful HTTP 204 No Content response.
+
+{{< highlight shell >}}
+curl -X DELETE \
+-H "Authorization: Bearer $SENSU_TOKEN" \
+http://127.0.0.1:8080/api/core/v2/namespaces/default/mutators/example-mutator
+
+HTTP/1.1 204 No Content
+{{< /highlight >}}
+
 #### API Specification {#mutatorsmutator-delete-specification}
 
 /mutators/:mutator (DELETE) | 
 --------------------------|------
 description               | Removes a mutator from Sensu given the mutator name.
 example url               | http://hostname:8080/api/core/v2/namespaces/default/mutators/example-mutator
-response codes            | <ul><li>**Success**: 202 (Accepted)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 [1]: ../../reference/mutators
 

@@ -28,7 +28,7 @@ The following example demonstrates a request to the `/handlers` API, resulting i
 a JSON Array containing [handler definitions][1].
 
 {{< highlight shell >}}
-curl http://127.0.0.1:8080/api/core/v2/namespaces/default/handlers -H "Authorization: Bearer $TOKEN"
+curl http://127.0.0.1:8080/api/core/v2/namespaces/default/handlers -H "Authorization: Bearer $SENSU_TOKEN"
 [
   {
     "metadata": {
@@ -148,7 +148,7 @@ containing the requested [`:handler` definition][1] (in this example: for the `:
 `slack`).
 
 {{< highlight shell >}}
-curl http://127.0.0.1:8080/api/core/v2/namespaces/default/handlers/slack -H "Authorization: Bearer $TOKEN"
+curl http://127.0.0.1:8080/api/core/v2/namespaces/default/handlers/slack -H "Authorization: Bearer $SENSU_TOKEN"
 {
   "metadata": {
     "name": "slack",
@@ -234,6 +234,19 @@ payload         | {{< highlight shell >}}
 response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 ### `/handlers/:handler` (DELETE) {#handlershandler-delete}
+
+The `/handlers/:handler` API endpoint provides HTTP DELETE access to delete a handler from Sensu given the handler name.
+
+### EXAMPLE {#handlershandler-delete-example}
+The following example shows a request to delete the handler `slack`, resulting in a successful HTTP 204 No Content response.
+
+{{< highlight shell >}}
+curl -X DELETE \
+-H "Authorization: Bearer $SENSU_TOKEN" \
+http://127.0.0.1:8080/api/core/v2/namespaces/default/handlers/slack
+
+HTTP/1.1 204 No Content
+{{< /highlight >}}
 
 #### API Specification {#handlershandler-delete-specification}
 
