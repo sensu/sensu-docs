@@ -7,6 +7,7 @@ version: "5.8"
 menu: "sensu-go-5.8"
 ---
 
+- [5.8.0 release notes](#5-8-0-release-notes)
 - [5.7.0 release notes](#5-7-0-release-notes)
 - [5.6.0 release notes](#5-6-0-release-notes)
 - [5.5.1 release notes](#5-5-1-release-notes)
@@ -28,6 +29,18 @@ Sensu Go adheres to [semantic versioning][2] using MAJOR.MINOR.PATCH release num
 Read the [upgrade guide][1] for information on upgrading to the latest version of Sensu Go.
 
 ---
+
+## 5.8.0 release notes
+
+**May 22, 2019** &mdash; The latest release of Sensu Go, version 5.8.0, is now available for download.
+
+See the [upgrade guide][1] to upgrade Sensu to version 5.8.0.
+
+**IMPROVEMENTS:**
+
+
+**FIXES:**
+
 
 ## 5.7.0 release notes
 
