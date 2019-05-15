@@ -45,7 +45,9 @@ Proxy entities (formerly known as proxy clients, "Just-in-time" or "JIT" clients
 
 ## Managing entity labels
 
-Custom labels let you organize entities into meaningful collections that can be selected using [filters][6] and [tokens][7].
+Labels are custom attributes that Sensu includes with event data, which can be accessed using [filters][6] and [tokens][7].
+In contrast to annotations, you can use labels to create meaningful collections that can be selected with [API filtering][api-filter] and [sensuctl filtering][sensuctl-filter].
+Overusing labels can impact Sensu's internal performance, so we recommend moving complex, non-identifying metadata to [annotations](#metadata-attributes).
 
 ### Proxy entities{#proxy-entities-managed}
 
