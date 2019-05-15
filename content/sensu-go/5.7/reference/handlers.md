@@ -236,7 +236,7 @@ example      | {{< highlight shell >}}"namespace": "production"{{< /highlight >}
 
 | labels     |      |
 -------------|------
-description  | Custom attributes to include with event data, which can be queried like regular attributes. You can use labels to organize handlers into meaningful collections that can be selected using [filters][10] and [tokens][11].
+description  | Custom attributes you can use to create meaningful collections that can be selected with [API filtering][api-filter] and [sensuctl filtering][sensuctl-filter]. Overusing labels can impact Sensu's internal performance, so we recommend moving complex, non-identifying metadata to annotations.
 required     | false
 type         | Map of key-value pairs. Keys can contain only letters, numbers, and underscores, but must start with a letter. Values can be any valid UTF-8 string.
 default      | `null`
@@ -247,13 +247,12 @@ example      | {{< highlight shell >}}"labels": {
 
 | annotations |     |
 -------------|------
-description  | Arbitrary, non-identifying metadata to include with event data. In contrast to labels, annotations are _not_ used internally by Sensu and cannot be used to identify handlers. You can use annotations to add data that helps people or external tools interacting with Sensu.
+description  | Non-identifying metadata that's meaningful to people or external tools interacting with Sensu.<br><br>In contrast to labels, annotations cannot be used in [API filtering][api-filter] or [sensuctl filtering][sensuctl-filter] and do not impact Sensu's internal performance.
 required     | false
 type         | Map of key-value pairs. Keys and values can be any valid UTF-8 string.
 default      | `null`
 example      | {{< highlight shell >}} "annotations": {
   "managed-by": "ops",
-  "slack-channel": "#monitoring",
   "playbook": "www.example.url"
 }{{< /highlight >}}
 
@@ -434,3 +433,5 @@ The following example handler will execute three handlers: `slack`,
 [16]: https://bonsai.sensu.io
 [17]: ../../getting-started/enterprise
 [23]: ../../guides/install-check-executables-with-assets
+[api-filter]: ../../api/overview#filtering
+[sensuctl-filter]: ../../sensuctl/reference#filtering
