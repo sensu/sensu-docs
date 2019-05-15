@@ -557,7 +557,7 @@ example      | {{< highlight shell >}}"namespace": "production"{{< /highlight >}
 
 | labels     |      |
 -------------|------
-description  | Custom attributes to include with event data, which can be accessed using [filters][27] and [tokens][5].<br><br>In contrast to annotations, you can use labels to create meaningful collections that can be selected with [API filtering][api-filter] and [sensuctl filtering][sensuctl-filter]. Overusing labels can impact Sensu's internal performance, so we recommend moving complex, non-identifying metadata to annotations.
+description  | Custom attributes to include with event data, which can be accessed using [event filters][27].<br><br>In contrast to annotations, you can use labels to create meaningful collections that can be selected with [API filtering][api-filter] and [sensuctl filtering][sensuctl-filter]. Overusing labels can impact Sensu's internal performance, so we recommend moving complex, non-identifying metadata to annotations.
 required     | false
 type         | Map of key-value pairs. Keys can contain only letters, numbers, and underscores, but must start with a letter. Values can be any valid UTF-8 string.
 default      | `null`
@@ -568,7 +568,7 @@ example      | {{< highlight shell >}}"labels": {
 
 | annotations |     |
 -------------|------
-description  | Non-identifying metadata to include with event data, which can be accessed using [filters][27] and [tokens][5]. You can use annotations to add data that's meaningful to people or external tools interacting with Sensu.<br><br>In contrast to labels, annotations cannot be used in [API filtering][api-filter] or [sensuctl filtering][sensuctl-filter] and do not impact Sensu's internal performance.
+description  | Non-identifying metadata to include with event data, which can be accessed using [event filters][27]. You can use annotations to add data that's meaningful to people or external tools interacting with Sensu.<br><br>In contrast to labels, annotations cannot be used in [API filtering][api-filter] or [sensuctl filtering][sensuctl-filter] and do not impact Sensu's internal performance.
 required     | false
 type         | Map of key-value pairs. Keys and values can be any valid UTF-8 string.
 default      | `null`
