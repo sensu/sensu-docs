@@ -22,10 +22,10 @@
   <div class="dropdown dropdown--versions">
     {{ if isset .Params "version" }}
       {{ $display := .Params.version }}
-      <a>{{ $display }}<i class="fa fa-chevron-down dropdownArrow" aria-hidden="true"></i></a>
+      <a class="versionButtonTitle">{{ $display }}<i class="fa fa-chevron-down dropdownArrow" aria-hidden="true"></i></a>
     {{ else }}
       {{ $display := "Version" }}
-      <a>{{ $display }}<i class="fa fa-chevron-down dropdownArrow" aria-hidden="true"></i></a>
+      <a class="versionButtonTitle">{{ $display }}<i class="fa fa-chevron-down dropdownArrow" aria-hidden="true"></i></a>
     {{ end }}
     <div class="options">
       <!-- Grab info for the current product from global -->
