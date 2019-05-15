@@ -632,7 +632,7 @@ Flags:
 
 | annotations|      |
 -------------|------
-description  |Arbitrary, non-identifying metadata to include with event data. In contrast to labels, annotations are not used internally by Sensu and cannot be used to identify entities. You can use annotations to add data that helps people or external tools interacting with Sensu.
+description  | Non-identifying metadata to include with event data, which can be accessed using [filters][9] and [tokens][27]. You can use annotations to add data that's meaningful to people or external tools interacting with Sensu.<br><br>In contrast to labels, annotations cannot be used in [API filtering][api-filter] or [sensuctl filtering][sensuctl-filter] and do not impact Sensu's internal performance.
 required     | false
 type         | Map of key-value pairs. Keys and values can be any valid UTF-8 string.
 default      | `null`
@@ -689,7 +689,7 @@ config-file: "/sensu/agent.yml"{{< /highlight >}}
 
 | labels     |      |
 -------------|------
-description  | Custom attributes to include with event data, which can be queried like regular attributes. You can use labels to organize entities into meaningful collections that can be selected using [filters][9] and [tokens][27].
+description  | Custom attributes to include with event data, which can be accessed using [filters][9] and [tokens][27].<br><br>In contrast to annotations, you can use labels to create meaningful collections that can be selected with [API filtering][api-filter] and [sensuctl filtering][sensuctl-filter]. Overusing labels can impact Sensu's internal performance, so we recommend moving complex, non-identifying metadata to annotations.
 required     | false
 type         | Map of key-value pairs. Keys can contain only letters, numbers, and underscores, but must start with a letter. Values can be any valid UTF-8 string.
 default      | `null`
@@ -1075,4 +1075,6 @@ statsd-metrics-port: 6125{{< /highlight >}}
 [41]: ../rbac/#namespaced-resource-types
 [42]: /sensu-core/latest/reference/checks/#check-result-specification
 [43]: ../entities#proxy-entities
+[api-filter]: ../../api/overview#filtering
+[sensuctl-filter]: ../../sensuctl/reference#filtering
 [44]: ../checks#ttl-attribute
