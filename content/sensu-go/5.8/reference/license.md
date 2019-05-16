@@ -68,7 +68,7 @@ Error: not found
 
 Your license includes the entity limit tied to your Sensu licensing package.
 (An entity limit of `0` allows unlimited entities.)
-Both agent and proxy entity count towards the overall entity limit.
+Both agent and proxy entities count towards the overall entity limit.
 [Contact us](https://account.sensu.io/support) to upgrade your license.
 
 To see your current entity count, use any [API request](https://docs.sensu.io/sensu-go/5.7/api/) that requires an [authorization header](https://docs.sensu.io/sensu-go/5.7/api/overview/#access-control). For example:
