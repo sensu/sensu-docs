@@ -37,6 +37,8 @@ etcd-peer-cert-file: "/path/to/your/peer/cert"
 etcd-peer-key-file: "/path/to/your/peer/key"
 etcd-peer-client-cert-auth: "true"
 etcd-peer-trusted-ca-file: "/path/to/your/peer/ca/file"
+etcd-cipher-suites
+ - your-cipher
 {{< /highlight >}}
 
 ## Securing the API and the dashboard

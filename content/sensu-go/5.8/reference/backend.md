@@ -212,6 +212,7 @@ Store Flags:
       --etcd-peer-trusted-ca-file string           path to the peer server TLS trusted CA file
       --etcd-trusted-ca-file string                path to the client server TLS trusted CA cert file
       --no-embed-etcd                              don't embed etcd, use external etcd instead
+      --etcd-cipher-suites                         list of ciphers to use for etcd TLS configuration
 {{< /highlight >}}
 
 ### General configuration flags
@@ -652,6 +653,21 @@ sensu-backend start --no-embed-etcd
 
 # /etc/sensu/backend.yml example
 no-embed-etcd: true{{< /highlight >}}
+
+
+| etcd-cipher-suites    |      |
+------------------------|------
+description             | List of ciphers to use for etcd TLS configuration. You can use this attribute to defend your TLS servers from attacks on weak TLS ciphers.
+type                    | List
+example                 | {{< highlight shell >}}# Command line examples
+sensu-backend start --etcd-cipher-suites example-cipher,example-cipher
+sensu-backend start --etcd-cipher-suites example-cipher --etcd-cipher-suites example-cipher
+
+# /etc/sensu/backend.yml example
+etcd-cipher-suites:
+  - example-cipher
+  - example-cipher
+{{< /highlight >}}
 
 [1]: ../../installation/install-sensu#install-the-sensu-backend
 [2]: https://github.com/etcd-io/etcd/blob/master/Documentation/docs.md
