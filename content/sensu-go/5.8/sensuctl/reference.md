@@ -16,6 +16,7 @@ menu:
 - [Creating resources](#creating-resources)
 - [Updating resources](#updating-resources)
 - [Managing resources](#managing-resources)
+- [Pagination](#pagination)
 - [Filtering](#filtering) (enterprise-only)
 - [Time formats](#time-formats)
 - [Shell auto-completion](#shell-auto-completion)
@@ -385,6 +386,15 @@ See the [RBAC reference][21] for information about using access control with nam
 #### sensuctl user
 
 See the [RBAC reference][22] for information about local user management with sensuctl.
+
+## Pagination
+
+Sensuctl supports pagination for all `list` commands using the `--chunk-size` flag.
+For example, the following command returns only the first 20 events.
+
+{{< highlight shell >}}
+sensuctl event list --chunk-size 20
+{{< /highlight >}}
 
 ## Filtering
 
