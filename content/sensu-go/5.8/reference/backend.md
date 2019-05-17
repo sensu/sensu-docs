@@ -657,16 +657,17 @@ no-embed-etcd: true{{< /highlight >}}
 
 | etcd-cipher-suites    |      |
 ------------------------|------
-description             | List of ciphers to use for etcd TLS configuration. You can use this attribute to defend your TLS servers from attacks on weak TLS ciphers.
+description             | List of allowed cipher suites for etcd TLS configuration. Sensu supports TLS 1.0-1.2 cipher suites as listed below and in the [Go TLS documentation](https://golang.org/pkg/crypto/tls/#pkg-constants). You can use this attribute to defend your TLS servers from attacks on weak TLS ciphers. _NOTE: To use TLS 1.3, add the following environment variable: `GODEBUG="tls13=1"`._
+available cipher suites       | <ul><li>`TLS_RSA_WITH_RC4_128_SHA                uint16 = 0x0005`</li><li>`TLS_RSA_WITH_3DES_EDE_CBC_SHA           uint16 = 0x000a`</li><li>`TLS_RSA_WITH_AES_128_CBC_SHA            uint16 = 0x002f`</li><li>`TLS_RSA_WITH_AES_256_CBC_SHA            uint16 = 0x0035`</li><li>`TLS_RSA_WITH_AES_128_CBC_SHA256         uint16 = 0x003c`</li><li>`TLS_RSA_WITH_AES_128_GCM_SHA256         uint16 = 0x009c`</li><li>`TLS_RSA_WITH_AES_256_GCM_SHA384         uint16 = 0x009d`</li><li>`TLS_ECDHE_ECDSA_WITH_RC4_128_SHA        uint16 = 0xc007`</li><li>`TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA    uint16 = 0xc009`</li><li>`TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA    uint16 = 0xc00a`</li><li>`TLS_ECDHE_RSA_WITH_RC4_128_SHA          uint16 = 0xc011`</li><li>`TLS_ECDHE_RSA_WITH_3DES_EDE_CBC_SHA     uint16 = 0xc012`</li><li>`TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA      uint16 = 0xc013`</li><li>`TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA      uint16 = 0xc014`</li><li>`TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256 uint16 = 0xc023`</li><li>`TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256   uint16 = 0xc027`</li><li>`TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256   uint16 = 0xc02f`</li><li>`TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256 uint16 = 0xc02b`</li><li>`TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384   uint16 = 0xc030`</li><li>`TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384 uint16 = 0xc02c`</li><li>`TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305    uint16 = 0xcca8`</li><li>`TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305  uint16 = 0xcca9`</li><ul>
 type                    | List
 example                 | {{< highlight shell >}}# Command line examples
-sensu-backend start --etcd-cipher-suites example-cipher,example-cipher
-sensu-backend start --etcd-cipher-suites example-cipher --etcd-cipher-suites example-cipher
+sensu-backend start --etcd-cipher-suites TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+sensu-backend start --etcd-cipher-suites TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 --etcd-cipher-suites TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
 
 # /etc/sensu/backend.yml example
 etcd-cipher-suites:
-  - example-cipher
-  - example-cipher
+  - TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
+  - TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
 {{< /highlight >}}
 
 [1]: ../../installation/install-sensu#install-the-sensu-backend
