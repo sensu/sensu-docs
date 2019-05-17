@@ -38,9 +38,19 @@ See the [upgrade guide][1] to upgrade Sensu to version 5.8.0.
 
 **IMPROVEMENTS:**
 
+- The sensuctl command-line tool now supports the `--chunk-size` flag on `list` commands to help you handle large datasets. See the [sensuctl reference][45] for more information.
+- The Sensu API now includes the /version API to return version information for your Sensu instance. See the [API docs][46] for more information.
+- Sensu backends now support the `etcd-cipher-suites` configuration option, letting you specify the cipher suites that can be used with etcd TLS configuration. See the [backend reference][47] for more information.
+- Tessen now collects the number of events processed and resourced created, giving us better insight into how we can improve Sensu. As always, all Tessen transmissions are logged for complete transparency. See the [Tessen reference][48] for more information.
+- Sensu licenses now include the entity limit attached to your Sensu licensing package. See the [license management docs][49] to learn more about entity limits.
+- Sensu backends now perform better at scale using increased worker pool sizes for events and keepalives.
+- The maximum size of the etcd database and etcd requests is now configurable using the `etcd-quota-backend-bytes` and `etcd-max-request-bytes` backend configuration options. These are advanced configuration options requiring familiarly with etcd; use with caution.
 
 **FIXES:**
 
+- Events produced by checks now execute the correct number of write operations to etcd.
+- Pagination continue tokens for the users and namespaces APIs now work as expected.
+- Keepalive events for deleted and deregistered entities are now cleaned up as expected.
 
 ## 5.7.0 release notes
 
@@ -351,3 +361,8 @@ To get started with Sensu Go:
 [42]: /sensu-go/5.7/reference/agent#operation
 [43]: /sensu-go/5.7/api/overview#filtering
 [44]: https://discourse.sensu.io/t/introducing-usage-limits-in-the-sensu-go-free-tier/1156
+[45]: /sensu-go/5.8/sensuctl/reference#handling-large-datasets
+[46]: /sensu-go/5.8/api/version
+[47]: /sensu-go/5.8/reference/backend#datastore-and-cluster-configuration-flags
+[48]: /sensu-go/5.8/reference/tessen
+[49]: /sensu-go/5.8/reference/license
