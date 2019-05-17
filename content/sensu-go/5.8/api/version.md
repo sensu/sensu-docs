@@ -34,12 +34,13 @@ HTTP/1.1 200 OK
 
 #### API Specification {#version-get-specification}
 
-/version (GET)  | 
----------------|------
-description    | Returns the Sensu backend and etcd version for your Sensu instance
-example url    | http://hostname:8080/version
-response type  | Map
-response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+/version (GET)      |      |
+--------------------|------
+description         | Returns the Sensu backend and etcd version for your Sensu instance
+example url         | http://hostname:8080/version
+response type       | Map
+response codes      | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+response parameters | <li>`Etcd.etcdserver` (string, required): etcd server version</li><li>`Etcd.etcdcluster` (string, optional): etcd cluster version for Sensu instances with the default embedded etcd; not required to match the etcd server version or the cluster versions of other backends in the cluster</li><li>`SensuBackend` (string, required): Sensu backend version in the format x.x.x#yyyyyyy where x.x.x is the Sensu version and yyyyyyy is the release SHA</li></ul>
 output         | {{< highlight shell >}}
 {
   "Etcd": {
