@@ -420,7 +420,7 @@ Now that you've installed sensuctl:
 
 Sensu Go can be run via [Docker](https://www.docker.com/) or [rkt](https://coreos.com/rkt) using the [sensu/sensu](https://hub.docker.com/r/sensu/sensu/) image. When running Sensu from Docker there are a couple of things to take into consideration.
 
-The backend requires four exposed ports and persistent storage. This example uses a shared filesystem. Sensu Go is backed by a distributed database, and its storage should be provisioned accordingly.  We recommend local storage or something like Throughput Optimized or Provisioned IOPS EBS if local storage is unavailable.  The exposed ports are:
+The backend requires four exposed ports and persistent storage. This example uses a shared filesystem. Sensu Go is backed by a distributed database, and its storage should be provisioned accordingly.  We recommend local storage or something like Throughput Optimized or Provisioned IOPS EBS if local storage is unavailable. The exposed ports are:
 
 - 2380: Sensu storage peer listener (only other Sensu backends need access to this port)
 - 3000: Sensu dashboard
@@ -431,26 +431,23 @@ We suggest, but do not require, persistent storage for Sensu backends and Sensu 
 
 ### Start a Sensu backend
 {{< highlight shell >}}
-docker run -v /var/lib/sensu:/var/lib/sensu -d --name sensu-backend -p 2380:2380 \
--p 3000:3000 -p 8080:8080 -p 8081:8081 sensu/sensu:latest sensu-backend start
+docker run -v /var/lib/sensu:/var/lib/sensu -d --name sensu-backend -p 2380:2380 -p 3000:3000 -p 8080:8080 -p 8081:8081 sensu/sensu:latest sensu-backend start
 {{< /highlight >}}
 
 ### Start a Sensu agent
 In this case, we're starting an agent with the webserver and system subscriptions as an example.
 This assumes that the Sensu backend is running on another host named sensu.yourdomain.com.
-If you are running these locally on the same system, add `--link sensu-backend` to your Docker arguments, and change the backend URL to `--backend-url ws://sensu-backend:8081`.
+If you are running these locally on the same system, add `--link sensu-backend` to your Docker arguments and change the backend URL to `--backend-url ws://sensu-backend:8081`.
 
 {{< highlight shell >}}
-docker run -v /var/lib/sensu:/var/lib/sensu -d --name sensu-agent \
-sensu/sensu:latest sensu-agent start --backend-url ws://sensu.yourdomain.com:8081 \
---subscriptions webserver,system --cache-dir /var/lib/sensu
+docker run -v /var/lib/sensu:/var/lib/sensu -d --name sensu-agent sensu/sensu:latest sensu-agent start --backend-url ws://sensu.yourdomain.com:8081 --subscriptions webserver,system --cache-dir /var/lib/sensu
 {{< /highlight >}}
 
 _NOTE: You can configure the backend and agent log levels by using the `--log-level` flag on either process. Log levels include `panic`, `fatal`, `error`, `warn`, `info`, and `debug`, defaulting to `warn`._
 
 ### sensuctl and Docker
 
-It's best to run sensuctl locally and point it at the exposed API port for your the Sensu backend.
+It's best to [install and run sensuctl](#install-sensuctl) locally and point it at the exposed API port for your the Sensu backend.
 The sensuctl utility stores configuration locally, and you'll likely want to persist it across uses.
 While it can be run from the docker container, doing so may be problematic.
 
