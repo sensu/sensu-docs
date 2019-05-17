@@ -322,11 +322,11 @@ For a list of subcommands specific to a resource, run `sensuctl TYPE --help`.
 
 ### Handling large datasets
 
-When querying sensuctl for large datasets, you use the `--chunk-size` flag with any `list` command to avoid timeouts and improve performance.
+When querying sensuctl for large datasets, you can use the `--chunk-size` flag with any `list` command to avoid timeouts and improve performance.
 For example, the following command returns the same output as `sensuctl event list` but makes multiple API queries (each for the number of objects specified by `--chunk-size`) instead of one API query for the complete dataset.
 
 {{< highlight shell >}}
-sensuctl event list --chunk-size 20
+sensuctl event list --chunk-size 500
 {{< /highlight >}}
 
 #### sensuctl check
