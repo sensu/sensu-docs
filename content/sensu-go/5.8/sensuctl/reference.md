@@ -16,7 +16,6 @@ menu:
 - [Creating resources](#creating-resources)
 - [Updating resources](#updating-resources)
 - [Managing resources](#managing-resources)
-- [Pagination](#pagination)
 - [Filtering](#filtering) (enterprise-only)
 - [Time formats](#time-formats)
 - [Shell auto-completion](#shell-auto-completion)
@@ -321,6 +320,15 @@ sensuctl check info check-cpu --format wrapped-json
 In addition to the standard operations, commands may support subcommands or flags that allow you to take special action based on the resource type; the following sections call out those resource-specific operations.
 For a list of subcommands specific to a resource, run `sensuctl TYPE --help`.
 
+### Handling large datasets
+
+When querying sensuctl for large datasets, you use the `--chunk-size` flag with any `list` command to avoid timeouts and improve performance.
+For example, the following command returns the same output as `sensuctl event list` but makes multiple API queries (each for the number of objects specified by `--chunk-size`) instead of one API query for the complete dataset.
+
+{{< highlight shell >}}
+sensuctl event list --chunk-size 20
+{{< /highlight >}}
+
 #### sensuctl check
 
 In addition to the [standard subcommands][23], sensuctl provides a command to execute a check on demand, given the check name.
@@ -386,15 +394,6 @@ See the [RBAC reference][21] for information about using access control with nam
 #### sensuctl user
 
 See the [RBAC reference][22] for information about local user management with sensuctl.
-
-## Pagination
-
-Sensuctl supports pagination for all `list` commands using the `--chunk-size` flag.
-For example, the following command returns only the first 20 events.
-
-{{< highlight shell >}}
-sensuctl event list --chunk-size 20
-{{< /highlight >}}
 
 ## Filtering
 
