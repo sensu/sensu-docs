@@ -71,7 +71,7 @@ Your license includes the entity limit tied to your Sensu licensing package.
 Both agent and proxy entities count towards the overall entity limit.
 [Contact us](https://account.sensu.io/support) to upgrade your license.
 
-To see your current entity count, use any [API request](https://docs.sensu.io/sensu-go/5.7/api/) that requires an [authorization header](https://docs.sensu.io/sensu-go/5.7/api/overview/#access-control). For example:
+To see your current entity count, use any `/api/core` or `/api/enterprise` [API request](https://docs.sensu.io/sensu-go/5.7/api/). For example:
 
 {{< highlight shell >}}
 curl http://127.0.0.1:8080/api/core/v2/namespaces/default/entities -v -H "Authorization: Bearer $SENSU_TOKEN"
