@@ -60,4 +60,4 @@ state-dir: "/var/lib/sensu/sensu-backend"
 #etcd-trusted-ca-file: "/path/to/ssl/key.pem"
 #no-embed-etcd: false
 #etcd-cipher-suits
-#  - example-cipher
+#  - TLS_EXAMPLE
