@@ -19,7 +19,7 @@ menu:
 - [Specification](#check-specification)
 - [Examples](#examples)
 
-Discover, download, and share Sensu check assets using [Bonsai][25], the Sensu asset index.
+Discover, download, and share Sensu check assets using [Bonsai][29], the Sensu asset index.
 Read the [guide to installing plugins using assets][28] to get started.
 
 ## How do checks work?
@@ -33,6 +33,10 @@ will be executed by the Sensu agent.
 A command may include command line arguments for controlling the behavior of the
 command executable. Most Sensu check plugins provide support for command line
 arguments for reusability.
+
+Sensu advises against requiring root privileges to execute check
+commands or scripts. The Sensu user is not permitted to kill timed out processes
+invoked by the root user, which could result in zombie processes.
 
 #### How and where are check commands executed?
 
@@ -206,14 +210,14 @@ example      | {{< highlight shell >}}"handlers": ["pagerduty", "email"]{{< /hig
 
 |interval    |      |
 -------------|------
-description  | The frequency in seconds the check is executed.
+description  | How often the check is executed, in seconds
 required     | true (unless `publish` is `false` or `cron` is configured)
 type         | Integer
 example      | {{< highlight shell >}}"interval": 60{{< /highlight >}}
 
 |cron        |      |
 -------------|------
-description  | When the check should be executed, using the [Cron syntax][14] or [these predefined schedules][15].
+description  | When the check should be executed, using [cron syntax][14] or [these predefined schedules][15].
 required     | true (unless `publish` is `false` or `interval` is configured)
 type         | String
 example      | {{< highlight shell >}}"cron": "0 0 * * *"{{< /highlight >}}
@@ -222,6 +226,7 @@ example      | {{< highlight shell >}}"cron": "0 0 * * *"{{< /highlight >}}
 -------------|------
 description  | If check requests are published for the check.
 required     | false
+default      | `false`
 type         | Boolean
 example      | {{< highlight shell >}}"publish": false{{< /highlight >}}
 
@@ -231,6 +236,8 @@ description  | The check execution duration timeout in seconds (hard stop).
 required     | false
 type         | Integer
 example      | {{< highlight shell >}}"timeout": 30{{< /highlight >}}
+
+<a name="ttl-attribute"></a>
 
 |ttl         |      |
 -------------|------
@@ -536,5 +543,5 @@ _NOTE: The attribute `interval` is not required if a valid `cron` schedule is de
 [27]: ../filters
 [sc]: ../../sensuctl/reference#creating-resources
 [sp]: #spec-attributes
-[25]: https://bonsai.sensu.io
 [28]: ../../guides/monitor-external-resources
+[29]: https://bonsai.sensu.io

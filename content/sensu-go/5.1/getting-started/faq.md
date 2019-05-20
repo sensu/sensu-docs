@@ -88,7 +88,7 @@ Yes, as long as the port requirements described above are met, a single Sensu ba
 
 Due to Sensu Go's implementation, it is not possible to use Uchiwa with Sensu Go. Sensu Go does have a [built-in dashboard][29] that you can use to visually interact with your Sensu Go deployment.
 
-[1]: ../platforms
+[1]: ../../installation/platforms
 [2]: ../../installation/install-sensu
 [3]: https://blog.sensu.io/sensu-go-is-here
 [4]: ../../installation/upgrade/#upgrading-to-sensu-go-from-sensu-core-1-x
