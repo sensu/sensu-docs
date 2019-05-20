@@ -20,6 +20,8 @@ users only.**
 
 Send metrics to [InfluxDB][2] using the InfluxDB HTTP API.
 
+_NOTE: By default, 3 annotation tables are created with the Influxdb integration: `client`, `check`, and `action`. To see metric data returned by a check, a check must be of the `metric` type._
+
 ## Configuration
 
 ### Example(s) {#examples}
