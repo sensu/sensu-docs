@@ -33,7 +33,7 @@ Read the [upgrade guide][1] for information on upgrading to the latest version o
 ## 5.8.0 release notes
 
 **May 22, 2019** &mdash; The latest release of Sensu Go, version 5.8.0, is now available for download.
-The latest release of Sensu Go, version 5.8.0, is now available for download. This is mainly a stability release with bug fixes and performance improvements. Additionally, we have added support for configurable etcd cipher suites.
+This is mainly a stability release with bug fixes and performance improvements. Additionally, we have added support for configurable etcd cipher suites.
 See the [upgrade guide][1] to upgrade Sensu to version 5.8.0.
 
 **IMPROVEMENTS:**
@@ -41,10 +41,10 @@ See the [upgrade guide][1] to upgrade Sensu to version 5.8.0.
 - The sensuctl command-line tool now supports the `--chunk-size` flag on `list` commands to help you handle large datasets. See the [sensuctl reference][45] for more information.
 - The Sensu API now includes the /version API, returning version information for your Sensu instance. See the [API docs][46] for more information.
 - Sensu backends now support the `etcd-cipher-suites` configuration option, letting you specify the cipher suites that can be used with etcd TLS configuration. See the [backend reference][47] for more information.
-- Tessen now collects the number of events processed and resourced created, giving us better insight into how we can improve Sensu. As always, all Tessen transmissions are logged for complete transparency. See the [Tessen reference][48] for more information.
+- Tessen now collects the numbers of events processed and resources created, giving us better insight into how we can improve Sensu. As always, all Tessen transmissions are logged for complete transparency. See the [Tessen reference][48] for more information.
 - Sensu licenses now include the entity limit attached to your Sensu licensing package. See the [license management docs][49] to learn more about entity limits.
 - Sensu backends now perform better at scale using increased worker pool sizes for events and keepalives.
-- The maximum size of the etcd database and etcd requests is now configurable using the `etcd-quota-backend-bytes` and `etcd-max-request-bytes` backend configuration options. These are advanced configuration options requiring familiarly with etcd; use with caution.
+- The maximum size of the etcd database and etcd requests is now configurable using the `etcd-quota-backend-bytes` and `etcd-max-request-bytes` backend configuration options. These are advanced configuration options requiring familiarly with etcd; use with caution. See the [backend reference][50] for more information.
 
 **FIXES:**
 
@@ -363,6 +363,7 @@ To get started with Sensu Go:
 [44]: https://discourse.sensu.io/t/introducing-usage-limits-in-the-sensu-go-free-tier/1156
 [45]: /sensu-go/5.8/sensuctl/reference#handling-large-datasets
 [46]: /sensu-go/5.8/api/version
-[47]: /sensu-go/5.8/reference/backend#datastore-and-cluster-configuration-flags
+[47]: /sensu-go/5.8/reference/backend#etcd-cipher-suites
 [48]: /sensu-go/5.8/reference/tessen
 [49]: /sensu-go/5.8/reference/license
+[50]: /sensu-go/5.8/reference/backend#advanced-configuration-options
