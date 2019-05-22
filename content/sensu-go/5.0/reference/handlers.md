@@ -173,7 +173,7 @@ example      | {{< highlight shell >}}"mutator": "only_check_output"{{< /highlig
 
 timeout     | 
 ------------|------
-description | The handler execution duration timeout in seconds (hard stop). Only used by `pipe` and `tcp` handler types.
+description | The handler execution duration timeout in seconds (hard stop). Only used by `pipe`, `tcp`, and `udp` handler types.
 required    | false
 type        | Integer
 default     | `60` (for `tcp` handler)
