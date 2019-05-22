@@ -34,7 +34,11 @@ Read the [upgrade guide][1] for information on upgrading to the latest version o
 
 **May 22, 2019** &mdash; The latest release of Sensu Go, version 5.8.0, is now available for download.
 This is mainly a stability release with bug fixes and performance improvements. Additionally, we have added support for configurable etcd cipher suites.
-See the [upgrade guide][1] to upgrade Sensu to version 5.8.0.
+See the [upgrade guide][51] to upgrade Sensu to version 5.8.0.
+
+**IMPORTANT:**
+
+- To upgrade to Sensu Go 5.8.0, Sensu clusters with multiple backend nodes must be shut down during the upgrade process. See the [upgrade guide][51] for more information.
 
 **IMPROVEMENTS:**
 
@@ -45,12 +49,17 @@ See the [upgrade guide][1] to upgrade Sensu to version 5.8.0.
 - Sensu licenses now include the entity limit attached to your Sensu licensing package. See the [license management docs][49] to learn more about entity limits.
 - Sensu backends now perform better at scale using increased worker pool sizes for events and keepalives.
 - The maximum size of the etcd database and etcd requests is now configurable using the `etcd-quota-backend-bytes` and `etcd-max-request-bytes` backend configuration options. These are advanced configuration options requiring familiarly with etcd; use with caution. See the [backend reference][50] for more information.
+- Most Sensu resources now use protobuf serialization in etcd.
 
 **FIXES:**
 
 - Events produced by checks now execute the correct number of write operations to etcd.
 - API pagination tokens for the users and namespaces APIs now work as expected.
 - Keepalive events for deleted and deregistered entities are now cleaned up as expected.
+
+**KNOWN ISSUES:**
+
+- Auth tokens may not be purged from etcd, resulting in a possible impact to performance.
 
 ## 5.7.0 release notes
 
@@ -367,3 +376,4 @@ To get started with Sensu Go:
 [48]: /sensu-go/5.8/reference/tessen
 [49]: /sensu-go/5.8/reference/license
 [50]: /sensu-go/5.8/reference/backend#advanced-configuration-options
+[51]: /sensu-go/5.8/installation/upgrade#upgrading-sensu-clusters-from-5-7-0-or-earlier-to-5-8-0-or-later
