@@ -14,7 +14,7 @@ We recommend updating Sensu frequently to stay in sync with the latest features 
 See the [upgrade guide](/sensu-go/latest/installation/upgrade) to upgrade to the latest version.
 
 Sensu supports the latest versions of official distributions, including packages, binary-only distributions, and Docker images.
-To learn more about Sensu support and licensing, see the [getting started guide](../enterprise).
+To learn more about Sensu support and licensing, see the [getting started guide](../../getting-started/enterprise).
 
 | version                     | release date     | status    | end of support date |
 | --------------------------- | ---------------- | --------- | ------------------- |

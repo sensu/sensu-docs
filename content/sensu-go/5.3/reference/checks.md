@@ -122,13 +122,7 @@ _PRO TIP: You can use round robin to distribute check execution workload across 
 ### Scheduling
 
 You can schedule checks using the `interval`, `cron`, and `publish` attributes.
-Sensu requires that checks include either an `interval` attribute (interval scheduling), a `cron` attribute (cron scheduling), or the `publish` attribute set to `false` (ad-hoc scheduling).
-
-| check attributes | interval scheduling | cron scheduling | ad-hoc scheduling
-| --- | --- | --- | --- |
-| `interval` | ✅ | ❌ | ❌
-| `cron` | ❌ | ✅ | ❌
-| `publish` | `true` | `true` | `false`
+Sensu requires that checks include either an `interval` attribute (interval scheduling) or a `cron` attribute (cron scheduling).
 
 #### Interval scheduling
 
@@ -407,6 +401,7 @@ example      | {{< highlight shell >}}"cron": "0 0 * * *"{{< /highlight >}}
 -------------|------
 description  | If check requests are published for the check.
 required     | false
+default      | `false`
 type         | Boolean
 example      | {{< highlight shell >}}"publish": false{{< /highlight >}}
 
