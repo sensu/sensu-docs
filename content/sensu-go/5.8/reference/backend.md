@@ -213,6 +213,8 @@ Store Flags:
       --etcd-trusted-ca-file string                path to the client server TLS trusted CA cert file
       --no-embed-etcd                              don't embed etcd, use external etcd instead
       --etcd-cipher-suites                         list of ciphers to use for etcd TLS configuration
+      --etcd-max-request-bytes                     maximum etcd request size in bytes (use with caution)
+      --etcd-quota-backend-bytes                   maximum etcd database size in bytes (use with caution)
 {{< /highlight >}}
 
 ### General configuration flags
@@ -694,6 +696,32 @@ etcd-cipher-suites:
   - TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
   - TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
 {{< /highlight >}}
+
+### Advanced configuration options
+
+| etcd-max-request-bytes |      |
+-----------------------|------
+description            | Maximum etcd request size in bytes that can be sent to an etcd server by a client. Increasing this value allows etcd to process events with large outputs at the cost of overall latency. _WARNING: Use with caution. This configuration option requires familiarity with etcd. Improper use of this option can result in a non-functioning Sensu instance._
+type                   | Integer
+default                | `1572864`
+example                | {{< highlight shell >}}# Command line example
+sensu-backend start --etcd-max-request-bytes 1572864
+
+# /etc/sensu/backend.yml example
+etcd-max-request-bytes: 1572864{{< /highlight >}}
+
+
+| etcd-quota-backend-bytes |      |
+-----------------------|------
+description            | Maximum etcd database size in bytes. Increasing this value allows for a larger etcd database at the cost of performance. _WARNING: Use with caution. This configuration option requires familiarity with etcd. Improper use of this option can result in a non-functioning Sensu instance._
+type                   | Integer
+default                | `4294967296`
+example                | {{< highlight shell >}}# Command line example
+sensu-backend start --etcd-quota-backend-bytes 4294967296
+
+# /etc/sensu/backend.yml example
+etcd-quota-backend-bytes: 4294967296{{< /highlight >}}
+
 
 [1]: ../../installation/install-sensu#install-the-sensu-backend
 [2]: https://github.com/etcd-io/etcd/blob/master/Documentation/docs.md
