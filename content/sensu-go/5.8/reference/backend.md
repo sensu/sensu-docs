@@ -212,6 +212,7 @@ Store Flags:
       --etcd-peer-trusted-ca-file string           path to the peer server TLS trusted CA file
       --etcd-trusted-ca-file string                path to the client server TLS trusted CA cert file
       --no-embed-etcd                              don't embed etcd, use external etcd instead
+      --etcd-cipher-suites                         list of ciphers to use for etcd TLS configuration
 {{< /highlight >}}
 
 ### General configuration flags
@@ -652,6 +653,47 @@ sensu-backend start --no-embed-etcd
 
 # /etc/sensu/backend.yml example
 no-embed-etcd: true{{< /highlight >}}
+
+<a name="etcd-cipher-suites"></a>
+
+| etcd-cipher-suites    |      |
+------------------------|------
+description             | List of allowed cipher suites for etcd TLS configuration. Sensu supports TLS 1.0-1.2 cipher suites as listed in the [Go TLS documentation](https://golang.org/pkg/crypto/tls/#pkg-constants). You can use this attribute to defend your TLS servers from attacks on weak TLS ciphers. _NOTE: To use TLS 1.3, add the following environment variable: `GODEBUG="tls13=1"`._
+default                  | {{< highlight shell >}}
+etcd-cipher-suites:
+  - TLS_RSA_WITH_RC4_128_SHA
+  - TLS_RSA_WITH_3DES_EDE_CBC_SHA
+  - TLS_RSA_WITH_AES_128_CBC_SHA
+  - TLS_RSA_WITH_AES_256_CBC_SHA
+  - TLS_RSA_WITH_AES_128_CBC_SHA256
+  - TLS_RSA_WITH_AES_128_GCM_SHA256
+  - TLS_RSA_WITH_AES_256_GCM_SHA384
+  - TLS_ECDHE_ECDSA_WITH_RC4_128_SHA
+  - TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA
+  - TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA
+  - TLS_ECDHE_RSA_WITH_RC4_128_SHA
+  - TLS_ECDHE_RSA_WITH_3DES_EDE_CBC_SHA
+  - TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA
+  - TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA
+  - TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256
+  - TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256
+  - TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
+  - TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256
+  - TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+  - TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384
+  - TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305
+  - TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305
+{{< /highlight >}}
+type                    | List
+example                 | {{< highlight shell >}}# Command line examples
+sensu-backend start --etcd-cipher-suites TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+sensu-backend start --etcd-cipher-suites TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 --etcd-cipher-suites TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+
+# /etc/sensu/backend.yml example
+etcd-cipher-suites:
+  - TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
+  - TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+{{< /highlight >}}
 
 [1]: ../../installation/install-sensu#install-the-sensu-backend
 [2]: https://github.com/etcd-io/etcd/blob/master/Documentation/docs.md
