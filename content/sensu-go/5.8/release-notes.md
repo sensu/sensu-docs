@@ -38,9 +38,9 @@ See the [upgrade guide][1] to upgrade Sensu to version 5.8.0.
 
 **IMPROVEMENTS:**
 
-- The sensuctl command-line tool now supports the `--chunk-size` flag on `list` commands to help you handle large datasets. See the [sensuctl reference][45] for more information.
-- The Sensu API now includes the /version API, returning version information for your Sensu instance. See the [API docs][46] for more information.
+- The sensuctl command-line tool now supports the `--chunk-size` flag to help you handle large datasets. See the [sensuctl reference][45] for more information.
 - Sensu backends now support the `etcd-cipher-suites` configuration option, letting you specify the cipher suites that can be used with etcd TLS configuration. See the [backend reference][47] for more information.
+- The Sensu API now includes the version API, returning version information for your Sensu instance. See the [API docs][46] for more information.
 - Tessen now collects the numbers of events processed and resources created, giving us better insight into how we can improve Sensu. As always, all Tessen transmissions are logged for complete transparency. See the [Tessen reference][48] for more information.
 - Sensu licenses now include the entity limit attached to your Sensu licensing package. See the [license management docs][49] to learn more about entity limits.
 - Sensu backends now perform better at scale using increased worker pool sizes for events and keepalives.
