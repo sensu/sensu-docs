@@ -49,7 +49,7 @@ state-dir: "/var/lib/sensu/sensu-backend"
 #etcd-initial-cluster: "http://127.0.0.1:2380"
 #etcd-initial-cluster-state: "new" # new or existing
 #etcd-initial-cluster-token: "sensu"
-#etc-key-file: "/path/to/ssl/key.pem"
+#etcd-key-file: "/path/to/ssl/key.pem"
 #etcd-listen-client-urls: "http://127.0.0.1:2379"
 #etcd-listen-peer-urls: "http://127.0.0.1:2380"
 #etcd-name: "default"
@@ -59,3 +59,5 @@ state-dir: "/var/lib/sensu/sensu-backend"
 #etcd-peer-trusted-ca-file: "/path/to/ssl/key.pem"
 #etcd-trusted-ca-file: "/path/to/ssl/key.pem"
 #no-embed-etcd: false
+#etcd-cipher-suits
+#  - TLS_EXAMPLE
