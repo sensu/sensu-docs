@@ -33,13 +33,13 @@ Read the [upgrade guide][1] for information on upgrading to the latest version o
 ## 5.8.0 release notes
 
 **May 22, 2019** &mdash; The latest release of Sensu Go, version 5.8.0, is now available for download.
-
+The latest release of Sensu Go, version 5.8.0, is now available for download. This is mainly a stability release with bug fixes and performance improvements. Additionally, we have added support for configurable etcd cipher suites.
 See the [upgrade guide][1] to upgrade Sensu to version 5.8.0.
 
 **IMPROVEMENTS:**
 
 - The sensuctl command-line tool now supports the `--chunk-size` flag on `list` commands to help you handle large datasets. See the [sensuctl reference][45] for more information.
-- The Sensu API now includes the /version API to return version information for your Sensu instance. See the [API docs][46] for more information.
+- The Sensu API now includes the /version API, returning version information for your Sensu instance. See the [API docs][46] for more information.
 - Sensu backends now support the `etcd-cipher-suites` configuration option, letting you specify the cipher suites that can be used with etcd TLS configuration. See the [backend reference][47] for more information.
 - Tessen now collects the number of events processed and resourced created, giving us better insight into how we can improve Sensu. As always, all Tessen transmissions are logged for complete transparency. See the [Tessen reference][48] for more information.
 - Sensu licenses now include the entity limit attached to your Sensu licensing package. See the [license management docs][49] to learn more about entity limits.
@@ -49,7 +49,7 @@ See the [upgrade guide][1] to upgrade Sensu to version 5.8.0.
 **FIXES:**
 
 - Events produced by checks now execute the correct number of write operations to etcd.
-- Pagination continue tokens for the users and namespaces APIs now work as expected.
+- API pagination tokens for the users and namespaces APIs now work as expected.
 - Keepalive events for deleted and deregistered entities are now cleaned up as expected.
 
 ## 5.7.0 release notes
