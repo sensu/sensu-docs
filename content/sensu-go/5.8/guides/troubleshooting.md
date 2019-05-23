@@ -114,6 +114,23 @@ or the sensu-agent:
 sudo chown -R sensu:sensu /var/cache/sensu/sensu-agent
 {{< /highlight >}}
 
+### Licensing issues
+
+As of Sensu Go 5.8, [entity limits were introduced][3]. If you are an Enterprise Subscriber, and try to apply your license, you might encounter an error that looks like the following:
+
+{{ highlight shell}}
+$ sensuctl create --file sensu_license.json
+error validating resource 0 (/api/enterprise/licensing/v2/license):
+crypto/rsa: verification error
+Error: resource validation failed
+{{ /highlight }}
+
+This can be the result of attempting to apply a license file to a Sensu Go deployment that is older 5.8, or a license file with an empty or `NULL` value for `entity_limit`. 
+
+If you are running an older version of Sensu Go, please ensure that you are running Sensu Go 5.8+ before raising a support request. 
+
+If you notice that your license file has a `NULL` or empty value for `entity_limit`, please create a support case via [account.sensu.io][4]
+
 [structured]: https://dzone.com/articles/what-is-structured-logging
 [journalctl]: https://www.digitalocean.com/community/tutorials/how-to-use-journalctl-to-view-and-manipulate-systemd-logs
 [platforms]: ../../installation/platforms
@@ -122,3 +139,5 @@ sudo chown -R sensu:sensu /var/cache/sensu/sensu-agent
 [journald-syslog]: ../systemd-logs
 [1]: ../../reference/agent#operation
 [2]: ../../installation/verify
+[3]: ../../release-notes#5-8-0-release-notes
+[4]: https://account.sensu.io
