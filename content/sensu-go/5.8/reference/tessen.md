@@ -14,14 +14,12 @@ menu:
 - [Example](#tessen-example)
 
 Tessen is the Sensu call-home service.
-Included with every Sensu backend, Tessen sends anonymized data about Sensu instances to Sensu Inc., including:
-
-- The Sensu version
-- The number of Sensu agents and backends in the cluster
-- Whether the Sensu instance uses an [enterprise license][4]
-
-All data submissions are logged for complete transparency at the [info log level][5] and transmitted over HTTPS.
+Enabled by default on Sensu backends, Tessen sends anonymized data about Sensu instances to Sensu Inc., including the version, cluster size, number of events processed, and number of resources created (like checks and handlers).
+We rely on this data to understand how Sensu is being used and make informed decisions about product improvements.
 [Read the blog post][1] to learn more about Tessen.
+
+All data submissions are logged for complete transparency at the `info` log level and transmitted over HTTPS.
+See the [troubleshooting guide][5] to set the Sensu backend log level and view logs.
 
 ## Configuring Tessen
 

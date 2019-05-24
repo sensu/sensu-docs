@@ -11,6 +11,7 @@ menu:
 ---
 
 - [Activating your license](#activating-your-license)
+- [Entity limit](#entity-limit)
 - [License expiration](#license-expiration)
 - [License management API](../../api/license)
 
@@ -52,6 +53,7 @@ Account ID:   123
 Plan:         managed
 Version:      1
 Features:     all
+EntityLimit:  0
 Issuer:       Sensu, Inc.
 Issued:       2019-02-15 15:01:44 -0500 -0500
 Valid:        true
@@ -60,6 +62,28 @@ Valid Until:  2019-03-15 00:00:00 -0800 -0800
 # No license found
 sensuctl license info
 Error: not found
+{{< /highlight >}}
+
+## Entity limit
+
+Your license includes the entity limit tied to your Sensu licensing package.
+(An entity limit of `0` allows unlimited entities.)
+Both agent and proxy entities count towards the overall entity limit.
+[Contact us](https://account.sensu.io/support) to upgrade your license.
+
+To see your current entity count, use any `/api/core` or `/api/enterprise` [API request](https://docs.sensu.io/sensu-go/5.7/api/). For example:
+
+{{< highlight shell >}}
+curl http://127.0.0.1:8080/api/core/v2/namespaces/default/entities -v -H "Authorization: Bearer $SENSU_TOKEN"
+{{< /highlight >}}
+
+You should see the current entity count and limit as response headers.
+
+{{< highlight shell >}}
+HTTP/1.1 200 OK
+Content-Type: application/json
+Sensu-Entity-Count: 4
+Sensu-Entity-Limit: 0
 {{< /highlight >}}
 
 ## License expiration
