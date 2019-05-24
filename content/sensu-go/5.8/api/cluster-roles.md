@@ -259,6 +259,6 @@ HTTP/1.1 204 No Content
 --------------------------|------
 description               | Removes a cluster role from Sensu given the cluster role name.
 example url               | http://hostname:8080/api/core/v2/clusterroles/global-event-reader
-response codes            | <ul><li>**Success**: 202 (Accepted)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 [1]: ../../reference/rbac
