@@ -65,7 +65,9 @@
     <link rel="stylesheet" href="{{ . | absURL }}">
     {{ end }}
     <script src="{{ "/javascripts/modernizr.js" | absURL }}"></script>
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+    <script
+      src="https://code.jquery.com/jquery-3.4.1.min.js"
+      integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
       crossorigin="anonymous"></script>
 
 	<script src="https://use.fontawesome.com/ea9395e21e.js"></script>
@@ -89,7 +91,7 @@
 
       var jQueryScript = document.createElement('script');
       jQueryScript.type = 'text/javascript';
-      jQueryScript.src = encodeURI('{{ "/js/vendor/jquery-3.2.1.min.js" | absURL }}')
+      jQueryScript.src = encodeURI('{{ "/js/vendor/jquery-3.4.1.min.js" | absURL }}')
       var head = document.getElementsByTagName('head')[0];
       
       if ((css(span, 'font-family')) !== 'FontAwesome') {

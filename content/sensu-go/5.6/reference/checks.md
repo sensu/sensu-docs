@@ -122,13 +122,7 @@ _PRO TIP: You can use round robin to distribute check execution workload across 
 ### Scheduling
 
 You can schedule checks using the `interval`, `cron`, and `publish` attributes.
-Sensu requires that checks include either an `interval` attribute (interval scheduling), a `cron` attribute (cron scheduling), or the `publish` attribute set to `false` (ad-hoc scheduling).
-
-| check attributes | interval scheduling | cron scheduling | ad-hoc scheduling
-| --- | --- | --- | --- |
-| `interval` | ✅ | ❌ | ❌
-| `cron` | ❌ | ✅ | ❌
-| `publish` | `true` | `true` | `false`
+Sensu requires that checks include either an `interval` attribute (interval scheduling) or a `cron` attribute (cron scheduling).
 
 #### Interval scheduling
 
@@ -407,6 +401,7 @@ example      | {{< highlight shell >}}"cron": "0 0 * * *"{{< /highlight >}}
 -------------|------
 description  | If check requests are published for the check.
 required     | false
+default      | `false`
 type         | Boolean
 example      | {{< highlight shell >}}"publish": false{{< /highlight >}}
 
@@ -416,6 +411,8 @@ description  | The check execution duration timeout in seconds (hard stop).
 required     | false
 type         | Integer
 example      | {{< highlight shell >}}"timeout": 30{{< /highlight >}}
+
+<a name="ttl-attribute"></a>
 
 |ttl         |      |
 -------------|------
@@ -555,7 +552,7 @@ example      | {{< highlight shell >}}"namespace": "production"{{< /highlight >}
 
 | labels     |      |
 -------------|------
-description  | Custom attributes to include with event data, which can be queried like regular attributes. You can use labels to organize checks into meaningful collections that can be selected using [filters][27] and [tokens][5].
+description  | Custom attributes to include with event data, which can be accessed using [event filters][27].<br><br>In contrast to annotations, you can use labels to create meaningful collections that can be selected with [API filtering][api-filter] and [sensuctl filtering][sensuctl-filter]. Overusing labels can impact Sensu's internal performance, so we recommend moving complex, non-identifying metadata to annotations.
 required     | false
 type         | Map of key-value pairs. Keys can contain only letters, numbers, and underscores, but must start with a letter. Values can be any valid UTF-8 string.
 default      | `null`
@@ -566,13 +563,12 @@ example      | {{< highlight shell >}}"labels": {
 
 | annotations |     |
 -------------|------
-description  | Arbitrary, non-identifying metadata to include with event data. In contrast to labels, annotations are _not_ used internally by Sensu and cannot be used to identify checks. You can use annotations to add data that helps people or external tools interacting with Sensu.
+description  | Non-identifying metadata to include with event data, which can be accessed using [event filters][27]. You can use annotations to add data that's meaningful to people or external tools interacting with Sensu.<br><br>In contrast to labels, annotations cannot be used in [API filtering][api-filter] or [sensuctl filtering][sensuctl-filter] and do not impact Sensu's internal performance.
 required     | false
 type         | Map of key-value pairs. Keys and values can be any valid UTF-8 string.
 default      | `null`
 example      | {{< highlight shell >}} "annotations": {
   "managed-by": "ops",
-  "slack-channel": "#monitoring",
   "playbook": "www.example.url"
 }{{< /highlight >}}
 
@@ -725,3 +721,5 @@ _NOTE: The attribute `interval` is not required if a valid `cron` schedule is de
 [sp]: #spec-attributes
 [28]: ../../guides/monitor-external-resources
 [29]: https://bonsai.sensu.io
+[api-filter]: ../../api/overview#filtering
+[sensuctl-filter]: ../../sensuctl/reference#filtering
