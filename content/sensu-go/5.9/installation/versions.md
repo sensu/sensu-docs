@@ -2,14 +2,12 @@
 title: "Supported versions"
 linkTitle: "Supported Versions"
 description: "Sensu supports the latest versions of official distributions, including packages, binary-only distributions, and Docker images. Read the doc to learn about supported versions of Sensu."
-version: "5.5"
+version: "5.9"
 weight: 100
 product: "Sensu Go"
 menu:
-  sensu-go-5.5:
+  sensu-go-5.9:
     parent: installation
-aliases:
-  - /sensu-go/5.5/getting-started/versions
 ---
 
 We recommend updating Sensu frequently to stay in sync with the latest features and fixes.
