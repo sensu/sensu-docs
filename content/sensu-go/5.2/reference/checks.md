@@ -226,6 +226,7 @@ example      | {{< highlight shell >}}"cron": "0 0 * * *"{{< /highlight >}}
 -------------|------
 description  | If check requests are published for the check.
 required     | false
+default      | `false`
 type         | Boolean
 example      | {{< highlight shell >}}"publish": false{{< /highlight >}}
 
@@ -235,6 +236,8 @@ description  | The check execution duration timeout in seconds (hard stop).
 required     | false
 type         | Integer
 example      | {{< highlight shell >}}"timeout": 30{{< /highlight >}}
+
+<a name="ttl-attribute"></a>
 
 |ttl         |      |
 -------------|------

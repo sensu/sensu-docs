@@ -194,6 +194,6 @@ HTTP/1.1 204 No Content
 --------------------------|------
 description               | Removes a hook from Sensu given the hook name.
 example url               | http://hostname:8080/api/core/v2/namespaces/default/hooks/process-tree
-response codes            | <ul><li>**Success**: 202 (Accepted)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 [1]: ../../reference/hooks
