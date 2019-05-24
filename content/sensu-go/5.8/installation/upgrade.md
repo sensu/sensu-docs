@@ -12,6 +12,7 @@ menu:
 ---
 
 - [Upgrading from 5.0.0 or later](#upgrading-to-the-latest-version-of-sensu-go-from-5-0-0-or-later)
+- [Upgrading Sensu clusters from 5.7.0 or earlier to 5.8.0 or later](#upgrading-sensu-clusters-from-5-7-0-or-earlier-to-5-8-0-or-later)
 - [Upgrading Sensu backend binaries to 5.1.0](#upgrading-sensu-backend-binaries-to-5-1-0)
 - [Upgrading from 1.x or later](#upgrading-to-sensu-go-from-sensu-core-1-x)
 
@@ -32,6 +33,13 @@ sudo service sensu-backend restart
 {{< /highlight >}}
 
 You can use the `version` command to determine the installed version using the `sensu-agent`, `sensu-backend`, and `sensuctl` tools. For example: `sensu-backend version`.
+
+## Upgrading Sensu clusters from 5.7.0 or earlier to 5.8.0 or later
+
+_NOTE: This applies only to Sensu clusters with multiple backend nodes._
+
+Due to updates to etcd serialization, Sensu clusters with multiple backend nodes must be shut down while upgrading from Sensu Go 5.7.0 or earlier to 5.8.0 or later.
+See the [backend reference][27] for more information about stopping and starting backends.
 
 ## Upgrading Sensu backend binaries to 5.1.0
 
@@ -162,3 +170,4 @@ See the metadata attributes section in the reference documentation for more info
 [24]: ../../reference/entities#metadata-attributes
 [25]: https://blog.sensu.io/check-configuration-upgrades-with-the-sensu-go-sandbox
 [26]: https://blog.sensu.io/self-service-monitoring-checks-in-sensu-go
+[27]: ../../reference/backend#operation
