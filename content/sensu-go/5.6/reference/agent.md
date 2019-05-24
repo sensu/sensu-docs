@@ -112,6 +112,56 @@ HTTP/1.1 202 Accepted
 
 _PRO TIP: You can use the agent API `/events` endpoint to create proxy entities by including a `proxy_entity_name` attribute within the `check` scope._
 
+#### Detecting silent failures
+
+You can use the Sensu agent API in combination with the check time-to-live attribute (TTL) to detect silent failures, creating what's commonly referred to as a "dead man's switch" (source: [Wikipedia][20]).
+By using check TTLs, Sensu is able to set an expectation that a Sensu agent will publish additional events for a check within the period of time specified by the TTL attribute.
+If a Sensu agent fails to publish an event before the check TTL expires, the Sensu backend creates an event with a status of `1` (warning) to indicate the expected event was not received.
+For more information on check TTLs, see the [the check reference][44].
+
+A great use case for the Sensu agent API is to enable tasks which run outside of Sensu's check scheduling to emit events. Using the check TTL attribute, these events create a dead man's switch, ensuring that if the task fails for any reason, the lack of an "all clear" event from the task notifies operators of a silent failure which might otherwise be missed.
+If an external source sends a Sensu event with a check TTL to the Sensu agent API, Sensu expects another event from the same external source before the TTL expires.
+
+The following is an example of external event input via the Sensu agent API using a check TTL to create a dead man's switch for MySQL backups.
+If we assume that a MySQL backup script runs periodically and that we expect the job to take a little less than 7 hours to complete, in the case where the job completes successfully, we'd like a record of it but don't need to be alerted. If the job fails for some reason, or continues running past the expected 7 hours, we'd like to be alerted. In the following example, the script sends an event which tells the Sensu backend to expect an additional event with the same name within 7 hours of the first event.
+
+{{< highlight shell >}}
+curl -X POST \
+-H 'Content-Type: application/json' \
+-d '{
+  "check": {
+    "metadata": {
+      "name": "mysql-backup-job"
+    },
+    "status": 0,
+    "output": "mysql backup initiated",
+    "ttl": 25200
+  }
+}' \
+http://127.0.0.1:3031/events
+{{< /highlight >}}
+
+With this initial event submitted to the agent API, we have recorded in the Sensu backend that our script started, and we've configured the dead man's switch so that we'll be alerted if the job fails or runs too long. Although it is possible for our script to handle errors gracefully and emit additional monitoring events, this approach allows us to worry less about handling every possible error case, as the lack of additional events before the 7 hour period elapses results in an alert.
+
+If our backup script runs successfully, we can send an additional event without the TTL attribute, which removes the dead man's switch:
+
+{{< highlight shell >}}
+curl -X POST \
+-H 'Content-Type: application/json' \
+-d '{
+  "check": {
+    "metadata": {
+      "name": "mysql-backup-job"
+    },
+    "status": 0,
+    "output": "mysql backup ran successfully!"
+  }
+}' \
+http://127.0.0.1:3031/events
+{{< /highlight >}}
+
+By omitting the TTL attribute from this event, the dead man's switch being monitored by the Sensu backend is also removed, effectively sounding the "all clear" for this iteration of the task.
+
 #### API specification {#events-post-specification}
 
 /events (POST)     | 
@@ -582,7 +632,7 @@ Flags:
 
 | annotations|      |
 -------------|------
-description  |Arbitrary, non-identifying metadata to include with event data. In contrast to labels, annotations are not used internally by Sensu and cannot be used to identify entities. You can use annotations to add data that helps people or external tools interacting with Sensu.
+description  | Non-identifying metadata to include with event data, which can be accessed using [filters][9] and [tokens][27]. You can use annotations to add data that's meaningful to people or external tools interacting with Sensu.<br><br>In contrast to labels, annotations cannot be used in [API filtering][api-filter] or [sensuctl filtering][sensuctl-filter] and do not impact Sensu's internal performance.
 required     | false
 type         | Map of key-value pairs. Keys and values can be any valid UTF-8 string.
 default      | `null`
@@ -639,7 +689,7 @@ config-file: "/sensu/agent.yml"{{< /highlight >}}
 
 | labels     |      |
 -------------|------
-description  | Custom attributes to include with event data, which can be queried like regular attributes. You can use labels to organize entities into meaningful collections that can be selected using [filters][9] and [tokens][27].
+description  | Custom attributes to include with event data, which can be accessed using [filters][9] and [tokens][27].<br><br>In contrast to annotations, you can use labels to create meaningful collections that can be selected with [API filtering][api-filter] and [sensuctl filtering][sensuctl-filter]. Overusing labels can impact Sensu's internal performance, so we recommend moving complex, non-identifying metadata to annotations.
 required     | false
 type         | Map of key-value pairs. Keys can contain only letters, numbers, and underscores, but must start with a letter. Values can be any valid UTF-8 string.
 default      | `null`
@@ -1025,3 +1075,6 @@ statsd-metrics-port: 6125{{< /highlight >}}
 [41]: ../rbac/#namespaced-resource-types
 [42]: /sensu-core/latest/reference/checks/#check-result-specification
 [43]: ../entities#proxy-entities
+[api-filter]: ../../api/overview#filtering
+[sensuctl-filter]: ../../sensuctl/reference#filtering
+[44]: ../checks#ttl-attribute
