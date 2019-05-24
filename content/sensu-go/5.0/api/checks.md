@@ -309,7 +309,7 @@ HTTP/1.1 204 No Content
 --------------------------|------
 description               | Removes a check from Sensu given the check name.
 example url               | http://hostname:8080/api/core/v2/namespaces/default/checks/check-cpu
-response codes            | <ul><li>**Success**: 202 (Accepted)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 ## The `/checks/:check/execute` API endpoint {#the-checkscheckexecute-api-endpoint}
 

@@ -189,6 +189,6 @@ HTTP/1.1 204 No Content
 description               | Removes a member from a Sensu cluster given the member ID.
 example url               | http://hostname:8080/api/core/v2/cluster/members/8927110dc66458af
 url parameters            | <ul><li>`8927110dc66458af` (required): Required hex-encoded uint64 cluster member ID generated using `sensuctl cluster member-list`</li></ul>
-response codes            | <ul><li>**Success**: 202 (Accepted)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 [1]: ../../guides/clustering
