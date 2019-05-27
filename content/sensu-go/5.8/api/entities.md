@@ -281,7 +281,57 @@ description          | Returns a entity.
 example url          | http://hostname:8080/api/core/v2/namespaces/default/entities/sensu-centos
 response type        | Map
 response codes       | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-output               | {{< highlight json >}}
+output               | {{< language-toggle >}}
+
+{{< highlight yml >}}
+user: agent
+deregister: false
+deregistration: {}
+entity_class: agent
+last_seen: 1543349936
+metadata:
+  annotations: null
+  labels: null
+  name: sensu-centos
+  namespace: default
+redact:
+- password
+- passwd
+- pass
+- api_key
+- api_token
+- access_key
+- secret_key
+- private_key
+- secret
+subscriptions:
+- entity:sensu-centos
+system:
+  arch: amd64
+  hostname: sensu-centos
+  network:
+    interfaces:
+    - addresses:
+      - 127.0.0.1/8
+      - ::1/128
+      name: lo
+    - addresses:
+      - 10.0.2.15/24
+      - fe80::f50c:b029:30a5:3e26/64
+      mac: 08:00:27:11:ad:d2
+      name: enp0s3
+    - addresses:
+      - 172.28.128.3/24
+      - fe80::a00:27ff:fe9f:5df3/64
+      mac: 08:00:27:9f:5d:f3
+      name: enp0s8
+  os: linux
+  platform: centos
+  platform_family: rhel
+  platform_version: 7.4.1708
+{{< /highlight >}}
+
+{{< highlight json >}}
 {
   "entity_class": "agent",
   "system": {
@@ -345,6 +395,8 @@ output               | {{< highlight json >}}
   }
 }
 {{< /highlight >}}
+
+{{< /language-toggle >}}
 
 ### `/entities/:entity` (PUT) {#entitiesentity-put}
 

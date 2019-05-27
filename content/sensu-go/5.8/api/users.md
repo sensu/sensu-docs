@@ -172,7 +172,16 @@ description          | Returns a user given the username as a URL parameter.
 example url          | http://hostname:8080/api/core/v2/users/alice
 response type        | Map
 response codes       | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-output               | {{< highlight json >}}
+output               | {{< language-toggle >}}
+
+{{< highlight yml >}}
+username: alice
+disabled: false
+groups:
+- ops
+{{< /highlight >}}
+
+{{< highlight json >}}
 {
   "username": "alice",
   "groups": [
@@ -181,6 +190,8 @@ output               | {{< highlight json >}}
   "disabled": false
 }
 {{< /highlight >}}
+
+{{< /language-toggle >}}
 
 ### `/users/:user` (PUT) {#usersuser-put}
 

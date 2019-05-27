@@ -215,7 +215,22 @@ description          | Returns a check.
 example url          | http://hostname:8080/api/core/v2/namespaces/default/checks/check-cpu
 response type        | Map
 response codes       | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-output               | {{< highlight json >}}
+output               | {{< language-toggle >}}
+
+{{< highlight yml >}}
+- linux
+command: check-cpu.sh -w 75 -c 90
+handlers:
+- slack
+interval: 60
+metadata:
+  name: check-cpu
+  namespace: default
+publish: true
+subscriptions:
+{{< /highlight >}}
+
+{{< highlight json >}}
 {
   "command": "check-cpu.sh -w 75 -c 90",
   "handlers": [
@@ -232,6 +247,8 @@ output               | {{< highlight json >}}
   }
 }
 {{< /highlight >}}
+
+{{< /language-toggle >}}
 
 ### `/checks/:check` (PUT) {#checkscheck-put}
 

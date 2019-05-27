@@ -146,7 +146,21 @@ description          | Returns a filter.
 example url          | http://hostname:8080/api/core/v2/namespaces/default/filters/state_change_only
 response type        | Map
 response codes       | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-output               | {{< highlight json >}}
+output               | {{< language-toggle >}}
+
+{{< highlight yml >}}
+runtime_assets: []
+action: allow
+expressions:
+- event.check.occurrences == 1
+metadata:
+  annotations: null
+  labels: null
+  name: state_change_only
+  namespace: default
+{{< /highlight >}}
+
+{{< highlight json >}}
 {
   "metadata": {
     "name": "state_change_only",
@@ -161,6 +175,8 @@ output               | {{< highlight json >}}
   "runtime_assets": []
 }
 {{< /highlight >}}
+
+{{< /language-toggle >}}
 
 ### `/filters/:filter` (PUT) {#filtersfilter-put}
 

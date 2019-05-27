@@ -179,7 +179,27 @@ description          | Returns a handler.
 example url          | http://hostname:8080/api/core/v2/namespaces/default/handlers/slack
 response type        | Map
 response codes       | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-output               | {{< highlight json >}}
+output               | {{< language-toggle >}}
+
+{{< highlight yml >}}
+type: pipe
+command: sensu-slack-handler --channel '#monitoring'
+env_vars:
+- SLACK_WEBHOOK_URL=https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX
+filters:
+- is_incident
+- not_silenced
+handlers: []
+metadata:
+  annotations: null
+  labels: null
+  name: slack
+  namespace: default
+runtime_assets: []
+timeout: 0
+{{< /highlight >}}
+
+{{< highlight json >}}
 {
   "metadata": {
     "name": "slack",
@@ -201,6 +221,8 @@ output               | {{< highlight json >}}
   "type": "pipe"
 }
 {{< /highlight >}}
+
+{{< /language-toggle >}}
 
 ### `/handlers/:handler` (PUT) {#handlershandler-put}
 

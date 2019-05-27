@@ -150,7 +150,21 @@ description          | Returns a role binding.
 example url          | http://hostname:8080/api/core/v2/namespaces/default/rolebindings/readers-group-binding
 response type        | Map
 response codes       | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-output               | {{< highlight json >}}
+output               | {{< language-toggle >}}
+
+{{< highlight yml >}}
+  type: Group
+metadata:
+  name: readers-group-binding
+  namespace: default
+role_ref:
+  name: read-only
+  type: Role
+subjects:
+- name: readers
+{{< /highlight >}}
+
+{{< highlight json >}}
 {
   "subjects": [
     {
@@ -168,6 +182,8 @@ output               | {{< highlight json >}}
   }
 }
 {{< /highlight >}}
+
+{{< /language-toggle >}}
 
 ### `/rolebindings/:rolebinding` (PUT) {#rolebindingsrolebinding-put}
 

@@ -134,7 +134,22 @@ description          | Returns an asset.
 example url          | http://hostname:8080/api/core/v2/namespaces/default/assets/check_script
 response type        | Map
 response codes       | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-output               | {{< highlight json >}}
+output               | {{< language-toggle >}}
+
+{{< highlight yml >}}
+url: http://example.com/asset.tar.gz
+filters:
+- system.os == 'linux'
+- system.arch == 'amd64'
+metadata:
+  annotations: null
+  labels: null
+  name: check_script
+  namespace: default
+sha512: 4f926bf4328fbad2b9cac873d117f771914f4b837c9c85584c38ccf55a3ef3c2e8d154812246e5dda4a87450576b2c58ad9ab40c9e2edc31b288d066b195b21b
+{{< /highlight >}}
+
+{{< highlight json >}}
 {
   "url": "http://example.com/asset.tar.gz",
   "sha512": "4f926bf4328fbad2b9cac873d117f771914f4b837c9c85584c38ccf55a3ef3c2e8d154812246e5dda4a87450576b2c58ad9ab40c9e2edc31b288d066b195b21b",
@@ -150,6 +165,8 @@ output               | {{< highlight json >}}
   }
 }
 {{< /highlight >}}
+
+{{< /language-toggle >}}
 
 ### `/assets/:asset` (PUT) {#assetsasset-put}
 

@@ -129,7 +129,21 @@ description          | Returns a mutator.
 example url          | http://hostname:8080/api/core/v2/namespaces/default/mutators/mutator-name
 response type        | Map
 response codes       | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-output               | {{< highlight json >}}
+output               | {{< language-toggle >}}
+
+{{< highlight yml >}}
+timeout: 0
+command: example_mutator.go
+env_vars: []
+metadata:
+  annotations: null
+  labels: null
+  name: example-mutator
+  namespace: default
+runtime_assets: []
+{{< /highlight >}}
+
+{{< highlight json >}}
 {
   "metadata": {
     "name": "example-mutator",
@@ -143,6 +157,8 @@ output               | {{< highlight json >}}
   "runtime_assets": []
 }
 {{< /highlight >}}
+
+{{< /language-toggle >}}
 
 ### `/mutators/:mutator` (PUT) {#mutatorsmutator-put}
 

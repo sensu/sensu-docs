@@ -154,7 +154,21 @@ description          | Returns a role.
 example url          | http://hostname:8080/api/core/v2/namespaces/default/roles/read-only
 response type        | Map
 response codes       | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-output               | {{< highlight json >}}
+output               | {{< language-toggle >}}
+
+{{< highlight yml >}}
+  - read
+metadata:
+  name: read-only
+  namespace: default
+rules:
+- resource_names: null
+  resources:
+  - '*'
+  verbs:
+{{< /highlight >}}
+
+{{< highlight json >}}
 {
   "rules": [
     {
@@ -173,6 +187,8 @@ output               | {{< highlight json >}}
   }
 }
 {{< /highlight >}}
+
+{{< /language-toggle >}}
 
 ### `/roles/:role` (PUT) {#rolesrole-put}
 

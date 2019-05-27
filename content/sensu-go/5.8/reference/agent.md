@@ -168,7 +168,17 @@ By omitting the TTL attribute from this event, the dead man's switch being monit
 -------------------|------
 description        | Accepts JSON [event data][7] and passes the event to the Sensu backend event pipeline for processing
 example url        | http://hostname:3031/events
-payload example    | {{< highlight json >}}{
+payload example    | {{< language-toggle >}}
+
+{{< highlight yml >}}
+  status: 1
+check:
+  metadata:
+    name: check-mysql-status
+  output: could not connect to mysql
+{{< /highlight >}}
+
+{{< highlight json >}}{
   "check": {
     "metadata": {
       "name": "check-mysql-status"
@@ -177,6 +187,8 @@ payload example    | {{< highlight json >}}{
     "output": "could not connect to mysql"
   }
 }{{< /highlight >}}
+
+{{< /language-toggle >}}
 payload attributes | <ul><li>`check` (required): All check data must be within the `check` scope.</li><li>`metadata` (required): The `check` scope must contain a `metadata` scope.</li><li>`name` (required): The `metadata` scope must contain the `name` attribute with a string representing the name of the monitoring check.</li><li>Any other attributes supported by the [Sensu check specification][14] (optional)</li></ul>
 response codes     | <ul><li>**Success**: 202 (Accepted)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
@@ -290,6 +302,14 @@ Attributes specified in socket events appear in the resulting event data passed 
 
 **Example socket input: Minimum required attributes**
 
+{{< language-toggle >}}
+
+{{< highlight yml >}}
+status: 1
+name: check-mysql-status
+output: error!
+{{< /highlight >}}
+
 {{< highlight json >}}
 {
   "name": "check-mysql-status",
@@ -298,7 +318,23 @@ Attributes specified in socket events appear in the resulting event data passed 
 }
 {{< /highlight >}}
 
+{{< /language-toggle >}}
+
 **Example socket input: All attributes**
+
+{{< language-toggle >}}
+
+{{< highlight yml >}}
+status: 1
+duration: 1.903135228
+executed: 1550013435
+handlers:
+- slack
+- influxdb
+name: check-http
+output: "404"
+source: sensu-docs-site
+{{< /highlight >}}
 
 {{< highlight json >}}
 {
@@ -311,6 +347,8 @@ Attributes specified in socket events appear in the resulting event data passed 
   "handlers": ["slack", "influxdb"]
 }
 {{< /highlight >}}
+
+{{< /language-toggle >}}
 
 ### Socket event specification
 
@@ -408,6 +446,20 @@ Let's say you want to receive Slack notifications for keepalive alerts, and you 
 To process keepalive events using the Slack pipeline, create a handler set named `keepalive` and add the `slack` handler to the `handlers` array.
 The resulting `keepalive` handler set configuration looks like this:
 
+{{< language-toggle >}}
+
+{{< highlight yml >}}
+type: Handler
+api_version: core/v2
+metadata:
+  name: keepalive
+  namespace: default
+spec:
+  handlers:
+  - slack
+  type: set
+{{< /highlight >}}
+
 {{< highlight json >}}
 {
   "type": "Handler",
@@ -424,6 +476,8 @@ The resulting `keepalive` handler set configuration looks like this:
   }
 }
 {{< /highlight >}}
+
+{{< /language-toggle >}}
 
 ## Operation
 

@@ -189,7 +189,21 @@ description          | Returns a cluster role.
 example url          | http://hostname:8080/api/core/v2/clusterroles/global-event-reader
 response type        | Map
 response codes       | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-output               | {{< highlight json >}}
+output               | {{< language-toggle >}}
+
+{{< highlight yml >}}
+  - list
+metadata:
+  name: global-event-reader
+rules:
+- resource_names: null
+  resources:
+  - events
+  verbs:
+  - get
+{{< /highlight >}}
+
+{{< highlight json >}}
 {
   "metadata": {
     "name": "global-event-reader"
@@ -208,6 +222,8 @@ output               | {{< highlight json >}}
   ]
 }
 {{< /highlight >}}
+
+{{< /language-toggle >}}
 
 ### `/clusterroles/:clusterrole` (PUT) {#clusterrolesclusterrole-put}
 

@@ -33,7 +33,25 @@ example url    | http://hostname:8080/api/enterprise/authentication/v2/authprovi
 pagination     | This endpoint supports pagination using the `limit` and `continue` query parameters. See the [API overview](../overview#pagination) for details.
 response type  | Array
 response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-output         | {{< highlight json >}}
+output         | {{< language-toggle >}}
+
+{{< highlight yml >}}
+        base_dn: dc=acme,dc=org
+- Type: ldap
+  api_version: authentication/v2
+  metadata:
+    name: openldap
+  spec:
+    servers:
+    - binding:
+        password: P@ssw0rd!
+        user_dn: cn=binder,dc=acme,dc=org
+      group_search:
+      host: 127.0.0.1
+      user_search:
+{{< /highlight >}}
+
+{{< highlight json >}}
 [
   {
     "Type": "ldap",
@@ -62,6 +80,8 @@ output         | {{< highlight json >}}
 ]
 {{< /highlight >}}
 
+{{< /language-toggle >}}
+
 ## The `/authproviders/:name` API endpoints {#the-authprovidersname-api-endpoints}
 
 ### `/authproviders/:name` (GET) {#authprovidersname-get}
@@ -76,7 +96,25 @@ description          | Returns the configuration for an authentication provider 
 example url          | http://hostname:8080/api/enterprise/authentication/v2/authproviders/openldap
 response type        | Map
 response codes       | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-output               | {{< highlight json >}}
+output               | {{< language-toggle >}}
+
+{{< highlight yml >}}
+      base_dn: dc=acme,dc=org
+Type: ldap
+api_version: authentication/v2
+metadata:
+  name: openldap
+spec:
+  servers:
+  - binding:
+      password: P@ssw0rd!
+      user_dn: cn=binder,dc=acme,dc=org
+    group_search:
+    host: 127.0.0.1
+    user_search:
+{{< /highlight >}}
+
+{{< highlight json >}}
 {
   "Type": "ldap",
   "api_version": "authentication/v2",
@@ -102,6 +140,8 @@ output               | {{< highlight json >}}
   }
 }
 {{< /highlight >}}
+
+{{< /language-toggle >}}
 
 ### `/authproviders/:name` (PUT) {#authprovidersname-put}
 

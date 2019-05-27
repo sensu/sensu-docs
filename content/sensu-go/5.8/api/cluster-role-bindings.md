@@ -209,7 +209,20 @@ description          | Returns a cluster role binding.
 example url          | http://hostname:8080/api/core/v2/clusterrolebindings/bob-binder
 response type        | Map
 response codes       | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-output               | {{< highlight json >}}
+output               | {{< language-toggle >}}
+
+{{< highlight yml >}}
+  type: User
+metadata:
+  name: bob-binder
+role_ref:
+  name: cluster-admin
+  type: ClusterRole
+subjects:
+- name: bob
+{{< /highlight >}}
+
+{{< highlight json >}}
 {
   "subjects": [
     {
@@ -226,6 +239,8 @@ output               | {{< highlight json >}}
   }
 }
 {{< /highlight >}}
+
+{{< /language-toggle >}}
 
 ### `/clusterrolebindings/:clusterrolebinding` (PUT) {#clusterrolebindingsclusterrolebinding-put}
 

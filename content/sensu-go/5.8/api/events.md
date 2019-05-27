@@ -355,7 +355,44 @@ example url          | http://hostname:8080/api/core/v2/namespaces/default/event
 pagination           | This endpoint supports pagination using the `limit` and `continue` query parameters. See the [API overview](../overview#pagination) for details.
 response type        | Array
 response codes       | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-output               | {{< highlight json >}}
+output               | {{< language-toggle >}}
+
+{{< highlight yml >}}
+  timestamp: 1543871524
+- check:
+    executed: 1543871524
+    handlers:
+    - keepalive
+    history:
+    - executed: 1543871124
+      status: 0
+    issued: 1543871524
+    last_ok: 1543871524
+    metadata:
+      name: keepalive
+      namespace: default
+    occurrences: 1
+    output: ""
+    state: passing
+    status: 0
+    total_state_change: 0
+  entity:
+    entity_class: agent
+    last_seen: 1543871523
+    metadata:
+      name: sensu-go-sandbox
+      namespace: default
+    subscriptions:
+    - linux
+    - entity:sensu-go-sandbox
+    system:
+      '...': '...'
+      arch: amd64
+      hostname: webserver01
+  metadata: {}
+{{< /highlight >}}
+
+{{< highlight json >}}
 [
   {
     "timestamp": 1543871524,
@@ -404,6 +441,8 @@ output               | {{< highlight json >}}
 ]
 {{< /highlight >}}
 
+{{< /language-toggle >}}
+
 ## The `/events/:entity/:check` API endpoint {#the-eventsentitycheck-api-endpoint}
 
 ### `/events/:entity/:check` (GET) {#eventsentitycheck-get}
@@ -416,7 +455,44 @@ description          | Returns an event for a given entity and check.
 example url          | http://hostname:8080/api/core/v2/namespaces/default/events/sensu-go-sandbox/check-cpu
 response type        | Map
 response codes       | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-output               | {{< highlight json >}}
+output               | {{< language-toggle >}}
+
+{{< highlight yml >}}
+timestamp: 1543871524
+check:
+  executed: 1543871524
+  handlers:
+  - keepalive
+  history:
+  - executed: 1543871124
+    status: 0
+  issued: 1543871524
+  last_ok: 1543871524
+  metadata:
+    name: keepalive
+    namespace: default
+  occurrences: 1
+  output: ""
+  state: passing
+  status: 0
+  total_state_change: 0
+entity:
+  entity_class: agent
+  last_seen: 1543871523
+  metadata:
+    name: sensu-go-sandbox
+    namespace: default
+  subscriptions:
+  - linux
+  - entity:sensu-go-sandbox
+  system:
+    '...': '...'
+    arch: amd64
+    hostname: webserver01
+metadata: {}
+{{< /highlight >}}
+
+{{< highlight json >}}
 {
   "timestamp": 1543871524,
   "entity": {
@@ -462,6 +538,8 @@ output               | {{< highlight json >}}
   "metadata": {}
 }
 {{< /highlight >}}
+
+{{< /language-toggle >}}
 
 ### `/events/:entity/:check` (PUT) {#eventsentitycheck-put}
 

@@ -144,7 +144,22 @@ description          | Returns a silencing entry.
 example url          | http://hostname:8080/api/core/v2/namespaces/default/silenced/linux:check-cpu
 response type        | Map
 response codes       | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-output               | {{< highlight json >}}
+output               | {{< language-toggle >}}
+
+{{< highlight yml >}}
+subscription: linux
+begin: 1542671205
+creator: admin
+expire: -1
+expire_on_resolve: false
+metadata:
+  annotations: null
+  labels: null
+  name: linux:check-cpu
+  namespace: default
+{{< /highlight >}}
+
+{{< highlight json >}}
 {
   "metadata": {
     "name": "linux:check-cpu",
@@ -159,6 +174,8 @@ output               | {{< highlight json >}}
   "begin": 1542671205
 }
 {{< /highlight >}}
+
+{{< /language-toggle >}}
 
 ### `/silenced/:silenced` (PUT) {#silencedsilenced-put}
 
@@ -252,7 +269,22 @@ example url          | http://hostname:8080/api/core/v2/namespaces/default/silen
 pagination           | This endpoint supports pagination using the `limit` and `continue` query parameters. See the [API overview](../overview#pagination) for details.
 response type        | Array
 response codes       | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-output               | {{< highlight json >}}
+output               | {{< language-toggle >}}
+
+{{< highlight yml >}}
+  subscription: linux
+- begin: 1542671205
+  creator: admin
+  expire: -1
+  expire_on_resolve: false
+  metadata:
+    annotations: null
+    labels: null
+    name: linux:check-cpu
+    namespace: default
+{{< /highlight >}}
+
+{{< highlight json >}}
 [
   {
     "metadata": {
@@ -269,6 +301,8 @@ output               | {{< highlight json >}}
   }
 ]
 {{< /highlight >}}
+
+{{< /language-toggle >}}
 
 ## The `/silenced/checks/:check` API endpoint {#the-silencedchecks-api-endpoint}
 
@@ -312,7 +346,22 @@ example url          | http://hostname:8080/api/core/v2/namespaces/default/silen
 pagination           | This endpoint supports pagination using the `limit` and `continue` query parameters. See the [API overview](../overview#pagination) for details.
 response type        | Array
 response codes       | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-output               | {{< highlight json >}}
+output               | {{< language-toggle >}}
+
+{{< highlight yml >}}
+    namespace: default
+- begin: 1542671205
+  check: linux
+  creator: admin
+  expire: -1
+  expire_on_resolve: false
+  metadata:
+    annotations: null
+    labels: null
+    name: linux:check-cpu
+{{< /highlight >}}
+
+{{< highlight json >}}
 [
   {
     "metadata": {
@@ -329,6 +378,8 @@ output               | {{< highlight json >}}
   }
 ]
 {{< /highlight >}}
+
+{{< /language-toggle >}}
 
 [1]: ../../reference/silencing
 

@@ -136,7 +136,20 @@ description          | Returns a hook.
 example url          | http://hostname:8080/api/core/v2/namespaces/default/hooks/process-tree
 response type        | Map
 response codes       | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-output               | {{< highlight json >}}
+output               | {{< language-toggle >}}
+
+{{< highlight yml >}}
+timeout: 10
+command: ps aux
+metadata:
+  annotations: null
+  labels: null
+  name: process-tree
+  namespace: default
+stdin: false
+{{< /highlight >}}
+
+{{< highlight json >}}
 {
   "metadata": {
     "name": "process-tree",
@@ -149,6 +162,8 @@ output               | {{< highlight json >}}
   "stdin": false
 }
 {{< /highlight >}}
+
+{{< /language-toggle >}}
 
 ### `/hooks/:hook` (PUT) {#hookshook-put}
 
