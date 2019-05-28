@@ -22,11 +22,13 @@
   "theme": "hugo-material-docs",
   "title": "Sensu Docs",
   "menu": {
-    "sensu-core-1": {
-      "identifier": "api",
-      "name": "Moi API",
-      "url": "/"
-    }
+    "sensu-core-1": [
+      {
+        "identifier": "api",
+        "name": "Moi API",
+        "url": "/"
+      }
+    ]
   },
   "params": {
     "copyright": "",
@@ -54,17 +56,44 @@
         "description": "The next-generation monitoring event pipeline",
         "weight": 1,
         "latest": "5.7",
-        "versions": {
-          "5.0": [],
-          "5.1": [],
-          "5.2": [],
-          "5.3": [],
-          "5.4": [],
-          "5.5": [],
-          "5.6": [],
-          "5.7": [],
-          "5.8": []
-        }
+        "versions": [
+          {
+            "version": "5.8",
+            "platforms": []
+          },
+          {
+            "version": "5.7",
+            "platforms": []
+          },
+          {
+            "version": "5.6",
+            "platforms": []
+          },
+          {
+            "version": "5.5",
+            "platforms": []
+          },
+          {
+            "version": "5.4",
+            "platforms": []
+          },
+          {
+            "version": "5.3",
+            "platforms": []
+          },
+          {
+            "version": "5.2",
+            "platforms": []
+          },
+          {
+            "version": "5.1",
+            "platforms": []
+          },
+          {
+            "version": "5.0",
+            "platforms": []
+          }
+        ]
       },
       "sensu_core": {
         "identifier": "sensu-core",
@@ -72,44 +101,71 @@
         "description": "The original monitoring event pipeline",
         "weight": 2,
         "latest": "1.7",
-        "versions": {
-          "1.7": [
-            "Ubuntu/Debian",
-            "RHEL/CentOS"
-          ],
-          "1.6": [
-            "Ubuntu/Debian",
-            "RHEL/CentOS"
-          ],
-          "1.5": [
-            "Ubuntu/Debian",
-            "RHEL/CentOS"
-          ],
-          "1.4": [
-            "Ubuntu/Debian",
-            "RHEL/CentOS"
-          ],
-          "1.3": [
-            "Ubuntu/Debian",
-            "RHEL/CentOS"
-          ],
-          "1.2": [
-            "Ubuntu/Debian",
-            "RHEL/CentOS"
-          ],
-          "1.1": [
-            "Ubuntu/Debian",
-            "RHEL/CentOS"
-          ],
-          "1.0": [
-            "Ubuntu/Debian",
-            "RHEL/CentOS"
-          ],
-          "0.29": [
-            "Ubuntu/Debian",
-            "RHEL/CentOS"
-          ]
-        }
+        "versions": [
+          {
+            "version": "1.7",
+            "platforms": [
+              "Ubuntu/Debian",
+              "RHEL/CentOS"
+            ]
+          },
+          {
+            "version": "1.6",
+            "platforms": [
+              "Ubuntu/Debian",
+              "RHEL/CentOS"
+            ]
+          },
+          {
+            "version": "1.5",
+            "platforms": [
+              "Ubuntu/Debian",
+              "RHEL/CentOS"
+            ]
+          },
+          {
+            "version": "1.4",
+            "platforms": [
+              "Ubuntu/Debian",
+              "RHEL/CentOS"
+            ]
+          },
+          {
+            "version": "1.3",
+            "platforms": [
+              "Ubuntu/Debian",
+              "RHEL/CentOS"
+            ]
+          },
+          {
+            "version": "1.2",
+            "platforms": [
+              "Ubuntu/Debian",
+              "RHEL/CentOS"
+            ]
+          },
+          {
+            "version": "1.1",
+            "platforms": [
+              "Ubuntu/Debian",
+              "RHEL/CentOS"
+            ]
+          },
+          {
+            "version": "1.0",
+            "platforms": [
+              "Ubuntu/Debian",
+              "RHEL/CentOS"
+            ]
+          },
+          {
+            "version": "0.29",
+            "platforms": [
+              "Ubuntu/Debian",
+              "RHEL/CentOS"
+            ]
+          }
+        ]
       },
       "sensu_enterprise": {
         "identifier": "sensu-enterprise",
@@ -117,40 +173,64 @@
         "description": "The powerful and simple monitoring product, built on Sensu Core",
         "weight": 3,
         "latest": "3.4",
-        "versions": {
-          "3.4": [
-            "Ubuntu/Debian",
-            "RHEL/CentOS"
-          ],
-          "3.3": [
-            "Ubuntu/Debian",
-            "RHEL/CentOS"
-          ],
-          "3.2": [
-            "Ubuntu/Debian",
-            "RHEL/CentOS"
-          ],
-          "3.1": [
-            "Ubuntu/Debian",
-            "RHEL/CentOS"
-          ],
-          "3.0": [
-            "Ubuntu/Debian",
-            "RHEL/CentOS"
-          ],
-          "2.8": [
-            "Ubuntu/Debian",
-            "RHEL/CentOS"
-          ],
-          "2.7": [
-            "Ubuntu/Debian",
-            "RHEL/CentOS"
-          ],
-          "2.6": [
-            "Ubuntu/Debian",
-            "RHEL/CentOS"
-          ]
-        }
+        "versions": [
+          {
+            "version": "3.4",
+            "platforms": [
+              "Ubuntu/Debian",
+              "RHEL/CentOS"
+            ]
+          },
+          {
+            "version": "3.3",
+            "platforms": [
+              "Ubuntu/Debian",
+              "RHEL/CentOS"
+            ]
+          },
+          {
+            "version": "3.2",
+            "platforms": [
+              "Ubuntu/Debian",
+              "RHEL/CentOS"
+            ]
+          },
+          {
+            "version": "3.1",
+            "platforms": [
+              "Ubuntu/Debian",
+              "RHEL/CentOS"
+            ]
+          },
+          {
+            "version": "3.0",
+            "platforms": [
+              "Ubuntu/Debian",
+              "RHEL/CentOS"
+            ]
+          },
+          {
+            "version": "2.8",
+            "platforms": [
+              "Ubuntu/Debian",
+              "RHEL/CentOS"
+            ]
+          },
+          {
+            "version": "2.7",
+            "platforms": [
+              "Ubuntu/Debian",
+              "RHEL/CentOS"
+            ]
+          },
+          {
+            "version": "2.6",
+            "platforms": [
+              "Ubuntu/Debian",
+              "RHEL/CentOS"
+            ]
+          }
+        ]
       },
       "sensu_enterprise_dashboard": {
         "identifier": "sensu-enterprise-dashboard",
@@ -158,36 +238,57 @@
         "description": "The dashboard for Sensu Enterprise, built on Uchiwa",
         "weight": 4,
         "latest": "2.15",
-        "versions": {
-          "2.15": [
-            "Ubuntu/Debian",
-            "RHEL/CentOS"
-          ],
-          "2.14": [
-            "Ubuntu/Debian",
-            "RHEL/CentOS"
-          ],
-          "2.13": [
-            "Ubuntu/Debian",
-            "RHEL/CentOS"
-          ],
-          "2.12": [
-            "Ubuntu/Debian",
-            "RHEL/CentOS"
-          ],
-          "2.11": [
-            "Ubuntu/Debian",
-            "RHEL/CentOS"
-          ],
-          "2.10": [
-            "Ubuntu/Debian",
-            "RHEL/CentOS"
-          ],
-          "2.9": [
-            "Ubuntu/Debian",
-            "RHEL/CentOS"
-          ]
-        }
+        "versions": [
+          {
+            "version": "2.15",
+            "platforms": [
+              "Ubuntu/Debian",
+              "RHEL/CentOS"
+            ]
+          },
+          {
+            "version": "2.14",
+            "platforms": [
+              "Ubuntu/Debian",
+              "RHEL/CentOS"
+            ]
+          },
+          {
+            "version": "2.13",
+            "platforms": [
+              "Ubuntu/Debian",
+              "RHEL/CentOS"
+            ]
+          },
+          {
+            "version": "2.12",
+            "platforms": [
+              "Ubuntu/Debian",
+              "RHEL/CentOS"
+            ]
+          },
+          {
+            "version": "2.11",
+            "platforms": [
+              "Ubuntu/Debian",
+              "RHEL/CentOS"
+            ]
+          },
+          {
+            "version": "2.10",
+            "platforms": [
+              "Ubuntu/Debian",
+              "RHEL/CentOS"
+            ]
+          },
+          {
+            "version": "2.9",
+            "platforms": [
+              "Ubuntu/Debian",
+              "RHEL/CentOS"
+            ]
+          }
+        ]
       },
       "uchiwa": {
         "identifier": "uchiwa",
@@ -195,19 +296,25 @@
         "description": "An open source dashboard for Sensu Core",
         "weight": 5,
         "latest": "1.0",
-        "versions": {
-          "1.0": []
-        }
+        "versions": [
+          {
+            "version": "1.0",
+            "platforms": []
+          }
+        ]
       },
-      "plugins": {
+      "pugins": {
         "identifier": "plugins",
         "name": "Plugins",
         "description": "Checks, handlers, and other plugins to power your Sensu deployment",
         "weight": 6,
         "latest": "1.0",
-        "versions": {
-          "1.0": []
-        }
+        "versions": [
+          {
+            "version": "1.0",
+            "platforms": []
+          }
+        ]
       }
     },
     "provider": "GitHub",
