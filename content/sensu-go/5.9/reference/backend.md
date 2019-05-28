@@ -728,7 +728,7 @@ etcd-quota-backend-bytes: 4294967296{{< /highlight >}}
 
 ### Event logging
 
-**ENTERPRISE ONLY**: Event logging in Sensu Go require an enterprise license. To activate your enterprise license, see the [getting started guide][14].
+**ENTERPRISE ONLY**: Event logging in Sensu Go requires an enterprise license. To activate your enterprise license, see the [getting started guide][14].
 
 All Sensu events can be optionally logged to a file in JSON format. This file can then be used as an input source for your favorite data lake solution. Using the event logging functionality provides better performance and reliability than using event handlers.
 
@@ -757,7 +757,7 @@ event-log-buffer-size: 100000{{< /highlight >}}
 
 #### Log rotation
 
-Event logging supports log rotation via the _SIGHUP_ signal. The current log file should first be renamed (moved) and then, this signal should be sent to the sensu-backend process so it re-creates a new log file and starts logging to it. Here are some logrotate sample configuration:
+Event logging supports log rotation via the _SIGHUP_ signal. The current log file should first be renamed (moved) and then, this signal should be sent to the sensu-backend process so it re-creates a new log file and starts logging to it. Here are some logrotate sample configurations:
 
 ##### systemd
 {{< highlight shell >}}
