@@ -75,6 +75,20 @@ Let's say you want to receive Slack notifications for keepalive alerts, and you 
 To process keepalive events using the Slack pipeline, create a handler set named `keepalive` and add the `slack` handler to the `handlers` array.
 The resulting `keepalive` handler set configuration looks like this:
 
+{{< language-toggle >}}
+
+{{< highlight yml >}}
+type: Handler
+api_version: core/v2
+metadata:
+  name: keepalive
+  namespace: default
+spec:
+  handlers:
+  - slack
+  type: set
+{{< /highlight >}}
+
 {{< highlight json >}}
 {
   "type": "Handler",
@@ -91,6 +105,8 @@ The resulting `keepalive` handler set configuration looks like this:
   }
 }
 {{< /highlight >}}
+
+{{< /language-toggle >}}
 
 ## Handler specification
 
@@ -274,6 +290,19 @@ example      | {{< highlight shell >}}"port": 4242{{< /highlight >}}
 
 ### Minimum required pipe handler attributes
 
+{{< language-toggle >}}
+
+{{< highlight yml >}}
+type: Handler
+api_version: core/v2
+metadata:
+  name: pipe_handler_minimum
+  namespace: default
+spec:
+  command: command-example
+  type: pipe
+{{< /highlight >}}
+
 {{< highlight json >}}
 {
   "type": "Handler",
@@ -289,9 +318,26 @@ example      | {{< highlight shell >}}"port": 4242{{< /highlight >}}
 }
 {{< /highlight >}}
 
+{{< /language-toggle >}}
+
 ### Minimum required TCP/UDP handler attributes
 
 This is an example of a `tcp` type handler. Changing the type from `tcp` to `udp` gives you the minimum configuration for a `udp` type handler. 
+
+{{< language-toggle >}}
+
+{{< highlight yml >}}
+type: Handler
+api_version: core/v2
+metadata:
+  name: tcp_udp_handler_minimum
+  namespace: default
+spec:
+  socket:
+    host: 10.0.1.99
+    port: 4444
+  type: tcp
+{{< /highlight >}}
 
 {{< highlight json >}}
 {
@@ -311,10 +357,33 @@ This is an example of a `tcp` type handler. Changing the type from `tcp` to `udp
 }
 {{< /highlight >}}
 
+{{< /language-toggle >}}
+
 ### Sending slack alerts
 
 This handler will send alerts to a channel named `monitoring` with the
 configured webhook URL, using the `handler-slack` executable command.
+
+{{< language-toggle >}}
+
+{{< highlight yml >}}
+type: Handler
+api_version: core/v2
+metadata:
+  name: slack
+  namespace: default
+spec:
+  command: sensu-slack-handler --channel '#monitoring'
+  env_vars:
+  - SLACK_WEBHOOK_URL=https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX
+  filters:
+  - is_incident
+  - not_silenced
+  handlers: []
+  runtime_assets: []
+  timeout: 0
+  type: pipe
+{{< /highlight >}}
 
 {{< highlight json >}}
 {
@@ -341,10 +410,27 @@ configured webhook URL, using the `handler-slack` executable command.
 }
 {{< /highlight >}}
 
+{{< /language-toggle >}}
+
 ### Sending event data to a TCP socket
 
 This handler will forward event data to a TCP socket (10.0.1.99:4444) and
 will timeout if an acknowledgement (`ACK`) is not received within 30 seconds.
+
+{{< language-toggle >}}
+
+{{< highlight yml >}}
+type: Handler
+api_version: core/v2
+metadata:
+  name: tcp_handler
+  namespace: default
+spec:
+  socket:
+    host: 10.0.1.99
+    port: 4444
+  type: tcp
+{{< /highlight >}}
 
 {{< highlight json >}}
 {
@@ -364,10 +450,27 @@ will timeout if an acknowledgement (`ACK`) is not received within 30 seconds.
 }
 {{< /highlight >}}
 
+{{< /language-toggle >}}
+
 ### Sending event data to a UDP socket
 
 The following example will also forward event data but to UDP socket instead
 (ex: 10.0.1.99:4444).
+
+{{< language-toggle >}}
+
+{{< highlight yml >}}
+type: Handler
+api_version: core/v2
+metadata:
+  name: udp_handler
+  namespace: default
+spec:
+  socket:
+    host: 10.0.1.99
+    port: 4444
+  type: udp
+{{< /highlight >}}
 
 {{< highlight json >}}
 {
@@ -387,10 +490,28 @@ The following example will also forward event data but to UDP socket instead
 }
 {{< /highlight >}}
 
+{{< /language-toggle >}}
+
 ### Executing multiple handlers
 
 The following example handler will execute three handlers: `slack`,
 `tcp_handler`, and `udp_handler`.
+
+{{< language-toggle >}}
+
+{{< highlight yml >}}
+type: Handler
+api_version: core/v2
+metadata:
+  name: notify_all_the_things
+  namespace: default
+spec:
+  handlers:
+  - slack
+  - tcp_handler
+  - udp_handler
+  type: set
+{{< /highlight >}}
 
 {{< highlight json >}}
 {
@@ -410,6 +531,8 @@ The following example handler will execute three handlers: `slack`,
   }
 }
 {{< /highlight >}}
+
+{{< /language-toggle >}}
 
 [1]: ../checks/
 [2]: https://en.wikipedia.org/wiki/Standard_streams
