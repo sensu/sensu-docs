@@ -62,6 +62,35 @@ Check config token errors will be logged by the agent, and sent to Sensu backend
 In this example [check configuration][5], the `check-disk-usage.go` command accepts `-w` (warning) and `-c` (critical)
 arguments to indicate the thresholds (as percentages) for creating warning or critical events. If no token substitutions are provided by an entity configuration, Sensu will use default values to create a warning event at 80% disk capacity (i.e. `{{ .labels.disk_warning | default 80 }}`), and a critical event at 90% capacity (i.e. `{{ .labels.disk_critical | default 90 }}`).
 
+{{< language-toggle >}}
+
+{{< highlight yml >}}
+type: CheckConfig
+api_version: core/v1
+metadata:
+  annotations: null
+  labels: null
+  name: check-disk-usage
+  namespace: default
+spec:
+  check_hooks: null
+  command: check-disk-usage.rb -w {{.labels.disk_warning | default 80}} -c {{.labels.disk_critical
+    | default 90}}
+  env_vars: null
+  handlers: []
+  high_flap_threshold: 0
+  interval: 10
+  low_flap_threshold: 0
+  proxy_entity_name: ""
+  publish: true
+  runtime_assets: null
+  stdin: false
+  subscriptions:
+  - staging
+  timeout: 0
+  ttl: 0
+{{< /highlight >}}
+
 {{< highlight json >}}
 {
   "type": "CheckConfig",
@@ -92,9 +121,67 @@ arguments to indicate the thresholds (as percentages) for creating warning or cr
   }
 }{{< /highlight >}}
 
+{{< /language-toggle >}}
+
 The following example [entity][4] would provide the necessary
 attributes to override the `.labels.disk_warning` and `labels.disk_critical`
 tokens declared above.
+
+{{< language-toggle >}}
+
+{{< highlight yml >}}
+type: Entity
+api_version: core/v2
+metadata:
+  annotations: null
+  labels:
+    disk_critical: "90"
+    disk_warning: "80"
+  name: example-hostname
+  namespace: default
+spec:
+  deregister: false
+  deregistration: {}
+  entity_class: agent
+  last_seen: 1542667231
+  redact:
+  - password
+  - passwd
+  - pass
+  - api_key
+  - api_token
+  - access_key
+  - secret_key
+  - private_key
+  - secret
+  subscriptions:
+  - entity:example-hostname
+  - staging
+  system:
+    arch: amd64
+    hostname: example-hostname
+    network:
+      interfaces:
+      - addresses:
+        - 127.0.0.1/8
+        - ::1/128
+        name: lo
+      - addresses:
+        - 10.0.2.15/24
+        - fe80::26a5:54ec:cf0d:9704/64
+        mac: 08:00:27:11:ad:d2
+        name: enp0s3
+      - addresses:
+        - 172.28.128.3/24
+        - fe80::a00:27ff:febc:be60/64
+        mac: 08:00:27:bc:be:60
+        name: enp0s8
+    os: linux
+    platform: centos
+    platform_family: rhel
+    platform_version: 7.4.1708
+  user: agent
+{{< /highlight >}}
 
 {{< highlight json >}}
 {
@@ -167,6 +254,8 @@ tokens declared above.
     ]
   }
 }{{< /highlight >}}
+
+{{< /language-toggle >}}
 
 [1]: https://golang.org/pkg/text/template/
 [2]: ../../../latest/reference/checks/#check-token-substitution
