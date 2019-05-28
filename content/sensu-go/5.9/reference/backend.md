@@ -24,6 +24,7 @@ menu:
   - [Security configuration](#security-configuration-flags)
   - [Dashboard configuration](#dashboard-configuration-flags)
   - [Datastore and cluster configuration](#datastore-and-cluster-configuration-flags)
+  - [Event logging](#event-logging)
   - [Example](/sensu-go/5.9/files/backend.yml)
 
 The Sensu backend is a service that manages check requests and event data.
@@ -182,11 +183,13 @@ General Flags:
       --cert-file string                TLS certificate in PEM format
   -c, --config-file string              path to sensu-backend config file
       --dashboard-cert-file string      dashboard TLS certificate in PEM format
-      --dashboard-key-file string       dashboard TLS certificate key in PEM format
       --dashboard-host string           dashboard listener host (default "[::]")
+      --dashboard-key-file string       dashboard TLS certificate key in PEM format
       --dashboard-port int              dashboard listener port (default 3000)
       --debug                           enable debugging and profiling features
       --deregistration-handler string   default deregistration handler
+      --event-log-buffer-size int       buffer size of the event logger (default 100000)
+      --event-log-file string           path to the event log file
   -h, --help                            help for start
       --insecure-skip-tls-verify        skip TLS verification (not recommended!)
       --key-file string                 TLS certificate key in PEM format
@@ -197,6 +200,7 @@ General Flags:
 Store Flags:
       --etcd-advertise-client-urls strings         list of this member's client URLs to advertise to the rest of the cluster. (default [http://localhost:2379])
       --etcd-cert-file string                      path to the client server TLS cert file
+      --etcd-cipher-suites strings                 list of ciphers to use for etcd TLS configuration
       --etcd-client-cert-auth                      enable client cert authentication
       --etcd-initial-advertise-peer-urls strings   list of this member's peer URLs to advertise to the rest of the cluster (default [http://127.0.0.1:2380])
       --etcd-initial-cluster string                initial cluster configuration for bootstrapping (default "default=http://127.0.0.1:2380")
@@ -205,16 +209,15 @@ Store Flags:
       --etcd-key-file string                       path to the client server TLS key file
       --etcd-listen-client-urls strings            list of URLs to listen on for client traffic (default [http://127.0.0.1:2379])
       --etcd-listen-peer-urls strings              list of URLs to listen on for peer traffic (default [http://127.0.0.1:2380])
+      --etcd-max-request-bytes uint                maximum etcd request size in bytes (use with caution) (default 1572864)
       --etcd-name string                           human-readable name for this member (default "default")
       --etcd-peer-cert-file string                 path to the peer server TLS cert file
       --etcd-peer-client-cert-auth                 enable peer client cert authentication
       --etcd-peer-key-file string                  path to the peer server TLS key file
       --etcd-peer-trusted-ca-file string           path to the peer server TLS trusted CA file
+      --etcd-quota-backend-bytes int               maximum etcd database size in bytes (use with caution) (default 4294967296)
       --etcd-trusted-ca-file string                path to the client server TLS trusted CA cert file
       --no-embed-etcd                              don't embed etcd, use external etcd instead
-      --etcd-cipher-suites                         list of ciphers to use for etcd TLS configuration
-      --etcd-max-request-bytes                     maximum etcd request size in bytes (use with caution)
-      --etcd-quota-backend-bytes                   maximum etcd database size in bytes (use with caution)
 {{< /highlight >}}
 
 ### General configuration flags
@@ -723,6 +726,69 @@ sensu-backend start --etcd-quota-backend-bytes 4294967296
 etcd-quota-backend-bytes: 4294967296{{< /highlight >}}
 
 
+### Event logging
+
+**ENTERPRISE ONLY**: Event logging in Sensu Go requires an enterprise license. To activate your enterprise license, see the [getting started guide][14].
+
+All Sensu events can be optionally logged to a file in JSON format. This file can then be used as an input source for your favorite data lake solution. Using the event logging functionality provides better performance and reliability than using event handlers.
+
+| event-log-file |      |
+-----------------------|------
+description            | Path to the event log file. _WARNING: The log file should be located on a local drive. Logging directly to network drives is not supported._
+type                   | String
+example                | {{< highlight shell >}}# Command line example
+sensu-backend start --event-log-file /var/log/sensu/events.log
+
+
+# /etc/sensu/backend.yml example
+event-log-file: "/var/log/sensu/events.log"{{< /highlight >}}
+
+| event-log-buffer-size |      |
+-----------------------|------
+description            | Buffer size of the event logger. Corresponds to the maximum number of events kept in memory in case the log file is temporarily unavailable or more events have been received than what can be written to the log file. 
+type                   | Integer
+default                | 100000
+example                | {{< highlight shell >}}# Command line example
+sensu-backend start --event-log-buffer-size 100000
+
+
+# /etc/sensu/backend.yml example
+event-log-buffer-size: 100000{{< /highlight >}}
+
+#### Log rotation
+
+Event logging supports log rotation via the _SIGHUP_ signal. The current log file should first be renamed (moved) and then, this signal should be sent to the sensu-backend process so it re-creates a new log file and starts logging to it. Here are some logrotate sample configurations:
+
+##### systemd
+{{< highlight shell >}}
+/var/log/sensu/events.log
+{
+  rotate 3
+  hourly
+  missingok
+  notifempty
+  compress
+  postrotate
+    /bin/systemctl reload sensu-backend.service > /dev/null 2>/dev/null || true
+  endscript
+}
+{{< /highlight >}}
+
+##### sysvinit
+{{< highlight shell >}}
+/var/log/sensu/events.log
+{
+  rotate 3
+  hourly
+  missingok
+  notifempty
+  compress
+  postrotate
+    kill -HUP `cat /var/run/sensu/sensu-backend.pid 2> /dev/null` 2> /dev/null || true
+  endscript
+}
+{{< /highlight >}}
+
 [1]: ../../installation/install-sensu#install-the-sensu-backend
 [2]: https://github.com/etcd-io/etcd/blob/master/Documentation/docs.md
 [3]: ../../guides/monitor-server-resources/
@@ -736,4 +802,5 @@ etcd-quota-backend-bytes: 4294967296{{< /highlight >}}
 [11]: ../../reference/handlers
 [12]: #datastore-and-cluster-configuration-flags
 [13]: ../../guides/clustering
+[14]: ../../getting-started/enterprise
 [15]: #general-configuration-flags
