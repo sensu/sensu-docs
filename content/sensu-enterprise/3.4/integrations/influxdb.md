@@ -20,7 +20,22 @@ users only.**
 
 Send metrics to [InfluxDB][2] using the InfluxDB HTTP API.
 
-_NOTE: By default, 3 annotation tables are created with the Influxdb integration: `client`, `check`, and `action`. To see metric data returned by a check, a check must be of the `metric` type._
+When handling events with check `type`  of `metric` this integration will attempt to translate measurements from the specified `output_format` to InfluxDB measurements.
+
+When handling events without check `type` of `metric` specified, this integration will record annotations to a measurement named `sensu_events`. These annotations are time series data which describe the status of a given check at a specific point in time, using the following attributes from the event:
+
+annotation columns  | 
+--------------------|-------
+`time`              | influxdb timestamp
+`check`             | name of the check
+`status`            | check status
+`client`            | client name
+`action`            | action of the event
+`description`       | output from the check
+`occurrences`       | event occurrence count
+
+Annotation data can be used to overlay the status of Sensu checks on a graph of other metrics recorded in InfluxDB.
+
 
 ## Configuration
 
