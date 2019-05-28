@@ -384,6 +384,20 @@ Let's say you want to receive Slack notifications for keepalive alerts, and you 
 To process keepalive events using the Slack pipeline, create a handler set named `keepalive` and add the `slack` handler to the `handlers` array.
 The resulting `keepalive` handler set configuration looks like this:
 
+{{< language-toggle >}}
+
+{{< highlight yml >}}
+type: Handler
+api_version: core/v2
+metadata:
+  name: keepalive
+  namespace: default
+spec:
+  handlers:
+  - slack
+  type: set
+{{< /highlight >}}
+
 {{< highlight json >}}
 {
   "type": "Handler",
@@ -400,6 +414,8 @@ The resulting `keepalive` handler set configuration looks like this:
   }
 }
 {{< /highlight >}}
+
+{{< /language-toggle >}}
 
 ## Operation
 

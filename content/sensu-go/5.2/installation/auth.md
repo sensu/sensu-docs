@@ -97,6 +97,25 @@ Once you've configured the correct roles and bindings, log in to [sensuctl](../.
 
 **Example LDAP configuration: Minimum required attributes**
 
+{{< language-toggle >}}
+
+{{< highlight yml >}}
+type: ldap
+api_version: authentication/v2
+metadata:
+  name: openldap
+spec:
+  servers:
+  - binding:
+      password: P@ssw0rd!
+      user_dn: cn=binder,dc=acme,dc=org
+    group_search:
+      base_dn: dc=acme,dc=org
+    host: 127.0.0.1
+    user_search:
+      base_dn: dc=acme,dc=org
+{{< /highlight >}}
+
 {{< highlight json >}}
 {
   "type": "ldap",
@@ -124,7 +143,39 @@ Once you've configured the correct roles and bindings, log in to [sensuctl](../.
 }
 {{< /highlight >}}
 
+{{< /language-toggle >}}
+
 **Example LDAP configuration: All attributes**
+
+{{< language-toggle >}}
+
+{{< highlight yml >}}
+type: ldap
+api_version: authentication/v2
+metadata:
+  name: openldap
+spec:
+  groups_prefix: ldap
+  servers:
+  - binding:
+      password: P@ssw0rd!
+      user_dn: cn=binder,dc=acme,dc=org
+    group_search:
+      attribute: member
+      base_dn: dc=acme,dc=org
+      name_attribute: cn
+      object_class: groupOfNames
+    host: 127.0.0.1
+    insecure: false
+    port: 636
+    security: tls
+    user_search:
+      attribute: uid
+      base_dn: dc=acme,dc=org
+      name_attribute: cn
+      object_class: person
+  username_prefix: ldap
+{{< /highlight >}}
 
 {{< highlight json >}}
 {
@@ -163,6 +214,8 @@ Once you've configured the correct roles and bindings, log in to [sensuctl](../.
   }
 }
 {{< /highlight >}}
+
+{{< /language-toggle >}}
 
 ## LDAP specification
 
