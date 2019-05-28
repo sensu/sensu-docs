@@ -108,7 +108,7 @@ Active Directory users should head over to the [Active Directory section](#activ
 
 {{< highlight json >}}
 {
-  "Type": "ldap",
+  "type": "ldap",
   "api_version": "authentication/v2",
   "spec": {
     "servers": [
@@ -540,7 +540,7 @@ Sensu offers enterprise-only support for using Microsoft Active Directory (AD) f
 
 {{< highlight json >}}
 {
-  "Type": "ad",
+  "type": "ad",
   "api_version": "authentication/v2",
   "spec": {
     "servers": [
