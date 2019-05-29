@@ -137,7 +137,7 @@ example      | {{< highlight shell >}}"name": "production"{{< /highlight >}}
 
 ### Namespace example
 
-The following example is in `wrapped-json` format for use with [`sensuctl create`][31].
+The following examples are in `yml` and `wrapped-json` formats for use with [`sensuctl create`][31].
 
 {{< language-toggle >}}
 
@@ -319,7 +319,7 @@ example      | {{< highlight shell >}}"disabled": false{{< /highlight >}}
 
 ### User example
 
-The following example is in `wrapped-json` format for use with [`sensuctl create`][31].
+The following examples are in `yml` and `wrapped-json` formats for use with [`sensuctl create`][31].
 
 {{< language-toggle >}}
 
@@ -550,7 +550,7 @@ example      | {{< highlight shell >}}"resource_names": ["check-cpu"]{{< /highli
 
 ### Role example
 
-The following example is in `wrapped-json` format for use with [`sensuctl create`][31].
+The following examples are in `yml` and `wrapped-json` formats for use with [`sensuctl create`][31].
 
 {{< language-toggle >}}
 
@@ -610,7 +610,7 @@ spec:
 
 ### Cluster role example
 
-The following example is in `wrapped-json` format for use with [`sensuctl create`][31].
+The following examples are in `yml` and `wrapped-json` formats for use with [`sensuctl create`][31].
 
 {{< language-toggle >}}
 
@@ -802,7 +802,7 @@ example      | {{< highlight shell >}}"name": "alice"{{< /highlight >}}
 
 ### Role binding example
 
-The following example is in `wrapped-json` format for use with [`sensuctl create`][31].
+The following examples are in `yml` and `wrapped-json` formats for use with [`sensuctl create`][31].
 
 {{< language-toggle >}}
 
@@ -848,7 +848,7 @@ spec:
 
 ### Cluster role binding example
 
-The following example is in `wrapped-json` format for use with [`sensuctl create`][31].
+The following examples are in `yml` and `wrapped-json` formats for use with [`sensuctl create`][31].
 
 {{< language-toggle >}}
 
