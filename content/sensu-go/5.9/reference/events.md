@@ -19,6 +19,7 @@ menu:
   - [Resolving events](#resolving-events)
 - [Event format](#event-format)
 - [Using event data](#using-event-data)
+  - [Occurrences](#occurrences-and-occurrences-watermark)
 - [Events specification](#events-specification)
 	- [Top-level attributes](#top-level-attributes)
 	- [Spec attributes](#spec-attributes)
@@ -160,6 +161,35 @@ Sensu events contain:
 
 Event data is powerful tool for automating monitoring workflows.
 For example, see [the guide to reducing alert fatigue](../../guides/reduce-alert-fatigue/) by filtering events based on the event `occurrences` attribute.
+
+### Occurrences and occurrences watermark
+
+The `occurrences` and `occurrences_watermark` event attributes give you context about recent events for a given entity and check.
+You can use these attributes within [event filters](../filters) to fine-tune incident notifications and reduce alert fatigue.
+
+Starting at `1`, the `occurrences` attribute increments for events with the same [status](../checks/#check-result-specification) as the preceding event (OK, WARNING, CRITICAL, or UNKNOWN) and resets whenever the status changes.
+You can use the `occurrences` attribute to create a [state-change-only filter](../filters/#handling-state-change-only) or an [interval filter](../filters/#handling-repeated-events).
+
+The `occurrences_watermark` attribute gives you useful information when looking at events that change status between OK and non-OK (WARNING, CRITICAL, or UNKNOWN).
+For these incident and resolution events, the `occurrences_watermark` attribute tells you the number of preceding events with an OK status (for incident events) or non-OK status (for resolution events).
+Sensu resets `occurrences_watermark` to `1` whenever an event transitions between OK and non-OK.
+Within a sequence of only OK or only non-OK events, Sensu increments `occurrences_watermark` when the `occurrences` attribute is greater than the preceding `occurrences_watermark`.
+
+The following table shows the occurrences attributes for a series of example events:
+
+| event sequence   | `occurrences`   | `occurrences_watermark` |
+| -----------------| --------------- | ----------------------- |
+1. OK event        | `occurrences: 1`| `occurrences_watermark: 1`
+2. OK event        | `occurrences: 2`| `occurrences_watermark: 2`
+3. WARNING event   | `occurrences: 1`| `occurrences_watermark: 1`
+4. WARNING event   | `occurrences: 2`| `occurrences_watermark: 2`
+5. WARNING event   | `occurrences: 3`| `occurrences_watermark: 3`
+6. CRITICAL event  | `occurrences: 1`| `occurrences_watermark: 3`
+7. CRITICAL event  | `occurrences: 2`| `occurrences_watermark: 3`
+8. CRITICAL event  | `occurrences: 3`| `occurrences_watermark: 3`
+9. CRITICAL event  | `occurrences: 4`| `occurrences_watermark: 4`
+10. OK event       | `occurrences: 1`| `occurrences_watermark: 4`
+11. CRITICAL event | `occurrences: 1`| `occurrences_watermark: 1`
 
 ## Events specification
 
@@ -535,16 +565,16 @@ example      | {{< highlight shell >}}"last_ok": 1552506033{{< /highlight >}}
 
 occurrences  |      |
 -------------|------
-description  | The number of times an event with the same status has occurred for the given entity and check
+description  | The number of preceding events with the same status as the current event (OK, WARNING, CRITICAL, or UNKNOWN). Starting at `1`, the `occurrences` attribute increments for events with the same status as the preceding event and resets whenever the status changes. See the [using event data section](#occurrences-and-occurrences-watermark) for more information.
 required     | false
-type         | Integer
+type         | Integer greater than 0
 example      | {{< highlight shell >}}"occurrences": 1{{< /highlight >}}
 
 occurrences_watermark | |
 -------------|------
-description  | The highest number of occurrences for the given entity and check at the current status
+description  | The `occurrences_watermark` attribute gives you useful information when looking at events that change status between OK (`0`)and non-OK (`1`-WARNING, `2`-CRITICAL, or UNKNOWN). For these incident and resolution events, the `occurrences_watermark` attribute tells you the number of preceding events with an OK status (for incident events) or non-OK status (for resolution events).<br><br>Sensu resets `occurrences_watermark` to `1` whenever an event for a given entity and check transitions between OK and non-OK. Within a sequence of only OK or only non-OK events, Sensu increments `occurrences_watermark` only when the `occurrences` attribute is greater than the preceding `occurrences_watermark`. See the [using event data section](#occurrences-and-occurrences-watermark) for more information.
 required     | false
-type         | Integer
+type         | Integer greater than 0
 example      | {{< highlight shell >}}"occurrences_watermark": 1{{< /highlight >}}\
 
 output       |      |
