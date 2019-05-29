@@ -18,6 +18,7 @@ aliases:
 - [Namespaces](#namespaces)
 - [Managing checks](#managing-checks)
 - [Managing entities](#managing-entities)
+- [Managing handlers](#managing-handlers)
 - [Themes](#themes)
 
 The Sensu backend includes the **Sensu dashboard**:
@@ -58,6 +59,12 @@ You can create, edit, and delete Sensu checks using the dashboard checks page.
 **ENTERPRISE ONLY**: Entity management in Sensu Go requires an enterprise license. To activate your enterprise license, see the [getting started guide][6].
 
 You can delete Sensu entities using the dashboard entities page.
+
+### Managing handlers
+
+**ENTERPRISE ONLY**: Handler management in Sensu Go requires an enterprise license. To activate your enterprise license, see the [getting started guide][6].
+
+You can create, edit, and delete Sensu handlers using the dashboard handlers page.
 
 ### Themes
 Use the preferences menu to change the theme or switch to the dark theme.
