@@ -840,7 +840,7 @@ spec:
 
 ### Cluster role binding example
 
-The following example is in `wrapped-json` format for use with [`sensuctl create`][31].
+The following examples are in `yml` and `wrapped-json` formats for use with [`sensuctl create`][31].
 
 {{< language-toggle >}}
 
