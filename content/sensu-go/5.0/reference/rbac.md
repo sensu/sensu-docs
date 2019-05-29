@@ -137,7 +137,7 @@ example      | {{< highlight shell >}}"name": "production"{{< /highlight >}}
 
 ### Namespace example
 
-The following configuration example is for use with [`sensuctl create`][31].
+The following examples are in `yml` and `wrapped-json` formats for use with [`sensuctl create`][31].
 
 {{< language-toggle >}}
 
@@ -311,7 +311,7 @@ example      | {{< highlight shell >}}"disabled": false{{< /highlight >}}
 
 ### User example
 
-The following configuration example is for use with [`sensuctl create`][31].
+The following examples are in `yml` and `wrapped-json` formats for use with [`sensuctl create`][31].
 
 {{< language-toggle >}}
 
@@ -542,7 +542,7 @@ example      | {{< highlight shell >}}"resource_names": ["check-cpu"]{{< /highli
 
 ### Role example
 
-The following configuration example is for use with [`sensuctl create`][31].
+The following examples are in `yml` and `wrapped-json` formats for use with [`sensuctl create`][31].
 
 {{< language-toggle >}}
 
@@ -602,7 +602,7 @@ spec:
 
 ### Cluster role example
 
-The following configuration example is for use with [`sensuctl create`][31].
+The following examples are in `yml` and `wrapped-json` formats for use with [`sensuctl create`][31].
 
 {{< language-toggle >}}
 
@@ -794,7 +794,7 @@ example      | {{< highlight shell >}}"name": "alice"{{< /highlight >}}
 
 ### Role binding example
 
-The following configuration example is for use with [`sensuctl create`][31].
+The following examples are in `yml` and `wrapped-json` formats for use with [`sensuctl create`][31].
 
 {{< language-toggle >}}
 
