@@ -170,9 +170,9 @@ You can use these attributes within [event filters](../filters) to fine-tune inc
 Starting at `1`, the `occurrences` attribute increments for events with the same [status](../checks/#check-result-specification) as the preceding event (OK, WARNING, CRITICAL, or UNKNOWN) and resets whenever the status changes.
 You can use the `occurrences` attribute to create a [state-change-only filter](../filters/#handling-state-change-only) or an [interval filter](../filters/#handling-repeated-events).
 
-The `occurrences_watermark` attribute gives you useful information when looking at events that change status between OK and non-OK (WARNING, CRITICAL, or UNKNOWN).
-For these incident and resolution events, the `occurrences_watermark` attribute tells you the number of preceding events with an OK status (for incident events) or non-OK status (for resolution events).
-Sensu resets `occurrences_watermark` to `1` whenever an event transitions between OK and non-OK.
+The `occurrences_watermark` attribute gives you useful information when looking at events that change status between non-OK (WARNING, CRITICAL, or UNKNOWN) and OK.
+For these resolution events, the `occurrences_watermark` attribute tells you the number of preceding events with a non-OK status.
+Sensu resets `occurrences_watermark` to `1` on the first non-OK event.
 Within a sequence of only OK or only non-OK events, Sensu increments `occurrences_watermark` when the `occurrences` attribute is greater than the preceding `occurrences_watermark`.
 
 The following table shows the occurrences attributes for a series of example events:
