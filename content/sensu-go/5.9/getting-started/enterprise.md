@@ -17,6 +17,7 @@ Enterprise features are available for all Sensu Go packages and downloads.
 ### Enterprise-only features in Sensu Go
 
 - **Manage your monitoring checks from your browser**: Create, edit, and delete checks using the Sensu [web UI](../../dashboard/overview).
+- **Manage your handlers from your browser**: Create, edit, and delete handlers using the Sensu [web UI](../../dashboard/overview).
 - **Authentication providers**: Scale Sensu role-based access control with [LDAP and Active Directory integrations](../../installation/auth).
 - **Resource filtering in the Sensu API and sensuctl command-line tool**: Designed for large installations, label and field selectors let you filter Sensu API and sensuctl responses using custom labels and resource attributes such as event status and check subscriptions.
 - **Enterprise-tier assets**: Connect your monitoring event pipelines to industry-standard tools like ServiceNow and Jira with [enterprise-tier assets](https://bonsai.sensu.io/assets?tiers%5B%5D=4).
