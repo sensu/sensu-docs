@@ -99,7 +99,7 @@ Once you've configured the correct roles and bindings, log in to [sensuctl](../.
 
 {{< highlight json >}}
 {
-  "Type": "ldap",
+  "type": "ldap",
   "api_version": "authentication/v2",
   "spec": {
     "servers": [
