@@ -7,6 +7,7 @@ version: "5.9"
 menu: "sensu-go-5.9"
 ---
 
+- [5.9.0 release notes](#5-9-0-release-notes)
 - [5.8.0 release notes](#5-8-0-release-notes)
 - [5.7.0 release notes](#5-7-0-release-notes)
 - [5.6.0 release notes](#5-6-0-release-notes)
@@ -29,6 +30,30 @@ Sensu Go adheres to [semantic versioning][2] using MAJOR.MINOR.PATCH release num
 Read the [upgrade guide][1] for information on upgrading to the latest version of Sensu Go.
 
 ---
+
+## 5.9.0 release notes
+
+**May 28, 2019** &mdash; The latest release of Sensu Go, version 5.9.0, is now available for download.
+There are some exciting feature additions in this release, including the ability to log raw events to a file (enterprise-only) and view event handlers in the web UI.
+See the [upgrade guide][52] to upgrade Sensu to version 5.9.0.
+If you're upgrading a Sensu cluster from 5.7.0 or earlier, see the [instructions for upgrading a Sensu cluster from 5.7.0 or earlier to 5.8.0 or later][59].
+
+**NEW FEATURES:**
+
+- The Sensu web UI now includes a handlers page that displays available event handlers and handler configuration. See the [docs][54] to get started using the Sensu web UI.
+- ([Enterprise-only][53]) Manage your Sensu event handlers from your browser: Sensu's web UI now supports creating, editing, and deleting handlers. See the [docs][54] to get started using the Sensu web UI.
+- ([Enterprise-only][53]) Sensu now supports event logging to a file using the `event-log-file` and `event-log-buffer-size` configuration flags. You can use this event log file as an input source for your favorite data lake solution. See the [backend reference][55] for more information.
+
+**IMPROVEMENTS:**
+
+- The Sensu web UI now includes simpler, more efficient filtering in place of filtering using Sensu query expressions.
+- Sensu packages are now available for Ubuntu 19.04 (Disco Dingo). See the [supported platforms page][56] for a complete list of Sensu's supported platforms and the [installation guide][57] to install Sensu packages for Ubuntu.
+
+**FIXES:**
+
+- The `occurrences` and `occurrences_watermark` event attributes now increment as expected, giving you useful information about recent events. See the [events reference][58] for an in-depth discussion of these attributes.
+- The `/silenced/subscriptions/:subscription` and `/silenced/checks/:check` API endpoints now return silencing entries by check or subscription.
+- Sensu now handles errors when seeding initial data, avoiding a panic state.
 
 ## 5.8.0 release notes
 
@@ -377,3 +402,11 @@ To get started with Sensu Go:
 [49]: /sensu-go/5.8/reference/license
 [50]: /sensu-go/5.8/reference/backend#advanced-configuration-options
 [51]: /sensu-go/5.8/installation/upgrade#upgrading-sensu-clusters-from-5-7-0-or-earlier-to-5-8-0-or-later
+[52]: /sensu-go/5.9/installation/upgrade
+[53]: /sensu-go/5.9/getting-started/enterprise
+[54]: /sensu-go/5.9/dashboard/overview
+[55]: /sensu-go/5.9/reference/backend#event-logging
+[56]: /sensu-go/5.9/installation/platforms
+[57]: /sensu-go/5.9/installation/install-sensu
+[58]: /sensu-go/5.9/reference/events#occurrences-and-occurrences-watermark
+[59]: /sensu-go/5.9/installation/upgrade/#upgrading-sensu-clusters-from-5-7-0-or-earlier-to-5-8-0-or-later
