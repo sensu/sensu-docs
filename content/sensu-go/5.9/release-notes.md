@@ -34,7 +34,7 @@ Read the [upgrade guide][1] for information on upgrading to the latest version o
 ## 5.9.0 release notes
 
 **May 28, 2019** &mdash; The latest release of Sensu Go, version 5.9.0, is now available for download.
-There are some exciting feature additions in this release, including the ability to log raw events to a file and manage handlers in the web UI.
+There are some exciting enterprise-only feature additions in this release, including the ability to log raw events to a file and manage handlers in the web UI.
 See the [upgrade guide][52] to upgrade Sensu to version 5.9.0.
 If you're upgrading a Sensu cluster from 5.7.0 or earlier, see the [instructions for upgrading a Sensu cluster from 5.7.0 or earlier to 5.8.0 or later][59].
 
