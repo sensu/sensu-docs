@@ -303,7 +303,7 @@
           }
         ]
       },
-      "pugins": {
+      "plugins": {
         "identifier": "plugins",
         "name": "Plugins",
         "description": "Checks, handlers, and other plugins to power your Sensu deployment",
