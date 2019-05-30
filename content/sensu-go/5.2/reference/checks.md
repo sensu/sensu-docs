@@ -321,9 +321,9 @@ example      | {{< highlight shell >}}"proxy_requests": {
 
 |silenced    |      |
 -------------|------
-description  | If the event is to be silenced.
-type         | boolean
-example      | {{< highlight shell >}}"silenced": false{{< /highlight >}}
+description  | The silences that apply to this check.
+type         | Array
+example      | {{< highlight shell >}}"silenced": ["*:routers"]{{< /highlight >}}
 
 |env_vars    |      |
 -------------|------
