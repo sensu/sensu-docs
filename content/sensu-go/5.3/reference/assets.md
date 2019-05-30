@@ -186,6 +186,19 @@ example      | {{< highlight shell >}} "annotations": {
 
 ### Minimum required asset attributes
 
+{{< language-toggle >}}
+
+{{< highlight yml >}}
+type: Asset
+api_version: core/v2
+metadata:
+  name: check_script
+  namespace: default
+spec:
+  sha512: 4f926bf4328fbad2b9cac873d117f771914f4b837c9c85584c38ccf55a3ef3c2e8d154812246e5dda4a87450576b2c58ad9ab40c9e2edc31b288d066b195b21b
+  url: http://example.com/asset.tar.gz
+{{< /highlight >}}
+
 {{< highlight json >}}
 {
   "type": "Asset",
@@ -201,7 +214,29 @@ example      | {{< highlight shell >}} "annotations": {
 }
 {{< /highlight >}}
 
+{{< /language-toggle >}}
+
 ### Asset definition
+
+{{< language-toggle >}}
+
+{{< highlight yml >}}
+type: Asset
+api_version: core/v2
+metadata:
+  annotations:
+    slack-channel: '#monitoring'
+  labels:
+    region: us-west-1
+  name: check_script
+  namespace: default
+spec:
+  filters:
+  - entity.system.os == 'linux'
+  - entity.system.arch == 'amd64'
+  sha512: 4f926bf4328fbad2b9cac873d117f771914f4b837c9c85584c38ccf55a3ef3c2e8d154812246e5dda4a87450576b2c58ad9ab40c9e2edc31b288d066b195b21b
+  url: http://example.com/asset.tar.gz
+{{< /highlight >}}
 
 {{< highlight json >}}
 {
@@ -227,6 +262,8 @@ example      | {{< highlight shell >}} "annotations": {
   }
 }
 {{< /highlight >}}
+
+{{< /language-toggle >}}
 
 ## Sharing an asset on Bonsai
 

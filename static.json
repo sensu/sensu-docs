@@ -20,11 +20,11 @@
             "status": 301
         },
         "~ ^/sensu-enterprise-dashboard/latest/?(.*)$": {
-            "url": "/sensu-enterprise-dashboard/2.15/$1",
+            "url": "/sensu-enterprise-dashboard/2.16/$1",
             "status": 301
         },
         "~ ^/sensu-go/latest/?(.*)$": {
-            "url": "/sensu-go/5.7/$1",
+            "url": "/sensu-go/5.9/$1",
             "status": 301
         },
         "~ ^/plugins/latest/?(.*)$": {

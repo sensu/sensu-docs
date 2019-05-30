@@ -218,6 +218,6 @@ HTTP/1.1 204 No Content
 --------------------------|------
 description               | Removes a role binding from Sensu given the role binding name.
 example url               | http://hostname:8080/api/core/v2/namespaces/default/rolebindings/dev-binding
-response codes            | <ul><li>**Success**: 202 (Accepted)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 [1]: ../../reference/rbac
