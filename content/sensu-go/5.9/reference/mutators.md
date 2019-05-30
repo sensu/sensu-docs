@@ -58,6 +58,22 @@ To process an event, some handlers require only the check output, not the entire
 
 To use the only check output mutator, include the `only_check_output` mutator in the handler configuration `mutator` string:
 
+{{< language-toggle >}}
+
+{{< highlight yml >}}
+type: Handler
+api_version: core/v2
+metadata:
+  name: graphite
+  namespace: default
+spec:
+  mutator: only_check_output
+  socket:
+    host: 10.0.1.99
+    port: 2003
+  type: tcp
+{{< /highlight >}}
+
 {{< highlight json >}}
 {
   "type": "Handler",
@@ -76,6 +92,8 @@ To use the only check output mutator, include the `only_check_output` mutator in
   }
 }
 {{< /highlight >}}
+
+{{< /language-toggle >}}
 
 ## Mutators specification
 
@@ -202,6 +220,23 @@ The following Sensu mutator definition uses an imaginary Sensu plugin called `ex
 to modify event data prior to handling the event.
 
 ### Mutator definition
+{{< language-toggle >}}
+
+{{< highlight yml >}}
+type: Mutator
+api_version: core/v2
+metadata:
+  annotations: null
+  labels: null
+  name: example-mutator
+  namespace: default
+spec:
+  command: example_mutator.go
+  env_vars: []
+  runtime_assets: []
+  timeout: 0
+{{< /highlight >}}
+
 {{< highlight json >}}
 {
   "type": "Mutator",
@@ -221,7 +256,21 @@ to modify event data prior to handling the event.
 }
 {{< /highlight >}}
 
+{{< /language-toggle >}}
+
 ### Minimum required mutator attributes
+
+{{< language-toggle >}}
+
+{{< highlight yml >}}
+type: Mutator
+api_version: core/v2
+metadata:
+  name: mutator_minimum
+  namespace: default
+spec:
+  command: example_mutator.go
+{{< /highlight >}}
 
 {{< highlight json >}}
 {
@@ -236,6 +285,8 @@ to modify event data prior to handling the event.
   }
 }
 {{< /highlight >}}
+
+{{< /language-toggle >}}
 
 [1]: ../assets
 [2]: #metadata-attributes

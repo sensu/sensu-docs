@@ -206,6 +206,26 @@ example      | {{< highlight shell >}} "annotations": {
 Assume a Sensu entity `i-424242` which we wish to silence any alerts on. We’ll
 do this by taking advantage of per-entity subscriptions:
 
+{{< language-toggle >}}
+
+{{< highlight yml >}}
+type: Silenced
+api_version: core/v2
+metadata:
+  annotations: null
+  labels: null
+  name: entity:i-424242:*
+  namespace: default
+spec:
+  begin: 1542671205
+  check: null
+  creator: admin
+  expire: -1
+  expire_on_resolve: false
+  reason: null
+  subscription: entity:i-424242
+{{< /highlight >}}
+
 {{< highlight json >}}
 {
   "type": "Silenced",
@@ -228,10 +248,20 @@ do this by taking advantage of per-entity subscriptions:
 }
 {{< /highlight >}}
 
+{{< /language-toggle >}}
+
 ### Silence a specific check on a specific entity
 Following on the previous example, silence a check named `check_ntp` on entity
 `i-424242`, ensuring the entry is deleted once the underlying issue has been
 resolved:
+
+{{< language-toggle >}}
+
+{{< highlight yml >}}
+check: check_ntp
+expire_on_resolve: true
+subscription: entity:i-424242
+{{< /highlight >}}
 
 {{< highlight json >}}
 {
@@ -240,6 +270,8 @@ resolved:
   "expire_on_resolve": true 
 }
 {{< /highlight >}}
+
+{{< /language-toggle >}}
 
 The optional `expire_on_resolve` attribute used here indicates that when the
 server processes a matching check from the specified entity with status OK, this
@@ -255,15 +287,30 @@ In this case, we'll completely silence any entities subscribed to `appserver`.
 Just as in the example of silencing all checks on a specific entity, we’ll
 create a silencing entry specifying only the `appserver` subscription:
 
+{{< language-toggle >}}
+
+{{< highlight yml >}}
+subscription: appserver
+{{< /highlight >}}
+
 {{< highlight json >}}
 {
   "subscription": "appserver" 
 }
 {{< /highlight >}}
 
+{{< /language-toggle >}}
+
 ### Silence a specific check on entities with a specific subscription
 Assume a check `mysql_status` which we wish to silence, running on Sensu
 entities with the subscription `appserver`:
+
+{{< language-toggle >}}
+
+{{< highlight yml >}}
+check: mysql_status
+subscription: appserver
+{{< /highlight >}}
 
 {{< highlight json >}}
 {
@@ -272,9 +319,17 @@ entities with the subscription `appserver`:
 }
 {{< /highlight >}}
 
+{{< /language-toggle >}}
+
 ### Silence a specific check on every entity
 To silence the check `mysql_status` on every entity in our infrastructure,
 regardless of subscriptions, we only need to provide the check name:
+
+{{< language-toggle >}}
+
+{{< highlight yml >}}
+check: mysql_status
+{{< /highlight >}}
 
 {{< highlight json >}}
 {
@@ -282,9 +337,17 @@ regardless of subscriptions, we only need to provide the check name:
 }
 {{< /highlight >}}
 
+{{< /language-toggle >}}
+
 ### Deleting silencing entries
 To delete a silencing entry, you will need to provide its name. Subscription only
 silencing entry names will be similar to this:
+
+{{< language-toggle >}}
+
+{{< highlight yml >}}
+name: appserver:*
+{{< /highlight >}}
 
 {{< highlight json >}}
 {
@@ -292,13 +355,23 @@ silencing entry names will be similar to this:
 }
 {{< /highlight >}}
 
+{{< /language-toggle >}}
+
 Check only silencing entry names will be similar to this:
+
+{{< language-toggle >}}
+
+{{< highlight yml >}}
+name: '*:mysql_status'
+{{< /highlight >}}
 
 {{< highlight json >}}
 {
   "name": "*:mysql_status"
 }
 {{< /highlight >}}
+
+{{< /language-toggle >}}
 
 [1]: ../events/#attributes
 [2]: ../rbac#namespaces

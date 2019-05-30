@@ -82,6 +82,26 @@ Only resources belonging to a [namespaced resource type][17] (like checks, filte
 
 For example, to assign a check called `check-cpu` to the `production` namespace, include the `namespace` attribute in the check definition:
 
+{{< language-toggle >}}
+
+{{< highlight yml >}}
+type: CheckConfig
+api_version: core/v2
+metadata:
+  name: check-cpu
+  namespace: default
+spec:
+  check_hooks: null
+  command: check-cpu.sh -w 75 -c 90
+  handlers:
+  - slack
+  interval: 30
+  subscriptions:
+  - system
+  timeout: 0
+  ttl: 0
+{{< /highlight >}}
+
 {{< highlight json >}}
 {
   "type": "CheckConfig",
@@ -101,6 +121,8 @@ For example, to assign a check called `check-cpu` to the `production` namespace,
   }
 }{{< /highlight >}}
 
+{{< /language-toggle >}}
+
 See the [reference docs][16] for the corresponding [resource type][17] to create resource definitions.
 
 ### Namespace specification
@@ -116,7 +138,17 @@ example      | {{< highlight shell >}}"name": "production"{{< /highlight >}}
 
 ### Namespace example
 
-The following example is in `wrapped-json` format for use with [`sensuctl create`][31].
+The following examples are in `yml` and `wrapped-json` formats for use with [`sensuctl create`][31].
+
+{{< language-toggle >}}
+
+{{< highlight yml >}}
+type: Namespace
+api_version: core/v2
+metadata: {}
+spec:
+  name: default
+{{< /highlight >}}
 
 {{< highlight json >}}
 {
@@ -128,6 +160,8 @@ The following example is in `wrapped-json` format for use with [`sensuctl create
   }
 }
 {{< /highlight >}}
+
+{{< /language-toggle >}}
 
 ## Resources
 Permissions within Sensu are scoped to resource types, like checks, handlers, and users.
@@ -287,7 +321,22 @@ example      | {{< highlight shell >}}"disabled": false{{< /highlight >}}
 
 ### User example
 
-The following example is in `wrapped-json` format for use with [`sensuctl create`][31].
+The following examples are in `yml` and `wrapped-json` formats for use with [`sensuctl create`][31].
+
+{{< language-toggle >}}
+
+{{< highlight yml >}}
+type: User
+api_version: core/v2
+metadata: {}
+spec:
+  disabled: false
+  groups:
+  - ops
+  - dev
+  password: P@ssw0rd!
+  username: alice
+{{< /highlight >}}
 
 {{< highlight json >}}
 {
@@ -302,6 +351,8 @@ The following example is in `wrapped-json` format for use with [`sensuctl create
   }
 }
 {{< /highlight >}}
+
+{{< /language-toggle >}}
 
 ## Groups
 
@@ -501,7 +552,38 @@ example      | {{< highlight shell >}}"resource_names": ["check-cpu"]{{< /highli
 
 ### Role example
 
-The following example is in `wrapped-json` format for use with [`sensuctl create`][31].
+The following examples are in `yml` and `wrapped-json` formats for use with [`sensuctl create`][31].
+
+{{< language-toggle >}}
+
+{{< highlight yml >}}
+type: Role
+api_version: core/v2
+metadata:
+  name: namespaced-resources-all-verbs
+  namespace: default
+spec:
+  rules:
+  - resource_names: []
+    resources:
+    - assets
+    - checks
+    - entities
+    - events
+    - filters
+    - handlers
+    - hooks
+    - mutators
+    - rolebindings
+    - roles
+    - silenced
+    verbs:
+    - get
+    - list
+    - create
+    - update
+    - delete
+{{< /highlight >}}
 
 {{< highlight json >}}
 {
@@ -526,9 +608,47 @@ The following example is in `wrapped-json` format for use with [`sensuctl create
 }
 {{< /highlight >}}
 
+{{< /language-toggle >}}
+
 ### Cluster role example
 
-The following example is in `wrapped-json` format for use with [`sensuctl create`][31].
+The following examples are in `yml` and `wrapped-json` formats for use with [`sensuctl create`][31].
+
+{{< language-toggle >}}
+
+{{< highlight yml >}}
+type: ClusterRole
+api_version: core/v2
+metadata:
+  name: all-resources-all-verbs
+spec:
+  rules:
+  - resource_names: []
+    resources:
+    - assets
+    - checks
+    - entities
+    - events
+    - filters
+    - handlers
+    - hooks
+    - mutators
+    - rolebindings
+    - roles
+    - silenced
+    - cluster
+    - clusterrolebindings
+    - clusterroles
+    - namespaces
+    - users
+    - providers
+    verbs:
+    - get
+    - list
+    - create
+    - update
+    - delete
+{{< /highlight >}}
 
 {{< highlight json >}}
 {
@@ -553,6 +673,8 @@ The following example is in `wrapped-json` format for use with [`sensuctl create
   }
 }
 {{< /highlight >}}
+
+{{< /language-toggle >}}
 
 ## Role bindings and cluster role bindings
 
@@ -683,7 +805,24 @@ example      | {{< highlight shell >}}"name": "alice"{{< /highlight >}}
 
 ### Role binding example
 
-The following example is in `wrapped-json` format for use with [`sensuctl create`][31].
+The following examples are in `yml` and `wrapped-json` formats for use with [`sensuctl create`][31].
+
+{{< language-toggle >}}
+
+{{< highlight yml >}}
+type: RoleBinding
+api_version: core/v2
+metadata:
+  name: event-reader-binding
+  namespace: default
+spec:
+  role_ref:
+    name: event-reader
+    type: Role
+  subjects:
+  - name: bob
+    type: User
+{{< /highlight >}}
 
 {{< highlight json >}}
 {
@@ -708,9 +847,27 @@ The following example is in `wrapped-json` format for use with [`sensuctl create
 }
 {{< /highlight >}}
 
+{{< /language-toggle >}}
+
 ### Cluster role binding example
 
-The following example is in `wrapped-json` format for use with [`sensuctl create`][31].
+The following examples are in `yml` and `wrapped-json` formats for use with [`sensuctl create`][31].
+
+{{< language-toggle >}}
+
+{{< highlight yml >}}
+type: ClusterRoleBinding
+api_version: core/v2
+metadata:
+  name: cluster-admin
+spec:
+  role_ref:
+    name: cluster-admin
+    type: ClusterRole
+  subjects:
+  - name: cluster-admins
+    type: Group
+{{< /highlight >}}
 
 {{< highlight json >}}
 {
@@ -733,6 +890,8 @@ The following example is in `wrapped-json` format for use with [`sensuctl create
   }
 }
 {{< /highlight >}}
+
+{{< /language-toggle >}}
 
 ### Role and role binding examples
 

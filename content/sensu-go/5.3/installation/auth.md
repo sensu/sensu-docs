@@ -106,6 +106,25 @@ Active Directory users should head over to the [Active Directory section](#activ
 
 **Example LDAP configuration: Minimum required attributes**
 
+{{< language-toggle >}}
+
+{{< highlight yml >}}
+type: ldap
+api_version: authentication/v2
+metadata:
+  name: openldap
+spec:
+  servers:
+  - binding:
+      password: P@ssw0rd!
+      user_dn: cn=binder,dc=acme,dc=org
+    group_search:
+      base_dn: dc=acme,dc=org
+    host: 127.0.0.1
+    user_search:
+      base_dn: dc=acme,dc=org
+{{< /highlight >}}
+
 {{< highlight json >}}
 {
   "type": "ldap",
@@ -133,7 +152,39 @@ Active Directory users should head over to the [Active Directory section](#activ
 }
 {{< /highlight >}}
 
+{{< /language-toggle >}}
+
 **Example LDAP configuration: All attributes**
+
+{{< language-toggle >}}
+
+{{< highlight yml >}}
+type: ldap
+api_version: authentication/v2
+metadata:
+  name: openldap
+spec:
+  groups_prefix: ldap
+  servers:
+  - binding:
+      password: P@ssw0rd!
+      user_dn: cn=binder,dc=acme,dc=org
+    group_search:
+      attribute: member
+      base_dn: dc=acme,dc=org
+      name_attribute: cn
+      object_class: groupOfNames
+    host: 127.0.0.1
+    insecure: false
+    port: 636
+    security: tls
+    user_search:
+      attribute: uid
+      base_dn: dc=acme,dc=org
+      name_attribute: cn
+      object_class: person
+  username_prefix: ldap
+{{< /highlight >}}
 
 {{< highlight json >}}
 {
@@ -172,6 +223,8 @@ Active Directory users should head over to the [Active Directory section](#activ
   }
 }
 {{< /highlight >}}
+
+{{< /language-toggle >}}
 
 ## LDAP specification
 
@@ -538,6 +591,25 @@ Sensu offers enterprise-only support for using Microsoft Active Directory (AD) f
 
 **Example AD configuration: Minimum required attributes**
 
+{{< language-toggle >}}
+
+{{< highlight yml >}}
+type: ad
+api_version: authentication/v2
+metadata:
+  name: activedirectory
+spec:
+  servers:
+  - binding:
+      password: P@ssw0rd!
+      user_dn: cn=binder,cn=users,dc=acme,dc=org
+    group_search:
+      base_dn: dc=acme,dc=org
+    host: 127.0.0.1
+    user_search:
+      base_dn: dc=acme,dc=org
+{{< /highlight >}}
+
 {{< highlight json >}}
 {
   "type": "ad",
@@ -565,7 +637,39 @@ Sensu offers enterprise-only support for using Microsoft Active Directory (AD) f
 }
 {{< /highlight >}}
 
+{{< /language-toggle >}}
+
 **Example AD configuration: All attributes**
+
+{{< language-toggle >}}
+
+{{< highlight yml >}}
+type: ad
+api_version: authentication/v2
+metadata:
+  name: activedirectory
+spec:
+  groups_prefix: ad
+  servers:
+  - binding:
+      password: P@ssw0rd!
+      user_dn: cn=binder,cn=users,dc=acme,dc=org
+    group_search:
+      attribute: member
+      base_dn: dc=acme,dc=org
+      name_attribute: cn
+      object_class: group
+    host: 127.0.0.1
+    insecure: false
+    port: 636
+    security: tls
+    user_search:
+      attribute: sAMAccountName
+      base_dn: dc=acme,dc=org
+      name_attribute: displayName
+      object_class: person
+  username_prefix: ad
+{{< /highlight >}}
 
 {{< highlight json >}}
 {
@@ -604,6 +708,8 @@ Sensu offers enterprise-only support for using Microsoft Active Directory (AD) f
   }
 }
 {{< /highlight >}}
+
+{{< /language-toggle >}}
 
 ## Active Directory specification
 

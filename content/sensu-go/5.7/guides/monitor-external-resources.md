@@ -61,6 +61,27 @@ To avoid duplicate events, we'll add the [`round_robin` attribute](../../referen
 
 Create a file called `check.json` and add the following check definition.
 
+{{< language-toggle >}}
+
+{{< highlight yml >}}
+type: CheckConfig
+api_version: core/v2
+metadata:
+  name: check-sensu-site
+  namespace: default
+spec:
+  command: check-http.rb -u https://sensu.io
+  interval: 60
+  proxy_entity_name: sensu-site
+  publish: true
+  round_robin: true
+  runtime_assets:
+  - sensu-plugins-http
+  - sensu-ruby-runtime
+  subscriptions:
+  - proxy
+{{< /highlight >}}
+
 {{< highlight json >}}
 {
   "type": "CheckConfig",
@@ -85,6 +106,8 @@ Create a file called `check.json` and add the following check definition.
   }
 }
 {{< /highlight >}}
+
+{{< /language-toggle >}}
 
 Now we can use sensuctl to add this check to Sensu.
 
@@ -227,6 +250,30 @@ Now that we have our three proxy entities set up, each with a `proxy_type` and `
 
 Create a file called `check-proxy-requests.json` and add the following check definition.
 
+{{< language-toggle >}}
+
+{{< highlight yml >}}
+type: CheckConfig
+api_version: core/v2
+metadata:
+  name: check-http
+  namespace: default
+spec:
+  command: check-http.rb -u {{ .labels.url }}
+  interval: 60
+  proxy_requests:
+    entity_attributes:
+    - entity.entity_class == 'proxy'
+    - entity.labels.proxy_type == 'website'
+  publish: true
+  round_robin: true
+  runtime_assets:
+  - sensu-plugins-http
+  - sensu-ruby-runtime
+  subscriptions:
+  - proxy
+{{< /highlight >}}
+
 {{< highlight json >}}
 {
   "type": "CheckConfig",
@@ -256,6 +303,8 @@ Create a file called `check-proxy-requests.json` and add the following check def
   }
 }
 {{< /highlight >}}
+
+{{< /language-toggle >}}
 
 Our `check-http` check uses the `proxy_requests` attribute to specify the applicable entities.
 In our case, we want to run the `check-http` check on all entities of entity class `proxy` and proxy type `website`.
