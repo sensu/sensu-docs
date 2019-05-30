@@ -9,6 +9,8 @@ platformContent: false
 menu:
   sensu-go-5.9:
     parent: dashboard
+aliases:
+  - /sensu-go/5.9/dashboard/filtering
 ---
 
 - [Accessing the dashboard](#accessing-the-dashboard)
