@@ -135,6 +135,24 @@ This helps to balance the load of both the backend and the agent, and may result
 
 **Example interval check**
 
+{{< language-toggle >}}
+
+{{< highlight yml >}}
+type: CheckConfig
+api_version: core/v2
+metadata:
+  name: interval_check
+  namespace: default
+spec:
+  command: check-cpu.sh -w 75 -c 90
+  handlers:
+  - slack
+  interval: 60
+  publish: true
+  subscriptions:
+  - system
+{{< /highlight >}}
+
 {{< highlight json >}}
 {
   "type": "CheckConfig",
@@ -153,12 +171,32 @@ This helps to balance the load of both the backend and the agent, and may result
 }
 {{< /highlight >}}
 
+{{< /language-toggle >}}
+
 #### Cron scheduling
 
 You can also schedule checks using [cron syntax][14].
 For example, to schedule a check to execute once a minute at the start of the minute, set the `cron` attribute to `* * * * *` and the `publish` attribute to `true`.
 
 **Example cron check**
+
+{{< language-toggle >}}
+
+{{< highlight yml >}}
+type: CheckConfig
+api_version: core/v2
+metadata:
+  name: cron_check
+  namespace: default
+spec:
+  command: check-cpu.sh -w 75 -c 90
+  cron: '* * * * *'
+  handlers:
+  - slack
+  publish: true
+  subscriptions:
+  - system
+{{< /highlight >}}
 
 {{< highlight json >}}
 {
@@ -178,12 +216,32 @@ For example, to schedule a check to execute once a minute at the start of the mi
 }
 {{< /highlight >}}
 
+{{< /language-toggle >}}
+
 #### Ad-hoc scheduling
 
 In addition to automatic execution, you can create checks to be scheduled manually using the [checks API](../../api/checks#the-checkscheckexecute-api-endpoint).
 To create a check with ad-hoc scheduling, set the `publish` attribute to `false` in addition to an `interval` or `cron` schedule.
 
 **Example ad-hoc check**
+
+{{< language-toggle >}}
+
+{{< highlight yml >}}
+type: CheckConfig
+api_version: core/v2
+metadata:
+  name: ad_hoc_check
+  namespace: default
+spec:
+  command: check-cpu.sh -w 75 -c 90
+  handlers:
+  - slack
+  interval: 60
+  publish: false
+  subscriptions:
+  - system
+{{< /highlight >}}
 
 {{< highlight json >}}
 {
@@ -202,6 +260,8 @@ To create a check with ad-hoc scheduling, set the `publish` attribute to `false`
   }
 }
 {{< /highlight >}}
+
+{{< /language-toggle >}}
 
 ## Proxy checks {#proxy-requests}
 
@@ -223,6 +283,26 @@ To avoid duplicate events, we recommend using the `round_robin` attribute with p
 
 The following proxy check runs every 60 seconds, cycling through the agents with the `proxy` subscription alphabetically according to the agent name, for the proxy entity `sensu-site`.
 
+{{< language-toggle >}}
+
+{{< highlight yml >}}
+type: CheckConfig
+api_version: core/v2
+metadata:
+  name: proxy_check
+  namespace: default
+spec:
+  command: http_check.sh https://sensu.io
+  handlers:
+  - slack
+  interval: 60
+  proxy_entity_name: sensu-site
+  publish: true
+  round_robin: true
+  subscriptions:
+  - proxy
+{{< /highlight >}}
+
 {{< highlight json >}}
 {
   "type": "CheckConfig",
@@ -243,6 +323,8 @@ The following proxy check runs every 60 seconds, cycling through the agents with
 }
 {{< /highlight >}}
 
+{{< /language-toggle >}}
+
 ### Using a proxy check to monitor multiple proxy entities
 
 The [`proxy_requests` check attributes](#proxy-requests-top-level) allow Sensu to run a check for each entity that matches the definitions specified in the `entity_attributes`, resulting in monitoring events that represents each matching proxy entity.
@@ -257,6 +339,28 @@ The following proxy check runs every 60 seconds, cycling through the agents with
 
 This check uses [token substitution](#check-token-substitution) to import the value of the custom entity label `url` to complete the check command.
 See the [entity reference](../entities#managing-entity-labels) for information about using custom labels.
+
+{{< language-toggle >}}
+
+{{< highlight yml >}}
+type: CheckConfig
+api_version: core/v2
+metadata:
+  name: proxy_check_proxy_requests
+  namespace: default
+spec:
+  command: http_check.sh {{ .labels.url }}
+  handlers:
+  - slack
+  interval: 60
+  proxy_requests:
+    entity_attributes:
+    - entity.labels.proxy_type == 'website'
+  publish: true
+  round_robin: true
+  subscriptions:
+  - proxy
+{{< /highlight >}}
 
 {{< highlight json >}}
 {
@@ -281,6 +385,8 @@ See the [entity reference](../entities#managing-entity-labels) for information a
   }
 }
 {{< /highlight >}}
+
+{{< /language-toggle >}}
 
 #### Fine-tuning proxy check scheduling with splay
 
@@ -622,6 +728,24 @@ example      | {{< highlight shell >}}"discard_output": true{{< /highlight >}}
 
 _NOTE: The attribute `interval` is not required if a valid `cron` schedule is defined._
 
+{{< language-toggle >}}
+
+{{< highlight yml >}}
+type: CheckConfig
+api_version: core/v2
+metadata:
+  name: check_minimum
+  namespace: default
+spec:
+  command: collect.sh
+  handlers:
+  - slack
+  interval: 10
+  publish: true
+  subscriptions:
+  - system
+{{< /highlight >}}
+
 {{< highlight json >}}
 {
   "type": "CheckConfig",
@@ -644,7 +768,44 @@ _NOTE: The attribute `interval` is not required if a valid `cron` schedule is de
 }
 {{< /highlight >}}
 
+{{< /language-toggle >}}
+
 ### Metric check
+
+{{< language-toggle >}}
+
+{{< highlight yml >}}
+type: CheckConfig
+api_version: core/v2
+metadata:
+  annotations:
+    slack-channel: '#monitoring'
+  labels:
+    region: us-west-1
+  name: collect-metrics
+  namespace: default
+spec:
+  check_hooks: null
+  command: collect.sh
+  discard_output: true
+  env_vars: null
+  handlers: []
+  high_flap_threshold: 0
+  interval: 10
+  low_flap_threshold: 0
+  output_metric_format: graphite_plaintext
+  output_metric_handlers:
+  - influx-db
+  proxy_entity_name: ""
+  publish: true
+  round_robin: false
+  runtime_assets: null
+  stdin: false
+  subscriptions:
+  - system
+  timeout: 0
+  ttl: 0
+{{< /highlight >}}
 
 {{< highlight json >}}
 {
@@ -686,6 +847,8 @@ _NOTE: The attribute `interval` is not required if a valid `cron` schedule is de
   }
 }
 {{< /highlight >}}
+
+{{< /language-toggle >}}
 
 [1]: #subscription-checks
 [2]: https://en.wikipedia.org/wiki/Publish%E2%80%93subscribe_pattern

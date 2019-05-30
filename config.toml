@@ -51,7 +51,7 @@ ignoreFiles = [ "sensu-doc-template.md" ]
         name = "Sensu Go"
         description = "The next-generation monitoring event pipeline"
         weight = 1
-        latest = "5.7"
+        latest = "5.9"
         [params.products.sensu_go.versions]
             "5.0" = []
             "5.1" = []
@@ -62,6 +62,7 @@ ignoreFiles = [ "sensu-doc-template.md" ]
             "5.6" = []
             "5.7" = []
             "5.8" = []
+            "5.9" = []
 
     [params.products.sensu_core]
         identifier = "sensu-core"
@@ -101,8 +102,9 @@ ignoreFiles = [ "sensu-doc-template.md" ]
         name = "Sensu Enterprise Dashboard"
         description = "The dashboard for Sensu Enterprise, built on Uchiwa"
         weight = 4
-        latest = "2.15"
+        latest = "2.16"
         [params.products.sensu_enterprise_dashboard.versions]
+            "2.16" = ["Ubuntu/Debian", "RHEL/CentOS"]
             "2.15" = ["Ubuntu/Debian", "RHEL/CentOS"]
             "2.14" = ["Ubuntu/Debian", "RHEL/CentOS"]
             "2.13" = ["Ubuntu/Debian", "RHEL/CentOS"]
