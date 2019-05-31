@@ -241,8 +241,15 @@
         "name": "Sensu Enterprise Dashboard",
         "description": "The dashboard for Sensu Enterprise, built on Uchiwa",
         "weight": 4,
-        "latest": "2.15",
+        "latest": "2.16",
         "versions": [
+          {
+            "version": "2.16",
+            "platforms": [
+              "Ubuntu/Debian",
+              "RHEL/CentOS"
+            ]
+          },
           {
             "version": "2.15",
             "platforms": [
