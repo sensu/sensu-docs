@@ -89,7 +89,7 @@ type: CheckConfig
 api_version: core/v2
 metadata:
   name: check-cpu
-  namespace: default
+  namespace: production
 spec:
   check_hooks: null
   command: check-cpu.sh -w 75 -c 90
@@ -108,7 +108,7 @@ spec:
   "api_version": "core/v2",
   "metadata": {
     "name": "check-cpu",
-    "namespace": "default"
+    "namespace": "production"
   },
   "spec": {
     "check_hooks": null,
