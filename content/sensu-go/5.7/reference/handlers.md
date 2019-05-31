@@ -195,7 +195,7 @@ timeout     |
 description | The handler execution duration timeout in seconds (hard stop). Only used by `pipe`, `tcp`, and `udp` handler types.
 required    | false
 type        | Integer
-default     | `60` (for `tcp` handler)
+default     | `60` (for `tcp` and `udp` handlers)
 example     | {{< highlight shell >}}"timeout": 30{{< /highlight >}}
 
 command      | 
