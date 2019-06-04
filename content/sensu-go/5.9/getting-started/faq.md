@@ -29,8 +29,12 @@ See the [hardware requirements guide][5] for minimum and recommended hardware to
 
 > Is there an enterprise version of Sensu Go?
 
-[Yes!](https://blog.sensu.io/enterprise-features-in-sensu-go) Sensu Inc. offers support packages for Sensu Go as well as license-activated features designed for enterprises.
+[Yes!](https://blog.sensu.io/enterprise-features-in-sensu-go) Sensu Inc. offers support packages for Sensu Go as well as license-activated features designed for monitoring at scale.
 [Contact the Sensu sales team][6] for a personalized demo, and see the [getting started guide][28] for more information.
+
+> What's the difference between the OSS tier, free tier, and licensed tier?
+
+See the [products page][3] for a complete comparison.
 
 > How can I contact the Sensu sales team?
 

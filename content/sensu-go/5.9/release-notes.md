@@ -34,15 +34,15 @@ Read the [upgrade guide][1] for information on upgrading to the latest version o
 ## 5.9.0 release notes
 
 **May 28, 2019** &mdash; The latest release of Sensu Go, version 5.9.0, is now available for download.
-There are some exciting feature additions in this release, including the ability to log raw events to a file (enterprise-only) and view event handlers in the web UI.
+There are some exciting feature additions in this release, including the ability to log raw events to a file (licensed tier) and view event handlers in the web UI.
 See the [upgrade guide][52] to upgrade Sensu to version 5.9.0.
 If you're upgrading a Sensu cluster from 5.7.0 or earlier, see the [instructions for upgrading a Sensu cluster from 5.7.0 or earlier to 5.8.0 or later][59].
 
 **NEW FEATURES:**
 
 - The Sensu web UI now includes a handlers page that displays available event handlers and handler configuration. See the [docs][54] to get started using the Sensu web UI.
-- ([Enterprise-only][53]) Manage your Sensu event handlers from your browser: Sensu's web UI now supports creating, editing, and deleting handlers. See the [docs][54] to get started using the Sensu web UI.
-- ([Enterprise-only][53]) Sensu now supports event logging to a file using the `event-log-file` and `event-log-buffer-size` configuration flags. You can use this event log file as an input source for your favorite data lake solution. See the [backend reference][55] for more information.
+- ([Licensed tier][53]) Manage your Sensu event handlers from your browser: Sensu's web UI now supports creating, editing, and deleting handlers. See the [docs][54] to get started using the Sensu web UI.
+- ([Licensed tier][53]) Sensu now supports event logging to a file using the `event-log-file` and `event-log-buffer-size` configuration flags. You can use this event log file as an input source for your favorite data lake solution. See the [backend reference][55] for more information.
 
 **IMPROVEMENTS:**
 
@@ -110,14 +110,14 @@ See the [upgrade guide][1] to upgrade Sensu to version 5.6.0.
 
 **NEW FEATURES:**
 
-- ([Enterprise-only][33]) Manage your Sensu checks from your browser: Sensu's web user interface now supports creating, editing, and deleting checks. See the [docs][32] to get started using the Sensu web UI.
-- ([Enterprise-only][33]) The Sensu web UI now includes an option to delete entities.
-- ([Enterprise-only][33]) Sensu now supports resource filtering in the Sensu API and sensuctl command line tool. Filter events using custom labels and resource attributes, such as event status and check subscriptions. See the [API docs][34] and [sensuctl reference][35] for usage examples.
+- ([Licensed tier][33]) Manage your Sensu checks from your browser: Sensu's web user interface now supports creating, editing, and deleting checks. See the [docs][32] to get started using the Sensu web UI.
+- ([Licensed tier][33]) The Sensu web UI now includes an option to delete entities.
+- ([Licensed tier][33]) Sensu now supports resource filtering in the Sensu API and sensuctl command line tool. Filter events using custom labels and resource attributes, such as event status and check subscriptions. See the [API docs][34] and [sensuctl reference][35] for usage examples.
 
 **IMPROVEMENTS:**
 
-- ([Enterprise-only][33]) Sensu's LDAP and Active Directory integrations now support mutual authentication using the `trusted_ca_file`, `client_cert_file`, and `client_key_file` attributes. See the [guide to configuring an authentication provider][37] for more information.
-- ([Enterprise-only][33]) Sensu's LDAP and Active Directory integrations now support connecting to an authentication provider using anonymous binding. See the [LDAP][38] and [AD][39] binding configuration docs to learn more.
+- ([Licensed tier][33]) Sensu's LDAP and Active Directory integrations now support mutual authentication using the `trusted_ca_file`, `client_cert_file`, and `client_key_file` attributes. See the [guide to configuring an authentication provider][37] for more information.
+- ([Licensed tier][33]) Sensu's LDAP and Active Directory integrations now support connecting to an authentication provider using anonymous binding. See the [LDAP][38] and [AD][39] binding configuration docs to learn more.
 - The [health API][36] response now includes the cluster ID.
 - The `sensuctl cluster health` and `sensuctl cluster member-list` commands now include the cluster ID in tabular format.
 
