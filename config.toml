@@ -171,6 +171,13 @@ ignoreFiles = ["sensu-doc-template.md"]
     latest = "3.4"
 
     [[params.products.sensu_enterprise.versions]]
+    version = "3.5"
+    platforms = [
+      "Ubuntu/Debian",
+      "RHEL/CentOS"
+    ]
+
+    [[params.products.sensu_enterprise.versions]]
     version = "3.4"
     platforms = [
       "Ubuntu/Debian",
