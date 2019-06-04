@@ -32,9 +32,7 @@ ignoreFiles = ["sensu-doc-template.md"]
   permalink = "#"
 
   # Custom assets
-  custom_css = [
-    "/stylesheets/language-toggle.css"
-  ]
+  custom_css = ["/stylesheets/language-toggle.css"]
   custom_js = []
 
   # Syntax highlighting theme
