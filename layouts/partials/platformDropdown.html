@@ -3,23 +3,23 @@
 {{ if .Params.platformContent }}
 
   <!-- Grab the product global variables for product we're on -->
-  {{ $product := .Section }}
-  {{ $product2 := replace $product "-" "_" }}
-  {{ $product_info := (index .Site.Params.products $product2) }}
-  {{ .Scratch.Set "product_info" $product_info }}
+  {{ $product := replace .Section "-" "_" }}
+  {{ $product_info := (index .Site.Params.products $product) }}
 
   <!-- Check and make sure we've also got a version -->
   {{ if (isset $product_info "versions") }}
-    {{ $product_info := .Scratch.Get "product_info" }}
-    {{ .Scratch.Set "platforms" (index $product_info.versions .Params.version) }}
+    {{ $product_versions := (where $product_info.versions "version" .Params.version) }}
+    {{ if $product_versions }}
+      {{ $.Scratch.Set "platforms" (index (index $product_versions 0) "platforms") }}
+    {{ end }}
 
     <!-- Check if the platforms list was overriden on the page itself -->
     {{ if (isset .Params "platforms") }}
-      {{ .Scratch.Set "platforms" .Params.platforms }}
+      {{ $.Scratch.Set "platforms" .Params.platforms }}
     {{ end }}
 
     <!-- if we have a list of platforms -->
-    {{ $platforms := .Scratch.Get "platforms" }}
+    {{ $platforms := $.Scratch.Get "platforms" }}
     {{ if gt (len $platforms) 0 }}
       <div class="platformHolder">
         <div id="platformButton">
