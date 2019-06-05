@@ -1084,6 +1084,9 @@ Enterprise ServiceNow integration][46].**
     "servicenow": {
       "configuration_item": {
         "name": "webserver01"
+      },
+      "incident": {
+        "product_team": "onboarding"
       }
     }
   }
@@ -1099,6 +1102,16 @@ required           | false
 type               | Hash
 example            | {{< highlight shell >}}"configuration_item": {
   "name": "webserver01"
+}
+{{< /highlight >}}
+
+incident | 
+-------------------|------
+description        | Key values pairs used to configure ServiceNow incidents for the client. _NOTE: Requires Sensu Enterprise 3.5 or later._
+required           | false
+type               | Hash
+example            | {{< highlight shell >}}"incident": {
+  "product_team": "onboarding"
 }
 {{< /highlight >}}
 

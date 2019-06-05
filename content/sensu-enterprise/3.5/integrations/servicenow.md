@@ -37,6 +37,7 @@ event handler (integration).
     "user": "admin",
     "password": "secret",
     "create_cmdb_ci": true,
+    "cmdb_ci_enabled": true,
     "cmdb_ci_table": "cmdb_ci_server",
     "incident_management": true,
     "incident_table": "incident",
@@ -112,6 +113,14 @@ required       | false
 type           | Boolean
 default        | `true`
 example        | {{< highlight shell >}}"create_cmdb_ci": false{{< /highlight >}}
+
+cmdb_ci_enabled | 
+--------------|------
+description   | Allows Sensu to look up ServiceNow CMDB confirmation items and link them to incidents and events. When set to `true`, requires access to the table specified in the `cmdb_ci_table` configuration option.
+required      | false
+type          | Boolean
+default       | `true`
+example       | {{< highlight shell >}}"cmdb_ci_enabled": false{{< /highlight >}}
 
 cmdb_ci_table | 
 --------------|------
