@@ -11,6 +11,7 @@ _NOTE: Sensu Enterprise is built on Sensu Core. Sensu Core changes are documente
 
 ## Releases
 
+- [Enterprise 3.5.0 Release Notes](#enterprise-v3-5-0)
 - [Enterprise 3.4.0 Release Notes](#enterprise-v3-4-0)
 - [Enterprise 3.3.3 Release Notes](#enterprise-v3-3-3)
 - [Enterprise 3.3.2 Release Notes](#enterprise-v3-3-2)
@@ -54,6 +55,18 @@ _NOTE: Sensu Enterprise is built on Sensu Core. Sensu Core changes are documente
 - [Enterprise 1.14.1 Release Notes](#enterprise-v1-14-1)
 - [Enterprise 1.14.0 Release Notes](#enterprise-v1-14-0)
 - [Enterprise 1.13.0 Release Notes](#enterprise-v1-13-0)
+
+## Enterprise 3.5.0 Release Notes {#enterprise-v3-5-0}
+
+**June 4, 2019** &mdash; Sensu Enterprise version 3.5.0 has been
+released and is available for immediate download. Please note the
+following improvements:
+
+### CHANGES {#enterprise-v3-5-0-changes}
+
+- **NEW**: Include custom attributes in ServiceNow incidents using the client configuration `servicenow.incident` scope. See the [Sensu Core client reference][73] for more information.
+
+- **NEW**: The ServiceNow integration now supports the `cmdb_ci_enabled` configuration attribute, giving you the option to disallow Sensu's read access to ServiceNow configuration items when set to `false`. See the [integration docs][74] for more information.
 
 ## Enterprise 3.4.0 Release Notes {#enterprise-v3-4-0}
 
@@ -897,3 +910,7 @@ This release includes potentially breaking, backwards-incompatible changes:
 [70]: /sensu-core/latest/api/health-and-info
 [71]: /sensu-core/latest/reference/clients#client-attributes
 [72]: /sensu-core/latest/reference/clients#deregistration-events
+
+<!-- 3.5 -->
+[73]: /sensu-core/latest/reference/clients#servicenow-attributes
+[74]: ../integrations/servicenow
