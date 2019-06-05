@@ -21,6 +21,7 @@ Create your first monitoring event pipeline using a local development environmen
 ### Install Sensu Go (free tier)
 
 Sensu Go is the flexible monitoring event pipeline, designed for container-based and multi-cloud infrastructures.
+Get started with the free tier by installing an official Sensu distribution.
 
 - [Install Sensu Go][2]
 - [Discover Sensu assets][6]
