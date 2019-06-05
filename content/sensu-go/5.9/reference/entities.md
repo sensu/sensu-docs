@@ -37,7 +37,7 @@ In addition, an entity can contain system information such as the hostname, OS, 
 
 ## Usage limits
 
-Sensu Go 5.9 has no functional limitations based on entity count. If your Sensu instance includes over 1,000 entities, contact us to learn about [enterprise features for Sensu][9]. See [Discourse][10] for more information about our usage policy. 
+Sensu Go 5.9 has no functional limitations based on entity count. If your Sensu instance includes over 1,000 entities, contact us to learn about [license-activated features][9] designed for monitoring at scale. See [Discourse][10] for more information about our usage policy. 
 
 ## Proxy entities
 

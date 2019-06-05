@@ -1,7 +1,7 @@
 ---
 title: "Get started with Sensu"
 linkTitle: "Get Started with Sensu"
-description: "It’s easy to get started with Sensu Go. Download the sandbox, install our flexible monitoring software, and try our enterprise features. Get started with Sensu today."
+description: "Sensu is the industry leading solution for multi-cloud monitoring at scale. The Sensu monitoring event pipeline empowers businesses to automate their monitoring workflows and gain deep visibility into their multi-cloud environments. Get started now and feel the #monitoringlove."
 version: "5.0"
 weight: 1
 product: "Sensu Go"

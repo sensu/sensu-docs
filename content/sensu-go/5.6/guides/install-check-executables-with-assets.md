@@ -45,7 +45,7 @@ spec:
   - entity.system.arch == 'amd64'
 {{< /highlight >}}
 
-**Enterprise-only assets** (like the [ServiceNow](https://bonsai.sensu.io/assets/sensu/sensu-servicenow-handler) and [Jira event handlers](https://bonsai.sensu.io/assets/sensu/sensu-jira-handler)) require an active enterprise license. For more information about enterprise-only features and to active your license, see the [getting started guide](../../getting-started/enterprise).
+**Enterprise-tier assets** (like the [ServiceNow](https://bonsai.sensu.io/assets/sensu/sensu-servicenow-handler) and [Jira](https://bonsai.sensu.io/assets/sensu/sensu-jira-handler) event handlers) require a Sensu license. For more information about licensed-tier features and to activate your license, see the [getting started guide](../../getting-started/enterprise).
 
 ### 2. Register the asset with Sensu
 

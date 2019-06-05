@@ -50,19 +50,19 @@ To switch namespaces, select the menu icon in the upper-left corner, and choose 
 
 ### Managing checks
 
-**ENTERPRISE ONLY**: Check management in Sensu Go requires an enterprise license. To activate your enterprise license, see the [getting started guide][6].
+**LICENSED TIER**: Unlock check management in the Sensu Go dashboard with a Sensu license. To activate your license, see the [getting started guide][6].
 
 You can create, edit, and delete Sensu checks using the dashboard checks page.
 
 ### Managing entities
 
-**ENTERPRISE ONLY**: Entity management in Sensu Go requires an enterprise license. To activate your enterprise license, see the [getting started guide][6].
+**LICENSED TIER**: Unlock entity management in the Sensu Go dashboard with a Sensu license. To activate your license, see the [getting started guide][6].
 
 You can delete Sensu entities using the dashboard entities page.
 
 ### Managing handlers
 
-**ENTERPRISE ONLY**: Handler management in Sensu Go requires an enterprise license. To activate your enterprise license, see the [getting started guide][6].
+**LICENSED TIER**: Unlock handler management in the Sensu Go dashboard with a Sensu license. To activate your license, see the [getting started guide][6].
 
 You can create, edit, and delete Sensu handlers using the dashboard handlers page.
 

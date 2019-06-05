@@ -1,7 +1,7 @@
 ---
 title: "Get started with Sensu"
 linkTitle: "Get Started with Sensu"
-description: "It’s easy to get started with Sensu Go. Download the sandbox, install our flexible monitoring software, and try our enterprise features. Get started with Sensu today."
+description: "Sensu is the industry leading solution for multi-cloud monitoring at scale. The Sensu monitoring event pipeline empowers businesses to automate their monitoring workflows and gain deep visibility into their multi-cloud environments. Get started now and feel the #monitoringlove."
 version: "5.7"
 weight: 1
 product: "Sensu Go"
@@ -10,28 +10,37 @@ menu:
     parent: getting-started
 ---
 
-### Try the sandbox
+### Learn Sensu in 15 minutes
 
-The sandbox is the best place to get started with Sensu and try out new features.
+Create your first monitoring event pipeline using a local development environment pre-installed with the essential Sensu stack.
 
 - [Download the sandbox and learn Sensu Go][7]
 - [See more sandbox lessons][1]
+- [Join the community][8]
 
-### Install Sensu Go
+### Install Sensu Go (free tier)
 
 Sensu Go is the flexible monitoring event pipeline, designed for container-based and multi-cloud infrastructures.
+Get started with the free tier by installing an official Sensu distribution.
 
 - [Install Sensu Go][2]
 - [Discover Sensu assets][6]
+- [Learn about license-activated features][12]
 
-### Try enterprise features
+### Monitor at scale (licensed tier)
 
-Sensu Inc. offers support packages for Sensu Go as well as license-activated features designed for enterprises.
-Follow the instructions for [installing Sensu Go][2], then [contact Sales][4] for a trial license key to unlock enterprise features.
+Sensu Inc. offers support packages for Sensu Go as well as license-activated features designed for monitoring at scale.
 
-- [Install Sensu Go][2]
+- [Learn about license-activated features][12]
 - [Contact the sales team for a free trial][4]
-- [Get started with enterprise features in Sensu Go][5]
+- [Activate your Sensu license][5]
+
+### Build from source (OSS tier)
+Sensu Go's core is open source software, freely available under an MIT license.
+
+- [Visit Sensu Go on GitHub][10]
+- [Learn about OSS-tier features][12]
+- [Build from source][11]
 
 [1]: ../sandbox
 [2]: ../../installation/install-sensu
@@ -40,3 +49,8 @@ Follow the instructions for [installing Sensu Go][2], then [contact Sales][4] fo
 [5]: ../enterprise
 [6]: https://bonsai.sensu.io
 [7]: ../learn-sensu
+[8]: https://sensu.io/community
+[9]: ../../reference/license
+[10]: https://github.com/sensu/sensu-go
+[11]: https://github.com/sensu/sensu-go/blob/master/CONTRIBUTING.md#building
+[12]: https://sensu.io/products
