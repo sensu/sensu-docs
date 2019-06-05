@@ -54,6 +54,10 @@ ignoreFiles = ["sensu-doc-template.md"]
     latest = "5.9"
 
     [[params.products.sensu_go.versions]]
+    version = "5.10"
+    platforms = []
+
+    [[params.products.sensu_go.versions]]
     version = "5.9"
     platforms = []
 
