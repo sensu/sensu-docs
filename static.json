@@ -16,7 +16,7 @@
             "status": 301
         },
         "~ ^/sensu-enterprise/latest/?(.*)$": {
-            "url": "/sensu-enterprise/3.4/$1",
+            "url": "/sensu-enterprise/3.5/$1",
             "status": 301
         },
         "~ ^/sensu-enterprise-dashboard/latest/?(.*)$": {

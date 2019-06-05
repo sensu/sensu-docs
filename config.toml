@@ -168,7 +168,7 @@ ignoreFiles = ["sensu-doc-template.md"]
     name = "Sensu Enterprise"
     description = "The powerful and simple monitoring product, built on Sensu Core"
     weight = 3
-    latest = "3.4"
+    latest = "3.5"
 
     [[params.products.sensu_enterprise.versions]]
     version = "3.5"
