@@ -1,5 +1,5 @@
 ---
-title: "Getting started with enterprise features"
+title: "Getting started with license-activated features"
 description: "Upgrade to the latest version of Sensu Go to access license-activated features designed for enterprises."
 version: "5.1"
 product: "Sensu Go"

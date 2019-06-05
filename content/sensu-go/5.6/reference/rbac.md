@@ -26,7 +26,7 @@ RBAC allows management and access of users and resources based on **namespaces**
 - **Role bindings** assign a role to a set of users and groups within a namespace; **cluster role bindings** assign a cluster role to a set of users and groups cluster-wide.
 
 Sensu access controls apply to [sensuctl][2], the Sensu [API][19], and the Sensu [dashboard][3].
-In addition to built-in RBAC, Sensu includes [enterprise-only][33] support for authentication using external [authentication providers][34].
+In addition to built-in RBAC, Sensu includes [license-activated][33] support for authentication using external [authentication providers][34].
 
 ## Namespaces
 Namespaces help teams use different resources (entities, checks, handlers, etc.) within Sensu and impose their own controls on those resources.
@@ -195,7 +195,7 @@ Cluster-wide resources cannot be assigned to a namespace and can only be accesse
 | `clusterroles`   | Cluster-wide permission sets  |
 | `namespaces` | Resource partitions within a Sensu instance |
 | `users` | People or agents interacting with Sensu |
-| `providers` | [Authentication provider][32] configuration (enterprise-only)|
+| `providers` | [Authentication provider][32] configuration (licensed tier)|
 
 ### Special resource types
 Special resources types can be accessed by both [roles][13] and [cluster roles][21].

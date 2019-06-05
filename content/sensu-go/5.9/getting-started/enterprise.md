@@ -68,3 +68,4 @@ See these resources to get started using license-activated features in Sensu Go.
 [1]: https://sensu.io/sales/
 [2]: https://account.sensu.io/
 [3]: https://sensu.io/products
+[3]: https://sensu.io/products
