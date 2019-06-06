@@ -16,8 +16,8 @@ See the [upgrade guide](/sensu-go/latest/installation/upgrade) to upgrade to the
 Sensu supports the latest versions of official distributions, including packages, binary-only distributions, and Docker images.
 To learn more about Sensu support and licensing, see the [getting started guide](../../getting-started/enterprise).
 
-| version                     | release date     | status    | end of support date |
-| --------------------------- | ---------------- | --------- | ------------------- |
+| version                     | release date     | status    |
+| --------------------------- | ---------------- | --------- |
 5.10.0 ([docs](/sensu-go/5.10)) | | Prerelease
 **5.9.0** ([docs](/sensu-go/5.9)) | [May 29, 2019](/sensu-go/5.9/release-notes/#5-9-0-release-notes) | Supported
 5.8.0 ([docs](/sensu-go/5.8)) | [May 22, 2019](/sensu-go/5.8/release-notes/#5-8-0-release-notes)   | Supported
@@ -31,5 +31,5 @@ To learn more about Sensu support and licensing, see the [getting started guide]
 5.2.0 ([docs](/sensu-go/5.2)) | [February 7, 2019](/sensu-go/5.2/release-notes/#5-2-0-release-notes)  | Not recommended
 5.1.1 ([docs](/sensu-go/5.1)) | [January 24, 2019](/sensu-go/5.1/release-notes/#5-1-1-release-notes)  | Not recommended
 5.1.0 ([docs](/sensu-go/5.1)) | [December 19, 2018](/sensu-go/5.1/release-notes/#5-1-0-release-notes) | Not recommended 
-5.0.1 ([docs](/sensu-go/5.0)) | [December 12, 2018](/sensu-go/5.0/release-notes/#5-0-1-release-notes) | Not recommended | June 3, 2019
-5.0.0 ([docs](/sensu-go/5.0)) | [December 5, 2018](/sensu-go/5.0/release-notes/#5-0-0-release-notes)  | Not recommended | June 3, 2019
+5.0.1 ([docs](/sensu-go/5.0)) | [December 12, 2018](/sensu-go/5.0/release-notes/#5-0-1-release-notes) | Not recommended
+5.0.0 ([docs](/sensu-go/5.0)) | [December 5, 2018](/sensu-go/5.0/release-notes/#5-0-0-release-notes)  | Not recommended
