@@ -80,6 +80,38 @@ the check output. You can validate that metrics have been extracted from your
 check through your handler, or through the resulting event. The example check
 we used would yield an event similar to the one below:
 
+{{< language-toggle >}}
+
+{{< highlight yml >}}
+type: Event
+api_version: core/v2
+metadata: {}
+spec:
+  check:
+    command: collect_metrics.sh
+    metadata:
+      name: collect-metrics
+      namespace: default
+    output: |-
+      cpu.idle_percentage 61 1525462242
+      mem.sys 104448 1525462242
+    output_metric_format: graphite_plaintext
+    output_metric_handlers:
+    - influx-db
+  metrics:
+    handlers:
+    - influx-db
+    points:
+    - name: cpu.idle_percentage
+      tags: []
+      timestamp: 1525462242
+      value: 61
+    - name: mem.sys
+      tags: []
+      timestamp: 1525462242
+      value: 104448
+{{< /highlight >}}
+
 {{< highlight json >}}
 {
   "type": "Event",
@@ -120,6 +152,8 @@ we used would yield an event similar to the one below:
   }
 }
 {{< /highlight >}}
+
+{{< /language-toggle >}}
 
 ## Next steps
 

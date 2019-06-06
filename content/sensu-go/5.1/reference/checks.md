@@ -318,9 +318,9 @@ example      | {{< highlight shell >}}"proxy_requests": {
 
 |silenced    |      |
 -------------|------
-description  | If the event is to be silenced.
-type         | boolean
-example      | {{< highlight shell >}}"silenced": false{{< /highlight >}}
+description  | The silences that apply to this check.
+type         | Array
+example      | {{< highlight shell >}}"silenced": ["*:routers"]{{< /highlight >}}
 
 |env_vars    |      |
 -------------|------
@@ -426,6 +426,24 @@ example      | {{< highlight shell >}}"splay_coverage": 90{{< /highlight >}}
 
 _NOTE: The attribute `interval` is not required if a valid `cron` schedule is defined._
 
+{{< language-toggle >}}
+
+{{< highlight yml >}}
+type: CheckConfig
+api_version: core/v2
+metadata:
+  name: check_minimum
+  namespace: default
+spec:
+  command: collect.sh
+  handlers:
+  - slack
+  interval: 10
+  publish: true
+  subscriptions:
+  - system
+{{< /highlight >}}
+
 {{< highlight json >}}
 {
   "type": "CheckConfig",
@@ -448,7 +466,42 @@ _NOTE: The attribute `interval` is not required if a valid `cron` schedule is de
 }
 {{< /highlight >}}
 
+{{< /language-toggle >}}
+
 ### Metric check
+
+{{< language-toggle >}}
+
+{{< highlight yml >}}
+type: CheckConfig
+api_version: core/v2
+metadata:
+  annotations:
+    slack-channel: '#monitoring'
+  labels:
+    region: us-west-1
+  name: collect-metrics
+  namespace: default
+spec:
+  check_hooks: null
+  command: collect.sh
+  env_vars: null
+  handlers: []
+  high_flap_threshold: 0
+  interval: 10
+  low_flap_threshold: 0
+  output_metric_format: graphite_plaintext
+  output_metric_handlers:
+  - influx-db
+  proxy_entity_name: ""
+  publish: true
+  runtime_assets: null
+  stdin: false
+  subscriptions:
+  - system
+  timeout: 0
+  ttl: 0
+{{< /highlight >}}
 
 {{< highlight json >}}
 {
@@ -488,6 +541,8 @@ _NOTE: The attribute `interval` is not required if a valid `cron` schedule is de
   }
 }
 {{< /highlight >}}
+
+{{< /language-toggle >}}
 
 [1]: #subscription-checks
 [2]: https://en.wikipedia.org/wiki/Publish%E2%80%93subscribe_pattern

@@ -29,34 +29,30 @@
     {{ end }}
     <div class="options">
       <!-- Grab info for the current product from global -->
-      {{ $product := .Section }}
-      {{ $product2 := replace $product "-" "_" }}
-      {{ $product_info := (index .Site.Params.products $product2) }}
+      {{ $product := replace .Section "-" "_" }}
+      {{ $product_info := (index .Site.Params.products $product) }}
       {{ $chopurl := split .URL "/"}}
       {{ $pageversion := .Params.version }}
 
-      <!-- There is not an easy way to reverse the versions map
-            so we need to do all this extra stuff just to do so -->
-      {{ range $k, $v := $product_info.versions }}
-        {{ $.Scratch.SetInMap "versionList" $k $k }}
+      {{ if not ($.Scratch.Get "versionList") }}
+        {{ range $k, $v := $product_info.versions }}
+          {{ $.Scratch.Add "versionList" (slice $v.version) }}
+        {{ end }}
       {{ end }}
-      {{ $versionList := (default (slice) ($.Scratch.GetSortedMapValues "versionList")) }}
-      {{ range $index := seq (len $versionList) }}
-        {{ $index := sub (len $versionList) $index }}
-        {{ $dropversion := index $versionList $index }}
-        
+      {{ $versionList := $.Scratch.Get "versionList" }}
+      {{ range $version := $versionList }}
         <!-- Protects when $chopurl has nothing after 3 /'s'-->
         {{ if gt (len $chopurl) 3 }}
           {{ $endurl := after 3 $chopurl}}
-            {{ if ne $dropversion "2.0" }}
-              {{ if ne $pageversion "2.0" }}
-                <a href="/{{ $product }}/{{ index $versionList $index }}/{{delimit $endurl "/"}}">{{ index $versionList $index }}</a>
-              {{ else }}
-                <a href="/{{ $product }}/{{ index $versionList $index }}">{{ index $versionList $index }}</a>
-              {{ end }}
+          {{ if ne $version "2.0" }}
+            {{ if ne $pageversion "2.0" }}
+              <a href="/{{ $.Section }}/{{ $version }}/{{delimit $endurl "/"}}">{{ $version }}</a>
             {{ else }}
-              <a href="/{{ $product }}/{{ index $versionList $index }}">{{ index $versionList $index }}</a>
+              <a href="/{{ $.Section }}/{{ $version }}">{{ $version }}</a>
             {{ end }}
+          {{ else }}
+            <a href="/{{ $.Section }}/{{ $version }}">{{ $version }}</a>
+          {{ end }}
         {{ end }}
       {{ end }}
     </div>

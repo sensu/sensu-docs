@@ -1,7 +1,7 @@
 ---
 title: "License management"
 linkTitle: "License Management"
-description: "Sensu Go includes license-activated features designed for enterprises. Activate and manage your enterprise license with sensuctl and your Sensu account. Read the reference documentation to learn more."
+description: "Sensu Go includes license-activated features designed for monitoring at scale. Activate and manage your license with sensuctl and your Sensu account. Read the reference documentation to learn more."
 weight: 100
 version: "5.8"
 product: "Sensu Go"
@@ -91,4 +91,4 @@ Sensu-Entity-Limit: 0
 To see your license expiration date, log in to your Sensu account at [account.sensu.io](https://account.sensu.io/).
 
 If your license is within 30 days of expiration, Sensu issues regular warnings in the Sensu [backend logs](../../guides/troubleshooting).
-If your license expires, you will no longer have access to [enterprise features](../../getting-started/enterprise) within Sensu Go.
+If your license expires, you will no longer have access to [licensed-tier features](../../getting-started/enterprise).
