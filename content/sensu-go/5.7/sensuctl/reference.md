@@ -16,7 +16,7 @@ menu:
 - [Creating resources](#creating-resources)
 - [Updating resources](#updating-resources)
 - [Managing resources](#managing-resources)
-- [Filtering](#filtering) (enterprise-only)
+- [Filtering](#filtering) (licensed tier)
 - [Time formats](#time-formats)
 - [Shell auto-completion](#shell-auto-completion)
 - [Config files](#configuration-files)
@@ -265,7 +265,7 @@ sensuctl edit handler slack
 Sensuctl provides the following commands to manage Sensu resources.
 
 - [`sensuctl asset`][12]
-- [`sensuctl auth`][26] (enterprise only)
+- [`sensuctl auth`][26] (licensed tier)
 - [`sensuctl check`][13]
 - [`sensuctl cluster`][7]
 - [`sensuctl cluster-role`][1]
@@ -275,7 +275,7 @@ Sensuctl provides the following commands to manage Sensu resources.
 - [`sensuctl filter`][16]
 - [`sensuctl handler`][17]
 - [`sensuctl hook`][18]
-- [`sensuctl license`](../../reference/license) (enterprise only)
+- [`sensuctl license`](../../reference/license) (licensed tier)
 - [`sensuctl mutator`][19]
 - [`sensuctl namespace`][1]
 - [`sensuctl role`][1]
@@ -388,7 +388,7 @@ See the [RBAC reference][22] for information about local user management with se
 
 ## Filtering
 
-**ENTERPRISE ONLY**: sensuctl filtering requires an enterprise license. To activate your enterprise license, see the [getting started guide][30].
+**LICENSED TIER**: Unlock sensuctl filtering with a Sensu license. To activate your license, see the [getting started guide][30].
 
 Sensuctl supports filtering for all `list` commands using the `--label-selector` and `--field-selector` flags.
 For information about the operators and fields available to use in filters, see the [API docs][28].
