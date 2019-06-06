@@ -662,6 +662,99 @@ example      | {{< highlight shell >}}"value": 0.005{{< /highlight >}}
 
 ### Example check-only event data
 
+{{< language-toggle >}}
+
+{{< highlight yml >}}
+type: Event
+api_version: core/v2
+metadata:
+  namespace: default
+spec:
+  check:
+    check_hooks: null
+    command: check-cpu.sh -w 75 -c 90
+    duration: 1.07055808
+    env_vars: null
+    executed: 1552594757
+    handlers: []
+    high_flap_threshold: 0
+    history:
+    - executed: 1552594757
+      status: 0
+    interval: 60
+    issued: 1552594757
+    last_ok: 1552594758
+    low_flap_threshold: 0
+    metadata:
+      name: check-cpu
+      namespace: default
+    occurrences: 1
+    occurrences_watermark: 1
+    output: |
+      CPU OK - Usage:3.96
+    output_metric_format: ""
+    output_metric_handlers: []
+    proxy_entity_name: ""
+    publish: true
+    round_robin: false
+    runtime_assets: []
+    state: passing
+    status: 0
+    stdin: false
+    subdue: null
+    subscriptions:
+    - linux
+    timeout: 0
+    total_state_change: 0
+    ttl: 0
+  entity:
+    deregister: false
+    deregistration: {}
+    entity_class: agent
+    last_seen: 1552594641
+    metadata:
+      name: sensu-centos
+      namespace: default
+    redact:
+    - password
+    - passwd
+    - pass
+    - api_key
+    - api_token
+    - access_key
+    - secret_key
+    - private_key
+    - secret
+    subscriptions:
+    - linux
+    - entity:sensu-centos
+    system:
+      arch: amd64
+      hostname: sensu-centos
+      network:
+        interfaces:
+        - addresses:
+          - 127.0.0.1/8
+          - ::1/128
+          name: lo
+        - addresses:
+          - 10.0.2.15/24
+          - fe80::9688:67ca:3d78:ced9/64
+          mac: 08:00:27:11:ad:d2
+          name: enp0s3
+        - addresses:
+          - 172.28.128.3/24
+          - fe80::a00:27ff:fe6b:c1e9/64
+          mac: 08:00:27:6b:c1:e9
+          name: enp0s8
+      os: linux
+      platform: centos
+      platform_family: rhel
+      platform_version: 7.4.1708
+    user: agent
+  timestamp: 1552594758
+{{< /highlight >}}
+
 {{< highlight json >}}
 {
   "type": "Event",
@@ -778,7 +871,112 @@ example      | {{< highlight shell >}}"value": 0.005{{< /highlight >}}
 }
 {{< /highlight >}}
 
+{{< /language-toggle >}}
+
 ### Example event with check and metric data
+
+{{< language-toggle >}}
+
+{{< highlight yml >}}
+type: Event
+api_version: core/v2
+metadata:
+  namespace: default
+spec:
+  check:
+    check_hooks: null
+    command: /opt/sensu-plugins-ruby/embedded/bin/metrics-curl.rb -u "http://localhost"
+    duration: 0.060790838
+    env_vars: null
+    executed: 1552506033
+    handlers: []
+    high_flap_threshold: 0
+    history:
+    - executed: 1552505833
+      status: 0
+    - executed: 1552505843
+      status: 0
+    interval: 10
+    issued: 1552506033
+    last_ok: 1552506033
+    low_flap_threshold: 0
+    metadata:
+      name: curl_timings
+      namespace: default
+    occurrences: 1
+    occurrences_watermark: 1
+    output: |-
+      sensu-go-sandbox.curl_timings.time_total 0.005 1552506033
+      sensu-go-sandbox.curl_timings.time_namelookup 0.004
+    output_metric_format: graphite_plaintext
+    output_metric_handlers:
+    - influx-db
+    proxy_entity_name: ""
+    publish: true
+    round_robin: false
+    runtime_assets: []
+    state: passing
+    status: 0
+    stdin: false
+    subdue: null
+    subscriptions:
+    - entity:sensu-go-sandbox
+    timeout: 0
+    total_state_change: 0
+    ttl: 0
+  entity:
+    deregister: false
+    deregistration: {}
+    entity_class: agent
+    last_seen: 1552495139
+    metadata:
+      name: sensu-go-sandbox
+      namespace: default
+    redact:
+    - password
+    - passwd
+    - pass
+    - api_key
+    - api_token
+    - access_key
+    - secret_key
+    - private_key
+    - secret
+    subscriptions:
+    - entity:sensu-go-sandbox
+    system:
+      arch: amd64
+      hostname: sensu-go-sandbox
+      network:
+        interfaces:
+        - addresses:
+          - 127.0.0.1/8
+          - ::1/128
+          name: lo
+        - addresses:
+          - 10.0.2.15/24
+          - fe80::5a94:f67a:1bfc:a579/64
+          mac: 08:00:27:8b:c9:3f
+          name: eth0
+      os: linux
+      platform: centos
+      platform_family: rhel
+      platform_version: 7.5.1804
+    user: agent
+  metrics:
+    handlers:
+    - influx-db
+    points:
+    - name: sensu-go-sandbox.curl_timings.time_total
+      tags: []
+      timestamp: 1552506033
+      value: 0.005
+    - name: sensu-go-sandbox.curl_timings.time_namelookup
+      tags: []
+      timestamp: 1552506033
+      value: 0.004
+  timestamp: 1552506033
+{{< /highlight >}}
 
 {{< highlight json >}}
 {
@@ -912,7 +1110,71 @@ example      | {{< highlight shell >}}"value": 0.005{{< /highlight >}}
 }
 {{< /highlight >}}
 
+{{< /language-toggle >}}
+
 ### Example metric-only event
+
+{{< language-toggle >}}
+
+{{< highlight yml >}}
+type: Event
+api_version: core/v2
+metadata:
+  namespace: default
+spec:
+  entity:
+    deregister: false
+    deregistration: {}
+    entity_class: agent
+    last_seen: 1552495139
+    metadata:
+      name: sensu-go-sandbox
+      namespace: default
+    redact:
+    - password
+    - passwd
+    - pass
+    - api_key
+    - api_token
+    - access_key
+    - secret_key
+    - private_key
+    - secret
+    subscriptions:
+    - entity:sensu-go-sandbox
+    system:
+      arch: amd64
+      hostname: sensu-go-sandbox
+      network:
+        interfaces:
+        - addresses:
+          - 127.0.0.1/8
+          - ::1/128
+          name: lo
+        - addresses:
+          - 10.0.2.15/24
+          - fe80::5a94:f67a:1bfc:a579/64
+          mac: 08:00:27:8b:c9:3f
+          name: eth0
+      os: linux
+      platform: centos
+      platform_family: rhel
+      platform_version: 7.5.1804
+    user: agent
+  metrics:
+    handlers:
+    - influx-db
+    points:
+    - name: sensu-go-sandbox.curl_timings.time_total
+      tags: []
+      timestamp: 1552506033
+      value: 0.005
+    - name: sensu-go-sandbox.curl_timings.time_namelookup
+      tags: []
+      timestamp: 1552506033
+      value: 0.004
+  timestamp: 1552506033
+{{< /highlight >}}
 
 {{< highlight json >}}
 {
@@ -997,6 +1259,8 @@ example      | {{< highlight shell >}}"value": 0.005{{< /highlight >}}
   }
 }
 {{< /highlight >}}
+
+{{< /language-toggle >}}
 
 [1]: ../checks/#check-attributes
 [2]: ../entities/#entity-attributes

@@ -9,6 +9,8 @@ platformContent: false
 menu:
   sensu-go-5.9:
     parent: dashboard
+aliases:
+  - /sensu-go/5.9/dashboard/filtering
 ---
 
 - [Accessing the dashboard](#accessing-the-dashboard)
@@ -16,6 +18,7 @@ menu:
 - [Namespaces](#namespaces)
 - [Managing checks](#managing-checks)
 - [Managing entities](#managing-entities)
+- [Managing handlers](#managing-handlers)
 - [Themes](#themes)
 
 The Sensu backend includes the **Sensu dashboard**:
@@ -47,15 +50,21 @@ To switch namespaces, select the menu icon in the upper-left corner, and choose 
 
 ### Managing checks
 
-**ENTERPRISE ONLY**: Check management in Sensu Go requires an enterprise license. To activate your enterprise license, see the [getting started guide][6].
+**LICENSED TIER**: Unlock check management in the Sensu Go dashboard with a Sensu license. To activate your license, see the [getting started guide][6].
 
 You can create, edit, and delete Sensu checks using the dashboard checks page.
 
 ### Managing entities
 
-**ENTERPRISE ONLY**: Entity management in Sensu Go requires an enterprise license. To activate your enterprise license, see the [getting started guide][6].
+**LICENSED TIER**: Unlock entity management in the Sensu Go dashboard with a Sensu license. To activate your license, see the [getting started guide][6].
 
 You can delete Sensu entities using the dashboard entities page.
+
+### Managing handlers
+
+**LICENSED TIER**: Unlock handler management in the Sensu Go dashboard with a Sensu license. To activate your license, see the [getting started guide][6].
+
+You can create, edit, and delete Sensu handlers using the dashboard handlers page.
 
 ### Themes
 Use the preferences menu to change the theme or switch to the dark theme.

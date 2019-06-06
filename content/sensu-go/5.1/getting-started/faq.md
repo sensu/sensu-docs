@@ -116,5 +116,7 @@ Due to Sensu Go's implementation, it is not possible to use Uchiwa with Sensu Go
 [26]: ../../reference/agent
 [27]: ../../guides/clustering
 [29]: ../../dashboard/overview/
+[30]: https://sensu.io/products/
+
 [30]: /sensu-go/latest/installation/upgrade
 [31]: /sensu-go/latest/getting-started/enterprise

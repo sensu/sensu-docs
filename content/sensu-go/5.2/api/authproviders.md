@@ -9,16 +9,16 @@ menu:
     parent: api
 ---
 
-- [The `authproviders` API endpoints](#the-authproviders-api-endpoints) (enterprise-only)
+- [The `authproviders` API endpoints](#the-authproviders-api-endpoints) (licensed tier)
   - [`/authproviders` (GET)](#authproviders-get)
-- [The `authproviders/:name` API endpoints](#the-providersname-api-endpoints) (enterprise-only)
+- [The `authproviders/:name` API endpoints](#the-providersname-api-endpoints) (licensed tier)
   - [`authproviders/:name` (GET)](#providersname-get)
   - [`authproviders/:name` (PUT)](#providersname-put)
   - [`authproviders/:name` (DELETE)](#authprovidersname-delete)
 
 ## The `/authproviders` API endpoints {#the-authproviders-api-endpoints}
 
-**ENTERPRISE ONLY**: Authentication providers in Sensu Go require an enterprise license. To activate your enterprise license, see the [getting started guide][2].
+**LICENSED TIER**: Unlock authentication providers in Sensu Go with a Sensu license. To activate your license, see the [getting started guide][2].
 
 ### `/authproviders` (GET) {#authproviders-get}
 
@@ -63,7 +63,7 @@ output         | {{< highlight json >}}
 
 ## The `/authproviders/:name` API endpoints {#the-authprovidersname-api-endpoints}
 
-**ENTERPRISE ONLY**: Authentication providers in Sensu Go require an enterprise license. To activate your enterprise license, see the [getting started guide][2].
+**LICENSED TIER**: Unlock authentication providers in Sensu Go with a Sensu license. To activate your license, see the [getting started guide][2].
 
 ### `/authproviders/:name` (GET) {#authprovidersname-get}
 

@@ -166,6 +166,22 @@ _NOTE: Using hooks for auto-remediation should be approached
 carefully, as they run without regard to the number of event
 occurrences._
 
+{{< language-toggle >}}
+
+{{< highlight yml >}}
+type: HookConfig
+api_version: core/v2
+metadata:
+  annotations: null
+  labels: null
+  name: restart_nginx
+  namespace: default
+spec:
+  command: sudo systemctl start nginx
+  stdin: false
+  timeout: 60
+{{< /highlight >}}
+
 {{< highlight json >}}
 {
   "type": "HookConfig",
@@ -184,11 +200,29 @@ occurrences._
 }
 {{< /highlight >}}
 
+{{< /language-toggle >}}
+
 ### Capture the process tree
 
 Hooks can also be used for automated data gathering for incident triage, for
 example, a check hook could be used to capture the process tree when a process
 has been determined to be not running etc.
+
+{{< language-toggle >}}
+
+{{< highlight yml >}}
+type: HookConfig
+api_version: core/v2
+metadata:
+  annotations: null
+  labels: null
+  name: process_tree
+  namespace: default
+spec:
+  command: ps aux
+  stdin: false
+  timeout: 60
+{{< /highlight >}}
 
 {{< highlight json >}}
 {
@@ -207,6 +241,8 @@ has been determined to be not running etc.
   }
 }
 {{< /highlight >}}
+
+{{< /language-toggle >}}
 
 [1]: https://blog.sensuapp.org/using-check-hooks-a739a362961f
 [2]: #metadata-attributes

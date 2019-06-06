@@ -24,6 +24,7 @@ See the [backend installation guide][1] for more information.
 | Ubuntu 16.04       | ✅     |      | | |
 | Ubuntu 18.04       | ✅     |      | | |
 | Ubuntu 18.10       | ✅     |      | | |
+| Ubuntu 19.04       | ✅     |      | | |
 | Debian 8           | ✅     |      | | |
 | Debian 9           | ✅     |      | | |
 
@@ -41,6 +42,7 @@ See the [agent installation guide][2] for more information.
 | Ubuntu 16.04       | ✅  | | | | | |
 | Ubuntu 18.04       | ✅  | | | | | |
 | Ubuntu 18.10       | ✅  | | | | | |
+| Ubuntu 19.04       | ✅     |      | | |
 | Debian 8           | ✅     |      | | |
 | Debian 9           | ✅     |      | | |
 | Windows Server 2008 R2 and later| ✅  | ✅  | | | | |
@@ -60,6 +62,7 @@ See the [sensuctl installation guide][3] for more information.
 | Ubuntu 16.04       | ✅     |     | | | | |
 | Ubuntu 18.04       | ✅     |     | | | | |
 | Ubuntu 18.10       | ✅     |     | | | | |
+| Ubuntu 19.04       | ✅     |      | | |
 | Debian 8           | ✅     |      | | |
 | Debian 9           | ✅     |      | | |
 | Windows 7 and later| ✅     |     | | | | |

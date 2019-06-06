@@ -124,7 +124,7 @@ Content-Type: application/json
 
 ### Filtering
 
-**ENTERPRISE ONLY**: API filtering in Sensu Go requires an enterprise license. To activate your enterprise license, see the [getting started guide][7].
+**LICENSED TIER**: Unlock API filtering in Sensu Go with a Sensu license. To activate your license, see the [getting started guide][7].
 
 The Sensu API supports filtering for all GET endpoints that return an array. You can filter resources based on their labels with a label selector using the `labelSelector` query parameter and on certain pre-determined fields with a field selector using the `fieldSelector` query parameter.
 

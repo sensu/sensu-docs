@@ -3,11 +3,6 @@
 {{ $uniqueness := replace $uniqueness " " "-" }}
 {{ $uniqueness := replace $uniqueness "/" "_" }}
 
-{{ $product := .Get 1 }}
-{{ $version := .Get 2 }}
-{{ $title := .Get 3 }}
-{{ $parent := .Get 4 }}
-
 <!-- Some specific css for the dropdowns -->
 <style>
  .platformHolder-{{ $uniqueness }} {
@@ -68,7 +63,15 @@
   });
 </script>
 
-<!-- The platform dropdown itself -->
+{{ $product := replace (lower (.Get 1)) "-" "_" }}
+{{ $version := .Get 2 }}
+{{ $title := .Get 3 }}
+{{ $parent := .Get 4 }}
+
+<!-- Get the current product global vars -->
+{{ $product_info := (index .Site.Params.products $product) }}
+{{ $product_versions := (where $product_info.versions "version" $version) }}
+{{ if $product_versions }}
 <div class="platformHolder-{{ $uniqueness }}">
   <div id="platformButton-{{ $uniqueness }}">
 
@@ -78,22 +81,17 @@
 
       <!-- List of each platform -->
       <ul class="hiddenItems-{{ $uniqueness }}">
-
-        <!-- Get the current product global vars -->
-        {{ $product2 := lower $product }}
-        {{ $product3 := replace $product2 "-" "_" }}
-        {{ $product_info := (index .Site.Params.products $product3) }}
-        {{ range (index $product_info.versions $version) }}
-          {{ $platform := . }}
-
+        {{ $platforms := index (index $product_versions 0) "platforms" }}
+        {{ range $platform := $platforms }}
           <!-- Pretify the name -->
           {{ $title2 := replace $title " " "-" }}
           {{ $title2 := lower $title2 }}
 
           <!-- TODO: THIS WILL BREAK ON PAGES WITHIN A FOLDER -->
-          <li class="hiddenItem"><a onClick="setPlatformCookie('{{ $platform }}', '{{ $product2 }}', '{{ $title2 }}')" href="/{{ $product2 }}/{{ $version }}/{{ $title2 }}/#{{ $parent }}">{{ $platform }}</a></li>
+          <li class="hiddenItem"><a onClick="setPlatformCookie('{{ $platform }}', '{{ lower ($.Get 1) }}', '{{ $title2 }}')" href="/{{ lower ($.Get 1) }}/{{ $version }}/{{ $title2 }}/#{{ $parent }}">{{ $platform }}</a></li>
         {{ end }}
       </ul>
     </div>
   </div>
 </div>
+{{ end }}
