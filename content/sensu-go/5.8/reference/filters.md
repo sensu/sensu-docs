@@ -99,6 +99,26 @@ When applied to a handler, the incidents filter allows only warning (`"status": 
 
 To use the incidents filter, include the `is_incident` filter in the handler configuration `filters` array:
 
+{{< language-toggle >}}
+
+{{< highlight yml >}}
+type: Handler
+api_version: core/v2
+metadata:
+  name: slack
+  namespace: default
+spec:
+  command: sensu-slack-handler --channel '#monitoring'
+  env_vars:
+  - SLACK_WEBHOOK_URL=https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX
+  filters:
+  - is_incident
+  handlers: []
+  runtime_assets: []
+  timeout: 0
+  type: pipe
+{{< /highlight >}}
+
 {{< highlight json >}}
 {
   "type": "Handler",
@@ -123,6 +143,8 @@ To use the incidents filter, include the `is_incident` filter in the handler con
 }
 {{< /highlight >}}
 
+{{< /language-toggle >}}
+
 The `is_incident` filter applies the following filtering logic:
 
 | status | allow | discard |     |     |     |     |
@@ -138,6 +160,27 @@ The `is_incident` filter applies the following filtering logic:
 [Sensu silencing][6] lets you suppress execution of event handlers on an on-demand basis, giving you the ability to quiet incoming alerts and [plan maintenances][5].
 
 To allow silencing for an event handler, add the `not_silenced` filter to the handler configuration `filters` array:
+
+{{< language-toggle >}}
+
+{{< highlight yml >}}
+type: Handler
+api_version: core/v2
+metadata:
+  name: slack
+  namespace: default
+spec:
+  command: sensu-slack-handler --channel '#monitoring'
+  env_vars:
+  - SLACK_WEBHOOK_URL=https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX
+  filters:
+  - is_incident
+  - not_silenced
+  handlers: []
+  runtime_assets: []
+  timeout: 0
+  type: pipe
+{{< /highlight >}}
 
 {{< highlight json >}}
 {
@@ -164,7 +207,9 @@ To allow silencing for an event handler, add the `not_silenced` filter to the ha
 }
 {{< /highlight >}}
 
-When applied to a handler configuration, the `not_silenced` filter silences events that include the `"silenced": true` attribute. The handler in the example above uses both the silencing and [incidents][7] filters, preventing low priority and silenced events from being sent to Slack.
+{{< /language-toggle >}}
+
+When applied to a handler configuration, the `not_silenced` filter silences events that include the `silenced` attribute. The handler in the example above uses both the silencing and [incidents][7] filters, preventing low priority and silenced events from being sent to Slack.
 
 ### Built-in filter: has metrics
 
@@ -173,6 +218,28 @@ When applied to a handler, the metrics filter allows only events containing [Sen
 You can use the metrics filter to prevent handlers that require metrics from failing in case of an error in metric collection.
 
 To use the metrics filter, include the `has_metrics` filter in the handler configuration `filters` array:
+
+{{< language-toggle >}}
+
+{{< highlight yml >}}
+type: Handler
+api_version: core/v2
+metadata:
+  name: influx-db
+  namespace: default
+spec:
+  command: sensu-influxdb-handler -d sensu
+  env_vars:
+  - INFLUXDB_ADDR=http://influxdb.default.svc.cluster.local:8086
+  - INFLUXDB_USER=sensu
+  - INFLUXDB_PASSWORD=password
+  filters:
+  - has_metrics
+  handlers: []
+  runtime_assets: []
+  timeout: 0
+  type: pipe
+{{< /highlight >}}
 
 {{< highlight json >}}
 {
@@ -199,6 +266,8 @@ To use the metrics filter, include the `has_metrics` filter in the handler confi
   }
 }
 {{< /highlight >}}
+
+{{< /language-toggle >}}
 
 When applied to a handler configuration, the `has_metrics` filter allows only events that include a [`metrics` scope][9].
 
@@ -438,6 +507,20 @@ example      | {{< highlight shell >}} "annotations": {
 
 ### Minimum required filter attributes
 
+{{< language-toggle >}}
+
+{{< highlight yml >}}
+type: EventFilter
+api_version: core/v2
+metadata:
+  name: filter_minimum
+  namespace: default
+spec:
+  action: allow
+  expressions:
+  - event.check.occurrences == 1
+{{< /highlight >}}
+
 {{< highlight json >}}
 {
   "type": "EventFilter",
@@ -455,9 +538,25 @@ example      | {{< highlight shell >}} "annotations": {
 }
 {{< /highlight >}}
 
+{{< /language-toggle >}}
+
 ### Handling production events
 
 The following filter allows only events with a custom entity label `"environment": "production"` to be handled.
+
+{{< language-toggle >}}
+
+{{< highlight yml >}}
+type: EventFilter
+api_version: core/v2
+metadata:
+  name: production_filter
+  namespace: default
+spec:
+  action: allow
+  expressions:
+  - event.entity.labels.environment == 'production'
+{{< /highlight >}}
 
 {{< highlight json >}}
 {
@@ -476,11 +575,27 @@ The following filter allows only events with a custom entity label `"environment
 }
 {{< /highlight >}}
 
+{{< /language-toggle >}}
+
 ### Handling non-production events
 
 The following filter discards events with a custom entity label `"environment": "production"`, allowing only events without an `environment` label or events with `environment` set to something other than `production` to be handled.
 Note that `action` is `deny`, making this an exclusive filter; if evaluation
 returns false, the event is handled.
+
+{{< language-toggle >}}
+
+{{< highlight yml >}}
+type: EventFilter
+api_version: core/v2
+metadata:
+  name: not_production
+  namespace: default
+spec:
+  action: deny
+  expressions:
+  - event.entity.labels.environment == 'production'
+{{< /highlight >}}
 
 {{< highlight json >}}
 {
@@ -499,11 +614,30 @@ returns false, the event is handled.
 }
 {{< /highlight >}}
 
+{{< /language-toggle >}}
+
 ### Handling state change only
 
 Some teams migrating to Sensu have asked about reproducing the behavior of their
 old monitoring system which alerts only on state change. This
 `state_change_only` inclusive filter provides such.
+
+{{< language-toggle >}}
+
+{{< highlight yml >}}
+type: EventFilter
+api_version: core/v2
+metadata:
+  annotations: null
+  labels: null
+  name: state_change_only
+  namespace: default
+spec:
+  action: allow
+  expressions:
+  - event.check.occurrences == 1
+  runtime_assets: []
+{{< /highlight >}}
 
 {{< highlight json >}}
 {
@@ -525,6 +659,8 @@ old monitoring system which alerts only on state change. This
 }
 {{< /highlight >}}
 
+{{< /language-toggle >}}
+
 ### Handling repeated events
 
 The following example filter definition, entitled `filter_interval_60_hourly`,
@@ -533,6 +669,24 @@ will match event data with a check `interval` of `60` seconds, and an
 value that is evenly divisible by 60 via a [modulo
 operator](https://en.wikipedia.org/wiki/Modulo_operation) calculation
 (calculating the remainder after dividing `occurrences` by 60).
+
+{{< language-toggle >}}
+
+{{< highlight yml >}}
+type: EventFilter
+api_version: core/v2
+metadata:
+  annotations: null
+  labels: null
+  name: filter_interval_60_hourly
+  namespace: default
+spec:
+  action: allow
+  expressions:
+  - event.check.interval == 60
+  - event.check.occurrences == 1 || event.check.occurrences % 60 == 0
+  runtime_assets: []
+{{< /highlight >}}
 
 {{< highlight json >}}
 {
@@ -555,8 +709,28 @@ operator](https://en.wikipedia.org/wiki/Modulo_operation) calculation
 }
 {{< /highlight >}}
 
+{{< /language-toggle >}}
+
 The next example will apply the same logic as the previous example, but for
 checks with a 30 second `interval`.
+
+{{< language-toggle >}}
+
+{{< highlight yml >}}
+type: EventFilter
+api_version: core/v2
+metadata:
+  annotations: null
+  labels: null
+  name: filter_interval_30_hourly
+  namespace: default
+spec:
+  action: allow
+  expressions:
+  - event.check.interval == 30
+  - event.check.occurrences == 1 || event.check.occurrences % 120 == 0
+  runtime_assets: []
+{{< /highlight >}}
 
 {{< highlight json >}}
 {
@@ -579,12 +753,32 @@ checks with a 30 second `interval`.
 }
 {{< /highlight >}}
 
+{{< /language-toggle >}}
+
 ### Handling events during office hours only
 
 This filter evaluates the event timestamp to determine if the event occurred
 between 9 AM and 5 PM UTC on a weekday. Remember that `action` is equal to
 `allow`, so this is an inclusive filter. If evaluation returns false, the event
 will not be handled.
+
+{{< language-toggle >}}
+
+{{< highlight yml >}}
+type: EventFilter
+api_version: core/v2
+metadata:
+  annotations: null
+  labels: null
+  name: nine_to_fiver
+  namespace: default
+spec:
+  action: allow
+  expressions:
+  - weekday(event.timestamp) >= 1 && weekday(event.timestamp) <= 5
+  - hour(event.timestamp) >= 9 && hour(event.timestamp) <= 17
+  runtime_assets: []
+{{< /highlight >}}
 
 {{< highlight json >}}
 {
@@ -607,12 +801,33 @@ will not be handled.
 }
 {{< /highlight >}}
 
+{{< /language-toggle >}}
+
 ### Using JavaScript libraries with Sensu filters
 
 You can include JavaScript libraries in their filter execution context with
 assets. For instance, assuming you've packaged underscore.js into a Sensu
 asset, you could then use functions from the underscore library for filter
 expressions.
+
+{{< language-toggle >}}
+
+{{< highlight yml >}}
+type: EventFilter
+api_version: core/v2
+metadata:
+  annotations: null
+  labels: null
+  name: deny_if_failure_in_history
+  namespace: default
+spec:
+  action: deny
+  expressions:
+  - _.reduce(event.check.history, function(memo, h) { return (memo || h.status !=
+    0); })
+  runtime_assets:
+  - underscore
+{{< /highlight >}}
 
 {{< highlight json >}}
 {
@@ -633,6 +848,8 @@ expressions.
   }
 }
 {{< /highlight >}}
+
+{{< /language-toggle >}}
 
 [1]: #inclusive-and-exclusive-filtering
 [2]: #when-attributes

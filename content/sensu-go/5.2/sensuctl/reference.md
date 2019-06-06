@@ -265,7 +265,7 @@ sensuctl edit handler slack
 Sensuctl provides the following commands to manage Sensu resources.
 
 - [`sensuctl asset`][12]
-- [`sensuctl auth`][26] (enterprise only)
+- [`sensuctl auth`][26] (licensed tier)
 - [`sensuctl check`][13]
 - [`sensuctl cluster`][7]
 - [`sensuctl cluster-role`][1]
@@ -275,7 +275,7 @@ Sensuctl provides the following commands to manage Sensu resources.
 - [`sensuctl filter`][16]
 - [`sensuctl handler`][17]
 - [`sensuctl hook`][18]
-- [`sensuctl license`](../../reference/license) (enterprise only)
+- [`sensuctl license`](../../reference/license) (licensed tier)
 - [`sensuctl mutator`][19]
 - [`sensuctl namespace`][1]
 - [`sensuctl role`][1]

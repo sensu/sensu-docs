@@ -45,7 +45,7 @@ spec:
   - entity.system.arch == 'amd64'
 {{< /highlight >}}
 
-**Enterprise-only assets** (like the [ServiceNow](https://bonsai.sensu.io/assets/sensu/sensu-servicenow-handler) and [Jira event handlers](https://bonsai.sensu.io/assets/sensu/sensu-jira-handler)) require an active enterprise license. For more information about enterprise-only features and to active your license, see the [getting started guide](../../getting-started/enterprise).
+**Enterprise-tier assets** (like the [ServiceNow](https://bonsai.sensu.io/assets/sensu/sensu-servicenow-handler) and [Jira](https://bonsai.sensu.io/assets/sensu/sensu-jira-handler) event handlers) require a Sensu license. For more information about licensed-tier features and to activate your license, see the [getting started guide](../../getting-started/enterprise).
 
 ### 2. Register the asset with Sensu
 
@@ -69,6 +69,26 @@ The asset details in Bonsai are the best resource for information about asset ca
 
 For example, to use the [Sensu PagerDuty handler asset][19], create a `pagerduty` handler that includes your PagerDuty service API key in place of `SECRET` and `sensu-pagerduty-handler` as a runtime asset.
 
+{{< language-toggle >}}
+
+{{< highlight yml >}}
+type: Handler
+api_version: core/v2
+metadata:
+  name: pagerduty
+  namespace: default
+spec:
+  command: sensu-pagerduty-handler
+  env_vars:
+  - PAGERDUTY_TOKEN=SECRET
+  filters:
+  - is_incident
+  runtime_assets:
+  - sensu-pagerduty-handler
+  timeout: 10
+  type: pipe
+{{< /highlight >}}
+
 {{< highlight json >}}
 {
     "api_version": "core/v2",
@@ -91,6 +111,8 @@ For example, to use the [Sensu PagerDuty handler asset][19], create a `pagerduty
     }
 }
 {{< /highlight >}}
+
+{{< /language-toggle >}}
 
 Save the definition to a file (for example: `pagerduty-handler.json`), and add to Sensu using sensuctl.
 

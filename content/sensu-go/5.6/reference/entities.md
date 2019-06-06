@@ -49,6 +49,27 @@ Overusing labels can impact Sensu's internal performance, so we recommend moving
 For entities with class `proxy`, you can create and manage labels using sensuctl.
 For example, to create a proxy entity with a `url` label using sensuctl `create`, create a file called `example.json` with an entity definition that includes `labels`.
 
+{{< language-toggle >}}
+
+{{< highlight yml >}}
+type: Entity
+api_version: core/v2
+metadata:
+  labels:
+    url: docs.sensu.io
+  name: sensu-docs
+  namespace: default
+spec:
+  deregister: false
+  deregistration: {}
+  entity_class: proxy
+  last_seen: 0
+  subscriptions: []
+  system:
+    network:
+      interfaces: null
+{{< /highlight >}}
+
 {{< highlight json >}}
 {
   "type": "Entity",
@@ -75,6 +96,8 @@ For example, to create a proxy entity with a `url` label using sensuctl `create`
 }
 {{< /highlight >}}
 
+{{< /language-toggle >}}
+
 Then run `sensuctl create` to create the entity based on the definition.
 
 {{< highlight shell >}}
@@ -89,6 +112,20 @@ sensuctl edit entity sensu-docs
 {{< /highlight >}}
 
 And update the `metadata` scope to include `labels`.
+
+{{< language-toggle >}}
+
+{{< highlight yml >}}
+type: Entity
+api_version: core/v2
+metadata:
+  labels:
+    url: docs.sensu.io
+  name: sensu-docs
+  namespace: default
+spec:
+  '...': '...'
+{{< /highlight >}}
 
 {{< highlight json >}}
 {
@@ -106,6 +143,8 @@ And update the `metadata` scope to include `labels`.
   }
 }
 {{< /highlight >}}
+
+{{< /language-toggle >}}
 
 ### Agent entities{#agent-entities-managed}
 
@@ -245,7 +284,30 @@ system       |
 description  | System information about the entity, such as operating system and platform. See the [system attributes][1] for more information.
 required     | false
 type         | map
-example      | {{< highlight json >}}
+example      | {{< language-toggle >}}
+
+{{< highlight yml >}}
+system:
+  arch: amd64
+  hostname: example-hostname
+  network:
+    interfaces:
+    - addresses:
+      - 127.0.0.1/8
+      - ::1/128
+      name: lo
+    - addresses:
+      - 93.184.216.34/24
+      - 2606:2800:220:1:248:1893:25c8:1946/10
+      mac: 52:54:00:20:1b:3c
+      name: eth0
+  os: linux
+  platform: ubuntu
+  platform_family: debian
+  platform_version: "16.04"
+{{< /highlight >}}
+
+{{< highlight json >}}
 {
   "system": {
     "hostname": "example-hostname",
@@ -276,6 +338,8 @@ example      | {{< highlight json >}}
   }
 }{{< /highlight >}}
 
+{{< /language-toggle >}}
+
 last_seen    | 
 -------------|------ 
 description  | Timestamp the entity was last seen, in seconds since the Unix epoch. 
@@ -297,12 +361,21 @@ deregistration  |
 description  | A map containing a handler name, for use when an entity is deregistered. See the [deregistration attributes][2] for more information.
 required     | false
 type         | map
-example      | {{< highlight json >}}
+example      | {{< language-toggle >}}
+
+{{< highlight yml >}}
+deregistration:
+  handler: email-handler
+{{< /highlight >}}
+
+{{< highlight json >}}
 {
   "deregistration": {
     "handler": "email-handler"
   }
 }{{< /highlight >}}
+
+{{< /language-toggle >}}
 
 redact       | 
 -------------|------ 
@@ -310,12 +383,21 @@ description  | List of items to redact from log messages. If a value is provided
 required     | false 
 type         | array 
 default      | ["password", "passwd", "pass", "api_key", "api_token", "access_key", "secret_key", "private_key", "secret"]
-example      | {{< highlight json >}}
+example      | {{< language-toggle >}}
+
+{{< highlight yml >}}
+redact:
+- extra_secret_tokens
+{{< /highlight >}}
+
+{{< highlight json >}}
 {
   "redact": [
     "extra_secret_tokens"
   ]
 }{{< /highlight >}}
+
+{{< /language-toggle >}}
 
 | user |      |
 --------------|------
@@ -407,7 +489,23 @@ network     |
 description  | The entity's network interface list. See the [network attributes][3] for more information.
 required     | false
 type         | map
-example      | {{< highlight json >}}
+example      | {{< language-toggle >}}
+
+{{< highlight yml >}}
+network:
+  interfaces:
+  - addresses:
+    - 127.0.0.1/8
+    - ::1/128
+    name: lo
+  - addresses:
+    - 93.184.216.34/24
+    - 2606:2800:220:1:248:1893:25c8:1946/10
+    mac: 52:54:00:20:1b:3c
+    name: eth0
+{{< /highlight >}}
+
+{{< highlight json >}}
 {
   "network": {
     "interfaces": [
@@ -430,6 +528,8 @@ example      | {{< highlight json >}}
   }
 }{{< /highlight >}}
 
+{{< /language-toggle >}}
+
 arch         | 
 -------------|------ 
 description  | The entity's system architecture. This value is determined by the Go binary architecture, as a function of runtime.GOARCH. An `amd` system running a `386` binary will report the arch as `386`.
@@ -444,7 +544,22 @@ network_interface         |
 description  | The list of network interfaces available on the entity, with their associated MAC and IP addresses. 
 required     | false 
 type         | array [NetworkInterface][4] 
-example      | {{< highlight json >}}
+example      | {{< language-toggle >}}
+
+{{< highlight yml >}}
+interfaces:
+- addresses:
+  - 127.0.0.1/8
+  - ::1/128
+  name: lo
+- addresses:
+  - 93.184.216.34/24
+  - 2606:2800:220:1:248:1893:25c8:1946/10
+  mac: 52:54:00:20:1b:3c
+  name: eth0
+{{< /highlight >}}
+
+{{< highlight json >}}
 {
   "interfaces": [
     {
@@ -464,6 +579,8 @@ example      | {{< highlight json >}}
     }
   ]
 }{{< /highlight >}}
+
+{{< /language-toggle >}}
 
 ### NetworkInterface attributes
 
@@ -500,6 +617,59 @@ example      | {{< highlight shell >}}"handler": "email-handler"{{< /highlight >
 ## Examples
 
 ### Entity definition
+
+{{< language-toggle >}}
+
+{{< highlight yml >}}
+type: Entity
+api_version: core/v2
+metadata:
+  annotations: null
+  labels: null
+  name: webserver01
+  namespace: default
+spec:
+  deregister: false
+  deregistration: {}
+  entity_class: agent
+  last_seen: 1542667231
+  redact:
+  - password
+  - passwd
+  - pass
+  - api_key
+  - api_token
+  - access_key
+  - secret_key
+  - private_key
+  - secret
+  subscriptions:
+  - entity:webserver01
+  system:
+    arch: amd64
+    hostname: sensu2-centos
+    network:
+      interfaces:
+      - addresses:
+        - 127.0.0.1/8
+        - ::1/128
+        name: lo
+      - addresses:
+        - 10.0.2.15/24
+        - fe80::26a5:54ec:cf0d:9704/64
+        mac: 08:00:27:11:ad:d2
+        name: enp0s3
+      - addresses:
+        - 172.28.128.3/24
+        - fe80::a00:27ff:febc:be60/64
+        mac: 08:00:27:bc:be:60
+        name: enp0s8
+    os: linux
+    platform: centos
+    platform_family: rhel
+    platform_version: 7.4.1708
+  user: agent
+{{< /highlight >}}
 
 {{< highlight json >}}
 {
@@ -569,6 +739,8 @@ example      | {{< highlight shell >}}"handler": "email-handler"{{< /highlight >
   }
 }
 {{< /highlight >}}
+
+{{< /language-toggle >}}
 
 [1]: #system-attributes
 [2]: #deregistration-attributes

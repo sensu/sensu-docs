@@ -30,11 +30,16 @@
         
         <h2>Pick a Version</h2>
         <div class="landingButtonHolder">
-          {{ $product := .Section }}
-          {{ $product2 := replace $product "-" "_" }}
-          {{ $product_info := (index .Site.Params.products $product2) }}
-          {{ range $k, $v := $product_info.versions }}
-            <span class="landingButton"><a href="/{{ $product }}/{{ $k }}">{{ $k }}</a></span>
+          {{ if not ($.Scratch.Get "versionList") }}
+            {{ $product := replace .Section "-" "_" }}
+            {{ $product_info := (index .Site.Params.products $product) }}
+            {{ range $k, $v := $product_info.versions }}
+              {{ $.Scratch.Add "versionList" (slice $v.version) }}
+            {{ end }}
+          {{ end }}
+          {{ $versionList := $.Scratch.Get "versionList" }}
+          {{ range $version := $versionList }}
+            <span class="landingButton"><a href="/{{ $.Section }}/{{ $version }}">{{ $version }}</a></span>
           {{ end }}
         </div>
       </div>

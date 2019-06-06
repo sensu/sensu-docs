@@ -103,26 +103,21 @@
       }
       document.body.removeChild(span);
     };
-	</script>
-    
-	  <!--<script type="text/javascript" src="{{ "/js/vendor/lunr.min.js" | absURL }}"></script>-->
-    <script type="text/javascript" src="{{ "/js/js-cookie.js" | absURL }}"></script>
-    <script type="text/javascript" src="{{ "/js/platformDropdowns.js" | absURL }}"></script>
-    <script type="text/javascript" src="{{ "/js/noframework.waypoints.min.js" | absURL }}"></script>
-    <!-- <script type="text/javascript" src="{{ "/javascripts/application.js" | absURL }}"></script> -->
-    <!-- Global site tag (gtag.js) - Google Ads: 804504629 -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-804504629"></script>
-    <script>
+  </script>
+  <script type="text/javascript" src="{{ "/js/js-cookie.js" | absURL }}"></script>
+  <script type="text/javascript" src="{{ "/js/platformDropdowns.js" | absURL }}"></script>
+  <!-- Global site tag (gtag.js) - Google Ads: 804504629 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=AW-804504629"></script>
+  <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
     gtag('config', 'AW-804504629');
     gtag('config', 'UA-39138312-2');
-    </script>
-    {{ with .RSSLink }}
+  </script>
+  {{ with .RSSLink }}
     <link href="{{ . }}" rel="alternate" type="application/rss+xml" title="{{ $.Site.Title }}" />
     <link href="{{ . }}" rel="feed" type="application/rss+xml" title="{{ $.Site.Title }}" />
-    {{ end }}
-
+  {{ end }}
   </head>
   <body>
