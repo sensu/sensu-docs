@@ -99,6 +99,15 @@ example      | {{< highlight shell >}}opt_out": false{{< /highlight >}}
 The following example is in `wrapped-json`format for use with [`sensuctl create`][sc].
 To manage Tessen using the [Tessen API][2], use non-wrapped `json` format as shown in the [API docs][2].
 
+{{< language-toggle >}}
+
+{{< highlight yml >}}
+type: TessenConfig
+api_version: core/v2
+spec:
+  opt_out: false
+{{< /highlight >}}
+
 {{< highlight json >}}
 {
   "type": "TessenConfig",
@@ -108,6 +117,8 @@ To manage Tessen using the [Tessen API][2], use non-wrapped `json` format as sho
   }
 }
 {{< /highlight >}}
+
+{{< /language-toggle >}}
 
 [1]: https://blog.sensu.io/announcing-tessen-the-sensu-call-home-service
 [2]: ../../api/tessen

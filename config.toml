@@ -9,7 +9,7 @@ canonifyURLs = true
 googleAnalytics = "UA-39138312-17"
 enableRobotsTXT = true
 pygmentsUseClasses = true
-ignoreFiles = [ "sensu-doc-template.md" ]
+ignoreFiles = ["sensu-doc-template.md"]
 
 [["menu.sensu-core-1.0"]]
   name = "Moi API"
@@ -17,128 +17,319 @@ ignoreFiles = [ "sensu-doc-template.md" ]
   identifier = "api"
 
 [params]
-	# General information
-	description = "Sensu is the industry leading solution for multi-cloud monitoring at scale. The Sensu monitoring event pipeline empowers businesses to automate their monitoring workflows and gain deep visibility into their multi-cloud environments. Built by operators, for operators, open source is at the heart of the Sensu product and company, with an active, thriving community of contributors."
-	copyright = ""
+  # General information
+  description = "Sensu is the industry leading solution for multi-cloud monitoring at scale. The Sensu monitoring event pipeline empowers businesses to automate their monitoring workflows and gain deep visibility into their multi-cloud environments. Built by operators, for operators, open source is at the heart of the Sensu product and company, with an active, thriving community of contributors."
+  copyright = ""
 
-	# Repository
-	provider = "GitHub"
-	repo_url = "https://github.com/sensu/sensu-docs"
+  # Repository
+  provider = "GitHub"
+  repo_url = "https://github.com/sensu/sensu-docs"
 
-	version = "1.0"
-	logo = "/images/sensu-logo-icon-dark@128px.png"
-	favicon = "/images/favicon.png"
+  version = "1.0"
+  logo = "/images/sensu-logo-icon-dark@128px.png"
+  favicon = "/images/favicon.png"
 
-	permalink = "#"
+  permalink = "#"
 
-	# Custom assets
-	custom_css = ["/stylesheets/language-toggle.css"]
-	custom_js  = []
+  # Custom assets
+  custom_css = ["/stylesheets/language-toggle.css"]
+  custom_js = []
 
-	# Syntax highlighting theme
-	highlight_css  = "/stylesheets/syntax.css"
+  # Syntax highlighting theme
+  highlight_css = "/stylesheets/syntax.css"
 
-	[params.palette]
-    	primary = "green"
-     	accent  = "green"
+  [params.palette]
+    primary = "green"
+    accent = "green"
 
-    [params.font]
-    	text = "Ubuntu"
-    	code = "Ubuntu Mono"
+  [params.font]
+    text = "Ubuntu"
+    code = "Ubuntu Mono"
 
-    [params.products.sensu_go]
-        identifier = "sensu-go"
-        name = "Sensu Go"
-        description = "The next-generation monitoring event pipeline"
-        weight = 1
-        latest = "5.8"
-        [params.products.sensu_go.versions]
-            "5.0" = []
-            "5.1" = []
-            "5.2" = []
-            "5.3" = []
-            "5.4" = []
-            "5.5" = []
-            "5.6" = []
-            "5.7" = []
-            "5.8" = []
-            "5.9" = []
+  [params.products.sensu_go]
+    identifier = "sensu-go"
+    name = "Sensu Go"
+    description = "The next-generation monitoring event pipeline"
+    weight = 1
+    latest = "5.9"
 
-    [params.products.sensu_core]
-        identifier = "sensu-core"
-        name = "Sensu Core"
-        description = "The original monitoring event pipeline"
-        weight = 2
-        latest = "1.7"
-        [params.products.sensu_core.versions]
-            "1.7" = ["Ubuntu/Debian", "RHEL/CentOS"]
-            "1.6" = ["Ubuntu/Debian", "RHEL/CentOS"]
-            "1.5" = ["Ubuntu/Debian", "RHEL/CentOS"]
-            "1.4" = ["Ubuntu/Debian", "RHEL/CentOS"]
-            "1.3" = ["Ubuntu/Debian", "RHEL/CentOS"]
-            "1.2" = ["Ubuntu/Debian", "RHEL/CentOS"]
-            "1.1" = ["Ubuntu/Debian", "RHEL/CentOS"]
-            "1.0" = ["Ubuntu/Debian", "RHEL/CentOS"]
-            "0.29" = ["Ubuntu/Debian", "RHEL/CentOS"]
+    [[params.products.sensu_go.versions]]
+    version = "5.10"
+    platforms = []
 
-    [params.products.sensu_enterprise]
-        identifier = "sensu-enterprise"
-        name = "Sensu Enterprise"
-        description = "The powerful and simple monitoring product, built on Sensu Core"
-        weight = 3
-        latest = "3.4"
-        [params.products.sensu_enterprise.versions]
-            "3.4" = ["Ubuntu/Debian", "RHEL/CentOS"]
-            "3.3" = ["Ubuntu/Debian", "RHEL/CentOS"]
-            "3.2" = ["Ubuntu/Debian", "RHEL/CentOS"]
-            "3.1" = ["Ubuntu/Debian", "RHEL/CentOS"]
-            "3.0" = ["Ubuntu/Debian", "RHEL/CentOS"]
-            "2.8" = ["Ubuntu/Debian", "RHEL/CentOS"]
-            "2.7" = ["Ubuntu/Debian", "RHEL/CentOS"]
-            "2.6" = ["Ubuntu/Debian", "RHEL/CentOS"]
+    [[params.products.sensu_go.versions]]
+    version = "5.9"
+    platforms = []
 
-    [params.products.sensu_enterprise_dashboard]
-        identifier = "sensu-enterprise-dashboard"
-        name = "Sensu Enterprise Dashboard"
-        description = "The dashboard for Sensu Enterprise, built on Uchiwa"
-        weight = 4
-        latest = "2.15"
-        [params.products.sensu_enterprise_dashboard.versions]
-            "2.15" = ["Ubuntu/Debian", "RHEL/CentOS"]
-            "2.14" = ["Ubuntu/Debian", "RHEL/CentOS"]
-            "2.13" = ["Ubuntu/Debian", "RHEL/CentOS"]
-            "2.12" = ["Ubuntu/Debian", "RHEL/CentOS"]
-            "2.11" = ["Ubuntu/Debian", "RHEL/CentOS"]
-            "2.10" = ["Ubuntu/Debian", "RHEL/CentOS"]
-            "2.9" = ["Ubuntu/Debian", "RHEL/CentOS"]
+    [[params.products.sensu_go.versions]]
+    version = "5.8"
+    platforms = []
 
+    [[params.products.sensu_go.versions]]
+    version = "5.7"
+    platforms = []
 
-    [params.products.uchiwa]
-        identifier = "uchiwa"
-        name = "Uchiwa"
-        description = "An open source dashboard for Sensu Core"
-        weight = 5
-        latest = "1.0"
-        [params.products.uchiwa.versions]
-            "1.0" = []
+    [[params.products.sensu_go.versions]]
+    version = "5.6"
+    platforms = []
 
-    [params.products.plugins]
-        identifier = "plugins"
-        name = "Plugins"
-        description = "Checks, handlers, and other plugins to power your Sensu deployment"
-        weight = 6
-        latest = "1.0"
-        [params.products.plugins.versions]
-            "1.0" = []
+    [[params.products.sensu_go.versions]]
+    version = "5.5"
+    platforms = []
+
+    [[params.products.sensu_go.versions]]
+    version = "5.4"
+    platforms = []
+
+    [[params.products.sensu_go.versions]]
+    version = "5.3"
+    platforms = []
+
+    [[params.products.sensu_go.versions]]
+    version = "5.2"
+    platforms = []
+
+    [[params.products.sensu_go.versions]]
+    version = "5.1"
+    platforms = []
+
+    [[params.products.sensu_go.versions]]
+    version = "5.0"
+    platforms = []
+
+  [params.products.sensu_core]
+    identifier = "sensu-core"
+    name = "Sensu Core"
+    description = "The original monitoring event pipeline"
+    weight = 2
+    latest = "1.7"
+
+    [[params.products.sensu_core.versions]]
+    version = "1.7"
+    platforms = [
+      "Ubuntu/Debian",
+      "RHEL/CentOS"
+    ]
+
+    [[params.products.sensu_core.versions]]
+    version = "1.6"
+    platforms = [
+      "Ubuntu/Debian",
+      "RHEL/CentOS"
+    ]
+
+    [[params.products.sensu_core.versions]]
+    version = "1.5"
+    platforms = [
+      "Ubuntu/Debian",
+      "RHEL/CentOS"
+    ]
+
+    [[params.products.sensu_core.versions]]
+    version = "1.4"
+    platforms = [
+      "Ubuntu/Debian",
+      "RHEL/CentOS"
+    ]
+
+    [[params.products.sensu_core.versions]]
+    version = "1.3"
+    platforms = [
+      "Ubuntu/Debian",
+      "RHEL/CentOS"
+    ]
+
+    [[params.products.sensu_core.versions]]
+    version = "1.2"
+    platforms = [
+      "Ubuntu/Debian",
+      "RHEL/CentOS"
+    ]
+
+    [[params.products.sensu_core.versions]]
+    version = "1.1"
+    platforms = [
+      "Ubuntu/Debian",
+      "RHEL/CentOS"
+    ]
+
+    [[params.products.sensu_core.versions]]
+    version = "1.0"
+    platforms = [
+      "Ubuntu/Debian",
+      "RHEL/CentOS"
+    ]
+
+    [[params.products.sensu_core.versions]]
+    version = "0.29"
+    platforms = [
+      "Ubuntu/Debian",
+      "RHEL/CentOS"
+    ]
+
+  [params.products.sensu_enterprise]
+    identifier = "sensu-enterprise"
+    name = "Sensu Enterprise"
+    description = "The powerful and simple monitoring product, built on Sensu Core"
+    weight = 3
+    latest = "3.5"
+
+    [[params.products.sensu_enterprise.versions]]
+    version = "3.5"
+    platforms = [
+      "Ubuntu/Debian",
+      "RHEL/CentOS"
+    ]
+
+    [[params.products.sensu_enterprise.versions]]
+    version = "3.4"
+    platforms = [
+      "Ubuntu/Debian",
+      "RHEL/CentOS"
+    ]
+
+    [[params.products.sensu_enterprise.versions]]
+    version = "3.3"
+    platforms = [
+      "Ubuntu/Debian",
+      "RHEL/CentOS"
+    ]
+
+    [[params.products.sensu_enterprise.versions]]
+    version = "3.2"
+    platforms = [
+      "Ubuntu/Debian",
+      "RHEL/CentOS"
+    ]
+
+    [[params.products.sensu_enterprise.versions]]
+    version = "3.1"
+    platforms = [
+      "Ubuntu/Debian",
+      "RHEL/CentOS"
+    ]
+
+    [[params.products.sensu_enterprise.versions]]
+    version = "3.0"
+    platforms = [
+      "Ubuntu/Debian",
+      "RHEL/CentOS"
+    ]
+
+    [[params.products.sensu_enterprise.versions]]
+    version = "2.8"
+    platforms = [
+      "Ubuntu/Debian",
+      "RHEL/CentOS"
+    ]
+
+    [[params.products.sensu_enterprise.versions]]
+    version = "2.7"
+    platforms = [
+      "Ubuntu/Debian",
+      "RHEL/CentOS"
+    ]
+
+    [[params.products.sensu_enterprise.versions]]
+    version = "2.6"
+    platforms = [
+      "Ubuntu/Debian",
+      "RHEL/CentOS"
+    ]
+
+  [params.products.sensu_enterprise_dashboard]
+    identifier = "sensu-enterprise-dashboard"
+    name = "Sensu Enterprise Dashboard"
+    description = "The dashboard for Sensu Enterprise, built on Uchiwa"
+    weight = 4
+    latest = "2.16"
+
+    [[params.products.sensu_enterprise_dashboard.versions]]
+    version = "2.16"
+    platforms = [
+      "Ubuntu/Debian",
+      "RHEL/CentOS"
+    ]
+
+    [[params.products.sensu_enterprise_dashboard.versions]]
+    version = "2.15"
+    platforms = [
+      "Ubuntu/Debian",
+      "RHEL/CentOS"
+    ]
+
+    [[params.products.sensu_enterprise_dashboard.versions]]
+    version = "2.14"
+    platforms = [
+      "Ubuntu/Debian",
+      "RHEL/CentOS"
+    ]
+
+    [[params.products.sensu_enterprise_dashboard.versions]]
+    version = "2.13"
+    platforms = [
+      "Ubuntu/Debian",
+      "RHEL/CentOS"
+    ]
+
+    [[params.products.sensu_enterprise_dashboard.versions]]
+    version = "2.12"
+    platforms = [
+      "Ubuntu/Debian",
+      "RHEL/CentOS"
+    ]
+
+    [[params.products.sensu_enterprise_dashboard.versions]]
+    version = "2.11"
+    platforms = [
+      "Ubuntu/Debian",
+      "RHEL/CentOS"
+    ]
+
+    [[params.products.sensu_enterprise_dashboard.versions]]
+    version = "2.10"
+    platforms = [
+      "Ubuntu/Debian",
+      "RHEL/CentOS"
+    ]
+
+    [[params.products.sensu_enterprise_dashboard.versions]]
+    version = "2.9"
+    platforms = [
+      "Ubuntu/Debian",
+      "RHEL/CentOS"
+    ]
+
+  [params.products.uchiwa]
+    identifier = "uchiwa"
+    name = "Uchiwa"
+    description = "An open source dashboard for Sensu Core"
+    weight = 5
+    latest = "1.0"
+
+    [[params.products.uchiwa.versions]]
+    version = "1.0"
+    platforms = []
+
+  [params.products.plugins]
+    identifier = "plugins"
+    name = "Plugins"
+    description = "Checks, handlers, and other plugins to power your Sensu deployment"
+    weight = 6
+    latest = "1.0"
+
+    [[params.products.plugins.versions]]
+    version = "1.0"
+    platforms = []
 
 [social]
-	twitter = "sensu"
-	github  = "sensu"
-	email   = ""
+  twitter = "sensu"
+  github = "sensu"
+  email = ""
 
 [blackfriday]
   extensions = ["laxHtmlBlocks"]
-  smartypants	= true
-	fractions = true
-	smartDashes = true
-	plainIDAnchors = true
+  smartypants = true
+  fractions = true
+  smartDashes = true
+  plainIDAnchors = true

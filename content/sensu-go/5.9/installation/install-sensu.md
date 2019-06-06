@@ -151,16 +151,16 @@ sudo yum install sensu-go-agent
 
 #### Windows {#windows-agent}
 
-Download the Sensu agent for Windows [`amd64`](https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.9.0/sensu-go-agent_5.9.0.2735_en-US.x64.msi) or [`386`](https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.9.0/sensu-go-agent_5.9.0_2380_en-US.x86.msi) architectures.
+Download the Sensu agent for Windows [`amd64`](https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.9.0/sensu-go-agent_5.9.0.3043_en-US.x64.msi) or [`386`](https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.9.0/sensu-go-agent_5.9.0_2380_en-US.x86.msi) architectures.
 
 {{< highlight text >}}
-Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.9.0/sensu-go-agent_5.9.0.2735_en-US.x64.msi  -OutFile "$env:userprofile\sensu-go-agent_5.9.0.2735_en-US.x64.msi"
+Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.9.0/sensu-go-agent_5.9.0.3043_en-US.x64.msi  -OutFile "$env:userprofile\sensu-go-agent_5.9.0.3043_en-US.x64.msi"
 {{< /highlight >}}
 
 Start the installation wizard.
 
 {{< highlight text >}}
-msiexec.exe /i $env:userprofile\sensu-go-agent_5.9.0.2735_en-US.x64.msi
+msiexec.exe /i $env:userprofile\sensu-go-agent_5.9.0.3043_en-US.x64.msi
 {{< /highlight >}}
 
 {{< platformBlockClose >}}
@@ -387,12 +387,12 @@ sensuctl config set-namespace default
 
 See the [sensuctl reference][4] for more information about using sensuctl.
 
-### 3. Activate enterprise-only features
+### 3. Activate licensed-tier features
 
-Sensu Inc. offers support packages for Sensu Go as well as license-activated features designed for enterprises.
-To learn more about enterprise features in Sensu Go, [contact the Sensu sales team](https://sensu.io/sales).
+Sensu Inc. offers support packages for Sensu Go as well as license-activated features designed for monitoring at scale.
+To learn more about license-activated features in Sensu Go, [contact the Sensu sales team](https://sensu.io/sales).
 
-If you already have an enterprise license, [log in to your Sensu account](https://account.sensu.io/) and download your license file, then activate your license using sensuctl.
+If you already have a Sensu license, [log in to your Sensu account](https://account.sensu.io/) and download your license file, then activate your license using sensuctl.
 
 {{< highlight shell >}}
 sensuctl create --file sensu_license.json
@@ -404,7 +404,7 @@ You can use sensuctl to view your license details at any time.
 sensuctl license info
 {{< /highlight >}}
 
-For more information about enterprise features in Sensu Go, see the [getting started guide](../../getting-started/enterprise).
+For more information about license-activated features in Sensu Go, see the [getting started guide](../../getting-started/enterprise).
 
 ### Next steps
 

@@ -8,13 +8,13 @@ product: "Sensu Go"
 layout: "single"
 ---
 
-<iframe src="https://ghbtns.com/github-btn.html?user=sensu&repo=sensu-go&type=star&count=true" frameborder="0" scrolling="0" width="87px" height="20px"></iframe> | [Learn about enterprise features][28]
+<iframe src="https://ghbtns.com/github-btn.html?user=sensu&repo=sensu-go&type=star&count=true" frameborder="0" scrolling="0" width="87px" height="20px"></iframe> | [Learn about licensing][28]
 
 Sensu is the industry leading solution for multi-cloud monitoring at scale. The Sensu monitoring event pipeline empowers businesses to automate their monitoring workflows and gain deep visibility into their multi-cloud environments. Founded in 2017, Sensu offers a comprehensive monitoring solution for enterprises, providing complete visibility across every system, every protocol, every time — from Kubernetes to bare metal.
 **Get started now and feel the #monitoringlove:** [Learn Sensu Go][1].
 
 Sensu Go is the latest version of Sensu, designed to be more portable, easier and faster to deploy, and (even more) friendly to containerized and ephemeral environments.
-Learn about [support packages](https://sensu.io/support) and [license-activated features designed for enterprises][28].
+Learn about [support packages](https://sensu.io/support) and [license-activated features designed for monitoring at scale][28].
 
 **Automate your monitoring workflows**: Limitless pipelines let you validate and correlate events, [mutate data formats][20], [send alerts][21], manage incidents, [collect and store metrics][22], and more.
 
@@ -63,7 +63,7 @@ The [Sensu API][23] and the [`sensuctl` command-line tool][26] allow you (and yo
 
 Sensu Go's core is open source software, freely available under a
 permissive [MIT License][12] and publicly available on [GitHub][13].
-Learn about [support packages](https://sensu.io/support) and [license-activated features designed for enterprises][28].
+Learn about [support packages](https://sensu.io/support) and [license-activated features designed for monitoring at scale][28].
 
 [1]: getting-started/get-started
 [2]: http://slack.sensu.io/
