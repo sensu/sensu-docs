@@ -55,7 +55,7 @@ metadata:
   namespace: default
 spec:
   check:
-    "...": "..."
+    ...
     hooks:
     - command: df -hT / | grep '/'
       duration: 0.002904412
