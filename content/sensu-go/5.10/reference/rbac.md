@@ -125,6 +125,8 @@ spec:
 
 See the [reference docs][16] for the corresponding [resource type][17] to create resource definitions.
 
+_PRO TIP: By omitting the `namespace` attribute from resource definitions, you can use the `senusctl create --namespace` flag to specify the namespace for a group of resources at the time of creation, allowing you to replicate resources across namespaces without manual editing. See the [sensuctl reference][36] for more information._
+
 ### Namespace specification
 
 #### Attributes
@@ -1171,3 +1173,4 @@ You can add these resources to Sensu using [`sensuctl create`][31].
 [33]: ../../getting-started/enterprise
 [34]: ../../installation/auth
 [35]: #cluster-role-bindings
+[36]: ../../sensuctl/reference#creating-resources-across-namespaces
