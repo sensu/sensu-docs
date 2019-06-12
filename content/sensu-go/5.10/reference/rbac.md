@@ -273,7 +273,7 @@ An empty response indicates valid credentials; a request-unauthorized response i
 To change the password for a user:
 
 {{< highlight shell >}}
-sensuctl user change-password USERNAME
+sensuctl user change-password USERNAME --current-password CURRENT_PASSWORD --new-password NEW_PASSWORD
 {{< /highlight >}}
 
 To disable a user:
