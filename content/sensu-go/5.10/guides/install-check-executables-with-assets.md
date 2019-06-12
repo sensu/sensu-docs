@@ -45,6 +45,13 @@ spec:
   - entity.system.arch == 'amd64'
 {{< /highlight >}}
 
+After downloading an asset definition, open the file and adjust the `namespace` and `filters` for your Sensu instance.
+Filters for _check_ assets should match entity environments, while filters for _handler and filter_ assets should match your Sensu backend environment.
+If the provided filters are too restrictive for your environment, replace `os` and `arch` with any supported [entity system attributes][4] (for example: `entity.system.platform_family == 'rhel'`).
+
+Asset filters let you reuse checks across platforms safely, giving you the ability to assign subscriptions by role instead of by platform. When using this pattern, you may want to customize the asset `name` to reflect the supported platform (for example: `sensu-pagerduty-handler-linux`).
+You can also add custom attributes using [`labels` and `annotations`][5].
+
 **Enterprise-tier assets** (like the [ServiceNow](https://bonsai.sensu.io/assets/sensu/sensu-servicenow-handler) and [Jira](https://bonsai.sensu.io/assets/sensu/sensu-jira-handler) event handlers) require a Sensu license. For more information about licensed-tier features and to activate your license, see the [getting started guide](../../getting-started/enterprise).
 
 ### 2. Register the asset with Sensu
@@ -132,6 +139,8 @@ To get started with checks, see the [guide to monitoring server resources](../mo
 [1]: ../../reference/assets/
 [2]: #creating-an-asset
 [3]: https://bonsai.sensu.io
+[4]: ../../reference/entities/#system-attributes
+[5]: ../../reference/assets/#metadata-attributes
 [6]: ../checks
 [7]: ../filters
 [8]: ../mutators
