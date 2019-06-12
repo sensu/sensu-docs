@@ -5,7 +5,6 @@ description: "Sensu plugins provide executables for performing status or metric 
 weight: 2
 version: "5.8"
 product: "Sensu Go"
-toc: yep
 menu:
   sensu-go-5.8:
     parent: installation
