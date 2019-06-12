@@ -237,7 +237,50 @@ cat my-resources.json | sensuctl create
 `HookConfig` | `hook_config` | `Mutator` | `mutator`
 `Namespace` | `namespace` | `Role` | `role`
 `RoleBinding` | `role_binding` | `Silenced` | `silenced`
-[`ldap`][26] | [`ad`][26] | [`TessenConfig`][27] | [`PostgresConfig`][31]
+[`ldap`][26] | [`ad`][26] | [`TessenConfig`][27] | [`PostgresConfig`][32]
+
+### Creating resources across namespaces
+
+By omitting the `namespace` attribute from resource definitions, you can use the `senusctl create --namespace` flag to specify the namespace for a group of resources at the time of creation, allowing you to replicate resources across namespaces without manual editing.
+To learn more about namespaces and namespaced resource types, see the [RBAC reference][21].
+
+The `sensuctl create` command applies namespaces to resources in the following order, from highest precedence to lowest:
+
+1. **Namespaces specified within resource definitions**: You can specify a resource's namespace within individual resource definitions using the `namespace` attribute. Namespaces specified in resource definitions take precedence over all other methods.
+2. **`--namespace` flag**: If resource definitions do not specify a namespace, Sensu applies the namespace provided by the `sensuctl create --namespace` flag.
+3. **Current sensuctl namespace configuration**: If neither an embedded `namespace` attribute nor the `--namespace` flag is specified, Sensu applies the namespace configured in the current sensuctl session. See [managing sensuctl][31] to view your current session config and set the session namespace.
+
+For example, the following file, `pagerduty.yml`, defines a handler _without_ a `namespace` attribute.
+
+{{< highlight shell >}}
+type: Handler
+api_version: core/v2
+metadata:
+  name: pagerduty
+spec:
+  command: sensu-pagerduty-handler
+  env_vars:
+  - PAGERDUTY_TOKEN=SECRET
+  type: pipe
+{{< /highlight >}}
+
+To create the `pagerduty` handler in the `default` namespace:
+
+{{< highlight shell >}}
+sensuctl create --file pagerduty.yml --namespace default
+{{< /highlight >}}
+
+To create the `pagerduty` handler in the `production` namespace:
+
+{{< highlight shell >}}
+sensuctl create --file pagerduty.yml --namespace production
+{{< /highlight >}}
+
+To create the `pagerduty` handler in the current session namespace:
+
+{{< highlight shell >}}
+sensuctl create --file pagerduty.yml
+{{< /highlight >}}
 
 ## Updating resources
 
@@ -576,4 +619,5 @@ These are useful if you want to know what cluster you're connecting to, or what 
 [28]: ../../api/overview#filtering
 [29]: ../../api/overview#field-selector
 [30]: ../../getting-started/enterprise
-[31]: ../../reference/datastore
+[31]: #managing-sensuctl
+[32]: ../../reference/datastore
