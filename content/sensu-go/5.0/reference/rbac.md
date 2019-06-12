@@ -261,7 +261,7 @@ To assign permissions to a user:
 To change the password for a user:
 
 {{< highlight shell >}}
-sensuctl user change-password USERNAME
+sensuctl user change-password USERNAME --current-password CURRENT_PASSWORD --new-password NEW_PASSWORD
 {{< /highlight >}}
 
 To disable a user:
