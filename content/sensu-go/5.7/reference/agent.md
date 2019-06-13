@@ -7,7 +7,6 @@ version: "5.7"
 product: "Sensu Go"
 platformContent: true
 platforms: ["Linux", "Windows"]
-toc: yep
 menu:
   sensu-go-5.7:
     parent: reference

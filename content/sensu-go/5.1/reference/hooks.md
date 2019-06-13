@@ -42,6 +42,34 @@ See the [check specification][6] to configure the `check_hooks` attribute.
 The hook command output, status, executed timestamp and duration are captured
 and published in the resulting event.
 
+You can use `sensuctl` to view this data:
+
+{{< highlight shell >}}
+sensuctl event info entity_name check_name --format yaml
+{{< /highlight >}}
+
+{{< highlight shell >}}
+type: Event
+api_version: core/v2
+metadata:
+  namespace: default
+spec:
+  check:
+    ...
+    hooks:
+    - command: df -hT / | grep '/'
+      duration: 0.002904412
+      executed: 1559948435
+      issued: 0
+      metadata:
+        name: root_disk
+        namespace: default
+      output: "/dev/mapper/centos-root xfs    41G  1.6G   40G   4% /\n"
+      status: 0
+      stdin: false
+      timeout: 60
+{{< /highlight >}}
+
 ## Hooks specification
 
 ### Top-level attributes
