@@ -9,6 +9,12 @@ var CONTENT_PATH_PREFIX = "content/";
 // define the grunt function for cli
 module.exports = function(grunt) {
   grunt.initConfig({
+    concurrent: {
+      options: {
+        logConcurrentOutput: true,
+      },
+      target: ['hugo-server', 'watch'],
+    },
     env : {
       options : {
         add : {
@@ -17,9 +23,10 @@ module.exports = function(grunt) {
       },
       dev : {}
     },
+    pkg: grunt.file.readJSON('package.json'),
     postcss: {
       dist: {
-        src: 'static/stylesheets/*.css',
+        src: 'static/stylesheets/application.css',
       },
       options: {
         map: false,
@@ -30,19 +37,36 @@ module.exports = function(grunt) {
       },
     },
     sass:  {
+      develop: {
+        files: {
+          'static/stylesheets/application.css': 'static/stylesheets/application.scss',
+        },
+        options: {
+          implementation: sass,
+          sourceMap: true,
+        }
+      },
       dist: {
         files: {
           'static/stylesheets/application.css': 'static/stylesheets/application.scss',
-        }
+        },
+        options: {
+          implementation: sass,
+          sourceMap: false,
+          style: 'compressed',
+        },
       },
-      options: {
-        implementation: sass,
-        sourceMap: true,
-        style: 'compressed',
+    },
+    watch: {
+      css: {
+        files: ['static/stylesheets/*.scss'],
+        tasks: ['sass', 'postcss'],
       },
     },
   })
 
+  grunt.loadNpmTasks('grunt-concurrent');
+  grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-env');
   grunt.loadNpmTasks('grunt-sass');
   grunt.loadNpmTasks('grunt-postcss');
@@ -66,7 +90,7 @@ module.exports = function(grunt) {
 
   grunt.registerTask("hugo-server", function() {
     const done = this.async();
-    const args = process.argv.slice(3); // fetch given arguments
+    const args = process.argv.slice(3).filter(a => a !== '--color'); // fetch given arguments
 
     grunt.log.writeln("Running Hugo server");
     grunt.util.spawn({
@@ -192,7 +216,7 @@ module.exports = function(grunt) {
     grunt.log.ok("Lunr index built");
   });
 
-  grunt.registerTask("default", ["env", "lunr-index", "hugo-version", "sass", "postcss", "hugo-build",]);
-  grunt.registerTask("server", ["env", "lunr-index", "hugo-version", "sass", "postcss", "hugo-server",]);
+  grunt.registerTask("default", ["env", "lunr-index", "hugo-version", "sass:dist", "postcss", "hugo-build",]);
+  grunt.registerTask("server", ["env", "lunr-index", "hugo-version", "sass:develop", "postcss", "concurrent:target"]);
   grunt.registerTask("hugo-version", ["env", "print-hugo-version",]);
 };
