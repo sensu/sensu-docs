@@ -3,19 +3,19 @@ title: "Sensu live demo"
 linkTitle: "Live Demo"
 description: "Explore the Sensu dashboard and sensuctl command line tool with a live demo that monitors the Sensu docs site. See entities, monitoring events, and active service and metric checks."
 version: "5.5"
-weight: 1
+weight: 2
 product: "Sensu Go"
 menu:
   sensu-go-5.5:
     parent: getting-started
 ---
 
-[See a live demo of the Sensu dashboard](http://caviar.tf.sensu.io:3000) (log in with username `guest` and password `i<3sensu`).
+<a href="http://caviar.tf.sensu.io:3000" onclick="ga('send', 'event', 'Demo', 'Click', 'Main demo link');">See a live demo of the Sensu dashboard</a> (log in with username `guest` and password `i<3sensu`).
 
-Explore the [entities page][1] to see what Sensu is monitoring, the [events page][2] to see the latest monitoring events, and the [checks page][3] to see active service and metric checks.
+Explore the <a href="http://caviar.tf.sensu.io:3000/default/entities" onclick="ga('send', 'event', 'Demo', 'Click', 'Entities page');">entities page</a> to see what Sensu is monitoring, the <a href="http://caviar.tf.sensu.io:3000/default/events" onclick="ga('send', 'event', 'Demo', 'Click', 'Events page');">events page</a> to see the latest monitoring events, and the <a href="http://caviar.tf.sensu.io:3000/default/checks" onclick="ga('send', 'event', 'Demo', 'Click', 'Checks page');">checks page</a> to see active service and metric checks.
 
 You can also use the demo to try out sensuctl, the Sensu command line tool.
-First, [install sensuctl][4] on your workstation, then configure sensuctl to connect to the demo.
+First, [install sensuctl][1] on your workstation, then configure sensuctl to connect to the demo.
 
 {{< highlight shell >}}
 sensuctl configure
@@ -32,14 +32,11 @@ You should now be able to see the latest monitoring events.
 sensuctl event list
 {{< /highlight >}}
 
-See the [sensuctl quickstart][5] to get started using sensuctl.
+See the [sensuctl quickstart][2] to get started using sensuctl.
 
 ### About the demo
 
-The Caviar project shown in the demo monitors the Sensu docs site using a Sensu cluster of three backends and one agent.
+The Caviar project shown in the demo monitors the Sensu docs site using a licensed Sensu cluster of three backends.
 
-[1]: http://caviar.tf.sensu.io:3000/default/entities
-[2]: http://caviar.tf.sensu.io:3000/default/events
-[3]: http://caviar.tf.sensu.io:3000/default/checks
-[4]: ../../installation/install-sensu#install-sensuctl
-[5]: ../../sensuctl/quickstart
+[1]: ../../installation/install-sensu#install-sensuctl
+[2]: ../../sensuctl/quickstart
