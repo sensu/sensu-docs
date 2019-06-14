@@ -229,7 +229,7 @@ cat my-resources.json | sensuctl create
 
 The following file `my-resources.yml` specifies two resources: a `marketing-site` check and a `slack` handler, separated with three dashes (`---`).
 
-{{< highlight shell >}}
+{{< highlight yml >}}
 ---
 type: CheckConfig
 api_version: core/v2
