@@ -19,7 +19,7 @@ menu:
 
 Sensu stores the most recent event for each entity and check pair using an embedded etcd (default) or an [external etcd][8] instance.
 You can access event data using the [dashboard][9] events page, [`sensuctl event` commands][10], and the [events API][11].
-To store event data over time, we recommend integrating Sensu with a time series database, like [InfluxDB][12].
+For longer retention of event data, we recommend integrating Sensu with a time series database, like [InfluxDB][12], or a searchable index, like ElasticSearch or Splunk.
 
 ## Scaling event storage
 
@@ -28,7 +28,7 @@ To store event data over time, we recommend integrating Sensu with a time series
 Sensu supports using an external PostgreSQL instance for event storage in place of etcd.
 PostgreSQL can handle significantly higher volumes of Sensu events, letting you scale Sensu beyond etcd's 8GB limit.
 
-Configured with a PostgreSQL event store, Sensu connects to PostgreSQL to store and retrieve event data in place of etcd, while etcd continues to store Sensu configuration data.
+Configured with a PostgreSQL event store, Sensu connects to PostgreSQL to store and retrieve event data in place of etcd, while etcd continues to store Sensu entity and configuration data.
 You can access event data stored in PostgreSQL using the same Sensu web UI, API, and sensuctl processes as etcd-stored events.
 
 ### Requirements
