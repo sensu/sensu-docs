@@ -33,7 +33,7 @@ You can access event data stored in PostgreSQL using the same Sensu web UI, API,
 
 ### Requirements
 
-Sensu supports PostgreSQL 9.5 and later as well as [Amazon Relational Database Service][3] (Amazon RDS).
+Sensu supports PostgreSQL 9.5 and later, including [Amazon Relational Database Service][3] (Amazon RDS) when configured with the PostgreSQL engine.
 See the [PostgreSQL docs][14] to install and configure PostgreSQL.
 
 ### Configuration
