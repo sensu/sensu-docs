@@ -498,7 +498,7 @@ etcd-listen-peer-urls:
 -----------------------|------
 description            | Initial cluster configuration for bootstrapping
 type                   | String
-default                | `http://127.0.0.1:2380`
+default                | `default=http://127.0.0.1:2380`
 example                | {{< highlight shell >}}# Command line example
 sensu-backend start --etcd-initial-cluster backend-0=https://10.0.0.1:2380,backend-1=https://10.1.0.1:2380,backend-2=https://10.2.0.1:2380
 
