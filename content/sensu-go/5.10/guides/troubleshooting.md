@@ -114,13 +114,6 @@ or the sensu-agent:
 sudo chown -R sensu:sensu /var/cache/sensu/sensu-agent
 {{< /highlight >}}
 
-## Performance issues
-
-If you're experiencing performance issues, check the [backend logs][3] for server warnings from etcd.
-The presence of these warnings may indicate that Sensu is exceeding etcd's 8GB capacity.
-Sensu supports license-activated features to help scale your Sensu instance and handle high volumes of events, including using an external PostgreSQL instance for event storage in place of etcd.
-See the [datastore reference][4] for more information.
-
 [structured]: https://dzone.com/articles/what-is-structured-logging
 [journalctl]: https://www.digitalocean.com/community/tutorials/how-to-use-journalctl-to-view-and-manipulate-systemd-logs
 [platforms]: ../../installation/platforms
@@ -129,5 +122,3 @@ See the [datastore reference][4] for more information.
 [journald-syslog]: ../systemd-logs
 [1]: ../../reference/agent#operation
 [2]: ../../installation/verify
-[3]: #service-logging
-[4]: ../../reference/datastore
