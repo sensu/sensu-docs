@@ -1,5 +1,3 @@
-const autoprefixer = require('autoprefixer');
-const cssnano = require('cssnano');
 const sass = require('node-sass');
 var yaml = require("js-yaml");
 var S = require("string");
@@ -26,20 +24,20 @@ module.exports = function(grunt) {
     pkg: grunt.file.readJSON('package.json'),
     postcss: {
       dist: {
-        src: 'static/stylesheets/application.css',
+        src: 'static/stylesheets/sensu.css',
       },
       options: {
         map: false,
         processors: [
-          autoprefixer,
-          cssnano,
+          require('autoprefixer')(),
+          require('cssnano')(),
         ],
       },
     },
     sass:  {
       develop: {
         files: {
-          'static/stylesheets/application.css': 'static/stylesheets/application.scss',
+          'static/stylesheets/sensu.css': 'static/stylesheets/scss/main.scss',
         },
         options: {
           implementation: sass,
@@ -59,8 +57,8 @@ module.exports = function(grunt) {
     },
     watch: {
       css: {
-        files: ['static/stylesheets/*.scss'],
-        tasks: ['sass', 'postcss'],
+        files: ['static/stylesheets/**/*.scss'],
+        tasks: ['sass:develop', 'postcss'],
       },
     },
   })
