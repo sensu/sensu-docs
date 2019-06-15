@@ -51,19 +51,13 @@
       }
     </style>
 
-    <link rel="stylesheet" href="{{ "/stylesheets/application.css" | absURL }}">
-    <link rel="stylesheet" href="{{ "/stylesheets/temporary.css" | absURL }}">
-    <link rel="stylesheet" href="{{ "/stylesheets/palettes.css" | absURL }}">
-    <link rel="stylesheet" href="{{ with .Site.Params.highlight_css }}{{ . | absURL }}{{ else }}{{ "/stylesheets/highlight/highlight.css" | absURL }}{{ end }}">
-    <link rel="stylesheet" href="{{ "/stylesheets/override.css" | absURL }}">
-    {{ if .IsHome }}
-        <link rel="stylesheet" href="{{ "/stylesheets/homepage.css" | absURL }}">
-    {{ end }}
-    <link rel="stylesheet" href="{{ "/stylesheets/docs-overrides.css" | absURL }}">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Work+Sans:300,400,500,600&display=swap" rel="stylesheet">
     {{ range .Site.Params.custom_css }}
-    <link rel="stylesheet" href="{{ . | absURL }}">
+      <link rel="stylesheet" href="{{ . | absURL }}">
     {{ end }}
+    <link rel="stylesheet" href="{{ "/stylesheets/application.css" | absURL }}">
+    <link rel="stylesheet" href="{{ "/stylesheets/sensu.css" | absURL }}">
     <script src="{{ "/javascripts/modernizr.js" | absURL }}"></script>
     <script
       src="https://code.jquery.com/jquery-3.4.1.min.js"
