@@ -11,6 +11,11 @@ menu:
     parent: guides
 ---
 
+- [Service logging](#service-logging)
+	- [Log levels](#log-levels)
+	- [Log file locations](#log-file-locations)
+- [Permission issues](#permission-issues)
+
 ## Service logging
 
 Logs produced by Sensu services -- i.e. sensu-backend and sensu-agent -- are
@@ -91,9 +96,7 @@ Get-Content -  Path "C:\scripts\test.txt" -Wait
 
 {{< platformBlockClose >}}
 
-### Log messages
-
-#### Permission issues
+## Permission issues
 
 Files and folders within `/var/cache/sensu/` and `/var/lib/sensu/` need to be owned by the sensu user and group. You will see a logged error similar to the following if there is a permission issue with either the sensu-backend or the sensu-agent:
 
