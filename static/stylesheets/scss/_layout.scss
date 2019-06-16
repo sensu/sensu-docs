@@ -1,0 +1,8 @@
+main {
+  padding-top: $header-height-sm;
+
+  @media (min-width: $breakpoint-lg) {
+    padding-top: $header-height-lg;
+  }
+}
+

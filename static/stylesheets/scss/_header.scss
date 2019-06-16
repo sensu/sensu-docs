@@ -5,6 +5,9 @@
 header {
   background: white;
   box-shadow: 0 1.5px 3px rgba(0,0,0,.24),0 3px 8px rgba(0,0,0,.05);
+  position: fixed;
+  width: 100%;
+  z-index: 2;
 
   .algolia-search {
     border-bottom: none;
@@ -14,7 +17,7 @@ header {
     padding: 0 12px 0 44px;
   }
 
-  &#home .algolia-autocomplete {
+  #home & .algolia-autocomplete {
     display: flex !important;
   }
 
@@ -27,18 +30,18 @@ header {
     padding: 0 16px 0 0;
   }
 
-  &#home .logo {
+  #home & .logo {
     padding-left: 16px;
   }
 
   nav {
     align-items: center;
     display: flex;
-    height: 50px;
+    height: $header-height-sm;
     justify-content: space-between;
 
-    @media (min-width: 960px) {
-      height: 64px;
+    @media (min-width: $breakpoint-lg) {
+      height: $header-height-lg;
     }
   }
 }

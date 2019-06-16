@@ -8,7 +8,7 @@
   <head {{ with .Site.LanguageCode }}lang="{{ . }}"{{ end }}>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1">
-    <meta http-equiv="X-UA-Compatible" content="IE=10" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <title>{{ .Title }}{{ if not .IsHome }} - {{ .Site.Title }}{{ end }}</title>
     {{ .Hugo.Generator }}
 
@@ -68,7 +68,7 @@
 	<script src="//rum-static.pingdom.net/pa-5bacf02ccea07b00160001cc.js" async></script>
 
   <!-- Local fallback for assets in case of cdn failure -->
-	<script type="text/javascript">
+	<script>
     function css(element, property) {
       return window.getComputedStyle(element, null).getPropertyValue(property);
     }
@@ -80,11 +80,9 @@
       document.body.insertBefore(span, document.body.firstChild);
 
       var faScript = document.createElement('script');
-      faScript.type = 'text/javascript'
       faScript.src = encodeURI('{{ "/js/vendor/fontawesome-all.min.js" | absURL }}')
 
       var jQueryScript = document.createElement('script');
-      jQueryScript.type = 'text/javascript';
       jQueryScript.src = encodeURI('{{ "/js/vendor/jquery-3.4.1.min.js" | absURL }}')
       var head = document.getElementsByTagName('head')[0];
       
@@ -98,8 +96,8 @@
       document.body.removeChild(span);
     };
   </script>
-  <script type="text/javascript" src="{{ "/js/js-cookie.js" | absURL }}"></script>
-  <script type="text/javascript" src="{{ "/js/platformDropdowns.js" | absURL }}"></script>
+  <script src="{{ "/js/js-cookie.js" | absURL }}"></script>
+  <script src="{{ "/js/platformDropdowns.js" | absURL }}"></script>
   <!-- Global site tag (gtag.js) - Google Ads: 804504629 -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=AW-804504629"></script>
   <script>

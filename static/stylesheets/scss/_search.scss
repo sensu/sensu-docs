@@ -59,7 +59,7 @@
     background-color: #f7f7f7;
   }
 
-  @media (min-width: 960px) {
+  @media (min-width: $breakpoint-lg) {
     width: 375px;
   }
 }
