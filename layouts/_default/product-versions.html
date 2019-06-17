@@ -5,10 +5,6 @@
   {{ .Scratch.Set "repo_id" $repo_id }}
 {{ end }}
 
-<div class="backdrop">
-  <div class="backdrop-paper"></div>
-</div>
-
 <input class="toggle" type="checkbox" id="toggle-drawer">
 <input class="toggle" type="checkbox" id="toggle-search">
 <label class="toggle-button overlay" for="toggle-drawer"></label>
@@ -17,7 +13,7 @@
   {{ partial "header" . }}
 </header>
 
-<main>
+<main class="main">
   <div class="drawer">
     {{ partial "drawer" . }}
   </div>

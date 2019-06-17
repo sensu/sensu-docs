@@ -346,14 +346,6 @@ a .project {
   left: -20px!important;
 }
 
-#home .algolia-search {
-  border-bottom: none;
-  border-radius: 0;
-  border-right: none;
-  border-top: none;
-  padding: 0 12px 0 44px;
-}
-
 #navbar .algolia-autocomplete.algolia-autocomplete-right .ds-dropdown-menu {
   left: auto !important;
   right: 50px !important;

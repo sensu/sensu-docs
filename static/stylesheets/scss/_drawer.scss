@@ -1,3 +1,14 @@
 #home .drawer {
   display: none;
 }
+
+.drawer {
+  .algolia-autocomplete,
+  .product-picker {
+    display: flex;
+
+    @media (min-width: $breakpoint-lg) {
+      display: none !important;
+    }
+  }
+}

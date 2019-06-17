@@ -9,6 +9,18 @@ header {
   width: 100%;
   z-index: 2;
 
+  .algolia-autocomplete {
+    display: none !important;
+
+    @media (min-width: $breakpoint-lg) {
+      display: flex !important;
+    }
+  }
+
+  #home & .algolia-autocomplete {
+    display: flex !important;
+  }
+
   .algolia-search {
     border-bottom: none;
     border-radius: 0;
@@ -17,17 +29,30 @@ header {
     padding: 0 12px 0 44px;
   }
 
-  #home & .algolia-autocomplete {
-    display: flex !important;
+  .product-picker {
+    display: none;
+
+    @media (min-width: $breakpoint-lg) {
+      display: block;
+    }
   }
 
   .logo {
     color: #2C3458;
     display: block;
-    // flex: 1;
+    flex: 1;
     font: 600 24px/1.16 'Work Sans';
     min-width: 172px;
-    padding: 0 16px;
+    padding: 0 16px 0 0;
+
+    @media (min-width: $breakpoint-lg) {
+      flex: none;
+      padding-left: 16px;
+    }
+  }
+
+  #home & .logo {
+    padding-left: 16px;
   }
 
   nav {
@@ -39,5 +64,21 @@ header {
     @media (min-width: $breakpoint-lg) {
       height: $header-height-lg;
     }
+  }
+}
+
+.button-menu {
+  display: block;
+  width: auto;
+
+  @media (min-width: $breakpoint-lg) {
+    display: none;
+  }
+
+  .icon {
+    color: $blue-dark;
+    font-size: 2.5rem;
+    margin: 0;
+    padding: 7px 10px;
   }
 }
