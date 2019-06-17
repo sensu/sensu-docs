@@ -56,7 +56,6 @@
     {{ range .Site.Params.custom_css }}
       <link rel="stylesheet" href="{{ . | absURL }}">
     {{ end }}
-    <link rel="stylesheet" href="{{ "/stylesheets/application.css" | absURL }}">
     <link rel="stylesheet" href="{{ "/stylesheets/sensu.css" | absURL }}">
     <script src="{{ "/javascripts/modernizr.js" | absURL }}"></script>
     <script
