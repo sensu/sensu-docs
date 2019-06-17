@@ -24,14 +24,10 @@ header {
   .logo {
     color: #2C3458;
     display: block;
-    flex: 1;
+    // flex: 1;
     font: 600 24px/1.16 'Work Sans';
     min-width: 172px;
-    padding: 0 16px 0 0;
-  }
-
-  #home & .logo {
-    padding-left: 16px;
+    padding: 0 16px;
   }
 
   nav {

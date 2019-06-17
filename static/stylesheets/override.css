@@ -223,90 +223,6 @@ h6 {
   font-weight: bold;
 }
 
-#home #logo {
-  padding-left: 16px;
-}
-
-#navbar {
-  -webkit-box-align: center;
-     -ms-flex-align: center;
-        align-items: center;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: justify;
-     -ms-flex-pack: justify;
-   justify-content: space-between;
-  height: 100%;
-  max-width: none;
-  position: relative;
-}
-
-#product-picker {
-  -webkit-box-flex: 1;
-          -ms-flex: 1;
-              flex: 1;
-}
-
-#product-picker a {
-  color: rgb(90, 90, 90);
-  display: block;
-  font: 400 14px/1.4 'Work Sans';
-  padding: 10px;
-}
-
-#product-picker .dropdown {
-  display: block;
-  margin: 8px 0;
-  position: relative;
-  z-index: 1;
-}
-
-#product-picker .dropdown--products {
-  z-index: 2;
-}
-
-#product-picker .dropdown > a {
-  background-color: white;
-  border: 1px solid #2C3458;
-  border-radius: 2px;
-  color: #2C3458;
-  font-weight: 500;
-}
-
-#product-picker .options {
-  background-color: #e7e7e7;
-  border: 1px solid #2C3458;
-  border-bottom-left-radius: 2px;
-  border-bottom-right-radius: 2px;
-  border-top: none;
-  display: none;
-  position: absolute;
-  width: 100%;
-}
-
-#product-picker .options a:hover {
-  background-color: #dbdbdb;
-}
-
-#product-picker .open > a {
-  border-bottom: none;
-  border-bottom-left-radius: 0;
-  border-bottom-right-radius: 0;
-}
-
-#product-picker .open .options {
-  display: block;
-}
-
-.header {
-  -webkit-transform: translate3d(0, 0, 0);
-  -webkit-backface-visibility: hidden;
-  -webkit-perspective: 1000;
-  overflow: visible;
-  padding: 0;
-}
-
 a .project {
   text-align: center;
 }
@@ -404,23 +320,6 @@ a .project {
 
   .drawer #product-picker {
     display: none;
-  }
-
-  #product-picker {
-    display: block;
-  }
-
-  #product-picker .dropdown {
-    display: inline-block;
-    margin: 0 4px;
-  }
-
-  .dropdown--products {
-    min-width: 260px;
-  }
-
-  .dropdown--versions {
-    min-width: 100px;
   }
 }
 
@@ -544,16 +443,7 @@ button.accordion.active, button.accordion:hover {
 #platformButton li {
   margin-top: 0;
 }
-
-.dropdownArrow {
-  float: right;
-  font-size: 20px;
-}
-
-.platformButtonTitle .dropdownArrow, .platformButtonTitleDrawer .dropdownArrow {
-  padding-top: 1px;
-}
-
+/*  */
 .hiddenProducts, .hiddenVersions, .hiddenPlatforms, .hiddenProductsDrawer, .hiddenVersionsDrawer {
   font-weight: normal;
   z-index: 100;
