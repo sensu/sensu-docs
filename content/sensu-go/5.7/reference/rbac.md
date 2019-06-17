@@ -195,7 +195,7 @@ Cluster-wide resources cannot be assigned to a namespace and can only be accesse
 | `clusterroles`   | Cluster-wide permission sets  |
 | `namespaces` | Resource partitions within a Sensu instance |
 | `users` | People or agents interacting with Sensu |
-| `providers` | [Authentication provider][32] configuration (licensed tier)|
+| `authproviders` | [Authentication provider][32] configuration (licensed tier)|
 
 ### Special resource types
 Special resources types can be accessed by both [roles][13] and [cluster roles][21].
@@ -271,7 +271,7 @@ An empty response indicates valid credentials; a request-unauthorized response i
 To change the password for a user:
 
 {{< highlight shell >}}
-sensuctl user change-password USERNAME
+sensuctl user change-password USERNAME --current-password CURRENT_PASSWORD --new-password NEW_PASSWORD
 {{< /highlight >}}
 
 To disable a user:
@@ -641,7 +641,7 @@ spec:
     - clusterroles
     - namespaces
     - users
-    - providers
+    - authproviders
     verbs:
     - get
     - list
@@ -665,7 +665,7 @@ spec:
           "assets", "checks", "entities", "events", "filters", "handlers",
           "hooks", "mutators", "rolebindings", "roles", "silenced",
           "cluster", "clusterrolebindings", "clusterroles",
-          "namespaces", "users", "providers"
+          "namespaces", "users", "authproviders"
         ],
         "verbs": ["get", "list", "create", "update", "delete"]
       }
@@ -1107,7 +1107,7 @@ You can add these resources to Sensu using [`sensuctl create`][31].
           "assets", "checks", "entities", "events", "filters", "handlers",
           "hooks", "mutators", "rolebindings", "roles", "silenced",
           "cluster", "clusterrolebindings", "clusterroles",
-          "namespaces", "users", "providers"
+          "namespaces", "users", "authproviders"
         ],
         "verbs": ["get", "list", "create", "update", "delete"]
 

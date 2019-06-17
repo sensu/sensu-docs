@@ -6,7 +6,6 @@ weight: 10
 version: "5.10"
 product: "Sensu Go"
 platformContent: false 
-toc: yep
 menu:
   sensu-go-5.10:
     parent: reference
