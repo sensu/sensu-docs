@@ -402,7 +402,7 @@ sensuctl user remove-groups USERNAME
 
 A role is a set of permissions controlling access to Sensu resources.
 **Roles** specify permissions for resources within a namespace while **cluster roles** can include permissions for [cluster-wide resources][18].
-You can use [roles bindings][23] to assign roles to user and groups.
+You can use [role bindings][23] to assign roles to user and groups.
 To avoid re-creating commonly used roles in each namespace, [create a cluster role][28] and use a [role binding][29] (not a cluster role binding) to restrict permissions within a specific namespace.
 
 To create and manage roles cluster-wide, [configure sensuctl][26] as the [default `admin` user][20] or create a [cluster role][21] with `roles` permissions.
@@ -685,7 +685,7 @@ To create and manage role bindings within a namespace, [create a role][25] with 
 
 ### Cluster role bindings
 
-Cluster roles bindings can assign a cluster role to users and groups.
+Cluster role bindings can assign a cluster role to users and groups.
 Cluster role bindings use the same [specification][30] as role bindings and can be managed using the same sensuctl commands with `cluster-role-binding` substituted for `role-binding`.
 
 To create and manage cluster role bindings, [configure sensuctl][26] as the [default `admin` user][20] or [create a cluster role][28] with permissions for `clusterrolebindings`.
