@@ -445,6 +445,7 @@ The `sensuctl cluster` command lets you manage a Sensu cluster using the followi
 
 {{< highlight shell >}}
 health           get sensu health status
+id               get unique Sensu cluster ID
 member-add       add cluster member to an existing cluster, with comma-separated peer addresses
 member-list      list cluster members
 member-remove    remove cluster member by ID
