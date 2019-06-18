@@ -752,19 +752,6 @@ if ("document" in self && ("classList" in document.createElement("_") ? ! functi
             };
         Modernizr.ios || (window.addEventListener("resize", c), c());
         var u = 0;
-        t.addEventListener("click", function(t) {
-            var e = document.body.classList,
-                n = !matchMedia("only screen and (min-width: 960px)").matches;
-            e.contains("locked") ? (e.remove("locked"), n && setTimeout(function() {
-                window.scrollTo(0, u)
-            }, 100)) : (u = window.scrollY, n && setTimeout(function() {
-                window.scrollTo(0, 0)
-            }, 400), setTimeout(function() {
-                this.checked && (n && e.add("locked"), setTimeout(function() {
-                    i.focus()
-                }, 200))
-            }.bind(this), 450))
-        });
         for (var iterator=0; iterator < o.length; iterator++) {
           o[iterator].addEventListener("touchstart", function() {
             i.focus()

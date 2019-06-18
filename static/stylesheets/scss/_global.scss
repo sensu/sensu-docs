@@ -1,4 +1,33 @@
+html {
+  font-size: 10px;
+}
+
+a {
+  text-decoration: none;
+}
+
 body {
   background-color: #fbfbfb;
   font-family: "Work Sans", sans-serif;
+  text-rendering: optimizeLegibility;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+}
+
+hr {
+  border: none;
+  border-bottom: 1px solid #d5d6de;
+  margin: 1.5rem 0 2.25rem;
+}
+
+img {
+  max-width: 100%;
+}
+
+.strong {
+  font-weight: 600;
+}
+
+.toggle {
+  display: none;
 }

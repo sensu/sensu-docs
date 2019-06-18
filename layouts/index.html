@@ -7,7 +7,6 @@
 {{ end }}
 
 <input class="toggle" type="checkbox" id="toggle-drawer">
-<input class="toggle" type="checkbox" id="toggle-search">
 <label class="toggle-button overlay" for="toggle-drawer"></label>
 
 <!-- Titlebar -->
@@ -17,9 +16,7 @@
 
 <!-- Main content -->
 <main>
-  <div class="drawer">
-    {{ partial "drawer" . }}
-  </div>
+  {{ partial "drawer" . }}
 
   <div class="product-grid">
     {{ range sort .Site.Params.Products "weight" }}

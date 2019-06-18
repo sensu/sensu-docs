@@ -1,4 +1,8 @@
 main {
+  align-items: stretch;
+  display: flex;
+  margin: 0 auto;
+  max-width: 1236px;
   padding-top: $header-height-sm;
 
   @media (min-width: $breakpoint-lg) {
@@ -9,6 +13,7 @@ main {
 .article {
   background-color: white;
   border-left: 2px solid #eaeaea;
+  flex: 0 0 75%;
 
   .wrapper {
     padding: 50px 35px 96px;

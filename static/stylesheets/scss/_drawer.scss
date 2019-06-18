@@ -3,6 +3,9 @@
 }
 
 .drawer {
+  flex: 0 0 25%;
+  padding: 6rem 0 0 1.5rem;
+
   .algolia-autocomplete,
   .product-picker {
     display: flex;
@@ -10,5 +13,25 @@
     @media (min-width: $breakpoint-lg) {
       display: none !important;
     }
+  }
+
+  .drawer--footer {
+    a {
+      font-size: 1.3rem;
+    }
+
+    iframe {
+      margin-bottom: 1rem;
+    }
+  }
+
+  a {
+    color: $blue-dark;
+    display: block;
+    font-size: 1.6rem;
+    line-height: 1.375;
+    padding: 0.5rem 0;
+    text-decoration: none;
+    transition: color 240ms cubic-bezier(0.2, 0.3, 0.25, 0.9);
   }
 }

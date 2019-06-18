@@ -6,7 +6,6 @@
 {{ end }}
 
 <input class="toggle" type="checkbox" id="toggle-drawer">
-<input class="toggle" type="checkbox" id="toggle-search">
 <label class="toggle-button overlay" for="toggle-drawer"></label>
 
 <header>
@@ -14,9 +13,7 @@
 </header>
 
 <main class="main">
-  <div class="drawer">
-    {{ partial "drawer" . }}
-  </div>
+  {{ partial "drawer" . }}
 
   <article class="article">
     <div class="wrapper">

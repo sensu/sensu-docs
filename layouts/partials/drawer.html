@@ -1,45 +1,43 @@
-<!-- Dropdowns for the product and version will appear here on resize -->
-{{ partial "productVersionDropdown" . }}
-<input id="mobile-search" class="algolia-search" type="text" placeholder="Search the docs" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck>
-<div class="wrapper">
-
-  <!-- Contains the actual nav links -->
-  <div class="toc">
+<aside class="drawer">
+  <!-- Dropdowns for the product and version will appear here on resize -->
+  {{ partial "productVersionDropdown" . }}
+  <input id="mobile-search" class="algolia-search" type="text" placeholder="Search the docs" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck>
+  <nav>
     {{ if gt (len .Site.Menus.main) 0 }}
-      <ul class="toc-menu">
-        {{ partial "nav" . }}
-      </ul>
+      <ul>{{ partial "nav" . }}</ul>
     {{ end }}
-    <!-- Feedback links -->
-    <br><iframe src="https://ghbtns.com/github-btn.html?user=sensu&repo=sensu-docs&type=star&count=true" frameborder="0" scrolling="0" width="170px" height="20px"></iframe><br><br>
-    <a class="feedback" target="_blank" href="https://github.com/sensu/sensu-docs/issues/new?title=Docs%20Feedback&body=%3C!--Thanks%20for%20submitting%20feedback%20to%20the%20Sensu%20docs!--%3E%0A%0ALink%20to%20page%3A%20%0A%0A%23%23%23%20Feedback">Open a docs issue</a><br><br>
-    <a class="feedback" target="_blank" href="{{.Site.Params.repo_url}}/edit/master/content/{{.File.Path}}">Edit this page</a><br><br>
-    <a class="feedback" target="_blank" href="https://github.com/sensu/sensu-docs/blob/master/CONTRIBUTING.md">Read the contributing guide</a>
-    <!-- Small section for Sensu links -->
-    {{ if isset .Site.Params "author" }}
-      <ul>
-        {{ with .Site.Social.twitter }}
-        <li>
-          <a href="https://twitter.com/{{ . }}" target="_blank" title="@{{ . }} on Twitter">
-            @{{ . }} on Twitter
-          </a>
-        </li>
-        {{ end }}
-        {{ with .Site.Social.github }}
-        <li>
-          <a href="https://github.com/{{ . }}" target="_blank" title="@{{ . }} on GitHub">
-            @{{ . }} on GitHub
-          </a>
-        </li>
-        {{ end }}
-        {{ with .Site.Social.email }}
-        <li>
-          <a href="mailto:{{ . }}" title="Email of {{ . }}">
-            Contact via email
-          </a>
-        </li>
-        {{ end }}
-      </ul>
-    {{ end }}
-  </div>
-</div>
+    <hr>
+    <div class="drawer--footer">
+      <iframe src="https://ghbtns.com/github-btn.html?user=sensu&repo=sensu-docs&type=star&count=true" frameborder="0" scrolling="0" width="170" height="20"></iframe>
+      <a target="_blank" href="https://github.com/sensu/sensu-docs/issues/new?title=Docs%20Feedback&body=%3C!--Thanks%20for%20submitting%20feedback%20to%20the%20Sensu%20docs!--%3E%0A%0ALink%20to%20page%3A%20%0A%0A%23%23%23%20Feedback">Open a docs issue</a>
+      <a target="_blank" href="{{.Site.Params.repo_url}}/edit/master/content/{{.File.Path}}">Edit this page</a>
+      <a target="_blank" href="https://github.com/sensu/sensu-docs/blob/master/CONTRIBUTING.md">Read the contributing guide</a>
+      <!-- Small section for Sensu links -->
+      {{ if isset .Site.Params "author" }}
+        <ul>
+          {{ with .Site.Social.twitter }}
+          <li>
+            <a href="https://twitter.com/{{ . }}" target="_blank" title="@{{ . }} on Twitter">
+              @{{ . }} on Twitter
+            </a>
+          </li>
+          {{ end }}
+          {{ with .Site.Social.github }}
+          <li>
+            <a href="https://github.com/{{ . }}" target="_blank" title="@{{ . }} on GitHub">
+              @{{ . }} on GitHub
+            </a>
+          </li>
+          {{ end }}
+          {{ with .Site.Social.email }}
+          <li>
+            <a href="mailto:{{ . }}" title="Email of {{ . }}">
+              Contact via email
+            </a>
+          </li>
+          {{ end }}
+        </ul>
+      {{ end }}
+    </div>
+  </nav>
+</aside>
