@@ -23,6 +23,7 @@ See the [products page][3] for a complete feature comparison.
 - **Resource filtering in the Sensu API and sensuctl command-line tool**: Designed for large installations, label and field selectors let you filter Sensu API and sensuctl responses using custom labels and resource attributes such as event status and check subscriptions.
 - **Event logging**: Log event data to a file that you can use as an input source for your favorite data lake solution. Using the [event logging](../../reference/backend#event-logging) functionality provides better performance and reliability than using event handlers.
 - **Enterprise-tier assets**: Connect your monitoring event pipelines to industry-standard tools like ServiceNow and Jira with [enterprise-tier assets](https://bonsai.sensu.io/assets?tiers%5B%5D=4).
+- **Enterprise-scale event storage**: Scale your Sensu instance and handle high volumes of events using a [PostgreSQL event store](../../reference/datastore#scaling-event-storage).
 - **Enterprise-class support**: [Sensu support](https://sensu.io/support/) gives you the assurance that help is available if you need it. Our expert in-house team offers best-in-class support to help get you up and running smoothly.
 
 ### Contact us for a free trial
