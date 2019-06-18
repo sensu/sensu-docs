@@ -13,7 +13,12 @@ main {
 .article {
   background-color: white;
   border-left: 2px solid #eaeaea;
-  flex: 0 0 75%;
+  flex: 0 0 100%;
+
+  @media (min-width: $breakpoint-lg) {
+    flex: 0 0 75%;
+  }
+
 
   .wrapper {
     padding: 50px 35px 96px;

@@ -3,8 +3,13 @@
 }
 
 .drawer {
+  display: none;
   flex: 0 0 25%;
-  padding: 6rem 0 0 1.5rem;
+  padding: 6rem 1.5rem 0 1.5rem;
+
+  @media (min-width: $breakpoint-lg) {
+    display: block;
+  }
 
   .algolia-autocomplete,
   .product-picker {

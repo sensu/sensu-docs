@@ -1,0 +1,22 @@
+.alert {
+  padding: 0.6rem 1.5rem;
+  text-align: center;
+
+  .alert--close {
+    cursor: pointer;
+    float: right;
+  }
+
+  span {
+    color: #dedede;
+    font-size: 1.4rem;
+  }
+
+  a {
+    @extend span;
+
+    &:hover {
+      color: white;
+    }
+  }
+}
