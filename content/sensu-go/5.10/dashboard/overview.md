@@ -54,8 +54,6 @@ You can create, edit, and delete Sensu checks using the dashboard checks page.
 
 ### Managing entities
 
-**LICENSED TIER**: Unlock entity management in the Sensu Go dashboard with a Sensu license. To activate your license, see the [getting started guide][6].
-
 You can delete Sensu entities using the dashboard entities page.
 
 ### Managing handlers
