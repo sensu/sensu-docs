@@ -7,6 +7,7 @@ version: "5.10"
 menu: "sensu-go-5.10"
 ---
 
+- [5.10.0 release notes](#5-10-0-release-notes)
 - [5.9.0 release notes](#5-9-0-release-notes)
 - [5.8.0 release notes](#5-8-0-release-notes)
 - [5.7.0 release notes](#5-7-0-release-notes)
@@ -30,6 +31,37 @@ Sensu Go adheres to [semantic versioning][2] using MAJOR.MINOR.PATCH release num
 Read the [upgrade guide][1] for information on upgrading to the latest version of Sensu Go.
 
 ---
+
+## 5.10.0 release notes
+
+**June 19, 2019** &mdash; The latest release of Sensu Go, version 5.10.0, is now available for download.
+There are some exciting feature additions in this release, including the ability to perform advanced filtering in the web UI and use PostgreSQL as a scalable event store. This release also includes key bug fixes, most notably around high CPU usage.
+See the [upgrade guide][1] to upgrade Sensu to version 5.10.0.
+
+**NEW FEATURES:**
+
+- ([Licensed tier][60]) The Sensu web UI now includes fast, predictive filtering for viewing checks, entities, events, handlers, and silences. Select the filter bar and start building custom views using suggested attributes and values.
+- Free-tier Sensu instances can now delete entities in the web UI entities page. See the [docs][65] to get started using the Sensu web UI.
+- ([Licensed tier][60]) Sensu now supports using an external PostgreSQL instance for event storage in place of etcd. PostgreSQL can handle significantly higher volumes of Sensu events, letting you scale Sensu beyond etcd's storage limits. See the [datastore reference][61] for more information.
+- Sensu now includes a cluster ID API endpoint and `sensuctl cluster id` command to return the unique Sensu cluster ID. See the [cluster API docs][62] for more information.
+
+**IMPROVEMENTS:**
+
+- The `sensuctl create` command now supports specifying the namespace for a group of resources at the time of creation, allowing you to replicate resources across namespaces without manual editing. See the [sensuctl reference][63] for more information and usage examples.
+- Sensu cluster roles can now include permissions to manage your Sensu license using the `license` resource type. See the [RBAC reference][64] to create a cluster role.
+- The web UI now displays up to 100,000 events and entities on the homepage.
+
+**FIXES:**
+
+- Sensu now optimizes scheduling for proxy checks, solving an issue with high CPU usage when evaluating proxy entity attributes.
+- Check `state` and `total_state_change` attributes now update as expected based on check history.
+- Incident and entity links in the web UI homepage now navigate to the correct views.
+- The web UI now displays non-standard cron statements correctly, for example: `@weekly`.
+- On sign in, the web UI now ensures that users are directed to a valid namespace.
+- In the web UI, code block scrollbars now display only when necessary.
+- The web UI now displays the handler `timeout` attribute correctly.
+- When editing resources, the web UI now fetches the latest resource prior to editing.
+- The web UI now handles array values correctly when creating and editing resources.
 
 ## 5.9.0 release notes
 
@@ -410,3 +442,9 @@ To get started with Sensu Go:
 [57]: /sensu-go/5.9/installation/install-sensu
 [58]: /sensu-go/5.9/reference/events#occurrences-and-occurrences-watermark
 [59]: /sensu-go/5.9/installation/upgrade/#upgrading-sensu-clusters-from-5-7-0-or-earlier-to-5-8-0-or-later
+[60]: /sensu-go/latest/getting-started/enterprise
+[61]: /sensu-go/5.10/reference/datastore
+[62]: /sensu-go/5.10/api/cluster#the-clusterid-API-endpoint
+[63]: /sensu-go/5.10/sensuctl/reference#creating-resources-across-namespaces
+[64]: /sensu-go/5.10/reference/rbac/#assigning-group-permissions-across-all-namespaces
+[65]: /sensu-go/5.10/dashboard/overview
