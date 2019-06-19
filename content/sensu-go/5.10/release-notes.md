@@ -54,6 +54,7 @@ See the [upgrade guide][1] to upgrade Sensu to version 5.10.0.
 **FIXES:**
 
 - Sensu now optimizes scheduling for proxy checks, solving an issue with high CPU usage when evaluating proxy entity attributes.
+- The Sensu API now validates resource namespaces and types in request bodies to ensure RBAC permissions are enforced.
 - Check `state` and `total_state_change` attributes now update as expected based on check history.
 - Incident and entity links in the web UI homepage now navigate to the correct views.
 - The web UI now displays non-standard cron statements correctly, for example: `@weekly`.
