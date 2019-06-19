@@ -198,6 +198,7 @@ Cluster-wide resources cannot be assigned to a namespace and can only be accesse
 | `namespaces` | Resource partitions within a Sensu instance |
 | `users` | People or agents interacting with Sensu |
 | `authproviders` | [Authentication provider][32] configuration (licensed tier)|
+| `license` | Sensu [license][37]
 
 ### Special resource types
 Special resources types can be accessed by both [roles][13] and [cluster roles][21].
@@ -644,6 +645,7 @@ spec:
     - namespaces
     - users
     - authproviders
+    - license
     verbs:
     - get
     - list
@@ -667,7 +669,7 @@ spec:
           "assets", "checks", "entities", "events", "filters", "handlers",
           "hooks", "mutators", "rolebindings", "roles", "silenced",
           "cluster", "clusterrolebindings", "clusterroles",
-          "namespaces", "users", "authproviders"
+          "namespaces", "users", "authproviders", "license"
         ],
         "verbs": ["get", "list", "create", "update", "delete"]
       }
@@ -1109,7 +1111,7 @@ You can add these resources to Sensu using [`sensuctl create`][31].
           "assets", "checks", "entities", "events", "filters", "handlers",
           "hooks", "mutators", "rolebindings", "roles", "silenced",
           "cluster", "clusterrolebindings", "clusterroles",
-          "namespaces", "users", "authproviders"
+          "namespaces", "users", "authproviders", "license"
         ],
         "verbs": ["get", "list", "create", "update", "delete"]
 
@@ -1174,3 +1176,4 @@ You can add these resources to Sensu using [`sensuctl create`][31].
 [34]: ../../installation/auth
 [35]: #cluster-role-bindings
 [36]: ../../sensuctl/reference#creating-resources-across-namespaces
+[37]: ../license
