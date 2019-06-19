@@ -5,10 +5,12 @@
 .drawer {
   display: none;
   flex: 0 0 25%;
-  padding: 6rem 1.5rem 0 1.5rem;
+  height: calc(100vh - #{$header-height-sm});
+  width: 25%;
 
   @media (min-width: $breakpoint-lg) {
-    display: block;
+    display: flex;
+    height: calc(100vh - #{$header-height-lg});
   }
 
   .algolia-autocomplete,
@@ -27,6 +29,19 @@
 
     iframe {
       margin-bottom: 1rem;
+    }
+  }
+
+  .drawer--inner {
+    height: inherit;
+    max-width: 31rem;
+    overflow: auto;
+    padding: 6rem 1.5rem 0 1.5rem;
+    position: fixed;
+    width: inherit;
+
+    nav {
+      margin-bottom: 4rem;
     }
   }
 
