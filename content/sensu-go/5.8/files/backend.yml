@@ -46,7 +46,7 @@ state-dir: "/var/lib/sensu/sensu-backend"
 #etcd-cert-file: "/path/to/ssl/cert.pem"
 #etcd-client-cert-auth: false
 #etcd-initial-advertise-peer-urls: "http://127.0.0.1:2380"
-#etcd-initial-cluster: "http://127.0.0.1:2380"
+#etcd-initial-cluster: "default=http://127.0.0.1:2380"
 #etcd-initial-cluster-state: "new" # new or existing
 #etcd-initial-cluster-token: "sensu"
 #etcd-key-file: "/path/to/ssl/key.pem"
