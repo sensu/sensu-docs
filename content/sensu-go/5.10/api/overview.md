@@ -48,10 +48,13 @@ Beta APIs, while more stable than alpha versions, offer similarly short-lived li
 ### Access control
 
 With the exception of the [health][5] and [metrics APIs][6], the Sensu API requires authentication using a JWT access token.
-Sensuctl provides an easy way to generate access tokens for short-lived use with the Sensu API.
+Sensuctl provides an easy way to generate access tokens for short-lived use with the Sensu API. These access tokens can also be generated with basic authentication against the authentication API.
 The user credentials that you use to log in to sensuctl determine your permissions to get, list, create, update, and delete resources using the Sensu API.
 
-To generate an API access token using sensuctl:
+Access tokens last for around 15 minutes.
+If your token expires, you should see a 401 Unauthorized response from the API.
+
+#### Generating an API access token using sensuctl:
 
 1. [Install and log in to sensuctl][2].
 
@@ -69,10 +72,37 @@ The access token should be included in the output:
 curl http://127.0.0.1:8080/api/core/v2/namespaces/default/events -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIs..."
 {{< /highlight >}}
 
-Access tokens last for around 15 minutes.
-If your token expires, you should see a 401 Unauthorized response from the API.
-
 To create a new token, first run any sensuctl command (like `sensuctl event list`) then repeat the steps above.
+
+#### Generating an API access token with basic authentication
+
+The `/auth` API endpoint lets you generate API tokens using your Sensu username and password.
+
+1. Retrieve an access token for your user:
+{{< highlight shell >}}
+curl -u 'admin:P@ssw0rd!' -s http://localhost:8080/auth
+{{< /highlight >}}
+The access token should be included in the output, along with a refresh token:
+{{< highlight shell >}}
+{
+  "access_token": "eyJhbGciOiJIUzI1NiIs...",
+  "expires_at": 1544582187,
+  "refresh_token": "eyJhbGciOiJIUzI1NiIs..."
+}
+{{< /highlight >}}
+
+2. Copy the access token into the authentication header of the API request. For example:
+{{< highlight shell >}}
+curl http://127.0.0.1:8080/api/core/v2/namespaces/default/events -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIs..."
+{{< /highlight >}}
+
+To create a new access token, the `/auth/token` API endpoint can be used along with the access token in the authorization header and the refresh token in the request body:
+{{< highlight shell >}}
+curl -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIs..." \
+-H 'Content-Type: application/json' \
+-d '{"refresh_token": "eyJhbGciOiJIUzI1NiIs..."}' \
+http://127.0.0.1:8080/auth/token
+{{< /highlight >}}
 
 ### Pagination
 
