@@ -10,7 +10,7 @@ menu:
     parent: dashboard
 ---
 
-The Sensu dashboard provides drop-down filters to build customized views of Sensu resources.
+The Sensu dashboard provides basic filters to build customized views of Sensu resources.
 When applied, filters create a unique link, so you can bookmark and share your favorite filter combinations.
 
 - On the **events page**, filter by entity, check, status, and silenced/unsilenced. You can also sort events by severity, last OK, newest, and oldest.
