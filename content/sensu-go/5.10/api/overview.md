@@ -48,13 +48,55 @@ Beta APIs, while more stable than alpha versions, offer similarly short-lived li
 ### Access control
 
 With the exception of the [health][5] and [metrics APIs][6], the Sensu API requires authentication using a JWT access token.
-Sensuctl provides an easy way to generate access tokens for short-lived use with the Sensu API. These access tokens can also be generated with basic authentication against the authentication API.
+You can generate access tokens and refresh tokens using the [authentication API][11] and your Sensu username and password.
+
+#### Basic authentication using the authentication API
+
+The [`/auth` API endpoint][9] lets you generate short-lived API tokens using your Sensu username and password.
+
+1. Retrieve an access token for your user.
+For example, to generate an access token using the default admin credentials:
+{{< highlight shell >}}
+curl -u 'admin:P@ssw0rd!' http://localhost:8080/auth
+{{< /highlight >}}
+The access token should be included in the output, along with a refresh token:
+{{< highlight shell >}}
+{
+  "access_token": "eyJhbGciOiJIUzI1NiIs...",
+  "expires_at": 1544582187,
+  "refresh_token": "eyJhbGciOiJIUzI1NiIs..."
+}
+{{< /highlight >}}
+
+2. Copy the access token into the authentication header of the API request.
+For example:
+{{< highlight shell >}}
+curl -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIs..." \
+http://127.0.0.1:8080/api/core/v2/namespaces/default/events
+{{< /highlight >}}
+
+3. Access tokens last for around 15 minutes.
+When your token expires, you should see a 401 Unauthorized response from the API.
+To generate a new access token, use the [`/auth/token` API endpoint][10], including the expired access token in the authorization header and the refresh token in the request body:
+{{< highlight shell >}}
+curl -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIs..." \
+-H 'Content-Type: application/json' \
+-d '{"refresh_token": "eyJhbGciOiJIUzI1NiIs..."}' \
+http://127.0.0.1:8080/auth/token
+{{< /highlight >}}
+The new access token should be included in the output:
+{{< highlight shell >}}
+{
+  "access_token": "eyJhbGciOiJIUzI1NiIs...",
+  "expires_at": 1561055277,
+  "refresh_token": "eyJhbGciOiJIUzI1NiIs..."
+}
+{{< /highlight >}}
+
+#### Generating an API token using sensuctl
+
+You can also generate an API access token using the sensuctl command-line tool.
 The user credentials that you use to log in to sensuctl determine your permissions to get, list, create, update, and delete resources using the Sensu API.
-
-Access tokens last for around 15 minutes.
-If your token expires, you should see a 401 Unauthorized response from the API.
-
-#### Generating an API access token using sensuctl:
 
 1. [Install and log in to sensuctl][2].
 
@@ -69,40 +111,13 @@ The access token should be included in the output:
 
 3. Copy the access token into the authentication header of the API request. For example:
 {{< highlight shell >}}
-curl http://127.0.0.1:8080/api/core/v2/namespaces/default/events -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIs..."
-{{< /highlight >}}
-
-To create a new token, first run any sensuctl command (like `sensuctl event list`) then repeat the steps above.
-
-#### Generating an API access token with basic authentication
-
-The `/auth` API endpoint lets you generate API tokens using your Sensu username and password.
-
-1. Retrieve an access token for your user:
-{{< highlight shell >}}
-curl -u 'admin:P@ssw0rd!' -s http://localhost:8080/auth
-{{< /highlight >}}
-The access token should be included in the output, along with a refresh token:
-{{< highlight shell >}}
-{
-  "access_token": "eyJhbGciOiJIUzI1NiIs...",
-  "expires_at": 1544582187,
-  "refresh_token": "eyJhbGciOiJIUzI1NiIs..."
-}
-{{< /highlight >}}
-
-2. Copy the access token into the authentication header of the API request. For example:
-{{< highlight shell >}}
-curl http://127.0.0.1:8080/api/core/v2/namespaces/default/events -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIs..."
-{{< /highlight >}}
-
-To create a new access token, the `/auth/token` API endpoint can be used along with the access token in the authorization header and the refresh token in the request body:
-{{< highlight shell >}}
 curl -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIs..." \
--H 'Content-Type: application/json' \
--d '{"refresh_token": "eyJhbGciOiJIUzI1NiIs..."}' \
-http://127.0.0.1:8080/auth/token
+http://127.0.0.1:8080/api/core/v2/namespaces/default/events
 {{< /highlight >}}
+
+4. Access tokens last for around 15 minutes.
+If your token expires, you should see a 401 Unauthorized response from the API.
+To regenerate a valid access token, first run any sensuctl command (like `sensuctl event list`) then repeat step 2.
 
 ### Pagination
 
@@ -237,3 +252,6 @@ API request bodies are limited to 0.512 MB in size.
 [6]: ../metrics
 [7]: ../../getting-started/enterprise
 [8]: ../../reference/entities#metadata-attributes
+[9]: ../auth/#the-auth-api-endpoint
+[10]: ../auth/#the-authtoken-api-endpoint
+[11]: ../auth
