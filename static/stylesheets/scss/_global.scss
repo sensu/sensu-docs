@@ -1,18 +1,26 @@
-*,
-html {
+* {
   font-family: "Work Sans", sans-serif;
-  font-size: 10px;
   text-rendering: optimizeLegibility;
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
+}
+
+body {
+  background-color: #fbfbfb;
+}
+
+html {
+  font-size: 10px;
 }
 
 a {
   text-decoration: none;
 }
 
-body {
-  background-color: #fbfbfb;
+::placeholder,
+input {
+  color: $blue-dark;
+  font-family: "Work Sans", sans-serif;
 }
 
 hr {

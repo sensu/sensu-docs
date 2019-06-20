@@ -28,24 +28,33 @@
   }
 
   .footer--content--left {
-    flex: 0 0 50%;
+    flex: 0 0 100%;
     padding: 0 4rem;
 
     @media (min-width: $breakpoint-lg) {
+      flex: 0 0 50%;
       padding: 0 2rem;
     }
   }
 
   .footer--content--right {
     @extend .footer--content--left;
-    flex-basis: 33.333%;
+
+    @media (min-width: $breakpoint-lg) {
+      flex-basis: 33.333%;
+    }
   }
 
   .footer--navigation {
     display: flex;
+    flex-wrap: wrap;
 
     > * {
-      flex: 1;
+      flex: 0 0 100%;
+
+      @media (min-width: $breakpoint-md) {
+        flex: 1;
+      }
     }
   }
 
@@ -106,7 +115,11 @@
     font-size: 1.8rem;
     font-weight: 600;
     line-height: 1.1;
-    margin: 2.222em 0 1.333em;
+    margin: 1.333em 0;
+
+    @media (min-width: $breakpoint-lg) {
+      margin-top: 2.222em;
+    }
   }
 
   li {
