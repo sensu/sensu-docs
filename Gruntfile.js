@@ -23,15 +23,25 @@ module.exports = function(grunt) {
     },
     pkg: grunt.file.readJSON('package.json'),
     postcss: {
-      dist: {
+      develop: {
+        options: {
+          map: true,
+          processors: [
+            require('autoprefixer')(),
+            require('cssnano')(),
+          ],
+        },
         src: 'static/stylesheets/sensu.css',
       },
-      options: {
-        map: false,
-        processors: [
-          require('autoprefixer')(),
-          require('cssnano')(),
-        ],
+      dist: {
+        options: {
+          map: false,
+          processors: [
+            require('autoprefixer')(),
+            require('cssnano')(),
+          ],
+        },
+        src: 'static/stylesheets/sensu.css',
       },
     },
     sass:  {
@@ -58,7 +68,7 @@ module.exports = function(grunt) {
     watch: {
       css: {
         files: ['static/stylesheets/**/*.scss'],
-        tasks: ['sass:develop', 'postcss'],
+        tasks: ['sass:develop', 'postcss:develop'],
       },
     },
   })
@@ -214,7 +224,7 @@ module.exports = function(grunt) {
     grunt.log.ok("Lunr index built");
   });
 
-  grunt.registerTask("default", ["env", "lunr-index", "hugo-version", "sass:dist", "postcss", "hugo-build",]);
-  grunt.registerTask("server", ["env", "lunr-index", "hugo-version", "sass:develop", "postcss", "concurrent:target"]);
+  grunt.registerTask("default", ["env", "lunr-index", "hugo-version", "sass:dist", "postcss:dist", "hugo-build",]);
+  grunt.registerTask("server", ["env", "lunr-index", "hugo-version", "sass:develop", "postcss:develop", "concurrent:target"]);
   grunt.registerTask("hugo-version", ["env", "print-hugo-version",]);
 };
