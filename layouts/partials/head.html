@@ -34,23 +34,6 @@
     <link rel="shortcut icon" type="image/x-icon" href="{{ with .Site.Params.favicon }}{{ . | absURL }}{{ else }}{{ "/images/favicon.ico" | absURL }}{{ end }}">
     <link rel="icon" type="image/x-icon" href="{{ with .Site.Params.favicon }}{{ . | absURL }}{{ else }}{{ "/images/favicon.ico" | absURL }}{{ end }}">
 
-    <style>
-      @font-face {
-        font-family: 'Icon';
-        src: url('{{ "/fonts/icon.eot?52m981" | absURL }}');
-        src: url('{{ "/fonts/icon.eot?#iefix52m981" | absURL }}')
-               format('embedded-opentype'),
-             url('{{ "/fonts/icon.woff?52m981" | absURL }}')
-               format('woff'),
-             url('{{ "/fonts/icon.ttf?52m981" | absURL }}')
-               format('truetype'),
-             url('{{ "/fonts/icon.svg?52m981#icon" | absURL }}')
-               format('svg');
-        font-weight: normal;
-        font-style: normal;
-      }
-    </style>
-
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css">
     <link href="https://fonts.googleapis.com/css?family=Work+Sans:300,400,500,600,700&display=swap" rel="stylesheet">
     {{ range .Site.Params.custom_css }}

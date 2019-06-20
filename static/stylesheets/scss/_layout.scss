@@ -26,7 +26,23 @@ main {
   }
 
   li {
-    padding: 0 0 0 10px;
+    margin-left: 1.2rem;
+    margin-top: 0.75em;
+    padding: 0 0 0 1.7rem;
+    position: relative;
+
+    &::before {
+      border-right: 1.5px solid;
+      border-top: 1.5px solid;
+      content: '';
+      display: inline-block;
+      height: 0.6rem;
+      left: 0;
+      position: absolute;
+      top: 0.55em;
+      transform: rotate(45deg);
+      width: 0.6rem;
+    }
   }
 
   ul {
