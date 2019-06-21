@@ -38,10 +38,17 @@ HTTP/1.1 200 OK
 
 #### API Specification {#auth-get-specification}
 
-/auth (GET)     |     |
+/auth (GET)          |     |
 ---------------------|------
-description          | Generate an access token to the API using basic authentication
+description          | Generates an access token to the API using basic authentication. Access tokens last for around 15 minutes. When your token expires, you should see a 401 Unauthorized response from the API. To generate a new access token, use the [`/auth/token` API endpoint](#authtoken-post).
 example url          | http://hostname:8080/api/core/v2/auth
+output               | {{< highlight json >}}
+{
+  "access_token": "eyJhbGciOiJIUzI1NiIs...",
+  "expires_at": 1544582187,
+  "refresh_token": "eyJhbGciOiJIUzI1NiIs..."
+}
+{{< /highlight >}}
 response codes       | <ul><li>**Valid credentials**: 200 (OK)</li><li> **Invalid credentials**: 401 (Unauthorized)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 ## The `/auth/test` API endpoint {#the-authtest-api-endpoint}
@@ -76,7 +83,7 @@ The `/auth/test` API endpoint provides HTTP POST access to renew an access token
 
 #### EXAMPLE {#authtoken-post-example}
 
-In the following example, an HTTP POST request is submitted to the `/auth/token` API to renew an access token. The request includes the refresh token in the request body and returns a successful HTTP 202 Accepted response along with the new access token.
+In the following example, an HTTP POST request is submitted to the `/auth/token` API to generate a valid access token. The request includes the refresh token in the request body and returns a successful HTTP 200 OK response along with the new access token.
 
 {{< highlight shell >}}
 curl -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIs..." \
@@ -94,12 +101,19 @@ HTTP/1.1 200 OK
 
 #### API Specification {#authtoken-post-specification}
 
-/auth/token (POST)     |     |
+/auth/token (POST)   |     |
 ---------------------|------
-description          | Generate a new access token using the refresh token and the expired access token
+description          | Generates a new access token using a refresh token and an expired access token
 example url          | http://hostname:8080/api/core/v2/auth
 example payload | {{< highlight shell >}}
 {
+  "refresh_token": "eyJhbGciOiJIUzI1NiIs..."
+}
+{{< /highlight >}}
+output               | {{< highlight json >}}
+{
+  "access_token": "eyJhbGciOiJIUzI1NiIs...",
+  "expires_at": 1544582187,
   "refresh_token": "eyJhbGciOiJIUzI1NiIs..."
 }
 {{< /highlight >}}
