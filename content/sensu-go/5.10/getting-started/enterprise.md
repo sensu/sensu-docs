@@ -20,7 +20,7 @@ See the [products page][3] for a complete feature comparison.
 - **Manage your monitoring checks from your browser**: Create, edit, and delete checks using the Sensu [web UI](../../dashboard/overview).
 - **Manage event handlers from your browser**: Create, edit, and delete handlers using the Sensu [web UI](../../dashboard/overview).
 - **Authentication providers**: Scale Sensu role-based access control with [LDAP and Active Directory integrations](../../installation/auth).
-- **Resource filtering in the Sensu API and sensuctl command-line tool**: Designed for large installations, label and field selectors let you filter Sensu API and sensuctl responses using custom labels and resource attributes such as event status and check subscriptions.
+- **Scalable resource filtering**: Designed for large installations, label and field selectors let you filter [Sensu API][4] responses, [sensuctl][5] outputs, and Sensu [web UI][6] views using custom labels and a wider range of resource attributes.
 - **Event logging**: Log event data to a file that you can use as an input source for your favorite data lake solution. Using the [event logging](../../reference/backend#event-logging) functionality provides better performance and reliability than using event handlers.
 - **Enterprise-tier assets**: Connect your monitoring event pipelines to industry-standard tools like ServiceNow and Jira with [enterprise-tier assets](https://bonsai.sensu.io/assets?tiers%5B%5D=4).
 - **Enterprise-scale event storage**: Scale your Sensu instance and handle high volumes of events using a [PostgreSQL event store](../../reference/datastore#scaling-event-storage).
@@ -69,4 +69,6 @@ See these resources to get started using license-activated features in Sensu Go.
 [1]: https://sensu.io/sales/
 [2]: https://account.sensu.io/
 [3]: https://sensu.io/products
-[3]: https://sensu.io/products
+[4]: ../../api/overview#filtering
+[5]: ../../sensuctl/reference#filtering
+[6]: ../../dashboard/filtering

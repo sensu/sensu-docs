@@ -40,7 +40,7 @@ See the [upgrade guide][1] to upgrade Sensu to version 5.10.0.
 
 **NEW FEATURES:**
 
-- ([Licensed tier][60]) The Sensu web UI now includes fast, predictive filtering for viewing checks, entities, events, handlers, and silences, including the ability to filter based on custom labels. Select the filter bar and start building custom views using suggested attributes and values.
+- ([Licensed tier][60]) The Sensu web UI now includes fast, predictive filtering for viewing checks, entities, events, handlers, and silences, including the ability to filter based on custom labels. Select the filter bar and start building custom views using suggested attributes and values. For more information, see the [dashboard docs][66].
 - Free-tier Sensu instances can now delete entities in the web UI entities page. See the [docs][65] to get started using the Sensu web UI.
 - ([Licensed tier][60]) Sensu now supports using an external PostgreSQL instance for event storage in place of etcd. PostgreSQL can handle significantly higher volumes of Sensu events, letting you scale Sensu beyond etcd's storage limits. See the [datastore reference][61] for more information.
 - Sensu now includes a cluster ID API endpoint and `sensuctl cluster id` command to return the unique Sensu cluster ID. See the [cluster API docs][62] for more information.
@@ -449,3 +449,4 @@ To get started with Sensu Go:
 [63]: /sensu-go/5.10/sensuctl/reference#creating-resources-across-namespaces
 [64]: /sensu-go/5.10/reference/rbac/#assigning-group-permissions-across-all-namespaces
 [65]: /sensu-go/5.10/dashboard/overview
+[66]: /sensu-go/5.10/dashboard/filtering

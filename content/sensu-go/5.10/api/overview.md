@@ -180,6 +180,8 @@ curl -H "Authorization: Bearer $SENSU_TOKEN" http://127.0.0.1:8080/api/core/v2/c
 --data-urlencode 'labelSelector=region == "us-west-1"'
 {{< /highlight >}}
 
+_NOTE: For examples of using label and field selectors in the Sensu dashboard, see the [dashboard docs][12]._
+
 #### Label selector
 
 A label selector can use any label attributes to group a set of resources. All resources support labels within the metadata object. For example, see [entities metadata attributes][8].
@@ -255,3 +257,4 @@ API request bodies are limited to 0.512 MB in size.
 [9]: ../auth/#the-auth-api-endpoint
 [10]: ../auth/#the-authtoken-api-endpoint
 [11]: ../auth
+[12]: ../../dashboard/filtering
