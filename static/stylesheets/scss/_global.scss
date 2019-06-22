@@ -26,7 +26,7 @@ a {
 }
 
 blockquote {
-  border-left: 5px solid #89C967;
+  border-left: 5px solid $green;
   padding: 8px 0 8px 15px;
 
   p {
@@ -70,6 +70,11 @@ h1 {
   margin: 1.25em 0 0.4em;
 }
 
+h2 {
+  font-size: 2.7rem;
+  margin: 2em 0 0.555em;
+}
+
 h3 {
   font-size: 2.2rem;
   margin: 2em 0 0.7em;
@@ -94,6 +99,7 @@ strong {
 }
 
 ul {
+  list-style: none;
   padding: 0;
 }
 

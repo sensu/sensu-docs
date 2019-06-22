@@ -22,6 +22,11 @@
     }
   }
 
+  .current {
+    color: $green;
+    font-weight: 600;
+  }
+
   .drawer--footer {
     a {
       font-size: 1.3rem;

@@ -45,10 +45,10 @@
                 <!-- saving the menu as API breaks it in the front matter, so we need to format it here -->
                 {{ if or (eq $niceName "Api") (eq $niceName "Rbac") }}
                   {{ $niceName := upper $niceName }}
-                  <li><a class="strong accordion {{ if $isCurrent }}current{{ end }}">{{ $niceName }}</a>
+                  <li><a class="strong accordion {{ if $isCurrent }}current active{{ end }}">{{ $niceName }}</a>
                 <!-- render the title normally if not API -->
                 {{ else }}
-                  <li><a class="strong accordion {{ if $isCurrent }}current{{ end }}">{{ $niceName }}</a>
+                  <li><a class="strong accordion {{ if $isCurrent }}current active{{ end }}">{{ $niceName }}</a>
                 {{ end }}
                 <ul>
 
@@ -57,7 +57,7 @@
                     {{ if not (eq (lower .Parent) (lower .Name)) }}
                       <!-- Determine if this children is active -->
                       {{ $isCurrent := (eq $.Permalink (.URL | absURL | printf "%s")) }}
-                      <li><a href="{{ .URL | absURL }}">{{ .Name }}</a></li>
+                      <li><a class="{{ if $isCurrent }}current{{ end }}" href="{{ .URL | absURL }}">{{ .Name }}</a></li>
                     {{ end }}
                   {{ end }}
                 </ul>
