@@ -497,7 +497,7 @@ Windows._
 ### Dates with time
 
 Full dates with time are used to specify an exact point in time, which can be
-used with silencing entries, for example. The following formats are supported:
+used with silences, for example. The following formats are supported:
 
 * RFC3339 with numeric zone offset: `2018-05-10T07:04:00-08:00` or
   `2018-05-10T15:04:00Z`

@@ -98,7 +98,7 @@ You can use sensuctl to create checks, view events, create users, manage cluster
 [Read more.][14]
 
 #### Silencing
-Silencing entries allow you to suppress execution of event handlers on an ad-hoc basis.
+Silences allow you to suppress execution of event handlers on an ad-hoc basis.
 You can use silencing to schedule maintenances without being overloaded with alerts.
 [Read more.][17]
 

@@ -85,7 +85,7 @@ If you're upgrading a Sensu cluster from 5.7.0 or earlier, see the [instructions
 **FIXES:**
 
 - The `occurrences` and `occurrences_watermark` event attributes now increment as expected, giving you useful information about recent events. See the [events reference][58] for an in-depth discussion of these attributes.
-- The `/silenced/subscriptions/:subscription` and `/silenced/checks/:check` API endpoints now return silencing entries by check or subscription.
+- The `/silenced/subscriptions/:subscription` and `/silenced/checks/:check` API endpoints now return silences by check or subscription.
 - Sensu now handles errors when seeding initial data, avoiding a panic state.
 
 ## 5.8.0 release notes
@@ -121,8 +121,7 @@ See the [upgrade guide][51] to upgrade Sensu to version 5.8.0.
 
 ## 5.7.0 release notes
 
-**May 9, 2019** &mdash; The latest release of Sensu Go, version 5.7.0, is now available for download.
-The latest release of Sensu Go, version 5.7.0, is now available for download. This is mainly a stability release with bug fixes. Additionally, we have added support for Windows packages and [updated our usage policy][44].
+**May 9, 2019** &mdash; The latest release of Sensu Go, version 5.7.0, is now available for download. This is mainly a stability release with bug fixes. Additionally, we have added support for Windows packages and [updated our usage policy][44].
 See the [upgrade guide][1] to upgrade Sensu to version 5.7.0.
 
 **IMPROVEMENTS:**
@@ -363,7 +362,7 @@ See the [upgrade guide][1] to upgrade Sensu to version 5.0.1.
 **FIXED:**
 
 - The Sensu backend can now successfully connect to an external etcd cluster.
-- The Sensu dashboard now sorts silencing entries in ascending order, correctly displays status values, and reduces shuffling in the event list.
+- The Sensu dashboard now sorts silences in ascending order, correctly displays status values, and reduces shuffling in the event list.
 - Sensu agents on Windows now execute command arguments correctly.
 - Sensu agents now correctly include environment variables when executing checks.
 - Command arguments are no longer escaped on Windows.
