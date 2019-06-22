@@ -9,7 +9,7 @@ state-dir: "/var/lib/sensu/sensu-backend"
 #config-file: "/etc/sensu/backend.yml"
 #debug: false
 #deregistration-handler: "example_handler"
-#log-level: "warn" # available log levels: panic, fatal, error, warn, info, debug
+log-level: "debug" # available log levels: panic, fatal, error, warn, info, debug
 
 ##
 # agent configuration
