@@ -4,19 +4,20 @@ $(document).ready(function() {
     $('.platform-picker--value').text(Cookies.get('platform'));
   }
 
-  $('.platform-picker').click(function(e) {
+  $('.platform-picker, .platform-picker-main').click(function(e) {
     e.stopPropagation();
     $(this).toggleClass('open');
   });
 
-  $('.platform-picker a').click(function(e) {
+  $('.platform-picker a, .platform-picker-main a').click(function(e) {
     e.preventDefault();
     Cookies.set('platform', e.currentTarget.dataset.platform, { expires: 1825 });
+    setPlatformDropdownValue();
     togglePlatformDivs();
   });
 
   $(document).click(function() {
-    $('.platform-picker').removeClass('open');
+    $('.platform-picker, .platform-picker-main').removeClass('open');
   });
 
   togglePlatformDivs();
@@ -24,7 +25,12 @@ $(document).ready(function() {
 
 function removePlatformCookie() {
   Cookies.remove('platform');
+  setPlatformDropdownValue();
   togglePlatformDivs();
+}
+
+function setPlatformDropdownValue() {
+  $('.platform-picker--value').text(Cookies.get('platform') || 'All Platforms');
 }
 
 function togglePlatformDivs() {
