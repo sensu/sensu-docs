@@ -1,5 +1,4 @@
 * {
-  font-family: "Work Sans", sans-serif;
   text-rendering: optimizeLegibility;
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
@@ -7,6 +6,7 @@
 
 body {
   background-color: #fbfbfb;
+  font-family: "Work Sans", sans-serif;
 }
 
 html {
@@ -45,7 +45,8 @@ blockquote {
 h1,
 h2,
 h3,
-h4 {
+h4,
+h5{
   color: $blue-dark;
   font-weight: 600;
   line-height: 1.17;
@@ -80,6 +81,18 @@ h3 {
   margin: 2em 0 0.7em;
 }
 
+h4 {
+  font-size: 2rem;
+  font-style: italic;
+  margin: 2em 0 1em;
+}
+
+h5 {
+  font-size: 1.8rem;
+  font-style: italic;
+  margin: 1.5em 0;
+}
+
 li {
   color: $gray-dark;
   font-size: 1.6rem;
@@ -96,11 +109,6 @@ p {
 
 strong {
   font-weight: 700;
-}
-
-ul {
-  list-style: none;
-  padding: 0;
 }
 
 ::placeholder,
@@ -120,6 +128,7 @@ img {
 }
 
 ul {
+  list-style: none;
   padding: 0;
 
   &.inline li {

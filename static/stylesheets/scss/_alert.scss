@@ -20,3 +20,22 @@
     }
   }
 }
+
+.alert-note {
+  background-color: #d9edf7;
+  color: #31708f;
+  margin: 1rem 0;
+  padding: 1rem;
+}
+
+.alert-tip {
+  @extend .alert-note;
+  background-color: #dff0d8;
+  color: #3c763d;
+}
+
+.alert-warning {
+  @extend .alert-note;
+  background-color: #fcf8e3;
+  color: #8a6d3b;
+}
