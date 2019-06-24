@@ -47,37 +47,8 @@
 
 <script>
 $( document ).ready(function() {
-  $cookie = Cookies.get("platform") || "";
-  $cookie = $cookie.replace("/", "_");
-  $cookie = $cookie.replace(" ", "-");
-
-  togglePlatformDivs();
   applyTipBoxes();
 });
-
-function togglePlatformDivs() {
-  var $platformCookie = Cookies.get("platform");
-  var $platformDivs = document.getElementsByClassName("platform");
-  var $hasContentForPlatformCookie = false;
-
-  Array.prototype.forEach.call($platformDivs, function($platformDiv) {
-    $platformDivId = $platformDiv.id
-    $platformDivId = $platformDivId.replace(new RegExp("-", "g"), " ");
-    $platformDivId = $platformDivId.replace(new RegExp("_", "g"), "/");
-    if (typeof $platformCookie != 'undefined' && !$platformDivId.includes($platformCookie)) {
-      $platformDiv.style.display = 'none';
-    } else {
-      $hasContentForPlatformCookie = true
-      $platformDiv.style.display = 'block';
-    }
-  });
-
-  // If we don't have any content for the platform cookie, remove it so we go
-  // back to the "All Platforms" option and display everything
-  if (typeof $platformCookie != 'undefined' && !$hasContentForPlatformCookie) {
-    removePlatformCookie();
-  }
-}
 
 function boldFirstWord(element) {
   newElement = element.html().replace(/(^\w+)/, '<strong>$1</strong>');
@@ -90,16 +61,16 @@ function boldFirstTwoWords(element) {
 }
 
 function applyTipBoxes() {
-  $("em").wrap(function() {
-    if ($(this).text().includes("NOTE:")) {
+  $('em').wrap(function() {
+    if ($(this).text().includes('NOTE:')) {
       boldFirstWord($(this));
-      return '<div class="note"></div>';
-    } else if ($(this).text().includes("WARNING:")) {
+      return '<div class="alert-note"></div>';
+    } else if ($(this).text().includes('WARNING:')) {
       boldFirstWord($(this));
-      return '<div class="warning"></div>';
-    } else if ($(this).text().includes("PRO TIP:")) {
+      return '<div class="alert-warning"></div>';
+    } else if ($(this).text().includes('PRO TIP:')) {
       boldFirstTwoWords($(this));
-      return '<div class="pro-tip"></div>';
+      return '<div class="alert-tip"></div>';
     }
   });
 }

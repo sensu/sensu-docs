@@ -51,13 +51,13 @@ SSL documentation][2] for a detailed guide on configuring RabbitMQ with SSL.
 {{< highlight shell >}}
 sudo apt-get update
 sudo apt-get install openssl
-openssl version{{< /highlight >}}{{< platformBlockClose >}}
+openssl version{{< /highlight >}}{{< /platformBlock >}}
    {{< platformBlock "RHEL/CentOS" >}}
    <h5 id="rhel-centos"> RHEL/CentOS </h5>
    {{< platformDropdown "RHEL/CentOS" "Sensu-Core" "1.0" "reference/SSL" "generate-self-signed-openssl-certificates-and-ca">}}<br>
 {{< highlight shell >}}
 sudo yum install openssl
-openssl version{{< /highlight >}}{{< platformBlockClose >}}
+openssl version{{< /highlight >}}{{< /platformBlock >}}
 
 2. Download the Sensu SSL tool
 {{< highlight shell >}}

@@ -36,7 +36,7 @@ The result should match the checksum for your platform.
 curl -LO https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.9.0/sensu-enterprise-go_5.9.0_checksums.txt && cat sensu-enterprise-go_5.9.0_checksums.txt
 {{< /highlight >}}
 
-{{< platformBlockClose >}}
+{{< /platformBlock >}}
 
 {{< platformBlock "Windows" >}}
 
@@ -62,7 +62,7 @@ Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.9.0/sen
 Get-Content "$env:userprofile\sensu-enterprise-go_5.9.0_checksums.txt" | Select-String -Pattern windows_amd64
 {{< /highlight >}}
 
-{{< platformBlockClose >}}
+{{< /platformBlock >}}
 
 {{< platformBlock "macOS" >}}
 
@@ -98,7 +98,7 @@ Copy the executable into your PATH.
 sudo cp sensuctl /usr/local/bin/
 {{< /highlight >}}
 
-{{< platformBlockClose >}}
+{{< /platformBlock >}}
 
 ### Next steps
 

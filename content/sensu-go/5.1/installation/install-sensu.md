@@ -24,7 +24,7 @@ The Sensu backend is available for Ubuntu, RHEL/CentOS, and [Docker](#deploy-sen
 
 ### 1. Install the package
 
-{{< platformBlockClose >}}
+{{< /platformBlock >}}
 
 {{< platformBlock "Ubuntu" >}}
 
@@ -41,7 +41,7 @@ Install the `sensu-go-backend` package.
 sudo apt-get install sensu-go-backend
 {{< /highlight >}}
 
-{{< platformBlockClose >}}
+{{< /platformBlock >}}
 
 {{< platformBlock "RHEL/CentOS" >}}
 
@@ -59,7 +59,7 @@ Install the `sensu-go-backend` package.
 sudo yum install sensu-go-backend
 {{< /highlight >}}
 
-{{< platformBlockClose >}}
+{{< /platformBlock >}}
 
 {{< platformBlock "Ubuntu RHEL/CentOS" >}}
 
@@ -87,7 +87,7 @@ Verify that the backend is running.
 service sensu-backend status
 {{< /highlight >}}
 
-{{< platformBlockClose >}}
+{{< /platformBlock >}}
 
 {{< platformBlock "Ubuntu RHEL/CentOS" >}}
 
@@ -99,7 +99,7 @@ Now that you've installed the Sensu backend:
 - [Install sensuctl](#install-sensuctl)
 - [Sign in to the dashboard][3]
 
-{{< platformBlockClose >}}
+{{< /platformBlock >}}
 
 {{< platformBlock "Ubuntu RHEL/CentOS Windows" >}}
 
@@ -108,7 +108,7 @@ The Sensu agent is available for Ubuntu, RHEL/CentOS, Windows, and [Docker](#dep
 
 ### 1. Install the package
 
-{{< platformBlockClose >}}
+{{< /platformBlock >}}
 
 {{< platformBlock "Ubuntu" >}}
 
@@ -126,7 +126,7 @@ Install the `sensu-go-agent` package.
 sudo apt-get install sensu-go-agent
 {{< /highlight >}}
 
-{{< platformBlockClose >}}
+{{< /platformBlock >}}
 
 {{< platformBlock "RHEL/CentOS" >}}
 #### RHEL/CentOS
@@ -143,7 +143,7 @@ Install the `sensu-go-agent` package.
 sudo yum install sensu-go-agent
 {{< /highlight >}}
 
-{{< platformBlockClose >}}
+{{< /platformBlock >}}
 
 {{< platformBlock "Windows" >}}
 
@@ -163,13 +163,13 @@ Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.1.1/sen
 
 See the [verifying Sensu guide][12] to verify your download using checksums.
 
-{{< platformBlockClose >}}
+{{< /platformBlock >}}
 
 {{< platformBlock "Ubuntu RHEL/CentOS Windows" >}}
 
 ### 2. Create the configuration file
 
-{{< platformBlockClose >}}
+{{< /platformBlock >}}
 
 {{< platformBlock "Ubuntu RHEL/CentOS" >}}
 
@@ -183,7 +183,7 @@ sudo cp /usr/share/doc/sensu-go-agent-5.1.1/agent.yml.example /etc/sensu/agent.y
 
 _NOTE: The Sensu agent can be configured using a `/etc/sensu/agent.yml` configuration file or using `sensu-agent start` configuration flags. For more information, see the [agent reference][7]._
 
-{{< platformBlockClose >}}
+{{< /platformBlock >}}
 
 {{< platformBlock "Windows" >}}
 
@@ -191,13 +191,13 @@ _NOTE: The Sensu agent can be configured using a `/etc/sensu/agent.yml` configur
 
 Download the [example agent configuration file][2] and save it as `C:\\ProgramData\sensu\config\agent.yml`.
 
-{{< platformBlockClose >}}
+{{< /platformBlock >}}
 
 {{< platformBlock "Ubuntu RHEL/CentOS Windows" >}}
 
 ### 3. Start the service
 
-{{< platformBlockClose >}}
+{{< /platformBlock >}}
 
 {{< platformBlock "Ubuntu RHEL/CentOS" >}}
 
@@ -215,7 +215,7 @@ Verify that the agent is running.
 service sensu-agent status
 {{< /highlight >}}
 
-{{< platformBlockClose >}}
+{{< /platformBlock >}}
 
 {{< platformBlock "Windows" >}}
 
@@ -223,7 +223,7 @@ service sensu-agent status
 
 Coming soon.
 
-{{< platformBlockClose >}}
+{{< /platformBlock >}}
 
 {{< platformBlock "Ubuntu RHEL/CentOS Windows" >}}
 
@@ -234,7 +234,7 @@ Now that you've installed the Sensu agent:
 - [Install sensuctl](#install-sensuctl)
 - [Create a monitoring event][9]
 
-{{< platformBlockClose >}}
+{{< /platformBlock >}}
 
 {{< platformBlock "macOS RHEL/CentOS Ubuntu Windows" >}}
 
@@ -244,7 +244,7 @@ Sensuctl is available for Ubuntu, RHEL/CentOS, Windows, and macOS.
 
 ### 1. Install the package
 
-{{< platformBlockClose >}}
+{{< /platformBlock >}}
 
 {{< platformBlock "Ubuntu" >}}
 
@@ -262,7 +262,7 @@ Install the `sensu-go-cli` package.
 sudo apt-get install sensu-go-cli
 {{< /highlight >}}
 
-{{< platformBlockClose >}}
+{{< /platformBlock >}}
 
 {{< platformBlock "RHEL/CentOS" >}}
 
@@ -280,7 +280,7 @@ Install the `sensu-go-cli` package.
 sudo yum install sensu-go-cli
 {{< /highlight >}}
 
-{{< platformBlockClose >}}
+{{< /platformBlock >}}
 
 {{< platformBlock "Windows" >}}
 
@@ -300,7 +300,7 @@ Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.1.1/sen
 
 See the [verifying Sensu guide][12] to verify your download using checksums.
 
-{{< platformBlockClose >}}
+{{< /platformBlock >}}
 
 {{< platformBlock "macOS" >}}
 
@@ -324,7 +324,7 @@ Copy the executable into your PATH.
 sudo cp bin/sensuctl /usr/local/bin/
 {{< /highlight >}}
 
-{{< platformBlockClose >}}
+{{< /platformBlock >}}
 
 {{< platformBlock "macOS RHEL/CentOS Ubuntu Windows" >}}
 
@@ -368,7 +368,7 @@ Now that you've installed sensuctl:
 - [See the sensuctl quick reference][4]
 - [Create a monitoring event pipeline][10]
 
-{{< platformBlockClose >}}
+{{< /platformBlock >}}
 
 {{< platformBlock "Docker" >}}
 ## Deploy Sensu with Docker
@@ -406,7 +406,7 @@ It's best to [install and run sensuctl](#install-sensuctl) locally and point it 
 The sensuctl utility stores configuration locally, and you'll likely want to persist it across uses.
 While it can be run from the docker container, doing so may be problematic.
 
-{{< platformBlockClose >}}
+{{< /platformBlock >}}
 
 [1]: https://github.com/sensu/sensu-go/releases
 [2]: https://github.com/sensu/sensu-go/blob/5.1.1/packaging/files/windows/agent.yml.example

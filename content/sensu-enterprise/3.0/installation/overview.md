@@ -48,7 +48,7 @@ please complete the following sections of the Sensu installation guide:
 3. [Install Sensu Enterprise](/sensu-core/latest/platforms/sensu-on-rhel-centos/#sensu-enterprise)
 4. [Install Sensu Core (to get Sensu Client)](/sensu-core/latest/platforms/sensu-on-rhel-centos/#sensu-core)
 
-{{< platformBlockClose >}}
+{{< /platformBlock >}}
 
 {{< platformBlock "Ubuntu/Debian" >}}
 ### Installing Sensu Enterprise and prerequisites on Ubuntu/Debian
@@ -63,7 +63,7 @@ please complete the following sections of the Sensu installation guide:
 3. [Install Sensu Enterprise](/sensu-core/latest/platforms/sensu-on-ubuntu-debian/#sensu-enterprise)
 4. [Install Sensu Core (to get Sensu Client)](/sensu-core/latest/platforms/sensu-on-ubuntu-debian/#sensu-core)
 
-{{< platformBlockClose >}}
+{{< /platformBlock >}}
 
 ## Upgrading from Sensu Core to Sensu Enterprise
 
@@ -141,7 +141,7 @@ sudo service sensu-enterprise-dashboard start
 {{< highlight shell >}}
 sudo chkconfig --add sensu-enterprise-dashboard
 {{< /highlight >}}
-{{< platformBlockClose >}}
+{{< /platformBlock >}}
 
 {{< platformBlock "Ubuntu/Debian" >}}
 ## Ubuntu/Debian
@@ -209,7 +209,7 @@ sudo service sensu-enterprise-dashboard start
 sudo update-rc.d sensu-enterprise-dashboard defaults
 {{< /highlight >}}
 
-{{< platformBlockClose >}}
+{{< /platformBlock >}}
 
 ## Getting Started with Sensu Enterprise
 

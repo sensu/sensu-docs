@@ -89,7 +89,7 @@ We can test the dummy app using the API.
 curl -i http://dummy.local
 {{< /highlight >}}
 
-{{< platformBlockClose >}}
+{{< /platformBlock >}}
 
 {{< platformBlock "Windows" >}}
 
@@ -98,7 +98,7 @@ curl -i http://dummy.local
 Invoke-WebRequest -Uri http://dummy.local -Method GET
 {{< /highlight >}}
 
-{{< platformBlockClose >}}
+{{< /platformBlock >}}
 
 A `200` response indicates that the dummy app is working correctly.
 
@@ -283,7 +283,7 @@ Since we're working within the `demo` namespace, select the `demo` namespace in 
 curl -iXPOST http://dummy.local/healthz
 {{< /highlight >}}
 
-{{< platformBlockClose >}}
+{{< /platformBlock >}}
 
 {{< platformBlock "Windows" >}}
 
@@ -292,7 +292,7 @@ curl -iXPOST http://dummy.local/healthz
 Invoke-WebRequest -Uri http://dummy.local/healthz -Method POST
 {{< /highlight >}}
 
-{{< platformBlockClose >}}
+{{< /platformBlock >}}
 
 We should now be able to see a critical alert in the [Sensu dashboard](http://webui.sensu.local/events) as well as by using sensuctl:
 
@@ -311,7 +311,7 @@ Continue to post to `/healthz` until all Sensu entities return to a healthy stat
 curl -iXPOST http://dummy.local/healthz
 {{< /highlight >}}
 
-{{< platformBlockClose >}}
+{{< /platformBlock >}}
 
 {{< platformBlock "Windows" >}}
 
@@ -320,7 +320,7 @@ curl -iXPOST http://dummy.local/healthz
 Invoke-WebRequest -Uri http://dummy.local/healthz -Method POST
 {{< /highlight >}}
 
-{{< platformBlockClose >}}
+{{< /platformBlock >}}
 
 ## Collecting app metrics
 

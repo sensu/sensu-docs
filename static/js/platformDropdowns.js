@@ -1,55 +1,49 @@
-const $cookieLife = 1825;
-
-// I've heard that .stopPropogation() is not ideal, potentially needs a rework
-$( document ).ready(function() {
-    // set toggles for top of page dropdown
-    $('.platformButtonTitle').click( function(event){
-        event.stopPropagation();
-        $('.hiddenPlatforms').toggle();
-    });
-    $(document).click( function(){
-        $('.hiddenPlatforms').hide();
-    });
-
-    if (document.getElementById("platformButtonTitleText")) {
-      setTopDropdown();
-    }
-});
-
-function setTopDropdown() {
-  var $platformTextInsert = document.getElementById("platformButtonTitleText");
-  if (Cookies.get("platform")) {
-    $platformTextInsert.innerHTML = Cookies.get("platform");
-  } else {
-    // If we don't have a cookie for the platform
-    $platformTextInsert.innerHTML = 'All Platforms';
+$(document).ready(function() {
+  // Set default values
+  if (Cookies.get('platform')) {
+    $('.platform-picker--value').text(Cookies.get('platform'));
   }
-}
 
-function setHeaderDropdowns($uniqueness) {
-  // set toggles for under header dropdowns
-  $('.platformButtonTitle-' + $uniqueness).click( function(event){
-    event.stopPropagation();
-    $('.hiddenPlatforms-' + $uniqueness).toggle();
-  });
-  $(document).click( function(){
-    $('.hiddenPlatforms-' + $uniqueness).hide();
+  $('.platform-picker').click(function(e) {
+    e.stopPropagation();
+    $(this).toggleClass('open');
   });
 
-  var $platformTextInsert = document.getElementById("platformButtonTitleText-" + $uniqueness);
-  if (Cookies.get("platform")) {
-    $platformTextInsert.innerHTML = Cookies.get("platform") + '<i class="fa fa-chevron-down dropdownArrow-' + $uniqueness + '" aria-hidden="true"></i>';
-  }
-}
+  $('.platform-picker a').click(function(e) {
+    e.preventDefault();
+    Cookies.set('platform', e.currentTarget.dataset.platform, { expires: 1825 });
+    togglePlatformDivs();
+  });
 
-function setPlatformCookie($platform) {
-  Cookies.set('platform', $platform, { expires: $cookieLife });
+  $(document).click(function() {
+    $('.platform-picker').removeClass('open');
+  });
+
   togglePlatformDivs();
-  setTopDropdown();
-}
+});
 
 function removePlatformCookie() {
   Cookies.remove('platform');
   togglePlatformDivs();
-  setTopDropdown();
+}
+
+function togglePlatformDivs() {
+  var platformCookie = Cookies.get('platform');
+  var $platformDivs = document.getElementsByClassName('platform');
+  var hasContentForPlatformCookie = false;
+
+  Array.prototype.forEach.call($platformDivs, function($platformDiv) {
+    if (typeof platformCookie != 'undefined' && !$platformDiv.dataset.platform.includes(platformCookie)) {
+      $platformDiv.style.display = 'none';
+    } else {
+      $platformDiv.style.display = 'block';
+      hasContentForPlatformCookie = true
+    }
+  });
+
+  // If we don't have any content for the platform cookie, remove it so we go
+  // back to the "All Platforms" option and display everything
+  if (typeof platformCookie != 'undefined' && !hasContentForPlatformCookie) {
+    removePlatformCookie();
+  }
 }
