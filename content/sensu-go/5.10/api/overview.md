@@ -16,6 +16,10 @@ menu:
 - [Access control](#access-control)
 - [Pagination](#pagination)
 - [Filtering](#filtering)
+  - [Label selector](#label-selector)
+  - [Field selector](#field-selector)
+  - [Supported operators](#supported-operators)
+  - [Combining selectors and statements](#combining-selectors-and-statements)
 - [Request size](#request-size)
 
 **Sensu Go 5.10 includes API v2.**
@@ -23,7 +27,7 @@ menu:
 The Sensu backend REST API provides access to Sensu workflow configurations and monitoring event data.
 For the Sensu agent API, see the [agent reference][4].
 
-### URL format
+## URL format
 
 Sensu API endpoints use the standard URL format `/api/{group}/{version}/namespaces/{namespace}` where:
 
@@ -31,12 +35,12 @@ Sensu API endpoints use the standard URL format `/api/{group}/{version}/namespac
 - `{version}` is the API version. Sensu Go 5.10 uses API v2.
 - `{namespace}` is the namespace name. The examples in these API docs use the `default` namespace. The Sensu API requires that the authenticated user have the correct access permissions for the namespace specified in the URL. If the authenticated user has the correct cluster-wide permissions, you can leave out the `/namespaces/{namespace}` portion of the URL to access Sensu resources across namespaces. See the [RBAC reference][3] for more information about configuring Sensu users and access controls.
 
-### Data format
+## Data format
 
 The API uses JSON formatted requests and responses.
 In terms of [sensuctl output types][1], the Sensu API uses the `json` format, not `wrapped-json`.
 
-### Versioning
+## Versioning
 
 The Sensu Go API is versioned according to the format `v{majorVersion}{stabilityLevel}{iterationNumber}`, in which `v2` is stable version 2.
 The Sensu API guarantees backward compatibility for stable versions of the API.
@@ -45,13 +49,58 @@ Sensu makes no guarantee that an alpha or beta API will be maintained for any pe
 Alpha versions should be considered under active development and may not be published for every release.
 Beta APIs, while more stable than alpha versions, offer similarly short-lived lifespans and also provide no guarantee of programmatic conversions when the API is updated.
 
-### Access control
+## Access control
 
 With the exception of the [health][5] and [metrics APIs][6], the Sensu API requires authentication using a JWT access token.
-Sensuctl provides an easy way to generate access tokens for short-lived use with the Sensu API.
-The user credentials that you use to log in to sensuctl determine your permissions to get, list, create, update, and delete resources using the Sensu API.
+You can generate access tokens and refresh tokens using the [authentication API][11] and your Sensu username and password.
 
-To generate an API access token using sensuctl:
+### Basic authentication using the authentication API
+
+The [`/auth` API endpoint][9] lets you generate short-lived API tokens using your Sensu username and password.
+
+1. Retrieve an access token for your user.
+For example, to generate an access token using the default admin credentials:
+{{< highlight shell >}}
+curl -u 'admin:P@ssw0rd!' http://localhost:8080/auth
+{{< /highlight >}}
+The access token should be included in the output, along with a refresh token:
+{{< highlight shell >}}
+{
+  "access_token": "eyJhbGciOiJIUzI1NiIs...",
+  "expires_at": 1544582187,
+  "refresh_token": "eyJhbGciOiJIUzI1NiIs..."
+}
+{{< /highlight >}}
+
+2. Copy the access token into the authentication header of the API request.
+For example:
+{{< highlight shell >}}
+curl -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIs..." \
+http://127.0.0.1:8080/api/core/v2/namespaces/default/events
+{{< /highlight >}}
+
+3. Access tokens last for around 15 minutes.
+When your token expires, you should see a 401 Unauthorized response from the API.
+To generate a new access token, use the [`/auth/token` API endpoint][10], including the expired access token in the authorization header and the refresh token in the request body:
+{{< highlight shell >}}
+curl -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIs..." \
+-H 'Content-Type: application/json' \
+-d '{"refresh_token": "eyJhbGciOiJIUzI1NiIs..."}' \
+http://127.0.0.1:8080/auth/token
+{{< /highlight >}}
+The new access token should be included in the output:
+{{< highlight shell >}}
+{
+  "access_token": "eyJhbGciOiJIUzI1NiIs...",
+  "expires_at": 1561055277,
+  "refresh_token": "eyJhbGciOiJIUzI1NiIs..."
+}
+{{< /highlight >}}
+
+### Generating an API token using sensuctl
+
+You can also generate an API access token using the sensuctl command-line tool.
+The user credentials that you use to log in to sensuctl determine your permissions to get, list, create, update, and delete resources using the Sensu API.
 
 1. [Install and log in to sensuctl][2].
 
@@ -66,15 +115,15 @@ The access token should be included in the output:
 
 3. Copy the access token into the authentication header of the API request. For example:
 {{< highlight shell >}}
-curl http://127.0.0.1:8080/api/core/v2/namespaces/default/events -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIs..."
+curl -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIs..." \
+http://127.0.0.1:8080/api/core/v2/namespaces/default/events
 {{< /highlight >}}
 
-Access tokens last for around 15 minutes.
+4. Access tokens last for around 15 minutes.
 If your token expires, you should see a 401 Unauthorized response from the API.
+To regenerate a valid access token, first run any sensuctl command (like `sensuctl event list`) then repeat step 2.
 
-To create a new token, first run any sensuctl command (like `sensuctl event list`) then repeat the steps above.
-
-### Pagination
+## Pagination
 
 The Sensu API supports response pagination for all GET endpoints that return an array.
 You can request a paginated response using the `limit` and `continue` query parameters.
@@ -122,7 +171,7 @@ Content-Type: application/json
 ]
 {{< /highlight >}}
 
-### Filtering
+## Filtering
 
 **LICENSED TIER**: Unlock API filtering in Sensu Go with a Sensu license. To activate your license, see the [getting started guide][7].
 
@@ -135,11 +184,13 @@ curl -H "Authorization: Bearer $SENSU_TOKEN" http://127.0.0.1:8080/api/core/v2/c
 --data-urlencode 'labelSelector=region == "us-west-1"'
 {{< /highlight >}}
 
-#### Label selector
+_NOTE: For examples of using label and field selectors in the Sensu dashboard, see the [dashboard docs][12]._
+
+### Label selector
 
 A label selector can use any label attributes to group a set of resources. All resources support labels within the metadata object. For example, see [entities metadata attributes][8].
 
-#### Field selector
+### Field selector
 
 A field selector can use certain fields of resources to organize and select subsets of resources. Here's the list of available fields.
 
@@ -162,7 +213,7 @@ A field selector can use certain fields of resources to organize and select subs
 | Silenced | `silenced.name` `silenced.namespace` `silenced.check` `silenced.creator` `silenced.expire_on_resolve` `silenced.subscription` |
 | User | `user.username` `user.disabled` `user.groups` |
 
-#### Supported operators
+### Supported operators
 
 There are two _equality-based_ operators supported, `==` (equality) and `!=` (inequality). For example, the following statements are possible:
 
@@ -179,7 +230,7 @@ slack notin check.handlers
 check.namespace in [dev,production]
 {{< /highlight >}}
 
-#### Combining selectors and statements
+### Combining selectors and statements
 
 A field or label selector can be made of multiple statements which are separated with the logical operator `&&` (_AND_). For example, the following curl request looks up checks that are configured to be published **and** have the `slack` handler:
 
@@ -195,7 +246,7 @@ curl -H "Authorization: Bearer $SENSU_TOKEN" http://127.0.0.1:8080/api/core/v2/c
 --data-urlencode 'labelSelector=region != "us-west-1"'
 {{< /highlight >}}
 
-### Request size
+## Request size
 
 API request bodies are limited to 0.512 MB in size.
 
@@ -207,3 +258,7 @@ API request bodies are limited to 0.512 MB in size.
 [6]: ../metrics
 [7]: ../../getting-started/enterprise
 [8]: ../../reference/entities#metadata-attributes
+[9]: ../auth/#the-auth-api-endpoint
+[10]: ../auth/#the-authtoken-api-endpoint
+[11]: ../auth
+[12]: ../../dashboard/filtering

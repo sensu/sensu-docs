@@ -1,6 +1,6 @@
 ---
 title: "Silencing API"
-description: "The silencing API provides HTTP access to silencing entries. Here’s a reference for the silencing API in Sensu Go, including examples for creating and removing Sensu silencing entries. Read on for the full reference."
+description: "The silencing API provides HTTP access to silences. Here’s a reference for the silencing API in Sensu Go, including examples for creating and removing Sensu silences. Read on for the full reference."
 version: "5.10"
 product: "Sensu Go"
 menu:
@@ -57,7 +57,7 @@ HTTP/1.1 200 OK
 
 /silenced (GET)  | 
 ---------------|------
-description    | Returns the list of silencing entries.
+description    | Returns the list of silences.
 example url    | http://hostname:8080/api/core/v2/namespaces/default/silenced
 pagination     | This endpoint supports pagination using the `limit` and `continue` query parameters. See the [API overview](../overview#pagination) for details.
 response type  | Array
@@ -219,7 +219,7 @@ The `/silenced/subscriptions/:subscription` API endpoint provides HTTP GET acces
 #### EXAMPLE {#silencedsubscriptions-get-example}
 
 In the following example, querying the `silenced/subscriptions/:subscription` API returns a JSON Array
-containing the requested [silencing entries][1] for the given subscription (in this example: for the `linux` subscription).
+containing the requested [silences][1] for the given subscription (in this example: for the `linux` subscription).
 
 {{< highlight shell >}}
 curl -H "Authorization: Bearer $SENSU_TOKEN" \
@@ -247,7 +247,7 @@ HTTP/1.1 200 OK
 
 /silenced/ subscriptions/ :subscription (GET) | 
 ---------------------|------
-description          | Returns all silencing entries for the specified subscription.
+description          | Returns all silences for the specified subscription.
 example url          | http://hostname:8080/api/core/v2/namespaces/default/silenced/subscriptions/linux
 pagination           | This endpoint supports pagination using the `limit` and `continue` query parameters. See the [API overview](../overview#pagination) for details.
 response type        | Array
@@ -279,7 +279,7 @@ The `/silenced/checks/:check` API endpoint provides HTTP GET access to [silencin
 #### EXAMPLE {#silencedchecks-get-example}
 
 In the following example, querying the `silenced/checks/:check` API returns a JSON Array
-containing the requested [silencing entries][1] for the given check (in this example: for the `check-cpu` check).
+containing the requested [silences][1] for the given check (in this example: for the `check-cpu` check).
 
 {{< highlight shell >}}
 curl -H "Authorization: Bearer $SENSU_TOKEN" \
@@ -307,7 +307,7 @@ HTTP/1.1 200 OK
 
 /silenced/checks/ :check (GET) | 
 ---------------------|------
-description          | Returns all silencing entries for the specified check.
+description          | Returns all silences for the specified check.
 example url          | http://hostname:8080/api/core/v2/namespaces/default/silenced/checks/check-cpu
 pagination           | This endpoint supports pagination using the `limit` and `continue` query parameters. See the [API overview](../overview#pagination) for details.
 response type        | Array

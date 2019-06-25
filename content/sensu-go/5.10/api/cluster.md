@@ -14,6 +14,8 @@ menu:
 - [The `/cluster/members/:member` API endpoint](#the-clustermembersmember-API-endpoint)
   - [`/cluster/members/:member` (PUT)](#clustermembersmember-put)
   - [`/cluster/members/:member` (DELETE)](#clustermembersmember-delete)
+- [The `/cluster/id` API endpoint](#the-clusterid-API-endpoint)
+  - [`/cluster/id` (GET)](#clusterid-get)
 
 ## The `/cluster/members` API endpoint {#the-clustermembers-API-endpoint}
 
@@ -56,7 +58,7 @@ HTTP/1.1 200 OK
 
 /cluster/members (GET)  | 
 ---------------|------
-description    | Returns the cluster definition.
+description    | Returns the etcd cluster definition.
 example url    | http://hostname:8080/api/core/v2/cluster/members
 response type  | Map
 response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
@@ -190,5 +192,36 @@ description               | Removes a member from a Sensu cluster given the memb
 example url               | http://hostname:8080/api/core/v2/cluster/members/8927110dc66458af
 url parameters            | <ul><li>`8927110dc66458af` (required): Required hex-encoded uint64 cluster member ID generated using `sensuctl cluster member-list`</li></ul>
 response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+
+## The `/cluster/id` API endpoint {#the-clusterid-API-endpoint}
+
+### `/cluster/id` (GET) {#clusterid-get}
+
+The `/cluster/id` API endpoint provides HTTP GET access to the Sensu cluster ID.
+
+#### EXAMPLE {#clusterid-get-example}
+
+The following example demonstrates a request to the `/cluster/id` API, resulting in
+a string containing the Sensu cluster ID.
+
+{{< highlight shell >}}
+curl -H "Authorization: Bearer $SENSU_TOKEN" \
+http://127.0.0.1:8080/api/core/v2/cluster/members
+
+HTTP/1.1 200 OK
+"23481e76-5844-4d07-b714-6e2ffbbf9315"
+{{< /highlight >}}
+
+#### API Specification {#clusterid-get-specification}
+
+/cluster/id (GET) |  |
+---------------|------
+description    | Returns the unique Sensu cluster ID.
+example url    | http://hostname:8080/api/core/v2/cluster/id
+response type  | String
+response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+example output | {{< highlight shell >}}
+"23481e76-5844-4d07-b714-6e2ffbbf9315"
+{{< /highlight >}}
 
 [1]: ../../guides/clustering

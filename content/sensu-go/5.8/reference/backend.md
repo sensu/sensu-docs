@@ -501,7 +501,7 @@ etcd-listen-peer-urls:
 -----------------------|------
 description            | Initial cluster configuration for bootstrapping
 type                   | String
-default                | `http://127.0.0.1:2380`
+default                | `default=http://127.0.0.1:2380`
 example                | {{< highlight shell >}}# Command line example
 sensu-backend start --etcd-initial-cluster backend-0=https://10.0.0.1:2380,backend-1=https://10.1.0.1:2380,backend-2=https://10.2.0.1:2380
 
@@ -660,31 +660,15 @@ no-embed-etcd: true{{< /highlight >}}
 
 | etcd-cipher-suites    |      |
 ------------------------|------
-description             | List of allowed cipher suites for etcd TLS configuration. Sensu supports TLS 1.0-1.2 cipher suites as listed in the [Go TLS documentation](https://golang.org/pkg/crypto/tls/#pkg-constants). You can use this attribute to defend your TLS servers from attacks on weak TLS ciphers. _NOTE: To use TLS 1.3, add the following environment variable: `GODEBUG="tls13=1"`._
-default                  | {{< highlight shell >}}
+description             | List of allowed cipher suites for etcd TLS configuration. Sensu supports TLS 1.0-1.2 cipher suites as listed in the [Go TLS documentation](https://golang.org/pkg/crypto/tls/#pkg-constants). You can use this attribute to defend your TLS servers from attacks on weak TLS ciphers. The default cipher suites are determined by Go, based on the hardware used. _NOTE: To use TLS 1.3, add the following environment variable: `GODEBUG="tls13=1"`._
+recommended             | {{< highlight shell >}}
 etcd-cipher-suites:
-  - TLS_RSA_WITH_RC4_128_SHA
-  - TLS_RSA_WITH_3DES_EDE_CBC_SHA
-  - TLS_RSA_WITH_AES_128_CBC_SHA
-  - TLS_RSA_WITH_AES_256_CBC_SHA
-  - TLS_RSA_WITH_AES_128_CBC_SHA256
-  - TLS_RSA_WITH_AES_128_GCM_SHA256
-  - TLS_RSA_WITH_AES_256_GCM_SHA384
-  - TLS_ECDHE_ECDSA_WITH_RC4_128_SHA
-  - TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA
-  - TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA
-  - TLS_ECDHE_RSA_WITH_RC4_128_SHA
-  - TLS_ECDHE_RSA_WITH_3DES_EDE_CBC_SHA
-  - TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA
-  - TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA
-  - TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256
-  - TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256
-  - TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
-  - TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256
-  - TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
   - TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384
-  - TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305
+  - TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+  - TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256
+  - TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
   - TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305
+  - TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305
 {{< /highlight >}}
 type                    | List
 example                 | {{< highlight shell >}}# Command line examples

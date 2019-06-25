@@ -22,7 +22,7 @@
       {{ if not (and (in $k "sensu-enterprise-dashboard") (eq $.Section "sensu-enterprise")) }}
 
         <!-- check if we're looking at the section index, or a sub section -->
-        {{ if (in $k $version) }}
+        {{ if ne (strings.TrimSuffix $version $k) $k }}
           {{ $niceName := $.Params.product }}
 
           <!-- ex. Sensu Core -->

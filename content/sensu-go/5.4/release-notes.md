@@ -196,7 +196,7 @@ See the [upgrade guide][1] to upgrade Sensu to version 5.0.1.
 **FIXED:**
 
 - The Sensu backend can now successfully connect to an external etcd cluster.
-- The Sensu dashboard now sorts silencing entries in ascending order, correctly displays status values, and reduces shuffling in the event list.
+- The Sensu dashboard now sorts silences in ascending order, correctly displays status values, and reduces shuffling in the event list.
 - Sensu agents on Windows now execute command arguments correctly.
 - Sensu agents now correctly include environment variables when executing checks.
 - Command arguments are no longer escaped on Windows.

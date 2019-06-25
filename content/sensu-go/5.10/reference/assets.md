@@ -6,7 +6,6 @@ weight: 10
 version: "5.10"
 product: "Sensu Go"
 platformContent: false 
-toc: yep
 menu:
   sensu-go-5.10:
     parent: reference
@@ -138,7 +137,7 @@ example      | {{< highlight shell >}}"sha512": "4f926bf4328..."{{< /highlight >
 
 filters      | 
 -------------|------ 
-description  | A set of [Sensu query expressions][1] used by the agent to determine if the asset should be installed. If multiple expressions are included, each expression must return true in order for the agent to install the asset.
+description  | A set of [Sensu query expressions][1] used to determine if the asset should be installed. If multiple expressions are included, each expression must return true in order for Sensu to install the asset.<br><br>Filters for _check_ assets should match agent entity platforms, while filters for _handler and filter_ assets should match your Sensu backend platform. You can create asset filter expressions using any supported [entity system attributes][10], including `os`, `arch`, `platform`, and `platform_family`. _PRO TIP: Asset filters let you reuse checks across platforms safely. Assign assets for multiple platforms to a single check, and rely on asset filters to ensure that only the appropriate asset is installed on each agent._
 required     | false 
 type         | Array 
 example      | {{< highlight shell >}}"filters": ["entity.system.os=='linux'", "entity.system.arch=='amd64'"] {{< /highlight >}}
@@ -358,7 +357,7 @@ example      | {{< highlight yml >}}sha_filename: "#{repo}_#{version}_sha512-che
 
  filter      | 
 -------------|------
-description  | Entity filters specifying the operating system and architecture supported by the asset
+description  | Filter expressions describing the operating system and architecture supported by the asset
 required     | false
 type         | Array
 example      | {{< highlight yml >}}
@@ -367,7 +366,7 @@ example      | {{< highlight yml >}}
   -  "entity.system.arch == 'amd64'"
 {{< /highlight >}}
 
-[1]: ../../reference/sensu-query-expressions/
+[1]: ../sensu-query-expressions/
 [2]: ../rbac#namespaces
 [3]: ../filters
 [4]: ../tokens
@@ -376,6 +375,7 @@ example      | {{< highlight yml >}}
 [7]: ../filters
 [8]: ../mutators
 [9]: ../handlers
+[10]: ../entity#system-attributes
 [sc]: ../../sensuctl/reference#creating-resources
 [sp]: #spec-attributes
 [16]: https://bonsai.sensu.io
