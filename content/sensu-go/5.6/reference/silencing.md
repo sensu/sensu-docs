@@ -17,22 +17,22 @@ menu:
 	- [Silence all checks on entities with a specific subscription](#silence-all-checks-on-entities-with-a-specific-subscription)
 	- [Silence a specific check on entities with a specific subscription](#silence-a-specific-check-on-entities-with-a-specific-subscription)
 	- [Silence a specific check on every entity](#silence-a-specific-check-on-every-entity)
-	- [Deleting silencing entries](#deleting-silencing-entries)
+	- [Deleting silences](#deleting-silences)
 
 ## How does silencing work?
-Silencing entries are created on an ad-hoc basis via `sensuctl`. When silencing
+Silences are created on an ad-hoc basis via `sensuctl`. When silencing
 entries are successfully created, they are assigned a `name` in the format
 `$SUBSCRIPTION:$CHECK`, where `$SUBSCRIPTION` is the name of a Sensu entity
-subscription and `$CHECK` is the name of a Sensu check. Silencing entries can be
+subscription and `$CHECK` is the name of a Sensu check. Silences can be
 used to silence checks on specific entities by taking advantage of per-entity
 subscriptions, for example: `entity:$ENTITY_NAME`. When the check name and/or
 subscription described in a silencing entry match an event and a handler use the
 `not_silenced` built-in filter, this handler will not be executed.
 
-These silencing entries are persisted in the Sensu data store. When the Sensu
-server processes subsequent check results, matching silencing entries are
+These silences are persisted in the Sensu data store. When the Sensu
+server processes subsequent check results, matching silences are
 retrieved from the store. If one or more matching entries exist, the event is
-updated with a list of silenced entry names. The presence of silencing entries
+updated with a list of silenced entry names. The presence of silences
 indicates that the event is silenced.
 
 When creating a silencing entry, a combination of check and subscription can be
@@ -51,7 +51,7 @@ in the entry will be marked as silenced, regardless of the check name.
 ## Silencing specification
 
 ### Silenced entry names
-Silencing entries must contain either a subscription or check name, and are
+Silences must contain either a subscription or check name, and are
 identified by the combination of `$SUBSCRIPTION:$CHECK`. If a check or
 subscription is not provided, it will be substituted with a wildcard (asterisk):
 `$SUBSCRIPTION:*` or `*:$CHECK`.
@@ -60,14 +60,14 @@ subscription is not provided, it will be substituted with a wildcard (asterisk):
 
 type         | 
 -------------|------
-description  | Top-level attribute specifying the [`sensuctl create`][sc] resource type. Silencing entries should always be of type `Silenced`.
+description  | Top-level attribute specifying the [`sensuctl create`][sc] resource type. Silences should always be of type `Silenced`.
 required     | Required for silencing entry definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][sc].
 type         | String
 example      | {{< highlight shell >}}"type": "Silenced"{{< /highlight >}}
 
 api_version  | 
 -------------|------
-description  | Top-level attribute specifying the Sensu API group and version. For silencing entries in Sensu backend version 5.6, this attribute should always be `core/v2`.
+description  | Top-level attribute specifying the Sensu API group and version. For silences in Sensu backend version 5.6, this attribute should always be `core/v2`.
 required     | Required for silencing entry definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][sc].
 type         | String
 example      | {{< highlight shell >}}"api_version": "core/v2"{{< /highlight >}}
@@ -89,7 +89,7 @@ example      | {{< highlight shell >}}
 spec         | 
 -------------|------
 description  | Top-level map that includes the silencing entry [spec attributes][sp].
-required     | Required for silencing entries in `wrapped-json` or `yaml` format for use with [`sensuctl create`][sc].
+required     | Required for silences in `wrapped-json` or `yaml` format for use with [`sensuctl create`][sc].
 type         | Map of key-value pairs
 example      | {{< highlight shell >}}
 "spec": {
@@ -338,7 +338,7 @@ check: mysql_status
 
 {{< /language-toggle >}}
 
-### Deleting silencing entries
+### Deleting silences
 To delete a silencing entry, you will need to provide its name. Subscription only
 silencing entry names will be similar to this:
 

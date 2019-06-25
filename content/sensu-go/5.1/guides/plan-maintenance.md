@@ -28,7 +28,7 @@ subscriptions associated with the entity that published the check result. This
 can be desirable in many scenarios, giving operators the ability to quiet
 incoming alerts while coordinating their response.
 
-Sensu silencing entries make it possible to:
+Sensu silences make it possible to:
 
 * [Silence all checks on a specific entity][2]
 * [Silence a specific check on a specific entity][3]
