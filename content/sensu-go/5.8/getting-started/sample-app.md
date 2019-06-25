@@ -46,7 +46,7 @@ git clone https://github.com/sensu/sensu-kube-demo && cd sensu-kube-demo
 {{< highlight shell >}}
 minikube start
 
-kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/mandatory.yaml
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/static/mandatory.yaml
 
 minikube addons enable ingress
 
