@@ -1,7 +1,7 @@
 ---
 title: "Sensu Go release notes"
 linkTitle: "Release Notes"
-description: "Read the Sensu Go 5.10.0 release notes to learn about what's new in our latest release."
+description: "Read the Sensu Go release notes to learn about what's new in our latest release."
 product: "Sensu Go"
 version: "5.10"
 menu: "sensu-go-5.10"

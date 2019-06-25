@@ -28,7 +28,7 @@ HTTP/1.1 200 OK
     "etcdserver": "3.3.2",
     "etcdcluster": "3.3.0"
   },
-  "SensuBackend": "5.10.0#xxxxxxx"
+  "SensuBackend": "x.x.x#xxxxxxx"
 }
 {{< /highlight >}}
 
@@ -47,6 +47,6 @@ output         | {{< highlight shell >}}
     "etcdserver": "3.3.2",
     "etcdcluster": "3.3.0"
   },
-  "SensuBackend": "5.10.0#xxxxxxx"
+  "SensuBackend": "x.x.x#xxxxxxx"
 }
 {{< /highlight >}}
