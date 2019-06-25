@@ -171,20 +171,23 @@ The `create` command accepts Sensu resource definitions in `wrapped-json` and `y
 Both JSON and YAML resource definitions wrap the contents of the resource in `spec` and identify the resource `type` (see below for an example, and [this table][3] for a list of supported types).
 See the [reference docs][6] for information about creating resource definitions.
 
-For example, the following file `my-resources.json` specifies two resources: a `marketing-site` check and a `slack` handler.
+### `wrapped-json` format
+
+The following file `my-resources.json` specifies two resources: a `marketing-site` check and a `slack` handler, separated _without_ a comma.
 
 {{< highlight shell >}}
 {
   "type": "CheckConfig",
+  "api_version": "core/v2",
+  "metadata" : {
+    "name": "marketing-site",
+    "namespace": "default"
+    },
   "spec": {
-    "command": "check-http.go -u https://dean-learner.book",
+    "command": "check-http.rb -u https://sensu.io",
     "subscriptions": ["demo"],
     "interval": 15,
-    "handlers": ["slack"],
-    "metadata" : {
-      "name": "marketing-site",
-      "namespace": "default"
-    }
+    "handlers": ["slack"]
   }
 }
 {
@@ -211,8 +214,6 @@ For example, the following file `my-resources.json` specifies two resources: a `
 }
 {{< /highlight >}}
 
-_NOTE: Commas cannot be included between JSON resource definitions when using `sensuctl create`._
-
 To create all resources from `my-resources.json` using `sensuctl create`:
 
 {{< highlight shell >}}
@@ -223,6 +224,52 @@ Or:
 
 {{< highlight shell >}}
 cat my-resources.json | sensuctl create
+{{< /highlight >}}
+
+### `yaml` format
+
+The following file `my-resources.yml` specifies two resources: a `marketing-site` check and a `slack` handler, separated with three dashes (`---`).
+
+{{< highlight yml >}}
+---
+type: CheckConfig
+api_version: core/v2
+metadata:
+  name: marketing-site
+  namespace: default
+spec:
+  command: check-http.rb -u https://sensu.io
+  subscriptions:
+  - demo
+  interval: 15
+  handlers:
+  - slack
+---
+type: Handler
+api_version: core/v2
+metadata:
+  name: slack
+  namespace: default
+spec:
+  command: sensu-slack-handler --channel '#monitoring'
+  env_vars:
+  - SLACK_WEBHOOK_URL=https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX
+  filters:
+  - is_incident
+  - not_silenced
+  type: pipe
+{{< /highlight >}}
+
+To create all resources from `my-resources.yml` using `sensuctl create`:
+
+{{< highlight shell >}}
+sensuctl create --file my-resources.yml
+{{< /highlight >}}
+
+Or:
+
+{{< highlight shell >}}
+cat my-resources.yml | sensuctl create
 {{< /highlight >}}
 
 ### sensuctl create resource types
@@ -396,7 +443,7 @@ Windows._
 ### Dates with time
 
 Full dates with time are used to specify an exact point in time, which can be
-used with silencing entries, for example. The following formats are supported:
+used with silences, for example. The following formats are supported:
 
 * RFC3339 with numeric zone offset: `2018-05-10T07:04:00-08:00` or
   `2018-05-10T15:04:00Z`

@@ -20,7 +20,7 @@
 #  - "ws://127.0.0.1:8081"
 #cache-dir: "/var/cache/sensu/sensu-agent"
 #config-file: "/etc/sensu/agent.yml"
-#log-level: "warn" # available log levels: panic, fatal, error, warn, info, debug
+log-level: "debug" # available log levels: panic, fatal, error, warn, info, debug
 
 ##
 # api configuration

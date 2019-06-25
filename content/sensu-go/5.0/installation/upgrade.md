@@ -112,12 +112,15 @@ The syntax for using token substitution has changed from using triple colons to 
 ### Aggregates
 Sensu Go does not yet support check aggregates.
 
+### Aggregates
+Check aggregates are supported through the [license-activated][27] [Sensu Go Aggregate Check Plugin][28].
+
 ### API
 In addition to the changes to resource definitions, Sensu Go includes a new, versioned API. See the [API overview][17] for more information.
 
 ### Custom attributes
 Custom check attributes are no longer supported in Sensu Go.
-Instead, Sensu Go provides the ability to add custom labels and annotations to entities, checks, assets, hooks, filters, mutators, handlers, and silencing entries.
+Instead, Sensu Go provides the ability to add custom labels and annotations to entities, checks, assets, hooks, filters, mutators, handlers, and silences.
 See the metadata attributes section in the reference documentation for more information about using labels and annotations (for example: [metadata attributes for entities][24]).
 
 [1]: ../../getting-started/glossary
@@ -146,3 +149,5 @@ See the metadata attributes section in the reference documentation for more info
 [24]: ../../reference/entities#metadata-attributes
 [25]: https://blog.sensu.io/check-configuration-upgrades-with-the-sensu-go-sandbox
 [26]: https://blog.sensu.io/self-service-monitoring-checks-in-sensu-go
+[27]: ../../getting-started/enterprise
+[28]: https://bonsai.sensu.io/assets/sensu/sensu-aggregate-check
