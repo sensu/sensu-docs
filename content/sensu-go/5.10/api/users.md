@@ -94,7 +94,7 @@ The `/users` API endpoint provides HTTP POST access to create a [user][1].
 
 #### EXAMPLE {#users-post-example}
 
-The following example demonstrates a POST request to the `/users` API to create the user `alice`, resulting in an HTTP 200 response and the created user definition.
+The following example demonstrates a POST request to the `/users` API to create the user `alice`, resulting in an HTTP 204 response.
 
 {{< highlight shell >}}
 curl -X POST \
@@ -110,14 +110,7 @@ curl -X POST \
 }' \
 http://127.0.0.1:8080/api/core/v2/users
 
-HTTP/1.1 200 OK
-{
-  "username": "alice",
-  "groups": [
-    "ops"
-  ],
-  "disabled": false
-}
+HTTP/1.1 204 No Content
 {{< /highlight >}}
 
 #### API Specification {#usersuser-post-specification}
@@ -137,7 +130,7 @@ payload         | {{< highlight shell >}}
 }
 {{< /highlight >}}
 payload parameters | <ul><li>`username` (string, required)</li><li>`password` (string, required): Must have at least eight characters</li><li>`groups` (array): Sets of shared permissions applicable to this user</li><li>`disabled`: When set to `true`, invalidates user credentials and permissions</li></ul>
-response codes  | <ul><li>**Success**: 200 (OK)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+response codes  | <ul><li>**Success**: 204 (No Content)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 ## The `/users/:user` API endpoint {#the-usersuser-api-endpoint}
 
@@ -186,7 +179,7 @@ output               | {{< highlight json >}}
 
 #### EXAMPLE {#users-put-example}
 
-The following example demonstrates a PUT request to the `/users` API to update the user `alice`, in this case to reset their password, resulting in an HTTP 200 response and the updated user definition.
+The following example demonstrates a PUT request to the `/users` API to update the user `alice`, in this case to reset their password, resulting in an HTTP 204 response.
 
 {{< highlight shell >}}
 curl -X PUT \
@@ -202,14 +195,7 @@ curl -X PUT \
 }' \
 http://127.0.0.1:8080/api/core/v2/users/alice
 
-HTTP/1.1 200 OK
-{
-  "username": "alice",
-  "groups": [
-    "ops"
-  ],
-  "disabled": false
-}
+HTTP/1.1 204 No Content
 {{< /highlight >}}
 
 #### API Specification {#usersuser-put-specification}
@@ -228,7 +214,7 @@ payload         | {{< highlight shell >}}
   "disabled": false
 }
 {{< /highlight >}}
-response codes  | <ul><li>**Success**: 200 (OK)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+response codes  | <ul><li>**Successfully created or updated**: 204 (No Content)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 ### `/users/:user` (DELETE) {#usersuser-delete}
 
@@ -260,7 +246,7 @@ The `/users/:user/password` API endpoint provides HTTP PUT access to update a us
 
 #### EXAMPLE {#usersuserpassword-put-example}
 
-In the following example, an HTTP PUT request is submitted to the `/users/:user/password` API to update the password for the user `alice`, resulting in a 200 (OK) HTTP response code.
+In the following example, an HTTP PUT request is submitted to the `/users/:user/password` API to update the password for the user `alice`, resulting in a 204 (No Content) HTTP response code.
 
 {{< highlight shell >}}
 curl -X PUT \
@@ -272,7 +258,7 @@ curl -X PUT \
 }' \
 http://127.0.0.1:8080/api/core/v2/users/alice/password
 
-HTTP/1.1 200 OK
+HTTP/1.1 204 No Content
 {{< /highlight >}}
 
 #### API Specification {#usersuserpassword-put-specification}
@@ -288,7 +274,7 @@ payload         | {{< highlight shell >}}
 }
 {{< /highlight >}}
 payload parameters | <ul><li>`username` (string, required): the `username` for the Sensu user</li><li>`password` (string, required): the user's new password</li></ul>
-response codes  | <ul><li>**Success**: 200 (OK)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+response codes  | <ul><li>**Successfully created or updated**: 204 (No Content)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 ## The `/users/:user/reinstate` API endpoint {#the-usersuserreinstate-api-endpoint}
 
@@ -298,7 +284,7 @@ The `/users/:user/reinstate` API endpoint provides HTTP PUT access to re-enable 
 
 #### EXAMPLE {#usersuserreinstate-put-example}
 
-In the following example, an HTTP PUT request is submitted to the `/users/:user/reinstate` API to enable the disabled user `alice`, resulting in a 200 (OK) HTTP response code.
+In the following example, an HTTP PUT request is submitted to the `/users/:user/reinstate` API to enable the disabled user `alice`, resulting in a 204 (No Content) HTTP response code.
 
 {{< highlight shell >}}
 curl -X PUT \
@@ -306,7 +292,7 @@ curl -X PUT \
 -H 'Content-Type: application/json' \
 http://127.0.0.1:8080/api/core/v2/users/alice/reinstate
 
-HTTP/1.1 200 OK
+HTTP/1.1 204 No Content
 {{< /highlight >}}
 
 #### API Specification {#usersuserreinstate-put-specification}
@@ -315,7 +301,7 @@ HTTP/1.1 200 OK
 ----------------|------
 description     | Reinstate a disabled user.
 example URL     | http://hostname:8080/api/core/v2/users/alice/reinstate
-response codes  | <ul><li>**Success**: 200 (OK)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+response codes  | <ul><li>**Successfully created or updated**: 204 (No Content)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 ## The `/users/:user/groups` API endpoint {#the-usersusergroups-api-endpoint}
 

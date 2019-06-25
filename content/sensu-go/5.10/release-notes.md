@@ -50,6 +50,7 @@ See the [upgrade guide][1] to upgrade Sensu to version 5.10.0.
 - The `sensuctl create` command now supports specifying the namespace for a group of resources at the time of creation, allowing you to replicate resources across namespaces without manual editing. See the [sensuctl reference][63] for more information and usage examples.
 - Sensu cluster roles can now include permissions to manage your Sensu license using the `license` resource type. See the [RBAC reference][64] to create a cluster role.
 - The web UI now displays up to 100,000 events and entities on the homepage.
+- The Sensu API now returns 204 (No Content) responses for some POST and PUT endpoints. See the [API docs][67] for individual endpoint responses.
 
 **FIXES:**
 
@@ -449,3 +450,4 @@ To get started with Sensu Go:
 [64]: /sensu-go/5.10/reference/rbac/#assigning-group-permissions-across-all-namespaces
 [65]: /sensu-go/5.10/dashboard/overview
 [66]: /sensu-go/5.10/dashboard/filtering
+[67]: /sensu-go/5.10/api
