@@ -7,6 +7,7 @@ version: "5.11"
 menu: "sensu-go-5.11"
 ---
 
+- [5.10.1 release notes](#5-10-1-release-notes)
 - [5.10.0 release notes](#5-10-0-release-notes)
 - [5.9.0 release notes](#5-9-0-release-notes)
 - [5.8.0 release notes](#5-8-0-release-notes)
@@ -31,6 +32,18 @@ Sensu Go adheres to [semantic versioning][2] using MAJOR.MINOR.PATCH release num
 Read the [upgrade guide][1] for information on upgrading to the latest version of Sensu Go.
 
 ---
+
+## 5.10.1 release notes
+
+**June 25, 2019** &mdash; The latest release of Sensu Go, version 5.10.1, is now available for download.
+This release is a stability release with key bug fixes, around proxy checks and entity deletion.
+See the [upgrade guide][1] to upgrade Sensu to version 5.10.1.
+
+**FIXES:**
+
+- The proxy_requests entity_attributes are now all considered when matching
+entities.
+- Events are now removed when their corresponding entity is deleted.
 
 ## 5.10.0 release notes
 
