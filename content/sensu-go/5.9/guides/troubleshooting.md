@@ -11,6 +11,12 @@ menu:
     parent: guides
 ---
 
+- [Service logging](#service-logging)
+	- [Log levels](#log-levels)
+	- [Log file locations](#log-file-locations)
+- [Permission issues](#permission-issues)
+- [Troubleshooting handlers and filters](#troubleshooting-handlers-and-filters)
+
 ## Service logging
 
 Logs produced by Sensu services -- i.e. sensu-backend and sensu-agent -- are
@@ -63,11 +69,11 @@ following those logs are described. The name of the desired service, e.g.
 
 | Platform     | Version           | Target | Command to follow log |
 |--------------|-------------------|--------------|-----------------------------------------------|
-| RHEL/Centos  | >= 7       | journald     | {{< highlight shell >}}journalctl --unit sensu-${service} --follow{{< /highlight >}}   |
+| RHEL/Centos  | >= 7       | journald     | {{< highlight shell >}}journalctl --follow --unit sensu-${service}{{< /highlight >}}   |
 | RHEL/Centos  | <= 6       | log file     | {{< highlight shell >}}tail --follow /var/log/sensu/sensu-${service}{{< /highlight >}} |
-| Ubuntu       | >= 15.04   | journald     | {{< highlight shell >}}journalctl --unit sensu-${service} --follow{{< /highlight >}}   |
+| Ubuntu       | >= 15.04   | journald     | {{< highlight shell >}}journalctl --follow --unit sensu-${service}{{< /highlight >}}   |
 | Ubuntu       | <= 14.10   | log file     | {{< highlight shell >}}tail --follow /var/log/sensu/sensu-${service}{{< /highlight >}} |
-| Debian       | >= 8       | journald     | {{< highlight shell >}}journalctl --unit sensu-${service} --follow{{< /highlight >}}   |
+| Debian       | >= 8       | journald     | {{< highlight shell >}}journalctl --follow --unit sensu-${service}{{< /highlight >}}   |
 | Debian       | <= 7       | log file     | {{< highlight shell >}}tail --follow /var/log/sensu/sensu-${service}{{< /highlight >}} |
 
 _NOTE: Platform versions described above are for reference only and do not
@@ -91,9 +97,7 @@ Get-Content -  Path "C:\scripts\test.txt" -Wait
 
 {{< platformBlockClose >}}
 
-### Log messages
-
-#### Permission issues
+## Permission issues
 
 Files and folders within `/var/cache/sensu/` and `/var/lib/sensu/` need to be owned by the sensu user and group. You will see a logged error similar to the following if there is a permission issue with either the sensu-backend or the sensu-agent:
 
@@ -114,6 +118,11 @@ or the sensu-agent:
 sudo chown -R sensu:sensu /var/cache/sensu/sensu-agent
 {{< /highlight >}}
 
+## Troubleshooting handlers and filters
+
+To troubleshoot handlers and filters, create test events using the [agent API][agent-api], adding the `handlers` attribute to send ad-hoc events to the pipeline.
+
+[agent-api]: ../../reference/agent#events-post
 [structured]: https://dzone.com/articles/what-is-structured-logging
 [journalctl]: https://www.digitalocean.com/community/tutorials/how-to-use-journalctl-to-view-and-manipulate-systemd-logs
 [platforms]: ../../installation/platforms
