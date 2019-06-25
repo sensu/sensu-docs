@@ -607,7 +607,7 @@ friendly name for the group.
 Once authenticated, a user needs to be granted permissions via either a
 `ClusterRoleBinding` or a `RoleBinding`.
 
-_NOTE: An authenticated user who is not assigned to either `ClusterRoleBinding` or `RoleBinding` will not be authorized and be given the default `system:user` profile. This will grant them access to the dashboard and is required for listing of namespaces but the user will only be able to see itself and an empty `default` namespace._
+_NOTE: An authenticated user who is not assigned to either `ClusterRoleBinding` or `RoleBinding` will not be authorized and be given the default `system:user` role. This role will grant them access to the dashboard and is required for listing of namespaces but the user will only be able to see itself and an empty `default` namespace._
 
 The way in which LDAP users and LDAP groups can be referred as subjects of a
 cluster role or role binding depends on the `groups_prefix` and
