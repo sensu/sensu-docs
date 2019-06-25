@@ -99,7 +99,7 @@ payload         | {{< highlight shell >}}
   "stdin": false
 }
 {{< /highlight >}}
-response codes  | <ul><li>**Success**: 200 (OK)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+response codes  | <ul><li>**Success**: 204 (No Content)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 ## The `/hooks/:hook` API endpoint {#the-hookshook-api-endpoint}
 
@@ -171,7 +171,7 @@ payload         | {{< highlight shell >}}
   "stdin": false
 }
 {{< /highlight >}}
-response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+response codes  | <ul><li>**Successfully created or updated**: 204 (No Content)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 ### `/hooks/:hook` (DELETE) {#hookshook-delete}
 

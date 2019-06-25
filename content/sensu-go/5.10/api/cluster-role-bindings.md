@@ -102,7 +102,7 @@ The `/clusterrolebindings` API endpoint provides HTTP POST access to create a [c
 #### EXAMPLE {#clusterrolebindings-post-example}
 
 In the following example, an HTTP POST request is submitted to the `/clusterrolebindings` API to create a cluster role binding that assigns the `cluster-admin` cluster role to the user `bob`.
-The request includes the cluster role binding definition in the request body and returns a successful HTTP 200 OK response and the created cluster role binding definition.
+The request includes the cluster role binding definition in the request body and returns a successful HTTP 204 No Content response.
 
 {{< highlight shell >}}
 curl -X POST \
@@ -125,22 +125,7 @@ curl -X POST \
 }' \
 http://127.0.0.1:8080/api/core/v2/clusterrolebindings
 
-HTTP/1.1 200 OK
-{
-  "subjects": [
-    {
-      "type": "User",
-      "name": "bob"
-    }
-  ],
-  "role_ref": {
-    "type": "ClusterRole",
-    "name": "cluster-admin"
-  },
-  "metadata": {
-    "name": "bob-binder"
-  }
-}
+HTTP/1.1 204 No Content
 {{< /highlight >}}
 
 #### API Specification {#clusterrolebindings-post-specification}
@@ -166,7 +151,7 @@ payload         | {{< highlight shell >}}
   }
 }
 {{< /highlight >}}
-response codes  | <ul><li>**Success**: 200 (OK)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+response codes  | <ul><li>**Success**: 204 (No Content)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 ## The `/clusterrolebindings/:clusterrolebinding` API endpoint {#the-clusterrolebindingsclusterrolebinding-api-endpoint}
 
@@ -234,7 +219,7 @@ The `/clusterrolebindings/:clusterrolebinding` API endpoint provides HTTP PUT ac
 #### EXAMPLE {#clusterrolebindingsclusterrolebinding-put-example}
 
 In the following example, an HTTP PUT request is submitted to the `/clusterrolebindings/:clusterrolebinding` API to create a cluster role binding that assigns the `cluster-admin` cluster role to users in the group `ops`.
-The request includes the cluster role binding definition in the request body and returns a successful HTTP 200 OK response and the created cluster role binding definition.
+The request includes the cluster role binding definition in the request body and returns a successful HTTP 204 No Content response.
 
 {{< highlight shell >}}
 curl -X PUT \
@@ -257,22 +242,7 @@ curl -X PUT \
 }' \
 http://127.0.0.1:8080/api/core/v2/clusterrolebindings/ops-group-binder
 
-HTTP/1.1 200 OK
-{
-  "subjects": [
-    {
-      "type": "Group",
-      "name": "ops"
-    }
-  ],
-  "role_ref": {
-    "type": "ClusterRole",
-    "name": "cluster-admin"
-  },
-  "metadata": {
-    "name": "ops-group-binder"
-  }
-}
+HTTP/1.1 204 No Content
 {{< /highlight >}}
 
 #### API Specification {#clusterrolebindingsclusterrolebinding-put-specification}
@@ -298,7 +268,7 @@ payload         | {{< highlight shell >}}
   }
 }
 {{< /highlight >}}
-response codes  | <ul><li>**Success**: 200 (OK)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+response codes  | <ul><li>**Successfully created or updated**: 204 (No Content)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 ### `/clusterrolebindings/:clusterrolebinding` (DELETE) {#clusterrolebindingsclusterrolebinding-delete}
 
