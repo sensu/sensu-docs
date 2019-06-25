@@ -36,7 +36,7 @@ Read the [upgrade guide][1] for information on upgrading to the latest version o
 ## 5.10.1 release notes
 
 **June 25, 2019** &mdash; The latest release of Sensu Go, version 5.10.1, is now available for download.
-This release is a stability release with key bug fixes, around proxy checks and entity deletion.
+This release is a stability release with key bug fixes around proxy checks and entity deletion.
 See the [upgrade guide][1] to upgrade Sensu to version 5.10.1.
 
 **FIXES:**
