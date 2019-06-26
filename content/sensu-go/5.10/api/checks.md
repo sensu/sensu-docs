@@ -106,7 +106,7 @@ output         | {{< highlight shell >}}
 #### EXAMPLE {#checks-post-example}
 
 In the following example, an HTTP POST request is submitted to the `/checks` API to create a `check-cpu` check.
-The request includes the check definition in the request body and returns a successful HTTP 200 OK response and the created check definition.
+The request includes the check definition in the request body and returns a successful HTTP 204 No Content response.
 
 {{< highlight shell >}}
 curl -X POST \
@@ -129,22 +129,7 @@ curl -X POST \
 }' \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/checks
 
-HTTP/1.1 200 OK
-{
-  "command": "check-cpu.sh -w 75 -c 90",
-  "subscriptions": [
-    "linux"
-  ],
-  "interval": 60,
-  "publish": true,
-  "handlers": [
-    "slack"
-  ],
-  "metadata": {
-    "name": "check-cpu",
-    "namespace": "default"
-  }
-}
+HTTP/1.1 204 No Content
 {{< /highlight >}}
 
 #### API Specification {#checks-post-specification}
@@ -171,7 +156,7 @@ example payload | {{< highlight shell >}}
 }
 {{< /highlight >}}
 payload parameters | Required check attributes: `interval` (integer) or `cron` (string), and a `metadata` scope containing `name` (string) and `namespace` (string). For more information about creating checks, see the [check reference][1]. 
-response codes  | <ul><li>**Success**: 200 (OK)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+response codes  | <ul><li>**Success**: 204 (No Content)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 ## The `/checks/:check` API endpoint {#the-checkscheck-api-endpoint}
 
@@ -237,7 +222,7 @@ output               | {{< highlight json >}}
 
 #### EXAMPLE {#checkscheckhooks-put-example}
 
-In the following example, an HTTP PUT request is submitted to the `/checks/:check` API to update the `check-cpu` check, resulting in a 200 (OK) HTTP response code and the updated check definition.
+In the following example, an HTTP PUT request is submitted to the `/checks/:check` API to update the `check-cpu` check, resulting in a 204 (No Content) HTTP response code.
 
 {{< highlight shell >}}
 curl -X PUT \
@@ -260,7 +245,7 @@ curl -X PUT \
 }' \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/checks/check-cpu
 
-HTTP/1.1 200 OK
+HTTP/1.1 204 No Content
 {{< /highlight >}}
 
 #### API Specification {#checkscheck-put-specification}
@@ -287,7 +272,7 @@ payload         | {{< highlight shell >}}
 }
 {{< /highlight >}}
 payload parameters | Required check attributes: `interval` (integer) or `cron` (string), and a `metadata` scope containing `name` (string) and `namespace` (string). For more information about creating checks, see the [check reference][1].
-response codes  | <ul><li>**Success**: 200 (OK)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+response codes  | <ul><li>**Successfully created or updated**: 204 (No Content)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 ### `/checks/:check` (DELETE) {#checkscheck-delete}
 

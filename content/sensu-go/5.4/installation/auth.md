@@ -82,6 +82,7 @@ sensuctl auth list
 
 Now that you've configured an authentication provider, you'll need to configure Sensu RBAC to give those users permissions within Sensu.
 Sensu RBAC allows management and access of users and resources based on namespaces, groups, roles, and bindings.
+See the [RBAC reference][4] for more information about configuring permissions in Sensu and [implementation examples](../../reference/rbac/#role-and-role-binding-examples).
 
 - **Namespaces** partition resources within Sensu. Sensu entities, checks, handlers, and other [namespaced resources][17] belong to a single namespace.
 - **Roles** create sets of permissions (get, delete, etc.) tied to resource types. **Cluster roles** apply permissions across namespaces and include access to [cluster-wide resources][18] like users and namespaces. 
@@ -89,7 +90,7 @@ Sensu RBAC allows management and access of users and resources based on namespac
 
 To enable permissions for external users and groups within Sensu, create a set of [roles][10], [cluster roles][11], [role bindings][12], and [cluster role bindings][13] that map to the usernames and group names found in your authentication providers.
 Make sure to include the [group prefix](#groups-prefix) and [username prefix](#username-prefix) when creating Sensu role bindings and cluster role bindings.
-See the [RBAC reference][4] for more information about configuring permissions in Sensu and [implementation examples](../../reference/rbac/#role-and-role-binding-examples).
+Without an assigned role or cluster role, users can sign in to the Sensu dashboard but can't access any Sensu resources.
 
 **4. Log in to Sensu**
 
