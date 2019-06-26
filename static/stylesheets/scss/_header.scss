@@ -1,7 +1,3 @@
-#home .button-menu {
-  display: none;
-}
-
 header {
   background: white;
   box-shadow: 0 1.5px 3px rgba(0,0,0,.24),0 3px 8px rgba(0,0,0,.05);
@@ -27,7 +23,9 @@ header {
     border-radius: 0;
     border-right: none;
     border-top: none;
+    height: 100%;
     padding: 0 12px 0 44px;
+    width: 375px;
   }
 
   .product-picker {
@@ -72,18 +70,24 @@ header {
   }
 }
 
-.button-menu {
+#hamburger {
+  cursor: pointer;
   display: block;
-  width: auto;
+
+  &::before {
+    color: $blue-dark;
+    content: "\f0c9";
+    display: block;
+    font-family: FontAwesome;
+    font-size: 2rem;
+    padding: 0.5rem 1.5rem;
+  }
 
   @media (min-width: $breakpoint-lg) {
     display: none;
   }
 
-  .icon {
-    color: $blue-dark;
-    font-size: 2.5rem;
-    margin: 0;
-    padding: 7px 10px;
+  #home & {
+    display: none;
   }
 }

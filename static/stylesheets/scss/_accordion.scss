@@ -1,5 +1,6 @@
 .accordion {
   cursor: pointer;
+  position: relative;
 
   &::after {
     content: "\f078";

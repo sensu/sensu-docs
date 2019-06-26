@@ -1,6 +1,6 @@
 .algolia-autocomplete {
   align-self: stretch;
-  display: flex;
+  display: flex !important;
   line-height: 4;
 
   &::before {
@@ -34,12 +34,17 @@
     color: #2C3458 !important;
   }
 
+  .ds-dropdown-menu {
+    min-width: auto !important;
+    width: 100% !important;
+  }
+
   .ds-dropdown-menu .ds-suggestion.ds-cursor .algolia-docsearch-suggestion .algolia-docsearch-suggestion--content {
     background-color: #f0f0f0 !important;
   }
 
-  .ds-suggestions {
-    font: 400 14px/1.4 'Work Sans';
+  .ds-suggestions a {
+    font: 400 1.4rem/1.4 'Work Sans';
   }
 }
 
@@ -49,7 +54,6 @@
   color: #2C3458;
   display: block;
   font: 400 14px/1.4 'Work Sans';
-  height: 100%;
   outline: none;
   padding: 12px 10px 12px 44px;
   width: 100%;
@@ -57,10 +61,6 @@
   &:active,
   &:focus {
     background-color: #f7f7f7;
-  }
-
-  @media (min-width: $breakpoint-lg) {
-    width: 375px;
   }
 }
 

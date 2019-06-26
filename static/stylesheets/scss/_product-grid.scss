@@ -16,6 +16,7 @@
     min-height: 220px;
     opacity: 1;
     padding: 2rem;
+    text-decoration: none;
     transition: opacity 240ms cubic-bezier(0.2, 0.3, 0.25, 0.9);
 
     @media (min-width: $breakpoint-md) {

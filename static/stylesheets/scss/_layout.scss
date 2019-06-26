@@ -5,6 +5,10 @@ main {
   max-width: 1236px;
   padding-top: $header-height-sm;
 
+  #home & {
+    max-width: 100%;
+  }
+
   @media (min-width: $breakpoint-lg) {
     padding-top: $header-height-lg;
   }

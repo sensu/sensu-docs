@@ -737,7 +737,7 @@ if ("document" in self && ("classList" in document.createElement("_") ? ! functi
             r = document.querySelector(".results .meta");
         Array.prototype.forEach.call(n, function(t) {
             t.querySelector("a").addEventListener("click", function() {
-                document.getElementById("toggle-drawer").checked = !1, document.body.classList.remove("toggle-drawer")
+                // document.getElementById("toggle-drawer").checked = !1, document.body.classList.remove("toggle-drawer")
             })
         });
         var s = window.pageYOffset,

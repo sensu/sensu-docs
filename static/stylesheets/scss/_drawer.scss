@@ -1,22 +1,32 @@
-#home .drawer {
-  display: none;
-}
-
 .drawer {
-  display: none;
-  flex: 0 0 25%;
+  display: flex;
+  flex: 0 0 75%;
   height: calc(100vh - #{$header-height-sm});
-  width: 25%;
+  left: -75%;
+  max-width: 26rem;
+  position: fixed;
+  transition: left 0.3s ease-in-out;
+  z-index: 102;
+
+  #home & {
+    display: none;
+  }
+
+  #toggle-drawer:checked ~ & {
+    height: 100vh;
+    left: 0;
+    top: 0;
+  }
 
   @media (min-width: $breakpoint-lg) {
-    display: flex;
+    flex: 0 0 25%;
     height: calc(100vh - #{$header-height-lg});
+    position: static;
+    width: 25%;
   }
 
   .algolia-autocomplete,
-  .product-picker {
-    display: flex;
-
+  .algolia-search {
     @media (min-width: $breakpoint-lg) {
       display: none !important;
     }
@@ -38,15 +48,46 @@
   }
 
   .drawer--inner {
+    background-color: white;
     height: inherit;
-    max-width: 31rem;
-    overflow: auto;
-    padding: 6rem 1.5rem 0 1.5rem;
-    position: fixed;
+    min-width: 75%;
+    max-width: 26rem;
+    overflow-x: visible;
+    overflow-y: auto;
+    padding: 1.5rem;
     width: inherit;
+
+    @media (min-width: $breakpoint-lg) {
+      background-color: transparent;
+      min-width: auto;
+      max-width: 31rem;
+      overflow: auto;
+      padding-top: 6rem;
+      position: fixed;
+    }
 
     nav {
       margin-bottom: 4rem;
+    }
+  }
+
+  .product-picker {
+    border-bottom: 1px solid #D5D6DE;
+    display: block;
+    margin-bottom: 2rem;
+    padding-bottom: 0.8rem;
+
+    .dropdown {
+      display: block;
+      margin: 0.8rem 0;
+    }
+
+    .dropdown--products {
+      min-width: auto;
+    }
+
+    @media (min-width: $breakpoint-lg) {
+      display: none;
     }
   }
 
@@ -58,5 +99,31 @@
     padding: 0.5rem 0;
     text-decoration: none;
     transition: color 240ms cubic-bezier(0.2, 0.3, 0.25, 0.9);
+  }
+}
+
+#backdrop {
+  background-color: black;
+  height: 0;
+  opacity: 0;
+  position: fixed;
+  top: 0;
+  transition: opacity .25s, width 0s .25s, height 0s .25s;
+  width: 0;
+
+  #home & {
+    display: none;
+  }
+
+  #toggle-drawer:checked ~ & {
+    height: 100vh;
+    opacity: 0.54;
+    transition: opacity 0.25s;
+    width: 100vw;
+    z-index: 101;
+  }
+
+  @media (min-width: $breakpoint-lg) {
+    display: none;
   }
 }
