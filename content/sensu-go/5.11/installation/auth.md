@@ -442,6 +442,15 @@ example      | {{< highlight shell >}}
 }
 {{< /highlight >}}
 
+| default_upn_domain |     |
+-------------|------
+description  | Enables UPN authentication when set. The default UPN suffix that will be appended to the username when a domain is not specified during login (e.g. `user` becomes `user@defaultdomain.xyz`).
+required     | false
+type         | String
+example      | {{< highlight shell >}}
+"default_upn_domain": "example.org"
+{{< /highlight >}}
+
 ### Binding attributes
 
 | user_dn    |      |
