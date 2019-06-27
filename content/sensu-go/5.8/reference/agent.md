@@ -469,7 +469,7 @@ sudo service sensu-agent start
 
 If no configuration flags are provided, the agent loads configuration from the location specified by the `config-file` attribute (default: `/etc/sensu/agent.yml`).
 
-{{< /platformBlock >}}
+{{< platformBlockClose >}}
 
 {{< platformBlock "Windows" >}}
 
@@ -489,7 +489,7 @@ You can configure the configuration file and log file locations using the `confi
 sensu-agent service install --config-file 'C:\\monitoring\\sensu\\config\\agent.yml' --log-file 'C:\\monitoring\\sensu\\log\\sensu-agent.log'
 {{< /highlight >}}
 
-{{< /platformBlock >}}
+{{< platformBlockClose >}}
 
 ### Stopping the service
 
@@ -503,7 +503,7 @@ To stop the agent service using a service manager:
 sudo service sensu-agent stop
 {{< /highlight >}}
 
-{{< /platformBlock >}}
+{{< platformBlockClose >}}
 
 {{< platformBlock "Windows" >}}
 
@@ -513,7 +513,7 @@ sudo service sensu-agent stop
 sc.exe stop SensuAgent
 {{< /highlight >}}
 
-{{< /platformBlock >}}
+{{< platformBlockClose >}}
 
 ### Restarting the service
 
@@ -529,7 +529,7 @@ To restart the agent using a service manager:
 sudo service sensu-agent restart
 {{< /highlight >}}
 
-{{< /platformBlock >}}
+{{< platformBlockClose >}}
 
 {{< platformBlock "Windows" >}}
 
@@ -540,7 +540,7 @@ sc.exe stop SensuAgent
 sc.exe start SensuAgent
 {{< /highlight >}}
 
-{{< /platformBlock >}}
+{{< platformBlockClose >}}
 
 ### Enabling on boot
 
@@ -562,7 +562,7 @@ sudo systemctl disable sensu-agent
 
 _NOTE: On older distributions of Linux, use `sudo chkconfig sensu-server on` to enable the agent and `sudo chkconfig sensu-server off` to disable._
 
-{{< /platformBlock >}}
+{{< platformBlockClose >}}
 
 {{< platformBlock "Windows" >}}
 
@@ -570,7 +570,7 @@ _NOTE: On older distributions of Linux, use `sudo chkconfig sensu-server on` to 
 
 The service is configured to start automatically on boot by default.
 
-{{< /platformBlock >}}
+{{< platformBlockClose >}}
 
 ### Getting service status
 
@@ -584,7 +584,7 @@ To see the status of the agent service using a service manager:
 service sensu-agent status
 {{< /highlight >}}
 
-{{< /platformBlock >}}
+{{< platformBlockClose >}}
 
 {{< platformBlock "Windows" >}}
 
@@ -594,7 +594,7 @@ service sensu-agent status
 sc.exe query SensuAgent
 {{< /highlight >}}
 
-{{< /platformBlock >}}
+{{< platformBlockClose >}}
 
 ### Getting service version
 
@@ -614,7 +614,7 @@ sensu-agent version
 sensu-agent service uninstall
 {{< /highlight >}}
 
-{{< /platformBlock >}}
+{{< platformBlockClose >}}
 
 ### Getting help
 
@@ -720,7 +720,7 @@ Flags:
       --user string                     agent user (default "agent")
 {{< /highlight >}}
 
-{{< /platformBlock >}}
+{{< platformBlockClose >}}
 
 {{< platformBlock "Windows" >}}
 
@@ -729,7 +729,7 @@ Flags:
 You can specify the agent configuration using a `.yml` file.
 See the example config file provided with Sensu packages at `%ALLUSERSPROFILE%\sensu\config\agent.yml.example` (default: `C:\ProgramData\sensu\config\agent.yml.example`) or [available here](/sensu-go/5.8/files/windows/agent.yml).
 
-{{< /platformBlock >}}
+{{< platformBlockClose >}}
 
 ### General configuration flags
 

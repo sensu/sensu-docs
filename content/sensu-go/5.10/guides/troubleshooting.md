@@ -78,7 +78,7 @@ following those logs are described. The name of the desired service, e.g.
 _NOTE: Platform versions described above are for reference only and do not
 supercede the documented [supported platforms][platforms]._
 
-{{< /platformBlock >}}
+{{< platformBlockClose >}}
 
 {{< platformBlock "Windows" >}}
 
@@ -94,7 +94,7 @@ If you're running a [binary-only distribution of the Sensu agent for Windows][2]
 Get-Content -  Path "C:\scripts\test.txt" -Wait
 {{< /highlight >}}
 
-{{< /platformBlock >}}
+{{< platformBlockClose >}}
 
 ## Permission issues
 

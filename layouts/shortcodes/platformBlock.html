@@ -1,3 +1,6 @@
-<div data-platform="{{ .Get 0 }}" class="platform">
-  {{ .Inner }}
-</div>
+{{ $id := .Get 0 }}
+
+<!-- Spaces will be dashes, slashes will be underscores when ids are generated -->
+{{ $id := replace $id " " "-" }}
+{{ $id := replace $id "/" "_" }}
+<div id="{{ $id }}" class="platform">

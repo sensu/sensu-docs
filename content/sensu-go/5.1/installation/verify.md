@@ -41,7 +41,7 @@ Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.1.1/sen
 Get-Content "$env:userprofile\sensu-go-5.1.1-windows-amd64.sha256sum"
 {{< /highlight >}}
 
-{{< /platformBlock >}}
+{{< platformBlockClose >}}
 
 {{< platformBlock "macOS" >}}
 
@@ -65,6 +65,6 @@ The result should match the output from the following command.
 curl -LO https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.1.1/sensu-go-5.1.1-darwin-amd64.sha512sum && cat sensu-go-5.1.1-darwin-amd64.sha512sum
 {{< /highlight >}}
 
-{{< /platformBlock >}}
+{{< platformBlockClose >}}
 
 [1]: ../install-sensu

@@ -39,7 +39,7 @@ The result should match the checksum for your platform.
 curl -LO https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.5.1/sensu-enterprise-go_5.5.1_checksums.txt && cat sensu-enterprise-go_5.5.1_checksums.txt
 {{< /highlight >}}
 
-{{< /platformBlock >}}
+{{< platformBlockClose >}}
 
 {{< platformBlock "Windows" >}}
 
@@ -65,7 +65,7 @@ Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.5.1/sen
 Get-Content "$env:userprofile\sensu-enterprise-go_5.5.1_checksums.txt" | Select-String -Pattern windows_amd64
 {{< /highlight >}}
 
-{{< /platformBlock >}}
+{{< platformBlockClose >}}
 
 {{< platformBlock "macOS" >}}
 
@@ -89,6 +89,6 @@ The result should match the checksum for your platform.
 curl -LO https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.5.1/sensu-enterprise-go_5.5.1_checksums.txt && cat sensu-enterprise-go_5.5.1_checksums.txt
 {{< /highlight >}}
 
-{{< /platformBlock >}}
+{{< platformBlockClose >}}
 
 [1]: ../install-sensu

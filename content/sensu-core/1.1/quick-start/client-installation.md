@@ -99,7 +99,7 @@ sudo apt-get install sensu{{< /highlight >}}
    need a [data-store (Redis) definition][14] &mdash; all of which are explained
    below.
 
-{{< /platformBlock >}}
+{{< platformBlockClose >}}
 
 {{< platformBlock "RHEL/CentOS" >}}
 
@@ -153,7 +153,7 @@ sudo yum install sensu{{< /highlight >}}
    need a [data-store (Redis) definition][14] &mdash; all of which are explained
    below.
 
-{{< /platformBlock >}}
+{{< platformBlockClose >}}
 
 [1]: ../../quick-start/five-minute-install
 [2]: https://sensu.io/features/downloads

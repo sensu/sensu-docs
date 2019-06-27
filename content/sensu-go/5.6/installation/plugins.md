@@ -81,7 +81,7 @@ sudo apt-get update
 sudo apt-get install build-essential
 {{< /highlight >}}
 
-{{< /platformBlock >}}
+{{< platformBlockClose >}}
 
 {{< platformBlock "RHEL/CentOS" >}}
 
@@ -95,7 +95,7 @@ sudo yum update
 sudo yum groupinstall "Development Tools"
 {{< /highlight >}}
 
-{{< /platformBlock >}}
+{{< platformBlockClose >}}
 
 [1]: https://github.com/sensu-plugins
 [2]: https://packagecloud.io/sensu/community

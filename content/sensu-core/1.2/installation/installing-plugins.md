@@ -66,7 +66,7 @@ If you find that you need to remove a plugin, you can use the embedded `gem` com
 {{< highlight shell >}}
 /opt/sensu/embedded/bin/gem uninstall sensu-plugins-disk-checks{{< /highlight >}}
 
-{{< /platformBlock >}}
+{{< platformBlockClose >}}
 
 {{< platformBlock "Windows" >}}
 
@@ -125,7 +125,7 @@ Removing metric-windows-uptime.rb
 Removing powershell_helper.rb
 Successfully uninstalled sensu-plugins-windows-2.8.1{{< /highlight >}}
 
-{{< /platformBlock >}}
+{{< platformBlockClose >}}
 
 We hope you've found this useful! If you find any issues or have a question, feel free to reach out in our [Community Slack][2], or [open an issue][4] on GitHub.
 
