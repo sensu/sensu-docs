@@ -21,8 +21,8 @@ To learn more about Sensu support and licensing, see the [getting started guide]
 | version                     | release date     | status    |
 | --------------------------- | ---------------- | --------- |
 5.11.0 ([docs](/sensu-go/5.11)) | | Prerelease
-5.11.0 ([docs](/sensu-go/5.11)) | | Prerelease
-**5.10.1** ([docs](/sensu-go/5.10)) | [June 25, 2019](/sensu-go/5.10/release-notes/#5-10-1-release-notes) | Supported
+**5.10.2** ([docs](/sensu-go/5.10)) | [June 27, 2019](/sensu-go/5.10/release-notes/#5-10-2-release-notes) | Supported
+5.10.1 ([docs](/sensu-go/5.10)) | [June 25, 2019](/sensu-go/5.10/release-notes/#5-10-1-release-notes) | Supported
 5.10.0 ([docs](/sensu-go/5.10)) | [June 19, 2019](/sensu-go/5.10/release-notes/#5-10-0-release-notes) | Supported
 5.9.0 ([docs](/sensu-go/5.9)) | [May 29, 2019](/sensu-go/5.9/release-notes/#5-9-0-release-notes) | Supported
 5.8.0 ([docs](/sensu-go/5.8)) | [May 22, 2019](/sensu-go/5.8/release-notes/#5-8-0-release-notes)   | Supported

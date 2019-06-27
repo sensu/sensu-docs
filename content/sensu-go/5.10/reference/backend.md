@@ -162,7 +162,7 @@ System clocks between agents and the backend should be synchronized to a central
 
 You can specify the backend configuration using a `/etc/sensu/backend.yml` file or using `sensu-backend start` [configuration flags][15].
 The backend requires that the `state-dir` flag be set before starting; all other required flags have default values.
-See the example config file provided with Sensu packages at `/usr/share/doc/sensu-go-backend-5.10.1/backend.yml.example` or [available here](/sensu-go/5.10/files/backend.yml).
+See the example config file provided with Sensu packages at `/usr/share/doc/sensu-go-backend-5.10.2/backend.yml.example` or [available here](/sensu-go/5.10/files/backend.yml).
 The backend loads configuration upon startup, so you must restart the backend for any configuration updates to take effect.
 
 ### Configuration summary
