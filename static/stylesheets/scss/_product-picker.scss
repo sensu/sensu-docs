@@ -5,13 +5,14 @@
     display: inline-block;
     margin: 0 4px;
     position: relative;
-    z-index: 10;
 
     .fa {
       float: right;
     }
 
     &.open {
+      z-index: 10;
+
       a {
         border-bottom: none;
         border-bottom-left-radius: 0;
@@ -21,6 +22,10 @@
       .options {
         display: block;
       }
+    }
+
+    &.open ~ .open {
+      z-index: 9;
     }
 
     .options {
@@ -58,7 +63,6 @@
 
   .dropdown--products {
     min-width: 260px;
-    z-index: 2;
   }
 
   .dropdown--versions {

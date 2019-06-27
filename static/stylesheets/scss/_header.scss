@@ -25,7 +25,11 @@ header {
     border-top: none;
     height: 100%;
     padding: 0 12px 0 44px;
-    width: 375px;
+    width: 100%;
+
+    @media (min-width: $breakpoint-lg) {
+      width: 375px;
+    }
   }
 
   .product-picker {

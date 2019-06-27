@@ -23,6 +23,7 @@
     height: calc(100vh - #{$header-height-lg});
     position: static;
     width: 25%;
+    z-index: 1;
   }
 
   .algolia-autocomplete,
