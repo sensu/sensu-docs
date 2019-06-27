@@ -674,7 +674,7 @@ The agent loads configuration upon startup, so you must restart the agent for an
 You can specify the agent configuration using a `.yml` file or using `sensu-agent start` command-line flags.
 Configuration provided via command-line flags overrides attributes specified in a configuration file.
 
-See the example config file provided with Sensu packages at `/usr/share/doc/sensu-go-agent-5.10.1/agent.yml.example` or [available here](/sensu-go/5.10/files/agent.yml).
+See the example config file provided with Sensu packages at `/usr/share/doc/sensu-go-agent-5.10.2/agent.yml.example` or [available here](/sensu-go/5.10/files/agent.yml).
 
 #### Configuration summary
 

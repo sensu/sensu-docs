@@ -7,6 +7,7 @@ version: "5.10"
 menu: "sensu-go-5.10"
 ---
 
+- [5.10.2 release notes](#5-10-2-release-notes)
 - [5.10.1 release notes](#5-10-1-release-notes)
 - [5.10.0 release notes](#5-10-0-release-notes)
 - [5.9.0 release notes](#5-9-0-release-notes)
@@ -32,6 +33,16 @@ Sensu Go adheres to [semantic versioning][2] using MAJOR.MINOR.PATCH release num
 Read the [upgrade guide][1] for information on upgrading to the latest version of Sensu Go.
 
 ---
+
+## 5.10.2 release notes
+
+**June 27, 2019** &mdash; The latest release of Sensu Go, version 5.10.2, is now available for download.
+This is a stability release with a bug fix for expired licenses.
+See the [upgrade guide][1] to upgrade Sensu to version 5.10.2.
+
+**FIXES:**
+
+- Sensu now handles expired licenses as expected.
 
 ## 5.10.1 release notes
 
