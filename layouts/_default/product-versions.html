@@ -19,7 +19,7 @@
         {{ .Content }}
         
         <h2>Pick a Version</h2>
-        <div class="landingButtonHolder">
+        <div class="link-grid">
           {{ if not ($.Scratch.Get "versionList") }}
             {{ $product := replace .Section "-" "_" }}
             {{ $product_info := (index .Site.Params.products $product) }}
@@ -29,7 +29,7 @@
           {{ end }}
           {{ $versionList := $.Scratch.Get "versionList" }}
           {{ range $version := $versionList }}
-            <span class="landingButton"><a href="/{{ $.Section }}/{{ $version }}">{{ $version }}</a></span>
+            <a href="/{{ $.Section }}/{{ $version }}">{{ $version }}</a>
           {{ end }}
         </div>
       </div>
