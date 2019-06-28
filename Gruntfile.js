@@ -56,12 +56,11 @@ module.exports = function(grunt) {
       },
       dist: {
         files: {
-          'static/stylesheets/application.css': 'static/stylesheets/application.scss',
+          'static/stylesheets/sensu.css': 'static/stylesheets/scss/main.scss',
         },
         options: {
           implementation: sass,
           sourceMap: false,
-          style: 'compressed',
         },
       },
     },
