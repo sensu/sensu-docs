@@ -27,7 +27,11 @@ main {
 
 
   .wrapper {
-    padding: 50px 35px 96px;
+    padding: 30px 25px 96px;
+
+    @media (min-width: $breakpoint-md) {
+      padding: 50px 35px 96px;
+    }
   }
 
   ol {
@@ -56,6 +60,10 @@ main {
         top: 0.55em;
         transform: rotate(45deg);
         width: 0.6rem;
+      }
+      
+      ul {
+        margin: 0.75em 0 0.75em 2.5rem;
       }
     }
   }

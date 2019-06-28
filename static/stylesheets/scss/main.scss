@@ -1,14 +1,18 @@
 @import "vendor/sanitize";
 @import "variables";
 @import "global";
+
 @import "layout";
+@import "footer";
+@import "header";
+
+@import "accordion";
 @import "alert";
 @import "code";
-@import "header";
-@import "footer";
-@import "accordion";
 @import "drawer";
-@import "search";
+@import "language-toggle";
 @import "platform-picker";
 @import "product-grid";
 @import "product-picker";
+@import "search";
+@import "table";

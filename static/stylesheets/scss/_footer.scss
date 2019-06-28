@@ -29,11 +29,10 @@
 
   .footer--content--left {
     flex: 0 0 100%;
-    padding: 0 4rem;
+    padding: 0 2rem;
 
     @media (min-width: $breakpoint-lg) {
       flex: 0 0 50%;
-      padding: 0 2rem;
     }
   }
 

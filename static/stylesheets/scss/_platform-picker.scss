@@ -71,6 +71,7 @@
 .platform-picker-main {
   @extend .platform-picker;
   color: $gray-dark;
+  height: 5rem;
 
   .platform-picker--inner {
     background: white;
