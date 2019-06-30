@@ -42,34 +42,34 @@
                 {{ $niceName := replace $x.Name "-" " " }}
                 {{ $niceName := title $niceName }}
 
-                <!-- saving the menu as API breaks it in the front matter, so we need to format it here -->
-                {{ if or (eq $niceName "Api") (eq $niceName "Rbac") }}
-                  {{ $niceName := upper $niceName }}
-                  <li><a class="strong accordion {{ if $isCurrent }}current active{{ end }}">{{ $niceName }}</a>
-                <!-- render the title normally if not API -->
-                {{ else }}
-                  <li><a class="strong accordion {{ if $isCurrent }}current active{{ end }}">{{ $niceName }}</a>
-                {{ end }}
-                <ul>
-
-                  <!-- Loop through the child menu's pages -->
-                  {{ range .Children.ByWeight }}
-                    {{ if not (eq (lower .Parent) (lower .Name)) }}
-                      <!-- Determine if this children is active -->
-                      {{ $isCurrent := (eq $.Permalink (.URL | absURL | printf "%s")) }}
-                      <li><a class="{{ if $isCurrent }}current{{ end }}" href="{{ .URL | absURL }}">{{ .Name }}</a></li>
+                <li>
+                  <a class="strong accordion {{ if $isCurrent }}current active{{ end }}">
+                    {{ if or (eq $niceName "Api") (eq $niceName "Rbac") }}
+                      {{ upper $niceName }}
+                    <!-- render the title normally if not API -->
+                    {{ else }}
+                      {{ $niceName }}
                     {{ end }}
-                  {{ end }}
-                </ul>
+                    <i class="fa fa-chevron-down" aria-hidden="true"></i>
+                  </a>
+                  <ul>
+                    <!-- Loop through the child menu's pages -->
+                    {{ range .Children.ByWeight }}
+                      {{ if not (eq (lower .Parent) (lower .Name)) }}
+                        <!-- Determine if this children is active -->
+                        {{ $isCurrent := (eq $.Permalink (.URL | absURL | printf "%s")) }}
+                        <li><a class="{{ if $isCurrent }}current{{ end }}" href="{{ .URL | absURL }}">{{ .Name }}</a></li>
+                      {{ end }}
+                    {{ end }}
+                  </ul>
+                </li>
               {{ end }}
-
             <!-- No children, this is top level menu items -->
             {{ else }}
               {{ if not (eq $.Params.product $x.Name) }}
-                <li><a class="strong" href="{{ .URL | absURL }}">{{ $x.Name }}</a>
+              <li><a class="strong" href="{{ .URL | absURL }}">{{ $x.Name }}</a></li>
               {{ end }}
             {{ end }}
-            </li>
           {{ end }}
           </ul></li>
         {{ end }}
