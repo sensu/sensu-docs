@@ -28,7 +28,7 @@
           <!-- ex. Sensu Core -->
           {{ $url := replace $.Params.product " " "-" }}
           {{ $url := lower $url }}
-          <li><a class="menu-title" href="/{{ $url }}/{{ $.Params.version }}">{{ $niceName }}</a><ul class="toc-menu-container">
+          <li><a class="strong" href="/{{ $url }}/{{ $.Params.version }}">{{ $niceName }}</a><ul>
 
           <!-- Loop through the menus pages -->
           {{ range $y, $x := sort $v "Weight" }}
@@ -42,35 +42,34 @@
                 {{ $niceName := replace $x.Name "-" " " }}
                 {{ $niceName := title $niceName }}
 
-                <!-- saving the menu as API breaks it in the front matter, so we need to format it here -->
-                {{ if or (eq $niceName "Api") (eq $niceName "Rbac") }}
-                  {{ $niceName := upper $niceName }}
-                  <li><a class="menu-title accordion {{ if $isCurrent }}current{{ end }}">{{ $niceName }}<span class="menu-dropdown-icon oc-toggle -angle-down toc-show"><i class="fa fa-chevron-down" aria-hidden="true"></i></span></a>
-
-                <!-- render the title normally if not API -->
-                {{ else }}
-                  <li><a class="menu-title accordion {{ if $isCurrent }}current{{ end }}">{{ $niceName }}<span class="menu-dropdown-icon toc-toggle -angle-down toc-show"><i class="fa fa-chevron-down" aria-hidden="true"></i></span></a>
-                {{ end }}
-                <ul class="panel" {{ if $isCurrent }}style="display: block;"{{ end }}>
-
-                  <!-- Loop through the child menu's pages -->
-                  {{ range .Children.ByWeight }}
-                    {{ if not (eq (lower .Parent) (lower .Name)) }}
-                      <!-- Determine if this children is active -->
-                      {{ $isCurrent := (eq $.Permalink (.URL | absURL | printf "%s")) }}
-                      <li><a class="menu-child {{ if $isCurrent }}current{{ end }}" href="{{ .URL | absURL }}">{{ .Name }}</a></li>
+                <li>
+                  <a class="strong accordion {{ if $isCurrent }}current active{{ end }}">
+                    {{ if or (eq $niceName "Api") (eq $niceName "Rbac") }}
+                      {{ upper $niceName }}
+                    <!-- render the title normally if not API -->
+                    {{ else }}
+                      {{ $niceName }}
                     {{ end }}
-                  {{ end }}
-                </ul>
+                    <i class="fa fa-chevron-down" aria-hidden="true"></i>
+                  </a>
+                  <ul>
+                    <!-- Loop through the child menu's pages -->
+                    {{ range .Children.ByWeight }}
+                      {{ if not (eq (lower .Parent) (lower .Name)) }}
+                        <!-- Determine if this children is active -->
+                        {{ $isCurrent := (eq $.Permalink (.URL | absURL | printf "%s")) }}
+                        <li><a class="{{ if $isCurrent }}current{{ end }}" href="{{ .URL | absURL }}">{{ .Name }}</a></li>
+                      {{ end }}
+                    {{ end }}
+                  </ul>
+                </li>
               {{ end }}
-
             <!-- No children, this is top level menu items -->
             {{ else }}
               {{ if not (eq $.Params.product $x.Name) }}
-                <li><a class="menu-child" href="{{ .URL | absURL }}">{{ $x.Name }}</a>
+              <li><a class="strong" href="{{ .URL | absURL }}">{{ $x.Name }}</a></li>
               {{ end }}
             {{ end }}
-            </li>
           {{ end }}
           </ul></li>
         {{ end }}
@@ -81,27 +80,11 @@
 
 <!-- Script for the dropdown list items -->
 <script>
-  var acc = document.getElementsByClassName("accordion");
-  var i;
+  var acc = document.getElementsByClassName('accordion');
 
-  for (i = 0; i < acc.length; i++) {
-      acc[i].onclick = function(){
-
-          /* Toggle between adding and removing the "active" class,
-          to highlight the button that controls the panel */
-          this.classList.toggle("active");
-
-          /* Toggle between hiding and showing the active panel */
-          var panel = this.nextElementSibling;
-          if (panel.style.display === "block") {
-              panel.style.display = "none";
-              this.firstElementChild.classList.remove('toc-hide');
-              this.firstElementChild.classList.add('toc-show');
-          } else {
-              panel.style.display = "block";
-              this.firstElementChild.classList.remove('toc-show');
-              this.firstElementChild.classList.add('toc-hide');
-          }
-      }
+  for (var i = 0; i < acc.length; i++) {
+    acc[i].addEventListener('click', function() {
+      this.classList.toggle('active');
+    });
   }
 </script>

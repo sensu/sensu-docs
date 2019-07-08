@@ -1,0 +1,13 @@
+.link-grid {
+  text-align: center;
+
+  a {
+    border: 1px solid $green;
+    display: inline-block;
+    font-size: 1.6rem;
+    height: 10rem;
+    line-height: 10rem;
+    margin: 1rem;
+    width: 20rem;
+  }
+}

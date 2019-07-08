@@ -1,5 +1,5 @@
 <!-- May not render, used for old/pre release versions -->
-<div id="alertSection">
+<div id="alerts">
   {{ $product := replace .Section "-" "_" }}
   {{ $product_info := (index .Site.Params.products $product) }}
   {{ if and (isset .Params "version") (ne $product_info.latest .Params.version) }}
