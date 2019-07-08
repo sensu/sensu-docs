@@ -266,7 +266,6 @@ spec:
     - entity.entity_class == 'proxy'
     - entity.labels.proxy_type == 'website'
   publish: true
-  round_robin: true
   runtime_assets:
   - sensu-plugins-http
   - sensu-ruby-runtime
@@ -293,7 +292,6 @@ spec:
       "proxy"
     ],
     "publish": true,
-    "round_robin": true,
     "proxy_requests": {
       "entity_attributes": [
         "entity.entity_class == 'proxy'",
@@ -308,7 +306,7 @@ spec:
 
 Our `check-http` check uses the `proxy_requests` attribute to specify the applicable entities.
 In our case, we want to run the `check-http` check on all entities of entity class `proxy` and proxy type `website`.
-Since we're using this check to monitor multiple sites, we can use token substitution to apply the correct `url` in the check `command`, and we can use the `round_robin` attribute to distribute the executions evenly across agents with the `proxy` subscription.
+Since we're using this check to monitor multiple sites, we can use token substitution to apply the correct `url` in the check `command`.
 
 Now we can use sensuctl to add this check to Sensu.
 
@@ -320,6 +318,8 @@ sensuctl check list
 ───────────────── ─────────────────────────────────── ────────── ────── ───────── ───── ─────────────── ────────── ─────────────────────────────────────── ─────── ────────── ────────
   check-http        check-http.rb -u {{ .labels.url }}         60                0     0   proxy                     sensu-plugins-http,sensu-ruby-runtime           true       false                                     
 {{< /highlight >}}
+
+_PRO TIP: To distribute check executions across multiple agents, set the `round-robin` check attribute to `true`. For more information about round-robin checks, see the [check reference][18]._
 
 ### Validating the check
 
@@ -365,3 +365,4 @@ From this point, here are some recommended resources:
 [15]: ../../installation/configuration-management
 [16]: https://bonsai.sensu.io/assets/sensu-plugins/sensu-plugins-http
 [17]: https://bonsai.sensu.io/assets/sensu/sensu-ruby-runtime
+[18]: ../../reference/checks#round-robin-checks
