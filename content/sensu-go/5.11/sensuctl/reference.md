@@ -14,6 +14,7 @@ menu:
 - [First-time setup](#first-time-setup)
 - [Managing sensuctl](#managing-sensuctl)
 - [Creating resources](#creating-resources)
+- [Deleting resources](#deleting-resources)
 - [Updating resources](#updating-resources)
 - [Managing resources](#managing-resources)
 - [Filtering](#filtering) (licensed tier)
@@ -327,6 +328,23 @@ To create the `pagerduty` handler in the current session namespace:
 
 {{< highlight shell >}}
 sensuctl create --file pagerduty.yml
+{{< /highlight >}}
+
+## Deleting resources
+
+The `sensuctl delete` command allows you to delete resources by reading from STDIN or a flag configured file (`-f`).
+The `delete` command accepts Sensu resource definitions in `wrapped-json` and `yaml` and uses the same [resources types][3] as `sensuctl create`.
+
+To delete all resources from `my-resources.yml` using `sensuctl delete`:
+
+{{< highlight shell >}}
+sensuctl delete --file my-resources.yml
+{{< /highlight >}}
+
+Or:
+
+{{< highlight shell >}}
+cat my-resources.yml | sensuctl delete
 {{< /highlight >}}
 
 ## Updating resources
