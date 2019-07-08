@@ -101,12 +101,14 @@ To view the active configuration for sensuctl:
 sensuctl config view
 {{< /highlight >}}
 
-Sensuctl configuration includes the [Sensu backend url][9], default [output format][10] for the current user, and default [namespace][11] for the current user.
+Sensuctl configuration includes the [Sensu backend url][9], default [output format][10] for the current user, default [namespace][11] for the current user, and currently configured username.
 
 {{< highlight shell >}}
-api-url: http://127.0.0.1:8080
-format: wrapped-json
-namespace: default
+=== Active Configuration
+API URL:   http://127.0.0.1:8080
+Namespace: default
+Format:    tabular
+Username:  admin
 {{< /highlight >}}
 
 ### Set output format
@@ -619,7 +621,8 @@ During configuration, sensuctl creates configuration files that contain informat
 cat .config/sensu/sensuctl/profile
 {
   "format": "tabular",
-  "namespace": "demo"
+  "namespace": "demo",
+  "username": "admin"
 }
 {{< /highlight >}}
 
@@ -635,7 +638,7 @@ cat .config/sensu/sensuctl/cluster
 }
 {{< /highlight >}}
 
-These are useful if you want to know what cluster you're connecting to, or what namespace you're currently configured to use. 
+These are useful if you want to know what cluster you're connecting to, or what namespace or username you're currently configured to use.
 
 [1]: ../../reference/rbac
 [2]: https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
