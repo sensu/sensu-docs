@@ -68,6 +68,8 @@ Source: [GitHub.com][76]
 
 ### CHANGES {#core-v1-7-1-changes}
 
+- **NEW**: Sensu Core 1.7.1 no longer supports Debian 7, which has reached end of life.
+
 - **BUGFIX**: Sensu now triggers a reconnect when trying to publish to RabbitMQ when in a disconnected state.
 
 - **BUGFIX**: Use `--no-document` when installing gems via `sensu-install` instead of deprecated `--no-ri --no-rdoc`.
