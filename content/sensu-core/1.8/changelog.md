@@ -8,6 +8,7 @@ menu: "sensu-core-1.8"
 
 ## Releases
 
+- [Core 1.8.0 Release Notes](#core-v1-8-0)
 - [Core 1.7.1 Release Notes](#core-v1-7-1)
 - [Core 1.7.0 Release Notes](#core-v1-7-0)
 - [Core 1.6.2 Release Notes](#core-v1-6-2)
@@ -57,6 +58,18 @@ menu: "sensu-core-1.8"
 - [Core 0.23.2 Release Notes](#core-v0-23-2)
 - [Core 0.23.1 Release Notes](#core-v0-23-1)
 - [Core 0.23.0 Release Notes](#core-v0-23-0)
+
+## Core 1.8.0 Release Notes {#core-v1-8-0}
+
+Source: [GitHub.com][77]
+
+**July 9, 2019** &mdash; Sensu Core version 1.8.0 has been released
+  and is available for immediate download. Please note the following
+  improvements:
+
+### CHANGES {#core-v1-8-0-changes}
+
+- **IMPROVEMENT**: The Sensu server now supports advanced configuration options for check result and keepalive replication across multiple sites using the RabbitMQ shovel plugin. [Contact us][78] to learn more.
 
 ## Core 1.7.1 Release Notes {#core-v1-7-1}
 
@@ -1816,6 +1829,10 @@ available for immediate download. Please note the following improvements:
 
 <!-- 1.7.1 -->
 [76]: https://github.com/sensu/sensu/blob/master/CHANGELOG.md#171---2019-07-08
+
+<!-- 1.8.0 -->
+[77]: https://github.com/sensu/sensu/blob/master/CHANGELOG.md#180---2019-07-09
+[78]: https://account.sensu.io/support
 
 <!-- GH Issues/PR's -->
 
