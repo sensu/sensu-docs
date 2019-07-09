@@ -696,6 +696,7 @@ spec:
       user_dn: cn=binder,cn=users,dc=acme,dc=org
     client_cert_file: /path/to/ssl/cert.pem
     client_key_file: /path/to/ssl/key.pem
+    default_upn_domain: example.org
     group_search:
       attribute: member
       base_dn: dc=acme,dc=org
@@ -728,6 +729,7 @@ spec:
         "trusted_ca_file": "/path/to/trusted-certificate-authorities.pem",
         "client_cert_file": "/path/to/ssl/cert.pem",
         "client_key_file": "/path/to/ssl/key.pem",
+        "default_upn_domain": "example.org",
         "binding": {
           "user_dn": "cn=binder,cn=users,dc=acme,dc=org",
           "password": "P@ssw0rd!"
@@ -802,6 +804,7 @@ example      | {{< highlight shell >}}
       "trusted_ca_file": "/path/to/trusted-certificate-authorities.pem",
       "client_cert_file": "/path/to/ssl/cert.pem",
       "client_key_file": "/path/to/ssl/key.pem",
+      "default_upn_domain": "example.org",
       "binding": {
         "user_dn": "cn=binder,cn=users,dc=acme,dc=org",
         "password": "P@ssw0rd!"
@@ -842,6 +845,7 @@ example      | {{< highlight shell >}}
     "trusted_ca_file": "/path/to/trusted-certificate-authorities.pem",
     "client_cert_file": "/path/to/ssl/cert.pem",
     "client_key_file": "/path/to/ssl/key.pem",
+    "default_upn_domain": "example.org",
     "binding": {
       "user_dn": "cn=binder,cn=users,dc=acme,dc=org",
       "password": "P@ssw0rd!"
@@ -971,6 +975,15 @@ example      | {{< highlight shell >}}
   "name_attribute": "displayName",
   "object_class": "person"
 }
+{{< /highlight >}}
+
+| default_upn_domain |     |
+-------------|------
+description  | Enables UPN authentication when set. The default UPN suffix that will be appended to the username when a domain is not specified during login (for example: `user` becomes `user@defaultdomain.xyz`).
+required     | false
+type         | String
+example      | {{< highlight shell >}}
+"default_upn_domain": "example.org"
 {{< /highlight >}}
 
 ### Active Directory binding attributes
