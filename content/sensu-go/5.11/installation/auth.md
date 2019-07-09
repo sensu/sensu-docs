@@ -697,6 +697,7 @@ spec:
     client_cert_file: /path/to/ssl/cert.pem
     client_key_file: /path/to/ssl/key.pem
     default_upn_domain: example.org
+    include_nested_groups: true
     group_search:
       attribute: member
       base_dn: dc=acme,dc=org
@@ -730,6 +731,7 @@ spec:
         "client_cert_file": "/path/to/ssl/cert.pem",
         "client_key_file": "/path/to/ssl/key.pem",
         "default_upn_domain": "example.org",
+        "include_nested_groups": true,
         "binding": {
           "user_dn": "cn=binder,cn=users,dc=acme,dc=org",
           "password": "P@ssw0rd!"
@@ -805,6 +807,7 @@ example      | {{< highlight shell >}}
       "client_cert_file": "/path/to/ssl/cert.pem",
       "client_key_file": "/path/to/ssl/key.pem",
       "default_upn_domain": "example.org",
+      "include_nested_groups": true,
       "binding": {
         "user_dn": "cn=binder,cn=users,dc=acme,dc=org",
         "password": "P@ssw0rd!"
@@ -846,6 +849,7 @@ example      | {{< highlight shell >}}
     "client_cert_file": "/path/to/ssl/cert.pem",
     "client_key_file": "/path/to/ssl/key.pem",
     "default_upn_domain": "example.org",
+    "include_nested_groups": true,
     "binding": {
       "user_dn": "cn=binder,cn=users,dc=acme,dc=org",
       "password": "P@ssw0rd!"
@@ -984,6 +988,15 @@ required     | false
 type         | String
 example      | {{< highlight shell >}}
 "default_upn_domain": "example.org"
+{{< /highlight >}}
+
+| include_nested_groups |     |
+-------------|------
+description  | When set to `true`,  group search includes any nested groups instead of just the top level groups that a user is a member of.
+required     | false
+type         | Boolean
+example      | {{< highlight shell >}}
+"include_nested_groups": true
 {{< /highlight >}}
 
 ### Active Directory binding attributes
