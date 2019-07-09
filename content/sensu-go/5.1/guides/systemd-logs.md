@@ -6,7 +6,6 @@ product: "Sensu Go"
 platformContent: false
 ---
 
-
 By default, systems where systemd is the service manager do not write logs to `/var/log/sensu/` for the `sensu-agent` and the `sensu-backend` services. This guide walks you through how to add log forwarding from journald to syslog, have rsyslog write logging data to disk, and set up log rotation of the newly created log files.
 
 To configure journald to forward logging data to syslog, modify `/etc/systemd/journald.conf` to include the following line:
@@ -38,20 +37,35 @@ systemctl restart systemd-journald
 systemctl restart rsyslog
 {{< /highlight>}}
 
-Set up log rotation for newly created log files. This example rotates all log files in `/var/log/sensu/` weekly, unless the size of 100M is reached first. The last five rotated logs are kept and compressed, with the exception of the most recent one.
+Set up log rotation for newly created log files to ensure logging does not fill up your disk. These examples rotate the log files `/var/log/sensu/sensu-agent.log` and `/var/log/sensu/sensu-backend.log` weekly, unless the size of 100M is reached first. The last seven rotated logs are kept and compressed, with the exception of the most recent one. After rotation, `rsyslog` is restarted to ensure logging is written to a new file and not the most recent rotated file.
 
 {{< highlight shell>}}
-# Inside /etc/logrotate.d/sensu.conf
-/var/log/sensu/* {
-    weekly
-    rotate 5
+# Inside /etc/logrotate.d/sensu-agent.conf
+/var/log/sensu/sensu-agent.log {
+    daily
+    rotate 7
     size 100M
     compress
     delaycompress
+    postrotate
+      /bin/systemctl restart rsyslog
+    endscript
+}
+
+# Inside /etc/logrotate.d/sensu-backend.conf
+/var/log/sensu/sensu-backend.log {
+    daily
+    rotate 7
+    size 100M
+    compress
+    delaycompress
+    postrotate
+      /bin/systemctl restart rsyslog
+    endscript
 }
 {{< /highlight>}}
 
-You can use the following command to see what logrotate would do if it were executed now based on the above schedule and size threshold.
+You can use the following command to see what logrotate would do if it were executed now based on the above schedule and size threshold. The `-d` flag will output details, but it will not take action on the logs or execute the postrotate script.
 
 {{< highlight shell>}}
 logrotate -d /etc/logrotate.d/sensu.conf

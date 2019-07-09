@@ -1,0 +1,146 @@
+#footer {
+  background: white;
+  border-top: 1px solid rgba(44, 52, 88, 0.25);
+  padding: 2rem 0 0;
+  position: absolute;
+  z-index: 3;
+  width: 100%;
+
+  &::before {
+    background: no-repeat url('/images/footer-symbol.png') center/contain;
+    content: '';
+    display: block;
+    height: 2rem;
+    left: 0;
+    margin: auto;
+    position: absolute;
+    right: 0;
+    top: -1rem;
+    width: 2rem;
+  }
+
+  .footer--content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: 0 auto;
+    max-width: 1310px;
+  }
+
+  .footer--content--left {
+    flex: 0 0 100%;
+    padding: 0 2rem;
+
+    @media (min-width: $breakpoint-lg) {
+      flex: 0 0 50%;
+    }
+  }
+
+  .footer--content--right {
+    @extend .footer--content--left;
+
+    @media (min-width: $breakpoint-lg) {
+      flex-basis: 33.333%;
+    }
+  }
+
+  .footer--navigation {
+    display: flex;
+    flex-wrap: wrap;
+
+    > * {
+      flex: 0 0 100%;
+
+      @media (min-width: $breakpoint-md) {
+        flex: 1;
+      }
+    }
+  }
+
+  a {
+    color: $blue-dark;
+    font-size: 1.4rem;
+    line-height: 1.4;
+    text-decoration: none;
+  }
+
+  footer {
+    @extend a;
+
+    border-top: 1px solid rgba(44, 52, 88, 0.25);
+    flex: 0 0 100%;
+    margin: 3rem 0 0;
+    padding: 1.5rem;
+    text-align: center;
+  }
+
+  form {
+    display: flex;
+
+    button {
+      background-color: $blue-dark;
+      border: none;
+      border-bottom-right-radius: 3px;
+      border-top-right-radius: 3px;
+      color: white;
+      cursor: pointer;
+      flex: 1;
+      font-size: 1.6rem;
+      font-weight: 600;
+      transition: all 0.2s ease-in-out;
+
+      &:hover {
+        background-color: #1b2036;
+      }
+    }
+
+    input {
+      border: 1px solid $blue-dark;
+      border-bottom-left-radius: 3px;
+      border-right: none;
+      border-top-left-radius: 3px;
+      flex: 2;
+      font-size: 1.6rem;
+      line-height: 1.375;
+      padding: 1.7rem 1.2rem;
+
+      &:focus {
+        box-shadow: 0 0 3px $blue-dark;
+      }
+    }
+  }
+
+  h3 {
+    color: $blue-dark;
+    font-size: 1.8rem;
+    font-weight: 600;
+    line-height: 1.1;
+    margin: 1.333em 0;
+
+    @media (min-width: $breakpoint-lg) {
+      margin-top: 2.222em;
+    }
+  }
+
+  li {
+    margin-bottom: 1rem;
+
+    ul {
+      padding-left: 1.25rem;
+    }
+  }
+
+  p {
+    color: $blue-dark;
+    font-size: 1.4rem;
+    line-height: 1.42;
+  }
+
+  ul {
+    margin: 0;
+
+    &.inline li {
+      margin-right: 2.6rem;
+    }
+  }
+}

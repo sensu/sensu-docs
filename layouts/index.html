@@ -1,54 +1,33 @@
 {{ partial "head" . }}
 
+<div id="home">
 {{ if (eq (trim .Site.Params.provider " " | lower) "github") | and (isset .Site.Params "repo_url") }}
   {{ $repo_id := replace .Site.Params.repo_url "https://github.com/" ""}}
   {{ .Scratch.Set "repo_id" $repo_id }}
 {{ end }}
 
-<input class="toggle" type="checkbox" id="toggle-drawer">
-<input class="toggle" type="checkbox" id="toggle-search">
-<label class="toggle-button overlay" for="toggle-drawer"></label>
-
-<!-- Titlebar -->
-<header id="home" class="header">
+<header>
   {{ partial "header" . }}
 </header>
 
-<!-- Not displayed, but needed to not break things -->
-<div class="main"></div>
-<div class="drawer">
-  {{ partial "drawer" . }}
-</div>
-
-<!-- Searchbar stuff -->
-<div class="results" role="status" aria-live="polite">
-  <div class="scrollable">
-    <div class="wrapper">
-      <div class="meta"></div>
-      <div class="list"></div>
-    </div>
-  </div>
-</div>
-
 <!-- Main content -->
-<div class="homepage-main">
-  <div class="product-block">
+<main>
+  {{ partial "drawer" . }}
+
+  <div class="product-grid">
     {{ range sort .Site.Params.Products "weight" }}
       {{ $.Scratch.Set "url" "" }}
       {{ $.Scratch.Set "url" (printf "/%s/%s/" .identifier .latest) }}
       {{ $url := $.Scratch.Get "url" }}
-      <a class="product-holder" id="product-{{ .identifier }}" href="{{ $url }}">
-        <div class="mask"></div>
-        <div class="content">          
-          <div class="homepage-product"><span class="product-title">{{ .name }}</span>
-            <span class="description">
-              {{ .description }}
-            </span>
-          </div>
+      <a class="product-grid--product product-grid--product-{{ .identifier }}" href="{{ $url }}">
+        <div class="product-grid--product--title">{{ .name }}</div>
+        <div class="product-grid--product--description">
+          {{ .description }}
         </div>
       </a>
     {{ end }}
   </div>
-
+</main>
+</div>
 <!-- Footer which is not displayed -->
 {{ partial "footer_js" . }}

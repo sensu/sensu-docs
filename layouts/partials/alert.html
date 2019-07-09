@@ -7,33 +7,19 @@
 {{ $uniqueness := replace $uniqueness "'" "" }}
 
 <script>
-  // close the alert
-  function closeAlert(id) {
-    // remove additional margin so we don't leave empty space
-    currentPos = parseInt($(".main").css('margin-top'), 10);
-    $(".main").css('margin-top', currentPos - 28);
-
-    // remove the alert
-    document.getElementById(id).remove();
-  }
-
   $(document).ready(function() {
     // build the alert if it has a link or not
-    alertElement = "<div class='alertBanner' id='{{ $uniqueness }}' style='background-color: {{ $color }}'>";
+    alertElement = "<div class='alert' style='background-color: {{ $color }}'>";
     {{ if $link }}
-      alertElement += "<a class='alertBannerText' href='{{ $link }}'>{{ $message }}</a>";
+      alertElement += "<a href='{{ $link }}'>{{ $message }}</a>";
     {{ else }}
-      alertElement += "<span class='alertBannerText'>{{ $message }}</span>";
+      alertElement += "<span>{{ $message }}</span>";
     {{ end }}
-      alertElement += "<span class='closeAlert'>" +
-              "<i class='fa fa-times' aria-hidden='true' onClick='closeAlert(\"{{ $uniqueness }}\")'></i>" +
-              "</span></div>";
+    alertElement += "<span class='alert--close' onClick='this.parentElement.remove()'>" +
+                      "<i class='fa fa-times' aria-hidden='true'></i>" +
+                    "</span></div>";
 
     // append the alert to the alert section
-    $("#alertSection").append(alertElement);
-
-    // add additional margin so we don't cover page content
-    currentPos = parseInt($(".main").css("margin-top"), 10);
-    $(".main").css("margin-top", currentPos + 28);
+    $("#alerts").append(alertElement);
   });
 </script>

@@ -21,7 +21,6 @@ Enterprise](https://sensu.io/features/enterprise) a try.
 | Ubuntu 14.04       | ✅     | ✅     | x86     |                          |
 | Ubuntu 16.04       | ✅     | ❌     | x86     | No official 32bit images |
 | Ubuntu 18.04       | ✅     | ❌     | x86     | No official 32bit images |
-| Debian 7           | ✅     | ✅     | x86     |                          |
 | Debian 8           | ✅     | ❌     | x86     | No official 32bit images |
 | Debian 9           | ✅     | ❌     | x86     | No official 32bit images |
 | CentOS 5           | ✅     | ✅     | x86     | 32 and 64bit images built with [sensu-omnibus-packer](https://github.com/sensu/sensu-omnibus-packer) |
