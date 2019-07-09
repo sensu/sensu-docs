@@ -68,13 +68,12 @@ Start Prometheus in the background.
 
 {{< highlight shell >}}
 nohup ./prometheus --config.file=prometheus.yml > prometheus.log 2>&1 &
-[1] 7647
 {{< /highlight >}}
 
-Ensure Prometheus is running.
+Ensure Prometheus is running. The matching result will vary slightly.
 
 {{< highlight shell >}}
-ps -ef | grep prometheus
+ps -ef | grep "[p]rometheus"
 vagrant   7647  3937  2 22:23 pts/0    00:00:00 ./prometheus --config.file=prometheus.yml
 {{< /highlight >}}
 
@@ -92,7 +91,7 @@ subscriptions:
 Restart the sensu agent to apply the configuration change.
 
 {{< highlight shell >}}
-systemctl restart sensu-agent
+sudo systemctl restart sensu-agent
 {{< /highlight >}}
 
 Ensure Sensu services are running.
@@ -182,7 +181,7 @@ datasources:
 Start Grafana.
 
 {{< highlight shell >}}
-systemctl start grafana-server
+sudo systemctl start grafana-server
 {{< /highlight >}}
 
 ## Create a Sensu InfluxDB pipeline
@@ -190,6 +189,8 @@ systemctl start grafana-server
 ### Create a Sensu InfluxDB handler asset
 
 Put the following asset definition in a file called `asset_influxdb`:
+
+{{< language-toggle >}}
 
 {{< highlight yml >}}
 type: Asset
@@ -203,9 +204,28 @@ spec:
 
 {{< /highlight >}}
 
+{{< highlight json >}}
+{
+  "type": "Asset",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "sensu-influxdb-handler",
+    "namespace": "default"
+  },
+  "spec": {
+    "sha512": "612c6ff9928841090c4d23bf20aaf7558e4eed8977a848cf9e2899bb13a13e7540bac2b63e324f39d9b1257bb479676bc155b24e21bf93c722b812b0f15cb3bd",
+    "url": "https://github.com/sensu/sensu-influxdb-handler/releases/download/3.1.2/sensu-influxdb-handler_3.1.2_linux_amd64.tar.gz"
+  }
+}
+{{< /highlight >}}
+
+{{< /language-toggle >}}
+
 ### Create a Sensu handler
 
 Put the following handler definition in a file called `handler`:
+
+{{< language-toggle >}}
 
 {{< highlight yml >}}
 type: Handler
@@ -214,20 +234,40 @@ metadata:
   name: influxdb
   namespace: default
 spec:
-  command: "sensu-influxdb-handler -a 'http://127.0.0.1:8086' -d sensu
-    -u sensu -p sensu"
+  command: "sensu-influxdb-handler -a 'http://127.0.0.1:8086' -d sensu -u sensu -p sensu"
   timeout: 10
   type: pipe
   runtime_assets:
   - sensu-influxdb-handler
 {{< /highlight >}}
 
+{{< highlight json >}}
+{
+  "type": "Handler",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "influxdb",
+    "namespace": "default"
+  },
+  "spec": {
+    "command": "sensu-influxdb-handler -a 'http://127.0.0.1:8086' -d sensu -u sensu -p sensu",
+    "timeout": 10,
+    "type": "pipe",
+    "runtime_assets": [
+      "sensu-influxdb-handler"
+    ]
+  }
+}
+{{< /highlight >}}
+
+{{< /language-toggle >}}
+
 _PRO TIP: `sensuctl create -f` also accepts files containing multiple resources definitions._
 
 Use `sensuctl` to add the handler and the asset to Sensu.
 
 {{< highlight shell >}}
-sensuctl create --file handler asset_influxdb
+sensuctl create --file handler --file asset_influxdb
 {{< /highlight >}}
 
 ## Collect Prometheus metrics with Sensu
@@ -236,8 +276,9 @@ sensuctl create --file handler asset_influxdb
 
 Put the following handler definition in a file called `asset_prometheus`:
 
+{{< language-toggle >}}
+
 {{< highlight yml >}}
----
 type: Asset
 api_version: core/v2
 metadata:
@@ -248,20 +289,38 @@ spec:
   sha512: a70056ca02662fbf2999460f6be93f174c7e09c5a8b12efc7cc42ce1ccb5570ee0f328a2dd8223f506df3b5972f7f521728f7bdd6abf9f6ca2234d690aeb3808
 {{< /highlight >}}
 
+{{< highlight json >}}
+{
+  "type": "Asset",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "sensu-prometheus-collector",
+    "namespace": "default"
+  },
+  "spec": {
+    "url": "https://github.com/sensu/sensu-prometheus-collector/releases/download/1.1.6/sensu-prometheus-collector_1.1.6_linux_amd64.tar.gz",
+    "sha512": "a70056ca02662fbf2999460f6be93f174c7e09c5a8b12efc7cc42ce1ccb5570ee0f328a2dd8223f506df3b5972f7f521728f7bdd6abf9f6ca2234d690aeb3808"
+  }
+}
+{{< /highlight >}}
+
+{{< /language-toggle >}}
+
+
 ### Add a Sensu check to complete the pipeline
 
 Given the following check definition in a file called `check`:
 
+{{< language-toggle >}}
+
 {{< highlight yml >}}
----
 type: CheckConfig
 api_version: core/v2
 metadata:
   name: prometheus_metrics
   namespace: default
 spec:
-  command: "sensu-prometheus-collector -prom-url http://localhost:9090
-    -prom-query up"
+  command: "sensu-prometheus-collector -prom-url http://localhost:9090 -prom-query up"
   handlers:
   - influxdb
   interval: 10
@@ -276,10 +335,40 @@ spec:
 
 {{< /highlight >}}
 
+{{< highlight json >}}
+{
+  "type": "CheckConfig",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "prometheus_metrics",
+    "namespace": "default"
+  },
+  "spec": {
+    "command": "sensu-prometheus-collector -prom-url http://localhost:9090 -prom-query up",
+    "handlers": [
+      "influxdb"
+    ],
+    "interval": 10,
+    "publish": true,
+    "output_metric_format": "influxdb_line",
+    "output_metric_handlers": [],
+    "subscriptions": [
+      "app_tier"
+    ],
+    "timeout": 0,
+    "runtime_assets": [
+      "sensu-prometheus-collector"
+    ]
+  }
+}
+{{< /highlight >}}
+
+{{< /language-toggle >}}
+
 Use `sensuctl` to add the check to Sensu.
 
 {{< highlight shell >}}
-sensuctl create --file check
+sensuctl create --file check --file asset_prometheus
 {{< /highlight >}}
 
 We can see the events generated by the `prometheus_metrics` check in the Sensu dashboard.
@@ -302,7 +391,7 @@ sensu-centos   prometheus_metrics   up,instance=localhost:9090,job=prometheus va
 Download the Grafana dashboard configuration file from the Sensu docs.
 
 {{< highlight shell >}}
-wget https://docs.sensu.io/sensu-go/5.2/files/up_or_down_dashboard.json
+wget https://docs.sensu.io/sensu-go/5.10/files/up_or_down_dashboard.json
 {{< /highlight >}}
 
 Using the downloaded file, add the dashboard to Grafana using an API call.
