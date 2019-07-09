@@ -8,7 +8,7 @@
           "status": 301
       },
         "~ ^/sensu-core/latest/?(.*)$": {
-            "url": "/sensu-core/1.7/$1",
+            "url": "/sensu-core/1.8/$1",
             "status": 301
         },
         "~ ^/uchiwa/latest/?(.*)$": {
