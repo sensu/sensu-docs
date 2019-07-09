@@ -8,6 +8,7 @@ menu: "sensu-core-1.7"
 
 ## Releases
 
+- [Core 1.7.1 Release Notes](#core-v1-7-1)
 - [Core 1.7.0 Release Notes](#core-v1-7-0)
 - [Core 1.6.2 Release Notes](#core-v1-6-2)
 - [Core 1.6.1 Release Notes](#core-v1-6-1)
@@ -56,6 +57,22 @@ menu: "sensu-core-1.7"
 - [Core 0.23.2 Release Notes](#core-v0-23-2)
 - [Core 0.23.1 Release Notes](#core-v0-23-1)
 - [Core 0.23.0 Release Notes](#core-v0-23-0)
+
+## Core 1.7.1 Release Notes {#core-v1-7-1}
+
+Source: [GitHub.com][76]
+
+**July 8, 2019** &mdash; Sensu Core version 1.7.1 has been released
+  and is available for immediate download. Please note the following
+  improvements:
+
+### CHANGES {#core-v1-7-1-changes}
+
+- **NEW**: Sensu Core 1.7.1 no longer supports Debian 7, which has reached end of life.
+
+- **BUGFIX**: Sensu now triggers a reconnect when trying to publish to RabbitMQ when in a disconnected state.
+
+- **BUGFIX**: Use `--no-document` when installing gems via `sensu-install` instead of deprecated `--no-ri --no-rdoc`.
 
 ## Core 1.7.0 Release Notes {#core-v1-7-0}
 
@@ -1796,6 +1813,9 @@ available for immediate download. Please note the following improvements:
 [73]: /sensu-core/1.7/api/health-and-info
 [74]: /sensu-core/1.7/reference/clients/#client-attributes
 [75]: /sensu-core/1.7/reference/clients/#deregistration-events
+
+<!-- 1.7.1 -->
+[76]: https://github.com/sensu/sensu/blob/master/CHANGELOG.md#171---2019-07-08
 
 <!-- GH Issues/PR's -->
 

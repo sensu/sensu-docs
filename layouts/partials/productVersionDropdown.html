@@ -1,12 +1,12 @@
-<div id="product-picker">
+<div class="product-picker">
   <!-- Dropdown for products -->
   <div class="dropdown dropdown--products">
     {{ if isset .Params "product" }}
       {{ $display := .Params.product }}
-      <a>{{ $display }}<i class="fa fa-chevron-down dropdownArrow" aria-hidden="true"></i></a>
+      <a>{{ $display }}<i class="fa fa-chevron-down" aria-hidden="true"></i></a>
     {{ else }}
       {{ $display := "Projects" }}
-      <a>{{ $display }}<i class="fa fa-chevron-down dropdownArrow" aria-hidden="true"></i></a>
+      <a>{{ $display }}<i class="fa fa-chevron-down" aria-hidden="true"></i></a>
     {{ end }}
     <div class="options">
       {{ range sort .Site.Params.Products "weight" }} 
@@ -22,10 +22,10 @@
   <div class="dropdown dropdown--versions">
     {{ if isset .Params "version" }}
       {{ $display := .Params.version }}
-      <a>{{ $display }}<i class="fa fa-chevron-down dropdownArrow" aria-hidden="true"></i></a>
+      <a>{{ $display }}<i class="fa fa-chevron-down" aria-hidden="true"></i></a>
     {{ else }}
       {{ $display := "Version" }}
-      <a>{{ $display }}<i class="fa fa-chevron-down dropdownArrow" aria-hidden="true"></i></a>
+      <a>{{ $display }}<i class="fa fa-chevron-down" aria-hidden="true"></i></a>
     {{ end }}
     <div class="options">
       <!-- Grab info for the current product from global -->

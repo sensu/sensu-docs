@@ -1,0 +1,100 @@
+.platform-picker {
+  font-size: 1.6rem;
+  height: 1rem;
+  text-decoration: underline;
+  position: relative;
+
+  &.open {
+    button::after {
+      transform: rotate(180deg);
+    }
+
+    ul {
+      display: block;
+    }
+  }
+
+  .platform-picker--inner {
+    background: #e7e7e7;
+    border: none;
+    border-radius: 3px;
+    max-width: 20rem;
+    padding: 0.5rem;
+    position: absolute;
+    width: 100%;
+    z-index: 2;
+  }
+
+  button {
+    background: none;
+    border: none;
+    color: inherit;
+    display: block;
+    font: inherit;
+    position: relative;
+    text-align: left;
+    text-decoration: underline;
+    width: 100%;
+
+    &::after {
+      content: "\f078";
+      display: inline-block;
+      font-family: FontAwesome;
+      line-height: inherit;
+      position: absolute;
+      right: 0.5rem;
+      text-decoration: none;
+      transition: transform 100ms cubic-bezier(0.2, 0.3, 0.25, 0.9);
+    }
+  }
+
+  ul {
+    background: #e7e7e7;
+    display: none;
+    margin: 0.5em 0;
+
+    a {
+      display: block;
+    }
+
+    li {
+      margin: 0;
+      padding: 0.5em 0.5em 0.5em 1.5em;
+
+      &::before {
+        display: none;
+      }
+    }
+  }
+}
+
+.platform-picker-main {
+  @extend .platform-picker;
+  color: $gray-dark;
+  height: 5rem;
+
+  .platform-picker--inner {
+    background: white;
+    border: 1px solid $blue-dark;
+    border-radius: 2px;
+    padding: 0;
+  }
+
+  button {
+    padding: 1rem;
+
+    &::after {
+      right: 1rem;
+    }
+  }
+
+  ul {
+    margin-top: 0;
+    padding: 0.5em 0;
+
+    li {
+      padding-left: 2em;
+    }
+  }
+}
+

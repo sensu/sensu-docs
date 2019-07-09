@@ -6,6 +6,7 @@
 *.exe
 *.o
 *.so
+/static/stylesheets/*.css
 
 # Packages #
 ############
@@ -41,5 +42,5 @@ public/
 *.swp
 static/js/lunr/PagesIndex.json
 mix-manifest.json
-scss/
 webpack.mix.js
+*.map

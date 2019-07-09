@@ -737,7 +737,7 @@ if ("document" in self && ("classList" in document.createElement("_") ? ! functi
             r = document.querySelector(".results .meta");
         Array.prototype.forEach.call(n, function(t) {
             t.querySelector("a").addEventListener("click", function() {
-                document.getElementById("toggle-drawer").checked = !1, document.body.classList.remove("toggle-drawer")
+                // document.getElementById("toggle-drawer").checked = !1, document.body.classList.remove("toggle-drawer")
             })
         });
         var s = window.pageYOffset,
@@ -747,24 +747,11 @@ if ("document" in self && ("classList" in document.createElement("_") ? ! functi
                 t > document.body.clientHeight - (96 - n) ? "absolute" != e.style.position && (e.style.position = "absolute", e.style.top = null, e.style.bottom = 0) : e.offsetHeight < window.innerHeight ? "fixed" != e.style.position && (e.style.position = "fixed", e.style.top = 0, e.style.bottom = null) : "fixed" != e.style.position ? t > e.offsetTop + e.offsetHeight ? (e.style.position = "fixed", e.style.top = null, e.style.bottom = "-96px") : window.pageYOffset < e.offsetTop && (e.style.position = "fixed", e.style.top = 0, e.style.bottom = null) : window.pageYOffset > s ? e.style.top && (e.style.position = "absolute", e.style.top = Math.max(0, s) + "px", e.style.bottom = null) : e.style.bottom && (e.style.position = "absolute", e.style.top = t - e.offsetHeight + "px", e.style.bottom = null), s = Math.max(0, window.pageYOffset)*/
             },
             c = function() {
-                var t = document.querySelector(".main");
-                window.removeEventListener("scroll", a), matchMedia("only screen and (max-width: 959px)").matches ? (e.style.position = null, e.style.top = null, e.style.bottom = null) : e.offsetHeight + 96 < t.offsetHeight && (window.addEventListener("scroll", a), a())
+                // var t = document.querySelector(".main");
+                // window.removeEventListener("scroll", a), matchMedia("only screen and (max-width: 959px)").matches ? (e.style.position = null, e.style.top = null, e.style.bottom = null) : e.offsetHeight + 96 < t.offsetHeight && (window.addEventListener("scroll", a), a())
             };
         Modernizr.ios || (window.addEventListener("resize", c), c());
         var u = 0;
-        t.addEventListener("click", function(t) {
-            var e = document.body.classList,
-                n = !matchMedia("only screen and (min-width: 960px)").matches;
-            e.contains("locked") ? (e.remove("locked"), n && setTimeout(function() {
-                window.scrollTo(0, u)
-            }, 100)) : (u = window.scrollY, n && setTimeout(function() {
-                window.scrollTo(0, 0)
-            }, 400), setTimeout(function() {
-                this.checked && (n && e.add("locked"), setTimeout(function() {
-                    i.focus()
-                }, 200))
-            }.bind(this), 450))
-        });
         for (var iterator=0; iterator < o.length; iterator++) {
           o[iterator].addEventListener("touchstart", function() {
             i.focus()
