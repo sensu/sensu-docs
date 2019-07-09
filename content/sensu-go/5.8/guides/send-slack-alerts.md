@@ -36,7 +36,7 @@ In this guide, we'll use the [Sensu Slack handler asset][14] to power a `slack` 
 You can use the following sensuctl example to register the [Sensu Slack handler asset][14] for Linux AMD64, or you can download the latest asset definition for your platform from [Bonsai][14] and register the asset using `sensuctl create --file filename.yml`.
 
 {{< highlight shell >}}
-sensuctl asset create sensu-slack-handler --url "https://github.com/sensu/sensu-slack-handler/releases/download/1.0.3/sensu-slack-handler_1.0.3_linux_amd64.tar.gz" --sha512 "68720865127fbc7c2fe16ca4d7bbf2a187a2df703f4b4acae1c93e8a66556e9079e1270521999b5871473e6c851f51b34097c54fdb8d18eedb7064df9019adc8"
+sensuctl asset create sensu-slack-handler --url "https://assets.bonsai.sensu.io/3149de09525d5e042a83edbb6eb46152b02b5a65/sensu-slack-handler_1.0.3_linux_amd64.tar.gz" --sha512 "68720865127fbc7c2fe16ca4d7bbf2a187a2df703f4b4acae1c93e8a66556e9079e1270521999b5871473e6c851f51b34097c54fdb8d18eedb7064df9019adc8"
 {{< /highlight >}}
 
 You should see a confirmation message from sensuctl.

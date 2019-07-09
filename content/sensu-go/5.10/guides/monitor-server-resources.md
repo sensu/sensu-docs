@@ -38,13 +38,13 @@ To power the check, we'll use the [Sensu CPU checks asset][1] and the [Sensu Rub
 Use the following sensuctl example to register the `sensu-plugins-cpu-checks` asset for CentOS, or download the asset definition for Debian or Alpine from [Bonsai][1] and register the asset using `sensuctl create --file filename.yml`.
 
 {{< highlight shell >}}
-sensuctl asset create sensu-plugins-cpu-checks --url "https://github.com/sensu-plugins/sensu-plugins-cpu-checks/releases/download/4.0.0/sensu-plugins-cpu-checks_4.0.0_centos_linux_amd64.tar.gz" --sha512 "518e7c17cf670393045bff4af318e1d35955bfde166e9ceec2b469109252f79043ed133241c4dc96501b6636a1ec5e008ea9ce055d1609865635d4f004d7187b"
+sensuctl asset create sensu-plugins-cpu-checks --url "https://assets.bonsai.sensu.io/68546e739d96fd695655b77b35b5aabfbabeb056/sensu-plugins-cpu-checks_4.0.0_centos_linux_amd64.tar.gz" --sha512 "518e7c17cf670393045bff4af318e1d35955bfde166e9ceec2b469109252f79043ed133241c4dc96501b6636a1ec5e008ea9ce055d1609865635d4f004d7187b"
 {{< /highlight >}}
 
 Then use the following sensuctl example to register the `sensu-ruby-runtime` asset for CentOS, or download the asset definition for Debian or Alpine from [Bonsai][7] and register the asset using `sensuctl create --file filename.yml`. 
 
 {{< highlight shell >}}
-sensuctl asset create sensu-ruby-runtime --url "https://github.com/sensu/sensu-ruby-runtime/releases/download/0.0.5/sensu-ruby-runtime_0.0.5_centos_linux_amd64.tar.gz" --sha512 "1c9f0aff8f7f7dfcf07eb75f48c3b7ad6709f2bd68f2287b4bd07979e6fe12c2ab69d1ecf5d4b9b9ed7b96cd4cda5e55c116ea76ce3d9db9ff74538f0ea2317a"
+sensuctl asset create sensu-ruby-runtime --url "https://assets.bonsai.sensu.io/03d08cdfc649500b7e8cd1708bb9bb93d91fea9e/sensu-ruby-runtime_0.0.8_ruby-2.4.4_centos_linux_amd64.tar.gz" --sha512 "1c9f0aff8f7f7dfcf07eb75f48c3b7ad6709f2bd68f2287b4bd07979e6fe12c2ab69d1ecf5d4b9b9ed7b96cd4cda5e55c116ea76ce3d9db9ff74538f0ea2317a"
 {{< /highlight >}}
 
 You can use sensuctl to confirm that both the `sensu-plugins-cpu-checks` and `sensu-ruby-runtime` assets are ready to use.
