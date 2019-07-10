@@ -1,12 +1,13 @@
 ---
 title: "Sensu Go release notes"
 linkTitle: "Release Notes"
-description: "Read the Sensu Go 5.11.0 release notes to learn about what's new in our latest release."
+description: "Read the Sensu Go release notes to learn about what's new in our latest release."
 product: "Sensu Go"
 version: "5.11"
 menu: "sensu-go-5.11"
 ---
 
+- [5.11.0 release notes](#5-11-0-release-notes)
 - [5.10.2 release notes](#5-10-2-release-notes)
 - [5.10.1 release notes](#5-10-1-release-notes)
 - [5.10.0 release notes](#5-10-0-release-notes)
@@ -33,6 +34,44 @@ Sensu Go adheres to [semantic versioning][2] using MAJOR.MINOR.PATCH release num
 Read the [upgrade guide][1] for information on upgrading to the latest version of Sensu Go.
 
 ---
+
+## 5.11.0 release notes
+
+**July 10, 2019** &mdash; The latest release of Sensu Go, version 5.11.0, is now available for download.
+There are some exciting feature additions in this release, including the ability to delete resources from sensuctl and manage filter and mutator resources in the web UI. Additionally, this release includes bug fixes around proxy checks and enhanced performance tuning for the PostgreSQL event store.
+See the [upgrade guide][1] to upgrade Sensu to version 5.11.0.
+
+**NEW FEATURES:**
+
+- The Sensu [web UI][67] now includes a filters page that displays available event filters and filter configuration.
+- ([Licensed tier][68]) Manage your Sensu event filters from your browser: Sensu's [web UI][67] now supports creating, editing, and deleting filters.
+- The Sensu [web UI][67] now includes a mutators page that displays available mutators and mutator configuration.
+- ([Licensed tier][68]) Manage your Sensu mutators from your browser: Sensu's [web UI][67] now supports creating, editing, and deleting mutators.
+- sensuctl now includes the `sensuctl delete` command, letting you use resource definitions to delete resources from Sensu in the same way as `sensuctl create`. See the [sensuctl reference][72] for more information.
+- Assets now include a `headers` attribute to include HTTP headers in requests to retrieve assets, allowing you to access secured assets. See the [asset reference][70] for examples.
+- Sensu agents now support the `disable-assets` configuration flag, allowing you to disable asset retrieval for individual agents. See the [agent reference][71] for examples.
+- Sensu [binary-only distributions][69] are now available as zip files.
+
+**IMPROVEMENTS:**
+
+- ([Licensed tier][68]) The [Active Directory authentication provider][74] now supports the `default_upn_domain` attribute, letting you appended a domain to a username when a domain is not specified during login.
+- ([Licensed tier][68]) The [Active Directory authentication provider][74] now supports the `include_nested_groups` attribute, letting you search nested groups instead of just the top level groups of which a user is a member.
+- The `sensuctl config view` command now returns the currently configured username. See the [sensuctl reference][76] for examples.
+- The [Sensu API][75] now returns the 201 Created response code for POST and PUT requests instead of 204 No Content.
+- The Sensu backend now provides [advanced configuration options][77] for buffer size and worker count of keepalives, events, and pipelines.
+- Sensu Go now supports Debian 10. For a complete list of supported platforms, see the [platforms page][73].
+
+**FIXES:**
+
+- The web UI now returns an error when attempting to create a duplicate check or handler.
+- Silenced entries are now retrieved from the cache when determining if an event is silenced.
+- The Sensu API now returns an error when trying to delete an entity that does not exist.
+- The agent WebSocket connection now performs basic authorization.
+- The /events API now correctly applies the current timestamp by default, fixing a regression in 5.10.0.
+- Multiple nested set handlers are now flagged correctly, fixing an issue in which they were flagged as deeply nested.
+- Round-robin proxy checks now execute as expected in the event of updated entities.
+- The Sensu backend now avoids situations of high CPU usage in the event that watchers enter a tight loop.
+- Due to incompatibility with the Go programming language, Sensu is incompatible with CentOS/RHEL 5. As a result, CentOS/RHEL 5 has been removed as a [supported platform][73] for all versions of Sensu Go.
 
 ## 5.10.2 release notes
 
@@ -473,3 +512,14 @@ To get started with Sensu Go:
 [64]: /sensu-go/5.10/reference/rbac/#assigning-group-permissions-across-all-namespaces
 [65]: /sensu-go/5.10/dashboard/overview
 [66]: /sensu-go/5.10/dashboard/filtering
+[67]: /sensu-go/5.11/dashboard/overview
+[68]: /sensu-go/5.11/getting-started/enterprise
+[69]: /sensu-go/5.11/installation/verify
+[70]: /sensu-go/5.11/reference/assets#examples
+[71]: /sensu-go/5.11/reference/agent#disable-assets
+[72]: /sensu-go/5.11/sensuctl/reference#deleting-resources
+[73]: /sensu-go/5.11/installation/platforms
+[74]: /sensu-go/5.11/installation/auth#active-directory-authentication
+[75]: /sensu-go/5.11/api/overview
+[76]: /sensu-go/5.11/sensuctl/reference#view-sensuctl-config
+[77]: /sensu-go/5.11/reference/backend#advanced-configuration-options
