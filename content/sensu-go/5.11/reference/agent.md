@@ -694,6 +694,7 @@ Flags:
   -c, --config-file string              path to sensu-agent config file
       --deregister                      ephemeral agent
       --deregistration-handler string   deregistration handler that should process the entity deregistration event.
+      --disable-assets                  disable check assets on this agent
       --disable-api                     disable the Agent HTTP API
       --disable-sockets                 disable the Agent TCP and UDP event sockets
       --events-burst-limit              /events api burst limit
@@ -788,6 +789,20 @@ sensu-agent start -c /sensu/agent.yml
 
 # /etc/sensu/agent.yml example
 config-file: "/sensu/agent.yml"{{< /highlight >}}
+
+<a name="disable-assets"></a>
+
+| disable-assets |      |
+--------------|------
+description   | When set to `true`, disables [assets][] for the agent. In the event that an agent
+attempts to execute a check that requires an asset, the agent will respond with a status of `3`, and a message indicating that the agent could not execute the check because assets are disabled.
+type          | Boolean
+default       | false
+example       | {{< highlight shell >}}# Command line example
+sensu-agent start --disable-assets
+
+# /etc/sensu/agent.yml example
+disable-assets: true{{< /highlight >}}
 
 
 | labels     |      |
