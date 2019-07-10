@@ -34,6 +34,7 @@ injected into the `PATH` so they are available when the command is executed.
 Subsequent check, handler, filter, or mutator executions look for the asset in the local
 cache and ensure the contents match the checksum. The backend or agent's local cache can
 be set using the `--cache-dir` flag.
+You can disable assets for an agent using the agent `disable-assets` [configuration flag][30].
 
 ## Asset format specification
 
@@ -385,3 +386,4 @@ example      | {{< highlight yml >}}
 [29]: /plugins/latest/reference/
 [api-filter]: ../../api/overview#filtering
 [sensuctl-filter]: ../../sensuctl/reference#filtering
+[30]: ../../agent#disable-assets
