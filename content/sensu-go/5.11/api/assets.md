@@ -28,15 +28,20 @@ a JSON Array containing [asset definitions][1].
 
 {{< highlight shell >}}
 curl http://127.0.0.1:8080/api/core/v2/namespaces/default/assets -H "Authorization: Bearer $SENSU_TOKEN"
+
+HTTP/1.1 200 OK
 [
   {
-    "url": "http://example.com/asset1.tar.gz",
-    "sha512": "4f926bf4328fbad2b9cac873d117f771914f4b837c9c85584c38ccf55a3ef3c2e8d154812246e5dda4a87450576b2c58ad9ab40c9e2edc31b288d066b195b21b",
+    "url": "https://github.com/sensu/sensu-slack-handler/releases/download/1.0.3/sensu-slack-handler_1.0.3_linux_amd64.tar.gz",
+    "sha512": "68720865127fbc7c2fe16ca4d7bbf2a187a2df703f4b4acae1c93e8a66556e9079e1270521999b5871473e6c851f51b34097c54fdb8d18eedb7064df9019adc8",
+    "filters": {
+      "entity.system.os": "linux",
+      "entity.system.arch": "amd64"
+    },
+    "headers": null,
     "metadata": {
-      "name": "check_script1",
-      "namespace": "default",
-      "labels": null,
-      "annotations": null
+      "name": "sensu-slack-handler",
+      "namespace": "default"
     }
   }
 ]
@@ -54,23 +59,25 @@ response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal 
 output         | {{< highlight shell >}}
 [
   {
-    "url": "http://example.com/asset1.tar.gz",
-    "sha512": "4f926bf4328fbad2b9cac873d117f771914f4b837c9c85584c38ccf55a3ef3c2e8d154812246e5dda4a87450576b2c58ad9ab40c9e2edc31b288d066b195b21b",
+    "url": "https://github.com/sensu/sensu-influxdb-handler/releases/download/3.1.2/sensu-influxdb-handler_3.1.2_linux_amd64.tar.gz",
+    "sha512": "612c6ff9928841090c4d23bf20aaf7558e4eed8977a848cf9e2899bb13a13e7540bac2b63e324f39d9b1257bb479676bc155b24e21bf93c722b812b0f15cb3bd",
+    "filters": {
+      "entity.system.os": "linux",
+      "entity.system.arch": "amd64"
+    },
+    "headers": null,
     "metadata": {
-      "name": "check_script1",
-      "namespace": "default",
-      "labels": null,
-      "annotations": null
+      "name": "sensu-influxdb-handler",
+      "namespace": "default"
     }
   },
   {
-    "url": "http://example.com/asset2.tar.gz",
-    "sha512": "37c9c85584c38ccf55a3ef3c2e8d154812246e5dda4a84f926bf4328fbad2b9cac873d11450576b2c58ad9ab40c9e2edc31b288d066b195b21b7f771914f4b87",
+    "url": "https://github.com/sensu/sensu-slack-handler/releases/download/1.0.3/sensu-slack-handler_1.0.3_linux_amd64.tar.gz",
+    "sha512": "68720865127fbc7c2fe16ca4d7bbf2a187a2df703f4b4acae1c93e8a66556e9079e1270521999b5871473e6c851f51b34097c54fdb8d18eedb7064df9019adc8",
+    "filters": null,
     "metadata": {
-      "name": "check_script2",
-      "namespace": "default",
-      "labels": null,
-      "annotations": null
+      "name": "sensu-slack-handler",
+      "namespace": "default"
     }
   }
 ]
@@ -84,13 +91,19 @@ description     | Create a Sensu asset.
 example URL     | http://hostname:8080/api/core/v2/namespaces/default/assets
 payload         | {{< highlight shell >}}
 {
-  "url": "http://example.com/asset1.tar.gz",
-  "sha512": "4f926bf4328fbad2b9cac873d117f771914f4b837c9c85584c38ccf55a3ef3c2e8d154812246e5dda4a87450576b2c58ad9ab40c9e2edc31b288d066b195b21b",
+  "url": "https://asset-url.tar.gz",
+  "sha512": "xxxxxxxxxxxxxxxxxxxxx",
+  "filters": {
+    "entity.system.os": "linux",
+    "entity.system.arch": "amd64"
+  },
+  "headers": {
+    "Authorization": "Bearer $TOKEN",
+    "X-Forwarded-For": "client1, proxy1, proxy2"
+  },
   "metadata": {
-    "name": "check_script1",
-    "namespace": "default",
-    "labels": null,
-    "annotations": null
+    "name": "my-secure-asset",
+    "namespace": "default"
   }
 }
 {{< /highlight >}}
@@ -109,19 +122,20 @@ containing the requested [`:asset` definition][1] (in this example: for the `:as
 `check_script`).
 
 {{< highlight shell >}}
-curl http://127.0.0.1:8080/api/core/v2/namespaces/default/assets/check_script -H "Authorization: Bearer $SENSU_TOKEN"
+curl http://127.0.0.1:8080/api/core/v2/namespaces/default/assets/sensu-slack-handler -H "Authorization: Bearer $SENSU_TOKEN"
+
+HTTP/1.1 200 OK
 {
-  "url": "http://example.com/asset.tar.gz",
-  "sha512": "4f926bf4328fbad2b9cac873d117f771914f4b837c9c85584c38ccf55a3ef3c2e8d154812246e5dda4a87450576b2c58ad9ab40c9e2edc31b288d066b195b21b",
-  "filters": [
-    "system.os == 'linux'",
-    "system.arch == 'amd64'"
-  ],
+  "url": "https://github.com/sensu/sensu-slack-handler/releases/download/1.0.3/sensu-slack-handler_1.0.3_linux_amd64.tar.gz",
+  "sha512": "68720865127fbc7c2fe16ca4d7bbf2a187a2df703f4b4acae1c93e8a66556e9079e1270521999b5871473e6c851f51b34097c54fdb8d18eedb7064df9019adc8",
+  "filters": {
+    "entity.system.os": "linux",
+    "entity.system.arch": "amd64"
+  },
+  "headers": null,
   "metadata": {
-    "name": "check_script",
-    "namespace": "default",
-    "labels": null,
-    "annotations": null
+    "name": "sensu-slack-handler",
+    "namespace": "default"
   }
 }
 {{< /highlight >}}
@@ -131,22 +145,24 @@ curl http://127.0.0.1:8080/api/core/v2/namespaces/default/assets/check_script -H
 /assets/:asset (GET) | 
 ---------------------|------
 description          | Returns an asset.
-example url          | http://hostname:8080/api/core/v2/namespaces/default/assets/check_script
+example url          | http://hostname:8080/api/core/v2/namespaces/default/assets/my-secure-asset
 response type        | Map
 response codes       | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output               | {{< highlight json >}}
 {
-  "url": "http://example.com/asset.tar.gz",
-  "sha512": "4f926bf4328fbad2b9cac873d117f771914f4b837c9c85584c38ccf55a3ef3c2e8d154812246e5dda4a87450576b2c58ad9ab40c9e2edc31b288d066b195b21b",
-  "filters": [
-    "system.os == 'linux'",
-    "system.arch == 'amd64'"
-  ],
+  "url": "https://asset-url.tar.gz",
+  "sha512": "xxxxxxxxxxxxxxxxxxxxx",
+  "filters": {
+    "entity.system.os": "linux",
+    "entity.system.arch": "amd64"
+  },
+  "headers": {
+    "Authorization": "Bearer $TOKEN",
+    "X-Forwarded-For": "client1, proxy1, proxy2"
+  },
   "metadata": {
-    "name": "check_script",
-    "namespace": "default",
-    "labels": null,
-    "annotations": null
+    "name": "my-secure-asset",
+    "namespace": "default"
   }
 }
 {{< /highlight >}}
@@ -158,16 +174,22 @@ output               | {{< highlight json >}}
 /assets/:asset (PUT) | 
 ----------------|------
 description     | Create or update a Sensu asset.
-example URL     | http://hostname:8080/api/core/v2/namespaces/default/assets/check_script
+example URL     | http://hostname:8080/api/core/v2/namespaces/default/assets/my-secure-asset
 payload         | {{< highlight shell >}}
 {
-  "url": "http://example.com/asset1.tar.gz",
-  "sha512": "4f926bf4328fbad2b9cac873d117f771914f4b837c9c85584c38ccf55a3ef3c2e8d154812246e5dda4a87450576b2c58ad9ab40c9e2edc31b288d066b195b21b",
+  "url": "https://asset-url.tar.gz",
+  "sha512": "xxxxxxxxxxxxxxxxxxxxx",
+  "filters": {
+    "entity.system.os": "linux",
+    "entity.system.arch": "amd64"
+  },
+  "headers": {
+    "Authorization": "Bearer $TOKEN",
+    "X-Forwarded-For": "client1, proxy1, proxy2"
+  },
   "metadata": {
-    "name": "check_script1",
-    "namespace": "default",
-    "labels": null,
-    "annotations": null
+    "name": "my-secure-asset",
+    "namespace": "default"
   }
 }
 {{< /highlight >}}
