@@ -200,7 +200,7 @@ metadata:
   namespace: default
 spec:
   sha512: 612c6ff9928841090c4d23bf20aaf7558e4eed8977a848cf9e2899bb13a13e7540bac2b63e324f39d9b1257bb479676bc155b24e21bf93c722b812b0f15cb3bd
-  url: https://github.com/sensu/sensu-influxdb-handler/releases/download/3.1.2/sensu-influxdb-handler_3.1.2_linux_amd64.tar.gz
+  url: https://assets.bonsai.sensu.io/b28f8719a48aa8ea80c603f97e402975a98cea47/sensu-influxdb-handler_3.1.2_linux_amd64.tar.gz
 
 {{< /highlight >}}
 
@@ -214,7 +214,7 @@ spec:
   },
   "spec": {
     "sha512": "612c6ff9928841090c4d23bf20aaf7558e4eed8977a848cf9e2899bb13a13e7540bac2b63e324f39d9b1257bb479676bc155b24e21bf93c722b812b0f15cb3bd",
-    "url": "https://github.com/sensu/sensu-influxdb-handler/releases/download/3.1.2/sensu-influxdb-handler_3.1.2_linux_amd64.tar.gz"
+    "url": "https://assets.bonsai.sensu.io/b28f8719a48aa8ea80c603f97e402975a98cea47/sensu-influxdb-handler_3.1.2_linux_amd64.tar.gz"
   }
 }
 {{< /highlight >}}
@@ -285,7 +285,7 @@ metadata:
   name: sensu-prometheus-collector
   namespace: default
 spec:
-  url: https://github.com/sensu/sensu-prometheus-collector/releases/download/1.1.6/sensu-prometheus-collector_1.1.6_linux_amd64.tar.gz
+  url: https://assets.bonsai.sensu.io/ef812286f59de36a40e51178024b81c69666e1b7/sensu-prometheus-collector_1.1.6_linux_amd64.tar.gz
   sha512: a70056ca02662fbf2999460f6be93f174c7e09c5a8b12efc7cc42ce1ccb5570ee0f328a2dd8223f506df3b5972f7f521728f7bdd6abf9f6ca2234d690aeb3808
 {{< /highlight >}}
 
@@ -298,7 +298,7 @@ spec:
     "namespace": "default"
   },
   "spec": {
-    "url": "https://github.com/sensu/sensu-prometheus-collector/releases/download/1.1.6/sensu-prometheus-collector_1.1.6_linux_amd64.tar.gz",
+    "url": "https://assets.bonsai.sensu.io/ef812286f59de36a40e51178024b81c69666e1b7/sensu-prometheus-collector_1.1.6_linux_amd64.tar.gz",
     "sha512": "a70056ca02662fbf2999460f6be93f174c7e09c5a8b12efc7cc42ce1ccb5570ee0f328a2dd8223f506df3b5972f7f521728f7bdd6abf9f6ca2234d690aeb3808"
   }
 }
