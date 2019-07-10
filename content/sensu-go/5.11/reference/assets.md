@@ -121,7 +121,7 @@ example      | {{< highlight shell >}}"spec": {
   "headers": {
     "Authorization": "Bearer $TOKEN",
     "X-Forwarded-For": "client1, proxy1, proxy2"
-}
+  }
 }{{< /highlight >}}
 
 ### Spec attributes
