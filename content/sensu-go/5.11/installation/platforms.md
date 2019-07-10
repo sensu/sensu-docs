@@ -26,6 +26,7 @@ See the [backend installation guide][1] for more information.
 | Ubuntu 19.04       | ✅      |
 | Debian 8           | ✅      |
 | Debian 9           | ✅      |
+| Debian 10          | ✅      |
 
 ### Sensu agent
 
@@ -43,6 +44,7 @@ See the [agent installation guide][2] for more information.
 | Ubuntu 19.04       | ✅      |
 | Debian 8           | ✅      |
 | Debian 9           | ✅      |
+| Debian 10          | ✅      |
 | Windows Server 2008 R2 and later | ✅ | ✅ |
 | Windows 7 and later | ✅     | ✅   |
 
@@ -62,6 +64,7 @@ See the [sensuctl installation guide][3] for more information.
 | Ubuntu 19.04       | ✅      |
 | Debian 8           | ✅      |
 | Debian 9           | ✅      |
+| Debian 10          | ✅      |
 | Windows 7 and later| ✅      |
 | Windows Server 2008 R2 and later | ✅ | ✅ |
 | macOS 10.10 and later | ✅   |

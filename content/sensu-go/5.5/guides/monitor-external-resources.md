@@ -32,13 +32,13 @@ To power the check, we'll use the [Sensu plugins HTTP asset][16] and the [Sensu 
 Use the following sensuctl example to register the `sensu-plugins-http` asset for CentOS, or download the asset definition for Debian or Alpine from [Bonsai][16] and register the asset using `sensuctl create --file filename.yml`.
 
 {{< highlight shell >}}
-sensuctl asset create sensu-plugins-http --url "https://github.com/sensu-plugins/sensu-plugins-http/releases/download/5.0.0/sensu-plugins-http_5.0.0_centos_linux_amd64.tar.gz" --sha512 "31023af6e0073729eecb0f5ab834ddc467eeaa1d9b998cbf528f3302104814ec717fc746af470556c496806fa8db66e6ded75aef97d73abdfa29615a81270ee6"
+sensuctl asset create sensu-plugins-http --url "https://assets.bonsai.sensu.io/30d8361243af8c7806e2d6db4a6dc576dab02966/sensu-plugins-http_5.1.1_centos_linux_amd64.tar.gz" --sha512 "31023af6e0073729eecb0f5ab834ddc467eeaa1d9b998cbf528f3302104814ec717fc746af470556c496806fa8db66e6ded75aef97d73abdfa29615a81270ee6"
 {{< /highlight >}}
 
 Then use the following sensuctl example to register the `sensu-ruby-runtime` asset for CentOS, or download the asset definition for Debian or Alpine from [Bonsai][17] and register the asset using `sensuctl create --file filename.yml`. 
 
 {{< highlight shell >}}
-sensuctl asset create sensu-ruby-runtime --url "https://github.com/sensu/sensu-ruby-runtime/releases/download/0.0.5/sensu-ruby-runtime_0.0.5_centos_linux_amd64.tar.gz" --sha512 "1c9f0aff8f7f7dfcf07eb75f48c3b7ad6709f2bd68f2287b4bd07979e6fe12c2ab69d1ecf5d4b9b9ed7b96cd4cda5e55c116ea76ce3d9db9ff74538f0ea2317a"
+sensuctl asset create sensu-ruby-runtime --url "https://assets.bonsai.sensu.io/03d08cdfc649500b7e8cd1708bb9bb93d91fea9e/sensu-ruby-runtime_0.0.8_ruby-2.4.4_centos_linux_amd64.tar.gz" --sha512 "7b254d305af512cc524a20a117c601bcfae0d51d6221bbfc60d8ade180cc1908081258a6eecfc9b196b932e774083537efe748c1534c83d294873dd3511e97a3"
 {{< /highlight >}}
 
 You can use sensuctl to confirm that both the `sensu-plugins-http` and `sensu-ruby-runtime` assets are ready to use.
