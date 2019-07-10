@@ -34,6 +34,7 @@ injected into the `PATH` so they are available when the command is executed.
 Subsequent check, handler, filter, or mutator executions look for the asset in the local
 cache and ensure the contents match the checksum. The backend or agent's local cache can
 be set using the `--cache-dir` flag.
+You can disable assets for an agent using the agent `disable-assets` [configuration flag][30].
 
 ## Asset format specification
 
@@ -101,7 +102,7 @@ example      | {{< highlight shell >}}"metadata": {
     "region": "us-west-1"
   },
   "annotations": {
-    "slack-channel" : "#monitoring"
+    "playbook" : "www.example.url"
   }
 }{{< /highlight >}}
 
@@ -116,7 +117,11 @@ example      | {{< highlight shell >}}"spec": {
   "filters": [
     "entity.system.os == 'linux'",
     "entity.system.arch == 'amd64'"
-  ]
+  ],
+  "headers": {
+    "Authorization": "Bearer $TOKEN",
+    "X-Forwarded-For": "client1, proxy1, proxy2"
+  }
 }{{< /highlight >}}
 
 ### Spec attributes
@@ -141,6 +146,18 @@ description  | A set of [Sensu query expressions][1] used to determine if the as
 required     | false 
 type         | Array 
 example      | {{< highlight shell >}}"filters": ["entity.system.os=='linux'", "entity.system.arch=='amd64'"] {{< /highlight >}}
+
+headers       |       |
+--------------|-------|
+description   | HTTP headers to appy to asset retrieval requests. You can use headers to access secured assets. For headers requiring multiple values, separate values with a comma.
+required     | false
+type         | Map of key-value string pairs
+example      | {{< highlight shell >}}
+"headers": {
+  "Authorization": "Bearer $TOKEN",
+  "X-Forwarded-For": "client1, proxy1, proxy2"
+}
+{{< /highlight >}}
 
 ### Metadata attributes
 
@@ -224,7 +241,7 @@ type: Asset
 api_version: core/v2
 metadata:
   annotations:
-    slack-channel: '#monitoring'
+    playbook: www.example.url
   labels:
     region: us-west-1
   name: check_script
@@ -235,6 +252,9 @@ spec:
   - entity.system.arch == 'amd64'
   sha512: 4f926bf4328fbad2b9cac873d117f771914f4b837c9c85584c38ccf55a3ef3c2e8d154812246e5dda4a87450576b2c58ad9ab40c9e2edc31b288d066b195b21b
   url: http://example.com/asset.tar.gz
+  headers:
+    Authorization: Bearer $TOKEN
+    X-Forwarded-For: client1, proxy1, proxy2
 {{< /highlight >}}
 
 {{< highlight json >}}
@@ -248,7 +268,7 @@ spec:
       "region": "us-west-1"
     },
     "annotations": {
-      "slack-channel" : "#monitoring"
+      "playbook" : "www.example.url"
     }
   },
   "spec": {
@@ -257,7 +277,11 @@ spec:
     "filters": [
       "entity.system.os == 'linux'",
       "entity.system.arch == 'amd64'"
-    ]
+    ],
+    "headers": {
+      "Authorization": "Bearer $TOKEN",
+      "X-Forwarded-For": "client1, proxy1, proxy2"
+    }
   }
 }
 {{< /highlight >}}
@@ -385,3 +409,4 @@ example      | {{< highlight yml >}}
 [29]: /plugins/latest/reference/
 [api-filter]: ../../api/overview#filtering
 [sensuctl-filter]: ../../sensuctl/reference#filtering
+[30]: ../../agent#disable-assets

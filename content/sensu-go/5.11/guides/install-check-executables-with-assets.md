@@ -38,7 +38,7 @@ metadata:
   labels: {}
   annotations: {}
 spec:
-  url: https://github.com/sensu/sensu-pagerduty-handler/releases/download/1.1.0/sensu-pagerduty-handler_1.1.0_linux_amd64.tar.gz
+  url: https://assets.bonsai.sensu.io/698710262d59c72ace3e31524960630dc1e4f190/sensu-pagerduty-handler_1.1.0_linux_amd64.tar.gz
   sha512: e93ec4465af5a2057664e8c3cd68e9352457b81315b97578eaae5e21f0cf7419d4fc36feb0155eeb0dd5a227e267307a58ee58a9f3e85bf3d44da3738bf691ca
   filters:
   - entity.system.os == 'linux'

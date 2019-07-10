@@ -141,7 +141,7 @@ In this lesson, we'll use the [Sensu Slack handler asset][1] to power a `slack` 
 Use sensuctl to register the [Sensu Slack handler asset][1].
 
 {{< highlight shell >}}
-sensuctl asset create sensu-slack-handler --url "https://github.com/sensu/sensu-slack-handler/releases/download/1.0.3/sensu-slack-handler_1.0.3_linux_amd64.tar.gz" --sha512 "68720865127fbc7c2fe16ca4d7bbf2a187a2df703f4b4acae1c93e8a66556e9079e1270521999b5871473e6c851f51b34097c54fdb8d18eedb7064df9019adc8"
+sensuctl asset create sensu-slack-handler --url "https://assets.bonsai.sensu.io/3149de09525d5e042a83edbb6eb46152b02b5a65/sensu-slack-handler_1.0.3_linux_amd64.tar.gz" --sha512 "68720865127fbc7c2fe16ca4d7bbf2a187a2df703f4b4acae1c93e8a66556e9079e1270521999b5871473e6c851f51b34097c54fdb8d18eedb7064df9019adc8"
 {{< /highlight >}}
 
 You should see a confirmation message from sensuctl.
@@ -286,7 +286,7 @@ Now let's create the InfluxDB pipeline to store these metrics and visualize them
 To create a pipeline to send metric events to InfluxDB, start by registering the [Sensu InfluxDB handler asset][4].
 
 {{< highlight shell >}}
-sensuctl asset create sensu-influxdb-handler --url "https://github.com/sensu/sensu-influxdb-handler/releases/download/3.1.2/sensu-influxdb-handler_3.1.2_linux_amd64.tar.gz" --sha512 "612c6ff9928841090c4d23bf20aaf7558e4eed8977a848cf9e2899bb13a13e7540bac2b63e324f39d9b1257bb479676bc155b24e21bf93c722b812b0f15cb3bd"
+sensuctl asset create sensu-influxdb-handler --url "https://assets.bonsai.sensu.io/b28f8719a48aa8ea80c603f97e402975a98cea47/sensu-influxdb-handler_3.1.2_linux_amd64.tar.gz" --sha512 "612c6ff9928841090c4d23bf20aaf7558e4eed8977a848cf9e2899bb13a13e7540bac2b63e324f39d9b1257bb479676bc155b24e21bf93c722b812b0f15cb3bd"
 {{< /highlight >}}
 
 You should see a confirmation message from sensuctl.
