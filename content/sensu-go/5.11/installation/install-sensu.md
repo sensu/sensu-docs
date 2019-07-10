@@ -312,19 +312,13 @@ sudo yum install sensu-go-cli
 
 #### Windows
 
-Download [sensuctl for Windows `amd64`](https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.11.0/sensu-enterprise-go_5.11.0_windows_amd64.tar.gz).
+Download sensuctl for Windows `amd64`.
 
 {{< highlight text >}}
-Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.11.0/sensu-enterprise-go_5.11.0_windows_amd64.tar.gz  -OutFile C:\Users\Administrator\sensu-enterprise-go_5.11.0_windows_amd64.tar.gz
+Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.11.0/sensu-enterprise-go_5.11.0_windows_amd64.zip  -OutFile C:\Users\Administrator\sensu-enterprise-go_5.11.0_windows_amd64.zip
 {{< /highlight >}}
 
-Or download [sensuctl for Windows `386`](https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.11.0/sensu-enterprise-go_5.11.0_windows_386.tar.gz).
-
-{{< highlight text >}}
-Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.11.0/sensu-enterprise-go_5.11.0_windows_386.tar.gz  -OutFile C:\Users\Administrator\sensu-enterprise-go_5.11.0_windows_386.tar.gz
-{{< /highlight >}}
-
-See the [verifying Sensu guide][12] to verify your download using checksums.
+See the guide to [binary-only distributions][12] to download sensuctl for Windows `386` and verify your download using checksums.
 
 {{< platformBlockClose >}}
 
@@ -332,7 +326,7 @@ See the [verifying Sensu guide][12] to verify your download using checksums.
 
 #### macOS
 
-Download the latest release. See the [verifying Sensu guide][12] to verify your download using checksums.
+Download the latest release.
 
 {{< highlight shell >}}
 curl -LO https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.11.0/sensu-enterprise-go_5.11.0_darwin_amd64.tar.gz
@@ -349,6 +343,8 @@ Copy the executable into your PATH.
 {{< highlight shell >}}
 sudo cp sensuctl /usr/local/bin/
 {{< /highlight >}}
+
+See the guide to [binary-only distributions][12] to verify your download using checksums.
 
 {{< platformBlockClose >}}
 
