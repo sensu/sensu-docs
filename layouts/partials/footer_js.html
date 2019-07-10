@@ -173,7 +173,7 @@
         apiKey: '2571a2aebb0465db1e7f18e14d8a55ac',
         indexName: 'sensu',
         inputSelector: '#desktop-search', 
-        algoliaOptions: { 'facetFilters': [[{{ if isset .Page.Params "product" }}'tags:{{ .Section }}'{{ else }}'tags:sensu-go','tags:plugins', 'tags:sensu-core', 'tags:sensu-enterprise', 'tags:sensu-enterprise-dashboard', 'tags:uchiwa'{{end}}], [{{ if isset .Page.Params "product" }}'version:{{ .Page.Params.version }}'{{ else }}'version:5.10','version:1.0','version:2.16','version:1.7','version:3.5'{{end}}]]},
+        algoliaOptions: { 'facetFilters': [[{{ if isset .Page.Params "product" }}'tags:{{ .Section }}'{{ else }}'tags:sensu-go','tags:plugins', 'tags:sensu-core', 'tags:sensu-enterprise', 'tags:sensu-enterprise-dashboard', 'tags:uchiwa'{{end}}], [{{ if isset .Page.Params "product" }}'version:{{ .Page.Params.version }}'{{ else }}'version:5.10','version:1.0','version:2.16','version:1.8','version:3.6'{{end}}]]},
         debug: false
       }
       docsearch(options);
