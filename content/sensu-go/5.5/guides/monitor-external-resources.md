@@ -32,13 +32,13 @@ To power the check, we'll use the [Sensu plugins HTTP asset][16] and the [Sensu 
 Use the following sensuctl example to register the `sensu-plugins-http` asset for CentOS, or download the asset definition for Debian or Alpine from [Bonsai][16] and register the asset using `sensuctl create --file filename.yml`.
 
 {{< highlight shell >}}
-sensuctl asset create sensu-plugins-http --url "https://github.com/sensu-plugins/sensu-plugins-http/releases/download/5.0.0/sensu-plugins-http_5.0.0_centos_linux_amd64.tar.gz" --sha512 "31023af6e0073729eecb0f5ab834ddc467eeaa1d9b998cbf528f3302104814ec717fc746af470556c496806fa8db66e6ded75aef97d73abdfa29615a81270ee6"
+sensuctl asset create sensu-plugins-http --url "https://assets.bonsai.sensu.io/30d8361243af8c7806e2d6db4a6dc576dab02966/sensu-plugins-http_5.1.1_centos_linux_amd64.tar.gz" --sha512 "31023af6e0073729eecb0f5ab834ddc467eeaa1d9b998cbf528f3302104814ec717fc746af470556c496806fa8db66e6ded75aef97d73abdfa29615a81270ee6"
 {{< /highlight >}}
 
 Then use the following sensuctl example to register the `sensu-ruby-runtime` asset for CentOS, or download the asset definition for Debian or Alpine from [Bonsai][17] and register the asset using `sensuctl create --file filename.yml`. 
 
 {{< highlight shell >}}
-sensuctl asset create sensu-ruby-runtime --url "https://github.com/sensu/sensu-ruby-runtime/releases/download/0.0.5/sensu-ruby-runtime_0.0.5_centos_linux_amd64.tar.gz" --sha512 "1c9f0aff8f7f7dfcf07eb75f48c3b7ad6709f2bd68f2287b4bd07979e6fe12c2ab69d1ecf5d4b9b9ed7b96cd4cda5e55c116ea76ce3d9db9ff74538f0ea2317a"
+sensuctl asset create sensu-ruby-runtime --url "https://assets.bonsai.sensu.io/03d08cdfc649500b7e8cd1708bb9bb93d91fea9e/sensu-ruby-runtime_0.0.8_ruby-2.4.4_centos_linux_amd64.tar.gz" --sha512 "7b254d305af512cc524a20a117c601bcfae0d51d6221bbfc60d8ade180cc1908081258a6eecfc9b196b932e774083537efe748c1534c83d294873dd3511e97a3"
 {{< /highlight >}}
 
 You can use sensuctl to confirm that both the `sensu-plugins-http` and `sensu-ruby-runtime` assets are ready to use.
@@ -266,7 +266,6 @@ spec:
     - entity.entity_class == 'proxy'
     - entity.labels.proxy_type == 'website'
   publish: true
-  round_robin: true
   runtime_assets:
   - sensu-plugins-http
   - sensu-ruby-runtime
@@ -293,7 +292,6 @@ spec:
       "proxy"
     ],
     "publish": true,
-    "round_robin": true,
     "proxy_requests": {
       "entity_attributes": [
         "entity.entity_class == 'proxy'",
@@ -308,7 +306,7 @@ spec:
 
 Our `check-http` check uses the `proxy_requests` attribute to specify the applicable entities.
 In our case, we want to run the `check-http` check on all entities of entity class `proxy` and proxy type `website`.
-Since we're using this check to monitor multiple sites, we can use token substitution to apply the correct `url` in the check `command`, and we can use the `round_robin` attribute to distribute the executions evenly across agents with the `proxy` subscription.
+Since we're using this check to monitor multiple sites, we can use token substitution to apply the correct `url` in the check `command`.
 
 Now we can use sensuctl to add this check to Sensu.
 
@@ -320,6 +318,8 @@ sensuctl check list
 ───────────────── ─────────────────────────────────── ────────── ────── ───────── ───── ─────────────── ────────── ─────────────────────────────────────── ─────── ────────── ────────
   check-http        check-http.rb -u {{ .labels.url }}         60                0     0   proxy                     sensu-plugins-http,sensu-ruby-runtime           true       false                                     
 {{< /highlight >}}
+
+_PRO TIP: To distribute check executions across multiple agents, set the `round-robin` check attribute to `true`. For more information about round-robin checks, see the [check reference][18]._
 
 ### Validating the check
 
@@ -365,3 +365,4 @@ From this point, here are some recommended resources:
 [15]: ../../installation/configuration-management
 [16]: https://bonsai.sensu.io/assets/sensu-plugins/sensu-plugins-http
 [17]: https://bonsai.sensu.io/assets/sensu/sensu-ruby-runtime
+[18]: ../../reference/checks#round-robin-checks

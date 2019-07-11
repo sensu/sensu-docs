@@ -57,8 +57,8 @@ We'll now install the source gems into a cache directory.
 
 {{< highlight shell >}}
 mkdir /tmp/gems
-sudo /opt/sensu/embedded/bin/gem install --no-ri --no-rdoc --install-dir /tmp/gems sensu-plugins-aws --version '=12.3.0'
-sudo /opt/sensu/embedded/bin/gem install --no-ri --no-rdoc --install-dir /tmp/gems mini_portile2 --version '=2.3.0'{{< /highlight >}}
+sudo /opt/sensu/embedded/bin/gem install --no-document --install-dir /tmp/gems sensu-plugins-aws --version '=12.3.0'
+sudo /opt/sensu/embedded/bin/gem install --no-document --install-dir /tmp/gems mini_portile2 --version '=2.3.0'{{< /highlight >}}
 
 Observing the `gem install` output, we can see that nokogiri and unf_ext both build native extensions.
 These are the gems we will compile so we can install them from our own repository.

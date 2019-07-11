@@ -1,7 +1,7 @@
 ---
 title: "Dashboard overview"
 linkTitle: "Overview"
-description: "The Sensu backend includes the Sensu dashboard: a unified view of your events, entities, and checks with user-friendly tools to reduce alert fatigue. Read the doc to get started using the dashboard."
+description: "The Sensu backend includes the Sensu dashboard: a unified view of your Sensu resources with user-friendly tools to reduce alert fatigue. Read the doc to get started using the dashboard."
 weight: 120
 version: "5.11"
 product: "Sensu Go"
@@ -17,6 +17,8 @@ menu:
 - [Managing checks](#managing-checks)
 - [Managing entities](#managing-entities)
 - [Managing handlers](#managing-handlers)
+- [Managing event filters](#managing-event-filters)
+- [Managing mutators](#managing-mutators)
 - [Themes](#themes)
 
 The Sensu backend includes the **Sensu dashboard**:
@@ -61,6 +63,18 @@ You can delete Sensu entities using the dashboard entities page.
 **LICENSED TIER**: Unlock handler management in the Sensu Go dashboard with a Sensu license. To activate your license, see the [getting started guide][6].
 
 You can create, edit, and delete Sensu handlers using the dashboard handlers page.
+
+### Managing event filters
+
+**LICENSED TIER**: Unlock filter management in the Sensu Go dashboard with a Sensu license. To activate your license, see the [getting started guide][6].
+
+You can create, edit, and delete Sensu event filters using the dashboard filters page.
+
+### Managing mutators
+
+**LICENSED TIER**: Unlock mutator management in the Sensu Go dashboard with a Sensu license. To activate your license, see the [getting started guide][6].
+
+You can create, edit, and delete Sensu mutators using the dashboard mutators page.
 
 ### Themes
 Use the preferences menu to change the theme or switch to the dark theme.

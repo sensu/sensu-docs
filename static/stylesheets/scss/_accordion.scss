@@ -1,0 +1,27 @@
+.accordion {
+  cursor: pointer;
+  position: relative;
+
+  &.active {
+    .fa {
+      transform: rotate(180deg);
+    }
+
+    + ul {
+      display: block;
+    }
+  }
+
+  + ul {
+    display: none;
+    padding-left: 1rem;
+
+    a {
+      font-size: 1.5rem;
+    }
+  }
+
+  .fa {
+    transition: transform 240ms cubic-bezier(0.2, 0.3, 0.25, 0.9);
+  }
+}

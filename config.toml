@@ -32,11 +32,8 @@ ignoreFiles = ["sensu-doc-template.md"]
   permalink = "#"
 
   # Custom assets
-  custom_css = ["/stylesheets/language-toggle.css"]
+  custom_css = []
   custom_js = []
-
-  # Syntax highlighting theme
-  highlight_css = "/stylesheets/syntax.css"
 
   [params.palette]
     primary = "green"
@@ -51,7 +48,7 @@ ignoreFiles = ["sensu-doc-template.md"]
     name = "Sensu Go"
     description = "The next-generation monitoring event pipeline"
     weight = 1
-    latest = "5.10"
+    latest = "5.11"
 
     [[params.products.sensu_go.versions]]
     version = "5.11"
@@ -106,7 +103,14 @@ ignoreFiles = ["sensu-doc-template.md"]
     name = "Sensu Core"
     description = "The original monitoring event pipeline"
     weight = 2
-    latest = "1.7"
+    latest = "1.8"
+
+    [[params.products.sensu_core.versions]]
+    version = "1.8"
+    platforms = [
+      "Ubuntu/Debian",
+      "RHEL/CentOS"
+    ]
 
     [[params.products.sensu_core.versions]]
     version = "1.7"
@@ -176,7 +180,14 @@ ignoreFiles = ["sensu-doc-template.md"]
     name = "Sensu Enterprise"
     description = "The powerful and simple monitoring product, built on Sensu Core"
     weight = 3
-    latest = "3.5"
+    latest = "3.6"
+
+    [[params.products.sensu_enterprise.versions]]
+    version = "3.6"
+    platforms = [
+      "Ubuntu/Debian",
+      "RHEL/CentOS"
+    ]
 
     [[params.products.sensu_enterprise.versions]]
     version = "3.5"

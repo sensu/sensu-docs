@@ -1,7 +1,7 @@
 ---
 title: "Dashboard filtering"
 linkTitle: "Filtering"
-description: "The Sensu dashboard supports filtering on the events, entities, checks, handlers, and silences pages. Read the doc to learn more."
+description: "The Sensu dashboard supports filtering on the events, entities, checks, handlers, filters, mutators, and silences pages. Read the doc to learn more."
 version: "5.11"
 product: "Sensu Go"
 platformContent: false
@@ -17,6 +17,7 @@ When applied, filters create a unique link, so you can bookmark and share your f
 - On the **entities page**, filter by entity class and subscription.
 - On the **checks page**, filter by subscription and published/unpublished.
 - On the **handlers page**, filter by handler type.
+- On the **filters page**, filter by action.
 - On the **silences page**, filter by check and subscription. You can also sort silences by start date.
 
 ## Advanced filtering
@@ -28,7 +29,7 @@ Select the filter bar to start building custom views using suggested attributes 
 
 ### Label selectors
 
-To filter by custom labels on the entities, checks, handlers, and silences pages, use the `labelSelector` filter and the `==` operator.
+To filter by custom labels on the entities, checks, handlers, filters, mutators, and silences pages, use the `labelSelector` filter and the `==` operator.
 
 To display, on the **entities page**, only entities with a `region: us-west-1` label:
 

@@ -8,7 +8,7 @@
   <head {{ with .Site.LanguageCode }}lang="{{ . }}"{{ end }}>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1">
-    <meta http-equiv="X-UA-Compatible" content="IE=10" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <title>{{ .Title }}{{ if not .IsHome }} - {{ .Site.Title }}{{ end }}</title>
     {{ .Hugo.Generator }}
 
@@ -34,36 +34,12 @@
     <link rel="shortcut icon" type="image/x-icon" href="{{ with .Site.Params.favicon }}{{ . | absURL }}{{ else }}{{ "/images/favicon.ico" | absURL }}{{ end }}">
     <link rel="icon" type="image/x-icon" href="{{ with .Site.Params.favicon }}{{ . | absURL }}{{ else }}{{ "/images/favicon.ico" | absURL }}{{ end }}">
 
-    <style>
-      @font-face {
-        font-family: 'Icon';
-        src: url('{{ "/fonts/icon.eot?52m981" | absURL }}');
-        src: url('{{ "/fonts/icon.eot?#iefix52m981" | absURL }}')
-               format('embedded-opentype'),
-             url('{{ "/fonts/icon.woff?52m981" | absURL }}')
-               format('woff'),
-             url('{{ "/fonts/icon.ttf?52m981" | absURL }}')
-               format('truetype'),
-             url('{{ "/fonts/icon.svg?52m981#icon" | absURL }}')
-               format('svg');
-        font-weight: normal;
-        font-style: normal;
-      }
-    </style>
-
-    <link rel="stylesheet" href="{{ "/stylesheets/application.css" | absURL }}">
-    <link rel="stylesheet" href="{{ "/stylesheets/temporary.css" | absURL }}">
-    <link rel="stylesheet" href="{{ "/stylesheets/palettes.css" | absURL }}">
-    <link rel="stylesheet" href="{{ with .Site.Params.highlight_css }}{{ . | absURL }}{{ else }}{{ "/stylesheets/highlight/highlight.css" | absURL }}{{ end }}">
-    <link rel="stylesheet" href="{{ "/stylesheets/override.css" | absURL }}">
-    {{ if .IsHome }}
-        <link rel="stylesheet" href="{{ "/stylesheets/homepage.css" | absURL }}">
-    {{ end }}
-    <link rel="stylesheet" href="{{ "/stylesheets/docs-overrides.css" | absURL }}">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Work+Sans:300,400,500,600,700&display=swap" rel="stylesheet">
     {{ range .Site.Params.custom_css }}
-    <link rel="stylesheet" href="{{ . | absURL }}">
+      <link rel="stylesheet" href="{{ . | absURL }}">
     {{ end }}
+    <link rel="stylesheet" href="{{ "/stylesheets/sensu.css" | absURL }}">
     <script src="{{ "/javascripts/modernizr.js" | absURL }}"></script>
     <script
       src="https://code.jquery.com/jquery-3.4.1.min.js"
@@ -74,7 +50,7 @@
 	<script src="//rum-static.pingdom.net/pa-5bacf02ccea07b00160001cc.js" async></script>
 
   <!-- Local fallback for assets in case of cdn failure -->
-	<script type="text/javascript">
+	<script>
     function css(element, property) {
       return window.getComputedStyle(element, null).getPropertyValue(property);
     }
@@ -86,11 +62,9 @@
       document.body.insertBefore(span, document.body.firstChild);
 
       var faScript = document.createElement('script');
-      faScript.type = 'text/javascript'
       faScript.src = encodeURI('{{ "/js/vendor/fontawesome-all.min.js" | absURL }}')
 
       var jQueryScript = document.createElement('script');
-      jQueryScript.type = 'text/javascript';
       jQueryScript.src = encodeURI('{{ "/js/vendor/jquery-3.4.1.min.js" | absURL }}')
       var head = document.getElementsByTagName('head')[0];
       
@@ -104,8 +78,8 @@
       document.body.removeChild(span);
     };
   </script>
-  <script type="text/javascript" src="{{ "/js/js-cookie.js" | absURL }}"></script>
-  <script type="text/javascript" src="{{ "/js/platformDropdowns.js" | absURL }}"></script>
+  <script src="{{ "/js/js-cookie.js" | absURL }}"></script>
+  <script src="{{ "/js/platformDropdowns.js" | absURL }}"></script>
   <!-- Global site tag (gtag.js) - Google Ads: 804504629 -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=AW-804504629"></script>
   <script>

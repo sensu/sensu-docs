@@ -21,21 +21,14 @@
     <!-- if we have a list of platforms -->
     {{ $platforms := $.Scratch.Get "platforms" }}
     {{ if gt (len $platforms) 0 }}
-      <div class="platformHolder">
-        <div id="platformButton">
-
-          <!-- Title -->
-          <a class="platformButtonTitle"><span id="platformButtonTitleText">All Platforms</span><i class="fa fa-chevron-down dropdownArrow" aria-hidden="true"></i></a>
-          <div class="hiddenPlatforms" style="display: none;">
- 
-            <!-- List of platforms -->
-            <ul class="hiddenItems">
-              {{ range $platforms }}
-                {{ $platform := . }}
-                <li class="hiddenItem"><a onClick="setPlatformCookie('{{ $platform }}')" href="{{ $.URL }}">{{ $platform }}</a></li>
-              {{ end }}
-            </ul>
-          </div>
+      <div class="platform-picker-main">
+        <div class="platform-picker--inner">
+          <button class="platform-picker--value">All Platforms</button>
+          <ul>
+            {{ range $platform := $platforms }}
+              <li><a data-platform="{{ $platform }}" href="{{ $.URL }}">{{ $platform }}</a></li>
+            {{ end }}
+          </ul>
         </div>
       </div>
     {{ end }}

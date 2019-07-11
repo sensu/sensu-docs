@@ -1,0 +1,97 @@
+header {
+  background: white;
+  box-shadow: 0 1.5px 3px rgba(0,0,0,.24),0 3px 8px rgba(0,0,0,.05);
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 100;
+
+  .algolia-autocomplete {
+    display: none !important;
+
+    @media (min-width: $breakpoint-lg) {
+      display: flex !important;
+    }
+  }
+
+  #home & .algolia-autocomplete {
+    display: flex !important;
+  }
+
+  .algolia-search {
+    border-bottom: none;
+    border-radius: 0;
+    border-right: none;
+    border-top: none;
+    height: 100%;
+    padding: 0 12px 0 44px;
+    width: 100%;
+
+    @media (min-width: $breakpoint-lg) {
+      width: 375px;
+    }
+  }
+
+  .product-picker {
+    display: none;
+
+    @media (min-width: $breakpoint-lg) {
+      display: block;
+    }
+  }
+
+  .logo {
+    color: #2C3458;
+    display: block;
+    flex: 1;
+    font: 600 24px/1.16 'Work Sans';
+    min-width: 172px;
+    padding: 0 16px 0 0;
+
+    @media (min-width: $breakpoint-lg) {
+      flex: none;
+      padding-left: 16px;
+    }
+  }
+
+  #home & .logo {
+    padding-left: 16px;
+  }
+
+  a {
+    text-decoration: none;
+  }
+
+  nav {
+    align-items: center;
+    display: flex;
+    height: $header-height-sm;
+    justify-content: space-between;
+
+    @media (min-width: $breakpoint-lg) {
+      height: $header-height-lg;
+    }
+  }
+}
+
+#hamburger {
+  cursor: pointer;
+  display: block;
+
+  &::before {
+    color: $blue-dark;
+    content: "\f0c9";
+    display: block;
+    font-family: FontAwesome;
+    font-size: 2rem;
+    padding: 0.5rem 1.5rem;
+  }
+
+  @media (min-width: $breakpoint-lg) {
+    display: none;
+  }
+
+  #home & {
+    display: none;
+  }
+}
