@@ -385,6 +385,10 @@ For more information about event attributes, see the [event reference][28].
 `event.entity.system.platform_version` | string  | The entity’s operating system version
 `event.entity.user`                    | string  | Sensu [RBAC][25] username used by the agent entity
 
+### Filter Assets
+
+In addition to writing custom filter expressions, filters are also available as [assets][17]. For an example of how to implement a filter as an asset, see the [guide on reducing alert fatigue][alert-fatigue].
+
 ## Filter specification
 
 ### Top-level attributes
@@ -884,3 +888,5 @@ spec:
 [api-filter]: ../../api/overview#filtering
 [sensuctl-filter]: ../../sensuctl/reference#filtering
 [29]: ../events#occurrences-and-occurrences-watermark
+[alert-fatigue]: ../../guides/reduce-alert-fatigue/
+
