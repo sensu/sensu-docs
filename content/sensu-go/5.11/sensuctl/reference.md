@@ -14,6 +14,7 @@ menu:
 - [First-time setup](#first-time-setup)
 - [Managing sensuctl](#managing-sensuctl)
 - [Creating resources](#creating-resources)
+- [Deleting resources](#deleting-resources)
 - [Updating resources](#updating-resources)
 - [Managing resources](#managing-resources)
 - [Filtering](#filtering) (licensed tier)
@@ -330,6 +331,29 @@ To create the `pagerduty` handler in the current session namespace:
 {{< highlight shell >}}
 sensuctl create --file pagerduty.yml
 {{< /highlight >}}
+
+## Deleting resources
+
+The `sensuctl delete` command allows you to delete resources by reading from STDIN or a flag configured file (`-f`).
+The `delete` command accepts Sensu resource definitions in `wrapped-json` and `yaml` formats and uses the same [resources types][3] as `sensuctl create`.
+To be deleted successfully, resources provided to the `delete` command must match the name and namespace of an existing resource.
+
+To delete all resources from `my-resources.yml` using `sensuctl delete`:
+
+{{< highlight shell >}}
+sensuctl delete --file my-resources.yml
+{{< /highlight >}}
+
+Or:
+
+{{< highlight shell >}}
+cat my-resources.yml | sensuctl delete
+{{< /highlight >}}
+
+### Deleting resources across namespaces
+
+By omitting the `namespace` attribute from resource definitions, you can use the `senusctl delete --namespace` flag to specify the namespace for a group of resources at the time of deletion, allowing you to remove resources across namespaces without manual editing.
+See the section on [creating resources across namespaces][33] for usage examples.
 
 ## Updating resources
 
@@ -672,3 +696,4 @@ These are useful if you want to know what cluster you're connecting to, or what 
 [30]: ../../getting-started/enterprise
 [31]: #managing-sensuctl
 [32]: ../../reference/datastore
+[33]: #creating-resources-across-namespaces
