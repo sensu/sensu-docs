@@ -19,6 +19,7 @@ a {
   line-height: 1.375;
   text-decoration: underline;
   transition: color 240ms cubic-bezier(0.2, 0.3, 0.25, 0.9);
+  z-index: 2;
 
   &:hover {
     color: #46474b
@@ -56,8 +57,9 @@ h5{
   &[id]::before {
     content: '';
     display: block;
-    margin-top: -8.5rem;
-    padding-top: 8.5rem;
+    margin-top: -16.5rem;
+    padding-top: 12.5rem;
+    z-index: 1;
   }
 
   &:hover a {

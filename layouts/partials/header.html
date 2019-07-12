@@ -1,18 +1,17 @@
-<!-- Nav bar and hamburger icon -->
-<nav aria-label="Header" id="navbar">
-  <label id="hamburger" for="toggle-drawer"></label>
+<header>
+  <nav aria-label="Header" id="navbar">
+    <label id="hamburger" for="toggle-drawer"></label>
 
-  <a class="logo" href="/">Sensu Docs</a>
-  <!-- Render dropdowns if we're not home -->
+    <a class="logo" href="/">Sensu Docs</a>
+    <!-- Render dropdowns if we're not home -->
+    {{ if not .IsHome }}
+      {{ partial "productVersionDropdown" . }}
+    {{ end }}
+
+    <input id="desktop-search" class="algolia-search" type="text" placeholder="Search the docs" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck>
+  </nav>
+
   {{ if not .IsHome }}
-    {{ partial "productVersionDropdown" . }}
+    {{ partial "alertSection.html" . }}
   {{ end }}
-
-  <input id="desktop-search" class="algolia-search" type="text" placeholder="Search the docs" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck>
-</nav>
-
-<!-- div containing all alerts -->
-{{ if not .IsHome }}
-  {{ partial "alertSection.html" . }}
-{{ end }}
-
+</header>
