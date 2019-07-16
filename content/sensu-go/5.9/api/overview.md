@@ -49,6 +49,7 @@ Beta APIs, while more stable than alpha versions, offer similarly short-lived li
 
 With the exception of the [health][5] and [metrics APIs][6], the Sensu API requires authentication using a JWT access token.
 You can generate access tokens and refresh tokens using the [authentication API][11] and your Sensu username and password.
+These docs use `$SENSU_TOKEN` to represent a valid access token in API requests.
 
 ### Authentication quick start
 
