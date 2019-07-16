@@ -71,13 +71,13 @@ If you're not already familiar with [assets][asset-reference], take a minute or 
 
 The first step we'll need to take is to obtain a filter asset that will allow us to replicate the behavior we used when we created the `hourly` filter via `sensuctl`. Let's use the [fatigue check asset][fatigue-check-asset] from the [Bonsai Asset Index][bonsai-io]. You can download the asset directly by running the following:
 
-{{ highlight shell }}
+{{< highlight shell >}}
 curl -s https://bonsai.sensu.io/release_assets/nixwiz/sensu-go-fatigue-check-filter/0.1.3/any/noarch/download -o sensu-fatigue-check-filter-asset.yml
-{{ /highlight }}
+{{< /highlight >}}
 
 That should give us a file that looks like this:
 
-{{ highlight yaml }}
+{{< highlight yaml >}}
 ---
 type: Asset
 api_version: core/v2
@@ -90,17 +90,17 @@ spec:
   url: https://github.com/nixwiz/sensu-go-fatigue-check-filter/releases/download/0.1.3/sensu-go-fatigue-check-filter_0.1.3.tar.gz
   sha512: b58e7736fdb77901c243eac10a3c147f5cb4d6ef70966764b8735396bf207153ce8cd52afa0ddd5c6f7602949b2bfc76c0c28bb7843b86c265545ae770c70346
   filters: []
-{{ /highlight }}
+{{< /highlight >}}
 
 Once we have created our file for registering an asset, we'll need to apply it. To apply it, run the following command:
 
-{{ highlight shell }}
+{{< highlight shell >}}
 sensuctl create -f sensu-fatigue-check-filter-asset.yml
-{{ /highlight }}
+{{< /highlight >}}
 
 Excellent! You've registered the asset. We still need to create our filter. We'll use the following configuration for creating the actual filter. In this case, we'll call it `sensu-fatigue-check-filter.yml`:
 
-{{ highlight yaml }}
+{{< highlight yaml >}}
 ---
 type: EventFilter
 api_version: core/v2
@@ -113,13 +113,13 @@ spec:
   - fatigue_check(event)
   runtime_assets:
   - fatigue-check-filter
-{{ /highlight }}
+{{< /highlight >}}
 
 And we'll go ahead and create it:
 
-{{ highlight shell }}
+{{< highlight shell >}}
 sensuctl create -f sensu-fatigue-check-filter.yml
-{{ /highlight }}
+{{< /highlight >}}
 
 Now that we've created the filter asset and the filter, let's move on to the check annotations needed for the asset to work properly. 
 
@@ -127,7 +127,7 @@ Now that we've created the filter asset and the filter, let's move on to the che
 
 Now that we've created the filter, we'll need to make some additions to any checks we want to use the filter with. Let's look at an example CPU check:
 
-{{ highlight yaml }}
+{{< highlight yaml >}}
 ---
 type: CheckConfig
 api_version: core/v2
@@ -158,7 +158,7 @@ spec:
   - linux
   timeout: 0
   ttl: 0
-{{ /highlight }}
+{{< /highlight >}}
 
 You'll notice that under the `metadata` scope we've added some annotations. For our filter asset to work the way that our interactively created filter does, these annotations are necessary. For more information on configuring these values, see the [filter asset README][fatigue-check-configuration]. Now let's assign our newly minted filter to a handler.
 
@@ -166,7 +166,7 @@ You'll notice that under the `metadata` scope we've added some annotations. For 
 
 Just like we did with our interactively created filter, we're going to assign our filter to a handler. We can use the following handler example:
 
-{{ highlight yaml }}
+{{< highlight yaml >}}
 ---
 api_version: core/v2
 type: Handler
@@ -182,7 +182,7 @@ spec:
   filters:
   - is_incident
   - fatigue_check
-{{ /highlight }}
+{{< /highlight >}}
 
 Let's move on to validating our filter.
 
