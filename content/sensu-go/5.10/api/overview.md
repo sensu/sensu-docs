@@ -54,6 +54,17 @@ Beta APIs, while more stable than alpha versions, offer similarly short-lived li
 With the exception of the [health][5] and [metrics APIs][6], the Sensu API requires authentication using a JWT access token.
 You can generate access tokens and refresh tokens using the [authentication API][11] and your Sensu username and password.
 
+### Authentication quick start
+
+To set up a local API testing environment, save your Sensu credentials and token as environment variables:
+
+{{< highlight shell >}}
+# Requires curl and jq
+export SENSU_USER=admin && SENSU_PASS=P@ssw0rd!
+
+export SENSU_TOKEN=`curl -XGET -u "$SENSU_USER:$SENSU_PASS" -s http://localhost:8080/auth | jq -r ".access_token"`
+{{< /highlight >}}
+
 ### Basic authentication using the authentication API
 
 The [`/auth` API endpoint][9] lets you generate short-lived API tokens using your Sensu username and password.
