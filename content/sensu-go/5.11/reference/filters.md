@@ -23,12 +23,12 @@ menu:
 ## How do Sensu filters work?
 
 Sensu filters are applied when **event handlers** are configured to use one or
-more filters. Prior to executing a handler, the Sensu server will apply any
+more filters. Prior to executing a handler, the Sensu backend will apply any
 filters configured for the handler to the **event** data. If the event is not
 removed by the filter(s), the handler will be executed. The
 filter analysis flow performs these steps:
 
-* When the Sensu server is processing an event, it will check for the definition
+* When the Sensu backend is processing an event, it will check for the definition
 of a `handler` (or `handlers`). Prior to executing each handler, the Sensu
 server will first apply any configured `filters` for the handler.
 * If multiple `filters` are configured for a handler, they are executed

@@ -83,7 +83,7 @@ The access token should be included in the output, along with a refresh token:
 }
 {{< /highlight >}}
 
-2. Copy the access token into the authentication header of the API request.
+2. Use the access token in the authentication header of the API request.
 For example:
 {{< highlight shell >}}
 curl -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIs..." \

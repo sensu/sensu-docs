@@ -20,7 +20,7 @@ prior to the execution of a handler. If the mutator executes successfully, the m
 data is returned to the handler, and the handler is then executed. If the mutator 
 fails to execute, an error will be logged, and the handler will not be executed.
 
-* When Sensu server processes an event, it will check the handler for the
+* When the Sensu backend processes an event, it will check the handler for the
   presence of a mutator, and execute that mutator before executing the handler. 
 * If the mutator executes successfully (it returns an exit status code of 0), modified
   event data is provided to the handler, and the handler is executed.
@@ -37,14 +37,14 @@ fails to execute, an error will be logged, and the handler will not be executed.
   * exit codes other than `0` indicate failure
 
 ### Commands
-Each Sensu mutator definition defines a command to be executed. Mutator commands are executable commands which will be executed on a Sensu server, run as the `sensu user`. Most mutator commands are provided by Sensu Plugins.
+Each Sensu mutator definition defines a command to be executed. Mutator commands are executable commands which will be executed on a Sensu backend, run as the `sensu user`. Most mutator commands are provided by Sensu Plugins.
 
 Sensu mutator `command` attributes may include command line arguments for
 controlling the behavior of the `command` executable. Many Sensu mutator plugins
 provide support for command line arguments for reusability.
 
 ### How and where are mutator commands executed?
-As mentioned above, all mutator commands are executed by a Sensu server as the `sensu` user. Commands must be executable files that are discoverable on the Sensu server system (installed in a system `$PATH` directory).
+As mentioned above, all mutator commands are executed by a Sensu backend as the `sensu` user. Commands must be executable files that are discoverable on the Sensu backend system (installed in a system `$PATH` directory).
 
 _NOTE: By default, the Sensu installer packages will modify the system `$PATH` for the Sensu processes to include `/etc/sensu/plugins`. As a result, executable scripts (like plugins) located in `/etc/sensu/plugins` will be valid commands. This allows `command` attributes to use “relative paths” for Sensu plugin commands, for example: `"command": "check-http.go -u https://sensuapp.org"`._
 
@@ -149,7 +149,7 @@ example      | {{< highlight shell >}}
 
 command      | 
 -------------|------ 
-description  | The mutator command to be executed by Sensu server. 
+description  | The mutator command to be executed by the Sensu backend. 
 required     | true
 type         | String
 example      | {{< highlight shell >}}"command": "/etc/sensu/plugins/mutated.go"{{</highlight>}}
