@@ -160,7 +160,7 @@ Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.8.0/sen
 Start the installation wizard.
 
 {{< highlight text >}}
-msiexec.exe /i $env:userprofile\sensu-go-agent_5.8.0.2735_en-US.x64.msi
+msiexec.exe /i $env:userprofile\sensu-go-agent_5.8.0.2735_en-US.x64.msi /qn
 {{< /highlight >}}
 
 {{< platformBlockClose >}}
