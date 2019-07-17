@@ -983,7 +983,7 @@ example      | {{< highlight shell >}}
 
 | default_upn_domain |     |
 -------------|------
-description  | Enables UPN authentication when set. The default UPN suffix that will be appended to the username when a domain is not specified during login (for example: `user` becomes `user@defaultdomain.xyz`).
+description  | Enables UPN authentication when set. The default UPN suffix that will be appended to the username when a domain is not specified during login (for example: `user` becomes `user@defaultdomain.xyz`). _WARNING: When using UPN authentication, any changes in group membership on the LDAP server will not be reflected for authenticated users so they should be asked to re-authenticate in such case._
 required     | false
 type         | String
 example      | {{< highlight shell >}}
