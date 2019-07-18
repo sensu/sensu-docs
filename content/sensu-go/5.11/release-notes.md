@@ -39,12 +39,14 @@ Read the [upgrade guide][1] for information on upgrading to the latest version o
 ## 5.11.1 release notes
 
 **July 18, 2019** &mdash; The latest release of Sensu Go, version 5.11.1, is now available for download.
-<!-- Add release synopsis from release checklist -->
+This release is a stability release with bug fixes for UPN format binding token renewal, adding of agent heartbeats and WebSocket connection negotiation made configurable.
 See the [upgrade guide][1] to upgrade Sensu to version 5.11.1.
 
 **FIXES:**
 
-<!-- List bug fixes -->
+- Fixed access token renewal when UPN format binding was enabled.
+- The agent now sends heartbeats to the backend in order to detect network failures and reconnect faster.
+- The default handshake timeout for the WebSocket connection negotiation has been lowered from 45 to 15 seconds and is now configurable.
 
 ## 5.11.0 release notes
 
