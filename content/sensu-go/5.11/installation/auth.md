@@ -983,7 +983,7 @@ example      | {{< highlight shell >}}
 
 | default_upn_domain |     |
 -------------|------
-description  | Enables UPN authentication when set. The default UPN suffix that will be appended to the username when a domain is not specified during login (for example: `user` becomes `user@defaultdomain.xyz`). _WARNING: When enabling UPN authentication, any changes in group membership on the Active Directory server will not be reflected for authenticated users, so they should be asked to re-authenticate in such case. Otherwise, a binding account should be specified or anonymous binding enabled instead for group membership to be reflected._
+description  | Enables UPN authentication when set. The default UPN suffix that will be appended to the username when a domain is not specified during login (for example: `user` becomes `user@defaultdomain.xyz`). _WARNING: When using UPN authentication, users must re-authenticate to apply any changes made to group membership on the Active Directory server since their last authentication. To ensure group membership updates are reflected without re-authentication, specify a binding account or enable anonymous binding._
 required     | false
 type         | String
 example      | {{< highlight shell >}}
