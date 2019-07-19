@@ -1,0 +1,153 @@
+* {
+  text-rendering: optimizeLegibility;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  background-color: #fbfbfb;
+  font-family: "Work Sans", sans-serif;
+}
+
+html {
+  font-size: 10px;
+}
+
+a {
+  border: none;
+  color: $gray-dark;
+  line-height: 1.375;
+  text-decoration: underline;
+  transition: color 240ms cubic-bezier(0.2, 0.3, 0.25, 0.9);
+
+  &:hover {
+    color: #46474b
+  }
+}
+
+blockquote {
+  border-left: 5px solid $green;
+  margin: 0;
+  padding: 8px 0 8px 15px;
+
+  p {
+    color: $blue-dark;
+    font-size: 1.8rem;
+    font-weight: 300;
+    line-height: 1.2;
+    margin: 0;
+
+    a {
+      font-size: 1.6rem;
+    }
+  }
+}
+
+h1,
+h2,
+h3,
+h4,
+h5{
+  color: $blue-dark;
+  font-weight: 600;
+  line-height: 1.17;
+  padding: 0;
+
+  &[id]::before {
+    content: '';
+    display: block;
+    margin-top: -8.5rem;
+    padding-top: 8.5rem;
+  }
+
+  &:hover a {
+    display: inline;
+  }
+
+  a {
+    color: currentColor;
+    display: none;
+    font-size: inherit;
+    line-height: 1;
+    margin-left: 0.75rem;
+  }
+}
+
+h1 {
+  border-bottom: none;
+  font-size: 3.8rem;
+  margin: 1.25em 0 0.4em;
+}
+
+h2 {
+  font-size: 2.7rem;
+  margin: 2em 0 0.555em;
+}
+
+h3 {
+  font-size: 2.2rem;
+  margin: 2em 0 0.7em;
+}
+
+h4 {
+  font-size: 2rem;
+  font-style: italic;
+  margin: 2em 0 1em;
+}
+
+h5 {
+  font-size: 1.8rem;
+  font-style: italic;
+  margin: 1.5em 0;
+}
+
+li {
+  color: $gray-dark;
+  font-size: 1.6rem;
+  line-height: 1.375;
+  padding: 0;
+}
+
+p {
+  color: $gray-dark;
+  font-size: 1.6rem;
+  line-height: 1.375;
+  margin: 1.5em 0 1.5625em;
+}
+
+strong {
+  font-weight: 700;
+}
+
+::placeholder,
+input {
+  color: $blue-dark;
+  font-family: "Work Sans", sans-serif;
+}
+
+hr {
+  border: none;
+  border-bottom: 1px solid #d5d6de;
+  margin: 1.5rem 0 2.25rem;
+}
+
+img {
+  max-width: 100%;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+
+  &.inline li {
+    display: inline-block;
+  }
+}
+
+.hidden {
+  display: none;
+}
+
+.strong {
+  font-weight: 600;
+}

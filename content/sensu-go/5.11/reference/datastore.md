@@ -41,8 +41,6 @@ See the [PostgreSQL docs][14] to install and configure PostgreSQL.
 At the time of enabling the PostgreSQL event store, event data cuts over from etcd to PostgreSQL, resulting in a loss of recent event history.
 No restarts or Sensu backend configuration changes are required to enable the PostgreSQL event store.
 
-_WARNING: The PostgreSQL event store cannot be disabled once configured. We'll be adding this functionality in an upcoming release, so keep an eye on the [announcements section of Discourse][4] for updates._
-
 After installing and configuring PostgreSQL, configure Sensu by creating a `PostgresConfig` resource. See the [specification](#specification) for more information.
 
 {{< language-toggle >}}
@@ -79,9 +77,20 @@ With the `PostgresConfig` resource definition saved to a file (for example: post
 sensuctl create --file postgres.yml
 {{< /highlight >}}
 
-At this time, there is no supported method for viewing or deleting a `PostgresConfig` resource.
+At this time, there is no supported method for viewing a `PostgresConfig` resource.
 To update your Sensu PostgreSQL configuration, repeat the `sensuctl create` process shown above.
 You can expect to see PostgreSQL status updates and error messages in the [Sensu backend logs][2] at the `warn` and `error` log levels, respectively.
+
+#### Disabling the PostgreSQL event store
+
+To disable the PostgreSQL event store, use `sensuctl delete` with your `PostgresConfig` resource definition:
+
+{{< highlight shell >}}
+sensuctl delete --file postgres.yml
+{{< /highlight >}}
+
+When disabling the PostgreSQL event store, event data cuts over from PostgreSQL to etcd, resulting in a loss of recent event history.
+No restarts or Sensu backend configuration changes are required to disable the PostgreSQL event store.
 
 ### Specification
 

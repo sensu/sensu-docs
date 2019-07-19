@@ -14,6 +14,7 @@ menu:
 - [First-time setup](#first-time-setup)
 - [Managing sensuctl](#managing-sensuctl)
 - [Creating resources](#creating-resources)
+- [Deleting resources](#deleting-resources)
 - [Updating resources](#updating-resources)
 - [Managing resources](#managing-resources)
 - [Filtering](#filtering) (licensed tier)
@@ -101,12 +102,14 @@ To view the active configuration for sensuctl:
 sensuctl config view
 {{< /highlight >}}
 
-Sensuctl configuration includes the [Sensu backend url][9], default [output format][10] for the current user, and default [namespace][11] for the current user.
+Sensuctl configuration includes the [Sensu backend url][9], default [output format][10] for the current user, default [namespace][11] for the current user, and currently configured username.
 
 {{< highlight shell >}}
-api-url: http://127.0.0.1:8080
-format: wrapped-json
-namespace: default
+=== Active Configuration
+API URL:   http://127.0.0.1:8080
+Namespace: default
+Format:    tabular
+Username:  admin
 {{< /highlight >}}
 
 ### Set output format
@@ -328,6 +331,29 @@ To create the `pagerduty` handler in the current session namespace:
 {{< highlight shell >}}
 sensuctl create --file pagerduty.yml
 {{< /highlight >}}
+
+## Deleting resources
+
+The `sensuctl delete` command allows you to delete resources by reading from STDIN or a flag configured file (`-f`).
+The `delete` command accepts Sensu resource definitions in `wrapped-json` and `yaml` formats and uses the same [resources types][3] as `sensuctl create`.
+To be deleted successfully, resources provided to the `delete` command must match the name and namespace of an existing resource.
+
+To delete all resources from `my-resources.yml` using `sensuctl delete`:
+
+{{< highlight shell >}}
+sensuctl delete --file my-resources.yml
+{{< /highlight >}}
+
+Or:
+
+{{< highlight shell >}}
+cat my-resources.yml | sensuctl delete
+{{< /highlight >}}
+
+### Deleting resources across namespaces
+
+By omitting the `namespace` attribute from resource definitions, you can use the `senusctl delete --namespace` flag to specify the namespace for a group of resources at the time of deletion, allowing you to remove resources across namespaces without manual editing.
+See the section on [creating resources across namespaces][33] for usage examples.
 
 ## Updating resources
 
@@ -613,13 +639,14 @@ create  delete  import  list
 
 ## Configuration files
 
-During configuration, sensuctl creates configuration files that contain information for connecting to your Sensu Go deployment. You can find them at `$HOME/.config/sensu/sensuctl/profile` and `$HOME/.config/sensu/sensuctl/profile`. For example:
+During configuration, sensuctl creates configuration files that contain information for connecting to your Sensu Go deployment. You can find them at `$HOME/.config/sensu/sensuctl/profile` and `$HOME/.config/sensu/sensuctl/cluster`. For example:
 
 {{< highlight shell >}}
 cat .config/sensu/sensuctl/profile
 {
   "format": "tabular",
-  "namespace": "demo"
+  "namespace": "demo",
+  "username": "admin"
 }
 {{< /highlight >}}
 
@@ -635,7 +662,7 @@ cat .config/sensu/sensuctl/cluster
 }
 {{< /highlight >}}
 
-These are useful if you want to know what cluster you're connecting to, or what namespace you're currently configured to use. 
+These are useful if you want to know what cluster you're connecting to, or what namespace or username you're currently configured to use.
 
 [1]: ../../reference/rbac
 [2]: https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
@@ -669,3 +696,4 @@ These are useful if you want to know what cluster you're connecting to, or what 
 [30]: ../../getting-started/enterprise
 [31]: #managing-sensuctl
 [32]: ../../reference/datastore
+[33]: #creating-resources-across-namespaces

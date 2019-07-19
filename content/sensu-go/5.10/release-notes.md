@@ -1,12 +1,14 @@
 ---
 title: "Sensu Go release notes"
 linkTitle: "Release Notes"
-description: "Read the Sensu Go 5.10.0 release notes to learn about what's new in our latest release."
+description: "Read the Sensu Go release notes to learn about what's new in our latest release."
 product: "Sensu Go"
 version: "5.10"
 menu: "sensu-go-5.10"
 ---
 
+- [5.10.2 release notes](#5-10-2-release-notes)
+- [5.10.1 release notes](#5-10-1-release-notes)
 - [5.10.0 release notes](#5-10-0-release-notes)
 - [5.9.0 release notes](#5-9-0-release-notes)
 - [5.8.0 release notes](#5-8-0-release-notes)
@@ -32,6 +34,28 @@ Read the [upgrade guide][1] for information on upgrading to the latest version o
 
 ---
 
+## 5.10.2 release notes
+
+**June 27, 2019** &mdash; The latest release of Sensu Go, version 5.10.2, is now available for download.
+This is a stability release with a bug fix for expired licenses.
+See the [upgrade guide][1] to upgrade Sensu to version 5.10.2.
+
+**FIXES:**
+
+- Sensu now handles expired licenses as expected.
+
+## 5.10.1 release notes
+
+**June 25, 2019** &mdash; The latest release of Sensu Go, version 5.10.1, is now available for download.
+This release is a stability release with key bug fixes around proxy checks and entity deletion.
+See the [upgrade guide][1] to upgrade Sensu to version 5.10.1.
+
+**FIXES:**
+
+- The proxy_requests entity_attributes are now all considered when matching
+entities.
+- Events are now removed when their corresponding entity is deleted.
+
 ## 5.10.0 release notes
 
 **June 19, 2019** &mdash; The latest release of Sensu Go, version 5.10.0, is now available for download.
@@ -50,6 +74,7 @@ See the [upgrade guide][1] to upgrade Sensu to version 5.10.0.
 - The `sensuctl create` command now supports specifying the namespace for a group of resources at the time of creation, allowing you to replicate resources across namespaces without manual editing. See the [sensuctl reference][63] for more information and usage examples.
 - Sensu cluster roles can now include permissions to manage your Sensu license using the `license` resource type. See the [RBAC reference][64] to create a cluster role.
 - The web UI now displays up to 100,000 events and entities on the homepage.
+- The Sensu API now returns 204 (No Content) responses for some POST and PUT endpoints. See the [API docs][67] for individual endpoint responses.
 
 **FIXES:**
 
@@ -449,3 +474,4 @@ To get started with Sensu Go:
 [64]: /sensu-go/5.10/reference/rbac/#assigning-group-permissions-across-all-namespaces
 [65]: /sensu-go/5.10/dashboard/overview
 [66]: /sensu-go/5.10/dashboard/filtering
+[67]: /sensu-go/5.10/api

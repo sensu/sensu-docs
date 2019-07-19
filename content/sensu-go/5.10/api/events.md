@@ -177,7 +177,7 @@ The `/events` API endpoint provides HTTP POST access to create an event and send
 #### EXAMPLE {#events-post-example}
 
 In the following example, an HTTP POST request is submitted to the `/events` API to create an event.
-The request includes information about the check and entity represented by the event and returns a successful HTTP 200 OK response and the event definition.
+The request includes information about the check and entity represented by the event and returns a successful HTTP 204 No Content response.
 
 {{< highlight shell >}}
 curl -X POST \
@@ -204,8 +204,7 @@ curl -X POST \
 }' \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/events
 
-HTTP/1.1 200 OK
-{"timestamp":1552582569,"entity":{"entity_class":"proxy","system":{"network":{"interfaces":null}},"subscriptions":null,"last_seen":0,"deregister":false,"deregistration":{},"metadata":{"name":"server1","namespace":"default"}},"check":{"handlers":["slack"],"high_flap_threshold":0,"interval":60,"low_flap_threshold":0,"publish":false,"runtime_assets":null,"subscriptions":[],"proxy_entity_name":"","check_hooks":null,"stdin":false,"subdue":null,"ttl":0,"timeout":0,"round_robin":false,"executed":0,"history":null,"issued":0,"output":"Server error","state":"failing","status":2,"total_state_change":0,"last_ok":0,"occurrences":0,"occurrences_watermark":0,"output_metric_format":"","output_metric_handlers":null,"env_vars":null,"metadata":{"name":"server-health"}},"metadata":{}}
+HTTP/1.1 204 No Content
 {{< /highlight >}}
 
 #### API Specification {#events-post-specification}
@@ -236,7 +235,7 @@ payload         | {{< highlight shell >}}
 }
 {{< /highlight >}}
 payload parameters | See the [payload parameters](#eventsentitycheck-put-parameters) section for the [`/events/:entity/:check` PUT endpoint](#eventsentitycheck-put).
-response codes  | <ul><li>**Success**: 200 (OK)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Conflict**: 409 (Event already exists for the entity and check)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+response codes  | <ul><li>**Success**: 204 (No Content)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Conflict**: 409 (Event already exists for the entity and check)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 ## The `/events/:entity` API endpoint {#the-eventsentity-api-endpoint}
 
@@ -497,11 +496,10 @@ curl -X PUT \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/events/server1/server-health
 {{< /highlight >}}
 
-The request returns a 200 (OK) HTTP response code and the resulting event definition.
+The request returns a 204 (No Content) HTTP response code and the resulting event definition.
 
 {{< highlight shell >}}
-HTTP/1.1 200 OK
-{"timestamp":1552582569,"entity":{"entity_class":"proxy","system":{"network":{"interfaces":null}},"subscriptions":null,"last_seen":0,"deregister":false,"deregistration":{},"metadata":{"name":"server1","namespace":"default"}},"check":{"handlers":["slack"],"high_flap_threshold":0,"interval":60,"low_flap_threshold":0,"publish":false,"runtime_assets":null,"subscriptions":[],"proxy_entity_name":"","check_hooks":null,"stdin":false,"subdue":null,"ttl":0,"timeout":0,"round_robin":false,"executed":0,"history":null,"issued":0,"output":"Server error","status":1,"total_state_change":0,"last_ok":0,"occurrences":0,"occurrences_watermark":0,"output_metric_format":"","output_metric_handlers":null,"env_vars":null,"metadata":{"name":"server-health"}},"metadata":{}}
+HTTP/1.1 204 No Content
 {{< /highlight >}}
 
 You can use sensuctl or the [Sensu dashboard](../../dashboard/overview) to see the event.
@@ -545,7 +543,7 @@ payload         | {{< highlight shell >}}
 }
 {{< /highlight >}}
 payload parameters | See the [payload parameters](#eventsentitycheck-put-parameters) section below.
-response codes   | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+response codes   | <ul><li>**Successfully created or updated**: 204 (No Content)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 #### Payload parameters {#eventsentitycheck-put-parameters}
 

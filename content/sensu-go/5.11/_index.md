@@ -33,13 +33,13 @@ Learn about [support packages](https://sensu.io/support) and [license-activated 
 <img alt="Sensu system diagram" src="/images/system-ce.png">
 
 Sensu is an agent-based monitoring tool that you install on your organization's infrastructure.
-The Sensu agent gives you visibility into everything you care about; the Sensu server gives you flexible, automated workflows to route metrics and alerts.
+The Sensu agent gives you visibility into everything you care about; the Sensu backend gives you flexible, automated workflows to route metrics and alerts.
 
 - **Monitor containers, instances, applications, and on-premises infrastructure**
 
 Sensu is designed to monitor everything from the server closet to the cloud.
 [Install the Sensu agent][15] on the hosts you want to monitor, integrate with the [Sensu API][23], or take advantage of [proxy entities][17] to monitor anything on your network.
-Sensu agents automatically register and de-register themselves with the Sensu server, so you can monitor ephemeral infrastructure without getting overloaded with alerts.
+Sensu agents automatically register and de-register themselves with the Sensu backend, so you can monitor ephemeral infrastructure without getting overloaded with alerts.
 
 - **Better incident response with filterable, context-rich alerts**
 

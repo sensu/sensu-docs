@@ -30,7 +30,7 @@ menu:
   - [Security configuration](#security-configuration-flags)
   - [Socket configuration](#socket-configuration-flags)
   - [StatsD configuration](#statsd-configuration-flags)
-  - [Example](/sensu-go/5.11/files/agent.yml)
+  - [Example](../../files/agent.yml)
 
 The Sensu agent is a lightweight client that runs on the infrastructure components you want to monitor.
 Agents register with the Sensu backend as [monitoring entities][3] with `type: "agent"`.
@@ -673,8 +673,7 @@ The agent loads configuration upon startup, so you must restart the agent for an
 
 You can specify the agent configuration using a `.yml` file or using `sensu-agent start` command-line flags.
 Configuration provided via command-line flags overrides attributes specified in a configuration file.
-
-See the example config file provided with Sensu packages at `/usr/share/doc/sensu-go-agent-5.11.0/agent.yml.example` or [available here](/sensu-go/5.11/files/agent.yml).
+See the [example config file](../../files/agent.yml) for flags and defaults.
 
 #### Configuration summary
 
@@ -694,6 +693,7 @@ Flags:
   -c, --config-file string              path to sensu-agent config file
       --deregister                      ephemeral agent
       --deregistration-handler string   deregistration handler that should process the entity deregistration event.
+      --disable-assets                  disable check assets on this agent
       --disable-api                     disable the Agent HTTP API
       --disable-sockets                 disable the Agent TCP and UDP event sockets
       --events-burst-limit              /events api burst limit
@@ -727,7 +727,7 @@ Flags:
 ### Windows
 
 You can specify the agent configuration using a `.yml` file.
-See the example config file provided with Sensu packages at `%ALLUSERSPROFILE%\sensu\config\agent.yml.example` (default: `C:\ProgramData\sensu\config\agent.yml.example`) or [available here](/sensu-go/5.11/files/windows/agent.yml).
+See the example config file provided with Sensu packages at `%ALLUSERSPROFILE%\sensu\config\agent.yml.example` (default: `C:\ProgramData\sensu\config\agent.yml.example`) or [available here](../../files/windows/agent.yml).
 
 {{< platformBlockClose >}}
 
@@ -788,6 +788,20 @@ sensu-agent start -c /sensu/agent.yml
 
 # /etc/sensu/agent.yml example
 config-file: "/sensu/agent.yml"{{< /highlight >}}
+
+<a name="disable-assets"></a>
+
+| disable-assets |      |
+--------------|------
+description   | When set to `true`, disables [assets][] for the agent. In the event that an agent
+attempts to execute a check that requires an asset, the agent will respond with a status of `3`, and a message indicating that the agent could not execute the check because assets are disabled.
+type          | Boolean
+default       | false
+example       | {{< highlight shell >}}# Command line example
+sensu-agent start --disable-assets
+
+# /etc/sensu/agent.yml example
+disable-assets: true{{< /highlight >}}
 
 
 | labels     |      |

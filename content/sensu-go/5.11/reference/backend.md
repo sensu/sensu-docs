@@ -24,8 +24,9 @@ menu:
   - [Security configuration](#security-configuration-flags)
   - [Dashboard configuration](#dashboard-configuration-flags)
   - [Datastore and cluster configuration](#datastore-and-cluster-configuration-flags)
+  - [Advanced configuration options](#advanced-configuration-options)
   - [Event logging](#event-logging)
-  - [Example](/sensu-go/5.11/files/backend.yml)
+  - [Example](../../files/backend.yml)
 
 The Sensu backend is a service that manages check requests and event data.
 Every Sensu backend includes an integrated transport for scheduling checks using subscriptions, an event processing pipeline that applies filters, mutators, and handlers, an embedded [etcd][2] datastore for storing configuration and state, a Sensu API, [Sensu dashboard][6], and `sensu-backend` command-line tool.
@@ -162,7 +163,7 @@ System clocks between agents and the backend should be synchronized to a central
 
 You can specify the backend configuration using a `/etc/sensu/backend.yml` file or using `sensu-backend start` [configuration flags][15].
 The backend requires that the `state-dir` flag be set before starting; all other required flags have default values.
-See the example config file provided with Sensu packages at `/usr/share/doc/sensu-go-backend-5.11.0/backend.yml.example` or [available here](/sensu-go/5.11/files/backend.yml).
+See the [example config file](../../files/backend.yml) for flags and defaults.
 The backend loads configuration upon startup, so you must restart the backend for any configuration updates to take effect.
 
 ### Configuration summary
@@ -190,10 +191,16 @@ General Flags:
       --deregistration-handler string   default deregistration handler
       --event-log-buffer-size int       buffer size of the event logger (default 100000)
       --event-log-file string           path to the event log file
+      --eventd-buffer-size int          number of incoming events that can be buffered (default 100)
+      --eventd-workers int              number of workers spawned for processing incoming events (default 100)
   -h, --help                            help for start
       --insecure-skip-tls-verify        skip TLS verification (not recommended!)
+      --keepalived-buffer-size int      number of incoming keepalives that can be buffered (default 100)
+      --keepalived-workers int          number of workers spawned for processing incoming keepalives (default 100)
       --key-file string                 TLS certificate key in PEM format
       --log-level string                logging level [panic, fatal, error, warn, info, debug] (default "warn")
+      --pipelined-buffer-size int       number of events to handle that can be buffered (default 100)
+      --pipelined-workers int           number of workers spawned for handling events through the event pipeline (default 100)
   -d, --state-dir string                path to sensu state storage (default "/var/lib/sensu/sensu-backend")
       --trusted-ca-file string          TLS CA certificate bundle in PEM format used for etcd client (mutual TLS)
 
@@ -709,6 +716,77 @@ sensu-backend start --etcd-quota-backend-bytes 4294967296
 # /etc/sensu/backend.yml example
 etcd-quota-backend-bytes: 4294967296{{< /highlight >}}
 
+
+| eventd-buffer-size   |      |
+-----------------------|------
+description            | Number of incoming events that can be buffered before being processed by an eventd worker. _WARNING: Modify with caution. Increasing this value may result in higher memory usage._
+type                   | Integer
+default                | `100`
+example                | {{< highlight shell >}}# Command line example
+sensu-backend start --eventd-buffer-size 100
+
+
+# /etc/sensu/backend.yml example
+eventd-buffer-size: 100{{< /highlight >}}
+
+| eventd-workers       |      |
+-----------------------|------
+description            | Number of workers spawned for processing incoming events that are stored in the eventd buffer. _WARNING: Modify with caution. Increasing this value may result in higher CPU usage._
+type                   | Integer
+default                | `100`
+example                | {{< highlight shell >}}# Command line example
+sensu-backend start --eventd-workers 100
+
+# /etc/sensu/backend.yml example
+eventd-workers: 100{{< /highlight >}}
+
+
+| keepalived-buffer-size |      |
+-----------------------|------
+description            | Number of incoming keepalives that can be buffered before being processed by a keepalived worker. _WARNING: Modify with caution. Increasing this value may result in higher memory usage._
+type                   | Integer
+default                | `100`
+example                | {{< highlight shell >}}# Command line example
+sensu-backend start --keepalived-buffer-size 100
+
+# /etc/sensu/backend.yml example
+keepalived-buffer-size: 100{{< /highlight >}}
+
+
+| keepalived-workers |      |
+-----------------------|------
+description            | Number of workers spawned for processing incoming keepalives that are stored in the keepalived buffer. _WARNING: Modify with caution. Increasing this value may result in higher CPU usage._
+type                   | Integer
+default                | `100`
+example                | {{< highlight shell >}}# Command line example
+sensu-backend start --keepalived-workers 100
+
+# /etc/sensu/backend.yml example
+keepalived-workers: 100{{< /highlight >}}
+
+
+| pipelined-buffer-size |      |
+-----------------------|------
+description            | Number of events to handle that can be buffered before being processed by a pipelined worker. _WARNING: Modify with caution. Increasing this value may result in higher memory usage._
+type                   | Integer
+default                | `100`
+example                | {{< highlight shell >}}# Command line example
+sensu-backend start --pipelined-buffer-size 100
+
+# /etc/sensu/backend.yml example
+pipelined-buffer-size: 100{{< /highlight >}}
+
+
+| pipelined-workers |      |
+-----------------------|------
+description            | Number of workers spawned for handling events through the event pipeline that are stored in the pipelined buffer. _WARNING: Modify with caution. Increasing this value may result in higher CPU usage._
+type                   | Integer
+default                | `100`
+example                | {{< highlight shell >}}# Command line example
+sensu-backend start --pipelined-workers 100
+
+# /etc/sensu/backend.yml example
+pipelined-workers: 100{{< /highlight >}}
 
 ### Event logging
 

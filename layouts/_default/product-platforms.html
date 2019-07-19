@@ -5,22 +5,12 @@
   {{ .Scratch.Set "repo_id" $repo_id }}
 {{ end }}
 
-<div class="backdrop">
-  <div class="backdrop-paper"></div>
-</div>
-
-<input class="toggle" type="checkbox" id="toggle-drawer">
-<input class="toggle" type="checkbox" id="toggle-search">
-<label class="toggle-button overlay" for="toggle-drawer"></label>
-
-<header class="header">
+<header>
   {{ partial "header" . }}
 </header>
 
 <main class="main">
-  <div class="drawer">
-    {{ partial "drawer" . }}
-  </div>
+  {{ partial "drawer" . }}
 
   <article class="article">
     <div class="wrapper">
@@ -34,11 +24,10 @@
           {{ $product_versions := (where $product_info.versions "version" .Params.version) }}
           {{ if gt (len $product_versions) 1 }}
             <h2>Pick a Platform</h2>
-            <div class="landingButtonHolder">
+            <div class="link-grid">
               {{ $platforms := index (index $product_versions 0) "platforms" }}
               {{ range $platform := $platforms }}
-                {{ $platform2 := replace $platform " " "-" }}
-                <div class="landingButton"><a onClick="setPlatformCookie('{{ $platform2 }}')" href="client-installation">{{ $platform }}</a></div>
+                <a onClick="setPlatformCookie('{{ $platform }}')" href="client-installation">{{ $platform }}</a>
               {{ end }}
             </div>
           {{ end }}
@@ -56,9 +45,8 @@
   </div>
 </main>
 
-<footer class="footer">
-  {{ partial "footer" . }}
-</footer>
+{{ partial "footer" . }}
+
 
 
 {{ partial "footer_js" . }}

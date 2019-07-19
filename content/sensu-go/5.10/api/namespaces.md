@@ -69,7 +69,7 @@ payload         | {{< highlight shell >}}
   "name": "development"
 }
 {{< /highlight >}}
-response codes  | <ul><li>**Success**: 200 (OK)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+response codes  | <ul><li>**Success**: 204 (No Content)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 ## The `/namespaces/:namespace` API endpoint {#the-namespacesnamespace-api-endpoint}
 
@@ -86,7 +86,7 @@ payload         | {{< highlight shell >}}
   "name": "development"
 }
 {{< /highlight >}}
-response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+response codes  | <ul><li>**Successfully created or updated**: 204 (No Content)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 ### `/namespaces/:namespace` (DELETE) {#namespacesnamespace-delete}
 

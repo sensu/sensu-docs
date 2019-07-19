@@ -1,0 +1,70 @@
+main {
+  align-items: stretch;
+  display: flex;
+  margin: 0 auto;
+  max-width: 1236px;
+  padding-top: $header-height-sm;
+
+  #home & {
+    max-width: 100%;
+  }
+
+  @media (min-width: $breakpoint-lg) {
+    padding-top: $header-height-lg;
+  }
+}
+
+.article {
+  background-color: white;
+  border-left: 2px solid #eaeaea;
+  flex: 0 0 100%;
+  margin: 0 0 0 auto;
+  overflow-x: hidden;
+
+  @media (min-width: $breakpoint-lg) {
+    flex: 0 0 75%;
+  }
+
+
+  .wrapper {
+    padding: 30px 25px 96px;
+
+    @media (min-width: $breakpoint-md) {
+      padding: 50px 35px 96px;
+    }
+  }
+
+  ol {
+    li {
+      padding: 0 0 0 1rem;
+    }
+  }
+
+  ul {
+    margin: 1.5em 0 1em 2.5rem;
+
+    li {
+      margin-left: 1.2rem;
+      margin-top: 0.75em;
+      padding: 0 0 0 1.7rem;
+      position: relative;
+
+      &::before {
+        border-right: 1.5px solid;
+        border-top: 1.5px solid;
+        content: '';
+        display: inline-block;
+        height: 0.6rem;
+        left: 0;
+        position: absolute;
+        top: 0.55em;
+        transform: rotate(45deg);
+        width: 0.6rem;
+      }
+      
+      ul {
+        margin: 0.75em 0 0.75em 2.5rem;
+      }
+    }
+  }
+}

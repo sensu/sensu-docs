@@ -82,6 +82,7 @@ sensuctl auth list
 
 Now that you've configured an authentication provider, you'll need to configure Sensu RBAC to give those users permissions within Sensu.
 Sensu RBAC allows management and access of users and resources based on namespaces, groups, roles, and bindings.
+See the [RBAC reference][4] for more information about configuring permissions in Sensu and [implementation examples](../../reference/rbac/#role-and-role-binding-examples).
 
 - **Namespaces** partition resources within Sensu. Sensu entities, checks, handlers, and other [namespaced resources][17] belong to a single namespace.
 - **Roles** create sets of permissions (get, delete, etc.) tied to resource types. **Cluster roles** apply permissions across namespaces and include access to [cluster-wide resources][18] like users and namespaces. 
@@ -89,7 +90,7 @@ Sensu RBAC allows management and access of users and resources based on namespac
 
 To enable permissions for external users and groups within Sensu, create a set of [roles][10], [cluster roles][11], [role bindings][12], and [cluster role bindings][13] that map to the usernames and group names found in your authentication providers.
 Make sure to include the [group prefix](#groups-prefix) and [username prefix](#username-prefix) when creating Sensu role bindings and cluster role bindings.
-See the [RBAC reference][4] for more information about configuring permissions in Sensu and [implementation examples](../../reference/rbac/#role-and-role-binding-examples).
+Without an assigned role or cluster role, users can sign in to the Sensu dashboard but can't access any Sensu resources.
 
 **4. Log in to Sensu**
 
@@ -695,6 +696,8 @@ spec:
       user_dn: cn=binder,cn=users,dc=acme,dc=org
     client_cert_file: /path/to/ssl/cert.pem
     client_key_file: /path/to/ssl/key.pem
+    default_upn_domain: example.org
+    include_nested_groups: true
     group_search:
       attribute: member
       base_dn: dc=acme,dc=org
@@ -727,6 +730,8 @@ spec:
         "trusted_ca_file": "/path/to/trusted-certificate-authorities.pem",
         "client_cert_file": "/path/to/ssl/cert.pem",
         "client_key_file": "/path/to/ssl/key.pem",
+        "default_upn_domain": "example.org",
+        "include_nested_groups": true,
         "binding": {
           "user_dn": "cn=binder,cn=users,dc=acme,dc=org",
           "password": "P@ssw0rd!"
@@ -801,6 +806,8 @@ example      | {{< highlight shell >}}
       "trusted_ca_file": "/path/to/trusted-certificate-authorities.pem",
       "client_cert_file": "/path/to/ssl/cert.pem",
       "client_key_file": "/path/to/ssl/key.pem",
+      "default_upn_domain": "example.org",
+      "include_nested_groups": true,
       "binding": {
         "user_dn": "cn=binder,cn=users,dc=acme,dc=org",
         "password": "P@ssw0rd!"
@@ -841,6 +848,8 @@ example      | {{< highlight shell >}}
     "trusted_ca_file": "/path/to/trusted-certificate-authorities.pem",
     "client_cert_file": "/path/to/ssl/cert.pem",
     "client_key_file": "/path/to/ssl/key.pem",
+    "default_upn_domain": "example.org",
+    "include_nested_groups": true,
     "binding": {
       "user_dn": "cn=binder,cn=users,dc=acme,dc=org",
       "password": "P@ssw0rd!"
@@ -970,6 +979,24 @@ example      | {{< highlight shell >}}
   "name_attribute": "displayName",
   "object_class": "person"
 }
+{{< /highlight >}}
+
+| default_upn_domain |     |
+-------------|------
+description  | Enables UPN authentication when set. The default UPN suffix that will be appended to the username when a domain is not specified during login (for example: `user` becomes `user@defaultdomain.xyz`). _WARNING: When using UPN authentication, users must re-authenticate to apply any changes made to group membership on the Active Directory server since their last authentication. To ensure group membership updates are reflected without re-authentication, specify a binding account or enable anonymous binding._
+required     | false
+type         | String
+example      | {{< highlight shell >}}
+"default_upn_domain": "example.org"
+{{< /highlight >}}
+
+| include_nested_groups |     |
+-------------|------
+description  | When set to `true`,  group search includes any nested groups instead of just the top level groups that a user is a member of.
+required     | false
+type         | Boolean
+example      | {{< highlight shell >}}
+"include_nested_groups": true
 {{< /highlight >}}
 
 ### Active Directory binding attributes

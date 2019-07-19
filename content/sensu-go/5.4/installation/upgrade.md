@@ -128,9 +128,6 @@ Silencing is now disabled by default in Sensu Go and must be enabled explicitly 
 The syntax for using token substitution has changed from using triple colons to using [double curly braces][16].
 
 ### Aggregates
-Sensu Go does not yet support check aggregates.
-
-### Aggregates
 Check aggregates are supported through the [license-activated][27] [Sensu Go Aggregate Check Plugin][28].
 
 ### API

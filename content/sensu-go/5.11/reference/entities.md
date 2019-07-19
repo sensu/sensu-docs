@@ -28,7 +28,7 @@ menu:
 
 ## How do entities work?
 
-Agent entities are monitoring agents, which are installed and run on every system that needs to be monitored. The entity is responsible for registering the system with the Sensu backend service, sending keepalive messages (the Sensu heartbeat mechanism), and executing monitoring checks. Each entity is a member of one or more `subscriptions` – a list of roles and/or responsibilities assigned to the agent entity (ex: a webserver or a database). Sensu entities will "subscribe" to (or watch for) check requests published by the Sensu server (via the Sensu Transport), execute the corresponding requests locally, and publish the results of the check back to the transport (to be processed by a Sensu server).
+Agent entities are monitoring agents, which are installed and run on every system that needs to be monitored. The entity is responsible for registering the system with the Sensu backend service, sending keepalive messages (the Sensu heartbeat mechanism), and executing monitoring checks. Each entity is a member of one or more `subscriptions` – a list of roles and/or responsibilities assigned to the agent entity (ex: a webserver or a database). Sensu entities will "subscribe" to (or watch for) check requests published by the Sensu backend (via the Sensu Transport), execute the corresponding requests locally, and publish the results of the check back to the transport (to be processed by a Sensu backend).
 
 An entity represents anything (ex: server, container, network switch) that needs to be monitored, including the full range of infrastructure, runtime and application types that compose a complete monitoring environment (from server hardware to serverless functions).
 We call these monitored parts of an infrastructure "entities".
@@ -37,7 +37,7 @@ In addition, an entity can contain system information such as the hostname, OS, 
 
 ## Usage limits
 
-Sensu Go 5.11 has no functional limitations based on entity count. If your Sensu instance includes over 1,000 entities, contact us to learn about [license-activated features][9] designed for monitoring at scale. See [Discourse][10] for more information about our usage policy. 
+This version of Sensu has no functional limitations based on entity count. If your Sensu instance includes over 1,000 entities, contact us to learn about [license-activated features][9] designed for monitoring at scale. See [Discourse][10] for more information about our usage policy. 
 
 ## Proxy entities
 
@@ -180,7 +180,7 @@ example      | {{< highlight shell >}}"type": "Entity"{{< /highlight >}}
 
 api_version  | 
 -------------|------
-description  | Top-level attribute specifying the Sensu API group and version. For entities in Sensu backend version 5.11, this attribute should always be `core/v2`.
+description  | Top-level attribute specifying the Sensu API group and version. For entities in this version of Sensu, this attribute should always be `core/v2`.
 required     | Required for entity definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][sc].
 type         | String
 example      | {{< highlight shell >}}"api_version": "core/v2"{{< /highlight >}}
