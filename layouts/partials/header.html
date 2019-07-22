@@ -13,6 +13,7 @@
 
 <!-- div containing all alerts -->
 {{ if not .IsHome }}
-  {{ partial "alertSection.html" . }}
+{{ partial "eolSection.html" . }}
+{{ partial "alertSection.html" . }}
 {{ end }}
 
