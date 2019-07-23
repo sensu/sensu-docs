@@ -13,9 +13,22 @@ menu:
 
 - [Introduction](#introduction)
 - [Single Backend](#single-backend-with-embedded-etcd)
+  - [Use Cases](#use-cases)
+  - [Auto Scaling Groups](#auto-scaling-groups)
 - [Clustered Backend](#clusterd-backend-with-embedded-etcd)
+  - [Use Cases](#use-cases)
+  - [Cavieats](#cavieats)
+  - [Configuration](#configuration)
+- [Network](#network)
+  - [etcd Network](#etcd-network)
+  - [Load Balancers](#load-balancers)
+- [Security](#security)
+  - [RBAC](#rbac)
+  - [Dashboard](#dashboard)
+  - [Agent](#agent)
+  - [etcd](#etcd)
 
-# Introduction
+## Introduction
 
 This guide will go over different Sensu-Go deployment strategies and recommendations. Depending on your infrastructure and the type of environments  you'll be monitoring you may want to use one or multiple methods of deploying Sensu-Go to best fit your needs and requirements.
 
@@ -46,6 +59,8 @@ For monitoring these standalone Sensu-Go Backends, Sensu-Go Agents can be instal
 A clustered Sensu-Go architecture will allow for benefits not always found in a standalone deployment. This includes event data replication and automatic fail-over. Agents will need to know of all the available Sensu-Go backends in their configuration.
 
 While there is additional redundancy with a clustered Sensu-Go architecture, this does not give you added capacity as in having 5 Sensu-Go Backends does not equate to 5 times the events handled.
+
+<img alt="Sensu Clustered Architecture" title="Clustered Sensu-Go Backend with Embedded etcd." src="/images/clustered_architecture.svg">
 
 ### Cavieats
 
@@ -89,7 +104,7 @@ RBAC allows for granular control and access of namespacesd resources, such as en
 
 Roles are given particular permission to specific resources. These include `get`, `list`, `create`, `update`, and `delete`.
 
-### Dashboard (WebUI)
+### Dashboard
 
 Dashboard access is determined by your credentials from RBAC.
 Dashboard does not have TLS/HTTPS by default. You will need to provide a cert and key file for HTTPS. See Dashboard security https://docs.sensu.io/sensu-go/5.11/reference/backend/#dashboard-configuration-flags
@@ -111,7 +126,7 @@ See [etcd docs][7] for more info on setup and configuration.
 _WARNING: Configuring SSL encryption post deployment will require reseting all etcd clusters which will result in datalost (eg. event data)_
 
 [1]: ../../installation/recommended-hardware
-[2]: TODO: RELAY HANDLER GITHUB LINK
+[2]: https://bonsai.sensu.io/assets/sensu/sensu-relay-handler
 [3]: ../../reference/agent/#general-configuration-flags
 [4]: https://etcd.io/docs/
 [5]: https://docs.aws.amazon.com/autoscaling/ec2/userguide/AutoScalingGroup.html
