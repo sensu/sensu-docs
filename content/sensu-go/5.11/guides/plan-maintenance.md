@@ -14,7 +14,7 @@ menu:
 
 ## What is Sensu silencing?
 
-As **check results** are processed by a Sensu server, the server executes [event
+As **check results** are processed by a Sensu backend, the server executes [event
 handlers][1] to send alerts to personnel or otherwise relay **event data** to
 external services. Sensu’s built-in **silencing**, along with the built-in
 `not_silenced` filter, provides the means to suppress execution of event

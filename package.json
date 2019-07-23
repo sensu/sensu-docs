@@ -6,9 +6,16 @@
   "author": "Melissa P <melissa@sensu.io>",
   "license": "MIT",
   "devDependencies": {
+    "autoprefixer": "^9.6.0",
     "conzole": "^0.2.0",
+    "cssnano": "^4.1.10",
     "grunt": "^1.0.1",
-    "js-yaml": "^3.13.1",
+    "grunt-concurrent": "^2.3.1",
+    "grunt-contrib-watch": "^1.1.0",
+    "grunt-postcss": "^0.9.0",
+    "grunt-sass": "^3.0.2",
+    "js-yaml": "^3.9.1",
+    "node-sass": "^4.12.0",
     "string": "^3.3.3",
     "toml": "^2.3.2",
     "yaml": "^0.3.0"
@@ -20,11 +27,13 @@
     "test": "bin/test"
   },
   "dependencies": {
-    "@fortawesome/fontawesome-free": "^5.3.1",
     "grunt-env": "^0.4.4",
     "hugo-cli": "^0.10.0"
   },
   "engines": {
     "node": ">= 8"
-  }
+  },
+  "browserslist": [
+    "defaults"
+  ]
 }

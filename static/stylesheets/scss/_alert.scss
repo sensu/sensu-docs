@@ -1,0 +1,41 @@
+.alert {
+  padding: 0.6rem 1.5rem;
+  text-align: center;
+
+  .alert--close {
+    cursor: pointer;
+    float: right;
+  }
+
+  span {
+    color: #dedede;
+    font-size: 1.4rem;
+  }
+
+  a {
+    @extend span;
+
+    &:hover {
+      color: white;
+    }
+  }
+}
+
+.alert-note {
+  background-color: #d9edf7;
+  color: #31708f;
+  margin: 1rem 0;
+  padding: 1rem;
+}
+
+.alert-tip {
+  @extend .alert-note;
+  background-color: #dff0d8;
+  color: #3c763d;
+}
+
+.alert-warning {
+  @extend .alert-note;
+  background-color: #fcf8e3;
+  color: #8a6d3b;
+}

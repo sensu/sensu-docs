@@ -13,7 +13,7 @@ menu:
 
 ## What are Sensu handlers?
 
-Sensu event handlers are actions executed by the Sensu server on [events][1].
+Sensu event handlers are actions executed by the Sensu backend on [events][1].
 In this example, we'll use a handler to populate a time series database. If
 you're not totally comfortable with handlers yet, check out the in-depth
 guide on [handlers][9] first!
@@ -32,7 +32,7 @@ In this guide, we'll use the [Sensu InfluxDB handler asset][13] to power an `inf
 You can use the following sensuctl example to register the [Sensu InfluxDB handler asset][13] for Linux AMD64, or you can download the latest asset definition for your platform from [Bonsai][13] and register the asset using `sensuctl create --file filename.yml`.
 
 {{< highlight shell >}}
-sensuctl asset create sensu-influxdb-handler --url "https://github.com/sensu/sensu-influxdb-handler/releases/download/3.1.2/sensu-influxdb-handler_3.1.2_linux_amd64.tar.gz" --sha512 "612c6ff9928841090c4d23bf20aaf7558e4eed8977a848cf9e2899bb13a13e7540bac2b63e324f39d9b1257bb479676bc155b24e21bf93c722b812b0f15cb3bd"
+sensuctl asset create sensu-influxdb-handler --url "https://assets.bonsai.sensu.io/b28f8719a48aa8ea80c603f97e402975a98cea47/sensu-influxdb-handler_3.1.2_linux_amd64.tar.gz" --sha512 "612c6ff9928841090c4d23bf20aaf7558e4eed8977a848cf9e2899bb13a13e7540bac2b63e324f39d9b1257bb479676bc155b24e21bf93c722b812b0f15cb3bd"
 {{< /highlight >}}
 
 You should see a confirmation message from sensuctl.

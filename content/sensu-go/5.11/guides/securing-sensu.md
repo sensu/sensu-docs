@@ -108,7 +108,7 @@ backend-url:
   - "wss://127.0.0.1:8081"
 {{< /highlight >}}
 
-The agent will then connect Sensu servers over wss. Do note that by changing the configuration to wss, plaintext communication will not be possible.
+The agent will then connect to Sensu backends over wss. Do note that by changing the configuration to wss, plaintext communication will not be possible.
 
 It is also possible to provide a trusted CA as part of the agent configuration by passing `--trusted-ca-file` if starting the agent via `sensu-agent start`.
 

@@ -696,6 +696,8 @@ spec:
       user_dn: cn=binder,cn=users,dc=acme,dc=org
     client_cert_file: /path/to/ssl/cert.pem
     client_key_file: /path/to/ssl/key.pem
+    default_upn_domain: example.org
+    include_nested_groups: true
     group_search:
       attribute: member
       base_dn: dc=acme,dc=org
@@ -728,6 +730,8 @@ spec:
         "trusted_ca_file": "/path/to/trusted-certificate-authorities.pem",
         "client_cert_file": "/path/to/ssl/cert.pem",
         "client_key_file": "/path/to/ssl/key.pem",
+        "default_upn_domain": "example.org",
+        "include_nested_groups": true,
         "binding": {
           "user_dn": "cn=binder,cn=users,dc=acme,dc=org",
           "password": "P@ssw0rd!"
@@ -802,6 +806,8 @@ example      | {{< highlight shell >}}
       "trusted_ca_file": "/path/to/trusted-certificate-authorities.pem",
       "client_cert_file": "/path/to/ssl/cert.pem",
       "client_key_file": "/path/to/ssl/key.pem",
+      "default_upn_domain": "example.org",
+      "include_nested_groups": true,
       "binding": {
         "user_dn": "cn=binder,cn=users,dc=acme,dc=org",
         "password": "P@ssw0rd!"
@@ -842,6 +848,8 @@ example      | {{< highlight shell >}}
     "trusted_ca_file": "/path/to/trusted-certificate-authorities.pem",
     "client_cert_file": "/path/to/ssl/cert.pem",
     "client_key_file": "/path/to/ssl/key.pem",
+    "default_upn_domain": "example.org",
+    "include_nested_groups": true,
     "binding": {
       "user_dn": "cn=binder,cn=users,dc=acme,dc=org",
       "password": "P@ssw0rd!"
@@ -971,6 +979,24 @@ example      | {{< highlight shell >}}
   "name_attribute": "displayName",
   "object_class": "person"
 }
+{{< /highlight >}}
+
+| default_upn_domain |     |
+-------------|------
+description  | Enables UPN authentication when set. The default UPN suffix that will be appended to the username when a domain is not specified during login (for example: `user` becomes `user@defaultdomain.xyz`). _WARNING: When using UPN authentication, users must re-authenticate to apply any changes made to group membership on the Active Directory server since their last authentication. To ensure group membership updates are reflected without re-authentication, specify a binding account or enable anonymous binding._
+required     | false
+type         | String
+example      | {{< highlight shell >}}
+"default_upn_domain": "example.org"
+{{< /highlight >}}
+
+| include_nested_groups |     |
+-------------|------
+description  | When set to `true`,  group search includes any nested groups instead of just the top level groups that a user is a member of.
+required     | false
+type         | Boolean
+example      | {{< highlight shell >}}
+"include_nested_groups": true
 {{< /highlight >}}
 
 ### Active Directory binding attributes
