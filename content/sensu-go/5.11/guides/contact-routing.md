@@ -309,11 +309,11 @@ When the `check_cpu` check generates an incident, Sensu filters the event accord
 
 ### Entities
 
-You can also specify contacts an entity label.
+You can also specify contacts using an entity label.
 For more information about managing entity labels, see the [entity reference][10].
 
 In the case that contact labels are present in both the check and entity, the check contacts override the entity contacts.
-Here we can see that the `ops` labels in the agent configuration overrides the `dev` contact in the check definition, resulting in an alert sent to #alert-dev but not to #alert-ops or #alert-all.
+Here we can see that the `ops` label in the agent configuration overrides the `dev` label in the check definition, resulting in an alert sent to #alert-dev but not to #alert-ops or #alert-all.
 
 <a href="/images/contact-routing3.svg"><img src="/images/contact-routing3.svg" alt="Diagram showing that check labels override entity labels when both are present in an event"></a>
 
