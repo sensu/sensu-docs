@@ -12,7 +12,7 @@ menu:
 We highly recommend using configuration management tools to deploy Sensu in production and at scale.
 
 * Pin versions of Sensu-related software to ensure repeatable Sensu deployments.
-* Ensure consistent configuration between Sensu Servers.
+* Ensure consistent configuration between Sensu backends.
 
 The following configuration management tools have well-defined Sensu modules to help you get started.
 

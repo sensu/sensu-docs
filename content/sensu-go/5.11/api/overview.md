@@ -22,7 +22,7 @@ menu:
   - [Combining selectors and statements](#combining-selectors-and-statements)
 - [Request size](#request-size)
 
-**Sensu Go 5.11 includes API v2.**
+**API version: v2**
 
 The Sensu backend REST API provides access to Sensu workflow configurations and monitoring event data.
 For the Sensu agent API, see the [agent reference][4].
@@ -32,7 +32,7 @@ For the Sensu agent API, see the [agent reference][4].
 Sensu API endpoints use the standard URL format `/api/{group}/{version}/namespaces/{namespace}` where:
 
 - `{group}` is the API group. All currently existing Sensu API endpoints are of group `core`.
-- `{version}` is the API version. Sensu Go 5.11 uses API v2.
+- `{version}` is the API version: `v2`.
 - `{namespace}` is the namespace name. The examples in these API docs use the `default` namespace. The Sensu API requires that the authenticated user have the correct access permissions for the namespace specified in the URL. If the authenticated user has the correct cluster-wide permissions, you can leave out the `/namespaces/{namespace}` portion of the URL to access Sensu resources across namespaces. See the [RBAC reference][3] for more information about configuring Sensu users and access controls.
 
 ## Data format
@@ -53,6 +53,18 @@ Beta APIs, while more stable than alpha versions, offer similarly short-lived li
 
 With the exception of the [health][5] and [metrics APIs][6], the Sensu API requires authentication using a JWT access token.
 You can generate access tokens and refresh tokens using the [authentication API][11] and your Sensu username and password.
+These docs use `$SENSU_TOKEN` to represent a valid access token in API requests.
+
+### Authentication quick start
+
+To set up a local API testing environment, save your Sensu credentials and token as environment variables:
+
+{{< highlight shell >}}
+# Requires curl and jq
+export SENSU_USER=admin && SENSU_PASS=P@ssw0rd!
+
+export SENSU_TOKEN=`curl -XGET -u "$SENSU_USER:$SENSU_PASS" -s http://localhost:8080/auth | jq -r ".access_token"`
+{{< /highlight >}}
 
 ### Basic authentication using the authentication API
 
@@ -72,7 +84,7 @@ The access token should be included in the output, along with a refresh token:
 }
 {{< /highlight >}}
 
-2. Copy the access token into the authentication header of the API request.
+2. Use the access token in the authentication header of the API request.
 For example:
 {{< highlight shell >}}
 curl -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIs..." \

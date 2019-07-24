@@ -13,7 +13,7 @@ menu:
 
 ## What are Sensu handlers?
 
-Sensu event handlers are actions executed by the Sensu server on [events][1].
+Sensu event handlers are actions executed by the Sensu backend on [events][1].
 In this example, we'll use a handler to populate a time series database. If
 you're not totally comfortable with handlers yet, check out the in-depth
 guide on [handlers][9] first!
