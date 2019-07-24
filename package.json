@@ -14,9 +14,7 @@
     "grunt-contrib-watch": "^1.1.0",
     "grunt-postcss": "^0.9.0",
     "grunt-sass": "^3.0.2",
-    "js-yaml": "^3.9.1",
     "node-sass": "^4.12.0",
-    "string": "^3.3.3",
     "toml": "^2.3.2",
     "yaml": "^0.3.0"
   },
