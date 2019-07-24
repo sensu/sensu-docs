@@ -54,16 +54,17 @@ h5{
   line-height: 1.17;
   padding: 0;
 
-  &[id]::before {
-    content: '';
-    display: block;
-    margin-top: -16.5rem;
-    padding-top: 12.5rem;
-    z-index: 1;
-  }
-
   &:hover a {
     display: inline;
+  }
+
+
+  &:target::before {
+    content: '';
+    display: block;
+    margin-top: -12.5rem;
+    padding-top: 12.5rem;
+    z-index: 1;
   }
 
   a {
