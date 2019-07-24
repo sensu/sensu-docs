@@ -67,7 +67,7 @@ example      | {{< highlight shell >}}"type": "Silenced"{{< /highlight >}}
 
 api_version  | 
 -------------|------
-description  | Top-level attribute specifying the Sensu API group and version. For silences in Sensu backend version 5.11, this attribute should always be `core/v2`.
+description  | Top-level attribute specifying the Sensu API group and version. For silences in this version of Sensu, this attribute should always be `core/v2`.
 required     | Required for silencing entry definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][sc].
 type         | String
 example      | {{< highlight shell >}}"api_version": "core/v2"{{< /highlight >}}

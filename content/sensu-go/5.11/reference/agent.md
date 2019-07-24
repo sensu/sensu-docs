@@ -30,7 +30,7 @@ menu:
   - [Security configuration](#security-configuration-flags)
   - [Socket configuration](#socket-configuration-flags)
   - [StatsD configuration](#statsd-configuration-flags)
-  - [Example](/sensu-go/5.11/files/agent.yml)
+  - [Example](../../files/agent.yml)
 
 The Sensu agent is a lightweight client that runs on the infrastructure components you want to monitor.
 Agents register with the Sensu backend as [monitoring entities][3] with `type: "agent"`.
@@ -673,8 +673,7 @@ The agent loads configuration upon startup, so you must restart the agent for an
 
 You can specify the agent configuration using a `.yml` file or using `sensu-agent start` command-line flags.
 Configuration provided via command-line flags overrides attributes specified in a configuration file.
-
-See the example config file provided with Sensu packages at `/usr/share/doc/sensu-go-agent-5.11.0/agent.yml.example` or [available here](/sensu-go/5.11/files/agent.yml).
+See the [example config file](../../files/agent.yml) for flags and defaults.
 
 #### Configuration summary
 
@@ -728,7 +727,7 @@ Flags:
 ### Windows
 
 You can specify the agent configuration using a `.yml` file.
-See the example config file provided with Sensu packages at `%ALLUSERSPROFILE%\sensu\config\agent.yml.example` (default: `C:\ProgramData\sensu\config\agent.yml.example`) or [available here](/sensu-go/5.11/files/windows/agent.yml).
+See the example config file provided with Sensu packages at `%ALLUSERSPROFILE%\sensu\config\agent.yml.example` (default: `C:\ProgramData\sensu\config\agent.yml.example`) or [available here](../../files/windows/agent.yml).
 
 {{< platformBlockClose >}}
 
