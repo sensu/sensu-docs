@@ -28,13 +28,16 @@ Sensu supports runtime assets for [checks][6], [filters][7], [mutators][8], and 
 
 ## How do assets work?
 Assets can be executed by the backend (for handler, filter, and mutator assets), or
-by the agent (for check assets). At runtime, the entity sequentially fetches
-assets and stores them in its local cache. Asset dependencies are then
-injected into the `PATH` so they are available when the command is executed.
-Subsequent check, handler, filter, or mutator executions look for the asset in the local
-cache and ensure the contents match the checksum. The backend or agent's local cache can
+by the agent (for check assets). At runtime, the backend or agent sequentially fetches
+assets that appear in the `runtime_assets` attribute of the handler, filter, mutator or check
+and stores them in the backend or agent's local cache. The location of each asset defined in `runtime_assets`
+is then injected into the `PATH` before handler, filter, mutator or check is executed.
+Subsequent handler, filter, mutator or check executions look for the asset in the local
+cache and ensure the contents match the configured checksum. The backend or agent's local cache can
 be set using the `--cache-dir` flag.
 You can disable assets for an agent using the agent `disable-assets` [configuration flag][30].
+
+You can find use case of a Sensu resource (a check) and an asset in this [example][31].
 
 ## Asset format specification
 
