@@ -98,7 +98,7 @@ See the [installation guide][1] for Docker examples
 - [Sensu Go Data Source plugin for Grafana][12]
 - [Chef cookbook][13]
 - [Puppet module][14]
-
+- [Ansible role][17]
 ## Binary-only distributions
 
 [Binary-only distributions][4] containing the Sensu backend, agent, and sensuctl tool are available in `.zip` and `.tar.gz` formats.
@@ -131,3 +131,4 @@ To build Sensu Go from source, see the [contributing guide on GitHub][16].
 [14]: https://github.com/sensu/sensu-puppet
 [15]: https://sensu.io/products
 [16]: https://github.com/sensu/sensu-go/blob/master/CONTRIBUTING.md#building
+[17]: https://github.com/jaredledvina/sensu-go-ansible
