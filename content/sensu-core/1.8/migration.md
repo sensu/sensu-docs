@@ -8,6 +8,7 @@ product: "Sensu Core"
 ---
 
 This guide provides information for migrating your Sensu instance from Sensu 1.x to Sensu Go.
+Read the [blog post][49] to learn more about end-of-life for Sensu 1.x.
 To migrate from Sensu Enterprise, see [Sensu Enterprise migration guide][30].
 
 - [Learn about Sensu Go](#learn-about-sensu-go)
@@ -243,3 +244,4 @@ To learn more about new terminology in Sensu Go, see the [glossary][1].
 [46]: https://github.com/sensu-plugins/sensu-plugin#sensu-go-enablement
 [47]: /sensu-go/latest/guides/monitor-external-resources
 [48]: /sensu-go/latest/guides/extract-metrics-with-checks
+[49]: https://blog.sensu.io/eol-schedule-for-sensu-core-and-enterprise
