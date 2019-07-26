@@ -210,7 +210,7 @@ Select the ☰ icon to explore the web UI.
 
 ### 4. Make a request to the Sensu health API
 
-To make sure the backend is up and running, we'll create check the health of the backend using the Sensu API.
+To make sure the backend is up and running, we'll check the health of the backend using the Sensu API.
 
 {{< highlight shell >}}
 curl http://127.0.0.1:8080/health
@@ -270,7 +270,7 @@ msiexec.exe /i $env:userprofile\sensu-go-agent_5.11.0.4171_en-US.x64.msi
 ### 2. Configure and start
 
 You can configure the Sensu agent using `sensu-agent start` flags or an /etc/sensu/agent.yml file, the former taking precedence.
-At a minimum, the Sensu agent requires the `-backend-url` flag, but here are some other useful configs and templates.
+At a minimum, the Sensu agent requires the `--backend-url` flag, but here are some other useful configs and templates.
 
 {{< language-toggle >}}
 
