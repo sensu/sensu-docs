@@ -286,7 +286,7 @@ type: CheckConfig
 api_version: core/v2
 metadata:
   name: check_cpu
-  labels
+  labels:
     contacts: ops, dev
 spec:
   command: check-cpu.rb -w 75 -c 90
