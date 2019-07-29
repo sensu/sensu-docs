@@ -1,7 +1,7 @@
 ---
 title: "Planning your Sensu Go Deployment"
 linkTitle: "Sensu Go Deployment Guide"
-description: "In this guide we'll go over a checklist of requirements for a production ready deployment"
+description: "In this guide we'll describes various considerations, recommendations and architectures for a production-ready deployment"
 weight: 30
 version: "5.0"
 product: "Sensu Go"
@@ -12,123 +12,95 @@ menu:
 ---
 
 - [Introduction](#introduction)
-- [Single Backend](#single-backend-with-embedded-etcd)
-  - [Use Cases](#use-cases)
-  - [Auto Scaling Groups](#auto-scaling-groups)
-- [Clustered Backend](#clustered-backend-with-embedded-etcd)
-  - [Use Cases](#use-cases)
-  - [Caveats](#caveats)
-  - [Configuration](#configuration)
-- [Network](#network)
-  - [etcd Network](#etcd-network)
-  - [Load Balancers](#load-balancers)
-- [Security](#security)
-  - [RBAC](#rbac)
-  - [Dashboard](#dashboard)
-  - [Agent](#agent)
-  - [etcd](#etcd)
+- [What is etcd?](#what-is-etcd)
+- [Hardware sizing](#hardware-sizing)
+- [Communications security](#communications-security)
+- [Common Sensu architectures](#common-sensu-architectures)
+  - [Single backend using embedded etcd](#single-backend-using-embedded-etcd)
+  - [Clustered backend with embedded etcd](#clustered-backend-with-embedded-etcd)
 
 ## Introduction
 
-This guide will go over different Sensu Go deployment strategies and recommendations. Depending on your infrastructure and the type of environments  you'll be monitoring you may want to use one or multiple methods of deploying Sensu Go to best fit your needs and requirements.
+This guide describes various deployment considerations and recommendations, including details related to communication security and common deployment architectures.
 
-_NOTE: Please see [Hardware Requirements][1] for hardware recommendations._
+## What is etcd?
 
-## Single Backend with Embedded etcd
+etcd is a key-value store which is used by applications of varying complexity, from simple web apps to Kubernetes. The Sensu backend uses an embedded etcd instance for storing both configuration and event data, so you can get Sensu up and running without external dependencies.
 
-### Use Cases
+By building atop etcd, Sensu's backend inherits a number of characteristics that should be considered when planning for a Sensu deployment.
 
-A single backend Sensu Go architecture is best for smaller standalone deployments such as a monitoring a remote office, auto scaling groups and in multi-cloud deployments. There is no built in redundancy in this strategy but in some cases this may be the best solution where having agents connect to a local backend may be more beneficial than having those agents connect over a WAN or VPN tunnel to another backend.
+## Hardware sizing
 
-_Note: If you want to still have all or specific events sent to a Sensu Go Backend at another location you can use the [relay-handler][2] to accomplish this._
+Because etcd's design prioritizes consistency across a cluster, the speed with which write operations can be completed is very important to the performance of a Sensu cluster. 
+
+This means that Sensu backend infrastructure should be provisioned to provide sustained IO operations per second (IOPS) appropriate for the rate of monitoring events the system will be required to process.
+
+For more detail, please our [Hardware Requirements][1] document describes the minimum and recommended hardware specifications for running the Sensu backend.
+
+## Communications security
+
+Whether using a single or multiple Sensu backends in a cluster, communication with the backend's various network ports (web UI, HTTP API, websocket API, etcd client & peer) occurs in cleartext by default. Encrypting network communications via TLS is highly recommended, and requires both some planning and explicit configuration.
+
+### Planning TLS for etcd
+
+The URLs for each member of an etcd cluster are persisted to the database after initialization. As a result, moving a cluster from cleartext to encrypted communications requires resetting the cluster, which destroys all configuration and event data in the database. Therefore, we recommend planning for encryption before initiating a clustered Sensu backend deployment.
+
+_WARNING: Reconfiguring a Sensu cluster for TLS post-deployment will require resetting all etcd cluster members, resulting in the loss of all data._
+
+As described in our [guide for securing Sensu][6], the backend uses a shared certificate and key for web UI and agent communications. Communications with etcd can be secured using the same certificate and key, the certificate's common name or subject alternate names must include the network interfaces and DNS names that will point to those systems.
+
+See our [clustering guide][7] and [etcd docs][4] for more info on setup and configuration, including a walk-through for generating TLS certificates for your cluster.
+
+## Common Sensu architectures
+
+Depending on your infrastructure and the type of environments you'll be monitoring, you may use one or a combination of these architectures to best fit your needs.
+
+### Single backend using embedded etcd
+
+This architecture requires minimal resources, but provides no redundancy in the event of failure.
 
 <img alt="Sensu Standalone Architecture" title="Single Sensu Go Backend with Embedded etcd." src="/images/standalone_architecture.svg">
 
-### Auto Scaling Groups
+A single backend can later be reconfigured as a member of a cluster, but this operation is destructive -- meaning that it requires destroying the existing database.
 
-Standalone Sensu Go instance can be deployed alongside other instances when used with Auto Scaling policies such as those available with [Amazon Web Services][5] and [Google Cloud Platform][6]. With most auto scaling configuration it may make sense to have a smaller standalone Sensu Go backend to support those instances.
+#### Use cases
 
-Having standalone Sensu Go Backends for each auto scaling group gives you the flexibility of having only a single instance for N number of agents instead of having a single or cluster of Sensu Go Backends that must always have the capacity of the maximum number of agents you could potentially have.
+The simplicity of this architecture may make it a good fit for small to medium-sized deployments, such as monitoring a remote office or datacenter, deploying along side individual auto-scaling groups or in various segments of a logical environment spanning multiple cloud providers.
 
-For monitoring these standalone Sensu Go Backends, Sensu Go Agents can be installed and configured to connect to a central Sensu Go Backend or cluster.
+For example, in environments with unreliable WAN connectivity, having agents connect to a local backend may be more reliable than having those agents connect over WAN or VPN tunnel to a backend running in a central location.
 
-## Clustered Backend with Embedded etcd
+_NOTE: Multiple Sensu backends can relay their events to a central backend using the [sensu-relay-handler][2]._
 
-### Use Cases
+### Clustered backend with embedded etcd
 
-A clustered Sensu Go architecture will allow for benefits not always found in a standalone deployment. This includes event data replication and automatic fail-over. Agents will need to know of all the available Sensu Go backends in their configuration.
-
-While there is additional redundancy with a clustered Sensu Go architecture, this does not give you added capacity as in having 5 Sensu Go Backends does not equate to 5 times the events handled.
+The embedded etcd databases of multiple Sensu backend instances can be joined together in a cluster, providing increased availability and replication of both configuration and data. Please see our [clustering guide][7] for more information.
 
 <img alt="Sensu Clustered Architecture" title="Clustered Sensu Go Backend with Embedded etcd." src="/images/clustered_architecture.svg">
 
-### Caveats
+Clustering requires an odd number of backend instances. While larger clusters provide better fault tolerance, write performance suffers because data must be replicated across more machines. Following on the advice of the etcd maintainers, clusters of 3, 5 or 7 backends are the only recommended sizes. See [etcd docs][4] for more info.
 
-Clustered Sensu Go with Embedded etcd requires each event to be written to disk on all nodes in the etcd cluster. This can cause a performance impact when adding more nodes. To mitigate performance impacts from this, we recommend having a dedicated network interface for communication between all embedded etcd for replication.
+#### Cluster creation and maintenance
 
-### Configuration
+Sensu's embedded etcd supports initial cluster creation via a static list of peer URLs. Once the cluster is created, members can be added or removed using etcdctl tooling. See our [clustering guide][7] and [etcd docs][4] for more info.
 
-Sensu Go Agents require each Sensu Go [backend-url][3] configured that are in the cluster.
+#### Networking considerations
 
-_NOTE: If any of the Sensu Go Backends change their IP address then all Agents will need to have their configuration updated._
-
-An alternative to having each Sensu Go Backend configured on all Agents would be to utilize a Load Balancer in front of your cluster. It is recommended that you use sticky/persistent connections with least utilization to best balance distribution of events to your backend cluster.
-
-Hardware or Instance Type should be the same across all Sensu Go Backends. See [Hardware Requirements][1] for hardware recommendations.
-
-The recommended number of etcd nodes is three (3) which gives your cluster an N+1 failure tolerance. While theoretically there is no limit to the number of members there can be in a cluster, there is no performance improvement by having more nodes than three nodes in the cluster as each event that is processed is written to each node. A five (5) node cluster is only recommended in use cases where there must be an N+2 failure tolerance and where a performance impact is acceptable.
-
-_NOTE: Etcd requires an odd number of members so a quorum can be agreed on updates to the cluster state. See [etcd docs][4] for more info._
-
-## Network
-
-### etcd Network
-
-After reaching >1,000 agents it is recommended that your Sensu Go Backend have a dedicated network interface for communication between each embedded etcd. This is due to the fact that any event that is processed by Sensu is written to etcd and duplicated to all nodes in the cluster.
-
-Clustered Sensu Go deployments benefit from a fast and reliable network. Ideally they should live in the same network segment with as low latency as possible between all the nodes. It is not recommended having clusters across subnets or WAN connections.
+Clustered deployments benefit from a fast and reliable network. Ideally they should be co-located in the same network segment with as low latency as possible between all the nodes. Clustering backends across disparate subnets or WAN connections is not recommended.
 
 While a 1GbE is sufficient for common deployments, larger deployments will benefit from 10GbE network allowing for a reduce mean time to recovery.
 
-### Load Balancers
+As the number of agents connected to a backend cluster grows, so to will the communication between members of the cluster required for data replication. With this in mind, it is recommended that clusters with a thousand or more agents use a discrete network interface for peer communication.
 
-Load balancers are a great method to distribute traffic coming from sensu-agents to sensu-backends. Load balancers should be configured to evenly distribute traffic between all sensu-backends. Sticky sessions are useful but not required.
+#### Load balancing
 
-TODO: VERIFY Utilization of healthz endpoint to check availability of sensu-backends
+Although each Sensu agent can be configured with the URLs for multiple backend instances, we recommend that agents be configured for connecting to a load balancer. This approach provides operators with greater control over agent connection distribution and makes it possible to replace members of the backend cluster without requiring updates to agent configuration.
 
-## Security
-
-### RBAC
-
-RBAC allows for granular control and access of namespaced resources, such as entities, checks and handlers. Users are granted roles, permissions controlling access to sensu resources within a namespace, and cluster roles, cluster-wide permissions for resources.
-
-Roles are given particular permission to specific resources. These include `get`, `list`, `create`, `update`, and `delete`.
-
-### Dashboard
-
-Dashboard access is determined by your credentials from RBAC.
-Dashboard does not have TLS/HTTPS by default. You will need to provide a cert and key file for HTTPS. See Dashboard security https://docs.sensu.io/Sensu Go/5.11/reference/backend/#dashboard-configuration-flags
-
-You can use a security gateway or load balancer to provide your cert and use http between your gateway/load balancer and your sensu-dashboard but traffic will be cleartext between the two devices.
-
-### Agent
-
-SSL/TLS encryption between Agents and Backend is recommended. You can provide a trusted-ca-file to create a secure handshake between the Agents and backend.
-
-By default Sensu Agent API listens to 127.0.0.1. In some cases it may be necessary to have the agent's API listen to a non-loopback address. There is currently no security or SSL/TLS available for the agent API.
-
-### etcd
-
-SSL/TLS encryption between embedded etcd backends is highly recommended. If using a single cert and key for etcd and non-etcd interfaces, the certificate must include all the network interfaces and DNS names that will point to those systems.
-
-See [etcd docs][7] for more info on setup and configuration.
-
-_WARNING: Configuring SSL encryption post-deployment will require resetting all etcd clusters, resulting in the loss of all data._
+Conversely, the sensuctl command-line utility cannot be configured with multiple backend URLs. Under normal conditions it is desirable for both sensuctl communications and browser access to the web UI to be routed via a load balancer as well.
 
 [1]: ../../installation/recommended-hardware
 [2]: https://bonsai.sensu.io/assets/sensu/sensu-relay-handler
 [3]: ../../reference/agent/#general-configuration-flags
 [4]: https://etcd.io/docs/
-[5]: https://docs.aws.amazon.com/autoscaling/ec2/userguide/AutoScalingGroup.html
-[6]: https://cloud.google.com/compute/docs/autoscaler/
-[7]: https://github.com/etcd-io/etcd/blob/master/Documentation/op-guide/security.md
+[5]: https://github.com/etcd-io/etcd/blob/master/Documentation/op-guide/security.md
+[6]: ../../guides/securing-sensu/
+[7]: ../../guides/clustering/
