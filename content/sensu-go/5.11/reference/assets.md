@@ -291,6 +291,85 @@ spec:
 
 {{< /language-toggle >}}
 
+### Example Asset with Check
+
+{{< language-toggle >}}
+
+{{< highlight yml >}}
+---
+type: Asset
+api_version: core/v2
+metadata:
+  name: sensu-prometheus-collector_linux_amd64
+spec:
+  url: https://assets.bonsai.sensu.io/ef812286f59de36a40e51178024b81c69666e1b7/sensu-prometheus-collector_1.1.6_linux_amd64.tar.gz
+  sha512: a70056ca02662fbf2999460f6be93f174c7e09c5a8b12efc7cc42ce1ccb5570ee0f328a2dd8223f506df3b5972f7f521728f7bdd6abf9f6ca2234d690aeb3808
+  filters:
+  - entity.system.os == 'linux'
+  - entity.system.arch == 'amd64'
+---
+type: CheckConfig
+api_version: core/v2
+metadata:
+  name: prometheus_collector
+  namespace: default
+spec:
+  command: "sensu-prometheus-collector -prom-url http://localhost:9090 -prom-query up"
+  handlers:
+  - influxdb
+  interval: 10
+  publish: true
+  output_metric_format: influxdb_line
+  runtime_assets:
+  - sensu-prometheus-collector_linux_amd64
+  subscriptions:
+  - system
+{{< /highlight >}}
+
+{{< highlight json >}}
+{
+  "type": "Asset",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "sensu-email-handler_linux_amd64"
+  },
+  "spec": {
+    "url": "https://assets.bonsai.sensu.io/45eaac0851501a19475a94016a4f8f9688a280f6/sensu-email-handler_0.2.0_linux_amd64.tar.gz",
+    "sha512": "d69df76612b74acd64aef8eed2ae10d985f6073f9b014c8115b7896ed86786128c20249fd370f30672bf9a11b041a99adb05e3a23342d3ad80d0c346ec23a946",
+    "filters": [
+      "entity.system.os == 'linux'",
+      "entity.system.arch == 'amd64'"
+    ]
+  }
+}
+{
+  "type": "CheckConfig",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "prometheus_collector",
+    "namespace": "default"
+  },
+  "spec": {
+    "command": "sensu-prometheus-collector -prom-url http://localhost:9090 -prom-query up",
+    "handlers": [
+    "influxdb"
+    ],
+    "interval": 10,
+    "publish": true,
+    "output_metric_format": "influxdb_line",
+    "runtime_assets": [
+      "sensu-prometheus-collector_linux_amd64"
+    ],
+    "subscriptions": [
+      "system"
+    ]
+  }
+}
+{{< /highlight >}}
+
+{{< /language-toggle >}}
+
+
 ## Sharing an asset on Bonsai
 
 Share your open-source assets on [Bonsai][16] and connect with the Sensu Community.
