@@ -260,7 +260,7 @@ spec:
     X-Forwarded-For: client1, proxy1, proxy2
 {{< /highlight >}}
 
-{{< highlight json >}}
+{{< highlight shell >}}
 {
   "type": "Asset",
   "api_version": "core/v2",
