@@ -51,7 +51,7 @@ sensuctl filter create hourly \
 --expressions "event.check.occurrences == 1 || event.check.occurrences % (3600 / event.check.interval) == 0"
 {{< /highlight >}}
 
-### Assigning the filter to a handler
+#### Assigning the filter to a handler
 
 Now that the `hourly` filter has been created, it can be assigned to a handler.
 Here, since we want to reduce the number of Slack messages sent by Sensu, we will apply
@@ -65,6 +65,10 @@ sensuctl handler update slack
 Follow the prompts to add the `hourly` and `is_incident` filters to the Slack
 handler.
 
+### Creating a fatigue check filter
+
+While we can use `sensuctl` to interactively create a filter, we can create more reusable filters through the use of assets. Read on to see how to implement a filter using this approach. 
+
 #### Using a Filter Asset
 
 If you're not already familiar with [assets][asset-reference], take a minute or two and read over our [guide to installing plugins with assets][asset-guide]. This will help you understand what an asset is and how they are used in Sensu. 
@@ -72,30 +76,7 @@ If you're not already familiar with [assets][asset-reference], take a minute or 
 The first step we'll need to take is to obtain a filter asset that will allow us to replicate the behavior we used when we created the `hourly` filter via `sensuctl`. Let's use the [fatigue check asset][fatigue-check-asset] from the [Bonsai Asset Index][bonsai-io]. You can download the asset directly by running the following:
 
 {{< highlight shell >}}
-curl -s https://bonsai.sensu.io/release_assets/nixwiz/sensu-go-fatigue-check-filter/0.1.3/any/noarch/download -o sensu-fatigue-check-filter-asset.yml
-{{< /highlight >}}
-
-That should give us a file that looks like this:
-
-{{< highlight yaml >}}
----
-type: Asset
-api_version: core/v2
-metadata:
-  name: fatigue_check
-  namespace: default
-  labels: {}
-  annotations: {}
-spec:
-  url: https://github.com/nixwiz/sensu-go-fatigue-check-filter/releases/download/0.1.3/sensu-go-fatigue-check-filter_0.1.3.tar.gz
-  sha512: b58e7736fdb77901c243eac10a3c147f5cb4d6ef70966764b8735396bf207153ce8cd52afa0ddd5c6f7602949b2bfc76c0c28bb7843b86c265545ae770c70346
-  filters: []
-{{< /highlight >}}
-
-Once we have created our file for registering an asset, we'll need to apply it. To apply it, run the following command:
-
-{{< highlight shell >}}
-sensuctl create -f sensu-fatigue-check-filter-asset.yml
+curl -s https://bonsai.sensu.io/release_assets/nixwiz/sensu-go-fatigue-check-filter/0.1.3/any/noarch/download | sensuctl create
 {{< /highlight >}}
 
 Excellent! You've registered the asset. We still need to create our filter. We'll use the following configuration for creating the actual filter. In this case, we'll call it `sensu-fatigue-check-filter.yml`:
@@ -160,7 +141,15 @@ spec:
   ttl: 0
 {{< /highlight >}}
 
-You'll notice that under the `metadata` scope we've added some annotations. For our filter asset to work the way that our interactively created filter does, these annotations are necessary. For more information on configuring these values, see the [filter asset README][fatigue-check-configuration]. Now let's assign our newly minted filter to a handler.
+You'll notice that under the `metadata` scope we've added some annotations. For our filter asset to work the way that our interactively created filter does, these annotations are necessary.  Let's discuss those annotations briefly.
+
+The annotations in our check definition are doing several things: 
+
+1. `fatigue_check/occurrences`: This tells the filter on which occurrence we're going to send the even through for further processing
+2. `fatigue_check/interval`: This value (in seconds) tells the filter at what interval to allow additional events to be processed
+3. `fatigue_check/allow_resolution`: Determines if a `resolve` event will be passed through to the filter.
+
+For more information on configuring these values, see the [filter asset README][fatigue-check-configuration]. Now let's assign our newly minted filter to a handler.
 
 #### Assigning the filter to a handler
 
