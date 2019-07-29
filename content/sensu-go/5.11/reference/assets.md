@@ -37,7 +37,7 @@ cache and ensure the contents match the configured checksum. The backend or agen
 be set using the `--cache-dir` flag.
 You can disable assets for an agent using the agent `disable-assets` [configuration flag][30].
 
-You can find use case of a Sensu resource (a check) and an asset in this [example][31].
+You can find use case of a Sensu resource (a check) and an asset in this [example asset with a check][31].
 
 ## Asset format specification
 
@@ -260,7 +260,7 @@ spec:
     X-Forwarded-For: client1, proxy1, proxy2
 {{< /highlight >}}
 
-{{< highlight shell >}}
+{{< highlight json >}}
 {
   "type": "Asset",
   "api_version": "core/v2",
@@ -291,7 +291,7 @@ spec:
 
 {{< /language-toggle >}}
 
-### Example Asset with Check
+### Example Asset with a Check
 
 {{< language-toggle >}}
 
@@ -326,7 +326,7 @@ spec:
   - system
 {{< /highlight >}}
 
-{{< highlight json >}}
+{{< highlight shell >}}
 {
   "type": "Asset",
   "api_version": "core/v2",
@@ -492,3 +492,4 @@ example      | {{< highlight yml >}}
 [api-filter]: ../../api/overview#filtering
 [sensuctl-filter]: ../../sensuctl/reference#filtering
 [30]: ../../agent#disable-assets
+[31]: #example-asset-with-a-check
