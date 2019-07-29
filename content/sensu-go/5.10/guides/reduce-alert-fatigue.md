@@ -32,7 +32,7 @@ place, learn [how to send alerts with handlers][3].
 
 ### Creating the filter
 
-We'll show you two approaches to creating a filter that will handle occurrences. The first approach will be to creat our own filter that we'll add to Sensu. The second approach will cover implementing the filter as an asset.
+We'll show you two approaches to creating a filter that will handle occurrences. The first approach will be to create our own filter that we'll add to Sensu. The second approach will cover implementing the filter as an asset.
 
 #### Using Sensuctl to Create a Filter
 
