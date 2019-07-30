@@ -1,0 +1,72 @@
+{{ partial "head" . }}
+
+<script type="text/javascript" src="{{ "/javascripts/application.js" | absURL }}"></script>
+
+{{ if (eq (trim .Site.Params.provider " " | lower) "github") | and (isset .Site.Params "repo_url") }}
+  {{ $repo_id := replace .Site.Params.repo_url "https://github.com/" ""}}
+  {{ .Scratch.Set "repo_id" $repo_id }}
+{{ end }}
+
+{{ partial "header" . }}
+
+<main class="main">
+
+  <article class="katacodawide">
+    <div class="wrapper">
+
+      {{ if isset .Params "version" }}
+        {{ partial "platformDropdown.html" . }}
+      {{ end }}
+      {{ .Content }}
+
+      <script async type="text/javascript" src="{{"/js/clip.js" | absURL }}"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
+      
+      {{ partial "pagination.html" . }}
+    </div>
+  </article>
+
+  <div class="results" role="status" aria-live="polite">
+    <div class="scrollable">
+      <div class="wrapper">
+        <div class="meta"></div>
+        <div class="list"></div>
+      </div>
+    </div>
+  </div>
+</main>
+
+{{ partial "footer" . }}
+
+<script>
+$( document ).ready(function() {
+  applyTipBoxes();
+});
+
+function boldFirstWord(element) {
+  newElement = element.html().replace(/(^\w+)/, '<strong>$1</strong>');
+  element.html(newElement);
+}
+
+function boldFirstTwoWords(element) {
+  newElement = element.html().replace(/(^\w+ \w+)/, '<strong>$1</strong>');
+  element.html(newElement);
+}
+
+function applyTipBoxes() {
+  $('em').wrap(function() {
+    if ($(this).text().includes('NOTE:')) {
+      boldFirstWord($(this));
+      return '<div class="alert-note"></div>';
+    } else if ($(this).text().includes('WARNING:')) {
+      boldFirstWord($(this));
+      return '<div class="alert-warning"></div>';
+    } else if ($(this).text().includes('PRO TIP:')) {
+      boldFirstTwoWords($(this));
+      return '<div class="alert-tip"></div>';
+    }
+  });
+}
+</script>
+
+{{ partial "footer_js" . }}
