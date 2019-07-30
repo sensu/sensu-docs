@@ -1,6 +1,6 @@
 ---
 title: "Interactive Tutorial"
-description: ""
+description: "Get started with Sensu in your browser with an interactive tutorial. Learn the basics of Sensu Go and monitor a web server."
 version: "5.11"
 weight: 3
 product: "Sensu Go"
