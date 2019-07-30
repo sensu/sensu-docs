@@ -25,10 +25,10 @@ Sensu downloads are provided under the [Sensu License][13]; see the [supported p
 <img src="/images/install-sensu.svg" alt="Sensu architecture diagram">
 
 Powered by an an embedded transport and [etcd][16] datastore, the **Sensu backend** gives you flexible, automated workflows to route metrics and alerts.
-Sensu backends require persistent storage, a local cache, and three exposed ports:
+Sensu backends require persistent storage for their embedded database, disk space for local asset caching, and three exposed ports:
 
 - `3000` - Sensu [web UI][25]
-- `8080` - Sensu [API][26] (and, by extension, connections via sensuctl)
+- `8080` - Sensu [API][26] used by sensuctl, some plugins, and any of your custom tooling
 - `8081` - WebSocket API used by Sensu agents
 
 Sensu backends running in a [clustered configuration][22] require additional ports.
@@ -38,11 +38,11 @@ See the [hardware requirements][hardware] guide for deployment recommendations.
 **Sensu agents** are lightweight clients that run on the infrastructure components you want to monitor.
 Agents register automatically with Sensu as entities and are responsible for creating check and metric events to send to the backend event pipeline.
 Optionally, agents can expose ports `3031` for the [agent API][27] and `8125` for the [StatsD listener][28].
-Agents using Sensu [assets][17] require a local cache.
+Agents using Sensu [assets][17] require some disk space for a local cache.
 
 ### Install sensuctl
 
-Sensuctl is a command line tool for managing resources within Sensu. It works by calling Sensu’s underlying API to create, read, update, and delete resources, events, and entities. Sensuctl is available for Linux, Windows, and macOS.
+Sensuctl is a command line tool for managing resources within Sensu. It works by calling Sensu’s HTTP API to create, read, update, and delete resources, events, and entities. Sensuctl is available for Linux, Windows, and macOS.
 
 To install sensuctl:
 
