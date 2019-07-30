@@ -1,8 +1,8 @@
 ---
-title: "Planning your Sensu Go Deployment"
-linkTitle: "Sensu Go Deployment Guide"
+title: "Planning your Sensu Go deployment"
+linkTitle: "Deploying Sensu"
 description: "In this guide we'll describes various considerations, recommendations and architectures for a production-ready deployment"
-weight: 30
+weight: 101
 version: "5.0"
 product: "Sensu Go"
 platformContent: false
@@ -11,17 +11,14 @@ menu:
     parent: guides
 ---
 
-- [Introduction](#introduction)
+This guide describes various deployment considerations and recommendations, including details related to communication security and common deployment architectures.
+
 - [What is etcd?](#what-is-etcd)
 - [Hardware sizing](#hardware-sizing)
 - [Communications security](#communications-security)
 - [Common Sensu architectures](#common-sensu-architectures)
   - [Single backend using embedded etcd](#single-backend-using-embedded-etcd)
   - [Clustered backend with embedded etcd](#clustered-backend-with-embedded-etcd)
-
-## Introduction
-
-This guide describes various deployment considerations and recommendations, including details related to communication security and common deployment architectures.
 
 ## What is etcd?
 
@@ -35,7 +32,7 @@ Because etcd's design prioritizes consistency across a cluster, the speed with w
 
 This means that Sensu backend infrastructure should be provisioned to provide sustained IO operations per second (IOPS) appropriate for the rate of monitoring events the system will be required to process.
 
-For more detail, please our [Hardware Requirements][1] document describes the minimum and recommended hardware specifications for running the Sensu backend.
+For more detail, our [hardware requirements][1] document describes the minimum and recommended hardware specifications for running the Sensu backend.
 
 ## Communications security
 
@@ -47,9 +44,9 @@ The URLs for each member of an etcd cluster are persisted to the database after 
 
 _WARNING: Reconfiguring a Sensu cluster for TLS post-deployment will require resetting all etcd cluster members, resulting in the loss of all data._
 
-As described in our [guide for securing Sensu][6], the backend uses a shared certificate and key for web UI and agent communications. Communications with etcd can be secured using the same certificate and key, the certificate's common name or subject alternate names must include the network interfaces and DNS names that will point to those systems.
+As described in our [guide for securing Sensu][6], the backend uses a shared certificate and key for web UI and agent communications. Communications with etcd can be secured using the same certificate and key; the certificate's common name or subject alternate names must include the network interfaces and DNS names that will point to those systems.
 
-See our [clustering guide][7] and [etcd docs][4] for more info on setup and configuration, including a walk-through for generating TLS certificates for your cluster.
+See our [clustering guide][7] and the [etcd docs][4] for more info on setup and configuration, including a walk-through for generating TLS certificates for your cluster.
 
 ## Common Sensu architectures
 
@@ -60,12 +57,15 @@ Depending on your infrastructure and the type of environments you'll be monitori
 This architecture requires minimal resources, but provides no redundancy in the event of failure.
 
 <img alt="Sensu Standalone Architecture" title="Single Sensu Go Backend with Embedded etcd." src="/images/standalone_architecture.svg">
+<!-- Diagram source: https://www.lucidchart.com/documents/edit/d239f2db-15db-41c4-a191-b9b46990d156/0 -->
+
+<p style="text-align:center"><i>Sensu standalone architecture with embedded etcd</i></p>
 
 A single backend can later be reconfigured as a member of a cluster, but this operation is destructive -- meaning that it requires destroying the existing database.
 
 #### Use cases
 
-The simplicity of this architecture may make it a good fit for small to medium-sized deployments, such as monitoring a remote office or datacenter, deploying along side individual auto-scaling groups or in various segments of a logical environment spanning multiple cloud providers.
+The simplicity of this architecture may make it a good fit for small to medium-sized deployments, such as monitoring a remote office or datacenter, deploying alongside individual auto-scaling groups or in various segments of a logical environment spanning multiple cloud providers.
 
 For example, in environments with unreliable WAN connectivity, having agents connect to a local backend may be more reliable than having those agents connect over WAN or VPN tunnel to a backend running in a central location.
 
@@ -75,21 +75,26 @@ _NOTE: Multiple Sensu backends can relay their events to a central backend using
 
 The embedded etcd databases of multiple Sensu backend instances can be joined together in a cluster, providing increased availability and replication of both configuration and data. Please see our [clustering guide][7] for more information.
 
-<img alt="Sensu Clustered Architecture" title="Clustered Sensu Go Backend with Embedded etcd." src="/images/clustered_architecture.svg">
+<div style="text-align:center">
+<img alt="Sensu Clustered Architecture" title="Clustered Sensu Go Backend with Embedded etcd." src="/images/clustered_architecture.svg" width="700 px">
+</div>
+<!-- Diagram source: https://www.lucidchart.com/documents/edit/f03f7416-b32d-4fc7-ac72-e8b349b73560/0-->
 
-Clustering requires an odd number of backend instances. While larger clusters provide better fault tolerance, write performance suffers because data must be replicated across more machines. Following on the advice of the etcd maintainers, clusters of 3, 5 or 7 backends are the only recommended sizes. See [etcd docs][4] for more info.
+<p style="text-align:center"><i>Sensu clustered architecture with embedded etcd</i></p>
+
+Clustering requires an odd number of backend instances. While larger clusters provide better fault tolerance, write performance suffers because data must be replicated across more machines. Following on the advice of the etcd maintainers, clusters of 3, 5 or 7 backends are the only recommended sizes. See the [etcd docs][4] for more info.
 
 #### Cluster creation and maintenance
 
-Sensu's embedded etcd supports initial cluster creation via a static list of peer URLs. Once the cluster is created, members can be added or removed using etcdctl tooling. See our [clustering guide][7] and [etcd docs][4] for more info.
+Sensu's embedded etcd supports initial cluster creation via a static list of peer URLs. Once the cluster is created, members can be added or removed using etcdctl tooling. See our [clustering guide][7] and the [etcd docs][4] for more info.
 
 #### Networking considerations
 
 Clustered deployments benefit from a fast and reliable network. Ideally they should be co-located in the same network segment with as low latency as possible between all the nodes. Clustering backends across disparate subnets or WAN connections is not recommended.
 
-While a 1GbE is sufficient for common deployments, larger deployments will benefit from 10GbE network allowing for a reduce mean time to recovery.
+While a 1GbE is sufficient for common deployments, larger deployments will benefit from 10GbE network allowing for a reduced mean time to recovery.
 
-As the number of agents connected to a backend cluster grows, so to will the communication between members of the cluster required for data replication. With this in mind, it is recommended that clusters with a thousand or more agents use a discrete network interface for peer communication.
+As the number of agents connected to a backend cluster grows, so will the communication between members of the cluster required for data replication. With this in mind, it is recommended that clusters with a thousand or more agents use a discrete network interface for peer communication.
 
 #### Load balancing
 
