@@ -10,6 +10,7 @@ googleAnalytics = "UA-39138312-17"
 enableRobotsTXT = true
 pygmentsUseClasses = true
 ignoreFiles = ["sensu-doc-template.md"]
+disableKinds = ["taxonomy", "taxonomyTerm"]
 
 [["menu.sensu-core-1.0"]]
   name = "Moi API"
