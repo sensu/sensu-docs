@@ -119,6 +119,6 @@ here are some recommended resources:
 [4]: ../
 [5]: ../monitor-external-resources
 [6]: ../send-slack-alerts
-[install]: ../../installation/install-sensu/#install-the-sensu-agent
+[install]: ../../installation/install-sensu/#install-sensu-agents
 [start]: ../../reference/agent/#restarting-the-service
 [7]: https://bonsai.sensu.io/assets/sensu/sensu-ruby-runtime
