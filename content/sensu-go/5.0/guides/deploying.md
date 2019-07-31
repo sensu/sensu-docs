@@ -76,9 +76,9 @@ _NOTE: Multiple Sensu backends can relay their events to a central backend using
 The embedded etcd databases of multiple Sensu backend instances can be joined together in a cluster, providing increased availability and replication of both configuration and data. Please see our [clustering guide][7] for more information.
 
 <div style="text-align:center">
-<img alt="Sensu Clustered Architecture" title="Clustered Sensu Go Backend with Embedded etcd." src="/images/clustered_architecture.svg" width="700 px">
+<img alt="Sensu Clustered Architecture" title="Clustered Sensu Go Backend with Embedded etcd." src="/images/clustered_architecture.svg" width="800 px">
 </div>
-<!-- Diagram source: https://www.lucidchart.com/documents/edit/f03f7416-b32d-4fc7-ac72-e8b349b73560/0-->
+<!-- Diagram source: https://www.lucidchart.com/documents/edit/475f950e-2770-4bf7-af73-57bc834cebdd -->
 
 <p style="text-align:center"><i>Sensu clustered architecture with embedded etcd</i></p>
 
