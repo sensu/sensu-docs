@@ -29,9 +29,6 @@ Supported packages are available through [sensu/stable][8] on packagecloud and t
 
 ### Sensu backend
 
-Sensu backend packages are available for 64-bit Linux.
-See the [backend installation guide][1] for more information.
-
 | Platform & Version | `amd64` | | | |
 |--------------------|---------|---|---|---|
 | CentOS/RHEL 6      | ✅      |
@@ -46,9 +43,6 @@ See the [backend installation guide][1] for more information.
 | Debian 10          | ✅      |
 
 ### Sensu agent
-
-Sensu agent packages are available for Linux and Windows.
-See the [agent installation guide][2] for more information.
 
 | Platform & Version | `amd64` | `386` | | | | |
 |--------------------|---------|-------|---|---|---|---|
@@ -67,9 +61,6 @@ See the [agent installation guide][2] for more information.
 
 ### Sensuctl command-line tool
 
-Sensuctl packages are available for Ubuntu/Debian and RHEL/CentOS.
-See the [sensuctl installation guide][3] for more information.
-
 | Platform & Version | `amd64` | `386` | | | | |
 |--------------------|---------|-------|---|---|---|---|
 | CentOS/RHEL 6      | ✅      |
@@ -85,8 +76,7 @@ See the [sensuctl installation guide][3] for more information.
 
 ## Docker images
 
-Docker images containing the Sensu backend, agent, and sensuctl tool are available for Linux-based containers.
-See the [installation guide][1] for Docker examples
+Docker images containing the Sensu backend and Sensu agent are available for Linux-based containers.
 
 | Image name | base
 | ---------- | ------- |
@@ -99,6 +89,7 @@ See the [installation guide][1] for Docker examples
 - [Chef cookbook][13]
 - [Puppet module][14]
 - [Ansible role][17]
+
 ## Binary-only distributions
 
 [Binary-only distributions][4] containing the Sensu backend, agent, and sensuctl tool are available in `.zip` and `.tar.gz` formats.

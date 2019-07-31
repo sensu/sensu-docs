@@ -32,8 +32,7 @@ Sensu backends require persistent storage for their embedded database, disk spac
 - `8081` - WebSocket API used by Sensu agents
 
 Sensu backends running in a [clustered configuration][22] require additional ports.
-See the [hardware requirements][hardware] guide for deployment recommendations.
-<!-- Link to deployment guide -->
+See the [deployment guide][deploy] and [hardware requirements][hardware] guide for deployment recommendations.
 
 **Sensu agents** are lightweight clients that run on the infrastructure components you want to monitor.
 Agents register automatically with Sensu as entities and are responsible for creating check and metric events to send to the backend event pipeline.
@@ -74,10 +73,10 @@ Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.11.1/se
 
 {{< highlight "macOS" >}}
 # Download the latest release
-curl -LO https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.11.0/sensu-enterprise-go_5.11.0_darwin_amd64.tar.gz
+curl -LO https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.11.1/sensu-enterprise-go_5.11.1_darwin_amd64.tar.gz
 
 # Extract the archive
-tar -xvf sensu-enterprise-go_5.11.0_darwin_amd64.tar.gz
+tar -xvf sensu-enterprise-go_5.11.1_darwin_amd64.tar.gz
 
 # Copy the executable into your PATH.
 sudo cp sensuctl /usr/local/bin/
@@ -85,7 +84,7 @@ sudo cp sensuctl /usr/local/bin/
 
 {{< /language-toggle >}}
 
-To start using sensuctl, run `sensuctl configure` to log in with your user credentials, namespace, [Sensu backend][21] URL. To configure sensuctl using defaults:
+To start using sensuctl, run `sensuctl configure` and log in with your user credentials, namespace, and [Sensu backend][21] URL. To configure sensuctl using defaults:
 
 {{< highlight "shell" >}}
 sensuctl configure -n \
@@ -97,10 +96,10 @@ sensuctl configure -n \
 
 Here the `-n` flag triggers non-interactive mode.
 Run `sensuctl config view` to see your user profile.
-We strongly recommended that you change the default admin password immediately using `sensuctl user change-password --interactive`.
+We strongly recommend that you change the default admin password immediately using `sensuctl user change-password --interactive`.
 For more information about using sensuctl, see the [quickstart][23] and [reference][24] docs.
 
-### Install
+### Install the Sensu backend
 
 The Sensu backend is available for Ubuntu/Debian, RHEL/CentOS, and Docker.
 See the [supported platforms page][5] for more information.
@@ -139,7 +138,7 @@ sudo yum install sensu-go-backend
 
 ##### 2. Configure and start
 
-You can configure Sensu using `sensu-backend start` flags or an /etc/sensu/backend.yml file, the former taking precedence.
+You can configure Sensu using `sensu-backend start` flags or an `/etc/sensu/backend.yml` file, the former taking precedence.
 At a minimum, the Sensu backend requires the `state-dir` flag, but here are some other useful configs and templates.
 
 {{< language-toggle >}}
@@ -147,8 +146,8 @@ At a minimum, the Sensu backend requires the `state-dir` flag, but here are some
 {{< highlight Docker >}}
 docker run -v /var/lib/sensu:/var/lib/sensu \
 -d --name sensu-backend \
--p 2380:2380 -p 3000:3000 -p 8080:8080 -p 8081:8081 \
-sensu/sensu:latest sensu-backend start
+-p 3000:3000 -p 8080:8080 -p 8081:8081 sensu/sensu:latest \
+sensu-backend start --state-dir /var/lib/sensu/sensu-backend --log-level debug
 {{< /highlight >}}
 
 {{< highlight "Docker Compose" >}}
@@ -204,7 +203,6 @@ You may need to replace `localhost` with the
 hostname or IP address where the Sensu backend is running.
 
 To log in, enter your Sensu user credentials, or use Sensu's default admin credentials (username: `admin` and password: `P@ssw0rd!`).
-For now, you should see a blank slate: no incidents or entities.
 Select the ☰ icon to explore the web UI.
 
 ##### 4. Make a request to the health API
@@ -255,32 +253,36 @@ sudo yum install sensu-go-agent
 
 {{< highlight "Windows" >}}
 # Download the Sensu agent for Windows amd64
-Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.11.0/sensu-go-agent_5.11.0.4171_en-US.x64.msi  -OutFile "$env:userprofile\sensu-go-agent_5.11.0.4171_en-US.x64.msi"
+Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.11.1/sensu-go-agent_5.11.1.5015_en-US.x64.msi  -OutFile "$env:userprofile\sensu-go-agent_5.11.1.5015_en-US.x64.msi"
 # Or for Windows 386
-Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.11.0/sensu-go-agent_5.11.0_2380_en-US.x86.msi  -OutFile "$env:userprofile\sensu-go-agent_5.11.0.4171_en-US.x86.msi"
+Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.11.1/sensu-go-agent_5.11.1_2380_en-US.x86.msi  -OutFile "$env:userprofile\sensu-go-agent_5.11.1.5015_en-US.x86.msi"
 
 # Install the Sensu agent
-msiexec.exe /i $env:userprofile\sensu-go-agent_5.11.0.4171_en-US.x64.msi /qn
+msiexec.exe /i $env:userprofile\sensu-go-agent_5.11.1.5015_en-US.x64.msi /qn
 {{< /highlight >}}
 
 {{< /language-toggle >}}
 
 ##### 2. Configure and start {#agent-start}
 
-You can configure the Sensu agent using `sensu-agent start` flags or an /etc/sensu/agent.yml file, the former taking precedence.
+You can configure the Sensu agent using `sensu-agent start` flags or an `/etc/sensu/agent.yml` file, the former taking precedence.
 At a minimum, the Sensu agent requires the `--backend-url` flag, but here are some other useful configs and templates.
 
 {{< language-toggle >}}
 
 {{< highlight Docker >}}
-# If you are running the agent locally on the same system as the Sensu backend, add `--link sensu-backend` to your Docker arguments and change the backend URL to `--backend-url ws://sensu-backend:8081`.
+# If you are running the agent locally on the same system as the Sensu backend,
+# add `--link sensu-backend` to your Docker arguments and change the backend
+# URL to `--backend-url ws://sensu-backend:8081`.
+
+# Starts an agent with the system subscription
 docker run -v /var/lib/sensu:/var/lib/sensu -d \
 --name sensu-agent sensu/sensu:latest \
-sensu-agent start --backend-url ws://sensu.yourdomain.com:8081 \
---subscriptions webserver,system --cache-dir /var/lib/sensu
+sensu-agent start --backend-url ws://sensu.yourdomain.com:8081 --log-level debug --subscriptions system --api-host 0.0.0.0 --cache-dir /var/lib/sensu
 {{< /highlight >}}
 
 {{< highlight "Docker Compose" >}}
+# Starts an agent with the system subscription
 ---
 version: "3"
 services:
@@ -290,7 +292,7 @@ services:
     - 3031:3031
     volumes:
     - "sensu-agent-data:/var/lib/sensu"
-    command: "sensu-agent start --backend-url ws://sensu-backend:8081 --log-level debug --subscriptions webserver --api-host 0.0.0.0 --cache-dir /var/lib/sensu"
+    command: "sensu-agent start --backend-url ws://sensu-backend:8081 --log-level debug --subscriptions system --api-host 0.0.0.0 --cache-dir /var/lib/sensu"
 
 volumes:
   sensu-agent-data:
@@ -314,7 +316,8 @@ service sensu-agent start
 {{< /highlight >}}
 
 {{< highlight "Windows" >}}
-# Copy the example agent config file from `%ALLUSERSPROFILE%\sensu\config\agent.yml.example` (default: `C:\ProgramData\sensu\config\agent.yml.example`) to `C:\ProgramData\sensu\config\agent.yml`.
+# Copy the example agent config file from %ALLUSERSPROFILE%\sensu\config\agent.yml.example
+# (default: C:\ProgramData\sensu\config\agent.yml.example) to C:\ProgramData\sensu\config\agent.yml
 cp C:\ProgramData\sensu\config\agent.yml.example C:\ProgramData\sensu\config\agent.yml
 
 # Start sensu-backend using a service manager
@@ -338,7 +341,7 @@ For a complete list of config options, see the [agent reference][7].
 ##### 3. Verify keepalive events
 
 Sensu keepalives are the heartbeat mechanism used to ensure that all registered agents are operational and able to reach the Sensu backend.
-To verify that the agent has registered with Sensu and is sending keepalive events, open the entity page in the [Sensu web UI][ui] or run `sensuctl entity list`
+To verify that the agent has registered with Sensu and is sending keepalive events, open the entity page in the [Sensu web UI][ui] or run `sensuctl entity list`.
 
 ### Activate licensed-tier features
 
@@ -373,12 +376,11 @@ Now that you've installed Sensu, here are some resources to help continue your j
 [3]: ../../dashboard/overview
 [4]: ../../sensuctl/reference
 [5]: ../../installation/platforms
-[6]: ../../reference/backend
-[7]: ../../reference/agent
+[6]: ../../reference/backend#configuration
+[7]: ../../reference/agent#configuration
 [8]: ../../guides/troubleshooting
 [9]: ../../guides/monitor-external-resources
 [10]: ../../guides/send-slack-alerts
-[11]: https://github.com/sensu/sensu-go/blob/master/packaging/files/backend.yml.example
 [12]: ../verify
 [13]: https://sensu.io/sensu-license
 [14]: ../../getting-started/learn-sensu
@@ -398,3 +400,4 @@ Now that you've installed Sensu, here are some resources to help continue your j
 [26]: ../../api/overview
 [27]: ../../reference/agent#creating-monitoring-events-using-the-agent-api
 [28]: ../../reference/agent#creating-monitoring-events-using-the-statsd-listener
+[deploy]: ../../guides/deploying
