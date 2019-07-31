@@ -145,7 +145,10 @@ At a minimum, the Sensu backend requires the `state-dir` flag, but here are some
 {{< language-toggle >}}
 
 {{< highlight Docker >}}
-docker run -v /var/lib/sensu:/var/lib/sensu -d --name sensu-backend -p 2380:2380 -p 3000:3000 -p 8080:8080 -p 8081:8081 sensu/sensu:latest sensu-backend start
+docker run -v /var/lib/sensu:/var/lib/sensu \
+-d --name sensu-backend \
+-p 2380:2380 -p 3000:3000 -p 8080:8080 -p 8081:8081 \
+sensu/sensu:latest sensu-backend start
 {{< /highlight >}}
 
 {{< highlight "Docker Compose" >}}
@@ -256,8 +259,8 @@ Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.11.0/se
 # Or for Windows 386
 Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.11.0/sensu-go-agent_5.11.0_2380_en-US.x86.msi  -OutFile "$env:userprofile\sensu-go-agent_5.11.0.4171_en-US.x86.msi"
 
-# Start the installation wizard
-msiexec.exe /i $env:userprofile\sensu-go-agent_5.11.0.4171_en-US.x64.msi
+# Install the Sensu agent
+msiexec.exe /i $env:userprofile\sensu-go-agent_5.11.0.4171_en-US.x64.msi /qn
 {{< /highlight >}}
 
 {{< /language-toggle >}}
@@ -271,7 +274,10 @@ At a minimum, the Sensu agent requires the `--backend-url` flag, but here are so
 
 {{< highlight Docker >}}
 # If you are running the agent locally on the same system as the Sensu backend, add `--link sensu-backend` to your Docker arguments and change the backend URL to `--backend-url ws://sensu-backend:8081`.
-docker run -v /var/lib/sensu:/var/lib/sensu -d --name sensu-agent sensu/sensu:latest sensu-agent start --backend-url ws://sensu.yourdomain.com:8081 --subscriptions webserver,system --cache-dir /var/lib/sensu
+docker run -v /var/lib/sensu:/var/lib/sensu -d \
+--name sensu-agent sensu/sensu:latest \
+sensu-agent start --backend-url ws://sensu.yourdomain.com:8081 \
+--subscriptions webserver,system --cache-dir /var/lib/sensu
 {{< /highlight >}}
 
 {{< highlight "Docker Compose" >}}
@@ -282,7 +288,13 @@ services:
     image: sensu/sensu:latest
     ports:
     - 3031:3031
-    command: "sensu-agent start --backend-url ws://sensu-backend:8081 --log-level debug --subscriptions webserver --api-host 0.0.0.0"
+    volumes:
+    - "sensu-agent-data:/var/lib/sensu"
+    command: "sensu-agent start --backend-url ws://sensu-backend:8081 --log-level debug --subscriptions webserver --api-host 0.0.0.0 --cache-dir /var/lib/sensu"
+
+volumes:
+  sensu-agent-data:
+    driver: local
 {{< /highlight >}}
 
 {{< highlight "Ubuntu/Debian" >}}
