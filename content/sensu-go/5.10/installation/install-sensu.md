@@ -163,6 +163,8 @@ Start the installation wizard.
 msiexec.exe /i $env:userprofile\sensu-go-agent_5.10.2.4539_en-US.x64.msi
 {{< /highlight >}}
 
+_NOTE: To make this an unattended install, you can use `/qn` as part of the install command._
+
 {{< platformBlockClose >}}
 
 {{< platformBlock "Ubuntu/Debian RHEL/CentOS Windows" >}}

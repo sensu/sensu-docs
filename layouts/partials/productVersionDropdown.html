@@ -31,7 +31,7 @@
       <!-- Grab info for the current product from global -->
       {{ $product := replace .Section "-" "_" }}
       {{ $product_info := (index .Site.Params.products $product) }}
-      {{ $chopurl := split .URL "/"}}
+      {{ $chopurl := split $.RelPermalink "/"}}
       {{ $pageversion := .Params.version }}
 
       {{ if not ($.Scratch.Get "versionList") }}

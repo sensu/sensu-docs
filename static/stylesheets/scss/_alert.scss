@@ -14,6 +14,7 @@
 
   a {
     @extend span;
+    text-decoration: none;
 
     &:hover {
       color: white;
