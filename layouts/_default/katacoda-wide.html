@@ -10,11 +10,9 @@
 {{ partial "header" . }}
 
 <main class="main">
-  {{ partial "drawer" . }}
 
-  <article class="article">
+  <article class="katacodawide">
     <div class="wrapper">
-      <h1>{{ .Title }} {{ if .Draft }} (Draft){{ end }}</h1>
 
       {{ if isset .Params "version" }}
         {{ partial "platformDropdown.html" . }}

@@ -1,6 +1,6 @@
 ---
 title: "Configuration Management"
-description: "Configuration management tools can help you deploy Sensu in production and at scale. Learn more about the Sensu Puppet module and Sensu Chef cookbook."
+description: "Configuration management tools can help you deploy Sensu in production and at scale. Learn more about the Sensu integrations."
 weight: 16
 product: "Sensu Go"
 version: "5.12"
@@ -23,9 +23,14 @@ Sensu has partnered with [Learn Puppet][7] to enhance the Puppet module with new
 ### Chef
 The [Chef][3] cookbook for Sensu can be found on the [GitHub][4]. Interested in more information on Sensu + Chef? Get some helpful resources [here][12].
 
+### Ansible
+The [Ansible][5] role to deploy and manage Sensu Go can be found on [GitHub][6].
+
 [1]: https://puppet.com/
 [2]: https://github.com/sensu/sensu-puppet
 [3]: https://www.chef.io/
 [4]: https://github.com/sensu/sensu-go-chef
+[5]: https://www.ansible.com/
+[6]: https://github.com/jaredledvina/sensu-go-ansible
 [7]: http://learnpuppet.com/
 [12]: http://monitoringlove.sensu.io/chef
