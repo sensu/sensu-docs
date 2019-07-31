@@ -103,7 +103,7 @@ Due to Sensu Go's implementation, it is not possible to use Uchiwa with Sensu Go
 [5]: ../../installation/recommended-hardware/
 [6]: https://sensu.io/sales/
 [7]: ../glossary
-[8]: ../../installation/install-sensu#install-the-sensu-agent
+[8]: ../../installation/install-sensu#install-sensu-agents
 [9]: ../../api/overview
 [10]: ../../reference/entities/#proxy-entities
 [11]: https://github.com/sensu-plugins

@@ -1151,7 +1151,7 @@ sensu-agent start --statsd-metrics-port 6125
 # /etc/sensu/agent.yml example
 statsd-metrics-port: 6125{{< /highlight >}}
 
-[1]: ../../installation/install-sensu#install-the-sensu-agent
+[1]: ../../installation/install-sensu#install-sensu-agents
 [2]: ../backend
 [3]: ../entities
 [4]: #keepalive-configuration-flags
