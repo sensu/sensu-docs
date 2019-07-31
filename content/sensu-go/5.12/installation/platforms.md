@@ -10,10 +10,24 @@ menu:
     parent: installation
 ---
 
-### Sensu backend
+Sensu is available as packages, Docker images, and [binary-only distributions][4].
+We recommend [installing Sensu][5] using one of our supported packages, Docker images, or [configuration management][6] integrations.
+Sensu downloads are provided under the [Sensu License][7].
 
-The Sensu backend is available for 64-bit Linux.
-See the [backend installation guide][1] for more information.
+- [Supported packages](#supported-packages)
+	- [Sensu backend](#sensu-backend)
+	- [Sensu agent](#sensu-agent)
+	- [Sensuctl command-line tool](#sensuctl-command-line-tool)
+- [Docker images](#docker-images)
+- [Integrations](#integrations)
+- [Binary-only distributions](#binary-only-distributions)
+- [Building from source](#building-from-source)
+
+## Supported packages
+
+Supported packages are available through [sensu/stable][8] on packagecloud and through the [downloads page][9].
+
+### Sensu backend
 
 | Platform & Version | `amd64` | | | |
 |--------------------|---------|---|---|---|
@@ -29,9 +43,6 @@ See the [backend installation guide][1] for more information.
 | Debian 10          | ✅      |
 
 ### Sensu agent
-
-The Sensu agent is available for Linux and Windows.
-See the [agent installation guide][2] for more information.
 
 | Platform & Version | `amd64` | `386` | | | | |
 |--------------------|---------|-------|---|---|---|---|
@@ -50,9 +61,6 @@ See the [agent installation guide][2] for more information.
 
 ### Sensuctl command-line tool
 
-Sensuctl is available for Linux, Windows, and macOS.
-See the [sensuctl installation guide][3] for more information.
-
 | Platform & Version | `amd64` | `386` | | | | |
 |--------------------|---------|-------|---|---|---|---|
 | CentOS/RHEL 6      | ✅      |
@@ -65,10 +73,53 @@ See the [sensuctl installation guide][3] for more information.
 | Debian 8           | ✅      |
 | Debian 9           | ✅      |
 | Debian 10          | ✅      |
-| Windows 7 and later| ✅      |
-| Windows Server 2008 R2 and later | ✅ | ✅ |
-| macOS 10.10 and later | ✅   |
+
+## Docker images
+
+Docker images containing the Sensu backend and Sensu agent are available for Linux-based containers.
+
+| Image name | base
+| ---------- | ------- |
+| [sensu/sensu][10] | Alpine Linux
+| [sensu/sensu-rhel][11] | Red Hat Enterprise Linux
+
+## Integrations
+
+- [Sensu Go Data Source plugin for Grafana][12]
+- [Chef cookbook][13]
+- [Puppet module][14]
+- [Ansible role][17]
+
+## Binary-only distributions
+
+[Binary-only distributions][4] containing the Sensu backend, agent, and sensuctl tool are available in `.zip` and `.tar.gz` formats.
+
+| Platform & Version | `amd64` | `arm64` | `armv5` | `armv6` |`armv7` | `386` |
+|--------------------|---------|---------|---------|---------|--------|-------|
+| Linux              | ✅      | ✅     | ✅      | ✅      | ✅     | ✅    |
+| Windows            | ✅      |         |         |         |        | ✅    |
+| macOS              | ✅      |         |         |         |        |       |
+
+## Building from source
+
+Sensu Go's core is open source software, freely available under an MIT license.
+Sensu Go instances built from source do not include some free-tier and licensed-tier features such as the web UI homepage; see the [feature comparison matrix][15] to learn more.
+To build Sensu Go from source, see the [contributing guide on GitHub][16].
 
 [1]: ../../installation/install-sensu#install-the-sensu-backend
-[2]: ../../installation/install-sensu#install-the-sensu-agent
+[2]: ../../installation/install-sensu#install-sensu-agents
 [3]: ../../installation/install-sensu#install-sensuctl
+[4]: ../verify
+[5]: ../install-sensu
+[6]: ../configuration-management
+[7]: https://sensu.io/sensu-license
+[8]: https://packagecloud.io/sensu/stable
+[9]: https://sensu.io/products/downloads
+[10]: https://hub.docker.com/r/sensu/sensu
+[11]: https://hub.docker.com/r/sensu/sensu-rhel
+[12]: https://github.com/sensu/grafana-sensu-go-datasource
+[13]: https://github.com/sensu/sensu-go-chef
+[14]: https://github.com/sensu/sensu-puppet
+[15]: https://sensu.io/products
+[16]: https://github.com/sensu/sensu-go/blob/master/CONTRIBUTING.md#building
+[17]: https://github.com/jaredledvina/sensu-go-ansible
