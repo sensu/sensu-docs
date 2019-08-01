@@ -1,6 +1,7 @@
 ---
 title: "Migrating to Sensu Go"
-description: ""
+linkTitle: "Migrate to Sensu Go"
+description: "This guide provides information for migrating your Sensu instance from Sensu 1.x to Sensu Go."
 version: "1.8"
 weight: 1
 menu: "sensu-core-1.8"
@@ -20,9 +21,9 @@ To migrate from Sensu Enterprise, see [Sensu Enterprise migration guide][30].
 	- [5. Install agents](#5-install-agents)
 - [Translate your configuration](#translate-your-configuration)
 	- [1. Run the translator](#1-run-the-translator)
-	- [2. Update checks](#2-update-checks)
-	- [3. Update filters](#3-update-filters)
-	- [4. Update handlers](#4-update-handlers)
+	- [2. Translate checks](#2-translate-checks)
+	- [3. Translate filters](#3-translate-filters)
+	- [4. Translate handlers](#4-translate-handlers)
 	- [5. Upload your config to your Sensu Go instance](#5-upload-your-config-to-your-sensu-go-instance)
 - [Activate assets](#activate-assets)
 - [Sunset your Sensu 1.x instance](#sunset-your-sensu-1x-instance)
@@ -41,30 +42,59 @@ Get started with Sensu by running through the [sandbox tutorial][32].
 Sensu is now provided as three packages: sensu-go-backend, sensu-go-agent, and sensu-go-cli (sensuctl).
 This results in a fundamental change in Sensu terminology from Sensu Core 1.x: the server is now the backend; the client is now the agent.
 
-To install Sensu Go alongside your current Sensu instance, first [upgrade][33] to at least [Sensu Core 1.7][34].
+To install Sensu Go alongside your current Sensu instance, first [upgrade][33] to at least [Sensu Core 1.7.0][34].
 
-#### Architecture
+#### Sensu Go architecture
 
-<!-- Add section from install guide -->
+<img src="/images/install-sensu.svg" alt="Sensu architecture diagram">
+
+Powered by an an embedded transport and [etcd][16] datastore, the **Sensu backend** gives you flexible, automated workflows to route metrics and alerts.
+Sensu backends require persistent storage for their embedded database, disk space for local asset caching, and three exposed ports:
+
+- `3000` - Sensu [web UI][13]
+- `8080` - Sensu [API][41] used by sensuctl, some plugins, and any of your custom tooling
+- `8081` - WebSocket API used by Sensu agents
+
+Sensu backends running in a [clustered configuration][14] require additional ports.
+See the [deployment guide][deploy] and [hardware requirements][hardware] guide for deployment recommendations.
+
+**Sensu agents** are lightweight clients that run on the infrastructure components you want to monitor.
+Agents register automatically with Sensu as entities and are responsible for creating check and metric events to send to the backend event pipeline.
+Optionally, agents can expose ports `3031` for the [agent API][50] and `8125` for the [StatsD listener][51].
+Agents using Sensu [assets][12] require some disk space for a local cache.
 
 #### Supported platforms
 
-Sensu Go is available for RHEL/CentOS 6 and 7, Debian 8-10, Ubunut 14.04-19.04, and Docker.
+Sensu Go is available for RHEL/CentOS 6 and 7, Debian 8-10, Ubuntu 14.04-19.04, and Docker.
 The Sensu Go agent is also available for Windows Server and Windows 7.
 [Configuration management][36] integrations for Sensu Go are available for Puppet, Chef, and Ansible.
 See the list of [supported platforms][35] for more information.
 
 #### Deployment recommendations
 
-See the [hardware requirements][37] guide for deployment recommendations.
+See the [deployment][deploy] and [hardware requirements][37] guides for deployment recommendations.
 
 ### 1. Install the Sensu Go backend 
+
+The Sensu backend is available for Ubuntu/Debian, RHEL/CentOS, and Docker.
+See the [installation guide][52] to install, configure, and start the Sensu backend according to your [deployment strategy][deploy].
 
 If you're doing a side-by-side migration, edit the `agent-port` configuration flag so it doesn't conflict with your Sensu 1.x client port.
 
 ### 2. Log in to the Sensu web UI
 
+The [Sensu Go web UI][13] provides a unified view of your monitoring events with user-friendly tools to reduce alert fatigue and manage your Sensu instance.
+After starting the Sensu backend, open the web UI by visiting http://localhost:3000.
+You may need to replace `localhost` with the
+hostname or IP address where the Sensu backend is running.
+
+To log in, enter your Sensu user credentials, or use Sensu's default admin credentials (username: `admin` and password: `P@ssw0rd!`).
+Select the ☰ icon to explore the web UI.
+
 ### 3. Install sensuctl on your workstation
+
+Sensuctl is a command line tool for managing resources within Sensu. It works by calling Sensu’s HTTP API to create, read, update, and delete resources, events, and entities. Sensuctl is available for Linux, Windows, and macOS.
+See the [installation guide][54] to install and configure sensuctl.
 
 ### 4. Set up Sensu users
 
@@ -78,11 +108,13 @@ In addition to built-in RBAC, Sensu includes [license-activated][40] support for
 
 “Clients” are now represented within Sensu Go as abstract “entities” that can describe a wider range of system components (network gear, web server, cloud resource, etc.)
 Entities include “agent entities” (entities running a Sensu agent) and familiar “proxy entities”.
-See the [entity reference][6] and the guide to [monitoring external resources][47] for more information.
 
-Make sure include the localhost subscription by uncommenting the subscription section and ensuring `localhost` is in the list of subscriptions:
+The Sensu agent is available for Ubuntu/Debian, RHEL/CentOS, Windows, and Docker.
+See the [installation guide][53] to install, configure, and start Sensu agents.
 
-```
+Make sure to include the localhost subscription by uncommenting the subscription section and adding `localhost` to the list of subscriptions, or by using the `--subscriptions localhost` flag.
+
+{{< highlight yml >}}
 ##
 # agent configuration
 ##
@@ -90,121 +122,205 @@ Make sure include the localhost subscription by uncommenting the subscription se
 subscriptions:
  - "localhost"
 ...
-
-```
+{{< /highlight >}}
 
 Now you should have Sensu installed and functional. The next step is to translate your Sensu 1.x configs to Sensu Go.
 
 ## Translate your configuration
 
-As of version 1.6.2, Sensu 1.x includes the Sensu Translator: a command-line tool to help you transfer your Sensu Core 1.x configuration to Sensu Go.
-The [Sensu translator project][18] is open source on GitHub.
+The [Sensu translator][18] is a command-line tool to help you transfer your Sensu Core 1.x checks, handlers, and mutators to Sensu Go.
 
 ### 1. Run the translator
 
-Point the translator at your Sensu 1.x configuration and specify an output directory:
+Before we start, output your Sensu 1.x configuration to use as a reference.
 
 {{< highlight shell >}}
-sensu-translator -d /etc/sensu/conf.d -o /tmp/sensu_config_translated
+# Requires curl and jq
+curl -s http://127.0.0.1:4567/settings | jq . > sensu_config_original.json
 {{< /highlight >}}
 
-<!-- Add line about directory structure for 1.x config -->
+Now install and run the translator.
 
-### 2. Update checks
+{{< highlight shell >}}
+# Install dependencies
+yum install -q -y rubygems ruby-devel
 
-After running the translator, you'll need to adjust some of output manually, starting with your check definitions.
+# Install sensu-translator
+gem install sensu-translator
 
-There are also a few changes to check definitions to be aware of. The `stdin` check attribute is no longer supported in Sensu Go, and Sensu Go no longer tries to run a "default" handler when executing a check without a specified handler. Additionally, check subdues are not yet available in Sensu Go.
+# Translate the config in /etc/sensu/conf.d to Sensu Go, output to /sensu_config_translated
+sensu-translator -d /etc/sensu/conf.d -o /sensu_config_translated
+{{< /highlight >}}
 
-Standalone checks are no longer supported in Sensu Go, although [similar functionality can be achieved using role-based access control, assets, and entity subscriptions][26].
+If translation is successful, you should see a few callouts followed by `DONE!`.
 
-#### Token substitution
+{{< highlight shell >}}
+Sensu 1.x filter translation is not yet supported
+Unable to translate Sensu 1.x filter: only_production {:attributes=>{:check=>{:environment=>"production"}}}
+DONE!
+{{< /highlight >}}
 
-Update the syntax for token substitution from triple colons to using curly braces.
+Combine your config into a sensuctl-readable format.
+Note that, for use with `sensuctl create`, Sensu Go resource definitions in JSON format should _not_ have a comma between resource objects.
 
-#### Metric checks
+{{< highlight shell >}}
+find sensu_config_translated/ -name '*.json' -exec cat {} \; > sensu_config_translated_singlefile.json
+{{< /highlight >}}
 
-The Sensu 1.x `type: metric` attribute is no longer part of the Sensu Go check spec, so we’ll need to adjust it by hand. Sensu 1.x checks can be configured as `type: metric` which told Sensu to always handle the check regardless of the check status output. This allowed Sensu 1.x to process output metrics via a handler even when the check status was not in an alerting state. Sensu Go treats output metrics as first-class objects, allowing you to process check status as well as output metrics via different event pipelines.See the [guide to metric output][48] to update your metric checks with the `output_metric_handlers` and `output_metric_format` attributes.
+While most attributes are ready to use as-is, you'll need to adjust your Sensu Go configuration manually to migrate some of Sensu's features.
 
-#### Proxy checks
+### 2. Translate checks
 
-The attribute for configuring proxy checks has changed in Sensu Go.
-See the [guide to monitoring external resources][47] to learn about the `proxy_entity_name` and `proxy_requests` attributes and update your proxy check configuration.
+Review your Sensu 1.x check configuration for the following attribute, and make the corresponding updates to your Sensu Go configuration.
 
-#### Hooks
+| 1.x attribute | Manual updates required in Sensu Go config |
+| ------------- | ------------- |
+`::: foo :::` | Update the syntax for token substitution from triple colons to using curly braces. For example: `{{{ foo }}}`
+`stdin: true`  | No updates required. Sensu Go checks accept data on stdin by default.
+`handlers: default` | Sensu Go no longer has the concept of a default handler, so you'll need to create a handler called default to continue using this pattern.
+`subdues` | Check subdues are not available in Sensu Go.
+`standalone: true` | Standalone checks are no longer supported in Sensu Go, although [similar functionality can be achieved using role-based access control, assets, and entity subscriptions][26]. The translator assigns all 1.x standalone checks to a `standalone` subscription in Sensu Go, so you can add the `standalone` subscription to a Sensu Go agent configuration.
+`metrics: true` | See the section on [translating metric checks](#translating-metric-checks).
+`proxy_requests` | See the section on [translating proxy requests](#translating-proxy-requests-and-proxy-entities).
+`subscribers: roundrobin...` | Remove `roundrobin` from the subscription name, and add the `round_robin` check attribute set to `true`.
+`aggregate` | Check aggregates are supported through the [license-activated][40] [Sensu Go Aggregate Check Plugin][28].
+`hooks` | See the section on [translating hooks](#translating-hooks).
+`dependencies`| Check dependencies are not available in Sensu Go.
 
-[Check hooks][8] are now a resource type in Sensu Go, meaning that hooks can be created, managed, and reused independently of check definitions.
+#### Translating metric checks
+
+The Sensu 1.x `type: metric` attribute is no longer part of the Sensu Go check spec, so we’ll need to adjust it by hand. Sensu 1.x checks could be configured as `type: metric` which told Sensu to always handle the check regardless of the check status output. This allowed Sensu 1.x to process output metrics via a handler even when the check status was not in an alerting state. Sensu Go treats output metrics as first-class objects, allowing you to process check status as well as output metrics via different event pipelines.See the [guide to metric output][48] to update your metric checks with the `output_metric_handlers` and `output_metric_format` attributes.
+
+#### Translating proxy requests and proxy entities
+
+See the [guide to monitoring external resources][47] to re-configure `proxy_requests` attributes and update your proxy check configuration, and see the [entity reference][6] to re-create your proxy client configurations as Sensu Go proxy entities.
+
+#### Translating hooks
+
+Check hooks are now a resource type in Sensu Go, meaning that hooks can be created, managed, and reused independently of check definitions.
 You can also execute multiple hooks for any given response code.
-
-#### Check aggregates
-
-Check aggregates are supported through the [license-activated][40] [Sensu Go Aggregate Check Plugin][28].
+See the [guide][55] and [hooks reference docs][8] to re-create your Sensu 1.x hooks as Sensu Go hook resources. 
 
 #### Custom attributes
 
 Custom check attributes are no longer supported in Sensu Go.
 Instead, Sensu Go provides the ability to add custom labels and annotations to entities, checks, assets, hooks, filters, mutators, handlers, and silences.
-See the metadata attributes section in the reference documentation for more information about using labels and annotations (for example: [metadata attributes for entities][24]).
 The translator stores all check extended attributes in the check metadata annotation named `sensu.io.json_attributes`. 
+See the [check reference][56] for more information about using labels and annotations in check definitions.
 
 #### Check plugins
 
 Within the Sensu Plugins org, see individual plugin READMEs for compatibility status with Sensu Go.
 If you're doing a side-by-side migration, Sensu-Go-compatible plugins installed outside of opt/sensu will work with Sensu Go agents.
-Otherwise, you can re-install your check plugins onto your Sensu agent nodes; see the [guide][22] to installing the `sensu-install` tool for use with Sensu Go.
+Otherwise, you can re-install your check plugins onto your Sensu agent nodes using `sensu-install`; see the [guide][22] to installing the `sensu-install` tool for use with Sensu Go.
 
-Although not required to run Sensu Go, we recommend installing plugins with [assets][12] where possible.
+Although not required to run Sensu Go, we recommend installing plugins with [assets](#activate-assets) where possible.
 
-### 3. Update filters
+### 3. Translate filters
+
+Ruby eval logic used in Sensu 1.x filters has been replaced with JavaScript expressions in Sensu Go, opening up powerful possibilities to filter events based on occurrences and other event attributes.
+As a result, you'll need to rewrite your Sensu 1.x filters in Sensu Go format.
+
+First, review your 1.x handlers to see which filters are being used. Then, using the [filter reference][57] and [guide to using filters][58], re-write your filters using Sensu Go expressions. Also check out the [blog post][59] for a deep dive into Sensu Go filter capabilities.
+
+{{< highlight shell >}}
+# Sensu 1.x hourly filter
+{
+  "filters": {
+    "recurrences": {
+      "attributes": {
+        "occurrences": "eval: value == 1 || value % 60 == 0"
+      }
+    }
+  }
+}
+
+# Sensu Go hourly filter
+  {
+    "metadata": {
+      "name": "hourly",
+      "namespace": "default"
+    },
+    "action": "allow",
+    "expressions": [
+      "event.check.occurrences == 1 || event.check.occurrences % (3600 / event.check.interval) == 0"
+    ],
+    "runtime_assets": null
+  }
+{{< /highlight >}}
+
+### 4. Translate handlers
 
 All check results are now considered events and are processed by event handlers.
 You can use the built-in [incidents filter][9] to recreate the Sensu Core 1.x behavior in which only check results with a non-zero status are considered events.
 
-Ruby eval logic has been replaced with JavaScript expressions in Sensu Go, opening up powerful possibilities to filter events based on occurrences and other event attributes.
-As a result, the built-in occurrences filter in Sensu Core 1.x is not provided in Sensu Go, but you can replicate its functionality using [this filter definition][10].
+**IMPORTANT**: Silencing is now disabled by default in Sensu Go and must be enabled explicitly using the built-in [`not_silenced` filter][15]. Add the `not_silenced` filter to any handlers for which you want to enable Sensu's silencing feature.
 
-### 4. Update handlers
+Review your Sensu 1.x check configuration for the following attribute, and make the corresponding updates to your Sensu Go configuration.
 
-Sensu Go includes three new [built-in filters][11]: only-incidents, only-metrics, and allow-silencing.
-Sensu Go does not yet include a built-in check dependencies filter or a filter-when feature.
-Silencing is now disabled by default in Sensu Go and must be enabled explicitly using the built-in [`not_silenced` filter][15].
-
-Transport handlers are no longer supported by Sensu Go, but you can create similar functionality using a pipe handler that connects to a message bus and injects event data into a queue.
+| 1.x attribute | Manual updates required in Sensu Go config |
+| ------------- | ------------- |
+`filters: occurrences` | The built-in occurrences filter in Sensu Core 1.x is not provided in Sensu Go, but you can replicate its functionality using [this filter definition][10]. <!-- TODO: replace with link to filter asset guide -->
+`type: transport` | Transport handlers are no longer supported by Sensu Go, but you can create similar functionality using a pipe handler that connects to a message bus and injects event data into a queue.
+`filters: check_dependencies` | Sensu Go does not include a built-in check dependencies filter.
+`severities` | Severities are not available in Sensu Go.
+`handle_silenced` | Silencing is now disabled by default in Sensu Go and must be enabled explicitly using the built-in [`not_silenced` filter][15].
+`handle_flapping` | All check results are now considered events and are processed by event handlers.
 
 ### 5. Upload your config to your Sensu Go instance
 
-To upload your Sensu Go config:
+Once you've reviewed your translated configuration, made any necessary updates, and added resource definitions for any filters and entities you want to migration, upload your Sensu Go config using sensuctl.
 
 {{< highlight shell >}}
-sensuctl create --file /path/to/config.yaml
+sensuctl create --file /path/to/config.json
 {{< /highlight >}}
 
 _PRO TIP: `sensuctl create` (and `sensuctl delete`) are powerful tools to help you manage your Sensu configs across namespaces. See the [sensuctl reference][5] for more information._
 
+You can now access your Sensu Go config using the [Sensu API][61].
+
+{{< highlight shell >}}
+# Set up a local API testing environment by saving your Sensu credentials
+# and token as environment variables. Requires curl and jq.
+export SENSU_USER=admin && SENSU_PASS=P@ssw0rd!
+
+export SENSU_TOKEN=`curl -XGET -u "$SENSU_USER:$SENSU_PASS" -s http://localhost:8080/auth | jq -r ".access_token"`
+
+# Return list of all configured checks
+curl -H "Authorization: Bearer $SENSU_TOKEN" http://127.0.0.1:8080/api/core/v2/namespaces/default/checks
+
+# Return list of all configured handlers
+curl -H "Authorization: Bearer $SENSU_TOKEN" http://127.0.0.1:8080/api/core/v2/namespaces/default/handlers
+{{< /highlight >}}
+
+You can also access your Sensu Go configuration in JSON or YAML formats using sensuctl; for example: `sensuctl check list --format json` Run `sensuctl help` to see available commands. For more information about sensuctl's output formats (`json`, `wrapped-json`, and `yaml`), see the [sensuctl reference][60].
+
 ## Activate assets
 
 [Assets][12] are shareable, reusable packages that make it easy to deploy Sensu plugins.
-
 Although not required to run Sensu Go, we recommend [using assets to install plugins][45] where possible.
 For plugins that aren't available as assets, install outside of opt/sensu.
 
 [Sensu Plugins][21] in Ruby can still be installed via sensu-install by installing [sensu-plugins-ruby][20]; see the [installing plugins guide][22] and the [Sensu Plugins README][46] for more information.
-
+See individual plugin READMEs for compatibility status with Sensu Go.
 To contribute to converting a plugin to an asset, see [the discourse post][44].
 
 ## Sunset your Sensu 1.x instance
 
-When you're ready to sunset your Sensu 1.x instance, see the [platform][43] docs to stop the Sensu services.
+When you're ready to sunset your Sensu 1.x instance, see the [platform][43] docs to stop the Sensu 1.x services.
 
 ## Resources
-
-See the [backend][3], [agent][4], and [sensuctl][5] reference docs for more information. 
-To learn more about new terminology in Sensu Go, see the [glossary][1].
 
 - [Sensu translator project][18]
 - [Jef Spaleta - Check configuration upgrades with the Sensu Go sandbox][25]
 - [Sensu webinar: What's new in Sensu Go][42]
 - [Get started with the Sensu API][41]
+- [Sensu Go backend configuration reference][62]
+- [Sensu Go agent configuration reference][63]
+- [Sensu Go glossary of terms][1]
+
+[62]: /sensu-go/latest/reference/agent#configuration
+[63]: /sensu-go/latest/reference/backend#configuration
 
 [1]: /sensu-go/latest/getting-started/glossary
 [3]: /sensu-go/latest/reference/backend
@@ -216,7 +332,10 @@ To learn more about new terminology in Sensu Go, see the [glossary][1].
 [10]: /sensu-go/latest/reference/filters/#handling-repeated-events
 [11]: /sensu-go/latest/reference/filters/#built-in-filters
 [12]: /sensu-go/latest/reference/assets
+[13]: /sensu-go/latest/dashboard/overview
+[14]: /sensu-go/latest/guides/clustering
 [15]: /sensu-go/latest/reference/filters/#built-in-filter-allow-silencing
+[16]: https://etcd.io/
 [18]: https://github.com/sensu/sensu-translator
 [20]: https://packagecloud.io/sensu/community
 [21]: https://github.com/sensu-plugins
@@ -229,7 +348,7 @@ To learn more about new terminology in Sensu Go, see the [glossary][1].
 [31]: https://blog.sensu.io/enterprise-features-in-sensu-go
 [32]: /sensu-go/5.12/getting-started/learn-sensu
 [33]: ../installation/upgrading/
-[34]: /sensu-core/1.8/changelog/#core-v1-7-1
+[34]: /sensu-core/1.8/changelog/#core-v1-7-0
 [35]: /sensu-go/latest/installation/platforms
 [36]: /sensu-go/latest/installation/configuration-management
 [37]: /sensu-go/latest/installation/recommended-hardware
@@ -245,3 +364,18 @@ To learn more about new terminology in Sensu Go, see the [glossary][1].
 [47]: /sensu-go/latest/guides/monitor-external-resources
 [48]: /sensu-go/latest/guides/extract-metrics-with-checks
 [49]: https://blog.sensu.io/eol-schedule-for-sensu-core-and-enterprise
+[deploy]: /sensu-go/latest/guides/deploying
+[hardware]: /sensu-go/latest/installation/recommended-hardware
+[50]: /sensu-go/latest/reference/agent/#creating-monitoring-events-using-the-agent-api
+[51]: /sensu-go/latest/guides/aggregate-metrics-statsd
+[52]: /sensu-go/latest/installation/install-sensu#install-the-sensu-backend
+[53]: /sensu-go/latest/installation/install-sensu#install-sensu-agents
+[54]: /sensu-go/latest/installation/install-sensu#install-sensuctl
+[55]: /sensu-go/latest/guides/enrich-events-with-hooks
+[56]: /sensu-go/latest/reference/checks#metadata-attributes
+[57]: /sensu-go/latest/reference/filters
+[58]: /sensu-go/latest/guides/reduce-alert-fatigue
+[59]: https://blog.sensu.io/filters-valves-for-the-sensu-monitoring-event-pipeline
+[60]: /sensu-go/latest/sensuctl/reference/#preferred-output-format
+[61]: /sensu-go/latest/api
+
