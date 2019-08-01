@@ -311,6 +311,7 @@ When you're ready to sunset your Sensu 1.x instance, see the [platform][43] docs
 
 ## Resources
 
+- [Learn about license-activated features designed for monitoring at scale][40]
 - [Sensu translator project][18]
 - [Jef Spaleta - Check configuration upgrades with the Sensu Go sandbox][25]
 - [Sensu webinar: What's new in Sensu Go][42]
@@ -318,9 +319,6 @@ When you're ready to sunset your Sensu 1.x instance, see the [platform][43] docs
 - [Sensu Go backend configuration reference][62]
 - [Sensu Go agent configuration reference][63]
 - [Sensu Go glossary of terms][1]
-
-[62]: /sensu-go/latest/reference/agent#configuration
-[63]: /sensu-go/latest/reference/backend#configuration
 
 [1]: /sensu-go/latest/getting-started/glossary
 [3]: /sensu-go/latest/reference/backend
@@ -378,4 +376,5 @@ When you're ready to sunset your Sensu 1.x instance, see the [platform][43] docs
 [59]: https://blog.sensu.io/filters-valves-for-the-sensu-monitoring-event-pipeline
 [60]: /sensu-go/latest/sensuctl/reference/#preferred-output-format
 [61]: /sensu-go/latest/api
-
+[62]: /sensu-go/latest/reference/agent#configuration
+[63]: /sensu-go/latest/reference/backend#configuration
