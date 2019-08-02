@@ -375,7 +375,7 @@ example      | {{< highlight yml >}}
 [7]: ../filters
 [8]: ../mutators
 [9]: ../handlers
-[10]: ../entity#system-attributes
+[10]: ../entities#system-attributes
 [sc]: ../../sensuctl/reference#creating-resources
 [sp]: #spec-attributes
 [16]: https://bonsai.sensu.io

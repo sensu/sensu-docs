@@ -437,7 +437,7 @@ backend-url:
 
 ## Using an external etcd cluster
 
-To stand up an external etcd cluster, you can follow etcd's [clustering guide][12] using the same store configuration.
+Using Sensu with an external etcd cluster requires etcd 3.3.2 or newer. To stand up an external etcd cluster, you can follow etcd's [clustering guide][12] using the same store configuration.
 
 In this example, we will enable client-to-server and peer communication authentication [using self-signed TLS certificates][13]. Below is how you would start etcd for `backend-1` from our three node configuration example above.
 
@@ -457,8 +457,12 @@ etcd \
 --peer-trusted-ca-file=./ca.pem \
 --peer-cert-file=./backend-1.pem \
 --peer-key-file=./backend-1-key.pem \
---peer-client-cert-auth
+--peer-client-cert-auth \
+--auto-compaction-mode revision \
+--auto-compaction-retention 2
 {{< /highlight >}}
+
+_NOTE: The `auto-compaction-mode` and `auto-compaction-retention` flags are of particular significance. Without these settings your database may quickly reach etcd's maximum database size limit._
 
 In order to inform Sensu that you'd like to use this external etcd data source, add the `sensu-backend` flag `--no-embed-etcd` to the original configuration, along with the path to a client certificate created using our CA.
 

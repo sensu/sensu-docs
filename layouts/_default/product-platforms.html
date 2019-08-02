@@ -5,16 +5,14 @@
   {{ .Scratch.Set "repo_id" $repo_id }}
 {{ end }}
 
-<header>
-  {{ partial "header" . }}
-</header>
+{{ partial "header" . }}
 
 <main class="main">
   {{ partial "drawer" . }}
 
   <article class="article">
     <div class="wrapper">
-      <h1>{{ .Title }} {{ if .IsDraft }} (Draft){{ end }}</h1>
+      <h1>{{ .Title }} {{ if .Draft }} (Draft){{ end }}</h1>
         
         {{ .Content }}
         
