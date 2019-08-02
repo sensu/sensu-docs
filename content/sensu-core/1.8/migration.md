@@ -65,8 +65,8 @@ Agents using Sensu [assets][12] require some disk space for a local cache.
 
 #### Supported platforms
 
-Sensu Go is available for RHEL/CentOS 6 and 7, Debian 8-10, Ubuntu 14.04-19.04, and Docker.
-The Sensu Go agent is also available for Windows Server and Windows 7.
+Sensu Go is available for RHEL/CentOS, Debian, Ubuntu, and Docker.
+The Sensu Go agent is also available for Windows.
 [Configuration management][36] integrations for Sensu Go are available for Puppet, Chef, and Ansible.
 See the list of [supported platforms][35] for more information.
 
@@ -132,14 +132,7 @@ The [Sensu translator][18] is a command-line tool to help you transfer your Sens
 
 ### 1. Run the translator
 
-Before we start, output your Sensu 1.x configuration to use as a reference.
-
-{{< highlight shell >}}
-# Requires curl and jq
-curl -s http://127.0.0.1:4567/settings | jq . > sensu_config_original.json
-{{< /highlight >}}
-
-Now install and run the translator.
+Install and run the translator.
 
 {{< highlight shell >}}
 # Install dependencies
@@ -162,12 +155,15 @@ DONE!
 
 Combine your config into a sensuctl-readable format.
 Note that, for use with `sensuctl create`, Sensu Go resource definitions in JSON format should _not_ have a comma between resource objects.
+Optionally, you can translate your config in sections according to resource type.
 
 {{< highlight shell >}}
 find sensu_config_translated/ -name '*.json' -exec cat {} \; > sensu_config_translated_singlefile.json
 {{< /highlight >}}
 
 While most attributes are ready to use as-is, you'll need to adjust your Sensu Go configuration manually to migrate some of Sensu's features.
+
+_NOTE: To make it easy to compare your Sensu 1.x configuration with your Sensu Go configuration, output your current Sensu 1.x configuration using the API: `curl -s http://127.0.0.1:4567/settings | jq . > sensu_config_original.json`_
 
 ### 2. Translate checks
 
@@ -186,6 +182,8 @@ Review your Sensu 1.x check configuration for the following attribute, and make 
 `aggregate` | Check aggregates are supported through the [license-activated][40] [Sensu Go Aggregate Check Plugin][28].
 `hooks` | See the section on [translating hooks](#translating-hooks).
 `dependencies`| Check dependencies are not available in Sensu Go.
+
+_PRO TIP: When using **token substitution** in Sensu Go and accessing labels or annotations that include `.` (for example: `sensio.io.json_attributes`), use the `index` function. For example, `{{index .annotations "web_url"}}` substitutes the value of the `web_url` annotation; `{{index .annotations "production.ID"}}` substitutes the value of the `production.ID` annotation._
 
 #### Translating metric checks
 
