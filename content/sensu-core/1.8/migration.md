@@ -3,7 +3,7 @@ title: "Migrating to Sensu Go"
 linkTitle: "Migrate to Sensu Go"
 description: "This guide provides information for migrating your Sensu instance from Sensu 1.x to Sensu Go."
 version: "1.8"
-weight: 1
+weight: 0
 menu: "sensu-core-1.8"
 product: "Sensu Core"
 ---
@@ -251,12 +251,12 @@ You can use the built-in [incidents filter][9] to recreate the Sensu Core 1.x be
 
 **IMPORTANT**: Silencing is now disabled by default in Sensu Go and must be enabled explicitly using the built-in [`not_silenced` filter][15]. Add the `not_silenced` filter to any handlers for which you want to enable Sensu's silencing feature.
 
-Review your Sensu 1.x check configuration for the following attribute, and make the corresponding updates to your Sensu Go configuration.
+Review your Sensu 1.x check configuration for the following attributes, and make the corresponding updates to your Sensu Go configuration.
 
 | 1.x attribute | Manual updates required in Sensu Go config |
 | ------------- | ------------- |
-`filters: occurrences` | The built-in occurrences filter in Sensu Core 1.x is not provided in Sensu Go, but you can replicate its functionality using the [sensu-go-fatigue-check-filter asset][67]
-`type: transport` | Transport handlers are no longer supported by Sensu Go, but you can create similar functionality using a pipe handler that connects to a message bus and injects event data into a queue.
+`filters: occurrences` | The built-in occurrences filter in Sensu Core 1.x is not available in Sensu Go, but you can replicate its functionality using the [sensu-go-fatigue-check-filter asset][67].
+`type: transport` | Transport handlers are not supported by Sensu Go, but you can create similar functionality using a pipe handler that connects to a message bus and injects event data into a queue.
 `filters: check_dependencies` | Sensu Go does not include a built-in check dependencies filter.
 `severities` | Severities are not available in Sensu Go.
 `handle_silenced` | Silencing is now disabled by default in Sensu Go and must be enabled explicitly using the built-in [`not_silenced` filter][15].
@@ -264,7 +264,7 @@ Review your Sensu 1.x check configuration for the following attribute, and make 
 
 ### 5. Upload your config to your Sensu Go instance
 
-Once you've reviewed your translated configuration, made any necessary updates, and added resource definitions for any filters and entities you want to migration, upload your Sensu Go config using sensuctl.
+Once you've reviewed your translated configuration, made any necessary updates, and added resource definitions for any filters and entities you want to migrate, upload your Sensu Go config using sensuctl.
 
 {{< highlight shell >}}
 sensuctl create --file /path/to/config.json
@@ -288,7 +288,7 @@ curl -H "Authorization: Bearer $SENSU_TOKEN" http://127.0.0.1:8080/api/core/v2/n
 curl -H "Authorization: Bearer $SENSU_TOKEN" http://127.0.0.1:8080/api/core/v2/namespaces/default/handlers
 {{< /highlight >}}
 
-You can also access your Sensu Go configuration in JSON or YAML formats using sensuctl; for example: `sensuctl check list --format json` Run `sensuctl help` to see available commands. For more information about sensuctl's output formats (`json`, `wrapped-json`, and `yaml`), see the [sensuctl reference][60].
+You can also access your Sensu Go configuration in JSON or YAML using sensuctl; for example: `sensuctl check list --format json`. Run `sensuctl help` to see available commands. For more information about sensuctl's output formats (`json`, `wrapped-json`, and `yaml`), see the [sensuctl reference][60].
 
 ## Translate plugins and register assets
 
@@ -298,21 +298,22 @@ Within the [Sensu Plugins][21] org, see individual plugin READMEs for compatibil
 For handler and mutators plugins, see the [Sensu Plugins README][46] to map event data to the [Sensu Go format][68].
 This allows you to use Sensu Plugins for handlers and mutators with Sensu Go without re-writing them.
 
-To re-install Sensu Plugins onto your Sensu Go agent (check plugins) and backend nodes (mutator and handler plugins), see the [guide][22] to installing the `sensu-install` tool for use with Sensu Go.
+To re-install Sensu Plugins onto your Sensu Go agent nodes (check plugins) and backend nodes (mutator and handler plugins), see the [guide][22] to installing the `sensu-install` tool for use with Sensu Go.
 
 ### Sensu Go assets
 
 [Assets][12] are shareable, reusable packages that make it easy to deploy Sensu plugins.
 Although not required to run Sensu Go, we recommend [using assets to install plugins][45] where possible.
 Sensu supports runtime assets for checks, filters, mutators, and handlers.
-You can discover, download, and share assets using [Bonsai][69], the Sensu asset index. 
+You can discover, download, and share assets using [Bonsai][69], the Sensu asset index.
 
-To contribute to converting a plugin to an asset, see [the discourse post][44].
+To create your own assets, see the [asset reference][12] and [guide to sharing an asset on Bonsai][72].
+To contribute to converting a Sensu Plugin to an asset, see [the discourse post][44].
 
 ## Sunset your Sensu 1.x instance
 
 When you're ready to sunset your Sensu 1.x instance, see the [platform][43] docs to stop the Sensu 1.x services.
-You may also want to re-install the `sensu-install` tool using [`sensu-plugins-ruby` package][22].
+You may also want to re-install the `sensu-install` tool using the [`sensu-plugins-ruby` package][22].
 
 ## Resources
 
@@ -349,7 +350,7 @@ You may also want to re-install the `sensu-install` tool using [`sensu-plugins-r
 [28]: https://bonsai.sensu.io/assets/sensu/sensu-aggregate-check
 [30]: /sensu-enterprise/3.6/migration
 [31]: https://blog.sensu.io/enterprise-features-in-sensu-go
-[32]: /sensu-go/5.12/getting-started/learn-sensu
+[32]: /sensu-go/latest/getting-started/learn-sensu
 [33]: ../installation/upgrading/
 [34]: /sensu-core/1.8/changelog/#core-v1-7-0
 [35]: /sensu-go/latest/installation/platforms
@@ -391,3 +392,4 @@ You may also want to re-install the `sensu-install` tool using [`sensu-plugins-r
 [69]: https://bonsai.sensu.io
 [70]: /sensu-go/latest/reference/agent/#creating-monitoring-events-using-the-agent-tcp-and-udp-sockets
 [71]: /sensu-go/latest/reference/rbac/#resources
+[72]: /sensu-go/latest/reference/assets/#sharing-an-asset-on-bonsai
