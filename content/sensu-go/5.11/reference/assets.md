@@ -399,7 +399,7 @@ example      | {{< highlight yml >}}
 [7]: ../filters
 [8]: ../mutators
 [9]: ../handlers
-[10]: ../entity#system-attributes
+[10]: ../entities#system-attributes
 [sc]: ../../sensuctl/reference#creating-resources
 [sp]: #spec-attributes
 [16]: https://bonsai.sensu.io
@@ -409,4 +409,4 @@ example      | {{< highlight yml >}}
 [29]: /plugins/latest/reference/
 [api-filter]: ../../api/overview#filtering
 [sensuctl-filter]: ../../sensuctl/reference#filtering
-[30]: ../../agent#disable-assets
+[30]: ../agent#disable-assets
