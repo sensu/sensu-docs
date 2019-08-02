@@ -78,7 +78,7 @@ metadata:
   namespace: default
 spec:
   check_hooks: null
-  command: check-disk-usage.rb -w {{.labels.disk_warning | default 80}} -c {{.labels.disk_critical
+  command: check-disk-usage.rb -w {{index .labels "disk_warning" | default 80}} -c {{.labels.disk_critical
     | default 90}}
   env_vars: null
   handlers: []
