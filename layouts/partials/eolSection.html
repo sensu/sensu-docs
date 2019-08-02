@@ -1,0 +1,32 @@
+<!-- May not render, used for old/pre release versions -->
+<div id="alerts">
+  {{ $product := replace .Section "-" "_" }}
+  {{ $product_info := (index .Site.Params.products $product) }}
+  {{ if and (isset .Params "version") (eq .Params.product "Sensu Core") }}
+    {{ $message := (printf "%s will reach EOL on December 31, 2019. Click here to start your migration to Sensu Go." .Params.product) }}
+    {{ $link := replace "https://docs.sensu.io/sensu-core/../migration" ".." .Params.version }}
+    {{ $params := slice "#2c3458" $message $link }}
+    {{ partial "alert" $params }}
+  {{ end }}
+
+  {{ if and (isset .Params "version") (eq .Params.product "Uchiwa") }}
+    {{ $message := (printf "%s will reach EOL on December 31, 2019. Click here to start your migration to Sensu Go." .Params.product) }}
+    {{ $link := replace "https://docs.sensu.io/sensu-core/latest/migration" ".." .Params.version }}
+    {{ $params := slice "#2c3458" $message $link }}
+    {{ partial "alert" $params }}
+  {{ end }}
+
+  {{ if and (isset .Params "version") (eq .Params.product "Sensu Enterprise") }}
+    {{ $message := (printf "%s will reach EOL on March 31, 2020. Click here to start your migration to Sensu Go." .Params.product) }}
+    {{ $link := replace "https://docs.sensu.io/sensu-enterprise/../migration" ".." .Params.version }}
+    {{ $params := slice "#2c3458" $message $link }}
+    {{ partial "alert" $params }}
+  {{ end }}
+
+  {{ if and (isset .Params "version") (eq .Params.product "Sensu Enterprise Dashboard") }}
+    {{ $message := (printf "%s will reach EOL on March 31, 2020. Click here to start your migration to Sensu Go." .Params.product) }}
+    {{ $link := replace "https://docs.sensu.io/sensu-enterprise/latest/migration" ".." .Params.version }}
+    {{ $params := slice "#2c3458" $message $link }}
+    {{ partial "alert" $params }}
+  {{ end }}
+</div>
