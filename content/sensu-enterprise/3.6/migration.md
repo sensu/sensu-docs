@@ -18,7 +18,7 @@ Read the [blog post][49] to learn more about end-of-life for Sensu Enterprise.
 ### Integrations
 
 Most Sensu Enterprise integrations as available as Sensu Go assets.
-See the [guide to installing plugins with assets][] to register assets with Sensu and update your Sensu Go handler definitions.
+See the [guide to installing plugins with assets][45] to register assets with Sensu and update your Sensu Go handler definitions.
  
 | Integration | Sensu Go asset |
 | ----------- | -------------- |
@@ -51,16 +51,7 @@ VictorOps | https://bonsai.sensu.io/assets/asachs01/sensu-plugins-victorops
 ### Contact routing
 
 Contact routing is available in Sensu go using the has-contact filter asset.
-See the [guide][] to set up contact routing in Sensu go using filters.
+See the [guide][100] to set up contact routing in Sensu go using filters.
 
-### Sensu Enterprise Dashboard collections
-
-Sensu Go offers similar functionality to collections using advanced filtering in the Sensu Go web ui.
-See the [web UI filtering docs][] for more information.
-
-### Sensu Enterprise Dashboard datacenters
-
-<!-- TODO: What's the status here? -->
-
-[]: /sensu-go/latest/guide/contact-routing
-[]: /sensu-go/latest/dashboard/filtering
+[100]: /sensu-go/latest/guide/contact-routing
+[101]: /sensu-go/latest/dashboard/filtering
