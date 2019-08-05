@@ -51,7 +51,7 @@ To install sensuctl:
 # Add the Sensu repository
 curl -s https://packagecloud.io/install/repositories/sensu/stable/script.deb.sh | sudo bash
 
-# Install the sensu-go-backend package
+# Install the sensu-go-cli package
 sudo apt-get install sensu-go-cli
 {{< /highlight >}}
 
@@ -59,7 +59,7 @@ sudo apt-get install sensu-go-cli
 # Add the Sensu repository
 curl https://packagecloud.io/install/repositories/sensu/stable/script.rpm.sh | sudo bash
 
-# Install the sensu-go-backend package
+# Install the sensu-go-cli package
 sudo yum install sensu-go-cli
 {{< /highlight >}}
 
