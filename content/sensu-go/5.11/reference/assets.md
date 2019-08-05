@@ -26,6 +26,8 @@ Assets are shareable, reusable packages that make it easy to deploy Sensu plugin
 You can use assets to provide the plugins, libraries, and runtimes you need to automate your monitoring workflows.
 Sensu supports runtime assets for [checks][6], [filters][7], [mutators][8], and [handlers][9].
 
+_NOTE: Assets are not required to use Sensu Go in production. Sensu plugins can still be installed using the [sensu-install][32] tool or a [configuration management][33] solution._
+
 ## How do assets work?
 Assets can be executed by the backend (for handler, filter, and mutator assets), or
 by the agent (for check assets). At runtime, the backend or agent sequentially fetches
@@ -326,7 +328,7 @@ spec:
   - system
 {{< /highlight >}}
 
-{{< highlight shell >}}
+{{< highlight wrapped-json >}}
 {
   "type": "Asset",
   "api_version": "core/v2",
@@ -493,3 +495,5 @@ example      | {{< highlight yml >}}
 [sensuctl-filter]: ../../sensuctl/reference#filtering
 [30]: ../../agent#disable-assets
 [31]: #example-asset-with-a-check
+[32]: ../../installation/plugins/#installing-plugins-using-the-sensu-install-tool
+[33]: ../../installation/configuration-management/
