@@ -154,7 +154,7 @@ You should see a response that includes `"Healthy": true`.
 curl http://127.0.0.1:8080/health
 {{< /highlight >}}
 
-Now that you've installed the Sensu backend, [configure sensuctl][sensuctl] to connect to your backend URL and start monitoring your infrastructure by [installing Sensu agents][agent].
+Now that you've installed the Sensu backend, [install and configure sensuctl][sensuctl] to connect to your backend URL and start monitoring your infrastructure by [installing Sensu agents][agent].
 
 ### Install sensuctl
 
