@@ -12,11 +12,11 @@ menu:
 
 ### Learn Sensu in 15 minutes
 
-Create your first monitoring event pipeline using a local development environment pre-installed with the essential Sensu stack.
+Get started with Sensu, and create your first monitoring event pipeline.
 
-- [Download the sandbox and learn Sensu Go][7]
-- [See more sandbox lessons][1]
-- [Join the community][8]
+- [Get started in your browser with an interactive tutorial][13]
+- [Download the sandbox][7]
+- [Check out the live demo][1]
 
 ### Install Sensu Go (free tier)
 
@@ -42,7 +42,7 @@ Sensu Go's core is open source software, freely available under an MIT license.
 - [Learn about OSS-tier features][12]
 - [Build from source][11]
 
-[1]: ../sandbox
+[1]: ../demo
 [2]: ../../installation/install-sensu
 [3]: https://sensu.io/products/enterprise
 [4]: https://sensu.io/sales/
@@ -54,3 +54,4 @@ Sensu Go's core is open source software, freely available under an MIT license.
 [10]: https://github.com/sensu/sensu-go
 [11]: https://github.com/sensu/sensu-go/blob/master/CONTRIBUTING.md#building
 [12]: https://sensu.io/products
+[13]: ../tutorial

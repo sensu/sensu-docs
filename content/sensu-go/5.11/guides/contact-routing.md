@@ -326,7 +326,7 @@ For more tools to reduce alert fatigue, see the [guide][11].
 
 [0]: https://bonsai.sensu.io/assets/sensu/sensu-go-has-contact-filter
 [1]: ../../installation/install-sensu#install-the-sensu-backend
-[2]: ../../installation/install-sensu#install-the-sensu-agent
+[2]: ../../installation/install-sensu#install-sensu-agents
 [3]: ../../installation/install-sensu#install-sensuctl
 [4]: ../../sensuctl/reference#first-time-setup
 [5]: https://curl.haxx.se/

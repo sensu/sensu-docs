@@ -12,6 +12,8 @@
   </nav>
 
   {{ if not .IsHome }}
+    {{ partial "eolSection.html" . }}
     {{ partial "alertSection.html" . }}
   {{ end }}
+
 </header>
