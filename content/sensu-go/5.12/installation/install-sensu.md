@@ -239,15 +239,15 @@ docker pull sensu/sensu-rhel
 # Add the Sensu repository
 curl -s https://packagecloud.io/install/repositories/sensu/stable/script.deb.sh | sudo bash
 
-# Install the sensu-go-backend package
+# Install the sensu-go-agent package
 sudo apt-get install sensu-go-agent
 {{< /highlight >}}
 
 {{< highlight "RHEL/CentOS" >}}
 # Add the Sensu repository
-curl -s https://packagecloud.io/install/repositories/sensu/stable/script.deb.sh | sudo bash
+curl -s https://packagecloud.io/install/repositories/sensu/stable/script.rpm.sh | sudo bash
 
-# Install the sensu-go-backend package
+# Install the sensu-go-agent package
 sudo yum install sensu-go-agent
 {{< /highlight >}}
 
