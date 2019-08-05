@@ -18,7 +18,7 @@ The following configuration management tools have well-defined Sensu modules to 
 
 ### Puppet
 The [Puppet][1] Sensu module can be found on the [GitHub][2].
-Sensu has partnered with [Learn Puppet][7] to enhance the Puppet module with new features and bug fixes.
+Sensu has partnered with [Tailored Automation][7] to enhance the Puppet module with new features and bug fixes.
 
 ### Chef
 The [Chef][3] cookbook for Sensu can be found on the [GitHub][4]. Interested in more information on Sensu + Chef? Get some helpful resources [here][12].
@@ -27,5 +27,5 @@ The [Chef][3] cookbook for Sensu can be found on the [GitHub][4]. Interested in 
 [2]: https://github.com/sensu/sensu-puppet
 [3]: https://www.chef.io/
 [4]: https://github.com/sensu/sensu-go-chef
-[7]: http://learnpuppet.com/
+[7]: https://tailoredautomation.io/
 [12]: http://monitoringlove.sensu.io/chef
