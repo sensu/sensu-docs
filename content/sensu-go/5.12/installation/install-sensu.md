@@ -23,6 +23,7 @@ Sensu downloads are provided under the [Sensu License][13]; see the [supported p
 ### Architecture overview
 
 <img src="/images/install-sensu.svg" alt="Sensu architecture diagram">
+<!-- Diagram source: https://www.lucidchart.com/documents/edit/3949dde6-1bad-4f37-aa01-00a71c47a91b/0 -->
 
 Powered by an an embedded transport and [etcd][16] datastore, the **Sensu backend** gives you flexible, automated workflows to route metrics and alerts.
 Sensu backends require persistent storage for their embedded database, disk space for local asset caching, and three exposed ports:
