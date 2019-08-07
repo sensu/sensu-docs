@@ -10,7 +10,7 @@ menu:
     parent: installation
 ---
 
-Sensu's functionality can be extended through the use of plugins.
+Sensu's functionality can be extended through the use of [plugins](/plugins/latest/reference).
 Plugins can provide executables for performing status or metric checks, mutators for changing data to a desired format, or handlers for performing an action on a Sensu event.
 
 ## Installing plugins using Bonsai, the Sensu asset index

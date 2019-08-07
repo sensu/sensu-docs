@@ -436,5 +436,5 @@ You may also want to re-install the `sensu-install` tool using the [`sensu-plugi
 [70]: /sensu-go/latest/reference/agent/#creating-monitoring-events-using-the-agent-tcp-and-udp-sockets
 [71]: /sensu-go/latest/reference/rbac/#resources
 [72]: /sensu-go/latest/reference/assets/#sharing-an-asset-on-bonsai
-[100]: /sensu-go/latest/guide/contact-routing
+[100]: /sensu-go/latest/guides/contact-routing
 [101]: /sensu-go/latest/dashboard/filtering
