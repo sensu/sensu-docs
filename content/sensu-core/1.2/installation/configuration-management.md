@@ -19,7 +19,7 @@ The following configuration management tools have well-defined Sensu modules to 
 
 ### Puppet
 The [Puppet][1] Sensu module can be found on the [Puppet Forge][2].
-Sensu has [partnered][8] with [Learn Puppet][7] to enhance the Puppet module with new features, bug fixes, and ensure Sensu 2.0 has a supported [Puppet module][9].
+Sensu has [partnered][8] with [Tailored Automation][7] to enhance the Puppet module with new features, bug fixes, and ensure Sensu 2.0 has a supported [Puppet module][9].
 
 ### Chef
 The [Chef][3] cookbook for Sensu can be found on the [Chef Supermarket][4]. Interested in more information on Sensu + Chef? Get some helpful assets [here][12].
@@ -37,7 +37,7 @@ The [SaltStack][10] formula for Sensu can be found at [SaltStack][11]
 [4]: https://supermarket.chef.io/cookbooks/sensu
 [5]: https://www.ansible.com/
 [6]: https://galaxy.ansible.com/sensu/sensu/
-[7]: http://learnpuppet.com/
+[7]: https://tailoredautomation.io/
 [8]: https://blog.sensuapp.org/a-better-experience-for-sensu-puppet-users-a1f9cf1ab46
 [9]: https://github.com/sensu/sensu-puppet/issues/901
 [10]: https://saltstack.com/

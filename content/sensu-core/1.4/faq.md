@@ -4,6 +4,7 @@ description: "Sensu Frequently Asked Questions"
 version: "1.4"
 menu: "sensu-core-1.4"
 product: "Sensu Core"
+weight: 3
 ---
 
 # Sensu Frequently Asked Questions

@@ -14,7 +14,7 @@ menu:
 - [Upgrading from 5.0.0 or later](#upgrading-to-the-latest-version-of-sensu-go-from-5-0-0-or-later)
 - [Upgrading Sensu clusters from 5.7.0 or earlier to 5.8.0 or later](#upgrading-sensu-clusters-from-5-7-0-or-earlier-to-5-8-0-or-later)
 - [Upgrading Sensu backend binaries to 5.1.0](#upgrading-sensu-backend-binaries-to-5-1-0)
-- [Upgrading from 1.x or later](#upgrading-to-sensu-go-from-sensu-core-1-x)
+- [Upgrading from 1.x or later](/sensu-core/latest/migration)
 
 ## Upgrading to the latest version of Sensu Go from 5.0.0 or later
 
@@ -55,94 +55,6 @@ state-dir: "/var/lib/sensu"
 {{< /highlight >}}
 
 Then restart the backend.
-
-## Migrating to Sensu Go from Sensu Core 1.x {#upgrading-to-sensu-go-from-sensu-core-1-x}
-
-This guide provides general information for migrating your Sensu instance from [Sensu Core 1.x][19] to Sensu Go 5.0.
-For instructions and tools to help you translate your Sensu configuration from Sensu Core 1.x to Sensu Go, see the following resources.
-
-- [Sensu translator project][18]
-- [Jef Spaleta - Check configuration upgrades with the Sensu Go sandbox][25]
-
-Sensu Go includes important changes to all parts of Sensu: architecture, installation, resource definitions, event data model, check dependencies, filter evaluation, and more.
-Sensu Go also includes a lot of powerful features to make monitoring easier to build, scale, and offer as a self-service tool to your internal customers.
-
-- [Packaging](#packaging)
-- [Architecture](#architecture)
-- [Entities](#entities)
-- [Checks](#checks)
-- [Events](#events)
-- [Handlers](#handlers)
-- [Filters](#filters)
-- [Assets](#assets)
-- [Role-based access control](#role-based-access-control)
-- [Silencing](#silencing)
-- [Token substitution](#token-substitution)
-- [Aggregates](#aggregates)
-- [API](#api)
-- [Custom attributes](#custom-attributes)
-
-### Packaging
-Sensu is now provided as three packages: sensu-go-backend, sensu-go-agent, and sensu-go-cli (sensuctl).
-This results in a fundamental change in Sensu terminology from Sensu Core 1.x: the server is now the backend; the client is now the agent.
-To learn more about new terminology in Sensu Go, see the [glossary][1].
-
-### Architecture
-The external RabbitMQ transport and Redis datastore in Sensu Core 1.x have been replaced with an embedded transport and [etcd datastore][2] in Sensu Go.
-The Sensu backend and agent are configured using YAML files or using the `sensu-backend` or `sensu-agent` command-line tools, instead of using JSON files.
-Sensu checks and pipeline elements are now configured via the API or sensuctl tool instead of JSON files.
-See the [backend][3], [agent][4], and [sensuctl][5] reference docs for more information. 
-
-### Entities
-“Clients” are now represented within Sensu Go as abstract “entities” that can describe a wider range of system components (network gear, web server, cloud resource, etc.)
-Entities include “agent entities” (entities running a Sensu agent) and familiar “proxy entities”.
-See the [entity reference][6] and the guide to [monitoring external resources][7] for more information.
-
-### Checks
-Standalone checks are no longer supported in Sensu Go, although [similar functionality can be achieved using role-based access control, assets, and entity subscriptions][26].
-There are also a few changes to check definitions to be aware of. The `stdin` check attribute is no longer supported in Sensu Go, and Sensu Go no longer tries to run a "default" handler when executing a check without a specified handler. Additionally, check subdues are not yet available in Sensu Go.
-
-[Check hooks][8] are now a resource type in Sensu Go, meaning that hooks can be created, managed, and reused independently of check definitions.
-You can also execute multiple hooks for any given response code.
-
-### Events
-All check results are now considered events and are processed by event handlers.
-You can use the built-in [incidents filter][9] to recreate the Sensu Core 1.x behavior in which only check results with a non-zero status are considered events.
-
-### Handlers
-Transport handlers are no longer supported by Sensu Go, but you can create similar functionality using a pipe handler that connects to a message bus and injects event data into a queue.
-
-### Filters
-Ruby eval logic has been replaced with JavaScript expressions in Sensu Go, opening up powerful possibilities to filter events based on occurrences and other event attributes.
-As a result, the built-in occurrences filter in Sensu Core 1.x is not provided in Sensu Go, but you can replicate its functionality using [this filter definition][10].
-Sensu Go includes three [new built-in filters][11]: only-incidents, only-metrics, and allow-silencing.
-Sensu Go does not yet include a built-in check dependencies filter or a filter-when feature.
-
-### Assets
-The sensu-install tool has been replaced in Sensu Go by [assets][12], shareable, reusable packages that make it easy to deploy Sensu plugins.
-[Sensu Plugins][21] in Ruby can still be installed via sensu-install by installing [sensu-plugins-ruby][20]; see the [installing plugins guide][22] for more information.
-
-### Role-based access control
-Role-based access control (RBAC) is a built-in feature of the open-source version of Sensu Go.
-RBAC allows management and access of users and resources based on namespaces, groups, roles, and bindings.
-To learn more about setting up RBAC in Sensu Go, see the [RBAC reference][13] and the [guide to creating a read-only user][14].
-
-### Silencing
-Silencing is now disabled by default in Sensu Go and must be enabled explicitly using the built-in [`not_silenced` filter][15].
-
-### Token substitution
-The syntax for using token substitution has changed from using triple colons to using [double curly braces][16].
-
-### Aggregates
-Check aggregates are supported through the [license-activated][27] [Sensu Go Aggregate Check Plugin][28].
-
-### API
-In addition to the changes to resource definitions, Sensu Go includes a new, versioned API. See the [API overview][17] for more information.
-
-### Custom attributes
-Custom check attributes are no longer supported in Sensu Go.
-Instead, Sensu Go provides the ability to add custom labels and annotations to entities, checks, assets, hooks, filters, mutators, handlers, and silences.
-See the metadata attributes section in the reference documentation for more information about using labels and annotations (for example: [metadata attributes for entities][24]).
 
 [1]: ../../getting-started/glossary
 [2]: https://github.com/etcd-io/etcd/tree/master/Documentation
