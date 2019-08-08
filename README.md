@@ -68,7 +68,7 @@ Here are some things you might try if you encounter an issue working with the si
 This project uses a [fork](themes/hugo-material-docs/) of the wonderful [hugo-material-docs](https://github.com/digitalcraftsman/hugo-material-docs) theme.
 
 ### Deploying the site
-Any time changes are merged to the `master` branch, this project is automatically deployed to [docs.sensu.io][site] using Heroku's own Github integration. For additional details on Heroku configuration and deployment, see [our wiki page](https://github.com/sensu/sensu-docs/wiki/Heroku-Configuration-and-Publishing).
+Whenever changes are merged to the `master` branch, this project is automatically deployed to [docs.sensu.io][site]. For additional details on Heroku configuration and deployment, see [our wiki page](https://github.com/sensu/sensu-docs/wiki/Heroku-Configuration-and-Publishing).
 
 [slack]: http://slack.sensu.io
 [wiki]: https://github.com/sensu/sensu-docs/wiki/Sensu-docs-style-guide
