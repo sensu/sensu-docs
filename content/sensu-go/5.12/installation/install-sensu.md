@@ -15,14 +15,15 @@ If you’re trying out Sensu for the first time, we recommend setting up a local
 If you’re deploying Sensu to your infrastructure, we recommend one of our supported packages, Docker images, or [configuration management integrations][15].
 Sensu downloads are provided under the [Sensu License][13]; see the [supported platforms page][5] for more information.
 
-- [Install sensuctl](#install-sensuctl)
 - [Install the Sensu backend](#install-the-sensu-backend)
+- [Install sensuctl](#install-sensuctl)
 - [Install Sensu agents](#install-sensu-agents)
 - [Activate licensed-tier features](#activate-licensed-tier-features)
 
 ### Architecture overview
 
 <img src="/images/install-sensu.svg" alt="Sensu architecture diagram">
+<!-- Diagram source: https://www.lucidchart.com/documents/edit/3949dde6-1bad-4f37-aa01-00a71c47a91b/0 -->
 
 Powered by an an embedded transport and [etcd][16] datastore, the **Sensu backend** gives you flexible, automated workflows to route metrics and alerts.
 Sensu backends require persistent storage for their embedded database, disk space for local asset caching, and three exposed ports:
@@ -38,66 +39,6 @@ See the [deployment guide][deploy] and [hardware requirements][hardware] guide f
 Agents register automatically with Sensu as entities and are responsible for creating check and metric events to send to the backend event pipeline.
 Optionally, agents can expose ports `3031` for the [agent API][27] and `8125` for the [StatsD listener][28].
 Agents using Sensu [assets][17] require some disk space for a local cache.
-
-### Install sensuctl
-
-Sensuctl is a command line tool for managing resources within Sensu. It works by calling Sensu’s HTTP API to create, read, update, and delete resources, events, and entities. Sensuctl is available for Linux, Windows, and macOS.
-
-To install sensuctl:
-
-{{< language-toggle >}}
-
-{{< highlight "Ubuntu/Debian" >}}
-# Add the Sensu repository
-curl -s https://packagecloud.io/install/repositories/sensu/stable/script.deb.sh | sudo bash
-
-# Install the sensu-go-cli package
-sudo apt-get install sensu-go-cli
-{{< /highlight >}}
-
-{{< highlight "RHEL/CentOS" >}}
-# Add the Sensu repository
-curl https://packagecloud.io/install/repositories/sensu/stable/script.rpm.sh | sudo bash
-
-# Install the sensu-go-cli package
-sudo yum install sensu-go-cli
-{{< /highlight >}}
-
-{{< highlight "Windows" >}}
-# Download sensuctl for Windows amd64
-Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.12.0/sensu-enterprise-go_5.12.0_windows_amd64.zip  -OutFile C:\Users\Administrator\sensu-enterprise-go_5.12.0_windows_amd64.zip
-
-# Or for 386
-Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.12.0/sensu-enterprise-go_5.12.0_windows_386.zip  -OutFile C:\Users\Administrator\sensu-enterprise-go_5.12.0_windows_386.zip
-{{< /highlight >}}
-
-{{< highlight "macOS" >}}
-# Download the latest release
-curl -LO https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.12.0/sensu-enterprise-go_5.12.0_darwin_amd64.tar.gz
-
-# Extract the archive
-tar -xvf sensu-enterprise-go_5.12.0_darwin_amd64.tar.gz
-
-# Copy the executable into your PATH.
-sudo cp sensuctl /usr/local/bin/
-{{< /highlight >}}
-
-{{< /language-toggle >}}
-
-To start using sensuctl, run `sensuctl configure` and log in with your user credentials, namespace, and [Sensu backend][21] URL. To configure sensuctl using defaults:
-
-{{< highlight "shell" >}}
-sensuctl configure -n \
---username 'admin' \
---password 'P@ssw0rd!' \
---namespace default \
---url 'http://127.0.0.1:8080'
-{{< /highlight >}}
-
-Here the `-n` flag triggers non-interactive mode.
-Run `sensuctl config view` to see your user profile.
-We strongly recommend that you change the default admin password immediately using `sensuctl user change-password --interactive`.
-For more information about using sensuctl, see the [quickstart][23] and [reference][24] docs.
 
 ### Install the Sensu backend
 
@@ -214,7 +155,67 @@ You should see a response that includes `"Healthy": true`.
 curl http://127.0.0.1:8080/health
 {{< /highlight >}}
 
-Now that you've installed the Sensu backend, [configure sensuctl][sensuctl] to connect to your backend URL and start monitoring your infrastructure by [installing Sensu agents][agent].
+Now that you've installed the Sensu backend, [install and configure sensuctl][sensuctl] to connect to your backend URL and start monitoring your infrastructure by [installing Sensu agents][agent].
+
+### Install sensuctl
+
+Sensuctl is a command line tool for managing resources within Sensu. It works by calling Sensu’s HTTP API to create, read, update, and delete resources, events, and entities. Sensuctl is available for Linux, Windows, and macOS.
+
+To install sensuctl:
+
+{{< language-toggle >}}
+
+{{< highlight "Ubuntu/Debian" >}}
+# Add the Sensu repository
+curl -s https://packagecloud.io/install/repositories/sensu/stable/script.deb.sh | sudo bash
+
+# Install the sensu-go-cli package
+sudo apt-get install sensu-go-cli
+{{< /highlight >}}
+
+{{< highlight "RHEL/CentOS" >}}
+# Add the Sensu repository
+curl https://packagecloud.io/install/repositories/sensu/stable/script.rpm.sh | sudo bash
+
+# Install the sensu-go-cli package
+sudo yum install sensu-go-cli
+{{< /highlight >}}
+
+{{< highlight "Windows" >}}
+# Download sensuctl for Windows amd64
+Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.12.0/sensu-enterprise-go_5.12.0_windows_amd64.zip  -OutFile C:\Users\Administrator\sensu-enterprise-go_5.12.0_windows_amd64.zip
+
+# Or for 386
+Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.12.0/sensu-enterprise-go_5.12.0_windows_386.zip  -OutFile C:\Users\Administrator\sensu-enterprise-go_5.12.0_windows_386.zip
+{{< /highlight >}}
+
+{{< highlight "macOS" >}}
+# Download the latest release
+curl -LO https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.12.0/sensu-enterprise-go_5.12.0_darwin_amd64.tar.gz
+
+# Extract the archive
+tar -xvf sensu-enterprise-go_5.12.0_darwin_amd64.tar.gz
+
+# Copy the executable into your PATH.
+sudo cp sensuctl /usr/local/bin/
+{{< /highlight >}}
+
+{{< /language-toggle >}}
+
+To start using sensuctl, run `sensuctl configure` and log in with your user credentials, namespace, and [Sensu backend][21] URL. To configure sensuctl using defaults:
+
+{{< highlight "shell" >}}
+sensuctl configure -n \
+--username 'admin' \
+--password 'P@ssw0rd!' \
+--namespace default \
+--url 'http://127.0.0.1:8080'
+{{< /highlight >}}
+
+Here the `-n` flag triggers non-interactive mode.
+Run `sensuctl config view` to see your user profile.
+We strongly recommend that you change the default admin password immediately using `sensuctl user change-password --interactive`.
+For more information about using sensuctl, see the [quickstart][23] and [reference][24] docs.
 
 ### Install Sensu agents
 
