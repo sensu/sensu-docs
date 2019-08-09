@@ -83,7 +83,7 @@ Sensu filters can have assets that are included in their execution context.
 When valid assets are associated with a filter, Sensu evaluates any
 files it finds that have a ".js" extension before executing a filter. The
 result of evaluating the scripts is cached for a given asset set, for the
-sake of performance.
+sake of performance. For an example of how to implement a filter as an asset, see the [guide on reducing alert fatigue][alert-fatigue].
 
 ## Built-in filters
 
@@ -384,10 +384,6 @@ For more information about event attributes, see the [event reference][28].
 `event.entity.system.platform_family`  | string  | The entity’s operating system family
 `event.entity.system.platform_version` | string  | The entity’s operating system version
 `event.entity.user`                    | string  | Sensu [RBAC][25] username used by the agent entity
-
-### Filter Assets
-
-In addition to writing custom filter expressions, filters are also available as [assets][17]. For an example of how to implement a filter as an asset, see the [guide on reducing alert fatigue][alert-fatigue].
 
 ## Filter specification
 
