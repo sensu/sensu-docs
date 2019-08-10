@@ -39,7 +39,7 @@ cache and ensure the contents match the configured checksum. The backend or agen
 be set using the `--cache-dir` flag.
 You can disable assets for an agent using the agent `disable-assets` [configuration flag][30].
 
-You can find use case of a Sensu resource (a check) and an asset in this [example asset with a check][31].
+You can find a use case using a Sensu resource (a check) and an asset in this [example asset with a check][31].
 
 ## Asset format specification
 
