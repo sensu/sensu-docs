@@ -293,7 +293,7 @@ spec:
 
 {{< /language-toggle >}}
 
-### Example Asset with a Check
+### Example asset with a check
 
 {{< language-toggle >}}
 
