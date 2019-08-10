@@ -317,10 +317,10 @@ metadata:
   namespace: default
 spec:
   command: "sensu-prometheus-collector -prom-url http://localhost:9090 -prom-query up"
-  handlers:
-  - influxdb
   interval: 10
   publish: true
+  output_metric_handlers:
+  - influxdb
   output_metric_format: influxdb_line
   runtime_assets:
   - sensu-prometheus-collector_linux_amd64
