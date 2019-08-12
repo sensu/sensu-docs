@@ -34,6 +34,7 @@ Here's a quick overview of the configuration we'll need to set up contact routin
 You can see that the check definition includes the `contacts: dev` label, resulting in an alert being sent to the dev team, but not to the ops team or to the fallback contact.
 
 <a href="/images/contact-routing1.svg"><img src="/images/contact-routing1.svg" alt="Diagram showing an event being generated with a check label, matched to the dev team's handler using a contact filter, and routed to the dev team's Slack channel"></a>
+<!-- Diagram source: https://www.lucidchart.com/documents/edit/f66c930f-295d-458c-bde3-4e55edd9b2e8/0 -->
 
 <p style="text-align:center"><i>Sensu Go contact routing: Routing alerts to the ops team using a check label</i></p>
 
@@ -303,7 +304,8 @@ spec:
 
 When the `check_cpu` check generates an incident, Sensu filters the event according to the `contact_ops` and `contact_dev` filters, resulting in an alert sent to #alert-ops and #alert-dev.
 
-<a href"/images/contact-routing2.svg"><img src="/images/contact-routing2.svg" alt="Diagram showing an event being generated with a check label for the dev and ops teams, matched to the dev team and ops team handlers using contact filters, and routed to the Slack channels for dev and ops"></a>
+<a href="/images/contact-routing2.svg"><img src="/images/contact-routing2.svg" alt="Diagram showing an event being generated with a check label for the dev and ops teams, matched to the dev team and ops team handlers using contact filters, and routed to the Slack channels for dev and ops"></a>
+<!-- Diagram source: https://www.lucidchart.com/documents/edit/3cbd2ad3-92ed-48cc-bbaa-a97f53dae1ba -->
 
 <p style="text-align:center"><i>Sensu Go contact routing: Routing alerts to two contacts using a check label</i></p>
 
@@ -316,6 +318,7 @@ In the case that contact labels are present in both the check and entity, the ch
 Here we can see that the `dev` label in the check configuration overrides the `ops` label in the agent definition, resulting in an alert sent to #alert-dev but not to #alert-ops or #alert-all.
 
 <a href="/images/contact-routing3.svg"><img src="/images/contact-routing3.svg" alt="Diagram showing that check labels override entity labels when both are present in an event"></a>
+<!-- Diagram source: https://www.lucidchart.com/documents/edit/da41741f-15c5-47f8-b2b4-9197593a67d8/0 -->
 
 <p style="text-align:center"><i>Sensu Go contact routing: Check contacts take precedence over entity contacts</i></p>
 
@@ -326,7 +329,7 @@ For more tools to reduce alert fatigue, see the [guide][11].
 
 [0]: https://bonsai.sensu.io/assets/sensu/sensu-go-has-contact-filter
 [1]: ../../installation/install-sensu#install-the-sensu-backend
-[2]: ../../installation/install-sensu#install-the-sensu-agent
+[2]: ../../installation/install-sensu#install-sensu-agents
 [3]: ../../installation/install-sensu#install-sensuctl
 [4]: ../../sensuctl/reference#first-time-setup
 [5]: https://curl.haxx.se/

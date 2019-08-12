@@ -555,7 +555,7 @@ metadata:
 spec:
   action: allow
   expressions:
-  - event.entity.labels.environment == 'production'
+  - event.entity.labels['environment'] == 'production'
 {{< /highlight >}}
 
 {{< highlight json >}}
@@ -569,7 +569,7 @@ spec:
   "spec": {
     "action": "allow",
     "expressions": [
-      "event.entity.labels.environment == 'production'"
+      "event.entity.labels['environment'] == 'production'"
     ]
   }
 }
@@ -594,7 +594,7 @@ metadata:
 spec:
   action: deny
   expressions:
-  - event.entity.labels.environment == 'production'
+  - event.entity.labels['environment'] == 'production'
 {{< /highlight >}}
 
 {{< highlight json >}}
@@ -608,7 +608,7 @@ spec:
   "spec": {
     "action": "deny",
     "expressions": [
-      "event.entity.labels.environment == 'production'"
+      "event.entity.labels['environment'] == 'production'"
     ]
   }
 }
