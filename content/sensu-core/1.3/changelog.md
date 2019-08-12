@@ -4,6 +4,7 @@ description: "Release notes for Sensu Core"
 product: "Sensu Core"
 version: "1.3"
 menu: "sensu-core-1.3"
+weight: 2
 ---
 
 ## Releases
