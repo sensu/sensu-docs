@@ -187,6 +187,7 @@ Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.12.0/se
 
 # Or for 386
 Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.12.0/sensu-enterprise-go_5.12.0_windows_386.zip  -OutFile C:\Users\Administrator\sensu-enterprise-go_5.12.0_windows_386.zip
+{{< /highlight >}}
 
 {{< highlight "macOS" >}}
 # Download the latest release
