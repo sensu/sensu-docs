@@ -35,7 +35,7 @@ assets that appear in the `runtime_assets` attribute of the handler, filter, mut
 and stores them in the backend or agent's local cache. The location of each asset defined in `runtime_assets`
 is then injected into the `PATH` before handler, filter, mutator or check is executed.
 Subsequent handler, filter, mutator or check executions look for the asset in the local
-cache and ensure the contents match the configured checksum. The backend or agent's local cache can
+cache and ensure the contents match the configured checksum. The backend or agent's local cache path can
 be set using the `--cache-dir` flag.
 You can disable assets for an agent using the agent `disable-assets` [configuration flag][30].
 
