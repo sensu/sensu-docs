@@ -16,6 +16,7 @@ menu:
 - [Creating resources](#creating-resources)
 - [Deleting resources](#deleting-resources)
 - [Updating resources](#updating-resources)
+- [Exporting resources](#exporting-resources)
 - [Managing resources](#managing-resources)
 - [Filtering](#filtering) (licensed tier)
 - [Time formats](#time-formats)
@@ -375,6 +376,30 @@ sensuctl edit handler slack
 `handler` | `hook` | `mutator` | `namespace`
 `role` | `role-binding` | `silenced` | `user`
 [`auth`][26] | | |
+
+## Exporting resources
+
+The `sensuctl dump` command allows you to export your resources to standard out or to a file. You can choose to export all of your resources or a subset of them based on a list of resource types. The `dump` command supports exporting in `wrapped-json` and `yaml`.
+
+_NOTE: When exporting users, the passwords for those users will not be displayed or end up in the resulting file. Operators must reset the password prior to using it with `sensuctl create`._
+
+For example, to export all resources to a file named `my-resources.yaml` in `yaml` format:
+
+{{< highlight shell >}}
+sensuctl dump all --format yaml --file my-resources.yaml
+{{< /highlight >}}
+
+To export only checks to standard out in `yaml` format:
+
+{{< highlight shell >}}
+sensuctl dump check --format yaml
+{{< /highlight >}}
+
+To export only handlers and filters to a file named `my-handlers-and-filters.yaml` in `yaml` format:
+
+{{< highlight shell >}}
+sensuctl dump handler,filter --format yaml --file my-handlers-and-filters.yaml
+{{< /highlight >}}
 
 ## Managing resources
 
