@@ -105,7 +105,7 @@ example      | {{< highlight shell >}}type: PostgresConfig{{< /highlight >}}
 
 api_version  |      |
 -------------|------
-description  | Top-level attribute specifying the Sensu API group and version. For PostgreSQL datastore configs in Sensu backend version 5.11, this attribute should always be `store/v1`.
+description  | Top-level attribute specifying the Sensu API group and version. For PostgreSQL datastore configs, this attribute should be `store/v1`.
 required     | true
 type         | String
 example      | {{< highlight shell >}}api_version: store/v1{{< /highlight >}}
