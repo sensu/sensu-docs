@@ -381,7 +381,7 @@ sensuctl edit handler slack
 
 The `sensuctl dump` command allows you to export your resources to standard out or to a file. You can choose to export all of your resources or a subset of them based on a list of resource types. The `dump` command supports exporting in `wrapped-json` and `yaml`.
 
-_NOTE: When exporting users, the passwords for those users will not be displayed or end up in the resulting file. Operators must reset the password prior to using it with `sensuctl create`._
+_NOTE: Passwords are not included when exporting users. Operators must add the `password` attribute to any exported user resources before they can be used with `sensuctl create`._
 
 For example, to export all resources to a file named `my-resources.yaml` in `yaml` format:
 
