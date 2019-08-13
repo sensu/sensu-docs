@@ -33,7 +33,7 @@ Assets can be executed by the backend (for handler, filter, and mutator assets),
 by the agent (for check assets). At runtime, the backend or agent sequentially fetches
 assets that appear in the `runtime_assets` attribute of the handler, filter, mutator or check
 and stores them in the backend or agent's local cache. The location of each asset defined in `runtime_assets`
-is then injected into the `PATH` before handler, filter, mutator or check is executed.
+is then injected into the `PATH` before the handler, filter, mutator or check `command` is executed.
 Subsequent handler, filter, mutator or check executions look for the asset in the local
 cache and ensure the contents match the configured checksum. The backend or agent's local cache path can
 be set using the `--cache-dir` flag.
