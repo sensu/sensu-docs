@@ -30,13 +30,12 @@ _NOTE: Assets are not required to use Sensu Go in production. Sensu plugins can 
 
 ## How do assets work?
 Assets can be executed by the backend (for handler, filter, and mutator assets), or
-by the agent (for check assets). At runtime, the backend or agent sequentially fetches
-assets that appear in the `runtime_assets` attribute of the handler, filter, mutator or check being executed,
-verifies the sha512 checksum, and unpacks them into the backend or agent's local cache directory. The location of each asset defined in `runtime_assets`
-is then injected into the `PATH` before the handler, filter, mutator or check `command` is executed.
+by the agent (for check assets).
+At runtime, the backend or agent sequentially fetches assets that appear in the `runtime_assets` attribute of the handler, filter, mutator or check being executed, verifies the sha512 checksum, and unpacks them into the backend or agent's local cache directory.
+The directory path of each asset defined in `runtime_assets` is then injected into the `PATH` before the handler, filter, mutator or check `command` is executed.
 Subsequent handler, filter, mutator or check executions look for the asset in the local
-cache and ensure the contents match the configured checksum. The backend or agent's local cache path can
-be set using the `--cache-dir` flag.
+cache and ensure the contents match the configured checksum.
+The backend or agent's local cache path can be set using the `--cache-dir` flag.
 You can disable assets for an agent using the agent `--disable-assets` [configuration flag][30].
 
 You can find a use case using a Sensu resource (a check) and an asset in this [example asset with a check][31].
