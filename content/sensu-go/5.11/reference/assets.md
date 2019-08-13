@@ -37,7 +37,7 @@ is then injected into the `PATH` before the handler, filter, mutator or check `c
 Subsequent handler, filter, mutator or check executions look for the asset in the local
 cache and ensure the contents match the configured checksum. The backend or agent's local cache path can
 be set using the `--cache-dir` flag.
-You can disable assets for an agent using the agent `disable-assets` [configuration flag][30].
+You can disable assets for an agent using the agent `--disable-assets` [configuration flag][30].
 
 You can find a use case using a Sensu resource (a check) and an asset in this [example asset with a check][31].
 
