@@ -84,6 +84,19 @@ The embedded etcd databases of multiple Sensu backend instances can be joined to
 
 Clustering requires an odd number of backend instances. While larger clusters provide better fault tolerance, write performance suffers because data must be replicated across more machines. Following on the advice of the etcd maintainers, clusters of 3, 5 or 7 backends are the only recommended sizes. See the [etcd docs][4] for more info.
 
+#### Scaling cluster performance with Postgres
+
+To achieve the high rate of event processing required by many enterprises, Sensu offers support for Postgres event storage as a licensed feature. See the [Datastore reference documentation][8] for details on configuring the Sensu backend to use Postgres for event storage.
+
+<div style="text-align:center">
+<img alt="Sensu Clustered Architecture" title="Clustered Sensu Go Backend with Embedded etcd and Postgres event storage." src="/images/clustered_architecture_postgres.svg" width="800 px">
+</div>
+<!-- Diagram source: https://www.lucidchart.com/documents/edit/475f950e-2770-4bf7-af73-57bc834cebdd/1 -->
+
+<p style="text-align:center"><i>Sensu clustered architecture with embedded etcd and Postgres event storage</i></p>
+
+In load testing Sensu Go has proven capable of processing 36,000 events per second when using Postgres as the event store. See the [sensu-perf project repository](https://github.com/sensu/sensu-perf) for detailed explanation of our testing methodology and results.
+
 #### Cluster creation and maintenance
 
 Sensu's embedded etcd supports initial cluster creation via a static list of peer URLs. Once the cluster is created, members can be added or removed using etcdctl tooling. See our [clustering guide][7] and the [etcd docs][4] for more info.
@@ -109,3 +122,4 @@ Conversely, the sensuctl command-line utility cannot be configured with multiple
 [5]: https://github.com/etcd-io/etcd/blob/master/Documentation/op-guide/security.md
 [6]: ../../guides/securing-sensu/
 [7]: ../../guides/clustering/
+[8]: ../../reference/datastore

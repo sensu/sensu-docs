@@ -26,14 +26,17 @@ Assets are shareable, reusable packages that make it easy to deploy Sensu [plugi
 You can use assets to provide the plugins, libraries, and runtimes you need to automate your monitoring workflows.
 Sensu supports runtime assets for [checks][6], [filters][7], [mutators][8], and [handlers][9].
 
+_NOTE: Assets are not required to use Sensu Go in production. Sensu plugins can still be installed using the [sensu-install][32] tool or a [configuration management][33] solution._
+
 ## How do assets work?
 Assets can be executed by the backend (for handler, filter, and mutator assets), or
-by the agent (for check assets). At runtime, the entity sequentially fetches
-assets and stores them in its local cache. Asset dependencies are then
-injected into the `PATH` so they are available when the command is executed.
-Subsequent check, handler, filter, or mutator executions look for the asset in the local
-cache and ensure the contents match the checksum. The backend or agent's local cache can
-be set using the `--cache-dir` flag.
+by the agent (for check assets).
+At runtime, the backend or agent sequentially fetches assets that appear in the `runtime_assets` attribute of the handler, filter, mutator or check being executed, verifies the sha512 checksum, and unpacks them into the backend or agent's local cache directory.
+The directory path of each asset defined in `runtime_assets` is then injected into the `PATH` before the handler, filter, mutator or check `command` is executed.
+Subsequent handler, filter, mutator or check executions look for the asset in the local cache and ensure the contents match the configured checksum.
+The backend or agent's local cache path can be set using the `--cache-dir` flag.
+
+You can find a use case using a Sensu resource (a check) and an asset in this [example asset with a check][31].
 
 ## Asset format specification
 
@@ -265,6 +268,84 @@ spec:
 
 {{< /language-toggle >}}
 
+### Example asset with a check
+
+{{< language-toggle >}}
+
+{{< highlight yml >}}
+---
+type: Asset
+api_version: core/v2
+metadata:
+  name: sensu-prometheus-collector_linux_amd64
+spec:
+  url: https://assets.bonsai.sensu.io/ef812286f59de36a40e51178024b81c69666e1b7/sensu-prometheus-collector_1.1.6_linux_amd64.tar.gz
+  sha512: a70056ca02662fbf2999460f6be93f174c7e09c5a8b12efc7cc42ce1ccb5570ee0f328a2dd8223f506df3b5972f7f521728f7bdd6abf9f6ca2234d690aeb3808
+  filters:
+  - entity.system.os == 'linux'
+  - entity.system.arch == 'amd64'
+---
+type: CheckConfig
+api_version: core/v2
+metadata:
+  name: prometheus_collector
+  namespace: default
+spec:
+  command: "sensu-prometheus-collector -prom-url http://localhost:9090 -prom-query up"
+  interval: 10
+  publish: true
+  output_metric_handlers:
+  - influxdb
+  output_metric_format: influxdb_line
+  runtime_assets:
+  - sensu-prometheus-collector_linux_amd64
+  subscriptions:
+  - system
+{{< /highlight >}}
+
+{{< highlight wrapped-json >}}
+{
+  "type": "Asset",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "sensu-email-handler_linux_amd64"
+  },
+  "spec": {
+    "url": "https://assets.bonsai.sensu.io/45eaac0851501a19475a94016a4f8f9688a280f6/sensu-email-handler_0.2.0_linux_amd64.tar.gz",
+    "sha512": "d69df76612b74acd64aef8eed2ae10d985f6073f9b014c8115b7896ed86786128c20249fd370f30672bf9a11b041a99adb05e3a23342d3ad80d0c346ec23a946",
+    "filters": [
+      "entity.system.os == 'linux'",
+      "entity.system.arch == 'amd64'"
+    ]
+  }
+}
+{
+  "type": "CheckConfig",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "prometheus_collector",
+    "namespace": "default"
+  },
+  "spec": {
+    "command": "sensu-prometheus-collector -prom-url http://localhost:9090 -prom-query up",
+    "handlers": [
+    "influxdb"
+    ],
+    "interval": 10,
+    "publish": true,
+    "output_metric_format": "influxdb_line",
+    "runtime_assets": [
+      "sensu-prometheus-collector_linux_amd64"
+    ],
+    "subscriptions": [
+      "system"
+    ]
+  }
+}
+{{< /highlight >}}
+
+{{< /language-toggle >}}
+
 ## Sharing an asset on Bonsai
 
 Share your open-source assets on [Bonsai][16] and connect with the Sensu Community.
@@ -384,3 +465,6 @@ example      | {{< highlight yml >}}
 [23]: ../../guides/install-check-executables-with-assets
 [28]: https://github.com/sensu/sensu-go-plugin
 [29]: /plugins/latest/reference/
+[31]: #example-asset-with-a-check
+[32]: ../../installation/plugins/#installing-plugins-using-the-sensu-install-tool
+[33]: ../../installation/configuration-management/
