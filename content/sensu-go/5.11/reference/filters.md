@@ -83,7 +83,7 @@ Sensu filters can have assets that are included in their execution context.
 When valid assets are associated with a filter, Sensu evaluates any
 files it finds that have a ".js" extension before executing a filter. The
 result of evaluating the scripts is cached for a given asset set, for the
-sake of performance.
+sake of performance.  For an example of how to implement a filter as an asset, see the [guide on reducing alert fatigue][alert-fatigue].
 
 ## Built-in filters
 
@@ -884,3 +884,4 @@ spec:
 [api-filter]: ../../api/overview#filtering
 [sensuctl-filter]: ../../sensuctl/reference#filtering
 [29]: ../events#occurrences-and-occurrences-watermark
+[alert-fatigue]: ../../guides/reduce-alert-fatigue/
