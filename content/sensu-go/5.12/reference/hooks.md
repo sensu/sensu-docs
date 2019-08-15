@@ -257,6 +257,7 @@ spec:
   command: ps aux
   stdin: false
   timeout: 60
+  runtime_assets: null
 {{< /highlight >}}
 
 {{< highlight json >}}
@@ -272,7 +273,8 @@ spec:
   "spec": {
     "command": "ps aux",
     "timeout": 60,
-    "stdin": false
+    "stdin": false,
+    "runtime_assets": null
   }
 }
 {{< /highlight >}}
