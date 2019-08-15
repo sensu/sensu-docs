@@ -144,6 +144,13 @@ type         | Boolean
 default      | false
 example      | {{< highlight shell >}}"stdin": true{{< /highlight >}}
 
+|runtime_assets |   |
+-------------|------
+description  | An array of [Sensu assets][5] (names), required at runtime for the execution of the `command`
+required     | false
+type         | Array
+example      | {{< highlight shell >}}"runtime_assets": ["log-context"]{{< /highlight >}}
+
 ### Metadata attributes
 
 | name       |      |
@@ -276,6 +283,7 @@ spec:
 [2]: #metadata-attributes
 [3]: ../rbac#namespaces
 [4]: ../filters
+[5]: ../assets
 [6]: ../checks#check-hooks-attribute
 [sc]: ../../sensuctl/reference#creating-resources
 [sp]: #spec-attributes
