@@ -259,12 +259,12 @@ Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.12.0/se
 # Or for Windows 386
 Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.12.0/sensu-go-agent_5.12.0_2380_en-US.x86.msi  -OutFile "$env:userprofile\sensu-go-agent_5.12.0.4171_en-US.x86.msi"
 
-# Or via Chocolatey
-choco install sensu-agent
-
 # Install the Sensu agent
 msiexec.exe /i $env:userprofile\sensu-go-agent_5.12.0.4171_en-US.x64.msi /qn
 {{< /highlight >}}
+
+# Or via Chocolatey
+choco install sensu-agent
 
 {{< /language-toggle >}}
 
