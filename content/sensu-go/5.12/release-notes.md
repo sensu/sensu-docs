@@ -346,7 +346,7 @@ See the [upgrade guide][1] to upgrade Sensu to version 5.2.0.
 
 **IMPORTANT:**
 
-- Due to changes in the release process, Sensu binary-only archives are now named following the pattern `sensu-enterprise-go_5.2.0_$OS_$ARCH.tar.gz`, where $OS is the operating system name and $ARCH is the CPU architecture. These archives include all files in the top level directory. See the [installation guide][16] for the latest download links.
+- Due to changes in the release process, Sensu binary-only archives are now named following the pattern `sensu-go_5.2.0_$OS_$ARCH.tar.gz`, where $OS is the operating system name and $ARCH is the CPU architecture. These archives include all files in the top level directory. See the [installation guide][16] for the latest download links.
 
 **NEW FEATURES:**
 
