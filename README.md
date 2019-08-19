@@ -61,8 +61,7 @@ Then visit http://localhost:1313/ in the browser of your choice.
 Here are some things you might try if you encounter an issue working with the site:
 
 * Run `yarn hugo-version` to print the running version of Hugo. Version 0.56.1 or newer is required.
-* If you're seeing stale page content, try using `yarn server --disableFastRender` to ensure all pages are rebuilt as you make changes.
-* If you're still having trouble viewing the site, [open an issue](), and we'll be happy to help!
+* If you're still having trouble viewing the site, [open an issue][issue], and we'll be happy to help!
 
 ### Theme
 This project uses a [fork](themes/hugo-material-docs/) of the wonderful [hugo-material-docs](https://github.com/digitalcraftsman/hugo-material-docs) theme.

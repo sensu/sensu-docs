@@ -100,7 +100,7 @@ module.exports = function(grunt) {
     grunt.log.writeln("Running Hugo server");
     grunt.util.spawn({
       cmd: "hugo",
-      args: ["server", ...args] , // pass arguments down
+      args: ["server", "--disableFastRender", ...args] , // pass arguments down
       opts: {stdio: 'inherit'}
     },
       function(error, result, code) {
