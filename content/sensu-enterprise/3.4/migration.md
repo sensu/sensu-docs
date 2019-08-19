@@ -321,14 +321,13 @@ See the [guide to installing plugins with assets][45] to register assets with Se
 | ----------- | -------------- |
 Chef | https://bonsai.sensu.io/assets/sensu-plugins/sensu-plugins-chef
 Email | https://bonsai.sensu.io/assets/sensu/sensu-email-handler
-Graphite | https://bonsai.sensu.io/assets/asachs01/sensu-plugins-graphite<br>https://bonsai.sensu.io/assets/nixwiz/sensu-go-graphite-handler
+Graphite | https://bonsai.sensu.io/assets/nixwiz/sensu-go-graphite-handler
 InfluxDB | https://bonsai.sensu.io/assets/sensu/sensu-influxdb-handler
 IRC | https://bonsai.sensu.io/assets/sensu-utils/sensu-irc-handler
 JIRA | https://bonsai.sensu.io/assets/sensu/sensu-jira-handler
 PagerDuty | https://bonsai.sensu.io/assets/sensu/sensu-pagerduty-handler
 ServiceNow | https://bonsai.sensu.io/assets/sensu/sensu-servicenow-handler
 Slack | https://bonsai.sensu.io/assets/sensu/sensu-slack-handler
-SNMP | https://bonsai.sensu.io/assets/samroy92/sensu-plugins-snmp
 VictorOps | https://bonsai.sensu.io/assets/asachs01/sensu-plugins-victorops
 
 <!-- To add if available: -->
@@ -344,6 +343,7 @@ VictorOps | https://bonsai.sensu.io/assets/asachs01/sensu-plugins-victorops
 <!-- Librato | -->
 <!-- DataDog | -->
 <!-- TimescaleDB | -->
+<!-- SNMP Trap Sender | -->
 
 ### Contact routing
 
