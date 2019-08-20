@@ -1013,7 +1013,7 @@ password: "secure-password"{{< /highlight >}}
 
 | redact      |      |
 --------------|------
-description   | List of fields to redact when logging and sending keepalives
+description   | List of fields to redact when displaying the entity _Note: Redacted secrets are sent via the websocket connection and are stored in etcd. They are not logged nor displayed via the Sensu API._
 type          | List
 default       | By default, Sensu redacts the following fields: `password`, `passwd`, `pass`, `api_key`, `api_token`, `access_key`, `secret_key`, `private_key`, `secret`
 example       | {{< highlight shell >}}# Command line example
