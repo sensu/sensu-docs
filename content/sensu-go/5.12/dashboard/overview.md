@@ -43,7 +43,7 @@ See the [role-based access control reference][3] for [default user credentials][
 The dashboard displays events, entities, checks, and silences for a single namespace at a time.
 By default, the dashboard displays the `default` namespace.
 To switch namespaces, select the menu icon in the upper-left corner, and choose a namespace from the dropdown.
-The namespaces listed will be limited to those that the user has access to.
+**LICENSED TIER**: The namespaces listed will be limited to those that the current user has access to.
 
 <img src="/images/dashboard-namespace-switcher.png" alt="Screenshot of the Sensu dashboard namespace switcher">
 
