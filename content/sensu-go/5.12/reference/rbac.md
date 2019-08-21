@@ -48,7 +48,7 @@ You can use [sensuctl][2] to view all namespaces within Sensu:
 sensuctl namespace list
 {{< /highlight >}}
 
-_Note: If logged in with a non Admin user, `sensuctl namespace list` will list only the available namespaces that the user has access to._
+_Note: If logged in with a non-admin user, `sensuctl namespace list` will list only the available namespaces that the user has access to._
 
 ### Creating a namespace
 
