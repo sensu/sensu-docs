@@ -124,6 +124,8 @@ sudo cp sensuctl /usr/local/bin/
 
 {{< platformBlockClose >}}
 
+{{< platformBlock "FreeBSD" >}}
+
 ### FreeBSD
 
 Sensu binary-only distributions for FreeBSD are available for these architectures and formats:
