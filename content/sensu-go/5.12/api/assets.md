@@ -208,22 +208,5 @@ The Sensu Go HTTP API provides the ability to delete an asset. Note that this do
 description     | Deletes a Sensu asset.
 example URL     | http://hostname:8080/api/core/v2/namespaces/default/assets/my-secure-asset
 response codes  | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-output          |{{< highlight shell >}}
-{
-  "url": "https://asset-url.tar.gz",
-  "sha512": "xxxxxxxxxxxxxxxxxxxxx",
-  "filters": {
-    "entity.system.os": "linux",
-    "entity.system.arch": "amd64"
-  },
-  "headers": {
-    "Authorization": "Bearer $TOKEN",
-    "X-Forwarded-For": "client1, proxy1, proxy2"
-  },
-  "metadata": {
-    "name": "my-secure-asset",
-    "namespace": "default"
-  }
-}
-{{< /highlight >}}
+
 [1]: ../../reference/assets
