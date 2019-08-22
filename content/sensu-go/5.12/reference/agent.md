@@ -794,8 +794,7 @@ config-file: "/sensu/agent.yml"{{< /highlight >}}
 
 | disable-assets |      |
 --------------|------
-description   | When set to `true`, disables [assets][] for the agent. In the event that an agent
-attempts to execute a check that requires an asset, the agent will respond with a status of `3`, and a message indicating that the agent could not execute the check because assets are disabled.
+description   | When set to `true`, disables [assets][29] for the agent. In the event that an agent attempts to execute a check that requires an asset, the agent will respond with a status of `3`, and a message indicating that the agent could not execute the check because assets are disabled.
 type          | Boolean
 default       | false
 example       | {{< highlight shell >}}# Command line example
