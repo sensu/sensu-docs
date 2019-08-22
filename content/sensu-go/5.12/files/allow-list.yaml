@@ -1,0 +1,14 @@
+- exec: /usr/local/bin/hello.sh
+  args:
+  - ""
+  sha512: 736ac120323772543fd3a08ee54afdd54d214e58c280707b63ce652424313ef9084ca5b247d226aa09be8f831034ff4991bfb95553291c8b3dc32cad034b4706
+  enable_env: true
+  foo: bar
+- exec: /usr/local/bin/hook.sh
+  args:
+  - ""
+  sha512: 28d61f303136b16d20742268a896bde194cc99342e02cdffc1c2186f81c5adc53f8550635156bebeed7d87a0c19a7d4b7a690f1a337cc4737e240b62b827f78a
+- exec: echo-asset.sh
+  args:
+  - "foo"
+  sha512: cce3d16e5881ba829f271df778f9014f7c3659917f7acfd7a60a91bfcabb472eea72f9781194d310388ba046c21790364ad0308a5a897cde50022195ba90924b

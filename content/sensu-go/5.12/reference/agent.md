@@ -30,6 +30,7 @@ menu:
   - [Security configuration](#security-configuration-flags)
   - [Socket configuration](#socket-configuration-flags)
   - [StatsD configuration](#statsd-configuration-flags)
+  - [Allow list configuration](#allow-list-configuration)
   - [Example](../../files/agent.yml)
 
 The Sensu agent is a lightweight client that runs on the infrastructure components you want to monitor.
@@ -807,7 +808,7 @@ disable-assets: true{{< /highlight >}}
 
 | allow-list |      |
 ------------------|------
-description       | Path to yaml or json file containing allowlist of check or hook commands the agent can execute.
+description       | Path to yaml or json file containing allowlist of check or hook commands the agent can execute. See [example][45] for an example configuration file and the [configuration spec][46] for details on building a configuration file.
 type              | String
 default           | `""`
 example           | {{< highlight shell >}}# Command line example
@@ -1164,6 +1165,37 @@ sensu-agent start --statsd-metrics-port 6125
 # /etc/sensu/agent.yml example
 statsd-metrics-port: 6125{{< /highlight >}}
 
+### Allow list configuration
+
+| exec |      |
+----------------------|------
+description           | The command to allow the Sensu agent to run as a check or a hook.
+required              | true
+type                  | Array map thing
+example               | {{< highlight shell >}}- exec: /usr/local/bin/hello.sh{{< /highlight >}}
+
+| sha515 |      |
+----------------------|------
+description           | The checksum of the command or hook.
+required              | maybe
+type                  | String
+example               | {{< highlight shell >}}sha512: 4f926bf4328...{{< /highlight >}}
+
+| args |      |
+----------------------|------
+description           | Arguments that the command in exec is allowed to have.
+required              | false
+type                  | Array
+example               | {{< highlight shell >}}args: 
+-"-w 80"{{< /highlight >}}
+
+| enable_env |      |
+----------------------|------
+description           | Enable environment.
+required              | false
+type                  | Boolean
+example               | {{< highlight shell >}}enable_env: true{{< /highlight >}}
+
 [1]: ../../installation/install-sensu#install-sensu-agents
 [2]: ../backend
 [3]: ../entities
@@ -1208,3 +1240,5 @@ statsd-metrics-port: 6125{{< /highlight >}}
 [api-filter]: ../../api/overview#filtering
 [sensuctl-filter]: ../../sensuctl/reference#filtering
 [44]: ../checks#ttl-attribute
+[45]: ../../files/allow-list.yaml
+[46]: #allow-list-configuration
