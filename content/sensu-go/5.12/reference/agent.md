@@ -13,6 +13,7 @@ menu:
 ---
 
 - [Installation][1]
+- [Communication between agent and backend](#communication-between-agent-and-backend)
 - [Creating events using service checks](#creating-monitoring-events-using-service-checks)
 - [Creating events using the agent API](#creating-monitoring-events-using-the-agent-api)
 - [Creating events using the StatsD listener](#creating-monitoring-events-using-the-statsd-listener)
@@ -37,6 +38,12 @@ Agents register with the Sensu backend as [monitoring entities][3] with `type: "
 Agent entities are responsible for creating [check and metrics events][7] to send to the [backend event pipeline][2].
 The Sensu agent is available for Linux, macOS, and Windows.
 See the [installation guide][1] to install the agent.
+
+## Communication between agent and backend
+
+The Sensu agent uses [WebSocket][45] (ws) protocol to send and receive JSON messages with the Sensu backend.
+For optimal network throughput, agents will attempt to negotiate the use of [Protobuf][47] serialization when communicating with a Sensu backend that supports it.
+By default this communication is via clear text. The backend and agent can be configured for WebSocket Secure (wss) encrypted communication by following our [Securing Sensu][46] guide.
 
 ## Creating monitoring events using service checks
 
@@ -1195,3 +1202,6 @@ statsd-metrics-port: 6125{{< /highlight >}}
 [api-filter]: ../../api/overview#filtering
 [sensuctl-filter]: ../../sensuctl/reference#filtering
 [44]: ../checks#ttl-attribute
+[45]: https://en.m.wikipedia.org/wiki/WebSocket
+[46]: ../../guides/securing-sensu
+[47]: https://en.m.wikipedia.org/wiki/Protocol_Buffers
