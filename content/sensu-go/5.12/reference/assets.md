@@ -31,11 +31,27 @@ _NOTE: Assets are not required to use Sensu Go in production. Sensu plugins can 
 ## How do assets work?
 Assets can be executed by the backend (for handler, filter, and mutator assets), or
 by the agent (for check assets).
-At runtime, the backend or agent sequentially fetches assets that appear in the `runtime_assets` attribute of the handler, filter, mutator or check being executed, verifies the sha512 checksum, and unpacks them into the backend or agent's local cache directory.
-The directory path of each asset defined in `runtime_assets` is then injected into the `PATH` before the handler, filter, mutator or check `command` is executed.
-Subsequent handler, filter, mutator or check executions look for the asset in the local cache and ensure the contents match the configured checksum.
+At runtime, the backend or agent sequentially evaluates assets that appear in the `runtime_assets` attribute of the handler, filter, mutator or check being executed.
+
+### What are asset builds?
+
+An asset build is the combination of an artifact URL, SHA512 checksum and optional [Sensu query expression][1] filters. Each asset may define a single build or provide a list of multiple builds.
+
+### How are asset builds evaluated?
+
+For each build provided in an asset, Sensu will evaluate any defined filters to determine whether any build matches the agent or backend service's environment. If all filters specified on a build evaluate to true, that build is considered a match. For assets with multiple builds, only the first build which matches will be downloaded and installed.
+
+### How are asset builds installed?
+
+After finding a matching build, the build's artifact will be downloaded from the provided URL. If the asset definition includes headers, these will be passed along as part of the HTTP request. If the downloaded artifact's SHA512 checksum matches the checksum provided by the build, it is unpacked into the Sensu service's local cache directory.
+
 The backend or agent's local cache path can be set using the `--cache-dir` flag.
 You can disable assets for an agent using the agent `--disable-assets` [configuration flag][30].
+
+### How are asset builds executed?
+
+The directory path of each asset defined in `runtime_assets` is appended to the `PATH` before the handler, filter, mutator or check `command` is executed.
+Subsequent handler, filter, mutator or check executions look for the asset in the local cache and ensure the contents match the configured checksum.
 
 You can find a use case using a Sensu resource (a check) and an asset in this [example asset with a check][31].
 
@@ -114,7 +130,7 @@ spec         |
 description  | Top-level map that includes the asset [spec attributes][sp].
 required     | Required for asset definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][sc].
 type         | Map of key-value pairs
-example      | {{< highlight shell >}}"spec": {
+example (single build)     | {{< highlight shell >}}"spec": {
   "url": "http://example.com/asset.tar.gz",
   "sha512": "4f926bf4328fbad2b9cac873d117f771914f4b837c9c85584c38ccf55a3ef3c2e8d154812246e5dda4a87450576b2c58ad9ab40c9e2edc31b288d066b195b21b",
   "filters": [
@@ -126,20 +142,70 @@ example      | {{< highlight shell >}}"spec": {
     "X-Forwarded-For": "client1, proxy1, proxy2"
   }
 }{{< /highlight >}}
+example (multiple builds)     | {{< highlight shell >}}"spec": {
+  "builds": [
+    {
+      "url": "http://example.com/asset-linux-amd64.tar.gz",
+      "sha512": "487ab34b37da8ce76d2657b62d37b35fbbb240c3546dd463fa0c37dc58a72b786ef0ca396a0a12c8d006ac7fa21923e0e9ae63419a4d56aec41fccb574c1a5d3",
+      "filters": [
+        "entity.system.os == 'linux'",
+        "entity.system.arch == 'amd64'"
+      ]
+    },
+    {
+        "url": "http://example.com/asset-linux-armv7.tar.gz",
+        "sha512": "70df8b7e9aa36cf942b972e1781af04815fa560441fcdea1d1538374066a4603fc5566737bfd6c7ffa18314edb858a9f93330a57d430deeb7fd6f75670a8c68b",
+        "filters": [
+          "entity.system.os == 'linux'",
+          "entity.system.arch == 'arm'",
+          "entity.system.arm_version == 7"
+        ]
+      }
+  ],
+  "headers": {
+    "Authorization": "Bearer $TOKEN",
+    "X-Forwarded-For": "client1, proxy1, proxy2"
+  }
+}{{< /highlight >}}
 
 ### Spec attributes
+
+builds       | 
+-------------|------ 
+description  | A list of asset builds used to define multiple artifacts which provide the named asset.
+required     | true, if `url`, `sha512` and `filters` are not provided
+type         | Array
+example      | {{< highlight shell >}}"builds": [
+    {
+      "url": "http://example.com/asset-linux-amd64.tar.gz",
+      "sha512": "487ab34b37da8ce76d2657b62d37b35fbbb240c3546dd463fa0c37dc58a72b786ef0ca396a0a12c8d006ac7fa21923e0e9ae63419a4d56aec41fccb574c1a5d3",
+      "filters": [
+        "entity.system.os == 'linux'",
+        "entity.system.arch == 'amd64'"
+      ]
+    },
+    {
+        "url": "http://example.com/asset-linux-armv7.tar.gz",
+        "sha512": "70df8b7e9aa36cf942b972e1781af04815fa560441fcdea1d1538374066a4603fc5566737bfd6c7ffa18314edb858a9f93330a57d430deeb7fd6f75670a8c68b",
+        "filters": [
+          "entity.system.os == 'linux'",
+          "entity.system.arch == 'arm'",
+          "entity.system.arm_version == 7"
+        ]
+      }
+  ]{{< /highlight >}}
 
 url          | 
 -------------|------ 
 description  | The URL location of the asset. 
-required     | true
+required     | true, unless `builds` are provided.
 type         | String 
 example      | {{< highlight shell >}}"url": "http://example.com/asset.tar.gz"{{< /highlight >}}
 
 sha512       | 
 -------------|------ 
 description  | The checksum of the asset. 
-required     | true
+required     | true, unless `builds` are provided.
 type         | String 
 example      | {{< highlight shell >}}"sha512": "4f926bf4328..."{{< /highlight >}}
 
@@ -152,7 +218,7 @@ example      | {{< highlight shell >}}"filters": ["entity.system.os=='linux'", "
 
 headers       |       |
 --------------|-------|
-description   | HTTP headers to appy to asset retrieval requests. You can use headers to access secured assets. For headers requiring multiple values, separate values with a comma.
+description   | HTTP headers to apply to asset retrieval requests. You can use headers to access secured assets. For headers requiring multiple values, separate values with a comma.
 required     | false
 type         | Map of key-value string pairs
 example      | {{< highlight shell >}}
@@ -235,7 +301,7 @@ spec:
 
 {{< /language-toggle >}}
 
-### Asset definition
+### Asset definition (single build)
 
 {{< language-toggle >}}
 
@@ -243,18 +309,19 @@ spec:
 type: Asset
 api_version: core/v2
 metadata:
-  annotations:
-    playbook: www.example.url
-  labels:
-    region: us-west-1
-  name: check_script
+  name: check_cpu_linux_amd64
   namespace: default
+  labels:
+    origin: bonsai
+  annotations:
+    project_url: https://bonsai.sensu.io/assets/asachs01/sensu-go-cpu-check
+    version: 0.0.3
 spec:
+  url: https://assets.bonsai.sensu.io/981307deb10ebf1f1433a80da5504c3c53d5c44f/sensu-go-cpu-check_0.0.3_linux_amd64.tar.gz
+  sha512: 487ab34b37da8ce76d2657b62d37b35fbbb240c3546dd463fa0c37dc58a72b786ef0ca396a0a12c8d006ac7fa21923e0e9ae63419a4d56aec41fccb574c1a5d3
   filters:
   - entity.system.os == 'linux'
   - entity.system.arch == 'amd64'
-  sha512: 4f926bf4328fbad2b9cac873d117f771914f4b837c9c85584c38ccf55a3ef3c2e8d154812246e5dda4a87450576b2c58ad9ab40c9e2edc31b288d066b195b21b
-  url: http://example.com/asset.tar.gz
   headers:
     Authorization: Bearer $TOKEN
     X-Forwarded-For: client1, proxy1, proxy2
@@ -265,21 +332,113 @@ spec:
   "type": "Asset",
   "api_version": "core/v2",
   "metadata": {
-    "name": "check_script",
+    "name": "check_cpu_linux_amd64",
     "namespace": "default",
     "labels": {
-      "region": "us-west-1"
+      "origin": "bonsai"
     },
     "annotations": {
-      "playbook" : "www.example.url"
+      "project_url": "https://bonsai.sensu.io/assets/asachs01/sensu-go-cpu-check",
+      "version": "0.0.3"
     }
   },
   "spec": {
-    "url": "http://example.com/asset.tar.gz",
-    "sha512": "4f926bf4328fbad2b9cac873d117f771914f4b837c9c85584c38ccf55a3ef3c2e8d154812246e5dda4a87450576b2c58ad9ab40c9e2edc31b288d066b195b21b",
+    "url": "https://assets.bonsai.sensu.io/981307deb10ebf1f1433a80da5504c3c53d5c44f/sensu-go-cpu-check_0.0.3_linux_amd64.tar.gz",
+    "sha512": "487ab34b37da8ce76d2657b62d37b35fbbb240c3546dd463fa0c37dc58a72b786ef0ca396a0a12c8d006ac7fa21923e0e9ae63419a4d56aec41fccb574c1a5d3",
     "filters": [
       "entity.system.os == 'linux'",
       "entity.system.arch == 'amd64'"
+    ],
+    "headers": {
+      "Authorization": "Bearer $TOKEN",
+      "X-Forwarded-For": "client1, proxy1, proxy2"
+    }
+  }
+}
+{{< /highlight >}}
+
+{{< /language-toggle >}}
+
+### Asset definition (multiple builds)
+
+{{< language-toggle >}}
+
+{{< highlight yml >}}
+type: Asset
+api_version: core/v2
+metadata:
+  name: check_cpu
+  namespace: default
+  labels:
+    origin: bonsai
+  annotations:
+    project_url: https://bonsai.sensu.io/assets/asachs01/sensu-go-cpu-check
+    version: 0.0.3
+spec:
+  builds:
+  - url: https://assets.bonsai.sensu.io/981307deb10ebf1f1433a80da5504c3c53d5c44f/sensu-go-cpu-check_0.0.3_linux_amd64.tar.gz
+    sha512: 487ab34b37da8ce76d2657b62d37b35fbbb240c3546dd463fa0c37dc58a72b786ef0ca396a0a12c8d006ac7fa21923e0e9ae63419a4d56aec41fccb574c1a5d3
+    filters:
+    - entity.system.os == 'linux'
+    - entity.system.arch == 'amd64'
+  - url: https://assets.bonsai.sensu.io/981307deb10ebf1f1433a80da5504c3c53d5c44f/sensu-go-cpu-check_0.0.3_linux_armv7.tar.gz
+    sha512: 70df8b7e9aa36cf942b972e1781af04815fa560441fcdea1d1538374066a4603fc5566737bfd6c7ffa18314edb858a9f93330a57d430deeb7fd6f75670a8c68b
+    filters:
+    - entity.system.os == 'linux'
+    - entity.system.arch == 'arm'
+    - entity.system.arm_version == 7
+  - url: https://assets.bonsai.sensu.io/981307deb10ebf1f1433a80da5504c3c53d5c44f/sensu-go-cpu-check_0.0.3_windows_amd64.tar.gz
+    sha512: 10d6411e5c8bd61349897cf8868087189e9ba59c3c206257e1ebc1300706539cf37524ac976d0ed9c8099bdddc50efadacf4f3c89b04a1a8bf5db581f19c157f
+    filters:
+    - entity.system.os == 'windows'
+    - entity.system.arch == 'amd64'
+  headers:
+    Authorization: Bearer $TOKEN
+    X-Forwarded-For: client1, proxy1, proxy2
+{{< /highlight >}}
+
+{{< highlight json >}}
+{
+  "type": "Asset",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "check_cpu",
+    "namespace": "default",
+    "labels": {
+      "origin": "bonsai"
+    },
+    "annotations": {
+      "project_url": "https://bonsai.sensu.io/assets/asachs01/sensu-go-cpu-check",
+      "version": "0.0.3"
+    }
+  },
+  "spec": {
+    "builds": [
+      {
+        "url": "https://assets.bonsai.sensu.io/981307deb10ebf1f1433a80da5504c3c53d5c44f/sensu-go-cpu-check_0.0.3_linux_amd64.tar.gz",
+        "sha512": "487ab34b37da8ce76d2657b62d37b35fbbb240c3546dd463fa0c37dc58a72b786ef0ca396a0a12c8d006ac7fa21923e0e9ae63419a4d56aec41fccb574c1a5d3",
+        "filters": [
+          "entity.system.os == 'linux'",
+          "entity.system.arch == 'amd64'"
+        ]
+      },
+      {
+        "url": "https://assets.bonsai.sensu.io/981307deb10ebf1f1433a80da5504c3c53d5c44f/sensu-go-cpu-check_0.0.3_linux_armv7.tar.gz",
+        "sha512": "70df8b7e9aa36cf942b972e1781af04815fa560441fcdea1d1538374066a4603fc5566737bfd6c7ffa18314edb858a9f93330a57d430deeb7fd6f75670a8c68b",
+        "filters": [
+          "entity.system.os == 'linux'",
+          "entity.system.arch == 'arm'",
+          "entity.system.arm_version == 7"
+        ]
+      },
+      {
+        "url": "https://assets.bonsai.sensu.io/981307deb10ebf1f1433a80da5504c3c53d5c44f/sensu-go-cpu-check_0.0.3_windows_amd64.tar.gz",
+        "sha512": "10d6411e5c8bd61349897cf8868087189e9ba59c3c206257e1ebc1300706539cf37524ac976d0ed9c8099bdddc50efadacf4f3c89b04a1a8bf5db581f19c157f",
+        "filters": [
+          "entity.system.os == 'windows'",
+          "entity.system.arch == 'amd64'"
+        ]
+      }
     ],
     "headers": {
       "Authorization": "Bearer $TOKEN",
