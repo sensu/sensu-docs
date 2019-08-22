@@ -1183,7 +1183,7 @@ example               | {{< highlight shell >}}sha512: 4f926bf4328...{{< /highli
 
 | args |      |
 ----------------------|------
-description           | Arguments that the command in exec is allowed to have.
+description           | Arguments for the exec command.
 required              | true
 type                  | Array
 example               | {{< highlight shell >}}args: 
