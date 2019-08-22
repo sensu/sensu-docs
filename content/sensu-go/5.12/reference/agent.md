@@ -1191,7 +1191,7 @@ example               | {{< highlight shell >}}args:
 
 | enable_env |      |
 ----------------------|------
-description           | Enable environment.
+description           | Enable environment variables.
 required              | false
 type                  | Boolean
 example               | {{< highlight shell >}}enable_env: true{{< /highlight >}}
