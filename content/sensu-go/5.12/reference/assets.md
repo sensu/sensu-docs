@@ -17,6 +17,7 @@ menu:
 - [Asset specification](#asset-specification)
 - [Examples](#examples)
 - [Sharing an asset on Bonsai](#sharing-an-asset-on-bonsai)
+- [Deleting Assets](#deleting-assets)
 
 You can discover, download, and share assets using [Bonsai, the Sensu asset index][16].
 Read the [guide to using assets][23] to get started.
