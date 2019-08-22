@@ -14,6 +14,8 @@ menu:
 - [The `/namespaces/:namespace` API endpoint](#the-namespacesnamespace-api-endpoint)
   - [`/namespaces/:namespace` (PUT)](#namespacesnamespace-put)
   - [`/namespaces/:namespace` (DELETE)](#namespacesnamespace-delete)
+- [The `/user-namespaces` API endpoint](#the-user-namespaces-api-endpoint)
+  - [`/user-namespaces` (GET)](#user-namespaces-put)
 
 ## The `/namespaces` API endpoint
 
@@ -110,5 +112,28 @@ HTTP/1.1 204 No Content
 description               | Removes a namespace from Sensu given the namespace name.
 example url               | http://hostname:8080/api/core/v2/namespaces/development
 response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+
+## The `/user-namespaces` API endpoint {#the-user-namespaces-api-endpoint}
+
+### `/user-namespaces` (GET)
+
+The `/user-namespaces` API endpoint provides HTTP GET access to the namespaces the user has access to.
+
+#### EXAMPLE {#user-user-namespaces-get-example}
+
+The following example demonstrates a request to the `/user-namespaces` API, resulting in
+a (add return structure) containing the namespaces the user has access to.
+
+{{< highlight shell >}}
+curl http://127.0.0.1:8080/enterprise/user-namespaces -H "Authorization: Bearer $SENSU_TOKEN"
+[
+  {
+    "name": "default"
+  },
+  {
+    "name": "development"
+  }
+]
+{{< /highlight >}}
 
 [1]: ../../reference/rbac
