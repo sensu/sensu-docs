@@ -1177,7 +1177,7 @@ example               | {{< highlight shell >}}- exec: /usr/local/bin/hello.sh{{
 | sha515 |      |
 ----------------------|------
 description           | The checksum of the check or hook command.
-required              | maybe
+required              | false
 type                  | String
 example               | {{< highlight shell >}}sha512: 4f926bf4328...{{< /highlight >}}
 
