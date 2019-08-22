@@ -803,6 +803,19 @@ sensu-agent start --disable-assets
 # /etc/sensu/agent.yml example
 disable-assets: true{{< /highlight >}}
 
+<a name="allow-list"></a>
+
+| allow-list |      |
+------------------|------
+description       | Path to yaml or json file containing allowlist of check or hook commands the agent can execute.
+type              | String
+default           | `""`
+example           | {{< highlight shell >}}# Command line example
+sensu-agent start --allow-list /etc/sensu/check-allow-list.yaml
+
+# /etc/sensu/agent.yml example
+allow-list: /etc/sensu/check-allow-list.yaml{{< /highlight >}}
+
 
 | labels     |      |
 -------------|------
@@ -1085,17 +1098,6 @@ sensu-agent start --disable-sockets
 
 # /etc/sensu/agent.yml example
 disable-sockets: true{{< /highlight >}}
-
-| allow-list |      |
-------------------|------
-description       | Path to yaml or json file containing allowlist of check or hook commands the agent can execute
-type              | String
-default           | `""`
-example           | {{< highlight shell >}}# Command line example
-sensu-agent start --allow-list /etc/sensu/check-allow-list.yaml
-
-# /etc/sensu/agent.yml example
-allow-list: /etc/sensu/check-allow-list.yaml{{< /highlight >}}
 
 
 ### StatsD configuration flags
