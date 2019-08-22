@@ -11,6 +11,7 @@ menu:
 - [The `/assets` API endpoint](#the-assets-api-endpoint)
 	- [`/assets` (GET)](#assets-get)
 	- [`/assets` (POST)](#assets-post)
+  - [`/assets` (DELETE)](#assets-delete)
 - [The `/assets/:asset` API endpoint](#the-assetsasset-api-endpoint)
 	- [`/assets/:asset` (GET)](#assetsasset-get)
   - [`/assets/:asset` (PUT)](#assetsasset-put)
@@ -108,6 +109,10 @@ payload         | {{< highlight shell >}}
 }
 {{< /highlight >}}
 response codes  | <ul><li>**Success**: 200 (OK)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+
+### `/assets` (DELETE)
+
+The `/assets`
 
 ## The `/assets/:asset` API endpoint {#the-assetsasset-api-endpoint}
 

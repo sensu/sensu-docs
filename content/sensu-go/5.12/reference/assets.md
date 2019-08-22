@@ -471,6 +471,14 @@ example      | {{< highlight yml >}}
   -  "entity.system.arch == 'amd64'"
 {{< /highlight >}}
 
+## Deleting Assets
+
+As of Sensu Go 5.12, assets can be deleted using the `/assets (DELETE)` endpoint, or via `sensuctl` (`sensuctl asset delete`). Note that when an asset is removed from Sensu, this _*does not*_ remove references to the deleted asset in any other resource (checks, filters, mutators, handlers, hooks). You must also update resources and remove any reference to the deleted asset. Failure to do so will result in errors like: `sh: asset.sh: command not found`. 
+
+Errors as a result of failing to remove the asset from checks and hooks will be surfaced in the event data, whereas failing to remove the asset reference on a mutator, handler and filter will only be surfaced in the backend logs.
+
+It is also worth noting that deleting an asset does not delete the archive or downloaded files on disk. These must be removed from the asset cache manually.
+
 [1]: ../sensu-query-expressions/
 [2]: ../rbac#namespaces
 [3]: ../filters
