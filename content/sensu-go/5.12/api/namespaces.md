@@ -119,13 +119,33 @@ response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Miss
 
 The `/user-namespaces` API endpoint provides HTTP GET access to the namespaces the user has access to.
 
-#### EXAMPLE {#user-user-namespaces-get-example}
+#### EXAMPLE {#user-namespaces-get-example}
 
 The following example demonstrates a request to the `/user-namespaces` API, resulting in
-a (add return structure) containing the namespaces the user has access to.
+a JSON Array containing the namespaces the user has access to.
 
 {{< highlight shell >}}
-curl http://127.0.0.1:8080/enterprise/user-namespaces -H "Authorization: Bearer $SENSU_TOKEN"
+curl http://127.0.0.1:8080/api/enterprise/user-namespaces -H "Authorization: Bearer $SENSU_TOKEN"
+[
+  {
+    "name": "default"
+  },
+  {
+    "name": "development"
+  }
+]
+{{< /highlight >}}
+
+#### API Specification {#namespaces-get-specification}
+
+/user-namespaces (GET)  | 
+---------------|------
+description    | Returns the list of namespaces a user has access to.
+example url    | http://hostname:8080/api/enterprise/user-namespaces
+pagination     | This endpoint supports pagination using the `limit` and `continue` query parameters. See the [API overview](../overview#pagination) for details.
+response type  | Array
+response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+output         | {{< highlight shell >}}
 [
   {
     "name": "default"
