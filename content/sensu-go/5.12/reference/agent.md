@@ -13,6 +13,7 @@ menu:
 ---
 
 - [Installation][1]
+- [Communication between agent and backend](#communication-between-agent-and-backend)
 - [Creating events using service checks](#creating-monitoring-events-using-service-checks)
 - [Creating events using the agent API](#creating-monitoring-events-using-the-agent-api)
 - [Creating events using the StatsD listener](#creating-monitoring-events-using-the-statsd-listener)
@@ -38,6 +39,12 @@ Agents register with the Sensu backend as [monitoring entities][3] with `type: "
 Agent entities are responsible for creating [check and metrics events][7] to send to the [backend event pipeline][2].
 The Sensu agent is available for Linux, macOS, and Windows.
 See the [installation guide][1] to install the agent.
+
+## Communication between agent and backend
+
+The Sensu agent uses [WebSocket][45] (ws) protocol to send and receive JSON messages with the Sensu backend.
+For optimal network throughput, agents will attempt to negotiate the use of [Protobuf][47] serialization when communicating with a Sensu backend that supports it.
+By default this communication is via clear text. The backend and agent can be configured for WebSocket Secure (wss) encrypted communication by following our [Securing Sensu][46] guide.
 
 ## Creating monitoring events using service checks
 
@@ -808,7 +815,7 @@ disable-assets: true{{< /highlight >}}
 
 | allow-list |      |
 ------------------|------
-description       | Path to yaml or json file containing allowlist of check or hook commands the agent can execute. See [example][45] for an example configuration file and the [configuration spec][46] for details on building a configuration file.
+description       | Path to yaml or json file containing allowlist of check or hook commands the agent can execute. See the [example configuration][48] file and the [configuration spec][49] for details on building a configuration file.
 type              | String
 default           | `""`
 example           | {{< highlight shell >}}# Command line example
@@ -1027,7 +1034,7 @@ password: "secure-password"{{< /highlight >}}
 
 | redact      |      |
 --------------|------
-description   | List of fields to redact when displaying the entity _Note: Redacted secrets are sent via the websocket connection and are stored in etcd. They are not logged nor displayed via the Sensu API._
+description   | List of fields to redact when displaying the entity _NOTE: Redacted secrets are sent via the websocket connection and are stored in etcd. They are not logged nor displayed via the Sensu API._
 type          | List
 default       | By default, Sensu redacts the following fields: `password`, `passwd`, `pass`, `api_key`, `api_token`, `access_key`, `secret_key`, `private_key`, `secret`
 example       | {{< highlight shell >}}# Command line example
@@ -1240,5 +1247,8 @@ example               | {{< highlight shell >}}enable_env: true{{< /highlight >}
 [api-filter]: ../../api/overview#filtering
 [sensuctl-filter]: ../../sensuctl/reference#filtering
 [44]: ../checks#ttl-attribute
-[45]: ../../files/allow-list.yaml
-[46]: #allow-list-configuration
+[45]: https://en.m.wikipedia.org/wiki/WebSocket
+[46]: ../../guides/securing-sensu
+[47]: https://en.m.wikipedia.org/wiki/Protocol_Buffers
+[48]: ../../files/allow-list.yaml
+[49]: #allow-list-configuration
