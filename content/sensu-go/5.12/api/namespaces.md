@@ -15,7 +15,7 @@ menu:
   - [`/namespaces/:namespace` (PUT)](#namespacesnamespace-put)
   - [`/namespaces/:namespace` (DELETE)](#namespacesnamespace-delete)
 - [The `/user-namespaces` API endpoint](#the-user-namespaces-api-endpoint)
-  - [`/user-namespaces` (GET)](#user-namespaces-put)
+  - [`/user-namespaces` (GET)](#user-namespaces-get)
 
 ## The `/namespaces` API endpoint
 
