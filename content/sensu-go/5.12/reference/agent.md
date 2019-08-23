@@ -1179,29 +1179,79 @@ statsd-metrics-port: 6125{{< /highlight >}}
 description           | The command to allow the Sensu agent to run as a check or a hook.
 required              | true
 type                  | Array map thing
-example               | {{< highlight shell >}}- exec: /usr/local/bin/check_memory.sh{{< /highlight >}}
+example               | {{< highlight shell >}}"exec": "/usr/local/bin/check_memory.sh"{{< /highlight >}}
 
-| sha515 |      |
+| sha512 |      |
 ----------------------|------
 description           | The checksum of the check or hook command.
 required              | false
 type                  | String
-example               | {{< highlight shell >}}sha512: 4f926bf4328...{{< /highlight >}}
+example               | {{< highlight shell >}}"sha512": "4f926bf4328..."{{< /highlight >}}
 
 | args |      |
 ----------------------|------
 description           | Arguments for the exec command.
 required              | true
 type                  | Array
-example               | {{< highlight shell >}}args: 
--"-w 80"{{< /highlight >}}
+example               | {{< highlight shell >}}"args": ["foo"]{{< /highlight >}}
 
 | enable_env |      |
 ----------------------|------
 description           | Enable environment variables.
 required              | false
 type                  | Boolean
-example               | {{< highlight shell >}}enable_env: true{{< /highlight >}}
+example               | {{< highlight shell >}}"enable_env": true{{< /highlight >}}
+
+### Example allow list configuration file
+
+{{< language-toggle >}}
+
+{{< highlight yml >}}
+- exec: /usr/local/bin/check_memory.sh
+  args:
+  - ""
+  sha512: 736ac120323772543fd3a08ee54afdd54d214e58c280707b63ce652424313ef9084ca5b247d226aa09be8f831034ff4991bfb95553291c8b3dc32cad034b4706
+  enable_env: true
+  foo: bar
+- exec: /usr/local/bin/show_process_table.sh
+  args:
+  - ""
+  sha512: 28d61f303136b16d20742268a896bde194cc99342e02cdffc1c2186f81c5adc53f8550635156bebeed7d87a0c19a7d4b7a690f1a337cc4737e240b62b827f78a
+- exec: echo-asset.sh
+  args:
+  - "foo"
+  sha512: cce3d16e5881ba829f271df778f9014f7c3659917f7acfd7a60a91bfcabb472eea72f9781194d310388ba046c21790364ad0308a5a897cde50022195ba90924b
+{{< /highlight >}}
+
+{{< highlight json >}}
+[
+  {
+    "exec": "/usr/local/bin/check_memory.sh",
+    "args": [
+      ""
+    ],
+    "sha512": "736ac120323772543fd3a08ee54afdd54d214e58c280707b63ce652424313ef9084ca5b247d226aa09be8f831034ff4991bfb95553291c8b3dc32cad034b4706",
+    "enable_env": true,
+    "foo": "bar"
+  },
+  {
+    "exec": "/usr/local/bin/show_process_table.sh",
+    "args": [
+      ""
+    ],
+    "sha512": "28d61f303136b16d20742268a896bde194cc99342e02cdffc1c2186f81c5adc53f8550635156bebeed7d87a0c19a7d4b7a690f1a337cc4737e240b62b827f78a"
+  },
+  {
+    "exec": "echo-asset.sh",
+    "args": [
+      "foo"
+    ],
+    "sha512": "cce3d16e5881ba829f271df778f9014f7c3659917f7acfd7a60a91bfcabb472eea72f9781194d310388ba046c21790364ad0308a5a897cde50022195ba90924b"
+  }
+]
+{{< /highlight >}}
+
+{{< /language-toggle >}}
 
 [1]: ../../installation/install-sensu#install-sensu-agents
 [2]: ../backend
@@ -1250,5 +1300,5 @@ example               | {{< highlight shell >}}enable_env: true{{< /highlight >}
 [45]: https://en.m.wikipedia.org/wiki/WebSocket
 [46]: ../../guides/securing-sensu
 [47]: https://en.m.wikipedia.org/wiki/Protocol_Buffers
-[48]: ../../files/allow-list.yaml
+[48]: #example-allow-list-configuration-file
 [49]: #allow-list-configuration
