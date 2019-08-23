@@ -1179,7 +1179,7 @@ statsd-metrics-port: 6125{{< /highlight >}}
 description           | The command to allow the Sensu agent to run as a check or a hook.
 required              | true
 type                  | Array map thing
-example               | {{< highlight shell >}}- exec: /usr/local/bin/hello.sh{{< /highlight >}}
+example               | {{< highlight shell >}}- exec: /usr/local/bin/check_memory.sh{{< /highlight >}}
 
 | sha515 |      |
 ----------------------|------
