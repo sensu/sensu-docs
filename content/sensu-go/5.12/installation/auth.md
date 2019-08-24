@@ -1113,74 +1113,37 @@ The Sensu offers license-activated support for OIDC driver for using the OpenID 
 type: oidc
 api_version: authentication/v2
 spec:
-  oidc:
-    additionalScopes:
-    - groups
-    clientId: a8e43af034e7f2608780
-    clientSecret: b63968394be6ed2edb61c93847ee792f31bf6216
-    insecure: false
-    redirectURL: http://127.0.0.1:4000/login/callback
-    server: https://localhost:9031
-    roles:
-    - name: guests
-      members:
-      - myorganization/guests
-      datacenters:
-      - us-west-1
-      subscriptions:
-      - webserver
-      readonly: true
-    - name: operators
-      members:
-      - myorganization/operators
-      datacenters: []
-      subscriptions: []
-      readonly: false
-  metadata:
-    name: oidc
+  additional_scopes:
+  - groups
+  - email
+  clientId: a8e43af034e7f2608780
+  clientSecret: b63968394be6ed2edb61c93847ee792f31bf6216
+  redirectURL: http://127.0.0.1:8080/api/enterprise/authenication/v2/oidc/callback
+  server: https://localhost:9031
+  groups_claim: groups
+  groups_prefix: 'oidc:'
+  username_claim: email
+  username_prefix: 'oidc:'
 {{< /highlight >}}
 
 {{< highlight json >}}
 {
-  "type": "oidc",
-  "api_version": "authentication/v2",
-  "spec": {
-    "oidc": {
-      "additionalScopes": [ "groups" ],
+   "type": "oidc",
+   "api_version": "authentication/v2",
+   "spec": {
+      "additional_scopes": [
+         "groups",
+         "email"
+      ],
       "clientId": "a8e43af034e7f2608780",
       "clientSecret": "b63968394be6ed2edb61c93847ee792f31bf6216",
-      "insecure": false,
-      "redirectURL": "http://127.0.0.1:4000/login/callback",
+      "redirectURL": "http://127.0.0.1:8080/api/enterprise/authenication/v2/oidc/callback",
       "server": "https://localhost:9031",
-      "roles": [
-        {
-          "name": "guests",
-          "members": [
-            "myorganization/guests"
-          ],
-          "datacenters": [
-            "us-west-1"
-          ],
-          "subscriptions": [
-            "webserver"
-          ],
-          "readonly": true
-        },
-        {
-          "name": "operators",
-          "members": [
-            "myorganization/operators"
-          ],
-          "datacenters": [],
-          "subscriptions": [],
-          "readonly": false
-        }
-      ]
-    },
-  	"metadata": {
-    	"name": "oidc"
-  	}
-	}
+      "groups_claim": "groups",
+      "groups_prefix": "oidc:",
+      "username_claim": "email",
+      "username_prefix": "oidc:"
+   }
 }
 {{< /highlight >}}
 
@@ -1190,84 +1153,68 @@ spec:
 
 #### `oidc` attributes
 
-additionalScopes | 
------------------|------
-description      | Scopes to include in the claims, in addition to the default `email`, `openid` and `profile` scopes. _NOTE: only required for certain OIDC providers, such as Okta._
-required         | false
-type             | Array
-example          | {{< highlight shell >}}"additionalScopes": [ "groups" ]{{< /highlight >}}
-
-clientId     | 
+| client_id    |      |
 -------------|------
-description  | The OIDC provider application "Client ID" _NOTE: requires [registration of an application in the OIDC provider][4]._
+description  | The OIDC provider application "Client ID" _NOTE: requires [registration of an application in the OIDC provider][27]._
 required     | true
 type         | String
-example      | {{< highlight shell >}}"clientId": "a8e43af034e7f2608780"{{< /highlight >}}
+example      | {{< highlight shell >}}"client_id": "1c9ae3e6f3cc79c9f1786fcb22692d1f"{{< /highlight >}}
 
-clientSecret | 
+| client_secret  |      |
 -------------|------
-description  | The OIDC provider application "Client Secret" _NOTE: requires [registration of an application in the OIDC provider][4]._
+description  | The OIDC provider application "Client Secret" _NOTE: requires [registration of an application in the OIDC provider][27]._
 required     | true
 type         | String
-example      | {{< highlight shell >}}"clientSecret": "b63968394be6ed2edb61c93847ee792f31bf6216"{{< /highlight >}}
+example      | {{< highlight shell >}}"client_secret": "a0f2a3c1dcd5b1cac71bf0c03f2ff1bd"{{< /highlight >}}
 
-insecure     | 
+| server |  |
 -------------|------
-description  | Determines whether or not to skip SSL certificate verification (e.g. for self-signed certificates).
-required     | false
-type         | Boolean
-default      | false
-example      | {{< highlight shell >}}"insecure": true{{< /highlight >}}
+description  | The location of the OIDC server you wish to authenticate against. _NOTE: Configuring with http will cause the connection to  be insecure._
+required     | true
+type         | String
+example      | {{< highlight shell >}}"name_attribute": "https://sensu.oidc.provider.example.com"{{< /highlight >}}
 
-redirectURL  | 
+| redirect_uri |   |
 -------------|------
-description  | Redirect URL to provide to the OIDC provider. _NOTE: only required for certain OIDC providers, such as Okta._
+description  | Redirect URL to provide to the OIDC provider. Requires `/api/enterprise/authenication/v2/oidc/callback` _NOTE: only required for certain OIDC providers, such as Okta._
 required     | false
 type         | String
-example      | {{< highlight shell >}}"redirectURL": "http://localhost:4000/login/callback"{{< /highlight >}}
+example      | {{< highlight shell >}}"redirectURL": "http://localhost:8080/api/enterprise/authenication/v2/oidc/callback"{{< /highlight >}}
 
-server       | 
+| groups_claim |   |
 -------------|------
-description  | The location of the OIDC server you wish to authenticate against.
-required     | true
+description  | The claim to use to form the associated RBAC groups. 
+required     | false
 type         | String
-example      | {{< highlight shell >}}"server": "https://localhost:9031"{{< /highlight >}}
+example      | {{< highlight shell >}} "groups_claim": "opsgroup" {{< /highlight >}}
 
-roles        | 
+| groups_prefix |   |
 -------------|------
-description  | An array of`roles` definitions.
-required     | true
+description  | A prefix to use to form the final RBAC groups if required.
+required     | false
+type         | String
+example      | {{< highlight shell >}}"groups_prefix": "okta"{{< /highlight >}}
+
+| username_claim |   |
+-------------|------
+description  | The claim to use to form the final RBAC user name.
+required     | false
+type         | String
+example      | {{< highlight shell >}}"username_claim": "person"{{< /highlight >}}
+
+| username_prefix |   |
+-------------|------
+description  | A prefix to use to form the final RBAC user name.
+required     | false
+type         | String
+example      | {{< highlight shell >}}"username_prefix": "okta"{{< /highlight >}}
+
+| additional_scopes |   |
+-------------|------
+description  | Scopes to include in the claims, in addition to the default `email`, `openid` and `profile` scopes. _NOTE: only required for certain OIDC providers, such as Okta._
+required     | false
 type         | Array
-example      | {{< highlight shell >}}"roles": [
-  {
-    "name": "guests",
-    "members": [
-      "myorganization/guests"
-    ],
-    "datacenters": [
-      "us-west-1"
-    ],
-    "subscriptions": [
-      "webserver"
-    ],
-    "readonly": true
-  },
-  {
-    "name": "operators",
-    "members": [
-      "myorganization/operators"
-    ],
-    "datacenters": [],
-    "subscriptions": [],
-    "readonly": false
-  }
-]
-{{< /highlight >}}
-
-#### `roles` attributes
-
-Please see the [RBAC definition specification][25] for information on how to
-configure RBAC roles.
+example      | {{< highlight shell >}}"additional_scopes": ["groups", "email", "username"]{{< /highlight >}}
 
 ## Register an OIDC Application
 
@@ -1530,3 +1477,4 @@ and within the `APPLICATION INTEGRATION` section, click on `Adapters`.
 [24]: #metadata-attributes
 [25]: #
 [26]: #oidc-attributes
+[27]: #register-an-oidc-application
