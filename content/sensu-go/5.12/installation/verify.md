@@ -32,19 +32,19 @@ Sensu binary-only distributions for Linux are available for these architectures 
 For example, to download Sensu for Linux `amd64` in `tar.gz` format:
 
 {{< highlight shell >}}
-curl -LO https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.12.0/sensu-enterprise-go_5.12.0_linux_amd64.tar.gz
+curl -LO https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.12.0/sensu-go_5.12.0_linux_amd64.tar.gz
 {{< /highlight >}}
 
 Generate a SHA-512 checksum for the downloaded artifact.
 
 {{< highlight shell >}}
-sha512sum sensu-enterprise-go_5.12.0_linux_amd64.tar.gz
+sha512sum sensu-go_5.12.0_linux_amd64.tar.gz
 {{< /highlight >}}
 
 The result should match the checksum for your platform.
 
 {{< highlight shell >}}
-curl -LO https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.12.0/sensu-enterprise-go_5.12.0_checksums.txt && cat sensu-enterprise-go_5.12.0_checksums.txt
+curl -LO https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.12.0/sensu-go_5.12.0_checksums.txt && cat sensu-go_5.12.0_checksums.txt
 {{< /highlight >}}
 
 {{< platformBlockClose >}}
@@ -63,21 +63,21 @@ Sensu binary-only distributions for Windows are available for these architecture
 For example, to download Sensu for Windows `amd64` in `zip` format:
 
 {{< highlight text >}}
-Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.12.0/sensu-enterprise-go_5.12.0_windows_amd64.zip  -OutFile "$env:userprofile\sensu-enterprise-go_5.12.0_windows_amd64.zip"
+Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.12.0/sensu-go_5.12.0_windows_amd64.zip  -OutFile "$env:userprofile\sensu-go_5.12.0_windows_amd64.zip"
 {{< /highlight >}}
 
 Generate a SHA-256 checksum for the downloaded artifact.
 
 {{< highlight text >}}
-Get-FileHash "$env:userprofile\sensu-enterprise-go_5.12.0_windows_amd64.zip" -Algorithm SHA256 | Format-List
+Get-FileHash "$env:userprofile\sensu-go_5.12.0_windows_amd64.zip" -Algorithm SHA256 | Format-List
 {{< /highlight >}}
 
 The result should match (with the exception of capitalization) the checksum for your platform.
 
 {{< highlight text >}}
-Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.12.0/sensu-enterprise-go_5.12.0_checksums.txt -OutFile "$env:userprofile\sensu-enterprise-go_5.12.0_checksums.txt"
+Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.12.0/sensu-go_5.12.0_checksums.txt -OutFile "$env:userprofile\sensu-go_5.12.0_checksums.txt"
 
-Get-Content "$env:userprofile\sensu-enterprise-go_5.12.0_checksums.txt" | Select-String -Pattern windows_amd64
+Get-Content "$env:userprofile\sensu-go_5.12.0_checksums.txt" | Select-String -Pattern windows_amd64
 {{< /highlight >}}
 
 {{< platformBlockClose >}}
@@ -95,7 +95,7 @@ Sensu binary-only distributions for macOS are available for these architectures 
 For example, to download Sensu for macOS `amd64` in `tar.gz` format:
 
 {{< highlight shell >}}
-curl -LO https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.12.0/sensu-enterprise-go_5.12.0_darwin_amd64.tar.gz
+curl -LO https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.12.0/sensu-go_5.12.0_darwin_amd64.tar.gz
 {{< /highlight >}}
 
 Generate a SHA-512 checksum for the downloaded artifact.
@@ -107,13 +107,13 @@ shasum -a 512 sensu-go-5.12.0-darwin-amd64.tar.gz
 The result should match the checksum for your platform.
 
 {{< highlight shell >}}
-curl -LO https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.12.0/sensu-enterprise-go_5.12.0_checksums.txt && cat sensu-enterprise-go_5.12.0_checksums.txt
+curl -LO https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.12.0/sensu-go_5.12.0_checksums.txt && cat sensu-go_5.12.0_checksums.txt
 {{< /highlight >}}
 
 Extract the archive.
 
 {{< highlight shell >}}
-tar -xvf sensu-enterprise-go_5.12.0_darwin_amd64.tar.gz
+tar -xvf sensu-go_5.12.0_darwin_amd64.tar.gz
 {{< /highlight >}}
 
 Copy the executable into your PATH.
@@ -191,3 +191,4 @@ Now that you’ve installed Sensu:
 [33]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.12.0/
 [34]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.12.0/
 [35]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.12.0/
+

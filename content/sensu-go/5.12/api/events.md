@@ -15,6 +15,7 @@ menu:
 	- [`/events/:entity` (GET)](#eventsentity-get)
 - [The `/events/:entity/:check` API endpoint](#the-eventsentitycheck-api-endpoint)
 	- [`/events/:entity/:check` (GET)](#eventsentitycheck-get)
+  - [`/events/:entity/:check` (POST)](#eventsentitycheck-post)
   - [`/events/:entity/:check` (PUT)](#eventsentitycheck-put)
   - [`/events/:entity/:check` (DELETE)](#eventsentitycheck-delete)
 
@@ -463,6 +464,60 @@ output               | {{< highlight json >}}
 }
 {{< /highlight >}}
 
+### `/events/:entity/:check` (POST) {#eventsentitycheck-post}
+
+The `/events/:entity/:check` API endpoint provides HTTP POST access to create or update an event and send it to the Sensu pipeline.
+
+#### EXAMPLE {#eventsentitycheck-post-example}
+
+In the following example, an HTTP POST request is submitted to the `/events/:entity/:check` API to create an event for the `server1` entity and the `server-health` check and process it using the `slack` event handler.
+The event includes a status code of `1`, indicating a warning, and an output message of "Server error".
+
+{{< highlight shell >}}
+curl -X POST \
+-H "Authorization: Bearer $SENSU_TOKEN" \
+-H 'Content-Type: application/json' \
+-d '{
+  "entity": {
+    "entity_class": "proxy",
+    "metadata": {
+      "name": "server1",
+    }
+  },
+  "check": {
+    "output": "Server error",
+    "status": 1,
+    "handlers": ["slack"],
+    "interval": 60,
+    "metadata": {
+      "name": "server-health"
+    }
+  }
+}' \
+http://127.0.0.1:8080/api/core/v2/namespaces/default/events/server1/server-health
+{{< /highlight >}}
+
+The request returns a 200 (OK) HTTP response code and the resulting event definition. Note that a namespace is not required to create the event. The event will use the namspace in the URL by default.
+
+{{< highlight shell >}}
+HTTP/1.1 200 OK
+{"timestamp":1552582569,"entity":{"entity_class":"proxy","system":{"network":{"interfaces":null}},"subscriptions":null,"last_seen":0,"deregister":false,"deregistration":{},"metadata":{"name":"server1","namespace":"default"}},"check":{"handlers":["slack"],"high_flap_threshold":0,"interval":60,"low_flap_threshold":0,"publish":false,"runtime_assets":null,"subscriptions":[],"proxy_entity_name":"","check_hooks":null,"stdin":false,"subdue":null,"ttl":0,"timeout":0,"round_robin":false,"executed":0,"history":null,"issued":0,"output":"Server error","status":1,"total_state_change":0,"last_ok":0,"occurrences":0,"occurrences_watermark":0,"output_metric_format":"","output_metric_handlers":null,"env_vars":null,"metadata":{"name":"server-health"}},"metadata":{}}
+{{< /highlight >}}
+
+You can use sensuctl or the [Sensu dashboard](../../dashboard/overview) to see the event.
+
+{{< highlight shell >}}
+sensuctl event list
+{{< /highlight >}}
+
+You should see the event with the status and output specified in the request.
+
+{{< highlight shell >}}
+    Entity        Check                   Output                 Status   Silenced             Timestamp            
+────────────── ───────────── ─────────────────────────────────── ──────── ────────── ─────────────────────────────── 
+    server1    server-health   Server error                         1       false      2019-03-14 16:56:09 +0000 UTC 
+{{< /highlight >}}
+
 ### `/events/:entity/:check` (PUT) {#eventsentitycheck-put}
 
 The `/events/:entity/:check` API endpoint provides HTTP PUT access to create or update an event and send it to the Sensu pipeline.
@@ -497,7 +552,7 @@ curl -X PUT \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/events/server1/server-health
 {{< /highlight >}}
 
-The request returns a 200 (OK) HTTP response code and the resulting event definition.
+The request returns a 200 (OK) HTTP response code and the resulting event definition. Note that a namespace is not required to create the event. The event will use the namspace in the URL by default.
 
 {{< highlight shell >}}
 HTTP/1.1 200 OK
