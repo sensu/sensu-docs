@@ -282,8 +282,9 @@ metadata:
   name: check_script
   namespace: default
 spec:
-  sha512: 4f926bf4328fbad2b9cac873d117f771914f4b837c9c85584c38ccf55a3ef3c2e8d154812246e5dda4a87450576b2c58ad9ab40c9e2edc31b288d066b195b21b
-  url: http://example.com/asset.tar.gz
+  builds:
+  - sha512: 4f926bf4328fbad2b9cac873d117f771914f4b837c9c85584c38ccf55a3ef3c2e8d154812246e5dda4a87450576b2c58ad9ab40c9e2edc31b288d066b195b21b
+    url: http://example.com/asset.tar.gz
 {{< /highlight >}}
 
 {{< highlight json >}}
@@ -295,8 +296,12 @@ spec:
     "namespace": "default"
   },
   "spec": {
-    "url": "http://example.com/asset.tar.gz",
-    "sha512": "4f926bf4328fbad2b9cac873d117f771914f4b837c9c85584c38ccf55a3ef3c2e8d154812246e5dda4a87450576b2c58ad9ab40c9e2edc31b288d066b195b21b"
+    "builds": [
+      {
+        "url": "http://example.com/asset.tar.gz",
+        "sha512": "4f926bf4328fbad2b9cac873d117f771914f4b837c9c85584c38ccf55a3ef3c2e8d154812246e5dda4a87450576b2c58ad9ab40c9e2edc31b288d066b195b21b"
+      }
+    ]
   }
 }
 {{< /highlight >}}
@@ -383,20 +388,26 @@ spec:
     filters:
     - entity.system.os == 'linux'
     - entity.system.arch == 'amd64'
+    headers:
+      Authorization: Bearer $TOKEN
+      X-Forwarded-For: client1, proxy1, proxy2
   - url: https://assets.bonsai.sensu.io/981307deb10ebf1f1433a80da5504c3c53d5c44f/sensu-go-cpu-check_0.0.3_linux_armv7.tar.gz
     sha512: 70df8b7e9aa36cf942b972e1781af04815fa560441fcdea1d1538374066a4603fc5566737bfd6c7ffa18314edb858a9f93330a57d430deeb7fd6f75670a8c68b
     filters:
     - entity.system.os == 'linux'
     - entity.system.arch == 'arm'
     - entity.system.arm_version == 7
+    headers:
+      Authorization: Bearer $TOKEN
+      X-Forwarded-For: client1, proxy1, proxy2
   - url: https://assets.bonsai.sensu.io/981307deb10ebf1f1433a80da5504c3c53d5c44f/sensu-go-cpu-check_0.0.3_windows_amd64.tar.gz
     sha512: 10d6411e5c8bd61349897cf8868087189e9ba59c3c206257e1ebc1300706539cf37524ac976d0ed9c8099bdddc50efadacf4f3c89b04a1a8bf5db581f19c157f
     filters:
     - entity.system.os == 'windows'
     - entity.system.arch == 'amd64'
-  headers:
-    Authorization: Bearer $TOKEN
-    X-Forwarded-For: client1, proxy1, proxy2
+    headers:
+      Authorization: Bearer $TOKEN
+      X-Forwarded-For: client1, proxy1, proxy2
 {{< /highlight >}}
 
 {{< highlight json >}}
@@ -422,7 +433,11 @@ spec:
         "filters": [
           "entity.system.os == 'linux'",
           "entity.system.arch == 'amd64'"
-        ]
+        ],
+        "headers": {
+          "Authorization": "Bearer $TOKEN",
+          "X-Forwarded-For": "client1, proxy1, proxy2"
+        }
       },
       {
         "url": "https://assets.bonsai.sensu.io/981307deb10ebf1f1433a80da5504c3c53d5c44f/sensu-go-cpu-check_0.0.3_linux_armv7.tar.gz",
@@ -431,7 +446,11 @@ spec:
           "entity.system.os == 'linux'",
           "entity.system.arch == 'arm'",
           "entity.system.arm_version == 7"
-        ]
+        ],
+        "headers": {
+          "Authorization": "Bearer $TOKEN",
+          "X-Forwarded-For": "client1, proxy1, proxy2"
+        }
       },
       {
         "url": "https://assets.bonsai.sensu.io/981307deb10ebf1f1433a80da5504c3c53d5c44f/sensu-go-cpu-check_0.0.3_windows_amd64.tar.gz",
@@ -439,13 +458,13 @@ spec:
         "filters": [
           "entity.system.os == 'windows'",
           "entity.system.arch == 'amd64'"
-        ]
+        ],
+        "headers": {
+          "Authorization": "Bearer $TOKEN",
+          "X-Forwarded-For": "client1, proxy1, proxy2"
+        }
       }
-    ],
-    "headers": {
-      "Authorization": "Bearer $TOKEN",
-      "X-Forwarded-For": "client1, proxy1, proxy2"
-    }
+    ]
   }
 }
 {{< /highlight >}}
@@ -461,13 +480,14 @@ spec:
 type: Asset
 api_version: core/v2
 metadata:
-  name: sensu-prometheus-collector_linux_amd64
+  name: sensu-prometheus-collector
 spec:
-  url: https://assets.bonsai.sensu.io/ef812286f59de36a40e51178024b81c69666e1b7/sensu-prometheus-collector_1.1.6_linux_amd64.tar.gz
-  sha512: a70056ca02662fbf2999460f6be93f174c7e09c5a8b12efc7cc42ce1ccb5570ee0f328a2dd8223f506df3b5972f7f521728f7bdd6abf9f6ca2234d690aeb3808
-  filters:
-  - entity.system.os == 'linux'
-  - entity.system.arch == 'amd64'
+  builds:
+  - url: https://assets.bonsai.sensu.io/ef812286f59de36a40e51178024b81c69666e1b7/sensu-prometheus-collector_1.1.6_linux_amd64.tar.gz
+    sha512: a70056ca02662fbf2999460f6be93f174c7e09c5a8b12efc7cc42ce1ccb5570ee0f328a2dd8223f506df3b5972f7f521728f7bdd6abf9f6ca2234d690aeb3808
+    filters:
+    - entity.system.os == 'linux'
+    - entity.system.arch == 'amd64'
 ---
 type: CheckConfig
 api_version: core/v2
@@ -482,7 +502,7 @@ spec:
   - influxdb
   output_metric_format: influxdb_line
   runtime_assets:
-  - sensu-prometheus-collector_linux_amd64
+  - sensu-prometheus-collector
   subscriptions:
   - system
 {{< /highlight >}}
@@ -492,14 +512,18 @@ spec:
   "type": "Asset",
   "api_version": "core/v2",
   "metadata": {
-    "name": "sensu-email-handler_linux_amd64"
+    "name": "sensu-email-handler"
   },
   "spec": {
-    "url": "https://assets.bonsai.sensu.io/45eaac0851501a19475a94016a4f8f9688a280f6/sensu-email-handler_0.2.0_linux_amd64.tar.gz",
-    "sha512": "d69df76612b74acd64aef8eed2ae10d985f6073f9b014c8115b7896ed86786128c20249fd370f30672bf9a11b041a99adb05e3a23342d3ad80d0c346ec23a946",
-    "filters": [
-      "entity.system.os == 'linux'",
-      "entity.system.arch == 'amd64'"
+    "builds": [
+      {
+        "url": "https://assets.bonsai.sensu.io/45eaac0851501a19475a94016a4f8f9688a280f6/sensu-email-handler_0.2.0_linux_amd64.tar.gz",
+        "sha512": "d69df76612b74acd64aef8eed2ae10d985f6073f9b014c8115b7896ed86786128c20249fd370f30672bf9a11b041a99adb05e3a23342d3ad80d0c346ec23a946",
+        "filters": [
+          "entity.system.os == 'linux'",
+          "entity.system.arch == 'amd64'"
+        ]
+      }
     ]
   }
 }
@@ -519,7 +543,7 @@ spec:
     "publish": true,
     "output_metric_format": "influxdb_line",
     "runtime_assets": [
-      "sensu-prometheus-collector_linux_amd64"
+      "sensu-prometheus-collector"
     ],
     "subscriptions": [
       "system"
