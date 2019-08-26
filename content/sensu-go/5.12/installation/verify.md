@@ -144,7 +144,7 @@ curl -LO https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.12.0/sensu-go_5.
 Generate a SHA-512 checksum for the downloaded artifact.
 
 {{< highlight shell >}}
-sha512sum sensu-enterprise-go_5.12.0_FreeBSD_amd64.tar.gz
+sha512sum sensu-go_5.12.0_FreeBSD_amd64.tar.gz
 {{< /highlight >}}
 
 The result should match the checksum for your platform.
@@ -169,26 +169,25 @@ Now that you’ve installed Sensu:
 [4]: ../../sensuctl/reference#first-time-setup
 [5]: ../../guides/monitor-server-resources
 [1]: ../install-sensu
-[14]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.12.0/sensu-enterprise-go_5.12.0_linux_amd64.tar.gz
-[15]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.12.0/sensu-enterprise-go_5.12.0_linux_arm64.tar.gz
-[16]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.12.0/sensu-enterprise-go_5.12.0_linux_armv5.tar.gz
-[17]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.12.0/sensu-enterprise-go_5.12.0_linux_armv6.tar.gz
-[18]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.12.0/sensu-enterprise-go_5.12.0_linux_armv7.tar.gz
-[19]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.12.0/sensu-enterprise-go_5.12.0_linux_386.tar.gz
-[20]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.12.0/sensu-enterprise-go_5.12.0_linux_amd64.zip
-[21]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.12.0/sensu-enterprise-go_5.12.0_linux_arm64.zip
-[22]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.12.0/sensu-enterprise-go_5.12.0_linux_armv5.zip
-[23]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.12.0/sensu-enterprise-go_5.12.0_linux_armv6.zip
-[24]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.12.0/sensu-enterprise-go_5.12.0_linux_armv7.zip
-[25]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.12.0/sensu-enterprise-go_5.12.0_linux_386.zip
-[26]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.12.0/sensu-enterprise-go_5.12.0_windows_amd64.tar.gz
-[27]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.12.0/sensu-enterprise-go_5.12.0_windows_386.tar.gz
-[28]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.12.0/sensu-enterprise-go_5.12.0_windows_amd64.zip
-[29]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.12.0/sensu-enterprise-go_5.12.0_windows_386.zip
-[30]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.12.0/sensu-enterprise-go_5.12.0_darwin_amd64.tar.gz
-[31]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.12.0/sensu-enterprise-go_5.12.0_darwin_amd64.zip
-[32]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.12.0/
-[33]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.12.0/
-[34]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.12.0/
-[35]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.12.0/
-
+[14]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.12.0/sensu-go_5.12.0_linux_amd64.tar.gz
+[15]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.12.0/sensu-go_5.12.0_linux_arm64.tar.gz
+[16]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.12.0/sensu-go_5.12.0_linux_armv5.tar.gz
+[17]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.12.0/sensu-go_5.12.0_linux_armv6.tar.gz
+[18]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.12.0/sensu-go_5.12.0_linux_armv7.tar.gz
+[19]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.12.0/sensu-go_5.12.0_linux_386.tar.gz
+[20]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.12.0/sensu-go_5.12.0_linux_amd64.zip
+[21]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.12.0/sensu-go_5.12.0_linux_arm64.zip
+[22]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.12.0/sensu-go_5.12.0_linux_armv5.zip
+[23]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.12.0/sensu-go_5.12.0_linux_armv6.zip
+[24]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.12.0/sensu-go_5.12.0_linux_armv7.zip
+[25]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.12.0/sensu-go_5.12.0_linux_386.zip
+[26]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.12.0/sensu-go_5.12.0_windows_amd64.tar.gz
+[27]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.12.0/sensu-go_5.12.0_windows_386.tar.gz
+[28]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.12.0/sensu-go_5.12.0_windows_amd64.zip
+[29]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.12.0/sensu-go_5.12.0_windows_386.zip
+[30]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.12.0/sensu-go_5.12.0_darwin_amd64.tar.gz
+[31]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.12.0/sensu-go_5.12.0_darwin_amd64.zip
+[32]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.12.0/sensu-go_5.12.0_freebsd_amd64.tar
+[33]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.12.0/sensu-go_5.12.0_freebsd_amd64.zip
+[34]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.12.0/sensu-go_5.12.0_freebsd_386.tar.gz
+[35]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.12.0/sensu-go_5.12.0_freebsd_386.zip
