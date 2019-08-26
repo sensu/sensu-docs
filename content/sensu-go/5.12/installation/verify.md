@@ -144,7 +144,7 @@ curl -LO https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.12.0/sensu-go_5.
 Generate a SHA-512 checksum for the downloaded artifact.
 
 {{< highlight shell >}}
-sha512sum sensu-go_5.12.0_FreeBSD_amd64.tar.gz
+sha512sum sensu-go_5.12.0_freebsd_amd64.tar.gz
 {{< /highlight >}}
 
 The result should match the checksum for your platform.
