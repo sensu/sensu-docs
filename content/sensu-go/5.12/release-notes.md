@@ -53,7 +53,8 @@ Added agent --allow-list to list allowed executables for checks and check hooks.
 
 **IMPROVEMENTS:**
 
-Licensed feature: Namespaces listed in both the web UI and sensuctl are now limited to those which the user has access to
+Assets now support defining multiple builds, reducing the number of individual assets needed to cover disparate platforms in your infrastructure.
+Licensed feature: Namespaces listed in both the web UI and sensuctl are now limited to those which the user has access to.
 The event.check.name field has been added as a supported field selector
 Both the API and sensuctl can now be used to delete Assets
 The use of Protobuf serialization/deserialization over websocket can now be negotiated between agent and backend.
