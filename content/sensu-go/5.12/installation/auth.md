@@ -1119,7 +1119,7 @@ spec:
   - email
   client_id: a8e43af034e7f2608780
   client_secret: b63968394be6ed2edb61c93847ee792f31bf6216
-  redirect_uri: http://127.0.0.1:8080/api/enterprise/authenication/v2/oidc/callback
+  redirect_uri: http://127.0.0.1:8080/api/enterprise/authentication/v2/oidc/callback
   server: https://oidc.example.com:9031
   groups_claim: groups
   groups_prefix: 'oidc:'
@@ -1138,7 +1138,7 @@ spec:
       ],
       "client_id": "a8e43af034e7f2608780",
       "client_secret": "b63968394be6ed2edb61c93847ee792f31bf6216",
-      " redirect_uri": "http://sensu-backend.example.com:8080/api/enterprise/authenication/v2/oidc/callback",
+      " redirect_uri": "http://sensu-backend.example.com:8080/api/enterprise/authentication/v2/oidc/callback",
       "server": "https://localhost:9031",
       "groups_claim": "groups",
       "groups_prefix": "oidc:",
@@ -1177,10 +1177,10 @@ example      | {{< highlight shell >}}"name_attribute": "https://sensu.oidc.prov
 
 | redirect_uri |   |
 -------------|------
-description  | Redirect URL to provide to the OIDC provider. Requires `/api/enterprise/authenication/v2/oidc/callback` _NOTE: only required for certain OIDC providers, such as Okta._
+description  | Redirect URL to provide to the OIDC provider. Requires `/api/enterprise/authentication/v2/oidc/callback` _NOTE: only required for certain OIDC providers, such as Okta._
 required     | false
 type         | String
-example      | {{< highlight shell >}}"redirect_uri": "http://sensu-backend.example.com:8080/api/enterprise/authenication/v2/oidc/callback"{{< /highlight >}}
+example      | {{< highlight shell >}}"redirect_uri": "http://sensu-backend.example.com:8080/api/enterprise/authentication/v2/oidc/callback"{{< /highlight >}}
 
 | groups_claim |   |
 -------------|------
