@@ -14,6 +14,8 @@ menu:
 - [The `/assets/:asset` API endpoint](#the-assetsasset-api-endpoint)
 	- [`/assets/:asset` (GET)](#assetsasset-get)
   - [`/assets/:asset` (PUT)](#assetsasset-put)
+  - [`/assets/:asset` (DELETE)](#assetasset-delete)
+
 
 ## The `/assets` API endpoint
 
@@ -194,5 +196,17 @@ payload         | {{< highlight shell >}}
 }
 {{< /highlight >}}
 response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+
+### `/assets/:asset` (DELETE) {#assetsasset-delete}
+
+The Sensu Go HTTP API provides the ability to delete an asset. Note that this does not remove the downloaded files from the asset cache, nor does it remove any references in other resources to the deleted asset. 
+
+#### API Specification {#assetsasset-delete-specification}
+
+/assets/:asset (DELETE) | 
+----------------|------
+description     | Deletes a Sensu asset.
+example URL     | http://hostname:8080/api/core/v2/namespaces/default/assets/my-secure-asset
+response codes  | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 [1]: ../../reference/assets
