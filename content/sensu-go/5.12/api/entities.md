@@ -372,8 +372,6 @@ payload         | {{< highlight shell >}}
 {{< /highlight >}}
 response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
-Note that when an event is created via an HTTP PUT request, the event will use the namespace in the request URL.
-
 ### `/entities/:entity` (DELETE) {#entitiesentity-delete}
 
 The `/entities/:entity` API endpoint provides HTTP DELETE access to delete an entity from Sensu given the entity name.
