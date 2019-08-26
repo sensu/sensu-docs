@@ -31,7 +31,7 @@
                 {{ $niceName := title $niceName }}
 
                 <li>
-                  <a class="strong accordion">
+                  <a class="strong">
                     {{ if or (eq $niceName "Api") (eq $niceName "Rbac") }}
                       {{ upper $niceName }}
                     <!-- render the title normally if not API -->
@@ -41,9 +41,8 @@
                   </a>
                   <ul>
                     <!-- Loop through the child menu's pages -->
-                    {{ range .Children.ByWeight }}
+                    {{ range where .Children.ByWeight ".Page.Params.offline" "!=" false }}
                       {{ if not (eq (lower .Parent) (lower .Name)) }}
-                        <!-- Determine if this children is active -->
                         <li><a href="{{ .URL | absURL }}">{{ .Name }}</a></li>
                       {{ end }}
                     {{ end }}
