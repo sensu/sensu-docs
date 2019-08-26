@@ -1183,7 +1183,7 @@ example               | {{< highlight shell >}}"exec": "/usr/local/bin/check_mem
 
 | sha512 |      |
 ----------------------|------
-description           | The checksum of the check or hook command.
+description           | The checksum of the check or hook executable.
 required              | false
 type                  | String
 example               | {{< highlight shell >}}"sha512": "4f926bf4328..."{{< /highlight >}}
