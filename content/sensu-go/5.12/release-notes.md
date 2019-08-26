@@ -73,6 +73,7 @@ Requesting events from the GET /events/:entity API endpoint now returns events o
 Running sensuctl config view without configuration no longer causes a crash
 Creating an entity via sensuctl with the --interactive flag now prompts for the entity name when not provided on the command line.
 Check hooks with stdin: true now receive actual event data on STDIN instead of an empty event.
+Some issues with check scheduling and updating have been fixed by refactoring the backend's watcher implementation.
 
 **KNOWN ISSUES:**
 
