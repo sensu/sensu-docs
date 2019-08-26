@@ -39,7 +39,7 @@ Read the [upgrade guide][1] for information on upgrading to the latest version o
 
 ## 5.12.0 release notes
 
-**August 22, 2019** &mdash; The latest release of Sensu Go, version 5.12.0, is now available for download. There are some exciting feature additions in this release including the ability to output resources to a file from sensuctl and more granularity of control around checks/check hooks execution with an agent allow list. Additionally, this release includes the capability to delete assets and some more stability fixes around watcher functionality. See the [upgrading guide]() to upgrade Sensu to version 5.12.0.
+**August 26, 2019** &mdash; The latest release of Sensu Go, version 5.12.0, is now available for download. There are some exciting feature additions in this release including the ability to output resources to a file from sensuctl and more granularity of control around checks/check hooks execution with an agent allow list. Additionally, this release includes the capability to delete assets and some more stability fixes around watcher functionality. See the [upgrading guide][1] to upgrade Sensu to version 5.12.0.
 
 **IMPORTANT:**
 
