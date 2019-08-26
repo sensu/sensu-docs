@@ -138,7 +138,7 @@ Sensu binary-only distributions for FreeBSD are available for these architecture
 For example, to download Sensu for FreeBSD `amd64` in `tar.gz` format:
 
 {{< highlight shell >}}
-curl -LO https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.12.0/sensu-go_5.12.0_FreeBSD_amd64.tar.gz
+curl -LO https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.12.0/sensu-go_5.12.0_freebsd_amd64.tar.gz
 {{< /highlight >}}
 
 Generate a SHA-512 checksum for the downloaded artifact.
