@@ -1173,7 +1173,7 @@ example      | {{< highlight shell >}}"client_secret": "a0f2a3c1dcd5b1cac71bf0c0
 description  | The location of the OIDC server you wish to authenticate against. _NOTE: Configuring with http will cause the connection to  be insecure._
 required     | true
 type         | String
-example      | {{< highlight shell >}}"name_attribute": "https://sensu.oidc.provider.example.com"{{< /highlight >}}
+example      | {{< highlight shell >}}"server": "https://sensu.oidc.provider.example.com"{{< /highlight >}}
 
 | redirect_uri |   |
 -------------|------
@@ -1261,7 +1261,7 @@ register an OIDC application for Sensu Enterprise based on your OIDC provider:
   the value to the Redirect URI configured at step 4 of
   [Create an Okta Application](#create-an-okta-application), just like this:
   
-  > `"redirect_uri": "{DASHBOARD_URL}/api/enterprise/authentication/v2/oidc/callback"`
+  > `"redirect_uri": "{BACKEND_URL}/api/enterprise/authentication/v2/oidc/callback"`
 
 #### Sensuctl Login with OIDC
 
