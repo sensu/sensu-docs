@@ -1185,7 +1185,7 @@ example      | {{< highlight shell >}}"redirectURL": "http://localhost:8080/api/
 description  | The claim to use to form the associated RBAC groups. 
 required     | false
 type         | String
-example      | {{< highlight shell >}} "groups_claim": [ "ops", "dev" ] {{< /highlight >}}
+example      | {{< highlight shell >}} "groups_claim": "ops" {{< /highlight >}}
 
 | groups_prefix |   |
 -------------|------
