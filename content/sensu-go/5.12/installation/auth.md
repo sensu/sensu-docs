@@ -1180,7 +1180,7 @@ example      | {{< highlight shell >}}"name_attribute": "https://sensu.oidc.prov
 description  | Redirect URL to provide to the OIDC provider. Requires `/api/enterprise/authenication/v2/oidc/callback` _NOTE: only required for certain OIDC providers, such as Okta._
 required     | false
 type         | String
-example      | {{< highlight shell >}}"redirectURL": "http://sensu-backend.example.com:8080/api/enterprise/authenication/v2/oidc/callback"{{< /highlight >}}
+example      | {{< highlight shell >}}"redirect_uri": "http://sensu-backend.example.com:8080/api/enterprise/authenication/v2/oidc/callback"{{< /highlight >}}
 
 | groups_claim |   |
 -------------|------
