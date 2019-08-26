@@ -1102,6 +1102,8 @@ See the [LDAP troubleshooting](#ldap-troubleshooting) section.
 
 The Sensu offers license-activated support for OIDC driver for using the OpenID Connect 1.0 protocol (OIDC) on top of the OAuth 2.0 protocol for RBAC authentication.
 
+_NOTE: OIDC authentication is currently supported only via `sensuctl`. OIDC authentication for the Web UI will be added in a future release._
+
 ### OIDC configuration examples
 
 
@@ -1118,7 +1120,7 @@ spec:
   client_id: a8e43af034e7f2608780
   client_secret: b63968394be6ed2edb61c93847ee792f31bf6216
   redirect_uri: http://127.0.0.1:8080/api/enterprise/authenication/v2/oidc/callback
-  server: https://localhost:9031
+  server: https://oidc.example.com:9031
   groups_claim: groups
   groups_prefix: 'oidc:'
   username_claim: email
@@ -1136,7 +1138,7 @@ spec:
       ],
       "client_id": "a8e43af034e7f2608780",
       "client_secret": "b63968394be6ed2edb61c93847ee792f31bf6216",
-      " redirect_uri": "http://127.0.0.1:8080/api/enterprise/authenication/v2/oidc/callback",
+      " redirect_uri": "http://sensu-backend.example.com:8080/api/enterprise/authenication/v2/oidc/callback",
       "server": "https://localhost:9031",
       "groups_claim": "groups",
       "groups_prefix": "oidc:",
@@ -1178,7 +1180,7 @@ example      | {{< highlight shell >}}"name_attribute": "https://sensu.oidc.prov
 description  | Redirect URL to provide to the OIDC provider. Requires `/api/enterprise/authenication/v2/oidc/callback` _NOTE: only required for certain OIDC providers, such as Okta._
 required     | false
 type         | String
-example      | {{< highlight shell >}}"redirectURL": "http://localhost:8080/api/enterprise/authenication/v2/oidc/callback"{{< /highlight >}}
+example      | {{< highlight shell >}}"redirectURL": "http://sensu-backend.example.com:8080/api/enterprise/authenication/v2/oidc/callback"{{< /highlight >}}
 
 | groups_claim |   |
 -------------|------
@@ -1210,7 +1212,7 @@ example      | {{< highlight shell >}}"username_prefix": "okta"{{< /highlight >}
 
 | additional_scopes |   |
 -------------|------
-description  | Scopes to include in the claims, in addition to the default `email`, `openid` and `profile` scopes. _NOTE: only required for certain OIDC providers, such as Okta._
+description  | Scopes to include in the claims, in addition to the default `openid` scope. _NOTE: For most providers you'll want to include `groups`, `email` and `username` in this list._
 required     | false
 type         | Array
 example      | {{< highlight shell >}}"additional_scopes": ["groups", "email", "username"]{{< /highlight >}}
@@ -1222,7 +1224,6 @@ To use OIDC for authentication requires registration of your Sensu Go 5.12.0 or 
 register an OIDC application for Sensu Enterprise based on your OIDC provider:
 
 - [Okta](#okta)
-- [PingFederate](#pingfederate)
 
 ### Okta
 
@@ -1261,6 +1262,18 @@ register an OIDC application for Sensu Enterprise based on your OIDC provider:
   [Create an Okta Application](#create-an-okta-application), just like this:
   
   > `"redirect_uri": "{DASHBOARD_URL}/api/enterprise/authentication/v2/oidc/callback"`
+
+#### Sensuctl Login with OIDC
+
+1. Run `sensuctl login oidc`
+  
+  > sensuctl login oidc
+
+2. If on a desktop a browser will open to OIDC provider allowing you to authenticate and log in.
+
+  > Launching browser to complete the login via your OIDC provider at following URL:
+  > https://sensu-backend.example.com:8080/api/enterprise/authentication/v2/oidc/authorize
+
 
 [sc]: ../../sensuctl/reference#creating-resources
 [sp]: #spec-attributes
