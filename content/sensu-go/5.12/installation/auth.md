@@ -1184,7 +1184,7 @@ example      | {{< highlight shell >}}"redirectURL": "http://sensu-backend.examp
 
 | groups_claim |   |
 -------------|------
-description  | The claim to use to form the associated RBAC groups. 
+description  | The claim to use to form the associated RBAC groups. _Note: The value held by the claim must be an array of strings._
 required     | false
 type         | String
 example      | {{< highlight shell >}} "groups_claim": "ops" {{< /highlight >}}
