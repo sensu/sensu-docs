@@ -47,41 +47,41 @@ Due to changes in the release process, Sensu binary-only archives are now named 
 
 **NEW FEATURES:**
 
-Operators can now authenticate to Sensu via OpenID Direct Connect (OIDC) using sensuctl, see our [authentication documentation][17] for details.
-Added sensu-agent and sensuctl binary builds for FreeBSD.
-Added sensuctl dump command to output resources to a file or STDOUT, making it easier to backup your Sensu backends.
-Agents can now be configured with a list executables which check and check hook commands are allowed to run.
+- Operators can now authenticate to Sensu via OpenID Direct Connect (OIDC) using sensuctl, see our [authentication documentation][17] for details.
+- Added sensu-agent and sensuctl binary builds for FreeBSD.
+- Added sensuctl dump command to output resources to a file or STDOUT, making it easier to backup your Sensu backends.
+- Agents can now be configured with a list executables which check and check hook commands are allowed to run.
 
 **IMPROVEMENTS:**
 
-Assets now support defining multiple builds, reducing the number of individual assets needed to cover disparate platforms in your infrastructure.
-Licensed feature: Namespaces listed in both the web UI and sensuctl are now limited to those which the user has access to.
-The event.check.name field has been added as a supported field selector.
-Both the API and sensuctl can now be used to delete Assets.
-The use of Protobuf serialization/deserialization over websocket can now be negotiated between agent and backend.
-Web UI performance has been improved for deployments with many events and entities.
-The resource caches can now rebuild themselves in case of failures.
-Event and Entity resources can now be created via the API without an explicit namespace; the system will refer to the namespace in the request URL.
-Event and Entity resources can now be created via the API using the POST verb.
+- Assets now support defining multiple builds, reducing the number of individual assets needed to cover disparate platforms in your infrastructure.
+- Licensed feature: Namespaces listed in both the web UI and sensuctl are now limited to those which the user has access to.
+- The event.check.name field has been added as a supported field selector.
+- Both the API and sensuctl can now be used to delete Assets.
+- The use of Protobuf serialization/deserialization over websocket can now be negotiated between agent and backend.
+- Web UI performance has been improved for deployments with many events and entities.
+- The resource caches can now rebuild themselves in case of failures.
+- Event and Entity resources can now be created via the API without an explicit namespace; the system will refer to the namespace in the request URL.
+- Event and Entity resources can now be created via the API using the POST verb.
 
 **SECURITY:**
 
-To prevent writing sensitive data to logs, decoded check result and keepalive payloads are no longer logged by the backend.
+- To prevent writing sensitive data to logs, decoded check result and keepalive payloads are no longer logged by the backend.
 
 **FIXES:**
 
-Tabular display of filters via Sensuctl now displays && or || as appropriate for inclusive and exclusive filters, respectively.
-Requesting events from the GET /events/:entity API endpoint now returns events only for the specified entity.
-Running sensuctl config view without configuration no longer causes a crash.
-Creating an entity via sensuctl with the --interactive flag now prompts for the entity name when not provided on the command line.
-Check hooks with stdin: true now receive actual event data on STDIN instead of an empty event.
-Some issues with check scheduling and updating have been fixed by refactoring the backend's watcher implementation.
+- Tabular display of filters via Sensuctl now displays && or || as appropriate for inclusive and exclusive filters, respectively.
+- Requesting events from the GET /events/:entity API endpoint now returns events only for the specified entity.
+- Running sensuctl config view without configuration no longer causes a crash.
+- Creating an entity via sensuctl with the --interactive flag now prompts for the entity name when not provided on the command line.
+- Check hooks with stdin: true now receive actual event data on STDIN instead of an empty event.
+- Some issues with check scheduling and updating have been fixed by refactoring the backend's watcher implementation.
 
 **KNOWN ISSUES:**
 
-Authentication via OIDC is not yet supported in the Web UI.
-Deleting an asset will not remove references to said asset. It is the operators responsibility to remove the asset from the runtime_assets field of the check, hook, filter, mutator, or handler.
-Deleting an asset will not remove the tarball or downloaded files from disk. It is the operators responsibility to clear the asset cache if necessary.
+- Authentication via OIDC is not yet supported in the Web UI.
+- Deleting an asset will not remove references to said asset. It is the operators responsibility to remove the asset from the runtime_assets field of the check, hook, filter, mutator, or handler.
+- Deleting an asset will not remove the tarball or downloaded files from disk. It is the operators responsibility to clear the asset cache if necessary.
 
 ## 5.11.1 release notes
 
