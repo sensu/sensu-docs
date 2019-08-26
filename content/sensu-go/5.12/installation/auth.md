@@ -1252,7 +1252,7 @@ register an OIDC application for Sensu Enterprise based on your OIDC provider:
 
    >  `"additional_scopes": [ "groups" ]`
 
-2. Add the `groups` to the `groups_claimed` array. For example an Okta group `dev` and we set a `groups_prefix` to `okta:`, we can setup RBAC objects to mention group `okta:dev` as needed
+2. Add the `groups` to the `groups_claimed` string. For example an Okta group `dev` and we set a `groups_prefix` to `okta:`, we can setup RBAC objects to mention group `okta:dev` as needed
 
    >  `"additional_scopes": [ "groups" ]`
 
