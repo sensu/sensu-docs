@@ -48,6 +48,8 @@ You can use [sensuctl][2] to view all namespaces within Sensu:
 sensuctl namespace list
 {{< /highlight >}}
 
+_NOTE: For licensed tier users,`sensuctl namespace list` will list only the namespaces that the current user has access to._
+
 ### Creating a namespace
 
 You can use [sensuctl][2] to create a namespace.
@@ -682,7 +684,7 @@ spec:
 
 ## Role bindings and cluster role bindings
 
-A **role binding** assigns a **role** or **cluster role** to users and groups within a namesapce.
+A **role binding** assigns a **role** or **cluster role** to users and groups within a namespace.
 A **cluster role binding** assigns a **cluster role** to users and groups across namespaces and resource types.
 
 To create and manage role bindings within a namespace, [create a role][25] with `rolebindings` permissions within that namespace, and log in by [configuring sensuctl][26].
