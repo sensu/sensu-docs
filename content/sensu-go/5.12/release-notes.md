@@ -7,6 +7,7 @@ version: "5.12"
 menu: "sensu-go-5.12"
 ---
 
+- [5.12.0 release notes](#5-12-0-release-notes)
 - [5.11.1 release notes](#5-11-1-release-notes)
 - [5.11.0 release notes](#5-11-0-release-notes)
 - [5.10.2 release notes](#5-10-2-release-notes)
