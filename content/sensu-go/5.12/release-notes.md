@@ -57,7 +57,7 @@ Licensed feature: Namespaces listed in both the web UI and sensuctl are now limi
 The event.check.name field has been added as a supported field selector
 Both the API and sensuctl can now be used to delete Assets
 The use of Protobuf serialization/deserialization over websocket can now be negotiated between agent and backend.
-We fixed some bugs in watchers through refactoring -- what does it mean to end users?
+Web UI performance is improved UI for deployments with lots of events and entities.
 The resource caches can now rebuild themselves in case of failures.
 Event and Entity resources can now be created via the API without an explicit namespace; the system will refer to the namespace in the request URL.
 Event and Entity resources can now be created via the API using the POST verb
