@@ -89,6 +89,12 @@ Offline documentation uses a set of layouts located in the `offline` directory. 
 yarn run server --layoutDir=offline
 ```
 
+To exclude content from the offline documentation, the following can be added to a markdown file's front matter:
+
+```
+offline: false
+```
+
 ### Deploying the site
 
 Whenever changes are merged to the `master` branch, this project is automatically deployed to [docs.sensu.io][site]. For additional details on Heroku configuration and deployment, see [our wiki page](https://github.com/sensu/sensu-docs/wiki/Heroku-Configuration-and-Publishing).
