@@ -77,7 +77,6 @@ Some issues with check scheduling and updating have been fixed by refactoring th
 
 **KNOWN ISSUES:**
 
-Deleting an asset via the API or sensuctl will only delete the asset resource within Sensu backend. 
 Deleting an asset will not remove references to said asset. It is the operators responsibility to remove the asset from the runtime_assets field of the check, hook, filter, mutator, or handler.
 Deleting an asset will not remove the tarball or downloaded files from disk. It is the operators responsibility to clear the asset cache if necessary.
 
