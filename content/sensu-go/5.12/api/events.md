@@ -11,6 +11,7 @@ menu:
 - [The `/events` API endpoint](#the-events-api-endpoint)
 	- [`/events` (GET)](#events-get)
 	- [`/events` (POST)](#events-post)
+  	- [`/events` (PUT)](#events-put)
 - [The `/events/:entity` API endpoint](#the-eventsentity-api-endpoint)
 	- [`/events/:entity` (GET)](#eventsentity-get)
 - [The `/events/:entity/:check` API endpoint](#the-eventsentitycheck-api-endpoint)
@@ -182,6 +183,44 @@ The request includes information about the check and entity represented by the e
 
 {{< highlight shell >}}
 curl -X POST \
+-H "Authorization: Bearer $SENSU_TOKEN" \
+-H 'Content-Type: application/json' \
+-d '{
+  "entity": {
+    "entity_class": "proxy",
+    "metadata": {
+      "name": "server1",
+      "namespace": "default"
+    }
+  },
+  "check": {
+    "output": "Server error",
+    "state": "failing",
+    "status": 2,
+    "handlers": ["slack"],
+    "interval": 60,
+    "metadata": {
+      "name": "server-health"
+    }
+  }
+}' \
+http://127.0.0.1:8080/api/core/v2/namespaces/default/events
+
+HTTP/1.1 200 OK
+{"timestamp":1552582569,"entity":{"entity_class":"proxy","system":{"network":{"interfaces":null}},"subscriptions":null,"last_seen":0,"deregister":false,"deregistration":{},"metadata":{"name":"server1","namespace":"default"}},"check":{"handlers":["slack"],"high_flap_threshold":0,"interval":60,"low_flap_threshold":0,"publish":false,"runtime_assets":null,"subscriptions":[],"proxy_entity_name":"","check_hooks":null,"stdin":false,"subdue":null,"ttl":0,"timeout":0,"round_robin":false,"executed":0,"history":null,"issued":0,"output":"Server error","state":"failing","status":2,"total_state_change":0,"last_ok":0,"occurrences":0,"occurrences_watermark":0,"output_metric_format":"","output_metric_handlers":null,"env_vars":null,"metadata":{"name":"server-health"}},"metadata":{}}
+{{< /highlight >}}
+
+### `/events` (PUT)
+
+The `/events` API endpoint provides HTTP PUT access to create an event and send it to the Sensu pipeline.
+
+#### EXAMPLE {#events-put-example}
+
+In the following example, an HTTP PUT request is submitted to the `/events` API to create an event.
+The request includes information about the check and entity represented by the event and returns a successful HTTP 200 OK response and the event definition.
+
+{{< highlight shell >}}
+curl -X PUT \
 -H "Authorization: Bearer $SENSU_TOKEN" \
 -H 'Content-Type: application/json' \
 -d '{
