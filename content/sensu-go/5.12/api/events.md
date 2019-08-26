@@ -11,7 +11,7 @@ menu:
 - [The `/events` API endpoint](#the-events-api-endpoint)
 	- [`/events` (GET)](#events-get)
 	- [`/events` (POST)](#events-post)
-  - [`/events` (PUT)](#events-put)
+  	- [`/events` (PUT)](#events-put)
 - [The `/events/:entity` API endpoint](#the-eventsentity-api-endpoint)
 	- [`/events/:entity` (GET)](#eventsentity-get)
 - [The `/events/:entity/:check` API endpoint](#the-eventsentitycheck-api-endpoint)
