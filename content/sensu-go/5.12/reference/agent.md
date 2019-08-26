@@ -13,6 +13,7 @@ menu:
 ---
 
 - [Installation][1]
+- [Communication between agent and backend](#communication-between-agent-and-backend)
 - [Creating events using service checks](#creating-monitoring-events-using-service-checks)
 - [Creating events using the agent API](#creating-monitoring-events-using-the-agent-api)
 - [Creating events using the StatsD listener](#creating-monitoring-events-using-the-statsd-listener)
@@ -30,6 +31,7 @@ menu:
   - [Security configuration](#security-configuration-flags)
   - [Socket configuration](#socket-configuration-flags)
   - [StatsD configuration](#statsd-configuration-flags)
+  - [Allow list configuration](#allow-list-configuration)
   - [Example](../../files/agent.yml)
 
 The Sensu agent is a lightweight client that runs on the infrastructure components you want to monitor.
@@ -37,6 +39,12 @@ Agents register with the Sensu backend as [monitoring entities][3] with `type: "
 Agent entities are responsible for creating [check and metrics events][7] to send to the [backend event pipeline][2].
 The Sensu agent is available for Linux, macOS, and Windows.
 See the [installation guide][1] to install the agent.
+
+## Communication between agent and backend
+
+The Sensu agent uses [WebSocket][45] (ws) protocol to send and receive JSON messages with the Sensu backend.
+For optimal network throughput, agents will attempt to negotiate the use of [Protobuf][47] serialization when communicating with a Sensu backend that supports it.
+By default this communication is via clear text. The backend and agent can be configured for WebSocket Secure (wss) encrypted communication by following our [Securing Sensu][46] guide.
 
 ## Creating monitoring events using service checks
 
@@ -685,6 +693,7 @@ Usage:
   sensu-agent start [flags]
 
 Flags:
+      --allow-list string               path to agent execution allow list configuration file
       --annotations stringToString      entity annotations map (default [])
       --api-host string                 address to bind the Sensu client HTTP API to (default "127.0.0.1")
       --api-port int                    port the Sensu client HTTP API listens on (default 3031)
@@ -793,8 +802,7 @@ config-file: "/sensu/agent.yml"{{< /highlight >}}
 
 | disable-assets |      |
 --------------|------
-description   | When set to `true`, disables [assets][] for the agent. In the event that an agent
-attempts to execute a check that requires an asset, the agent will respond with a status of `3`, and a message indicating that the agent could not execute the check because assets are disabled.
+description   | When set to `true`, disables [assets][29] for the agent. In the event that an agent attempts to execute a check that requires an asset, the agent will respond with a status of `3`, and a message indicating that the agent could not execute the check because assets are disabled.
 type          | Boolean
 default       | false
 example       | {{< highlight shell >}}# Command line example
@@ -802,6 +810,19 @@ sensu-agent start --disable-assets
 
 # /etc/sensu/agent.yml example
 disable-assets: true{{< /highlight >}}
+
+<a name="allow-list"></a>
+
+| allow-list |      |
+------------------|------
+description       | Path to yaml or json file containing allowlist of check or hook commands the agent can execute. See the [example configuration][48] file and the [configuration spec][49] for details on building a configuration file.
+type              | String
+default           | `""`
+example           | {{< highlight shell >}}# Command line example
+sensu-agent start --allow-list /etc/sensu/check-allow-list.yaml
+
+# /etc/sensu/agent.yml example
+allow-list: /etc/sensu/check-allow-list.yaml{{< /highlight >}}
 
 
 | labels     |      |
@@ -1151,6 +1172,87 @@ sensu-agent start --statsd-metrics-port 6125
 # /etc/sensu/agent.yml example
 statsd-metrics-port: 6125{{< /highlight >}}
 
+### Allow list configuration
+
+| exec |      |
+----------------------|------
+description           | The command to allow the Sensu agent to run as a check or a hook.
+required              | true
+type                  | String
+example               | {{< highlight shell >}}"exec": "/usr/local/bin/check_memory.sh"{{< /highlight >}}
+
+| sha512 |      |
+----------------------|------
+description           | The checksum of the check or hook executable.
+required              | false
+type                  | String
+example               | {{< highlight shell >}}"sha512": "4f926bf4328..."{{< /highlight >}}
+
+| args |      |
+----------------------|------
+description           | Arguments for the exec command.
+required              | true
+type                  | Array
+example               | {{< highlight shell >}}"args": ["foo"]{{< /highlight >}}
+
+| enable_env |      |
+----------------------|------
+description           | Enable environment variables.
+required              | false
+type                  | Boolean
+example               | {{< highlight shell >}}"enable_env": true{{< /highlight >}}
+
+### Example allow list configuration file
+
+{{< language-toggle >}}
+
+{{< highlight yml >}}
+- exec: /usr/local/bin/check_memory.sh
+  args:
+  - ""
+  sha512: 736ac120323772543fd3a08ee54afdd54d214e58c280707b63ce652424313ef9084ca5b247d226aa09be8f831034ff4991bfb95553291c8b3dc32cad034b4706
+  enable_env: true
+  foo: bar
+- exec: /usr/local/bin/show_process_table.sh
+  args:
+  - ""
+  sha512: 28d61f303136b16d20742268a896bde194cc99342e02cdffc1c2186f81c5adc53f8550635156bebeed7d87a0c19a7d4b7a690f1a337cc4737e240b62b827f78a
+- exec: echo-asset.sh
+  args:
+  - "foo"
+  sha512: cce3d16e5881ba829f271df778f9014f7c3659917f7acfd7a60a91bfcabb472eea72f9781194d310388ba046c21790364ad0308a5a897cde50022195ba90924b
+{{< /highlight >}}
+
+{{< highlight json >}}
+[
+  {
+    "exec": "/usr/local/bin/check_memory.sh",
+    "args": [
+      ""
+    ],
+    "sha512": "736ac120323772543fd3a08ee54afdd54d214e58c280707b63ce652424313ef9084ca5b247d226aa09be8f831034ff4991bfb95553291c8b3dc32cad034b4706",
+    "enable_env": true,
+    "foo": "bar"
+  },
+  {
+    "exec": "/usr/local/bin/show_process_table.sh",
+    "args": [
+      ""
+    ],
+    "sha512": "28d61f303136b16d20742268a896bde194cc99342e02cdffc1c2186f81c5adc53f8550635156bebeed7d87a0c19a7d4b7a690f1a337cc4737e240b62b827f78a"
+  },
+  {
+    "exec": "echo-asset.sh",
+    "args": [
+      "foo"
+    ],
+    "sha512": "cce3d16e5881ba829f271df778f9014f7c3659917f7acfd7a60a91bfcabb472eea72f9781194d310388ba046c21790364ad0308a5a897cde50022195ba90924b"
+  }
+]
+{{< /highlight >}}
+
+{{< /language-toggle >}}
+
 [1]: ../../installation/install-sensu#install-sensu-agents
 [2]: ../backend
 [3]: ../entities
@@ -1195,3 +1297,8 @@ statsd-metrics-port: 6125{{< /highlight >}}
 [api-filter]: ../../api/overview#filtering
 [sensuctl-filter]: ../../sensuctl/reference#filtering
 [44]: ../checks#ttl-attribute
+[45]: https://en.m.wikipedia.org/wiki/WebSocket
+[46]: ../../guides/securing-sensu
+[47]: https://en.m.wikipedia.org/wiki/Protocol_Buffers
+[48]: #example-allow-list-configuration-file
+[49]: #allow-list-configuration
