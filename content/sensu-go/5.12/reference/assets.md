@@ -35,7 +35,9 @@ At runtime, the backend or agent sequentially evaluates assets that appear in th
 
 ### What are asset builds?
 
-An asset build is the combination of an artifact URL, SHA512 checksum and optional [Sensu query expression][1] filters. Each asset may define a single build or provide a list of multiple builds.
+An asset build is the combination of an artifact URL, SHA512 checksum and optional [Sensu query expression][1] filters. Each asset definition may describe one or more builds.
+
+_NOTE: Assets which provide `url` and `sha512` attributes at the top-level of the `spec` scope are [single build assets](#asset-definition-single-build-deprecated) -- this form of asset defintion is deprecated. We recommend using [multiple build asset defintions](#asset-definition-multiple-builds), which specify one or more `builds` under the `spec` scope._
 
 ### How are asset builds evaluated?
 
@@ -43,7 +45,7 @@ For each build provided in an asset, Sensu will evaluate any defined filters to 
 
 ### How are asset builds installed?
 
-After finding a matching build, the build's artifact will be downloaded from the provided URL. If the asset definition includes headers, these will be passed along as part of the HTTP request. If the downloaded artifact's SHA512 checksum matches the checksum provided by the build, it is unpacked into the Sensu service's local cache directory.
+After finding a matching build, the build artifact will be downloaded from the provided URL. If the asset definition includes headers, these will be passed along as part of the HTTP request. If the downloaded artifact's SHA512 checksum matches the checksum provided by the build, it is unpacked into the Sensu service's local cache directory.
 
 The backend or agent's local cache path can be set using the `--cache-dir` flag.
 You can disable assets for an agent using the agent `--disable-assets` [configuration flag][30].
@@ -130,18 +132,6 @@ spec         |
 description  | Top-level map that includes the asset [spec attributes][sp].
 required     | Required for asset definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][sc].
 type         | Map of key-value pairs
-example (single build)     | {{< highlight shell >}}"spec": {
-  "url": "http://example.com/asset.tar.gz",
-  "sha512": "4f926bf4328fbad2b9cac873d117f771914f4b837c9c85584c38ccf55a3ef3c2e8d154812246e5dda4a87450576b2c58ad9ab40c9e2edc31b288d066b195b21b",
-  "filters": [
-    "entity.system.os == 'linux'",
-    "entity.system.arch == 'amd64'"
-  ],
-  "headers": {
-    "Authorization": "Bearer $TOKEN",
-    "X-Forwarded-For": "client1, proxy1, proxy2"
-  }
-}{{< /highlight >}}
 example (multiple builds)     | {{< highlight shell >}}"spec": {
   "builds": [
     {
@@ -161,6 +151,18 @@ example (multiple builds)     | {{< highlight shell >}}"spec": {
           "entity.system.arm_version == 7"
         ]
       }
+  ],
+  "headers": {
+    "Authorization": "Bearer $TOKEN",
+    "X-Forwarded-For": "client1, proxy1, proxy2"
+  }
+}{{< /highlight >}}
+example (single build, deprecated)     | {{< highlight shell >}}"spec": {
+  "url": "http://example.com/asset.tar.gz",
+  "sha512": "4f926bf4328fbad2b9cac873d117f771914f4b837c9c85584c38ccf55a3ef3c2e8d154812246e5dda4a87450576b2c58ad9ab40c9e2edc31b288d066b195b21b",
+  "filters": [
+    "entity.system.os == 'linux'",
+    "entity.system.arch == 'amd64'"
   ],
   "headers": {
     "Authorization": "Bearer $TOKEN",
@@ -301,7 +303,7 @@ spec:
 
 {{< /language-toggle >}}
 
-### Asset definition (single build)
+### Asset definition (single build, deprecated)
 
 {{< language-toggle >}}
 
