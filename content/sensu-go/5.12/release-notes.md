@@ -50,7 +50,7 @@ Due to changes in the release process, Sensu binary-only archives are now named 
 - Operators can now authenticate to Sensu via OpenID Direct Connect (OIDC) using sensuctl, see our [authentication documentation][17] for details.
 - Added sensu-agent and sensuctl binary builds for FreeBSD.
 - Added sensuctl dump command to output resources to a file or STDOUT, making it easier to backup your Sensu backends.
-- Agents can now be configured with a list of executables which check and check hook commands are allowed to run. See the [agent reference][78] for more information.
+- Agents can now be configured with a whitelist of executables which are allowed to run as check and hook commands. See the [agent reference][78] for more information.
 
 **IMPROVEMENTS:**
 
