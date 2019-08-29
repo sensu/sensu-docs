@@ -14,7 +14,9 @@ menu:
 <div id="katacoda-scenario-1"
     data-katacoda-id="sensu/sandbox"
     data-katacoda-color="2c3458"
-    style="height: 800px; padding-top: 10px;"></div>
-
+    data-katacoda-ctaurl="https://docs.sensu.io/sensu-go/latest/getting-started/sandbox/"
+    data-katacoda-ctatext="Learn more in the Sensu Sandbox"
+    style="height: 800px; padding-top: 10px;" 
+></div>
 <br><br>
 [**<-- Back to getting started**](../get-started)
