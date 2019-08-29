@@ -15,6 +15,7 @@ menu:
 	- [Log levels](#log-levels)
 	- [Log file locations](#log-file-locations)
 - [Permission issues](#permission-issues)
+- [Assets not working properly](#asset-issues)
 
 ## Service logging
 
@@ -121,6 +122,48 @@ sudo chown -R sensu:sensu /var/cache/sensu/sensu-agent
 
 To troubleshoot handlers and filters, create test events using the [agent API][agent-api], adding the `handlers` attribute to send ad-hoc events to the pipeline.
 
+## Troubleshooting assets {#asset-issues}
+
+Asset filters allow for scoping an asset to a particular operating system or architecture. You can see an example of those in the [asset reference documentation][asset-ref]. If an asset filter is improperly applied, this can prevent the asset from being downloaded to the desired entity, and will result in a message like:
+
+{{< highlight shell >}}
+monitoring-script.sh not found
+{{< /highlight >}}
+
+In the event you see a message like this, it's worth going back and reviewing your asset definition. If you can't remember where you stored the information on disk, you can find it via:
+
+{{< highlight shell >}}
+sensuctl asset info my-monitoring-script-asset --format yaml
+
+or 
+
+sensuctl asset info my-monitoring-script-asset --format json
+{{< /highlight >}}
+
+One common filter issue is conflating operating systems with the family they're a part of. For example, though Ubuntu is part of the Debian family of Linux distributions, Ubuntu != Debian. A practical example would look like:
+
+{{< highlight shell >}}
+...
+    - entity.system.platform == 'debian'
+    - entity.system.arch == 'amd64'
+{{< /highlight >}}
+
+Which would not allow an Ubuntu system to run the asset. Instead, the asset would look like:
+
+{{< highlight shell >}}
+...
+    - entity.system.platform_family == 'debian'
+    - entity.system.arch == 'amd64'
+    
+or 
+
+    - entity.system.platform == 'ubuntu'
+    - entity.system.arch == 'amd64'
+{{< /highlight >}}
+
+Which would allow the asset to be downloaded onto the target entity.
+
+
 [agent-api]: ../../reference/agent#events-post
 
 [structured]: https://dzone.com/articles/what-is-structured-logging
@@ -128,6 +171,8 @@ To troubleshoot handlers and filters, create test events using the [agent API][a
 [platforms]: ../../installation/platforms
 [agent-ref]: ../../reference/agent/#restarting-the-service
 [backend-ref]: ../../reference/backend/#restarting-the-service
+[asset-ref]: ../../reference/assets/#asset-definition-multiple-builds
+
 [journald-syslog]: ../systemd-logs
 [1]: ../../reference/agent#operation
 [2]: ../../installation/verify
