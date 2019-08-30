@@ -321,7 +321,6 @@ timeout     |
 description | The handler execution duration timeout in seconds (hard stop). Only used by `pipe` and `tcp` handler types.
 required    | false
 type        | Integer
-default     | `10`
 example     | {{< highlight shell >}}"timeout": 30{{< /highlight >}}
 
 handle_silenced | 
