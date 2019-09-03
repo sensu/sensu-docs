@@ -56,6 +56,7 @@ Due to changes in the release process, Sensu binary-only archives are now named 
 
 - Assets now support defining multiple builds, reducing the number of individual assets needed to cover disparate platforms in your infrastructure.
 - ([Licensed tier][53]) Namespaces listed in both the web UI and sensuctl are now limited to those which the user has access to.
+- Hooks now support the use of assets.
 - The event.check.name field has been added as a supported field selector.
 - Both the API and sensuctl can now be used to delete Assets.
 - The use of Protobuf serialization/deserialization over websocket can now be negotiated between agent and backend.
