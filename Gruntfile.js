@@ -29,7 +29,7 @@ module.exports = function(grunt) {
             require('cssnano')(),
           ],
         },
-        src: 'static/stylesheets/sensu.css',
+        src: ['static/stylesheets/sensu.css', 'static/stylesheets/offline.css'],
       },
       dist: {
         options: {
@@ -46,6 +46,7 @@ module.exports = function(grunt) {
       develop: {
         files: {
           'static/stylesheets/sensu.css': 'static/stylesheets/scss/main.scss',
+          'static/stylesheets/offline.css': 'static/stylesheets/scss/offline.scss',
         },
         options: {
           implementation: sass,
