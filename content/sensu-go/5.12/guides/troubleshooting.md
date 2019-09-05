@@ -120,7 +120,9 @@ sudo chown -R sensu:sensu /var/cache/sensu/sensu-agent
 
 ## Troubleshooting handlers and filters
 
-Whether implementing new workflows or modifying existing ones, it can become necessary to troubleshoot various stages of the event pipeline. In many cases generating test events using the [agent API][agent-api] will save you time and effort over modifying existing checks and waiting for them to be scheduled by the backend.
+Whether implementing new workflows or modifying existing ones, its sometimes necessary to troubleshoot various stages of the event pipeline. In many cases generating events using the [agent API][agent-api] will save you time and effort over modifying existing check configurations.
+
+Here's an example using curl with the API of a local sensu-agent process to generate test-event check results:
 
 {{< highlight shell >}}
 curl -X POST \
