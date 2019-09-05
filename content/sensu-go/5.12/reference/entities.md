@@ -69,7 +69,6 @@ spec:
   deregistration: {}
   entity_class: proxy
   last_seen: 0
-  subscriptions: []
   system:
     network:
       interfaces: null
@@ -91,7 +90,6 @@ spec:
     "deregistration": {},
     "entity_class": "proxy",
     "last_seen": 0,
-    "subscriptions": [],
     "system": {
       "network": {
         "interfaces": null
@@ -150,6 +148,10 @@ spec:
 {{< /highlight >}}
 
 {{< /language-toggle >}}
+
+### Proxy entities checks
+
+Once a proxy entity is created, you can define which agents will run the check by configuring a subscription. See [Proxy Requests][11] for details on creating a proxy check for a proxy entity.
 
 ### Agent entities{#agent-entities-managed}
 
@@ -761,3 +763,4 @@ spec:
 [sensuctl-filter]: ../../sensuctl/reference#filtering
 [9]: ../../getting-started/enterprise
 [10]: https://discourse.sensu.io/t/introducing-usage-limits-in-the-sensu-go-free-tier/1156
+[11]: ../checks/#proxy-requests
