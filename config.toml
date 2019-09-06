@@ -107,6 +107,7 @@ disableKinds = ["taxonomy", "taxonomyTerm"]
     identifier = "sensu-core"
     name = "Sensu Core"
     description = "The original monitoring event pipeline"
+    eol = "December 31, 2019"
     weight = 2
     latest = "1.8"
 
@@ -184,6 +185,7 @@ disableKinds = ["taxonomy", "taxonomyTerm"]
     identifier = "sensu-enterprise"
     name = "Sensu Enterprise"
     description = "The powerful and simple monitoring product, built on Sensu Core"
+    eol = "March 31, 2020"
     weight = 3
     latest = "3.6"
 
@@ -261,6 +263,7 @@ disableKinds = ["taxonomy", "taxonomyTerm"]
     identifier = "sensu-enterprise-dashboard"
     name = "Sensu Enterprise Dashboard"
     description = "The dashboard for Sensu Enterprise, built on Uchiwa"
+    eol = "March 31, 2020"
     weight = 4
     latest = "2.16"
 
@@ -324,6 +327,7 @@ disableKinds = ["taxonomy", "taxonomyTerm"]
     identifier = "uchiwa"
     name = "Uchiwa"
     description = "An open source dashboard for Sensu Core"
+    eol = "December 31, 2019"
     weight = 5
     latest = "1.0"
 
