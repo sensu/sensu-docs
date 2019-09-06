@@ -22,11 +22,11 @@
         <div class="product-grid--product--description">
           {{ .description }}
         </div>
-        {{ if .eol }}
+        {{ if .notice }}
         <br>
         <br>
-        <div class="product-grid--product--eol">
-          End of life: {{ .eol }}
+        <div class="product-grid--product--notice">
+          {{ .notice }}
         </div>
         {{ end }}
       </a>
