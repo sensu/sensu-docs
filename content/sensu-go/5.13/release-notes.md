@@ -44,17 +44,14 @@ Read the [upgrade guide][1] for information on upgrading to the latest version o
 
 **NEW FEATURES:**
 
-Sensuctl now integrates with Bonsai, the Sensu Go Asset index, run a single sensuctl command to add an Asset to your Sensu cluster, e.g. `sensuctl asset add sensu/sensu-pagerduty-handler:1.1.0`. Check to see which Assets are outdated (new releases available) with the `outdated` subcommand, e.g. `sensuctl asset outdated`.
-
-Sensuctl now supports the `env` subcommand, for exporting sensuctl configuration and API tokens to your shell environment, e.g. `eval $(sensuctl env)`.
-
-Sensuctl now supports loading multiple resource configuration files (e.g. checks, handlers, etc) from directories! Sensuctl can also load a file using a URL! e.g. `sensuctl create -r -f ./checks` and `sensuctl create -f https://my.blog.ca/sensu-go/check.yaml`.
+- Sensuctl now integrates with Bonsai, the Sensu Go Asset index, run a single sensuctl command to add an Asset to your Sensu cluster, e.g. `sensuctl asset add sensu/sensu-pagerduty-handler:1.1.0`. Check to see which Assets are outdated (new releases available) with the `outdated` subcommand, e.g. `sensuctl asset outdated`.
+- Sensuctl now supports the `env` subcommand, for exporting sensuctl configuration and API tokens to your shell environment, e.g. `eval $(sensuctl env)`.
+- Sensuctl now supports loading multiple resource configuration files (e.g. checks, handlers, etc) from directories! Sensuctl can also load a file using a URL! e.g. `sensuctl create -r -f ./checks` and `sensuctl create -f https://my.blog.ca/sensu-go/check.yaml`.
 
 **FIXES:**
 
-Sensuctl interactive check create and update modes now have 'none' for the metric output format as the first highlighted option, instead of nagios-perfdata.
-
-Fixed a bug where silences would not expire on event resolution.
+- Sensuctl interactive check create and update modes now have `none` for the metric output format as the first highlighted option, instead of `nagios-perfdata`.
+- Fixed a bug where silences would not expire on event resolution.
 
 ## 5.12.0 release notes
 
