@@ -22,6 +22,7 @@ menu:
 - [Time formats](#time-formats)
 - [Shell auto-completion](#shell-auto-completion)
 - [Config files](#configuration-files)
+- [Interacting with Bonsai](#interacting-with-bonsai)
 
 Sensuctl is a command line tool for managing resources within Sensu. It works by
 calling Sensu's underlying API to create, read, update, and delete resources,
@@ -689,6 +690,37 @@ cat .config/sensu/sensuctl/cluster
 
 These are useful if you want to know what cluster you're connecting to, or what namespace or username you're currently configured to use.
 
+## Interacting with Bonsai
+
+Sensuctl supports fetching asset definitions directly from [Bonsai](34) and checking for outdated assets.
+
+### Usage
+
+To add an asset definition directly from Bonsai, use `sensuctl asset add [NAME][:VERSION]`, replacing `[NAME]` with the name of the asset from Bonsai. `[:VERSION]` is only required if you require a specific version or are pinning to a specific version. 
+
+{{< highlight shell >}}
+$ sensuctl asset add sensu/sensu-influxdb-handler:3.1.1
+fetching bonsai asset: sensu/sensu-influxdb-handler:3.1.1
+added asset: sensu/sensu-influxdb-handler:3.1.1
+{{< /highlight >}}
+
+You can also use the `--rename` flag to rename the asset on install.
+
+{{< highlight shell >}}
+$ sensuctl asset add sensu/sensu-slack-handler --rename slack-handler
+no version specified, using latest: 1.0.3
+fetching bonsai asset: sensu/sensu-slack-handler:1.0.3
+added asset: sensu/sensu-slack-handler:1.0.3
+{{< /highlight >}}
+
+To check on outdated assets compared to the current versions available on Bonsai, use `sensuctl asset outdated`. It will print a list of assets that have an older version than the current version available on Bonsai. 
+{{< highlight shell >}}
+$ sensuctl asset outdated
+          Asset Name                  Bonsai Asset          Current Version  Latest Version
+----------------------------  ----------------------------  ---------------  --------------
+sensu/sensu-influxdb-handler  sensu/sensu-influxdb-handler       3.1.1            3.1.2
+{{< /highlight >}}
+
 [1]: ../../reference/rbac
 [2]: https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
 [3]: #sensuctl-create-resource-types
@@ -722,3 +754,4 @@ These are useful if you want to know what cluster you're connecting to, or what 
 [31]: #managing-sensuctl
 [32]: ../../reference/datastore
 [33]: #creating-resources-across-namespaces
+[34]: https://bonsai.sensu.io/
