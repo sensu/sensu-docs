@@ -3,11 +3,11 @@ title: "Sensuctl quick reference"
 linkTitle: "Quickstart"
 description: "Just need to remember the default password for the sensuctl CLI? This cheat sheet has some helpful commands for quick reference. Visit the quickstart for helpful sensuctl tips."
 weight: 1
-version: "5.12"
+version: "5.13"
 product: "Sensu Go"
 platformContent: false 
 menu:
-  sensu-go-5.12:
+  sensu-go-5.13:
     parent: sensuctl
 ---
 

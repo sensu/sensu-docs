@@ -2,11 +2,11 @@
 title: "Get started with Sensu"
 linkTitle: "Get Started with Sensu"
 description: "Sensu is the industry leading solution for multi-cloud monitoring at scale. The Sensu monitoring event pipeline empowers businesses to automate their monitoring workflows and gain deep visibility into their multi-cloud environments. Get started now and feel the #monitoringlove."
-version: "5.12"
+version: "5.13"
 weight: 1
 product: "Sensu Go"
 menu:
-  sensu-go-5.12:
+  sensu-go-5.13:
     parent: getting-started
 ---
 

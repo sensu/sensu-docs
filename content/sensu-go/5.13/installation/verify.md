@@ -4,11 +4,11 @@ linkTitle: "Binary-Only Distributions"
 description: "Sensu offers binary-only distributions for Linux, Windows, and macOS. Read the guide to learn how to download and verify Sensu binaries."
 weight: 16
 product: "Sensu Go"
-version: "5.12"
+version: "5.13"
 platformContent: true
 platforms: ["Windows", "macOS", "Linux", "FreeBSD"]
 menu:
-  sensu-go-5.12:
+  sensu-go-5.13:
     parent: installation
 ---
 

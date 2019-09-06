@@ -3,11 +3,11 @@ title: "Planning your Sensu Go deployment"
 linkTitle: "Deploying Sensu"
 description: "In this guide we'll describes various considerations, recommendations and architectures for a production-ready deployment"
 weight: 101
-version: "5.12"
+version: "5.13"
 product: "Sensu Go"
 platformContent: false
 menu:
-  sensu-go-5.12:
+  sensu-go-5.13:
     parent: guides
 ---
 

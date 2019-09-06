@@ -3,10 +3,10 @@ title: "Installing Sensu"
 linkTitle: "Install Sensu"
 description: "Sensu Go is available for Linux, Windows (agent and CLI only), macOS (CLI only), and Docker. Read the installation guide to installed the Sensu backend, agent, and sensuctl CLI tool."
 weight: 1
-version: "5.12"
+version: "5.13"
 product: "Sensu Go"
 menu:
-  sensu-go-5.12:
+  sensu-go-5.13:
     parent: installation
 ---
 

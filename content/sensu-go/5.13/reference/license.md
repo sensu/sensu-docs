@@ -3,10 +3,10 @@ title: "License management"
 linkTitle: "License Management"
 description: "Sensu Go includes license-activated features designed for monitoring at scale. Activate and manage your license with sensuctl and your Sensu account. Read the reference documentation to learn more."
 weight: 100
-version: "5.12"
+version: "5.13"
 product: "Sensu Go"
 menu:
-  sensu-go-5.12:
+  sensu-go-5.13:
     parent: reference
 ---
 

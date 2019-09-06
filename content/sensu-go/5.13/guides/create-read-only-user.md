@@ -3,12 +3,12 @@ title: "How to create a read-only user with RBAC"
 linkTitle: "Creating a Read Only User"
 description: "RBAC allows you to exercise fine-grained control over how Sensu users interact with Sensu resources. Using RBAC rules, you can easily achieve multitenancy so different projects and teams can share a Sensu instance. Read the guide to get started creating users with Sensu RBAC."
 weight: 100
-version: "5.12"
+version: "5.13"
 product: "Sensu Go"
 platformContent: False
 lastTested: 2018-12-04
 menu: 
-  sensu-go-5.12:
+  sensu-go-5.13:
     parent: guides
 ---
 

@@ -3,11 +3,11 @@ title: "Upgrading Sensu"
 linkTitle: "Upgrade Sensu"
 description: "Upgrade to the latest version of Sensu. Read the upgrade guide to get the latest features and bug fixes in Sensu Go and learn about upgrading to Sensu Go from Sensu Core 1.x."
 weight: 3
-version: "5.12"
+version: "5.13"
 product: "Sensu Go"
 platformContent: false
 menu:
-  sensu-go-5.12:
+  sensu-go-5.13:
     parent: installation
 ---
 

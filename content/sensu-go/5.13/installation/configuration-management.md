@@ -3,9 +3,9 @@ title: "Configuration Management"
 description: "Configuration management tools can help you deploy Sensu in production and at scale. Learn more about the Sensu integrations."
 weight: 16
 product: "Sensu Go"
-version: "5.12"
+version: "5.13"
 menu:
-  sensu-go-5.12:
+  sensu-go-5.13:
     parent: installation
 ---
 

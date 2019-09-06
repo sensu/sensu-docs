@@ -1,10 +1,10 @@
 ---
 title: "Checks API"
 description: "The checks API provides HTTP access to check data. Here’s a reference for the checks API in Sensu Go, including examples for returning the list of checks, creating a Sensu check, and more. Read on for the full reference."
-version: "5.12"
+version: "5.13"
 product: "Sensu Go"
 menu:
-  sensu-go-5.12:
+  sensu-go-5.13:
     parent: api
 ---
 

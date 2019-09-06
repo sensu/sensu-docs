@@ -2,11 +2,11 @@
 title: "Sensu Go media"
 linkTitle: "Media"
 description: "Looking for resources on Sensu Go? Check out our media guide, which includes a collection of blog posts, videos, tutorials, and podcasts, all covering Sensu Go."
-version: "5.12"
+version: "5.13"
 weight: 100
 product: "Sensu Go"
 menu:
-  sensu-go-5.12:
+  sensu-go-5.13:
     parent: getting-started
 ---
 

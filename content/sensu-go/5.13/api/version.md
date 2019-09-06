@@ -1,10 +1,10 @@
 ---
 title: "Version API"
 description: "The version API provides HTTP access to the Sensu and etcd versions. Here’s a reference for the version API in Sensu Go, including examples for returning version information about your Sensu instance. Read on for the full reference."
-version: "5.12"
+version: "5.13"
 product: "Sensu Go"
 menu:
-  sensu-go-5.12:
+  sensu-go-5.13:
     parent: api
 ---
 

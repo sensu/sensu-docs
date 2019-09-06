@@ -2,11 +2,11 @@
 title: "Sensu sandbox"
 linkTitle: "Sandbox"
 description: "The Sensu sandbox makes it easy to learn Sensu Go. You’ll learn Sensu by building your first monitoring workflow and setting up container and application monitoring. There’s also a lesson plan for upgrading from Sensu 1.x to Sensu Go!"
-version: "5.12"
+version: "5.13"
 weight: 4
 product: "Sensu Go"
 menu:
-  sensu-go-5.12:
+  sensu-go-5.13:
     parent: getting-started
 ---
 

@@ -3,12 +3,12 @@ title: "How to augment event data using check hooks"
 linkTitle: "Augmenting Event Data"
 description: "Check hooks allow Sensu users to automate data collection routinely performed by operators investigating monitoring alerts, freeing precious operator time! This guides helps you put in place a check hook which captures the process tree in the event that a service check returns a critical status."
 weight: 25
-version: "5.12"
+version: "5.13"
 product: "Sensu Go"
 platformContent: false
 lastTested: 2018-12-04
 menu:
-  sensu-go-5.12:
+  sensu-go-5.13:
     parent: guides
 ---
 

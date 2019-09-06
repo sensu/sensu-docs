@@ -2,10 +2,10 @@
 title: "Authentication"
 description: "In addition to built-in RBAC, Sensu includes license-activated support for authentication using a Lightweight Directory Access Protocol (LDAP) provider. Read the guide to configure a provider."
 weight: 4
-version: "5.12"
+version: "5.13"
 product: "Sensu Go"
 menu:
-  sensu-go-5.12:
+  sensu-go-5.13:
     parent: installation
 ---
 

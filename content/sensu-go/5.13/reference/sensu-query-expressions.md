@@ -3,11 +3,11 @@ title: "Sensu query expressions"
 linkTitle: "Sensu Query Expressions"
 description: "Based on JavaScript expressions, Sensu query expressions provide additional functionalities for Sensu usage (like nested parameters and custom functions) so Sensu resources can be evaluated directly. Read the reference doc to learn about Sensu query expressions."
 weight: 10
-version: "5.12"
+version: "5.13"
 product: "Sensu Go"
 platformContent: false 
 menu:
-  sensu-go-5.12:
+  sensu-go-5.13:
     parent: reference
 ---
 

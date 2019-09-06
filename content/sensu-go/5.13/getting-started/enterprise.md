@@ -2,11 +2,11 @@
 title: "Getting started with license-activated features"
 linkTitle: "License-Activated Features"
 description: "Get started with license-activated features in Sensu Go. Read this guide to learn about the latest license-activated features, and contact our sales team for a free trial."
-version: "5.12"
+version: "5.13"
 weight: 2
 product: "Sensu Go"
 menu:
-  sensu-go-5.12:
+  sensu-go-5.13:
     parent: getting-started
 ---
 

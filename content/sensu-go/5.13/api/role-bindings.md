@@ -2,10 +2,10 @@
 title: "Role bindings API"
 linkTitle: "Role Bindings API"
 description: "The role bindings API provides HTTP access to role binding data. Here’s a reference for the role bindings API in Sensu Go, including examples for returning lists of role bindings, creating Sensu role bindings, and more. Read on for the full reference."
-version: "5.12"
+version: "5.13"
 product: "Sensu Go"
 menu:
-  sensu-go-5.12:
+  sensu-go-5.13:
     parent: api
 ---
 

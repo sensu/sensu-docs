@@ -3,11 +3,11 @@ title: "How to route alerts using filters"
 linkTitle: "Routing Alerts with Filters"
 description: "Every alert has an ideal first responder: a team or individual with the knowledge to triage and address the issue. Sensu contact routing lets you alert the right people using their preferred contact method, reducing mean time to response and recovery."
 weight: 39
-version: "5.12"
+version: "5.13"
 product: "Sensu Go"
 platformContent: false
 menu:
-  sensu-go-5.12:
+  sensu-go-5.13:
     parent: guides
 ---
 

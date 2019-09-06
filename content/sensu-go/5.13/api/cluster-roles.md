@@ -2,10 +2,10 @@
 title: "Cluster roles API"
 linkTitle: "Cluster Roles API"
 description: "The cluster role API provides HTTP access to cluster role data. Here’s a reference for the cluster roles API in Sensu Go, including examples for returning lists of cluster roles, creating Sensu cluster roles, and more. Read on for the full reference."
-version: "5.12"
+version: "5.13"
 product: "Sensu Go"
 menu:
-  sensu-go-5.12:
+  sensu-go-5.13:
     parent: api
 ---
 

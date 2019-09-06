@@ -2,11 +2,11 @@
 title: "Hooks"
 description: "Check hooks allow you to automate data collection routinely performed by manually investigating monitoring alerts, freeing precious operator time! Read the reference doc to learn about hooks."
 weight: 10
-version: "5.12"
+version: "5.13"
 product: "Sensu Go"
 platformContent: false
 menu:
-  sensu-go-5.12:
+  sensu-go-5.13:
     parent: reference
 ---
 

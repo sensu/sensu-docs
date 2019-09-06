@@ -1,10 +1,10 @@
 ---
 title: "Cluster API"
 description: "The cluster management API endpoint provides HTTP access to Sensu cluster data. Here’s a reference for the cluster API in Sensu Go, including examples for returning the cluster definition, creating a cluster member, and more. Read on for the full reference."
-version: "5.12"
+version: "5.13"
 product: "Sensu Go"
 menu:
-  sensu-go-5.12:
+  sensu-go-5.13:
     parent: api
 ---
 

@@ -3,11 +3,11 @@ title: "How to monitor server resources with checks"
 linkTitle: "Monitoring Server Resources"
 description: "Here’s how to monitor server resources with checks. You’ll learn about Sensu checks, why you should use checks, and how to use them to monitor a service. Read the guide to learn more."
 weight: 10
-version: "5.12"
+version: "5.13"
 product: "Sensu Go"
 platformContent: false
 menu:
-  sensu-go-5.12:
+  sensu-go-5.13:
     parent: guides
 ---
 

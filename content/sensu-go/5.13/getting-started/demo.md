@@ -2,11 +2,11 @@
 title: "Sensu live demo"
 linkTitle: "Live Demo"
 description: "Explore the Sensu dashboard and sensuctl command line tool with a live demo that monitors the Sensu docs site. See entities, monitoring events, and active service and metric checks."
-version: "5.12"
+version: "5.13"
 weight: 3
 product: "Sensu Go"
 menu:
-  sensu-go-5.12:
+  sensu-go-5.13:
     parent: getting-started
 ---
 

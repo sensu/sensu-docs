@@ -2,11 +2,11 @@
 title: "Dashboard filtering"
 linkTitle: "Filtering"
 description: "The Sensu dashboard supports filtering on the events, entities, checks, handlers, filters, mutators, and silences pages. Read the doc to learn more."
-version: "5.12"
+version: "5.13"
 product: "Sensu Go"
 platformContent: false
 menu:
-  sensu-go-5.12:
+  sensu-go-5.13:
     parent: dashboard
 ---
 

@@ -3,12 +3,12 @@ title: "Sensu agent"
 linkTitle: "Sensu Agent"
 description: "The Sensu agent is a lightweight client that runs on the infrastructure components you want to monitor. Read the reference doc to get started using the agent to create monitoring events."
 weight: 1
-version: "5.12"
+version: "5.13"
 product: "Sensu Go"
 platformContent: true
 platforms: ["Linux", "Windows"]
 menu:
-  sensu-go-5.12:
+  sensu-go-5.13:
     parent: reference
 ---
 

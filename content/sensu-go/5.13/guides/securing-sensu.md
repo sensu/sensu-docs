@@ -2,11 +2,11 @@
 title: "Securing Sensu"
 description: "As with all software, it’s important to minimize any attack surface exposed by the software. Sensu is no different. In this guide, you’ll learn about the components that need to be secured (and how to do so)."
 weight: 1000
-version: "5.12"
+version: "5.13"
 product: "Sensu Go"
 platformContent: false
 menu:
-  sensu-go-5.12:
+  sensu-go-5.13:
     parent: guides
 ---
 

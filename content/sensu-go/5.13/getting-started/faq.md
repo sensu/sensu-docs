@@ -2,11 +2,11 @@
 title: "Sensu frequently asked questions"
 linkTitle: "FAQs"
 description: "Questions about Sensu Go? Read our FAQ to get answers to questions like, What platforms does Sensu support? and What can I monitor with Sensu?"
-version: "5.12"
+version: "5.13"
 weight: 100
 product: "Sensu Go"
 menu:
-  sensu-go-5.12:
+  sensu-go-5.13:
     parent: getting-started
 ---
 

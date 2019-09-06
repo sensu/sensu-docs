@@ -3,10 +3,10 @@ title: "Mutators"
 description: "As part of the event pipeline, mutators let you transform event data prior to being handled. Read the reference doc to learn about mutators."
 product: "Sensu Go"
 weight: 10
-version: "5.12"
+version: "5.13"
 platformContent: False 
 menu:
-  sensu-go-5.12:
+  sensu-go-5.13:
     parent: reference
 ---
 

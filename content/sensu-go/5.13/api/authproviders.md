@@ -2,10 +2,10 @@
 title: "Authentication providers API"
 linkTitle: "Authentication Providers API"
 description: "The authentication providers API endpoint provides HTTP access to authentication provider configuration in Sensu. Here’s a reference for the authentication providers API in Sensu Go, including returning the list of active authentication providers and creating or updating an authentication provider. Read on for the full reference."
-version: "5.12"
+version: "5.13"
 product: "Sensu Go"
 menu:
-  sensu-go-5.12:
+  sensu-go-5.13:
     parent: api
 ---
 

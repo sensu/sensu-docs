@@ -2,10 +2,10 @@
 title: "Tokens"
 description: "Tokens are placeholders included in a check definition that the agent replaces with entity information before executing the check. You can use tokens to fine-tune check attributes (like alert thresholds) on a per-entity level while re-using check definitions. Read the reference doc to learn about tokens."
 weight: 10
-version: "5.12"
+version: "5.13"
 product: "Sensu Go"
 menu: 
-  sensu-go-5.12:
+  sensu-go-5.13:
     parent: reference
 ---
 

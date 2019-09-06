@@ -2,10 +2,10 @@
 title: "License management API"
 linkTitle: "License API"
 description: "The license API provides HTTP access to the active license configuration. Here’s a reference for the license management API in Sensu Go, including examples for returning the active enterprise license configuration and activating or updating an enterprise license. Read on for the full reference."
-version: "5.12"
+version: "5.13"
 product: "Sensu Go"
 menu:
-  sensu-go-5.12:
+  sensu-go-5.13:
     parent: api
 ---
 

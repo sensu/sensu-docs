@@ -2,12 +2,12 @@
 title: "Troubleshooting"
 description: "Need to troubleshoot Sensu Go? Here’s how to look into errors, including service logging and the log levels you need to know about. Logs produced by Sensu services – i.e., sensu-backend and sensu-agent – are often the best source of truth when troubleshooting issues, so we recommend you start there."
 weight: 2000
-version: "5.12"
+version: "5.13"
 product: "Sensu Go"
 platformContent: true
 platforms: ["Linux", "Windows"]
 menu:
-  sensu-go-5.12:
+  sensu-go-5.13:
     parent: guides
 ---
 

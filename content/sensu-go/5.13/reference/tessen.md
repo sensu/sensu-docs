@@ -2,10 +2,10 @@
 title: "Tessen"
 description: "Tessens sends anonymized data about Sensu instances to Sensu Inc. You can use sensuctl to view and manage Tessen configuration. Read the reference to configure Tessen."
 weight: 10
-version: "5.12"
+version: "5.13"
 product: "Sensu Go"
 menu: 
-  sensu-go-5.12:
+  sensu-go-5.13:
     parent: reference
 ---
 

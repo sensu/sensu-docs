@@ -1,7 +1,7 @@
 ---
 title: "Learn Sensu Go"
 description: "Here’s everything you need to start learning Sensu Go, including how to set up our sandbox and your first three lesson plans. You'll learn how to create a monitoring event and event pipeline, as well as automate event production with the Sensu agent."
-version: "5.12"
+version: "5.13"
 product: "Sensu Go"
 ---
 
