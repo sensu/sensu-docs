@@ -820,34 +820,34 @@ event-log-buffer-size: 100000{{< /highlight >}}
 
 ### Configuring Flags as Environment Variables
 
-The `sensu-agent` service can read environment variables from `/etc/default/sensu-agent` on Debian/Ubuntu systems and `/etc/sysconfig/sensu-aget` on RHEL systems. These files are not created by the installation package and will need to be created.
+The `sensu-backend` service can read environment variables from `/etc/default/sensu-backend` on Debian/Ubuntu systems and `/etc/sysconfig/sensu-backend` on RHEL systems. These files are not created by the installation package and will need to be created.
 
 {{< language-toggle >}}
 
 {{< highlight "Ubuntu/Debian" >}}
-$ sudo touch /etc/default/sensu-agent
+$ sudo touch /etc/default/sensu-backend
 {{< /highlight >}}
 
 {{< highlight "RHEL/CentOS" >}}
-$ sudo touch /etc/sysconfig/sensu-agent
+$ sudo touch /etc/sysconfig/sensu-backend
 {{< /highlight >}}
 
 {{< /language-toggle >}}
 
 For any flag you are configuring as an environment variable, you will need to append `sensu_` and convert dashes (`-`) to underscores (`_`). This will then need to be added to the appropriate file created above and the service will need to be restarted.
 
-In the following example `api-host` flag is configured as an environment variable and set to `"0.0.0.0"`.
+In the following example `api-listen-address` flag is configured as an environment variable and set to `192.168.100.20:8080`.
 
 {{< language-toggle >}}
 
 {{< highlight "Ubuntu/Debian" >}}
-$ echo 'sensu_api_host="0.0.0.0' | sudo tee /etc/default/sensu-agent
-$ sudo systemctl restart sensu-agent
+$ echo 'sensu_api_listen_address=192.168.100.20:8080' | sudo tee /etc/default/sensu-backend
+$ sudo systemctl restart sensu-backend
 {{< /highlight >}}
 
 {{< highlight "RHEL/CentOS" >}}
-$ echo 'sensu_api_host="0.0.0.0' | sudo tee /etc/sysconfig/sensu-agent
-$ sudo systemctl restart sensu-agent
+$ echo 'sensu_api_listen_address=192.168.100.20:8080' | sudo tee /etc/sysconfig/sensu-backend
+$ sudo systemctl restart sensu-backend
 {{< /highlight >}}
 
 {{< /language-toggle >}}

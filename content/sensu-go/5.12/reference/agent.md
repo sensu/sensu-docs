@@ -1205,7 +1205,7 @@ example               | {{< highlight shell >}}"enable_env": true{{< /highlight 
 
 ### Configuring Flags as Environment Variables
 
-The `sensu-agent` service can read environment variables from `/etc/default/sensu-agent` on Debian/Ubuntu systems and `/etc/sysconfig/sensu-aget` on RHEL systems. These files are not created by the installation package and will need to be created.
+The `sensu-agent` service can read environment variables from `/etc/default/sensu-agent` on Debian/Ubuntu systems and `/etc/sysconfig/sensu-agent` on RHEL systems. These files are not created by the installation package and will need to be created.
 
 {{< language-toggle >}}
 
