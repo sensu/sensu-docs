@@ -7,6 +7,7 @@ version: "5.13"
 menu: "sensu-go-5.12"
 ---
 
+- [5.13.0 release notes](#5-13-0-release-notes)
 - [5.12.0 release notes](#5-12-0-release-notes)
 - [5.11.1 release notes](#5-11-1-release-notes)
 - [5.11.0 release notes](#5-11-0-release-notes)
@@ -36,6 +37,10 @@ Sensu Go adheres to [semantic versioning][2] using MAJOR.MINOR.PATCH release num
 Read the [upgrade guide][1] for information on upgrading to the latest version of Sensu Go.
 
 ---
+
+## 5.13.0 release notes
+
+**September 9, 2019** &mdash; The latest release of Sensu Go, version 5.13.0, is now available for download. This is one of the most user-friendly releases yet! Sensuctl now integrates with Bonsai, the Asset index, making is easier than ever to fetch and use countless Sensu monitoring plugins and integrations. Additionally, sensuctl now supports loading resource configuration files (e.g. checks) from directories and URLs too! But that's not all! Sensuctl now provides a subcommand for exporting its configuration and API tokens to your shell environment. Use sensuctl to provide curl and custom scripts with fresh API access information!
 
 ## 5.12.0 release notes
 
