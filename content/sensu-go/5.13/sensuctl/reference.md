@@ -696,7 +696,7 @@ Sensuctl supports both installing asset definitions directly from [Bonsai](34) a
 
 ### Usage
 
-To add an asset definition directly from Bonsai, use `sensuctl asset add [NAME][:VERSION]`, replacing `[NAME]` with the name of the asset from Bonsai. `[:VERSION]` is only required if you require a specific version or are pinning to a specific version. 
+To install an asset definition directly from Bonsai, use `sensuctl asset add [NAME][:VERSION]`, replacing `[NAME]` with the name of the asset from Bonsai. `[:VERSION]` is only required if you require a specific version or are pinning to a specific version. 
 
 {{< highlight shell >}}
 $ sensuctl asset add sensu/sensu-influxdb-handler:3.1.1
