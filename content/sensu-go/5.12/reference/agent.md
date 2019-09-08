@@ -32,7 +32,7 @@ menu:
   - [Socket configuration](#socket-configuration-flags)
   - [StatsD configuration](#statsd-configuration-flags)
   - [Allow list configuration](#allow-list-configuration)
-  - [Configuring Flags as Environment Variables](#configuring-flags-as-environment-variables)
+  - [Configuration via environment variables](#configuration-via-environment-variables)
   - [Example](../../files/agent.yml)
 
 The Sensu agent is a lightweight client that runs on the infrastructure components you want to monitor.
@@ -1203,9 +1203,9 @@ required              | false
 type                  | Boolean
 example               | {{< highlight shell >}}"enable_env": true{{< /highlight >}}
 
-### Configuring Flags as Environment Variables
+### Configuration via environment variables
 
-The `sensu-agent` service can read environment variables from `/etc/default/sensu-agent` on Debian/Ubuntu systems and `/etc/sysconfig/sensu-agent` on RHEL systems. These files are not created by the installation package and will need to be created.
+The `sensu-agent` service configured by our supported packages will read environment variables from `/etc/default/sensu-agent` on Debian/Ubuntu systems and `/etc/sysconfig/sensu-agent` on RHEL systems. These files are not created by the installation package and will need to be created.
 
 {{< language-toggle >}}
 
@@ -1219,19 +1219,19 @@ $ sudo touch /etc/sysconfig/sensu-agent
 
 {{< /language-toggle >}}
 
-For any flag you are configuring as an environment variable, you will need to append `sensu_` and convert dashes (`-`) to underscores (`_`). This will then need to be added to the appropriate file created above and the service will need to be restarted.
+For any configuration flag you wish to specify as an environment variable, you will need to append `sensu_` and convert any dashes (`-`) to underscores (`_`). The resulting variable will then need to be added to the appropriate environment file described above; the service will need to be restarted before these settings will take effect.
 
 In the following example `api-host` flag is configured as an environment variable and set to `"0.0.0.0"`.
 
 {{< language-toggle >}}
 
 {{< highlight "Ubuntu/Debian" >}}
-$ echo 'sensu_api_host="0.0.0.0' | sudo tee /etc/default/sensu-agent
+$ echo 'sensu_api_host="0.0.0.0' | sudo tee -a /etc/default/sensu-agent
 $ sudo systemctl restart sensu-agent
 {{< /highlight >}}
 
 {{< highlight "RHEL/CentOS" >}}
-$ echo 'sensu_api_host="0.0.0.0' | sudo tee /etc/sysconfig/sensu-agent
+$ echo 'sensu_api_host="0.0.0.0' | sudo tee -a /etc/sysconfig/sensu-agent
 $ sudo systemctl restart sensu-agent
 {{< /highlight >}}
 
