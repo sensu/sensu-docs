@@ -713,7 +713,7 @@ fetching bonsai asset: sensu/sensu-slack-handler:1.0.3
 added asset: sensu/sensu-slack-handler:1.0.3
 {{< /highlight >}}
 
-To check on outdated assets compared to the current versions available on Bonsai, use `sensuctl asset outdated`. It will print a list of assets that have an older version than the current version available on Bonsai. 
+To check your Sensu backend for assets which have newer versions available on Bonsai, use `sensuctl asset outdated`. This will print a list of assets installed in the backend whose version is older than the newest version available on Bonsai.
 {{< highlight shell >}}
 $ sensuctl asset outdated
           Asset Name                  Bonsai Asset          Current Version  Latest Version
