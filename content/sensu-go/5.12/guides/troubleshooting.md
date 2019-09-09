@@ -124,7 +124,7 @@ To troubleshoot handlers and filters, create test events using the [agent API][a
 
 ## Troubleshooting assets {#asset-issues}
 
-Asset filters allow for scoping an asset to a particular operating system or architecture. You can see an example of those in the [asset reference documentation][asset-ref]. If an asset filter is improperly applied, this can prevent the asset from being downloaded to the desired entity, and will result in a message like:
+Asset filters allow for scoping an asset to a particular operating system or architecture. You can see an example of those in the [asset reference documentation][asset-ref]. If an asset filter is improperly applied, this can prevent the asset from being downloaded by the desired entity, and will result in a message like:
 
 {{< highlight shell >}}
 monitoring-script.sh not found
