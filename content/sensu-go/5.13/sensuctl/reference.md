@@ -22,6 +22,7 @@ menu:
 - [Time formats](#time-formats)
 - [Shell auto-completion](#shell-auto-completion)
 - [Config files](#configuration-files)
+- [Interacting with Bonsai](#interacting-with-bonsai)
 
 Sensuctl is a command line tool for managing resources within Sensu. It works by
 calling Sensu's underlying API to create, read, update, and delete resources,
@@ -662,6 +663,58 @@ asset       completion  entity      handler
 create  delete  import  list
 {{< /highlight >}}
 
+## Environment variables
+
+Sensuctl includes `sensuctl env` command to help in exporting and setting environment variables on your systems.
+
+### Usage
+
+{{< language-toggle >}}
+
+{{< highlight bash >}}
+sensuctl env
+export SENSU_API_URL="http://127.0.0.1:8080"
+export SENSU_NAMESPACE="default"
+export SENSU_FORMAT="tabular"
+export SENSU_ACCESS_TOKEN="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.x.x"
+export SENSU_ACCESS_TOKEN_EXPIRES_AT="1567716187"
+export SENSU_REFRESH_TOKEN="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.x.x"
+export SENSU_TRUSTED_CA_FILE=""
+export SENSU_INSECURE_SKIP_TLS_VERIFY="true"
+# Run this command to configure your shell:
+# eval $(sensuctl env)
+{{< /highlight >}}
+
+{{< highlight cmd >}}
+sensuctl env --shell cmd
+SET SENSU_API_URL=http://127.0.0.1:8080
+SET SENSU_NAMESPACE=default
+SET SENSU_FORMAT=tabular
+SET SENSU_ACCESS_TOKEN=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.x.x
+SET SENSU_ACCESS_TOKEN_EXPIRES_AT=1567716676
+SET SENSU_REFRESH_TOKEN=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.x.x
+SET SENSU_TRUSTED_CA_FILE=
+SET SENSU_INSECURE_SKIP_TLS_VERIFY=true
+REM Run this command to configure your shell:
+REM 	@FOR /f "tokens=*" %i IN ('sensuctl env --shell cmd') DO @%i
+{{< /highlight >}}
+
+{{< highlight powershell >}}
+sensuctl env --shell powershell
+$Env:SENSU_API_URL = "http://127.0.0.1:8080"
+$Env:SENSU_NAMESPACE = "default"
+$Env:SENSU_FORMAT = "tabular"
+$Env:SENSU_ACCESS_TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.x.x"
+$Env:SENSU_ACCESS_TOKEN_EXPIRES_AT = "1567716738"
+$Env:SENSU_REFRESH_TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.x.x"
+$Env:SENSU_TRUSTED_CA_FILE = ""
+$Env:SENSU_INSECURE_SKIP_TLS_VERIFY = "true"
+# Run this command to configure your shell:
+# & sensuctl env --shell powershell | Invoke-Expression
+{{< /highlight >}}
+
+{{< /language-toggle >}}
+
 ## Configuration files
 
 During configuration, sensuctl creates configuration files that contain information for connecting to your Sensu Go deployment. You can find them at `$HOME/.config/sensu/sensuctl/profile` and `$HOME/.config/sensu/sensuctl/cluster`. For example:
@@ -688,6 +741,37 @@ cat .config/sensu/sensuctl/cluster
 {{< /highlight >}}
 
 These are useful if you want to know what cluster you're connecting to, or what namespace or username you're currently configured to use.
+
+## Interacting with Bonsai
+
+Sensuctl supports both installing asset definitions directly from [Bonsai](34) and checking your Sensu backend for outdated assets.
+
+### Usage
+
+To install an asset definition directly from Bonsai, use `sensuctl asset add [NAME][:VERSION]`, replacing `[NAME]` with the name of the asset from Bonsai. `[:VERSION]` is only required if you require a specific version or are pinning to a specific version. 
+
+{{< highlight shell >}}
+sensuctl asset add sensu/sensu-influxdb-handler:3.1.1
+fetching bonsai asset: sensu/sensu-influxdb-handler:3.1.1
+added asset: sensu/sensu-influxdb-handler:3.1.1
+{{< /highlight >}}
+
+You can also use the `--rename` flag to rename the asset on install.
+
+{{< highlight shell >}}
+sensuctl asset add sensu/sensu-slack-handler --rename slack-handler
+no version specified, using latest: 1.0.3
+fetching bonsai asset: sensu/sensu-slack-handler:1.0.3
+added asset: sensu/sensu-slack-handler:1.0.3
+{{< /highlight >}}
+
+To check your Sensu backend for assets which have newer versions available on Bonsai, use `sensuctl asset outdated`. This will print a list of assets installed in the backend whose version is older than the newest version available on Bonsai.
+{{< highlight shell >}}
+sensuctl asset outdated
+          Asset Name                  Bonsai Asset          Current Version  Latest Version
+----------------------------  ----------------------------  ---------------  --------------
+sensu/sensu-influxdb-handler  sensu/sensu-influxdb-handler       3.1.1            3.1.2
+{{< /highlight >}}
 
 [1]: ../../reference/rbac
 [2]: https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
@@ -722,3 +806,4 @@ These are useful if you want to know what cluster you're connecting to, or what 
 [31]: #managing-sensuctl
 [32]: ../../reference/datastore
 [33]: #creating-resources-across-namespaces
+[34]: https://bonsai.sensu.io/
