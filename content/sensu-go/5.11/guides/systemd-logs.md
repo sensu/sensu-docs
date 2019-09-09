@@ -70,3 +70,5 @@ You can use the following command to see what logrotate would do if it were exec
 {{< highlight shell>}}
 logrotate -d /etc/logrotate.d/sensu.conf
 {{< /highlight>}}
+
+_NOTE: For Ubuntu systems, there are some additional permissions required. After you've set up logging to disk on Ubuntu, ensure you run `chown -R syslog:adm /var/log/sensu` so that syslog will be able to write to that directory._
