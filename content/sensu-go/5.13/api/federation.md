@@ -1,5 +1,5 @@
 ---
-title: "Federation API"
+title: "Federation Replicator API"
 description: "The federation API provides HTTP access to filter data. Here’s a reference for the federation API in Sensu Go, including examples for returning lists of federation, creating Sensu federation, and more. Read on for the full reference."
 version: "5.13"
 product: "Sensu Go"
@@ -17,11 +17,11 @@ menu:
 
 ## The `/federation/v1/replicators` API endpoints
 
-### `//federation/v1/replicators` (GET)
+### `/federation/v1/replicators` (GET)
 
-The `/federation` API endpoint provides HTTP GET access to [filter][1] data.
+The `/federation/v1/replicators` API endpoint provides HTTP GET a list of replicators.
 
-#### EXAMPLE {#federation-get-example}
+#### `/federation/v1/replicators` (GET) EXAMPLE 
 
 The following example demonstrates a request to the `/federation/v1/replicators` API, resulting in
 a JSON Array containing a list of the replicators.
@@ -30,7 +30,7 @@ a JSON Array containing a list of the replicators.
 Coming Soon
 {{< /highlight >}}
 
-#### API Specification {#federation-get-specification}
+#### `/federation/v1/replicators` (GET) API Specification 
 
 /federation/v1/replicators (GET)  | 
 ---------------|------
@@ -43,6 +43,19 @@ output         | {{< highlight shell >}}
 {{< /highlight >}}
 
 ### `/federation/v1/replicators` (POST)
+
+The `/federation/v1/replicators` API endpoint provides HTTP POST the creation of replicators.
+
+### `/federation/v1/replicators` (POST) Example
+
+The following example demonstrates a request to the `/federation/v1/replicators` API, resulting in creating a replicator.
+
+{{< highlight shell >}}
+Coming Soon
+{{< /highlight >}}
+
+
+#### `/federation/v1/replicators` (POST) API Specification 
 
 /federation/v1/replicators (POST) | 
 ----------------|------
