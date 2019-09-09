@@ -662,6 +662,58 @@ asset       completion  entity      handler
 create  delete  import  list
 {{< /highlight >}}
 
+## Environment variables
+
+Sensuctl includes `sensuctl env` command to help in exporting and setting environment variables on your systems.
+
+### Usage
+
+{{< language-toggle >}}
+
+{{< highlight bash >}}
+sensuctl env
+export SENSU_API_URL="http://127.0.0.1:8080"
+export SENSU_NAMESPACE="default"
+export SENSU_FORMAT="tabular"
+export SENSU_ACCESS_TOKEN="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.x.x"
+export SENSU_ACCESS_TOKEN_EXPIRES_AT="1567716187"
+export SENSU_REFRESH_TOKEN="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.x.x"
+export SENSU_TRUSTED_CA_FILE=""
+export SENSU_INSECURE_SKIP_TLS_VERIFY="true"
+# Run this command to configure your shell:
+# eval $(sensuctl env)
+{{< /highlight >}}
+
+{{< highlight cmd >}}
+sensuctl env --shell cmd
+SET SENSU_API_URL=http://127.0.0.1:8080
+SET SENSU_NAMESPACE=default
+SET SENSU_FORMAT=tabular
+SET SENSU_ACCESS_TOKEN=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.x.x
+SET SENSU_ACCESS_TOKEN_EXPIRES_AT=1567716676
+SET SENSU_REFRESH_TOKEN=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.x.x
+SET SENSU_TRUSTED_CA_FILE=
+SET SENSU_INSECURE_SKIP_TLS_VERIFY=true
+REM Run this command to configure your shell:
+REM 	@FOR /f "tokens=*" %i IN ('sensuctl env --shell cmd') DO @%i
+{{< /highlight >}}
+
+{{< highlight powershell >}}
+sensuctl env --shell powershell
+$Env:SENSU_API_URL = "http://127.0.0.1:8080"
+$Env:SENSU_NAMESPACE = "default"
+$Env:SENSU_FORMAT = "tabular"
+$Env:SENSU_ACCESS_TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.x.x"
+$Env:SENSU_ACCESS_TOKEN_EXPIRES_AT = "1567716738"
+$Env:SENSU_REFRESH_TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.x.x"
+$Env:SENSU_TRUSTED_CA_FILE = ""
+$Env:SENSU_INSECURE_SKIP_TLS_VERIFY = "true"
+# Run this command to configure your shell:
+# & sensuctl env --shell powershell | Invoke-Expression
+{{< /highlight >}}
+
+{{< /language-toggle >}}
+
 ## Configuration files
 
 During configuration, sensuctl creates configuration files that contain information for connecting to your Sensu Go deployment. You can find them at `$HOME/.config/sensu/sensuctl/profile` and `$HOME/.config/sensu/sensuctl/cluster`. For example:
