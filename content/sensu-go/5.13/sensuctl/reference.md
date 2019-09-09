@@ -699,7 +699,7 @@ Sensuctl supports both installing asset definitions directly from [Bonsai](34) a
 To install an asset definition directly from Bonsai, use `sensuctl asset add [NAME][:VERSION]`, replacing `[NAME]` with the name of the asset from Bonsai. `[:VERSION]` is only required if you require a specific version or are pinning to a specific version. 
 
 {{< highlight shell >}}
-$ sensuctl asset add sensu/sensu-influxdb-handler:3.1.1
+sensuctl asset add sensu/sensu-influxdb-handler:3.1.1
 fetching bonsai asset: sensu/sensu-influxdb-handler:3.1.1
 added asset: sensu/sensu-influxdb-handler:3.1.1
 {{< /highlight >}}
@@ -707,7 +707,7 @@ added asset: sensu/sensu-influxdb-handler:3.1.1
 You can also use the `--rename` flag to rename the asset on install.
 
 {{< highlight shell >}}
-$ sensuctl asset add sensu/sensu-slack-handler --rename slack-handler
+sensuctl asset add sensu/sensu-slack-handler --rename slack-handler
 no version specified, using latest: 1.0.3
 fetching bonsai asset: sensu/sensu-slack-handler:1.0.3
 added asset: sensu/sensu-slack-handler:1.0.3
@@ -715,7 +715,7 @@ added asset: sensu/sensu-slack-handler:1.0.3
 
 To check your Sensu backend for assets which have newer versions available on Bonsai, use `sensuctl asset outdated`. This will print a list of assets installed in the backend whose version is older than the newest version available on Bonsai.
 {{< highlight shell >}}
-$ sensuctl asset outdated
+sensuctl asset outdated
           Asset Name                  Bonsai Asset          Current Version  Latest Version
 ----------------------------  ----------------------------  ---------------  --------------
 sensu/sensu-influxdb-handler  sensu/sensu-influxdb-handler       3.1.1            3.1.2
