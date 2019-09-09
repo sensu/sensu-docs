@@ -4,7 +4,7 @@ linkTitle: "Release Notes"
 description: "Read the Sensu Go release notes to learn about what's new in our latest release."
 product: "Sensu Go"
 version: "5.13"
-menu: "sensu-go-5.12"
+menu: "sensu-go-5.13"
 ---
 
 - [5.12.0 release notes](#5-12-0-release-notes)
