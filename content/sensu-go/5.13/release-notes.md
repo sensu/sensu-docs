@@ -7,6 +7,7 @@ version: "5.13"
 menu: "sensu-go-5.13"
 ---
 
+- [5.13.1 release notes](#5-13-0-release-notes)
 - [5.13.0 release notes](#5-13-0-release-notes)
 - [5.12.0 release notes](#5-12-0-release-notes)
 - [5.11.1 release notes](#5-11-1-release-notes)
@@ -37,6 +38,16 @@ Sensu Go adheres to [semantic versioning][2] using MAJOR.MINOR.PATCH release num
 Read the [upgrade guide][1] for information on upgrading to the latest version of Sensu Go.
 
 ---
+
+## 5.13.1 release notes
+
+**September 10, 2019** &mdash; The latest release of Sensu Go, version 5.13.1, is now available for download.
+This release is a stability release with bug fixes for multi-build asset definitions causing a panic when no matching filters are found.
+See the [upgrade guide][1] to upgrade Sensu to version 5.11.1.
+
+**FIXES:**
+
+- Multi-build asset definitions with no matching filters will no longer cause a panic.
 
 ## 5.13.0 release notes
 
