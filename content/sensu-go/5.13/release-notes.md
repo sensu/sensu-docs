@@ -48,6 +48,7 @@ See the [upgrade guide][1] to upgrade Sensu to version 5.11.1.
 **FIXES:**
 
 - Multi-build asset definitions with no matching filters will no longer cause a panic.
+- Fixed the `oidc` authentication provider resource.
 
 ## 5.13.0 release notes
 
