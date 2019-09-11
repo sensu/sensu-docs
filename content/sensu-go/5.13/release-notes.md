@@ -4,9 +4,11 @@ linkTitle: "Release Notes"
 description: "Read the Sensu Go release notes to learn about what's new in our latest release."
 product: "Sensu Go"
 version: "5.13"
-menu: "sensu-go-5.12"
+menu: "sensu-go-5.13"
 ---
 
+- [5.13.1 release notes](#5-13-0-release-notes)
+- [5.13.0 release notes](#5-13-0-release-notes)
 - [5.12.0 release notes](#5-12-0-release-notes)
 - [5.11.1 release notes](#5-11-1-release-notes)
 - [5.11.0 release notes](#5-11-0-release-notes)
@@ -36,6 +38,32 @@ Sensu Go adheres to [semantic versioning][2] using MAJOR.MINOR.PATCH release num
 Read the [upgrade guide][1] for information on upgrading to the latest version of Sensu Go.
 
 ---
+
+## 5.13.1 release notes
+
+**September 10, 2019** &mdash; The latest release of Sensu Go, version 5.13.1, is now available for download.
+This release is a stability release with bug fixes for multi-build asset definitions causing a panic when no matching filters are found.
+See the [upgrade guide][1] to upgrade Sensu to version 5.11.1.
+
+**FIXES:**
+
+- Multi-build asset definitions with no matching filters will no longer cause a panic.
+- Fixed the `oidc` authentication provider resource.
+
+## 5.13.0 release notes
+
+**September 9, 2019** &mdash; The latest release of Sensu Go, version 5.13.0, is now available for download. This is one of the most user-friendly releases yet! Sensuctl now integrates with Bonsai, the Sensu Go Asset index, making it easier than ever to fetch and use countless Sensu monitoring plugins and integrations. Additionally, sensuctl now supports loading resource configuration files (e.g. checks) from directories and URLs too! But that's not all! Sensuctl now provides a subcommand for exporting its configuration and API tokens to your shell environment. Use sensuctl to provide curl and custom scripts with fresh API access information! See the [upgrading guide][1] to upgrade Sensu to version 5.13.0.
+
+**NEW FEATURES:**
+
+- Sensuctl now integrates with Bonsai, the Sensu Go Asset index, run a single sensuctl command to add an Asset to your Sensu cluster, e.g. `sensuctl asset add sensu/sensu-pagerduty-handler:1.1.0`. Check to see which Assets are outdated (new releases available) with the `outdated` subcommand, e.g. `sensuctl asset outdated`.
+- Sensuctl now supports the `env` subcommand, for exporting sensuctl configuration and API tokens to your shell environment, e.g. `eval $(sensuctl env)`.
+- Sensuctl now supports loading multiple resource configuration files (e.g. checks, handlers, etc) from directories! Sensuctl can also load a file using a URL! e.g. `sensuctl create -r -f ./checks` and `sensuctl create -f https://my.blog.ca/sensu-go/check.yaml`.
+
+**FIXES:**
+
+- Sensuctl interactive check create and update modes now have `none` for the metric output format as the first highlighted option, instead of `nagios-perfdata`.
+- Fixed a bug where silences would not expire on event resolution.
 
 ## 5.12.0 release notes
 
@@ -452,7 +480,7 @@ See the [upgrade guide][1] to upgrade Sensu to version 5.1.1.
 
 ## 5.1.0 release notes
 
-**December 19, 2018** &mdash; The latest release of Sensu Go, version 5.1.0, is now available for download. 
+**December 19, 2018** &mdash; The latest release of Sensu Go, version 5.1.0, is now available for download.
 This release includes an important change to the Sensu backend state directory as well as support for Ubuntu 14.04 and some key bug fixes.
 See the [upgrade guide][1] to upgrade Sensu to version 5.1.0.
 
