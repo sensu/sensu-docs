@@ -124,20 +124,40 @@ To troubleshoot handlers and filters, create test events using the [agent API][a
 
 ## Troubleshooting assets {#asset-issues}
 
-Asset filters allow for scoping an asset to a particular operating system or architecture. You can see an example of those in the [asset reference documentation][asset-ref]. If an asset filter is improperly applied, this can prevent the asset from being downloaded by the desired entity, and will result in a message like:
+Asset filters allow for scoping an asset to a particular operating system or architecture. You can see an example of those in the [asset reference documentation][asset-ref]. If an asset filter is improperly applied, this can prevent the asset from being downloaded by the desired entity and will result in error messages both on the agent and the backend illustrating that the command was not found:
+
+**Agent**
+
+{{< highlight json >}}
+{
+    "asset": "check-disk-space",
+    "component": "asset-manager",
+    "entity": "sensu-centos",
+    "filters": [
+        "true == false"
+    ],
+    "level": "debug",
+    "msg": "entity not filtered, not installing asset",
+    "time": "2019-09-12T18:28:05Z"
+}
+{{< /highlight >}}
+
+**Backend**
 
 {{< highlight json >}}
 
  {
   "timestamp": 1568148292,
   "check": {
-    "command": "echo.sh",
+    "command": "check-disk-space",
     "handlers": [],
     "high_flap_threshold": 0,
     "interval": 10,
     "low_flap_threshold": 0,
     "publish": true,
-    "runtime_assets": null,
+    "runtime_assets": [
+      "sensu-plugins-disk-checks"
+    ],
     "subscriptions": [
       "caching_servers"
     ],
@@ -157,7 +177,7 @@ Asset filters allow for scoping an asset to a particular operating system or arc
       }
     ],
     "issued": 1568148292,
-    "output": "sh: echo.sh: command not found\n",
+    "output": "sh: check-disk-space: command not found\n",
     "state": "failing",
     "status": 127,
     "total_state_change": 0,
@@ -168,7 +188,7 @@ Asset filters allow for scoping an asset to a particular operating system or arc
     "output_metric_handlers": null,
     "env_vars": null,
     "metadata": {
-      "name": "failing-check",
+      "name": "failing-disk-check",
       "namespace": "default"
     }
   },
@@ -178,16 +198,16 @@ Asset filters allow for scoping an asset to a particular operating system or arc
 }
 {{< /highlight >}}
 
-Note the "command not found" message. In the event you see a message like this, it's worth going back and reviewing your asset definition. If you can't remember where you stored the information on disk, you can find it via:
+In the event you see a message like this, it's worth going back and reviewing your asset definition as this will be your clue that the entity wasn't able to download the required asset due to filter restrictions. If you can't remember where you stored the information on disk, you can find it via:
 
 {{< highlight shell >}}
-sensuctl asset info my-monitoring-script-asset --format yaml
+sensuctl asset info sensu-plugins-disk-checks --format yaml
 {{< /highlight >}}
 
 or 
 
 {{< highlight shell >}}
-sensuctl asset info my-monitoring-script-asset --format json
+sensuctl asset info sensu-plugins-disk-checks --format json
 {{< /highlight >}}
 
 One common filter issue is conflating operating systems with the family they're a part of. For example, though Ubuntu is part of the Debian family of Linux distributions, Ubuntu != Debian. A practical example would look like:
