@@ -178,13 +178,15 @@ Asset filters allow for scoping an asset to a particular operating system or arc
 }
 {{< /highlight >}}
 
-In the event you see a message like this, it's worth going back and reviewing your asset definition. If you can't remember where you stored the information on disk, you can find it via:
+Note the "command not found" message. In the event you see a message like this, it's worth going back and reviewing your asset definition. If you can't remember where you stored the information on disk, you can find it via:
 
 {{< highlight shell >}}
 sensuctl asset info my-monitoring-script-asset --format yaml
+{{< /highlight >}}
 
 or 
 
+{{< highlight shell >}}
 sensuctl asset info my-monitoring-script-asset --format json
 {{< /highlight >}}
 
@@ -202,9 +204,11 @@ Which would not allow an Ubuntu system to run the asset. Instead, the asset woul
 ...
     - entity.system.platform_family == 'debian'
     - entity.system.arch == 'amd64'
-    
+{{< /highlight >}}
+
 or 
 
+{{< highlight shell >}}
     - entity.system.platform == 'ubuntu'
     - entity.system.arch == 'amd64'
 {{< /highlight >}}
