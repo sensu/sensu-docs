@@ -5,5 +5,6 @@ weight: -100
 menu: "plugins"
 product: "Plugins"
 version: "latest"
+layout: "product-versions"
 ---
 
