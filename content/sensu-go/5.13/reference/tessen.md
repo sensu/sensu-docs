@@ -11,7 +11,7 @@ menu:
 
 - [Configuring Tessen](#configuring-tessen)
 - [Specification](#tessen-specification)
-- [Example](#tessen-example)
+- [Example](#tessen-configuration-example)
 
 Tessen is the Sensu call-home service.
 Enabled by default on Sensu backends, Tessen sends anonymized data about Sensu instances to Sensu Inc., including the version, cluster size, number of events processed, and number of resources created (like checks and handlers).
@@ -92,7 +92,7 @@ default      | `false`
 type         | Boolean
 example      | {{< highlight shell >}}opt_out": false{{< /highlight >}}
 
-## Tessen example
+## Tessen configuration example (#tessen-configuration-example)
 
 The following example is in `wrapped-json`format for use with [`sensuctl create`][sc].
 To manage Tessen using the [Tessen API][2], use non-wrapped `json` format as shown in the [API docs][2].
@@ -118,6 +118,49 @@ spec:
 
 {{< /language-toggle >}}
 
+## Tessen payload example (#tessen-payload-example)
+
+If opted in to Tessen, there are various metrics that get sent back to the Tessen service. In the example payload below, you can see that the number of check hooks is sent back to the Tessen service. 
+
+{{< highlight json >}}
+{
+    "component": "tessend",
+    "level": "debug",
+    "metric_name": "hook_count",
+    "metric_value": 2,
+    "msg": "collected a metric for tessen",
+    "time": "2019-09-16T09:02:11Z"
+}
+{{< /highlight >}}
+
+There are other metrics sent on, such as the number of handlers:
+
+{{< highlight json >}}
+{
+    "component": "tessend",
+    "level": "debug",
+    "metric_name": "handler_count",
+    "metric_value": 10,
+    "msg": "collected a metric for tessen",
+    "time": "2019-09-16T09:02:06Z"
+}
+{{< /highlight >}}
+
+Or the number of filters:
+
+{{< highlight json >}}
+{
+    "component": "tessend",
+    "level": "debug",
+    "metric_name": "filter_count",
+    "metric_value": 4,
+    "msg": "collected a metric for tessen",
+    "time": "2019-09-16T09:02:01Z"
+}
+{{< /highlight >}}
+
+If opted into Tessen, all of the metrics and payloads sent are avaiable to view in the logs, which you can view via `journalctl -u sensu-backend.service`. If you'd like to view the events on-disk, please see the [guide on configuring systemd to log to disk][systemd-logs].
+
 [1]: https://blog.sensu.io/announcing-tessen-the-sensu-call-home-service
 [2]: ../../api/tessen
 [3]: ../../sensuctl/reference
@@ -126,3 +169,4 @@ spec:
 [6]: ../../reference/rbac#default-user
 [sc]: ../../sensuctl/reference#creating-resources
 [sp]: #spec-attributes
+[systemd-logs]: ../../guides/systemd-logs
