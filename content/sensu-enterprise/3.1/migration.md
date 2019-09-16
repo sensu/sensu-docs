@@ -174,7 +174,7 @@ Review your Sensu 1.x check configuration for the following attributes, and make
 
 | 1.x attribute | Manual updates required in Sensu Go config |
 | ------------- | ------------- |
-`::: foo :::` | Update the syntax for token substitution from triple colons to curly braces. For example: `{{{ foo }}}`
+`::: foo :::` | Update the syntax for token substitution from triple colons to double curly braces. For example: `{{ foo }}`
 `stdin: true`  | No updates required. Sensu Go checks accept data on stdin by default.
 `handlers: default` | Sensu Go no longer has the concept of a default handler, so you'll need to create a handler named `default` to continue using this pattern.
 `subdues` | Check subdues are not available in Sensu Go.
