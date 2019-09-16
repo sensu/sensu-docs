@@ -142,7 +142,7 @@ Asset filters allow for scoping an asset to a particular operating system or arc
 }
 {{< /highlight >}}
 
-**Backend**
+**Backend event**
 
 {{< highlight json >}}
 
