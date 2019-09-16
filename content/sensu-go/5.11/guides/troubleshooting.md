@@ -15,6 +15,7 @@ menu:
 	- [Log levels](#log-levels)
 	- [Log file locations](#log-file-locations)
 - [Permission issues](#permission-issues)
+- [Assets not working properly](#asset-issues)
 
 ## Service logging
 
@@ -121,6 +122,119 @@ sudo chown -R sensu:sensu /var/cache/sensu/sensu-agent
 
 To troubleshoot handlers and filters, create test events using the [agent API][agent-api], adding the `handlers` attribute to send ad-hoc events to the pipeline.
 
+## Troubleshooting assets {#asset-issues}
+
+Asset filters allow for scoping an asset to a particular operating system or architecture. You can see an example of those in the [asset reference documentation][asset-ref]. If an asset filter is improperly applied, this can prevent the asset from being downloaded by the desired entity and will result in error messages both on the agent and the backend illustrating that the command was not found:
+
+**Agent log entry**
+
+{{< highlight json >}}
+{
+    "asset": "check-disk-space",
+    "component": "asset-manager",
+    "entity": "sensu-centos",
+    "filters": [
+        "true == false"
+    ],
+    "level": "debug",
+    "msg": "entity not filtered, not installing asset",
+    "time": "2019-09-12T18:28:05Z"
+}
+{{< /highlight >}}
+
+**Backend event**
+
+{{< highlight json >}}
+
+ {
+  "timestamp": 1568148292,
+  "check": {
+    "command": "check-disk-space",
+    "handlers": [],
+    "high_flap_threshold": 0,
+    "interval": 10,
+    "low_flap_threshold": 0,
+    "publish": true,
+    "runtime_assets": [
+      "sensu-plugins-disk-checks"
+    ],
+    "subscriptions": [
+      "caching_servers"
+    ],
+    "proxy_entity_name": "",
+    "check_hooks": null,
+    "stdin": false,
+    "subdue": null,
+    "ttl": 0,
+    "timeout": 0,
+    "round_robin": false,
+    "duration": 0.001795508,
+    "executed": 1568148292,
+    "history": [
+      {
+        "status": 127,
+        "executed": 1568148092
+      }
+    ],
+    "issued": 1568148292,
+    "output": "sh: check-disk-space: command not found\n",
+    "state": "failing",
+    "status": 127,
+    "total_state_change": 0,
+    "last_ok": 0,
+    "occurrences": 645,
+    "occurrences_watermark": 645,
+    "output_metric_format": "",
+    "output_metric_handlers": null,
+    "env_vars": null,
+    "metadata": {
+      "name": "failing-disk-check",
+      "namespace": "default"
+    }
+  },
+  "metadata": {
+    "namespace": "default"
+  }
+}
+{{< /highlight >}}
+
+In the event you see a message like this, it's worth going back and reviewing your asset definition as this will be your clue that the entity wasn't able to download the required asset due to filter restrictions. If you can't remember where you stored the information on disk, you can find it via:
+
+{{< highlight shell >}}
+sensuctl asset info sensu-plugins-disk-checks --format yaml
+{{< /highlight >}}
+
+or 
+
+{{< highlight shell >}}
+sensuctl asset info sensu-plugins-disk-checks --format json
+{{< /highlight >}}
+
+One common filter issue is conflating operating systems with the family they're a part of. For example, though Ubuntu is part of the Debian family of Linux distributions, Ubuntu != Debian. A practical example would look like:
+
+{{< highlight shell >}}
+...
+    - entity.system.platform == 'debian'
+    - entity.system.arch == 'amd64'
+{{< /highlight >}}
+
+Which would not allow an Ubuntu system to run the asset. Instead, the filter should look like:
+
+{{< highlight shell >}}
+...
+    - entity.system.platform_family == 'debian'
+    - entity.system.arch == 'amd64'
+{{< /highlight >}}
+
+or 
+
+{{< highlight shell >}}
+    - entity.system.platform == 'ubuntu'
+    - entity.system.arch == 'amd64'
+{{< /highlight >}}
+
+Which would allow the asset to be downloaded onto the target entity.
+
 [agent-api]: ../../reference/agent#events-post
 
 [structured]: https://dzone.com/articles/what-is-structured-logging
@@ -128,6 +242,8 @@ To troubleshoot handlers and filters, create test events using the [agent API][a
 [platforms]: ../../installation/platforms
 [agent-ref]: ../../reference/agent/#restarting-the-service
 [backend-ref]: ../../reference/backend/#restarting-the-service
+[asset-ref]: ../../reference/assets/#asset-definition-multiple-builds
+
 [journald-syslog]: ../systemd-logs
 [1]: ../../reference/agent#operation
 [2]: ../../installation/verify
