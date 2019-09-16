@@ -12,6 +12,7 @@ menu:
 - [Configuring Tessen](#configuring-tessen)
 - [Specification](#tessen-specification)
 - [Example](#tessen-configuration-example)
+- [Tessen payload example](#tessen-payload-example)
 
 Tessen is the Sensu call-home service.
 Enabled by default on Sensu backends, Tessen sends anonymized data about Sensu instances to Sensu Inc., including the version, cluster size, number of events processed, and number of resources created (like checks and handlers).
@@ -118,7 +119,7 @@ spec:
 
 {{< /language-toggle >}}
 
-## Tessen payload example (#tessen-payload-example)
+## Tessen payload example
 
 If opted in to Tessen, there are various metrics that get sent back to the Tessen service. In the example payload below, you can see that the number of check hooks is sent back to the Tessen service. 
 
