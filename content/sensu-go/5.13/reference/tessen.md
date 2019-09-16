@@ -92,7 +92,7 @@ default      | `false`
 type         | Boolean
 example      | {{< highlight shell >}}opt_out": false{{< /highlight >}}
 
-## Tessen configuration example (#tessen-configuration-example)
+## Tessen configuration example
 
 The following example is in `wrapped-json`format for use with [`sensuctl create`][sc].
 To manage Tessen using the [Tessen API][2], use non-wrapped `json` format as shown in the [API docs][2].
