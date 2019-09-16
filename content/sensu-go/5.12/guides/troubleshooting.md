@@ -218,7 +218,7 @@ One common filter issue is conflating operating systems with the family they're 
     - entity.system.arch == 'amd64'
 {{< /highlight >}}
 
-Which would not allow an Ubuntu system to run the asset. Instead, the asset would look like:
+Which would not allow an Ubuntu system to run the asset. Instead, the filter should look like:
 
 {{< highlight shell >}}
 ...
