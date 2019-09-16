@@ -126,7 +126,7 @@ To troubleshoot handlers and filters, create test events using the [agent API][a
 
 Asset filters allow for scoping an asset to a particular operating system or architecture. You can see an example of those in the [asset reference documentation][asset-ref]. If an asset filter is improperly applied, this can prevent the asset from being downloaded by the desired entity and will result in error messages both on the agent and the backend illustrating that the command was not found:
 
-**Agent**
+**Agent log entry**
 
 {{< highlight json >}}
 {
