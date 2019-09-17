@@ -266,16 +266,16 @@ spec:
 
 We'll apply both of those definitions to our Sensu Go deployment:
 
-```
+{{< highlight bash >}}
 sensuctl create -f sensu-go-hello-world-asset.yml
 sensuctl create -f sensu-go-hello-world-check.yml
-```
+{{< /highlight >}}
 
-Now, let's take a look in the dashboard to see our check using our asset. In my case, I have an entity named `sensu-agent-01`, and I can see that the check successfully executes:
+Now, let's take a look in the dashboard to see our check using our asset. In this case, we have an entity named `sensu-agent-01`, and I can see that the check successfully executes:
 
 ![Sensu go agent successfully executes check with hello world asset][sensu-agent-01]
 
-There you have it! You've successfully created an asset from a script, uploaded that to Github as a release, and have created your own definitions that make use of that asset. Congratulations! 🎉🎉🎉🎉
+Congratulations! You've successfully created an asset from a script, uploaded that to Github as a release, and have created your own definitions that make use of that asset.
 
 ## Asset specification
 
