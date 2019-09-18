@@ -159,7 +159,7 @@ dbfd4a714c0c51c57f77daeb62f4a21141665ae71440951399be2d899bf44b3634dad2e6f2516fff
 
 Now that we have our sha512sum, we'll need to host the release (archive and sha512sum) somewhere. You can do this with S3, a GitHub release, or even just serving the files out of a directory using Nginx/Apache.
 
-In this case, we'll use GitHub to serve our release. First, let's create a release: click **Create a new release**: 
+In this case, we'll use [GitHub to serve our release][gh-release-doc]. First, let's create a release: click **Create a new release**: 
 
 ![Create a new github release][gh-release-01]
 
@@ -175,7 +175,7 @@ Click **Publish release**. The latest release page will load:
 
 ![Completed release][gh-release-04]
 
-Next, we need to create some definitions for both the asset and the check.
+Next, we need to create definitions for the asset and the check.
 
 #### Generating the definitions
 
@@ -874,6 +874,7 @@ It is also worth noting that deleting an asset does not delete the archive or do
 [asset-ref]: https://docs.sensu.io/sensu-go/latest/reference/assets/
 [gh-release-01]: http://share.sachshaus.net/4efc554512f9/%255Bee92b1343de6399b8191fee8b8dd2c57%255D_Image%2525202019-09-17%252520at%25252010.32.02%252520AM.png
 [gh-release-02]: http://share.sachshaus.net/3485c10bccb0/[9b5ee5dc49432dc104bf8c6830bcf2b7]_Image%202019-09-17%20at%2010.32.43%20AM.png
-[gh-release-03]: http://share.sachshaus.net/2e3e5d97454d/Image%202019-09-17%20at%2011.54.28%20AM.png
+[gh-release-03]: http://share.sachshaus.net/7a6ecb33ae6c/download/%255B1f7ca64a77532c489bc2c08b1c7a153b%255D_Image%2525202019-09-18%252520at%2525204.26.06%252520PM.png
 [gh-release-04]: http://share.sachshaus.net/221bef49236a/Image%202019-09-17%20at%2011.57.55%20AM.png
 [sensu-agent-01]: http://share.sachshaus.net/24ef2c7ea8e5/Image%202019-09-17%20at%2012.04.35%20PM.png
+[gh-release-doc]:https://help.github.com/en/articles/creating-releases
