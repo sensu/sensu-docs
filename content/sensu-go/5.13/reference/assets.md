@@ -98,7 +98,7 @@ sensu-example-handler_1.0.0_linux_amd64
 
 ### Asset hello world example
 
-In this example, we have a need to run a script that outputs "Hello World" that looks like this:
+In this example, we'll run a script that outputs `Hello World`:
 
 {{< highlight bash >}}
 hello-world.sh
@@ -116,7 +116,7 @@ else
 fi
 {{< /highlight >}}
 
-The first step is to ensure that we have our directory structure in place. Ash noted above, there are three potential directories where our script could live in the project: `/bin`, `/lib`, or `/include`. For this case, we will use `/bin` and put the script there. We'll create the directories `sensu-go-hello-world` and `/bin`:
+The first step is to ensure that our directory structure is in place. As noted in [Example structure](#example-structure), our script could live in three potential directories in the project: `/bin`, `/lib`, or `/include`. For this case, we will put our script in the `/bin` directory. We'll create the directories `sensu-go-hello-world` and `/bin`:
 
 {{< highlight bash >}}
 $ mkdir sensu-go-hello-world
@@ -140,9 +140,9 @@ mode of 'hello-world.sh' changed from 0644 (rw-r--r--) to 0755 (rwxr-xr-x)
 
 Now that the script is in the directory, let's move on to the next step: packaging the asset.
 
-### Packaging the asset
+#### Packaging the asset
 
-Assets are archives--the first step to packaging the asset is to create a tar.gz archive of our project. This assumes you're in the directory you want to tar up:
+Assets are archives, so the first step in packaging the asset is to create a tar.gz archive of our project. This assumes we're in the directory we want to tar up:
 
 {{< highlight bash >}}
 $ cd ..
@@ -150,37 +150,38 @@ $ tar -C sensu-go-hello-world -cvzf sensu-go-hello-world-0.0.1.tar.gz .
 ...
 {{< /highlight >}}
 
-Excellent. Now that we've created an archive, we'll also need to generate a SHA512 sum for it (this is required, else the asset won't work):
+Excellent. Now that we've created an archive, we'll need to generate a SHA512 sum for it (this is required--otherwise, the asset won't work):
 
 {{< highlight bash >}}
 sha512sum sensu-go-hello-world-0.0.1.tar.gz | tee sha512sum.txt
 dbfd4a714c0c51c57f77daeb62f4a21141665ae71440951399be2d899bf44b3634dad2e6f2516fff1ef4b154c198b9c7cdfe1e8867788c820db7bb5bcad83827 sensu-go-hello-world-0.0.1.tar.gz
 {{< /highlight >}}
 
-Now that we have our sha512sum, we'll need to have the release hosted somewhere. The last portion of this exercise is getting the archive and the sha512sum somewhere where it can be hosted. You can do this with S3, a Github release, or even just serving the files out of a directory using Nginx/Apache.
+Now that we have our sha512sum, we'll need to host the release (archive and sha512sum) somewhere. You can do this with S3, a GitHub release, or even just serving the files out of a directory using Nginx/Apache.
 
-In this case, we're going to use Github to serve our release. Let's go ahead and create a release. 
+In this case, we'll use GitHub to serve our release. First, let's create a release: click **Create a new release**: 
 
 ![Create a new github release][gh-release-01]
 
-Once you've clicked on "Create a new release," you should see a screen that looks like this:
+We will see the following screen:
 
 ![Release details screen][gh-release-02]
 
-So you can see that there will need to be some details filled out. We'll also need to drag and drop our asset and checksum to the screen so they will be uploaded as part of the release. If you've done all of that, you should see something like this:
+On this screen, we'll enter a tag version, release title, and release description details and drag and drop our asset and checksum so they will be uploaded as part of the release. When we've done that, the screen will look something like this:
 
 ![Release details filled in][gh-release-03]
 
-Once you've done that, you can hit "Publish release" and you should have a release listed that looks like so:
+Click **Publish release**. The latest release page will load:
 
 ![Completed release][gh-release-04]
 
-Once you've completed creating the release, you'll then need to create some definitions for both the asset and the check. Let's move on to creating those definitions.
+Next, we need to create some definitions for both the asset and the check.
 
-### Generating the definitions
+#### Generating the definitions
 
-So far, we've created a directory for our asset with our script present in `/bin`, we've packaged up the asset and generated a checksum for it, we've got it hosted at Github, now it's time to generate some definitions for it to see it work. So let's start with our asset definition:
+So far, we've created a directory for our asset with our script present in `/bin`, packaged up the asset and generated a checksum for it, and hosted our release on GitHub. Now, let's generate some definitions for our asset to make it work.
 
+First, let's generate our asset definition:
 
 {{< language-toggle >}}
 
@@ -213,8 +214,7 @@ spec:
 
 {{< /language-toggle >}}
 
-
-Now, let's create a basic check that uses the asset:
+Second, we'll create a basic check that uses the asset:
 
 {{< language-toggle >}}
 
@@ -263,19 +263,18 @@ spec:
 
 {{< /language-toggle >}}
 
-
-We'll apply both of those definitions to our Sensu Go deployment:
+Third, we'll apply both definitions to our Sensu Go deployment:
 
 {{< highlight bash >}}
 sensuctl create -f sensu-go-hello-world-asset.yml
 sensuctl create -f sensu-go-hello-world-check.yml
 {{< /highlight >}}
 
-Now, let's take a look in the dashboard to see our check using our asset. In this case, we have an entity named `sensu-agent-01`, and I can see that the check successfully executes:
+Finally, let's take a look in the dashboard to see our check using our asset. In this case, we have an entity named `sensu-agent-01`, and we can see that the check successfully executes:
 
 ![Sensu go agent successfully executes check with hello world asset][sensu-agent-01]
 
-Congratulations! You've successfully created an asset from a script, uploaded that to Github as a release, and have created your own definitions that make use of that asset.
+Congratulations! You created an asset from a script, uploaded the asset to GitHub as a release, and created your own definitions to use the asset.
 
 ## Asset specification
 
