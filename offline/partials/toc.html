@@ -31,14 +31,14 @@
                   {{ $niceName := title $niceName }}
 
                   <li>
-                    <a class="strong">
+                    <span class="strong">
                       {{ if or (eq $niceName "Api") (eq $niceName "Rbac") }}
                         {{ upper $niceName }}
                       <!-- render the title normally if not API -->
                       {{ else }}
                         {{ $niceName }}
                       {{ end }}
-                    </a>
+                    </span>
                     <ul>
                       <!-- Loop through the child menu's pages -->
                       {{ range where .Children.ByWeight ".Page.Params.offline" "!=" false }}
