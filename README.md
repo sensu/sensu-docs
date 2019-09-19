@@ -20,26 +20,39 @@ From the docs site, select "Edit this page" to go to the corresponding markdown 
 From there, GitHub will prompt you to create a fork and submit a pull request.
 You can also submit documentation feedback by [opening an issue][issue].
 
-### Running the site locally
+### Run the Sensu Docs site locally
 
-The Sensu Docs site is a static site built with [Hugo][hugo] and markdown.
-These instructions will help you get the site running locally.
+The Sensu Docs site is a static site built with [Hugo][hugo] and markdown. These instructions will help you get the site running locally.
+
 To contribute to the Sensu Docs, please read the [contributing guide](CONTRIBUTING.md).
 
-#### 1. Download
+#### 1. Install Git and Yarn
 
-[Download from GitHub](https://github.com/sensu/sensu-docs/archive/master.zip) or clone the repository:
+* [Install Git](https://help.github.com/en/articles/set-up-git#setting-up-git) on your computer and [authenticate](https://help.github.com/en/articles/set-up-git#next-steps-authenticating-with-github-from-git) using HTTPS or SSH. Skip this step if you already have Git set up and authenticated on your computer.
+
+* [Install Yarn][yarn-install] on your computer. Sensu Docs uses [Yarn][yarn] to manage dependencies and the build process.
+
+#### 2. Clone the Sensu Docs repo
+
+You can clone the repo using either HTTPS or SSH.
+
+Clone using HTTPS:
+
+```
+git clone https://github.com/sensu/sensu-docs.git && cd sensu-docs
+```
+
+Clone using SSH:
 
 ```
 git clone git@github.com:sensu/sensu-docs.git && cd sensu-docs
 ```
 
-#### 2. Install packages
+If you prefer, [download the repo from GitHub](https://github.com/sensu/sensu-docs/archive/master.zip).
 
-This project uses [Yarn][yarn] to manage dependencies and the build process.
-For information on installing Yarn, [view their documentation][yarn-install].
+#### 3. Run `yarn`
 
-After installing yarn, run:
+Run:
 
 ```
 yarn
@@ -47,26 +60,29 @@ yarn
 
 This will install Hugo and build the site into the `public` directory.
 
-#### 3. Run the site locally
+#### 4. Run the site locally
 
-If the site builds successfully, you can run the Hugo server and view the site in a local web browser:
+If the site builds successfully, run:
 
 ```
 yarn run server
 ```
 
-Then visit http://localhost:1313/ in the browser of your choice.
+This builds the Hugo server so you can view the site in your local web browser at http://localhost:1313/.
 
 ### Troubleshooting
-Here are some things you might try if you encounter an issue working with the site:
+
+Here are some things to try if you encounter an issue working with the site:
 
 * Run `yarn hugo-version` to print the running version of Hugo. Version 0.56.1 or newer is required.
 * If you're still having trouble viewing the site, [open an issue][issue], and we'll be happy to help!
 
 ### Theme
+
 This project uses a [fork](themes/hugo-material-docs/) of the wonderful [hugo-material-docs](https://github.com/digitalcraftsman/hugo-material-docs) theme.
 
 ### Deploying the site
+
 Whenever changes are merged to the `master` branch, this project is automatically deployed to [docs.sensu.io][site]. For additional details on Heroku configuration and deployment, see [our wiki page](https://github.com/sensu/sensu-docs/wiki/Heroku-Configuration-and-Publishing).
 
 [slack]: http://slack.sensu.io
