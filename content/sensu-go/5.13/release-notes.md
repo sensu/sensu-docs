@@ -48,7 +48,7 @@ See the [upgrade guide][1] to upgrade Sensu to version 5.13.2.
 
 **Fixes:**
 
-- Metrics handlers now fire correctly when the postgresql event store is enabled.
+- Metrics handlers now correctly receive metric points when the postgresql event store is enabled.
 
 ## 5.13.1 release notes
 
