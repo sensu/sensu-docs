@@ -142,8 +142,9 @@ http://127.0.0.1:3031/events
 
 Additionally, it's frequently helpful to see the full event object being passed to your workflows. We recommend using a debug handler like this one to write an event to disk as JSON data:
 
-{{< highlight shell >}}
----
+{{< language-toggle >}}
+
+{{< highlight yml >}}
 type: Handler
 api_version: core/v2
 metadata:
@@ -153,6 +154,23 @@ spec:
   command: cat > /var/log/sensu/debug-event.json
   timeout: 2
 {{< /highlight >}}
+
+{{< highlight json >}}
+{
+  "type": "Handler",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "debug"
+  },
+  "spec": {
+    "type": "pipe",
+    "command": "cat > /var/log/sensu/debug-event.json",
+    "timeout": 2
+  }
+}
+{{< /highlight >}}
+
+{{< /language-toggle >}}
 
 With this handler definition installed in your Sensu backend, you can add the `debug` to the list of handlers in your test event:
 
