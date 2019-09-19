@@ -42,8 +42,8 @@ Read the [upgrade guide][1] for information on upgrading to the latest version o
 
 ## 5.13.2 release notes
 
-**September 19, 2019** &mdash; The latest release of Sensu Go, vison 5.13.2, is now available for download.
-This release is a stability release that fixes a bug for users that have the postgresql event store enabled.
+**September 19, 2019** &mdash; The latest release of Sensu Go, version 5.13.2, is now available for download.
+This release is a stability release that fixes a bug for users who have the postgresql event store enabled.
 See the [upgrade guide][1] to upgrade Sensu to version 5.13.2.
 
 **Fixes:**
