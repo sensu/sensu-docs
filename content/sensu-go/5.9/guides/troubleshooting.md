@@ -4,6 +4,8 @@ description: "Need to troubleshoot Sensu Go? Here’s how to look into errors, i
 weight: 2000
 version: "5.9"
 product: "Sensu Go"
+platformContent: true
+platforms: ["Linux", "Windows"]
 menu:
   sensu-go-5.9:
     parent: guides
@@ -77,6 +79,22 @@ following those logs are described. The name of the desired service, e.g.
 
 _NOTE: Platform versions described above are for reference only and do not
 supercede the documented [supported platforms][platforms]._
+
+{{< platformBlockClose >}}
+
+{{< platformBlock "Windows" >}}
+
+#### Windows
+
+The Sensu agent stores service logs to the location specified by the `log-file` configuration flag (default: `%ALLUSERSPROFILE%\sensu\log\sensu-agent.log`, `C:\ProgramData\sensu\log\sensu-agent.log` on standard Windows installations).
+For more information about managing the Sensu agent for Windows, see the [agent reference][1].
+You can also view agent events using the Windows Event Viewer, under Windows Logs, as events with source SensuAgent.
+
+If you're running a [binary-only distribution of the Sensu agent for Windows][2], you can follow the service log printed to standard output using the following command.
+
+{{< highlight text >}}
+Get-Content -  Path "C:\scripts\test.txt" -Wait
+{{< /highlight >}}
 
 {{< platformBlockClose >}}
 
@@ -291,12 +309,14 @@ or
 Which would allow the asset to be downloaded onto the target entity.
 
 [agent-api]: ../../reference/agent#events-post
+
 [structured]: https://dzone.com/articles/what-is-structured-logging
 [journalctl]: https://www.digitalocean.com/community/tutorials/how-to-use-journalctl-to-view-and-manipulate-systemd-logs
 [platforms]: ../../installation/platforms
 [agent-ref]: ../../reference/agent/#restarting-the-service
 [backend-ref]: ../../reference/backend/#restarting-the-service
 [asset-ref]: ../../reference/assets/#asset-definition-multiple-builds
+
 [journald-syslog]: ../systemd-logs
 [1]: ../../reference/agent#operation
 [2]: ../../installation/verify
