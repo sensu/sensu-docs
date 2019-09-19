@@ -7,7 +7,8 @@ version: "5.13"
 menu: "sensu-go-5.13"
 ---
 
-- [5.13.1 release notes](#5-13-0-release-notes)
+- [5.13.2 release notes](#5-13-2-release-notes)
+- [5.13.1 release notes](#5-13-1-release-notes)
 - [5.13.0 release notes](#5-13-0-release-notes)
 - [5.12.0 release notes](#5-12-0-release-notes)
 - [5.11.1 release notes](#5-11-1-release-notes)
@@ -39,11 +40,21 @@ Read the [upgrade guide][1] for information on upgrading to the latest version o
 
 ---
 
+## 5.13.2 release notes
+
+**September 19, 2019** &mdash; The latest release of Sensu Go, vison 5.13.2, is now available for download.
+This release is a stability release that fixes a bug for users that have the postgresql event store enabled.
+See the [upgrade guide][1] to upgrade Sensu to version 5.13.2.
+
+**Fixes:**
+
+- Metrics handlers now fire correctly when the postgresql event store is enabled.
+
 ## 5.13.1 release notes
 
 **September 10, 2019** &mdash; The latest release of Sensu Go, version 5.13.1, is now available for download.
 This release is a stability release with bug fixes for multi-build asset definitions causing a panic when no matching filters are found.
-See the [upgrade guide][1] to upgrade Sensu to version 5.11.1.
+See the [upgrade guide][1] to upgrade Sensu to version 5.13.1.
 
 **FIXES:**
 
