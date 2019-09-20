@@ -76,7 +76,7 @@ example              | {{< highlight string >}}sys.cpu.user 1356998400 42.5 host
 If the check output is formatted correctly according to its `output_metric_format`,
 the metrics will be extracted in Sensu Metric Format, and passed to the event pipeline.
 You should expect to see logged errors if Sensu is unable to parse the check output.
-You can validate that metrics have been extracted from your check through the resulting event passed to the handler.
+You can validate that metrics have been extracted from your check by inspecting the event passed to the handler. See our troubleshooting guide for an [example debug handler][10] which writes events to a file for inspection.
 The example check we used would yield an event similar to the one below:
 
 {{< language-toggle >}}
