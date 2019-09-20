@@ -615,13 +615,23 @@ example      | {{< highlight shell >}}
 "points": [
   {
     "name": "sensu-go-sandbox.curl_timings.time_total",
-    "tags": [],
+    "tags": [
+      {
+        "name": "response_time_in_ms",
+        "value": "101"
+      }
+    ],
     "timestamp": 1552506033,
     "value": 0.005
   },
   {
     "name": "sensu-go-sandbox.curl_timings.time_namelookup",
-    "tags": [],
+    "tags": [
+      {
+        "name": "namelookup_time_in_ms",
+        "value": "57"
+      }
+    ],
     "timestamp": 1552506033,
     "value": 0.004
   }
@@ -639,10 +649,17 @@ example      | {{< highlight shell >}}"name": "sensu-go-sandbox.curl_timings.tim
 
 tags         |      |
 -------------|------
-description  | Optional tags to include with the metric
+description  | Optional tags to include with the metric. Each element of the array must be a hash containing two key value pairs, one being the `name` of the tag and the other describing the `value`. Both values of the pairs must be strings.
 required     | false
 type         | Array
-example      | {{< highlight shell >}}"tags": []{{< /highlight >}}
+example      | {{< highlight shell >}}
+"tags": [
+  {
+    "name": "response_time_in_ms",
+    "value": "101"
+  }
+]
+{{< /highlight >}}
 
 timestamp    |      |
 -------------|------
