@@ -174,3 +174,4 @@ metric handler.
 [7]: http://graphite.readthedocs.io/en/latest/feeding-carbon.html#the-plaintext-protocol
 [8]: https://docs.influxdata.com/influxdb/v1.4/write_protocols/line_protocol_tutorial/#measurement
 [9]: http://opentsdb.net/docs/build/html/user_guide/writing/index.html#data-specification
+[10]: ../troubleshooting/#troubleshooting-handlers-and-filters
