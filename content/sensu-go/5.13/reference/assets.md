@@ -125,13 +125,15 @@ $ cd sensu-go-hello-world
 
 $ mkdir bin
 
+$ cp hello-world.sh bin/
+
 $ tree
 .
 └── bin
     └── hello-world.sh
 {{< /highlight >}}
 
-Next, we'll create our script in the `/bin` directory and ensure that it's marked as executable:
+Next, we'll ensure that the script is marked as executable:
 
 {{< highlight bash >}}
 $ chmod +x bin/hello-world.sh 
@@ -871,10 +873,9 @@ It is also worth noting that deleting an asset does not delete the archive or do
 [32]: ../../installation/plugins/#installing-plugins-using-the-sensu-install-tool
 [33]: ../../installation/configuration-management/
 
-[asset-ref]: https://docs.sensu.io/sensu-go/latest/reference/assets/
-[gh-release-01]: http://share.sachshaus.net/4efc554512f9/%255Bee92b1343de6399b8191fee8b8dd2c57%255D_Image%2525202019-09-17%252520at%25252010.32.02%252520AM.png
-[gh-release-02]: http://share.sachshaus.net/3485c10bccb0/[9b5ee5dc49432dc104bf8c6830bcf2b7]_Image%202019-09-17%20at%2010.32.43%20AM.png
-[gh-release-03]: http://share.sachshaus.net/7a6ecb33ae6c/download/%255B1f7ca64a77532c489bc2c08b1c7a153b%255D_Image%2525202019-09-18%252520at%2525204.26.06%252520PM.png
-[gh-release-04]: http://share.sachshaus.net/221bef49236a/Image%202019-09-17%20at%2011.57.55%20AM.png
-[sensu-agent-01]: http://share.sachshaus.net/24ef2c7ea8e5/Image%202019-09-17%20at%2012.04.35%20PM.png
+[gh-release-01]: /images/gh-release-01.png
+[gh-release-02]: /images/gh-release-02.png
+[gh-release-03]: /images/gh-release-03.png
+[gh-release-04]: /images/gh-release-04.png
+[sensu-agent-01]: /images/sensu-agent-01.png
 [gh-release-doc]:https://help.github.com/en/articles/creating-releases
