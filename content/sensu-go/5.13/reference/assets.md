@@ -161,7 +161,7 @@ dbfd4a714c0c51c57f77daeb62f4a21141665ae71440951399be2d899bf44b3634dad2e6f2516fff
 
 Now that we have our sha512sum, we'll need to host the release (archive and sha512sum) somewhere. You can do this with S3, a GitHub release, or even just serving the files out of a directory using Nginx/Apache.
 
-In this case, we'll use [GitHub to serve our release][gh-release-doc]. First, let's create a release: click **Create a new release**: 
+In this case, we'll use [GitHub to serve our release][gh-release-doc]. Click **Create a new release**: 
 
 ![Create a new github release][gh-release-01]
 
