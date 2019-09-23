@@ -878,4 +878,4 @@ It is also worth noting that deleting an asset does not delete the archive or do
 [gh-release-03]: /images/gh-release-03.png
 [gh-release-04]: /images/gh-release-04.png
 [sensu-agent-01]: /images/sensu-agent-01.png
-[gh-release-doc]:https://help.github.com/en/articles/creating-releases
+[gh-release-doc]: https://help.github.com/en/articles/creating-releases
