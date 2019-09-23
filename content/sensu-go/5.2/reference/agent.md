@@ -496,7 +496,7 @@ To disable the agent from starting on system boot:
 sudo systemctl disable sensu-agent
 {{< /highlight >}}
 
-_NOTE: On older distributions of Linux, use `sudo chkconfig sensu-server on` to enable the agent and `sudo chkconfig sensu-server off` to disable._
+_NOTE: On older distributions of Linux, use `sudo chkconfig sensu-agent on` to enable the agent and `sudo chkconfig sensu-agent off` to disable._
 
 {{< platformBlockClose >}}
 

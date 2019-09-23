@@ -15,6 +15,7 @@ menu:
 	- [Log levels](#log-levels)
 	- [Log file locations](#log-file-locations)
 - [Permission issues](#permission-issues)
+- [Handlers and filters](#troubleshooting-handlers-and-filters)
 - [Assets not working properly](#asset-issues)
 
 ## Service logging
@@ -120,7 +121,79 @@ sudo chown -R sensu:sensu /var/cache/sensu/sensu-agent
 
 ## Troubleshooting handlers and filters
 
-To troubleshoot handlers and filters, create test events using the [agent API][agent-api], adding the `handlers` attribute to send ad-hoc events to the pipeline.
+Whether implementing new workflows or modifying existing ones, its sometimes necessary to troubleshoot various stages of the event pipeline. In many cases generating events using the [agent API][agent-api] will save you time and effort over modifying existing check configurations.
+
+Here's an example using curl with the API of a local sensu-agent process to generate test-event check results:
+
+{{< highlight shell >}}
+curl -X POST \
+-H 'Content-Type: application/json' \
+-d '{
+  "check": {
+    "metadata": {
+      "name": "test-event"
+    },
+    "status": 2,
+    "output": "this is a test event targeting the email_ops handler",
+    "handlers": [ "email_ops" ]
+  }
+}' \
+http://127.0.0.1:3031/events
+{{< /highlight >}}
+
+Additionally, it's frequently helpful to see the full event object being passed to your workflows. We recommend using a debug handler like this one to write an event to disk as JSON data:
+
+{{< language-toggle >}}
+
+{{< highlight yml >}}
+type: Handler
+api_version: core/v2
+metadata:
+  name: debug
+spec:
+  type: pipe
+  command: cat > /var/log/sensu/debug-event.json
+  timeout: 2
+{{< /highlight >}}
+
+{{< highlight json >}}
+{
+  "type": "Handler",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "debug"
+  },
+  "spec": {
+    "type": "pipe",
+    "command": "cat > /var/log/sensu/debug-event.json",
+    "timeout": 2
+  }
+}
+{{< /highlight >}}
+
+{{< /language-toggle >}}
+
+With this handler definition installed in your Sensu backend, you can add the `debug` to the list of handlers in your test event:
+
+{{< highlight shell >}}
+curl -X POST \
+-H 'Content-Type: application/json' \
+-d '{
+  "check": {
+    "metadata": {
+      "name": "test-event"
+    },
+    "status": 2,
+    "output": "this is a test event targeting the email_ops handler",
+    "handlers": [ "email_ops", "debug" ]
+  }
+}' \
+http://127.0.0.1:3031/events
+{{< /highlight >}}
+
+The event data should be written to `/var/log/sensu/debug-event.json` for inspection. The contents of this file will be overwritten by every event sent to the `debug` handler.
+
+_NOTE: When multiple Sensu backends are configured in a cluster, event processing is distributed across all members. You may need to check the filesystem of each Sensu backend to locate the debug output for your test event._
 
 ## Troubleshooting assets {#asset-issues}
 
@@ -236,14 +309,12 @@ or
 Which would allow the asset to be downloaded onto the target entity.
 
 [agent-api]: ../../reference/agent#events-post
-
 [structured]: https://dzone.com/articles/what-is-structured-logging
 [journalctl]: https://www.digitalocean.com/community/tutorials/how-to-use-journalctl-to-view-and-manipulate-systemd-logs
 [platforms]: ../../installation/platforms
 [agent-ref]: ../../reference/agent/#restarting-the-service
 [backend-ref]: ../../reference/backend/#restarting-the-service
 [asset-ref]: ../../reference/assets/#asset-definition-multiple-builds
-
 [journald-syslog]: ../systemd-logs
 [1]: ../../reference/agent#operation
 [2]: ../../installation/verify
