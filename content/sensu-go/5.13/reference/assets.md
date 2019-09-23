@@ -138,7 +138,7 @@ $ chmod +x bin/hello-world.sh
 mode of 'hello-world.sh' changed from 0644 (rw-r--r--) to 0755 (rwxr-xr-x)
 {{< /highlight >}}
 
-Now that the script is in the directory, let's move on to the next step: packaging the asset.
+Now that the script is in the directory, let's move on to the next step: packaging the `sensu-go-hello-world` directory as an asset tarball.
 
 #### Packaging the asset
 
