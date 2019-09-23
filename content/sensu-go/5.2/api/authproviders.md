@@ -11,9 +11,9 @@ menu:
 
 - [The `authproviders` API endpoints](#the-authproviders-api-endpoints) (licensed tier)
   - [`/authproviders` (GET)](#authproviders-get)
-- [The `authproviders/:name` API endpoints](#the-providersname-api-endpoints) (licensed tier)
-  - [`authproviders/:name` (GET)](#providersname-get)
-  - [`authproviders/:name` (PUT)](#providersname-put)
+- [The `authproviders/:name` API endpoints](#the-authprovidersname-api-endpoints) (licensed tier)
+  - [`authproviders/:name` (GET)](#authprovidersname-get)
+  - [`authproviders/:name` (PUT)](#authprovidersname-put)
   - [`authproviders/:name` (DELETE)](#authprovidersname-delete)
 
 ## The `/authproviders` API endpoints {#the-authproviders-api-endpoints}
