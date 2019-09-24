@@ -14,7 +14,6 @@ menu:
 - [The `/results` API endpoint](#the-results-api-endpoint)
   - [`/results` (GET)](#results-get)
   - [`/results` (POST)](#results-post)
-  - [`/results` (POST) Payload Parameters](#results-post-payload-parameters)
 - [The `/results/:client` API endpoint](#the-resultsclient-api-endpoint)
   - [`/results/:client` (GET)](#resultsclient-get)
 - [The `/results/:client/:check` API endpoints](#the-resultsclientcheck-api-endpoints)
@@ -160,7 +159,7 @@ output          | {{< highlight shell >}}HTTP/1.1 202 Accepted
   {"issued":1460326288}
 {{< /highlight >}}
 
-#### Payload parameters #{results-post-payload-parameters}
+#### Payload parameters {#results-post-payload-parameters}
 
 Required payload parameters for `/results` (POST) API are described below.
 
