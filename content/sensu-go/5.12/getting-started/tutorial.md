@@ -19,6 +19,7 @@ b.src = "https://snap.licdn.com/li.lms-analytics/insight.min.js";
 s.parentNode.insertBefore(b, s);})();
 </script>
 <!-- end tracking -->
+
 <script src="//katacoda.com/embed.js"></script>
 <div id="katacoda-scenario-1"
     data-katacoda-id="sensu/sandbox"
