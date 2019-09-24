@@ -168,32 +168,32 @@ output          | {{< highlight shell >}}HTTP/1.1 202 Accepted
 
 Required payload parameters for `/results` (POST) API are described below.
 
-Similar to a check definition, this API endpoint allows for additional check attributes, including custom attributes. Please see the [check definition specification][5] documentation for more information._
+Similar to a check definition, this API endpoint allows for additional check attributes, including custom attributes. See the [check definition specification][5] for more information._
 
 name         | 
 -------------|------
-description  | The check name, as [provided by the check definition][5]
+description  | The check name [provided by the check definition][5]
 required     | true
 type         | String
 example      | {{< highlight shell >}}"name": "sensu-website"{{< /highlight >}}
 
 status       | 
 -------------|------
-description  | The check execution exit status code. An exit status code of `0` (zero) indicates `OK`, `1` indicates `WARNING`, and `2` indicates `CRITICAL`; exit status codes other than `0`, `1`, or `2` indicate an `UNKNOWN` or custom status.
+description  | The check execution exit status code. An exit status code of `0` (zero) indicates `OK`, `1` indicates `WARNING`, and `2` indicates `CRITICAL`. Exit status codes other than `0`, `1`, or `2` indicate an `UNKNOWN` or custom status.
 required     | true
 type         | Integer
 example      | {{< highlight shell >}}"status": 0{{< /highlight >}}
 
 output       | 
 -------------|------
-description  | Text to associate with the check result, e.g. human-readable message or formatted metric data.
+description  | Text to associate with the check result (e.g. human-readable message or formatted metric data)
 required     | true
 type         | String
 example      | {{< highlight shell >}}"output": "CheckHttp OK: 200, 78572 bytes\n"{{< /highlight >}}
 
 source       | 
 -------------|------
-description  | The check source, used to create a [proxy client][32] for an external resource (e.g. a network switch).
+description  | The check source, used to create a [proxy client][32] for an external resource (e.g. a network switch)
 required     | true, unless `client` is specified
 type         | String
 validated    | `/^[\w\.-]+$/`
@@ -202,7 +202,7 @@ example      | {{< highlight shell >}}"source": "switch-dc-01"{{< /highlight >}}
 
 client       | 
 -------------|------
-description  | The name of the [Sensu client][1] that generated the check result.
+description  | The name of the [Sensu client][1] that generated the check result
 required     | true, unless `source` is specified
 type         | String
 validated    | `/^[\w\.-]+$/`
