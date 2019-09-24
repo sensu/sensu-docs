@@ -192,7 +192,7 @@ First, let's generate our asset definition:
 type: Asset
 api_version: core/v2
 metadata:
-  name: sensu-go-hello-world
+  name: sensu-go-hello-world-asset
   namespace: default
 spec:
   url: https://github.com/yourusername/sensu-go-hello-world/releases/download/0.0.1/sensu-go-hello-world-0.0.1.tar.gz
@@ -204,7 +204,7 @@ spec:
   "type": "Asset",
   "api_version": "core/v2",
   "metadata": {
-    "name": "sensu-go-hello-world",
+    "name": "sensu-go-hello-world-asset",
     "namespace": "default"
   },
   "spec": {
