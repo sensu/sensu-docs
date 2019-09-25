@@ -16,8 +16,22 @@
 
 body {
   background-color: white;
+  font-family: Arial, sans-serif;
   margin: 0 auto;
   max-width: 960px;
   padding: 0 3rem;
 }
 
+code {
+  font-family: Consolas, monospace;
+}
+
+iframe {
+  display: none;
+}
+
+.platform-picker {
+  button::after {
+    display: none;
+  }
+}
