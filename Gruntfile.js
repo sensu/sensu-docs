@@ -79,10 +79,12 @@ module.exports = function(grunt) {
 
   grunt.registerTask("hugo-build", function() {
     const done = this.async();
+    const args = process.argv.slice(3).filter(a => a !== '--color'); // fetch given arguments
 
     grunt.log.writeln("Running hugo build");
     grunt.util.spawn({
       cmd: "hugo",
+      args: [...args],
     },
       function(error, result, code) {
         if (code == 0) {
@@ -101,7 +103,7 @@ module.exports = function(grunt) {
     grunt.log.writeln("Running Hugo server");
     grunt.util.spawn({
       cmd: "hugo",
-      args: ["server", "--disableFastRender", ...args] , // pass arguments down
+      args: ["server", "--disableFastRender", ...args], // pass arguments down
       opts: {stdio: 'inherit'}
     },
       function(error, result, code) {
