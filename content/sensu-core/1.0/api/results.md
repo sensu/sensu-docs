@@ -163,7 +163,7 @@ output          | {{< highlight shell >}}HTTP/1.1 202 Accepted
 
 Required payload parameters for `/results` (POST) API are described below.
 
-Similar to a check definition, this API endpoint allows for additional check attributes, including custom attributes. See the [check definition specification][5] for more information._
+Similar to a check definition, this API endpoint allows for additional check attributes, including custom attributes. See the [check definition specification][5] for more information.
 
 name         | 
 -------------|------
