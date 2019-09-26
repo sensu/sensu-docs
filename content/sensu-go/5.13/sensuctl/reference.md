@@ -384,7 +384,7 @@ The `sensuctl dump` command allows you to export your resources to standard out 
 
 _NOTE: Passwords are not included when exporting users. Operators must add the `password` attribute to any exported user resources before they can be used with `sensuctl create`._
 
-For example, to export all resources to a file named `my-resources.yaml` in `yaml` format:
+To export all resources to a file named `my-resources.yaml` in `yaml` format:
 
 {{< highlight shell >}}
 sensuctl dump all --format yaml --file my-resources.yaml
@@ -401,6 +401,33 @@ To export only handlers and filters to a file named `my-handlers-and-filters.yam
 {{< highlight shell >}}
 sensuctl dump handler,filter --format yaml --file my-handlers-and-filters.yaml
 {{< /highlight >}}
+
+### sensuctl dump resource types
+
+_NOTE: The resource types with no synonym listed are [licensed-tier](https://sensu.io/features) features._
+
+Synonym | Fully qualified name 
+--------------------|---
+None | `authentication/v2.Provider`
+None | `licensing/v2.LicenseFile`
+None | `store/v1.PostgresConfig`
+None | `federation/v1.Replicator`
+`asset` | `core/v2.Asset`
+`check-config` | `core/v2.CheckConfig`
+`cluster-role` | `core/v2.ClusterRole`
+`cluster-role-binding` | `core/v2.ClusterRoleBinding`
+`entity` | `core/v2.Entity`
+`event` | `core/v2.Event` 
+`filter` | `core/v2.EventFilter`
+`handler` | `core/v2.Handler`
+`hook` | `core/v2.Hook`
+`mutator` | `core/v2.Mutator`
+`namespace` | `core/v2.Namespace`
+`role` | `core/v2.Role`
+`role-binding` | `core/v2.RoleBinding`
+`silenced` | `core/v2.Silenced`
+`tessen-config` | `core/v2.TessenConfig`
+`user` | `core/v2.User`
 
 ## Managing resources
 
