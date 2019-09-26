@@ -9,7 +9,7 @@ menu:
     parent: reference
 ---
 
-- [Specification](#sensu-token-specification)
+- [Sensu token specification](#sensu-token-specification)
 - [Examples](#examples)
 
 Tokens are placeholders included in a check definition that the agent replaces with entity information before executing the check.
@@ -18,6 +18,8 @@ You can use tokens to fine-tune check attributes (like alert thresholds) on a pe
 ## How do tokens work?
 
 When a check is scheduled to be executed by an agent, it first goes through a token substitution step. The agent replaces any tokens with matching attributes from the entity definition, and then the check is executed. Invalid templates or unmatched tokens will return an error, which is logged and sent to the Sensu backend message transport. Checks with token matching errors will not be executed.
+
+Token substitution is only supported for the [`command` attribute][7] of a check definition, and only [entity attributes][4] are available for substitution. Available attributes will always have [string values](#token-data-type-limitations), such as labels and annotations.
 
 ## Managing entity labels
 
@@ -36,7 +38,11 @@ Tokens are invoked by wrapping references to entity attributes and labels with d
 - `{{ .name }}` would be replaced with the [entity `name` attribute][3]
 - `{{ .labels.url }}` would be replaced with a custom label called `url`
 - `{{ .labels.disk_warning }}` would be replaced with a custom label called
+- `{{ index .labels "disk_warning" }}` would be replaced with a custom label called
   `disk_warning`
+- `{{ index .labels "cpu.threshold" }}` would be replaced with a custom label called `cpu.threshold`
+
+_NOTE: When an annotation or label name has a dot (e.g. `cpu.threshold`), the template index function syntax must be used to ensure correct processing, as the dot notation is also used for object nesting._
 
 ### Token substitution default values
 
@@ -54,6 +60,12 @@ error: unmatched token: template: :1:22: executing "" at <.system.hostname>: map
 {{< /highlight >}}
 
 Check config token errors will be logged by the agent, and sent to Sensu backend message transport as a check failure.
+
+### Token data type limitations
+
+As part of the substitution process, Sensu converts all tokens to strings. This means that tokens cannot be used for bare integer values or to access individual list items.
+
+For example, token substitution **cannot** be used for specifying a check interval because the interval attribute requires an _integer_ value. Token substitution **can** be used for alerting thresholds because those values are included within the command _string_.
 
 ## Examples
 
@@ -74,7 +86,7 @@ metadata:
   namespace: default
 spec:
   check_hooks: null
-  command: check-disk-usage.rb -w {{.labels.disk_warning | default 80}} -c {{.labels.disk_critical
+  command: check-disk-usage.rb -w {{index .labels "disk_warning" | default 80}} -c {{.labels.disk_critical
     | default 90}}
   env_vars: null
   handlers: []
@@ -263,3 +275,4 @@ spec:
 [4]: ../entities/
 [5]: ../checks/
 [6]: ../entities#managing-entity-labels
+[7]: ../checks/#check-commands
