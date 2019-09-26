@@ -38,11 +38,7 @@ Tokens are invoked by wrapping references to entity attributes and labels with d
 - `{{ .name }}` would be replaced with the [entity `name` attribute][3]
 - `{{ .labels.url }}` would be replaced with a custom label called `url`
 - `{{ .labels.disk_warning }}` would be replaced with a custom label called
-- `{{ index .labels "disk_warning" }}` would be replaced with a custom label called
   `disk_warning`
-- `{{ index .labels "cpu.threshold" }}` would be replaced with a custom label called `cpu.threshold`
-
-_NOTE: When an annotation or label name has a dot (e.g. `cpu.threshold`), the template index function syntax must be used to ensure correct processing, as the dot notation is also used for object nesting._
 
 ### Token substitution default values
 

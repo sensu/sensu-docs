@@ -42,7 +42,7 @@ Tokens are invoked by wrapping references to entity attributes and labels with d
   `disk_warning`
 - `{{ index .labels "cpu.threshold" }}` would be replaced with a custom label called `cpu.threshold`
 
-_NOTE: When an annotation or label name has a dot (e.g. `cpu.threshold`), the template index function syntax must be used to ensure correct processing, as the dot notation is also used for object nesting._
+_NOTE: When an annotation or label name has a dot (e.g. `cpu.threshold`), the template index function syntax must be used to ensure correct processing because the dot notation is also used for object nesting._
 
 ### Token substitution default values
 
