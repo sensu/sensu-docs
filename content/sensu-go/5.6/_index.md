@@ -18,7 +18,7 @@ Learn about [support packages](https://sensu.io/support) and [license-activated 
 
 **Automate your monitoring workflows**: Limitless pipelines let you validate and correlate events, [mutate data formats][20], [send alerts][21], manage incidents, [collect and store metrics][22], and more.
 
-<img alt="Sensu event pipeline diagram" title="Sensu lets you take monitoring events from your system and use pipelines to take the right action for your workflow." src="/images/pipeline-ce.svg">
+<img alt="Sensu event pipeline diagram" title="Sensu lets you take monitoring events from your system and use pipelines to take the right action for your workflow." src="/images/pipeline-ce.png">
 <!-- Diagram source: https://www.lucidchart.com/documents/edit/84ff2574-4290-49dc-88e0-18b15ba373ec -->
 
 **Reduce alert fatigue**: Sensu gives you full control over your alerts with flexible [filters][18], [context-rich notifications][19], reporting, [event handling][27], and auto-remediation.
