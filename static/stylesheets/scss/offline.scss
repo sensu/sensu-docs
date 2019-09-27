@@ -30,6 +30,29 @@ iframe {
   display: none;
 }
 
+.language-toggle {
+  p + & {
+    margin-top: 4rem;
+  }
+
+  .languages > * {
+    display: block;
+    margin: 0 0 4rem;
+
+    code::before {
+      color: $blue-dark;
+      content: attr(data-lang);
+      display: block;
+      font-size: 1.6rem;
+      font-weight: bold;
+      left: 0;
+      position: absolute;
+      text-transform: uppercase;
+      top: -3rem;
+    }
+  }
+}
+
 .platform-picker {
   button::after {
     display: none;
