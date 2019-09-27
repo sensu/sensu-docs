@@ -51,6 +51,8 @@ The following are injected into the execution context:
   variable.
 - `{PATH_TO_ASSET}/include` is injected into the `CPATH` environment variable.
 
+_NOTE: If you have used previous versions of Sensu and are familiar with plugins from the [Sensu Plugins community](https://github.com/sensu-plugins), it is not possible to create an asset by creating an archive of an existing project. You must follow the steps outlined in [this Sensu discourse guide](https://discourse.sensu.io/t/contributing-assets-for-existing-ruby-sensu-plugins/1165). For further examples of Sensu users who have added the capability for a community plugin to be used as an asset, see [this post](https://discourse.sensu.io/t/how-to-use-the-sensu-plugins-kubernetes-plugin/1286)._
+
 ### Default cache directory
 
 system  | sensu-backend                               | sensu-agent

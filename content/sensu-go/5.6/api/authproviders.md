@@ -11,9 +11,9 @@ menu:
 
 - [The `authproviders` API endpoints](#the-authproviders-api-endpoints) (licensed tier)
   - [`/authproviders` (GET)](#authproviders-get)
-- [The `authproviders/:name` API endpoints](#the-providersname-api-endpoints) (licensed tier)
-  - [`authproviders/:name` (GET)](#providersname-get)
-  - [`authproviders/:name` (PUT)](#providersname-put)
+- [The `authproviders/:name` API endpoints](#the-authprovidersname-api-endpoints) (licensed tier)
+  - [`authproviders/:name` (GET)](#authprovidersname-get)
+  - [`authproviders/:name` (PUT)](#authprovidersname-put)
   - [`authproviders/:name` (DELETE)](#authprovidersname-delete)
 
 **LICENSED TIER**: Unlock authentication providers in Sensu Go with a Sensu license. To activate your license, see the [getting started guide][2].

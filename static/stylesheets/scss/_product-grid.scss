@@ -70,6 +70,16 @@
     }
   }
 
+  .product-grid--product--notice {
+    font-size: 1.8rem;
+    line-height: 1.25;
+    color: white;
+    @media (min-width: $breakpoint-md) {
+      font-size: 2rem;
+      font-weight: bold;
+    }
+  }
+
   .product-grid--product--title {
     font-size: 3.2rem;
     font-weight: 600;

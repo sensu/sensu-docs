@@ -9,7 +9,7 @@ menu:
     parent: reference
 ---
 
-- [Specification](#sensu-token-specification)
+- [Sensu token specification](#sensu-token-specification)
 - [Examples](#examples)
 
 Tokens are placeholders included in a check definition that the agent replaces with entity information before executing the check.
