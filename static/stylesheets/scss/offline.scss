@@ -30,6 +30,21 @@ iframe {
   display: none;
 }
 
+table {
+  td,
+  th {
+    display: table-cell;
+
+    &:first-child {
+      width: 25%;
+    }
+  }
+
+  tr {
+    display: table-row;
+  }
+}
+
 .language-toggle {
   p + & {
     margin-top: 4rem;
