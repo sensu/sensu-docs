@@ -1,6 +1,6 @@
 ---
 title: "Securing Sensu"
-description: "As with all software, it’s important to minimize any attack surface exposed by the software. Sensu is no different. In this guide, you’ll learn about the components that need to be secured (and how to do so)."
+description: "It’s important to minimize any attack surface exposed by any software, and Sensu is no different. This guide explains the components that need to be secured (and how to do so)."
 weight: 1000
 version: "5.14"
 product: "Sensu Go"
@@ -10,7 +10,7 @@ menu:
     parent: guides
 ---
 
-As with any piece of software, it is critical to minimize any attack surface exposed by the software. Sensu is no different. The following component pieces need to be secured in order for Sensu to be considered production ready:
+It's critical to minimize any attack surface exposed by any piece of software, and Sensu is no different. Secure the following component pieces to make sure Sensu is production-ready:
 
 * [Etcd peer communication](#securing-etcd-peer-communication)
 * [Backend API](#securing-the-api-and-the-dashboard)
