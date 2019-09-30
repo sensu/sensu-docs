@@ -126,19 +126,19 @@ _NOTE: If creating a Sensu cluster, every cluster member needs to be present in 
 
 ## Sensu agent TLS authentication
 
-By default, Sensu Agents require username and password authentication to communicate with Sensu Backends.
-(For Sensu's [default user credentials][3] and more information about configuring Sensu role based access control, see the [RBAC reference][4] and [guide to creating users][5].)
+By default, Sensu agents require username and password authentication to communicate with Sensu backends.
+For Sensu's [default user credentials][3] and details about configuring Sensu role-based access control, see the [RBAC reference][4] and [guide to creating users][5].
 
 Sensu can also use TLS authentication for connecting agents to backends. When agent TLS authentication is enabled, agents do not need to send
 password credentials to backends when they connect. Additionally, when using TLS authentication, agents do not require an explicit user
-in Sensu - they will simply default to using the 'system:agents' group.
+in Sensu--they will default to using the 'system:agents' group.
 
-Agents can still be bound to a specific user, for situations where the system:agents group is problematic. For this use case, simply create a
-user that matches the Common Name (CN) of the agent's certificate. (Note: the user will need the ability to create events in the agent's
-namespace. If users want to ensure that agents with incorrect CN fields can't access the backend, they can remove the default 'system:agents'
-group.)
+Agents can still be bound to a specific user when the `system:agents` group is problematic. For this use case, create a
+user that matches the Common Name (CN) of the agent's certificate.
 
-It's easy to view what a certificate's CN is, with openssl:
+_NOTE: Users will need the ability to create events in the agent's namespace. Users who want to ensure that agents with incorrect CN fields can't access the backend can remove the default 'system:agents' group._
+
+To view a certificate's CN with openssl:
 
 {{< highlight bash >}}
 $ openssl x509 -in client.pem -text -noout
@@ -156,10 +156,10 @@ Certificate:
 ...
 {{< /highlight >}}
 
-Note that the `Subject:` field indicates the certificate's CN is 'client', so operators who want to bind the agent to a particular user in
+The `Subject:` field indicates the certificate's CN is 'client', so operators who want to bind the agent to a particular user in
 Sensu can create a user called 'client'.
 
-To enable agent TLS authentication, use existing certificates and keys for the sensu backend and agent,
+To enable agent TLS authentication, use existing certificates and keys for the Sensu backend and agent
 or create new certificates and keys according to our [guide](#creating-self-signed-certificates).
 
 Once backend and agent certificates are created, modfiy the backend and agent configuration as follows:
@@ -190,7 +190,7 @@ authentication, without issue.
 
 We will use the [cfssl][10] tool to generate our self-signed certificates.
 
-The first step is to create a **Certificate Authority (CA)**. In order to keep things simple, we will generate all our clients and peer certificates using this CA, but you might eventually want to create distinct CA.
+The first step is to create a **Certificate Authority (CA)**. To keep things straightforward, we will generate all our clients and peer certificates using this CA, but you might eventually want to create distinct CA.
 
 {{< highlight shell >}}
 echo '{"CN":"CA","key":{"algo":"rsa","size":2048}}' | cfssl gencert -initca - | cfssljson -bare ca -
@@ -216,24 +216,24 @@ echo '{"CN":"'$NAME'","hosts":[""],"key":{"algo":"rsa","size":2048}}' | cfssl ge
 {{< /highlight >}}
 
 We will also create generate a *client* certificate that can be used by clients to connect to
-the etcd client URL. This time, we don't need to specify an address but simply a **Common Name
-(CN)** (here `client`). The files `client-key.pem`, `client.csr` and `client.pem` will be created.
+the etcd client URL. This time, we don't need to specify an address, only a **Common Name
+(CN)** (here, `client`). The files `client-key.pem`, `client.csr`, and `client.pem` will be created.
 
 {{< highlight shell >}}
 export NAME=client
 echo '{"CN":"'$NAME'","hosts":[""],"key":{"algo":"rsa","size":2048}}' | cfssl gencert -config=ca-config.json -ca=ca.pem -ca-key=ca-key.pem -hostname="" -profile=client - | cfssljson -bare $NAME
 {{< /highlight >}}
 
-If you have an enterprise license, then you can also generate a certificate for agent TLS authentication.
+If you have  Sensu license, you can also generate a certificate for agent TLS authentication.
 
 {{< highlight shell >}}
 export NAME=agent-1
 echo '{"CN":"'$NAME'","hosts":[""],"key":{"algo":"rsa","size":2048}}' | cfssl gencert -config=ca-config.json -ca=ca.pem -ca-key=ca-key.pem -hostname="" -profile=client - | cfssljson -bare $NAME
 {{< /highlight >}}
 
-See [etcd's guide to generating self signed certificates][11] for detailed instructions on securing etcd.
+See [etcd's guide to generating self-signed certificates][11] for detailed instructions on securing etcd.
 
-Once done, you should have the following files created. The `*.csr` files will not be used in this guide.
+When you're finished, the following files should be created. The `*.csr` files will not be used in this guide.
 {{< highlight shell >}}
 agent-1-key.pem
 agent-1.csr
