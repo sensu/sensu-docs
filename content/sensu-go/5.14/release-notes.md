@@ -7,6 +7,7 @@ version: "5.14"
 menu: "sensu-go-5.14"
 ---
 
+- [5.14.0 release notes](#5-14-0-release-notes)
 - [5.13.2 release notes](#5-13-2-release-notes)
 - [5.13.1 release notes](#5-13-1-release-notes)
 - [5.13.0 release notes](#5-13-0-release-notes)
@@ -39,6 +40,30 @@ Sensu Go adheres to [semantic versioning][2] using MAJOR.MINOR.PATCH release num
 Read the [upgrade guide][1] for information on upgrading to the latest version of Sensu Go.
 
 ---
+
+## 5.14.0 release notes
+
+**October 3, 2019** &mdash; The latest release of Sensu Go, version 5.14.0, is now available for download.
+There are some exciting feature additions in this release, including .... Additionally, this release includes bug fixes for ... and enhanced ...
+See the [upgrade guide][1] to upgrade Sensu to version 5.14.0.
+
+**NEW FEATURES:**
+
+- .
+- .
+- .
+
+**IMPROVEMENTS:**
+
+- .
+- .
+- .
+- .
+
+**FIXES:**
+
+- .
+- .
 
 ## 5.13.2 release notes
 
