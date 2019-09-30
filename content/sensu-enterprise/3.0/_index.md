@@ -18,7 +18,7 @@ Built on [Sensu Core][3], Sensu Enterprise includes built-in integrations and fe
 
 **Automate your monitoring workflows**: Limitless pipelines let you validate and correlate events, mutate data formats, send alerts, manage incidents, collect and store metrics, and more.
 
-<img alt="Sensu Enterprise event pipeline diagram" title="Sensu Enterprise lets you take monitoring events from your system and use pipelines to take the right action for your workflow." src="/images/pipeline-enterprise.png">
+<img alt="Sensu Enterprise event pipeline diagram" title="Sensu Enterprise lets you take monitoring events from your system and use pipelines to take the right action for your workflow." src="/images/pipeline-enterprise.svg">
 
 <i class="fa fa-youtube-play" aria-hidden="true"></i> <a target="_blank" href="https://www.youtube.com/watch?v=jUW4rAqazwA">Listen to Sensu Inc. CEO Caleb Hailey explain the Sensu monitoring event pipeline.</a>
 
