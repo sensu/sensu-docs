@@ -243,13 +243,13 @@ sensu-backend start \
 
 ## Troubleshooting
 
-### Failure modes
+### Failures modes
 
-See the [etcd failure modes documentation][8] for more information.
+See [the etcd failure modes documentation][8] for more information.
 
 ### Disaster recovery
 
-See the [etcd recovery guide][9] for more information.
+See [the etcd recovery guide][9] for more information.
 
 [1]: https://coreos.com/etcd/docs/latest/v2/admin_guide.html#optimal-cluster-size
 [2]: https://coreos.com/etcd/docs/latest/v2/clustering.html
