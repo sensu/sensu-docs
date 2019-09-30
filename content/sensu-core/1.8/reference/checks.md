@@ -617,7 +617,7 @@ example             | {{< highlight shell >}}"high_flap_threshold": 60{{< /highl
 
 source       | 
 -------------|------
-description  | The check source, used to create a [JIT Sensu client][32] for an external resource (e.g. a network switch).
+description  | The check source, used to create a [proxy client][32] for an external resource (e.g. a network switch).
 required     | false
 type         | String
 validated    | `/^[\w\.-]+$/`
@@ -1104,7 +1104,7 @@ name         |
 -------------|------
 description  | The name of the [Sensu client][1] that generated the check result. The Sensu server will use the client `name` value to fetch the corresponding client attributes from the [Clients API][39] and add them to the resulting [Sensu event][34] for context.
 type         | String
-example      | {{< highlight shell >}}"output": "i-424242"{{< /highlight >}}
+example      | {{< highlight shell >}}"client": { "name": "i-424242" }{{< /highlight >}}
 
 
 [?]:  #
