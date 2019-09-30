@@ -3,11 +3,11 @@ title: "How to run a Sensu cluster"
 linkTitle: "Running a Sensu Cluster"
 description: "Clustering is important to make Sensu more highly available, reliable, and durable. It can help you cope with the loss of a backend node, prevent data loss, and distribute the network load of agents. Read the guide to configure a Sensu cluster."
 weight: 120
-version: "5.13"
+version: "5.14"
 product: "Sensu Go"
 platformContent: false
 menu: 
-  sensu-go-5.13:
+  sensu-go-5.14:
     parent: guides
 ---
 

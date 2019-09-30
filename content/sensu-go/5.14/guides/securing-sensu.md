@@ -6,7 +6,7 @@ version: "5.14"
 product: "Sensu Go"
 platformContent: false
 menu:
-  sensu-go-5.13:
+  sensu-go-5.14:
     parent: guides
 ---
 
