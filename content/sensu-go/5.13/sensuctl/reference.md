@@ -426,7 +426,7 @@ None | `federation/v1.Replicator`
 `roles` | `core/v2.Role`
 `rolebindings` | `core/v2.RoleBinding`
 `silenceds` | `core/v2.Silenced`
-`tessenconfigs` | `core/v2.TessenConfig`
+`tessen` | `core/v2.TessenConfig`
 `users` | `core/v2.User`
 
 ## Managing resources
