@@ -49,18 +49,40 @@ See the [upgrade guide][1] to upgrade Sensu to version 5.14.0.
 
 **NEW FEATURES:**
 
-- .
+- The [web UI][80] now includes an error dialog option that allows users to wipe the application's persisted state (rather than having to manually wipe their local/session storage). This can help in the rare cases that something in the persisted state is leading to an uncaught exception.
+- The [web UI][80] now respects the system preference for operating systems with support for selecting a preferred light or dark theme.
+- `sensuctl dump` can now list the types of supported resources with `sensuctl dump --types`.
+- The Entity resource now includes the `sensu_agent_version` field, which reflects the Sensu semver version of the agent entity.
 - .
 - .
 
 **IMPROVEMENTS:**
 
-- .
-- .
+- ([Licensed tier][79]) Added support for mutual TLS authentication between agents and backends.
+- ([Licensed tier][79]) Added support for CRL URLs for mTLS authentication.
+- To facilitate discussion about feature requests, in the Web UI, feedback is directed to Discourse rather than the GitHub repository's issues page.
+- In the [web UI][80], when a user lands on a page inside a namespace that no longer exists or they do not have access to, the drawer opens to that namespace switcher to help clarify next steps.
+- Support agent TLS authentication is usable with a licensed sensu-backend.
+- Updated Sensu Go version from 1.12.3 to 1.13.1.
 - .
 - .
 
 **FIXES:**
+
+- ([Licensed tier][79]) `sensuctl` can now create federation resources.
+- ([Licensed tier][79]) `sensuctl` on Windows can now create postgres resources.
+- ([Licensed tier][79]) Fixed a bug that resulted in event metrics being ignored when using the postgres store.
+- Splayed proxy checks are executed every interval (instead of every interval + interval * splay_coverage).
+- GraphQL ensures that proxy entity label and annotations are redacted.
+- Fixed a bug in the ring that prevented round robin schedules from recovering after quorum loss.
+- Updated [web UI][80] so that unauthorized errors emitted while creating silences or resolving events are caught and a toast is presented to communicate what occurred.
+- [Web UI][80] does not report internal errors when a user attempts to queue an ad hoc check for a keepalive.
+- Asset builds are not separated into several assets unless the the tabular format is used in `sensuctl asset list`.
+- The 'flag accessed but not defined' error is corrected in `sensuctl asset outdated`.
+- .
+- .
+
+**KNOWN ISSUES:**
 
 - .
 - .
@@ -649,3 +671,5 @@ To get started with Sensu Go:
 [76]: /sensu-go/5.11/sensuctl/reference#view-sensuctl-config
 [77]: /sensu-go/5.11/reference/backend#advanced-configuration-options
 [78]: /sensu-go/5.12/reference/agent/#allow-list
+[79]: /sensu-go/5.14/getting-started/enterprise
+[80]: /sensu-go/5.14/dashboard/overview
