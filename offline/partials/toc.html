@@ -1,0 +1,65 @@
+<div id="toc">
+  <h2>Contents</h2>
+  {{ range .Sections }}
+    {{ $section := replace . "-" "_" }}
+    {{ $product_info := (index .Site.Params.products $section) }}
+    {{ $.Scratch.Add "version" .Params.version }}
+    {{ if (eq .Params.version "latest") }}
+      {{ $.Scratch.Set "version" $product_info.latest }}
+    {{ end }}
+    {{ $version := $.Scratch.Get "version" }}
+
+    <!-- loop through all menus, but only care if they're for our current section -->
+    {{ range $k, $v := .Site.Menus }}
+      {{ if and (ne $k "main") (in $k $.Section) }}
+
+        <!-- special case for sensu enterprise dash -->
+        {{ if not (and (in $k "sensu-enterprise-dashboard") (eq $.Section "sensu-enterprise")) }}
+
+          <!-- check if we're looking at the section index, or a sub section -->
+          {{ if ne (strings.TrimSuffix $version $k) $k }}
+            {{ $niceName := $.Params.product }}
+
+            <!-- Loop through the menus pages -->
+            {{ range $y, $x := sort $v "Weight" }}
+
+              <ul>
+              <!-- if the menu has a child menu -->
+              {{ if .HasChildren }}
+                {{ if (in $k $version) }}
+                  {{ $niceName := replace $x.Name "-" " " }}
+                  {{ $niceName := title $niceName }}
+
+                  <li>
+                    <span class="strong">
+                      {{ if or (eq $niceName "Api") (eq $niceName "Rbac") }}
+                        {{ upper $niceName }}
+                      <!-- render the title normally if not API -->
+                      {{ else }}
+                        {{ $niceName }}
+                      {{ end }}
+                    </span>
+                    <ul>
+                      <!-- Loop through the child menu's pages -->
+                      {{ range where .Children.ByWeight ".Page.Params.offline" "!=" false }}
+                        {{ if not (eq (lower .Parent) (lower .Name)) }}
+                          <li><a href="{{ .URL | absURL }}">{{ .Name }}</a></li>
+                        {{ end }}
+                      {{ end }}
+                    </ul>
+                  </li>
+                {{ end }}
+              <!-- No children, this is top level menu items -->
+              {{ else }}
+                {{ if not (eq $.Params.product $x.Name) }}
+                <li><a class="strong" href="{{ .URL | absURL }}">{{ $x.Name }}</a></li>
+                {{ end }}
+              {{ end }}
+              </ul>
+            {{ end }}
+          {{ end }}
+        {{ end }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
+</div>

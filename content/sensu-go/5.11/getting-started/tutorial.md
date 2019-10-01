@@ -8,6 +8,7 @@ layout: "katacoda-wide"
 menu:
   sensu-go-5.11:
     parent: getting-started
+offline: false
 ---
 
 <script src="//katacoda.com/embed.js"></script>
