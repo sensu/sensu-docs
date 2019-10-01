@@ -19,7 +19,6 @@
     "yaml": "^0.3.0"
   },
   "scripts": {
-    "build-offline": "grunt default --layoutDir=offline",
     "postinstall": "grunt",
     "server": "grunt server",
     "hugo-version": "grunt hugo-version",
