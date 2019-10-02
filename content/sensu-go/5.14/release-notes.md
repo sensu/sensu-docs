@@ -62,7 +62,7 @@ See the [upgrade guide][1] to upgrade Sensu to version 5.14.0.
 - ([Licensed tier][79]) Added support for CRL URLs for mTLS authentication.
 - To facilitate discussion about feature requests, in the Web UI, feedback is directed to Discourse rather than the GitHub repository's issues page.
 - In the [web UI][80], when a user lands on a page inside a namespace that no longer exists or they do not have access to, the drawer opens to that namespace switcher to help clarify next steps.
-- Support agent TLS authentication is usable with a licensed sensu-backend.
+- Support agent [TLS authentication][81] is usable with a licensed sensu-backend.
 - Updated Sensu Go version from 1.12.3 to 1.13.1.
 - .
 - .
