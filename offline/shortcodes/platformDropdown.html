@@ -1,0 +1,26 @@
+{{ $product := replace (lower (.Get 1)) "-" "_" }}
+{{ $version := .Get 2 }}
+{{ $title := .Get 3 }}
+{{ $parent := .Get 4 }}
+
+<!-- Get the current product global vars -->
+{{ $product_info := (index .Site.Params.products $product) }}
+{{ $product_versions := (where $product_info.versions "version" $version) }}
+{{ if $product_versions }}
+<div class="platform-picker">
+  <div class="platform-picker--inner">
+    <button class="platform-picker--value">Platform</button>
+    <ul>
+      {{ $platforms := index (index $product_versions 0) "platforms" }}
+      {{ range $platform := $platforms }}
+        <!-- Pretify the name -->
+        {{ $title2 := replace $title " " "-" }}
+        {{ $title2 := lower $title2 }}
+
+        <!-- TODO: THIS WILL BREAK ON PAGES WITHIN A FOLDER -->
+        <li><a data-platform="{{ $platform }}" href="/{{ lower ($.Get 1) }}/{{ $version }}/{{ $title2 }}/#{{ $parent }}">{{ $platform }}</a></li>
+      {{ end }}
+    </ul>
+  </div>
+</div>
+{{ end }}
