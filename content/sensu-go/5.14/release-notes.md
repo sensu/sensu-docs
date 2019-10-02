@@ -52,7 +52,7 @@ See the [upgrade guide][1] to upgrade Sensu to version 5.14.0.
 - The [web UI][80] now includes an error dialog option that allows users to wipe the application's persisted state (rather than having to manually wipe their local/session storage). This can help in the rare cases that something in the persisted state is leading to an uncaught exception.
 - The [web UI][80] now respects the system preference for operating systems with support for selecting a preferred light or dark theme.
 - `sensuctl dump` can now list the types of supported resources with `sensuctl dump --types`.
-- The Entity resource now includes the `sensu_agent_version` field, which reflects the Sensu semver version of the agent entity.
+- The [entity resource][82] now includes the `sensu_agent_version` field, which reflects the Sensu semver version of the agent entity.
 - .
 - .
 
