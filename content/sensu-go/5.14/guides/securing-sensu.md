@@ -136,7 +136,7 @@ in Sensu--they will default to using the 'system:agents' group.
 Agents can still be bound to a specific user when the `system:agents` group is problematic. For this use case, create a
 user that matches the Common Name (CN) of the agent's certificate.
 
-_NOTE: Users will need the ability to create events in the agent's namespace. Users who want to ensure that agents with incorrect CN fields can't access the backend can remove the default 'system:agents' group._
+NOTE: Sensu agents will need the ability to create events in the agent's namespace. Sensu operators who want to ensure that agents with incorrect CN fields can't access the backend can remove the default 'system:agents' group.
 
 To view a certificate's CN with openssl:
 
