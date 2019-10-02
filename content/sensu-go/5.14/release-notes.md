@@ -674,3 +674,4 @@ To get started with Sensu Go:
 [79]: /sensu-go/5.14/getting-started/enterprise
 [80]: /sensu-go/5.14/dashboard/overview
 [81]: /sensu-go/5.14/guides/securing-sensu#sensu-agent-tls-authentication
+[82]: /sensu-go/5.13/reference/entities/
