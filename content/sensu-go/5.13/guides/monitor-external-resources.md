@@ -48,7 +48,7 @@ sensuctl asset list
           Name                                                URL                                       Hash    
 ────────────────────────── ─────────────────────────────────────────────────────────────────────────── ───────── 
  sensu-plugins-http         //github.com/.../sensu-plugins-http_5.0.0_centos_linux_amd64.tar.gz         31023af  
- sensu-ruby-runtime         //github.com/.../sensu-ruby-runtime_0.0.5_centos_linux_amd64.tar.gz         1c9f0af 
+ sensu-ruby-runtime         //github.com/.../sensu-ruby-runtime_0.0.8_centos_linux_amd64.tar.gz         7b254d3 
 {{< /highlight >}}
 
 ### Creating the check
