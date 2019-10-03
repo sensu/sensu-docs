@@ -53,7 +53,7 @@ See the [upgrade guide][1] to upgrade Sensu to version 5.14.0.
 - The [web UI][80] now respects the system preference for operating systems with support for selecting a preferred light or dark theme.
 - `sensuctl dump` can now list the types of supported resources with `sensuctl dump --types`.
 - The [entity resource][82] now includes the `sensu_agent_version` field, which reflects the Sensu Semantic Versioning (SemVer) version of the agent entity.
-- There are two new configuration options for `sensu-backend` using embedded etcd: `--etcd-heartbeat-interval` and `etcd-election-timeout`.
+- There are two new configuration options for `sensu-backend` using embedded etcd: `etcd-heartbeat-interval` and `etcd-election-timeout`.
 
 **IMPROVEMENTS:**
 
