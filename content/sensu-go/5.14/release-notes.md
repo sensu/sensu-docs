@@ -69,6 +69,7 @@ See the [upgrade guide][1] to upgrade Sensu to version 5.14.0.
 - ([Licensed tier][79]) `sensuctl` can now create federation resources.
 - ([Licensed tier][79]) `sensuctl` on Windows can now create Postgres resources.
 - ([Licensed tier][79]) Fixed a bug that resulted in event metrics being ignored when using the Postgres store.
+- Fixed a bug that caused checks to stop executing after a network error.
 - Splayed proxy checks are executed every interval (instead of every interval + interval * splay_coverage).
 - GraphQL ensures that proxy entity label and annotations are redacted.
 - Fixed a bug in the ring that prevented round robin schedules from recovering after quorum loss.
