@@ -51,10 +51,10 @@ You can use sensuctl to confirm that both the `sensu-plugins-cpu-checks` and `se
 
 {{< highlight shell >}}
 sensuctl asset list
-          Name                                                URL                                       Hash    
-────────────────────────── ─────────────────────────────────────────────────────────────────────────── ───────── 
- sensu-plugins-cpu-checks   //github.com/.../sensu-plugins-cpu-checks_4.0.0_centos_linux_amd64.tar.gz   518e7c1  
- sensu-ruby-runtime         //github.com/.../sensu-ruby-runtime_0.0.8_centos_linux_amd64.tar.gz         7b254d3 
+          Name                                                        URL                                                    Hash    
+──────────────────────────   ───────────────────────────────────────────────────────────────────────────────────          ───────── 
+ sensu-plugins-cpu-checks   //assets.bonsai.sensu.io/.../sensu-plugins-cpu-checks_4.0.0_centos_linux_amd64.tar.gz          518e7c1  
+ sensu-ruby-runtime         //assets.bonsai.sensu.io/.../sensu-ruby-runtime_0.0.8_ruby-2.4.4_centos_linux_amd64.tar.gz     7b254d3 
 {{< /highlight >}}
 
 ### Creating the check
