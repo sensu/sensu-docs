@@ -1,0 +1,5 @@
+{{ partial "head" . }}
+  <h1>{{ .Title }} {{ if .Draft }} (Draft){{ end }}</h1>
+  {{ partial "toc" . }}
+  {{ .Content }}
+{{ partial "footer" . }}
