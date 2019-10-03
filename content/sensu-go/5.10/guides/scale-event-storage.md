@@ -68,6 +68,8 @@ sudo systemctl restart postgresql
 
 With this configuration complete, we can move on to configuring Sensu to store events in our Postgres database.
 
+_NOTE: If your Sensu Go license should expire, event storage will automatically revert to etcd. See the [Reverting to built-in datastore](#reverting-to-builtin-datastore) section below._
+
 ## Configuring Sensu {#configuring-sensu-for-postgres}
 
 Assuming your Sensu backend is already licensed, the configuration for routing events to Postgres is relatively straight-forward. To do so, we create a `PostgresConfig` resource which describes the database connection as a Data Source Name:
@@ -111,7 +113,7 @@ From the web UI or sensuctl you will observe that event history appears incomple
 
 Aside from event history which is not migrated from etcd, there's no observable difference when using Postgres as the event store, and, as of this writing, neither interface supports displaying the PostgresConfig type.
 
-To verify the change was effective, take a look at the sensu-backend logs where you can see that our connection to postgres was successful:
+To verify the change was effective, take a look at the [sensu-backend log][4], where you can see that our connection to Postgres was successful:
 
 {{< highlight shell >}}
 {"component":"store","level":"warning","msg":"trying to enable external event store","time":"2019-10-02T23:31:38Z"}
@@ -145,18 +147,22 @@ The above illustrates connecting to the `sensu_events` database, listing the tab
 
 If for any reason you wish to revert to the default etcd event store, you can do so by deleting the PostgresConfig resource. In this example, my-postgres.yml contains the same configuration as we used to configure the enterprise event store earlier in this document:
 
-
 {{< highlight shell >}}
 sensuctl delete -f my-postgres.yml
 {{< /highlight >}}
 
-To verify that the change was effective, look for messages similar to these in the Sensu backend log:
+To verify that the change was effective, look for messages similar to these in the [sensu-backend log][4]:
 
 {{< highlight shell >}}
 {"component":"store","level":"warning","msg":"store configuration deleted","store":"/sensu.io/api/enterprise/store/v1/provider/postgres01","time":"2019-10-02T23:29:06Z"}
 {"component":"store","level":"warning","msg":"switched event store to etcd","time":"2019-10-02T23:29:06Z"}
 {{< /highlight >}}
 
+Similar to enabling Postgres, switching back to the etcd datastore does not migrate current event data from one store to another. You may observe old events in the web UI or  sensuctl output until such time as the etcd datastore catches up with the current state of your monitored infrastructure.
+
+_NOTE: If your Sensu Go license should expire, event storage will automatically revert to etcd._
+
 [1]:
 [2]: https://github.com/sensu/sensu-perf
 [3]: ../getting-started/enterprise
+[4]: ../guides/troubleshooting/#log-file-locations
