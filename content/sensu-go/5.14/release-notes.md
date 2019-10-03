@@ -43,7 +43,7 @@ Read the [upgrade guide][1] for information on upgrading to the latest version o
 
 ## 5.14.0 release notes
 
-**October 3, 2019** &mdash; The latest release of Sensu Go, version 5.14.0, is now available for download. This release includes feature additions like two new configuration options for backends using embedded etcd and a new SemVer field in entity resources. In addition, this release includes bug fixes that enable round robin schedule recovery after quorum loss and enhanced TLS authentication support.
+**October 3, 2019** &mdash; The latest release of Sensu Go, version 5.14.0, is now available for download. This release includes feature additions like two new configuration options for backends using embedded etcd and a new SemVer field in entity resources. In addition, this release includes enhanced TLS authentication support and bug fixes that restore check execution after a network error and enable round robin schedule recovery after quorum loss.
 
 See the [upgrade guide][1] to upgrade Sensu to version 5.14.0.
 
