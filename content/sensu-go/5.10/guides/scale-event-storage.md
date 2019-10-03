@@ -13,34 +13,34 @@ menu:
 
 Sensu Go's licensed-tier datastore feature enables scaling your monitoring to many thousands of events per second.
 
-- [Why use the Enterprise Datastore?](#why-enterprise-datastore)
+- [Why use the Enterprise datastore?](#why-enterprise-datastore)
 - [Prerequisites](#prerequisites)
-- [Configuring Postgres](#configuring-postgres-for-sensu)
-- [Configuring Sensu](#configuring-sensu-for-postgres)
-- [Reverting to built-in datastore](#reverting-to-builtin-datastore)
+- [Configure Postgres](#configure-postgres-for-sensu)
+- [Configure Sensu](#configure-sensu-for-postgres)
+- [Revert to built-in datastore](#revert-to-builtin-datastore)
 
-## Why use the Enterprise Datastore? {#why-enterprise-datastore}
+## Why use the Enterprise datastore? {#why-enterprise-datastore}
 
-For each unique entity/check pair, Sensu records the latest event object in it's datastore. By default, the embedded etcd datastore is used for event storage. The embedded etcd datastore makes it easy to get started with Sensu, but as the number of entities and checks in your Sensu implementation grows, so too does the rate of events being written to the datastore. In a clustered deployment of etcd, whether embedded or external to Sensu, each event received by a member of the cluster must be replicated to other members, increasing network and disk IO utilization. 
+For each unique entity/check pair, Sensu records the latest event object in its datastore. By default, the embedded etcd datastore is used for event storage. The embedded etcd datastore helps you get started with Sensu, but as the number of entities and checks in your Sensu implementation grows, so does the rate of events being written to the datastore. In a clustered deployment of etcd, whether embedded or external to Sensu, each event received by a member of the cluster must be replicated to other members, increasing network and disk IO utilization. 
 
-Our team has documented configuration and testing of Sensu running on bare metal infrastructure in the [sensu/sensu-perf][2] project. Under this configuration they were able to comfortably handle 12,000 Sensu Agent connections (and their keepalives) and process over 8,500 events per second. 
+Our team has documented configuration and testing of Sensu running on bare metal infrastructure in the [sensu/sensu-perf][2] project. This configuration comfortably handled 12,000 Sensu agent connections (and their keepalives) and processed more than 8,500 events per second. 
 
-This rate of events should be more than sufficient for many installations, but also assumes an ideal scenario where Sensu backend nodes use direct-attached, dedicated NVMe storage and are connected to a dedicated LAN. Deployments on public cloud providers are not likely to achieve similar results due to sharing both disk and network bandwidth with other tenants. Following cloud provider recommended practices can also become a factor, as may operators are inclined to deploy a cluster across multiple availability zones. In such a deployment cluster communication happens over shared WAN links which are subject to uncontrolled variability in throughput and latency.
+This rate of events should be more than sufficient for many installations but assumes an ideal scenario where Sensu backend nodes use direct-attached, dedicated NVMe storage and are connected to a dedicated LAN. Deployments on public cloud providers are not likely to achieve similar results due to sharing both disk and network bandwidth with other tenants. Following the cloud provider's recommended practices may also become a factor because many operators are inclined to deploy a cluster across multiple availability zones. In such a deployment cluster, communication happens over shared WAN links, which are subject to uncontrolled variability in throughput and latency.
 
-Using the Enterprise Datastore can help operators achieve much higher rates of event processing, and minimize the replication communication between etcd peers. The sensu-perf test environment comfortably handles 40,000 Sensu Agent connections (and their keepalives) and processes over 36,000 events per second under ideal conditions. 
+Using the Enterprise datastore can help operators achieve much higher rates of event processing and minimize the replication communication between etcd peers. The `sensu-perf` test environment comfortably handles 40,000 Sensu agent connections (and their keepalives) and processes more than 36,000 events per second under ideal conditions. 
 
 ## Prerequisites
 
 * Database server running Postgres 9.5 or later
-* Postgres database, or administrative access to create one
-* Postgres user with permissions to the database, or administrative access to create one
+* Postgres database (or administrative access to create one)
+* Postgres user with permissions to the database (or administrative access to create such a user)
 * [Licensed Sensu Go backend][3]
 
-## Configuring Postgres {#configuring-postgres-for-sensu}
+## Configure Postgres {#configure-postgres-for-sensu}
 
-Before Sensu can start writing events to Postgres, we need a database and an account with permissions to write to that database. In order to provide consistent event throughput, we strongly recommend that your Postgres instance be dedicated exclusively to storage of Sensu events.
+Before Sensu can start writing events to Postgres, you need a database and an account with permissions to write to that database. To provide consistent event throughput, we strongly recommend exclusively dedicating your Postgres instance to storage of Sensu events.
 
-If you have administrative access to Postgres, you can create the database and user yourself:
+If you have administrative access to Postgres, you can create the database and user:
 
 ``` shell
 $ sudo -u postgres psql
@@ -53,9 +53,9 @@ GRANT
 postgres-# \q
 ```
 
-With this configuration complete, Postgres now has a `sensu_events` database for storing Sensu events, and a `sensu` user with permissions to that database.
+With this configuration complete, Postgres will have a `sensu_events` database for storing Sensu events and a `sensu` user with permissions to that database.
 
-By default, the Postgres user we've just added will not be able to authenticate via password, so we'll also need to make a change to the `pg_hba.conf` file. The change required will depend on how Sensu will connect to Postgres. In our case, we'll configure Postgres to allow the `sensu` user to connect to the `sensu_events` database from any host using an md5 encrypted password:
+By default, the Postgres user you've just added will not be able to authenticate via password, so you'll also need to make a change to the `pg_hba.conf` file. The required change will depend on how Sensu will connect to Postgres. In this case, you'll configure Postgres to allow the `sensu` user to connect to the `sensu_events` database from any host using an md5 encrypted password:
 
 ``` shell
 # make a copy of the current pg_hba.conf
@@ -66,13 +66,13 @@ echo 'host sensu_events sensu 0.0.0.0/0 md5' | sudo tee -a /var/lib/pgsql/data/p
 sudo systemctl restart postgresql
 ```
 
-With this configuration complete, we can move on to configuring Sensu to store events in our Postgres database.
+With this configuration complete, you can configure Sensu to store events in your Postgres database.
 
-_NOTE: If your Sensu Go license should expire, event storage will automatically revert to etcd. See the [Reverting to built-in datastore](#reverting-to-builtin-datastore) section below._
+_NOTE: If your Sensu Go license expires, event storage will automatically revert to etcd. See [Revert to built-in datastore](#revert-to-builtin-datastore) below._
 
-## Configuring Sensu {#configuring-sensu-for-postgres}
+## Configure Sensu {#configure-sensu-for-postgres}
 
-Assuming your Sensu backend is already licensed, the configuration for routing events to Postgres is relatively straight-forward. To do so, we create a `PostgresConfig` resource which describes the database connection as a Data Source Name:
+If your Sensu backend is already licensed, the configuration for routing events to Postgres is relatively straightforward. Create a `PostgresConfig` resource that describes the database connection as a Data Source Name:
 
 {{< highlight yml >}}
 type: PostgresConfig
@@ -101,7 +101,7 @@ spec:
 {{< /language-toggle >}}
 
 
-With this configuration written to disk as `my-postgres.yml` we install it using `sensuctl`:
+This configuration is written to disk as `my-postgres.yml`, and you can install it using `sensuctl`:
 
 {{< highlight shell >}}
 sensuctl create -f my-postgres.yml
@@ -109,18 +109,18 @@ sensuctl create -f my-postgres.yml
 
 The Sensu backend is now configured to use Postgres for event storage! 
 
-From the web UI or sensuctl you will observe that event history appears incomplete. When Postgres configuration is provided and the backend successfully connects to the database, etcd event history is not migrated. New events will be written to Postgres as they are processed, with the Postgres datastore ultimately being brought up to date with the current state of your monitored infrastructure.
+From the web UI or in `sensuctl`, you will observe that event history appears incomplete. When Postgres configuration is provided and the backend successfully connects to the database, etcd event history is not migrated. New events will be written to Postgres as they are processed, with the Postgres datastore ultimately being brought up to date with the current state of your monitored infrastructure.
 
-Aside from event history which is not migrated from etcd, there's no observable difference when using Postgres as the event store, and, as of this writing, neither interface supports displaying the PostgresConfig type.
+Aside from event history, which is not migrated from etcd, there's no observable difference when using Postgres as the event store, and neither interface supports displaying the PostgresConfig type.
 
-To verify the change was effective, take a look at the [sensu-backend log][4], where you can see that our connection to Postgres was successful:
+To verify that the change was effective and your connection to Postgres was successful, look at the [`sensu-backend` log][4]:
 
 {{< highlight shell >}}
 {"component":"store","level":"warning","msg":"trying to enable external event store","time":"2019-10-02T23:31:38Z"}
 {"component":"store","level":"warning","msg":"switched event store to postgres","time":"2019-10-02T23:31:38Z"}
 {{< /highlight >}}
 
-We can also use `psql` to verify that events are being written to the `sensu_events` database:
+You can also use `psql` to verify that events are being written to the `sensu_events` database:
 
 {{< highlight shell >}}
 postgres=# \c sensu_events
@@ -143,9 +143,9 @@ sensu_events=# select sensu_entity from events where sensu_check = 'keepalive';
 
 The above illustrates connecting to the `sensu_events` database, listing the tables in the database, and requesting a list of all entities reporting keepalives.
 
-### Reverting to built-in datastore
+### Revert to built-in datastore (#revert-to-builtin-datastore)
 
-If for any reason you wish to revert to the default etcd event store, you can do so by deleting the PostgresConfig resource. In this example, my-postgres.yml contains the same configuration as we used to configure the enterprise event store earlier in this document:
+If you want to revert to the default etcd event store, delete the PostgresConfig resource. In this example, my-postgres.yml contains the same configuration you used to configure the enterprise event store earlier in this guide:
 
 {{< highlight shell >}}
 sensuctl delete -f my-postgres.yml
@@ -158,9 +158,9 @@ To verify that the change was effective, look for messages similar to these in t
 {"component":"store","level":"warning","msg":"switched event store to etcd","time":"2019-10-02T23:29:06Z"}
 {{< /highlight >}}
 
-Similar to enabling Postgres, switching back to the etcd datastore does not migrate current event data from one store to another. You may observe old events in the web UI or  sensuctl output until such time as the etcd datastore catches up with the current state of your monitored infrastructure.
+Similar to enabling Postgres, switching back to the etcd datastore does not migrate current event data from one store to another. You may observe old events in the web UI or  sensuctl output until the etcd datastore catches up with the current state of your monitored infrastructure.
 
-_NOTE: If your Sensu Go license should expire, event storage will automatically revert to etcd._
+_NOTE: If your Sensu Go license expires, event storage will automatically revert to etcd._
 
 [1]:
 [2]: https://github.com/sensu/sensu-perf
