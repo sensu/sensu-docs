@@ -113,7 +113,7 @@ Aside from event history which is not migrated from etcd, there's no observable 
 
 To verify the change was effective, take a look at the sensu-backend logs where you can see that our connection to postgres was successful:
 
-{{< highlight json >}}
+{{< highlight shell >}}
 {"component":"store","level":"warning","msg":"trying to enable external event store","time":"2019-10-02T23:31:38Z"}
 {"component":"store","level":"warning","msg":"switched event store to postgres","time":"2019-10-02T23:31:38Z"}
 {{< /highlight >}}
@@ -152,7 +152,7 @@ sensuctl delete -f my-postgres.yml
 
 To verify that the change was effective, look for messages similar to these in the Sensu backend log:
 
-{{< highlight json >}}
+{{< highlight shell >}}
 {"component":"store","level":"warning","msg":"store configuration deleted","store":"/sensu.io/api/enterprise/store/v1/provider/postgres01","time":"2019-10-02T23:29:06Z"}
 {"component":"store","level":"warning","msg":"switched event store to etcd","time":"2019-10-02T23:29:06Z"}
 {{< /highlight >}}
