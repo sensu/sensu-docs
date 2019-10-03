@@ -141,7 +141,7 @@ sensu_events=# select sensu_entity from events where sensu_check = 'keepalive';
 (3 rows)
 {{ /highlight }}
 
-The above illustrates connecting to the `sensu_events` database, listing the tables in the database, and requesting a list of all entities reporting keepalives.
+This code illustrates connecting to the `sensu_events` database, listing the tables in the database, and requesting a list of all entities reporting keepalives.
 
 ### Revert to built-in datastore (#revert-to-builtin-datastore)
 
