@@ -425,7 +425,7 @@ None | `federation/v1.Replicator`
 `namespaces` | `core/v2.Namespace`
 `roles` | `core/v2.Role`
 `rolebindings` | `core/v2.RoleBinding`
-`silenceds` | `core/v2.Silenced`
+`silenced` | `core/v2.Silenced`
 `tessen` | `core/v2.TessenConfig`
 `users` | `core/v2.User`
 
