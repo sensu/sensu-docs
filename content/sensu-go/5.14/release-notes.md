@@ -43,8 +43,8 @@ Read the [upgrade guide][1] for information on upgrading to the latest version o
 
 ## 5.14.0 release notes
 
-**October 3, 2019** &mdash; The latest release of Sensu Go, version 5.14.0, is now available for download.
-There are some exciting feature additions in this release, including .... Additionally, this release includes bug fixes for ... and enhanced ...
+**October 3, 2019** &mdash; The latest release of Sensu Go, version 5.14.0, is now available for download. This release includes feature additions like two new configuration options for backends using embedded etcd and a new SemVer field in entity resources. In addition, this release includes bug fixes that affect round robin schedule recovery after quorum loss and enhanced TSL authentication support.
+
 See the [upgrade guide][1] to upgrade Sensu to version 5.14.0.
 
 **NEW FEATURES:**
@@ -52,9 +52,8 @@ See the [upgrade guide][1] to upgrade Sensu to version 5.14.0.
 - The [web UI][80] now includes an error dialog option that allows users to wipe the application's persisted state (rather than having to manually wipe their local/session storage). This can help in the rare cases that something in the persisted state is leading to an uncaught exception.
 - The [web UI][80] now respects the system preference for operating systems with support for selecting a preferred light or dark theme.
 - `sensuctl dump` can now list the types of supported resources with `sensuctl dump --types`.
-- The [entity resource][82] now includes the `sensu_agent_version` field, which reflects the Sensu semver version of the agent entity.
-- .
-- .
+- The [entity resource][82] now includes the `sensu_agent_version` field, which reflects the Sensu Semantic Versioning (SemVer) version of the agent entity.
+- There are two new configuration options for backends using the embedded etcd: `--etcd-heartbeat-interval` and `etcd-election-timeout`.
 
 **IMPROVEMENTS:**
 
@@ -64,8 +63,6 @@ See the [upgrade guide][1] to upgrade Sensu to version 5.14.0.
 - In the [web UI][80], when a user lands on a page inside a namespace that no longer exists or they do not have access to, the drawer opens to that namespace switcher to help clarify next steps.
 - Support agent [TLS authentication][81] is usable with a licensed sensu-backend.
 - Updated Sensu Go version from 1.12.3 to 1.13.1.
-- .
-- .
 
 **FIXES:**
 
@@ -79,13 +76,6 @@ See the [upgrade guide][1] to upgrade Sensu to version 5.14.0.
 - [Web UI][80] does not report internal errors when a user attempts to queue an ad hoc check for a keepalive.
 - Asset builds are not separated into several assets unless the the tabular format is used in `sensuctl asset list`.
 - The 'flag accessed but not defined' error is corrected in `sensuctl asset outdated`.
-- .
-- .
-
-**KNOWN ISSUES:**
-
-- .
-- .
 
 ## 5.13.2 release notes
 
