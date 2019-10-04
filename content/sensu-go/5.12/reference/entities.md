@@ -151,7 +151,9 @@ spec:
 
 ### Proxy entities checks
 
-Once a proxy entity is created, you can define which agents will run the check by configuring a subscription. See [Proxy Requests][11] for details on creating a proxy check for a proxy entity.
+Proxy entities allow Sensu to [monitor external resources][12] on systems or devices where a Sensu agent cannot be installed, like a network switch, website or API endpoint. You can configure a check with a proxy entity name to associate the check results with that proxy entity. If on the first check result the proxy entity does not exist, Sensu will create the entity as a proxy entity.
+
+After you create a proxy entity check, you can define which agents will run the check by configuring a subscription. See [proxy requests][11] for details on creating a proxy check for a proxy entity.
 
 ### Agent entities{#agent-entities-managed}
 
@@ -764,3 +766,4 @@ spec:
 [9]: ../../getting-started/enterprise
 [10]: https://discourse.sensu.io/t/introducing-usage-limits-in-the-sensu-go-free-tier/1156
 [11]: ../checks/#proxy-requests
+[12]: ../../guides/monitor-external-resources/
