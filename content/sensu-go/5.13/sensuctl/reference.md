@@ -771,7 +771,7 @@ These are useful if you want to know what cluster you're connecting to, or what 
 
 ## Interacting with Bonsai
 
-Sensuctl supports both installing asset definitions directly from [Bonsai](34) and checking your Sensu backend for outdated assets.
+Sensuctl supports both installing asset definitions directly from [Bonsai][34] and checking your Sensu backend for outdated assets.
 
 ### Usage
 
