@@ -94,9 +94,10 @@ The [Sensu backend][25] uses:
 
 The [Sensu agent][26] uses:
 
-- 3030 (TCP/UDP) Sensu [agent socket][21]: Required for Sensu agents using the agent socket
-- 3031 (HTTP) Sensu [agent API][22]: Required for all users accessing the agent API
+- 3031 (HTTP) Sensu [agent API][21]: Required for all users accessing the agent API
 - 8125 (UDP, TCP on Windows) [StatsD listener][23]: Required for all Sensu agents using the StatsD listener
+
+The agent TCP and UDP sockets are deprecated in favor of the [agent API][21].
 
 For more information, see the [guide to securing Sensu][20].
 
@@ -128,7 +129,7 @@ Due to Sensu Go's implementation, it is not possible to use Uchiwa with Sensu Go
 [18]: ../../guides/influx-db-metric-handler/
 [19]: https://www.influxdata.com/
 [20]: ../../guides/securing-sensu
-[21]: ../../reference/agent#creating-monitoring-events-using-the-agent-socket
+[21]: ../../reference/agent#creating-monitoring-events-using-the-agent-api
 [22]: ../../reference/agent/#using-the-http-socket
 [23]: ../../reference/agent/#creating-monitoring-events-using-the-statsd-listener
 [24]: ../../dashboard/overview
