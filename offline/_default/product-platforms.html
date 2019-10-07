@@ -1,0 +1,28 @@
+{{ partial "head" . }}
+
+<main class="main">
+  <article class="article">
+    <div class="wrapper">
+      <h1>{{ .Title }} {{ if .Draft }} (Draft){{ end }}</h1>
+        
+        {{ .Content }}
+        
+        {{ $product := replace .Section "-" "_" }}
+        {{ $product_info := (index .Site.Params.products $product) }}
+        {{ if (isset $product_info "versions") }}
+          {{ $product_versions := (where $product_info.versions "version" .Params.version) }}
+          {{ if gt (len $product_versions) 1 }}
+            <h2>Pick a Platform</h2>
+            <div class="link-grid">
+              {{ $platforms := index (index $product_versions 0) "platforms" }}
+              {{ range $platform := $platforms }}
+                <a onClick="setPlatformCookie('{{ $platform }}')" href="client-installation">{{ $platform }}</a>
+              {{ end }}
+            </div>
+          {{ end }}
+        {{ end }}
+    </div>
+  </article>
+</main>
+
+{{ partial "footer" . }}

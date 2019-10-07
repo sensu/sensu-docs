@@ -1,0 +1,20 @@
+{{ partial "head" . }}
+  <h1>{{ .Title }} {{ if .Draft }} (Draft){{ end }}</h1>
+  <h2>Versions</h2>
+  {{ if not ($.Scratch.Get "versionList") }}
+    {{ $product := replace .Section "-" "_" }}
+    {{ $product_info := (index .Site.Params.products $product) }}
+    {{ range $k, $v := $product_info.versions }}
+      {{ $.Scratch.Add "versionList" (slice $v.version) }}
+    {{ end }}
+  {{ end }}
+  {{ $versionList := $.Scratch.Get "versionList" }}
+  <ul>
+    {{ range $version := $versionList }}
+      <li>
+        <a href="/{{ $.Section }}/{{ $version }}">{{ $version }}</a>
+      </li>
+    {{ end }}
+  </ul>
+
+{{ partial "footer" . }}
