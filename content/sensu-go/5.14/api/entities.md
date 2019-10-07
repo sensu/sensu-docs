@@ -33,6 +33,7 @@ curl http://127.0.0.1:8080/api/core/v2/namespaces/default/entities -H "Authoriza
 [
   {
     "entity_class": "agent",
+    "sensu_agent_version": "1.0.0",
     "system": {
       "hostname": "sensu-centos",
       "os": "linux",
@@ -109,6 +110,7 @@ output         | {{< highlight shell >}}
 [
   {
     "entity_class": "agent",
+    "sensu_agent_version": "1.0.0",
     "system": {
       "hostname": "sensu-centos",
       "os": "linux",
@@ -181,6 +183,7 @@ example URL     | http://hostname:8080/api/core/v2/namespaces/default/entities
 payload         | {{< highlight shell >}}
 {
   "entity_class": "proxy",
+  "sensu_agent_version": "1.0.0",
   "subscriptions": [
     "web"
   ],
@@ -212,6 +215,7 @@ containing the requested [`:entity` definition][1] (in this example: for the `:e
 curl http://127.0.0.1:8080/api/core/v2/namespaces/default/entities/sensu-centos -H "Authorization: Bearer $SENSU_TOKEN"
 {
   "entity_class": "agent",
+  "sensu_agent_version": "1.0.0",
   "system": {
     "hostname": "sensu-centos",
     "os": "linux",
@@ -285,6 +289,7 @@ response codes       | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (
 output               | {{< highlight json >}}
 {
   "entity_class": "agent",
+  "sensu_agent_version": "1.0.0",
   "system": {
     "hostname": "sensu-centos",
     "os": "linux",
@@ -358,6 +363,7 @@ example URL     | http://hostname:8080/api/core/v2/namespaces/default/entities/s
 payload         | {{< highlight shell >}}
 {
   "entity_class": "proxy",
+  "sensu_agent_version": "1.0.0",
   "subscriptions": [
     "web"
   ],
@@ -385,6 +391,7 @@ example URL     | http://hostname:8080/api/core/v2/namespaces/default/entities/s
 payload         | {{< highlight shell >}}
 {
   "entity_class": "proxy",
+  "sensu_agent_version": "1.0.0",
   "subscriptions": [
     "web"
   ],
