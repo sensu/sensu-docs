@@ -425,7 +425,7 @@ None | `federation/v1.Replicator`
 `namespaces` | `core/v2.Namespace`
 `roles` | `core/v2.Role`
 `rolebindings` | `core/v2.RoleBinding`
-`silenceds` | `core/v2.Silenced`
+`silenced` | `core/v2.Silenced`
 `tessen` | `core/v2.TessenConfig`
 `users` | `core/v2.User`
 
@@ -771,7 +771,7 @@ These are useful if you want to know what cluster you're connecting to, or what 
 
 ## Interacting with Bonsai
 
-Sensuctl supports both installing asset definitions directly from [Bonsai](34) and checking your Sensu backend for outdated assets.
+Sensuctl supports both installing asset definitions directly from [Bonsai][34] and checking your Sensu backend for outdated assets.
 
 ### Usage
 
