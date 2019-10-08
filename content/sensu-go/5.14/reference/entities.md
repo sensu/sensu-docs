@@ -59,6 +59,7 @@ For example, to create a proxy entity with a `url` label using sensuctl `create`
 {{< highlight yml >}}
 type: Entity
 api_version: core/v2
+sensu_agent_version: 1.0.0
 metadata:
   labels:
     url: docs.sensu.io
@@ -79,6 +80,7 @@ spec:
 {
   "type": "Entity",
   "api_version": "core/v2",
+  "sensu_agent_version": "1.0.0",
   "metadata": {
     "name": "sensu-docs",
     "namespace": "default",
@@ -123,6 +125,7 @@ And update the `metadata` scope to include `labels`.
 {{< highlight yml >}}
 type: Entity
 api_version: core/v2
+sensu_agent_version: 1.0.0
 metadata:
   labels:
     url: docs.sensu.io
@@ -136,6 +139,7 @@ spec:
 {
   "type": "Entity",
   "api_version": "core/v2",
+  "sensu_agent_version": "1.0.0",
   "metadata": {
     "name": "sensu-docs",
     "namespace": "default",
@@ -202,6 +206,13 @@ example      | {{< highlight shell >}}
   }
 }
 {{< /highlight >}}
+
+sensu_agent_version  | 
+---------------------|------
+description          | The Sensu Semantic Versioning (SemVer) version of the agent entity.
+required             | true
+type                 | String
+example              | {{< highlight shell >}}"sensu_agent_version": "1.0.0"{{< /highlight >}}
 
 spec         | 
 -------------|------
@@ -628,6 +639,7 @@ example      | {{< highlight shell >}}"handler": "email-handler"{{< /highlight >
 {{< highlight yml >}}
 type: Entity
 api_version: core/v2
+sensu_agent_version: 1.0.0
 metadata:
   annotations: null
   labels: null
@@ -680,6 +692,7 @@ spec:
 {
   "type": "Entity",
   "api_version": "core/v2",
+  "sensu_agent_version": "1.0.0",
   "metadata": {
     "name": "webserver01",
     "namespace": "default",
