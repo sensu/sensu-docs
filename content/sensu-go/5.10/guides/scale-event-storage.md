@@ -145,20 +145,8 @@ This code illustrates connecting to the `sensu_events` database, listing the tab
 
 ### Revert to built-in datastore (#revert-to-builtin-datastore)
 
-If you want to revert to the default etcd event store, delete the PostgresConfig resource. In this example, my-postgres.yml contains the same configuration you used to configure the enterprise event store earlier in this guide:
-
-{{< highlight shell >}}
-sensuctl delete -f my-postgres.yml
-{{< /highlight >}}
-
-To verify that the change was effective, look for messages similar to these in the [sensu-backend log][4]:
-
-{{< highlight shell >}}
-{"component":"store","level":"warning","msg":"store configuration deleted","store":"/sensu.io/api/enterprise/store/v1/provider/postgres01","time":"2019-10-02T23:29:06Z"}
-{"component":"store","level":"warning","msg":"switched event store to etcd","time":"2019-10-02T23:29:06Z"}
-{{< /highlight >}}
-
-Similar to enabling Postgres, switching back to the etcd datastore does not migrate current event data from one store to another. You may observe old events in the web UI or  sensuctl output until the etcd datastore catches up with the current state of your monitored infrastructure.
+In Sensu Go 5.10 there is no supported method for viewing or deleting a PostgresConfig resource.
+In order to delete PostgresConfig resources, and thereby revert to the built-in datastore, please upgrade to the latest version of Sensu Go.
 
 _NOTE: If your Sensu Go license expires, event storage will automatically revert to etcd._
 
