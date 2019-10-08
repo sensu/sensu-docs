@@ -54,7 +54,7 @@ Get in touch with us using [this form][6].
 
 Sensu supports a wide range of plugins for monitoring everything from the server closet to the cloud. [Install the Sensu agent][8] on the hosts you want to monitor, integrate with the [Sensu API][9], or take advantage of [proxy entities][10] to monitor anything on your network.
 
-Sensuctl integrates with [Bonsai, the Sensu asset index][32], where you’ll find plugins, libraries and runtimes you need to automate your monitoring workflows. If you want to add your own asset to the index, read the [guide for sharing an asset on Bonsai][33].
+Sensuctl integrates with [Bonsai, the Sensu asset index][32], where you’ll find plugins, libraries, and runtimes you need to automate your monitoring workflows. If you want to add your own asset to the index, read the [guide for sharing an asset on Bonsai][33].
 
 You can also check out the 200+ plugins shared in the [Sensu plugins community][11]--including monitoring checks for [AWS][13], [Jenkins][14], [Puppet][15], [InfluxDB][16], and [SNMP][17]--or write your own Sensu Plugins in any language using the [Sensu Plugins spec][12].
 
