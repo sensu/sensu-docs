@@ -162,7 +162,6 @@ Similar to enabling Postgres, switching back to the etcd datastore does not migr
 
 _NOTE: If your Sensu Go license expires, event storage will automatically revert to etcd._
 
-[1]:
 [2]: https://github.com/sensu/sensu-perf
 [3]: ../getting-started/enterprise
 [4]: ../guides/troubleshooting/#log-file-locations
