@@ -72,7 +72,7 @@ See the [upgrade guide][1] to upgrade Sensu to version 5.14.0.
 - Fixed a bug that caused checks to stop executing after a network error.
 - Fixed a bug that prevented `sensuctl create` with `stdin` from working.
 - Splayed proxy checks are executed every interval (instead of every interval + interval * splay_coverage).
-- GraphQL ensures that proxy entity label and annotations are redacted.
+- Proxy entity labels and annotations are now redacted in the web UI as expected.
 - Fixed a bug in the ring that prevented round robin schedules from recovering after quorum loss.
 - Fixed the generic API client's `SetTypeMeta` method. The APIGroup is now correctly configured to avoid unintended "authorization denied" errors.
 - Updated [web UI][80] so that unauthorized errors emitted while creating silences or resolving events are caught and a toast is presented to communicate what occurred.
