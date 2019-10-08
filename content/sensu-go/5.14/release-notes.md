@@ -74,7 +74,7 @@ See the [upgrade guide][1] to upgrade Sensu to version 5.14.0.
 - Splayed proxy checks are executed every interval (instead of every interval + interval * splay_coverage).
 - Proxy entity labels and annotations are now redacted in the web UI as expected.
 - Fixed a bug in the ring that prevented round robin schedules from recovering after quorum loss.
-- Updated [web UI][80] so that unauthorized errors emitted while creating silences or resolving events are caught and a toast is presented to communicate what occurred.
+- Updated [web UI][80] so that unauthorized errors emitted while creating silences or resolving events are caught and a notification is presented to communicate what occurred.
 - [Web UI][80] does not report internal errors when a user attempts to queue an ad hoc check for a keepalive.
 - Fixed a bug in [Web UI][80] that may have prevented users with appropriate roles from resolving events, queuing checks, and creating silenced entries.
 - Asset builds are not separated into several assets unless the the tabular format is used in `sensuctl asset list`.
