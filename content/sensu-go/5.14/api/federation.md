@@ -1,6 +1,6 @@
 ---
-title: "Replicators API"
-description: "The replicator API controls federation of Sensu clusters. Here’s a reference for the replicator API in Sensu Go, including examples. Read on for the full reference."
+title: "Federation API"
+description: "The federation API controls federation of Sensu clusters. Here’s a reference for the federation API in Sensu Go, including examples. Read on for the full reference."
 version: "5.14"
 product: "Sensu Go"
 menu:
@@ -8,9 +8,9 @@ menu:
     parent: api
 ---
 
-- [The `/replicator` API endpoint](#the-replicators-api-endpoint)
-	- [`/replicator` (GET)](#replicators-get)
-	- [`/replicator` (POST)](#replicators-post)
+- [The `/replicators` API endpoint](#the-replicators-api-endpoint)
+	- [`/replicators` (GET)](#replicators-get)
+	- [`/replicators` (POST)](#replicators-post)
 - [The `/replicators/:replicator` API endpoint](#the-replicatorsreplicator-api-endpoint)
 	- [`/replicators/:replicator` (GET)](#replicatorsreplicator-get)
   - [`/replicators/:replicator` (PUT)](#replicatorsreplicator-put)
@@ -18,17 +18,17 @@ menu:
 
 ## The `/replicators` API endpoint
 
-**LICENSED TIER**: Unlock the replicators API in Sensu Go with a Sensu license. To activate your license, see the [getting started guide][1].
+**LICENSED TIER**: Unlock the federation API in Sensu Go with a Sensu license. To activate your license, see the [getting started guide][1].
 
-_**NOTE**: The federation API is only accessible by users with a cluster role permitting access to replication resources._
+_**NOTE**: The federation API is only accessible for users who have a cluster role that permits access to replication resources._
 
 ### `/replicators` (GET)
 
-The `/replicators` (GET) endpoint returns a list of replicators.
+The `/replicators` API endpoint provides HTTP GET access to a list of replicators.
 
 #### EXAMPLE {#replicator-get-example}
 
-The following example demonstrates a request to the `/replicator` API, resulting in a list of replicators.
+The following example demonstrates a request to the `/replicators` API, resulting in a list of replicators.
 
 {{< highlight shell >}}
 curl http://127.0.0.1:8080/api/federation/v1/replicators -H "Authorization: Bearer $SENSU_TOKEN"
@@ -205,13 +205,11 @@ response codes  | <ul><li>**Success**: 200 (OK)</li><li>**Malformed**: 400 (Bad 
 
 ### `/replicators/:replicator` (GET) {#replicatorsreplicator-get}
 
-The `/replicators/:replicator` API endpoint provides HTTP GET access to replicator data for specific `:replicator` definitions, by replicator `name`.
+The `/replicators/:replicator` API endpoint provides HTTP GET access to data for a specific `:replicator`, by replicator `name`.
 
 #### EXAMPLE {#replicatorsreplicator-get-example}
 
-In the following example, querying the `/replicators/:replicator` API returns a JSON Map
-containing the requested [`:replicator` definition][1] (in this example: for the `:replicator` named
-`sensu-centos`).
+In the following example, querying the `/replicators/:replicator` API returns a JSON Map containing the requested `:replicator`.
 
 {{< highlight shell >}}
 curl http://127.0.0.1:8080/api/federation/v1/replicators/{replicator_name} -H "Authorization: Bearer $SENSU_TOKEN"
@@ -360,7 +358,7 @@ output               | {{< highlight json >}}
 
 /replicators/:replicator (PUT) | 
 ----------------|------
-description     | Creates or updates the specified replicator.
+description     | Creates or updates the specified replicator. The replicator resource and API version cannot be altered.
 example URL     | http://hostname:8080/federation/v1/replicators/{replicator_name}
 payload         | {{< highlight shell >}}
 {
@@ -386,12 +384,13 @@ response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 
 The `/replicators/:replicator` API endpoint provides HTTP DELETE access to delete the specified replicator from Sensu.
 
 ### EXAMPLE {#replicatorsreplicator-delete-example}
-The following example shows a request to delete the replicator `server1`, resulting in a successful HTTP 204 No Content response.
+
+The following example shows a request to delete the replicator `replicator1`, resulting in a successful HTTP 204 No Content response.
 
 {{< highlight shell >}}
 curl -X DELETE \
 -H "Authorization: Bearer $SENSU_TOKEN" \
-http://127.0.0.1:8080/api/federation/v1/replicators/{replicator_name}
+http://127.0.0.1:8080/api/federation/v1/replicators/replicator1
 
 HTTP/1.1 204 No Content
 {{< /highlight >}}
@@ -400,9 +399,10 @@ HTTP/1.1 204 No Content
 
 /replicators/:replicator (DELETE) | 
 --------------------------|------
-description               | Removes the specified replicator from Sensu.
+description               | Deletes the specified replicator from Sensu.
 example url               | http://hostname:8080/api/federation/v1/replicators/{replicator_name}
 response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 
 [1]: /../../getting-started/enterprise/
+
