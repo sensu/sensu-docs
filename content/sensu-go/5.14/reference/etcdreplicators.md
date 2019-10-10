@@ -1,6 +1,6 @@
 ---
-title: "Federation"
-description: "The federation API allows you to manage RBAC resources in one place and mirror the changes to follower clusters. Read the reference to set up Sensu cluster federation."
+title: "EtcdReplicators"
+description: "EtcdReplicators allows you to manage RBAC resources in one place and mirror the changes to follower clusters. Read the reference to set up Sensu cluster federation."
 weight: 10
 version: "5.14"
 product: "Sensu Go"
@@ -12,14 +12,14 @@ menu:
 - [Create a replicator](#create-a-replicator)
 - [Delete a replicator](#delete-a-replicator)
 - [Replicator configuration](#replicator-configuration)
-- [Federation specification](#federation-specification)
-- [Examples](#examples)
+- [EtcdReplicators specification](#etcdreplicators-specification)
+- [Example EtcdReplicators resource](#example-etcdreplicators-resource)
 
-**LICENSED TIER**: Unlock the federation API in Sensu Go with a Sensu license. To activate your license, see the [getting started guide][1].
+**LICENSED TIER**: Unlock the EtcdReplicators resource in Sensu Go with a Sensu license. To activate your license, see the [getting started guide][1].
 
-_**NOTE**: The federation API is only accessible for users who have a cluster role that permits access to replication resources._
+_**NOTE**: EtcdReplicators is a resource in the federation API, which is only accessible for users who have a cluster role that permits access to replication resources._
 
-The [federation API][2] allows you to manage [RBAC][3] resources in one place and mirror the changes to follower clusters. The API sets up etcd mirrors for one-way key replication.
+EtcdReplicators allows you to manage [RBAC][3] resources in one place and mirror the changes to follower clusters. The API sets up etcd mirrors for one-way key replication.
 
 The replicator data type will not use a namespace because it applies cluster-wide. Therefore, only cluster role RBAC bindings will apply to it.
 
@@ -41,7 +41,7 @@ Rather than altering an existing replicator's connection details, delete and rec
 
 Replicator is an etcd key space replicator. It contains configuration for forwarding a set of keys from one etcd cluster to another. Replicators are configured by specifying the TLS details of the remote cluster, its URL, and a resource type.
 
-## Federation specification
+## EtcdReplicators specification
 
 #### Top-level attributes
 
@@ -54,19 +54,19 @@ example      | {{< highlight shell >}}type: replicator{{< /highlight >}}
 
 api_version  |      |
 -------------|------
-description  | Top-level attribute that specifies the Sensu API version of the resource to replicate. Default is `core/v2`.
+description  | Top-level attribute that specifies the Sensu API version of the EtcdReplicators API. Always `federation/v1`.
 required     | true
 type         | String
-example      | {{< highlight shell >}}api_version: core/v2{{< /highlight >}}
+example      | {{< highlight shell >}}api_version: federation/v1{{< /highlight >}}
 
 metadata     |      |
 -------------|------
-description  | Top-level scope containing the replicator `name`.
+description  | Top-level scope that contains the replicator `name`.
 required     | true
 type         | Map of key-value pairs
 example      | {{< highlight shell >}}
 metadata:
-  name: replicator1
+  name: my_replicator
 {{< /highlight >}}
 
 spec         |      |
@@ -92,44 +92,9 @@ name         |      |
 description  | The replicator name used internally by Sensu.
 required     | true
 type         | String
-example      | {{< highlight shell >}}name: replicator1{{< /highlight >}}
+example      | {{< highlight shell >}}name: my_replicator{{< /highlight >}}
 
 #### Spec attributes
-
-ca_cert      |      |
--------------|-------
-description  | Destination [certificate authority (CA)][5] certificate. In Base64-encoded bytes.
-required     | true
-type         | String
-example      | {{< highlight shell >}}ca_cert: {{< /highlight >}}
-
-cert         |      |
--------------|-------
-description  | Destination certificate. In Base64-encoded bytes.
-required     | true
-type         | String
-example      | {{< highlight shell >}}cert: {{< /highlight >}}
-
-key          |      |
--------------|-------
-description  | Destination key. In Base64-encoded bytes.
-required     | true
-type         | String
-example      | {{< highlight shell >}}key: {{< /highlight >}}
-
-url          |      |
--------------|-------
-description  | Destination cluster URL. If specifying more than one, use a comma to separate.
-required     | true
-type         | String
-example      | {{< highlight shell >}}url: {{< /highlight >}}
-
-resource     |      |
--------------|-------
-description  | Name of the resource to replicate. Only RBAC resources are supported.
-required     | true
-type         | String
-example      | {{< highlight shell >}}resource: rbac{{< /highlight >}}
 
 insecure     |      |
 -------------|-------
@@ -138,6 +103,27 @@ required     | true
 type         | String
 example      | {{< highlight shell >}}insecure: false{{< /highlight >}}
 
+url          |      |
+-------------|-------
+description  | Destination cluster URL. If specifying more than one, use a comma to separate.
+required     | true
+type         | String
+example      | {{< highlight shell >}}url: http://127.0.0.1:3379 {{< /highlight >}}
+
+api_version  |      |
+-------------|-------
+description  | Sensu API version of the resource to replicate. Default is `core/v2`.
+required     | true
+type         | String
+example      | {{< highlight shell >}}api_version: core/v2{{< /highlight >}}
+
+resource     |      |
+-------------|-------
+description  | Name of the resource to replicate.
+required     | true
+type         | String
+example      | {{< highlight shell >}}resource: CheckConfig{{< /highlight >}}
+
 replication_interval_seconds      |      |
 ----------------------------------|-------
 description  | The interval at which the resource will be replicated. In seconds. Default is 30.
@@ -145,41 +131,37 @@ required     | true
 type         | String
 example      | {{< highlight shell >}}replication_interval_seconds: 30{{< /highlight >}}
 
-## Examples
+## Example EtcdReplicators resource
 
 {{< language-toggle >}}
 
 {{< highlight yml >}}
-type: Replicator
-api_version: core/v2
+api_version: federation/v1
+type: EtcdReplicator
 metadata:
-  name: replicator1
+  name: my_replicator
 spec:
-  ca_cert: U2luZywgZ29kZGVzcywgdGhlIGFuZ2VyIG9mIFBlbGV1c+KAmSBzb24gQWNoaWxsZXVz
-  cert: YW5kIGl0cyBkZXZhc3RhdGlvbiwgd2hpY2ggcHV0IHBhaW5zIHRob3VzYW5kZm9sZCB1cG9uIHRoZSBBY2hhaWFucyw=
-  key: aHVybGVkIGluIHRoZWlyIG11bHRpdHVkZXMgdG8gdGhlIGhvdXNlIG9mIEhhZGVzIHN0cm9uZyBzb3Vscw==
-  url: https://example.com:5678
-  resource: rbac
   insecure: false
+  url: http://127.0.0.1:3379
+  api_version: core/v2
+  resource: CheckConfig
   replication_interval_seconds: 30
 {{< /highlight >}}
 
 {{< highlight json >}}
 {
-  "type": "Replicator",
-  "api_version": "core/v2",
+  "api_version": "federation/v1",
+  "type": "EtcdReplicator",
   "metadata": {
-    "namespace": "replicator1"
+    "name": "my_replicator"
   },
   "spec": {
-    "ca_cert": "U2luZywgZ29kZGVzcywgdGhlIGFuZ2VyIG9mIFBlbGV1c+KAmSBzb24gQWNoaWxsZXVz",
-    "cert": "YW5kIGl0cyBkZXZhc3RhdGlvbiwgd2hpY2ggcHV0IHBhaW5zIHRob3VzYW5kZm9sZCB1cG9uIHRoZSBBY2hhaWFucyw=",
-    "key": "aHVybGVkIGluIHRoZWlyIG11bHRpdHVkZXMgdG8gdGhlIGhvdXNlIG9mIEhhZGVzIHN0cm9uZyBzb3Vscw==",
-    "url": "https://example.com:5678",
-    "resource": "rbac",
     "insecure": false,
+    "url": "http://127.0.0.1:3379",
+    "api_version": "core/v2",
+    "resource": "CheckConfig",
     "replication_interval_seconds": 30
-  },
+  }
 }
 {{< /highlight >}}
 
@@ -187,7 +169,7 @@ spec:
 
 
 [1]: ../../getting-started/enterprise
-[2]: ../../api/federation/
+[2]: ../../api/etcdreplicators/
 [3]: ../../reference/rbac/
 [4]: ../../sensuctl/reference/#creating-resources
 [5]: ../../guides/securing-sensu/#creating-self-signed-certificates-for-securing-etcd-and-backend-agent-communication
