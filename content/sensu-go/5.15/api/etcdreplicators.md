@@ -1,10 +1,10 @@
 ---
 title: "EtcdReplicators API"
 description: "The EtcdReplicators API controls federation of Sensu clusters. Here’s a reference for the EtcdReplicators API in Sensu Go, including examples. Read on for the full reference."
-version: "5.14"
+version: "5.15"
 product: "Sensu Go"
 menu:
-  sensu-go-5.14:
+  sensu-go-5.15:
     parent: api
 ---
 
