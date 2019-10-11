@@ -66,7 +66,6 @@ See the [upgrade guide][1] to upgrade Sensu to version 5.14.0.
 
 **FIXES:**
 
-- ([Licensed tier][79]) `sensuctl` can now create federation resources.
 - ([Licensed tier][79]) `sensuctl` on Windows can now create Postgres resources.
 - ([Licensed tier][79]) Fixed a bug that resulted in event metrics being ignored when using the Postgres store.
 - Fixed a bug that caused checks to stop executing after a network error.

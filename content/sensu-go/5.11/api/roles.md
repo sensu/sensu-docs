@@ -214,7 +214,7 @@ The following example shows a request to delete the role `read-only`, resulting 
 {{< highlight shell >}}
 curl -X DELETE \
 -H "Authorization: Bearer $SENSU_TOKEN" \
-http://127.0.0.1:8080/api/core/v2/namespaces/default/roles/ready-only
+http://127.0.0.1:8080/api/core/v2/namespaces/default/roles/read-only
 
 HTTP/1.1 204 No Content
 {{< /highlight >}}
@@ -224,7 +224,7 @@ HTTP/1.1 204 No Content
 /roles/:role (DELETE) | 
 --------------------------|------
 description               | Removes a role from Sensu given the role name.
-example url               | http://hostname:8080/api/core/v2/namespaces/default/roles/ready-only
+example url               | http://hostname:8080/api/core/v2/namespaces/default/roles/read-only
 response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 [1]: ../../reference/rbac
