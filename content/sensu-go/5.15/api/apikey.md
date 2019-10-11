@@ -1,10 +1,10 @@
 ---
 title: "APIKey API"
 description: "The APIKey API provides HTTP access to API key data. This is a reference for the APIKey API in Sensu Go, including examples for returning lists of API keys, creating API keys, and more. Read on for the full reference."
-version: "5.14"
+version: "5.15"
 product: "Sensu Go"
 menu:
-  sensu-go-5.14:
+  sensu-go-5.15:
     parent: api
 ---
 
