@@ -261,11 +261,11 @@ Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.12.0/se
 
 # Install the Sensu agent
 msiexec.exe /i $env:userprofile\sensu-go-agent_5.12.0.5657_en-US.x64.msi /qn
-{{< /highlight >}}
 
 # Or via Chocolatey
 choco install sensu-agent
 
+{{< /highlight >}}
 {{< /language-toggle >}}
 
 ##### 2. Configure and start {#agent-start}
@@ -374,7 +374,7 @@ Now that you've installed Sensu, here are some resources to help continue your j
 - [Send alerts to Slack](../../guides/send-slack-alerts)
 - [Monitor server resources](../../guides/monitor-server-resources)
 - [Collect StatsD metrics](../../guides/aggregate-metrics-statsd)
-- [Create a ready-only user](../../guides/create-read-only-user/)
+- [Create a read-only user](../../guides/create-read-only-user/)
 
 [1]: https://github.com/sensu/sensu-go/releases
 [2]: https://github.com/sensu/sensu-go/blob/5.1.1/packaging/files/windows/agent.yml.example

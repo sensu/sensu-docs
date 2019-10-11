@@ -212,15 +212,15 @@ sensuctl configure -n \
 --url 'http://127.0.0.1:8080'
 {{< /highlight >}}
 
-Here the `-n` flag triggers non-interactive mode.
-Run `sensuctl config view` to see your user profile.
+Here the `-n` flag triggers non-interactive mode. Run `sensuctl config view` to see your user profile.
+
 We strongly recommend that you change the default admin password immediately using `sensuctl user change-password --interactive`.
+
 For more information about using sensuctl, see the [quickstart][23] and [reference][24] docs.
 
 ### Install Sensu agents
 
-The Sensu agent is available for Ubuntu/Debian, RHEL/CentOS, Windows, and Docker.
-See the [supported platforms page][5] for more information.
+The Sensu agent is available for Ubuntu/Debian, RHEL/CentOS, Windows, and Docker. See the [supported platforms page][5] for more information.
 
 ##### 1. Download {#agent-download}
 
@@ -254,18 +254,18 @@ sudo yum install sensu-go-agent
 
 {{< highlight "Windows" >}}
 # Download the Sensu agent for Windows amd64
-Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.14.0/sensu-go-agent_5.14.0.5957_en-US.x64.msi  -OutFile "$env:userprofile\sensu-go-agent_5.14.0.5957_en-US.x64.msi"
+Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.14.0/sensu-go-agent_5.14.0.6578_en-US.x64.msi  -OutFile "$env:userprofile\sensu-go-agent_5.14.0.6578_en-US.x64.msi"
 
 # Or for Windows 386
-Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.14.0/sensu-go-agent_5.14.0.5957_en-US.x86.msi  -OutFile "$env:userprofile\sensu-go-agent_5.14.0.5957_en-US.x86.msi"
+Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.14.0/sensu-go-agent_5.14.0.6578_en-US.x86.msi  -OutFile "$env:userprofile\sensu-go-agent_5.14.0.6578_en-US.x86.msi"
 
 # Install the Sensu agent
-msiexec.exe /i $env:userprofile\sensu-go-agent_5.14.0.5957_en-US.x64.msi /qn
-{{< /highlight >}}
+msiexec.exe /i $env:userprofile\sensu-go-agent_5.14.0.6578_en-US.x64.msi /qn
 
 # Or via Chocolatey
 choco install sensu-agent
 
+{{< /highlight >}}
 {{< /language-toggle >}}
 
 ##### 2. Configure and start {#agent-start}
@@ -346,6 +346,7 @@ For a complete list of config options, see the [agent reference][7].
 ##### 3. Verify keepalive events
 
 Sensu keepalives are the heartbeat mechanism used to ensure that all registered agents are operational and able to reach the Sensu backend.
+
 To verify that the agent has registered with Sensu and is sending keepalive events, open the entity page in the [Sensu web UI][ui] or run `sensuctl entity list`.
 
 ### Activate licensed-tier features
@@ -374,7 +375,7 @@ Now that you've installed Sensu, here are some resources to help continue your j
 - [Send alerts to Slack](../../guides/send-slack-alerts)
 - [Monitor server resources](../../guides/monitor-server-resources)
 - [Collect StatsD metrics](../../guides/aggregate-metrics-statsd)
-- [Create a ready-only user](../../guides/create-read-only-user/)
+- [Create a read-only user](../../guides/create-read-only-user/)
 
 [1]: https://github.com/sensu/sensu-go/releases
 [2]: https://github.com/sensu/sensu-go/blob/5.1.1/packaging/files/windows/agent.yml.example

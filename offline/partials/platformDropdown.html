@@ -1,0 +1,36 @@
+<!-- Check in case we called this where we shouldn't -->
+<!-- Make sure there's platform content -->
+{{ if .Params.platformContent }}
+
+  <!-- Grab the product global variables for product we're on -->
+  {{ $product := replace .Section "-" "_" }}
+  {{ $product_info := (index .Site.Params.products $product) }}
+
+  <!-- Check and make sure we've also got a version -->
+  {{ if (isset $product_info "versions") }}
+    {{ $product_versions := (where $product_info.versions "version" .Params.version) }}
+    {{ if $product_versions }}
+      {{ $.Scratch.Set "platforms" (index (index $product_versions 0) "platforms") }}
+    {{ end }}
+
+    <!-- Check if the platforms list was overriden on the page itself -->
+    {{ if (isset .Params "platforms") }}
+      {{ $.Scratch.Set "platforms" .Params.platforms }}
+    {{ end }}
+
+    <!-- if we have a list of platforms -->
+    {{ $platforms := $.Scratch.Get "platforms" }}
+    {{ if gt (len $platforms) 0 }}
+      <div class="platform-picker-main">
+        <div class="platform-picker--inner">
+          <button class="platform-picker--value">All Platforms</button>
+          <ul>
+            {{ range $platform := $platforms }}
+              <li><a data-platform="{{ $platform }}" href="{{ $.Permalink }}">{{ $platform }}</a></li>
+            {{ end }}
+          </ul>
+        </div>
+      </div>
+    {{ end }}
+  {{ end }}
+{{ end }}
