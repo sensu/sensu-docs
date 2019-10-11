@@ -433,7 +433,7 @@ Here are some resources to help continue your journey:
 
 - [Install Sensu Go](../../installation/install-sensu)
 - [Collect StatsD metrics](../../guides/aggregate-metrics-statsd)
-- [Create a ready-only user](../../guides/create-read-only-user/)
+- [Create a read-only user](../../guides/create-read-only-user/)
 
 [1]: https://bonsai.sensu.io/assets/sensu/sensu-slack-handler
 [2]: ../../reference/assets

@@ -52,10 +52,11 @@ Get in touch with us using [this form][6].
 
 ## What can I monitor with Sensu? {#monitor-with-sensu}
 
-Sensu supports a wide range of plugins for monitoring everything from the server closet to the cloud.
-[Install the Sensu agent][8] on the hosts you want to monitor, integrate with the [Sensu API][9], or take advantage of [proxy entities][10] to monitor anything on your network.
-Check out the [200+ plugins shared by the Sensu community][11], including monitoring checks for [AWS][13], [Jenkins][14], [Puppet][15], [InfluxDB][16], and [SNMP][17].
-You can also get started writing your own Sensu Plugins in any language using the [Sensu Plugins spec][12].
+Sensu supports a wide range of plugins for monitoring everything from the server closet to the cloud. [Install the Sensu agent][8] on the hosts you want to monitor, integrate with the [Sensu API][9], or take advantage of [proxy entities][10] to monitor anything on your network.
+
+Sensuctl integrates with [Bonsai, the Sensu asset index][32], where you’ll find plugins, libraries, and runtimes you need to automate your monitoring workflows. If you want to add your own asset to the index, read the [guide for sharing an asset on Bonsai][33].
+
+You can also check out the 200+ plugins shared in the [Sensu plugins community][11]--including monitoring checks for [AWS][13], [Jenkins][14], [Puppet][15], [InfluxDB][16], and [SNMP][17]--or write your own Sensu Plugins in any language using the [Sensu Plugins spec][12].
 
 ## Does Sensu include a time series database for long term storage? {#long-term-storage}
 
@@ -86,8 +87,10 @@ The [Sensu backend][25] uses:
 The [Sensu agent][26] uses:
 
 - 3030 (TCP/UDP) Sensu [agent socket][21]: Required for Sensu agents using the agent socket
-- 3031 (HTTP) Sensu [agent API][22]: Required for all users accessing the agent API
+- 3031 (HTTP) Sensu [agent API][21]: Required for all users accessing the agent API
 - 8125 (UDP, TCP on Windows) [StatsD listener][23]: Required for all Sensu agents using the StatsD listener
+
+The agent TCP and UDP sockets are deprecated in favor of the [agent API][21].
 
 For more information, see the [guide to securing Sensu][20].
 
@@ -110,7 +113,7 @@ Due to Sensu Go's implementation, it is not possible to use Uchiwa with Sensu Go
 [9]: ../../api/overview
 [10]: ../../reference/entities/#proxy-entities
 [11]: https://github.com/sensu-plugins
-[12]: /plugins/latest/reference/
+[12]: https://docs.sensu.io/plugins/1.0/reference/#the-sensu-plugin-specification
 [13]: https://github.com/sensu-plugins/sensu-plugins-aws
 [14]: https://github.com/sensu-plugins/sensu-plugins-jenkins
 [15]: https://github.com/sensu-plugins/sensu-plugins-puppet
@@ -119,7 +122,7 @@ Due to Sensu Go's implementation, it is not possible to use Uchiwa with Sensu Go
 [18]: ../../guides/influx-db-metric-handler/
 [19]: https://www.influxdata.com/
 [20]: ../../guides/securing-sensu
-[21]: ../../reference/agent#creating-monitoring-events-using-the-agent-socket
+[21]: ../../reference/agent#creating-monitoring-events-using-the-agent-api
 [22]: ../../reference/agent/#using-the-http-socket
 [23]: ../../reference/agent/#creating-monitoring-events-using-the-statsd-listener
 [24]: ../../dashboard/overview
@@ -127,7 +130,7 @@ Due to Sensu Go's implementation, it is not possible to use Uchiwa with Sensu Go
 [26]: ../../reference/agent
 [27]: ../../guides/clustering
 [29]: ../../dashboard/overview/
-[30]: https://sensu.io/products/
-
 [30]: /sensu-go/latest/installation/upgrade
 [31]: /sensu-go/latest/getting-started/enterprise
+[32]: https://bonsai.sensu.io/
+[33]: ../../reference/assets/#sharing-an-asset-on-bonsai
