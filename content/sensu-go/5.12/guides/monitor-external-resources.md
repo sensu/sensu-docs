@@ -47,8 +47,8 @@ You can use sensuctl to confirm that both the `sensu-plugins-http` and `sensu-ru
 sensuctl asset list
           Name                                                URL                                       Hash    
 ────────────────────────── ─────────────────────────────────────────────────────────────────────────── ───────── 
- sensu-plugins-http         //github.com/.../sensu-plugins-http_5.0.0_centos_linux_amd64.tar.gz         31023af  
- sensu-ruby-runtime         //github.com/.../sensu-ruby-runtime_0.0.5_centos_linux_amd64.tar.gz         1c9f0af 
+ sensu-plugins-http         //assets.bonsai.sensu.io/.../sensu-plugins-http_5.1.1_centos_linux_amd64.tar.gz         31023af  
+ sensu-ruby-runtime         //assets.bonsai.sensu.io/.../sensu-ruby-runtime_0.0.10_ruby-2.4.4_centos_linux_amd64.tar.gz     338b88b 
 {{< /highlight >}}
 
 ### Creating the check

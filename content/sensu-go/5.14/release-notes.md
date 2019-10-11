@@ -7,6 +7,7 @@ version: "5.14"
 menu: "sensu-go-5.14"
 ---
 
+- [5.14.0 release notes](#5-14-0-release-notes)
 - [5.13.2 release notes](#5-13-2-release-notes)
 - [5.13.1 release notes](#5-13-1-release-notes)
 - [5.13.0 release notes](#5-13-0-release-notes)
@@ -39,6 +40,44 @@ Sensu Go adheres to [semantic versioning][2] using MAJOR.MINOR.PATCH release num
 Read the [upgrade guide][1] for information on upgrading to the latest version of Sensu Go.
 
 ---
+
+## 5.14.0 release notes
+
+**October 8, 2019** &mdash; The latest release of Sensu Go, version 5.14.0, is now available for download. This release includes feature additions like two new configuration options for backends using embedded etcd and a new SemVer field in entity resources. In addition, this release includes enhanced TLS authentication support and bug fixes that restore check execution after a network error and enable round robin schedule recovery after quorum loss.
+
+See the [upgrade guide][1] to upgrade Sensu to version 5.14.0.
+
+**NEW FEATURES:**
+
+- The [web UI][80] now includes an error dialog option that allows users to wipe the application's persisted state (rather than having to manually wipe their local/session storage). This can help in the rare cases that something in the persisted state is leading to an uncaught exception.
+- The [web UI][80] now respects the system preference for operating systems with support for selecting a preferred light or dark theme.
+- `sensuctl dump` can now list the types of supported resources with `sensuctl dump --types`.
+- The [entity resource][82] now includes the `sensu_agent_version` field, which reflects the Sensu Semantic Versioning (SemVer) version of the agent entity.
+- There are two new [advanced configuration options][83] for `sensu-backend` using embedded etcd: `etcd-heartbeat-interval` and `etcd-election-timeout`.
+
+**IMPROVEMENTS:**
+
+- ([Licensed tier][79]) Added support for mutual TLS authentication between agents and backends.
+- ([Licensed tier][79]) Added support for CRL URLs for mTLS authentication.
+- ([Licensed tier][79]) Support agent [TLS authentication][81] is usable with a licensed sensu-backend.
+- To facilitate discussion about feature requests, in the Web UI, feedback is directed to Discourse rather than the GitHub repository's issues page.
+- In the [web UI][80], when a user lands on a page inside a namespace that no longer exists or they do not have access to, the drawer opens to that namespace switcher to help clarify next steps.
+- Updated Go version from 1.12.3 to 1.13.1.
+
+**FIXES:**
+
+- ([Licensed tier][79]) `sensuctl` on Windows can now create Postgres resources.
+- ([Licensed tier][79]) Fixed a bug that resulted in event metrics being ignored when using the Postgres store.
+- Fixed a bug that caused checks to stop executing after a network error.
+- Fixed a bug that prevented `sensuctl create` with `stdin` from working.
+- Splayed proxy checks are executed every interval (instead of every interval + interval * splay_coverage).
+- Proxy entity labels and annotations are now redacted in the web UI as expected.
+- Fixed a bug in the ring that prevented round robin schedules from recovering after quorum loss.
+- Updated [web UI][80] so that unauthorized errors emitted while creating silences or resolving events are caught and a notification is presented to communicate what occurred.
+- [Web UI][80] does not report internal errors when a user attempts to queue an ad hoc check for a keepalive.
+- Fixed a bug in [Web UI][80] that may have prevented users with appropriate roles from resolving events, queuing checks, and creating silenced entries.
+- Asset builds are not separated into several assets unless the the tabular format is used in `sensuctl asset list`.
+- The 'flag accessed but not defined' error is corrected in `sensuctl asset outdated`.
 
 ## 5.13.2 release notes
 
@@ -624,3 +663,8 @@ To get started with Sensu Go:
 [76]: /sensu-go/5.11/sensuctl/reference#view-sensuctl-config
 [77]: /sensu-go/5.11/reference/backend#advanced-configuration-options
 [78]: /sensu-go/5.12/reference/agent/#allow-list
+[79]: /sensu-go/5.14/getting-started/enterprise
+[80]: /sensu-go/5.14/dashboard/overview
+[81]: /sensu-go/5.14/guides/securing-sensu#sensu-agent-tls-authentication
+[82]: /sensu-go/5.13/reference/entities/
+[83]: /sensu-go/5.14/reference/backend/#advanced-configuration-options
