@@ -1,0 +1,12 @@
+{{ partial "head" . }}
+
+<h1>Sensu Products</h1>
+<ul>
+  {{ range sort .Site.Params.Products "weight" }}
+    <li>
+      <a href="{{ printf "/%s/" .identifier }}">{{ .name }}</a>
+    </li>
+  {{ end }}
+</ul>
+
+{{ partial "footer" . }}
