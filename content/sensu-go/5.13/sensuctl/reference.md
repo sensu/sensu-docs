@@ -404,7 +404,7 @@ sensuctl dump handler,filter --format yaml --file my-handlers-and-filters.yaml
 
 ### sensuctl dump resource types
 
-_NOTE: The resource types with no synonym listed are [licensed-tier](https://sensu.io/features) features._
+_NOTE: The resource types with no synonym listed are [licensed-tier][30] features._
 
 Synonym | Fully qualified name 
 --------------------|---

@@ -224,6 +224,8 @@ Store Flags:
       --etcd-peer-trusted-ca-file string           path to the peer server TLS trusted CA file
       --etcd-quota-backend-bytes int               maximum etcd database size in bytes (use with caution) (default 4294967296)
       --etcd-trusted-ca-file string                path to the client server TLS trusted CA cert file
+      --etcd-heartbeat-interval                    interval at which the etcd leader notifies followers that it is still the leader
+      --etcd-election-timeout                      time that a follower node will go without hearing a heartbeat before attempting to become leader itself
       --no-embed-etcd                              don't embed etcd, use external etcd instead
 {{< /highlight >}}
 
@@ -716,6 +718,29 @@ sensu-backend start --etcd-quota-backend-bytes 4294967296
 # /etc/sensu/backend.yml example
 etcd-quota-backend-bytes: 4294967296{{< /highlight >}}
 
+| etcd-heartbeat-interval |      |
+-----------------------|------
+description            | Interval at which the etcd leader will notify followers that it is still the leader. In milliseconds (ms). Best practice is to set the interval based on round-trip time between members. See [etcd time parameter documentation][16] for details and other considerations. _WARNING: Make sure to set the same heartbeat interval value for all etcd members in one cluster. Setting different values for etcd members may reduce cluster stability._
+type                   | Integer
+default                | `100`
+example                | {{< highlight shell >}}# Command line example
+sensu-backend start --etcd-heartbeat-interval 100
+
+# /etc/sensu/backend.yml example
+etcd-heartbeat-interval: 100{{< /highlight >}}
+
+
+| etcd-election-timeout |      |
+-----------------------|------
+description            | Time that a follower node will go without hearing a heartbeat before attempting to become leader itself. In milliseconds (ms). See [etcd time parameter documentation][16] for details and other considerations. _WARNING: Make sure to set the same election timeout value for all etcd members in one cluster. Setting different values for etcd members may reduce cluster stability._
+type                   | Integer
+default                | `1000`
+example                | {{< highlight shell >}}# Command line example
+sensu-backend start --etcd-election-timeout 1000
+
+# /etc/sensu/backend.yml example
+etcd-election-timeout: 1000{{< /highlight >}}
+
 
 | eventd-buffer-size   |      |
 -----------------------|------
@@ -866,3 +891,4 @@ Event logging supports log rotation via the _SIGHUP_ signal. The current log fil
 [13]: ../../guides/clustering
 [14]: ../../getting-started/enterprise
 [15]: #general-configuration-flags
+[16]: https://github.com/etcd-io/etcd/blob/master/Documentation/tuning.md#time-parameters
