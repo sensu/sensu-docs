@@ -1,0 +1,12 @@
+{{ partial "head" . }}
+
+<main class="main">
+  <article class="article">
+    <div class="wrapper">
+      <h1>{{ .Title }} {{ if .Draft }} (Draft){{ end }}</h1>
+      {{ .Content }}
+    </div>
+  </article>
+</main>
+
+{{ partial "footer" . }}

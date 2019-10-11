@@ -384,7 +384,7 @@ The `sensuctl dump` command allows you to export your resources to standard out 
 
 _NOTE: Passwords are not included when exporting users. Operators must add the `password` attribute to any exported user resources before they can be used with `sensuctl create`._
 
-For example, to export all resources to a file named `my-resources.yaml` in `yaml` format:
+To export all resources to a file named `my-resources.yaml` in `yaml` format:
 
 {{< highlight shell >}}
 sensuctl dump all --format yaml --file my-resources.yaml
@@ -401,6 +401,39 @@ To export only handlers and filters to a file named `my-handlers-and-filters.yam
 {{< highlight shell >}}
 sensuctl dump handler,filter --format yaml --file my-handlers-and-filters.yaml
 {{< /highlight >}}
+
+### sensuctl dump resource types
+
+The table below lists supported `sensu dump` resource types. You can also use a `sensuctl` subcommand to list the types of supported resources:
+
+{{< highlight shell >}}
+sensuctl dump --types
+{{< /highlight >}}
+
+_NOTE: The resource types with no synonym listed are [licensed-tier][30] features._
+
+Synonym | Fully qualified name 
+--------------------|---
+None | `authentication/v2.Provider`
+None | `licensing/v2.LicenseFile`
+None | `store/v1.PostgresConfig`
+None | `federation/v1.Replicator`
+`assets` | `core/v2.Asset`
+`checks` | `core/v2.CheckConfig`
+`clusterroles` | `core/v2.ClusterRole`
+`clusterrolebindings` | `core/v2.ClusterRoleBinding`
+`entities` | `core/v2.Entity`
+`events` | `core/v2.Event` 
+`filters` | `core/v2.EventFilter`
+`handlers` | `core/v2.Handler`
+`hooks` | `core/v2.Hook`
+`mutators` | `core/v2.Mutator`
+`namespaces` | `core/v2.Namespace`
+`roles` | `core/v2.Role`
+`rolebindings` | `core/v2.RoleBinding`
+`silenced` | `core/v2.Silenced`
+`tessen` | `core/v2.TessenConfig`
+`users` | `core/v2.User`
 
 ## Managing resources
 
@@ -744,7 +777,7 @@ These are useful if you want to know what cluster you're connecting to, or what 
 
 ## Interacting with Bonsai
 
-Sensuctl supports both installing asset definitions directly from [Bonsai](34) and checking your Sensu backend for outdated assets.
+Sensuctl supports both installing asset definitions directly from [Bonsai][34] and checking your Sensu backend for outdated assets.
 
 ### Usage
 
