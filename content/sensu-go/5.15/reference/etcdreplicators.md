@@ -2,10 +2,10 @@
 title: "EtcdReplicators"
 description: "EtcdReplicators allows you to manage RBAC resources in one place and mirror the changes to follower clusters. Read the reference to set up Sensu cluster federation."
 weight: 10
-version: "5.14"
+version: "5.15"
 product: "Sensu Go"
 menu:
-  sensu-go-5.14:
+  sensu-go-5.15:
     parent: reference
 ---
 
