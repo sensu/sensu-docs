@@ -1,6 +1,6 @@
 ---
-title: "EtcdReplicators"
-description: "EtcdReplicators allows you to manage RBAC resources in one place and mirror the changes to follower clusters. Read the reference to set up Sensu cluster federation."
+title: "Etcd replicators"
+description: "Etcd replicators allow you to manage RBAC resources in one place and mirror the changes to follower clusters. Read the reference to set up Sensu etcd replicator federation."
 weight: 10
 version: "5.15"
 product: "Sensu Go"
@@ -12,16 +12,16 @@ menu:
 - [Create a replicator](#create-a-replicator)
 - [Delete a replicator](#delete-a-replicator)
 - [Replicator configuration](#replicator-configuration)
-- [EtcdReplicators specification](#etcdreplicators-specification)
-- [Example EtcdReplicators resource](#example-etcdreplicators-resource)
+- [etcd-eplicators specification](#etcdreplicators-specification)
+- [Example etcd-replicators resource](#example-etcdreplicators-resource)
 
-**LICENSED TIER**: Unlock the EtcdReplicators resource in Sensu Go with a Sensu license. To activate your license, see the [getting started guide][1].
+**LICENSED TIER**: Unlock the etcd-replicators datatype in Sensu Go with a Sensu license. To activate your license, see the [getting started guide][1].
 
-_**NOTE**: EtcdReplicators is a resource in the federation API, which is only accessible for users who have a cluster role that permits access to replication resources._
+_**NOTE**: etcd-replicators is a datatype in the federation API, which is only accessible for users who have a cluster role that permits access to replication resources._
 
-EtcdReplicators allows you to manage [RBAC][3] resources in one place and mirror the changes to follower clusters. The API sets up etcd mirrors for one-way key replication.
+etcd-replicators allows you to manage [RBAC][3] resources in one place and mirror the changes to follower clusters. The API sets up etcd mirrors for one-way key replication.
 
-The replicator data type will not use a namespace because it applies cluster-wide. Therefore, only cluster role RBAC bindings will apply to it.
+The etcd-replicators datatype will not use a namespace because it applies cluster-wide. Therefore, only cluster role RBAC bindings will apply to it.
 
 ## Create a replicator
 
@@ -41,7 +41,7 @@ Rather than altering an existing replicator's connection details, delete and rec
 
 Replicator is an etcd key space replicator. It contains configuration for forwarding a set of keys from one etcd cluster to another. Replicators are configured by specifying the TLS details of the remote cluster, its URL, and a resource type.
 
-## EtcdReplicators specification
+## etcd-replicators specification
 
 #### Top-level attributes
 
@@ -54,7 +54,7 @@ example      | {{< highlight shell >}}type: replicator{{< /highlight >}}
 
 api_version  |      |
 -------------|------
-description  | Top-level attribute that specifies the Sensu API version of the EtcdReplicators API. Always `federation/v1`.
+description  | Top-level attribute that specifies the Sensu API version of the etcd-replicators API. Always `federation/v1`.
 required     | true
 type         | String
 example      | {{< highlight shell >}}api_version: federation/v1{{< /highlight >}}
@@ -76,12 +76,10 @@ required     | true
 type         | Map of key-value pairs
 example      | {{< highlight shell >}}
 spec:
-  ca_cert: 
-  cert: 
-  key: 
-  url: https://example.com:2379
-  resource: rbac
   insecure: false
+  url: http://127.0.0.1:3379
+  api_version: core/v2
+  resource: CheckConfig
   replication_interval_seconds: 30
 {{< /highlight >}}
 
@@ -131,13 +129,13 @@ required     | true
 type         | String
 example      | {{< highlight shell >}}replication_interval_seconds: 30{{< /highlight >}}
 
-## Example EtcdReplicators resource
+## Example etcd-replicators resource
 
 {{< language-toggle >}}
 
 {{< highlight yml >}}
 api_version: federation/v1
-type: EtcdReplicator
+type: replicator
 metadata:
   name: my_replicator
 spec:
@@ -151,7 +149,7 @@ spec:
 {{< highlight json >}}
 {
   "api_version": "federation/v1",
-  "type": "EtcdReplicator",
+  "type": "replicator",
   "metadata": {
     "name": "my_replicator"
   },
