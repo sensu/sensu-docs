@@ -135,6 +135,93 @@ http://127.0.0.1:8080/api/core/v2/namespaces/default/events
 If your token expires, you should see a 401 Unauthorized response from the API.
 To regenerate a valid access token, first run any sensuctl command (like `sensuctl event list`) then repeat step 2.
 
+### Authenticate with the API key feature
+
+The Sensu API key feature (core/v2.APIKey) is a persistent UUID that maps to a stored Sensu username. API keys are cluster-wide resources, so only cluster admins can grant, view, and revoke them.
+
+_**NOTE**: API keys are not supported for authentication providers such as LDAP and OIDC._
+
+### API key authentication
+
+Similar to the `Bearer [token]` Authorization header, `Key [api-key]` will be accepted as an Authorization header for authentication.
+
+For example, a JWT `Bearer [token]` Authorization header might be:
+
+{{< highlight shell >}}
+curl -H "Authorization: Bearer $SENSU_TOKEN" http://127.0.0.1:8080/api/core/v2/namespaces/default/checks
+{{< /highlight >}}
+
+If you're using `Key [api-key]` to authenticate instead, the Authorization header might be:
+
+{{< highlight shell >}}
+curl -H "Authorization: Key $SENSU_API_KEY" http://127.0.0.1:8080/api/core/v2/namespaces/default/checks
+{{< /highlight >}}
+
+#### Example
+
+{{< highlight shell >}}
+$ curl -H "Authorization: Key 7f63b5bc-41f4-4b3e-b59b-5431afd7e6a2" 
+
+HTTP/1.1 200 OK
+[
+  {
+    "command": "check-cpu.sh -w 75 -c 90",
+    "handlers": [
+      "slack"
+    ],
+    "interval": 60,
+    "publish": true,
+    "subscriptions": [
+      "linux"
+    ],
+    "metadata": {
+      "name": "check-cpu",
+      "namespace": "default"
+    }
+  }
+]
+{{< /highlight >}}
+
+### Sensuctl management commands for API keys
+
+_**NOTE**: The API key resource is intentionally not compatible with [`sensuctl create`][7]._
+
+To generate a new API key for the admin user:
+
+{{< highlight shell >}}
+$ sensuctl api-key grant admin
+Created: /api/core/v2/apikeys/7f63b5bc-41f4-4b3e-b59b-5431afd7e6a2
+{{< /highlight >}}
+
+To get information about an API key:
+
+{{< highlight shell >}}
+$ sensuctl api-key info 7f63b5bc-41f4-4b3e-b59b-5431afd7e6a2 --format json
+{
+  "metadata": {
+    "name": "7f63b5bc-41f4-4b3e-b59b-5431afd7e6a2"
+  },
+  "username": "admin",
+  "created_at": 1570744117
+}
+{{< /highlight >}}
+
+To get a list of all API keys:
+
+{{< highlight shell >}}
+$ sensuctl api-key list
+                  Name                   Username            Created At            
+ ────────────────────────────────────── ────────── ─────────────────────────────── 
+  7f63b5bc-41f4-4b3e-b59b-5431afd7e6a2   admin      2019-10-10 14:48:37 -0700 PDT
+{{< /highlight >}}
+
+To revoke an API key for the admin user:
+
+{{< highlight shell >}}
+$ sensuctl api-key revoke 7f63b5bc-41f4-4b3e-b59b-5431afd7e6a2 --skip-confirm
+Deleted
+{{< /highlight >}}
+
 ## Pagination
 
 The Sensu API supports response pagination for all GET endpoints that return an array.
@@ -185,7 +272,7 @@ Content-Type: application/json
 
 ## Filtering
 
-**LICENSED TIER**: Unlock API filtering in Sensu Go with a Sensu license. To activate your license, see the [getting started guide][7].
+**LICENSED TIER**: Unlock API filtering in Sensu Go with a Sensu license. To activate your license, see the [getting started guide][8].
 
 The Sensu API supports filtering for all GET endpoints that return an array. You can filter resources based on their labels with a label selector using the `labelSelector` query parameter and on certain pre-determined fields with a field selector using the `fieldSelector` query parameter.
 
@@ -196,11 +283,11 @@ curl -H "Authorization: Bearer $SENSU_TOKEN" http://127.0.0.1:8080/api/core/v2/c
 --data-urlencode 'labelSelector=region == "us-west-1"'
 {{< /highlight >}}
 
-_NOTE: For examples of using label and field selectors in the Sensu dashboard, see the [dashboard docs][12]._
+_NOTE: For examples of using label and field selectors in the Sensu dashboard, see the [dashboard docs][13]._
 
 ### Label selector
 
-A label selector can use any label attributes to group a set of resources. All resources support labels within the metadata object. For example, see [entities metadata attributes][8].
+A label selector can use any label attributes to group a set of resources. All resources support labels within the metadata object. For example, see [entities metadata attributes][9].
 
 ### Field selector
 
@@ -268,9 +355,10 @@ API request bodies are limited to 0.512 MB in size.
 [4]: ../../reference/agent#using-the-http-socket
 [5]: ../health/
 [6]: ../metrics
-[7]: ../../getting-started/enterprise
-[8]: ../../reference/entities#metadata-attributes
-[9]: ../auth/#the-auth-api-endpoint
-[10]: ../auth/#the-authtoken-api-endpoint
-[11]: ../auth
-[12]: ../../dashboard/filtering
+[7]: ../../sensuctl/reference/#creating-resources
+[8]: ../../getting-started/enterprise
+[9]: ../../reference/entities#metadata-attributes
+[10]: ../auth/#the-auth-api-endpoint
+[11]: ../auth/#the-authtoken-api-endpoint
+[12]: ../auth
+[13]: ../../dashboard/filtering
