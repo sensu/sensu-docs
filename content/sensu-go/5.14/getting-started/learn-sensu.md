@@ -171,7 +171,7 @@ Now you can create a Slack handler named `keepalive` to process keepalive events
 sensuctl create --file sensu-slack-handler.json
 {{< /highlight >}}
 
-Use sensuctl to see available event handlers--in this case, you'll only see the `keepalive` handler you just created..
+Use sensuctl to see available event handlers &mdash; in this case, you'll only see the `keepalive` handler you just created..
 
 {{< highlight shell >}}
 sensuctl handler list
