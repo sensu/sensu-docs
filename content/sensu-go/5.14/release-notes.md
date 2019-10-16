@@ -7,6 +7,7 @@ version: "5.14"
 menu: "sensu-go-5.14"
 ---
 
+- [5.14.1 release notes](#5-14-1-release-notes)
 - [5.14.0 release notes](#5-14-0-release-notes)
 - [5.13.2 release notes](#5-13-2-release-notes)
 - [5.13.1 release notes](#5-13-1-release-notes)
@@ -40,6 +41,24 @@ Sensu Go adheres to [semantic versioning][2] using MAJOR.MINOR.PATCH release num
 Read the [upgrade guide][1] for information on upgrading to the latest version of Sensu Go.
 
 ---
+
+## 5.14.1 release notes
+
+**October 16, 2019**&mdash; The latest release of Sensu Go, version 5.14.1, is now available for download.
+This release adds Prometheus gauges for check schedulers and fixes several bugs, including a bug discovered in 5.14.0 that breaks the OIDC auth providers once a backend is restarted.
+
+See the [upgrade guide][1] to upgrade Sensu to version 5.14.1.
+
+**NEW FEATURES:**
+
+- Adds Prometheus gauges for check schedulers
+
+**FIXES:**
+
+- Restarting a backend will not break the OIDC authentication provider.
+- `sensu-agent` will not hang indefinitely when opening an already open Bolt databasea.
+- Running [`sensuctl dump`][84] for multiple types as YAML will print to the specified file instead of to `STDOUT`.
+- Sensu will not crash with a panic due to sending on a closed channel.
 
 ## 5.14.0 release notes
 
@@ -668,3 +687,4 @@ To get started with Sensu Go:
 [81]: /sensu-go/5.14/guides/securing-sensu#sensu-agent-tls-authentication
 [82]: /sensu-go/5.13/reference/entities/
 [83]: /sensu-go/5.14/reference/backend/#advanced-configuration-options
+[84]: /sensu-go/5.14/sensuctl/reference/#exporting-resources
