@@ -44,7 +44,7 @@ Read the [upgrade guide][1] for information on upgrading to the latest version o
 
 ## 5.14.1 release notes
 
-**October 16, 2019**&mdash; The latest release of Sensu Go, version 5.14.1, is now available for download.
+**October 16, 2019** &mdash; The latest release of Sensu Go, version 5.14.1, is now available for download.
 This release adds Prometheus gauges for check schedulers and fixes several bugs, including a bug discovered in 5.14.0 that prevented OIDC authentication providers from properly loading on start-up.
 
 See the [upgrade guide][1] to upgrade Sensu to version 5.14.1.
