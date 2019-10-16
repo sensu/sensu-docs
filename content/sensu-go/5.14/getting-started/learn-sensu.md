@@ -127,7 +127,7 @@ _**NOTE**: If you'd rather not create a Slack account, you can skip ahead to [Le
 
 [Create a Slack workspace][2] (or use an existing workspace, if you’re already a Slack admin).
 
-Then, visit `YOUR-WORKSPACE-NAME.slack.com/services/new/incoming-webhook`. Follow the steps to add the *Incoming WebHooks* integration and save your webhook. Your webhook channel and URL will be listed under Integration Settings--you’ll need both later in this lesson.
+Then, visit `YOUR-WORKSPACE-NAME.slack.com/services/new/incoming-webhook`. Follow the steps to add the *Incoming WebHooks* integration and save your webhook. Your webhook channel and URL will be listed under Integration Settings &mdash; you’ll need both later in this lesson.
 
 **2. Register the Sensu Slack handler asset**
 
