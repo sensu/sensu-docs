@@ -424,4 +424,3 @@ You made it! You're ready for the next level of Sensu-ing. Here are some resourc
 [8]: ../../installation/install-sensu
 [9]: ../../guides/aggregate-metrics-statsd
 [10]: ../../guides/create-read-only-user/
-

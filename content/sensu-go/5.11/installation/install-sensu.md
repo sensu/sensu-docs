@@ -371,7 +371,7 @@ Now that you've installed Sensu, here are some resources to help continue your j
 - [Send alerts to Slack](../../guides/send-slack-alerts)
 - [Monitor server resources](../../guides/monitor-server-resources)
 - [Collect StatsD metrics](../../guides/aggregate-metrics-statsd)
-- [Create a ready-only user](../../guides/create-read-only-user/)
+- [Create a read-only user](../../guides/create-read-only-user/)
 
 [1]: https://github.com/sensu/sensu-go/releases
 [2]: https://github.com/sensu/sensu-go/blob/5.1.1/packaging/files/windows/agent.yml.example
