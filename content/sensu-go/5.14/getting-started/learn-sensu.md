@@ -121,7 +121,7 @@ You can also see the event and the entity in the [Sensu dashboard](http://localh
 
 Now that you know the sandbox is working properly, let's get to the fun stuff: creating a workflow. In this lesson, you'll create a workflow that sends keepalive alerts to Slack.
 
-_**NOTE**: If you'd rather not create a Slack account, you skip ahead to [Lesson \#3](#lesson-3-automate-event-production-with-the-sensu-agent)._
+_**NOTE**: If you'd rather not create a Slack account, you can skip ahead to [Lesson \#3](#lesson-3-automate-event-production-with-the-sensu-agent)._
 
 **1. Get your Slack webhook URL**
 
