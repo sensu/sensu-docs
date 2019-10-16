@@ -56,8 +56,8 @@ See the [upgrade guide][1] to upgrade Sensu to version 5.14.1.
 **FIXES:**
 
 - ([Licensed tier][79]) Sensuctl will not incorrectly warn of entity limits for unlimited licenses.
-- ([Licensed tier][79]) OIDC authentication providers will now properly load on start-up.
-- `sensu-agent` will not hang indefinitely when opening an already open Bolt databasea.
+- ([Licensed tier][79]) `oidc` authentication providers will now properly load on start-up.
+- When opening a Bolt database that is already open, `sensu-agent` will not hang indefinitely.
 - Running [`sensuctl dump`][84] for multiple types as YAML will print to the specified file instead of to `STDOUT`.
 - Sensu will not crash with a panic due to sending on a closed channel.
 
