@@ -159,7 +159,7 @@ Open the `sensu-slack-handler.json` handler definition provided with the sandbox
 
 {{< highlight shell >}}
 "env_vars": [
-  "KEEPALIVE_SLACK_WEBHOOK=https://hooks.slack.com/services/ABC",
+  "KEEPALIVE_SLACK_WEBHOOK=https://hooks.slack.com/services/AAA/BBB/CCC",
   "KEEPALIVE_SLACK_CHANNEL=#monitoring"
 ],
 "runtime_assets": ["sensu-slack-handler"]
