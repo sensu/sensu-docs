@@ -36,7 +36,7 @@ ENABLE_SENSU_SANDBOX_PORT_FORWARDING=1 vagrant up
 {{< /highlight >}}
 
 The Learn Sensu sandbox is a CentOS 7 virtual machine pre-installed with Sensu, InfluxDB, and Grafana.
-It's intended for you to use as a learning tool--we do not recommend using it in a production installation. To install Sensu in production, use the [installation guide](../../installation/install-sensu) instead.
+It's intended for you to use as a learning tool &mdash; we do not recommend using it in a production installation. To install Sensu in production, use the [installation guide](../../installation/install-sensu) instead.
 
 The sandbox startup process takes about 5 minutes.
 
