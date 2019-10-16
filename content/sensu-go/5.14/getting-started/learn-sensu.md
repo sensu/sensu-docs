@@ -155,7 +155,7 @@ _PRO TIP: You can use resource definitions to create and update resources (like 
 
 **3. Create a Sensu Slack handler**
 
-Open the `sensu-slack-handler.json` handler definition provided with the sandbox, and edit the definition to include your Slack channel, webhook URL, and the `sensu-slack-handler` asset.
+Open the `sensu-slack-handler.json` handler definition provided with the sandbox in your preferred text editor. Edit the definition to include your Slack channel, webhook URL, and the `sensu-slack-handler` asset.
 
 {{< highlight shell >}}
 "env_vars": [
