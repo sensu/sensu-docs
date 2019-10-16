@@ -192,7 +192,7 @@ To accomplish this, you'll interactively add the built-in is_incident filter to 
 sensuctl handler update keepalive
 {{< /highlight >}}
 
-The first prompt will be for environment variables. Just press `return` to continue. The second prompt is for the filters selection--enter `is_incident` to apply the is_incident filter.
+The first prompt will be for environment variables. Just press `return` to continue. The second prompt is for the filters selection &mdash; enter `is_incident` to apply the is_incident filter.
 
 {{< highlight shell >}}
 ? Filters: is_incident
