@@ -217,7 +217,7 @@ Runtime Assets:        sensu-slack-handler
 
 With the filter in place, you should no longer receive messages in your Slack channel every time the sandbox entity sends a keepalive event.
 
-Let's stop the agent and confirm that your receive the expected warning message.
+Let's stop the agent and confirm that you receive the expected warning message.
 
 {{< highlight shell >}}
 sudo systemctl stop sensu-agent
