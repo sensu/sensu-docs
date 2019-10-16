@@ -51,7 +51,7 @@ See the [upgrade guide][1] to upgrade Sensu to version 5.14.1.
 
 **NEW FEATURES:**
 
-- Adds Prometheus gauges for check schedulers
+- Added Prometheus gauges for check schedulers
 
 **FIXES:**
 
