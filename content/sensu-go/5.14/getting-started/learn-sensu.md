@@ -89,7 +89,7 @@ sensuctl entity list
 ──── ─────── ──── ─────────────── ─────────── 
 {{< /highlight >}}
 
-Now you can start the Sensu agent to start monitoring the sandbox:
+Now you can start the Sensu agent to begin monitoring the sandbox:
 
 {{< highlight shell >}}
 sudo systemctl start sensu-agent
