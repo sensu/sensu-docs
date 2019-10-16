@@ -59,7 +59,7 @@ See the [upgrade guide][1] to upgrade Sensu to version 5.14.1.
 - ([Licensed tier][79]) `oidc` authentication providers will now properly load on start-up.
 - When opening a Bolt database that is already open, `sensu-agent` will not hang indefinitely.
 - Addresses an issue where running [`sensuctl dump`][84] for multiple resource types with the output format as YAML resulted in separators were printed to `STDOUT` instead of the specified file.
-- Sensu will not crash with a panic due to sending on a closed channel.
+ - Fixed a crash in sensu-backend (panic: send on closed channel)
 
 ## 5.14.0 release notes
 
