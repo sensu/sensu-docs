@@ -572,7 +572,7 @@ example      | {{< highlight shell >}}"check_hooks": [
 
 |proxy_entity_name|   |
 -------------|------
-description  | The entity name, used to create a [proxy entity][20] for an external resource (i.e., a network switch). `proxy_entity_name` binds the check to a proxy entity (or creates the proxy entity, if it doesn't already exist).
+description  | The entity name, used to create a [proxy entity][20] for an external resource (i.e., a network switch). `proxy_entity_name` binds the check to a proxy entity (first creating the proxy entity, if it doesn't already exist).
 required     | false
 type         | String
 validated    | [`\A[\w\.\-]+\z`](https://regex101.com/r/zo9mQU/2)
