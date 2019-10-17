@@ -177,7 +177,7 @@ Use sensuctl to see available event handlers &mdash; in this case, you'll only s
 sensuctl handler list
   Name      Type   Timeout   Filters   Mutator                                                   Execute                                                                                                              Environment Variables                            Assets         
 ─────────── ────── ───────── ───────── ───────── ────────────────────────────────────────────────────────────────────────────────────────────────────────── ────────────────────────────────────────────────────────────────────────────────────────────────── ───────────────────── 
- keepalive   pipe         0                       RUN:  /usr/local/bin/sensu-slack-handler -c "${KEEPALIVE_SLACK_CHANNEL}" -w "${KEEPALIVE_SLACK_WEBHOOK}"   KEEPALIVE_SLACK_WEBHOOK=https://hooks.slack.com/services/ABC,KEEPALIVE_SLACK_CHANNEL=#monitoring   sensu-slack-handler  
+ keepalive   pipe         0                       RUN:  /usr/local/bin/sensu-slack-handler -c "${KEEPALIVE_SLACK_CHANNEL}" -w "${KEEPALIVE_SLACK_WEBHOOK}"   KEEPALIVE_SLACK_WEBHOOK=https://hooks.slack.com/services/AAA/BBB/CCC,KEEPALIVE_SLACK_CHANNEL=#monitoring   sensu-slack-handler  
 {{< /highlight >}}
 
 Sensu monitoring events should begin arriving in your Slack channel, indicating that the sandbox entity is in an OK state.
