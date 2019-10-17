@@ -44,7 +44,7 @@ _NOTE: The sandbox configures VirtualBox to forward TCP ports 3002 and 4002 from
 
 **4. SSH into the sandbox**
 
-Thanks for waiting! To start shell access to the sandbox:
+Thanks for waiting! To start shell into the sandbox:
 
 {{< highlight shell >}}
 vagrant ssh
