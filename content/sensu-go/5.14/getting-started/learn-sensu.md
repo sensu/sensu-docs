@@ -328,7 +328,7 @@ sensuctl check list
 curl_timings   /opt/sensu-plugins-ruby/embedded/bin/metrics-curl.rb -u "http://localhost"         10                0     0   entity:sensu-go-sandbox                               true       false    graphite_plaintext   influx-db        
 {{< /highlight >}}
 
-This check defines a metrics handler and metric format. In Sensu Go, metrics are a core element of the data model: you can build pipelines to handle metrics separately from alerts. This allows you to customize your monitoring workflows to get better visibility and reduce alert fatigue.
+This check specifies a metrics handler and metric format. In Sensu Go, metrics are a core element of the data model: you can build pipelines to handle metrics separately from alerts. This allows you to customize your monitoring workflows to get better visibility and reduce alert fatigue.
 
 After about 10 seconds, you can see the event produced by the entity:
 
