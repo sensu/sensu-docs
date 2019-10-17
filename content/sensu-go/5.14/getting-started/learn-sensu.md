@@ -211,7 +211,7 @@ Timeout:               0
 Filters:               is_incident
 Mutator:               
 Execute:               RUN:  sensu-slack-handler -c "${KEEPALIVE_SLACK_CHANNEL}" -w "${KEEPALIVE_SLACK_WEBHOOK}"
-Environment Variables: KEEPALIVE_SLACK_WEBHOOK=https://hooks.slack.com/services/ABC, KEEPALIVE_SLACK_CHANNEL=#monitoring
+Environment Variables: KEEPALIVE_SLACK_WEBHOOK=https://hooks.slack.com/services/AAA/BBB/CCC, KEEPALIVE_SLACK_CHANNEL=#monitoring
 Runtime Assets:        sensu-slack-handler
 {{< /highlight >}}
 
