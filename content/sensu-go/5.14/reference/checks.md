@@ -862,7 +862,6 @@ spec:
 [20]: ../entities/#proxy-entities
 [21]: ../entities/#spec-attributes
 [22]: ../../reference/sensuctl/#time-windows
-[22]: ../../reference/sensuctl/#time-windows
 [23]: ../../guides/extract-metrics-with-checks/
 [24]: ../events
 [nagios]: https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/3/en/perfdata.html
