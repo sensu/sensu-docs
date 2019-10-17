@@ -198,7 +198,7 @@ The first prompt will be for environment variables. Just press `return` to conti
 ? Filters: is_incident
 {{< /highlight >}}
 
-For the mutator, timeout, type, runtime assets, and command prompts, just press `return` again.
+For each of the mutator, timeout, type, runtime assets, and command prompts, just press `return`.
 
 Use sensuctl to confirm that the keepalive handler now includes the is_incident filter:
 
