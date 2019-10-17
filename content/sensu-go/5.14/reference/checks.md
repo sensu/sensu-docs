@@ -393,7 +393,7 @@ With `proxy_requests` attributes, you can execute a check on behalf of multiple 
 
 ##### Fine-tune proxy check scheduling with `splay`{#proxy-check-splay}
 
-Sensu supports distributing proxy check executions eveny across an interval using the `splay` and `splay_coverage` attributes. For example, if you assume that the `proxy_check_proxy_requests` check in the example above matches three proxy entities, you'd expect to see a burst of three events every 60 seconds.
+Sensu supports distributing proxy check executions evenly across an interval using the `splay` and `splay_coverage` attributes. For example, if you assume that the `proxy_check_proxy_requests` check in the example above matches three proxy entities, you'd expect to see a burst of three events every 60 seconds.
 
 If you add the `splay` attribute (set to `true`) and the `splay_coverage` attribute (set to `90`) to the `proxy_requests` scope, Sensu distributes the three check executions over 90% of the 60-second interval. The three events will be splayed evenly across a 54-second period instead of all going off at the same time.
 
