@@ -350,7 +350,7 @@ sensuctl event info sensu-go-sandbox curl_timings --format json | jq .
 ...
 {{< /highlight >}}
 
-Because you configured a metric format, the Sensu agent can convert the Graphite-formatted metrics provided by the check command into a set of Sensu-formatted metrics (not shown in the output). These metrics are then sent to the InfluxDB handler, which reads Sensu-formatted metrics and converts them to a format InfluxDB accepts.
+Because the check definition specified a metric format of `graphite_plaintext`, the Sensu agent will treat the output of the check command as Graphite-formatted metrics and translate them into a set of Sensu-formatted metrics (not shown in the output). These metrics are then sent to the InfluxDB handler, which reads Sensu-formatted metrics and converts them to a format InfluxDB accepts.
 
 _**NOTE**: Metric support isn't limited to Graphite! The Sensu agent can extract metrics in multiple line protocol formats, including Nagios performance data._
 
