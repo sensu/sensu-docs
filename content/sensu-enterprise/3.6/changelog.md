@@ -65,7 +65,7 @@ _NOTE: Sensu Enterprise is built on Sensu Core. Sensu Core changes are documente
 released and is available for immediate download. Please note the
 following improvements:
 
-### CHANGES {#enterprise-v3-6-1}
+### CHANGES {#enterprise-v3-6-2-changes}
 
 - **BUGFIX**: Fixed EventMachine `send_data` null pointer exceptions: patching `send_data` for null pointer will return 0 like the C reactor.
 
