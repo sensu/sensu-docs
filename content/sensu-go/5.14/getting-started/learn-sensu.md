@@ -426,3 +426,4 @@ You made it! You're ready for the next level of Sensu-ing. Here are some resourc
 [8]: ../../installation/install-sensu
 [9]: ../../guides/aggregate-metrics-statsd
 [10]: ../../guides/create-read-only-user/
+[11]: https://gist.github.com/hillaryfraley/838a046821171b1a37d0dafb16584518
