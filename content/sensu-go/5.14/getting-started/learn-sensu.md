@@ -398,7 +398,7 @@ Then create the check using sensuctl and the `disk_usage-check.json` file includ
 sensuctl create --file disk_usage-check.json
 {{< /highlight >}}
 
-_**NOTE**: You don't need to make any changes to disk_usage-check.json before running `sensuctl create --file disk_usage-check.json`._
+You don't need to make any changes to disk_usage-check.json before running `sensuctl create --file disk_usage-check.json`.
 
 You should see the check working in the [dashboard entity view](http://localhost:3002/#/entities) and via sensuctl:
 
