@@ -182,46 +182,6 @@ HTTP/1.1 200 OK
 ]
 {{< /highlight >}}
 
-### Sensuctl management commands for API keys
-
-_**NOTE**: The API key resource is intentionally not compatible with [`sensuctl create`][7]._
-
-To generate a new API key for the admin user:
-
-{{< highlight shell >}}
-$ sensuctl api-key grant admin
-Created: /api/core/v2/apikeys/7f63b5bc-41f4-4b3e-b59b-5431afd7e6a2
-{{< /highlight >}}
-
-To get information about an API key:
-
-{{< highlight shell >}}
-$ sensuctl api-key info 7f63b5bc-41f4-4b3e-b59b-5431afd7e6a2 --format json
-{
-  "metadata": {
-    "name": "7f63b5bc-41f4-4b3e-b59b-5431afd7e6a2"
-  },
-  "username": "admin",
-  "created_at": 1570744117
-}
-{{< /highlight >}}
-
-To get a list of all API keys:
-
-{{< highlight shell >}}
-$ sensuctl api-key list
-                  Name                   Username            Created At            
- ────────────────────────────────────── ────────── ─────────────────────────────── 
-  7f63b5bc-41f4-4b3e-b59b-5431afd7e6a2   admin      2019-10-10 14:48:37 -0700 PDT
-{{< /highlight >}}
-
-To revoke an API key for the admin user:
-
-{{< highlight shell >}}
-$ sensuctl api-key revoke 7f63b5bc-41f4-4b3e-b59b-5431afd7e6a2 --skip-confirm
-Deleted
-{{< /highlight >}}
-
 ## Pagination
 
 The Sensu API supports response pagination for all GET endpoints that return an array.
