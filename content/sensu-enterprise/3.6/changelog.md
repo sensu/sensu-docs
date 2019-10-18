@@ -75,7 +75,7 @@ following improvements:
 released and is available for immediate download. Please note the
 following improvements:
 
-### CHANGES {#enterprise-v3-6-1}
+### CHANGES {#enterprise-v3-6-1-changes}
 
 - **BUGFIX**: Fixed cases where SIGHUP would sometimes cause Sensu Enterprise to stop instead of reloading configuration.
 
