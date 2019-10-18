@@ -387,7 +387,7 @@ spec:
 
 #### Proxy checks and scheduling
 
-A proxy check will only show results for proxy entities, never agent entities. The scheduler tries to pair up one or more entities with one or more agents. If the scheduler can't find a compatible match, it will stop doing anything for the check until the check is updated or a proxy or agent entity is created that satisfies the matching criteria.
+A proxy check will only show results for proxy entities, never agent entities. The scheduler finds entities whose attributes match the [`entity_attributes`][10] specified in the proxy request, then schedules one or more checks based on the matches. The scheduled checks are published to one or more agent entities based on agent subscriptions and whether round robin check scheduling is being used.
 
 With `proxy_requests` attributes, you can execute a check on behalf of multiple proxy entities, and use multiple agents in a round-robin to do so. Then, if you use the [splay configuration](#proxy-check-splay), you can ensure those executions are spread evenly across your scheduling interval
 
