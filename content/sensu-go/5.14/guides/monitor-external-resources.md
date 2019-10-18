@@ -122,16 +122,14 @@ sensuctl check list
 
 ### Adding the subscription
 
-To run the check, we'll need a Sensu agent with the subscription `proxy`.
-After [installing an agent][install], open `/etc/sensu/agent.yml`
-and add the `proxy` subscription so the subscription configuration looks like:
+To execute the check, you'll need a Sensu agent entity that is subscribed to the subscription `proxy`. After [installing an agent][install], open `/etc/sensu/agent.yml` and add the `proxy` subscription so the subscription configuration looks like this:
 
 {{< highlight yml >}}
 subscriptions:
   - proxy
 {{< /highlight >}}
 
-Then restart the agent.
+Then restart the agent:
 
 {{< highlight shell >}}
 sudo service sensu-agent restart
@@ -139,7 +137,7 @@ sudo service sensu-agent restart
 
 ### Validating the check
 
-Now we can use sensuctl to see that Sensu has created the proxy entity `sensu-site`.
+Now you can use `sensuctl entity list` to see that Sensu has created the proxy entity `sensu-site`.
 
 {{< highlight shell >}}
 sensuctl entity list
