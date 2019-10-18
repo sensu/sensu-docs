@@ -11,6 +11,7 @@ _NOTE: Sensu Enterprise is built on Sensu Core. Sensu Core changes are documente
 
 ## Releases
 
+- [Enterprise 3.6.2 Release Notes](#enterprise v3-6-2)
 - [Enterprise 3.6.1 Release Notes](#enterprise-v3-6-1)
 - [Enterprise 3.6.0 Release Notes](#enterprise-v3-6-0)
 - [Enterprise 3.5.0 Release Notes](#enterprise-v3-5-0)
@@ -57,6 +58,16 @@ _NOTE: Sensu Enterprise is built on Sensu Core. Sensu Core changes are documente
 - [Enterprise 1.14.1 Release Notes](#enterprise-v1-14-1)
 - [Enterprise 1.14.0 Release Notes](#enterprise-v1-14-0)
 - [Enterprise 1.13.0 Release Notes](#enterprise-v1-13-0)
+
+## Enterprise 3.6.2 Release Notes {#enterprise-v3-6-2}
+
+**October 16, 2019** &mdash; Sensu Enterprise version 3.6.2 has been
+released and is available for immediate download. Please note the
+following improvements:
+
+### CHANGES {#enterprise-v3-6-1}
+
+- **BUGFIX**: Fixed EventMachine `send_data` null pointer exceptions: patching `send_data` for null pointer will return 0 like the C reactor.
 
 ## Enterprise 3.6.1 Release Notes {#enterprise-v3-6-1}
 
