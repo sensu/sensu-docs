@@ -137,7 +137,12 @@ To regenerate a valid access token, first run any sensuctl command (like `sensuc
 
 ### Authenticate with the API key feature
 
-The Sensu API key feature (core/v2.APIKey) is a persistent UUID that maps to a stored Sensu username. API keys are cluster-wide resources, so only cluster admins can grant, view, and revoke them.
+The Sensu API key feature (core/v2.APIKey) is a persistent UUID that maps to a stored Sensu username. The advantages of authenticating with API keys rather than [access tokens](#authentication-quick-start) include:
+- **More efficient integration**: Check and handler plugins and other code can integrate with the Sensu API without implementing the logic required to authenticate via the `/auth` API endpoint to periodically refresh the access token.
+- **Improved security**: API keys do not require providing a username and password in check or handler definitions.
+- **Better admin control**: API keys can be created and revoked without changing the underlying user's password...but keep in mind that API keys will continue to work even if the user's password changes.
+
+API keys are cluster-wide resources, so only cluster admins can grant, view, and revoke them.
 
 _**NOTE**: API keys are not supported for authentication providers such as LDAP and OIDC._
 
