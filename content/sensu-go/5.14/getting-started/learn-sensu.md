@@ -408,7 +408,14 @@ sensuctl event list
 
 Now, you should be able to see disk usage metrics for the sandbox in Grafana: refresh your Grafana tab or [reload with this link](http://localhost:4002/d/go02/sensu-go-sandbox-combined).
 
-You made it! You're ready for the next level of Sensu-ing. Here are some resources to help continue your journey:
+You made it! You're ready for the next level of Sensu-ing.
+
+Before you move on, take a moment to remove the virtual machine and resources installed during this sandbox lesson. Run:
+{{< highlight shell >}}
+vagrant destroy
+{{< /highlight >}}
+
+Now you can continue exploring Sensu with a clean slate. Here are some resources to help continue your journey:
 
 - Try another [lesson in the Sensu sandbox][7]
 - [Install Sensu Go][8]
