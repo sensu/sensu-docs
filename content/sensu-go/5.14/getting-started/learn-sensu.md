@@ -70,11 +70,19 @@ First, make sure everything is working correctly using the sensuctl command line
 
 {{< highlight shell >}}
 sensuctl namespace list
+{{< /highlight >}}
+
+{{< highlight shell >}}
   Name    
 ─────────
  default  
+{{< /highlight >}}
 
+{{< highlight shell >}}
 sensuctl user list
+{{< /highlight >}}
+
+{{< highlight shell >}}
  Username       Groups       Enabled  
 ────────── ──────────────── ───────── 
 admin      cluster-admins   true     
@@ -85,6 +93,9 @@ Sensu keeps track of monitored components as entities. Start by using sensuctl t
 
 {{< highlight shell >}}
 sensuctl entity list
+{{< /highlight >}}
+
+{{< highlight shell >}}
  ID   Class   OS   Subscriptions   Last Seen  
 ──── ─────── ──── ─────────────── ─────────── 
 {{< /highlight >}}
@@ -99,6 +110,9 @@ Use sensuctl to see that Sensu is now monitoring the sandbox entity:
 
 {{< highlight shell >}}
 sensuctl entity list
+{{< /highlight >}}
+
+{{< highlight shell >}}
         ID          Class    OS          Subscriptions                  Last Seen            
 ────────────────── ─────── ─────── ───────────────────────── ─────────────────────────────── 
 sensu-go-sandbox   agent   linux   entity:sensu-go-sandbox   2019-01-24 21:29:06 +0000 UTC  
@@ -108,6 +122,9 @@ Sensu agents send keepalive events to help you monitor agent status. Use sensuct
 
 {{< highlight shell >}}
 sensuctl event list
+{{< /highlight >}}
+
+{{< highlight shell >}}
       Entity          Check                                       Output                                     Status   Silenced             Timestamp            
 ────────────────── ─────────── ──────────────────────────────────────────────────────────────────────────── ──────── ────────── ─────────────────────────────── 
 sensu-go-sandbox   keepalive   Keepalive last sent from sensu-go-sandbox at 2019-01-24 21:29:06 +0000 UTC        0   false      2019-01-24 21:29:06 +0000 UTC 
@@ -177,6 +194,9 @@ Use sensuctl to see available event handlers &mdash; in this case, you'll only s
 
 {{< highlight shell >}}
 sensuctl handler list
+{{< /highlight >}}
+
+{{< highlight shell >}}
   Name      Type   Timeout   Filters   Mutator                                                   Execute                                                                                                              Environment Variables                            Assets         
 ─────────── ────── ───────── ───────── ───────── ────────────────────────────────────────────────────────────────────────────────────────────────────────── ────────────────────────────────────────────────────────────────────────────────────────────────── ───────────────────── 
  keepalive   pipe         0                       RUN:  /usr/local/bin/sensu-slack-handler -c "${KEEPALIVE_SLACK_CHANNEL}" -w "${KEEPALIVE_SLACK_WEBHOOK}"   KEEPALIVE_SLACK_WEBHOOK=https://hooks.slack.com/services/AAA/BBB/CCC,KEEPALIVE_SLACK_CHANNEL=#monitoring   sensu-slack-handler  
@@ -205,7 +225,10 @@ For each of the mutator, timeout, type, runtime assets, and command prompts, jus
 Use sensuctl to confirm that the keepalive handler now includes the is_incident filter:
 
 {{< highlight shell >}}
-[sensu_go_sandbox]$ sensuctl handler info keepalive
+sensuctl handler info keepalive
+{{< /highlight >}}
+
+{{< highlight shell >}}
 === keepalive
 Name:                  keepalive
 Type:                  pipe
