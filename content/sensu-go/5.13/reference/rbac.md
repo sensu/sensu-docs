@@ -808,7 +808,7 @@ description  | Username or group name.
 required     | true 
 type         | String
 example      | {{< highlight shell >}}"name": "alice"{{< /highlight >}}
-example with prefix | {{< highlight shell >}}"name": "ladp:alice"{{< /highlight >}}
+example with prefix | {{< highlight shell >}}"name": "ad:alice"{{< /highlight >}}
 
 ### Role binding example
 
