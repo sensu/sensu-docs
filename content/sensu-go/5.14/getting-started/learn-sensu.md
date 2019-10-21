@@ -454,7 +454,7 @@ Now, you should be able to see disk usage metrics for the sandbox in Grafana: [r
 
 You made it! You're ready for the next level of Sensu-ing.
 
-Before you move on, take a moment to remove the virtual machine and resources installed during this sandbox lesson. Run:
+Before you move on, take a moment to remove the virtual machine and resources installed during this sandbox lesson. Press `CTRL`+`D` to exit the sandbox. Then run:
 {{< highlight shell >}}
 vagrant destroy
 {{< /highlight >}}
