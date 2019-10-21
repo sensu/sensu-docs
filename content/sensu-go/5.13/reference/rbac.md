@@ -1225,4 +1225,4 @@ You can add these resources to Sensu using [`sensuctl create`][31].
 [36]: ../../sensuctl/reference#creating-resources-across-namespaces
 [37]: ../license
 [38]: ../../installation/auth/#groups-prefix
-[39]: ../../installation/auth/#active-directory-authentication
+[39]: ../../installation/auth/#ad-groups-prefix
