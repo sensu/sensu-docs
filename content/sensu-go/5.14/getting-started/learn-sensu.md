@@ -263,7 +263,9 @@ Make sure it's working:
 
 {{< highlight shell >}}
 curl -I http://localhost:80
+{{< /highlight >}}
 
+{{< highlight shell >}}
 HTTP/1.1 200 OK
 {{< /highlight >}}
 
@@ -277,7 +279,9 @@ You'll use the `metrics-curl.rb` plugin. Test its output with:
 
 {{< highlight shell >}}
 /opt/sensu-plugins-ruby/embedded/bin/metrics-curl.rb -u "http://localhost"
+{{< /highlight >}}
 
+{{< highlight shell >}}
 ...
 sensu-go-sandbox.curl_timings.http_code 200 1535670975
 {{< /highlight >}}
@@ -329,8 +333,13 @@ The `curl_timings-check.json` file provided with the sandbox will create a servi
 
 {{< highlight shell >}}
 sensuctl create --file curl_timings-check.json
+{{< /highlight >}}
 
+{{< highlight shell >}}
 sensuctl check list
+{{< /highlight >}}
+
+{{< highlight shell >}}
      Name                                        Command                                     Interval   Cron   Timeout   TTL        Subscriptions        Handlers   Assets   Hooks   Publish?   Stdin?     Metric Format      Metric Handlers  
 ────────────── ──────────────────────────────────────────────────────────────────────────── ────────── ────── ───────── ───── ───────────────────────── ────────── ──────── ─────── ────────── ──────── ──────────────────── ───────────────── 
 curl_timings   /opt/sensu-plugins-ruby/embedded/bin/metrics-curl.rb -u "http://localhost"         10                0     0   entity:sensu-go-sandbox                               true       false    graphite_plaintext   influx-db        
@@ -342,6 +351,9 @@ After about 10 seconds, you can see the event produced by the entity:
 
 {{< highlight shell >}}
 sensuctl event info sensu-go-sandbox curl_timings --format json | jq .
+{{< /highlight >}}
+
+{{< highlight shell >}}
 ...
   "history": [
     {
@@ -392,7 +404,9 @@ Test the plugin:
 
 {{< highlight shell >}}
 /opt/sensu-plugins-ruby/embedded/bin/metrics-disk-usage.rb
+{{< /highlight >}}
 
+{{< highlight shell >}}
 sensu-core-sandbox.disk_usage.root.used 2235 1534191189
 sensu-core-sandbox.disk_usage.root.avail 39714 1534191189
 ...
