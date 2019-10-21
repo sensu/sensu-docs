@@ -543,7 +543,7 @@ example      | {{< highlight shell >}}"resources": ["checks"]{{< /highlight >}}
 
 resource_names    | 
 -------------|------ 
-description  | Specific resource names that the rule has permission to access. Resource name permissions are only available for `get`, `delete`, and `update` verbs.
+description  | Specific resource names that the rule has permission to access. Resource name permissions are only available for `get`, `list`, `update`, and `delete` verbs.
 required     | false
 type         | Array
 example      | {{< highlight shell >}}"resource_names": ["check-cpu"]{{< /highlight >}}
