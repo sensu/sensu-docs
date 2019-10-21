@@ -450,7 +450,7 @@ You should see the check working in the [dashboard entity view](http://localhost
 sensuctl event list
 {{< /highlight >}}
 
-Now, you should be able to see disk usage metrics for the sandbox in Grafana: refresh your Grafana tab or [reload with this link](http://localhost:4002/d/go02/sensu-go-sandbox-combined).
+Now, you should be able to see disk usage metrics for the sandbox in Grafana: [reload your Grafana tab to show the Sensu Go Sandbox Combined](http://localhost:4002/d/go02/sensu-go-sandbox-combined).
 
 You made it! You're ready for the next level of Sensu-ing.
 
