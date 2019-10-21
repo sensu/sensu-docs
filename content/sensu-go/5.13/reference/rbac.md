@@ -946,7 +946,7 @@ The following role and role binding give a `dev` group access to create and mana
 
 ### Role and role binding examples with a group prefix
 
-If a [groups prefix][38] of `ad` has been configured for [Active Directory authentication][39], the following role and role binding give a `dev` group access to create and manage Sensu workflows within the `default` namespace.
+In the following code example, if a [groups prefix][38] of `ad` is configured for [Active Directory authentication][39], this role and role binding will give a `dev` group access to create and manage Sensu workflows within the `default` namespace.
 
 {{< highlight text >}}
 {
