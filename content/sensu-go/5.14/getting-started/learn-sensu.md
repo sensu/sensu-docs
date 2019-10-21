@@ -250,7 +250,7 @@ You'll use the [Sensu HTTP Plugin](https://github.com/sensu-plugins/sensu-plugin
 First, install the EPEL release package:
 
 {{< highlight shell >}}
-yum install -y epel-release
+sudo yum install -y epel-release
 {{< /highlight >}}
 
 Then, install and start Nginx:
