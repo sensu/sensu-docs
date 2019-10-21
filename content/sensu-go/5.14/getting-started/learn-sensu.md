@@ -286,6 +286,7 @@ Make sure it's working:
 
 {{< highlight shell >}}
 curl -I http://localhost:80
+...
 {{< /highlight >}}
 
 {{< highlight shell >}}
