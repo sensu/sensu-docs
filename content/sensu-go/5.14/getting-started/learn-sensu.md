@@ -248,6 +248,7 @@ sudo systemctl restart sensu-agent
 You'll use the [Sensu HTTP Plugin](https://github.com/sensu-plugins/sensu-plugins-http) to monitor an Nginx server running on the sandbox.
 
 First, install the EPEL release package:
+
 {{< highlight shell >}}
 yum install -y epel-release
 {{< /highlight >}}
