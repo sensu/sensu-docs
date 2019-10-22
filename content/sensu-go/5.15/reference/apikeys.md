@@ -101,7 +101,7 @@ example      | {{< highlight shell >}}"spec": {
 description  | A unique string used to identify the APIKey. Sensu randomly generates a UUID for the `name` value (i.e. users cannot provide a name for an APIKey).
 required     | true
 type         | String
-example      | {{< highlight shell >}}"name": "my-api-key"{{< /highlight >}}
+example      | {{< highlight shell >}}"name": "19803eb8-36a6-4203-a225-28ec4e9f4444"{{< /highlight >}}
 
 ### Spec attributes
 
