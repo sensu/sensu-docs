@@ -51,4 +51,4 @@ platform(s) where you will run your Sensu client(s).
 - [Ubuntu/Debian](../../platforms/sensu-on-ubuntu-debian/#sensu-core)
 
 
-[1]:  ../installation-strategies#standalone
+[1]: ../installation-strategies#standalone

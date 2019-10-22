@@ -40,8 +40,7 @@ menu:
 ## Install Sensu Core {#sensu-core}
 
 Sensu Core is installed on RHEL and CentOS systems via a native system installer package (i.e. a .rpm file), which is available for [download][1] and from YUM package management repositories.
-The Sensu Core package installs several processes including `sensu-server`, `sensu-api`, and
-`sensu-client`.
+The Sensu Core package installs several processes including `sensu-server`, `sensu-api`, and `sensu-client`.
 
 ### Install Sensu using YUM (recommended) {#install-sensu-core-repository}
 
