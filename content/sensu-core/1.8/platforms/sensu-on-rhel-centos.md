@@ -39,10 +39,8 @@ menu:
 
 ## Install Sensu Core {#sensu-core}
 
-Sensu Core is installed on RHEL and CentOS systems via a native system installer
-package (i.e. a .rpm file), which is available for download from the [Sensu
-Downloads][1] page, and from YUM package management repositories. The Sensu Core
-package installs several processes including `sensu-server`, `sensu-api`, and
+Sensu Core is installed on RHEL and CentOS systems via a native system installer package (i.e. a .rpm file), which is available for [download][1] and from YUM package management repositories.
+The Sensu Core package installs several processes including `sensu-server`, `sensu-api`, and
 `sensu-client`.
 
 ### Install Sensu using YUM (recommended) {#install-sensu-core-repository}
@@ -442,7 +440,7 @@ sudo service sensu-enterprise-dashboard stop{{< /highlight >}}
   IP address where the Sensu Enterprise Dashboard is running).
 
 
-[1]:  https://sensuapp.org/download
+[1]:  https://repositories.sensuapp.org/yum/
 [2]:  https://sensu.io/products/enterprise
 [3]:  ../../reference/configuration/
 [4]:  ../../reference/transport/
