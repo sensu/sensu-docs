@@ -14,8 +14,8 @@ menu:
 - [Usage limits](#usage-limits)
 - [Proxy entities](#proxy-entities)
 - [Managing entity labels](#managing-entity-labels)
-  - [Proxy entities](#proxy-entities-managed)
-  - [Agent entities](#agent-entities-managed)
+  - [Proxy entity labels](#proxy-entities-managed)
+  - [Agent entity labels](#agent-entities-managed)
 - [Entities specification](#entities-specification)
 	- [Top-level attributes](#top-level-attributes)
   - [Spec attributes](#spec-attributes)
@@ -41,18 +41,31 @@ This version of Sensu has no functional limitations based on entity count. If yo
 
 ## Proxy entities
 
-Proxy entities (formerly known as proxy clients, "Just-in-time" or "JIT" clients) are dynamically created entities, added to the entity store if an entity does not already exist for a check result. Proxy entity registration differs from keepalive-based registration because the registration event happens while processing a check result (not a keepalive message). Sensu proxy entities allow Sensu to monitor external resources on systems and/or devices where a sensu-agent cannot be installed (such a network switch) using the defined check ProxyEntityName to create a proxy entity for the external resource.
+Proxy entities (formerly known as proxy clients or just-in-time/JIT clients) are dynamically created entities that are added to the entity store if an entity does not already exist for a check result. Proxy entities allow Sensu to monitor external resources on systems and devices where a Sensu agent cannot be installed (like a network switch or website) using the defined check `ProxyEntityName` to create a proxy entity for the external resource.
+
+Proxy entity registration differs from keepalive-based registration because the registration event happens while processing a check result (not a keepalive message).
+
+See the [guide to monitoring external resources][12] to learn how to use a proxy entity to monitor a website.
+
+### Proxy entities and round-robin scheduling
+
+Proxy entities make [round-robin scheduling][11] more useful. Proxy entities allow you to combine all of the round-robin events into a single event. Instead of having a separate event for each agent entity, you have a single event for the entire round-robin.
+
+If you don't use a proxy entity, you could have several failures in a row, but each event will only be aware of one of the failures.
+
+If you use a proxy entity without round-robin scheduling, and several agents share the subscription, they will all execute the check for the proxy entity and you'll get duplicate results. When you enable round-robin, you'll get one agent per interval executing the proxy check, but the event will always be listed under the proxy entity. If you don't create a proxy entity, it is created when the check is executed. You can modify the proxy entity later if needed.
+
+You can also use [proxy entity filters](#proxy-entities-managed) to establish an many-to-many relationship between agent entities and proxy entities, if you want even more power over the grouping.
 
 ## Managing entity labels
 
-Labels are custom attributes that Sensu includes with event data, which can be accessed using [filters][6] and [tokens][7].
-In contrast to annotations, you can use labels to create meaningful collections that can be selected with [API filtering][api-filter] and [sensuctl filtering][sensuctl-filter].
+Labels are custom attributes that Sensu includes with event data, which can be accessed using [filters][6] and [tokens][7]. In contrast to annotations, you can use labels to create meaningful collections that can be selected with [API filtering][api-filter] and [sensuctl filtering][sensuctl-filter].
+
 Overusing labels can impact Sensu's internal performance, so we recommend moving complex, non-identifying metadata to [annotations](#metadata-attributes).
 
-### Proxy entities{#proxy-entities-managed}
+### Proxy entity labels{#proxy-entities-managed}
 
-For entities with class `proxy`, you can create and manage labels using sensuctl.
-For example, to create a proxy entity with a `url` label using sensuctl `create`, create a file called `example.json` with an entity definition that includes `labels`.
+For entities with class `proxy`, you can create and manage labels using sensuctl. For example, to create a proxy entity with a `url` label using sensuctl `create`, create a file called `example.json` with an entity definition that includes `labels`.
 
 {{< language-toggle >}}
 
@@ -157,11 +170,12 @@ spec:
 
 ### Proxy entities checks
 
-Proxy entities allow Sensu to [monitor external resources][12] on systems or devices where a Sensu agent cannot be installed, like a network switch, website, or API endpoint. You can configure a check with a proxy entity name to associate the check results with that proxy entity. On the first check result, if the proxy entity does not exist, Sensu will create the entity as a proxy entity.
+Proxy entities allow Sensu to [monitor external resources][14] on systems or devices where a Sensu agent cannot be installed, like a network switch, website, or API endpoint. You can configure a check with a proxy entity name to associate the check results with that proxy entity. On the first check result, if the proxy entity does not exist, Sensu will create the entity as a proxy entity.
 
-After you create a proxy entity check, define which agents will run the check by configuring a subscription. See [proxy requests][11] for details on creating a proxy check for a proxy entity.
+After you create a proxy entity check, define which agents will run the check by configuring a subscription. See [proxy requests][13] for details on creating a proxy check for a proxy entity.
 
 ### Agent entities{#agent-entities-managed}
+
 
 For entities with class `agent`, you can define entity attributes in the `/etc/sensu/agent.yml` configuration file.
 For example, to add a `url` label, open `/etc/sensu/agent.yml` and add configuration for `labels`.
@@ -780,5 +794,7 @@ spec:
 [sensuctl-filter]: ../../sensuctl/reference#filtering
 [9]: ../../getting-started/enterprise
 [10]: https://discourse.sensu.io/t/introducing-usage-limits-in-the-sensu-go-free-tier/1156
-[11]: ../checks/#proxy-requests
-[12]: ../../guides/monitor-external-resources/
+[11]: ../checks#round-robin-checks
+[12]: ../../guides/monitor-external-resources/#using-a-proxy-entity-to-monitor-a-website
+[13]: ../checks/#proxy-requests
+[14]: ../../guides/monitor-external-resources/
