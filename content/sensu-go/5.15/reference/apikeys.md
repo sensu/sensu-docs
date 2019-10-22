@@ -80,7 +80,7 @@ description  | Top-level collection of metadata about the APIKey, including the 
 required     | true
 type         | Map of key-value pairs
 example      | {{< highlight shell >}}"metadata": {
-  "name": "my-api-key"
+  "name": "19803eb8-36a6-4203-a225-28ec4e9f4444"
 }{{< /highlight >}}
 
 spec         | 
