@@ -107,9 +107,7 @@ In order for Sensu to execute a check, the check definition must include a subsc
 
 #### Round-robin checks
 
-By default, Sensu schedules checks once per interval for each agent with a matching subscription: one check execution per agent per interval.
-Sensu also supports deduplicated check execution when configured with the `round_robin` check attribute.
-For checks with `round_robin` set to `true`, Sensu executes the check once per interval, cycling through the available agents alphabetically according to agent name.
+By default, Sensu schedules checks once per interval for each agent with a matching subscription: one check execution per agent per interval. Sensu also supports deduplicated check execution when configured with the `round_robin` check attribute. For checks with `round_robin` set to `true`, Sensu executes the check once per interval, cycling through the available agents alphabetically according to agent name.
 
 For example, for three agents configured with the `system` subscription (agents A, B, and C), a check configured with the `system` subscription and `round_robin` set to `true` results in one monitoring event per interval, with the agent creating the event following the pattern A -> B -> C -> A -> B -> C for the first six intervals.
 
@@ -221,8 +219,7 @@ spec:
 
 #### Ad-hoc scheduling
 
-In addition to automatic execution, you can create checks to be scheduled manually using the [checks API](../../api/checks#the-checkscheckexecute-api-endpoint).
-To create a check with ad-hoc scheduling, set the `publish` attribute to `false` in addition to an `interval` or `cron` schedule.
+In addition to automatic execution, you can create checks to be scheduled manually using the [checks API](../../api/checks#the-checkscheckexecute-api-endpoint). To create a check with ad-hoc scheduling, set the `publish` attribute to `false` in addition to an `interval` or `cron` schedule.
 
 **Example ad-hoc check**
 
@@ -266,21 +263,21 @@ spec:
 
 ## Proxy checks {#proxy-requests}
 
-Sensu supports running proxy checks where the results are considered to be for an
-entity that isn’t actually the one executing the check, regardless of whether
-that entity is a Sensu agent entity or a proxy entity.
-Proxy entities allow Sensu to monitor external resources
-on systems or devices where a Sensu agent cannot be installed, like a
-network switch or a website.
-You can create a proxy check using the [`proxy_entity_name` attribute](#using-a-proxy-check-to-monitor-a-proxy-entity) or the [`proxy_requests` attributes](#using-a-proxy-check-to-monitor-a-multiple-proxy-entities).
+Sensu supports running proxy checks where the results are considered to be for an entity that isn’t actually the one executing the check, regardless of whether that entity is a Sensu agent entity or a proxy entity. Proxy checks are a convenient way to create implicit [proxy entities][20]. 
+
+Proxy entities allow Sensu to monitor external resources on systems and devices where a Sensu agent cannot be installed, like a network switch or website.
+
+_**NOTE**: Checks are always executed by agent entities. Proxy checks and checks that use the `proxy_requests` attributes are executed on behalf of a proxy entity, and they report as the proxy entity you create (never the agent entity)._
+
+To create a proxy check, use the [`proxy_entity_name` attribute](#using-a-proxy-check-to-monitor-a-proxy-entity). If you want to create multiple proxy entities, use the [`proxy_requests` attributes](#using-a-proxy-check-to-monitor-multiple-proxy-entities).
 
 ### Using a proxy check to monitor a proxy entity
 
-When executing checks that include a `proxy_entity_name`, Sensu agents report the resulting events under the specified proxy entity instead of the agent entity.
-If the proxy entity doesn't exist, Sensu creates the proxy entity when the event is received by the backend.
-To avoid duplicate events, we recommend using the `round_robin` attribute with proxy checks.
+When executing checks that include a `proxy_entity_name`, Sensu agents report the resulting events under the specified proxy entity instead of the agent entity. If the proxy entity doesn't exist, Sensu creates the proxy entity when the event is received by the backend. To avoid duplicate events, we recommend using the `round_robin` attribute with proxy checks.
 
-**Example proxy check using a `proxy_entity_name`**
+`proxy_entity_name` binds the check to a proxy entity (or creates the proxy entity, if it doesn't already exist).
+
+#### Example proxy check using a `proxy_entity_name`
 
 The following proxy check runs every 60 seconds, cycling through the agents with the `proxy` subscription alphabetically according to the agent name, for the proxy entity `sensu-site`.
 
@@ -329,17 +326,16 @@ spec:
 ### Using a proxy check to monitor multiple proxy entities
 
 The [`proxy_requests` check attributes](#proxy-requests-top-level) allow Sensu to run a check for each entity that matches the definitions specified in the `entity_attributes`, resulting in monitoring events that represents each matching proxy entity.
+
 The entity attributes must match exactly as stated; no variables or directives have any special meaning, but you can still use [Sensu query expressions][11] to perform more complicated filtering on the available value, such as finding entities with particular subscriptions.
 
-The `proxy_requests` attributes are a great way to monitor multiple entities using a single check definition when combined with [token substitution](#token-substitution).
-Since checks including `proxy_requests` attributes need to be executed for each matching entity, we recommend using the `round_robin` attribute to distribute the check execution workload evenly across your Sensu agents.
+The `proxy_requests` attributes are a great way to monitor multiple entities using a single check definition when combined with [token substitution](#token-substitution). Because checks including `proxy_requests` attributes need to be executed for each matching entity, we recommend using the `round_robin` attribute to distribute the check execution workload evenly across your Sensu agents.
 
-**Example proxy check using `proxy_requests`**
+#### Example proxy check using `proxy_requests`
 
 The following proxy check runs every 60 seconds, cycling through the agents with the `proxy` subscription alphabetically according to the agent name, for all existing proxy entities with the custom label `proxy_type` set to `website`.
 
-This check uses [token substitution](#check-token-substitution) to import the value of the custom entity label `url` to complete the check command.
-See the [entity reference](../entities#managing-entity-labels) for information about using custom labels.
+This check uses [token substitution](#check-token-substitution) to import the value of the custom entity label `url` to complete the check command. See the [entity reference](../entities#managing-entity-labels) for information about using custom labels.
 
 {{< language-toggle >}}
 
@@ -389,35 +385,32 @@ spec:
 
 {{< /language-toggle >}}
 
-#### Fine-tuning proxy check scheduling with splay
+#### Proxy checks and scheduling
 
-Sensu supports distributing proxy check executions across an interval using the `splay` and `splay_coverage` attributes.
-For example, if we assume that the `proxy_check_proxy_requests` check in the example above matches three proxy entities, we'd expect to see a burst of three events every 60 seconds.
-If we add the `splay` attribute (set to `true`) and the `splay_coverage` attribute (set to `90`) to the `proxy_requests` scope, Sensu distributes the three check executions over 90% of the 60-second interval, resulting in three events splayed evenly across a 54-second period.
+A proxy check will only show results for proxy entities, never agent entities. The scheduler finds entities whose attributes match the [`entity_attributes`][10] specified in the proxy request, then schedules one or more checks based on the matches. The scheduled checks are published to one or more agent entities based on agent subscriptions and whether round robin check scheduling is being used.
+
+With `proxy_requests` attributes, you can execute a check on behalf of multiple proxy entities, and use multiple agents in a round-robin to do so. Then, if you use the [splay configuration](#proxy-check-splay), you can ensure those executions are spread evenly across your scheduling interval
+
+##### Fine-tune proxy check scheduling with `splay`{#proxy-check-splay}
+
+Sensu supports distributing proxy check executions evenly across an interval using the `splay` and `splay_coverage` attributes. For example, if you assume that the `proxy_check_proxy_requests` check in the example above matches three proxy entities, you'd expect to see a burst of three events every 60 seconds.
+
+If you add the `splay` attribute (set to `true`) and the `splay_coverage` attribute (set to `90`) to the `proxy_requests` scope, Sensu distributes the three check executions over 90% of the 60-second interval. The three events will be splayed evenly across a 54-second period instead of all going off at the same time.
 
 ## Check token substitution
 
-Sensu check definitions may include attributes that you may wish to override on
-an entity-by-entity basis. For example, [check commands][4] – which may include
-command line arguments for controlling the behavior of the check command – may
-benefit from entity-specific thresholds, etc. Sensu check tokens are check
-definition placeholders that will be replaced by the Sensu agent with the
-corresponding entity definition attributes values (including custom attributes).
+Sensu check definitions may include attributes that you may wish to override on an entity-by-entity basis. For example, [check commands][4], which may include command line arguments for controlling the behavior of the check command, may
+benefit from entity-specific thresholds. Sensu check tokens are check definition placeholders that will be replaced by the Sensu agent with the corresponding entity definition attributes values (including custom attributes).
 
-Learn how to use check tokens with the [Sensu tokens reference
-documentation][5].
+Learn how to use check tokens with the [Sensu tokens reference documentation][5].
 
-_NOTE: Check tokens are processed before check execution, therefore token substitutions
-will not apply to check data delivered via the local agent socket input._
+_NOTE: Check tokens are processed before check execution, therefore token substitutions will not apply to check data delivered via the local agent socket input._
 
 ## Check hooks
 
-Check hooks are commands run by the Sensu agent in response to the result of
-check command execution. The Sensu agent will execute the appropriate configured
-hook command, depending on the check execution status (ex: 0, 1, 2).
+Check hooks are commands run by the Sensu agent in response to the result of check command execution. The Sensu agent will execute the appropriate configured hook command, depending on the check execution status (ex: 0, 1, 2).
 
-Learn how to use check hooks with the [Sensu hooks reference
-documentation][6].
+Learn how to use check hooks with the [Sensu hooks reference documentation][6].
 
 ## Check specification
 
@@ -579,7 +572,7 @@ example      | {{< highlight shell >}}"check_hooks": [
 
 |proxy_entity_name|   |
 -------------|------
-description  | The entity name, used to create a [proxy entity][20] for an external resource (i.e., a network switch).
+description  | The entity name, used to create a [proxy entity][20] for an external resource (i.e., a network switch). `proxy_entity_name` binds the check to a proxy entity (first creating the proxy entity, if it doesn't already exist).
 required     | false
 type         | String
 validated    | [`\A[\w\.\-]+\z`](https://regex101.com/r/zo9mQU/2)
@@ -589,7 +582,7 @@ example      | {{< highlight shell >}}"proxy_entity_name": "switch-dc-01"{{< /hi
 
 |proxy_requests|    |
 -------------|------
-description  | [Sensu proxy request attributes][10] allow you to assign the check to run for multiple entities according to their `entity_attributes`. In the example below, the check executes for all entities with entity class `proxy` and the custom proxy type label `website`. Proxy requests are a great way to reuse check definitions for a group of entities. For more information, see the [proxy requests specification][10] and the [guide to monitoring external resources][28].
+description  | [Sensu `proxy requests` attributes][10] allow you to assign a check to run for multiple entities according to their `entity_attributes`. In the example below, the check executes for all entities with entity class `proxy` and the custom proxy type label `website`. Proxy requests allow you to reuse check definitions for a group of entities. For more information, see the [proxy requests specification][10] and the [guide to monitoring external resources][28].
 required     | false
 type         | Hash
 example      | {{< highlight shell >}}"proxy_requests": {
@@ -866,9 +859,8 @@ spec:
 [15]: https://godoc.org/github.com/robfig/cron#hdr-Predefined_schedules
 [16]: https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/3/en/flapping.html
 [17]: #subdue-attributes
-[20]: ../entities/#proxy_entities
+[20]: ../entities/#proxy-entities
 [21]: ../entities/#spec-attributes
-[22]: ../../reference/sensuctl/#time-windows
 [22]: ../../reference/sensuctl/#time-windows
 [23]: ../../guides/extract-metrics-with-checks/
 [24]: ../events
