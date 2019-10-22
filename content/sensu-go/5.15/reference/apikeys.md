@@ -62,7 +62,7 @@ spec:
 
 type         | 
 -------------|------
-description  | Top-level attribute specifying the resource type. API keys should always be of type `apikeys`.
+description  | Top-level attribute specifying the resource type. API keys should always be of type `APIKey`.
 required     | true
 type         | String
 example      | {{< highlight shell >}}"type": "APIKey"{{< /highlight >}}
@@ -76,7 +76,7 @@ example      | {{< highlight shell >}}"api_version": "core/v2"{{< /highlight >}}
 
 metadata     | 
 -------------|------
-description  | Top-level collection of metadata about the APIKey, including the `name`. The `metadata` map is always at the top level of the check definition. This means that in `wrapped-json` and `yaml` formats, the `metadata` scope occurs outside the `spec` scope.
+description  | Top-level collection of metadata about the API key, including the `name`. The `metadata` map is always at the top level of the check definition. This means that in `wrapped-json` and `yaml` formats, the `metadata` scope occurs outside the `spec` scope.
 required     | true
 type         | Map of key-value pairs
 example      | {{< highlight shell >}}"metadata": {
@@ -85,7 +85,7 @@ example      | {{< highlight shell >}}"metadata": {
 
 spec         | 
 -------------|------
-description  | Top-level map that includes the APIKey [spec attributes](#spec-attributes).
+description  | Top-level map that includes the API key's [spec attributes](#spec-attributes).
 required     | true
 type         | Map of key-value pairs
 example      | {{< highlight shell >}}"spec": {
@@ -98,7 +98,7 @@ example      | {{< highlight shell >}}"spec": {
 
 | name       |      |
 -------------|------
-description  | A unique string used to identify the APIKey. Sensu randomly generates a UUID for the `name` value (i.e. users cannot provide a name for an APIKey).
+description  | A unique string used to identify the API key. Sensu randomly generates a UUID for the `name` value (i.e. users cannot provide a name for an API key).
 required     | true
 type         | String
 example      | {{< highlight shell >}}"name": "19803eb8-36a6-4203-a225-28ec4e9f4444"{{< /highlight >}}
@@ -107,7 +107,7 @@ example      | {{< highlight shell >}}"name": "19803eb8-36a6-4203-a225-28ec4e9f4
 
 | username   |     |
 -------------|------
-description  | The user associated with the APIKey.
+description  | The user associated with the API key.
 required     | true
 type         | Array
 example      | {{< highlight shell >}}"username": "admin"{{< /highlight >}}
