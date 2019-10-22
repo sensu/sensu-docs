@@ -36,7 +36,7 @@ The `/etcd-replicators` endpoint provides HTTP GET access to a list of replicato
 The following example demonstrates a request to the `/etcd-replicators` endpoint, resulting in a list of replicators.
 
 {{< highlight shell >}}
-curl http://127.0.0.1:8080/api/federation/v1/etcd-replicators -H "Authorization: Bearer $SENSU_TOKEN"
+curl http://127.0.0.1:8080/api/enterprise/federation/v1/etcd-replicators -H "Authorization: Bearer $SENSU_TOKEN"
 [
   {
     "api_version": "federation/v1",
@@ -60,7 +60,7 @@ curl http://127.0.0.1:8080/api/federation/v1/etcd-replicators -H "Authorization:
 /etcd-replicators (GET)  | 
 ---------------|------
 description    | Returns a list of replicators.
-example url    | http://hostname:8080/api/federation/v1/etcd-replicators
+example url    | http://hostname:8080/api/enterprise/federation/v1/etcd-replicators
 response type  | Array
 response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output         | {{< highlight shell >}}
@@ -87,7 +87,7 @@ output         | {{< highlight shell >}}
 /etcd-replicators (POST) | 
 ----------------|------
 description     | Creates a new replicator (if none exists).
-example URL     | http://hostname:8080/api/federation/v1/etcd-replicators
+example URL     | http://hostname:8080/api/enterprise/federation/v1/etcd-replicators
 payload         | {{< highlight shell >}}
 {
   "api_version": "federation/v1",
@@ -117,7 +117,7 @@ The `/etcd-replicators/:etcd-replicator` endpoint provides HTTP GET access to da
 In the following example, querying the `/etcd-replicators/:etcd-replicator` endpoing returns a JSON Map containing the requested `:etcd-replicator`.
 
 {{< highlight shell >}}
-curl http://127.0.0.1:8080/api/federation/v1/etcd-replicators/my_replicator -H "Authorization: Bearer $SENSU_TOKEN"
+curl http://127.0.0.1:8080/api/enterprise/federation/v1/etcd-replicators/my_replicator -H "Authorization: Bearer $SENSU_TOKEN"
 {
   "api_version": "federation/v1",
   "type": "replicator",
@@ -139,7 +139,7 @@ curl http://127.0.0.1:8080/api/federation/v1/etcd-replicators/my_replicator -H "
 /etcd-replicators/:etcd-replicator (GET) | 
 ---------------------|------
 description          | Returns the specified replicator.
-example url          | http://hostname:8080/api/federation/v1/etcd-replicators/{etcd-replicator_name}
+example url          | http://hostname:8080/api/enterprise/federation/v1/etcd-replicators/{etcd-replicator_name}
 response type        | Map
 response codes       | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output               | {{< highlight json >}}
@@ -166,7 +166,7 @@ output               | {{< highlight json >}}
 The following example demonstrates a request to update the replicator `my_replicator`.
 
 curl -X PUT \
-http://hostname:8080/federation/v1/etcd-replicators/my-replicator} -H "Authorization: Bearer $SENSU_TOKEN" \
+http://hostname:8080/api/enterprise/federation/v1/etcd-replicators/my-replicator} -H "Authorization: Bearer $SENSU_TOKEN" \
 
 HTTP/1.1 200 OK
 {
@@ -189,7 +189,7 @@ HTTP/1.1 200 OK
 /etcd-replicators/:etcd-replicator (PUT) | 
 ----------------|------
 description     | Creates or updates the specified replicator. The replicator resource and API version cannot be altered.
-example URL     | http://hostname:8080/federation/v1/etcd-replicators/{etcd-replicator_name}
+example URL     | http://hostname:8080/api/enterprise/federation/v1/etcd-replicators/{etcd-replicator_name}
 payload         | {{< highlight shell >}}
 {
   "api_version": "federation/v1",
@@ -219,7 +219,7 @@ The following example shows a request to delete the replicator `my_replicator`, 
 {{< highlight shell >}}
 curl -X DELETE \
 -H "Authorization: Bearer $SENSU_TOKEN" \
-http://127.0.0.1:8080/api/federation/v1/etcd-replicators/my_replicator
+http://127.0.0.1:8080/api/enterprise/federation/v1/etcd-replicators/my_replicator
 
 HTTP/1.1 204 No Content
 {{< /highlight >}}
@@ -229,7 +229,7 @@ HTTP/1.1 204 No Content
 /etcd-replicators/:etcd-replicator (DELETE) | 
 --------------------------|------
 description               | Deletes the specified replicator from Sensu.
-example url               | http://hostname:8080/api/federation/v1/etcd-replicators/{etcd-replicator_name}
+example url               | http://hostname:8080/api/enterprise/federation/v1/etcd-replicators/{etcd-replicator_name}
 response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 
@@ -244,7 +244,7 @@ The `/cluster` endpoint provides HTTP GET access to a list of clusters.
 The following example demonstrates a request to the `/cluster` endpoint, resulting in a list of clusters.
 
 {{< highlight shell >}}
-curl http://127.0.0.1:8080/api/federation/v1/cluster -H "Authorization: Bearer $SENSU_TOKEN"
+curl http://127.0.0.1:8080/api/enterprise/federation/v1/cluster -H "Authorization: Bearer $SENSU_TOKEN"
 [
     {
         "type": "Cluster",
@@ -268,7 +268,7 @@ curl http://127.0.0.1:8080/api/federation/v1/cluster -H "Authorization: Bearer $
 /cluster (GET)  | 
 ---------------|------
 description    | Returns a list of clusters.
-example url    | http://hostname:8080/api/federation/v1/cluster
+example url    | http://hostname:8080/api/enterprise/federation/v1/cluster
 response type  | Array
 response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output         | {{< highlight shell >}}
@@ -301,7 +301,7 @@ _**NOTE**: Only cluster admins have PUT and DELETE access to clusters._
 The following example demonstrates a request to update the cluster `my_cluster`.
 
 curl -X PUT \
-http://127.0.0.1:8080/api/federation/v1/cluster/my_cluster -H "Authorization: Bearer $SENSU_TOKEN" \
+http://127.0.0.1:8080/api/enterprise/federation/v1/cluster/my_cluster -H "Authorization: Bearer $SENSU_TOKEN" \
 
 HTTP/1.1 200 OK
 {
@@ -324,7 +324,7 @@ HTTP/1.1 200 OK
 /cluster/:cluster (PUT) | 
 ----------------|------
 description     | Creates or updates the specified cluster.
-example URL     | http://hostname:8080/federation/v1/cluster/{cluster_name}
+example URL     | http://hostname:8080/api/enterprise/federation/v1/cluster/{cluster_name}
 payload         | {{< highlight shell >}}
 {
     "type": "Cluster",
@@ -354,7 +354,7 @@ The following example shows a request to delete the cluster `my_cluster`, result
 {{< highlight shell >}}
 curl -X DELETE \
 -H "Authorization: Bearer $SENSU_TOKEN" \
-http://127.0.0.1:8080/api/federation/v1/cluster/my_cluster
+http://127.0.0.1:8080/api/enterprise/federation/v1/cluster/my_cluster
 
 HTTP/1.1 204 No Content
 {{< /highlight >}}
@@ -364,7 +364,7 @@ HTTP/1.1 204 No Content
 /cluster/:cluster (DELETE) | 
 --------------------------|------
 description               | Deletes the specified cluster from Sensu.
-example url               | http://hostname:8080/api/federation/v1/cluster/{cluster_name}
+example url               | http://hostname:8080/api/enterprise/federation/v1/cluster/{cluster_name}
 response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 
