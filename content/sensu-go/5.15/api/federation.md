@@ -13,13 +13,13 @@ menu:
 	- [`/etcd-replicators` (POST)](#etcd-replicators-post)
 - [The `/etcd-replicators/:etcd-replicator` endpoint](#the-etcd-replicatorsetcd-replicator-endpoint)
 	- [`/etcd-replicators/:etcd-replicator` (GET)](#etcd-replicatorsetcd-replicator-get)
-  - [`/etcd-replicators/:etcd-replicator` (PUT)](#etcd-replicatorsetcd-replicator-put)
-  - [`/etcd-replicators/:etcd-replicator` (DELETE)](#etcd-replicatorsetcd-replicator-delete)
+	- [`/etcd-replicators/:etcd-replicator` (PUT)](#etcd-replicatorsetcd-replicator-put)
+ 	- [`/etcd-replicators/:etcd-replicator` (DELETE)](#etcd-replicatorsetcd-replicator-delete)
 - [The `/cluster` endpoint](#the-cluster-endpoint)
-  - [`/cluster` (GET)](#cluster-get)
+ 	- [`/cluster` (GET)](#cluster-get)
 - [The `/cluster/:cluster` endpoint](#the-clustercluster-endpoint)
-  - [`/cluster/:cluster` (PUT)](#clustercluster-put)
-  - [`/cluster/:cluster` (DELETE)](#clustercluster-delete)
+	- [`/cluster/:cluster` (PUT)](#clustercluster-put)
+	- [`/cluster/:cluster` (DELETE)](#clustercluster-delete)
 
 **LICENSED TIER**: Unlock the federation API in Sensu Go with a Sensu license. To activate your license, see the [getting started guide][1].
 
@@ -161,6 +161,29 @@ output               | {{< highlight json >}}
 
 ### `/etcd-replicators/:etcd-replicator` (PUT) {#etcd-replicatorsetcd-replicator-put}
 
+#### EXAMPLE {#etcd-replicatorsetcd-replicator-put-example}
+
+The following example demonstrates a request to update the replicator `my_replicator`.
+
+curl -X PUT \
+http://hostname:8080/federation/v1/etcd-replicators/my-replicator} -H "Authorization: Bearer $SENSU_TOKEN" \
+
+HTTP/1.1 200 OK
+{
+  "api_version": "federation/v1",
+  "type": "replicator",
+  "metadata": {
+    "name": "my_replicator"
+  },
+  "spec": {
+    "insecure": true,
+    "url": "http://127.0.0.1:3379",
+    "api_version": "core/v2",
+    "resource": "CheckConfig",
+    "replication_interval_seconds": 5
+  }
+}
+
 #### API Specification {#etcd-replicatorsetcd-replicator-put-specification}
 
 /etcd-replicators/:etcd-replicator (PUT) | 
@@ -223,20 +246,20 @@ The following example demonstrates a request to the `/cluster` endpoint, resulti
 {{< highlight shell >}}
 curl http://127.0.0.1:8080/api/federation/v1/cluster -H "Authorization: Bearer $SENSU_TOKEN"
 [
-  {
-    "api_version": "federation/v1",
-    "type": "cluster",
-    "metadata": {
-      "name": "my_cluster"
-    },
-    "spec": {
-      "api_urls": {
-        "url": "http://10.0.0.1:8080",
-        "url": "http://10.0.0.2:8080",
-        "url": "http://10.0.0.3:8080"
-      }
+    {
+        "type": "Cluster",
+        "api_version": "federation/v1",
+        "metadata": {
+            "name": "my_cluster"
+        },
+        "spec": {
+            "api_urls": [
+                "http://10.0.0.1:8080",
+                "http://10.0.0.2:8080",
+                "http://10.0.0.3:8080"
+            ]
+        }
     }
-  }
 ]
 {{< /highlight >}}
 
@@ -250,20 +273,20 @@ response type  | Array
 response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output         | {{< highlight shell >}}
 [
-  {
-    "api_version": "federation/v1",
-    "type": "cluster",
-    "metadata": {
-      "name": "my_cluster"
-    },
-    "spec": {
-      "api_urls": {
-        "url": "http://10.0.0.1:8080",
-        "url": "http://10.0.0.2:8080",
-        "url": "http://10.0.0.3:8080"
-      }
+    {
+        "type": "Cluster",
+        "api_version": "federation/v1",
+        "metadata": {
+            "name": "my_cluster"
+        },
+        "spec": {
+            "api_urls": [
+                "http://10.0.0.1:8080",
+                "http://10.0.0.2:8080",
+                "http://10.0.0.3:8080"
+            ]
+        }
     }
-  }
 ]
 {{< /highlight >}}
 
@@ -273,6 +296,29 @@ _**NOTE**: Only cluster admins have PUT and DELETE access to clusters._
 
 ### `/cluster/:cluster` (PUT) {#clustercluster-put}
 
+#### EXAMPLE {#clustercluster-put-example}
+
+The following example demonstrates a request to update the cluster `my_cluster`.
+
+curl -X PUT \
+http://127.0.0.1:8080/api/federation/v1/cluster/my_cluster -H "Authorization: Bearer $SENSU_TOKEN" \
+
+HTTP/1.1 200 OK
+{
+    "type": "Cluster",
+    "api_version": "federation/v1",
+    "metadata": {
+        "name": "my_cluster"
+    },
+    "spec": {
+        "api_urls": [
+            "http://10.0.0.1:8080",
+            "http://10.0.0.2:8080",
+            "http://10.0.0.3:8080"
+        ]
+    }
+}
+
 #### API Specification {#clustercluster-put-specification}
 
 /cluster/:cluster (PUT) | 
@@ -280,20 +326,20 @@ _**NOTE**: Only cluster admins have PUT and DELETE access to clusters._
 description     | Creates or updates the specified cluster.
 example URL     | http://hostname:8080/federation/v1/cluster/{cluster_name}
 payload         | {{< highlight shell >}}
-  {
+{
+    "type": "Cluster",
     "api_version": "federation/v1",
-    "type": "cluster",
     "metadata": {
-      "name": "my_cluster"
+        "name": "my_cluster"
     },
     "spec": {
-      "api_urls": {
-        "url": "http://10.0.0.1:8080",
-        "url": "http://10.0.0.2:8080",
-        "url": "http://10.0.0.3:8080"
-      }
+        "api_urls": [
+            "http://10.0.0.1:8080",
+            "http://10.0.0.2:8080",
+            "http://10.0.0.3:8080"
+        ]
     }
-  }
+}
 {{< /highlight >}}
 response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
