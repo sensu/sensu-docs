@@ -25,7 +25,7 @@ menu:
   - [Dashboard configuration](#dashboard-configuration-flags)
   - [Datastore and cluster configuration](#datastore-and-cluster-configuration-flags)
   - [Advanced configuration options](#advanced-configuration-options)
-  - [Configuring Flags as Environment Variables](#configuring-flags-as-environment-variables)
+  - [Configuration via environment variables](#configuration-via-environment-variables)
   - [Event logging](#event-logging)
   - [Example](../../files/backend.yml)
 
@@ -818,9 +818,9 @@ sensu-backend start --event-log-buffer-size 100000
 # /etc/sensu/backend.yml example
 event-log-buffer-size: 100000{{< /highlight >}}
 
-### Configuring Flags as Environment Variables
+### Configuration via environment variables
 
-The `sensu-backend` service can read environment variables from `/etc/default/sensu-backend` on Debian/Ubuntu systems and `/etc/sysconfig/sensu-backend` on RHEL systems. These files are not created by the installation package and will need to be created.
+The `sensu-backend` service configured by our supported packages will read environment variables from `/etc/default/sensu-backend` on Debian/Ubuntu systems and `/etc/sysconfig/sensu-backend` on RHEL systems. These files are not created by the installation package and will need to be created.
 
 {{< language-toggle >}}
 
