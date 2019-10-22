@@ -65,7 +65,7 @@ type         |
 description  | Top-level attribute specifying the resource type. API keys should always be of type `apikeys`.
 required     | true
 type         | String
-example      | {{< highlight shell >}}"type": "apikeys"{{< /highlight >}}
+example      | {{< highlight shell >}}"type": "APIKey"{{< /highlight >}}
 
 api_version  | 
 -------------|------
