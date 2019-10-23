@@ -42,14 +42,13 @@ To continue with this guide, please refer to the **Install Sensu Core**,
 **Configure Sensu**, and **Operating Sensu** instructions corresponding to the
 platform(s) where you will run your Sensu client(s).
 
-- [Ubuntu/Debian](../../platforms/sensu-on-ubuntu-debian/#sensu-core)
-- [RHEL/CentOS](../../platforms/sensu-on-rhel-centos/#sensu-core)
-- [Microsoft Windows](../../platforms/sensu-on-microsoft-windows/#sensu-core)
-- [Mac OS X](../../platforms/sensu-on-mac-os-x/#sensu-core)
 - [FreeBSD](../../platforms/sensu-on-freebsd/#sensu-core)
 - [IBM AIX](../../platforms/sensu-on-ibm-aix/#sensu-core)
+- [Mac OS X](../../platforms/sensu-on-mac-os-x/#sensu-core)
+- [Microsoft Windows](../../platforms/sensu-on-microsoft-windows/#sensu-core)
 - [Oracle Solaris](../../platforms/sensu-on-oracle-solaris/#sensu-core)
+- [RHEL/CentOS](../../platforms/sensu-on-rhel-centos/#sensu-core)
+- [Ubuntu/Debian](../../platforms/sensu-on-ubuntu-debian/#sensu-core)
 
 
-
-[1]:  ../installation-strategies#standalone
+[1]: ../installation-strategies#standalone
