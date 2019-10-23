@@ -244,7 +244,7 @@ The `/cluster` endpoint provides HTTP GET access to a list of clusters.
 The following example demonstrates a request to the `/clusters` endpoint, resulting in a list of clusters.
 
 {{< highlight shell >}}
-curl http://127.0.0.1:8080/api/enterprise/federation/v1/cluster -H "Authorization: Bearer $SENSU_TOKEN"
+curl http://127.0.0.1:8080/api/enterprise/federation/v1/clusters -H "Authorization: Bearer $SENSU_TOKEN"
 [
     {
         "type": "Cluster",
