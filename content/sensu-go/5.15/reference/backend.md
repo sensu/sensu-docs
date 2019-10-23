@@ -176,39 +176,48 @@ Usage:
   sensu-backend start [flags]
 
 General Flags:
-      --agent-host string               agent listener host (default "[::]")
-      --agent-port int                  agent listener port (default 8081)
-      --api-listen-address string       address to listen on for api traffic (default "[::]:8080")
-      --api-url string                  url of the api to connect to (default "http://localhost:8080")
-      --cache-dir string                path to store cached data (default "/var/cache/sensu/sensu-backend")
-      --cert-file string                TLS certificate in PEM format
-  -c, --config-file string              path to sensu-backend config file
-      --dashboard-cert-file string      dashboard TLS certificate in PEM format
-      --dashboard-host string           dashboard listener host (default "[::]")
-      --dashboard-key-file string       dashboard TLS certificate key in PEM format
-      --dashboard-port int              dashboard listener port (default 3000)
-      --debug                           enable debugging and profiling features
-      --deregistration-handler string   default deregistration handler
-      --event-log-buffer-size int       buffer size of the event logger (default 100000)
-      --event-log-file string           path to the event log file
-      --eventd-buffer-size int          number of incoming events that can be buffered (default 100)
-      --eventd-workers int              number of workers spawned for processing incoming events (default 100)
-  -h, --help                            help for start
-      --insecure-skip-tls-verify        skip TLS verification (not recommended!)
-      --keepalived-buffer-size int      number of incoming keepalives that can be buffered (default 100)
-      --keepalived-workers int          number of workers spawned for processing incoming keepalives (default 100)
-      --key-file string                 TLS certificate key in PEM format
-      --log-level string                logging level [panic, fatal, error, warn, info, debug] (default "warn")
-      --pipelined-buffer-size int       number of events to handle that can be buffered (default 100)
-      --pipelined-workers int           number of workers spawned for handling events through the event pipeline (default 100)
-  -d, --state-dir string                path to sensu state storage (default "/var/lib/sensu/sensu-backend")
-      --trusted-ca-file string          TLS CA certificate bundle in PEM format used for etcd client (mutual TLS)
+      --agent-auth-cert-file string         TLS certificate in PEM format for agent certificate authentication
+      --agent-auth-crl-urls strings         URLs of CRLs for agent certificate authentication
+      --agent-auth-key-file string          TLS certificate key in PEM format for agent certificate authentication
+      --agent-auth-trusted-ca-file string   TLS CA certificate bundle in PEM format for agent certificate authentication
+      --agent-host string                   agent listener host (default "[::]")
+      --agent-port int                      agent listener port (default 8081)
+      --agent-write-timeout int             timeout in seconds for agent writes (default 15)
+      --api-listen-address string           address to listen on for api traffic (default "[::]:8080")
+      --api-url string                      url of the api to connect to (default "http://localhost:8080")
+      --cache-dir string                    path to store cached data (default "/var/cache/sensu/sensu-backend")
+      --cert-file string                    TLS certificate in PEM format
+  -c, --config-file string                  path to sensu-backend config file
+      --dashboard-cert-file string          dashboard TLS certificate in PEM format
+      --dashboard-host string               dashboard listener host (default "[::]")
+      --dashboard-key-file string           dashboard TLS certificate key in PEM format
+      --dashboard-port int                  dashboard listener port (default 3000)
+      --debug                               enable debugging and profiling features
+      --deregistration-handler string       default deregistration handler
+      --event-log-buffer-size int           buffer size of the event logger (default 100000)
+      --event-log-file string               path to the event log file
+      --eventd-buffer-size int              number of incoming events that can be buffered (default 100)
+      --eventd-workers int                  number of workers spawned for processing incoming events (default 100)
+  -h, --help                                help for start
+      --insecure-skip-tls-verify            skip TLS verification (not recommended!)
+      --jwt-private-key-file string         path to the PEM-encoded private key to use to sign JWTs
+      --jwt-public-key-file string          path to the PEM-encoded public key to use to verify JWT signatures
+      --keepalived-buffer-size int          number of incoming keepalives that can be buffered (default 100)
+      --keepalived-workers int              number of workers spawned for processing incoming keepalives (default 100)
+      --key-file string                     TLS certificate key in PEM format
+      --log-level string                    logging level [panic, fatal, error, warn, info, debug] (default "warn")
+      --pipelined-buffer-size int           number of events to handle that can be buffered (default 100)
+      --pipelined-workers int               number of workers spawned for handling events through the event pipeline (default 100)
+  -d, --state-dir string                    path to sensu state storage (default "/var/lib/sensu/sensu-backend")
+      --trusted-ca-file string              TLS CA certificate bundle in PEM format
 
 Store Flags:
       --etcd-advertise-client-urls strings         list of this member's client URLs to advertise to the rest of the cluster. (default [http://localhost:2379])
       --etcd-cert-file string                      path to the client server TLS cert file
       --etcd-cipher-suites strings                 list of ciphers to use for etcd TLS configuration
       --etcd-client-cert-auth                      enable client cert authentication
+      --etcd-election-timeout uint                 time in ms a follower node will go without hearing a heartbeat before attempting to become leader itself (default 1000)
+      --etcd-heartbeat-interval uint               interval in ms with which the etcd leader will notify followers that it is still the leader (default 100)
       --etcd-initial-advertise-peer-urls strings   list of this member's peer URLs to advertise to the rest of the cluster (default [http://127.0.0.1:2380])
       --etcd-initial-cluster string                initial cluster configuration for bootstrapping (default "default=http://127.0.0.1:2380")
       --etcd-initial-cluster-state string          initial cluster state ("new" or "existing") (default "new")
@@ -224,8 +233,6 @@ Store Flags:
       --etcd-peer-trusted-ca-file string           path to the peer server TLS trusted CA file
       --etcd-quota-backend-bytes int               maximum etcd database size in bytes (use with caution) (default 4294967296)
       --etcd-trusted-ca-file string                path to the client server TLS trusted CA cert file
-      --etcd-heartbeat-interval                    interval at which the etcd leader notifies followers that it is still the leader
-      --etcd-election-timeout                      time that a follower node will go without hearing a heartbeat before attempting to become leader itself
       --no-embed-etcd                              don't embed etcd, use external etcd instead
 {{< /highlight >}}
 
@@ -352,6 +359,54 @@ sensu-backend start --agent-port 8081
 # /etc/sensu/backend.yml example
 agent-port: 8081{{< /highlight >}}
 
+
+| agent-auth-cert-file |      |
+-------------|------
+description  | TLS certificate in PEM format for agent certificate authentication.
+type         | String
+default      | `""`
+example      | {{< highlight shell >}}# Command line example
+sensu-backend start --agent-auth-cert-file /path/to/ssl/cert.pem
+
+# /etc/sensu/backend.yml example
+agent-auth-cert-file: /path/to/ssl/cert.pem{{< /highlight >}}
+
+
+| agent-auth-crl-urls |      |
+-------------|------
+description  | URLs of CRLs for agent certificate authentication.
+type         | String
+default      | `""`
+example      | {{< highlight shell >}}# Command line example
+sensu-backend start --agent-auth-crl-urls http://localhost/CARoot.crl
+
+# /etc/sensu/backend.yml example
+agent-auth-crl-urls: http://localhost/CARoot.crl{{< /highlight >}}
+
+
+| agent-auth-key-file|      |
+-------------|------
+description  | TLS certificate key in PEM format for agent certificate authentication.
+type         | String
+default      | `""`
+example      | {{< highlight shell >}}# Command line example
+sensu-backend start --agent-auth-key-file /path/to/ssl/key.pem
+
+# /etc/sensu/backend.yml example
+agent-auth-key-file: /path/to/ssl/key.pem{{< /highlight >}}
+
+
+| agent-auth-trusted-ca-file |      |
+-------------|------
+description  | TLS CA certificate bundle in PEM format for agent certificate authentication.
+type         | String
+default      | `""`
+example      | {{< highlight shell >}}# Command line example
+sensu-backend start --agent-auth-trusted-ca-file /path/to/ssl/ca.pem
+
+# /etc/sensu/backend.yml example
+agent-auth-trusted-ca-file: /path/to/ssl/ca.pem{{< /highlight >}}
+
 ### Security configuration flags
 
 | cert-file  |      |
@@ -401,6 +456,31 @@ sensu-backend start --insecure-skip-tls-verify
 
 # /etc/sensu/backend.yml example
 insecure-skip-tls-verify: true{{< /highlight >}}
+
+| jwt-private-key-file |      |
+-------------|------
+description  | path to the PEM-encoded private key to use to sign JWTs. _NOTE: The internal symmetric secrey key is used by default to sign all JWTs unless a private key is specified via this attribute._
+type         | String
+default      | `""`
+example      | {{< highlight shell >}}# Command line example
+sensu-backend start --jwt-private-key-file /path/to/key/private.pem
+
+# /etc/sensu/backend.yml example
+jwt-private-key-file: /path/to/key/private.pem{{< /highlight >}}
+
+
+| jwt-public-key-file |      |
+-------------|------
+description  | path to the PEM-encoded public key to use to verify JWT signatures. _NOTE: JWTs signed with the internal symmetric secret key will continue to be verified with that key._
+type         | String
+default      | `""`
+required     | false, unless `jwt-private-key-file` is defined
+example      | {{< highlight shell >}}# Command line example
+sensu-backend start --jwt-public-key-file /path/to/key/public.pem
+
+# /etc/sensu/backend.yml example
+jwt-public-key-file: /path/to/key/public.pem{{< /highlight >}}
+
 
 ### Dashboard configuration flags
 
