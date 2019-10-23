@@ -288,11 +288,11 @@ Make sure it's working:
 
 {{< highlight shell >}}
 curl -I http://localhost:80
-...
 {{< /highlight >}}
 
 {{< highlight shell >}}
 HTTP/1.1 200 OK
+...
 {{< /highlight >}}
 
 Then install the Sensu HTTP Plugin:
