@@ -324,7 +324,7 @@ HTTP/1.1 200 OK
 /clusters/:cluster (PUT) | 
 ----------------|------
 description     | Creates or updates the specified cluster.
-example URL     | http://hostname:8080/api/enterprise/federation/v1/cluster/{cluster_name}
+example URL     | http://hostname:8080/api/enterprise/federation/v1/clusters/{cluster_name}
 payload         | {{< highlight shell >}}
 {
     "type": "Cluster",
