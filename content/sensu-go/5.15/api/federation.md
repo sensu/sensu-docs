@@ -294,7 +294,7 @@ output         | {{< highlight shell >}}
 
 _**NOTE**: Only cluster admins have PUT and DELETE access to clusters._
 
-### `/cluster/:cluster` (PUT) {#clustercluster-put}
+### `/clusters/:cluster` (PUT) {#clustercluster-put}
 
 #### EXAMPLE {#clustercluster-put-example}
 
