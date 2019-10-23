@@ -354,7 +354,7 @@ The following example shows a request to delete the cluster `my_cluster`, result
 {{< highlight shell >}}
 curl -X DELETE \
 -H "Authorization: Bearer $SENSU_TOKEN" \
-http://127.0.0.1:8080/api/enterprise/federation/v1/cluster/my_cluster
+http://127.0.0.1:8080/api/enterprise/federation/v1/clusters/my_cluster
 
 HTTP/1.1 204 No Content
 {{< /highlight >}}
