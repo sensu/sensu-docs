@@ -364,7 +364,7 @@ HTTP/1.1 204 No Content
 /cluster/:cluster (DELETE) | 
 --------------------------|------
 description               | Deletes the specified cluster from Sensu.
-example url               | http://hostname:8080/api/enterprise/federation/v1/cluster/{cluster_name}
+example url               | http://hostname:8080/api/enterprise/federation/v1/clusters/{cluster_name}
 response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 
