@@ -233,7 +233,7 @@ example url               | http://hostname:8080/api/enterprise/federation/v1/et
 response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 
-## The `/cluster` endpoint
+## The `/clusters` endpoint
 
 ### `/cluster` (GET)
 
