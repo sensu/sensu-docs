@@ -76,7 +76,7 @@ example      | {{< highlight shell >}}"api_version": "core/v2"{{< /highlight >}}
 
 metadata     | 
 -------------|------
-description  | Top-level collection of metadata about the API key, including the `name`. The `metadata` map is always at the top level of the check definition. This means that in `wrapped-json` and `yaml` formats, the `metadata` scope occurs outside the `spec` scope.
+description  | Top-level collection of metadata about the API key, including the `name`. The `metadata` map is always at the top level of the API key definition. This means that in `wrapped-json` and `yaml` formats, the `metadata` scope occurs outside the `spec` scope.
 required     | true
 type         | Map of key-value pairs
 example      | {{< highlight shell >}}"metadata": {
