@@ -15,11 +15,11 @@ menu:
 	- [`/etcd-replicators/:etcd-replicator` (GET)](#etcd-replicatorsetcd-replicator-get)
 	- [`/etcd-replicators/:etcd-replicator` (PUT)](#etcd-replicatorsetcd-replicator-put)
  	- [`/etcd-replicators/:etcd-replicator` (DELETE)](#etcd-replicatorsetcd-replicator-delete)
-- [The `/cluster` endpoint](#the-cluster-endpoint)
- 	- [`/cluster` (GET)](#cluster-get)
-- [The `/cluster/:cluster` endpoint](#the-clustercluster-endpoint)
-	- [`/cluster/:cluster` (PUT)](#clustercluster-put)
-	- [`/cluster/:cluster` (DELETE)](#clustercluster-delete)
+- [The `/clusters` endpoint](#the-clusters-endpoint)
+ 	- [`/clusters` (GET)](#clusters-get)
+- [The `/clusters/:cluster` endpoint](#the-clusterscluster-endpoint)
+	- [`/clusters/:cluster` (PUT)](#clusterscluster-put)
+	- [`/clusters/:cluster` (DELETE)](#clusterscluster-delete)
 
 **LICENSED TIER**: Unlock the federation API in Sensu Go with a Sensu license. To activate your license, see the [getting started guide][1].
 
@@ -46,7 +46,7 @@ curl http://127.0.0.1:8080/api/enterprise/federation/v1/etcd-replicators -H "Aut
     },
     "spec": {
       "insecure": true,
-      "url": "http://127.0.0.1:3379",
+      "url": "http://remote-etcd.example.com:2379",
       "api_version": "core/v2",
       "resource": "CheckConfig",
       "replication_interval_seconds": 5
@@ -73,7 +73,7 @@ output         | {{< highlight shell >}}
     },
     "spec": {
       "insecure": true,
-      "url": "http://127.0.0.1:3379",
+      "url": "http://remote-etcd.example.com:2379",
       "api_version": "core/v2",
       "resource": "CheckConfig",
       "replication_interval_seconds": 5
@@ -97,7 +97,7 @@ payload         | {{< highlight shell >}}
   },
   "spec": {
     "insecure": true,
-    "url": "http://127.0.0.1:3379",
+    "url": "http://remote-etcd.example.com:2379",
     "api_version": "core/v2",
     "resource": "CheckConfig",
     "replication_interval_seconds": 5
@@ -126,7 +126,7 @@ curl http://127.0.0.1:8080/api/enterprise/federation/v1/etcd-replicators/my_repl
   },
   "spec": {
     "insecure": true,
-    "url": "http://127.0.0.1:3379",
+    "url": "http://remote-etcd.example.com:2379",
     "api_version": "core/v2",
     "resource": "CheckConfig",
     "replication_interval_seconds": 5
@@ -151,7 +151,7 @@ output               | {{< highlight json >}}
   },
   "spec": {
     "insecure": true,
-    "url": "http://127.0.0.1:3379",
+    "url": "http://remote-etcd.example.com:2379",
     "api_version": "core/v2",
     "resource": "CheckConfig",
     "replication_interval_seconds": 5
@@ -177,7 +177,7 @@ HTTP/1.1 200 OK
   },
   "spec": {
     "insecure": true,
-    "url": "http://127.0.0.1:3379",
+    "url": "http://remote-etcd.example.com:2379",
     "api_version": "core/v2",
     "resource": "CheckConfig",
     "replication_interval_seconds": 5
@@ -199,7 +199,7 @@ payload         | {{< highlight shell >}}
   },
   "spec": {
     "insecure": true,
-    "url": "http://127.0.0.1:3379",
+    "url": "http://remote-etcd.example.com:2379",
     "api_version": "core/v2",
     "resource": "CheckConfig",
     "replication_interval_seconds": 5
@@ -239,7 +239,7 @@ response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Miss
 
 The `/cluster` endpoint provides HTTP GET access to a list of clusters.
 
-#### EXAMPLE {#cluster-get-example}
+#### EXAMPLE {#clusters-get-example}
 
 The following example demonstrates a request to the `/clusters` endpoint, resulting in a list of clusters.
 
@@ -250,8 +250,8 @@ curl http://127.0.0.1:8080/api/enterprise/federation/v1/clusters -H "Authorizati
         "type": "Cluster",
         "api_version": "federation/v1",
         "metadata": {
-            "name": "my_cluster"
-        },
+            "name": "us-west-2a"
+            },
         "spec": {
             "api_urls": [
                 "http://10.0.0.1:8080",
@@ -263,7 +263,7 @@ curl http://127.0.0.1:8080/api/enterprise/federation/v1/clusters -H "Authorizati
 ]
 {{< /highlight >}}
 
-#### API Specification {#cluster-get-specification}
+#### API Specification {#clusters-get-specification}
 
 /clusters (GET)  | 
 ---------------|------
@@ -277,8 +277,8 @@ output         | {{< highlight shell >}}
         "type": "Cluster",
         "api_version": "federation/v1",
         "metadata": {
-            "name": "my_cluster"
-        },
+            "name": "us-west-2a"
+            },
         "spec": {
             "api_urls": [
                 "http://10.0.0.1:8080",
@@ -290,25 +290,26 @@ output         | {{< highlight shell >}}
 ]
 {{< /highlight >}}
 
-## The `/clusters/:cluster` endpoint {#the-clustercluster-endpoint}
+## The `/clusters/:cluster` endpoint {#the-clusterscluster-endpoint}
 
 _**NOTE**: Only cluster admins have PUT and DELETE access to clusters._
 
-### `/clusters/:cluster` (PUT) {#clustercluster-put}
+### `/clusters/:cluster` (PUT) {#clusterscluster-put}
 
-#### EXAMPLE {#clustercluster-put-example}
+#### EXAMPLE {#clusterscluster-put-example}
 
-The following example demonstrates a request to update the cluster `my_cluster`.
+The following example demonstrates a request to update the cluster `us-west-2a`.
 
+{{< highlight shell >}}
 curl -X PUT \
-http://127.0.0.1:8080/api/enterprise/federation/v1/clusters/my_cluster -H "Authorization: Bearer $SENSU_TOKEN" \
+http://127.0.0.1:8080/api/enterprise/federation/v1/clusters/us-west-2a -H "Authorization: Bearer $SENSU_TOKEN" \
 
 HTTP/1.1 200 OK
 {
     "type": "Cluster",
     "api_version": "federation/v1",
     "metadata": {
-        "name": "my_cluster"
+        "name": "us-west-2a"
     },
     "spec": {
         "api_urls": [
@@ -318,19 +319,20 @@ HTTP/1.1 200 OK
         ]
     }
 }
+{{< /highlight >}}
 
-#### API Specification {#clustercluster-put-specification}
+#### API Specification {#clusterscluster-put-specification}
 
 /clusters/:cluster (PUT) | 
 ----------------|------
 description     | Creates or updates the specified cluster.
-example URL     | http://hostname:8080/api/enterprise/federation/v1/clusters/{cluster_name}
+example URL     | http://hostname:8080/api/enterprise/federation/v1/clusters/us-west-2a
 payload         | {{< highlight shell >}}
 {
     "type": "Cluster",
     "api_version": "federation/v1",
     "metadata": {
-        "name": "my_cluster"
+        "name": "us-west-2a"
     },
     "spec": {
         "api_urls": [
@@ -343,28 +345,28 @@ payload         | {{< highlight shell >}}
 {{< /highlight >}}
 response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
-### `/clusters/:cluster` (DELETE) {#cluster-delete}
+### `/clusters/:cluster` (DELETE) {#clusters-delete}
 
 The `/clusters/:cluster` endpoint provides HTTP DELETE access to delete the specified cluster from Sensu.
 
-### EXAMPLE {#clustercluster-delete-example}
+### EXAMPLE {#clusterscluster-delete-example}
 
-The following example shows a request to delete the cluster `my_cluster`, resulting in a successful HTTP 204 No Content response.
+The following example shows a request to delete the cluster `us-west-2a`, resulting in a successful HTTP 204 No Content response.
 
 {{< highlight shell >}}
 curl -X DELETE \
 -H "Authorization: Bearer $SENSU_TOKEN" \
-http://127.0.0.1:8080/api/enterprise/federation/v1/clusters/my_cluster
+http://127.0.0.1:8080/api/enterprise/federation/v1/clusters/us-west-2a
 
 HTTP/1.1 204 No Content
 {{< /highlight >}}
 
-#### API Specification {#etcd-replicatorsetcd-replicator-delete-specification}
+#### API Specification {#clusterscluster-delete-specification}
 
-/cluster/:cluster (DELETE) | 
+/clusters/:cluster (DELETE) | 
 --------------------------|------
 description               | Deletes the specified cluster from Sensu.
-example url               | http://hostname:8080/api/enterprise/federation/v1/clusters/{cluster_name}
+example url               | http://hostname:8080/api/enterprise/federation/v1/clusters/us-west-2a
 response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 
