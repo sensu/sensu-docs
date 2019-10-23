@@ -290,7 +290,7 @@ output         | {{< highlight shell >}}
 ]
 {{< /highlight >}}
 
-## The `/cluster/:cluster` endpoint {#the-clustercluster-endpoint}
+## The `/clusters/:cluster` endpoint {#the-clustercluster-endpoint}
 
 _**NOTE**: Only cluster admins have PUT and DELETE access to clusters._
 
