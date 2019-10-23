@@ -235,7 +235,7 @@ response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Miss
 
 ## The `/clusters` endpoint
 
-### `/cluster` (GET)
+### `/clusters` (GET)
 
 The `/cluster` endpoint provides HTTP GET access to a list of clusters.
 
