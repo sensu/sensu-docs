@@ -301,7 +301,7 @@ _**NOTE**: Only cluster admins have PUT and DELETE access to clusters._
 The following example demonstrates a request to update the cluster `my_cluster`.
 
 curl -X PUT \
-http://127.0.0.1:8080/api/enterprise/federation/v1/cluster/my_cluster -H "Authorization: Bearer $SENSU_TOKEN" \
+http://127.0.0.1:8080/api/enterprise/federation/v1/clusters/my_cluster -H "Authorization: Bearer $SENSU_TOKEN" \
 
 HTTP/1.1 200 OK
 {
