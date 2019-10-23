@@ -29,6 +29,8 @@ In this tutorial, you'll download the Sensu sandbox and create a monitoring work
 git clone https://github.com/sensu/sandbox && cd sandbox/sensu-go
 {{< /highlight >}}
 
+_**NOTE**: If you've cloned the sandbox repository before, run `git pull https://github.com/sensu/sandbox && cd sandbox/sensu-go` instead._
+
 **3. Start Vagrant**
 
 {{< highlight shell >}}
@@ -40,7 +42,7 @@ It's intended for you to use as a learning tool &mdash; we do not recommend usin
 
 The sandbox startup process takes about 5 minutes.
 
-_NOTE: The sandbox configures VirtualBox to forward TCP ports 3002 and 4002 from the sandbox virtual machine (VM) to the localhost to make it easier for you to interact with the sandbox dashboards. Dashboard links provided in this tutorial assume port forwarding from the VM to the host is active._
+_**NOTE**: The sandbox configures VirtualBox to forward TCP ports 3002 and 4002 from the sandbox virtual machine (VM) to the localhost to make it easier for you to interact with the sandbox dashboards. Dashboard links provided in this tutorial assume port forwarding from the VM to the host is active._
 
 **4. SSH into the sandbox**
 
