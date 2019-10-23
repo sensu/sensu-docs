@@ -345,7 +345,7 @@ response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 
 
 ### `/clusters/:cluster` (DELETE) {#cluster-delete}
 
-The `/cluster/:cluster` endpoint provides HTTP DELETE access to delete the specified cluster from Sensu.
+The `/clusters/:cluster` endpoint provides HTTP DELETE access to delete the specified cluster from Sensu.
 
 ### EXAMPLE {#clustercluster-delete-example}
 
