@@ -28,11 +28,9 @@ The following example demonstrates a request to the `/apikeys` API, resulting in
 
 {{< highlight shell >}}
 curl http://127.0.0.1:8080/api/core/v2/apikeys -H "Authorization: Bearer $SENSU_TOKEN"
-{
-  "username": "admin"
-}
 
 HTTP/1.1 200 OK
+
 [
   {
     "metadata": {
@@ -69,17 +67,23 @@ output         | {{< highlight shell >}}
 
 /apikeys (POST) | 
 ----------------|------
-description     | Creates a new API key. The server will create a new key ID (UUID or similar). The response will return HTTP 201 and a Location header where the key can be retrieved.
+description     | Creates a new API key, a Sensu-generated UUID. The response will include HTTP 201 and a `Location` header that contains the relative path to the new API key.
 example URL     | http://hostname:8080/api/core/v2/apikeys
 response codes  | <ul><li>**Success**: 200 (OK)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-payload         | {{< highlight shell >}}
+request payload  | {{< highlight shell >}}
+{
+  "username": "admin"
+}
+{{< /highlight >}}
+response payload | {{< highlight shell >}}
+Location: /api/core/v2/apikeys/83abef1e-e7d7-4beb-91fc-79ad90084d5b
 {
   "metadata": {
-    "name": "my-api-key"
+    "name": "83abef1e-e7d7-4beb-91fc-79ad90084d5b"
     },
-  "key": "79190ae3-ca48-4e08-80e3-97e8c89af32e",
+  "key": "83abef1e-e7d7-4beb-91fc-79ad90084d5b",
   "username": "admin",
-  "created_at": 1569874845
+  "created_at": 1570640363
 }
 {{< /highlight >}}
 
@@ -94,16 +98,16 @@ The `/apikeys/:apikey` GET endpoint retrieves the specified API key.
 In the following example, querying the `/apikeys/:apikey` API returns the requested `:apikey` definition or an error if the key is not found.
 
 {{< highlight shell >}}
-curl http://127.0.0.1:8080/api/core/v2/apikeys/{my-api-key} -H "Authorization: Bearer $SENSU_TOKEN"
+curl http://127.0.0.1:8080/api/core/v2/apikeys/83abef1e-e7d7-4beb-91fc-79ad90084d5b -H "Authorization: Bearer $SENSU_TOKEN"
 
 HTTP/1.1 200 OK
 {
   "metadata": {
-    "name": "my-api-key"
+    "name": "83abef1e-e7d7-4beb-91fc-79ad90084d5b"
     },
-  "key": "79190ae3-ca48-4e08-80e3-97e8c89af32e",
+  "key": "83abef1e-e7d7-4beb-91fc-79ad90084d5b",
   "username": "admin",
-  "created_at": 1569874845
+  "created_at": 1570640363
 }
 {{< /highlight >}}
 
@@ -112,17 +116,17 @@ HTTP/1.1 200 OK
 /apikeys/:apikey (GET) | 
 ---------------------|------
 description          | Returns the specified API key.
-example url          | http://hostname:8080/api/core/v2/apikeys/{my-api-key}
+example url          | http://hostname:8080/api/core/v2/apikeys/83abef1e-e7d7-4beb-91fc-79ad90084d5b
 response type        | Map
 response codes       | <ul><li>**Success**: 200 (OK)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output               | {{< highlight json >}}
 {
   "metadata": {
-    "name": "my-api-key"
+    "name": "83abef1e-e7d7-4beb-91fc-79ad90084d5b"
     },
-  "key": "79190ae3-ca48-4e08-80e3-97e8c89af32e",
+  "key": "83abef1e-e7d7-4beb-91fc-79ad90084d5b",
   "username": "admin",
-  "created_at": 1569874845
+  "created_at": 1570640363
 }
 {{< /highlight >}}
 
@@ -133,13 +137,13 @@ output               | {{< highlight json >}}
 /apikeys/:apikey (DELETE) | 
 ----------------|------
 description     | Revokes the specified API key.
-example URL     | http://hostname:8080/api/core/v2/apikeys/{my-api-key}
+example URL     | http://hostname:8080/api/core/v2/apikeys/83abef1e-e7d7-4beb-91fc-79ad90084d5b
 response codes  | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output          | {{< highlight shell >}}
-curl -X DELETE -H "Authorization: Bearer $SENSU_TOKEN"  http://localhost:8080/api/core/v2/apikeys/my-api-key
+curl -X DELETE -H "Authorization: Bearer $SENSU_TOKEN"  http://localhost:8080/api/core/v2/apikeys/83abef1e-e7d7-4beb-91fc-79ad90084d5b
 
 curl -I -X DELETE -H "Authorization: Bearer $SENSU_TOKEN"  http://
-demo.sensuplusgremlin.rocks:8080/api/core/v2/apikeys/{my-api-key}
+demo.sensuplusgremlin.rocks:8080/api/core/v2/apikeys/83abef1e-e7d7-4beb-91fc-79ad90084d5b
 4
 HTTP/1.1 204 No Content
 Content-Type: application/json
