@@ -47,8 +47,8 @@ You can use sensuctl to confirm that both the `sensu-plugins-http` and `sensu-ru
 sensuctl asset list
           Name                                                URL                                       Hash    
 ────────────────────────── ─────────────────────────────────────────────────────────────────────────── ───────── 
- sensu-plugins-http         //github.com/.../sensu-plugins-http_5.0.0_centos_linux_amd64.tar.gz         31023af  
- sensu-ruby-runtime         //github.com/.../sensu-ruby-runtime_0.0.5_centos_linux_amd64.tar.gz         1c9f0af 
+ sensu-plugins-http         //assets.bonsai.sensu.io/.../sensu-plugins-http_5.1.1_centos_linux_amd64.tar.gz         31023af  
+ sensu-ruby-runtime         //assets.bonsai.sensu.io/.../sensu-ruby-runtime_0.0.10_ruby-2.4.4_centos_linux_amd64.tar.gz     338b88b 
 {{< /highlight >}}
 
 ### Creating the check
@@ -122,16 +122,14 @@ sensuctl check list
 
 ### Adding the subscription
 
-To run the check, we'll need a Sensu agent with the subscription `proxy`.
-After [installing an agent][install], open `/etc/sensu/agent.yml`
-and add the `proxy` subscription so the subscription configuration looks like:
+To execute the check, you'll need a Sensu agent entity that is subscribed to the subscription `proxy`. After [installing an agent][install], open `/etc/sensu/agent.yml` and add the `proxy` subscription so the subscription configuration looks like this:
 
 {{< highlight yml >}}
 subscriptions:
   - proxy
 {{< /highlight >}}
 
-Then restart the agent.
+Then restart the agent:
 
 {{< highlight shell >}}
 sudo service sensu-agent restart
@@ -139,7 +137,7 @@ sudo service sensu-agent restart
 
 ### Validating the check
 
-Now we can use sensuctl to see that Sensu has created the proxy entity `sensu-site`.
+Now you can use `sensuctl entity list` to see that Sensu has created the proxy entity `sensu-site`.
 
 {{< highlight shell >}}
 sensuctl entity list

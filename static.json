@@ -23,8 +23,12 @@
             "url": "/sensu-enterprise-dashboard/2.16/$1",
             "status": 301
         },
+        "~ ^/sensu-go/latest/guides/create-a-ready-only-user$": {
+            "url": "/sensu-go/latest/guides/create-read-only-user",
+            "status": 301
+        },
         "~ ^/sensu-go/latest/?(.*)$": {
-            "url": "/sensu-go/5.13/$1",
+            "url": "/sensu-go/5.14/$1",
             "status": 301
         },
         "~ ^/plugins/latest/?(.*)$": {

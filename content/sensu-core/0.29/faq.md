@@ -34,9 +34,9 @@ Enterprise](https://sensu.io/features/enterprise) a try.
 | Solaris 11         | ❌     | ✅     | sparc   |                          |
 | IBM AIX 6.1 +      | ❌     | ✅     | powerpc |                          |
 | Windows 2012r2     | ✅     | ✅     | x86     | 32bit artifact built on 64bit platform |
-| Mac OS X 10.10     | ✅     | ❌     | x86     | See [Mac platform notes][4] for instructions |
-| Mac OS X 10.11     | ✅     | ❌     | x86     | See [Mac platform notes][4] for instructions |
-| Mac OS X 10.12     | ✅     | ❌     | x86     | See [Mac platform notes][4] for instructions |
+| Mac OS X 10.10     | ✅     | ❌     | x86     | See [Mac platform notes][5] for instructions |
+| Mac OS X 10.11     | ✅     | ❌     | x86     | See [Mac platform notes][5] for instructions |
+| Mac OS X 10.12     | ✅     | ❌     | x86     | See [Mac platform notes][5] for instructions |
 
 > Do I need RabbitMQ to be installed on every system I wish to monitor?
 
@@ -145,8 +145,7 @@ including RHEL, CentOS, Debian and Ubuntu.
 
 > Is Sensu available for Microsoft Windows?
 
-**Yes.** An MSI installer package is available on the
-[Downloads] page. Please visit the Sensu documentation for
+**Yes.** An [MSI installer package][1] is available. Please visit the Sensu documentation for
 more information on [configuring Sensu on
 Windows](../platforms/sensu-on-microsoft-windows/).
 
@@ -174,9 +173,9 @@ Frequently, Sensu staff or community members may ask you to print your configura
 
 > RabbitMQ is giving me an error about `wrong credentials`, but everything seems correct. What do I do?
 
-Due to [AMQP's][1] implementation in RabbitMQ, it's often difficult to distinguish a SSL handshake failure from a bad username/password combination. If you've ensured that the username/password combination in your configuration is correct, we encourage you to check your RabbitMQ/Erlang versions against [RabbitMQ's "Which Erlang" article][2] to see if your versions are able to reliably support TLS.
+Due to [AMQP's][2] implementation in RabbitMQ, it's often difficult to distinguish a SSL handshake failure from a bad username/password combination. If you've ensured that the username/password combination in your configuration is correct, we encourage you to check your RabbitMQ/Erlang versions against [RabbitMQ's "Which Erlang" article][3] to see if your versions are able to reliably support TLS.
 
-It's also worth noting that as of Sensu 0.27, our build processes changed and we [upgraded the version of OpenSSL][3], and upgrading your client (if < 0.27) may solve the issue.
+It's also worth noting that as of Sensu 0.27, our build processes changed and we [upgraded the version of OpenSSL][4], and upgrading your client (if < 0.27) may solve the issue.
 
 > What Firewall Rules Does Sensu Require?
 
@@ -208,8 +207,8 @@ See the table below for the location of the respective files needed:
 
 _NOTE: For `config.json`, it is not necessary to have this file present on either a Sensu client or server, provided that you have the rest of the configuration files present._
 
-[downloads]: https://sensuapp.org/downloads
-[1]: https://www.amqp.org/
-[2]: https://www.rabbitmq.com/which-erlang.html
-[3]: ../installation/upgrading/#tls-ssl-changes
-[4]: https://github.com/sensu/sensu-omnibus/blob/master/platform-docs/MAC_OS_X.md
+[1]: https://repositories.sensuapp.org/msi/
+[2]: https://www.amqp.org/
+[3]: https://www.rabbitmq.com/which-erlang.html
+[4]: ../installation/upgrading/#tls-ssl-changes
+[5]: https://github.com/sensu/sensu-omnibus/blob/master/platform-docs/MAC_OS_X.md
