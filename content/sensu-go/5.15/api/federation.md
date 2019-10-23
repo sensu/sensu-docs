@@ -321,7 +321,7 @@ HTTP/1.1 200 OK
 
 #### API Specification {#clustercluster-put-specification}
 
-/cluster/:cluster (PUT) | 
+/clusters/:cluster (PUT) | 
 ----------------|------
 description     | Creates or updates the specified cluster.
 example URL     | http://hostname:8080/api/enterprise/federation/v1/cluster/{cluster_name}
