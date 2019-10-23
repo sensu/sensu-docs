@@ -343,7 +343,7 @@ payload         | {{< highlight shell >}}
 {{< /highlight >}}
 response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
-### `/cluster/:cluster` (DELETE) {#cluster-delete}
+### `/clusters/:cluster` (DELETE) {#cluster-delete}
 
 The `/cluster/:cluster` endpoint provides HTTP DELETE access to delete the specified cluster from Sensu.
 
