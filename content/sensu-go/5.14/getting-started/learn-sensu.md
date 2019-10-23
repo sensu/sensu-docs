@@ -466,7 +466,7 @@ Now you can continue exploring Sensu with a clean slate. Here are some resources
 - Try another [lesson in the Sensu sandbox][7]
 - [Install Sensu Go][8]
 - [Collect StatsD metrics][9]
-- [Create a ready-only user][10]
+- [Create a read-only user][10]
 
 
 [1]: ../../sensuctl/reference/#first-time-setup
