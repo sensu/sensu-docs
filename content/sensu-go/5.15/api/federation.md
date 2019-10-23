@@ -268,7 +268,7 @@ curl http://127.0.0.1:8080/api/enterprise/federation/v1/clusters -H "Authorizati
 /clusters (GET)  | 
 ---------------|------
 description    | Returns a list of clusters.
-example url    | http://hostname:8080/api/enterprise/federation/v1/cluster
+example url    | http://hostname:8080/api/enterprise/federation/v1/clusters
 response type  | Array
 response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output         | {{< highlight shell >}}
