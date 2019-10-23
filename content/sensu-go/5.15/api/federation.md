@@ -265,7 +265,7 @@ curl http://127.0.0.1:8080/api/enterprise/federation/v1/clusters -H "Authorizati
 
 #### API Specification {#cluster-get-specification}
 
-/cluster (GET)  | 
+/clusters (GET)  | 
 ---------------|------
 description    | Returns a list of clusters.
 example url    | http://hostname:8080/api/enterprise/federation/v1/cluster
