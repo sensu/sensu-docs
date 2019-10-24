@@ -37,7 +37,7 @@ In addition, an entity can contain system information such as the hostname, OS, 
 
 ## Usage limits
 
-This version of Sensu has no functional limitations based on entity count. If your Sensu instance includes over 1,000 entities, contact us to learn about [license-activated features][9] designed for monitoring at scale. See [Discourse][10] for more information about our usage policy. 
+Sensu's free entity limit is 100 entities. All [license-activated features][9] are available for free in the packaged Sensu Go distribution up to an entity limit of 100. If your Sensu instance includes more than 100 entities, [contact us][10] to learn how to upgrade your installation and increase your limit. See [Discourse][11] for more information about our usage policy.
 
 ## Proxy entities
 
@@ -773,4 +773,5 @@ spec:
 [api-filter]: ../../api/overview#filtering
 [sensuctl-filter]: ../../sensuctl/reference#filtering
 [9]: ../../getting-started/enterprise
-[10]: https://discourse.sensu.io/t/introducing-usage-limits-in-the-sensu-go-free-tier/1156
+[10]: https://sensu.io/contact
+[11]: https://discourse.sensu.io/t/introducing-usage-limits-in-the-sensu-go-free-tier/1156
