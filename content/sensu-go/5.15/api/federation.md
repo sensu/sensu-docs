@@ -165,11 +165,11 @@ output               | {{< highlight json >}}
 
 The following example demonstrates a request to update the replicator `my_replicator`.
 
+{{< highlight shell >}}
 curl -X PUT \
-http://hostname:8080/api/enterprise/federation/v1/etcd-replicators/my-replicator} -H "Authorization: Bearer $SENSU_TOKEN" \
-
-HTTP/1.1 200 OK
-{
+-H "Authorization: Bearer $SENSU_TOKEN" \
+-H 'Content-Type: application/json' \
+-d '{
   "api_version": "federation/v1",
   "type": "replicator",
   "metadata": {
@@ -182,7 +182,11 @@ HTTP/1.1 200 OK
     "resource": "CheckConfig",
     "replication_interval_seconds": 5
   }
-}
+}' \
+http://hostname:8080/api/enterprise/federation/v1/etcd-replicators/my-replicator
+
+HTTP/1.1 200 OK
+{{< /highlight >}}
 
 #### API Specification {#etcd-replicatorsetcd-replicator-put-specification}
 
@@ -251,7 +255,7 @@ curl http://127.0.0.1:8080/api/enterprise/federation/v1/clusters -H "Authorizati
         "api_version": "federation/v1",
         "metadata": {
             "name": "us-west-2a"
-            },
+        },
         "spec": {
             "api_urls": [
                 "http://10.0.0.1:8080",
@@ -278,7 +282,7 @@ output         | {{< highlight shell >}}
         "api_version": "federation/v1",
         "metadata": {
             "name": "us-west-2a"
-            },
+        },
         "spec": {
             "api_urls": [
                 "http://10.0.0.1:8080",
@@ -302,10 +306,9 @@ The following example demonstrates a request to update the cluster `us-west-2a`.
 
 {{< highlight shell >}}
 curl -X PUT \
-http://127.0.0.1:8080/api/enterprise/federation/v1/clusters/us-west-2a -H "Authorization: Bearer $SENSU_TOKEN" \
-
-HTTP/1.1 200 OK
-{
+-H "Authorization: Bearer $SENSU_TOKEN" \
+-H 'Content-Type: application/json' \
+-d '{
     "type": "Cluster",
     "api_version": "federation/v1",
     "metadata": {
@@ -318,7 +321,10 @@ HTTP/1.1 200 OK
             "http://10.0.0.3:8080"
         ]
     }
-}
+}' \
+http://127.0.0.1:8080/api/enterprise/federation/v1/clusters/us-west-2a
+
+HTTP/1.1 200 OK
 {{< /highlight >}}
 
 #### API Specification {#clusterscluster-put-specification}
@@ -331,10 +337,11 @@ payload         | {{< highlight shell >}}
 {
     "type": "Cluster",
     "api_version": "federation/v1",
-    "metadata": {
-        "name": "us-west-2a"
-    },
+    "metadata": {},
     "spec": {
+        "metadata": {
+            "name": "us-west-2a"
+        },
         "api_urls": [
             "http://10.0.0.1:8080",
             "http://10.0.0.2:8080",
