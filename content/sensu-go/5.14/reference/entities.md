@@ -28,12 +28,15 @@ menu:
 
 ## How do entities work?
 
-Agent entities are monitoring agents, which are installed and run on every system that needs to be monitored. The entity is responsible for registering the system with the Sensu backend service, sending keepalive messages (the Sensu heartbeat mechanism), and executing monitoring checks. Each entity is a member of one or more `subscriptions` – a list of roles and/or responsibilities assigned to the agent entity (ex: a webserver or a database). Sensu entities will "subscribe" to (or watch for) check requests published by the Sensu backend (via the Sensu Transport), execute the corresponding requests locally, and publish the results of the check back to the transport (to be processed by a Sensu backend).
-
 An entity represents anything (ex: server, container, network switch) that needs to be monitored, including the full range of infrastructure, runtime and application types that compose a complete monitoring environment (from server hardware to serverless functions).
 We call these monitored parts of an infrastructure "entities".
 An entity not only provides context to event data (what/where the event is from) but an event's uniqueness is determined by the check name and the name of the entity upon which the check ran.
 In addition, an entity can contain system information such as the hostname, OS, platform, and version.
+
+Agent entities are monitoring agents, which are installed and run on every system that needs to be monitored.
+The entity is responsible for registering the system with the Sensu backend service, sending keepalive messages (the Sensu heartbeat mechanism), and executing monitoring checks.
+Each entity is a member of one or more `subscriptions` – a list of roles and/or responsibilities assigned to the agent entity (ex: a webserver or a database).
+Sensu entities will "subscribe" to (or watch for) check requests published by the Sensu backend (via the Sensu Transport), execute the corresponding requests locally, and publish the results of the check back to the transport (to be processed by a Sensu backend).
 
 ## Usage limits
 
