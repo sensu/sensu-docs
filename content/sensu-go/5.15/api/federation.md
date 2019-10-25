@@ -336,7 +336,7 @@ HTTP/1.1 200 OK
 /clusters/:cluster (GET) | 
 ---------------------|------
 description          | Returns the specified cluster.
-example url          | http://hostname:8080/api/enterprise/federation/v1/clusters/{cluster_name}
+example url          | http://hostname:8080/api/enterprise/federation/v1/clusters/us-west-2a
 response type        | Map
 response codes       | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output               | {{< highlight json >}}
