@@ -341,7 +341,6 @@ payload         | {{< highlight shell >}}
             "name": "us-west-2a"
       },
     "spec": {
-        "metadata": {
             "name": "us-west-2a"
         },
         "api_urls": [
