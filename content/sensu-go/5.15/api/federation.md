@@ -341,7 +341,6 @@ payload         | {{< highlight shell >}}
             "name": "us-west-2a"
       },
     "spec": {
-            "name": "us-west-2a"
         },
         "api_urls": [
             "http://10.0.0.1:8080",
