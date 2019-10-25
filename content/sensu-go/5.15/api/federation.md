@@ -337,7 +337,9 @@ payload         | {{< highlight shell >}}
 {
     "type": "Cluster",
     "api_version": "federation/v1",
-    "metadata": {},
+    "metadata": {
+            "name": "us-west-2a"
+      },
     "spec": {
         "metadata": {
             "name": "us-west-2a"
