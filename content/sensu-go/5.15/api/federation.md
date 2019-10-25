@@ -339,7 +339,7 @@ payload         | {{< highlight shell >}}
     "api_version": "federation/v1",
     "metadata": {
             "name": "us-west-2a"
-      },
+    },
     "spec": {
         "api_urls": [
             "http://10.0.0.1:8080",
