@@ -121,7 +121,7 @@ output               | {{< highlight json >}}
 {
   "metadata": {
     "name": "83abef1e-e7d7-4beb-91fc-79ad90084d5b"
-    },
+  },
   "username": "admin",
   "created_at": 1570640363
 }
