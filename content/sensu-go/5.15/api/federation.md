@@ -18,6 +18,7 @@ menu:
 - [The `/clusters` endpoint](#the-clusters-endpoint)
  	- [`/clusters` (GET)](#clusters-get)
 - [The `/clusters/:cluster` endpoint](#the-clusterscluster-endpoint)
+	- [`/clusters/:cluster` (GET)](#clusterscluster-get)
 	- [`/clusters/:cluster` (PUT)](#clusterscluster-put)
 	- [`/clusters/:cluster` (DELETE)](#clusterscluster-delete)
 
@@ -248,7 +249,11 @@ The `/clusters` endpoint provides HTTP GET access to a list of clusters.
 The following example demonstrates a request to the `/clusters` endpoint, resulting in a list of clusters.
 
 {{< highlight shell >}}
-curl http://127.0.0.1:8080/api/enterprise/federation/v1/clusters -H "Authorization: Bearer $SENSU_TOKEN"
+curl -H "Authorization: Bearer $SENSU_TOKEN" \
+http://127.0.0.1:8080/api/enterprise/federation/v1/clusters
+
+HTTP/1.1 200 OK
+
 [
     {
         "type": "Cluster",
@@ -296,9 +301,64 @@ output         | {{< highlight shell >}}
 
 ## The `/clusters/:cluster` endpoint {#the-clusterscluster-endpoint}
 
-_**NOTE**: Only cluster admins have PUT and DELETE access to clusters._
+### `/clusters/:cluster` (GET) {#clusterscluster-get}
+
+The `/clusters/:cluster` endpoint provides HTTP GET access to data for a specific `cluster`, by cluster `name`.
+
+#### EXAMPLE {#clusterscluster-get-example}
+
+In the following example, querying the `/clusters/:cluster` endpoing returns a JSON Map containing the requested `:etcd-replicator`.
+
+{{< highlight shell >}}
+curl -H "Authorization: Bearer $SENSU_TOKEN" \
+http://127.0.0.1:8080/api/enterprise/federation/v1/clusters/us-west-2a
+
+HTTP/1.1 200 OK
+
+{
+  "type": "Cluster",
+  "api_version": "federation/v1",
+  "metadata": {
+      "name": "us-west-2a"
+  },
+  "spec": {
+      "api_urls": [
+          "http://10.0.0.1:8080",
+          "http://10.0.0.2:8080",
+          "http://10.0.0.3:8080"
+      ]
+  }
+}
+{{< /highlight >}}
+
+#### API Specification {#etcd-replicatorsetcd-replicator-get-specification}
+
+/clusters/:cluster (GET) | 
+---------------------|------
+description          | Returns the specified cluster.
+example url          | http://hostname:8080/api/enterprise/federation/v1/clusters/{cluster_name}
+response type        | Map
+response codes       | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+output               | {{< highlight json >}}
+{
+    "type": "Cluster",
+    "api_version": "federation/v1",
+    "metadata": {
+        "name": "us-west-2a"
+    },
+    "spec": {
+        "api_urls": [
+            "http://10.0.0.1:8080",
+            "http://10.0.0.2:8080",
+            "http://10.0.0.3:8080"
+        ]
+    }
+}
+{{< /highlight >}}
 
 ### `/clusters/:cluster` (PUT) {#clusterscluster-put}
+
+_**NOTE**: Only cluster admins have PUT access to clusters._
 
 #### EXAMPLE {#clusterscluster-put-example}
 
@@ -354,6 +414,8 @@ response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 
 ### `/clusters/:cluster` (DELETE) {#clusters-delete}
 
 The `/clusters/:cluster` endpoint provides HTTP DELETE access to delete the specified cluster from Sensu.
+
+_**NOTE**: Only cluster admins have DELETE access to clusters._
 
 ### EXAMPLE {#clusterscluster-delete-example}
 
