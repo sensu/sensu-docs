@@ -67,7 +67,7 @@ following improvements:
 
 ### CHANGES {#enterprise-v3-6-2-changes}
 
-- **BUGFIX**: Fixed EventMachine `send_data` null pointer exceptions: patching `send_data` for null pointer will return 0 like the C reactor.
+- **BUGFIX**: Fixed handling of closed connections, no longer producing Java::JavaLang::NullPointerException errors.
 
 ## Enterprise 3.6.1 Release Notes {#enterprise-v3-6-1}
 
