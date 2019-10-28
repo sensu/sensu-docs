@@ -25,7 +25,6 @@ menu:
   - [Dashboard configuration](#dashboard-configuration-flags)
   - [Datastore and cluster configuration](#datastore-and-cluster-configuration-flags)
   - [Advanced configuration options](#advanced-configuration-options)
-  - [Configuration via environment variables](#configuration-via-environment-variables)
   - [Event logging](#event-logging)
   - [Example](../../files/backend.yml)
 
@@ -817,40 +816,6 @@ sensu-backend start --event-log-buffer-size 100000
 
 # /etc/sensu/backend.yml example
 event-log-buffer-size: 100000{{< /highlight >}}
-
-### Configuration via environment variables
-
-The `sensu-backend` service configured by our supported packages will read environment variables from `/etc/default/sensu-backend` on Debian/Ubuntu systems and `/etc/sysconfig/sensu-backend` on RHEL systems. These files are not created by the installation package and will need to be created.
-
-{{< language-toggle >}}
-
-{{< highlight "Ubuntu/Debian" >}}
-$ sudo touch /etc/default/sensu-backend
-{{< /highlight >}}
-
-{{< highlight "RHEL/CentOS" >}}
-$ sudo touch /etc/sysconfig/sensu-backend
-{{< /highlight >}}
-
-{{< /language-toggle >}}
-
-For any flag you are configuring as an environment variable, you will need to append `sensu_` and convert dashes (`-`) to underscores (`_`). This will then need to be added to the appropriate file created above and the service will need to be restarted.
-
-In the following example `api-listen-address` flag is configured as an environment variable and set to `192.168.100.20:8080`.
-
-{{< language-toggle >}}
-
-{{< highlight "Ubuntu/Debian" >}}
-$ echo 'sensu_api_listen_address=192.168.100.20:8080' | sudo tee /etc/default/sensu-backend
-$ sudo systemctl restart sensu-backend
-{{< /highlight >}}
-
-{{< highlight "RHEL/CentOS" >}}
-$ echo 'sensu_api_listen_address=192.168.100.20:8080' | sudo tee /etc/sysconfig/sensu-backend
-$ sudo systemctl restart sensu-backend
-{{< /highlight >}}
-
-{{< /language-toggle >}}
 
 #### Log rotation
 
