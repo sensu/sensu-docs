@@ -43,11 +43,8 @@ and/or enabling the Sensu client process to start automatically on system boot.
 
 ### Ubuntu/Debian
 
-Sensu Core is installed on Ubuntu and Debian systems via a native system
-installer package (i.e. a .deb file), which is available for download from the
-[Sensu Downloads][2] page, and from APT package management repositories. The
-Sensu Core package installs several processes including `sensu-server`,
-`sensu-api`, and `sensu-client`.
+Sensu Core is installed on Ubuntu and Debian systems via a native system installer package (i.e. a .deb file), which is available for [download][2] and from APT package management repositories.
+The Sensu Core package installs several processes including `sensu-server`, `sensu-api`, and `sensu-client`.
 
 Sensu packages for Debian target current [`stable` and `oldstable`
 releases][15].
@@ -156,7 +153,7 @@ sudo yum install sensu{{< /highlight >}}
 {{< platformBlockClose >}}
 
 [1]: ../../quick-start/five-minute-install
-[2]: https://sensu.io/features/downloads
+[2]: https://repositories.sensuapp.org/apt/pool/
 [12]: ../../reference/transport/#transport-configuration
 [13]: ../../reference/clients/#client-configuration
 [14]: ../../reference/redis/#configure-sensu
