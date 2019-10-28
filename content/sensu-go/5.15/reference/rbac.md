@@ -550,7 +550,7 @@ example      | {{< highlight shell >}}"resources": ["checks"]{{< /highlight >}}
 
 resource_names    | 
 -------------|------ 
-description  | Specific resource names that the rule has permission to access. Resource name permissions are only available for `get`, `delete`, and `update` verbs.
+description  | Specific resource names that the rule has permission to access. Resource name permissions are only taken into account for requests using `get`, `update`, and `delete` verbs.
 required     | false
 type         | Array
 example      | {{< highlight shell >}}"resource_names": ["check-cpu"]{{< /highlight >}}
@@ -808,6 +808,7 @@ description  | Username or group name.
 required     | true 
 type         | String
 example      | {{< highlight shell >}}"name": "alice"{{< /highlight >}}
+ example with prefix | {{< highlight shell >}}"name": "ad:alice"{{< /highlight >}}
 
 ### Role binding example
 
@@ -936,6 +937,50 @@ The following role and role binding give a `dev` group access to create and mana
     "subjects": [
       {
         "name": "dev",
+        "type": "Group"
+      }
+    ]
+  }
+}
+{{< /highlight >}}
+
+### Role and role binding examples with a group prefix
+
+In the following code example, if a [groups prefix][38] of `ad` is configured for [Active Directory authentication][39], this role and role binding will give a `dev` group access to create and manage Sensu workflows within the `default` namespace.
+
+{{< highlight text >}}
+{
+  "type": "Role",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "workflow-creator",
+    "namespace": "default"
+  },
+  "spec": {
+    "rules": [
+      {
+        "resource_names": [],
+        "resources": ["checks", "hooks", "filters", "events", "filters", "mutators", "handlers"],
+        "verbs": ["get", "list", "create", "update", "delete"]
+      }
+    ]
+  }
+}
+{
+  "type": "RoleBinding",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "dev-binding-with-groups-prefix",
+    "namespace": "default"
+  },
+  "spec": {
+    "role_ref": {
+      "name": "workflow-creator",
+      "type": "Role"
+    },
+    "subjects": [
+      {
+        "name": "ad:dev",
         "type": "Group"
       }
     ]
@@ -1179,3 +1224,5 @@ You can add these resources to Sensu using [`sensuctl create`][31].
 [35]: #cluster-role-bindings
 [36]: ../../sensuctl/reference#creating-resources-across-namespaces
 [37]: ../license
+[38]: ../../installation/auth/#groups-prefix
+[39]: ../../installation/auth/#ad-groups-prefix
