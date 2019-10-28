@@ -28,16 +28,14 @@ menu:
 
 ## Install Sensu Core {#sensu-core}
 
-Sensu Core is installed on Microsoft Windows systems via a native system
-installer package (i.e. a .msi file), which is available for download from the
-[Sensu Downloads][1] page, and from [this repository][2].
+Sensu Core is installed on Microsoft Windows systems via a native system installer package (i.e. a .msi file), which is available for [download][1] and from [this repository][2].
 
 ### Download and install Sensu using the Sensu MSI {#download-and-install-sensu-core}
 
 _NOTE: As of Sensu version 1.0, repository URLs have changed.
 To install or upgrade to the latest version of Sensu, please ensure you have updated existing configurations to follow the repository URL format specified below._
 
-1. Download Sensu from the [Sensu Downloads][1] page.
+1. Download the Sensu [Microsoft Windows package][1].
 
 2. Double-click the `sensu-1.4.1-1-x64.msi` installer package to launch the
    installer, accept the Sensu Core [MIT License][4] and install Sensu using the
@@ -180,7 +178,7 @@ sc start sensu-client
 sc stop sensu-client{{< /highlight >}}
 
 
-[1]:  https://sensuapp.org/download
+[1]:  https://repositories.sensuapp.org/msi/
 [2]:  https://sensu.global.ssl.fastly.net/msi/
 [3]:  https://sensu.global.ssl.fastly.net/msi/2012r2/sensu-1.4.1-1-x64.msi
 [4]:  https://sensuapp.org/mit-license
