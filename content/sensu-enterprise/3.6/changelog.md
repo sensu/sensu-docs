@@ -67,7 +67,7 @@ following improvements:
 
 ### CHANGES {#enterprise-v3-6-2-changes}
 
-- **BUGFIX**: Fixed handling of closed connections, no longer producing Java::JavaLang::NullPointerException errors.
+- **BUGFIX**: Fixed connection handling so that unexpectedly closed connections no longer produce Java::JavaLang::NullPointerException errors.
 
 ## Enterprise 3.6.1 Release Notes {#enterprise-v3-6-1}
 
