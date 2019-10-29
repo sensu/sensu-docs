@@ -25,7 +25,7 @@ menu:
   - [Dashboard configuration](#dashboard-configuration-flags)
   - [Datastore and cluster configuration](#datastore-and-cluster-configuration-flags)
   - [Advanced configuration options](#advanced-configuration-options)
-  - [Configuration via Environment Variables](#configuration-via-environment-variables)
+  - [Configuration via environment variables](#configuration-via-environment-variables)
   - [Event logging](#event-logging)
   - [Example](../../files/backend.yml)
 
@@ -671,7 +671,7 @@ no-embed-etcd: true{{< /highlight >}}
 
 | etcd-cipher-suites    |      |
 ------------------------|------
-description             | List of allowed cipher suites for etcd TLS configuration. Sensu supports TLS 1.0-1.2 cipher suites as listed in the [Go TLS documentation](https://golang.org/pkg/crypto/tls/#pkg-constants). You can use this attribute to defend your TLS servers from attacks on weak TLS ciphers. The default cipher suites are determined by Go, based on the hardware used. _NOTE: To use TLS 1.3, add the following Environment Variable: `GODEBUG="tls13=1"`._
+description             | List of allowed cipher suites for etcd TLS configuration. Sensu supports TLS 1.0-1.2 cipher suites as listed in the [Go TLS documentation](https://golang.org/pkg/crypto/tls/#pkg-constants). You can use this attribute to defend your TLS servers from attacks on weak TLS ciphers. The default cipher suites are determined by Go, based on the hardware used. _NOTE: To use TLS 1.3, add the following environment variable: `GODEBUG="tls13=1"`._
 recommended             | {{< highlight shell >}}
 etcd-cipher-suites:
   - TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384
@@ -818,9 +818,9 @@ sensu-backend start --event-log-buffer-size 100000
 # /etc/sensu/backend.yml example
 event-log-buffer-size: 100000{{< /highlight >}}
 
-### Configuration via Environment Variables
+### Configuration via environment variables
 
-The `sensu-backend` service configured by our supported packages will read Environment Variables from `/etc/default/sensu-backend` on Debian/Ubuntu systems and `/etc/sysconfig/sensu-backend` on RHEL systems. These files are not created by the installation package, so you will need to create them.
+The `sensu-backend` service configured by our supported packages will read environment variables from `/etc/default/sensu-backend` on Debian/Ubuntu systems and `/etc/sysconfig/sensu-backend` on RHEL systems. These files are not created by the installation package, so you will need to create them.
 
 {{< language-toggle >}}
 
@@ -834,19 +834,19 @@ $ sudo touch /etc/sysconfig/sensu-backend
 
 {{< /language-toggle >}}
 
-For any configuration flag you wish to specify as an Environment Variable, you will need to append `sensu_` and convert dashes (`-`) to underscores (`_`). Then, add the resulting Environment Variable to the appropriate environment file described above. You must restart the service for these settings to take effect.
+For any configuration flag you wish to specify as an environment variable, you will need to append `sensu_` and convert dashes (`-`) to underscores (`_`). Then, add the resulting environment variable to the appropriate environment file described above. You must restart the service for these settings to take effect.
 
-In the following example, the `api-listen-address` flag is configured as an Environment Variable and set to `192.168.100.20:8080`.
+In the following example, the `API_LISTEN_ADDRESS` flag is configured as an environment variable and set to `192.168.100.20:8080`.
 
 {{< language-toggle >}}
 
 {{< highlight "Ubuntu/Debian" >}}
-$ echo 'sensu_api_listen_address=192.168.100.20:8080' | sudo tee /etc/default/sensu-backend
+$ echo 'SENSU_API_LISTEN_ADDRESS=192.168.100.20:8080' | sudo tee /etc/default/sensu-backend
 $ sudo systemctl restart sensu-backend
 {{< /highlight >}}
 
 {{< highlight "RHEL/CentOS" >}}
-$ echo 'sensu_api_listen_address=192.168.100.20:8080' | sudo tee /etc/sysconfig/sensu-backend
+$ echo 'SENSU_API_LISTEN_ADDRESS=192.168.100.20:8080' | sudo tee /etc/sysconfig/sensu-backend
 $ sudo systemctl restart sensu-backend
 {{< /highlight >}}
 
