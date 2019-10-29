@@ -61,7 +61,7 @@ _NOTE: Sensu Enterprise is built on Sensu Core. Sensu Core changes are documente
 
 ## Enterprise 3.6.2 Release Notes {#enterprise-v3-6-2}
 
-**October 16, 2019** &mdash; Sensu Enterprise version 3.6.2 has been
+**October 28, 2019** &mdash; Sensu Enterprise version 3.6.2 has been
 released and is available for immediate download. Please note the
 following improvements:
 
