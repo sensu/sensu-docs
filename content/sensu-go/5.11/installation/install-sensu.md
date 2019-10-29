@@ -322,9 +322,6 @@ service sensu-agent start
 # (default: C:\ProgramData\sensu\config\agent.yml.example) to C:\ProgramData\sensu\config\agent.yml
 cp C:\ProgramData\sensu\config\agent.yml.example C:\ProgramData\sensu\config\agent.yml
 
-# Start sensu-backend using a service manager
-service sensu-backend start
-
 # Change to the sensu\sensu-agent\bin directory where you've installed Sensu.
 cd 'C:\Program Files\sensu\sensu-agent\bin'
 
