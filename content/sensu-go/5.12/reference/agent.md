@@ -1221,7 +1221,7 @@ $ sudo touch /etc/sysconfig/sensu-agent
 
 For any configuration flag you wish to specify as an Environment Variable, you will need to append `sensu_` and convert any dashes (`-`) to underscores (`_`). Then, add the resulting Environment Variable to the appropriate environment file described above. You must restart the service for these settings to take effect.
 
-In the following example, `api-host` flag is configured as an Environment Variable and set to `"0.0.0.0"`.
+In the following example, the `api-host` flag is configured as an Environment Variable and set to `"0.0.0.0"`.
 
 {{< language-toggle >}}
 
