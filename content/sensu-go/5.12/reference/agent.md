@@ -32,6 +32,7 @@ menu:
   - [Socket configuration](#socket-configuration-flags)
   - [StatsD configuration](#statsd-configuration-flags)
   - [Allow list configuration](#allow-list-configuration)
+  - [Example allow list configuration file](#example-allow-list-configuration-file)
   - [Configuration via Environment Variables](#configuration-via-environment-variables)
   - [Example](../../files/agent.yml)
 
@@ -1203,40 +1204,6 @@ required              | false
 type                  | Boolean
 example               | {{< highlight shell >}}"enable_env": true{{< /highlight >}}
 
-### Configuration via Environment Variables
-
-The `sensu-agent` service configured by our supported packages will read Environment Variables from `/etc/default/sensu-agent` on Debian/Ubuntu systems and `/etc/sysconfig/sensu-agent` on RHEL systems. These files are not created by the installation package, so you will need to create them.
-
-{{< language-toggle >}}
-
-{{< highlight "Ubuntu/Debian" >}}
-$ sudo touch /etc/default/sensu-agent
-{{< /highlight >}}
-
-{{< highlight "RHEL/CentOS" >}}
-$ sudo touch /etc/sysconfig/sensu-agent
-{{< /highlight >}}
-
-{{< /language-toggle >}}
-
-For any configuration flag you wish to specify as an Environment Variable, you will need to append `sensu_` and convert any dashes (`-`) to underscores (`_`). Then, add the resulting Environment Variable to the appropriate environment file described above. You must restart the service for these settings to take effect.
-
-In the following example, the `api-host` flag is configured as an Environment Variable and set to `"0.0.0.0"`.
-
-{{< language-toggle >}}
-
-{{< highlight "Ubuntu/Debian" >}}
-$ echo 'sensu_api_host="0.0.0.0' | sudo tee -a /etc/default/sensu-agent
-$ sudo systemctl restart sensu-agent
-{{< /highlight >}}
-
-{{< highlight "RHEL/CentOS" >}}
-$ echo 'sensu_api_host="0.0.0.0' | sudo tee -a /etc/sysconfig/sensu-agent
-$ sudo systemctl restart sensu-agent
-{{< /highlight >}}
-
-{{< /language-toggle >}}
-
 ### Example allow list configuration file
 
 {{< language-toggle >}}
@@ -1287,6 +1254,41 @@ $ sudo systemctl restart sensu-agent
 {{< /highlight >}}
 
 {{< /language-toggle >}}
+
+### Configuration via Environment Variables
+
+The `sensu-agent` service configured by our supported packages will read Environment Variables from `/etc/default/sensu-agent` on Debian/Ubuntu systems and `/etc/sysconfig/sensu-agent` on RHEL systems. These files are not created by the installation package, so you will need to create them.
+
+{{< language-toggle >}}
+
+{{< highlight "Ubuntu/Debian" >}}
+$ sudo touch /etc/default/sensu-agent
+{{< /highlight >}}
+
+{{< highlight "RHEL/CentOS" >}}
+$ sudo touch /etc/sysconfig/sensu-agent
+{{< /highlight >}}
+
+{{< /language-toggle >}}
+
+For any configuration flag you wish to specify as an Environment Variable, you will need to append `sensu_` and convert any dashes (`-`) to underscores (`_`). Then, add the resulting Environment Variable to the appropriate environment file described above. You must restart the service for these settings to take effect.
+
+In the following example, the `api-host` flag is configured as an Environment Variable and set to `"0.0.0.0"`.
+
+{{< language-toggle >}}
+
+{{< highlight "Ubuntu/Debian" >}}
+$ echo 'sensu_api_host="0.0.0.0' | sudo tee -a /etc/default/sensu-agent
+$ sudo systemctl restart sensu-agent
+{{< /highlight >}}
+
+{{< highlight "RHEL/CentOS" >}}
+$ echo 'sensu_api_host="0.0.0.0' | sudo tee -a /etc/sysconfig/sensu-agent
+$ sudo systemctl restart sensu-agent
+{{< /highlight >}}
+
+{{< /language-toggle >}}
+
 
 [1]: ../../installation/install-sensu#install-sensu-agents
 [2]: ../backend
