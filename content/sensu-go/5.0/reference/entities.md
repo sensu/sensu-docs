@@ -27,16 +27,24 @@ menu:
 
 ## How do entities work?
 
-Agent entities are monitoring agents, which are installed and run on every system that needs to be monitored. The entity is responsible for registering the system with the Sensu backend service, sending keepalive messages (the Sensu heartbeat mechanism), and executing monitoring checks. Each entity is a member of one or more `subscriptions` – a list of roles and/or responsibilities assigned to the agent entity (ex: a webserver or a database). Sensu entities will "subscribe" to (or watch for) check requests published by the Sensu server (via the Sensu Transport), execute the corresponding requests locally, and publish the results of the check back to the transport (to be processed by a Sensu server).
-
 An entity represents anything (ex: server, container, network switch) that needs to be monitored, including the full range of infrastructure, runtime and application types that compose a complete monitoring environment (from server hardware to serverless functions).
 We call these monitored parts of an infrastructure "entities".
 An entity not only provides context to event data (what/where the event is from) but an event's uniqueness is determined by the check name and the name of the entity upon which the check ran.
 In addition, an entity can contain system information such as the hostname, OS, platform, and version.
 
+Agent entities are monitoring agents that are installed and run on every system that needs to be monitored.
+The entity is responsible for registering the system with the Sensu backend service, sending keepalive messages (the Sensu heartbeat mechanism), and executing monitoring checks.
+Each entity is a member of one or more `subscriptions`: a list of roles and/or responsibilities assigned to the agent entity (ex: a webserver or a database).
+Sensu entities will "subscribe" to (or watch for) check requests published by the Sensu backend (via the Sensu Transport), execute the corresponding requests locally, and publish the results of the check back to the transport (to be processed by a Sensu backend).
+
+[Proxy entities][9] are dynamically created entities that are added to the entity store if an entity does not already exist for a check result.
+Proxy entities allow Sensu to monitor external resources on systems where a Sensu agent cannot be installed (like a network switch or website) using the defined check `ProxyEntityName` to create a proxy entity for the external resource.
+
 ## Proxy entities
 
-Proxy entities (formerly known as proxy clients, "Just-in-time" or "JIT" clients) are dynamically created entities, added to the entity store if an entity does not already exist for a check result. Proxy entity registration differs from keepalive-based registration because the registration event happens while processing a check result (not a keepalive message). Sensu proxy entities allow Sensu to monitor external resources on systems and/or devices where a sensu-agent cannot be installed (such a network switch) using the defined check ProxyEntityName to create a proxy entity for the external resource.
+Proxy entities (formerly known as proxy clients, "Just-in-time" or "JIT" clients) are dynamically created entities that are added to the entity store if an entity does not already exist for a check result. Sensu proxy entities allow Sensu to monitor external resources on systems and/or devices where a sensu-agent cannot be installed (such a network switch) using the defined check `ProxyEntityName` to create a proxy entity for the external resource.
+
+Proxy entity registration differs from keepalive-based registration because the registration event happens while processing a check result (not a keepalive message).
 
 ## Managing entity labels
 
@@ -749,5 +757,7 @@ spec:
 [6]: ../filters
 [7]: ../tokens
 [8]: #metadata-attributes
+[9]: #proxy-entities
 [sc]: ../../sensuctl/reference#creating-resources
 [sp]: #spec-attributes
+
