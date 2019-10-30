@@ -1,6 +1,6 @@
 ---
 title: "Etcd replicators"
-description: "Etcd replicators allow you to manage RBAC resources in one place and mirror the changes to follower clusters. Read the reference to set up Sensu etcd replicator federation."
+description: "Etcd replicators allow you to manage RBAC resources in one place and mirror the changes to follower clusters. Read the reference to set up RBAC policy replication between Sensu clusters."
 weight: 10
 version: "5.15"
 product: "Sensu Go"
