@@ -79,7 +79,7 @@ spec:
   insecure: false
   url: http://127.0.0.1:3379
   api_version: core/v2
-  resource: CheckConfig
+  resource: Role
   replication_interval_seconds: 30
 {{< /highlight >}}
 
