@@ -13,7 +13,7 @@ menu:
 - [Delete a replicator](#delete-a-replicator)
 - [Replicator configuration](#replicator-configuration)
 - [etcd-eplicators specification](#etcdreplicators-specification)
-- [Example etcd-replicators resource](#example-etcdreplicators-resource)
+- [Example etcd-replicators resources](#example-etcdreplicators-resources)
 
 **LICENSED TIER**: Unlock the etcd-replicators datatype in Sensu Go with a Sensu license. To activate your license, see the [getting started guide][1].
 
@@ -129,7 +129,11 @@ required     | true
 type         | String
 example      | {{< highlight shell >}}replication_interval_seconds: 30{{< /highlight >}}
 
-## Example etcd-replicators resource
+## Example etcd-replicators resources
+
+If you replicate the following four examples for `Role`, `RoleBinding`, `ClusterRole`, and `ClusterRoleBinding` resources, you can expect a full replication of [RBAC policy][3].
+
+### Example `Role` resource
 
 {{< language-toggle >}}
 
@@ -137,12 +141,12 @@ example      | {{< highlight shell >}}replication_interval_seconds: 30{{< /highl
 api_version: federation/v1
 type: replicator
 metadata:
-  name: my_replicator
+  name: role_replicator
 spec:
   insecure: false
   url: http://127.0.0.1:3379
   api_version: core/v2
-  resource: CheckConfig
+  resource: Role
   replication_interval_seconds: 30
 {{< /highlight >}}
 
@@ -151,13 +155,121 @@ spec:
   "api_version": "federation/v1",
   "type": "replicator",
   "metadata": {
-    "name": "my_replicator"
+    "name": "role_replicator"
   },
   "spec": {
     "insecure": false,
     "url": "http://127.0.0.1:3379",
     "api_version": "core/v2",
-    "resource": "CheckConfig",
+    "resource": "Role",
+    "replication_interval_seconds": 30
+  }
+}
+{{< /highlight >}}
+
+{{< /language-toggle >}}
+
+### Example `RoleBinding` resource
+
+{{< language-toggle >}}
+
+{{< highlight yml >}}
+api_version: federation/v1
+type: replicator
+metadata:
+  name: rolebinding_replicator
+spec:
+  insecure: false
+  url: http://127.0.0.1:3379
+  api_version: core/v2
+  resource: RoleBinding
+  replication_interval_seconds: 30
+{{< /highlight >}}
+
+{{< highlight json >}}
+{
+  "api_version": "federation/v1",
+  "type": "replicator",
+  "metadata": {
+    "name": "rolebinding_replicator"
+  },
+  "spec": {
+    "insecure": false,
+    "url": "http://127.0.0.1:3379",
+    "api_version": "core/v2",
+    "resource": "RoleBinding",
+    "replication_interval_seconds": 30
+  }
+}
+{{< /highlight >}}
+
+{{< /language-toggle >}}
+
+### Example `ClusterRole` resource
+
+{{< language-toggle >}}
+
+{{< highlight yml >}}
+api_version: federation/v1
+type: replicator
+metadata:
+  name: clusterrole_replicator
+spec:
+  insecure: false
+  url: http://127.0.0.1:3379
+  api_version: core/v2
+  resource: ClusterRole
+  replication_interval_seconds: 30
+{{< /highlight >}}
+
+{{< highlight json >}}
+{
+  "api_version": "federation/v1",
+  "type": "replicator",
+  "metadata": {
+    "name": "clusterrole_replicator"
+  },
+  "spec": {
+    "insecure": false,
+    "url": "http://127.0.0.1:3379",
+    "api_version": "core/v2",
+    "resource": "ClusterRole",
+    "replication_interval_seconds": 30
+  }
+}
+{{< /highlight >}}
+
+{{< /language-toggle >}}
+
+### Example `ClusterRoleBinding` resource
+
+{{< language-toggle >}}
+
+{{< highlight yml >}}
+api_version: federation/v1
+type: replicator
+metadata:
+  name: clusterrolebinding_replicator
+spec:
+  insecure: false
+  url: http://127.0.0.1:3379
+  api_version: core/v2
+  resource: Role
+  replication_interval_seconds: 30
+{{< /highlight >}}
+
+{{< highlight json >}}
+{
+  "api_version": "federation/v1",
+  "type": "replicator",
+  "metadata": {
+    "name": "clusterrolebinding_replicator"
+  },
+  "spec": {
+    "insecure": false,
+    "url": "http://127.0.0.1:3379",
+    "api_version": "core/v2",
+    "resource": "ClusterRoleBinding",
     "replication_interval_seconds": 30
   }
 }
