@@ -45,16 +45,24 @@ Read the [upgrade guide][1] for information on upgrading to the latest version o
 
 ## 5.15.0 release notes
 
-**October 31, 2019** &mdash; The latest release of Sensu Go, version 5.15.0, is now available for download. This release includes feature additions like ... In addition, this release includes ... and bug fixes that ....
+**November X, 2019** &mdash; The latest release of Sensu Go, version 5.15.0, is now available for download. This release includes feature additions like ... In addition, this release includes ... and bug fixes that ....
 
 See the [upgrade guide][1] to upgrade Sensu to version 5.15.0.
+
+**IMPORTANT**
+Sensu's free entity limit is now 100 entities. All [license-activated features][79] are available for free in the packaged Sensu Go distribution up to an entity limit of 100. If your Sensu instance includes more than 100 entities, [contact us][90] to learn how to upgrade your installation and increase your limit. See [Discourse][91] for more information about our usage policy.
 
 **NEW FEATURES:**
 
 - ([Licensed tier][79]) Added support for the [federation cluster registration api][85].
+- ([Licensed tier][79]) Added MSI and NuGet builds for [sensuctl][89]. Also, MSI and NuGet installations now add the bin directory to the system PATH on Windows.
 - Added the [APIKey resource][86], with HTTP API support for POST, GET, and DELETE and [sensuctl commands][87] to manage the APIKey resource.
 - Added support for using [API keys for API authentication][88].
 - Added support for sensu-backend service environment variables.
+
+**SECURITY**
+
+- ([Licensed tier][79]) Removed support for UPN binding without a binding account or anonymous binding, which allows Sensu to effectively refresh claims during access token renewal.
 
 **IMPROVEMENTS:**
 
@@ -63,6 +71,8 @@ See the [upgrade guide][1] to upgrade Sensu to version 5.15.0.
 **FIXES:**
 
 - As a result of upgrading etcd, TLS etcd clients that lose their connection will successfully reconnect when using `--no-embed-etcd`.
+- Check TTL and keepalive switches are now correctly buried when associated events and entities are deleted. As a result, Sensu now uses far fewer leases for check TTLs and keepalives, which improves stability for most deployments.
+- Corrected a minor UX issue in interactive filter commands in sensuctl.
 
 ## 5.14.1 release notes
 
@@ -715,3 +725,6 @@ To get started with Sensu Go:
 [86]: /sensu-go/5.15/reference/apikeys
 [87]: /sensu-go/5.15/guides/use-apikey-feature/#sensuctl-management-commands
 [88]: /sensu-go/5.15/api/overview/#authenticate-with-the-api-key-feature
+[89]: /sensu-go/5.15/sensuctl/reference/
+[90]: https://sensu.io/contact
+[91]: https://discourse.sensu.io/t/introducing-usage-limits-in-the-sensu-go-free-tier/1156
