@@ -781,12 +781,14 @@ Sensuctl supports both installing asset definitions directly from [Bonsai][34] a
 
 ### Usage
 
-To install an asset definition directly from Bonsai, use `sensuctl asset add [NAME][:VERSION]`, replacing `[NAME]` with the name of the asset from Bonsai. `[:VERSION]` is only required if you require a specific version or are pinning to a specific version. 
+To install an asset definition directly from Bonsai, use `sensuctl asset add [NAMESPACE/NAME][:VERSION]`. `[:VERSION]` is only required if you require a specific version or are pinning to a specific version. Replace `[NAMESPACE/NAME]` with the namespace and name of the asset from Bonsai:
+
+![Bonsai page for InfluxDB handler showing namespace and name][35]
 
 {{< highlight shell >}}
-sensuctl asset add sensu/sensu-influxdb-handler:3.1.1
-fetching bonsai asset: sensu/sensu-influxdb-handler:3.1.1
-added asset: sensu/sensu-influxdb-handler:3.1.1
+sensuctl asset add sensu/sensu-influxdb-handler:3.1.2
+fetching bonsai asset: sensu/sensu-influxdb-handler:3.1.2
+added asset: sensu/sensu-influxdb-handler:3.1.2
 {{< /highlight >}}
 
 You can also use the `--rename` flag to rename the asset on install.
@@ -840,3 +842,4 @@ sensu/sensu-influxdb-handler  sensu/sensu-influxdb-handler       3.1.1          
 [32]: ../../reference/datastore
 [33]: #creating-resources-across-namespaces
 [34]: https://bonsai.sensu.io/
+[35]: /images/sensu-influxdb-handler-namespace.png
