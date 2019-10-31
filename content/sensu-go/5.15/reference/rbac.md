@@ -197,6 +197,7 @@ Cluster-wide resources cannot be assigned to a namespace and can only be accesse
 | `cluster`   | Sensu clusters running multiple [Sensu backends][1] |
 | `clusterrolebindings`   | Cluster-wide role assigners  |
 | `clusterroles`   | Cluster-wide permission sets  |
+| `etcd-replicators` | [Mirror RBAC resource changes][40] to follower clusters |
 | `namespaces` | Resource partitions within a Sensu instance |
 | `users` | People or agents interacting with Sensu |
 | `authproviders` | [Authentication provider][32] configuration (licensed tier)|
@@ -1226,3 +1227,4 @@ You can add these resources to Sensu using [`sensuctl create`][31].
 [37]: ../license
 [38]: ../../installation/auth/#groups-prefix
 [39]: ../../installation/auth/#ad-groups-prefix
+[40]: ../../reference/etcdreplicators
