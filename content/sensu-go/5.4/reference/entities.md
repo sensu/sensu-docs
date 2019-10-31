@@ -13,8 +13,8 @@ menu:
 - [How do entities work?](#how-do-entities-work)
 - [Proxy entities](#proxy-entities)
 - [Managing entity labels](#managing-entity-labels)
-  - [Proxy entities](#proxy-entities-managed)
-  - [Agent entities](#agent-entities-managed)
+  - [Proxy entity labels](#proxy-entities-managed)
+  - [Agent entity labels](#agent-entities-managed)
 - [Entities specification](#entities-specification)
 	- [Top-level attributes](#top-level-attributes)
   - [Spec attributes](#spec-attributes)
@@ -42,15 +42,13 @@ Proxy entities allow Sensu to monitor external resources on systems where a Sens
 
 ## Proxy entities
 
-Proxy entities (formerly known as proxy clients, "Just-in-time" or "JIT" clients) are dynamically created entities that are added to the entity store if an entity does not already exist for a check result. Sensu proxy entities allow Sensu to monitor external resources on systems and/or devices where a sensu-agent cannot be installed (such a network switch) using the defined check `ProxyEntityName` to create a proxy entity for the external resource.
-
-Proxy entity registration differs from keepalive-based registration because the registration event happens while processing a check result (not a keepalive message).
+Proxy entities (formerly known as proxy clients, "Just-in-time" or "JIT" clients) are dynamically created entities, added to the entity store if an entity does not already exist for a check result. Proxy entity registration differs from keepalive-based registration because the registration event happens while processing a check result (not a keepalive message). Sensu proxy entities allow Sensu to monitor external resources on systems and/or devices where a sensu-agent cannot be installed (such a network switch) using the defined check ProxyEntityName to create a proxy entity for the external resource.
 
 ## Managing entity labels
 
 Custom labels let you organize entities into meaningful collections that can be selected using [filters][6] and [tokens][7].
 
-### Proxy entities{#proxy-entities-managed}
+### Proxy entity labels{#proxy-entities-managed}
 
 For entities with class `proxy`, you can create and manage labels using sensuctl.
 For example, to create a proxy entity with a `url` label using sensuctl `create`, create a file called `example.json` with an entity definition that includes `labels`.
@@ -152,7 +150,13 @@ spec:
 
 {{< /language-toggle >}}
 
-### Agent entities{#agent-entities-managed}
+#### Proxy entity checks
+
+Proxy entities allow Sensu to [monitor external resources][12] on systems or devices where a Sensu agent cannot be installed, like a network switch, website, or API endpoint. You can configure a check with a proxy entity name to associate the check results with that proxy entity. On the first check result, if the proxy entity does not exist, Sensu will create the entity as a proxy entity.
+
+After you create a proxy entity check, define which agents will run the check by configuring a subscription. See [proxy requests][11] for details on creating a proxy check for a proxy entity.
+
+### Agent entity labels{#agent-entities-managed}
 
 For entities with class `agent`, you can define entity attributes in the `/etc/sensu/agent.yml` configuration file.
 For example, to add a `url` label, open `/etc/sensu/agent.yml` and add configuration for `labels`.
@@ -760,3 +764,5 @@ spec:
 [9]: #proxy-entities
 [sc]: ../../sensuctl/reference#creating-resources
 [sp]: #spec-attributes
+[11]: ../checks/#proxy-requests
+[12]: ../../guides/monitor-external-resources/
