@@ -12,7 +12,7 @@ menu:
 - [Create a replicator](#create-a-replicator)
 - [Delete a replicator](#delete-a-replicator)
 - [Replicator configuration](#replicator-configuration)
-- [etcd-eplicators specification](#etcdreplicators-specification)
+- [etcd-replicators specification](#etcdreplicators-specification)
 - [Example etcd-replicators resources](#example-etcdreplicators-resources)
 
 **LICENSED TIER**: Unlock the etcd-replicators datatype in Sensu Go with a Sensu license. To activate your license, see the [getting started guide][1].
@@ -47,10 +47,10 @@ Replicator is an etcd key space replicator. It contains configuration for forwar
 
 type         |      |
 -------------|------
-description  | Top-level attribute that specifies the [`sensuctl create`][4] resource type. This attribute should be `Replicator.`
+description  | Top-level attribute that specifies the [`sensuctl create`][4] resource type. This attribute should be `EtcdReplicator.`
 required     | true
 type         | String
-example      | {{< highlight shell >}}type: replicator{{< /highlight >}}
+example      | {{< highlight shell >}}type: EtcdReplicator{{< /highlight >}}
 
 api_version  |      |
 -------------|------
@@ -120,7 +120,7 @@ resource     |      |
 description  | Name of the resource to replicate.
 required     | true
 type         | String
-example      | {{< highlight shell >}}resource: CheckConfig{{< /highlight >}}
+example      | {{< highlight shell >}}resource: Role{{< /highlight >}}
 
 replication_interval_seconds      |      |
 ----------------------------------|-------
@@ -139,7 +139,7 @@ If you replicate the following four examples for `Role`, `RoleBinding`, `Cluster
 
 {{< highlight yml >}}
 api_version: federation/v1
-type: replicator
+type: EtcdReplicator
 metadata:
   name: role_replicator
 spec:
@@ -153,7 +153,7 @@ spec:
 {{< highlight json >}}
 {
   "api_version": "federation/v1",
-  "type": "replicator",
+  "type": "EtcdReplicator",
   "metadata": {
     "name": "role_replicator"
   },
@@ -175,7 +175,7 @@ spec:
 
 {{< highlight yml >}}
 api_version: federation/v1
-type: replicator
+type: EtcdReplicator
 metadata:
   name: rolebinding_replicator
 spec:
@@ -189,7 +189,7 @@ spec:
 {{< highlight json >}}
 {
   "api_version": "federation/v1",
-  "type": "replicator",
+  "type": "EtcdReplicator",
   "metadata": {
     "name": "rolebinding_replicator"
   },
@@ -211,7 +211,7 @@ spec:
 
 {{< highlight yml >}}
 api_version: federation/v1
-type: replicator
+type: EtcdReplicator
 metadata:
   name: clusterrole_replicator
 spec:
@@ -225,7 +225,7 @@ spec:
 {{< highlight json >}}
 {
   "api_version": "federation/v1",
-  "type": "replicator",
+  "type": "EtcdReplicator",
   "metadata": {
     "name": "clusterrole_replicator"
   },
@@ -247,7 +247,7 @@ spec:
 
 {{< highlight yml >}}
 api_version: federation/v1
-type: replicator
+type: EtcdReplicator
 metadata:
   name: clusterrolebinding_replicator
 spec:
@@ -261,7 +261,7 @@ spec:
 {{< highlight json >}}
 {
   "api_version": "federation/v1",
-  "type": "replicator",
+  "type": "EtcdReplicator",
   "metadata": {
     "name": "clusterrolebinding_replicator"
   },
