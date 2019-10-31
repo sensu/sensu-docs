@@ -38,7 +38,7 @@ The entity is responsible for registering the system with the Sensu backend serv
 Each entity is a member of one or more `subscriptions`: a list of roles and/or responsibilities assigned to the agent entity (ex: a webserver or a database).
 Sensu entities will "subscribe" to (or watch for) check requests published by the Sensu backend (via the Sensu Transport), execute the corresponding requests locally, and publish the results of the check back to the transport (to be processed by a Sensu backend).
 
-[Proxy entities][13] are dynamically created entities that are added to the entity store if an entity does not already exist for a check result.
+[Proxy entities][15] are dynamically created entities that are added to the entity store if an entity does not already exist for a check result.
 Proxy entities allow Sensu to monitor external resources on systems where a Sensu agent cannot be installed (like a network switch or website) using the defined check `ProxyEntityName` to create a proxy entity for the external resource.
 
 ## Usage limits
@@ -47,8 +47,7 @@ This version of Sensu has no functional limitations based on entity count. If yo
 
 ## Proxy entities
 
-Proxy entities (formerly known as proxy clients or just-in-time/JIT clients) are dynamically created entities that are added to the entity store if an entity does not already exist for a check result.
-Proxy entities allow Sensu to monitor external resources on systems and devices where a Sensu agent cannot be installed (like a network switch or website) using the defined check `ProxyEntityName` to create a proxy entity for the external resource.
+Proxy entities (formerly known as proxy clients or just-in-time/JIT clients) are dynamically created entities that are added to the entity store if an entity does not already exist for a check result. Proxy entities allow Sensu to monitor external resources on systems and devices where a Sensu agent cannot be installed (like a network switch or website) using the defined check `ProxyEntityName` to create a proxy entity for the external resource.
 
 Proxy entity registration differs from keepalive-based registration because the registration event happens while processing a check result (not a keepalive message).
 
@@ -175,7 +174,14 @@ spec:
 
 {{< /language-toggle >}}
 
+#### Proxy entity checks
+
+Proxy entities allow Sensu to [monitor external resources][14] on systems or devices where a Sensu agent cannot be installed, like a network switch, website, or API endpoint. You can configure a check with a proxy entity name to associate the check results with that proxy entity. On the first check result, if the proxy entity does not exist, Sensu will create the entity as a proxy entity.
+
+After you create a proxy entity check, define which agents will run the check by configuring a subscription. See [proxy requests][13] for details on creating a proxy check for a proxy entity.
+
 ### Agent entity labels{#agent-entities-managed}
+
 
 For entities with class `agent`, you can define entity attributes in the `/etc/sensu/agent.yml` configuration file.
 For example, to add a `url` label, open `/etc/sensu/agent.yml` and add configuration for `labels`.
@@ -796,4 +802,6 @@ spec:
 [10]: https://discourse.sensu.io/t/introducing-usage-limits-in-the-sensu-go-free-tier/1156
 [11]: ../checks#round-robin-checks
 [12]: ../../guides/monitor-external-resources/#using-a-proxy-entity-to-monitor-a-website
-[13]: #proxy-entities
+[13]: ../checks/#proxy-requests
+[14]: ../../guides/monitor-external-resources/
+[15]: #proxy-entities
