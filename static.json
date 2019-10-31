@@ -13,22 +13,22 @@
         }
     },
     "rewrites": {
-        "~ ^/sensu-core/latest/?(.*)$": {
+        "^/sensu-core/latest/?(.*)$": {
             "target": "/sensu-core/1.8/$1"
         },
-        "~ ^/uchiwa/latest/?(.*)$": {
+        "^/uchiwa/latest/?(.*)$": {
             "target": "/uchiwa/1.0/$1"
         },
-        "~ ^/sensu-enterprise/latest/?(.*)$": {
+        "^/sensu-enterprise/latest/?(.*)$": {
             "target": "/sensu-enterprise/3.6/$1"
         },
-        "~ ^/sensu-enterprise-dashboard/latest/?(.*)$": {
+        "^/sensu-enterprise-dashboard/latest/?(.*)$": {
             "target": "/sensu-enterprise-dashboard/2.16/$1"
         },
-        "~ ^/sensu-go/latest/?(.*)$": {
+        "^/sensu-go/latest/?(.*)$": {
             "target": "/sensu-go/5.14/$1"
         },
-        "~ ^/plugins/latest/?(.*)$": {
+        "^/plugins/latest/?(.*)$": {
             "target": "/plugins/1.0/$1"
         }
     }
