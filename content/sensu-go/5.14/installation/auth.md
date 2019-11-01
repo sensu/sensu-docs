@@ -30,7 +30,7 @@ For Sensu's [default user credentials][3] and more information about configuring
 In addition to built-in RBAC, Sensu includes [license-activated][6] support for authentication using external authentication providers.
 Sensu currently supports Microsoft Active Directory and standards-compliant Lightweight Directory Access Protocol tools like OpenLDAP.
 
-**LICENSED**: Unlock authentication providers for more than 100 entities with a Sensu license. To activate your license, see the [getting started guide][6].
+**LICENSED TIER**: Unlock authentication providers in Sensu Go with a Sensu license. To activate your license, see the [getting started guide][6].
 
 ## Managing authentication providers
 

@@ -410,7 +410,7 @@ The table below lists supported `sensu dump` resource types. You can also use a 
 sensuctl dump --types
 {{< /highlight >}}
 
-_NOTE: The resource types with no synonym listed are [licensed][30] features._
+_NOTE: The resource types with no synonym listed are [licensed-tier][30] features._
 
 Synonym | Fully qualified name 
 --------------------|---

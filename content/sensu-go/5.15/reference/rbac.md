@@ -48,7 +48,7 @@ You can use [sensuctl][2] to view all namespaces within Sensu:
 sensuctl namespace list
 {{< /highlight >}}
 
-_NOTE: For licensed tier users,`sensuctl namespace list` will list only the namespaces that the current user has access to._
+_NOTE: For licensed users,`sensuctl namespace list` will list only the namespaces that the current user has access to._
 
 ### Creating a namespace
 
@@ -199,7 +199,7 @@ Cluster-wide resources cannot be assigned to a namespace and can only be accesse
 | `clusterroles`   | Cluster-wide permission sets  |
 | `namespaces` | Resource partitions within a Sensu instance |
 | `users` | People or agents interacting with Sensu |
-| `authproviders` | [Authentication provider][32] configuration (licensed tier)|
+| `authproviders` | [Authentication provider][32] configuration (licensed feature)|
 | `license` | Sensu [license][37]
 
 ### Special resource types

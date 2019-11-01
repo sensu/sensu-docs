@@ -18,7 +18,7 @@ Sensu downloads are provided under the [Sensu License][13]; see the [supported p
 - [Install the Sensu backend](#install-the-sensu-backend)
 - [Install sensuctl](#install-sensuctl)
 - [Install Sensu agents](#install-sensu-agents)
-- [Activate licensed features](#activate-licensed-features)
+- [Activate licensed-tier features](#activate-licensed-tier-features)
 
 ### Architecture overview
 
@@ -346,12 +346,10 @@ Sensu keepalives are the heartbeat mechanism used to ensure that all registered 
 
 To verify that the agent has registered with Sensu and is sending keepalive events, open the entity page in the [Sensu web UI][ui] or run `sensuctl entity list`.
 
-### Activate licensed features
+### Activate licensed-tier features
 
-Sensu Inc. offers support packages for Sensu Go as well as licensed features designed for monitoring at scale.
-For more information about licensed features in Sensu Go, see the [getting started guide](../../getting-started/enterprise).
-
-All licensed features are free for your first 100 entities. To learn more about Sensu Go licenses for more than 100 entities, [contact the Sensu sales team](https://sensu.io/sales).
+Sensu Inc. offers support packages for Sensu Go as well as license-activated features designed for monitoring at scale.
+To learn more about license-activated features in Sensu Go, [contact the Sensu sales team](https://sensu.io/sales).
 
 If you already have a Sensu license, [log in to your Sensu account](https://account.sensu.io/) and download your license file, then activate your license using sensuctl.
 
@@ -364,6 +362,8 @@ You can use sensuctl to view your license details at any time.
 {{< highlight shell >}}
 sensuctl license info
 {{< /highlight >}}
+
+For more information about license-activated features in Sensu Go, see the [getting started guide](../../getting-started/enterprise).
 
 ### Next steps
 

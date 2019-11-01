@@ -17,7 +17,7 @@ For a list of Sensu terms and definitions, see the [glossary][7].
 - [Is Sensu available as a hosted solution?](#hosted-solution)
 - [What are the hardware requirements for running a Sensu backend?](#hardware-requirements)
 - [Is there an enterprise version of Sensu Go?](#enterprise-version)
-- [What's the difference between the OSS, free, and licensed versions?](#version-comparison)
+- [What's the difference between the OSS tier, free tier, and licensed tier?](#tier-comparison)
 - [How can I contact the Sensu sales team?](#sales-team)
 - [What can I monitor with Sensu?](#monitor-with-sensu)
 - [Does Sensu include a time series database for long-term storage?](#long-term-storage)
@@ -44,14 +44,12 @@ See the [hardware requirements guide][5] for minimum and recommended hardware to
 
 ## Is there an enterprise version of Sensu Go? {#enterprise-version}
 
-[Yes!][31] Sensu Inc. offers support packages for Sensu Go as well as licensed features designed for monitoring at scale.
+[Yes!][31] Sensu Inc. offers support packages for Sensu Go as well as license-activated features designed for monitoring at scale.
 [Contact the Sensu sales team][6] for a personalized demo, and see the [getting started guide][28] for more information.
 
-## What's the difference between the OSS, free, and licensed versions? {#version-comparison}
+## What's the difference between the OSS tier, free tier, and licensed tier? {#tier-comparison}
 
 See the [Enterprise page][30] for a complete comparison. 
-
-All [licensed features][35] are available for free in the packaged Sensu Go distribution up to an entity limit of 100. If your Sensu instance includes more than 100 entities, [contact us][36] to learn how to upgrade your installation and increase your limit. See [the announcement on our blog][34] for more information about our usage policy.
 
 ## How can I contact the Sensu sales team? {#sales-team}
 
@@ -145,6 +143,4 @@ Due to Sensu Go's implementation, it is not possible to use Uchiwa with Sensu Go
 [31]: https://blog.sensu.io/enterprise-features-in-sensu-go
 [32]: https://bonsai.sensu.io/
 [33]: ../../reference/assets/#sharing-an-asset-on-bonsai
-[34]: https://blog.sensu.io/one-year-of-sensu-go
-[35]: ../../getting-started/enterprise
-[36]: https://sensu.io/contact
+
