@@ -809,4 +809,3 @@ spec:
 [13]: ../checks/#proxy-requests
 [14]: ../../guides/monitor-external-resources/
 [15]: #proxy-entities
-
