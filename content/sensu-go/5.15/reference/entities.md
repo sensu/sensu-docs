@@ -47,7 +47,7 @@ Proxy entities allow Sensu to monitor external resources on systems where a Sens
 
 ## Usage limits
 
-Sensu's free entity limit is 100 entities. All [license-activated features][9] are available for free in the packaged Sensu Go distribution up to an entity limit of 100. If your Sensu instance includes more than 100 entities, [contact us][10] to learn how to upgrade your installation and increase your limit. See [the announcement on our blog][11] for more information about our usage policy.
+This version of Sensu has no functional limitations based on entity count. If your Sensu instance includes over 1,000 entities, contact us to learn about [license-activated features][9] designed for monitoring at scale. See [Discourse][10] for more information about our usage policy. 
 
 ## Proxy entities
 
