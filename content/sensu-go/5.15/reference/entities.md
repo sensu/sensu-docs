@@ -803,5 +803,4 @@ spec:
 [api-filter]: ../../api/overview#filtering
 [sensuctl-filter]: ../../sensuctl/reference#filtering
 [9]: ../../getting-started/enterprise
-[11]: https://blog.sensu.io/one-year-of-sensu-go
 
