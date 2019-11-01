@@ -49,9 +49,6 @@ Read the [upgrade guide][1] for information on upgrading to the latest version o
 
 See the [upgrade guide][1] to upgrade Sensu to version 5.14.2.
 
-**IMPORTANT**
-Sensu's free entity limit is now 100 entities. All [license-activated features][79] are available for free in the packaged Sensu Go distribution up to an entity limit of 100. If your Sensu instance includes more than 100 entities, [contact us][90] to learn how to upgrade your installation and increase your limit. See [the announcement on our blog][91] for more information about our usage policy.
-
 **NEW FEATURES:**
 
 - ([Licensed feature][79]) Added support for the [federation cluster registration api][85].
