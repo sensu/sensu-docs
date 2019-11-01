@@ -11,7 +11,7 @@ _NOTE: Sensu Enterprise is built on Sensu Core. Sensu Core changes are documente
 
 ## Releases
 
-- [Enterprise 3.6.2 Release Notes](#enterprise v3-6-2)
+- [Enterprise 3.6.2 Release Notes](#enterprise-v3-6-2)
 - [Enterprise 3.6.1 Release Notes](#enterprise-v3-6-1)
 - [Enterprise 3.6.0 Release Notes](#enterprise-v3-6-0)
 - [Enterprise 3.5.0 Release Notes](#enterprise-v3-5-0)

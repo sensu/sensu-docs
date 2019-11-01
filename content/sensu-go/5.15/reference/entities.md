@@ -10,6 +10,7 @@ menu:
     parent: reference
 ---
 
+- [What is an entity?](#what-is-an-entity)
 - [How do entities work?](#how-do-entities-work)
 - [Usage limits](#usage-limits)
 - [Proxy entities](#proxy-entities)
@@ -26,16 +27,19 @@ menu:
   - [Deregistration attributes](#deregistration-attributes)
 - [Examples](#examples)
 
-## How do entities work?
+## What is an entity?
 
-An entity represents anything (ex: server, container, network switch) that needs to be monitored, including the full range of infrastructure, runtime and application types that compose a complete monitoring environment (from server hardware to serverless functions).
-We call these monitored parts of an infrastructure "entities".
+An entity represents anything (such as a server, container, or network switch) that needs to be monitored, including the full range of infrastructure, runtime and application types that compose a complete monitoring environment (from server hardware to serverless functions).
+We call these monitored parts of an infrastructure "entities."
+
 An entity not only provides context to event data (what/where the event is from) but an event's uniqueness is determined by the check name and the name of the entity upon which the check ran.
 In addition, an entity can contain system information such as the hostname, OS, platform, and version.
 
+## How do entities work?
+
 Agent entities are monitoring agents that are installed and run on every system that needs to be monitored.
 The entity is responsible for registering the system with the Sensu backend service, sending keepalive messages (the Sensu heartbeat mechanism), and executing monitoring checks.
-Each entity is a member of one or more `subscriptions`: a list of roles and/or responsibilities assigned to the agent entity (ex: a webserver or a database).
+Each entity is a member of one or more `subscriptions`: a list of roles and/or responsibilities assigned to the agent entity (e.g. a webserver or a database).
 Sensu entities will "subscribe" to (or watch for) check requests published by the Sensu backend (via the Sensu Transport), execute the corresponding requests locally, and publish the results of the check back to the transport (to be processed by a Sensu backend).
 
 [Proxy entities][15] are dynamically created entities that are added to the entity store if an entity does not already exist for a check result.
