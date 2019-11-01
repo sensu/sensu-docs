@@ -2,7 +2,7 @@
     "root": "/app/public/",
     "https_only": true,
     "error_page": "/404.html",
-    "rewrites": {
+    "pattern_redirects": {
       "~ ^/sensu-core/2.0/?(.*)$": {
           "url": "/sensu-go/5.0/$1",
           "status": 301
