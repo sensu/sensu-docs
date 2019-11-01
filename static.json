@@ -2,34 +2,38 @@
     "root": "/app/public/",
     "https_only": true,
     "error_page": "/404.html",
-    "pattern_redirects": {
-        "~ ^/sensu-core/2.0/?(.*)$": {
-            "url": "/sensu-go/latest/$1",
+    "rewrites": {
+      "~ ^/sensu-core/2.0/?(.*)$": {
+          "url": "/sensu-go/5.0/$1",
+          "status": 301
+      },
+        "~ ^/sensu-core/latest/?(.*)$": {
+            "url": "/sensu-core/1.8/$1",
+            "status": 301
+        },
+        "~ ^/uchiwa/latest/?(.*)$": {
+            "url": "/uchiwa/1.0/$1",
+            "status": 301
+        },
+        "~ ^/sensu-enterprise/latest/?(.*)$": {
+            "url": "/sensu-enterprise/3.6/$1",
+            "status": 301
+        },
+        "~ ^/sensu-enterprise-dashboard/latest/?(.*)$": {
+            "url": "/sensu-enterprise-dashboard/2.16/$1",
             "status": 301
         },
         "~ ^/sensu-go/latest/guides/create-a-ready-only-user$": {
             "url": "/sensu-go/latest/guides/create-read-only-user",
             "status": 301
-        }
-    },
-    "rewrites": {
-        "^/sensu-core/latest/?(.*)$": {
-            "target": "/sensu-core/1.8/$1"
         },
-        "^/uchiwa/latest/?(.*)$": {
-            "target": "/uchiwa/1.0/$1"
+        "~ ^/sensu-go/latest/?(.*)$": {
+            "url": "/sensu-go/5.14/$1",
+            "status": 301
         },
-        "^/sensu-enterprise/latest/?(.*)$": {
-            "target": "/sensu-enterprise/3.6/$1"
-        },
-        "^/sensu-enterprise-dashboard/latest/?(.*)$": {
-            "target": "/sensu-enterprise-dashboard/2.16/$1"
-        },
-        "^/sensu-go/latest/?(.*)$": {
-            "target": "/sensu-go/5.14/$1"
-        },
-        "^/plugins/latest/?(.*)$": {
-            "target": "/plugins/1.0/$1"
+        "~ ^/plugins/latest/?(.*)$": {
+            "url": "/plugins/1.0/$1",
+            "status": 301
         }
     }
 }
