@@ -7,6 +7,7 @@ version: "5.14"
 menu: "sensu-go-5.14"
 ---
 
+- [5.14.2 release notes](#5-14-2-release-notes)
 - [5.14.1 release notes](#5-14-1-release-notes)
 - [5.14.0 release notes](#5-14-0-release-notes)
 - [5.13.2 release notes](#5-13-2-release-notes)
@@ -42,6 +43,37 @@ Read the [upgrade guide][1] for information on upgrading to the latest version o
 
 ---
 
+## 5.14.2 release notes
+
+**November 3, 2019** &mdash; The latest release of Sensu Go, version 5.14.2, is now available for download. This release includes feature additions like ... In addition, this release includes ... and bug fixes that ....
+
+See the [upgrade guide][1] to upgrade Sensu to version 5.14.2.
+
+**IMPORTANT**
+Sensu's free entity limit is now 100 entities. All [license-activated features][79] are available for free in the packaged Sensu Go distribution up to an entity limit of 100. If your Sensu instance includes more than 100 entities, [contact us][90] to learn how to upgrade your installation and increase your limit. See [the announcement on our blog][91] for more information about our usage policy.
+
+**NEW FEATURES:**
+
+- ([Licensed feature][79]) Added support for the [federation cluster registration api][85].
+- ([Licensed feature][79]) Added MSI and NuGet builds for [sensuctl][89]. Also, MSI and NuGet installations now add the bin directory to the system PATH on Windows.
+- Added the [APIKey resource][86], with HTTP API support for POST, GET, and DELETE and [sensuctl commands][87] to manage the APIKey resource.
+- Added support for using [API keys for API authentication][88].
+- Added support for sensu-backend service environment variables.
+
+**SECURITY**
+
+- ([Licensed feature][79]) Removed support for UPN binding without a binding account or anonymous binding, which allows Sensu to effectively refresh claims during access token renewal.
+
+**IMPROVEMENTS:**
+
+- Upgraded etcd to 3.3.17.
+
+**FIXES:**
+
+- As a result of upgrading etcd, TLS etcd clients that lose their connection will successfully reconnect when using `--no-embed-etcd`.
+- Check TTL and keepalive switches are now correctly buried when associated events and entities are deleted. As a result, Sensu now uses far fewer leases for check TTLs and keepalives, which improves stability for most deployments.
+- Corrected a minor UX issue in interactive filter commands in sensuctl.
+
 ## 5.14.1 release notes
 
 **October 16, 2019** &mdash; The latest release of Sensu Go, version 5.14.1, is now available for download.
@@ -55,8 +87,8 @@ See the [upgrade guide][1] to upgrade Sensu to version 5.14.1.
 
 **FIXES:**
 
-- ([Licensed tier][79]) Sensuctl will not incorrectly warn of entity limits for unlimited licenses.
-- ([Licensed tier][79]) `oidc` authentication providers will now properly load on start-up.
+- ([Licensed feature][79]) Sensuctl will not incorrectly warn of entity limits for unlimited licenses.
+- ([Licensed feature][79]) `oidc` authentication providers will now properly load on start-up.
 - When opening a Bolt database that is already open, `sensu-agent` will not hang indefinitely.
 - Addresses an issue where running [`sensuctl dump`][84] for multiple resource types with the output format as YAML resulted in separators being printed to `STDOUT` instead of the specified file.
 - Fixed a crash in sensu-backend (panic: send on closed channel)
@@ -77,17 +109,17 @@ See the [upgrade guide][1] to upgrade Sensu to version 5.14.0.
 
 **IMPROVEMENTS:**
 
-- ([Licensed tier][79]) Added support for mutual TLS authentication between agents and backends.
-- ([Licensed tier][79]) Added support for CRL URLs for mTLS authentication.
-- ([Licensed tier][79]) Support agent [TLS authentication][81] is usable with a licensed sensu-backend.
+- ([Licensed feature][79]) Added support for mutual TLS authentication between agents and backends.
+- ([Licensed feature][79]) Added support for CRL URLs for mTLS authentication.
+- ([Licensed feature][79]) Support agent [TLS authentication][81] is usable with a licensed sensu-backend.
 - To facilitate discussion about feature requests, in the Web UI, feedback is directed to Discourse rather than the GitHub repository's issues page.
 - In the [web UI][80], when a user lands on a page inside a namespace that no longer exists or they do not have access to, the drawer opens to that namespace switcher to help clarify next steps.
 - Updated Go version from 1.12.3 to 1.13.1.
 
 **FIXES:**
 
-- ([Licensed tier][79]) `sensuctl` on Windows can now create Postgres resources.
-- ([Licensed tier][79]) Fixed a bug that resulted in event metrics being ignored when using the Postgres store.
+- ([Licensed feature][79]) `sensuctl` on Windows can now create Postgres resources.
+- ([Licensed feature][79]) Fixed a bug that resulted in event metrics being ignored when using the Postgres store.
 - Fixed a bug that caused checks to stop executing after a network error.
 - Fixed a bug that prevented `sensuctl create` with `stdin` from working.
 - Splayed proxy checks are executed every interval (instead of every interval + interval * splay_coverage).
@@ -153,7 +185,7 @@ Due to changes in the release process, Sensu binary-only archives are now named 
 **IMPROVEMENTS:**
 
 - Assets now support defining multiple builds, reducing the number of individual assets needed to cover disparate platforms in your infrastructure.
-- ([Licensed tier][53]) Namespaces listed in both the web UI and sensuctl are now limited to those which the user has access to.
+- ([Licensed feature][53]) Namespaces listed in both the web UI and sensuctl are now limited to those which the user has access to.
 - Hooks now support the use of assets.
 - The event.check.name field has been added as a supported field selector.
 - Both the API and sensuctl can now be used to delete Assets.
@@ -203,9 +235,9 @@ See the [upgrade guide][1] to upgrade Sensu to version 5.11.0.
 **NEW FEATURES:**
 
 - The Sensu [web UI][67] now includes a filters page that displays available event filters and filter configuration.
-- ([Licensed tier][68]) Manage your Sensu event filters from your browser: Sensu's [web UI][67] now supports creating, editing, and deleting filters.
+- ([Licensed feature][68]) Manage your Sensu event filters from your browser: Sensu's [web UI][67] now supports creating, editing, and deleting filters.
 - The Sensu [web UI][67] now includes a mutators page that displays available mutators and mutator configuration.
-- ([Licensed tier][68]) Manage your Sensu mutators from your browser: Sensu's [web UI][67] now supports creating, editing, and deleting mutators.
+- ([Licensed feature][68]) Manage your Sensu mutators from your browser: Sensu's [web UI][67] now supports creating, editing, and deleting mutators.
 - sensuctl now includes the `sensuctl delete` command, letting you use resource definitions to delete resources from Sensu in the same way as `sensuctl create`. See the [sensuctl reference][72] for more information.
 - Assets now include a `headers` attribute to include HTTP headers in requests to retrieve assets, allowing you to access secured assets. See the [asset reference][70] for examples.
 - Sensu agents now support the `disable-assets` configuration flag, allowing you to disable asset retrieval for individual agents. See the [agent reference][71] for examples.
@@ -213,8 +245,8 @@ See the [upgrade guide][1] to upgrade Sensu to version 5.11.0.
 
 **IMPROVEMENTS:**
 
-- ([Licensed tier][68]) The [Active Directory authentication provider][74] now supports the `default_upn_domain` attribute, letting you appended a domain to a username when a domain is not specified during login.
-- ([Licensed tier][68]) The [Active Directory authentication provider][74] now supports the `include_nested_groups` attribute, letting you search nested groups instead of just the top level groups of which a user is a member.
+- ([Licensed feature][68]) The [Active Directory authentication provider][74] now supports the `default_upn_domain` attribute, letting you appended a domain to a username when a domain is not specified during login.
+- ([Licensed feature][68]) The [Active Directory authentication provider][74] now supports the `include_nested_groups` attribute, letting you search nested groups instead of just the top level groups of which a user is a member.
 - The `sensuctl config view` command now returns the currently configured username. See the [sensuctl reference][76] for examples.
 - The [Sensu API][75] now returns the 201 Created response code for POST and PUT requests instead of 204 No Content.
 - The Sensu backend now provides [advanced configuration options][77] for buffer size and worker count of keepalives, events, and pipelines.
@@ -262,9 +294,9 @@ See the [upgrade guide][1] to upgrade Sensu to version 5.10.0.
 
 **NEW FEATURES:**
 
-- ([Licensed tier][60]) The Sensu web UI now includes fast, predictive filtering for viewing checks, entities, events, handlers, and silences, including the ability to filter based on custom labels. Select the filter bar and start building custom views using suggested attributes and values. For more information, see the [dashboard docs][66].
+- ([Licensed feature][60]) The Sensu web UI now includes fast, predictive filtering for viewing checks, entities, events, handlers, and silences, including the ability to filter based on custom labels. Select the filter bar and start building custom views using suggested attributes and values. For more information, see the [dashboard docs][66].
 - Free-tier Sensu instances can now delete entities in the web UI entities page. See the [docs][65] to get started using the Sensu web UI.
-- ([Licensed tier][60]) Sensu now supports using an external PostgreSQL instance for event storage in place of etcd. PostgreSQL can handle significantly higher volumes of Sensu events, letting you scale Sensu beyond etcd's storage limits. See the [datastore reference][61] for more information.
+- ([Licensed feature][60]) Sensu now supports using an external PostgreSQL instance for event storage in place of etcd. PostgreSQL can handle significantly higher volumes of Sensu events, letting you scale Sensu beyond etcd's storage limits. See the [datastore reference][61] for more information.
 - Sensu now includes a cluster ID API endpoint and `sensuctl cluster id` command to return the unique Sensu cluster ID. See the [cluster API docs][62] for more information.
 
 **IMPROVEMENTS:**
@@ -289,15 +321,15 @@ See the [upgrade guide][1] to upgrade Sensu to version 5.10.0.
 ## 5.9.0 release notes
 
 **May 28, 2019** &mdash; The latest release of Sensu Go, version 5.9.0, is now available for download.
-There are some exciting feature additions in this release, including the ability to log raw events to a file (licensed tier) and view event handlers in the web UI.
+There are some exciting feature additions in this release, including the ability to log raw events to a file (licensed feature) and view event handlers in the web UI.
 See the [upgrade guide][52] to upgrade Sensu to version 5.9.0.
 If you're upgrading a Sensu cluster from 5.7.0 or earlier, see the [instructions for upgrading a Sensu cluster from 5.7.0 or earlier to 5.8.0 or later][59].
 
 **NEW FEATURES:**
 
 - The Sensu web UI now includes a handlers page that displays available event handlers and handler configuration. See the [docs][54] to get started using the Sensu web UI.
-- ([Licensed tier][53]) Manage your Sensu event handlers from your browser: Sensu's web UI now supports creating, editing, and deleting handlers. See the [docs][54] to get started using the Sensu web UI.
-- ([Licensed tier][53]) Sensu now supports event logging to a file using the `event-log-file` and `event-log-buffer-size` configuration flags. You can use this event log file as an input source for your favorite data lake solution. See the [backend reference][55] for more information.
+- ([Licensed feature][53]) Manage your Sensu event handlers from your browser: Sensu's web UI now supports creating, editing, and deleting handlers. See the [docs][54] to get started using the Sensu web UI.
+- ([Licensed feature][53]) Sensu now supports event logging to a file using the `event-log-file` and `event-log-buffer-size` configuration flags. You can use this event log file as an input source for your favorite data lake solution. See the [backend reference][55] for more information.
 
 **IMPROVEMENTS:**
 
@@ -364,14 +396,14 @@ See the [upgrade guide][1] to upgrade Sensu to version 5.6.0.
 
 **NEW FEATURES:**
 
-- ([Licensed tier][33]) Manage your Sensu checks from your browser: Sensu's web user interface now supports creating, editing, and deleting checks. See the [docs][32] to get started using the Sensu web UI.
-- ([Licensed tier][33]) The Sensu web UI now includes an option to delete entities.
-- ([Licensed tier][33]) Sensu now supports resource filtering in the Sensu API and sensuctl command line tool. Filter events using custom labels and resource attributes, such as event status and check subscriptions. See the [API docs][34] and [sensuctl reference][35] for usage examples.
+- ([Licensed feature][33]) Manage your Sensu checks from your browser: Sensu's web user interface now supports creating, editing, and deleting checks. See the [docs][32] to get started using the Sensu web UI.
+- ([Licensed feature][33]) The Sensu web UI now includes an option to delete entities.
+- ([Licensed feature][33]) Sensu now supports resource filtering in the Sensu API and sensuctl command line tool. Filter events using custom labels and resource attributes, such as event status and check subscriptions. See the [API docs][34] and [sensuctl reference][35] for usage examples.
 
 **IMPROVEMENTS:**
 
-- ([Licensed tier][33]) Sensu's LDAP and Active Directory integrations now support mutual authentication using the `trusted_ca_file`, `client_cert_file`, and `client_key_file` attributes. See the [guide to configuring an authentication provider][37] for more information.
-- ([Licensed tier][33]) Sensu's LDAP and Active Directory integrations now support connecting to an authentication provider using anonymous binding. See the [LDAP][38] and [AD][39] binding configuration docs to learn more.
+- ([Licensed feature][33]) Sensu's LDAP and Active Directory integrations now support mutual authentication using the `trusted_ca_file`, `client_cert_file`, and `client_key_file` attributes. See the [guide to configuring an authentication provider][37] for more information.
+- ([Licensed feature][33]) Sensu's LDAP and Active Directory integrations now support connecting to an authentication provider using anonymous binding. See the [LDAP][38] and [AD][39] binding configuration docs to learn more.
 - The [health API][36] response now includes the cluster ID.
 - The `sensuctl cluster health` and `sensuctl cluster member-list` commands now include the cluster ID in tabular format.
 
@@ -689,3 +721,10 @@ To get started with Sensu Go:
 [82]: /sensu-go/5.13/reference/entities/
 [83]: /sensu-go/5.14/reference/backend/#advanced-configuration-options
 [84]: /sensu-go/5.14/sensuctl/reference/#exporting-resources
+[85]: /sensu-go/5.15/api/federation
+[86]: /sensu-go/5.15/reference/apikeys
+[87]: /sensu-go/5.15/guides/use-apikey-feature/#sensuctl-management-commands
+[88]: /sensu-go/5.15/api/overview/#authenticate-with-the-api-key-feature
+[89]: /sensu-go/5.15/sensuctl/reference/
+[90]: https://sensu.io/contact
+[91]: https://blog.sensu.io/one-year-of-sensu-go
