@@ -49,7 +49,7 @@ See the [hardware requirements guide][5] for minimum and recommended hardware to
 
 ## What's the difference between the OSS tier, free tier, and licensed tier? {#tier-comparison}
 
-See the [Enterprise page][30] for a complete comparison. 
+See the [Enterprise page][30] for a complete comparison.
 
 ## How can I contact the Sensu sales team? {#sales-team}
 
@@ -143,4 +143,3 @@ Due to Sensu Go's implementation, it is not possible to use Uchiwa with Sensu Go
 [31]: https://blog.sensu.io/enterprise-features-in-sensu-go
 [32]: https://bonsai.sensu.io/
 [33]: ../../reference/assets/#sharing-an-asset-on-bonsai
-

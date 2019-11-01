@@ -72,4 +72,3 @@ See these resources to get started using license-activated features in Sensu Go.
 [4]: ../../api/overview#filtering
 [5]: ../../sensuctl/reference#filtering
 [6]: ../../dashboard/filtering
-

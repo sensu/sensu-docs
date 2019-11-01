@@ -25,7 +25,7 @@ Get started with the free tier by installing an official Sensu distribution.
 
 - [Install Sensu Go][2]
 - [Discover Sensu assets][6]
-- [Learn about licensed features][12]
+- [Learn about license-activated features][12]
 
 ### Monitor at scale (licensed tier)
 
@@ -39,7 +39,7 @@ Sensu Inc. offers support packages for Sensu Go as well as license-activated fea
 Sensu Go's core is open source software, freely available under an MIT license.
 
 - [Visit Sensu Go on GitHub][10]
-- [Learn about OSS features][12]
+- [Learn about OSS-tier features][12]
 - [Build from source][11]
 
 [1]: ../demo

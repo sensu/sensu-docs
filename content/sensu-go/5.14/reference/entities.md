@@ -18,13 +18,13 @@ menu:
   - [Proxy entity labels](#proxy-entities-managed)
   - [Agent entity labels](#agent-entities-managed)
 - [Entities specification](#entities-specification)
-  - [Top-level attributes](#top-level-attributes)
+    - [Top-level attributes](#top-level-attributes)
   - [Spec attributes](#spec-attributes)
   - [Metadata attributes](#metadata-attributes)
-  - [System attributes](#system-attributes)
-  - [Network attributes](#network-attributes)
-  - [NetworkInterface attributes](#networkinterface-attributes)
-  - [Deregistration attributes](#deregistration-attributes)
+    - [System attributes](#system-attributes)
+    - [Network attributes](#network-attributes)
+    - [NetworkInterface attributes](#networkinterface-attributes)
+    - [Deregistration attributes](#deregistration-attributes)
 - [Examples](#examples)
 
 ## What is an entity?
@@ -47,7 +47,7 @@ Proxy entities allow Sensu to monitor external resources on systems where a Sens
 
 ## Usage limits
 
-This version of Sensu has no functional limitations based on entity count. If your Sensu instance includes over 1,000 entities, contact us to learn about [license-activated features][9] designed for monitoring at scale. See [Discourse][10] for more information about our usage policy.
+This version of Sensu has no functional limitations based on entity count. If your Sensu instance includes over 1,000 entities, contact us to learn about [license-activated features][9] designed for monitoring at scale. See [Discourse][10] for more information about our usage policy. 
 
 ## Proxy entities
 
