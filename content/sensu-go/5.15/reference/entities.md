@@ -803,4 +803,10 @@ spec:
 [api-filter]: ../../api/overview#filtering
 [sensuctl-filter]: ../../sensuctl/reference#filtering
 [9]: ../../getting-started/enterprise
+[10]: https://discourse.sensu.io/t/introducing-usage-limits-in-the-sensu-go-free-tier/1156
+[11]: ../checks#round-robin-checks
+[12]: ../../guides/monitor-external-resources/#using-a-proxy-entity-to-monitor-a-website
+[13]: ../checks/#proxy-requests
+[14]: ../../guides/monitor-external-resources/
+[15]: #proxy-entities
 
