@@ -1,7 +1,7 @@
 ---
 title: "License management"
 linkTitle: "License Management"
-description: "Sensu Go includes license-activated features designed for monitoring at scale. Activate and manage your license with sensuctl and your Sensu account. Read the reference documentation to learn more."
+description: "Sensu Go includes licensed features designed for monitoring at scale. Activate and manage your license with sensuctl and your Sensu account. Read the reference documentation to learn more."
 weight: 100
 version: "5.14"
 product: "Sensu Go"
@@ -71,7 +71,7 @@ Your license includes the entity limit tied to your Sensu licensing package.
 Both agent and proxy entities count towards the overall entity limit.
 [Contact us](https://account.sensu.io/support) to upgrade your license.
 
-To see your current entity count, use any `/api/core` or `/api/enterprise` [API request](https://docs.sensu.io/sensu-go/5.7/api/). For example:
+To see your current entity count, use any `/api/core` or `/api/enterprise` [API request](https://docs.sensu.io/sensu-go/latest/api/). For example:
 
 {{< highlight shell >}}
 curl http://127.0.0.1:8080/api/core/v2/namespaces/default/entities -v -H "Authorization: Bearer $SENSU_TOKEN"
@@ -91,4 +91,4 @@ Sensu-Entity-Limit: 0
 To see your license expiration date, log in to your Sensu account at [account.sensu.io](https://account.sensu.io/).
 
 If your license is within 30 days of expiration, Sensu issues regular warnings in the Sensu [backend logs](../../guides/troubleshooting).
-If your license expires, you will no longer have access to [licensed-tier features](../../getting-started/enterprise).
+If your license expires, you will no longer have access to [licensed features](../../getting-started/enterprise).

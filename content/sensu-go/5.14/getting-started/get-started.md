@@ -18,28 +18,28 @@ Get started with Sensu, and create your first monitoring event pipeline.
 - [Download the sandbox][7]
 - [Check out the live demo][1]
 
-### Install Sensu Go (free tier)
+### Install Sensu Go (free)
 
 Sensu Go is the flexible monitoring event pipeline, designed for container-based and multi-cloud infrastructures.
-Get started with the free tier by installing an official Sensu distribution.
+Get started for free on up to 100 entities by installing an official Sensu distribution.
 
 - [Install Sensu Go][2]
 - [Discover Sensu assets][6]
-- [Learn about license-activated features][12]
+- [Learn about licensed features][12]
 
-### Monitor at scale (licensed tier)
+### Monitor at scale (licensed)
 
-Sensu Inc. offers support packages for Sensu Go as well as license-activated features designed for monitoring at scale.
+Sensu Inc. offers support packages for Sensu Go as well as licensed features designed for monitoring at scale.
 
-- [Learn about license-activated features][12]
+- [Learn about licensed features][12]
 - [Contact the sales team for a free trial][4]
 - [Activate your Sensu license][5]
 
-### Build from source (OSS tier)
+### Build from source (OSS)
 Sensu Go's core is open source software, freely available under an MIT license.
 
 - [Visit Sensu Go on GitHub][10]
-- [Learn about OSS-tier features][12]
+- [Learn about OSS features][12]
 - [Build from source][11]
 
 [1]: ../demo

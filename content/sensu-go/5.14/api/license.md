@@ -15,7 +15,7 @@ menu:
 
 ## The `/license` API endpoints
 
-For more information about license-activated features designed for enterprises, see the [getting started guide](../../getting-started/enterprise).
+For more information about licensed features designed for enterprises, see the [getting started guide](../../getting-started/enterprise).
 
 ### `/license` (GET)
 

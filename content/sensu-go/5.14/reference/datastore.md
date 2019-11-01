@@ -1,6 +1,6 @@
 ---
 title: "Datastore"
-description: "Sensu stores the most recent event for each entity and check pair using an embedded etcd (default) or an external etcd instance. Sensu also supports using an external PostgreSQL instance for event storage in place of etcd (licensed-tier only). Read the reference to configure enterprise-scale event storage using PostgreSQL."
+description: "Sensu stores the most recent event for each entity and check pair using an embedded etcd (default) or an external etcd instance. Sensu also supports using an external PostgreSQL instance for event storage in place of etcd (licensed feature). Read the reference to configure enterprise-scale event storage using PostgreSQL."
 weight: 10
 version: "5.14"
 product: "Sensu Go"
@@ -10,7 +10,7 @@ menu:
 ---
 
 - [Event storage](#event-storage)
-- [Scaling event storage](#scaling-event-storage) (licensed-tier only)
+- [Scaling event storage](#scaling-event-storage) (licensed feature)
   - [Requirements](#requirements)
   - [Configuration](#configuration)
   - [Specification](#specification)
