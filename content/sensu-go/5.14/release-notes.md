@@ -51,7 +51,7 @@ See the [upgrade guide][1] to upgrade Sensu to version 5.14.2.
 
 **NEW FEATURES**
 
-- ([Licensed tier][79]) Added build package for CentOS 8 (`el/8`)
+- ([Licensed tier][79]) Added build package for CentOS 8 (`el/8`).
 
 **IMPROVEMENTS:**
 
