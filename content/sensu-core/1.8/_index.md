@@ -95,11 +95,11 @@ training, and other benefits, check out [Sensu Enterprise][14].
 [21]: https://blog.sensu.io/eol-schedule-for-sensu-core-and-enterprise
 [22]: ../latest/migration/
 [23]: https://github.com/sensu/sensu-translator
-[24]: https://docs.sensu.io/sensu-go
-[25]: https://docs.sensu.io/sensu-go/5.14/installation/upgrade/#upgrading-to-sensu-go-from-sensu-core-1-x
+[24]: https://docs.sensu.io/sensu-go/latest/
+[25]: https://docs.sensu.io/sensu-go/latest/installation/upgrade/#upgrading-to-sensu-go-from-sensu-core-1-x
 [26]: https://slack.sensu.io/
 [27]: https://discourse.sensu.io/c/sensu-go/migrating-to-go
-[28]: https://docs.sensu.io/sensu-go/5.14/getting-started/sandbox/
+[28]: https://docs.sensu.io/sensu-go/latest/getting-started/sandbox/
 [29]: https://sensu.io/support/
 [30]: https://sensu.io/contact/
 
