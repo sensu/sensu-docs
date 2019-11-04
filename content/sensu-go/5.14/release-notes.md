@@ -7,6 +7,7 @@ version: "5.14"
 menu: "sensu-go-5.14"
 ---
 
+- [5.14.2 release notes](#5-14-2-release-notes)
 - [5.14.1 release notes](#5-14-1-release-notes)
 - [5.14.0 release notes](#5-14-0-release-notes)
 - [5.13.2 release notes](#5-13-2-release-notes)
@@ -41,6 +42,28 @@ Sensu Go adheres to [semantic versioning][2] using MAJOR.MINOR.PATCH release num
 Read the [upgrade guide][1] for information on upgrading to the latest version of Sensu Go.
 
 ---
+
+## 5.14.2 release notes
+
+**November 4, 2019** &mdash; The latest release of Sensu Go, version 5.14.2, is now available for download. This release includes an etcd upgrade, fixes that improve stability and performance, and a Sensu Go package for CentOS 8.
+
+See the [upgrade guide][1] to upgrade Sensu to version 5.14.2.
+
+**NEW FEATURES**
+
+- ([Licensed tier][79]) Added build package for CentOS 8 (`el/8`).
+
+**IMPROVEMENTS:**
+
+- Upgraded etcd to 3.3.17.
+- Sensu Go now uses serializable event reads, which helps improve performance.
+
+**FIXES:**
+
+- As a result of upgrading etcd, TLS etcd clients that lose their connection will successfully reconnect when using `--no-embed-etcd`.
+- Check TTL and keepalive switches are now correctly buried when associated events and entities are deleted. As a result, Sensu now uses far fewer leases for check TTLs and keepalives, which improves stability for most deployments.
+- Corrected a minor UX issue in interactive filter commands in sensuctl.
+
 
 ## 5.14.1 release notes
 
