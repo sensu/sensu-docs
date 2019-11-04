@@ -49,13 +49,10 @@ Read the [upgrade guide][1] for information on upgrading to the latest version o
 
 See the [upgrade guide][1] to upgrade Sensu to version 5.14.2.
 
-**NEW FEATURES**
-
-- ([Licensed tier][79]) Added build package for CentOS 8 (`el/8`).
-
 **IMPROVEMENTS:**
 
 - Upgraded etcd to 3.3.17.
+- Added build package for CentOS 8 (`el/8`).
 - Sensu Go now uses serializable event reads, which helps improve performance.
 
 **FIXES:**
