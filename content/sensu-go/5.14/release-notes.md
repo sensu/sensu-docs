@@ -45,7 +45,7 @@ Read the [upgrade guide][1] for information on upgrading to the latest version o
 
 ## 5.14.2 release notes
 
-**November 3, 2019** &mdash; The latest release of Sensu Go, version 5.14.2, is now available for download. This release includes an etcd upgrade, fixes that improve stability and performance, and a Sensu Go package for CentOS 8.
+**November 4, 2019** &mdash; The latest release of Sensu Go, version 5.14.2, is now available for download. This release includes an etcd upgrade, fixes that improve stability and performance, and a Sensu Go package for CentOS 8.
 
 See the [upgrade guide][1] to upgrade Sensu to version 5.14.2.
 
