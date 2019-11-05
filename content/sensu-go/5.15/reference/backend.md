@@ -25,6 +25,7 @@ menu:
   - [Dashboard configuration](#dashboard-configuration-flags)
   - [Datastore and cluster configuration](#datastore-and-cluster-configuration-flags)
   - [Advanced configuration options](#advanced-configuration-options)
+  - [Configuration via environment variables](#configuration-via-environment-variables)
   - [Event logging](#event-logging)
   - [Example](../../files/backend.yml)
 
@@ -903,6 +904,39 @@ sensu-backend start --etcd-quota-backend-bytes 4294967296
 # /etc/sensu/backend.yml example
 etcd-quota-backend-bytes: 4294967296{{< /highlight >}}
 
+### Configuration via environment variables
+
+The `sensu-backend` service configured by our supported packages will read environment variables from `/etc/default/sensu-backend` on Debian/Ubuntu systems and `/etc/sysconfig/sensu-backend` on RHEL systems. These files are not created by the installation package, so you will need to create them.
+
+{{< language-toggle >}}
+
+{{< highlight "Ubuntu/Debian" >}}
+$ sudo touch /etc/default/sensu-backend
+{{< /highlight >}}
+
+{{< highlight "RHEL/CentOS" >}}
+$ sudo touch /etc/sysconfig/sensu-backend
+{{< /highlight >}}
+
+{{< /language-toggle >}}
+
+For any configuration flag you wish to specify as an environment variable, you will need to append `SENSU_` and convert dashes (`-`) to underscores (`_`). Then, add the resulting environment variable to the appropriate environment file described above. You must restart the service for these settings to take effect.
+
+In the following example, the `api-listen-address` flag is configured as an environment variable and set to `192.168.100.20:8080`.
+
+{{< language-toggle >}}
+
+{{< highlight "Ubuntu/Debian" >}}
+$ echo 'SENSU_API_LISTEN_ADDRESS=192.168.100.20:8080' | sudo tee /etc/default/sensu-backend
+$ sudo systemctl restart sensu-backend
+{{< /highlight >}}
+
+{{< highlight "RHEL/CentOS" >}}
+$ echo 'SENSU_API_LISTEN_ADDRESS=192.168.100.20:8080' | sudo tee /etc/sysconfig/sensu-backend
+$ sudo systemctl restart sensu-backend
+{{< /highlight >}}
+
+{{< /language-toggle >}}
 
 ### Event logging
 
