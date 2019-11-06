@@ -162,6 +162,21 @@ ETCD_INITIAL_CLUSTER="backend-4=https://10.0.0.4:2380,backend-1=https://10.0.0.1
 ETCD_INITIAL_CLUSTER_STATE="existing"
 {{< /highlight >}}
 
+#### Replace a faulty cluster member
+
+To replace a faulty cluster member, make sure to change the `etcd-initial-cluster-state` to `existing` in the configuration. This example store configuration shows `backend-3` as the faulty cluster.
+
+{{< highlight yml >}}
+etcd-advertise-client-urls: "http://10.0.0.3:2379"
+etcd-listen-client-urls: "http://10.0.0.3:2379"
+etcd-listen-peer-urls: "http://0.0.0.0:2380"
+etcd-initial-cluster: "backend-1=http://10.0.0.1:2380,backend-2=http://10.0.0.2:2380,backend-3=http://10.0.0.3:2380"
+etcd-initial-advertise-peer-urls: "http://10.0.0.3:2380"
+etcd-initial-cluster-state: "existing"
+etcd-initial-cluster-token: ""
+etcd-name: "backend-3"
+{{< /highlight >}}
+
 ### List cluster members
 
 List the ID, name, peer urls, and client urls of all nodes in a cluster.
@@ -175,21 +190,6 @@ a32e8f613b529ad4   backend-1    https://10.0.0.1:2380     https://10.0.0.1:2379
 c3d9f4b8d0dd1ac9   backend-2    https://10.0.0.2:2380     https://10.0.0.2:2379
 c8f63ae435a5e6bf   backend-3    https://10.0.0.3:2380     https://10.0.0.3:2379
 2f7ae42c315f8c2d   backend-4    https://10.0.0.4:2380     https://10.0.0.4:2379
-{{< /highlight >}}
-
-### Replace a faulty cluster member
-
-To replace a faulty cluster member, make sure to change the `etcd-initial-cluster-state` to `existing` in the configuration. This example store configuration shows `backend-3` as the faulty cluster.
-
-{{< highlight yml >}}
-etcd-advertise-client-urls: "http://10.0.0.3:2379"
-etcd-listen-client-urls: "http://10.0.0.3:2379"
-etcd-listen-peer-urls: "http://0.0.0.0:2380"
-etcd-initial-cluster: "backend-1=http://10.0.0.1:2380,backend-2=http://10.0.0.2:2380,backend-3=http://10.0.0.3:2380"
-etcd-initial-advertise-peer-urls: "http://10.0.0.3:2380"
-etcd-initial-cluster-state: "existing"
-etcd-initial-cluster-token: ""
-etcd-name: "backend-3"
 {{< /highlight >}}
 
 ### Remove a cluster member
