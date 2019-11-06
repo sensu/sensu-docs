@@ -45,7 +45,7 @@ Read the [upgrade guide][1] for information on upgrading to the latest version o
 
 ## 5.15.0 release notes
 
-**November X, 2019** &mdash; The latest release of Sensu Go, version 5.15.0, is now available for download. This release includes feature additions like ... In addition, this release includes ... and bug fixes that ....
+**November X, 2019** &mdash; The latest release of Sensu Go, version 5.15.0, is now available for download. This release includes an important update to our free entity limit. feature additions like ... In addition, this release includes ... and bug fixes that ....
 
 See the [upgrade guide][1] to upgrade Sensu to version 5.15.0.
 
@@ -54,8 +54,9 @@ Sensu's free entity limit is now 100 entities. All [licensed features][79] are a
 
 **NEW FEATURES:**
 
-- ([Licensed][79]) Added support for the [federation cluster registration api][85].
+- ([Licensed][79]) Added support for the [federation cluster registration API][85].
 - ([Licensed][79]) Added MSI and NuGet builds for [sensuctl][89]. Also, MSI and NuGet installations now add the bin directory to the system PATH on Windows.
+- ([Licensed][79]) Added HTTP DELETE access for the [license management API][92].
 - Added the [APIKey resource][86], with HTTP API support for POST, GET, and DELETE and [sensuctl commands][87] to manage the APIKey resource.
 - Added support for using [API keys for API authentication][88].
 - Added support for sensu-backend service environment variables.
@@ -64,9 +65,14 @@ Sensu's free entity limit is now 100 entities. All [licensed features][79] are a
 
 - ([Licensed][79]) Removed support for UPN binding without a binding account or anonymous binding, which allows Sensu to effectively refresh claims during access token renewal.
 
-**IMPROVEMENTS:**
+**IMPROVEMENTS**
+
+- You can now use colons in asset names.
+
+**FIXED:**
 
 - Added better error logging for mutator execution.
+- Fixed the order of flap detection weighting for checks.
 
 ## 5.14.1 release notes
 
@@ -722,3 +728,4 @@ To get started with Sensu Go:
 [89]: /sensu-go/5.15/sensuctl/reference/
 [90]: https://sensu.io/contact
 [91]: https://discourse.sensu.io/t/introducing-usage-limits-in-the-sensu-go-free-tier/1156
+[92]: /sensu-go/5.15/api/license/
