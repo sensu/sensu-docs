@@ -8,7 +8,7 @@ menu: "sensu-core-1.8"
 product: "Sensu Core"
 ---
 
-_**IMPORTANT**: [Sensu Core will reach end-of-life (EOL) on December 31, 2019][73]. This guide describes how to migrate your Sensu instance from Sensu Core to Sensu Go. To migrate from Sensu Enterprise, see the [Sensu Enterprise migration guide][30]._
+_**IMPORTANT**: [Sensu Core will reach end-of-life (EOL) on December 31, 2019][73]. This guide describes how to migrate your Sensu instance from Sensu Core to Sensu Go. To migrate from Sensu Enterprise, see the [Sensu Enterprise migration guide][30]. Learn more about [what to expect when Core and Enterprise reach EOL][85]._
 
 Here's a quick overview of Sensu Go's advantages:
 
@@ -445,3 +445,4 @@ You may also want to re-install the `sensu-install` tool using the [`sensu-plugi
 [82]: https://sensu.io/contact/
 [83]: https://docs.sensu.io/sensu-go/latest/reference/agent/
 [84]: https://docs.sensu.io/sensu-go/latest/reference/backend/
+[85]: https://blog.sensu.io/announcing-the-sensu-archives
