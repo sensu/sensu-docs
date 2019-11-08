@@ -18,10 +18,6 @@ menu:
 - [Cluster health](#cluster-health)
 - [Managing cluster members](#add-a-cluster-member)
 - [Security](#security)
-  - [Client-to-server transport security with HTTPS](#client-to-server-with-https)
-  - [Client-to-server authentication with HTTPS client certificates](#client-to-server-auth-with-https)
-  - [Peer communication authentication with HTTPS client certificates](#peer-auth-https)
-  - [Sensu agent with HTTPS](#sensu-agent-https)
 - [Using an external etcd cluster](#using-an-external-etcd-cluster)
 - [Troubleshooting](#troubleshooting)
 
