@@ -351,7 +351,7 @@ To verify that the agent has registered with Sensu and is sending keepalive even
 Sensu Inc. offers support packages for Sensu Go as well as licensed features designed for monitoring at scale.
 For more information about licensed features in Sensu Go, see the [getting started guide](../../getting-started/enterprise).
 
-All licensed features are free for your first 100 entities. To learn more about Sensu Go licenses for more than 100 entities, [contact the Sensu sales team](https://sensu.io/sales).
+All licensed features are [free for your first 100 entities][29]. To learn more about Sensu Go licenses for more than 100 entities, [contact the Sensu sales team](https://sensu.io/sales).
 
 If you already have a Sensu license, [log in to your Sensu account](https://account.sensu.io/) and download your license file, then activate your license using sensuctl.
 
@@ -404,3 +404,4 @@ Now that you've installed Sensu, here are some resources to help continue your j
 [27]: ../../reference/agent#creating-monitoring-events-using-the-agent-api
 [28]: ../../reference/agent#creating-monitoring-events-using-the-statsd-listener
 [deploy]: ../../guides/deploying
+[29]: https://blog.sensu.io/one-year-of-sensu-go
