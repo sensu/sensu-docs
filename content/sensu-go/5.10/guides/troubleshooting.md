@@ -17,7 +17,7 @@ menu:
 - [Sensu backend startup errors](#sensu-backend-startup-errors)
 - [Permission issues](#permission-issues)
 - [Handlers and filters](#troubleshooting-handlers-and-filters)
-- [Assets not working properly](#asset-issues)
+- [Assets](#asset-issues)
 
 ## Service logging
 
