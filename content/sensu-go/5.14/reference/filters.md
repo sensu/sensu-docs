@@ -149,11 +149,11 @@ The `is_incident` filter applies the following filtering logic:
 
 | status | allow | discard |     |     |     |     |
 | ----- | ----- | ------- | --- | --- | --- | --- |
-| 0     |   |❌| | | | |
-| 1     |✅ |  | | | | |
-| 2     |✅ |  | | | | |
-| other |   |❌| | | | |
-| 1 --> 0 or 2 --> 0<br>(resolution event)  |✅ |  | | | | |
+| 0     |   |{{< cross >}}| | | | |
+| 1     |{{< check >}} |  | | | | |
+| 2     |{{< check >}} |  | | | | |
+| other |   |{{< cross >}}| | | | |
+| 1 --> 0 or 2 --> 0<br>(resolution event)  |{{< check >}} |  | | | | |
 
 ### Built-in filter: allow silencing
 

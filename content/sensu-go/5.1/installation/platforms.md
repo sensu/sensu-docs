@@ -19,12 +19,12 @@ See the [backend installation guide][1] for more information.
 
 | Platform & Version | `amd64` | | | |
 |--------------------|---------|---|---|---|
-| CentOS/RHEL 6      | ✅      |
-| CentOS/RHEL 7      | ✅      |
-| Ubuntu 14.04       | ✅      |
-| Ubuntu 16.04       | ✅      |
-| Ubuntu 18.04       | ✅      |
-| Ubuntu 18.10       | ✅      |
+| CentOS/RHEL 6      | {{< check >}}      |
+| CentOS/RHEL 7      | {{< check >}}      |
+| Ubuntu 14.04       | {{< check >}}      |
+| Ubuntu 16.04       | {{< check >}}      |
+| Ubuntu 18.04       | {{< check >}}      |
+| Ubuntu 18.10       | {{< check >}}      |
 
 ### Sensu agent
 
@@ -33,13 +33,13 @@ See the [agent installation guide][2] for more information.
 
 | Platform & Version | `amd64` | `386` | | | | |
 |--------------------|---------|-------|---|---|---|---|
-| CentOS/RHEL 6      | ✅      |
-| CentOS/RHEL 7      | ✅      |
-| Ubuntu 14.04       | ✅      |
-| Ubuntu 16.04       | ✅      |
-| Ubuntu 18.04       | ✅      |
-| Ubuntu 18.10       | ✅      |
-| Windows Server 2008 R2 and later | ✅ | ✅ |
+| CentOS/RHEL 6      | {{< check >}}      |
+| CentOS/RHEL 7      | {{< check >}}      |
+| Ubuntu 14.04       | {{< check >}}      |
+| Ubuntu 16.04       | {{< check >}}      |
+| Ubuntu 18.04       | {{< check >}}      |
+| Ubuntu 18.10       | {{< check >}}      |
+| Windows Server 2008 R2 and later | {{< check >}} | {{< check >}} |
 
 ### Sensuctl command-line tool
 
@@ -48,15 +48,15 @@ See the [sensuctl installation guide][3] for more information.
 
 | Platform & Version | `amd64` | `386` | | | | |
 |--------------------|---------|-------|---|---|---|---|
-| CentOS/RHEL 6      | ✅     |
-| CentOS/RHEL 7      | ✅     |
-| Ubuntu 14.04       | ✅     |
-| Ubuntu 16.04       | ✅     |
-| Ubuntu 18.04       | ✅     |
-| Ubuntu 18.10       | ✅     |
-| Windows 7 and later| ✅     |
-| Windows Server 2008 R2 and later | ✅ | ✅ |
-| macOS 10.10 and later | ✅  |
+| CentOS/RHEL 6      | {{< check >}}     |
+| CentOS/RHEL 7      | {{< check >}}     |
+| Ubuntu 14.04       | {{< check >}}     |
+| Ubuntu 16.04       | {{< check >}}     |
+| Ubuntu 18.04       | {{< check >}}     |
+| Ubuntu 18.10       | {{< check >}}     |
+| Windows 7 and later| {{< check >}}     |
+| Windows Server 2008 R2 and later | {{< check >}} | {{< check >}} |
+| macOS 10.10 and later | {{< check >}}  |
 
 [1]: ../../installation/install-sensu#install-the-sensu-backend
 [2]: ../../installation/install-sensu#install-the-sensu-agent
