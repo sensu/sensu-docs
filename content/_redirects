@@ -1,4 +1,3 @@
-[[redirects]]
-  from = "/sensu-go/latest"
-  to = "/sensu-go/5.14"
-  status = 200
+/sensu-go/latest/*        /sensu-go/5.14/:splat
+/sensu-core/latest/*      /sensu-core/1.8/:splat
+/sensu-enterprise/latest/*      /sensu-enterprise/3.6/:splat
