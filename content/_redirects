@@ -1,0 +1,4 @@
+[[redirects]]
+  from = "/sensu-go/latest"
+  to = "/sensu-go/5.14"
+  status = 200
