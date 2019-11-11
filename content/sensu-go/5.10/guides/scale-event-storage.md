@@ -1,6 +1,6 @@
 ---
 title: "Scale Sensu Go with Enterprise Datastore"
-linkTitle: "Routing Alerts with Filters"
+linkTitle: "Scaling with Enterprise datastore"
 description: ""
 weight: 39
 version: "5.10"
