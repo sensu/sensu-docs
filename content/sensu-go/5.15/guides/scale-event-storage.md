@@ -3,11 +3,11 @@ title: "Scale Sensu Go with Enterprise Datastore"
 linkTitle: "Scaling with Enterprise datastore"
 description: ""
 weight: 39
-version: "5.10"
+version: "5.15"
 product: "Sensu Go"
 platformContent: false
 menu:
-  sensu-go-5.10:
+  sensu-go-5.15:
     parent: guides
 ---
 
