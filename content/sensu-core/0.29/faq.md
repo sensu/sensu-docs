@@ -18,25 +18,25 @@ Enterprise](https://sensu.io/features/enterprise) a try.
 
 | Platform & Version | 64bit | 32bit | Arch     | Comments                  |
 |--------------------|-------|-------|----------|---------------------------|
-| Ubuntu 12.04       | ✅     | ✅     | x86     |                          |
-| Ubuntu 14.04       | ✅     | ✅     | x86     |                          |
-| Ubuntu 16.04       | ✅     | ❌     | x86     | No official 32bit images |
-| Ubuntu 18.04       | ✅     | ❌     | x86     | No official 32bit images |
-| Debian 7           | ✅     | ✅     | x86     |                          |
-| Debian 8           | ✅     | ❌     | x86     | No official 32bit images |
-| Debian 9           | ✅     | ❌     | x86     | No official 32bit images |
-| CentOS 5           | ✅     | ✅     | x86     | 32 and 64bit images built with [sensu-omnibus-packer](https://github.com/sensu/sensu-omnibus-packer) |
-| CentOS 6           | ✅     | ✅     | x86     | Using unofficial 32bit image |
-| CentOS 7           | ✅     | ❌     | x86     | No official 32bit images |
-| FreeBSD 10         | ✅     | ❌     | x86     | Official 32bit images are out of date |
-| FreeBSD 11         | ✅     | ❌     | x86     | No official 32bit images |
-| Solaris 10         | ❌     | ✅     | sparc   |                          |
-| Solaris 11         | ❌     | ✅     | sparc   |                          |
-| IBM AIX 6.1 +      | ❌     | ✅     | powerpc |                          |
-| Windows 2012r2     | ✅     | ✅     | x86     | 32bit artifact built on 64bit platform |
-| Mac OS X 10.10     | ✅     | ❌     | x86     | See [Mac platform notes][5] for instructions |
-| Mac OS X 10.11     | ✅     | ❌     | x86     | See [Mac platform notes][5] for instructions |
-| Mac OS X 10.12     | ✅     | ❌     | x86     | See [Mac platform notes][5] for instructions |
+| Ubuntu 12.04       | {{< check >}}     | {{< check >}}     | x86     |                          |
+| Ubuntu 14.04       | {{< check >}}     | {{< check >}}     | x86     |                          |
+| Ubuntu 16.04       | {{< check >}}     | {{< cross >}}     | x86     | No official 32bit images |
+| Ubuntu 18.04       | {{< check >}}     | {{< cross >}}     | x86     | No official 32bit images |
+| Debian 7           | {{< check >}}     | {{< check >}}     | x86     |                          |
+| Debian 8           | {{< check >}}     | {{< cross >}}     | x86     | No official 32bit images |
+| Debian 9           | {{< check >}}     | {{< cross >}}     | x86     | No official 32bit images |
+| CentOS 5           | {{< check >}}     | {{< check >}}     | x86     | 32 and 64bit images built with [sensu-omnibus-packer](https://github.com/sensu/sensu-omnibus-packer) |
+| CentOS 6           | {{< check >}}     | {{< check >}}     | x86     | Using unofficial 32bit image |
+| CentOS 7           | {{< check >}}     | {{< cross >}}     | x86     | No official 32bit images |
+| FreeBSD 10         | {{< check >}}     | {{< cross >}}     | x86     | Official 32bit images are out of date |
+| FreeBSD 11         | {{< check >}}     | {{< cross >}}     | x86     | No official 32bit images |
+| Solaris 10         | {{< cross >}}     | {{< check >}}     | sparc   |                          |
+| Solaris 11         | {{< cross >}}     | {{< check >}}     | sparc   |                          |
+| IBM AIX 6.1 +      | {{< cross >}}     | {{< check >}}     | powerpc |                          |
+| Windows 2012r2     | {{< check >}}     | {{< check >}}     | x86     | 32bit artifact built on 64bit platform |
+| Mac OS X 10.10     | {{< check >}}     | {{< cross >}}     | x86     | See [Mac platform notes][5] for instructions |
+| Mac OS X 10.11     | {{< check >}}     | {{< cross >}}     | x86     | See [Mac platform notes][5] for instructions |
+| Mac OS X 10.12     | {{< check >}}     | {{< cross >}}     | x86     | See [Mac platform notes][5] for instructions |
 
 > Do I need RabbitMQ to be installed on every system I wish to monitor?
 
@@ -197,13 +197,13 @@ See the table below for the location of the respective files needed:
 
 | Filename      | Client | Server |
 |---------------|--------|--------|
-| api.json      |        | ✅       |
-| client.json   | ✅     | ✅       |
+| api.json      |        | {{< check >}}       |
+| client.json   | {{< check >}}     | {{< check >}}       |
 | config.json (see note)  |        |        |
-| dashboard.json|        | ✅       |
-| rabbitmq.json | ✅       | ✅       |
-| redis.json    |        | ✅       |
-| transport.json| ✅     | ✅       |
+| dashboard.json|        | {{< check >}}       |
+| rabbitmq.json | {{< check >}}       | {{< check >}}       |
+| redis.json    |        | {{< check >}}       |
+| transport.json| {{< check >}}     | {{< check >}}       |
 
 _NOTE: For `config.json`, it is not necessary to have this file present on either a Sensu client or server, provided that you have the rest of the configuration files present._
 
