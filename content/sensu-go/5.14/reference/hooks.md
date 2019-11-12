@@ -12,6 +12,9 @@ menu:
 
 - [Specification](#hooks-specification)
 - [Examples](#examples)
+  - [Rudimentary auto-rememdiation](#rudimentary-auto-remediation)
+  - [Capture the process tree](#capture-the-process-tree)
+  - [Check hook using token substitution](#check-hook-using-token-substitution)
 
 ## How do hooks work?
 
@@ -281,12 +284,61 @@ spec:
 
 {{< /language-toggle >}}
 
+### Check hook using token substitution
+
+You can create check hooks that use [token substitution][7] so you can fine-tune check attributes on a per-entity level and re-use the check definition.
+
+_*NOTE*: Token substitution uses entity-scoped metadata, so make sure to set labels at the entity level._
+
+**Examples below are placeholders (just my guesses) and need to be revised to correctly show a check hook using token substitution.**
+
+{{< language-toggle >}}
+
+{{< highlight yml >}}
+type: HookConfig
+api_version: core/v2
+metadata:
+  annotations: null
+  labels:
+    foo: bar
+  name: tokensub
+  namespace: default
+spec:
+  command: tokensub {{ .labels.foo }}
+  stdin: false
+  timeout: 60
+{{< /highlight >}}
+
+{{< highlight json >}}
+{
+   "type": "HookConfig",
+   "api_version": "core/v2",
+   "metadata": {
+      "annotations": null,
+      "labels": {
+         "foo": "bar"
+      },
+      "name": "tokensub",
+      "namespace": "default"
+   },
+   "spec": {
+      "command": "tokensub {{ .labels.foo }}",
+      "stdin": false,
+      "timeout": 60
+   }
+}
+{{< /highlight >}}
+
+{{< /language-toggle >}}
+
+
 [1]: https://blog.sensuapp.org/using-check-hooks-a739a362961f
 [2]: #metadata-attributes
 [3]: ../rbac#namespaces
 [4]: ../filters
 [5]: ../assets
 [6]: ../checks#check-hooks-attribute
+[7]: ../tokens
 [sc]: ../../sensuctl/reference#creating-resources
 [sp]: #spec-attributes
 [api-filter]: ../../api/overview#filtering
