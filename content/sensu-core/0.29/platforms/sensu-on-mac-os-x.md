@@ -183,7 +183,6 @@ $ sudo -u _sensu /opt/sensu/bin/sensu-client -V
 
 
 [1]:  https://eol-repositories.sensuapp.org/osx/
-[2]:  http://eol-repositories.sensuapp.org/osx/
 [3]:  http://eol-repositories.sensuapp.org/osx/sensu-0.26.3-1.mountainlion.pkg
 [4]:  #configure-the-sensu-client-launchd-daemon
 [5]:  ../../reference/configuration/
