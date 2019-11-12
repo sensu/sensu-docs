@@ -58,7 +58,7 @@ svccfg import /lib/svc/manifest/site/sensu-client.xml{{< /highlight >}}
 
 1. Download the Sensu [Solaris 11 package][14] or use the `wget` utility:
    {{< highlight shell >}}
-wget https://sensu.global.ssl.fastly.net/solaris/ips/5.11/sensu-1.3.0-1.i386.p5p{{< /highlight >}}
+wget https://eol-repositories.sensuapp.org/solaris/ips/5.11/sensu-1.3.0-1.i386.p5p{{< /highlight >}}
 
 2. Install the `sensu-1.3.0-1.i386.p5p` package using the `pkg` utility:
    {{< highlight shell >}}
@@ -161,9 +161,9 @@ $ svcadm enable sensu-client
 $ svcadm disable sensu-client
 $ svcadm restart sensu-client{{< /highlight >}}
 
-[1]: https://repositories.sensuapp.org/solaris/pkg/
-[2]: https://sensu.global.ssl.fastly.net/solaris/pkg/
-[3]: https://sensu.global.ssl.fastly.net/solaris/ips/
+[1]: https://eol-repositories.sensuapp.org/solaris/pkg/
+[2]: https://eol-repositories.sensuapp.org/solaris/pkg/
+[3]: https://eol-repositories.sensuapp.org/solaris/ips/
 [4]: https://sensuapp.org/mit-license
 [5]: ../../reference/configuration/
 [6]: ../../reference/transport/
@@ -174,4 +174,4 @@ $ svcadm restart sensu-client{{< /highlight >}}
 [11]: #example-client-configuration
 [12]: ../../files/postinst.sh
 [13]: http://www.oracle.com/technetwork/server-storage/solaris11/technologies/ips-323421.html
-[14]: https://repositories.sensuapp.org/solaris/ips/
+[14]: https://eol-repositories.sensuapp.org/solaris/ips/

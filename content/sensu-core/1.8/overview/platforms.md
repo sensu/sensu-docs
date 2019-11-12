@@ -82,12 +82,12 @@ by Sensu**.
 [4]:  ../../reference/clients/
 [5]:  https://sensu.io/products/enterprise
 [6]:  https://sensu.io/products/enterprise
-[7]: https://repositories.sensuapp.org/freebsd/
-[8]: https://repositories.sensuapp.org/aix/
-[9]: https://repositories.sensuapp.org/osx/
-[10]: https://repositories.sensuapp.org/msi/
-[11]: https://repositories.sensuapp.org/solaris/pkg/
-[12]: https://repositories.sensuapp.org/solaris/ips/
-[13]: https://repositories.sensuapp.org/yum/
-[14]: https://repositories.sensuapp.org/apt/pool/
+[7]: https://eol-repositories.sensuapp.org/freebsd/
+[8]: https://eol-repositories.sensuapp.org/aix/
+[9]: https://eol-repositories.sensuapp.org/osx/
+[10]: https://eol-repositories.sensuapp.org/msi/
+[11]: https://eol-repositories.sensuapp.org/solaris/pkg/
+[12]: https://eol-repositories.sensuapp.org/solaris/ips/
+[13]: https://eol-repositories.sensuapp.org/yum/
+[14]: https://eol-repositories.sensuapp.org/apt/pool/
 
