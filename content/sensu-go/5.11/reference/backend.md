@@ -13,8 +13,8 @@ menu:
 
 - [Installation][1]
 - [Creating event pipelines](#event-pipeline)
-- [Scheduling checks](#check-scheduling)
-- [Service management](#operation)
+- [Check scheduling](#check-scheduling)
+- [Operation and service management](#operation)
   - [Starting and stopping the service](#starting-the-service)
   - [Clustering](#clustering)
   - [Time synchronization](#time-synchronization)
@@ -26,7 +26,7 @@ menu:
   - [Datastore and cluster configuration](#datastore-and-cluster-configuration-flags)
   - [Advanced configuration options](#advanced-configuration-options)
   - [Event logging](#event-logging)
-  - [Example](../../files/backend.yml)
+  - [Example](../../files/backend.yml) (download)
 
 The Sensu backend is a service that manages check requests and event data.
 Every Sensu backend includes an integrated transport for scheduling checks using subscriptions, an event processing pipeline that applies filters, mutators, and handlers, an embedded [etcd][2] datastore for storing configuration and state, a Sensu API, [Sensu dashboard][6], and `sensu-backend` command-line tool.
@@ -56,7 +56,7 @@ For information about creating and managing checks, see:
 - [Guide to collecting metrics with checks][4]
 - [Checks reference documentation][5]
 
-## Operation
+## Operation and service management {#operation}
 
 _NOTE: Commands in this section may require administrative privileges._
 

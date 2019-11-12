@@ -26,6 +26,8 @@ menu:
 The `/checks` API endpoint provides HTTP GET access to [subscription check][1]
 data.
 
+_**NOTE**: `GET /checks` responses do not include checks that are configured as [standalone checks][5]._
+
 #### EXAMPLE {#checks-get-example}
 
 The following example demonstrates a request to the `/checks` API, resulting in
@@ -265,3 +267,4 @@ response codes  | <ul><li>**Success**: 202 (Accepted)</li><li>**Malformed**: 400
 [2]:  ../../reference/checks#check-configuration
 [3]:  https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
 [4]:  ../overview#pagination
+[5]:  ../../reference/checks#standalone-checks
