@@ -111,7 +111,7 @@ sudo systemctl start sensu-backend
 
 #### Adding sensu agents to the cluster
 
-Each Sensu agent should have the following entries in `/etc/sensu/agent.yml` to ensure they are aware of all cluster members. This allows the agent to reconnect to a working backend in the scenrio where the one it is currently connected to goes into an unhealthy state.
+Each Sensu agent should have the following entries in `/etc/sensu/agent.yml` to ensure they are aware of all cluster members. This allows the agent to reconnect to a working backend if the backend it is currently connected to goes into an unhealthy state.
 
 {{< highlight yml >}}
 ##
@@ -160,6 +160,8 @@ ETCD_INITIAL_CLUSTER_STATE="existing"
 
 #### Replace a faulty cluster member
 
+Run [`sensuctl cluster health`][17] to check for faulty cluster members. For faulty cluster members, the `Error` column will include an error message and the `Healthy` column will list `false`. Replace faulty cluster members to restore the cluster's health. 
+
 To replace a faulty cluster member, make sure to change the `etcd-initial-cluster-state` to `existing` in the configuration. This example store configuration shows `backend-3` as the faulty cluster.
 
 {{< highlight yml >}}
@@ -172,6 +174,8 @@ etcd-initial-cluster-state: "existing"
 etcd-initial-cluster-token: ""
 etcd-name: "backend-3"
 {{< /highlight >}}
+
+If replacing the faulty cluster member does not resolve the problem, please see the [etcd operations guide][12] for more information.
 
 ### List cluster members
 
@@ -214,7 +218,7 @@ Please see our guide, [Securing Sensu][16], for more information.
 
 ## Using an external etcd cluster
 
-Using Sensu with an external etcd cluster requires etcd 3.3.2 or newer. To stand up an external etcd cluster, you can follow etcd's [clustering guide][12] using the same store configuration.
+Using Sensu with an external etcd cluster requires etcd 3.3.2 or newer. To stand up an external etcd cluster, you can follow etcd's [clustering guide][2] using the same store configuration.
 
 In this example, we will enable client-to-server and peer communication authentication [using self-signed TLS certificates][13]. Below is how you would start etcd for `backend-1` from our three node configuration example above.
 
@@ -262,19 +266,20 @@ See [the etcd failure modes documentation][8] for more information.
 
 See [the etcd recovery guide][9] for more information.
 
-[1]: https://coreos.com/etcd/docs/latest/v2/admin_guide.html#optimal-cluster-size
-[2]: https://coreos.com/etcd/docs/latest/v2/clustering.html
-[3]: https://coreos.com/etcd/docs/latest/v2/configuration.html
-[4]: https://coreos.com/etcd/docs/latest/
-[5]: https://coreos.com/etcd/docs/latest/op-guide/supported-platform.html
+[1]: https://etcd.io/docs/v3.4.0/op-guide/runtime-configuration/
+[2]: https://etcd.io/docs/v3.4.0/op-guide/clustering/
+[3]: https://etcd.io/docs/v3.4.0/op-guide/configuration/
+[4]: https://etcd.io/docs/
+[5]: https://etcd.io/docs/v3.4.0/platforms/
 [6]: #sensuctl
 [7]: https://github.com/sensu/sensu-go/blob/master/docker-compose.yaml
-[8]: https://coreos.com/etcd/docs/latest/op-guide/failures.html
-[9]: https://coreos.com/etcd/docs/latest/op-guide/recovery.html
+[8]: https://etcd.io/docs/v3.4.0/op-guide/failures/
+[9]: https://etcd.io/docs/v3.4.0/op-guide/recovery/
 [10]: https://github.com/cloudflare/cfssl
-[11]: https://coreos.com/os/docs/latest/generate-self-signed-certificates.html
-[12]: https://coreos.com/etcd/docs/latest/op-guide/clustering.html
+[11]: https://etcd.io/docs/v3.4.0/op-guide/clustering/#self-signed-certificates
+[12]: https://etcd.io/docs/v3.4.0/op-guide/
 [13]: #creating-self-signed-certificates
 [14]: ../../installation/install-sensu/
 [15]: ../../reference/backend
 [16]: ../securing-sensu/
+[17]: #cluster-health
