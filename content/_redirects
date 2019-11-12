@@ -5,3 +5,4 @@
 /uchiwa/latest/*                          /uchiwa/1.0/:splat 200
 /sensu-enterprise/latest/*                /sensu-enterprise/3.6/:splat 200
 /sensu-enterprise-dashboard/latest/*      /sensu-enterprise-dashboard/2.16/:splat 200
+/plugins/latest/*                         /plugins/1.0/:splat 200
