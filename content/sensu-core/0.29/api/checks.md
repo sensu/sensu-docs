@@ -25,6 +25,8 @@ menu:
 The `/checks` API endpoint provides HTTP GET access to [subscription check][1]
 data.
 
+_**NOTE**: `GET /checks` responses do not include checks that are configured as [standalone checks][5]._
+
 #### EXAMPLE {#checks-get-example}
 
 The following example demonstrates a request to the `/checks` API, resulting in
