@@ -32,6 +32,8 @@ menu:
   - [Socket configuration](#socket-configuration-flags)
   - [StatsD configuration](#statsd-configuration-flags)
   - [Allow list configuration](#allow-list-configuration)
+  - [Example allow list configuration file](#example-allow-list-configuration-file)
+  - [Configuration via environment variables](#configuration-via-environment-variables)
   - [Example](../../files/agent.yml)
 
 The Sensu agent is a lightweight client that runs on the infrastructure components you want to monitor.
@@ -1252,6 +1254,41 @@ example               | {{< highlight shell >}}"enable_env": true{{< /highlight 
 {{< /highlight >}}
 
 {{< /language-toggle >}}
+
+### Configuration via environment variables
+
+The `sensu-agent` service configured by our supported packages will read environment variables from `/etc/default/sensu-agent` on Debian/Ubuntu systems and `/etc/sysconfig/sensu-agent` on RHEL systems. These files are not created by the installation package, so you will need to create them.
+
+{{< language-toggle >}}
+
+{{< highlight "Ubuntu/Debian" >}}
+$ sudo touch /etc/default/sensu-agent
+{{< /highlight >}}
+
+{{< highlight "RHEL/CentOS" >}}
+$ sudo touch /etc/sysconfig/sensu-agent
+{{< /highlight >}}
+
+{{< /language-toggle >}}
+
+For any configuration flag you wish to specify as an environment variable, you will need to append `SENSU_` and convert any dashes (`-`) to underscores (`_`). Then, add the resulting environment variable to the appropriate environment file described above. You must restart the service for these settings to take effect.
+
+In the following example, the `api-host` flag is configured as an environment variable and set to `"0.0.0.0"`.
+
+{{< language-toggle >}}
+
+{{< highlight "Ubuntu/Debian" >}}
+$ echo 'SENSU_API_HOST="0.0.0.0' | sudo tee -a /etc/default/sensu-agent
+$ sudo systemctl restart sensu-agent
+{{< /highlight >}}
+
+{{< highlight "RHEL/CentOS" >}}
+$ echo 'SENSU_API_HOST="0.0.0.0' | sudo tee -a /etc/sysconfig/sensu-agent
+$ sudo systemctl restart sensu-agent
+{{< /highlight >}}
+
+{{< /language-toggle >}}
+
 
 [1]: ../../installation/install-sensu#install-sensu-agents
 [2]: ../backend
