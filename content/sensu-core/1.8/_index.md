@@ -22,7 +22,7 @@ _**IMPORTANT**: [Sensu Core will reach end-of-life (EOL) on December 31, 2019][
 - [**Sensu Go Sandbox**][28]: Download the sandbox and try out some monitoring workflows with Sensu Go.
 - [**Sensu translator**][23]: Use this command-line tool to generate Sensu Go configurations from your Sensu Core config files.
 
-We also offer **commercial support** and **professional services** packages to help with your Sensu Go migration. Learn more about [commercial support options][29] or contact our [Customer Reliability team][30].
+We also offer **commercial support** and **professional services** packages to help with your Sensu Go migration. Learn more about [commercial support options][29] or contact our [Sales team][30].
 
 ----
 
