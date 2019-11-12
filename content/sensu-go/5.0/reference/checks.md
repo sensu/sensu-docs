@@ -23,17 +23,14 @@ menu:
 
 ### Check commands
 
-Each Sensu check definition defines a **command** and the **interval** at which
-it should be executed. Check commands are executable commands which
-will be executed by the Sensu agent.
+Each Sensu check definition specifies a command and the schedule at which it should be executed.
+Check commands are executable commands that are executed by a Sensu agent.
 
-A command may include command line arguments for controlling the behavior of the
-command executable. Most Sensu check plugins provide support for command line
-arguments for reusability.
+A command may include command line arguments for controlling the behavior of the command executable.
+Many common checks are available as assets and support command line arguments so different check definitions can use the same executable.
 
-Sensu advises against requiring root privileges to execute check
-commands or scripts. The Sensu user is not permitted to kill timed out processes
-invoked by the root user, which could result in zombie processes.
+Sensu advises against requiring root privileges to execute check commands or scripts.
+The Sensu user is not permitted to kill timed out processes invoked by the root user, which could result in zombie processes.
 
 #### How and where are check commands executed?
 
@@ -579,3 +576,4 @@ spec:
 [sc]: ../../sensuctl/reference#creating-resources
 [sp]: #spec-attributes
 [28]: ../../guides/monitor-external-resources
+
