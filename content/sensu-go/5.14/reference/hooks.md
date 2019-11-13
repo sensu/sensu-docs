@@ -288,9 +288,7 @@ spec:
 
 You can create check hooks that use [token substitution][7] so you can fine-tune check attributes on a per-entity level and re-use the check definition.
 
-_*NOTE*: Token substitution uses entity-scoped metadata, so make sure to set labels at the entity level._
-
-**Examples below are placeholders (just my guesses) and need to be revised to correctly show a check hook using token substitution.**
+_**NOTE**: Token substitution uses entity-scoped metadata, so make sure to set labels at the entity level._
 
 {{< language-toggle >}}
 
