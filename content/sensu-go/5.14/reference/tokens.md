@@ -19,9 +19,7 @@ You can use tokens to fine-tune check attributes (like alert thresholds) on a pe
 
 When a check is scheduled to be executed by an agent, it first goes through a token substitution step. The agent replaces any tokens with matching attributes from the entity definition, and then the check is executed. Invalid templates or unmatched tokens will return an error, which is logged and sent to the Sensu backend message transport. Checks with token matching errors will not be executed.
 
-Token substitution is supported for check definition [`command`][7] attributes and [hooks][8].
-Only [entity attributes][4] are available for substitution.
-Available attributes will always have [string values](#token-data-type-limitations), such as labels and annotations.
+Token substitution is only supported for the [`command` attribute][7] of a check definition, and only [entity attributes][4] are available for substitution. Available attributes will always have [string values](#token-data-type-limitations), such as labels and annotations.
 
 ## Managing entity labels
 
@@ -31,7 +29,7 @@ See the [entity reference][6] for information on managing entity labels for prox
 ## Sensu token specification
 
 Sensu Go uses the [Go template][1] package to implement token substitution.
-Use double curly braces around the token and a dot before the attribute to be substituted: `{{ .system.hostname }}`.
+Sensu Go token substitution uses double curly braces around the token, and a dot before the attribute to be substituted, such as: `{{ .system.hostname }}`.
 
 ### Token substitution syntax
 
@@ -44,7 +42,7 @@ Tokens are invoked by wrapping references to entity attributes and labels with d
   `disk_warning`
 - `{{ index .labels "cpu.threshold" }}` would be replaced with a custom label called `cpu.threshold`
 
-_**NOTE**: When an annotation or label name has a dot (e.g. `cpu.threshold`), the template index function syntax must be used to ensure correct processing because the dot notation is also used for object nesting._
+_NOTE: When an annotation or label name has a dot (e.g. `cpu.threshold`), the template index function syntax must be used to ensure correct processing because the dot notation is also used for object nesting._
 
 ### Token substitution default values
 
@@ -278,4 +276,3 @@ spec:
 [5]: ../checks/
 [6]: ../entities#managing-entity-labels
 [7]: ../checks/#check-commands
-[8]: ../hooks
