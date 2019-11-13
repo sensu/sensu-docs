@@ -207,7 +207,7 @@ See the table below for the location of the respective files needed:
 
 _NOTE: For `config.json`, it is not necessary to have this file present on either a Sensu client or server, provided that you have the rest of the configuration files present._
 
-[1]: https://repositories.sensuapp.org/msi/
+[1]: https://eol-repositories.sensuapp.org/msi/
 [2]: https://www.amqp.org/
 [3]: https://www.rabbitmq.com/which-erlang.html
 [4]: ../installation/upgrading/#tls-ssl-changes
