@@ -45,12 +45,14 @@ Read the [upgrade guide][1] for information on upgrading to the latest version o
 
 ## 5.15.0 release notes
 
-**November X, 2019** &mdash; The latest release of Sensu Go, version 5.15.0, is now available for download. This release includes an important update to our free entity limit. feature additions like ... In addition, this release includes ... and bug fixes that ....
+**November 18, 2019** &mdash; The latest release of Sensu Go, version 5.15.0, is now available for download. This is our biggest release yet and includes an important update to our free entity limit. We added the federation cluster registration API as well as the APIKey resource, which you can use for API authentication. In addition, the 5.15.0 release includes support for sensu-backend environment variables and bug fixes that improve error logging for mutator execution and flap detection weighting for checks.
 
 See the [upgrade guide][1] to upgrade Sensu to version 5.15.0.
 
 **IMPORTANT**
-Sensu's free entity limit is now 100 entities. All [licensed features][79] are available for free in the packaged Sensu Go distribution up to an entity limit of 100. If your Sensu instance includes more than 100 entities, [contact us][90] to learn how to upgrade your installation and increase your limit. See [Discourse][91] for more information about our usage policy.
+Sensu's free entity limit is now 100 entities. All [licensed features][79] are available for free in the packaged Sensu Go distribution up to an entity limit of 100. You will see a warning when you approach the 100-entity limit (at 75%).
+
+If your Sensu instance includes more than 100 entities, [contact us][90] to learn how to upgrade your installation and increase your limit. See [Discourse][91] for more information about our usage policy.
 
 **NEW FEATURES:**
 
@@ -67,12 +69,14 @@ Sensu's free entity limit is now 100 entities. All [licensed features][79] are a
 
 **IMPROVEMENTS**
 
-- You can now use colons in asset names.
+- You can now use colons and periods in all resource  and asset names (except users).
 
 **FIXED:**
 
 - Added better error logging for mutator execution.
 - Fixed the order of flap detection weighting for checks.
+- Fixed the pprof server so it only binds to localhost.
+- Moved `corev2.BonsaiAsset` to `bonsai.Asset` and moved `corev2.OutdatedBonsaiAsset` to `bonsai.OutdatedAsset`.
 
 ## 5.14.1 release notes
 
