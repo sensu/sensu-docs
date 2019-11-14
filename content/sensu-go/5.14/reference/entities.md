@@ -23,7 +23,7 @@ menu:
   - [Metadata attributes](#metadata-attributes)
 	- [System attributes](#system-attributes)
 	- [Network attributes](#network-attributes)
-  - [NetworkInterface attributes](#networkinterface-attributes)
+	- [NetworkInterface attributes](#networkinterface-attributes)
   - [Deregistration attributes](#deregistration-attributes)
 - [Examples](#examples)
 
