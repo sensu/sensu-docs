@@ -17,8 +17,7 @@ See the [products page][3] for a complete feature comparison.
 
 ### License-activated features in Sensu Go
 
-- **Manage your monitoring checks from your browser**: Create, edit, and delete checks using the Sensu [web UI](../../dashboard/overview).
-- **Manage event handlers from your browser**: Create, edit, and delete handlers using the Sensu [web UI](../../dashboard/overview).
+- **Manage your monitoring checks, silences, and handlers from your browser**: Create, edit, and delete checks, silences, and handlers using the Sensu [web UI](../../dashboard/overview).
 - **Authentication providers**: Scale Sensu role-based access control with [LDAP and Active Directory integrations](../../installation/auth).
 - **Resource filtering in the Sensu API and sensuctl command-line tool**: Designed for large installations, label and field selectors let you filter Sensu API and sensuctl responses using custom labels and resource attributes such as event status and check subscriptions.
 - **Event logging**: Log event data to a file that you can use as an input source for your favorite data lake solution. Using the [event logging](../../reference/backend#event-logging) functionality provides better performance and reliability than using event handlers.
