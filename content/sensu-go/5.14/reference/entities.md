@@ -24,7 +24,7 @@ menu:
 	- [System attributes](#system-attributes)
 	- [Network attributes](#network-attributes)
 	- [NetworkInterface attributes](#networkinterface-attributes)
-  - [Deregistration attributes](#deregistration-attributes)
+	- [Deregistration attributes](#deregistration-attributes)
 - [Examples](#examples)
 
 ## What is an entity?
