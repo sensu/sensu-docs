@@ -18,7 +18,7 @@ menu:
   - [Proxy entity labels](#proxy-entities-managed)
   - [Agent entity labels](#agent-entities-managed)
 - [Entities specification](#entities-specification)
-  - [Top-level attributes](#top-level-attributes)
+	- [Top-level attributes](#top-level-attributes)
   - [Spec attributes](#spec-attributes)
   - [Metadata attributes](#metadata-attributes)
   - [System attributes](#system-attributes)
