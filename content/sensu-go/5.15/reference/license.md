@@ -1,7 +1,7 @@
 ---
 title: "License management"
 linkTitle: "License Management"
-description: "Sensu Go includes licensed features designed for monitoring at scale. Activate and manage your license with sensuctl and your Sensu account. Read the reference documentation to learn more."
+description: "Sensu Go includes commercial features designed for monitoring at scale. Activate and manage your commercial license with sensuctl and your Sensu account. Read the reference documentation to learn more."
 weight: 100
 version: "5.15"
 product: "Sensu Go"
@@ -10,7 +10,7 @@ menu:
     parent: reference
 ---
 
-- [Activating your license](#activating-your-license)
+- [Activating your commercial license](#activating-your-commercial-license)
 - [Entity limit](#entity-limit)
 - [License expiration](#license-expiration)
 - [License management API](../../api/license)
@@ -24,7 +24,7 @@ menu:
 - [Contact Sensu support](https://account.sensu.io/support)
 - [Contact Sensu sales](https://sensu.io/sales)
 
-## Activating your license
+## Activating your commercial license
 
 If you haven't already, [install the backend, agent, and sensuctl](../../installation/install-sensu) and [configure sensuctl](../../sensuctl/reference/#first-time-setup).
 
@@ -66,10 +66,10 @@ Error: not found
 
 ## Entity limit
 
-Your license includes the entity limit tied to your Sensu licensing package.
-(An entity limit of `0` allows unlimited entities.)
+Your commercial license includes the entity limit tied to your Sensu licensing package.
+An entity limit of `0` allows unlimited entities.
 Both agent and proxy entities count towards the overall entity limit.
-[Contact us](https://account.sensu.io/support) to upgrade your license.
+[Contact us](https://account.sensu.io/support) to upgrade to a commercial license.
 
 To see your current entity count, use any `/api/core` or `/api/enterprise` [API request](https://docs.sensu.io/sensu-go/latest/api/). For example:
 
@@ -88,7 +88,7 @@ Sensu-Entity-Limit: 0
 
 ## License expiration
 
-To see your license expiration date, log in to your Sensu account at [account.sensu.io](https://account.sensu.io/).
+To see your commercial license expiration date, log in to your Sensu account at [account.sensu.io](https://account.sensu.io/).
 
 If your license is within 30 days of expiration, Sensu issues regular warnings in the Sensu [backend logs](../../guides/troubleshooting).
-If your license expires, you will no longer have access to [licensed features](../../getting-started/enterprise).
+If your license expires, you will no longer have access to [commercial features](../../getting-started/enterprise).

@@ -25,15 +25,15 @@ Get started for free on up to 100 entities by installing an official Sensu distr
 
 - [Install Sensu Go][2]
 - [Discover Sensu assets][6]
-- [Learn about licensed features][12]
+- [Learn about commercial features][12]
 
-### Monitor at scale (licensed)
+### Monitor at scale (commercial features)
 
-Sensu Inc. offers support packages for Sensu Go as well as licensed features designed for monitoring at scale.
+Sensu Inc. offers support packages for Sensu Go as well as commercial features designed for monitoring at scale.
 
-- [Learn about licensed features][12]
+- [Learn about commercial features][12]
 - [Contact the sales team for a free trial][4]
-- [Activate your Sensu license][5]
+- [Activate your Sensu commercial license][5]
 
 ### Build from source (OSS)
 Sensu Go's core is open source software, freely available under an MIT license.

@@ -43,7 +43,7 @@ See the [role-based access control reference][3] for [default user credentials][
 The dashboard displays events, entities, checks, and silences for a single namespace at a time.
 By default, the dashboard displays the `default` namespace.
 To switch namespaces, select the menu icon in the upper-left corner, and choose a namespace from the dropdown.
-**LICENSED TIER**: The namespaces listed will be limited to those that the current user has access to.
+**COMMERCIAL FEATURE**: The namespaces listed will be limited to those that the current user has access to.
 
 <img src="/images/dashboard-namespace-switcher.png" alt="Screenshot of the Sensu dashboard namespace switcher">
 
@@ -51,7 +51,7 @@ To switch namespaces, select the menu icon in the upper-left corner, and choose 
 
 ### Managing checks
 
-**LICENSED TIER**: Unlock check management in the Sensu Go dashboard with a Sensu license. To activate your license, see the [getting started guide][6].
+**COMMERCIAL FEATURE**: Unlock check management in the Sensu Go dashboard with a Sensu commercial license. To activate your license, see the [getting started guide][6].
 
 You can create, edit, and delete Sensu checks using the dashboard checks page.
 
@@ -61,19 +61,19 @@ You can delete Sensu entities using the dashboard entities page.
 
 ### Managing handlers
 
-**LICENSED TIER**: Unlock handler management in the Sensu Go dashboard with a Sensu license. To activate your license, see the [getting started guide][6].
+**COMMERCIAL FEATURE**: Unlock handler management in the Sensu Go dashboard with a Sensu commercial license. To activate your license, see the [getting started guide][6].
 
 You can create, edit, and delete Sensu handlers using the dashboard handlers page.
 
 ### Managing event filters
 
-**LICENSED TIER**: Unlock filter management in the Sensu Go dashboard with a Sensu license. To activate your license, see the [getting started guide][6].
+**COMMERCIAL FEATURE**: Unlock filter management in the Sensu Go dashboard with a Sensu commercial license. To activate your license, see the [getting started guide][6].
 
 You can create, edit, and delete Sensu event filters using the dashboard filters page.
 
 ### Managing mutators
 
-**LICENSED TIER**: Unlock mutator management in the Sensu Go dashboard with a Sensu license. To activate your license, see the [getting started guide][6].
+**COMMERCIAL FEATURE**: Unlock mutator management in the Sensu Go dashboard with a Sensu commercial license. To activate your license, see the [getting started guide][6].
 
 You can create, edit, and delete Sensu mutators using the dashboard mutators page.
 

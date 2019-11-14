@@ -18,7 +18,7 @@ menu:
 - [Updating resources](#updating-resources)
 - [Exporting resources](#exporting-resources)
 - [Managing resources](#managing-resources)
-- [Filtering](#filtering) (licensed tier)
+- [Filtering](#filtering) (commercial feature)
 - [Time formats](#time-formats)
 - [Shell auto-completion](#shell-auto-completion)
 - [Config files](#configuration-files)
@@ -410,7 +410,7 @@ The table below lists supported `sensu dump` resource types. You can also use a 
 sensuctl dump --types
 {{< /highlight >}}
 
-_NOTE: The resource types with no synonym listed are [licensed features][30]._
+_NOTE: The resource types with no synonym listed are [commercial features][30]._
 
 Synonym | Fully qualified name 
 --------------------|---
@@ -440,7 +440,7 @@ None | `federation/v1.Replicator`
 Sensuctl provides the following commands to manage Sensu resources.
 
 - [`sensuctl asset`][12]
-- [`sensuctl auth`][26] (licensed tier)
+- [`sensuctl auth`][26] (commercial feature)
 - [`sensuctl check`][13]
 - [`sensuctl cluster`][7]
 - [`sensuctl cluster-role`][1]
@@ -450,7 +450,7 @@ Sensuctl provides the following commands to manage Sensu resources.
 - [`sensuctl filter`][16]
 - [`sensuctl handler`][17]
 - [`sensuctl hook`][18]
-- [`sensuctl license`](../../reference/license) (licensed tier)
+- [`sensuctl license`](../../reference/license) (commercial feature)
 - [`sensuctl mutator`][19]
 - [`sensuctl namespace`][1]
 - [`sensuctl role`][1]
@@ -573,7 +573,7 @@ See the [RBAC reference][22] for information about local user management with se
 
 ## Filtering
 
-**LICENSED TIER**: Unlock sensuctl filtering with a Sensu license. To activate your license, see the [getting started guide][30].
+**COMMERCIAL FEATURE**: Unlock sensuctl filtering with a Sensu commercial license. To activate your license, see the [getting started guide][30].
 
 Sensuctl supports filtering for all `list` commands using the `--label-selector` and `--field-selector` flags.
 For information about the operators and fields available to use in filters, see the [API docs][28].

@@ -9,14 +9,14 @@ menu:
     parent: api
 ---
 
-- [The `authproviders` API endpoints](#the-authproviders-api-endpoints) (licensed tier)
+- [The `authproviders` API endpoints](#the-authproviders-api-endpoints) (commercial feature)
   - [`/authproviders` (GET)](#authproviders-get)
-- [The `authproviders/:name` API endpoints](#the-authprovidersname-api-endpoints) (licensed tier)
+- [The `authproviders/:name` API endpoints](#the-authprovidersname-api-endpoints) (commercial feature)
   - [`authproviders/:name` (GET)](#authprovidersname-get)
   - [`authproviders/:name` (PUT)](#authprovidersname-put)
   - [`authproviders/:name` (DELETE)](#authprovidersname-delete)
 
-**LICENSED TIER**: Unlock authentication providers in Sensu Go with a Sensu license. To activate your license, see the [getting started guide][2].
+**COMMERCIAL FEATURE**: Unlock authentication providers in Sensu Go with a Sensu commercial license. To activate your license, see the [getting started guide][2].
 
 ## The `/authproviders` API endpoints {#the-authproviders-api-endpoints}
 

@@ -13,12 +13,12 @@ menu:
 Sensu Go is available for Linux, Windows (agent and CLI only), macOS (CLI only), and Docker.
 If you’re trying out Sensu for the first time, we recommend setting up a local environment using the [Sensu sandbox][14].
 If you’re deploying Sensu to your infrastructure, we recommend one of our supported packages, Docker images, or [configuration management integrations][15].
-Sensu downloads are provided under the [Sensu License][13]; see the [supported platforms page][5] for more information.
+Sensu downloads are provided under the [Sensu commercial license][13]; see the [supported platforms page][5] for more information.
 
 - [Install the Sensu backend](#install-the-sensu-backend)
 - [Install sensuctl](#install-sensuctl)
 - [Install Sensu agents](#install-sensu-agents)
-- [Activate licensed features](#activate-licensed-features)
+- [Activate commercial features](#activate-commercial-features)
 
 ### Architecture overview
 
@@ -346,14 +346,14 @@ Sensu keepalives are the heartbeat mechanism used to ensure that all registered 
 
 To verify that the agent has registered with Sensu and is sending keepalive events, open the entity page in the [Sensu web UI][ui] or run `sensuctl entity list`.
 
-### Activate licensed features
+### Activate commercial features
 
-Sensu Inc. offers support packages for Sensu Go as well as licensed features designed for monitoring at scale.
-For more information about licensed features in Sensu Go, see the [getting started guide](../../getting-started/enterprise).
+Sensu Inc. offers support packages for Sensu Go as well as commercial features designed for monitoring at scale.
+For more information about commercial features in Sensu Go, see the [getting started guide](../../getting-started/enterprise).
 
-All licensed features are [free for your first 100 entities][29]. To learn more about Sensu Go licenses for more than 100 entities, [contact the Sensu sales team](https://sensu.io/sales).
+All commercial features are [free for your first 100 entities][29]. To learn more about Sensu Go commercial licenses for more than 100 entities, [contact the Sensu sales team](https://sensu.io/sales).
 
-If you already have a Sensu license, [log in to your Sensu account](https://account.sensu.io/) and download your license file, then activate your license using sensuctl.
+If you already have a Sensu commercial license, [log in to your Sensu account](https://account.sensu.io/) and download your license file, then activate your license using sensuctl.
 
 {{< highlight shell >}}
 sensuctl create --file sensu_license.json
