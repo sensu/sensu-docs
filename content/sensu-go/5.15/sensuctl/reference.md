@@ -23,9 +23,6 @@ menu:
 - [Shell auto-completion](#shell-auto-completion)
 - [Config files](#configuration-files)
 - [Interacting with Bonsai](#interacting-with-bonsai)
-  - [Install asset definitions](#install-asset-definitions)
-  - [Check your Sensu backend for outdated assets](#check-your-sensu-backend-for-outdated-assets)
-  - [Extend sensuctl with commands](#extend-sensuctl-with-commands)
 
 Sensuctl is a command line tool for managing resources within Sensu. It works by
 calling Sensu's underlying API to create, read, update, and delete resources,
@@ -732,7 +729,7 @@ SET SENSU_REFRESH_TOKEN=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.x.x
 SET SENSU_TRUSTED_CA_FILE=
 SET SENSU_INSECURE_SKIP_TLS_VERIFY=true
 REM Run this command to configure your shell:
-REM 	@FOR /f "tokens=*" %i IN ('sensuctl env --shell cmd') DO @%i
+REM   @FOR /f "tokens=*" %i IN ('sensuctl env --shell cmd') DO @%i
 {{< /highlight >}}
 
 {{< highlight powershell >}}
@@ -780,10 +777,9 @@ These are useful if you want to know what cluster you're connecting to, or what 
 
 ## Interacting with Bonsai
 
-Sensuctl supports installing asset definitions directly from [Bonsai][34] and checking your Sensu backend for outdated assets.
-You can also use `sensuctl command` to install, execute, list, and delete commands from Bonsai or a URL.
+Sensuctl supports both installing asset definitions directly from [Bonsai][34] and checking your Sensu backend for outdated assets.
 
-### Install asset definitions
+### Usage
 
 To install an asset definition directly from Bonsai, use `sensuctl asset add [NAME][:VERSION]`, replacing `[NAME]` with the name of the asset from Bonsai. `[:VERSION]` is only required if you require a specific version or are pinning to a specific version. 
 
@@ -802,70 +798,13 @@ fetching bonsai asset: sensu/sensu-slack-handler:1.0.3
 added asset: sensu/sensu-slack-handler:1.0.3
 {{< /highlight >}}
 
-### Check your Sensu backend for outdated assets
-
-To check your Sensu backend for assets that have newer versions available on Bonsai, use `sensuctl asset outdated`. This will print a list of assets installed in the backend whose version is older than the newest version available on Bonsai.
+To check your Sensu backend for assets which have newer versions available on Bonsai, use `sensuctl asset outdated`. This will print a list of assets installed in the backend whose version is older than the newest version available on Bonsai.
 {{< highlight shell >}}
 sensuctl asset outdated
           Asset Name                  Bonsai Asset          Current Version  Latest Version
 ----------------------------  ----------------------------  ---------------  --------------
 sensu/sensu-influxdb-handler  sensu/sensu-influxdb-handler       3.1.1            3.1.2
 {{< /highlight >}}
-
-### Extend sensuctl with commands
-
-Use `sensuctl command` to install, execute, list, and delete commands from Bonsai or a URL.
-
-#### Install commands
-
-To install a sensuctl command from Bonsai or a URL, use:
-{{< highlight shell >}}
-sensuctl command install [ALIAS] ([NAME]:[VERSION] | --url [ARCHIVE_URL] --checksum [ARCHIVE_CHECKSUM]) [flags]
-{{< /highlight >}}
-
-Replace `[ALIAS]` with a unique name for the command. `[ALIAS]` is required.
-
-You must specify **either** `[NAME]` (with optional `[:VERSION]`) **or** `--url ARCHIVE_URL --checksum ARCHIVE_CHECKSUM`.
-
-Replace `[NAME]` with the name of the asset from Bonsai.
-`[:VERSION]` is only required if you require a specific version or are pinning to a specific version. If you do not specify a version, sensuctl will fetch the latest version from Bonsai.
-
-Replace `[flags]` with the resource-specific flags you want to use.
-
-For example, to install a command from the [Sensu Go Email Handler Plugin][35] with the [`-t` and -`f` flags][36] to retrieve the "To" and "From" email addresses:
-
-{{< highlight shell >}}
-sensuctl command install [ALIAS] (sensu/sensu-email-handler:0.2.0) -tf
-...
-**NEEDED**
-...
-{{< /highlight >}}
-
-To install a command from a URL:
-
-{{< highlight shell >}}
-sensuctl command install [ALIAS] (--url https://gist.githubusercontent.com/amdprophet/43790e007e949aed19131b100e1576af/raw/0c3a1af85481db2bcfbf9f7be513fa7fc0d0fc18/asset.yml --checksum **NEEDED*)
-...
-**NEEDED**
-...
-{{< /highlight >}}
-
-#### Execute commands
-
-Use `sensuctl command exec [ALIAS] [args] [flags]` to execute a sensuctl command plugin via its asset's bin/entrypoint executable.
-
-Replace `[ALIAS]` with with a unique name for the command. `[ALIAS]` is required.
-
-Replace `[args]` with **NEEDED**. `[args]` is passed through to the bin/entrypoint executable.
-
-#### List commands
-
-Use `sensuctl command list [flags]` to list installed sensuctl commands.
-
-#### Delete commands
-
-Use `sensuctl command delete [ALIAS] [flags]` to delete sensuctl commands.
-
 
 [1]: ../../reference/rbac
 [2]: https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
@@ -901,5 +840,3 @@ Use `sensuctl command delete [ALIAS] [flags]` to delete sensuctl commands.
 [32]: ../../reference/datastore
 [33]: #creating-resources-across-namespaces
 [34]: https://bonsai.sensu.io/
-[35]: https://bonsai.sensu.io/assets/sensu/sensu-email-handler
-[36]: https://github.com/sensu/sensu-email-handler#help
