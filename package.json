@@ -26,7 +26,7 @@
     "test": "bin/test"
   },
   "dependencies": {
-    "grunt-env": "^0.4.4",
+    "grunt-env": "^1.0.1",
     "hugo-cli": "^0.10.0"
   },
   "engines": {
