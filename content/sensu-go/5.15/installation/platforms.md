@@ -31,48 +31,48 @@ Supported packages are available through [sensu/stable][8] on packagecloud and t
 
 | Platform & Version | `amd64` | | | |
 |--------------------|---------|---|---|---|
-| CentOS/RHEL 6      | ✅      |
-| CentOS/RHEL 7      | ✅      |
-| Ubuntu 14.04       | ✅      |
-| Ubuntu 16.04       | ✅      |
-| Ubuntu 18.04       | ✅      |
-| Ubuntu 18.10       | ✅      |
-| Ubuntu 19.04       | ✅      |
-| Debian 8           | ✅      |
-| Debian 9           | ✅      |
-| Debian 10          | ✅      |
+| CentOS/RHEL 6      | {{< check >}}      |
+| CentOS/RHEL 7      | {{< check >}}      |
+| Ubuntu 14.04       | {{< check >}}      |
+| Ubuntu 16.04       | {{< check >}}      |
+| Ubuntu 18.04       | {{< check >}}      |
+| Ubuntu 18.10       | {{< check >}}      |
+| Ubuntu 19.04       | {{< check >}}      |
+| Debian 8           | {{< check >}}      |
+| Debian 9           | {{< check >}}      |
+| Debian 10          | {{< check >}}      |
 
 ### Sensu agent
 
 | Platform & Version | `amd64` | `386` | | | | |
 |--------------------|---------|-------|---|---|---|---|
-| CentOS/RHEL 6      | ✅      |
-| CentOS/RHEL 7      | ✅      |
-| Ubuntu 14.04       | ✅      |
-| Ubuntu 16.04       | ✅      |
-| Ubuntu 18.04       | ✅      |
-| Ubuntu 18.10       | ✅      |
-| Ubuntu 19.04       | ✅      |
-| Debian 8           | ✅      |
-| Debian 9           | ✅      |
-| Debian 10          | ✅      |
-| Windows Server 2008 R2 and later | ✅ | ✅ |
-| Windows 7 and later | ✅     | ✅   |
+| CentOS/RHEL 6      | {{< check >}}      |
+| CentOS/RHEL 7      | {{< check >}}      |
+| Ubuntu 14.04       | {{< check >}}      |
+| Ubuntu 16.04       | {{< check >}}      |
+| Ubuntu 18.04       | {{< check >}}      |
+| Ubuntu 18.10       | {{< check >}}      |
+| Ubuntu 19.04       | {{< check >}}      |
+| Debian 8           | {{< check >}}      |
+| Debian 9           | {{< check >}}      |
+| Debian 10          | {{< check >}}      |
+| Windows Server 2008 R2 and later | {{< check >}} | {{< check >}} |
+| Windows 7 and later | {{< check >}}     | {{< check >}}   |
 
 ### Sensuctl command-line tool
 
 | Platform & Version | `amd64` | `386` | | | | |
 |--------------------|---------|-------|---|---|---|---|
-| CentOS/RHEL 6      | ✅      |
-| CentOS/RHEL 7      | ✅      |
-| Ubuntu 14.04       | ✅      |
-| Ubuntu 16.04       | ✅      |
-| Ubuntu 18.04       | ✅      |
-| Ubuntu 18.10       | ✅      |
-| Ubuntu 19.04       | ✅      |
-| Debian 8           | ✅      |
-| Debian 9           | ✅      |
-| Debian 10          | ✅      |
+| CentOS/RHEL 6      | {{< check >}}      |
+| CentOS/RHEL 7      | {{< check >}}      |
+| Ubuntu 14.04       | {{< check >}}      |
+| Ubuntu 16.04       | {{< check >}}      |
+| Ubuntu 18.04       | {{< check >}}      |
+| Ubuntu 18.10       | {{< check >}}      |
+| Ubuntu 19.04       | {{< check >}}      |
+| Debian 8           | {{< check >}}      |
+| Debian 9           | {{< check >}}      |
+| Debian 10          | {{< check >}}      |
 
 ## Docker images
 
@@ -96,9 +96,9 @@ Docker images containing the Sensu backend and Sensu agent are available for Lin
 
 | Platform & Version | `amd64` | `arm64` | `armv5` | `armv6` |`armv7` | `386` |
 |--------------------|---------|---------|---------|---------|--------|-------|
-| Linux              | ✅      | ✅     | ✅      | ✅      | ✅     | ✅    |
-| Windows            | ✅      |         |         |         |        | ✅    |
-| macOS              | ✅      |         |         |         |        |       |
+| Linux              | {{< check >}}      | {{< check >}}     | {{< check >}}      | {{< check >}}      | {{< check >}}     | {{< check >}}    |
+| Windows            | {{< check >}}      |         |         |         |        | {{< check >}}    |
+| macOS              | {{< check >}}      |         |         |         |        |       |
 
 ## Building from source
 

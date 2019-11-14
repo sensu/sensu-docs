@@ -12,6 +12,7 @@ menu:
 - [The `/license` API endpoints](#the-license-api-endpoints)
   - [`/license` (GET)](#license-get)
   - [`/license` (PUT)](#license-put)
+  - [`/license` (DELETE)](#license-delete)
 
 ## The `/license` API endpoints
 
@@ -42,3 +43,21 @@ description    | Activates an enterprise license, or updates an existing license
 example url    | http://hostname:8080/api/enterprise/licensing/v2/license
 payload        | License definition
 response codes | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+
+### `/license` (DELETE)
+
+The `/license` API endpoint provides HTTP DELETE access to remove an enterprise license.
+
+#### API Specification {#license-delete-specification}
+
+/license (DELETE)  | 
+-------------------|------
+description    | Removes the enterprise license.
+example url    | http://hostname:8080/api/enterprise/licensing/v2/license
+response codes | <ul><li>**Success**: 204 (No Content)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+output          | {{< highlight shell >}}
+curl -X DELETE -H "Authorization: Bearer $SENSU_TOKEN"  http://localhost:8080/api/enterprise/licensing/v2/license
+
+HTTP/1.1 204 No Content
+{{< /highlight >}}
+
