@@ -729,7 +729,7 @@ SET SENSU_REFRESH_TOKEN=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.x.x
 SET SENSU_TRUSTED_CA_FILE=
 SET SENSU_INSECURE_SKIP_TLS_VERIFY=true
 REM Run this command to configure your shell:
-REM   @FOR /f "tokens=*" %i IN ('sensuctl env --shell cmd') DO @%i
+REM    @FOR /f "tokens=*" %i IN ('sensuctl env --shell cmd') DO @%i
 {{< /highlight >}}
 
 {{< highlight powershell >}}
