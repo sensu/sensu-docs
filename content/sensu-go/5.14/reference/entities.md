@@ -21,7 +21,7 @@ menu:
 	- [Top-level attributes](#top-level-attributes)
   - [Spec attributes](#spec-attributes)
   - [Metadata attributes](#metadata-attributes)
-  - [System attributes](#system-attributes)
+	- [System attributes](#system-attributes)
   - [Network attributes](#network-attributes)
   - [NetworkInterface attributes](#networkinterface-attributes)
   - [Deregistration attributes](#deregistration-attributes)
