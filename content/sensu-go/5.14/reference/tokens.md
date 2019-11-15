@@ -19,7 +19,7 @@ You can use tokens to fine-tune check attributes (like alert thresholds) on a pe
 
 When a check is scheduled to be executed by an agent, it first goes through a token substitution step. The agent replaces any tokens with matching attributes from the entity definition, and then the check is executed. Invalid templates or unmatched tokens will return an error, which is logged and sent to the Sensu backend message transport. Checks with token matching errors will not be executed.
 
-Token substitution is supported for check definition [`command`][7] attributes and [hooks][8].
+Token substitution is supported for check definition [`command`][7] attributes and [hook][8] `command` attributes.
 Only [entity attributes][4] are available for substitution.
 Available attributes will always have [string values](#token-data-type-limitations), such as labels and annotations.
 
