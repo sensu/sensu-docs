@@ -16,7 +16,7 @@ menu:
   - [`authproviders/:name` (PUT)](#authprovidersname-put)
   - [`authproviders/:name` (DELETE)](#authprovidersname-delete)
 
-**COMMERCIAL FEATURE**: Unlock authentication providers in Sensu Go with a Sensu commercial license. To activate your license, see the [getting started guide][2].
+**COMMERCIAL FEATURE**: Access authentication providers in the packaged Sensu Go distribution.
 
 ## The `/authproviders` API endpoints {#the-authproviders-api-endpoints}
 
