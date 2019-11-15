@@ -159,9 +159,9 @@ not working at this time, so any Ruby-based Sensu plugins that require FFI will
 not work (however all other plugins should work). It is possible that FFI
 support will be enabled in a future release.
 
-[1]:  https://repositories.sensuapp.org/aix/
-[2]:  https://sensu.global.ssl.fastly.net/aix/
-[3]:  https://sensu.global.ssl.fastly.net/aix/6.1/sensu-1.4.1-1.powerpc.bff
+[1]:  https://eol-repositories.sensuapp.org/aix/
+[2]:  https://eol-repositories.sensuapp.org/aix/
+[3]:  https://eol-repositories.sensuapp.org/aix/6.1/sensu-1.4.1-1.powerpc.bff
 [4]:  https://sensuapp.org/mit-license
 [5]:  ../../reference/configuration/
 [6]:  ../../reference/transport/

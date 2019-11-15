@@ -11,8 +11,20 @@ layout: "single"
 
 <iframe src="https://ghbtns.com/github-btn.html?user=sensu&repo=sensu&type=star&count=true" frameborder="0" scrolling="0" width="95px" height="20px"></iframe> | [Learn about Sensu Go](/sensu-go/latest/)
 
-_NOTE: The time has come to announce our end of life schedule for the original version of Sensu: **Sensu 1.x will reach end of life on December 31, 2019**, over 8 years since its inception as an open source software project.
-[Read the blog post](https://blog.sensu.io/eol-schedule-for-sensu-core-and-enterprise), and see the [guide to migrating to Sensu Go](/sensu-go/latest/installation/upgrade#upgrading-to-sensu-go-from-sensu-core-1-x) for more information._
+_**IMPORTANT**: [Sensu Core will reach end-of-life (EOL) on December 31, 2019][21], more than 8 years after its inception as an open source software project. Learn more about [what to expect when Core and Enterprise reach EOL][31]._
+
+**These resources can help you migrate to [Sensu Go][24]**, the latest version of Sensu:
+
+- [**Migration guide**][22]: Review this step-by-step guide to installing Sensu Go and using the [translator][23] command-line tool to transfer your Sensu Core checks, handlers, and mutators to Sensu Go.
+- [**Sensu Go documentation**][24]: Learn about the Sensu Go architecture and APIs. The [Sensu Go migration section][25] includes an overview of Sensu Go features.
+- [**Sensu Community Slack**][26]: Join hundreds of other Sensu users in our Community Slack, where you can ask questions and benefit from tips others picked up during their own Sensu Go migrations.
+- [**Sensu Community Forum**][27]: Drop a question in our dedicated category for migrating to Go.
+- [**Sensu Go Sandbox**][28]: Download the sandbox and try out some monitoring workflows with Sensu Go.
+- [**Sensu translator**][23]: Use this command-line tool to generate Sensu Go configurations from your Sensu Core config files.
+
+We also offer **commercial support** and **professional services** packages to help with your Sensu Go migration. Learn more about [commercial support options][29] or contact our [Sales team][30].
+
+----
 
 Sensu is the open source monitoring event pipeline built to reduce operator burden and make developers and business owners happy.
 Started in 2011, Sensu’s flexible approach solves the challenges of monitoring hybrid-cloud and ephemeral infrastructures with scalable, automated workflows and integrations with tools you already use.
@@ -82,3 +94,14 @@ training, and other benefits, check out [Sensu Enterprise][14].
 [18]: reference/filters
 [19]: reference/checks/#check-hooks
 [20]: /uchiwa/latest
+[21]: https://blog.sensu.io/eol-schedule-for-sensu-core-and-enterprise
+[22]: ../latest/migration/
+[23]: https://github.com/sensu/sensu-translator
+[24]: https://docs.sensu.io/sensu-go/latest/
+[25]: https://docs.sensu.io/sensu-go/latest/installation/upgrade/#upgrading-to-sensu-go-from-sensu-core-1-x
+[26]: https://slack.sensu.io/
+[27]: https://discourse.sensu.io/c/sensu-go/migrating-to-go
+[28]: https://docs.sensu.io/sensu-go/latest/getting-started/sandbox/
+[29]: https://sensu.io/support/
+[30]: https://sensu.io/contact/
+[31]: https://blog.sensu.io/announcing-the-sensu-archives
