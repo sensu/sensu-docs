@@ -16,7 +16,7 @@ menu:
   - [`authproviders/:name` (PUT)](#authprovidersname-put)
   - [`authproviders/:name` (DELETE)](#authprovidersname-delete)
 
-**COMMERCIAL FEATURE**: Access authentication providers in the packaged Sensu Go distribution.
+**COMMERCIAL FEATURE**: Access authentication providers in the packaged Sensu Go distribution. For more information, see the [getting started guide][2].
 
 ## The `/authproviders` API endpoints {#the-authproviders-api-endpoints}
 

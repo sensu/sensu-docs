@@ -23,7 +23,7 @@ For longer retention of event data, we recommend integrating Sensu with a time s
 
 ## Scaling event storage
 
-**COMMERCIAL FEATURE**: Unlock enterprise-scale event storage in Sensu Go with a Sensu commercial license. To activate your license, see the [getting started guide][13].
+**COMMERCIAL FEATURE**: Access enterprise-scale event storage in the packaged Sensu Go distribution. For more information, see the [getting started guide][13].
 
 Sensu supports using an external PostgreSQL instance for event storage in place of etcd.
 PostgreSQL can handle significantly higher volumes of Sensu events, letting you scale Sensu beyond etcd's 8GB limit.

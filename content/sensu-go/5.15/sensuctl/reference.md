@@ -573,7 +573,7 @@ See the [RBAC reference][22] for information about local user management with se
 
 ## Filtering
 
-**COMMERCIAL FEATURE**: Unlock sensuctl filtering with a Sensu commercial license. To activate your license, see the [getting started guide][30].
+**COMMERCIAL FEATURE**: Access sensuctl filtering in the packaged Sensu Go distribution. For more information, see the [getting started guide][30].
 
 Sensuctl supports filtering for all `list` commands using the `--label-selector` and `--field-selector` flags.
 For information about the operators and fields available to use in filters, see the [API docs][28].

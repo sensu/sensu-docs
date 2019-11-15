@@ -51,7 +51,7 @@ To switch namespaces, select the menu icon in the upper-left corner, and choose 
 
 ### Managing checks
 
-**COMMERCIAL FEATURE**: Unlock check management in the Sensu Go dashboard with a Sensu commercial license. To activate your license, see the [getting started guide][6].
+**COMMERCIAL FEATURE**: Access check management in the packaged Sensu Go distribution. For more information, see the [getting started guide][6].
 
 You can create, edit, and delete Sensu checks using the dashboard checks page.
 
@@ -61,19 +61,19 @@ You can delete Sensu entities using the dashboard entities page.
 
 ### Managing handlers
 
-**COMMERCIAL FEATURE**: Unlock handler management in the Sensu Go dashboard with a Sensu commercial license. To activate your license, see the [getting started guide][6].
+**COMMERCIAL FEATURE**: Access handler management in the packaged Sensu Go distribution. For more information, see the [getting started guide][6].
 
 You can create, edit, and delete Sensu handlers using the dashboard handlers page.
 
 ### Managing event filters
 
-**COMMERCIAL FEATURE**: Unlock filter management in the Sensu Go dashboard with a Sensu commercial license. To activate your license, see the [getting started guide][6].
+**COMMERCIAL FEATURE**: Access filter management in the packaged Sensu Go distribution. For more information, see the [getting started guide][6].
 
 You can create, edit, and delete Sensu event filters using the dashboard filters page.
 
 ### Managing mutators
 
-**COMMERCIAL FEATURE**: Unlock mutator management in the Sensu Go dashboard with a Sensu commercial license. To activate your license, see the [getting started guide][6].
+**COMMERCIAL FEATURE**: Access mutator management in the packaged Sensu Go distribution. For more information, see the [getting started guide][6].
 
 You can create, edit, and delete Sensu mutators using the dashboard mutators page.
 
