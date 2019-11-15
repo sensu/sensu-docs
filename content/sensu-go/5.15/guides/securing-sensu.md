@@ -13,8 +13,7 @@ menu:
 As with any piece of software, it is critical to minimize any attack surface exposed by the software. Sensu is no different. The following component pieces need to be secured in order for Sensu to be considered production ready:
 
 * [Etcd peer communication](#securing-etcd-peer-communication)
-* [Backend API](#securing-the-api-and-the-dashboard)
-* [Dashboard](#securing-the-api-and-the-dashboard)
+* [API and dashboard](#securing-the-api-and-the-dashboard)
 * [Sensu agent to server communication](#securing-sensu-agent-to-server-communication)
 * [Sensu agent TLS authentication](#sensu-agent-tls-authentication)
 * [Generating certificates with cfssl](#generating-certificates)

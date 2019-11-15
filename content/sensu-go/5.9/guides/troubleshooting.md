@@ -14,9 +14,10 @@ menu:
 - [Service logging](#service-logging)
 	- [Log levels](#log-levels)
 	- [Log file locations](#log-file-locations)
+- [Sensu backend startup errors](#sensu-backend-startup-errors)
 - [Permission issues](#permission-issues)
 - [Handlers and filters](#troubleshooting-handlers-and-filters)
-- [Assets not working properly](#asset-issues)
+- [Assets](#asset-issues)
 
 ## Service logging
 
@@ -97,6 +98,19 @@ Get-Content -  Path "C:\scripts\test.txt" -Wait
 {{< /highlight >}}
 
 {{< platformBlockClose >}}
+
+## Sensu backend startup errors
+
+The following errors are expected when starting up a Sensu backend with the default configuration.
+
+{{< highlight shell >}}
+{"component":"etcd","level":"warning","msg":"simple token is not cryptographically signed","pkg":"auth","time":"2019-11-04T10:26:31-05:00"}
+{"component":"etcd","level":"warning","msg":"set the initial cluster version to 3.3","pkg":"etcdserver/membership","time":"2019-11-04T10:26:31-05:00"}
+{"component":"etcd","level":"warning","msg":"serving insecure client requests on 127.0.0.1:2379, this is strongly discouraged!","pkg":"embed","time":"2019-11-04T10:26:33-05:00"}
+{{< /highlight >}}
+
+The `serving insecure client requests` error is an expected warning from etcd.
+TLS configuration is recommended but not required. For more information, see [etcd security documentation][3].
 
 ## Permission issues
 
@@ -309,14 +323,13 @@ or
 Which would allow the asset to be downloaded onto the target entity.
 
 [agent-api]: ../../reference/agent#events-post
-
 [structured]: https://dzone.com/articles/what-is-structured-logging
 [journalctl]: https://www.digitalocean.com/community/tutorials/how-to-use-journalctl-to-view-and-manipulate-systemd-logs
 [platforms]: ../../installation/platforms
 [agent-ref]: ../../reference/agent/#restarting-the-service
 [backend-ref]: ../../reference/backend/#restarting-the-service
 [asset-ref]: ../../reference/assets/#asset-definition-multiple-builds
-
 [journald-syslog]: ../systemd-logs
 [1]: ../../reference/agent#operation
 [2]: ../../installation/verify
+[3]: https://etcd.io/docs/v3.4.0/op-guide/security/

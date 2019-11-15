@@ -32,7 +32,7 @@ these changes in order to return to using stable releases._
 
 1. Install the GPG public key:
 {{< highlight shell >}}
-wget -q https://sensu.global.ssl.fastly.net/apt/pubkey.gpg -O- | sudo apt-key add -{{< /highlight >}}
+wget -q https://eol-repositories.sensuapp.org/apt/pubkey.gpg -O- | sudo apt-key add -{{< /highlight >}}
 
 2. Determine the codename of the Ubuntu/Debian release on your system:
 {{< highlight shell >}}
@@ -42,7 +42,7 @@ wget -q https://sensu.global.ssl.fastly.net/apt/pubkey.gpg -O- | sudo apt-key ad
 3. Create an APT configuration file at `/etc/apt/sources.list.d/sensu.list`:
 {{< highlight shell >}}
 export CODENAME=your_release_codename_here # e.g. "trusty"
-echo "deb     https://sensu.global.ssl.fastly.net/apt $CODENAME unstable" | sudo tee /etc/apt/sources.list.d/sensu.list{{< /highlight >}}
+echo "deb     https://eol-repositories.sensuapp.org/apt $CODENAME unstable" | sudo tee /etc/apt/sources.list.d/sensu.list{{< /highlight >}}
 
 4. Update APT:
 {{< highlight shell >}}
@@ -55,7 +55,7 @@ sudo apt-get update && sudo apt-get upgrade sensu{{< /highlight >}}
    {{< highlight shell >}}
 echo '[sensu]
 name=sensu
-baseurl=https://sensu.global.ssl.fastly.net/yum-unstable/$releasever/$basearch/
+baseurl=https://eol-repositories.sensuapp.org/yum-unstable/$releasever/$basearch/
 gpgcheck=0
 enabled=1' | sudo tee /etc/yum.repos.d/sensu.repo{{< /highlight >}}
 
