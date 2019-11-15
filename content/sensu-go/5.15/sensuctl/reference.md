@@ -785,7 +785,9 @@ You can also use `sensuctl command` to install, execute, list, and delete comman
 
 ### Install asset definitions
 
-To install an asset definition directly from Bonsai, use `sensuctl asset add [NAME][:VERSION]`, replacing `[NAME]` with the name of the asset from Bonsai. `[:VERSION]` is only required if you require a specific version or are pinning to a specific version. 
+To install an asset definition directly from Bonsai, use `sensuctl asset add [NAMESPACE/NAME][:VERSION]`. `[:VERSION]` is only required if you require a specific version or are pinning to a specific version. Replace `[NAMESPACE/NAME]` with the namespace and name of the asset from Bonsai:
+
+![Bonsai page for InfluxDB handler showing namespace and name][35]
 
 {{< highlight shell >}}
 sensuctl asset add sensu/sensu-influxdb-handler:3.1.1
@@ -818,53 +820,100 @@ Use `sensuctl command` to install, execute, list, and delete commands from Bonsa
 
 #### Install commands
 
-To install a sensuctl command from Bonsai or a URL, use:
+You can install a sensuctl command from Bonsai or a URL:
 {{< highlight shell >}}
-sensuctl command install [ALIAS] ([NAME]:[VERSION] | --url [ARCHIVE_URL] --checksum [ARCHIVE_CHECKSUM]) [flags]
+sensuctl command install [ALIAS] ([NAMESPACE/NAME]:[VERSION] | --url [ARCHIVE_URL] --checksum [ARCHIVE_CHECKSUM]) [flags]
 {{< /highlight >}}
 
-Replace `[ALIAS]` with a unique name for the command. `[ALIAS]` is required.
+**To install a command using the Bonsai asset name**, replace `[NAMESPACE/NAME]` with the name of the asset from Bonsai.
+`[:VERSION]` is only required if you require a specific version or are pinning to a specific version.
+If you do not specify a version, sensuctl will fetch the latest version from Bonsai.
 
-You must specify **either** `[NAME]` (with optional `[:VERSION]`) **or** `--url ARCHIVE_URL --checksum ARCHIVE_CHECKSUM`.
-
-Replace `[NAME]` with the name of the asset from Bonsai.
-`[:VERSION]` is only required if you require a specific version or are pinning to a specific version. If you do not specify a version, sensuctl will fetch the latest version from Bonsai.
-
-Replace `[flags]` with the resource-specific flags you want to use.
-
-For example, to install a command from the [Sensu Go Email Handler Plugin][35] with the [`-t` and -`f` flags][36] to retrieve the "To" and "From" email addresses:
+For example, to install a command from the [Sensu Go Email Handler Plugin][36] with no flags:
 
 {{< highlight shell >}}
-sensuctl command install [ALIAS] (sensu/sensu-email-handler:0.2.0) -tf
-...
-**NEEDED**
-...
+sensuctl command install sensu-email-handler (sensu/sensu-email-handler:0.2.0)
 {{< /highlight >}}
 
-To install a command from a URL:
+**To install a command from a URL**, replace `[ARCHIVE_URL]` with a command URL that points to a tarball (e.g. https://path/to/asset.tar.gz).
+Replace `[ARCHIVE_CHECKSUM]` with the checksum you want to use.
+
+For example, to install a command-test asset via URL with no flags:
 
 {{< highlight shell >}}
-sensuctl command install [ALIAS] (--url https://gist.githubusercontent.com/amdprophet/43790e007e949aed19131b100e1576af/raw/0c3a1af85481db2bcfbf9f7be513fa7fc0d0fc18/asset.yml --checksum **NEEDED*)
-...
-**NEEDED**
-...
+sensuctl command install command-test --url https://github.com/amdprophet/command-test/releases/download/v0.0.4/command-test_0.0.4_darwin_amd64.tar.gz --checksum 8b15a170e091dab42256fe64ca7c4a050ed49a9dbfd6c8129c95506a8a9a91f2762ac1a6d24f4fc545430613fd45abc91d3e5d3605fcfffb270dcf01996caa7f
 {{< /highlight >}}
+
+_**NOTE**: Asset definitions with multiple asset builds are only supported via Bonsai._
+
+For both install options, `[ALIAS]` is required.
+Replace `[ALIAS]` with a unique `NAME` for the command.
+For example, for the [Sensu Go Email Handler Plugin][36], you might use the alias `sensu-email-handler`. 
+
+Replace `[flags]` with the flags you want to use.
+Run `sensuctl command install -h` to view flags.
+Flags are optional and apply only to the `install` command &mdash; they are not saved as part of the command you are installing.
 
 #### Execute commands
 
-Use `sensuctl command exec [ALIAS] [args] [flags]` to execute a sensuctl command plugin via its asset's bin/entrypoint executable.
+To execute a sensuctl command plugin via its asset's bin/entrypoint executable:
 
-Replace `[ALIAS]` with with a unique name for the command. `[ALIAS]` is required.
+{{< highlight shell >}}
+sensuctl command exec [ALIAS] [args] [flags]
+{{< /highlight >}}
 
-Replace `[args]` with **NEEDED**. `[args]` is passed through to the bin/entrypoint executable.
+Replace `[ALIAS]` with a unique `NAME` for the command.
+For example, for the [Sensu Go Email Handler Plugin][36], you might use the alias `sensu-email-handler`. 
+`[ALIAS]` is required.
+
+Replace `[flags]` with the flags you want to use.
+Run `sensuctl command exec -h` to view flags.
+Flags are optional and apply only to the `exec` command &mdash; they are not saved as part of the command you are executing.
+
+Replace `[args]` with the globlal flags you want to use.
+Run `sensuctl command exec -h` to view global flags.
+To pass `[args]` flags to the bin/entrypoint executable, make sure to specify them after a double dash surrounded by spaces.
+
+For example:
+
+{{< highlight shell >}}
+sensuctl command exec mycommand arg1 arg2 --cache-dir /tmp -- --flag1 --flag2=value
+{{< /highlight >}}
+
+Sensuctl will parse the --cache-dir flag, but bin/entrypoint will parse all flags after the ` -- `.
+In this example, the full command run by sensuctl exec would be:
+
+{{< highlight shell >}}
+bin/entrypoint arg1 arg2 --flag1 --flag2=value
+{{< /highlight >}}
 
 #### List commands
 
-Use `sensuctl command list [flags]` to list installed sensuctl commands.
+To list installed sensuctl commands: 
+
+{{< highlight shell >}}
+sensuctl command list [flags]
+{{< /highlight >}}
+
+Replace `[flags]` with the flags you want to use.
+Run `sensuctl command list -h` to view flags.
+Flags are optional and apply only to the `list` command.
 
 #### Delete commands
 
-Use `sensuctl command delete [ALIAS] [flags]` to delete sensuctl commands.
+To delete sensuctl commands:
+
+{{< highlight shell >}}
+sensuctl command delete [ALIAS] [flags]
+{{< /highlight >}}
+
+Replace `[ALIAS]` with a unique `NAME` for the command.
+For example, for the [Sensu Go Email Handler Plugin][36], you might use the alias `sensu-email-handler`. 
+`[ALIAS]` is required.
+
+Replace `[flags]` with the flags you want to use.
+Run `sensuctl command delete -h` to view flags.
+Flags are optional and apply only to the `delete` command.
 
 
 [1]: ../../reference/rbac
@@ -901,5 +950,6 @@ Use `sensuctl command delete [ALIAS] [flags]` to delete sensuctl commands.
 [32]: ../../reference/datastore
 [33]: #creating-resources-across-namespaces
 [34]: https://bonsai.sensu.io/
-[35]: https://bonsai.sensu.io/assets/sensu/sensu-email-handler
-[36]: https://github.com/sensu/sensu-email-handler#help
+[35]: /images/sensu-influxdb-handler-namespace.png
+[36]: https://bonsai.sensu.io/assets/sensu/sensu-email-handler
+
