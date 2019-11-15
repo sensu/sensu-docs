@@ -49,8 +49,8 @@ sudo yum install epel-release -y{{< /highlight >}}
 {{< highlight shell >}}
 echo '[sensu]
 name=sensu
-baseurl=https://sensu.global.ssl.fastly.net/yum/$releasever/$basearch/
-gpgkey=https://repositories.sensuapp.org/yum/pubkey.gpg
+baseurl=https://eol-repositories.sensuapp.org/yum/$releasever/$basearch/
+gpgkey=https://eol-repositories.sensuapp.org/yum/pubkey.gpg
 gpgcheck=1
 enabled=1' | sudo tee /etc/yum.repos.d/sensu.repo{{< /highlight >}}
 

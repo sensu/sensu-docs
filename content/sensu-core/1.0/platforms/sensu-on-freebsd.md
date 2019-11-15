@@ -114,9 +114,9 @@ connect to the configured [Sensu Transport][6].
 2. If the transport being used is running on a different host, additional configuration is required to tell the Sensu client how to connect to the transport.
 Please see [Redis][7] or [RabbitMQ][8] reference documentation for examples.
 
-[1]:  https://repositories.sensuapp.org/freebsd/
-[2]:  https://sensu.global.ssl.fastly.net/freebsd/
-[3]:  https://sensu.global.ssl.fastly.net/freebsd/FreeBSD:10:amd64/sensu/sensu-1.2.0_1.txz
+[1]:  https://eol-repositories.sensuapp.org/freebsd/
+[2]:  https://eol-repositories.sensuapp.org/freebsd/
+[3]:  https://eol-repositories.sensuapp.org/freebsd/FreeBSD:10:amd64/sensu/sensu-1.2.0_1.txz
 [4]:  https://sensuapp.org/mit-license
 [5]:  ../../reference/configuration/
 [6]:  ../../reference/transport/
