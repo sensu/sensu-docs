@@ -70,7 +70,7 @@ If your Sensu instance includes more than 100 entities, [contact us][90] to lear
 
 **IMPROVEMENTS**
 
-- You can now use colons and periods in all resource  and asset names (except users).
+- You can now use colons and periods in all resource names (except users).
 
 **FIXED:**
 
