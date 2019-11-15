@@ -8,6 +8,7 @@ menu: "sensu-go-5.15"
 ---
 
 - [5.15.0 release notes](#5-15-0-release-notes)
+- [5.14.2 release notes](#5-14-2-release-notes)
 - [5.14.1 release notes](#5-14-1-release-notes)
 - [5.14.0 release notes](#5-14-0-release-notes)
 - [5.13.2 release notes](#5-13-2-release-notes)
@@ -77,6 +78,25 @@ If your Sensu instance includes more than 100 entities, [contact us][90] to lear
 - Fixed the order of flap detection weighting for checks.
 - Fixed the pprof server so it only binds to localhost.
 - Moved `corev2.BonsaiAsset` to `bonsai.Asset` and moved `corev2.OutdatedBonsaiAsset` to `bonsai.OutdatedAsset`.
+
+## 5.14.2 release notes
+
+**November 4, 2019** &mdash; The latest release of Sensu Go, version 5.14.2, is now available for download. This release includes an etcd upgrade, fixes that improve stability and performance, and a Sensu Go package for CentOS 8.
+
+See the [upgrade guide][1] to upgrade Sensu to version 5.14.2.
+
+**IMPROVEMENTS:**
+
+- Upgraded etcd to 3.3.17.
+- Added build package for CentOS 8 (`el/8`).
+- Sensu Go now uses serializable event reads, which helps improve performance.
+
+**FIXES:**
+
+- As a result of upgrading etcd, TLS etcd clients that lose their connection will successfully reconnect when using `--no-embed-etcd`.
+- Check TTL and keepalive switches are now correctly buried when associated events and entities are deleted. As a result, Sensu now uses far fewer leases for check TTLs and keepalives, which improves stability for most deployments.
+- Corrected a minor UX issue in interactive filter commands in sensuctl.
+
 
 ## 5.14.1 release notes
 
