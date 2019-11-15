@@ -18,7 +18,7 @@ Sensu downloads are provided under the [Sensu commercial license][13]; see the [
 - [Install the Sensu backend](#install-the-sensu-backend)
 - [Install sensuctl](#install-sensuctl)
 - [Install Sensu agents](#install-sensu-agents)
-- [Activate commercial features](#activate-commercial-features)
+- [Commercial features](#commercial-features)
 
 ### Architecture overview
 
@@ -346,14 +346,14 @@ Sensu keepalives are the heartbeat mechanism used to ensure that all registered 
 
 To verify that the agent has registered with Sensu and is sending keepalive events, open the entity page in the [Sensu web UI][ui] or run `sensuctl entity list`.
 
-### Activate commercial features
+### Commercial features
 
 Sensu Inc. offers support packages for Sensu Go as well as commercial features designed for monitoring at scale.
 For more information about commercial features in Sensu Go, see the [getting started guide](../../getting-started/enterprise).
 
 All commercial features are [free for your first 100 entities][29]. To learn more about Sensu Go commercial licenses for more than 100 entities, [contact the Sensu sales team](https://sensu.io/sales).
 
-If you already have a Sensu commercial license, [log in to your Sensu account](https://account.sensu.io/) and download your license file, then activate your license using sensuctl.
+If you already have a Sensu commercial license, [log in to your Sensu account](https://account.sensu.io/) and download your license file, then add your license using sensuctl.
 
 {{< highlight shell >}}
 sensuctl create --file sensu_license.json

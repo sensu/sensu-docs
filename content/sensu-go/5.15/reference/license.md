@@ -69,7 +69,7 @@ Error: not found
 Your commercial license includes the entity limit tied to your Sensu licensing package.
 An entity limit of `0` allows unlimited entities.
 Both agent and proxy entities count towards the overall entity limit.
-[Contact us](https://account.sensu.io/support) to upgrade to a commercial license.
+[Contact us](https://account.sensu.io/support) to upgrade your commercial license.
 
 To see your current entity count, use any `/api/core` or `/api/enterprise` [API request](https://docs.sensu.io/sensu-go/latest/api/). For example:
 

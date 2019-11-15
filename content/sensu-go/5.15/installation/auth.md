@@ -1288,7 +1288,7 @@ To use OIDC for authentication, register Sensu Go as an OIDC application. Use th
 #### Requirements
 
 - Access to the Okta Administrator Dashboard
-- Sensu Go 5.12.0 or later with a valid commercial license
+- Sensu Go 5.12.0 or later (plus a valid commercial license for Sensu Go versions 5.12.0 through 5.14.2)
 
 #### Create an Okta application
 
