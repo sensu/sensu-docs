@@ -91,4 +91,4 @@ Sensu-Entity-Limit: 0
 To see your commercial license expiration date, log in to your Sensu account at [account.sensu.io](https://account.sensu.io/).
 
 If your license is within 30 days of expiration, Sensu issues regular warnings in the Sensu [backend logs](../../guides/troubleshooting).
-If your license expires, you will no longer have access to [commercial features](../../getting-started/enterprise).
+If your license expires, you will still have access to [commercial features](../../getting-started/enterprise), but your entity limit will drop back down to the free limit of 100.
