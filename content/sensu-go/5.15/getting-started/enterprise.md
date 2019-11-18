@@ -12,8 +12,7 @@ menu:
 
 Sensu Go offers commercial features designed for monitoring at scale.
 [Contact the Sensu sales team][1] for a personalized demo and free trial.
-Commercial features are free for your first 100 entities.
-For more than 100 entities, [commercial features][3] are available for all Sensu Go packages and downloads.
+All commercial features are available for free in the packaged Sensu Go distribution up to an entity limit of 100.
 See [the announcement on our blog][7] for more information.
 
 ### Commercial features in Sensu Go
