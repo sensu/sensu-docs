@@ -28,7 +28,7 @@ See [the announcement on our blog][7] for more information.
 
 ### Contact us for a free trial
 
-For a personalized demo and free trial of commercial features in Sensu Go, [contact the Sensu sales team][1].
+For a personalized demo and free trial of commercial features at scale in Sensu Go, [contact the Sensu sales team][1].
 You can manage your Sensu account and contact support through [account.sensu.io][2].
 
 - [Contact the Sensu sales team](https://sensu.io/sales/)
