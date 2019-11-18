@@ -21,6 +21,7 @@ menu:
 - [Filtering](#filtering) (licensed tier)
 - [Time formats](#time-formats)
 - [Shell auto-completion](#shell-auto-completion)
+- [Environment variables](#environment-variables)
 - [Config files](#configuration-files)
 - [Interacting with Bonsai](#interacting-with-bonsai)
   - [Install asset definitions](#install-asset-definitions)
@@ -701,7 +702,18 @@ create  delete  import  list
 
 ## Environment variables
 
-Sensuctl includes `sensuctl env` command to help in exporting and setting environment variables on your systems.
+Sensuctl includes `sensuctl env` command to help export and set environment variables on your systems.
+
+{{< highlight text >}}
+SENSU_API_URL                    URL of the sensu backend API in sensuctl
+SENSU_NAMESPACE                  Name of the current namespace in sensuctl
+SENSU_FORMAT                     Set output format in sensuctl (e.g. JSON, YAML, etc.)
+SENSU_ACCESS_TOKEN               Current API access token in sensuctl
+SENSU_ACCESS_TOKEN_EXPIRES_AT    Timestamp specifying when the current API access token expires
+SENSU_REFRESH_TOKEN              Refresh token used to obtain a new access token
+SENSU_TRUSTED_CA_FILE            Path to a trusted CA file if set in sensuctl
+SENSU_INSECURE_SKIP_TLS_VERIFY   Boolean value that can be set to skip TLS verification
+{{< /highlight >}}
 
 ### Usage
 
@@ -874,6 +886,8 @@ Replace `[args]` with the globlal flags you want to use.
 Run `sensuctl command exec -h` to view global flags.
 To pass `[args]` flags to the bin/entrypoint executable, make sure to specify them after a double dash surrounded by spaces.
 
+_**NOTE**: When you use `sensuctl command exec`, the [environment variables][37] are passed to the command._
+
 For example:
 
 {{< highlight shell >}}
@@ -952,4 +966,5 @@ Flags are optional and apply only to the `delete` command.
 [34]: https://bonsai.sensu.io/
 [35]: /images/sensu-influxdb-handler-namespace.png
 [36]: https://bonsai.sensu.io/assets/sensu/sensu-email-handler
+[37]: #environment-variables
 
