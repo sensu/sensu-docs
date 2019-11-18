@@ -22,7 +22,7 @@ When applied, filters create a unique link, so you can bookmark and share your f
 
 ## Advanced filtering
 
-**LICENSED TIER**: Unlock advanced filtering in the Sensu Go dashboard with a Sensu license. To activate your license, see the [getting started guide][1].
+**COMMERCIAL FEATURE**: Access advanced filtering in the packaged Sensu Go distribution. For more information, see the [getting started guide][1].
 
 Sensu supports advanced dashboard filtering using a wider range of attributes, including custom labels.
 Select the filter bar to start building custom views using suggested attributes and values.
