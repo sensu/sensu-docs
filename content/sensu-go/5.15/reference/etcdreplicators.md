@@ -76,6 +76,9 @@ required     | true
 type         | Map of key-value pairs
 example      | {{< highlight shell >}}
 spec:
+  ca_cert: /path/to/ssl/trusted-certificate-authorities.pem
+  cert: /path/to/ssl/cert.pem
+  key: /path/to/ssl/key.pem
   insecure: false
   url: http://127.0.0.1:3379
   api_version: core/v2
@@ -93,6 +96,27 @@ type         | String
 example      | {{< highlight shell >}}name: my_replicator{{< /highlight >}}
 
 #### Spec attributes
+
+ca_cert      |      |
+-------------|------
+description  | Path to an the PEM-format CA certificate to use for TLS client authentication.
+required     | true if `insecure: false` (which is the default configuration). If `insecure: true`, `ca_cert` is not required.
+type         | String
+example      | {{< highlight shell >}}ca_cert: /path/to/trusted-certificate-authorities.pem{{< /highlight >}}
+
+cert         |      |
+-------------|------
+description  | Path to the PEM-format certificate to use for TLS client authentication.
+required     | true if `insecure: false` (which is the default configuration). If `insecure: true`, `cert` is not required.
+type         | String
+example      | {{< highlight shell >}}cert: /path/to/ssl/cert.pem{{< /highlight >}}
+
+key          |      |
+-------------|------
+description  | Path to the PEM-format key file associated with the `cert` to use for TLS client authentication.
+required     | true if `insecure: false` (which is the default configuration). If `insecure: true`, `key` is not required.
+type         | String
+example      | {{< highlight shell >}}key: /path/to/ssl/key.pem{{< /highlight >}}
 
 insecure     |      |
 -------------|-------
@@ -143,6 +167,9 @@ type: EtcdReplicator
 metadata:
   name: role_replicator
 spec:
+  ca_cert: /path/to/ssl/trusted-certificate-authorities.pem
+  cert: /path/to/ssl/cert.pem
+  key: /path/to/ssl/key.pem
   insecure: false
   url: http://127.0.0.1:3379
   api_version: core/v2
@@ -158,6 +185,9 @@ spec:
     "name": "role_replicator"
   },
   "spec": {
+    "ca_cert": "/path/to/ssl/trusted-certificate-authorities.pem",
+    "cert": "/path/to/ssl/cert.pem",
+    "key": "/path/to/ssl/key.pem",
     "insecure": false,
     "url": "http://127.0.0.1:3379",
     "api_version": "core/v2",
@@ -179,6 +209,9 @@ type: EtcdReplicator
 metadata:
   name: rolebinding_replicator
 spec:
+  ca_cert: /path/to/ssl/trusted-certificate-authorities.pem
+  cert: /path/to/ssl/cert.pem
+  key: /path/to/ssl/key.pem
   insecure: false
   url: http://127.0.0.1:3379
   api_version: core/v2
@@ -194,6 +227,9 @@ spec:
     "name": "rolebinding_replicator"
   },
   "spec": {
+    "ca_cert": "/path/to/ssl/trusted-certificate-authorities.pem",
+    "cert": "/path/to/ssl/cert.pem",
+    "key": "/path/to/ssl/key.pem",
     "insecure": false,
     "url": "http://127.0.0.1:3379",
     "api_version": "core/v2",
@@ -215,6 +251,9 @@ type: EtcdReplicator
 metadata:
   name: clusterrole_replicator
 spec:
+  ca_cert: /path/to/ssl/trusted-certificate-authorities.pem
+  cert: /path/to/ssl/cert.pem
+  key: /path/to/ssl/key.pem
   insecure: false
   url: http://127.0.0.1:3379
   api_version: core/v2
@@ -230,6 +269,9 @@ spec:
     "name": "clusterrole_replicator"
   },
   "spec": {
+    "ca_cert": "/path/to/ssl/trusted-certificate-authorities.pem",
+    "cert": "/path/to/ssl/cert.pem",
+    "key": "/path/to/ssl/key.pem",
     "insecure": false,
     "url": "http://127.0.0.1:3379",
     "api_version": "core/v2",
@@ -251,6 +293,9 @@ type: EtcdReplicator
 metadata:
   name: clusterrolebinding_replicator
 spec:
+  ca_cert: /path/to/ssl/trusted-certificate-authorities.pem
+  cert: /path/to/ssl/cert.pem
+  key: /path/to/ssl/key.pem
   insecure: false
   url: http://127.0.0.1:3379
   api_version: core/v2
@@ -266,6 +311,9 @@ spec:
     "name": "clusterrolebinding_replicator"
   },
   "spec": {
+    "ca_cert": "/path/to/ssl/trusted-certificate-authorities.pem",
+    "cert": "/path/to/ssl/cert.pem",
+    "key": "/path/to/ssl/key.pem",
     "insecure": false,
     "url": "http://127.0.0.1:3379",
     "api_version": "core/v2",

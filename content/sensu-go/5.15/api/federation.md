@@ -46,7 +46,10 @@ curl http://127.0.0.1:8080/api/enterprise/federation/v1/etcd-replicators -H "Aut
       "name": "my_replicator"
     },
     "spec": {
-      "insecure": true,
+      "ca_cert": "/path/to/ssl/trusted-certificate-authorities.pem",
+      "cert": "/path/to/ssl/cert.pem",
+      "key": "/path/to/ssl/key.pem",
+      "insecure": false,
       "url": "http://remote-etcd.example.com:2379",
       "api_version": "core/v2",
       "resource": "CheckConfig",
@@ -73,7 +76,10 @@ output         | {{< highlight shell >}}
       "name": "my_replicator"
     },
     "spec": {
-      "insecure": true,
+      "ca_cert": "/path/to/ssl/trusted-certificate-authorities.pem",
+      "cert": "/path/to/ssl/cert.pem",
+      "key": "/path/to/ssl/key.pem",
+      "insecure": false,
       "url": "http://remote-etcd.example.com:2379",
       "api_version": "core/v2",
       "resource": "CheckConfig",
@@ -97,7 +103,10 @@ payload         | {{< highlight shell >}}
     "name": "my_replicator"
   },
   "spec": {
-    "insecure": true,
+    "ca_cert": "/path/to/ssl/trusted-certificate-authorities.pem",
+    "cert": "/path/to/ssl/cert.pem",
+    "key": "/path/to/ssl/key.pem",
+    "insecure": false,
     "url": "http://remote-etcd.example.com:2379",
     "api_version": "core/v2",
     "resource": "CheckConfig",
@@ -126,7 +135,10 @@ curl http://127.0.0.1:8080/api/enterprise/federation/v1/etcd-replicators/my_repl
     "name": "my_replicator"
   },
   "spec": {
-    "insecure": true,
+    "ca_cert": "/path/to/ssl/trusted-certificate-authorities.pem",
+    "cert": "/path/to/ssl/cert.pem",
+    "key": "/path/to/ssl/key.pem",
+    "insecure": false,
     "url": "http://remote-etcd.example.com:2379",
     "api_version": "core/v2",
     "resource": "CheckConfig",
@@ -151,7 +163,10 @@ output               | {{< highlight json >}}
     "name": "my_replicator"
   },
   "spec": {
-    "insecure": true,
+    "ca_cert": "/path/to/ssl/trusted-certificate-authorities.pem",
+    "cert": "/path/to/ssl/cert.pem",
+    "key": "/path/to/ssl/key.pem",
+    "insecure": false,
     "url": "http://remote-etcd.example.com:2379",
     "api_version": "core/v2",
     "resource": "CheckConfig",
@@ -177,7 +192,10 @@ curl -X PUT \
     "name": "my_replicator"
   },
   "spec": {
-    "insecure": true,
+    "ca_cert": "/path/to/ssl/trusted-certificate-authorities.pem",
+    "cert": "/path/to/ssl/cert.pem",
+    "key": "/path/to/ssl/key.pem",
+    "insecure": false,
     "url": "http://remote-etcd.example.com:2379",
     "api_version": "core/v2",
     "resource": "CheckConfig",
@@ -203,7 +221,10 @@ payload         | {{< highlight shell >}}
     "name": "my_replicator"
   },
   "spec": {
-    "insecure": true,
+    "ca_cert": "/path/to/ssl/trusted-certificate-authorities.pem",
+    "cert": "/path/to/ssl/cert.pem",
+    "key": "/path/to/ssl/key.pem",
+    "insecure": false,
     "url": "http://remote-etcd.example.com:2379",
     "api_version": "core/v2",
     "resource": "CheckConfig",
