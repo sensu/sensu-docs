@@ -22,7 +22,7 @@ menu:
 	- [`/clusters/:cluster` (PUT)](#clusterscluster-put)
 	- [`/clusters/:cluster` (DELETE)](#clusterscluster-delete)
 
-**LICENSED TIER**: Unlock the federation API in Sensu Go with a Sensu license. To activate your license, see the [getting started guide][1].
+**COMMERCIAL FEATURE**: Access federation in the packaged Sensu Go distribution. For more information, see the [getting started guide][1].
 
 ## The `/etcd-replicators` endpoint
 
