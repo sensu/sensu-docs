@@ -121,7 +121,7 @@ trusted-ca-file: "/path/to/trusted-certificate-authorities.pem"
 
 _NOTE: If creating a Sensu cluster, every cluster member needs to be present in the configuration. See the [Sensu Go clustering guide][2] for more information on how to configure agents for a clustered configuration._
 
-**LICENSED TIER**: Unlock client TLS authentication in Sensu Go with a Sensu license. To activate your license, see the [getting started guide][6].
+**COMMERCIAL FEATURE**: Access client TLS authentication in the packaged Sensu Go distribution. For more information, see the [getting started guide][6].
 
 ## Sensu agent TLS authentication
 

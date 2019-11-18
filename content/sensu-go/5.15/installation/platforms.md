@@ -12,7 +12,7 @@ menu:
 
 Sensu is available as packages, Docker images, and [binary-only distributions][4].
 We recommend [installing Sensu][5] using one of our supported packages, Docker images, or [configuration management][6] integrations.
-Sensu downloads are provided under the [Sensu License][7].
+Sensu downloads are provided under the [Sensu commercial license][7].
 
 - [Supported packages](#supported-packages)
 	- [Sensu backend](#sensu-backend)
@@ -103,7 +103,7 @@ Docker images containing the Sensu backend and Sensu agent are available for Lin
 ## Building from source
 
 Sensu Go's core is open source software, freely available under an MIT license.
-Sensu Go instances built from source do not include some free-tier and licensed-tier features such as the web UI homepage; see the [feature comparison matrix][15] to learn more.
+Sensu Go instances built from source do not include some commercial features such as the web UI homepage; see the [feature comparison matrix][15] to learn more.
 To build Sensu Go from source, see the [contributing guide on GitHub][16].
 
 [1]: ../../installation/install-sensu#install-the-sensu-backend

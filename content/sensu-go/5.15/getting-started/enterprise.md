@@ -1,7 +1,7 @@
 ---
-title: "Getting started with license-activated features"
-linkTitle: "License-Activated Features"
-description: "Get started with license-activated features in Sensu Go. Read this guide to learn about the latest license-activated features, and contact our sales team for a free trial."
+title: "Getting started with commercial features"
+linkTitle: "Commercial Features"
+description: "Get started with commercial features in Sensu Go. Read this guide to learn about the latest commercial features, and contact our sales team for a free trial."
 version: "5.15"
 weight: 2
 product: "Sensu Go"
@@ -10,15 +10,14 @@ menu:
     parent: getting-started
 ---
 
-Sensu Go offers license-activated features designed for monitoring at scale.
+Sensu Go offers commercial features designed for monitoring at scale.
 [Contact the Sensu sales team][1] for a personalized demo and free trial.
-License-activated features are available for all Sensu Go packages and downloads.
-See the [products page][3] for a complete feature comparison.
+All commercial features are available for free in the packaged Sensu Go distribution up to an entity limit of 100.
+See [the announcement on our blog][7] for more information.
 
-### License-activated features in Sensu Go
+### Commercial features in Sensu Go
 
-- **Manage your monitoring checks from your browser**: Create, edit, and delete checks using the Sensu [web UI](../../dashboard/overview).
-- **Manage event handlers from your browser**: Create, edit, and delete handlers using the Sensu [web UI](../../dashboard/overview).
+- **Manage resources from your browser**: Create, edit, and delete checks, handlers, mutators, and filters using the Sensu [web UI](../../dashboard/overview).
 - **Authentication providers**: Scale Sensu role-based access control with [LDAP and Active Directory integrations](../../installation/auth).
 - **Scalable resource filtering**: Designed for large installations, label and field selectors let you filter [Sensu API][4] responses, [sensuctl][5] outputs, and Sensu [web UI][6] views using custom labels and a wider range of resource attributes.
 - **Event logging**: Log event data to a file that you can use as an input source for your favorite data lake solution. Using the [event logging](../../reference/backend#event-logging) functionality provides better performance and reliability than using event handlers.
@@ -28,25 +27,25 @@ See the [products page][3] for a complete feature comparison.
 
 ### Contact us for a free trial
 
-For a personalized demo and free trial of license-activated features in Sensu Go, [contact the Sensu sales team][1].
+For a personalized demo and free trial of commercial features at scale in Sensu Go, [contact the Sensu sales team][1].
 You can manage your Sensu account and contact support through [account.sensu.io][2].
 
 - [Contact the Sensu sales team](https://sensu.io/sales/)
 - [Log in to your Sensu account][2]
 - [Contact Sensu support](https://account.sensu.io/support)
 
-### Get started with license-activated features in Sensu Go
+### Get started with commercial features in Sensu Go
 
 If you haven't already, [install the Sensu Go backend, agent, and sensuctl tool](../../installation/install-sensu) and [configure sensuctl](../../sensuctl/reference/#first-time-setup).
 
 Log in to your Sensu account at [account.sensu.io](https://account.sensu.io/)
-and download your license file using the "Download license" link.
+and download your commercial license file using the "Download license" link.
 
 _Sensu account: Download Sensu license._
 
 <img alt="Screenshot of Sensu account license download" src="/images/go-license-download.png" width="350px">
 
-With the license file downloaded, you can activate your license using sensuctl.
+With the license file downloaded, you can activate your commercial license using sensuctl.
 
 {{< highlight shell >}}
 sensuctl create --file sensu_license.json
@@ -58,17 +57,18 @@ You can use sensuctl to view your license details at any time.
 sensuctl license info
 {{< /highlight >}}
 
-See these resources to get started using license-activated features in Sensu Go.
+See these resources to get started using commercial features in Sensu Go.
 
 - [Set up authentication providers](../../installation/auth)
 - [Get started with assets](../../guides/install-check-executables-with-assets)
-- [Manage your Sensu license](../../reference/license)
+- [Manage your Sensu commercial license](../../reference/license)
 - [Log in to your Sensu account](https://account.sensu.io)
 - [Contact Sensu support](https://account.sensu.io/support)
 
 [1]: https://sensu.io/sales/
 [2]: https://account.sensu.io/
-[3]: https://sensu.io/products
+[3]: https://sensu.io/enterprise
 [4]: ../../api/overview#filtering
 [5]: ../../sensuctl/reference#filtering
 [6]: ../../dashboard/filtering
+[7]: https://blog.sensu.io/one-year-of-sensu-go

@@ -175,9 +175,16 @@ spec:
 #### Cron scheduling
 
 You can also schedule checks using [cron syntax][14].
-For example, to schedule a check to execute once a minute at the start of the minute, set the `cron` attribute to `* * * * *` and the `publish` attribute to `true`.
 
-**Example cron check**
+Examples of valid cron values include:
+
+- `cron: CRON_TZ=Asia/Tokyo * * * * *`
+- `cron: TZ=Asia/Tokyo * * * * *`
+- `cron: * * * * *`
+
+**Example cron checks**
+
+To schedule a check to execute once a minute at the start of the minute, set the `cron` attribute to `* * * * *` and the `publish` attribute to `true`.
 
 {{< language-toggle >}}
 
@@ -189,7 +196,7 @@ metadata:
   namespace: default
 spec:
   command: check-cpu.sh -w 75 -c 90
-  cron: '* * * * *'
+  cron: * * * * *
   handlers:
   - slack
   publish: true
@@ -212,6 +219,75 @@ spec:
     "cron": "* * * * *",
     "publish": true
   }
+}
+{{< /highlight >}}
+
+{{< /language-toggle >}}
+
+Use a prefix of `TZ=` or `CRON_TZ=` if you want to set a [timezone][30] for the `cron` attribute.
+
+{{< language-toggle >}}
+
+{{< highlight yml >}}
+type: CheckConfig
+api_version: core/v2
+metadata:
+  name: cron_check
+  namespace: default
+spec:
+  check_hooks: null
+  command: hi
+  cron: CRON_TZ=Asia/Tokyo * * * * *
+  env_vars: null
+  handlers: []
+  high_flap_threshold: 0
+  interval: 0
+  low_flap_threshold: 0
+  output_metric_format: ""
+  output_metric_handlers: null
+  proxy_entity_name: ""
+  publish: true
+  round_robin: false
+  runtime_assets: null
+  stdin: false
+  subdue: null
+  subscriptions:
+  - sys
+  timeout: 0
+  ttl: 0
+{{< /highlight >}}
+
+{{< highlight json >}}
+{
+   "type": "CheckConfig",
+   "api_version": "core/v2",
+   "metadata": {
+      "name": "cron_check",
+      "namespace": "default"
+   },
+   "spec": {
+      "check_hooks": null,
+      "command": "hi",
+      "cron": "CRON_TZ=Asia/Tokyo * * * * *",
+      "env_vars": null,
+      "handlers": [],
+      "high_flap_threshold": 0,
+      "interval": 0,
+      "low_flap_threshold": 0,
+      "output_metric_format": "",
+      "output_metric_handlers": null,
+      "proxy_entity_name": "",
+      "publish": true,
+      "round_robin": false,
+      "runtime_assets": null,
+      "stdin": false,
+      "subdue": null,
+      "subscriptions": [
+         "sys"
+      ],
+      "timeout": 0,
+      "ttl": 0
+   }
 }
 {{< /highlight >}}
 
@@ -521,7 +597,7 @@ example      | {{< highlight shell >}}"timeout": 30{{< /highlight >}}
 
 |ttl         |      |
 -------------|------
-description  | The time to live (TTL) in seconds until check results are considered stale. If an agent stops publishing results for the check, and the TTL expires, an event will be created for the agent's entity. The check `ttl` must be greater than the check `interval`, and should accommodate time for the check execution and result processing to complete. For example, if a check has an `interval` of `60` (seconds) and a `timeout` of `30` (seconds), an appropriate `ttl` would be a minimum of `90` (seconds).
+description  | The time to live (TTL) in seconds until check results are considered stale. If an agent stops publishing results for the check, and the TTL expires, an event will be created for the agent's entity. The check `ttl` must be greater than the check `interval`, and should accommodate time for the check execution and result processing to complete. For example, if a check has an `interval` of `60` (seconds) and a `timeout` of `30` (seconds), an appropriate `ttl` would be a minimum of `90` (seconds). _**NOTE**: Adding TTLs to checks adds overhead, so use the `ttl` attribute sparingly._
 required     | false
 type         | Integer
 example      | {{< highlight shell >}}"ttl": 100{{< /highlight >}}
@@ -883,5 +959,6 @@ spec:
 [sp]: #spec-attributes
 [28]: ../../guides/monitor-external-resources
 [29]: https://bonsai.sensu.io
+[30]: https://en.wikipedia.org/wiki/Cron#Timezone_handling
 [api-filter]: ../../api/overview#filtering
 [sensuctl-filter]: ../../sensuctl/reference#filtering

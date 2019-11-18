@@ -178,9 +178,9 @@ sc start sensu-client
 sc stop sensu-client{{< /highlight >}}
 
 
-[1]:  https://repositories.sensuapp.org/msi/
-[2]:  https://sensu.global.ssl.fastly.net/msi/
-[3]:  https://sensu.global.ssl.fastly.net/msi/2012r2/sensu-1.2.0-1-x64.msi
+[1]:  https://eol-repositories.sensuapp.org/msi/
+[2]:  https://eol-repositories.sensuapp.org/msi/
+[3]:  https://eol-repositories.sensuapp.org/msi/2012r2/sensu-1.2.0-1-x64.msi
 [4]:  https://sensuapp.org/mit-license
 [5]:  ../../reference/configuration/
 [6]:  ../../reference/transport/
