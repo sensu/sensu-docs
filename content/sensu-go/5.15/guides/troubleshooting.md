@@ -80,27 +80,24 @@ following those logs are described. The name of the desired service, e.g.
 _NOTE: Platform versions described above are for reference only and do not
 supercede the documented [supported platforms][platforms]._
 
-##### Additional `journald` log examples
+##### Narrow your search to a specific timeframe
 
-While the examples above show some basic examples for viewing Sensu's logs with `journalctl`, there are other commands that can be used to further narrow down potential issues with Sensu. 
+Use the `journald` keyword `since` to refine the basic `journalctl` commands and narrow your search by timeframe.
+Here are a few examples.
 
-**journalctl + since**
-
-As a logging utility, `journald` has the capability to scope log queries by using the keyword `since` in conjunction with a desired timeframe. Let's take a look at a few examples.
-
-If all the logs for Sensu since yesterday were needed, the following command could be used:
+Retrieve all the logs for Sensu since yesterday:
 
 {{< highlight shell >}}
 journalctl -u sensu-backend.service --since yesterday | tee sensu-backend-$(date +%Y-%m-%d).log
 {{< /highlight >}}
 
-If all the logs since a specific time were needed, the following command could be used:
+Retrieve all the logs for Sensu since a specific time:
 
 {{< highlight shell >}}
 journalctl -u sensu-backend.service --since 09:00 --until "1 hour ago" | tee sensu-backend-$(date +%Y-%m-%d).log
 {{< /highlight >}}
 
-And finally, if all logs for a specific date range were needed, the following command could be used:
+Retrieve all the logs for Sensu for a specific date range:
 
 {{< highlight shell >}}
 journalctl -u sensu-backend.service --since "2015-01-10" --until "2015-01-11 03:00" | tee sensu-backend-$(date +%Y-%m-%d).log
