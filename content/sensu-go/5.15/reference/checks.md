@@ -178,9 +178,9 @@ You can also schedule checks using [cron syntax][14].
 
 Examples of valid cron values include:
 
-- `cron: CRON_TZ=Asia/Tokyo 0 * * * *`
-- `cron: TZ=Asia/Tokyo 0 * * * *`
-- `cron: 0 * * * *`
+- `cron: CRON_TZ=Asia/Tokyo * * * * *`
+- `cron: TZ=Asia/Tokyo * * * * *`
+- `cron: * * * * *`
 
 **Example cron checks**
 
@@ -237,7 +237,7 @@ metadata:
 spec:
   check_hooks: null
   command: hi
-  cron: CRON_TZ=Asia/Tokyo 0 * * * *
+  cron: CRON_TZ=Asia/Tokyo * * * * *
   env_vars: null
   handlers: []
   high_flap_threshold: 0
