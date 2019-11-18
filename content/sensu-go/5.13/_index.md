@@ -67,30 +67,30 @@ Sensu Go's core is open source software, freely available under a
 permissive [MIT License][12] and publicly available on [GitHub][13].
 Learn about [support packages](https://sensu.io/support) and [license-activated features designed for monitoring at scale][28].
 
-[1]: getting-started/get-started
+[1]: ./getting-started/get-started
 [2]: http://slack.sensu.io/
-[3]: reference/sensuctl
-[4]: guides/aggregate-metrics-statsd
-[5]: reference/rbac
+[3]: ./reference/sensuctl
+[4]: ./guides/aggregate-metrics-statsd
+[5]: ./reference/rbac
 [6]: https://influxdata.com
 [7]: https://slack.com
 [8]: https://github.com/sensu-plugins
 [9]: /plugins/latest/reference/
 [12]: https://github.com/sensu/sensu-go/blob/master/LICENSE
 [13]: https://github.com/sensu/sensu-go
-[15]: installation/install-sensu#install-sensu-agents
-[17]: guides/monitor-external-resources
-[18]: reference/filters
-[19]: reference/hooks
-[20]: guides/extract-metrics-with-checks
-[21]: guides/send-slack-alerts/
-[22]: guides/influx-db-metric-handler/
-[23]: api/overview
-[24]: guides/aggregate-metrics-statsd/
-[25]: dashboard/overview
-[26]: sensuctl/reference
-[27]: reference/handlers
+[15]: ./installation/install-sensu#install-sensu-agents
+[17]: ./guides/monitor-external-resources
+[18]: ./reference/filters
+[19]: ./reference/hooks
+[20]: ./guides/extract-metrics-with-checks
+[21]: ./guides/send-slack-alerts/
+[22]: ./guides/influx-db-metric-handler/
+[23]: ./api/overview
+[24]: ./guides/aggregate-metrics-statsd/
+[25]: ./dashboard/overview
+[26]: ./sensuctl/reference
+[27]: ./reference/handlers
 [31]: https://bonsai.sensu.io/assets/sensu/sensu-pagerduty-handler
 [29]: https://bonsai.sensu.io/assets/sensu/sensu-slack-handler
 [30]: https://bonsai.sensu.io
-[28]: getting-started/enterprise
+[28]: ./getting-started/enterprise
