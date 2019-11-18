@@ -3,11 +3,11 @@ title: "Scale Sensu Go with Enterprise Datastore"
 linkTitle: "Scaling with Enterprise datastore"
 description: ""
 weight: 39
-version: "5.13"
+version: "5.12"
 product: "Sensu Go"
 platformContent: false
 menu:
-  sensu-go-5.13:
+  sensu-go-5.12:
     parent: guides
 ---
 
@@ -42,7 +42,7 @@ Before Sensu can start writing events to Postgres, you need a database and an ac
 
 If you have administrative access to Postgres, you can create the database and user:
 
-``` shell
+{{< highlight shell >}}
 $ sudo -u postgres psql
 postgres=# CREATE DATABASE sensu_events;
 CREATE DATABASE
@@ -51,20 +51,20 @@ CREATE ROLE
 postgres=# GRANT ALL PRIVILEGES ON DATABASE sensu_events TO sensu;
 GRANT
 postgres-# \q
-```
+{{< /highlight >}}
 
 With this configuration complete, Postgres will have a `sensu_events` database for storing Sensu events and a `sensu` user with permissions to that database.
 
 By default, the Postgres user you've just added will not be able to authenticate via password, so you'll also need to make a change to the `pg_hba.conf` file. The required change will depend on how Sensu will connect to Postgres. In this case, you'll configure Postgres to allow the `sensu` user to connect to the `sensu_events` database from any host using an [md5][5]-encrypted password:
 
-``` shell
+{{< highlight shell >}}
 # make a copy of the current pg_hba.conf
 sudo cp /var/lib/pgsql/data/pg_hba.conf /var/tmp/pg_hba.conf.bak
 # give sensu user permissions to connect to sensu_events database from any IP address
 echo 'host sensu_events sensu 0.0.0.0/0 md5' | sudo tee -a /var/lib/pgsql/data/pg_hba.conf
 # restart postgresql service to activate pg_hba.conf changes
 sudo systemctl restart postgresql
-```
+{{< /highlight >}}
 
 With this configuration complete, you can configure Sensu to store events in your Postgres database.
 
@@ -73,6 +73,8 @@ _NOTE: If your Sensu Go license expires, event storage will automatically revert
 ## Configure Sensu {#configure-sensu-for-postgres}
 
 If your Sensu backend is already licensed, the configuration for routing events to Postgres is relatively straightforward. Create a `PostgresConfig` resource that describes the database connection as a data source name (DSN):
+
+{{< language-toggle >}}
 
 {{< highlight yml >}}
 type: PostgresConfig
