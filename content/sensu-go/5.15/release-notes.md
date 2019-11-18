@@ -50,7 +50,7 @@ Read the [upgrade guide][1] for information on upgrading to the latest version o
 
 See the [upgrade guide][1] to upgrade Sensu to version 5.15.0.
 
-**IMPORTANT**
+**IMPORTANT:**
 Sensu's free entity limit is now 100 entities. All [commercial features][79] are available for free in the packaged Sensu Go distribution up to an entity limit of 100. You will see a warning when you approach the 100-entity limit (at 75%).
 
 If your Sensu instance includes more than 100 entities, [contact us][90] to learn how to upgrade your installation and increase your limit. See [Discourse][91] for more information about our usage policy.
@@ -64,15 +64,15 @@ If your Sensu instance includes more than 100 entities, [contact us][90] to lear
 - Added support for using [API keys for API authentication][88].
 - Added support for sensu-backend service environment variables.
 
-**SECURITY**
+**SECURITY:**
 
 - ([Commercial feature][79]) Removed support for UPN binding without a binding account or anonymous binding, which allows Sensu to effectively refresh claims during access token renewal.
 
-**IMPROVEMENTS**
+**IMPROVEMENTS:**
 
 - You can now use colons and periods in all resource names (except users).
 
-**FIXED:**
+**FIXES:**
 
 - Added better error logging for mutator execution.
 - Fixed the order of flap detection weighting for checks.
@@ -161,7 +161,7 @@ See the [upgrade guide][1] to upgrade Sensu to version 5.14.0.
 This release is a stability release that fixes a bug for users who have the postgresql event store enabled.
 See the [upgrade guide][1] to upgrade Sensu to version 5.13.2.
 
-**Fixes:**
+**FIXES:**
 
 - Metrics handlers now correctly receive metric points when the postgresql event store is enabled.
 
