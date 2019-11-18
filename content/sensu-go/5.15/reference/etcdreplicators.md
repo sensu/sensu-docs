@@ -61,15 +61,12 @@ example      | {{< highlight shell >}}api_version: federation/v1{{< /highlight >
 
 metadata     |      |
 -------------|------
-description  | Top-level scope that contains the replicator `name`, `ca_cert`, `cert`, and `key`.
+description  | Top-level scope that contains the replicator `name`.
 required     | true
 type         | Map of key-value pairs
 example      | {{< highlight shell >}}
 metadata:
   name: my_replicator
-  ca_cert: /path/to/ssl/trusted-certificate-authorities.pem
-  cert: /path/to/ssl/cert.pem
-  key: /path/to/ssl/key.pem
 {{< /highlight >}}
 
 spec         |      |
@@ -79,6 +76,9 @@ required     | true
 type         | Map of key-value pairs
 example      | {{< highlight shell >}}
 spec:
+  ca_cert: /path/to/ssl/trusted-certificate-authorities.pem
+  cert: /path/to/ssl/cert.pem
+  key: /path/to/ssl/key.pem
   insecure: false
   url: http://127.0.0.1:3379
   api_version: core/v2
@@ -94,6 +94,8 @@ description  | The replicator name used internally by Sensu.
 required     | true
 type         | String
 example      | {{< highlight shell >}}name: my_replicator{{< /highlight >}}
+
+#### Spec attributes
 
 ca_cert      |      |
 -------------|------
@@ -115,8 +117,6 @@ description  | Path to the PEM-format key file associated with the `cert` to use
 required     | true
 type         | String
 example      | {{< highlight shell >}}key: /path/to/ssl/key.pem{{< /highlight >}}
-
-#### Spec attributes
 
 insecure     |      |
 -------------|-------
@@ -167,6 +167,9 @@ type: EtcdReplicator
 metadata:
   name: role_replicator
 spec:
+  ca_cert: /path/to/ssl/trusted-certificate-authorities.pem
+  cert: /path/to/ssl/cert.pem
+  key: /path/to/ssl/key.pem
   insecure: false
   url: http://127.0.0.1:3379
   api_version: core/v2
@@ -182,6 +185,9 @@ spec:
     "name": "role_replicator"
   },
   "spec": {
+    "ca_cert": "/path/to/ssl/trusted-certificate-authorities.pem",
+    "cert": "/path/to/ssl/cert.pem",
+    "key": "/path/to/ssl/key.pem",
     "insecure": false,
     "url": "http://127.0.0.1:3379",
     "api_version": "core/v2",
@@ -202,10 +208,10 @@ api_version: federation/v1
 type: EtcdReplicator
 metadata:
   name: rolebinding_replicator
+spec:
   ca_cert: /path/to/ssl/trusted-certificate-authorities.pem
   cert: /path/to/ssl/cert.pem
   key: /path/to/ssl/key.pem
-spec:
   insecure: false
   url: http://127.0.0.1:3379
   api_version: core/v2
@@ -218,12 +224,12 @@ spec:
   "api_version": "federation/v1",
   "type": "EtcdReplicator",
   "metadata": {
-    "name": "rolebinding_replicator",
-    "ca_cert": "/path/to/ssl/trusted-certificate-authorities.pem",
-    "cert": "/path/to/ssl/cert.pem",
-    "key": "/path/to/ssl/key.pem"
+    "name": "rolebinding_replicator"
   },
   "spec": {
+    "ca_cert": "/path/to/ssl/trusted-certificate-authorities.pem",
+    "cert": "/path/to/ssl/cert.pem",
+    "key": "/path/to/ssl/key.pem",
     "insecure": false,
     "url": "http://127.0.0.1:3379",
     "api_version": "core/v2",
@@ -244,10 +250,10 @@ api_version: federation/v1
 type: EtcdReplicator
 metadata:
   name: clusterrole_replicator
+spec:
   ca_cert: /path/to/ssl/trusted-certificate-authorities.pem
   cert: /path/to/ssl/cert.pem
   key: /path/to/ssl/key.pem
-spec:
   insecure: false
   url: http://127.0.0.1:3379
   api_version: core/v2
@@ -261,11 +267,11 @@ spec:
   "type": "EtcdReplicator",
   "metadata": {
     "name": "clusterrole_replicator"
-    "ca_cert": "/path/to/ssl/trusted-certificate-authorities.pem",
-    "cert": "/path/to/ssl/cert.pem",
-    "key": "/path/to/ssl/key.pem"
   },
   "spec": {
+    "ca_cert": "/path/to/ssl/trusted-certificate-authorities.pem",
+    "cert": "/path/to/ssl/cert.pem",
+    "key": "/path/to/ssl/key.pem",
     "insecure": false,
     "url": "http://127.0.0.1:3379",
     "api_version": "core/v2",
@@ -286,10 +292,10 @@ api_version: federation/v1
 type: EtcdReplicator
 metadata:
   name: clusterrolebinding_replicator
+spec:
   ca_cert: /path/to/ssl/trusted-certificate-authorities.pem
   cert: /path/to/ssl/cert.pem
   key: /path/to/ssl/key.pem
-spec:
   insecure: false
   url: http://127.0.0.1:3379
   api_version: core/v2
@@ -303,11 +309,11 @@ spec:
   "type": "EtcdReplicator",
   "metadata": {
     "name": "clusterrolebinding_replicator"
-    "ca_cert": "/path/to/ssl/trusted-certificate-authorities.pem",
-    "cert": "/path/to/ssl/cert.pem",
-    "key": "/path/to/ssl/key.pem"
   },
   "spec": {
+    "ca_cert": "/path/to/ssl/trusted-certificate-authorities.pem",
+    "cert": "/path/to/ssl/cert.pem",
+    "key": "/path/to/ssl/key.pem",
     "insecure": false,
     "url": "http://127.0.0.1:3379",
     "api_version": "core/v2",
