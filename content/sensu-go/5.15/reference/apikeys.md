@@ -148,6 +148,6 @@ spec:
 {{< /highlight >}}
 {{< /language-toggle >}}
 
-[1]: ../../api/apikey/
+[1]: ../../api/apikeys/
 [2]: ../../api/auth/#the-authtoken-api-endpoint
 [3]: ../../sensuctl/reference/#creating-resources
