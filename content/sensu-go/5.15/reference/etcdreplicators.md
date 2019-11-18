@@ -15,7 +15,7 @@ menu:
 - [etcd-replicators specification](#etcdreplicators-specification)
 - [Example etcd-replicators resources](#example-etcdreplicators-resources)
 
-**LICENSED TIER**: Unlock the etcd-replicators datatype in Sensu Go with a Sensu license. To activate your license, see the [getting started guide][1].
+**COMMERCIAL FEATURE**: Access the etcd-replicators datatype in the packaged Sensu Go distribution. For more information, see the [getting started guide][1].
 
 _**NOTE**: etcd-replicators is a datatype in the federation API, which is only accessible for users who have a cluster role that permits access to replication resources._
 
@@ -97,7 +97,7 @@ example      | {{< highlight shell >}}name: my_replicator{{< /highlight >}}
 insecure     |      |
 -------------|-------
 description  | `true` to disable transport security. Otherwise, `false`. Default is `false`. _**NOTE**: Disable transport security with care._
-required     | true
+required     | false
 type         | String
 example      | {{< highlight shell >}}insecure: false{{< /highlight >}}
 
@@ -111,7 +111,7 @@ example      | {{< highlight shell >}}url: http://127.0.0.1:3379 {{< /highlight 
 api_version  |      |
 -------------|-------
 description  | Sensu API version of the resource to replicate. Default is `core/v2`.
-required     | true
+required     | false
 type         | String
 example      | {{< highlight shell >}}api_version: core/v2{{< /highlight >}}
 
@@ -125,7 +125,7 @@ example      | {{< highlight shell >}}resource: Role{{< /highlight >}}
 replication_interval_seconds      |      |
 ----------------------------------|-------
 description  | The interval at which the resource will be replicated. In seconds. Default is 30.
-required     | true
+required     | false
 type         | String
 example      | {{< highlight shell >}}replication_interval_seconds: 30{{< /highlight >}}
 
