@@ -29,7 +29,7 @@ You can use [`sensuctl create`][4] or the Sensu web UI to create replicators.
 
 When you create or update a replicator, an entry is added to the store and a new replicator process will spin up. The replicator process watches the keyspace of the resource to be replicated and replicates all keys to the specified cluster in a last-write-wins fashion.
 
-When the cluster starts up for the first time, each node scans and starts a replicator process for each of the replicators that are defined. Multi-node clusters will have write redundancy.
+When the cluster starts up, each sensu-backend scans the stored replicator definitions and starts a replicator process for each replicator definition. Source clusters with multiple sensu-backends will cause redundant writes to occur. This is harmless but should be taken into account when designing a replicated system. 
 
 ## Delete a replicator
 
