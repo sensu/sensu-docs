@@ -268,7 +268,7 @@ spec:
    "spec": {
       "check_hooks": null,
       "command": "hi",
-      "cron": "CRON_TZ=Asia/Tokyo 0 * * * *",
+      "cron": "CRON_TZ=Asia/Tokyo * * * * *",
       "env_vars": null,
       "handlers": [],
       "high_flap_threshold": 0,
