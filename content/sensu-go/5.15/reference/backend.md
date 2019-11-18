@@ -940,7 +940,7 @@ $ sudo systemctl restart sensu-backend
 
 ### Event logging
 
-**LICENSED TIER**: Unlock event logging in Sensu Go with a Sensu license. To activate your license, see the [getting started guide][14].
+**COMMERCIAL FEATURE**: Access event logging in the packaged Sensu Go distribution. For more information, see the [getting started guide][14].
 
 All Sensu events can be optionally logged to a file in JSON format. This file can then be used as an input source for your favorite data lake solution. Using the event logging functionality provides better performance and reliability than using event handlers.
 
