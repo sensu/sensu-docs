@@ -175,9 +175,16 @@ spec:
 #### Cron scheduling
 
 You can also schedule checks using [cron syntax][14].
-For example, to schedule a check to execute once a minute at the start of the minute, set the `cron` attribute to `* * * * *` and the `publish` attribute to `true`.
 
-**Example cron check**
+Examples of valid cron values include:
+
+- `cron: CRON_TZ=Asia/Tokyo 0 * * * *`
+- `cron: TZ=Asia/Tokyo 0 * * * *`
+- `cron: 0 * * * *`
+
+**Example cron checks**
+
+To schedule a check to execute once a minute at the start of the minute, set the `cron` attribute to `0 * * * *` and the `publish` attribute to `true`.
 
 {{< language-toggle >}}
 
@@ -189,7 +196,7 @@ metadata:
   namespace: default
 spec:
   command: check-cpu.sh -w 75 -c 90
-  cron: '* * * * *'
+  cron: 0 * * * *
   handlers:
   - slack
   publish: true
@@ -209,9 +216,78 @@ spec:
     "command": "check-cpu.sh -w 75 -c 90",
     "subscriptions": ["system"],
     "handlers": ["slack"],
-    "cron": "* * * * *",
+    "cron": "0 * * * *",
     "publish": true
   }
+}
+{{< /highlight >}}
+
+{{< /language-toggle >}}
+
+Use a prefix of `TZ=` or `CRON_TZ=` if you want to set a [timezone][30] for the `cron` attribute.
+
+{{< language-toggle >}}
+
+{{< highlight yml >}}
+type: CheckConfig
+api_version: core/v2
+metadata:
+  name: cron_check
+  namespace: default
+spec:
+  check_hooks: null
+  command: hi
+  cron: CRON_TZ=Asia/Tokyo 0 * * * *
+  env_vars: null
+  handlers: []
+  high_flap_threshold: 0
+  interval: 0
+  low_flap_threshold: 0
+  output_metric_format: ""
+  output_metric_handlers: null
+  proxy_entity_name: ""
+  publish: true
+  round_robin: false
+  runtime_assets: null
+  stdin: false
+  subdue: null
+  subscriptions:
+  - sys
+  timeout: 0
+  ttl: 0
+{{< /highlight >}}
+
+{{< highlight json >}}
+{
+   "type": "CheckConfig",
+   "api_version": "core/v2",
+   "metadata": {
+      "name": "cron_check",
+      "namespace": "default"
+   },
+   "spec": {
+      "check_hooks": null,
+      "command": "hi",
+      "cron": "CRON_TZ=Asia/Tokyo 0 * * * *",
+      "env_vars": null,
+      "handlers": [],
+      "high_flap_threshold": 0,
+      "interval": 0,
+      "low_flap_threshold": 0,
+      "output_metric_format": "",
+      "output_metric_handlers": null,
+      "proxy_entity_name": "",
+      "publish": true,
+      "round_robin": false,
+      "runtime_assets": null,
+      "stdin": false,
+      "subdue": null,
+      "subscriptions": [
+         "sys"
+      ],
+      "timeout": 0,
+      "ttl": 0
+   }
 }
 {{< /highlight >}}
 
@@ -883,5 +959,6 @@ spec:
 [sp]: #spec-attributes
 [28]: ../../guides/monitor-external-resources
 [29]: https://bonsai.sensu.io
+[30]: https://en.wikipedia.org/wiki/Cron#Timezone_handling
 [api-filter]: ../../api/overview#filtering
 [sensuctl-filter]: ../../sensuctl/reference#filtering
