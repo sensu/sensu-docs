@@ -57,7 +57,7 @@ If your Sensu instance includes more than 100 entities, [contact us][90] to lear
 
 **NEW FEATURES:**
 
-- ([Commercial feature][79]) Added support for the [federation cluster registration API][85].
+- ([Commercial feature][79]) Added support for [federation replicators and the federation cluster registration API][85] and the ability to view resources across clusters in the federation in the [web UI][80].
 - ([Commercial feature][79]) Added MSI and NuGet builds for [sensuctl][89]. Also, MSI and NuGet installations now add the bin directory to the system PATH on Windows.
 - ([Commercial feature][79]) Added HTTP DELETE access for the [license management API][92].
 - Added the [APIKey resource][86], with HTTP API support for POST, GET, and DELETE and [sensuctl commands][87] to manage the APIKey resource.
