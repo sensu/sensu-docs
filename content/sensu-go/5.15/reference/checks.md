@@ -196,7 +196,7 @@ metadata:
   namespace: default
 spec:
   command: check-cpu.sh -w 75 -c 90
-  cron: 0 * * * *
+  cron: * * * * *
   handlers:
   - slack
   publish: true
@@ -216,7 +216,7 @@ spec:
     "command": "check-cpu.sh -w 75 -c 90",
     "subscriptions": ["system"],
     "handlers": ["slack"],
-    "cron": "0 * * * *",
+    "cron": "* * * * *",
     "publish": true
   }
 }
