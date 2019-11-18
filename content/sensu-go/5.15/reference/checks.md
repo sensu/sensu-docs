@@ -116,7 +116,7 @@ For example, for three agents configured with the `system` subscription (agents 
 
 In the diagram above, the standard check is executed by agents A, B, and C every 60 seconds, while the round-robin check cycles through the available agents, resulting in each agent executing the check every 180 seconds.
 
-To use check [`ttl`](#ttl-attribute) and `round_robin` together, your check configuration must also specify a [`proxy_entity_name`](#proxy-entity-name-attribute).
+To use check [`ttl`](#ttl-attribute) and `round_robin` together, your check configuration must also specify a [`proxy_entity_name`](#proxy-entity-name-attribute). If you do not specify a `proxy_entity_name` when using check `ttl` and `round_robin` together, your check will stop executing.
 
 _PRO TIP: Use round robin to distribute check execution workload across multiple agents when using [proxy checks](#proxy-requests)._
 
@@ -599,7 +599,7 @@ example      | {{< highlight shell >}}"timeout": 30{{< /highlight >}}
 
 |ttl         |      |
 -------------|------
-description  | The time to live (TTL) in seconds until check results are considered stale. If an agent stops publishing results for the check, and the TTL expires, an event will be created for the agent's entity.<br><br>The check `ttl` must be greater than the check `interval` and should allow enough time for the check execution and result processing to complete. For example, for a check that has an `interval` of `60` (seconds) and a `timeout` of `30` (seconds), the appropriate `ttl` is at least `90` (seconds).<br><br>To use check `ttl` and [`round_robin`](#round-robin-attribute) together, your check configuration must also specify a [`proxy_entity_name`](#proxy-entity-name-attribute). _**NOTE**: Adding TTLs to checks adds overhead, so use the `ttl` attribute sparingly._
+description  | The time to live (TTL) in seconds until check results are considered stale. If an agent stops publishing results for the check, and the TTL expires, an event will be created for the agent's entity.<br><br>The check `ttl` must be greater than the check `interval` and should allow enough time for the check execution and result processing to complete. For example, for a check that has an `interval` of `60` (seconds) and a `timeout` of `30` (seconds), the appropriate `ttl` is at least `90` (seconds).<br><br>To use check `ttl` and [`round_robin`](#round-robin-attribute) together, your check configuration must also specify a [`proxy_entity_name`](#proxy-entity-name-attribute). If you do not specify a `proxy_entity_name` when using check `ttl` and `round_robin` together, your check will stop executing. _**NOTE**: Adding TTLs to checks adds overhead, so use the `ttl` attribute sparingly._
 required     | false
 type         | Integer
 example      | {{< highlight shell >}}"ttl": 100{{< /highlight >}}
@@ -710,7 +710,7 @@ example      | {{< highlight shell >}}"output_metric_handlers": ["influx-db"]{{<
 
 |round_robin |      |
 -------------|------
-description  | When set to `true`, Sensu executes the check once per interval, cycling through each subscribing agent in turn. See [round-robin checks](#round-robin-checks) for more information.<br><br>Use the `round_robin` attribute with proxy checks to avoid duplicate events and distribute proxy check executions evenly across multiple agents. See [proxy checks](#proxy-requests) for more information.<br><br>To use check [`ttl`](#ttl-attribute) and `round_robin` together, your check configuration must also specify a [`proxy_entity_name`](#proxy-entity-name-attribute).
+description  | When set to `true`, Sensu executes the check once per interval, cycling through each subscribing agent in turn. See [round-robin checks](#round-robin-checks) for more information.<br><br>Use the `round_robin` attribute with proxy checks to avoid duplicate events and distribute proxy check executions evenly across multiple agents. See [proxy checks](#proxy-requests) for more information.<br><br>To use check [`ttl`](#ttl-attribute) and `round_robin` together, your check configuration must also specify a [`proxy_entity_name`](#proxy-entity-name-attribute). If you do not specify a `proxy_entity_name` when using check `ttl` and `round_robin` together, your check will stop executing.
 required     | false
 type         | Boolean
 example      | {{< highlight shell >}}"round_robin": true{{< /highlight >}}
