@@ -64,6 +64,7 @@ If your Sensu instance includes more than 100 entities, [contact us][90] to lear
 - Added support for using [API keys for API authentication][88].
 - Added support for [sensuctl commands][93] to install, execute, list, and delete commands from Bonsai or a URL.
 - Added support for sensu-backend service environment variables.
+- Added support for [timezones in check `cron` strings][94].
 
 **SECURITY:**
 
@@ -755,3 +756,4 @@ To get started with Sensu Go:
 [91]: https://discourse.sensu.io/t/introducing-usage-limits-in-the-sensu-go-free-tier/1156
 [92]: /sensu-go/5.15/api/license/
 [93]: /sensu-go/5.15/sensuctl/reference/#extend-sensuctl-with-commands
+[94]: /sensu-go/5.15/reference/checks/#cron-scheduling
