@@ -184,7 +184,7 @@ Examples of valid cron values include:
 
 **Example cron checks**
 
-To schedule a check to execute once a minute at the start of the minute, set the `cron` attribute to `0 * * * *` and the `publish` attribute to `true`.
+To schedule a check to execute once a minute at the start of the minute, set the `cron` attribute to `* * * * *` and the `publish` attribute to `true`.
 
 {{< language-toggle >}}
 
