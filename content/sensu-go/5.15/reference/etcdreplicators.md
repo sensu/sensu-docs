@@ -100,21 +100,21 @@ example      | {{< highlight shell >}}name: my_replicator{{< /highlight >}}
 ca_cert      |      |
 -------------|------
 description  | Path to an the PEM-format CA certificate to use for TLS client authentication.
-required     | true
+required     | true if `insecure: false` (which is the default configuration). If `insecure: true`, `ca_cert` is not required.
 type         | String
 example      | {{< highlight shell >}}ca_cert: /path/to/trusted-certificate-authorities.pem{{< /highlight >}}
 
 cert         |      |
 -------------|------
 description  | Path to the PEM-format certificate to use for TLS client authentication.
-required     | true
+required     | true if `insecure: false` (which is the default configuration). If `insecure: true`, `cert` is not required.
 type         | String
 example      | {{< highlight shell >}}cert: /path/to/ssl/cert.pem{{< /highlight >}}
 
 key          |      |
 -------------|------
 description  | Path to the PEM-format key file associated with the `cert` to use for TLS client authentication.
-required     | true
+required     | true if `insecure: false` (which is the default configuration). If `insecure: true`, `key` is not required.
 type         | String
 example      | {{< highlight shell >}}key: /path/to/ssl/key.pem{{< /highlight >}}
 
