@@ -800,7 +800,7 @@ You can also use `sensuctl command` to install, execute, list, and delete comman
 
 To install an asset definition directly from Bonsai, use `sensuctl asset add [NAMESPACE/NAME][:VERSION]`. `[:VERSION]` is only required if you require a specific version or are pinning to a specific version. Replace `[NAMESPACE/NAME]` with the namespace and name of the asset from Bonsai:
 
-![Bonsai page for InfluxDB handler showing namespace and name][35]
+![Bonsai page for InfluxDB handler showing namespace and name][36]
 
 {{< highlight shell >}}
 sensuctl asset add sensu/sensu-influxdb-handler:3.1.1
@@ -842,7 +842,7 @@ sensuctl command install [ALIAS] ([NAMESPACE/NAME]:[VERSION] | --url [ARCHIVE_UR
 `[:VERSION]` is only required if you require a specific version or are pinning to a specific version.
 If you do not specify a version, sensuctl will fetch the latest version from Bonsai.
 
-For example, to install a command from the [Sensu Go Email Handler Plugin][36] with no flags:
+For example, to install a command from the [Sensu Go Email Handler Plugin][37] with no flags:
 
 {{< highlight shell >}}
 sensuctl command install sensu-email-handler (sensu/sensu-email-handler:0.2.0)
@@ -861,7 +861,7 @@ _**NOTE**: Asset definitions with multiple asset builds are only supported via B
 
 For both install options, `[ALIAS]` is required.
 Replace `[ALIAS]` with a unique `NAME` for the command.
-For example, for the [Sensu Go Email Handler Plugin][36], you might use the alias `sensu-email-handler`. 
+For example, for the [Sensu Go Email Handler Plugin][37], you might use the alias `sensu-email-handler`. 
 
 Replace `[flags]` with the flags you want to use.
 Run `sensuctl command install -h` to view flags.
@@ -876,7 +876,7 @@ sensuctl command exec [ALIAS] [args] [flags]
 {{< /highlight >}}
 
 Replace `[ALIAS]` with a unique `NAME` for the command.
-For example, for the [Sensu Go Email Handler Plugin][36], you might use the alias `sensu-email-handler`. 
+For example, for the [Sensu Go Email Handler Plugin][37], you might use the alias `sensu-email-handler`. 
 `[ALIAS]` is required.
 
 Replace `[flags]` with the flags you want to use.
@@ -887,7 +887,7 @@ Replace `[args]` with the globlal flags you want to use.
 Run `sensuctl command exec -h` to view global flags.
 To pass `[args]` flags to the bin/entrypoint executable, make sure to specify them after a double dash surrounded by spaces.
 
-_**NOTE**: When you use `sensuctl command exec`, the [environment variables][37] are passed to the command._
+_**NOTE**: When you use `sensuctl command exec`, the [environment variables][38] are passed to the command._
 
 For example:
 
@@ -923,7 +923,7 @@ sensuctl command delete [ALIAS] [flags]
 {{< /highlight >}}
 
 Replace `[ALIAS]` with a unique `NAME` for the command.
-For example, for the [Sensu Go Email Handler Plugin][36], you might use the alias `sensu-email-handler`. 
+For example, for the [Sensu Go Email Handler Plugin][37], you might use the alias `sensu-email-handler`. 
 `[ALIAS]` is required.
 
 Replace `[flags]` with the flags you want to use.
