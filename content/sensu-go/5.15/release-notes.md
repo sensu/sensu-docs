@@ -62,6 +62,7 @@ If your Sensu instance includes more than 100 entities, [contact us][90] to lear
 - ([Commercial feature][79]) Added HTTP DELETE access for the [license management API][92].
 - Added the [APIKey resource][86], with HTTP API support for POST, GET, and DELETE and [sensuctl commands][87] to manage the APIKey resource.
 - Added support for using [API keys for API authentication][88].
+- Added support for [sensuctl commands][93] to install, execute, list, and delete commands from Bonsai or a URL.
 - Added support for sensu-backend service environment variables.
 
 **SECURITY:**
@@ -753,3 +754,4 @@ To get started with Sensu Go:
 [90]: https://sensu.io/contact
 [91]: https://discourse.sensu.io/t/introducing-usage-limits-in-the-sensu-go-free-tier/1156
 [92]: /sensu-go/5.15/api/license/
+[93]: /sensu-go/5.15/sensuctl/reference/#extend-sensuctl-with-commands
