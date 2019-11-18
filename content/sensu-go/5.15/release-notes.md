@@ -46,7 +46,7 @@ Read the [upgrade guide][1] for information on upgrading to the latest version o
 
 ## 5.15.0 release notes
 
-**November 18, 2019** &mdash; The latest release of Sensu Go, version 5.15.0, is now available for download. This is our biggest release yet and includes an important update to our free entity limit. We added the federation cluster registration API as well as the APIKey resource, which you can use for API authentication. In addition, the 5.15.0 release includes support for sensu-backend environment variables and bug fixes that improve error logging for mutator execution and flap detection weighting for checks.
+**November 18, 2019** &mdash; The latest release of Sensu Go, version 5.15.0, is now available for download. This is a significant release for a number of reasons. The first being the changes to licensing, making 100% of Sensu Go's commercial features available for free to all users, up to your first 100 entities! This release also includes the long awaited Cluster Federation features, supporting multi-cluster authentication, RBAC policy replication, and a single pane of glass for your Sensu monitoring data! We added support for API keys, making it easy to integrate with the Sensu API (you no longer need to manage JWTs!). In addition, the 5.15.0 release includes support for sensu-backend environment variables and bug fixes that improve error logging for mutator execution and flap detection weighting for checks.
 
 See the [upgrade guide][1] to upgrade Sensu to version 5.15.0.
 
