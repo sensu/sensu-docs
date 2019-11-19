@@ -61,7 +61,7 @@ example      | {{< highlight shell >}}api_version: federation/v1{{< /highlight >
 
 metadata     |      |
 -------------|------
-description  | Top-level scope that contains the replicator `name`.
+description  | Top-level scope that contains the replicator `name`. Namespace is not supported, as EtcdReplicators are cluster-wide resources.
 required     | true
 type         | Map of key-value pairs
 example      | {{< highlight shell >}}
@@ -145,6 +145,13 @@ description  | Name of the resource to replicate.
 required     | true
 type         | String
 example      | {{< highlight shell >}}resource: Role{{< /highlight >}}
+
+namespace    |      |
+-------------|-------
+description  | Namespace to constrain replication to. If not supplied, all namespaces for a given resource are replicated.
+required     | false
+type         | String
+example      | {{< highlight shell >}}namespace: default{{< /highlight >}}
 
 replication_interval_seconds      |      |
 ----------------------------------|-------
