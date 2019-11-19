@@ -148,7 +148,7 @@ example      | {{< highlight shell >}}resource: Role{{< /highlight >}}
 
 namespace    |      |
 -------------|-------
-description  | Namespace to constrain replication to. If not supplied, all namespaces for a given resource are replicated.
+description  | Namespace to constrain replication to. If you do not include `namespace`, all namespaces for a given resource are replicated.
 required     | false
 type         | String
 example      | {{< highlight shell >}}namespace: default{{< /highlight >}}
