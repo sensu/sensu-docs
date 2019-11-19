@@ -658,13 +658,13 @@ fi
 **For Bash versions 3.x and earlier**, once bash-completion is available, add the following to your `~/.bash_profile`:
 
 {{< highlight shell >}}
-source <(sensuctl completion bash)
+source /dev/stdin <<<"$(sensuctl completion bash)"
 {{< /highlight >}}
 
 **For Bash versions 4.x and later**, once bash-completion is available, add the following to your `~/.bash_profile`:
 
 {{< highlight shell >}}
-source /dev/stdin <<<"$(sensuctl completion bash)"
+source <(sensuctl completion bash)
 {{< /highlight >}}
 
 You can now source your `~/.bash_profile` or launch a new terminal to utilize completion.
