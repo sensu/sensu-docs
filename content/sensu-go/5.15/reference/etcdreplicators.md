@@ -61,7 +61,7 @@ example      | {{< highlight shell >}}api_version: federation/v1{{< /highlight >
 
 metadata     |      |
 -------------|------
-description  | Top-level scope that contains the replicator `name`. Namespace is not supported, as EtcdReplicators are cluster-wide resources.
+description  | Top-level scope that contains the replicator `name`. Namespace is not supported because EtcdReplicators are cluster-wide resources.
 required     | true
 type         | Map of key-value pairs
 example      | {{< highlight shell >}}
