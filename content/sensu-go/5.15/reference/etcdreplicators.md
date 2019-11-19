@@ -166,7 +166,7 @@ example      | {{< highlight shell >}}replication_interval_seconds: 30{{< /highl
 
 If you replicate the following four examples for `Role`, `RoleBinding`, `ClusterRole`, and `ClusterRoleBinding` resources, you can expect a full replication of [RBAC policy][3].
 
-_**NOTE**: If you do not specify a [namespace][2] when you create a replicator, all namespaces for a given resource are replicated._
+_**NOTE**: If you do not specify a namespace when you create a replicator, all namespaces for a given resource are replicated._
 
 ### Example `Role` resource
 
