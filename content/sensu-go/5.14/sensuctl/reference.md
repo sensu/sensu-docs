@@ -637,10 +637,10 @@ used with silences, for example. The following formats are supported:
 
 ## Shell auto-completion
 
-### Installation (Bash Shell)
+### Installation (Bash shell)
 
-Make sure bash completion is installed. If you use a current Linux
-in a non-minimal installation, bash completion should be available.
+Make sure Bash completion is installed.
+If you use a current Linux in a non-minimal installation, bash completion should be available.
 On macOS, install with:
 
 {{< highlight shell >}}
@@ -655,10 +655,16 @@ if [ -f $(brew --prefix)/etc/bash_completion ]; then
 fi
 {{< /highlight >}}
 
-Once bash-completion is available, add the following to your `~/.bash_profile`:
+**For Bash versions 3.x and earlier**, once bash-completion is available, add the following to your `~/.bash_profile`:
 
 {{< highlight shell >}}
 source <(sensuctl completion bash)
+{{< /highlight >}}
+
+**For Bash versions 4.x and later**, once bash-completion is available, add the following to your `~/.bash_profile`:
+
+{{< highlight shell >}}
+source /dev/stdin <<<"$(sensuctl completion bash)"
 {{< /highlight >}}
 
 You can now source your `~/.bash_profile` or launch a new terminal to utilize completion.
