@@ -51,15 +51,15 @@ Read the [upgrade guide][1] for information on upgrading to the latest version o
 See the [upgrade guide][1] to upgrade Sensu to version 5.15.0.
 
 **IMPORTANT:**
-Sensu's free entity limit is now 100 entities. All [commercial features][79] are available for free in the packaged Sensu Go distribution up to an entity limit of 100. You will see a warning when you approach the 100-entity limit (at 75%).
+Sensu's free entity limit is now 100 entities. All [commercial features][95] are available for free in the packaged Sensu Go distribution up to an entity limit of 100. You will see a warning when you approach the 100-entity limit (at 75%).
 
 If your Sensu instance includes more than 100 entities, [contact us][90] to learn how to upgrade your installation and increase your limit. See [Discourse][91] for more information about our usage policy.
 
 **NEW FEATURES:**
 
-- ([Commercial feature][79]) Added support for [federation replicators and the federation cluster registration API][85] and the ability to view resources across clusters in the federation in the [web UI][80].
-- ([Commercial feature][79]) Added MSI and NuGet builds for [sensuctl][89]. Also, MSI and NuGet installations now add the bin directory to the system PATH on Windows.
-- ([Commercial feature][79]) Added HTTP DELETE access for the [license management API][92].
+- ([Commercial feature][95]) Added support for [federation replicators and the federation cluster registration API][85] and the ability to view resources across clusters in the federation in the [web UI][80].
+- ([Commercial feature][95]) Added MSI and NuGet builds for [sensuctl][89]. Also, MSI and NuGet installations now add the bin directory to the system PATH on Windows.
+- ([Commercial feature][95]) Added HTTP DELETE access for the [license management API][92].
 - Added the [APIKey resource][86], with HTTP API support for POST, GET, and DELETE and [sensuctl commands][87] to manage the APIKey resource.
 - Added support for using [API keys for API authentication][88].
 - Added support for [sensuctl commands][93] to install, execute, list, and delete commands from Bonsai or a URL.
@@ -68,7 +68,7 @@ If your Sensu instance includes more than 100 entities, [contact us][90] to lear
 
 **SECURITY:**
 
-- ([Commercial feature][79]) Removed support for UPN binding without a binding account or anonymous binding, which allows Sensu to effectively refresh claims during access token renewal.
+- ([Commercial feature][95]) Removed support for UPN binding without a binding account or anonymous binding, which allows Sensu to effectively refresh claims during access token renewal.
 
 **IMPROVEMENTS:**
 
@@ -757,3 +757,4 @@ To get started with Sensu Go:
 [92]: /sensu-go/5.15/api/license/
 [93]: /sensu-go/5.15/sensuctl/reference/#extend-sensuctl-with-commands
 [94]: /sensu-go/5.15/reference/checks/#cron-scheduling
+[95]: /sensu-go/5.15/getting-started/enterprise
