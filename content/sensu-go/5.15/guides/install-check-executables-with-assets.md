@@ -50,7 +50,7 @@ Filters for _check_ assets should match entity platforms, while filters for _han
 If the provided filters are too restrictive for your platform, replace `os` and `arch` with any supported [entity system attributes][4] (for example: `entity.system.platform_family == 'rhel'`).
 You may also want to customize the asset `name` to reflect the supported platform (for example: `sensu-pagerduty-handler-linux`) and add custom attributes using [`labels` and `annotations`][5].
 
-**Enterprise-tier assets** (like the [ServiceNow](https://bonsai.sensu.io/assets/sensu/sensu-servicenow-handler) and [Jira](https://bonsai.sensu.io/assets/sensu/sensu-jira-handler) event handlers) require a Sensu license. For more information about licensed-tier features and to activate your license, see the [getting started guide](../../getting-started/enterprise).
+**Enterprise-tier assets** (like the [ServiceNow](https://bonsai.sensu.io/assets/sensu/sensu-servicenow-handler) and [Jira](https://bonsai.sensu.io/assets/sensu/sensu-jira-handler) event handlers) require a Sensu commercial license. For more information about commercial features and to activate your license, see the [getting started guide](../../getting-started/enterprise).
 
 ### 2. Register the asset with Sensu
 
