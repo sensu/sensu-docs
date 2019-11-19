@@ -39,11 +39,8 @@ menu:
 
 ## Install Sensu Core {#sensu-core}
 
-Sensu Core is installed on Ubuntu and Debian systems via a native system
-installer package (i.e. a .deb file), which is available for download from the
-[Sensu Downloads][1] page, and from APT package management repositories. The
-Sensu Core package installs several processes including `sensu-server`,
-`sensu-api`, and `sensu-client`.
+Sensu Core is installed on Ubuntu and Debian systems via a native system installer package (i.e. a .deb file), which is available for [download][1] and from APT package management repositories.
+The Sensu Core package installs several processes including `sensu-server`, `sensu-api`, and `sensu-client`.
 
 Sensu packages for Debian target current [`stable` and `oldstable`
 releases][15].
@@ -63,7 +60,7 @@ have updated existing repository configurations._
 
 1. Install the GPG public key:
    {{< highlight shell >}}
-wget -q https://sensu.global.ssl.fastly.net/apt/pubkey.gpg -O- | sudo apt-key add -{{< /highlight >}}
+wget -q https://eol-repositories.sensuapp.org/apt/pubkey.gpg -O- | sudo apt-key add -{{< /highlight >}}
 
 2. Determine the codename of the Ubuntu/Debian release on your system:
    {{< highlight shell >}}
@@ -74,7 +71,7 @@ wget -q https://sensu.global.ssl.fastly.net/apt/pubkey.gpg -O- | sudo apt-key ad
    `/etc/apt/sources.list.d/sensu.list`:
    {{< highlight shell >}}
 export CODENAME=your_release_codename_here # e.g. "trusty"
-echo "deb     https://sensu.global.ssl.fastly.net/apt $CODENAME main" | sudo tee /etc/apt/sources.list.d/sensu.list{{< /highlight >}}
+echo "deb     https://eol-repositories.sensuapp.org/apt $CODENAME main" | sudo tee /etc/apt/sources.list.d/sensu.list{{< /highlight >}}
 
 4. Update APT:
    {{< highlight shell >}}
@@ -458,7 +455,7 @@ sudo service sensu-enterprise-dashboard stop{{< /highlight >}}
   IP address where the Sensu Enterprise Dashboard is running).
 
 
-[1]:  https://sensuapp.org/download
+[1]:  https://eol-repositories.sensuapp.org/apt/pool/
 [2]:  https://sensu.io/products/enterprise
 [3]:  ../../reference/configuration
 [4]:  ../../reference/transport

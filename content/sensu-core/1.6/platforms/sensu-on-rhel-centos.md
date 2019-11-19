@@ -39,11 +39,8 @@ menu:
 
 ## Install Sensu Core {#sensu-core}
 
-Sensu Core is installed on RHEL and CentOS systems via a native system installer
-package (i.e. a .rpm file), which is available for download from the [Sensu
-Downloads][1] page, and from YUM package management repositories. The Sensu Core
-package installs several processes including `sensu-server`, `sensu-api`, and
-`sensu-client`.
+Sensu Core is installed on RHEL and CentOS systems via a native system installer package (i.e. a .rpm file), which is available for [download][1] and from YUM package management repositories.
+The Sensu Core package installs several processes including `sensu-server`, `sensu-api`, and `sensu-client`.
 
 ### Install Sensu using YUM (recommended) {#install-sensu-core-repository}
 
@@ -69,8 +66,8 @@ repository configurations._
    {{< highlight shell >}}
 echo '[sensu]
 name=sensu
-baseurl=https://sensu.global.ssl.fastly.net/yum/$releasever/$basearch/
-gpgkey=https://repositories.sensuapp.org/yum/pubkey.gpg
+baseurl=https://eol-repositories.sensuapp.org/yum/$releasever/$basearch/
+gpgkey=https://eol-repositories.sensuapp.org/yum/pubkey.gpg
 gpgcheck=1
 enabled=1' | sudo tee /etc/yum.repos.d/sensu.repo{{< /highlight >}}
 
@@ -129,7 +126,7 @@ $ echo $SE_USER:$SE_PASS
 echo "[sensu-enterprise]
 name=sensu-enterprise
 baseurl=https://$SE_USER:$SE_PASS@enterprise.sensuapp.com/yum/noarch/
-gpgkey=https://repositories.sensuapp.org/yum/pubkey.gpg
+gpgkey=https://eol-repositories.sensuapp.org/yum/pubkey.gpg
 gpgcheck=1
 enabled=1" | sudo tee /etc/yum.repos.d/sensu-enterprise.repo{{< /highlight >}}
 
@@ -163,7 +160,7 @@ $ echo $SE_USER:$SE_PASS
 echo "[sensu-enterprise-dashboard]
 name=sensu-enterprise-dashboard
 baseurl=https://$SE_USER:$SE_PASS@enterprise.sensuapp.com/yum/\$basearch/
-gpgkey=https://repositories.sensuapp.org/yum/pubkey.gpg
+gpgkey=https://eol-repositories.sensuapp.org/yum/pubkey.gpg
 gpgcheck=1
 enabled=1" | sudo tee /etc/yum.repos.d/sensu-enterprise-dashboard.repo{{< /highlight >}}
 
@@ -442,7 +439,7 @@ sudo service sensu-enterprise-dashboard stop{{< /highlight >}}
   IP address where the Sensu Enterprise Dashboard is running).
 
 
-[1]:  https://sensuapp.org/download
+[1]:  https://eol-repositories.sensuapp.org/yum/
 [2]:  https://sensu.io/products/enterprise
 [3]:  ../../reference/configuration/
 [4]:  ../../reference/transport/

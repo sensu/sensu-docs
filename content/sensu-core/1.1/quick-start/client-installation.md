@@ -43,11 +43,8 @@ and/or enabling the Sensu client process to start automatically on system boot.
 
 ### Ubuntu/Debian
 
-Sensu Core is installed on Ubuntu and Debian systems via a native system
-installer package (i.e. a .deb file), which is available for download from the
-[Sensu Downloads][2] page, and from APT package management repositories. The
-Sensu Core package installs several processes including `sensu-server`,
-`sensu-api`, and `sensu-client`.
+Sensu Core is installed on Ubuntu and Debian systems via a native system installer package (i.e. a .deb file), which is available for [download][2] and from APT package management repositories.
+The Sensu Core package installs several processes including `sensu-server`, `sensu-api`, and `sensu-client`.
 
 Sensu packages for Debian target current [`stable` and `oldstable`
 releases][15].
@@ -67,7 +64,7 @@ have updated existing repository configurations._
 
 1. Install the GPG public key:
 {{< highlight shell >}}
-wget -q https://sensu.global.ssl.fastly.net/apt/pubkey.gpg -O- | sudo apt-key add -{{< /highlight >}}
+wget -q https://eol-repositories.sensuapp.org/apt/pubkey.gpg -O- | sudo apt-key add -{{< /highlight >}}
 
 2. Determine the codename of the Ubuntu/Debian release on your system:
 {{< highlight shell >}}
@@ -78,7 +75,7 @@ wget -q https://sensu.global.ssl.fastly.net/apt/pubkey.gpg -O- | sudo apt-key ad
    `/etc/apt/sources.list.d/sensu.list`:
 {{< highlight shell >}}
 export CODENAME=your_release_codename_here # e.g. "trusty"
-echo "deb     https://sensu.global.ssl.fastly.net/apt $CODENAME main" | sudo tee /etc/apt/sources.list.d/sensu.list{{< /highlight >}}
+echo "deb     https://eol-repositories.sensuapp.org/apt $CODENAME main" | sudo tee /etc/apt/sources.list.d/sensu.list{{< /highlight >}}
 
 4. Update APT:
 {{< highlight shell >}}
@@ -135,7 +132,7 @@ repository configurations._
 {{< highlight shell >}}
 echo '[sensu]
 name=sensu
-baseurl=https://sensu.global.ssl.fastly.net/yum/$releasever/$basearch/
+baseurl=https://eol-repositories.sensuapp.org/yum/$releasever/$basearch/
 gpgcheck=0
 enabled=1' | sudo tee /etc/yum.repos.d/sensu.repo{{< /highlight >}}
 
@@ -156,7 +153,7 @@ sudo yum install sensu{{< /highlight >}}
 {{< platformBlockClose >}}
 
 [1]: ../../quick-start/five-minute-install
-[2]: https://sensu.io/features/downloads
+[2]: https://eol-repositories.sensuapp.org/apt/pool/
 [12]: ../../reference/transport/#transport-configuration
 [13]: ../../reference/clients/#client-configuration
 [14]: ../../reference/redis/#configure-sensu

@@ -23,17 +23,14 @@ menu:
 
 ### Check commands
 
-Each Sensu check definition defines a **command** and the **interval** at which
-it should be executed. Check commands are executable commands which
-will be executed by the Sensu agent.
+Each Sensu check definition specifies a command and the schedule at which it should be executed.
+Check commands are executable commands that are executed by a Sensu agent.
 
-A command may include command line arguments for controlling the behavior of the
-command executable. Most Sensu check plugins provide support for command line
-arguments for reusability.
+A command may include command line arguments for controlling the behavior of the command executable.
+Many common checks are available as assets and support command line arguments so different check definitions can use the same executable.
 
-Sensu advises against requiring root privileges to execute check
-commands or scripts. The Sensu user is not permitted to kill timed out processes
-invoked by the root user, which could result in zombie processes.
+Sensu advises against requiring root privileges to execute check commands or scripts.
+The Sensu user is not permitted to kill timed out processes invoked by the root user, which could result in zombie processes.
 
 #### How and where are check commands executed?
 
@@ -238,7 +235,7 @@ example      | {{< highlight shell >}}"timeout": 30{{< /highlight >}}
 
 |ttl         |      |
 -------------|------
-description  | The time to live (TTL) in seconds until check results are considered stale. If an agent stops publishing results for the check, and the TTL expires, an event will be created for the agent's entity. The check `ttl` must be greater than the check `interval`, and should accommodate time for the check execution and result processing to complete. For example, if a check has an `interval` of `60` (seconds) and a `timeout` of `30` (seconds), an appropriate `ttl` would be a minimum of `90` (seconds).
+description  | The time to live (TTL) in seconds until check results are considered stale. If an agent stops publishing results for the check, and the TTL expires, an event will be created for the agent's entity. The check `ttl` must be greater than the check `interval`, and should accommodate time for the check execution and result processing to complete. For example, if a check has an `interval` of `60` (seconds) and a `timeout` of `30` (seconds), an appropriate `ttl` would be a minimum of `90` (seconds). _**NOTE**: Adding TTLs to checks adds overhead, so use the `ttl` attribute sparingly._
 required     | false
 type         | Integer
 example      | {{< highlight shell >}}"ttl": 100{{< /highlight >}}
@@ -579,3 +576,4 @@ spec:
 [sc]: ../../sensuctl/reference#creating-resources
 [sp]: #spec-attributes
 [28]: ../../guides/monitor-external-resources
+

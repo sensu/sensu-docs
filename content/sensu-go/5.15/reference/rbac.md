@@ -26,7 +26,7 @@ RBAC allows management and access of users and resources based on **namespaces**
 - **Role bindings** assign a role to a set of users and groups within a namespace; **cluster role bindings** assign a cluster role to a set of users and groups cluster-wide.
 
 Sensu access controls apply to [sensuctl][2], the Sensu [API][19], and the Sensu [dashboard][3].
-In addition to built-in RBAC, Sensu includes [license-activated][33] support for authentication using external [authentication providers][34].
+In addition to built-in RBAC, Sensu includes [commercial][33] support for authentication using external [authentication providers][34].
 
 ## Namespaces
 Namespaces help teams use different resources (entities, checks, handlers, etc.) within Sensu and impose their own controls on those resources.
@@ -48,7 +48,7 @@ You can use [sensuctl][2] to view all namespaces within Sensu:
 sensuctl namespace list
 {{< /highlight >}}
 
-_NOTE: For licensed tier users,`sensuctl namespace list` will list only the namespaces that the current user has access to._
+_NOTE: For users on supported Sensu Go distributions,`sensuctl namespace list` will list only the namespaces that the current user has access to._
 
 ### Creating a namespace
 
@@ -197,10 +197,11 @@ Cluster-wide resources cannot be assigned to a namespace and can only be accesse
 | `cluster`   | Sensu clusters running multiple [Sensu backends][1] |
 | `clusterrolebindings`   | Cluster-wide role assigners  |
 | `clusterroles`   | Cluster-wide permission sets  |
+| `etcd-replicators` | [Mirror RBAC resource changes][40] to follower clusters |
 | `namespaces` | Resource partitions within a Sensu instance |
 | `users` | People or agents interacting with Sensu |
-| `authproviders` | [Authentication provider][32] configuration (licensed tier)|
-| `license` | Sensu [license][37]
+| `authproviders` | [Authentication provider][32] configuration (commercial feature)|
+| `license` | Sensu [commercial license][37]
 
 ### Special resource types
 Special resources types can be accessed by both [roles][13] and [cluster roles][21].
@@ -550,7 +551,7 @@ example      | {{< highlight shell >}}"resources": ["checks"]{{< /highlight >}}
 
 resource_names    | 
 -------------|------ 
-description  | Specific resource names that the rule has permission to access. Resource name permissions are only available for `get`, `delete`, and `update` verbs.
+description  | Specific resource names that the rule has permission to access. Resource name permissions are only taken into account for requests using `get`, `update`, and `delete` verbs.
 required     | false
 type         | Array
 example      | {{< highlight shell >}}"resource_names": ["check-cpu"]{{< /highlight >}}
@@ -808,6 +809,7 @@ description  | Username or group name.
 required     | true 
 type         | String
 example      | {{< highlight shell >}}"name": "alice"{{< /highlight >}}
+ example with prefix | {{< highlight shell >}}"name": "ad:alice"{{< /highlight >}}
 
 ### Role binding example
 
@@ -936,6 +938,50 @@ The following role and role binding give a `dev` group access to create and mana
     "subjects": [
       {
         "name": "dev",
+        "type": "Group"
+      }
+    ]
+  }
+}
+{{< /highlight >}}
+
+### Role and role binding examples with a group prefix
+
+In the following code example, if a [groups prefix][38] of `ad` is configured for [Active Directory authentication][39], this role and role binding will give a `dev` group access to create and manage Sensu workflows within the `default` namespace.
+
+{{< highlight text >}}
+{
+  "type": "Role",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "workflow-creator",
+    "namespace": "default"
+  },
+  "spec": {
+    "rules": [
+      {
+        "resource_names": [],
+        "resources": ["checks", "hooks", "filters", "events", "filters", "mutators", "handlers"],
+        "verbs": ["get", "list", "create", "update", "delete"]
+      }
+    ]
+  }
+}
+{
+  "type": "RoleBinding",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "dev-binding-with-groups-prefix",
+    "namespace": "default"
+  },
+  "spec": {
+    "role_ref": {
+      "name": "workflow-creator",
+      "type": "Role"
+    },
+    "subjects": [
+      {
+        "name": "ad:dev",
         "type": "Group"
       }
     ]
@@ -1179,3 +1225,6 @@ You can add these resources to Sensu using [`sensuctl create`][31].
 [35]: #cluster-role-bindings
 [36]: ../../sensuctl/reference#creating-resources-across-namespaces
 [37]: ../license
+[38]: ../../installation/auth/#groups-prefix
+[39]: ../../installation/auth/#ad-groups-prefix
+[40]: ../../reference/etcdreplicators

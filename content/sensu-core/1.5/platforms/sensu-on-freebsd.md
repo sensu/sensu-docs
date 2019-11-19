@@ -26,8 +26,7 @@ menu:
 ## Install Sensu Core {#sensu-core}
 
 Sensu Core is installed on FreeBSD systems via a native system installer package
-(i.e. a .txz file), which is available for download from the [Sensu
-Downloads][1] page, and from [this repository (64-bit FreeBSD 10+ only)][2].
+(i.e. a .txz file), which is available for [download][1] and from [this repository (64-bit FreeBSD 10+ only)][2].
 
 _WARNING: FreeBSD packages are currently as a "beta" release. Support for
 running Sensu on FreeBSD will be provided on a best-effort basis until further
@@ -40,9 +39,8 @@ To install or upgrade to the latest version of Sensu, please ensure
 you have updated existing configurations to follow the repository URL
 format specified below._
 
-1. Download Sensu from the [Sensu Downloads][1] page.
-   _NOTE: FreeBSD packages are available for FreeBSD 10 and 11.
-   Please visit the [Sensu Downloads][1] page for more information._
+1. Download the Sensu [FreeBSD package][1].
+   _NOTE: FreeBSD packages are available for FreeBSD 10 and 11._
 
 2. Install the `sensu-1.4.1_1.txz` package using the `pkg` utility:
    {{< highlight shell >}}
@@ -122,9 +120,9 @@ Please see [Redis][7] or [RabbitMQ][8] reference documentation for examples.
 
 Coming soon...
 
-[1]:  https://sensuapp.org/download
-[2]:  https://sensu.global.ssl.fastly.net/freebsd/
-[3]:  https://sensu.global.ssl.fastly.net/freebsd/FreeBSD:10:amd64/sensu/sensu-1.4.1_1.txz
+[1]:  https://eol-repositories.sensuapp.org/freebsd/
+[2]:  https://eol-repositories.sensuapp.org/freebsd/
+[3]:  https://eol-repositories.sensuapp.org/freebsd/FreeBSD:10:amd64/sensu/sensu-1.4.1_1.txz
 [4]:  https://sensuapp.org/mit-license
 [5]:  ../../reference/configuration/
 [6]:  ../../reference/transport/

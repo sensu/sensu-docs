@@ -13,8 +13,8 @@ menu:
 
 - [Installation][1]
 - [Creating event pipelines](#event-pipeline)
-- [Scheduling checks](#check-scheduling)
-- [Service management](#operation)
+- [Check scheduling](#check-scheduling)
+- [Operation and service management](#operation)
   - [Starting and stopping the service](#starting-the-service)
   - [Clustering](#clustering)
   - [Time synchronization](#time-synchronization)
@@ -53,7 +53,7 @@ For information about creating and managing checks, see:
 - [Guide to collecting metrics with checks][4]
 - [Checks reference documentation][5]
 
-## Operation
+## Operation and service management {#operation}
 
 _NOTE: Commands in this section may require administrative privileges._
 

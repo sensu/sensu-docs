@@ -26,9 +26,7 @@ menu:
 
 ## Install Sensu Core {#sensu-core}
 
-Sensu Core is installed on Mac OS X systems via a native system installer
-package (i.e. a .pkg file), which is available for download from the
-[Sensu Downloads][1] page, and from [this repository][2].
+Sensu Core is installed on Mac OS X systems via a native system installer package (i.e. a .pkg file), which is available for [download][1].
 
 _WARNING: Mac OS X packages are currently as a "beta" release. Support for
 running Sensu on Mac OS X will be provided on a best-effort basis until further
@@ -36,7 +34,7 @@ notice._
 
 ### Download and install Sensu using the Sensu Universal .pkg file {#download-and-install-sensu-core}
 
-1. Download Sensu from the [Sensu Downloads][1] page.
+1. Download the Sensu [Mac OS X package][1].
    _NOTE: the Universal .pkg file supports OS X "Mavericks" (10.9) and newer.
    Mountain Lion users: please use [this installer][3]._
 
@@ -184,9 +182,8 @@ $ sudo -u _sensu /opt/sensu/bin/sensu-client -V
 1.4.1{{< /highlight >}}
 
 
-[1]:  https://sensu.io/features/downloads
-[2]:  http://repositories.sensuapp.org/osx/
-[3]:  http://repositories.sensuapp.org/osx/sensu-0.26.3-1.mountainlion.pkg
+[1]:  https://eol-repositories.sensuapp.org/osx/
+[3]:  https://eol-repositories.sensuapp.org/osx/sensu-0.26.3-1.mountainlion.pkg
 [4]:  #configure-the-sensu-client-launchd-daemon
 [5]:  ../../reference/configuration/
 [6]:  ../../reference/transport/

@@ -20,8 +20,16 @@ provides multiple processes, including the [Sensu server][2] (`sensu-server`),
 
 Installer packages are available for most modern operating systems via native
 installer packages (e.g. .deb, .rpm, .msi, .pkg, etc) which are available for
-[download from the Sensu website][5], and from package manager repositories for
+download using the links below and from package manager repositories for
 APT (for Ubuntu/Debian systems), and YUM (for RHEL/CentOS).
+
+- [FreeBSD][7]
+- [IBM AIX][8]
+- [Mac OS X][9]
+- [Microsoft Windows][10]
+- [Solaris 10][11] or [Solaris 11][12]
+- [RHEL/CentOS][13]
+- [Ubuntu/Debian][14]
 
 _NOTE: although Sensu Core packages are available for a variety of platforms
 &ndash; thus making it technically possible to run the `sensu-server` and
@@ -48,10 +56,10 @@ running the `sensu-server` and `sensu-api` processes._
 
 ## Sensu Enterprise
 
-[Sensu Enterprise][6] is designed to be a drop-in replacement for the Sensu Core
+[Sensu Enterprise][5] is designed to be a drop-in replacement for the Sensu Core
 server and API, _only_ (i.e. Sensu Enterprise uses the same client as Sensu
 Core). Sensu Enterprise provides a single process called `sensu-enterprise`
-which provides [added-value][7] replacements for the Sensu Core server
+which provides [added-value][6] replacements for the Sensu Core server
 (`sensu-server`) and API (`sensu-api`).
 
 ### Sensu Enterprise Server & API
@@ -72,6 +80,14 @@ by Sensu**.
 [2]:  ../../reference/server/
 [3]:  ../../api/overview/
 [4]:  ../../reference/clients/
-[5]:  https://sensuapp.org/download
+[5]:  https://sensu.io/products/enterprise
 [6]:  https://sensu.io/products/enterprise
-[7]:  https://sensu.io/products/enterprise
+[7]: https://eol-repositories.sensuapp.org/freebsd/
+[8]: https://eol-repositories.sensuapp.org/aix/
+[9]: https://eol-repositories.sensuapp.org/osx/
+[10]: https://eol-repositories.sensuapp.org/msi/
+[11]: https://eol-repositories.sensuapp.org/solaris/pkg/
+[12]: https://eol-repositories.sensuapp.org/solaris/ips/
+[13]: https://eol-repositories.sensuapp.org/yum/
+[14]: https://eol-repositories.sensuapp.org/apt/pool/
+

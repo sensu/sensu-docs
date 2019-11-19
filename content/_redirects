@@ -1,0 +1,14 @@
+/sensu-go/latest/guides/create-ready-only-user /sensu-go/latest/guides/create-read-only-user
+/sensu-go/latest                          /sensu-go/5.14 200
+/sensu-go/latest/*                        /sensu-go/5.14/:splat 200
+/sensu-core/2.0/*                         /sensu-go/latest/:splat 200
+/sensu-core/latest                        /sensu-core/1.8 200
+/sensu-core/latest/*                      /sensu-core/1.8/:splat 200
+/uchiwa/latest                            /uchiwa/1.0 200
+/uchiwa/latest/*                          /uchiwa/1.0/:splat 200
+/sensu-enterprise/latest                  /sensu-enterprise/3.6 200
+/sensu-enterprise/latest/*                /sensu-enterprise/3.6/:splat 200
+/sensu-enterprise-dashboard/latest        /sensu-enterprise-dashboard/2.16 200
+/sensu-enterprise-dashboard/latest/*      /sensu-enterprise-dashboard/2.16/:splat 200
+/plugins/latest                           /plugins/1.0 200
+/plugins/latest/*                         /plugins/1.0/:splat 200

@@ -18,16 +18,21 @@ The Sensu Server and API are available in two flavors:
 
 _NOTE: only one flavor of the Sensu server & API should be used at any given
 time. Sensu Enterprise users should skip Sensu Core server & API installation
-and jump directly to [installing Sensu Enterprise][2]._
+and jump directly to [installing Sensu Enterprise][9]._
 
 ## Sensu Core (OSS) {#sensu-core}
 
-Sensu Core is installed via native system installer package formats (e.g. .deb,
-.rpm, .msi, .pkg, etc), which are available for download from the [Sensu
-Downloads][3] page, and from package manager repositories for APT (for
-Ubuntu/Debian systems), and YUM (for RHEL/CentOS). The Sensu Core packages
-installs several processes, including `sensu-server`, `sensu-api`, and
-`sensu-client`.
+Sensu Core is installed via native system installer package formats (e.g. .deb, .rpm, .msi, .pkg, etc), which are available for download using the links listed below and from package manager repositories for APT (for Ubuntu/Debian systems) and YUM (for RHEL/CentOS).
+
+- [FreeBSD][1]
+- [IBM AIX][2]
+- [Mac OS X][3]
+- [Microsoft Windows][4]
+- [Solaris 10][5] or [Solaris 11][6]
+- [RHEL/CentOS][7]
+- [Ubuntu/Debian][8]
+
+The Sensu Core packages installs several processes, including `sensu-server`, `sensu-api`, and `sensu-client`.
 
 - [Install the Sensu Core server & API on Ubuntu/Debian](../../platforms/sensu-on-ubuntu-debian/#sensu-core)
 - [Install the Sensu Core server & API on RHEL/CentOS](../../platforms/sensu-on-rhel-centos/#sensu-core)
@@ -52,6 +57,12 @@ functionality of Sensu server and API in a single process.
 - [Install Sensu Enterprise on Ubuntu/Debian](../../platforms/sensu-on-ubuntu-debian/#sensu-enterprise)
 - [Install Sensu Enterprise on RHEL/CentOS](../../platforms/sensu-on-rhel-centos/#sensu-enterprise)
 
-[1]:  ../installation-prerequisites
-[2]:  #sensu-enterprise
-[3]:  https://sensuapp.org/download
+[1]: https://eol-repositories.sensuapp.org/freebsd/
+[2]: https://eol-repositories.sensuapp.org/aix/
+[3]: https://eol-repositories.sensuapp.org/osx/
+[4]: https://eol-repositories.sensuapp.org/msi/
+[5]: https://eol-repositories.sensuapp.org/solaris/pkg/
+[6]: https://eol-repositories.sensuapp.org/solaris/ips/
+[7]: https://eol-repositories.sensuapp.org/yum/
+[8]: https://eol-repositories.sensuapp.org/apt/pool/
+[9]: #sensu-enterprise

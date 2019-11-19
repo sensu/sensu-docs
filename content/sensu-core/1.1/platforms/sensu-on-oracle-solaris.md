@@ -28,9 +28,7 @@ menu:
 ## Install Sensu {#sensu-core}
 
 Sensu Core is installed on Solaris systems via native system installer packages
-(i.e. .pkg or [IPS][13] .p5p files), which are available for download from
-the [Sensu Downloads][1] page, and from these repositories: [Solaris 10
-(.pkg)][2], and [Solaris 11 (IPS .p5p)][3].
+(i.e. .pkg or [IPS][13] .p5p files), which are available for download for [Solaris 10][1] and [Solaris 11][14] page and from the repositories for [Solaris 10 (.pkg)][2], and [Solaris 11 (IPS .p5p)][3].
 
 ### Download and install Sensu on Solaris 10 {#download-and-install-sensu-core-on-solaris-10}
 
@@ -39,7 +37,7 @@ To install or upgrade to the latest version of Sensu, please ensure
 you have updated existing configurations to follow the repository URL
 format specified below._
 
-1. Download Sensu from the [Sensu Downloads][1] page
+1. Download the Sensu [Solaris 10 package][1].
 
 2. Install the `sensu-1.2.0-1.i386.pkg` package using the `pkgadd` utility:
    {{< highlight shell >}}
@@ -58,10 +56,9 @@ svccfg import /lib/svc/manifest/site/sensu-client.xml{{< /highlight >}}
 
 ### Download and install Sensu on Solaris 11 {#download-and-install-sensu-core-on-solaris-11}
 
-1. Download Sensu from the [Sensu Downloads][1] page, or by using the `wget`
-   utility:
+1. Download the Sensu [Solaris 11 package][14] or use the `wget` utility:
    {{< highlight shell >}}
-wget https://sensu.global.ssl.fastly.net/solaris/ips/5.11/sensu-1.2.0-1.i386.p5p{{< /highlight >}}
+wget https://eol-repositories.sensuapp.org/solaris/ips/5.11/sensu-1.2.0-1.i386.p5p{{< /highlight >}}
 
 2. Install the `sensu-1.2.0-1.i386.p5p` package using the `pkg` utility:
    {{< highlight shell >}}
@@ -164,17 +161,17 @@ $ svcadm enable sensu-client
 $ svcadm disable sensu-client
 $ svcadm restart sensu-client{{< /highlight >}}
 
-[?]:  #
-[1]:  https://sensuapp.org/download
-[2]:  https://sensu.global.ssl.fastly.net/solaris/pkg/
-[3]:  https://sensu.global.ssl.fastly.net/solaris/ips/
-[4]:  https://sensuapp.org/mit-license
-[5]:  ../../reference/configuration/
-[6]:  ../../reference/transport/
-[7]:  ../../reference/redis/#configure-sensu
-[8]:  ../../reference/rabbitmq/#sensu-rabbitmq-configuration
-[9]:  #configure-sensu
+[1]: https://eol-repositories.sensuapp.org/solaris/pkg/
+[2]: https://eol-repositories.sensuapp.org/solaris/pkg/
+[3]: https://eol-repositories.sensuapp.org/solaris/ips/
+[4]: https://sensuapp.org/mit-license
+[5]: ../../reference/configuration/
+[6]: ../../reference/transport/
+[7]: ../../reference/redis/#configure-sensu
+[8]: ../../reference/rabbitmq/#sensu-rabbitmq-configuration
+[9]: #configure-sensu
 [10]: #example-transport-configuration
 [11]: #example-client-configuration
 [12]: ../../files/postinst.sh
 [13]: http://www.oracle.com/technetwork/server-storage/solaris11/technologies/ips-323421.html
+[14]: https://eol-repositories.sensuapp.org/solaris/ips/

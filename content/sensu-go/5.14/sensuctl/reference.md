@@ -637,10 +637,10 @@ used with silences, for example. The following formats are supported:
 
 ## Shell auto-completion
 
-### Installation (Bash Shell)
+### Installation (Bash shell)
 
-Make sure bash completion is installed. If you use a current Linux
-in a non-minimal installation, bash completion should be available.
+Make sure Bash completion is installed.
+If you use a current Linux in a non-minimal installation, bash completion should be available.
 On macOS, install with:
 
 {{< highlight shell >}}
@@ -655,7 +655,13 @@ if [ -f $(brew --prefix)/etc/bash_completion ]; then
 fi
 {{< /highlight >}}
 
-Once bash-completion is available, add the following to your `~/.bash_profile`:
+**For Bash versions 3.x and earlier**, once bash-completion is available, add the following to your `~/.bash_profile`:
+
+{{< highlight shell >}}
+source /dev/stdin <<<"$(sensuctl completion bash)"
+{{< /highlight >}}
+
+**For Bash versions 4.x and later**, once bash-completion is available, add the following to your `~/.bash_profile`:
 
 {{< highlight shell >}}
 source <(sensuctl completion bash)
@@ -781,12 +787,14 @@ Sensuctl supports both installing asset definitions directly from [Bonsai][34] a
 
 ### Usage
 
-To install an asset definition directly from Bonsai, use `sensuctl asset add [NAME][:VERSION]`, replacing `[NAME]` with the name of the asset from Bonsai. `[:VERSION]` is only required if you require a specific version or are pinning to a specific version. 
+To install an asset definition directly from Bonsai, use `sensuctl asset add [NAMESPACE/NAME][:VERSION]`. `[:VERSION]` is only required if you require a specific version or are pinning to a specific version. Replace `[NAMESPACE/NAME]` with the namespace and name of the asset from Bonsai:
+
+![Bonsai page for InfluxDB handler showing namespace and name][35]
 
 {{< highlight shell >}}
-sensuctl asset add sensu/sensu-influxdb-handler:3.1.1
-fetching bonsai asset: sensu/sensu-influxdb-handler:3.1.1
-added asset: sensu/sensu-influxdb-handler:3.1.1
+sensuctl asset add sensu/sensu-influxdb-handler:3.1.2
+fetching bonsai asset: sensu/sensu-influxdb-handler:3.1.2
+added asset: sensu/sensu-influxdb-handler:3.1.2
 {{< /highlight >}}
 
 You can also use the `--rename` flag to rename the asset on install.
@@ -840,3 +848,4 @@ sensu/sensu-influxdb-handler  sensu/sensu-influxdb-handler       3.1.1          
 [32]: ../../reference/datastore
 [33]: #creating-resources-across-namespaces
 [34]: https://bonsai.sensu.io/
+[35]: /images/sensu-influxdb-handler-namespace.png

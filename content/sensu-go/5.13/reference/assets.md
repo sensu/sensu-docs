@@ -17,7 +17,7 @@ menu:
 - [Asset specification](#asset-specification)
 - [Examples](#examples)
 - [Sharing an asset on Bonsai](#sharing-an-asset-on-bonsai)
-- [Deleting Assets](#deleting-assets)
+- [Deleting assets](#deleting-assets)
 
 You can discover, download, and share assets using [Bonsai, the Sensu asset index][16].
 Read the [guide to using assets][23] to get started.
@@ -841,7 +841,7 @@ example      | {{< highlight yml >}}
   -  "entity.system.arch == 'amd64'"
 {{< /highlight >}}
 
-## Deleting Assets
+## Deleting assets
 
 As of Sensu Go 5.12, assets can be deleted using the `/assets (DELETE)` endpoint, or via `sensuctl` (`sensuctl asset delete`). Note that when an asset is removed from Sensu, this _*does not*_ remove references to the deleted asset in any other resource (checks, filters, mutators, handlers, hooks). You must also update resources and remove any reference to the deleted asset. Failure to do so will result in errors like: `sh: asset.sh: command not found`. 
 

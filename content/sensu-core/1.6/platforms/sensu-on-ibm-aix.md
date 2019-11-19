@@ -28,8 +28,7 @@ menu:
 ## Install Sensu Core {#sensu-core}
 
 Sensu Core is installed on IBM AIX systems via a native system installer package
-(i.e. a .bff file), which is available for download from the [Sensu
-Downloads][1] page, and from [this repository][2].
+(i.e. a .bff file), which is available for [download][1] and from [this repository][2].
 
 ### Download and install Sensu using the Sensu .bff package {#download-and-install-sensu-core}
 
@@ -38,7 +37,7 @@ install or upgrade to the latest version of Sensu, please ensure you
 have updated existing configurations to follow the repository URL
 format specified below._
 
-1. Download Sensu from the [Sensu Downloads][1] page.
+1. Download the Sensu [AIX package][1].
 
 2. The Sensu installer package for IBM AIX systems is provided in **backup file
    format** (.bff). In order to install the content, you will need to know the
@@ -160,9 +159,9 @@ not working at this time, so any Ruby-based Sensu plugins that require FFI will
 not work (however all other plugins should work). It is possible that FFI
 support will be enabled in a future release.
 
-[1]:  https://sensuapp.org/downloads
-[2]:  https://sensu.global.ssl.fastly.net/aix/
-[3]:  https://sensu.global.ssl.fastly.net/aix/6.1/sensu-1.4.1-1.powerpc.bff
+[1]:  https://eol-repositories.sensuapp.org/aix/
+[2]:  https://eol-repositories.sensuapp.org/aix/
+[3]:  https://eol-repositories.sensuapp.org/aix/6.1/sensu-1.4.1-1.powerpc.bff
 [4]:  https://sensuapp.org/mit-license
 [5]:  ../../reference/configuration/
 [6]:  ../../reference/transport/

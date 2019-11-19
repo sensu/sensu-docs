@@ -13,11 +13,10 @@ menu:
 As with any piece of software, it is critical to minimize any attack surface exposed by the software. Sensu is no different. The following component pieces need to be secured in order for Sensu to be considered production ready:
 
 * [Etcd peer communication](#securing-etcd-peer-communication)
-* [Backend API](#securing-the-api-and-the-dashboard)
-* [Dashboard](#securing-the-api-and-the-dashboard)
+* [API and dashboard](#securing-the-api-and-the-dashboard)
 * [Sensu agent to server communication](#securing-sensu-agent-to-server-communication)
 * [Sensu agent TLS authentication](#sensu-agent-tls-authentication)
-* [Generating certificates with cfssl](#generating-certificates)
+* [Creating self-signed certificates](#creating-self-signed-certificates)
 
 We'll cover securing each one of those pieces, starting with etcd peer communication.
 
@@ -43,7 +42,7 @@ etcd-peer-trusted-ca-file: "/path/to/your/peer/ca/file"
 
 ## Securing the API and the dashboard
 
-Let's go over how to secure the API and dashboard. Please note that by changing the parameters below, the server will now communicate over TLS and expect agents connecting to it to use the WebSocket secure protocol. In order for communication to continue, both this section and the [following section](#securing-sensu-agent-to-server-communication) must be completed. 
+Let's go over how to secure the API and dashboard. By changing the parameters below, the server will now communicate over TLS and expect agents connecting to it to use the WebSocket secure protocol. In order for communication to continue, both this section and the [following section](#securing-sensu-agent-to-server-communication) must be completed. 
 
 Both the Sensu Go API and the dashboard use a common stanza in `/etc/sensu/backend.yml` to provide the certificate, key, and CA file needed to provide secure communication. Let's look at the attributes you'll need to configure:
 
@@ -99,7 +98,7 @@ backend-url:
   - "ws://127.0.0.1:8081"
 {{< /highlight >}}
 
-In order to use WebSockets over SSL/TLS (wss), change the `backend-url` value to the `wss://` schema:
+To use WebSockets over SSL/TLS (wss), change the `backend-url` value to the `wss://` schema:
 
 {{< highlight yml >}}
 ---
@@ -120,23 +119,20 @@ You may include it as part of the agent configuration in `/etc/sensu/agent.yml` 
 trusted-ca-file: "/path/to/trusted-certificate-authorities.pem"
 {{< /highlight >}}
 
-_NOTE: If creating a Sensu cluster, every cluster member needs to be present in the configuration. See the [Sensu Go clustering guide][2] for more information on how to configure agents for a clustered configuration._
+_**NOTE**: If creating a Sensu cluster, every cluster member needs to be present in the configuration. See the [Sensu Go clustering guide][1] for more information on how to configure agents for a clustered configuration._
 
-**LICENSED TIER**: Unlock client TLS authentication in Sensu Go with a Sensu license. To activate your license, see the [getting started guide][6].
+**LICENSED TIER**: Unlock client TLS authentication in Sensu Go with a Sensu license. To activate your license, see the [getting started guide][2].
 
 ## Sensu agent TLS authentication
 
 By default, Sensu agents require username and password authentication to communicate with Sensu backends.
 For Sensu's [default user credentials][3] and details about configuring Sensu role-based access control, see the [RBAC reference][4] and [guide to creating users][5].
 
-Sensu can also use TLS authentication for connecting agents to backends. When agent TLS authentication is enabled, agents do not need to send
-password credentials to backends when they connect. Additionally, when using TLS authentication, agents do not require an explicit user
-in Sensu--they will default to using the 'system:agents' group.
+Sensu can also use TLS authentication for connecting agents to backends. When agent TLS authentication is enabled, agents do not need to send password credentials to backends when they connect. Additionally, when using TLS authentication, agents do not require an explicit user in Sensu--they will default to using the 'system:agents' group.
 
-Agents can still be bound to a specific user when the `system:agents` group is problematic. For this use case, create a
-user that matches the Common Name (CN) of the agent's certificate.
+Agents can still be bound to a specific user when the `system:agents` group is problematic. For this use case, create a user that matches the Common Name (CN) of the agent's certificate.
 
-NOTE: Sensu agents will need the ability to create events in the agent's namespace. Sensu operators who want to ensure that agents with incorrect CN fields can't access the backend can remove the default 'system:agents' group.
+_**NOTE**: Sensu agents will need the ability to create events in the agent's namespace. Sensu operators who want to ensure that agents with incorrect CN fields can't access the backend can remove the default 'system:agents' group._
 
 To view a certificate's CN with openssl:
 
@@ -156,11 +152,9 @@ Certificate:
 ...
 {{< /highlight >}}
 
-The `Subject:` field indicates the certificate's CN is 'client', so operators who want to bind the agent to a particular user in
-Sensu can create a user called 'client'.
+The `Subject:` field indicates the certificate's CN is 'client', so operators who want to bind the agent to a particular user in Sensu can create a user called 'client'.
 
-To enable agent TLS authentication, use existing certificates and keys for the Sensu backend and agent
-or create new certificates and keys according to our [guide](#creating-self-signed-certificates).
+To enable agent TLS authentication, use existing certificates and keys for the Sensu backend and agent or create new certificates and keys according to our [guide](#creating-self-signed-certificates).
 
 Once backend and agent certificates are created, modfiy the backend and agent configuration as follows:
 
@@ -182,13 +176,11 @@ key-file: "/path/to/agent-1-key.pem"
 trusted-ca-file: "/path/to/ca.pem"
 {{< /highlight >}}
 
-It's possible to use certificates for authentication that are distinct from other communication channels used by Sensu, like etcd or the API.
-However, deployments can also use the same certificates and keys for etcd peer and client communication, the HTTP API, and agent
-authentication, without issue.
+It's possible to use certificates for authentication that are distinct from other communication channels used by Sensu, like etcd or the API. However, deployments can also use the same certificates and keys for etcd peer and client communication, the HTTP API, and agent authentication, without issue.
 
-## Creating self-signed certificates for securing etcd and backend-agent communication
+## Creating self-signed certificates for securing etcd and backend-agent communication{#creating-self-signed-certificates}
 
-We will use the [cfssl][10] tool to generate our self-signed certificates.
+We will use the [CFSSL][6] tool to generate our self-signed certificates.
 
 The first step is to create a **Certificate Authority (CA)**. To keep things straightforward, we will generate all our clients and peer certificates using this CA, but you might eventually want to create distinct CA.
 
@@ -197,9 +189,7 @@ echo '{"CN":"CA","key":{"algo":"rsa","size":2048}}' | cfssl gencert -initca - | 
 echo '{"signing":{"default":{"expiry":"43800h","usages":["signing","key encipherment","server auth","client auth"]}}}' > ca-config.json
 {{< /highlight >}}
 
-Then, using that CA, we can generate certificates and keys for each peer (backend server) by
-specifying their **Common Name (CN)** and their **hosts**. A `*.pem`, `*.csr` and `*.pem` will
-be created for each backend.
+Then, using that CA, we can generate certificates and keys for each peer (backend server) by specifying their **Common Name (CN)** and their **hosts**. A `*.pem`, `*.csr` and `*.pem` will be created for each backend.
 
 {{< highlight shell >}}
 export ADDRESS=10.0.0.1,backend-1
@@ -231,7 +221,7 @@ export NAME=agent-1
 echo '{"CN":"'$NAME'","hosts":[""],"key":{"algo":"rsa","size":2048}}' | cfssl gencert -config=ca-config.json -ca=ca.pem -ca-key=ca-key.pem -hostname="" -profile=client - | cfssljson -bare $NAME
 {{< /highlight >}}
 
-See [etcd's guide to generating self-signed certificates][11] for detailed instructions on securing etcd.
+See [etcd's guide to generating self-signed certificates][7] for detailed instructions on securing etcd.
 
 When you're finished, the following files should be created. The `*.csr` files will not be used in this guide.
 {{< highlight shell >}}
@@ -256,10 +246,17 @@ client.csr
 client.pem
 {{< /highlight >}}
 
-Hopefully you've found this useful! If you find any issues or have any questions, feel free to reach out in our [Community Slack][3], or [open an issue][4] on Github.
+Hopefully you've found this useful! If you find any issues or have any questions, feel free to reach out in our [Community Slack][8], or [open an issue][9] on Github.
 
 <!-- LINKS -->
-[1]: /sensu-core/latest/guides/securing-sensu/
-[2]: ../clustering
-[3]: https://slack.sensu.io
-[4]: https://github.com/sensu/sensu-docs/issues/new
+[1]: ../clustering
+[2]: ../../getting-started/enterprise/
+[3]: ../../reference/rbac/#default-user
+[4]: ../../reference/rbac/
+[5]: ../../guides/create-read-only-user/
+[6]: https://github.com/cloudflare/cfssl
+[7]: https://etcd.io/docs/v3.4.0/op-guide/security/
+[8]: https://slack.sensu.io
+[9]: https://github.com/sensu/sensu-docs/issues/new
+
+
