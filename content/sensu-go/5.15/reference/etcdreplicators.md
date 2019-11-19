@@ -12,8 +12,8 @@ menu:
 - [Create a replicator](#create-a-replicator)
 - [Delete a replicator](#delete-a-replicator)
 - [Replicator configuration](#replicator-configuration)
-- [etcd-replicators specification](#etcdreplicators-specification)
-- [Example etcd-replicators resources](#example-etcdreplicators-resources)
+- [etcd-replicators specification](#etcd-replicators-specification)
+- [Example etcd-replicators resources](#example-etcd-replicators-resources)
 
 **COMMERCIAL FEATURE**: Access the etcd-replicators datatype in the packaged Sensu Go distribution. For more information, see the [getting started guide][1].
 
@@ -61,7 +61,7 @@ example      | {{< highlight shell >}}api_version: federation/v1{{< /highlight >
 
 metadata     |      |
 -------------|------
-description  | Top-level scope that contains the replicator `name`.
+description  | Top-level scope that contains the replicator `name`. Namespace is not supported in the metadata because EtcdReplicators are cluster-wide resources.
 required     | true
 type         | Map of key-value pairs
 example      | {{< highlight shell >}}
@@ -146,6 +146,15 @@ required     | true
 type         | String
 example      | {{< highlight shell >}}resource: Role{{< /highlight >}}
 
+<a name="namespace-attribute"></a>
+
+namespace    |      |
+-------------|-------
+description  | Namespace to constrain replication to. If you do not include `namespace`, all namespaces for a given resource are replicated.
+required     | false
+type         | String
+example      | {{< highlight shell >}}namespace: default{{< /highlight >}}
+
 replication_interval_seconds      |      |
 ----------------------------------|-------
 description  | The interval at which the resource will be replicated. In seconds. Default is 30.
@@ -156,6 +165,8 @@ example      | {{< highlight shell >}}replication_interval_seconds: 30{{< /highl
 ## Example etcd-replicators resources
 
 If you replicate the following four examples for `Role`, `RoleBinding`, `ClusterRole`, and `ClusterRoleBinding` resources, you can expect a full replication of [RBAC policy][3].
+
+_**NOTE**: If you do not specify a namespace when you create a replicator, all namespaces for a given resource are replicated._
 
 ### Example `Role` resource
 
