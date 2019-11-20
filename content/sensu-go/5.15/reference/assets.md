@@ -96,6 +96,71 @@ sensu-example-handler_1.0.0_linux_amd64
 └── include
 {{< /highlight >}}
 
+### Asset hello world example
+
+In this example, we'll run a script that outputs `Hello World`:
+
+{{< highlight bash >}}
+hello-world.sh
+
+#!/bin/sh
+
+STRING="Hello World"
+
+echo $STRING
+
+if [ $? -eq 0 ]; then
+    exit 0
+else
+    exit 2
+fi
+{{< /highlight >}}
+
+The first step is to ensure that our directory structure is in place. As noted in [Example structure](#example-structure), our script could live in three potential directories in the project: `/bin`, `/lib`, or `/include`. For this case, we will put our script in the `/bin` directory. We'll create the directories `sensu-go-hello-world` and `/bin`:
+
+{{< highlight bash >}}
+$ mkdir sensu-go-hello-world
+
+$ cd sensu-go-hello-world
+
+$ mkdir bin
+
+$ cp hello-world.sh bin/
+
+$ tree
+.
+└── bin
+    └── hello-world.sh
+{{< /highlight >}}
+
+Next, we'll ensure that the script is marked as executable:
+
+{{< highlight bash >}}
+$ chmod +x bin/hello-world.sh 
+mode of 'hello-world.sh' changed from 0644 (rw-r--r--) to 0755 (rwxr-xr-x)
+{{< /highlight >}}
+
+Now that the script is in the directory, let's move on to the next step: packaging the `sensu-go-hello-world` directory as an asset tarball.
+
+#### Packaging the asset
+
+Assets are archives, so the first step in packaging the asset is to create a tar.gz archive of our project. This assumes we're in the directory we want to tar up:
+
+{{< highlight bash >}}
+$ cd ..
+$ tar -C sensu-go-hello-world -cvzf sensu-go-hello-world-0.0.1.tar.gz .
+...
+{{< /highlight >}}
+
+Excellent. Now that we've created an archive, we'll need to generate a SHA512 sum for it (this is required--otherwise, the asset won't work):
+
+{{< highlight bash >}}
+sha512sum sensu-go-hello-world-0.0.1.tar.gz | tee sha512sum.txt
+dbfd4a714c0c51c57f77daeb62f4a21141665ae71440951399be2d899bf44b3634dad2e6f2516fff1ef4b154c198b9c7cdfe1e8867788c820db7bb5bcad83827 sensu-go-hello-world-0.0.1.tar.gz
+{{< /highlight >}}
+
+From here, you can host the asset wherever you'd like. If you'd like to have the asset available via [Bonsai][bonsai], you'll need to host it on Github. You can find out more about that in [this Discourse post][asset-discourse]. If you'd like to host on a different platform like Gitlab or Bitbucket, you can absolutely do that by uploading your asset there. You can also use Artifactory or even Apache or Nginx to serve your asset. All that's required is the URL to the asset and the SHA512 sum for the asset to be downloaded.
+
 ## Asset specification
 
 ### Top-level attributes
@@ -697,3 +762,5 @@ It is also worth noting that deleting an asset does not delete the archive or do
 [gh-release-04]: /images/gh-release-04.png
 [sensu-agent-01]: /images/sensu-agent-01.png
 [gh-release-doc]: https://help.github.com/en/articles/creating-releases
+[bonsai]: https://bonsai.sensu.io
+[asset-discourse]: https://discourse.sensu.io/t/the-hello-world-of-sensu-assets/1422
