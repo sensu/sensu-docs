@@ -46,8 +46,7 @@ When you upgrade to 5.15.0, if your existing unlicensed instance has more than 1
 Connections from new agents will fail and result in a log message like this:
 
 {{< highlight shell >}}
-{"component":"agent","error":"handshake failed with status 402","level":"error","msg":"reconnection attempt failed","time":"2
-019-11-20T05:49:24-07:00"}
+{"component":"agent","error":"handshake failed with status 402","level":"error","msg":"reconnection attempt failed","time":"2019-11-20T05:49:24-07:00"}
 {{< /highlight >}}
 
 In the web UI, you will see the following message when you reach the 100-entity limit:
