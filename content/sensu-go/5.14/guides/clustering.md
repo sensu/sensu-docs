@@ -61,7 +61,7 @@ _NOTE: This backend configuration assumes you have set up and installed the sens
 ##
 # store configuration for backend-1/10.0.0.1
 ##
- etcd-advertise-client-urls: "http://10.0.0.1:2379"
+etcd-advertise-client-urls: "http://10.0.0.1:2379"
 etcd-listen-client-urls: "http://10.0.0.1:2379"
 etcd-listen-peer-urls: "http://0.0.0.0:2380"
 etcd-initial-cluster: "backend-1=http://10.0.0.1:2380,backend-2=http://10.0.0.2:2380,backend-3=http://10.0.0.3:2380"
@@ -158,25 +158,6 @@ ETCD_INITIAL_CLUSTER="backend-4=https://10.0.0.4:2380,backend-1=https://10.0.0.1
 ETCD_INITIAL_CLUSTER_STATE="existing"
 {{< /highlight >}}
 
-#### Replace a faulty cluster member
-
-Run [`sensuctl cluster health`][17] to check for faulty cluster members. For faulty cluster members, the `Error` column will include an error message and the `Healthy` column will list `false`. Replace faulty cluster members to restore the cluster's health. 
-
-To replace a faulty cluster member, make sure to change the `etcd-initial-cluster-state` to `existing` in the configuration. This example store configuration shows `backend-3` as the faulty cluster.
-
-{{< highlight yml >}}
-etcd-advertise-client-urls: "http://10.0.0.3:2379"
-etcd-listen-client-urls: "http://10.0.0.3:2379"
-etcd-listen-peer-urls: "http://0.0.0.0:2380"
-etcd-initial-cluster: "backend-1=http://10.0.0.1:2380,backend-2=http://10.0.0.2:2380,backend-3=http://10.0.0.3:2380"
-etcd-initial-advertise-peer-urls: "http://10.0.0.3:2380"
-etcd-initial-cluster-state: "existing"
-etcd-initial-cluster-token: ""
-etcd-name: "backend-3"
-{{< /highlight >}}
-
-If replacing the faulty cluster member does not resolve the problem, please see the [etcd operations guide][12] for more information.
-
 ### List cluster members
 
 List the ID, name, peer urls, and client urls of all nodes in a cluster.
@@ -201,6 +182,50 @@ sensuctl cluster member-remove 2f7ae42c315f8c2d
 
 Removed member 2f7ae42c315f8c2d from cluster
 {{< /highlight >}}
+
+### Replace a faulty cluster member
+
+Here's how to replace a faulty cluster member to restore a cluster's health.
+
+First, run `sensuctl cluster health` to identify the faulty cluster member.
+For a faulty cluster member, the `Error` column will include an error message and the `Healthy` column will list `false`.
+
+In this example, cluster member `backend-4` is faulty:
+
+{{< highlight shell >}}
+sensuctl cluster health
+
+       ID            Name                          Error                           Healthy  
+────────────────── ─────────── ─────────────────────────────────────────────────── ─────────
+a32e8f613b529ad4   backend-1                                                        true
+c3d9f4b8d0dd1ac9   backend-2                                                        true
+c8f63ae435a5e6bf   backend-3                                                        true
+2f7ae42c315f8c2d   backend-4  dial tcp 10.0.0.4:2379: connect: connection refused   false
+
+{{< /highlight >}}
+
+Second, delete the faulty cluster member. To continue this example, you will delete cluster member `backend-4`:
+
+{{< highlight shell >}}
+sensuctl cluster member-remove 2f7ae42c315f8c2d
+
+Removed member 2f7ae42c315f8c2d from cluster
+{{< /highlight >}}
+
+Third, add the faulty cluster member back to the cluster. Make sure to change the `etcd-initial-cluster-state` to `existing` in the configuration.
+
+{{< highlight yml >}}
+etcd-advertise-client-urls: "http://10.0.0.4:2379"
+etcd-listen-client-urls: "http://10.0.0.4:2379"
+etcd-listen-peer-urls: "http://0.0.0.0:2380"
+etcd-initial-cluster: "backend-1=http://10.0.0.1:2380,backend-2=http://10.0.0.2:2380,backend-3=http://10.0.0.3:2380,backend-4=http://10.0.0.4:2380"
+etcd-initial-advertise-peer-urls: "http://10.0.0.4:2380"
+etcd-initial-cluster-state: "existing"
+etcd-initial-cluster-token: ""
+etcd-name: "backend-4"
+{{< /highlight >}}
+
+If replacing the faulty cluster member does not resolve the problem, please see the [etcd operations guide][12] for more information.
 
 ### Update a cluster member
 
@@ -282,4 +307,3 @@ See [the etcd recovery guide][9] for more information.
 [14]: ../../installation/install-sensu/
 [15]: ../../reference/backend
 [16]: ../securing-sensu/
-[17]: #cluster-health
