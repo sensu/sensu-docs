@@ -53,7 +53,7 @@ See the [upgrade guide][1] to upgrade Sensu to version 5.15.0.
 **IMPORTANT:**
 Sensu's free entity limit is now 100 entities. All [commercial features][95] are available for free in the packaged Sensu Go distribution up to an entity limit of 100. You will see a warning when you approach the 100-entity limit (at 75%).
 
-If your Sensu instance includes more than 100 entities, [contact us][90] to learn how to upgrade your installation and increase your limit. See [Discourse][91] for more information about our usage policy.
+If your Sensu instance includes more than 100 entities, [contact us][90] to learn how to upgrade your installation and increase your limit. See [the blog announcement][91] for more information about our usage policy.
 
 **NEW FEATURES:**
 
@@ -753,7 +753,7 @@ To get started with Sensu Go:
 [88]: /sensu-go/5.15/api/overview/#authenticate-with-the-api-key-feature
 [89]: /sensu-go/5.15/sensuctl/reference/
 [90]: https://sensu.io/contact
-[91]: https://discourse.sensu.io/t/introducing-usage-limits-in-the-sensu-go-free-tier/1156
+[91]: https://blog.sensu.io/one-year-of-sensu-go
 [92]: /sensu-go/5.15/api/license/
 [93]: /sensu-go/5.15/sensuctl/reference/#extend-sensuctl-with-commands
 [94]: /sensu-go/5.15/reference/checks/#cron-scheduling
