@@ -13,8 +13,7 @@ menu:
 As with any piece of software, it is critical to minimize any attack surface exposed by the software. Sensu is no different. The following component pieces need to be secured in order for Sensu to be considered production ready:
 
 * [Etcd peer communication](#securing-etcd-peer-communication)
-* [Backend API](#securing-the-api-and-the-dashboard)
-* [Dashboard](#securing-the-api-and-the-dashboard)
+* [API and dashboard](#securing-the-api-and-the-dashboard)
 * [Sensu agent to server communication](#securing-sensu-agent-to-server-communication)
 * [Sensu agent TLS authentication](#sensu-agent-tls-authentication)
 * [Generating certificates with cfssl](#generating-certificates)
@@ -122,7 +121,7 @@ trusted-ca-file: "/path/to/trusted-certificate-authorities.pem"
 
 _NOTE: If creating a Sensu cluster, every cluster member needs to be present in the configuration. See the [Sensu Go clustering guide][2] for more information on how to configure agents for a clustered configuration._
 
-**LICENSED TIER**: Unlock client TLS authentication in Sensu Go with a Sensu license. To activate your license, see the [getting started guide][6].
+**COMMERCIAL FEATURE**: Access client TLS authentication in the packaged Sensu Go distribution. For more information, see the [getting started guide][6].
 
 ## Sensu agent TLS authentication
 
