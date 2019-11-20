@@ -22,7 +22,7 @@ menu:
 	- [`/clusters/:cluster` (PUT)](#clusterscluster-put)
 	- [`/clusters/:cluster` (DELETE)](#clusterscluster-delete)
 
-**LICENSED TIER**: Unlock the federation API in Sensu Go with a Sensu license. To activate your license, see the [getting started guide][1].
+**COMMERCIAL FEATURE**: Access federation in the packaged Sensu Go distribution. For more information, see the [getting started guide][1].
 
 ## The `/etcd-replicators` endpoint
 
@@ -36,6 +36,8 @@ The `/etcd-replicators` endpoint provides HTTP GET access to a list of replicato
 
 The following example demonstrates a request to the `/etcd-replicators` endpoint, resulting in a list of replicators.
 
+_**NOTE**: If you did not specify a [namespace][2] when you created a replicator, the response will not include a `namespace` key-value pair._
+
 {{< highlight shell >}}
 curl http://127.0.0.1:8080/api/enterprise/federation/v1/etcd-replicators -H "Authorization: Bearer $SENSU_TOKEN"
 [
@@ -46,7 +48,10 @@ curl http://127.0.0.1:8080/api/enterprise/federation/v1/etcd-replicators -H "Aut
       "name": "my_replicator"
     },
     "spec": {
-      "insecure": true,
+      "ca_cert": "/path/to/ssl/trusted-certificate-authorities.pem",
+      "cert": "/path/to/ssl/cert.pem",
+      "key": "/path/to/ssl/key.pem",
+      "insecure": false,
       "url": "http://remote-etcd.example.com:2379",
       "api_version": "core/v2",
       "resource": "CheckConfig",
@@ -73,7 +78,10 @@ output         | {{< highlight shell >}}
       "name": "my_replicator"
     },
     "spec": {
-      "insecure": true,
+      "ca_cert": "/path/to/ssl/trusted-certificate-authorities.pem",
+      "cert": "/path/to/ssl/cert.pem",
+      "key": "/path/to/ssl/key.pem",
+      "insecure": false,
       "url": "http://remote-etcd.example.com:2379",
       "api_version": "core/v2",
       "resource": "CheckConfig",
@@ -84,6 +92,8 @@ output         | {{< highlight shell >}}
 {{< /highlight >}}
 
 ### `/etcd-replicators` (POST)
+
+_**NOTE**: If you do not specify a [namespace][2] when you create a replicator, all namespaces for the given resource are replicated._
 
 /etcd-replicators (POST) | 
 ----------------|------
@@ -97,7 +107,10 @@ payload         | {{< highlight shell >}}
     "name": "my_replicator"
   },
   "spec": {
-    "insecure": true,
+    "ca_cert": "/path/to/ssl/trusted-certificate-authorities.pem",
+    "cert": "/path/to/ssl/cert.pem",
+    "key": "/path/to/ssl/key.pem",
+    "insecure": false,
     "url": "http://remote-etcd.example.com:2379",
     "api_version": "core/v2",
     "resource": "CheckConfig",
@@ -115,7 +128,9 @@ The `/etcd-replicators/:etcd-replicator` endpoint provides HTTP GET access to da
 
 #### EXAMPLE {#etcd-replicatorsetcd-replicator-get-example}
 
-In the following example, querying the `/etcd-replicators/:etcd-replicator` endpoing returns a JSON Map containing the requested `:etcd-replicator`.
+In the following example, querying the `/etcd-replicators/:etcd-replicator` endpoint returns a JSON Map containing the requested `:etcd-replicator`.
+
+_**NOTE**: If you did not specify a [namespace][2] when you created the replicator, the response will not include a `namespace` key-value pair._
 
 {{< highlight shell >}}
 curl http://127.0.0.1:8080/api/enterprise/federation/v1/etcd-replicators/my_replicator -H "Authorization: Bearer $SENSU_TOKEN"
@@ -126,7 +141,10 @@ curl http://127.0.0.1:8080/api/enterprise/federation/v1/etcd-replicators/my_repl
     "name": "my_replicator"
   },
   "spec": {
-    "insecure": true,
+    "ca_cert": "/path/to/ssl/trusted-certificate-authorities.pem",
+    "cert": "/path/to/ssl/cert.pem",
+    "key": "/path/to/ssl/key.pem",
+    "insecure": false,
     "url": "http://remote-etcd.example.com:2379",
     "api_version": "core/v2",
     "resource": "CheckConfig",
@@ -151,7 +169,10 @@ output               | {{< highlight json >}}
     "name": "my_replicator"
   },
   "spec": {
-    "insecure": true,
+    "ca_cert": "/path/to/ssl/trusted-certificate-authorities.pem",
+    "cert": "/path/to/ssl/cert.pem",
+    "key": "/path/to/ssl/key.pem",
+    "insecure": false,
     "url": "http://remote-etcd.example.com:2379",
     "api_version": "core/v2",
     "resource": "CheckConfig",
@@ -177,7 +198,10 @@ curl -X PUT \
     "name": "my_replicator"
   },
   "spec": {
-    "insecure": true,
+    "ca_cert": "/path/to/ssl/trusted-certificate-authorities.pem",
+    "cert": "/path/to/ssl/cert.pem",
+    "key": "/path/to/ssl/key.pem",
+    "insecure": false,
     "url": "http://remote-etcd.example.com:2379",
     "api_version": "core/v2",
     "resource": "CheckConfig",
@@ -203,7 +227,10 @@ payload         | {{< highlight shell >}}
     "name": "my_replicator"
   },
   "spec": {
-    "insecure": true,
+    "ca_cert": "/path/to/ssl/trusted-certificate-authorities.pem",
+    "cert": "/path/to/ssl/cert.pem",
+    "key": "/path/to/ssl/key.pem",
+    "insecure": false,
     "url": "http://remote-etcd.example.com:2379",
     "api_version": "core/v2",
     "resource": "CheckConfig",
@@ -307,7 +334,7 @@ The `/clusters/:cluster` endpoint provides HTTP GET access to data for a specifi
 
 #### EXAMPLE {#clusterscluster-get-example}
 
-In the following example, querying the `/clusters/:cluster` endpoing returns a JSON Map containing the requested `:etcd-replicator`.
+In the following example, querying the `/clusters/:cluster` endpoint returns a JSON Map containing the requested `:etcd-replicator`.
 
 {{< highlight shell >}}
 curl -H "Authorization: Bearer $SENSU_TOKEN" \
@@ -438,5 +465,6 @@ example url               | http://hostname:8080/api/enterprise/federation/v1/cl
 response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 
-[1]: /../../getting-started/enterprise/
+[1]: ../../getting-started/enterprise/
+[2]: ../../reference/etcdreplicators#namespace-attribute
 
