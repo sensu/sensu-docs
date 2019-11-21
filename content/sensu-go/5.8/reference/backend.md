@@ -13,8 +13,8 @@ menu:
 
 - [Installation][1]
 - [Creating event pipelines](#event-pipeline)
-- [Scheduling checks](#check-scheduling)
-- [Service management](#operation)
+- [Check scheduling](#check-scheduling)
+- [Operation and service management](#operation)
   - [Starting and stopping the service](#starting-the-service)
   - [Clustering](#clustering)
   - [Time synchronization](#time-synchronization)
@@ -24,7 +24,7 @@ menu:
   - [Security configuration](#security-configuration-flags)
   - [Dashboard configuration](#dashboard-configuration-flags)
   - [Datastore and cluster configuration](#datastore-and-cluster-configuration-flags)
-  - [Example](/sensu-go/5.8/files/backend.yml)
+  - [Example](/sensu-go/5.8/files/backend.yml) (download)
 
 The Sensu backend is a service that manages check requests and event data.
 Every Sensu backend includes an integrated transport for scheduling checks using subscriptions, an event processing pipeline that applies filters, mutators, and handlers, an embedded [etcd][2] datastore for storing configuration and state, a Sensu API, [Sensu dashboard][6], and `sensu-backend` command-line tool.
@@ -54,7 +54,7 @@ For information about creating and managing checks, see:
 - [Guide to collecting metrics with checks][4]
 - [Checks reference documentation][5]
 
-## Operation
+## Operation and service management {#operation}
 
 _NOTE: Commands in this section may require administrative privileges._
 
@@ -369,7 +369,6 @@ key-file: "/path/to/ssl/key.pem"{{< /highlight >}}
 | trusted-ca-file |      |
 ------------------|------
 description       | Path to the primary backend CA file, as well as specifies a fallback SSL/TLS certificate authority in PEM format used for etcd client (mutual TLS) communication if the `etcd-trusted-ca-file` is not used. This CA file is used in communication between Sensu Dashboard and end user web browsers, as well as communication between sensuctl and the Sensu API.
-
 type              | String
 default           | `""`
 example           | {{< highlight shell >}}# Command line example

@@ -13,8 +13,7 @@ menu:
 As with any piece of software, it is critical to minimize any attack surface exposed by the software. Sensu is no different. The following component pieces need to be secured in order for Sensu to be considered production ready:
 
 * [Etcd peer communication](#securing-etcd-peer-communication)
-* [Backend API](#securing-the-api-and-the-dashboard)
-* [Dashboard](#securing-the-api-and-the-dashboard)
+* [API and dashboard](#securing-the-api-and-the-dashboard)
 * [Sensu agent to server communication](#securing-sensu-agent-to-server-communication)
 * [Sensu agent TLS authentication](#sensu-agent-tls-authentication)
 * [Creating self-signed certificates](#creating-self-signed-certificates)
@@ -249,7 +248,6 @@ client.pem
 
 Hopefully you've found this useful! If you find any issues or have any questions, feel free to reach out in our [Community Slack][8], or [open an issue][9] on Github.
 
-<!-- LINKS -->
 [1]: ../clustering
 [2]: ../../getting-started/enterprise/
 [3]: ../../reference/rbac/#default-user
@@ -259,5 +257,3 @@ Hopefully you've found this useful! If you find any issues or have any questions
 [7]: https://etcd.io/docs/v3.4.0/op-guide/security/
 [8]: https://slack.sensu.io
 [9]: https://github.com/sensu/sensu-docs/issues/new
-
-

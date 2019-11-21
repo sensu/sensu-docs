@@ -13,11 +13,10 @@ menu:
 As with any piece of software, it is critical to minimize any attack surface exposed by the software. Sensu is no different. The following component pieces need to be secured in order for Sensu to be considered production ready:
 
 * [Etcd peer communication](#securing-etcd-peer-communication)
-* [Backend API](#securing-the-api-and-the-dashboard)
-* [Dashboard](#securing-the-api-and-the-dashboard)
+* [API and dashboard](#securing-the-api-and-the-dashboard)
 * [Sensu agent to server communication](#securing-sensu-agent-to-server-communication)
 * [Sensu agent TLS authentication](#sensu-agent-tls-authentication)
-* [Generating certificates with cfssl](#generating-certificates)
+* [Creating self-signed certificates](#creating-self-signed-certificates)
 
 We'll cover securing each one of those pieces, starting with etcd peer communication.
 
@@ -120,14 +119,14 @@ You may include it as part of the agent configuration in `/etc/sensu/agent.yml` 
 trusted-ca-file: "/path/to/trusted-certificate-authorities.pem"
 {{< /highlight >}}
 
-_NOTE: If creating a Sensu cluster, every cluster member needs to be present in the configuration. See the [Sensu Go clustering guide][2] for more information on how to configure agents for a clustered configuration._
+_NOTE: If creating a Sensu cluster, every cluster member needs to be present in the configuration. See the [Sensu Go clustering guide][1] for more information on how to configure agents for a clustered configuration._
 
-**LICENSED TIER**: Unlock client TLS authentication in Sensu Go with a Sensu license. To activate your license, see the [getting started guide][6].
+**COMMERCIAL FEATURE**: Access client TLS authentication in the packaged Sensu Go distribution. For more information, see the [getting started guide][5].
 
 ## Sensu agent TLS authentication
 
 By default, Sensu agents require username and password authentication to communicate with Sensu backends.
-For Sensu's [default user credentials][3] and details about configuring Sensu role-based access control, see the [RBAC reference][4] and [guide to creating users][5].
+For Sensu's [default user credentials][2] and details about configuring Sensu role-based access control, see the [RBAC reference][3] and [guide to creating users][4].
 
 Sensu can also use TLS authentication for connecting agents to backends. When agent TLS authentication is enabled, agents do not need to send
 password credentials to backends when they connect. Additionally, when using TLS authentication, agents do not require an explicit user
@@ -186,9 +185,9 @@ It's possible to use certificates for authentication that are distinct from othe
 However, deployments can also use the same certificates and keys for etcd peer and client communication, the HTTP API, and agent
 authentication, without issue.
 
-## Creating self-signed certificates for securing etcd and backend-agent communication
+## Creating self-signed certificates for securing etcd and backend-agent communication{#creating-self-signed-certificates}
 
-We will use the [cfssl][10] tool to generate our self-signed certificates.
+We will use the [cfssl][9] tool to generate our self-signed certificates.
 
 The first step is to create a **Certificate Authority (CA)**. To keep things straightforward, we will generate all our clients and peer certificates using this CA, but you might eventually want to create distinct CA.
 
@@ -231,7 +230,7 @@ export NAME=agent-1
 echo '{"CN":"'$NAME'","hosts":[""],"key":{"algo":"rsa","size":2048}}' | cfssl gencert -config=ca-config.json -ca=ca.pem -ca-key=ca-key.pem -hostname="" -profile=client - | cfssljson -bare $NAME
 {{< /highlight >}}
 
-See [etcd's guide to generating self-signed certificates][11] for detailed instructions on securing etcd.
+See [etcd's guide to generating self-signed certificates][6] for detailed instructions on securing etcd.
 
 When you're finished, the following files should be created. The `*.csr` files will not be used in this guide.
 {{< highlight shell >}}
@@ -256,10 +255,15 @@ client.csr
 client.pem
 {{< /highlight >}}
 
-Hopefully you've found this useful! If you find any issues or have any questions, feel free to reach out in our [Community Slack][3], or [open an issue][4] on Github.
+Hopefully you've found this useful! If you find any issues or have any questions, feel free to reach out in our [Community Slack][7], or [open an issue][8] on Github.
 
-<!-- LINKS -->
-[1]: /sensu-core/latest/guides/securing-sensu/
-[2]: ../clustering
-[3]: https://slack.sensu.io
-[4]: https://github.com/sensu/sensu-docs/issues/new
+[1]: ../clustering
+[2]: ../../reference/rbac/#default-user
+[3]: ../../reference/rbac/
+[4]: ../../guides/create-read-only-user/
+[5]: ../../getting-started/enterprise/
+[6]: https://etcd.io/docs/v3.4.0/op-guide/security/
+[7]: https://slack.sensu.io
+[8]: https://github.com/sensu/sensu-docs/issues/new
+[9]: https://github.com/cloudflare/cfssl
+

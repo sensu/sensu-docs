@@ -13,8 +13,7 @@ menu:
 As with any piece of software, it is critical to minimize any attack surface exposed by the software. Sensu is no different. The following component pieces need to be secured in order for Sensu to be considered production ready:
 
 * [etcd peer communication](#securing-etcd-peer-communication)
-* [Backend API](#securing-the-api-and-the-dashboard)
-* [Dashboard](#securing-the-api-and-the-dashboard)
+* [API and dashboard](#securing-the-api-and-the-dashboard)
 * [Sensu agent to server communication](#securing-sensu-agent-to-server-communication)
 
 We'll cover securing each one of those pieces, starting with etcd peer communication.
@@ -123,7 +122,6 @@ _NOTE: If creating a Sensu cluster, every cluster member needs to be present in 
 
 Hopefully you've found this useful! If you find any issues or have any questions, feel free to reach out in our [Community Slack][3], or [open an issue][4] on Github.
 
-<!-- LINKS -->
 [1]: /sensu-core/latest/guides/securing-sensu/
 [2]: ../clustering
 [3]: https://slack.sensu.io

@@ -12,7 +12,7 @@ menu:
 
 Sensu is available as packages, Docker images, and [binary-only distributions][4].
 We recommend [installing Sensu][5] using one of our supported packages, Docker images, or [configuration management][6] integrations.
-Sensu downloads are provided under the [Sensu License][7].
+Sensu downloads are provided under the [Sensu commercial license][7].
 
 - [Supported packages](#supported-packages)
 	- [Sensu backend](#sensu-backend)
@@ -31,48 +31,48 @@ Supported packages are available through [sensu/stable][8] on packagecloud and t
 
 | Platform & Version | `amd64` | | | |
 |--------------------|---------|---|---|---|
-| CentOS/RHEL 6      | ✅      |
-| CentOS/RHEL 7      | ✅      |
-| Ubuntu 14.04       | ✅      |
-| Ubuntu 16.04       | ✅      |
-| Ubuntu 18.04       | ✅      |
-| Ubuntu 18.10       | ✅      |
-| Ubuntu 19.04       | ✅      |
-| Debian 8           | ✅      |
-| Debian 9           | ✅      |
-| Debian 10          | ✅      |
+| CentOS/RHEL 6      | {{< check >}}      |
+| CentOS/RHEL 7      | {{< check >}}      |
+| Ubuntu 14.04       | {{< check >}}      |
+| Ubuntu 16.04       | {{< check >}}      |
+| Ubuntu 18.04       | {{< check >}}      |
+| Ubuntu 18.10       | {{< check >}}      |
+| Ubuntu 19.04       | {{< check >}}      |
+| Debian 8           | {{< check >}}      |
+| Debian 9           | {{< check >}}      |
+| Debian 10          | {{< check >}}      |
 
 ### Sensu agent
 
 | Platform & Version | `amd64` | `386` | | | | |
 |--------------------|---------|-------|---|---|---|---|
-| CentOS/RHEL 6      | ✅      |
-| CentOS/RHEL 7      | ✅      |
-| Ubuntu 14.04       | ✅      |
-| Ubuntu 16.04       | ✅      |
-| Ubuntu 18.04       | ✅      |
-| Ubuntu 18.10       | ✅      |
-| Ubuntu 19.04       | ✅      |
-| Debian 8           | ✅      |
-| Debian 9           | ✅      |
-| Debian 10          | ✅      |
-| Windows Server 2008 R2 and later | ✅ | ✅ |
-| Windows 7 and later | ✅     | ✅   |
+| CentOS/RHEL 6      | {{< check >}}      |
+| CentOS/RHEL 7      | {{< check >}}      |
+| Ubuntu 14.04       | {{< check >}}      |
+| Ubuntu 16.04       | {{< check >}}      |
+| Ubuntu 18.04       | {{< check >}}      |
+| Ubuntu 18.10       | {{< check >}}      |
+| Ubuntu 19.04       | {{< check >}}      |
+| Debian 8           | {{< check >}}      |
+| Debian 9           | {{< check >}}      |
+| Debian 10          | {{< check >}}      |
+| Windows Server 2008 R2 and later | {{< check >}} | {{< check >}} |
+| Windows 7 and later | {{< check >}}     | {{< check >}}   |
 
 ### Sensuctl command-line tool
 
 | Platform & Version | `amd64` | `386` | | | | |
 |--------------------|---------|-------|---|---|---|---|
-| CentOS/RHEL 6      | ✅      |
-| CentOS/RHEL 7      | ✅      |
-| Ubuntu 14.04       | ✅      |
-| Ubuntu 16.04       | ✅      |
-| Ubuntu 18.04       | ✅      |
-| Ubuntu 18.10       | ✅      |
-| Ubuntu 19.04       | ✅      |
-| Debian 8           | ✅      |
-| Debian 9           | ✅      |
-| Debian 10          | ✅      |
+| CentOS/RHEL 6      | {{< check >}}      |
+| CentOS/RHEL 7      | {{< check >}}      |
+| Ubuntu 14.04       | {{< check >}}      |
+| Ubuntu 16.04       | {{< check >}}      |
+| Ubuntu 18.04       | {{< check >}}      |
+| Ubuntu 18.10       | {{< check >}}      |
+| Ubuntu 19.04       | {{< check >}}      |
+| Debian 8           | {{< check >}}      |
+| Debian 9           | {{< check >}}      |
+| Debian 10          | {{< check >}}      |
 
 ## Docker images
 
@@ -96,14 +96,14 @@ Docker images containing the Sensu backend and Sensu agent are available for Lin
 
 | Platform & Version | `amd64` | `arm64` | `armv5` | `armv6` |`armv7` | `386` |
 |--------------------|---------|---------|---------|---------|--------|-------|
-| Linux              | ✅      | ✅     | ✅      | ✅      | ✅     | ✅    |
-| Windows            | ✅      |         |         |         |        | ✅    |
-| macOS              | ✅      |         |         |         |        |       |
+| Linux              | {{< check >}}      | {{< check >}}     | {{< check >}}      | {{< check >}}      | {{< check >}}     | {{< check >}}    |
+| Windows            | {{< check >}}      |         |         |         |        | {{< check >}}    |
+| macOS              | {{< check >}}      |         |         |         |        |       |
 
 ## Building from source
 
 Sensu Go's core is open source software, freely available under an MIT license.
-Sensu Go instances built from source do not include some free-tier and licensed-tier features such as the web UI homepage; see the [feature comparison matrix][15] to learn more.
+Sensu Go instances built from source do not include some commercial features such as the web UI homepage; see the [feature comparison matrix][15] to learn more.
 To build Sensu Go from source, see the [contributing guide on GitHub][16].
 
 [1]: ../../installation/install-sensu#install-the-sensu-backend

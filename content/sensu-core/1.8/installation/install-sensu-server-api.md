@@ -57,12 +57,12 @@ functionality of Sensu server and API in a single process.
 - [Install Sensu Enterprise on Ubuntu/Debian](../../platforms/sensu-on-ubuntu-debian/#sensu-enterprise)
 - [Install Sensu Enterprise on RHEL/CentOS](../../platforms/sensu-on-rhel-centos/#sensu-enterprise)
 
-[1]: https://repositories.sensuapp.org/freebsd/
-[2]: https://repositories.sensuapp.org/aix/
-[3]: https://repositories.sensuapp.org/osx/
-[4]: https://repositories.sensuapp.org/msi/
-[5]: https://repositories.sensuapp.org/solaris/pkg/
-[6]: https://repositories.sensuapp.org/solaris/ips/
-[7]: https://repositories.sensuapp.org/yum/
-[8]: https://repositories.sensuapp.org/apt/pool/
+[1]: https://eol-repositories.sensuapp.org/freebsd/
+[2]: https://eol-repositories.sensuapp.org/aix/
+[3]: https://eol-repositories.sensuapp.org/osx/
+[4]: https://eol-repositories.sensuapp.org/msi/
+[5]: https://eol-repositories.sensuapp.org/solaris/pkg/
+[6]: https://eol-repositories.sensuapp.org/solaris/ips/
+[7]: https://eol-repositories.sensuapp.org/yum/
+[8]: https://eol-repositories.sensuapp.org/apt/pool/
 [9]: #sensu-enterprise

@@ -13,8 +13,8 @@ menu:
 
 - [Installation][1]
 - [Creating event pipelines](#event-pipeline)
-- [Scheduling checks](#check-scheduling)
-- [Service management](#operation)
+- [Check scheduling](#check-scheduling)
+- [Operation and service management](#operation)
   - [Starting and stopping the service](#starting-the-service)
   - [Clustering](#clustering)
   - [Time synchronization](#time-synchronization)
@@ -25,8 +25,9 @@ menu:
   - [Dashboard configuration](#dashboard-configuration-flags)
   - [Datastore and cluster configuration](#datastore-and-cluster-configuration-flags)
   - [Advanced configuration options](#advanced-configuration-options)
+  - [Configuration via environment variables](#configuration-via-environment-variables)
   - [Event logging](#event-logging)
-  - [Example](../../files/backend.yml)
+  - [Example](../../files/backend.yml) (download)
 
 The Sensu backend is a service that manages check requests and event data.
 Every Sensu backend includes an integrated transport for scheduling checks using subscriptions, an event processing pipeline that applies filters, mutators, and handlers, an embedded [etcd][2] datastore for storing configuration and state, a Sensu API, [Sensu dashboard][6], and `sensu-backend` command-line tool.
@@ -56,7 +57,7 @@ For information about creating and managing checks, see:
 - [Guide to collecting metrics with checks][4]
 - [Checks reference documentation][5]
 
-## Operation
+## Operation and service management {#operation}
 
 _NOTE: Commands in this section may require administrative privileges._
 
@@ -477,7 +478,6 @@ key-file: "/path/to/ssl/key.pem"{{< /highlight >}}
 | trusted-ca-file |      |
 ------------------|------
 description       | Path to the primary backend CA file. Specifies a fallback SSL/TLS certificate authority in PEM format used for etcd client (mutual TLS) communication if the `etcd-trusted-ca-file` is not used. This CA file is used in communication between the Sensu dashboard and end user web browsers, as well as communication between sensuctl and the Sensu API.
-
 type              | String
 default           | `""`
 example           | {{< highlight shell >}}# Command line example
@@ -903,10 +903,43 @@ sensu-backend start --etcd-quota-backend-bytes 4294967296
 # /etc/sensu/backend.yml example
 etcd-quota-backend-bytes: 4294967296{{< /highlight >}}
 
+### Configuration via environment variables
+
+The `sensu-backend` service configured by our supported packages will read environment variables from `/etc/default/sensu-backend` on Debian/Ubuntu systems and `/etc/sysconfig/sensu-backend` on RHEL systems. These files are not created by the installation package, so you will need to create them.
+
+{{< language-toggle >}}
+
+{{< highlight "Ubuntu/Debian" >}}
+$ sudo touch /etc/default/sensu-backend
+{{< /highlight >}}
+
+{{< highlight "RHEL/CentOS" >}}
+$ sudo touch /etc/sysconfig/sensu-backend
+{{< /highlight >}}
+
+{{< /language-toggle >}}
+
+For any configuration flag you wish to specify as an environment variable, you will need to append `SENSU_` and convert dashes (`-`) to underscores (`_`). Then, add the resulting environment variable to the appropriate environment file described above. You must restart the service for these settings to take effect.
+
+In the following example, the `api-listen-address` flag is configured as an environment variable and set to `192.168.100.20:8080`.
+
+{{< language-toggle >}}
+
+{{< highlight "Ubuntu/Debian" >}}
+$ echo 'SENSU_API_LISTEN_ADDRESS=192.168.100.20:8080' | sudo tee /etc/default/sensu-backend
+$ sudo systemctl restart sensu-backend
+{{< /highlight >}}
+
+{{< highlight "RHEL/CentOS" >}}
+$ echo 'SENSU_API_LISTEN_ADDRESS=192.168.100.20:8080' | sudo tee /etc/sysconfig/sensu-backend
+$ sudo systemctl restart sensu-backend
+{{< /highlight >}}
+
+{{< /language-toggle >}}
 
 ### Event logging
 
-**LICENSED TIER**: Unlock event logging in Sensu Go with a Sensu license. To activate your license, see the [getting started guide][14].
+**COMMERCIAL FEATURE**: Access event logging in the packaged Sensu Go distribution. For more information, see the [getting started guide][14].
 
 All Sensu events can be optionally logged to a file in JSON format. This file can then be used as an input source for your favorite data lake solution. Using the event logging functionality provides better performance and reliability than using event handlers.
 
