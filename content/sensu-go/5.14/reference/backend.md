@@ -447,7 +447,6 @@ key-file: "/path/to/ssl/key.pem"{{< /highlight >}}
 | trusted-ca-file |      |
 ------------------|------
 description       | Path to the primary backend CA file. Specifies a fallback SSL/TLS certificate authority in PEM format used for etcd client (mutual TLS) communication if the `etcd-trusted-ca-file` is not used. This CA file is used in communication between the Sensu dashboard and end user web browsers, as well as communication between sensuctl and the Sensu API.
-
 type              | String
 default           | `""`
 example           | {{< highlight shell >}}# Command line example
