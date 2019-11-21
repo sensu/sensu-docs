@@ -122,7 +122,6 @@ _NOTE: If creating a Sensu cluster, every cluster member needs to be present in 
 
 Hopefully you've found this useful! If you find any issues or have any questions, feel free to reach out in our [Community Slack][3], or [open an issue][4] on Github.
 
-<!-- LINKS -->
 [1]: /sensu-core/latest/guides/securing-sensu/
 [2]: ../clustering
 [3]: https://slack.sensu.io

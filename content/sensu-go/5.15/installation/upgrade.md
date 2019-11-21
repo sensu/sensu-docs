@@ -11,7 +11,8 @@ menu:
     parent: installation
 ---
 
-- [Upgrading from 5.0.0 or later](#upgrading-to-the-latest-version-of-sensu-go-from-5-0-0-or-later)
+- [Upgrading from Sensu Go 5.0.0 or later](#upgrading-to-the-latest-version-of-sensu-go-from-5-0-0-or-later)
+- [Upgrading to Sensu Go 5.15.0 from any earlier version](#upgrading-to-sensu-go-5-15-0-from-any-earlier-version)
 - [Upgrading Sensu clusters from 5.7.0 or earlier to 5.8.0 or later](#upgrading-sensu-clusters-from-5-7-0-or-earlier-to-5-8-0-or-later)
 - [Upgrading Sensu backend binaries to 5.1.0](#upgrading-sensu-backend-binaries-to-5-1-0)
 - [Upgrading from 1.x or later](#upgrading-to-sensu-go-from-sensu-core-1-x)
@@ -34,12 +35,32 @@ sudo service sensu-backend restart
 
 You can use the `version` command to determine the installed version using the `sensu-agent`, `sensu-backend`, and `sensuctl` tools. For example: `sensu-backend version`.
 
+## Upgrading to Sensu Go 5.15.0 from any earlier version
+
+As of Sensu Go 5.15.0, Sensu's free entity limit is 100 entities. All [commercial features][33] are available for free in the packaged Sensu Go distribution up to an entity limit of 100.
+
+When you upgrade to 5.15.0, if your existing unlicensed instance has more than 100 entities, Sensu will continue to monitor those entities. However, if you try to create any new entities via the HTTP API or sensuctl, you will see the following message:
+
+`This functionality requires a valid Sensu Go license with a sufficient entity limit. To get a valid license file, arrange a trial, or increase your entity limit, contact Sales.`
+
+Connections from new agents will fail and result in a log message like this:
+
+{{< highlight shell >}}
+{"component":"agent","error":"handshake failed with status 402","level":"error","msg":"reconnection attempt failed","time":"2019-11-20T05:49:24-07:00"}
+{{< /highlight >}}
+
+In the web UI, you will see the following message when you reach the 100-entity limit:
+
+![Sensu web UI warning when the entity limit is reached][30]
+
+If your Sensu instance includes more than 100 entities, [contact Sales][31] to learn how to upgrade your installation and increase your limit. See [our blog announcement][32] for more information about our usage policy.
+
 ## Upgrading Sensu clusters from 5.7.0 or earlier to 5.8.0 or later
 
 _NOTE: This applies only to Sensu clusters with multiple backend nodes._
 
 Due to updates to etcd serialization, Sensu clusters with multiple backend nodes must be shut down while upgrading from Sensu Go 5.7.0 or earlier to 5.8.0 or later.
-See the [backend reference][27] for more information about stopping and starting backends.
+See the [backend reference][29] for more information about stopping and starting backends.
 
 ## Upgrading Sensu backend binaries to 5.1.0
 
@@ -172,4 +193,8 @@ See the metadata attributes section in the reference documentation for more info
 [26]: https://blog.sensu.io/self-service-monitoring-checks-in-sensu-go
 [27]: ../../getting-started/enterprise
 [28]: https://bonsai.sensu.io/assets/sensu/sensu-aggregate-check
-[27]: ../../reference/backend#operation
+[29]: ../../reference/backend#operation
+[30]: /images/web-ui-entity-warning.png
+[31]: https://sensu.io/contact
+[32]: https://blog.sensu.io/one-year-of-sensu-go
+[33]: /sensu-go/5.15/getting-started/enterprise
