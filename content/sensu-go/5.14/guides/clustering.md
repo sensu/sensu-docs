@@ -212,7 +212,7 @@ sensuctl cluster member-remove 2f7ae42c315f8c2d
 Removed member 2f7ae42c315f8c2d from cluster
 {{< /highlight >}}
 
-Third, add the faulty cluster member back to the cluster. Make sure to change the `etcd-initial-cluster-state` to `existing` in the configuration.
+Third, add a newly created member to the cluster. You can use the same name and IP address as the faulty member you deleted, with one change to the configuration: specify the `etcd-initial-cluster-state` as `existing`.
 
 {{< highlight yml >}}
 etcd-advertise-client-urls: "http://10.0.0.4:2379"
