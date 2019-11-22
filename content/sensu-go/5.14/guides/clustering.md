@@ -128,7 +128,7 @@ You should now have a highly available Sensu cluster! You can verify its health 
 
 ## Sensuctl
 
-[Sensuctl][14] has several commands to help you manage and monitor your cluster. See `sensuctl cluster -h` for additional help usage.
+[Sensuctl][17] has several commands to help you manage and monitor your cluster. See `sensuctl cluster -h` for additional help usage.
 
 ### Cluster health
 
@@ -307,3 +307,4 @@ See [the etcd recovery guide][9] for more information.
 [14]: ../../installation/install-sensu/
 [15]: ../../reference/backend
 [16]: ../securing-sensu/
+[17]: ../../sensuctl/reference/
