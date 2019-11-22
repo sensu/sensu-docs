@@ -238,7 +238,7 @@ example      | {{< highlight shell >}}"timeout": 30{{< /highlight >}}
 
 |ttl         |      |
 -------------|------
-description  | The time to live (TTL) in seconds until check results are considered stale. If an agent stops publishing results for the check, and the TTL expires, an event will be created for the agent's entity. The check `ttl` must be greater than the check `interval`, and should accommodate time for the check execution and result processing to complete. For example, if a check has an `interval` of `60` (seconds) and a `timeout` of `30` (seconds), an appropriate `ttl` would be a minimum of `90` (seconds). _**NOTE**: Adding TTLs to checks adds overhead, so use the `ttl` attribute sparingly._
+description  | The time to live (TTL) in seconds until check results are considered stale. If an agent stops publishing results for the check, and the TTL expires, an event will be created for the agent's entity.<br><br>The check `ttl` must be greater than the check `interval` and should allow enough time for the check execution and result processing to complete. For example, for a check that has an `interval` of `60` (seconds) and a `timeout` of `30` (seconds), the appropriate `ttl` is at least `90` (seconds). _**NOTE**: Adding TTLs to checks adds overhead, so use the `ttl` attribute sparingly._
 required     | false
 type         | Integer
 example      | {{< highlight shell >}}"ttl": 100{{< /highlight >}}
@@ -342,6 +342,8 @@ description  | An array of Sensu handlers to use for events created by the check
 required     | false
 type         | Array
 example      | {{< highlight shell >}}"output_metric_handlers": ["influx-db"]{{< /highlight >}}
+
+<a name="round-robin-attribute"></a>
 
 |round_robin |      |
 -------------|------
