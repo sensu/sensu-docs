@@ -204,7 +204,7 @@ c8f63ae435a5e6bf   backend-3                                                    
 
 {{< /highlight >}}
 
-Second, delete the faulty cluster member. To continue this example, you will delete cluster member `backend-4`:
+Second, delete the faulty cluster member. To continue this example, you will delete cluster member `backend-4` using its ID field:
 
 {{< highlight shell >}}
 sensuctl cluster member-remove 2f7ae42c315f8c2d
