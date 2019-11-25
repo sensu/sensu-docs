@@ -1,8 +1,8 @@
 ---
-title: "Multi-cluster visibility with federation"
-linkTitle: "Reaching multi-cluster visibility"
+title: "Multicluster visibility with federation"
+linkTitle: "Reaching Multicluster Visibility"
 description: "In this guide, you'll learn how to register external clusters using the federation API and access resources across multiple clusters."
-weight: 36
+weight: 400
 version: "5.15"
 product: "Sensu Go"
 platformContent: False
@@ -11,13 +11,13 @@ menu:
     parent: guides
 ---
 
-- [When to use federation](#when-to-use-federation)
-- [Step 1: Register clusters](#step-1-register-clusters)
+- [What you can do with federation](#what-you-can-do-with-federation)
+- [Step 1 Register clusters](#step-1-register-clusters)
   - [Register a single cluster](#register-a-single-cluster)
   - [Register additional clusters](#register-additional-clusters)
-- [Step 2: Set up communication between clusters](#step-2-set-up-communication-between-clusters)
-- [Step 3: Create etcd replicators](#step-3-create-etcd-replicators)
-- [Step 4: Get a unified view of all your clusters in the web UI](#step-4-get-a-unified-view-of-all-your-clusters-in-the-web-ui)
+- [Step 2 Set up communication between clusters](#step-2-set-up-communication-between-clusters)
+- [Step 3 Create etcd replicators](#step-3-create-etcd-replicators)
+- [Step 4 Get a unified view of all your clusters in the web UI](#step-4-get-a-unified-view-of-all-your-clusters-in-the-web-ui)
 
 **COMMERCIAL FEATURE**: Access federation in the packaged Sensu Go distribution. For more information, see the [getting started guide][8].
 
@@ -27,7 +27,7 @@ Federation is not enabled by default. You must create a cluster resource for the
 
 Create, update, and delete clusters using sensuctl [create][5], [edit][6], and [delete][7] commands. Only cluster administrators can register a new cluster, but every user can [query the list of clusters][11].
 
-## When to use federation
+## What you can do with federation
 
 Federation allows you to:
 
@@ -37,7 +37,7 @@ Federation allows you to:
 
 **NEEDED**: Do we need to add more information about when federation is useful? What else does it help users do?
 
-## Step 1: Register clusters
+## Step 1 Register clusters
 
 Each registered cluster must have a name and a list of cluster member URLs that correspond to the backend REST API.
 
@@ -115,7 +115,7 @@ spec:
 
 {{< /language-toggle >}}
 
-## Step 2: Set up communication between clusters
+## Step 2 Set up communication between clusters
 
 Federation uses JSON web tokens (JWTs) to allow a Sensu agent to communicate with different clusters with the same access token. For this reason, you must enable asymmetric JWTs to use federation.
 
@@ -125,13 +125,13 @@ Learn more about the [`jwt-private-key-file` and `jwt-public-key-file` attribute
 
 **NEEDED**: More explanation about how to use the `jwt-private-key-file` and `jwt-public-key-file` attributes?
 
-## Step 3: Create etcd replicators
+## Step 3 Create etcd replicators
 
 After you set up clusters, you can use etcd replicators to manage [RBAC resources][10] in one place and mirror the changes to follower clusters. This allows you to centrally define permissions that apply to all federated clusters (and therefore are automatically replcated across all clusters).
 
 Etcd replicators use the [etcd make-mirror utility][12] for one-way key replication. Our [etcd-replicators reference][2] includes [examples][9] for `Role`, `RoleBinding`, `ClusterRole`, and `ClusterRoleBinding` resources.
 
-## Step 4: Get a unified view of all your clusters in the web UI
+## Step 4 Get a unified view of all your clusters in the web UI
 
 After you create clusters using the federation API, you can log in to the Sensu web UI to view them. In the web UI, you can see the status of every federated cluster, as well as metrics like the number of events and entities for each. 
 
