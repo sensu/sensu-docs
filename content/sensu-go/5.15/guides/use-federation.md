@@ -69,11 +69,11 @@ spec:
     "name": "us-west-2a"
   },
   "spec": {
-    "api-urls": {
+    "api-urls": [
       "http://10.0.0.1:8080",
       "http://10.0.0.2:8080",
       "http://10.0.0.3:8080"
-    }
+    ]
   }
 }
 {{< /highlight >}}
@@ -106,11 +106,11 @@ spec:
     "name": "us-west-2b"
   },
   "spec": {
-    "api-urls": {
+    "api-urls": [
       "http://10.0.0.4:8080",
       "http://10.0.0.5:8080",
       "http://10.0.0.6:8080"
-    }
+    ]
   }
 }
 {{< /highlight >}}
