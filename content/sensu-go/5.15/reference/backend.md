@@ -437,6 +437,7 @@ sensu-backend start --insecure-skip-tls-verify
 # /etc/sensu/backend.yml example
 insecure-skip-tls-verify: true{{< /highlight >}}
 
+<a name="jwt-attributes"></a>
 
 | jwt-private-key-file |      |
 -------------|------
