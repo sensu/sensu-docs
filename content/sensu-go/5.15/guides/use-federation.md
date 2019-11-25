@@ -11,7 +11,6 @@ menu:
     parent: guides
 ---
 
-
 - [When to use federation](#when-to-use-federation)
 - [Step 1: Register clusters](#step-1-register-clusters)
   - [Register a single cluster](#register-a-single-cluster)
