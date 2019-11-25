@@ -80,7 +80,7 @@ spec:
   cert: /path/to/ssl/cert.pem
   key: /path/to/ssl/key.pem
   insecure: false
-  url: http://127.0.0.1:3379
+  url: http://127.0.0.1:2379
   api_version: core/v2
   resource: Role
   replication_interval_seconds: 30
@@ -130,7 +130,7 @@ url          |      |
 description  | Destination cluster URL. If specifying more than one, use a comma to separate.
 required     | true
 type         | String
-example      | {{< highlight shell >}}url: http://127.0.0.1:3379 {{< /highlight >}}
+example      | {{< highlight shell >}}url: http://127.0.0.1:2379 {{< /highlight >}}
 
 api_version  |      |
 -------------|-------
@@ -182,7 +182,7 @@ spec:
   cert: /path/to/ssl/cert.pem
   key: /path/to/ssl/key.pem
   insecure: false
-  url: http://127.0.0.1:3379
+  url: http://127.0.0.1:2379
   api_version: core/v2
   resource: Role
   replication_interval_seconds: 30
@@ -200,7 +200,7 @@ spec:
     "cert": "/path/to/ssl/cert.pem",
     "key": "/path/to/ssl/key.pem",
     "insecure": false,
-    "url": "http://127.0.0.1:3379",
+    "url": "http://127.0.0.1:2379",
     "api_version": "core/v2",
     "resource": "Role",
     "replication_interval_seconds": 30
@@ -224,7 +224,7 @@ spec:
   cert: /path/to/ssl/cert.pem
   key: /path/to/ssl/key.pem
   insecure: false
-  url: http://127.0.0.1:3379
+  url: http://127.0.0.1:2379
   api_version: core/v2
   resource: RoleBinding
   replication_interval_seconds: 30
@@ -242,7 +242,7 @@ spec:
     "cert": "/path/to/ssl/cert.pem",
     "key": "/path/to/ssl/key.pem",
     "insecure": false,
-    "url": "http://127.0.0.1:3379",
+    "url": "http://127.0.0.1:2379",
     "api_version": "core/v2",
     "resource": "RoleBinding",
     "replication_interval_seconds": 30
@@ -266,7 +266,7 @@ spec:
   cert: /path/to/ssl/cert.pem
   key: /path/to/ssl/key.pem
   insecure: false
-  url: http://127.0.0.1:3379
+  url: http://127.0.0.1:2379
   api_version: core/v2
   resource: ClusterRole
   replication_interval_seconds: 30
@@ -284,7 +284,7 @@ spec:
     "cert": "/path/to/ssl/cert.pem",
     "key": "/path/to/ssl/key.pem",
     "insecure": false,
-    "url": "http://127.0.0.1:3379",
+    "url": "http://127.0.0.1:2379",
     "api_version": "core/v2",
     "resource": "ClusterRole",
     "replication_interval_seconds": 30
@@ -308,7 +308,7 @@ spec:
   cert: /path/to/ssl/cert.pem
   key: /path/to/ssl/key.pem
   insecure: false
-  url: http://127.0.0.1:3379
+  url: http://127.0.0.1:2379
   api_version: core/v2
   resource: Role
   replication_interval_seconds: 30
@@ -326,7 +326,7 @@ spec:
     "cert": "/path/to/ssl/cert.pem",
     "key": "/path/to/ssl/key.pem",
     "insecure": false,
-    "url": "http://127.0.0.1:3379",
+    "url": "http://127.0.0.1:2379",
     "api_version": "core/v2",
     "resource": "ClusterRoleBinding",
     "replication_interval_seconds": 30
