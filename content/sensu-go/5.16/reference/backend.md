@@ -842,7 +842,7 @@ eventd-workers: 100{{< /highlight >}}
 
 | keepalived-buffer-size |      |
 -----------------------|------
-description            | Number of incoming keepalives that can be buffered before beinghttps://etcd.io/docs/v3.3.12/op-guide/clustering/#dns-discovery processed by a keepalived worker. _WARNING: Modify with caution. Increasing this value may result in higher memory usage._
+description            | Number of incoming keepalives that can be buffered before being processed by a keepalived worker. _WARNING: Modify with caution. Increasing this value may result in higher memory usage._
 type                   | Integer
 default                | `100`
 example                | {{< highlight shell >}}# Command line example
