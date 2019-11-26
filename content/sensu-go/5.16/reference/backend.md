@@ -14,6 +14,7 @@ menu:
 - [Installation][1]
 - [Creating event pipelines](#event-pipeline)
 - [Check scheduling](#check-scheduling)
+- [Initialization](#initialization)
 - [Operation and service management](#operation)
   - [Starting and stopping the service](#starting-the-service)
   - [Clustering](#clustering)
@@ -56,6 +57,33 @@ For information about creating and managing checks, see:
 - [Guide to monitoring server resources with checks][3]
 - [Guide to collecting metrics with checks][4]
 - [Checks reference documentation][5]
+
+## Initialization
+
+Before you start the Sensu backend on a **new** installation, you must set up an administrator username and password. Replace `YOUR_USERNAME` and `YOUR_PASSWORD` with the username and password you want to use:
+
+{{< highlight shell >}}
+sensu-backend init --admin-username YOUR_USERNAME --admin-password YOUR_PASSWORD
+{{< /highlight >}}
+
+You can also run the `sensu-backend init` command in interactive mode if you prefer to respond to prompts for your username and password:
+
+{{< highlight shell >}}
+sensu-backend init --interactive
+
+Admin Username: YOUR_USERNAME
+Admin Password: YOUR_PASSWORD
+{{< /highlight >}}
+
+This initialization step bootstraps the first admin user account for your Sensu installation. This account will be granted the cluster admin role.
+
+_**NOTE**: If you are already using Sensu, you do not need to initialize. Your installation has already seeded the admin username and password you have set up._
+
+To see available initialization flags:
+
+{{< highlight shell >}}
+sensu-backend init --help
+{{< /highlight >}}
 
 ## Operation and service management {#operation}
 
