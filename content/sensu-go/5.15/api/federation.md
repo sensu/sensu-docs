@@ -43,7 +43,7 @@ curl http://127.0.0.1:8080/api/enterprise/federation/v1/etcd-replicators -H "Aut
 [
   {
     "api_version": "federation/v1",
-    "type": "replicator",
+    "type": "EtcdReplicator",
     "metadata": {
       "name": "my_replicator"
     },
@@ -54,8 +54,8 @@ curl http://127.0.0.1:8080/api/enterprise/federation/v1/etcd-replicators -H "Aut
       "insecure": false,
       "url": "http://remote-etcd.example.com:2379",
       "api_version": "core/v2",
-      "resource": "CheckConfig",
-      "replication_interval_seconds": 5
+      "resource": "Role",
+      "replication_interval_seconds": 30
     }
   }
 ]
@@ -73,7 +73,7 @@ output         | {{< highlight shell >}}
 [
   {
     "api_version": "federation/v1",
-    "type": "replicator",
+    "type": "EtcdReplicator",
     "metadata": {
       "name": "my_replicator"
     },
@@ -84,8 +84,8 @@ output         | {{< highlight shell >}}
       "insecure": false,
       "url": "http://remote-etcd.example.com:2379",
       "api_version": "core/v2",
-      "resource": "CheckConfig",
-      "replication_interval_seconds": 5
+      "resource": "Role",
+      "replication_interval_seconds": 30
     }
   }
 ]
@@ -102,7 +102,7 @@ example URL     | http://hostname:8080/api/enterprise/federation/v1/etcd-replica
 payload         | {{< highlight shell >}}
 {
   "api_version": "federation/v1",
-  "type": "replicator",
+  "type": "EtcdReplicator",
   "metadata": {
     "name": "my_replicator"
   },
@@ -113,8 +113,8 @@ payload         | {{< highlight shell >}}
     "insecure": false,
     "url": "http://remote-etcd.example.com:2379",
     "api_version": "core/v2",
-    "resource": "CheckConfig",
-    "replication_interval_seconds": 5
+    "resource": "Role",
+    "replication_interval_seconds": 30
   }
 }
 {{< /highlight >}}
@@ -136,7 +136,7 @@ _**NOTE**: If you did not specify a [namespace][2] when you created the replicat
 curl http://127.0.0.1:8080/api/enterprise/federation/v1/etcd-replicators/my_replicator -H "Authorization: Bearer $SENSU_TOKEN"
 {
   "api_version": "federation/v1",
-  "type": "replicator",
+  "type": "EtcdReplicator",
   "metadata": {
     "name": "my_replicator"
   },
@@ -147,8 +147,8 @@ curl http://127.0.0.1:8080/api/enterprise/federation/v1/etcd-replicators/my_repl
     "insecure": false,
     "url": "http://remote-etcd.example.com:2379",
     "api_version": "core/v2",
-    "resource": "CheckConfig",
-    "replication_interval_seconds": 5
+    "resource": "Role",
+    "replication_interval_seconds": 30
   }
 }
 {{< /highlight >}}
@@ -164,7 +164,7 @@ response codes       | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (
 output               | {{< highlight json >}}
 {
   "api_version": "federation/v1",
-  "type": "replicator",
+  "type": "EtcdReplicator",
   "metadata": {
     "name": "my_replicator"
   },
@@ -175,8 +175,8 @@ output               | {{< highlight json >}}
     "insecure": false,
     "url": "http://remote-etcd.example.com:2379",
     "api_version": "core/v2",
-    "resource": "CheckConfig",
-    "replication_interval_seconds": 5
+    "resource": "Role",
+    "replication_interval_seconds": 30
   }
 }
 {{< /highlight >}}
@@ -193,7 +193,7 @@ curl -X PUT \
 -H 'Content-Type: application/json' \
 -d '{
   "api_version": "federation/v1",
-  "type": "replicator",
+  "type": "EtcdReplicator",
   "metadata": {
     "name": "my_replicator"
   },
@@ -204,8 +204,8 @@ curl -X PUT \
     "insecure": false,
     "url": "http://remote-etcd.example.com:2379",
     "api_version": "core/v2",
-    "resource": "CheckConfig",
-    "replication_interval_seconds": 5
+    "resource": "Role",
+    "replication_interval_seconds": 30
   }
 }' \
 http://hostname:8080/api/enterprise/federation/v1/etcd-replicators/my-replicator
@@ -222,7 +222,7 @@ example URL     | http://hostname:8080/api/enterprise/federation/v1/etcd-replica
 payload         | {{< highlight shell >}}
 {
   "api_version": "federation/v1",
-  "type": "replicator",
+  "type": "EtcdReplicator",
   "metadata": {
     "name": "my_replicator"
   },
@@ -233,8 +233,8 @@ payload         | {{< highlight shell >}}
     "insecure": false,
     "url": "http://remote-etcd.example.com:2379",
     "api_version": "core/v2",
-    "resource": "CheckConfig",
-    "replication_interval_seconds": 5
+    "resource": "Role",
+    "replication_interval_seconds": 30
   }
 }
 {{< /highlight >}}
