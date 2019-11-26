@@ -615,11 +615,11 @@ description             | Exposes [etcd's embedded auto-discovery features][17].
 type                    | String
 default                 | ""
 example                 | {{< highlight shell >}}# Command line example
-sensu-backend start --etcd-discovery https://10.0.0.1:2380
+sensu-backend start --etcd-discovery https://discovery.etcd.io/3e86b59982e49066c5d813af1c2e2579cbf573de
 
 # /etc/sensu/backend.yml example
 etcd-discovery:
-  - https://10.0.0.1:2380
+  - https://discovery.etcd.io/3e86b59982e49066c5d813af1c2e2579cbf573de
 {{< /highlight >}}
 
 
@@ -629,11 +629,11 @@ description             | Exposes [etcd's embedded auto-discovery features][17].
 type                    | String
 default                 | ""
 example                 | {{< highlight shell >}}# Command line example
-sensu-backend start --etcd-discovery-srv https://10.0.0.1:2380
+sensu-backend start --etcd-discovery-srv example.org
 
 # /etc/sensu/backend.yml example
 etcd-discovery-srv:
-  - https://10.0.0.1:2380
+  - example.org
 {{< /highlight >}}
 
 
