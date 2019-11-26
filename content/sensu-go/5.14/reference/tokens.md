@@ -273,7 +273,7 @@ spec:
 
 [1]: https://golang.org/pkg/text/template/
 [2]: ../../../latest/reference/checks/#check-token-substitution
-[3]: ../entities/#entity-attributes
+[3]: ../entities/#entities-specification
 [4]: ../entities/
 [5]: ../checks/
 [6]: ../entities#managing-entity-labels
