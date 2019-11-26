@@ -217,6 +217,10 @@ Store Flags:
       --etcd-cert-file string                      path to the client server TLS cert file
       --etcd-cipher-suites strings                 list of ciphers to use for etcd TLS configuration
       --etcd-client-cert-auth                      enable client cert authentication
+      --etcd-discovery                             use the dynamic cluster configuration method etcd
+discovery instead of the static `--initial-cluster method`
+      --etcd-discovery-srv                         use the dynamic cluster configuration method DNS SRV
+discovery instead of the static `--initial-cluster method`
       --etcd-election-timeout uint                 time in ms a follower node will go without hearing a heartbeat before attempting to become leader itself (default 1000)
       --etcd-heartbeat-interval uint               interval in ms with which the etcd leader will notify followers that it is still the leader (default 100)
       --etcd-initial-advertise-peer-urls strings   list of this member's peer URLs to advertise to the rest of the cluster (default [http://127.0.0.1:2380])
@@ -605,6 +609,34 @@ sensu-backend start --etcd-client-cert-auth
 etcd-client-cert-auth: true{{< /highlight >}}
 
 
+| etcd-discovery        |      |
+------------------------|------
+description             | Exposes [etcd's embedded auto-discovery features][17]. Attempts to use [etcd discovery][18] to get the cluster configuration.
+type                    | String
+default                 | ""
+example                 | {{< highlight shell >}}# Command line example
+sensu-backend start --etcd-discovery https://10.0.0.1:2380
+
+# /etc/sensu/backend.yml example
+etcd-discovery:
+  - https://10.0.0.1:2380
+{{< /highlight >}}
+
+
+| etcd-discovery-srv    |      |
+------------------------|------
+description             | Exposes [etcd's embedded auto-discovery features][17]. Attempts to use a [DNS SRV][19] record to get the cluster configuration.
+type                    | String
+default                 | ""
+example                 | {{< highlight shell >}}# Command line example
+sensu-backend start --etcd-discovery-srv https://10.0.0.1:2380
+
+# /etc/sensu/backend.yml example
+etcd-discovery-srv:
+  - https://10.0.0.1:2380
+{{< /highlight >}}
+
+
 | etcd-initial-advertise-peer-urls |      |
 -----------------------------------|------
 description                        | List of this member's peer URLs to advertise to the rest of the cluster.
@@ -810,7 +842,7 @@ eventd-workers: 100{{< /highlight >}}
 
 | keepalived-buffer-size |      |
 -----------------------|------
-description            | Number of incoming keepalives that can be buffered before being processed by a keepalived worker. _WARNING: Modify with caution. Increasing this value may result in higher memory usage._
+description            | Number of incoming keepalives that can be buffered before beinghttps://etcd.io/docs/v3.3.12/op-guide/clustering/#dns-discovery processed by a keepalived worker. _WARNING: Modify with caution. Increasing this value may result in higher memory usage._
 type                   | Integer
 default                | `100`
 example                | {{< highlight shell >}}# Command line example
@@ -1019,3 +1051,6 @@ Event logging supports log rotation via the _SIGHUP_ signal. The current log fil
 [14]: ../../getting-started/enterprise
 [15]: #general-configuration-flags
 [16]: https://github.com/etcd-io/etcd/blob/master/Documentation/tuning.md#time-parameters
+[17]: https://etcd.io/docs/v3.3.12/op-guide/clustering/#discovery
+[18]: https://etcd.io/docs/v3.3.12/op-guide/clustering/#etcd-discovery
+[19]: https://etcd.io/docs/v3.3.12/op-guide/clustering/#dns-discovery
