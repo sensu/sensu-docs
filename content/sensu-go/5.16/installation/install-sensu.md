@@ -79,12 +79,14 @@ sudo yum install sensu-go-backend
 
 ##### 2. Initialize
 
-Run `sensu-backend init` to set up your Sensu administrator username and password. In this initialization step, you only need to provide a username and password string &mdash; no need for role-based access control (RBAC) or etcd.
+Run `sensu-backend init` to set up your Sensu administrator username and password. In this initialization step, you only need to set environment variables with a username and password string &mdash; no need for role-based access control (RBAC).
 
 Replace `YOUR_USERNAME` and `YOUR_PASSWORD` with the username and password you want to use:
 
 {{< highlight shell >}}
-sensu-backend init --admin-username YOUR_USERNAME --admin-password YOUR_PASSWORD
+export SENSU_BACKEND_CLUSTER_ADMIN_USERNAME=YOUR_USERNAME
+export SENSU_BACKEND_CLUSTER_ADMIN_PASSWORD=YOUR_PASSWORD
+sensu-backend init
 {{< /highlight >}}
 
 For details about `sensu-backend init`, see the [backend reference][30].
