@@ -19,7 +19,7 @@ You can use tokens to fine-tune check attributes (like alert thresholds) on a pe
 
 When a check is scheduled to be executed by an agent, it first goes through a token substitution step. The agent replaces any tokens with matching attributes from the entity definition, and then the check is executed. Invalid templates or unmatched tokens will return an error, which is logged and sent to the Sensu backend message transport. Checks with token matching errors will not be executed.
 
-Token substitution is supported for check definition [`command`][7] attributes and [hook][8] `command` attributes.
+Token substitution is supported for [check definition][7] `command` attributes and [hook][8] `command` attributes.
 Only [entity attributes][4] are available for substitution.
 Available attributes will always have [string values](#token-data-type-limitations), such as labels and annotations.
 
@@ -80,60 +80,98 @@ arguments to indicate the thresholds (as percentages) for creating warning or cr
 
 {{< highlight yml >}}
 type: CheckConfig
-api_version: core/v1
+api_version: core/v2
 metadata:
-  annotations: null
-  labels: null
   name: check-disk-usage
   namespace: default
 spec:
-  check_hooks: null
-  command: check-disk-usage.rb -w {{index .labels "disk_warning" | default 80}} -c {{.labels.disk_critical
-    | default 90}}
+  check_hooks:
+  - non-zero:
+    - disk_usage_details
+  command: check-disk-usage.rb -w {{index .labels "disk_warning" | default 80}} -c
+    {{.labels.disk_critical | default 90}}
   env_vars: null
   handlers: []
   high_flap_threshold: 0
   interval: 10
   low_flap_threshold: 0
+  output_metric_format: ""
+  output_metric_handlers: null
   proxy_entity_name: ""
   publish: true
+  round_robin: false
   runtime_assets: null
   stdin: false
+  subdue: null
   subscriptions:
   - staging
   timeout: 0
   ttl: 0
+---
+type: HookConfig
+api_version: core/v2
+metadata:
+  name: disk_usage_details
+  namespace: default
+spec:
+  command: du -h --max-depth=1 -c {{index .labels "disk_usage_root" | default "/"}}  2>/dev/null
+  runtime_assets: null
+  stdin: false
+  timeout: 60
 {{< /highlight >}}
 
 {{< highlight json >}}
 {
-  "type": "CheckConfig",
-  "api_version": "core/v1",
+  "type": "HookConfig",
+  "api_version": "core/v2",
   "metadata": {
-    "name": "check-disk-usage",
-    "namespace": "default",
-    "labels": null,
-    "annotations": null
+    "name": "disk_usage_details",
+    "namespace": "default"
   },
   "spec": {
-    "command": "check-disk-usage.rb -w {{.labels.disk_warning | default 80}} -c {{.labels.disk_critical | default 90}}",
+    "command": "du -h --max-depth=1 -c {{index .labels \"disk_usage_root\" | default \"/\"}}  2>/dev/null",
+    "runtime_assets": null,
+    "stdin": false,
+    "timeout": 60
+  }
+}
+{
+  "type": "CheckConfig",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "check-disk-usage",
+    "namespace": "default"
+  },
+  "spec": {
+    "check_hooks": [
+      {
+        "non-zero": [
+          "disk_usage_details"
+        ]
+      }
+    ],
+    "command": "check-disk-usage.rb -w {{index .labels \"disk_warning\" | default 80}} -c {{.labels.disk_critical | default 90}}",
+    "env_vars": null,
     "handlers": [],
     "high_flap_threshold": 0,
     "interval": 10,
     "low_flap_threshold": 0,
-    "publish": true,
-    "runtime_assets": null,
-    "subscriptions": [
-    "staging"
-    ],
+    "output_metric_format": "",
+    "output_metric_handlers": null,
     "proxy_entity_name": "",
-    "check_hooks": null,
+    "publish": true,
+    "round_robin": false,
+    "runtime_assets": null,
     "stdin": false,
-    "ttl": 0,
+    "subdue": null,
+    "subscriptions": [
+      "staging"
+    ],
     "timeout": 0,
-    "env_vars": null
+    "ttl": 0
   }
-}{{< /highlight >}}
+}
+{{< /highlight >}}
 
 {{< /language-toggle >}}
 
