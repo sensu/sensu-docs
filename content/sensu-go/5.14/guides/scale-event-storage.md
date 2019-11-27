@@ -11,13 +11,15 @@ menu:
     parent: guides
 ---
 
-Sensu Go's licensed-tier datastore feature enables scaling your monitoring to many thousands of events per second.
-
 - [Why use the Enterprise datastore?](#why-use-the-enterprise-datastore)
 - [Prerequisites](#prerequisites)
 - [Configure Postgres](#configure-postgres)
 - [Configure Sensu](#configure-sensu)
 - [Revert to built-in datastore](#revert-to-built-in-datastore)
+
+**COMMERCIAL FEATURE**: Access the datastore feature in the packaged Sensu Go distribution. For more information, see the [getting started guide][6].
+
+Sensu Go's datastore feature enables scaling your monitoring to many thousands of events per second.
 
 ## Why use the Enterprise datastore?
 
@@ -169,3 +171,4 @@ _**NOTE**: If your Sensu Go license expires, event storage will automatically re
 [3]: ../../getting-started/enterprise
 [4]: ../../guides/troubleshooting/#log-file-locations
 [5]: https://www.postgresql.org/docs/9.5/auth-methods.html#AUTH-PASSWORD
+[6]: ../../getting-started/enterprise
