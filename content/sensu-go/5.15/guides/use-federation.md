@@ -1,7 +1,7 @@
 ---
-title: "Multicluster visibility with federation"
-linkTitle: "Reaching Multicluster Visibility"
-description: "In this guide, you'll learn how to register external clusters using the federation API and access resources across multiple clusters."
+title: "Multi-cluster visibility with federation"
+linkTitle: "Reaching Multi-cluster Visibility"
+description: "In this guide, you'll learn how to register external clusters using the federation API and access resources across multiple clusters in the web UI."
 weight: 400
 version: "5.15"
 product: "Sensu Go"
@@ -29,17 +29,44 @@ Create, update, and delete clusters using sensuctl [create][5], [edit][6], and [
 
 ## What you can do with federation
 
-Federation allows you to:
+Federation affords visibility into the health of your infrastructure and services across multiple distinct Sensu instances within a single web UI. This is useful when you want to provide a single entry point for Sensu users who need to manage monitoring across multiple distinct physical data centers, cloud regions or providers.
 
-- Get a unified view of the health of your infrastructure and services within a single web UI. You can then get details for any resource in any of your clusters.
-- Create a configuration resource that automatically replicates to all or a subset of your clusters. This decreases overhead when you need to manage multiple clusters across many regions.
-- Schedule a check to run in a round-robin fashion across multiple clusters, providing high-availability, scalable monitoring.
+## JSON Web Tokens
 
-**NEEDED**: Do we need to add more information about when federation is useful? What else does it help users do?
+Federation uses JSON web tokens (JWTs) to authenticate Sensu users across different clusters using a single access token. JWTs are provided to users during authentication. Sensu uses asymmetric (public/private) keys to encrypt proof of the user's identity into the JWT payload. Therefore, federated clusters must share the same public and private JWT keys.
 
-## Step 1 Register clusters
+## Step 1 Configure clusters with shared JWT keys
 
-Each registered cluster must have a name and a list of cluster member URLs that correspond to the backend REST API.
+JWTs support asymmetric encryption using RSA or Elliptic Curve keys. Use the `openssl` command line tool to generate a P-256 Elliptic Curve key:
+
+```shell
+openssl ecparam -genkey -name prime256v1 -noout -out ec_private.pem
+```
+
+and then generate a public key from the private key:
+
+```shell
+openssl ec -in ec_private.pem -pubout -out ec_public.pem
+```
+
+After generating these keys, copy them to your Sensu clusters. For this guide, we'll put JWT keys into `/etc/sensu/certs` and use the [`jwt-private-key-file` and `jwt-public-key-file` attributes][4] in `/etc/sensu/backend.yml` to specify the paths to these JWT keys:
+
+{{< highlight yml >}}
+jwt-private-key-file: /etc/sensu/certs/ec_private.pem
+jwt-public-key-file: /etc/sensu/certs/ec_public.pem
+{{< /highlight >}}
+
+After updating the backend configuration, restart `sensu-backend` for those settings to take effect.
+
+## Step 2 Create etcd replicators
+
+You can use etcd Replicators to synchronize [RBAC policy resources][10] between clusters. This allows you to centrally define permissions that replicate to all federated clusters, ensuring consistent access for Sensu users.
+
+Etcd replicators use the [etcd make-mirror utility][12] for one-way key replication. Our [etcd-replicators reference][2] includes [examples][9] for `Role`, `RoleBinding`, `ClusterRole`, and `ClusterRoleBinding` resources.
+
+## Step 3 Register clusters
+
+Each registered cluster must have a name and a list of cluster member URLs corresponding to the backend REST API.
 
 ### Register a single cluster
 
@@ -116,22 +143,6 @@ spec:
 {{< /highlight >}}
 
 {{< /language-toggle >}}
-
-## Step 2 Set up communication between clusters
-
-Federation uses JSON web tokens (JWTs) to allow a Sensu agent to communicate with different clusters with the same access token. For this reason, you must enable asymmetric JWTs to use federation.
-
-JWTs are the tokens provided to users during authentication. You can use either the `jwt-private-key-file` or `jwt-public-key-file` attribute to specify the key to use to sign the JWTs.
-
-Learn more about the [`jwt-private-key-file` and `jwt-public-key-file` attributes][4].
-
-**NEEDED**: More explanation about how to use the `jwt-private-key-file` and `jwt-public-key-file` attributes?
-
-## Step 3 Create etcd replicators
-
-After you set up clusters, you can use etcd replicators to manage [RBAC resources][10] in one place and mirror the changes to follower clusters. This allows you to centrally define permissions that apply to all federated clusters (and therefore are automatically replcated across all clusters).
-
-Etcd replicators use the [etcd make-mirror utility][12] for one-way key replication. Our [etcd-replicators reference][2] includes [examples][9] for `Role`, `RoleBinding`, `ClusterRole`, and `ClusterRoleBinding` resources.
 
 ## Step 4 Get a unified view of all your clusters in the web UI
 
