@@ -41,7 +41,7 @@ HTTP/1.1 200 OK
 /auth (GET)          |     |
 ---------------------|------
 description          | Generates an access token to the API using basic authentication. Access tokens last for around 15 minutes. When your token expires, you should see a 401 Unauthorized response from the API. To generate a new access token, use the [`/auth/token` API endpoint](#authtoken-post).
-example url          | http://hostname:8080/api/core/v2/auth
+example url          | http://hostname:8080/auth
 output               | {{< highlight json >}}
 {
   "access_token": "eyJhbGciOiJIUzI1NiIs...",
@@ -72,14 +72,14 @@ HTTP/1.1 200 OK
 /auth/test (GET)     |     |
 ---------------------|------
 description          | Tests a given username and password.
-example url          | http://hostname:8080/api/core/v2/auth/test
+example url          | http://hostname:8080/auth/test
 response codes       | <ul><li>**Valid credentials**: 200 (OK)</li><li> **Invalid credentials**: 401 (Unauthorized)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 ## The `/auth/token` API endpoint {#the-authtoken-api-endpoint}
 
 ### `/auth/token` (POST) {#authtoken-post}
 
-The `/auth/test` API endpoint provides HTTP POST access to renew an access token.
+The `/auth/token` API endpoint provides HTTP POST access to renew an access token.
 
 #### EXAMPLE {#authtoken-post-example}
 
@@ -104,7 +104,7 @@ HTTP/1.1 200 OK
 /auth/token (POST)   |     |
 ---------------------|------
 description          | Generates a new access token using a refresh token and an expired access token
-example url          | http://hostname:8080/api/core/v2/auth
+example url          | http://hostname:8080/auth/token
 example payload | {{< highlight shell >}}
 {
   "refresh_token": "eyJhbGciOiJIUzI1NiIs..."
