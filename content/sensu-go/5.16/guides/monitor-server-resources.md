@@ -1,6 +1,6 @@
 ---
-title: "How to monitor server resources with checks"
-linkTitle: "Monitoring Server Resources"
+title: "Monitor server resources with checks"
+linkTitle: "Monitor Server Resources"
 description: "Here’s how to monitor server resources with checks. You’ll learn about Sensu checks, why you should use checks, and how to use them to monitor a service. Read the guide to learn more."
 weight: 10
 version: "5.16"
