@@ -36,21 +36,26 @@ The `/etcd-replicators` endpoint provides HTTP GET access to a list of replicato
 
 The following example demonstrates a request to the `/etcd-replicators` endpoint, resulting in a list of replicators.
 
+_**NOTE**: If you did not specify a [namespace][2] when you created a replicator, the response will not include a `namespace` key-value pair._
+
 {{< highlight shell >}}
 curl http://127.0.0.1:8080/api/enterprise/federation/v1/etcd-replicators -H "Authorization: Bearer $SENSU_TOKEN"
 [
   {
     "api_version": "federation/v1",
-    "type": "replicator",
+    "type": "EtcdReplicator",
     "metadata": {
       "name": "my_replicator"
     },
     "spec": {
-      "insecure": true,
+      "ca_cert": "/path/to/ssl/trusted-certificate-authorities.pem",
+      "cert": "/path/to/ssl/cert.pem",
+      "key": "/path/to/ssl/key.pem",
+      "insecure": false,
       "url": "http://remote-etcd.example.com:2379",
       "api_version": "core/v2",
-      "resource": "CheckConfig",
-      "replication_interval_seconds": 5
+      "resource": "Role",
+      "replication_interval_seconds": 30
     }
   }
 ]
@@ -68,22 +73,27 @@ output         | {{< highlight shell >}}
 [
   {
     "api_version": "federation/v1",
-    "type": "replicator",
+    "type": "EtcdReplicator",
     "metadata": {
       "name": "my_replicator"
     },
     "spec": {
-      "insecure": true,
+      "ca_cert": "/path/to/ssl/trusted-certificate-authorities.pem",
+      "cert": "/path/to/ssl/cert.pem",
+      "key": "/path/to/ssl/key.pem",
+      "insecure": false,
       "url": "http://remote-etcd.example.com:2379",
       "api_version": "core/v2",
-      "resource": "CheckConfig",
-      "replication_interval_seconds": 5
+      "resource": "Role",
+      "replication_interval_seconds": 30
     }
   }
 ]
 {{< /highlight >}}
 
 ### `/etcd-replicators` (POST)
+
+_**NOTE**: If you do not specify a [namespace][2] when you create a replicator, all namespaces for the given resource are replicated._
 
 /etcd-replicators (POST) | 
 ----------------|------
@@ -92,16 +102,19 @@ example URL     | http://hostname:8080/api/enterprise/federation/v1/etcd-replica
 payload         | {{< highlight shell >}}
 {
   "api_version": "federation/v1",
-  "type": "replicator",
+  "type": "EtcdReplicator",
   "metadata": {
     "name": "my_replicator"
   },
   "spec": {
-    "insecure": true,
+    "ca_cert": "/path/to/ssl/trusted-certificate-authorities.pem",
+    "cert": "/path/to/ssl/cert.pem",
+    "key": "/path/to/ssl/key.pem",
+    "insecure": false,
     "url": "http://remote-etcd.example.com:2379",
     "api_version": "core/v2",
-    "resource": "CheckConfig",
-    "replication_interval_seconds": 5
+    "resource": "Role",
+    "replication_interval_seconds": 30
   }
 }
 {{< /highlight >}}
@@ -115,22 +128,27 @@ The `/etcd-replicators/:etcd-replicator` endpoint provides HTTP GET access to da
 
 #### EXAMPLE {#etcd-replicatorsetcd-replicator-get-example}
 
-In the following example, querying the `/etcd-replicators/:etcd-replicator` endpoing returns a JSON Map containing the requested `:etcd-replicator`.
+In the following example, querying the `/etcd-replicators/:etcd-replicator` endpoint returns a JSON Map containing the requested `:etcd-replicator`.
+
+_**NOTE**: If you did not specify a [namespace][2] when you created the replicator, the response will not include a `namespace` key-value pair._
 
 {{< highlight shell >}}
 curl http://127.0.0.1:8080/api/enterprise/federation/v1/etcd-replicators/my_replicator -H "Authorization: Bearer $SENSU_TOKEN"
 {
   "api_version": "federation/v1",
-  "type": "replicator",
+  "type": "EtcdReplicator",
   "metadata": {
     "name": "my_replicator"
   },
   "spec": {
-    "insecure": true,
+    "ca_cert": "/path/to/ssl/trusted-certificate-authorities.pem",
+    "cert": "/path/to/ssl/cert.pem",
+    "key": "/path/to/ssl/key.pem",
+    "insecure": false,
     "url": "http://remote-etcd.example.com:2379",
     "api_version": "core/v2",
-    "resource": "CheckConfig",
-    "replication_interval_seconds": 5
+    "resource": "Role",
+    "replication_interval_seconds": 30
   }
 }
 {{< /highlight >}}
@@ -146,16 +164,19 @@ response codes       | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (
 output               | {{< highlight json >}}
 {
   "api_version": "federation/v1",
-  "type": "replicator",
+  "type": "EtcdReplicator",
   "metadata": {
     "name": "my_replicator"
   },
   "spec": {
-    "insecure": true,
+    "ca_cert": "/path/to/ssl/trusted-certificate-authorities.pem",
+    "cert": "/path/to/ssl/cert.pem",
+    "key": "/path/to/ssl/key.pem",
+    "insecure": false,
     "url": "http://remote-etcd.example.com:2379",
     "api_version": "core/v2",
-    "resource": "CheckConfig",
-    "replication_interval_seconds": 5
+    "resource": "Role",
+    "replication_interval_seconds": 30
   }
 }
 {{< /highlight >}}
@@ -172,16 +193,19 @@ curl -X PUT \
 -H 'Content-Type: application/json' \
 -d '{
   "api_version": "federation/v1",
-  "type": "replicator",
+  "type": "EtcdReplicator",
   "metadata": {
     "name": "my_replicator"
   },
   "spec": {
-    "insecure": true,
+    "ca_cert": "/path/to/ssl/trusted-certificate-authorities.pem",
+    "cert": "/path/to/ssl/cert.pem",
+    "key": "/path/to/ssl/key.pem",
+    "insecure": false,
     "url": "http://remote-etcd.example.com:2379",
     "api_version": "core/v2",
-    "resource": "CheckConfig",
-    "replication_interval_seconds": 5
+    "resource": "Role",
+    "replication_interval_seconds": 30
   }
 }' \
 http://hostname:8080/api/enterprise/federation/v1/etcd-replicators/my-replicator
@@ -198,16 +222,19 @@ example URL     | http://hostname:8080/api/enterprise/federation/v1/etcd-replica
 payload         | {{< highlight shell >}}
 {
   "api_version": "federation/v1",
-  "type": "replicator",
+  "type": "EtcdReplicator",
   "metadata": {
     "name": "my_replicator"
   },
   "spec": {
-    "insecure": true,
+    "ca_cert": "/path/to/ssl/trusted-certificate-authorities.pem",
+    "cert": "/path/to/ssl/cert.pem",
+    "key": "/path/to/ssl/key.pem",
+    "insecure": false,
     "url": "http://remote-etcd.example.com:2379",
     "api_version": "core/v2",
-    "resource": "CheckConfig",
-    "replication_interval_seconds": 5
+    "resource": "Role",
+    "replication_interval_seconds": 30
   }
 }
 {{< /highlight >}}
@@ -307,7 +334,7 @@ The `/clusters/:cluster` endpoint provides HTTP GET access to data for a specifi
 
 #### EXAMPLE {#clusterscluster-get-example}
 
-In the following example, querying the `/clusters/:cluster` endpoing returns a JSON Map containing the requested `:etcd-replicator`.
+In the following example, querying the `/clusters/:cluster` endpoint returns a JSON Map containing the requested `:etcd-replicator`.
 
 {{< highlight shell >}}
 curl -H "Authorization: Bearer $SENSU_TOKEN" \
@@ -438,5 +465,6 @@ example url               | http://hostname:8080/api/enterprise/federation/v1/cl
 response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 
-[1]: /../../getting-started/enterprise/
+[1]: ../../getting-started/enterprise/
+[2]: ../../reference/etcdreplicators#namespace-attribute
 

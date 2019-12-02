@@ -12,8 +12,8 @@ menu:
 - [Create a replicator](#create-a-replicator)
 - [Delete a replicator](#delete-a-replicator)
 - [Replicator configuration](#replicator-configuration)
-- [etcd-replicators specification](#etcdreplicators-specification)
-- [Example etcd-replicators resources](#example-etcdreplicators-resources)
+- [etcd-replicators specification](#etcd-replicators-specification)
+- [Example etcd-replicators resources](#example-etcd-replicators-resources)
 
 **COMMERCIAL FEATURE**: Access the etcd-replicators datatype in the packaged Sensu Go distribution. For more information, see the [getting started guide][1].
 
@@ -61,7 +61,7 @@ example      | {{< highlight shell >}}api_version: federation/v1{{< /highlight >
 
 metadata     |      |
 -------------|------
-description  | Top-level scope that contains the replicator `name`.
+description  | Top-level scope that contains the replicator `name`. Namespace is not supported in the metadata because EtcdReplicators are cluster-wide resources.
 required     | true
 type         | Map of key-value pairs
 example      | {{< highlight shell >}}
@@ -76,8 +76,11 @@ required     | true
 type         | Map of key-value pairs
 example      | {{< highlight shell >}}
 spec:
+  ca_cert: /path/to/ssl/trusted-certificate-authorities.pem
+  cert: /path/to/ssl/cert.pem
+  key: /path/to/ssl/key.pem
   insecure: false
-  url: http://127.0.0.1:3379
+  url: http://127.0.0.1:2379
   api_version: core/v2
   resource: Role
   replication_interval_seconds: 30
@@ -94,6 +97,27 @@ example      | {{< highlight shell >}}name: my_replicator{{< /highlight >}}
 
 #### Spec attributes
 
+ca_cert      |      |
+-------------|------
+description  | Path to an the PEM-format CA certificate to use for TLS client authentication.
+required     | true if `insecure: false` (which is the default configuration). If `insecure: true`, `ca_cert` is not required.
+type         | String
+example      | {{< highlight shell >}}ca_cert: /path/to/trusted-certificate-authorities.pem{{< /highlight >}}
+
+cert         |      |
+-------------|------
+description  | Path to the PEM-format certificate to use for TLS client authentication.
+required     | true if `insecure: false` (which is the default configuration). If `insecure: true`, `cert` is not required.
+type         | String
+example      | {{< highlight shell >}}cert: /path/to/ssl/cert.pem{{< /highlight >}}
+
+key          |      |
+-------------|------
+description  | Path to the PEM-format key file associated with the `cert` to use for TLS client authentication.
+required     | true if `insecure: false` (which is the default configuration). If `insecure: true`, `key` is not required.
+type         | String
+example      | {{< highlight shell >}}key: /path/to/ssl/key.pem{{< /highlight >}}
+
 insecure     |      |
 -------------|-------
 description  | `true` to disable transport security. Otherwise, `false`. Default is `false`. _**NOTE**: Disable transport security with care._
@@ -106,7 +130,7 @@ url          |      |
 description  | Destination cluster URL. If specifying more than one, use a comma to separate.
 required     | true
 type         | String
-example      | {{< highlight shell >}}url: http://127.0.0.1:3379 {{< /highlight >}}
+example      | {{< highlight shell >}}url: http://127.0.0.1:2379 {{< /highlight >}}
 
 api_version  |      |
 -------------|-------
@@ -122,6 +146,15 @@ required     | true
 type         | String
 example      | {{< highlight shell >}}resource: Role{{< /highlight >}}
 
+<a name="namespace-attribute"></a>
+
+namespace    |      |
+-------------|-------
+description  | Namespace to constrain replication to. If you do not include `namespace`, all namespaces for a given resource are replicated.
+required     | false
+type         | String
+example      | {{< highlight shell >}}namespace: default{{< /highlight >}}
+
 replication_interval_seconds      |      |
 ----------------------------------|-------
 description  | The interval at which the resource will be replicated. In seconds. Default is 30.
@@ -133,6 +166,8 @@ example      | {{< highlight shell >}}replication_interval_seconds: 30{{< /highl
 
 If you replicate the following four examples for `Role`, `RoleBinding`, `ClusterRole`, and `ClusterRoleBinding` resources, you can expect a full replication of [RBAC policy][3].
 
+_**NOTE**: If you do not specify a namespace when you create a replicator, all namespaces for a given resource are replicated._
+
 ### Example `Role` resource
 
 {{< language-toggle >}}
@@ -143,8 +178,11 @@ type: EtcdReplicator
 metadata:
   name: role_replicator
 spec:
+  ca_cert: /path/to/ssl/trusted-certificate-authorities.pem
+  cert: /path/to/ssl/cert.pem
+  key: /path/to/ssl/key.pem
   insecure: false
-  url: http://127.0.0.1:3379
+  url: http://127.0.0.1:2379
   api_version: core/v2
   resource: Role
   replication_interval_seconds: 30
@@ -158,8 +196,11 @@ spec:
     "name": "role_replicator"
   },
   "spec": {
+    "ca_cert": "/path/to/ssl/trusted-certificate-authorities.pem",
+    "cert": "/path/to/ssl/cert.pem",
+    "key": "/path/to/ssl/key.pem",
     "insecure": false,
-    "url": "http://127.0.0.1:3379",
+    "url": "http://127.0.0.1:2379",
     "api_version": "core/v2",
     "resource": "Role",
     "replication_interval_seconds": 30
@@ -179,8 +220,11 @@ type: EtcdReplicator
 metadata:
   name: rolebinding_replicator
 spec:
+  ca_cert: /path/to/ssl/trusted-certificate-authorities.pem
+  cert: /path/to/ssl/cert.pem
+  key: /path/to/ssl/key.pem
   insecure: false
-  url: http://127.0.0.1:3379
+  url: http://127.0.0.1:2379
   api_version: core/v2
   resource: RoleBinding
   replication_interval_seconds: 30
@@ -194,8 +238,11 @@ spec:
     "name": "rolebinding_replicator"
   },
   "spec": {
+    "ca_cert": "/path/to/ssl/trusted-certificate-authorities.pem",
+    "cert": "/path/to/ssl/cert.pem",
+    "key": "/path/to/ssl/key.pem",
     "insecure": false,
-    "url": "http://127.0.0.1:3379",
+    "url": "http://127.0.0.1:2379",
     "api_version": "core/v2",
     "resource": "RoleBinding",
     "replication_interval_seconds": 30
@@ -215,8 +262,11 @@ type: EtcdReplicator
 metadata:
   name: clusterrole_replicator
 spec:
+  ca_cert: /path/to/ssl/trusted-certificate-authorities.pem
+  cert: /path/to/ssl/cert.pem
+  key: /path/to/ssl/key.pem
   insecure: false
-  url: http://127.0.0.1:3379
+  url: http://127.0.0.1:2379
   api_version: core/v2
   resource: ClusterRole
   replication_interval_seconds: 30
@@ -230,8 +280,11 @@ spec:
     "name": "clusterrole_replicator"
   },
   "spec": {
+    "ca_cert": "/path/to/ssl/trusted-certificate-authorities.pem",
+    "cert": "/path/to/ssl/cert.pem",
+    "key": "/path/to/ssl/key.pem",
     "insecure": false,
-    "url": "http://127.0.0.1:3379",
+    "url": "http://127.0.0.1:2379",
     "api_version": "core/v2",
     "resource": "ClusterRole",
     "replication_interval_seconds": 30
@@ -251,8 +304,11 @@ type: EtcdReplicator
 metadata:
   name: clusterrolebinding_replicator
 spec:
+  ca_cert: /path/to/ssl/trusted-certificate-authorities.pem
+  cert: /path/to/ssl/cert.pem
+  key: /path/to/ssl/key.pem
   insecure: false
-  url: http://127.0.0.1:3379
+  url: http://127.0.0.1:2379
   api_version: core/v2
   resource: Role
   replication_interval_seconds: 30
@@ -266,8 +322,11 @@ spec:
     "name": "clusterrolebinding_replicator"
   },
   "spec": {
+    "ca_cert": "/path/to/ssl/trusted-certificate-authorities.pem",
+    "cert": "/path/to/ssl/cert.pem",
+    "key": "/path/to/ssl/key.pem",
     "insecure": false,
-    "url": "http://127.0.0.1:3379",
+    "url": "http://127.0.0.1:2379",
     "api_version": "core/v2",
     "resource": "ClusterRoleBinding",
     "replication_interval_seconds": 30
