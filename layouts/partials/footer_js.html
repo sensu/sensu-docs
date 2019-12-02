@@ -13,6 +13,15 @@
     <script src="{{ . | absURL }}"></script>
     {{ end }}
 
+    <!-- force append / to URLs -->
+    <script>
+    (function() {
+      if (!location.href.endsWith('/')) {
+        window.location = location.href + '/'
+    }
+    }())
+    </script>
+
     <script>
       {{ "/* Add headers to scrollspy */" | safeJS }}
       var headers   = document.getElementsByTagName("h2");
