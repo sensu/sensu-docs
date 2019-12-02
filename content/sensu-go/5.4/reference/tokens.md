@@ -65,8 +65,45 @@ Check config token errors will be logged by the agent, and sent to Sensu backend
 
 ### Token substitution for check thresholds 
 
-In this example [check configuration][5], the `check-disk-usage.go` command accepts `-w` (warning) and `-c` (critical)
-arguments to indicate the thresholds (as percentages) for creating warning or critical events. If no token substitutions are provided by an entity configuration, Sensu will use default values to create a warning event at 80% disk capacity (i.e. `{{ .labels.disk_warning | default 80 }}`), and a critical event at 90% capacity (i.e. `{{ .labels.disk_critical | default 90 }}`).
+In this example [hook][8] and [check configuration][5], the `check-disk-usage.go` command accepts `-w` (warning) and `-c` (critical) arguments to indicate the thresholds (as percentages) for creating warning or critical events. If no token substitutions are provided by an entity configuration, Sensu will use default values to create a warning event at 80% disk capacity (i.e. `{{ .labels.disk_warning | default 80 }}`), and a critical event at 90% capacity (i.e. `{{ .labels.disk_critical | default 90 }}`).
+
+Hook configuration:
+
+{{< language-toggle >}}
+
+{{< highlight yml >}}
+type: HookConfig
+api_version: core/v2
+metadata:
+  name: disk_usage_details
+  namespace: default
+spec:
+  command: du -h --max-depth=1 -c {{index .labels "disk_usage_root" | default "/"}}  2>/dev/null
+  runtime_assets: null
+  stdin: false
+  timeout: 60
+{{< /highlight >}}
+
+{{< highlight json >}}
+{
+  "type": "HookConfig",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "disk_usage_details",
+    "namespace": "default"
+  },
+  "spec": {
+    "command": "du -h --max-depth=1 -c {{index .labels \"disk_usage_root\" | default \"/\"}}  2>/dev/null",
+    "runtime_assets": null,
+    "stdin": false,
+    "timeout": 60
+  }
+}
+{{< /highlight >}}
+
+{{< /language-toggle >}}
+
+Check configuration: 
 
 {{< language-toggle >}}
 
@@ -99,34 +136,9 @@ spec:
   - staging
   timeout: 0
   ttl: 0
----
-type: HookConfig
-api_version: core/v2
-metadata:
-  name: disk_usage_details
-  namespace: default
-spec:
-  command: du -h --max-depth=1 -c {{index .labels "disk_usage_root" | default "/"}}  2>/dev/null
-  runtime_assets: null
-  stdin: false
-  timeout: 60
 {{< /highlight >}}
 
 {{< highlight json >}}
-{
-  "type": "HookConfig",
-  "api_version": "core/v2",
-  "metadata": {
-    "name": "disk_usage_details",
-    "namespace": "default"
-  },
-  "spec": {
-    "command": "du -h --max-depth=1 -c {{index .labels \"disk_usage_root\" | default \"/\"}}  2>/dev/null",
-    "runtime_assets": null,
-    "stdin": false,
-    "timeout": 60
-  }
-}
 {
   "type": "CheckConfig",
   "api_version": "core/v2",
