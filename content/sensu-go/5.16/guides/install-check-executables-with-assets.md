@@ -1,8 +1,8 @@
 ---
-title: "How to install plugins using assets"
-linkTitle: "Installing Plugins with Assets"
+title: "Install plugins with assets"
+linkTitle: "Install Plugins with Assets"
 description: "Assets are shareable, reusable packages that make it easy to deploy Sensu plugins. You can use assets to provide the plugins, libraries, and runtimes you need to power your monitoring workflows. Read the guide to get started using assets."
-weight: 40
+weight: 100
 version: "5.16"
 product: "Sensu Go"
 platformContent: False

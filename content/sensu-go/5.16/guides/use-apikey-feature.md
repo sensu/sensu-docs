@@ -1,8 +1,8 @@
 ---
 title: "Use the API key feature"
-linkTitle: "Using API keys"
+linkTitle: "Use API keys"
 description: "In this guide, you'll learn how to use Sensu's API key feature for authentication."
-weight: 37
+weight: 180
 version: "5.16"
 product: "Sensu Go"
 platformContent: False
