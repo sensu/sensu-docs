@@ -1,9 +1,9 @@
 ---
 title: "Sensu sandbox"
 linkTitle: "Sandbox"
-description: "The Sensu sandbox makes it easy to learn Sensu Go. You’ll learn Sensu by building your first monitoring workflow and setting up container and application monitoring. There’s also a lesson plan for upgrading from Sensu 1.x to Sensu Go!"
+description: "The Sensu sandbox makes it easy to learn Sensu Go. Build your first monitoring workflow and set up container and application monitoring. There’s also a lesson plan for upgrading from Sensu 1.x to Sensu Go!"
 version: "5.16"
-weight: 4
+weight: 50
 product: "Sensu Go"
 menu:
   sensu-go-5.16:
@@ -12,14 +12,19 @@ menu:
 
 Welcome to the Sensu sandbox! The sandbox is the best place to get started with Sensu and try out new features.
 
-### Learn Sensu
-- [Start here](../learn-sensu): Building your first monitoring workflow
+## Learn Sensu
+- Download the Sensu sandbox and [build your first monitoring workflow][1]
 
-### Container monitoring
-- [Container and application monitoring with Sensu](../sample-app): Monitoring a sample app on Kubernetes
+## Monitor containers and applications
+- [Deploy a sample app with Kubernetes and monitor it with Sensu][2]
 
-### Metrics
-- [Sensu + Prometheus](../prometheus-metrics): Collecting Prometheus metrics with Sensu
+## Collect metrics
+- [Collect Prometheus metrics with Sensu][3]
 
-### Upgrading from Sensu 1.x to Sensu Go
-- [Sensu translator](https://github.com/sensu/sandbox/tree/master/sensu-go/lesson_plans/check-upgrade): Translating check configuration
+## Upgrade from Sensu 1.x to Sensu Go
+- Use the [Sensu translator][4] to translate check configurations from Sensu 1.x (Core) to Sensu Go
+
+[1]: ../learn-sensu/
+[2]: ../sample-app/
+[3]: ../prometheus-metrics/
+[4]: https://github.com/sensu/sandbox/tree/master/sensu-go/lesson_plans/check-upgrade/

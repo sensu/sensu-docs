@@ -1,9 +1,9 @@
 ---
-title: "Sensu frequently asked questions"
+title: "Frequently asked questions about Sensu"
 linkTitle: "FAQs"
-description: "Questions about Sensu Go? Read our FAQ to get answers to questions like, What platforms does Sensu support? and What can I monitor with Sensu?"
+description: "Questions about Sensu Go? Read this FAQ to get answers to questions about what platforms Sensu supports and what you can monitor with Sensu."
 version: "5.16"
-weight: 100
+weight: 80
 product: "Sensu Go"
 menu:
   sensu-go-5.16:
@@ -22,10 +22,10 @@ For a list of Sensu terms and definitions, see the [glossary][7].
 - [What can I monitor with Sensu?](#monitor-with-sensu)
 - [Does Sensu include a time series database for long-term storage?](#long-term-storage)
 - [Can I connect Sensu Go to clients and servers from earlier versions of Sensu Core and Sensu Enterprise?](#connect-earlier-versions)
-- [Can I upgrade my Sensu version 1.x deployment to Sensu Go?](#upgrade-1x-to-go)
+- [Can I upgrade my Sensu 1.x deployment to Sensu Go?](#upgrade-1x-to-go)
 - [Which ports does Sensu use?](#go-ports)
 - [Can one Sensu backend monitor multiple sites?](#monitor-multiple-sites)
-- [Is it possible to use Uchiwa with Sensu Go?](#uchiwa-with-go)
+- [Can I use Uchiwa with Sensu Go?](#uchiwa-with-go)
 
 
 ## What platforms does Sensu support? {#platform-support}
@@ -44,14 +44,17 @@ See the [hardware requirements guide][5] for minimum and recommended hardware to
 
 ## Is there an enterprise version of Sensu Go? {#enterprise-version}
 
-[Yes!][31] Sensu Inc. offers support packages for Sensu Go as well as commercial features designed for monitoring at scale.
-[Contact the Sensu sales team][6] for a personalized demo, and see the [getting started guide][28] for more information.
+[Yes][31]! Sensu Inc. offers support packages for Sensu Go as well as commercial features designed for monitoring at scale.
+[Contact the Sensu sales team][6] for a personalized demo.
+See [Get started with commercial features][28] for more information.
 
 ## What's the difference between the OSS, free, and commercial versions? {#version-comparison}
 
 See the [Enterprise page][30] for a complete comparison. 
 
-All [commercial features][35] are available for free in the packaged Sensu Go distribution up to an entity limit of 100. If your Sensu instance includes more than 100 entities, [contact us][36] to learn how to upgrade your installation and increase your limit. See [the announcement on our blog][34] for more information about our usage policy.
+All [commercial features][35] are available for free in the packaged Sensu Go distribution up to an entity limit of 100.
+If your Sensu instance includes more than 100 entities, [contact us][36] to learn how to upgrade your installation and increase your limit.
+See the [announcement on our blog][34] for more information about our usage policy.
 
 ## How can I contact the Sensu sales team? {#sales-team}
 
@@ -60,11 +63,13 @@ Get in touch with us using [this form][6].
 
 ## What can I monitor with Sensu? {#monitor-with-sensu}
 
-Sensu supports a wide range of plugins for monitoring everything from the server closet to the cloud. [Install the Sensu agent][8] on the hosts you want to monitor, integrate with the [Sensu API][9], or take advantage of [proxy entities][10] to monitor anything on your network.
+Sensu supports a wide range of plugins for monitoring everything from the server closet to the cloud.
+[Install the Sensu agent][8] on the hosts you want to monitor, integrate with the [Sensu API][9], or take advantage of [proxy entities][10] to monitor anything on your network.
 
-Sensuctl integrates with [Bonsai, the Sensu asset index][32], where you’ll find plugins, libraries, and runtimes you need to automate your monitoring workflows. If you want to add your own asset to the index, read the [guide for sharing an asset on Bonsai][33].
+Sensuctl integrates with [Bonsai, the Sensu asset index][32], where you’ll find plugins, libraries, and runtimes you need to automate your monitoring workflows.
+If you want to add your own asset, read the [guide for sharing an asset on Bonsai][33].
 
-You can also check out the 200+ plugins shared in the [Sensu plugins community][11]--including monitoring checks for [AWS][13], [Jenkins][14], [Puppet][15], [InfluxDB][16], and [SNMP][17]--or write your own Sensu Plugins in any language using the [Sensu Plugins spec][12].
+You can also check out the 200+ plugins shared in the [Sensu plugins community][11], including monitoring checks for [AWS][13], [Jenkins][14], [Puppet][15], [InfluxDB][16], and [SNMP][17], or write your own Sensu plugins in any language using the [Sensu plugin specification][12].
 
 ## Does Sensu include a time series database for long-term storage? {#long-term-storage}
 
@@ -76,12 +81,13 @@ See the [guide to storing metrics with InfluxDB][18] to get started.
 
 No, Sensu Go agents and backends are not compatible with Sensu Core or Sensu Enterprise services.
 
-## Can I upgrade my Sensu version 1.x deployment to Sensu Go? {#upgrade-1x-to-go}
+## Can I upgrade my Sensu 1.x deployment to Sensu Go? {#upgrade-1x-to-go}
 
-Sensu Go is a complete redesign of the original Sensu; it uses separate packages, dependencies, and data models to bring you powerful new features.
+Sensu Go is a complete redesign of the original Sensu.
+It uses separate packages, dependencies, and data models to bring you powerful new features.
 See the [Sensu Go release announcement][3] for more information.
-Due to these changes, [some features][4] of Sensu 1.x are no longer supported in Sensu Go, such as standalone checks.
-To upgrade your Sensu 1.x deployment to Sensu Go, you'll need to translate your Sensu 1.x configuration to the format expected by Sensu Go and install the new Sensu Go services on your infrastructure.
+Due to these changes, [some Sensu 1.x features][4] are no longer supported in Sensu Go, such as standalone checks.
+To upgrade your Sensu 1.x deployment to Sensu Go, you'll need to translate your Sensu 1.x configuration to the format Sensu Go expects and install the new Sensu Go services on your infrastructure.
 The [Sensu Go upgrade guide][4] includes a detailed feature comparison between Sensu Go and Sensu 1.x as well as tools to help you get started.
 
 ## Which ports does Sensu use? {#go-ports}
@@ -102,50 +108,52 @@ The [Sensu agent][26] uses:
 
 The agent TCP and UDP sockets are deprecated in favor of the [agent API][21].
 
-For more information, see the [guide to securing Sensu][20].
+For more information, see the [Secure Sensu guide][20].
 
 ## Can one Sensu backend monitor multiple sites? {#monitor-multiple-sites}
 
-Yes, as long as the port requirements described above are met, a single Sensu backend can monitor Sensu agents at multiple sites.
+Yes, as long as you meet the [port requirements][37], a single Sensu backend can monitor Sensu agents at multiple sites.
 
-## Is it possible to use Uchiwa with Sensu Go? {#uchiwa-with-go}
+## Can I use Uchiwa with Sensu Go? {#uchiwa-with-go}
 
-Due to Sensu Go's implementation, it is not possible to use Uchiwa with Sensu Go. Sensu Go does have a [built-in dashboard][29] that you can use to visually interact with your Sensu Go deployment.
+Due to Sensu Go's implementation, it is not possible to use Uchiwa with Sensu Go.
+Sensu Go does have a [built-in dashboard][29] that you can use to visually interact with your Sensu Go deployment.
 
-[1]: ../../installation/platforms
-[2]: ../../installation/install-sensu
-[3]: https://blog.sensu.io/sensu-go-is-here
+[1]: ../../installation/platforms/
+[2]: ../../installation/install-sensu/
+[3]: https://blog.sensu.io/sensu-go-is-here/
 [4]: ../../installation/upgrade/#upgrading-to-sensu-go-from-sensu-core-1-x
 [5]: ../../installation/recommended-hardware/
 [6]: https://sensu.io/sales/
-[7]: ../glossary
+[7]: ../glossary/
 [8]: ../../installation/install-sensu#install-sensu-agents
-[9]: ../../api/overview
+[9]: ../../api/overview/
 [10]: ../../reference/entities/#proxy-entities
-[11]: https://github.com/sensu-plugins
+[11]: https://github.com/sensu-plugins/
 [12]: https://docs.sensu.io/plugins/1.0/reference/#the-sensu-plugin-specification
-[13]: https://github.com/sensu-plugins/sensu-plugins-aws
-[14]: https://github.com/sensu-plugins/sensu-plugins-jenkins
-[15]: https://github.com/sensu-plugins/sensu-plugins-puppet
-[16]: https://github.com/sensu-plugins/sensu-plugins-influxdb
-[17]: https://github.com/sensu-plugins/sensu-plugins-snmp
+[13]: https://github.com/sensu-plugins/sensu-plugins-aws/
+[14]: https://github.com/sensu-plugins/sensu-plugins-jenkins/
+[15]: https://github.com/sensu-plugins/sensu-plugins-puppet/
+[16]: https://github.com/sensu-plugins/sensu-plugins-influxdb/
+[17]: https://github.com/sensu-plugins/sensu-plugins-snmp/
 [18]: ../../guides/influx-db-metric-handler/
 [19]: https://www.influxdata.com/
-[20]: ../../guides/securing-sensu
+[20]: ../../guides/securing-sensu/
 [21]: ../../reference/agent#creating-monitoring-events-using-the-agent-api
 [22]: ../../reference/agent/#using-the-http-socket
 [23]: ../../reference/agent/#creating-monitoring-events-using-the-statsd-listener
-[24]: ../../dashboard/overview
-[25]: ../../reference/backend
-[26]: ../../reference/agent
-[27]: ../../guides/clustering
-[28]: ../enterprise
+[24]: ../../dashboard/overview/
+[25]: ../../reference/backend/
+[26]: ../../reference/agent/
+[27]: ../../guides/clustering/
+[28]: ../enterprise/
 [29]: ../../dashboard/overview/
-[30]: https://sensu.io/enterprise
-[31]: https://blog.sensu.io/enterprise-features-in-sensu-go
+[30]: https://sensu.io/enterprise/
+[31]: https://blog.sensu.io/enterprise-features-in-sensu-go/
 [32]: https://bonsai.sensu.io/
 [33]: ../../reference/assets/#sharing-an-asset-on-bonsai
-[34]: https://blog.sensu.io/one-year-of-sensu-go
-[35]: ../../getting-started/enterprise
-[36]: https://sensu.io/contact
+[34]: https://blog.sensu.io/one-year-of-sensu-go/
+[35]: ../../getting-started/enterprise/
+[36]: https://sensu.io/contact/
+[37]: #go-ports
 

@@ -2,7 +2,7 @@
 title: "Interactive Tutorial"
 description: "Get started with Sensu in your browser with an interactive tutorial. Learn the basics of Sensu Go and monitor a web server."
 version: "5.16"
-weight: 3
+weight: 30
 product: "Sensu Go"
 layout: "katacoda-wide"
 menu:
@@ -29,4 +29,4 @@ s.parentNode.insertBefore(b, s);})();
     style="height: 800px; padding-top: 10px;" 
 ></div>
 <br><br>
-[**<-- Back to getting started**](../get-started)
+[**<-- Back to Get started with Sensu**](../get-started)
