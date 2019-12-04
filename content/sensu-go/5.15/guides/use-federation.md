@@ -12,12 +12,14 @@ menu:
 ---
 
 - [What you can do with federation](#what-you-can-do-with-federation)
-- [Step 1 Register clusters](#step-1-register-clusters)
+- [Step 1 Configure backends for TLS](#step-1-configure-backends-for-tls))
+- [Step 2 Configure shared token signing keys](#step-2--configure-shared-token-signing-keys)
+- [Step 3 Add a cluster role binding and user](#step-3-add-a-cluster-role-binding-and-user)
+- [Step 4 Create etcd replicators](#step-4-create-etcd-replicators)
+- [Step 5 Register clusters](#register-clusters)
   - [Register a single cluster](#register-a-single-cluster)
   - [Register additional clusters](#register-additional-clusters)
-- [Step 2 Set up communication between clusters](#step-2-set-up-communication-between-clusters)
-- [Step 3 Create etcd replicators](#step-3-create-etcd-replicators)
-- [Step 4 Get a unified view of all your clusters in the web UI](#step-4-get-a-unified-view-of-all-your-clusters-in-the-web-ui)
+- [Step 6 Get a unified view of all your clusters in the web UI](#step-6-get-a-unified-view-of-all-your-clusters-in-the-web-ui)
 
 **COMMERCIAL FEATURE**: Access federation in the packaged Sensu Go distribution. For more information, see the [getting started guide][8].
 
@@ -49,7 +51,7 @@ The following steps are required to configure these features for unified visibil
 
 The `gateway` cluster will be the entry-point for operators to manage Sensu resources in the `alpha` and `beta` clusters.
 
-### Step 0: Configure TLS for Sensu backends
+### Step 1 Configure backends for TLS
 
 As federation depends on communication between multiple disparate clusters, working TLS is a prerequisite for successful configuration. This guide assumes that you have provided each backend member with TLS credentials (key and certificate), as well as the CA certificate chain required for one Sensu backend to validate the certificates presented by other backends. If you don't have existing infrastructure for issuing certificates, see our Securing Sensu guide for [our recommended self-signed certificate issuance process][13].
 
@@ -64,7 +66,7 @@ This prerequisite extends to the configuration of the following Sensu backend et
 | etcd-advertise-client-urls | list of https URLs to to advertise for Etcd Replicators, accessible by other backends in the federation e.g. `https://sensu.beta.example.com:2378` -- default values will not work for federation. |
 | etcd-listen-client-urls    | list of https URLs to listen on for Etcd Replicators, e.g. `https://0.0.0.0:2379` to listen on port 2739 across all ipv4 interfaces -- default values will not work for federation. |
 
-### Step 1: Configure clusters with shared token signing keys
+### Step 2 Configure shared token signing keys
 
 Whether federated or stand-alone, Sensu backends issue JSON web tokens (JWTs) to users upon successful authentication. These tokens include a payload which describes the username and group affiliations, used to determine permissions based on configured [RBAC policy][10].
 
@@ -93,7 +95,7 @@ jwt-public-key-file: /etc/sensu/certs/jwt_public.pem
 
 After updating the backend configuration in each cluster, restart `sensu-backend` for those settings to take effect.
 
-### Step 3: Add a cluster role binding and user
+### Step 3 Add a cluster role binding and user
 
 To prove out our configuration, we'll provision a User and a ClusterRoleBinding in the `gateway` cluster.
 
@@ -115,13 +117,13 @@ sensuctl cluster-role-binding create federation-viewer-readonly --cluster-role=v
 
 Next, you'll configure Etcd Replicators to copy the cluster role bindings and other RBAC policies we've created in the `gateway` cluster to the `alpha` and `beta` clusters.
 
-### Step 2: Create Etcd Replicators
+### Step 4 Create Etcd Replicators
 
 Etcd replicators use the [etcd make-mirror utility][12] for one-way replication of Sensu [RBAC policy resources][10].
 
 In practice this allows you to centrally define RBAC policy on the `gateway` cluster and replicate those resources to other clusters in the federation, ensuring consistent permissions for Sensu users across multiple clusters via the `gateway` web UI.
 
-To get started, configure an Etcd Replicator for each of those RBAC policy types, across all namespaces, for each backend in the federation. For example, this Etcd Replicator resource will replicate ClusterRoleBinding resources from a federation lead backend to two target backends:
+To get started, configure an Etcd Replicator per-cluster for each of those RBAC policy types, across all namespaces, for each backend in the federation. For example, these Etcd Replicator resources will replicate ClusterRoleBinding resources from `gateway` cluster to two target clusters:
 
 {{< language-toggle >}}
 
@@ -130,12 +132,12 @@ To get started, configure an Etcd Replicator for each of those RBAC policy types
 api_version: federation/v1
 type: EtcdReplicator
 metadata:
-  name: AllClusterRoleBindings
+  name: AlphaClusterRoleBindings
 spec:
   ca_cert: "/etc/sensu/certs/ca.pem"
   cert: "/etc/sensu/certs/cert.pem"
   key: "/etc/sensu/certs/key.pem"
-  url: https://sensu.alpha.example.com:2379,https://sensu.beta.example.com:2379
+  url: https://sensu.alpha.example.com:2379
   api_version: core/v2
   resource: ClusterRoleBinding
   replication_interval_seconds: 30
@@ -146,13 +148,52 @@ spec:
   "api_version": "federation/v1",
   "type": "EtcdReplicator",
   "metadata": {
-    "name": "AllClusterRoleBindings"
+    "name": "AlphaClusterRoleBindings"
   },
   "spec": {
     "ca_cert": "/etc/sensu/certs/ca.pem",
     "cert": "/etc/sensu/certs/cert.pem",
     "key": "/etc/sensu/certs/key.pem",
-    "url": "https://sensu.alpha.example.com:2379,https://sensu.beta.example.com:2379",
+    "url": "https://sensu.alpha.example.com:2379",
+    "api_version": "core/v2",
+    "resource": "ClusterRoleBinding",
+    "replication_interval_seconds": 30
+  }
+}
+{{< /highlight >}}
+
+{{< /language-toggle >}}
+
+{{< language-toggle >}}
+
+{{< highlight yml >}}
+---
+api_version: federation/v1
+type: EtcdReplicator
+metadata:
+  name: BetaClusterRoleBindings
+spec:
+  ca_cert: "/etc/sensu/certs/ca.pem"
+  cert: "/etc/sensu/certs/cert.pem"
+  key: "/etc/sensu/certs/key.pem"
+  url: https://sensu.beta.example.com:2379
+  api_version: core/v2
+  resource: ClusterRoleBinding
+  replication_interval_seconds: 30
+{{< /highlight >}}
+
+{{< highlight json >}}
+{
+  "api_version": "federation/v1",
+  "type": "EtcdReplicator",
+  "metadata": {
+    "name": "BetaClusterRoleBindings"
+  },
+  "spec": {
+    "ca_cert": "/etc/sensu/certs/ca.pem",
+    "cert": "/etc/sensu/certs/cert.pem",
+    "key": "/etc/sensu/certs/key.pem",
+    "url": "https://sensu.beta.example.com:2379",
     "api_version": "core/v2",
     "resource": "ClusterRoleBinding",
     "replication_interval_seconds": 30
@@ -170,13 +211,11 @@ Our [etcd-replicators reference][2] includes [examples][9] for `Role`, `RoleBind
 
 You can verify that the EtcdReplicator resource is working as expected by reconfiguring `sensuctl` to communicate with the `alpha` and `beta` clusters and issuing the `sensuctl cluster-role-binding list` command. You should see 
 
-### Step 3 Register clusters
+### Step 5 Register clusters
 
 In order to become visible in the web UI, a cluster must be registered. Each registered cluster must have a name and a list of one or more cluster member URLs corresponding to the backend REST API.
 
 #### Register a single cluster
-
-You do not need to register the cluster that you are currently operating from (for example, self or local-cluster) unless you want to configure the cluster name.
 
 With `sensuctl` configured for the `gateway` cluster, run `sensuctl create` on the yaml or JSON below to register cluster `alpha`:
 
@@ -211,7 +250,7 @@ spec:
 
 #### Register additional clusters
 
-From `local-cluster`, run `sensuctl create` on the yaml or JSON below to register an additional cluster (with the same API URLs as `local-cluster`) and define the name as `beta`:
+With `sensuctl` configured for `gateway` cluster, run `sensuctl create` on the yaml or JSON below to register an additional cluster and define the name as `beta`:
 
 {{< language-toggle >}}
 
@@ -242,13 +281,15 @@ spec:
 
 {{< /language-toggle >}}
 
-### Step 4 Get a unified view of all your clusters in the web UI
+_NOTE: When logging into the `gateway` cluster web UI, any namespaces, entities, events and other resources specific to that cluster will be labled as `local-cluster`._
 
-After you create clusters using the federation API, you can log in to the Sensu web UI to view them. In the web UI, you can see the status of every federated cluster, as well as metrics like the number of events and entities for each. 
+### Step 6 Get a unified view of all your clusters in the web UI
 
-**NEEDED**: Add screenshots of the context switcher in the web UI showing how the federated views work.
+After you create clusters using the federation API, you can log in to the `gateway` Sensu web UI to view them as either the `federation-viewer` user. Switching between namespaces across federated clusters is accomplished using namespace switcher, as shown in the animation below:
 
-Switch between clusters and namespaces in the web UI to get details.
+<img alt="animated demonstration of federated views in Sensu Web UI" title="Cross-cluster visibility in the Sensu Web UI" src="/images/federation-switcher-animated.gif" width="800 px">
+
+As the `federation-viewer` user is granted only permissions provided by the built-in `view` role, this user should be able to view all resources across all clusters, but not make any changes. Provided you've not changed the permissions of the default `admin` user, that user should be able to view, create, delete and update resources across all clusters as well.
 
 [1]: ../../api/federation/#the-clusters-endpoint
 [2]: ../../reference/etcdreplicators
