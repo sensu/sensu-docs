@@ -19,7 +19,9 @@ You can use tokens to fine-tune check attributes (like alert thresholds) on a pe
 
 When a check is scheduled to be executed by an agent, it first goes through a token substitution step. The agent replaces any tokens with matching attributes from the entity definition, and then the check is executed. Invalid templates or unmatched tokens will return an error, which is logged and sent to the Sensu backend message transport. Checks with token matching errors will not be executed.
 
-Token substitution is only supported for the [`command` attribute][7] of a check definition, and only [entity attributes][4] are available for substitution. Available attributes will always have [string values](#token-data-type-limitations), such as labels and annotations.
+Token substitution is supported for [check definition][7] `command` attributes and [hook][8] `command` attributes.
+Only [entity attributes][4] are available for substitution.
+Available attributes will always have [string values](#token-data-type-limitations), such as labels and annotations.
 
 ## Managing entity labels
 
@@ -29,7 +31,7 @@ See the [entity reference][6] for information on managing entity labels for prox
 ## Sensu token specification
 
 Sensu Go uses the [Go template][1] package to implement token substitution.
-Sensu Go token substitution uses double curly braces around the token, and a dot before the attribute to be substituted, such as: `{{ .system.hostname }}`.
+Use double curly braces around the token and a dot before the attribute to be substituted: `{{ .system.hostname }}`.
 
 ### Token substitution syntax
 
@@ -42,7 +44,7 @@ Tokens are invoked by wrapping references to entity attributes and labels with d
   `disk_warning`
 - `{{ index .labels "cpu.threshold" }}` would be replaced with a custom label called `cpu.threshold`
 
-_NOTE: When an annotation or label name has a dot (e.g. `cpu.threshold`), the template index function syntax must be used to ensure correct processing because the dot notation is also used for object nesting._
+_**NOTE**: When an annotation or label name has a dot (e.g. `cpu.threshold`), the template index function syntax must be used to ensure correct processing because the dot notation is also used for object nesting._
 
 ### Token substitution default values
 
@@ -71,32 +73,73 @@ For example, token substitution **cannot** be used for specifying a check interv
 
 ### Token substitution for check thresholds 
 
-In this example [check configuration][5], the `check-disk-usage.go` command accepts `-w` (warning) and `-c` (critical)
-arguments to indicate the thresholds (as percentages) for creating warning or critical events. If no token substitutions are provided by an entity configuration, Sensu will use default values to create a warning event at 80% disk capacity (i.e. `{{ .labels.disk_warning | default 80 }}`), and a critical event at 90% capacity (i.e. `{{ .labels.disk_critical | default 90 }}`).
+In this example [hook][8] and [check configuration][5], the `check-disk-usage.go` command accepts `-w` (warning) and `-c` (critical) arguments to indicate the thresholds (as percentages) for creating warning or critical events. If no token substitutions are provided by an entity configuration, Sensu will use default values to create a warning event at 80% disk capacity (i.e. `{{ .labels.disk_warning | default 80 }}`), and a critical event at 90% capacity (i.e. `{{ .labels.disk_critical | default 90 }}`).
+
+Hook configuration:
+
+{{< language-toggle >}}
+
+{{< highlight yml >}}
+type: HookConfig
+api_version: core/v2
+metadata:
+  name: disk_usage_details
+  namespace: default
+spec:
+  command: du -h --max-depth=1 -c {{index .labels "disk_usage_root" | default "/"}}  2>/dev/null
+  runtime_assets: null
+  stdin: false
+  timeout: 60
+{{< /highlight >}}
+
+{{< highlight json >}}
+{
+  "type": "HookConfig",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "disk_usage_details",
+    "namespace": "default"
+  },
+  "spec": {
+    "command": "du -h --max-depth=1 -c {{index .labels \"disk_usage_root\" | default \"/\"}}  2>/dev/null",
+    "runtime_assets": null,
+    "stdin": false,
+    "timeout": 60
+  }
+}
+{{< /highlight >}}
+
+{{< /language-toggle >}}
+
+Check configuration: 
 
 {{< language-toggle >}}
 
 {{< highlight yml >}}
 type: CheckConfig
-api_version: core/v1
+api_version: core/v2
 metadata:
-  annotations: null
-  labels: null
   name: check-disk-usage
   namespace: default
 spec:
-  check_hooks: null
-  command: check-disk-usage.rb -w {{index .labels "disk_warning" | default 80}} -c {{.labels.disk_critical
-    | default 90}}
+  check_hooks:
+  - non-zero:
+    - disk_usage_details
+  command: check-disk-usage.rb -w {{index .labels "disk_warning" | default 80}} -c
+    {{.labels.disk_critical | default 90}}
   env_vars: null
   handlers: []
   high_flap_threshold: 0
   interval: 10
   low_flap_threshold: 0
+  output_metric_format: ""
+  output_metric_handlers: null
   proxy_entity_name: ""
   publish: true
+  round_robin: false
   runtime_assets: null
   stdin: false
+  subdue: null
   subscriptions:
   - staging
   timeout: 0
@@ -106,32 +149,41 @@ spec:
 {{< highlight json >}}
 {
   "type": "CheckConfig",
-  "api_version": "core/v1",
+  "api_version": "core/v2",
   "metadata": {
     "name": "check-disk-usage",
-    "namespace": "default",
-    "labels": null,
-    "annotations": null
+    "namespace": "default"
   },
   "spec": {
-    "command": "check-disk-usage.rb -w {{.labels.disk_warning | default 80}} -c {{.labels.disk_critical | default 90}}",
+    "check_hooks": [
+      {
+        "non-zero": [
+          "disk_usage_details"
+        ]
+      }
+    ],
+    "command": "check-disk-usage.rb -w {{index .labels \"disk_warning\" | default 80}} -c {{.labels.disk_critical | default 90}}",
+    "env_vars": null,
     "handlers": [],
     "high_flap_threshold": 0,
     "interval": 10,
     "low_flap_threshold": 0,
-    "publish": true,
-    "runtime_assets": null,
-    "subscriptions": [
-    "staging"
-    ],
+    "output_metric_format": "",
+    "output_metric_handlers": null,
     "proxy_entity_name": "",
-    "check_hooks": null,
+    "publish": true,
+    "round_robin": false,
+    "runtime_assets": null,
     "stdin": false,
-    "ttl": 0,
+    "subdue": null,
+    "subscriptions": [
+      "staging"
+    ],
     "timeout": 0,
-    "env_vars": null
+    "ttl": 0
   }
-}{{< /highlight >}}
+}
+{{< /highlight >}}
 
 {{< /language-toggle >}}
 
@@ -271,8 +323,9 @@ spec:
 
 [1]: https://golang.org/pkg/text/template/
 [2]: ../../../latest/reference/checks/#check-token-substitution
-[3]: ../entities/#entity-attributes
+[3]: ../entities/#entities-specification
 [4]: ../entities/
 [5]: ../checks/
 [6]: ../entities#managing-entity-labels
 [7]: ../checks/#check-commands
+[8]: ../hooks

@@ -77,7 +77,21 @@ sudo yum install sensu-go-backend
 
 {{< /language-toggle >}}
 
-##### 2. Configure and start
+##### 2. Initialize
+
+Run `sensu-backend init` to set up your Sensu administrator username and password. In this initialization step, you only need to set environment variables with a username and password string &mdash; no need for role-based access control (RBAC).
+
+Replace `YOUR_USERNAME` and `YOUR_PASSWORD` with the username and password you want to use:
+
+{{< highlight shell >}}
+export SENSU_BACKEND_CLUSTER_ADMIN_USERNAME=YOUR_USERNAME
+export SENSU_BACKEND_CLUSTER_ADMIN_PASSWORD=YOUR_PASSWORD
+sensu-backend init
+{{< /highlight >}}
+
+For details about `sensu-backend init`, see the [backend reference][30].
+
+##### 3. Configure and start
 
 You can configure Sensu using `sensu-backend start` flags or an `/etc/sensu/backend.yml` file, the former taking precedence.
 At a minimum, the Sensu backend requires the `state-dir` flag, but here are some other useful configs and templates.
@@ -136,17 +150,17 @@ service sensu-backend status
 
 For a complete list of config options, see the [backend reference][6].
 
-##### 3. Open the web UI
+##### 4. Open the web UI
 
 The web UI provides a unified view of your monitoring events with user-friendly tools to reduce alert fatigue.
 After starting the Sensu backend, open the web UI by visiting http://localhost:3000.
 You may need to replace `localhost` with the
 hostname or IP address where the Sensu backend is running.
 
-To log in, enter your Sensu user credentials, or use Sensu's default admin credentials (username: `admin` and password: `P@ssw0rd!`).
+To log in, enter your Sensu user credentials (the user ID and password you provided with `sensu-backend init`).
 Select the ☰ icon to explore the web UI.
 
-##### 4. Make a request to the health API
+##### 5. Make a request to the health API
 
 To make sure the backend is up and running, we'll check the health of the backend using the Sensu API.
 You should see a response that includes `"Healthy": true`.
@@ -254,13 +268,13 @@ sudo yum install sensu-go-agent
 
 {{< highlight "Windows" >}}
 # Download the Sensu agent for Windows amd64
-Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.16.0/sensu-go-agent_5.16.0.6578_en-US.x64.msi  -OutFile "$env:userprofile\sensu-go-agent_5.16.0.6578_en-US.x64.msi"
+Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.16.0/sensu-go-agent_5.16.0.7782_en-US.x64.msi  -OutFile "$env:userprofile\sensu-go-agent_5.16.0.7782_en-US.x64.msi"
 
 # Or for Windows 386
-Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.16.0/sensu-go-agent_5.16.0.6578_en-US.x86.msi  -OutFile "$env:userprofile\sensu-go-agent_5.16.0.6578_en-US.x86.msi"
+Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.16.0/sensu-go-agent_5.16.0.7782_en-US.x86.msi  -OutFile "$env:userprofile\sensu-go-agent_5.16.0.7782_en-US.x86.msi"
 
 # Install the Sensu agent
-msiexec.exe /i $env:userprofile\sensu-go-agent_5.16.0.6578_en-US.x64.msi /qn
+msiexec.exe /i $env:userprofile\sensu-go-agent_5.16.0.7782_en-US.x64.msi /qn
 
 # Or via Chocolatey
 choco install sensu-agent
@@ -405,3 +419,4 @@ Now that you've installed Sensu, here are some resources to help continue your j
 [28]: ../../reference/agent#creating-monitoring-events-using-the-statsd-listener
 [deploy]: ../../guides/deploying
 [29]: https://blog.sensu.io/one-year-of-sensu-go
+[30]: ../../reference/backend#initialization

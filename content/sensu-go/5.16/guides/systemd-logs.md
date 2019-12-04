@@ -1,9 +1,14 @@
 ---
-title: "Sensu service logging with systemd"
+title: "Log Sensu services with systemd"
+linkTitle: "Log Sensu Services"
 description: "By default, systems where systemd is the service manager do not write logs to /var/log/sensu/. This guide walks you through how to add log forwarding from journald to syslog, have rsyslog write logging data to disk, and set up log rotation of the newly created log files."
+weight: 60
 version: "5.16"
 product: "Sensu Go"
 platformContent: false
+menu:
+  sensu-go-5.16:
+    parent: guides
 ---
 
 By default, systems where systemd is the service manager do not write logs to `/var/log/sensu/` for the `sensu-agent` and the `sensu-backend` services. This guide walks you through how to add log forwarding from journald to syslog, have rsyslog write logging data to disk, and set up log rotation of the newly created log files.
