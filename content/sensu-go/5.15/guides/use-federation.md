@@ -73,7 +73,7 @@ _NOTE: You *must* provide non-default values for `etcd-advertise-client-urls` an
 
 Whether federated or stand-alone, Sensu backends issue JSON web tokens (JWTs) to users upon successful authentication. These tokens include a payload which describes the username and group affiliations, used to determine permissions based on configured [RBAC policy][10].
 
-In a federation of Sensu backends, each backend needs to have the same public/private key pair. These asymmetric keys are used to crypotgraphically vouch for the user's identity in the JWT payload. This use of shared JWT keys enables clusters to grant users access to Sensu resources according to their local policies but without requiring [User][] resources to be present uniformly across all clusters in the federation.
+In a federation of Sensu backends, each backend needs to have the same public/private key pair. These asymmetric keys are used to crypotgraphically vouch for the user's identity in the JWT payload. This use of shared JWT keys enables clusters to grant users access to Sensu resources according to their local policies but without requiring User resources to be present uniformly across all clusters in the federation.
 
 By default a Sensu backend automatically generates an asymmetric key pair for signing JWTs and stores it in the etcd database. When configuring federation, you need to generate keys as files on disk so they can be copied to all backends in the federation.
 
