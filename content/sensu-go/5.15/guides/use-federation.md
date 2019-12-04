@@ -1,7 +1,7 @@
 ---
 title: "Multi-cluster visibility with federation"
 linkTitle: "Reaching Multi-cluster Visibility"
-description: "In this guide, you'll learn how to register external clusters using the federation API and access resources across multiple clusters in the web UI."
+description: "In this guide, you'll learn how federate Sensu clusters and use a single web UI to access resources across those disparate clusters."
 weight: 400
 version: "5.15"
 product: "Sensu Go"
@@ -31,48 +31,154 @@ Create, update, and delete clusters using sensuctl [create][5], [edit][6], and [
 
 Federation affords visibility into the health of your infrastructure and services across multiple distinct Sensu instances within a single web UI. This is useful when you want to provide a single entry point for Sensu users who need to manage monitoring across multiple distinct physical data centers, cloud regions or providers.
 
-## JSON Web Tokens
+## Configuring federation
 
-Federation uses JSON web tokens (JWTs) to authenticate Sensu users across different clusters using a single access token. JWTs are provided to users during authentication. Sensu uses asymmetric (public/private) keys to encrypt proof of the user's identity into the JWT payload. Therefore, federated clusters must share the same public and private JWT keys.
+Complete federation of multiple Sensu instances is accomplished through a combination of features:
 
-## Step 1 Configure clusters with shared JWT keys
+| Feature                             | Provides |
+|-------------------------------------|--------------------------------------------------------------------|
+| JSON Web Token authentication       | Cross-cluster token authentication using asymmetric key encryption |
+| Etcd Replicators                    | Replication of RBAC policy across clusters and/or namespaces       |
+| Federation Gateway and APIs         | Configure federation access for cross-cluster visibility in web UI |
 
-JWTs support asymmetric encryption using RSA or Elliptic Curve keys. Use the `openssl` command line tool to generate a P-256 Elliptic Curve key:
+The following steps are required to configure these features for unified visibility in a single web UI. For our examples, we'll assume there are three named Sensu clusters we wish to federate:
+
+* `gateway`
+* `alpha`
+* `beta`
+
+The `gateway` cluster will be the entry-point for operators to manage Sensu resources in the `alpha` and `beta` clusters.
+
+### Step 0: Configure TLS for Sensu backends
+
+As federation depends on communication between multiple disparate clusters, working TLS is a prerequisite for successful configuration. This guide assumes that you have provided each backend member with TLS credentials (key and certificate), as well as the CA certificate chain required for one Sensu backend to validate the certificates presented by other backends. If you don't have existing infrastructure for issuing certificates, see our Securing Sensu guide for [our recommended self-signed certificate issuance process][13].
+
+This prerequisite extends to the configuration of the following Sensu backend etcd parameters:
+
+| Backend property           | Note |
+|----------------------------|------|
+| etcd-trusted-ca-file       | Self explanatory. |
+| etcd-cert-file             | Self explanatory. |
+| etcd-key-file              | Self explanatory. |
+| etcd-client-cert-auth      | Strongly recommended to use `true` setting |
+| etcd-advertise-client-urls | list of https URLs to to advertise for Etcd Replicators, accessible by other backends in the federation e.g. `https://sensu.beta.example.com:2378` -- default values will not work for federation. |
+| etcd-listen-client-urls    | list of https URLs to listen on for Etcd Replicators, e.g. `https://0.0.0.0:2379` to listen on port 2739 across all ipv4 interfaces -- default values will not work for federation. |
+
+### Step 1: Configure clusters with shared token signing keys
+
+Whether federated or stand-alone, Sensu backends issue JSON web tokens (JWTs) to users upon successful authentication. These tokens include a payload which describes the username and group affiliations, used to determine permissions based on configured [RBAC policy][10].
+
+In a federation of Sensu backends, each backend needs to have the same public/private key pair. These asymmetric keys are used to crypotgraphically vouch for the user's identity in the JWT payload. This use of shared JWT keys enables clusters to grant users access to Sensu resources according to their local policies but without requiring [User][] resources to be present uniformly across all clusters in the federation.
+
+By default a Sensu backend automatically generates an asymmetric key pair for signing JWTs and stores it in the etcd database. When configuring federation, you need to generate keys as files on disk so they can be copied to all backends in the federation.
+
+Use use the `openssl` command line tool to generate a P-256 Elliptic Curve private key:
 
 ```shell
-openssl ecparam -genkey -name prime256v1 -noout -out ec_private.pem
+openssl ecparam -genkey -name prime256v1 -noout -out jwt_private.pem
 ```
 
-and then generate a public key from the private key:
+Then generate a public key from the private key:
 
 ```shell
-openssl ec -in ec_private.pem -pubout -out ec_public.pem
+openssl ec -in jwt_private.pem -pubout -out jwt_public.pem
 ```
 
-After generating these keys, copy them to your Sensu clusters. For this guide, we'll put JWT keys into `/etc/sensu/certs` and use the [`jwt-private-key-file` and `jwt-public-key-file` attributes][4] in `/etc/sensu/backend.yml` to specify the paths to these JWT keys:
+For this guide, we'll put JWT keys into `/etc/sensu/certs` and use the [`jwt-private-key-file` and `jwt-public-key-file` attributes][4] in `/etc/sensu/backend.yml` to specify the paths to these JWT keys:
 
 {{< highlight yml >}}
-jwt-private-key-file: /etc/sensu/certs/ec_private.pem
-jwt-public-key-file: /etc/sensu/certs/ec_public.pem
+jwt-private-key-file: /etc/sensu/certs/jwt_private.pem
+jwt-public-key-file: /etc/sensu/certs/jwt_public.pem
 {{< /highlight >}}
 
-After updating the backend configuration, restart `sensu-backend` for those settings to take effect.
+After updating the backend configuration in each cluster, restart `sensu-backend` for those settings to take effect.
 
-## Step 2 Create etcd replicators
+### Step 3: Add a cluster role binding and user
 
-You can use etcd Replicators to synchronize [RBAC policy resources][10] between clusters. This allows you to centrally define permissions that replicate to all federated clusters, ensuring consistent access for Sensu users.
+To prove out our configuration, we'll provision a User and a ClusterRoleBinding in the `gateway` cluster.
 
-Etcd replicators use the [etcd make-mirror utility][12] for one-way key replication. Our [etcd-replicators reference][2] includes [examples][9] for `Role`, `RoleBinding`, `ClusterRole`, and `ClusterRoleBinding` resources.
+First, confirm that sensuctl is configured to communicate with the `gateway` cluster using `sensuctl config view` to see the active configuration.
 
-## Step 3 Register clusters
+Secondly, create a `federation-viewer` user:
 
-Each registered cluster must have a name and a list of cluster member URLs corresponding to the backend REST API.
+{{< highlight shell >}}
+sensuctl user create federation-viewer --interactive
+{{< /highlight >}}
 
-### Register a single cluster
+When prompted, enter a password for the `federation-viewer` user, and press enter when prompted for groups. Note this password for later as we'll use it to login to the web UI once we've configured RBAC policy replication and registered clusters into our federation.
+
+Next, grant the `federation-viewer` user read-only access through a cluster role binding for the built-in `view` cluster role:
+
+{{< highlight shell >}}
+sensuctl cluster-role-binding create federation-viewer-readonly --cluster-role=view --user=federation-viewer
+{{< /highlight >}}
+
+Next, you'll configure Etcd Replicators to copy the cluster role bindings and other RBAC policies we've created in the `gateway` cluster to the `alpha` and `beta` clusters.
+
+### Step 2: Create Etcd Replicators
+
+Etcd replicators use the [etcd make-mirror utility][12] for one-way replication of Sensu [RBAC policy resources][10].
+
+In practice this allows you to centrally define RBAC policy on the `gateway` cluster and replicate those resources to other clusters in the federation, ensuring consistent permissions for Sensu users across multiple clusters via the `gateway` web UI.
+
+To get started, configure an Etcd Replicator for each of those RBAC policy types, across all namespaces, for each backend in the federation. For example, this Etcd Replicator resource will replicate ClusterRoleBinding resources from a federation lead backend to two target backends:
+
+{{< language-toggle >}}
+
+{{< highlight yml >}}
+---
+api_version: federation/v1
+type: EtcdReplicator
+metadata:
+  name: AllClusterRoleBindings
+spec:
+  ca_cert: "/etc/sensu/certs/ca.pem"
+  cert: "/etc/sensu/certs/cert.pem"
+  key: "/etc/sensu/certs/key.pem"
+  url: https://sensu.alpha.example.com:2379,https://sensu.beta.example.com:2379
+  api_version: core/v2
+  resource: ClusterRoleBinding
+  replication_interval_seconds: 30
+{{< /highlight >}}
+
+{{< highlight json >}}
+{
+  "api_version": "federation/v1",
+  "type": "EtcdReplicator",
+  "metadata": {
+    "name": "AllClusterRoleBindings"
+  },
+  "spec": {
+    "ca_cert": "/etc/sensu/certs/ca.pem",
+    "cert": "/etc/sensu/certs/cert.pem",
+    "key": "/etc/sensu/certs/key.pem",
+    "url": "https://sensu.alpha.example.com:2379,https://sensu.beta.example.com:2379",
+    "api_version": "core/v2",
+    "resource": "ClusterRoleBinding",
+    "replication_interval_seconds": 30
+  }
+}
+{{< /highlight >}}
+
+{{< /language-toggle >}}
+
+To configure this EtcdReplicator on our `gateway` cluster, first use `sensuctl config view` to verify that `sensuctl` is configured to talk to a `gateway` cluster API. Reconfigure `sensuctl` as necessary.
+
+With the above EtcdReplicator definition written to disk as `AllClusterRoleBindings.yml`, use `cat AllClusterRoleBindings.yml | sensuctl create`  to create the EtdReplicator on the `gateway` cluster.
+
+Our [etcd-replicators reference][2] includes [examples][9] for `Role`, `RoleBinding`, `ClusterRole`, and `ClusterRoleBinding` resources. For a consistent experience, repeat the above example for `Role`, `RoleBinding` and `ClusterRole` resource types.
+
+You can verify that the EtcdReplicator resource is working as expected by reconfiguring `sensuctl` to communicate with the `alpha` and `beta` clusters and issuing the `sensuctl cluster-role-binding list` command. You should see 
+
+### Step 3 Register clusters
+
+In order to become visible in the web UI, a cluster must be registered. Each registered cluster must have a name and a list of one or more cluster member URLs corresponding to the backend REST API.
+
+#### Register a single cluster
 
 You do not need to register the cluster that you are currently operating from (for example, self or local-cluster) unless you want to configure the cluster name.
 
-From `local-cluster`, run `sensuctl create` on the yaml or JSON below to register cluster `us-west-2a`:
+With `sensuctl` configured for the `gateway` cluster, run `sensuctl create` on the yaml or JSON below to register cluster `alpha`:
 
 {{< language-toggle >}}
 
@@ -80,12 +186,10 @@ From `local-cluster`, run `sensuctl create` on the yaml or JSON below to registe
 api_version: federation/v1
 type: Cluster
 metadata:
-  name: us-west-2a
+  name: alpha
 spec:
   api_urls:
-  - http://10.0.0.1:8080
-  - http://10.0.0.2:8080
-  - http://10.0.0.3:8080
+  - https://sensu.alpha.example.com:8080
 {{< /highlight >}}
 
 {{< highlight json >}}
@@ -93,13 +197,11 @@ spec:
   "api_version": "federation/v1",
   "type": "Cluster",
   "metadata": {
-    "name": "us-west-2a"
+    "name": "alpha"
   },
   "spec": {
     "api-urls": [
-      "http://10.0.0.1:8080",
-      "http://10.0.0.2:8080",
-      "http://10.0.0.3:8080"
+      "https://sensu.alpha.example.com:8080"
     ]
   }
 }
@@ -107,9 +209,9 @@ spec:
 
 {{< /language-toggle >}}
 
-### Register additional clusters
+#### Register additional clusters
 
-From `local-cluster`, run `sensuctl create` on the yaml or JSON below to register an additional cluster (with the same API URLs as `local-cluster`) and define the name as `us-west-2b`:
+From `local-cluster`, run `sensuctl create` on the yaml or JSON below to register an additional cluster (with the same API URLs as `local-cluster`) and define the name as `beta`:
 
 {{< language-toggle >}}
 
@@ -117,12 +219,10 @@ From `local-cluster`, run `sensuctl create` on the yaml or JSON below to registe
 api_version: federation/v1
 type: Cluster
 metadata:
-  name: us-west-2b
+  name: beta
 spec:
   api_urls:
-  - http://10.0.0.4:8080
-  - http://10.0.0.5:8080
-  - http://10.0.0.6:8080
+  - https://sensu.beta.example.com:8080
 {{< /highlight >}}
 
 {{< highlight json >}}
@@ -130,13 +230,11 @@ spec:
   "api_version": "federation/v1",
   "type": "Cluster",
   "metadata": {
-    "name": "us-west-2b"
+    "name": "beta"
   },
   "spec": {
     "api-urls": [
-      "http://10.0.0.4:8080",
-      "http://10.0.0.5:8080",
-      "http://10.0.0.6:8080"
+      "https://sensu.alpha.example.com:8080"
     ]
   }
 }
@@ -144,14 +242,13 @@ spec:
 
 {{< /language-toggle >}}
 
-## Step 4 Get a unified view of all your clusters in the web UI
+### Step 4 Get a unified view of all your clusters in the web UI
 
 After you create clusters using the federation API, you can log in to the Sensu web UI to view them. In the web UI, you can see the status of every federated cluster, as well as metrics like the number of events and entities for each. 
 
 **NEEDED**: Add screenshots of the context switcher in the web UI showing how the federated views work.
 
 Switch between clusters and namespaces in the web UI to get details.
-
 
 [1]: ../../api/federation/#the-clusters-endpoint
 [2]: ../../reference/etcdreplicators
@@ -165,3 +262,4 @@ Switch between clusters and namespaces in the web UI to get details.
 [10]: ../..reference/rbac
 [11]: ../../api/federation#clusters-get
 [12]: https://github.com/etcd-io/etcd/blob/master/etcdctl/README.md#make-mirror-options-destination
+[13]: ../guides/securing-sensu/#creating-self-signed-certificates
