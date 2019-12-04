@@ -12,14 +12,15 @@ menu:
 ---
 
 - [What you can do with federation](#what-you-can-do-with-federation)
-- [Step 1 Configure backends for TLS](#step-1-configure-backends-for-tls))
-- [Step 2 Configure shared token signing keys](#step-2--configure-shared-token-signing-keys)
+- [Step 1 Configure backends for TLS](#step-1-configure-backends-for-tls)
+- [Step 2 Configure shared token signing keys](#step-2-configure-shared-token-signing-keys)
 - [Step 3 Add a cluster role binding and user](#step-3-add-a-cluster-role-binding-and-user)
 - [Step 4 Create etcd replicators](#step-4-create-etcd-replicators)
-- [Step 5 Register clusters](#register-clusters)
+- [Step 5 Register clusters](#step-5-register-clusters)
   - [Register a single cluster](#register-a-single-cluster)
   - [Register additional clusters](#register-additional-clusters)
 - [Step 6 Get a unified view of all your clusters in the web UI](#step-6-get-a-unified-view-of-all-your-clusters-in-the-web-ui)
+- [Next steps](#next-steps)
 
 **COMMERCIAL FEATURE**: Access federation in the packaged Sensu Go distribution. For more information, see the [getting started guide][8].
 
@@ -290,6 +291,10 @@ After you create clusters using the federation API, you can log in to the `gatew
 <img alt="animated demonstration of federated views in Sensu Web UI" title="Cross-cluster visibility in the Sensu Web UI" src="/images/federation-switcher-animated.gif" width="800 px">
 
 As the `federation-viewer` user is granted only permissions provided by the built-in `view` role, this user should be able to view all resources across all clusters, but not make any changes. Provided you've not changed the permissions of the default `admin` user, that user should be able to view, create, delete and update resources across all clusters as well.
+
+### Next steps
+
+Learn more about configuring RBAC policies in our [RBAC reference documentation][10].
 
 [1]: ../../api/federation/#the-clusters-endpoint
 [2]: ../../reference/etcdreplicators
