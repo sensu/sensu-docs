@@ -58,14 +58,16 @@ As federation depends on communication between multiple disparate clusters, work
 
 This prerequisite extends to the configuration of the following Sensu backend etcd parameters:
 
-| Backend property           | Note |
-|----------------------------|------|
-| etcd-trusted-ca-file       | Self explanatory. |
-| etcd-cert-file             | Self explanatory. |
-| etcd-key-file              | Self explanatory. |
-| etcd-client-cert-auth      | Strongly recommended to use `true` setting |
-| etcd-advertise-client-urls | list of https URLs to to advertise for Etcd Replicators, accessible by other backends in the federation e.g. `https://sensu.beta.example.com:2378` -- default values will not work for federation. |
-| etcd-listen-client-urls    | list of https URLs to listen on for Etcd Replicators, e.g. `https://0.0.0.0:2379` to listen on port 2739 across all ipv4 interfaces -- default values will not work for federation. |
+| Backend property             | Note |
+|------------------------------|------|
+| `etcd-trusted-ca-file`       | Self explanatory. |
+| `etcd-cert-file`             | Self explanatory. |
+| `etcd-key-file`              | Self explanatory. |
+| `etcd-client-cert-auth`      | Strongly recommended to use `true` setting |
+| `etcd-advertise-client-urls` | list of https URLs to to advertise for Etcd Replicators, accessible by other backends in the federation e.g. `https://sensu.beta.example.com:2378` |
+| `etcd-listen-client-urls`    | list of https URLs to listen on for Etcd Replicators, e.g. `https://0.0.0.0:2379` to listen on port 2739 across all ipv4 interfaces |
+
+_NOTE: You *must* provide non-default values for `etcd-advertise-client-urls` and `etcd-listen-client-urls` backend parameters, as the default values are not suitable for use under federation._
 
 ### Step 2 Configure shared token signing keys
 
