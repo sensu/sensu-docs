@@ -1,6 +1,6 @@
 ---
 title: "Federation API"
-description: "The federation API controls federation of Sensu clusters. Here’s a reference for the federation API in Sensu Go, including examples. Read on for the full reference."
+description: "The federation API controls federation of Sensu clusters. This reference describes the Sensu federation API, including examples. Read on for the full reference."
 version: "5.16"
 product: "Sensu Go"
 menu:
@@ -22,7 +22,8 @@ menu:
   - [`/clusters/:cluster` (PUT)](#clusterscluster-put)
   - [`/clusters/:cluster` (DELETE)](#clusterscluster-delete)
 
-**COMMERCIAL FEATURE**: Access federation in the packaged Sensu Go distribution. For more information, see the [getting started guide][1].
+**COMMERCIAL FEATURE**: Access federation in the packaged Sensu Go distribution.
+For more information, see [Get started with commercial features][1].
 
 ## The `/etcd-replicators` endpoint
 
@@ -128,7 +129,7 @@ The `/etcd-replicators/:etcd-replicator` endpoint provides HTTP GET access to da
 
 #### EXAMPLE {#etcd-replicatorsetcd-replicator-get-example}
 
-In the following example, querying the `/etcd-replicators/:etcd-replicator` endpoint returns a JSON Map containing the requested `:etcd-replicator`.
+In the following example, querying the `/etcd-replicators/:etcd-replicator` endpoint returns a JSON map that contains the requested `:etcd-replicator`.
 
 _**NOTE**: If you did not specify a [namespace][2] when you created the replicator, the response will not include a `namespace` key-value pair._
 
@@ -182,6 +183,8 @@ output               | {{< highlight json >}}
 {{< /highlight >}}
 
 ### `/etcd-replicators/:etcd-replicator` (PUT) {#etcd-replicatorsetcd-replicator-put}
+
+The `/etcd-replicators/:etcd-replicator` endpoint provides HTTP PUT access to create or update a specific `:etcd-replicator`, by replicator `name`.
 
 #### EXAMPLE {#etcd-replicatorsetcd-replicator-put-example}
 
@@ -246,7 +249,7 @@ The `/etcd-replicators/:etcd-replicator` endpoint provides HTTP DELETE access to
 
 ### EXAMPLE {#etcd-replicatorsetcd-replicator-delete-example}
 
-The following example shows a request to delete the replicator `my_replicator`, resulting in a successful HTTP 204 No Content response.
+The following example shows a request to delete the replicator `my_replicator`, resulting in a successful HTTP `204 No Content` response.
 
 {{< highlight shell >}}
 curl -X DELETE \
@@ -263,7 +266,6 @@ HTTP/1.1 204 No Content
 description               | Deletes the specified replicator from Sensu.
 example url               | http://hostname:8080/api/enterprise/federation/v1/etcd-replicators/{etcd-replicator_name}
 response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-
 
 ## The `/clusters` endpoint
 
@@ -334,7 +336,7 @@ The `/clusters/:cluster` endpoint provides HTTP GET access to data for a specifi
 
 #### EXAMPLE {#clusterscluster-get-example}
 
-In the following example, querying the `/clusters/:cluster` endpoint returns a JSON Map containing the requested `:etcd-replicator`.
+In the following example, querying the `/clusters/:cluster` endpoint returns a JSON map that contains the requested `:etcd-replicator`.
 
 {{< highlight shell >}}
 curl -H "Authorization: Bearer $SENSU_TOKEN" \
@@ -387,6 +389,8 @@ output               | {{< highlight json >}}
 
 _**NOTE**: Only cluster admins have PUT access to clusters._
 
+The `/clusters/:cluster` endpoint provides HTTP PUT access to create or update a specific `cluster`, by cluster `name`.
+
 #### EXAMPLE {#clusterscluster-put-example}
 
 The following example demonstrates a request to update the cluster `us-west-2a`.
@@ -438,7 +442,7 @@ payload         | {{< highlight shell >}}
 {{< /highlight >}}
 response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
-### `/clusters/:cluster` (DELETE) {#clusters-delete}
+### `/clusters/:cluster` (DELETE) {#clusterscluster-delete}
 
 The `/clusters/:cluster` endpoint provides HTTP DELETE access to delete the specified cluster from Sensu.
 
@@ -446,7 +450,7 @@ _**NOTE**: Only cluster admins have DELETE access to clusters._
 
 ### EXAMPLE {#clusterscluster-delete-example}
 
-The following example shows a request to delete the cluster `us-west-2a`, resulting in a successful HTTP 204 No Content response.
+The following example shows a request to delete the cluster `us-west-2a`, resulting in a successful HTTP `204 No Content` response.
 
 {{< highlight shell >}}
 curl -X DELETE \

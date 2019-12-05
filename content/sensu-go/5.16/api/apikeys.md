@@ -1,6 +1,6 @@
 ---
 title: "APIKeys API"
-description: "The APIKeys API provides HTTP access to API key data. This is a reference for the APIKeys API in Sensu Go, including examples for returning lists of API keys, creating API keys, and more. Read on for the full reference."
+description: "The Sensu APIKeys API provides HTTP access to API key data. This reference includes examples for returning lists of API keys, creating API keys, and more."
 version: "5.16"
 product: "Sensu Go"
 menu:
@@ -24,7 +24,7 @@ The `/apikeys` GET endpoint retrieves all API keys.
 
 #### EXAMPLE {#apikeys-get-example}
 
-The following example demonstrates a request to the `/apikeys` API, resulting in a JSON array containing all API keys.
+The following example demonstrates a request to the `/apikeys` API, resulting in a JSON array that contains all API keys.
 
 {{< highlight shell >}}
 curl http://127.0.0.1:8080/api/core/v2/apikeys -H "Authorization: Bearer $SENSU_TOKEN"
@@ -149,5 +149,3 @@ Date: Mon, 26 Aug 2019 18:51:28 GMT
 
 
 [1]: ../overview#pagination
-[2]: ../role-bindings/
-[3]: ../cluster-role-bindings/

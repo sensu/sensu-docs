@@ -1,6 +1,6 @@
 ---
 title: "Entities API"
-description: "The entities API provides HTTP access to entity data. Here’s a reference for the entities API in Sensu Go, including examples for returning lists of entities, creating Sensu entities, and more. Read on for the full reference."
+description: "The Sensu entities API provides HTTP access to entity data. This reference includes examples for returning lists of entities, creating Sensu entities, and more. Read on for the full reference."
 version: "5.16"
 product: "Sensu Go"
 menu:
@@ -25,8 +25,7 @@ The `/entities` API endpoint provides HTTP GET access to [entity][1] data.
 
 #### EXAMPLE {#entities-get-example}
 
-The following example demonstrates a request to the `/entities` API, resulting in
-a JSON Array containing [entity definitions][1].
+The following example demonstrates a request to the `/entities` API, resulting in a JSON array that contains the [entity definitions][1].
 
 {{< highlight shell >}}
 curl http://127.0.0.1:8080/api/core/v2/namespaces/default/entities -H "Authorization: Bearer $SENSU_TOKEN"
@@ -103,7 +102,7 @@ curl http://127.0.0.1:8080/api/core/v2/namespaces/default/entities -H "Authoriza
 ---------------|------
 description    | Returns the list of entities.
 example url    | http://hostname:8080/api/core/v2/namespaces/default/entities
-pagination     | This endpoint supports pagination using the `limit` and `continue` query parameters. See the [API overview](../overview#pagination) for details.
+pagination     | This endpoint supports pagination using the `limit` and `continue` query parameters. See the [API overview][2] for details.
 response type  | Array
 response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output         | {{< highlight shell >}}
@@ -176,9 +175,13 @@ output         | {{< highlight shell >}}
 
 ### `/entities` (POST)
 
+The `/entities` API endpoint provides HTTP POST access to create a Sensu entity.
+
+#### API Specification {#entities-post-specification}
+
 /entities (POST) | 
 ----------------|------
-description     | Create a Sensu entity.
+description     | Creates a Sensu entity.
 example URL     | http://hostname:8080/api/core/v2/namespaces/default/entities
 payload         | {{< highlight shell >}}
 {
@@ -207,9 +210,7 @@ The `/entities/:entity` API endpoint provides HTTP GET access to [entity data][1
 
 #### EXAMPLE {#entitiesentity-get-example}
 
-In the following example, querying the `/entities/:entity` API returns a JSON Map
-containing the requested [`:entity` definition][1] (in this example: for the `:entity` named
-`sensu-centos`).
+In the following example, querying the `/entities/:entity` API returns a JSON map that contains the requested [`:entity` definition][1] (in this example, for the `:entity` named `sensu-centos`).
 
 {{< highlight shell >}}
 curl http://127.0.0.1:8080/api/core/v2/namespaces/default/entities/sensu-centos -H "Authorization: Bearer $SENSU_TOKEN"
@@ -282,7 +283,7 @@ curl http://127.0.0.1:8080/api/core/v2/namespaces/default/entities/sensu-centos 
 
 /entities/:entity (GET) | 
 ---------------------|------
-description          | Returns a entity.
+description          | Returns the specified entity.
 example url          | http://hostname:8080/api/core/v2/namespaces/default/entities/sensu-centos
 response type        | Map
 response codes       | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
@@ -354,11 +355,13 @@ output               | {{< highlight json >}}
 
 ### `/entities/:entity` (POST) {#entitiesentity-post}
 
+The `/entities/:entity` API endpoint provides HTTP POST access to create or update the specified Sensu entity.
+
 #### API Specification {#entitiesentity-post-specification}
 
 /entities/:entity (POST) | 
 ----------------|------
-description     | Create or update a Sensu entity.
+description     | Creates or updates the specified Sensu entity. _**NOTE:**: When you create an entity via an HTTP POST request, the entity will use the namespace in the request URL._
 example URL     | http://hostname:8080/api/core/v2/namespaces/default/entities/sensu-centos
 payload         | {{< highlight shell >}}
 {
@@ -378,15 +381,15 @@ payload         | {{< highlight shell >}}
 {{< /highlight >}}
 response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
-Note that when an event is created via an HTTP POST request, the event will use the namespace in the request URL.
-
 ### `/entities/:entity` (PUT) {#entitiesentity-put}
+
+The `/entities/:entity` API endpoint provides HTTP PUT access to create or update the specified Sensu entity.
 
 #### API Specification {#entitiesentity-put-specification}
 
 /entities/:entity (PUT) | 
 ----------------|------
-description     | Create or update a Sensu entity.
+description     | Creates or updates the specified Sensu entity. _**NOTE:**: When you create an entity via an HTTP PUT request, the entity will use the namespace in the request URL._
 example URL     | http://hostname:8080/api/core/v2/namespaces/default/entities/sensu-centos
 payload         | {{< highlight shell >}}
 {
@@ -407,14 +410,13 @@ payload         | {{< highlight shell >}}
 {{< /highlight >}}
 response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
-Note that when an event is created via an HTTP PUT request, the event will use the namespace in the request URL.
-
 ### `/entities/:entity` (DELETE) {#entitiesentity-delete}
 
-The `/entities/:entity` API endpoint provides HTTP DELETE access to delete an entity from Sensu given the entity name.
+The `/entities/:entity` API endpoint provides HTTP DELETE access to delete an entity from Sensu (specified by the entity name).
 
 ### EXAMPLE {#entitiesentity-delete-example}
-The following example shows a request to delete the entity `server1`, resulting in a successful HTTP 204 No Content response.
+
+The following example shows a request to delete the entity `server1`, resulting in a successful HTTP `204 No Content` response.
 
 {{< highlight shell >}}
 curl -X DELETE \
@@ -428,8 +430,9 @@ HTTP/1.1 204 No Content
 
 /entities/:entity (DELETE) | 
 --------------------------|------
-description               | Removes a entity from Sensu given the entity name.
+description               | Removes a entity from Sensu (specified by the entity name).
 example url               | http://hostname:8080/api/core/v2/namespaces/default/entities/server1
 response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
-[1]: ../../reference/entities
+[1]: ../../reference/entities\
+[2]: ../overview#pagination

@@ -1,7 +1,7 @@
 ---
 title: "Cluster roles API"
 linkTitle: "Cluster Roles API"
-description: "The cluster role API provides HTTP access to cluster role data. Here’s a reference for the cluster roles API in Sensu Go, including examples for returning lists of cluster roles, creating Sensu cluster roles, and more. Read on for the full reference."
+description: "The Sensu cluster roles API provides HTTP access to cluster role data. This refernece includes examples for returning lists of cluster roles, creating Sensu cluster roles, and more. Read on for the full reference."
 version: "5.16"
 product: "Sensu Go"
 menu:
@@ -25,8 +25,7 @@ The `/clusterroles` API endpoint provides HTTP GET access to [cluster role][1] d
 
 #### EXAMPLE {#clusterroles-get-example}
 
-The following example demonstrates a request to the `/clusterroles` API, resulting in
-a JSON Array containing [cluster role definitions][1].
+The following example demonstrates a request to the `/clusterroles` API, resulting in a JSON array that contains [cluster role definitions][1].
 
 {{< highlight shell >}}
 curl http://127.0.0.1:8080/api/core/v2/clusterroles -H "Authorization: Bearer $SENSU_TOKEN"
@@ -95,7 +94,7 @@ HTTP/1.1 200 OK
 ---------------|------
 description    | Returns the list of cluster roles.
 example url    | http://hostname:8080/api/core/v2/clusterroles
-pagination     | This endpoint supports pagination using the `limit` and `continue` query parameters. See the [API overview](../overview#pagination) for details.
+pagination     | This endpoint supports pagination using the `limit` and `continue` query parameters. See the [API overview][2] for details.
 response type  | Array
 response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output         | {{< highlight shell >}}
@@ -121,9 +120,13 @@ output         | {{< highlight shell >}}
 
 ### `/clusterroles` (POST)
 
+The `/clusterroles` API endpoint provides HTTP POST access to create a [cluster role][1].
+
+#### API Specification {#clusterroles-post-specification}
+
 /clusterroles (POST) | 
 ----------------|------
-description     | Create a Sensu cluster role.
+description     | Creates a Sensu cluster role.
 example URL     | http://hostname:8080/api/core/v2/clusterroles
 payload         | {{< highlight shell >}}
 {
@@ -154,9 +157,7 @@ The `/clusterroles/:clusterrole` API endpoint provides HTTP GET access to [clust
 
 #### EXAMPLE {#clusterrolesclusterrole-get-example}
 
-In the following example, querying the `/clusterroles/:clusterrole` API returns a JSON Map
-containing the requested [`:clusterrole` definition][1] (in this example: for the `:clusterrole` named
-`global-event-reader`).
+In the following example, querying the `/clusterroles/:clusterrole` API returns a JSON map that contains the requested [`:clusterrole` definition][1] (in this example, for the `:clusterrole` named `global-event-reader`).
 
 {{< highlight shell >}}
 curl http://127.0.0.1:8080/api/core/v2/clusterroles/global-event-reader -H "Authorization: Bearer $SENSU_TOKEN"
@@ -185,7 +186,7 @@ HTTP/1.1 200 OK
 
 /clusterroles/:clusterrole (GET) | 
 ---------------------|------
-description          | Returns a cluster role.
+description          | Returns the specified cluster role.
 example url          | http://hostname:8080/api/core/v2/clusterroles/global-event-reader
 response type        | Map
 response codes       | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
@@ -211,11 +212,13 @@ output               | {{< highlight json >}}
 
 ### `/clusterroles/:clusterrole` (PUT) {#clusterrolesclusterrole-put}
 
+The `/clusterroles/:clusterrole` API endpoint provides HTTP PUT access to create or update a cluster role, by cluster role name.
+
 #### API Specification {#clusterrolesclusterrole-put-specification}
 
 /clusterroles/:clusterrole (PUT) | 
 ----------------|------
-description     | Create or update a Sensu cluster role.
+description     | Creates or updates the specified Sensu cluster role.
 example URL     | http://hostname:8080/api/core/v2/clusterroles/global-event-reader
 payload         | {{< highlight shell >}}
 {
@@ -240,10 +243,11 @@ response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 
 
 ### `/clusterroles/:clusterrole` (DELETE) {#clusterrolesclusterrole-delete}
 
-The `/clusterroles/:clusterrole` API endpoint provides HTTP DELETE access to delete a cluster role from Sensu given the cluster role name.
+The `/clusterroles/:clusterrole` API endpoint provides HTTP DELETE access to delete a cluster role from Sensu (specified by the cluster role name).
 
 ### EXAMPLE {#clusterrolesclusterrole-delete-example}
-The following example shows a request to delete the cluster role `global-event-reader`, resulting in a successful HTTP 204 No Content response.
+
+The following example shows a request to delete the cluster role `global-event-reader`, resulting in a successful HTTP `204 No Content` response.
 
 {{< highlight shell >}}
 curl -X DELETE \
@@ -257,8 +261,9 @@ HTTP/1.1 204 No Content
 
 /clusterroles/:clusterrole (DELETE) | 
 --------------------------|------
-description               | Removes a cluster role from Sensu given the cluster role name.
+description               | Removes a cluster role from Sensu (specified by the cluster role name).
 example url               | http://hostname:8080/api/core/v2/clusterroles/global-event-reader
 response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
-[1]: ../../reference/rbac
+[1]: ../../reference/rbac/
+[2]: ../overview#pagination
