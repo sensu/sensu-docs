@@ -90,7 +90,7 @@ Then generate a public key from the private key:
 openssl ec -in jwt_private.pem -pubout -out jwt_public.pem
 {{< /highlight >}}
 
-For this example, you'll put JWT keys into `/etc/sensu/certs` and use the [`jwt-private-key-file` and `jwt-public-key-file` attributes][4] in `/etc/sensu/backend.yml` to specify the paths to these JWT keys:
+For this example, you'll put JWT keys into `/etc/sensu/certs` on each cluster backend, and use the [`jwt-private-key-file` and `jwt-public-key-file` attributes][4] in `/etc/sensu/backend.yml` to specify the paths to these JWT keys:
 
 {{< highlight yml >}}
 jwt-private-key-file: /etc/sensu/certs/jwt_private.pem
@@ -106,7 +106,15 @@ sensu-backend start
 
 To test your configuration, provision a User and a ClusterRoleBinding in the `gateway` cluster.
 
-First, confirm that sensuctl is configured to communicate with the `gateway` cluster using `sensuctl config view` to see the active configuration.
+First, confirm that sensuctl is configured to communicate with the `gateway` cluster using `sensuctl config view` to see the active configuration:
+
+{{< highlight shell >}}
+=== Active Configuration
+API URL:   https://sensu.gateway.example.com:8080
+Namespace: default
+Format:    tabular
+Username:  admin
+{{ < /highlight >}}
 
 Second, create a `federation-viewer` user:
 
