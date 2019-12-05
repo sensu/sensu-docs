@@ -212,7 +212,7 @@ spec:
 
 To configure this etcd replicator on your `gateway` cluster, use `sensuctl config view` to verify that `sensuctl` is configured to talk to a `gateway` cluster API. Reconfigure `sensuctl` if needed.
 
-With the above EtcdReplicator definition written to disk as `AllClusterRoleBindings.yml`, use `cat AllClusterRoleBindings.yml | sensuctl create`  to create the EtdReplicator on the `gateway` cluster.
+Write these EtcdReplicator definitions written to disk and use `sensuctl create -f` to apply them to the `gateway` cluster.
 
 For a consistent experience, repeat the `ClusterRoleBinding` example in this guide for `Role`, `RoleBinding` and `ClusterRole` resource types. The [etcd replicators reference][2] includes [examples][9] you can follow for `Role`, `RoleBinding`, `ClusterRole`, and `ClusterRoleBinding` resources.
 
