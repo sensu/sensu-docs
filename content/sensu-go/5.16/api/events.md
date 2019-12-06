@@ -240,7 +240,7 @@ response codes  | <ul><li>**Success**: 200 (OK)</li><li>**Malformed**: 400 (Bad 
 
 ### `/events` (PUT)
 
-The `/events` API endpoint provides HTTP PUT access to create an event and send it to the Sensu pipeline.
+The `/events` API endpoint provides HTTP PUT access to update an event and send it to the Sensu pipeline.
 
 #### EXAMPLE {#events-put-example}
 
@@ -276,7 +276,7 @@ HTTP/1.1 200 OK
 {"timestamp":1552582569,"entity":{"entity_class":"proxy","system":{"network":{"interfaces":null}},"subscriptions":null,"last_seen":0,"deregister":false,"deregistration":{},"metadata":{"name":"server1","namespace":"default"}},"check":{"handlers":["slack"],"high_flap_threshold":0,"interval":60,"low_flap_threshold":0,"publish":false,"runtime_assets":null,"subscriptions":[],"proxy_entity_name":"","check_hooks":null,"stdin":false,"subdue":null,"ttl":0,"timeout":0,"round_robin":false,"executed":0,"history":null,"issued":0,"output":"Server error","state":"failing","status":2,"total_state_change":0,"last_ok":0,"occurrences":0,"occurrences_watermark":0,"output_metric_format":"","output_metric_handlers":null,"env_vars":null,"metadata":{"name":"server-health"}},"metadata":{}}
 {{< /highlight >}}
 
-#### API Specification {#events-post-specification}
+#### API Specification {#events-put-specification}
 
 /events (PUT) | 
 ----------------|------
@@ -821,7 +821,7 @@ http://127.0.0.1:8080/api/core/v2/namespaces/default/events/server1/server-metri
 
 ### `/events/:entity/:check` (DELETE) {#eventsentitycheck-delete}
 
-### EXAMPLE {#eventsentitycheck-delete-example}
+#### EXAMPLE {#eventsentitycheck-delete-example}
 
 The following example shows a request to delete the event produced by the `sensu-go-sandbox` entity and `check-cpu` check, resulting in a successful HTTP `204 No Content` response.
 
