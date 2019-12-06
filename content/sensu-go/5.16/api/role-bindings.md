@@ -1,7 +1,7 @@
 ---
 title: "Role bindings API"
 linkTitle: "Role Bindings API"
-description: "The role bindings API provides HTTP access to role binding data. Here’s a reference for the role bindings API in Sensu Go, including examples for returning lists of role bindings, creating Sensu role bindings, and more. Read on for the full reference."
+description: "The Sensu role bindings API provides HTTP access to role binding data. This reference includes examples for returning lists of role bindings, creating Sensu role bindings, and more. Read on for the full reference."
 version: "5.16"
 product: "Sensu Go"
 menu:
@@ -25,8 +25,7 @@ The `/rolebindings` API endpoint provides HTTP GET access to [role binding][1] d
 
 #### EXAMPLE {#rolebindings-get-example}
 
-The following example demonstrates a request to the `/rolebindings` API, resulting in
-a JSON Array containing [role binding definitions][1].
+The following example demonstrates a request to the `/rolebindings` API, resulting in a JSON array that contains [role binding definitions][1].
 
 {{< highlight shell >}}
 curl http://127.0.0.1:8080/api/core/v2/namespaces/default/rolebindings -H "Authorization: Bearer $SENSU_TOKEN"
@@ -58,7 +57,7 @@ HTTP/1.1 200 OK
 ---------------|------
 description    | Returns the list of role bindings.
 example url    | http://hostname:8080/api/core/v2/namespaces/default/rolebindings
-pagination     | This endpoint supports pagination using the `limit` and `continue` query parameters. See the [API overview](../overview#pagination) for details.
+pagination     | This endpoint supports pagination using the `limit` and `continue` query parameters. See the [API overview][2] for details.
 response type  | Array
 response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output         | {{< highlight shell >}}
@@ -84,9 +83,13 @@ output         | {{< highlight shell >}}
 
 ### `/rolebindings` (POST)
 
+The `/rolebindings` API endpoint provides HTTP POST access to create Sensu role bindings.
+
+#### API Specification {#rolebindings-post-specification}
+
 /rolebindings (POST) | 
 ----------------|------
-description     | Create a Sensu role binding.
+description     | Creates a Sensu role binding.
 example URL     | http://hostname:8080/api/core/v2/namespaces/default/rolebindings
 payload         | {{< highlight shell >}}
 {
@@ -116,9 +119,7 @@ The `/rolebindings/:rolebinding` API endpoint provides HTTP GET access to [role 
 
 #### EXAMPLE {#rolebindingsrolebinding-get-example}
 
-In the following example, querying the `/rolebindings/:rolebinding` API returns a JSON Map
-containing the requested [`:rolebinding` definition][1] (in this example: for the `:rolebinding` named
-`readers-group-binding`).
+In the following example, querying the `/rolebindings/:rolebinding` API returns a JSON map that contains the requested [`:rolebinding` definition][1] (in this example, for the `:rolebinding` named `readers-group-binding`).
 
 {{< highlight shell >}}
 curl http://127.0.0.1:8080/api/core/v2/namespaces/default/rolebindings/readers-group-binding -H "Authorization: Bearer $SENSU_TOKEN"
@@ -146,7 +147,7 @@ HTTP/1.1 200 OK
 
 /rolebindings/:rolebinding (GET) | 
 ---------------------|------
-description          | Returns a role binding.
+description          | Returns the specified role binding.
 example url          | http://hostname:8080/api/core/v2/namespaces/default/rolebindings/readers-group-binding
 response type        | Map
 response codes       | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
@@ -171,11 +172,13 @@ output               | {{< highlight json >}}
 
 ### `/rolebindings/:rolebinding` (PUT) {#rolebindingsrolebinding-put}
 
+The `/rolebindings/:rolebinding` API endpoint provides HTTP PUT access to create or update [role binding data][1] for specific `:rolebinding` definitions, by role binding `name`.
+
 #### API Specification {#rolebindingsrolebinding-put-specification}
 
 /rolebindings/:rolebinding (PUT) | 
 ----------------|------
-description     | Create or update a Sensu role binding.
+description     | Creates or updates a Sensu role binding.
 example URL     | http://hostname:8080/api/core/v2/namespaces/default/rolebindings/readers-group-binding
 payload         | {{< highlight shell >}}
 {
@@ -199,10 +202,11 @@ response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 
 
 ### `/rolebindings/:rolebinding` (DELETE) {#rolebindingsrolebinding-delete}
 
-The `/rolebindings/:rolebinding` API endpoint provides HTTP DELETE access to delete a role binding from Sensu given the role binding name.
+The `/rolebindings/:rolebinding` API endpoint provides HTTP DELETE access to delete a role binding from Sensu (specified by the role binding name).
 
 ### EXAMPLE {#rolebindingsrolebinding-delete-example}
-The following example shows a request to delete the role binding `dev-binding`, resulting in a successful HTTP 204 No Content response.
+
+The following example shows a request to delete the role binding `dev-binding`, resulting in a successful HTTP `204 No Content` response.
 
 {{< highlight shell >}}
 curl -X DELETE \
@@ -216,8 +220,9 @@ HTTP/1.1 204 No Content
 
 /rolebindings/:rolebinding (DELETE) | 
 --------------------------|------
-description               | Removes a role binding from Sensu given the role binding name.
+description               | Removes the specified role binding from Sensu.
 example url               | http://hostname:8080/api/core/v2/namespaces/default/rolebindings/dev-binding
 response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
-[1]: ../../reference/rbac
+[1]: ../../reference/rbac/
+[2]: ../overview#pagination

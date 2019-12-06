@@ -1,6 +1,6 @@
 ---
 title: "Roles API"
-description: "The roles API provides HTTP access to user role data. Here’s a reference for the roles API in Sensu Go, including examples for returning lists of roles, creating Sensu roles, and more. Read on for the full reference."
+description: "The Sensu roles API provides HTTP access to user role data. This reference includes examples for returning lists of roles, creating Sensu roles, and more. Read on for the full reference."
 version: "5.16"
 product: "Sensu Go"
 menu:
@@ -24,8 +24,7 @@ The `/roles` API endpoint provides HTTP GET access to [role][1] data.
 
 #### EXAMPLE {#roles-get-example}
 
-The following example demonstrates a request to the `/roles` API, resulting in
-a JSON Array containing [role definitions][1].
+The following example demonstrates a request to the `/roles` API, resulting in a JSON array that contains [role definitions][1].
 
 {{< highlight shell >}}
 curl http://127.0.0.1:8080/api/core/v2/namespaces/default/roles -H "Authorization: Bearer $SENSU_TOKEN"
@@ -58,7 +57,7 @@ HTTP/1.1 200 OK
 ---------------|------
 description    | Returns the list of roles.
 example url    | http://hostname:8080/api/core/v2/namespaces/default/roles
-pagination     | This endpoint supports pagination using the `limit` and `continue` query parameters. See the [API overview](../overview#pagination) for details.
+pagination     | This endpoint supports pagination using the `limit` and `continue` query parameters. See the [API overview][2] for details.
 response type  | Array
 response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output         | {{< highlight shell >}}
@@ -85,9 +84,13 @@ output         | {{< highlight shell >}}
 
 ### `/roles` (POST)
 
+The `/roles` API endpoint provides HTTP POST access to create Sensu roles.
+
+#### API Specification {#roles-post-specification}
+
 /roles (POST) | 
 ----------------|------
-description     | Create a Sensu role.
+description     | Creates a Sensu role.
 example URL     | http://hostname:8080/api/core/v2/namespaces/default/roles
 payload         | {{< highlight shell >}}
 {
@@ -115,13 +118,11 @@ response codes  | <ul><li>**Success**: 200 (OK)</li><li>**Malformed**: 400 (Bad 
 
 ### `/roles/:role` (GET) {#rolesrole-get}
 
-The `/roles/:role` API endpoint provides HTTP GET access to [role data][1] for specific `:role` definitions, by role `name`.
+The `/roles/:role` API endpoint provides HTTP GET access to [role data][1] for specific `:role` definitions, by role name.
 
 #### EXAMPLE {#rolesrole-get-example}
 
-In the following example, querying the `/roles/:role` API returns a JSON Map
-containing the requested [`:role` definition][1] (in this example: for the `:role` named
-`read-only`).
+In the following example, querying the `/roles/:role` API returns a JSON map that contains the requested [`:role` definition][1] (in this example, for the `:role` named `read-only`).
 
 {{< highlight shell >}}
 curl http://127.0.0.1:8080/api/core/v2/namespaces/default/roles/read-only -H "Authorization: Bearer $SENSU_TOKEN"
@@ -150,7 +151,7 @@ HTTP/1.1 200 OK
 
 /roles/:role (GET) | 
 ---------------------|------
-description          | Returns a role.
+description          | Returns the specified Sensu role.
 example url          | http://hostname:8080/api/core/v2/namespaces/default/roles/read-only
 response type        | Map
 response codes       | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
@@ -176,11 +177,13 @@ output               | {{< highlight json >}}
 
 ### `/roles/:role` (PUT) {#rolesrole-put}
 
+The `/roles/:role` API endpoint provides HTTP PUT access to create or update specific `:role` definitions, by role name.
+
 #### API Specification {#rolesrole-put-specification}
 
 /roles/:role (PUT) | 
 ----------------|------
-description     | Create or update a Sensu role.
+description     | Creates or updates the specified Sensu role.
 example URL     | http://hostname:8080/api/core/v2/namespaces/default/roles/event-reader
 payload         | {{< highlight shell >}}
 {
@@ -206,10 +209,11 @@ response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 
 
 ### `/roles/:role` (DELETE) {#rolesrole-delete}
 
-The `/roles/:role` API endpoint provides HTTP DELETE access to delete a role from Sensu given the role name.
+The `/roles/:role` API endpoint provides HTTP DELETE access to delete a role from Sensu (specified by the role name).
 
 ### EXAMPLE {#rolesrole-delete-example}
-The following example shows a request to delete the role `read-only`, resulting in a successful HTTP 204 No Content response.
+
+The following example shows a request to delete the role `read-only`, resulting in a successful HTTP `204 No Content` response.
 
 {{< highlight shell >}}
 curl -X DELETE \
@@ -223,8 +227,9 @@ HTTP/1.1 204 No Content
 
 /roles/:role (DELETE) | 
 --------------------------|------
-description               | Removes a role from Sensu given the role name.
+description               | Removes the specified role from Sensu.
 example url               | http://hostname:8080/api/core/v2/namespaces/default/roles/read-only
 response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
-[1]: ../../reference/rbac
+[1]: ../../reference/rbac/
+[2]: ../overview#pagination
