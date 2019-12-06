@@ -240,7 +240,7 @@ response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 
 
 The `/handlers/:handler` API endpoint provides HTTP DELETE access to delete a handler from Sensu (specified by the handler name).
 
-### EXAMPLE {#handlershandler-delete-example}
+#### EXAMPLE {#handlershandler-delete-example}
 
 The following example shows a request to delete the handler `slack`, resulting in a successful HTTP `204 No Content` response.
 
