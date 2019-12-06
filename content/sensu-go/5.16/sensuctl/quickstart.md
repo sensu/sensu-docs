@@ -1,7 +1,7 @@
 ---
-title: "Sensuctl quick reference"
+title: "Sensuctl quickstart"
 linkTitle: "Quickstart"
-description: "Just need to remember the default password for the sensuctl CLI? This cheat sheet has some helpful commands for quick reference. Visit the quickstart for helpful sensuctl tips."
+description: "This cheat sheet has some helpful sensuctl commands for quick reference. Use this quickstart for helpful sensuctl tips."
 weight: 1
 version: "5.16"
 product: "Sensu Go"
@@ -11,27 +11,45 @@ menu:
     parent: sensuctl
 ---
 
-### Quick reference
+### Configure sensuctl and log in
 
 {{< highlight shell >}}
-# Configure and log in with defaults
 sensuctl configure
 ? Sensu Backend URL: http://127.0.0.1:8080
 ? Username: admin
 ? Password: P@ssw0rd!
+{{< /highlight >}}
 
-# Create resources from a file containing JSON resource definitions
+### Create resources from a file that contains JSON resource definitions
+
+{{< highlight shell >}}
 sensuctl create --file filename.json
+{{< /highlight >}}
 
-# See monitored entities
+### View monitored entities
+
+{{< highlight shell >}}
 sensuctl entity list
+{{< /highlight >}}
 
-# See monitoring events
+### View monitoring events
+
+{{< highlight shell >}}
 sensuctl event list
+{{< /highlight >}}
 
-# Edit a check named check-cpu
+### Edit a check
+
+In this example, the check name is `check-cpu`:
+
+{{< highlight shell >}}
 sensuctl edit check check-cpu
+{{< /highlight >}}
 
-# See the JSON configuration for a check named check-cpu
+### View the JSON configuration for a check
+
+In this example, the check name is `check-cpu`:
+
+{{< highlight shell >}}
 sensuctl check info check-cpu --format wrapped-json
 {{< /highlight >}}
