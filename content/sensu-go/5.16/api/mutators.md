@@ -175,7 +175,7 @@ response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 
 
 The `/mutators/:mutator` API endpoint provides HTTP DELETE access to delete a mutator from Sensu (specified by the mutator name).
 
-### EXAMPLE {#mutatorsmutator-delete-example}
+#### EXAMPLE {#mutatorsmutator-delete-example}
 The following example shows a request to delete the mutator `example-mutator`, resulting in a successful HTTP `204 No Content` response.
 
 {{< highlight shell >}}
