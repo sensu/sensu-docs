@@ -102,6 +102,8 @@ output         | {{< highlight shell >}}
 
 ### `/checks` (POST)
 
+The `/checks` API endpoint provides HTTP POST access to create checks.
+
 #### EXAMPLE {#checks-post-example}
 
 In the following example, an HTTP POST request is submitted to the `/checks` API to create a `check-cpu` check.
@@ -176,7 +178,7 @@ response codes  | <ul><li>**Success**: 200 (OK)</li><li>**Malformed**: 400 (Bad 
 
 ### `/checks/:check` (GET) {#checkscheck-get}
 
-The `/checks/:check` API endpoint provides HTTP GET access to [check data][1] for `:check` definitions, specified by check `name`.
+The `/checks/:check` API endpoint provides HTTP GET access to [check data][1] for `:check` definitions, specified by check name.
 
 #### EXAMPLE {#checkscheck-get-example}
 
@@ -232,6 +234,8 @@ output               | {{< highlight json >}}
 
 ### `/checks/:check` (PUT) {#checkscheck-put}
 
+The `/checks/:check` API endpoint provides HTTP PUT access to create and update `:check` definitions, specified by check name.
+
 #### EXAMPLE {#checkscheckhooks-put-example}
 
 In the following example, an HTTP PUT request is submitted to the `/checks/:check` API to update the `check-cpu` check, resulting in an HTTP `200 OK` response and the updated check definition.
@@ -264,7 +268,7 @@ HTTP/1.1 200 OK
 
 /checks/:check (PUT) | 
 ----------------|------
-description     | Creates or updates the Sensu check (specified by the check `name` as a URL parameter).
+description     | Creates or updates the specified Sensu check.
 example URL     | http://hostname:8080/api/core/v2/namespaces/default/checks/check-cpu
 payload         | {{< highlight shell >}}
 {
@@ -288,10 +292,11 @@ response codes  | <ul><li>**Success**: 200 (OK)</li><li>**Malformed**: 400 (Bad 
 
 ### `/checks/:check` (DELETE) {#checkscheck-delete}
 
-The `/checks/:check` API endpoint provides HTTP DELETE access to delete a check from Sensu, specified by the check `name`.
+The `/checks/:check` API endpoint provides HTTP DELETE access to delete a check from Sensu, specified by the check name.
 
-### EXAMPLE {#checkscheck-delete-example}
-The following example shows a request to delete the check named `check-cpu`, resulting in a successful `HTTP 204 No Content` response.
+#### EXAMPLE {#checkscheck-delete-example}
+
+The following example shows a request to delete the check named `check-cpu`, resulting in a successful HTTP `204 No Content` response.
 
 {{< highlight shell >}}
 curl -X DELETE \
@@ -305,7 +310,7 @@ HTTP/1.1 204 No Content
 
 /checks/:check (DELETE) | 
 --------------------------|------
-description               | Removes a check from Sensu (specified by the check name).
+description               | Removes the specified check from Sensu.
 example url               | http://hostname:8080/api/core/v2/namespaces/default/checks/check-cpu
 response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
@@ -338,7 +343,7 @@ This gives you the flexibility to execute a check on any Sensu entity or group o
 
 /checks/:check/execute (POST) | 
 ----------------|------
-description     | Creates an ad hoc request to execute a check (specified by the check name).
+description     | Creates an ad hoc request to execute the specified check.
 example URL     | http://hostname:8080/api/core/v2/namespaces/default/checks/check-sensu-site/execute
 payload         | {{< highlight shell >}}
 {
@@ -398,7 +403,7 @@ response codes  | <ul><li>**Success**: 204 (No Content)</li><li>**Malformed**: 4
 
 This endpoint provides HTTP DELETE access to a remove a [hook][2] from a [check][1].
 
-### EXAMPLE {#checkscheckhookshook-delete-example}
+#### EXAMPLE {#checkscheckhookshook-delete-example}
 
 The following example shows a request to remove the `process_tree` hook from the `check-cpu` check, resulting in a successful HTTP `204 No Content` response.
 
