@@ -41,17 +41,24 @@ Complete federation of multiple Sensu instances relies on a combination of featu
 
 | Feature                             | Purpose in federation |
 |-------------------------------------|--------------------------------------------------------------------|
-| JSON Web Token (JWT) authentication       | Cross-cluster token authentication using asymmetric key encryption |
-| etcd replicators                    | Replicate RBAC policy across clusters and namespaces       |
+| JSON Web Token (JWT) authentication | Cross-cluster token authentication using asymmetric key encryption |
+| etcd replicators                    | Replicate RBAC policy across clusters and namespaces |
 | Federation Gateway and APIs         | Configure federation access for cross-cluster visibility in web UI |
 
 The following steps are required to configure these features for unified visibility in a single web UI. Our examples assume that we wish to federate three named Sensu clusters:
 
-* `gateway`
-* `alpha`
-* `beta`
+| Cluster name | Hostname |
+|--------------|-----------------------|
+| `gateway` | sensu.gateway.example.com |
+| `alpha` | sensu.alpha.example.com |
+| `beta` | sensu.beta.example.com |
 
 In this example, the `gateway` cluster will be the entry point for operators to manage Sensu resources in the `alpha` and `beta` clusters.
+
+This diagram depicts the federation relationship documented in this guide:
+
+<!-- Federation diagram source: https://www.lucidchart.com/documents/edit/1b676df9-534e-40e4-9881-6313013ecd28/n~8S.VTyl5JQ -->
+<a href="/images/federation-guide-diagram.png"><img alt="Diagram depicting this guide's example federation architecture" src="/images/federation-guide-diagram.png" width="800 px"></a>
 
 ### Step 1 Configure backends for TLS
 
@@ -61,10 +68,10 @@ This prerequisite extends to configuring the following Sensu backend etcd parame
 
 | Backend property             | Note |
 |------------------------------|------|
-| `etcd-trusted-ca-file`       | Self explanatory. |
-| `etcd-cert-file`             | Self explanatory. |
-| `etcd-key-file`              | Self explanatory. |
-| `etcd-client-cert-auth`      | We recommend setting to `true` |
+| `etcd-cert-file`             | Path to certificate used for TLS on etcd client/peer communications.  |
+| `etcd-key-file`              | Path to key corresponding with `etcd-cert-file` certificate. |
+| `etcd-trusted-ca-file`       | Path to CA certificate chain file. This CA certificate chain must be usable to validate certificates for all backends in the federation. |
+| `etcd-client-cert-auth`      | Enforces certificate validation to authenticate etcd replicator connections. We recommend setting to `true` |
 | `etcd-advertise-client-urls` | List of https URLs to advertise for etcd replicators, accessible by other backends in the federation (e.g. `https://sensu.beta.example.com:2378`) |
 | `etcd-listen-client-urls`    | List of https URLs to listen on for etcd replicators (e.g. `https://0.0.0.0:2379` to listen on port 2739 across all ipv4 interfaces) |
 
@@ -239,6 +246,8 @@ Subjects:
 
 Clusters must be registered to become visible in the web UI. Each registered cluster must have a name and a list of one or more cluster member URLs corresponding to the backend REST API.
 
+_**NOTE**: Individual Cluster resources may list the API URLs for a single stand-alone backend or multiple backends which are members of the same etcd cluster. Creating a Cluster resource which lists multiple backends not belonging to the same cluster will result in unexpected behavior._
+
 #### Register a single cluster
 
 With `sensuctl` configured for the `gateway` cluster, run `sensuctl create` on the yaml or JSON below to register cluster `alpha`:
@@ -263,7 +272,7 @@ spec:
     "name": "alpha"
   },
   "spec": {
-    "api-urls": [
+    "api_urls": [
       "https://sensu.alpha.example.com:8080"
     ]
   }
@@ -296,7 +305,7 @@ spec:
     "name": "beta"
   },
   "spec": {
-    "api-urls": [
+    "api_urls": [
       "https://sensu.alpha.example.com:8080"
     ]
   }
