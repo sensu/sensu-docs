@@ -245,7 +245,7 @@ response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 
 
 The `/clusterroles/:clusterrole` API endpoint provides HTTP DELETE access to delete a cluster role from Sensu (specified by the cluster role name).
 
-### EXAMPLE {#clusterrolesclusterrole-delete-example}
+#### EXAMPLE {#clusterrolesclusterrole-delete-example}
 
 The following example shows a request to delete the cluster role `global-event-reader`, resulting in a successful HTTP `204 No Content` response.
 
