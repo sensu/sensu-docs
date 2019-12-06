@@ -31,6 +31,54 @@
             "url": "/sensu-go/5.15/$1",
             "status": 301
         },
+        "~ ^/sensu-go/5.0/?(.*)$": {
+            "url": "/sensu-go/latest/$1",
+            "status": 301
+        },
+        "~ ^/sensu-go/5.1/?(.*)$": {
+            "url": "/sensu-go/latest/$1",
+            "status": 301
+        },
+        "~ ^/sensu-go/5.2/?(.*)$": {
+            "url": "/sensu-go/latest/$1",
+            "status": 301
+        },
+        "~ ^/sensu-go/5.3/?(.*)$": {
+            "url": "/sensu-go/latest/$1",
+            "status": 301
+        },
+        "~ ^/sensu-go/5.4/?(.*)$": {
+            "url": "/sensu-go/latest/$1",
+            "status": 301
+        },
+        "~ ^/sensu-go/5.5/?(.*)$": {
+            "url": "/sensu-go/latest/$1",
+            "status": 301
+        },
+        "~ ^/sensu-go/5.6/?(.*)$": {
+            "url": "/sensu-go/latest/$1",
+            "status": 301
+        },
+        "~ ^/sensu-go/5.7/?(.*)$": {
+            "url": "/sensu-go/latest/$1",
+            "status": 301
+        },
+        "~ ^/sensu-go/5.8/?(.*)$": {
+            "url": "/sensu-go/latest/$1",
+            "status": 301
+        },
+        "~ ^/sensu-go/5.9/?(.*)$": {
+            "url": "/sensu-go/latest/$1",
+            "status": 301
+        },
+        "~ ^/sensu-go/5.10/?(.*)$": {
+            "url": "/sensu-go/latest/$1",
+            "status": 301
+        },
+        "~ ^/sensu-go/5.11/?(.*)$": {
+            "url": "/sensu-go/latest/$1",
+            "status": 301
+        },
         "~ ^/plugins/latest/?(.*)$": {
             "url": "/plugins/1.0/$1",
             "status": 301
