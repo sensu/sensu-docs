@@ -1,7 +1,6 @@
 /sensu-go/latest/guides/create-ready-only-user /sensu-go/latest/guides/create-read-only-user
-/sensu-go/latest                          /sensu-go/5.14/ 200
+/sensu-go/latest                          /sensu-go/latest/ 301
 /sensu-go/latest/*                        /sensu-go/5.14/:splat 200
-/sensu-go/:splat                          /sensu-go/latest/:splat 301
 /sensu-core/2.0                           /sensu-go/latest/ 200
 /sensu-core/2.0/*                         /sensu-go/latest/:splat 200
 /sensu-core/latest                        /sensu-core/1.8/ 200
