@@ -204,7 +204,7 @@ response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 
 
 The `/rolebindings/:rolebinding` API endpoint provides HTTP DELETE access to delete a role binding from Sensu (specified by the role binding name).
 
-### EXAMPLE {#rolebindingsrolebinding-delete-example}
+#### EXAMPLE {#rolebindingsrolebinding-delete-example}
 
 The following example shows a request to delete the role binding `dev-binding`, resulting in a successful HTTP `204 No Content` response.
 
