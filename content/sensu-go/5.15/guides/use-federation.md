@@ -114,7 +114,7 @@ API URL:   https://sensu.gateway.example.com:8080
 Namespace: default
 Format:    tabular
 Username:  admin
-{{ < /highlight >}}
+{{< /highlight >}}
 
 Second, create a `federation-viewer` user:
 
