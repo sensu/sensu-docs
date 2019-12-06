@@ -211,7 +211,7 @@ response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 
 
 The `/roles/:role` API endpoint provides HTTP DELETE access to delete a role from Sensu (specified by the role name).
 
-### EXAMPLE {#rolesrole-delete-example}
+#### EXAMPLE {#rolesrole-delete-example}
 
 The following example shows a request to delete the role `read-only`, resulting in a successful HTTP `204 No Content` response.
 
