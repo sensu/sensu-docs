@@ -94,7 +94,11 @@ output         | {{< highlight shell >}}
 
 ### `/etcd-replicators` (POST)
 
+The `/etcd-replicators` endpoint provides HTTP POST access to create replicators.
+
 _**NOTE**: If you do not specify a [namespace][2] when you create a replicator, all namespaces for the given resource are replicated._
+
+#### API Specification {#etcd-replicators-post-specification}
 
 /etcd-replicators (POST) | 
 ----------------|------
@@ -125,7 +129,7 @@ response codes  | <ul><li>**Success**: 200 (OK)</li><li>**Malformed**: 400 (Bad 
 
 ### `/etcd-replicators/:etcd-replicator` (GET) {#etcd-replicatorsetcd-replicator-get}
 
-The `/etcd-replicators/:etcd-replicator` endpoint provides HTTP GET access to data for a specific `:etcd-replicator`, by replicator `name`.
+The `/etcd-replicators/:etcd-replicator` endpoint provides HTTP GET access to data for a specific `:etcd-replicator`, by replicator name.
 
 #### EXAMPLE {#etcd-replicatorsetcd-replicator-get-example}
 
@@ -184,7 +188,7 @@ output               | {{< highlight json >}}
 
 ### `/etcd-replicators/:etcd-replicator` (PUT) {#etcd-replicatorsetcd-replicator-put}
 
-The `/etcd-replicators/:etcd-replicator` endpoint provides HTTP PUT access to create or update a specific `:etcd-replicator`, by replicator `name`.
+The `/etcd-replicators/:etcd-replicator` endpoint provides HTTP PUT access to create or update a specific `:etcd-replicator`, by replicator name.
 
 #### EXAMPLE {#etcd-replicatorsetcd-replicator-put-example}
 
@@ -247,7 +251,7 @@ response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 
 
 The `/etcd-replicators/:etcd-replicator` endpoint provides HTTP DELETE access to delete the specified replicator from Sensu.
 
-### EXAMPLE {#etcd-replicatorsetcd-replicator-delete-example}
+#### EXAMPLE {#etcd-replicatorsetcd-replicator-delete-example}
 
 The following example shows a request to delete the replicator `my_replicator`, resulting in a successful HTTP `204 No Content` response.
 
@@ -332,7 +336,7 @@ output         | {{< highlight shell >}}
 
 ### `/clusters/:cluster` (GET) {#clusterscluster-get}
 
-The `/clusters/:cluster` endpoint provides HTTP GET access to data for a specific `cluster`, by cluster `name`.
+The `/clusters/:cluster` endpoint provides HTTP GET access to data for a specific `cluster`, by cluster name.
 
 #### EXAMPLE {#clusterscluster-get-example}
 
@@ -360,7 +364,7 @@ HTTP/1.1 200 OK
 }
 {{< /highlight >}}
 
-#### API Specification {#etcd-replicatorsetcd-replicator-get-specification}
+#### API Specification {#clusterscluster-get-specification}
 
 /clusters/:cluster (GET) | 
 ---------------------|------
@@ -387,9 +391,9 @@ output               | {{< highlight json >}}
 
 ### `/clusters/:cluster` (PUT) {#clusterscluster-put}
 
-_**NOTE**: Only cluster admins have PUT access to clusters._
+The `/clusters/:cluster` endpoint provides HTTP PUT access to create or update a specific `cluster`, by cluster name.
 
-The `/clusters/:cluster` endpoint provides HTTP PUT access to create or update a specific `cluster`, by cluster `name`.
+_**NOTE**: Only cluster admins have PUT access to clusters._
 
 #### EXAMPLE {#clusterscluster-put-example}
 
@@ -448,7 +452,7 @@ The `/clusters/:cluster` endpoint provides HTTP DELETE access to delete the spec
 
 _**NOTE**: Only cluster admins have DELETE access to clusters._
 
-### EXAMPLE {#clusterscluster-delete-example}
+#### EXAMPLE {#clusterscluster-delete-example}
 
 The following example shows a request to delete the cluster `us-west-2a`, resulting in a successful HTTP `204 No Content` response.
 
@@ -471,4 +475,3 @@ response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Miss
 
 [1]: ../../getting-started/enterprise/
 [2]: ../../reference/etcdreplicators#namespace-attribute
-
