@@ -99,7 +99,7 @@ response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 
 
 The `/namespaces/:namespace` API endpoint provides HTTP DELETE access to delete a namespace from Sensu (specified by the namespace name).
 
-### EXAMPLE {#namespacesnamespace-delete-example}
+#### EXAMPLE {#namespacesnamespace-delete-example}
 
 The following example shows a request to delete the namespace `development`, resulting in a successful HTTP `204 No Content` response.
 
