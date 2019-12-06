@@ -116,7 +116,7 @@ response codes  | <ul><li>**Success**: 200 (OK)</li><li>**Malformed**: 400 (Bad 
 
 ### `/filters/:filter` (GET) {#filtersfilter-get}
 
-The `/filters/:filter` API endpoint provides HTTP GET access to [filter data][1] for specific `:filter` definitions, by filter `name`.
+The `/filters/:filter` API endpoint provides HTTP GET access to [filter data][1] for specific `:filter` definitions, by filter name.
 
 #### EXAMPLE {#filtersfilter-get-example}
 
@@ -194,7 +194,7 @@ response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 
 
 The `/filters/:filter` API endpoint provides HTTP DELETE access to delete a filter from Sensu (specified by the filter name).
 
-### EXAMPLE {#filtersfilter-delete-example}
+#### EXAMPLE {#filtersfilter-delete-example}
 
 The following example shows a request to delete the filter `production-only`, resulting in a successful HTTP `204 No Content` response.
 
