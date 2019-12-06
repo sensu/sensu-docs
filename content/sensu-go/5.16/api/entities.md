@@ -414,7 +414,7 @@ response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 
 
 The `/entities/:entity` API endpoint provides HTTP DELETE access to delete an entity from Sensu (specified by the entity name).
 
-### EXAMPLE {#entitiesentity-delete-example}
+#### EXAMPLE {#entitiesentity-delete-example}
 
 The following example shows a request to delete the entity `server1`, resulting in a successful HTTP `204 No Content` response.
 
