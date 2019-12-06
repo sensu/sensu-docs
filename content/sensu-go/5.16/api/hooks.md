@@ -180,7 +180,7 @@ response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 
 
 The `/hooks/:hook` API endpoint provides HTTP DELETE access to delete a check hook from Sensu (specified by the hook name).
 
-### EXAMPLE {#hookshook-delete-example}
+#### EXAMPLE {#hookshook-delete-example}
 The following example shows a request to delete the hook `process-tree`, resulting in a successful HTTP `204 No Content` response.
 
 {{< highlight shell >}}
