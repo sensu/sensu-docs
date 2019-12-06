@@ -301,7 +301,7 @@ response codes  | <ul><li>**Success**: 200 (OK)</li><li>**Malformed**: 400 (Bad 
 
 The `/clusterrolebindings/:clusterrolebinding` API endpoint provides HTTP DELETE access to delete a cluster role binding from Sensu (specified by the cluster role binding name).
 
-### EXAMPLE {#clusterrolebindingsclusterrolebinding-delete-example}
+#### EXAMPLE {#clusterrolebindingsclusterrolebinding-delete-example}
 
 The following example shows a request to delete the cluster role binding `ops-binding`, resulting in a successful HTTP `204 No Content` response.
 
