@@ -566,7 +566,8 @@ curl -X PUT \
   "entity": {
     "entity_class": "proxy",
     "metadata": {
-      "name": "server1"
+      "name": "server1",
+      "namespace": "default"
     }
   },
   "check": {

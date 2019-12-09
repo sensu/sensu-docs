@@ -521,6 +521,7 @@ curl -X POST \
     "entity_class": "proxy",
     "metadata": {
       "name": "server1",
+      "namespace": "default"
     }
   },
   "check": {
