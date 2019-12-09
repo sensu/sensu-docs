@@ -1,7 +1,8 @@
 ---
-title: "Securing Sensu"
+title: "Secure Sensu"
+linkTitle: "Secure Sensu"
 description: "As with all software, it’s important to minimize any attack surface exposed by the software. Sensu is no different. In this guide, you’ll learn about the components that need to be secured (and how to do so)."
-weight: 1000
+weight: 170
 version: "5.16"
 product: "Sensu Go"
 platformContent: false
