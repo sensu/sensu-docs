@@ -1,6 +1,6 @@
 ---
 title: "Reference"
-description: "Reference documentation for Sensu."
+description: "Reference documentation for Sensu"
 product: "Sensu Go"
 version: "5.16"
 weight: 100
