@@ -13,7 +13,8 @@ menu:
 - [Inclusive and exclusive filters](#inclusive-and-exclusive-filters)
 - [Built-in filters](#built-in-filters)
 - [Build filter expressions](#build-filter-expressions)
-- [Specification](#filter-specification)
+- [Filter specification](#filter-specification)
+  - [Top-level attributes](#top-level-attributes) | [Metadata attributes](#metadata-attributes) | [Spec attributes](#spec-attributes)
 - [Examples](#filter-examples)
 	- [Handle production events](#handle-production-events)
 	- [Handle non-production events](#handle-non-production-events)
@@ -422,34 +423,6 @@ example      | {{< highlight shell >}}
 }
 {{< /highlight >}}
 
-### Spec attributes
-
-action       | 
--------------|------
-description  | Action to take with the event if the filter expressions match. See [Inclusive and exclusive filters][1] for more information.
-required     | true
-type         | String
-allowed values | `allow`, `deny`
-example      | {{< highlight shell >}}"action": "allow"{{< /highlight >}}
-
-expressions   | 
--------------|------
-description  | Filter expressions to be compared with event data. You can reference event metadata without including the `metadata` scope (for example, `event.entity.namespace`).
-required     | true
-type         | Array
-example      | {{< highlight shell >}}"expressions": [
-  "event.check.team == 'ops'"
-]
-{{< /highlight >}}
-
-runtime_assets |      |
----------------|------
-description    | Assets to apply to the filter's execution context. JavaScript files in the lib directory of the asset will be evaluated.
-required       | false
-type           | Array of string
-default        | []
-example        | {{< highlight shell >}}"runtime_assets": ["underscore"]{{< /highlight >}}
-
 ### Metadata attributes
 
 | name       |      |
@@ -488,6 +461,34 @@ example      | {{< highlight shell >}} "annotations": {
   "managed-by": "ops",
   "playbook": "www.example.url"
 }{{< /highlight >}}
+
+### Spec attributes
+
+action       | 
+-------------|------
+description  | Action to take with the event if the filter expressions match. See [Inclusive and exclusive filters][1] for more information.
+required     | true
+type         | String
+allowed values | `allow`, `deny`
+example      | {{< highlight shell >}}"action": "allow"{{< /highlight >}}
+
+expressions   | 
+-------------|------
+description  | Filter expressions to be compared with event data. You can reference event metadata without including the `metadata` scope (for example, `event.entity.namespace`).
+required     | true
+type         | Array
+example      | {{< highlight shell >}}"expressions": [
+  "event.check.team == 'ops'"
+]
+{{< /highlight >}}
+
+runtime_assets |      |
+---------------|------
+description    | Assets to apply to the filter's execution context. JavaScript files in the lib directory of the asset will be evaluated.
+required       | false
+type           | Array of string
+default        | []
+example        | {{< highlight shell >}}"runtime_assets": ["underscore"]{{< /highlight >}}
 
 ## Filter examples
 
