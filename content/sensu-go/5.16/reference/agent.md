@@ -404,7 +404,7 @@ example      | {{< highlight shell >}}"handlers": ["slack", "influxdb"]{{< /high
 Sensu `keepalives` are the heartbeat mechanism used to ensure that all registered agents are operational and able to reach the [Sensu backend][2].
 Sensu agents publish keepalive events containing [entity][3] configuration data to the Sensu backend according to the interval specified by the [`keepalive-interval` flag][4].
 If a Sensu agent fails to send keepalive events over the period specified by the [`keepalive-critical-timeout` flag][4], the Sensu backend creates a keepalive **critical** alert in the Sensu dashboard.
-If a Sensu agent fails to send keepalive events over the period specified by the [`keepalive-timeout` flag][4], the Sensu backend creates a keepalive **warning** alert in the Sensu dashboard.
+If a Sensu agent fails to send keepalive events over the period specified by the [`keepalive-warning-timeout` flag][4], the Sensu backend creates a keepalive **warning** alert in the Sensu dashboard.
 You can use keepalives to identify unhealthy systems and network partitions, send notifications, trigger auto-remediation, and other useful actions.
 
 _NOTE: Keepalive monitoring is not supported for [proxy entities][3], as they are inherently unable to run a Sensu agent._
@@ -1004,10 +1004,10 @@ description         | Number of seconds after a missing keepalive event until th
 type                | Integer
 default             | `120`
 example             | {{< highlight shell >}}# Command line example
-sensu-agent start --keepalive-timeout 300
+sensu-agent start --keepalive-warning-timeout 300
 
 # /etc/sensu/agent.yml example
-keepalive-timeout: 300{{< /highlight >}}
+keepalive-warning-timeout: 300{{< /highlight >}}
 
 
 ### Security configuration flags
