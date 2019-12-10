@@ -14,7 +14,7 @@ menu:
 - [Proxy entities](#proxy-entities)
 - [Manage entity labels](#manage-entity-labels): [Proxy entity labels](#proxy-entities-managed) | [Agent entity labels](#agent-entities-managed)
 - [Entities specification](#entities-specification)
-  - [Top-level attributes](#top-level-attributes) | [Spec attributes](#spec-attributes) | [Metadata attributes](#metadata-attributes) | [System attributes](#system-attributes) | [Network attributes](#network-attributes) | [NetworkInterface attributes](#networkinterface-attributes) | [Deregistration attributes](#deregistration-attributes)
+  - [Top-level attributes](#top-level-attributes) | [Metadata attributes](#metadata-attributes) | [Spec attributes](#spec-attributes) | [System attributes](#system-attributes) | [Network attributes](#network-attributes) | [NetworkInterface attributes](#networkinterface-attributes) | [Deregistration attributes](#deregistration-attributes)
 - [Examples](#examples)
 
 An entity represents anything that needs to be monitored, such as a server, container, or network switch, including the full range of infrastructure, runtime, and application types that compose a complete monitoring environment (from server hardware to serverless functions).
@@ -307,6 +307,45 @@ example      | {{< highlight shell >}}
   }
 {{< /highlight >}}
 
+### Metadata attributes
+
+| name       |      |
+-------------|------
+description  | Unique name of the entity, validated with Go regex [`\A[\w\.\-]+\z`][21].
+required     | true
+type         | String
+example      | {{< highlight shell >}}"name": "example-hostname"{{< /highlight >}}
+
+| namespace  |      |
+-------------|------
+description  | [Sensu RBAC namespace][5] that this entity belongs to.
+required     | false
+type         | String
+default      | `default`
+example      | {{< highlight shell >}}"namespace": "production"{{< /highlight >}}
+
+| labels     |      |
+-------------|------
+description  | Custom attributes to include with event data that you can access with [filters][6] and [tokens][7].<br><br>In contrast to annotations, you can use labels to create meaningful collections that you can select with [API filtering][14] and [sensuctl filtering][15]. Overusing labels can affect Sensu's internal performance, so we recommend moving complex, non-identifying metadata to annotations.
+required     | false
+type         | Map of key-value pairs. Keys can contain only letters, numbers, and underscores, but must start with a letter. Values can be any valid UTF-8 string.
+default      | `null`
+example      | {{< highlight shell >}}"labels": {
+  "environment": "development",
+  "region": "us-west-2"
+}{{< /highlight >}}
+
+| annotations |     |
+-------------|------
+description  | Non-identifying metadata to include with event data that you can access with [filters][6] and [tokens][7]. You can use annotations to add data that's meaningful to people or external tools that interact with Sensu.<br><br>In contrast to labels, you cannot use annotations in [API filtering][14] or [sensuctl filtering][15], and annotations do not affect Sensu's internal performance.
+required     | false
+type         | Map of key-value pairs. Keys and values can be any valid UTF-8 string.
+default      | `null`
+example      | {{< highlight shell >}} "annotations": {
+  "managed-by": "ops",
+  "playbook": "www.example.url"
+}{{< /highlight >}}
+
 ### Spec attributes
 
 entity_class |     |
@@ -452,45 +491,6 @@ default       | `agent`
 example       | {{< highlight shell >}}
 "user": "agent"
 {{< /highlight >}}
-
-### Metadata attributes
-
-| name       |      |
--------------|------
-description  | Unique name of the entity, validated with Go regex [`\A[\w\.\-]+\z`][21].
-required     | true
-type         | String
-example      | {{< highlight shell >}}"name": "example-hostname"{{< /highlight >}}
-
-| namespace  |      |
--------------|------
-description  | [Sensu RBAC namespace][5] that this entity belongs to.
-required     | false
-type         | String
-default      | `default`
-example      | {{< highlight shell >}}"namespace": "production"{{< /highlight >}}
-
-| labels     |      |
--------------|------
-description  | Custom attributes to include with event data that you can access with [filters][6] and [tokens][7].<br><br>In contrast to annotations, you can use labels to create meaningful collections that you can select with [API filtering][14] and [sensuctl filtering][15]. Overusing labels can affect Sensu's internal performance, so we recommend moving complex, non-identifying metadata to annotations.
-required     | false
-type         | Map of key-value pairs. Keys can contain only letters, numbers, and underscores, but must start with a letter. Values can be any valid UTF-8 string.
-default      | `null`
-example      | {{< highlight shell >}}"labels": {
-  "environment": "development",
-  "region": "us-west-2"
-}{{< /highlight >}}
-
-| annotations |     |
--------------|------
-description  | Non-identifying metadata to include with event data that you can access with [filters][6] and [tokens][7]. You can use annotations to add data that's meaningful to people or external tools that interact with Sensu.<br><br>In contrast to labels, you cannot use annotations in [API filtering][14] or [sensuctl filtering][15], and annotations do not affect Sensu's internal performance.
-required     | false
-type         | Map of key-value pairs. Keys and values can be any valid UTF-8 string.
-default      | `null`
-example      | {{< highlight shell >}} "annotations": {
-  "managed-by": "ops",
-  "playbook": "www.example.url"
-}{{< /highlight >}}
 
 ### System attributes
 
