@@ -17,7 +17,7 @@ menu:
 - [Check token substitution](#check-token-substitution)
 - [Check hooks](#check-hooks)
 - [Check specification](#check-specification)
-	- [Top-level attributes](#top-level-attributes) | [Spec attributes](#spec-attributes) | [Metadata attributes](#metadata-attributes) | [Proxy requests attributes](#proxy-requests-attributes) | [Check output truncation attributes](#check-output-truncation-attributes)
+	- [Top-level attributes](#top-level-attributes) | [[Metadata attributes](#metadata-attributes) | Spec attributes](#spec-attributes) | [Proxy requests attributes](#proxy-requests-attributes) | [Check output truncation attributes](#check-output-truncation-attributes)
 - [Examples](#examples)
 
 Checks work with Sensu agents to produce monitoring events automatically.
@@ -509,6 +509,45 @@ example      | {{< highlight shell >}}"spec": {
   ]
 }{{< /highlight >}}
 
+### Metadata attributes
+
+| name       |      |
+-------------|------
+description  | Unique string used to identify the check. Check names cannot contain special characters or spaces (validated with Go regex [`\A[\w\.\-]+\z`][53]). Each check must have a unique name within its namespace.
+required     | true
+type         | String
+example      | {{< highlight shell >}}"name": "check-cpu"{{< /highlight >}}
+
+| namespace  |      |
+-------------|------
+description  | Sensu [RBAC namespace][26] that the check belongs to.
+required     | false
+type         | String
+default      | `default`
+example      | {{< highlight shell >}}"namespace": "production"{{< /highlight >}}
+
+| labels     |      |
+-------------|------
+description  | Custom attributes to include with event data that you can access with [event filters][27].<br><br>In contrast to annotations, you can use labels to create meaningful collections that you can select with [API filtering][54] and [sensuctl filtering][55]. Overusing labels can affect Sensu's internal performance, so we recommend moving complex, non-identifying metadata to annotations.
+required     | false
+type         | Map of key-value pairs. Keys can contain only letters, numbers, and underscores, but must start with a letter. Values can be any valid UTF-8 string.
+default      | `null`
+example      | {{< highlight shell >}}"labels": {
+  "environment": "development",
+  "region": "us-west-2"
+}{{< /highlight >}}
+
+| annotations |     |
+-------------|------
+description  | Non-identifying metadata to include with event data that you can access with [event filters][27]. You can use annotations to add data that's meaningful to people or external tools that interact with Sensu.<br><br>In contrast to labels, you cannot use annotations in [API filtering][54] or [sensuctl filtering][55], and annotations do not affect Sensu's internal performance.
+required     | false
+type         | Map of key-value pairs. Keys and values can be any valid UTF-8 string.
+default      | `null`
+example      | {{< highlight shell >}} "annotations": {
+  "managed-by": "ops",
+  "playbook": "www.example.url"
+}{{< /highlight >}}
+
 ### Spec attributes
 
 |command     |      |
@@ -685,45 +724,6 @@ example      | {{< highlight shell >}}"round_robin": true{{< /highlight >}}
 -------------|------
 description  | Check subdues are not yet implemented in Sensu Go. Although the `subdue` attribute appears in check definitions by default, it is a placeholder and should not be modified.
 example      | {{< highlight shell >}}"subdue": null{{< /highlight >}}
-
-### Metadata attributes
-
-| name       |      |
--------------|------
-description  | Unique string used to identify the check. Check names cannot contain special characters or spaces (validated with Go regex [`\A[\w\.\-]+\z`][53]). Each check must have a unique name within its namespace.
-required     | true
-type         | String
-example      | {{< highlight shell >}}"name": "check-cpu"{{< /highlight >}}
-
-| namespace  |      |
--------------|------
-description  | Sensu [RBAC namespace][26] that the check belongs to.
-required     | false
-type         | String
-default      | `default`
-example      | {{< highlight shell >}}"namespace": "production"{{< /highlight >}}
-
-| labels     |      |
--------------|------
-description  | Custom attributes to include with event data that you can access with [event filters][27].<br><br>In contrast to annotations, you can use labels to create meaningful collections that you can select with [API filtering][54] and [sensuctl filtering][55]. Overusing labels can affect Sensu's internal performance, so we recommend moving complex, non-identifying metadata to annotations.
-required     | false
-type         | Map of key-value pairs. Keys can contain only letters, numbers, and underscores, but must start with a letter. Values can be any valid UTF-8 string.
-default      | `null`
-example      | {{< highlight shell >}}"labels": {
-  "environment": "development",
-  "region": "us-west-2"
-}{{< /highlight >}}
-
-| annotations |     |
--------------|------
-description  | Non-identifying metadata to include with event data that you can access with [event filters][27]. You can use annotations to add data that's meaningful to people or external tools that interact with Sensu.<br><br>In contrast to labels, you cannot use annotations in [API filtering][54] or [sensuctl filtering][55], and annotations do not affect Sensu's internal performance.
-required     | false
-type         | Map of key-value pairs. Keys and values can be any valid UTF-8 string.
-default      | `null`
-example      | {{< highlight shell >}} "annotations": {
-  "managed-by": "ops",
-  "playbook": "www.example.url"
-}{{< /highlight >}}
 
 ### Proxy requests attributes
 
