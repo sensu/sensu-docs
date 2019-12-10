@@ -2,7 +2,7 @@
 title: "Sensu backend"
 linkTitle: "Sensu Backend"
 description: "The Sensu backend manages check requests and event data. Every Sensu backend includes an event processing pipeline that applies filters, mutators, handlers, the Sensu API, and the Sensu dashboard. Read the reference doc to run the Sensu backend."
-weight: 2
+weight: 20
 version: "5.16"
 product: "Sensu Go"
 platformContent: false
