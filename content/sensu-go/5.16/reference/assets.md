@@ -268,7 +268,7 @@ example      | {{< highlight shell >}}"namespace": "production"{{< /highlight >}
 -------------|------
 description  | Custom attributes you can use to create meaningful collections that you can select with [API filtering][20] and [sensuctl filtering][21]. Overusing labels can affect Sensu's internal performance, so we recommend moving complex, non-identifying metadata to annotations.
 required     | false
-type         | Map of key-value pairs. Keys can contain only letters, numbers, and underscores but must start with a letter. Values can be any valid UTF-8 string.
+type         | Map of key-value pairs. Keys can contain only letters, numbers, and underscores and must start with a letter. Values can be any valid UTF-8 string.
 default      | `null`
 example      | {{< highlight shell >}}"labels": {
   "environment": "development",
