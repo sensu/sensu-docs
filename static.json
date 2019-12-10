@@ -3,7 +3,7 @@
     "https_only": true,
     "error_page": "/404.html",
     "pattern_redirects": {
-      "~ ^/sensu-core/2\.0/?(.*)$": {
+      "~ ^/sensu-core/2.0/?(.*)$": {
           "url": "/sensu-go/5.0/$1",
           "status": 301
       },
@@ -27,11 +27,11 @@
             "url": "/sensu-go/latest/guides/create-read-only-user",
             "status": 301
         },
-        "~ ^/sensu-go/5\.1[0-1]/?(?<=\/)(.*)$": {
+        "~ ^/sensu-go/5.1[0-1]/?(?<=\/)(.*)$": {
             "url": "/sensu-go/latest/$1",
             "status": 301
         },
-        "~ ^/sensu-go/5\.[0-9]/?(?<=\/)(.*)$": {
+        "~ ^/sensu-go/5.[0-9]/?(?<=\/)(.*)$": {
             "url": "/sensu-go/latest/$1",
             "status": 301
         },
