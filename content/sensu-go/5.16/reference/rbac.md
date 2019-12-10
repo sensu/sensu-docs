@@ -1,8 +1,8 @@
 ---
 title: "Role-based access control"
 linkTitle: "Role-Based Access Control"
-description: "Sensu role-based access control (RBAC) helps different teams and projects share a Sensu instance. RBAC allows management and access of users and resources based on namespaces, groups, roles, and bindings. Read the reference doc to learn about RBAC."
-weight: 10
+description: "Sensu's role-based access control (RBAC) helps different teams and projects share a Sensu instance. RBAC allows you to manage user access and resources based on namespaces, groups, roles, and bindings. Read the reference doc to learn about RBAC."
+weight: 140
 version: "5.16"
 product: "Sensu Go"
 menu:
@@ -10,37 +10,57 @@ menu:
     parent: reference
 ---
 
-- [Namespaces](#namespaces): [Managing namespaces](#viewing-namespaces) | [Specification](#namespace-specification) | [Examples](#namespace-example)
-- [Resources](#resources): [Namespaced resource types](#namespaced-resource-types) | [Cluster-wide resource types](#cluster-wide-resource-types)
-- [Users](#users): [Managing users](#viewing-users) | [Specification](#user-specification) | [Examples](#user-example) | [Groups](#groups)
-- [Roles and cluster roles](#roles-and-cluster-roles): [Managing roles](#viewing-roles) | [Specification](#role-and-cluster-role-specification) | [Examples](#role-example)
-- [Role bindings and cluster role bindings](#role-bindings-and-cluster-role-bindings): [Managing role bindings](#viewing-role-bindings) | [Specification](#role-binding-and-cluster-role-binding-specification) | [Examples](#role-binding-example)
+- [Namespaces](#namespaces)
+  - [Manage namespaces](#manage-namespaces) | [Namespace specification](#namespace-specification) | [Namespace example](#namespace-example)
+- [Resources](#resources)
+  - [Namespaced resource types](#namespaced-resource-types) | [Cluster-wide resource types](#cluster-wide-resource-types) | [Special resource types](#special-resource-types)
+- [Users](#users)
+  - [Manage users](#manage-users) | [User specification](#user-specification) | [User example](#user-example)
+- [Groups](#groups)
+  - [Manage groups](#manage-groups)
+- [Roles and cluster roles](#roles-and-cluster-roles)
+  - [Manage roles and cluster roles](#manage-roles-and-cluster-roles) | [Role and cluster role specification](#role-and-cluster-role-specification) | [Role and cluster role examples](#role-and-cluster-role-examples)
+- [Role bindings and cluster role bindings](#role-bindings-and-cluster-role-bindings)
+  - [Manage role bindings and cluster role bindings](#manage-role-bindings-and-cluster-role-bindings) | [Role binding and cluster role binding specification](#role-binding-and-cluster-role-binding-specification) | [Role binding and cluster role binding examples](#role-binding-and-cluster-role-binding-examples)
 - [Example workflows](#example-workflows)
+  - [Assign user permissions within a namespace](#assign-user-permissions-within-a-namespace)
+  - [Assign group permissions within a namespace](#assign-group-permissions-within-a-namespace)
+  - [Assign group permissions across all namespaces](#assign-group-permissions-across-all-namespaces)
 
 Sensu role-based access control (RBAC) helps different teams and projects share a Sensu instance.
-RBAC allows management and access of users and resources based on **namespaces**, **groups**, **roles**, and **bindings**.
+RBAC allows you to manage user access and resources based on namespaces, groups, roles, and bindings.
 
 - **Namespaces** partition resources within Sensu. Sensu entities, checks, handlers, and other [namespaced resources][17] belong to a single namespace.
-- **Roles** create sets of permissions (get, delete, etc.) tied to resource types. **Cluster roles** apply permissions across namespaces and include access to [cluster-wide resources][18] like users and namespaces. 
+- **Roles** create sets of permissions (e.g. get and delete) tied to resource types. **Cluster roles** apply permissions across namespaces and include access to [cluster-wide resources][18] like users and namespaces. 
 - **Users** represent a person or agent that interacts with Sensu. Users can belong to one or more **groups**.
-- **Role bindings** assign a role to a set of users and groups within a namespace; **cluster role bindings** assign a cluster role to a set of users and groups cluster-wide.
+- **Role bindings** assign a role to a set of users and groups within a namespace. **Cluster role bindings** assign a cluster role to a set of users and groups cluster-wide.
 
 Sensu access controls apply to [sensuctl][2], the Sensu [API][19], and the Sensu [dashboard][3].
 In addition to built-in RBAC, Sensu includes [commercial][33] support for authentication using external [authentication providers][34].
 
 ## Namespaces
-Namespaces help teams use different resources (entities, checks, handlers, etc.) within Sensu and impose their own controls on those resources.
+
+Namespaces help teams use different resources (like entities, checks, and handlers) within Sensu and impose their own controls on those resources.
 A Sensu instance can have multiple namespaces, each with their own set of managed resources.
-Resource names need to be unique within a namespace, but not across namespaces.
+Resource names must be unique within a namespace but do not need to be unique across namespaces.
 
 To create and manage namespaces, [configure sensuctl][26] as the [default `admin` user][20] or create a [cluster role][21] with `namespaces` permissions.
 
-### Default namespace
+### Default namespaces
 
 Every [Sensu backend][1] includes a `default` namespace.
 All resources created without a specified namespace are created within the `default` namespace.
 
-### Viewing namespaces
+### Manage namespaces
+
+You can use [sensuctl][2] to view, create, and delete namespaces.
+To get help with managing namespaces with sensuctl:
+
+{{< highlight shell >}}
+sensuctl namespace help
+{{< /highlight >}}
+
+#### View namespaces
 
 You can use [sensuctl][2] to view all namespaces within Sensu:
 
@@ -48,9 +68,9 @@ You can use [sensuctl][2] to view all namespaces within Sensu:
 sensuctl namespace list
 {{< /highlight >}}
 
-_NOTE: For users on supported Sensu Go distributions,`sensuctl namespace list` will list only the namespaces that the current user has access to._
+_**NOTE**: For users on supported Sensu Go distributions,`sensuctl namespace list` lists only the namespaces that the current user has access to._
 
-### Creating a namespace
+#### Create namespaces
 
 You can use [sensuctl][2] to create a namespace.
 For example, the following command creates a namespace called `production`:
@@ -59,11 +79,9 @@ For example, the following command creates a namespace called `production`:
 sensuctl namespace create production
 {{< /highlight >}}
 
-Namespace names can contain alphanumeric characters and hyphens, but must begin and end with an alphanumeric character.
+Namespace names can contain alphanumeric characters and hyphens and must begin and end with an alphanumeric character.
 
-### Managing namespaces
-
-You can use [sensuctl][2] to view, create, and delete namespaces.
+#### Delete namespaces
 
 To delete a namespace:
 
@@ -71,16 +89,10 @@ To delete a namespace:
 sensuctl namespace delete [NAMESPACE-NAME]
 {{< /highlight >}}
 
-To get help managing namespaces with sensuctl:
-
-{{< highlight shell >}}
-sensuctl namespace help
-{{< /highlight >}}
-
-### Assigning a resource to a namespace
+#### Assign a resource to a namespace
 
 You can assign a resource to a namespace in the resource definition.
-Only resources belonging to a [namespaced resource type][17] (like checks, filters, and handlers) can be assigned to a namespace.
+Only resources that belong to a [namespaced resource type][17] (like checks, filters, and handlers) can be assigned to a namespace.
 
 For example, to assign a check called `check-cpu` to the `production` namespace, include the `namespace` attribute in the check definition:
 
@@ -127,7 +139,7 @@ spec:
 
 See the [reference docs][16] for the corresponding [resource type][17] to create resource definitions.
 
-_PRO TIP: By omitting the `namespace` attribute from resource definitions, you can use the `senusctl create --namespace` flag to specify the namespace for a group of resources at the time of creation, allowing you to replicate resources across namespaces without manual editing. See the [sensuctl reference][36] for more information._
+_**PRO TIP**: If you omit the `namespace` attribute from resource definitions, you can use the `senusctl create --namespace` flag to specify the namespace for a group of resources at the time of creation. This allows you to replicate resources across namespaces without manual editing. See the [sensuctl reference][36] for more information._
 
 ### Namespace specification
 
@@ -135,14 +147,14 @@ _PRO TIP: By omitting the `namespace` attribute from resource definitions, you c
 
 name         | 
 -------------|------ 
-description  | The name of the namespace. Names can contain alphanumeric characters and hyphens, but must begin and end with an alphanumeric character.
+description  | Name of the namespace. Names can contain alphanumeric characters and hyphens and must begin and end with an alphanumeric character.
 required     | true 
 type         | String
 example      | {{< highlight shell >}}"name": "production"{{< /highlight >}}
 
 ### Namespace example
 
-The following examples are in `yml` and `wrapped-json` formats for use with [`sensuctl create`][31].
+This example is in `yml` and `wrapped-json` formats for use with [`sensuctl create`][31]:
 
 {{< language-toggle >}}
 
@@ -168,13 +180,16 @@ spec:
 {{< /language-toggle >}}
 
 ## Resources
+
 Permissions within Sensu are scoped to resource types, like checks, handlers, and users.
 You can use resource types to configure permissions in Sensu roles and cluster roles. 
 
 ### Namespaced resource types
-Namespaced resources must belong to a single namespace and can be accessed by [roles][13] and [cluster roles][21].
 
-| Type | Description |
+Namespaced resources must belong to a single namespace.
+You can access namespaced resources by [roles][13] and [cluster roles][21].
+
+| type | description |
 |---|---|
 | `assets` | [Asset][5] resources within a namespace |
 | `checks` | [Check][6] resources within a namespace |
@@ -190,34 +205,38 @@ Namespaced resources must belong to a single namespace and can be accessed by [r
 | `silenced` | [Silencing][14] resources within a namespace |
 
 ### Cluster-wide resource types
-Cluster-wide resources cannot be assigned to a namespace and can only be accessed by [cluster roles][21].
 
-| Type | Description |
+Cluster-wide resources cannot be assigned to a namespace.
+You can access cluster-wide resources only by [cluster roles][21].
+
+| type | description |
 |---|---|
 | `cluster`   | Sensu clusters running multiple [Sensu backends][1] |
 | `clusterrolebindings`   | Cluster-wide role assigners  |
 | `clusterroles`   | Cluster-wide permission sets  |
 | `etcd-replicators` | [Mirror RBAC resource changes][40] to follower clusters |
 | `namespaces` | Resource partitions within a Sensu instance |
-| `users` | People or agents interacting with Sensu |
+| `users` | People or agents that interact with Sensu |
 | `authproviders` | [Authentication provider][32] configuration (commercial feature)|
-| `license` | Sensu [commercial license][37]
+| `license` | Sensu [commercial license][37] |
 
 ### Special resource types
-Special resources types can be accessed by both [roles][13] and [cluster roles][21].
+
+You can access special resource types by both [roles][13] and [cluster roles][21].
 
 | Type | Description |
 |---|---|
-| `*` | All resources within Sensu. **The `*` type takes precedence over other rules within the same role.** If you wish to deny a certain type, you can't use the `*` type and must explicitly allow every type required. When applied to a role, the `*` type applies only to [namespaced resource types][17]. When applied to a cluster role, the `*` type applies to both [namespaced resource types][17] and [cluster-wide resource types][18]. |
+| `*` | All resources within Sensu. **The `*` type takes precedence over other rules within the same role.** If you want to deny a certain type, you can't use the `*` type. Instead, you must explicitly allow every type required. When applied to a role, the `*` type applies only to [namespaced resource types][17]. When applied to a cluster role, the `*` type applies to both [namespaced resource types][17] and [cluster-wide resource types][18]. |
 
 ## Users
 
-A user represents a person or an agent which interacts with Sensu.
-Users and groups can be assigned one or more roles and inherit all permissions from each role assigned to them.
+A user represents a person or an agent that interacts with Sensu.
+You can assign users and groups to one or more roles.
+Users and groups inherit all permissions from each role assigned to them.
 
-You can use your Sensu username and password to [configure sensuctl][26] or log in to the [dashboard][3].
+Use your Sensu username and password to [configure sensuctl][26] or log in to the [dashboard][3].
 
-### Default user
+### Default users
 
 By default, Sensu includes a global `admin` user that you can use to manage Sensu and create new users.
 
@@ -229,42 +248,17 @@ By default, Sensu includes a global `admin` user that you can use to manage Sens
 | cluster role   |  `cluster-admin` |
 | cluster role binding   | `cluster-admin	`  |
 
-We **strongly** recommended changing the default password for the admin user immediately.
-Once authenticated, you can change the password using the `change-password` command.
+We **strongly** recommend changing the default password for the admin user immediately.
+Once authenticated, you can change the password using the `change-password` command:
 
 {{< highlight shell >}}
 sensuctl user change-password
 {{< /highlight >}}
 
-Sensu also includes an `agent` user that is used internally by the Sensu agent.
-You can configure an agent's user credentials using the [`user` and `password` agent configuration flags](../agent/#security-configuration-flags).
+Sensu also includes an `agent` user, which is used internally by the Sensu agent.
+You can configure `agent` user credentials with the [`user` and `password` agent configuration flags][41].
 
-### Viewing users
-You can use [sensuctl][2] to see a list of all users within Sensu.
-The following example returns a list of users in `yaml` format for use with `sensuctl create`.
-
-{{< highlight shell >}}
-sensuctl user list --format yaml
-{{< /highlight >}}
-
-### Creating a user
-You can use [sensuctl][2] to create a user.
-For example, the following command creates a user with the username `alice`, creates a password, and assigns the user to the `ops` and `dev` groups.
-Passwords must have at least eight characters.
-
-{{< highlight shell >}}
-sensuctl user create alice --password='password' --groups=ops,dev
-{{< /highlight >}}
-
-### Assigning user permissions
-
-To assign permissions to a user:
-
-1. [Create the user][27].
-2. [Create a role][25] or (for cluster-wide access) a [cluster role][28].
-3. [Create a role binding][29] (or [cluster role binding][29]) to assign the role to the user.
-
-### Managing users
+### Manage users
 
 To test the password for a user:
 
@@ -272,7 +266,8 @@ To test the password for a user:
 sensuctl user test-creds USERNAME --password 'password'
 {{< /highlight >}}
 
-An empty response indicates valid credentials; a request-unauthorized response indicates invalid credentials.
+An empty response indicates valid credentials.
+A request-unauthorized response indicates invalid credentials.
 
 To change the password for a user:
 
@@ -292,20 +287,49 @@ To re-enable a disabled user:
 sensuctl user reinstate USERNAME
 {{< /highlight >}}
 
+#### View users
+
+You can use [sensuctl][2] to see a list of all users within Sensu.
+
+To return a list of users in `yaml` format for use with `sensuctl create`:
+
+{{< highlight shell >}}
+sensuctl user list --format yaml
+{{< /highlight >}}
+
+#### Create users
+
+You can use [sensuctl][2] to create users.
+For example, the following command creates a user with the username `alice`, creates a password, and assigns the user to the `ops` and `dev` groups.
+
+Passwords must have at least eight characters.
+
+{{< highlight shell >}}
+sensuctl user create alice --password='password' --groups=ops,dev
+{{< /highlight >}}
+
+#### Assign user permissions
+
+To assign permissions to a user:
+
+1. [Create the user][27].
+2. [Create a role][25] (or a [cluster role][28] for cluster-wide access).
+3. [Create a role binding][29] (or [cluster role binding][29]) to assign the role to the user.
+
 ### User specification
 
 #### Attributes
 
 username     | 
 -------------|------ 
-description  | The name of the user. Cannot contain special characters.
+description  | Name of the user. Cannot contain special characters.
 required     | true 
 type         | String
 example      | {{< highlight shell >}}"username": "alice"{{< /highlight >}}
 
 password     | 
 -------------|------ 
-description  | The user's password. Passwords must have at least eight characters.
+description  | User's password. Passwords must have at least eight characters.
 required     | true 
 type         | String
 example      | {{< highlight shell >}}"password": "P@ssw0rd!"{{< /highlight >}}
@@ -319,15 +343,15 @@ example      | {{< highlight shell >}}"groups": ["dev", "ops"]{{< /highlight >}}
 
 disabled     | 
 -------------|------ 
-description  | The state of the user's account.
+description  | `true` if the user's account is disabled. Otherwise, `false`.
 required     | false 
 type         | Boolean 
-default      | false
+default      | `false`
 example      | {{< highlight shell >}}"disabled": false{{< /highlight >}}
 
 ### User example
 
-The following examples are in `yml` and `wrapped-json` formats for use with [`sensuctl create`][31].
+The following example is in `yml` and `wrapped-json` formats for use with [`sensuctl create`][31].
 
 {{< language-toggle >}}
 
@@ -363,15 +387,19 @@ spec:
 ## Groups
 
 A group is a set of users within Sensu.
-Groups can be assigned one or more roles and inherit all permissions from each role assigned to them.
-Users can be assigned to one or more groups.
-Groups are not a resource type within Sensu; you can create and manage groups only within user definitions.
+You can assign groups to one or more roles, and you can assign users to one or more groups.
+Groups inherit all permissions from each role assigned to them.
 
-### Default group
+Groups are not a resource type within Sensu.
+You can create and manage groups only within user definitions.
+
+### Default groups
 
 Sensu includes a default `cluster-admins` group that contains the [default `admin` user][20] and a `system:agents` group used internally by Sensu agents.
 
-### Assigning a user to a group
+### Manage groups
+
+#### Assign a user to a group
 
 Groups are created and managed within user definitions.
 You can use [sensuctl][2] to add users to groups.
@@ -388,7 +416,7 @@ To set the groups for a user:
 sensuctl user set-groups USERNAME GROUP1[,GROUP2, ...[,GROUPN]]
 {{< /highlight >}}
 
-### Removing a user from a group
+#### Remove a user from a group
 
 You can use [sensuctl][2] to remove users from groups.
 
@@ -406,17 +434,21 @@ sensuctl user remove-groups USERNAME
 
 ## Roles and cluster roles
 
-A role is a set of permissions controlling access to Sensu resources.
-**Roles** specify permissions for resources within a namespace while **cluster roles** can include permissions for [cluster-wide resources][18].
+A role is a set of permissions that control access to Sensu resources.
+Roles specify permissions for resources within a namespace.
+Cluster role can include permissions for [cluster-wide resources][18].
+
 You can use [role bindings][23] to assign roles to user and groups.
-To avoid re-creating commonly used roles in each namespace, [create a cluster role][28] and use a [role binding][29] (not a cluster role binding) to restrict permissions within a specific namespace.
+To avoid recreating commonly used roles in each namespace, [create a cluster role][28] and use a [role binding][29] (not a cluster role binding) to restrict permissions within a specific namespace.
 
 To create and manage roles cluster-wide, [configure sensuctl][26] as the [default `admin` user][20] or create a [cluster role][21] with `roles` permissions.
 To create and manage roles within a namespace, [create a role][25] with `roles` permissions within that namespace.
 
 ### Cluster roles
 
-Cluster roles can specify access permissions for [cluster-wide resources][18] like users and namespaces as well as [namespaced resources][17] like checks and handlers. They can also be used to grant access to namespaced resources across all namespaces (needed to run `sensuctl check list --all-namespaces`, for example) when used in conjunction with cluster role bindings.
+Cluster roles can specify access permissions for [cluster-wide resources][18] like users and namespaces as well as [namespaced resources][17] like checks and handlers.
+They can also be used to grant access to namespaced resources across all namespaces (for example, to run `sensuctl check list --all-namespaces`) when used in conjunction with cluster role bindings.
+
 Cluster roles use the same [specification][24] as roles and can be managed using the same sensuctl commands with `cluster-role` substituted for `role`.
 
 To create and manage cluster roles, [configure sensuctl][26] as the [default `admin` user][20] or [create a cluster role][25] with permissions for `clusterroles`.
@@ -425,15 +457,33 @@ To create and manage cluster roles, [configure sensuctl][26] as the [default `ad
 
 Every [Sensu backend][1] includes:
 
-| Role name       | Type          | Description |
+| role name       | type          | description |
 | --------------- | ------------- | ----------- |
-| `cluster-admin` | `ClusterRole` | Full access to all [resource types][4] across namespaces, including access to [cluster-wide resource types][18].
-| `admin`         | `ClusterRole` | Full access to all [resource types][4]. You can apply this cluster role within a namespace by using a role binding (not a cluster role binding).  |
-| `edit`          | `ClusterRole` | Read and write access to most resources with the exception of roles and role bindings.  You can apply this cluster role within a namespace by using a role binding (not a cluster role binding).
-| `view`          | `ClusterRole` | Read-only permission to most [resource types][4] with the exception of roles and role bindings.  You can apply this cluster role within a namespace by using a role binding (not a cluster role binding).  |
-| `system:agent`  | `ClusterRole` | Used internally by Sensu agents. You can configure an agent's user credentials using the [`user` and `password` agent configuration flags](../agent/#security-configuration-flags).|
+| `cluster-admin` | `ClusterRole` | Full access to all [resource types][4] across namespaces, including access to [cluster-wide resource types][18]. |
+| `admin`         | `ClusterRole` | Full access to all [resource types][4]. You can apply this cluster role within a namespace by using a role binding (not a cluster role binding). |
+| `edit`          | `ClusterRole` | Read and write access to most resources except roles and role bindings. You can apply this cluster role within a namespace by using a role binding (not a cluster role binding). |
+| `view`          | `ClusterRole` | Read-only permission to most [resource types][4] with the exception of roles and role bindings. You can apply this cluster role within a namespace by using a role binding (not a cluster role binding). |
+| `system:agent`  | `ClusterRole` | Used internally by Sensu agents. You can configure an agent's user credentials using the [`user` and `password` agent configuration flags][41]. |
 
-### Viewing roles
+### Manage roles and cluster roles
+
+You can use [sensuctl][2] to view, create, edit, and delete roles and cluster roles.
+
+_**NOTE**: To use any of these example commands with cluster roles, substitute the `cluster-role` command for the `role` command._
+
+To get help managing roles with sensuctl:
+
+{{< highlight shell >}}
+sensuctl role help
+{{< /highlight >}}
+
+To edit a role:
+
+{{< highlight shell >}}
+sensuctl edit role [ROLE-NAME] [flags]
+{{< /highlight >}}
+
+### View roles and cluster roles
 
 You can use [sensuctl][2] to see a list of roles within Sensu:
 
@@ -453,7 +503,7 @@ To view cluster roles, use the `cluster-role` command:
 sensuctl cluster-role list
 {{< /highlight >}}
 
-### Creating a role
+#### Create roles
 
 You can use [sensuctl][2] to create a role.
 For example, the following command creates an admin role restricted to the production namespace.
@@ -462,14 +512,14 @@ For example, the following command creates an admin role restricted to the produ
 sensuctl role create prod-admin --verb get,list,create,update,delete --resource * --namespace production
 {{< /highlight >}}
 
-Once you've create the role, [create a role binding][23] (or [cluster role binding][35]) to assign the role to users and groups.
-For example, to assign the `prod-admin` role created above to the `oncall` group, create the following role binding.
+After you create a role, [create a role binding][23] (or [cluster role binding][23]) to assign the role to users and groups.
+For example, to assign the `prod-admin` role created above to the `oncall` group, create this role binding:
 
 {{< highlight shell >}}
 sensuctl role-binding create prod-admin-oncall --role=prod-admin --group=oncall
 {{< /highlight >}}
 
-### Creating a cluster-wide role
+#### Create cluster-wide roles
 
 You can use [sensuctl][2] to create a cluster role.
 For example, the following command creates a global event reader role that can read only events across all namespaces within Sensu.
@@ -478,16 +528,7 @@ For example, the following command creates a global event reader role that can r
 sensuctl cluster-role create global-event-reader --verb get,list --resource events
 {{< /highlight >}}
 
-### Managing roles
-
-You can use [sensuctl][2] to view, create, edit, and delete roles.
-To use any of these commands with cluster roles, substitute the `cluster-role` command for the `role` command.
-
-To edit a role:
-
-{{< highlight shell >}}
-sensuctl edit roles [ROLE-NAME] [flags]
-{{< /highlight >}}
+#### Delete roles and cluster roles
 
 To delete a role:
 
@@ -495,19 +536,13 @@ To delete a role:
 sensuctl role delete [ROLE-NAME]
 {{< /highlight >}}
 
-To get help managing roles with sensuctl:
-
-{{< highlight shell >}}
-sensuctl role help
-{{< /highlight >}}
-
 ### Role and cluster role specification
 
-#### Role attributes
+#### Role and cluster role attributes
 
 name         | 
 -------------|------ 
-description  | Name of the role 
+description  | Name of the role.
 required     | true 
 type         | String
 example      | {{< highlight shell >}}"name": "admin"{{< /highlight >}}
@@ -521,7 +556,7 @@ example      | {{< highlight shell >}}"namespace": "production"{{< /highlight >}
 
 rules        | 
 -------------|------ 
-description  | The rulesets that a role applies.
+description  | Rulesets that the role applies.
 required     | true 
 type         | Array 
 example      | {{< highlight shell >}}"rules": [
@@ -533,18 +568,19 @@ example      | {{< highlight shell >}}"rules": [
 ]{{< /highlight >}}
 
 #### Rule attributes
-A rule is an explicit statement which grants a particular permission to a resource.
+
+A rule is an explicit statement that grants a particular permission to a resource.
 
 verbs  | 
 -------------|------ 
-description  | The permissions to be applied by the rule: `get`, `list`, `create`, `update`, or `delete`. 
+description  | Permissions to be applied by the rule: `get`, `list`, `create`, `update`, or `delete`. 
 required     | true 
 type         | Array
 example      | {{< highlight shell >}}"verbs": ["get", "list"]{{< /highlight >}}
 
 resources         | 
 -------------|------ 
-description  | The type of resource that the rule has permission to access. Roles can only access [namespaced resource types][17] while cluster roles can access namespaced and [cluster-wide resource types][18]. See [resource types][4] for available types.
+description  | Type of resource that the rule has permission to access. Roles can only access [namespaced resource types][17]. Cluster roles can access namespaced and [cluster-wide resource types][18]. See [resource types][4] for available types.
 required     | true 
 type         | Array
 example      | {{< highlight shell >}}"resources": ["checks"]{{< /highlight >}}
@@ -556,9 +592,11 @@ required     | false
 type         | Array
 example      | {{< highlight shell >}}"resource_names": ["check-cpu"]{{< /highlight >}}
 
-### Role example
+### Role and cluster role examples
 
-The following examples are in `yml` and `wrapped-json` formats for use with [`sensuctl create`][31].
+These examples are in `yml` and `wrapped-json` formats for use with [`sensuctl create`][31].
+
+### Role example
 
 {{< language-toggle >}}
 
@@ -616,9 +654,7 @@ spec:
 
 {{< /language-toggle >}}
 
-### Cluster role example
-
-The following examples are in `yml` and `wrapped-json` formats for use with [`sensuctl create`][31].
+#### Cluster role example
 
 {{< language-toggle >}}
 
@@ -685,19 +721,28 @@ spec:
 
 ## Role bindings and cluster role bindings
 
-A **role binding** assigns a **role** or **cluster role** to users and groups within a namespace.
-A **cluster role binding** assigns a **cluster role** to users and groups across namespaces and resource types.
+A role binding assigns a _role_ or _cluster role_ to users and groups within a namespace.
+A cluster role binding assigns a _cluster role_ to users and groups across namespaces and resource types.
+
+Cluster role bindings use the same [specification][30] as role bindings and can be managed using the same sensuctl commands with `cluster-role-binding` substituted for `role-binding`.
 
 To create and manage role bindings within a namespace, [create a role][25] with `rolebindings` permissions within that namespace, and log in by [configuring sensuctl][26].
 
-### Cluster role bindings
-
-Cluster role bindings can assign a cluster role to users and groups.
-Cluster role bindings use the same [specification][30] as role bindings and can be managed using the same sensuctl commands with `cluster-role-binding` substituted for `role-binding`.
-
 To create and manage cluster role bindings, [configure sensuctl][26] as the [default `admin` user][20] or [create a cluster role][28] with permissions for `clusterrolebindings`.
 
-### Viewing role bindings
+### Manage role bindings and cluster role bindings
+
+You can use [sensuctl][2] to view, create, and delete role bindings and cluster role bindings.
+
+_**NOTE**: To use any of these commands with cluster roles, substitute the `cluster-role-binding` command for the `role-binding` command._
+
+To get help managing role bindings with sensuctl:
+
+{{< highlight shell >}}
+sensuctl role-binding help
+{{< /highlight >}}
+
+#### View role bindings and cluster role bindings
 
 You can use [sensuctl][2] to see a list of role bindings within Sensu:
 
@@ -717,7 +762,7 @@ To see a list of cluster role bindings:
 sensuctl cluster-role-binding list
 {{< /highlight >}}
 
-### Creating a role binding
+#### Create role bindings and cluster role bindings
 
 You can use [sensuctl][2] to see a create a role binding that assigns a role:
 
@@ -725,7 +770,7 @@ You can use [sensuctl][2] to see a create a role binding that assigns a role:
 sensuctl role-binding create [NAME] --role=NAME [--user=username] [--group=groupname]
 {{< /highlight >}}
 
-Or a role binding that assigns a cluster role:
+To create a role binding that assigns a cluster role:
 
 {{< highlight shell >}}
 sensuctl role-binding create [NAME] --cluster-role=NAME [--user=username] [--group=groupname]
@@ -737,10 +782,7 @@ To create a cluster role binding:
 sensuctl cluster-role-binding create [NAME] --cluster-role=NAME [--user=username] [--group=groupname]
 {{< /highlight >}}
 
-### Managing role bindings
-
-You can use [sensuctl][2] to see a list, create, and delete role bindings and cluster role bindings.
-To use any of these commands with cluster roles, substitute the `cluster-role-binding` command for the `role-binding` command.
+#### Delete role bindings and cluster role bindings
 
 To delete a role binding:
 
@@ -748,17 +790,11 @@ To delete a role binding:
 sensuctl role-binding delete [ROLE-NAME]
 {{< /highlight >}}
 
-To get help managing role bindings with sensuctl:
-
-{{< highlight shell >}}
-sensuctl role-binding help
-{{< /highlight >}}
-
 ### Role binding and cluster role binding specification
 
 roleRef      | 
 -------------|------ 
-description  | References a role in the current namespace or a cluster role.
+description  | Reference a role in the current namespace or a cluster role.
 required     | true 
 type         | Hash 
 example      | {{< highlight shell >}}"roleRef": {
@@ -768,7 +804,7 @@ example      | {{< highlight shell >}}"roleRef": {
 
 subjects     | 
 -------------|------ 
-description  | The users or groups being assigned.
+description  | Users or groups being assigned.
 required     | true 
 type         | Array 
 example      | {{< highlight shell >}}"subjects": [
@@ -789,7 +825,7 @@ example      | {{< highlight shell >}}"type": "Role"{{< /highlight >}}
 
 name         | 
 -------------|------ 
-description  | The name of the role or cluster role being assigned.
+description  | Name of the role or cluster role being assigned.
 required     | true 
 type         | String
 example      | {{< highlight shell >}}"name": "event-reader"{{< /highlight >}}
@@ -811,9 +847,11 @@ type         | String
 example      | {{< highlight shell >}}"name": "alice"{{< /highlight >}}
  example with prefix | {{< highlight shell >}}"name": "ad:alice"{{< /highlight >}}
 
-### Role binding example
+### Role binding and cluster role binding examples
 
-The following examples are in `yml` and `wrapped-json` formats for use with [`sensuctl create`][31].
+These examples are in `yml` and `wrapped-json` formats for use with [`sensuctl create`][31].
+
+#### Role binding example
 
 {{< language-toggle >}}
 
@@ -857,9 +895,7 @@ spec:
 
 {{< /language-toggle >}}
 
-### Cluster role binding example
-
-The following examples are in `yml` and `wrapped-json` formats for use with [`sensuctl create`][31].
+#### Cluster role binding example
 
 {{< language-toggle >}}
 
@@ -901,7 +937,7 @@ spec:
 
 {{< /language-toggle >}}
 
-### Role and role binding examples
+#### Role and role binding example
 
 The following role and role binding give a `dev` group access to create and manage Sensu workflows within the `default` namespace.
 
@@ -945,9 +981,9 @@ The following role and role binding give a `dev` group access to create and mana
 }
 {{< /highlight >}}
 
-### Role and role binding examples with a group prefix
+#### Role and role binding example with a group prefix
 
-In the following code example, if a [groups prefix][38] of `ad` is configured for [Active Directory authentication][39], this role and role binding will give a `dev` group access to create and manage Sensu workflows within the `default` namespace.
+In this example, if a [groups prefix][38] of `ad` is configured for [Active Directory authentication][39], the role and role binding will give a `dev` group access to create and manage Sensu workflows within the `default` namespace.
 
 {{< highlight text >}}
 {
@@ -991,11 +1027,7 @@ In the following code example, if a [groups prefix][38] of `ad` is configured fo
 
 ## Example workflows
 
-- [Assigning user permissions within a namespace](#assigning-user-permissions-within-a-namespace)
-- [Assigning group permissions within a namespace](#assigning-group-permissions-within-a-namespace)
-- [Assigning group permissions across all namespaces](#assigning-group-permissions-across-all-namespaces)
-
-### Assigning user permissions within a namespace
+### Assign user permissions within a namespace
 
 To assign permissions to a user:
 
@@ -1058,11 +1090,11 @@ You can add these resources to Sensu using [`sensuctl create`][31].
 }
 {{< /highlight >}}
 
-### Assigning group permissions within a namespace
+### Assign group permissions within a namespace
 
 To assign permissions to group of users:
 
-1. [Create at least once user assigned to a group][27].
+1. [Create at least one user assigned to a group][27].
 2. [Create a role][25].
 3. [Create a role binding][29] to assign the role to the group.
 
@@ -1121,13 +1153,13 @@ You can add these resources to Sensu using [`sensuctl create`][31].
 }
 {{< /highlight >}}
 
-_PRO TIP: To avoid re-creating commonly used roles in each namespace, [create a cluster role][28] and use a [role binding][29] to restrict permissions within a specific namespace._
+_**PRO TIP**: To avoid recreating commonly used roles in each namespace, [create a cluster role][28] and use a [role binding][29] to restrict permissions within a specific namespace._
 
-### Assigning group permissions across all namespaces
+### Assign group permissions across all namespaces
 
 To assign cluster-wide permissions to group of users:
 
-1. [Create at least once user assigned to a group][27].
+1. [Create at least one user assigned to a group][27].
 2. [Create a cluster role][28].
 3. [Create a cluster role binding][29]) to assign the role to the group.
 
@@ -1188,43 +1220,41 @@ You can add these resources to Sensu using [`sensuctl create`][31].
 }
 {{< /highlight >}}
 
-[1]: ../backend
-[2]: ../../sensuctl/reference
-[3]: ../../dashboard/overview
+[1]: ../backend/
+[2]: ../../sensuctl/reference/
+[3]: ../../dashboard/overview/
 [4]: #resources
-[5]: ../assets
-[6]: ../checks
-[7]: ../entities
-[8]: ../events
-[9]: ../handlers
-[10]: ../hooks
-[11]: ../mutators
-[12]: #namespaces
+[5]: ../assets/
+[6]: ../checks/
+[7]: ../entities/
+[8]: ../events/
+[9]: ../handlers/
+[10]: ../hooks/
+[11]: ../mutators/
 [13]: #roles-and-cluster-roles
-[14]: ../silencing
-[15]: #users
-[16]: ../../reference
+[14]: ../silencing/
+[16]: ../../reference/
 [17]: #namespaced-resource-types
 [18]: #cluster-wide-resource-types
-[19]: ../../api/overview
-[20]: #default-user
-[21]: #cluster-roles
-[22]: ../filters
+[19]: ../../api/overview/
+[20]: #default-users
+[21]: #roles-and-cluster-roles
+[22]: ../filters/
 [23]: #role-bindings-and-cluster-role-bindings
 [24]: #role-and-cluster-role-specification
-[25]: #creating-a-role
-[26]: ../../installation/install-sensu/#2-configure-sensuctl
-[27]: #creating-a-user
-[28]: #creating-a-cluster-wide-role
-[29]: #creating-a-role-binding
+[25]: #create-roles
+[26]: ../../installation/install-sensu/#install-sensuctl
+[27]: #create-users
+[28]: #create-cluster-wide-roles
+[29]: #create-role-bindings-and-cluster-role-bindings
 [30]: #role-binding-and-cluster-role-binding-specification
-[31]: ../../sensuctl/reference#creating-resources
-[32]: ../../installation/auth
-[33]: ../../getting-started/enterprise
-[34]: ../../installation/auth
-[35]: #cluster-role-bindings
-[36]: ../../sensuctl/reference#creating-resources-across-namespaces
-[37]: ../license
+[31]: ../../sensuctl/reference#create-resources
+[32]: ../../installation/auth/
+[33]: ../../getting-started/enterprise/
+[34]: ../../installation/auth/
+[36]: ../../sensuctl/reference#create-resources-across-namespaces
+[37]: ../license/
 [38]: ../../installation/auth/#groups-prefix
 [39]: ../../installation/auth/#ad-groups-prefix
-[40]: ../../reference/etcdreplicators
+[40]: ../../reference/etcdreplicators/
+[41]: ../agent/#security-configuration-flags

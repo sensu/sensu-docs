@@ -1,7 +1,7 @@
 ---
 title: "Tokens"
-description: "Tokens are placeholders included in a check definition that the agent replaces with entity information before executing the check. You can use tokens to fine-tune check attributes (like alert thresholds) on a per-entity level while re-using check definitions. Read the reference doc to learn about tokens."
-weight: 10
+description: "Tokens are placeholders in a check definition that the agent replaces with entity information before executing the check. You can use tokens to fine-tune check attributes (like alert thresholds) on a per-entity level while reusing check definitions. Read the reference doc to learn about tokens."
+weight: 180
 version: "5.16"
 product: "Sensu Go"
 menu: 
@@ -9,71 +9,82 @@ menu:
     parent: reference
 ---
 
-- [Sensu token specification](#sensu-token-specification)
+- [Manage entity labels](#manage-entity-labels)
+- [Token specification](#token-specification)
+- [Unmatched tokens](#unmatched-tokens)
+- [Token data type limitations](#token-data-type-limitations)
 - [Examples](#examples)
 
-Tokens are placeholders included in a check definition that the agent replaces with entity information before executing the check.
-You can use tokens to fine-tune check attributes (like alert thresholds) on a per-entity level while re-using the check definition.
+Tokens are placeholders in a check definition that the agent replaces with entity information before executing the check.
+You can use tokens to fine-tune check attributes (like alert thresholds) on a per-entity level while reusing the check definition.
 
-## How do tokens work?
-
-When a check is scheduled to be executed by an agent, it first goes through a token substitution step. The agent replaces any tokens with matching attributes from the entity definition, and then the check is executed. Invalid templates or unmatched tokens will return an error, which is logged and sent to the Sensu backend message transport. Checks with token matching errors will not be executed.
+When a check is scheduled to be executed by an agent, it first goes through a token substitution step.
+The agent replaces any tokens with matching attributes from the entity definition, and then the check is executed.
+Invalid templates or unmatched tokens return an error, which is logged and sent to the Sensu backend message transport.
+Checks with token-matching errors are not executed.
 
 Token substitution is supported for [check definition][7] `command` attributes and [hook][8] `command` attributes.
 Only [entity attributes][4] are available for substitution.
-Available attributes will always have [string values](#token-data-type-limitations), such as labels and annotations.
+Available attributes will always have [string values][9], such as labels and annotations.
 
-## Managing entity labels
+## Manage entity labels
 
 You can use token substitution with any defined [entity attributes][4], including custom labels.
-See the [entity reference][6] for information on managing entity labels for proxy entities and agent entities.
+See the [entity reference][6] for information about managing entity labels for proxy entities and agent entities.
 
-## Sensu token specification
+## Token specification
 
 Sensu Go uses the [Go template][1] package to implement token substitution.
 Use double curly braces around the token and a dot before the attribute to be substituted: `{{ .system.hostname }}`.
 
 ### Token substitution syntax
 
-Tokens are invoked by wrapping references to entity attributes and labels with double curly braces, such as `{{ .name }}` to substitute an entity's name. Nested Sensu [entity attributes][3] can be accessed via dot notation (ex: `system.arch`).
+Tokens are invoked by wrapping references to entity attributes and labels with double curly braces, such as `{{ .name }}` to substitute an entity's name.
+Access nested Sensu [entity attributes][3] dot notation (for example, `system.arch`).
 
 - `{{ .name }}` would be replaced with the [entity `name` attribute][3]
 - `{{ .labels.url }}` would be replaced with a custom label called `url`
-- `{{ .labels.disk_warning }}` would be replaced with a custom label called
+- `{{ .labels.disk_warning }}` would be replaced with a custom label called `disk_warning`
 - `{{ index .labels "disk_warning" }}` would be replaced with a custom label called
   `disk_warning`
 - `{{ index .labels "cpu.threshold" }}` would be replaced with a custom label called `cpu.threshold`
 
-_**NOTE**: When an annotation or label name has a dot (e.g. `cpu.threshold`), the template index function syntax must be used to ensure correct processing because the dot notation is also used for object nesting._
+_**NOTE**: When an annotation or label name has a dot (e.g. `cpu.threshold`), you must use the template index function syntax to ensure correct processing because the dot notation is also used for object nesting._
 
 ### Token substitution default values
 
-In the event that an attribute is not provided by the [entity][3], a token's default
-value will be substituted. Token default values are separated by a pipe character and the word `default` (`| default`), and can be used to provide a "fallback value" for entities that are missing a specified token attribute.
+If an attribute is not provided by the [entity][3], a token's default value will be substituted.
+Token default values are separated by a pipe character and the word "default" (`| default`).
+Use token default values to provide a fallback value for entities that are missing a specified token attribute.
 
-- `{{.labels.url | default "https://sensu.io"}}` would be replaced with a custom label called `url`. If no such attribute called `url` is included in the entity definition, the default (or fallback) value of `https://sensu.io` will be used to substitute the token.
+For example, `{{.labels.url | default "https://sensu.io"}}` would be replaced with a custom label called `url`.
+If no such attribute called `url` is included in the entity definition, the default (or fallback) value of `https://sensu.io` will be used to substitute the token.
 
-### Unmatched tokens
+## Unmatched tokens
 
-If a token is unmatched during check preparation, the agent check handler will return an error, and the check will not be executed. Unmatched token errors will look similar to the following:
+If a token is unmatched during check preparation, the agent check handler will return an error, and the check will not be executed.
+Unmatched token errors are similar to this example:
 
 {{< highlight shell >}}
 error: unmatched token: template: :1:22: executing "" at <.system.hostname>: map has no entry for key "System"
 {{< /highlight >}}
 
-Check config token errors will be logged by the agent, and sent to Sensu backend message transport as a check failure.
+Check config token errors are logged by the agent and sent to Sensu backend message transport as check failures.
 
-### Token data type limitations
+## Token data type limitations
 
-As part of the substitution process, Sensu converts all tokens to strings. This means that tokens cannot be used for bare integer values or to access individual list items.
+As part of the substitution process, Sensu converts all tokens to strings.
+This means that tokens cannot be used as bare integer values or to access individual list items.
 
-For example, token substitution **cannot** be used for specifying a check interval because the interval attribute requires an _integer_ value. Token substitution **can** be used for alerting thresholds because those values are included within the command _string_.
+For example, token substitution **cannot** be used for specifying a check interval because the interval attribute requires an _integer_ value.
+Token substitution **can** be used for alerting thresholds because those values are included within the command _string_.
 
 ## Examples
 
 ### Token substitution for check thresholds 
 
-In this example [hook][8] and [check configuration][5], the `check-disk-usage.go` command accepts `-w` (warning) and `-c` (critical) arguments to indicate the thresholds (as percentages) for creating warning or critical events. If no token substitutions are provided by an entity configuration, Sensu will use default values to create a warning event at 80% disk capacity (i.e. `{{ .labels.disk_warning | default 80 }}`), and a critical event at 90% capacity (i.e. `{{ .labels.disk_critical | default 90 }}`).
+In this example [hook][8] and [check configuration][5], the `check-disk-usage.go` command accepts `-w` (warning) and `-c` (critical) arguments to indicate the thresholds (as percentages) for creating warning or critical events.
+If no token substitutions are provided by an entity configuration, Sensu will use default values to create a warning event at 80% disk capacity (i.e. `{{ .labels.disk_warning | default 80 }}`) and a critical event at 90% capacity (i.e. `{{ .labels.disk_critical | default 90 }}`).
 
 Hook configuration:
 
@@ -187,9 +198,7 @@ spec:
 
 {{< /language-toggle >}}
 
-The following example [entity][4] would provide the necessary
-attributes to override the `.labels.disk_warning` and `labels.disk_critical`
-tokens declared above.
+The following example [entity][4] provides the necessary attributes to override the `.labels.disk_warning` and `labels.disk_critical` tokens declared above:
 
 {{< language-toggle >}}
 
@@ -322,10 +331,10 @@ spec:
 {{< /language-toggle >}}
 
 [1]: https://golang.org/pkg/text/template/
-[2]: ../../../latest/reference/checks/#check-token-substitution
 [3]: ../entities/#entities-specification
 [4]: ../entities/
 [5]: ../checks/
 [6]: ../entities#managing-entity-labels
 [7]: ../checks/#check-commands
-[8]: ../hooks
+[8]: ../hooks/
+[9]: #token-data-type-limitations
