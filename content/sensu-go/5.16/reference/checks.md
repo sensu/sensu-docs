@@ -1,7 +1,7 @@
 ---
 title: "Checks"
 description: "Checks work with Sensu agents to let you monitor your infrastructure automatically and send monitoring events to the Sensu pipeline. Read this reference doc to learn how to run service and metric checks."
-weight: 10
+weight: 50
 version: "5.16"
 product: "Sensu Go"
 platformContent: false
