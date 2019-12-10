@@ -12,6 +12,7 @@ menu:
 - [API key compatibility](#api-key-compatibility)
 - [API key resource structure](#api-key-resource-structure)
 - [API key specification](#api-key-specification)
+  - [Top-level attributes](#top-level-attributes) | [Metadata attributes](#metadata-attributes) | [Spec attributes](#spec-attributes)
 - [Examples](#examples)
 
 API keys are long-lived authentication tokens that make it more convenient to authenticate with Sensu-adjacent applications.
