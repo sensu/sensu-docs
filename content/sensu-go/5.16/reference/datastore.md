@@ -13,7 +13,7 @@ menu:
 - [Scale event storage](#scale-event-storage) (commercial feature)
   - [Requirements](#requirements)
   - [Configuration](#configuration)
-  - [Specification](#specification)
+  - [Datastore specification](#datastore-specification)
 
 ## Event storage
 
@@ -45,7 +45,7 @@ This results in a loss of recent event history.
 No restarts or Sensu backend configuration changes are required to enable the PostgreSQL event store.
 
 After you install and configure PostgreSQL, configure Sensu by creating a `PostgresConfig` resource.
-See [Specification](#specification) for more information.
+See [Datastore specification][18] for more information.
 
 {{< language-toggle >}}
 
@@ -95,7 +95,7 @@ sensuctl delete --file postgres.yml
 When you disable the PostgreSQL event store, event data cuts over from PostgreSQL to etcd, which results in a loss of recent event history.
 No restarts or Sensu backend configuration changes are required to disable the PostgreSQL event store.
 
-### Specification
+### Datastore specification
 
 #### Top-level attributes
 
@@ -173,3 +173,4 @@ example      | {{< highlight shell >}}pool_size: 20{{< /highlight >}}
 [15]: https://www.postgresql.org/docs/current/libpq-connect.html#LIBPQ-CONNSTRING
 [16]: ../../sensuctl/reference#create-resources
 [17]: #spec-attributes
+[18]: #specification
