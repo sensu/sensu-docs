@@ -14,6 +14,7 @@ menu:
 - [Asset builds](#asset-builds)
 - [Asset format specification](#asset-format-specification)
 - [Asset specification](#asset-specification)
+  - [Top-level attributes](#top-level-attributes) | [Metadata attributes](#metadata-attributes) | [Spec attributes](#spec-attributes)
 - [Examples](#examples)
 - [Share an asset on Bonsai](#share-an-asset-on-bonsai)
 - [Delete assets](#delete-assets)
@@ -246,6 +247,45 @@ example (single build, deprecated)     | {{< highlight shell >}}"spec": {
   }
 }{{< /highlight >}}
 
+### Metadata attributes
+
+name         |      |
+-------------|------ 
+description  | Unique name of the asset, validated with Go regex [`\A[\w\.\-]+\z`][19].
+required     | true
+type         | String
+example      | {{< highlight shell >}}"name": "check_script"{{< /highlight >}}
+
+| namespace  |      |
+-------------|------
+description  | [Sensu RBAC namespace][2] that the asset belongs to.
+required     | false
+type         | String
+default      | `default`
+example      | {{< highlight shell >}}"namespace": "production"{{< /highlight >}}
+
+| labels     |      |
+-------------|------
+description  | Custom attributes you can use to create meaningful collections that you can select with [API filtering][20] and [sensuctl filtering][21]. Overusing labels can affect Sensu's internal performance, so we recommend moving complex, non-identifying metadata to annotations.
+required     | false
+type         | Map of key-value pairs. Keys can contain only letters, numbers, and underscores but must start with a letter. Values can be any valid UTF-8 string.
+default      | `null`
+example      | {{< highlight shell >}}"labels": {
+  "environment": "development",
+  "region": "us-west-2"
+}{{< /highlight >}}
+
+| annotations | |
+-------------|------
+description  | Non-identifying metadata that is meaningful to people who interact with Sensu.<br><br>In contrast to labels, you cannot use annotations in [API filtering][20] or [sensuctl filtering][21], and annotations do not affect Sensu's internal performance.
+required     | false
+type         | Map of key-value pairs. Keys and values can be any valid UTF-8 string.
+default      | `null`
+example      | {{< highlight shell >}} "annotations": {
+  "managed-by": "ops",
+  "playbook": "www.example.url"
+}{{< /highlight >}}
+
 ### Spec attributes
 
 builds       | 
@@ -305,45 +345,6 @@ example      | {{< highlight shell >}}
   "X-Forwarded-For": "client1, proxy1, proxy2"
 }
 {{< /highlight >}}
-
-### Metadata attributes
-
-name         |      |
--------------|------ 
-description  | Unique name of the asset, validated with Go regex [`\A[\w\.\-]+\z`][19].
-required     | true
-type         | String
-example      | {{< highlight shell >}}"name": "check_script"{{< /highlight >}}
-
-| namespace  |      |
--------------|------
-description  | [Sensu RBAC namespace][2] that the asset belongs to.
-required     | false
-type         | String
-default      | `default`
-example      | {{< highlight shell >}}"namespace": "production"{{< /highlight >}}
-
-| labels     |      |
--------------|------
-description  | Custom attributes you can use to create meaningful collections that you can select with [API filtering][20] and [sensuctl filtering][21]. Overusing labels can affect Sensu's internal performance, so we recommend moving complex, non-identifying metadata to annotations.
-required     | false
-type         | Map of key-value pairs. Keys can contain only letters, numbers, and underscores but must start with a letter. Values can be any valid UTF-8 string.
-default      | `null`
-example      | {{< highlight shell >}}"labels": {
-  "environment": "development",
-  "region": "us-west-2"
-}{{< /highlight >}}
-
-| annotations | |
--------------|------
-description  | Non-identifying metadata that is meaningful to people who interact with Sensu.<br><br>In contrast to labels, you cannot use annotations in [API filtering][20] or [sensuctl filtering][21], and annotations do not affect Sensu's internal performance.
-required     | false
-type         | Map of key-value pairs. Keys and values can be any valid UTF-8 string.
-default      | `null`
-example      | {{< highlight shell >}} "annotations": {
-  "managed-by": "ops",
-  "playbook": "www.example.url"
-}{{< /highlight >}}
 
 ## Examples
 
