@@ -3,10 +3,10 @@
     "https_only": true,
     "error_page": "/404.html",
     "pattern_redirects": {
-      "~ ^/sensu-core/2.0/?(.*)$": {
-          "url": "/sensu-go/5.0/$1",
-          "status": 301
-      },
+        "~ ^/sensu-core/2.0/?(.*)$": {
+            "url": "/sensu-go/latest/$1",
+            "status": 301
+        },
         "~ ^/sensu-core/latest/?(.*)$": {
             "url": "/sensu-core/1.8/$1",
             "status": 301
@@ -27,6 +27,10 @@
             "url": "/sensu-go/latest/guides/create-read-only-user",
             "status": 301
         },
+        "~ ^/sensu-go/5.15/?(?<=\/)(.*)$": {
+            "url": "/sensu-go/latest/$1",
+            "status": 302
+        },
         "~ ^/sensu-go/5.1[0-1]/?(?<=\/)(.*)$": {
             "url": "/sensu-go/latest/$1",
             "status": 301
@@ -37,10 +41,6 @@
         },
         "~ ^/plugins/latest/?(.*)$": {
             "url": "/plugins/1.0/$1",
-            "status": 301
-        },
-        "~ ^/sensu-go/latest/?(.*)$": {
-            "url": "/sensu-go/5.15/$1",
             "status": 301
         }
     }
