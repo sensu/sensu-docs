@@ -165,7 +165,7 @@ output               | {{< highlight json >}}
 
 ### `/filters/:filter` (PUT) {#filtersfilter-put}
 
-The `/filters/:filter` API endpoint provides HTTP PUT access to create or update a filter.
+The `/filters/:filter` API endpoint provides HTTP PUT access to create or update an event filter.
 
 #### API Specification {#filtersfilter-put-specification}
 
