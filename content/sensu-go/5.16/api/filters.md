@@ -93,7 +93,7 @@ The `/filters` API endpoint provides HTTP POST access to create an event filter.
 
 /filters (POST) | 
 ----------------|------
-description     | Creates a Sensu filter.
+description     | Creates a Sensu event filter.
 example URL     | http://hostname:8080/api/core/v2/namespaces/default/filters
 payload         | {{< highlight shell >}}
 {
