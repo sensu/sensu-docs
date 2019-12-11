@@ -717,7 +717,7 @@ Flags:
       --log-level string                logging level [panic, fatal, error, warn, info, debug] (default "warn")
       --name string                     agent name (defaults to hostname) (default "sensu-go-sandbox")
       --namespace string                agent namespace (default "default")
-      --password string                 agent password (set up during [initialization step][50] in Sensu backend installation)
+      --password string                 agent password (default "P@ssw0rd!")
       --redact string                   comma-delimited customized list of fields to redact
       --socket-host string              address to bind the Sensu client socket to (default "127.0.0.1")
       --socket-port int                 port the Sensu client socket listens on (default 3030)
