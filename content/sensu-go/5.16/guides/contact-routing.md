@@ -1,7 +1,7 @@
 ---
 title: "Route alerts with filters"
 linkTitle: "Route Alerts"
-description: "Every alert has an ideal first responder: a team or individual with the knowledge to triage and address the issue. Sensu contact routing lets you alert the right people using their preferred contact method, reducing mean time to response and recovery."
+description: "Every alert has an ideal first responder: a team or person who knows how to triage and address the issue. Sensu contact routing lets you alert the right people using their preferred contact method, reducing mean time to response and recovery."
 weight: 130
 version: "5.16"
 product: "Sensu Go"
@@ -11,67 +11,68 @@ menu:
     parent: guides
 ---
 
-Every alert has an ideal first responder: a team or individual with the knowledge to triage and address the issue.
-Sensu contact routing lets you alert the right people using their preferred contact methods, reducing mean time to response and recovery.
-
 - [Prerequisites](#prerequisites)
-- [Configuring contact routing](#configuring-contact-routing)
+- [Configure contact routing](#configure-contact-routing)
 	- [1. Register the has-contact filter asset](#1-register-the-has-contact-filter-asset)
 	- [2. Create contact filters](#2-create-contact-filters)
 	- [3. Create a handler for each contact](#3-create-a-handler-for-each-contact)
 	- [4. Create a handler set](#4-create-a-handler-set)
-- [Testing contact routing](#testing-contact-routing)
-- [Managing contact labels in checks and entities](#managing-contact-labels-in-checks-and-entities)
+- [Test contact routing](#test-contact-routing)
+- [Manage contact labels in checks and entities](#manage-contact-labels-in-checks-and-entities)
+- [Next steps](#next-steps)
 
-In this guide, we’ll set up alerting for two teams (ops and dev) with separate Slack channels.
-Each team wants to be alerted only for the things they care about, using their team's Slack channel.
-To achieve this, we’ll be creating two types of Sensu resources:
+Every alert has an ideal first responder: a team or who knows how to triage and address the issue.
+Sensu contact routing lets you alert the right people using their preferred contact methods and reduce the mean time to response and recovery.
+
+In this guide, you'll set up alerts for two teams (ops and dev) with separate Slack channels.
+Assume e team wants to be alerted only for the things they care about, using their team's Slack channel.
+To achieve this, you'll create two types of Sensu resources:
 
 - **Event handlers** to store contact preferences for the ops team, the dev team, and a fallback option
 - **Event filters** to match contact labels to the right handler
 
-Here's a quick overview of the configuration we'll need to set up contact routing.
-You can see that the check definition includes the `contacts: dev` label, resulting in an alert being sent to the dev team, but not to the ops team or to the fallback contact.
+Here's a quick overview of the configuration to set up contact routing.
+The check definition includes the `contacts: dev` label, which will result in an alert sent to the dev team but not to the ops team or the fallback option.
 
-<a href="/images/contact-routing1.png"><img src="/images/contact-routing1.png" alt="Diagram showing an event being generated with a check label, matched to the dev team's handler using a contact filter, and routed to the dev team's Slack channel"></a>
+<a href="/images/contact-routing1.png"><img src="/images/contact-routing1.png" alt="Diagram that shows an event generated with a check label, matched to the dev team's handler using a contact filter, and routed to the dev team's Slack channel"></a>
 <!-- Diagram source: https://www.lucidchart.com/documents/edit/f66c930f-295d-458c-bde3-4e55edd9b2e8/0 -->
 
-<p style="text-align:center"><i>Sensu Go contact routing: Routing alerts to the ops team using a check label</i></p>
+<p style="text-align:center"><i>Sensu Go contact routing: Route alerts to the dev team using a check label</i></p>
 
 ## Prerequisites
 
 To complete this guide, you'll need:
 
-- a [Sensu backend][1]
-- at least one [Sensu agent][2]
-- [sensuctl][3], [configured][4] to talk to the Sensu backend
-- [curl][5]
-- a [Slack webhook URL][6] and three Slack channels available to receive test alerts
+- A [Sensu backend][1]
+- At least one [Sensu agent][2]
+- [Sensuctl][3] ([configured][4] to talk to the Sensu backend)
+- [cURL][5]
+- A [Slack webhook URL][6] and three different Slack channels to receive test alerts (one for each team)
 
 To set up a quick testing environment, download and start the [Sensu sandbox][7].
 
-## Configuring contact routing
+## Configure contact routing
 
 ### 1. Register the has-contact filter asset
 
-Contact routing is powered by the [has-contact filter asset][0].
-To add the has-contact asset to Sensu, use this sensuctl command, or download the latest asset definition from [Bonsai][0].
+Contact routing is powered by the [has-contact filter asset][12].
+To add the has-contact asset to Sensu, use this sensuctl command or download the latest asset definition from [Bonsai][12]:
 
 {{< highlight shell >}}
 curl https://bonsai.sensu.io/release_assets/sensu/sensu-go-has-contact-filter/0.2.0/any/noarch/download \
 | sensuctl create
 {{< /highlight >}}
 
-You can run `sensuctl asset list --format yaml` to confirm that the asset is ready to use.
+Run `sensuctl asset list --format yaml` to confirm that the asset is ready to use.
 
 ### 2. Create contact filters
 
-Looking at the documentation in [Bonsai][1], we can see that the has-contact asset supports two functions:
+The [Bonsai][1] documentation for the asset explains that the has-contact asset supports two functions:
 
-- `has_contact`, taking the Sensu event and the contact name as arguments
-- `no_contact`, to use as a fallback in the absence of contact labels and taking only the event as an argument
+- `has_contact`, which takes the Sensu event and the contact name as arguments
+- `no_contact`, which is available as a fallback in the absence of contact labels and takes only the event as an argument
 
-We'll use these functions to create filters that represent the three actions that the Sensu Slack handler can take on an event: contact the ops team, contact the dev team, and contact the fallback option.
+You'll use these functions to create filters that represent the three actions that the Sensu Slack handler can take on an event: contact the ops team, contact the dev team, and contact the fallback option.
 
 | filter name | expression | description
 | --- | --- | --- |
@@ -117,28 +118,28 @@ spec:
     - no_contacts(event)' | sensuctl create
 {{< /highlight >}}
 
-You can run `sensuctl filter list --format yaml` to confirm that the filters are ready to use.
+Run `sensuctl filter list --format yaml` to confirm that the filters are ready to use.
 
 ### 3. Create a handler for each contact
 
-With our contact filters in place, we'll create a handler for each contact: ops, dev, and fallback.
-If you haven't already, add the [Slack handler asset][8] to Sensu using sensuctl:
+With your contact filters in place, you can create a handler for each contact: ops, dev, and fallback.
+If you haven't already, add the [Slack handler asset][8] to Sensu with sensuctl:
 
 {{< highlight shell >}}
 curl https://bonsai.sensu.io/release_assets/sensu/sensu-slack-handler/1.0.3/linux/amd64/download \
 | sensuctl create
 {{< /highlight >}}
 
-In each handler definition, we'll specify:
+In each handler definition, specify:
 
-- a unique name: `slack_ops`, `slack_dev`, or `slack_fallback`
-- a customized command with the contact's preferred Slack channel
-- the contact filter
-- the built-in `is_incident` and `not_silenced` filters to reduce noise and enable silences
-- an environment variable containing your Slack webhook URL
-- the `sensu-slack-handler` runtime asset
+- A unique name: `slack_ops`, `slack_dev`, or `slack_fallback`
+- A customized command with the contact's preferred Slack channel
+- The contact filter
+- The built-in `is_incident` and `not_silenced` filters to reduce noise and enable silences
+- An environment variable that contains your Slack webhook URL
+- The `sensu-slack-handler` runtime asset
 
-To create the `slack_ops`, `slack_dev`, and `slack_fallback` handlers, edit and run:
+To create the `slack_ops`, `slack_dev`, and `slack_fallback` handlers, edit and run this example:
 
 {{< highlight shell >}}
 # Edit before running:
@@ -196,11 +197,11 @@ spec:
   type: pipe' | sensuctl create
 {{< /highlight >}}
 
-You can run `sensuctl handler list --format yaml` to confirm that the handlers are ready to use.
+Run `sensuctl handler list --format yaml` to confirm that the handlers are ready to use.
 
 ### 4. Create a handler set
 
-To centralize contact management and simplify configuration, we'll create a handler set that combines our contact-specific handlers under a single handler name.
+To centralize contact management and simplify configuration, create a handler set that combines uour contact-specific handlers under a single handler name.
 
 Use `sensuctl` to create a `slack` handler set:
 
@@ -219,13 +220,15 @@ spec:
   type: set' | sensuctl create
 {{< /highlight >}}
 
-You should see the output of `sensuctl handler list` update to include the `slack` handler set.
+You should see updated output of `sensuctl handler list` that includes the `slack` handler set.
 
-## Testing contact routing
+Congratulations! Your Sensu contact routing is set up. Next, test your contact filters to make sure they work.
 
-To make sure our contact filters are working, we'll use the agent API to create ad-hoc events and send them to our Slack pipeline.
+## Test contact routing
 
-First, let's create an event without a `contacts` label.
+To make sure your contact filters work the way you expect, use the [agent API][13] to create ad hoc events and send them to your Slack pipeline.
+
+First, create an event without a `contacts` label.
 You may need to modify the URL with your Sensu agent address.
 
 {{< highlight shell >}}
@@ -244,10 +247,11 @@ curl -X POST \
 http://127.0.0.1:3031/events
 {{< /highlight >}}
 
-You should see a 202 response from the API and, since this event doesn't include a `contacts` label, an alert in the Slack channel specified by the `slack_fallback` handler.
+You should see a 202 response from the API.
+Since this event doesn't include a `contacts` label, you should also see an alert in the Slack channel specified by the `slack_fallback` handler.
 Behind the scenes, Sensu uses the`contact_fallback` filter to match the event to the `slack_fallback` handler.
 
-Now let's create an event with a `contacts` label.
+Now, create an event with a `contacts` label:
 
 {{< highlight shell >}}
 curl -X POST \
@@ -268,18 +272,18 @@ curl -X POST \
 http://127.0.0.1:3031/events
 {{< /highlight >}}
 
-Since this event contains the `contacts: dev` label, you should see an alert in the Slack channel specified by the `slack_dev` handler.
+Because this event contains the `contacts: dev` label, you should see an alert in the Slack channel specified by the `slack_dev` handler.
 
 Resolve the events by sending the same API requests with `status` set to `0`.
 
-## Managing contact labels in checks and entities
+## Manage contact labels in checks and entities
 
 To assign an alert to a contact, add a `contacts` label to the check or entity.
 
 ### Checks
 
-For example, this check definition includes two contacts (`ops` and `dev`) and the handler `slack`.
-To set up the `check_cpu` check, see the [guide to monitoring server resources][9].
+This check definition includes two contacts (`ops` and `dev`) and the handler `slack`.
+To set up the `check_cpu` check, see [Monitor server resources][9].
 
 {{< highlight yml >}}
 ---
@@ -304,38 +308,40 @@ spec:
 
 When the `check_cpu` check generates an incident, Sensu filters the event according to the `contact_ops` and `contact_dev` filters, resulting in an alert sent to #alert-ops and #alert-dev.
 
-<a href="/images/contact-routing2.png"><img src="/images/contact-routing2.png" alt="Diagram showing an event being generated with a check label for the dev and ops teams, matched to the dev team and ops team handlers using contact filters, and routed to the Slack channels for dev and ops"></a>
+<a href="/images/contact-routing2.png"><img src="/images/contact-routing2.png" alt="Diagram that shows an event generated with a check label for the dev and ops teams, matched to the dev team and ops team handlers using contact filters, and routed to the Slack channels for dev and ops"></a>
 <!-- Diagram source: https://www.lucidchart.com/documents/edit/3cbd2ad3-92ed-48cc-bbaa-a97f53dae1ba -->
 
-<p style="text-align:center"><i>Sensu Go contact routing: Routing alerts to two contacts using a check label</i></p>
+<p style="text-align:center"><i>Sensu Go contact routing: Route alerts to two contacts using a check label</i></p>
 
 ### Entities
 
 You can also specify contacts using an entity label.
 For more information about managing entity labels, see the [entity reference][10].
 
-In the case that contact labels are present in both the check and entity, the check contacts override the entity contacts.
-Here we can see that the `dev` label in the check configuration overrides the `ops` label in the agent definition, resulting in an alert sent to #alert-dev but not to #alert-ops or #alert-all.
+If contact labels are present in both the check and entity, the check contacts override the entity contacts.
+In this example, the `dev` label in the check configuration overrides the `ops` label in the agent definition, resulting in an alert sent to #alert-dev but not to #alert-ops or #alert-all.
 
-<a href="/images/contact-routing3.png"><img src="/images/contact-routing3.png" alt="Diagram showing that check labels override entity labels when both are present in an event"></a>
+<a href="/images/contact-routing3.png"><img src="/images/contact-routing3.png" alt="Diagram that shows that check labels override entity labels when both are present in an event"></a>
 <!-- Diagram source: https://www.lucidchart.com/documents/edit/da41741f-15c5-47f8-b2b4-9197593a67d8/0 -->
 
-<p style="text-align:center"><i>Sensu Go contact routing: Check contacts take precedence over entity contacts</i></p>
+<p style="text-align:center"><i>Sensu Go contact routing: Check contacts override entity contacts</i></p>
 
 ## Next steps
 
 Now that you've set up contact routing for two example teams, you can create additional filters, handlers, and labels to represent your team's contacts.
-For more tools to reduce alert fatigue, see the [guide][11].
+Learn how to use Sensu to [Reduce alert fatigue][11].
 
-[0]: https://bonsai.sensu.io/assets/sensu/sensu-go-has-contact-filter
+
 [1]: ../../installation/install-sensu#install-the-sensu-backend
 [2]: ../../installation/install-sensu#install-sensu-agents
 [3]: ../../installation/install-sensu#install-sensuctl
 [4]: ../../sensuctl/reference#first-time-setup
 [5]: https://curl.haxx.se/
 [6]: https://api.slack.com/incoming-webhooks
-[7]: ../../getting-started/learn-sensu
+[7]: ../../getting-started/learn-sensu/
 [8]: https://bonsai.sensu.io/assets/sensu/sensu-slack-handler
-[9]: ../../guides/monitor-server-resources
+[9]: ../../guides/monitor-server-resources/
 [10]: ../../reference/entities/#managing-entity-labels
-[11]: ../../guides/reduce-alert-fatigue
+[11]: ../../guides/reduce-alert-fatigue/
+[12]: https://bonsai.sensu.io/assets/sensu/sensu-go-has-contact-filter
+[13]: ../../reference/agent/#create-monitoring-events-using-the-agent-api

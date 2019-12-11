@@ -1,7 +1,7 @@
 ---
 title: "Troubleshoot"
 linkTitle: "Troubleshoot"
-description: "Need to troubleshoot Sensu Go? Here’s how to look into errors, including service logging and the log levels you need to know about. Logs produced by Sensu services – i.e., sensu-backend and sensu-agent – are often the best source of truth when troubleshooting issues, so we recommend you start there."
+description: "Here’s how to troublshoot Sensu, including how to look into errors, service logging, log levels. Sensu service logs produced by sensu-backend and sensu-agent are often the best source of truth when troubleshooting issues, so start there."
 weight: 210
 version: "5.16"
 product: "Sensu Go"
@@ -17,41 +17,35 @@ menu:
 	- [Log file locations](#log-file-locations)
 - [Sensu backend startup errors](#sensu-backend-startup-errors)
 - [Permission issues](#permission-issues)
-- [Handlers and filters](#troubleshooting-handlers-and-filters)
-- [Assets](#asset-issues)
+- [Handlers and filters](#handlers-and-filters)
+- [Assets](#assets)
 
 ## Service logging
 
-Logs produced by Sensu services -- i.e. sensu-backend and sensu-agent -- are
-often the best place to start when troubleshooting a variety of issues.
+Logs produced by Sensu services (sensu-backend and sensu-agent) are often the best place to start when troubleshooting a variety of issues.
 
 ### Log levels
 
-Each log message is associated with a log level, indicative of the relative severity of the event being
+Each log message is associated with a log level that indicates the relative severity of the event being
 logged:
 
 | Log level          | Description |
-|--------------------|-----------------------------------------------------------------------|
-| panic              | Severe errors causing the service to shut down in an unexpected state |
-| fatal              | Fatal errors causing the service to shut down (status 0)              |
-| error              | Non-fatal service error messages                                      |
-| warn               | Warning messages indicating potential issues                          |
-| info               | Informational messages representing service actions                   |
-| debug              | Detailed service operation messages to help troubleshoot issues       |
+|--------------------|--------------------------------------------------------------------------|
+| panic              | Severe errors that cause the service to shut down in an unexpected state |
+| fatal              | Fatal errors that cause the service to shut down (status 0)              |
+| error              | Non-fatal service error messages                                         |
+| warn               | Warning messages that indicate potential issues                          |
+| info               | Information messages that represent service actions                      |
+| debug              | Detailed service operation messages to help troubleshoot issues          |
 
-These log levels can be configured by specifying the desired log level as the
-value of `log-level` in the service configuration file (e.g. `agent.yml` or
-`backend.yml` configuration files), or as an argument to the `--log-level`
-command line flag:
+Yyou can configure these log levels by specifying the desired log level as the value of `log-level` in the service configuration file (`agent.yml` or `backend.yml`) or as an argument to the `--log-level` command line flag:
 
 {{< highlight shell >}}
 sensu-agent start --log-level debug
 {{< /highlight >}}
 
-Changes to log level via configuration file or command line arguments require
-restarting the service. For guidance on restarting a service, please
-consult the Operating section of the [agent][agent-ref] or
-[backend][backend-ref] reference, respectively.
+You must restart the service if you cahnge log levels via configuration files or command line arguments.
+For help with restarting a service, see the [agent reference][5] or [backend reference][9].
 
 ### Log file locations
 
@@ -59,16 +53,13 @@ consult the Operating section of the [agent][agent-ref] or
 
 #### Linux
 
-Sensu services print [structured log messages][structured] to standard output.
-In order to capture these log messages to disk or another logging facility, Sensu services
-make use of capabilities provided by the underlying operating system's service
-management. For example, logs are sent to the journald when systemd is the service manager,
-whereas log messages are redirected to `/var/log/sensu` when running under sysv
-init schemes. If you are running systemd as your service manager and would rather have logs written to `/var/log/sensu/`, see the guide to [forwarding logs from journald to syslog][journald-syslog].
+Sensu services print [structured log messages][7] to standard output.
+To capture these log messages to disk or another logging facility, Sensu services use capabilities provided by the underlying operating system's service management.
+For example, logs are sent to the journald when systemd is the service manager, whereas log messages are redirected to `/var/log/sensu` when running under sysv init schemes.
+If you are running systemd as your service manager and would rather have logs written to `/var/log/sensu/`, see [forwarding logs from journald to syslog][11].
 
-In the table below, the common targets for logging and example commands for
-following those logs are described. The name of the desired service, e.g.
-`backend` or `agent` may be substituted for `${service}` variable.
+The following table lists the common targets for logging and example commands for following those logs.
+You may substitute the name of the desired service (e.g. `backend` or `agent`) for the `${service}` variable.
 
 | Platform     | Version           | Target | Command to follow log |
 |--------------|-------------------|--------------|-----------------------------------------------|
@@ -79,13 +70,11 @@ following those logs are described. The name of the desired service, e.g.
 | Debian       | >= 8       | journald     | {{< highlight shell >}}journalctl --follow --unit sensu-${service}{{< /highlight >}}   |
 | Debian       | <= 7       | log file     | {{< highlight shell >}}tail --follow /var/log/sensu/sensu-${service}{{< /highlight >}} |
 
-_NOTE: Platform versions described above are for reference only and do not
-supercede the documented [supported platforms][platforms]._
+_**NOTE**: Platform versions are listed for reference only and do not supersede the documented [supported platforms][8]._
 
 ##### Narrow your search to a specific timeframe
 
 Use the `journald` keyword `since` to refine the basic `journalctl` commands and narrow your search by timeframe.
-Here are a few examples.
 
 Retrieve all the logs for Sensu since yesterday:
 
@@ -111,11 +100,11 @@ journalctl -u sensu-backend.service --since "2015-01-10" --until "2015-01-11 03:
 
 #### Windows
 
-The Sensu agent stores service logs to the location specified by the `log-file` configuration flag (default: `%ALLUSERSPROFILE%\sensu\log\sensu-agent.log`, `C:\ProgramData\sensu\log\sensu-agent.log` on standard Windows installations).
+The Sensu agent stores service logs to the location specified by the `log-file` configuration flag (default `%ALLUSERSPROFILE%\sensu\log\sensu-agent.log`, `C:\ProgramData\sensu\log\sensu-agent.log` on standard Windows installations).
 For more information about managing the Sensu agent for Windows, see the [agent reference][1].
 You can also view agent events using the Windows Event Viewer, under Windows Logs, as events with source SensuAgent.
 
-If you're running a [binary-only distribution of the Sensu agent for Windows][2], you can follow the service log printed to standard output using the following command.
+If you're running a [binary-only distribution of the Sensu agent for Windows][2], you can follow the service log printed to standard output using this command:
 
 {{< highlight text >}}
 Get-Content -  Path "C:\scripts\test.txt" -Wait
@@ -134,18 +123,20 @@ The following errors are expected when starting up a Sensu backend with the defa
 {{< /highlight >}}
 
 The `serving insecure client requests` error is an expected warning from etcd.
-[TLS configuration][3] is recommended but not required. For more information, see [etcd security documentation][4].
+[TLS configuration][3] is recommended but not required.
+For more information, see [etcd security documentation][4].
 
 ## Permission issues
 
-Files and folders within `/var/cache/sensu/` and `/var/lib/sensu/` need to be owned by the sensu user and group. You will see a logged error similar to the following if there is a permission issue with either the sensu-backend or the sensu-agent:
+The Sensu user and group must own files and folders within `/var/cache/sensu/` and `/var/lib/sensu/`.
+You will see a logged error like those listed here if there is a permission issue with either the sensu-backend or the sensu-agent:
 
 {{< highlight shell >}}
 {"component":"agent","error":"open /var/cache/sensu/sensu-agent/assets.db: permission denied","level":"fatal","msg":"error executing sensu-agent","time":"2019-02-21T22:01:04Z"}
 {"component":"backend","level":"fatal","msg":"error starting etcd: mkdir /var/lib/sensu: permission denied","time":"2019-03-05T20:24:01Z"}
 {{< /highlight >}}
 
-You can use a recursive `chown` to resolve permission issues with the sensu-backend:
+Use a recursive `chown` to resolve permission issues with the sensu-backend:
 
 {{< highlight shell >}}
 sudo chown -R sensu:sensu /var/cache/sensu/sensu-backend
@@ -157,11 +148,12 @@ or the sensu-agent:
 sudo chown -R sensu:sensu /var/cache/sensu/sensu-agent
 {{< /highlight >}}
 
-## Troubleshooting handlers and filters
+## Handlers and filters
 
-Whether implementing new workflows or modifying existing ones, its sometimes necessary to troubleshoot various stages of the event pipeline. In many cases generating events using the [agent API][agent-api] will save you time and effort over modifying existing check configurations.
+Whether implementing new workflows or modifying existing workflows, you may need to troubleshoot various stages of the event pipeline.
+In many cases, generating events using the [agent API][6] will save you time and effort over modifying existing check configurations.
 
-Here's an example using curl with the API of a local sensu-agent process to generate test-event check results:
+Here's an example that uses cURL with the API of a local sensu-agent process to generate test-event check results:
 
 {{< highlight shell >}}
 curl -X POST \
@@ -179,7 +171,8 @@ curl -X POST \
 http://127.0.0.1:3031/events
 {{< /highlight >}}
 
-Additionally, it's frequently helpful to see the full event object being passed to your workflows. We recommend using a debug handler like this one to write an event to disk as JSON data:
+It may also be helpful to see the complete event object being passed to your workflows.
+We recommend using a debug handler like this one to write an event to disk as JSON data:
 
 {{< language-toggle >}}
 
@@ -229,13 +222,16 @@ curl -X POST \
 http://127.0.0.1:3031/events
 {{< /highlight >}}
 
-The event data should be written to `/var/log/sensu/debug-event.json` for inspection. The contents of this file will be overwritten by every event sent to the `debug` handler.
+The event data should be written to `/var/log/sensu/debug-event.json` for inspection.
+The contents of this file will be overwritten by every event sent to the `debug` handler.
 
-_NOTE: When multiple Sensu backends are configured in a cluster, event processing is distributed across all members. You may need to check the filesystem of each Sensu backend to locate the debug output for your test event._
+_**NOTE**: When multiple Sensu backends are configured in a cluster, event processing is distributed across all members. You may need to check the filesystem of each Sensu backend to locate the debug output for your test event._
 
-## Troubleshooting assets {#asset-issues}
+## Assets
 
-Asset filters allow for scoping an asset to a particular operating system or architecture. You can see an example of those in the [asset reference documentation][asset-ref]. If an asset filter is improperly applied, this can prevent the asset from being downloaded by the desired entity and will result in error messages both on the agent and the backend illustrating that the command was not found:
+Asset filters allow you to scope an asset to a particular operating system or architecture.
+You can see an example in the [asset reference][10].
+An improperly applied asset filter can prevent the asset from being downloaded by the desired entity and result in error messages both on the agent and the backend illustrating that the command was not found:
 
 **Agent log entry**
 
@@ -309,7 +305,8 @@ Asset filters allow for scoping an asset to a particular operating system or arc
 }
 {{< /highlight >}}
 
-In the event you see a message like this, it's worth going back and reviewing your asset definition as this will be your clue that the entity wasn't able to download the required asset due to filter restrictions. If you can't remember where you stored the information on disk, you can find it via:
+If you see a message like this, review your asset definition &mdash; it means that the entity wasn't able to download the required asset due to filter restrictions.
+If you can't remember where you stored the information on disk, here's how to find it:
 
 {{< highlight shell >}}
 sensuctl asset info sensu-plugins-disk-checks --format yaml
@@ -321,7 +318,9 @@ or
 sensuctl asset info sensu-plugins-disk-checks --format json
 {{< /highlight >}}
 
-One common filter issue is conflating operating systems with the family they're a part of. For example, though Ubuntu is part of the Debian family of Linux distributions, Ubuntu != Debian. A practical example would look like:
+A common filter issue is conflating operating systems with the family they're a part of.
+For example, although Ubuntu is part of the Debian family of Linux distributions, Ubuntu is not the same as Debian.
+A practical example might be:
 
 {{< highlight shell >}}
 ...
@@ -329,7 +328,9 @@ One common filter issue is conflating operating systems with the family they're 
     - entity.system.arch == 'amd64'
 {{< /highlight >}}
 
-Which would not allow an Ubuntu system to run the asset. Instead, the filter should look like:
+This would not allow an Ubuntu system to run the asset.
+
+Instead, the filter should look like this:
 
 {{< highlight shell >}}
 ...
@@ -344,17 +345,16 @@ or
     - entity.system.arch == 'amd64'
 {{< /highlight >}}
 
-Which would allow the asset to be downloaded onto the target entity.
+This would allow the asset to be downloaded onto the target entity.
 
-[agent-api]: ../../reference/agent#events-post
-[structured]: https://dzone.com/articles/what-is-structured-logging
-[journalctl]: https://www.digitalocean.com/community/tutorials/how-to-use-journalctl-to-view-and-manipulate-systemd-logs
-[platforms]: ../../installation/platforms
-[agent-ref]: ../../reference/agent/#restarting-the-service
-[backend-ref]: ../../reference/backend/#restarting-the-service
-[asset-ref]: ../../reference/assets/#asset-definition-multiple-builds
-[journald-syslog]: ../systemd-logs
 [1]: ../../reference/agent#operation
 [2]: ../../installation/verify
 [3]: ../securing-sensu/#sensu-agent-tls-authentication
 [4]: https://etcd.io/docs/v3.4.0/op-guide/security/
+[5]: ../../reference/agent/#restart-the-service
+[6]: ../../reference/agent#events-post
+[7]: https://dzone.com/articles/what-is-structured-logging
+[8]: ../../installation/platforms
+[9]: ../../reference/backend/#restart-the-service
+[10]: ../../reference/assets/#asset-definition-multiple-builds
+[11]: ../systemd-logs

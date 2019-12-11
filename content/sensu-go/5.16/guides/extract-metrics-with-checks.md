@@ -1,7 +1,7 @@
 ---
 title: "Collect metrics with Sensu checks"
 linkTitle: "Collect Service Metrics"
-description: "Sensu supports industry-standard metric formats like Nagios Performance Data, Graphite Plaintext Protocol, InfluxDB Line Protocol, and OpenTSDB Data Specification. Read the guide to get started collecting metrics with Sensu."
+description: "Sensu supports industry-standard metric formats like Nagios Performance Data, Graphite Plaintext Protocol, InfluxDB Line Protocol, and OpenTSDB Data Specification. Read this guide to collect metrics with Sensu."
 weight: 30
 version: "5.16"
 product: "Sensu Go"
@@ -11,30 +11,23 @@ menu:
     parent: guides
 ---
 
-## What are Sensu checks?
+- [Extract metrics from check output](#extract-metrics-from-check-output)
+- [Next steps](#next-steps)
 
-In short, Sensu checks are **commands** (or scripts), executed by the Sensu
-agent, that output data and produce an exit code to indicate a state. If you are
-unfamiliar with checks, or would like to learn how to configure one first,
-take a look through the check [reference doc][1] and [guide][2] before you
-continue.
+Sensu checks are **commands** (or scripts) that the Sensu agent executes that output data and produce an exit code to indicate a state.
+If you are unfamiliar with checks or want to learn how to configure a check before reading this guide, read the [check reference][1] and [Monitor server resources][2].
 
-## Extracting metrics from check output
+## Extract metrics from check output
 
-In order to extract metrics from check output, you'll need to do the following:
+To extract metrics from check output, you'll need to:
 
-1. Configure the check `command` such that the command execution outputs
-metrics in one of the [supported output metric formats][3].
-2. Configure the check `output_metric_format` to one of the
-[supported output metric formats][3].
-3. Configure the check `output_metric_handlers` (optional) to a Sensu handler
-that is equipped to handle Sensu metrics (see [handlers][4] or
-[influx-db handler][5] to learn more).
+1. Configure the check `command` so that the command execution outputs metrics in one of the [supported output metric formats][3].
+2. Configure the check `output_metric_format` to one of the [supported output metric formats][3].
 
-You can configure the check with these fields at creation, or use the commands
-below assuming you have a check named `collect-metrics`. In this example,
-we'll be using `graphite_plaintext` format and sending the metrics to a handler
-named `influx-db`.
+You can also configure the check `output_metric_handlers` to a Sensu handler that is equipped to handle Sensu metrics if you wish. See [handlers][4] or [influx-db handler][5] to learn more.
+
+You can configure the check with these fields at creation or use the commands in this guide (assuming you have a check named `collect-metrics`).
+This example uses `graphite_plaintext` format and sends the metrics to a handler named `influx-db`.
 
 {{< highlight shell >}}
 sensuctl check set-command collect-metrics collect_metrics.sh
@@ -44,8 +37,7 @@ sensuctl check set-output-metric-handlers collect-metrics influx-db
 
 ### Supported output metric formats
 
-The output metric formats that Sensu currently supports for check output metric
-extraction are nagios, influxdb, graphite, and opentsdb.
+The output metric formats that Sensu currently supports for check output metric extraction are nagios, influxdb, graphite, and opentsdb.
 
 |nagios              |      |
 ---------------------|------
@@ -71,13 +63,15 @@ output_metric_format | `opentsdb_line`
 documentation        | [OpenTSDB Data Specification][9]
 example              | {{< highlight string >}}sys.cpu.user 1356998400 42.5 host=webserver01 cpu=0{{< /highlight >}}
 
-### Validating the metrics
+### Validate the metrics
 
-If the check output is formatted correctly according to its `output_metric_format`,
-the metrics will be extracted in Sensu Metric Format, and passed to the event pipeline.
-You should expect to see logged errors if Sensu is unable to parse the check output.
-You can validate that metrics have been extracted from your check by inspecting the event passed to the handler. See our troubleshooting guide for an [example debug handler][10] which writes events to a file for inspection.
-The example check we used would yield an event similar to the one below:
+If the check output is formatted correctly according to its `output_metric_format`, the metrics will be extracted in Sensu metric format and passed to the event pipeline.
+You should expect to see logged errors if Sensu cannot parse the check output.
+You can validate that metrics have been extracted from your check by inspecting the event passed to the handler.
+
+See [Troubleshooting][10] for an example debug handler that writes events to a file for inspection.
+
+The example check would yield an event similar to this:
 
 {{< language-toggle >}}
 
@@ -156,20 +150,19 @@ spec:
 
 ## Next steps
 
-Now you know how to extract metrics from check output! Check out the below
-resources for some further reading:
+Now you know how to extract metrics from check output!
+Check out these resources for more information about scheduling checks and using handlers:
 
-* Read the [checks reference][1] for in-depth documentation on checks.
-* Read the [checks guide][2] for directions on how to schedule checks.
-* Read the [handlers reference][4] for in-depth documentation on handlers.
-* Read the [influx-db handler guide][5] for instructions on Sensu's built-in
-metric handler.
+* [Checks reference][1]: in-depth checks documentation
+* [Monitor server resources][2]: learn how to schedule checks
+* [Handlers reference][4]: in-depth handlers documentation
+* [Populate metrics in InfluxDB][5]: learn to use Sensu's built-in metrics handler
 
-[1]: ../../reference/checks
+[1]: ../../reference/checks/
 [2]: ../monitor-server-resources/
 [3]: #supported-output-metric-formats
-[4]: ../../reference/handlers
-[5]: ../influx-db-metric-handler
+[4]: ../../reference/handlers/
+[5]: ../influx-db-metric-handler/
 [6]: https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/3/en/perfdata.html
 [7]: http://graphite.readthedocs.io/en/latest/feeding-carbon.html#the-plaintext-protocol
 [8]: https://docs.influxdata.com/influxdb/v1.4/write_protocols/line_protocol_tutorial/#measurement

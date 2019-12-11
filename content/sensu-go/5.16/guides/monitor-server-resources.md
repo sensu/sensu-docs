@@ -1,7 +1,7 @@
 ---
 title: "Monitor server resources with checks"
 linkTitle: "Monitor Server Resources"
-description: "Here’s how to monitor server resources with checks. You’ll learn about Sensu checks, why you should use checks, and how to use them to monitor a service. Read the guide to learn more."
+description: "Sensu lets you monitor server resources with checks. Read this guide to learn about Sensu checks and how to use checks to monitor a service."
 weight: 10
 version: "5.16"
 product: "Sensu Go"
@@ -11,43 +11,36 @@ menu:
     parent: guides
 ---
 
-## What are Sensu checks?
+- [Use checks to monitor a service](#use-checks-to-monitor-a-service)
+- [Next steps](#next-steps)
 
-Sensu checks are **commands** (or scripts), executed by the Sensu agent, that
-output data and produce an exit code to indicate a state. Sensu checks use the
-same specification as **Nagios**, therefore, Nagios **check plugins** may be
-used with Sensu.
+Sensu checks are **commands** (or scripts) the Sensu agent executes that output data and produce an exit code to indicate a state.
+Sensu checks use the same specification as **Nagios**, so you can use Nagios check plugins with Sensu.
 
-## Why use a check?
+You can use checks to monitor server resources, services, and application health (for example, to check whether Nginx is running) and collect and analyze metrics (for example, to learn how much disk space you have left).
 
-You can use checks to monitor server resources, services, and application
-health (for example: is Nginx running?) as well as collect and analyze metrics (for example: how much disk space do I have left?).
+## Use checks to monitor a service
 
-## Using checks to monitor a service
+This guide will help you monitor server resources (specifically, CPU usage) by configuring a check named `check-cpu` with a subscription named `system` to target all entities that are subscribed to the `system` subscription.
+To use this guide, you'll need to install a Sensu backend and have at least one Sensu agent running on Linux.
 
-The purpose of this guide is to help you monitor server resources, more
-specifically the CPU usage, by configuring a check named `check-cpu` with a
-**subscription** named `system`, in order to target all **entities** subscribed
-to the `system` subscription.
-This guide requires a Sensu backend and at least one Sensu agent running on Linux.
+### Register assets
 
-### Registering assets
+To power the check, you'll use the [Sensu CPU Checks][1] asset and the [Sensu Ruby Runtime][7] asset.
 
-To power the check, we'll use the [Sensu CPU checks asset][1] and the [Sensu Ruby runtime asset][7].
-
-Use the following sensuctl example to register the `sensu-plugins-cpu-checks` asset for CentOS, or download the asset definition for Debian or Alpine from [Bonsai][1] and register the asset using `sensuctl create --file filename.yml`.
+Use the following sensuctl example to register the `sensu-plugins-cpu-checks` asset for CentOS or download the asset definition for Debian or Alpine from [Bonsai][1] and register the asset using `sensuctl create --file filename.yml`:
 
 {{< highlight shell >}}
 sensuctl asset create sensu-plugins-cpu-checks --url "https://assets.bonsai.sensu.io/68546e739d96fd695655b77b35b5aabfbabeb056/sensu-plugins-cpu-checks_4.0.0_centos_linux_amd64.tar.gz" --sha512 "518e7c17cf670393045bff4af318e1d35955bfde166e9ceec2b469109252f79043ed133241c4dc96501b6636a1ec5e008ea9ce055d1609865635d4f004d7187b"
 {{< /highlight >}}
 
-Then use the following sensuctl example to register the `sensu-ruby-runtime` asset for CentOS, or download the asset definition for Debian or Alpine from [Bonsai][7] and register the asset using `sensuctl create --file filename.yml`. 
+Then, use this sensuctl example to register the `sensu-ruby-runtime` asset for CentOS or download the asset definition for Debian or Alpine from [Bonsai][7] and register the asset using `sensuctl create --file filename.yml`:
 
 {{< highlight shell >}}
 sensuctl asset create sensu-ruby-runtime --url "https://assets.bonsai.sensu.io/03d08cdfc649500b7e8cd1708bb9bb93d91fea9e/sensu-ruby-runtime_0.0.8_ruby-2.4.4_centos_linux_amd64.tar.gz" --sha512 "7b254d305af512cc524a20a117c601bcfae0d51d6221bbfc60d8ade180cc1908081258a6eecfc9b196b932e774083537efe748c1534c83d294873dd3511e97a3"
 {{< /highlight >}}
 
-You can use sensuctl to confirm that both the `sensu-plugins-cpu-checks` and `sensu-ruby-runtime` assets are ready to use.
+Use sensuctl to confirm that both the `sensu-plugins-cpu-checks` and `sensu-ruby-runtime` assets are ready to use:
 
 {{< highlight shell >}}
 sensuctl asset list
@@ -57,13 +50,10 @@ sensuctl asset list
  sensu-ruby-runtime         //assets.bonsai.sensu.io/.../sensu-ruby-runtime_0.0.10_ruby-2.4.4_centos_linux_amd64.tar.gz     338b88b 
 {{< /highlight >}}
 
-### Creating the check
+### Create a check
 
-Now that the assets are registered, we'll create a check named
-`check-cpu`, which runs the command `check-cpu.rb -w 75 -c 90` using the `sensu-plugins-cpu-checks` and `sensu-ruby-runtime` assets, at an
-**interval** of 60 seconds, for all entities subscribed to the `system`
-subscription.
-This checks generates a warning event (`-w`) when CPU usage reaches 75% and a critical alert (`-c`) at 90%.
+Now that the assets are registered, create a check named `check-cpu` that runs the command `check-cpu.rb -w 75 -c 90` with the `sensu-plugins-cpu-checks` and `sensu-ruby-runtime` assets at an interval of 60 seconds for all entities subscribed to the `system` subscription.
+This check generates a warning event (`-w`) when CPU usage reaches 75% and a critical alert (`-c`) at 90%.
 
 {{< highlight shell >}}
 sensuctl check create check-cpu \
@@ -73,28 +63,26 @@ sensuctl check create check-cpu \
 --runtime-assets sensu-plugins-cpu-checks,sensu-ruby-runtime
 {{< /highlight >}}
 
-### Configuring the subscription
+### Configure the subscription
 
-To run the check, we'll need a Sensu agent with the subscription `system`.
-After [installing an agent][install], open `/etc/sensu/agent.yml`
-and add the `system` subscription so the subscription configuration looks like:
+To run the check, you'll need a Sensu agent with the subscription `system`.
+After you [install an agent][4], open `/etc/sensu/agent.yml` and add the `system` subscription so the subscription configuration looks like this:
 
 {{< highlight yml >}}
 subscriptions:
   - system
 {{< /highlight >}}
 
-Then restart the agent.
+Then, restart the agent:
 
 {{< highlight shell >}}
 sudo service sensu-agent restart
 {{< /highlight >}}
 
-### Validating the check
+### Validate the check
 
-We can use sensuctl to see that Sensu is monitoring CPU usage using the `check-cpu`, returning an OK status (`0`).
-It might take a few moments, once the check is created,
-for the check to be scheduled on the entity and the event returned to Sensu backend.
+Use sensuctl to confirm that Sensu is monitoring CPU usage using the `check-cpu`, returning an OK status (`0`).
+It might take a few moments after you create the check for the check to be scheduled on the entity and the event to return to Sensu backend.
 
 {{< highlight shell >}}
 sensuctl event list
@@ -105,20 +93,18 @@ sensuctl event list
 
 ## Next steps
 
-You now know how to run a simple check to monitor CPU usage. From this point,
-here are some recommended resources:
+Now that you know how to run a simple check to monitor CPU usage, read these resources to learn more:
 
-* Read the [checks reference][3] for in-depth documentation on checks.
-* Read our guide on [providing runtime dependencies to checks with assets][2].
-* Read our guide on [monitoring external resources with proxy checks and entities][5].
-* Read our guide on [sending alerts to Slack with handlers][6].
+* [Checks reference][3]
+* [Install plugins with assets][2]
+* [Monitor external resources with proxy checks and entities][5]
+* [Send Slack alerts with handlers][6]
 
 [1]: https://bonsai.sensu.io/assets/sensu-plugins/sensu-plugins-cpu-checks
-[2]: ../install-check-executables-with-assets
-[3]: ../../reference/checks
-[4]: ../
-[5]: ../monitor-external-resources
-[6]: ../send-slack-alerts
-[install]: ../../installation/install-sensu/#install-sensu-agents
-[start]: ../../reference/agent/#restarting-the-service
+[2]: ../install-check-executables-with-assets/
+[3]: ../../reference/checks/
+[4]: ../../installation/install-sensu/#install-sensu-agents
+[5]: ../monitor-external-resources/
+[6]: ../send-slack-alerts/
 [7]: https://bonsai.sensu.io/assets/sensu/sensu-ruby-runtime
+[8]: ../../reference/agent/#restart-the-service
