@@ -55,13 +55,34 @@ Read the [upgrade guide][1] for information about upgrading to the latest versio
 
 **IMPORTANT:**
 
+- The backend will no longer automatically be seeded with a default admin username and password. Users will need to run 'sensu-backend init' on every new installation.
+
 **NEW FEATURES:**
+
+- ([Commercial feature][95]) Added ability to authenticate with OIDC.
+- ([Commercial feature][95]) Label selectors now match the event's check & entity labels.
+- Added a new flag,`--etcd-client-urls`, which should be used with sensu-backend when it is not operating as an etcd member. The flag is also used by the new sensu-backend init tool.
+- Added the 'sensu-backend init' subcommand.
+- Added the [`--etcd-discovery`][100] and [`--etcd-discovery-srv`][100] flags to sensu-backend. These are used to take advantage of the embedded etcd's auto-discovery features.
+- Added `--keepalive-critical-timeout` to define the time after which a critical keepalive event should be created for an agent.
+- Added `--keepalive-warning-timeout` which is an alias of `--keepalive-timeout` for backwards compatibility.
 
 **SECURITY:**
 
 **IMPROVEMENTS:**
 
+- ([Commercial feature][95]) The entity limit warning message is now displayed less aggressively and the warning threshold is proportional to the entity limit.
+- Within the dashboard switching namespaces is easier with the new switcher. The new component can be accessed from the drawer or with the shortcut ctrl+k. For those with many namespaces the switcher now includes fuzzy search and improved keyboard navigation.
+- The app bar has been replaced by an omnipresent drawer increasing the available space for content. Additionally, each page now includes breadcrumbs.
+
 **FIXES:**
+- Show the correct default value for the format flag in sensuctl dump help usage.
+- Installing sensuctl commands via Bonsai will now check for correct labels before checking if the asset has 1 or more builds.
+- Listing assets with no results returns an empty array.
+- Fixed a panic that could occur when creating resources in a namespace that does not exist.
+- Fixed issue where keepalive events and events created through the agent's socket interface could be missing a namespace.
+- Fixed an issue where 'sensuctl cluster health' would hang indefinitely.
+- The `agent.yml.example` file shipped with Sensu Agent for Windows packages now uses DOS-style line endings.
 
 ## 5.15.0 release notes
 
@@ -918,4 +939,4 @@ To get started with Sensu Go:
 [97]: https://bonsai.sensu.io/assets/sensu/sensu-servicenow-handler/
 [98]: https://bonsai.sensu.io/assets/sensu/sensu-jira-handler/
 [99]: /sensu-go/5.2/getting-started/enterprise/
-
+[100]: /sensu-go/5.16/reference/backend/#datastore-and-cluster-configuration-flags
