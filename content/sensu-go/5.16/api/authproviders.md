@@ -44,7 +44,7 @@ output         | {{< highlight json >}}
           "host": "127.0.0.1",
           "binding": {
             "user_dn": "cn=binder,dc=acme,dc=org",
-            "password": "P@ssw0rd!"
+            "password": "YOUR_PASSWORD"
           },
           "group_search": {
             "base_dn": "dc=acme,dc=org"
@@ -86,7 +86,7 @@ output               | {{< highlight json >}}
         "host": "127.0.0.1",
         "binding": {
           "user_dn": "cn=binder,dc=acme,dc=org",
-          "password": "P@ssw0rd!"
+          "password": "YOUR_PASSWORD"
         },
         "group_search": {
           "base_dn": "dc=acme,dc=org"
@@ -123,7 +123,7 @@ payload         | {{< highlight shell >}}
         "host": "127.0.0.1",
         "binding": {
           "user_dn": "cn=binder,dc=acme,dc=org",
-          "password": "P@ssw0rd!"
+          "password": "YOUR_PASSWORD"
         },
         "group_search": {
           "base_dn": "dc=acme,dc=org"

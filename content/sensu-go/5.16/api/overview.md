@@ -61,7 +61,7 @@ To set up a local API testing environment, save your Sensu credentials and token
 
 {{< highlight shell >}}
 # Requires curl and jq
-export SENSU_USER=admin && SENSU_PASS=P@ssw0rd!
+export SENSU_USER=YOUR_USERNAME && SENSU_PASS=YOUR_PASSWORD
 
 export SENSU_TOKEN=`curl -XGET -u "$SENSU_USER:$SENSU_PASS" -s http://localhost:8080/auth | jq -r ".access_token"`
 {{< /highlight >}}
@@ -73,7 +73,7 @@ The [`/auth` API endpoint][9] lets you generate short-lived API tokens using you
 1. Retrieve an access token for your user.
 For example, to generate an access token using the default admin credentials:
 {{< highlight shell >}}
-curl -u 'admin:P@ssw0rd!' http://localhost:8080/auth
+curl -u 'YOUR_USERNAME:YOUR_PASSWORD' http://localhost:8080/auth
 {{< /highlight >}}
 The access token should be included in the output, along with a refresh token:
 {{< highlight shell >}}

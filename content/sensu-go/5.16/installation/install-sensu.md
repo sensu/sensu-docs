@@ -220,8 +220,8 @@ To start using sensuctl, run `sensuctl configure` and log in with your user cred
 
 {{< highlight "shell" >}}
 sensuctl configure -n \
---username 'admin' \
---password 'P@ssw0rd!' \
+--username 'YOUR_USERNAME' \
+--password 'YOUR_PASSWORD' \
 --namespace default \
 --url 'http://127.0.0.1:8080'
 {{< /highlight >}}

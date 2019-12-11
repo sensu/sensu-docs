@@ -717,7 +717,7 @@ Flags:
       --log-level string                logging level [panic, fatal, error, warn, info, debug] (default "warn")
       --name string                     agent name (defaults to hostname) (default "sensu-go-sandbox")
       --namespace string                agent namespace (default "default")
-      --password string                 agent password (default "P@ssw0rd!")
+      --password string                 agent password (set up during [initialization step][50] in Sensu backend installation)
       --redact string                   comma-delimited customized list of fields to redact
       --socket-host string              address to bind the Sensu client socket to (default "127.0.0.1")
       --socket-port int                 port the Sensu client socket listens on (default 3030)
@@ -1026,12 +1026,12 @@ user: "agent-01"{{< /highlight >}}
 --------------|------
 description   | Sensu [RBAC](../rbac) password used by the agent
 type          | String
-default       | `P@ssw0rd!`
+default       | `RBAC_PASSWORD`
 example       | {{< highlight shell >}}# Command line example
-sensu-agent start --password secure-password
+sensu-agent start --password RBAC_PASSWORD
 
 # /etc/sensu/agent.yml example
-password: "secure-password"{{< /highlight >}}
+password: "RBAC_PASSWORD"{{< /highlight >}}
 
 
 | redact      |      |
@@ -1339,3 +1339,4 @@ $ sudo systemctl restart sensu-agent
 [47]: https://en.m.wikipedia.org/wiki/Protocol_Buffers
 [48]: #example-allow-list-configuration-file
 [49]: #allow-list-configuration
+[50]: ../../installation/install-sensu/#2-initialize

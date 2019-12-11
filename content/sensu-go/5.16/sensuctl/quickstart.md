@@ -16,8 +16,8 @@ menu:
 {{< highlight shell >}}
 sensuctl configure
 ? Sensu Backend URL: http://127.0.0.1:8080
-? Username: admin
-? Password: P@ssw0rd!
+? Username: YOUR_USERNAME
+? Password: YOUR_PASSWORD
 {{< /highlight >}}
 
 ### Create resources from a file that contains JSON resource definitions
