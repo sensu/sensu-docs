@@ -188,7 +188,7 @@ HTTP/1.1 204 No Content
 
 #### API Specification {#clustermembersmember-delete-specification}
 
-/cluster/ members/:member (DELETE) | 
+/cluster/members/:member (DELETE) | 
 --------------------------|------
 description               | Removes a member from a Sensu cluster (specified by the member ID).
 example url               | http://hostname:8080/api/core/v2/cluster/members/8927110dc66458af
