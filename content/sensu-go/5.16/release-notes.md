@@ -59,7 +59,7 @@ Read the [upgrade guide][1] for information about upgrading to the latest versio
 
 **NEW FEATURES:**
 
-- ([Commercial feature][95]) Added ability to authenticate with OIDC.
+- ([Commercial feature][95]) Added ability to authenticate with OIDC in the dashboard.
 - ([Commercial feature][95]) Label selectors now match the event's check & entity labels.
 - Added a new flag,`--etcd-client-urls`, which should be used with sensu-backend when it is not operating as an etcd member. The flag is also used by the new sensu-backend init tool.
 - Added the 'sensu-backend init' subcommand.
