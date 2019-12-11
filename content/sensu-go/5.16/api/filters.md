@@ -210,7 +210,7 @@ HTTP/1.1 204 No Content
 
 /filters/:filter (DELETE) | 
 --------------------------|------
-description               | Removes the specified filter from Sensu.
+description               | Removes the specified event filter from Sensu.
 example url               | http://hostname:8080/api/core/v2/namespaces/default/filters/production-only
 response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
