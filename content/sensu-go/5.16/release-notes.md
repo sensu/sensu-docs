@@ -7,6 +7,7 @@ version: "5.16"
 menu: "sensu-go-5.16"
 ---
 
+- [5.16.0 release notes](#5-16-0-release-notes)
 - [5.15.0 release notes](#5-15-0-release-notes)
 - [5.14.2 release notes](#5-14-2-release-notes)
 - [5.14.1 release notes](#5-14-1-release-notes)
@@ -47,6 +48,20 @@ PATCH versions include backward-compatible bug fixes.
 Read the [upgrade guide][1] for information about upgrading to the latest version of Sensu Go.
 
 ---
+
+## 5.16.0 release notes
+
+**December 11, 2019** &mdash; The latest release of Sensu Go, version 5.16.0, is now available for download.
+
+**IMPORTANT:**
+
+**NEW FEATURES:**
+
+**SECURITY:**
+
+**IMPROVEMENTS:**
+
+**FIXES:**
 
 ## 5.15.0 release notes
 
