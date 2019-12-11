@@ -80,13 +80,27 @@ module.exports = function(grunt) {
   grunt.registerTask("hugo-build", function() {
     const done = this.async();
     const args = process.argv.slice(3).filter(a => a !== '--color'); // fetch given arguments
+    const toml = require('toml');
+    const config = toml.parse(grunt.file.read('config.toml'));
+    const latestSensuGo = config.params.products.sensu_go.latest;
+
+    // Move latest Sensu version to /latest
+    grunt.log.writeln(`Moving content/sensu-go/${latestSensuGo} → content/sensu-go/latest`);
+    grunt.file.copy(`content/sensu-go/${latestSensuGo}`, 'content/sensu-go/latest');
+    grunt.file.delete(`content/sensu-go/${latestSensuGo}`);
 
     grunt.log.writeln("Running hugo build");
     grunt.util.spawn({
-      cmd: "hugo",
-      args: [...args],
-    },
+        cmd: "hugo",
+        args: [...args],
+      },
       function(error, result, code) {
+        // Restore directories
+        grunt.log.writeln('Restoring moved directories...');
+        grunt.log.writeln(`Moving content/sensu-go/latest → content/sensu-go/${latestSensuGo}`);
+        grunt.file.copy('content/sensu-go/latest', `content/sensu-go/${latestSensuGo}`);
+        grunt.file.delete('content/sensu-go/latest');
+
         if (code == 0) {
           grunt.log.ok("Successfully built site");
         } else {
