@@ -1026,7 +1026,7 @@ user: "agent-01"{{< /highlight >}}
 --------------|------
 description   | Sensu [RBAC](../rbac) password used by the agent
 type          | String
-default       | `RBAC_PASSWORD`
+default       | `P@ssw0rd!`
 example       | {{< highlight shell >}}# Command line example
 sensu-agent start --password RBAC_PASSWORD
 
