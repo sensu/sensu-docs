@@ -20,7 +20,7 @@ menu:
 
 ### `/filters` (GET)
 
-The `/filters` API endpoint provides HTTP GET access to [filter][1] data.
+The `/filters` API endpoint provides HTTP GET access to [event filter][1] data.
 
 #### EXAMPLE {#filters-get-example}
 
@@ -49,7 +49,7 @@ curl http://127.0.0.1:8080/api/core/v2/namespaces/default/filters -H "Authorizat
 
 /filters (GET)  | 
 ---------------|------
-description    | Returns the list of filters.
+description    | Returns the list of event filters.
 example url    | http://hostname:8080/api/core/v2/namespaces/default/filters
 pagination     | This endpoint supports pagination using the `limit` and `continue` query parameters. See the [API overview][2] for details.
 response type  | Array
@@ -116,7 +116,7 @@ response codes  | <ul><li>**Success**: 200 (OK)</li><li>**Malformed**: 400 (Bad 
 
 ### `/filters/:filter` (GET) {#filtersfilter-get}
 
-The `/filters/:filter` API endpoint provides HTTP GET access to [filter data][1] for specific `:filter` definitions, by filter name.
+The `/filters/:filter` API endpoint provides HTTP GET access to [event filter data][1] for specific `:filter` definitions, by filter name.
 
 #### EXAMPLE {#filtersfilter-get-example}
 
