@@ -642,7 +642,7 @@ etcd-client-cert-auth: true{{< /highlight >}}
 
 | etcd-client-urls      |      |
 ------------------------|------
-description             | List of URLs to listen on for client traffic when a sensu-backend is not operating as an etcd member. Use with sensu-backend and [sensu-backend init][20]. Returns a client that connects to an external etcd. If you do not use this flag, sensu-backend and sensu-backend-init will fall back to [--etcd-listen-client-urls][21].
+description             | List of client URLs to use when a sensu-backend is not operating as an etcd member. To configure sensu-backend for use with an external etcd instance, use this flag in conjunction with `--no-embed-etcd` when executing sensu-backend start or [sensu-backend init][20] . If you do not use this flag when using `--no-embed-etcd`, sensu-backend start and sensu-backend-init will fall back to [--etcd-listen-client-urls][21].
 type                    | List
 default                 | `http://127.0.0.1:2379`
 example                   | {{< highlight shell >}}# Command line examples
