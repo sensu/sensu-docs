@@ -143,7 +143,7 @@ curl http://127.0.0.1:8080/api/core/v2/namespaces/default/filters/state_change_o
 
 /filters/:filter (GET) | 
 ---------------------|------
-description          | Returns the specified filter.
+description          | Returns the specified event filter.
 example url          | http://hostname:8080/api/core/v2/namespaces/default/filters/state_change_only
 response type        | Map
 response codes       | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
