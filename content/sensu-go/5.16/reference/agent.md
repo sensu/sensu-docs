@@ -1031,7 +1031,7 @@ example       | {{< highlight shell >}}# Command line example
 sensu-agent start --password secure-password
 
 # /etc/sensu/agent.yml example
-password: "RBAC_PASSWORD"{{< /highlight >}}
+password: "secure-password"{{< /highlight >}}
 
 
 | redact      |      |
