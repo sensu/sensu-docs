@@ -192,7 +192,7 @@ response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 
 
 ### `/filters/:filter` (DELETE) {#filtersfilter-delete}
 
-The `/filters/:filter` API endpoint provides HTTP DELETE access to delete a filter from Sensu (specified by the filter name).
+The `/filters/:filter` API endpoint provides HTTP DELETE access to delete an event filter from Sensu (specified by the filter name).
 
 #### EXAMPLE {#filtersfilter-delete-example}
 
