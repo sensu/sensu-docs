@@ -978,7 +978,7 @@ deregistration-handler: "deregister"{{< /highlight >}}
 
 | keepalive-critical-timeout |      |
 --------------------|------
-description         | Number of seconds after a missing keepalive event until the agent is considered unresponsive by the Sensu backend to create a critical event. If the value is not `0`, it must be greater than or equal to `5` (in other words, the value cannot be `1`, `2`, `3`, or `4`).
+description         | Number of seconds after a missing keepalive event until the agent is considered unresponsive by the Sensu backend to create a critical event. Set to disabled (`0`) by default. If the value is not `0`, it must be greater than or equal to `5`.
 type                | Integer
 default             | `0`
 example             | {{< highlight shell >}}# Command line example
