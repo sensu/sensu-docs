@@ -1339,4 +1339,3 @@ $ sudo systemctl restart sensu-agent
 [47]: https://en.m.wikipedia.org/wiki/Protocol_Buffers
 [48]: #example-allow-list-configuration-file
 [49]: #allow-list-configuration
-[50]: ../../installation/install-sensu/#2-initialize
