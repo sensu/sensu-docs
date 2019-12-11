@@ -40,7 +40,7 @@ The Sensu API requires the authenticated user to have the correct access permiss
 If the authenticated user has the correct cluster-wide permissions, you can leave out the `/namespaces/{namespace}` portion of the URL to access Sensu resources across namespaces.
 See the [RBAC reference][3] for more information about configuring Sensu users and access controls.
 
-_**NOTE**: The [authentication API][12] and [authentication providers API][15] do not follow this standard URL format._
+_**NOTE**: The [authentication API][12], [authentication providers API][15], and [health API][5] do not follow this standard URL format._
 
 ## Data format
 
