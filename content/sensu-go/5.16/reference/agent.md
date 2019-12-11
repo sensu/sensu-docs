@@ -403,7 +403,10 @@ example      | {{< highlight shell >}}"handlers": ["slack", "influxdb"]{{< /high
 
 Sensu `keepalives` are the heartbeat mechanism used to ensure that all registered agents are operational and able to reach the [Sensu backend][2].
 Sensu agents publish keepalive events containing [entity][3] configuration data to the Sensu backend according to the interval specified by the [`keepalive-interval` flag][4].
-If a Sensu agent fails to send keepalive events over the period specified by the [`keepalive-timeout` flag][4], the Sensu backend creates a keepalive alert in the Sensu dashboard.
+If a Sensu agent fails to send keepalive events over the period specified by the [`keepalive-critical-timeout` flag][4], the Sensu backend creates a keepalive **critical** alert in the Sensu dashboard.
+The `keepalive-critical-timeout` is set to `0` (disabled) by default to help ensure that it will not interfere with your `keepalive-warning-timeout` setting.
+If a Sensu agent fails to send keepalive events over the period specified by the [`keepalive-warning-timeout` flag][4], the Sensu backend creates a keepalive **warning** alert in the Sensu dashboard.
+The value you specify for `keepalive-warning-timeout` must be lower than the value you specify for `keepalive-critical-timeout`.
 You can use keepalives to identify unhealthy systems and network partitions, send notifications, trigger auto-remediation, and other useful actions.
 
 _NOTE: Keepalive monitoring is not supported for [proxy entities][3], as they are inherently unable to run a Sensu agent._
@@ -695,40 +698,41 @@ Usage:
   sensu-agent start [flags]
 
 Flags:
-      --allow-list string               path to agent execution allow list configuration file
-      --annotations stringToString      entity annotations map (default [])
-      --api-host string                 address to bind the Sensu client HTTP API to (default "127.0.0.1")
-      --api-port int                    port the Sensu client HTTP API listens on (default 3031)
-      --backend-url strings             ws/wss URL of Sensu backend server (to specify multiple backends use this flag multiple times) (default [ws://127.0.0.1:8081])
-      --cache-dir string                path to store cached data (default "/var/cache/sensu/sensu-agent")
-  -c, --config-file string              path to sensu-agent config file
-      --deregister                      ephemeral agent
-      --deregistration-handler string   deregistration handler that should process the entity deregistration event.
-      --disable-assets                  disable check assets on this agent
-      --disable-api                     disable the Agent HTTP API
-      --disable-sockets                 disable the Agent TCP and UDP event sockets
-      --events-burst-limit              /events api burst limit
-      --events-rate-limit               maximum number of events transmitted to the backend through the /events api
-  -h, --help                            help for start
-      --insecure-skip-tls-verify        skip ssl verification
-      --keepalive-interval int          number of seconds to send between keepalive events (default 20)
-      --keepalive-timeout uint32        number of seconds until agent is considered dead by backend (default 120)
-      --labels stringToString           entity labels map (default [])
-      --log-level string                logging level [panic, fatal, error, warn, info, debug] (default "warn")
-      --name string                     agent name (defaults to hostname) (default "sensu-go-sandbox")
-      --namespace string                agent namespace (default "default")
-      --password string                 agent password (default "P@ssw0rd!")
-      --redact string                   comma-delimited customized list of fields to redact
-      --socket-host string              address to bind the Sensu client socket to (default "127.0.0.1")
-      --socket-port int                 port the Sensu client socket listens on (default 3030)
-      --statsd-disable                  disables the statsd listener and metrics server
-      --statsd-event-handlers strings   comma-delimited list of event handlers for statsd metrics
-      --statsd-flush-interval int       number of seconds between statsd flush (default 10)
-      --statsd-metrics-host string      address used for the statsd metrics server (default "127.0.0.1")
-      --statsd-metrics-port int         port used for the statsd metrics server (default 8125)
-      --subscriptions string            comma-delimited list of agent subscriptions
-      --trusted-ca-file string          tls certificate authority
-      --user string                     agent user (default "agent")
+      --allow-list string                     path to agent execution allow list configuration file
+      --annotations stringToString            entity annotations map (default [])
+      --api-host string                       address to bind the Sensu client HTTP API to (default "127.0.0.1")
+      --api-port int                          port the Sensu client HTTP API listens on (default 3031)
+      --backend-url strings                   ws/wss URL of Sensu backend server (to specify multiple backends use this flag multiple times) (default [ws://127.0.0.1:8081])
+      --cache-dir string                      path to store cached data (default "/var/cache/sensu/sensu-agent")
+  -c, --config-file string                    path to sensu-agent config file
+      --deregister                            ephemeral agent
+      --deregistration-handler string         deregistration handler that should process the entity deregistration event.
+      --disable-assets                        disable check assets on this agent
+      --disable-api                           disable the Agent HTTP API
+      --disable-sockets                       disable the Agent TCP and UDP event sockets
+      --events-burst-limit                    /events api burst limit
+      --events-rate-limit                     maximum number of events transmitted to the backend through the /events api
+  -h, --help                                  help for start
+      --insecure-skip-tls-verify              skip ssl verification
+      --keepalive-critical-timeout uint32     number of seconds until agent is considered dead by backend to create a critical event (default 0)
+      --keepalive-interval uint32             number of seconds to send between keepalive events (default 20)
+      --keepalive-warning-timeout uint32      number of seconds until agent is considered dead by backend to create a warning event (default 120)
+      --labels stringToString                 entity labels map (default [])
+      --log-level string                      logging level [panic, fatal, error, warn, info, debug] (default "warn")
+      --name string                           agent name (defaults to hostname) (default "sensu-go-sandbox")
+      --namespace string                      agent namespace (default "default")
+      --password string                       agent password (default "P@ssw0rd!")
+      --redact string                         comma-delimited customized list of fields to redact
+      --socket-host string                    address to bind the Sensu client socket to (default "127.0.0.1")
+      --socket-port int                       port the Sensu client socket listens on (default 3030)
+      --statsd-disable                        disables the statsd listener and metrics server
+      --statsd-event-handlers strings         comma-delimited list of event handlers for statsd metrics
+      --statsd-flush-interval int             number of seconds between statsd flush (default 10)
+      --statsd-metrics-host string            address used for the statsd metrics server (default "127.0.0.1")
+      --statsd-metrics-port int               port used for the statsd metrics server (default 8125)
+      --subscriptions string                  comma-delimited list of agent subscriptions
+      --trusted-ca-file string                tls certificate authority
+      --user string                           agent user (default "agent")
 {{< /highlight >}}
 
 {{< platformBlockClose >}}
@@ -972,6 +976,18 @@ deregistration-handler: "deregister"{{< /highlight >}}
 
 ### Keepalive configuration flags
 
+| keepalive-critical-timeout |      |
+--------------------|------
+description         | Number of seconds after a missing keepalive event until the agent is considered unresponsive by the Sensu backend to create a critical event. Set to disabled (`0`) by default. If the value is not `0`, it must be greater than or equal to `5`.
+type                | Integer
+default             | `0`
+example             | {{< highlight shell >}}# Command line example
+sensu-agent start --keepalive-critical-timeout 300
+
+# /etc/sensu/agent.yml example
+keepalive-critical-timeout: 300{{< /highlight >}}
+
+
 | keepalive-interval |      |
 ---------------------|------
 description          | Number of seconds between keepalive events
@@ -984,16 +1000,16 @@ sensu-agent start --keepalive-interval 30
 keepalive-interval: 30{{< /highlight >}}
 
 
-| keepalive-timeout |      |
+ | keepalive-warning-timeout |      |
 --------------------|------
-description         | Number of seconds after a missing keepalive event until the agent is considered unresponsive by the Sensu backend
+description         | Number of seconds after a missing keepalive event until the agent is considered unresponsive by the Sensu backend to create a warning event. Value must be lower than the `keepalive-critical-timeout` value. Minimum value is `5`.
 type                | Integer
 default             | `120`
 example             | {{< highlight shell >}}# Command line example
-sensu-agent start --keepalive-timeout 300
+sensu-agent start --keepalive-warning-timeout 300
 
 # /etc/sensu/agent.yml example
-keepalive-timeout: 300{{< /highlight >}}
+keepalive-warning-timeout: 300{{< /highlight >}}
 
 
 ### Security configuration flags
