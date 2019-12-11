@@ -1028,7 +1028,7 @@ description   | Sensu [RBAC](../rbac) password used by the agent
 type          | String
 default       | `P@ssw0rd!`
 example       | {{< highlight shell >}}# Command line example
-sensu-agent start --password RBAC_PASSWORD
+sensu-agent start --password secure-password
 
 # /etc/sensu/agent.yml example
 password: "RBAC_PASSWORD"{{< /highlight >}}
