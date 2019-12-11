@@ -27,6 +27,15 @@
     max-width: 1310px;
   }
 
+  .footer--content--center {
+    flex: 0 0 100%;
+    padding: 0 2rem;
+
+    @media (min-width: $breakpoint-lg) {
+      flex: 0 0 100%;
+    }
+  }
+
   .footer--content--left {
     flex: 0 0 100%;
     padding: 0 2rem;
