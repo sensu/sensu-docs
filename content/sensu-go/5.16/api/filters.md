@@ -87,7 +87,7 @@ output         | {{< highlight shell >}}
 
 ### `/filters` (POST)
 
-The `/filters` API endpoint provides HTTP POST access to create a filter.
+The `/filters` API endpoint provides HTTP POST access to create an event filter.
 
 #### API Specification {#filters-post-specification}
 
