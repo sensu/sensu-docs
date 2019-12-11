@@ -1,6 +1,6 @@
 ---
 title: "Filters API"
-description: "The Sensu filters API provides HTTP access to filter data. This reference includes examples for returning lists of filters, creating Sensu filters, and more. Read on for the full reference."
+description: "The Sensu filters API provides HTTP access to event filter data. This reference includes examples for returning lists of filters, creating Sensu filters, and more. Read on for the full reference."
 version: "5.16"
 product: "Sensu Go"
 menu:
