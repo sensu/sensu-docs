@@ -171,7 +171,7 @@ The `/filters/:filter` API endpoint provides HTTP PUT access to create or update
 
 /filters/:filter (PUT) | 
 ----------------|------
-description     | Creates or updates the specified Sensu filter.
+description     | Creates or updates the specified Sensu event filter.
 example URL     | http://hostname:8080/api/core/v2/namespaces/default/filters/development_filter
 payload         | {{< highlight shell >}}
 {
