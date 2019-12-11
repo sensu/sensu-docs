@@ -246,7 +246,7 @@ Store Flags:
       --etcd-advertise-client-urls strings         list of this member's client URLs to advertise to the rest of the cluster. (default [http://localhost:2379])
       --etcd-cert-file string                      path to the client server TLS cert file
       --etcd-cipher-suites strings                 list of ciphers to use for etcd TLS configuration
-      --etcd-client-urls                           list of urls to listen on for client traffic when sensu-backend is not operating as an etcd member
+      --etcd-client-urls string                    client URLs to use when operating as an etcd client
       --etcd-client-cert-auth                      enable client cert authentication
       --etcd-discovery                             use the dynamic cluster configuration method etcd
 discovery instead of the static `--initial-cluster method`
