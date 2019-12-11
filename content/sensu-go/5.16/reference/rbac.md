@@ -221,7 +221,7 @@ You can use your Sensu username and password to [configure sensuctl][26] or log 
 
 When you install the Sensu backend, during the [initialization step][41], you create a username and password for a `default` namespace.
 
-This is the global user that you can use to manage Sensu and create new users.
+This is the user that you can use to manage all aspects of Sensu and create new users.
 
 | attribute | value |
 | --------- | ----- |
