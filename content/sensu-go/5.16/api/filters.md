@@ -196,7 +196,7 @@ The `/filters/:filter` API endpoint provides HTTP DELETE access to delete an eve
 
 #### EXAMPLE {#filtersfilter-delete-example}
 
-The following example shows a request to delete the filter `production-only`, resulting in a successful HTTP `204 No Content` response.
+The following example shows a request to delete the event filter `production-only`, resulting in a successful HTTP `204 No Content` response.
 
 {{< highlight shell >}}
 curl -X DELETE \
