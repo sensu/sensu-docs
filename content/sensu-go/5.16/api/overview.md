@@ -71,7 +71,7 @@ export SENSU_TOKEN=`curl -XGET -u "$SENSU_USER:$SENSU_PASS" -s http://localhost:
 The [`/auth` API endpoint][9] lets you generate short-lived API tokens using your Sensu username and password.
 
 1. Retrieve an access token for your user.
-For example, to generate an access token using the default admin credentials:
+For example, to generate an access token using example admin credentials:
 {{< highlight shell >}}
 curl -u 'YOUR_USERNAME:YOUR_PASSWORD' http://localhost:8080/auth
 {{< /highlight >}}
