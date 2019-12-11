@@ -24,7 +24,7 @@ The `/filters` API endpoint provides HTTP GET access to [filter][1] data.
 
 #### EXAMPLE {#filters-get-example}
 
-The following example demonstrates a request to the `/filters` API, resulting in a JSON array that contains [filter definitions][1].
+The following example demonstrates a request to the `/filters` API, resulting in a JSON array that contains [event filter definitions][1].
 
 {{< highlight shell >}}
 curl http://127.0.0.1:8080/api/core/v2/namespaces/default/filters -H "Authorization: Bearer $TOKEN"
