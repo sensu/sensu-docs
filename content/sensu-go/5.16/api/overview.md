@@ -251,7 +251,7 @@ Content-Type: application/json
 
 ## Response Filtering
 
-**COMMERCIAL FEATURE**: Access API filtering in the packaged Sensu Go distribution.
+**COMMERCIAL FEATURE**: Access API response filtering in the packaged Sensu Go distribution.
 For more information, see [Get started with commercial features][8].
 
 The Sensu API supports filtering for all GET endpoints that return an array.
