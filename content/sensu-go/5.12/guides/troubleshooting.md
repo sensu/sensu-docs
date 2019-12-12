@@ -89,19 +89,19 @@ Here are a few examples.
 Retrieve all the logs for Sensu since yesterday:
 
 {{< highlight shell >}}
-journalctl -u sensu-backend.service --since yesterday | tee sensu-backend-$(date +%Y-%m-%d).log
+journalctl _COMM=sensu-backend.service --since yesterday | tee sensu-backend-$(date +%Y-%m-%d).log
 {{< /highlight >}}
 
 Retrieve all the logs for Sensu since a specific time:
 
 {{< highlight shell >}}
-journalctl -u sensu-backend.service --since 09:00 --until "1 hour ago" | tee sensu-backend-$(date +%Y-%m-%d).log
+journalctl _COMM=sensu-backend.service --since 09:00 --until "1 hour ago" | tee sensu-backend-$(date +%Y-%m-%d).log
 {{< /highlight >}}
 
 Retrieve all the logs for Sensu for a specific date range:
 
 {{< highlight shell >}}
-journalctl -u sensu-backend.service --since "2015-01-10" --until "2015-01-11 03:00" | tee sensu-backend-$(date +%Y-%m-%d).log
+journalctl _COMM=sensu-backend.service --since "2015-01-10" --until "2015-01-11 03:00" | tee sensu-backend-$(date +%Y-%m-%d).log
 {{< /highlight >}}
 
 {{< platformBlockClose >}}
