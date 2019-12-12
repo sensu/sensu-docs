@@ -1,6 +1,6 @@
 ---
 title: "Authentication API"
-description: "The Sensu authentication API provides HTTP access to test user credentials and use such credentials to obtain access tokens. This reference includes an example of how to query the authentication API to determine whether credentials are valid. Read on for the full reference."
+description: "The Sensu authentication API provides HTTP access to test whether user credentials are valid and use these credentials to obtain access tokens. Read on for the full reference."
 version: "5.16"
 product: "Sensu Go"
 menu:
