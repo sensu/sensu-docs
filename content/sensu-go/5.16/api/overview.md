@@ -254,7 +254,7 @@ Content-Type: application/json
 **COMMERCIAL FEATURE**: Access API response filtering in the packaged Sensu Go distribution.
 For more information, see [Get started with commercial features][8].
 
-The Sensu API supports filtering for all GET endpoints that return an array.
+The Sensu API supports response filtering for all GET endpoints that return an array.
 You can filter resources based on their labels with the `labelSelector` query parameter.
 You can filter resources based on certain pre-determined fields with the `fieldSelector` query parameter.
 
