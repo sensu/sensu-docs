@@ -249,7 +249,7 @@ Content-Type: application/json
 ]
 {{< /highlight >}}
 
-## Filtering
+## Response Filtering
 
 **COMMERCIAL FEATURE**: Access API filtering in the packaged Sensu Go distribution.
 For more information, see [Get started with commercial features][8].
