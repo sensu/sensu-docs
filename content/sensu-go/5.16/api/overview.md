@@ -16,7 +16,7 @@ menu:
 - [Access control](#access-control)
   - [Authentication quickstart](#authentication-quickstart)
 - [Pagination](#pagination)
-- [Filtering](#filtering)
+- [Response Filtering](#response-filtering)
   - [Label selector](#label-selector)
   - [Field selector](#field-selector)
   - [Supported operators](#supported-operators)
