@@ -70,7 +70,7 @@ Read the [upgrade guide][1] for information about upgrading to the latest versio
 
 **IMPROVEMENTS:**
 
-- ([Commercial feature][95]) The entity limit warning message is now displayed less aggressively and the warning threshold is proportional to the entity limit.
+- ([Commercial feature][105]) The entity limit warning message is now displayed less aggressively and the warning threshold is proportional to the entity limit.
 - A new switcher in the [web UI][103] makes it easier to switch namespaces in the dashboard. Access the new component from the drawer or with the shortcut ctrl+k. For users who have many namespaces, the switcher now includes fuzzy search and improved keyboard navigation.
 - In the [web UI][103], replaced the app bar with an omnipresent drawer to increase the available space for content. Each page also now includes breadcrumbs.
 - In the [Sensu documentation][104], links now point to the version of the product being run instead of the latest, which may be helpful when running an older version of Sensu.
