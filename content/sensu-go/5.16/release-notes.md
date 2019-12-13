@@ -63,7 +63,7 @@ Read the [upgrade guide][1] for information about upgrading to the latest versio
 - ([Commercial feature][95]) Label selectors now match the event's check & entity labels.
 - Added a new flag,`--etcd-client-urls`, which should be used with sensu-backend when it is not operating as an etcd member. The flag is also used by the new `sensu-backend init` subcommand.
 - Added the ['sensu-backend init' subcommand][102].
-- Added the [`--etcd-discovery`][100] and [`--etcd-discovery-srv`][100] flags to sensu-backend. These are used to take advantage of the embedded etcd's auto-discovery features.
+- Added the [`--etcd-discovery`][100] and [`--etcd-discovery-srv`][100] flags to sensu-backend, which allow users to take advantage of the embedded etcd's auto-discovery features.
 - Added [`--keepalive-critical-timeout`][101] to define the time after which a critical keepalive event should be created for an agent.
 - Added [`--keepalive-warning-timeout`][101] which is an alias of `--keepalive-timeout` for backwards compatibility.
 
