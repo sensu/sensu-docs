@@ -941,3 +941,7 @@ To get started with Sensu Go:
 [99]: /sensu-go/5.2/getting-started/enterprise/
 [100]: /sensu-go/5.16/reference/backend/#datastore-and-cluster-configuration-flags
 [101]: /sensu-go/5.16/reference/agent/#keepalive-configuration-flags
+[102]: /sensu-go/5.16/reference/backend/#initialization
+[103]: /sensu-go/5.16/dashboard/overview
+[104]: /sensu-go/5.16/
+[105[: /sensu-go/5.16/getting-started/enterprise/
