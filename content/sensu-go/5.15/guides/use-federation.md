@@ -1,7 +1,7 @@
 ---
 title: "Multi-cluster visibility with federation"
 linkTitle: "Reaching Multi-cluster Visibility"
-description: "In this guide, you'll learn how federate Sensu clusters and use a single web UI to access resources across those disparate clusters."
+description: "With Sensu's federation capabilities, you can access and manage resources across multiple clusters via the web UI and mirror changes in one cluster to follower clusters. In this guide, you'll learn how federate Sensu clusters."
 weight: 400
 version: "5.15"
 product: "Sensu Go"
@@ -72,7 +72,7 @@ This prerequisite extends to configuring the following Sensu backend etcd parame
 | `etcd-key-file`              | Path to key corresponding with `etcd-cert-file` certificate. |
 | `etcd-trusted-ca-file`       | Path to CA certificate chain file. This CA certificate chain must be usable to validate certificates for all backends in the federation. |
 | `etcd-client-cert-auth`      | Enforces certificate validation to authenticate etcd replicator connections. We recommend setting to `true` |
-| `etcd-advertise-client-urls` | List of https URLs to advertise for etcd replicators, accessible by other backends in the federation (e.g. `https://sensu.beta.example.com:2378`) |
+| `etcd-advertise-client-urls` | List of https URLs to advertise for etcd replicators, accessible by other backends in the federation (e.g. `https://sensu.beta.example.com:2379`) |
 | `etcd-listen-client-urls`    | List of https URLs to listen on for etcd replicators (e.g. `https://0.0.0.0:2379` to listen on port 2739 across all ipv4 interfaces) |
 
 _**NOTE**: You *must* provide non-default values for the `etcd-advertise-client-urls` and `etcd-listen-client-urls` backend parameters. The default values are not suitable for use under federation._
