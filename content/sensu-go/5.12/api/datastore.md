@@ -1,10 +1,10 @@
 ---
 title: "Datastore API"
 description: "The datastore API endpoint provides HTTP access to Sensu datastore providers. This reference includes examples for returning the provider definitions, creating a provider, and more."
-version: "5.15"
+version: "5.12"
 product: "Sensu Go"
 menu:
-  sensu-go-5.15:
+  sensu-go-5.12:
     parent: api
 ---
 
