@@ -35,6 +35,7 @@ menu:
   - [Example allow list configuration file](#example-allow-list-configuration-file)
   - [Configuration via environment variables](#configuration-via-environment-variables)
   - [Example](../../files/agent.yml)
+- [Use environment variables with the Sensu agent](#use-environment-variables-with-the-sensu-agent)
 
 The Sensu agent is a lightweight client that runs on the infrastructure components you want to monitor.
 Agents register with the Sensu backend as [monitoring entities][3] with `type: "agent"`.
@@ -1305,6 +1306,14 @@ $ sudo systemctl restart sensu-agent
 
 {{< /language-toggle >}}
 
+## Use environment variables with the Sensu agent
+
+After you [configure][50] your sensu-agent service to read environment variables from `/etc/default/sensu-agent` (Debian/Ubuntu) or `/etc/sysconfig/sensu-agent` (RHEL), any environment variables you provide there will be available to your Sensu resources.
+This includes your checks and plugins.
+
+For example, if you configure a `SENSU_TEST_VAR` variable in your sensu-agent file, it will be available to use in your check configurations as `$SENSU_TEST_VAR`.
+
+The environment variables you provide in your sensu-agent file are also available for plugin processes.
 
 [1]: ../../installation/install-sensu#install-sensu-agents
 [2]: ../backend
@@ -1355,3 +1364,4 @@ $ sudo systemctl restart sensu-agent
 [47]: https://en.m.wikipedia.org/wiki/Protocol_Buffers
 [48]: #example-allow-list-configuration-file
 [49]: #allow-list-configuration
+[50]: #configuration-via-environment-variables
