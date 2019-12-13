@@ -81,7 +81,7 @@ Read the [upgrade guide][1] for information about upgrading to the latest versio
 - Listing assets with no results now returns an empty array.
 - Fixed a panic that could occur when creating resources in a namespace that does not exist.
 - Fixed an issue where keepalive events and events created through the agent's socket interface could be missing a namespace.
-- Fixed an issue where 'sensuctl cluster health' would hang indefinitely.
+- Fixed an issue that could cause 'sensuctl cluster health' to hang indefinitely.
 - The `agent.yml.example` file shipped with Sensu Agent for Windows packages now uses DOS-style line endings.
 
 ## 5.15.0 release notes
