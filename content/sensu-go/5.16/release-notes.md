@@ -55,7 +55,7 @@ Read the [upgrade guide][1] for information about upgrading to the latest versio
 
 **IMPORTANT:**
 
-- The backend will no longer automatically be seeded with a default admin username and password. Users will need to run 'sensu-backend init' on every new installation.
+- The backend is no longer seeded with a default admin username and password. Users will need to [run 'sensu-backend init'][102] on every new installation and specify an admin username and password.
 
 **NEW FEATURES:**
 
