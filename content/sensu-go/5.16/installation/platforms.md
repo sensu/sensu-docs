@@ -99,6 +99,7 @@ Docker images containing the Sensu backend and Sensu agent are available for Lin
 | Linux              | {{< check >}}      | {{< check >}}     | {{< check >}}      | {{< check >}}      | {{< check >}}     | {{< check >}}    |
 | Windows            | {{< check >}}      |         |         |         |        | {{< check >}}    |
 | macOS              | {{< check >}}      |         |         |         |        |       |
+| Solaris            | {{< check >}}      |         |         |         |        |       |
 
 ## Building from source
 
