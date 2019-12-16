@@ -64,7 +64,7 @@ Larger production deployments use more RAM (8+ GB).
 
 This configuration is the minimum required to run the Sensu agent (although it is insufficient for production use:
 
-- 386, amd64, or ARM CPU (armv5 minimum)
+- 386, amd64, or ARM CPU (ARMv5 minimum)
 - 128 MB RAM
 - 10 mbps network link
 
@@ -96,9 +96,8 @@ If you see WebSocket timeouts in the backend logs, you may need to use a more re
 ### AWS
 
 The recommended EC2 instance type and size for Sensu backends running embedded etcd is **M5d.xlarge**.
-The [M5d instance][1] provides four vCPU, 16 GB of RAM, up to 10 Gbps network connectivity, and a 150-NVMe SSD directly attached to the instance host (optimal for sustained disk IOPS).
+The [M5d instance][1] provides four vCPU, 16 GB of RAM, up to 10 gbps network connectivity, and a 150-NVMe SSD directly attached to the instance host (optimal for sustained disk IOPS).
 
 [1]: https://aws.amazon.com/ec2/instance-types/m5/
 [2]: #backend-recommended-configuration
 [3]: #agent-recommended-configuration
-

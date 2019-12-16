@@ -25,7 +25,7 @@ The [Ansible][5] role to deploy and manage Sensu Go is available in the [Sensu-G
 
 The [Chef][3] cookbook for Sensu is available in the [Sensu-Go-Chef GitHub repo][4].
 
-[Contact us][12] for more information about Sensu + Chef.
+[Contact us][8] for more information about Sensu + Chef.
 
 ## Puppet
 
@@ -41,4 +41,4 @@ Sensu partnered with [Tailored Automation][7] to enhance the Puppet module with 
 [5]: https://www.ansible.com/
 [6]: https://github.com/jaredledvina/sensu-go-ansible
 [7]: https://tailoredautomation.io/
-[12]: http://monitoringlove.sensu.io/chef
+[8]: http://monitoringlove.sensu.io/chef

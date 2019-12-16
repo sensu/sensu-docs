@@ -22,7 +22,7 @@ Extend Sensu's functionality with [plugins][10], which provide executables for p
 ## Install plugins with assets
 
 Assets are shareable, reusable packages that make it easier to deploy Sensu plugins.
-To start using and deploying assets, we recommend following the [guide on installing assets][7]. It has everything you need to familiarize yourself with workflows involving assets. 
+To start using and deploying assets, read [Install plugins with assets][7] to become familiar with workflows that involve assets. 
 
 ## Use Bonsai, the Sensu asset index
 
@@ -41,7 +41,7 @@ Read each plugin's instructions for information about whether it is compatibile 
 
 _**NOTE**: Plugins in the Sensu Plugins GitHub organization are community-maintained: anyone can improve on them. To get started with adding to a plugin or sharing your own, head to the [Sensu Community Slack channel][4]. Maintainers are always happy to help answer questions and point you in the right direction._
 
-The `sensu-install` tool comes with an embedded version of Ruby, so you don't have to have Ruby installed on your system. 
+The `sensu-install` tool comes with an embedded version of Ruby, so you don't need to have Ruby installed on your system. 
 
 To install a [Sensu Community plugin][1] with Sensu Go:
 
@@ -78,7 +78,7 @@ sudo sensu-install -p 'sensu-plugins-influxdb:2.0.0'
 
 We recommend using a configuration management tool or using [Sensu assets][5] to pin the versions of any plugins installed in production.
 
-_**NOTE**: If a plugin is not Sensu Go-enabled and there is no analog on Bonsai, you can add the necessary functionality to make the plugin compatible with Sensu Go. Follow [this discourse.sensu.io guide][11] to walk through the process._
+_**NOTE**: If a plugin is not Sensu Go-enabled and there is no analogue on Bonsai, you can add the necessary functionality to make the plugin compatible with Sensu Go. Follow [this discourse.sensu.io guide][11] to walk through the process._
 
 ## Troubleshoot the sensu-install tool
 

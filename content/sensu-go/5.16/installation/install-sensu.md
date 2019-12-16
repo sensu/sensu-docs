@@ -168,7 +168,7 @@ Select the ☰ icon to explore the web UI.
 
 ### 5. Make a request to the health API
 
-To make sure the backend is up and running, use the Sensu API to check the backend's health.
+To make sure the backend is up and running, use the Sensu [health API][35] to check the backend's health.
 You should see a response that includes `"Healthy": true`.
 
 {{< highlight shell >}}
@@ -431,3 +431,4 @@ Now that you've installed Sensu, here are some resources to help continue your j
 [32]: ../../guides/aggregate-metrics-statsd/
 [33]: ../../guides/create-read-only-user/
 [34]: https://account.sensu.io/
+[35]: ../../api/health/

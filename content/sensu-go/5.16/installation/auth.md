@@ -15,10 +15,10 @@ menu:
   - [Examples](#ldap-configuration-examples)
   - [LDAP specification](#ldap-specification)
   - [Troubleshooting](#ldap-troubleshooting)
-- [Active Directory authentication](#active-directory-authentication)
-  - [Examples](#active-directory-configuration-examples)
-  - [Active Directory specification](#active-directory-specification)
-  - [Troubleshooting](#active-directory-troubleshooting)
+- [AD authentication](#ad-authentication)
+  - [Examples](#ad-configuration-examples)
+  - [AD specification](#ad-specification)
+  - [Troubleshooting](#ad-troubleshooting)
 - [OIDC authentication](#oidc-authentication)
   - [OIDC configuration examples](#oidc-configuration-examples)
   - [OIDC specification](#oidc-specification)
@@ -30,7 +30,8 @@ For Sensu's [default user credentials][3] and more information about configuring
 In addition to built-in RBAC, Sensu includes [commercial][6] support for authentication using external authentication providers.
 Sensu supports Microsoft Active Directory (AD) and standards-compliant Lightweight Directory Access Protocol (LDAP) tools like OpenLDAP.
 
-**COMMERCIAL FEATURE**: Access authentication providers in the packaged Sensu Go distribution. For more information, see [Get started with commercial features][6].
+**COMMERCIAL FEATURE**: Access authentication providers in the packaged Sensu Go distribution.
+For more information, see [Get started with commercial features][6].
 
 ## Manage authentication providers
 
@@ -106,7 +107,7 @@ After you configure the correct roles and bindings, log in to [sensuctl][36] and
 
 Sensu offers commercial support for a standards-compliant LDAP tool for authentication to the Sensu dashboard, API, and sensuctl.
 The Sensu LDAP authentication provider is tested with [OpenLDAP][7].
-If you're using AD, head to the [Active Directory section][37].
+If you're using AD, head to the [AD section][37].
 
 ### LDAP configuration examples
 
@@ -237,14 +238,14 @@ spec:
 
 type         | 
 -------------|------
-description  | Top-level attribute specifying the [`sensuctl create`][38] resource type. For LDAP definitions, the `type` should always be `ldap`.
+description  | Top-level attribute that specifies the [`sensuctl create`][38] resource type. For LDAP definitions, the `type` should always be `ldap`.
 required     | true
 type         | String
 example      | {{< highlight shell >}}"type": "ldap"{{< /highlight >}}
 
 api_version  | 
 -------------|------
-description  | Top-level attribute specifying the Sensu API group and version. For LDAP definitions, the `api_version` should always be `authentication/v2`.
+description  | Top-level attribute that specifies the Sensu API group and version. For LDAP definitions, the `api_version` should always be `authentication/v2`.
 required     | true
 type         | String
 example      | {{< highlight shell >}}"api_version": "authentication/v2"{{< /highlight >}}
@@ -299,7 +300,7 @@ example      | {{< highlight shell >}}
 }
 {{< /highlight >}}
 
-### Spec attributes
+### LDAP spec attributes
 
 | servers    |      |
 -------------|------
@@ -340,7 +341,7 @@ example      | {{< highlight shell >}}
 
 | groups_prefix |   |
 -------------|------
-description  | The prefix added to all LDAP groups. Sensu prepends prefixes with a colon. For example, for the groups_prefix `ldap` and the group `dev`, the resulting group name in Sensu is `ldap:dev`. Use this prefix when integrating LDAP groups with Sensu RBAC [role bindings][12] and [cluster role bindings][13].
+description  | The prefix added to all LDAP groups. Sensu prepends prefixes with a colon. For example, for the groups_prefix `ldap` and the group `dev`, the resulting group name in Sensu is `ldap:dev`. Use the groups_prefix when integrating LDAP groups with Sensu RBAC [role bindings][12] and [cluster role bindings][13].
 required     | false
 type         | String
 example      | {{< highlight shell >}}"groups_prefix": "ldap"{{< /highlight >}}
@@ -349,23 +350,23 @@ example      | {{< highlight shell >}}"groups_prefix": "ldap"{{< /highlight >}}
 
 | username_prefix | |
 -------------|------
-description  | The prefix added to all LDAP usernames.  Sensu prepends prefixes with a colon. For example, for the username_prefix `ldap` and the user `alice`, the resulting username in Sensu is `ldap:alice`. Use this prefix when integrating LDAP users with Sensu RBAC [role bindings][12] and [cluster role bindings][13]. Users _do not_ need to provide this prefix when logging in to Sensu.
+description  | The prefix added to all LDAP usernames. Sensu prepends prefixes with a colon. For example, for the username_prefix `ldap` and the user `alice`, the resulting username in Sensu is `ldap:alice`. Use the username_prefix when integrating LDAP users with Sensu RBAC [role bindings][12] and [cluster role bindings][13]. Users _do not_ need to provide the username_prefix when logging in to Sensu.
 required     | false
 type         | String
 example      | {{< highlight shell >}}"username_prefix": "ldap"{{< /highlight >}}
 
-### Server attributes
+### LDAP server attributes
 
 | host       |      |
 -------------|------
-description  | LDAP server IP address or [FQDN][41]
+description  | LDAP server IP address or [FQDN][41].
 required     | true
 type         | String
 example      | {{< highlight shell >}}"host": "127.0.0.1"{{< /highlight >}}
 
 | port       |      |
 -------------|------
-description  | LDAP server port
+description  | LDAP server port.
 required     | true
 type         | Integer
 default      | `389` for insecure connections; `636` for TLS connections
@@ -395,14 +396,14 @@ example      | {{< highlight shell >}}"trusted_ca_file": "/path/to/trusted-certi
 
 | client_cert_file | |
 -------------|------
-description  | Path to the certificate that should be sent to the server if requested
+description  | Path to the certificate that should be sent to the server if requested.
 required     | false
 type         | String
 example      | {{< highlight shell >}}"client_cert_file": "/path/to/ssl/cert.pem"{{< /highlight >}}
 
 | client_key_file | |
 -------------|------
-description  | Path to the key file associated with the `client_cert_file`
+description  | Path to the key file associated with the `client_cert_file`.
 required     | false
 type         | String
 example      | {{< highlight shell >}}"client_key_file": "/path/to/ssl/key.pem"{{< /highlight >}}
@@ -447,7 +448,7 @@ example      | {{< highlight shell >}}
 }
 {{< /highlight >}}
 
-### Binding attributes
+### LDAP binding attributes
 
 | user_dn    |      |
 -------------|------
@@ -463,7 +464,7 @@ required     | false
 type         | String
 example      | {{< highlight shell >}}"password": "P@ssw0rd!"{{< /highlight >}}
 
-### Group search attributes
+### LDAP group search attributes
 
 | base_dn    |      |
 -------------|------
@@ -482,7 +483,7 @@ example      | {{< highlight shell >}}"attribute": "member"{{< /highlight >}}
 
 | name_attribute |  |
 -------------|------
-description  | Represents the attribute to use as the entry name
+description  | Represents the attribute to use as the entry name.
 required     | false
 type         | String
 default      | `"cn"`
@@ -496,7 +497,7 @@ type         | String
 default      | `"groupOfNames"`
 example      | {{< highlight shell >}}"object_class": "groupOfNames"{{< /highlight >}}
 
-### User search attributes
+### LDAP user search attributes
 
 | base_dn    |      |
 -------------|------
@@ -529,7 +530,7 @@ type         | String
 default      | `"person"`
 example      | {{< highlight shell >}}"object_class": "person"{{< /highlight >}}
 
-### Metadata attributes
+### LDAP metadata attributes
 
 | name       |      |
 -------------|------
@@ -541,7 +542,7 @@ example      | {{< highlight shell >}}"name": "openldap"{{< /highlight >}}
 ## LDAP troubleshooting
 
 To troubleshoot any issue with LDAP authentication, start by [increasing the log verbosity][19] of sensu-backend to the debug log level.
-Most authentication and authorization errors are only displayed on the debug log level, to avoid flooding the log files.
+Most authentication and authorization errors are only displayed on the debug log level to avoid flooding the log files.
 
 _**NOTE**: If you can't locate any log entries referencing LDAP authentication, make sure the LDAP provider was successfully installed using [sensuctl][20]._
 
@@ -555,7 +556,7 @@ The LDAP provider couldn't establish a TCP connection to the LDAP server.
 Verify the `host` and `port` attributes.
 If you are not using LDAP over TLS/SSL, make sure to set the value of the `security` attribute to `"insecure"` for plaintext communication.
 
- **Error message**: `certificate signed by unknown authority`
+**Error message**: `certificate signed by unknown authority`
 
 If you are using a self-signed certificate, make sure to set the `insecure` attribute to `true`.
 This will bypass verification of the certificate's signing authority.
@@ -578,10 +579,10 @@ Check the [`user_search` object][22] and make sure that:
 **Error message**: `ldap search for user <username> returned x results, expected only 1`
 
 The user search returned more than one user entry, so the provider could not determine which of these entries to use.
-Change the [`user_search` object][22] so the provided *username* can be used to uniquely identify a user entry.
+Change the [`user_search` object][22] so the provided `username` can be used to uniquely identify a user entry.
 Here are two methods to try:
 
-- Adjust the `attribute` so its value (which corresponds to the *username*) is unique among the user entries
+- Adjust the `attribute` so its value (which corresponds to the `username`) is unique among the user entries
 - Adjust the `base_dn` so it only includes one of the user entries
 
 **Error message**: `ldap entry <DN> missing required attribute <name_attribute>`
@@ -616,12 +617,12 @@ For example:
 [...] could not authorize the request with any ClusterRoleBindings [...]
 ```
 
-## Active Directory authentication
+## AD authentication
 
 Sensu offers commercial support for using Microsoft Active Directory (AD) for authentication to the Sensu dashboard, API, and sensuctl.
 The AD authentication provider is based on the [LDAP authentication provider][44].
 
-### Active Directory configuration examples
+### AD configuration examples
 
 **Example AD configuration: Minimum required attributes**
 
@@ -748,20 +749,20 @@ spec:
 
 {{< /language-toggle >}}
 
-## Active Directory specification
+## AD specification
 
-### Top-level attributes
+### AD top-level attributes
 
 type         | 
 -------------|------
-description  | Top-level attribute specifying the [`sensuctl create`][38] resource type. For AD definitions, the `type` should always be `ad`.
+description  | Top-level attribute that specifies the [`sensuctl create`][38] resource type. For AD definitions, the `type` should always be `ad`.
 required     | true
 type         | String
 example      | {{< highlight shell >}}"type": "ad"{{< /highlight >}}
 
 api_version  | 
 -------------|------
-description  | Top-level attribute specifying the Sensu API group and version. For AD definitions, the `api_version` should always be `authentication/v2`.
+description  | Top-level attribute that specifies the Sensu API group and version. For AD definitions, the `api_version` should always be `authentication/v2`.
 required     | true
 type         | String
 example      | {{< highlight shell >}}"api_version": "authentication/v2"{{< /highlight >}}
@@ -818,7 +819,7 @@ example      | {{< highlight shell >}}
 }
 {{< /highlight >}}
 
-### Active Directory spec attributes
+### AD spec attributes
 
 | servers    |      |
 -------------|------
@@ -861,7 +862,7 @@ example      | {{< highlight shell >}}
 
 | groups_prefix |   |
 -------------|------
-description  | The prefix added to all AD groups. Sensu prepends prefixes with a colon. For example, for the groups_prefix `ad` and the group `dev`, the resulting group name in Sensu is `ad:dev`. Use this prefix when integrating AD groups with Sensu RBAC [role bindings][12] and [cluster role bindings][13].
+description  | The prefix added to all AD groups. Sensu prepends prefixes with a colon. For example, for the groups_prefix `ad` and the group `dev`, the resulting group name in Sensu is `ad:dev`. Use the `groups_prefix` when integrating AD groups with Sensu RBAC [role bindings][12] and [cluster role bindings][13].
 required     | false
 type         | String
 example      | {{< highlight shell >}}"groups_prefix": "ad"{{< /highlight >}}
@@ -870,23 +871,23 @@ example      | {{< highlight shell >}}"groups_prefix": "ad"{{< /highlight >}}
 
 | username_prefix | |
 -------------|------
-description  | The prefix added to all AD usernames. Sensu prepends prefixes with a colon. For example, for the username_prefix `ad` and the user `alice`, the resulting username in Sensu is `ad:alice`. Use this prefix when integrating AD users with Sensu RBAC [role bindings][12] and [cluster role bindings][13]. Users _do not_ need to provide this prefix when logging in to Sensu.
+description  | The prefix added to all AD usernames. Sensu prepends prefixes with a colon. For example, for the username_prefix `ad` and the user `alice`, the resulting username in Sensu is `ad:alice`. Use the `username_prefix` when integrating AD users with Sensu RBAC [role bindings][12] and [cluster role bindings][13]. Users _do not_ need to provide this prefix when logging in to Sensu.
 required     | false
 type         | String
 example      | {{< highlight shell >}}"username_prefix": "ad"{{< /highlight >}}
 
-### Active Directory server attributes
+### AD server attributes
 
 | host       |      |
 -------------|------
-description  | AD server IP address or [FQDN][41]
+description  | AD server IP address or [FQDN][41].
 required     | true
 type         | String
 example      | {{< highlight shell >}}"host": "127.0.0.1"{{< /highlight >}}
 
 | port       |      |
 -------------|------
-description  | AD server port
+description  | AD server port.
 required     | true
 type         | Integer
 default      | `389` for insecure connections; `636` for TLS connections
@@ -916,14 +917,14 @@ example      | {{< highlight shell >}}"trusted_ca_file": "/path/to/trusted-certi
 
 | client_cert_file | |
 -------------|------
-description  | Path to the certificate that should be sent to the server if requested
+description  | Path to the certificate that should be sent to the server if requested.
 required     | false
 type         | String
 example      | {{< highlight shell >}}"client_cert_file": "/path/to/ssl/cert.pem"{{< /highlight >}}
 
 | client_key_file | |
 -------------|------
-description  | Path to the key file associated with the `client_cert_file`
+description  | Path to the key file associated with the `client_cert_file`.
 required     | false
 type         | String
 example      | {{< highlight shell >}}"client_key_file": "/path/to/ssl/key.pem"{{< /highlight >}}
@@ -970,7 +971,7 @@ example      | {{< highlight shell >}}
 
 | default_upn_domain |     |
 -------------|------
-description  | Enables UPN authentication when set. The default UPN suffix that will be appended to the username when a domain is not specified during login (for example: `user` becomes `user@defaultdomain.xyz`). _**WARNING**: When using UPN authentication, users must re-authenticate to apply any changes made to group membership on the AD server since their last authentication. To ensure group membership updates are reflected without re-authentication, specify a binding account or enable anonymous binding._
+description  | Enables UPN authentication when set. The default UPN suffix that will be appended to the username when a domain is not specified during login (for example, `user` becomes `user@defaultdomain.xyz`). _**WARNING**: When using UPN authentication, users must re-authenticate to apply any changes made to group membership on the AD server since their last authentication. To ensure group membership updates are reflected without re-authentication, specify a binding account or enable anonymous binding._
 required     | false
 type         | String
 example      | {{< highlight shell >}}
@@ -979,14 +980,14 @@ example      | {{< highlight shell >}}
 
 | include_nested_groups |     |
 -------------|------
-description  | When set to `true`,  group search includes any nested groups instead of just the top level groups of which a user is a member
+description  | If `true`, the group search includes any nested groups a user is a member of. If `false`, the group search includes only the top-level groups a user is a member of.
 required     | false
 type         | Boolean
 example      | {{< highlight shell >}}
 "include_nested_groups": true
 {{< /highlight >}}
 
-### Active Directory binding attributes
+### AD binding attributes
 
 | user_dn    |      |
 -------------|------
@@ -1002,7 +1003,7 @@ required     | false
 type         | String
 example      | {{< highlight shell >}}"password": "P@ssw0rd!"{{< /highlight >}}
 
-### Active Directory group search attributes
+### AD group search attributes
 
 | base_dn    |      |
 -------------|------
@@ -1021,7 +1022,7 @@ example      | {{< highlight shell >}}"attribute": "member"{{< /highlight >}}
 
 | name_attribute |  |
 -------------|------
-description  | Represents the attribute to use as the entry name
+description  | Represents the attribute to use as the entry name.
 required     | false
 type         | String
 default      | `"cn"`
@@ -1035,7 +1036,7 @@ type         | String
 default      | `"group"`
 example      | {{< highlight shell >}}"object_class": "group"{{< /highlight >}}
 
-### Active Directory user search attributes
+### AD user search attributes
 
 | base_dn    |      |
 -------------|------
@@ -1054,7 +1055,7 @@ example      | {{< highlight shell >}}"attribute": "sAMAccountName"{{< /highligh
 
 | name_attribute |  |
 -------------|------
-description  | Represents the attribute to use as the entry name
+description  | Represents the attribute to use as the entry name.
 required     | false
 type         | String
 default      | `"displayName"`
@@ -1068,7 +1069,7 @@ type         | String
 default      | `"person"`
 example      | {{< highlight shell >}}"object_class": "person"{{< /highlight >}}
 
-### Active Directory metadata attributes
+### AD metadata attributes
 
 | name       |      |
 -------------|------
@@ -1077,7 +1078,7 @@ required     | true
 type         | String
 example      | {{< highlight shell >}}"name": "activedirectory"{{< /highlight >}}
 
-## Active Directory troubleshooting
+## AD troubleshooting
 
 The troubleshooting steps in the [LDAP troubleshooting][49] section also apply for AD troubleshooting.
 
@@ -1139,18 +1140,18 @@ spec:
 
 ### OIDC specification
 
-#### Top-level attributes
+#### OIDC top-level attributes
 
 type         | 
 -------------|------
-description  | Top-level attribute specifying the [`sensuctl create`][38] resource type. For OIDC configuration, the `type` should always be `oidc`.
+description  | Top-level attribute that specifies the [`sensuctl create`][38] resource type. For OIDC configuration, the `type` should always be `oidc`.
 required     | true
 type         | String
 example      | {{< highlight shell >}}"type": "oidc"{{< /highlight >}}
 
 api_version  | 
 -------------|------
-description  | Top-level attribute specifying the Sensu API group and version. For OIDC configuration, the `api_version` should always be `authentication/v2`.
+description  | Top-level attribute that specifies the Sensu API group and version. For OIDC configuration, the `api_version` should always be `authentication/v2`.
 required     | true
 type         | String
 example      | {{< highlight shell >}}"api_version": "authentication/v2"{{< /highlight >}}
@@ -1186,7 +1187,7 @@ example      | {{< highlight shell >}}"spec": {
   }
 }{{< /highlight >}}
 
-##### Metadata attribute
+##### OIDC metadata attribute
 
 | name       |      |
 -------------|------
@@ -1195,7 +1196,7 @@ required     | true
 type         | String
 example      | {{< highlight shell >}}"name": "oidc_name"{{< /highlight >}}
 
-##### Spec attributes {#oidc-spec-attributes}
+##### OIDC spec attributes
 
 | additional_scopes |   |
 -------------|------
@@ -1241,21 +1242,21 @@ example      | {{< highlight shell >}} "groups_claim": "groups" {{< /highlight >
 
 | groups_prefix |   |
 -------------|------
-description  | The prefix to use to form the final RBAC groups if required
+description  | The prefix to use to form the final RBAC groups if required.
 required     | false
 type         | String
 example      | {{< highlight shell >}}"groups_prefix": "okta"{{< /highlight >}}
 
 | username_claim |   |
 -------------|------
-description  | The claim to use to form the final RBAC user name
+description  | The claim to use to form the final RBAC user name.
 required     | false
 type         | String
 example      | {{< highlight shell >}}"username_claim": "person"{{< /highlight >}}
 
 | username_prefix |   |
 -------------|------
-description  | The prefix to use to form the final RBAC user name
+description  | The prefix to use to form the final RBAC user name.
 required     | false
 type         | String
 example      | {{< highlight shell >}}"username_prefix": "okta"{{< /highlight >}}
@@ -1309,7 +1310,6 @@ For example, if you have an Okta group `groups` and you set the `groups_prefix` 
 If a browser does not open, launch a browser to complete the login via your OIDC provider at following URL:
   - https://sensu-backend.example.com:8080/api/enterprise/authentication/v2/oidc/authorize
 
-
 [1]: ../../dashboard/overview/
 [2]: ../../sensuctl/reference/
 [3]: ../../reference/rbac#default-user
@@ -1327,33 +1327,33 @@ If a browser does not open, launch a browser to complete the login via your OIDC
 [18]: ../../reference/rbac#cluster-wide-resource-types
 [19]: ../../guides/troubleshooting#log-levels
 [20]: #manage-authentication-providers
-[21]: #group-search-attributes
-[22]: #user-search-attributes
-[23]: #active-directory-metadata-attributes
-[24]: #metadata-attributes
+[21]: #ldap-group-search-attributes
+[22]: #ldap-user-search-attributes
+[23]: #ad-metadata-attributes
+[24]: #ldap-metadata-attributes
 [25]: #oidc-spec-attributes
 [26]: #register-an-oidc-application
 [27]: ../../api/authproviders/
 [28]: #configure-authentication-providers
 [29]: #ldap-configuration-examples
 [30]: #ldap-specification
-[31]: #active-directory-configuration-examples
-[32]: #active-directory-specification
+[31]: #ad-configuration-examples
+[32]: #ad-specification
 [33]: ../../reference/rbac/#role-and-role-binding-examples
 [34]: #groups-prefix
 [35]: #username-prefix
 [36]: ../../sensuctl/reference#first-time-setup
-[37]: #active-directory-authentication
-[38]: ../../sensuctl/reference#creating-resources
-[39]: #spec-attributes
-[40]: #server-attributes
+[37]: #ad-authentication
+[38]: ../../sensuctl/reference#create-resources
+[39]: #ldap-spec-attributes
+[40]: #ldap-server-attributes
 [41]: https://en.wikipedia.org/wiki/Fully_qualified_domain_name
 [42]: https://regex101.com/r/zo9mQU/2
-[43]: #binding-attributes
+[43]: #ldap-binding-attributes
 [44]: #ldap-authentication
-[45]: #active-directory-spec-attributes
-[46]: #active-directory-server-attributes
-[47]: #active-directory-group-search-attributes
-[48]: #active-directory-user-search-attributes
+[45]: #ad-spec-attributes
+[46]: #ad-server-attributes
+[47]: #ad-group-search-attributes
+[48]: #ad-user-search-attributes
 [49]: #ldap-troubleshooting
 [50]: #create-an-okta-application

@@ -23,7 +23,7 @@ To upgrade to the latest version of Sensu Go from version 5.0.0 or later, [insta
 
 Then, restart the services.
 
-_**NOTE**: For systems using `systemd`, run `sudo systemctl daemon-reload` before restarting the services._
+_**NOTE**: For systems that use `systemd`, run `sudo systemctl daemon-reload` before restarting the services._
 
 {{< highlight shell >}}
 # Restart the Sensu agent
@@ -112,7 +112,7 @@ To learn more about new terminology in Sensu Go, see the [glossary][1].
 
 ### Architecture
 The external RabbitMQ transport and Redis datastore in Sensu Core 1.x are replaced with an embedded transport and [etcd datastore][2] in Sensu Go.
-In Sensu Go, the Sensu backend and agent are configured with YAML files or the `sensu-backend` or `sensu-agent` command-line tools rather than JSON files.
+In Sensu Go, the Sensu backend and agent are configured with YAML files or the `sensu-backend` or `sensu-agent` command line tools rather than JSON files.
 Sensu checks and pipeline elements are configured via the API or sensuctl tool in Sensu Go instead of JSON files.
 See the [backend][3], [agent][4], and [sensuctl][5] reference docs for more information. 
 
@@ -122,7 +122,7 @@ Entities include **agent entities**, which are entities running a Sensu agent, a
 See the [entity reference][6] and the guide to [monitoring external resources][7] for more information.
 
 ### Checks
-Standalone checks are not supported in Sensu Go, although [you can achieve similar functionality with role-based access control, assets, and entity subscriptions][26].
+Standalone checks are not supported in Sensu Go, although [you can achieve similar functionality with role-based access control (RBAC), assets, and entity subscriptions][26].
 There are also a few changes to check definitions in Sensu Go.
 The `stdin` check attribute is not supported in Sensu Go, and Sensu Go does not try to run a "default" handler when executing a check without a specified handler.
 In addition, check subdues are not available in Sensu Go.
@@ -139,9 +139,9 @@ Transport handlers are not supported by Sensu Go, but you can create similar fun
 
 ### Filters
 Ruby eval logic from Sensu Core 1.x is replaced with JavaScript expressions in Sensu Go, opening up powerful ways to filter events based on occurrences and other event attributes.
-As a result, the built-in occurrences filter in Sensu Core 1.x is not included in Sensu Go, but you can replicate its functionality with [the repeated events filter definition][10].
+As a result, the built-in occurrences event filter in Sensu Core 1.x is not included in Sensu Go, but you can replicate its functionality with [the repeated events filter definition][10].
 
-Sensu Go includes three new [built-in filters][11]: only-incidents, only-metrics, and allow-silencing.
+Sensu Go includes three new [built-in event filters][11]: only-incidents, only-metrics, and allow-silencing.
 Sensu Go does not include a built-in check dependencies filter or a filter-when feature.
 
 ### Assets
@@ -154,11 +154,11 @@ See the [installing plugins guide][22] for more information.
 ### Role-based access control (RBAC)
 Role-based access control (RBAC) is a built-in feature of the open-source version of Sensu Go.
 RBAC allows you to manage and access users and resources based on namespaces, groups, roles, and bindings.
-To set up RBAC in Sensu Go, see the [RBAC reference][13] and the [guide to create a read-only user][14].
+To set up RBAC in Sensu Go, see the [RBAC reference][13] and [Create a read-only user][14].
 
 ### Silencing
 Silencing is disabled by default in Sensu Go.
-You must explicitly enable silencing with the built-in [`not_silenced` filter][15].
+You must explicitly enable silencing with the built-in [`not_silenced` event filter][15].
 
 ### Token substitution
 The syntax for token substitution changed to [double curly braces][16] in Sensu Go (from triple colons in Sensu Core 1.x).

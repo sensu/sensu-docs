@@ -1,7 +1,7 @@
 ---
 title: "Supported platforms"
 linkTitle: "Supported Platforms"
-description: "Sensu Go is available on a wide range of platforms, including Linux, Windows, and macOS. Learn which platforms you can use with the Sensu backend, Sensu agent, and sensuctl command-line tool."
+description: "Sensu Go is available on a wide range of platforms, including Linux, Windows, and macOS. Learn which platforms you can use with the Sensu backend, Sensu agent, and sensuctl command line tool."
 version: "5.16"
 weight: 80
 product: "Sensu Go"
@@ -13,7 +13,7 @@ menu:
 - [Supported packages](#supported-packages)
 	- [Sensu backend](#sensu-backend)
 	- [Sensu agent](#sensu-agent)
-	- [Sensuctl command-line tool](#sensuctl-command-line-tool)
+	- [Sensuctl command line tool](#sensuctl-command-line-tool)
 - [Docker images](#docker-images)
 - [Integrations](#integrations)
 - [Binary-only distributions](#binary-only-distributions)
@@ -59,7 +59,7 @@ Supported packages are available through [sensu/stable][8] on packagecloud and t
 | Windows Server 2008 R2 and later | {{< check >}} | {{< check >}} |
 | Windows 7 and later | {{< check >}}     | {{< check >}}   |
 
-### Sensuctl command-line tool
+### Sensuctl command line tool
 
 | Platform and Version | `amd64` | `386` | | | | |
 |----------------------|---------|-------|---|---|---|---|
