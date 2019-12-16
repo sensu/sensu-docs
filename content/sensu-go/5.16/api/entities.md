@@ -25,7 +25,7 @@ The `/entities` API endpoint provides HTTP GET access to [entity][1] data.
 
 #### EXAMPLE {#entities-get-example}
 
-The following example demonstrates a request to the `/entities` API, resulting in a JSON array that contains the [entity definitions][1].
+The following example demonstrates a request to the `/entities` API endpoint, resulting in a JSON array that contains the [entity definitions][1].
 
 {{< highlight shell >}}
 curl http://127.0.0.1:8080/api/core/v2/namespaces/default/entities -H "Authorization: Bearer $SENSU_TOKEN"
@@ -210,7 +210,7 @@ The `/entities/:entity` API endpoint provides HTTP GET access to [entity data][1
 
 #### EXAMPLE {#entitiesentity-get-example}
 
-In the following example, querying the `/entities/:entity` API returns a JSON map that contains the requested [`:entity` definition][1] (in this example, for the `:entity` named `sensu-centos`).
+In the following example, querying the `/entities/:entity` API endpoint returns a JSON map that contains the requested [`:entity` definition][1] (in this example, for the `:entity` named `sensu-centos`).
 
 {{< highlight shell >}}
 curl http://127.0.0.1:8080/api/core/v2/namespaces/default/entities/sensu-centos -H "Authorization: Bearer $SENSU_TOKEN"
@@ -416,7 +416,7 @@ The `/entities/:entity` API endpoint provides HTTP DELETE access to delete an en
 
 #### EXAMPLE {#entitiesentity-delete-example}
 
-The following example shows a request to delete the entity `server1`, resulting in a successful HTTP `204 No Content` response.
+The following example shows a request to the `/entities/:entity` API endpoint to delete the entity `server1`, resulting in a successful HTTP `204 No Content` response.
 
 {{< highlight shell >}}
 curl -X DELETE \

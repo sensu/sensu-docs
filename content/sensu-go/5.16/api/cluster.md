@@ -25,7 +25,7 @@ The `/cluster/members` API endpoint provides HTTP GET access to Sensu [cluster][
 
 #### EXAMPLE {#clustermembers-get-example}
 
-The following example demonstrates a request to the `/cluster/members` API, resulting in a JSON map that contains a Sensu cluster definition.
+The following example demonstrates a request to the `/cluster/members` API endpoint, resulting in a JSON map that contains a Sensu cluster definition.
 
 {{< highlight shell >}}
 curl -H "Authorization: Bearer $SENSU_TOKEN" \
@@ -176,7 +176,7 @@ The `/cluster/members/:member` API endpoint provides HTTP DELETE access to remov
 
 ### EXAMPLE {#clustermembersmember-delete-example}
 
-The following example shows a request to remove the Sensu cluster member with the ID `8927110dc66458af`, resulting in a successful HTTP `204 No Content` response.
+The following example shows a request to the `/cluster/members/:member` API endpoint to remove the Sensu cluster member with the ID `8927110dc66458af`, resulting in a successful HTTP `204 No Content` response.
 
 {{< highlight shell >}}
 curl -X DELETE \
@@ -203,7 +203,7 @@ The `/cluster/id` API endpoint provides HTTP GET access to the Sensu cluster ID.
 
 #### EXAMPLE {#clusterid-get-example}
 
-The following example demonstrates a request to the `/cluster/id` API, resulting in a string that contains the Sensu cluster ID.
+The following example demonstrates a request to the `/cluster/id` API endpoint, resulting in a string that contains the Sensu cluster ID.
 
 {{< highlight shell >}}
 curl -H "Authorization: Bearer $SENSU_TOKEN" \

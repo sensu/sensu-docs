@@ -67,7 +67,7 @@ output         | {{< highlight json >}}
 
 ### `/authproviders/:name` (GET) {#authprovidersname-get}
 
-The `/authproviders/:name` API endpoint provides HTTP GET access to authentication provider configuration for a specific `:name`.
+The `/authproviders/:name` API endpoint provides HTTP GET access to the authentication provider configuration for a specific `:name`.
 
 #### API Specification {#authprovidersname-get-specification}
 
@@ -149,7 +149,7 @@ The `/authproviders/:name` API endpoint provides HTTP DELETE access to delete th
 
 ### EXAMPLE {#authprovidersname-delete-example}
 
-The following example shows a request to delete the configuration for the authentication provider `openldap`, resulting in a successful HTTP `204 No Content` response.
+The following example shows a request to the `/authproviders/:name` API endpoint to delete the configuration for the authentication provider `openldap`, resulting in a successful HTTP `204 No Content` response.
 
 {{< highlight shell >}}
 curl -X DELETE \

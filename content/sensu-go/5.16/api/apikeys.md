@@ -24,7 +24,7 @@ The `/apikeys` GET endpoint retrieves all API keys.
 
 #### EXAMPLE {#apikeys-get-example}
 
-The following example demonstrates a request to the `/apikeys` API, resulting in a JSON array that contains all API keys.
+The following example demonstrates a request to the `/apikeys` API endpoint, resulting in a JSON array that contains all API keys.
 
 {{< highlight shell >}}
 curl http://127.0.0.1:8080/api/core/v2/apikeys -H "Authorization: Bearer $SENSU_TOKEN"
@@ -64,6 +64,10 @@ output         | {{< highlight shell >}}
 {{< /highlight >}}
 
 ### `/apikeys` (POST)
+
+The `/apikeys` API endpoint provides HTTP POST access to create a new API key.
+
+#### API Specification {#apikeys-post-specification}
 
 /apikeys (POST) | 
 ----------------|------
@@ -128,6 +132,8 @@ output               | {{< highlight json >}}
 {{< /highlight >}}
 
 ### `/apikeys/:apikey` (DELETE) {#apikeysapikey-delete}
+
+The `/apikeys/:apikey` API endpoint provides HTTP DELETE access to remove an API key.
 
 #### API Specification {#apikeysapikey-delete-specification}
 

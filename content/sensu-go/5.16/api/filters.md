@@ -24,7 +24,7 @@ The `/filters` API endpoint provides HTTP GET access to [event filter][1] data.
 
 #### EXAMPLE {#filters-get-example}
 
-The following example demonstrates a request to the `/filters` API, resulting in a JSON array that contains [event filter definitions][1].
+The following example demonstrates a request to the `/filters` API endpoint, resulting in a JSON array that contains [event filter definitions][1].
 
 {{< highlight shell >}}
 curl http://127.0.0.1:8080/api/core/v2/namespaces/default/filters -H "Authorization: Bearer $TOKEN"
@@ -120,7 +120,7 @@ The `/filters/:filter` API endpoint provides HTTP GET access to [event filter da
 
 #### EXAMPLE {#filtersfilter-get-example}
 
-In the following example, querying the `/filters/:filter` API returns a JSON map that contains the requested [`:filter` definition][1] (in this example, for the `:filter` named `state_change_only`).
+In the following example, querying the `/filters/:filter` API endpoint returns a JSON map that contains the requested [`:filter` definition][1] (in this example, for the `:filter` named `state_change_only`).
 
 {{< highlight shell >}}
 curl http://127.0.0.1:8080/api/core/v2/namespaces/default/filters/state_change_only -H "Authorization: Bearer $TOKEN"
@@ -196,7 +196,7 @@ The `/filters/:filter` API endpoint provides HTTP DELETE access to delete an eve
 
 #### EXAMPLE {#filtersfilter-delete-example}
 
-The following example shows a request to delete the event filter `production-only`, resulting in a successful HTTP `204 No Content` response.
+The following example shows a request to the `/filters/:filter` API endpoint to delete the event filter `production-only`, resulting in a successful HTTP `204 No Content` response.
 
 {{< highlight shell >}}
 curl -X DELETE \

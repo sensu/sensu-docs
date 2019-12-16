@@ -30,7 +30,7 @@ The `/checks` API endpoint provides HTTP GET access to [check][1] data.
 
 #### EXAMPLE {#checks-get-example}
 
-The following example demonstrates a request to the `/checks` API, resulting in a JSON array that contains [check definitions][1].
+The following example demonstrates a request to the `/checks` API endpoint, resulting in a JSON array that contains [check definitions][1].
 
 {{< highlight shell >}}
 curl -H "Authorization: Bearer $SENSU_TOKEN" http://127.0.0.1:8080/api/core/v2/namespaces/default/checks
@@ -106,7 +106,7 @@ The `/checks` API endpoint provides HTTP POST access to create checks.
 
 #### EXAMPLE {#checks-post-example}
 
-In the following example, an HTTP POST request is submitted to the `/checks` API to create a `check-cpu` check.
+In the following example, an HTTP POST request is submitted to the `/checks` API endpoint to create a `check-cpu` check.
 The request includes the check definition in the request body and returns a successful HTTP `200 OK` response and the created check definition.
 
 {{< highlight shell >}}
@@ -182,7 +182,7 @@ The `/checks/:check` API endpoint provides HTTP GET access to [check data][1] fo
 
 #### EXAMPLE {#checkscheck-get-example}
 
-In the following example, querying the `/checks/:check` API returns a JSON map that contains the requested [`:check` definition][1] (in this example, for the `:check` named `check-cpu`).
+In the following example, querying the `/checks/:check` API endpoint returns a JSON map that contains the requested [`:check` definition][1] (in this example, for the `:check` named `check-cpu`).
 
 {{< highlight shell >}}
 curl -H "Authorization: Bearer $SENSU_TOKEN" \
@@ -238,7 +238,7 @@ The `/checks/:check` API endpoint provides HTTP PUT access to create and update 
 
 #### EXAMPLE {#checkscheckhooks-put-example}
 
-In the following example, an HTTP PUT request is submitted to the `/checks/:check` API to update the `check-cpu` check, resulting in an HTTP `200 OK` response and the updated check definition.
+In the following example, an HTTP PUT request is submitted to the `/checks/:check` API endpoint to update the `check-cpu` check, resulting in an HTTP `200 OK` response and the updated check definition.
 
 {{< highlight shell >}}
 curl -X PUT \
@@ -296,7 +296,7 @@ The `/checks/:check` API endpoint provides HTTP DELETE access to delete a check 
 
 #### EXAMPLE {#checkscheck-delete-example}
 
-The following example shows a request to delete the check named `check-cpu`, resulting in a successful HTTP `204 No Content` response.
+The following example shows a request to the `/checks/:check` API endpoint to delete the check named `check-cpu`, resulting in a successful HTTP `204 No Content` response.
 
 {{< highlight shell >}}
 curl -X DELETE \
@@ -322,7 +322,7 @@ The `/checks/:check/execute` API endpoint provides HTTP POST access to create an
 
 #### EXAMPLE {#checkscheckexecute-post-example}
 
-In the following example, an HTTP POST request is submitted to the `/checks/:check/execute` API to execute the `check-sensu-site` check.
+In the following example, an HTTP POST request is submitted to the `/checks/:check/execute` API endpoint to execute the `check-sensu-site` check.
 The request includes the check name in the request body and returns a successful HTTP `202 Accepted` response and an `issued` timestamp.
 
 {{< highlight shell >}}
@@ -364,7 +364,7 @@ The `/checks/:check/hooks/:type` API endpoint provides HTTP PUT access to assign
 
 #### EXAMPLE {#checkscheckhooks-put-example}
 
-In the following example, an HTTP PUT request is submitted to the `/checks/:check/hooks/:type` API, assigning the `process_tree` hook to the `check-cpu` check in the event of a `critical` type check result, resulting in a successful HTTP `204 No Content` response.
+In the following example, an HTTP PUT request is submitted to the `/checks/:check/hooks/:type` API endpoint, assigning the `process_tree` hook to the `check-cpu` check in the event of a `critical` type check result, resulting in a successful HTTP `204 No Content` response.
 
 {{< highlight shell >}}
 curl -X PUT \
@@ -394,18 +394,18 @@ example payload | {{< highlight shell >}}
   ]
 }
 {{< /highlight >}}
-payload parameters | This endpoint requires a JSON map of [check response types][3] (for example: `critical`, `warning`). Each must contain an array of hook names.
+payload parameters | This endpoint requires a JSON map of [check response types][3] (for example, `critical` or `warning`). Each must contain an array of hook names.
 response codes  | <ul><li>**Success**: 204 (No Content)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 ## The `/checks/:check/hooks/:type/hook/:hook` API endpoint {#the-checkscheckhookshook-api-endpoint}
 
 ### `/checks/:check/hooks/:type/hook/:hook` (DELETE) {#checkscheckhookshook-delete}
 
-This endpoint provides HTTP DELETE access to a remove a [hook][2] from a [check][1].
+The `/checks/:check/hooks/:type/hook/:hook` API endpoint provides HTTP DELETE access to a remove a [hook][2] from a [check][1].
 
 #### EXAMPLE {#checkscheckhookshook-delete-example}
 
-The following example shows a request to remove the `process_tree` hook from the `check-cpu` check, resulting in a successful HTTP `204 No Content` response.
+The following example shows a request to the `/checks/:check/hooks/:type/hook/:hook` API endpoint to remove the `process_tree` hook from the `check-cpu` check, resulting in a successful HTTP `204 No Content` response.
 
 {{< highlight shell >}}
 curl -X DELETE \

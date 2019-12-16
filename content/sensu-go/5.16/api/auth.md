@@ -23,7 +23,7 @@ The `/auth` API endpoint provides HTTP GET access to create an access token usin
 
 #### EXAMPLE {#auth-get-example}
 
-In the following example, querying the `/auth` API with a given username and password returns a 200 OK response, indicating that the credentials are valid, along with an access token and a refresh token.
+In the following example, querying the `/auth` API endpoint with a given username and password returns an HTTP `200 OK` response to indicate that the credentials are valid, along with an access token and a refresh token.
 
 {{< highlight shell >}}
 curl -u myusername:mypassword http://127.0.0.1:8080/auth
@@ -40,7 +40,7 @@ HTTP/1.1 200 OK
 
 /auth (GET)          |     |
 ---------------------|------
-description          | Generates an access token to the API using basic authentication. Access tokens last for approximately 15 minutes. When your token expires, you should see a `401 Unauthorized `response from the API. To generate a new access token, use the [`/auth/token` API endpoint](#authtoken-post).
+description          | Generates an access token to the API using basic authentication. Access tokens last for approximately 15 minutes. When your token expires, you should see a `401 Unauthorized` response from the API. To generate a new access token, use the [`/auth/token` API endpoint](#authtoken-post).
 example url          | http://hostname:8080/auth
 output               | {{< highlight json >}}
 {
@@ -59,7 +59,7 @@ The `/auth/test` API endpoint provides HTTP GET access to test user credentials.
 
 #### EXAMPLE {#authtest-get-example}
 
-In the following example, querying the `/auth/test` API with a given username and password returns a `200 OK` response, indicating that the credentials are valid.
+In the following example, querying the `/auth/test` API endpoint with a given username and password returns an HTTP `200 OK` response, indicating that the credentials are valid.
 
 {{< highlight shell >}}
 curl -u myusername:mypassword http://127.0.0.1:8080/auth/test
@@ -83,7 +83,7 @@ The `/auth/token` API endpoint provides HTTP POST access to renew an access toke
 
 #### EXAMPLE {#authtoken-post-example}
 
-In the following example, an HTTP POST request is submitted to the `/auth/token` API to generate a valid access token.
+In the following example, an HTTP POST request is submitted to the `/auth/token` API endpoint to generate a valid access token.
 The request includes the refresh token in the request body and returns a successful HTTP `200 OK` response along with the new access token.
 
 {{< highlight shell >}}

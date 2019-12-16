@@ -23,7 +23,7 @@ The `/provider` API endpoint provides HTTP GET access to [Sensu datastore][1] da
 
 #### EXAMPLE {#provider-get-example}
 
-The following example demonstrates a request to the `/provider` API, resulting in a JSON map that contains a list of Sensu datastore providers.
+The following example demonstrates a request to the `/provider` API endpoint, resulting in a JSON map that contains a list of Sensu datastore providers.
 
 {{< highlight shell >}}
 curl -H "Authorization: Bearer $SENSU_TOKEN" \
@@ -62,7 +62,7 @@ HTTP/1.1 200 OK
 
 /provider (GET)  | 
 ---------------|------
-description    | Retrieves the list of datastore providers.
+description    | Returns the list of datastore providers.
 example url    | http://hostname:8080/api/enterprise/store/v1/provider
 response type  | Map
 response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
@@ -97,7 +97,7 @@ HTTP/1.1 200 OK
 
 /provider/:provider (GET) | 
 ----------------|------
-description     | Retrieves the specified datastore provider.
+description     | Returns the specified datastore provider.
 example url     | http://hostname:8080/api/enterprise/store/v1/provider/my-postgres
 url parameters  | Required: `my-postgres` (name of provider to retrieve).
 response codes   | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
@@ -142,7 +142,7 @@ The `/provider/:provider` API endpoint provides HTTP DELETE access to remove a S
 
 #### EXAMPLE {#providerprovider-delete-example}
 
-The following example shows a request to remove the Sensu datastore provider with the ID `9927110dc66458af`, resulting in a successful HTTP `204 No Content` response.
+The following example shows a request to the `/provider/:provider` API endpoint to remove the Sensu datastore provider with the ID `9927110dc66458af`, resulting in a successful HTTP `204 No Content` response.
 
 {{< highlight shell >}}
 curl -X DELETE \

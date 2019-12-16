@@ -16,7 +16,7 @@ menu:
 - [Access control](#access-control)
   - [Authentication quickstart](#authentication-quickstart)
 - [Pagination](#pagination)
-- [Response Filtering](#response-filtering)
+- [Response filtering](#response-filtering)
   - [Label selector](#label-selector)
   - [Field selector](#field-selector)
   - [Supported operators](#supported-operators)
@@ -59,7 +59,7 @@ Beta APIs are more stable than alpha versions, but they offer similarly short-li
 ## Access control
 
 With the exception of the [health API][5] and [metrics API][6], the Sensu API requires authentication using a JSON Web Token (JWT) access token.
-You can generate access tokens and refresh tokens using the [authentication API][12] and your Sensu username and password.
+Use the [authentication API][12] and your Sensu username and password to generate access tokens and refresh tokens.
 The Sensu API docs use `$SENSU_TOKEN` to represent a valid access token in API requests.
 
 ### Authentication quickstart
@@ -68,7 +68,7 @@ To set up a local API testing environment, save your Sensu credentials and token
 
 {{< highlight shell >}}
 # Requires curl and jq
-export SENSU_USER=admin && SENSU_PASS=P@ssw0rd!
+export SENSU_USER=YOUR_USERNAME && SENSU_PASS=YOUR_PASSWORD
 
 export SENSU_TOKEN=`curl -XGET -u "$SENSU_USER:$SENSU_PASS" -s http://localhost:8080/auth | jq -r ".access_token"`
 {{< /highlight >}}
@@ -78,9 +78,9 @@ export SENSU_TOKEN=`curl -XGET -u "$SENSU_USER:$SENSU_PASS" -s http://localhost:
 The [`/auth` API endpoint][10] lets you generate short-lived API tokens using your Sensu username and password.
 
 1. Retrieve an access token for your user.
-For example, to generate an access token using the default admin credentials:
+For example, to generate an access token using example admin credentials:
 {{< highlight shell >}}
-curl -u 'admin:P@ssw0rd!' http://localhost:8080/auth
+curl -u 'YOUR_USERNAME:YOUR_PASSWORD' http://localhost:8080/auth
 {{< /highlight >}}
 The access token should be included in the output, along with a refresh token:
 {{< highlight shell >}}
@@ -152,7 +152,7 @@ The advantages of authenticating with API keys rather than [access tokens][14] i
 
 - **More efficient integration**: Check and handler plugins and other code can integrate with the Sensu API without implementing the logic required to authenticate via the `/auth` API endpoint to periodically refresh the access token
 - **Improved security**: API keys do not require providing a username and password in check or handler definitions
-- **Better admin control**: API keys can be created and revoked without changing the underlying user's password...but keep in mind that API keys will continue to work even if the user's password changes
+- **Better admin control**: API keys can be created and revoked without changing the underlying user's password, but keep in mind that API keys will continue to work even if the user's password changes
 
 API keys are cluster-wide resources, so only cluster admins can grant, view, and revoke them.
 
@@ -249,16 +249,15 @@ Content-Type: application/json
 ]
 {{< /highlight >}}
 
-## Response Filtering
+## Response filtering
 
 **COMMERCIAL FEATURE**: Access API response filtering in the packaged Sensu Go distribution.
 For more information, see [Get started with commercial features][8].
 
 The Sensu API supports response filtering for all GET endpoints that return an array.
-You can filter resources based on their labels with the `labelSelector` query parameter.
-You can filter resources based on certain pre-determined fields with the `fieldSelector` query parameter.
+You can filter resources based on their labels with the `labelSelector` query parameter and based on certain pre-determined fields with the `fieldSelector` query parameter.
 
-For example, to filter the response so that it only include resources that have a label entry `region` with the value `us-west-1`, use the flag `--data-urlencode` in cURL so it encodes the query parameter. 
+For example, to filter the response so that it only includes resources that have a label entry `region` with the value `us-west-1`, use the flag `--data-urlencode` in cURL so it encodes the query parameter. 
 Include the `-G` flag so the request appends the data to the URL.
 
 {{< highlight shell >}}

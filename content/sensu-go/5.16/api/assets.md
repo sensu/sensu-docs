@@ -25,7 +25,7 @@ The `/assets` API endpoint provides HTTP GET access to [asset][1] data.
 
 #### EXAMPLE {#assets-get-example}
 
-The following example demonstrates a request to the `/assets` API, resulting in a JSON array that contains [asset definitions][1].
+The following example demonstrates a request to the `/assets` API endpoint, resulting in a JSON array that contains [asset definitions][1].
 
 {{< highlight shell >}}
 curl http://127.0.0.1:8080/api/core/v2/namespaces/default/assets -H "Authorization: Bearer $SENSU_TOKEN"
@@ -86,6 +86,10 @@ output         | {{< highlight shell >}}
 
 ### `/assets` (POST)
 
+The `/assets` API endpoint provides HTTP POST access to [asset][1] data.
+
+#### API Specification {#assets-post-specification}
+
 /assets (POST) | 
 ----------------|------
 description     | Creates a Sensu asset.
@@ -118,7 +122,7 @@ The `/assets/:asset` API endpoint provides HTTP GET access to [asset data][1] fo
 
 #### EXAMPLE {#assetsasset-get-example}
 
-In the following example, querying the `/assets/:asset` API returns a JSON map that contains the requested [`:asset` definition][1] (in this example, for the `:asset` named `check_script`).
+In the following example, querying the `/assets/:asset` API endpoint returns a JSON map that contains the requested [`:asset` definition][1] (in this example, for the `:asset` named `check_script`).
 
 {{< highlight shell >}}
 curl http://127.0.0.1:8080/api/core/v2/namespaces/default/assets/sensu-slack-handler -H "Authorization: Bearer $SENSU_TOKEN"
@@ -198,7 +202,7 @@ response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 
 
 The `/assets/:asset` API endpoint provides HTTP DELETE access so you can delete an asset.
 
-_**NOTE**: This does not remove the downloaded files from the asset cache or remove any references to the deleted asset in other resources._ 
+_**NOTE**: Deleting an asset does not remove the downloaded files from the asset cache or remove any references to the deleted asset in other resources._ 
 
 #### API Specification {#assetsasset-delete-specification}
 

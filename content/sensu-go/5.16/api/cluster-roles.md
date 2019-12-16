@@ -25,7 +25,7 @@ The `/clusterroles` API endpoint provides HTTP GET access to [cluster role][1] d
 
 #### EXAMPLE {#clusterroles-get-example}
 
-The following example demonstrates a request to the `/clusterroles` API, resulting in a JSON array that contains [cluster role definitions][1].
+The following example demonstrates a request to the `/clusterroles` API endpoint, resulting in a JSON array that contains [cluster role definitions][1].
 
 {{< highlight shell >}}
 curl http://127.0.0.1:8080/api/core/v2/clusterroles -H "Authorization: Bearer $SENSU_TOKEN"
@@ -157,7 +157,7 @@ The `/clusterroles/:clusterrole` API endpoint provides HTTP GET access to [clust
 
 #### EXAMPLE {#clusterrolesclusterrole-get-example}
 
-In the following example, querying the `/clusterroles/:clusterrole` API returns a JSON map that contains the requested [`:clusterrole` definition][1] (in this example, for the `:clusterrole` named `global-event-reader`).
+In the following example, querying the `/clusterroles/:clusterrole` API endpoint returns a JSON map that contains the requested [`:clusterrole` definition][1] (in this example, for the `:clusterrole` named `global-event-reader`).
 
 {{< highlight shell >}}
 curl http://127.0.0.1:8080/api/core/v2/clusterroles/global-event-reader -H "Authorization: Bearer $SENSU_TOKEN"
@@ -247,7 +247,7 @@ The `/clusterroles/:clusterrole` API endpoint provides HTTP DELETE access to del
 
 #### EXAMPLE {#clusterrolesclusterrole-delete-example}
 
-The following example shows a request to delete the cluster role `global-event-reader`, resulting in a successful HTTP `204 No Content` response.
+The following example shows a request to the `/clusterroles/:clusterrole` API endpoint to delete the cluster role `global-event-reader`, resulting in a successful HTTP `204 No Content` response.
 
 {{< highlight shell >}}
 curl -X DELETE \

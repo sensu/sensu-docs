@@ -28,7 +28,7 @@ The `/events` API endpoint provides HTTP GET access to [event][1] data.
 
 #### EXAMPLE {#events-get-example}
 
-The following example demonstrates a request to the `/events` API, resulting in a JSON array that contains [event definitions][1].
+The following example demonstrates a request to the `/events` API endpoint, resulting in a JSON array that contains [event definitions][1].
 
 {{< highlight shell >}}
 curl -H "Authorization: Bearer $SENSU_TOKEN" \
@@ -177,7 +177,7 @@ The `/events` API endpoint provides HTTP POST access to create an event and send
 
 #### EXAMPLE {#events-post-example}
 
-In the following example, an HTTP POST request is submitted to the `/events` API to create an event.
+In the following example, an HTTP POST request is submitted to the `/events` API endpoint to create an event.
 The request includes information about the check and entity represented by the event and returns a successful HTTP `200 OK` response and the event definition.
 
 {{< highlight shell >}}
@@ -244,7 +244,7 @@ The `/events` API endpoint provides HTTP PUT access to update an event and send 
 
 #### EXAMPLE {#events-put-example}
 
-In the following example, an HTTP PUT request is submitted to the `/events` API to update an event.
+In the following example, an HTTP PUT request is submitted to the `/events` API endpoint to update an event.
 The request includes information about the check and entity represented by the event and returns a successful HTTP `200 OK` response and the event definition.
 
 {{< highlight shell >}}
@@ -314,7 +314,7 @@ The `/events/:entity` API endpoint provides HTTP GET access to [event data][1] s
 
 #### EXAMPLE {#eventsentity-get-example}
 
-In the following example, querying the `/events/:entity` API returns a list of Sensu events for the `sensu-go-sandbox` entity and a successful HTTP `200 OK` response.
+In the following example, querying the `/events/:entity` API endpoint returns a list of Sensu events for the `sensu-go-sandbox` entity and a successful HTTP `200 OK` response.
 
 {{< highlight shell >}}
 curl -H "Authorization: Bearer $SENSU_TOKEN" \
@@ -539,7 +539,7 @@ The `/events/:entity/:check` API endpoint provides HTTP POST access to create or
 
 #### EXAMPLE {#eventsentitycheck-post-example}
 
-In the following example, an HTTP POST request is submitted to the `/events/:entity/:check` API to create an event for the `server1` entity and the `server-health` check and process it using the `slack` event handler.
+In the following example, an HTTP POST request is submitted to the `/events/:entity/:check` API endpoint to create an event for the `server1` entity and the `server-health` check and process it using the `slack` event handler.
 The event includes a status code of `1`, indicating a warning, and an output message of `Server error`.
 
 {{< highlight shell >}}
@@ -623,7 +623,7 @@ The `/events/:entity/:check` API endpoint provides HTTP PUT access to create or 
 
 #### EXAMPLE {#eventsentitycheck-put-example}
 
-In the following example, an HTTP PUT request is submitted to the `/events/:entity/:check` API to create an event for the `server1` entity and the `server-health` check and process it using the `slack` event handler.
+In the following example, an HTTP PUT request is submitted to the `/events/:entity/:check` API endpoint to create an event for the `server1` entity and the `server-health` check and process it using the `slack` event handler.
 The event includes a status code of `1`, indicating a warning, and an output message of `Server error`.
 
 {{< highlight shell >}}
@@ -711,7 +711,7 @@ The `/events/:entity/:check` PUT endpoint requires a request payload that contai
 At minimum, Sensu requires the `entity` scope to contain the `entity_class` (`agent` or `proxy`) and the entity `name` and `namespace` within a `metadata` scope.
 For more information about entity attributes, see the [entity specification][6].
 - The `check` scope contains information about the event status and how the event was created.
-At a minimum, Sensu requires the `check` scope to contain a `name` within a `metadata` scope and either an `interval` or `cron` attribute.
+At minimum, Sensu requires the `check` scope to contain a `name` within a `metadata` scope and either an `interval` or `cron` attribute.
 For more information about check attributes, see the [check specification][7].
 
 **Example request with minimum required event attributes**
@@ -823,7 +823,7 @@ http://127.0.0.1:8080/api/core/v2/namespaces/default/events/server1/server-metri
 
 #### EXAMPLE {#eventsentitycheck-delete-example}
 
-The following example shows a request to delete the event produced by the `sensu-go-sandbox` entity and `check-cpu` check, resulting in a successful HTTP `204 No Content` response.
+The following example shows a request to the `/events/:entity/:check` API endpoint to delete the event produced by the `sensu-go-sandbox` entity and `check-cpu` check, resulting in a successful HTTP `204 No Content` response.
 
 {{< highlight shell >}}
 curl -X DELETE \

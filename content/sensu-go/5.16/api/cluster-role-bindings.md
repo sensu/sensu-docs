@@ -25,7 +25,7 @@ The `/clusterrolebindings` API endpoint provides HTTP GET access to [cluster rol
 
 #### EXAMPLE {#clusterrolebindings-get-example}
 
-The following example demonstrates a request to the `/clusterrolebindings` API, resulting in a JSON array that contains [cluster role binding definitions][1].
+The following example demonstrates a request to the `/clusterrolebindings` API endpoint, resulting in a JSON array that contains [cluster role binding definitions][1].
 
 {{< highlight shell >}}
 curl http://127.0.0.1:8080/api/core/v2/clusterrolebindings -H "Authorization: Bearer $SENSU_TOKEN"
@@ -100,7 +100,7 @@ The `/clusterrolebindings` API endpoint provides HTTP POST access to create a [c
 
 #### EXAMPLE {#clusterrolebindings-post-example}
 
-In the following example, an HTTP POST request is submitted to the `/clusterrolebindings` API to create a cluster role binding that assigns the `cluster-admin` cluster role to the user `bob`.
+In the following example, an HTTP POST request is submitted to the `/clusterrolebindings` API endpoint to create a cluster role binding that assigns the `cluster-admin` cluster role to the user `bob`.
 The request includes the cluster role binding definition in the request body and returns a successful HTTP `200 OK` response and the created cluster role binding definition.
 
 {{< highlight shell >}}
@@ -175,7 +175,7 @@ The `/clusterrolebindings/:clusterrolebinding` API endpoint provides HTTP GET ac
 
 #### EXAMPLE {#clusterrolebindingsclusterrolebinding-get-example}
 
-In the following example, querying the `/clusterrolebindings/:clusterrolebinding` API returns a JSON map that contains the requested [`:clusterrolebinding` definition][1] (in this example, for the `:clusterrolebinding` named `bob-binder`).
+In the following example, querying the `/clusterrolebindings/:clusterrolebinding` API endpoint returns a JSON map that contains the requested [`:clusterrolebinding` definition][1] (in this example, for the `:clusterrolebinding` named `bob-binder`).
 
 {{< highlight shell >}}
 curl http://127.0.0.1:8080/api/core/v2/clusterrolebindings/bob-binder -H "Authorization: Bearer $SENSU_TOKEN"
@@ -230,7 +230,7 @@ The `/clusterrolebindings/:clusterrolebinding` API endpoint provides HTTP PUT ac
 
 #### EXAMPLE {#clusterrolebindingsclusterrolebinding-put-example}
 
-In the following example, an HTTP PUT request is submitted to the `/clusterrolebindings/:clusterrolebinding` API to create a cluster role binding that assigns the `cluster-admin` cluster role to users in the group `ops`.
+In the following example, an HTTP PUT request is submitted to the `/clusterrolebindings/:clusterrolebinding` API endpoint to create a cluster role binding that assigns the `cluster-admin` cluster role to users in the group `ops`.
 The request includes the cluster role binding definition in the request body and returns a successful HTTP `200 OK` response and the created cluster role binding definition.
 
 {{< highlight shell >}}
@@ -303,7 +303,7 @@ The `/clusterrolebindings/:clusterrolebinding` API endpoint provides HTTP DELETE
 
 #### EXAMPLE {#clusterrolebindingsclusterrolebinding-delete-example}
 
-The following example shows a request to delete the cluster role binding `ops-binding`, resulting in a successful HTTP `204 No Content` response.
+The following example shows a request to the `/clusterrolebindings/:clusterrolebinding` API endpoint to delete the cluster role binding `ops-binding`, resulting in a successful HTTP `204 No Content` response.
 
 {{< highlight shell >}}
 curl -X DELETE \
