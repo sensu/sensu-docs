@@ -1,6 +1,6 @@
 ---
 title: "Filters"
-description: "Filters help you reduce alert fatigue by controlling which events are acted on by Sensu handlers. Read the reference doc to learn about filters, use Sensu's built-in filters, and create your own filters."
+description: "Filters help you reduce alert fatigue by controlling which events are acted on by Sensu handlers. Read the reference doc to learn about event filters, use Sensu's built-in filters, and create your own event filters."
 weight: 100
 version: "5.16"
 product: "Sensu Go"
@@ -10,8 +10,8 @@ menu:
     parent: reference
 ---
 
-- [Inclusive and exclusive filters](#inclusive-and-exclusive-filters)
-- [Built-in filters](#built-in-filters)
+- [Inclusive and exclusive filters](#inclusive-and-exclusive-event-filters)
+- [Built-in event filters](#built-in-event-filters)
 - [Build filter expressions](#build-filter-expressions)
 - [Filter specification](#filter-specification)
   - [Top-level attributes](#top-level-attributes) | [Metadata attributes](#metadata-attributes) | [Spec attributes](#spec-attributes)
@@ -23,8 +23,8 @@ menu:
 	- [Handle events during office hours only](#handle-events-during-office-hours-only)
 - [Use JavaScript libraries with Sensu filters](#use-javascript-libraries-with-sensu-filters)
 
-Sensu filters are applied when you configure **event handlers** to use one or more filters.
-Before executing a handler, the Sensu backend will apply any filters configured for the handler to the **event** data.
+Sensu filters are applied when you configure event handlers to use one or more event filters.
+Before executing a handler, the Sensu backend will apply any event filters configured for the handler to the event data.
 If the filters do not remove the event, the handler will be executed.
 
 The filter analysis performs these steps:
@@ -34,56 +34,56 @@ Prior to executing each handler, the Sensu server first applies any configured `
 * If multiple `filters` are configured for a handler, they are executed sequentially.
 * Filter `expressions` are compared with event data.
 
-Filters can be inclusive (only matching events are handled) or exclusive (matching events are not handled).
+Event filters can be inclusive (only matching events are handled) or exclusive (matching events are not handled).
 
 As soon as a filter removes an event, no further analysis is performed and the event handler will not be executed.
 
 _**NOTE**: Filters specified in a **handler set** definition have no effect. Filters must be specified in individual handler definitions._
 
-## Inclusive and exclusive filters
+## Inclusive and exclusive event filters
 
-Filters can be _inclusive_ (`"action": "allow"`; replaces `"negate": false` in Sensu Core) or _exclusive_ (`"action": "deny"`; replaces `"negate": true` in Sensu Core).
-Configuring a handler to use multiple _inclusive_ filters is the equivalent of using an `AND` query operator (only handle events if they match the _inclusive_ filter: `x AND y AND z`).
-Configuring a handler to use multiple _exclusive_ filters is the equivalent of using an `OR` operator (only handle events if they don’t match `x OR y OR z`).
+Event filters can be _inclusive_ (`"action": "allow"`; replaces `"negate": false` in Sensu Core) or _exclusive_ (`"action": "deny"`; replaces `"negate": true` in Sensu Core).
+Configuring a handler to use multiple _inclusive_ event filters is the equivalent of using an `AND` query operator (only handle events if they match the _inclusive_ filter: `x AND y AND z`).
+Configuring a handler to use multiple _exclusive_ event filters is the equivalent of using an `OR` operator (only handle events if they don’t match `x OR y OR z`).
 
-In **inclusive filtering**, by setting the filter definition attribute `"action": "allow"`, only events that match the defined filter expressions are handled.
+In **inclusive filtering**, by setting the event filter definition attribute `"action": "allow"`, only events that match the defined filter expressions are handled.
 
-In **exclusive filtering**, by setting the filter definition attribute `"action": "deny"`, events are only handled if they do not match the defined filter expressions.
+In **exclusive filtering**, by setting the event filter definition attribute `"action": "deny"`, events are only handled if they do not match the defined filter expressions.
 
 ### Filter expression comparison
 
-Filter expressions are compared directly with their event data counterparts.
-For inclusive filter definitions (`"action": "allow"`), matching expressions will result in the filter returning a `true` value.
-For exclusive filter definitions (`"action": "deny"`), matching expressions will result in the filter returning a `false` value, and the event will not pass through the filter.
-Filters that return a true value will continue to be processed via additional filters (if defined), mutators (if defined), and handlers.
+Event filter expressions are compared directly with their event data counterparts.
+For inclusive event filter definitions (`"action": "allow"`), matching expressions will result in the filter returning a `true` value.
+For exclusive event filter definitions (`"action": "deny"`), matching expressions will result in the filter returning a `false` value, and the event will not pass through the filter.
+Event filters that return a `true` value will continue to be processed via additional filters (if defined), mutators (if defined), and handlers.
 
 ### Filter expression evaluation
 
-When more complex conditional logic is needed than direct filter expression comparison, Sensu filters provide support for expression evaluation using [Otto][31].
-Otto is an ECMAScript 5 (JavaScript) virtual machine that evaluates JavaScript expressions that are provided in the filter.
+When more complex conditional logic is needed than direct filter expression comparison, Sensu event filters provide support for expression evaluation using [Otto][31].
+Otto is an ECMAScript 5 (JavaScript) virtual machine that evaluates JavaScript expressions that are provided in an event filter.
 There are some caveats to using Otto: not all of the regular expressions specified in ECMAScript 5 will work.
 See the [Otto README][32] for more details.
 
 ### Filter assets
 
-Sensu filters can have assets that are included in their execution context.
-When valid assets are associated with a filter, Sensu evaluates any files it finds that have a ".js" extension before executing a filter.
+Sensu event filters can have assets that are included in their execution context.
+When valid assets are associated with an event filter, Sensu evaluates any files it finds that have a ".js" extension before executing the filter.
 The result of evaluating the scripts is cached for a given asset set for the sake of performance.
-For an example of how to implement a filter as an asset, see [Reduce alert fatigue][30].
+For an example of how to implement an event filter as an asset, see [Reduce alert fatigue][30].
 
-## Built-in filters
+## Built-in event filters
 
-Sensu includes built-in filters to help you customize event pipelines for metrics and alerts.
-To start using built-in filters, see [Send Slack alerts][4] and [Plan maintenance][5].
+Sensu includes built-in event filters to help you customize event pipelines for metrics and alerts.
+To start using built-in event filters, see [Send Slack alerts][4] and [Plan maintenance][5].
 
 ### Built-in filter: is_incident
 
-The is_incident filter is included in every installation of the [Sensu backend][8].
+The is_incident event filter is included in every installation of the [Sensu backend][8].
 You can use the is_incident filter to allow only high-priority events through a Sensu pipeline.
 For example, you can use the is_incident filter to reduce noise when sending notifications to Slack.
 When applied to a handler, the is_incident filter allows only warning (`"status": 1`), critical (`"status": 2`), and resolution events to be processed.
 
-To use the is_incident filter, include `is_incident` in the handler configuration `filters` array:
+To use the is_incident event filter, include `is_incident` in the handler configuration `filters` array:
 
 {{< language-toggle >}}
 
@@ -131,7 +131,7 @@ spec:
 
 {{< /language-toggle >}}
 
-The `is_incident` filter applies the following filtering logic:
+The is_incident event filter applies the following filtering logic:
 
 | status | allow | discard |     |     |     |     |
 | ----- | ----- | ------- | --- | --- | --- | --- |
@@ -195,16 +195,16 @@ spec:
 
 {{< /language-toggle >}}
 
-When applied to a handler configuration, the `not_silenced` filter silences events that include the `silenced` attribute.
-The handler in the example above uses both the not_silenced and [is_incident][7] filters, preventing low-priority and silenced events from being sent to Slack.
+When applied to a handler configuration, the not_silenced event filter silences events that include the `silenced` attribute.
+The handler in the example above uses both the not_silenced and [is_incident][7] event filters, preventing low-priority and silenced events from being sent to Slack.
 
 ### Built-in filter: has_metrics
 
-The has_metrics filter is included in every installation of the [Sensu backend][8].
+The has_metrics event filter is included in every installation of the [Sensu backend][8].
 When applied to a handler, the has_metrics filter allows only events that contain [Sensu metrics][9] to be processed.
 You can use the has_metrics filter to prevent handlers that require metrics from failing in case of an error in metric collection.
 
-To use the has_metrics filter, include `has_metrics` in the handler configuration `filters` array:
+To use the has_metrics event filter, include `has_metrics` in the handler configuration `filters` array:
 
 {{< language-toggle >}}
 
@@ -256,11 +256,11 @@ spec:
 
 {{< /language-toggle >}}
 
-When applied to a handler configuration, the has_metrics filter allows only events that include a [`metrics` scope][9].
+When applied to a handler configuration, the has_metrics event filter allows only events that include a [`metrics` scope][9].
 
-## Build filter expressions
+## Build event filter expressions
 
-You can write custom filter expressions as [Sensu query expressions][27] using the event data attributes described in this section.
+You can write custom event filter expressions as [Sensu query expressions][27] using the event data attributes described in this section.
 For more information about event attributes, see the [event reference][28].
 
 ### Syntax quick reference
@@ -372,27 +372,27 @@ For more information about event attributes, see the [event reference][28].
 `event.entity.system.platform_version` | string  | The entity’s operating system version
 `event.entity.user`                    | string  | Sensu [RBAC][25] username used by the agent entity
 
-## Filter specification
+## Event filter specification
 
 ### Top-level attributes
 
 type         | 
 -------------|------
-description  | Top-level attribute that specifies the [`sensuctl create`][33] resource type. Filters should always be type `EventFilter`.
+description  | Top-level attribute that specifies the [`sensuctl create`][33] resource type. Event filters should always be type `EventFilter`.
 required     | Required for filter definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][33].
 type         | String
 example      | {{< highlight shell >}}"type": "EventFilter"{{< /highlight >}}
 
 api_version  | 
 -------------|------
-description  | Top-level attribute that specifies the Sensu API group and version. For filters in this version of Sensu, this attribute should always be `core/v2`.
+description  | Top-level attribute that specifies the Sensu API group and version. For event filters in this version of Sensu, this attribute should always be `core/v2`.
 required     | Required for filter definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][33].
 type         | String
 example      | {{< highlight shell >}}"api_version": "core/v2"{{< /highlight >}}
 
 metadata     | 
 -------------|------
-description  | Top-level collection of metadata about the filter, including the `name` and `namespace` as well as custom `labels` and `annotations`. The `metadata` map is always at the top level of the filter definition. This means that in `wrapped-json` and `yaml` formats, the `metadata` scope occurs outside the `spec` scope. See [metadata attributes][11] for details.
+description  | Top-level collection of metadata about the event filter, including the `name` and `namespace` as well as custom `labels` and `annotations`. The `metadata` map is always at the top level of the filter definition. This means that in `wrapped-json` and `yaml` formats, the `metadata` scope occurs outside the `spec` scope. See [metadata attributes][11] for details.
 required     | Required for filter definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][33].
 type         | Map of key-value pairs
 example      | {{< highlight shell >}}
@@ -410,7 +410,7 @@ example      | {{< highlight shell >}}
 
 spec         | 
 -------------|------
-description  | Top-level map that includes the filter [spec attributes][34].
+description  | Top-level map that includes the event filter [spec attributes][34].
 required     | Required for filter definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][33].
 type         | Map of key-value pairs
 example      | {{< highlight shell >}}
@@ -427,14 +427,14 @@ example      | {{< highlight shell >}}
 
 | name       |      |
 -------------|------
-description  | Unique string used to identify the filter. Filter names cannot contain special characters or spaces (validated with Go regex [`\A[\w\.\-]+\z`][35]). Each filter must have a unique name within its namespace.
+description  | Unique string used to identify the event filter. Filter names cannot contain special characters or spaces (validated with Go regex [`\A[\w\.\-]+\z`][35]). Each filter must have a unique name within its namespace.
 required     | true
 type         | String
 example      | {{< highlight shell >}}"name": "filter-weekdays-only"{{< /highlight >}}
 
 | namespace  |      |
 -------------|------
-description  | Sensu [RBAC namespace][10] that the filter belongs to.
+description  | Sensu [RBAC namespace][10] that the event filter belongs to.
 required     | false
 type         | String
 default      | `default`
@@ -466,7 +466,7 @@ example      | {{< highlight shell >}} "annotations": {
 
 action       | 
 -------------|------
-description  | Action to take with the event if the filter expressions match. See [Inclusive and exclusive filters][1] for more information.
+description  | Action to take with the event if the event filter expressions match. See [Inclusive and exclusive event filters][1] for more information.
 required     | true
 type         | String
 allowed values | `allow`, `deny`
@@ -474,7 +474,7 @@ example      | {{< highlight shell >}}"action": "allow"{{< /highlight >}}
 
 expressions   | 
 -------------|------
-description  | Filter expressions to be compared with event data. You can reference event metadata without including the `metadata` scope (for example, `event.entity.namespace`).
+description  | Event filter expressions to be compared with event data. You can reference event metadata without including the `metadata` scope (for example, `event.entity.namespace`).
 required     | true
 type         | Array
 example      | {{< highlight shell >}}"expressions": [
@@ -484,13 +484,13 @@ example      | {{< highlight shell >}}"expressions": [
 
 runtime_assets |      |
 ---------------|------
-description    | Assets to apply to the filter's execution context. JavaScript files in the lib directory of the asset will be evaluated.
+description    | Assets to apply to the event filter's execution context. JavaScript files in the lib directory of the asset will be evaluated.
 required       | false
 type           | Array of string
 default        | []
 example        | {{< highlight shell >}}"runtime_assets": ["underscore"]{{< /highlight >}}
 
-## Filter examples
+## Event filter examples
 
 ### Minimum required filter attributes
 
@@ -529,7 +529,7 @@ spec:
 
 ### Handle production events
 
-The following filter allows handling for only events with a custom entity label `"environment": "production"`:
+The following event filter allows handling for only events with a custom entity label `"environment": "production"`:
 
 {{< language-toggle >}}
 
@@ -566,9 +566,9 @@ spec:
 
 ### Handle non-production events
 
-The following filter discards events with a custom entity label `"environment": "production"`, allowing handling only for events without an `environment` label or events with `environment` set to something other than `production`.
+The following event filter discards events with a custom entity label `"environment": "production"`, allowing handling only for events without an `environment` label or events with `environment` set to something other than `production`.
 
-_**NOTE**: `action` is `deny`, so this is an exclusive filter. If evaluation returns false, the event is handled._
+_**NOTE**: `action` is `deny`, so this is an exclusive event filter. If evaluation returns false, the event is handled._
 
 {{< language-toggle >}}
 
@@ -605,7 +605,7 @@ spec:
 
 ### Handle state change only
 
-This example demonstrates how to use the `state_change_only` inclusive filter to reproduce the behavior of a monitoring system that alerts only on state change:
+This example demonstrates how to use the `state_change_only` inclusive event filter to reproduce the behavior of a monitoring system that alerts only on state change:
 
 {{< language-toggle >}}
 
@@ -648,7 +648,7 @@ spec:
 
 ### Handle repeated events
 
-In this example, the `filter_interval_60_hourly` filter will match event data with a check `interval` of `60` seconds _AND_ an `occurrences` value of `1` (the first occurrence) _OR_ any `occurrences` value that is evenly divisible by 60 via a [modulo operator][38] calculation (calculating the remainder after dividing `occurrences` by 60):
+In this example, the `filter_interval_60_hourly` event filter will match event data with a check `interval` of `60` seconds _AND_ an `occurrences` value of `1` (the first occurrence) _OR_ any `occurrences` value that is evenly divisible by 60 via a [modulo operator][38] calculation (calculating the remainder after dividing `occurrences` by 60):
 
 {{< language-toggle >}}
 
@@ -691,7 +691,7 @@ spec:
 
 {{< /language-toggle >}}
 
-This example will apply the same logic as the previous example but for checks with a 30 second `interval`:
+This example will apply the same logic as the previous example but for checks with a 30-second `interval`:
 
 {{< language-toggle >}}
 
@@ -736,8 +736,8 @@ spec:
 
 ### Handle events during office hours only
 
-This filter evaluates the event timestamp to determine if the event occurred between 9 AM and 5 PM UTC on a weekday.
-Remember that `action` is equal to `allow`, so this is an inclusive filter.
+This event filter evaluates the event timestamp to determine if the event occurred between 9 AM and 5 PM UTC on a weekday.
+Remember that `action` is equal to `allow`, so this is an inclusive event filter.
 If evaluation returns false, the event will not be handled.
 
 {{< language-toggle >}}
@@ -783,7 +783,7 @@ spec:
 
 ## Use JavaScript libraries with Sensu filters
 
-You can include JavaScript libraries in their filter execution context with [assets][39].
+You can include JavaScript libraries in their event filter execution context with [assets][39].
 For instance, if you package underscore.js into a Sensu asset, you can use functions from the underscore library for filter
 expressions:
 
@@ -828,7 +828,7 @@ spec:
 
 {{< /language-toggle >}}
 
-[1]: #inclusive-and-exclusive-filters
+[1]: #inclusive-and-exclusive-event-filters
 [2]: #when-attributes
 [3]: ../../reference/sensuctl/#time-windows
 [4]: ../../guides/send-slack-alerts/
