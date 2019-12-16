@@ -8,4 +8,4 @@ menu:
     identifier: guides
 ---
 
-{{< directoryListing "content/uchiwa/1.0/guides" >}}
+{{< directoryListing >}}

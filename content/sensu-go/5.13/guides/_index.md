@@ -10,4 +10,4 @@ menu:
     identifier: guides
 ---
 
-{{< directoryListing "content/sensu-go/5.13/guides" >}}
+{{< directoryListing >}}
