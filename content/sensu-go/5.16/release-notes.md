@@ -949,4 +949,4 @@ To get started with Sensu Go:
 [102]: /sensu-go/5.16/reference/backend/#initialization
 [103]: /sensu-go/5.16/dashboard/overview
 [104]: /sensu-go/5.16/
-[105[: /sensu-go/5.16/getting-started/enterprise/
+[105]: /sensu-go/5.16/getting-started/enterprise/
