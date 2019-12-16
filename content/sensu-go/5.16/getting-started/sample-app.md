@@ -112,13 +112,15 @@ kubectl create -f go/deploy/sensu-backend.yaml
 
 Use Sensu role-based access control to create a `demo` namespace and a `demo` user.
 
-**1. Configure sensuctl to use the built-in `admin` user.**
+**1. Configure sensuctl to use the admin user.**
+
+When you installed the Sensu backend, during the [initialization step][40], you created an admin username and password for a `default` namespace. Use that username and password to configure sensuctl in this step.
 
 {{< highlight shell >}}
 sensuctl configure
 ? Sensu Backend URL: http://sensu.local
-? Username: admin
-? Password: P@ssw0rd!
+? Username: YOUR_USERNAME
+? Password: YOUR_PASSWORD
 ? Namespace: default
 ? Preferred output format: tabular
 {{< /highlight >}}
@@ -156,7 +158,7 @@ sensuctl role-binding create dev --role dev --group dev
 {{< highlight shell >}}
 sensuctl user create demo --interactive
 ? Username: demo
-? Password: password
+? Password: DEMO_PASSWORD
 ? Groups: dev
 {{< /highlight >}}
 
@@ -404,3 +406,5 @@ For more information about monitoring with Sensu, check out the following resour
 - [Reducing alert fatigue with Sensu filters](../../guides/reduce-alert-fatigue/)
 - [Aggregating StatD metrics with Sensu](../../guides/aggregate-metrics-statsd/)
 - [Aggregating Nagios metrics with Sensu](../../guides/extract-metrics-with-checks/)
+
+[1]: ../../installation/install-sensu/#2-initialize
