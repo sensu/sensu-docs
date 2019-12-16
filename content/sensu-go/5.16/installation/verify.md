@@ -6,7 +6,7 @@ weight: 16
 product: "Sensu Go"
 version: "5.16"
 platformContent: true
-platforms: ["Windows", "macOS", "Linux", "FreeBSD"]
+platforms: ["Linux", "Windows", "macOS", "FreeBSD", "Solaris"]
 menu:
   sensu-go-5.16:
     parent: installation
@@ -155,6 +155,36 @@ curl -LO https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.16.0/sensu-go_5.
 
 {{< platformBlockClose >}}
 
+{{< platformBlock "Solaris" >}}
+
+### Solaris
+
+Sensu binary-only distributions for Solaris are available for these architectures and formats:
+
+| arch | format |
+| --- | --- |
+| `amd64` | [`.tar.gz`][36] \| [`.zip`][37]
+
+For example, to download Sensu for Solaris `amd64` in `tar.gz` format:
+
+{{< highlight shell >}}
+curl -LO https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.16.0/sensu-go_5.16.0_solaris_amd64.tar.gz
+{{< /highlight >}}
+
+Generate a SHA-512 checksum for the downloaded artifact.
+
+{{< highlight shell >}}
+sha512sum sensu-go_5.16.0_solaris_amd64.tar.gz
+{{< /highlight >}}
+
+The result should match the checksum for your platform.
+
+{{< highlight shell >}}
+curl -LO https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.16.0/sensu-go_5.16.0_checksums.txt && cat sensu-go_5.16.0_checksums.txt
+{{< /highlight >}}
+
+{{< platformBlockClose >}}
+
 ### Next steps
 
 Now that you’ve installed Sensu:
@@ -191,3 +221,5 @@ Now that you’ve installed Sensu:
 [33]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.16.0/sensu-go_5.16.0_freebsd_amd64.zip
 [34]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.16.0/sensu-go_5.16.0_freebsd_386.tar.gz
 [35]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.16.0/sensu-go_5.16.0_freebsd_386.zip
+[36]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.16.0/sensu-go_5.16.0_solaris_amd64.tar.gz
+[37]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.16.0/sensu-go_5.16.0_solaris_amd64.zip
