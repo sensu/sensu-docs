@@ -25,7 +25,7 @@ The `/rolebindings` API endpoint provides HTTP GET access to [role binding][1] d
 
 #### EXAMPLE {#rolebindings-get-example}
 
-The following example demonstrates a request to the `/rolebindings` API, resulting in a JSON array that contains [role binding definitions][1].
+The following example demonstrates a request to the `/rolebindings` API endpoint, resulting in a JSON array that contains [role binding definitions][1].
 
 {{< highlight shell >}}
 curl http://127.0.0.1:8080/api/core/v2/namespaces/default/rolebindings -H "Authorization: Bearer $SENSU_TOKEN"
@@ -119,7 +119,7 @@ The `/rolebindings/:rolebinding` API endpoint provides HTTP GET access to [role 
 
 #### EXAMPLE {#rolebindingsrolebinding-get-example}
 
-In the following example, querying the `/rolebindings/:rolebinding` API returns a JSON map that contains the requested [`:rolebinding` definition][1] (in this example, for the `:rolebinding` named `readers-group-binding`).
+In the following example, querying the `/rolebindings/:rolebinding` API endpoint returns a JSON map that contains the requested [`:rolebinding` definition][1] (in this example, for the `:rolebinding` named `readers-group-binding`).
 
 {{< highlight shell >}}
 curl http://127.0.0.1:8080/api/core/v2/namespaces/default/rolebindings/readers-group-binding -H "Authorization: Bearer $SENSU_TOKEN"
@@ -206,7 +206,7 @@ The `/rolebindings/:rolebinding` API endpoint provides HTTP DELETE access to del
 
 #### EXAMPLE {#rolebindingsrolebinding-delete-example}
 
-The following example shows a request to delete the role binding `dev-binding`, resulting in a successful HTTP `204 No Content` response.
+The following example shows a request to the `/rolebindings/:rolebinding` API endpoint to delete the role binding `dev-binding`, resulting in a successful HTTP `204 No Content` response.
 
 {{< highlight shell >}}
 curl -X DELETE \

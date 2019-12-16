@@ -23,7 +23,7 @@ The `/tessen` API endpoint provides HTTP GET access to the active Tessen configu
 
 #### EXAMPLE {#tessen-get-example}
 
-The following example demonstrates an HTTP GET request to the `/tessen` API.
+The following example demonstrates an HTTP GET request to the `/tessen` API endpoint.
 
 {{< highlight shell >}}
 curl -H "Authorization: Bearer $SENSU_TOKEN" http://127.0.0.1:8080/api/core/v2/tessen
@@ -55,7 +55,7 @@ Tessen is enabled by default on Sensu backends and required for [licensed][3] Se
 
 #### EXAMPLE {#tessen-put-example}
 
-In the following example, an HTTP PUT request is submitted to the `/tessen` API to opt in to Tessen using the `opt_out` attribute.
+In the following example, an HTTP PUT request is submitted to the `/tessen` API endpoint to opt in to Tessen using the `opt_out` attribute.
 
 {{< highlight shell >}}
 curl -X PUT \

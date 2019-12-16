@@ -1,6 +1,6 @@
 ---
 title: "Mutators API"
-description: "The Sensu mutator API provides HTTP access to mutator data. This reference includes examples for returning lists of mutators, creating Sensu mutator, and more. Read on for the full reference."
+description: "The Sensu mutator API provides HTTP access to mutator data. This reference includes examples for returning lists of mutators, creating a Sensu mutator, and more. Read on for the full reference."
 version: "5.16"
 product: "Sensu Go"
 menu:
@@ -24,7 +24,7 @@ The `/mutators` API endpoint provides HTTP GET access to [mutator][1] data.
 
 #### EXAMPLE {#mutators-get-example}
 
-The following example demonstrates a request to the `/mutators` API, resulting in a JSON array that contains [mutator definitions][1].
+The following example demonstrates a request to the `/mutators` API endpoint, resulting in a JSON array that contains [mutator definitions][1].
 
 {{< highlight shell >}}
 curl http://127.0.0.1:8080/api/core/v2/namespaces/default/mutators -H "Authorization: Bearer $SENSU_TOKEN"
@@ -104,7 +104,7 @@ The `/mutators/:mutator` API endpoint provides HTTP GET access to [mutator data]
 
 #### EXAMPLE {#mutatorsmutator-get-example}
 
-In the following example, querying the `/mutators/:mutator` API returns a JSON map that contains the requested [`:mutator` definition][1] (in this example, for the `:mutator` named `example-mutator`).
+In the following example, querying the `/mutators/:mutator` API endpoint returns a JSON map that contains the requested [`:mutator` definition][1] (in this example, for the `:mutator` named `example-mutator`).
 
 {{< highlight shell >}}
 curl http://127.0.0.1:8080/api/core/v2/namespaces/default/mutators/example-mutator -H "Authorization: Bearer $SENSU_TOKEN"
@@ -176,7 +176,7 @@ response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 
 The `/mutators/:mutator` API endpoint provides HTTP DELETE access to delete a mutator from Sensu (specified by the mutator name).
 
 #### EXAMPLE {#mutatorsmutator-delete-example}
-The following example shows a request to delete the mutator `example-mutator`, resulting in a successful HTTP `204 No Content` response.
+The following example shows a request to the `/mutators/:mutator` API endpoint to delete the mutator `example-mutator`, resulting in a successful HTTP `204 No Content` response.
 
 {{< highlight shell >}}
 curl -X DELETE \

@@ -25,7 +25,7 @@ The `/namespaces` API endpoint provides HTTP GET access to [namespace][1] data.
 
 #### EXAMPLE {#namespaces-get-example}
 
-The following example demonstrates a request to the `/namespaces` API, resulting in a JSON array that contains [namespace definitions][1].
+The following example demonstrates a request to the `/namespaces` API endpoint, resulting in a JSON array that contains [namespace definitions][1].
 
 {{< highlight shell >}}
 curl http://127.0.0.1:8080/api/core/v2/namespaces -H "Authorization: Bearer $SENSU_TOKEN"
@@ -101,7 +101,7 @@ The `/namespaces/:namespace` API endpoint provides HTTP DELETE access to delete 
 
 #### EXAMPLE {#namespacesnamespace-delete-example}
 
-The following example shows a request to delete the namespace `development`, resulting in a successful HTTP `204 No Content` response.
+The following example shows a request to the `/namespaces/:namespace` API endpoint to delete the namespace `development`, resulting in a successful HTTP `204 No Content` response.
 
 {{< highlight shell >}}
 curl -X DELETE \
@@ -127,7 +127,7 @@ The `/user-namespaces` API endpoint provides HTTP GET access to the namespaces t
 
 #### EXAMPLE {#user-namespaces-get-example}
 
-The following example demonstrates a request to the `/user-namespaces` API, resulting in a JSON array that contains the namespaces the user has access to.
+The following example demonstrates a request to the `/user-namespaces` API endpoint, resulting in a JSON array that contains the namespaces the user has access to.
 
 {{< highlight shell >}}
 curl http://127.0.0.1:8080/api/enterprise/user-namespaces -H "Authorization: Bearer $SENSU_TOKEN"

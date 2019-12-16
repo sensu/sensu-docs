@@ -28,7 +28,7 @@ The `/silenced` API endpoint provides HTTP GET access to [silencing entry][1] da
 
 #### EXAMPLE {#silenced-get-example}
 
-The following example demonstrates a request to the `/silenced` API, resulting in a JSON array that contains [silencing entry definitions][1].
+The following example demonstrates a request to the `/silenced` API endpoint, resulting in a JSON array that contains [silencing entry definitions][1].
 
 {{< highlight shell >}}
 curl -H "Authorization: Bearer $SENSU_TOKEN" \
@@ -114,7 +114,7 @@ The `/silenced/:silenced` API endpoint provides HTTP GET access to [silencing en
 
 #### EXAMPLE {#silencedsilenced-get-example}
 
-In the following example, querying the `/silenced/:silenced` API returns a JSON map that contains the requested [silencing entry definition][1] (in this example, for the silencing entry named `linux:check-cpu`).
+In the following example, querying the `/silenced/:silenced` API endpoint returns a JSON map that contains the requested [silencing entry definition][1] (in this example, for the silencing entry named `linux:check-cpu`).
 Silencing entry names are generated from the combination of a subscription name and check name.
 
 {{< highlight shell >}}
@@ -194,7 +194,7 @@ The `/silenced/:silenced` API endpoint provides HTTP DELETE access to delete a s
 
 #### EXAMPLE {#silencedsilenced-delete-example}
 
-In the following example, querying the `/silenced/:silenced` API to delete the the silencing entry named `linux:check-cpu` results in a successful HTTP `204 No Content` response.
+In the following example, querying the `/silenced/:silenced` API endpoint to delete the the silencing entry named `linux:check-cpu` results in a successful HTTP `204 No Content` response.
 
 {{< highlight shell >}}
 curl -X DELETE \
@@ -220,7 +220,7 @@ The `/silenced/subscriptions/:subscription` API endpoint provides HTTP GET acces
 
 #### EXAMPLE {#silencedsubscriptions-get-example}
 
-In the following example, querying the `silenced/subscriptions/:subscription` API returns a JSON array that contains the requested [silences][1] for the given subscription (in this example, for the `linux` subscription).
+In the following example, querying the `silenced/subscriptions/:subscription` API endpoint returns a JSON array that contains the requested [silences][1] for the given subscription (in this example, for the `linux` subscription).
 
 {{< highlight shell >}}
 curl -H "Authorization: Bearer $SENSU_TOKEN" \
@@ -279,7 +279,7 @@ The `/silenced/checks/:check` API endpoint provides HTTP GET access to [silencin
 
 #### EXAMPLE {#silencedchecks-get-example}
 
-In the following example, querying the `silenced/checks/:check` API returns a JSON array that contains the requested [silences][1] for the given check (in this example, for the `check-cpu` check).
+In the following example, querying the `silenced/checks/:check` API endpoint returns a JSON array that contains the requested [silences][1] for the given check (in this example, for the `check-cpu` check).
 
 {{< highlight shell >}}
 curl -H "Authorization: Bearer $SENSU_TOKEN" \

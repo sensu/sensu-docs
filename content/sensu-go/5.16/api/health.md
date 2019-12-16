@@ -1,6 +1,6 @@
 ---
 title: "Health API"
-description: "The Sensu health API provides HTTP access to health data for your Sensu instance. This reference includes examples for returning health information about your Sensu instance. Read on for the full reference."
+description: "The Sensu health API provides HTTP access to health data for your Sensu instance. This reference includes examples for retrieving health information about your Sensu instance. Read on for the full reference."
 version: "5.16"
 product: "Sensu Go"
 menu:
@@ -16,7 +16,7 @@ The `/health` API endpoint provides HTTP GET access to health data for your Sens
 
 #### EXAMPLE {#health-get-example}
 
-The following example demonstrates a request to the `/health` API, resulting in a JSON map that contains Sensu health data.
+The following example demonstrates a request to the `/health` API endpoint, resulting in a JSON map that contains Sensu health data.
 
 {{< highlight shell >}}
 curl http://127.0.0.1:8080/health

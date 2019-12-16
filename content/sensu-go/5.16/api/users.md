@@ -93,7 +93,7 @@ The `/users` API endpoint provides HTTP POST access to create a [user][1].
 
 #### EXAMPLE {#users-post-example}
 
-The following example demonstrates a POST request to the `/users` API to create the user `alice`, resulting in an HTTP `200 OK` response and the created user definition.
+The following example demonstrates a POST request to the `/users` API endpoint to create the user `alice`, resulting in an HTTP `200 OK` response and the created user definition.
 
 {{< highlight shell >}}
 curl -X POST \
@@ -186,7 +186,7 @@ The `/users/:user` API endpoint provides HTTP PUT access to create or update [us
 
 #### EXAMPLE {#users-put-example}
 
-The following example demonstrates a PUT request to the `/users` API to update the user `alice` (in this case, to reset the user's password), resulting in an HTTP `200 OK` response and the updated user definition.
+The following example demonstrates a PUT request to the `/users` API endpoint to update the user `alice` (in this case, to reset the user's password), resulting in an HTTP `200 OK` response and the updated user definition.
 
 {{< highlight shell >}}
 curl -X PUT \
@@ -236,7 +236,7 @@ The `/users/:user` API endpoint provides HTTP DELETE access to remove a specific
 
 #### EXAMPLE {#usersuser-delete-example}
 
-In the following example, an HTTP DELETE request is submitted to the `/users/:user` API to disable the user `alice`, resulting in a successful HTTP `204 No Content` response.
+In the following example, an HTTP DELETE request is submitted to the `/users/:user` API endpoint to disable the user `alice`, resulting in a successful HTTP `204 No Content` response.
 
 {{< highlight shell >}}
 curl -X DELETE \
@@ -262,7 +262,7 @@ The `/users/:user/password` API endpoint provides HTTP PUT access to update a us
 
 #### EXAMPLE {#usersuserpassword-put-example}
 
-In the following example, an HTTP PUT request is submitted to the `/users/:user/password` API to update the password for the user `alice`, resulting in an HTTP `200 OK` response.
+In the following example, an HTTP PUT request is submitted to the `/users/:user/password` API endpoint to update the password for the user `alice`, resulting in an HTTP `200 OK` response.
 
 {{< highlight shell >}}
 curl -X PUT \
@@ -300,7 +300,7 @@ The `/users/:user/reinstate` API endpoint provides HTTP PUT access to reinstate 
 
 #### EXAMPLE {#usersuserreinstate-put-example}
 
-In the following example, an HTTP PUT request is submitted to the `/users/:user/reinstate` API to reinstate the disabled user `alice`, resulting in an HTTP `200 OK` response.
+In the following example, an HTTP PUT request is submitted to the `/users/:user/reinstate` API endpoint to reinstate the disabled user `alice`, resulting in an HTTP `200 OK` response.
 
 {{< highlight shell >}}
 curl -X PUT \
@@ -327,7 +327,7 @@ The `/users/:user/groups` API endpoint provides HTTP DELETE access to remove the
 
 #### EXAMPLE {#usersusergroups-delete-example}
 
-In the following example, an HTTP DELETE request is submitted to the `/users/:user/groups` API to remove the user `alice` from all groups within Sensu, resulting in a successful HTTP `204 No Content` response.
+In the following example, an HTTP DELETE request is submitted to the `/users/:user/groups` API endpoint to remove the user `alice` from all groups within Sensu, resulting in a successful HTTP `204 No Content` response.
 
 {{< highlight shell >}}
 curl -X DELETE \
@@ -353,7 +353,7 @@ The `/users/:user/groups/:group` API endpoint provides HTTP PUT access to assign
 
 #### EXAMPLE {#usersusergroupsgroup-put-example}
 
-In the following example, an HTTP PUT request is submitted to the `/users/:user/groups/:group` API to add the user `alice` to the group `ops`, resulting in a successful HTTP `204 No Content` response.
+In the following example, an HTTP PUT request is submitted to the `/users/:user/groups/:group` API endpoint to add the user `alice` to the group `ops`, resulting in a successful HTTP `204 No Content` response.
 
 {{< highlight shell >}}
 curl -X PUT \
@@ -380,7 +380,7 @@ The `/users/:user/groups/:group` API endpoint provides HTTP DELETE access to rem
 
 #### EXAMPLE {#usersusergroupsgroup-delete-example}
 
-In the following example, an HTTP DELETE request is submitted to the `/users/:user/groups/:group` API to remove the user `alice` from the group `ops`, resulting in a successful HTTP `204 No Content` response.
+In the following example, an HTTP DELETE request is submitted to the `/users/:user/groups/:group` API endpoint to remove the user `alice` from the group `ops`, resulting in a successful HTTP `204 No Content` response.
 
 {{< highlight shell >}}
 curl -X DELETE \

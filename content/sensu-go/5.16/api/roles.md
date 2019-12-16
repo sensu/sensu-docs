@@ -24,7 +24,7 @@ The `/roles` API endpoint provides HTTP GET access to [role][1] data.
 
 #### EXAMPLE {#roles-get-example}
 
-The following example demonstrates a request to the `/roles` API, resulting in a JSON array that contains [role definitions][1].
+The following example demonstrates a request to the `/roles` API endpoint, resulting in a JSON array that contains [role definitions][1].
 
 {{< highlight shell >}}
 curl http://127.0.0.1:8080/api/core/v2/namespaces/default/roles -H "Authorization: Bearer $SENSU_TOKEN"
@@ -122,7 +122,7 @@ The `/roles/:role` API endpoint provides HTTP GET access to [role data][1] for s
 
 #### EXAMPLE {#rolesrole-get-example}
 
-In the following example, querying the `/roles/:role` API returns a JSON map that contains the requested [`:role` definition][1] (in this example, for the `:role` named `read-only`).
+In the following example, querying the `/roles/:role` API endpoint returns a JSON map that contains the requested [`:role` definition][1] (in this example, for the `:role` named `read-only`).
 
 {{< highlight shell >}}
 curl http://127.0.0.1:8080/api/core/v2/namespaces/default/roles/read-only -H "Authorization: Bearer $SENSU_TOKEN"
@@ -213,7 +213,7 @@ The `/roles/:role` API endpoint provides HTTP DELETE access to delete a role fro
 
 #### EXAMPLE {#rolesrole-delete-example}
 
-The following example shows a request to delete the role `read-only`, resulting in a successful HTTP `204 No Content` response.
+The following example shows a request to the `/roles/:role` API endpoint to delete the role `read-only`, resulting in a successful HTTP `204 No Content` response.
 
 {{< highlight shell >}}
 curl -X DELETE \

@@ -24,7 +24,7 @@ The `/hooks` API endpoint provides HTTP GET access to [hook][1] data.
 
 #### EXAMPLE {#hooks-get-example}
 
-The following example demonstrates a request to the `/hooks` API, resulting in a JSON array that contains [hook definitions][1].
+The following example demonstrates a request to the `/hooks` API endpoint, resulting in a JSON array that contains [hook definitions][1].
 
 {{< highlight shell >}}
 curl http://127.0.0.1:8080/api/core/v2/namespaces/default/hooks -H "Authorization: Bearer $SENSU_TOKEN"
@@ -112,7 +112,7 @@ The `/hooks/:hook` API endpoint provides HTTP GET access to [hook data][1] for s
 
 #### EXAMPLE {#hookshook-get-example}
 
-In the following example, querying the `/hooks/:hook` API returns a JSON map that contains the requested [`:hook` definition][1] (in this example, for the `:hook` named `process-tree`).
+In the following example, querying the `/hooks/:hook` API endpoint returns a JSON map that contains the requested [`:hook` definition][1] (in this example, for the `:hook` named `process-tree`).
 
 {{< highlight shell >}}
 curl http://127.0.0.1:8080/api/core/v2/namespaces/default/hooks/process-tree -H "Authorization: Bearer $SENSU_TOKEN"
@@ -181,7 +181,7 @@ response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 
 The `/hooks/:hook` API endpoint provides HTTP DELETE access to delete a check hook from Sensu (specified by the hook name).
 
 #### EXAMPLE {#hookshook-delete-example}
-The following example shows a request to delete the hook `process-tree`, resulting in a successful HTTP `204 No Content` response.
+The following example shows a request to the `/hooks/:hook` API endpoint to delete the hook `process-tree`, resulting in a successful HTTP `204 No Content` response.
 
 {{< highlight shell >}}
 curl -X DELETE \

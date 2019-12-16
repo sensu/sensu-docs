@@ -24,7 +24,7 @@ The `/handlers` API endpoint provides HTTP GET access to [handler][1] data.
 
 #### EXAMPLE {#handlers-get-example}
 
-The following example demonstrates a request to the `/handlers` API, resulting in a JSON array that contains [handler definitions][1].
+The following example demonstrates a request to the `/handlers` API endpoint, resulting in a JSON array that contains [handler definitions][1].
 
 {{< highlight shell >}}
 curl http://127.0.0.1:8080/api/core/v2/namespaces/default/handlers -H "Authorization: Bearer $SENSU_TOKEN"
@@ -146,7 +146,7 @@ The `/handlers/:handler` API endpoint provides HTTP GET access to [handler data]
 
 #### EXAMPLE {#handlershandler-get-example}
 
-In the following example, querying the `/handlers/:handler` API returns a JSON map that contains the requested [`:handler` definition][1] (in this example, for the `:handler` named `slack`).
+In the following example, querying the `/handlers/:handler` API endpoint returns a JSON map that contains the requested [`:handler` definition][1] (in this example, for the `:handler` named `slack`).
 
 {{< highlight shell >}}
 curl http://127.0.0.1:8080/api/core/v2/namespaces/default/handlers/slack -H "Authorization: Bearer $SENSU_TOKEN"
@@ -242,7 +242,7 @@ The `/handlers/:handler` API endpoint provides HTTP DELETE access to delete a ha
 
 #### EXAMPLE {#handlershandler-delete-example}
 
-The following example shows a request to delete the handler `slack`, resulting in a successful HTTP `204 No Content` response.
+The following example shows a request to the `/handlers/:handler` API endpoint to delete the handler `slack`, resulting in a successful HTTP `204 No Content` response.
 
 {{< highlight shell >}}
 curl -X DELETE \

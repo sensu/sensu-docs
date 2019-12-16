@@ -16,7 +16,7 @@ The `/metrics` API endpoint provides HTTP GET access to internal Sensu metrics i
 
 #### EXAMPLE {#metrics-get-example}
 
-The following example demonstrates a request to the `/metrics` API, resulting in plaintext output that contains internal Sensu metrics.
+The following example demonstrates a request to the `/metrics` API endpoint, resulting in plaintext output that contains internal Sensu metrics.
 
 {{< highlight text >}}
 curl http://127.0.0.1:8080/metrics
