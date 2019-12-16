@@ -10,4 +10,4 @@ menu:
     identifier: dashboard
 ---
 
-{{< directoryListing "content/sensu-go/5.1/dashboard" >}}
+{{< directoryListing >}}

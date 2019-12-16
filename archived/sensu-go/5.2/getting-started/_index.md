@@ -10,4 +10,4 @@ menu:
     identifier: getting-started
 ---
 
-{{< directoryListing "content/sensu-go/5.2/getting-started" >}}
+{{< directoryListing >}}
