@@ -9,4 +9,4 @@ menu:
     identifier: rbac
 ---
 
-{{< directoryListing "content/sensu-enterprise-dashboard/2.15/rbac" >}}
+{{< directoryListing >}}

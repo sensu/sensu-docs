@@ -10,4 +10,4 @@ menu:
     identifier: integrations
 ---
 
-{{< directoryListing "content/sensu-enterprise/3.5/integrations" >}}
+{{< directoryListing >}}
