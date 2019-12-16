@@ -114,7 +114,7 @@ Use Sensu role-based access control to create a `demo` namespace and a `demo` us
 
 **1. Configure sensuctl to use the admin user.**
 
-When you install the Sensu backend, during the [initialization step][40], you created an admin username and password for a `default` namespace. Use that username and password to configure sensuctl in this step.
+When you installed the Sensu backend, during the [initialization step][40], you created an admin username and password for a `default` namespace. Use that username and password to configure sensuctl in this step.
 
 {{< highlight shell >}}
 sensuctl configure
