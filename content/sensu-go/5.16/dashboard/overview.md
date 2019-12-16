@@ -1,7 +1,7 @@
 ---
 title: "Dashboard overview"
 linkTitle: "Overview"
-description: "The Sensu backend includes the Sensu dashboard: a unified view of your Sensu resources with user-friendly tools to reduce alert fatigue. Read the doc to get started using the dashboard."
+description: "The Sensu backend includes the Sensu dashboard: a unified view of your Sensu resources with user-friendly tools to reduce alert fatigue. Read this guide to start using the Sensu dashboard."
 weight: 120
 version: "5.16"
 product: "Sensu Go"
@@ -11,18 +11,19 @@ menu:
     parent: dashboard
 ---
 
-- [Accessing the dashboard](#accessing-the-dashboard)
-- [Signing in](#signing-in)
-- [Namespaces](#namespaces)
-- [Managing checks](#managing-checks)
-- [Managing entities](#managing-entities)
-- [Managing handlers](#managing-handlers)
-- [Managing event filters](#managing-event-filters)
-- [Managing mutators](#managing-mutators)
+- [Access the dashboard](#access-the-dashboard)
+- [Sign in](#sign-in)
 - [Themes](#themes)
+- [Namespaces](#namespaces)
+  - [Namespace switcher](#namespace-switcher)
+- [Manage checks](#manage-checks)
+- [Manage entities](#manage-entities)
+- [Manage handlers](#manage-handlers)
+- [Manage event filters](#manage-event-filters)
+- [Manage mutators](#manage-mutators)
 
-The Sensu backend includes the **Sensu dashboard**:
-a unified view of your events, entities, and checks with user-friendly tools to reduce alert fatigue.
+
+The Sensu backend includes the **Sensu dashboard**: a unified view of your events, entities, and checks with user-friendly tools to reduce alert fatigue.
 
 <div style="text-align:center">
 <img src="/images/homepage.png" alt="Sensu dashboard homepage" width="750">
@@ -30,59 +31,67 @@ a unified view of your events, entities, and checks with user-friendly tools to 
 
 <p style="text-align:center"><i>Sensu dashboard homepage</i></p>
 
-### Accessing the dashboard
-After [starting the Sensu backend][1], you can access the dashboard in your browser
-by visiting http://localhost:3000. You may need to replace `localhost` with the
-hostname or IP address where the Sensu backend is running.
+## Access the dashboard
 
-### Signing in
+After you [start the Sensu backend][1], you can access the dashboard in your browser by visiting http://localhost:3000.
+
+_**NOTE**: You may need to replace `localhost` with the hostname or IP address where the Sensu backend is running._
+
+## Sign in
+
 Sign in to the dashboard with your [sensuctl][2] username and password.
 See the [role-based access control reference][3] for [default user credentials][4] and instructions for [creating new users][5].
 
-### Namespaces
+## Themes
+
+Use the preferences menu to change the theme or switch to the dark theme.
+
+## Namespaces
+
 The dashboard displays events, entities, checks, and silences for a single namespace at a time.
 By default, the dashboard displays the `default` namespace.
-To switch namespaces, select the menu icon in the upper-left corner, and choose a namespace from the dropdown.
-**COMMERCIAL FEATURE**: The namespaces listed will be limited to those that the current user has access to.
+
+### Namespace switcher
+
+To switch namespaces, select the menu icon in the upper-left corner and choose a namespace from the dropdown.
+
+**COMMERCIAL FEATURE**: The switcher will list only the namespaces to which the current user has access.
 
 <img src="/images/dashboard-namespace-switcher.png" alt="Screenshot of the Sensu dashboard namespace switcher">
 
 <p style="text-align:center"><i>Sensu dashboard namespace switcher</i></p>
 
-### Managing checks
+## Manage checks
 
-**COMMERCIAL FEATURE**: Access check management in the packaged Sensu Go distribution. For more information, see the [getting started guide][6].
+**COMMERCIAL FEATURE**: Access check management in the packaged Sensu Go distribution. For more information, see [Get started with commercial features][6].
 
-You can create, edit, and delete Sensu checks using the dashboard checks page.
+You can create, edit, and delete Sensu checks in the dashboard Checks page.
 
-### Managing entities
+## Manage entities
 
-You can delete Sensu entities using the dashboard entities page.
+You can delete Sensu entities in the dashboard Entities page.
 
-### Managing handlers
+## Manage handlers
 
-**COMMERCIAL FEATURE**: Access handler management in the packaged Sensu Go distribution. For more information, see the [getting started guide][6].
+**COMMERCIAL FEATURE**: Access handler management in the packaged Sensu Go distribution. For more information, see [Get started with commercial features][6].
 
-You can create, edit, and delete Sensu handlers using the dashboard handlers page.
+You can create, edit, and delete Sensu handlers in the dashboard Handlers page.
 
-### Managing event filters
+## Manage event filters
 
-**COMMERCIAL FEATURE**: Access filter management in the packaged Sensu Go distribution. For more information, see the [getting started guide][6].
+**COMMERCIAL FEATURE**: Access filter management in the packaged Sensu Go distribution. For more information, see [Get started with commercial features][6].
 
-You can create, edit, and delete Sensu event filters using the dashboard filters page.
+You can create, edit, and delete Sensu event filters in the dashboard Filters page.
 
-### Managing mutators
+## Manage mutators
 
-**COMMERCIAL FEATURE**: Access mutator management in the packaged Sensu Go distribution. For more information, see the [getting started guide][6].
+**COMMERCIAL FEATURE**: Access mutator management in the packaged Sensu Go distribution. For more information, see [Get started with commercial features][6].
 
-You can create, edit, and delete Sensu mutators using the dashboard mutators page.
-
-### Themes
-Use the preferences menu to change the theme or switch to the dark theme.
+You can create, edit, and delete Sensu mutators in the dashboard Mutators page.
 
 [1]: ../../reference/backend#restarting-the-service
 [2]: ../../sensuctl/reference/
-[3]: ../../reference/rbac
+[3]: ../../reference/rbac/
 [4]: ../../reference/rbac#default-user
 [5]: ../../reference/rbac#creating-a-user
-[6]: ../../getting-started/enterprise
+[6]: ../../getting-started/enterprise/
