@@ -52,7 +52,13 @@ Read the [upgrade guide][1] for information about upgrading to the latest versio
 ## 5.16.0 release notes
 
 **December 16, 2019** &mdash; The latest release of Sensu Go, version 5.16.0, is now available for download.
+This is another important release, with many new features, improvements, and fixes. We introduced an initialization subcommand for **new** installations that allows you to specify an admin username and password instead of using a pre-defined default. We also added new backend flags to help you take advantage of etcd auto-discovery features and agent flags you can use to define a timeout period for critical and warning keepalive events.
 
+New web UI features include a switcher that makes it easier to switch between namespaces in the dashboard, breadcrumbs on every page, OIDC authentication in the dashboard, a drawer that replaces the app bar to make more room for content, and more.
+
+We also fixed issues with `sensuctl dump` and `sensuctl cluster health`, installing sensuctl commands via Bonsai, and missing namespaces in keepalive events and events created through the agent socket interface.
+
+See the [upgrade guide][1] to upgrade Sensu to version 5.16.0.
 **IMPORTANT:**
 
 - The backend is no longer seeded with a default admin username and password. Users will need to [run 'sensu-backend init'][102] on every new installation and specify an admin username and password.
