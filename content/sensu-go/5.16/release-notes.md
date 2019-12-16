@@ -59,6 +59,7 @@ New web UI features include a switcher that makes it easier to switch between na
 We also fixed issues with `sensuctl dump` and `sensuctl cluster health`, installing sensuctl commands via Bonsai, and missing namespaces in keepalive events and events created through the agent socket interface.
 
 See the [upgrade guide][1] to upgrade Sensu to version 5.16.0.
+
 **IMPORTANT:**
 
 - The backend is no longer seeded with a default admin username and password. Users will need to [run 'sensu-backend init'][102] on every new installation and specify an admin username and password.
