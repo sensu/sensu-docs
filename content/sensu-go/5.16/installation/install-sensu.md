@@ -85,6 +85,8 @@ sudo yum install sensu-go-backend
 
 ### 2. Initialize
 
+_**NOTE**: If you are using Docker, skip this step and continue with [3. Configure and start][36]. The `sensu-backend init` command is not implemented for Docker._
+
 Run `sensu-backend init` to set up your Sensu administrator username and password.
 In this initialization step, you only need to set environment variables with a username and password string &mdash; no need for role-based access control (RBAC).
 
@@ -432,3 +434,4 @@ Now that you've installed Sensu, here are some resources to help continue your j
 [33]: ../../guides/create-read-only-user/
 [34]: https://account.sensu.io/
 [35]: ../../api/health/
+[36]: #3-configure-and-start
