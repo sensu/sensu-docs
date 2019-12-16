@@ -82,12 +82,17 @@ module.exports = function(grunt) {
     const args = process.argv.slice(3).filter(a => a !== '--color'); // fetch given arguments
     const toml = require('toml');
     const config = toml.parse(grunt.file.read('config.toml'));
-    const latestSensuGo = config.params.products.sensu_go.latest;
+    const latestProducts = Object.entries(config.params.products).map(([key, product]) => ({
+      identifier: product.identifier,
+      latest: product.latest
+    }));
 
-    // Move latest Sensu version to /latest
-    grunt.log.writeln(`Moving content/sensu-go/${latestSensuGo} → content/sensu-go/latest`);
-    grunt.file.copy(`content/sensu-go/${latestSensuGo}`, 'content/sensu-go/latest');
-    grunt.file.delete(`content/sensu-go/${latestSensuGo}`);
+    // Move latest product versions to content/product/latest
+    grunt.log.writeln(`Moving latest product versions → content/product/latest`);
+    latestProducts.forEach(product => {
+      grunt.file.copy(`content/${product.identifier}/${product.latest}`, `content/${product.identifier}/latest`);
+      grunt.file.delete(`content/${product.identifier}/${product.latest}`);
+    });
 
     grunt.log.writeln("Running hugo build");
     grunt.util.spawn({
@@ -96,10 +101,11 @@ module.exports = function(grunt) {
       },
       function(error, result, code) {
         // Restore directories
-        grunt.log.writeln('Restoring moved directories...');
-        grunt.log.writeln(`Moving content/sensu-go/latest → content/sensu-go/${latestSensuGo}`);
-        grunt.file.copy('content/sensu-go/latest', `content/sensu-go/${latestSensuGo}`);
-        grunt.file.delete('content/sensu-go/latest');
+        grunt.log.writeln('Restoring moved product directories...');
+        latestProducts.forEach(product => {
+          grunt.file.copy(`content/${product.identifier}/latest`, `content/${product.identifier}/${product.latest}`);
+          grunt.file.delete(`content/${product.identifier}/latest`);
+        });
 
         if (code == 0) {
           grunt.log.ok("Successfully built site");
