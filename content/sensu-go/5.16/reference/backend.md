@@ -246,6 +246,7 @@ Store Flags:
       --etcd-advertise-client-urls strings         list of this member's client URLs to advertise to the rest of the cluster. (default [http://localhost:2379])
       --etcd-cert-file string                      path to the client server TLS cert file
       --etcd-cipher-suites strings                 list of ciphers to use for etcd TLS configuration
+      --etcd-client-urls string                    client URLs to use when operating as an etcd client
       --etcd-client-cert-auth                      enable client cert authentication
       --etcd-discovery                             use the dynamic cluster configuration method etcd
 discovery instead of the static `--initial-cluster method`
@@ -639,6 +640,22 @@ sensu-backend start --etcd-client-cert-auth
 etcd-client-cert-auth: true{{< /highlight >}}
 
 
+| etcd-client-urls      |      |
+------------------------|------
+description             | List of client URLs to use when a sensu-backend is not operating as an etcd member. To configure sensu-backend for use with an external etcd instance, use this flag in conjunction with `--no-embed-etcd` when executing sensu-backend start or [sensu-backend init][20] . If you do not use this flag when using `--no-embed-etcd`, sensu-backend start and sensu-backend-init will fall back to [--etcd-listen-client-urls][21].
+type                    | List
+default                 | `http://127.0.0.1:2379`
+example                   | {{< highlight shell >}}# Command line examples
+sensu-backend start --etcd-client-urls https://10.0.0.1:2379,https://10.1.0.1:2379
+sensu-backend start --etcd-client-urls https://10.0.0.1:2379 --etcd-client-urls https://10.1.0.1:2379
+
+# /etc/sensu/backend.yml example
+etcd-client-urls:
+  - https://10.0.0.1:2379
+  - https://10.1.0.1:2379
+{{< /highlight >}}
+
+
 | etcd-discovery        |      |
 ------------------------|------
 description             | Exposes [etcd's embedded auto-discovery features][17]. Attempts to use [etcd discovery][18] to get the cluster configuration.
@@ -729,6 +746,7 @@ sensu-backend start --etcd-key-file ./client-key.pem
 # /etc/sensu/backend.yml example
 etcd-key-file: "./client-key.pem"{{< /highlight >}}
 
+<a name="etcd-listen-client-urls"></a>
 
 | etcd-listen-client-urls |      |
 --------------------------|------
@@ -1084,3 +1102,5 @@ Event logging supports log rotation via the _SIGHUP_ signal. The current log fil
 [17]: https://etcd.io/docs/v3.3.12/op-guide/clustering/#discovery
 [18]: https://etcd.io/docs/v3.3.12/op-guide/clustering/#etcd-discovery
 [19]: https://etcd.io/docs/v3.3.12/op-guide/clustering/#dns-discovery
+[20]: #initialization
+[21]: #etcd-listen-client-urls

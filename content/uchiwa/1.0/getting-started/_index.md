@@ -8,4 +8,4 @@ menu:
     identifier: getting-started
 ---
 
-{{< directoryListing "content/uchiwa/1.0/getting-started" >}}
+{{< directoryListing >}}

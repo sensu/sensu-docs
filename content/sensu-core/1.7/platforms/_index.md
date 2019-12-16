@@ -10,4 +10,4 @@ menu:
     identifier: platforms
 ---
 
-{{< directoryListing "content/sensu-core/1.7/platforms" >}}
+{{< directoryListing >}}
