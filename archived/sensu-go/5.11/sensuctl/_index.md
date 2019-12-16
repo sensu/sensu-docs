@@ -10,4 +10,4 @@ menu:
     identifier: sensuctl
 ---
 
-{{< directoryListing "content/sensu-go/5.11/sensuctl" >}}
+{{< directoryListing >}}

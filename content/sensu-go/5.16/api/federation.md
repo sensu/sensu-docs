@@ -1,6 +1,6 @@
 ---
 title: "Federation API"
-description: "The federation API controls federation of Sensu clusters. Here’s a reference for the federation API in Sensu Go, including examples. Read on for the full reference."
+description: "The federation API controls federation of Sensu clusters. This reference describes the Sensu federation API, including examples. Read on for the full reference."
 version: "5.16"
 product: "Sensu Go"
 menu:
@@ -22,7 +22,8 @@ menu:
   - [`/clusters/:cluster` (PUT)](#clusterscluster-put)
   - [`/clusters/:cluster` (DELETE)](#clusterscluster-delete)
 
-**COMMERCIAL FEATURE**: Access federation in the packaged Sensu Go distribution. For more information, see the [getting started guide][1].
+**COMMERCIAL FEATURE**: Access federation in the packaged Sensu Go distribution.
+For more information, see [Get started with commercial features][1].
 
 ## The `/etcd-replicators` endpoint
 
@@ -30,11 +31,11 @@ _**NOTE**: The etcd-replicators datatype is only accessible for users who have a
 
 ### `/etcd-replicators` (GET)
 
-The `/etcd-replicators` endpoint provides HTTP GET access to a list of replicators.
+The `/etcd-replicators` API endpoint provides HTTP GET access to a list of replicators.
 
 #### EXAMPLE {#etcd-replicators-get-example}
 
-The following example demonstrates a request to the `/etcd-replicators` endpoint, resulting in a list of replicators.
+The following example demonstrates a request to the `/etcd-replicators` API endpoint, resulting in a list of replicators.
 
 _**NOTE**: If you did not specify a [namespace][2] when you created a replicator, the response will not include a `namespace` key-value pair._
 
@@ -65,7 +66,7 @@ curl http://127.0.0.1:8080/api/enterprise/federation/v1/etcd-replicators -H "Aut
 
 /etcd-replicators (GET)  | 
 ---------------|------
-description    | Returns a list of replicators.
+description    | Returns the list of replicators.
 example url    | http://hostname:8080/api/enterprise/federation/v1/etcd-replicators
 response type  | Array
 response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
@@ -93,7 +94,11 @@ output         | {{< highlight shell >}}
 
 ### `/etcd-replicators` (POST)
 
+The `/etcd-replicators` API endpoint provides HTTP POST access to create replicators.
+
 _**NOTE**: If you do not specify a [namespace][2] when you create a replicator, all namespaces for the given resource are replicated._
+
+#### API Specification {#etcd-replicators-post-specification}
 
 /etcd-replicators (POST) | 
 ----------------|------
@@ -120,15 +125,15 @@ payload         | {{< highlight shell >}}
 {{< /highlight >}}
 response codes  | <ul><li>**Success**: 200 (OK)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
-## The `/etcd-replicators/:etcd-replicator` endpoint {#the-etcd-replicatorsetcd-replicator-endpoint}
+## The `/etcd-replicators/:etcd-replicator` API endpoint {#the-etcd-replicatorsetcd-replicator-endpoint}
 
 ### `/etcd-replicators/:etcd-replicator` (GET) {#etcd-replicatorsetcd-replicator-get}
 
-The `/etcd-replicators/:etcd-replicator` endpoint provides HTTP GET access to data for a specific `:etcd-replicator`, by replicator `name`.
+The `/etcd-replicators/:etcd-replicator` API endpoint provides HTTP GET access to data for a specific `:etcd-replicator`, by replicator name.
 
 #### EXAMPLE {#etcd-replicatorsetcd-replicator-get-example}
 
-In the following example, querying the `/etcd-replicators/:etcd-replicator` endpoint returns a JSON Map containing the requested `:etcd-replicator`.
+In the following example, querying the `/etcd-replicators/:etcd-replicator` API endpoint returns a JSON map that contains the requested `:etcd-replicator`.
 
 _**NOTE**: If you did not specify a [namespace][2] when you created the replicator, the response will not include a `namespace` key-value pair._
 
@@ -158,7 +163,7 @@ curl http://127.0.0.1:8080/api/enterprise/federation/v1/etcd-replicators/my_repl
 /etcd-replicators/:etcd-replicator (GET) | 
 ---------------------|------
 description          | Returns the specified replicator.
-example url          | http://hostname:8080/api/enterprise/federation/v1/etcd-replicators/{etcd-replicator_name}
+example url          | http://hostname:8080/api/enterprise/federation/v1/etcd-replicators/my_replicator
 response type        | Map
 response codes       | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output               | {{< highlight json >}}
@@ -183,9 +188,11 @@ output               | {{< highlight json >}}
 
 ### `/etcd-replicators/:etcd-replicator` (PUT) {#etcd-replicatorsetcd-replicator-put}
 
+The `/etcd-replicators/:etcd-replicator` API endpoint provides HTTP PUT access to create or update a specific `:etcd-replicator`, by replicator name.
+
 #### EXAMPLE {#etcd-replicatorsetcd-replicator-put-example}
 
-The following example demonstrates a request to update the replicator `my_replicator`.
+The following example demonstrates a request to the `/etcd-replicators/:etcd-replicator` API endpoint to update the replicator `my_replicator`.
 
 {{< highlight shell >}}
 curl -X PUT \
@@ -218,7 +225,7 @@ HTTP/1.1 200 OK
 /etcd-replicators/:etcd-replicator (PUT) | 
 ----------------|------
 description     | Creates or updates the specified replicator. The replicator resource and API version cannot be altered.
-example URL     | http://hostname:8080/api/enterprise/federation/v1/etcd-replicators/{etcd-replicator_name}
+example URL     | http://hostname:8080/api/enterprise/federation/v1/etcd-replicators/my_replicator
 payload         | {{< highlight shell >}}
 {
   "api_version": "federation/v1",
@@ -242,11 +249,11 @@ response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 
 
 ### `/etcd-replicators/:etcd-replicator` (DELETE) {#etcd-replicatorsetcd-replicator-delete}
 
-The `/etcd-replicators/:etcd-replicator` endpoint provides HTTP DELETE access to delete the specified replicator from Sensu.
+The `/etcd-replicators/:etcd-replicator` API endpoint provides HTTP DELETE access to delete the specified replicator from Sensu.
 
-### EXAMPLE {#etcd-replicatorsetcd-replicator-delete-example}
+#### EXAMPLE {#etcd-replicatorsetcd-replicator-delete-example}
 
-The following example shows a request to delete the replicator `my_replicator`, resulting in a successful HTTP 204 No Content response.
+The following example shows a request to the `/etcd-replicators/:etcd-replicator` API endpoint to delete the replicator `my_replicator`, resulting in a successful HTTP `204 No Content` response.
 
 {{< highlight shell >}}
 curl -X DELETE \
@@ -261,19 +268,18 @@ HTTP/1.1 204 No Content
 /etcd-replicators/:etcd-replicator (DELETE) | 
 --------------------------|------
 description               | Deletes the specified replicator from Sensu.
-example url               | http://hostname:8080/api/enterprise/federation/v1/etcd-replicators/{etcd-replicator_name}
+example url               | http://hostname:8080/api/enterprise/federation/v1/etcd-replicators/my_replicator
 response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-
 
 ## The `/clusters` endpoint
 
 ### `/clusters` (GET)
 
-The `/clusters` endpoint provides HTTP GET access to a list of clusters.
+The `/clusters` API endpoint provides HTTP GET access to a list of clusters.
 
 #### EXAMPLE {#clusters-get-example}
 
-The following example demonstrates a request to the `/clusters` endpoint, resulting in a list of clusters.
+The following example demonstrates a request to the `/clusters` API endpoint, resulting in a list of clusters.
 
 {{< highlight shell >}}
 curl -H "Authorization: Bearer $SENSU_TOKEN" \
@@ -303,7 +309,7 @@ HTTP/1.1 200 OK
 
 /clusters (GET)  | 
 ---------------|------
-description    | Returns a list of clusters.
+description    | Returns the list of clusters.
 example url    | http://hostname:8080/api/enterprise/federation/v1/clusters
 response type  | Array
 response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
@@ -330,11 +336,11 @@ output         | {{< highlight shell >}}
 
 ### `/clusters/:cluster` (GET) {#clusterscluster-get}
 
-The `/clusters/:cluster` endpoint provides HTTP GET access to data for a specific `cluster`, by cluster `name`.
+The `/clusters/:cluster` API endpoint provides HTTP GET access to data for a specific `cluster`, by cluster name.
 
 #### EXAMPLE {#clusterscluster-get-example}
 
-In the following example, querying the `/clusters/:cluster` endpoint returns a JSON Map containing the requested `:etcd-replicator`.
+In the following example, querying the `/clusters/:cluster` API endpoint returns a JSON map that contains the requested `:etcd-replicator`.
 
 {{< highlight shell >}}
 curl -H "Authorization: Bearer $SENSU_TOKEN" \
@@ -358,7 +364,7 @@ HTTP/1.1 200 OK
 }
 {{< /highlight >}}
 
-#### API Specification {#etcd-replicatorsetcd-replicator-get-specification}
+#### API Specification {#clusterscluster-get-specification}
 
 /clusters/:cluster (GET) | 
 ---------------------|------
@@ -385,11 +391,13 @@ output               | {{< highlight json >}}
 
 ### `/clusters/:cluster` (PUT) {#clusterscluster-put}
 
+The `/clusters/:cluster` API endpoint provides HTTP PUT access to create or update a specific `cluster`, by cluster name.
+
 _**NOTE**: Only cluster admins have PUT access to clusters._
 
 #### EXAMPLE {#clusterscluster-put-example}
 
-The following example demonstrates a request to update the cluster `us-west-2a`.
+The following example demonstrates a request to the `/clusters/:cluster` API endpoint to update the cluster `us-west-2a`.
 
 {{< highlight shell >}}
 curl -X PUT \
@@ -438,15 +446,15 @@ payload         | {{< highlight shell >}}
 {{< /highlight >}}
 response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
-### `/clusters/:cluster` (DELETE) {#clusters-delete}
+### `/clusters/:cluster` (DELETE) {#clusterscluster-delete}
 
-The `/clusters/:cluster` endpoint provides HTTP DELETE access to delete the specified cluster from Sensu.
+The `/clusters/:cluster` API endpoint provides HTTP DELETE access to delete the specified cluster from Sensu.
 
 _**NOTE**: Only cluster admins have DELETE access to clusters._
 
-### EXAMPLE {#clusterscluster-delete-example}
+#### EXAMPLE {#clusterscluster-delete-example}
 
-The following example shows a request to delete the cluster `us-west-2a`, resulting in a successful HTTP 204 No Content response.
+The following example shows a request to the `/clusters/:cluster` API endpoint to delete the cluster `us-west-2a`, resulting in a successful HTTP `204 No Content` response.
 
 {{< highlight shell >}}
 curl -X DELETE \
@@ -467,4 +475,3 @@ response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Miss
 
 [1]: ../../getting-started/enterprise/
 [2]: ../../reference/etcdreplicators#namespace-attribute
-

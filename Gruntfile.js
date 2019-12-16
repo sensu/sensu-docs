@@ -80,13 +80,33 @@ module.exports = function(grunt) {
   grunt.registerTask("hugo-build", function() {
     const done = this.async();
     const args = process.argv.slice(3).filter(a => a !== '--color'); // fetch given arguments
+    const toml = require('toml');
+    const config = toml.parse(grunt.file.read('config.toml'));
+    const latestProducts = Object.entries(config.params.products).map(([key, product]) => ({
+      identifier: product.identifier,
+      latest: product.latest
+    }));
+
+    // Move latest product versions to content/product/latest
+    grunt.log.writeln(`Moving latest product versions → content/product/latest`);
+    latestProducts.forEach(product => {
+      grunt.file.copy(`content/${product.identifier}/${product.latest}`, `content/${product.identifier}/latest`);
+      grunt.file.delete(`content/${product.identifier}/${product.latest}`);
+    });
 
     grunt.log.writeln("Running hugo build");
     grunt.util.spawn({
-      cmd: "hugo",
-      args: [...args],
-    },
+        cmd: "hugo",
+        args: [...args],
+      },
       function(error, result, code) {
+        // Restore directories
+        grunt.log.writeln('Restoring moved product directories...');
+        latestProducts.forEach(product => {
+          grunt.file.copy(`content/${product.identifier}/latest`, `content/${product.identifier}/${product.latest}`);
+          grunt.file.delete(`content/${product.identifier}/latest`);
+        });
+
         if (code == 0) {
           grunt.log.ok("Successfully built site");
         } else {
