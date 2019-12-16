@@ -81,6 +81,7 @@ See the [upgrade guide][1] to upgrade Sensu to version 5.16.0.
 - In the [Sensu documentation][104], links now point to the version of the product being run instead of the latest, which may be helpful when running an older version of Sensu.
 
 **FIXES:**
+
 - `sensuctl dump` help now shows the correct default value for the format flag.
 - Installing sensuctl commands via Bonsai will now check for correct labels before checking if the asset has 1 or more builds.
 - Listing assets with no results now returns an empty array.
