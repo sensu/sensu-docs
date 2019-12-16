@@ -8,4 +8,4 @@ menu:
     identifier: api
 ---
 
-{{< directoryListing "content/uchiwa/1.0/api" >}}
+{{< directoryListing >}}
