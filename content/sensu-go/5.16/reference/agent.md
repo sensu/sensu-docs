@@ -1000,7 +1000,7 @@ sensu-agent start --keepalive-interval 30
 keepalive-interval: 30{{< /highlight >}}
 
 
- | keepalive-warning-timeout |      |
+| keepalive-warning-timeout |      |
 --------------------|------
 description         | Number of seconds after a missing keepalive event until the agent is considered unresponsive by the Sensu backend to create a warning event. Value must be lower than the `keepalive-critical-timeout` value. Minimum value is `5`.
 type                | Integer

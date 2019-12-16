@@ -10,4 +10,4 @@ menu:
     identifier: api
 ---
 
-{{< directoryListing "content/sensu-go/5.5/api" >}}
+{{< directoryListing >}}
