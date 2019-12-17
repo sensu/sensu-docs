@@ -1,8 +1,8 @@
 ---
-title: "Planning your Sensu Go deployment"
-linkTitle: "Deploying Sensu"
+title: "Deploy Sensu"
+linkTitle: "Deploy Sensu"
 description: "In this guide we'll describes various considerations, recommendations and architectures for a production-ready deployment"
-weight: 101
+weight: 140
 version: "5.16"
 product: "Sensu Go"
 platformContent: false

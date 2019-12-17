@@ -219,12 +219,16 @@ You can use your Sensu username and password to [configure sensuctl][26] or log 
 
 ### Default user
 
-By default, Sensu includes a global `admin` user that you can use to manage Sensu and create new users.
+When you install the Sensu backend, during the [initialization step][41], you create a username and password for a `default` namespace.
+
+_**NOTE**: If you are using Docker, the `sensu-backend init` command runs automatically with a default username (`admin`) and password (`P@ssw0rd!`). You do not need to create a username and password for the `default` namespace if you are using Docker._
+
+This is the user that you can use to manage all aspects of Sensu and create new users.
 
 | attribute | value |
 | --------- | ----- |
-| username   | `admin`  |
-| password   | `P@ssw0rd!`  |
+| username   | `YOUR_USERNAME`  |
+| password   | `YOUR_PASSWORD`  |
 | groups   | `cluster-admins`  |
 | cluster role   |  `cluster-admin` |
 | cluster role binding   | `cluster-admin	`  |
@@ -308,7 +312,7 @@ password     |
 description  | The user's password. Passwords must have at least eight characters.
 required     | true 
 type         | String
-example      | {{< highlight shell >}}"password": "P@ssw0rd!"{{< /highlight >}}
+example      | {{< highlight shell >}}"password": "USER_PASSWORD"{{< /highlight >}}
 
 groups       | 
 -------------|------ 
@@ -340,7 +344,7 @@ spec:
   groups:
   - ops
   - dev
-  password: P@ssw0rd!
+  password: USER_PASSWORD
   username: alice
 {{< /highlight >}}
 
@@ -351,7 +355,7 @@ spec:
   "metadata": {},
   "spec": {
     "username": "alice",
-    "password": "P@ssw0rd!",
+    "password": "USER_PASSWORD",
     "disabled": false,
     "groups": ["ops", "dev"]
   }
@@ -1228,3 +1232,4 @@ You can add these resources to Sensu using [`sensuctl create`][31].
 [38]: ../../installation/auth/#groups-prefix
 [39]: ../../installation/auth/#ad-groups-prefix
 [40]: ../../reference/etcdreplicators
+[41]: ../../installation/install-sensu/#2-initialize

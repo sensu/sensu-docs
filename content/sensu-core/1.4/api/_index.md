@@ -10,4 +10,4 @@ menu:
     identifier: api
 ---
 
-{{< directoryListing "content/sensu-core/1.4/api" >}}
+{{< directoryListing >}}

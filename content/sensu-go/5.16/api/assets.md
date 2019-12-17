@@ -1,6 +1,6 @@
 ---
 title: "Assets API"
-description: "The assets API provides HTTP access to asset data. Here’s a reference for the assets API in Sensu Go, including examples for returning lists of assets, creating assets, and more. Read on for the full reference."
+description: "The Sensu assets API provides HTTP access to asset data. This reference includes examples for returning lists of assets, creating assets, and more."
 version: "5.16"
 product: "Sensu Go"
 menu:
@@ -25,8 +25,7 @@ The `/assets` API endpoint provides HTTP GET access to [asset][1] data.
 
 #### EXAMPLE {#assets-get-example}
 
-The following example demonstrates a request to the `/assets` API, resulting in
-a JSON Array containing [asset definitions][1].
+The following example demonstrates a request to the `/assets` API endpoint, resulting in a JSON array that contains [asset definitions][1].
 
 {{< highlight shell >}}
 curl http://127.0.0.1:8080/api/core/v2/namespaces/default/assets -H "Authorization: Bearer $SENSU_TOKEN"
@@ -55,7 +54,7 @@ HTTP/1.1 200 OK
 ---------------|------
 description    | Returns the list of assets.
 example url    | http://hostname:8080/api/core/v2/namespaces/default/assets
-pagination     | This endpoint supports pagination using the `limit` and `continue` query parameters. See the [API overview](../overview#pagination) for details.
+pagination     | This endpoint supports pagination using the `limit` and `continue` query parameters. See the [API overview][2] for details.
 response type  | Array
 response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output         | {{< highlight shell >}}
@@ -87,9 +86,13 @@ output         | {{< highlight shell >}}
 
 ### `/assets` (POST)
 
+The `/assets` API endpoint provides HTTP POST access to [asset][1] data.
+
+#### API Specification {#assets-post-specification}
+
 /assets (POST) | 
 ----------------|------
-description     | Create a Sensu asset.
+description     | Creates a Sensu asset.
 example URL     | http://hostname:8080/api/core/v2/namespaces/default/assets
 payload         | {{< highlight shell >}}
 {
@@ -119,9 +122,7 @@ The `/assets/:asset` API endpoint provides HTTP GET access to [asset data][1] fo
 
 #### EXAMPLE {#assetsasset-get-example}
 
-In the following example, querying the `/assets/:asset` API returns a JSON Map
-containing the requested [`:asset` definition][1] (in this example: for the `:asset` named
-`check_script`).
+In the following example, querying the `/assets/:asset` API endpoint returns a JSON map that contains the requested [`:asset` definition][1] (in this example, for the `:asset` named `check_script`).
 
 {{< highlight shell >}}
 curl http://127.0.0.1:8080/api/core/v2/namespaces/default/assets/sensu-slack-handler -H "Authorization: Bearer $SENSU_TOKEN"
@@ -146,7 +147,7 @@ HTTP/1.1 200 OK
 
 /assets/:asset (GET) | 
 ---------------------|------
-description          | Returns an asset.
+description          | Returns the specified asset.
 example url          | http://hostname:8080/api/core/v2/namespaces/default/assets/my-secure-asset
 response type        | Map
 response codes       | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
@@ -175,7 +176,7 @@ output               | {{< highlight json >}}
 
 /assets/:asset (PUT) | 
 ----------------|------
-description     | Create or update a Sensu asset.
+description     | Creates or updates the specified Sensu asset.
 example URL     | http://hostname:8080/api/core/v2/namespaces/default/assets/my-secure-asset
 payload         | {{< highlight shell >}}
 {
@@ -199,13 +200,15 @@ response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 
 
 ### `/assets/:asset` (DELETE) {#assetsasset-delete}
 
-The Sensu Go HTTP API provides the ability to delete an asset. Note that this does not remove the downloaded files from the asset cache, nor does it remove any references in other resources to the deleted asset. 
+The `/assets/:asset` API endpoint provides HTTP DELETE access so you can delete an asset.
+
+_**NOTE**: Deleting an asset does not remove the downloaded files from the asset cache or remove any references to the deleted asset in other resources._ 
 
 #### API Specification {#assetsasset-delete-specification}
 
 /assets/:asset (DELETE) | 
 ----------------|------
-description     | Deletes a Sensu asset.
+description     | Deletes the specified Sensu asset.
 example URL     | http://hostname:8080/api/core/v2/namespaces/default/assets/my-secure-asset
 response codes  | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output                    | {{< highlight shell >}}
@@ -222,4 +225,5 @@ Sensu-Entity-Limit: 1000
 Date: Mon, 26 Aug 2019 18:51:28 GMT
 {{< /highlight >}}
 
-[1]: ../../reference/assets
+[1]: ../../reference/assets/
+[2]: ../overview#pagination

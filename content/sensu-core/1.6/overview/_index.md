@@ -10,4 +10,4 @@ menu:
     identifier: overview
 ---
 
-{{< directoryListing "content/sensu-core/1.6/overview" >}}
+{{< directoryListing >}}

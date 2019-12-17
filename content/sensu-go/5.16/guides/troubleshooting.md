@@ -1,7 +1,8 @@
 ---
-title: "Troubleshooting"
+title: "Troubleshoot"
+linkTitle: "Troubleshoot"
 description: "Need to troubleshoot Sensu Go? Here’s how to look into errors, including service logging and the log levels you need to know about. Logs produced by Sensu services – i.e., sensu-backend and sensu-agent – are often the best source of truth when troubleshooting issues, so we recommend you start there."
-weight: 2000
+weight: 210
 version: "5.16"
 product: "Sensu Go"
 platformContent: true
@@ -89,19 +90,19 @@ Here are a few examples.
 Retrieve all the logs for Sensu since yesterday:
 
 {{< highlight shell >}}
-journalctl -u sensu-backend.service --since yesterday | tee sensu-backend-$(date +%Y-%m-%d).log
+journalctl _COMM=sensu-backend.service --since yesterday | tee sensu-backend-$(date +%Y-%m-%d).log
 {{< /highlight >}}
 
 Retrieve all the logs for Sensu since a specific time:
 
 {{< highlight shell >}}
-journalctl -u sensu-backend.service --since 09:00 --until "1 hour ago" | tee sensu-backend-$(date +%Y-%m-%d).log
+journalctl _COMM=sensu-backend.service --since 09:00 --until "1 hour ago" | tee sensu-backend-$(date +%Y-%m-%d).log
 {{< /highlight >}}
 
 Retrieve all the logs for Sensu for a specific date range:
 
 {{< highlight shell >}}
-journalctl -u sensu-backend.service --since "2015-01-10" --until "2015-01-11 03:00" | tee sensu-backend-$(date +%Y-%m-%d).log
+journalctl _COMM=sensu-backend.service --since "2015-01-10" --until "2015-01-11 03:00" | tee sensu-backend-$(date +%Y-%m-%d).log
 {{< /highlight >}}
 
 {{< platformBlockClose >}}

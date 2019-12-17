@@ -8,4 +8,4 @@ menu:
     identifier: reference
 ---
 
-{{< directoryListing "content/uchiwa/1.0/reference" >}}
+{{< directoryListing >}}
