@@ -1,6 +1,6 @@
 ---
 title: "Getting Started"
-description: "Get started with Sensu."
+description: "Get started with Sensu"
 product: "Sensu Go"
 version: "5.16"
 weight: 10

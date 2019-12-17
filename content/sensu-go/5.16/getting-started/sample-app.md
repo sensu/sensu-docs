@@ -1,39 +1,39 @@
 ---
-title: "Container and application monitoring with Sensu"
-description: "The Sensu sample app is another great way to learn Sensu, featuring a hands-on tutorial. With this tutorial, you’ll deploy a sample app with Kubernetes and monitor it with Sensu."
-weight: 3
+title: "Monitor containers and applications with Sensu"
+description: "The Sensu sample app is a great way to learn Sensu. With this hands-on tutorial, you’ll deploy a sample app with Kubernetes and monitor it with Sensu."
 version: "5.16"
 product: "Sensu Go"
 platformContent: true
 platforms: ["Linux/macOS", "Windows"]
 ---
 
-In this tutorial, we'll deploy a sample app with Kubernetes and monitor it with Sensu.
-The sample app has three endpoints: `/` returns the local hostname, `/metrics` returns Prometheus metric data, `/healthz` returns the boolean health state, and `POST /healthz` toggles the health state.
-
 - [Prerequisites](#prerequisites)
-- [Setup](#setup)
+- [Set up](#set-up)
 - [Multitenancy](#multitenancy)
-- [Deploying Sensu agents and InfluxDB](#deploying-sensu-agents-and-influxdb)
-- [Monitoring an app](#monitoring-an-app)
+- [Deploy Sensu agents and InfluxDB](#deploy-sensu-agents-and-influxdb)
+- [Monitor the app](#monitor-the-app)
 	- [Create a Sensu pipeline to Slack](#create-a-sensu-pipeline-to-slack)
 	- [Create a Sensu service check](#create-a-sensu-service-check-to-monitor-the-status-of-the-dummy-app)
-- [Collecting app metrics](#collecting-app-metrics)
+- [Collect app metrics](#collect-app-metrics)
 	- [Create a Sensu pipeline to InfluxDB](#create-a-sensu-pipeline-to-influxdb)
 	- [Create a Sensu metric check](#create-a-sensu-metric-check-to-collect-prometheus-metrics)
 	- [Visualize metrics with Grafana](#visualize-metrics-with-grafana)
-- [Collecting Kubernetes metrics](#collecting-kubernetes-metrics)
+- [Collect Kubernetes metrics](#collect-kubernetes-metrics)
 - [Next steps](#next-steps)
+
+In this tutorial, you'll deploy a sample app with Kubernetes and monitor it with Sensu.
+In the sample app, `/` returns the local hostname.
+The sample app has three endpoints: `/metrics` returns Prometheus metric data, `/healthz` returns the Boolean health state, and `POST /healthz` toggles the health state.
 
 ## Prerequisites
 
-The sample app requires Kubernetes and a Kubernetes Ingress controller.
-Most hosted Kubernetes offerings, such as GKE, include a Kubernetes Ingress controller.
+The sample app requires Kubernetes and a Kubernetes ingress controller.
+Most hosted Kubernetes offerings (like GKE) include a Kubernetes ingress controller.
 
-In this tutorial, we'll be using [Minikube](https://kubernetes.io/docs/tasks/tools/install-minikube/), a cross-platform application for running a local single-node Kubernetes cluster.
-After you've installed and started Minikube, proceed through the rest of the guide.
+This tutorial uses [Minikube][1], a cross-platform application for running a local single-node Kubernetes cluster.
+After you install and start Minikube, proceed through the rest of this tutorial.
 
-## Setup
+## Set up
 
 **1. Clone the sample app.**
 
@@ -61,9 +61,9 @@ git clone https://github.com/kubernetes/kube-state-metrics
 kubectl apply -f kube-state-metrics/kubernetes
 {{< /highlight >}}
 
-**4. Open your `/etc/hosts` file and add the following hostnames.**
+**4. Open your `/etc/hosts` file and add the hostnames.**
 
-_NOTE: Here we'll use the IP address for the Minikube VM in our hosts file. To view the address, use the command `minikube ip`._
+_**NOTE**: You'll use the IP address for the Minikube VM in the hosts file. To view the address, use the command `minikube ip`._
 
 {{< highlight shell >}}
 192.168.99.100       sensu.local webui.sensu.local sensu-enterprise.local dashboard.sensu-enterprise.local
@@ -72,7 +72,7 @@ _NOTE: Here we'll use the IP address for the Minikube VM in our hosts file. To v
 
 **5. Install sensuctl.**
 
-Jump over to the [sensuctl installation guide](../../installation/install-sensu/#install-sensuctl), and follow the instructions to install sensuctl on Windows, macOS, or Linux.
+Follow the [sensuctl installation guide][2] instructions to install sensuctl on Linux, macOS, or Windows.
 
 **6. Deploy two instances of the sample app (dummy) behind a load balancer.**
 
@@ -80,7 +80,7 @@ Jump over to the [sensuctl installation guide](../../installation/install-sensu/
 kubectl apply -f go/deploy/dummy.yaml
 {{< /highlight >}}
 
-We can test the dummy app using the API.
+You can test the dummy app using the API.
 
 {{< platformBlock "Linux/macOS" >}}
 
@@ -110,11 +110,13 @@ kubectl create -f go/deploy/sensu-backend.yaml
 
 ## Multitenancy
 
-Use Sensu role-based access control to create a `demo` namespace and a `demo` user.
+Use Sensu role-based access control (RBAC) to create a `demo` namespace and a `demo` user.
 
 **1. Configure sensuctl to use the admin user.**
 
 When you installed the Sensu backend, during the [initialization step][40], you created an admin username and password for a `default` namespace. Use that username and password to configure sensuctl in this step.
+
+_**NOTE**: If you're using Docker, the username is `admin` and the password is `P@ssw0rd!`._
 
 {{< highlight shell >}}
 sensuctl configure
@@ -131,7 +133,7 @@ sensuctl configure
 sensuctl namespace create demo
 {{< /highlight >}}
 
-We can use sensuctl to confirm that the namespace was created successfully and set the `demo` namespace as the default for our sensuctl session.
+Use sensuctl to confirm that the namespace was created successfully and set the `demo` namespace as the default for your sensuctl session:
 
 {{< highlight shell >}}
 sensuctl namespace list
@@ -139,7 +141,7 @@ sensuctl namespace list
 sensuctl config set-namespace demo
 {{< /highlight >}}
 
-**3. Create a `dev` user role with full-access to the `demo` namespace.**
+**3. Create a `dev` user role with full access to the `demo` namespace.**
 
 {{< highlight shell >}}
 sensuctl role create dev \
@@ -173,7 +175,7 @@ sensuctl configure
 ? Preferred output format: tabular
 {{< /highlight >}}
 
-## Deploying Sensu agents and InfluxDB
+## Deploy Sensu agents and InfluxDB
 
 **1. Deploy InfluxDB with a Sensu agent sidecar**
 
@@ -191,7 +193,7 @@ kubectl create -f go/deploy/influxdb.sensu.yaml
 
 **2. Create a Sensu pipeline to store metrics with InfluxDB.**
 
-Use the files provided with the sample app to create a Sensu asset for the [Sensu InfluxDB handler](https://github.com/sensu/sensu-influxdb-handler) and create an `influxdb` event handler.
+Use the files provided with the sample app to create a Sensu asset for the [Sensu InfluxDB handler][3] and create an `influxdb` event handler.
 
 {{< highlight shell >}}
 sensuctl create --file go/config/assets/influxdb-handler.yaml
@@ -205,10 +207,10 @@ sensuctl create --file go/config/handlers/influxdb.yaml
 kubectl apply -f go/deploy/dummy.sensu.yaml
 {{< /highlight >}}
 
-## Monitoring an app
+## Monitor the app
 
-Let's take a look at what we're monitoring.
-We can see the Sensu agents installed on our two dummy app instances with their last seen timestamp, as well as the Sensu agent monitoring our InfluxDB instance. 
+Let's take a look at what you're monitoring.
+You can see the Sensu agents installed on your two dummy app instances with their last-seen timestamps, as well as the Sensu agent monitoring your InfluxDB instance. 
 
 {{< highlight shell >}}
 sensuctl entity list
@@ -221,11 +223,11 @@ influxdb-64b7d5f884-f9ptg   agent   linux   influxdb,entity:influxdb-64b7d5f884-
 {{< /highlight >}}
 
 ### Create a Sensu pipeline to Slack
-Let’s say we want to receive a Slack alert if the dummy app returns an unhealthy response.
-We can create a Sensu pipeline to send events to Slack using the [Sensu Slack plugin](https://github.com/sensu/sensu-slack-handler).
-Sensu Plugins are open-source collections of Sensu building blocks shared by the Sensu Community.
 
-**1. Create an asset to help agents find and install the [Sensu Slack handler](https://github.com/sensu/sensu-slack-handler).**
+Suppose you want to receive a Slack alert if the dummy app returns an unhealthy response.
+You can create a Sensu pipeline to send events to Slack using the [Sensu Slack handler][4] (one of many open-source collections of Sensu building blocks shared by the Sensu community).
+
+**1. Create an asset to help agents find and install the [Sensu Slack handler][4].**
 
 {{< highlight shell >}}
 sensuctl create --file go/config/assets/slack-handler.yaml
@@ -234,10 +236,10 @@ sensuctl create --file go/config/assets/slack-handler.yaml
 **2. Get your Slack webhook URL and add it to `go/config/handlers/slack.yaml`.**
 
 If you're already an admin of a Slack, visit `https://YOUR WORKSPACE NAME HERE.slack.com/services/new/incoming-webhook` and follow the steps to add the Incoming WebHooks integration and save the settings.
-(If you're not yet a Slack admin, start [here](https://slack.com/get-started#create) to create a new workspace.)
+If you're not yet a Slack admin, [start here][5] to create a new workspace.
 After saving, you'll see your webhook URL under Integration Settings.
 
-Open `go/config/handlers/slack.yaml` and replace `SECRET` in the following line with your Slack workspace webhook URL and `#demo` with the Slack channel of your choice:
+Open `go/config/handlers/slack.yaml`. In the following line, replace `SECRET` with your Slack workspace webhook URL and `#demo` with the Slack channel of your choice:
 
 {{< highlight shell >}}
 "command": "slack-handler --channel '#demo' --timeout 20 --username 'sensu' --webhook-url 'SECRET'",
@@ -257,7 +259,7 @@ sensuctl create --file go/config/handlers/slack.yaml
 
 ### Create a Sensu service check to monitor the status of the dummy app
 
-To automatically monitor the status of the dummy app, we'll create an asset that lets the Sensu agents use a [Sensu HTTP plugin](https://github.com/portertech/sensu-plugins-go).
+To automatically monitor the status of the dummy app, create an asset that lets the Sensu agent use a [Sensu HTTP plugin][6].
 
 **1. Create the `check-plugins` asset.**
 
@@ -265,16 +267,18 @@ To automatically monitor the status of the dummy app, we'll create an asset that
 sensuctl create --file go/config/assets/check-plugins.yaml
 {{< /highlight >}}
 
-**2. Now we can create a check to monitor the status of the dummy app that uses the `check-plugins` asset and the Slack pipeline.**
+**2. Create a check to monitor the status of the dummy app that uses the `check-plugins` asset and the Slack pipeline.**
 
 {{< highlight shell >}}
 sensuctl create --file go/config/checks/dummy-app-healthz.yaml
 {{< /highlight >}}
 
-**3. With the automated alert workflow in place, we can see the resulting events in the Sensu dashboard.**
+With the automated alert workflow in place, you can see the resulting events in the Sensu dashboard.
 
-Sign in to the [Sensu dashboard](http://webui.sensu.local/signin) with your sensuctl username (`demo`) and password (`password`).
-Since we're working within the `demo` namespace, select the `demo` namespace in the Sensu dashboard menu.
+**3. Sign in to the Sensu dashboard.**
+
+Sign in to the [Sensu dashboard][7] with your sensuctl username (`demo`) and password (`password`).
+Since you're working within the `demo` namespace, select the `demo` namespace in the Sensu dashboard menu.
 
 **4. Toggle the health of the dummy app to simulate a failure.**
 
@@ -296,7 +300,7 @@ Invoke-WebRequest -Uri http://dummy.local/healthz -Method POST
 
 {{< platformBlockClose >}}
 
-We should now be able to see a critical alert in the [Sensu dashboard](http://webui.sensu.local/events) as well as by using sensuctl:
+You should now be able to see a critical alert in the [Sensu dashboard][8] as well as by using sensuctl:
 
 {{< highlight shell >}}
 sensuctl event list
@@ -324,11 +328,11 @@ Invoke-WebRequest -Uri http://dummy.local/healthz -Method POST
 
 {{< platformBlockClose >}}
 
-## Collecting app metrics
+## Collect app metrics
 
 ### Create a Sensu metric check to collect Prometheus metrics
 
-To automatically collect Prometheus metrics from the dummy app, we'll create an asset that lets the Sensu agents use the [Sensu Prometheus plugin](https://github.com/sensu/sensu-prometheus-collector).
+To automatically collect Prometheus metrics from the dummy app, create an asset that lets the Sensu agents use the [Sensu Prometheus Collector][9].
 
 **1. Create the `prometheus-collector` asset.**
 
@@ -336,7 +340,7 @@ To automatically collect Prometheus metrics from the dummy app, we'll create an 
 sensuctl create --file go/config/assets/prometheus-collector.yaml
 {{< /highlight >}}
 
-**2. Now we can create a check to collect Prometheus metrics that uses the `prometheus-collector` asset.**
+**2. Create a check to collect Prometheus metrics that uses the `prometheus-collector` asset.**
 
 {{< highlight shell >}}
 sensuctl create --file go/config/checks/dummy-app-prometheus.yaml
@@ -346,7 +350,7 @@ sensuctl create --file go/config/checks/dummy-app-prometheus.yaml
 
 **1. Deploy Grafana with a Sensu agent sidecar.**
 
-Create Kubernetes ConfigMaps for Grafana configuration.
+Create Kubernetes ConfigMaps for Grafana configuration:
 
 {{< highlight shell >}}
 kubectl create configmap grafana-provisioning-datasources --from-file=./go/configmaps/grafana-provisioning-datasources.yaml
@@ -354,13 +358,13 @@ kubectl create configmap grafana-provisioning-datasources --from-file=./go/confi
 kubectl create configmap grafana-provisioning-dashboards --from-file=./go/configmaps/grafana-provisioning-dashboards.yaml
 {{< /highlight >}}
 
-Deploy Grafana with a Sensu agent sidecar.
+Deploy Grafana with a Sensu agent sidecar:
 
 {{< highlight shell >}}
 kubectl apply -f go/deploy/grafana.sensu.yaml
 {{< /highlight >}}
 
-After a few minutes, we can see the Sensu agents we have installed on the dummy app, InfluxDB, and Grafana pods.
+After a few minutes, you can see the Sensu agents you installed on the dummy app, InfluxDB, and Grafana pods.
 
 {{< highlight shell >}}
 sensuctl entity list
@@ -374,37 +378,50 @@ influxdb-78d64bcfd9-8km56   agent   linux   influxdb,entity:influxdb-78d64bcfd9-
 
 **2. Log in to Grafana.**
 
-To see the metrics we're collecting from the dummy app, log into [Grafana](http://grafana.local/login) with the username `admin` and password `password`.
+To see the metrics you're collecting from the dummy app, log into [Grafana](http://grafana.local/login) with the username `admin` and password `password`.
 
 **3. Create a dashboard.**
 
 Create a new dashboard using the InfluxDB datasource to see live metrics from the dummy app.
 
-## Collecting Kubernetes metrics
-Now that we have a pipeline set up to send metrics, we can create a check that collects Prometheus metrics from Kubernetes and connect it to the pipeline.
+## Collect Kubernetes metrics
 
-Deploy a Sensu agent as a dameonset on your Kubernetes node.
+Now that you have a pipeline set up to send metrics, you can create a check that collects Prometheus metrics from Kubernetes and connect it to the pipeline.
+
+Deploy a Sensu agent as a DameonSet on your Kubernetes node:
 
 {{< highlight shell >}}
 kubectl apply -f go/deploy/sensu-agent-daemonset.yaml
 {{< /highlight >}}
 
-Then create a check to collect Prometheus metrics from Kubernetes using the `prometheus-collector` asset and `influxdb` handler.
+Create a check to collect Prometheus metrics from Kubernetes using the `prometheus-collector` asset and `influxdb` handler:
 
 {{< highlight shell >}}
 sensuctl create --file go/config/checks/kube-state-prometheus.yaml
 {{< /highlight >}}
 
-You should now be able to access Kubernetes metric data in [Grafana](http://grafana.local) and see metric events in the [Sensu dashboard](http://webui.sensu.local/events).
+You should now be able to access Kubernetes metrics data in [Grafana][10] and see metric events in the [Sensu dashboard][8].
 
 ## Next steps
 
-To stop or delete the sample app, use `minikube stop` or `minikube delete` respectively.
+To stop or delete the sample app, use `minikube stop` or `minikube delete`, respectively.
 
-For more information about monitoring with Sensu, check out the following resources:
+For more information about monitoring with Sensu, check out these resources:
 
-- [Reducing alert fatigue with Sensu filters](../../guides/reduce-alert-fatigue/)
-- [Aggregating StatD metrics with Sensu](../../guides/aggregate-metrics-statsd/)
-- [Aggregating Nagios metrics with Sensu](../../guides/extract-metrics-with-checks/)
+- [Reduce alert fatigue with Sensu filters][11]
+- [Aggregate metrics with the Sensu StatsD listener][12]
+- [Collect metrics with Sensu checks][13]
 
-[1]: ../../installation/install-sensu/#2-initialize
+[1]: https://kubernetes.io/docs/tasks/tools/install-minikube/
+[2]: ../../installation/install-sensu/#install-sensuctl
+[3]: https://github.com/sensu/sensu-influxdb-handler/
+[4]: https://bonsai.sensu.io/assets/sensu/sensu-slack-handler/
+[5]: https://slack.com/get-started#create
+[6]: https://github.com/portertech/sensu-plugins-go/
+[7]: http://webui.sensu.local/signin/
+[8]: http://webui.sensu.local/events/
+[9]: https://bonsai.sensu.io/assets/sensu/sensu-prometheus-collector/
+[10]: http://grafana.local/
+[11]: ../../guides/reduce-alert-fatigue/
+[12]: ../../guides/aggregate-metrics-statsd/
+[13]: ../../guides/extract-metrics-with-checks/
