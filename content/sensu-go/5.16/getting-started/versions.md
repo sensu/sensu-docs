@@ -22,13 +22,14 @@ _**NOTE**: We provide support and documentation for Sensu versions according to 
 
 | Version | Release date     | Status    |     |
 | ------- |   -------------- | --------- | --- |
+5.16.0 | [December 16, 2019][31] | Supported | <a href="https://sensu-docs.s3.amazonaws.com/pdfs/sensu-go-5-16_sensu-docs.pdf"><img src="/images/download-icon.png" width="30" height="30" title="Download Offline Docs" alt="Download Offline Docs"></a>
 5.15.0 | [November 19, 2019][30] | Supported | <a href="https://sensu-docs.s3.amazonaws.com/pdfs/sensu-go-5-15_sensu-docs.pdf"><img src="/images/download-icon.png" width="30" height="30" title="Download Offline Docs" alt="Download Offline Docs"></a>
 5.14.2 | [November 4, 2019][29]  | Supported | <a href="https://sensu-docs.s3.amazonaws.com/pdfs/sensu-go-5-14_sensu-docs.pdf"><img src="/images/download-icon.png" width="30" height="30" title="Download Offline Docs" alt="Download Offline Docs"></a>
 5.14.1 | [October 16, 2019][28]  | Supported | <a href="https://sensu-docs.s3.amazonaws.com/pdfs/sensu-go-5-14_sensu-docs.pdf"><img src="/images/download-icon.png" width="30" height="30" title="Download Offline Docs" alt="Download Offline Docs"></a>
 5.14.0 | [October 4, 2019][27]   | Supported | <a href="https://sensu-docs.s3.amazonaws.com/pdfs/sensu-go-5-14_sensu-docs.pdf"><img src="/images/download-icon.png" width="30" height="30" title="Download Offline Docs" alt="Download Offline Docs"></a>
-5.13.2 | [September 19, 2019][26] | Supported | <a href="https://sensu-docs.s3.amazonaws.com/pdfs/sensu-go-5-13_sensu-docs.pdf"><img src="/images/download-icon.png" width="30" height="30" title="Download Offline Docs" alt="Download Offline Docs"></a>
-5.13.1 | [September 10, 2019][25] | Supported | <a href="https://sensu-docs.s3.amazonaws.com/pdfs/sensu-go-5-13_sensu-docs.pdf"><img src="/images/download-icon.png" width="30" height="30" title="Download Offline Docs" alt="Download Offline Docs"></a>
-5.13.0 | [September 9, 2019][24] | Supported | <a href="https://sensu-docs.s3.amazonaws.com/pdfs/sensu-go-5-13_sensu-docs.pdf"><img src="/images/download-icon.png" width="30" height="30" title="Download Offline Docs" alt="Download Offline Docs"></a>
+5.13.2 | [September 19, 2019][26] | Not supported | <a href="https://sensu-docs.s3.amazonaws.com/pdfs/sensu-go-5-13_sensu-docs.pdf"><img src="/images/download-icon.png" width="30" height="30" title="Download Offline Docs" alt="Download Offline Docs"></a>
+5.13.1 | [September 10, 2019][25] | Not supported | <a href="https://sensu-docs.s3.amazonaws.com/pdfs/sensu-go-5-13_sensu-docs.pdf"><img src="/images/download-icon.png" width="30" height="30" title="Download Offline Docs" alt="Download Offline Docs"></a>
+5.13.0 | [September 9, 2019][24] | Not supported | <a href="https://sensu-docs.s3.amazonaws.com/pdfs/sensu-go-5-13_sensu-docs.pdf"><img src="/images/download-icon.png" width="30" height="30" title="Download Offline Docs" alt="Download Offline Docs"></a>
 5.12.0 | [August 26, 2019][23]  | Not supported | <a href="https://sensu-docs.s3.amazonaws.com/pdfs/sensu-go-5-12_sensu-docs.pdf"><img src="/images/download-icon.png" width="30" height="30" title="Download Offline Docs" alt="Download Offline Docs"></a>
 5.11.1 | [July 17, 2019][22]    | Not supported | <a href="https://sensu-docs.s3.amazonaws.com/pdfs/sensu-go-5-11_sensu-docs.pdf"><img src="/images/download-icon.png" width="30" height="30" title="Download Offline Docs" alt="Download Offline Docs"></a>
 5.11.0 | [July 10, 2019][21]     | Not supported | <a href="https://sensu-docs.s3.amazonaws.com/pdfs/sensu-go-5-11_sensu-docs.pdf"><img src="/images/download-icon.png" width="30" height="30" title="Download Offline Docs" alt="Download Offline Docs"></a>
@@ -80,3 +81,4 @@ _**NOTE**: We provide support and documentation for Sensu versions according to 
 [28]: /sensu-go/latest/release-notes/#5-14-1-release-notes
 [29]: /sensu-go/latest/release-notes/#5-14-2-release-notes
 [30]: /sensu-go/latest/release-notes/#5-15-0-release-notes
+[31]: /sensu-go/latest/release-notes/#5-16-0-release-notes
