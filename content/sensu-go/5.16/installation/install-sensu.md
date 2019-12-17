@@ -83,24 +83,9 @@ sudo yum install sensu-go-backend
 
 {{< /language-toggle >}}
 
-### 2. Initialize
-
-_**NOTE**: If you are using Docker, skip this step and continue with [3. Configure and start][36]. The `sensu-backend init` command is not implemented for Docker._
-
-Run `sensu-backend init` to set up your Sensu administrator username and password.
-In this initialization step, you only need to set environment variables with a username and password string &mdash; no need for role-based access control (RBAC).
-
-Replace `YOUR_USERNAME` and `YOUR_PASSWORD` with the username and password you want to use:
-
-{{< highlight shell >}}
-export SENSU_BACKEND_CLUSTER_ADMIN_USERNAME=YOUR_USERNAME
-export SENSU_BACKEND_CLUSTER_ADMIN_PASSWORD=YOUR_PASSWORD
-sensu-backend init
-{{< /highlight >}}
-
 For details about `sensu-backend init`, see the [backend reference][30].
 
-### 3. Configure and start
+### 2. Configure and start
 
 You can configure the Sensu backend with `sensu-backend start` flags (recommended) or an `/etc/sensu/backend.yml` file.
 The Sensu backend requires the `state-dir` flag at minimum, but other useful configurations and templates are available.
@@ -158,6 +143,21 @@ service sensu-backend status
 {{< /language-toggle >}}
 
 For a complete list of configuration options, see the [backend reference][6].
+
+### 3. Initialize
+
+_**NOTE**: If you are using Docker, skip this step and continue with [3. Configure and start][36]. The `sensu-backend init` command is not implemented for Docker._
+
+Run `sensu-backend init` to set up your Sensu administrator username and password.
+In this initialization step, you only need to set environment variables with a username and password string &mdash; no need for role-based access control (RBAC).
+
+Replace `YOUR_USERNAME` and `YOUR_PASSWORD` with the username and password you want to use:
+
+{{< highlight shell >}}
+export SENSU_BACKEND_CLUSTER_ADMIN_USERNAME=YOUR_USERNAME
+export SENSU_BACKEND_CLUSTER_ADMIN_PASSWORD=YOUR_PASSWORD
+sensu-backend init
+{{< /highlight >}}
 
 ### 4. Open the web UI
 
