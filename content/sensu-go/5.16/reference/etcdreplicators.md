@@ -339,7 +339,7 @@ spec:
 
 ## Critical success factors for etcd replication
 
-Before you implement etcd replicators, review these must-know details that are critical to your success.
+Before you implement etcd replicators, review these details &mdash; they are critical to your success.
 
 **Bind your etcd listener to an external port that is *not* the default.**
 
