@@ -146,7 +146,7 @@ For a complete list of configuration options, see the [backend reference][6].
 
 ### 3. Initialize
 
-_**NOTE**: If you are using Docker, skip this step and continue with [3. Configure and start][36]. The `sensu-backend init` command is not implemented for Docker._
+_**NOTE**: If you are using Docker, skip this step and continue with [4. Open the web UI][36]. The `sensu-backend init` command is not implemented for Docker._
 
 Run `sensu-backend init` to set up your Sensu administrator username and password.
 In this initialization step, you only need to set environment variables with a username and password string &mdash; no need for role-based access control (RBAC).
@@ -165,7 +165,7 @@ The web UI provides a unified view of your monitoring events and user-friendly t
 After starting the Sensu backend, open the web UI by visiting http://localhost:3000.
 You may need to replace `localhost` with the hostname or IP address where the Sensu backend is running.
 
-To log in to the web UI, enter your Sensu user credentials (the user ID and password you provided with `sensu-backend init`).
+To log in to the web UI, enter your Sensu user credentials (the user ID and password you provided with `sensu-backend init`, or `admin` and `P@ssw0rd!` if you're using Docker).
 Select the ☰ icon to explore the web UI.
 
 ### 5. Make a request to the health API
@@ -434,4 +434,4 @@ Now that you've installed Sensu, here are some resources to help continue your j
 [33]: ../../guides/create-read-only-user/
 [34]: https://account.sensu.io/
 [35]: ../../api/health/
-[36]: #3-configure-and-start
+[36]: #4-open-the-web-ui
