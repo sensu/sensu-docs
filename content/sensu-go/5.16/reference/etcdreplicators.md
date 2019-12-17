@@ -361,7 +361,7 @@ Before you implement etcd replicators, review these must-know details that are c
 
 - Never use insecure mode without TLS mutual authentication outside of a testbed.
 
-_**WARNING**: Make sure to confirm your configuration. The server will accept incorrect EtcdReplicator definitions without sending a warning. If your configuration is wrong, replication will not work._
+_**WARNING**: Make sure to confirm your configuration. The server will accept incorrect EtcdReplicator definitions without sending a warning. If your configuration is incorrect, replication will not work._
 
 [1]: ../../getting-started/enterprise
 [2]: ../../api/etcdreplicators/
