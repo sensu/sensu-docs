@@ -52,7 +52,9 @@ Read the [upgrade guide][1] for information about upgrading to the latest versio
 ## 5.16.0 release notes
 
 **December 16, 2019** &mdash; The latest release of Sensu Go, version 5.16.0, is now available for download.
-This is another important release, with many new features, improvements, and fixes. We introduced an initialization subcommand for **new** installations that allows you to specify an admin username and password instead of using a pre-defined default. We also added new backend flags to help you take advantage of etcd auto-discovery features and agent flags you can use to define a timeout period for critical and warning keepalive events.
+This is another important release, with many new features, improvements, and fixes.
+We introduced an initialization subcommand for **new** installations that allows you to specify an admin username and password instead of using a pre-defined default.
+We also added new backend flags to help you take advantage of etcd auto-discovery features and agent flags you can use to define a timeout period for critical and warning keepalive events.
 
 New web UI features include a switcher that makes it easier to switch between namespaces in the dashboard, breadcrumbs on every page, OIDC authentication in the dashboard, a drawer that replaces the app bar to make more room for content, and more.
 
@@ -62,13 +64,15 @@ See the [upgrade guide][1] to upgrade Sensu to version 5.16.0.
 
 **IMPORTANT:**
 
-- The backend is no longer seeded with a default admin username and password. Users will need to [run 'sensu-backend init'][102] on every new installation and specify an admin username and password.
+- The backend is no longer seeded with a default admin username and password.
+Users will need to [run 'sensu-backend init'][102] on every new installation and specify an admin username and password.
 
 **NEW FEATURES:**
 
 - ([Commercial feature][105]) Users can now authenticate with OIDC in the dashboard.
 - ([Commercial feature][105]) Label selectors now match the event's check and entity labels.
-- Added a new flag,`--etcd-client-urls`, which should be used with sensu-backend when it is not operating as an etcd member. The flag is also used by the new `sensu-backend init` subcommand.
+- Added a new flag,`--etcd-client-urls`, which should be used with sensu-backend when it is not operating as an etcd member.
+The flag is also used by the new `sensu-backend init` subcommand.
 - Added the ['sensu-backend init' subcommand][102].
 - Added the [`--etcd-discovery`][100] and [`--etcd-discovery-srv`][100] flags to sensu-backend, which allow users to take advantage of the embedded etcd's auto-discovery features.
 - Added [`--keepalive-critical-timeout`][101] to define the time after which a critical keepalive event should be created for an agent and [`--keepalive-warning-timeout`][101], which is an alias of `--keepalive-timeout` for backward compatibility.
@@ -76,7 +80,9 @@ See the [upgrade guide][1] to upgrade Sensu to version 5.16.0.
 **IMPROVEMENTS:**
 
 - ([Commercial feature][105]) The entity limit warning message is now displayed less aggressively and the warning threshold is proportional to the entity limit.
-- A new switcher in the [web UI][103] makes it easier to switch namespaces in the dashboard. Access the new component from the drawer or with the shortcut ctrl+k. For users who have many namespaces, the switcher now includes fuzzy search and improved keyboard navigation.
+- A new switcher in the [web UI][103] makes it easier to switch namespaces in the dashboard.
+Access the new component from the drawer or with the shortcut ctrl+k.
+For users who have many namespaces, the switcher now includes fuzzy search and improved keyboard navigation.
 - In the [web UI][103], replaced the app bar with an omnipresent drawer to increase the available space for content. Each page also now includes breadcrumbs.
 - In the [Sensu documentation][104], links now point to the version of the product being run instead of the latest, which may be helpful when running an older version of Sensu.
 
