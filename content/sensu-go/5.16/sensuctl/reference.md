@@ -46,11 +46,13 @@ When prompted, type the [Sensu backend URL][9] and your [Sensu access credential
 
 {{< highlight shell >}}
 ? Sensu Backend URL: http://127.0.0.1:8080
-? Username: admin
-? Password: P@ssw0rd!
+? Username: YOUR_USERNAME
+? Password: YOUR_PASSWORD
 ? Namespace: default
 ? Preferred output format: tabular
 {{< /highlight >}}
+
+_**NOTE**: If you are using Docker, the default username is `admin` and the password is `P@ssw0rd!`._
 
 ### Sensu backend URL
 
@@ -62,9 +64,11 @@ For information about configuring the Sensu backend URL, see the [backend refere
 
 ### Username, Password, and Namespace
 
-By default, Sensu includes a user named `admin` with password `P@ssw0rd!` and a `default` namespace.
+When you install the Sensu backend, during the [initialization step][40], you create a username and password for a `default` namespace.
 Your ability to get, list, create, update, and delete resources with sensuctl depends on the permissions assigned to your Sensu user.
 For more information about configuring Sensu access control, see the [RBAC reference][1].
+
+_**NOTE**: If you are using Docker, the `sensu-backend init` command for initialization runs automatically with a default username (`admin`) and password (`P@ssw0rd!`) for Docker. You do not need to create a username and password for the `default` namespace if you are using Docker._
 
 ### Preferred output format
 
@@ -82,8 +86,10 @@ After you are logged in, you can change the output format with `sensuctl config 
 Run `sensuctl configure` non-interactively by adding the `-n` (`--non-interactive`) flag.
 
 {{< highlight shell >}}
-sensuctl configure -n --url http://127.0.0.1:8080 --username admin --password P@ssw0rd! --format tabular
+sensuctl configure -n --url http://127.0.0.1:8080 --username YOUR_USERNAME --password YOUR_PASSWORD --format tabular
 {{< /highlight >}}
+
+_**NOTE**: If you are using Docker, the default username is `admin` and the password is `P@ssw0rd!`._
 
 ## Get help
 
@@ -1012,4 +1018,4 @@ Flags are optional and apply only to the `delete` command.
 [37]: https://bonsai.sensu.io/assets/sensu/sensu-email-handler/
 [38]: #environment-variables
 [39]: #wrapped-json-format
-
+[40]: ../../installation/install-sensu/#2-initialize

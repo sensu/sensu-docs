@@ -43,7 +43,7 @@ log-level: "debug" # available log levels: panic, fatal, error, warn, info, debu
 ##
 #deregister: false
 #deregistration-handler: "example_handler"
-#keepalive-timeout: 120
+#keepalive-warning-timeout: 120
 #keepalive-interval: 20
 
 ##

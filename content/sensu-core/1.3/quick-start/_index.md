@@ -10,4 +10,4 @@ menu:
     identifier: quick-start
 ---
 
-{{< directoryListing "content/sensu-core/1.3/quick-start" >}}
+{{< directoryListing >}}
