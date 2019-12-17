@@ -71,8 +71,7 @@ Start Prometheus in the background:
 nohup ./prometheus --config.file=prometheus.yml > prometheus.log 2>&1 &
 {{< /highlight >}}
 
-Ensure Prometheus is running.
-The matching result will vary slightly.
+Ensure Prometheus is running (your result may vary slightly from this example):
 
 {{< highlight shell >}}
 ps -ef | grep "[p]rometheus"

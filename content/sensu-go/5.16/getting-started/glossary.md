@@ -14,7 +14,7 @@ menu:
 A lightweight client that runs on the infrastructure components you want to monitor.
 Agents self-register with the backend, send keepalive messages, and execute monitoring checks.
 Each agent belongs to one or more subscriptions that determine which checks the agent runs.
-An agent can run checks on the entity it’s installed on or by connecting to a remote proxy entity.
+An agent can run checks on the entity it’s installed on or connect to a remote proxy entity.
 [Read more about the Sensu agent][1].
 
 #### Asset
@@ -49,10 +49,10 @@ The Sensu backend uses events to power the monitoring event pipeline.
 Event data includes the result of a check or metric (or both), the executing agent, and a timestamp.
 [Read more about events][8].
 
-#### Filter
+#### Event filter
 Logical expressions that handlers evaluate before processing monitoring events.
-Filters can instruct handlers to allow or deny matching events based on day, time, namespace, or any attribute in the event data.
-[Read more about filters][9].
+Event filters can instruct handlers to allow or deny matching events based on day, time, namespace, or any attribute in the event data.
+[Read more about event filters][9].
 
 #### Handler
 A component of the monitoring event pipeline that acts on events.
@@ -73,12 +73,12 @@ Executables designed to work with Sensu event data either as a check, mutator, o
 You can write your own check executables in Go, Ruby, Python, and more, or use one of more than 200 plugins shared by the Sensu community.
 [Read more about plugins][6].
 
-#### Proxy Entities
+#### Proxy entities
 Components of your infrastructure that can’t run the agent locally (like a network switch or a website) but still need to be monitored.
 Agents create events with information about the proxy entity in place of the local entity when running checks with a specified proxy entity ID.
 [Read more about proxy entities][12].
 
-#### Role-Based Access Control (RBAC)
+#### Role-based access control (RBAC)
 Sensu’s local user management system.
 RBAC lets you manage users and permissions with namespaces, users, roles, and role bindings.
 [Read more about RBAC][13].

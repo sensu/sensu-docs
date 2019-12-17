@@ -22,7 +22,7 @@ For a list of Sensu terms and definitions, see the [glossary][7].
 - [What can I monitor with Sensu?](#monitor-with-sensu)
 - [Does Sensu include a time series database for long-term storage?](#long-term-storage)
 - [Can I connect Sensu Go to clients and servers from earlier versions of Sensu Core and Sensu Enterprise?](#connect-earlier-versions)
-- [Can I upgrade my Sensu 1.x deployment to Sensu Go?](#upgrade-1x-to-go)
+- [Can I upgrade my Sensu Core 1.x deployment to Sensu Go?](#upgrade-1x-to-go)
 - [Which ports does Sensu use?](#go-ports)
 - [Can one Sensu backend monitor multiple sites?](#monitor-multiple-sites)
 - [Can I use Uchiwa with Sensu Go?](#uchiwa-with-go)
@@ -30,7 +30,7 @@ For a list of Sensu terms and definitions, see the [glossary][7].
 
 ## What platforms does Sensu support? {#platform-support}
 
-Sensu Go is available for Linux, Windows (agent and CLI only), macOS (CLI only), and Docker.
+Sensu Go is available for Linux, Windows (agent and CLI only), macOS (CLI only), Solaris, and Docker.
 See the list of [supported platforms][1] and the [installation guide][2] for more information.
 
 ## Is Sensu available as a hosted solution? {#hosted-solution}
@@ -81,14 +81,14 @@ See the [guide to storing metrics with InfluxDB][18] to get started.
 
 No, Sensu Go agents and backends are not compatible with Sensu Core or Sensu Enterprise services.
 
-## Can I upgrade my Sensu 1.x deployment to Sensu Go? {#upgrade-1x-to-go}
+## Can I upgrade my Sensu Core 1.x deployment to Sensu Go? {#upgrade-1x-to-go}
 
 Sensu Go is a complete redesign of the original Sensu.
 It uses separate packages, dependencies, and data models to bring you powerful new features.
 See the [Sensu Go release announcement][3] for more information.
-Due to these changes, [some Sensu 1.x features][4] are no longer supported in Sensu Go, such as standalone checks.
-To upgrade your Sensu 1.x deployment to Sensu Go, you'll need to translate your Sensu 1.x configuration to the format Sensu Go expects and install the new Sensu Go services on your infrastructure.
-The [Sensu Go upgrade guide][4] includes a detailed feature comparison between Sensu Go and Sensu 1.x as well as tools to help you get started.
+Due to these changes, [some Sensu Core 1.x features][4] are no longer supported in Sensu Go, such as standalone checks.
+To upgrade your Sensu Core 1.x deployment to Sensu Go, you'll need to translate your Sensu Core 1.x configuration to the format Sensu Go expects and install the new Sensu Go services on your infrastructure.
+The [Sensu Go upgrade guide][4] includes a detailed feature comparison between Sensu Go and Sensu Core 1.x as well as tools to help you get started.
 
 ## Which ports does Sensu use? {#go-ports}
 

@@ -20,7 +20,6 @@ _**NOTE**: Before October 2018, Sensu Go was known as Sensu 2.0._
 - [Data Collection and Prometheus Scraping With Sensu Go][3]: Sean Porter, InfluxDays 2018
 - [Sensu Go Deep Dive][1]: Greg Poirer, Sensu Summit 2017
 
-
 ## Blog posts
 
 - [Check output metric extraction with InfluxDB & Grafana][9]: Nikki Attea

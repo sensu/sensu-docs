@@ -7,10 +7,6 @@ platformContent: true
 platforms: ["Linux/macOS", "Windows"]
 ---
 
-In this tutorial, you'll deploy a sample app with Kubernetes and monitor it with Sensu.
-In the sample app, `/` returns the local hostname.
-The sample app has three endpoints: `/metrics` returns Prometheus metric data, `/healthz` returns the Boolean health state, and `POST /healthz` toggles the health state.
-
 - [Prerequisites](#prerequisites)
 - [Set up](#set-up)
 - [Multitenancy](#multitenancy)
@@ -24,6 +20,10 @@ The sample app has three endpoints: `/metrics` returns Prometheus metric data, `
 	- [Visualize metrics with Grafana](#visualize-metrics-with-grafana)
 - [Collect Kubernetes metrics](#collect-kubernetes-metrics)
 - [Next steps](#next-steps)
+
+In this tutorial, you'll deploy a sample app with Kubernetes and monitor it with Sensu.
+In the sample app, `/` returns the local hostname.
+The sample app has three endpoints: `/metrics` returns Prometheus metric data, `/healthz` returns the Boolean health state, and `POST /healthz` toggles the health state.
 
 ## Prerequisites
 
@@ -72,7 +72,7 @@ _**NOTE**: You'll use the IP address for the Minikube VM in the hosts file. To v
 
 **5. Install sensuctl.**
 
-Follow the [sensuctl installation guide][2] instructions to install sensuctl on Windows, macOS, or Linux.
+Follow the [sensuctl installation guide][2] instructions to install sensuctl on Linux, macOS, or Windows.
 
 **6. Deploy two instances of the sample app (dummy) behind a load balancer.**
 
@@ -115,6 +115,8 @@ Use Sensu role-based access control (RBAC) to create a `demo` namespace and a `d
 **1. Configure sensuctl to use the admin user.**
 
 When you installed the Sensu backend, during the [initialization step][40], you created an admin username and password for a `default` namespace. Use that username and password to configure sensuctl in this step.
+
+_**NOTE**: If you're using Docker, the username is `admin` and the password is `P@ssw0rd!`._
 
 {{< highlight shell >}}
 sensuctl configure

@@ -47,7 +47,7 @@ _**NOTE**: The sandbox configures VirtualBox to forward TCP ports 3002 and 4002 
 
 **4. SSH into the sandbox**
 
-Thanks for waiting! To start shell into the sandbox:
+Thanks for waiting! To start, shell into the sandbox:
 
 {{< highlight shell >}}
 vagrant ssh
@@ -59,11 +59,11 @@ You should be greeted with this prompt:
 [sensu_go_sandbox]$
 {{< /highlight >}}
 
-- To exit out of the sandbox, press `CTRL`+`D`.
+- To exit the sandbox, press `CTRL`+`D`.
 - To erase and restart the sandbox, run `vagrant destroy` and then `vagrant up`.
 - To reset the sandbox's Sensu configuration to the beginning of this tutorial, run `vagrant provision`.
 
-_NOTE: The sandbox pre-configures sensuctl with the Sensu Go admin user, so you won't have to configure sensuctl each time you spin up the sandbox to try out a new feature. Before installing sensuctl outside of the sandbox, read the [first time setup reference][1] to learn how to configure sensuctl._  
+_**NOTE**: The sandbox pre-configures sensuctl with the Sensu Go admin user, so you won't have to configure sensuctl each time you spin up the sandbox to try out a new feature. Before installing sensuctl outside of the sandbox, read the [first time setup reference][1] to learn how to configure sensuctl._  
 
 ---
 
@@ -180,7 +180,7 @@ Use sensuctl to see the complete asset definition.
 sensuctl asset info sensu-slack-handler --format yaml
 {{< /highlight >}}
 
-_PRO TIP: You can use resource definitions to create and update resources (like assets) using `sensuctl create --file filename.yaml`. See the [sensuctl docs][5] for more information._
+_**PRO TIP**: You can use resource definitions to create and update resources (like assets) using `sensuctl create --file filename.yaml`. See the [sensuctl docs][5] for more information._
 
 **3. Create a Sensu Slack handler**
 
@@ -221,7 +221,7 @@ Sensu monitoring events should begin arriving in your Slack channel, indicating 
 
 Now that you're generating Slack alerts, let's reduce the potential for alert fatigue by adding a filter that sends only warning, critical, and resolution alerts to Slack.
 
-To accomplish this, you'll interactively add the built-in is_incident filter to the keepalive handler, which will make sure you only receive alerts when the sandbox entity fails to send a keepalive event.
+To accomplish this, you'll interactively add the built-in is_incident event filter to the keepalive handler, which will make sure you only receive alerts when the sandbox entity fails to send a keepalive event.
 
 {{< highlight shell >}}
 sensuctl handler update keepalive
@@ -229,7 +229,7 @@ sensuctl handler update keepalive
 
 The first prompt will be for environment variables.
 Just press `return` to continue.
-The second prompt is for the filters selection &mdash; enter `is_incident` to apply the is_incident filter.
+The second prompt is for the filters selection &mdash; enter `is_incident` to apply the is_incident event filter.
 
 {{< highlight shell >}}
 ? Filters: is_incident
@@ -237,7 +237,7 @@ The second prompt is for the filters selection &mdash; enter `is_incident` to ap
 
 For each of the mutator, timeout, type, runtime assets, and command prompts, just press `return`.
 
-Use sensuctl to confirm that the keepalive handler now includes the is_incident filter:
+Use sensuctl to confirm that the keepalive handler now includes the is_incident event filter:
 
 {{< highlight shell >}}
 sensuctl handler info keepalive
@@ -255,7 +255,7 @@ Environment Variables: KEEPALIVE_SLACK_WEBHOOK=https://hooks.slack.com/services/
 Runtime Assets:        sensu-slack-handler
 {{< /highlight >}}
 
-With the filter in place, you should no longer receive messages in your Slack channel every time the sandbox entity sends a keepalive event.
+With the event filter in place, you should no longer receive messages in your Slack channel every time the sandbox entity sends a keepalive event.
 
 Let's stop the agent and confirm that you receive the expected warning message.
 

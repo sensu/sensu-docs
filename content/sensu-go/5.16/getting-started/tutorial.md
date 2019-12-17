@@ -29,4 +29,6 @@ s.parentNode.insertBefore(b, s);})();
     style="height: 800px; padding-top: 10px;" 
 ></div>
 <br><br>
-[**<-- Back to Get started with Sensu**](../get-started)
+[**<-- Back to Get started with Sensu**][1]
+
+[1]: ../get-started/

@@ -40,7 +40,8 @@ Manage your Sensu account and contact support through [account.sensu.io][2].
 
 If you haven't already, [install the Sensu Go backend, agent, and sensuctl tool][15] and [configure sensuctl][16].
 
-Log in to your Sensu account at [account.sensu.io][2] and download your commercial license file. Click **Download license**.
+Log in to your Sensu account at [account.sensu.io][2] and download your commercial license file.
+Click **Download license**.
 
 <img alt="Screenshot of Sensu account license download" src="/images/go-license-download.png" width="350px">
 

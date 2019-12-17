@@ -1,7 +1,7 @@
 ---
 title: "Sensu sandbox"
 linkTitle: "Sandbox"
-description: "The Sensu sandbox makes it easy to learn Sensu Go. Build your first monitoring workflow and set up container and application monitoring. There’s also a lesson plan for upgrading from Sensu 1.x to Sensu Go!"
+description: "The Sensu sandbox makes it easy to learn Sensu Go. Build your first monitoring workflow and set up container and application monitoring. There’s also a lesson plan for upgrading from Sensu Core 1.x to Sensu Go!"
 version: "5.16"
 weight: 50
 product: "Sensu Go"
@@ -21,8 +21,8 @@ Welcome to the Sensu sandbox! The sandbox is the best place to get started with 
 ## Collect metrics
 - [Collect Prometheus metrics with Sensu][3]
 
-## Upgrade from Sensu 1.x to Sensu Go
-- Use the [Sensu translator][4] to translate check configurations from Sensu 1.x (Core) to Sensu Go
+## Upgrade from Sensu Core 1.x to Sensu Go
+- Use the [Sensu translator][4] to translate check configurations from Sensu Core 1.x to Sensu Go
 
 [1]: ../learn-sensu/
 [2]: ../sample-app/
