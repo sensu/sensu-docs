@@ -347,7 +347,7 @@ Before you implement etcd replicators, review these must-know details that are c
 
 **Use only addresses that clients can route to for `etcd-client-advertise-urls`.**
 
-- If you use addresses that clients cannot route to for `etcd-client-advertise-urls`, replication my be inconsistent: it may work at first but then stop working later.
+- If you use addresses that clients cannot route to for `etcd-client-advertise-urls`, replication may be inconsistent: it may work at first but then stop working later.
 
 **Put the certificate and key of the follower cluster in files that the leader can access.**
 
@@ -368,4 +368,3 @@ _**WARNING**: Make sure to confirm your configuration. The server will accept in
 [3]: ../../reference/rbac/
 [4]: ../../sensuctl/reference/#creating-resources
 [5]: ../../guides/securing-sensu/#creating-self-signed-certificates-for-securing-etcd-and-backend-agent-communication
-
