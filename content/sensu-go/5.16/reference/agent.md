@@ -130,8 +130,10 @@ If an external source sends a Sensu event with a check TTL to the Sensu agent AP
 
 In this example, external event input via the Sensu agent API uses a check TTL to create a dead man's switch for MySQL backups.
 Assume that a MySQL backup script runs periodically, and you expect the job to take a little less than 7 hours to complete.
-If the job completes successfully, you want a record of it, but you don't need to receive an alert.
-If the job fails for some reason or continues running longer than the expected 7 hours, you do need to receive an alert.
+
+- If the job completes successfully, you want a record of it, but you don't need to receive an alert.
+- If the job fails or continues running longer than the expected 7 hours, you do need to receive an alert.
+
 This script sends an event that tells the Sensu backend to expect an additional event with the same name within 7 hours of the first event:
 
 {{< highlight shell >}}
@@ -153,7 +155,7 @@ http://127.0.0.1:3031/events
 With this initial event submitted to the agent API, you recorded in the Sensu backend that your script started.
 You also configured the dead man's switch so that you'll receive an alert if the job fails or runs for too long.
 Although it is possible for your script to handle errors gracefully and emit additional monitoring events, this approach allows you to worry less about handling every possible error case.
-The lack of additional events before the 7-hour period elapses results in an alert.
+A lack of additional events before the 7-hour period elapses results in an alert.
 
 If your backup script runs successfully, you can send an additional event without the TTL attribute, which removes the dead man's switch:
 
@@ -259,7 +261,7 @@ sensu-agent --statsd-event-handlers influx-db --statsd-flush-interval 1 --statsd
 
 ## Create monitoring events using the agent TCP and UDP sockets
 
-_**NOTE**: The agent TCP and UDP sockets are deprecated in favor of the [agent API](#events-post)._
+_**NOTE**: The agent TCP and UDP sockets are deprecated in favor of the [agent API][50]._
 
 Sensu agents listen for external monitoring data using TCP and UDP sockets.
 The agent sockets accept JSON event data and pass events to the Sensu backend event pipeline for processing.
@@ -297,7 +299,7 @@ echo '{"name": "check-mysql-status", "status": 1, "output": "error!"}' | nc -u -
 
 ### Socket event format
 
-The agent TCP and UDP sockets use a special event data format designed for backward compatibility with [Sensu Core (1.x) check results][42].
+The agent TCP and UDP sockets use a special event data format designed for backward compatibility with [Sensu Core 1.x check results][42].
 Attributes specified in socket events appear in the resulting event data passed to the Sensu backend.
 
 **Example socket input: Minimum required attributes**
@@ -382,7 +384,7 @@ example      | {{< highlight shell >}}"duration": 1.903135228{{< /highlight >}}
 
 command      | 
 -------------|------
-description  | Command executed to produce the event. Use the  `command` attribute to add context to the event data. Sensu does not execute the command included in this attribute.
+description  | Command executed to produce the event. Use the `command` attribute to add context to the event data. Sensu does not execute the command included in this attribute.
 required     | false
 type         | String
 example      | {{< highlight shell >}}"command": "check-http.rb -u https://sensuapp.org"{{< /highlight >}}
@@ -406,10 +408,13 @@ example      | {{< highlight shell >}}"handlers": ["slack", "influxdb"]{{< /high
 
 Sensu `keepalives` are the heartbeat mechanism used to ensure that all registered agents are operational and able to reach the [Sensu backend][2].
 Sensu agents publish keepalive events containing [entity][3] configuration data to the Sensu backend according to the interval specified by the [`keepalive-interval` flag][4].
+
 If a Sensu agent fails to send keepalive events over the period specified by the [`keepalive-critical-timeout` flag][4], the Sensu backend creates a keepalive **critical** alert in the Sensu dashboard.
 The `keepalive-critical-timeout` is set to `0` (disabled) by default to help ensure that it will not interfere with your `keepalive-warning-timeout` setting.
+
 If a Sensu agent fails to send keepalive events over the period specified by the [`keepalive-warning-timeout` flag][4], the Sensu backend creates a keepalive **warning** alert in the Sensu dashboard.
 The value you specify for `keepalive-warning-timeout` must be lower than the value you specify for `keepalive-critical-timeout`.
+
 You can use keepalives to identify unhealthy systems and network partitions, send notifications, and trigger auto-remediation, among other useful actions.
 
 _**NOTE**: Keepalive monitoring is not supported for [proxy entities][3], as they are inherently unable to run a Sensu agent._
@@ -755,7 +760,7 @@ See the [example agent configuration file][5] (also provided with Sensu packages
 
 | annotations|      |
 -------------|------
-description  | Non-identifying metadata to include with event data that you can access with [filters][9] and [tokens][27]. You can use annotations to add data that is meaningful to people or external tools that interact with Sensu.<br><br>In contrast to labels, you cannot use annotations in [API filtering][25] or [sensuctl filtering][26], and annotations do not affect Sensu's internal performance.
+description  | Non-identifying metadata to include with event data that you can access with [event filters][9] and [tokens][27]. You can use annotations to add data that is meaningful to people or external tools that interact with Sensu.<br><br>In contrast to labels, you cannot use annotations in [API response filtering][25] or [sensuctl response filtering][26], and annotations do not affect Sensu's internal performance.
 required     | false
 type         | Map of key-value pairs. Keys and values can be any valid UTF-8 string.
 default      | `null`
@@ -838,7 +843,7 @@ allow-list: /etc/sensu/check-allow-list.yaml{{< /highlight >}}
 
 | labels     |      |
 -------------|------
-description  | Custom attributes to include with event data that you can access with [filters][9] and [tokens][27].<br><br>In contrast to annotations, you can use labels to create meaningful collections that you can select with [API filtering][25] and [sensuctl filtering][26]. Overusing labels can affect Sensu's internal performance, so we recommend moving complex, non-identifying metadata to annotations.
+description  | Custom attributes to include with event data that you can access with [event filters][9] and [tokens][27].<br><br>In contrast to annotations, you can use labels to create meaningful collections that you can select with [API response filtering][25] and [sensuctl response filtering][26]. Overusing labels can affect Sensu's internal performance, so we recommend moving complex, non-identifying metadata to annotations.
 required     | false
 type         | Map of key-value pairs. Keys can contain only letters, numbers, and underscores and must start with a letter. Values can be any valid UTF-8 string.
 default      | `null`
@@ -932,7 +937,7 @@ disable-api: true{{< /highlight >}}
 
 | events-burst-limit | |
 --------------|------
-description   | Maximum amount of burst allowed in a rate interval for the [agent events API](#events-post).
+description   | Maximum amount of burst allowed in a rate interval for the [agent events API][50].
 type          | Integer
 default       | `10`
 example       | {{< highlight shell >}}# Command line example
@@ -944,7 +949,7 @@ events-burst-limit: 20{{< /highlight >}}
 
 | events-rate-limit | |
 --------------|------
-description   | Maximum number of events per second that can be transmitted to the backend with the [agent events API](#events-post)
+description   | Maximum number of events per second that can be transmitted to the backend with the [agent events API][50].
 type          | Float
 default       | `10.0`
 example       | {{< highlight shell >}}# Command line example
@@ -1033,7 +1038,7 @@ namespace: "ops"{{< /highlight >}}
 
 | user |      |
 --------------|------
-description   | Sensu [RBAC][39] username used by the agent. Agents require get, list, create, update, and delete permissions for events across all namespaces.
+description   | [Sensu RBAC username][39] used by the agent. Agents require get, list, create, update, and delete permissions for events across all namespaces.
 type          | String
 default       | `agent`
 example       | {{< highlight shell >}}# Command line example
@@ -1045,7 +1050,7 @@ user: "agent-01"{{< /highlight >}}
 
 | password    |      |
 --------------|------
-description   | Sensu [RBAC][39] password used by the agent.
+description   | [Sensu RBAC password][39] used by the agent.
 type          | String
 default       | `P@ssw0rd!`
 example       | {{< highlight shell >}}# Command line example
@@ -1313,7 +1318,6 @@ $ sudo systemctl restart sensu-agent
 
 {{< /language-toggle >}}
 
-
 [1]: ../../installation/install-sensu#install-sensu-agents
 [2]: ../backend/
 [3]: ../entities/
@@ -1338,7 +1342,7 @@ $ sudo systemctl restart sensu-agent
 [22]: #statsd-configuration-flags
 [23]: https://github.com/statsd/statsd#key-concepts
 [24]: #configuration
-[25]: ../../api/overview#filtering
+[25]: ../../api/overview#response-filtering
 [26]: ../../sensuctl/reference#filters
 [27]: ../tokens/
 [28]: #subscriptions-flag
@@ -1362,3 +1366,4 @@ $ sudo systemctl restart sensu-agent
 [47]: https://en.m.wikipedia.org/wiki/Protocol_Buffers
 [48]: #example-allow-list-configuration-file
 [49]: #allow-list-configuration
+[50]: #events-post-specification

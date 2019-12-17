@@ -20,8 +20,8 @@ menu:
 An entity represents anything that needs to be monitored, such as a server, container, or network switch, including the full range of infrastructure, runtime, and application types that compose a complete monitoring environment (from server hardware to serverless functions).
 We call these monitored parts of an infrastructure "entities."
 
-An entity provides context to event data &mdash; what and where the event is from &mdash; and an event's uniqueness is determined by the check name and the name of the entity upon which the check ran.
-Entities can also contain system information like the hostname, OS, platform, and version.
+An entity provides context for event data &mdash; what and where the event is from &mdash; and an event's uniqueness is determined by the check name and the name of the entity upon which the check ran.
+Entities can also contain system information like the hostname, operating system, platform, and version.
 
 Agent entities are monitoring agents that are installed and run on every system that needs to be monitored.
 The agent entity registers the system with the Sensu backend service, sends keepalive messages (the Sensu heartbeat mechanism), and executes monitoring checks.
@@ -40,7 +40,7 @@ See [the announcement on our blog][11] for more information about our usage poli
 
 ## Proxy entities
 
-Proxy entities (formerly known as proxy clients or just-in-time/JIT clients) are dynamically created entities that are added to the entity store if an entity does not already exist for a check result.
+Proxy entities [formerly known as proxy clients or just-in-time (JIT) clients] are dynamically created entities that are added to the entity store if an entity does not already exist for a check result.
 Proxy entities allow Sensu to monitor external resources on systems and devices where a Sensu agent cannot be installed (like a network switch or website) using the defined check `ProxyEntityName` to create a proxy entity for the external resource.
 
 Proxy entity registration differs from keepalive-based registration because the registration event happens while processing a check result (not a keepalive message).
@@ -57,15 +57,16 @@ If you don't use a proxy entity for round robin scheduling, you could have sever
 
 If you use a proxy entity without round robin scheduling, and several agents share the subscription, they will all execute the check for the proxy entity and you'll get duplicate results.
 When you enable round robin, you'll get one agent per interval executing the proxy check, but the event will always be listed under the proxy entity.
-If you don't create a proxy entity, it is created when the check is executed. You can modify the proxy entity later if needed.
+If you don't create a proxy entity, it is created when the check is executed.
+You can modify the proxy entity later if needed.
 
 Use [proxy entity filters][19] to establish a many-to-many relationship between agent entities and proxy entities if you want even more power over the grouping.
 
 ## Manage entity labels
 
 Labels are custom attributes that Sensu includes with event data.
-You can access labels with [filters][6] and [tokens][7].
-In contrast to annotations, you can use labels to create meaningful collections that you can select with [API filtering][14] and [sensuctl filtering][15].
+You can access labels with [event filters][6] and [tokens][7].
+In contrast to annotations, you can use labels to create meaningful collections that you can select with [API response filtering][14] and [sensuctl response filtering][15].
 
 Overusing labels can affect Sensu's internal performance, so we recommend moving complex, non-identifying metadata to [annotations][20].
 
@@ -326,7 +327,7 @@ example      | {{< highlight shell >}}"namespace": "production"{{< /highlight >}
 
 | labels     |      |
 -------------|------
-description  | Custom attributes to include with event data that you can access with [filters][6] and [tokens][7].<br><br>In contrast to annotations, you can use labels to create meaningful collections that you can select with [API filtering][14] and [sensuctl filtering][15]. Overusing labels can affect Sensu's internal performance, so we recommend moving complex, non-identifying metadata to annotations.
+description  | Custom attributes to include with event data that you can access with [event filters][6] and [tokens][7].<br><br>In contrast to annotations, you can use labels to create meaningful collections that you can select with [API response filtering][14] and [sensuctl response filtering][15]. Overusing labels can affect Sensu's internal performance, so we recommend moving complex, non-identifying metadata to annotations.
 required     | false
 type         | Map of key-value pairs. Keys can contain only letters, numbers, and underscores and must start with a letter. Values can be any valid UTF-8 string.
 default      | `null`
@@ -337,7 +338,7 @@ example      | {{< highlight shell >}}"labels": {
 
 | annotations |     |
 -------------|------
-description  | Non-identifying metadata to include with event data that you can access with [filters][6] and [tokens][7]. You can use annotations to add data that's meaningful to people or external tools that interact with Sensu.<br><br>In contrast to labels, you cannot use annotations in [API filtering][14] or [sensuctl filtering][15], and annotations do not affect Sensu's internal performance.
+description  | Non-identifying metadata to include with event data that you can access with [event filters][6] and [tokens][7]. You can use annotations to add data that's meaningful to people or external tools that interact with Sensu.<br><br>In contrast to labels, you cannot use annotations in [API response filtering][14] or [sensuctl response filtering][15], and annotations do not affect Sensu's internal performance.
 required     | false
 type         | Map of key-value pairs. Keys and values can be any valid UTF-8 string.
 default      | `null`
@@ -442,7 +443,7 @@ example      | {{< highlight shell >}}"deregister": false {{< /highlight >}}
 
 deregistration  | 
 -------------|------ 
-description  | Map that contains a handler name, for use when an entity is deregistered. See [deregistration attributes][2] for more information.
+description  | Map that contains a handler name to use when an entity is deregistered. See [deregistration attributes][2] for more information.
 required     | false
 type         | Map
 example      | {{< language-toggle >}}
@@ -485,7 +486,7 @@ redact:
 
 | user |      |
 --------------|------
-description   | Sensu [RBAC][22] username used by the entity. Agent entities require get, list, create, update, and delete permissions for events across all namespaces.
+description   | [Sensu RBAC username][22] used by the entity. Agent entities require get, list, create, update, and delete permissions for events across all namespaces.
 type          | String
 default       | `agent`
 example       | {{< highlight shell >}}
@@ -577,7 +578,7 @@ network:
 
 arch         | 
 -------------|------ 
-description  | Entity's system architecture. This value is determined by the Go binary architecture, as a function of runtime.GOARCH. An `amd` system running a `386` binary will report the `arch` as `386`.
+description  | Entity's system architecture. This value is determined by the Go binary architecture as a function of runtime.GOARCH. An `amd` system running a `386` binary will report the `arch` as `386`.
 required     | false 
 type         | String 
 example      | {{< highlight shell >}}"arch": "amd64" {{< /highlight >}}
@@ -645,7 +646,7 @@ example      | {{< highlight shell >}}"mac": "52:54:00:20:1b:3c"{{< /highlight >
 
 addresses    | 
 -------------|------ 
-description  | List of IP addresses for the interface.
+description  | List of IP addresses for the network interface.
 required     | false 
 type         | Array 
 example      | {{< highlight shell >}} "addresses": ["93.184.216.34/24", "2606:2800:220:1:248:1893:25c8:1946/10"]{{< /highlight >}}
@@ -802,7 +803,7 @@ spec:
 [11]: https://blog.sensu.io/one-year-of-sensu-go
 [12]: ../../sensuctl/reference#create-resources
 [13]: #spec-attributes
-[14]: ../../api/overview#filtering
+[14]: ../../api/overview#response-filtering
 [15]: ../../sensuctl/reference#filters
 [16]: #proxy-entities
 [17]: ../../guides/monitor-external-resources/

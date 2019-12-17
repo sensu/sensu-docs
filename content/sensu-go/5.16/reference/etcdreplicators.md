@@ -14,7 +14,7 @@ menu:
 - [Delete a replicator](#delete-a-replicator)
 - [Replicator configuration](#replicator-configuration)
 - [etcd-replicators specification](#etcd-replicators-specification)
-- [Example etcd-replicators resources](#example-etcd-replicators-resources)
+- [Example EtcdReplicator resources](#example-etcdreplicator-resources)
 - [Critical success factors for etcd replication](#critical-success-factors-for-etcd-replication)
 
 **COMMERCIAL FEATURE**: Access the etcd-replicators datatype in the packaged Sensu Go distribution.
@@ -22,7 +22,7 @@ For more information, see [Get started with commercial features][1].
 
 _**NOTE**: etcd-replicators is a datatype in the federation API, which is only accessible for users who have a cluster role that permits access to replication resources._
 
-etcd-replicators allows you to manage [RBAC][3] resources in one place and mirror the changes to follower clusters.
+Etcd replicators allow you to manage [RBAC][3] resources in one place and mirror the changes to follower clusters.
 The API sets up etcd mirrors for one-way key replication.
 
 The etcd-replicators datatype will not use a namespace because it applies cluster-wide.
@@ -36,8 +36,8 @@ When you create or update a replicator, an entry is added to the store and a new
 The replicator process watches the keyspace of the resource to be replicated and replicates all keys to the specified cluster in a last-write-wins fashion.
 
 When the cluster starts up, each sensu-backend scans the stored replicator definitions and starts a replicator process for each replicator definition.
-Source clusters with multiple sensu-backends will cause redundant writes.
-This is harmless but should be taken into account when designing a replicated system. 
+Source clusters with more than one sensu-backend will cause redundant writes.
+This is harmless, but you should consider it when designing a replicated system. 
 
 ## Delete a replicator
 
@@ -48,8 +48,8 @@ Rather than altering an existing replicator's connection details, delete and rec
 
 ## Replicator configuration
 
-EtcdReplicators are etcd key space replicators.
-It contains configuration for forwarding a set of keys from one etcd cluster to another.
+Etcd replicators are etcd key space replicators.
+Replicators contain configuration for forwarding a set of keys from one etcd cluster to another.
 Replicators are configured by specifying the TLS details of the remote cluster, its URL, and a resource type.
 
 ## etcd-replicators specification
@@ -72,7 +72,7 @@ example      | {{< highlight shell >}}api_version: federation/v1{{< /highlight >
 
 metadata     |      |
 -------------|------
-description  | Top-level scope that contains the replicator `name`. Namespace is not supported in the metadata because EtcdReplicators are cluster-wide resources.
+description  | Top-level scope that contains the replicator `name`. Namespace is not supported in the metadata because etcd replicators are cluster-wide resources.
 required     | true
 type         | Map of key-value pairs
 example      | {{< highlight shell >}}
@@ -176,7 +176,7 @@ type         | String
 default      | 30
 example      | {{< highlight shell >}}replication_interval_seconds: 30{{< /highlight >}}
 
-## Example etcd-replicators resources
+## Example EtcdReplicator resources
 
 If you replicate the following four examples for `Role`, `RoleBinding`, `ClusterRole`, and `ClusterRoleBinding` resources, you can expect a full replication of [RBAC policy][3].
 

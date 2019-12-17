@@ -10,7 +10,7 @@ menu:
     parent: reference
 ---
 
-- [Inclusive and exclusive filters](#inclusive-and-exclusive-event-filters)
+- [Inclusive and exclusive event filters](#inclusive-and-exclusive-event-filters)
 - [Built-in event filters](#built-in-event-filters)
 - [Build filter expressions](#build-filter-expressions)
 - [Filter specification](#filter-specification)
@@ -23,14 +23,14 @@ menu:
 	- [Handle events during office hours only](#handle-events-during-office-hours-only)
 - [Use JavaScript libraries with Sensu filters](#use-javascript-libraries-with-sensu-filters)
 
-Sensu filters are applied when you configure event handlers to use one or more event filters.
+Sensu event filters are applied when you configure event handlers to use one or more filters.
 Before executing a handler, the Sensu backend will apply any event filters configured for the handler to the event data.
 If the filters do not remove the event, the handler will be executed.
 
 The filter analysis performs these steps:
 
 * When the Sensu backend is processing an event, it checks for the definition of a `handler` (or `handlers`).
-Prior to executing each handler, the Sensu server first applies any configured `filters` for the handler.
+Before executing each handler, the Sensu server first applies any configured `filters` for the handler.
 * If multiple `filters` are configured for a handler, they are executed sequentially.
 * Filter `expressions` are compared with event data.
 
@@ -60,7 +60,7 @@ Event filters that return a `true` value will continue to be processed via addit
 ### Filter expression evaluation
 
 When more complex conditional logic is needed than direct filter expression comparison, Sensu event filters provide support for expression evaluation using [Otto][31].
-Otto is an ECMAScript 5 (JavaScript) virtual machine that evaluates JavaScript expressions that are provided in an event filter.
+Otto is an ECMAScript 5 (JavaScript) virtual machine that evaluates JavaScript expressions provided in an event filter.
 There are some caveats to using Otto: not all of the regular expressions specified in ECMAScript 5 will work.
 See the [Otto README][32] for more details.
 
@@ -442,7 +442,7 @@ example      | {{< highlight shell >}}"namespace": "production"{{< /highlight >}
 
 | labels     |      |
 -------------|------
-description  | Custom attributes you can use to create meaningful collections that you can select with [API filtering][36] and [sensuctl filtering][37]. Overusing labels can affect Sensu's internal performance, so we recommend moving complex, non-identifying metadata to annotations.
+description  | Custom attributes you can use to create meaningful collections that you can select with [API response filtering][36] and [sensuctl response filtering][37]. Overusing labels can affect Sensu's internal performance, so we recommend moving complex, non-identifying metadata to annotations.
 required     | false
 type         | Map of key-value pairs. Keys can contain only letters, numbers, and underscores and must start with a letter. Values can be any valid UTF-8 string.
 default      | `null`
@@ -453,7 +453,7 @@ example      | {{< highlight shell >}}"labels": {
 
 | annotations | |
 -------------|------
-description  | Non-identifying metadata that's meaningful to people or external tools that interact with Sensu.<br><br>In contrast to labels, you cannot use annotations in [API filtering][36] or [sensuctl filtering][37], and annotations do not affect Sensu's internal performance.
+description  | Non-identifying metadata that's meaningful to people or external tools that interact with Sensu.<br><br>In contrast to labels, you cannot use annotations in [API response filtering][36] or [sensuctl response filtering][37], and annotations do not affect Sensu's internal performance.
 required     | false
 type         | Map of key-value pairs. Keys and values can be any valid UTF-8 string.
 default      | `null`
@@ -784,8 +784,7 @@ spec:
 ## Use JavaScript libraries with Sensu filters
 
 You can include JavaScript libraries in their event filter execution context with [assets][39].
-For instance, if you package underscore.js into a Sensu asset, you can use functions from the underscore library for filter
-expressions:
+For instance, if you package underscore.js into a Sensu asset, you can use functions from the underscore library for filter expressions:
 
 {{< language-toggle >}}
 
@@ -863,7 +862,7 @@ spec:
 [33]: ../../sensuctl/reference#create-resources
 [34]: #spec-attributes
 [35]: https://regex101.com/r/zo9mQU/2
-[36]: ../../api/overview#filtering
+[36]: ../../api/overview#response-filtering
 [37]: ../../sensuctl/reference#filters
 [38]: https://en.wikipedia.org/wiki/Modulo_operation
 [39]: ../assets/

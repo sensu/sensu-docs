@@ -183,7 +183,7 @@ example      | {{< highlight shell >}}"type": "Asset"{{< /highlight >}}
 
 api_version  | 
 -------------|------
-description  | Top-level attribute that specifies the Sensu API group and version. For assets in this version of Sensu, this attribute should always be `core/v2`.
+description  | Top-level attribute that specifies the Sensu API group and version. For assets in this version of Sensu, the `api_version` should always be `core/v2`.
 required     | Required for asset definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][11].
 type         | String
 example      | {{< highlight shell >}}"api_version": "core/v2"{{< /highlight >}}
@@ -266,7 +266,7 @@ example      | {{< highlight shell >}}"namespace": "production"{{< /highlight >}
 
 | labels     |      |
 -------------|------
-description  | Custom attributes you can use to create meaningful collections that you can select with [API filtering][20] and [sensuctl filtering][21]. Overusing labels can affect Sensu's internal performance, so we recommend moving complex, non-identifying metadata to annotations.
+description  | Custom attributes you can use to create meaningful collections that you can select with [API response filtering][20] and [sensuctl response filtering][21]. Overusing labels can affect Sensu's internal performance, so we recommend moving complex, non-identifying metadata to annotations.
 required     | false
 type         | Map of key-value pairs. Keys can contain only letters, numbers, and underscores and must start with a letter. Values can be any valid UTF-8 string.
 default      | `null`
@@ -277,7 +277,7 @@ example      | {{< highlight shell >}}"labels": {
 
 | annotations | |
 -------------|------
-description  | Non-identifying metadata that is meaningful to people who interact with Sensu.<br><br>In contrast to labels, you cannot use annotations in [API filtering][20] or [sensuctl filtering][21], and annotations do not affect Sensu's internal performance.
+description  | Non-identifying metadata that is meaningful to people who interact with Sensu.<br><br>In contrast to labels, you cannot use annotations in [API response filtering][20] or [sensuctl response filtering][21], and annotations do not affect Sensu's internal performance.
 required     | false
 type         | Map of key-value pairs. Keys and values can be any valid UTF-8 string.
 default      | `null`
@@ -763,7 +763,7 @@ You must remove the archive and downloaded files from the asset cache manually.
 [16]: https://bonsai.sensu.io/
 [18]: https://discourse.sensu.io/t/the-hello-world-of-sensu-assets/1422
 [19]: https://regex101.com/r/zo9mQU/2
-[20]: ../../api/overview#filtering
+[20]: ../../api/overview#response-filtering
 [21]: ../../sensuctl/reference#filters
 [23]: ../../guides/install-check-executables-with-assets/
 [24]: https://github.com

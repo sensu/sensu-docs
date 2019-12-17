@@ -322,7 +322,7 @@ config-file: "/etc/sensu/backend.yml"{{< /highlight >}}
 
 | debug     |      |
 ------------|------
-description | `true` to enable debugging and profiling features. Otherwise, `false`.
+description | If `true`, enable debugging and profiling features. Otherwise, `false`.
 type        | Boolean
 default     | `false`
 example     | {{< highlight shell >}}# Command line example
@@ -459,7 +459,7 @@ cert-file: "/path/to/ssl/cert.pem"{{< /highlight >}}
 
 | insecure-skip-tls-verify |      |
 ---------------------------|------
-description                | `true` to skip SSL verification. Otherwise, `false`. _**WARNING**: This configuration flag is intended for use in development systems only. Do not use this flag in production._
+description                | If `true`, skip SSL verification. Otherwise, `false`. _**WARNING**: This configuration flag is intended for use in development systems only. Do not use this flag in production._
 type                       | Boolean
 default                    | `false`
 example                    | {{< highlight shell >}}# Command line example
@@ -626,7 +626,7 @@ etcd-cipher-suites:
 
 | etcd-client-cert-auth |      |
 ------------------------|------
-description             | `true` to enable client certificate authentication. Otherwise, `false`.
+description             | If `true`, enable client certificate authentication. Otherwise, `false`.
 type                    | Boolean
 default                 | `false`
 example                 | {{< highlight shell >}}# Command line example
@@ -638,7 +638,7 @@ etcd-client-cert-auth: true{{< /highlight >}}
 
 | etcd-client-urls      |      |
 ------------------------|------
-description             | List of client URLs to use when a sensu-backend is not operating as an etcd member. To configure sensu-backend for use with an external etcd instance, use this flag in conjunction with `--no-embed-etcd` when executing sensu-backend start or [sensu-backend init][22] . If you do not use this flag when using `--no-embed-etcd`, sensu-backend start and sensu-backend-init will fall back to [--etcd-listen-client-urls][23].
+description             | List of client URLs to use when a sensu-backend is not operating as an etcd member. To configure sensu-backend for use with an external etcd instance, use this flag in conjunction with `--no-embed-etcd` when executing sensu-backend start or [sensu-backend init][22]. If you do not use this flag when using `--no-embed-etcd`, sensu-backend start and sensu-backend-init will fall back to [--etcd-listen-client-urls][23].
 type                    | List
 default                 | `http://127.0.0.1:2379`
 example                   | {{< highlight shell >}}# Command line examples
@@ -847,7 +847,7 @@ etcd-trusted-ca-file: "./ca.pem"{{< /highlight >}}
 
 | no-embed-etcd  |      |
 -----------------|------
-description      | `true` if you don't want to embed etcd (use external etcd instead). Otherwise, `false`.
+description      | If `true`, do not embed etcd (use external etcd instead). Otherwise, `false`.
 type             | Boolean
 default          | `false`
 example          | {{< highlight shell >}}# Command line example

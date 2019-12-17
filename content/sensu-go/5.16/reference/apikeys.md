@@ -71,7 +71,7 @@ example      | {{< highlight shell >}}"type": "APIKey"{{< /highlight >}}
 
 api_version  | 
 -------------|------
-description  | Top-level attribute that specifies the Sensu API group and version. This attribute should always be `core/v2`.
+description  | Top-level attribute that specifies the Sensu API group and version. The `api_version` should always be `core/v2`.
 required     | true
 type         | String
 example      | {{< highlight shell >}}"api_version": "core/v2"{{< /highlight >}}

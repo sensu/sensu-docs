@@ -109,7 +109,7 @@ You can use the `--skip-confirm` flag to skip the confirmation step:
 sensuctl event delete entity-name check-name --skip-confirm
 {{< /highlight >}}
 
-You should see a confirmation message on success:
+You should see a confirmation message upon success:
 
 {{< highlight shell >}}
 Deleted
@@ -118,13 +118,13 @@ Deleted
 ### Resolve events
 
 You can use sensuctl to change the status of an event to `0` (OK).
-Events resolved by sensuctl include the output message: "Resolved manually by sensuctl".
+Events resolved by sensuctl include the output message `Resolved manually by sensuctl`.
 
 {{< highlight shell >}}
 sensuctl event resolve entity-name check-name
 {{< /highlight >}}
 
-You should see a confirmation message on success:
+You should see a confirmation message upon success:
 
 {{< highlight shell >}}
 Resolved
@@ -191,7 +191,7 @@ example      | {{< highlight shell >}}"type": "Event"{{< /highlight >}}
 
 api_version  | 
 -------------|------
-description  | Top-level attribute that specifies the Sensu API group and version. For events in this version of Sensu, this attribute should always be `core/v2`.
+description  | Top-level attribute that specifies the Sensu API group and version. For events in this version of Sensu, `api_version` should always be `core/v2`.
 required     | Required for events in `wrapped-json` or `yaml` format for use with [`sensuctl create`][8].
 type         | String
 example      | {{< highlight shell >}}"api_version": "core/v2"{{< /highlight >}}
@@ -339,7 +339,7 @@ example      | {{< highlight shell >}}
 
 | namespace  |      |
 -------------|------
-description  | Sensu [RBAC namespace][26] that this event belongs to.
+description  | [Sensu RBAC namespace][26] that this event belongs to.
 required     | false
 type         | String
 default      | `default`
@@ -545,7 +545,7 @@ example      | {{< highlight shell >}}"issued": 1552506033{{< /highlight >}}
 
 last_ok      |      |
 -------------|------
-description  | Last time that the check returned an OK `status` (`0`). In seconds since the Unix epoch.
+description  | Last time that the check returned an OK status (`0`). In seconds since the Unix epoch.
 required     | false
 type         | Integer
 example      | {{< highlight shell >}}"last_ok": 1552506033{{< /highlight >}}
@@ -582,7 +582,7 @@ example      | {{< highlight shell >}}"state": "passing"{{< /highlight >}}
 
 status       |      |
 -------------|------
-description  | Exit status code produced by the check<ul><li><code>0</code> indicates “OK”</li><li><code>1</code> indicates “WARNING”</li><li><code>2</code> indicates “CRITICAL”</li></ul>Exit status codes other than <code>0</code>, <code>1</code>, or <code>2</code> indicate an “UNKNOWN” or custom status.
+description  | Exit status code produced by the check.<ul><li><code>0</code> indicates “OK”</li><li><code>1</code> indicates “WARNING”</li><li><code>2</code> indicates “CRITICAL”</li></ul>Exit status codes other than <code>0</code>, <code>1</code>, or <code>2</code> indicate an “UNKNOWN” or custom status.
 required     | false
 type         | Integer
 example      | {{< highlight shell >}}"status": 0{{< /highlight >}}
@@ -605,7 +605,7 @@ example      | {{< highlight shell >}}"executed": 1522100915{{< /highlight >}}
 
 status       |      |
 -------------|------
-description  | Exit status code produced by the check<ul><li><code>0</code> indicates “OK”</li><li><code>1</code> indicates “WARNING”</li><li><code>2</code> indicates “CRITICAL”</li></ul>Exit status codes other than <code>0</code>, <code>1</code>, or <code>2</code> indicate an “UNKNOWN” or custom status.
+description  | Exit status code produced by the check.<ul><li><code>0</code> indicates “OK”</li><li><code>1</code> indicates “WARNING”</li><li><code>2</code> indicates “CRITICAL”</li></ul>Exit status codes other than <code>0</code>, <code>1</code>, or <code>2</code> indicate an “UNKNOWN” or custom status.
 required     | false
 type         | Integer
 example      | {{< highlight shell >}}"status": 0{{< /highlight >}}
