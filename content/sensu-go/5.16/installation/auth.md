@@ -167,7 +167,7 @@ spec:
   groups_prefix: ldap
   servers:
   - binding:
-      password: P@ssw0rd!
+      password: YOUR_PASSWORD
       user_dn: cn=binder,dc=acme,dc=org
     client_cert_file: /path/to/ssl/cert.pem
     client_key_file: /path/to/ssl/key.pem
@@ -205,7 +205,7 @@ spec:
         "client_key_file": "/path/to/ssl/key.pem",
         "binding": {
           "user_dn": "cn=binder,dc=acme,dc=org",
-          "password": "P@ssw0rd!"
+          "password": "YOUR_PASSWORD"
         },
         "group_search": {
           "base_dn": "dc=acme,dc=org",
@@ -279,7 +279,7 @@ example      | {{< highlight shell >}}
       "client_key_file": "/path/to/ssl/key.pem",
       "binding": {
         "user_dn": "cn=binder,dc=acme,dc=org",
-        "password": "P@ssw0rd!"
+        "password": "YOUR_PASSWORD"
       },
       "group_search": {
         "base_dn": "dc=acme,dc=org",
@@ -319,7 +319,7 @@ example      | {{< highlight shell >}}
     "client_key_file": "/path/to/ssl/key.pem",
     "binding": {
       "user_dn": "cn=binder,dc=acme,dc=org",
-      "password": "P@ssw0rd!"
+      "password": "YOUR_PASSWORD"
     },
     "group_search": {
       "base_dn": "dc=acme,dc=org",
@@ -416,7 +416,7 @@ type         | Map
 example      | {{< highlight shell >}}
 "binding": {
   "user_dn": "cn=binder,dc=acme,dc=org",
-  "password": "P@ssw0rd!"
+  "password": "YOUR_PASSWORD"
 }
 {{< /highlight >}}
 
@@ -462,7 +462,7 @@ example      | {{< highlight shell >}}"user_dn": "cn=binder,dc=acme,dc=org"{{< /
 description  | Password for the `user_dn` account. If your sever supports anonymous binding, you can omit this attribute to query the directory without credentials.
 required     | false
 type         | String
-example      | {{< highlight shell >}}"password": "P@ssw0rd!"{{< /highlight >}}
+example      | {{< highlight shell >}}"password": "YOUR_PASSWORD"{{< /highlight >}}
 
 ### LDAP group search attributes
 
@@ -680,7 +680,7 @@ spec:
   groups_prefix: ad
   servers:
   - binding:
-      password: P@ssw0rd!
+      password: YOUR_PASSWORD
       user_dn: cn=binder,cn=users,dc=acme,dc=org
     client_cert_file: /path/to/ssl/cert.pem
     client_key_file: /path/to/ssl/key.pem
@@ -722,7 +722,7 @@ spec:
         "include_nested_groups": true,
         "binding": {
           "user_dn": "cn=binder,cn=users,dc=acme,dc=org",
-          "password": "P@ssw0rd!"
+          "password": "YOUR_PASSWORD"
         },
         "group_search": {
           "base_dn": "dc=acme,dc=org",
@@ -798,7 +798,7 @@ example      | {{< highlight shell >}}
       "include_nested_groups": true,
       "binding": {
         "user_dn": "cn=binder,cn=users,dc=acme,dc=org",
-        "password": "P@ssw0rd!"
+        "password": "YOUR_PASSWORD"
       },
       "group_search": {
         "base_dn": "dc=acme,dc=org",
@@ -840,7 +840,7 @@ example      | {{< highlight shell >}}
     "include_nested_groups": true,
     "binding": {
       "user_dn": "cn=binder,cn=users,dc=acme,dc=org",
-      "password": "P@ssw0rd!"
+      "password": "YOUR_PASSWORD"
     },
     "group_search": {
       "base_dn": "dc=acme,dc=org",
@@ -937,7 +937,7 @@ type         | Map
 example      | {{< highlight shell >}}
 "binding": {
   "user_dn": "cn=binder,cn=users,dc=acme,dc=org",
-  "password": "P@ssw0rd!"
+  "password": "YOUR_PASSWORD"
 }
 {{< /highlight >}}
 
@@ -1001,7 +1001,7 @@ example      | {{< highlight shell >}}"user_dn": "cn=binder,cn=users,dc=acme,dc=
 description  | Password for the `user_dn` account. If your sever supports anonymous binding, you can omit this attribute to query the directory without credentials.
 required     | false
 type         | String
-example      | {{< highlight shell >}}"password": "P@ssw0rd!"{{< /highlight >}}
+example      | {{< highlight shell >}}"password": "YOUR_PASSWORD"{{< /highlight >}}
 
 ### AD group search attributes
 

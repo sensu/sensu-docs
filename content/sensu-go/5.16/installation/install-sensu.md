@@ -83,22 +83,9 @@ sudo yum install sensu-go-backend
 
 {{< /language-toggle >}}
 
-### 2. Initialize
-
-Run `sensu-backend init` to set up your Sensu administrator username and password.
-In this initialization step, you only need to set environment variables with a username and password string &mdash; no need for role-based access control (RBAC).
-
-Replace `YOUR_USERNAME` and `YOUR_PASSWORD` with the username and password you want to use:
-
-{{< highlight shell >}}
-export SENSU_BACKEND_CLUSTER_ADMIN_USERNAME=YOUR_USERNAME
-export SENSU_BACKEND_CLUSTER_ADMIN_PASSWORD=YOUR_PASSWORD
-sensu-backend init
-{{< /highlight >}}
-
 For details about `sensu-backend init`, see the [backend reference][30].
 
-### 3. Configure and start
+### 2. Configure and start
 
 You can configure the Sensu backend with `sensu-backend start` flags (recommended) or an `/etc/sensu/backend.yml` file.
 The Sensu backend requires the `state-dir` flag at minimum, but other useful configurations and templates are available.
@@ -157,13 +144,28 @@ service sensu-backend status
 
 For a complete list of configuration options, see the [backend reference][6].
 
+### 3. Initialize
+
+_**NOTE**: If you are using Docker, skip this step and continue with [4. Open the web UI][36]. The `sensu-backend init` command is not implemented for Docker._
+
+Run `sensu-backend init` to set up your Sensu administrator username and password.
+In this initialization step, you only need to set environment variables with a username and password string &mdash; no need for role-based access control (RBAC).
+
+Replace `YOUR_USERNAME` and `YOUR_PASSWORD` with the username and password you want to use:
+
+{{< highlight shell >}}
+export SENSU_BACKEND_CLUSTER_ADMIN_USERNAME=YOUR_USERNAME
+export SENSU_BACKEND_CLUSTER_ADMIN_PASSWORD=YOUR_PASSWORD
+sensu-backend init
+{{< /highlight >}}
+
 ### 4. Open the web UI
 
 The web UI provides a unified view of your monitoring events and user-friendly tools to reduce alert fatigue.
 After starting the Sensu backend, open the web UI by visiting http://localhost:3000.
 You may need to replace `localhost` with the hostname or IP address where the Sensu backend is running.
 
-To log in to the web UI, enter your Sensu user credentials (the user ID and password you provided with `sensu-backend init`).
+To log in to the web UI, enter your Sensu user credentials (the user ID and password you provided with `sensu-backend init`, or `admin` and `P@ssw0rd!` if you're using Docker).
 Select the ☰ icon to explore the web UI.
 
 ### 5. Make a request to the health API
@@ -230,8 +232,8 @@ To configure sensuctl using default values:
 
 {{< highlight "shell" >}}
 sensuctl configure -n \
---username 'admin' \
---password 'P@ssw0rd!' \
+--username 'YOUR_USERNAME' \
+--password 'YOUR_PASSWORD' \
 --namespace default \
 --url 'http://127.0.0.1:8080'
 {{< /highlight >}}
@@ -280,13 +282,13 @@ sudo yum install sensu-go-agent
 
 {{< highlight "Windows" >}}
 # Download the Sensu agent for Windows amd64
-Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.16.0/sensu-go-agent_5.16.0.7782_en-US.x64.msi  -OutFile "$env:userprofile\sensu-go-agent_5.16.0.7782_en-US.x64.msi"
+Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.16.0/sensu-go-agent_5.16.0.8438_en-US.x64.msi  -OutFile "$env:userprofile\sensu-go-agent_5.16.0.8438_en-US.x64.msi"
 
 # Or for Windows 386
-Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.16.0/sensu-go-agent_5.16.0.7782_en-US.x86.msi  -OutFile "$env:userprofile\sensu-go-agent_5.16.0.7782_en-US.x86.msi"
+Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.16.0/sensu-go-agent_5.16.0.8438_en-US.x86.msi  -OutFile "$env:userprofile\sensu-go-agent_5.16.0.8438_en-US.x86.msi"
 
 # Install the Sensu agent
-msiexec.exe /i $env:userprofile\sensu-go-agent_5.16.0.7782_en-US.x64.msi /qn
+msiexec.exe /i $env:userprofile\sensu-go-agent_5.16.0.8438_en-US.x64.msi /qn
 
 # Or via Chocolatey
 choco install sensu-agent
@@ -432,3 +434,4 @@ Now that you've installed Sensu, here are some resources to help continue your j
 [33]: ../../guides/create-read-only-user/
 [34]: https://account.sensu.io/
 [35]: ../../api/health/
+[36]: #4-open-the-web-ui

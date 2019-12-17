@@ -134,7 +134,7 @@ sensu-go-sandbox   keepalive   Keepalive last sent from sensu-go-sandbox at 2019
 
 The sensu-go-sandbox keepalive event has status 0, which means the agent is in an OK state and is able to communicate with the Sensu backend.
 
-You can also see the event and the entity in the [Sensu dashboard](http://localhost:3002). Log in to the dashboard with the default admin credentials: username `admin` and password `P@ssw0rd!`.
+You can also see the event and the entity in the [Sensu dashboard](http://localhost:3002). Log in to the dashboard with these pre-set admin credentials: username `admin` and password `P@ssw0rd!`.
 
 ## Lesson \#2: Pipe keepalive events into Slack
 
