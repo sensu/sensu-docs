@@ -166,7 +166,7 @@ Or the number of filters:
 If you opt into Tessen, you can view all of the metrics and payloads in the logs:
 
 {{< highlight shell >}}
-journalctl -u sensu-backend.service
+journalctl _COMM=sensu-backend.service
 {{< /highlight >}}
 
 To view the events on-disk, see [Log Sensu services with systemd][9].

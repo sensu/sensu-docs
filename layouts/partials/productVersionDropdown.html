@@ -20,20 +20,18 @@
 
   <!-- Dropdown for versions -->
   <div class="dropdown dropdown--versions">
-    {{ if isset .Params "version" }}
-      {{ $display := .Params.version }}
-      <a>{{ $display }}<i class="fa fa-chevron-down" aria-hidden="true"></i></a>
-    {{ else }}
-      {{ $display := "Version" }}
-      <a>{{ $display }}<i class="fa fa-chevron-down" aria-hidden="true"></i></a>
-    {{ end }}
-    <div class="options">
-      <!-- Grab info for the current product from global -->
-      {{ $product := replace .Section "-" "_" }}
-      {{ $product_info := (index .Site.Params.products $product) }}
-      {{ $chopurl := split $.RelPermalink "/"}}
-      {{ $pageversion := .Params.version }}
+    <!-- Grab info for the current product from global -->
+    {{ $product := replace .Section "-" "_" }}
+    {{ $product_info := (index .Site.Params.products $product) }}
+    {{ $chopurl := split $.RelPermalink "/"}}
+    {{ $pageversion := string (.Params.version) }}
 
+    <a>
+      {{ cond (isset .Params "version") $pageversion "Version" }}
+      {{ if (eq $pageversion $product_info.latest) }}(latest)&nbsp;{{ end }}
+      <i class="fa fa-chevron-down" aria-hidden="true"></i>
+    </a>
+    <div class="options">
       {{ if not ($.Scratch.Get "versionList") }}
         {{ range $k, $v := $product_info.versions }}
           {{ $.Scratch.Add "versionList" (slice $v.version) }}
@@ -44,15 +42,13 @@
         <!-- Protects when $chopurl has nothing after 3 /'s'-->
         {{ if gt (len $chopurl) 3 }}
           {{ $endurl := after 3 $chopurl}}
-          {{ if ne $version "2.0" }}
-            {{ if ne $pageversion "2.0" }}
-              <a href="/{{ $.Section }}/{{ $version }}/{{delimit $endurl "/"}}">{{ $version }}</a>
-            {{ else }}
-              <a href="/{{ $.Section }}/{{ $version }}">{{ $version }}</a>
-            {{ end }}
+          {{ if and (ne $version "2.0") (ne $pageversion "2.0") }}
+            <a href="/{{ $.Section }}/{{ $version }}/{{delimit $endurl "/"}}">
           {{ else }}
-            <a href="/{{ $.Section }}/{{ $version }}">{{ $version }}</a>
+            <a href="/{{ $.Section }}/{{ $version }}">
           {{ end }}
+            {{ $version }} {{ if eq $version $product_info.latest }}(latest){{ end }}
+          </a>
         {{ end }}
       {{ end }}
     </div>

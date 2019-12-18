@@ -160,7 +160,7 @@ Or the number of filters:
 }
 {{< /highlight >}}
 
-If opted into Tessen, all of the metrics and payloads sent are avaiable to view in the logs, which you can view via `journalctl -u sensu-backend.service`. If you'd like to view the events on-disk, please see the [guide on configuring systemd to log to disk][systemd-logs].
+If opted into Tessen, all of the metrics and payloads sent are avaiable to view in the logs, which you can view via `journalctl _COMM=sensu-backend.service`. If you'd like to view the events on-disk, please see the [guide on configuring systemd to log to disk][systemd-logs].
 
 [1]: https://blog.sensu.io/announcing-tessen-the-sensu-call-home-service
 [2]: ../../api/tessen
