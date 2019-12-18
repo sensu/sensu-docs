@@ -59,7 +59,7 @@ See the [upgrade guide][1] to upgrade Sensu to version 5.16.1.
 
 **IMPROVEMENTS**
 
-- The `sensu_go_events_processed` counter now initializes with the `success` label so the count is always displayed.
+- The `sensu_go_events_processed` prometheus counter now initializes with the `success` label so the count is always displayed.
 
 **FIXES:**
 
