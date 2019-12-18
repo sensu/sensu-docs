@@ -45,7 +45,7 @@ Complete federation of multiple Sensu instances relies on a combination of featu
 | etcd replicators                    | Replicate RBAC policy across clusters and namespaces |
 | Federation Gateway and APIs         | Configure federation access for cross-cluster visibility in web UI |
 
-The following steps are required to configure these features for unified visibility in a single web UI. Our examples assume that we wish to federate three named Sensu clusters:
+The following steps are required to configure these features. Our scenario assumes that we wish to federate three named Sensu clusters:
 
 | Cluster name | Hostname |
 |--------------|-----------------------|
@@ -53,7 +53,9 @@ The following steps are required to configure these features for unified visibil
 | `alpha` | sensu.alpha.example.com |
 | `beta` | sensu.beta.example.com |
 
-In this example, the `gateway` cluster will be the entry point for operators to manage Sensu resources in the `alpha` and `beta` clusters.
+In this scenario, the `gateway` cluster will be the entry point for operators to manage Sensu resources in the `alpha` and `beta` clusters. This guide assumes a single sensu-backend in each cluster, but named clusters comprised of multiple sensu-backends are supported.
+
+Upon completion of these steps, you'll be able to browse events, entities, checks and other resources in the `gateway`, `alpha` and `beta` clusters from the `gateway` cluster web UI.
 
 This diagram depicts the federation relationship documented in this guide:
 
@@ -62,7 +64,9 @@ This diagram depicts the federation relationship documented in this guide:
 
 ### Step 1 Configure backends for TLS
 
-Because federation depends on communication with multiple disparate clusters, working TLS is required for successful configuration. This guide assumes that you have provided each backend member with TLS credentials (key and certificate), as well as the CA certificate chain required for one Sensu backend to validate the certificates presented by other backends. If you don't have existing infrastructure for issuing certificates, see [Securing Sensu][13] for our recommended self-signed certificate issuance process.
+Because federation depends on communication with multiple disparate clusters, working TLS is required for successful federated operation.
+
+This guide assumes that you have provided each member of each cluster with TLS credentials (key and certificate), as well as the CA certificate chain required for one Sensu backend to validate the certificates presented by other backends. If you don't have existing infrastructure for issuing certificates, see [Securing Sensu][13] for our recommended self-signed certificate issuance process.
 
 This prerequisite extends to configuring the following Sensu backend etcd parameters:
 
