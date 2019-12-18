@@ -140,10 +140,10 @@ When agent TLS authentication is enabled, agents do not need to send password cr
 In addition, when using TLS authentication, agents do not require an explicit user in Sensu.
 They will default to using the `system:agents` group.
 
-Agents can still be bound to a specific user when the `system:agents` group is problematic.
+You can still bind agents to a specific user when the `system:agents` group is problematic.
 For this use case, create a user that matches the Common Name (CN) of the agent's certificate.
 
-_**NOTE**: Sensu agents will need to be able to create events in the agent's namespace. To ensure that agents with incorrect CN fields can't access the backend, remove the default `system:agents` group._
+_**NOTE**: Sensu agents need to be able to create events in the agent's namespace. To ensure that agents with incorrect CN fields can't access the backend, remove the default `system:agents` group._
 
 To view a certificate's CN with openssl:
 
@@ -163,10 +163,9 @@ Certificate:
 ...
 {{< /highlight >}}
 
-The `Subject:` field indicates the certificate's CN is `client`, so to bind the agent to a particular user in Sensu, create a user called 'client'.
+The `Subject:` field indicates the certificate's CN is `client`, so to bind the agent to a particular user in Sensu, create a user called `client`.
 
-To enable agent TLS authentication, use existing certificates and keys for the Sensu backend and agent
-or create new certificates and keys according to the [Create self-signed certificates][12] section.
+To enable agent TLS authentication, use existing certificates and keys for the Sensu backend and agent or create new certificates and keys according to the [Create self-signed certificates][12] section.
 
 After you create backend and agent certificates, modfiy the backend and agent configuration:
 
@@ -238,8 +237,7 @@ echo '{"CN":"'$NAME'","hosts":[""],"key":{"algo":"rsa","size":2048}}' | cfssl ge
 
 See [etcd's guide to generating self-signed certificates][6] for detailed instructions for securing etcd.
 
-When you're finished, the following files should be created.
-The `*.csr` files are not used in this guide:
+When you're finished, the following files should be created (the `*.csr` files are not used in this guide):
 
 {{< highlight shell >}}
 agent-1-key.pem

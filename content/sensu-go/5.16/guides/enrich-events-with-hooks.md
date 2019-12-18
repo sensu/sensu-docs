@@ -1,7 +1,7 @@
 ---
 title: "Augment event data with check hooks"
 linkTitle: "Augment Event Data"
-description: "Check hooks allow Sensu users to automate data collection that operators routinely perform to investigate monitoring alerts, freeing up precious operator time. This guide helps you create a check hook that captures the process tree in case a service check returns a critical status."
+description: "Check hooks allow Sensu users to automate data collection that operators would routinely perform manually to investigate monitoring alerts, which frees up precious operator time. This guide helps you create a check hook that captures the process tree in case a service check returns a critical status."
 weight: 40
 version: "5.16"
 product: "Sensu Go"
@@ -18,7 +18,7 @@ menu:
 Check hooks are **commands** the Sensu agent runs in response to the result of **check** command execution. 
 The Sensu agent executes the appropriate configured hook based on the exit status code (e.g. `1`).
 
-Check hooks allow Sensu users to automate data collection that operators routinely perform to investigate monitoring alerts, freeing up precious operator time.
+Check hooks allow Sensu users to automate data collection that operators would routinely perform to investigate monitoring alerts, which frees up precious operator time.
 Although you can use check hooks for rudimentary auto-remediation tasks, they are intended to enrich monitoring event data.
 This guide helps you create a check hook that captures the process tree in case a service check returns a critical status.
 
@@ -29,7 +29,7 @@ Follow these steps to create a check hook that captures the process tree in the 
 ### 1. Create a hook
 
 Create a new hook that runs a specific command to capture the process tree.
-You'll set an execution **timeout** of 10 seconds for this command:
+Set an execution **timeout** of 10 seconds for this command:
 
 {{< highlight shell >}}
 sensuctl hook create process_tree  \
@@ -41,7 +41,7 @@ sensuctl hook create process_tree  \
 
 Now that you've created the `process_tree` hook, you can assign it to a check.
 This example assumes you've already set up the `nginx_process` check.
-By setting the `type` to `critical`, you ensure that whenever the check command returns a critical status, Sensu executes the `process_tree` hook and adds the output to the resulting event data:
+Setting the `type` to `critical` ensures that whenever the check command returns a critical status, Sensu executes the `process_tree` hook and adds the output to the resulting event data:
 
 {{< highlight shell >}}
 sensuctl check set-hooks nginx_process  \
@@ -97,7 +97,7 @@ root         9  0.0  0.0      0     0 ?        S    Nov17   0:34 [rcu_sched]
 {{< /highlight >}}
 
 Although this output is truncated in the interest of brevity, it reflects the output of the `ps aux` command specified in the check hook you created.
-Now when you are alerted that Nginx is not running, you can review the check hook output to confirm this is true without ever starting up an SSH session to investigate.
+Now when you are alerted that Nginx is not running, you can review the check hook output to confirm this is true with no need to start up an SSH session to investigate.
 
 ## Next steps
 

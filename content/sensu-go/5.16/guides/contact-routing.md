@@ -72,9 +72,9 @@ The [Bonsai][1] documentation for the asset explains that the has-contact asset 
 - `has_contact`, which takes the Sensu event and the contact name as arguments
 - `no_contact`, which is available as a fallback in the absence of contact labels and takes only the event as an argument
 
-You'll use these functions to create filters that represent the three actions that the Sensu Slack handler can take on an event: contact the ops team, contact the dev team, and contact the fallback option.
+You'll use these functions to create event filters that represent the three actions that the Sensu Slack handler can take on an event: contact the ops team, contact the dev team, and contact the fallback option.
 
-| filter name | expression | description
+| event filter name | expression | description
 | --- | --- | --- |
 | `contact_ops` | `has_contact(event, "ops")` | Allow events with the entity<br> or check label `contacts: ops`
 | `contact_dev` | `has_contact(event, "dev")` | Allow events with the entity<br> or check label `contacts: dev`
@@ -222,7 +222,8 @@ spec:
 
 You should see updated output of `sensuctl handler list` that includes the `slack` handler set.
 
-Congratulations! Your Sensu contact routing is set up. Next, test your contact filters to make sure they work.
+Congratulations! Your Sensu contact routing is set up.
+Next, test your contact filters to make sure they work.
 
 ## Test contact routing
 
@@ -330,7 +331,6 @@ In this example, the `dev` label in the check configuration overrides the `ops` 
 
 Now that you've set up contact routing for two example teams, you can create additional filters, handlers, and labels to represent your team's contacts.
 Learn how to use Sensu to [Reduce alert fatigue][11].
-
 
 [1]: ../../installation/install-sensu#install-the-sensu-backend
 [2]: ../../installation/install-sensu#install-sensu-agents

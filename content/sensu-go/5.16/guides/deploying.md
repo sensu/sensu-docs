@@ -28,7 +28,6 @@ By building atop etcd, Sensu's backend inherits a number of characteristics to c
 ## Hardware sizing
 
 Because etcd's design prioritizes consistency across a cluster, the speed with which write operations can be completed is very important to the performance of a Sensu cluster. 
-
 This means that you should provision Sensu backend infrastructure to provide sustained IO operations per second (IOPS) appropriate for the rate of monitoring events the system will be required to process.
 
 Our [hardware requirements][1] documentation describes the minimum and recommended hardware specifications for running the Sensu backend.
@@ -103,7 +102,7 @@ See the [Datastore reference][8] for details on configuring the Sensu backend to
 
 <p style="text-align:center"><i>Sensu clustered architecture with embedded etcd and PostgreSQL event storage</i></p>
 
-In load testing Sensu Go has proven capable of processing 36,000 events per second when using PostgreSQL as the event store.
+In load testing, Sensu Go has proven capable of processing 36,000 events per second when using PostgreSQL as the event store.
 See the [sensu-perf project repository][10] for a detailed explanation of our testing methodology and results.
 
 #### Create and maintain clusters

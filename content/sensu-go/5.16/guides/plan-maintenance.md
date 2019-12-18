@@ -31,7 +31,8 @@ Sensu silencing makes it possible to:
 
 ## Use silencing to plan maintenance
 
-Suppose you want to plan a maintenance window. In this example, you'll create a silenced entry for a specific entity named `i-424242` and its check, `check-http`, to prevent alerts as you restart and redeploy the services associated with this entity.
+Suppose you want to plan a maintenance window.
+In this example, you'll create a silenced entry for a specific entity named `i-424242` and its check, `check-http`, to prevent alerts as you restart and redeploy the services associated with this entity.
 
 ### Create the silenced entry
 

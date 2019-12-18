@@ -37,7 +37,7 @@ sensuctl check set-output-metric-handlers collect-metrics influx-db
 
 ### Supported output metric formats
 
-The output metric formats that Sensu currently supports for check output metric extraction are nagios, influxdb, graphite, and opentsdb.
+The output metric formats that Sensu currently supports for check output metric extraction are `nagios`, `influxdb`, `graphite`, and `opentsdb`.
 
 |nagios              |      |
 ---------------------|------
@@ -67,7 +67,7 @@ example              | {{< highlight string >}}sys.cpu.user 1356998400 42.5 host
 
 If the check output is formatted correctly according to its `output_metric_format`, the metrics will be extracted in Sensu metric format and passed to the event pipeline.
 You should expect to see logged errors if Sensu cannot parse the check output.
-You can validate that metrics have been extracted from your check by inspecting the event passed to the handler.
+To confirm that metrics have been extracted from your check, inspect the event passed to the handler.
 
 See [Troubleshooting][10] for an example debug handler that writes events to a file for inspection.
 
@@ -155,7 +155,7 @@ Check out these resources for more information about scheduling checks and using
 
 * [Checks reference][1]: in-depth checks documentation
 * [Monitor server resources][2]: learn how to schedule checks
-* [Handlers reference][4]: in-depth handlers documentation
+* [Handlers reference][4]: in-depth handler documentation
 * [Populate metrics in InfluxDB][5]: learn to use Sensu's built-in metrics handler
 
 [1]: ../../reference/checks/

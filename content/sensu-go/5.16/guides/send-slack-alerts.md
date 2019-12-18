@@ -91,8 +91,7 @@ Whenever an event is being handled, a log entry is added with the message `"hand
 
 ## Next steps
 
-Now that you know how to apply a handler to a check and take action on events, read the [handlers reference][8] for in-depth handler documentation.
-Or, check out the [Reduce alert fatigue][9] guide.
+Now that you know how to apply a handler to a check and take action on events, read the [handlers reference][8] for in-depth handler documentation and check out the [Reduce alert fatigue][9] guide.
 
 [1]: ../../reference/events/
 [2]: ../monitor-server-resources/

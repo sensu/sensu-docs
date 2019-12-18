@@ -124,7 +124,7 @@ backend-url:
 {{< /highlight >}}
 
 You should now have a highly available Sensu cluster!
-You can verify its health and try other cluster management commands with [sensuctl][6].
+Confirm cluster health and try other cluster management commands with [sensuctl][6].
 
 ## Manage and monitor clusters with sensuctl
 
@@ -226,7 +226,7 @@ etcd-initial-cluster-token: ""
 etcd-name: "backend-4"
 {{< /highlight >}}
 
-If replacing the faulty cluster member does not resolve the problem, please see the [etcd operations guide][12] for more information.
+If replacing the faulty cluster member does not resolve the problem, see the [etcd operations guide][12] for more information.
 
 ### Update a cluster member
 

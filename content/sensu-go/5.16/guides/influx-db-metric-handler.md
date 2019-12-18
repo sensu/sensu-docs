@@ -1,7 +1,7 @@
 ---
 title: "Populate metrics in InfluxDB with handlers"
 linkTitle: "Populate Metrics in InfluxDB"
-description: "Sensu event handlers are actions executed by the Sensu backend on events. This guide helps you populate Sensu metrics into the time series database InfluxDB. "
+description: "Sensu event handlers are actions executed by the Sensu backend on events. This guide helps you populate Sensu metrics into the time series database InfluxDB."
 weight: 70
 version: "5.16"
 product: "Sensu Go"
@@ -16,7 +16,7 @@ menu:
 
 Sensu event handlers are actions executed by the Sensu backend on [events][1].
 In this guide, you'll use a handler to populate the time series database [InfluxDB][2].
-If you're not familiar with handlers yet, consider reading the [handlers reference][9] before continuing through this guide.
+If you're not familiar with handlers, consider reading the [handlers reference][9] before continuing through this guide.
 
 ## Use a handler to populate InfluxDB
 
@@ -28,7 +28,7 @@ Metrics can be collected from [check output][10] or the [Sensu StatsD Server][3]
 [Assets][12] are shareable, reusable packages that make it easier to deploy Sensu plugins.
 This example uses the [Sensu InfluxDB Handler][13] asset to power an `influx-db` handler.
 
-You can use this sensuctl example to register the [Sensu InfluxDB Handler][13] asset for Linux AMD64 or you can download the latest asset definition for your platform from [Bonsai][13] and register the asset with `sensuctl create --file filename.yml`.
+Use this sensuctl example to register the [Sensu InfluxDB Handler][13] asset for Linux AMD64 or download the latest asset definition for your platform from [Bonsai][13] and register the asset with `sensuctl create --file filename.yml`.
 
 {{< highlight shell >}}
 sensuctl asset create sensu-influxdb-handler --url "https://assets.bonsai.sensu.io/b28f8719a48aa8ea80c603f97e402975a98cea47/sensu-influxdb-handler_3.1.2_linux_amd64.tar.gz" --sha512 "612c6ff9928841090c4d23bf20aaf7558e4eed8977a848cf9e2899bb13a13e7540bac2b63e324f39d9b1257bb479676bc155b24e21bf93c722b812b0f15cb3bd"
@@ -42,7 +42,7 @@ Created
 
 ### Create the handler
 
-Now that you registered the asset, you'll use sensuctl to create a handler called `influx-db` that pipes event data to InfluxDB with the `sensu-influxdb-handler` asset.
+Now that you have registered the asset, you'll use sensuctl to create a handler called `influx-db` that pipes event data to InfluxDB with the `sensu-influxdb-handler` asset.
 Edit the command below to include your database name, address, username, and password.
 For more information about the Sensu InfluxDB handler, see [the asset page in Bonsai][13].
 

@@ -93,7 +93,7 @@ sensuctl event list
 
 ## Next steps
 
-Now that you know how to run a simple check to monitor CPU usage, read these resources to learn more:
+Now that you know how to run a check to monitor CPU usage, read these resources to learn more:
 
 * [Checks reference][3]
 * [Install plugins with assets][2]

@@ -1,5 +1,5 @@
 ---
-title: "Scale Sensu Go with Enterprise Datastore"
+title: "Scale Sensu Go with Enterprise datastore"
 linkTitle: "Scale with Enterprise Datastore"
 description: "Here’s how to scale your monitoring to thousands of events per second with Sensu."
 weight: 160
@@ -113,7 +113,6 @@ spec:
 {{< /highlight >}}
 
 {{< /language-toggle >}}
-
 
 This configuration is written to disk as `my-postgres.yml`, and you can install it using `sensuctl`:
 

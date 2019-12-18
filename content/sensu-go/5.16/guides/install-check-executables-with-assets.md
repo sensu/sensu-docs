@@ -51,7 +51,8 @@ Filters for _handler and filter_ assets should match your Sensu backend platform
 If the provided filters are too restrictive for your platform, replace `os` and `arch` with any supported [entity system attributes][4] (for example, `entity.system.platform_family == 'rhel'`).
 You may also want to customize the asset `name` to reflect the supported platform (for example, `sensu-pagerduty-handler-linux`) and add custom attributes with [`labels` and `annotations`][5].
 
-**Enterprise-tier assets** (like the [ServiceNow][10] and [Jira][11] event handlers) require a Sensu commercial license. For more information about commercial features and to activate your license, see [Get started with commercial features][12].
+**Enterprise-tier assets** (like the [ServiceNow][10] and [Jira][11] event handlers) require a Sensu commercial license.
+For more information about commercial features and to activate your license, see [Get started with commercial features][12].
 
 ### 2. Register the asset with Sensu
 

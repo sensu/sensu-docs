@@ -17,7 +17,7 @@ menu:
 	- [Log file locations](#log-file-locations)
 - [Sensu backend startup errors](#sensu-backend-startup-errors)
 - [Permission issues](#permission-issues)
-- [Handlers and filters](#handlers-and-filters)
+- [Handlers and event filters](#handlers-and-event-filters)
 - [Assets](#assets)
 
 ## Service logging
@@ -26,8 +26,7 @@ Logs produced by Sensu services (sensu-backend and sensu-agent) are often the be
 
 ### Log levels
 
-Each log message is associated with a log level that indicates the relative severity of the event being
-logged:
+Each log message is associated with a log level that indicates the relative severity of the event being logged:
 
 | Log level          | Description |
 |--------------------|--------------------------------------------------------------------------|
@@ -38,13 +37,13 @@ logged:
 | info               | Information messages that represent service actions                      |
 | debug              | Detailed service operation messages to help troubleshoot issues          |
 
-Yyou can configure these log levels by specifying the desired log level as the value of `log-level` in the service configuration file (`agent.yml` or `backend.yml`) or as an argument to the `--log-level` command line flag:
+You can configure these log levels by specifying the desired log level as the value of `log-level` in the service configuration file (`agent.yml` or `backend.yml`) or as an argument to the `--log-level` command line flag:
 
 {{< highlight shell >}}
 sensu-agent start --log-level debug
 {{< /highlight >}}
 
-You must restart the service if you cahnge log levels via configuration files or command line arguments.
+You must restart the service if you change log levels via configuration files or command line arguments.
 For help with restarting a service, see the [agent reference][5] or [backend reference][9].
 
 ### Log file locations
@@ -114,7 +113,7 @@ Get-Content -  Path "C:\scripts\test.txt" -Wait
 
 ## Sensu backend startup errors
 
-The following errors are expected when starting up a Sensu backend with the default configuration.
+The following errors are expected when starting up a Sensu backend with the default configuration:
 
 {{< highlight shell >}}
 {"component":"etcd","level":"warning","msg":"simple token is not cryptographically signed","pkg":"auth","time":"2019-11-04T10:26:31-05:00"}
@@ -148,7 +147,7 @@ or the sensu-agent:
 sudo chown -R sensu:sensu /var/cache/sensu/sensu-agent
 {{< /highlight >}}
 
-## Handlers and filters
+## Handlers and event filters
 
 Whether implementing new workflows or modifying existing workflows, you may need to troubleshoot various stages of the event pipeline.
 In many cases, generating events using the [agent API][6] will save you time and effort over modifying existing check configurations.
@@ -305,7 +304,7 @@ An improperly applied asset filter can prevent the asset from being downloaded b
 }
 {{< /highlight >}}
 
-If you see a message like this, review your asset definition &mdash; it means that the entity wasn't able to download the required asset due to filter restrictions.
+If you see a message like this, review your asset definition &mdash; it means that the entity wasn't able to download the required asset due to asset filter restrictions.
 If you can't remember where you stored the information on disk, here's how to find it:
 
 {{< highlight shell >}}
@@ -318,7 +317,7 @@ or
 sensuctl asset info sensu-plugins-disk-checks --format json
 {{< /highlight >}}
 
-A common filter issue is conflating operating systems with the family they're a part of.
+A common asset filter issue is conflating operating systems with the family they're a part of.
 For example, although Ubuntu is part of the Debian family of Linux distributions, Ubuntu is not the same as Debian.
 A practical example might be:
 
@@ -330,7 +329,7 @@ A practical example might be:
 
 This would not allow an Ubuntu system to run the asset.
 
-Instead, the filter should look like this:
+Instead, the asset filter should look like this:
 
 {{< highlight shell >}}
 ...

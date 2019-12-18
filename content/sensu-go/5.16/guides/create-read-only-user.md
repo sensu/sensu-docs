@@ -51,7 +51,7 @@ You can use the `sensuctl user`, `sensuctl role`, and `sensuctl role-binding` co
 
 ## Create a cluster-wide event-reader user
 
-Suppose you want to create a user that has read-only access to events across all namespaces.
+Suppose you want to create a user with read-only access to events across all namespaces.
 Because you want this role to have cluster-wide permissions, you'll need to create a **cluster role** and a **cluster role binding**.
 
 1. Create a user with the username `bob` and assign them to the group `ops`:
