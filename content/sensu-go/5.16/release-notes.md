@@ -63,7 +63,7 @@ See the [upgrade guide][1] to upgrade Sensu to version 5.16.1.
 
 **FIXES:**
 
-- Fixed a performance regression introduced in 5.15.0 that caused the API to timeout past 20k agent sessions.
+- The performance regression introduced in 5.15.0 that caused the API to time out past 20k agent sessions is now fixed.
 
 ## 5.16.0 release notes
 
