@@ -53,7 +53,7 @@ Read the [upgrade guide][1] for information about upgrading to the latest versio
 ## 5.16.1 release notes
 
 **December 18, 2019** &mdash; The latest release of Sensu Go, version 5.16.1, is now available for download.
-This release fixes a performance regression that caused the API to time out past 20k agent sessions and includes a change to display the `sensu_go_events_processed` counter by default.
+This release fixes a performance regression that caused API latency to scale linearly as the number of connected agents increased and includes a change to display the `sensu_go_events_processed` counter by default.
 
 See the [upgrade guide][1] to upgrade Sensu to version 5.16.1.
 
@@ -63,7 +63,7 @@ See the [upgrade guide][1] to upgrade Sensu to version 5.16.1.
 
 **FIXES:**
 
-- The performance regression introduced in 5.15.0 that caused the API to time out past 20k agent sessions is now fixed.
+- The performance regression introduced in 5.15.0 that caused API latency to scale linearly as the number of connected agents increased is fixed.
 
 ## 5.16.0 release notes
 
