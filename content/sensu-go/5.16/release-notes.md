@@ -53,7 +53,7 @@ Read the [upgrade guide][1] for information about upgrading to the latest versio
 ## 5.16.1 release notes
 
 **December 18, 2019** &mdash; The latest release of Sensu Go, version 5.16.1, is now available for download.
-This is a patch release that fixes a performance issue ...
+This is a patch release that optimizes the function the entity limiter uses.
 
 See the [upgrade guide][1] to upgrade Sensu to version 5.16.1.
 
