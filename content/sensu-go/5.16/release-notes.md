@@ -57,6 +57,10 @@ This is a patch release that optimizes the function the entity limiter uses.
 
 See the [upgrade guide][1] to upgrade Sensu to version 5.16.1.
 
+**IMPROVEMENTS**
+
+- The `sensu_go_events_processed` counter now initializes with the `success` label so the count is always displayed.
+
 **FIXES:**
 
 - Fixed a performance regression introduced in 5.15.0 that caused the API to timeout past 20k agent sessions.
