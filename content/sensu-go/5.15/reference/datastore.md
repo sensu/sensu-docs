@@ -77,7 +77,6 @@ With the `PostgresConfig` resource definition saved to a file (for example: post
 sensuctl create --file postgres.yml
 {{< /highlight >}}
 
-At this time, there is no supported method for viewing a `PostgresConfig` resource.
 To update your Sensu PostgreSQL configuration, repeat the `sensuctl create` process shown above.
 You can expect to see PostgreSQL status updates and error messages in the [Sensu backend logs][2] at the `warn` and `error` log levels, respectively.
 

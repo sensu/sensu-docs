@@ -1,7 +1,7 @@
 ---
 title: "Sensuctl"
 linkTitle: "Reference"
-description: "Sensuctl is a command line tool for managing resources within Sensu. It works by calling Sensu’s underlying API to create, read, update, and delete resources, events, and entities. Read the reference doc to learn about sensuctl."
+description: "Sensuctl is a command line tool for managing resources within Sensu. It works by calling Sensu’s underlying API to create, read, update, and delete resources, events, and entities. Read this reference doc to learn about sensuctl."
 weight: 2
 version: "5.16"
 product: "Sensu Go"
@@ -12,103 +12,120 @@ menu:
 ---
 
 - [First-time setup](#first-time-setup)
-- [Managing sensuctl](#managing-sensuctl)
-- [Creating resources](#creating-resources)
-- [Deleting resources](#deleting-resources)
-- [Updating resources](#updating-resources)
-- [Exporting resources](#exporting-resources)
-- [Managing resources](#managing-resources)
-- [Filtering](#filtering) (commercial feature)
+- [Get help](#get-help)
+- [Manage sensuctl](#manage-sensuctl)
+- [Create resources](#create-resources)
+- [Delete resources](#delete-resources)
+- [Update resources](#update-resources)
+- [Export resources](#export-resources)
+- [Manage resources](#manage-resources)
+- [Filters](#filters) (commercial feature)
 - [Time formats](#time-formats)
 - [Shell auto-completion](#shell-auto-completion)
 - [Environment variables](#environment-variables)
 - [Config files](#configuration-files)
-- [Interacting with Bonsai](#interacting-with-bonsai)
+- [Interact with Bonsai](#interact-with-bonsai)
   - [Install asset definitions](#install-asset-definitions)
   - [Check your Sensu backend for outdated assets](#check-your-sensu-backend-for-outdated-assets)
   - [Extend sensuctl with commands](#extend-sensuctl-with-commands)
 
-Sensuctl is a command line tool for managing resources within Sensu. It works by
-calling Sensu's underlying API to create, read, update, and delete resources,
-events, and entities. Sensuctl is available for Linux, macOS, and Windows.
-See the [installation guide][4] to install and configure sensuctl.
-
-### Getting help
-
-Sensuctl supports a `--help` flag for each command and subcommand.
-
-{{< highlight shell >}}
-# See command and global flags
-sensuctl --help
-
-# See subcommands and flags
-sensuctl check --help
-
-# See usage and flags
-sensuctl check delete --help
-{{< /highlight >}}
+Sensuctl is a command line tool for managing resources within Sensu.
+It works by calling Sensu's underlying API to create, read, update, and delete resources, events, and entities.
+Sensuctl is available for Linux, macOS, and Windows.
+See [Install Sensu][4] to install and configure sensuctl.
 
 ## First-time setup
 
-To set up sensuctl, run `sensuctl configure` to log in to sensuctl and connect to the Sensu backend.
+To set up sensuctl, run `sensuctl configure` to log in to sensuctl and connect to the Sensu backend:
 
 {{< highlight shell >}}
 sensuctl configure
 {{< /highlight >}}
 
-When prompted, input the [Sensu backend URL][9] and your [Sensu access credentials][11].
+When prompted, type the [Sensu backend URL][9] and your [Sensu access credentials][11].
 
 {{< highlight shell >}}
 ? Sensu Backend URL: http://127.0.0.1:8080
-? Username: admin
-? Password: P@ssw0rd!
+? Username: YOUR_USERNAME
+? Password: YOUR_PASSWORD
 ? Namespace: default
 ? Preferred output format: tabular
 {{< /highlight >}}
 
+_**NOTE**: If you are using Docker, the default username is `admin` and the password is `P@ssw0rd!`._
+
 ### Sensu backend URL
 
-The HTTP or HTTPS URL where sensuctl can connect to the Sensu backend server, defaulting to `http://127.0.0.1:8080`.
-When connecting to a [Sensu cluster][7], connect sensuctl to any single backend in the cluster.
-For more information on configuring the Sensu backend URL, see the [backend reference][5].
+The Sensu backend URL is the HTTP or HTTPS URL where sensuctl can connect to the Sensu backend server.
+The default URL is `http://127.0.0.1:8080`.
 
-### Username | password | namespace
+To connect to a [Sensu cluster][7], connect sensuctl to any single backend in the cluster.
+For information about configuring the Sensu backend URL, see the [backend reference][5].
 
-By default, Sensu includes a user named `admin` with password `P@ssw0rd!` and a `default` namespace.
+### Username, Password, and Namespace
+
+When you install the Sensu backend, during the [initialization step][40], you create a username and password for a `default` namespace.
 Your ability to get, list, create, update, and delete resources with sensuctl depends on the permissions assigned to your Sensu user.
 For more information about configuring Sensu access control, see the [RBAC reference][1].
+
+_**NOTE**: If you are using Docker, the `sensu-backend init` command for initialization runs automatically with a default username (`admin`) and password (`P@ssw0rd!`) for Docker. You do not need to create a username and password for the `default` namespace if you are using Docker._
 
 ### Preferred output format
 
 Sensuctl supports the following output formats:
 
-- `tabular`: user-friendly, columnar format
-- `wrapped-json`: accepted format for use with [`sensuctl create`][8]
-- `yaml`: accepted format for use with [`sensuctl create`][8]
-- `json`: format used by the [Sensu API][25]
+- `tabular`: A user-friendly, columnar format
+- `wrapped-json`: An accepted format for use with [`sensuctl create`][8]
+- `yaml`: An accepted format for use with [`sensuctl create`][8]
+- `json`: A format used by the [Sensu API][25]
 
-Once logged in, you can change the output format using `sensuctl config set-format` or set it per command using the `--format` flag.
+After you are logged in, you can change the output format with `sensuctl config set-format` or set the output format per command with the `--format` flag.
 
-### Non-interactive
+### Non-interactive mode
 
-You can run `sensuctl configure` non-interactively using the `-n` (`--non-interactive`) flag.
+Run `sensuctl configure` non-interactively by adding the `-n` (`--non-interactive`) flag.
 
 {{< highlight shell >}}
-sensuctl configure -n --url http://127.0.0.1:8080 --username admin --password P@ssw0rd! --format tabular
+sensuctl configure -n --url http://127.0.0.1:8080 --username YOUR_USERNAME --password YOUR_PASSWORD --format tabular
 {{< /highlight >}}
 
-## Managing sensuctl
+_**NOTE**: If you are using Docker, the default username is `admin` and the password is `P@ssw0rd!`._
+
+## Get help
+
+Sensuctl supports a `--help` flag for each command and subcommand.
+
+### See command and global flags
+
+{{< highlight shell >}}
+sensuctl --help
+{{< /highlight >}}
+
+### See subcommands and flags
+
+{{< highlight shell >}}
+sensuctl check --help
+{{< /highlight >}}
+
+### See usage and flags
+
+{{< highlight shell >}}
+sensuctl check delete --help
+{{< /highlight >}}
+
+## Manage sensuctl
 
 The `sencutl config` command lets you view the current sensuctl configuration and set the namespace and output format.
 
 ### View sensuctl config
+
 To view the active configuration for sensuctl:
 
 {{< highlight shell >}}
 sensuctl config view
 {{< /highlight >}}
 
-Sensuctl configuration includes the [Sensu backend url][9], default [output format][10] for the current user, default [namespace][11] for the current user, and currently configured username.
+The `sensuctl config view` response includes the [Sensu backend URL][9], default [namespace][11] for the current user, default [output format][10] for the current user, and currently configured username:
 
 {{< highlight shell >}}
 === Active Configuration
@@ -120,7 +137,8 @@ Username:  admin
 
 ### Set output format
 
-You can use the `set-format` command to change the default [output format][10] for the current user.
+Use the `set-format` command to change the default [output format][10] for the current user.
+
 For example, to change the output format to `tabular`:
 
 {{< highlight shell >}}
@@ -129,8 +147,9 @@ sensuctl config set-format tabular
 
 ### Set namespace
 
-You can use the `set-namespace` command to change the default [namespace][11] for the current user.
+Use the `set-namespace` command to change the default [namespace][11] for the current user.
 For more information about configuring Sensu access control, see the [RBAC reference][1].
+
 For example, to change the default namespace to `development`:
 
 {{< highlight shell >}}
@@ -145,7 +164,7 @@ To log out of sensuctl:
 sensuctl logout
 {{< /highlight >}}
 
-To log back in:
+To log back in to sensuctl:
 
 {{< highlight shell >}}
 sensuctl configure
@@ -160,6 +179,7 @@ sensuctl version
 {{< /highlight >}}
 
 ### Global flags
+
 Global flags modify settings specific to sensuctl, such as the Sensu backend URL and [namespace][11].
 You can use global flags with most sensuctl commands.
 
@@ -172,17 +192,19 @@ You can use global flags with most sensuctl commands.
 --trusted-ca-file string     TLS CA certificate bundle in PEM format
 {{< /highlight >}}
 
-Additionally, these flags can be set permanently by editing `.config/sensu/sensuctl/{cluster, profile}`.
+You can set these flags permanently by editing `.config/sensu/sensuctl/{cluster, profile}`.
 
-## Creating resources
+## Create resources
+
 The `sensuctl create` command allows you to create or update resources by reading from STDIN or a flag configured file (`-f`).
 The `create` command accepts Sensu resource definitions in `wrapped-json` and `yaml`.
-Both JSON and YAML resource definitions wrap the contents of the resource in `spec` and identify the resource `type` (see below for an example, and [this table][3] for a list of supported types).
+Both JSON and YAML resource definitions wrap the contents of the resource in `spec` and identify the resource `type`.
+See the [`wrapped-json`example][39] and [this table][3] for a list of supported types.
 See the [reference docs][6] for information about creating resource definitions.
 
 ### `wrapped-json` format
 
-The following file `my-resources.json` specifies two resources: a `marketing-site` check and a `slack` handler, separated _without_ a comma.
+In this example, the file `my-resources.json` specifies two resources: a `marketing-site` check and a `slack` handler, separated _without_ a comma:
 
 {{< highlight shell >}}
 {
@@ -237,7 +259,7 @@ cat my-resources.json | sensuctl create
 
 ### `yaml` format
 
-The following file `my-resources.yml` specifies two resources: a `marketing-site` check and a `slack` handler, separated with three dashes (`---`).
+In this example, the file `my-resources.yml` specifies two resources: a `marketing-site` check and a `slack` handler, separated with three dashes (`---`).
 
 {{< highlight yml >}}
 ---
@@ -296,18 +318,19 @@ cat my-resources.yml | sensuctl create
 `silenced` | [`ldap`][26] | [`ad`][26] | [`TessenConfig`][27]
 [`PostgresConfig`][32] | | |
 
-### Creating resources across namespaces
+### Create resources across namespaces
 
-By omitting the `namespace` attribute from resource definitions, you can use the `senusctl create --namespace` flag to specify the namespace for a group of resources at the time of creation, allowing you to replicate resources across namespaces without manual editing.
+If you omit the `namespace` attribute from resource definitions, you can use the `senusctl create --namespace` flag to specify the namespace for a group of resources at the time of creation.
+This allows you to replicate resources across namespaces without manual editing.
 To learn more about namespaces and namespaced resource types, see the [RBAC reference][21].
 
 The `sensuctl create` command applies namespaces to resources in the following order, from highest precedence to lowest:
 
 1. **Namespaces specified within resource definitions**: You can specify a resource's namespace within individual resource definitions using the `namespace` attribute. Namespaces specified in resource definitions take precedence over all other methods.
 2. **`--namespace` flag**: If resource definitions do not specify a namespace, Sensu applies the namespace provided by the `sensuctl create --namespace` flag.
-3. **Current sensuctl namespace configuration**: If neither an embedded `namespace` attribute nor the `--namespace` flag is specified, Sensu applies the namespace configured in the current sensuctl session. See [managing sensuctl][31] to view your current session config and set the session namespace.
+3. **Current sensuctl namespace configuration**: If you do not specify an embedded `namespace` attribute or use the `--namespace` flag, Sensu applies the namespace configured in the current sensuctl session. See [Manage sensuctl][31] to view your current session config and set the session namespace.
 
-For example, the following file, `pagerduty.yml`, defines a handler _without_ a `namespace` attribute.
+In this example, the file `pagerduty.yml` defines a handler _without_ a `namespace` attribute:
 
 {{< highlight shell >}}
 type: Handler
@@ -339,13 +362,13 @@ To create the `pagerduty` handler in the current session namespace:
 sensuctl create --file pagerduty.yml
 {{< /highlight >}}
 
-## Deleting resources
+## Delete resources
 
 The `sensuctl delete` command allows you to delete resources by reading from STDIN or a flag configured file (`-f`).
-The `delete` command accepts Sensu resource definitions in `wrapped-json` and `yaml` formats and uses the same [resources types][3] as `sensuctl create`.
+The `delete` command accepts Sensu resource definitions in `wrapped-json` and `yaml` formats and uses the same [resource types][3] as `sensuctl create`.
 To be deleted successfully, resources provided to the `delete` command must match the name and namespace of an existing resource.
 
-To delete all resources from `my-resources.yml` using `sensuctl delete`:
+To delete all resources from `my-resources.yml` with `sensuctl delete`:
 
 {{< highlight shell >}}
 sensuctl delete --file my-resources.yml
@@ -357,17 +380,18 @@ Or:
 cat my-resources.yml | sensuctl delete
 {{< /highlight >}}
 
-### Deleting resources across namespaces
+### Delete resources across namespaces
 
-By omitting the `namespace` attribute from resource definitions, you can use the `senusctl delete --namespace` flag to specify the namespace for a group of resources at the time of deletion, allowing you to remove resources across namespaces without manual editing.
-See the section on [creating resources across namespaces][33] for usage examples.
+If you omit the `namespace` attribute from resource definitions, you can use the `senusctl delete --namespace` flag to specify the namespace for a group of resources at the time of deletion.
+This allows you to remove resources across namespaces without manual editing.
+See the [Create resources across namespaces][33] section for usage examples.
 
-## Updating resources
+## Update resources
 
-Sensuctl allows you to update resource definitions using a text editor.
+Sensuctl allows you to update resource definitions with a text editor.
 To use `sensuctl edit`, specify the resource [type][24] and resource name.
 
-For example, to edit a handler named `slack` using `sensuctl edit`:
+For example, to edit a handler named `slack` with `sensuctl edit`:
 
 {{< highlight shell >}}
 sensuctl edit handler slack
@@ -383,11 +407,13 @@ sensuctl edit handler slack
 `role` | `role-binding` | `silenced` | `user`
 [`auth`][26] | | |
 
-## Exporting resources
+## Export resources
 
-The `sensuctl dump` command allows you to export your resources to standard out or to a file. You can choose to export all of your resources or a subset of them based on a list of resource types. The `dump` command supports exporting in `wrapped-json` and `yaml`.
+The `sensuctl dump` command allows you to export your resources to standard out or to a file.
+You can export all of your resources or a subset of them based on a list of resource types.
+The `dump` command supports exporting in `wrapped-json` and `yaml`.
 
-_NOTE: Passwords are not included when exporting users. Operators must add the `password` attribute to any exported user resources before they can be used with `sensuctl create`._
+_**NOTE**: Passwords are not included when exporting users. You must add the `password` attribute to any exported user resources before they can be used with `sensuctl create`._
 
 To export all resources to a file named `my-resources.yaml` in `yaml` format:
 
@@ -409,13 +435,15 @@ sensuctl dump handler,filter --format yaml --file my-handlers-and-filters.yaml
 
 ### sensuctl dump resource types
 
-The table below lists supported `sensu dump` resource types. You can also use a `sensuctl` subcommand to list the types of supported resources:
+You can use the sensuctl `--types` subcommand to list the types of supported resources:
 
 {{< highlight shell >}}
 sensuctl dump --types
 {{< /highlight >}}
 
-_NOTE: The resource types with no synonym listed are [commercial features][30]._
+The table below lists supported `sensuctl dump` resource types.
+
+_**NOTE**: The resource types with no synonym listed are [commercial features][30]._
 
 Synonym | Fully qualified name 
 --------------------|---
@@ -440,7 +468,7 @@ None | `federation/v1.Replicator`
 `tessen` | `core/v2.TessenConfig`
 `users` | `core/v2.User`
 
-## Managing resources
+## Manage resources
 
 Sensuctl provides the following commands to manage Sensu resources.
 
@@ -465,6 +493,7 @@ Sensuctl provides the following commands to manage Sensu resources.
 - [`sensuctl user`][1]
 
 ### Subcommands
+
 Sensuctl provides a standard set of list, info, and delete operations for most resource types.
 
 {{< highlight shell >}}
@@ -497,13 +526,16 @@ To see the definition for a check named `check-cpu` in [`wrapped-json` format][1
 sensuctl check info check-cpu --format wrapped-json
 {{< /highlight >}}
 
-In addition to the standard operations, commands may support subcommands or flags that allow you to take special action based on the resource type; the following sections call out those resource-specific operations.
+In addition to the standard operations, commands may support subcommands or flags that allow you to take special action based on the resource type.
+The sections below describe these resource-specific operations.
+
 For a list of subcommands specific to a resource, run `sensuctl TYPE --help`.
 
-### Handling large datasets
+#### Handle large datasets
 
-When querying sensuctl for large datasets, you can use the `--chunk-size` flag with any `list` command to avoid timeouts and improve performance.
-For example, the following command returns the same output as `sensuctl event list` but makes multiple API queries (each for the number of objects specified by `--chunk-size`) instead of one API query for the complete dataset.
+When querying sensuctl for large datasets, use the `--chunk-size` flag with any `list` command to avoid timeouts and improve performance.
+
+For example, the following command returns the same output as `sensuctl event list` but makes multiple API queries (each for the number of objects specified by `--chunk-size`) instead of one API query for the complete dataset:
 
 {{< highlight shell >}}
 sensuctl event list --chunk-size 500
@@ -511,7 +543,7 @@ sensuctl event list --chunk-size 500
 
 #### sensuctl check
 
-In addition to the [standard subcommands][23], sensuctl provides a command to execute a check on demand, given the check name.
+In addition to the [standard subcommands][23], the `sensuctl check execute` command executes a check on demand, given the check name:
 
 {{< highlight shell >}}
 sensuctl check execute NAME
@@ -531,10 +563,10 @@ sensuctl check execute check-cpu --subscriptions demo,webserver
 
 #### sensuctl cluster
 
-The `sensuctl cluster` command lets you manage a Sensu cluster using the following subcommands.
+The `sensuctl cluster` command lets you manage a Sensu cluster using the following subcommands:
 
 {{< highlight shell >}}
-health           get sensu health status
+health           get Sensu health status
 id               get unique Sensu cluster ID
 member-add       add cluster member to an existing cluster, with comma-separated peer addresses
 member-list      list cluster members
@@ -556,7 +588,7 @@ sensuctl cluster health
 
 #### sensuctl event
 
-In addition to the [standard subcommands][23], sensuctl provides a command to resolve an event.
+In addition to the [standard subcommands][23], you can use `sensuctl event resolve` to manually resolve events:
 
 {{< highlight shell >}}
 sensuctl event resolve ENTITY CHECK
@@ -576,14 +608,14 @@ See the [RBAC reference][21] for information about using access control with nam
 
 See the [RBAC reference][22] for information about local user management with sensuctl.
 
-## Filtering
+## Filters
 
-**COMMERCIAL FEATURE**: Access sensuctl filtering in the packaged Sensu Go distribution. For more information, see the [getting started guide][30].
+**COMMERCIAL FEATURE**: Access sensuctl filters in the packaged Sensu Go distribution. For more information, see [Get started with commercial features][30].
 
 Sensuctl supports filtering for all `list` commands using the `--label-selector` and `--field-selector` flags.
-For information about the operators and fields available to use in filters, see the [API docs][28].
+For information about the operators and fields you can use in filters, see the [API docs][28].
 
-### Filtering syntax quick reference
+### Filter syntax quick reference
 
 | operator | description     | example                |
 | -------- | --------------- | ---------------------- |
@@ -593,28 +625,30 @@ For information about the operators and fields available to use in filters, see 
 | `notin`  | Not included in | `slack notin check.handlers`
 | `&&`     | Logical AND     | `check.publish == true && slack in check.handlers`
 
-### Filtering with labels
+### Filter with labels
 
-You can use the `--label-selector` flag to filter using custom labels.
-For example, the following command returns entities with the `proxy_type` label set to `switch`.
+Use the `--label-selector` flag to filter using custom labels.
+
+In this example, the command returns entities with the `proxy_type` label set to `switch`:
 
 {{< highlight shell >}}
 sensuctl entity list --label-selector 'proxy_type == switch'
 {{< /highlight >}}
 
-### Filtering with resource attributes
+### Filter with resource attributes
 
-You can use the `--field-selector` flag to filter using selected resource attributes.
-To see the resource attributes available to use in filter statements, see the [API docs][29].
+Use the `--field-selector` flag to filter using selected resource attributes.
+To see the resource attributes you can use in filter statements, see the [API docs][29].
 
-For example, the following command returns entities with the `switches` subscription.
+In this example, the command returns entities with the `switches` subscription:
 
 {{< highlight shell >}}
 sensuctl entity list --field-selector 'switches in entity.subscriptions'
 {{< /highlight >}}
 
 You can also combine the `--label-selector` and `--field-selector` flags.
-For example, the following command returns checks with the `region` label set to `us-west-1` and the `slack` handler.
+
+In this example, the command returns checks with the `region` label set to `us-west-1` that use the `slack` handler:
 
 {{< highlight shell >}}
 sensuctl check list --label-selector 'region == "us-west-1"' --field-selector 'slack in check.handlers'
@@ -625,13 +659,14 @@ sensuctl check list --label-selector 'region == "us-west-1"' --field-selector 's
 Sensuctl supports multiple time formats depending on the manipulated resource.
 Supported canonical time zone IDs are defined in the [tz database][2].
 
-_WARNING: Canonical zone IDs (i.e. `America/Vancouver`) are not supported on
-Windows._
+_**WARNING**: Windows does not support canonical zone IDs (for example, `America/Vancouver`)._
 
 ### Dates with time
 
-Full dates with time are used to specify an exact point in time, which can be
-used with silences, for example. The following formats are supported:
+Use full dates with time to specify an exact point in time.
+This is useful for setting silences, for example.
+
+Sensuctl supports the following formats:
 
 * RFC3339 with numeric zone offset: `2018-05-10T07:04:00-08:00` or
   `2018-05-10T15:04:00Z`
@@ -642,17 +677,18 @@ used with silences, for example. The following formats are supported:
 
 ## Shell auto-completion
 
-### Installation (Bash Shell)
+### Installation (Bash shell)
 
-Make sure bash completion is installed. If you use a current Linux
-in a non-minimal installation, bash completion should be available.
+Make sure bash-completion is installed.
+If you use a current Linux in a non-minimal installation, bash-completion should be available.
+
 On macOS, install with:
 
 {{< highlight shell >}}
 brew install bash-completion
 {{< /highlight >}}
 
-Then add the following to your `~/.bash_profile`:
+Then add this to your `~/.bash_profile`:
 
 {{< highlight shell >}}
 if [ -f $(brew --prefix)/etc/bash_completion ]; then
@@ -660,13 +696,13 @@ if [ -f $(brew --prefix)/etc/bash_completion ]; then
 fi
 {{< /highlight >}}
 
-Once bash-completion is available, add the following to your `~/.bash_profile`:
+After bash-completion is installed, add this to your `~/.bash_profile`:
 
 {{< highlight shell >}}
 source <(sensuctl completion bash)
 {{< /highlight >}}
 
-You can now source your `~/.bash_profile` or launch a new terminal to utilize completion.
+Now you can source your `~/.bash_profile` or launch a new terminal to use shell auto-completion.
 
 {{< highlight shell >}}
 source ~/.bash_profile
@@ -674,13 +710,13 @@ source ~/.bash_profile
 
 ### Installation (ZSH)
 
-Add the following to your `~/.zshrc`:
+Add this to your `~/.zshrc`:
 
 {{< highlight shell >}}
 source <(sensuctl completion zsh)
 {{< /highlight >}}
 
-You can now source your `~/.zshrc` or launch a new terminal to utilize completion.
+Now you can source your `~/.zshrc` or launch a new terminal to use shell auto-completion.
 
 {{< highlight shell >}}
 source ~/.zshrc
@@ -703,10 +739,10 @@ create  delete  import  list
 
 ## Environment variables
 
-Sensuctl includes `sensuctl env` command to help export and set environment variables on your systems.
+Sensuctl includes the `sensuctl env` command to help export and set environment variables on your systems.
 
 {{< highlight text >}}
-SENSU_API_URL                    URL of the sensu backend API in sensuctl
+SENSU_API_URL                    URL of the Sensu backend API in sensuctl
 SENSU_NAMESPACE                  Name of the current namespace in sensuctl
 SENSU_FORMAT                     Set output format in sensuctl (e.g. JSON, YAML, etc.)
 SENSU_ACCESS_TOKEN               Current API access token in sensuctl
@@ -730,6 +766,7 @@ export SENSU_ACCESS_TOKEN_EXPIRES_AT="1567716187"
 export SENSU_REFRESH_TOKEN="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.x.x"
 export SENSU_TRUSTED_CA_FILE=""
 export SENSU_INSECURE_SKIP_TLS_VERIFY="true"
+
 # Run this command to configure your shell:
 # eval $(sensuctl env)
 {{< /highlight >}}
@@ -758,6 +795,7 @@ $Env:SENSU_ACCESS_TOKEN_EXPIRES_AT = "1567716738"
 $Env:SENSU_REFRESH_TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.x.x"
 $Env:SENSU_TRUSTED_CA_FILE = ""
 $Env:SENSU_INSECURE_SKIP_TLS_VERIFY = "true"
+
 # Run this command to configure your shell:
 # & sensuctl env --shell powershell | Invoke-Expression
 {{< /highlight >}}
@@ -766,7 +804,10 @@ $Env:SENSU_INSECURE_SKIP_TLS_VERIFY = "true"
 
 ## Configuration files
 
-During configuration, sensuctl creates configuration files that contain information for connecting to your Sensu Go deployment. You can find them at `$HOME/.config/sensu/sensuctl/profile` and `$HOME/.config/sensu/sensuctl/cluster`. For example:
+During configuration, sensuctl creates configuration files that contain information for connecting to your Sensu Go deployment.
+You can find these files at `$HOME/.config/sensu/sensuctl/profile` and `$HOME/.config/sensu/sensuctl/cluster`.
+
+For example:
 
 {{< highlight shell >}}
 cat .config/sensu/sensuctl/profile
@@ -789,16 +830,19 @@ cat .config/sensu/sensuctl/cluster
 }
 {{< /highlight >}}
 
-These are useful if you want to know what cluster you're connecting to, or what namespace or username you're currently configured to use.
+These configuration files are useful if you want to know which cluster you're connecting to or which namespace or username you're currently configured to use.
 
-## Interacting with Bonsai
+## Interact with Bonsai
 
-Sensuctl supports installing asset definitions directly from [Bonsai][34] and checking your Sensu backend for outdated assets.
+Sensuctl supports installing asset definitions directly from [Bonsai, the Sensu asset index][34], and checking your Sensu backend for outdated assets.
 You can also use `sensuctl command` to install, execute, list, and delete commands from Bonsai or a URL.
 
 ### Install asset definitions
 
-To install an asset definition directly from Bonsai, use `sensuctl asset add [NAMESPACE/NAME][:VERSION]`. `[:VERSION]` is only required if you require a specific version or are pinning to a specific version. Replace `[NAMESPACE/NAME]` with the namespace and name of the asset from Bonsai:
+To install an asset definition directly from Bonsai, use `sensuctl asset add [NAMESPACE/NAME][:VERSION]`.
+`[:VERSION]` is only required if you require a specific version or are pinning to a specific version.
+
+Replace `[NAMESPACE/NAME]` with the namespace and name of the asset from Bonsai:
 
 ![Bonsai page for InfluxDB handler showing namespace and name][36]
 
@@ -808,7 +852,7 @@ fetching bonsai asset: sensu/sensu-influxdb-handler:3.1.1
 added asset: sensu/sensu-influxdb-handler:3.1.1
 {{< /highlight >}}
 
-You can also use the `--rename` flag to rename the asset on install.
+You can also use the `--rename` flag to rename the asset on install:
 
 {{< highlight shell >}}
 sensuctl asset add sensu/sensu-slack-handler --rename slack-handler
@@ -819,7 +863,9 @@ added asset: sensu/sensu-slack-handler:1.0.3
 
 ### Check your Sensu backend for outdated assets
 
-To check your Sensu backend for assets that have newer versions available on Bonsai, use `sensuctl asset outdated`. This will print a list of assets installed in the backend whose version is older than the newest version available on Bonsai.
+To check your Sensu backend for assets that have newer versions available on Bonsai, use `sensuctl asset outdated`.
+This will print a list of assets installed in the backend whose version is older than the newest version available on Bonsai:
+
 {{< highlight shell >}}
 sensuctl asset outdated
           Asset Name                  Bonsai Asset          Current Version  Latest Version
@@ -833,7 +879,8 @@ Use `sensuctl command` to install, execute, list, and delete commands from Bonsa
 
 #### Install commands
 
-You can install a sensuctl command from Bonsai or a URL:
+To install a sensuctl command from Bonsai or a URL:
+
 {{< highlight shell >}}
 sensuctl command install [ALIAS] ([NAMESPACE/NAME]:[VERSION] | --url [ARCHIVE_URL] --checksum [ARCHIVE_CHECKSUM]) [flags]
 {{< /highlight >}}
@@ -896,6 +943,7 @@ sensuctl command exec mycommand arg1 arg2 --cache-dir /tmp -- --flag1 --flag2=va
 {{< /highlight >}}
 
 Sensuctl will parse the --cache-dir flag, but bin/entrypoint will parse all flags after the ` -- `.
+
 In this example, the full command run by sensuctl exec would be:
 
 {{< highlight shell >}}
@@ -931,42 +979,43 @@ Run `sensuctl command delete -h` to view flags.
 Flags are optional and apply only to the `delete` command.
 
 
-[1]: ../../reference/rbac
+[1]: ../../reference/rbac/
 [2]: https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
 [3]: #sensuctl-create-resource-types
 [4]: ../../installation/install-sensu/#install-sensuctl
 [5]: ../../reference/agent/#general-configuration-flags
-[6]: ../../reference
-[7]: ../../guides/clustering
-[8]: #creating-resources
+[6]: ../../reference/
+[7]: ../../guides/clustering/
+[8]: #create-resources
 [9]: #sensu-backend-url
 [10]: #preferred-output-format
-[11]: #username-password-namespace
-[12]: ../../reference/assets
-[13]: ../../reference/checks
-[14]: ../../reference/entities
-[15]: ../../reference/events
-[16]: ../../reference/filters
-[17]: ../../reference/handlers
-[18]: ../../reference/hooks
-[19]: ../../reference/mutators
-[20]: ../../reference/silencing
+[11]: #username-password-and-namespace
+[12]: ../../reference/assets/
+[13]: ../../reference/checks/
+[14]: ../../reference/entities/
+[15]: ../../reference/events/
+[16]: ../../reference/filters/
+[17]: ../../reference/handlers/
+[18]: ../../reference/hooks/
+[19]: ../../reference/mutators/
+[20]: ../../reference/silencing/
 [21]: ../../reference/rbac#namespaces
 [22]: ../../reference/rbac#users
 [23]: #subcommands
 [24]: #sensuctl-edit-resource-types
-[25]: ../../api/overview
-[26]: ../../installation/auth
-[27]: ../../reference/tessen
+[25]: ../../api/overview/
+[26]: ../../installation/auth/
+[27]: ../../reference/tessen/
 [28]: ../../api/overview#filtering
 [29]: ../../api/overview#field-selector
-[30]: ../../getting-started/enterprise
-[31]: #managing-sensuctl
-[32]: ../../reference/datastore
-[33]: #creating-resources-across-namespaces
+[30]: ../../getting-started/enterprise/
+[31]: #manage-sensuctl
+[32]: ../../reference/datastore/
+[33]: #create-resources-across-namespaces
 [34]: https://bonsai.sensu.io/
-[35]: ../../reference/etcdreplicators
+[35]: ../../reference/etcdreplicators/
 [36]: /images/sensu-influxdb-handler-namespace.png
-[37]: https://bonsai.sensu.io/assets/sensu/sensu-email-handler
+[37]: https://bonsai.sensu.io/assets/sensu/sensu-email-handler/
 [38]: #environment-variables
-
+[39]: #wrapped-json-format
+[40]: ../../installation/install-sensu/#2-initialize
