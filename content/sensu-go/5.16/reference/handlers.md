@@ -59,7 +59,7 @@ Sensu looks for an event handler named `keepalive` and automatically uses it to 
 
 Suppose you want to receive Slack notifications for keepalive alerts, and you already have a [Slack handler set up to process events][15].
 To process keepalive events using the Slack pipeline, create a handler set named `keepalive` and add the `slack` handler to the `handlers` array.
-The resulting `keepalive` handler set configuration looks like this:
+The resulting `keepalive` handler set configuration will look like this example:
 
 {{< language-toggle >}}
 
@@ -107,7 +107,7 @@ example      | {{< highlight shell >}}"type": "Handler"{{< /highlight >}}
 
 api_version  | 
 -------------|------
-description  | Top-level attribute that specifies the Sensu API group and version. For handlers in this version of Sensu, this attribute should always be `core/v2`.
+description  | Top-level attribute that specifies the Sensu API group and version. For handlers in this version of Sensu, the `api_version` should always be `core/v2`.
 required     | Required for handler definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][4].
 type         | String
 example      | {{< highlight shell >}}"api_version": "core/v2"{{< /highlight >}}
@@ -168,7 +168,7 @@ example      | {{< highlight shell >}}"namespace": "production"{{< /highlight >}
 
 | labels     |      |
 -------------|------
-description  | Custom attributes you can use to create meaningful collections that you can select with [API filtering][11] and [sensuctl filtering][12]. Overusing labels can affect Sensu's internal performance, so we recommend moving complex, non-identifying metadata to annotations.
+description  | Custom attributes you can use to create meaningful collections that you can select with [API response filtering][11] and [sensuctl response filtering][12]. Overusing labels can affect Sensu's internal performance, so we recommend moving complex, non-identifying metadata to annotations.
 required     | false
 type         | Map of key-value pairs. Keys can contain only letters, numbers, and underscores and must start with a letter. Values can be any valid UTF-8 string.
 default      | `null`
@@ -179,7 +179,7 @@ example      | {{< highlight shell >}}"labels": {
 
 | annotations |     |
 -------------|------
-description  | Non-identifying metadata that's meaningful to people or external tools that interact with Sensu.<br><br>In contrast to labels, you cannot use annotations in [API filtering][11] or [sensuctl filtering][12], and annotations do not affect Sensu's internal performance.
+description  | Non-identifying metadata that's meaningful to people or external tools that interact with Sensu.<br><br>In contrast to labels, you cannot use annotations in [API response filtering][11] or [sensuctl response filtering][12], and annotations do not affect Sensu's internal performance.
 required     | false
 type         | Map of key-value pairs. Keys and values can be any valid UTF-8 string.
 default      | `null`
@@ -222,28 +222,28 @@ example     | {{< highlight shell >}}"timeout": 30{{< /highlight >}}
 
 command      | 
 -------------|------
-description  | Handler command to be executed. The event data is passed to the process via `STDIN`._**NOTE**: The `command` attribute is only supported for pipe handlers (i.e. handlers configured with `"type": "pipe"`)._
+description  | Handler command to be executed. The event data is passed to the process via `STDIN`. _**NOTE**: The `command` attribute is only supported for pipe handlers (i.e. handlers configured with `"type": "pipe"`)._
 required     | true (if `type` equals `pipe`)
 type         | String
 example      | {{< highlight shell >}}"command": "/etc/sensu/plugins/pagerduty.go"{{< /highlight >}}
 
 env_vars      | 
 -------------|------
-description  | Array of environment variables to use with command execution._**NOTE**: The `env_vars` attribute is only supported for pipe handlers (i.e. handlers configured with `"type": "pipe"`)._
+description  | Array of environment variables to use with command execution. _**NOTE**: The `env_vars` attribute is only supported for pipe handlers (i.e. handlers configured with `"type": "pipe"`)._
 required     | false
 type         | Array
 example      | {{< highlight shell >}}"env_vars": ["API_KEY=0428d6b8nb51an4d95nbe28nf90865a66af5"]{{< /highlight >}}
 
 socket       | 
 -------------|------
-description  | Scope for [`socket` definition][6] used to configure the TCP/UDP handler socket._**NOTE**: The `socket` attribute is only supported for TCP/UDP handlers (i.e. handlers configured with `"type": "tcp"` or `"type": "udp"`)._
+description  | Scope for [`socket` definition][6] used to configure the TCP/UDP handler socket. _**NOTE**: The `socket` attribute is only supported for TCP/UDP handlers (i.e. handlers configured with `"type": "tcp"` or `"type": "udp"`)._
 required     | true (if `type` equals `tcp` or `udp`)
 type         | Hash
 example      | {{< highlight shell >}}"socket": {}{{< /highlight >}}
 
 handlers     | 
 -------------|------
-description  | Array of Sensu event handlers (by their names) to use for events using the handler set. Each array item must be a string._**NOTE**: The `handlers` attribute is only supported for handler sets (i.e. handlers configured with `"type": "set"`)._
+description  | Array of Sensu event handlers (by their names) to use for events using the handler set. Each array item must be a string. _**NOTE**: The `handlers` attribute is only supported for handler sets (i.e. handlers configured with `"type": "set"`)._
 required     | true (if `type` equals `set`)
 type         | Array
 example      | {{< highlight shell >}}"handlers": ["pagerduty", "email", "ec2"]{{< /highlight >}}
@@ -307,7 +307,8 @@ spec:
 
 ### Minimum required TCP/UDP handler attributes
 
-This example demonstrates a `tcp` type handler. Change the type from `tcp` to `udp` to create the minimum configuration for a `udp` type handler. 
+This example demonstrates a `tcp` type handler.
+Change the type from `tcp` to `udp` to create the minimum configuration for a `udp` type handler. 
 
 {{< language-toggle >}}
 
@@ -346,7 +347,7 @@ spec:
 
 ### Send Slack alerts
 
-This handler will send alerts to a channel named `monitoring` with the configured webhook URL, using the `handler-slack` executable command:
+This handler will send alerts to a channel named `monitoring` with the configured webhook URL, using the `handler-slack` executable command.
 
 {{< language-toggle >}}
 
@@ -398,7 +399,7 @@ spec:
 
 ### Send event data to a TCP socket
 
-This handler will send event data to a TCP socket (10.0.1.99:4444) and timeout if an acknowledgement (`ACK`) is not received within 30 seconds:
+This handler will send event data to a TCP socket (10.0.1.99:4444) and timeout if an acknowledgement (`ACK`) is not received within 30 seconds.
 
 {{< language-toggle >}}
 
@@ -437,7 +438,7 @@ spec:
 
 ### Send event data to a UDP socket
 
-This handler will forward event data to a UDP socket (10.0.1.99:4444) and timeout if an acknowledgement (`ACK`) is not received within 30 seconds:
+This handler will forward event data to a UDP socket (10.0.1.99:4444) and timeout if an acknowledgement (`ACK`) is not received within 30 seconds.
 
 {{< language-toggle >}}
 
@@ -524,7 +525,7 @@ spec:
 [7]: ../assets/
 [8]: #metadata-attributes
 [9]: ../rbac#namespaces
-[10]: ../../api/overview#filtering
+[10]: ../../api/overview#response-filtering
 [11]: ../../sensuctl/reference#filters
 [12]: ../agent#keepalive-monitoring
 [13]: ../agent/

@@ -20,8 +20,8 @@ menu:
 	- [Silence a specific check on every entity](#silence-a-specific-check-on-every-entity)
 	- [Delete a silence](#delete-a-silence)
 
-Silencing capability allows you to suppress event handler execution on an ad hoc basis so you can plan maintenance and reduce alert fatigue.
-Silences are created on an ad hoc basis via `sensuctl`.
+Sensu's silencing capability allows you to suppress event handler execution on an ad hoc basis so you can plan maintenance and reduce alert fatigue.
+Silences are created on an ad hoc basis using `sensuctl`.
 Successfully created silencing entries are assigned a `name` in the format `$SUBSCRIPTION:$CHECK`, where `$SUBSCRIPTION` is the name of a Sensu entity subscription and `$CHECK` is the name of a Sensu check.
 
 You can use silences to silence checks on specific entities by taking advantage of per-entity subscriptions (for example, `entity:$ENTITY_NAME`).
@@ -57,7 +57,7 @@ example      | {{< highlight shell >}}"type": "Silenced"{{< /highlight >}}
 
 api_version  | 
 -------------|------
-description  | Top-level attribute that specifies the Sensu API group and version. For silences in this version of Sensu, this attribute should always be `core/v2`.
+description  | Top-level attribute that specifies the Sensu API group and version. For silences in this version of Sensu, the `api_version` should always be `core/v2`.
 required     | Required for silencing entry definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][4].
 type         | String
 example      | {{< highlight shell >}}"api_version": "core/v2"{{< /highlight >}}
@@ -112,7 +112,7 @@ example      | {{< highlight shell >}}"namespace": "production"{{< /highlight >}
 
 | labels     |      |
 -------------|------
-description  | Custom attributes you can use to create meaningful collections that you can can with [API filtering][6] and [sensuctl filtering][7]. Overusing labels can affect Sensu's internal performance, so we recommend moving complex, non-identifying metadata to annotations.
+description  | Custom attributes you can use to create meaningful collections that you can can with [API response filtering][6] and [sensuctl response filtering][7]. Overusing labels can affect Sensu's internal performance, so we recommend moving complex, non-identifying metadata to annotations.
 required     | false
 type         | Map of key-value pairs. Keys can contain only letters, numbers, and underscores and must start with a letter. Values can be any valid UTF-8 string.
 default      | `null`
@@ -123,7 +123,7 @@ example      | {{< highlight shell >}}"labels": {
 
 | annotations | |
 -------------|------
-description  | Non-identifying metadata that's meaningful to people who interact with Sensu.<br><br>In contrast to labels, you cannot use annotations in [API filtering][6] or [sensuctl filtering][7],and annotations do not affect Sensu's internal performance.
+description  | Non-identifying metadata that's meaningful to people who interact with Sensu.<br><br>In contrast to labels, you cannot use annotations in [API response filtering][6] or [sensuctl response filtering][7],and annotations do not affect Sensu's internal performance.
 required     | false
 type         | Map of key-value pairs. Keys and values can be any valid UTF-8 string.
 default      | `null`
@@ -171,7 +171,6 @@ required     | false
 type         | Boolean 
 default      | false 
 example      | {{< highlight shell >}}"expire_on_resolve": true{{< /highlight >}}
-
 
 creator      | 
 -------------|------ 
@@ -325,9 +324,9 @@ check: mysql_status
 
 ### Delete a silence
 
-To delete a silencing entry, you will need to provide its name.
+To delete a silencing entry, you must provide its name.
 
-Subscription-only silencing entry names will be similar to this:
+Subscription-only silencing entry names will be similar to this example:
 
 {{< language-toggle >}}
 
@@ -343,7 +342,7 @@ name: appserver:*
 
 {{< /language-toggle >}}
 
-Check-only silencing entry names will be similar to this:
+Check-only silencing entry names will be similar to this example:
 
 {{< language-toggle >}}
 
@@ -364,5 +363,5 @@ name: '*:mysql_status'
 [3]: #metadata-attributes
 [4]: ../../sensuctl/reference#create-resources
 [5]: #spec-attributes
-[6]: ../../api/overview#filtering
+[6]: ../../api/overview#response-filtering
 [7]: ../../sensuctl/reference#filters

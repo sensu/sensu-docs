@@ -148,7 +148,7 @@ _**PRO TIP**: If you omit the `namespace` attribute from resource definitions, y
 name         | 
 -------------|------ 
 description  | Name of the namespace. Names can contain alphanumeric characters and hyphens and must begin and end with an alphanumeric character.
-required     | true 
+required     | true
 type         | String
 example      | {{< highlight shell >}}"name": "production"{{< /highlight >}}
 
@@ -196,11 +196,11 @@ You can access namespaced resources by [roles][13] and [cluster roles][21].
 | `entities` | [Entity][7] resources within a namespace |
 | `events` | [Event][8] resources within a namespace |
 | `extensions` | Placeholder type
-| `filters`   | [Filter][22] resources within a namespace  |
+| `filters` | [Filter][22] resources within a namespace |
 | `handlers` | [Handler][9] resources within a namespace |
 | `hooks` | [Hook][10] resources within a namespace |
 | `mutators` | [Mutator][11] resources within a namespace |
-| `rolebindings`   | Namespace-specific role assigners  |
+| `rolebindings` | Namespace-specific role assigners |
 | `roles` | Namespace-specific permission sets |
 | `silenced` | [Silencing][14] resources within a namespace |
 
@@ -211,13 +211,13 @@ You can access cluster-wide resources only by [cluster roles][21].
 
 | type | description |
 |---|---|
-| `cluster`   | Sensu clusters running multiple [Sensu backends][1] |
-| `clusterrolebindings`   | Cluster-wide role assigners  |
-| `clusterroles`   | Cluster-wide permission sets  |
+| `cluster` | Sensu clusters running multiple [Sensu backends][1] |
+| `clusterrolebindings` | Cluster-wide role assigners  |
+| `clusterroles` | Cluster-wide permission sets |
 | `etcd-replicators` | [Mirror RBAC resource changes][40] to follower clusters |
 | `namespaces` | Resource partitions within a Sensu instance |
 | `users` | People or agents that interact with Sensu |
-| `authproviders` | [Authentication provider][32] configuration (commercial feature)|
+| `authproviders` | [Authentication provider][32] configuration (commercial feature) |
 | `license` | Sensu [commercial license][37] |
 
 ### Special resource types
@@ -242,11 +242,11 @@ By default, Sensu includes a global `admin` user that you can use to manage Sens
 
 | attribute | value |
 | --------- | ----- |
-| username   | `admin`  |
-| password   | `P@ssw0rd!`  |
-| groups   | `cluster-admins`  |
-| cluster role   |  `cluster-admin` |
-| cluster role binding   | `cluster-admin	`  |
+| username  | `admin` |
+| password  | `P@ssw0rd!` |
+| groups    | `cluster-admins` |
+| cluster role | `cluster-admin` |
+| cluster role binding | `cluster-admin	` |
 
 We **strongly** recommend changing the default password for the admin user immediately.
 Once authenticated, you can change the password using the `change-password` command:
@@ -323,29 +323,29 @@ To assign permissions to a user:
 username     | 
 -------------|------ 
 description  | Name of the user. Cannot contain special characters.
-required     | true 
+required     | true
 type         | String
 example      | {{< highlight shell >}}"username": "alice"{{< /highlight >}}
 
 password     | 
 -------------|------ 
 description  | User's password. Passwords must have at least eight characters.
-required     | true 
+required     | true
 type         | String
 example      | {{< highlight shell >}}"password": "P@ssw0rd!"{{< /highlight >}}
 
 groups       | 
 -------------|------ 
 description  | Groups to which the user belongs.
-required     | false 
+required     | false
 type         | Array
 example      | {{< highlight shell >}}"groups": ["dev", "ops"]{{< /highlight >}}
 
 disabled     | 
 -------------|------ 
-description  | `true` if the user's account is disabled. Otherwise, `false`.
-required     | false 
-type         | Boolean 
+description  | If `true`, the user's account is disabled. Otherwise, `false`.
+required     | false
+type         | Boolean
 default      | `false`
 example      | {{< highlight shell >}}"disabled": false{{< /highlight >}}
 
@@ -543,7 +543,7 @@ sensuctl role delete [ROLE-NAME]
 name         | 
 -------------|------ 
 description  | Name of the role.
-required     | true 
+required     | true
 type         | String
 example      | {{< highlight shell >}}"name": "admin"{{< /highlight >}}
 
@@ -557,8 +557,8 @@ example      | {{< highlight shell >}}"namespace": "production"{{< /highlight >}
 rules        | 
 -------------|------ 
 description  | Rulesets that the role applies.
-required     | true 
-type         | Array 
+required     | true
+type         | Array
 example      | {{< highlight shell >}}"rules": [
   {
     "verbs": ["get", "list"],
@@ -574,14 +574,14 @@ A rule is an explicit statement that grants a particular permission to a resourc
 verbs  | 
 -------------|------ 
 description  | Permissions to be applied by the rule: `get`, `list`, `create`, `update`, or `delete`. 
-required     | true 
+required     | true
 type         | Array
 example      | {{< highlight shell >}}"verbs": ["get", "list"]{{< /highlight >}}
 
 resources         | 
 -------------|------ 
 description  | Type of resource that the rule has permission to access. Roles can only access [namespaced resource types][17]. Cluster roles can access namespaced and [cluster-wide resource types][18]. See [resource types][4] for available types.
-required     | true 
+required     | true
 type         | Array
 example      | {{< highlight shell >}}"resources": ["checks"]{{< /highlight >}}
 
@@ -795,8 +795,8 @@ sensuctl role-binding delete [ROLE-NAME]
 roleRef      | 
 -------------|------ 
 description  | Reference a role in the current namespace or a cluster role.
-required     | true 
-type         | Hash 
+required     | true
+type         | Hash
 example      | {{< highlight shell >}}"roleRef": {
   "type": "Role",
   "name": "event-reader"
@@ -805,8 +805,8 @@ example      | {{< highlight shell >}}"roleRef": {
 subjects     | 
 -------------|------ 
 description  | Users or groups being assigned.
-required     | true 
-type         | Array 
+required     | true
+type         | Array
 example      | {{< highlight shell >}}"subjects": [
   {
     "type": "User",
@@ -819,14 +819,14 @@ example      | {{< highlight shell >}}"subjects": [
 type         | 
 -------------|------ 
 description  | `Role` for a role binding or `ClusterRole` for a cluster role binding.
-required     | true 
+required     | true
 type         | String
 example      | {{< highlight shell >}}"type": "Role"{{< /highlight >}}
 
 name         | 
 -------------|------ 
 description  | Name of the role or cluster role being assigned.
-required     | true 
+required     | true
 type         | String
 example      | {{< highlight shell >}}"name": "event-reader"{{< /highlight >}}
 
@@ -835,14 +835,14 @@ example      | {{< highlight shell >}}"name": "event-reader"{{< /highlight >}}
 type         | 
 -------------|------ 
 description  | `User` for assigning a user or `Group` for assigning a group.
-required     | true 
+required     | true
 type         | String
 example      | {{< highlight shell >}}"type": "User"{{< /highlight >}}
 
 name         | 
 -------------|------ 
 description  | Username or group name.
-required     | true 
+required     | true
 type         | String
 example      | {{< highlight shell >}}"name": "alice"{{< /highlight >}}
  example with prefix | {{< highlight shell >}}"name": "ad:alice"{{< /highlight >}}

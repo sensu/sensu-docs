@@ -12,7 +12,7 @@ menu:
 
 - [Commands](#commands)
 - [Built-in mutators](#built-in-mutators)
-- [Mutators specification](#mutators-specification)
+- [Mutator specification](#mutator-specification)
   - [Top-level attributes](#top-level-attributes) | [Metadata attributes](#metadata-attributes) | [Spec attributes](#spec-attributes)
 - [Examples](#examples)
 
@@ -40,7 +40,7 @@ _**NOTE**: By default, Sensu installer packages will modify the system `$PATH` f
 
 Sensu includes built-in mutators to help you customize event pipelines for metrics and alerts.
 
-### Built-in mutator: only check output
+### Built-in mutator: only_check_output
 
 To process an event, some handlers require only the check output, not the entire event definition.
 For example, when sending metrics to Graphite using a TCP handler, Graphite expects data that follows the Graphite plaintext protocol.
@@ -85,9 +85,10 @@ spec:
 
 {{< /language-toggle >}}
 
-## Mutators specification
+## Mutator specification
 
 Mutators:
+
 * Accept input/data via `STDIN`
 * Can parse JSON event data
 * Output JSON data (modified event data) to `STDOUT` or `STDERR`
@@ -106,14 +107,14 @@ example      | {{< highlight shell >}}"type": "Mutator"{{< /highlight >}}
 
 api_version  | 
 -------------|------
-description  | Top-level attribute that specifies the Sensu API group and version. For mutators in this version of Sensu, this attribute should always be `core/v2`.
+description  | Top-level attribute that specifies the Sensu API group and version. For mutators in this version of Sensu, the `api_version` should always be `core/v2`.
 required     | Required for mutator definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][sc].
 type         | String
 example      | {{< highlight shell >}}"api_version": "core/v2"{{< /highlight >}}
 
 metadata     | 
 -------------|------
-description  | Top-level collection of metadata about the mutator that includes the `name` and `namespace` as well as custom `labels` and `annotations`. The `metadata` map is always at the top level of the mutator definition. This means that in `wrapped-json` and `yaml` formats, the `metadata` scope occurs outside the `spec` scope.  See the [metadata attributes reference][2] for details.
+description  | Top-level collection of metadata about the mutator that includes the `name` and `namespace` as well as custom `labels` and `annotations`. The `metadata` map is always at the top level of the mutator definition. This means that in `wrapped-json` and `yaml` formats, the `metadata` scope occurs outside the `spec` scope. See the [metadata attributes reference][2] for details.
 required     | Required for mutator definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][5].
 type         | Map of key-value pairs
 example      | {{< highlight shell >}}
@@ -162,7 +163,7 @@ example      | {{< highlight shell >}}"namespace": "production"{{< /highlight >}
 
 | labels     |      |
 -------------|------
-description  | Custom attributes you can use to create meaningful collections that you can select with [API filtering][8] and [sensuctl filtering][9]. Overusing labels can affect Sensu's internal performance, so we recommend moving complex, non-identifying metadata to annotations.
+description  | Custom attributes you can use to create meaningful collections that you can select with [API response filtering][8] and [sensuctl response filtering][9]. Overusing labels can affect Sensu's internal performance, so we recommend moving complex, non-identifying metadata to annotations.
 required     | false
 type         | Map of key-value pairs. Keys can contain only letters, numbers, and underscores and must start with a letter. Values can be any valid UTF-8 string.
 default      | `null`
@@ -173,7 +174,7 @@ example      | {{< highlight shell >}}"labels": {
 
 | annotations | |
 -------------|------
-description  | Non-identifying metadata that's meaningful to people or external tools that interact with Sensu.<br><br>In contrast to labels, you cannot use annotations in [API filtering][8] or [sensuctl filtering][9], and annotations do not affect Sensu's internal performance.
+description  | Non-identifying metadata that's meaningful to people or external tools that interact with Sensu.<br><br>In contrast to labels, you cannot use annotations in [API response filtering][8] or [sensuctl response filtering][9], and annotations do not affect Sensu's internal performance.
 required     | false
 type         | Map of key-value pairs. Keys and values can be any valid UTF-8 string.
 default      | `null`
@@ -293,5 +294,5 @@ spec:
 [5]: ../../sensuctl/reference#create-resources
 [6]: #spec-attributes
 [7]: https://regex101.com/r/zo9mQU/2
-[8]: ../../api/overview#filtering
+[8]: ../../api/overview#response-filtering
 [9]: ../../sensuctl/reference#filters

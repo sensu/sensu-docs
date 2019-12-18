@@ -69,7 +69,7 @@ example      | {{< highlight shell >}}"type": "TessenConfig"{{< /highlight >}}
 
 api_version  | 
 -------------|------
-description  | Top-level attribute that specifies the Sensu API group and version. For Tessen configuration in this version of Sensu, this attribute should always be `core/v2`.
+description  | Top-level attribute that specifies the Sensu API group and version. For Tessen configuration in this version of Sensu, the `api_version` should always be `core/v2`.
 required     | Required for Tessen configuration in `wrapped-json` or `yaml` format for use with [`sensuctl create`][7].
 type         | String
 example      | {{< highlight shell >}}"api_version": "core/v2"{{< /highlight >}}

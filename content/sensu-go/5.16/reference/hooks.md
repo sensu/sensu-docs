@@ -1,6 +1,6 @@
 ---
 title: "Hooks"
-description: "Check hooks allow you to automate data collection that operators routinely perform by investigating monitoring alerts manually. Hooks help free up precious operator time. Read the reference doc to learn about hooks."
+description: "Check hooks allow you to automate data collection that operators would typically perform by investigating monitoring alerts manually. Hooks help free up precious operator time. Read the reference doc to learn about hooks."
 weight: 120
 version: "5.16"
 product: "Sensu Go"
@@ -82,7 +82,7 @@ example      | {{< highlight shell >}}"type": "HookConfig"{{< /highlight >}}
 
 api_version  | 
 -------------|------
-description  | Top-level attribute that specifies the Sensu API group and version. For hooks in this version of Sensu, this attribute should always be `core/v2`.
+description  | Top-level attribute that specifies the Sensu API group and version. For hooks in this version of Sensu, the `api_version` should always be `core/v2`.
 required     | Required for hook definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][1].
 type         | String
 example      | {{< highlight shell >}}"api_version": "core/v2"{{< /highlight >}}
@@ -137,7 +137,7 @@ example      | {{< highlight shell >}}"namespace": "production"{{< /highlight >}
 
 | labels     |      |
 -------------|------
-description  | Custom attributes to include with event data, which you can access with [event filters][4].<br><br>In contrast to annotations, you can use labels to create meaningful collections that you can select with [API filtering][10] and [sensuctl filtering][11]. Overusing labels can affect Sensu's internal performance, so we recommend moving complex, non-identifying metadata to annotations.
+description  | Custom attributes to include with event data, which you can access with [event filters][4].<br><br>In contrast to annotations, you can use labels to create meaningful collections that you can select with [API response filtering][10] and [sensuctl response filtering][11]. Overusing labels can affect Sensu's internal performance, so we recommend moving complex, non-identifying metadata to annotations.
 required     | false
 type         | Map of key-value pairs. Keys can contain only letters, numbers, and underscores and must start with a letter. Values can be any valid UTF-8 string.
 default      | `null`
@@ -148,7 +148,7 @@ example      | {{< highlight shell >}}"labels": {
 
 | annotations |     |
 -------------|------
-description  | Non-identifying metadata to include with event data, which you can access with [event filters][4]. You can use annotations to add data that's meaningful to people or external tools that interact with Sensu.<br><br>In contrast to labels, you cannot use annotations in [API filtering][10] or [sensuctl filtering][11], and annotations do not affect Sensu's internal performance.
+description  | Non-identifying metadata to include with event data, which you can access with [event filters][4]. You can use annotations to add data that's meaningful to people or external tools that interact with Sensu.<br><br>In contrast to labels, you cannot use annotations in [API response filtering][10] or [sensuctl response filtering][11], and annotations do not affect Sensu's internal performance.
 required     | false
 type         | Map of key-value pairs. Keys and values can be any valid UTF-8 string.
 default      | `null`
@@ -320,7 +320,6 @@ spec:
 
 {{< /language-toggle >}}
 
-
 [1]: ../../sensuctl/reference#create-resources
 [2]: #metadata-attributes
 [3]: ../rbac#namespaces
@@ -330,5 +329,5 @@ spec:
 [7]: ../tokens/
 [8]: https://regex101.com/r/zo9mQU/2
 [9]: #spec-attributes
-[10]: ../../api/overview#filtering
+[10]: ../../api/overview#response-filtering
 [11]: ../../sensuctl/reference#filters
