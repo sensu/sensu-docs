@@ -1313,7 +1313,6 @@ This includes your checks and plugins.
 
 For example, if you configure a `SENSU_TEST_VAR` variable in your sensu-agent file, it will be available to use in your check configurations as `$SENSU_TEST_VAR`.
 
-The environment variables you provide in your sensu-agent file are also available for plugin processes.
 
 [1]: ../../installation/install-sensu#install-sensu-agents
 [2]: ../backend
