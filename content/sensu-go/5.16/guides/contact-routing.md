@@ -22,7 +22,7 @@ menu:
 - [Next steps](#next-steps)
 
 Every alert has an ideal first responder: a team or person who knows how to triage and address the issue.
-Sensu contact routing lets you alert the right people using their preferred contact methods and reduce the mean time to response and recovery.
+Sensu contact routing lets you alert the right people using their preferred contact methods, reducing mean time to response and recovery.
 
 In this guide, you'll set up alerts for two teams (ops and dev) with separate Slack channels.
 Assume e team wants to be alerted only for the things they care about, using their team's Slack channel.
