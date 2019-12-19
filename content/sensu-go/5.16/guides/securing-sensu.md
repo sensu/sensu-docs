@@ -45,7 +45,7 @@ etcd-peer-trusted-ca-file: "/path/to/your/peer/ca/file"
 
 ## Secure the API and dashboard
 
-Both the Sensu Go API and the dashboard use a common stanza in `/etc/sensu/backend.yml` to provide the certificate, key, and CA file needed to provide secure communication.
+The Sensu Go Agent API, HTTP API, and web UI use a common stanza in `/etc/sensu/backend.yml` to provide the certificate, key, and CA file needed to provide secure communication.
 Here are the attributes you'll need to configure.
 
 _**NOTE**: By changing these parameters, the server will communicate over TLS and expect agents that connect to it to use the WebSocket secure protocol. For communication to continue, you must complete the steps in this section **and** in the [Secure Sensu agent-to-server communication][10] section._
