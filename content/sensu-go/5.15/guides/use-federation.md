@@ -72,12 +72,12 @@ Because federation depends on communication with multiple disparate clusters, wo
 To ensure that cluster members can validate one another, certificates for each cluster member should include the IP addresses and/or hostnames specified in the values of sensu-backend `etcd-advertise-client-urls`, `etcd-advertise-peer-urls`, and `etcd-initial-advertise-peer-urls` parameters.
 In addition to the certificate's [Common Name (CN)][15], [Subject Alternative Names (SANs)][16] are also honored for validation.
 
-To continue with this guide, make sure you have required TLS credentials in place:
+To continue with this guide, make sure you have the required TLS credentials in place:
 
 * PEM-formatted X.509 certificate and corresponding private key copied to each cluster member
 * Corresponding CA certificate chain copied to each cluster member
 
-If you don't have existing infrastructure for issuing certificates, see [Securing Sensu][13] for our recommended self-signed certificate issuance process.
+If you don't have existing infrastructure for issuing certificates, see [Secure Sensu][13] for our recommended self-signed certificate issuance process.
 
 This prerequisite extends to configuring the following Sensu backend etcd parameters:
 
@@ -86,9 +86,9 @@ This prerequisite extends to configuring the following Sensu backend etcd parame
 | `etcd-cert-file`             | Path to certificate used for TLS on etcd client/peer communications.  |
 | `etcd-key-file`              | Path to key corresponding with `etcd-cert-file` certificate. |
 | `etcd-trusted-ca-file`       | Path to CA certificate chain file. This CA certificate chain must be usable to validate certificates for all backends in the federation. |
-| `etcd-client-cert-auth`      | Enforces certificate validation to authenticate etcd replicator connections. We recommend setting to `true` |
-| `etcd-advertise-client-urls` | List of https URLs to advertise for etcd replicators, accessible by other backends in the federation (e.g. `https://sensu.beta.example.com:2379`) |
-| `etcd-listen-client-urls`    | List of https URLs to listen on for etcd replicators (e.g. `https://0.0.0.0:2379` to listen on port 2739 across all ipv4 interfaces) |
+| `etcd-client-cert-auth`      | Enforces certificate validation to authenticate etcd replicator connections. We recommend setting to `true`. |
+| `etcd-advertise-client-urls` | List of https URLs to advertise for etcd replicators, accessible by other backends in the federation (e.g. `https://sensu.beta.example.com:2379`). |
+| `etcd-listen-client-urls`    | List of https URLs to listen on for etcd replicators (e.g. `https://0.0.0.0:2379` to listen on port 2739 across all ipv4 interfaces). |
 
 _**NOTE**: You *must* provide non-default values for the `etcd-advertise-client-urls` and `etcd-listen-client-urls` backend parameters. The default values are not suitable for use under federation._
 
