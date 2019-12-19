@@ -83,8 +83,6 @@ sudo yum install sensu-go-backend
 
 {{< /language-toggle >}}
 
-For details about `sensu-backend init`, see the [backend reference][30].
-
 ### 2. Configure and start
 
 You can configure the Sensu backend with `sensu-backend start` flags (recommended) or an `/etc/sensu/backend.yml` file.
@@ -158,6 +156,8 @@ export SENSU_BACKEND_CLUSTER_ADMIN_USERNAME=YOUR_USERNAME
 export SENSU_BACKEND_CLUSTER_ADMIN_PASSWORD=YOUR_PASSWORD
 sensu-backend init
 {{< /highlight >}}
+
+For details about `sensu-backend init`, see the [backend reference][30].
 
 ### 4. Open the web UI
 
