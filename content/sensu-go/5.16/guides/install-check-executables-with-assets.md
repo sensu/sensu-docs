@@ -71,7 +71,7 @@ sensuctl asset list
 ### 3. Create a workflow
 
 With the asset downloaded and registered, you can use it in a monitoring workflow.
-Depending on the asset, you may want to create Sensu checks, filters, mutators, and handlers for the asset to use.
+Assets may provide executable plugins intended for use with a Sensu check, handler, mutator, or hook, or JavaScript libraries intended to provide functionality for use in event filters.
 The details in Bonsai are the best resource for information about each asset's capabilities and configuration.
 
 For example, to use the [Sensu PagerDuty Handler][19] asset, you would create a `pagerduty` handler that includes your PagerDuty service API key in place of `SECRET` and `sensu-pagerduty-handler` as a runtime asset:
