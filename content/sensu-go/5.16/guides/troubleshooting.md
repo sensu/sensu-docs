@@ -121,7 +121,7 @@ The following errors are expected when starting up a Sensu backend with the defa
 {"component":"etcd","level":"warning","msg":"serving insecure client requests on 127.0.0.1:2379, this is strongly discouraged!","pkg":"embed","time":"2019-11-04T10:26:33-05:00"}
 {{< /highlight >}}
 
-The `serving insecure client requests` error is an expected warning from etcd.
+The `serving insecure client requests` warning is an expected warning from the embedded etcd database.
 [TLS configuration][3] is recommended but not required.
 For more information, see [etcd security documentation][4].
 
