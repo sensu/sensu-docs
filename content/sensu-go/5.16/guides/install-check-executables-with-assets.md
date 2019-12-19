@@ -127,7 +127,7 @@ Save the definition to a file (for example, `pagerduty-handler.json`), and add i
 sensuctl create --file pagerduty-handler.json
 {{< /highlight >}}
 
-Now that Sensu can create incidents in PagerDuty, you can automate this workflow by adding the `pagerduty` handler to your Sensu service checks.
+Now that Sensu can create incidents in PagerDuty, you can automate this workflow by adding the `pagerduty` handler to your Sensu service check definitions.
 See [Monitor server resources][13] to learn more.
 
 ### Next steps
