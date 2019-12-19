@@ -143,7 +143,7 @@ Specifically, the annotations in this check definition are doing several things:
 2. `fatigue_check/interval`: Tells the event filter the interval at which to allow additional events to be processed (in seconds)
 3. `fatigue_check/allow_resolution`: Determines whether to pass a `resolve` event through to the filter
 
-For more information about configuring these values, see the [filter asset README][10].
+For more information about configuring these values, see the [filter asset's README][10].
 Next, you'll assign the newly minted event filter to a handler.
 
 #### Assign the event filter to a handler
