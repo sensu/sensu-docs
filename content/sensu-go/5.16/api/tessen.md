@@ -82,5 +82,5 @@ request parameters | Required: `opt_out` (set to `false` to enable Tessen; set t
 response codes   | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 [1]: ../../reference/tessen/
-[2]: ../../reference/rbac#default-user
+[2]: ../../reference/rbac#default-users
 [3]: ../../reference/license

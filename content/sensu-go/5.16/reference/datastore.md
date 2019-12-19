@@ -163,7 +163,7 @@ example      | {{< highlight shell >}}pool_size: 20{{< /highlight >}}
 [1]: ../../sensuctl/reference/#first-time-setup
 [2]: ../../guides/troubleshooting/
 [3]: https://aws.amazon.com/rds/
-[8]: ../../guides/clustering/#using-an-external-etcd-cluster
+[8]: ../../guides/clustering/#use-an-external-etcd-cluster
 [9]: ../../dashboard/overview/
 [10]: ../../sensuctl/reference/#sensuctl-event
 [11]: ../../api/events/
@@ -173,4 +173,4 @@ example      | {{< highlight shell >}}pool_size: 20{{< /highlight >}}
 [15]: https://www.postgresql.org/docs/current/libpq-connect.html#LIBPQ-CONNSTRING
 [16]: ../../sensuctl/reference#create-resources
 [17]: #spec-attributes
-[18]: #specification
+[18]: #datastore-specification

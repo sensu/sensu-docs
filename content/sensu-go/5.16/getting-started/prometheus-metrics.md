@@ -427,4 +427,4 @@ Prometheus has a [comprehensive list][7] of additional exporters to pull in metr
 [5]: https://github.com/prometheus/node_exporter/
 [6]: https://github.com/google/cadvisor/
 [7]: https://prometheus.io/docs/instrumenting/exporters/
-[8]: ../../installation/install-sensu/#2-initialize
+[8]: ../../installation/install-sensu/#3-initialize

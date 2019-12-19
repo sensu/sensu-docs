@@ -526,7 +526,7 @@ spec:
 [8]: #metadata-attributes
 [9]: ../rbac#namespaces
 [10]: ../../api/overview#response-filtering
-[11]: ../../sensuctl/reference#filters
+[11]: ../../sensuctl/reference#response-filters
 [12]: ../agent#keepalive-monitoring
 [13]: ../agent/
 [14]: ../backend/
