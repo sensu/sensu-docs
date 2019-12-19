@@ -21,7 +21,7 @@ menu:
 - [Manage contact labels in checks and entities](#manage-contact-labels-in-checks-and-entities)
 - [Next steps](#next-steps)
 
-Every alert has an ideal first responder: a team or who knows how to triage and address the issue.
+Every alert has an ideal first responder: a team or person who knows how to triage and address the issue.
 Sensu contact routing lets you alert the right people using their preferred contact methods and reduce the mean time to response and recovery.
 
 In this guide, you'll set up alerts for two teams (ops and dev) with separate Slack channels.
