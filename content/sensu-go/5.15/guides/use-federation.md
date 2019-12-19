@@ -66,7 +66,15 @@ This diagram depicts the federation relationship documented in this guide:
 
 Because federation depends on communication with multiple disparate clusters, working TLS is required for successful federated operation.
 
-This guide assumes that you have provided each member of each cluster with TLS credentials (key and certificate), as well as the CA certificate chain required for one Sensu backend to validate the certificates presented by other backends. If you don't have existing infrastructure for issuing certificates, see [Securing Sensu][13] for our recommended self-signed certificate issuance process.
+To ensure that cluster members can validate one another, certificates for each cluster member should include the IP addresses and/or hostnames specified in the values of sensu-backend `etcd-advertise-client-urls`, `etcd-advertise-peer-urls`, and `etcd-initial-advertise-peer-urls` parameters.
+In addition to the certificate's [Common Name (CN)][15], [Subject Alternative Names (SANs)][16] are also honored for validation.
+
+To continue with this guide, make sure you have required TLS credentials in place:
+
+* PEM-formatted X.509 certificate and corresponding private key copied to each cluster member
+* Corresponding CA certificate chain copied to each cluster member
+
+If you don't have existing infrastructure for issuing certificates, see [Securing Sensu][13] for our recommended self-signed certificate issuance process.
 
 This prerequisite extends to configuring the following Sensu backend etcd parameters:
 
@@ -346,3 +354,5 @@ Learn more about configuring RBAC policies in our [RBAC reference documentation]
 [12]: https://github.com/etcd-io/etcd/blob/master/etcdctl/README.md#make-mirror-options-destination
 [13]: ../../guides/securing-sensu/#creating-self-signed-certificates
 [14]: #register-a-single-cluster
+[15]: https://support.dnsimple.com/articles/what-is-common-name/
+[16]: https://support.dnsimple.com/articles/what-is-ssl-san/
