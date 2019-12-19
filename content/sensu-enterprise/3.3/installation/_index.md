@@ -10,4 +10,4 @@ menu:
     identifier: installation
 ---
 
-{{< directoryListing "content/sensu-enterprise/3.3/installation" >}}
+{{< directoryListing >}}

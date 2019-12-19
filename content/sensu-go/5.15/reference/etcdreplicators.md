@@ -14,6 +14,7 @@ menu:
 - [Replicator configuration](#replicator-configuration)
 - [etcd-replicators specification](#etcd-replicators-specification)
 - [Example etcd-replicators resources](#example-etcd-replicators-resources)
+- [Critical success factors for etcd replication](#critical-success-factors-for-etcd-replication)
 
 **COMMERCIAL FEATURE**: Access the etcd-replicators datatype in the packaged Sensu Go distribution. For more information, see the [getting started guide][1].
 
@@ -336,10 +337,34 @@ spec:
 
 {{< /language-toggle >}}
 
+## Critical success factors for etcd replication
+
+Before you implement etcd replicators, review these details &mdash; they are critical to your success.
+
+**Bind your etcd listener to an external port that is *not* the default.**
+
+- Replication will not work if you bind your etcd listener to the default port.
+
+**Use only addresses that clients can route to for `etcd-client-advertise-urls`.**
+
+- If you use addresses that clients cannot route to for `etcd-client-advertise-urls`, replication may be inconsistent: it may work at first but then stop working later.
+
+**Put the certificate and key of the follower cluster in files that the leader can access.**
+
+- If the leader cannot access the follower cluster files that contain the certificate and key, replication will not work.
+
+**For self-signed certificates, supply the CA certificate in the replicator definition.**
+
+- If you have a self-signed certificate and you do not supply the CA certificate in the replicator definition, replication will not work.
+
+**If you're using insecure mode, use TLS mutual authentication.**
+
+- Never use insecure mode without TLS mutual authentication outside of a testbed.
+
+_**WARNING**: Make sure to confirm your configuration. The server will accept incorrect EtcdReplicator definitions without sending a warning. If your configuration is incorrect, replication will not work._
 
 [1]: ../../getting-started/enterprise
 [2]: ../../api/etcdreplicators/
 [3]: ../../reference/rbac/
 [4]: ../../sensuctl/reference/#creating-resources
 [5]: ../../guides/securing-sensu/#creating-self-signed-certificates-for-securing-etcd-and-backend-agent-communication
-

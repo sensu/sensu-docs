@@ -1,7 +1,7 @@
 ---
 title: "Tessen"
-description: "Tessens sends anonymized data about Sensu instances to Sensu Inc. You can use sensuctl to view and manage Tessen configuration. Read the reference to configure Tessen."
-weight: 10
+description: "Tessen sends anonymized data about Sensu instances to Sensu Inc. You can use sensuctl to view and manage Tessen configuration. Read the reference to configure Tessen."
+weight: 170
 version: "5.16"
 product: "Sensu Go"
 menu: 
@@ -9,26 +9,28 @@ menu:
     parent: reference
 ---
 
-- [Configuring Tessen](#configuring-tessen)
-- [Specification](#tessen-specification)
+- [Configure Tessen](#configure-tessen)
+- [Tessen specification](#tessen-specification)
+  - [Top-level attributes](#top-level-attributes) | [Spec attributes](#spec-attributes)
 - [Example](#tessen-configuration-example)
 - [Tessen payload example](#tessen-payload-example)
 
 Tessen is the Sensu call-home service.
-Enabled by default on Sensu backends, Tessen sends anonymized data about Sensu instances to Sensu Inc., including the version, cluster size, number of events processed, and number of resources created (like checks and handlers).
-We rely on this data to understand how Sensu is being used and make informed decisions about product improvements.
-[Read the blog post][1] to learn more about Tessen.
+It is enabled by default on Sensu backends.
+Tessen sends anonymized data about Sensu instances to Sensu Inc., including the version, cluster size, number of events processed, and number of resources created (like checks and handlers).
+We rely on Tessen data to understand how Sensu is being used and make informed decisions about product improvements.
+Read [Announcing Tessen, the Sensu call-home service][1] to learn more about Tessen.
 
 All data submissions are logged for complete transparency at the `info` log level and transmitted over HTTPS.
-See the [troubleshooting guide][5] to set the Sensu backend log level and view logs.
+See [Troubleshooting][5] to set the Sensu backend log level and view logs.
 
-## Configuring Tessen
+## Configure Tessen
 
 You can use the [Tessen API][2] and [sensuctl][3] to view and manage Tessen configuration.
 Tessen is enabled by default on Sensu backends and required for [licensed][4] Sensu instances.
-To manage Tessen configuration using sensuctl, configure sensuctl as the default [`admin` user][6].
+To manage Tessen configuration with sensuctl, configure sensuctl as the default [`admin` user][6].
 
-To see the status of Tessen:
+To see Tessen status:
 
 {{< highlight shell >}}
 sensuctl tessen info
@@ -40,9 +42,9 @@ To opt out of Tessen:
 sensuctl tessen opt-out
 {{< /highlight >}}
 
-_NOTE: [Licensed][4] Sensu instances override Tessen configuration to opt in at runtime._
+_**NOTE**: [Licensed][4] Sensu instances override Tessen configuration to opt in at runtime._
 
-You can use the `--skip-confirm` flag to skip the confirmation step.
+You can use the `--skip-confirm` flag to skip the confirmation step:
 
 {{< highlight shell >}}
 sensuctl tessen opt-out --skip-confirm
@@ -60,22 +62,22 @@ sensuctl tessen opt-in
 
 type         | 
 -------------|------
-description  | Top-level attribute specifying the [`sensuctl create`][sc] resource type. Tessen configuration should always be of type `TessenConfig`.
-required     | Required for Tessen configuration in `wrapped-json` or `yaml` format for use with [`sensuctl create`][sc].
+description  | Top-level attribute that specifies the [`sensuctl create`][7] resource type. Tessen configuration should always be type `TessenConfig`.
+required     | Required for Tessen configuration in `wrapped-json` or `yaml` format for use with [`sensuctl create`][7].
 type         | String
 example      | {{< highlight shell >}}"type": "TessenConfig"{{< /highlight >}}
 
 api_version  | 
 -------------|------
-description  | Top-level attribute specifying the Sensu API group and version. For Tessen configuration in this version of Sensu, this attribute should always be `core/v2`.
-required     | Required for Tessen configuration in `wrapped-json` or `yaml` format for use with [`sensuctl create`][sc].
+description  | Top-level attribute that specifies the Sensu API group and version. For Tessen configuration in this version of Sensu, the `api_version` should always be `core/v2`.
+required     | Required for Tessen configuration in `wrapped-json` or `yaml` format for use with [`sensuctl create`][7].
 type         | String
 example      | {{< highlight shell >}}"api_version": "core/v2"{{< /highlight >}}
 
 spec         | 
 -------------|------
-description  | Top-level map that includes Tessen configuration [spec attributes][sp].
-required     | Required for Tessen configuration in `wrapped-json` or `yaml` format for use with [`sensuctl create`][sc].
+description  | Top-level map that includes Tessen configuration [spec attributes][8].
+required     | Required for Tessen configuration in `wrapped-json` or `yaml` format for use with [`sensuctl create`][7].
 type         | Map of key-value pairs
 example      | {{< highlight shell >}}
 "spec": {
@@ -87,16 +89,16 @@ example      | {{< highlight shell >}}
 
 opt_out      | 
 -------------|------ 
-description  | Set to `false` to enable Tessen; set to `true` to opt out of Tessen. [Licensed][4] Sensu instances override the `opt_out` attribute to `false` at runtime.
+description  | `true` to opt out of Tessen. Otherwise, `false`. [Licensed][4] Sensu instances override the `opt_out` attribute to `false` at runtime.
 required     | true
-default      | `false`
 type         | Boolean
+default      | `false`
 example      | {{< highlight shell >}}opt_out": false{{< /highlight >}}
 
 ## Tessen configuration example
 
-The following example is in `wrapped-json`format for use with [`sensuctl create`][sc].
-To manage Tessen using the [Tessen API][2], use non-wrapped `json` format as shown in the [API docs][2].
+This example is in `wrapped-json`format for use with [`sensuctl create`][7].
+To manage Tessen with the [Tessen API][2], use non-wrapped `json` format as shown in the [API docs][2].
 
 {{< language-toggle >}}
 
@@ -121,7 +123,8 @@ spec:
 
 ## Tessen payload example
 
-If opted in to Tessen, there are various metrics that get sent back to the Tessen service. In the example payload below, you can see that the number of check hooks is sent back to the Tessen service. 
+If you opt in to Tessen, Sensu sends various metrics back to the Tessen service.
+In the example payload below, Sensu is sending the number of check hooks back to the Tessen service. 
 
 {{< highlight json >}}
 {
@@ -134,7 +137,7 @@ If opted in to Tessen, there are various metrics that get sent back to the Tesse
 }
 {{< /highlight >}}
 
-There are other metrics sent on, such as the number of handlers:
+Sensu also sends other metrics, such as the number of handlers:
 
 {{< highlight json >}}
 {
@@ -160,14 +163,20 @@ Or the number of filters:
 }
 {{< /highlight >}}
 
-If opted into Tessen, all of the metrics and payloads sent are avaiable to view in the logs, which you can view via `journalctl -u sensu-backend.service`. If you'd like to view the events on-disk, please see the [guide on configuring systemd to log to disk][systemd-logs].
+If you opt into Tessen, you can view all of the metrics and payloads in the logs:
+
+{{< highlight shell >}}
+journalctl _COMM=sensu-backend.service
+{{< /highlight >}}
+
+To view the events on-disk, see [Log Sensu services with systemd][9].
 
 [1]: https://blog.sensu.io/announcing-tessen-the-sensu-call-home-service
-[2]: ../../api/tessen
-[3]: ../../sensuctl/reference
-[4]: ../license
+[2]: ../../api/tessen/
+[3]: ../../sensuctl/reference/
+[4]: ../license/
 [5]: ../../guides/troubleshooting
 [6]: ../../reference/rbac#default-user
-[sc]: ../../sensuctl/reference#creating-resources
-[sp]: #spec-attributes
-[systemd-logs]: ../../guides/systemd-logs
+[7]: ../../sensuctl/reference#create-resources
+[8]: #spec-attributes
+[9]: ../../guides/systemd-logs/
