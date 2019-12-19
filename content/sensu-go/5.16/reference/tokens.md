@@ -334,7 +334,7 @@ spec:
 [3]: ../entities/#entities-specification
 [4]: ../entities/
 [5]: ../checks/
-[6]: ../entities#managing-entity-labels
+[6]: ../entities#manage-entity-labels
 [7]: ../checks/#check-commands
 [8]: ../hooks/
 [9]: #token-data-type-limitations

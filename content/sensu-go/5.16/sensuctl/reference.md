@@ -19,7 +19,7 @@ menu:
 - [Update resources](#update-resources)
 - [Export resources](#export-resources)
 - [Manage resources](#manage-resources)
-- [Filters](#filters) (commercial feature)
+- [Response filters](#response-filters) (commercial feature)
 - [Time formats](#time-formats)
 - [Shell auto-completion](#shell-auto-completion)
 - [Environment variables](#environment-variables)
@@ -608,14 +608,15 @@ See the [RBAC reference][21] for information about using access control with nam
 
 See the [RBAC reference][22] for information about local user management with sensuctl.
 
-## Filters
+## Response filters
 
-**COMMERCIAL FEATURE**: Access sensuctl filters in the packaged Sensu Go distribution. For more information, see [Get started with commercial features][30].
+**COMMERCIAL FEATURE**: Access sensuctl response filters in the packaged Sensu Go distribution.
+For more information, see [Get started with commercial features][30].
 
-Sensuctl supports filtering for all `list` commands using the `--label-selector` and `--field-selector` flags.
-For information about the operators and fields you can use in filters, see the [API docs][28].
+Sensuctl supports response filtering for all `list` commands using the `--label-selector` and `--field-selector` flags.
+For information about the operators and fields you can use in response filters, see the [API docs][28].
 
-### Filter syntax quick reference
+### Response filter syntax quick reference
 
 | operator | description     | example                |
 | -------- | --------------- | ---------------------- |
@@ -625,9 +626,9 @@ For information about the operators and fields you can use in filters, see the [
 | `notin`  | Not included in | `slack notin check.handlers`
 | `&&`     | Logical AND     | `check.publish == true && slack in check.handlers`
 
-### Filter with labels
+### Filter responses with labels
 
-Use the `--label-selector` flag to filter using custom labels.
+Use the `--label-selector` flag to filter responses using custom labels.
 
 In this example, the command returns entities with the `proxy_type` label set to `switch`:
 
@@ -635,10 +636,10 @@ In this example, the command returns entities with the `proxy_type` label set to
 sensuctl entity list --label-selector 'proxy_type == switch'
 {{< /highlight >}}
 
-### Filter with resource attributes
+### Filter responses with resource attributes
 
-Use the `--field-selector` flag to filter using selected resource attributes.
-To see the resource attributes you can use in filter statements, see the [API docs][29].
+Use the `--field-selector` flag to filter responses using selected resource attributes.
+To see the resource attributes you can use in response filter statements, see the [API docs][29].
 
 In this example, the command returns entities with the `switches` subscription:
 
@@ -978,7 +979,6 @@ Replace `[flags]` with the flags you want to use.
 Run `sensuctl command delete -h` to view flags.
 Flags are optional and apply only to the `delete` command.
 
-
 [1]: ../../reference/rbac/
 [2]: https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
 [3]: #sensuctl-create-resource-types
@@ -1006,7 +1006,7 @@ Flags are optional and apply only to the `delete` command.
 [25]: ../../api/overview/
 [26]: ../../installation/auth/
 [27]: ../../reference/tessen/
-[28]: ../../api/overview#filtering
+[28]: ../../api/overview#response-filtering
 [29]: ../../api/overview#field-selector
 [30]: ../../getting-started/enterprise/
 [31]: #manage-sensuctl
@@ -1018,4 +1018,4 @@ Flags are optional and apply only to the `delete` command.
 [37]: https://bonsai.sensu.io/assets/sensu/sensu-email-handler/
 [38]: #environment-variables
 [39]: #wrapped-json-format
-[40]: ../../installation/install-sensu/#2-initialize
+[40]: ../../installation/install-sensu/#3-initialize

@@ -122,6 +122,6 @@ sudo yum groupinstall "Development Tools"
 [6]: https://github.com/sensu-plugins/sensu-plugins-influxdb/
 [7]: ../../guides/install-check-executables-with-assets/
 [8]: https://bonsai.sensu.io/
-[9]: ../../reference/assets#sharing-an-asset-on-bonsai
+[9]: ../../reference/assets#share-an-asset-on-bonsai
 [10]: /plugins/latest/reference/
 [11]: https://discourse.sensu.io/t/contributing-assets-for-existing-ruby-sensu-plugins/1165

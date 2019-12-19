@@ -425,8 +425,8 @@ Now that you've installed Sensu, here are some resources to help continue your j
 [24]: #4-open-the-web-ui
 [25]: ../recommended-hardware/
 [26]: ../../api/overview/
-[27]: ../../reference/agent#creating-monitoring-events-using-the-agent-api
-[28]: ../../reference/agent#creating-monitoring-events-using-the-statsd-listener
+[27]: ../../reference/agent#create-monitoring-events-using-the-agent-api
+[28]: ../../reference/agent#create-monitoring-events-using-the-statsd-listener
 [29]: https://blog.sensu.io/one-year-of-sensu-go/
 [30]: ../../reference/backend#initialization
 [31]: ../../guides/deploying/

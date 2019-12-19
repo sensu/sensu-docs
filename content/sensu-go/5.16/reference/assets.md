@@ -764,7 +764,7 @@ You must remove the archive and downloaded files from the asset cache manually.
 [18]: https://discourse.sensu.io/t/the-hello-world-of-sensu-assets/1422
 [19]: https://regex101.com/r/zo9mQU/2
 [20]: ../../api/overview#response-filtering
-[21]: ../../sensuctl/reference#filters
+[21]: ../../sensuctl/reference#response-filters
 [23]: ../../guides/install-check-executables-with-assets/
 [24]: https://github.com
 [25]: https://help.github.com/articles/about-releases/
@@ -774,7 +774,7 @@ You must remove the archive and downloaded files from the asset cache manually.
 [29]: /plugins/latest/reference/
 [30]: ../agent#disable-assets
 [31]: #example-asset-with-a-check
-[32]: ../../installation/plugins/#installing-plugins-using-the-sensu-install-tool
+[32]: ../../installation/plugins/#install-plugins-with-the-sensu-install-tool
 [33]: ../../installation/configuration-management/
 [34]: #asset-definition-single-build-deprecated
 [35]: #asset-definition-multiple-builds

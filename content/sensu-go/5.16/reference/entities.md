@@ -804,7 +804,7 @@ spec:
 [12]: ../../sensuctl/reference#create-resources
 [13]: #spec-attributes
 [14]: ../../api/overview#response-filtering
-[15]: ../../sensuctl/reference#filters
+[15]: ../../sensuctl/reference#response-filters
 [16]: #proxy-entities
 [17]: ../../guides/monitor-external-resources/
 [18]: ../checks/#round-robin-checks

@@ -364,4 +364,4 @@ name: '*:mysql_status'
 [4]: ../../sensuctl/reference#create-resources
 [5]: #spec-attributes
 [6]: ../../api/overview#response-filtering
-[7]: ../../sensuctl/reference#filters
+[7]: ../../sensuctl/reference#response-filters

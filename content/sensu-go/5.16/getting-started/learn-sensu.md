@@ -500,7 +500,7 @@ Here are some resources to help continue your journey:
 [2]: https://slack.com/get-started#create
 [3]: ../../reference/assets/
 [4]: https://bonsai.sensu.io/assets/sensu/sensu-slack-handler/
-[5]: ../../sensuctl/reference#creating-resources
+[5]: ../../sensuctl/reference#create-resources
 [6]: https://bonsai.sensu.io/assets/sensu/sensu-influxdb-handler/
 [7]: ../../getting-started/sandbox/
 [8]: ../../installation/install-sensu/
