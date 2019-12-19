@@ -16,7 +16,7 @@ menu:
 - [Next steps](#next-steps)
 
 Check hooks are **commands** the Sensu agent runs in response to the result of **check** command execution. 
-The Sensu agent executes the appropriate configured hook based on the exit status code (e.g. `1`).
+The Sensu agent executes the appropriate configured hook command based on the exit status code of the check command (e.g. `1`).
 
 Check hooks allow Sensu users to automate data collection that operators would routinely perform to investigate monitoring alerts, which frees up precious operator time.
 Although you can use check hooks for rudimentary auto-remediation tasks, they are intended to enrich monitoring event data.
