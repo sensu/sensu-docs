@@ -148,7 +148,7 @@ Next, you'll assign the newly minted event filter to a handler.
 
 #### Assign the event filter to a handler
 
-Just like with the [interactively created event filter][4], you'll assign the filter to a handler.
+Just like with the [interactively created event filter][4], you'll introduce the filter into your Sensu workflow by configuring a handler to use it.
 Here's an example:
 
 {{< highlight yaml >}}
