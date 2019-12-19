@@ -60,7 +60,7 @@ trusted-ca-file: "/path/to/trusted-certificate-authorities.pem"
 insecure-skip-tls-verify: false
 {{< /highlight >}}
 
-Providing these cert-file and key-file parameters will cause the API to serve HTTP requests over SSL/TLS (https).
+Providing these cert-file and key-file parameters will cause the Agent Websocket API and HTTP API to serve requests over SSL/TLS (https).
 As a result, you will also need to specify `https://` schema for the `api-url` parameter:
 
 {{< highlight yml >}}
