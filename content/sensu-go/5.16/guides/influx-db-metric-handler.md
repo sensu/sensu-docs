@@ -14,7 +14,7 @@ menu:
 - [Use a handler to populate InfluxDB](#use-a-handler-to-populate-influxdb)
 - [Next steps](#next-steps)
 
-Sensu event handlers are actions executed by the Sensu backend on [events][1].
+A Sensu event handler is an action the Sensu backend executes when a specific [event][1] occurs.
 In this guide, you'll use a handler to populate the time series database [InfluxDB][2].
 If you're not familiar with handlers, consider reading the [handlers reference][9] before continuing through this guide.
 
