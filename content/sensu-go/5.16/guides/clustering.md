@@ -1,7 +1,7 @@
 ---
 title: "Run a Sensu cluster"
 linkTitle: "Run a Sensu Cluster"
-description: "Clustering increases Sensu's availability, reliability, and durability. It can help you cope with the loss of a backend node, prevent data loss, and distribute the network load of agents. Read the guide to configure a Sensu cluster."
+description: "Clustering improves Sensu's availability, reliability, and durability. It can help you cope with the loss of a backend node, prevent data loss, and distribute the network load of agents. Read the guide to configure a Sensu cluster."
 weight: 150
 version: "5.16"
 product: "Sensu Go"
@@ -21,7 +21,7 @@ menu:
 A Sensu cluster is a group of [at least three][1] sensu-backend nodes, each connected to a shared etcd cluster, using Sensu's embedded etcd or an external etcd cluster.
 Creating a Sensu cluster ultimately configures an [etcd cluster][2].
 
-Clustering increases Sensu's availability, reliability, and durability.
+Clustering improves Sensu's availability, reliability, and durability.
 It will help you cope with the loss of a backend node, prevent data loss, and distribute the network load of agents.
 
 _**NOTE**: We recommend using a load balancer to evenly distribute agent connections across a cluster._
