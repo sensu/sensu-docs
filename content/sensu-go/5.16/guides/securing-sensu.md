@@ -266,7 +266,7 @@ client.pem
 Learn about [role-based access control (RBAC) in Sensu][3] or [create a read-only user][4].
 
 [1]: ../clustering/
-[2]: ../../reference/rbac/#default-user
+[2]: ../../reference/rbac/#default-users
 [3]: ../../reference/rbac/
 [4]: ../../guides/create-read-only-user/
 [5]: ../../getting-started/enterprise/

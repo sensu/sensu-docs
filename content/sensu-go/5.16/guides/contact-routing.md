@@ -341,7 +341,7 @@ Learn how to use Sensu to [Reduce alert fatigue][11].
 [7]: ../../getting-started/learn-sensu/
 [8]: https://bonsai.sensu.io/assets/sensu/sensu-slack-handler
 [9]: ../../guides/monitor-server-resources/
-[10]: ../../reference/entities/#managing-entity-labels
+[10]: ../../reference/entities/#manage-entity-labels
 [11]: ../../guides/reduce-alert-fatigue/
 [12]: https://bonsai.sensu.io/assets/sensu/sensu-go-has-contact-filter
 [13]: ../../reference/agent/#create-monitoring-events-using-the-agent-api

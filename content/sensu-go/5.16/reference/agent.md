@@ -1350,7 +1350,7 @@ For example, if you configure a `SENSU_TEST_VAR` variable in your sensu-agent fi
 [23]: https://github.com/statsd/statsd#key-concepts
 [24]: #configuration
 [25]: ../../api/overview#response-filtering
-[26]: ../../sensuctl/reference#filters
+[26]: ../../sensuctl/reference#response-filters
 [27]: ../tokens/
 [28]: #subscriptions-flag
 [29]: ../assets/

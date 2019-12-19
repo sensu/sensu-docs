@@ -94,7 +94,7 @@ Sensu entities, checks, handlers, and other [namespaced resources][17] belong to
 - **Role bindings** assign a role to a set of users and groups within a namespace.
 **Cluster role bindings** assign a cluster role to a set of users and groups cluster-wide.
 
-To enable permissions for external users and groups within Sensu, create a set of [roles][10], [cluster roles][11], [role bindings][12], and [cluster role bindings][13] that map to the usernames and group names found in your authentication providers.
+To enable permissions for external users and groups within Sensu, create a set of [roles, cluster roles][11], [role bindings, and cluster role bindings][13] that map to the usernames and group names found in your authentication providers.
 
 Make sure to include the [group prefix][34] and [username prefix][35] when creating Sensu role bindings and cluster role bindings.
 Without an assigned role or cluster role, users can sign in to the Sensu dashboard but can't access any Sensu resources.
@@ -1312,17 +1312,15 @@ If a browser does not open, launch a browser to complete the login via your OIDC
 
 [1]: ../../dashboard/overview/
 [2]: ../../sensuctl/reference/
-[3]: ../../reference/rbac#default-user
+[3]: ../../reference/rbac#default-users
 [4]: ../../reference/rbac/
 [5]: ../../guides/create-read-only-user/
 [6]: ../../getting-started/enterprise/
 [7]: https://www.openldap.org/
 [8]: ../../api/overview/
 [9]: ../../api/auth/
-[10]: ../../reference/rbac#roles-and-cluster-roles
-[11]: ../../reference/rbac#cluster-roles
-[12]: ../../reference/rbac#role-bindings-and-cluster-role-bindings
-[13]: ../../reference/rbac#cluster-role-bindings
+[11]: ../../reference/rbac#roles-and-cluster-roles
+[13]: ../../reference/rbac#role-bindings-and-cluster-role-bindings
 [17]: ../../reference/rbac#namespaced-resource-types
 [18]: ../../reference/rbac#cluster-wide-resource-types
 [19]: ../../guides/troubleshooting#log-levels
@@ -1339,7 +1337,7 @@ If a browser does not open, launch a browser to complete the login via your OIDC
 [30]: #ldap-specification
 [31]: #ad-configuration-examples
 [32]: #ad-specification
-[33]: ../../reference/rbac/#role-and-role-binding-examples
+[33]: ../../reference/rbac/#example-workflows
 [34]: #groups-prefix
 [35]: #username-prefix
 [36]: ../../sensuctl/reference#first-time-setup
