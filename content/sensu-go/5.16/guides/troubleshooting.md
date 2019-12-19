@@ -305,7 +305,7 @@ An improperly applied asset filter can prevent the asset from being downloaded b
 {{< /highlight >}}
 
 If you see a message like this, review your asset definition &mdash; it means that the entity wasn't able to download the required asset due to asset filter restrictions.
-If you can't remember where you stored the information on disk, here's how to find it:
+You can review the filters for an asset by using the sensuctl `asset info` command with a `--format` flag:
 
 {{< highlight shell >}}
 sensuctl asset info sensu-plugins-disk-checks --format yaml
