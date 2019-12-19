@@ -1320,7 +1320,7 @@ $ sudo systemctl restart sensu-agent
 
 ## Use environment variables with the Sensu agent
 
-After you [configure][50] your sensu-agent service to read environment variables from `/etc/default/sensu-agent` (Debian/Ubuntu) or `/etc/sysconfig/sensu-agent` (RHEL), any environment variables you provide there will be available to commands executed by Sensu resources, including handlers and checks.
+After you [configure][50] your sensu-agent service to read environment variables from `/etc/default/sensu-agent` (Debian/Ubuntu) or `/etc/sysconfig/sensu-agent` (RHEL), any environment variables you provide there will be available to check and hook commands executed by the Sensu agent.
 This includes your checks and plugins.
 
 For example, if you configure a `SENSU_TEST_VAR` variable in your sensu-agent file, it will be available to use in your check configurations as `$SENSU_TEST_VAR`.
@@ -1375,4 +1375,3 @@ For example, if you configure a `SENSU_TEST_VAR` variable in your sensu-agent fi
 [49]: #allow-list-configuration
 [50]: #configuration-via-environment-variables
 [51]: #events-post-specification
-
