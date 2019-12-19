@@ -195,7 +195,7 @@ However, deployments can also use the same certificates and keys for etcd peer a
 This example uses the [cfssl][9] tool to generate self-signed certificates.
 
 First, create a Certificate Authority (CA).
-To keep things straightforward in this example, you will generate all clients and peer certificates using this CA, but you might eventually want to create distinct CA.
+To keep things straightforward in this example, you will generate all clients and peer certificates using this CA, but you might eventually want to create a distinct CA.
 
 {{< highlight shell >}}
 echo '{"CN":"CA","key":{"algo":"rsa","size":2048}}' | cfssl gencert -initca - | cfssljson -bare ca -
