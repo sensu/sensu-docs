@@ -7,6 +7,7 @@ version: "5.16"
 menu: "sensu-go-5.16"
 ---
 
+- [5.16.1 release notes](#5-16-1-release-notes)
 - [5.16.0 release notes](#5-16-0-release-notes)
 - [5.15.0 release notes](#5-15-0-release-notes)
 - [5.14.2 release notes](#5-14-2-release-notes)
@@ -48,6 +49,21 @@ PATCH versions include backward-compatible bug fixes.
 Read the [upgrade guide][1] for information about upgrading to the latest version of Sensu Go.
 
 ---
+
+## 5.16.1 release notes
+
+**December 18, 2019** &mdash; The latest release of Sensu Go, version 5.16.1, is now available for download.
+This release fixes a performance regression that caused API latency to scale linearly as the number of connected agents increased and includes a change to display the `sensu_go_events_processed` Prometheus counter by default.
+
+See the [upgrade guide][1] to upgrade Sensu to version 5.16.1.
+
+**IMPROVEMENTS**
+
+- The `sensu_go_events_processed` Prometheus counter now initializes with the `success` label so the count is always displayed.
+
+**FIXES:**
+
+- The performance regression introduced in 5.15.0 that caused API latency to scale linearly as the number of connected agents increased is fixed.
 
 ## 5.16.0 release notes
 
@@ -160,7 +176,6 @@ See the [upgrade guide][1] to upgrade Sensu to version 5.14.2.
 - Check TTL and keepalive switches are now correctly buried when associated events and entities are deleted.
 As a result, Sensu now uses far fewer leases for check TTLs and keepalives, which improves stability for most deployments.
 - Corrected a minor UX issue in interactive filter commands in sensuctl.
-
 
 ## 5.14.1 release notes
 
