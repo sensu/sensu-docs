@@ -66,7 +66,7 @@ example              | {{< highlight string >}}sys.cpu.user 1356998400 42.5 host
 ### Validate the metrics
 
 If the check output is formatted correctly according to its `output_metric_format`, the metrics will be extracted in Sensu metric format and passed to the event pipeline.
-You should expect to see logged errors if Sensu cannot parse the check output.
+You should expect to see errors logged by sensu-agent if it is unable to parse the check output.
 To confirm that metrics have been extracted from your check, inspect the event passed to the handler.
 
 See [Troubleshooting][10] for an example debug handler that writes events to a file for inspection.
