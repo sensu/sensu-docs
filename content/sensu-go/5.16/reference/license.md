@@ -2,7 +2,7 @@
 title: "License management"
 linkTitle: "License Management"
 description: "Sensu Go includes commercial features designed for monitoring at scale. Activate and manage your commercial license with sensuctl and your Sensu account. Read the reference documentation to learn more."
-weight: 100
+weight: 190
 version: "5.16"
 product: "Sensu Go"
 menu:
@@ -10,39 +10,28 @@ menu:
     parent: reference
 ---
 
-- [Activating your commercial license](#activating-your-commercial-license)
+- [Activate your commercial license](#activate-your-commercial-license)
 - [Entity limit](#entity-limit)
 - [License expiration](#license-expiration)
-- [License management API](../../api/license)
+- [Quick links](#quick-links)
 
-### Quick links
+## Activate your commercial license
 
-- [Log in to your Sensu account](https://account.sensu.io/)
-- [Configure authentication providers](../../installation/auth)
-- [Discover enterprise assets](https://bonsai.sensu.io/assets?tiers%5B%5D=4)
-- [Guide to using assets](../../guides/install-check-executables-with-assets)
-- [Contact Sensu support](https://account.sensu.io/support)
-- [Contact Sensu sales](https://sensu.io/sales)
+If you haven't already, [install the backend, agent, and sensuctl][2] and [configure sensuctl][3].
 
-## Activating your commercial license
-
-If you haven't already, [install the backend, agent, and sensuctl](../../installation/install-sensu) and [configure sensuctl](../../sensuctl/reference/#first-time-setup).
-
-Log in to your Sensu account at [account.sensu.io](https://account.sensu.io/) and download your license file using the "Download license" link.
-
-_Sensu account: Download Sensu license._
+Log in to your Sensu account at [account.sensu.io][1] and click **Download license** to download your license file.
 
 <img alt="Screenshot of Sensu account license download" src="/images/go-license-download.png" width="350px">
 
-With the license file downloaded, you can activate your license using sensuctl or the [license API](../../api/license).
+With the license file downloaded, you can activate your license with sensuctl or the [license API][4].
 
-To activate your license using sensuctl:
+To activate your license with sensuctl:
 
 {{< highlight shell >}}
 sensuctl create --file sensu_license.json
 {{< /highlight >}}
 
-You can use sensuctl to view your license details at any time.
+Use sensuctl to view your license details at any time.
 
 {{< highlight shell >}}
 # Active license
@@ -68,16 +57,16 @@ Error: not found
 
 Your commercial license includes the entity limit tied to your Sensu licensing package.
 An entity limit of `0` allows unlimited entities.
-Both agent and proxy entities count towards the overall entity limit.
-[Contact us](https://account.sensu.io/support) to upgrade your commercial license.
+Both agent and proxy entities count toward the overall entity limit.
+[Contact Sensu][8] to upgrade your commercial license.
 
-To see your current entity count, use any `/api/core` or `/api/enterprise` [API request](https://docs.sensu.io/sensu-go/latest/api/). For example:
+To see your current entity count, use any `/api/core` or `/api/enterprise` [API request][9]. For example:
 
 {{< highlight shell >}}
 curl http://127.0.0.1:8080/api/core/v2/namespaces/default/entities -v -H "Authorization: Bearer $SENSU_TOKEN"
 {{< /highlight >}}
 
-You should see the current entity count and limit as response headers.
+Your current entity count and limit are listed as response headers:
 
 {{< highlight shell >}}
 HTTP/1.1 200 OK
@@ -88,7 +77,30 @@ Sensu-Entity-Limit: 0
 
 ## License expiration
 
-To see your commercial license expiration date, log in to your Sensu account at [account.sensu.io](https://account.sensu.io/).
+To see your commercial license expiration date, [log in to your Sensu account][1].
 
-If your license is within 30 days of expiration, Sensu issues regular warnings in the Sensu [backend logs](../../guides/troubleshooting).
-If your license expires, you will still have access to [commercial features](../../getting-started/enterprise), but your entity limit will drop back down to the free limit of 100.
+If your license is within 30 days of expiration, Sensu issues regular warnings in the Sensu [backend logs][6].
+If your license expires, you will still have access to [commercial features][5], but your entity limit will drop back down to the free limit of 100.
+
+## Quick links
+
+- [Log in to your Sensu account][1]
+- [Configure authentication providers][10]
+- [Use the license management API][4]
+- [Discover enterprise assets][11]
+- [Install plugins with assets][12]
+- [Contact Sensu support][8]
+- [Contact Sensu sales][7]
+
+[1]: https://account.sensu.io/
+[2]: ../../installation/install-sensu/
+[3]: ../../sensuctl/reference/#first-time-setup
+[4]: ../../api/license/
+[5]: ../../getting-started/enterprise/
+[6]: ../../guides/troubleshooting/
+[7]: https://sensu.io/contact?subject=contact-sales
+[8]: https://account.sensu.io/support
+[9]: ../../../latest/api/
+[10]: ../../installation/auth/
+[11]: https://bonsai.sensu.io/assets?tiers%5B%5D=4
+[12]: ../../guides/install-check-executables-with-assets/

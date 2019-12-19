@@ -1,7 +1,7 @@
 ---
 title: "Reduce alert fatigue with filters"
 linkTitle: "Reduce Alert Fatigue"
-description: "Here’s how to reduce alert fatigue with Sensu. In this guide, you’ll learn about Sensu filters — why to use them, how they reduce alert fatigue, and how to put them into action."
+description: "Here’s how to reduce alert fatigue with Sensu. Learn about Sensu filters, how they reduce alert fatigue, and how to put them into action."
 weight: 120
 version: "5.16"
 product: "Sensu Go"
@@ -11,39 +11,30 @@ menu:
     parent: guides
 ---
 
-## What are Sensu filters?
+- [Use event filters to reduce alert fatigue](#use-event-filters-to-reduce-alert-fatigue)
+- [Next steps](#next-steps)
 
-Sensu filters allow you to filter **events** destined for one or more event
-**handlers**. Sensu filters evaluate their expressions against the event data, to
-determine if the event should be passed to an event handler.
+Sensu event filters allow you to filter events destined for one or more event handlers.
+Sensu event filters evaluate their expressions against the event data to determine whether the event should be passed to an event handler.
 
-## Why use a filter?
+Use event filters to eliminate notification noise from recurring events and to filter events from systems in pre-production environments.
 
-Filters are commonly used to filter recurring events (i.e. to eliminate
-notification noise) and to filter events from systems in pre-production
-environments.
+## Use event filters to reduce alert fatigue
 
-## Using filters to reduce alert fatigue
+In this guide, you learn how to reduce alert fatigue by configuring an event filter named `hourly` for a handler named `slack` to prevent alerts from being sent to Slack every minute.
+If you don't already have a handler in place, follow [Send Slack alerts with handlers][3] before continuing with this guide.
 
-The purpose of this guide is to help you reduce alert fatigue by configuring a
-filter named `hourly`, for a handler named `slack`, in order to prevent alerts
-from being sent to Slack every minute. If you don't already have a handler in
-place, learn [how to send alerts with handlers][3].
+You can use either of two approaches to create the event filter to handle occurrences:
 
-### Creating the filter
+- [Use sensuctl][4]
+- [Use a filter asset][5]
 
-We'll show you two approaches to creating a filter that will handle occurrences. The first approach will be to create our own filter that we'll add to Sensu. The second approach will cover implementing the filter as an asset.
+### Approach 1: Use sensuctl to create an event filter
 
-#### Using Sensuctl to Create a Filter
+First, create an event filter called `hourly` that matches new events (where the event's `occurrences` is equal to `1`) or hourly events (every hour after the first occurrence, calculated with the check's `interval` and the event's `occurrences`).
 
-The first step is to create a filter that we will call `hourly`, which matches
-new events (where the event's `occurrences` is equal to `1`) or hourly events
-(so every hour after the first occurrence, calculated with the check's
-`interval` and the event's `occurrences`).
-
-Events in Sensu Go are handled regardless of
-check execution status; even successful check events are passed through the
-pipeline. Therefore, it's necessary to add a clause for non-zero status.
+Events in Sensu Go are handled regardless of check execution status.
+Even successful check events are passed through the pipeline, so you'll need to add a clause for non-zero status.
 
 {{< highlight shell >}}
 sensuctl filter create hourly \
@@ -51,35 +42,37 @@ sensuctl filter create hourly \
 --expressions "event.check.occurrences == 1 || event.check.occurrences % (3600 / event.check.interval) == 0"
 {{< /highlight >}}
 
-### Assigning the filter to a handler
+#### Assign the event filter to a handler
 
-Now that the `hourly` filter has been created, it can be assigned to a handler.
-Here, since we want to reduce the number of Slack messages sent by Sensu, we will apply
-our filter to an already existing handler named `slack`, in addition to the
-built-in `is_incident` filter so only failing events are handled.
+Now that you've created the `hourly` event filter, you can assign it to a handler.
+Because you want to reduce the number of Slack messages Sensu sends, you'll apply the event filter to an existing handler named `slack`, in addition to the built-in `is_incident` filter, so only failing events are handled.
 
 {{< highlight shell >}}
 sensuctl handler update slack
 {{< /highlight >}}
 
-Follow the prompts to add the `hourly` and `is_incident` filters to the Slack
-handler.
+Follow the prompts to add the `hourly` and `is_incident` event filters to the Slack handler.
 
-### Creating a fatigue check filter
+#### Create a fatigue check event filter
 
-While we can use `sensuctl` to interactively create a filter, we can create more reusable filters through the use of assets. Read on to see how to implement a filter using this approach. 
+Although you can use `sensuctl` to interactively create a filter, you can create more reusable filters with assets.
+Read on to see how to implement a filter using this approach. 
 
-#### Using a Filter Asset
+### Approach 2: Use an event filter asset
 
-If you're not already familiar with [assets][asset-reference], take a minute or two and read over our [guide to installing plugins with assets][asset-guide]. This will help you understand what an asset is and how they are used in Sensu. 
+If you're not already familiar with [assets][6], please take a moment to read [Install plugins with assets][7].
+This will help you understand what assets are and how they are used in Sensu. 
 
-The first step we'll need to take is to obtain a filter asset that will allow us to replicate the behavior we used when we created the `hourly` filter via `sensuctl`. Let's use the [fatigue check asset][fatigue-check-asset] from the [Bonsai Asset Index][bonsai-io]. You can download the asset directly by running the following:
+In this approach, the first step is to obtain an event filter asset that will allow you to replicate the behavior of the `hourly` event filter created in [Approach 1 via `sensuctl`][4].
+Use the [fatigue check asset][8] from [Bonsai, the Sensu asset index][9].
+To download the asset directly:
 
 {{< highlight shell >}}
 curl -s https://bonsai.sensu.io/release_assets/nixwiz/sensu-go-fatigue-check-filter/0.1.3/any/noarch/download | sensuctl create
 {{< /highlight >}}
 
-Excellent! You've registered the asset. We still need to create our filter. We'll use the following configuration for creating the actual filter. In this case, we'll call it `sensu-fatigue-check-filter.yml`:
+You've registered the asset, but you still need to create the filter.
+To do this, use the following configuration:
 
 {{< highlight yaml >}}
 ---
@@ -96,17 +89,18 @@ spec:
   - fatigue-check-filter
 {{< /highlight >}}
 
-And we'll go ahead and create it:
+Then, create the filter, naming it `sensu-fatigue-check-filter.yml`:
 
 {{< highlight shell >}}
 sensuctl create -f sensu-fatigue-check-filter.yml
 {{< /highlight >}}
 
-Now that we've created the filter asset and the filter, let's move on to the check annotations needed for the asset to work properly. 
+Now that you've created the filter asset and the event filter, you can create the check annotations you need for the asset to work properly. 
 
-#### Annotating a check for filter asset use
+#### Annotate a check for filter asset use
 
-Now that we've created the filter, we'll need to make some additions to any checks we want to use the filter with. Let's look at an example CPU check:
+Next, you need to make some additions to any checks you want to use the filter with.
+Here's an example CPU check:
 
 {{< highlight yaml >}}
 ---
@@ -141,19 +135,21 @@ spec:
   ttl: 0
 {{< /highlight >}}
 
-You'll notice that under the `metadata` scope we've added some annotations. For our filter asset to work the way that our interactively created filter does, these annotations are necessary.  Let's discuss those annotations briefly.
+Notice the annotations under the `metadata` scope.
+The annotations are required for the filter asset to work the same way as the interactively created event filter.
+Specifically, the annotations in this check definition are doing several things: 
 
-The annotations in our check definition are doing several things: 
+1. `fatigue_check/occurrences`: Tells the event filter on which occurrence to send the event for further processing
+2. `fatigue_check/interval`: Tells the event filter the interval at which to allow additional events to be processed (in seconds)
+3. `fatigue_check/allow_resolution`: Determines whether to pass a `resolve` event through to the filter
 
-1. `fatigue_check/occurrences`: This tells the filter on which occurrence we're going to send the even through for further processing
-2. `fatigue_check/interval`: This value (in seconds) tells the filter at what interval to allow additional events to be processed
-3. `fatigue_check/allow_resolution`: Determines if a `resolve` event will be passed through to the filter.
+For more information about configuring these values, see the [filter asset's README][10].
+Next, you'll assign the newly minted event filter to a handler.
 
-For more information on configuring these values, see the [filter asset README][fatigue-check-configuration]. Now let's assign our newly minted filter to a handler.
+#### Assign the event filter to a handler
 
-#### Assigning the filter to a handler
-
-Just like we did with our interactively created filter, we're going to assign our filter to a handler. We can use the following handler example:
+Just like with the [interactively created event filter][4], you'll introduce the filter into your Sensu workflow by configuring a handler to use it.
+Here's an example:
 
 {{< highlight yaml >}}
 ---
@@ -173,35 +169,27 @@ spec:
   - fatigue_check
 {{< /highlight >}}
 
-Let's move on to validating our filter.
+#### Validate the event filter
 
-### Validating the filter
+Verify the proper behavior of these event filters with `sensu-backend` logs.
+The default location of these logs varies based on the platform used (see [Troubleshooting][2] for details).
 
-You can verify the proper behavior of these filters by using `sensu-backend` logs.
-The default location of these logs varies based on the platform used, but the
-[troubleshooting guide][2] provides this information.
-
-Whenever an event is being handled, a log entry is added with the message
-`"handler":"slack","level":"debug","msg":"sending event to handler"`, followed by
-a second one with the message `"msg":"pipelined executed event pipe
-handler","output":"","status":0`. However, if the event is being discarded by
-our filter, a log entry with the message `event filtered` will appear instead.
+Whenever an event is being handled, a log entry is added with the message `"handler":"slack","level":"debug","msg":"sending event to handler"`, followed by
+a second log entry with the message `"msg":"pipelined executed event pipe
+handler","output":"","status":0`.
+However, if the event is being discarded by the event filter, a log entry with the message `event filtered` will appear instead.
 
 ## Next steps
 
-You now know how to apply a filter to a handler, as well as use a filter asset and hopefully reduce alert
-fatigue. From this point, here are some recommended resources:
+Now that you know how to apply an event filter to a handler and use a filter asset to help reduce alert fatigue, read the [filters reference][1] for in-depth information about event filters. 
 
-* Read the [filters reference][1] for in-depth
-  documentation on filters. 
-
-[1]:  ../../reference/filters
+[1]:  ../../reference/filters/
 [2]: ../troubleshooting#log-file-locations
-[3]: ../send-slack-alerts
-
-<!--Supplemental Links-->
-[asset-reference]: ../../reference/assets/ 
-[asset-guide]: ../install-check-executables-with-assets/
-[fatigue-check-asset]: https://bonsai.sensu.io/assets/nixwiz/sensu-go-fatigue-check-filter
-[bonsai-io]: https://bonsai.sensu.io/
-[fatigue-check-configuration]: https://github.com/nixwiz/sensu-go-fatigue-check-filter#configuration
+[3]: ../send-slack-alerts/
+[4]: #approach-1-use-sensuctl-to-create-an-event-filter
+[5]: #approach-2-use-an-event-filter-asset
+[6]: ../../reference/assets/ 
+[7]: ../install-check-executables-with-assets/
+[8]: https://bonsai.sensu.io/assets/nixwiz/sensu-go-fatigue-check-filter
+[9]: https://bonsai.sensu.io/
+[10]: https://github.com/nixwiz/sensu-go-fatigue-check-filter#configuration

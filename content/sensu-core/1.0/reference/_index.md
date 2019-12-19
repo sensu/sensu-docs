@@ -10,4 +10,4 @@ menu:
     identifier: reference
 ---
 
-{{< directoryListing "content/sensu-core/1.0/reference" >}}
+{{< directoryListing >}}

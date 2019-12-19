@@ -10,4 +10,4 @@ menu:
     identifier: installation
 ---
 
-{{< directoryListing "content/sensu-go/5.5/installation" >}}
+{{< directoryListing >}}

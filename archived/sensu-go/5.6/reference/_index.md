@@ -10,4 +10,4 @@ menu:
     identifier: reference
 ---
 
-{{< directoryListing "content/sensu-go/5.6/reference" >}}
+{{< directoryListing >}}

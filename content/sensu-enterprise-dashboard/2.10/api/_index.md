@@ -10,4 +10,4 @@ menu:
     identifier: api
 ---
 
-{{< directoryListing "content/sensu-enterprise-dashboard/2.10/api" >}}
+{{< directoryListing >}}

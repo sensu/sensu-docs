@@ -16,9 +16,11 @@ menu:
 {{< highlight shell >}}
 sensuctl configure
 ? Sensu Backend URL: http://127.0.0.1:8080
-? Username: admin
-? Password: P@ssw0rd!
+? Username: YOUR_USERNAME
+? Password: YOUR_PASSWORD
 {{< /highlight >}}
+
+_**NOTE**: If you are using Docker, the default username is `admin` and the password is `P@ssw0rd!`._
 
 ### Create resources from a file that contains JSON resource definitions
 
