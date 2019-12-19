@@ -1,7 +1,7 @@
 ---
 title: "Run a Sensu cluster"
 linkTitle: "Run a Sensu Cluster"
-description: "Clustering makes Sensu more highly available, reliable, and durable. It can help you cope with the loss of a backend node, prevent data loss, and distribute the network load of agents. Read the guide to configure a Sensu cluster."
+description: "Clustering increases Sensu's availability, reliability, and durability. It can help you cope with the loss of a backend node, prevent data loss, and distribute the network load of agents. Read the guide to configure a Sensu cluster."
 weight: 150
 version: "5.16"
 product: "Sensu Go"
