@@ -146,7 +146,7 @@ For a complete list of configuration options, see the [backend reference][6].
 
 _**NOTE**: If you are using Docker, skip this step and continue with [4. Open the web UI][36]. The `sensu-backend init` command is not implemented for Docker._
 
-Run `sensu-backend init` to set up your Sensu administrator username and password.
+**With the backend running**, run `sensu-backend init` to set up your Sensu administrator username and password.
 In this initialization step, you only need to set environment variables with a username and password string &mdash; no need for role-based access control (RBAC).
 
 Replace `YOUR_USERNAME` and `YOUR_PASSWORD` with the username and password you want to use:
