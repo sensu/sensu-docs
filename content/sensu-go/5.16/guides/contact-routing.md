@@ -25,7 +25,7 @@ Every alert has an ideal first responder: a team or person who knows how to tria
 Sensu contact routing lets you alert the right people using their preferred contact methods, reducing mean time to response and recovery.
 
 In this guide, you'll set up alerts for two teams (ops and dev) with separate Slack channels.
-Assume e team wants to be alerted only for the things they care about, using their team's Slack channel.
+Assume each team wants to be alerted only for the things they care about, using their team's Slack channel.
 To achieve this, you'll create two types of Sensu resources:
 
 - **Event handlers** to store contact preferences for the ops team, the dev team, and a fallback option
