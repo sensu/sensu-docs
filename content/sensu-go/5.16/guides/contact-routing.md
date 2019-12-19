@@ -201,7 +201,7 @@ Run `sensuctl handler list --format yaml` to confirm that the handlers are ready
 
 ### 4. Create a handler set
 
-To centralize contact management and simplify configuration, create a handler set that combines uour contact-specific handlers under a single handler name.
+To centralize contact management and simplify configuration, create a handler set that combines your contact-specific handlers under a single handler name.
 
 Use `sensuctl` to create a `slack` handler set:
 
