@@ -18,9 +18,17 @@ sensu-enterprise service must be restarted before the new values can take effect
 
 ## Sensu Enterprise environment variables
 
-The Sensu Enterprise honors the following environment variables. For
+Sensu Enterprise honors the following environment variables. For
 configuration honored by both Sensu Enterprise and Sensu Core, see the
 [Sensu configuration reference documentation][1].
+
+CMS_OCCUPANCY_FRACTION   | 
+-------------------------|-------
+description              | Tunes the CMSInitiatingOccupancyFraction.
+type                     | String
+required                 | false
+default                  | `75`
+example                  | {{< highlight shell >}}CMS_OCCUPANCY_FRACTION="50"{{< /highlight >}}
 
 HEAP_SIZE    | 
 -------------|-------

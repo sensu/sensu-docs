@@ -11,6 +11,7 @@ _NOTE: Sensu Enterprise is built on Sensu Core. Sensu Core changes are documente
 
 ## Releases
 
+- [Enterprise 3.7.0 Release Notes](#enterprise-v3-7-0)
 - [Enterprise 3.6.2 Release Notes](#enterprise-v3-6-2)
 - [Enterprise 3.6.1 Release Notes](#enterprise-v3-6-1)
 - [Enterprise 3.6.0 Release Notes](#enterprise-v3-6-0)
@@ -58,6 +59,20 @@ _NOTE: Sensu Enterprise is built on Sensu Core. Sensu Core changes are documente
 - [Enterprise 1.14.1 Release Notes](#enterprise-v1-14-1)
 - [Enterprise 1.14.0 Release Notes](#enterprise-v1-14-0)
 - [Enterprise 1.13.0 Release Notes](#enterprise-v1-13-0)
+
+## Enterprise 3.7.0 Release Notes {#enterprise-v3-7-0}
+
+**December 19, 2019** &mdash; Sensu Enterprise version 3.7.0 has been
+released and is available for immediate download. Please note the
+following improvements:
+
+### CHANGES {#enterprise-v3-7-0-changes}
+
+- **BUGFIX**: Fixed Travis CI builds.
+
+Built on [Sensu Core 1.9.0][core-v1-9-0]:
+
+- **IMPROVEMENT**: You can now tune CMSInitiatingOccupancyFraction via an environment variable (e.g. `export CMS_OCCUPANCY_FRACTION="50"`).
 
 ## Enterprise 3.6.2 Release Notes {#enterprise-v3-6-2}
 
@@ -953,3 +968,6 @@ This release includes potentially breaking, backwards-incompatible changes:
 <!-- 3.6 -->
 [core-v1-8-0]: /sensu-core/1.8/changelog/#core-v1-8-0
 [75]: https://account.sensu.io/support
+
+<!-- 3.7 -->
+[core-v1-9-0]: /sensu-core/1.9/changelog/#core-v1-9-0
