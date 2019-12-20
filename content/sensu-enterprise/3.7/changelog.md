@@ -68,7 +68,6 @@ following improvements:
 
 ### CHANGES {#enterprise-v3-7-0-changes}
 
-- **BUGFIX**: Fixed Travis CI builds.
 
 Built on [Sensu Core 1.9.0][core-v1-9-0]:
 
