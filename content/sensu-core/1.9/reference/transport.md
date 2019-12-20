@@ -15,6 +15,8 @@ menu:
 - [Selecting a transport](#selecting-a-transport)
 - [Transport configuration](#transport-configuration)
   - [Example transport definition](#example-transport-definition)
+  - [Maximum transport message size](#maximum-transport-message-size)
+  - [Transport DNS resolution](#transport-dns)
   - [Transport definition specification](#transport-definition-specification)
     - [Transport attributes](#transport-attributes)
 
@@ -91,6 +93,22 @@ configuration indicates that Redis should be used as the Sensu transport.
 }
 {{< /highlight >}}
 
+### Maximum transport message size
+
+Use `max_message_size` to specify the maximum transport message size (in bytes). Specifying a maximum transport message size helps prevent oversized messages from consuming memory and being persisted to the datastore
+
+The following is an example maximum transport message size definition:
+
+{{< highlight json >}}
+{
+  "sensu": {
+    "server": {
+      "max_message_size": 2097152
+    }
+  }
+}
+{{< /highlight >}}
+
 ### Transport DNS resolution {#transport-dns}
 
 The Sensu Transport will resolve provided hostnames before making
@@ -125,7 +143,6 @@ required           | false
 type               | String
 default            | `true`
 example            | {{< highlight shell >}}"reconnect_on_error": "false"{{< /highlight >}}
-
 
 [1]:  ../rabbitmq
 [2]:  http://github.com/sensu/sensu-transport
