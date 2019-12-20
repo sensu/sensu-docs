@@ -768,12 +768,14 @@ Check subdue default times include sub-second (nanosecond) resolution.
 For example, a check with the following subdue attributes that executes at time `23:59:59.999` will be subdued:
 
 {{< highlight json >}}
-"days": {
-  "wednesday": {
-    [
-      "begin": "22:30 UTC",
-      "end": "11:55 UTC"
-    ]
+{
+  "days": {
+    "wednesday": {
+      [
+        "begin": "22:30 UTC",
+        "end": "11:55 UTC"
+      ]
+    }
   }
 }
 {{< /highlight >}}
