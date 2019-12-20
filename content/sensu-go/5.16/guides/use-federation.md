@@ -1,8 +1,8 @@
 ---
 title: "Multi-cluster visibility with federation"
-linkTitle: "Reaching Multi-cluster Visibility"
+linkTitle: "Reach Multi-cluster Visibility"
 description: "With Sensu's federation capabilities, you can access and manage resources across multiple clusters via the web UI and mirror changes in one cluster to follower clusters. In this guide, you'll learn how federate Sensu clusters."
-weight: 400
+weight: 220
 version: "5.16"
 product: "Sensu Go"
 platformContent: False
