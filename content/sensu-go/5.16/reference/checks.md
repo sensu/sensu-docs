@@ -17,7 +17,7 @@ menu:
 - [Check token substitution](#check-token-substitution)
 - [Check hooks](#check-hooks)
 - [Check specification](#check-specification)
-	- [Top-level attributes](#top-level-attributes) | [[Metadata attributes](#metadata-attributes) | Spec attributes](#spec-attributes) | [Proxy requests attributes](#proxy-requests-attributes) | [Check output truncation attributes](#check-output-truncation-attributes)
+	- [Top-level attributes](#top-level-attributes) | [Metadata attributes](#metadata-attributes) | [Spec attributes](#spec-attributes) | [Proxy requests attributes](#proxy-requests-attributes) | [Check output truncation attributes](#check-output-truncation-attributes)
 - [Examples](#examples)
 
 Checks work with Sensu agents to produce monitoring events automatically.
@@ -947,4 +947,4 @@ spec:
 [52]: #round-robin-checks
 [53]: https://regex101.com/r/zo9mQU/2
 [54]: ../../api/overview#response-filtering
-[55]: ../../sensuctl/reference#filters
+[55]: ../../sensuctl/reference#response-filters

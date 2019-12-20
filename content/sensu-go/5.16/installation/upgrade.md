@@ -141,7 +141,7 @@ Transport handlers are not supported by Sensu Go, but you can create similar fun
 Ruby eval logic from Sensu Core 1.x is replaced with JavaScript expressions in Sensu Go, opening up powerful ways to filter events based on occurrences and other event attributes.
 As a result, the built-in occurrences event filter in Sensu Core 1.x is not included in Sensu Go, but you can replicate its functionality with [the repeated events filter definition][10].
 
-Sensu Go includes three new [built-in event filters][11]: only-incidents, only-metrics, and allow-silencing.
+Sensu Go includes three new built-in [event filters][9]: only-incidents, only-metrics, and allow-silencing.
 Sensu Go does not include a built-in check dependencies filter or a filter-when feature.
 
 ### Assets
@@ -158,7 +158,7 @@ To set up RBAC in Sensu Go, see the [RBAC reference][13] and [Create a read-only
 
 ### Silencing
 Silencing is disabled by default in Sensu Go.
-You must explicitly enable silencing with the built-in [`not_silenced` event filter][15].
+You must explicitly enable silencing with the built-in `not_silenced` [event filter][9].
 
 ### Token substitution
 The syntax for token substitution changed to [double curly braces][16] in Sensu Go (from triple colons in Sensu Core 1.x).
@@ -182,13 +182,11 @@ See the metadata attributes section in the reference documentation for more info
 [6]: ../../reference/entities/
 [7]: ../../guides/monitor-external-resources/
 [8]: ../../reference/hooks/
-[9]: ../../reference/filters#built-in-filter-only-incidents
-[10]: ../../reference/filters/#handling-repeated-events
-[11]: ../../reference/filters/#built-in-filters
+[9]: ../../reference/filters
+[10]: ../../reference/filters/#handle-repeated-events
 [12]: ../../reference/assets/
 [13]: ../../reference/rbac/
 [14]: ../../guides/create-read-only-user/
-[15]: ../../reference/filters/#built-in-filter-allow-silencing
 [16]: ../../reference/tokens
 [17]: ../../api/overview//
 [18]: https://github.com/sensu/sensu-translator/

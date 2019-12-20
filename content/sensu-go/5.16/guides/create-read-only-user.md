@@ -1,7 +1,7 @@
 ---
 title: "Create a read-only user with RBAC"
 linkTitle: "Create a Read-Only User"
-description: "RBAC allows you to exercise fine-grained control over how Sensu users interact with Sensu resources. Using RBAC rules, you can easily achieve multitenancy so different projects and teams can share a Sensu instance. Read the guide to get started creating users with Sensu RBAC."
+description: "Role-based access control (RBAC) allows you to exercise fine-grained control over how Sensu users interact with Sensu resources. Use RBAC rules to achieve multitenancy so different projects and teams can share a Sensu instance. Read this guide to create users with Sensu RBAC."
 weight: 190
 version: "5.16"
 product: "Sensu Go"
@@ -12,18 +12,21 @@ menu:
     parent: guides
 ---
 
-Sensu role-based access control (RBAC) helps different teams and projects share a Sensu instance.
-RBAC allows management and access of users and resources based on **namespaces**, **groups**, **roles**, and **bindings**.
+- [Create a read-only user](#create-a-read-only-user)
+- [Create a cluster-wide event-reader user](#create-a-cluster-wide-event-reader-user)
+- [Next steps](#next-steps)
+
+Role-based access control (RBAC) allows you to exercise fine-grained control over how Sensu users interact with Sensu resources.
+Use RBAC rules to achieve **multitenancy** so different projects and teams can share a Sensu instance. 
+
+Sensu RBAC helps different teams and projects share a Sensu instance.
+RBAC allows you to manage users and their access to resources based on **namespaces**, **groups**, **roles**, and **bindings**.
 
 By default, Sensu includes a `default` namespace and an `admin` user with full permissions to create, modify, and delete resources within Sensu, including RBAC resources like users and roles.
-This guide requires a running Sensu backend and a sensuctl instance configured to connect to the backend as the default [`admin` user][2].
+This guide requires a running Sensu backend and a sensuctl instance configured to connect to the backend as an [`admin` user][2].
 
-## Why use RBAC?
-RBAC allows you to exercise fine-grained control over how Sensu users interact 
-with Sensu resources. Using RBAC rules, you can easily achieve **multitenancy** 
-so different projects and teams can share a Sensu instance. 
+## Create a read-only user
 
-## How to create a read-only user
 In this section, you'll create a user and assign them read-only access to resources within the `default` namespace using a **role** and a **role binding**.
 
 1. Create a user with the username `alice` and assign them to the group `ops`:
@@ -40,14 +43,16 @@ sensuctl role create read-only --verb=get,list --resource=* --namespace=default
 {{< highlight shell >}}
 sensuctl role-binding create ops-read-only --role=read-only --group=ops
 {{< /highlight >}}
+
 You can also use role bindings to tie roles directly to users using the `--user` flag.
 
 All users in the `ops` group now have read-only access to all resources within the default namespace.
 You can use the `sensuctl user`, `sensuctl role`, and `sensuctl role-binding` commands to manage your RBAC configuration.
 
-## How to create a cluster-wide event-reader user
-Now let's say you want to create a user that has read-only access to events across all namespaces.
-Since you want this role to have cluster-wide permissions, you'll need to create a **cluster role** and a **cluster role binding**.
+## Create a cluster-wide event-reader user
+
+Suppose you want to create a user with read-only access to events across all namespaces.
+Because you want this role to have cluster-wide permissions, you'll need to create a **cluster role** and a **cluster role binding**.
 
 1. Create a user with the username `bob` and assign them to the group `ops`:
 {{< highlight shell >}}
@@ -68,9 +73,7 @@ All users in the `ops` group now have read-only access to events across all name
 
 ## Next steps
 
-You now know how to create a user, create a role, and create a role binding to assign a role to a user. From this point, here are some recommended resources:
+Now that you know how to create a user, a role, and a role binding to assign a role to a user, check out the [RBAC reference][1] for in-depth documentation on role-based access control, examples, and information about cluster-wide permissions.
 
-* Read the [RBAC reference][1] for in-depth documentation on role-based access control, examples, and information about cluster-wide permissions.
-
-[1]: ../../reference/rbac
-[2]: ../../reference/rbac#default-user
+[1]: ../../reference/rbac/
+[2]: ../../reference/rbac#default-users

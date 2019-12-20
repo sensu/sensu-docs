@@ -176,7 +176,7 @@ To view the events on-disk, see [Log Sensu services with systemd][9].
 [3]: ../../sensuctl/reference/
 [4]: ../license/
 [5]: ../../guides/troubleshooting
-[6]: ../../reference/rbac#default-user
+[6]: ../../reference/rbac#default-users
 [7]: ../../sensuctl/reference#create-resources
 [8]: #spec-attributes
 [9]: ../../guides/systemd-logs/

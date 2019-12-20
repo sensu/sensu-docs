@@ -295,4 +295,4 @@ spec:
 [6]: #spec-attributes
 [7]: https://regex101.com/r/zo9mQU/2
 [8]: ../../api/overview#response-filtering
-[9]: ../../sensuctl/reference#filters
+[9]: ../../sensuctl/reference#response-filters

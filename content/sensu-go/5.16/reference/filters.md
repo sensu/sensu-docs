@@ -12,10 +12,10 @@ menu:
 
 - [Inclusive and exclusive event filters](#inclusive-and-exclusive-event-filters)
 - [Built-in event filters](#built-in-event-filters)
-- [Build filter expressions](#build-filter-expressions)
-- [Filter specification](#filter-specification)
+- [Build event filter expressions](#build-event-filter-expressions)
+- [Event filter specification](#event-filter-specification)
   - [Top-level attributes](#top-level-attributes) | [Metadata attributes](#metadata-attributes) | [Spec attributes](#spec-attributes)
-- [Examples](#filter-examples)
+- [Event filter examples](#event-filter-examples)
 	- [Handle production events](#handle-production-events)
 	- [Handle non-production events](#handle-non-production-events)
 	- [Handle state change only](#handle-state-change-only)
@@ -863,6 +863,6 @@ spec:
 [34]: #spec-attributes
 [35]: https://regex101.com/r/zo9mQU/2
 [36]: ../../api/overview#response-filtering
-[37]: ../../sensuctl/reference#filters
+[37]: ../../sensuctl/reference#response-filters
 [38]: https://en.wikipedia.org/wiki/Modulo_operation
 [39]: ../assets/

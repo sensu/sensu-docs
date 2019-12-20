@@ -261,7 +261,7 @@ sensu-agent --statsd-event-handlers influx-db --statsd-flush-interval 1 --statsd
 
 ## Create monitoring events using the agent TCP and UDP sockets
 
-_**NOTE**: The agent TCP and UDP sockets are deprecated in favor of the [agent API][50]._
+_**NOTE**: The agent TCP and UDP sockets are deprecated in favor of the [agent API][51]._
 
 Sensu agents listen for external monitoring data using TCP and UDP sockets.
 The agent sockets accept JSON event data and pass events to the Sensu backend event pipeline for processing.
@@ -937,7 +937,7 @@ disable-api: true{{< /highlight >}}
 
 | events-burst-limit | |
 --------------|------
-description   | Maximum amount of burst allowed in a rate interval for the [agent events API][50].
+description   | Maximum amount of burst allowed in a rate interval for the [agent events API][51].
 type          | Integer
 default       | `10`
 example       | {{< highlight shell >}}# Command line example
@@ -949,7 +949,7 @@ events-burst-limit: 20{{< /highlight >}}
 
 | events-rate-limit | |
 --------------|------
-description   | Maximum number of events per second that can be transmitted to the backend with the [agent events API][50].
+description   | Maximum number of events per second that can be transmitted to the backend with the [agent events API][51].
 type          | Float
 default       | `10.0`
 example       | {{< highlight shell >}}# Command line example
@@ -1318,6 +1318,13 @@ $ sudo systemctl restart sensu-agent
 
 {{< /language-toggle >}}
 
+## Use environment variables with the Sensu agent
+
+After you [configure][50] your sensu-agent service to read environment variables from `/etc/default/sensu-agent` (Debian/Ubuntu) or `/etc/sysconfig/sensu-agent` (RHEL), any environment variables you provide there will be available to check and hook commands executed by the Sensu agent.
+This includes your checks and plugins.
+
+For example, if you configure a `SENSU_TEST_VAR` variable in your sensu-agent file, it will be available to use in your check configurations as `$SENSU_TEST_VAR`.
+
 [1]: ../../installation/install-sensu#install-sensu-agents
 [2]: ../backend/
 [3]: ../entities/
@@ -1343,7 +1350,7 @@ $ sudo systemctl restart sensu-agent
 [23]: https://github.com/statsd/statsd#key-concepts
 [24]: #configuration
 [25]: ../../api/overview#response-filtering
-[26]: ../../sensuctl/reference#filters
+[26]: ../../sensuctl/reference#response-filters
 [27]: ../tokens/
 [28]: #subscriptions-flag
 [29]: ../assets/
@@ -1366,4 +1373,5 @@ $ sudo systemctl restart sensu-agent
 [47]: https://en.m.wikipedia.org/wiki/Protocol_Buffers
 [48]: #example-allow-list-configuration-file
 [49]: #allow-list-configuration
-[50]: #events-post-specification
+[50]: #configuration-via-environment-variables
+[51]: #events-post-specification

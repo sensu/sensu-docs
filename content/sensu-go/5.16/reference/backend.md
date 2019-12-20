@@ -51,7 +51,7 @@ For information about creating and managing checks, see:
 
 ## Initialization
 
-Before you start the Sensu backend on a **new** installation, you must set up an administrator username and password.
+For a **new** installation, you must set up an administrator username and password.
 To do this, set environment variables as shown below, replacing `YOUR_USERNAME` and `YOUR_PASSWORD` with the username and password you want to use:
 
 {{< highlight shell >}}
@@ -59,6 +59,8 @@ export SENSU_BACKEND_CLUSTER_ADMIN_USERNAME=YOUR_USERNAME
 export SENSU_BACKEND_CLUSTER_ADMIN_PASSWORD=YOUR_PASSWORD
 sensu-backend init
 {{< /highlight >}}
+
+_**NOTE**: Make sure the Sensu backend is running before you run `sensu-backend init`._
 
 You can also run the `sensu-backend init` command in interactive mode if you prefer to respond to prompts for your username and password:
 

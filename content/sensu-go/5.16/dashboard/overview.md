@@ -89,9 +89,9 @@ You can create, edit, and delete Sensu event filters in the dashboard Filters pa
 
 You can create, edit, and delete Sensu mutators in the dashboard Mutators page.
 
-[1]: ../../reference/backend#restarting-the-service
+[1]: ../../reference/backend#restart-the-service
 [2]: ../../sensuctl/reference/
 [3]: ../../reference/rbac/
-[4]: ../../reference/rbac#default-user
-[5]: ../../reference/rbac#creating-a-user
+[4]: ../../reference/rbac#default-users
+[5]: ../../reference/rbac#create-users
 [6]: ../../getting-started/enterprise/

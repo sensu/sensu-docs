@@ -83,8 +83,6 @@ sudo yum install sensu-go-backend
 
 {{< /language-toggle >}}
 
-For details about `sensu-backend init`, see the [backend reference][30].
-
 ### 2. Configure and start
 
 You can configure the Sensu backend with `sensu-backend start` flags (recommended) or an `/etc/sensu/backend.yml` file.
@@ -148,7 +146,7 @@ For a complete list of configuration options, see the [backend reference][6].
 
 _**NOTE**: If you are using Docker, skip this step and continue with [4. Open the web UI][36]. The `sensu-backend init` command is not implemented for Docker._
 
-Run `sensu-backend init` to set up your Sensu administrator username and password.
+**With the backend running**, run `sensu-backend init` to set up your Sensu administrator username and password.
 In this initialization step, you only need to set environment variables with a username and password string &mdash; no need for role-based access control (RBAC).
 
 Replace `YOUR_USERNAME` and `YOUR_PASSWORD` with the username and password you want to use:
@@ -158,6 +156,8 @@ export SENSU_BACKEND_CLUSTER_ADMIN_USERNAME=YOUR_USERNAME
 export SENSU_BACKEND_CLUSTER_ADMIN_PASSWORD=YOUR_PASSWORD
 sensu-backend init
 {{< /highlight >}}
+
+For details about `sensu-backend init`, see the [backend reference][30].
 
 ### 4. Open the web UI
 
@@ -425,8 +425,8 @@ Now that you've installed Sensu, here are some resources to help continue your j
 [24]: #4-open-the-web-ui
 [25]: ../recommended-hardware/
 [26]: ../../api/overview/
-[27]: ../../reference/agent#creating-monitoring-events-using-the-agent-api
-[28]: ../../reference/agent#creating-monitoring-events-using-the-statsd-listener
+[27]: ../../reference/agent#create-monitoring-events-using-the-agent-api
+[28]: ../../reference/agent#create-monitoring-events-using-the-statsd-listener
 [29]: https://blog.sensu.io/one-year-of-sensu-go/
 [30]: ../../reference/backend#initialization
 [31]: ../../guides/deploying/
