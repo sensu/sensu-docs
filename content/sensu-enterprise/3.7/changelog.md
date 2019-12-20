@@ -68,7 +68,6 @@ following improvements:
 
 ### CHANGES {#enterprise-v3-7-0-changes}
 
-
 Built on [Sensu Core 1.9.0][core-v1-9-0]:
 
 - **IMPROVEMENT**: You can now configure the threshold for Java CMSInitiatingOccupancyFraction garbage collection strategy via an environment variable (e.g. `export CMS_OCCUPANCY_FRACTION="50"`).
