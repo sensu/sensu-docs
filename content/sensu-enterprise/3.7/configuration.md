@@ -24,7 +24,7 @@ configuration honored by both Sensu Enterprise and Sensu Core, see the
 
 CMS_OCCUPANCY_FRACTION   | 
 -------------------------|-------
-description              | Tunes the CMSInitiatingOccupancyFraction.
+description              | Configures the Initiating Occupancy Fraction threshold for the Java [Concurrent Mark Sweep (CMS) garbage collector][2] used by Sensu Enterprise.
 type                     | String
 required                 | false
 default                  | `75`
