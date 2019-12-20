@@ -770,12 +770,12 @@ For example, a check with the following subdue attributes that executes at time 
 {{< highlight json >}}
 {
   "days": {
-    "wednesday": {
-      [
+    "wednesday": [
+      {
         "begin": "22:30 UTC",
         "end": "11:55 UTC"
-      ]
-    }
+      }
+    ]
   }
 }
 {{< /highlight >}}
