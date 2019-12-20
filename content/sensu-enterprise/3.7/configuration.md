@@ -74,3 +74,4 @@ example         | {{< highlight shell >}}$ /opt/sensu/bin/sensu-enterprise -a
 {{< /highlight >}}
 
 [1]: /sensu-core/1.2/reference/configuration
+[2]: https://docs.oracle.com/javase/8/docs/technotes/guides/vm/gctuning/cms.html
