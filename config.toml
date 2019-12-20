@@ -77,6 +77,13 @@ disableKinds = ["taxonomy", "taxonomyTerm"]
     latest = "1.8"
 
     [[params.products.sensu_core.versions]]
+    version = "1.9"
+    platforms = [
+      "Ubuntu/Debian",
+      "RHEL/CentOS"
+    ]
+
+    [[params.products.sensu_core.versions]]
     version = "1.8"
     platforms = [
       "Ubuntu/Debian",
@@ -153,6 +160,13 @@ disableKinds = ["taxonomy", "taxonomyTerm"]
     notice = "End of life: March 31, 2020"
     weight = 3
     latest = "3.6"
+
+    [[params.products.sensu_enterprise.versions]]
+    version = "3.7"
+    platforms = [
+      "Ubuntu/Debian",
+      "RHEL/CentOS"
+    ]
 
     [[params.products.sensu_enterprise.versions]]
     version = "3.6"
