@@ -75,7 +75,6 @@ Source: [GitHub.com][79]
 
 - **BUGFIX**: API HTTP `204 No Content` responses now return a nil body.
 
-
 ## Core 1.8.0 Release Notes {#core-v1-8-0}
 
 Source: [GitHub.com][77]
