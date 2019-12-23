@@ -890,12 +890,6 @@ sensuctl command install [ALIAS] ([NAMESPACE/NAME]:[VERSION] | --url [ARCHIVE_UR
 `[:VERSION]` is only required if you require a specific version or are pinning to a specific version.
 If you do not specify a version, sensuctl will fetch the latest version from Bonsai.
 
-For example, to install a command from the [Sensu Go Email Handler Plugin][37] with no flags:
-
-{{< highlight shell >}}
-sensuctl command install sensu-email-handler (sensu/sensu-email-handler:0.2.0)
-{{< /highlight >}}
-
 **To install a command from a URL**, replace `[ARCHIVE_URL]` with a command URL that points to a tarball (e.g. https://path/to/asset.tar.gz).
 Replace `[ARCHIVE_CHECKSUM]` with the checksum you want to use.
 
@@ -924,7 +918,6 @@ sensuctl command exec [ALIAS] [args] [flags]
 {{< /highlight >}}
 
 Replace `[ALIAS]` with a unique `NAME` for the command.
-For example, for the [Sensu Go Email Handler Plugin][37], you might use the alias `sensu-email-handler`. 
 `[ALIAS]` is required.
 
 Replace `[flags]` with the flags you want to use.
@@ -972,7 +965,6 @@ sensuctl command delete [ALIAS] [flags]
 {{< /highlight >}}
 
 Replace `[ALIAS]` with a unique `NAME` for the command.
-For example, for the [Sensu Go Email Handler Plugin][37], you might use the alias `sensu-email-handler`. 
 `[ALIAS]` is required.
 
 Replace `[flags]` with the flags you want to use.
@@ -1015,7 +1007,6 @@ Flags are optional and apply only to the `delete` command.
 [34]: https://bonsai.sensu.io/
 [35]: ../../reference/etcdreplicators/
 [36]: /images/sensu-influxdb-handler-namespace.png
-[37]: https://bonsai.sensu.io/assets/sensu/sensu-email-handler/
 [38]: #environment-variables
 [39]: #wrapped-json-format
 [40]: ../../installation/install-sensu/#3-initialize
