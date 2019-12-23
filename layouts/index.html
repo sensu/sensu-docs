@@ -6,31 +6,51 @@
   {{ .Scratch.Set "repo_id" $repo_id }}
 {{ end }}
 
-{{ partial "header" . }}
+<header>
+  {{ partial "header" . }}
+</header>
 
 <!-- Main content -->
 <main>
   {{ partial "drawer" . }}
 
   <div class="product-grid">
-    {{ range sort .Site.Params.Products "weight" }}
-      {{ $.Scratch.Set "url" "" }}
-      {{ $.Scratch.Set "url" (printf "/%s/%s/" .identifier (cond (eq $.Hugo.Environment "development") .latest "latest")) }}
-      {{ $url := $.Scratch.Get "url" }}
-      <a class="product-grid--product product-grid--product-{{ .identifier }}" href="{{ $url }}">
-        <div class="product-grid--product--title">{{ .name }}</div>
+      <a class="product-grid--product product-grid--product-sensu-go" href="./sensu-go/latest">
+        <div class="product-grid--product--title">Sensu Go</div>
         <div class="product-grid--product--description">
-          {{ .description }}
+          The next-generation monitoring event pipeline
         </div>
-        {{ if .notice }}
-        <br>
-        <br>
-        <div class="product-grid--product--notice">
-          {{ .notice }}
-        </div>
-        {{ end }}
       </a>
-    {{ end }}
+      <a class="product-grid--product product-grid--product-sensu-core" href="https://bonsai.sensu.io/">
+        <div class="product-grid--product--title">Bonsai</div>
+        <div class="product-grid--product--description">
+          Discover and share assets for all your monitoring needs
+        </div>
+      </a>
+      <a class="product-grid--product product-grid--product-sensu-enterprise" href="./sensu-enterprise/latest">
+        <div class="product-grid--product--title">Sensu Enterprise</div>
+        <div class="product-grid--product--description">
+          The powerful and simple monitoring product, built on Sensu Core
+        </div>
+      </a>
+      <a class="product-grid--product product-grid--product-sensu-enterprise-dashboard" href="./sensu-enterprise-dashboard/latest">
+        <div class="product-grid--product--title">Sensu Enterprise Dashboard</div>
+        <div class="product-grid--product--description">
+          The dashboard for Sensu Enterprise, built on Uchiwa
+        </div>
+      </a>
+      <a class="product-grid--product product-grid--product-uchiwa" href="https://discourse.sensu.io/">
+        <div class="product-grid--product--title">Discourse</div>
+        <div class="product-grid--product--description">
+          Sensu community forum
+        </div>
+      </a>
+      <a class="product-grid--product product-grid--product-plugins" href="./plugins/latest">
+        <div class="product-grid--product--title">Plugins</div>
+        <div class="product-grid--product--description">
+          Checks, handlers, and other plugins to power your Sensu deployment
+        </div>
+      </a>
   </div>
 </main>
 </div>
