@@ -7,7 +7,7 @@
             "url": "heroku/nodejs"
         },
         {
-            "url": "https://github.com/sensu/heroku-buildpack-static"
+            "url": "https://github.com/sensu/heroku-buildpack-static.git"
         }
       ]
 }
