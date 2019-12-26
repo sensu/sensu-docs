@@ -1,0 +1,13 @@
+{
+    "name": "sensu-docs",
+    "description": "Documentation for Sensu Inc. software products",
+    "website": "https://docs.sensu.io",
+    "buildpacks": [
+        {
+            "url": ""heroku/nodejs""
+        },
+        {
+            "url": "https://github.com/sensu/heroku-buildpack-static"
+        }
+      ]
+}
