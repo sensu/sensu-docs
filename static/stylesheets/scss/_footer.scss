@@ -36,6 +36,24 @@
     }
   }
 
+  .register img {
+    float: left;
+    height: 120px;
+    text-align: center;
+  }
+
+  .register h3 {
+    position: relative;
+    top: 18px;
+    left: 10px;
+  }
+
+  .register p {
+    position: relative;
+    top: 18px;
+    left: 10px;
+  }
+
   .footer--content--left {
     flex: 0 0 100%;
     padding: 0 2rem;
