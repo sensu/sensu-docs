@@ -22,6 +22,10 @@
     <meta name="author" content="{{ . }}">
     {{ end }}
 
+    {{ if isset .Page.Params "product" }}
+      <meta name="docsearch:version" content="{{ .Page.Params.version }}" />
+    {{ end}}
+
     <meta name="twitter:card" content="summary">
     <meta property="og:url" content="{{ .Permalink }}">
     <meta property="og:site_name" content="Sensu Docs">
