@@ -1,13 +1,14 @@
 <!--- Provide a general summary of the issue in the Title above -->
 
-<!--- Use the labels feature to add one or more labels to categorize this issue: -->
-<!---   bug (bug in site build, layout, or functionality) -->
-<!---   errata (error in doc content) -->
-<!---   new doc (requires a completely new doc) -->
-<!---   new feature (document a new feature in existing doc) -->
-<!---   update (add missing or refresh existing content) -->
-<!---   enhancement (add new or updated site functionality) -->
-<!---   improvement (improve docs content or format) -->
+This is an issue with:
+
+- [ ] bug (bug in site build, layout, or functionality)
+- [ ] errata (error in doc content)
+- [ ] new doc (requires a completely new doc)
+- [ ] new feature (document a new feature in existing doc)
+- [ ] update (add missing or refresh existing content)
+- [ ] enhancement (add new or updated site functionality)
+- [ ] improvement (improve docs content or format)
 
 ## Expected Behavior
 <!--- If describing a bug, tell us what should happen -->
