@@ -10,4 +10,4 @@ menu:
     identifier: filters
 ---
 
-{{< directoryListing "content/sensu-enterprise/3.2/filters" >}}
+{{< directoryListing >}}

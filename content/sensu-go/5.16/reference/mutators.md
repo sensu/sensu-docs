@@ -1,8 +1,8 @@
 ---
 title: "Mutators"
-description: "As part of the event pipeline, mutators let you transform event data prior to being handled. Read the reference doc to learn about mutators."
+description: "As part of the event pipeline, mutators let you transform event data before applying handlers. Read the reference doc to learn about mutators."
 product: "Sensu Go"
-weight: 10
+weight: 130
 version: "5.16"
 platformContent: False 
 menu:
@@ -10,53 +10,43 @@ menu:
     parent: reference
 ---
 
+- [Commands](#commands)
 - [Built-in mutators](#built-in-mutators)
-- [Specification](#mutator-specification)
+- [Mutator specification](#mutator-specification)
+  - [Top-level attributes](#top-level-attributes) | [Metadata attributes](#metadata-attributes) | [Spec attributes](#spec-attributes)
 - [Examples](#examples)
 
-## How do mutators work?
-A handler can specify a mutator to transform event data. Mutators are executed 
-prior to the execution of a handler. If the mutator executes successfully, the modified event 
-data is returned to the handler, and the handler is then executed. If the mutator 
-fails to execute, an error will be logged, and the handler will not be executed.
+Handlers can specify a mutator to execute and transform event data before any handlers are applied.
 
-* When the Sensu backend processes an event, it will check the handler for the
-  presence of a mutator, and execute that mutator before executing the handler. 
-* If the mutator executes successfully (it returns an exit status code of 0), modified
-  event data is provided to the handler, and the handler is executed.
-* If the mutator fails to execute (it returns a non-zero exit status code, or
-  fails to complete within its configured timeout), an error will be logged and
-  the handler will not execute.
+* When the Sensu backend processes an event, it checks the handler for the presence of a mutator and executes that mutator before executing the handler.
+* If the mutator executes successfully (returns an exit status code of `0`), the modified event data return to the handler and the handler is executed.
+* If the mutator fails to execute (returns a non-zero exit status code or fails to complete within its configured timeout), an error is logged and the handler will not execute.
 
-## Mutator specification
-* Accepts input/data via `STDIN`
-* Able to parse JSON event data
-* Outputs JSON data (modified event data) to `STDOUT` or `STDERR`
-* Produces an exit status code to indicate state:
-  * `0` indicates OK status
-  * exit codes other than `0` indicate failure
+## Commands
 
-### Commands
-Each Sensu mutator definition defines a command to be executed. Mutator commands are executable commands which will be executed on a Sensu backend, run as the `sensu user`. Most mutator commands are provided by Sensu Plugins.
+Each Sensu mutator definition defines a command to be executed.
+Mutator commands are executable commands that will be executed on a Sensu backend, run as the `sensu user`.
+Most mutator commands are provided by [Sensu plugins][4].
 
-Sensu mutator `command` attributes may include command line arguments for
-controlling the behavior of the `command` executable. Many Sensu mutator plugins
-provide support for command line arguments for reusability.
+Sensu mutator `command` attributes may include command line arguments for controlling the behavior of the `command` executable.
+Many Sensu mutator plugins provide support for command line arguments for reusability.
 
-### How and where are mutator commands executed?
-As mentioned above, all mutator commands are executed by a Sensu backend as the `sensu` user. Commands must be executable files that are discoverable on the Sensu backend system (installed in a system `$PATH` directory).
+All mutator commands are executed by a Sensu backend as the `sensu` user.
+Commands must be executable files that are discoverable on the Sensu backend system (installed in a system `$PATH` directory).
 
-_NOTE: By default, the Sensu installer packages will modify the system `$PATH` for the Sensu processes to include `/etc/sensu/plugins`. As a result, executable scripts (like plugins) located in `/etc/sensu/plugins` will be valid commands. This allows `command` attributes to use “relative paths” for Sensu plugin commands, for example: `"command": "check-http.go -u https://sensuapp.org"`._
+_**NOTE**: By default, Sensu installer packages will modify the system `$PATH` for the Sensu processes to include `/etc/sensu/plugins`. As a result, executable scripts (like plugins) located in `/etc/sensu/plugins` will be valid commands. This allows `command` attributes to use “relative paths” for Sensu plugin commands (for example, `"command": "check-http.go -u https://sensuapp.org"`)._
 
 ## Built-in mutators
 
 Sensu includes built-in mutators to help you customize event pipelines for metrics and alerts.
 
-### Built-in mutator: only check output
+### Built-in mutator: only_check_output
 
-To process an event, some handlers require only the check output, not the entire event definition. For example, when sending metrics to Graphite using a TCP handler, Graphite expects data that follows the Graphite plaintext protocol. By using the built-in `only_check_output` mutator, Sensu reduces the event to only the check output, so it can be accepted by Graphite.
+To process an event, some handlers require only the check output, not the entire event definition.
+For example, when sending metrics to Graphite using a TCP handler, Graphite expects data that follows the Graphite plaintext protocol.
+By using the built-in `only_check_output` mutator, Sensu reduces the event to only the check output so Graphite can accept it.
 
-To use the only check output mutator, include the `only_check_output` mutator in the handler configuration `mutator` string:
+To use only check output, include the `only_check_output` mutator in the handler configuration `mutator` string:
 
 {{< language-toggle >}}
 
@@ -95,28 +85,37 @@ spec:
 
 {{< /language-toggle >}}
 
-## Mutators specification
+## Mutator specification
+
+Mutators:
+
+* Accept input/data via `STDIN`
+* Can parse JSON event data
+* Output JSON data (modified event data) to `STDOUT` or `STDERR`
+* Produce an exit status code to indicate state:
+  * `0` indicates OK status
+  * exit codes other than `0` indicate failure
 
 ### Top-level attributes
 
 type         | 
 -------------|------
-description  | Top-level attribute specifying the [`sensuctl create`][sc] resource type. Mutators should always be of type `Mutator`.
+description  | Top-level attribute that specifies the [`sensuctl create`][sc] resource type. Mutators should always be type `Mutator`.
 required     | Required for mutator definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][sc].
 type         | String
 example      | {{< highlight shell >}}"type": "Mutator"{{< /highlight >}}
 
 api_version  | 
 -------------|------
-description  | Top-level attribute specifying the Sensu API group and version. For mutators in this version of Sensu, this attribute should always be `core/v2`.
+description  | Top-level attribute that specifies the Sensu API group and version. For mutators in this version of Sensu, the `api_version` should always be `core/v2`.
 required     | Required for mutator definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][sc].
 type         | String
 example      | {{< highlight shell >}}"api_version": "core/v2"{{< /highlight >}}
 
 metadata     | 
 -------------|------
-description  | Top-level collection of metadata about the mutator, including the `name` and `namespace` as well as custom `labels` and `annotations`. The `metadata` map is always at the top level of the mutator definition. This means that in `wrapped-json` and `yaml` formats, the `metadata` scope occurs outside the `spec` scope.  See the [metadata attributes reference][2] for details.
-required     | Required for mutator definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][sc].
+description  | Top-level collection of metadata about the mutator that includes the `name` and `namespace` as well as custom `labels` and `annotations`. The `metadata` map is always at the top level of the mutator definition. This means that in `wrapped-json` and `yaml` formats, the `metadata` scope occurs outside the `spec` scope. See the [metadata attributes reference][2] for details.
+required     | Required for mutator definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][5].
 type         | Map of key-value pairs
 example      | {{< highlight shell >}}
 "metadata": {
@@ -133,8 +132,8 @@ example      | {{< highlight shell >}}
 
 spec         | 
 -------------|------
-description  | Top-level map that includes the mutator [spec attributes][sp].
-required     | Required for mutator definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][sc].
+description  | Top-level map that includes the mutator [spec attributes][6].
+required     | Required for mutator definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][5].
 type         | Map of key-value pairs
 example      | {{< highlight shell >}}
 "spec": {
@@ -145,48 +144,18 @@ example      | {{< highlight shell >}}
 }
 {{< /highlight >}}
 
-### Spec attributes
-
-command      | 
--------------|------ 
-description  | The mutator command to be executed by the Sensu backend. 
-required     | true
-type         | String
-example      | {{< highlight shell >}}"command": "/etc/sensu/plugins/mutated.go"{{</highlight>}}
-
-env_vars      | 
--------------|------
-description  | An array of environment variables to use with command execution.
-required     | false
-type         | Array
-example      | {{< highlight shell >}}"env_vars": ["RUBY_VERSION=2.5.0"]{{< /highlight >}}
-
-timeout      | 
--------------|------ 
-description  | The mutator execution duration timeout in seconds (hard stop). 
-required     | false 
-type         | integer 
-example      | {{< highlight shell >}}"timeout": 30{{</highlight>}}
-
-runtime_assets | 
----------------|------
-description    | An array of [Sensu assets][1] (names), required at runtime for the execution of the `command`
-required       | false
-type           | Array
-example        | {{< highlight shell >}}"runtime_assets": ["ruby-2.5.0"]{{< /highlight >}}
-
 ### Metadata attributes
 
 | name       |      |
 -------------|------
-description  | A unique string used to identify the mutator. Mutator names cannot contain special characters or spaces (validated with Go regex [`\A[\w\.\-]+\z`](https://regex101.com/r/zo9mQU/2)). Each mutator must have a unique name within its namespace.
+description  | Unique string used to identify the mutator. Mutator names cannot contain special characters or spaces (validated with Go regex [`\A[\w\.\-]+\z`][7]). Each mutator must have a unique name within its namespace.
 required     | true
 type         | String
 example      | {{< highlight shell >}}"name": "example-mutator"{{< /highlight >}}
 
 | namespace  |      |
 -------------|------
-description  | The Sensu [RBAC namespace][3] that this mutator belongs to.
+description  | Sensu [RBAC namespace][3] that the mutator belongs to.
 required     | false
 type         | String
 default      | `default`
@@ -194,9 +163,9 @@ example      | {{< highlight shell >}}"namespace": "production"{{< /highlight >}
 
 | labels     |      |
 -------------|------
-description  | Custom attributes you can use to create meaningful collections that can be selected with [API filtering][api-filter] and [sensuctl filtering][sensuctl-filter]. Overusing labels can impact Sensu's internal performance, so we recommend moving complex, non-identifying metadata to annotations.
+description  | Custom attributes you can use to create meaningful collections that you can select with [API response filtering][8] and [sensuctl response filtering][9]. Overusing labels can affect Sensu's internal performance, so we recommend moving complex, non-identifying metadata to annotations.
 required     | false
-type         | Map of key-value pairs. Keys can contain only letters, numbers, and underscores, but must start with a letter. Values can be any valid UTF-8 string.
+type         | Map of key-value pairs. Keys can contain only letters, numbers, and underscores and must start with a letter. Values can be any valid UTF-8 string.
 default      | `null`
 example      | {{< highlight shell >}}"labels": {
   "environment": "development",
@@ -205,7 +174,7 @@ example      | {{< highlight shell >}}"labels": {
 
 | annotations | |
 -------------|------
-description  | Non-identifying metadata that's meaningful to people or external tools interacting with Sensu.<br><br>In contrast to labels, annotations cannot be used in [API filtering][api-filter] or [sensuctl filtering][sensuctl-filter] and do not impact Sensu's internal performance.
+description  | Non-identifying metadata that's meaningful to people or external tools that interact with Sensu.<br><br>In contrast to labels, you cannot use annotations in [API response filtering][8] or [sensuctl response filtering][9], and annotations do not affect Sensu's internal performance.
 required     | false
 type         | Map of key-value pairs. Keys and values can be any valid UTF-8 string.
 default      | `null`
@@ -214,12 +183,42 @@ example      | {{< highlight shell >}} "annotations": {
   "playbook": "www.example.url"
 }{{< /highlight >}}
 
+### Spec attributes
+
+command      | 
+-------------|------ 
+description  | Mutator command to be executed by the Sensu backend. 
+required     | true
+type         | String
+example      | {{< highlight shell >}}"command": "/etc/sensu/plugins/mutated.go"{{</highlight>}}
+
+env_vars      | 
+-------------|------
+description  | Array of environment variables to use with command execution.
+required     | false
+type         | Array
+example      | {{< highlight shell >}}"env_vars": ["RUBY_VERSION=2.5.0"]{{< /highlight >}}
+
+timeout      | 
+-------------|------ 
+description  | Mutator execution duration timeout (hard stop). In seconds.
+required     | false 
+type         | integer 
+example      | {{< highlight shell >}}"timeout": 30{{</highlight>}}
+
+runtime_assets | 
+---------------|------
+description    | Array of [Sensu assets][1] (by their names) required at runtime for execution of the `command`.
+required       | false
+type           | Array
+example        | {{< highlight shell >}}"runtime_assets": ["ruby-2.5.0"]{{< /highlight >}}
+
 ## Examples
 
-The following Sensu mutator definition uses an imaginary Sensu plugin called `example_mutator.go`
-to modify event data prior to handling the event.
+### Example mutator definition
 
-### Mutator definition
+The following Sensu mutator definition uses an imaginary Sensu plugin, `example_mutator.go`, to modify event data prior to handling the event.
+
 {{< language-toggle >}}
 
 {{< highlight yml >}}
@@ -288,10 +287,12 @@ spec:
 
 {{< /language-toggle >}}
 
-[1]: ../assets
+[1]: ../assets/
 [2]: #metadata-attributes
 [3]: ../rbac#namespaces
-[sc]: ../../sensuctl/reference#creating-resources
-[sp]: #spec-attributes
-[api-filter]: ../../api/overview#filtering
-[sensuctl-filter]: ../../sensuctl/reference#filtering
+[4]: ../../guides/install-check-executables-with-assets/
+[5]: ../../sensuctl/reference#create-resources
+[6]: #spec-attributes
+[7]: https://regex101.com/r/zo9mQU/2
+[8]: ../../api/overview#response-filtering
+[9]: ../../sensuctl/reference#response-filters

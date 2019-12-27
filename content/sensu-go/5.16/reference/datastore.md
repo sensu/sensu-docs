@@ -1,7 +1,7 @@
 ---
 title: "Datastore"
-description: "Sensu stores the most recent event for each entity and check pair using an embedded etcd (default) or an external etcd instance. Sensu also supports using an external PostgreSQL instance for event storage in place of etcd (commercial feature). Read the reference to configure enterprise-scale event storage using PostgreSQL."
-weight: 10
+description: "Sensu stores the most recent event for each entity and check pair using an embedded etcd or an external etcd instance. Sensu also supports using an external PostgreSQL instance for event storage in place of etcd (commercial feature). Read the reference to configure enterprise-scale event storage using PostgreSQL."
+weight: 60
 version: "5.16"
 product: "Sensu Go"
 menu:
@@ -10,25 +10,27 @@ menu:
 ---
 
 - [Event storage](#event-storage)
-- [Scaling event storage](#scaling-event-storage) (commercial feature)
+- [Scale event storage](#scale-event-storage) (commercial feature)
   - [Requirements](#requirements)
   - [Configuration](#configuration)
-  - [Specification](#specification)
+  - [Datastore specification](#datastore-specification)
 
 ## Event storage
 
-Sensu stores the most recent event for each entity and check pair using an embedded etcd (default) or an [external etcd][8] instance.
-You can access event data using the [dashboard][9] events page, [`sensuctl event` commands][10], and the [events API][11].
-For longer retention of event data, we recommend integrating Sensu with a time series database, like [InfluxDB][12], or a searchable index, like ElasticSearch or Splunk.
+Sensu stores the most recent event for each entity and check pair using either an embedded etcd (default) or an [external etcd][8] instance.
+You can access event data with the [Sensu dashboard][9] Events page, [`sensuctl event` commands][10], and the [events API][11].
+For longer retention of event data, integrate Sensu with a time series database like [InfluxDB][12] or a searchable index like ElasticSearch or Splunk.
 
-## Scaling event storage
+## Scale event storage
 
-**COMMERCIAL FEATURE**: Access enterprise-scale event storage in the packaged Sensu Go distribution. For more information, see the [getting started guide][13].
+**COMMERCIAL FEATURE**: Access enterprise-scale event storage in the packaged Sensu Go distribution.
+For more information, see [Get started with commercial features][13].
 
 Sensu supports using an external PostgreSQL instance for event storage in place of etcd.
-PostgreSQL can handle significantly higher volumes of Sensu events, letting you scale Sensu beyond etcd's 8GB limit.
+PostgreSQL can handle significantly higher volumes of Sensu events, which allows you to scale Sensu beyond etcd's 8-GB limit.
 
-Configured with a PostgreSQL event store, Sensu connects to PostgreSQL to store and retrieve event data in place of etcd, while etcd continues to store Sensu entity and configuration data.
+When configured with a PostgreSQL event store, Sensu connects to PostgreSQL to store and retrieve event data in place of etcd.
+Etcd continues to store Sensu entity and configuration data.
 You can access event data stored in PostgreSQL using the same Sensu web UI, API, and sensuctl processes as etcd-stored events.
 
 ### Requirements
@@ -38,10 +40,12 @@ See the [PostgreSQL docs][14] to install and configure PostgreSQL.
 
 ### Configuration
 
-At the time of enabling the PostgreSQL event store, event data cuts over from etcd to PostgreSQL, resulting in a loss of recent event history.
+At the time when you enable the PostgreSQL event store, event data cuts over from etcd to PostgreSQL.
+This results in a loss of recent event history.
 No restarts or Sensu backend configuration changes are required to enable the PostgreSQL event store.
 
-After installing and configuring PostgreSQL, configure Sensu by creating a `PostgresConfig` resource. See the [specification](#specification) for more information.
+After you install and configure PostgreSQL, configure Sensu by creating a `PostgresConfig` resource.
+See [Datastore specification][18] for more information.
 
 {{< language-toggle >}}
 
@@ -71,16 +75,16 @@ spec:
 
 {{< /language-toggle >}}
 
-With the `PostgresConfig` resource definition saved to a file (for example: postgres.yml), use sensuctl, [configured as the admin user][1], to activate the PostgreSQL event store.
+With the `PostgresConfig` resource definition saved to a file (for example, `postgres.yml`), use sensuctl, [configured as the admin user][1], to activate the PostgreSQL event store.
 
 {{< highlight shell >}}
 sensuctl create --file postgres.yml
 {{< /highlight >}}
 
-To update your Sensu PostgreSQL configuration, repeat the `sensuctl create` process shown above.
-You can expect to see PostgreSQL status updates and error messages in the [Sensu backend logs][2] at the `warn` and `error` log levels, respectively.
+To update your Sensu PostgreSQL configuration, repeat the `sensuctl create` process.
+You can expect to see PostgreSQL status updates in the [Sensu backend logs][2] at the `warn` log level and PostgreSQL error messages in the [Sensu backend logs][2] at the `error` log level.
 
-#### Disabling the PostgreSQL event store
+#### Disable the PostgreSQL event store
 
 To disable the PostgreSQL event store, use `sensuctl delete` with your `PostgresConfig` resource definition:
 
@@ -88,30 +92,30 @@ To disable the PostgreSQL event store, use `sensuctl delete` with your `Postgres
 sensuctl delete --file postgres.yml
 {{< /highlight >}}
 
-When disabling the PostgreSQL event store, event data cuts over from PostgreSQL to etcd, resulting in a loss of recent event history.
+When you disable the PostgreSQL event store, event data cuts over from PostgreSQL to etcd, which results in a loss of recent event history.
 No restarts or Sensu backend configuration changes are required to disable the PostgreSQL event store.
 
-### Specification
+### Datastore specification
 
 #### Top-level attributes
 
 type         |      |
 -------------|------
-description  | Top-level attribute specifying the [`sensuctl create`][sc] resource type. PostgreSQL datastore configs should always be of type `PostgresConfig`.
+description  | Top-level attribute that specifies the [`sensuctl create`][16] resource type. PostgreSQL datastore configs should always be type `PostgresConfig`.
 required     | true
 type         | String
 example      | {{< highlight shell >}}type: PostgresConfig{{< /highlight >}}
 
 api_version  |      |
 -------------|------
-description  | Top-level attribute specifying the Sensu API group and version. For PostgreSQL datastore configs, this attribute should be `store/v1`.
+description  | Top-level attribute that specifies the Sensu API group and version. For PostgreSQL datastore configs, the `api_version` should be `store/v1`.
 required     | true
 type         | String
 example      | {{< highlight shell >}}api_version: store/v1{{< /highlight >}}
 
 metadata     |      |
 -------------|------
-description  | Top-level scope containing the PostgreSQL datastore `name`.
+description  | Top-level scope that contains the PostgreSQL datastore `name`.
 required     | true
 type         | Map of key-value pairs
 example      | {{< highlight shell >}}
@@ -121,7 +125,7 @@ metadata:
 
 spec         |      |
 -------------|------
-description  | Top-level map that includes the PostgreSQL datastore config [spec attributes][sp].
+description  | Top-level map that includes the PostgreSQL datastore config [spec attributes][17].
 required     | true
 type         | Map of key-value pairs
 example      | {{< highlight shell >}}
@@ -134,7 +138,7 @@ spec:
 
 name         |      |
 -------------|------
-description  | The PostgreSQL datastore name used internally by Sensu
+description  | PostgreSQL datastore name used internally by Sensu.
 required     | true
 type         | String
 example      | {{< highlight shell >}}name: my-postgres{{< /highlight >}}
@@ -143,30 +147,30 @@ example      | {{< highlight shell >}}name: my-postgres{{< /highlight >}}
 
 dsn          |      |
 -------------|------
-description  | Use the `dsn` attribute to specify the data source names as a URL or PostgreSQL connection string. See the [PostgreSQL docs][15] for more information about connection strings.
+description  | Data source names. Specified as a URL or PostgreSQL connection string. See the [PostgreSQL docs][15] for more information about connection strings.
 required     | true
 type         | String
 example      | {{< highlight shell >}}dsn: "postgresql://user:secret@host:port/dbname"{{< /highlight >}}
 
 pool_size    |      |
 -------------|------
-description  | The maximum number of connections to hold in the PostgreSQL connection pool. We recommend `20` for most instances. 
+description  | Maximum number of connections to hold in the PostgreSQL connection pool. We recommend `20` for most instances. 
 required     | false
 default      | `0` (unlimited)
 type         | Integer
 example      | {{< highlight shell >}}pool_size: 20{{< /highlight >}}
 
 [1]: ../../sensuctl/reference/#first-time-setup
-[2]: ../../guides/troubleshooting
+[2]: ../../guides/troubleshooting/
 [3]: https://aws.amazon.com/rds/
-[4]: https://discourse.sensu.io/c/announcements
-[8]: ../../guides/clustering/#using-an-external-etcd-cluster
-[9]: ../../dashboard/overview
+[8]: ../../guides/clustering/#use-an-external-etcd-cluster
+[9]: ../../dashboard/overview/
 [10]: ../../sensuctl/reference/#sensuctl-event
-[11]: ../../api/events
-[12]: ../../guides/influx-db-metric-handler
-[13]: ../../getting-started/enterprise
+[11]: ../../api/events/
+[12]: ../../guides/influx-db-metric-handler/
+[13]: ../../getting-started/enterprise/
 [14]: https://www.postgresql.org
 [15]: https://www.postgresql.org/docs/current/libpq-connect.html#LIBPQ-CONNSTRING
-[sc]: ../../sensuctl/reference#creating-resources
-[sp]: #spec-attributes
+[16]: ../../sensuctl/reference#create-resources
+[17]: #spec-attributes
+[18]: #datastore-specification

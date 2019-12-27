@@ -50,7 +50,7 @@ disableKinds = ["taxonomy", "taxonomyTerm"]
     description = "The next-generation monitoring event pipeline"
     notice = "Replaces Sensu Core and Enterprise"
     weight = 1
-    latest = "5.15"
+    latest = "5.16"
 
     [[params.products.sensu_go.versions]]
     version = "5.16"
@@ -68,17 +68,20 @@ disableKinds = ["taxonomy", "taxonomyTerm"]
     version = "5.13"
     platforms = []
 
-    [[params.products.sensu_go.versions]]
-    version = "5.12"
-    platforms = []
-
   [params.products.sensu_core]
     identifier = "sensu-core"
     name = "Sensu Core"
     description = "The original monitoring event pipeline"
     notice = "End of life: December 31, 2019"
     weight = 2
-    latest = "1.8"
+    latest = "1.9"
+
+    [[params.products.sensu_core.versions]]
+    version = "1.9"
+    platforms = [
+      "Ubuntu/Debian",
+      "RHEL/CentOS"
+    ]
 
     [[params.products.sensu_core.versions]]
     version = "1.8"
@@ -157,6 +160,13 @@ disableKinds = ["taxonomy", "taxonomyTerm"]
     notice = "End of life: March 31, 2020"
     weight = 3
     latest = "3.6"
+
+    [[params.products.sensu_enterprise.versions]]
+    version = "3.7"
+    platforms = [
+      "Ubuntu/Debian",
+      "RHEL/CentOS"
+    ]
 
     [[params.products.sensu_enterprise.versions]]
     version = "3.6"

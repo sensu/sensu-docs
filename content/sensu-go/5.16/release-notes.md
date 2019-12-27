@@ -7,6 +7,8 @@ version: "5.16"
 menu: "sensu-go-5.16"
 ---
 
+- [5.16.1 release notes](#5-16-1-release-notes)
+- [5.16.0 release notes](#5-16-0-release-notes)
 - [5.15.0 release notes](#5-15-0-release-notes)
 - [5.14.2 release notes](#5-14-2-release-notes)
 - [5.14.1 release notes](#5-14-1-release-notes)
@@ -47,6 +49,68 @@ PATCH versions include backward-compatible bug fixes.
 Read the [upgrade guide][1] for information about upgrading to the latest version of Sensu Go.
 
 ---
+
+## 5.16.1 release notes
+
+**December 18, 2019** &mdash; The latest release of Sensu Go, version 5.16.1, is now available for download.
+This release fixes a performance regression that caused API latency to scale linearly as the number of connected agents increased and includes a change to display the `sensu_go_events_processed` Prometheus counter by default.
+
+See the [upgrade guide][1] to upgrade Sensu to version 5.16.1.
+
+**IMPROVEMENTS**
+
+- The `sensu_go_events_processed` Prometheus counter now initializes with the `success` label so the count is always displayed.
+
+**FIXES:**
+
+- The performance regression introduced in 5.15.0 that caused API latency to scale linearly as the number of connected agents increased is fixed.
+
+## 5.16.0 release notes
+
+**December 16, 2019** &mdash; The latest release of Sensu Go, version 5.16.0, is now available for download.
+This is another important release, with many new features, improvements, and fixes.
+We introduced an initialization subcommand for **new** installations that allows you to specify an admin username and password instead of using a pre-defined default.
+We also added new backend flags to help you take advantage of etcd auto-discovery features and agent flags you can use to define a timeout period for critical and warning keepalive events.
+
+New web UI features include a switcher that makes it easier to switch between namespaces in the dashboard, breadcrumbs on every page, OIDC authentication in the dashboard, a drawer that replaces the app bar to make more room for content, and more.
+
+We also fixed issues with `sensuctl dump` and `sensuctl cluster health`, installing sensuctl commands via Bonsai, and missing namespaces in keepalive events and events created through the agent socket interface.
+
+See the [upgrade guide][1] to upgrade Sensu to version 5.16.0.
+
+**IMPORTANT:**
+
+- The backend is no longer seeded with a default admin username and password.
+Users will need to [run 'sensu-backend init'][102] on every new installation and specify an admin username and password.
+
+**NEW FEATURES:**
+
+- ([Commercial feature][105]) Users can now authenticate with OIDC in the dashboard.
+- ([Commercial feature][105]) Label selectors now match the event's check and entity labels.
+- Added a new flag,`--etcd-client-urls`, which should be used with sensu-backend when it is not operating as an etcd member.
+The flag is also used by the new `sensu-backend init` subcommand.
+- Added the ['sensu-backend init' subcommand][102].
+- Added the [`--etcd-discovery`][100] and [`--etcd-discovery-srv`][100] flags to sensu-backend, which allow users to take advantage of the embedded etcd's auto-discovery features.
+- Added [`--keepalive-critical-timeout`][101] to define the time after which a critical keepalive event should be created for an agent and [`--keepalive-warning-timeout`][101], which is an alias of `--keepalive-timeout` for backward compatibility.
+
+**IMPROVEMENTS:**
+
+- ([Commercial feature][105]) The entity limit warning message is now displayed less aggressively and the warning threshold is proportional to the entity limit.
+- A new switcher in the [web UI][103] makes it easier to switch namespaces in the dashboard.
+Access the new component from the drawer or with the shortcut ctrl+k.
+For users who have many namespaces, the switcher now includes fuzzy search and improved keyboard navigation.
+- In the [web UI][103], replaced the app bar with an omnipresent drawer to increase the available space for content. Each page also now includes breadcrumbs.
+- In the [Sensu documentation][104], links now point to the version of the product being run instead of the latest, which may be helpful when running an older version of Sensu.
+
+**FIXES:**
+
+- `sensuctl dump` help now shows the correct default value for the format flag.
+- Installing sensuctl commands via Bonsai will now check for correct labels before checking if the asset has 1 or more builds.
+- Listing assets with no results now returns an empty array.
+- Fixed a panic that could occur when creating resources in a namespace that does not exist.
+- Fixed an issue where keepalive events and events created through the agent's socket interface could be missing a namespace.
+- Fixed an issue that could cause 'sensuctl cluster health' to hang indefinitely.
+- ([Commercial feature][105]) The `agent.yml.example` file shipped with Sensu Agent for Windows packages now uses DOS-style line endings.
 
 ## 5.15.0 release notes
 
@@ -112,7 +176,6 @@ See the [upgrade guide][1] to upgrade Sensu to version 5.14.2.
 - Check TTL and keepalive switches are now correctly buried when associated events and entities are deleted.
 As a result, Sensu now uses far fewer leases for check TTLs and keepalives, which improves stability for most deployments.
 - Corrected a minor UX issue in interactive filter commands in sensuctl.
-
 
 ## 5.14.1 release notes
 
@@ -903,4 +966,9 @@ To get started with Sensu Go:
 [97]: https://bonsai.sensu.io/assets/sensu/sensu-servicenow-handler/
 [98]: https://bonsai.sensu.io/assets/sensu/sensu-jira-handler/
 [99]: /sensu-go/5.2/getting-started/enterprise/
-
+[100]: /sensu-go/5.16/reference/backend/#datastore-and-cluster-configuration-flags
+[101]: /sensu-go/5.16/reference/agent/#keepalive-configuration-flags
+[102]: /sensu-go/5.16/reference/backend/#initialization
+[103]: /sensu-go/5.16/dashboard/overview
+[104]: /sensu-go/5.16/
+[105]: /sensu-go/5.16/getting-started/enterprise/

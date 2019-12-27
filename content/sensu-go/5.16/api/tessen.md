@@ -1,6 +1,6 @@
 ---
 title: "Tessen API"
-description: "The Tessen API provides HTTP access to manage Tessen configuration. Read on for the full reference."
+description: "The Sensu Tessen API provides HTTP access to manage Tessen configuration. Read on for the full reference."
 version: "5.16"
 product: "Sensu Go"
 menu:
@@ -14,22 +14,22 @@ menu:
 
 ## The `/tessen` API endpoints {#the-tessen-API-endpoints}
 
-The Tessen API provides HTTP access to manage [Tessen](../../reference/tessen) configuration.
-Access to the Tessen API is restricted to the default [`admin` user](../../reference/rbac#default-user).
+The Tessen API provides HTTP access to manage [Tessen][1] configuration.
+Access to the Tessen API is restricted to the default [`admin` user][2].
 
 ### `/tessen` (GET) {#tessen-get}
 
-The `/tessen` API endpoint provides HTTP GET access to Tessen configuration.
+The `/tessen` API endpoint provides HTTP GET access to the active Tessen configuration.
 
 #### EXAMPLE {#tessen-get-example}
 
-The following example demonstrates an HTTP GET request to the `/tessen` API.
+The following example demonstrates an HTTP GET request to the `/tessen` API endpoint.
 
 {{< highlight shell >}}
 curl -H "Authorization: Bearer $SENSU_TOKEN" http://127.0.0.1:8080/api/core/v2/tessen
 {{< /highlight >}}
 
-The request returns a 200 (OK) HTTP response code and a JSON map containing Tessen configuration, indicating that Tessen is enabled.
+The request returns an HTTP `200 OK` response and a JSON map that contains the active Tessen configuration, indicating that Tessen is enabled.
 
 {{< highlight shell >}}
 HTTP/1.1 200 OK
@@ -40,7 +40,7 @@ HTTP/1.1 200 OK
 
 /tessen (GET)  | 
 ---------------|------
-description    | Returns the active Tessen configuration. A response of `"opt_out": false` indicates that Tessen is enabled; a response of `"opt_out": true` indicates that Tessen is disabled.
+description    | Returns the active Tessen configuration. An `"opt_out": false` response indicates that Tessen is enabled. An `"opt_out": true` response indicates that Tessen is disabled.
 example url    | http://hostname:8080/api/core/v2/tessen
 response type  | Map
 response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
@@ -51,11 +51,11 @@ example output | {{< highlight shell >}}
 ### `/tessen` (PUT) {#tessen-put}
 
 The `/tessen` API endpoint provides HTTP PUT access to opt in to or opt out of Tessen.
-Tessen is enabled by default on Sensu backends and required for [licensed][4] Sensu instances.
+Tessen is enabled by default on Sensu backends and required for [licensed][3] Sensu instances.
 
 #### EXAMPLE {#tessen-put-example}
 
-In the following example, an HTTP PUT request is submitted to the `/tessen` API to opt in to Tessen using the `opt_out` attribute.
+In the following example, an HTTP PUT request is submitted to the `/tessen` API endpoint to opt in to Tessen using the `opt_out` attribute.
 
 {{< highlight shell >}}
 curl -X PUT \
@@ -65,7 +65,7 @@ curl -X PUT \
 http://127.0.0.1:8080/api/core/v2/tessen
 {{< /highlight >}}
 
-The request returns a 200 (OK) HTTP response code and the resulting Tessen configuration.
+The request returns an HTTP `200 OK` response and the resulting Tessen configuration.
 
 {{< highlight shell >}}
 HTTP/1.1 200 OK
@@ -76,9 +76,11 @@ HTTP/1.1 200 OK
 
 /tessen (PUT) | 
 ----------------|------
-description     | Updates Tessen configuration. [Licensed][4] Sensu instances override the `opt_out` attribute to `false` at runtime.
+description     | Updates the active Tessen configuration. [Licensed][3] Sensu instances override the `opt_out` attribute to `false` at runtime.
 example url     | http://hostname:8080/api/core/v2/tessen
-request parameters | `opt_out` (required): Set to `false` to enable Tessen; set to `true` to opt out of Tessen.
+request parameters | Required: `opt_out` (set to `false` to enable Tessen; set to `true` to opt out of Tessen).
 response codes   | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
-[4]: ../../reference/license
+[1]: ../../reference/tessen/
+[2]: ../../reference/rbac#default-users
+[3]: ../../reference/license
