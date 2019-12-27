@@ -177,6 +177,34 @@ output         | {{< highlight shell >}}
 
 The `/entities` API endpoint provides HTTP POST access to create a Sensu entity.
 
+#### EXAMPLE {#entities-post-example}
+
+In the following example, an HTTP POST request is submitted to the `/entities` API endpoint to create a proxy entity named `sensu-centos`.
+The request includes the entity definition in the request body and returns a successful `HTTP 201 Created` response.
+
+{{< highlight shell >}}
+curl -X POST \
+-H "Authorization: Bearer $SENSU_TOKEN" \
+-H 'Content-Type: application/json' \
+-d '{
+  "entity_class": "proxy",
+  "sensu_agent_version": "1.0.0",
+  "subscriptions": [
+    "web"
+  ],
+  "deregister": false,
+  "deregistration": {},
+  "metadata": {
+    "name": "sensu-centos",
+    "namespace": "default",
+    "labels": null,
+    "annotations": null
+}' \
+http://127.0.0.1:8080/api/core/v2/namespaces/default/entities
+
+HTTP/1.1 201 Created
+{{< /highlight >}}
+
 #### API Specification {#entities-post-specification}
 
 /entities (POST) | 
@@ -385,6 +413,36 @@ response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 
 
 The `/entities/:entity` API endpoint provides HTTP PUT access to create or update the specified Sensu entity.
 
+#### EXAMPLE {#entitiesentity-put-example}
+
+In the following example, an HTTP PUT request is submitted to the `/entities/:entity` API endpoint to update the entity named `sensu-centos`.
+The request includes the updated entity definition in the request body and returns a successful `HTTP 201 Created` response.
+
+{{< highlight shell >}}
+curl -X PUT \
+-H "Authorization: Bearer $SENSU_TOKEN" \
+-H 'Content-Type: application/json' \
+-d '{
+  "entity_class": "proxy",
+  "sensu_agent_version": "1.0.0",
+  "subscriptions": [
+    "web",
+    "system"
+  ],
+  "deregister": false,
+  "deregistration": {},
+  "metadata": {
+    "name": "sensu-centos",
+    "namespace": "default",
+    "labels": null,
+    "annotations": null
+  }
+}' \
+http://127.0.0.1:8080/api/core/v2/namespaces/default/entities/sensu-centos
+
+HTTP/1.1 201 Created
+{{< /highlight >}}
+
 #### API Specification {#entitiesentity-put-specification}
 
 /entities/:entity (PUT) | 
@@ -396,7 +454,8 @@ payload         | {{< highlight shell >}}
   "entity_class": "proxy",
   "sensu_agent_version": "1.0.0",
   "subscriptions": [
-    "web"
+    "web",
+    "system"
   ],
   "deregister": false,
   "deregistration": {},
