@@ -27,20 +27,30 @@ The `/filters` API endpoint provides HTTP GET access to [event filter][1] data.
 The following example demonstrates a request to the `/filters` API endpoint, resulting in a JSON array that contains [event filter definitions][1].
 
 {{< highlight shell >}}
-curl http://127.0.0.1:8080/api/core/v2/namespaces/default/filters -H "Authorization: Bearer $TOKEN"
+curl -X GET http://127.0.0.1:8080/api/core/v2/namespaces/default/filters
+-H "Authorization: Bearer $TOKEN"
 [
   {
     "metadata": {
+      "name": "development_filter",
+       "namespace": "default"
+    },
+    "action": "deny",
+    "expressions": [
+      "event.entity.metadata.namespace == 'production'"
+    ],
+    "runtime_assets": null
+  },
+  {
+    "metadata": {
       "name": "state_change_only",
-      "namespace": "default",
-      "labels": null,
-      "annotations": null
+      "namespace": "default"
     },
     "action": "allow",
     "expressions": [
       "event.check.occurrences == 1"
     ],
-    "runtime_assets": []
+    "runtime_assets": null
   }
 ]
 {{< /highlight >}}
@@ -58,29 +68,25 @@ output         | {{< highlight shell >}}
 [
   {
     "metadata": {
-      "name": "state_change_only",
-      "namespace": "default",
-      "labels": null,
-      "annotations": null
-    },
-    "action": "allow",
-    "expressions": [
-      "event.check.occurrences == 1"
-    ],
-    "runtime_assets": []
-  },
-  {
-    "metadata": {
       "name": "development_filter",
-      "namespace": "default",
-      "labels": null,
-      "annotations": null
+       "namespace": "default"
     },
     "action": "deny",
     "expressions": [
       "event.entity.metadata.namespace == 'production'"
     ],
-    "runtime_assets": []
+    "runtime_assets": null
+  },
+  {
+    "metadata": {
+      "name": "state_change_only",
+      "namespace": "default"
+    },
+    "action": "allow",
+    "expressions": [
+      "event.check.occurrences == 1"
+    ],
+    "runtime_assets": null
   }
 ]
 {{< /highlight >}}
@@ -88,6 +94,33 @@ output         | {{< highlight shell >}}
 ### `/filters` (POST)
 
 The `/filters` API endpoint provides HTTP POST access to create an event filter.
+
+#### EXAMPLE {#filters-post-example}
+
+In the following example, an HTTP POST request is submitted to the `/filters` API endpoint to create the event filter `development_filter`.
+The request returns a successful HTTP `201 Created` response.
+
+{{< highlight shell >}}
+curl -X POST \
+-H "Authorization: Bearer $SENSU_TOKEN" \
+-H 'Content-Type: application/json' \
+-d '{
+  "metadata": {
+    "name": "development_filter",
+    "namespace": "default",
+    "labels": null,
+    "annotations": null
+  },
+  "action": "deny",
+  "expressions": [
+    "event.entity.metadata.namespace == '\''production'\''"
+  ],
+  "runtime_assets": []
+}' \
+http://127.0.0.1:8080/api/core/v2/namespaces/default/filters
+
+HTTP/1.1 201 Created
+{{< /highlight >}}
 
 #### API Specification {#filters-post-specification}
 
@@ -105,12 +138,12 @@ payload         | {{< highlight shell >}}
   },
   "action": "deny",
   "expressions": [
-    "event.entity.metadata.namespace == 'production'"
+    "event.entity.metadata.namespace == '\''production'\''"
   ],
   "runtime_assets": []
 }
 {{< /highlight >}}
-response codes  | <ul><li>**Success**: 200 (OK)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 ## The `/filters/:filter` API endpoint {#the-filtersfilter-api-endpoint}
 
@@ -123,19 +156,18 @@ The `/filters/:filter` API endpoint provides HTTP GET access to [event filter da
 In the following example, querying the `/filters/:filter` API endpoint returns a JSON map that contains the requested [`:filter` definition][1] (in this example, for the `:filter` named `state_change_only`).
 
 {{< highlight shell >}}
-curl http://127.0.0.1:8080/api/core/v2/namespaces/default/filters/state_change_only -H "Authorization: Bearer $TOKEN"
+curl -X GET http://127.0.0.1:8080/api/core/v2/namespaces/default/filters/state_change_only
+-H "Authorization: Bearer $TOKEN"
 {
   "metadata": {
     "name": "state_change_only",
-    "namespace": "default",
-    "labels": null,
-    "annotations": null
+    "namespace": "default"
   },
   "action": "allow",
   "expressions": [
     "event.check.occurrences == 1"
   ],
-  "runtime_assets": []
+  "runtime_assets": null
 }
 {{< /highlight >}}
 
@@ -151,21 +183,46 @@ output               | {{< highlight json >}}
 {
   "metadata": {
     "name": "state_change_only",
-    "namespace": "default",
-    "labels": null,
-    "annotations": null
+    "namespace": "default"
   },
   "action": "allow",
   "expressions": [
     "event.check.occurrences == 1"
   ],
-  "runtime_assets": []
+  "runtime_assets": null
 }
 {{< /highlight >}}
 
 ### `/filters/:filter` (PUT) {#filtersfilter-put}
 
 The `/filters/:filter` API endpoint provides HTTP PUT access to create or update an event filter.
+
+#### EXAMPLE {#filters-put-example}
+
+In the following example, an HTTP PUT request is submitted to the `/filters` API endpoint to create the event filter `development_filter`.
+The request returns a successful HTTP `200 OK` response.
+
+{{< highlight shell >}}
+curl -X PUT \
+-H "Authorization: Bearer $SENSU_TOKEN" \
+-H 'Content-Type: application/json' \
+-d '{
+  "metadata": {
+    "name": "development_filter",
+    "namespace": "default",
+    "labels": null,
+    "annotations": null
+  },
+  "action": "deny",
+  "expressions": [
+    "event.entity.metadata.namespace == '\''production'\''"
+  ],
+  "runtime_assets": []
+}' \
+http://127.0.0.1:8080/api/core/v2/namespaces/default/filters/development_filter
+
+HTTP/1.1 201 Created
+{{< /highlight >}}
 
 #### API Specification {#filtersfilter-put-specification}
 
@@ -183,7 +240,7 @@ payload         | {{< highlight shell >}}
   },
   "action": "deny",
   "expressions": [
-    "event.entity.metadata.namespace == 'production'"
+    "event.entity.metadata.namespace == '\''production'\''"
   ],
   "runtime_assets": []
 }
