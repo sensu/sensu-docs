@@ -10,8 +10,8 @@ menu:
 ---
 
 - [The `/clusterroles` API endpoint](#the-clusterroles-api-endpoint)
-  - [`/clusterroles` (GET)](#clusterroles-get)
-  - [`/clusterroles` (POST)](#clusterroles-post)
+	- [`/clusterroles` (GET)](#clusterroles-get)
+	- [`/clusterroles` (POST)](#clusterroles-post)
 - [The `/clusterroles/:clusterrole` API endpoint](#the-clusterrolesclusterrole-api-endpoint)
   - [`/clusterroles/:clusterrole` (GET)](#clusterrolesclusterrole-get)
   - [`/clusterroles/:clusterrole` (PUT)](#clusterrolesclusterrole-put)
