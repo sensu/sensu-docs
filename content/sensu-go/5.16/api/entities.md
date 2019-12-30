@@ -28,7 +28,8 @@ The `/entities` API endpoint provides HTTP GET access to [entity][1] data.
 The following example demonstrates a request to the `/entities` API endpoint, resulting in a JSON array that contains the [entity definitions][1].
 
 {{< highlight shell >}}
-curl http://127.0.0.1:8080/api/core/v2/namespaces/default/entities -H "Authorization: Bearer $SENSU_TOKEN"
+curl -X GET "Authorization: Bearer $SENSU_TOKEN" \
+http://127.0.0.1:8080/api/core/v2/namespaces/default/entities
 [
   {
     "entity_class": "agent",
@@ -241,7 +242,7 @@ The `/entities/:entity` API endpoint provides HTTP GET access to [entity data][1
 In the following example, querying the `/entities/:entity` API endpoint returns a JSON map that contains the requested [`:entity` definition][1] (in this example, for the `:entity` named `sensu-centos`).
 
 {{< highlight shell >}}
-curl http://127.0.0.1:8080/api/core/v2/namespaces/default/entities/sensu-centos -H "Authorization: Bearer $SENSU_TOKEN"
+curl X GET http://127.0.0.1:8080/api/core/v2/namespaces/default/entities/sensu-centos -H "Authorization: Bearer $SENSU_TOKEN"
 {
   "entity_class": "agent",
   "sensu_agent_version": "1.0.0",
@@ -384,6 +385,23 @@ output               | {{< highlight json >}}
 ### `/entities/:entity` (POST) {#entitiesentity-post}
 
 The `/entities/:entity` API endpoint provides HTTP POST access to create or update the specified Sensu entity.
+
+#### EXAMPLE {#entitiesentity-post-example}
+
+In the following example, an HTTP POST request is submitted to the `/entities/:entity` API endpoint to create the entity named `sensu-centos`.
+The request includes the updated entity definition in the request body and returns a successful `HTTP 201 Created` response.
+
+{{< highlight shell >}}
+curl -X POST \
+-H "Authorization: Bearer $SENSU_TOKEN" \
+-H 'Content-Type: application/json' \
+-d '{
+PLACEHOLDER
+}' \
+http://127.0.0.1:8080/api/core/v2/namespaces/default/entities/sensu-centos
+
+HTTP/1.1 201 Created
+{{< /highlight >}}
 
 #### API Specification {#entitiesentity-post-specification}
 
