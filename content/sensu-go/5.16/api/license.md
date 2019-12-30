@@ -48,6 +48,18 @@ response codes | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (
 
 The `/license` API endpoint provides HTTP DELETE access to remove a commercial license.
 
+#### EXAMPLE {#license-delete-example}
+
+The following example shows a request to the `/license` API endpoint to delete the commercial license, resulting in a successful HTTP `204 No Content` response.
+
+{{< highlight shell >}}
+curl -X DELETE \
+-H "Authorization: Bearer $SENSU_TOKEN" \
+http://127.0.0.1:8080/api/enterprise/licensing/v2/license
+
+HTTP/1.1 204 No Content
+{{< /highlight >}}
+
 #### API Specification {#license-delete-specification}
 
 /license (DELETE)  | 
@@ -55,11 +67,6 @@ The `/license` API endpoint provides HTTP DELETE access to remove a commercial l
 description    | Removes the commercial license.
 example url    | http://hostname:8080/api/enterprise/licensing/v2/license
 response codes | <ul><li>**Success**: 204 (No Content)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-output          | {{< highlight shell >}}
-curl -X DELETE -H "Authorization: Bearer $SENSU_TOKEN"  http://localhost:8080/api/enterprise/licensing/v2/license
-
-HTTP/1.1 204 No Content
-{{< /highlight >}}
 
 [1]: ../../getting-started/enterprise/
 [2]: https://account.sensu.io/
