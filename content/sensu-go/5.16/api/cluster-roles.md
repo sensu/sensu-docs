@@ -13,7 +13,7 @@ menu:
 	- [`/clusterroles` (GET)](#clusterroles-get)
 	- [`/clusterroles` (POST)](#clusterroles-post)
 - [The `/clusterroles/:clusterrole` API endpoint](#the-clusterrolesclusterrole-api-endpoint)
-  - [`/clusterroles/:clusterrole` (GET)](#clusterrolesclusterrole-get)
+	- [`/clusterroles/:clusterrole` (GET)](#clusterrolesclusterrole-get)
   - [`/clusterroles/:clusterrole` (PUT)](#clusterrolesclusterrole-put)
   - [`/clusterroles/:clusterrole` (DELETE)](#clusterrolesclusterrole-delete)
 
