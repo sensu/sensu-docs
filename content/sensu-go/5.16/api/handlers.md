@@ -27,27 +27,44 @@ The `/handlers` API endpoint provides HTTP GET access to [handler][1] data.
 The following example demonstrates a request to the `/handlers` API endpoint, resulting in a JSON array that contains [handler definitions][1].
 
 {{< highlight shell >}}
-curl http://127.0.0.1:8080/api/core/v2/namespaces/default/handlers -H "Authorization: Bearer $SENSU_TOKEN"
+curl -X GET
+http://127.0.0.1:8080/api/core/v2/namespaces/default/handlers
+-H "Authorization: Bearer $SENSU_TOKEN"
 [
   {
     "metadata": {
-      "name": "slack",
-      "namespace": "default",
-      "labels": null,
-      "annotations": null
+      "name": "influx-db",
+      "namespace": "default"
     },
-    "command": "sensu-slack-handler --channel '#monitoring'",
+    "type": "pipe",
+    "command": "sensu-influxdb-handler -d sensu",
+    "timeout": 0,
+    "handlers": null,
+    "filters": null,
     "env_vars": [
-      "SLACK_WEBHOOK_URL=https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX"
+      "INFLUXDB_ADDR=http://influxdb.default.svc.cluster.local:8086",
+      "INFLUXDB_USER=sensu",
+      "INFLUXDB_PASSWORD=password"
     ],
+    "runtime_assets": null
+  },
+  {
+    "metadata": {
+      "name": "slack",
+      "namespace": "default"
+    },
+    "type": "pipe",
+    "command": "sensu-slack-handler --channel '#monitoring'",
+    "timeout": 0,
+    "handlers": null,
     "filters": [
       "is_incident",
       "not_silenced"
     ],
-    "handlers": [],
-    "runtime_assets": [],
-    "timeout": 0,
-    "type": "pipe"
+    "env_vars": [
+      "SLACK_WEBHOOK_URL=https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX"
+    ],
+    "runtime_assets": null
   }
 ]
 {{< /highlight >}}
@@ -65,42 +82,38 @@ output         | {{< highlight shell >}}
 [
   {
     "metadata": {
-      "name": "slack",
-      "namespace": "default",
-      "labels": null,
-      "annotations": null
-    },
-    "command": "sensu-slack-handler --channel '#monitoring'",
-    "env_vars": [
-      "SLACK_WEBHOOK_URL=https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX"
-    ],
-    "filters": [
-      "is_incident",
-      "not_silenced"
-    ],
-    "handlers": [],
-    "runtime_assets": [],
-    "timeout": 0,
-    "type": "pipe"
-  },
-  {
-    "metadata": {
       "name": "influx-db",
-      "namespace": "default",
-      "labels": null,
-      "annotations": null
+      "namespace": "default"
     },
+    "type": "pipe",
     "command": "sensu-influxdb-handler -d sensu",
+    "timeout": 0,
+    "handlers": null,
+    "filters": null,
     "env_vars": [
       "INFLUXDB_ADDR=http://influxdb.default.svc.cluster.local:8086",
       "INFLUXDB_USER=sensu",
       "INFLUXDB_PASSWORD=password"
     ],
-    "filters": [],
-    "handlers": [],
-    "runtime_assets": [],
+    "runtime_assets": null
+  },
+  {
+    "metadata": {
+      "name": "slack",
+      "namespace": "default"
+    },
+    "type": "pipe",
+    "command": "sensu-slack-handler --channel '#monitoring'",
     "timeout": 0,
-    "type": "pipe"
+    "handlers": null,
+    "filters": [
+      "is_incident",
+      "not_silenced"
+    ],
+    "env_vars": [
+      "SLACK_WEBHOOK_URL=https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX"
+    ],
+    "runtime_assets": null
   }
 ]
 {{< /highlight >}}
@@ -108,6 +121,39 @@ output         | {{< highlight shell >}}
 ### `/handlers` (POST)
 
 The `/handlers` API endpoint provides HTTP POST access to create a handler.
+
+#### EXAMPLE {#filters-post-example}
+
+In the following example, an HTTP POST request is submitted to the `/handlers` API endpoint to create the event handler `influx-db`.
+The request returns a successful HTTP `201 Created` response.
+
+{{< highlight shell >}}
+curl -X POST \
+-H "Authorization: Bearer $SENSU_TOKEN" \
+-H 'Content-Type: application/json' \
+-d '{
+  "metadata": {
+    "name": "influx-db",
+    "namespace": "default",
+    "labels": null,
+    "annotations": null
+  },
+  "command": "sensu-influxdb-handler -d sensu",
+  "env_vars": [
+    "INFLUXDB_ADDR=http://influxdb.default.svc.cluster.local:8086",
+    "INFLUXDB_USER=sensu",
+    "INFLUXDB_PASSWORD=password"
+  ],
+  "filters": [],
+  "handlers": [],
+  "runtime_assets": [],
+  "timeout": 0,
+  "type": "pipe"
+}' \
+http://127.0.0.1:8080/api/core/v2/namespaces/default/handlers
+
+HTTP/1.1 201 Created
+{{< /highlight >}}
 
 #### API Specification {#handlers-post-specification}
 
@@ -136,7 +182,7 @@ payload         | {{< highlight shell >}}
   "type": "pipe"
 }
 {{< /highlight >}}
-response codes  | <ul><li>**Success**: 200 (OK)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 ## The `/handlers/:handler` API endpoint {#the-handlershandler-api-endpoint}
 
@@ -149,7 +195,8 @@ The `/handlers/:handler` API endpoint provides HTTP GET access to [handler data]
 In the following example, querying the `/handlers/:handler` API endpoint returns a JSON map that contains the requested [`:handler` definition][1] (in this example, for the `:handler` named `slack`).
 
 {{< highlight shell >}}
-curl http://127.0.0.1:8080/api/core/v2/namespaces/default/handlers/slack -H "Authorization: Bearer $SENSU_TOKEN"
+curl -X GET http://127.0.0.1:8080/api/core/v2/namespaces/default/handlers/slack
+-H "Authorization: Bearer $SENSU_TOKEN"
 {
   "metadata": {
     "name": "slack",
@@ -206,6 +253,39 @@ output               | {{< highlight json >}}
 ### `/handlers/:handler` (PUT) {#handlershandler-put}
 
 The `/handlers/:handler` API endpoint provides HTTP GET access to create or update a specific `:handler` definition, by handler `name`.
+
+#### EXAMPLE {#handlershandler-put-example}
+
+In the following example, an HTTP PUT request is submitted to the `/handlers/:handler` API endpoint to create the handler `influx-dbdevelopment_filter`.
+The request returns a successful HTTP `201 Created` response.
+
+{{< highlight shell >}}
+curl -X PUT \
+-H "Authorization: Bearer $SENSU_TOKEN" \
+-H 'Content-Type: application/json' \
+-d '{
+  "metadata": {
+    "name": "influx-db",
+    "namespace": "default",
+    "labels": null,
+    "annotations": null
+  },
+  "command": "sensu-influxdb-handler -d sensu",
+  "env_vars": [
+    "INFLUXDB_ADDR=http://influxdb.default.svc.cluster.local:8086",
+    "INFLUXDB_USER=sensu",
+    "INFLUXDB_PASSWORD=password"
+  ],
+  "filters": [],
+  "handlers": [],
+  "runtime_assets": [],
+  "timeout": 0,
+  "type": "pipe"
+}' \
+http://127.0.0.1:8080/api/core/v2/namespaces/default/handlers/influx-db
+
+HTTP/1.1 201 Created
+{{< /highlight >}}
 
 #### API Specification {#handlershandler-put-specification}
 
