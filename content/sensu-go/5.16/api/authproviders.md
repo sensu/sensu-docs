@@ -30,49 +30,50 @@ The `/authproviders` API endpoint provides HTTP GET access to authentication pro
 In the following example, querying the `/authproviders` API endpoint returns the authentication provider configuration in Sensu, with an HTTP `200 OK` response.
 
 {{< highlight shell >}}
-curl -X GET "Authorization: Bearer $SENSU_TOKEN" http://127.0.0.1:8080/api/enterprise/authentication/v2/authproviders
+curl -X GET http://127.0.0.1:8080/api/enterprise/authentication/v2/authproviders
+-H "Authorization: Bearer $SENSU_TOKEN" 
 
 HTTP/1.1 200 OK
 [
-    {
-        "type": "ldap",
-        "api_version": "authentication/v2",
-        "metadata": {
-            "name": "openldap"
-        },
-        "spec": {
-            "groups_prefix": "",
-            "servers": [
-                {
-                    "binding": {
-                        "password": "YOUR_PASSWORD",
-                        "user_dn": "cn=binder,dc=acme,dc=org"
-                    },
-                    "client_cert_file": "",
-                    "client_key_file": "",
-                    "default_upn_domain": "",
-                    "group_search": {
-                        "attribute": "member",
-                        "base_dn": "dc=acme,dc=org",
-                        "name_attribute": "cn",
-                        "object_class": "groupOfNames"
-                    },
-                    "host": "127.0.0.1",
-                    "insecure": false,
-                    "port": 636,
-                    "security": "tls",
-                    "trusted_ca_file": "",
-                    "user_search": {
-                        "attribute": "uid",
-                        "base_dn": "dc=acme,dc=org",
-                        "name_attribute": "cn",
-                        "object_class": "person"
-                    }
-                }
-            ],
-            "username_prefix": ""
+  {
+    "type": "ldap",
+    "api_version": "authentication/v2",
+    "metadata": {
+      "name": "openldap"
+    },
+    "spec": {
+      "groups_prefix": "",
+      "servers": [
+        {
+          "binding": {
+            "password": "YOUR_PASSWORD",
+            "user_dn": "cn=binder,dc=acme,dc=org"
+          },
+          "client_cert_file": "",
+          "client_key_file": "",
+          "default_upn_domain": "",
+          "group_search": {
+            "attribute": "member",
+            "base_dn": "dc=acme,dc=org",
+            "name_attribute": "cn",
+            "object_class": "groupOfNames"
+          },
+          "host": "127.0.0.1",
+          "insecure": false,
+          "port": 636,
+          "security": "tls",
+          "trusted_ca_file": "",
+          "user_search": {
+            "attribute": "uid",
+            "base_dn": "dc=acme,dc=org",
+            "name_attribute": "cn",
+            "object_class": "person"
+          }
         }
+      ],
+      "username_prefix": ""
     }
+  }
 ]
 {{< /highlight >}}
 
@@ -87,45 +88,45 @@ response type  | Array
 response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output         | {{< highlight json >}}
 [
-    {
-        "type": "ldap",
-        "api_version": "authentication/v2",
-        "metadata": {
-            "name": "openldap"
-        },
-        "spec": {
-            "groups_prefix": "",
-            "servers": [
-                {
-                    "binding": {
-                        "password": "YOUR_PASSWORD",
-                        "user_dn": "cn=binder,dc=acme,dc=org"
-                    },
-                    "client_cert_file": "",
-                    "client_key_file": "",
-                    "default_upn_domain": "",
-                    "group_search": {
-                        "attribute": "member",
-                        "base_dn": "dc=acme,dc=org",
-                        "name_attribute": "cn",
-                        "object_class": "groupOfNames"
-                    },
-                    "host": "127.0.0.1",
-                    "insecure": false,
-                    "port": 636,
-                    "security": "tls",
-                    "trusted_ca_file": "",
-                    "user_search": {
-                        "attribute": "uid",
-                        "base_dn": "dc=acme,dc=org",
-                        "name_attribute": "cn",
-                        "object_class": "person"
-                    }
-                }
-            ],
-            "username_prefix": ""
+  {
+    "type": "ldap",
+    "api_version": "authentication/v2",
+    "metadata": {
+      "name": "openldap"
+    },
+    "spec": {
+      "groups_prefix": "",
+      "servers": [
+        {
+          "binding": {
+            "password": "YOUR_PASSWORD",
+            "user_dn": "cn=binder,dc=acme,dc=org"
+          },
+          "client_cert_file": "",
+          "client_key_file": "",
+          "default_upn_domain": "",
+          "group_search": {
+            "attribute": "member",
+            "base_dn": "dc=acme,dc=org",
+            "name_attribute": "cn",
+            "object_class": "groupOfNames"
+          },
+          "host": "127.0.0.1",
+          "insecure": false,
+          "port": 636,
+          "security": "tls",
+          "trusted_ca_file": "",
+          "user_search": {
+            "attribute": "uid",
+            "base_dn": "dc=acme,dc=org",
+            "name_attribute": "cn",
+            "object_class": "person"
+          }
         }
+      ],
+      "username_prefix": ""
     }
+  }
 ]
 {{< /highlight >}}
 
@@ -140,49 +141,49 @@ The `/authproviders/:name` API endpoint provides HTTP GET access to the authenti
 In the following example, an HTTP GET request is submitted to the `/authproviders/:name` API endpoint to retrieve the `openldap` authenthication provider configuration, resulting in an HTTP `200 OK` response.
 
 {{< highlight shell >}}
-curl -X GET \ http://127.0.0.1:8080/api/enterprise/authentication/v2/authproviders/openldap
+curl -X GET http://127.0.0.1:8080/api/enterprise/authentication/v2/authproviders/openldap
 -H "Authorization: Bearer $SENSU_TOKEN" \
 -H 'Content-Type: application/json' \
 
 HTTP/1.1 200 OK
 -d '{
-    "type": "ldap",
-    "api_version": "authentication/v2",
-    "metadata": {
-        "name": "openldap"
-    },
-    "spec": {
-        "groups_prefix": "",
-        "servers": [
-            {
-                "binding": {
-                    "password": "YOUR_PASSWORD",
-                    "user_dn": "cn=binder,dc=acme,dc=org"
-                },
-                "client_cert_file": "",
-                "client_key_file": "",
-                "default_upn_domain": "",
-                "group_search": {
-                    "attribute": "member",
-                    "base_dn": "dc=acme,dc=org",
-                    "name_attribute": "cn",
-                    "object_class": "groupOfNames"
-                },
-                "host": "127.0.0.1",
-                "insecure": false,
-                "port": 636,
-                "security": "tls",
-                "trusted_ca_file": "",
-                "user_search": {
-                    "attribute": "uid",
-                    "base_dn": "dc=acme,dc=org",
-                    "name_attribute": "cn",
-                    "object_class": "person"
-                }
-            }
-        ],
-        "username_prefix": ""
-    }
+  "type": "ldap",
+  "api_version": "authentication/v2",
+  "metadata": {
+    "name": "openldap"
+  },
+  "spec": {
+    "groups_prefix": "",
+    "servers": [
+      {
+        "binding": {
+          "password": "YOUR_PASSWORD",
+          "user_dn": "cn=binder,dc=acme,dc=org"
+        },
+        "client_cert_file": "",
+        "client_key_file": "",
+        "default_upn_domain": "",
+        "group_search": {
+          "attribute": "member",
+          "base_dn": "dc=acme,dc=org",
+          "name_attribute": "cn",
+          "object_class": "groupOfNames"
+        },
+        "host": "127.0.0.1",
+        "insecure": false,
+        "port": 636,
+        "security": "tls",
+        "trusted_ca_file": "",
+        "user_search": {
+          "attribute": "uid",
+          "base_dn": "dc=acme,dc=org",
+          "name_attribute": "cn",
+          "object_class": "person"
+        }
+      }
+    ],
+  "username_prefix": ""
+  }
 }'
 {{< /highlight >}}
 
@@ -196,43 +197,43 @@ response type        | Map
 response codes       | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output               | {{< highlight json >}}
 {
-    "type": "ldap",
-    "api_version": "authentication/v2",
-    "metadata": {
-        "name": "openldap"
-    },
-    "spec": {
-        "groups_prefix": "",
-        "servers": [
-            {
-                "binding": {
-                    "password": "YOUR_PASSWORD",
-                    "user_dn": "cn=binder,dc=acme,dc=org"
-                },
-                "client_cert_file": "",
-                "client_key_file": "",
-                "default_upn_domain": "",
-                "group_search": {
-                    "attribute": "member",
-                    "base_dn": "dc=acme,dc=org",
-                    "name_attribute": "cn",
-                    "object_class": "groupOfNames"
-                },
-                "host": "127.0.0.1",
-                "insecure": false,
-                "port": 636,
-                "security": "tls",
-                "trusted_ca_file": "",
-                "user_search": {
-                    "attribute": "uid",
-                    "base_dn": "dc=acme,dc=org",
-                    "name_attribute": "cn",
-                    "object_class": "person"
-                }
-            }
-        ],
-        "username_prefix": ""
-    }
+  "type": "ldap",
+  "api_version": "authentication/v2",
+  "metadata": {
+    "name": "openldap"
+  },
+  "spec": {
+    "groups_prefix": "",
+    "servers": [
+      {
+        "binding": {
+          "password": "YOUR_PASSWORD",
+          "user_dn": "cn=binder,dc=acme,dc=org"
+        },
+        "client_cert_file": "",
+        "client_key_file": "",
+        "default_upn_domain": "",
+        "group_search": {
+          "attribute": "member",
+          "base_dn": "dc=acme,dc=org",
+          "name_attribute": "cn",
+          "object_class": "groupOfNames"
+        },
+        "host": "127.0.0.1",
+        "insecure": false,
+        "port": 636,
+        "security": "tls",
+        "trusted_ca_file": "",
+        "user_search": {
+          "attribute": "uid",
+          "base_dn": "dc=acme,dc=org",
+          "name_attribute": "cn",
+          "object_class": "person"
+        }
+      }
+    ],
+  "username_prefix": ""
+  }
 }
 {{< /highlight >}}
 
