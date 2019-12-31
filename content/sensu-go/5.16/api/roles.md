@@ -251,7 +251,7 @@ The `/roles/:role` API endpoint provides HTTP PUT access to create or update spe
 
 #### EXAMPLE {#rolesrole-put-example}
 
-In the following example, an HTTP PUT request is submitted to the `/roles/:role` API endpoint to create the role `dev-binding`.
+In the following example, an HTTP PUT request is submitted to the `/roles/:role` API endpoint to create the role `read-only`.
 The request returns a successful HTTP `201 Created` response.
 
 {{< highlight shell >}}
@@ -275,7 +275,7 @@ curl -X PUT \
     "namespace": "default"
   }
 }' \
-http://127.0.0.1:8080/api/core/v2/namespaces/default/rolebindings/dev-binding
+http://127.0.0.1:8080/api/core/v2/namespaces/default/roles/read-only
 
 HTTP/1.1 201 Created
 {{< /highlight >}}
