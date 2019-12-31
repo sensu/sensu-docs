@@ -28,7 +28,8 @@ The `/namespaces` API endpoint provides HTTP GET access to [namespace][1] data.
 The following example demonstrates a request to the `/namespaces` API endpoint, resulting in a JSON array that contains [namespace definitions][1].
 
 {{< highlight shell >}}
-curl http://127.0.0.1:8080/api/core/v2/namespaces -H "Authorization: Bearer $SENSU_TOKEN"
+curl -X GET http://127.0.0.1:8080/api/core/v2/namespaces
+-H "Authorization: Bearer $SENSU_TOKEN"
 [
   {
     "name": "default"
@@ -63,6 +64,23 @@ output         | {{< highlight shell >}}
 
 The `/namespaces` API endpoint provides HTTP POST access to create Sensu namespaces.
 
+#### EXAMPLE {#namespaces-post-example}
+
+In the following example, an HTTP POST request is submitted to the `/namespaces` API endpoint to create the event namespace `development`.
+The request returns a successful HTTP `201 Created` response.
+
+{{< highlight shell >}}
+curl -X POST \
+-H "Authorization: Bearer $SENSU_TOKEN" \
+-H 'Content-Type: application/json' \
+-d '{
+  "name": "development"
+}' \
+http://127.0.0.1:8080/api/core/v2/namespaces/default/namespaces
+
+HTTP/1.1 201 Created
+{{< /highlight >}}
+
 #### API Specification {#namespaces-post-specification}
 
 /namespaces (POST) | 
@@ -74,13 +92,30 @@ payload         | {{< highlight shell >}}
   "name": "development"
 }
 {{< /highlight >}}
-response codes  | <ul><li>**Success**: 200 (OK)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 ## The `/namespaces/:namespace` API endpoint {#the-namespacesnamespace-api-endpoint}
 
 ### `/namespaces/:namespace` (PUT) {#namespacesnamespace-put}
 
 The `/namespaces/:namespace` API endpoint provides HTTP PUT access to create or update specific Sensu namespaces, by namespace name.
+
+#### EXAMPLE {#namespacesnamespace-put-example}
+
+In the following example, an HTTP PUT request is submitted to the `/namespaces/:namespace` API endpoint to create the event namespace `development`.
+The request returns a successful HTTP `201 Created` response.
+
+{{< highlight shell >}}
+curl -X PUT \
+-H "Authorization: Bearer $SENSU_TOKEN" \
+-H 'Content-Type: application/json' \
+-d '{
+  "name": "development"
+}' \
+http://127.0.0.1:8080/api/core/v2/namespaces/default/namespaces/development
+
+HTTP/1.1 201 Created
+{{< /highlight >}}
 
 #### API Specification {#namespacesnamespace-put-specification}
 
@@ -130,7 +165,8 @@ The `/user-namespaces` API endpoint provides HTTP GET access to the namespaces t
 The following example demonstrates a request to the `/user-namespaces` API endpoint, resulting in a JSON array that contains the namespaces the user has access to.
 
 {{< highlight shell >}}
-curl http://127.0.0.1:8080/api/enterprise/user-namespaces -H "Authorization: Bearer $SENSU_TOKEN"
+curl -X GET http://127.0.0.1:8080/api/enterprise/user-namespaces
+-H "Authorization: Bearer $SENSU_TOKEN"
 [
   {
     "name": "default"
