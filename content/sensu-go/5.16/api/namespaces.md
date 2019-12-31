@@ -66,7 +66,7 @@ The `/namespaces` API endpoint provides HTTP POST access to create Sensu namespa
 
 #### EXAMPLE {#namespaces-post-example}
 
-In the following example, an HTTP POST request is submitted to the `/namespaces` API endpoint to create the event namespace `development`.
+In the following example, an HTTP POST request is submitted to the `/namespaces` API endpoint to create the namespace `development`.
 The request returns a successful HTTP `201 Created` response.
 
 {{< highlight shell >}}
@@ -102,7 +102,7 @@ The `/namespaces/:namespace` API endpoint provides HTTP PUT access to create or 
 
 #### EXAMPLE {#namespacesnamespace-put-example}
 
-In the following example, an HTTP PUT request is submitted to the `/namespaces/:namespace` API endpoint to create the event namespace `development`.
+In the following example, an HTTP PUT request is submitted to the `/namespaces/:namespace` API endpoint to create the namespace `development`.
 The request returns a successful HTTP `201 Created` response.
 
 {{< highlight shell >}}
