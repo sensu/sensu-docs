@@ -26,7 +26,7 @@ _**NOTE**: Before October 2018, Sensu Go was known as Sensu 2.0._
 - [Check output metric extraction with InfluxDB & Grafana][9]: Nikki Attea
 - [Filters: valves for the Sensu monitoring event pipeline][5]: Eric Chlebek
 - [How to monitor 1,000 network devices using Sensu Go and Ansible][6]: Christian Michel
-- [Migrating to 5.0][10]: Jef Spaleta
+- [Migrating to 2.0][10]: Jef Spaleta
 - [Self-service monitoring checks in Sensu Go][7]: Sean Porter
 - [Sensu Go is here!][11]: Anna Plotkin
 - [Sensu Habitat Core Plans are Here][8]: Greg Schofield
