@@ -18,6 +18,7 @@ _**NOTE**: Before October 2018, Sensu Go was known as Sensu 2.0._
 
 - [Assets in Sensu Go][2]: Greg Poirier, Sensu Summit 2018
 - [Data Collection and Prometheus Scraping With Sensu Go][3]: Sean Porter, InfluxDays 2018
+- [Migrating to Sensu Go][14]: Caleb Hailey and Jef Spaleta, Sensu Summit 2019
 - [Sensu Go Deep Dive][1]: Greg Poirer, Sensu Summit 2017
 
 ## Blog posts
@@ -33,6 +34,7 @@ _**NOTE**: Before October 2018, Sensu Go was known as Sensu 2.0._
 
 ## Tutorials
 
+- [Learn Sensu in 15 minutes][15] interactive tutorial
 - [Sensu sandbox tutorials][12]
 
 ## Podcasts
@@ -50,5 +52,7 @@ _**NOTE**: Before October 2018, Sensu Go was known as Sensu 2.0._
 [9]: http://blog.sensu.io/check-output-metric-extraction-with-influxdb-grafana/
 [10]: https://blog.sensu.io/migrating-to-2.0-the-good-the-bad-the-ugly/
 [11]: https://blog.sensu.io/sensu-go-is-here/
-[12]: ../sandbox
+[12]: ../sandbox/
 [13]: https://www.youtube.com/watch?v=5tIPv-rJMZU/
+[14]: https://www.youtube.com/watch?v=QKF6PZrUvuI
+[15]: ../tutorial/
