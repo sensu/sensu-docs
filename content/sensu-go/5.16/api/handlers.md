@@ -113,7 +113,7 @@ output         | {{< highlight shell >}}
     "env_vars": [
       "SLACK_WEBHOOK_URL=https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX"
     ],
-    "runtime_assets": null
+    "runtime_assets": ["sensu/sensu-slack-handler"]
   }
 ]
 {{< /highlight >}}
