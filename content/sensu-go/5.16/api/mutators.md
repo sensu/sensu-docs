@@ -27,8 +27,8 @@ The `/mutators` API endpoint provides HTTP GET access to [mutator][1] data.
 The following example demonstrates a request to the `/mutators` API endpoint, resulting in a JSON array that contains [mutator definitions][1].
 
 {{< highlight shell >}}
-curl -X GET
-http://127.0.0.1:8080/api/core/v2/namespaces/default/mutators
+curl -X GET \
+http://127.0.0.1:8080/api/core/v2/namespaces/default/mutators \
 -H "Authorization: Bearer $SENSU_TOKEN"
 [
   {
@@ -135,7 +135,8 @@ The `/mutators/:mutator` API endpoint provides HTTP GET access to [mutator data]
 In the following example, querying the `/mutators/:mutator` API endpoint returns a JSON map that contains the requested [`:mutator` definition][1] (in this example, for the `:mutator` named `example-mutator`).
 
 {{< highlight shell >}}
-curl -X GET http://127.0.0.1:8080/api/core/v2/namespaces/default/mutators/example-mutator
+curl -X GET \
+http://127.0.0.1:8080/api/core/v2/namespaces/default/mutators/example-mutator \
 -H "Authorization: Bearer $SENSU_TOKEN"
 {
   "metadata": {
