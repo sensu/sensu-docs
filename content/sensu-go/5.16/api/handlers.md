@@ -46,7 +46,7 @@ http://127.0.0.1:8080/api/core/v2/namespaces/default/handlers
       "INFLUXDB_USER=sensu",
       "INFLUXDB_PASSWORD=password"
     ],
-    "runtime_assets": null
+    "runtime_assets": ["sensu/sensu-influxdb-handler"]
   },
   {
     "metadata": {
