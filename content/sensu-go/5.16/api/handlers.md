@@ -27,9 +27,9 @@ The `/handlers` API endpoint provides HTTP GET access to [handler][1] data.
 The following example demonstrates a request to the `/handlers` API endpoint, resulting in a JSON array that contains [handler definitions][1].
 
 {{< highlight shell >}}
-curl -X GET
-http://127.0.0.1:8080/api/core/v2/namespaces/default/handlers
--H "Authorization: Bearer $SENSU_TOKEN"
+curl -X GET \
+http://127.0.0.1:8080/api/core/v2/namespaces/default/handlers \
+-H "Authorization: Bearer $SENSU_TOKEN" \
 [
   {
     "metadata": {
@@ -195,8 +195,9 @@ The `/handlers/:handler` API endpoint provides HTTP GET access to [handler data]
 In the following example, querying the `/handlers/:handler` API endpoint returns a JSON map that contains the requested [`:handler` definition][1] (in this example, for the `:handler` named `slack`).
 
 {{< highlight shell >}}
-curl -X GET http://127.0.0.1:8080/api/core/v2/namespaces/default/handlers/slack
--H "Authorization: Bearer $SENSU_TOKEN"
+curl -X GET \
+http://127.0.0.1:8080/api/core/v2/namespaces/default/handlers/slack \
+-H "Authorization: Bearer $SENSU_TOKEN" \
 {
   "metadata": {
     "name": "slack",
@@ -326,8 +327,8 @@ The following example shows a request to the `/handlers/:handler` API endpoint t
 
 {{< highlight shell >}}
 curl -X DELETE \
+http://127.0.0.1:8080/api/core/v2/namespaces/default/handlers/slack \
 -H "Authorization: Bearer $SENSU_TOKEN" \
-http://127.0.0.1:8080/api/core/v2/namespaces/default/handlers/slack
 
 HTTP/1.1 204 No Content
 {{< /highlight >}}
