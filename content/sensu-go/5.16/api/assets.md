@@ -28,7 +28,8 @@ The `/assets` API endpoint provides HTTP GET access to [asset][1] data.
 The following example demonstrates a request to the `/assets` API endpoint, resulting in a JSON array that contains [asset definitions][1].
 
 {{< highlight shell >}}
-curl -X GET http://127.0.0.1:8080/api/core/v2/namespaces/default/assets
+curl -X GET \
+http://127.0.0.1:8080/api/core/v2/namespaces/default/assets \
 -H "Authorization: Bearer $SENSU_TOKEN"
 
 HTTP/1.1 200 OK
@@ -155,7 +156,8 @@ The `/assets/:asset` API endpoint provides HTTP GET access to [asset data][1] fo
 In the following example, querying the `/assets/:asset` API endpoint returns a JSON map that contains the requested [`:asset` definition][1] (in this example, for the `:asset` named `check_script`).
 
 {{< highlight shell >}}
-curl -X GET http://127.0.0.1:8080/api/core/v2/namespaces/default/assets/sensu-slack-handler
+curl -X GET \
+http://127.0.0.1:8080/api/core/v2/namespaces/default/assets/sensu-slack-handler \
 -H "Authorization: Bearer $SENSU_TOKEN"
 
 HTTP/1.1 200 OK
