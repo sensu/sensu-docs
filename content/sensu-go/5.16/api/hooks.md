@@ -45,7 +45,7 @@ curl -X GET http://127.0.0.1:8080/api/core/v2/namespaces/default/hooks
       "name": "process-tree",
       "namespace": "default"
     },
-    "command": "ps aux",
+    "command": "ps -eo user,pid,cmd:50,%cpu --sort=-%cpu | head -n 6",
     "timeout": 10,
     "stdin": false,
     "runtime_assets": null
