@@ -30,7 +30,7 @@ The following example demonstrates a request to the `/namespaces` API endpoint, 
 {{< highlight shell >}}
 curl -X GET \
 http://127.0.0.1:8080/api/core/v2/namespaces \
--H "Authorization: Bearer $SENSU_TOKEN"
+-H "Authorization: Bearer $SENSU_TOKEN" \
 [
   {
     "name": "default"
@@ -141,8 +141,8 @@ The following example shows a request to the `/namespaces/:namespace` API endpoi
 
 {{< highlight shell >}}
 curl -X DELETE \
+http://127.0.0.1:8080/api/core/v2/namespaces/development \
 -H "Authorization: Bearer $SENSU_TOKEN" \
-http://127.0.0.1:8080/api/core/v2/namespaces/development
 
 HTTP/1.1 204 No Content
 {{< /highlight >}}
@@ -168,7 +168,7 @@ The following example demonstrates a request to the `/user-namespaces` API endpo
 {{< highlight shell >}}
 curl -X GET \
 http://127.0.0.1:8080/api/enterprise/user-namespaces \
--H "Authorization: Bearer $SENSU_TOKEN"
+-H "Authorization: Bearer $SENSU_TOKEN" \
 
 [
   {
