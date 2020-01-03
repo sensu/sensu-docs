@@ -169,6 +169,7 @@ The following example demonstrates a request to the `/user-namespaces` API endpo
 curl -X GET \
 http://127.0.0.1:8080/api/enterprise/user-namespaces \
 -H "Authorization: Bearer $SENSU_TOKEN"
+
 [
   {
     "name": "default"
