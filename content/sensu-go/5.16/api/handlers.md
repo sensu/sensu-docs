@@ -95,7 +95,7 @@ output         | {{< highlight shell >}}
       "INFLUXDB_USER=sensu",
       "INFLUXDB_PASSWORD=password"
     ],
-    "runtime_assets": null
+    "runtime_assets": ["sensu/sensu-influxdb-handler"]
   },
   {
     "metadata": {
