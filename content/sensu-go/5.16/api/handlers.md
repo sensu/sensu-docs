@@ -122,7 +122,7 @@ output         | {{< highlight shell >}}
 
 The `/handlers` API endpoint provides HTTP POST access to create a handler.
 
-#### EXAMPLE {#filters-post-example}
+#### EXAMPLE {#handlers-post-example}
 
 In the following example, an HTTP POST request is submitted to the `/handlers` API endpoint to create the event handler `influx-db`.
 The request returns a successful HTTP `201 Created` response.
