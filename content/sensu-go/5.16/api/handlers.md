@@ -278,7 +278,7 @@ curl -X PUT \
   ],
   "filters": [],
   "handlers": [],
-  "runtime_assets": [],
+  "runtime_assets": ["sensu/sensu-influxdb-handler"],
   "timeout": 0,
   "type": "pipe"
 }' \
