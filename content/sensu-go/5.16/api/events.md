@@ -31,8 +31,9 @@ The `/events` API endpoint provides HTTP GET access to [event][1] data.
 The following example demonstrates a request to the `/events` API endpoint, resulting in a JSON array that contains [event definitions][1].
 
 {{< highlight shell >}}
-curl -X GET "Authorization: Bearer $SENSU_TOKEN" \
-http://127.0.0.1:8080/api/core/v2/namespaces/default/events
+curl -X GET \
+http://127.0.0.1:8080/api/core/v2/namespaces/default/events \
+"Authorization: Bearer $SENSU_TOKEN" \
 
 HTTP/1.1 200 OK
 [
@@ -317,8 +318,9 @@ The `/events/:entity` API endpoint provides HTTP GET access to [event data][1] s
 In the following example, querying the `/events/:entity` API endpoint returns a list of Sensu events for the `sensu-go-sandbox` entity and a successful HTTP `200 OK` response.
 
 {{< highlight shell >}}
-curl -X GET "Authorization: Bearer $SENSU_TOKEN" \
-http://127.0.0.1:8080/api/core/v2/namespaces/default/events/sensu-go-sandbox
+curl -X GET \
+http://127.0.0.1:8080/api/core/v2/namespaces/default/events/sensu-go-sandbox \
+"Authorization: Bearer $SENSU_TOKEN" \
 
 HTTP/1.1 200 OK
 [
@@ -483,8 +485,9 @@ The `/events/:entity/:check` API endpoint provides HTTP GET access to [event][1]
 In the following example, an HTTP GET request is submitted to the `/events/:entity/:check` API endpoint to retrieve the event for the `server1` entity and the `server-health` check.
 
 {{< highlight shell >}}
-curl -X GET "Authorization: Bearer $SENSU_TOKEN" \
-http://127.0.0.1:8080/api/core/v2/namespaces/default/events/server1/server-health
+curl -X GET \
+http://127.0.0.1:8080/api/core/v2/namespaces/default/events/server1/server-health \
+"Authorization: Bearer $SENSU_TOKEN" \
 
 HTTP/1.1 200 OK
 
@@ -936,8 +939,8 @@ The following example shows a request to the `/events/:entity/:check` API endpoi
 
 {{< highlight shell >}}
 curl -X DELETE \
+http://127.0.0.1:8080/api/core/v2/namespaces/default/events/sensu-go-sandbox/check-cpu \
 -H "Authorization: Bearer $SENSU_TOKEN" \
-http://127.0.0.1:8080/api/core/v2/namespaces/default/events/sensu-go-sandbox/check-cpu 
 
 HTTP/1.1 204 No Content
 {{< /highlight >}}
