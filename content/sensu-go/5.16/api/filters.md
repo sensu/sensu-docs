@@ -37,7 +37,7 @@ curl -X GET http://127.0.0.1:8080/api/core/v2/namespaces/default/filters
     },
     "action": "deny",
     "expressions": [
-      "event.entity.metadata.namespace == 'production'"
+      "event.entity.metadata.namespace == 'development'"
     ],
     "runtime_assets": null
   },
@@ -73,7 +73,7 @@ output         | {{< highlight shell >}}
     },
     "action": "deny",
     "expressions": [
-      "event.entity.metadata.namespace == 'production'"
+      "event.entity.metadata.namespace == 'development'"
     ],
     "runtime_assets": null
   },
@@ -113,7 +113,7 @@ curl -X POST \
   },
   "action": "deny",
   "expressions": [
-    "event.entity.metadata.namespace == '\''production'\''"
+    "event.entity.metadata.namespace == 'development'"
   ],
   "runtime_assets": []
 }' \
@@ -138,7 +138,7 @@ payload         | {{< highlight shell >}}
   },
   "action": "deny",
   "expressions": [
-    "event.entity.metadata.namespace == '\''production'\''"
+    "event.entity.metadata.namespace == 'development'"
   ],
   "runtime_assets": []
 }
@@ -215,7 +215,7 @@ curl -X PUT \
   },
   "action": "deny",
   "expressions": [
-    "event.entity.metadata.namespace == '\''production'\''"
+    "event.entity.metadata.namespace == 'development'"
   ],
   "runtime_assets": []
 }' \
@@ -240,7 +240,7 @@ payload         | {{< highlight shell >}}
   },
   "action": "deny",
   "expressions": [
-    "event.entity.metadata.namespace == '\''production'\''"
+    "event.entity.metadata.namespace == 'development'"
   ],
   "runtime_assets": []
 }
@@ -253,12 +253,12 @@ The `/filters/:filter` API endpoint provides HTTP DELETE access to delete an eve
 
 #### EXAMPLE {#filtersfilter-delete-example}
 
-The following example shows a request to the `/filters/:filter` API endpoint to delete the event filter `production-only`, resulting in a successful HTTP `204 No Content` response.
+The following example shows a request to the `/filters/:filter` API endpoint to delete the event filter `development_filter`, resulting in a successful HTTP `204 No Content` response.
 
 {{< highlight shell >}}
 curl -X DELETE \
 -H "Authorization: Bearer $SENSU_TOKEN" \
-http://127.0.0.1:8080/api/core/v2/namespaces/default/filters/production-only
+http://127.0.0.1:8080/api/core/v2/namespaces/default/filters/development_filter
 
 HTTP/1.1 204 No Content
 {{< /highlight >}}
@@ -268,7 +268,7 @@ HTTP/1.1 204 No Content
 /filters/:filter (DELETE) | 
 --------------------------|------
 description               | Removes the specified event filter from Sensu.
-example url               | http://hostname:8080/api/core/v2/namespaces/default/filters/production-only
+example url               | http://hostname:8080/api/core/v2/namespaces/default/filters/development_filter
 response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 [1]: ../../reference/filters/
