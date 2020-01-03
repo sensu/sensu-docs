@@ -27,7 +27,8 @@ The `/roles` API endpoint provides HTTP GET access to [role][1] data.
 The following example demonstrates a request to the `/roles` API endpoint, resulting in a JSON array that contains [role definitions][1].
 
 {{< highlight shell >}}
-curl -X GET http://127.0.0.1:8080/api/core/v2/namespaces/default/roles
+curl -X GET \
+http://127.0.0.1:8080/api/core/v2/namespaces/default/roles \
 -H "Authorization: Bearer $SENSU_TOKEN"
 
 HTTP/1.1 200 OK
@@ -194,7 +195,8 @@ The `/roles/:role` API endpoint provides HTTP GET access to [role data][1] for s
 In the following example, querying the `/roles/:role` API endpoint returns a JSON map that contains the requested [`:role` definition][1] (in this example, for the `:role` named `read-only`).
 
 {{< highlight shell >}}
-curl -X GET http://127.0.0.1:8080/api/core/v2/namespaces/default/roles/read-only
+curl -X GET \
+http://127.0.0.1:8080/api/core/v2/namespaces/default/roles/read-only \
 -H "Authorization: Bearer $SENSU_TOKEN"
 
 HTTP/1.1 200 OK
