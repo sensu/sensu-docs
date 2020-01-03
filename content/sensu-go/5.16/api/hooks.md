@@ -79,7 +79,7 @@ output         | {{< highlight shell >}}
       "name": "process-tree",
       "namespace": "default"
     },
-    "command": "ps aux",
+    "command": "ps -eo user,pid,cmd:50,%cpu --sort=-%cpu | head -n 6",
     "timeout": 10,
     "stdin": false,
     "runtime_assets": null
