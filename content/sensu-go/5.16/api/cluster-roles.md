@@ -28,8 +28,9 @@ The `/clusterroles` API endpoint provides HTTP GET access to [cluster role][1] d
 The following example demonstrates a request to the `/clusterroles` API endpoint, resulting in a JSON array that contains [cluster role definitions][1].
 
 {{< highlight shell >}}
-curl -X GET http://127.0.0.1:8080/api/core/v2/clusterroles
--H "Authorization: Bearer $SENSU_TOKEN"
+curl -X GET \
+http://127.0.0.1:8080/api/core/v2/clusterroles \
+-H "Authorization: Bearer $SENSU_TOKEN" \
 
 HTTP/1.1 200 OK
 [
@@ -192,8 +193,9 @@ The `/clusterroles/:clusterrole` API endpoint provides HTTP GET access to [clust
 In the following example, querying the `/clusterroles/:clusterrole` API endpoint returns a JSON map that contains the requested [`:clusterrole` definition][1] (in this example, for the `:clusterrole` named `global-event-reader`).
 
 {{< highlight shell >}}
-curl -X GET http://127.0.0.1:8080/api/core/v2/clusterroles/global-event-reader
--H "Authorization: Bearer $SENSU_TOKEN"
+curl -X GET \
+http://127.0.0.1:8080/api/core/v2/clusterroles/global-event-reader \
+-H "Authorization: Bearer $SENSU_TOKEN" \
 
 HTTP/1.1 200 OK
 {
