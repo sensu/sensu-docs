@@ -107,7 +107,7 @@ curl -X POST \
     "labels": null,
     "annotations": null
   },
-  "command": "ps aux",
+  "command": "ps -eo user,pid,cmd:50,%cpu --sort=-%cpu | head -n 6",
   "timeout": 10,
   "stdin": false
 }' \
