@@ -27,8 +27,9 @@ The `/hooks` API endpoint provides HTTP GET access to [hook][1] data.
 The following example demonstrates a request to the `/hooks` API endpoint, resulting in a JSON array that contains [hook definitions][1].
 
 {{< highlight shell >}}
-curl -X GET http://127.0.0.1:8080/api/core/v2/namespaces/default/hooks
--H "Authorization: Bearer $SENSU_TOKEN"
+curl -X GET \
+http://127.0.0.1:8080/api/core/v2/namespaces/default/hooks \
+-H "Authorization: Bearer $SENSU_TOKEN" \
 [
   {
     "metadata": {
@@ -148,8 +149,9 @@ The `/hooks/:hook` API endpoint provides HTTP GET access to [hook data][1] for s
 In the following example, querying the `/hooks/:hook` API endpoint returns a JSON map that contains the requested [`:hook` definition][1] (in this example, for the `:hook` named `process-tree`).
 
 {{< highlight shell >}}
-curl -X GET http://127.0.0.1:8080/api/core/v2/namespaces/default/hooks/process-tree
--H "Authorization: Bearer $SENSU_TOKEN"
+curl -X GET \
+http://127.0.0.1:8080/api/core/v2/namespaces/default/hooks/process-tree \
+-H "Authorization: Bearer $SENSU_TOKEN" \
 
 {
   "metadata": {
@@ -245,8 +247,8 @@ The following example shows a request to the `/hooks/:hook` API endpoint to dele
 
 {{< highlight shell >}}
 curl -X DELETE \
+http://127.0.0.1:8080/api/core/v2/namespaces/default/hooks/process-tree \
 -H "Authorization: Bearer $SENSU_TOKEN" \
-http://127.0.0.1:8080/api/core/v2/namespaces/default/hooks/process-tree
 
 HTTP/1.1 204 No Content
 {{< /highlight >}}
