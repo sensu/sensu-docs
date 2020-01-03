@@ -28,7 +28,8 @@ The `/rolebindings` API endpoint provides HTTP GET access to [role binding][1] d
 The following example demonstrates a request to the `/rolebindings` API endpoint, resulting in a JSON array that contains [role binding definitions][1].
 
 {{< highlight shell >}}
-curl -X GET http://127.0.0.1:8080/api/core/v2/namespaces/default/rolebindings
+curl -X GET \
+http://127.0.0.1:8080/api/core/v2/namespaces/default/rolebindings \
 -H "Authorization: Bearer $SENSU_TOKEN"
 
 HTTP/1.1 200 OK
@@ -140,7 +141,8 @@ The `/rolebindings/:rolebinding` API endpoint provides HTTP GET access to [role 
 In the following example, querying the `/rolebindings/:rolebinding` API endpoint returns a JSON map that contains the requested [`:rolebinding` definition][1] (in this example, for the `:rolebinding` named `readers-group-binding`).
 
 {{< highlight shell >}}
-curl -X GET http://127.0.0.1:8080/api/core/v2/namespaces/default/rolebindings/readers-group-binding
+curl -X GET \
+http://127.0.0.1:8080/api/core/v2/namespaces/default/rolebindings/readers-group-binding \
 -H "Authorization: Bearer $SENSU_TOKEN"
 
 HTTP/1.1 200 OK
