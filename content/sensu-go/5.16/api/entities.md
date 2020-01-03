@@ -28,8 +28,10 @@ The `/entities` API endpoint provides HTTP GET access to [entity][1] data.
 The following example demonstrates a request to the `/entities` API endpoint, resulting in a JSON array that contains the [entity definitions][1].
 
 {{< highlight shell >}}
-curl -X GET "Authorization: Bearer $SENSU_TOKEN" \
-http://127.0.0.1:8080/api/core/v2/namespaces/default/entities
+curl -X GET \
+http://127.0.0.1:8080/api/core/v2/namespaces/default/entities \
+"Authorization: Bearer $SENSU_TOKEN" \
+
 [
   {
     "entity_class": "agent",
@@ -242,7 +244,10 @@ The `/entities/:entity` API endpoint provides HTTP GET access to [entity data][1
 In the following example, querying the `/entities/:entity` API endpoint returns a JSON map that contains the requested [`:entity` definition][1] (in this example, for the `:entity` named `sensu-centos`).
 
 {{< highlight shell >}}
-curl X GET http://127.0.0.1:8080/api/core/v2/namespaces/default/entities/sensu-centos -H "Authorization: Bearer $SENSU_TOKEN"
+curl X GET \
+http://127.0.0.1:8080/api/core/v2/namespaces/default/entities/sensu-centos \
+-H "Authorization: Bearer $SENSU_TOKEN" \
+
 {
   "entity_class": "agent",
   "sensu_agent_version": "1.0.0",
@@ -497,8 +502,8 @@ The following example shows a request to the `/entities/:entity` API endpoint to
 
 {{< highlight shell >}}
 curl -X DELETE \
+http://127.0.0.1:8080/api/core/v2/namespaces/default/entities/server1 \
 -H "Authorization: Bearer $SENSU_TOKEN" \
-http://127.0.0.1:8080/api/core/v2/namespaces/default/entities/server1
 
 HTTP/1.1 204 No Content
 {{< /highlight >}}
