@@ -64,7 +64,7 @@ http://127.0.0.1:8080/api/core/v2/namespaces/default/handlers
     "env_vars": [
       "SLACK_WEBHOOK_URL=https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX"
     ],
-    "runtime_assets": null
+    "runtime_assets": ["sensu/sensu-influxdb-handler"]
   }
 ]
 {{< /highlight >}}
