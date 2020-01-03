@@ -28,7 +28,8 @@ The `/namespaces` API endpoint provides HTTP GET access to [namespace][1] data.
 The following example demonstrates a request to the `/namespaces` API endpoint, resulting in a JSON array that contains [namespace definitions][1].
 
 {{< highlight shell >}}
-curl -X GET http://127.0.0.1:8080/api/core/v2/namespaces
+curl -X GET \
+http://127.0.0.1:8080/api/core/v2/namespaces \
 -H "Authorization: Bearer $SENSU_TOKEN"
 [
   {
@@ -165,7 +166,8 @@ The `/user-namespaces` API endpoint provides HTTP GET access to the namespaces t
 The following example demonstrates a request to the `/user-namespaces` API endpoint, resulting in a JSON array that contains the namespaces the user has access to.
 
 {{< highlight shell >}}
-curl -X GET http://127.0.0.1:8080/api/enterprise/user-namespaces
+curl -X GET \
+http://127.0.0.1:8080/api/enterprise/user-namespaces \
 -H "Authorization: Bearer $SENSU_TOKEN"
 [
   {
