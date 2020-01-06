@@ -28,7 +28,9 @@ The `/clusterroles` API endpoint provides HTTP GET access to [cluster role][1] d
 The following example demonstrates a request to the `/clusterroles` API endpoint, resulting in a JSON array that contains [cluster role definitions][1].
 
 {{< highlight shell >}}
-curl http://127.0.0.1:8080/api/core/v2/clusterroles -H "Authorization: Bearer $SENSU_TOKEN"
+curl -X GET \
+http://127.0.0.1:8080/api/core/v2/clusterroles \
+-H "Authorization: Bearer $SENSU_TOKEN" \
 
 HTTP/1.1 200 OK
 [
@@ -122,6 +124,37 @@ output         | {{< highlight shell >}}
 
 The `/clusterroles` API endpoint provides HTTP POST access to create a [cluster role][1].
 
+#### EXAMPLE {#clusterroles-post-example}
+
+In the following example, an HTTP POST request is submitted to the `/clusterroles` API endpoint to create a `global-event-reader` cluster role.
+The request includes the cluster role definition in the request body and returns a successful HTTP `201 Created` response.
+
+{{< highlight shell >}}
+curl -X POST \
+-H "Authorization: Bearer $SENSU_TOKEN" \
+-H 'Content-Type: application/json' \
+-d '{
+  "metadata": {
+    "name": "global-event-reader"
+  },
+  "rules": [
+    {
+      "verbs": [
+        "get",
+        "list"
+      ],
+      "resources": [
+        "events"
+      ],
+      "resource_names": null
+    }
+  ]
+}' \
+http://127.0.0.1:8080/api/core/v2/clusterroles
+
+HTTP/1.1 201 Created
+{{< /highlight >}}
+
 #### API Specification {#clusterroles-post-specification}
 
 /clusterroles (POST) | 
@@ -147,7 +180,7 @@ payload         | {{< highlight shell >}}
   ]
 }
 {{< /highlight >}}
-response codes  | <ul><li>**Success**: 200 (OK)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 ## The `/clusterroles/:clusterrole` API endpoint {#the-clusterrolesclusterrole-api-endpoint}
 
@@ -160,7 +193,9 @@ The `/clusterroles/:clusterrole` API endpoint provides HTTP GET access to [clust
 In the following example, querying the `/clusterroles/:clusterrole` API endpoint returns a JSON map that contains the requested [`:clusterrole` definition][1] (in this example, for the `:clusterrole` named `global-event-reader`).
 
 {{< highlight shell >}}
-curl http://127.0.0.1:8080/api/core/v2/clusterroles/global-event-reader -H "Authorization: Bearer $SENSU_TOKEN"
+curl -X GET \
+http://127.0.0.1:8080/api/core/v2/clusterroles/global-event-reader \
+-H "Authorization: Bearer $SENSU_TOKEN" \
 
 HTTP/1.1 200 OK
 {
@@ -213,6 +248,38 @@ output               | {{< highlight json >}}
 ### `/clusterroles/:clusterrole` (PUT) {#clusterrolesclusterrole-put}
 
 The `/clusterroles/:clusterrole` API endpoint provides HTTP PUT access to create or update a cluster role, by cluster role name.
+
+#### EXAMPLE {#clusterroles-clusterrole-put-example}
+
+In the following example, an HTTP PUT request is submitted to the `/clusterroles/:clusterrole` API endpoint to update the `global-event-reader` cluster role by adding `"checks"` to the resources.
+The request includes the cluster role definition in the request body and returns a successful HTTP `201 Created` response.
+
+{{< highlight shell >}}
+curl -X PUT \
+-H "Authorization: Bearer $SENSU_TOKEN" \
+-H 'Content-Type: application/json' \
+-d '{
+  "metadata": {
+    "name": "global-event-reader"
+  },
+  "rules": [
+    {
+      "verbs": [
+        "get",
+        "list"
+      ],
+      "resources": [
+        "checks",
+        "events"
+      ],
+      "resource_names": null
+    }
+  ]
+}' \
+http://127.0.0.1:8080/api/core/v2/clusterroles
+
+HTTP/1.1 201 Created
+{{< /highlight >}}
 
 #### API Specification {#clusterrolesclusterrole-put-specification}
 
