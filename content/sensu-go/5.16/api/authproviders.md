@@ -25,6 +25,59 @@ For more information, see [Get started with commercial features][2].
 
 The `/authproviders` API endpoint provides HTTP GET access to authentication provider configuration in Sensu.
 
+#### EXAMPLE {#authproviders-get-example}
+
+In the following example, querying the `/authproviders` API endpoint returns the authentication provider configuration in Sensu, with an HTTP `200 OK` response.
+
+{{< highlight shell >}}
+curl -X GET \
+http://127.0.0.1:8080/api/enterprise/authentication/v2/authproviders \
+-H "Authorization: Bearer $SENSU_TOKEN" \
+
+HTTP/1.1 200 OK
+[
+  {
+    "type": "ldap",
+    "api_version": "authentication/v2",
+    "metadata": {
+      "name": "openldap"
+    },
+    "spec": {
+      "groups_prefix": "",
+      "servers": [
+        {
+          "binding": {
+            "password": "YOUR_PASSWORD",
+            "user_dn": "cn=binder,dc=acme,dc=org"
+          },
+          "client_cert_file": "",
+          "client_key_file": "",
+          "default_upn_domain": "",
+          "group_search": {
+            "attribute": "member",
+            "base_dn": "dc=acme,dc=org",
+            "name_attribute": "cn",
+            "object_class": "groupOfNames"
+          },
+          "host": "127.0.0.1",
+          "insecure": false,
+          "port": 636,
+          "security": "tls",
+          "trusted_ca_file": "",
+          "user_search": {
+            "attribute": "uid",
+            "base_dn": "dc=acme,dc=org",
+            "name_attribute": "cn",
+            "object_class": "person"
+          }
+        }
+      ],
+      "username_prefix": ""
+    }
+  }
+]
+{{< /highlight >}}
+
 #### API Specification {#authproviders-get-specification}
 
 /authproviders (GET)  | 
@@ -37,27 +90,42 @@ response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal 
 output         | {{< highlight json >}}
 [
   {
-    "Type": "ldap",
+    "type": "ldap",
     "api_version": "authentication/v2",
-    "spec": {
-      "servers": [
-        {
-          "host": "127.0.0.1",
-          "binding": {
-            "user_dn": "cn=binder,dc=acme,dc=org",
-            "password": "YOUR_PASSWORD"
-          },
-          "group_search": {
-            "base_dn": "dc=acme,dc=org"
-          },
-          "user_search": {
-            "base_dn": "dc=acme,dc=org"
-          }
-        }
-      ]
-    },
     "metadata": {
       "name": "openldap"
+    },
+    "spec": {
+      "groups_prefix": "",
+      "servers": [
+        {
+          "binding": {
+            "password": "YOUR_PASSWORD",
+            "user_dn": "cn=binder,dc=acme,dc=org"
+          },
+          "client_cert_file": "",
+          "client_key_file": "",
+          "default_upn_domain": "",
+          "group_search": {
+            "attribute": "member",
+            "base_dn": "dc=acme,dc=org",
+            "name_attribute": "cn",
+            "object_class": "groupOfNames"
+          },
+          "host": "127.0.0.1",
+          "insecure": false,
+          "port": 636,
+          "security": "tls",
+          "trusted_ca_file": "",
+          "user_search": {
+            "attribute": "uid",
+            "base_dn": "dc=acme,dc=org",
+            "name_attribute": "cn",
+            "object_class": "person"
+          }
+        }
+      ],
+      "username_prefix": ""
     }
   }
 ]
@@ -69,6 +137,58 @@ output         | {{< highlight json >}}
 
 The `/authproviders/:name` API endpoint provides HTTP GET access to the authentication provider configuration for a specific `:name`.
 
+#### EXAMPLE {#authprovidersname-get-example}
+
+In the following example, an HTTP GET request is submitted to the `/authproviders/:name` API endpoint to retrieve the `openldap` authenthication provider configuration, resulting in an HTTP `200 OK` response.
+
+{{< highlight shell >}}
+curl -X GET \
+http://127.0.0.1:8080/api/enterprise/authentication/v2/authproviders/openldap \
+-H "Authorization: Bearer $SENSU_TOKEN" \
+-H 'Content-Type: application/json' \
+
+HTTP/1.1 200 OK
+-d '{
+  "type": "ldap",
+  "api_version": "authentication/v2",
+  "metadata": {
+    "name": "openldap"
+  },
+  "spec": {
+    "groups_prefix": "",
+    "servers": [
+      {
+        "binding": {
+          "password": "YOUR_PASSWORD",
+          "user_dn": "cn=binder,dc=acme,dc=org"
+        },
+        "client_cert_file": "",
+        "client_key_file": "",
+        "default_upn_domain": "",
+        "group_search": {
+          "attribute": "member",
+          "base_dn": "dc=acme,dc=org",
+          "name_attribute": "cn",
+          "object_class": "groupOfNames"
+        },
+        "host": "127.0.0.1",
+        "insecure": false,
+        "port": 636,
+        "security": "tls",
+        "trusted_ca_file": "",
+        "user_search": {
+          "attribute": "uid",
+          "base_dn": "dc=acme,dc=org",
+          "name_attribute": "cn",
+          "object_class": "person"
+        }
+      }
+    ],
+  "username_prefix": ""
+  }
+}'
+{{< /highlight >}}
+
 #### API Specification {#authprovidersname-get-specification}
 
 /authproviders/:name (GET) | 
@@ -79,6 +199,59 @@ response type        | Map
 response codes       | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output               | {{< highlight json >}}
 {
+  "type": "ldap",
+  "api_version": "authentication/v2",
+  "metadata": {
+    "name": "openldap"
+  },
+  "spec": {
+    "groups_prefix": "",
+    "servers": [
+      {
+        "binding": {
+          "password": "YOUR_PASSWORD",
+          "user_dn": "cn=binder,dc=acme,dc=org"
+        },
+        "client_cert_file": "",
+        "client_key_file": "",
+        "default_upn_domain": "",
+        "group_search": {
+          "attribute": "member",
+          "base_dn": "dc=acme,dc=org",
+          "name_attribute": "cn",
+          "object_class": "groupOfNames"
+        },
+        "host": "127.0.0.1",
+        "insecure": false,
+        "port": 636,
+        "security": "tls",
+        "trusted_ca_file": "",
+        "user_search": {
+          "attribute": "uid",
+          "base_dn": "dc=acme,dc=org",
+          "name_attribute": "cn",
+          "object_class": "person"
+        }
+      }
+    ],
+  "username_prefix": ""
+  }
+}
+{{< /highlight >}}
+
+### `/authproviders/:name` (PUT) {#authprovidersname-put}
+
+The `/authproviders/:name` API endpoint provides HTTP PUT access to create or update the [authentication provider][1] configuration for a specific `:name`.
+
+#### EXAMPLE {#authprovidersname-put-example}
+
+In the following example, an HTTP PUT request is submitted to the `/authproviders/:name` API endpoint to create the `openldap` authenthication provider, resulting in an HTTP `200 OK` response.
+
+{{< highlight shell >}}
+curl -X PUT \
+-H "Authorization: Bearer $SENSU_TOKEN" \
+-H 'Content-Type: application/json' \
+-d '{
   "Type": "ldap",
   "api_version": "authentication/v2",
   "spec": {
@@ -101,12 +274,11 @@ output               | {{< highlight json >}}
   "metadata": {
     "name": "openldap"
   }
-}
+}' \
+http://127.0.0.1:8080/api/enterprise/authentication/v2/authproviders/openldap
+
+HTTP/1.1 200 OK
 {{< /highlight >}}
-
-### `/authproviders/:name` (PUT) {#authprovidersname-put}
-
-The `/authproviders/:name` API endpoint provides HTTP PUT access to create or update the [authentication provider][1] configuration for a specific `:name`.
 
 #### API Specification {#authprovidersname-put-specification}
 
