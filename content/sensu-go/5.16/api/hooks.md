@@ -27,18 +27,29 @@ The `/hooks` API endpoint provides HTTP GET access to [hook][1] data.
 The following example demonstrates a request to the `/hooks` API endpoint, resulting in a JSON array that contains [hook definitions][1].
 
 {{< highlight shell >}}
-curl http://127.0.0.1:8080/api/core/v2/namespaces/default/hooks -H "Authorization: Bearer $SENSU_TOKEN"
+curl -X GET \
+http://127.0.0.1:8080/api/core/v2/namespaces/default/hooks \
+-H "Authorization: Bearer $SENSU_TOKEN" \
 [
   {
     "metadata": {
-      "name": "process-tree",
-      "namespace": "default",
-      "labels": null,
-      "annotations": null
+      "name": "nginx-log",
+      "namespace": "default"
     },
-    "command": "ps aux",
+    "command": "tail -n 100 /var/log/nginx/error.log",
     "timeout": 10,
-    "stdin": false
+    "stdin": false,
+    "runtime_assets": null
+  },
+  {
+    "metadata": {
+      "name": "process-tree",
+      "namespace": "default"
+    },
+    "command": "ps -eo user,pid,cmd:50,%cpu --sort=-%cpu | head -n 6",
+    "timeout": 10,
+    "stdin": false,
+    "runtime_assets": null
   }
 ]
 {{< /highlight >}}
@@ -56,25 +67,23 @@ output         | {{< highlight shell >}}
 [
   {
     "metadata": {
-      "name": "process-tree",
-      "namespace": "default",
-      "labels": null,
-      "annotations": null
-    },
-    "command": "ps aux",
-    "timeout": 10,
-    "stdin": false
-  },
-  {
-    "metadata": {
       "name": "nginx-log",
-      "namespace": "default",
-      "labels": null,
-      "annotations": null
+      "namespace": "default"
     },
     "command": "tail -n 100 /var/log/nginx/error.log",
     "timeout": 10,
-    "stdin": false
+    "stdin": false,
+    "runtime_assets": null
+  },
+  {
+    "metadata": {
+      "name": "process-tree",
+      "namespace": "default"
+    },
+    "command": "ps -eo user,pid,cmd:50,%cpu --sort=-%cpu | head -n 6",
+    "timeout": 10,
+    "stdin": false,
+    "runtime_assets": null
   }
 ]
 {{< /highlight >}}
@@ -82,6 +91,31 @@ output         | {{< highlight shell >}}
 ### `/hooks` (POST)
 
 The `/hooks` API endpoint provides HTTP POST access to create a hook.
+
+#### EXAMPLE {#hooks-post-example}
+
+In the following example, an HTTP POST request is submitted to the `/hooks` API endpoint to create the hook `process-tree`.
+The request returns a successful HTTP `201 Created` response.
+
+{{< highlight shell >}}
+curl -X POST \
+-H "Authorization: Bearer $SENSU_TOKEN" \
+-H 'Content-Type: application/json' \
+-d '{
+  "metadata": {
+    "name": "process-tree",
+    "namespace": "default",
+    "labels": null,
+    "annotations": null
+  },
+  "command": "ps -eo user,pid,cmd:50,%cpu --sort=-%cpu | head -n 6",
+  "timeout": 10,
+  "stdin": false
+}' \
+http://127.0.0.1:8080/api/core/v2/namespaces/default/hooks
+
+HTTP/1.1 201 Created
+{{< /highlight >}}
 
 #### API Specification {#hooks-post-specification}
 
@@ -102,7 +136,7 @@ payload         | {{< highlight shell >}}
   "stdin": false
 }
 {{< /highlight >}}
-response codes  | <ul><li>**Success**: 200 (OK)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 ## The `/hooks/:hook` API endpoint {#the-hookshook-api-endpoint}
 
@@ -115,7 +149,10 @@ The `/hooks/:hook` API endpoint provides HTTP GET access to [hook data][1] for s
 In the following example, querying the `/hooks/:hook` API endpoint returns a JSON map that contains the requested [`:hook` definition][1] (in this example, for the `:hook` named `process-tree`).
 
 {{< highlight shell >}}
-curl http://127.0.0.1:8080/api/core/v2/namespaces/default/hooks/process-tree -H "Authorization: Bearer $SENSU_TOKEN"
+curl -X GET \
+http://127.0.0.1:8080/api/core/v2/namespaces/default/hooks/process-tree \
+-H "Authorization: Bearer $SENSU_TOKEN" \
+
 {
   "metadata": {
     "name": "process-tree",
@@ -155,24 +192,49 @@ output               | {{< highlight json >}}
 
 The `/hooks/:hook` API endpoint provides HTTP PUT access to create or update specific `:hook` definitions, by hook name.
 
+#### EXAMPLE {#hooks-post-example}
+
+In the following example, an HTTP PUT request is submitted to the `/hooks/:hook` API endpoint to create the hook `nginx-log`.
+The request returns a successful HTTP `201 Created` response.
+
+{{< highlight shell >}}
+curl -X PUT \
+-H "Authorization: Bearer $SENSU_TOKEN" \
+-H 'Content-Type: application/json' \
+-d '{
+  "metadata": {
+    "name": "nginx-log",
+    "namespace": "default",
+    "labels": null,
+    "annotations": null
+  },
+  "command": "tail -n 100 /var/log/nginx/error.log",
+  "timeout": 10,
+  "stdin": false
+  }' \
+http://127.0.0.1:8080/api/core/v2/namespaces/default/hooks/nginx-log
+
+HTTP/1.1 201 Created
+{{< /highlight >}}
+
 #### API Specification {#hookshook-put-specification}
 
 /hooks/:hook (PUT) | 
 ----------------|------
 description     | Creates or updates the specified Sensu hook.
-example URL     | http://hostname:8080/api/core/v2/namespaces/default/hooks/process-tree
+example URL     | http://hostname:8080/api/core/v2/namespaces/default/hooks/nginx-log
 payload         | {{< highlight shell >}}
 {
   "metadata": {
-    "name": "process-tree",
+    "name": "nginx-log",
     "namespace": "default",
     "labels": null,
     "annotations": null
   },
-  "command": "ps aux",
+  "command": "tail -n 100 /var/log/nginx/error.log",
   "timeout": 10,
   "stdin": false
-}
+  }
 {{< /highlight >}}
 response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
@@ -185,8 +247,8 @@ The following example shows a request to the `/hooks/:hook` API endpoint to dele
 
 {{< highlight shell >}}
 curl -X DELETE \
+http://127.0.0.1:8080/api/core/v2/namespaces/default/hooks/process-tree \
 -H "Authorization: Bearer $SENSU_TOKEN" \
-http://127.0.0.1:8080/api/core/v2/namespaces/default/hooks/process-tree
 
 HTTP/1.1 204 No Content
 {{< /highlight >}}
