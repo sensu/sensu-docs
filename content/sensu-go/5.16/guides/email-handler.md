@@ -27,12 +27,11 @@ You should also [install and configure sensuctl][4].
 
 You will send alerts to your email by configuring a handler named `email` to a check named `check-cpu`.
 To create the check you need, follow the [Monitor server resources][2] guide to get `check-cpu` set up.
+The `check-cpu` check generates a warning event when CPU usage reaches 75% and a critical alert when CPU usage reaches 90%.
 
-**I don't think the check set up in the Monitor server resources guide will actually work with the handler/filter we set up in the Up and running scenario. I need to replace this content with a check that will work with a simulated critical event.**
-
-Now that your check is generating events, you can set up a handler to make sure you find out about them.
+When your `check-cpu` check is generating events, you can set up a handler to make sure you find out about them.
 In this case, your backend will execute an email handler that sends incident notifications to the email address you specify.
-You'll also add an [event filter][5] to make sure you only receive a notification when your event's state changes.
+You'll also add an [event filter][5] to make sure you only receive a notification when `check-cpu` events represent a state change.
 
 ## Add the email handler asset
 
@@ -60,10 +59,17 @@ sensuctl asset info sensu/sensu-email-handler
 
 ## Add an event filter
 
-Event filters allow you to fine-tune how your events are handled and reduce alert fatigue.
+Event filters allow you to fine-tune how your events are handled and [reduce alert fatigue][7].
 In this guide, your event filter will send notifications only when an event's state changes (for example, from `warning` to `critical` or from `critical` to `ok`).
 
-This requires two parts:
+Here's an overview of how the filter will work:
+
+- If CPU usage reaches 75%, you will receive **one** email notification for the change to `warning` status
+- If CPU usage stays at 75% for the next hour, you **will not** receive repeated email notifications every 60 seconds during that hour
+- If CPU usage increases to 90% after 1 hour at 75%, you will receive **one** email notification for the change from `warning` status to `critical` status
+- If CPU usage fluctuates betwen 50% and 95% for the next hour, you **one** email notification each time the status changes
+
+Adding the event filter requires two parts:
 
 1. Create the event filter
 2. Create the email handler definition to specify the email address where the `sensu/sensu-email-handler` asset will send incident notifications
@@ -117,55 +123,27 @@ spec:
 EOF
 {{< /highlight >}}
 
-After you update the email, username, and password values, run it to create the email handler definition.
+After you add your email, username, and password values, run your updated code to create the email handler definition.
 
 Now your handler and event filter are set up!
-The last step is triggering alerts.
+The last step is to assign the email handler to the `check-cpu` check.
 
 ## Assign the email handler to a check
 
-With your `email` handler created, you can assign it to a check.
-In this case, you're using the `check-cpu` check: you want to receive an email alert whenever your CPU state changes.
-Assign your email handler to the check `check-cpu`:
+With your `email` handler created, you can assign it to the `check-cpu` check.
+To assign your email handler to the check `check-cpu`:
 
 {{< highlight shell >}}
 sensuctl check set-handlers check-cpu email
 {{< /highlight >}}
 
-### Validate the handler
-
 It might take a few moments after you assign the handler to the check for the check to be scheduled on the entities and the result sent back to Sensu backend.
-After an event is handled, you should see an alert message in your email.
-
-## Trigger an event
-
-In the previous few steps, you added a check, verified that the check creates a critical event when you stop the service, and then added the Sensu Go Email Handler and an event filter to send critical events to your email address.
-
-Now, you can test your email integration. Trigger another critical event:
-
-{{< highlight shell >}}
-systemctl stop check-cpu
-{{< /highlight >}}
-
-After you run this command, you should receive an email from your Sensu server with information about the critical event.
-
-To confirm the `check-cpu` critical event, run:
-
-{{< highlight shell >}}
-sensuctl event list
-{{< /highlight >}}
-
-Make sure to clear the event by starting the service again. Run:
-
-{{< highlight shell >}}
-systemctl start check-cpu
-{{< /highlight >}}
 
 ## Next steps
 
 Now that you know how to apply a handler to a check and take action on events, read the [handlers reference][6] for in-depth handler documentation and check out the [Reduce alert fatigue][7] guide.
 
-You can also try our [Up and running with Sensu Go][9] scenario to walk through this guide in a step-by-step interactive tutorial.
+You can also follow our [Up and running with Sensu Go][9] interactive tutorial to set up the Sensu Go email handler and test it with simulated `critical` events.
 
 [1]: ../../reference/events/
 [2]: ../monitor-server-resources/
