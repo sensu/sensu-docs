@@ -1,5 +1,5 @@
 ---
-name: Site functionality
+name: Site functionality issue
 about: Report a site functionality problem or suggest a site functionality improvement
 title: ''
 labels: ''
