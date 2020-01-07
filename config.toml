@@ -74,7 +74,7 @@ disableKinds = ["taxonomy", "taxonomyTerm"]
     description = "The original monitoring event pipeline"
     notice = "End of life: December 31, 2019"
     weight = 2
-    latest = "1.8"
+    latest = "1.9"
 
     [[params.products.sensu_core.versions]]
     version = "1.9"
