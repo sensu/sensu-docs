@@ -30,7 +30,7 @@ The following example demonstrates a request to the `/assets` API endpoint, resu
 {{< highlight shell >}}
 curl -X GET \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/assets \
--H "Authorization: Bearer $SENSU_TOKEN" \
+-H "Authorization: Bearer $SENSU_TOKEN"
 
 HTTP/1.1 200 OK
 [
@@ -158,7 +158,7 @@ In the following example, querying the `/assets/:asset` API endpoint returns a J
 {{< highlight shell >}}
 curl -X GET \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/assets/sensu-slack-handler \
--H "Authorization: Bearer $SENSU_TOKEN" \
+-H "Authorization: Bearer $SENSU_TOKEN"
 
 HTTP/1.1 200 OK
 {
@@ -257,7 +257,7 @@ _**NOTE**: Deleting an asset does not remove the downloaded files from the asset
 {{< highlight shell >}}
 curl -X DELETE \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/assets/sensu-slack-handler \
--H "Authorization: Bearer $SENSU_TOKEN" \
+-H "Authorization: Bearer $SENSU_TOKEN"
 
 HTTP/1.1 204 No Content
 {{< /highlight >}}
