@@ -15,12 +15,13 @@ menu:
 - [Add the email handler asset](#add-the-email-handler-asset)
 - [Add an event filter](#add-an-event-filter)
 - [Assign the email handler to a check](#assign-the-email-handler-to-a-check)
+- [Create an email template](#create-an-email-template)
 - [Next steps](#next-steps)
 
 Sensu event handlers are actions the Sensu backend executes on [events][1].
 This guide explains how to use the [Sensu Go Email Handler][3] to send incident notification emails.
 
-To use this guide, you’ll need to install a Sensu backend and have at least one Sensu agent running on Linux.
+To use this guide, you’ll need to [install the Sensu backend][12] and have at least one [Sensu agent][13] running on Linux.
 You should also [install and configure sensuctl][4].
 
 ## Create a check
@@ -62,7 +63,7 @@ sensuctl asset info sensu/sensu-email-handler
 Event filters allow you to fine-tune how your events are handled and [reduce alert fatigue][7].
 In this guide, your event filter will send notifications only when an event's state changes (for example, from `warning` to `critical` or from `critical` to `ok`).
 
-Here's an overview of how the filter will work:
+Here's an overview of how the `state_change_only` filter will work:
 
 - If CPU usage reaches 75%, you will receive **one** email notification for the change to `warning` status
 - If CPU usage stays at 75% for the next hour, you **will not** receive repeated email notifications every 60 seconds during that hour
@@ -123,10 +124,13 @@ spec:
 EOF
 {{< /highlight >}}
 
+
+_**NOTE**: The handler definition also includes the built-in [`is_incident`][10] and [`not_silenced`][11] filters. These two filters are included in every Sensu backend installation._
+
 After you add your email, username, and password values, run your updated code to create the email handler definition.
 
 Now your handler and event filter are set up!
-The last step is to assign the email handler to the `check-cpu` check.
+Next, assign the email handler to the `check-cpu` check.
 
 ## Assign the email handler to a check
 
@@ -138,6 +142,40 @@ sensuctl check set-handlers check-cpu email
 {{< /highlight >}}
 
 It might take a few moments after you assign the handler to the check for the check to be scheduled on the entities and the result sent back to Sensu backend.
+
+## Create an email template
+
+The last step is to create a .
+The [Sensu Go Email Handler][3] asset makes it possible to use a template that provides context for your email notifications.
+The email template functionality included with the Sensu Go Email Handler asset uses tokens to populate the values provided by the event.
+Use HTML to format the email. 
+
+Here is an example email template:
+
+{{< highlight shell >}}
+/etc/sensu/email_template
+
+<html>
+Greetings,<br>
+<br>
+The status of your {{ .Check.Name }} check has changed. Details about the change are included below.<br>
+<br>
+<h3>Incident Details</h3>
+<b>Check</b>: {{ .Check.Name }}<br>
+<b>Entity</b>: {{ .Entity.Name }}<br>
+<b>State</b>: {{ .Check.State }}<br>
+<b>Occurrences</b>: {{ .Check.Occurrences }}<br>
+<b>Playbook</b>: https://example.com/monitoring/wiki/playbook<br>
+<h3>Check Output Details</h3>
+<b>Check Output</b>: {{.Check.Output}}<br>
+{{end}}
+
+<br>
+#monitoringlove,<br>
+<br>
+Sensu<br>
+</html>
+{{< /highlight >}}
 
 ## Next steps
 
@@ -154,3 +192,7 @@ You can also follow our [Up and running with Sensu Go][9] interactive tutorial t
 [7]: ../reduce-alert-fatigue/
 [8]: ../../reference/assets
 [9]: ../up-running-tutorial/
+[10]: ../../reference/filters/#built-in-filter-is-incident
+[11]: ../../reference/filters/#built-in-filter-not-silenced
+[12]: ../../installation/install-sensu/#install-the-sensu-backend
+[13]: ../../installation/install-sensu/#install-sensu-agents
