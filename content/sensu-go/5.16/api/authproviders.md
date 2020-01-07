@@ -32,7 +32,7 @@ In the following example, querying the `/authproviders` API endpoint returns the
 {{< highlight shell >}}
 curl -X GET \
 http://127.0.0.1:8080/api/enterprise/authentication/v2/authproviders \
--H "Authorization: Bearer $SENSU_TOKEN" \
+-H "Authorization: Bearer $SENSU_TOKEN"
 
 HTTP/1.1 200 OK
 [
@@ -145,7 +145,7 @@ In the following example, an HTTP GET request is submitted to the `/authprovider
 curl -X GET \
 http://127.0.0.1:8080/api/enterprise/authentication/v2/authproviders/openldap \
 -H "Authorization: Bearer $SENSU_TOKEN" \
--H 'Content-Type: application/json' \
+-H 'Content-Type: application/json'
 
 HTTP/1.1 200 OK
 -d '{

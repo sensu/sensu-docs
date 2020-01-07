@@ -339,7 +339,8 @@ The `/silenced/checks/:check` API endpoint provides HTTP GET access to [silencin
 In the following example, querying the `silenced/checks/:check` API endpoint returns a JSON array that contains the requested [silences][1] for the given check (in this example, for the `check-cpu` check).
 
 {{< highlight shell >}}
-curl -H "Authorization: Bearer $SENSU_TOKEN" \
+curl -X GET \
+-H "Authorization: Bearer $SENSU_TOKEN" \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/silenced/checks/check-cpu
 
 HTTP/1.1 200 OK

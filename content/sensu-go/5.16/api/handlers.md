@@ -29,7 +29,9 @@ The following example demonstrates a request to the `/handlers` API endpoint, re
 {{< highlight shell >}}
 curl -X GET \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/handlers \
--H "Authorization: Bearer $SENSU_TOKEN" \
+-H "Authorization: Bearer $SENSU_TOKEN"
+
+HTTP/1.1 200 OK
 [
   {
     "metadata": {
@@ -197,7 +199,9 @@ In the following example, querying the `/handlers/:handler` API endpoint returns
 {{< highlight shell >}}
 curl -X GET \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/handlers/slack \
--H "Authorization: Bearer $SENSU_TOKEN" \
+-H "Authorization: Bearer $SENSU_TOKEN"
+
+HTTP/1.1 200 OK
 {
   "metadata": {
     "name": "slack",
@@ -328,7 +332,7 @@ The following example shows a request to the `/handlers/:handler` API endpoint t
 {{< highlight shell >}}
 curl -X DELETE \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/handlers/slack \
--H "Authorization: Bearer $SENSU_TOKEN" \
+-H "Authorization: Bearer $SENSU_TOKEN"
 
 HTTP/1.1 204 No Content
 {{< /highlight >}}
