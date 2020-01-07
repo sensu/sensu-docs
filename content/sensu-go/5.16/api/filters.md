@@ -29,7 +29,9 @@ The following example demonstrates a request to the `/filters` API endpoint, res
 {{< highlight shell >}}
 curl -X GET \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/filters \
--H "Authorization: Bearer $TOKEN" \
+-H "Authorization: Bearer $TOKEN"
+
+HTTP/1.1 200 OK
 [
   {
     "metadata": {
@@ -159,8 +161,9 @@ In the following example, querying the `/filters/:filter` API endpoint returns a
 {{< highlight shell >}}
 curl -X GET \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/filters/state_change_only \
--H "Authorization: Bearer $TOKEN" \
+-H "Authorization: Bearer $TOKEN"
 
+HTTP/1.1 200 OK
 {
   "metadata": {
     "name": "state_change_only",
@@ -261,7 +264,7 @@ The following example shows a request to the `/filters/:filter` API endpoint to 
 {{< highlight shell >}}
 curl -X DELETE \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/filters/development_filter \
--H "Authorization: Bearer $SENSU_TOKEN" \
+-H "Authorization: Bearer $SENSU_TOKEN"
 
 HTTP/1.1 204 No Content
 {{< /highlight >}}

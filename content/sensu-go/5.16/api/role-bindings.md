@@ -30,7 +30,7 @@ The following example demonstrates a request to the `/rolebindings` API endpoint
 {{< highlight shell >}}
 curl -X GET \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/rolebindings \
--H "Authorization: Bearer $SENSU_TOKEN" \
+-H "Authorization: Bearer $SENSU_TOKEN"
 
 HTTP/1.1 200 OK
 [
@@ -143,7 +143,7 @@ In the following example, querying the `/rolebindings/:rolebinding` API endpoint
 {{< highlight shell >}}
 curl -X GET \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/rolebindings/readers-group-binding \
--H "Authorization: Bearer $SENSU_TOKEN" \
+-H "Authorization: Bearer $SENSU_TOKEN"
 
 HTTP/1.1 200 OK
 {
@@ -262,7 +262,7 @@ The following example shows a request to the `/rolebindings/:rolebinding` API en
 {{< highlight shell >}}
 curl -X DELETE \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/rolebindings/dev-binding \
--H "Authorization: Bearer $SENSU_TOKEN" \
+-H "Authorization: Bearer $SENSU_TOKEN"
 
 HTTP/1.1 204 No Content
 {{< /highlight >}}
