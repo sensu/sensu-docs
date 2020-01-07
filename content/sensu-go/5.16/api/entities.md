@@ -30,7 +30,7 @@ The following example demonstrates a request to the `/entities` API endpoint, re
 {{< highlight shell >}}
 curl -X GET \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/entities \
-"Authorization: Bearer $SENSU_TOKEN" \
+-H "Authorization: Bearer $SENSU_TOKEN" \
 
 [
   {
@@ -244,7 +244,7 @@ The `/entities/:entity` API endpoint provides HTTP GET access to [entity data][1
 In the following example, querying the `/entities/:entity` API endpoint returns a JSON map that contains the requested [`:entity` definition][1] (in this example, for the `:entity` named `sensu-centos`).
 
 {{< highlight shell >}}
-curl X GET \
+curl -X GET \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/entities/sensu-centos \
 -H "Authorization: Bearer $SENSU_TOKEN" \
 
