@@ -19,9 +19,10 @@ menu:
   - [Capture the process tree](#capture-the-process-tree)
   - [Check hook using token substitution](#check-hook-using-token-substitution)
 
-Hooks are executed in response to the result of a check command execution and based on the exit status code of that command (ex: `1`).
-Hook commands can also receive JSON serialized Sensu client data via `STDIN`.
+Hooks are reusable commands the agent executes in response to a check result before creating a monitoring event.
 You can create, manage, and reuse hooks independently of checks.
+Hooks enrich monitoring event context by gathering relevant information based on the exit status code of a check (ex: `1`).
+Hook commands can also receive JSON serialized Sensu client data via `STDIN`.
 
 ## Check response types
 
