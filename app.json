@@ -4,7 +4,7 @@
     "website": "https://docs.sensu.io",
     "buildpacks": [
         {
-            "url": "heroku/nodejs"
+            "url": "urn:buildpack:heroku/nodejs"
         },
         {
             "url": "https://github.com/sensu/heroku-buildpack-static.git"
