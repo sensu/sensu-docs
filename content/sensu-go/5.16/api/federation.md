@@ -40,7 +40,8 @@ The following example demonstrates a request to the `/etcd-replicators` API endp
 _**NOTE**: If you did not specify a [namespace][2] when you created a replicator, the response will not include a `namespace` key-value pair._
 
 {{< highlight shell >}}
-curl -X GET http://127.0.0.1:8080/api/enterprise/federation/v1/etcd-replicators
+curl -X GET \
+http://127.0.0.1:8080/api/enterprise/federation/v1/etcd-replicators \
 -H "Authorization: Bearer $SENSU_TOKEN"
 [
   {
@@ -169,7 +170,8 @@ In the following example, querying the `/etcd-replicators/:etcd-replicator` API 
 _**NOTE**: If you did not specify a [namespace][2] when you created the replicator, the response will not include a `namespace` key-value pair._
 
 {{< highlight shell >}}
-curl -X http://127.0.0.1:8080/api/enterprise/federation/v1/etcd-replicators/my_replicator
+curl -X GET \
+http://127.0.0.1:8080/api/enterprise/federation/v1/etcd-replicators/my_replicator \
 -H "Authorization: Bearer $SENSU_TOKEN"
 {
   "api_version": "federation/v1",
@@ -314,7 +316,8 @@ The `/clusters` API endpoint provides HTTP GET access to a list of clusters.
 The following example demonstrates a request to the `/clusters` API endpoint, resulting in a list of clusters.
 
 {{< highlight shell >}}
-curl -X GET http://127.0.0.1:8080/api/enterprise/federation/v1/clusters
+curl -X GET \
+http://127.0.0.1:8080/api/enterprise/federation/v1/clusters \
 -H "Authorization: Bearer $SENSU_TOKEN"
 
 HTTP/1.1 200 OK
@@ -375,7 +378,8 @@ The `/clusters/:cluster` API endpoint provides HTTP GET access to data for a spe
 In the following example, querying the `/clusters/:cluster` API endpoint returns a JSON map that contains the requested `:etcd-replicator`.
 
 {{< highlight shell >}}
-curl -X GET http://127.0.0.1:8080/api/enterprise/federation/v1/clusters/us-west-2a
+curl -X GET \
+http://127.0.0.1:8080/api/enterprise/federation/v1/clusters/us-west-2a \
 -H "Authorization: Bearer $SENSU_TOKEN"
 
 HTTP/1.1 200 OK

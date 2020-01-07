@@ -18,9 +18,17 @@ sensu-enterprise service must be restarted before the new values can take effect
 
 ## Sensu Enterprise environment variables
 
-The Sensu Enterprise honors the following environment variables. For
+Sensu Enterprise honors the following environment variables. For
 configuration honored by both Sensu Enterprise and Sensu Core, see the
 [Sensu configuration reference documentation][1].
+
+CMS_OCCUPANCY_FRACTION   | 
+-------------------------|-------
+description              | Configures the Initiating Occupancy Fraction threshold for the Java [Concurrent Mark Sweep (CMS) garbage collector][2] used by Sensu Enterprise.
+type                     | String
+required                 | false
+default                  | `75`
+example                  | {{< highlight shell >}}CMS_OCCUPANCY_FRACTION="50"{{< /highlight >}}
 
 HEAP_SIZE    | 
 -------------|-------
@@ -66,3 +74,4 @@ example         | {{< highlight shell >}}$ /opt/sensu/bin/sensu-enterprise -a
 {{< /highlight >}}
 
 [1]: /sensu-core/1.2/reference/configuration
+[2]: https://docs.oracle.com/javase/8/docs/technotes/guides/vm/gctuning/cms.html
