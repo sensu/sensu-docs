@@ -754,7 +754,7 @@ description  | Non-identifying metadata to include with event data, which can be
 required     | false
 type         | Map of key-value pairs. Keys and values can be any valid UTF-8 string.
 default      | `null`
-example      | {{< highlight shell >}} "annotations": {
+example      | {{< highlight shell >}}"annotations": {
   "managed-by": "ops",
   "playbook": "www.example.url"
 }{{< /highlight >}}
