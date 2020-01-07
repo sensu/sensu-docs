@@ -188,7 +188,7 @@ The request includes the entity definition in the request body and returns a suc
 {{< highlight shell >}}
 curl -X POST \
 -H "Authorization: Bearer $SENSU_TOKEN" \
--H 'Content-Type: application/json'
+-H 'Content-Type: application/json' \
 -d '{
   "entity_class": "proxy",
   "sensu_agent_version": "1.0.0",
@@ -399,7 +399,7 @@ The request includes the updated entity definition in the request body and retur
 {{< highlight shell >}}
 curl -X POST \
 -H "Authorization: Bearer $SENSU_TOKEN" \
--H 'Content-Type: application/json'
+-H 'Content-Type: application/json' \
 -d '{
 PLACEHOLDER
 }' \
@@ -444,7 +444,7 @@ The request includes the updated entity definition in the request body and retur
 {{< highlight shell >}}
 curl -X PUT \
 -H "Authorization: Bearer $SENSU_TOKEN" \
--H 'Content-Type: application/json'
+-H 'Content-Type: application/json' \
 -d '{
   "entity_class": "proxy",
   "sensu_agent_version": "1.0.0",
