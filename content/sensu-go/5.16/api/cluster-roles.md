@@ -30,7 +30,7 @@ The following example demonstrates a request to the `/clusterroles` API endpoint
 {{< highlight shell >}}
 curl -X GET \
 http://127.0.0.1:8080/api/core/v2/clusterroles \
--H "Authorization: Bearer $SENSU_TOKEN" \
+-H "Authorization: Bearer $SENSU_TOKEN"
 
 HTTP/1.1 200 OK
 [
@@ -195,7 +195,7 @@ In the following example, querying the `/clusterroles/:clusterrole` API endpoint
 {{< highlight shell >}}
 curl -X GET \
 http://127.0.0.1:8080/api/core/v2/clusterroles/global-event-reader \
--H "Authorization: Bearer $SENSU_TOKEN" \
+-H "Authorization: Bearer $SENSU_TOKEN"
 
 HTTP/1.1 200 OK
 {

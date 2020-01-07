@@ -29,7 +29,9 @@ The following example demonstrates a request to the `/mutators` API endpoint, re
 {{< highlight shell >}}
 curl -X GET \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/mutators \
--H "Authorization: Bearer $SENSU_TOKEN" \
+-H "Authorization: Bearer $SENSU_TOKEN"
+
+HTTP/1.1 200 OK
 [
   {
     "metadata": {
@@ -137,7 +139,9 @@ In the following example, querying the `/mutators/:mutator` API endpoint returns
 {{< highlight shell >}}
 curl -X GET \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/mutators/example-mutator \
--H "Authorization: Bearer $SENSU_TOKEN" \
+-H "Authorization: Bearer $SENSU_TOKEN"
+
+HTTP/1.1 200 OK
 {
   "metadata": {
     "name": "example-mutator",

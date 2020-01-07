@@ -29,7 +29,9 @@ The following example demonstrates a request to the `/hooks` API endpoint, resul
 {{< highlight shell >}}
 curl -X GET \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/hooks \
--H "Authorization: Bearer $SENSU_TOKEN" \
+-H "Authorization: Bearer $SENSU_TOKEN"
+
+HTTP/1.1 200 OK
 [
   {
     "metadata": {
@@ -151,8 +153,9 @@ In the following example, querying the `/hooks/:hook` API endpoint returns a JSO
 {{< highlight shell >}}
 curl -X GET \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/hooks/process-tree \
--H "Authorization: Bearer $SENSU_TOKEN" \
+-H "Authorization: Bearer $SENSU_TOKEN"
 
+HTTP/1.1 200 OK
 {
   "metadata": {
     "name": "process-tree",
@@ -248,7 +251,7 @@ The following example shows a request to the `/hooks/:hook` API endpoint to dele
 {{< highlight shell >}}
 curl -X DELETE \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/hooks/process-tree \
--H "Authorization: Bearer $SENSU_TOKEN" \
+-H "Authorization: Bearer $SENSU_TOKEN"
 
 HTTP/1.1 204 No Content
 {{< /highlight >}}

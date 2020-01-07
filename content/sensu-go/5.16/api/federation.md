@@ -42,7 +42,7 @@ _**NOTE**: If you did not specify a [namespace][2] when you created a replicator
 {{< highlight shell >}}
 curl -X GET \
 http://127.0.0.1:8080/api/enterprise/federation/v1/etcd-replicators \
--H "Authorization: Bearer $SENSU_TOKEN" \
+-H "Authorization: Bearer $SENSU_TOKEN"
 [
   {
     "api_version": "federation/v1",
@@ -172,7 +172,7 @@ _**NOTE**: If you did not specify a [namespace][2] when you created the replicat
 {{< highlight shell >}}
 curl -X GET \
 http://127.0.0.1:8080/api/enterprise/federation/v1/etcd-replicators/my_replicator \
--H "Authorization: Bearer $SENSU_TOKEN" \
+-H "Authorization: Bearer $SENSU_TOKEN"
 {
   "api_version": "federation/v1",
   "type": "EtcdReplicator",
@@ -318,7 +318,7 @@ The following example demonstrates a request to the `/clusters` API endpoint, re
 {{< highlight shell >}}
 curl -X GET \
 http://127.0.0.1:8080/api/enterprise/federation/v1/clusters \
--H "Authorization: Bearer $SENSU_TOKEN" \
+-H "Authorization: Bearer $SENSU_TOKEN"
 
 HTTP/1.1 200 OK
 
@@ -380,7 +380,7 @@ In the following example, querying the `/clusters/:cluster` API endpoint returns
 {{< highlight shell >}}
 curl -X GET \
 http://127.0.0.1:8080/api/enterprise/federation/v1/clusters/us-west-2a \
--H "Authorization: Bearer $SENSU_TOKEN" \
+-H "Authorization: Bearer $SENSU_TOKEN"
 
 HTTP/1.1 200 OK
 

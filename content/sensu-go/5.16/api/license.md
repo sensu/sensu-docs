@@ -31,7 +31,9 @@ curl -X GET \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/license \
 -H "Authorization: Bearer $SENSU_TOKEN" \
 -H 'Content-Type: application/json'
--d '{
+
+HTTP/1.1 200 OK
+{
   "type": "LicenseFile",
   "api_version": "licensing/v2",
   "metadata": {},
@@ -56,7 +58,7 @@ http://127.0.0.1:8080/api/core/v2/namespaces/default/license \
     "signature": "XXXXXXXXXX",
     "metadata": {}
   }
-}'
+}
 {{< /highlight >}}
 
 #### API Specification {#license-get-specification}
@@ -108,7 +110,7 @@ The request returns a successful HTTP `201 Created` response.
 {{< highlight shell >}}
 curl -X PUT \
 -H "Authorization: Bearer $SENSU_TOKEN" \
--H 'Content-Type: application/json'
+-H 'Content-Type: application/json' \
 -d '{
   "type": "LicenseFile",
   "api_version": "licensing/v2",
