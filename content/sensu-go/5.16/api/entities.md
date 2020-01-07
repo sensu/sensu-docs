@@ -30,7 +30,7 @@ The following example demonstrates a request to the `/entities` API endpoint, re
 {{< highlight shell >}}
 curl -X GET \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/entities \
--H "Authorization: Bearer $SENSU_TOKEN" \
+-H "Authorization: Bearer $SENSU_TOKEN"
 
 [
   {
@@ -188,7 +188,7 @@ The request includes the entity definition in the request body and returns a suc
 {{< highlight shell >}}
 curl -X POST \
 -H "Authorization: Bearer $SENSU_TOKEN" \
--H 'Content-Type: application/json' \
+-H 'Content-Type: application/json'
 -d '{
   "entity_class": "proxy",
   "sensu_agent_version": "1.0.0",
@@ -246,7 +246,7 @@ In the following example, querying the `/entities/:entity` API endpoint returns 
 {{< highlight shell >}}
 curl -X GET \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/entities/sensu-centos \
--H "Authorization: Bearer $SENSU_TOKEN" \
+-H "Authorization: Bearer $SENSU_TOKEN"
 
 {
   "entity_class": "agent",
@@ -399,7 +399,7 @@ The request includes the updated entity definition in the request body and retur
 {{< highlight shell >}}
 curl -X POST \
 -H "Authorization: Bearer $SENSU_TOKEN" \
--H 'Content-Type: application/json' \
+-H 'Content-Type: application/json'
 -d '{
 PLACEHOLDER
 }' \
@@ -444,7 +444,7 @@ The request includes the updated entity definition in the request body and retur
 {{< highlight shell >}}
 curl -X PUT \
 -H "Authorization: Bearer $SENSU_TOKEN" \
--H 'Content-Type: application/json' \
+-H 'Content-Type: application/json'
 -d '{
   "entity_class": "proxy",
   "sensu_agent_version": "1.0.0",
@@ -503,7 +503,7 @@ The following example shows a request to the `/entities/:entity` API endpoint to
 {{< highlight shell >}}
 curl -X DELETE \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/entities/server1 \
--H "Authorization: Bearer $SENSU_TOKEN" \
+-H "Authorization: Bearer $SENSU_TOKEN"
 
 HTTP/1.1 204 No Content
 {{< /highlight >}}
