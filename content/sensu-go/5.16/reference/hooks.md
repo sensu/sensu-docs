@@ -20,7 +20,7 @@ menu:
   - [Check hook using token substitution](#check-hook-using-token-substitution)
 
 Hooks are commands the agent executes in response to a check result before creating a monitoring event. 
-Hooks create context-rich events by gathering related information based on the exit status code of a check (ex: `1`).
+Hooks enrich monitoring event context by gathering relevant information based on the exit status code of a check (ex: `1`).
 Hook commands can also receive JSON serialized Sensu client data via `STDIN`, and you can create, manage, and reuse hooks independently of checks.
 
 ## Check response types
