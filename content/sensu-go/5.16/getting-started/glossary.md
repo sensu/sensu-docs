@@ -61,7 +61,7 @@ Handlers can send monitoring event data to an executable (or handler plugin), a 
 
 #### Hook
 A command the agent executes in response to a check result *before* creating a monitoring event.
-Hooks create context-rich events by gathering related information based on check status.
+Hooks create context-rich events by gathering relevant information based on check status.
 [Read more about hooks][5].
 
 #### Mutator
