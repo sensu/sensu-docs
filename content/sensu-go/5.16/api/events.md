@@ -33,7 +33,7 @@ The following example demonstrates a request to the `/events` API endpoint, resu
 {{< highlight shell >}}
 curl -X GET \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/events \
-"Authorization: Bearer $SENSU_TOKEN" \
+-H "Authorization: Bearer $SENSU_TOKEN" \
 
 HTTP/1.1 200 OK
 [
@@ -320,7 +320,7 @@ In the following example, querying the `/events/:entity` API endpoint returns a 
 {{< highlight shell >}}
 curl -X GET \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/events/sensu-go-sandbox \
-"Authorization: Bearer $SENSU_TOKEN" \
+-H "Authorization: Bearer $SENSU_TOKEN" \
 
 HTTP/1.1 200 OK
 [
@@ -487,7 +487,7 @@ In the following example, an HTTP GET request is submitted to the `/events/:enti
 {{< highlight shell >}}
 curl -X GET \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/events/server1/server-health \
-"Authorization: Bearer $SENSU_TOKEN" \
+-H "Authorization: Bearer $SENSU_TOKEN" \
 
 HTTP/1.1 200 OK
 
