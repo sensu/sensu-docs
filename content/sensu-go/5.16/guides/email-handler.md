@@ -98,11 +98,7 @@ EOF
 Second, create the email handler definition.
 In the handler definition's `command` value, you'll need to change a few things.
 
-Copy the text below into a text editor.
-Then, replace the following text:
-- `YOUR-EMAIL@example.com`: Replace with the email address you want to use to send and receive email alerts
-- `USERNAME`: Replace with your SMTP username, typically your email address
-- `PASSWORD`: Replace with your SMTP password, typically the same as your email password
+Copy this text into a text editor:
 
 {{< highlight shell >}}
 cat << EOF | sensuctl create
@@ -114,7 +110,7 @@ metadata:
   name: email
 spec:
   type: pipe
-  command: sensu-email-handler -f YOUR-EMAIL@example.com -t YOUR-EMAIL@example.com -s YOUR-EMAIL.example.com
+  command: sensu-email-handler -f YOUR-SENDER@example.com -t YOUR-RECIPIENT@example.com -s YOUR-SMTP-SERVER.example.com
     -u USERNAME -p PASSWORD
   timeout: 10
   filters:
@@ -124,10 +120,19 @@ spec:
 EOF
 {{< /highlight >}}
 
+Then, replace the following text:
+- `YOUR-SENDER@example.com`: Replace with the email address you want to use to send email alerts
+- `YOUR-RECIPIENT@example.com`: Replace with the email address you want to receive email alerts
+- `YOUR-SMTP-SERVER.example.com`: Replace with the hostname of your SMTP server
+- `USERNAME`: Replace with your SMTP username, typically your email address
+- `PASSWORD`: Replace with your SMTP password, typically the same as your email password
 
-_**NOTE**: The handler definition also includes the built-in [`is_incident`][10] and [`not_silenced`][11] filters. These two filters are included in every Sensu backend installation._
+_**NOTE**: To use Gmail or G Suite as your SMTP server, follow Google's instructions for [sending email via SMTP][14]._
 
-After you add your email, username, and password values, run your updated code to create the email handler definition.
+You probably noticed that the handler definition includes two other filters: [`is_incident`][10] and [`not_silenced`][11].
+These two filters are included in every Sensu backend installation, so you don't have to create them.
+
+After you add your email, server, username, and password values, run your updated code to create the email handler definition.
 
 Now your handler and event filter are set up!
 Next, assign the email handler to the `check-cpu` check.
@@ -196,3 +201,4 @@ You can also follow our [Up and running with Sensu Go][9] interactive tutorial t
 [11]: ../../reference/filters/#built-in-filter-not-silenced
 [12]: ../../installation/install-sensu/#install-the-sensu-backend
 [13]: ../../installation/install-sensu/#install-sensu-agents
+[14]: https://support.google.com/a/answer/176600?hl=en
