@@ -33,22 +33,37 @@ The `/checks` API endpoint provides HTTP GET access to [check][1] data.
 The following example demonstrates a request to the `/checks` API endpoint, resulting in a JSON array that contains [check definitions][1].
 
 {{< highlight shell >}}
-curl -H "Authorization: Bearer $SENSU_TOKEN" http://127.0.0.1:8080/api/core/v2/namespaces/default/checks
+curl -X GET \
+http://127.0.0.1:8080/api/core/v2/namespaces/default/checks \
+-H "Authorization: Bearer $SENSU_TOKEN"
 
 HTTP/1.1 200 OK
 [
   {
-    "command": "check-cpu.sh -w 75 -c 90",
+    "command": "check-email.sh -w 75 -c 90",
     "handlers": [
       "slack"
     ],
+    "high_flap_threshold": 0,
     "interval": 60,
+    "low_flap_threshold": 0,
     "publish": true,
+    "runtime_assets": null,
     "subscriptions": [
       "linux"
     ],
+    "proxy_entity_name": "",
+    "check_hooks": null,
+    "stdin": false,
+    "subdue": null,
+    "ttl": 0,
+    "timeout": 0,
+    "round_robin": false,
+    "output_metric_format": "",
+    "output_metric_handlers": null,
+    "env_vars": null,
     "metadata": {
-      "name": "check-cpu",
+      "name": "check-email",
       "namespace": "default"
     }
   }
@@ -67,33 +82,30 @@ response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal 
 output         | {{< highlight shell >}}
 [
   {
-    "command": "check-cpu.sh -w 75 -c 90",
+    "command": "check-email.sh -w 75 -c 90",
     "handlers": [
       "slack"
     ],
+    "high_flap_threshold": 0,
     "interval": 60,
+    "low_flap_threshold": 0,
     "publish": true,
+    "runtime_assets": null,
     "subscriptions": [
       "linux"
     ],
+    "proxy_entity_name": "",
+    "check_hooks": null,
+    "stdin": false,
+    "subdue": null,
+    "ttl": 0,
+    "timeout": 0,
+    "round_robin": false,
+    "output_metric_format": "",
+    "output_metric_handlers": null,
+    "env_vars": null,
     "metadata": {
-      "name": "check-cpu",
-      "namespace": "default"
-    }
-  },
-  {
-    "command": "http_check.sh https://sensu.io",
-    "handlers": [
-      "slack"
-    ],
-    "interval": 15,
-    "proxy_entity_name": "sensu.io",
-    "publish": true,
-    "subscriptions": [
-      "site"
-    ],
-    "metadata": {
-      "name": "check-sensu-site",
+      "name": "check-email",
       "namespace": "default"
     }
   }
@@ -130,22 +142,7 @@ curl -X POST \
 }' \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/checks
 
-HTTP/1.1 200 OK
-{
-  "command": "check-cpu.sh -w 75 -c 90",
-  "subscriptions": [
-    "linux"
-  ],
-  "interval": 60,
-  "publish": true,
-  "handlers": [
-    "slack"
-  ],
-  "metadata": {
-    "name": "check-cpu",
-    "namespace": "default"
-  }
-}
+HTTP/1.1 201 Created
 {{< /highlight >}}
 
 #### API Specification {#checks-post-specification}
@@ -172,7 +169,7 @@ example payload | {{< highlight shell >}}
 }
 {{< /highlight >}}
 payload parameters | Required check attributes: `interval` (integer) or `cron` (string) and a `metadata` scope that contains `name` (string) and `namespace` (string). For more information about creating checks, see the [check reference][1]. 
-response codes  | <ul><li>**Success**: 200 (OK)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 ## The `/checks/:check` API endpoint {#the-checkscheck-api-endpoint}
 
@@ -185,8 +182,9 @@ The `/checks/:check` API endpoint provides HTTP GET access to [check data][1] fo
 In the following example, querying the `/checks/:check` API endpoint returns a JSON map that contains the requested [`:check` definition][1] (in this example, for the `:check` named `check-cpu`).
 
 {{< highlight shell >}}
-curl -H "Authorization: Bearer $SENSU_TOKEN" \
-http://127.0.0.1:8080/api/core/v2/namespaces/default/checks/check-cpu
+curl -X GET \
+http://127.0.0.1:8080/api/core/v2/namespaces/default/checks/check-cpu \
+-H "Authorization: Bearer $SENSU_TOKEN"
 
 HTTP/1.1 200 OK
 {
@@ -194,11 +192,24 @@ HTTP/1.1 200 OK
   "handlers": [
     "slack"
   ],
+  "high_flap_threshold": 0,
   "interval": 60,
+  "low_flap_threshold": 0,
   "publish": true,
+  "runtime_assets": null,
   "subscriptions": [
     "linux"
   ],
+  "proxy_entity_name": "",
+  "check_hooks": null,
+  "stdin": false,
+  "subdue": null,
+  "ttl": 0,
+  "timeout": 0,
+  "round_robin": false,
+  "output_metric_format": "",
+  "output_metric_handlers": null,
+  "env_vars": null,
   "metadata": {
     "name": "check-cpu",
     "namespace": "default"
@@ -220,11 +231,24 @@ output               | {{< highlight json >}}
   "handlers": [
     "slack"
   ],
+  "high_flap_threshold": 0,
   "interval": 60,
+  "low_flap_threshold": 0,
   "publish": true,
+  "runtime_assets": null,
   "subscriptions": [
     "linux"
   ],
+  "proxy_entity_name": "",
+  "check_hooks": null,
+  "stdin": false,
+  "subdue": null,
+  "ttl": 0,
+  "timeout": 0,
+  "round_robin": false,
+  "output_metric_format": "",
+  "output_metric_handlers": null,
+  "env_vars": null,
   "metadata": {
     "name": "check-cpu",
     "namespace": "default"
@@ -261,7 +285,7 @@ curl -X PUT \
 }' \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/checks/check-cpu
 
-HTTP/1.1 200 OK
+HTTP/1.1 201 Created
 {{< /highlight >}}
 
 #### API Specification {#checkscheck-put-specification}
@@ -288,7 +312,7 @@ payload         | {{< highlight shell >}}
 }
 {{< /highlight >}}
 payload parameters | Required check attributes: `interval` (integer) or `cron` (string) and a `metadata` scope that contains `name` (string) and `namespace` (string). For more information about creating checks, see the [check reference][1].
-response codes  | <ul><li>**Success**: 200 (OK)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 ### `/checks/:check` (DELETE) {#checkscheck-delete}
 
@@ -322,15 +346,20 @@ The `/checks/:check/execute` API endpoint provides HTTP POST access to create an
 
 #### EXAMPLE {#checkscheckexecute-post-example}
 
-In the following example, an HTTP POST request is submitted to the `/checks/:check/execute` API endpoint to execute the `check-sensu-site` check.
+In the following example, an HTTP POST request is submitted to the `/checks/:check/execute` API endpoint to execute the `check-cpu` check.
 The request includes the check name in the request body and returns a successful HTTP `202 Accepted` response and an `issued` timestamp.
 
 {{< highlight shell >}}
 curl -X POST \
 -H "Authorization: Bearer $SENSU_TOKEN" \
 -H 'Content-Type: application/json' \
--d '{"check": "check-sensu-site"}' \
-http://127.0.0.1:8080/api/core/v2/namespaces/default/checks/check-sensu-site/execute
+-d '{
+  "check": "check-cpu",
+  "subscriptions": [
+    "entity:i-424242"
+  ]
+}' \
+http://127.0.0.1:8080/api/core/v2/namespaces/default/checks/check-cpu/execute
 
 HTTP/1.1 202 Accepted
 {"issued":1543861798}
@@ -344,17 +373,17 @@ This gives you the flexibility to execute a check on any Sensu entity or group o
 /checks/:check/execute (POST) | 
 ----------------|------
 description     | Creates an ad hoc request to execute the specified check.
-example URL     | http://hostname:8080/api/core/v2/namespaces/default/checks/check-sensu-site/execute
+example URL     | http://hostname:8080/api/core/v2/namespaces/default/checks/check-cpu/execute
 payload         | {{< highlight shell >}}
 {
-  "check": "check-sensu-site",
+  "check": "check-cpu",
   "subscriptions": [
     "entity:i-424242"
   ]
 }
 {{< /highlight >}}
 payload parameters | <ul><li>Required: `check` (the name of the check to execute).</li><li>Optional: `subscriptions` (an array of subscriptions to publish the check request to). When provided with the request, the `subscriptions` attribute overrides any subscriptions configured in the check definition.</li>
-response codes  | <ul><li>**Success**: 200 (OK)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+response codes  | <ul><li>**Success**: 202 (Accepted)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 ## The `/checks/:check/hooks/:type` API endpoint {#the-checkscheckhooks-api-endpoint}
 
@@ -377,7 +406,7 @@ curl -X PUT \
 }' \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/checks/check-cpu/hooks/critical
 
-HTTP/1.1 204 No Content
+HTTP/1.1 201 Created
 {{< /highlight >}}
 
 #### API Specification {#checkscheckhooks-put-specification}
@@ -389,13 +418,12 @@ example URL     | http://hostname:8080/api/core/v2/namespaces/default/checks/che
 example payload | {{< highlight shell >}}
 {
   "critical": [
-    "example-hook1",
-    "example-hook2"
+    "process_tree"
   ]
 }
 {{< /highlight >}}
 payload parameters | This endpoint requires a JSON map of [check response types][3] (for example, `critical` or `warning`). Each must contain an array of hook names.
-response codes  | <ul><li>**Success**: 204 (No Content)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 ## The `/checks/:check/hooks/:type/hook/:hook` API endpoint {#the-checkscheckhookshook-api-endpoint}
 
