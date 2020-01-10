@@ -127,7 +127,7 @@ Then, replace the following text:
 - `USERNAME`: Replace with your SMTP username, typically your email address
 - `PASSWORD`: Replace with your SMTP password, typically the same as your email password
 
-_**NOTE**: To use Gmail or G Suite as your SMTP server, follow Google's instructions for [sending email via SMTP][14]. Also be aware that if you have 2fa enabled on your Google account, you'll need an [app password][15] instead of your login password._
+_**NOTE**: To use Gmail or G Suite as your SMTP server, follow Google's instructions for [sending email via SMTP][14]. If you have enabled 2-step verification on your Google account, you'll need to use an [app password][15] instead of your login password._
 
 You probably noticed that the handler definition includes two other filters: [`is_incident`][10] and [`not_silenced`][11].
 These two filters are included in every Sensu backend installation, so you don't have to create them.
