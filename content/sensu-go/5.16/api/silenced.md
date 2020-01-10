@@ -31,7 +31,8 @@ The `/silenced` API endpoint provides HTTP GET access to [silencing entry][1] da
 The following example demonstrates a request to the `/silenced` API endpoint, resulting in a JSON array that contains [silencing entry definitions][1].
 
 {{< highlight shell >}}
-curl -H "Authorization: Bearer $SENSU_TOKEN" \
+curl -X GET \
+-H "Authorization: Bearer $SENSU_TOKEN" \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/silenced
 
 HTTP/1.1 200 OK
@@ -83,6 +84,33 @@ output         | {{< highlight shell >}}
 
 The `/silenced` API endpoint provides HTTP POST access to create silencing entries.
 
+#### EXAMPLE {#silenced-post-example}
+
+In the following example, an HTTP POST request is submitted to the `/silenced` API endpoint to create the silencing entry `linux:check-cpu`.
+The request returns a successful HTTP `201 Created` response.
+
+{{< highlight shell >}}
+curl -X POST \
+-H "Authorization: Bearer $SENSU_TOKEN" \
+-H 'Content-Type: application/json' \
+-d '{
+  "metadata": {
+    "name": "linux:check-cpu",
+    "namespace": "default",
+    "labels": null,
+    "annotations": null
+  },
+  "expire": -1,
+  "expire_on_resolve": false,
+  "creator": "admin",
+  "subscription": "linux",
+  "begin": 1542671205
+}' \
+http://127.0.0.1:8080/api/core/v2/namespaces/default/silenced
+
+HTTP/1.1 201 Created
+{{< /highlight >}}
+
 #### API Specification {#silenced-post-specification}
 
 /silenced (POST) | 
@@ -104,7 +132,7 @@ payload         | {{< highlight shell >}}
   "begin": 1542671205
 }
 {{< /highlight >}}
-response codes  | <ul><li>**Success**: 200 (OK)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 ## The `/silenced/:silenced` API endpoint {#the-silencedsilenced-api-endpoint}
 
@@ -118,7 +146,8 @@ In the following example, querying the `/silenced/:silenced` API endpoint return
 Silencing entry names are generated from the combination of a subscription name and check name.
 
 {{< highlight shell >}}
-curl -H "Authorization: Bearer $SENSU_TOKEN" \
+curl -X GET \
+-H "Authorization: Bearer $SENSU_TOKEN" \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/silenced/linux:check-cpu
 
 HTTP/1.1 200 OK
@@ -165,16 +194,43 @@ output               | {{< highlight json >}}
 
 The `/silenced/:silenced` API endpoint provides HTTP PUT access to create or update specific `:silenced` definitions, by silencing entry name.
 
+#### EXAMPLE {#silencedsilenced-put-example}
+
+In the following example, an HTTP PUT request is submitted to the `/silenced/:silenced` API endpoint to create the silencing entry `linux:check-server`.
+The request returns a successful HTTP `201 Created` response.
+
+{{< highlight shell >}}
+curl -X PUT \
+-H "Authorization: Bearer $SENSU_TOKEN" \
+-H 'Content-Type: application/json' \
+-d '{
+  "metadata": {
+    "name": "linux:check-server",
+    "namespace": "default",
+    "labels": null,
+    "annotations": null
+  },
+  "expire": -1,
+  "expire_on_resolve": false,
+  "creator": "admin",
+  "subscription": "linux",
+  "begin": 1542671205
+}' \
+http://127.0.0.1:8080/api/core/v2/namespaces/default/silenced/linux:check-server
+
+HTTP/1.1 201 Created
+{{< /highlight >}}
+
 #### API Specification {#silencedsilenced-put-specification}
 
 /silenced/:silenced (PUT) | 
 ----------------|------
 description     | Creates or updates a Sensu silencing entry.
-example URL     | http://hostname:8080/api/core/v2/namespaces/default/silenced/linux:check-cpu
+example URL     | http://hostname:8080/api/core/v2/namespaces/default/silenced/linux:check-server
 payload         | {{< highlight shell >}}
 {
   "metadata": {
-    "name": "linux:check-cpu",
+    "name": "linux:check-server",
     "namespace": "default",
     "labels": null,
     "annotations": null
@@ -223,7 +279,8 @@ The `/silenced/subscriptions/:subscription` API endpoint provides HTTP GET acces
 In the following example, querying the `silenced/subscriptions/:subscription` API endpoint returns a JSON array that contains the requested [silences][1] for the given subscription (in this example, for the `linux` subscription).
 
 {{< highlight shell >}}
-curl -H "Authorization: Bearer $SENSU_TOKEN" \
+curl -X GET \
+-H "Authorization: Bearer $SENSU_TOKEN" \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/silenced/subscriptions/linux
 
 HTTP/1.1 200 OK
@@ -282,7 +339,8 @@ The `/silenced/checks/:check` API endpoint provides HTTP GET access to [silencin
 In the following example, querying the `silenced/checks/:check` API endpoint returns a JSON array that contains the requested [silences][1] for the given check (in this example, for the `check-cpu` check).
 
 {{< highlight shell >}}
-curl -H "Authorization: Bearer $SENSU_TOKEN" \
+curl -X GET \
+-H "Authorization: Bearer $SENSU_TOKEN" \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/silenced/checks/check-cpu
 
 HTTP/1.1 200 OK
