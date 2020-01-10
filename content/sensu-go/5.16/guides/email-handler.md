@@ -21,7 +21,7 @@ menu:
 Sensu event handlers are actions the Sensu backend executes on [events][1].
 This guide explains how to use the [Sensu Go Email Handler][3] to send notification emails.
 
-To use this guide, you’ll need to [install the Sensu backend][12] and have at least one [Sensu agent][13] running on Linux.
+To follow this guide, you’ll need to [install the Sensu backend][12] and have at least one [Sensu agent][13] running on Linux.
 You should also [install and configure sensuctl][4].
 
 ## Create a check
