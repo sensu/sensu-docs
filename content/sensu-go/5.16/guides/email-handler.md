@@ -202,3 +202,4 @@ You can also follow our [Up and running with Sensu Go][9] interactive tutorial t
 [12]: ../../installation/install-sensu/#install-the-sensu-backend
 [13]: ../../installation/install-sensu/#install-sensu-agents
 [14]: https://support.google.com/a/answer/176600?hl=en
+[15]: https://support.google.com/accounts/answer/185833?hl=en
