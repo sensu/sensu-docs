@@ -82,7 +82,7 @@ To do this, call the port that the API is listening on using the [check-port plu
     "name": "check_sensu_api_port"
   },
   "spec": {
-    "command": "check-ports.rb -H remote-sensu-server-hostname -p 4567",
+    "command": "check-ports.rb -H remote-sensu-server-hostname -p 8080",
     "subscriptions": [
       "monitor_remote_sensu_api"
     ],
