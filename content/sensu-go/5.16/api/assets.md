@@ -37,24 +37,36 @@ HTTP/1.1 200 OK
   {
     "url": "https://github.com/sensu/sensu-influxdb-handler/releases/download/3.1.2/sensu-influxdb-handler_3.1.2_linux_amd64.tar.gz",
     "sha512": "612c6ff9928841090c4d23bf20aaf7558e4eed8977a848cf9e2899bb13a13e7540bac2b63e324f39d9b1257bb479676bc155b24e21bf93c722b812b0f15cb3bd",
-    "filters": null,
+    "filters": [
+      "entity.system.os == 'linux'",
+      "entity.system.arch == 'amd64'"
+    ],
     "builds": null,
     "metadata": {
       "name": "sensu-influxdb-handler",
       "namespace": "default"
     },
-    "headers": null
+    "headers": {
+      "Authorization": "Bearer $TOKEN",
+      "X-Forwarded-For": "client1, proxy1, proxy2"
+    }
   },
   {
     "url": "https://github.com/sensu/sensu-slack-handler/releases/download/1.0.3/sensu-slack-handler_1.0.3_linux_amd64.tar.gz",
     "sha512": "68720865127fbc7c2fe16ca4d7bbf2a187a2df703f4b4acae1c93e8a66556e9079e1270521999b5871473e6c851f51b34097c54fdb8d18eedb7064df9019adc8",
-    "filters": null,
+    "filters": [
+      "entity.system.os == 'linux'",
+      "entity.system.arch == 'amd64'"
+    ],
     "builds": null,
     "metadata": {
       "name": "sensu-slack-handler",
       "namespace": "default"
     },
-    "headers": null
+    "headers": {
+      "Authorization": "Bearer $TOKEN",
+      "X-Forwarded-For": "client1, proxy1, proxy2"
+    }
   }
 ]
 {{< /highlight >}}
@@ -73,24 +85,36 @@ output         | {{< highlight shell >}}
   {
     "url": "https://github.com/sensu/sensu-influxdb-handler/releases/download/3.1.2/sensu-influxdb-handler_3.1.2_linux_amd64.tar.gz",
     "sha512": "612c6ff9928841090c4d23bf20aaf7558e4eed8977a848cf9e2899bb13a13e7540bac2b63e324f39d9b1257bb479676bc155b24e21bf93c722b812b0f15cb3bd",
-    "filters": null,
+    "filters": [
+      "entity.system.os == 'linux'",
+      "entity.system.arch == 'amd64'"
+    ],
     "builds": null,
     "metadata": {
       "name": "sensu-influxdb-handler",
       "namespace": "default"
     },
-    "headers": null
+    "headers": {
+      "Authorization": "Bearer $TOKEN",
+      "X-Forwarded-For": "client1, proxy1, proxy2"
+    }
   },
   {
     "url": "https://github.com/sensu/sensu-slack-handler/releases/download/1.0.3/sensu-slack-handler_1.0.3_linux_amd64.tar.gz",
     "sha512": "68720865127fbc7c2fe16ca4d7bbf2a187a2df703f4b4acae1c93e8a66556e9079e1270521999b5871473e6c851f51b34097c54fdb8d18eedb7064df9019adc8",
-    "filters": null,
+    "filters": [
+      "entity.system.os == 'linux'",
+      "entity.system.arch == 'amd64'"
+    ],
     "builds": null,
     "metadata": {
       "name": "sensu-slack-handler",
       "namespace": "default"
     },
-    "headers": null
+    "headers": {
+      "Authorization": "Bearer $TOKEN",
+      "X-Forwarded-For": "client1, proxy1, proxy2"
+    }
   }
 ]
 {{< /highlight >}}
@@ -111,13 +135,18 @@ curl -X POST \
 -d '{
   "url": "https://github.com/sensu/sensu-slack-handler/releases/download/1.0.3/sensu-slack-handler_1.0.3_linux_amd64.tar.gz",
   "sha512": "68720865127fbc7c2fe16ca4d7bbf2a187a2df703f4b4acae1c93e8a66556e9079e1270521999b5871473e6c851f51b34097c54fdb8d18eedb7064df9019adc8",
-  "filters": null,
-  "builds": null,
+  "filters": [
+    "entity.system.os == 'linux'",
+    "entity.system.arch == 'amd64'"
+  ],
+  "headers": {
+    "Authorization": "Bearer $TOKEN",
+    "X-Forwarded-For": "client1, proxy1, proxy2"
+  },
   "metadata": {
     "name": "sensu-slack-handler",
     "namespace": "default"
-  },
-  "headers": null
+  }
 }' \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/assets
 
@@ -134,13 +163,18 @@ payload         | {{< highlight shell >}}
 {
   "url": "https://github.com/sensu/sensu-slack-handler/releases/download/1.0.3/sensu-slack-handler_1.0.3_linux_amd64.tar.gz",
   "sha512": "68720865127fbc7c2fe16ca4d7bbf2a187a2df703f4b4acae1c93e8a66556e9079e1270521999b5871473e6c851f51b34097c54fdb8d18eedb7064df9019adc8",
-  "filters": null,
-  "builds": null,
+  "filters": [
+    "entity.system.os == 'linux'",
+    "entity.system.arch == 'amd64'"
+  ],
+  "headers": {
+    "Authorization": "Bearer $TOKEN",
+    "X-Forwarded-For": "client1, proxy1, proxy2"
+  },
   "metadata": {
     "name": "sensu-slack-handler",
     "namespace": "default"
-  },
-  "headers": null
+  }
 }
 {{< /highlight >}}
 response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
@@ -161,17 +195,25 @@ http://127.0.0.1:8080/api/core/v2/namespaces/default/assets/sensu-slack-handler 
 -H "Authorization: Bearer $SENSU_TOKEN"
 
 HTTP/1.1 200 OK
-{
-  "url": "https://github.com/sensu/sensu-slack-handler/releases/download/1.0.3/sensu-slack-handler_1.0.3_linux_amd64.tar.gz",
-  "sha512": "68720865127fbc7c2fe16ca4d7bbf2a187a2df703f4b4acae1c93e8a66556e9079e1270521999b5871473e6c851f51b34097c54fdb8d18eedb7064df9019adc8",
-  "filters": null,
-  "builds": null,
-  "metadata": {
-    "name": "sensu-slack-handler",
-    "namespace": "default"
-  },
-  "headers": null
-}
+[
+  {
+    "url": "https://github.com/sensu/sensu-slack-handler/releases/download/1.0.3/sensu-slack-handler_1.0.3_linux_amd64.tar.gz",
+    "sha512": "68720865127fbc7c2fe16ca4d7bbf2a187a2df703f4b4acae1c93e8a66556e9079e1270521999b5871473e6c851f51b34097c54fdb8d18eedb7064df9019adc8",
+    "filters": [
+      "entity.system.os == 'linux'",
+      "entity.system.arch == 'amd64'"
+    ],
+    "builds": null,
+    "metadata": {
+      "name": "sensu-slack-handler",
+      "namespace": "default"
+    },
+    "headers": {
+      "Authorization": "Bearer $TOKEN",
+      "X-Forwarded-For": "client1, proxy1, proxy2"
+    }
+  }
+]
 {{< /highlight >}}
 
 #### API Specification {#assetsasset-get-specification}
@@ -183,17 +225,25 @@ example url          | http://hostname:8080/api/core/v2/namespaces/default/asset
 response type        | Map
 response codes       | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output               | {{< highlight json >}}
-{
-  "url": "https://github.com/sensu/sensu-slack-handler/releases/download/1.0.3/sensu-slack-handler_1.0.3_linux_amd64.tar.gz",
-  "sha512": "68720865127fbc7c2fe16ca4d7bbf2a187a2df703f4b4acae1c93e8a66556e9079e1270521999b5871473e6c851f51b34097c54fdb8d18eedb7064df9019adc8",
-  "filters": null,
-  "builds": null,
-  "metadata": {
-    "name": "sensu-slack-handler",
-    "namespace": "default"
-  },
-  "headers": null
-}
+[
+  {
+    "url": "https://github.com/sensu/sensu-slack-handler/releases/download/1.0.3/sensu-slack-handler_1.0.3_linux_amd64.tar.gz",
+    "sha512": "68720865127fbc7c2fe16ca4d7bbf2a187a2df703f4b4acae1c93e8a66556e9079e1270521999b5871473e6c851f51b34097c54fdb8d18eedb7064df9019adc8",
+    "filters": [
+      "entity.system.os = 'linux'",
+      "entity.system.arch = 'amd64'"
+    ],
+    "builds": null,
+    "metadata": {
+      "name": "sensu-slack-handler",
+      "namespace": "default"
+    },
+    "headers": {
+      "Authorization": "Bearer $TOKEN",
+      "X-Forwarded-For": "client1, proxy1, proxy2"
+    }
+  }
+]
 {{< /highlight >}}
 
 ### `/assets/:asset` (PUT) {#assetsasset-put}
@@ -212,15 +262,20 @@ curl -X PUT \
 -d '{
   "url": "https://github.com/sensu/sensu-slack-handler/releases/download/1.0.3/sensu-slack-handler_1.0.3_linux_amd64.tar.gz",
   "sha512": "68720865127fbc7c2fe16ca4d7bbf2a187a2df703f4b4acae1c93e8a66556e9079e1270521999b5871473e6c851f51b34097c54fdb8d18eedb7064df9019adc8",
-  "filters": null,
-  "builds": null,
+  "filters": [
+    "entity.system.os == 'linux'",
+    "entity.system.arch == 'amd64'"
+  ],
+  "headers": {
+    "Authorization": "Bearer $TOKEN",
+    "X-Forwarded-For": "client1, proxy1, proxy2"
+  },
   "metadata": {
     "name": "sensu-slack-handler",
     "namespace": "default"
-  },
-  "headers": null
+  }
 }' \
-http://127.0.0.1:8080/api/core/v2/namespaces/default/rolebindings/dev-binding
+http://127.0.0.1:8080/api/core/v2/namespaces/default/rolebindings/sensu-slack-handler
 
 HTTP/1.1 201 Created
 {{< /highlight >}}
@@ -235,13 +290,18 @@ payload         | {{< highlight shell >}}
 {
   "url": "https://github.com/sensu/sensu-slack-handler/releases/download/1.0.3/sensu-slack-handler_1.0.3_linux_amd64.tar.gz",
   "sha512": "68720865127fbc7c2fe16ca4d7bbf2a187a2df703f4b4acae1c93e8a66556e9079e1270521999b5871473e6c851f51b34097c54fdb8d18eedb7064df9019adc8",
-  "filters": null,
-  "builds": null,
+  "filters": [
+    "entity.system.os == 'linux'",
+    "entity.system.arch == 'amd64'"
+  ],
+  "headers": {
+    "Authorization": "Bearer $TOKEN",
+    "X-Forwarded-For": "client1, proxy1, proxy2"
+  },
   "metadata": {
     "name": "sensu-slack-handler",
     "namespace": "default"
-  },
-  "headers": null
+  }
 }
 {{< /highlight >}}
 response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
@@ -268,7 +328,7 @@ HTTP/1.1 204 No Content
 ----------------|------
 description     | Deletes the specified Sensu asset.
 example URL     | http://hostname:8080/api/core/v2/namespaces/default/assets/sensu-slack-handler
-response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+response codes  | <ul><li>**Success**: 204 (No Content)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 [1]: ../../reference/assets/
 [2]: ../overview#pagination
