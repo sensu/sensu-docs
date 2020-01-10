@@ -150,7 +150,7 @@ It might take a few moments after you assign the handler to the check for the ch
 
 ## Create an email template
 
-The last step is to create a .
+The last step is to create a template for your emails.
 The [Sensu Go Email Handler][3] asset makes it possible to use a template that provides context for your email notifications.
 The email template functionality included with the Sensu Go Email Handler asset uses tokens to populate the values provided by the event.
 Use HTML to format the email. 
