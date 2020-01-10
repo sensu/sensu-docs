@@ -20,7 +20,7 @@ menu:
 This guide describes best practices and strategies for monitoring Sensu with Sensu. 
 It explains how to ensure your Sensu components are properly monitored, including your Sensu backend, agent, API, and dashboard instances.
 
-To completely monitor a Sensu stack (Sensu backend, agent, API, and dashboard), you will need to have at least one other independent Sensu instance.
+To completely monitor a Sensu stack (Sensu backend, agent, external etcd cluster (if used)), you will need to have at least one other independent Sensu instance.
 A single Sensu stack cannot monitor itself completely because if some components are down, Sensu cannot create events.
 
 This guide requires Sensu plugins.
