@@ -32,7 +32,7 @@ Similar to the `Bearer [token]` Authorization header, `Key [api-key]` will be ac
 For example, a JWT `Bearer [token]` Authorization header might be:
 
 {{< highlight shell >}}
-curl -H "Authorization: Bearer $SENSU_TOKEN" http://127.0.0.1:8080/api/core/v2/namespaces/default/checks
+curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" http://127.0.0.1:8080/api/core/v2/namespaces/default/checks
 {{< /highlight >}}
 
 If you're using `Key [api-key]` to authenticate instead, the Authorization header might be:

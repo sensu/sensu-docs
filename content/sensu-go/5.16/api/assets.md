@@ -30,7 +30,7 @@ The following example demonstrates a request to the `/assets` API endpoint, resu
 {{< highlight shell >}}
 curl -X GET \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/assets \
--H "Authorization: Bearer $SENSU_TOKEN"
+-H "Authorization: Bearer $SENSU_ACCESS_TOKEN"
 
 HTTP/1.1 200 OK
 [
@@ -130,7 +130,7 @@ The request returns a successful HTTP `201 Created` response.
 
 {{< highlight shell >}}
 curl -X POST \
--H "Authorization: Bearer $SENSU_TOKEN" \
+-H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
 -H 'Content-Type: application/json' \
 -d '{
   "url": "https://github.com/sensu/sensu-slack-handler/releases/download/1.0.3/sensu-slack-handler_1.0.3_linux_amd64.tar.gz",
@@ -192,7 +192,7 @@ In the following example, querying the `/assets/:asset` API endpoint returns a J
 {{< highlight shell >}}
 curl -X GET \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/assets/sensu-slack-handler \
--H "Authorization: Bearer $SENSU_TOKEN"
+-H "Authorization: Bearer $SENSU_ACCESS_TOKEN"
 
 HTTP/1.1 200 OK
 [
@@ -257,7 +257,7 @@ The request returns a successful HTTP `201 Created` response.
 
 {{< highlight shell >}}
 curl -X PUT \
--H "Authorization: Bearer $SENSU_TOKEN" \
+-H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
 -H 'Content-Type: application/json' \
 -d '{
   "url": "https://github.com/sensu/sensu-slack-handler/releases/download/1.0.3/sensu-slack-handler_1.0.3_linux_amd64.tar.gz",
@@ -317,7 +317,7 @@ _**NOTE**: Deleting an asset does not remove the downloaded files from the asset
 {{< highlight shell >}}
 curl -X DELETE \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/assets/sensu-slack-handler \
--H "Authorization: Bearer $SENSU_TOKEN"
+-H "Authorization: Bearer $SENSU_ACCESS_TOKEN"
 
 HTTP/1.1 204 No Content
 {{< /highlight >}}

@@ -105,7 +105,7 @@ The request returns a successful HTTP `201 Created` response.
 
 {{< highlight shell >}}
 curl -X POST \
--H "Authorization: Bearer $SENSU_TOKEN" \
+-H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
 -H 'Content-Type: application/json' \
 -d '{
   "metadata": {
@@ -210,7 +210,7 @@ The request returns a successful HTTP `200 OK` response.
 
 {{< highlight shell >}}
 curl -X PUT \
--H "Authorization: Bearer $SENSU_TOKEN" \
+-H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
 -H 'Content-Type: application/json' \
 -d '{
   "metadata": {
@@ -264,7 +264,7 @@ The following example shows a request to the `/filters/:filter` API endpoint to 
 {{< highlight shell >}}
 curl -X DELETE \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/filters/development_filter \
--H "Authorization: Bearer $SENSU_TOKEN"
+-H "Authorization: Bearer $SENSU_ACCESS_TOKEN"
 
 HTTP/1.1 204 No Content
 {{< /highlight >}}

@@ -39,7 +39,7 @@ The following example demonstrates a request to the `/users` API, resulting in a
 {{< highlight shell >}}
 curl -X GET \
 http://127.0.0.1:8080/api/core/v2/users \
--H "Authorization: Bearer $SENSU_TOKEN"
+-H "Authorization: Bearer $SENSU_ACCESS_TOKEN"
 
 HTTP/1.1 200 OK
 [
@@ -98,7 +98,7 @@ The following example demonstrates a POST request to the `/users` API endpoint t
 
 {{< highlight shell >}}
 curl -X POST \
--H "Authorization: Bearer $SENSU_TOKEN" \
+-H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
 -H 'Content-Type: application/json' \
 -d '{
   "username": "alice",
@@ -145,7 +145,7 @@ In the following example, querying the `/users/:user` API returns a JSON map tha
 {{< highlight shell >}}
 curl -X GET \
 http://127.0.0.1:8080/api/core/v2/users/alice \
--H "Authorization: Bearer $SENSU_TOKEN"
+-H "Authorization: Bearer $SENSU_ACCESS_TOKEN"
 
 HTTP/1.1 200 OK
 {
@@ -185,7 +185,7 @@ The following example demonstrates a PUT request to the `/users` API endpoint to
 
 {{< highlight shell >}}
 curl -X PUT \
--H "Authorization: Bearer $SENSU_TOKEN" \
+-H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
 -H 'Content-Type: application/json' \
 -d '{
   "username": "alice",
@@ -228,7 +228,7 @@ In the following example, an HTTP DELETE request is submitted to the `/users/:us
 
 {{< highlight shell >}}
 curl -X DELETE \
--H "Authorization: Bearer $SENSU_TOKEN" \
+-H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
 http://127.0.0.1:8080/api/core/v2/users/alice
 
 HTTP/1.1 204 No Content
@@ -254,7 +254,7 @@ In the following example, an HTTP PUT request is submitted to the `/users/:user/
 
 {{< highlight shell >}}
 curl -X PUT \
--H "Authorization: Bearer $SENSU_TOKEN" \
+-H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
 -H 'Content-Type: application/json' \
 -d '{
   "username": "alice",
@@ -292,7 +292,7 @@ In the following example, an HTTP PUT request is submitted to the `/users/:user/
 
 {{< highlight shell >}}
 curl -X PUT \
--H "Authorization: Bearer $SENSU_TOKEN" \
+-H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
 -H 'Content-Type: application/json' \
 http://127.0.0.1:8080/api/core/v2/users/alice/reinstate
 
@@ -319,7 +319,7 @@ In the following example, an HTTP DELETE request is submitted to the `/users/:us
 
 {{< highlight shell >}}
 curl -X DELETE \
--H "Authorization: Bearer $SENSU_TOKEN" \
+-H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
 http://127.0.0.1:8080/api/core/v2/users/alice/groups
 
 HTTP/1.1 204 No Content
@@ -345,7 +345,7 @@ In the following example, an HTTP PUT request is submitted to the `/users/:user/
 
 {{< highlight shell >}}
 curl -X PUT \
--H "Authorization: Bearer $SENSU_TOKEN" \
+-H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
 http://127.0.0.1:8080/api/core/v2/users/alice/groups/ops
 
 HTTP/1.1 201 Created
@@ -369,7 +369,7 @@ In the following example, an HTTP DELETE request is submitted to the `/users/:us
 
 {{< highlight shell >}}
 curl -X DELETE \
--H "Authorization: Bearer $SENSU_TOKEN" \
+-H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
 http://127.0.0.1:8080/api/core/v2/users/alice/groups/ops
 
 HTTP/1.1 204 No Content

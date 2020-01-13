@@ -32,7 +32,7 @@ The following example demonstrates a request to the `/silenced` API endpoint, re
 
 {{< highlight shell >}}
 curl -X GET \
--H "Authorization: Bearer $SENSU_TOKEN" \
+-H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/silenced
 
 HTTP/1.1 200 OK
@@ -91,7 +91,7 @@ The request returns a successful HTTP `201 Created` response.
 
 {{< highlight shell >}}
 curl -X POST \
--H "Authorization: Bearer $SENSU_TOKEN" \
+-H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
 -H 'Content-Type: application/json' \
 -d '{
   "metadata": {
@@ -147,7 +147,7 @@ Silencing entry names are generated from the combination of a subscription name 
 
 {{< highlight shell >}}
 curl -X GET \
--H "Authorization: Bearer $SENSU_TOKEN" \
+-H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/silenced/linux:check-cpu
 
 HTTP/1.1 200 OK
@@ -201,7 +201,7 @@ The request returns a successful HTTP `201 Created` response.
 
 {{< highlight shell >}}
 curl -X PUT \
--H "Authorization: Bearer $SENSU_TOKEN" \
+-H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
 -H 'Content-Type: application/json' \
 -d '{
   "metadata": {
@@ -254,7 +254,7 @@ In the following example, querying the `/silenced/:silenced` API endpoint to del
 
 {{< highlight shell >}}
 curl -X DELETE \
--H "Authorization: Bearer $SENSU_TOKEN" \
+-H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/silenced/linux:check-cpu
 
 HTTP/1.1 204 No Content
@@ -280,7 +280,7 @@ In the following example, querying the `silenced/subscriptions/:subscription` AP
 
 {{< highlight shell >}}
 curl -X GET \
--H "Authorization: Bearer $SENSU_TOKEN" \
+-H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/silenced/subscriptions/linux
 
 HTTP/1.1 200 OK
@@ -340,7 +340,7 @@ In the following example, querying the `silenced/checks/:check` API endpoint ret
 
 {{< highlight shell >}}
 curl -X GET \
--H "Authorization: Bearer $SENSU_TOKEN" \
+-H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/silenced/checks/check-cpu
 
 HTTP/1.1 200 OK

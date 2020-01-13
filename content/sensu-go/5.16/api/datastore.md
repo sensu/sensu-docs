@@ -28,7 +28,7 @@ The following example demonstrates a request to the `/provider` API endpoint, re
 {{< highlight shell >}}
 curl -X GET \
 http://127.0.0.1:8080/api/enterprise/store/v1/provider
--H "Authorization: Bearer $SENSU_TOKEN" \
+-H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
 
 HTTP/1.1 200 OK
 [
@@ -92,7 +92,7 @@ output         | {{< highlight json >}}
 
 {{< highlight shell >}}
 curl -X GET \
--H "Authorization: Bearer $SENSU_TOKEN" \
+-H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
 http://127.0.0.1:8080/api/enterprise/store/v1/provider/my-postgres
 
 HTTP/1.1 200 OK
@@ -138,7 +138,7 @@ output         | {{< highlight json >}}
 {{< highlight shell >}}
 curl -X PUT \
 http://127.0.0.1:8080/api/enterprise/store/v1/provider/my-postgres \
--H "Authorization: Bearer $SENSU_TOKEN" \
+-H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
 -d '{
   "type": "PostgresConfig",
   "api_version": "store/v1",
@@ -187,7 +187,7 @@ The following example shows a request to the `/provider/:provider` API endpoint 
 
 {{< highlight shell >}}
 curl -X DELETE \
--H "Authorization: Bearer $SENSU_TOKEN" \
+-H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
 http://127.0.0.1:8080/api/enterprise/store/v1/provider/my-postgres
 
 HTTP/1.1 204 No Content
