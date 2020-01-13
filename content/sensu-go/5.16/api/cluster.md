@@ -30,7 +30,7 @@ The following example demonstrates a request to the `/cluster/members` API endpo
 {{< highlight shell >}}
 curl -X GET \
 http://127.0.0.1:8080/api/core/v2/cluster/members \
--H "Authorization: Bearer $SENSU_TOKEN" \
+-H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
 
 HTTP/1.1 200 OK
 {
@@ -92,7 +92,7 @@ The `/cluster/members` API endpoint provides HTTP POST access to create a Sensu 
 
 {{< highlight shell >}}
 curl -X POST \
--H "Authorization: Bearer $SENSU_TOKEN" \
+-H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
 http://127.0.0.1:8080/api/core/v2/cluster/members?peer-addrs=http://127.0.0.1:2380
 
 HTTP/1.1 200 OK
@@ -136,7 +136,7 @@ The `/cluster/members/:member` API endpoint provides HTTP PUT access to create o
 
 {{< highlight shell >}}
 curl -X PUT \
--H "Authorization: Bearer $SENSU_TOKEN" \
+-H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
 http://127.0.0.1:8080/api/core/v2/cluster/members/8927110dc66458af?peer-addrs=http://127.0.0.1:2380
 
 HTTP/1.1 200 OK
@@ -181,7 +181,7 @@ The following example shows a request to the `/cluster/members/:member` API endp
 
 {{< highlight shell >}}
 curl -X DELETE \
--H "Authorization: Bearer $SENSU_TOKEN" \
+-H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/cluster/members/8927110dc66458af
 
 HTTP/1.1 204 No Content
@@ -208,7 +208,7 @@ The following example demonstrates a request to the `/cluster/id` API endpoint, 
 
 {{< highlight shell >}}
 curl -X GET \
- -H "Authorization: Bearer $SENSU_TOKEN" \
+ -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
 http://127.0.0.1:8080/api/core/v2/cluster/id
 
 HTTP/1.1 200 OK

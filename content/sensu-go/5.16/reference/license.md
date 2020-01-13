@@ -63,7 +63,7 @@ Both agent and proxy entities count toward the overall entity limit.
 To see your current entity count, use any `/api/core` or `/api/enterprise` [API request][9]. For example:
 
 {{< highlight shell >}}
-curl http://127.0.0.1:8080/api/core/v2/namespaces/default/entities -v -H "Authorization: Bearer $SENSU_TOKEN"
+curl http://127.0.0.1:8080/api/core/v2/namespaces/default/entities -v -H "Authorization: Bearer $SENSU_ACCESS_TOKEN"
 {{< /highlight >}}
 
 Your current entity count and limit are listed as response headers:

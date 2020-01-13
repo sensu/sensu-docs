@@ -29,7 +29,7 @@ The request returns an HTTP `200 OK` response and a JSON map that contains the a
 {{< highlight shell >}}
 curl -X GET \
 http://127.0.0.1:8080/api/core/v2/tessen \
--H "Authorization: Bearer $SENSU_TOKEN"
+-H "Authorization: Bearer $SENSU_ACCESS_TOKEN"
 
 HTTP/1.1 200 OK
 {
@@ -63,7 +63,7 @@ The request returns an HTTP `200 OK` response and the resulting Tessen configura
 
 {{< highlight shell >}}
 curl -X PUT \
--H "Authorization: Bearer $SENSU_TOKEN" \
+-H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
 -H 'Content-Type: application/json' \
 -d '{
   "opt_out": false

@@ -35,7 +35,7 @@ The following example demonstrates a request to the `/checks` API endpoint, resu
 {{< highlight shell >}}
 curl -X GET \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/checks \
--H "Authorization: Bearer $SENSU_TOKEN"
+-H "Authorization: Bearer $SENSU_ACCESS_TOKEN"
 
 HTTP/1.1 200 OK
 [
@@ -123,7 +123,7 @@ The request includes the check definition in the request body and returns a succ
 
 {{< highlight shell >}}
 curl -X POST \
--H "Authorization: Bearer $SENSU_TOKEN" \
+-H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
 -H 'Content-Type: application/json' \
 -d '{
   "command": "check-cpu.sh -w 75 -c 90",
@@ -184,7 +184,7 @@ In the following example, querying the `/checks/:check` API endpoint returns a J
 {{< highlight shell >}}
 curl -X GET \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/checks/check-cpu \
--H "Authorization: Bearer $SENSU_TOKEN"
+-H "Authorization: Bearer $SENSU_ACCESS_TOKEN"
 
 HTTP/1.1 200 OK
 {
@@ -266,7 +266,7 @@ In the following example, an HTTP PUT request is submitted to the `/checks/:chec
 
 {{< highlight shell >}}
 curl -X PUT \
--H "Authorization: Bearer $SENSU_TOKEN" \
+-H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
 -H 'Content-Type: application/json' \
 -d '{
   "command": "check-cpu.sh -w 75 -c 90",
@@ -324,7 +324,7 @@ The following example shows a request to the `/checks/:check` API endpoint to de
 
 {{< highlight shell >}}
 curl -X DELETE \
--H "Authorization: Bearer $SENSU_TOKEN" \
+-H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/checks/check-cpu
 
 HTTP/1.1 204 No Content
@@ -351,7 +351,7 @@ The request includes the check name in the request body and returns a successful
 
 {{< highlight shell >}}
 curl -X POST \
--H "Authorization: Bearer $SENSU_TOKEN" \
+-H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
 -H 'Content-Type: application/json' \
 -d '{
   "check": "check-cpu",
@@ -397,7 +397,7 @@ In the following example, an HTTP PUT request is submitted to the `/checks/:chec
 
 {{< highlight shell >}}
 curl -X PUT \
--H "Authorization: Bearer $SENSU_TOKEN" \
+-H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
 -H 'Content-Type: application/json' \
 -d '{
   "critical": [
@@ -437,7 +437,7 @@ The following example shows a request to the `/checks/:check/hooks/:type/hook/:h
 
 {{< highlight shell >}}
 curl -X DELETE \
--H "Authorization: Bearer $SENSU_TOKEN" \
+-H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/checks/check-cpu/hooks/critical/hook/process_tree 
 
 HTTP/1.1 204 No Content

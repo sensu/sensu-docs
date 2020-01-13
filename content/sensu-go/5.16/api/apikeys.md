@@ -27,9 +27,9 @@ The `/apikeys` GET endpoint retrieves all API keys.
 The following example demonstrates a request to the `/apikeys` API endpoint, resulting in a JSON array that contains all API keys.
 
 {{< highlight shell >}}
-curl -X GET
+curl -X GET \
 http://127.0.0.1:8080/api/core/v2/apikeys \
--H "Authorization: Bearer $SENSU_TOKEN"
+-H "Authorization: Bearer $SENSU_ACCESS_TOKEN"
 
 HTTP/1.1 200 OK
 
@@ -76,7 +76,7 @@ The request includes the API key definition in the request body and returns a su
 
 {{< highlight shell >}}
 curl -X POST \
--H "Authorization: Bearer $SENSU_TOKEN" \
+-H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
 -H 'Content-Type: application/json' \
 -d '{
   "username": "admin"
@@ -112,7 +112,7 @@ In the following example, querying the `/apikeys/:apikey` API returns the reques
 {{< highlight shell >}}
 curl -X GET \
 http://127.0.0.1:8080/api/core/v2/apikeys/83abef1e-e7d7-4beb-91fc-79ad90084d5b \
--H "Authorization: Bearer $SENSU_TOKEN"
+-H "Authorization: Bearer $SENSU_ACCESS_TOKEN"
 
 HTTP/1.1 200 OK
 {
@@ -152,7 +152,7 @@ The following example shows a request to the `/apikeys/:apikey` API endpoint to 
 
 {{< highlight shell >}}
 curl -X DELETE \
--H "Authorization: Bearer $SENSU_TOKEN" \
+-H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
 http://127.0.0.1:8080/api/core/v2/apikeys/83abef1e-e7d7-4beb-91fc-79ad90084d5b
 
 HTTP/1.1 204 No Content
