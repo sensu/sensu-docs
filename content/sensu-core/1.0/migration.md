@@ -8,7 +8,7 @@ menu: "sensu-core-1.0"
 product: "Sensu Core"
 ---
 
-_**IMPORTANT**: [Sensu Core will reach end-of-life (EOL) on December 31, 2019][73]. This guide describes how to migrate your Sensu instance from Sensu Core to Sensu Go. To migrate from Sensu Enterprise, see the [Sensu Enterprise migration guide][30]. Learn more about [what to expect when Core and Enterprise reach EOL][85]._
+_**IMPORTANT**: [Sensu Core reached end-of-life (EOL) on December 31, 2019][73]. This guide describes how to migrate your Sensu instance from Sensu Core to Sensu Go. To migrate from Sensu Enterprise, see the [Sensu Enterprise migration guide][30]. Learn more about [Core and Enterprise EOL][85]._
 
 Here's a quick overview of Sensu Go's advantages:
 

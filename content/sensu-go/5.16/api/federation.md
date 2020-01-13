@@ -40,7 +40,9 @@ The following example demonstrates a request to the `/etcd-replicators` API endp
 _**NOTE**: If you did not specify a [namespace][2] when you created a replicator, the response will not include a `namespace` key-value pair._
 
 {{< highlight shell >}}
-curl http://127.0.0.1:8080/api/enterprise/federation/v1/etcd-replicators -H "Authorization: Bearer $SENSU_TOKEN"
+curl -X GET \
+http://127.0.0.1:8080/api/enterprise/federation/v1/etcd-replicators \
+-H "Authorization: Bearer $SENSU_TOKEN"
 [
   {
     "api_version": "federation/v1",
@@ -98,6 +100,36 @@ The `/etcd-replicators` API endpoint provides HTTP POST access to create replica
 
 _**NOTE**: If you do not specify a [namespace][2] when you create a replicator, all namespaces for the given resource are replicated._
 
+#### EXAMPLE {#etcd-replicators-post-example}
+
+The following example demonstrates a request to the `/etcd-replicators` API endpoint to create the replicator `my_replicator`.
+
+{{< highlight shell >}}
+curl -X POST \
+-H "Authorization: Bearer $SENSU_TOKEN" \
+-H 'Content-Type: application/json' \
+-d '{
+  "api_version": "federation/v1",
+  "type": "EtcdReplicator",
+  "metadata": {
+    "name": "my_replicator"
+  },
+  "spec": {
+    "ca_cert": "/path/to/ssl/trusted-certificate-authorities.pem",
+    "cert": "/path/to/ssl/cert.pem",
+    "key": "/path/to/ssl/key.pem",
+    "insecure": false,
+    "url": "http://remote-etcd.example.com:2379",
+    "api_version": "core/v2",
+    "resource": "Role",
+    "replication_interval_seconds": 30
+  }
+}' \
+http://127.0.0.1:8080/api/enterprise/federation/v1/etcd-replicators
+
+HTTP/1.1 200 OK
+{{< /highlight >}}
+
 #### API Specification {#etcd-replicators-post-specification}
 
 /etcd-replicators (POST) | 
@@ -138,7 +170,9 @@ In the following example, querying the `/etcd-replicators/:etcd-replicator` API 
 _**NOTE**: If you did not specify a [namespace][2] when you created the replicator, the response will not include a `namespace` key-value pair._
 
 {{< highlight shell >}}
-curl http://127.0.0.1:8080/api/enterprise/federation/v1/etcd-replicators/my_replicator -H "Authorization: Bearer $SENSU_TOKEN"
+curl -X GET \
+http://127.0.0.1:8080/api/enterprise/federation/v1/etcd-replicators/my_replicator \
+-H "Authorization: Bearer $SENSU_TOKEN"
 {
   "api_version": "federation/v1",
   "type": "EtcdReplicator",
@@ -215,7 +249,7 @@ curl -X PUT \
     "replication_interval_seconds": 30
   }
 }' \
-http://hostname:8080/api/enterprise/federation/v1/etcd-replicators/my-replicator
+http://127.0.0.1:8080/api/enterprise/federation/v1/etcd-replicators/my-replicator
 
 HTTP/1.1 200 OK
 {{< /highlight >}}
@@ -282,8 +316,9 @@ The `/clusters` API endpoint provides HTTP GET access to a list of clusters.
 The following example demonstrates a request to the `/clusters` API endpoint, resulting in a list of clusters.
 
 {{< highlight shell >}}
-curl -H "Authorization: Bearer $SENSU_TOKEN" \
-http://127.0.0.1:8080/api/enterprise/federation/v1/clusters
+curl -X GET \
+http://127.0.0.1:8080/api/enterprise/federation/v1/clusters \
+-H "Authorization: Bearer $SENSU_TOKEN"
 
 HTTP/1.1 200 OK
 
@@ -343,8 +378,9 @@ The `/clusters/:cluster` API endpoint provides HTTP GET access to data for a spe
 In the following example, querying the `/clusters/:cluster` API endpoint returns a JSON map that contains the requested `:etcd-replicator`.
 
 {{< highlight shell >}}
-curl -H "Authorization: Bearer $SENSU_TOKEN" \
-http://127.0.0.1:8080/api/enterprise/federation/v1/clusters/us-west-2a
+curl -X GET \
+http://127.0.0.1:8080/api/enterprise/federation/v1/clusters/us-west-2a \
+-H "Authorization: Bearer $SENSU_TOKEN"
 
 HTTP/1.1 200 OK
 

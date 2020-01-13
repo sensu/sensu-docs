@@ -28,7 +28,9 @@ The `/rolebindings` API endpoint provides HTTP GET access to [role binding][1] d
 The following example demonstrates a request to the `/rolebindings` API endpoint, resulting in a JSON array that contains [role binding definitions][1].
 
 {{< highlight shell >}}
-curl http://127.0.0.1:8080/api/core/v2/namespaces/default/rolebindings -H "Authorization: Bearer $SENSU_TOKEN"
+curl -X GET \
+http://127.0.0.1:8080/api/core/v2/namespaces/default/rolebindings \
+-H "Authorization: Bearer $SENSU_TOKEN"
 
 HTTP/1.1 200 OK
 [
@@ -85,6 +87,23 @@ output         | {{< highlight shell >}}
 
 The `/rolebindings` API endpoint provides HTTP POST access to create Sensu role bindings.
 
+#### EXAMPLE {#rolebindings-post-example}
+
+In the following example, an HTTP POST request is submitted to the `/rolebindings` API endpoint to create a role binding named `readers-group-binding`.
+The request returns a successful HTTP `201 Created` response.
+
+{{< highlight shell >}}
+curl -X POST \
+-H "Authorization: Bearer $SENSU_TOKEN" \
+-H 'Content-Type: application/json' \
+-d '{
+  "name": "development"
+}' \
+http://127.0.0.1:8080/api/core/v2/namespaces/default/rolebindings
+
+HTTP/1.1 201 Created
+{{< /highlight >}}
+
 #### API Specification {#rolebindings-post-specification}
 
 /rolebindings (POST) | 
@@ -109,7 +128,7 @@ payload         | {{< highlight shell >}}
   }
 }
 {{< /highlight >}}
-response codes  | <ul><li>**Success**: 200 (OK)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 ## The `/rolebindings/:rolebinding` API endpoint {#the-rolebindingsrolebinding-api-endpoint}
 
@@ -122,7 +141,9 @@ The `/rolebindings/:rolebinding` API endpoint provides HTTP GET access to [role 
 In the following example, querying the `/rolebindings/:rolebinding` API endpoint returns a JSON map that contains the requested [`:rolebinding` definition][1] (in this example, for the `:rolebinding` named `readers-group-binding`).
 
 {{< highlight shell >}}
-curl http://127.0.0.1:8080/api/core/v2/namespaces/default/rolebindings/readers-group-binding -H "Authorization: Bearer $SENSU_TOKEN"
+curl -X GET \
+http://127.0.0.1:8080/api/core/v2/namespaces/default/rolebindings/readers-group-binding \
+-H "Authorization: Bearer $SENSU_TOKEN"
 
 HTTP/1.1 200 OK
 {
@@ -174,26 +195,56 @@ output               | {{< highlight json >}}
 
 The `/rolebindings/:rolebinding` API endpoint provides HTTP PUT access to create or update [role binding data][1] for specific `:rolebinding` definitions, by role binding `name`.
 
+#### EXAMPLE {#rolebindingsrolebinding-put-example}
+
+In the following example, an HTTP PUT request is submitted to the `/rolebindings/:rolebinding` API endpoint to create the role binding `dev-binding`.
+The request returns a successful HTTP `201 Created` response.
+
+{{< highlight shell >}}
+curl -X PUT \
+-H "Authorization: Bearer $SENSU_TOKEN" \
+-H 'Content-Type: application/json' \
+-d '{
+  "subjects": [
+    {
+      "type": "Group",
+      "name": "devs"
+    }
+  ],
+  "role_ref": {
+    "type": "Role",
+    "name": "workflow-creator"
+  },
+  "metadata": {
+    "name": "dev-binding",
+    "namespace": "default"
+  }
+}' \
+http://127.0.0.1:8080/api/core/v2/namespaces/default/rolebindings/dev-binding
+
+HTTP/1.1 201 Created
+{{< /highlight >}}
+
 #### API Specification {#rolebindingsrolebinding-put-specification}
 
 /rolebindings/:rolebinding (PUT) | 
 ----------------|------
 description     | Creates or updates a Sensu role binding.
-example URL     | http://hostname:8080/api/core/v2/namespaces/default/rolebindings/readers-group-binding
+example URL     | http://hostname:8080/api/core/v2/namespaces/default/rolebindings/dev-binding
 payload         | {{< highlight shell >}}
 {
   "subjects": [
     {
       "type": "Group",
-      "name": "readers"
+      "name": "devs"
     }
   ],
   "role_ref": {
     "type": "Role",
-    "name": "read-only"
+    "name": "workflow-creator"
   },
   "metadata": {
-    "name": "readers-group-binding",
+    "name": "dev-binding",
     "namespace": "default"
   }
 }
@@ -210,8 +261,8 @@ The following example shows a request to the `/rolebindings/:rolebinding` API en
 
 {{< highlight shell >}}
 curl -X DELETE \
--H "Authorization: Bearer $SENSU_TOKEN" \
-http://127.0.0.1:8080/api/core/v2/namespaces/default/rolebindings/dev-binding
+http://127.0.0.1:8080/api/core/v2/namespaces/default/rolebindings/dev-binding \
+-H "Authorization: Bearer $SENSU_TOKEN"
 
 HTTP/1.1 204 No Content
 {{< /highlight >}}
