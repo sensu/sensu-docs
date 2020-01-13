@@ -10,10 +10,10 @@ menu:
 ---
 
 - [The `/users` API endpoint](#the-users-api-endpoint)
-	- [`/users` (GET)](#users-get)
-	- [`/users` (POST)](#users-post)
+  - [`/users` (GET)](#users-get)
+  - [`/users` (POST)](#users-post)
 - [The `/users/:user` API endpoint](#the-usersuser-api-endpoint)
-	- [`/users/:user` (GET)](#usersuser-get)
+  - [`/users/:user` (GET)](#usersuser-get)
   - [`/users/:user` (PUT)](#usersuser-put)
   - [`/users/:user` (DELETE)](#usersuser-delete)
 - [The `/users/:user/password` API endpoint](#the-usersuserpassword-api-endpoint)
@@ -37,8 +37,9 @@ The `/users` API endpoint provides HTTP GET access to [user][1] data.
 The following example demonstrates a request to the `/users` API, resulting in a JSON array that contains [user definitions][1].
 
 {{< highlight shell >}}
-curl -H "Authorization: Bearer $SENSU_TOKEN" \
-http://127.0.0.1:8080/api/core/v2/users
+curl -X GET \
+http://127.0.0.1:8080/api/core/v2/users \
+-H "Authorization: Bearer $SENSU_TOKEN"
 
 HTTP/1.1 200 OK
 [
@@ -109,14 +110,7 @@ curl -X POST \
 }' \
 http://127.0.0.1:8080/api/core/v2/users
 
-HTTP/1.1 200 OK
-{
-  "username": "alice",
-  "groups": [
-    "ops"
-  ],
-  "disabled": false
-}
+HTTP/1.1 201 Created
 {{< /highlight >}}
 
 #### API Specification {#usersuser-post-specification}
@@ -125,6 +119,7 @@ HTTP/1.1 200 OK
 ----------------|------
 description     | Creates a Sensu user.
 example URL     | http://hostname:8080/api/core/v2/users
+payload parameters | Required: `username` (string), `groups` (array; sets of shared permissions that apply to this user), `password` (string; at least eight characters), and `disabled` (when set to `true`, invalidates user credentials and permissions).
 payload         | {{< highlight shell >}}
 {
   "username": "alice",
@@ -135,8 +130,7 @@ payload         | {{< highlight shell >}}
   "disabled": false
 }
 {{< /highlight >}}
-payload parameters | Required: `username` (string), `groups` (array; sets of shared permissions that apply to this user), `password` (string; at least eight characters), and `disabled` (when set to `true`, invalidates user credentials and permissions).
-response codes  | <ul><li>**Success**: 200 (OK)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 ## The `/users/:user` API endpoint {#the-usersuser-api-endpoint}
 
@@ -149,8 +143,9 @@ The `/users/:user` API endpoint provides HTTP GET access to [user data][1] for a
 In the following example, querying the `/users/:user` API returns a JSON map that contains the requested [`:user` definition][1] (in this example, for the `alice` user).
 
 {{< highlight shell >}}
-curl -H "Authorization: Bearer $SENSU_TOKEN" \
-http://127.0.0.1:8080/api/core/v2/users/alice
+curl -X GET \
+http://127.0.0.1:8080/api/core/v2/users/alice \
+-H "Authorization: Bearer $SENSU_TOKEN"
 
 HTTP/1.1 200 OK
 {
@@ -202,14 +197,7 @@ curl -X PUT \
 }' \
 http://127.0.0.1:8080/api/core/v2/users/alice
 
-HTTP/1.1 200 OK
-{
-  "username": "alice",
-  "groups": [
-    "ops"
-  ],
-  "disabled": false
-}
+HTTP/1.1 201 Created
 {{< /highlight >}}
 
 #### API Specification {#usersuser-put-specification}
@@ -228,7 +216,7 @@ payload         | {{< highlight shell >}}
   "disabled": false
 }
 {{< /highlight >}}
-response codes  | <ul><li>**Success**: 200 (OK)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 ### `/users/:user` (DELETE) {#usersuser-delete}
 
@@ -274,7 +262,7 @@ curl -X PUT \
 }' \
 http://127.0.0.1:8080/api/core/v2/users/alice/password
 
-HTTP/1.1 200 OK
+HTTP/1.1 201 Created
 {{< /highlight >}}
 
 #### API Specification {#usersuserpassword-put-specification}
@@ -283,14 +271,14 @@ HTTP/1.1 200 OK
 ----------------|------
 description     | Updates the password for the specified Sensu user.
 example URL     | http://hostname:8080/api/core/v2/users/alice/password
+payload parameters | Required: `username` (string; the `username` for the Sensu user) and `password` (string; the user's new password).
 payload         | {{< highlight shell >}}
 {
   "username": "admin",
   "password": "newpassword"
 }
 {{< /highlight >}}
-payload parameters | Required: `username` (string; the `username` for the Sensu user) and `password` (string; the user's new password).
-response codes  | <ul><li>**Success**: 200 (OK)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 ## The `/users/:user/reinstate` API endpoint {#the-usersuserreinstate-api-endpoint}
 
@@ -308,7 +296,7 @@ curl -X PUT \
 -H 'Content-Type: application/json' \
 http://127.0.0.1:8080/api/core/v2/users/alice/reinstate
 
-HTTP/1.1 200 OK
+HTTP/1.1 201 Created
 {{< /highlight >}}
 
 #### API Specification {#usersuserreinstate-put-specification}
@@ -360,7 +348,7 @@ curl -X PUT \
 -H "Authorization: Bearer $SENSU_TOKEN" \
 http://127.0.0.1:8080/api/core/v2/users/alice/groups/ops
 
-HTTP/1.1 204 No Content
+HTTP/1.1 201 Created
 {{< /highlight >}}
 
 #### API Specification {#usersusergroupsgroup-put-specification}
@@ -369,10 +357,7 @@ HTTP/1.1 204 No Content
 ----------------|------
 description     | Adds the specified user to the specified group.
 example URL     | http://hostname:8080/api/core/v2/users/alice/groups/ops
-payload         | {{< highlight shell >}}
-
-{{< /highlight >}}
-response codes  | <ul><li>**Success**: 204 (No Content)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 ### `/users/:user/groups/:group` (DELETE) {#usersusergroupsgroup-delete}
 
