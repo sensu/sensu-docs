@@ -26,7 +26,9 @@ The `/auth` API endpoint provides HTTP GET access to create an access token usin
 In the following example, querying the `/auth` API endpoint with a given username and password returns an HTTP `200 OK` response to indicate that the credentials are valid, along with an access token and a refresh token.
 
 {{< highlight shell >}}
-curl -u myusername:mypassword http://127.0.0.1:8080/auth
+curl -X GET \
+http://127.0.0.1:8080/auth \
+-u myusername:mypassword
 
 HTTP/1.1 200 OK
 {
@@ -62,7 +64,9 @@ The `/auth/test` API endpoint provides HTTP GET access to test user credentials.
 In the following example, querying the `/auth/test` API endpoint with a given username and password returns an HTTP `200 OK` response, indicating that the credentials are valid.
 
 {{< highlight shell >}}
-curl -u myusername:mypassword http://127.0.0.1:8080/auth/test
+curl -X GET \
+http://127.0.0.1:8080/auth/test \
+-u myusername:mypassword
 
 HTTP/1.1 200 OK
 {{< /highlight >}}
@@ -87,10 +91,11 @@ In the following example, an HTTP POST request is submitted to the `/auth/token`
 The request includes the refresh token in the request body and returns a successful HTTP `200 OK` response along with the new access token.
 
 {{< highlight shell >}}
-curl -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIs..." \
+curl -X POST \
+http://127.0.0.1:8080/auth/token \
+-H "Authorization: Bearer eyJhbGciOiJIUzI1NiIs..." \
 -H 'Content-Type: application/json' \
--d '{"refresh_token": "eyJhbGciOiJIUzI1NiIs..."}' \
-http://127.0.0.1:8080/auth/token
+-d '{"refresh_token": "eyJhbGciOiJIUzI1NiIs..."}'
 
 HTTP/1.1 200 OK
 {
