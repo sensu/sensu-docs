@@ -24,16 +24,17 @@ The `/tessen` API endpoint provides HTTP GET access to the active Tessen configu
 #### EXAMPLE {#tessen-get-example}
 
 The following example demonstrates an HTTP GET request to the `/tessen` API endpoint.
+The request returns an HTTP `200 OK` response and a JSON map that contains the active Tessen configuration, indicating whether Tessen is enabled.
 
 {{< highlight shell >}}
-curl -H "Authorization: Bearer $SENSU_TOKEN" http://127.0.0.1:8080/api/core/v2/tessen
-{{< /highlight >}}
+curl -X GET \
+http://127.0.0.1:8080/api/core/v2/tessen \
+-H "Authorization: Bearer $SENSU_TOKEN"
 
-The request returns an HTTP `200 OK` response and a JSON map that contains the active Tessen configuration, indicating that Tessen is enabled.
-
-{{< highlight shell >}}
 HTTP/1.1 200 OK
-{"opt_out": false}
+{
+  "opt_out": false
+}
 {{< /highlight >}}
 
 #### API Specification {#tessen-get-specification}
@@ -45,7 +46,9 @@ example url    | http://hostname:8080/api/core/v2/tessen
 response type  | Map
 response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 example output | {{< highlight shell >}}
-{"opt_out": false}
+{
+  "opt_out": false
+}
 {{< /highlight >}}
 
 ### `/tessen` (PUT) {#tessen-put}
@@ -56,20 +59,21 @@ Tessen is enabled by default on Sensu backends and required for [licensed][3] Se
 #### EXAMPLE {#tessen-put-example}
 
 In the following example, an HTTP PUT request is submitted to the `/tessen` API endpoint to opt in to Tessen using the `opt_out` attribute.
+The request returns an HTTP `200 OK` response and the resulting Tessen configuration.
 
 {{< highlight shell >}}
 curl -X PUT \
 -H "Authorization: Bearer $SENSU_TOKEN" \
 -H 'Content-Type: application/json' \
--d '{"opt_out": false}' \
+-d '{
+  "opt_out": false
+}' \
 http://127.0.0.1:8080/api/core/v2/tessen
-{{< /highlight >}}
 
-The request returns an HTTP `200 OK` response and the resulting Tessen configuration.
-
-{{< highlight shell >}}
 HTTP/1.1 200 OK
-{"opt_out": false}
+{
+  "opt_out": false
+}
 {{< /highlight >}}
 
 #### API Specification {#tessen-put-specification}
@@ -80,6 +84,11 @@ description     | Updates the active Tessen configuration. [Licensed][3] Sensu i
 example url     | http://hostname:8080/api/core/v2/tessen
 request parameters | Required: `opt_out` (set to `false` to enable Tessen; set to `true` to opt out of Tessen).
 response codes   | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+example output | {{< highlight shell >}}
+{
+  "opt_out": false
+}
+{{< /highlight >}}
 
 [1]: ../../reference/tessen/
 [2]: ../../reference/rbac#default-users

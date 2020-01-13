@@ -28,8 +28,9 @@ The `/cluster/members` API endpoint provides HTTP GET access to Sensu [cluster][
 The following example demonstrates a request to the `/cluster/members` API endpoint, resulting in a JSON map that contains a Sensu cluster definition.
 
 {{< highlight shell >}}
-curl -H "Authorization: Bearer $SENSU_TOKEN" \
-http://127.0.0.1:8080/api/core/v2/cluster/members
+curl -X GET \
+http://127.0.0.1:8080/api/core/v2/cluster/members \
+-H "Authorization: Bearer $SENSU_TOKEN" \
 
 HTTP/1.1 200 OK
 {
@@ -206,8 +207,9 @@ The `/cluster/id` API endpoint provides HTTP GET access to the Sensu cluster ID.
 The following example demonstrates a request to the `/cluster/id` API endpoint, resulting in a string that contains the Sensu cluster ID.
 
 {{< highlight shell >}}
-curl -H "Authorization: Bearer $SENSU_TOKEN" \
-http://127.0.0.1:8080/api/core/v2/cluster/members
+curl -X GET \
+ -H "Authorization: Bearer $SENSU_TOKEN" \
+http://127.0.0.1:8080/api/core/v2/cluster/id
 
 HTTP/1.1 200 OK
 "23481e76-5844-4d07-b714-6e2ffbbf9315"
