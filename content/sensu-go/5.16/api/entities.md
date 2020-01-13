@@ -391,23 +391,6 @@ output               | {{< highlight json >}}
 
 The `/entities/:entity` API endpoint provides HTTP POST access to create or update the specified Sensu entity.
 
-#### EXAMPLE {#entitiesentity-post-example}
-
-In the following example, an HTTP POST request is submitted to the `/entities/:entity` API endpoint to create the entity named `sensu-centos`.
-The request includes the updated entity definition in the request body and returns a successful `HTTP 201 Created` response.
-
-{{< highlight shell >}}
-curl -X POST \
--H "Authorization: Bearer $SENSU_TOKEN" \
--H 'Content-Type: application/json' \
--d '{
-PLACEHOLDER
-}' \
-http://127.0.0.1:8080/api/core/v2/namespaces/default/entities/sensu-centos
-
-HTTP/1.1 201 Created
-{{< /highlight >}}
-
 #### API Specification {#entitiesentity-post-specification}
 
 /entities/:entity (POST) | 
