@@ -28,17 +28,21 @@ Metrics can be collected from [check output][10] or the [Sensu StatsD Server][3]
 [Assets][12] are shareable, reusable packages that make it easier to deploy Sensu plugins.
 This example uses the [Sensu InfluxDB Handler][13] asset to power an `influx-db` handler.
 
-Use this sensuctl example to register the [Sensu InfluxDB Handler][13] asset for Linux AMD64 or download the latest asset definition for your platform from [Bonsai][13] and register the asset with `sensuctl create --file filename.yml`.
+Use [`sensuctl asset add`][5] to register the [Sensu InfluxDB Handler][13] asset:
 
 {{< highlight shell >}}
-sensuctl asset create sensu-influxdb-handler --url "https://assets.bonsai.sensu.io/b28f8719a48aa8ea80c603f97e402975a98cea47/sensu-influxdb-handler_3.1.2_linux_amd64.tar.gz" --sha512 "612c6ff9928841090c4d23bf20aaf7558e4eed8977a848cf9e2899bb13a13e7540bac2b63e324f39d9b1257bb479676bc155b24e21bf93c722b812b0f15cb3bd"
+sensuctl asset add sensu/sensu-influxdb-handler:3.1.2
 {{< /highlight >}}
+
+You can also download the latest asset definition for your platform from [Bonsai][13] and register the asset with `sensuctl create --file filename.yml`.
 
 You should see a confirmation message from sensuctl:
 
 {{< highlight shell >}}
 Created
 {{< /highlight >}}
+
+Run `sensuctl asset list --format yaml` to confirm that the asset is ready to use.
 
 ### Create the handler
 
@@ -97,6 +101,7 @@ Now that you know how to apply a handler to metrics and take action on events, h
 [2]: https://github.com/influxdata/influxdb
 [3]: ../aggregate-metrics-statsd/
 [4]: https://github.com/sensu/sensu-influxdb-handler#installation
+[5]: ../../sensuctl/reference/#install-asset-definitions
 [8]: ../troubleshooting/
 [9]: ../../reference/handlers/
 [10]: ../extract-metrics-with-checks/

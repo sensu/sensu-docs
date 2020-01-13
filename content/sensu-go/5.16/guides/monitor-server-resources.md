@@ -28,17 +28,21 @@ To use this guide, you'll need to install a Sensu backend and have at least one 
 
 To power the check, you'll use the [Sensu CPU Checks][1] asset and the [Sensu Ruby Runtime][7] asset.
 
-Use the following sensuctl example to register the `sensu-plugins-cpu-checks` asset for CentOS or download the asset definition for Debian or Alpine from [Bonsai][1] and register the asset using `sensuctl create --file filename.yml`:
+Use [`sensuctl asset add`][9] to register the `sensu-plugins-cpu-checks` asset:
 
 {{< highlight shell >}}
-sensuctl asset create sensu-plugins-cpu-checks --url "https://assets.bonsai.sensu.io/68546e739d96fd695655b77b35b5aabfbabeb056/sensu-plugins-cpu-checks_4.0.0_centos_linux_amd64.tar.gz" --sha512 "518e7c17cf670393045bff4af318e1d35955bfde166e9ceec2b469109252f79043ed133241c4dc96501b6636a1ec5e008ea9ce055d1609865635d4f004d7187b"
+sensuctl asset add sensu-plugins/sensu-plugins-cpu-checks:4.1.0
 {{< /highlight >}}
 
-Then, use this sensuctl example to register the `sensu-ruby-runtime` asset for CentOS or download the asset definition for Debian or Alpine from [Bonsai][7] and register the asset using `sensuctl create --file filename.yml`:
+You can also download the asset definition for Debian or Alpine from [Bonsai][1] and register the asset with `sensuctl create --file filename.yml`.
+
+Then, use the following sensuctl example to register the `sensu-ruby-runtime` asset:
 
 {{< highlight shell >}}
-sensuctl asset create sensu-ruby-runtime --url "https://assets.bonsai.sensu.io/03d08cdfc649500b7e8cd1708bb9bb93d91fea9e/sensu-ruby-runtime_0.0.8_ruby-2.4.4_centos_linux_amd64.tar.gz" --sha512 "7b254d305af512cc524a20a117c601bcfae0d51d6221bbfc60d8ade180cc1908081258a6eecfc9b196b932e774083537efe748c1534c83d294873dd3511e97a3"
+sensuctl asset add sensu/sensu-ruby-runtime:0.0.10
 {{< /highlight >}}
+
+You can also download the asset definition from [Bonsai][7] and register the asset using `sensuctl create --file filename.yml`.
 
 Use sensuctl to confirm that both the `sensu-plugins-cpu-checks` and `sensu-ruby-runtime` assets are ready to use:
 
@@ -46,7 +50,7 @@ Use sensuctl to confirm that both the `sensu-plugins-cpu-checks` and `sensu-ruby
 sensuctl asset list
           Name                                                URL                                       Hash    
 ────────────────────────── ─────────────────────────────────────────────────────────────────────────── ───────── 
- sensu-plugins-cpu-checks   //assets.bonsai.sensu.io/.../sensu-plugins-cpu-checks_4.0.0_centos_linux_amd64.tar.gz          518e7c1  
+ sensu-plugins-cpu-checks   //assets.bonsai.sensu.io/.../sensu-plugins-cpu-checks_4.1.0_centos_linux_amd64.tar.gz          518e7c1  
  sensu-ruby-runtime         //assets.bonsai.sensu.io/.../sensu-ruby-runtime_0.0.10_ruby-2.4.4_centos_linux_amd64.tar.gz     338b88b 
 {{< /highlight >}}
 
@@ -108,3 +112,4 @@ Now that you know how to run a check to monitor CPU usage, read these resources 
 [6]: ../send-slack-alerts/
 [7]: https://bonsai.sensu.io/assets/sensu/sensu-ruby-runtime
 [8]: ../../reference/agent/#restart-the-service
+[9]: ../../sensuctl/reference/#install-asset-definitions

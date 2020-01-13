@@ -27,11 +27,13 @@ If you don't already have a check in place, [Monitor server resources][2] is a g
 [Assets][13] are shareable, reusable packages that help you deploy Sensu plugins.
 In this guide, you'll use the [Sensu Slack Handler][14] asset to power a `slack` handler.
 
-You can use the following sensuctl example to register the [Sensu Slack handler][14] asset for Linux AMD64 or you can download the latest asset definition for your platform from [Bonsai][14] and register the asset using `sensuctl create --file filename.yml`.
+Use [`sensuctl asset add`][10] to register the [Sensu Slack Handler][14] asset:
 
 {{< highlight shell >}}
-sensuctl asset create sensu-slack-handler --url "https://assets.bonsai.sensu.io/3149de09525d5e042a83edbb6eb46152b02b5a65/sensu-slack-handler_1.0.3_linux_amd64.tar.gz" --sha512 "68720865127fbc7c2fe16ca4d7bbf2a187a2df703f4b4acae1c93e8a66556e9079e1270521999b5871473e6c851f51b34097c54fdb8d18eedb7064df9019adc8"
+sensuctl asset add sensu/sensu-slack-handler:1.0.3
 {{< /highlight >}}
+
+You can also download the latest asset definition for your platform from [Bonsai][14] and register the asset with `sensuctl create --file filename.yml`.
 
 You should see a confirmation message from sensuctl:
 
@@ -102,6 +104,7 @@ Now that you know how to apply a handler to a check and take action on events, r
 [7]: ../troubleshooting/
 [8]: ../../reference/handlers/
 [9]: ../reduce-alert-fatigue/
+[10]: ../../sensuctl/reference/#install-asset-definitions
 [12]: https://slack.com/get-started#create
 [13]: ../../reference/assets
 [14]: https://bonsai.sensu.io/assets/sensu/sensu-slack-handler
