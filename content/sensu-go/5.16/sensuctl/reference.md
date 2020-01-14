@@ -903,7 +903,7 @@ Flags are optional and apply only to the `install` command &mdash; they are not 
 To install a command from the [Sensu EC2 Discovery Plugin][37] with no flags:
 
 {{< highlight shell >}}
-sensuctl command install sensu-ec2-discovery (portertech/sensu-ec2-discovery:0.3.0)
+sensuctl command install sensu-ec2-discovery portertech/sensu-ec2-discovery:0.3.0
 {{< /highlight >}}
 
 **To install a command from a URL**, replace `[ARCHIVE_URL]` with a command URL that points to a tarball (e.g. https://path/to/asset.tar.gz).
