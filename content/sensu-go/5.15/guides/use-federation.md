@@ -1,7 +1,7 @@
 ---
 title: "Multi-cluster visibility with federation"
 linkTitle: "Reaching Multi-cluster Visibility"
-description: "With Sensu's federation capabilities, you can access and manage resources across multiple clusters via the web UI and mirror changes in one cluster to follower clusters. In this guide, you'll learn how federate Sensu clusters."
+description: "With Sensu's federation capabilities, you can access and manage resources across multiple clusters via the web UI and mirror changes in one cluster to follower clusters. In this guide, you'll learn how to federate Sensu clusters."
 weight: 400
 version: "5.15"
 product: "Sensu Go"
@@ -358,15 +358,15 @@ Learn more about configuring RBAC policies in our [RBAC reference documentation]
 [2]: ../../reference/etcdreplicators/
 [3]: ../use-apikey-feature/
 [4]: ../../reference/backend#jwt-attributes
-[5]: ../../sensuctl/reference#create-resources
-[6]: ../../sensuctl/reference#update-resources
-[7]: ../../sensuctl/reference#delete-resources
+[5]: ../../sensuctl/reference#creating-resources
+[6]: ../../sensuctl/reference#updating-resources
+[7]: ../../sensuctl/reference#deleting-resources
 [8]: ../../getting-started/enterprise/
 [9]: ../../reference/etcdreplicators#example-etcd-replicators-resources
 [10]: ../../reference/rbac/
 [11]: ../../api/federation#clusters-get
 [12]: https://github.com/etcd-io/etcd/blob/master/etcdctl/README.md#make-mirror-options-destination
-[13]: ../../guides/securing-sensu/#create-self-signed-certificates
+[13]: ../../guides/securing-sensu/#creating-self-signed-certificates
 [14]: #register-a-single-cluster
 [15]: https://support.dnsimple.com/articles/what-is-common-name/
 [16]: https://support.dnsimple.com/articles/what-is-ssl-san/
