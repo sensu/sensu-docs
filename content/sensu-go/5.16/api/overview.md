@@ -60,7 +60,7 @@ Beta APIs are more stable than alpha versions, but they offer similarly short-li
 
 With the exception of the [health API][5] and [metrics API][6], the Sensu API requires authentication using a JSON Web Token (JWT) access token.
 Use the [authentication API][12] and your Sensu username and password to generate access tokens and refresh tokens.
-The Sensu API docs use `$SENSU_TOKEN` to represent a valid access token in API requests.
+The Sensu API docs use `$SENSU_ACCESS_TOKEN` to represent a valid access token in API requests.
 
 ### Authentication quickstart
 
@@ -70,7 +70,7 @@ To set up a local API testing environment, save your Sensu credentials and token
 # Requires curl and jq
 export SENSU_USER=YOUR_USERNAME && SENSU_PASS=YOUR_PASSWORD
 
-export SENSU_TOKEN=`curl -XGET -u "$SENSU_USER:$SENSU_PASS" -s http://localhost:8080/auth | jq -r ".access_token"`
+export SENSU_ACCESS_TOKEN=`curl -X GET -u "$SENSU_USER:$SENSU_PASS" -s http://localhost:8080/auth | jq -r ".access_token"`
 {{< /highlight >}}
 
 ### Basic authentication using the authentication API
@@ -165,7 +165,7 @@ Similar to the `Bearer [token]` Authorization header, `Key [api-key]` will be ac
 For example, a JWT `Bearer [token]` Authorization header might be:
 
 {{< highlight shell >}}
-curl -H "Authorization: Bearer $SENSU_TOKEN" http://127.0.0.1:8080/api/core/v2/namespaces/default/checks
+curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" http://127.0.0.1:8080/api/core/v2/namespaces/default/checks
 {{< /highlight >}}
 
 If you're using `Key [api-key]` to authenticate instead, the Authorization header might be:
@@ -207,7 +207,7 @@ You can request a paginated response with the `limit` and `continue` query param
 For example, the following request limits the response to a maximum of two objects:
 
 {{< highlight shell >}}
-curl http://127.0.0.1:8080/api/core/v2/namespaces?limit=2 -H "Authorization: Bearer $SENSU_TOKEN"
+curl http://127.0.0.1:8080/api/core/v2/namespaces?limit=2 -H "Authorization: Bearer $SENSU_ACCESS_TOKEN"
 {{< /highlight >}}
 
 The response includes the available objects up to the specified limit.
@@ -232,7 +232,7 @@ Sensu-Continue: L2RlZmF1bHQvY2N4MWM2L2hlbGxvLXdvcmxkAA
 To request the next two available namespaces using the `Sensu-Continue` token included in the previous example's response:
 
 {{< highlight shell >}}
-curl http://127.0.0.1:8080/api/core/v2/namespaces?limit=2&continue=L2RlZmF1bHQvY2N4MWM2L2hlbGxvLXdvcmxkAA -H "Authorization: Bearer $SENSU_TOKEN"
+curl http://127.0.0.1:8080/api/core/v2/namespaces?limit=2&continue=L2RlZmF1bHQvY2N4MWM2L2hlbGxvLXdvcmxkAA -H "Authorization: Bearer $SENSU_ACCESS_TOKEN"
 {{< /highlight >}}
 
 If the request does not return a `Sensu-Continue` token, there are no further objects to return.
@@ -261,7 +261,7 @@ For example, to filter the response so that it only includes resources that have
 Include the `-G` flag so the request appends the data to the URL.
 
 {{< highlight shell >}}
-curl -H "Authorization: Bearer $SENSU_TOKEN" http://127.0.0.1:8080/api/core/v2/checks -G \
+curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" http://127.0.0.1:8080/api/core/v2/checks -G \
 --data-urlencode 'labelSelector=region == "us-west-1"'
 {{< /highlight >}}
 
@@ -323,14 +323,14 @@ You can combine multiple statements separated with the logical operator `&&` (_A
 For example, the following cURL request looks up checks that are configured to be published **and** include the `slack` handler:
 
 {{< highlight shell >}}
-curl -H "Authorization: Bearer $SENSU_TOKEN" http://127.0.0.1:8080/api/core/v2/checks -G \
+curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" http://127.0.0.1:8080/api/core/v2/checks -G \
 --data-urlencode 'fieldSelector=check.publish == true && slack in check.handlers'
 {{< /highlight >}}
 
 In addition to selectors with multiple statements, you can use field and label selectors at the same time:
 
 {{< highlight shell >}}
-curl -H "Authorization: Bearer $SENSU_TOKEN" http://127.0.0.1:8080/api/core/v2/checks -G \
+curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" http://127.0.0.1:8080/api/core/v2/checks -G \
 --data-urlencode 'fieldSelector=slack in check.handlers' \
 --data-urlencode 'labelSelector=region != "us-west-1"'
 {{< /highlight >}}

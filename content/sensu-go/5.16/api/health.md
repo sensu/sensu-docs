@@ -19,22 +19,24 @@ The `/health` API endpoint provides HTTP GET access to health data for your Sens
 The following example demonstrates a request to the `/health` API endpoint, resulting in a JSON map that contains Sensu health data.
 
 {{< highlight shell >}}
-curl http://127.0.0.1:8080/health
+curl -X GET \
+http://127.0.0.1:8080/health
 
 HTTP/1.1 200 OK
 {
   "Alarms": null,
   "ClusterHealth": [
     {
-      "MemberID": 9882886658148554927,
+      "MemberID": 2882886652148554927,
+      "MemberIDHex": "8923110df66458af",
       "Name": "default",
       "Err": "",
       "Healthy": true
     }
   ],
   "Header": {
-    "cluster_id": 4255616304056076734,
-    "member_id": 9882886658148554927,
+    "cluster_id": 4255616344056076734,
+    "member_id": 2882886652148554927,
     "raft_term": 26
   }
 }
@@ -53,15 +55,16 @@ output         | {{< highlight shell >}}
   "Alarms": null,
   "ClusterHealth": [
     {
-      "MemberID": 9882886658148554927,
+      "MemberID": 2882886652148554927,
+      "MemberIDHex": "8923110df66458af",
       "Name": "default",
       "Err": "",
       "Healthy": true
     }
   ],
   "Header": {
-    "cluster_id": 4255616304056076734,
-    "member_id": 9882886658148554927,
+    "cluster_id": 4255616344056076734,
+    "member_id": 2882886652148554927,
     "raft_term": 26
   }
 }

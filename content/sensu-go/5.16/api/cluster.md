@@ -28,8 +28,9 @@ The `/cluster/members` API endpoint provides HTTP GET access to Sensu [cluster][
 The following example demonstrates a request to the `/cluster/members` API endpoint, resulting in a JSON map that contains a Sensu cluster definition.
 
 {{< highlight shell >}}
-curl -H "Authorization: Bearer $SENSU_TOKEN" \
-http://127.0.0.1:8080/api/core/v2/cluster/members
+curl -X GET \
+http://127.0.0.1:8080/api/core/v2/cluster/members \
+-H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
 
 HTTP/1.1 200 OK
 {
@@ -91,7 +92,7 @@ The `/cluster/members` API endpoint provides HTTP POST access to create a Sensu 
 
 {{< highlight shell >}}
 curl -X POST \
--H "Authorization: Bearer $SENSU_TOKEN" \
+-H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
 http://127.0.0.1:8080/api/core/v2/cluster/members?peer-addrs=http://127.0.0.1:2380
 
 HTTP/1.1 200 OK
@@ -135,7 +136,7 @@ The `/cluster/members/:member` API endpoint provides HTTP PUT access to create o
 
 {{< highlight shell >}}
 curl -X PUT \
--H "Authorization: Bearer $SENSU_TOKEN" \
+-H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
 http://127.0.0.1:8080/api/core/v2/cluster/members/8927110dc66458af?peer-addrs=http://127.0.0.1:2380
 
 HTTP/1.1 200 OK
@@ -180,7 +181,7 @@ The following example shows a request to the `/cluster/members/:member` API endp
 
 {{< highlight shell >}}
 curl -X DELETE \
--H "Authorization: Bearer $SENSU_TOKEN" \
+-H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/cluster/members/8927110dc66458af
 
 HTTP/1.1 204 No Content
@@ -206,8 +207,9 @@ The `/cluster/id` API endpoint provides HTTP GET access to the Sensu cluster ID.
 The following example demonstrates a request to the `/cluster/id` API endpoint, resulting in a string that contains the Sensu cluster ID.
 
 {{< highlight shell >}}
-curl -H "Authorization: Bearer $SENSU_TOKEN" \
-http://127.0.0.1:8080/api/core/v2/cluster/members
+curl -X GET \
+ -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
+http://127.0.0.1:8080/api/core/v2/cluster/id
 
 HTTP/1.1 200 OK
 "23481e76-5844-4d07-b714-6e2ffbbf9315"

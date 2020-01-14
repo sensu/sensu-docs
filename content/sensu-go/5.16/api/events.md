@@ -33,7 +33,7 @@ The following example demonstrates a request to the `/events` API endpoint, resu
 {{< highlight shell >}}
 curl -X GET \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/events \
--H "Authorization: Bearer $SENSU_TOKEN"
+-H "Authorization: Bearer $SENSU_ACCESS_TOKEN"
 
 HTTP/1.1 200 OK
 [
@@ -183,7 +183,7 @@ The request includes information about the check and entity represented by the e
 
 {{< highlight shell >}}
 curl -X POST \
--H "Authorization: Bearer $SENSU_TOKEN" \
+-H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
 -H 'Content-Type: application/json'
 -d '{
   "entity": {
@@ -250,7 +250,7 @@ The request includes information about the check and entity represented by the e
 
 {{< highlight shell >}}
 curl -X PUT \
--H "Authorization: Bearer $SENSU_TOKEN" \
+-H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
 -H 'Content-Type: application/json'
 -d '{
   "entity": {
@@ -320,7 +320,7 @@ In the following example, querying the `/events/:entity` API endpoint returns a 
 {{< highlight shell >}}
 curl -X GET \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/events/sensu-go-sandbox \
--H "Authorization: Bearer $SENSU_TOKEN"
+-H "Authorization: Bearer $SENSU_ACCESS_TOKEN"
 
 HTTP/1.1 200 OK
 [
@@ -487,7 +487,7 @@ In the following example, an HTTP GET request is submitted to the `/events/:enti
 {{< highlight shell >}}
 curl -X GET \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/events/server1/server-health \
--H "Authorization: Bearer $SENSU_TOKEN"
+-H "Authorization: Bearer $SENSU_ACCESS_TOKEN"
 
 HTTP/1.1 200 OK
 
@@ -655,7 +655,7 @@ The event includes a status code of `1`, indicating a warning, and an output mes
 
 {{< highlight shell >}}
 curl -X POST \
--H "Authorization: Bearer $SENSU_TOKEN" \
+-H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
 -H 'Content-Type: application/json'
 -d '{
   "entity": {
@@ -740,7 +740,7 @@ The event includes a status code of `1`, indicating a warning, and an output mes
 
 {{< highlight shell >}}
 curl -X PUT \
--H "Authorization: Bearer $SENSU_TOKEN" \
+-H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
 -H 'Content-Type: application/json'
 -d '{
   "entity": {
@@ -830,7 +830,7 @@ For more information about check attributes, see the [check specification][7].
 
 {{< highlight shell >}}
 curl -X PUT \
--H "Authorization: Bearer $SENSU_TOKEN" \
+-H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
 -H 'Content-Type: application/json'
 -d '{
   "entity": {
@@ -858,7 +858,7 @@ For more information about these attributes and their available values, see the 
 
 {{< highlight shell >}}
 curl -X PUT \
--H "Authorization: Bearer $SENSU_TOKEN" \
+-H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
 -H 'Content-Type: application/json'
 -d '{
   "entity": {
@@ -890,7 +890,7 @@ See the [events reference][9] and for more information about Sensu metric format
 
 {{< highlight shell >}}
 curl -X PUT \
--H "Authorization: Bearer $SENSU_TOKEN" \
+-H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
 -H 'Content-Type: application/json'
 -d '{
   "entity": {
@@ -940,7 +940,7 @@ The following example shows a request to the `/events/:entity/:check` API endpoi
 {{< highlight shell >}}
 curl -X DELETE \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/events/sensu-go-sandbox/check-cpu \
--H "Authorization: Bearer $SENSU_TOKEN"
+-H "Authorization: Bearer $SENSU_ACCESS_TOKEN"
 
 HTTP/1.1 204 No Content
 {{< /highlight >}}
