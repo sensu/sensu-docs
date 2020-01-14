@@ -13,7 +13,6 @@ menu:
 	- [`/entities` (POST)](#entities-post)
 - [The `/entities/:entity` API endpoint](#the-entitiesentity-api-endpoint)
 	- [`/entities/:entity` (GET)](#entitiesentity-get)
-  - [`/entities/:entity` (POST)](#entitiesentity-post)
   - [`/entities/:entity` (PUT)](#entitiesentity-put)
   - [`/entities/:entity` (DELETE)](#entitiesentity-delete)
 
@@ -32,6 +31,7 @@ curl -X GET \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/entities \
 -H "Authorization: Bearer $SENSU_ACCESS_TOKEN"
 
+HTTP/1.1 200 OK
 [
   {
     "entity_class": "agent",
@@ -202,6 +202,7 @@ curl -X POST \
     "namespace": "default",
     "labels": null,
     "annotations": null
+  }
 }' \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/entities
 
@@ -248,6 +249,7 @@ curl -X GET \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/entities/sensu-centos \
 -H "Authorization: Bearer $SENSU_ACCESS_TOKEN"
 
+HTTP/1.1 200 OK
 {
   "entity_class": "agent",
   "sensu_agent_version": "1.0.0",
@@ -387,34 +389,6 @@ output               | {{< highlight json >}}
 }
 {{< /highlight >}}
 
-### `/entities/:entity` (POST) {#entitiesentity-post}
-
-The `/entities/:entity` API endpoint provides HTTP POST access to create or update the specified Sensu entity.
-
-#### API Specification {#entitiesentity-post-specification}
-
-/entities/:entity (POST) | 
-----------------|------
-description     | Creates or updates the specified Sensu entity. _**NOTE:**: When you create an entity via an HTTP POST request, the entity will use the namespace in the request URL._
-example URL     | http://hostname:8080/api/core/v2/namespaces/default/entities/sensu-centos
-payload         | {{< highlight shell >}}
-{
-  "entity_class": "proxy",
-  "sensu_agent_version": "1.0.0",
-  "subscriptions": [
-    "web"
-  ],
-  "deregister": false,
-  "deregistration": {},
-  "metadata": {
-    "name": "sensu-centos",
-    "labels": null,
-    "annotations": null
-  }
-}
-{{< /highlight >}}
-response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-
 ### `/entities/:entity` (PUT) {#entitiesentity-put}
 
 The `/entities/:entity` API endpoint provides HTTP PUT access to create or update the specified Sensu entity.
@@ -453,7 +427,7 @@ HTTP/1.1 201 Created
 
 /entities/:entity (PUT) | 
 ----------------|------
-description     | Creates or updates the specified Sensu entity. _**NOTE:**: When you create an entity via an HTTP PUT request, the entity will use the namespace in the request URL._
+description     | Creates or updates the specified Sensu entity. _**NOTE**: When you create an entity via an HTTP PUT request, the entity will use the namespace in the request URL._
 example URL     | http://hostname:8080/api/core/v2/namespaces/default/entities/sensu-centos
 payload         | {{< highlight shell >}}
 {
