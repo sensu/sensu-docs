@@ -208,7 +208,7 @@ curl -sS -H 'Content-Type: application/json' \
     "interval": 60
   }
 }' \
-http://localhost:8080/api/core/v2/namespaces/default/events | jq .
+http://localhost:8080/api/core/v2/namespaces/default/events
 {{< /highlight >}}
 
 As configured, the event status is `0` (OK).
@@ -237,7 +237,7 @@ curl -sS -X PUT \
     "handlers": ["email"]
   }
 }' \
-http://localhost:8080/api/core/v2/namespaces/default/events/server01/server-health | jq .
+http://localhost:8080/api/core/v2/namespaces/default/events/server01/server-health
 {{< /highlight >}}
 
 _**NOTE**: If you see an `invalid credentials` error, refresh your token. Run `eval $(sensuctl env)`._
@@ -268,7 +268,7 @@ curl -sS -X PUT \
     "handlers": ["email"]
   }
 }' \
-http://localhost:8080/api/core/v2/namespaces/default/events/server01/server-health | jq .
+http://localhost:8080/api/core/v2/namespaces/default/events/server01/server-health
 {{< /highlight >}}
 
 You should receive another email because the event status changed to `0` (OK).
