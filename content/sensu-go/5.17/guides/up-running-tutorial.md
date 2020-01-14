@@ -1,12 +1,12 @@
 ---
 title: "Up and running with Sensu Go tutorial"
 description: "Get up and running with Sensu Go in your browser with an interactive tutorial. Learn the basics of Sensu Go and send email alerts."
-version: "5.16"
+version: "5.17"
 weight: 30
 product: "Sensu Go"
 layout: "katacoda-wide"
 menu:
-  sensu-go-5.16:
+  sensu-go-5.17:
     parent: guides
 ---
 <!-- begin tracking -->
