@@ -886,7 +886,7 @@ To install a sensuctl command from Bonsai or a URL:
 sensuctl command install [ALIAS] ([NAMESPACE/NAME]:[VERSION] | --url [ARCHIVE_URL] --checksum [ARCHIVE_CHECKSUM]) [flags]
 {{< /highlight >}}
 
-You can install a command by using the Bonsai asset name or from a URL.
+To install a command plugin, use the Bonsai asset name or specify a URL and SHA512 checksum.
 
 **To install a command using the Bonsai asset name**, replace `[NAMESPACE/NAME]` with the name of the asset from Bonsai.
 `[:VERSION]` is only required if you require a specific version or are pinning to a specific version.
