@@ -184,7 +184,11 @@ Sensu<br>
 
 ## Next steps
 
-Now that you know how to apply a handler to a check and take action on events, read the [handlers reference][6] for in-depth handler documentation and check out the [Reduce alert fatigue][7] guide.
+Now that you know how to apply a handler to a check and take action on events:
+
+- Reuse this email handler with the `check-cpu` check in our [Monitor server resources][2] guide.
+- Read the [handlers reference][6] for in-depth handler documentation.
+- Check out the [Reduce alert fatigue][7] guide.
 
 You can also follow our [Up and running with Sensu Go][9] interactive tutorial to set up the Sensu Go email handler and test it with simulated `critical` events.
 
