@@ -11,72 +11,21 @@ menu:
     parent: guides
 ---
 
-- [Create an ad hoc event](#create-an-ad-hoc-event)
 - [Add the email handler asset](#add-the-email-handler-asset)
 - [Add an event filter](#add-an-event-filter)
-- [Assign the email handler to a check](#assign-the-email-handler-to-a-check)
 - [Create an email template](#create-an-email-template)
-- [Trigger an event](#trigger-an-event)
+- [Create and trigger an ad hoc event](#create-and-trigger-an-ad-hoc-event)
 - [Next steps](#next-steps)
 
 Sensu event handlers are actions the Sensu backend executes on [events][1].
 This guide explains how to use the [Sensu Go Email Handler][3] to send notification emails.
 
-To follow this guide, you’ll need to [install the Sensu backend][12] and have at least one [Sensu agent][13] running on Linux.
-You should also [install and configure sensuctl][4].
-
-## Create an ad hoc event
-
-Before you can send alerts to your email by configuring a handler, you need an [event][16] that generates the alerts.
 When you are using Sensu in production, events will come from a check or metric you configure.
-For this guide, you will create an ad hoc event that you can trigger manually.
+For this guide, you will create an ad hoc event that you can trigger manually to test your email handler.
 
-_**NOTE**: Make sure you have [installed the Sensu backend][12], have at least one [Sensu agent][13] running, and have [installed and configured sensuctl][4]._
+To follow this guide, you’ll need to [install the Sensu backend][12], have at least one [Sensu agent][13] running on Linux, and [install and configure sensuctl][4].
 
-To begin, use `sensuctl env` to set up environment variables, which will provide the required credentials for the Sensu API:
-
-{{< highlight shell >}}
-eval $(sensuctl env)
-{{< /highlight >}}
-
-Verify that the `SENSU_ACCESS_TOKEN` environment variable is set by echoing its value:
-
-{{< highlight shell >}}
-echo $SENSU_ACCESS_TOKEN
-eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1NzkwMzY5NjQsImp0aSI6ImJiMmY0ODY4ZTJhZWEyMDhhMTExOTllMGZkNzkzMDc0Iiwic3ViIjoiYWRtaW4iLCJncm91cHMiOlsiY2x1c3Rlci1hZG1pbnMiLCJzeXN0ZW06dXNlcnMiXSwicHJvdmlkZXIiOnsicHJvdmlkZXJfaWQiOiJiYXNpYyIsInByb3ZpZGVyX3R5cGUiOiIiLCJ1c2VyX2lkIjoiYWRtaW4ifX0.6XmuvblCN743R2maF4yErS3K3sOVczsCBsjib9TenUU
-{{< /highlight >}}
-
-Now you can use the Sensu API to create an ad hoc monitoring event.
-This event outputs the message "Everything is OK.” when it occurs:
-
-{{< highlight shell >}}
-curl -sS -H 'Content-Type: application/json' \
--H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
--d '{
-  "entity": {
-    "entity_class": "proxy",
-    "metadata": {
-      "name": "server01",
-      "namespace": "default"
-    }
-  },
-  "check": {
-    "metadata": {
-      "name": "server-health"
-    },
-    "output": "Everything is OK.",
-    "status": 0,
-    "interval": 60
-  }
-}' \
-http://localhost:8080/api/core/v2/namespaces/default/events | jq .
-{{< /highlight >}}
-
-As configured, the event status is `0` (OK).
-Later in this guide, you will change the status to `1` (warning) or `2` (critical) to generate a status change event.
-
-Now that you have created the ad hoc event, you can set up a handler to make sure you find out about them.
-In this case, your backend will execute an email handler that sends notifications to the email address you specify.
+Your backend will execute an email handler that sends notifications to the email address you specify.
 You'll also add an [event filter][5] to make sure you only receive a notification when your event represents a state change.
 
 ## Add the email handler asset
@@ -118,7 +67,7 @@ Here's an overview of how the `state_change_only` filter will work:
 Adding the event filter requires two parts:
 
 1. Create the event filter
-2. Create the email handler definition to specify the email address where the `sensu/sensu-email-handler` asset will send incident notifications
+2. Create the email handler definition to specify the email address where the `sensu/sensu-email-handler` asset will send notifications
 
 First, to create the event filter, run:
 
@@ -181,20 +130,10 @@ These two filters are included in every Sensu backend installation, so you don't
 After you add your email, server, username, and password values, run your updated code to create the email handler definition.
 
 Now your handler and event filter are set up!
-Next, assign the email handler to your `server-health` check.
-
-## Assign the email handler to a check
-
-With your `email` handler created, you can assign it to the `server-health` check from your [ad hoc event][17].
-To assign your email handler to the check `server-health`:
-
-{{< highlight shell >}}
-sensuctl check set-handlers server-health email
-{{< /highlight >}}
+Next, create an email template for your notification emails.
 
 ## Create an email template
 
-The last part of setup is to create a template for your emails.
 The [Sensu Go Email Handler][3] asset makes it possible to use a template that provides context for your email notifications.
 The email template functionality included with the Sensu Go Email Handler asset uses tokens to populate the values provided by the event.
 Use HTML to format the email. 
@@ -209,7 +148,7 @@ Greetings,<br>
 <br>
 The status of your {{ .Check.Name }} event has changed. Details about the change are included below.<br>
 <br>
-<h3>Incident Details</h3>
+<h3>Notification Details</h3>
 <b>Check</b>: {{ .Check.Name }}<br>
 <b>Entity</b>: {{ .Entity.Name }}<br>
 <b>State</b>: {{ .Check.State }}<br>
@@ -226,10 +165,55 @@ Sensu<br>
 </html>
 {{< /highlight >}}
 
-## Trigger an event
+Before your handler can send alerts to your email, you need an [event][16] that generates the alerts.
+In the final step, you will create an ad hoc event that you can trigger manually.
 
-Now it's time to see the results! 
-Use the update event endpoint to create a warning event. Run:
+## Create and trigger an ad hoc event
+
+Now it's time to trigger an event and see the results! 
+
+To begin, use `sensuctl env` to set up environment variables, which will provide the required credentials for the Sensu API:
+
+{{< highlight shell >}}
+eval $(sensuctl env)
+{{< /highlight >}}
+
+Verify that the `SENSU_ACCESS_TOKEN` environment variable is set by echoing its value:
+
+{{< highlight shell >}}
+echo $SENSU_ACCESS_TOKEN
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1NzkwMzY5NjQsImp0aSI6ImJiMmY0ODY4ZTJhZWEyMDhhMTExOTllMGZkNzkzMDc0Iiwic3ViIjoiYWRtaW4iLCJncm91cHMiOlsiY2x1c3Rlci1hZG1pbnMiLCJzeXN0ZW06dXNlcnMiXSwicHJvdmlkZXIiOnsicHJvdmlkZXJfaWQiOiJiYXNpYyIsInByb3ZpZGVyX3R5cGUiOiIiLCJ1c2VyX2lkIjoiYWRtaW4ifX0.6XmuvblCN743R2maF4yErS3K3sOVczsCBsjib9TenUU
+{{< /highlight >}}
+
+Now you can use the Sensu API to create an ad hoc monitoring event.
+This event outputs the message "Everything is OK.” when it occurs:
+
+{{< highlight shell >}}
+curl -sS -H 'Content-Type: application/json' \
+-H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
+-d '{
+  "entity": {
+    "entity_class": "proxy",
+    "metadata": {
+      "name": "server01",
+      "namespace": "default"
+    }
+  },
+  "check": {
+    "metadata": {
+      "name": "server-health"
+    },
+    "output": "Everything is OK.",
+    "status": 0,
+    "interval": 60
+  }
+}' \
+http://localhost:8080/api/core/v2/namespaces/default/events | jq .
+{{< /highlight >}}
+
+As configured, the event status is `0` (OK).
+
+To generate a status change event, use the update event endpoint to create a `1` (warning) event. Run:
 
 {{< highlight shell >}}
 curl -sS -X PUT \
@@ -258,9 +242,9 @@ http://localhost:8080/api/core/v2/namespaces/default/events/server01/server-heal
 
 _**NOTE**: If you see an `invalid credentials` error, refresh your token. Run `eval $(sensuctl env)`._
 
-Check out your email — you should see a message from Sensu!
+Check your email — you should see a message from Sensu!
 
-Create another event with status set to 0. Run:
+Create another event with status set to `0`. Run:
 
 {{< highlight shell >}}
 curl -sS -X PUT \
