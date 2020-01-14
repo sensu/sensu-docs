@@ -19,12 +19,19 @@ The `/metrics` API endpoint provides HTTP GET access to internal Sensu metrics i
 The following example demonstrates a request to the `/metrics` API endpoint, resulting in plaintext output that contains internal Sensu metrics.
 
 {{< highlight text >}}
-curl http://127.0.0.1:8080/metrics
+curl -X GET \
+http://127.0.0.1:8080/metrics
 
 HTTP/1.1 200 OK
+# HELP etcd_debugging_mvcc_compact_revision The revision of the last compaction in store.
+# TYPE etcd_debugging_mvcc_compact_revision gauge
+etcd_debugging_mvcc_compact_revision 300
+# HELP etcd_debugging_mvcc_current_revision The current revision of store.
+# TYPE etcd_debugging_mvcc_current_revision gauge
+etcd_debugging_mvcc_current_revision 316
 # HELP etcd_debugging_mvcc_db_compaction_keys_total Total number of db keys compacted.
 # TYPE etcd_debugging_mvcc_db_compaction_keys_total counter
-etcd_debugging_mvcc_db_compaction_keys_total 2386
+etcd_debugging_mvcc_db_compaction_keys_total 274
 # HELP etcd_debugging_mvcc_db_compaction_pause_duration_milliseconds Bucketed histogram of db compaction pause duration.
 # TYPE etcd_debugging_mvcc_db_compaction_pause_duration_milliseconds histogram
 etcd_debugging_mvcc_db_compaction_pause_duration_milliseconds_bucket{le="1"} 0
@@ -41,9 +48,15 @@ example url    | http://hostname:8080/metrics
 response type  | [Prometheus-formatted][1] plaintext
 response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output         | {{< highlight text >}}
+# HELP etcd_debugging_mvcc_compact_revision The revision of the last compaction in store.
+# TYPE etcd_debugging_mvcc_compact_revision gauge
+etcd_debugging_mvcc_compact_revision 300
+# HELP etcd_debugging_mvcc_current_revision The current revision of store.
+# TYPE etcd_debugging_mvcc_current_revision gauge
+etcd_debugging_mvcc_current_revision 316
 # HELP etcd_debugging_mvcc_db_compaction_keys_total Total number of db keys compacted.
 # TYPE etcd_debugging_mvcc_db_compaction_keys_total counter
-etcd_debugging_mvcc_db_compaction_keys_total 2386
+etcd_debugging_mvcc_db_compaction_keys_total 274
 # HELP etcd_debugging_mvcc_db_compaction_pause_duration_milliseconds Bucketed histogram of db compaction pause duration.
 # TYPE etcd_debugging_mvcc_db_compaction_pause_duration_milliseconds histogram
 etcd_debugging_mvcc_db_compaction_pause_duration_milliseconds_bucket{le="1"} 0

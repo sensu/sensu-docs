@@ -27,10 +27,30 @@ The `/roles` API endpoint provides HTTP GET access to [role][1] data.
 The following example demonstrates a request to the `/roles` API endpoint, resulting in a JSON array that contains [role definitions][1].
 
 {{< highlight shell >}}
-curl http://127.0.0.1:8080/api/core/v2/namespaces/default/roles -H "Authorization: Bearer $SENSU_TOKEN"
+curl -X GET \
+http://127.0.0.1:8080/api/core/v2/namespaces/default/roles \
+-H "Authorization: Bearer $SENSU_ACCESS_TOKEN"
 
 HTTP/1.1 200 OK
 [
+  {
+    "rules": [
+      {
+        "verbs": [
+          "get",
+          "list"
+        ],
+        "resources": [
+          "events"
+        ],
+        "resource_names": null
+      }
+    ],
+    "metadata": {
+      "name": "event-reader",
+      "namespace": "default"
+    }
+  },
   {
     "rules": [
       {
@@ -66,6 +86,24 @@ output         | {{< highlight shell >}}
     "rules": [
       {
         "verbs": [
+          "get",
+          "list"
+        ],
+        "resources": [
+          "events"
+        ],
+        "resource_names": null
+      }
+    ],
+    "metadata": {
+      "name": "event-reader",
+      "namespace": "default"
+    }
+  },
+  {
+    "rules": [
+      {
+        "verbs": [
           "read"
         ],
         "resources": [
@@ -85,6 +123,38 @@ output         | {{< highlight shell >}}
 ### `/roles` (POST)
 
 The `/roles` API endpoint provides HTTP POST access to create Sensu roles.
+
+#### EXAMPLE {#roles-post-example}
+
+In the following example, an HTTP POST request is submitted to the `/roles` API endpoint to create a role named `event-reader`.
+The request returns a successful HTTP `201 Created` response.
+
+{{< highlight shell >}}
+curl -X POST \
+-H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
+-H 'Content-Type: application/json' \
+-d '{
+  "rules": [
+    {
+      "verbs": [
+        "get",
+        "list"
+      ],
+      "resources": [
+        "events"
+      ],
+      "resource_names": []
+    }
+  ],
+  "metadata": {
+    "name": "event-reader",
+    "namespace": "default"
+  }
+}' \
+http://127.0.0.1:8080/api/core/v2/namespaces/default/roles
+
+HTTP/1.1 201 Created
+{{< /highlight >}}
 
 #### API Specification {#roles-post-specification}
 
@@ -112,7 +182,7 @@ payload         | {{< highlight shell >}}
   }
 }
 {{< /highlight >}}
-response codes  | <ul><li>**Success**: 200 (OK)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 ## The `/roles/:role` API endpoint {#the-rolesrole-api-endpoint}
 
@@ -125,7 +195,9 @@ The `/roles/:role` API endpoint provides HTTP GET access to [role data][1] for s
 In the following example, querying the `/roles/:role` API endpoint returns a JSON map that contains the requested [`:role` definition][1] (in this example, for the `:role` named `read-only`).
 
 {{< highlight shell >}}
-curl http://127.0.0.1:8080/api/core/v2/namespaces/default/roles/read-only -H "Authorization: Bearer $SENSU_TOKEN"
+curl -X GET \
+http://127.0.0.1:8080/api/core/v2/namespaces/default/roles/read-only \
+-H "Authorization: Bearer $SENSU_ACCESS_TOKEN"
 
 HTTP/1.1 200 OK
 {
@@ -179,6 +251,37 @@ output               | {{< highlight json >}}
 
 The `/roles/:role` API endpoint provides HTTP PUT access to create or update specific `:role` definitions, by role name.
 
+#### EXAMPLE {#rolesrole-put-example}
+
+In the following example, an HTTP PUT request is submitted to the `/roles/:role` API endpoint to create the role `read-only`.
+The request returns a successful HTTP `201 Created` response.
+
+{{< highlight shell >}}
+curl -X PUT \
+-H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
+-H 'Content-Type: application/json' \
+-d '{
+  "rules": [
+    {
+      "verbs": [
+        "read"
+      ],
+      "resources": [
+        "*"
+      ],
+      "resource_names": null
+    }
+  ],
+  "metadata": {
+    "name": "read-only",
+    "namespace": "default"
+  }
+}' \
+http://127.0.0.1:8080/api/core/v2/namespaces/default/roles/read-only
+
+HTTP/1.1 201 Created
+{{< /highlight >}}
+
 #### API Specification {#rolesrole-put-specification}
 
 /roles/:role (PUT) | 
@@ -190,17 +293,16 @@ payload         | {{< highlight shell >}}
   "rules": [
     {
       "verbs": [
-        "get",
-        "list"
+        "read"
       ],
       "resources": [
-        "events"
+        "*"
       ],
-      "resource_names": []
+      "resource_names": null
     }
   ],
   "metadata": {
-    "name": "event-reader",
+    "name": "read-only",
     "namespace": "default"
   }
 }
@@ -217,8 +319,8 @@ The following example shows a request to the `/roles/:role` API endpoint to dele
 
 {{< highlight shell >}}
 curl -X DELETE \
--H "Authorization: Bearer $SENSU_TOKEN" \
-http://127.0.0.1:8080/api/core/v2/namespaces/default/roles/read-only
+http://127.0.0.1:8080/api/core/v2/namespaces/default/roles/read-only \
+-H "Authorization: Bearer $SENSU_ACCESS_TOKEN"
 
 HTTP/1.1 204 No Content
 {{< /highlight >}}

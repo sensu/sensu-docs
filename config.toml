@@ -53,6 +53,10 @@ disableKinds = ["taxonomy", "taxonomyTerm"]
     latest = "5.16"
 
     [[params.products.sensu_go.versions]]
+    version = "5.17"
+    platforms = []
+
+    [[params.products.sensu_go.versions]]
     version = "5.16"
     platforms = []
 
@@ -159,7 +163,7 @@ disableKinds = ["taxonomy", "taxonomyTerm"]
     description = "The powerful and simple monitoring product, built on Sensu Core"
     notice = "End of life: March 31, 2020"
     weight = 3
-    latest = "3.6"
+    latest = "3.7"
 
     [[params.products.sensu_enterprise.versions]]
     version = "3.7"

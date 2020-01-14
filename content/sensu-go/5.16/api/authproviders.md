@@ -30,8 +30,9 @@ The `/authproviders` API endpoint provides HTTP GET access to authentication pro
 In the following example, querying the `/authproviders` API endpoint returns the authentication provider configuration in Sensu, with an HTTP `200 OK` response.
 
 {{< highlight shell >}}
-curl -X GET http://127.0.0.1:8080/api/enterprise/authentication/v2/authproviders
--H "Authorization: Bearer $SENSU_TOKEN" 
+curl -X GET \
+http://127.0.0.1:8080/api/enterprise/authentication/v2/authproviders \
+-H "Authorization: Bearer $SENSU_ACCESS_TOKEN"
 
 HTTP/1.1 200 OK
 [
@@ -141,9 +142,10 @@ The `/authproviders/:name` API endpoint provides HTTP GET access to the authenti
 In the following example, an HTTP GET request is submitted to the `/authproviders/:name` API endpoint to retrieve the `openldap` authenthication provider configuration, resulting in an HTTP `200 OK` response.
 
 {{< highlight shell >}}
-curl -X GET http://127.0.0.1:8080/api/enterprise/authentication/v2/authproviders/openldap
--H "Authorization: Bearer $SENSU_TOKEN" \
--H 'Content-Type: application/json' \
+curl -X GET \
+http://127.0.0.1:8080/api/enterprise/authentication/v2/authproviders/openldap \
+-H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
+-H 'Content-Type: application/json'
 
 HTTP/1.1 200 OK
 -d '{
@@ -247,7 +249,7 @@ In the following example, an HTTP PUT request is submitted to the `/authprovider
 
 {{< highlight shell >}}
 curl -X PUT \
--H "Authorization: Bearer $SENSU_TOKEN" \
+-H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
 -H 'Content-Type: application/json' \
 -d '{
   "Type": "ldap",
@@ -323,7 +325,7 @@ The following example shows a request to the `/authproviders/:name` API endpoint
 
 {{< highlight shell >}}
 curl -X DELETE \
--H "Authorization: Bearer $SENSU_TOKEN" \
+-H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/authproviders/openldap
 
 HTTP/1.1 204 No Content
