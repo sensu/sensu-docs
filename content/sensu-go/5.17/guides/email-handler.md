@@ -33,7 +33,7 @@ For this guide, you will create an ad hoc event that you can trigger manually.
 
 _**NOTE**: Make sure you have [installed the Sensu backend][12], have at least one [Sensu agent][13] running, and have [installed and configured sensuctl][4]._
 
-To begin, set your environment variables to include your credentials using `sensuctl env`:
+To begin, use `sensuctl env` to set up environment variables, which will provide the required credentials for the Sensu API:
 
 {{< highlight shell >}}
 eval $(sensuctl env)
