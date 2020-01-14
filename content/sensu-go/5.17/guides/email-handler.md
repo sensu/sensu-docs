@@ -3,19 +3,20 @@ title: "Send email alerts with the Sensu Go Email Handler"
 linkTitle: "Send Email Alerts"
 description: "Here’s how to send alerts to your email with the Sensu Go Email Handler. Use handlers to send events to your technology of choice (in this case, email) to alert you of incidents and help you resolve them more quickly."
 weight: 85
-version: "5.16"
+version: "5.17"
 product: "Sensu Go"
 platformContent: False
 menu: 
-  sensu-go-5.16:
+  sensu-go-5.17:
     parent: guides
 ---
 
-- [Create a check](#create-a-check)
+- [Create an ad hoc event](#create-an-ad-hoc-event)
 - [Add the email handler asset](#add-the-email-handler-asset)
 - [Add an event filter](#add-an-event-filter)
 - [Assign the email handler to a check](#assign-the-email-handler-to-a-check)
 - [Create an email template](#create-an-email-template)
+- [Trigger an event](#trigger-an-event)
 - [Next steps](#next-steps)
 
 Sensu event handlers are actions the Sensu backend executes on [events][1].
@@ -24,15 +25,52 @@ This guide explains how to use the [Sensu Go Email Handler][3] to send notificat
 To follow this guide, you’ll need to [install the Sensu backend][12] and have at least one [Sensu agent][13] running on Linux.
 You should also [install and configure sensuctl][4].
 
-## Create a check
+## Create an ad hoc event
 
-You will send alerts to your email by configuring a handler named `email` to a check named `check-cpu`.
-To create the check you need, follow the [Monitor server resources][2] guide to get `check-cpu` set up.
-The `check-cpu` check generates a warning event when CPU usage reaches 75% and a critical alert when CPU usage reaches 90%.
+Before you can send alerts to your email by configuring a handler, you need an [event][16] that generates the alerts.
+When you are using Sensu in production, events will come from a check or metric you configure.
+For this guide, you will create an ad hoc event that you can trigger manually.
 
-When your `check-cpu` check is generating events, you can set up a handler to make sure you find out about them.
-In this case, your backend will execute an email handler that sends incident notifications to the email address you specify.
-You'll also add an [event filter][5] to make sure you only receive a notification when `check-cpu` events represent a state change.
+_**NOTE**: Make sure you have [installed the Sensu backend][12], have at least one [Sensu agent][13] running, and have [installed and configured sensuctl][4]._
+
+To begin, set your environment variables to include your credentials using `sensuctl env`:
+
+{{< highlight shell >}}
+eval $(sensuctl env)
+{{< /highlight >}}
+
+Now you can use the Sensu API to create an ad hoc monitoring event.
+This event outputs the message "Everything is OK.” when it occurs:
+
+{{< highlight shell >}}
+curl -sS -H 'Content-Type: application/json' \
+-H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
+-d '{
+  "entity": {
+    "entity_class": "proxy",
+    "metadata": {
+      "name": "server01",
+      "namespace": "default"
+    }
+  },
+  "check": {
+    "metadata": {
+      "name": "server-health"
+    },
+    "output": "Everything is OK.",
+    "status": 0,
+    "interval": 60
+  }
+}' \
+http://localhost:8080/api/core/v2/namespaces/default/events | jq .
+{{< /highlight >}}
+
+As configured, the event status is `0` (OK).
+Later in this guide, you will change the status to `1` (warning) or `2` (critical) to generate a status change event.
+
+Now that you have created the ad hoc event, you can set up a handler to make sure you find out about them.
+In this case, your backend will execute an email handler that sends notifications to the email address you specify.
+You'll also add an [event filter][5] to make sure you only receive a notification when your event represents a state change.
 
 ## Add the email handler asset
 
@@ -61,14 +99,14 @@ sensuctl asset info sensu/sensu-email-handler
 ## Add an event filter
 
 Event filters allow you to fine-tune how your events are handled and [reduce alert fatigue][7].
-In this guide, your event filter will send notifications only when an event's state changes (for example, from `warning` to `critical` or from `critical` to `ok`).
+In this guide, your event filter will send notifications only when your event's state changes (for example, at any change between `0` (OK), `1` (warning), and `2` (critical).
 
 Here's an overview of how the `state_change_only` filter will work:
 
-- If CPU usage reaches 75%, you will receive **one** email notification for the change to `warning` status
-- If CPU usage stays at 75% for the next hour, you **will not** receive repeated email notifications every 60 seconds during that hour
-- If CPU usage increases to 90% after 1 hour at 75%, you will receive **one** email notification for the change from `warning` status to `critical` status
-- If CPU usage fluctuates betwen 50% and 95% for the next hour, you **one** email notification each time the status changes
+- If your event status changes from `0` to `1`, you will receive **one** email notification for the change to `warning` status
+- If your event status stays at `1` for the next hour, you **will not** receive repeated email notifications every 60 seconds during that hour
+- If your event status changes to `2` after 1 hour at `1`, you will receive **one** email notification for the change from `warning` status to `critical` status
+- If your event status fluctuates between `0`, `1`, and `2` for the next hour, you will receive **one** email notification **each time** the status changes
 
 Adding the event filter requires two parts:
 
@@ -121,6 +159,7 @@ EOF
 {{< /highlight >}}
 
 Then, replace the following text:
+
 - `YOUR-SENDER@example.com`: Replace with the email address you want to use to send email alerts
 - `YOUR-RECIPIENT@example.com`: Replace with the email address you want to receive email alerts
 - `YOUR-SMTP-SERVER.example.com`: Replace with the hostname of your SMTP server
@@ -135,22 +174,20 @@ These two filters are included in every Sensu backend installation, so you don't
 After you add your email, server, username, and password values, run your updated code to create the email handler definition.
 
 Now your handler and event filter are set up!
-Next, assign the email handler to the `check-cpu` check.
+Next, assign the email handler to your `server-health` check.
 
 ## Assign the email handler to a check
 
-With your `email` handler created, you can assign it to the `check-cpu` check.
-To assign your email handler to the check `check-cpu`:
+With your `email` handler created, you can assign it to the `server-health` check from your [ad hoc event][17].
+To assign your email handler to the check `server-health`:
 
 {{< highlight shell >}}
-sensuctl check set-handlers check-cpu email
+sensuctl check set-handlers server-health email
 {{< /highlight >}}
-
-It might take a few moments after you assign the handler to the check for the check to be scheduled on the entities and the result sent back to Sensu backend.
 
 ## Create an email template
 
-The last step is to create a template for your emails.
+The last part of setup is to create a template for your emails.
 The [Sensu Go Email Handler][3] asset makes it possible to use a template that provides context for your email notifications.
 The email template functionality included with the Sensu Go Email Handler asset uses tokens to populate the values provided by the event.
 Use HTML to format the email. 
@@ -163,7 +200,7 @@ Here is an example email template:
 <html>
 Greetings,<br>
 <br>
-The status of your {{ .Check.Name }} check has changed. Details about the change are included below.<br>
+The status of your {{ .Check.Name }} event has changed. Details about the change are included below.<br>
 <br>
 <h3>Incident Details</h3>
 <b>Check</b>: {{ .Check.Name }}<br>
@@ -181,6 +218,69 @@ The status of your {{ .Check.Name }} check has changed. Details about the change
 Sensu<br>
 </html>
 {{< /highlight >}}
+
+## Trigger an event
+
+Now it's time to see the results! 
+Use the update event endpoint to create a warning event. Run:
+
+{{< highlight shell >}}
+curl -sS -X PUT \
+-H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
+-H 'Content-Type: application/json' \
+-d '{
+  "entity": {
+    "entity_class": "proxy",
+    "metadata": {
+      "name": "server01",
+      "namespace": "default"
+    }
+  },
+  "check": {
+    "metadata": {
+      "name": "server-health"
+    },
+    "output": "This is a warning.",
+    "status": 1,
+    "interval": 60,
+    "handlers": ["email"]
+  }
+}' \
+http://localhost:8080/api/core/v2/namespaces/default/events/server01/server-health | jq .
+{{< /highlight >}}
+
+_**NOTE**: If you see an `invalid credentials` error, refresh your token. Run `eval $(sensuctl env)`._
+
+Check out your email — you should see a message from Sensu!
+
+Create another event with status set to 0. Run:
+
+{{< highlight shell >}}
+curl -sS -X PUT \
+-H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
+-H 'Content-Type: application/json' \
+-d '{
+  "entity": {
+    "entity_class": "proxy",
+    "metadata": {
+      "name": "server01",
+      "namespace": "default"
+    }
+  },
+  "check": {
+    "metadata": {
+      "name": "server-health"
+    },
+    "output": "Everything is OK.",
+    "status": 0,
+    "interval": 60,
+    "handlers": ["email"]
+  }
+}' \
+http://localhost:8080/api/core/v2/namespaces/default/events/server01/server-health | jq .
+{{< /highlight >}}
+
+You should receive another email because the event status changed to `0` (OK).
 
 ## Next steps
 
@@ -207,3 +307,5 @@ You can also follow our [Up and running with Sensu Go][9] interactive tutorial t
 [13]: ../../installation/install-sensu/#install-sensu-agents
 [14]: https://support.google.com/a/answer/176600?hl=en
 [15]: https://support.google.com/accounts/answer/185833?hl=en
+[16]: ../../reference/filters/
+[17]: #create-an-ad-hoc-event
