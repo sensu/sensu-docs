@@ -886,12 +886,33 @@ To install a sensuctl command from Bonsai or a URL:
 sensuctl command install [ALIAS] ([NAMESPACE/NAME]:[VERSION] | --url [ARCHIVE_URL] --checksum [ARCHIVE_CHECKSUM]) [flags]
 {{< /highlight >}}
 
+You can install a command by using the Bonsai asset name or from a URL.
+
 **To install a command using the Bonsai asset name**, replace `[NAMESPACE/NAME]` with the name of the asset from Bonsai.
 `[:VERSION]` is only required if you require a specific version or are pinning to a specific version.
 If you do not specify a version, sensuctl will fetch the latest version from Bonsai.
 
+Replace `[ALIAS]` with a unique name for the command.
+For example, for the [Sensu EC2 Discovery Plugin][37], you might use the alias `sensu-ec2-discovery`. 
+`[ALIAS]` is required.
+
+Replace `[flags]` with the flags you want to use.
+Run `sensuctl command install -h` to view flags.
+Flags are optional and apply only to the `install` command &mdash; they are not saved as part of the command you are installing.
+
+To install a command from the [Sensu EC2 Discovery Plugin][37] with no flags:
+
+{{< highlight shell >}}
+sensuctl command install sensu-ec2-discovery (portertech/sensu-ec2-discovery:0.3.0)
+{{< /highlight >}}
+
 **To install a command from a URL**, replace `[ARCHIVE_URL]` with a command URL that points to a tarball (e.g. https://path/to/asset.tar.gz).
 Replace `[ARCHIVE_CHECKSUM]` with the checksum you want to use.
+Replace `[ALIAS]` with a unique name for the command.
+
+Replace `[flags]` with the flags you want to use.
+Run `sensuctl command install -h` to view flags.
+Flags are optional and apply only to the `install` command &mdash; they are not saved as part of the command you are installing.
 
 For example, to install a command-test asset via URL with no flags:
 
@@ -901,14 +922,6 @@ sensuctl command install command-test --url https://github.com/amdprophet/comman
 
 _**NOTE**: Asset definitions with multiple asset builds are only supported via Bonsai._
 
-For both install options, `[ALIAS]` is required.
-Replace `[ALIAS]` with a unique `NAME` for the command.
-For example, for the [Sensu Go Email Handler Plugin][37], you might use the alias `sensu-email-handler`. 
-
-Replace `[flags]` with the flags you want to use.
-Run `sensuctl command install -h` to view flags.
-Flags are optional and apply only to the `install` command &mdash; they are not saved as part of the command you are installing.
-
 #### Execute commands
 
 To execute a sensuctl command plugin via its asset's bin/entrypoint executable:
@@ -917,7 +930,8 @@ To execute a sensuctl command plugin via its asset's bin/entrypoint executable:
 sensuctl command exec [ALIAS] [args] [flags]
 {{< /highlight >}}
 
-Replace `[ALIAS]` with a unique `NAME` for the command.
+Replace `[ALIAS]` with a unique name for the command.
+For example, for the [Sensu EC2 Discovery Plugin][37], you might use the alias `sensu-ec2-discovery`. 
 `[ALIAS]` is required.
 
 Replace `[flags]` with the flags you want to use.
@@ -964,7 +978,8 @@ To delete sensuctl commands:
 sensuctl command delete [ALIAS] [flags]
 {{< /highlight >}}
 
-Replace `[ALIAS]` with a unique `NAME` for the command.
+Replace `[ALIAS]` with a unique name for the command.
+For example, for the [Sensu EC2 Discovery Plugin][37], you might use the alias `sensu-ec2-discovery`. 
 `[ALIAS]` is required.
 
 Replace `[flags]` with the flags you want to use.
@@ -1007,6 +1022,7 @@ Flags are optional and apply only to the `delete` command.
 [34]: https://bonsai.sensu.io/
 [35]: ../../reference/etcdreplicators/
 [36]: /images/sensu-influxdb-handler-namespace.png
+[37]: https://bonsai.sensu.io/assets/portertech/sensu-ec2-discovery
 [38]: #environment-variables
 [39]: #wrapped-json-format
 [40]: ../../installation/install-sensu/#3-initialize
