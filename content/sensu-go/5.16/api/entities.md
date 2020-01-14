@@ -32,6 +32,7 @@ curl -X GET \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/entities \
 -H "Authorization: Bearer $SENSU_ACCESS_TOKEN"
 
+HTTP/1.1 200 OK
 [
   {
     "entity_class": "agent",
@@ -202,6 +203,7 @@ curl -X POST \
     "namespace": "default",
     "labels": null,
     "annotations": null
+  }
 }' \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/entities
 
@@ -248,6 +250,7 @@ curl -X GET \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/entities/sensu-centos \
 -H "Authorization: Bearer $SENSU_ACCESS_TOKEN"
 
+HTTP/1.1 200 OK
 {
   "entity_class": "agent",
   "sensu_agent_version": "1.0.0",
