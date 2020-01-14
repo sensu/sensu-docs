@@ -59,8 +59,10 @@ Contact routing is powered by the [has-contact filter asset][12].
 To add the has-contact asset to Sensu, use [`sensuctl asset add`][14]:
 
 {{< highlight shell >}}
-sensuctl asset add sensu/sensu-go-has-contact-filter:0.2.0
+sensuctl asset add sensu/sensu-go-has-contact-filter:0.2.0 -r contact-filter
 {{< /highlight >}}
+
+This example uses the `-r` (rename) flag to specify a shorter name for the asset: `contact-filter`.
 
 You can also download the latest asset definition from [Bonsai][12].
 
@@ -103,7 +105,7 @@ metadata:
 spec:
   action: allow
   runtime_assets:
-    - sensu-go-has-contact-filter_any_noarch
+    - contact-filter
   expressions:
     - has_contact(event, "dev")
 ---
@@ -114,7 +116,7 @@ metadata:
 spec:
   action: allow
   runtime_assets:
-    - sensu-go-has-contact-filter_any_noarch
+    - contact-filter
   expressions:
     - no_contacts(event)' | sensuctl create
 {{< /highlight >}}
@@ -127,8 +129,10 @@ With your contact filters in place, you can create a handler for each contact: o
 If you haven't already, add the [Slack handler asset][8] to Sensu with sensuctl:
 
 {{< highlight shell >}}
-sensuctl asset add sensu/sensu-slack-handler:1.0.3
+sensuctl asset add sensu/sensu-slack-handler:1.0.3 -r sensu-slack-handler
 {{< /highlight >}}
+
+This example uses the `-r` (rename) flag to specify a shorter name for the asset: `sensu-slack-handler`.
 
 In each handler definition, specify:
 
@@ -161,7 +165,7 @@ spec:
   - not_silenced
   - contact_ops
   runtime_assets:
-  - sensu-slack-handler_linux_amd64
+  - sensu-slack-handler
   type: pipe
 ---
 type: Handler
@@ -177,7 +181,7 @@ spec:
   - not_silenced
   - contact_dev
   runtime_assets:
-  - sensu-slack-handler_linux_amd64
+  - sensu-slack-handler
   type: pipe
 ---
 type: Handler
@@ -193,7 +197,7 @@ spec:
   - not_silenced
   - contact_fallback
   runtime_assets:
-  - sensu-slack-handler_linux_amd64
+  - sensu-slack-handler
   type: pipe' | sensuctl create
 {{< /highlight >}}
 

@@ -31,32 +31,34 @@ To power the check, you'll use the [Sensu CPU Checks][1] asset and the [Sensu Ru
 Use [`sensuctl asset add`][9] to register the `sensu-plugins-cpu-checks` asset:
 
 {{< highlight shell >}}
-sensuctl asset add sensu-plugins/sensu-plugins-cpu-checks:4.1.0
+sensuctl asset add sensu-plugins/sensu-plugins-cpu-checks:4.1.0 -r cpu-checks-plugins
 {{< /highlight >}}
+
+This example uses the `-r` (rename) flag to specify a shorter name for the asset: `cpu-checks-plugins`.
 
 You can also download the asset definition for Debian or Alpine from [Bonsai][1] and register the asset with `sensuctl create --file filename.yml`.
 
 Then, use the following sensuctl example to register the `sensu-ruby-runtime` asset:
 
 {{< highlight shell >}}
-sensuctl asset add sensu/sensu-ruby-runtime:0.0.10
+sensuctl asset add sensu/sensu-ruby-runtime:0.0.10 -r sensu-ruby-runtime
 {{< /highlight >}}
 
 You can also download the asset definition from [Bonsai][7] and register the asset using `sensuctl create --file filename.yml`.
 
-Use sensuctl to confirm that both the `sensu-plugins-cpu-checks` and `sensu-ruby-runtime` assets are ready to use:
+Use sensuctl to confirm that both the `cpu-checks-plugins` and `sensu-ruby-runtime` assets are ready to use:
 
 {{< highlight shell >}}
 sensuctl asset list
           Name                                                URL                                       Hash    
 ────────────────────────── ─────────────────────────────────────────────────────────────────────────── ───────── 
- sensu-plugins-cpu-checks   //assets.bonsai.sensu.io/.../sensu-plugins-cpu-checks_4.1.0_centos_linux_amd64.tar.gz          518e7c1  
+ cpu-checks-plugins   //assets.bonsai.sensu.io/.../sensu-plugins-cpu-checks_4.1.0_centos_linux_amd64.tar.gz          518e7c1  
  sensu-ruby-runtime         //assets.bonsai.sensu.io/.../sensu-ruby-runtime_0.0.10_ruby-2.4.4_centos_linux_amd64.tar.gz     338b88b 
 {{< /highlight >}}
 
 ### Create a check
 
-Now that the assets are registered, create a check named `check-cpu` that runs the command `check-cpu.rb -w 75 -c 90` with the `sensu-plugins-cpu-checks` and `sensu-ruby-runtime` assets at an interval of 60 seconds for all entities subscribed to the `system` subscription.
+Now that the assets are registered, create a check named `check-cpu` that runs the command `check-cpu.rb -w 75 -c 90` with the `cpu-checks-plugins` and `sensu-ruby-runtime` assets at an interval of 60 seconds for all entities subscribed to the `system` subscription.
 This check generates a warning event (`-w`) when CPU usage reaches 75% and a critical alert (`-c`) at 90%.
 
 {{< highlight shell >}}
@@ -64,7 +66,7 @@ sensuctl check create check-cpu \
 --command 'check-cpu.rb -w 75 -c 90' \
 --interval 60 \
 --subscriptions system \
---runtime-assets sensu-plugins-cpu-checks,sensu-ruby-runtime
+--runtime-assets cpu-checks-plugins,sensu-ruby-runtime
 {{< /highlight >}}
 
 ### Configure the subscription

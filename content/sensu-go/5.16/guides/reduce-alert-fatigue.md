@@ -68,8 +68,10 @@ In this approach, the first step is to obtain an event filter asset that will al
 Use [`sensuctl asset add`][5] to register the [fatigue check filter][9] asset:
 
 {{< highlight shell >}}
-sensuctl asset add nixwiz/sensu-go-fatigue-check-filter:0.3.2
+sensuctl asset add nixwiz/sensu-go-fatigue-check-filter:0.3.2 -r fatigue-filter
 {{< /highlight >}}
+
+This example uses the `-r` (rename) flag to specify a shorter name for the asset: `fatigue-filter`.
 
 You can also download the asset directly from [Bonsai, the Sensu asset index][9].
 
@@ -88,7 +90,7 @@ spec:
   expressions:
   - fatigue_check(event)
   runtime_assets:
-  - fatigue-check-filter
+  - fatigue-filter
 {{< /highlight >}}
 
 Then, create the filter, naming it `sensu-fatigue-check-filter.yml`:

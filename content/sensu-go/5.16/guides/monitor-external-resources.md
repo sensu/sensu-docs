@@ -31,15 +31,17 @@ To power the check, use the [Sensu Plugins HTTP][16] asset and the [Sensu Ruby R
 Use [`sensuctl asset add`][21] to register the `sensu-plugins-http` asset:
 
 {{< highlight shell >}}
-sensuctl asset add sensu-plugins/sensu-plugins-http:5.1.1
+sensuctl asset add sensu-plugins/sensu-plugins-http:5.1.1 -r sensu-plugins-http
 {{< /highlight >}}
+
+This example uses the `-r` (rename) flag to specify a shorter name for the asset: `sensu-plugins-http`.
 
 You can also download the asset definition for Debian or Alpine from [Bonsai][16] and register the asset with `sensuctl create --file filename.yml`.
 
 Then, use the following sensuctl example to register the `sensu-ruby-runtime` asset:
 
 {{< highlight shell >}}
-sensuctl asset add sensu/sensu-ruby-runtime:0.0.10
+sensuctl asset add sensu/sensu-ruby-runtime:0.0.10 -r sensu-ruby-runtime
 {{< /highlight >}}
 
 You can also download the asset definition from [Bonsai][17] and register the asset using `sensuctl create --file filename.yml`. 

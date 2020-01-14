@@ -30,8 +30,10 @@ In this guide, you'll use the [Sensu Slack Handler][14] asset to power a `slack`
 Use [`sensuctl asset add`][10] to register the [Sensu Slack Handler][14] asset:
 
 {{< highlight shell >}}
-sensuctl asset add sensu/sensu-slack-handler:1.0.3
+sensuctl asset add sensu/sensu-slack-handler:1.0.3 -r sensu-slack-handler
 {{< /highlight >}}
+
+This example uses the `-r` (rename) flag to specify a shorter name for the asset: `sensu-slack-handler`.
 
 You can also download the latest asset definition for your platform from [Bonsai][14] and register the asset with `sensuctl create --file filename.yml`.
 

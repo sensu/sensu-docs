@@ -31,8 +31,10 @@ This example uses the [Sensu InfluxDB Handler][13] asset to power an `influx-db`
 Use [`sensuctl asset add`][5] to register the [Sensu InfluxDB Handler][13] asset:
 
 {{< highlight shell >}}
-sensuctl asset add sensu/sensu-influxdb-handler:3.1.2
+sensuctl asset add sensu/sensu-influxdb-handler:3.1.2 -r influxdb-handler
 {{< /highlight >}}
+
+This example uses the `-r` (rename) flag to specify a shorter name for the asset: `influxdb-handler`.
 
 You can also download the latest asset definition for your platform from [Bonsai][13] and register the asset with `sensuctl create --file filename.yml`.
 
@@ -55,7 +57,7 @@ sensuctl handler create influx-db \
 --type pipe \
 --command "sensu-influxdb-handler -d sensu" \
 --env-vars "INFLUXDB_ADDR=http://influxdb.default.svc.cluster.local:8086, INFLUXDB_USER=sensu, INFLUXDB_PASS=password" \
---runtime-assets sensu-influxdb-handler
+--runtime-assets influxdb-handler
 {{< /highlight >}}
 
 You should see a confirmation message from sensuctl:

@@ -26,8 +26,10 @@ This guide uses the [Sensu PagerDuty Handler asset][7] as an example.
 To add the [Sensu PagerDuty Handler asset][7] to Sensu, use [`sensuctl asset add`][6]:
 
 {{< highlight shell >}}
-sensuctl asset add sensu/sensu-pagerduty-handler:1.2.0
+sensuctl asset add sensu/sensu-pagerduty-handler:1.2.0 -r pagerduty-handler
 {{< /highlight >}}
+
+This example uses the `-r` (rename) flag to specify a shorter name for the asset: `pagerduty-handler`.
 
 You can also click the Download button on the asset page in [Bonsai][7] to download the asset definition for your Sensu backend platform and architecture.
 
@@ -43,7 +45,7 @@ Here's the asset definition for version 1.2.0 of the [Sensu PagerDuty Handler][7
 type: Asset
 api_version: core/v2
 metadata:
-  name: sensu-pagerduty-handler
+  name: pagerduty-handler
   namespace: default
   labels: {}
   annotations: {}
@@ -58,7 +60,7 @@ spec:
 Filters for _check_ assets should match entity platforms.
 Filters for _handler and filter_ assets should match your Sensu backend platform.
 If the provided filters are too restrictive for your platform, replace `os` and `arch` with any supported [entity system attributes][4] (for example, `entity.system.platform_family == 'rhel'`).
-You may also want to customize the asset `name` to reflect the supported platform (for example, `sensu-pagerduty-handler-linux`) and add custom attributes with [`labels` and `annotations`][5].
+You may also want to customize the asset `name` to reflect the supported platform (for example, `pagerduty-handler-linux`) and add custom attributes with [`labels` and `annotations`][5].
 
 **Enterprise-tier assets** (like the [ServiceNow][10] and [Jira][11] event handlers) require a Sensu commercial license.
 For more information about commercial features and to activate your license, see [Get started with commercial features][12].
@@ -75,7 +77,7 @@ With the asset downloaded and registered, you can use it in a monitoring workflo
 Assets may provide executable plugins intended for use with a Sensu check, handler, mutator, or hook, or JavaScript libraries intended to provide functionality for use in event filters.
 The details in Bonsai are the best resource for information about each asset's capabilities and configuration.
 
-For example, to use the [Sensu PagerDuty Handler][7] asset, you would create a `pagerduty` handler that includes your PagerDuty service API key in place of `SECRET` and `sensu-pagerduty-handler` as a runtime asset:
+For example, to use the [Sensu PagerDuty Handler][7] asset, you would create a `pagerduty` handler that includes your PagerDuty service API key in place of `SECRET` and `pagerduty-handler` as a runtime asset:
 
 {{< language-toggle >}}
 
@@ -92,7 +94,7 @@ spec:
   filters:
   - is_incident
   runtime_assets:
-  - sensu-pagerduty-handler
+  - pagerduty-handler
   timeout: 10
   type: pipe
 {{< /highlight >}}
@@ -111,7 +113,7 @@ spec:
         "env_vars": [
           "PAGERDUTY_TOKEN=SECRET"
         ],
-        "runtime_assets": ["sensu-pagerduty-handler"],
+        "runtime_assets": ["pagerduty-handler"],
         "timeout": 10,
         "filters": [
             "is_incident"
