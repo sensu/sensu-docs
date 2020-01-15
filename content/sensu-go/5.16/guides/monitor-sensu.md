@@ -11,28 +11,40 @@ menu:
     parent: guides
 ---
 
-
 - [Monitor your Sensu backend instances](#monitor-your-sensu-backend-instances)
 - [Monitor your Sensu agent instances](#monitor-your-sensu-agent-instances)
 - [Monitor your Sensu API instances](#monitor-your-sensu-api-instances)
 - [Monitor your Sensu dashboard instances](#monitor-your-sensu-dashboard-instances)
+- [External etcd PLACEHOLDER](#external-etcd-placeholder)
+- [PostgreSQL PLACEHOLDER](#postgresql-placeholder)
 
 This guide describes best practices and strategies for monitoring Sensu with Sensu. 
-It explains how to ensure your Sensu components are properly monitored, including your Sensu backend, agent, API, and dashboard instances.
+It explains how to ensure your Sensu components are properly monitored, including your Sensu backend, agent, API, and dashboard.
 
-To completely monitor a Sensu stack [Sensu backend, agent, external etcd cluster (if used)], you will need to have at least one other independent Sensu instance.
+To completely monitor Sensu (a Sensu backend with internal etcd and an agent), you will need at least one other independent Sensu instance.
 
 This guide requires Sensu plugins.
-For more information about using Sensu plugins, see [Install plugins with assets][16].
+For more information about using Sensu plugins, see [Install plugins with assets][10].
 
-_**NOTE**: This guide assumes you are not using Sensu clustering. The strategies in this guide are still useful for monitoring cluster members, but you should follow [Run a Sensu cluster][17] to effectively monitor clustered instances._
+_**NOTE**: This guide assumes you are not using Sensu clustering, although the strategies in this guide are still useful for monitoring cluster members._
 
 ## Monitor your Sensu backend instances
 
-The host running the `sensu-backend` should be monitored in two ways:
+Monitor the host running the `sensu-backend` in two ways:
 
-* Locally by a `sensu-agent` process for operating system checks/metrics and Sensu services that are not part of the Sensu event system (like the dashboard)
-* Remotely from an entirely independent Sensu stack to monitor Sensu components that must be running for Sensu to create events. 
+* Locally by a `sensu-agent` process for operating system checks and metrics and Sensu services that are not part of the Sensu event system (like the dashboard)
+* Remotely from an independent Sensu instance for Sensu components that must be running for Sensu to create events.
+
+Here's an overview of the checks you might use depending on your backend setup:
+
+|  | Check type | Recommended plugin |
+---|------------|--------------------|
+Single backend | Service checks | Plugin name |
+Clustered backends | Port checks | Plugin name |
+Distributed single backend instances | Prometheus collector check | Plugin name |
+Distributed clustered backend instances | API queries as checks | Plugin name |
+Distributed single backend instances (federated) | Service checks, port checks | Plugin name |
+Distributed clustered backend instances (federated) | Prometheus collector check, API queries as checks | Plugin name |
 
 ### Monitor the Sensu backend locally
 
@@ -42,7 +54,7 @@ Find more plugins at [Bonsai, the Sensu asset index][5].
 
 ### Monitor the Sensu backend remotely
 
-Monitor the `sensu-backend` server process from an independent Sensu stack.
+Monitor the `sensu-backend` server process from an independent Sensu instance.
 To do this, call Sensu's [health API endpoint][6] and use the [check-http plugin][7] with the following check definition:
 
 {{< highlight json >}}
@@ -54,7 +66,7 @@ To do this, call Sensu's [health API endpoint][6] and use the [check-http plugin
     "name": "check_sensu_server_port"
   },
   "spec": {
-    "command": "check-http.rb -h remote-api-hostname -P 4567 -p /health?consumers=1 --response-code 204",
+    "command": "check-http.rb -h remote-api-hostname -P 8080 -P 3000 -p /health --response-code 204",
     "subscriptions": [
       "monitor_remote_sensu_api"
     ],
@@ -66,12 +78,14 @@ To do this, call Sensu's [health API endpoint][6] and use the [check-http plugin
 
 ## Monitor your Sensu agent instances
 
-**CONTENT NEEDED**
+You can use API port checks to monitor your Sensu agent.
+Service checks are not effective for monitoring the Sensu agent because if the agent is down, a service check for it won't run.
+
+The [keepalive][11] is a built-in monitor for whether the Sensu agent service is running and functional, although network issues can cause a non-OK keepalive event even if the agent is functional.
 
 ## Monitor your Sensu API instances
 
-Monitor your Sensu API instances from an independent Sensu stack.
-To do this, call the port that the API is listening on using the [check-port plugin][8] with the following check definition:
+To monitor your Sensu API instances from an independent Sensu instance, call the port that the API is listening on using the [check-port plugin][8] with the following check definition:
 
 {{< highlight json >}}
 {
@@ -94,41 +108,7 @@ To do this, call the port that the API is listening on using the [check-port plu
 
 ## Monitor your Sensu dashboard instances
 
-You can monitor your dashboard instances with a process check or a remote network port check.
-This section describes each of the two methods.
-
-_**PRO TIP**: Use both methods to completely monitor your dashboard. This way, you can catch when the processes are not running and when a firewall port is not open._
-
-**Method 1: Monitor dashboard with a process check**
-
-To monitor the dashboard, you will need to check for two processes named `dashboard` using the [check-process plugin][9] with the following check definition:
-
-{{< highlight json >}}
-{
-  "type": "CheckConfig",
-  "api_version": "core/v2",
-  "metadata": {
-    "namespace": "default",
-    "name": "check_dashboard_process"
-  },
-  "spec": {
-    "command": "/opt/sensu/embedded/bin/check-process.rb -p /opt/dashboard/bin/dashboard -C 2",
-    "subscriptions": [
-      "monitor_local_dashboard_processes"
-    ],
-    "interval": 60,
-    "publish": true
-  }
-}
-{{< /highlight >}}
-
-You need a check for two processes because the dashboard service has a parent and child process.
-
-This check will return a result with status `2` if fewer than two processes are running with the string `/opt/dashboard/bin/dashboard`.
-
-**Method 2: Monitor dashboard with a remote network port check**
-
-You can also monitor the dashboard with a remote port check using the [check-port plugin][8] with the following check definition:
+To monitor your dashboard instances with a remote network port check, use the [check-port plugin][8] with the following check definition:
 
 {{< highlight json >}}
 {
@@ -149,6 +129,14 @@ You can also monitor the dashboard with a remote port check using the [check-por
 }
 {{< /highlight >}}
 
+## External etcd PLACEHOLDER
+
+Note from Richie: We may want to eventually set up a section for the other possible setups (external etcd, postgres).
+
+## PostgreSQL PLACEHOLDER
+
+Note from Richie: We may want to eventually set up a section for the other possible setups (external etcd, postgres).
+
 [1]: https://bonsai.sensu.io/assets/sensu-plugins/sensu-plugins-cpu-checks
 [2]: https://bonsai.sensu.io/assets/sensu-plugins/sensu-plugins-memory-checks
 [3]: https://bonsai.sensu.io/assets/sensu-plugins/sensu-plugins-disk-checks
@@ -158,5 +146,5 @@ You can also monitor the dashboard with a remote port check using the [check-por
 [7]: https://github.com/sensu-plugins/sensu-plugins-http/blob/master/bin/check-http.rb
 [8]: https://github.com/sensu-plugins/sensu-plugins-network-checks/blob/master/bin/check-ports.rb
 [9]: https://github.com/sensu-plugins/sensu-plugins-process-checks/blob/master/bin/check-process.rb
-[16]: ../../guides/install-check-executables-with-assets/
-[17]: ../../guides/clustering/
+[10]: ../../guides/install-check-executables-with-assets/
+[11]: ../../reference/agent/#keepalive-monitoring
