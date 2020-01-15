@@ -3,11 +3,11 @@ title: "Send email alerts with the Sensu Go Email Handler"
 linkTitle: "Send Email Alerts"
 description: "Here’s how to send alerts to your email with the Sensu Go Email Handler. Use handlers to send events to your technology of choice (in this case, email) to alert you of incidents and help you resolve them more quickly."
 weight: 85
-version: "5.17"
+version: "5.16"
 product: "Sensu Go"
 platformContent: False
 menu: 
-  sensu-go-5.17:
+  sensu-go-5.16:
     parent: guides
 ---
 
