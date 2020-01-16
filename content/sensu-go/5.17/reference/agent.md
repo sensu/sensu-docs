@@ -461,6 +461,9 @@ spec:
 
 {{< /language-toggle >}}
 
+You can also use the [`keepalive-handlers`][53] flag to send keepalive events to any handler you have configured.
+If you do not specify a keepalive handler with the `keepalive-handlers` flag, the Sensu backend will use the default keepalive handler (sending keepalive events to the Sensu dashboard).
+
 ## Service management {#operation}
 
 ### Start the service
@@ -725,6 +728,7 @@ Flags:
   -h, --help                                  help for start
       --insecure-skip-tls-verify              skip ssl verification
       --keepalive-critical-timeout uint32     number of seconds until agent is considered dead by backend to create a critical event (default 0)
+      --keepalive-handlers                    handlers for the entity's keepalive events
       --keepalive-interval uint32             number of seconds to send between keepalive events (default 20)
       --keepalive-warning-timeout uint32      number of seconds until agent is considered dead by backend to create a warning event (default 120)
       --labels stringToString                 entity labels map (default [])
@@ -996,6 +1000,19 @@ sensu-agent start --keepalive-critical-timeout 300
 
 # /etc/sensu/agent.yml example
 keepalive-critical-timeout: 300{{< /highlight >}}
+
+<a name="keepalive-handlers-flag"></a>
+
+| keepalive-handlers |      |
+--------------------|------
+description         | [Keepalive event handlers][52] to use for the entity, specified in a comma-delimited list. You can specify any configured handler and invoke the `keepalive-handlers` flag multiple times. If keepalive handlers are not specified, the Sensu backend will use the default keepalive handler (sending an alert to your dashboard).
+type                | List
+default             | `0`
+example             | {{< highlight shell >}}# Command line example
+sensu-agent start --keepalive-handlers slack,email
+
+# /etc/sensu/agent.yml example
+keepalive-handlers: slack,email{{< /highlight >}}
 
 
 | keepalive-interval |      |
@@ -1375,3 +1392,5 @@ For example, if you configure a `SENSU_TEST_VAR` variable in your sensu-agent fi
 [49]: #allow-list-configuration
 [50]: #configuration-via-environment-variables
 [51]: #events-post-specification
+[52]: ../handlers/#keepalive-event-handlers
+[53]: #keepalive-handlers-flag

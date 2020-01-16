@@ -94,6 +94,9 @@ spec:
 
 {{< /language-toggle >}}
 
+You can also use the [`keepalive-handlers`][19] flag to send keepalive events to any handler you have configured.
+If you do not specify a keepalive handler with the `keepalive-handlers` flag, the Sensu backend will use the default keepalive handler (sending keepalive events to the Sensu dashboard).
+
 ## Handler specification
 
 ### Top-level attributes
@@ -533,4 +536,5 @@ spec:
 [15]: ../../guides/send-slack-alerts/
 [16]: https://bonsai.sensu.io/
 [18]: https://regex101.com/r/zo9mQU/2
+[19]: ../agent/#keepalive-handlers-flag
 [23]: ../../guides/install-check-executables-with-assets
