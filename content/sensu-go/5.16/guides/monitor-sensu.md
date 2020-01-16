@@ -66,7 +66,7 @@ To do this, call Sensu's [health API endpoint][6] and use the [check-http plugin
     "name": "check_sensu_server_port"
   },
   "spec": {
-    "command": "check-http.rb -h remote-api-hostname -P 8080 -P 3000 -p /health --response-code 204",
+    "command": "check-http.rb -h remote-api-hostname -P 8080 -p /health --response-code 204",
     "subscriptions": [
       "monitor_remote_sensu_api"
     ],
