@@ -7,6 +7,7 @@ version: "5.17"
 menu: "sensu-go-5.17"
 ---
 
+- [5.17.0 release notes](#5-17-0-release-notes)
 - [5.16.1 release notes](#5-16-1-release-notes)
 - [5.16.0 release notes](#5-16-0-release-notes)
 - [5.15.0 release notes](#5-15-0-release-notes)
@@ -49,6 +50,29 @@ PATCH versions include backward-compatible bug fixes.
 Read the [upgrade guide][1] for information about upgrading to the latest version of Sensu Go.
 
 ---
+
+## 5.17.0 release notes
+
+**January 23, 2020** &mdash; The latest release of Sensu Go, version 5.17.0, is now available for download.
+PLACEHOLDER FOR RELEASE SUMMARY.
+
+See the [upgrade guide][1] to upgrade Sensu to version 5.17.0.
+
+**NEW FEATURES:**
+
+- ([Commercial feature][106]) Added the secrets provider resource `secrets/v1.Provider`, the HTTP API for secrets provider management, and a built-in `Env` secrets provider. The secrets provider resource is implemented for checks, mutators, and handlers.
+
+**IMPROVEMENTS:**
+
+- ([Commercial feature][106]) Upgraded the size of the events auto-incremented ID in the PostgreSQL store to a 64-bit variant, which allows you to store many more events and avoids exhausting the sequence.
+- In the [web UI][107], labels that contain URLs are now clickable links.
+
+**FIXES:**
+
+- ([Commercial feature][106]) Fixed a bug where the event check state was not present when using the PostgreSQL event store.
+- Fixed a memory leak in the entity cache.
+- Fixed a bug that prevented `sensuctl entity delete` from returning an error when attempting to delete a non-existent entity.
+- In the [web UI][107], fixed a bug that duplicated event history in the event timeline chart.
 
 ## 5.16.1 release notes
 
@@ -972,3 +996,5 @@ To get started with Sensu Go:
 [103]: /sensu-go/5.16/dashboard/overview
 [104]: /sensu-go/5.16/
 [105]: /sensu-go/5.16/getting-started/enterprise/
+[106]: /sensu-go/5.17/getting-started/enterprise/
+[107]: /sensu-go/5.17/dashboard/overview
