@@ -61,6 +61,7 @@ See the [upgrade guide][1] to upgrade Sensu to version 5.17.0.
 **NEW FEATURES:**
 
 - ([Commercial feature][106]) Added the secrets provider resource `secrets/v1.Provider`, the HTTP API for secrets provider management, and a built-in `Env` secrets provider. The secrets provider resource is implemented for checks, mutators, and handlers.
+- Added the `keepalive-handlers` agent configuration flag to specify the keepalive handlers to use for an entity's events.
 
 **IMPROVEMENTS:**
 
