@@ -453,7 +453,7 @@ None | `licensing/v2.LicenseFile`
 None | `store/v1.PostgresConfig`
 None | `federation/v1.Replicator`
 None | `secrets/v1.Provider`
-None | `secrets/v1.Secrets`
+None | `secrets/v1.Secret`
 `assets` | `core/v2.Asset`
 `checks` | `core/v2.CheckConfig`
 `clusterroles` | `core/v2.ClusterRole`
