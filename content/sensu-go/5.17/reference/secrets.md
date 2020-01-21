@@ -96,7 +96,7 @@ description  | The identifying key for the provider to retrieve the secret.
 required     | true
 type         | String
 default      | `false`
-example      | {{< highlight shell >}}"id": "ANSIBLE_TOKEN"{{< /highlight >}}
+example      | {{< highlight shell >}}"id": "secret/ansible#token"{{< /highlight >}}
 
 provider     | 
 -------------|------ 
