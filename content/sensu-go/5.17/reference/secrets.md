@@ -62,7 +62,7 @@ example      | {{< highlight shell >}}
 
 spec         | 
 -------------|------
-description  | Top-level map that includes secrets configuration [spec attributes][12].
+description  | Top-level map that includes secrets configuration [spec attributes][8].
 required     | Required for secrets configuration in `wrapped-json` or `yaml` format.
 type         | Map of key-value pairs
 example      | {{< highlight shell >}}
@@ -211,3 +211,4 @@ The `website` secret contains a value called `database`, which is the password t
 [5]: ..//backend/#configuration-via-environment-variables
 [6]: ../rbac#default-users
 [7]: ../secret-providers/
+[8]: #spec-attributes
