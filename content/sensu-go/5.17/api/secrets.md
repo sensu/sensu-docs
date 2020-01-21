@@ -87,17 +87,15 @@ In the following example, querying the `/providers/:provider` API endpoint retur
 curl -X GET \
 http://127.0.0.1:8080/api/enterprise/secrets/v1/providers/env \
 -H "Authorization: Bearer $SENSU_ACCESS_TOKEN"
-[
-  {
-    "type": "Env",
-    "api_version": "secrets/v1",
-    "metadata": {
-      "name": "env"
-    },
-    "spec": {
-    }
+{
+  "type": "Env",
+  "api_version": "secrets/v1",
+  "metadata": {
+    "name": "env"
+  },
+  "spec": {
   }
-]
+}
 {{< /highlight >}}
 
 #### API Specification {#providers-provider-get-specification}
@@ -109,17 +107,15 @@ example url          | http://hostname:8080/api/enterprise/secrets/v1/providers/
 response type        | Map
 response codes       | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output               | {{< highlight json >}}
-[
-  {
-    "type": "Env",
-    "api_version": "secrets/v1",
-    "metadata": {
-      "name": "env"
-    },
-    "spec": {
-    }
+{
+  "type": "Env",
+  "api_version": "secrets/v1",
+  "metadata": {
+    "name": "env"
+  },
+  "spec": {
   }
-]
+}
 {{< /highlight >}}
 
 ### `/providers/:provider` (PUT) {#providers-provider-put}
@@ -264,20 +260,18 @@ http://127.0.0.1:8080/api/enterprise/secrets/v1/namespaces/default/secrets/sensu
 -H "Authorization: Bearer $SENSU_ACCESS_TOKEN"
 
 HTTP/1.1 200 OK
-[
-  {
-    "type": "Secret",
-    "api_version": "secrets/v1",
-    "metadata": {
-      "name": "sensu-ansible-token",
-      "namespace": "default"
-    },
-    "spec": {
-      "id": "ANSIBLE_TOKEN",
-      "provider": "env"
-    }
+{
+  "type": "Secret",
+  "api_version": "secrets/v1",
+  "metadata": {
+    "name": "sensu-ansible-token",
+    "namespace": "default"
+  },
+  "spec": {
+    "id": "ANSIBLE_TOKEN",
+    "provider": "env"
   }
-]
+}
 {{< /highlight >}}
 
 #### API Specification {#secrets-secret-get-specification}
@@ -289,20 +283,18 @@ example url          | http://hostname:8080/api/enterprise/secrets/v1/namespaces
 response type        | Map
 response codes       | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output               | {{< highlight json >}}
-[
-  {
-    "type": "Secret",
-    "api_version": "secrets/v1",
-    "metadata": {
-      "name": "sensu-ansible-token",
-      "namespace": "default"
-    },
-    "spec": {
-      "id": "ANSIBLE_TOKEN",
-      "provider": "env"
-    }
+{
+  "type": "Secret",
+  "api_version": "secrets/v1",
+  "metadata": {
+    "name": "sensu-ansible-token",
+    "namespace": "default"
+  },
+  "spec": {
+    "id": "ANSIBLE_TOKEN",
+    "provider": "env"
   }
-]
+}
 {{< /highlight >}}
 
 ### `/secrets/:secret` (PUT) {#secrets-secret-put}
