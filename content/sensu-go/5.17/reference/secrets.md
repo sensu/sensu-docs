@@ -83,7 +83,11 @@ example      | {{< highlight shell >}}"name": "sensu-ansible-token"{{< /highligh
 
 namespace    |      |
 -------------|------
-description  | Provider name used internally by Sensu.
+description  | [Sensu RBAC namespace][9] that the secret belongs to.
+--
+
+
+.
 required     | true
 type         | String
 example      | {{< highlight shell >}}"namespace": "default"{{< /highlight >}}
@@ -212,3 +216,4 @@ The `website` secret contains a value called `database`, which is the password t
 [6]: ../rbac#default-users
 [7]: ../secret-providers/
 [8]: #spec-attributes
+[9]: ../../reference/rbac/#namespaces
