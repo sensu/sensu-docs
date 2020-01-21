@@ -403,7 +403,7 @@ curl -X PUT \
     "namespace": "default"
   },
   "spec": {
-    "id": "ANSIBLE_TOKEN",
+    "id": "secret/ansible#token",
     "provider": "ansible_vault"
   }
 }' \
@@ -427,7 +427,7 @@ payload         | {{< highlight shell >}}
     "namespace": "default"
   },
   "spec": {
-    "id": "ANSIBLE_TOKEN",
+    "id": "secret/ansible#token",
     "provider": "ansible_vault"
   }
 }
