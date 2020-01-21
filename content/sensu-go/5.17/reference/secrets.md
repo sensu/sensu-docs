@@ -12,7 +12,7 @@ menu:
 - [Secret specification](#secret-specification)
   - [Top-level attributes](#top-level-attributes) | [Metadata attributes](#metadata-attributes) | [Spec attributes](#spec-attributes)
 - [Secret configuration](#secret-configuration)
-- [Secret payload example](#secret-payload-example)
+- [Secret payload examples](#secret-payload-examples)
 
 **COMMERCIAL FEATURE**: Access the Secret datatype in the packaged Sensu Go distribution.
 For more information, see [Get started with commercial features][1].
