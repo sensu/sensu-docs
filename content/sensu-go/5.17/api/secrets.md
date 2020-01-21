@@ -377,7 +377,7 @@ output               | {{< highlight json >}}
     "namespace": "default"
   },
   "spec": {
-    "id": "ANSIBLE_TOKEN",
+    "id": "secret/ansible#token",
     "provider": "ansible_vault"
   }
 }
