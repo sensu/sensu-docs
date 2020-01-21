@@ -298,7 +298,7 @@ HTTP/1.1 200 OK
       "namespace": "default"
     },
     "spec": {
-      "id": "ANSIBLE_TOKEN",
+      "id": "secret/ansible#token",
       "provider": "ansible_vault"
     }
   }
