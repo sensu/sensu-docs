@@ -12,7 +12,7 @@ menu:
 - [Secret specification](#secret-specification)
   - [Top-level attributes](#top-level-attributes) | [Metadata attributes](#metadata-attributes) | [Spec attributes](#spec-attributes)
 - [Secret configuration](#secret-configuration)
-- [Secret payload examples](#secret-payload-examples)
+- [Secret examples](#secret-examples)
 
 **COMMERCIAL FEATURE**: Access the Secret datatype in the packaged Sensu Go distribution.
 For more information, see [Get started with commercial features][1].
@@ -131,7 +131,7 @@ To delete a secret:
 sensuctl secret delete SECRET_NAME
 {{< /highlight >}}
 
-## Secret payload examples
+## Secret examples
 
 A secret resource definition refers to a secrets `id` and a secrets `provider`.
 Read the [secrets provider reference][7] for the provider specification.
