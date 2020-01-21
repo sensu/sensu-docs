@@ -131,10 +131,24 @@ To delete a secret:
 sensuctl secret delete SECRET_NAME
 {{< /highlight >}}
 
-## Secret payload example
+## Secret payload examples
 
 A secret resource definition refers to a secrets `id` and a secrets `provider`.
 Read the [secrets provider reference][7] for the provider specification.
+
+{{< language-toggle >}}
+
+{{< highlight yml >}}
+---
+type: Secret
+api_version: secrets/v1
+metadata:
+  name: sensu-ansible-token
+  namespace: default
+spec:
+  id: ANSIBLE_TOKEN
+  provider: env
+{{< /highlight >}}
 
 {{< highlight json >}}
 {
@@ -146,12 +160,18 @@ Read the [secrets provider reference][7] for the provider specification.
   },
   "spec": {
     "id": "ANSIBLE_TOKEN",
-    "provider": "ansible_vault"
+    "provider": "env"
   }
 }
 {{< /highlight >}}
 
-{{< highlight yaml >}}
+{{< /language-toggle >}}
+
+Secrets that target a HashiCorp Vault always have an `id` as shown in the following example:
+
+{{< language-toggle >}}
+
+{{< highlight yml >}}
 ---
 type: Secret
 api_version: secrets/v1
@@ -163,6 +183,26 @@ spec:
   provider: ansible_vault
 {{< /highlight >}}
 
+{{< highlight json >}}
+{
+  "type": "Secret",
+  "api_version": "secrets/v1",
+  "metadata": {
+    "name": "database",
+    "namespace": "default"
+  },
+  "spec": {
+    "id": "secret/website#database",
+    "provider": "vault"
+  }
+}
+{{< /highlight >}}
+
+{{< /language-toggle >}}
+
+Secrets that target a HashiCorp Vault must start with the word `secret`.
+In this example, the name of the secret is `website`.
+The `website` secret contains a value called `database`, which is the password to our database.
 
 [1]: ../../getting-started/enterprise/
 [2]: ../../api/secrets/
