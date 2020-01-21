@@ -1100,7 +1100,9 @@ See the [LDAP troubleshooting](#ldap-troubleshooting) section.
 
 ## OIDC authentication
 
-The Sensu offers license-activated support for OIDC driver for using the OpenID Connect 1.0 protocol (OIDC) on top of the OAuth 2.0 protocol for RBAC authentication.
+The Sensu offers license-activated support for OIDC provider for using the OpenID Connect 1.0 protocol (OIDC) on top of the OAuth 2.0 protocol for RBAC authentication.
+
+The Sensu OIDC provider is tested with [Okta][51] and [PingFederate][52].
 
 _NOTE: OIDC authentication is currently supported only via `sensuctl`. OIDC authentication for the Web UI will be added in a future release._
 
@@ -1305,9 +1307,9 @@ To use OIDC for authentication, register Sensu Go as an OIDC application. Use th
 8. Click **Save**.
 9. Assign people and groups in the *Assignments* page.
 
-#### OIDC driver configuration
+#### OIDC provider configuration
 
-1. Add the `aadditional_scopes` configuration attribute in the [OIDC scope][25] and set the value to `[ "groups" ]`:
+1. Add the `additional_scopes` configuration attribute in the [OIDC scope][25] and set the value to `[ "groups" ]`:
   - `"additional_scopes": [ "groups" ]`
 
 2. Add the `groups` to the `groups_claim` string. For example, if you have an Okta group `groups` and you set the `groups_prefix` to `okta:`, you can set up RBAC objects to mention group `okta:groups` as needed:
@@ -1353,3 +1355,5 @@ To use OIDC for authentication, register Sensu Go as an OIDC application. Use th
 [24]: #metadata-attributes
 [25]: #oidc-spec-attributes
 [26]: #register-an-oidc-application
+[51]: https://www.okta.com/
+[52]: https://www.pingidentity.com/en/software/pingfederate.html
