@@ -179,7 +179,7 @@ metadata:
   name: sensu-ansible-token
   namespace: default
 spec:
-  id: ANSIBLE_TOKEN
+  id: secret/website#database
   provider: ansible_vault
 {{< /highlight >}}
 
