@@ -18,7 +18,7 @@ menu:
 For more information, see [Get started with commercial features][1].
 
 Sensu's secrets management eliminates the need to expose secrets in your Sensu configuration.
-Use secrets to obtain secrets from one or more external secrets management providers, refer to external secrets, and comsume secrets via backend [environment variables][5].
+Use secrets to obtain secrets from one or more external secrets management providers, refer to external secrets, and consume secrets via backend [environment variables][5].
 
 Only Sensu backends have access to request secrets from a [secret provider][7].
 Sensu backends cache fetched secrets in memory, with no persistence to a Sensu datastore or file on disk.
