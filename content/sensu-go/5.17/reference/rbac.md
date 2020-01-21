@@ -240,8 +240,6 @@ Use your Sensu username and password to [configure sensuctl][26] or log in to th
 
 When you install the Sensu backend, during the [initialization step][42], you create a username and password for a `default` namespace.
 
-_**NOTE**: If you are using Docker, the `sensu-backend init` command runs automatically with a default username (`admin`) and password (`P@ssw0rd!`). You do not need to create a username and password for the `default` namespace if you are using Docker._
-
 This is the user that you can use to manage all aspects of Sensu and create new users.
 
 | attribute | value |

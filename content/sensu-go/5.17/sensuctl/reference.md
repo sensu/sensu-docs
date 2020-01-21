@@ -53,8 +53,6 @@ When prompted, type the [Sensu backend URL][9] and your [Sensu access credential
 ? Preferred output format: tabular
 {{< /highlight >}}
 
-_**NOTE**: If you are using Docker, the default username is `admin` and the password is `P@ssw0rd!`._
-
 ### Sensu backend URL
 
 The Sensu backend URL is the HTTP or HTTPS URL where sensuctl can connect to the Sensu backend server.
@@ -68,8 +66,6 @@ For information about configuring the Sensu backend URL, see the [backend refere
 When you install the Sensu backend, during the [initialization step][40], you create a username and password for a `default` namespace.
 Your ability to get, list, create, update, and delete resources with sensuctl depends on the permissions assigned to your Sensu user.
 For more information about configuring Sensu access control, see the [RBAC reference][1].
-
-_**NOTE**: If you are using Docker, the `sensu-backend init` command for initialization runs automatically with a default username (`admin`) and password (`P@ssw0rd!`) for Docker. You do not need to create a username and password for the `default` namespace if you are using Docker._
 
 ### Preferred output format
 
@@ -89,8 +85,6 @@ Run `sensuctl configure` non-interactively by adding the `-n` (`--non-interactiv
 {{< highlight shell >}}
 sensuctl configure -n --url http://127.0.0.1:8080 --username YOUR_USERNAME --password YOUR_PASSWORD --format tabular
 {{< /highlight >}}
-
-_**NOTE**: If you are using Docker, the default username is `admin` and the password is `P@ssw0rd!`._
 
 ## Get help
 
