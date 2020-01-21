@@ -34,41 +34,71 @@ The `/providers` API endpoint provides HTTP GET access to a list of secrets prov
 
 The following example demonstrates a request to the `/providers` API endpoint, resulting in a list of secrets providers.
 
-_**NOTE**: The `Env` provider is a built-in secrets provider that can retrieve backend environment variables as secrets._
-
 {{< highlight shell >}}
 curl -X GET \
 http://127.0.0.1:8080/api/enterprise/secrets/v1/providers \
 -H "Authorization: Bearer $SENSU_ACCESS_TOKEN"
 [
   {
-    "type": "Env",
+    "type": "VaultProvider",
     "api_version": "secrets/v1",
     "metadata": {
-      "name": "env"
+      "name": "my_vault"
     },
-    "spec": {}
+    "spec": {
+      "client": {
+        "address": "https://vaultserver.example.com:8200",
+        "token": "VAULT_TOKEN",
+        "version": "v1",
+        "tls": {
+          "ca_cert": "/etc/ssl/certs/vault_ca_cert.pem"
+        },
+        "max_retries": 2,
+        "timeout": "20s",
+        "rate_limiter": {
+          "limit": 10.0,
+          "burst": 100
+        }
+      }
+    }
   }
 ]
 {{< /highlight >}}
+
+_**NOTE**: In addition to the `VaultProvider` type, the secrets API also includes a built-in `Env` secrets provider type that can retrieve backend [environment variables][3] as secrets. Learn more in the [secrets providers reference][2]._
 
 #### API Specification {#providers-get-specification}
 
 /providers (GET)  | 
 ---------------|------
-description    | Returns the list of secret providers.
+description    | Returns the list of secrets providers.
 example url    | http://hostname:8080/api/enterprise/secrets/v1/providers
 response type  | Array
 response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output         | {{< highlight shell >}}
 [
   {
-    "type": "Env",
+    "type": "VaultProvider",
     "api_version": "secrets/v1",
     "metadata": {
-      "name": "env"
+      "name": "my_vault"
     },
-    "spec": {}
+    "spec": {
+      "client": {
+        "address": "https://vaultserver.example.com:8200",
+        "token": "VAULT_TOKEN",
+        "version": "v1",
+        "tls": {
+          "ca_cert": "/etc/ssl/certs/vault_ca_cert.pem"
+        },
+        "max_retries": 2,
+        "timeout": "20s",
+        "rate_limiter": {
+          "limit": 10.0,
+          "burst": 100
+        }
+      }
+    }
   }
 ]
 {{< /highlight >}}
@@ -77,23 +107,37 @@ output         | {{< highlight shell >}}
 
 ### `/providers/:provider` (GET) {#providers-provider-get}
 
-The `/providers/:provider` API endpoint provides HTTP GET access to data for a specific `:provider`, by provider name.
+The `/providers/:provider` API endpoint provides HTTP GET access to data for a specific secrets `:provider`, by provider name.
 
 #### EXAMPLE {#providers-provider-get-example}
 
-In the following example, querying the `/providers/:provider` API endpoint returns a JSON map that contains the requested `:provider`.
+In the following example, querying the `/providers/:provider` API endpoint returns a JSON map that contains the requested `:provider`, `my_vault`.
 
 {{< highlight shell >}}
 curl -X GET \
-http://127.0.0.1:8080/api/enterprise/secrets/v1/providers/env \
+http://127.0.0.1:8080/api/enterprise/secrets/v1/providers/my_vault \
 -H "Authorization: Bearer $SENSU_ACCESS_TOKEN"
 {
-  "type": "Env",
+  "type": "VaultProvider",
   "api_version": "secrets/v1",
   "metadata": {
-    "name": "env"
+    "name": "my_vault"
   },
   "spec": {
+    "client": {
+      "address": "https://vaultserver.example.com:8200",
+      "token": "VAULT_TOKEN",
+      "version": "v1",
+      "tls": {
+        "ca_cert": "/etc/ssl/certs/vault_ca_cert.pem"
+      },
+      "max_retries": 2,
+      "timeout": "20s",
+      "rate_limiter": {
+        "limit": 10.0,
+        "burst": 100
+      }
+    }
   }
 }
 {{< /highlight >}}
@@ -102,18 +146,32 @@ http://127.0.0.1:8080/api/enterprise/secrets/v1/providers/env \
 
 /providers/:provider (GET) | 
 ---------------------|------
-description          | Returns the specified provider.
-example url          | http://hostname:8080/api/enterprise/secrets/v1/providers/env
+description          | Returns the specified secrets provider.
+example url          | http://hostname:8080/api/enterprise/secrets/v1/providers/my_vault
 response type        | Map
 response codes       | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output               | {{< highlight json >}}
 {
-  "type": "Env",
+  "type": "VaultProvider",
   "api_version": "secrets/v1",
   "metadata": {
-    "name": "env"
+    "name": "my_vault"
   },
   "spec": {
+    "client": {
+      "address": "https://vaultserver.example.com:8200",
+      "token": "VAULT_TOKEN",
+      "version": "v1",
+      "tls": {
+        "ca_cert": "/etc/ssl/certs/vault_ca_cert.pem"
+      },
+      "max_retries": 2,
+      "timeout": "20s",
+      "rate_limiter": {
+        "limit": 10.0,
+        "burst": 100
+      }
+    }
   }
 }
 {{< /highlight >}}
@@ -124,22 +182,36 @@ The `/providers/:provider` API endpoint provides HTTP PUT access to create or up
 
 #### EXAMPLE {#providers-provider-put-example}
 
-The following example demonstrates a request to the `/providers/:provider` API endpoint to update the provider `env`.
+The following example demonstrates a request to the `/providers/:provider` API endpoint to update the provider `my_vault`.
 
 {{< highlight shell >}}
 curl -X PUT \
 -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
 -H 'Content-Type: application/json' \
 -d '{
-  "type": "Env",
+  "type": "VaultProvider",
   "api_version": "secrets/v1",
   "metadata": {
-    "name": "env"
+    "name": "my_vault"
   },
   "spec": {
+    "client": {
+      "address": "https://vaultserver.example.com:8200",
+      "token": "VAULT_TOKEN",
+      "version": "v1",
+      "tls": {
+        "ca_cert": "/etc/ssl/certs/vault_ca_cert.pem"
+      },
+      "max_retries": 2,
+      "timeout": "20s",
+      "rate_limiter": {
+        "limit": 10.0,
+        "burst": 100
+      }
+    }
   }
 }' \
-http://127.0.0.1:8080/api/enterprise/secrets/v1/providers/env
+http://127.0.0.1:8080/api/enterprise/secrets/v1/providers/my_vault
 
 HTTP/1.1 200 OK
 {{< /highlight >}}
@@ -148,16 +220,30 @@ HTTP/1.1 200 OK
 
 /providers/:provider (PUT) | 
 ----------------|------
-description     | Creates or updates the specified provider. The provider resource and API version cannot be altered.
-example URL     | http://hostname:8080/api/enterprise/secrets/v1/providers/env
+description     | Creates or updates the specified secrets provider. The provider resource and API version cannot be altered.
+example URL     | http://hostname:8080/api/enterprise/secrets/v1/providers/my_vault
 payload         | {{< highlight shell >}}
 {
-  "type": "Env",
+  "type": "VaultProvider",
   "api_version": "secrets/v1",
   "metadata": {
-    "name": "env"
+    "name": "my_vault"
   },
   "spec": {
+    "client": {
+      "address": "https://vaultserver.example.com:8200",
+      "token": "VAULT_TOKEN",
+      "version": "v1",
+      "tls": {
+        "ca_cert": "/etc/ssl/certs/vault_ca_cert.pem"
+      },
+      "max_retries": 2,
+      "timeout": "20s",
+      "rate_limiter": {
+        "limit": 10.0,
+        "burst": 100
+      }
+    }
   }
 }
 {{< /highlight >}}
@@ -169,12 +255,12 @@ The `/providers/:provider` API endpoint provides HTTP DELETE access to delete th
 
 #### EXAMPLE {#providers-provider-delete-example}
 
-The following example shows a request to the `/providers/:provider` API endpoint to delete the provider `env`, resulting in a successful HTTP `204 No Content` response.
+The following example shows a request to the `/providers/:provider` API endpoint to delete the provider `my_vault`, resulting in a successful HTTP `204 No Content` response.
 
 {{< highlight shell >}}
 curl -X DELETE \
 -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
-http://127.0.0.1:8080/api/enterprise/secrets/v1/providers/env
+http://127.0.0.1:8080/api/enterprise/secrets/v1/providers/my_vault
 
 HTTP/1.1 204 No Content
 {{< /highlight >}}
@@ -184,7 +270,7 @@ HTTP/1.1 204 No Content
 /providers/:provider (DELETE) | 
 --------------------------|------
 description               | Deletes the specified provider from Sensu.
-example url               | http://hostname:8080/api/enterprise/secrets/v1/providers/env
+example url               | http://hostname:8080/api/enterprise/secrets/v1/providers/my_vault
 response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 ## The `/secrets` endpoint
@@ -213,7 +299,7 @@ HTTP/1.1 200 OK
     },
     "spec": {
       "id": "ANSIBLE_TOKEN",
-      "provider": "env"
+      "provider": "ansible_vault"
     }
   }
 ]
@@ -238,7 +324,7 @@ output         | {{< highlight shell >}}
     },
     "spec": {
       "id": "ANSIBLE_TOKEN",
-      "provider": "env"
+      "provider": "ansible_vault"
     }
   }
 ]
@@ -269,7 +355,7 @@ HTTP/1.1 200 OK
   },
   "spec": {
     "id": "ANSIBLE_TOKEN",
-    "provider": "env"
+    "provider": "ansible_vault"
   }
 }
 {{< /highlight >}}
@@ -292,7 +378,7 @@ output               | {{< highlight json >}}
   },
   "spec": {
     "id": "ANSIBLE_TOKEN",
-    "provider": "env"
+    "provider": "ansible_vault"
   }
 }
 {{< /highlight >}}
@@ -318,7 +404,7 @@ curl -X PUT \
   },
   "spec": {
     "id": "ANSIBLE_TOKEN",
-    "provider": "env"
+    "provider": "ansible_vault"
   }
 }' \
 http://127.0.0.1:8080/api/enterprise/secrets/v1/namespaces/default/secrets/sensu-ansible-token
@@ -342,7 +428,7 @@ payload         | {{< highlight shell >}}
   },
   "spec": {
     "id": "ANSIBLE_TOKEN",
-    "provider": "env"
+    "provider": "ansible_vault"
   }
 }
 {{< /highlight >}}
@@ -374,3 +460,5 @@ response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Miss
 
 
 [1]: ../../getting-started/enterprise/
+[2]: ../../reference/secrets-providers/
+[3]: ../../reference/backend/#configuration-via-environment-variables
