@@ -1100,7 +1100,7 @@ See the [LDAP troubleshooting](#ldap-troubleshooting) section.
 
 ## OIDC authentication
 
-The Sensu offers license-activated support for OIDC provider for using the OpenID Connect 1.0 protocol (OIDC) on top of the OAuth 2.0 protocol for RBAC authentication.
+Sensu offers license-activated support for the OIDC provider for using the OpenID Connect 1.0 protocol (OIDC) on top of the OAuth 2.0 protocol for RBAC authentication.
 
 The Sensu OIDC provider is tested with [Okta][51] and [PingFederate][52].
 
