@@ -47,8 +47,7 @@ http://127.0.0.1:8080/api/enterprise/secrets/v1/providers \
     "metadata": {
       "name": "env"
     },
-    "spec": {
-    }
+    "spec": {}
   }
 ]
 {{< /highlight >}}
@@ -69,8 +68,7 @@ output         | {{< highlight shell >}}
     "metadata": {
       "name": "env"
     },
-    "spec": {
-    }
+    "spec": {}
   }
 ]
 {{< /highlight >}}
@@ -229,7 +227,7 @@ HTTP/1.1 200 OK
 
 /secrets (GET)  | 
 ---------------|------
-description    | Returns the list of secrets for the specified namespace. `id` is the identifying key for the provider to retrieve the secret. `provider` is the name of the provider with the secret.
+description    | Returns the list of secrets for the specified namespace.
 example url    | http://hostname:8080/api/enterprise/secrets/v1/namespaces/default/secrets
 response type  | Array
 response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
@@ -286,7 +284,7 @@ HTTP/1.1 200 OK
 
 /secrets/:secret (GET) | 
 ---------------------|------
-description          | Returns the specified secret. `id` is the identifying key for the provider to retrieve the secret. `provider` is the name of the provider with the secret.
+description          | Returns the specified secret.
 example url          | http://hostname:8080/api/enterprise/secrets/v1/namespaces/default/secrets/sensu-ansible-token
 response type        | Map
 response codes       | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
@@ -340,7 +338,7 @@ HTTP/1.1 200 OK
 
 /secrets/:secret (PUT) | 
 ----------------|------
-description     | Creates or updates the specified secret. `id` is the identifying key for the provider to retrieve the secret. `provider` is the name of the provider with the secret.
+description     | Creates or updates the specified secret.
 example URL     | http://hostname:8080/api/enterprise/secrets/v1/namespaces/default/secrets/sensu-ansible-token
 payload         | {{< highlight shell >}}
 {
