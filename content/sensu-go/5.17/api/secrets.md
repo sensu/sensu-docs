@@ -107,7 +107,7 @@ http://127.0.0.1:8080/api/enterprise/secrets/v1/providers/env \
 /providers/:provider (GET) | 
 ---------------------|------
 description          | Returns the specified provider.
-example url          | http://hostname:8080/api/enterprise/secrets/v1/providerss/env
+example url          | http://hostname:8080/api/enterprise/secrets/v1/providers/env
 response type        | Map
 response codes       | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output               | {{< highlight json >}}
