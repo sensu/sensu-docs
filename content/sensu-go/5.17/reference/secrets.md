@@ -212,7 +212,7 @@ The `website` secret contains a value called `database`, which is the password t
 [2]: ../../api/secrets/
 [3]: ../../sensuctl/reference/
 [4]: ../../sensuctl/reference/#subcommands
-[5]: ..//backend/#configuration-via-environment-variables
+[5]: ../backend/#configuration-via-environment-variables
 [6]: ../rbac#default-users
 [7]: ../secret-providers/
 [8]: #spec-attributes
