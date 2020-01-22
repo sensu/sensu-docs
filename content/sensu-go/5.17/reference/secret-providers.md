@@ -1,5 +1,6 @@
 ---
-title: "Secret Providers"
+title: "Secrets providers"
+linkTitle: "Secrets Providers"
 description: "Sensu's secrets management capability allows you to avoid exposing secrets in your Sensu configuration. Read the reference to obtain secrets from one or more external secrets management providers and support references to external secrets in your Sensu configuration."
 weight: 148
 version: "5.17"
@@ -9,36 +10,36 @@ menu:
     parent: reference
 ---
 
-- [Secret providers specification](#secret-providers-specification)
+- [Secrets providers specification](#secrets-providers-specification)
   - [Top-level attributes](#top-level-attributes) | [Metadata attributes](#metadata-attributes) | [Spec attributes](#spec-attributes)
-- [Secret providers examples](#secret-providers-examples)
+- [Secrets providers examples](#secrets-providers-examples)
 
-**COMMERCIAL FEATURE**: Access the Env and Vault datatypes for secret providers in the packaged Sensu Go distribution.
+**COMMERCIAL FEATURE**: Access the Env and Vault datatypes for secrets providers in the packaged Sensu Go distribution.
 For more information, see [Get started with commercial features][1].
 
-Sensu's secrets management eliminates the need to expose secrets in your Sensu configuration.
-With Sensu's secrets management, you can obtain secrets from one or more external secret providers, refer to external secrets, and consume secrets via environment variables.
+Sensu's secrets management eliminates the need to expose secrets (e.g. usernames and passwords) in your Sensu configuration.
+With Sensu's secrets management, you can obtain secrets from one or more external secrets providers, refer to external secrets, and consume secrets via backend [environment variables][4].
 
-Only Sensu backends have access to request [secrets][9] from a secret provider.
+Only Sensu backends have access to request [secrets][9] from a secrets provider.
 Secrets are only transmitted over a TLS websocket connection.
 Unencrypted connections must not transmit privileged information.
 For agent-side resources, enable TLS/mTLS.
 
-The [Sensu Go commercial distribution][1] includes a built-in secret provider, `Env`, that exposes secrets from [environment variables][9] on the Sensu backend nodes.
-You can also use the secret provider `VaultProvider` to authenticate via the HashiCorp Vault integration's [token auth method][10] or [TLS certificate auth method][11].
+The [Sensu Go commercial distribution][1] includes a built-in secrets provider, `Env`, that exposes secrets from [environment variables][4] on your Sensu backend nodes.
+You can also use the secrets provider `VaultProvider` to authenticate via the HashiCorp Vault integration's [token auth method][10] or [TLS certificate auth method][11].
 
-You can configure any number of secret providers.
-Secret providers are cluster-wide resources and compatible with generic functions.
+You can configure any number of secrets providers.
+Secrets providers are cluster-wide resources and compatible with generic functions.
  
-## Secret providers specification
+## Secrets providers specification
 
-_**NOTE**: The attribute descriptions in this section use the `VaultProvider` datatype. The [secret providers examples][13] section includes an example for the `Env` datatype._
+_**NOTE**: The attribute descriptions in this section use the `VaultProvider` datatype. The [secrets providers examples][13] section includes an example for the `Env` datatype._
 
 ### Top-level attributes
 
 type         | 
 -------------|------
-description  | Top-level attribute that specifies the resource type. May be either type `Env` (if you are using Sensu's built-in secret provider) or `VaultProvider` (if you are using HashiCorp Vault as the secret provider).
+description  | Top-level attribute that specifies the resource type. May be either `Env` (if you are using Sensu's built-in secrets provider) or `VaultProvider` (if you are using HashiCorp Vault as the secrets provider).
 required     | Required for secrets configuration in `wrapped-json` or `yaml` format.
 type         | String
 example      | {{< highlight shell >}}"type": "VaultProvider"{{< /highlight >}}
@@ -52,7 +53,7 @@ example      | {{< highlight shell >}}"api_version": "secrets/v1"{{< /highlight 
 
 metadata     |      |
 -------------|------
-description  | Top-level scope that contains the secret provider `name`. Namespace is not supported in the metadata because secret providers are cluster-wide resources.
+description  | Top-level scope that contains the secrets provider `name`. Namespace is not supported in the metadata because secrets providers are cluster-wide resources.
 required     | true
 type         | Map of key-value pairs
 example      | {{< highlight shell >}}
@@ -63,7 +64,7 @@ example      | {{< highlight shell >}}
 
 spec         | 
 -------------|------
-description  | Top-level map that includes secret provider configuration [spec attributes][8].
+description  | Top-level map that includes secrets provider configuration [spec attributes][8].
 required     | Required for secrets configuration in `wrapped-json` or `yaml` format.
 type         | Map of key-value pairs
 example      | {{< highlight shell >}}
@@ -198,9 +199,11 @@ type         | integer
 default      | NEEDED
 example      | {{< highlight shell >}}"burst": 100{{< /highlight >}}
 
-## Secret providers examples
+## Secrets providers examples
 
-### HashiCorp Vault example
+### VaultProvider example
+
+The `VaultProvider` secrets provider is a vendor-specific implementation for [HashiCorp Vault][5] secrets management.
 
 {{< language-toggle >}}
 
@@ -254,7 +257,8 @@ spec:
 
 ### Env example
 
-If you use the built-in `Env` secret provider, [WIP -- to complete]
+Sensu's built-in `Env` secrets provider exposes secrets from backend [environment variables][4].
+Using the `Env` secrets provider may require you to synchronize environment variables in Sensu backend clusters.
 
 {{< language-toggle >}}
 
@@ -284,8 +288,8 @@ spec: {}
 [1]: ../../getting-started/enterprise/
 [2]: ../../api/secrets/
 [3]: ../../sensuctl/reference/
-[4]: ../../sensuctl/reference/#subcommands
-[5]: ../../guides/troubleshooting
+[4]: ../backend/#configuration-via-environment-variables
+[5]: https://www.vaultproject.io/docs/what-is-vault/
 [6]: ../../reference/rbac#default-users
 [7]: ../../sensuctl/reference#create-resources
 [8]: #spec-attributes
