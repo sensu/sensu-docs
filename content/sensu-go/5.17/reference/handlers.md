@@ -15,7 +15,7 @@ menu:
 - [Handler sets](#handler-sets)
 - [Keepalive event handlers](#keepalive-event-handlers)
 - [Handler specification](#handler-specification)
-  - [Top-level attributes](#top-level-attributes) | [Metadata attributes](#metadata-attributes) | [Spec attributes](#spec-attributes) | [`socket` attributes](#socket-attributes)
+  - [Top-level attributes](#top-level-attributes) | [Metadata attributes](#metadata-attributes) | [Spec attributes](#spec-attributes) | [`socket` attributes](#socket-attributes) | [`secrets` attributes](#secrets-attributes)
 - [Examples](#handler-examples)
 
 Handlers are actions the Sensu backend executes on events.
@@ -171,7 +171,7 @@ example      | {{< highlight shell >}}"namespace": "production"{{< /highlight >}
 
 | labels     |      |
 -------------|------
-description  | Custom attributes you can use to create meaningful collections that you can select with [API response filtering][11] and [sensuctl response filtering][12]. Overusing labels can affect Sensu's internal performance, so we recommend moving complex, non-identifying metadata to annotations.
+description  | Custom attributes you can use to create meaningful collections that you can select with [API response filtering][10] and [sensuctl response filtering][11]. Overusing labels can affect Sensu's internal performance, so we recommend moving complex, non-identifying metadata to annotations.
 required     | false
 type         | Map of key-value pairs. Keys can contain only letters, numbers, and underscores and must start with a letter. Values can be any valid UTF-8 string.
 default      | `null`
@@ -182,7 +182,7 @@ example      | {{< highlight shell >}}"labels": {
 
 | annotations |     |
 -------------|------
-description  | Non-identifying metadata that's meaningful to people or external tools that interact with Sensu.<br><br>In contrast to labels, you cannot use annotations in [API response filtering][11] or [sensuctl response filtering][12], and annotations do not affect Sensu's internal performance.
+description  | Non-identifying metadata that's meaningful to people or external tools that interact with Sensu.<br><br>In contrast to labels, you cannot use annotations in [API response filtering][10] or [sensuctl response filtering][11], and annotations do not affect Sensu's internal performance.
 required     | false
 type         | Map of key-value pairs. Keys and values can be any valid UTF-8 string.
 default      | `null`
@@ -258,7 +258,23 @@ required       | false
 type           | Array
 example        | {{< highlight shell >}}"runtime_assets": ["ruby-2.5.0"]{{< /highlight >}}
 
-### `socket` attributes
+secrets        | 
+---------------|------
+description    | Array of the name/secret pairs to use with command execution.
+required       | false
+type           | Array
+example        | {{< highlight shell >}}"secrets": [
+  {
+    "name": "ANSIBLE_HOST",
+    "secret": "sensu-ansible-host"
+  },
+  {
+    "name": "ANSIBLE_TOKEN",
+    "secret": "sensu-ansible-token"
+  }
+]{{< /highlight >}}
+
+#### `socket` attributes
 
 host         | 
 -------------|------
@@ -273,6 +289,22 @@ description  | Socket port to connect to.
 required     | true
 type         | Integer
 example      | {{< highlight shell >}}"port": 4242{{< /highlight >}}
+
+#### `secrets` attributes
+
+name         | 
+-------------|------
+description  | Name of the [secret][20] defined in the executable command.
+required     | true
+type         | String
+example      | {{< highlight shell >}}"name": "ANSIBLE_HOST"{{< /highlight >}}
+
+secret       | 
+-------------|------
+description  | Name of the Sensu secret resource that defines how to retrieve the [secret][20].
+required     | true
+type         | String
+example      | {{< highlight shell >}}"secret": "sensu-ansible-host"{{< /highlight >}}
 
 ## Handler examples
 

@@ -17,7 +17,7 @@ menu:
 - [Check token substitution](#check-token-substitution)
 - [Check hooks](#check-hooks)
 - [Check specification](#check-specification)
-	- [Top-level attributes](#top-level-attributes) | [Metadata attributes](#metadata-attributes) | [Spec attributes](#spec-attributes) | [Proxy requests attributes](#proxy-requests-attributes) | [Check output truncation attributes](#check-output-truncation-attributes)
+	- [Top-level attributes](#top-level-attributes) | [Metadata attributes](#metadata-attributes) | [Spec attributes](#spec-attributes) | [Proxy requests attributes](#proxy-requests-attributes) | [Check output truncation attributes](#check-output-truncation-attributes) | [`secrets` attributes](#secrets-attributes)
 - [Examples](#examples)
 
 Checks work with Sensu agents to produce monitoring events automatically.
@@ -725,7 +725,23 @@ example      | {{< highlight shell >}}"round_robin": true{{< /highlight >}}
 description  | Check subdues are not yet implemented in Sensu Go. Although the `subdue` attribute appears in check definitions by default, it is a placeholder and should not be modified.
 example      | {{< highlight shell >}}"subdue": null{{< /highlight >}}
 
-### Proxy requests attributes
+secrets        | 
+---------------|------
+description    | Array of the name/secret pairs to use with command execution.
+required       | false
+type           | Array
+example        | {{< highlight shell >}}"secrets": [
+  {
+    "name": "ANSIBLE_HOST",
+    "secret": "sensu-ansible-host"
+  },
+  {
+    "name": "ANSIBLE_TOKEN",
+    "secret": "sensu-ansible-token"
+  }
+]{{< /highlight >}}
+
+#### Proxy requests attributes
 
 |entity_attributes| |
 -------------|------
@@ -752,7 +768,7 @@ required     | Required if `splay` attribute is set to `true`
 type         | Integer
 example      | {{< highlight shell >}}"splay_coverage": 90{{< /highlight >}}
 
-### Check output truncation attributes
+#### Check output truncation attributes
 
 |max_output_size  | |
 -------------|-------
@@ -767,6 +783,22 @@ description  | If `true`, discard check output after extracting metrics. No chec
 required     | false
 type         | Boolean
 example      | {{< highlight shell >}}"discard_output": true{{< /highlight >}}
+
+#### `secrets` attributes
+
+name         | 
+-------------|------
+description  | Name of the [secret][56] defined in the executable command.
+required     | true
+type         | String
+example      | {{< highlight shell >}}"name": "ANSIBLE_HOST"{{< /highlight >}}
+
+secret       | 
+-------------|------
+description  | Name of the Sensu secret resource that defines how to retrieve the [secret][56].
+required     | true
+type         | String
+example      | {{< highlight shell >}}"secret": "sensu-ansible-host"{{< /highlight >}}
 
 ## Examples
 

@@ -13,7 +13,7 @@ menu:
 - [Commands](#commands)
 - [Built-in mutators](#built-in-mutators)
 - [Mutator specification](#mutator-specification)
-  - [Top-level attributes](#top-level-attributes) | [Metadata attributes](#metadata-attributes) | [Spec attributes](#spec-attributes)
+  - [Top-level attributes](#top-level-attributes) | [Metadata attributes](#metadata-attributes) | [Spec attributes](#spec-attributes) | [`secrets` attributes](#secrets-attributes)
 - [Examples](#examples)
 
 Handlers can specify a mutator to execute and transform event data before any handlers are applied.
@@ -100,15 +100,15 @@ Mutators:
 
 type         | 
 -------------|------
-description  | Top-level attribute that specifies the [`sensuctl create`][sc] resource type. Mutators should always be type `Mutator`.
-required     | Required for mutator definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][sc].
+description  | Top-level attribute that specifies the [`sensuctl create`][5] resource type. Mutators should always be type `Mutator`.
+required     | Required for mutator definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][5].
 type         | String
 example      | {{< highlight shell >}}"type": "Mutator"{{< /highlight >}}
 
 api_version  | 
 -------------|------
 description  | Top-level attribute that specifies the Sensu API group and version. For mutators in this version of Sensu, the `api_version` should always be `core/v2`.
-required     | Required for mutator definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][sc].
+required     | Required for mutator definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][5].
 type         | String
 example      | {{< highlight shell >}}"api_version": "core/v2"{{< /highlight >}}
 
@@ -192,13 +192,6 @@ required     | true
 type         | String
 example      | {{< highlight shell >}}"command": "/etc/sensu/plugins/mutated.go"{{</highlight>}}
 
-env_vars      | 
--------------|------
-description  | Array of environment variables to use with command execution.
-required     | false
-type         | Array
-example      | {{< highlight shell >}}"env_vars": ["RUBY_VERSION=2.5.0"]{{< /highlight >}}
-
 timeout      | 
 -------------|------ 
 description  | Mutator execution duration timeout (hard stop). In seconds.
@@ -206,12 +199,51 @@ required     | false
 type         | integer 
 example      | {{< highlight shell >}}"timeout": 30{{</highlight>}}
 
+env_vars      | 
+-------------|------
+description  | Array of environment variables to use with command execution.
+required     | false
+type         | Array
+example      | {{< highlight shell >}}"env_vars": ["RUBY_VERSION=2.5.0"]{{< /highlight >}}
+
 runtime_assets | 
 ---------------|------
 description    | Array of [Sensu assets][1] (by their names) required at runtime for execution of the `command`.
 required       | false
 type           | Array
 example        | {{< highlight shell >}}"runtime_assets": ["ruby-2.5.0"]{{< /highlight >}}
+
+secrets        | 
+---------------|------
+description    | Array of the name/secret pairs to use with command execution.
+required       | false
+type           | Array
+example        | {{< highlight shell >}}"secrets": [
+  {
+    "name": "ANSIBLE_HOST",
+    "secret": "sensu-ansible-host"
+  },
+  {
+    "name": "ANSIBLE_TOKEN",
+    "secret": "sensu-ansible-token"
+  }
+]{{< /highlight >}}
+
+#### `secrets` attributes
+
+name         | 
+-------------|------
+description  | Name of the [secret][10] defined in the executable command.
+required     | true
+type         | String
+example      | {{< highlight shell >}}"name": "ANSIBLE_HOST"{{< /highlight >}}
+
+secret       | 
+-------------|------
+description  | Name of the Sensu secret resource that defines how to retrieve the [secret][10].
+required     | true
+type         | String
+example      | {{< highlight shell >}}"secret": "sensu-ansible-host"{{< /highlight >}}
 
 ## Examples
 
