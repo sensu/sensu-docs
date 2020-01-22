@@ -72,7 +72,7 @@ See the [upgrade guide][1] to upgrade Sensu to version 5.17.0.
 
 - ([Commercial feature][106]) Fixed a bug where the event check state was not present when using the PostgreSQL event store.
 - Fixed a memory leak in the entity cache.
-- Initialization via [`sensu-backend-init`][108] is now implemented for Docker.
+- Initialization via [`sensu-backend-init`][109] is now implemented for Docker.
 - Fixed a bug that prevented `sensuctl entity delete` from returning an error when attempting to delete a non-existent entity.
 - In the [web UI][107], fixed a bug that duplicated event history in the event timeline chart.
 - Sensuctl command assets installed via Bonsai now use the `sensuctl` namespace.
