@@ -75,7 +75,7 @@ See the [upgrade guide][1] to upgrade Sensu to version 5.17.0.
 - Initialization via [`sensu-backend-init`][109] is now implemented for Docker.
 - Fixed a bug that prevented `sensuctl entity delete` from returning an error when attempting to delete a non-existent entity.
 - In the [web UI][107], fixed a bug that duplicated event history in the event timeline chart.
-- Sensuctl command assets installed via Bonsai now use the `sensuctl` namespace.
+- `sensuctl command` assets installed via Bonsai now use the `sensuctl` namespace.
 
 ## 5.16.1 release notes
 
