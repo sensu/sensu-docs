@@ -160,7 +160,7 @@ example      | {{< highlight shell >}}"token": "VAULT_TOKEN"{{< /highlight >}}
 
 version      | 
 -------------|------ 
-description  | HashiCorp Vault version.
+description  | HashiCorp Vault [version][14].
 required     | true
 type         | String
 example      | {{< highlight shell >}}"version": "v1"{{< /highlight >}}
@@ -291,3 +291,4 @@ spec: {}
 [11]: https://www.vaultproject.io/api/auth/cert/index.html
 [12]: #client-attributes
 [13]: #env-example
+[14]: https://www.vaultproject.io/docs/commands/version/
