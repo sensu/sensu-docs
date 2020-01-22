@@ -23,6 +23,7 @@ In this guide, you'll learn how to use [HashiCorp Vault][1] as your external [se
 To follow this guide, you’ll need to [install the Sensu backend][5], have at least one [Sensu agent][11] running on Linux, and [install and configure sensuctl][7].
 
 _**NOTE**: Secrets can only be passed to checks if you have configured mTLS for the agent and backend._
+You will also need to have [HashiCorp Vault][15] set up.
 
 **ADD: Any other requirements?**
 
@@ -208,3 +209,4 @@ Read the [secrets][9] or [secrets providers][10] reference for in-depth secrets 
 [12]: https://www.vaultproject.io/docs/concepts/lease.html#lease-durations-and-renewal
 [13]: ../../api/secrets#providers-provider-put
 [14]: ../../api/secrets#secrets-secret-put
+[15]: https://www.vaultproject.io/docs/install/
