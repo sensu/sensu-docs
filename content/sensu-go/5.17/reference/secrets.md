@@ -1,5 +1,6 @@
 ---
 title: "Secrets"
+linkTitle: "Secrets"
 description: "Sensu's secrets management capability allows you to avoid exposing secrets in your Sensu configuration. Read the reference to obtain secrets from one or more external secrets management providers and use sensuctl to manage secrets."
 weight: 145
 version: "5.17"
