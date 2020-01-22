@@ -100,7 +100,7 @@ example      | {{< highlight shell >}}"name": "vault"{{< /highlight >}}
 client       | 
 -------------|------ 
 description  | Map that includes secrets provider configuration [client attributes][12].
-required     | NEEDED
+required     | true
 type         | Map of key-value pairs
 example      | {{< highlight shell >}}
 "client": {
@@ -117,23 +117,22 @@ max_retries  |
 description  | Number of times to retry connecting to the vault provider.
 required     | true
 type         | Integer
-default      | NEEDED
+default      | 2
 example      | {{< highlight shell >}}"max_retries": 2{{< /highlight >}}
 
 timeout      | 
 -------------|------ 
 description  | Provider connection execution duration timeout (hard stop). In seconds.
-required     | true
+required     | false
 type         | Integer
-default      | `false`
+default      | 60s
 example      | {{< highlight shell >}}"timeout": "20s"{{< /highlight >}}
 
 rate_limiter | 
 -------------|------ 
 description  | Maximum rate and burst limits for the secrets API.
-required     | true
+required     | false
 type         | Map of key-value pairs
-default      | NEEDED
 example      | {{< highlight shell >}}
 "rate_limiter": {
   "limit": 10.0,
@@ -148,7 +147,6 @@ address      |
 description  | Vault address to use for authentication.
 required     | true
 type         | String
-default      | NEEDED
 example      | {{< highlight shell >}}
 "address": "https://vaultserver.example.com:8200"
 {{< /highlight >}}
@@ -158,7 +156,6 @@ token        |
 description  | Vault token to use for authentication.
 required     | true
 type         | String
-default      | NEEDED
 example      | {{< highlight shell >}}"token": "VAULT_TOKEN"{{< /highlight >}}
 
 version      | 
@@ -174,7 +171,6 @@ tls          |
 description  | TLS object. Vault only works with TLS configured. You may need to set up a CA cert if it is not already stored in your operating system's trust store. To do this, set the TLS object, and provide the `ca_cert` path.
 required     | true
 type         | Map of key-value pairs
-default      | NEEDED
 example      | {{< highlight shell >}}
 "tls": {
   "ca_cert": "/etc/ssl/certs/vault_ca_cert.pem"
@@ -186,17 +182,15 @@ example      | {{< highlight shell >}}
 limit        | 
 -------------|------ 
 description  | Maximum number of secrets requests per second that can be transmitted to the backend with the agent secrets API.
-required     | NEEDED
+required     | false
 type         | integer
-default      | NEEDED
 example      | {{< highlight shell >}}"limit": 10.0{{< /highlight >}}
 
 burst        | 
 -------------|------ 
 description  | Maximum amount of burst allowed in a rate interval for the secrets API.
-required     | NEEDED
+required     | false
 type         | integer
-default      | NEEDED
 example      | {{< highlight shell >}}"burst": 100{{< /highlight >}}
 
 ## Secrets providers examples
