@@ -878,6 +878,8 @@ sensu/sensu-influxdb-handler  sensu/sensu-influxdb-handler       3.1.1          
 
 Use `sensuctl command` to install, execute, list, and delete commands from Bonsai or a URL.
 
+_**NOTE**: To use `sensuctl command` assets, please [upgrade to Sensu Go 5.17.0][41]. A bug that prevented Bonsai-installed `sensuctl command` assets from working in 5.16.x is fixed in the [5.17.0 release][42]._
+
 #### Install commands
 
 To install a sensuctl command from Bonsai or a URL:
@@ -1026,3 +1028,5 @@ Flags are optional and apply only to the `delete` command.
 [38]: #environment-variables
 [39]: #wrapped-json-format
 [40]: ../../installation/install-sensu/#3-initialize
+[41]: ../../installation/upgrade/
+[42]: /sensu-go/5.17/release-notes/#5-17-0-release-notes
