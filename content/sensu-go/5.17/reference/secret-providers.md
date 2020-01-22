@@ -163,7 +163,6 @@ version      |
 description  | HashiCorp Vault version.
 required     | true
 type         | String
-default      | NEEDED
 example      | {{< highlight shell >}}"version": "v1"{{< /highlight >}}
 
 tls          | 
