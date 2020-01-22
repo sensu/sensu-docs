@@ -293,7 +293,7 @@ spec: {}
 [6]: ../../reference/rbac#default-users
 [7]: ../../sensuctl/reference#create-resources
 [8]: #spec-attributes
-[9]: ../secret-providers/
+[9]: ../secrets/
 [10]: https://www.vaultproject.io/docs/auth/token/
 [11]: https://www.vaultproject.io/api/auth/cert/index.html
 [12]: #client-attributes
