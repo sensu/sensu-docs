@@ -85,10 +85,6 @@ example      | {{< highlight shell >}}"name": "sensu-ansible-token"{{< /highligh
 namespace    |      |
 -------------|------
 description  | [Sensu RBAC namespace][9] that the secret belongs to.
---
-
-
-.
 required     | true
 type         | String
 example      | {{< highlight shell >}}"namespace": "default"{{< /highlight >}}
@@ -100,15 +96,13 @@ id           |
 description  | The identifying key for the provider to retrieve the secret.
 required     | true
 type         | String
-default      | `false`
 example      | {{< highlight shell >}}"id": "secret/ansible#token"{{< /highlight >}}
 
 provider     | 
 -------------|------ 
-description  | The name of the provider with the secret.
+description  | The name of the Sensu provider with the secret.
 required     | true
 type         | String
-default      | `false`
 example      | {{< highlight shell >}}"provider": "ansible_vault"{{< /highlight >}}
 
 ## Secret configuration
