@@ -519,6 +519,56 @@ spec:
 
 {{< /language-toggle >}}
 
+### Handler with secret
+
+Learn more about secrets management for your Sensu configuration in the [secrets][20] and [secrets providers][21] references.
+
+{{< language-toggle >}}
+
+{{< highlight yml >}}
+---
+type: Handler 
+api_version: core/v2 
+metadata:
+  name: ansible-tower
+  namespace: ops
+spec: 
+  type: pipe
+  command: sensu-ansible-handler -h $ANSIBLE_HOST -t $ANSIBLE_TOKEN
+  secrets:
+  - name: ANSIBLE_HOST
+    secret: sensu-ansible-host
+  - name: ANSIBLE_TOKEN
+    secret: sensu-ansible-token
+{{< /highlight >}}
+
+{{< highlight json >}}
+{
+  "type": "Handler",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "ansible-tower",
+    "namespace": "ops"
+  },
+  "spec": {
+    "type": "pipe",
+    "command": "sensu-ansible-handler -h $ANSIBLE_HOST -t $ANSIBLE_TOKEN",
+    "secrets": [
+      {
+        "name": "ANSIBLE_HOST",
+        "secret": "sensu-ansible-host"
+      },
+      {
+        "name": "ANSIBLE_TOKEN",
+        "secret": "sensu-ansible-token"
+      }
+    ]
+  }
+}
+{{< /highlight >}}
+
+{{< /language-toggle >}}
+
 [1]: ../checks/
 [2]: https://en.wikipedia.org/wiki/Standard_streams
 [3]: ../events/
@@ -537,4 +587,6 @@ spec:
 [16]: https://bonsai.sensu.io/
 [18]: https://regex101.com/r/zo9mQU/2
 [19]: ../agent/#keepalive-handlers-flag
+[20]: ../../reference/secrets/
+[21]: ../../reference/secrets-providers/
 [23]: ../../guides/install-check-executables-with-assets

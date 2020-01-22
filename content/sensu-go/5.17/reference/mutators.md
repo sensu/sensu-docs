@@ -287,6 +287,55 @@ spec:
 
 {{< /language-toggle >}}
 
+### Mutator with secret
+
+Learn more about secrets management for your Sensu configuration in the [secrets][10] and [secrets providers][11] references.
+
+{{< language-toggle >}}
+
+{{< highlight yml >}}
+---
+type: Mutator 
+api_version: core/v2 
+metadata:
+  name: ansible-tower
+  namespace: ops
+spec: 
+  command: sensu-ansible-mutator -h $ANSIBLE_HOST -t $ANSIBLE_TOKEN
+  secrets:
+  - name: ANSIBLE_HOST
+    secret: sensu-ansible-host
+  - name: ANSIBLE_TOKEN
+    secret: sensu-ansible-token
+{{< /highlight >}}
+
+{{< highlight json >}}
+{
+  "type": "Mutator",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "ansible-tower",
+    "namespace": "ops"
+  },
+  "spec": {
+    "command": "sensu-ansible-mutator -h $ANSIBLE_HOST -t $ANSIBLE_TOKEN",
+    "secrets": [
+      {
+        "name": "ANSIBLE_HOST",
+        "secret": "sensu-ansible-host"
+      },
+      {
+        "name": "ANSIBLE_TOKEN",
+        "secret": "sensu-ansible-token"
+      }
+    ]
+  }
+}
+{{< /highlight >}}
+
+{{< /language-toggle >}}
+
+
 [1]: ../assets/
 [2]: #metadata-attributes
 [3]: ../rbac#namespaces
@@ -296,3 +345,5 @@ spec:
 [7]: https://regex101.com/r/zo9mQU/2
 [8]: ../../api/overview#response-filtering
 [9]: ../../sensuctl/reference#response-filters
+[10]: ../../reference/secrets/
+[11]: ../../reference/secrets-providers/

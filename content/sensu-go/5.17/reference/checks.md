@@ -896,6 +896,50 @@ spec:
 
 {{< /language-toggle >}}
 
+### Check with secret
+
+Learn more about secrets management for your Sensu configuration in the [secrets][56] and [secrets providers][57] references.
+
+{{< language-toggle >}}
+
+{{< highlight yml >}}
+---
+type: CheckConfig
+api_version: core/v2
+metadata:
+  name: ping-github-api
+  namespace: default
+spec:
+  check_hooks: null
+  command: ping-github-api.sh $GITHUB_TOKEN
+  secrets:
+  - name: GITHUB_TOKEN
+    secret: github-token-vault
+{{< /highlight >}}
+
+{{< highlight json >}}
+{
+  "type": "CheckConfig",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "ping-github-api",
+    "namespace": "default"
+  },
+  "spec": {
+    "check_hooks": null,
+    "command": "ping-github-api.sh $GITHUB_TOKEN",
+    "secrets": [
+      {
+        "name": "GITHUB_TOKEN",
+        "secret": "github-token-vault"
+      }
+    ]
+  }
+}
+{{< /highlight >}}
+
+{{< /language-toggle >}}
+
 [1]: #subscription-checks
 [2]: https://en.wikipedia.org/wiki/Publish%E2%80%93subscribe_pattern
 [3]: https://en.wikipedia.org/wiki/Standard_streams
@@ -948,3 +992,5 @@ spec:
 [53]: https://regex101.com/r/zo9mQU/2
 [54]: ../../api/overview#response-filtering
 [55]: ../../sensuctl/reference#response-filters
+[56]: ../../reference/secrets/
+[57]: ../../reference/secrets-providers/
