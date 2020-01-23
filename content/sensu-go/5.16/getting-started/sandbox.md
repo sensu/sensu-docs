@@ -16,7 +16,7 @@ Welcome to the Sensu sandbox! The sandbox is the best place to get started with 
 - Download the Sensu sandbox and [build your first monitoring workflow][1]
 
 ## Monitor containers and applications
-- [Deploy a Sensu Go cluster and example app in Kubernetes and monitor the app with Sensu][2]
+- [Deploy a Sensu Go cluster and example app with Kubernetes and monitor the app with Sensu][2]
 
 ## Collect metrics
 - [Collect Prometheus metrics with Sensu][3]
