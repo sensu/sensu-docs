@@ -122,9 +122,9 @@ example      | {{< highlight shell >}}"max_retries": 2{{< /highlight >}}
 
 timeout      | 
 -------------|------ 
-description  | Provider connection execution duration timeout (hard stop). In seconds.
+description  | Provider connection timeout (hard stop).
 required     | false
-type         | Integer
+type         | String
 default      | 60s
 example      | {{< highlight shell >}}"timeout": "20s"{{< /highlight >}}
 
@@ -144,7 +144,7 @@ example      | {{< highlight shell >}}
 
 address      | 
 -------------|------ 
-description  | Vault address to use for authentication.
+description  | Vault server address.
 required     | true
 type         | String
 example      | {{< highlight shell >}}
@@ -167,12 +167,15 @@ example      | {{< highlight shell >}}"version": "v1"{{< /highlight >}}
 
 tls          | 
 -------------|------ 
-description  | TLS object. Vault only works with TLS configured. You may need to set up a CA cert if it is not already stored in your operating system's trust store. To do this, set the TLS object, and provide the `ca_cert` path.
+description  | TLS object. Vault only works with TLS configured. You may need to set up a CA cert if it is not already stored in your operating system's trust store. To do this, set the TLS object, and provide the `ca_cert` path. You may also need to set up a client cert, client key, or cname.
 required     | true
 type         | Map of key-value pairs
 example      | {{< highlight shell >}}
 "tls": {
-  "ca_cert": "/etc/ssl/certs/vault_ca_cert.pem"
+  "ca_cert": "/etc/ssl/certs/vault_ca_cert.pem",
+  "client_cert": "/etc/ssl/certs/vault_cert.pem",
+  "client_key": "/etc/ssl/certs/vault_key.pem",
+  "cname": "vault_client.example.com"
 }
 {{< /highlight >}}
 
@@ -182,7 +185,7 @@ limit        |
 -------------|------ 
 description  | Maximum number of secrets requests per second that can be transmitted to the backend with the agent secrets API.
 required     | false
-type         | integer
+type         | Float
 example      | {{< highlight shell >}}"limit": 10.0{{< /highlight >}}
 
 burst        | 
