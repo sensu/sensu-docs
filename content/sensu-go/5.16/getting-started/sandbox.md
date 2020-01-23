@@ -16,7 +16,7 @@ Welcome to the Sensu sandbox! The sandbox is the best place to get started with 
 - Download the Sensu sandbox and [build your first monitoring workflow][1]
 
 ## Monitor containers and applications
-- [Deploy a sample app with Kubernetes and monitor it with Sensu][2]
+- [Deploy a Sensu Go cluster and example app in Kubernetes and monitor the app with Sensu][2]
 
 ## Collect metrics
 - [Collect Prometheus metrics with Sensu][3]
@@ -25,6 +25,6 @@ Welcome to the Sensu sandbox! The sandbox is the best place to get started with 
 - Use the [Sensu translator][4] to translate check configurations from Sensu Core 1.x to Sensu Go
 
 [1]: ../learn-sensu/
-[2]: ../sample-app/
+[2]: https://github.com/sensu/sensu-k8s-quick-start
 [3]: ../prometheus-metrics/
 [4]: https://github.com/sensu/sandbox/tree/master/sensu-go/lesson_plans/check-upgrade/
