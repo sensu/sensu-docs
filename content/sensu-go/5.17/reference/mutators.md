@@ -163,7 +163,7 @@ example      | {{< highlight shell >}}"namespace": "production"{{< /highlight >}
 
 | labels     |      |
 -------------|------
-description  | Custom attributes you can use to create meaningful collections that you can select with [API response filtering][8] and [sensuctl response filtering][9]. Overusing labels can affect Sensu's internal performance, so we recommend moving complex, non-identifying metadata to annotations.
+description  | Custom attributes you can use to create meaningful collections that you can select with [API response filtering][8] and [sensuctl response filtering][9].<br><br>Limit labels to metadata you need to use for response filtering. For complex, non-identifying metadata that you will *not* need to use in response filtering, use annotations rather than labels.
 required     | false
 type         | Map of key-value pairs. Keys can contain only letters, numbers, and underscores and must start with a letter. Values can be any valid UTF-8 string.
 default      | `null`
@@ -174,7 +174,7 @@ example      | {{< highlight shell >}}"labels": {
 
 | annotations | |
 -------------|------
-description  | Non-identifying metadata that's meaningful to people or external tools that interact with Sensu.<br><br>In contrast to labels, you cannot use annotations in [API response filtering][8] or [sensuctl response filtering][9], and annotations do not affect Sensu's internal performance.
+description  | Non-identifying metadata that's meaningful to people or external tools that interact with Sensu.<br><br>In contrast to labels, you cannot use annotations in [API response filtering][8] or [sensuctl response filtering][9].
 required     | false
 type         | Map of key-value pairs. Keys and values can be any valid UTF-8 string.
 default      | `null`

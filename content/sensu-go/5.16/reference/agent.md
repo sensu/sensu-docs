@@ -760,7 +760,7 @@ See the [example agent configuration file][5] (also provided with Sensu packages
 
 | annotations|      |
 -------------|------
-description  | Non-identifying metadata to include with event data that you can access with [event filters][9] and [tokens][27]. You can use annotations to add data that is meaningful to people or external tools that interact with Sensu.<br><br>In contrast to labels, you cannot use annotations in [API response filtering][25] or [sensuctl response filtering][26], and annotations do not affect Sensu's internal performance.
+description  | Non-identifying metadata to include with event data that you can access with [event filters][9] and [tokens][27]. You can use annotations to add data that is meaningful to people or external tools that interact with Sensu.<br><br>In contrast to labels, you cannot use annotations in [API response filtering][25] or [sensuctl response filtering][26].
 required     | false
 type         | Map of key-value pairs. Keys and values can be any valid UTF-8 string.
 default      | `null`
@@ -843,7 +843,7 @@ allow-list: /etc/sensu/check-allow-list.yaml{{< /highlight >}}
 
 | labels     |      |
 -------------|------
-description  | Custom attributes to include with event data that you can access with [event filters][9] and [tokens][27].<br><br>In contrast to annotations, you can use labels to create meaningful collections that you can select with [API response filtering][25] and [sensuctl response filtering][26]. Overusing labels can affect Sensu's internal performance, so we recommend moving complex, non-identifying metadata to annotations.
+description  | Custom attributes to include with event data that you can access with [event filters][9] and [tokens][27].<br><br>In contrast to annotations, you can use labels to create meaningful collections that you can select with [API response filtering][25] and [sensuctl response filtering][26].<br><br>Limit labels to metadata you need to use for response filtering. For complex, non-identifying metadata that you will *not* need to use in response filtering, use annotations rather than labels.
 required     | false
 type         | Map of key-value pairs. Keys can contain only letters, numbers, and underscores and must start with a letter. Values can be any valid UTF-8 string.
 default      | `null`
