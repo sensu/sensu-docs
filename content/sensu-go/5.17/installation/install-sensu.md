@@ -164,7 +164,21 @@ sensu-backend init
 
 {{< highlight "Docker Compose" >}}
 ---
-NEEDED
+---
+version: "3"
+services:
+  sensu-backend:
+    image: sensu/sensu:latest
+    ports:
+    - 3000:3000
+    - 8080:8080
+    - 8081:8081
+    volumes:
+    - "sensu-backend-data:/var/lib/sensu/etcd"
+    command: "sensu-backend-init -e SENSU_BACKEND_CLUSTER_ADMIN_USERNAME=YOUR_USERNAME -e SENSU_BACKEND_CLUSTER_ADMIN_PASSWORD=YOUR_PASSWORD"
+volumes:
+  sensu-backend-data:
+    driver: local
 {{< /highlight >}}
 
 {{< highlight "Ubuntu/Debian" >}}
