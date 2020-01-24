@@ -16,7 +16,7 @@ Welcome to the Sensu sandbox! The sandbox is the best place to get started with 
 - [Start here](../learn-sensu): Building your first monitoring workflow
 
 ### Container monitoring
-- [Container and application monitoring with Sensu](../sample-app): Monitoring a sample app on Kubernetes
+- [Container and application monitoring with Sensu](https://github.com/sensu/sensu-k8s-quick-start): Get started with Sensu Go on Kubernetes
 
 ### Metrics
 - [Sensu + Prometheus](../prometheus-metrics): Collecting Prometheus metrics with Sensu
