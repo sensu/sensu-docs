@@ -20,9 +20,10 @@ menu:
 Sensu's secrets management allows you to avoid exposing secrets in your Sensu configuration.
 In this guide, you'll learn how to use [HashiCorp Vault][1] as your external [secrets provider][2] and authenticate via the HashiCorp Vault integration's [token auth method][3] or [TLS certificate auth method][4].
 
-To follow this guide, you’ll need to [install the Sensu backend][5], have at least one [Sensu agent][11] running on Linux, and [install and configure sensuctl][7].
+To follow this guide, you’ll need to [install the Sensu backend][5], have at least one [Sensu agent][11] running, and [install and configure sensuctl][7].
 
 _**NOTE**: Secrets can only be passed to checks if you have configured mTLS for the agent and backend._
+
 You will also need to have [HashiCorp Vault][15] set up.
 
 **ADD: Any other requirements?**
@@ -34,11 +35,10 @@ Your backend will execute a check, handler, and mutator that require your Vault 
 The Sensu backend will transmit a request over its secure transport (TLS-encrypted websockets) to your Sensu agent to execute your check.
 Your backend will also use fetched secrets to execute your handler and mutator.
 
-**ADD: What will the check, handler, and mutator do?**
+Your Sensu check, handler, and mutator will include secrets that are provided via environment variables.
+The environment variables will be named the same as the secret entries in your check, handler, and mutator.
 
 ## Create your secrets provider
-
-**I'm not sure whether the secrets provider or the secrets should come first.**
 
 To create your secrets provider `vault`, send a PUT request to the [`/providers/:provider` API endpoint][13].
 
@@ -90,7 +90,7 @@ curl -X PUT \
   "type": "Secret",
   "api_version": "secrets/v1",
   "metadata": {
-    "name": "VAULT_TOKEN",
+    "name": "ansible_token",
     "namespace": "default"
   },
   "spec": {
@@ -117,8 +117,6 @@ Here's an overview of how the check, handler, and mutator will work:
 Secrets are exposed to Sensu services at runtime as environment variables.
 The `secrets` scope of the request payload and the environment variables are automatically redacted from all Sensu service logs and dashboards to prevent secret leakage.
 
-**Is the above true for Vault secrets?**
-
 The Sensu backend will cache fetched secrets in memory, with no persistence to a Sensu datastore or file on disk.
 Sensu deletes secrets provided via a lease with a [lease duration][12] from Sensu's in-memory cache after the configured number of seconds, prompting the Sensu backend to request the secret again.
 
@@ -139,7 +137,7 @@ spec:
   command: sensu-ansible.sh $VAULT_TOKEN
   secrets:
   - name: VAULT_TOKEN
-    secret: sensu-vault-token
+    secret: ansible_token
 EOF
 {{< /highlight >}}
 
