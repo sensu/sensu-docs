@@ -165,6 +165,8 @@ required     | true
 type         | String
 example      | {{< highlight shell >}}"version": "v1"{{< /highlight >}}
 
+<a name="tls-vault"></a>
+
 tls          | 
 -------------|------ 
 description  | TLS object. Vault only works with TLS configured. You may need to set up a CA cert if it is not already stored in your operating system's trust store. To do this, set the TLS object, and provide the `ca_cert` path. You may also need to set up a client cert, client key, or cname.
