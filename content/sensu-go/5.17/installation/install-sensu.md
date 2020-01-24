@@ -154,7 +154,7 @@ Replace `YOUR_USERNAME` and `YOUR_PASSWORD` with the username and password you w
 {{< highlight Docker >}}
 docker run \
 -e SENSU_BACKEND_CLUSTER_ADMIN_USERNAME=YOUR_USERNAME \
--e SENSU_BACKEND_CLUSTER_ADMIN_PASSWORD=`YOUR_PASSWORD' \
+-e SENSU_BACKEND_CLUSTER_ADMIN_PASSWORD=YOUR_PASSWORD \
 --restart always \
 --name sensu \
 sensu/sensu:latest \
