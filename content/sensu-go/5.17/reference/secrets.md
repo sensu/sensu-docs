@@ -69,7 +69,7 @@ type         | Map of key-value pairs
 example      | {{< highlight shell >}}
 "spec": {
   "id": "ANSIBLE_TOKEN",
-  "provider": "ansible_vault"
+  "provider": "env"
 }
 {{< /highlight >}}
 
@@ -175,10 +175,10 @@ Secrets that target a HashiCorp Vault always have an `id` as shown in the follow
 type: Secret
 api_version: secrets/v1
 metadata:
-  name: sensu-ansible-token
+  name: sensu-ansible
   namespace: default
 spec:
-  id: 'secret/website#database'
+  id: 'secret/database#password'
   provider: ansible_vault
 {{< /highlight >}}
 
@@ -187,11 +187,11 @@ spec:
   "type": "Secret",
   "api_version": "secrets/v1",
   "metadata": {
-    "name": "database",
+    "name": "sensu-ansible",
     "namespace": "default"
   },
   "spec": {
-    "id": "secret/website#database",
+    "id": "secret/database#password",
     "provider": "vault"
   }
 }
@@ -200,8 +200,8 @@ spec:
 {{< /language-toggle >}}
 
 Secrets that target a HashiCorp Vault must start with the word `secret`.
-In this example, the name of the secret is `website`.
-The `website` secret contains a value called `database`, which is the password to our database.
+In this example, the name of the secret is `database`.
+The `database` secret contains a value called `password`, which is the password to our database.
 
 [1]: ../../getting-started/enterprise/
 [2]: ../../api/secrets/
