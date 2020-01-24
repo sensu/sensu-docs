@@ -164,7 +164,6 @@ sensu-backend init
 
 {{< highlight "Docker Compose" >}}
 ---
----
 version: "3"
 services:
   sensu-backend:
