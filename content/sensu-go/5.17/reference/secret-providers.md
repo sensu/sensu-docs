@@ -14,7 +14,7 @@ menu:
   - [Top-level attributes](#top-level-attributes) | [Metadata attributes](#metadata-attributes) | [Spec attributes](#spec-attributes)
 - [Secrets providers examples](#secrets-providers-examples)
 
-**COMMERCIAL FEATURE**: Access the Env and Vault datatypes for secrets providers in the packaged Sensu Go distribution.
+**COMMERCIAL FEATURE**: Access the Env and VaultProvider datatypes for secrets providers in the packaged Sensu Go distribution.
 For more information, see [Get started with commercial features][1].
 
 Sensu's secrets management eliminates the need to expose secrets (e.g. usernames and passwords) in your Sensu configuration.
