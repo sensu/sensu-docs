@@ -11,12 +11,18 @@ menu:
     parent: guides
 ---
 
+- [Create and maintain clusters](#create-and-maintain-clusters)
 - [Hardware sizing](#hardware-sizing)
 - [Communications security](#communications-security)
-  - [Planning TLS for etcd](#planning-tls-for-etcd)
+  - [Plan TLS for etcd](#plan-tls-for-etcd)
 - [Common Sensu architectures](#common-sensu-architectures)
-  - [Single backend with embedded etcd](#single-backend-with-embedded-etcd)
-  - [Clustered backend with embedded etcd](#clustered-backend-with-embedded-etcd)
+  - [Single backend (standalone)](#single-backend-standalone)
+  - [Clustered deployment for single availability zone](#clustered-deployment-for-single-availability-zone)
+  - [Clustered deployment for multiple availability zones](#clustered-deployment-for-multiple-availability-zones)
+  - [Large-scale clustered deployment for multiple availability zones](#large-scale-clustered-deployment-for-multiple-availability-zones)
+- [Architecture considerations](#architecture-considerations)
+  - [Networking](#networking)
+  - [Load blanacing](#load-balancing)
 
 This guide describes various deployment considerations and recommendations for a production-ready Sensu deployment, including details related to communication security and common deployment architectures.
 
@@ -24,6 +30,12 @@ etcd is a key-value store that is used by applications of varying complexity, fr
 The Sensu backend uses an embedded etcd instance for storing both configuration and event data, so you can get Sensu up and running without external dependencies.
 
 By building atop etcd, Sensu's backend inherits a number of characteristics to consider when you're planning for a Sensu deployment.
+
+## Create and maintain clusters
+
+Sensu's embedded etcd supports initial cluster creation via a static list of peer URLs.
+After you create a cluster, you can add and remove cluster members with etcdctl tooling.
+See [Run a Sensu cluster][7] and the [etcd documentation][4] for more information.
 
 ## Hardware sizing
 
@@ -37,7 +49,7 @@ Our [hardware requirements][1] documentation describes the minimum and recommend
 Whether you're using using a single Sensu backend or multiple Sensu backends in a cluster, communication with the backend's various network ports (web UI, HTTP API, WebSocket API, etcd client and peer) occurs in cleartext by default.
 We recommend that you encrypt network communications via TLS, which requires planning and explicit configuration.
 
-### Planning TLS for etcd
+### Plan TLS for etcd
 
 The URLs for each member of an etcd cluster are persisted to the database after initialization.
 As a result, moving a cluster from cleartext to encrypted communications requires resetting the cluster, which destroys all configuration and event data in the database.
@@ -55,63 +67,86 @@ See [Run a Sensu cluster][7] and the [etcd documentation][4] for more informatio
 
 Depending on your infrastructure and the type of environments you'll be monitoring, you may use one or a combination of these architectures to best fit your needs.
 
-### Single backend with embedded etcd
+### Single backend (standalone)
 
 The single backend (standalone) with embedded etcd architecture requires minimal resources but provides no redundancy in the event of failure.
 
-<img alt="Sensu single backend or standalone architecture" title="Single Sensu Go backend with embedded etcd." src="/images/standalone_architecture.png">
+<img alt="Single Sensu Go backend or standalone architecture" title="Single Sensu Go backend or standalone architecture" src="/images/standalone_architecture.png">
 <!-- Diagram source: https://www.lucidchart.com/documents/edit/d239f2db-15db-41c4-a191-b9b46990d156/0 -->
 
-<p style="text-align:center"><i>Sensu single backend (standalone) architecture with embedded etcd</i></p>
+<p style="text-align:center"><i>Single Sensu Go backend or standalone architecture</i></p>
 
 You can reconfigure a single backend as a member of a cluster, but this operation is destructive: it requires destroying the existing database.
 
-#### Use cases
-
-The simplicity of the single backend (standalone) architecture may make it a good fit for small- to medium-sized deployments (such as monitoring a remote office or datacenter), deploying alongside individual auto-scaling groups, or in various segments of a logical environment spanning multiple cloud providers.
+The single backend (standalone) architecture may be a good fit for small- to medium-sized deployments (such as monitoring a remote office or datacenter), deploying alongside individual auto-scaling groups, or in various segments of a logical environment spanning multiple cloud providers.
 
 For example, in environments with unreliable WAN connectivity, having agents connect to a local backend may be more reliable than having agents connect over WAN or VPN tunnel to a backend running in a central location.
 
 _**NOTE**: Multiple Sensu backends can relay their events to a central backend using the [sensu-relay-handler][2]._
 
-### Clustered backend with embedded etcd
+### Clustered deployment for single availability zone
 
-You can join the embedded etcd databases of multiple Sensu backend instances together in a cluster to provide increased availability and replication of both configuration and data.
+To increase availability and replicate both configuration and data, join the embedded etcd databases of multiple Sensu backend instances together in a cluster.
 Read [Run a Sensu cluster][7] for more information.
 
 <div style="text-align:center">
-<img alt="Sensu clustered architecture" title="Clustered Sensu Go backend with embedded etcd." src="/images/clustered_architecture.png" width="800 px">
+<img alt="Clustered Sensu Go architecture for a single availability zone" title="Clustered Sensu Go architecture for a single availability zone" src="/images/single-AZ-sensu-deployment.png" width="800 px">
 </div>
-<!-- Diagram source: https://www.lucidchart.com/documents/edit/475f950e-2770-4bf7-af73-57bc834cebdd -->
+<!-- Diagram source: https://www.lucidchart.com/documents/edit/5375377c-4dfd-4a12-8770-c2b47c2ef0e3/Ix6mP9JlVdGc -->
 
-<p style="text-align:center"><i>Sensu clustered architecture with embedded etcd</i></p>
+<p style="text-align:center"><i>Clustered Sensu Go architecture for a single availability zone</i></p>
+<p style="text-align:center"><i><a href="https://sensu-docs.s3.amazonaws.com/images/labeled-single-AZ-sensu-deployment.png">Download full-size image</a></i></p>
 
 Clustering requires an odd number of backend instances.
 Although larger clusters provide better fault tolerance, write performance suffers because data must be replicated across more machines.
 The etcd maintainers recommend clusters of 3, 5 or 7 backends. See the [etcd documentation][4] for more information.
 
-#### Scale cluster performance with PostgreSQL
+### Clustered deployment for multiple availability zones
 
-To achieve the high rate of event processing that many enterprises require, Sensu offers support for PostgreSQL event storage as a [commmercial feature][9].
+Distributing infrastructure across multiple availability zones in a given region helps ensure continuous availability of customer infrastructure in the region if any one availability zone becomes unavailable.
+With this in mind, you can deploy a Sensu cluster across multiple availability zones in a given region, configured to tolerate reasonable latency between those availability zones.
+
+<div style="text-align:center">
+<img alt="Clustered Sensu Go architecture for multiple availability zones" title="Clustered Sensu Go architecture for multiple availability zones" src="/images/cross-AZ-sensu-deployment.png" width="800 px">
+</div>
+<!-- Diagram source: https://www.lucidchart.com/documents/edit/5375377c-4dfd-4a12-8770-c2b47c2ef0e3/n~8S.VTyl5JQ -->
+
+<p style="text-align:center"><i>Clustered Sensu Go architecture for multiple availability zones</i></p>
+<p style="text-align:center"><i><a href="https://sensu-docs.s3.amazonaws.com/images/labeled-cross-AZ-sensu-deployment.png">Download full-size image</a></i></p>
+
+### Large-scale clustered deployment for multiple availability zones
+
+In a large-scale clustered Sensu Go deployment, you can use as many backends as you wish.
+Use one etcd node per availiability zone, with a minimum of three etcd nodes and a maximum of five.
+Three etcd nodes allow you to tolerate the loss of a single node with minimal effect on performance. 
+Five etcd nodes allow you to tolerate the loss of two nodes, but with a greater effect on performance.
+
+<div style="text-align:center">
+<img alt="Large-scale clustered Sensu Go architecture for multiple availability zones" title="Large-scale clustered Sensu Go architecture for multiple availability zones" src="/images/large-scale-cross-AZ-sensu-deployment.png" width="800 px">
+</div>
+<!-- https://www.lucidchart.com/documents/edit/5375377c-4dfd-4a12-8770-c2b47c2ef0e3/Wr7mzxLPcUmO -->
+
+<p style="text-align:center"><i>Large-scale clustered Sensu Go architecture for multiple availability zones</i></p>
+<p style="text-align:center"><i><a href="https://sensu-docs.s3.amazonaws.com/images/labeled-large-scale-cross-AZ-sensu-deployment.png">Download full-size image</a></i></p>
+
+#### Scaled cluster performance with PostgreSQL
+
+To achieve the high rate of event processing that many enterprises require, Sensu supports PostgreSQL event storage as a [commmercial feature][9].
 See the [Datastore reference][8] for details on configuring the Sensu backend to use PostgreSQL for event storage.
 
 <div style="text-align:center">
-<img alt="Sensu clustered architecture with PostgreSQL" title="Clustered Sensu Go backend with embedded etcd and PostgreSQL event storage." src="/images/clustered_architecture_postgres.png" width="800 px">
+<img alt="Clustered Sensu Go architecture with PostgreSQL" title="Clustered Sensu Go backend with PostgreSQL event storage" src="/images/clustered_architecture_postgres.png" width="800 px">
 </div>
 <!-- Diagram source: https://www.lucidchart.com/documents/edit/475f950e-2770-4bf7-af73-57bc834cebdd/1 -->
 
-<p style="text-align:center"><i>Sensu clustered architecture with embedded etcd and PostgreSQL event storage</i></p>
+<p style="text-align:center"><i>Clustered Sensu Go architecture with PostgreSQL event storage</i></p>
 
 In load testing, Sensu Go has proven capable of processing 36,000 events per second when using PostgreSQL as the event store.
 See the [sensu-perf project repository][10] for a detailed explanation of our testing methodology and results.
 
-#### Create and maintain clusters
+## Architecture considerations
 
-Sensu's embedded etcd supports initial cluster creation via a static list of peer URLs.
-After you create a cluster, you can add and remove cluster members with etcdctl tooling.
-See [Run a Sensu cluster][7] and the [etcd documentation][4] for more information.
-
-#### Networking considerations
+### Networking
 
 Clustered deployments benefit from a fast and reliable network.
 Ideally, they should be co-located in the same network segment with as little latency as possible between all the nodes.
@@ -122,7 +157,7 @@ Although 1GbE is sufficient for common deployments, larger deployments will bene
 As the number of agents connected to a backend cluster grows, so will the amount of communication between members of the cluster required for data replication.
 With this in mind, clusters with a thousand or more agents should use a discrete network interface for peer communication.
 
-#### Load balancing
+### Load balancing
 
 Although you can configure each Sensu agent with the URLs for multiple backend instances, we recommend that you configure agents to connect to a load balancer.
 This approach gives operators more control over agent connection distribution and makes it possible to replace members of the backend cluster without updates to agent configuration.
