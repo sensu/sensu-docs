@@ -17,7 +17,7 @@ menu:
 - [Check token substitution](#check-token-substitution)
 - [Check hooks](#check-hooks)
 - [Check specification](#check-specification)
-	- [Top-level attributes](#top-level-attributes) | [Metadata attributes](#metadata-attributes) | [Spec attributes](#spec-attributes) | [Proxy requests attributes](#proxy-requests-attributes) | [Check output truncation attributes](#check-output-truncation-attributes)
+	- [Top-level attributes](#top-level-attributes) | [Metadata attributes](#metadata-attributes) | [Spec attributes](#spec-attributes) | [Proxy requests attributes](#proxy-requests-attributes) | [Check output truncation attributes](#check-output-truncation-attributes) | [`secrets` attributes](#secrets-attributes)
 - [Examples](#examples)
 
 Checks work with Sensu agents to produce monitoring events automatically.
@@ -725,7 +725,23 @@ example      | {{< highlight shell >}}"round_robin": true{{< /highlight >}}
 description  | Check subdues are not yet implemented in Sensu Go. Although the `subdue` attribute appears in check definitions by default, it is a placeholder and should not be modified.
 example      | {{< highlight shell >}}"subdue": null{{< /highlight >}}
 
-### Proxy requests attributes
+secrets        | 
+---------------|------
+description    | Array of the name/secret pairs to use with command execution.
+required       | false
+type           | Array
+example        | {{< highlight shell >}}"secrets": [
+  {
+    "name": "ANSIBLE_HOST",
+    "secret": "sensu-ansible-host"
+  },
+  {
+    "name": "ANSIBLE_TOKEN",
+    "secret": "sensu-ansible-token"
+  }
+]{{< /highlight >}}
+
+#### Proxy requests attributes
 
 |entity_attributes| |
 -------------|------
@@ -752,7 +768,7 @@ required     | Required if `splay` attribute is set to `true`
 type         | Integer
 example      | {{< highlight shell >}}"splay_coverage": 90{{< /highlight >}}
 
-### Check output truncation attributes
+#### Check output truncation attributes
 
 |max_output_size  | |
 -------------|-------
@@ -767,6 +783,22 @@ description  | If `true`, discard check output after extracting metrics. No chec
 required     | false
 type         | Boolean
 example      | {{< highlight shell >}}"discard_output": true{{< /highlight >}}
+
+#### `secrets` attributes
+
+name         | 
+-------------|------
+description  | Name of the [secret][56] defined in the executable command.
+required     | true
+type         | String
+example      | {{< highlight shell >}}"name": "ANSIBLE_HOST"{{< /highlight >}}
+
+secret       | 
+-------------|------
+description  | Name of the Sensu secret resource that defines how to retrieve the [secret][56].
+required     | true
+type         | String
+example      | {{< highlight shell >}}"secret": "sensu-ansible-host"{{< /highlight >}}
 
 ## Examples
 
@@ -896,6 +928,50 @@ spec:
 
 {{< /language-toggle >}}
 
+### Check with secret
+
+Learn more about secrets management for your Sensu configuration in the [secrets][56] and [secrets providers][57] references.
+
+{{< language-toggle >}}
+
+{{< highlight yml >}}
+---
+type: CheckConfig
+api_version: core/v2
+metadata:
+  name: ping-github-api
+  namespace: default
+spec:
+  check_hooks: null
+  command: ping-github-api.sh $GITHUB_TOKEN
+  secrets:
+  - name: GITHUB_TOKEN
+    secret: github-token-vault
+{{< /highlight >}}
+
+{{< highlight json >}}
+{
+  "type": "CheckConfig",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "ping-github-api",
+    "namespace": "default"
+  },
+  "spec": {
+    "check_hooks": null,
+    "command": "ping-github-api.sh $GITHUB_TOKEN",
+    "secrets": [
+      {
+        "name": "GITHUB_TOKEN",
+        "secret": "github-token-vault"
+      }
+    ]
+  }
+}
+{{< /highlight >}}
+
+{{< /language-toggle >}}
+
 [1]: #subscription-checks
 [2]: https://en.wikipedia.org/wiki/Publish%E2%80%93subscribe_pattern
 [3]: https://en.wikipedia.org/wiki/Standard_streams
@@ -948,3 +1024,5 @@ spec:
 [53]: https://regex101.com/r/zo9mQU/2
 [54]: ../../api/overview#response-filtering
 [55]: ../../sensuctl/reference#response-filters
+[56]: ../../reference/secrets/
+[57]: ../../reference/secrets-providers/

@@ -19,6 +19,7 @@ menu:
 - [Update resources](#update-resources)
 - [Export resources](#export-resources)
 - [Manage resources](#manage-resources)
+  - [Subcommands](#subcommands)
 - [Response filters](#response-filters) (commercial feature)
 - [Time formats](#time-formats)
 - [Shell auto-completion](#shell-auto-completion)
@@ -314,9 +315,9 @@ cat my-resources.yml | sensuctl create
 `event_filter` | `Handler` | `handler` | `Hook`
 `hook` | `HookConfig` | `hook_config` | `Mutator`
 `mutator` | `Namespace` | `namespace` | `Role`
-`role` | `RoleBinding` | `role_binding` | `Silenced`
-`silenced` | [`ldap`][26] | [`ad`][26] | [`TessenConfig`][27]
-[`PostgresConfig`][32] | | |
+`role` | `RoleBinding` | `role_binding` | [`Env`][41]
+`Silenced` | `silenced` | [`ldap`][26] | [`ad`][42]
+[`TessenConfig`][27] | [`PostgresConfig`][32] | |
 
 ### Create resources across namespaces
 
@@ -451,6 +452,8 @@ None | `authentication/v2.Provider`
 None | `licensing/v2.LicenseFile`
 None | `store/v1.PostgresConfig`
 None | `federation/v1.Replicator`
+None | `secrets/v1.Provider`
+None | `secrets/v1.Secret`
 `assets` | `core/v2.Asset`
 `checks` | `core/v2.CheckConfig`
 `clusterroles` | `core/v2.ClusterRole`
@@ -488,6 +491,7 @@ Sensuctl provides the following commands to manage Sensu resources.
 - [`sensuctl namespace`][1]
 - [`sensuctl role`][1]
 - [`sensuctl role-binding`][1]
+- [`sensuctl secrets`][41]
 - [`sensuctl silenced`][20]
 - [`sensuctl tessen`][27]
 - [`sensuctl user`][1]
@@ -1004,7 +1008,7 @@ Flags are optional and apply only to the `delete` command.
 [23]: #subcommands
 [24]: #sensuctl-edit-resource-types
 [25]: ../../api/overview/
-[26]: ../../installation/auth/
+[26]: ../../installation/auth/#ldap-authentication
 [27]: ../../reference/tessen/
 [28]: ../../api/overview#response-filtering
 [29]: ../../api/overview#field-selector
@@ -1019,3 +1023,5 @@ Flags are optional and apply only to the `delete` command.
 [38]: #environment-variables
 [39]: #wrapped-json-format
 [40]: ../../installation/install-sensu/#3-initialize
+[41]: ../../reference/secrets/
+[42]: ../../installation/auth/#ad-authentication
