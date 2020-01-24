@@ -204,7 +204,7 @@ The web UI provides a unified view of your monitoring events and user-friendly t
 After starting the Sensu backend, open the web UI by visiting http://localhost:3000.
 You may need to replace `localhost` with the hostname or IP address where the Sensu backend is running.
 
-To log in to the web UI, enter your Sensu user credentials (the user ID and password you provided with the (the user ID and password provided with the `SENSU_BACKEND_CLUSTER_ADMIN_USERNAME` and `SENSU_BACKEND_CLUSTER_ADMIN_PASSWORD` environment variables).
+To log in to the web UI, enter your Sensu user credentials (the username and password provided with the `SENSU_BACKEND_CLUSTER_ADMIN_USERNAME` and `SENSU_BACKEND_CLUSTER_ADMIN_PASSWORD` environment variables).
 Select the ☰ icon to explore the web UI.
 
 ### 5. Make a request to the health API
