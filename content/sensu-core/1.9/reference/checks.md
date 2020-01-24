@@ -715,6 +715,8 @@ example      | {{< highlight shell >}}"dependencies": [
 ]
 {{< /highlight >}}
 
+<a name="notification"></a>
+
 notification | 
 -------------|------
 description  | The notification message used for events created by the check, instead of the commonly used check output. This attribute is used by most notification event handlers that use the sensu-plugin library.

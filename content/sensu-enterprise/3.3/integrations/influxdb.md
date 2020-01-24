@@ -31,7 +31,7 @@ annotation columns  |
 `status`            | check status
 `client`            | client name
 `action`            | action of the event
-`description`       | output from the check
+`description`       | output from the check (can be overwritten by the [notification][6] specified in the check result)
 `occurrences`       | event occurrence count
 
 Annotation data can be used to overlay the status of Sensu checks on a graph of other metrics recorded in InfluxDB.
@@ -153,5 +153,6 @@ example      | {{< highlight shell >}}"ssl": true{{< /highlight >}}
 [1]:  /sensu-enterprise
 [2]:  https://influxdata.com?ref=sensu-enterprise
 [3]:  /sensu-core/1.2/reference/configuration#configuration-scopes
-[4]:  /sensu-core/latest/reference/checks#influxdb-attributes
-[5]:  /sensu-core/latest/reference/clients#influxdb-attributes
+[4]:  /sensu-core/1.9/reference/checks#influxdb-attributes
+[5]:  /sensu-core/1.9/reference/clients#influxdb-attributes
+[6]:  /sensu-core/1.9/reference/checks#notification
