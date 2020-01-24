@@ -175,8 +175,8 @@ services:
     - "sensu-backend-data:/var/lib/sensu/etcd"
     command: "sensu-backend start"
     environment:
-    - SENSU_BACKEND_CLUSTER_ADMIN_USERNAME
-    - SENSU_BACKEND_CLUSTER_ADMIN_PASSWORD
+    - SENSU_BACKEND_CLUSTER_ADMIN_USERNAME=YOUR_USERNAME
+    - SENSU_BACKEND_CLUSTER_ADMIN_PASSWORD=YOUR_PASSWORD
 volumes:
   sensu-backend-data:
     driver: local
