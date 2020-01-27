@@ -185,7 +185,7 @@ example      | {{< highlight shell >}}
 
 limit        | 
 -------------|------ 
-description  | Maximum number of secrets requests per second that can be transmitted to the backend with the agent secrets API.
+description  | Maximum number of secrets requests per second that can be transmitted to the backend with the secrets API.
 required     | false
 type         | Float
 example      | {{< highlight shell >}}"limit": 10.0{{< /highlight >}}
