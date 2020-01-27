@@ -19,6 +19,7 @@ menu:
 - [Update resources](#update-resources)
 - [Export resources](#export-resources)
 - [Manage resources](#manage-resources)
+  - [Subcommands](#subcommands)
 - [Response filters](#response-filters) (commercial feature)
 - [Time formats](#time-formats)
 - [Shell auto-completion](#shell-auto-completion)
@@ -52,8 +53,6 @@ When prompted, type the [Sensu backend URL][9] and your [Sensu access credential
 ? Preferred output format: tabular
 {{< /highlight >}}
 
-_**NOTE**: If you are using Docker, the default username is `admin` and the password is `P@ssw0rd!`._
-
 ### Sensu backend URL
 
 The Sensu backend URL is the HTTP or HTTPS URL where sensuctl can connect to the Sensu backend server.
@@ -68,7 +67,7 @@ When you install the Sensu backend, during the [initialization step][40], you cr
 Your ability to get, list, create, update, and delete resources with sensuctl depends on the permissions assigned to your Sensu user.
 For more information about configuring Sensu access control, see the [RBAC reference][1].
 
-_**NOTE**: If you are using Docker, the `sensu-backend init` command for initialization runs automatically with a default username (`admin`) and password (`P@ssw0rd!`) for Docker. You do not need to create a username and password for the `default` namespace if you are using Docker._
+_**NOTE**: The `sensu-backend init` command for initialization runs automatically with a default username (`admin`) and password (`P@ssw0rd!`). You can specify a username and password with the `SENSU_BACKEND_CLUSTER_ADMIN_USERNAME` and `SENSU_BACKEND_CLUSTER_ADMIN_PASSWORD` environment variables during [initialization][40] to override the defaults._ 
 
 ### Preferred output format
 
@@ -88,8 +87,6 @@ Run `sensuctl configure` non-interactively by adding the `-n` (`--non-interactiv
 {{< highlight shell >}}
 sensuctl configure -n --url http://127.0.0.1:8080 --username YOUR_USERNAME --password YOUR_PASSWORD --format tabular
 {{< /highlight >}}
-
-_**NOTE**: If you are using Docker, the default username is `admin` and the password is `P@ssw0rd!`._
 
 ## Get help
 
@@ -309,14 +306,14 @@ cat my-resources.yml | sensuctl create
 --------------------|---|---|---|
 `AdhocRequest` | `adhoc_request` | `Asset` | `asset`
 `CheckConfig` | `check_config` | `ClusterRole`  | `cluster_role`
-`ClusterRoleBinding`  | `cluster_role_binding` | `Entity` | `entity`
-[`EtcdReplicators`][35] | `Event` | `event` | `EventFilter`
-`event_filter` | `Handler` | `handler` | `Hook`
-`hook` | `HookConfig` | `hook_config` | `Mutator`
-`mutator` | `Namespace` | `namespace` | `Role`
-`role` | `RoleBinding` | `role_binding` | `Silenced`
-`silenced` | [`ldap`][26] | [`ad`][26] | [`TessenConfig`][27]
-[`PostgresConfig`][32] | | |
+`ClusterRoleBinding`  | `cluster_role_binding` | `Entity` | [`Env`][41]
+`entity` | [`EtcdReplicators`][35] | `Event` | `event`
+`EventFilter` | `event_filter` | `Handler` | `handler`
+`Hook` | `hook` | `HookConfig` | `hook_config`
+`Mutator` | `mutator` | `Namespace` | `namespace`
+`Role` | `role` | `RoleBinding` | `role_binding`
+[`Secret`][41] | `Silenced` | `silenced` | [`ldap`][26]
+[`ad`][42] | [`TessenConfig`][27] | [`PostgresConfig`][32] |
 
 ### Create resources across namespaces
 
@@ -451,6 +448,8 @@ None | `authentication/v2.Provider`
 None | `licensing/v2.LicenseFile`
 None | `store/v1.PostgresConfig`
 None | `federation/v1.Replicator`
+None | `secrets/v1.Provider`
+None | `secrets/v1.Secret`
 `assets` | `core/v2.Asset`
 `checks` | `core/v2.CheckConfig`
 `clusterroles` | `core/v2.ClusterRole`
@@ -488,6 +487,7 @@ Sensuctl provides the following commands to manage Sensu resources.
 - [`sensuctl namespace`][1]
 - [`sensuctl role`][1]
 - [`sensuctl role-binding`][1]
+- [`sensuctl secrets`][41]
 - [`sensuctl silenced`][20]
 - [`sensuctl tessen`][27]
 - [`sensuctl user`][1]
@@ -1011,7 +1011,7 @@ Flags are optional and apply only to the `delete` command.
 [23]: #subcommands
 [24]: #sensuctl-edit-resource-types
 [25]: ../../api/overview/
-[26]: ../../installation/auth/
+[26]: ../../installation/auth/#ldap-authentication
 [27]: ../../reference/tessen/
 [28]: ../../api/overview#response-filtering
 [29]: ../../api/overview#field-selector
@@ -1026,3 +1026,5 @@ Flags are optional and apply only to the `delete` command.
 [38]: #environment-variables
 [39]: #wrapped-json-format
 [40]: ../../installation/install-sensu/#3-initialize
+[41]: ../../reference/secrets/
+[42]: ../../installation/auth/#ad-authentication

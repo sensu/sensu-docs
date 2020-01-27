@@ -20,8 +20,6 @@ sensuctl configure
 ? Password: YOUR_PASSWORD
 {{< /highlight >}}
 
-_**NOTE**: If you are using Docker, the default username is `admin` and the password is `P@ssw0rd!`._
-
 ### Create resources from a file that contains JSON resource definitions
 
 {{< highlight shell >}}
