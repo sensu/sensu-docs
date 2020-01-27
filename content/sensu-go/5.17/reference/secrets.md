@@ -212,3 +212,5 @@ The `database` secret contains a value called `password`, which is the password 
 [7]: ../secret-providers/
 [8]: #spec-attributes
 [9]: ../../reference/rbac/#namespaces
+[10]: https://learn.hashicorp.com/vault/getting-started/dev-server
+[11]: ../../guides/secrets-management-vault/
