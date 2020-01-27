@@ -12,14 +12,15 @@ menu:
 ---
 
 - [Use Env for secrets management](#use-env-for-secrets-management)
-  - [Set up your Env secrets provider](#set-up-your-env-secrets-provider)
+  - [Create your backend environment variable](#create-your-backend-environment-variable)
   - [Create your secret](#create-your-secret)
 - [Use HashiCorp Vault for secrets management](#use-hashicorp-vault-for-secrets-management)
   - [Retrieve your Vault root token](#retrieve-your-vault-root-token)
   - [Create your Vault secrets provider](#create-your-vault-secrets-provider)
   - [Create your secret](#create-your-secret)
 - [Add a handler](#add-a-handler)
-- [**NEXT STEP NEEDED**](#next-step-needed)
+  - [Register the PagerDuty handler asset](#register-the-pagerduty-handler-asset)
+  - [Add your secret to the handler spec](#add-your-secret-to-the-handler-spec)
 - [Next steps](#next-steps)
 
 **COMMERCIAL FEATURE**: Access the Env and VaultProvider secrets provider datatypes in the packaged Sensu Go distribution.
@@ -45,37 +46,40 @@ The `secrets` scope of the request payload and the environment variables are aut
 
 The [Sensu Go commercial distribution][1] includes a built-in secrets provider, `Env`, that exposes secrets from [environment variables][4] on your Sensu backend nodes.
 
-### Set up your Env secrets provider
+### Create your backend environment variable
 
-To use the `Env` secrets provider, first retrieve your PagerDuty service routing key.
-This is the secret you will set up in the `Env` secrets provider.
+The `Env` secrets provider is automatically created with an empty `spec` when you start your Sensu backend.
+You will add your secret as a [backend environment variable][21].
 
-Then, use `sensuctl create` to create your secrets provider, `env`.
-In the code below, replace `SERVICE_ROUTING_KEY` with your PagerDuty service routing key.
+First, make sure you have created the files where you will store [backend environment variables][21]. 
+
+Then, retrieve your PagerDuty service routing key.
+This is the secret you will set up as an environment variable.
+
+Run the following code, replacing `SERVICE_ROUTING_KEY` with your PagerDuty service routing key:
 
 **Is the service routing key the same as the API Integration key mentioned in PagerDuty docs at https://support.pagerduty.com/docs/generating-api-keys#section-events-api-keys ?**
 
-Run:
+{{< language-toggle >}}
 
-{{< highlight shell >}}
-cat << EOF | sensuctl create
----
-type: Env
-api_version: secrets/v1
-metadata:
-  name: env
-spec:
-  env_vars:
-  - PAGERDUTY_KEY=SERVICE_ROUTING_KEY
-EOF
+{{< highlight "Ubuntu/Debian" >}}
+$ echo 'SENSU_PAGERDUTY_KEY=SERVICE_ROUTING_KEY' | sudo tee /etc/default/sensu-backend
+$ sudo systemctl restart sensu-backend
 {{< /highlight >}}
 
-This writes your secret into the environment variable with the ID `PAGERDUTY_KEY`.
+{{< highlight "RHEL/CentOS" >}}
+$ echo 'SENSU_PAGERDUTY_KEY=SERVICE_ROUTING_KEY' | sudo tee /etc/sysconfig/sensu-backend
+$ sudo systemctl restart sensu-backend
+{{< /highlight >}}
+
+{{< /language-toggle >}}
+
+This configures the `sensu-pagerduty-key` flag as an environment variable set to your PagerDuty service routing key.
 
 ### Create your secret
 
 Next, use sensuctl create to create your secret.
-This code creates a secret named `pagerduty_key` that refers to the environment variable ID `PAGERDUTY_KEY`.
+This code creates a secret named `pagerduty_key` that refers to the environment variable ID `sensu-pagerduty-key`.
 Run:
 
 {{< highlight shell >}}
@@ -87,7 +91,7 @@ metadata:
   name: pagerduty_key
   namespace: default
 spec:
-  id: PAGERDUTY_KEY
+  id: sensu-pagerduty-key
   provider: env
 EOF
 {{< /highlight >}}
@@ -149,8 +153,8 @@ _**NOTE**: Because you aren't using TLS, you will need to add `export VAULT_ADDR
 
 1. Retrieve your PagerDuty service routing key.
 This is the secret you will set up in Vault.
-2. Open a new terminal and run `vault kv put secret/pagerduty key=[SERVICE_ROUTING_KEY]`.
-Replace `[SERVICE_ROUTING_KEY]` with your PagerDuty service routing key.
+2. Open a new terminal and run `vault kv put secret/pagerduty key=SERVICE_ROUTING_KEY`.
+Replace `SERVICE_ROUTING_KEY` with your PagerDuty service routing key.
 
 This writes your secret into Vault.
 In this example, the name of the secret is `pagerduty`.
@@ -186,8 +190,24 @@ In this guide, you'll use your `pagerduty_key` secret in a handler.
 
 ## Add a handler
 
-This handler will **ADD**.
-It will require your backend to request secrets from your secrets provider.
+### Register the PagerDuty Handler asset
+
+To begin, register the [Sensu PagerDuty Handler asset][23] with [`sensuctl asset add`][22]:
+
+{{< highlight shell >}}
+sensuctl asset add sensu/sensu-pagerduty-handler:1.2.0 -r pagerduty-handler
+{{< /highlight >}}
+
+This example uses the `-r` (rename) flag to specify a shorter name for the asset: `pagerduty-handler`.
+
+Run `sensuctl asset list --format yaml` to confirm that the asset is ready to use.
+
+**I'm not sure whether any of the content from https://docs.sensu.io/sensu-go/latest/guides/install-check-executables-with-assets/#2-adjust-the-asset-definition needs to be included here.**
+
+With this handler, Sensu can trigger and resolve PagerDuty incidents.
+However, you still need to add your secret to the handler spec so it will require your backend to request secrets from your secrets provider.
+
+### Add your secret to the handler spec
 
 To create a handler definition using Sensu's built-in `Env` secret provider, run:
 
@@ -201,18 +221,19 @@ metadata:
   name: pagerduty
 spec:
   type: pipe
-  command: [NEED COMMAND HERE]
+  command: pagerduty-handler
   secrets:
-    - name: pagerduty_key
-      secret: env
+  - name: pagerduty_key
+    secret: env
+  runtime_assets:
+  - pagerduty-handler
   timeout: 10
   filters:
   - is_incident
-  - not_silenced
 EOF
 {{< /highlight >}}
 
-To create a handler definition using your HashiCorpVault secret, run:
+To create a handler definition using your HashiCorp Vault secret, run:
 
 {{< highlight shell >}}
 cat << EOF | sensuctl create
@@ -224,22 +245,18 @@ metadata:
   name: pagerduty
 spec:
   type: pipe
-  command: [NEED COMMAND HERE]
+  command: pagerduty-handler
   secrets:
-    - name: secret/pagerduty#key
-      secret: vault
+  - name: secret/pagerduty#key
+    secret: vault
   timeout: 10
   filters:
   - is_incident
-  - not_silenced
 EOF
 {{< /highlight >}}
 
-Now your handler is set up!
-
-## [NEXT STEP NEEDED]
-
-**ADD: What is the next step?** We need to trigger an event (like https://docs.sensu.io/sensu-go/latest/guides/email-handler/#create-and-trigger-an-ad-hoc-event) to demonstrate that this setup works.
+Now that your handler is set up and Sensu can create incidents in PagerDuty, you can automate this workflow by adding your `pagerduty` handler to your Sensu service check definitions.
+See [Monitor server resources][24] to learn more.
 
 ## Next steps
 
@@ -266,3 +283,7 @@ Read the [secrets][9] or [secrets providers][10] reference for in-depth secrets 
 [18]: https://learn.hashicorp.com/vault/getting-started/dev-server
 [19]: #add-a-handler
 [20]: ../../getting-started/enterprise/
+[21]: ../../reference/backend/#configuration-via-environment-variables
+[22]: ../../sensuctl/reference/#install-asset-definitions
+[23]: https://bonsai.sensu.io/assets/sensu/sensu-pagerduty-handler
+[24]: ../monitor-server-resources/
