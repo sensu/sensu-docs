@@ -166,7 +166,7 @@ spec:
 
 {{< /language-toggle >}}
 
-Secrets that target a HashiCorp Vault always have an `id` as shown in the following example:
+Secrets that target a HashiCorp Vault are configured as shown in the following example:
 
 {{< language-toggle >}}
 
