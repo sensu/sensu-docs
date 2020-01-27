@@ -166,7 +166,7 @@ spec:
 
 {{< /language-toggle >}}
 
-Secrets that target a HashiCorp Vault are configured as shown in the following example:
+Configure secrets that target a HashiCorp Vault as shown in the following example:
 
 {{< language-toggle >}}
 
