@@ -76,7 +76,7 @@ $ sudo systemctl restart sensu-backend
 
 {{< /language-toggle >}}
 
-This configures the `sensu-pagerduty-key` flag as an environment variable set to your PagerDuty Events API Integration Key.
+This configures the `SENSU_PAGERDUTY_KEY` environment variable to your PagerDuty Events API Integration Key in the context of the sensu-backend process.
 
 ### Create your secret
 
