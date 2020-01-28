@@ -223,7 +223,7 @@ spec:
   type: pipe
   command: pagerduty-handler --dedup-key $DEDUP_KEY
   secrets:
-  - name: pagerduty_key
+  - name: DEDUP_KEY
     secret: env
   runtime_assets:
   - pagerduty-handler
