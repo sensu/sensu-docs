@@ -41,7 +41,6 @@ You can use secrets management in handler, mutator, and check execution.
 This guide only covers the handler use case.
 For secrets management in checks, the Sensu backend will transmit requests over its secure transport (TLS-encrypted websockets) to your Sensu agent to execute your check, so mTLS must be enabled.
 
-**Is this true for Vault? Even though we're using the no-TLS development server?**
 
 The secret included in your Sensu handler will be exposed to Sensu services at runtime as an environment variable.
 Sensu only exposes secrets to Sensu services like environment variables and automatically redacts secrets from all logs, the API, and the dashboard.
