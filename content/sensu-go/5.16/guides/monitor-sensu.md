@@ -13,7 +13,6 @@ menu:
 
 - [Monitor your Sensu backend instances](#monitor-your-sensu-backend-instances)
 - [Monitor your Sensu agent instances](#monitor-your-sensu-agent-instances)
-- [Monitor your Sensu API instances](#monitor-your-sensu-api-instances)
 - [Monitor your Sensu dashboard instances](#monitor-your-sensu-dashboard-instances)
 - [External etcd PLACEHOLDER](#external-etcd-placeholder)
 - [PostgreSQL PLACEHOLDER](#postgresql-placeholder)
@@ -66,12 +65,13 @@ To do this, call Sensu's [health API endpoint][6] and use the [check-http plugin
     "name": "check_backend_health"
   },
   "spec": {
-    "command": "check-http.rb -h remote-api-hostname -P 8080 -p /health --response-code 204",
+    "command": "check-http.rb -h remote-api-hostname -P 8080 -p /health --response-code 200 -w",
     "subscriptions": [
       "monitor_remote_sensu_api"
     ],
     "interval": 60,
-    "publish": true
+    "publish": true,
+    "timeout": 10
   }
 }
 {{< /highlight >}}
@@ -82,29 +82,6 @@ You can use API port checks to monitor your Sensu agent.
 Service checks are not effective for monitoring the Sensu agent because if the agent is down, a service check for it won't run.
 
 The [keepalive][11] is a built-in monitor for whether the Sensu agent service is running and functional, although network issues can cause a non-OK keepalive event even if the agent is functional.
-
-## Monitor your Sensu API instances
-
-To monitor your Sensu API instances from an independent Sensu instance, call the port that the API is listening on using the [check-port plugin][8] with the following check definition:
-
-{{< highlight json >}}
-{
-  "type": "CheckConfig",
-  "api_version": "core/v2",
-  "metadata": {
-    "namespace": "default",
-    "name": "check_sensu_api_port"
-  },
-  "spec": {
-    "command": "check-ports.rb -H remote-sensu-server-hostname -p 8080",
-    "subscriptions": [
-      "monitor_remote_sensu_api"
-    ],
-    "interval": 60,
-    "publish": true
-  }
-}
-{{< /highlight >}}
 
 ## Monitor your Sensu dashboard instances
 
