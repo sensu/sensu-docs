@@ -53,9 +53,7 @@ Read the [upgrade guide][1] for information about upgrading to the latest versio
 
 ## 5.17.0 release notes
 
-**January 28, 2020** &mdash; The latest release of Sensu Go, version 5.17.0, is now available for download.
-
-**PLACEHOLDER FOR RELEASE SUMMARY.**
+**January 28, 2020** &mdash; The latest release of Sensu Go, version 5.17.0, is now available for download. This is a significant release, with new features, improvements, and fixes! We’re ecstatic to announce the release of secrets management, which eliminates the need to expose sensitive information in your Sensu configuration. When a Sensu component (e.g. check, handler, etc.) requires a secret (like a username or password), Sensu will be able to fetch that information from one or more external secrets providers (e.g. Hashicorp Vault) and provide it to the Sensu component via temporary environment variables. By leveraging secrets management, you’re able to move secrets out of your Sensu configuration, giving you the ability to safely, easily, and confidently share your Sensu configurations with your fellow Sensu users! This release also includes per entity keepalive event handler configuration, a sought after feature for users who have migrated from Sensu 1.x to Sensu Go.
 
 See the [upgrade guide][1] to upgrade Sensu to version 5.17.0.
 
