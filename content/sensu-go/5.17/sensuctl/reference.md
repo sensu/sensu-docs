@@ -53,8 +53,6 @@ When prompted, type the [Sensu backend URL][9] and your [Sensu access credential
 ? Preferred output format: tabular
 {{< /highlight >}}
 
-_**NOTE**: If you are using Docker, the default username is `admin` and the password is `P@ssw0rd!`._
-
 ### Sensu backend URL
 
 The Sensu backend URL is the HTTP or HTTPS URL where sensuctl can connect to the Sensu backend server.
@@ -69,7 +67,7 @@ When you install the Sensu backend, during the [initialization step][40], you cr
 Your ability to get, list, create, update, and delete resources with sensuctl depends on the permissions assigned to your Sensu user.
 For more information about configuring Sensu access control, see the [RBAC reference][1].
 
-_**NOTE**: If you are using Docker, the `sensu-backend init` command for initialization runs automatically with a default username (`admin`) and password (`P@ssw0rd!`) for Docker. You do not need to create a username and password for the `default` namespace if you are using Docker._
+_**NOTE**: The `sensu-backend init` command for initialization runs automatically with a default username (`admin`) and password (`P@ssw0rd!`). You can specify a username and password with the `SENSU_BACKEND_CLUSTER_ADMIN_USERNAME` and `SENSU_BACKEND_CLUSTER_ADMIN_PASSWORD` environment variables during [initialization][40] to override the defaults._ 
 
 ### Preferred output format
 
@@ -89,8 +87,6 @@ Run `sensuctl configure` non-interactively by adding the `-n` (`--non-interactiv
 {{< highlight shell >}}
 sensuctl configure -n --url http://127.0.0.1:8080 --username YOUR_USERNAME --password YOUR_PASSWORD --format tabular
 {{< /highlight >}}
-
-_**NOTE**: If you are using Docker, the default username is `admin` and the password is `P@ssw0rd!`._
 
 ## Get help
 
@@ -310,14 +306,14 @@ cat my-resources.yml | sensuctl create
 --------------------|---|---|---|
 `AdhocRequest` | `adhoc_request` | `Asset` | `asset`
 `CheckConfig` | `check_config` | `ClusterRole`  | `cluster_role`
-`ClusterRoleBinding`  | `cluster_role_binding` | `Entity` | `entity`
-[`EtcdReplicators`][35] | `Event` | `event` | `EventFilter`
-`event_filter` | `Handler` | `handler` | `Hook`
-`hook` | `HookConfig` | `hook_config` | `Mutator`
-`mutator` | `Namespace` | `namespace` | `Role`
-`role` | `RoleBinding` | `role_binding` | [`Env`][41]
-`Silenced` | `silenced` | [`ldap`][26] | [`ad`][42]
-[`TessenConfig`][27] | [`PostgresConfig`][32] | |
+`ClusterRoleBinding`  | `cluster_role_binding` | `Entity` | [`Env`][41]
+`entity` | [`EtcdReplicators`][35] | `Event` | `event`
+`EventFilter` | `event_filter` | `Handler` | `handler`
+`Hook` | `hook` | `HookConfig` | `hook_config`
+`Mutator` | `mutator` | `Namespace` | `namespace`
+`Role` | `role` | `RoleBinding` | `role_binding`
+[`Secret`][41] | `Silenced` | `silenced` | [`ldap`][26]
+[`ad`][42] | [`TessenConfig`][27] | [`PostgresConfig`][32] |
 
 ### Create resources across namespaces
 

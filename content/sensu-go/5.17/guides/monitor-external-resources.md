@@ -28,17 +28,23 @@ In this section, you'll monitor the status of [sensu.io](https://sensu.io) by co
 
 To power the check, use the [Sensu Plugins HTTP][16] asset and the [Sensu Ruby Runtime][17] asset.
 
-Use this sensuctl example to register the `sensu-plugins-http` asset for CentOS or download the asset definition for Debian or Alpine from [Bonsai][16] and register the asset with `sensuctl create --file filename.yml`.
+Use [`sensuctl asset add`][21] to register the `sensu-plugins-http` asset:
 
 {{< highlight shell >}}
-sensuctl asset create sensu-plugins-http --url "https://assets.bonsai.sensu.io/30d8361243af8c7806e2d6db4a6dc576dab02966/sensu-plugins-http_5.1.1_centos_linux_amd64.tar.gz" --sha512 "31023af6e0073729eecb0f5ab834ddc467eeaa1d9b998cbf528f3302104814ec717fc746af470556c496806fa8db66e6ded75aef97d73abdfa29615a81270ee6"
+sensuctl asset add sensu-plugins/sensu-plugins-http:5.1.1 -r sensu-plugins-http
 {{< /highlight >}}
 
-Then, use the following sensuctl example to register the `sensu-ruby-runtime` asset for CentOS or download the asset definition for Debian or Alpine from [Bonsai][17] and register the asset using `sensuctl create --file filename.yml`. 
+This example uses the `-r` (rename) flag to specify a shorter name for the asset: `sensu-plugins-http`.
+
+You can also download the asset definition for Debian or Alpine from [Bonsai][16] and register the asset with `sensuctl create --file filename.yml`.
+
+Then, use the following sensuctl example to register the `sensu-ruby-runtime` asset:
 
 {{< highlight shell >}}
-sensuctl asset create sensu-ruby-runtime --url "https://assets.bonsai.sensu.io/03d08cdfc649500b7e8cd1708bb9bb93d91fea9e/sensu-ruby-runtime_0.0.8_ruby-2.4.4_centos_linux_amd64.tar.gz" --sha512 "7b254d305af512cc524a20a117c601bcfae0d51d6221bbfc60d8ade180cc1908081258a6eecfc9b196b932e774083537efe748c1534c83d294873dd3511e97a3"
+sensuctl asset add sensu/sensu-ruby-runtime:0.0.10 -r sensu-ruby-runtime
 {{< /highlight >}}
+
+You can also download the asset definition from [Bonsai][17] and register the asset using `sensuctl create --file filename.yml`. 
 
 Use sensuctl to confirm that both the `sensu-plugins-http` and `sensu-ruby-runtime` assets are ready to use:
 
@@ -357,3 +363,4 @@ Now that you know how to run a proxy check to verify the status of a website and
 [18]: ../../reference/checks#round-robin-checks
 [19]: ../../installation/install-sensu/
 [20]: ../../reference/agent#restart-the-service
+[21]: ../../sensuctl/reference/#install-asset-definitions
