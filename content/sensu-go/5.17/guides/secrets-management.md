@@ -1,7 +1,7 @@
 ---
 title: "Use secrets management in Sensu"
 linkTitle: "Use Secrets Management"
-description: "Sensu's secrets management allows you to avoid exposing secrets in your Sensu configuration. In this guide, you'll learn how to use Env or HashiCorp Vault as your external secrets management provider and refer to external secrets in your Sensu configuration."
+description: "Sensu's secrets management allows you to avoid exposing secrets like usernames and passwords in your Sensu configuration. In this guide, you'll learn how to use Sensu's built-in secrets provider or HashiCorp Vault and refer to external secrets in your Sensu configuration."
 weight: 175
 version: "5.17"
 product: "Sensu Go"
@@ -26,30 +26,31 @@ menu:
 **COMMERCIAL FEATURE**: Access the Env and VaultProvider secrets provider datatypes in the packaged Sensu Go distribution.
 For more information, see [Get started with commercial features][20].
 
-Sensu's secrets management allows you to avoid exposing secrets in your Sensu configuration.
-In this guide, you'll learn how to use Sensu's built-in secrets provider, `Env`, and [HashiCorp Vault][1] as your external [secrets provider][2] and authenticate without exposing secrets like usernames, passwords, and access keys.
+Sensu's secrets management allows you to avoid exposing secrets like usernames, passwords, and access keys in your Sensu configuration.
+In this guide, you'll learn how to use Sensu's built-in secrets provider, `Env`, or [HashiCorp Vault][1] as your external [secrets provider][2] and authenticate without exposing your secrets
 
 To follow this guide, you’ll need to [install the Sensu backend][5], have at least one [Sensu agent][11] running, and [install and configure sensuctl][7].
 
-Secrets are configured via [`secrets` resources][8].
+Secrets are configured via [secrets resources][8].
 A secret resource definition refers to the secrets provider (`Env` or `VaultProvider`) and an ID (the named secret to fetch from the secrets provider).
 
-Your backend will execute a PagerDuty handler that requires your secret.
-The Sensu backend will transmit a request over its secure transport (TLS-encrypted websockets) to your Sensu agent to execute your handler.
+This guide explains how to set up your PagerDuty service routing key as a secret and a PagerDuty handler that requires the secret.
+Your Sensu backend can then execute the handler with any check.
+The Sensu backend will transmit requests over its secure transport (TLS-encrypted websockets) to your Sensu agent to execute your handler.
 
 **Is this true for Vault? Even though we're using the no-TLS development server?**
 
-Your Sensu handler will include secrets that are exposed to Sensu services at runtime as environment variables.
-The `secrets` scope of the request payload and the environment variables are automatically redacted from all Sensu service logs and dashboards to prevent secret leakage.
+The secret included in your Sensu handler will be exposed to Sensu services at runtime as an environment variable.
+Sensu automatically redacts the `secrets` scope of the request payload and the environment variable from all Sensu service logs and dashboards to prevent secret leakage.
 
 ## Use Env for secrets management
 
 The [Sensu Go commercial distribution][1] includes a built-in secrets provider, `Env`, that exposes secrets from [environment variables][4] on your Sensu backend nodes.
+The `Env` secrets provider is automatically created with an empty `spec` when you start your Sensu backend.
 
 ### Create your backend environment variable
 
-The `Env` secrets provider is automatically created with an empty `spec` when you start your Sensu backend.
-You will add your secret as a [backend environment variable][21].
+To use the built-in `Env` secrets provider, you will add your secret as a [backend environment variable][21].
 
 First, make sure you have created the files where you will store [backend environment variables][21]. 
 
@@ -101,18 +102,18 @@ In this guide, you'll use your `pagerduty_key` secret in a [handler][19].
 
 ## Use HashiCorp Vault for secrets management
 
-This section explains how to use [HashiCorp Vault][1] as your external [secrets provider][2] and authenticate via the HashiCorp Vault integration's [token auth method][3] or [TLS certificate auth method][4].
+This section explains how to use [HashiCorp Vault][1] as your external [secrets provider][2] to authenticate via the HashiCorp Vault integration's [token auth method][3] or [TLS certificate auth method][4].
 
 ### Retrieve your Vault root token
 
 You will need to set up [HashiCorp Vault][15] to use `VaultProvider` secrets management in production.
 The examples in this guide use the [Vault dev server][18], which is useful for learning and experimenting.
-Using the Vault dev server gives you access to a preconfigured, running Vault server with in-memory storage that you can use right away.
-Follow the [HashiCorp Learn curriculum][16] when you are ready to set up a production-ready server in Vault.
+The Vault dev server gives you access to a preconfigured, running Vault server with in-memory storage that you can use right away.
+Follow the [HashiCorp Learn curriculum][16] when you are ready to set up a production server in Vault.
 
 To retrieve your root token:
 
-1. Download and install the Vault edition for your OS https://www.vaultproject.io/downloads/
+1. [Download and install][25] the Vault edition for your operating system.
 2. Run `vault server -dev`.
 3. Find the `Root Token` value for your Vault dev server in the command output and copy it.
 
@@ -151,14 +152,16 @@ EOF
 
 _**NOTE**: Because you aren't using TLS, you will need to add `export VAULT_ADDR=http://127.0.0.1:8200` in your bash profile._
 
-1. Retrieve your PagerDuty service routing key.
+First, retrieve your PagerDuty service routing key.
 This is the secret you will set up in Vault.
-2. Open a new terminal and run `vault kv put secret/pagerduty key=SERVICE_ROUTING_KEY`.
+
+Once you have your PagerDuty service routing key, open a new terminal and run `vault kv put secret/pagerduty key=SERVICE_ROUTING_KEY`.
 Replace `SERVICE_ROUTING_KEY` with your PagerDuty service routing key.
 
 This writes your secret into Vault.
 In this example, the name of the secret is `pagerduty`.
 The `pagerduty` secret contains a key, and you specified that the `key` value is your PagerDuty service routing key.
+The `id` value for your secret will be `secret/pagerduty#key`.
 
 **Is the service routing key the same as the API Integration key mentioned in PagerDuty docs at https://support.pagerduty.com/docs/generating-api-keys#section-events-api-keys ?**
 
@@ -167,9 +170,7 @@ The Vault dev server is preconfigured with the `secret` keyspace already set up,
 
 Run `vault kv get secret/pagerduty` to see the secret you just set up.
 
-**STOPPED HERE FRIDAY**
-
-Use sensuctl create to create your secret:
+Use `sensuctl create` to create your `vault` secret:
 
 {{< highlight shell >}}
 cat << EOF | sensuctl create
@@ -205,7 +206,7 @@ Run `sensuctl asset list --format yaml` to confirm that the asset is ready to us
 **I'm not sure whether any of the content from https://docs.sensu.io/sensu-go/latest/guides/install-check-executables-with-assets/#2-adjust-the-asset-definition needs to be included here.**
 
 With this handler, Sensu can trigger and resolve PagerDuty incidents.
-However, you still need to add your secret to the handler spec so it will require your backend to request secrets from your secrets provider.
+However, you still need to add your secret to the handler spec so that it requires your backend to request secrets from your secrets provider.
 
 ### Add your secret to the handler spec
 
@@ -287,3 +288,4 @@ Read the [secrets][9] or [secrets providers][10] reference for in-depth secrets 
 [22]: ../../sensuctl/reference/#install-asset-definitions
 [23]: https://bonsai.sensu.io/assets/sensu/sensu-pagerduty-handler
 [24]: ../monitor-server-resources/
+[25]: https://www.vaultproject.io/downloads/
