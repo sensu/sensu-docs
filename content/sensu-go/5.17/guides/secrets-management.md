@@ -224,7 +224,7 @@ spec:
   command: pagerduty-handler --dedup-key $DEDUP_KEY
   secrets:
   - name: DEDUP_KEY
-    secret: env
+    secret: pagerduty_key
   runtime_assets:
   - pagerduty-handler
   timeout: 10
