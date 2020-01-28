@@ -234,7 +234,7 @@ metadata:
   name: pagerduty
 spec:
   type: pipe
-  command: pagerduty-handler --dedup-key $DEDUP_KEY
+  command: pagerduty-handler --token $DEDUP_KEY
   secrets:
   - name: DEDUP_KEY
     secret: pagerduty_key
