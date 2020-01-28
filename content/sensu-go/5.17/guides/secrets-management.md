@@ -81,7 +81,7 @@ This configures the `SENSU_PAGERDUTY_KEY` environment variable to your PagerDuty
 ### Create your secret
 
 Next, use sensuctl create to create your secret.
-This code creates a secret named `pagerduty_key` that refers to the environment variable ID `sensu-pagerduty-key`.
+This code creates a secret named `pagerduty_key` that refers to the environment variable ID `SENSU_PAGERDUTY_KEY`.
 Run:
 
 {{< highlight shell >}}
