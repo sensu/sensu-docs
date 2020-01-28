@@ -151,7 +151,7 @@ EOF
 
 ### Create your secret
 
-_**NOTE**: Because you aren't using TLS, you will need to add `export VAULT_ADDR=http://127.0.0.1:8200` in your bash profile._
+_**NOTE**: Because you aren't using TLS, you will need to set `VAULT_ADDR=http://127.0.0.1:8200` in your shell environment._
 
 First, retrieve your [PagerDuty Events API Integration Key][27].
 This is the secret you will set up in Vault.
