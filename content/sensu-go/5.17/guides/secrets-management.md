@@ -90,7 +90,7 @@ metadata:
   name: pagerduty_key
   namespace: default
 spec:
-  id: sensu-pagerduty-key
+  id: SENSU_PAGERDUTY_KEY
   provider: env
 EOF
 {{< /highlight >}}
