@@ -130,7 +130,7 @@ example      | {{< highlight shell >}}"timeout": "20s"{{< /highlight >}}
 
 rate_limiter | 
 -------------|------ 
-description  | Maximum rate and burst limits for the secrets API.
+description  | Maximum [rate and burst limits][17] for the secrets API.
 required     | false
 type         | Map of key-value pairs
 example      | {{< highlight shell >}}
@@ -180,6 +180,8 @@ example      | {{< highlight shell >}}
   "cname": "vault_client.example.com"
 }
 {{< /highlight >}}
+
+<a name="rate-limiter-attributes"></a>
 
 #### Rate limiter attributes
 
@@ -302,3 +304,4 @@ spec: {}
 [14]: https://www.vaultproject.io/api-docs/
 [15]: https://www.vaultproject.io/api/auth/cert/index.html#parameters-7
 [16]: ../../guides/secrets-management/
+[17]: #rate-limiter-attributes
