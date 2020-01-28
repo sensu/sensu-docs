@@ -306,14 +306,14 @@ cat my-resources.yml | sensuctl create
 --------------------|---|---|---|
 `AdhocRequest` | `adhoc_request` | `Asset` | `asset`
 `CheckConfig` | `check_config` | `ClusterRole`  | `cluster_role`
-`ClusterRoleBinding`  | `cluster_role_binding` | `Entity` | `entity`
-[`EtcdReplicators`][35] | `Event` | `event` | `EventFilter`
-`event_filter` | `Handler` | `handler` | `Hook`
-`hook` | `HookConfig` | `hook_config` | `Mutator`
-`mutator` | `Namespace` | `namespace` | `Role`
-`role` | `RoleBinding` | `role_binding` | [`Env`][41]
-`Silenced` | `silenced` | [`ldap`][26] | [`ad`][42]
-[`TessenConfig`][27] | [`PostgresConfig`][32] | |
+`ClusterRoleBinding`  | `cluster_role_binding` | `Entity` | [`Env`][43]
+`entity` | [`EtcdReplicators`][35] | `Event` | `event`
+`EventFilter` | `event_filter` | `Handler` | `handler`
+`Hook` | `hook` | `HookConfig` | `hook_config`
+`Mutator` | `mutator` | `Namespace` | `namespace`
+`Role` | `role` | `RoleBinding` | `role_binding`
+[`Secret`][41] | `Silenced` | `silenced` | [`VaultProvider`][43]
+[`ldap`][26] | [`ad`][42] | [`TessenConfig`][27] | [`PostgresConfig`][32] |
 
 ### Create resources across namespaces
 
@@ -1021,3 +1021,4 @@ Flags are optional and apply only to the `delete` command.
 [40]: ../../installation/install-sensu/#3-initialize
 [41]: ../../reference/secrets/
 [42]: ../../installation/auth/#ad-authentication
+[43]: ../../reference/secrets-providers/
