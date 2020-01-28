@@ -1,7 +1,7 @@
 ---
 title: "Secrets providers"
 linkTitle: "Secrets Providers"
-description: "Sensu's secrets management capability allows you to avoid exposing secrets in your Sensu configuration. Read the reference to obtain secrets from one or more external secrets management providers and support references to external secrets in your Sensu configuration."
+description: "Sensu's secrets management capability allows you to avoid exposing secrets like usernames, passwords, and access keys in your Sensu configuration. Read the reference to obtain secrets from one or more external secrets providers and support references to external secrets in your Sensu configuration."
 weight: 148
 version: "5.17"
 product: "Sensu Go"
@@ -17,8 +17,8 @@ menu:
 **COMMERCIAL FEATURE**: Access the Env and VaultProvider secrets provider datatypes in the packaged Sensu Go distribution.
 For more information, see [Get started with commercial features][1].
 
-Sensu's secrets management eliminates the need to expose secrets (e.g. usernames and passwords) in your Sensu configuration.
-With Sensu's secrets management, you can obtain secrets from one or more external secrets providers, refer to external secrets, and consume secrets via backend [environment variables][4].
+Sensu's secrets management eliminates the need to expose secrets like usernames, passwords, and access keys in your Sensu configuration.
+With Sensu's secrets management, you can obtain secrets from one or more external secrets providers, refer to external secrets, and consume secrets via [backend environment variables][4].
 
 Only Sensu backends have access to request [secrets][9] from a secrets provider.
 Secrets are only transmitted over a TLS websocket connection.
@@ -46,7 +46,7 @@ example      | {{< highlight shell >}}"type": "VaultProvider"{{< /highlight >}}
 
 api_version  | 
 -------------|------
-description  | Top-level attribute that specifies the Sensu API group and version. For secrets configuration in this version of Sensu, the `api_version` should always be `secrets/v1`.
+description  | Top-level attribute that specifies the Sensu API group and version. For secrets configuration in this version of Sensu, the api_version should always be `secrets/v1`.
 required     | Required for secrets configuration in `wrapped-json` or `yaml` format.
 type         | String
 example      | {{< highlight shell >}}"api_version": "secrets/v1"{{< /highlight >}}
@@ -71,7 +71,7 @@ example      | {{< highlight shell >}}
 "spec": {
   "client": {
     "address": "https://vaultserver.example.com:8200",
-    "token": "VAULT_TOKEN",
+    "token": "ROOT_TOKEN",
     "version": "v1",
     "tls": {
       "ca_cert": "/etc/ssl/certs/vault_ca_cert.pem"
@@ -105,7 +105,7 @@ type         | Map of key-value pairs
 example      | {{< highlight shell >}}
 "client": {
   "address": "https://vaultserver.example.com:8200",
-  "token": "VAULT_TOKEN",
+  "token": "ROOT_TOKEN",
   "version": "v1",
   "tls": {
     "ca_cert": "/etc/ssl/certs/vault_ca_cert.pem"
@@ -153,10 +153,10 @@ example      | {{< highlight shell >}}
 
 token        | 
 -------------|------ 
-description  | Vault token to use for authentication.
+description  | Vault Root Token to use for authentication.
 required     | true
 type         | String
-example      | {{< highlight shell >}}"token": "VAULT_TOKEN"{{< /highlight >}}
+example      | {{< highlight shell >}}"token": "ROOT_TOKEN"{{< /highlight >}}
 
 version      | 
 -------------|------ 
@@ -169,7 +169,7 @@ example      | {{< highlight shell >}}"version": "v1"{{< /highlight >}}
 
 tls          | 
 -------------|------ 
-description  | TLS object. Vault only works with TLS configured. You may need to set up a CA cert if it is not already stored in your operating system's trust store. To do this, set the TLS object, and provide the `ca_cert` path. You may also need to set up `client_cert`, `client_key`, or [`cname`][15].
+description  | TLS object. Vault only works with TLS configured. You may need to set up a CA cert if it is not already stored in your operating system's trust store. To do this, set the TLS object and provide the `ca_cert` path. You may also need to set up `client_cert`, `client_key`, or [`cname`][15].
 required     | true
 type         | Map of key-value pairs
 example      | {{< highlight shell >}}
@@ -194,7 +194,7 @@ burst        |
 -------------|------ 
 description  | Maximum amount of burst allowed in a rate interval for the secrets API.
 required     | false
-type         | integer
+type         | Integer
 example      | {{< highlight shell >}}"burst": 100{{< /highlight >}}
 
 ## Secrets providers examples
@@ -210,11 +210,11 @@ The `VaultProvider` secrets provider is a vendor-specific implementation for [Ha
 type: VaultProvider
 api_version: secrets/v1
 metadata:
-  name: vault1
+  name: vault
 spec:
   client:
     address: https://vaultserver.example.com:8200
-    token: VAULT_TOKEN
+    token: ROOT_TOKEN
     version: v1
     tls:
       ca_cert: "/etc/ssl/certs/vault_ca_cert.pem"
@@ -230,12 +230,12 @@ spec:
   "type": "VaultProvider",
   "api_version": "secrets/v1",
   "metadata": {
-    "name": "vault1"
+    "name": "vault"
   },
   "spec": {
     "client": {
       "address": "https://vaultserver.example.com:8200",
-      "token": "VAULT_TOKEN",
+      "token": "ROOT_TOKEN",
       "version": "v1",
       "tls": {
         "ca_cert": "/etc/ssl/certs/vault_ca_cert.pem"
@@ -255,8 +255,11 @@ spec:
 
 ### Env example
 
-Sensu's built-in `Env` secrets provider exposes secrets from backend [environment variables][4].
+Sensu's built-in `Env` secrets provider exposes secrets from [backend environment variables][4].
+The `Env` secrets provider is automatically created with an empty `spec` when you start your Sensu backend.
+
 Using the `Env` secrets provider may require you to synchronize environment variables in Sensu backend clusters.
+The [Use secrets management][16] guide demonstrates how to configure the `Env` secrets provider.
 
 {{< language-toggle >}}
 
@@ -298,3 +301,4 @@ spec: {}
 [13]: #env-example
 [14]: https://www.vaultproject.io/api-docs/
 [15]: https://www.vaultproject.io/api/auth/cert/index.html#parameters-7
+[16]: ../../guides/secrets-management/
