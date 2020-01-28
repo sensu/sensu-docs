@@ -36,7 +36,9 @@ A secret resource definition refers to the secrets provider (`Env` or `VaultProv
 
 This guide explains how to set up your [PagerDuty Events API Integration Key][27] as a secret and a PagerDuty handler that requires the secret.
 Your Sensu backend can then execute the handler with any check.
-While secrets management is compatible for use in handler, mutator, and check execution, this guide will only cover the handler use case. For secrets management in checks, the Sensu backend will transmit requests over its secure transport (TLS-encrypted websockets) to your Sensu agent to execute your check, so mTLS must be enabled.
+You can use secrets management in handler, mutator, and check execution.
+This guide only covers the handler use case.
+For secrets management in checks, the Sensu backend will transmit requests over its secure transport (TLS-encrypted websockets) to your Sensu agent to execute your check, so mTLS must be enabled.
 
 **Is this true for Vault? Even though we're using the no-TLS development server?**
 
