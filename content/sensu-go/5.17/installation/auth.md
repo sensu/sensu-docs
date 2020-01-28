@@ -971,7 +971,7 @@ example      | {{< highlight shell >}}
 
 | default_upn_domain |     |
 -------------|------
-description  | Enables UPN authentication when set. The default UPN suffix that will be appended to the username when a domain is not specified during login (for example, `user` becomes `user@defaultdomain.xyz`). _**WARNING**: When using UPN authentication, users must re-authenticate to apply any changes made to group membership on the AD server since their last authentication. To ensure group membership updates are reflected without re-authentication, specify a binding account or enable anonymous binding._
+description  | Enables UPN authentication when set. The default UPN suffix that will be appended to the username when a domain is not specified during login (for example, `user` becomes `user@defaultdomain.xyz`). _**WARNING**: When using UPN authentication, users must re-authenticate to apply any changes to group membership on the AD server since their last authentication. For example, if you remove a user from a group with administrator permissions for the current session (such as a terminated employee), Sensu will not apply the change until the user logs out and tries to start a new session. Likewise, under UPN, users cannot be forced to log out of Sensu. To apply group membership updates without re-authentication, specify a binding account or enable anonymous binding._
 required     | false
 type         | String
 example      | {{< highlight shell >}}
@@ -1084,7 +1084,9 @@ The troubleshooting steps in the [LDAP troubleshooting][49] section also apply f
 
 ## OIDC authentication
 
-The Sensu offers commercial support for the OIDC driver for using the OpenID Connect 1.0 protocol (OIDC) on top of the OAuth 2.0 protocol for RBAC authentication.
+Sensu offers [commercial support][6] for the OIDC provider for using the OpenID Connect 1.0 protocol (OIDC) on top of the OAuth 2.0 protocol for RBAC authentication.
+
+The Sensu OIDC provider is tested with [Okta][51] and [PingFederate][52]. 
 
 _**NOTE**: OIDC authentication is supported only via `sensuctl`._
 
@@ -1290,9 +1292,9 @@ Use the instructions listed in this section to register an OIDC application for 
 8. Click **Save**.
 9. Assign people and groups in the *Assignments* page.
 
-#### OIDC driver configuration
+#### OIDC provider configuration
 
-1. Add the `aadditional_scopes` configuration attribute in the [OIDC scope][25] and set the value to `[ "groups" ]`:
+1. Add the `additional_scopes` configuration attribute in the [OIDC scope][25] and set the value to `[ "groups" ]`:
   - `"additional_scopes": [ "groups" ]`
 
 2. Add the `groups` to the `groups_claim` string.
@@ -1355,3 +1357,5 @@ If a browser does not open, launch a browser to complete the login via your OIDC
 [48]: #ad-user-search-attributes
 [49]: #ldap-troubleshooting
 [50]: #create-an-okta-application
+[51]: https://www.okta.com/
+[52]: https://www.pingidentity.com/en/software/pingfederate.html
