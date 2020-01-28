@@ -233,28 +233,6 @@ spec:
 EOF
 {{< /highlight >}}
 
-To create a handler definition using your HashiCorp Vault secret, run:
-
-{{< highlight shell >}}
-cat << EOF | sensuctl create
----
-api_version: core/v2
-type: Handler
-metadata:
-  namespace: default
-  name: pagerduty
-spec:
-  type: pipe
-  command: pagerduty-handler
-  secrets:
-  - name: secret/pagerduty#key
-    secret: vault
-  timeout: 10
-  filters:
-  - is_incident
-EOF
-{{< /highlight >}}
-
 Now that your handler is set up and Sensu can create incidents in PagerDuty, you can automate this workflow by adding your `pagerduty` handler to your Sensu service check definitions.
 See [Monitor server resources][24] to learn more.
 
