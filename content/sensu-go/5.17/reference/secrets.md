@@ -1,7 +1,7 @@
 ---
 title: "Secrets"
 linkTitle: "Secrets"
-description: "Sensu's secrets management capability allows you to avoid exposing secrets in your Sensu configuration. Read the reference to obtain secrets from one or more external secrets management providers and use sensuctl to manage secrets."
+description: "Sensu's secrets management feature allows you to avoid exposing secrets like usernames, passwords, and access keys in your Sensu configuration. Read the reference to obtain secrets from one or more external secrets providers and use sensuctl to manage secrets."
 weight: 145
 version: "5.17"
 product: "Sensu Go"
@@ -19,9 +19,9 @@ menu:
 For more information, see [Get started with commercial features][1].
 
 Sensu's secrets management eliminates the need to expose secrets in your Sensu configuration.
-When a Sensu resource definition requires a secret (e.g. a username or password), Sensu allows you to obtain secrets from one or more external secrets providers, so you can both refer to external secrets and consume secrets via backend [environment variables][5].
+When a Sensu resource definition requires a secret (e.g. a username or password), Sensu allows you to obtain secrets from one or more external secrets providers, so you can both refer to external secrets and consume secrets via [backend environment variables][5].
 
-Only Sensu backends have access to request secrets from a [secret provider][7].
+Only Sensu backends have access to request secrets from a [secrets provider][7].
 Sensu backends cache fetched secrets in memory, with no persistence to a Sensu datastore or file on disk.
 Secrets provided via a "lease" with a "lease duration" are deleted from Sensu's in-memory cache after the configured number of seconds, prompting the Sensu backend to request the secret again.
 
@@ -29,7 +29,7 @@ Secrets are only transmitted over a TLS websocket connection.
 Unencrypted connections must not transmit privileged information.
 For agent-side resources, enable TLS/mTLS.
 
-Secrets are only exposed to Sensu services like environment variables and are automatically redacted from all logs, the API, and the Sensu dashboard.
+Sensu only exposes secrets to Sensu services like environment variables and automatically redacts secrets from all logs, the API, and the dashboard.
  
 ## Secret specification
 
@@ -44,7 +44,7 @@ example      | {{< highlight shell >}}"type": "Secret"{{< /highlight >}}
 
 api_version  | 
 -------------|------
-description  | Top-level attribute that specifies the Sensu API group and version. For secrets configuration in this version of Sensu, the `api_version` should always be `secrets/v1`.
+description  | Top-level attribute that specifies the Sensu API group and version. For secrets configuration in this version of Sensu, the api_version should always be `secrets/v1`.
 required     | Required for secrets configuration in `wrapped-json` or `yaml` format.
 type         | String
 example      | {{< highlight shell >}}"api_version": "secrets/v1"{{< /highlight >}}
@@ -77,7 +77,7 @@ example      | {{< highlight shell >}}
 
 name         |      |
 -------------|------
-description  | The name for the secret that is used internally by Sensu.
+description  | Name for the secret that is used internally by Sensu.
 required     | true
 type         | String
 example      | {{< highlight shell >}}"name": "sensu-ansible-token"{{< /highlight >}}
@@ -93,21 +93,21 @@ example      | {{< highlight shell >}}"namespace": "default"{{< /highlight >}}
 
 id           | 
 -------------|------ 
-description  | The identifying key for the provider to retrieve the secret.
+description  | Identifying key for the provider to retrieve the secret.
 required     | true
 type         | String
 example      | {{< highlight shell >}}"id": "secret/ansible#token"{{< /highlight >}}
 
 provider     | 
 -------------|------ 
-description  | The name of the Sensu provider with the secret.
+description  | Name of the provider with the secret.
 required     | true
 type         | String
-example      | {{< highlight shell >}}"provider": "ansible_vault"{{< /highlight >}}
+example      | {{< highlight shell >}}"provider": "vault"{{< /highlight >}}
 
 ## Secret configuration
 
-Use the [Secrets API][2] and [sensuctl][3] to create, view, and manage your secrets configuration.
+You can use the [Secrets API][2] and [sensuctl][3] to create, view, and manage your secrets configuration.
 To manage secrets configuration with sensuctl, configure sensuctl as the default [`admin` user][6].
 
 The [standard sensuctl subcommands][4] are available for secrets (list, info, and delete).
@@ -179,7 +179,7 @@ metadata:
   namespace: default
 spec:
   id: 'secret/database#password'
-  provider: ansible_vault
+  provider: vault
 {{< /highlight >}}
 
 {{< highlight json >}}
@@ -199,9 +199,9 @@ spec:
 
 {{< /language-toggle >}}
 
-The id value for secrets that target a HashiCorp Vault must start with the name of the secret's path in Vault.
-The [Vault dev server][10] is preconfigured with the secret keyspace already set up.
-This is convenient for learning and getting started with Vault secrets management, so this example and our guide to [Secrets management][11] use the secret/ path for the id value.
+The `id` value for secrets that target a HashiCorp Vault must start with the name of the secret's path in Vault.
+The [Vault dev server][10] is preconfigured with the `secret` keyspace already set up.
+This is convenient for learning and getting started with Vault secrets management, so this example and our guide to [Secrets management][11] use the `secret/` path for the `id` value.
 In this example, the name of the secret is `database`.
 The `database` secret contains a value called `password`, which is the password to our database.
 
