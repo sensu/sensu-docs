@@ -130,6 +130,7 @@ To delete a secret:
 sensuctl secret delete SECRET_NAME
 {{< /highlight >}}
 
+`SECRET_NAME` is the value specified in the secret's `name` [metadata attribute][12].
 ## Secret examples
 
 A secret resource definition refers to a secrets `id` and a secrets `provider`.
@@ -216,3 +217,4 @@ The `database` secret contains a value called `password`, which is the password 
 [9]: ../../reference/rbac/#namespaces
 [10]: https://learn.hashicorp.com/vault/getting-started/dev-server
 [11]: ../../guides/secrets-management/
+[12]: #metadata-attributes
