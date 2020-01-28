@@ -12,7 +12,7 @@
   <ul>
     {{ range $version := $versionList }}
       <li>
-        <a href="/{{ $.Section }}/{{ cond (eq $product_info.latest $version) "latest" $version }}">{{ $version }}</a>
+        <a href="/{{ $.Section }}/{{ $version }}">{{ $version }}</a>
       </li>
     {{ end }}
   </ul>

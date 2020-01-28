@@ -15,11 +15,12 @@
     "grunt-postcss": "^0.9.0",
     "grunt-sass": "^3.0.2",
     "node-sass": "^4.12.0",
+    "puppeteer": "^2.1.0",
     "toml": "^3.0.0",
     "yaml": "^0.3.0"
   },
   "scripts": {
-    "build-offline": "grunt default --layoutDir=offline",
+    "build-offline": "grunt build-offline",
     "postinstall": "grunt",
     "server": "grunt server",
     "hugo-version": "grunt hugo-version",

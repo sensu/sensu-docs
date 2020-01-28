@@ -39,6 +39,7 @@ Thumbs.db
 # Extras #
 node_modules/
 public/
+pdf/
 *.swp
 static/js/lunr/PagesIndex.json
 mix-manifest.json
