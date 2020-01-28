@@ -34,7 +34,7 @@ To follow this guide, you’ll need to [install the Sensu backend][5], have at l
 Secrets are configured via [secrets resources][8].
 A secret resource definition refers to the secrets provider (`Env` or `VaultProvider`) and an ID (the named secret to fetch from the secrets provider).
 
-This guide explains how to set up your PagerDuty service routing key as a secret and a PagerDuty handler that requires the secret.
+This guide explains how to set up your [PagerDuty Events API Integration Key][27] as a secret and a PagerDuty handler that requires the secret.
 Your Sensu backend can then execute the handler with any check.
 The Sensu backend will transmit requests over its secure transport (TLS-encrypted websockets) to your Sensu agent to execute your handler.
 
@@ -54,28 +54,26 @@ To use the built-in `Env` secrets provider, you will add your secret as a [backe
 
 First, make sure you have created the files where you will store [backend environment variables][21]. 
 
-Then, retrieve your PagerDuty service routing key.
+Then, retrieve your [PagerDuty Events API Integration Key][27].
 This is the secret you will set up as an environment variable.
 
-Run the following code, replacing `SERVICE_ROUTING_KEY` with your PagerDuty service routing key:
-
-**Is the service routing key the same as the API Integration key mentioned in PagerDuty docs at https://support.pagerduty.com/docs/generating-api-keys#section-events-api-keys ?**
+Run the following code, after you replace `INTEGRATION_KEY` with your PagerDuty Events API Integration Key:
 
 {{< language-toggle >}}
 
 {{< highlight "Ubuntu/Debian" >}}
-$ echo 'SENSU_PAGERDUTY_KEY=SERVICE_ROUTING_KEY' | sudo tee /etc/default/sensu-backend
+$ echo 'SENSU_PAGERDUTY_KEY=INTEGRATION_KEY' | sudo tee /etc/default/sensu-backend
 $ sudo systemctl restart sensu-backend
 {{< /highlight >}}
 
 {{< highlight "RHEL/CentOS" >}}
-$ echo 'SENSU_PAGERDUTY_KEY=SERVICE_ROUTING_KEY' | sudo tee /etc/sysconfig/sensu-backend
+$ echo 'SENSU_PAGERDUTY_KEY=INTEGRATION_KEY' | sudo tee /etc/sysconfig/sensu-backend
 $ sudo systemctl restart sensu-backend
 {{< /highlight >}}
 
 {{< /language-toggle >}}
 
-This configures the `sensu-pagerduty-key` flag as an environment variable set to your PagerDuty service routing key.
+This configures the `sensu-pagerduty-key` flag as an environment variable set to your PagerDuty Events API Integration Key.
 
 ### Create your secret
 
@@ -97,7 +95,7 @@ spec:
 EOF
 {{< /highlight >}}
 
-Now you can securely pass your PagerDuty service routing key in Sensu checks, handlers, and mutators by referring to the `pagerduty_key` secret.
+Now you can securely pass your PagerDuty Events API Integration Key in Sensu checks, handlers, and mutators by referring to the `pagerduty_key` secret.
 In this guide, you'll use your `pagerduty_key` secret in a [handler][19].
 
 ## Use HashiCorp Vault for secrets management
@@ -152,18 +150,16 @@ EOF
 
 _**NOTE**: Because you aren't using TLS, you will need to add `export VAULT_ADDR=http://127.0.0.1:8200` in your bash profile._
 
-First, retrieve your PagerDuty service routing key.
+First, retrieve your [PagerDuty Events API Integration Key][27].
 This is the secret you will set up in Vault.
 
-Once you have your PagerDuty service routing key, open a new terminal and run `vault kv put secret/pagerduty key=SERVICE_ROUTING_KEY`.
-Replace `SERVICE_ROUTING_KEY` with your PagerDuty service routing key.
+Next, open a new terminal and run `vault kv put secret/pagerduty key=INTEGRATION_KEY`.
+Replace `INTEGRATION_KEY` with your PagerDuty Events API Integration Key.
 
 This writes your secret into Vault.
 In this example, the name of the secret is `pagerduty`.
-The `pagerduty` secret contains a key, and you specified that the `key` value is your PagerDuty service routing key.
+The `pagerduty` secret contains a key, and you specified that the `key` value is your PagerDuty Events API Integration Key.
 The `id` value for your secret will be `secret/pagerduty#key`.
-
-**Is the service routing key the same as the API Integration key mentioned in PagerDuty docs at https://support.pagerduty.com/docs/generating-api-keys#section-events-api-keys ?**
 
 The `id` value for secrets that target a HashiCorp Vault must start with the name of the secret's path in Vault.
 The Vault dev server is preconfigured with the `secret` keyspace already set up, so we recommend using the `secret/` path for the `id` value while you are learning and getting started with Vault secrets management.
@@ -186,7 +182,7 @@ spec:
 EOF
 {{< /highlight >}}
 
-Now you can securely pass your PagerDuty service routing key in Sensu checks, handlers, and mutators by referring to the `pagerduty_key` secret.
+Now you can securely pass your PagerDuty Events API Integration Key in Sensu checks, handlers, and mutators by referring to the `pagerduty_key` secret.
 In this guide, you'll use your `pagerduty_key` secret in a handler.
 
 ## Add a handler
@@ -201,9 +197,9 @@ sensuctl asset add sensu/sensu-pagerduty-handler:1.2.0 -r pagerduty-handler
 
 This example uses the `-r` (rename) flag to specify a shorter name for the asset: `pagerduty-handler`.
 
-Run `sensuctl asset list --format yaml` to confirm that the asset is ready to use.
+_**NOTE**: You can [adjust the asset definition][26] according to your Sensu configuration if needed._
 
-**I'm not sure whether any of the content from https://docs.sensu.io/sensu-go/latest/guides/install-check-executables-with-assets/#2-adjust-the-asset-definition needs to be included here.**
+Run `sensuctl asset list --format yaml` to confirm that the asset is ready to use.
 
 With this handler, Sensu can trigger and resolve PagerDuty incidents.
 However, you still need to add your secret to the handler spec so that it requires your backend to request secrets from your secrets provider.
@@ -289,3 +285,5 @@ Read the [secrets][9] or [secrets providers][10] reference for in-depth secrets 
 [23]: https://bonsai.sensu.io/assets/sensu/sensu-pagerduty-handler
 [24]: ../monitor-server-resources/
 [25]: https://www.vaultproject.io/downloads/
+[26]: ../install-check-executables-with-assets/#2-adjust-the-asset-definition
+[27]: https://support.pagerduty.com/docs/generating-api-keys#section-events-api-keys
