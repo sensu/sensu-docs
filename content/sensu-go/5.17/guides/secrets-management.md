@@ -209,7 +209,7 @@ However, you still need to add your secret to the handler spec so that it requir
 
 ### Add your secret to the handler spec
 
-To create a handler definition using Sensu's built-in `Env` secret provider, run:
+Now that you have set up your secret, you can create a handler definition. Run:
 
 {{< highlight shell >}}
 cat << EOF | sensuctl create
