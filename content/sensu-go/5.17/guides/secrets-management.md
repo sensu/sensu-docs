@@ -44,7 +44,7 @@ For secrets management in checks, the Sensu backend will transmit requests over 
 **Is this true for Vault? Even though we're using the no-TLS development server?**
 
 The secret included in your Sensu handler will be exposed to Sensu services at runtime as an environment variable.
-Sensu automatically redacts the `secrets` scope of the request payload and the environment variable from all Sensu service logs and dashboards to prevent secret leakage.
+Sensu only exposes secrets to Sensu services like environment variables and automatically redacts secrets from all logs, the API, and the dashboard.
 
 ## Use Env for secrets management
 
