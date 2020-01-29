@@ -236,7 +236,7 @@ spec:
   type: pipe
   command: pagerduty-handler --token $DEDUP_KEY
   secrets:
-  - name: DEDUP_KEY
+  - name: PD_TOKEN
     secret: pagerduty_key
   runtime_assets:
   - pagerduty-handler
