@@ -12,28 +12,29 @@ const indexPath = path.join(__dirname, 'public/index.html');
 const indexContent = fs.readFileSync(indexPath, { encoding: 'utf8' });
 const productPaths = indexContent.match(re).map(p => p.replace(re, "$3").match(/([\w-]+)\/?$/).pop());
 
-puppeteer.launch({ headless: true }).then(async browser => {
-  productPaths.forEach(p => {
+productPaths.map(async product => {
+  console.log(`Generating PDFs for ${product}`);
+  puppeteer.launch({ headless: true }).then(async browser => {
     // Create output dir
-    const outputDir = path.join('pdf', p);
+    const outputDir = path.join('pdf', product);
     fs.mkdirSync(outputDir, { recursive: true });
 
     // Get versions
-    const versions = dirs(path.join('public', p));
-    versions.forEach(async v => {
+    const versions = dirs(path.join('public', product));
+    await Promise.all(versions.map(async version => {
       // const productVersionPath = path.resolve(path.join('public', p, v));
 
       const page = await browser.newPage();
       // Go to the product/version index.html (toc)
-      await page.goto(`file://${path.resolve(path.join('public', p, v, 'index.html'))}`);
-      // 
+      await page.goto(`file://${path.resolve(path.join('public', product, version, 'index.html'))}`);
       const tocLinks = await page.$$eval('#toc li a', links => links.map(a => a.href));
       await page.emulateMedia('screen');
-      await page.pdf({format: 'A4', path: `${outputDir}/${p}_${v}.pdf`});
+      await page.pdf({format: 'A4', path: `${outputDir}/${product}_${version}.pdf`});
       await page.close();
-    });
+    }));
+    await browser.close();
+    console.log(`Finished PDFs for ${product}`);
   });
-  // await browser.close();
 });
 
 
