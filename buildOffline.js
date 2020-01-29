@@ -13,27 +13,41 @@ const indexContent = fs.readFileSync(indexPath, { encoding: 'utf8' });
 const productPaths = indexContent.match(re).map(p => p.replace(re, "$3").match(/([\w-]+)\/?$/).pop());
 
 productPaths.map(async product => {
-  console.log(`Generating PDFs for ${product}`);
   puppeteer.launch({ headless: true }).then(async browser => {
-    // Create output dir
+    // Create output dirs
     const outputDir = path.join('pdf', product);
     fs.mkdirSync(outputDir, { recursive: true });
 
-    // Get versions
+    // Get versions and work on them sequentially to save system resources
     const versions = dirs(path.join('public', product));
-    await Promise.all(versions.map(async version => {
-      // const productVersionPath = path.resolve(path.join('public', p, v));
+    for (const version of versions) {
+      const i = versions.indexOf(version);
+      console.log(`Generating PDFs for ${product.replace('-', ' ')} ${version}`);
+
+      // Create temporary output dirs
+      const tmpDir = path.join(outputDir, 'tmp', version);
+      fs.mkdirSync(tmpDir, { recursive: true });
 
       const page = await browser.newPage();
       // Go to the product/version index.html (toc)
       await page.goto(`file://${path.resolve(path.join('public', product, version, 'index.html'))}`);
       const tocLinks = await page.$$eval('#toc li a', links => links.map(a => a.href));
+      await Promise.all(tocLinks.map(async (section, i) => {
+        try {
+          const page = await browser.newPage();
+          await page.goto(section);
+          await page.emulateMedia('screen');
+          await page.pdf({format: 'A4', path: `${tmpDir}/${i + 1}_${product}_${version}.pdf`});
+          await page.close();
+        } catch (e) {
+          console.log(e);
+        }
+      }));
       await page.emulateMedia('screen');
-      await page.pdf({format: 'A4', path: `${outputDir}/${product}_${version}.pdf`});
+      await page.pdf({format: 'A4', path: `${tmpDir}/${i}_${product}_${version}.pdf`});
       await page.close();
-    }));
+    }
     await browser.close();
-    console.log(`Finished PDFs for ${product}`);
   });
 });
 
