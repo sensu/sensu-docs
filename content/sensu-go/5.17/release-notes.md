@@ -70,7 +70,7 @@ See the [upgrade guide][1] to upgrade Sensu to version 5.17.0.
 **IMPROVEMENTS:**
 
 - ([Commercial feature][106]) Upgraded the size of the events auto-incremented ID in the PostgreSQL store to a 64-bit variant, which allows you to store many more events and avoids exhausting the sequence.
-- ([Commercial feature][106]) Initialization via [`sensu-backend-init`][109] is now implemented for Docker.
+- ([Commercial feature][106]) Initialization via [`sensu-backend init`][109] is now implemented for Docker.
 - ([Commercial feature][106]) UPN binding support has been re-introduced via the `default_upn_domain` configuration attribute.
 - In the [web UI][107], labels that contain URLs are now clickable links.
 - Added `event.entity.name` as a supported field for the [`fieldSelector`][110] query parameter.
