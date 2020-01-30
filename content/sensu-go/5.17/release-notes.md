@@ -7,6 +7,7 @@ version: "5.17"
 menu: "sensu-go-5.17"
 ---
 
+- [5.17.1 release notes](#5-17-1-release-notes)
 - [5.17.0 release notes](#5-17-0-release-notes)
 - [5.16.1 release notes](#5-16-1-release-notes)
 - [5.16.0 release notes](#5-16-0-release-notes)
@@ -50,6 +51,23 @@ PATCH versions include backward-compatible bug fixes.
 Read the [upgrade guide][1] for information about upgrading to the latest version of Sensu Go.
 
 ---
+
+## 5.17.1 release notes
+
+**January 31, 2020** &mdash; The latest release of Sensu Go, version 5.17.1, is now available for download.
+
+**RELEASE SUMMARY PLACEHOLDER**
+
+See the [upgrade guide][1] to upgrade Sensu to version 5.17.1.
+
+**IMPROVEMENTS:**
+
+- Asset names may now include capital letters.
+- Running the `sensuctl configure` command now resets the sensuctl cluster configuration.
+
+**FIXES:**
+
+- Fixed a bug that prevented `.tar` assets that contain hardlinked files from extracting.
 
 ## 5.17.0 release notes
 
