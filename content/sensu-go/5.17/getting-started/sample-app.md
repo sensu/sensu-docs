@@ -115,8 +115,6 @@ Use Sensu role-based access control (RBAC) to create a `demo` namespace and a `d
 
 When you installed the Sensu backend, during the [initialization step][14], you created an admin username and password for a `default` namespace. Use that username and password to configure sensuctl in this step.
 
-_**NOTE**: If you're using Docker, the username is `admin` and the password is `P@ssw0rd!`._
-
 {{< highlight shell >}}
 sensuctl configure
 ? Sensu Backend URL: http://sensu.local

@@ -971,7 +971,7 @@ example      | {{< highlight shell >}}
 
 | default_upn_domain |     |
 -------------|------
-description  | Enables UPN authentication when set. The default UPN suffix that will be appended to the username when a domain is not specified during login (for example, `user` becomes `user@defaultdomain.xyz`). _**WARNING**: When using UPN authentication, users must re-authenticate to apply any changes made to group membership on the AD server since their last authentication. To ensure group membership updates are reflected without re-authentication, specify a binding account or enable anonymous binding._
+description  | Enables UPN authentication when set. The default UPN suffix that will be appended to the username when a domain is not specified during login (for example, `user` becomes `user@defaultdomain.xyz`). _**WARNING**: When using UPN authentication, users must re-authenticate to apply any changes to group membership on the AD server since their last authentication. For example, if you remove a user from a group with administrator permissions for the current session (such as a terminated employee), Sensu will not apply the change until the user logs out and tries to start a new session. Likewise, under UPN, users cannot be forced to log out of Sensu. To apply group membership updates without re-authentication, specify a binding account or enable anonymous binding._
 required     | false
 type         | String
 example      | {{< highlight shell >}}
