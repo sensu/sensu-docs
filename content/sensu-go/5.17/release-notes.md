@@ -55,7 +55,8 @@ Read the [upgrade guide][1] for information about upgrading to the latest versio
 ## 5.17.1 release notes
 
 **January 31, 2020** &mdash; The latest release of Sensu Go, version 5.17.1, is now available for download.
-This release fixes a web UI issue that cleared selected filters when sorting an event list and a bug that prevented certain `.tar` assets from extracting and. It also includes sensuctl configuration improvements.
+This release fixes a web UI issue that cleared selected filters when sorting an event list and a bug that prevented certain `.tar` assets from extracting.
+It also includes sensuctl configuration improvements.
 
 See the [upgrade guide][1] to upgrade Sensu to version 5.17.1.
 
