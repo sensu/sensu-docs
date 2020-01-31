@@ -55,8 +55,7 @@ Read the [upgrade guide][1] for information about upgrading to the latest versio
 ## 5.17.1 release notes
 
 **January 31, 2020** &mdash; The latest release of Sensu Go, version 5.17.1, is now available for download.
-
-**RELEASE SUMMARY PLACEHOLDER**
+This release fixes a bug that prevented certain `.tar` assets from extracting and includes sensuctl configuration improvements.
 
 See the [upgrade guide][1] to upgrade Sensu to version 5.17.1.
 
@@ -64,6 +63,7 @@ See the [upgrade guide][1] to upgrade Sensu to version 5.17.1.
 
 - Asset names may now include capital letters.
 - Running the `sensuctl configure` command now resets the sensuctl cluster configuration.
+- When you use `--trusted-ca-file` to configure sensuctl, it now detects and saves the absolute file path in the cluster configuration.
 
 **FIXES:**
 
