@@ -68,7 +68,7 @@ See the [upgrade guide][1] to upgrade Sensu to version 5.17.1.
 **FIXES:**
 
 - ([Commercial feature][106]) In the [web UI][107], polling is re-enabled for the silences view.
-- Fixed a bug that prevented `.tar` assets that contain hardlinked files from extracting.
+- Fixed a bug that prevented `.tar` assets from extracting if they contain hardlinked files.
 - In the [web UI][107], sorting an event list view no longer clears the selected filters.
 
 ## 5.17.0 release notes
