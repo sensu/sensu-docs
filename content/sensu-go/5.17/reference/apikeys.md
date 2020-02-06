@@ -16,7 +16,7 @@ menu:
 - [Examples](#examples)
 
 API keys are long-lived authentication tokens that make it more convenient for Sensu plugins and other Sensu-adjacent applications to authenticate with the Sensu API.
-API keys do not need to be refreshed every 15 minutes like [authentication tokens][2].
+Unlike [authentication tokens][2], API keys are persistent and do not need to be refreshed every 15 minutes.
 
 The Sensu backend generates API keys, and you can provide them to applications that want to interact with the Sensu API.
 
