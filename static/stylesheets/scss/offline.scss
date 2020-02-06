@@ -45,6 +45,10 @@ table {
   }
 }
 
+.article {
+  border: none;
+}
+
 .language-toggle {
   p + & {
     margin-top: 4rem;
