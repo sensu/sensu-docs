@@ -1,5 +1,7 @@
 {{ partial "head" . }}
   <h1>{{ .Title }} {{ if .Draft }} (Draft){{ end }}</h1>
   {{ partial "toc" . }}
-  {{ .Content }}
+  <div class="article">
+    {{ .Content }}
+  </div>
 {{ partial "footer" . }}
