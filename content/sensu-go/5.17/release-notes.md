@@ -7,6 +7,7 @@ version: "5.17"
 menu: "sensu-go-5.17"
 ---
 
+- [5.17.1 release notes](#5-17-1-release-notes)
 - [5.17.0 release notes](#5-17-0-release-notes)
 - [5.16.1 release notes](#5-16-1-release-notes)
 - [5.16.0 release notes](#5-16-0-release-notes)
@@ -50,6 +51,26 @@ PATCH versions include backward-compatible bug fixes.
 Read the [upgrade guide][1] for information about upgrading to the latest version of Sensu Go.
 
 ---
+
+## 5.17.1 release notes
+
+**January 31, 2020** &mdash; The latest release of Sensu Go, version 5.17.1, is now available for download.
+This release fixes a web UI issue that cleared selected filters when sorting an event list and a bug that prevented certain `.tar` assets from extracting.
+It also includes sensuctl configuration improvements.
+
+See the [upgrade guide][1] to upgrade Sensu to version 5.17.1.
+
+**IMPROVEMENTS:**
+
+- Asset names may now include capital letters.
+- Running the `sensuctl configure` command now resets the sensuctl cluster configuration.
+- When you use `--trusted-ca-file` to configure sensuctl, it now detects and saves the absolute file path in the cluster configuration.
+
+**FIXES:**
+
+- ([Commercial feature][106]) When a silencing entry expires or is removed, it is also removed from the silences view in the [web UI][107].
+- Fixed a bug that prevented `.tar` assets from extracting if they contain hardlinked files.
+- In the [web UI][107], sorting an event list view no longer clears the selected filters.
 
 ## 5.17.0 release notes
 
