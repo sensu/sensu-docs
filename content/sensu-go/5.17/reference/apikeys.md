@@ -15,7 +15,7 @@ menu:
   - [Top-level attributes](#top-level-attributes) | [Metadata attributes](#metadata-attributes) | [Spec attributes](#spec-attributes)
 - [Examples](#examples)
 
-API keys are long-lived authentication tokens that make it more convenient to authenticate with Sensu-adjacent applications.
+API keys are long-lived authentication tokens that make it more convenient for Sensu plugins and other Sensu-adjacent applications to authenticate with the Sensu API.
 API keys do not need to be refreshed every 15 minutes like [authentication tokens][2].
 
 The Sensu backend generates API keys, and you can provide them to applications that want to interact with the Sensu API.
