@@ -116,6 +116,32 @@ module.exports = function(grunt) {
       });
   });
 
+  grunt.registerTask("hugo-build-offline", function() {
+    const done = this.async();
+    const toml = require('toml');
+    const config = toml.parse(grunt.file.read('config.toml'));
+    const latestProducts = Object.entries(config.params.products).map(([key, product]) => ({
+      identifier: product.identifier,
+      latest: product.latest
+    }));
+
+    grunt.log.writeln("Running hugo build");
+    grunt.util.spawn(
+      {
+        cmd: "hugo",
+        args: ['--layoutDir=offline'],
+      },
+      function(error, result, code) {
+        if (code == 0) {
+          grunt.log.ok("Successfully built site");
+        } else {
+          grunt.fail.fatal(error);
+        }
+        done();
+      }
+    );
+  });
+
   grunt.registerTask("hugo-server", function() {
     const done = this.async();
     const args = process.argv.slice(3).filter(a => a !== '--color'); // fetch given arguments
@@ -153,6 +179,7 @@ module.exports = function(grunt) {
   });
 
   grunt.registerTask("default", ["env", "hugo-version", "sass:dist", "postcss:dist", "hugo-build",]);
+  grunt.registerTask("build-offline", ["env", "hugo-version", "sass:dist", "postcss:dist", "hugo-build-offline",]);
   grunt.registerTask("server", ["env", "hugo-version", "sass:develop", "postcss:develop", "concurrent:target"]);
   grunt.registerTask("hugo-version", ["env", "print-hugo-version",]);
 };

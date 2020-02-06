@@ -5,6 +5,7 @@ version: "5.17"
 weight: 30
 product: "Sensu Go"
 layout: "katacoda-wide"
+offline: false
 menu:
   sensu-go-5.17:
     parent: getting-started
