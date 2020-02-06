@@ -5,6 +5,7 @@ version: "5.16"
 product: "Sensu Go"
 layout: "katacoda-wide"
 platformContent: false
+offline: false
 ---
 
 <!-- begin tracking -->

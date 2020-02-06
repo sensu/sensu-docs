@@ -1,9 +1,9 @@
 {{ partial "head" . }}
   <h1>{{ .Title }} {{ if .Draft }} (Draft){{ end }}</h1>
   <h2>Versions</h2>
+  {{ $product := replace .Section "-" "_" }}
+  {{ $product_info := (index .Site.Params.products $product) }}
   {{ if not ($.Scratch.Get "versionList") }}
-    {{ $product := replace .Section "-" "_" }}
-    {{ $product_info := (index .Site.Params.products $product) }}
     {{ range $k, $v := $product_info.versions }}
       {{ $.Scratch.Add "versionList" (slice $v.version) }}
     {{ end }}
