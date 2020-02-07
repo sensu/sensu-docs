@@ -341,7 +341,7 @@ example      | {{< highlight shell >}}
 
 | groups_prefix |   |
 -------------|------
-description  | The prefix added to all LDAP groups. Sensu prepends prefixes with a colon. For example, for the groups_prefix `ldap` and the group `dev`, the resulting group name in Sensu is `ldap:dev`. Use the groups_prefix when integrating LDAP groups with Sensu RBAC [role bindings][12] and [cluster role bindings][13].
+description  | The prefix added to all LDAP groups. Sensu prepends prefixes with a colon. For example, for the groups_prefix `ldap` and the group `dev`, the resulting group name in Sensu is `ldap:dev`. Use the groups_prefix when integrating LDAP groups with Sensu RBAC [role bindings][13] and [cluster role bindings][13].
 required     | false
 type         | String
 example      | {{< highlight shell >}}"groups_prefix": "ldap"{{< /highlight >}}
@@ -350,7 +350,7 @@ example      | {{< highlight shell >}}"groups_prefix": "ldap"{{< /highlight >}}
 
 | username_prefix | |
 -------------|------
-description  | The prefix added to all LDAP usernames. Sensu prepends prefixes with a colon. For example, for the username_prefix `ldap` and the user `alice`, the resulting username in Sensu is `ldap:alice`. Use the username_prefix when integrating LDAP users with Sensu RBAC [role bindings][12] and [cluster role bindings][13]. Users _do not_ need to provide the username_prefix when logging in to Sensu.
+description  | The prefix added to all LDAP usernames. Sensu prepends prefixes with a colon. For example, for the username_prefix `ldap` and the user `alice`, the resulting username in Sensu is `ldap:alice`. Use the username_prefix when integrating LDAP users with Sensu RBAC [role bindings][13] and [cluster role bindings][13]. Users _do not_ need to provide the username_prefix when logging in to Sensu.
 required     | false
 type         | String
 example      | {{< highlight shell >}}"username_prefix": "ldap"{{< /highlight >}}
@@ -862,7 +862,7 @@ example      | {{< highlight shell >}}
 
 | groups_prefix |   |
 -------------|------
-description  | The prefix added to all AD groups. Sensu prepends prefixes with a colon. For example, for the groups_prefix `ad` and the group `dev`, the resulting group name in Sensu is `ad:dev`. Use the `groups_prefix` when integrating AD groups with Sensu RBAC [role bindings][12] and [cluster role bindings][13].
+description  | The prefix added to all AD groups. Sensu prepends prefixes with a colon. For example, for the groups_prefix `ad` and the group `dev`, the resulting group name in Sensu is `ad:dev`. Use the `groups_prefix` when integrating AD groups with Sensu RBAC [role bindings][13]] and [cluster role bindings][13].
 required     | false
 type         | String
 example      | {{< highlight shell >}}"groups_prefix": "ad"{{< /highlight >}}
@@ -871,7 +871,7 @@ example      | {{< highlight shell >}}"groups_prefix": "ad"{{< /highlight >}}
 
 | username_prefix | |
 -------------|------
-description  | The prefix added to all AD usernames. Sensu prepends prefixes with a colon. For example, for the username_prefix `ad` and the user `alice`, the resulting username in Sensu is `ad:alice`. Use the `username_prefix` when integrating AD users with Sensu RBAC [role bindings][12] and [cluster role bindings][13]. Users _do not_ need to provide this prefix when logging in to Sensu.
+description  | The prefix added to all AD usernames. Sensu prepends prefixes with a colon. For example, for the username_prefix `ad` and the user `alice`, the resulting username in Sensu is `ad:alice`. Use the `username_prefix` when integrating AD users with Sensu RBAC [role bindings][13] and [cluster role bindings][13]. Users _do not_ need to provide this prefix when logging in to Sensu.
 required     | false
 type         | String
 example      | {{< highlight shell >}}"username_prefix": "ad"{{< /highlight >}}
