@@ -9,20 +9,26 @@ menu:
     parent: reference
 ---
 
-- [API key compatibility](#api-key-compatibility)
+- [Authorization header format](#authorization-header-format)
 - [API key resource structure](#api-key-resource-structure)
 - [API key specification](#api-key-specification)
   - [Top-level attributes](#top-level-attributes) | [Metadata attributes](#metadata-attributes) | [Spec attributes](#spec-attributes)
 - [Examples](#examples)
 
-API keys are long-lived authentication tokens that make it more convenient to authenticate with Sensu-adjacent applications.
-The Sensu backend generates API keys, and you can provide them to applications that want to interact with the Sensu API.
+API keys are long-lived authentication tokens that make it more convenient for Sensu plugins and other Sensu-adjacent applications to authenticate with the Sensu API.
+Unlike [authentication tokens][2], API keys are persistent and do not need to be refreshed every 15 minutes.
 
 Use the [APIKey API][1] to create, retrieve, and delete API keys.
 
-## API key compatibility
+## Authorization header format
 
-API keys are 100% backward-compatible with Sensu's [authentication token system][2], but API keys do not need to be refreshed every 15 minutes like the auth tokens.
+Use the following header format to authenticate with API keys, replacing `API_KEY` with your API key value:
+
+{{< highlight curl >}}
+Authorization: Key API_KEY
+{{< /highlight >}}
+
+This is different from the authentication token, which uses the `Authorization: Bearer` header format.
 
 When you specify an API key in a request, the system resolves it to an authentication token and continues through the regular authentication process.
 
@@ -153,4 +159,4 @@ spec:
 [1]: ../../api/apikeys/
 [2]: ../../api/auth/#the-authtoken-api-endpoint
 [3]: ../../sensuctl/reference/#create-resources
-[2]: #spec-attributes
+[4]: #spec-attributes
