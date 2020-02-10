@@ -71,10 +71,12 @@ Depending on your infrastructure and the type of environments you'll be monitori
 
 The single backend (standalone) with embedded etcd architecture requires minimal resources but provides no redundancy in the event of failure.
 
-<img alt="Single Sensu Go backend or standalone architecture" title="Single Sensu Go backend or standalone architecture" src="/images/standalone_architecture.png">
+{{< figure src="/images/standalone_architecture.png" alt="Single Sensu Go backend or standalone architecture" link="/images/standalone_architecture.png" target="_blank" >}}
 <!-- Diagram source: https://www.lucidchart.com/documents/edit/d239f2db-15db-41c4-a191-b9b46990d156/0 -->
 
-<p style="text-align:center"><i>Single Sensu Go backend or standalone architecture</i></p>
+*<p style="text-align:center">Single Sensu Go backend or standalone architecture</p>*
+
+*Single Sensu Go backend or standalone architecture*
 
 You can reconfigure a single backend as a member of a cluster, but this operation is destructive: it requires destroying the existing database.
 
@@ -89,13 +91,10 @@ _**NOTE**: Multiple Sensu backends can relay their events to a central backend u
 To increase availability and replicate both configuration and data, join the embedded etcd databases of multiple Sensu backend instances together in a cluster.
 Read [Run a Sensu cluster][7] for more information.
 
-<div style="text-align:center">
-<img alt="Clustered Sensu Go architecture for a single availability zone" title="Clustered Sensu Go architecture for a single availability zone" src="/images/single-AZ-sensu-deployment.png" width="800 px">
-</div>
+{{< figure src="/images/single-AZ-sensu-deployment.png" alt="Clustered Sensu Go architecture for a single availability zone" link="https://sensu-docs.s3.amazonaws.com/images/labeled-single-AZ-sensu-deployment.png" target="_blank" >}}
 <!-- Diagram source: https://www.lucidchart.com/documents/edit/5375377c-4dfd-4a12-8770-c2b47c2ef0e3/Ix6mP9JlVdGc -->
 
-<p style="text-align:center"><i>Clustered Sensu Go architecture for a single availability zone</i></p>
-<p style="text-align:center"><i><a href="https://sensu-docs.s3.amazonaws.com/images/labeled-single-AZ-sensu-deployment.png">Download full-size image</a></i></p>
+*<p style="text-align:center">Clustered Sensu Go architecture for a single availability zone</p>*
 
 Clustering requires an odd number of backend instances.
 Although larger clusters provide better fault tolerance, write performance suffers because data must be replicated across more machines.
@@ -106,13 +105,10 @@ The etcd maintainers recommend clusters of 3, 5 or 7 backends. See the [etcd doc
 Distributing infrastructure across multiple availability zones in a given region helps ensure continuous availability of customer infrastructure in the region if any one availability zone becomes unavailable.
 With this in mind, you can deploy a Sensu cluster across multiple availability zones in a given region, configured to tolerate reasonable latency between those availability zones.
 
-<div style="text-align:center">
-<img alt="Clustered Sensu Go architecture for multiple availability zones" title="Clustered Sensu Go architecture for multiple availability zones" src="/images/cross-AZ-sensu-deployment.png" width="800 px">
-</div>
+{{< figure src="/images/cross-AZ-sensu-deployment.png" alt="Clustered Sensu Go architecture for multiple availability zones" link="https://sensu-docs.s3.amazonaws.com/images/labeled-cross-AZ-sensu-deployment.png" target="_blank" >}}
 <!-- Diagram source: https://www.lucidchart.com/documents/edit/5375377c-4dfd-4a12-8770-c2b47c2ef0e3/n~8S.VTyl5JQ -->
 
-<p style="text-align:center"><i>Clustered Sensu Go architecture for multiple availability zones</i></p>
-<p style="text-align:center"><i><a href="https://sensu-docs.s3.amazonaws.com/images/labeled-cross-AZ-sensu-deployment.png">Download full-size image</a></i></p>
+*<p style="text-align:center">Clustered Sensu Go architecture for multiple availability zones</p>*
 
 ### Large-scale clustered deployment for multiple availability zones
 
@@ -121,25 +117,20 @@ Use one etcd node per availiability zone, with a minimum of three etcd nodes and
 Three etcd nodes allow you to tolerate the loss of a single node with minimal effect on performance. 
 Five etcd nodes allow you to tolerate the loss of two nodes, but with a greater effect on performance.
 
-<div style="text-align:center">
-<img alt="Large-scale clustered Sensu Go architecture for multiple availability zones" title="Large-scale clustered Sensu Go architecture for multiple availability zones" src="/images/large-scale-cross-AZ-sensu-deployment.png" width="800 px">
-</div>
+{{< figure src="/images/large-scale-cross-AZ-sensu-deployment.png" alt="Large-scale clustered Sensu Go architecture for multiple availability zones" link="https://sensu-docs.s3.amazonaws.com/images/labeled-large-scale-cross-AZ-sensu-deployment.png" target="_blank" >}}
 <!-- https://www.lucidchart.com/documents/edit/5375377c-4dfd-4a12-8770-c2b47c2ef0e3/Wr7mzxLPcUmO -->
 
-<p style="text-align:center"><i>Large-scale clustered Sensu Go architecture for multiple availability zones</i></p>
-<p style="text-align:center"><i><a href="https://sensu-docs.s3.amazonaws.com/images/labeled-large-scale-cross-AZ-sensu-deployment.png">Download full-size image</a></i></p>
+*<p style="text-align:center">Large-scale clustered Sensu Go architecture for multiple availability zones</p>*
 
 #### Scaled cluster performance with PostgreSQL
 
 To achieve the high rate of event processing that many enterprises require, Sensu supports PostgreSQL event storage as a [commmercial feature][9].
 See the [Datastore reference][8] for details on configuring the Sensu backend to use PostgreSQL for event storage.
 
-<div style="text-align:center">
-<img alt="Clustered Sensu Go architecture with PostgreSQL" title="Clustered Sensu Go backend with PostgreSQL event storage" src="/images/clustered_architecture_postgres.png" width="800 px">
-</div>
+{{< figure src="/images/clustered_architecture_postgres.png" alt="Clustered Sensu Go architecture with PostgreSQL" link="/images/clustered_architecture_postgres.png" target="_blank" >}}
 <!-- Diagram source: https://www.lucidchart.com/documents/edit/475f950e-2770-4bf7-af73-57bc834cebdd/1 -->
 
-<p style="text-align:center"><i>Clustered Sensu Go architecture with PostgreSQL event storage</i></p>
+*<p style="text-align:center">Clustered Sensu Go architecture with PostgreSQL event storage</p>*
 
 In load testing, Sensu Go has proven capable of processing 36,000 events per second when using PostgreSQL as the event store.
 See the [sensu-perf project repository][10] for a detailed explanation of our testing methodology and results.
