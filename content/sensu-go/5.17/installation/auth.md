@@ -1,6 +1,6 @@
 ---
 title: "Authentication"
-description: "In addition to built-in RBAC, Sensu includes commercial support for authentication using a Lightweight Directory Access Protocol (LDAP) provider. Read this guide to configure an authentication provider."
+description: "In addition to built-in basic authentication and RBAC, Sensu includes commercial support for authentication using Lightweight Directory Access Protocol (LDAP), Active Directory (AD), or OIDC. Read this guide to configure an authentication provider."
 weight: 40
 version: "5.17"
 product: "Sensu Go"
@@ -9,8 +9,10 @@ menu:
     parent: installation
 ---
 
-- [Manage authentication providers](#manage-authentication-providers)
-- [Configure authentication providers](#configure-authentication-providers)
+- [Use built-in basic authentication](#use-built-in-basic-authentication)
+- [Use an authentication provider](#use-an-authentication-provider)
+   - [Manage authentication providers](#manage-authentication-providers)
+   - [Configure authentication providers](#configure-authentication-providers)
 - [LDAP authentication](#ldap-authentication)
   - [Examples](#ldap-configuration-examples)
   - [LDAP specification](#ldap-specification)
@@ -25,15 +27,26 @@ menu:
   - [Okta](#okta)
 
 Sensu requires username and password authentication to access the [Sensu dashboard][1], [API][8], and command line tool ([sensuctl][2]).
-For Sensu's [default user credentials][3] and more information about configuring Sensu role-based access control (RBAC), see the [RBAC reference][4] and learn how to [create read-only users][5].
+You can use Sensu's built-in basic authentication or an external authentication provider.
 
-In addition to built-in RBAC, Sensu includes [commercial][6] support for authentication using external authentication providers.
-Sensu supports Microsoft Active Directory (AD) and standards-compliant Lightweight Directory Access Protocol (LDAP) tools like OpenLDAP.
+## Use built-in basic authentication
+
+Sensu's built-in basic authentication allows you to create and manage user credentials (usernames and passwords) with the [users API][53].
+
+Basic authentication does not require any external configuration.
+With basic authentication, you can create and manage [default user credentials][3], configure [role-based access control (RBAC)][4], and [create read-only users][5].
+
+Sensu records basic authentication credentials in [etcd][54].
+
+## Use an authentication provider
 
 **COMMERCIAL FEATURE**: Access authentication providers in the packaged Sensu Go distribution.
 For more information, see [Get started with commercial features][6].
 
-## Manage authentication providers
+In addition to built-in authentication and RBAC, Sensu includes [commercial][6] support for authentication using external authentication providers.
+Sensu supports Microsoft Active Directory (AD) and standards-compliant Lightweight Directory Access Protocol (LDAP) tools like OpenLDAP.
+
+### Manage authentication providers
 
 View and delete authentication providers with sensuctl and the [authentication providers API][27]
 To set up an authentication provider for Sensu, see [Configure authentication providers][28].
@@ -56,7 +69,7 @@ To delete an authentication provider named `openldap`:
 sensuctl auth delete openldap
 {{< /highlight >}}
 
-## Configure authentication providers
+### Configure authentication providers
 
 **1. Write an authentication provider configuration definition**
 
@@ -105,7 +118,7 @@ After you configure the correct roles and bindings, log in to [sensuctl][36] and
 
 ## LDAP authentication
 
-Sensu offers commercial support for a standards-compliant LDAP tool for authentication to the Sensu dashboard, API, and sensuctl.
+Sensu offers [commercial support][6] for a standards-compliant LDAP tool for authentication to the Sensu dashboard, API, and sensuctl.
 The Sensu LDAP authentication provider is tested with [OpenLDAP][7].
 If you're using AD, head to the [AD section][37].
 
@@ -619,7 +632,7 @@ For example:
 
 ## AD authentication
 
-Sensu offers commercial support for using Microsoft Active Directory (AD) for authentication to the Sensu dashboard, API, and sensuctl.
+Sensu offers [commercial support][6] for using Microsoft Active Directory (AD) for authentication to the Sensu dashboard, API, and sensuctl.
 The AD authentication provider is based on the [LDAP authentication provider][44].
 
 ### AD configuration examples
@@ -1359,3 +1372,5 @@ If a browser does not open, launch a browser to complete the login via your OIDC
 [50]: #create-an-okta-application
 [51]: https://www.okta.com/
 [52]: https://www.pingidentity.com/en/software/pingfederate.html
+[53]: ../../api/users/
+[54]: https://etcd.io/

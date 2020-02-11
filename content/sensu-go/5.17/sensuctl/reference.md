@@ -14,6 +14,7 @@ menu:
 - [First-time setup](#first-time-setup)
 - [Get help](#get-help)
 - [Manage sensuctl](#manage-sensuctl)
+- [Test a user password](#test-a-user-password)
 - [Create resources](#create-resources)
 - [Delete resources](#delete-resources)
 - [Update resources](#update-resources)
@@ -190,6 +191,25 @@ You can use global flags with most sensuctl commands.
 {{< /highlight >}}
 
 You can set these flags permanently by editing `.config/sensu/sensuctl/{cluster, profile}`.
+
+## Test a user password
+
+To test the password for a user created with Sensu's built-in basic authentication:
+
+{{< highlight shell >}}
+sensuctl user test-creds USERNAME --password 'password'
+{{< /highlight >}}
+
+An empty response indicates valid credentials.
+A `request-unauthorized` response indicates invalid credentials.
+
+_**NOTE**: The `sensuctl user test-creds` command tests passwords for users created with Sensu's [users API][44]. It does not test user credentials defined via an authentication provider like [Lightweight Directory Access Protocol (LDAP)][26] or [Active Directory][42]._
+
+For example, if you test LDAP credentials with the `sensuctl user test-creds` command, the backend will log an error, even if you know the LDAP credentials are correct:
+
+{{< highlight shell >}}
+{"component":"apid.routers","error":"basic provider is disabled","level":"info","msg":"invalid username and/or password","time":"2020-02-07T20:42:14Z","user":"dev"}
+{{< /highlight >}}
 
 ## Create resources
 
@@ -1029,3 +1049,4 @@ Flags are optional and apply only to the `delete` command.
 [41]: ../../reference/secrets/
 [42]: ../../installation/auth/#ad-authentication
 [43]: ../../reference/secrets-providers/
+[44]: ../../api/users/

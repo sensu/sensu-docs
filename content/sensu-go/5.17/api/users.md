@@ -90,7 +90,9 @@ output         | {{< highlight shell >}}
 
 ### `/users` (POST)
 
-The `/users` API endpoint provides HTTP POST access to create a [user][1].
+The `/users` API endpoint provides HTTP POST access to create a [user][1] using Sensu's [built-in basic authentication][6].
+
+_**NOTE**: To configure user credentials with an external provider like [Lightweight Directory Access Protocol (LDAP)][4] or [Active Directory][5], use Sensu's [authentication providers API][3]._
 
 #### EXAMPLE {#users-post-example}
 
@@ -385,3 +387,7 @@ response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Miss
 
 [1]: ../../reference/rbac#user-specification
 [2]: ../overview#pagination
+[3]: ../authproviders/
+[4]: ../../installation/auth#ldap-authentication
+[5]: ../../installation/auth/#ad-authentication
+[6]: ../../installation/auth#use-built-in-basic-authentication

@@ -19,7 +19,7 @@ menu:
 
 ### `/auth` (GET) {#auth-get}
 
-The `/auth` API endpoint provides HTTP GET access to create an access token using basic authentication.
+The `/auth` API endpoint provides HTTP GET access to generate an access token and a refresh token using Sensu's basic authentication.
 
 #### EXAMPLE {#auth-get-example}
 
@@ -42,7 +42,7 @@ HTTP/1.1 200 OK
 
 /auth (GET)          |     |
 ---------------------|------
-description          | Generates an access token to the API using basic authentication. Access tokens last for approximately 15 minutes. When your token expires, you should see a `401 Unauthorized` response from the API. To generate a new access token, use the [`/auth/token` API endpoint](#authtoken-post).
+description          | Generates an access token and a refresh token to the API using Sensu's basic authentication. Access tokens last for approximately 15 minutes. When your token expires, you should see a `401 Unauthorized` response from the API. To generate a new access token, use the [`/auth/token` API endpoint](#authtoken-post).
 example url          | http://hostname:8080/auth
 output               | {{< highlight json >}}
 {
@@ -57,7 +57,9 @@ response codes       | <ul><li>**Valid credentials**: 200 (OK)</li><li> **Invali
 
 ### `/auth/test` (GET) {#authtest-get}
 
-The `/auth/test` API endpoint provides HTTP GET access to test user credentials.
+The `/auth/test` API endpoint provides HTTP GET access to test basic authentication user credentials that were created with Sensu's [users API][1].
+
+_**NOTE**: The `/auth/test` endpoint only tests user credentials created with Sensu's [users API][1]. It does not test user credentials defined via an authentication provider like [Lightweight Directory Access Protocol (LDAP)][2] or [Active Directory][3]._
 
 #### EXAMPLE {#authtest-get-example}
 
@@ -75,7 +77,7 @@ HTTP/1.1 200 OK
 
 /auth/test (GET)     |     |
 ---------------------|------
-description          | Tests a given username and password.
+description          | Tests basic authentication credentials (username and password) that were created with Sensu's [users API][1].
 example url          | http://hostname:8080/auth/test
 response codes       | <ul><li>**Valid credentials**: 200 (OK)</li><li> **Invalid credentials**: 401 (Unauthorized)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
@@ -124,3 +126,7 @@ output               | {{< highlight json >}}
 }
 {{< /highlight >}}
 response codes  | <ul><li>**Success**: 200 (OK)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+
+[1]: ../users/
+[2]: ../../installation/auth#ldap-authentication
+[3]: ../../installation/auth/#ad-authentication
