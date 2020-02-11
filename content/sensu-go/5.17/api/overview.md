@@ -20,8 +20,8 @@ menu:
 - [Response filtering](#response-filtering)
   - [Label selector](#label-selector)
   - [Field selector](#field-selector)
+  - [Combined selectors](#combined-selectors)
   - [Operators](#operators)
-  - [Combinations](#combinations)
   - [Examples](#examples)
 
 **API version: v2**
@@ -269,6 +269,8 @@ _**NOTE**: To use label and field selectors in the Sensu dashboard, see [dashboa
 The `labelSelector` query parameter allows you to group resources by the label attributes specified in the resource metadata object.
 All resources support labels within the [metadata object][9].
 
+The label selector does not work with values that contain special characters like hyphens and underscores.
+
 ### Field selector
 
 The `fieldSelector` query parameter allows you to organize and select subsets of resources based on certain fields.
@@ -293,9 +295,26 @@ Here's the list of available fields:
 | Silenced | `silenced.name` `silenced.namespace` `silenced.check` `silenced.creator` `silenced.expire_on_resolve` `silenced.subscription` |
 | User | `user.username` `user.disabled` `user.groups` |
 
+The `fieldSelector` parameter does not work with values that contain special characters like hyphens and underscores.
+
+### Combined selectors
+
+You can use field and label selectors in a single request.
+For example, to retrieve only checks that use the `slack` handler *and* that include a label for region `us-west-1`:
+
+{{< highlight shell >}}
+curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" http://127.0.0.1:8080/api/core/v2/checks -G \
+--data-urlencode 'fieldSelector=slack in check.handlers' \
+--data-urlencode 'labelSelector=region != "us-west-1"'
+{{< /highlight >}}
+
 ### Operators
 
-Sensu's API response filtering supports two _equality-based_ operators: `==` (equality) and `!=` (inequality).
+Sensu's API response filtering supports two equality-based operators, two set-based operators, and one logical operator.
+
+#### Equality-based operators
+
+Sensu's two _equality-based_ operators are `==` (equality) and `!=` (inequality).
 
 For example, to retrieve only checks with the label and value `region: "us-west-1"`: 
 
@@ -314,13 +333,18 @@ curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" http://127.0.0.1:8080/api/co
 --data-urlencode 'fieldSelector=check.namespace != "default"'
 {{< /highlight >}}
 
-Sensu also supports two _set-based_ operators for lists of values: `in` and `notin`.
+#### Set-based operators
+
+Sensu's two _set-based_ operators for lists of values are `in` and `notin`.
+
 For example, to retrieve checks with a `linux` subscription:
 
 {{< highlight shell >}}
 curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" http://127.0.0.1:8080/api/core/v2/checks -G \
 --data-urlencode 'linux in check.subscriptions'
 {{< /highlight >}}
+
+_**NOTE**: The `in` and `notin` operators only work with strings. You cannot use `in` or `notin` with integer, float, array, or Boolean values._
 
 To retrieve checks that do not use the `slack` handler:
 
@@ -329,11 +353,10 @@ curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" http://127.0.0.1:8080/api/co
 --data-urlencode 'slack notin check.handlers'
 {{< /highlight >}}
 
-### Combinations
+#### Logical operator
 
-#### Combined statements
-
-You can combine multiple statements separated with the logical operator `&&` (_AND_) in field and label selectors.
+Sensu's logical operator is `&&` (AND).
+You can combine multiple statements separated with the logical operator in field and label selectors.
 
 For example, the following cURL request retrieves checks that are configured to be published **and** include the `slack` handler:
 
@@ -349,16 +372,7 @@ curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" http://127.0.0.1:8080/api/co
 --data-urlencode 'linux in check.subscriptions && slack notin check.handlers && dev in check.namespace'
 {{< /highlight >}}
 
-#### Combined selectors
-
-You can use field and label selectors at the same time.
-For example, to retrieve only checks that use the `slack` handler *and* that include a label for region `us-west-1`:
-
-{{< highlight shell >}}
-curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" http://127.0.0.1:8080/api/core/v2/checks -G \
---data-urlencode 'fieldSelector=slack in check.handlers' \
---data-urlencode 'labelSelector=region != "us-west-1"'
-{{< /highlight >}}
+_**NOTE**: Sensu does not have the `OR` logical operator._
 
 ### Examples
 
@@ -368,8 +382,10 @@ To retrieve checks that are in either the `dev` or `production` namespace:
 
 {{< highlight shell >}}
 curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" http://127.0.0.1:8080/api/core/v2/checks -G \
---data-urlencode 'fieldSelector=[dev,production] in check.namespace'
+--data-urlencode 'fieldSelector=check.namespace in [dev,production]'
 {{< /highlight >}}
+
+**I don't think this is how it works, but this is how it's shown currently in our docs. Simon mentioned that `in` and `notin` only work with strings, and the strings have to be to the left of the operator.**
 
 #### Filter events by entity or check
 
@@ -383,8 +399,6 @@ curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" http://127.0.0.1:8080/api/co
 --data-urlencode 'fieldSelector=server in event.entity.name'
 {{< /highlight >}}
 
-**How do I filter for a `name` value that contains - and .? For example `Hillarys-Sensu-MacBook-Pro.local`**
-
 #### Filter silenced and unsilenced events
 
 {{< highlight shell >}}
@@ -397,9 +411,10 @@ curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" http://127.0.0.1:8080/api/co
 --data-urlencode 'fieldSelector=silenced.check != true'
 {{< /highlight >}}
 
-#### Filter events by severity
+#### Filter events by severity (WORKING)
 
-To see all `CRITICAL`-status events:
+Use the `event.check.status` field selector to retrieve events by severity.
+For example, to retrieve all events at `2` (CRITICAL) status:
 
 {{< highlight shell >}}
 curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" http://127.0.0.1:8080/api/core/v2/events -G \
