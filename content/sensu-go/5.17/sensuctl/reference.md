@@ -194,7 +194,7 @@ You can set these flags permanently by editing `.config/sensu/sensuctl/{cluster,
 
 ## Test a user password
 
-To test the password for a user created with Sensu's built-in basic authentication:
+To test the password for a user created with Sensu's built-in [basic authentication][44]:
 
 {{< highlight shell >}}
 sensuctl user test-creds USERNAME --password 'password'
@@ -203,7 +203,7 @@ sensuctl user test-creds USERNAME --password 'password'
 An empty response indicates valid credentials.
 A `request-unauthorized` response indicates invalid credentials.
 
-_**NOTE**: The `sensuctl user test-creds` command tests passwords for users created with Sensu's [users API][44]. It does not test user credentials defined via an authentication provider like [Lightweight Directory Access Protocol (LDAP)][26] or [Active Directory][42]._
+_**NOTE**: The `sensuctl user test-creds` command tests passwords for users created with Sensu's built-in [basic authentication][44]. It does not test user credentials defined via an authentication provider like [Lightweight Directory Access Protocol (LDAP)][26] or [Active Directory][42]._
 
 For example, if you test LDAP credentials with the `sensuctl user test-creds` command, the backend will log an error, even if you know the LDAP credentials are correct:
 
@@ -1049,4 +1049,4 @@ Flags are optional and apply only to the `delete` command.
 [41]: ../../reference/secrets/
 [42]: ../../installation/auth/#ad-authentication
 [43]: ../../reference/secrets-providers/
-[44]: ../../api/users/
+[44]: ../../installation/auth#use-built-in-basic-authentication

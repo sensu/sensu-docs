@@ -261,7 +261,7 @@ You can configure `agent` user credentials with the [`user` and `password` agent
 
 ### Manage users
 
-To test the password for a user created with Sensu's built-in basic authentication:
+To test the password for a user created with Sensu's built-in [basic authentication][34]:
 
 {{< highlight shell >}}
 sensuctl user test-creds USERNAME --password 'password'
@@ -270,7 +270,7 @@ sensuctl user test-creds USERNAME --password 'password'
 An empty response indicates valid credentials.
 A `request-unauthorized` response indicates invalid credentials.
 
-_**NOTE**: The `sensuctl user test-creds` command tests passwords for users created with Sensu's [users API][34]. It does not test user credentials defined via an authentication provider like [Lightweight Directory Access Protocol (LDAP)][43] or [Active Directory][44]._
+_**NOTE**: The `sensuctl user test-creds` command tests passwords for users created with Sensu's built-in [basic authentication][34]. It does not test user credentials defined via an authentication provider like [Lightweight Directory Access Protocol (LDAP)][43] or [Active Directory][44]._
 
 To change the password for a user:
 
@@ -1252,9 +1252,9 @@ You can add these resources to Sensu using [`sensuctl create`][31].
 [29]: #create-role-bindings-and-cluster-role-bindings
 [30]: #role-binding-and-cluster-role-binding-specification
 [31]: ../../sensuctl/reference#create-resources
-[32]: ../../installation/auth/
+[32]: ../../installation/auth#use-an-authentication-provider
 [33]: ../../getting-started/enterprise/
-[34]: ../users/
+[34]: ../../installation/auth#use-built-in-basic-authentication
 [36]: ../../sensuctl/reference#create-resources-across-namespaces
 [37]: ../license/
 [38]: ../../installation/auth/#groups-prefix

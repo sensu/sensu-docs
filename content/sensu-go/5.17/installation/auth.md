@@ -31,9 +31,9 @@ You can use Sensu's built-in basic authentication or an external authentication 
 
 ## Use built-in basic authentication
 
-Sensu's built-in basic authentication allows you to create and manage user credentials (usernames and passwords) with the [users API][53].
-
+Sensu's built-in basic authentication allows you to create and manage user credentials (usernames and passwords) with the [users API][53], either directly or using [sensuctl][2].
 Basic authentication does not require any external configuration.
+
 With basic authentication, you can create and manage [default user credentials][3], configure [role-based access control (RBAC)][4], and [create read-only users][5].
 
 Sensu records basic authentication credentials in [etcd][54].
@@ -43,8 +43,7 @@ Sensu records basic authentication credentials in [etcd][54].
 **COMMERCIAL FEATURE**: Access authentication providers in the packaged Sensu Go distribution.
 For more information, see [Get started with commercial features][6].
 
-In addition to built-in authentication and RBAC, Sensu includes [commercial][6] support for authentication using external authentication providers.
-Sensu supports Microsoft Active Directory (AD) and standards-compliant Lightweight Directory Access Protocol (LDAP) tools like OpenLDAP.
+In addition to built-in authentication and RBAC, Sensu includes commercial support for authentication using external authentication providers, including [Microsoft Active Directory (AD)][37] and standards-compliant [Lightweight Directory Access Protocol (LDAP)][44] tools like OpenLDAP.
 
 ### Manage authentication providers
 

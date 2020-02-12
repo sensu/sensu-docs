@@ -57,9 +57,9 @@ response codes       | <ul><li>**Valid credentials**: 200 (OK)</li><li> **Invali
 
 ### `/auth/test` (GET) {#authtest-get}
 
-The `/auth/test` API endpoint provides HTTP GET access to test basic authentication user credentials that were created with Sensu's [users API][1].
+The `/auth/test` API endpoint provides HTTP GET access to test basic authentication user credentials that were created with Sensu's built-in [basic authentication][1].
 
-_**NOTE**: The `/auth/test` endpoint only tests user credentials created with Sensu's [users API][1]. It does not test user credentials defined via an authentication provider like [Lightweight Directory Access Protocol (LDAP)][2] or [Active Directory][3]._
+_**NOTE**: The `/auth/test` endpoint only tests user credentials created with Sensu's built-in [basic authentication][1]. It does not test user credentials defined via an authentication provider like [Lightweight Directory Access Protocol (LDAP)][2] or [Active Directory][3]._
 
 #### EXAMPLE {#authtest-get-example}
 
@@ -127,6 +127,6 @@ output               | {{< highlight json >}}
 {{< /highlight >}}
 response codes  | <ul><li>**Success**: 200 (OK)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
-[1]: ../users/
+[1]: ../../installation/auth#use-built-in-basic-authentication
 [2]: ../../installation/auth#ldap-authentication
 [3]: ../../installation/auth/#ad-authentication
