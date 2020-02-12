@@ -150,7 +150,7 @@ Access tokens last for approximately 15 minutes.
 When your token expires, you should see a `401 Unauthorized` response from the API.
 To regenerate a valid access token, run any sensuctl command (like `sensuctl event list`) and repeat step 2.
 
-### Authenticate with the API key feature
+### Authenticate with an API key
 
 The Sensu API key feature (core/v2.APIKey) is a persistent UUID that maps to a stored Sensu username.
 The advantages of authenticating with API keys rather than [access tokens][14] include:
