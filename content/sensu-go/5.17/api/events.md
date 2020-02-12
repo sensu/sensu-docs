@@ -104,7 +104,8 @@ HTTP/1.1 200 OK
 ---------------|------
 description    | Returns the list of events.
 example url    | http://hostname:8080/api/core/v2/namespaces/default/events
-pagination     | This endpoint supports pagination using the `limit` and `continue` query parameters. See the [API overview][2] for details.
+pagination     | This endpoint supports [pagination][2] using the `limit` and `continue` query parameters.
+response filtering | This endpoint supports [API response filtering][10].
 response type  | Array
 response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output         | {{< highlight shell >}}
@@ -892,4 +893,5 @@ response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Miss
 [7]: ../../reference/checks#check-specification
 [8]: ../../reference/events/
 [9]: ../../reference/events#metrics
+[10]: ../overview#response-filtering
 [11]: #eventsentitycheck-put

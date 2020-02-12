@@ -20,8 +20,8 @@ menu:
 - [Response filtering](#response-filtering)
   - [Label selector](#label-selector)
   - [Field selector](#field-selector)
-  - [Combined selectors](#combined-selectors)
   - [Operators](#operators)
+  - [Combined selectors](#combined-selectors)
   - [Examples](#examples)
 
 **API version: v2**
@@ -297,40 +297,37 @@ Here's the list of available fields:
 
 The `fieldSelector` parameter does not work with values that contain special characters like hyphens and underscores.
 
-### Combined selectors
-
-You can use field and label selectors in a single request.
-For example, to retrieve only checks that use the `slack` handler *and* that include a label for region `us-west-1`:
-
-{{< highlight shell >}}
-curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" http://127.0.0.1:8080/api/core/v2/checks -G \
---data-urlencode 'fieldSelector=slack in check.handlers' \
---data-urlencode 'labelSelector=region != "us-west-1"'
-{{< /highlight >}}
-
 ### Operators
 
 Sensu's API response filtering supports two equality-based operators, two set-based operators, and one logical operator.
+
+| operator | description     | example                |
+| -------- | --------------- | ---------------------- |
+| `==`     | Equality        | `check.publish == true`
+| `!=`     | Inequality      | `check.namespace != "default"`
+| `in`     | Included in     | `linux in check.subscriptions`
+| `notin`  | Not included in | `slack notin check.handlers`
+| `&&`     | Logical AND     | `check.publish == true && slack in check.handlers`
 
 #### Equality-based operators
 
 Sensu's two _equality-based_ operators are `==` (equality) and `!=` (inequality).
 
-For example, to retrieve only checks with the label and value `region: "us-west-1"`: 
+For example, to retrieve only checks with the label `type` and value `server`: 
 
 {{< highlight shell >}}
 curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" http://127.0.0.1:8080/api/core/v2/checks -G \
---data-urlencode 'labelSelector=region == "us-west-1"'
+--data-urlencode 'labelSelector=type == "server"'
 {{< /highlight >}}
 
 _**NOTE**: Use the flag `--data-urlencode` in cURL to encode the query parameter. 
 Include the `-G` flag so the request appends the query parameter data to the URL._
 
-To retrieve checks that are not in the `default` namespace:
+To retrieve checks that are not in the `production` namespace:
 
 {{< highlight shell >}}
 curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" http://127.0.0.1:8080/api/core/v2/checks -G \
---data-urlencode 'fieldSelector=check.namespace != "default"'
+--data-urlencode 'fieldSelector=check.namespace != "production"'
 {{< /highlight >}}
 
 #### Set-based operators
@@ -344,7 +341,7 @@ curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" http://127.0.0.1:8080/api/co
 --data-urlencode 'linux in check.subscriptions'
 {{< /highlight >}}
 
-_**NOTE**: The `in` and `notin` operators only work with strings. You cannot use `in` or `notin` with integer, float, array, or Boolean values._
+_**NOTE**: The `in` and `notin` operators only work when the underlying value is a string. You cannot use `in` or `notin` with integer, float, array, or Boolean values._
 
 To retrieve checks that do not use the `slack` handler:
 
@@ -356,27 +353,38 @@ curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" http://127.0.0.1:8080/api/co
 #### Logical operator
 
 Sensu's logical operator is `&&` (AND).
-You can combine multiple statements separated with the logical operator in field and label selectors.
+Use it to combine multiple statements separated with the logical operator in field and label selectors.
 
-For example, the following cURL request retrieves checks that are configured to be published **and** include the `slack` handler:
+For example, the following cURL request retrieves checks that are not configured to be published **and** include the `linux` subscription:
 
 {{< highlight shell >}}
 curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" http://127.0.0.1:8080/api/core/v2/checks -G \
---data-urlencode 'fieldSelector=check.publish == true && slack in check.handlers'
+--data-urlencode 'fieldSelector=check.publish != true && linux in check.subscriptions'
 {{< /highlight >}}
 
-To retrieve checks with a `linux` subscription that do not use the `slack` handler and are in either the `dev` namespace:
+To retrieve checks that are not published, include a `linux` subscription, and are in the `dev` namespace:
 
 {{< highlight shell >}}
 curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" http://127.0.0.1:8080/api/core/v2/checks -G \
---data-urlencode 'linux in check.subscriptions && slack notin check.handlers && dev in check.namespace'
+--data-urlencode 'fieldSelector=check.publish != true && linux in check.subscriptions && dev in check.namespace'
 {{< /highlight >}}
 
 _**NOTE**: Sensu does not have the `OR` logical operator._
 
+### Combined selectors
+
+You can use field and label selectors in a single request.
+For example, to retrieve only checks that include a `linux` subscription *and* do not include a label for type `server`:
+
+{{< highlight shell >}}
+curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" http://127.0.0.1:8080/api/core/v2/checks -G \
+--data-urlencode 'fieldSelector=linux in check.subscriptions' \
+--data-urlencode 'labelSelector=type != "server"'
+{{< /highlight >}}
+
 ### Examples
 
-#### Use selectors with arrays
+#### Use selectors with arrays of strings
 
 To retrieve checks that are in either the `dev` or `production` namespace:
 
@@ -385,33 +393,23 @@ curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" http://127.0.0.1:8080/api/co
 --data-urlencode 'fieldSelector=check.namespace in [dev,production]'
 {{< /highlight >}}
 
-**I don't think this is how it works, but this is how it's shown currently in our docs. Simon mentioned that `in` and `notin` only work with strings, and the strings have to be to the left of the operator.**
-
 #### Filter events by entity or check
+
+To retrieve events for a specific check (`checkhttp`):
 
 {{< highlight shell >}}
 curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" http://127.0.0.1:8080/api/core/v2/events -G \
---data-urlencode 'fieldSelector=server in event.check.name'
+--data-urlencode 'fieldSelector=checkhttp in event.check.name'
 {{< /highlight >}}
+
+Similary, to retrieve only events for the `server` entity:
 
 {{< highlight shell >}}
 curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" http://127.0.0.1:8080/api/core/v2/events -G \
 --data-urlencode 'fieldSelector=server in event.entity.name'
 {{< /highlight >}}
 
-#### Filter silenced and unsilenced events
-
-{{< highlight shell >}}
-curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" http://127.0.0.1:8080/api/core/v2/events -G \
---data-urlencode 'fieldSelector=silenced.check == true'
-{{< /highlight >}}
-
-{{< highlight shell >}}
-curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" http://127.0.0.1:8080/api/core/v2/events -G \
---data-urlencode 'fieldSelector=silenced.check != true'
-{{< /highlight >}}
-
-#### Filter events by severity (WORKING)
+#### Filter events by severity
 
 Use the `event.check.status` field selector to retrieve events by severity.
 For example, to retrieve all events at `2` (CRITICAL) status:
@@ -421,22 +419,35 @@ curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" http://127.0.0.1:8080/api/co
 --data-urlencode 'fieldSelector=event.check.status == "2"'
 {{< /highlight >}}
 
-#### Filter events by a specific incident
+#### Filter all incidents
+
+To retrieve all incidents (all events whose status is not `0`):
 
 {{< highlight shell >}}
 curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" http://127.0.0.1:8080/api/core/v2/events -G \
---data-urlencode 'fieldSelector=filter.name == is_incident'
+--data-urlencode 'fieldSelector=event.entity.status != "0"'
 {{< /highlight >}}
 
-#### Filter events, entities, and checks by subscription
+#### Filter checks, entities, or entities by subscription
 
-To see all events, entities, and checks that include the `linux` subscription:
+To list all checks that include the `linux` subscription:
+
+{{< highlight shell >}}
+curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" http://127.0.0.1:8080/api/core/v2/checks -G \
+--data-urlencode 'fieldSelector=linux in check.subscriptions'
+{{< /highlight >}}
+
+Similarly, to list all entities that include the `linux` subscription:
+
+{{< highlight shell >}}
+curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" http://127.0.0.1:8080/api/core/v2/entities -G \
+--data-urlencode 'fieldSelector=linux in entity.subscriptions'
+{{< /highlight >}}
+
+To list all events for the `linux` subscription, use the `event.entity.subscriptions` field selector:
 
 {{< highlight shell >}}
 curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" http://127.0.0.1:8080/api/core/v2/events -G \
---data-urlencode 'fieldSelector=linux in entity.subscriptions' \
---data-urlencode 'fieldSelector=linux in check.subscriptions' \
---data-urlencode 'fieldSelector=linux in event.check.subscriptions' \
 --data-urlencode 'fieldSelector=linux in event.entity.subscriptions'
 {{< /highlight >}}
 
