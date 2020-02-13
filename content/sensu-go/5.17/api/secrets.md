@@ -73,6 +73,7 @@ _**NOTE**: In addition to the `VaultProvider` type, the secrets API also include
 ---------------|------
 description    | Returns the list of secrets providers.
 example url    | http://hostname:8080/api/enterprise/secrets/v1/providers
+response filtering | This endpoint supports [API response filtering][4].
 response type  | Array
 response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output         | {{< highlight shell >}}
@@ -311,6 +312,7 @@ HTTP/1.1 200 OK
 ---------------|------
 description    | Returns the list of secrets for the specified namespace.
 example url    | http://hostname:8080/api/enterprise/secrets/v1/namespaces/default/secrets
+response filtering | This endpoint supports [API response filtering][4].
 response type  | Array
 response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output         | {{< highlight shell >}}
@@ -462,3 +464,4 @@ response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Miss
 [1]: ../../getting-started/enterprise/
 [2]: ../../reference/secrets-providers/
 [3]: ../../reference/backend/#configuration-via-environment-variables
+[4]: ../overview#response-filtering
