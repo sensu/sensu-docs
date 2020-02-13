@@ -292,6 +292,8 @@ Here's the list of available fields:
 | Namespace | `namespace.name` |
 | Role | `role.name` `role.namespace` |
 | RoleBinding | `rolebinding.name` `rolebinding.namespace` `rolebinding.role_ref.name` `rolebinding.role_ref.type`|
+| Secrets | `secret.name` `secret.namespace` `secret.provider` `secret.id` |
+| SecretsProviders | `provider.name` `provider.namespace` |
 | Silenced | `silenced.name` `silenced.namespace` `silenced.check` `silenced.creator` `silenced.expire_on_resolve` `silenced.subscription` |
 | User | `user.username` `user.disabled` `user.groups` |
 
