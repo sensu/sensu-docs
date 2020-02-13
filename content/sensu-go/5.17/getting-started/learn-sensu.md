@@ -29,7 +29,25 @@ In this tutorial, you'll download the Sensu sandbox and create a monitoring work
 git clone https://github.com/sensu/sandbox && cd sandbox/sensu-go
 {{< /highlight >}}
 
-_**NOTE**: If you've cloned the sandbox repository before, run `cd sandbox/sensu-go` and `git pull https://github.com/sensu/sandbox` instead._
+{{% notice note %}}
+**NOTE**: If you've cloned the sandbox repository before, run `cd sandbox/sensu-go` and `git pull https://github.com/sensu/sandbox` instead.
+Before installing sensuctl outside of the sandbox, read the [first time setup reference][1] to learn how to configure sensuctl.
+{{% /notice %}}
+
+{{% notice warning %}}
+**WARNING**: If you've cloned the sandbox repository before, run `cd sandbox/sensu-go` and `git pull https://github.com/sensu/sandbox` instead.
+Before installing sensuctl outside of the sandbox, read the [first time setup reference][1] to learn how to configure sensuctl.
+{{% /notice %}}
+
+{{% notice protip %}}
+**PRO TIP**: If you've cloned the sandbox repository before, run `cd sandbox/sensu-go` and `git pull https://github.com/sensu/sandbox` instead.
+Before installing sensuctl outside of the sandbox, read the [first time setup reference][1] to learn how to configure sensuctl.
+{{% /notice %}}
+
+{{% notice important %}}
+**IMPORTANT**: If you've cloned the sandbox repository before, run `cd sandbox/sensu-go` and `git pull https://github.com/sensu/sandbox` instead.
+Before installing sensuctl outside of the sandbox, read the [first time setup reference][1] to learn how to configure sensuctl.
+{{% /notice %}}
 
 **3. Start Vagrant**
 
