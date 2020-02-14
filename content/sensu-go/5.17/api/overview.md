@@ -343,7 +343,6 @@ curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" http://127.0.0.1:8080/api/co
 --data-urlencode 'linux in check.subscriptions'
 {{< /highlight >}}
 
-
 To retrieve checks that do not use the `slack` handler:
 
 {{< highlight shell >}}
