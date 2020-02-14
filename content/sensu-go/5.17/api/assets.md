@@ -77,7 +77,7 @@ HTTP/1.1 200 OK
 ---------------|------
 description    | Returns the list of assets.
 example url    | http://hostname:8080/api/core/v2/namespaces/default/assets
-ppagination     | This endpoint supports [pagination][2] using the `limit` and `continue` query parameters.
+pagination     | This endpoint supports [pagination][2] using the `limit` and `continue` query parameters.
 response filtering | This endpoint supports [API response filtering][3].
 response type  | Array
 response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
