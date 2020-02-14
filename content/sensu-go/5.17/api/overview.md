@@ -349,7 +349,12 @@ To retrieve checks that do not use the `slack` handler:
 curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" http://127.0.0.1:8080/api/core/v2/checks -G \
 --data-urlencode 'slack notin check.handlers'
 {{< /highlight >}}
+The `in` and `notin` operators have two important conditions.
+First, `in` and `notin` only work when the underlying value you're filtering for is a string.
+You can filter for strings and arrays of strings with `in` and `notin`, but you cannot use the `in` and `notin` operators to filter for integer, float, array, or Boolean values.
 
+Second, if you're filtering for a string, the string must be to the **left** of the operator: `string [in|notin] selector`.
+If you're filtering for an array of strings, the array must be to the **right** of the operator: `selector [in|notin] [string1,string2]`.
 #### Logical operator
 
 Sensu's logical operator is `&&` (AND).
