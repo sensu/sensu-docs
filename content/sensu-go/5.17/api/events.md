@@ -354,7 +354,7 @@ HTTP/1.1 200 OK
 ---------------------|------
 description          | Returns a list of events for the specified entity.
 example url          | http://hostname:8080/api/core/v2/namespaces/default/events/sensu-go-sandbox
-pagination           | This endpoint supports pagination using the `limit` and `continue` query parameters. See the [API overview][2] for details.
+pagination           | This endpoint supports [pagination][2] using the `limit` and `continue` query parameters.
 response type        | Array
 response codes       | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output               | {{< highlight json >}}

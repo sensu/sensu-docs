@@ -66,7 +66,8 @@ HTTP/1.1 200 OK
 ---------------|------
 description    | Returns the list of users.
 example url    | http://hostname:8080/api/core/v2/users
-pagination     | This endpoint supports pagination using the `limit` and `continue` query parameters. See the [API overview](../overview#pagination) for details.
+pagination     | This endpoint supports [pagination](../overview#pagination) using the `limit` and `continue` query parameters.
+response filtering | This endpoint supports [API response filtering][4].
 response type  | Array
 response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output         | {{< highlight shell >}}
@@ -400,3 +401,4 @@ response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Miss
 
 [1]: ../../reference/rbac#user-specification
 [2]: #the-usersuserreinstate-api-endpoint
+[4]: ../overview#filtering
