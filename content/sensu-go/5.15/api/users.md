@@ -244,6 +244,8 @@ http://127.0.0.1:8080/api/core/v2/users/alice
 HTTP/1.1 204 No Content
 {{< /highlight >}}
 
+_**NOTE**: This endpoint **disables** but does not delete the user. You can [reinstate][2] disabled users._
+
 #### API Specification {#usersuser-delete-specification}
 
 /users/:user (DELETE) | 
@@ -397,3 +399,4 @@ example url               | http://hostname:8080/api/core/v2/users/alice/groups/
 response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 [1]: ../../reference/rbac#user-specification
+[2]: #the-usersuserreinstate-api-endpoint
