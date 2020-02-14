@@ -94,7 +94,7 @@ The `/users` API endpoint provides HTTP POST access to create a [user][1].
 
 #### EXAMPLE {#users-post-example}
 
-The following example demonstrates a POST request to the `/users` API endpoint to create the user `alice`, resulting in an HTTP `200 OK` response and the created user definition.
+The following example demonstrates a POST request to the `/users` API endpoint to create the user `alice`, resulting in an HTTP `201 Created` response and the created user definition.
 
 {{< highlight shell >}}
 curl -X POST \
@@ -181,7 +181,7 @@ The `/users/:user` API endpoint provides HTTP PUT access to create or update [us
 
 #### EXAMPLE {#users-put-example}
 
-The following example demonstrates a PUT request to the `/users` API endpoint to update the user `alice` (in this case, to reset the user's password), resulting in an HTTP `200 OK` response and the updated user definition.
+The following example demonstrates a PUT request to the `/users` API endpoint to update the user `alice` (in this case, to reset the user's password), resulting in an HTTP `201 Created` response and the updated user definition.
 
 {{< highlight shell >}}
 curl -X PUT \
@@ -220,7 +220,7 @@ response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 
 
 ### `/users/:user` (DELETE) {#usersuser-delete}
 
-The `/users/:user` API endpoint provides HTTP DELETE access to remove a specific user by `username`.
+The `/users/:user` API endpoint provides HTTP DELETE access to disable a specific user by `username`.
 
 #### EXAMPLE {#usersuser-delete-example}
 
@@ -234,11 +234,13 @@ http://127.0.0.1:8080/api/core/v2/users/alice
 HTTP/1.1 204 No Content
 {{< /highlight >}}
 
+_**NOTE**: This endpoint **disables** but does not delete the user. You can [reinstate][3] disabled users._
+
 #### API Specification {#usersuser-delete-specification}
 
 /users/:user (DELETE) | 
 --------------------------|------
-description               | Removes the specified user.
+description               | Disables the specified user.
 example url               | http://hostname:8080/api/core/v2/users/alice
 response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
@@ -250,7 +252,7 @@ The `/users/:user/password` API endpoint provides HTTP PUT access to update a us
 
 #### EXAMPLE {#usersuserpassword-put-example}
 
-In the following example, an HTTP PUT request is submitted to the `/users/:user/password` API endpoint to update the password for the user `alice`, resulting in an HTTP `200 OK` response.
+In the following example, an HTTP PUT request is submitted to the `/users/:user/password` API endpoint to update the password for the user `alice`, resulting in an HTTP `201 Created` response.
 
 {{< highlight shell >}}
 curl -X PUT \
@@ -288,7 +290,7 @@ The `/users/:user/reinstate` API endpoint provides HTTP PUT access to reinstate 
 
 #### EXAMPLE {#usersuserreinstate-put-example}
 
-In the following example, an HTTP PUT request is submitted to the `/users/:user/reinstate` API endpoint to reinstate the disabled user `alice`, resulting in an HTTP `200 OK` response.
+In the following example, an HTTP PUT request is submitted to the `/users/:user/reinstate` API endpoint to reinstate the disabled user `alice`, resulting in an HTTP `201 Created` response.
 
 {{< highlight shell >}}
 curl -X PUT \
@@ -305,7 +307,7 @@ HTTP/1.1 201 Created
 ----------------|------
 description     | Reinstates a disabled user.
 example URL     | http://hostname:8080/api/core/v2/users/alice/reinstate
-response codes  | <ul><li>**Success**: 200 (OK)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 ## The `/users/:user/groups` API endpoint {#the-usersusergroups-api-endpoint}
 
@@ -341,7 +343,7 @@ The `/users/:user/groups/:group` API endpoint provides HTTP PUT access to assign
 
 #### EXAMPLE {#usersusergroupsgroup-put-example}
 
-In the following example, an HTTP PUT request is submitted to the `/users/:user/groups/:group` API endpoint to add the user `alice` to the group `ops`, resulting in a successful HTTP `204 No Content` response.
+In the following example, an HTTP PUT request is submitted to the `/users/:user/groups/:group` API endpoint to add the user `alice` to the group `ops`, resulting in a successful HTTP `201 Created` response.
 
 {{< highlight shell >}}
 curl -X PUT \
@@ -385,3 +387,4 @@ response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Miss
 
 [1]: ../../reference/rbac#user-specification
 [2]: ../overview#pagination
+[3]: #the-usersuserreinstate-api-endpoint
