@@ -746,7 +746,7 @@ See the example config file provided with Sensu packages at `%ALLUSERSPROFILE%\s
 
 | annotations|      |
 -------------|------
-description  | Non-identifying metadata to include with event data, which can be accessed using [event filters][9] and [tokens][27]. You can use annotations to add data that's meaningful to people or external tools interacting with Sensu.<br><br>In contrast to labels, you cannot use annotations in [API response filtering][api-filter], [sensuctl filtering][sensuctl-filter], or [dashboard views][50].
+description  | Non-identifying metadata to include with event data, which can be accessed using [event filters][9] and [tokens][27]. You can use annotations to add data that's meaningful to people or external tools interacting with Sensu.<br><br>In contrast to labels, you cannot use annotations in [API response filtering][api-filter], [sensuctl filtering][sensuctl-filter], or [dashboard view filtering][50].
 required     | false
 type         | Map of key-value pairs. Keys and values can be any valid UTF-8 string.
 default      | `null`
