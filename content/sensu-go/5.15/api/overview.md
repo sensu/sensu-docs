@@ -15,6 +15,8 @@ menu:
 - [Versioning](#versioning)
 - [Access control](#access-control)
 - [Pagination](#pagination)
+  - [Limit query parameter](#limit-query-parameter)
+  - [Continue query parameter](#continue-query-parameter)
 - [Filtering](#filtering)
   - [Label selector](#label-selector)
   - [Field selector](#field-selector)
@@ -190,48 +192,77 @@ HTTP/1.1 200 OK
 
 ## Pagination
 
-The Sensu API supports response pagination for all GET endpoints that return an array.
-You can request a paginated response using the `limit` and `continue` query parameters.
+The Sensu API supports response pagination for most `core/v2` GET endpoints that return an array.
+You can request a paginated response with the `limit` and `continue` query parameters.
 
-For example, the following request limits the response to a maximum of two objects.
+### Limit query parameter
+
+The following request limits the response to a maximum of two objects:
 
 {{< highlight shell >}}
-curl http://127.0.0.1:8080/api/core/v2/namespaces?limit=2 -H "Authorization: Bearer $SENSU_TOKEN"
+curl http://127.0.0.1:8080/api/core/v2/users?limit=2 -H "Authorization: Bearer $SENSU_ACCESS_TOKEN"
 {{< /highlight >}}
 
-The response includes the available objects up to the specified limit and, if there are more objects available, a continue token.
-For example, the following response indicates that there are more than two namespaces available and provides a continue token to request the next page of objects.
+The response includes the available objects up to the specified limit.
+
+### Continue query parameter
+
+If more objects are available beyond the [limit][16] you specified in a request, the response header includes a `Sensu-Continue` token you can use to request the next page of objects.
+
+For example, the following response indicates that more than two users are available because it provides a `Sensu-Continue` token in the response header:
 
 {{< highlight shell >}}
 HTTP/1.1 200 OK
 Content-Type: application/json
-Sensu-Continue: L2RlZmF1bHQvY2N4MWM2L2hlbGxvLXdvcmxkAA
+Sensu-Continue: L2RlZmF1bU2Vuc3UtTWFjQ
+Sensu-Entity-Count: 3
+Sensu-Entity-Limit: 100
+Sensu-Entity-Warning: 
+Date: Fri, 14 Feb 2020 15:44:25 GMT
+Content-Length: 132
 [
   {
-    "name": "default"
+    "username": "alice",
+    "groups": [
+      "ops"
+    ],
+    "disabled": false
   },
   {
-    "name": "development"
+    "username": "bob",
+    "groups": [
+      "ops"
+    ],
+    "disabled": false
   }
 ]
 {{< /highlight >}}
 
-You can then use the continue token to request the next page of objects.
-The following example requests the next two available namespaces following the request in the example above.
+To request the next two available users, use the `Sensu-Continue` token included in the response header:
 
 {{< highlight shell >}}
-curl http://127.0.0.1:8080/api/core/v2/namespaces?limit=2&continue=L2RlZmF1bHQvY2N4MWM2L2hlbGxvLXdvcmxkAA -H "Authorization: Bearer $SENSU_TOKEN"
+curl http://127.0.0.1:8080/api/core/v2/users?limit=2&continue=L2RlZmF1bU2Vuc3UtTWFjQ \
+-H "Authorization: Bearer $SENSU_ACCESS_TOKEN"
 {{< /highlight >}}
 
-If the request does not return a continue token, there are no further objects to return.
-For example, the following response indicates that there is only one additional namespace available.
+If the response header does not include a `Sensu-Continue` token, there are no further objects to return.
+For example, this response header indicates that no further users are available:
 
 {{< highlight shell >}}
 HTTP/1.1 200 OK
 Content-Type: application/json
+Sensu-Entity-Count: 3
+Sensu-Entity-Limit: 100
+Sensu-Entity-Warning: 
+Date: Fri, 14 Feb 2020 15:46:02 GMT
+Content-Length: 54
 [
   {
-    "name": "ops"
+    "username": "alice",
+    "groups": [
+      "ops"
+    ],
+    "disabled": false
   }
 ]
 {{< /highlight >}}
@@ -318,7 +349,7 @@ API request bodies are limited to 0.512 MB in size.
 [1]: ../../sensuctl/reference#preferred-output-format
 [2]: ../../installation/install-sensu#install-sensuctl
 [3]: ../../reference/rbac
-[4]: ../../reference/agent#using-the-http-socket
+[4]: ../../reference/agent/
 [5]: ../health/
 [6]: ../metrics
 [7]: ../../sensuctl/reference/#creating-resources
@@ -328,3 +359,4 @@ API request bodies are limited to 0.512 MB in size.
 [11]: ../auth/#the-authtoken-api-endpoint
 [12]: ../auth
 [13]: ../../dashboard/filtering
+[16]: #limit-query-parameter
