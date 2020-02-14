@@ -76,7 +76,8 @@ HTTP/1.1 200 OK
 ---------------|------
 description    | Returns the list of checks.
 example url    | http://hostname:8080/api/core/v2/namespaces/default/checks
-pagination     | This endpoint supports pagination using the `limit` and `continue` query parameters. See the [API overview][4] for details.
+pagination     | This endpoint supports [pagination][4] using the `limit` and `continue` query parameters.
+response filtering | This endpoint supports [API response filtering][5].
 response type  | Array
 response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output         | {{< highlight shell >}}
@@ -455,3 +456,4 @@ response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Miss
 [2]: ../../reference/hooks/
 [3]: ../../reference/checks#check-hooks-attribute
 [4]: ../overview#pagination
+[5]: ../overview#response-filtering
