@@ -343,7 +343,6 @@ curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" http://127.0.0.1:8080/api/co
 --data-urlencode 'linux in check.subscriptions'
 {{< /highlight >}}
 
-_**NOTE**: The `in` and `notin` operators only work when the underlying value is a string. You cannot use `in` or `notin` with integer, float, array, or Boolean values._
 
 To retrieve checks that do not use the `slack` handler:
 
