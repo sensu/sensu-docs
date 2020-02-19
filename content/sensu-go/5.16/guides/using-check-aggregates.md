@@ -11,13 +11,12 @@ menu:
     parent: guides
 ---
 
-Sensu provides the capability to monitor groups of checks or entities via aggregates. In Sensu Go, this is done through the use of labels. In this tutorial, we'll walk through configuring both an entity aggregate and a check aggregate.
+Sensu allows you to monitor groups of checks or entities via aggregates. In Sensu Go, you construct aggregates using labels. This tutorial explains how to configure an entity aggregate and a check aggregate.
 
-# Entity Aggregate
+## Entity aggregate
 
-Let's start with configuring an entity.
-
-The first thing we'll need to do is add a label to our agent.
+To start, configure an entity.
+Add a label to your agent:
 
 ```yaml
 ---
@@ -32,11 +31,13 @@ labels:
 
 ```
 
-In this example, we've added the label `server_type` with the value `"webservers"`--it's useful to know if a number of agents on our webservers stop reporting in rather than just a single node. Let's add a similar label to a check.
+This example adds the label `server_type` with the value `"webservers"`. It's useful to know when a number of agents on your webservers stop reporting in rather than just a single node.
 
-# Check Aggregate
+ Next, add a similar label to a check.
 
-The check we'll use for our aggregate is an http metric check for a ficticious app site 
+## Check aggregate
+
+This example check aggregate uses an http metric check for a fictitious app site: 
 
 ```yaml
 ---
@@ -65,11 +66,11 @@ While Sensu is capable of monitoring singular entities, it is also capable of mo
 
 ===
 
-## Entity Aggregates
+## Entity aggregates
 
-In order for a check or entity to be considered as part of an aggregate it must have a label, or set of labels assigned to it. We'll start by setting up a fictional scenario in which we have 20 webservers serving a number of applications. In this scenario, we might not care if a singular server stops responding, but we might care if say, 15 of the 20 stop responding. 
+To include a check or entity in an aggregate, you must assign a label or set of labels to it. For this example, imagine you have 20 webservers serving a number of applications. In this scenario, you might not care if a single webserver stops responding, but you would care if 15 of the 20 webservers all stop responding. 
 
-To make an entity part of an aggregate, we would need to add a label in our `/etc/sensu/agent.yml`. For example:
+Add a label in your `/etc/sensu/agent.yml`:
 
 ```yaml
 ---
@@ -86,11 +87,11 @@ labels:
   server_role: "webserver"
 ```
 
-After adding the label, we'll make sure to restart our agent to pick up the change in configuration:
+After you add the label, restart your agent to pick up the change in configuration:
 
 `systemctl restart sensu-agent`
 
-We'll need to set up a check that will look at events with the label we've assigned to the entity and ensure that these events are in an OK status. Let's look at an example check:
+Next, configure a check that will identify events with the label you assigned to the entity and ensure that these events are in an OK status. Here's an example:
 
 ```yaml
 ---
@@ -113,11 +114,11 @@ spec:
   - email
 ```
 
-The check command uses a username/password combination to access the API and then matches events with the label "server_role: webserver". In this case, the check will create an event if 75 percent of the aggregate events are in a `warning` state and will also create an event if 50 percent of the aggregate events are in a critical state.
+The check command uses a username/password combination to access the API and matches events with the label "server_role: webserver". The check will create an event if 75% of the aggregate events are in a `warning` state and if 50% of the aggregate events are in a critical state.
 
 ## Check Aggregates
 
-In addition to having entities comprise aggregates, checks can also comprise aggregates. Continuing with our scenario, let's suppose that our webservers are serving various applications on different ports: 80, 8080, 9000. A standard check grouping might look like:
+Checks can also comprise aggregates. To continue the scenario, suppose that your webservers are serving various applications on different ports: 80, 8080, and 9000. A standard check grouping might look like this:
 
 ```yaml
 ---
@@ -182,9 +183,11 @@ spec:
   - linux
 ```
 
-So we have three separate checks that are monitoring our web application. However, if we wanted to view the webapp's health these three checks don't do the best job providing that insight. The checks are isolated from each other and each check alerts individually. 
+Three separate checks are monitoring your web application. However, if you want view your webapp's health, these three checks don't do the best job of providing that insight. These checks are isolated from each other, and each check alerts individually. 
 
-Instead, it makes more sense to have this group of checks be part of an aggregate--we might not care if a check on an individual host fails, but we certainly care if a large percentage of the checks are in a warning or critical state across a number of hosts.We can do this by adding a label to the checks:
+Instead, it makes more sense to configure this group of checks as an aggregate because you might not care if a check on an individual host fails, but you will certainly care if a large percentage of the checks are in a warning or critical state across a number of hosts.
+
+To turn these checks into an aggregate, add a label to each of them:
 
 ```yaml
 ---
@@ -249,9 +252,9 @@ spec:
   - linux
 ```
 
-Each check now has a label that we can use as part of an aggregate that gives us more visibility into the health of our webapp. You'll also notice that we removed handlers from the check--if we want to alert on an aggregate, we're better served having the aggregate handled versus having each individual check handled.
+You can use the labels as part of an aggregate that gives you more visibility into the health of our webapp. You also removed handlers from the check. If you want to alert on an aggregate, it's better to handle the aggregate instead of handling each individual check.
 
-So to check these services as part of a combined aggregate, we'll use a check that looks like this:
+Now, to check these services as part of a combined aggregate, use a check like this:
 
 ```yaml
 ---
@@ -273,7 +276,8 @@ spec:
   - pagerduty
   - email
 ```
-Now that we've got our aggregate in place, let's take a look at what this might look like in the Sensu UI:
+
+Congratulations! Your aggregate is in place. Here's how it might look in the Sensu web UI:
 
 ![TO DO INSERT DASHBOARD PIC HERE][]
 
