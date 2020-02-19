@@ -746,7 +746,7 @@ See the example config file provided with Sensu packages at `%ALLUSERSPROFILE%\s
 
 | annotations|      |
 -------------|------
-description  | Non-identifying metadata to include with event data, which can be accessed using [filters][9] and [tokens][27]. You can use annotations to add data that's meaningful to people or external tools interacting with Sensu.<br><br>In contrast to labels, annotations cannot be used in [API filtering][api-filter] or [sensuctl filtering][sensuctl-filter] and do not impact Sensu's internal performance.
+description  | Non-identifying metadata to include with event data, which can be accessed using [event filters][9] and [tokens][27]. You can use annotations to add data that's meaningful to people or external tools interacting with Sensu.<br><br>In contrast to labels, you cannot use annotations in [API response filtering][api-filter], [sensuctl filtering][sensuctl-filter], or [dashboard view filtering][50].
 required     | false
 type         | Map of key-value pairs. Keys and values can be any valid UTF-8 string.
 default      | `null`
@@ -829,7 +829,7 @@ allow-list: /etc/sensu/check-allow-list.yaml{{< /highlight >}}
 
 | labels     |      |
 -------------|------
-description  | Custom attributes to include with event data, which can be accessed using [filters][9] and [tokens][27].<br><br>In contrast to annotations, you can use labels to create meaningful collections that can be selected with [API filtering][api-filter] and [sensuctl filtering][sensuctl-filter]. Overusing labels can impact Sensu's internal performance, so we recommend moving complex, non-identifying metadata to annotations.
+description  | Custom attributes to include with event data that you can use for response and dashboard view filtering and [tokens][27].<br><br>If you include labels in your event data, you can filter [API responses][api-filter], [sensuctl responses][sensuctl-filter], and [dashboard views][50] based on them. In other words, labels allow you to create meaningful groupings for your data.<br><br>Limit labels to metadata you need to use for filtering. For complex, non-identifying metadata that you will *not* need to use for API response, sensuctl, or dashboard view filtering, use annotations rather than labels.
 required     | false
 type         | Map of key-value pairs. Keys can contain only letters, numbers, and underscores, but must start with a letter. Values can be any valid UTF-8 string.
 default      | `null`
@@ -1319,8 +1319,8 @@ $ sudo systemctl restart sensu-agent
 [28]: #subscriptions-flag
 [29]: ../assets
 [30]: #cache-dir
-[31]: ../hooks
-[32]: ../checks/#how-do-checks-work
+[31]: ../hooks/
+[32]: ../checks/
 [33]: ../../guides/monitor-external-resources
 [34]: ../handlers#handler-sets
 [35]: ../backend#datastore-and-cluster-configuration-flags
@@ -1340,3 +1340,4 @@ $ sudo systemctl restart sensu-agent
 [47]: https://en.m.wikipedia.org/wiki/Protocol_Buffers
 [48]: #example-allow-list-configuration-file
 [49]: #allow-list-configuration
+[50]: ../../dashboard/filtering#label-selectors
