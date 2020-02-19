@@ -768,6 +768,7 @@ description  | Non-identifying metadata to include with event data that you can 
 required     | false
 type         | Map of key-value pairs. Keys and values can be any valid UTF-8 string.
 default      | `null`
+environment variable | `SENSU_ANNOTATIONS`
 example      | {{< highlight shell >}}# Command line examples
 sensu-agent start --annotations sensu.io/plugins/slack/config/webhook-url=https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX
 sensu-agent start --annotations example-key="example value" --annotations example-key2="example value"
@@ -777,11 +778,13 @@ annotations:
   sensu.io/plugins/slack/config/webhook-url: "https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX"
 {{< /highlight >}}
 
+
 | backend-url |      |
 --------------|------
 description   | ws or wss URL of the Sensu backend server. To specify multiple backends with `sensu-agent start`, use this flag multiple times.
 type          | List
 default       | `ws://127.0.0.1:8081`
+environment variable | `SENSU_BACKEND_URL`
 example       | {{< highlight shell >}}# Command line examples
 sensu-agent start --backend-url ws://0.0.0.0:8081
 sensu-agent start --backend-url ws://0.0.0.0:8081 --backend-url ws://0.0.0.0:8082
@@ -792,6 +795,7 @@ backend-url:
   - "ws://0.0.0.0:8082"
   {{< /highlight >}}
 
+
 <a name="cache-dir"></a>
 
 | cache-dir   |      |
@@ -799,6 +803,7 @@ backend-url:
 description   | Path to store cached data.
 type          | String
 default       | <ul><li>Linux: `/var/cache/sensu/sensu-agent`</li><li>Windows: `C:\ProgramData\sensu\cache\sensu-agent`</li></ul>
+environment variable | `SENSU_CACHE_DIR`
 example       | {{< highlight shell >}}# Command line example
 sensu-agent start --cache-dir /cache/sensu-agent
 
@@ -811,6 +816,7 @@ cache-dir: "/cache/sensu-agent"{{< /highlight >}}
 description   | Path to Sensu agent configuration file.
 type          | String
 default       | <ul><li>Linux: `/etc/sensu/agent.yml`</li><li>FreeBSD: `/usr/local/etc/sensu/agent.yml`</li><li>Windows: `C:\ProgramData\sensu\config\agent.yml`</li></ul>
+environment variable | `SENSU_CONFIG_FILE`
 example       | {{< highlight shell >}}# Command line example
 sensu-agent start --config-file /sensu/agent.yml
 sensu-agent start -c /sensu/agent.yml
@@ -825,6 +831,7 @@ config-file: "/sensu/agent.yml"{{< /highlight >}}
 description   | When set to `true`, disables [assets][29] for the agent. If an agent attempts to execute a check that requires an asset, the agent will respond with a status of `3` and a message that indicates the agent could not execute the check because assets are disabled.
 type          | Boolean
 default       | false
+environment variable | `SENSU_DISABLE_ASSETS`
 example       | {{< highlight shell >}}# Command line example
 sensu-agent start --disable-assets
 
@@ -838,6 +845,7 @@ disable-assets: true{{< /highlight >}}
 description       | Path to yaml or json file that contains the allow list of check or hook commands the agent can execute. See the [example allow list configuration file][48] and the [allow list configuration spec][49] for information about building a configuration file.
 type              | String
 default           | `""`
+environment variable | `SENSU_ALLOW_LIST`
 example           | {{< highlight shell >}}# Command line example
 sensu-agent start --allow-list /etc/sensu/check-allow-list.yaml
 
@@ -851,6 +859,7 @@ description  | Custom attributes to include with event data that you can access 
 required     | false
 type         | Map of key-value pairs. Keys can contain only letters, numbers, and underscores and must start with a letter. Values can be any valid UTF-8 string.
 default      | `null`
+environment variable | `SENSU_LABELS`
 example               | {{< highlight shell >}}# Command line examples
 sensu-agent start --labels proxy_type=website
 sensu-agent start --labels example_key1="example value" example_key2="example value"
@@ -867,6 +876,7 @@ labels:
 description   | Entity name assigned to the agent entity.
 type          | String
 default       | Defaults to hostname (for example, `sensu-centos`).
+environment variable | `SENSU_NAME`
 example       | {{< highlight shell >}}# Command line example
 sensu-agent start --name agent-01
 
@@ -879,6 +889,7 @@ name: "agent-01" {{< /highlight >}}
 description   | Logging level: `panic`, `fatal`, `error`, `warn`, `info`, or `debug`.
 type          | String
 default       | `warn`
+environment variable | `SENSU_LOG_LEVEL`
 example       | {{< highlight shell >}}# Command line example
 sensu-agent start --log-level debug
 
@@ -891,6 +902,7 @@ log-level: "debug"{{< /highlight >}}
 ----------------|------
 description     | Array of agent subscriptions that determine which monitoring checks the agent will execute. The subscriptions array items must be strings.
 type            | List
+environment variable | `SENSU_SUBSCRIPTIONS`
 example         | {{< highlight shell >}}# Command line examples
 sensu-agent start --subscriptions disk-checks,process-checks
 sensu-agent start --subscriptions disk-checks --subscriptions process-checks
@@ -908,6 +920,7 @@ subscriptions:
 description   | Bind address for the Sensu agent HTTP API.
 type          | String
 default       | `127.0.0.1`
+environment variable | `SENSU_API_HOST`
 example       | {{< highlight shell >}}# Command line example
 sensu-agent start --api-host 0.0.0.0
 
@@ -920,6 +933,7 @@ api-host: "0.0.0.0"{{< /highlight >}}
 description   | Listening port for the Sensu agent HTTP API.
 type          | Integer
 default       | `3031`
+environment variable | `SENSU_API_PORT`
 example       | {{< highlight shell >}}# Command line example
 sensu-agent start --api-port 4041
 
@@ -932,6 +946,7 @@ api-port: 4041{{< /highlight >}}
 description   | `true` to disable the agent HTTP API. Otherwise, `false`.
 type          | Boolean
 default       | `false`
+environment variable | `SENSU_DISABLE_API`
 example       | {{< highlight shell >}}# Command line example
 sensu-agent start --disable-api
 
@@ -944,6 +959,7 @@ disable-api: true{{< /highlight >}}
 description   | Maximum amount of burst allowed in a rate interval for the [agent events API][51].
 type          | Integer
 default       | `10`
+environment variable | `SENSU_EVENTS_BURST_LIMIT`
 example       | {{< highlight shell >}}# Command line example
 sensu-agent start --events-burst-limit 20
 
@@ -956,6 +972,7 @@ events-burst-limit: 20{{< /highlight >}}
 description   | Maximum number of events per second that can be transmitted to the backend with the [agent events API][51].
 type          | Float
 default       | `10.0`
+environment variable | `SENSU_EVENTS_RATE_LIMIT`
 example       | {{< highlight shell >}}# Command line example
 sensu-agent start --events-rate-limit 20.0
 
@@ -970,6 +987,7 @@ events-rate-limit: 20.0{{< /highlight >}}
 description   | `true` if a deregistration event should be created upon Sensu agent process stop. Otherwise, `false`.
 type          | Boolean
 default       | `false`
+environment variable | `SENSU_DEREGISTER`
 example       | {{< highlight shell >}}# Command line example
 sensu-agent start --deregister
 
@@ -981,6 +999,7 @@ deregister: true{{< /highlight >}}
 -------------------------|------
 description              | Name of a deregistration handler that processes agent deregistration events. This flag overrides any handlers applied by the [`deregistration-handler` backend configuration flag][37].
 type                     | String
+environment variable     | `SENSU_DEREGISTRATION_HANDLER`
 example                  | {{< highlight shell >}}# Command line example
 sensu-agent start --deregistration-handler deregister
 
@@ -995,6 +1014,7 @@ deregistration-handler: "deregister"{{< /highlight >}}
 description         | Number of seconds after a missing keepalive event until the agent is considered unresponsive by the Sensu backend to create a critical event. Set to disabled (`0`) by default. If the value is not `0`, it must be greater than or equal to `5`.
 type                | Integer
 default             | `0`
+environment variable   | `SENSU_KEEPALIVE_CRITICAL_TIMEOUT`
 example             | {{< highlight shell >}}# Command line example
 sensu-agent start --keepalive-critical-timeout 300
 
@@ -1008,6 +1028,7 @@ keepalive-critical-timeout: 300{{< /highlight >}}
 description         | [Keepalive event handlers][52] to use for the entity, specified in a comma-delimited list. You can specify any configured handler and invoke the `keepalive-handlers` flag multiple times. If keepalive handlers are not specified, the Sensu backend will use the default `keepalive` handler and create an event in sensuctl and the Sensu web UI.
 type                | List
 default             | `keepalive`
+environment variable   | `SENSU_KEEPALIVE_HANDLERS`
 example             | {{< highlight shell >}}# Command line example
 sensu-agent start --keepalive-handlers slack,email
 
@@ -1020,6 +1041,7 @@ keepalive-handlers: slack,email{{< /highlight >}}
 description          | Number of seconds between keepalive events.
 type                 | Integer
 default              | `20`
+environment variable   | `SENSU_KEEPALIVE_INTERNAL`
 example              | {{< highlight shell >}}# Command line example
 sensu-agent start --keepalive-interval 30
 
@@ -1032,6 +1054,7 @@ keepalive-interval: 30{{< /highlight >}}
 description         | Number of seconds after a missing keepalive event until the agent is considered unresponsive by the Sensu backend to create a warning event. Value must be lower than the `keepalive-critical-timeout` value. Minimum value is `5`.
 type                | Integer
 default             | `120`
+environment variable   | `SENSU_KEEPALIVE_WARNING_TIMEOUT`
 example             | {{< highlight shell >}}# Command line example
 sensu-agent start --keepalive-warning-timeout 300
 
@@ -1046,6 +1069,7 @@ keepalive-warning-timeout: 300{{< /highlight >}}
 description    | Agent namespace. _**NOTE**: Agents are represented in the backend as a class of entity. Entities can only belong to a [single namespace][41]._
 type           | String
 default        | `default`
+environment variable   | `SENSU_NAMESPACE`
 example        | {{< highlight shell >}}# Command line example
 sensu-agent start --namespace ops
 
@@ -1058,6 +1082,7 @@ namespace: "ops"{{< /highlight >}}
 description   | [Sensu RBAC username][39] used by the agent. Agents require get, list, create, update, and delete permissions for events across all namespaces.
 type          | String
 default       | `agent`
+environment variable   | `SENSU_USER`
 example       | {{< highlight shell >}}# Command line example
 sensu-agent start --user agent-01
 
@@ -1070,6 +1095,7 @@ user: "agent-01"{{< /highlight >}}
 description   | [Sensu RBAC password][39] used by the agent.
 type          | String
 default       | `P@ssw0rd!`
+environment variable   | `SENSU_PASSWORD`
 example       | {{< highlight shell >}}# Command line example
 sensu-agent start --password secure-password
 
@@ -1082,6 +1108,7 @@ password: "secure-password"{{< /highlight >}}
 description   | List of fields to redact when displaying the entity _**NOTE**: Redacted secrets are sent via the WebSocket connection and stored in etcd. They are not logged or displayed via the Sensu API._
 type          | List
 default       | By default, Sensu redacts the following fields: `password`, `passwd`, `pass`, `api_key`, `api_token`, `access_key`, `secret_key`, `private_key`, `secret`.
+environment variable   | `SENSU_REDACT`
 example       | {{< highlight shell >}}# Command line example
 sensu-agent start --redact secret,ec2_access_key
 
@@ -1096,6 +1123,7 @@ redact:
 description       | SSL/TLS certificate authority.
 type              | String
 default           | `""`
+environment variable   | `SENSU_TRUSTED_CA_FILE`
 example           | {{< highlight shell >}}# Command line example
 sensu-agent start --trusted-ca-file /path/to/trusted-certificate-authorities.pem
 
@@ -1108,6 +1136,7 @@ trusted-ca-file: "/path/to/trusted-certificate-authorities.pem"{{< /highlight >}
 description                | Skip SSL verification. _**WARNING**: This configuration flag is intended for use in development systems only. Do not use this flag in production._
 type                       | Boolean
 default                    | `false`
+environment variable       | `SENSU_INSECURE_SKIP_TLS_VERIFY`
 example                    | {{< highlight shell >}}# Command line example
 sensu-agent start --insecure-skip-tls-verify
 
@@ -1122,6 +1151,7 @@ insecure-skip-tls-verify: true{{< /highlight >}}
 description   | Address to bind the Sensu agent socket to.
 type          | String
 default       | `127.0.0.1`
+environment variable   | `SENSU_SOCKET_HOST`
 example       | {{< highlight shell >}}# Command line example
 sensu-agent start --socket-host 0.0.0.0
 
@@ -1134,6 +1164,7 @@ socket-host: "0.0.0.0"{{< /highlight >}}
 description   | Port the Sensu agent socket listens on.
 type          | Integer
 default       | `3030`
+environment variable   | `SENSU_SOCKET_PORT`
 example       | {{< highlight shell >}}# Command line example
 sensu-agent start --socket-port 4030
 
@@ -1146,6 +1177,7 @@ socket-port: 4030{{< /highlight >}}
 description       | `true` to disable the agent TCP and UDP event sockets. Othewise, `false`.
 type              | Boolean
 default           | `false`
+environment variable   | `SENSU_DISABLE_SOCKETS`
 example           | {{< highlight shell >}}# Command line example
 sensu-agent start --disable-sockets
 
@@ -1160,6 +1192,7 @@ disable-sockets: true{{< /highlight >}}
 description      | `true` to disable the [StatsD][21] listener and metrics server. Otherwise, `false`.
 type             | Boolean
 default          | `false`
+environment variable   | `SENSU_STATSD_DISABLE`
 example          | {{< highlight shell >}}# Command line example
 sensu-agent start --statsd-disable
 
@@ -1171,6 +1204,7 @@ statsd-disable: true{{< /highlight >}}
 ------------------------|------
 description             | List of event handlers for StatsD metrics.
 type                    | List
+environment variable    | `SENSU_STATSD_EVENT_HANDLERS`
 example                 | {{< highlight shell >}}# Command line examples
 sensu-agent start --statsd-event-handlers influxdb,opentsdb
 sensu-agent start --statsd-event-handlers influxdb --statsd-event-handlers opentsdb
@@ -1187,6 +1221,7 @@ statsd-event-handlers:
 description              | Number of seconds between [StatsD flushes][23].
 type                     | Integer
 default                  | `10`
+environment variable     | `SENSU_STATSD_FLUSH_INTERVAL`
 example                  | {{< highlight shell >}}# Command line example
 sensu-agent start --statsd-flush-interval 30
 
@@ -1199,6 +1234,7 @@ statsd-flush-interval: 30{{< /highlight >}}
 description           | Address used for the StatsD metrics server.
 type                  | String
 default               | `127.0.0.1`
+environment variable   | `SENSU_STATSD_METRICS_HOST`
 example               | {{< highlight shell >}}# Command line example
 sensu-agent start --statsd-metrics-host 0.0.0.0
 
@@ -1211,6 +1247,7 @@ statsd-metrics-host: "0.0.0.0"{{< /highlight >}}
 description           | Port used for the StatsD metrics server.
 type                  | Integer
 default               | `8125`
+environment variable   | `SENSU_STATSD_METRICS_PORT`
 example               | {{< highlight shell >}}# Command line example
 sensu-agent start --statsd-metrics-port 6125
 
@@ -1224,6 +1261,7 @@ statsd-metrics-port: 6125{{< /highlight >}}
 description           | Command to allow the Sensu agent to run as a check or a hook.
 required              | true
 type                  | String
+environment variable   | `SENSU_EXEC`
 example               | {{< highlight shell >}}"exec": "/usr/local/bin/check_memory.sh"{{< /highlight >}}
 
 | sha512 |      |
@@ -1231,6 +1269,7 @@ example               | {{< highlight shell >}}"exec": "/usr/local/bin/check_mem
 description           | Checksum of the check or hook executable.
 required              | false
 type                  | String
+environment variable   | `SENSU_SHA512`
 example               | {{< highlight shell >}}"sha512": "4f926bf4328..."{{< /highlight >}}
 
 | args |      |
@@ -1238,6 +1277,7 @@ example               | {{< highlight shell >}}"sha512": "4f926bf4328..."{{< /hi
 description           | Arguments for the `exec` command.
 required              | true
 type                  | Array
+environment variable   | `SENSU_ARGS`
 example               | {{< highlight shell >}}"args": ["foo"]{{< /highlight >}}
 
 | enable_env |      |
@@ -1245,6 +1285,7 @@ example               | {{< highlight shell >}}"args": ["foo"]{{< /highlight >}}
 description           | `true` to enable environment variables. Otherwise, `false`.
 required              | false
 type                  | Boolean
+environment variable   | `SENSU_ENABLE_ENV`
 example               | {{< highlight shell >}}"enable_env": true{{< /highlight >}}
 
 ### Example allow list configuration file
@@ -1315,7 +1356,7 @@ $ sudo touch /etc/sysconfig/sensu-agent
 
 {{< /language-toggle >}}
 
-For any configuration flag you wish to specify as an environment variable, you must prepend `SENSU_` and convert any dashes (`-`) to underscores (`_`).
+For any configuration flag you wish to specify as an environment variable, you must prepend `SENSU_`, convert dashes (`-`) to underscores (`_`), and capitalize all letters.
 Then, add the resulting environment variable to the appropriate environment file described above.
 You must restart the service for these settings to take effect.
 

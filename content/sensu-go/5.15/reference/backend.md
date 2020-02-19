@@ -920,7 +920,8 @@ $ sudo touch /etc/sysconfig/sensu-backend
 
 {{< /language-toggle >}}
 
-For any configuration flag you wish to specify as an environment variable, you will need to append `SENSU_` and convert dashes (`-`) to underscores (`_`). Then, add the resulting environment variable to the appropriate environment file described above. You must restart the service for these settings to take effect.
+For any configuration flag you wish to specify as an environment variable, you must prepend `SENSU_`, convert dashes (`-`) to underscores (`_`), and capitalize all letters.
+Then, add the resulting environment variable to the appropriate environment file described above. You must restart the service for these settings to take effect.
 
 In the following example, the `api-listen-address` flag is configured as an environment variable and set to `192.168.100.20:8080`.
 
