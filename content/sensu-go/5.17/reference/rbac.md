@@ -270,7 +270,7 @@ sensuctl user test-creds USERNAME --password 'password'
 An empty response indicates valid credentials.
 A `request-unauthorized` response indicates invalid credentials.
 
-_**NOTE**: The `sensuctl user test-creds` command tests passwords for users created with Sensu's built-in [basic authentication][34]. It does not test user credentials defined via an authentication provider like [Lightweight Directory Access Protocol (LDAP)][43] or [Active Directory][44]._
+_**NOTE**: The `sensuctl user test-creds` command tests passwords for users created with Sensu's built-in [basic authentication provider][34]. It does not test user credentials defined via an authentication provider like [Lightweight Directory Access Protocol (LDAP)][43] or [Active Directory (AD)][44]._
 
 To change the password for a user:
 

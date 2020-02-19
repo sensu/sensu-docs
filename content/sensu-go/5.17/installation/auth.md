@@ -27,14 +27,14 @@ menu:
   - [Okta](#okta)
 
 Sensu requires username and password authentication to access the [Sensu dashboard][1], [API][8], and command line tool ([sensuctl][2]).
-You can use Sensu's built-in basic authentication or an external authentication provider.
+You can use Sensu's built-in basic authentication provider or configure external authentication providers to authenticate via Lightweight Directory Access Protocol (LDAP), Active Directory (AD), or OpenID Connect.
 
 ## Use built-in basic authentication
 
-Sensu's built-in basic authentication allows you to create and manage user credentials (usernames and passwords) with the [users API][53], either directly or using [sensuctl][2].
-Basic authentication does not require any external configuration.
+Sensu's built-in basic authentication provider allows you to create and manage user credentials (usernames and passwords) with the [users API][53], either directly or using [sensuctl][2].
+The basic authentication provider does not depend on external services and is not configurable.
 
-With basic authentication, you can create and manage [default user credentials][3], configure [role-based access control (RBAC)][4], and [create read-only users][5].
+After creating users via the basic authentication provider, you can manage their permissions via [role-based access control (RBAC)][4]. See [Create read-only users][5] for an example.
 
 Sensu records basic authentication credentials in [etcd][54].
 
@@ -629,12 +629,12 @@ For example:
 [...] could not authorize the request with any ClusterRoleBindings [...]
 ```
 
-## AD authentication
+## Active Directory (AD) authentication {#ad-authentication}
 
 Sensu offers [commercial support][6] for using Microsoft Active Directory (AD) for authentication to the Sensu dashboard, API, and sensuctl.
 The AD authentication provider is based on the [LDAP authentication provider][44].
 
-### AD configuration examples
+### Active Directory (AD) configuration examples {#ad-configuration-examples}
 
 **Example AD configuration: Minimum required attributes**
 
