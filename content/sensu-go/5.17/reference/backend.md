@@ -1090,6 +1090,7 @@ The event logging functionality provides better performance and reliability than
 description            | Buffer size of the event logger. Corresponds to the maximum number of events kept in memory in case the log file is temporarily unavailable or more events have been received than can be written to the log file. 
 type                   | Integer
 default                | 100000
+environment variable   | `SENSU_EVENT_LOG_BUFFER_SIZE`
 example                | {{< highlight shell >}}# Command line example
 sensu-backend start --event-log-buffer-size 100000
 
@@ -1102,6 +1103,7 @@ event-log-buffer-size: 100000{{< /highlight >}}
 -----------------------|------
 description            | Path to the event log file. _**WARNING**: The log file should be located on a local drive. Logging directly to network drives is not supported._
 type                   | String
+environment variable   | `SENSU_EVENT_LOG_FILE`
 example                | {{< highlight shell >}}# Command line example
 sensu-backend start --event-log-file /var/log/sensu/events.log
 
