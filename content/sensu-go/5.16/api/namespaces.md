@@ -49,7 +49,7 @@ HTTP/1.1 200 OK
 ---------------|------
 description    | Returns the list of namespaces.
 example url    | http://hostname:8080/api/core/v2/namespaces
-pagination     | This endpoint supports [pagination][2] using the `limit` and `continue` query parameters.
+pagination     | This endpoint supports pagination using the [`limit` query parameter][2].
 response filtering | This endpoint supports [API response filtering][3].
 response type  | Array
 response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
@@ -204,5 +204,5 @@ output         | {{< highlight shell >}}
 {{< /highlight >}}
 
 [1]: ../../reference/rbac/
-[2]: ../overview#pagination
+[2]: ../overview#limit-query-parameter
 [3]: ../overview#response-filtering
