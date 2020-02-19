@@ -7,6 +7,7 @@ version: "5.17"
 menu: "sensu-go-5.17"
 ---
 
+- [5.17.2 release notes](#5-17-2-release-notes)
 - [5.17.1 release notes](#5-17-1-release-notes)
 - [5.17.0 release notes](#5-17-0-release-notes)
 - [5.16.1 release notes](#5-16-1-release-notes)
@@ -51,6 +52,17 @@ PATCH versions include backward-compatible bug fixes.
 Read the [upgrade guide][1] for information about upgrading to the latest version of Sensu Go.
 
 ---
+
+## 5.17.2 release notes
+
+**February 19, 2020** &mdash; The latest release of Sensu Go, version 5.17.2, is now available for download.
+This release fixes a bug that could prevent commercial features from working after internal restart.
+
+See the [upgrade guide][1] to upgrade Sensu to version 5.17.2.
+
+**FIXES:**
+
+- Fixed a bug that could cause commercial HTTP routes to fail to initialize after an internal restart, preventing commercial features from working.
 
 ## 5.17.1 release notes
 
