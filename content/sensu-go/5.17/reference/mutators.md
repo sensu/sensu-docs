@@ -233,7 +233,7 @@ example        | {{< highlight shell >}}"secrets": [
 
 name         | 
 -------------|------
-description  | Name of the [secret][10] defined in the executable command.
+description  | Name of the [secret][10] defined in the executable command. Becomes the environment variable presented to the mutator. See [Use secrets management in Sensu][14] for more information.
 required     | true
 type         | String
 example      | {{< highlight shell >}}"name": "ANSIBLE_HOST"{{< /highlight >}}
@@ -321,7 +321,7 @@ spec:
 
 ### Mutator with secret
 
-Learn more about secrets management for your Sensu configuration in the [secrets][10] and [secrets providers][11] references.
+Learn more about [secrets management][14] for your Sensu configuration in the [secrets][10] and [secrets providers][11] references.
 
 {{< language-toggle >}}
 
@@ -381,3 +381,4 @@ spec:
 [11]: ../../reference/secrets-providers/
 [12]: ../filters/
 [13]: ../../dashboard/filtering#filter-with-label-selectors
+[14]: ../../guides/secrets-management/

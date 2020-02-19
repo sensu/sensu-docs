@@ -788,7 +788,7 @@ example      | {{< highlight shell >}}"discard_output": true{{< /highlight >}}
 
 name         | 
 -------------|------
-description  | Name of the [secret][56] defined in the executable command.
+description  | Name of the [secret][56] defined in the executable command. Becomes the environment variable presented to the check. See [Use secrets management in Sensu][59] for more information.
 required     | true
 type         | String
 example      | {{< highlight shell >}}"name": "ANSIBLE_HOST"{{< /highlight >}}
@@ -930,7 +930,7 @@ spec:
 
 ### Check with secret
 
-Learn more about secrets management for your Sensu configuration in the [secrets][56] and [secrets providers][57] references.
+Learn more about [secrets management][59] for your Sensu configuration in the [secrets][56] and [secrets providers][57] references.
 
 {{< language-toggle >}}
 
@@ -1027,3 +1027,4 @@ spec:
 [56]: ../../reference/secrets/
 [57]: ../../reference/secrets-providers/
 [58]: ../../dashboard/filtering#filter-with-label-selectors
+[59]: ../../guides/secrets-management/

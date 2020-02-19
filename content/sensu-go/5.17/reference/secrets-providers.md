@@ -71,7 +71,7 @@ example      | {{< highlight shell >}}
 "spec": {
   "client": {
     "address": "https://vaultserver.example.com:8200",
-    "token": "ROOT_TOKEN",
+    "token": "VAULT_TOKEN",
     "version": "v1",
     "tls": {
       "ca_cert": "/etc/ssl/certs/vault_ca_cert.pem"
@@ -105,7 +105,7 @@ type         | Map of key-value pairs
 example      | {{< highlight shell >}}
 "client": {
   "address": "https://vaultserver.example.com:8200",
-  "token": "ROOT_TOKEN",
+  "token": "VAULT_TOKEN",
   "version": "v1",
   "tls": {
     "ca_cert": "/etc/ssl/certs/vault_ca_cert.pem"
@@ -153,10 +153,10 @@ example      | {{< highlight shell >}}
 
 token        | 
 -------------|------ 
-description  | Vault Root Token to use for authentication.
+description  | Vault token to use for authentication.
 required     | true
 type         | String
-example      | {{< highlight shell >}}"token": "ROOT_TOKEN"{{< /highlight >}}
+example      | {{< highlight shell >}}"token": "VAULT_TOKEN"{{< /highlight >}}
 
 version      | 
 -------------|------ 
@@ -170,7 +170,7 @@ example      | {{< highlight shell >}}"version": "v1"{{< /highlight >}}
 tls          | 
 -------------|------ 
 description  | TLS object. Vault only works with TLS configured. You may need to set up a CA cert if it is not already stored in your operating system's trust store. To do this, set the TLS object and provide the `ca_cert` path. You may also need to set up `client_cert`, `client_key`, or [`cname`][15].
-required     | true
+required     | false
 type         | Map of key-value pairs
 example      | {{< highlight shell >}}
 "tls": {
@@ -216,7 +216,7 @@ metadata:
 spec:
   client:
     address: https://vaultserver.example.com:8200
-    token: ROOT_TOKEN
+    token: VAULT_TOKEN
     version: v1
     tls:
       ca_cert: "/etc/ssl/certs/vault_ca_cert.pem"
@@ -237,7 +237,7 @@ spec:
   "spec": {
     "client": {
       "address": "https://vaultserver.example.com:8200",
-      "token": "ROOT_TOKEN",
+      "token": "VAULT_TOKEN",
       "version": "v1",
       "tls": {
         "ca_cert": "/etc/ssl/certs/vault_ca_cert.pem"

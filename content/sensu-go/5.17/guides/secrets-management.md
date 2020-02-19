@@ -16,7 +16,7 @@ menu:
   - [Create your backend environment variable](#create-your-backend-environment-variable)
   - [Create your Env secret](#create-your-env-secret)
 - [Use HashiCorp Vault for secrets management](#use-hashicorp-vault-for-secrets-management)
-  - [Retrieve your Vault root token](#retrieve-your-vault-root-token)
+  - [Retrieve your Vault token](#retrieve-your-vault-token)
   - [Create your Vault secrets provider](#create-your-vault-secrets-provider)
   - [Create your Vault secret](#create-your-vault-secret)
 - [Add a handler](#add-a-handler)
@@ -44,6 +44,8 @@ The secret included in your Sensu handler will be exposed to Sensu services at r
 Sensu only exposes secrets to Sensu services like environment variables and automatically redacts secrets from all logs, the API, and the dashboard.
 
 ## Retrieve your PagerDuty Integration Key
+
+The example in this guide uses the [PagerDuty][31] Integration Key as a secret and a PagerDuty handler definition that requires the secret.
 
 Here's how to find your Integration Key in PagerDuty so you can set it up as your secret:
 
@@ -75,12 +77,12 @@ Then, run the following code, replacing `INTEGRATION_KEY` with your PagerDuty In
 {{< language-toggle >}}
 
 {{< highlight "Ubuntu/Debian" >}}
-$ echo 'SENSU_PAGERDUTY_KEY=INTEGRATION_KEY' | sudo tee /etc/default/sensu-backend
+$ echo 'SENSU_PAGERDUTY_KEY=INTEGRATION_KEY' | sudo tee -a /etc/default/sensu-backend
 $ sudo systemctl restart sensu-backend
 {{< /highlight >}}
 
 {{< highlight "RHEL/CentOS" >}}
-$ echo 'SENSU_PAGERDUTY_KEY=INTEGRATION_KEY' | sudo tee /etc/sysconfig/sensu-backend
+$ echo 'SENSU_PAGERDUTY_KEY=INTEGRATION_KEY' | sudo tee -a /etc/sysconfig/sensu-backend
 $ sudo systemctl restart sensu-backend
 {{< /highlight >}}
 
@@ -117,9 +119,11 @@ This section explains how to use [HashiCorp Vault][1] as your external [secrets 
 
 _**NOTE**: You will need to set up [HashiCorp Vault][15] to use `VaultProvider` secrets management in production. The examples in this guide use the [Vault dev server][18], which is useful for learning and experimenting. The Vault dev server gives you access to a preconfigured, running Vault server with in-memory storage that you can use right away. Follow the [HashiCorp Learn curriculum][16] when you are ready to set up a production server in Vault._
 
-### Retrieve your Vault root token
+### Retrieve your Vault token
 
-To retrieve your root token:
+_**NOTE**: The examples in this guide use the `Root Token` for the the [Vault dev server][18], which gives you access to a preconfigured, running Vault server with in-memory storage that you can use right away. Follow the [HashiCorp Learn curriculum][16] when you are ready to set up a production server in Vault._
+
+To retrieve your Vault token:
 
 1. [Download and install][25] the Vault edition for your operating system.
 2. Open a terminal window and run `vault server -dev`.
@@ -138,10 +142,10 @@ Because you aren't using TLS, you will need to set `VAULT_ADDR=http://127.0.0.1:
 
 ### Create your Vault secrets provider
 
-_**NOTE**: In Vault's dev server, TLS is not enabled, so you won't be able to use certificate-based authentication. The dev server also requires Vault's HTTP API version `v2`. When you use Vault in production, you will need to configure the [TLS attribute][17] and change the `version` to `v1`._
+_**NOTE**: In Vault's dev server, TLS is not enabled, so you won't be able to use certificate-based authentication._
 
 Use `sensuctl create` to create your secrets provider, `vault`.
-In the code below, replace `ROOT_TOKEN` with the `Root Token` value for your Vault dev server.
+In the code below, replace `VAULT_TOKEN` with the `Root Token` value for your Vault dev server.
 Then, run:
 
 {{< highlight shell >}}
@@ -154,7 +158,7 @@ metadata:
 spec:
   client:
     address: http://localhost:8200
-    token: ROOT_TOKEN
+    token: VAULT_TOKEN
     version: v2
     tls: null
     max_retries: 2
@@ -283,3 +287,4 @@ Read the [secrets][9] or [secrets providers][10] reference for in-depth secrets 
 [28]: #create-your-backend-environment-variable
 [29]: #create-your-vault-secret
 [30]: #retrieve-your-pagerduty-integration-key
+[31]: https://www.pagerduty.com/
