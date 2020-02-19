@@ -715,7 +715,7 @@ Flags:
       --keepalive-timeout uint32        number of seconds until agent is considered dead by backend (default 120)
       --labels stringToString           entity labels map (default [])
       --log-level string                logging level [panic, fatal, error, warn, info, debug] (default "warn")
-      --name string                     agent name (defaults to hostname) (default "sensu-go-sandbox")
+      --name string                     agent name (defaults to hostname) (default "my-hostname")
       --namespace string                agent namespace (default "default")
       --password string                 agent password (default "P@ssw0rd!")
       --redact string                   comma-delimited customized list of fields to redact
@@ -1271,7 +1271,7 @@ $ sudo touch /etc/sysconfig/sensu-agent
 
 {{< /language-toggle >}}
 
-For any configuration flag you wish to specify as an environment variable, you will need to append `SENSU_` and convert any dashes (`-`) to underscores (`_`). Then, add the resulting environment variable to the appropriate environment file described above. You must restart the service for these settings to take effect.
+For any configuration flag you wish to specify as an environment variable, you will need to prepend `SENSU_` and convert any dashes (`-`) to underscores (`_`). Then, add the resulting environment variable to the appropriate environment file described above. You must restart the service for these settings to take effect.
 
 In the following example, the `api-host` flag is configured as an environment variable and set to `"0.0.0.0"`.
 

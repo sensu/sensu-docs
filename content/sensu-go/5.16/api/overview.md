@@ -13,15 +13,16 @@ menu:
 - [URL format](#url-format)
 - [Data format](#data-format)
 - [Versioning](#versioning)
+- [Request size limit](#request-size-limit)
 - [Access control](#access-control)
   - [Authentication quickstart](#authentication-quickstart)
 - [Pagination](#pagination)
 - [Response filtering](#response-filtering)
   - [Label selector](#label-selector)
   - [Field selector](#field-selector)
-  - [Supported operators](#supported-operators)
-  - [Combine selectors and statements](#combine-selectors-and-statements)
-- [Request size limit](#request-size-limit)
+  - [Operators](#operators)
+  - [Combined selectors](#combined-selectors)
+  - [Examples](#examples)
 
 **API version: v2**
 
@@ -55,6 +56,10 @@ The Sensu API guarantees backward compatibility for stable versions of the API.
 Sensu does not guarantee that an alpha or beta API will be maintained for any period of time.
 Consider alpha versions under active development &mdash; they may not be published for every release.
 Beta APIs are more stable than alpha versions, but they offer similarly short-lived lifespans and also are not guaranteed to convert programmatically when the API is updated.
+
+## Request size limit
+
+API request bodies are limited to 0.512 MB in size.
 
 ## Access control
 
@@ -145,7 +150,7 @@ Access tokens last for approximately 15 minutes.
 When your token expires, you should see a `401 Unauthorized` response from the API.
 To regenerate a valid access token, run any sensuctl command (like `sensuctl event list`) and repeat step 2.
 
-### Authenticate with the API key feature
+### Authenticate with an API key
 
 The Sensu API key feature (core/v2.APIKey) is a persistent UUID that maps to a stored Sensu username.
 The advantages of authenticating with API keys rather than [access tokens][14] include:
@@ -257,25 +262,18 @@ For more information, see [Get started with commercial features][8].
 The Sensu API supports response filtering for all GET endpoints that return an array.
 You can filter resources based on their labels with the `labelSelector` query parameter and based on certain pre-determined fields with the `fieldSelector` query parameter.
 
-For example, to filter the response so that it only includes resources that have a label entry `region` with the value `us-west-1`, use the flag `--data-urlencode` in cURL so it encodes the query parameter. 
-Include the `-G` flag so the request appends the data to the URL.
-
-{{< highlight shell >}}
-curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" http://127.0.0.1:8080/api/core/v2/checks -G \
---data-urlencode 'labelSelector=region == "us-west-1"'
-{{< /highlight >}}
-
-_**NOTE**: For examples of using label and field selectors in the Sensu dashboard, see the [dashboard docs][13]._
+_**NOTE**: To use label and field selectors in the Sensu dashboard, see [dashboard filtering][13]._
 
 ### Label selector
 
-The `labelSelector` query parameter can use any label attributes to group a set of resources.
-All resources support labels within the metadata object.
-See the [entities metadata attributes][9].
+The `labelSelector` query parameter allows you to group resources by the label attributes specified in the resource metadata object.
+All resources support labels within the [metadata object][9].
+
+The label selector does not work with values that contain special characters like hyphens and underscores.
 
 ### Field selector
 
-The `fieldSelector` query parameter can use certain fields of resources to organize and select subsets of resources.
+The `fieldSelector` query parameter allows you to organize and select subsets of resources based on certain fields.
 Here's the list of available fields:
 
 | Resource      | Fields      |
@@ -297,47 +295,167 @@ Here's the list of available fields:
 | Silenced | `silenced.name` `silenced.namespace` `silenced.check` `silenced.creator` `silenced.expire_on_resolve` `silenced.subscription` |
 | User | `user.username` `user.disabled` `user.groups` |
 
-### Supported operators
+The `fieldSelector` parameter does not work with values that contain special characters like hyphens and underscores.
 
-Two _equality-based_ operators are supported: `==` (equality) and `!=` (inequality).
+### Operators
 
-For example:
+Sensu's API response filtering supports two equality-based operators, two set-based operators, and one logical operator.
 
-{{< highlight shell >}}
-check.publish == true
-check.namespace != "default"
-{{< /highlight >}}
+| operator | description     | example                |
+| -------- | --------------- | ---------------------- |
+| `==`     | Equality        | `check.publish == true`
+| `!=`     | Inequality      | `check.namespace != "default"`
+| `in`     | Included in     | `linux in check.subscriptions`
+| `notin`  | Not included in | `slack notin check.handlers`
+| `&&`     | Logical AND     | `check.publish == true && slack in check.handlers`
 
-In addition, there are two _set-based_ operators to deal with lists of values: `in` and `notin`.
+#### Equality-based operators
 
-{{< highlight shell >}}
-linux in check.subscriptions
-slack notin check.handlers
-check.namespace in [dev,production]
-{{< /highlight >}}
+Sensu's two _equality-based_ operators are `==` (equality) and `!=` (inequality).
 
-### Combine selectors and statements
-
-You can combine multiple statements separated with the logical operator `&&` (_AND_) in field and label selectors.
-
-For example, the following cURL request looks up checks that are configured to be published **and** include the `slack` handler:
+For example, to retrieve only checks with the label `type` and value `server`: 
 
 {{< highlight shell >}}
 curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" http://127.0.0.1:8080/api/core/v2/checks -G \
---data-urlencode 'fieldSelector=check.publish == true && slack in check.handlers'
+--data-urlencode 'labelSelector=type == "server"'
 {{< /highlight >}}
 
-In addition to selectors with multiple statements, you can use field and label selectors at the same time:
+_**NOTE**: Use the flag `--data-urlencode` in cURL to encode the query parameter. 
+Include the `-G` flag so the request appends the query parameter data to the URL._
+
+To retrieve checks that are not in the `production` namespace:
 
 {{< highlight shell >}}
 curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" http://127.0.0.1:8080/api/core/v2/checks -G \
---data-urlencode 'fieldSelector=slack in check.handlers' \
---data-urlencode 'labelSelector=region != "us-west-1"'
+--data-urlencode 'fieldSelector=check.namespace != "production"'
 {{< /highlight >}}
 
-## Request size limit
+#### Set-based operators
 
-API request bodies are limited to 0.512 MB in size.
+Sensu's two _set-based_ operators for lists of values are `in` and `notin`.
+
+For example, to retrieve checks with a `linux` subscription:
+
+{{< highlight shell >}}
+curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" http://127.0.0.1:8080/api/core/v2/checks -G \
+--data-urlencode 'linux in check.subscriptions'
+{{< /highlight >}}
+
+To retrieve checks that do not use the `slack` handler:
+
+{{< highlight shell >}}
+curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" http://127.0.0.1:8080/api/core/v2/checks -G \
+--data-urlencode 'slack notin check.handlers'
+{{< /highlight >}}
+
+The `in` and `notin` operators have two important conditions:
+
+- First, they only work when the underlying value you're filtering for is a string.
+You can filter for strings and arrays of strings with `in` and `notin` operators, but you cannot use them to filter for integer, float, array, or Boolean values.
+- Second, to filter for a string, the string must be to the **left** of the operator: `string [in|notin] selector`.
+To filter for an array of strings, the array must be to the **right** of the operator: `selector [in|notin] [string1,string2]`.
+
+#### Logical operator
+
+Sensu's logical operator is `&&` (AND).
+Use it to combine multiple statements separated with the logical operator in field and label selectors.
+
+For example, the following cURL request retrieves checks that are not configured to be published **and** include the `linux` subscription:
+
+{{< highlight shell >}}
+curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" http://127.0.0.1:8080/api/core/v2/checks -G \
+--data-urlencode 'fieldSelector=check.publish != true && linux in check.subscriptions'
+{{< /highlight >}}
+
+To retrieve checks that are not published, include a `linux` subscription, and are in the `dev` namespace:
+
+{{< highlight shell >}}
+curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" http://127.0.0.1:8080/api/core/v2/checks -G \
+--data-urlencode 'fieldSelector=check.publish != true && linux in check.subscriptions && dev in check.namespace'
+{{< /highlight >}}
+
+_**NOTE**: Sensu does not have the `OR` logical operator._
+
+### Combined selectors
+
+You can use field and label selectors in a single request.
+For example, to retrieve only checks that include a `linux` subscription *and* do not include a label for type `server`:
+
+{{< highlight shell >}}
+curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" http://127.0.0.1:8080/api/core/v2/checks -G \
+--data-urlencode 'fieldSelector=linux in check.subscriptions' \
+--data-urlencode 'labelSelector=type != "server"'
+{{< /highlight >}}
+
+### Examples
+
+#### Use selectors with arrays of strings
+
+To retrieve checks that are in either the `dev` or `production` namespace:
+
+{{< highlight shell >}}
+curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" http://127.0.0.1:8080/api/core/v2/checks -G \
+--data-urlencode 'fieldSelector=check.namespace in [dev,production]'
+{{< /highlight >}}
+
+#### Filter events by entity or check
+
+To retrieve events for a specific check (`checkhttp`):
+
+{{< highlight shell >}}
+curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" http://127.0.0.1:8080/api/core/v2/events -G \
+--data-urlencode 'fieldSelector=checkhttp in event.check.name'
+{{< /highlight >}}
+
+Similary, to retrieve only events for the `server` entity:
+
+{{< highlight shell >}}
+curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" http://127.0.0.1:8080/api/core/v2/events -G \
+--data-urlencode 'fieldSelector=server in event.entity.name'
+{{< /highlight >}}
+
+#### Filter events by severity
+
+Use the `event.check.status` field selector to retrieve events by severity.
+For example, to retrieve all events at `2` (CRITICAL) status:
+
+{{< highlight shell >}}
+curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" http://127.0.0.1:8080/api/core/v2/events -G \
+--data-urlencode 'fieldSelector=event.check.status == "2"'
+{{< /highlight >}}
+
+#### Filter all incidents
+
+To retrieve all incidents (all events whose status is not `0`):
+
+{{< highlight shell >}}
+curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" http://127.0.0.1:8080/api/core/v2/events -G \
+--data-urlencode 'fieldSelector=event.entity.status != "0"'
+{{< /highlight >}}
+
+#### Filter checks, entities, or entities by subscription
+
+To list all checks that include the `linux` subscription:
+
+{{< highlight shell >}}
+curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" http://127.0.0.1:8080/api/core/v2/checks -G \
+--data-urlencode 'fieldSelector=linux in check.subscriptions'
+{{< /highlight >}}
+
+Similarly, to list all entities that include the `linux` subscription:
+
+{{< highlight shell >}}
+curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" http://127.0.0.1:8080/api/core/v2/entities -G \
+--data-urlencode 'fieldSelector=linux in entity.subscriptions'
+{{< /highlight >}}
+
+To list all events for the `linux` subscription, use the `event.entity.subscriptions` field selector:
+
+{{< highlight shell >}}
+curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" http://127.0.0.1:8080/api/core/v2/events -G \
+--data-urlencode 'fieldSelector=linux in event.entity.subscriptions'
+{{< /highlight >}}
+
 
 [1]: ../../sensuctl/reference#preferred-output-format
 [2]: ../../installation/install-sensu#install-sensuctl
