@@ -55,7 +55,7 @@ Read the [upgrade guide][1] for information about upgrading to the latest versio
 
 ## 5.17.2 release notes
 
-**February DATE, 2020** &mdash; The latest release of Sensu Go, version 5.17.2, is now available for download.
+**February 19, 2020** &mdash; The latest release of Sensu Go, version 5.17.2, is now available for download.
 This release fixes a bug that could cause enterprise HTTP routes to fail to initialize upon internal restart.
 
 See the [upgrade guide][1] to upgrade Sensu to version 5.17.2.
