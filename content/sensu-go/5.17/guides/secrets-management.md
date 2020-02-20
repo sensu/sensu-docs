@@ -117,7 +117,7 @@ Skip to the [add a handler][19] section, where you'll use your `pagerduty_key` s
 
 This section explains how to use [HashiCorp Vault][1] as your external [secrets provider][2] to authenticate via the HashiCorp Vault integration's [token auth method][3] or [TLS certificate auth method][4].
 
-_**NOTE**: You will need to set up [HashiCorp Vault][15] to use `VaultProvider` secrets management in production. The examples in this guide use the [Vault dev server][18], which is useful for learning and experimenting. The Vault dev server gives you access to a preconfigured, running Vault server with in-memory storage that you can use right away. Follow the [HashiCorp Learn curriculum][16] when you are ready to set up a production server in Vault._
+_**NOTE**: You will need to set up [HashiCorp Vault][15] to use `VaultProvider` secrets management in production. The examples in this guide use the [Vault dev server][32], which is useful for learning and experimenting. The Vault dev server gives you access to a preconfigured, running Vault server with in-memory storage that you can use right away. Follow the [HashiCorp Learn curriculum][16] when you are ready to set up a production server in Vault._
 
 ### Retrieve your Vault token
 
@@ -288,3 +288,4 @@ Read the [secrets][9] or [secrets providers][10] reference for in-depth secrets 
 [29]: #create-your-vault-secret
 [30]: #retrieve-your-pagerduty-integration-key
 [31]: https://www.pagerduty.com/
+[32]: https://www.vaultproject.io/docs/concepts/dev-server/
