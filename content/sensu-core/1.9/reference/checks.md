@@ -715,12 +715,23 @@ example      | {{< highlight shell >}}"dependencies": [
 ]
 {{< /highlight >}}
 
+<a name="notification"></a>
+
 notification | 
 -------------|------
-description  | The notification message used for events created by the check, instead of the commonly used check output. This attribute is used by most notification event handlers that use the sensu-plugin library.
+description  | The notification message to use for events created by the check. If you specify a check notification, it will be used in event summaries instead of the check [description][68] or output. The notification attribute is used by most notification event handlers that use the sensu-plugin library and Sensu Enterprise integrations.
 required     | false
 type         | String
 example      | {{< highlight shell >}}"notification": "the shopping cart application is not responding to requests"{{< /highlight >}}
+
+<a name="description"></a>
+
+description  | 
+-------------|------
+description  | The description message used for events created by the check. If you specify a [notification][67], it will overwrite the description in event summaries. Otherwise, as long as you do not specify a notification, the check description will be used in event summaries instead of the check output. The description attribute is used by most notification event handlers that use the sensu-plugin library and Sensu Enterprise integrations.
+required     | false
+type         | String
+example      | {{< highlight shell >}}"description": "the shopping cart application is not responding to requests"{{< /highlight >}}
 
 influxdb     | 
 -------------|------
@@ -1181,3 +1192,5 @@ example      | {{< highlight shell >}}"client": { "name": "i-424242" }{{< /highl
 [64]: /sensu-enterprise/latest/integrations/opsgenie
 [65]: ../configuration#configuration-scopes
 [66]: ../../api/checks#checkscheck-delete
+[67]: #notification
+[68]: #description

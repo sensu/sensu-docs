@@ -14,8 +14,8 @@ menu:
 - [Accessing the dashboard](#accessing-the-dashboard)
 - [Signing in](#signing-in)
 - [Namespaces](#namespaces)
-- [Managing checks](#managing-checks)
 - [Managing entities](#managing-entities)
+- [Managing checks](#managing-checks)
 - [Managing handlers](#managing-handlers)
 - [Managing event filters](#managing-event-filters)
 - [Managing mutators](#managing-mutators)
@@ -23,6 +23,8 @@ menu:
 
 The Sensu backend includes the **Sensu dashboard**:
 a unified view of your events, entities, and checks with user-friendly tools to reduce alert fatigue.
+
+**LICENSED TIER**: Unlock the Sensu dashboard homepage (shown below) in the Sensu Go dashboard with a Sensu license. To activate your license, see the [getting started guide][6].
 
 <div style="text-align:center">
 <img src="/images/homepage.png" alt="Sensu dashboard homepage" width="750">
@@ -49,15 +51,15 @@ To switch namespaces, select the menu icon in the upper-left corner, and choose 
 
 <p style="text-align:center"><i>Sensu dashboard namespace switcher</i></p>
 
+### Managing entities
+
+You can delete Sensu entities using the dashboard entities page.
+
 ### Managing checks
 
 **LICENSED TIER**: Unlock check management in the Sensu Go dashboard with a Sensu license. To activate your license, see the [getting started guide][6].
 
 You can create, edit, and delete Sensu checks using the dashboard checks page.
-
-### Managing entities
-
-You can delete Sensu entities using the dashboard entities page.
 
 ### Managing handlers
 

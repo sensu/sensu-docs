@@ -483,7 +483,7 @@ example      | {{< highlight shell >}}"namespace": "production"{{< /highlight >}
 
 | labels     |      |
 -------------|------
-description  | Custom attributes you can use to create meaningful collections that can be selected with [API filtering][api-filter] and [sensuctl filtering][sensuctl-filter]. Overusing labels can impact Sensu's internal performance, so we recommend moving complex, non-identifying metadata to annotations.
+description  | Custom attributes to include with event data that you can use for response and dashboard view filtering.<br><br>If you include labels in your event data, you can filter [API responses][api-filter], [sensuctl responses][sensuctl-filter], and [dashboard views][50] based on them. In other words, labels allow you to create meaningful groupings for your data.<br><br>Limit labels to metadata you need to use for filtering. For complex, non-identifying metadata that you will *not* need to use for API response, sensuctl, or dashboard view filtering, use annotations rather than labels.
 required     | false
 type         | Map of key-value pairs. Keys can contain only letters, numbers, and underscores, but must start with a letter. Values can be any valid UTF-8 string.
 default      | `null`
@@ -494,7 +494,7 @@ example      | {{< highlight shell >}}"labels": {
 
 | annotations | |
 -------------|------
-description  | Non-identifying metadata that's meaningful to people or external tools interacting with Sensu.<br><br>In contrast to labels, annotations cannot be used in [API filtering][api-filter] or [sensuctl filtering][sensuctl-filter] and do not impact Sensu's internal performance.
+description  | Non-identifying metadata to include with event data, which can be accessed using [event filters][30]. You can use annotations to add data that's meaningful to people or external tools interacting with Sensu.<br><br>In contrast to labels, annotations cannot be used in [API response filtering][api-filter], [sensuctl response filtering][sensuctl-filter], or [dashboard view filtering][50].
 required     | false
 type         | Map of key-value pairs. Keys and values can be any valid UTF-8 string.
 default      | `null`
@@ -884,4 +884,6 @@ spec:
 [api-filter]: ../../api/overview#filtering
 [sensuctl-filter]: ../../sensuctl/reference#filtering
 [29]: ../events#occurrences-and-occurrences-watermark
+[30]: ../filters
 [alert-fatigue]: ../../guides/reduce-alert-fatigue/
+[50]: ../../dashboard/filtering#label-selectors

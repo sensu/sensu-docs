@@ -13,14 +13,18 @@ menu:
 - [URL format](#url-format)
 - [Data format](#data-format)
 - [Versioning](#versioning)
+- [Request size limit](#request-size-limit)
 - [Access control](#access-control)
+  - [Authentication quick start](#authentication-quick-start)
 - [Pagination](#pagination)
+  - [Limit query parameter](#limit-query-parameter)
+  - [Continue query parameter](#continue-query-parameter)
 - [Filtering](#filtering)
   - [Label selector](#label-selector)
   - [Field selector](#field-selector)
-  - [Supported operators](#supported-operators)
-  - [Combining selectors and statements](#combining-selectors-and-statements)
-- [Request size](#request-size)
+  - [Operators](#operators)
+  - [Combined selectors](#combined-selectors)
+  - [Examples](#examples)
 
 **API version: v2**
 
@@ -48,6 +52,10 @@ The Sensu API guarantees backward compatibility for stable versions of the API.
 Sensu makes no guarantee that an alpha or beta API will be maintained for any period of time.
 Alpha versions should be considered under active development and may not be published for every release.
 Beta APIs, while more stable than alpha versions, offer similarly short-lived lifespans and also provide no guarantee of programmatic conversions when the API is updated.
+
+## Request size limit
+
+API request bodies are limited to 0.512 MB in size.
 
 ## Access control
 
@@ -137,48 +145,77 @@ To regenerate a valid access token, first run any sensuctl command (like `sensuc
 
 ## Pagination
 
-The Sensu API supports response pagination for all GET endpoints that return an array.
-You can request a paginated response using the `limit` and `continue` query parameters.
+The Sensu API supports response pagination for most `core/v2` GET endpoints that return an array.
+You can request a paginated response with the `limit` and `continue` query parameters.
 
-For example, the following request limits the response to a maximum of two objects.
+### Limit query parameter
+
+The following request limits the response to a maximum of two objects:
 
 {{< highlight shell >}}
-curl http://127.0.0.1:8080/api/core/v2/namespaces?limit=2 -H "Authorization: Bearer $SENSU_TOKEN"
+curl http://127.0.0.1:8080/api/core/v2/users?limit=2 -H "Authorization: Bearer $SENSU_ACCESS_TOKEN"
 {{< /highlight >}}
 
-The response includes the available objects up to the specified limit and, if there are more objects available, a continue token.
-For example, the following response indicates that there are more than two namespaces available and provides a continue token to request the next page of objects.
+The response includes the available objects up to the specified limit.
+
+### Continue query parameter
+
+If more objects are available beyond the [limit][16] you specified in a request, the response header includes a `Sensu-Continue` token you can use to request the next page of objects.
+
+For example, the following response indicates that more than two users are available because it provides a `Sensu-Continue` token in the response header:
 
 {{< highlight shell >}}
 HTTP/1.1 200 OK
 Content-Type: application/json
-Sensu-Continue: L2RlZmF1bHQvY2N4MWM2L2hlbGxvLXdvcmxkAA
+Sensu-Continue: L2RlZmF1bU2Vuc3UtTWFjQ
+Sensu-Entity-Count: 3
+Sensu-Entity-Limit: 100
+Sensu-Entity-Warning: 
+Date: Fri, 14 Feb 2020 15:44:25 GMT
+Content-Length: 132
 [
   {
-    "name": "default"
+    "username": "alice",
+    "groups": [
+      "ops"
+    ],
+    "disabled": false
   },
   {
-    "name": "development"
+    "username": "bob",
+    "groups": [
+      "ops"
+    ],
+    "disabled": false
   }
 ]
 {{< /highlight >}}
 
-You can then use the continue token to request the next page of objects.
-The following example requests the next two available namespaces following the request in the example above.
+To request the next two available users, use the `Sensu-Continue` token included in the response header:
 
 {{< highlight shell >}}
-curl http://127.0.0.1:8080/api/core/v2/namespaces?limit=2&continue=L2RlZmF1bHQvY2N4MWM2L2hlbGxvLXdvcmxkAA -H "Authorization: Bearer $SENSU_TOKEN"
+curl http://127.0.0.1:8080/api/core/v2/users?limit=2&continue=L2RlZmF1bU2Vuc3UtTWFjQ \
+-H "Authorization: Bearer $SENSU_ACCESS_TOKEN"
 {{< /highlight >}}
 
-If the request does not return a continue token, there are no further objects to return.
-For example, the following response indicates that there is only one additional namespace available.
+If the response header does not include a `Sensu-Continue` token, there are no further objects to return.
+For example, this response header indicates that no further users are available:
 
 {{< highlight shell >}}
 HTTP/1.1 200 OK
 Content-Type: application/json
+Sensu-Entity-Count: 3
+Sensu-Entity-Limit: 100
+Sensu-Entity-Warning: 
+Date: Fri, 14 Feb 2020 15:46:02 GMT
+Content-Length: 54
 [
   {
-    "name": "ops"
+    "username": "alice",
+    "groups": [
+      "ops"
+    ],
+    "disabled": false
   }
 ]
 {{< /highlight >}}
@@ -189,22 +226,19 @@ Content-Type: application/json
 
 The Sensu API supports filtering for all GET endpoints that return an array. You can filter resources based on their labels with a label selector using the `labelSelector` query parameter and on certain pre-determined fields with a field selector using the `fieldSelector` query parameter.
 
-For example, the following request filters the response to only include resources that have a label entry `region` with the value `us-west-1`. We will use the flag `--data-urlencode` in curl so it encodes the query parameter for us, in conjunction with the `-G` flag so it appends the data to the URL.
-
-{{< highlight shell >}}
-curl -H "Authorization: Bearer $SENSU_TOKEN" http://127.0.0.1:8080/api/core/v2/checks -G \
---data-urlencode 'labelSelector=region == "us-west-1"'
-{{< /highlight >}}
-
-_NOTE: For examples of using label and field selectors in the Sensu dashboard, see the [dashboard docs][12]._
+_**NOTE**: To use label and field selectors in the Sensu dashboard, see [dashboard filtering][12]._
 
 ### Label selector
 
-A label selector can use any label attributes to group a set of resources. All resources support labels within the metadata object. For example, see [entities metadata attributes][8].
+The `labelSelector` query parameter allows you to group resources by the label attributes specified in the resource metadata object.
+All resources support labels within the [metadata object][8].
+
+The label selector does not work with values that contain special characters like hyphens and underscores.
 
 ### Field selector
 
-A field selector can use certain fields of resources to organize and select subsets of resources. Here's the list of available fields.
+The `fieldSelector` query parameter allows you to organize and select subsets of resources based on certain fields.
+Here's the list of available fields:
 
 | Resource      | Fields      |
 | ----------- | ----------- | 
@@ -225,47 +259,172 @@ A field selector can use certain fields of resources to organize and select subs
 | Silenced | `silenced.name` `silenced.namespace` `silenced.check` `silenced.creator` `silenced.expire_on_resolve` `silenced.subscription` |
 | User | `user.username` `user.disabled` `user.groups` |
 
-### Supported operators
+The `fieldSelector` parameter does not work with values that contain special characters like hyphens and underscores.
 
-There are two _equality-based_ operators supported, `==` (equality) and `!=` (inequality). For example, the following statements are possible:
+### Operators
+
+Sensu's API response filtering supports two equality-based operators, two set-based operators, and one logical operator.
+
+| operator | description     | example                |
+| -------- | --------------- | ---------------------- |
+| `==`     | Equality        | `check.publish == true`
+| `!=`     | Inequality      | `check.namespace != "default"`
+| `in`     | Included in     | `linux in check.subscriptions`
+| `notin`  | Not included in | `slack notin check.handlers`
+| `&&`     | Logical AND     | `check.publish == true && slack in check.handlers`
+
+#### Equality-based operators
+
+Sensu's two _equality-based_ operators are `==` (equality) and `!=` (inequality).
+
+For example, to retrieve only checks with the label `type` and value `server`: 
 
 {{< highlight shell >}}
-check.publish == true
-check.namespace != "default"
+curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" http://127.0.0.1:8080/api/core/v2/checks -G \
+--data-urlencode 'labelSelector=type == "server"'
 {{< /highlight >}}
 
-Additionally, there are two _set-based_ operators to deal with lists of values, `in` and `notin`. For example, the following statements are possible:
+_**NOTE**: Use the flag `--data-urlencode` in cURL to encode the query parameter. 
+Include the `-G` flag so the request appends the query parameter data to the URL._
+
+To retrieve checks that are not in the `production` namespace:
 
 {{< highlight shell >}}
-linux in check.subscriptions
-slack notin check.handlers
-check.namespace in [dev,production]
+curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" http://127.0.0.1:8080/api/core/v2/checks -G \
+--data-urlencode 'fieldSelector=check.namespace != "production"'
 {{< /highlight >}}
 
-### Combining selectors and statements
+#### Set-based operators
 
-A field or label selector can be made of multiple statements which are separated with the logical operator `&&` (_AND_). For example, the following curl request looks up checks that are configured to be published **and** have the `slack` handler:
+Sensu's two _set-based_ operators for lists of values are `in` and `notin`.
+
+For example, to retrieve checks with a `linux` subscription:
 
 {{< highlight shell >}}
-curl -H "Authorization: Bearer $SENSU_TOKEN" http://127.0.0.1:8080/api/core/v2/checks -G \
---data-urlencode 'fieldSelector=check.publish == true && slack in check.handlers'
+curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" http://127.0.0.1:8080/api/core/v2/checks -G \
+--data-urlencode 'linux in check.subscriptions'
 {{< /highlight >}}
 
-In addition to selectors with multiple statements, both field and label selectors can be used at the same time:
+To retrieve checks that do not use the `slack` handler:
+
 {{< highlight shell >}}
-curl -H "Authorization: Bearer $SENSU_TOKEN" http://127.0.0.1:8080/api/core/v2/checks -G \
---data-urlencode 'fieldSelector=slack in check.handlers' \
---data-urlencode 'labelSelector=region != "us-west-1"'
+curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" http://127.0.0.1:8080/api/core/v2/checks -G \
+--data-urlencode 'slack notin check.handlers'
 {{< /highlight >}}
 
-## Request size
+The `in` and `notin` operators have two important conditions:
 
-API request bodies are limited to 0.512 MB in size.
+- First, they only work when the underlying value you're filtering for is a string.
+You can filter for strings and arrays of strings with `in` and `notin` operators, but you cannot use them to filter for integer, float, array, or Boolean values.
+- Second, to filter for a string, the string must be to the **left** of the operator: `string [in|notin] selector`.
+To filter for an array of strings, the array must be to the **right** of the operator: `selector [in|notin] [string1,string2]`.
+
+#### Logical operator
+
+Sensu's logical operator is `&&` (AND).
+Use it to combine multiple statements separated with the logical operator in field and label selectors.
+
+For example, the following cURL request retrieves checks that are not configured to be published **and** include the `linux` subscription:
+
+{{< highlight shell >}}
+curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" http://127.0.0.1:8080/api/core/v2/checks -G \
+--data-urlencode 'fieldSelector=check.publish != true && linux in check.subscriptions'
+{{< /highlight >}}
+
+To retrieve checks that are not published, include a `linux` subscription, and are in the `dev` namespace:
+
+{{< highlight shell >}}
+curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" http://127.0.0.1:8080/api/core/v2/checks -G \
+--data-urlencode 'fieldSelector=check.publish != true && linux in check.subscriptions && dev in check.namespace'
+{{< /highlight >}}
+
+_**NOTE**: Sensu does not have the `OR` logical operator._
+
+### Combined selectors
+
+You can use field and label selectors in a single request.
+For example, to retrieve only checks that include a `linux` subscription *and* do not include a label for type `server`:
+
+{{< highlight shell >}}
+curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" http://127.0.0.1:8080/api/core/v2/checks -G \
+--data-urlencode 'fieldSelector=linux in check.subscriptions' \
+--data-urlencode 'labelSelector=type != "server"'
+{{< /highlight >}}
+
+### Examples
+
+#### Use selectors with arrays of strings
+
+To retrieve checks that are in either the `dev` or `production` namespace:
+
+{{< highlight shell >}}
+curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" http://127.0.0.1:8080/api/core/v2/checks -G \
+--data-urlencode 'fieldSelector=check.namespace in [dev,production]'
+{{< /highlight >}}
+
+#### Filter events by entity or check
+
+To retrieve events for a specific check (`checkhttp`):
+
+{{< highlight shell >}}
+curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" http://127.0.0.1:8080/api/core/v2/events -G \
+--data-urlencode 'fieldSelector=checkhttp in event.check.name'
+{{< /highlight >}}
+
+Similary, to retrieve only events for the `server` entity:
+
+{{< highlight shell >}}
+curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" http://127.0.0.1:8080/api/core/v2/events -G \
+--data-urlencode 'fieldSelector=server in event.entity.name'
+{{< /highlight >}}
+
+#### Filter events by severity
+
+Use the `event.check.status` field selector to retrieve events by severity.
+For example, to retrieve all events at `2` (CRITICAL) status:
+
+{{< highlight shell >}}
+curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" http://127.0.0.1:8080/api/core/v2/events -G \
+--data-urlencode 'fieldSelector=event.check.status == "2"'
+{{< /highlight >}}
+
+#### Filter all incidents
+
+To retrieve all incidents (all events whose status is not `0`):
+
+{{< highlight shell >}}
+curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" http://127.0.0.1:8080/api/core/v2/events -G \
+--data-urlencode 'fieldSelector=event.entity.status != "0"'
+{{< /highlight >}}
+
+#### Filter checks, entities, or entities by subscription
+
+To list all checks that include the `linux` subscription:
+
+{{< highlight shell >}}
+curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" http://127.0.0.1:8080/api/core/v2/checks -G \
+--data-urlencode 'fieldSelector=linux in check.subscriptions'
+{{< /highlight >}}
+
+Similarly, to list all entities that include the `linux` subscription:
+
+{{< highlight shell >}}
+curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" http://127.0.0.1:8080/api/core/v2/entities -G \
+--data-urlencode 'fieldSelector=linux in entity.subscriptions'
+{{< /highlight >}}
+
+To list all events for the `linux` subscription, use the `event.entity.subscriptions` field selector:
+
+{{< highlight shell >}}
+curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" http://127.0.0.1:8080/api/core/v2/events -G \
+--data-urlencode 'fieldSelector=linux in event.entity.subscriptions'
+{{< /highlight >}}
+
 
 [1]: ../../sensuctl/reference#preferred-output-format
 [2]: ../../installation/install-sensu#install-sensuctl
 [3]: ../../reference/rbac
-[4]: ../../reference/agent#using-the-http-socket
+[4]: ../../reference/agent
 [5]: ../health/
 [6]: ../metrics
 [7]: ../../getting-started/enterprise
@@ -274,3 +433,4 @@ API request bodies are limited to 0.512 MB in size.
 [10]: ../auth/#the-authtoken-api-endpoint
 [11]: ../auth
 [12]: ../../dashboard/filtering
+[16]: #limit-query-parameter

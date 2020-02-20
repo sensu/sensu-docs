@@ -26,6 +26,8 @@ menu:
   - [`/users/:user/groups/:group` (PUT)](#usersusergroupsgroup-put)
   - [`/users/:user/groups/:group` (DELETE)](#usersusergroupsgroup-delete)
 
+_**NOTE**: The users API allows you to create and manage user credentials with Sensu's built-in [basic authentication provider][7]. To configure user credentials with an external provider like [Lightweight Directory Access Protocol (LDAP)][5] or [Active Directory (AD)][6], use Sensu's [authentication providers API][3]._
+
 ## The `/users` API endpoint
 
 ### `/users` (GET)
@@ -66,7 +68,8 @@ HTTP/1.1 200 OK
 ---------------|------
 description    | Returns the list of users.
 example url    | http://hostname:8080/api/core/v2/users
-pagination     | This endpoint supports pagination using the `limit` and `continue` query parameters. See the [API overview](../overview#pagination) for details.
+pagination     | This endpoint supports [pagination](../overview#pagination) using the `limit` and `continue` query parameters.
+response filtering | This endpoint supports [API response filtering][4].
 response type  | Array
 response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output         | {{< highlight shell >}}
@@ -90,7 +93,7 @@ output         | {{< highlight shell >}}
 
 ### `/users` (POST)
 
-The `/users` API endpoint provides HTTP POST access to create a [user][1].
+The `/users` API endpoint provides HTTP POST access to create a [user][1] using Sensu's basic authentication provider.
 
 #### EXAMPLE {#users-post-example}
 
@@ -243,6 +246,8 @@ http://127.0.0.1:8080/api/core/v2/users/alice
 
 HTTP/1.1 204 No Content
 {{< /highlight >}}
+
+_**NOTE**: This endpoint **disables** but does not delete the user. You can [reinstate][2] disabled users._
 
 #### API Specification {#usersuser-delete-specification}
 
@@ -397,3 +402,9 @@ example url               | http://hostname:8080/api/core/v2/users/alice/groups/
 response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 [1]: ../../reference/rbac#user-specification
+[2]: #the-usersuserreinstate-api-endpoint
+[3]: ../authproviders/
+[4]: ../overview#filtering
+[5]: ../../installation/auth#ldap-authentication
+[6]: ../../installation/auth/#ad-authentication
+[7]: ../../installation/auth/

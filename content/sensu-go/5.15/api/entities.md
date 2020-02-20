@@ -102,7 +102,8 @@ curl http://127.0.0.1:8080/api/core/v2/namespaces/default/entities -H "Authoriza
 ---------------|------
 description    | Returns the list of entities.
 example url    | http://hostname:8080/api/core/v2/namespaces/default/entities
-pagination     | This endpoint supports pagination using the `limit` and `continue` query parameters. See the [API overview](../overview#pagination) for details.
+pagination     | This endpoint supports [pagination](../overview#pagination) using the `limit` and `continue` query parameters.
+response filtering | This endpoint supports [API response filtering][3].
 response type  | Array
 response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output         | {{< highlight shell >}}
@@ -403,4 +404,5 @@ description               | Removes a entity from Sensu given the entity name.
 example url               | http://hostname:8080/api/core/v2/namespaces/default/entities/server1
 response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
-[1]: ../../reference/entities
+[1]: ../../reference/entities/
+[3]: ../overview#filtering

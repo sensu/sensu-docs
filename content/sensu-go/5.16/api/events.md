@@ -11,7 +11,6 @@ menu:
 - [The `/events` API endpoint](#the-events-api-endpoint)
 	- [`/events` (GET)](#events-get)
 	- [`/events` (POST)](#events-post)
-  	- [`/events` (PUT)](#events-put)
 - [The `/events/:entity` API endpoint](#the-eventsentity-api-endpoint)
 	- [`/events/:entity` (GET)](#eventsentity-get)
 - [The `/events/:entity/:check` API endpoint](#the-eventsentitycheck-api-endpoint)
@@ -105,7 +104,8 @@ HTTP/1.1 200 OK
 ---------------|------
 description    | Returns the list of events.
 example url    | http://hostname:8080/api/core/v2/namespaces/default/events
-pagination     | This endpoint supports pagination using the `limit` and `continue` query parameters. See the [API overview][2] for details.
+pagination     | This endpoint supports [pagination][2] using the `limit` and `continue` query parameters.
+response filtering | This endpoint supports [API response filtering][10].
 response type  | Array
 response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output         | {{< highlight shell >}}
@@ -214,7 +214,7 @@ HTTP/1.1 200 OK
 
 /events (POST) | 
 ----------------|------
-description     | Creates a new Sensu event. To update an existing event, use the [`/events` PUT endpoint][11].
+description     | Creates a new Sensu event. To update an existing event, use the [`/events/:entity/:check` PUT endpoint][11].
 example URL     | http://hostname:8080/api/core/v2/namespaces/default/events
 payload         | {{< highlight shell >}}
 {
@@ -237,74 +237,6 @@ payload         | {{< highlight shell >}}
   }
 }
 {{< /highlight >}}
-response codes  | <ul><li>**Success**: 200 (OK)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-
-### `/events` (PUT)
-
-The `/events` API endpoint provides HTTP PUT access to update an event and send it to the Sensu pipeline.
-
-#### EXAMPLE {#events-put-example}
-
-In the following example, an HTTP PUT request is submitted to the `/events` API endpoint to update an event.
-The request includes information about the check and entity represented by the event and returns a successful HTTP `200 OK` response and the event definition.
-
-{{< highlight shell >}}
-curl -X PUT \
--H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
--H 'Content-Type: application/json'
--d '{
-  "entity": {
-    "entity_class": "proxy",
-    "metadata": {
-      "name": "server1",
-      "namespace": "default"
-    }
-  },
-  "check": {
-    "output": "Server error",
-    "state": "failing",
-    "status": 2,
-    "handlers": ["slack"],
-    "interval": 60,
-    "metadata": {
-      "name": "server-health"
-    }
-  }
-}' \
-http://127.0.0.1:8080/api/core/v2/namespaces/default/events
-
-HTTP/1.1 200 OK
-{"timestamp":1552582569,"entity":{"entity_class":"proxy","system":{"network":{"interfaces":null}},"subscriptions":null,"last_seen":0,"deregister":false,"deregistration":{},"metadata":{"name":"server1","namespace":"default"}},"check":{"handlers":["slack"],"high_flap_threshold":0,"interval":60,"low_flap_threshold":0,"publish":false,"runtime_assets":null,"subscriptions":[],"proxy_entity_name":"","check_hooks":null,"stdin":false,"subdue":null,"ttl":0,"timeout":0,"round_robin":false,"executed":0,"history":null,"issued":0,"output":"Server error","state":"failing","status":2,"total_state_change":0,"last_ok":0,"occurrences":0,"occurrences_watermark":0,"output_metric_format":"","output_metric_handlers":null,"env_vars":null,"metadata":{"name":"server-health"}},"metadata":{}}
-{{< /highlight >}}
-
-#### API Specification {#events-put-specification}
-
-/events (PUT) | 
-----------------|------
-description     | Updates an existing Sensu event. To create a new event, use the [`/events` POST endpoint][10].
-example URL     | http://hostname:8080/api/core/v2/namespaces/default/events
-payload         | {{< highlight shell >}}
-{
-  "entity": {
-    "entity_class": "proxy",
-    "metadata": {
-      "name": "server1",
-      "namespace": "default"
-    }
-  },
-  "check": {
-    "output": "Server error",
-    "state": "failing",
-    "status": 2,
-    "handlers": ["slack"],
-    "interval": 60,
-    "metadata": {
-      "name": "server-health"
-    }
-  }
-}
-{{< /highlight >}}
-payload parameters | See the [payload parameters](#eventsentitycheck-put-parameters) section for the [`/events/:entity/:check` PUT endpoint][3].
 response codes  | <ul><li>**Success**: 200 (OK)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 ## The `/events/:entity` API endpoint {#the-eventsentity-api-endpoint}
@@ -422,7 +354,7 @@ HTTP/1.1 200 OK
 ---------------------|------
 description          | Returns a list of events for the specified entity.
 example url          | http://hostname:8080/api/core/v2/namespaces/default/events/sensu-go-sandbox
-pagination           | This endpoint supports pagination using the `limit` and `continue` query parameters. See the [API overview][2] for details.
+pagination           | This endpoint supports [pagination][2] using the `limit` and `continue` query parameters.
 response type        | Array
 response codes       | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output               | {{< highlight json >}}
@@ -836,8 +768,7 @@ curl -X PUT \
   "entity": {
     "entity_class": "proxy",
     "metadata": {
-      "name": "server1",
-      "namespace": "default"
+      "name": "server1"
     }
   },
   "check": {
@@ -962,5 +893,5 @@ response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Miss
 [7]: ../../reference/checks#check-specification
 [8]: ../../reference/events/
 [9]: ../../reference/events#metrics
-[10]: #events-post
-[11]: #events-put
+[10]: ../overview#response-filtering
+[11]: #eventsentitycheck-put

@@ -7,6 +7,9 @@ version: "5.17"
 menu: "sensu-go-5.17"
 ---
 
+- [5.17.2 release notes](#5-17-2-release-notes)
+- [5.17.1 release notes](#5-17-1-release-notes)
+- [5.17.0 release notes](#5-17-0-release-notes)
 - [5.16.1 release notes](#5-16-1-release-notes)
 - [5.16.0 release notes](#5-16-0-release-notes)
 - [5.15.0 release notes](#5-15-0-release-notes)
@@ -49,6 +52,75 @@ PATCH versions include backward-compatible bug fixes.
 Read the [upgrade guide][1] for information about upgrading to the latest version of Sensu Go.
 
 ---
+
+## 5.17.2 release notes
+
+**February 19, 2020** &mdash; The latest release of Sensu Go, version 5.17.2, is now available for download.
+This release fixes a bug that could prevent commercial features from working after internal restart.
+
+See the [upgrade guide][1] to upgrade Sensu to version 5.17.2.
+
+**FIXES:**
+
+- Fixed a bug that could cause commercial HTTP routes to fail to initialize after an internal restart, preventing commercial features from working.
+
+## 5.17.1 release notes
+
+**January 31, 2020** &mdash; The latest release of Sensu Go, version 5.17.1, is now available for download.
+This release fixes a web UI issue that cleared selected filters when sorting an event list and a bug that prevented certain `.tar` assets from extracting.
+It also includes sensuctl configuration improvements.
+
+See the [upgrade guide][1] to upgrade Sensu to version 5.17.1.
+
+**IMPROVEMENTS:**
+
+- Asset names may now include capital letters.
+- Running the `sensuctl configure` command now resets the sensuctl cluster configuration.
+- When you use `--trusted-ca-file` to configure sensuctl, it now detects and saves the absolute file path in the cluster configuration.
+
+**FIXES:**
+
+- ([Commercial feature][106]) When a silencing entry expires or is removed, it is also removed from the silences view in the [web UI][107].
+- Fixed a bug that prevented `.tar` assets from extracting if they contain hardlinked files.
+- In the [web UI][107], sorting an event list view no longer clears the selected filters.
+
+## 5.17.0 release notes
+
+**January 28, 2020** &mdash; The latest release of Sensu Go, version 5.17.0, is now available for download.
+This is a significant release, with new features, improvements, and fixes!
+We’re ecstatic to announce the release of secrets management, which eliminates the need to expose sensitive information in your Sensu configuration.
+When a Sensu component (e.g. check, handler, etc.) requires a secret (like a username or password), Sensu will be able to fetch that information from one or more external secrets providers (e.g. HashiCorp Vault) and provide it to the Sensu component via temporary environment variables.
+Secrets management allows you to move secrets out of your Sensu configuration, giving you the ability to safely and confidently share your Sensu configurations with your fellow Sensu users!
+This release also includes per-entity keepalive event handler configuration, a sought-after feature for users who have migrated from Sensu 1.x to Sensu Go.
+
+See the [upgrade guide][1] to upgrade Sensu to version 5.17.0.
+
+**NEW FEATURES:**
+
+- ([Commercial feature][106]) Added [HTTP API for secrets management][108], with a built-in `Env` secrets provider and support for HashiCorp Vault secrets management. The secrets provider resource is implemented for checks, mutators, and handlers.
+- Added the `keepalive-handlers` agent configuration flag to specify the keepalive handlers to use for an entity's events.
+
+**IMPROVEMENTS:**
+
+- ([Commercial feature][106]) Upgraded the size of the events auto-incremented ID in the PostgreSQL store to a 64-bit variant, which allows you to store many more events and avoids exhausting the sequence.
+- ([Commercial feature][106]) Initialization via [`sensu-backend init`][109] is now implemented for Docker.
+- ([Commercial feature][106]) UPN binding support has been re-introduced via the `default_upn_domain` configuration attribute.
+- In the [web UI][107], labels that contain URLs are now clickable links.
+- Added `event.entity.name` as a supported field for the [`fieldSelector`][110] query parameter.
+- In the [web UI][107], users with implicit permissions to a namespace can now display resources within that namespace.
+- Explicit access to namespaces can only be granted via [cluster-wide RBAC resources][111].
+- You can now omit the namespace from an event in [`HTTP POST /events`][112] requests.
+- Added support for the `--format` flag in the [sensuctl command list][113] subcommand.
+
+**FIXES:**
+
+- ([Commercial feature][106]) Fixed a bug where the event check state was not present when using the PostgreSQL event store.
+- ([Commercial feature][106]) Agent TLS authentication does not require a license.
+- Fixed a memory leak in the entity cache.
+- Fixed a bug that prevented `sensuctl entity delete` from returning an error when attempting to delete a non-existent entity.
+- In the [web UI][107], fixed a bug that duplicated event history in the event timeline chart.
+- `sensuctl command` assets installed via Bonsai now use the `sensuctl` namespace.
+- Fixed a bug where failing check TTL events could occur if keepalive failures had already occurred.
 
 ## 5.16.1 release notes
 
@@ -972,3 +1044,11 @@ To get started with Sensu Go:
 [103]: /sensu-go/5.16/dashboard/overview
 [104]: /sensu-go/5.16/
 [105]: /sensu-go/5.16/getting-started/enterprise/
+[106]: /sensu-go/5.17/getting-started/enterprise/
+[107]: /sensu-go/5.17/dashboard/overview
+[108]: /sensu-go/5.17/api/secrets
+[109]: /sensu-go/5.17/reference/backend/#initialization
+[110]: https://docs.sensu.io/sensu-go/5.17/api/overview/#field-selector
+[111]: https://docs.sensu.io/sensu-go/5.17/reference/rbac/#cluster-wide-resource-types
+[112]: https://docs.sensu.io/sensu-go/5.17/api/events/#events-post
+[113]: https://docs.sensu.io/sensu-go/5.17/sensuctl/reference/#list-commands

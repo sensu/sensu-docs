@@ -14,6 +14,7 @@ menu:
 - [First-time setup](#first-time-setup)
 - [Get help](#get-help)
 - [Manage sensuctl](#manage-sensuctl)
+- [Test a user password](#test-a-user-password)
 - [Create resources](#create-resources)
 - [Delete resources](#delete-resources)
 - [Update resources](#update-resources)
@@ -191,6 +192,25 @@ You can use global flags with most sensuctl commands.
 
 You can set these flags permanently by editing `.config/sensu/sensuctl/{cluster, profile}`.
 
+## Test a user password
+
+To test the password for a user created with Sensu's built-in [basic authentication][44]:
+
+{{< highlight shell >}}
+sensuctl user test-creds USERNAME --password 'password'
+{{< /highlight >}}
+
+An empty response indicates valid credentials.
+A `request-unauthorized` response indicates invalid credentials.
+
+_**NOTE**: The `sensuctl user test-creds` command tests passwords for users created with Sensu's built-in [basic authentication provider][44]. It does not test user credentials defined via an authentication provider like [Lightweight Directory Access Protocol (LDAP)][26] or [Active Directory (AD)][42]._
+
+For example, if you test LDAP credentials with the `sensuctl user test-creds` command, the backend will log an error, even if you know the LDAP credentials are correct:
+
+{{< highlight shell >}}
+{"component":"apid.routers","error":"basic provider is disabled","level":"info","msg":"invalid username and/or password","time":"2020-02-07T20:42:14Z","user":"dev"}
+{{< /highlight >}}
+
 ## Create resources
 
 The `sensuctl create` command allows you to create or update resources by reading from STDIN or a flag configured file (`-f`).
@@ -306,14 +326,14 @@ cat my-resources.yml | sensuctl create
 --------------------|---|---|---|
 `AdhocRequest` | `adhoc_request` | `Asset` | `asset`
 `CheckConfig` | `check_config` | `ClusterRole`  | `cluster_role`
-`ClusterRoleBinding`  | `cluster_role_binding` | `Entity` | [`Env`][41]
+`ClusterRoleBinding`  | `cluster_role_binding` | `Entity` | [`Env`][43]
 `entity` | [`EtcdReplicators`][35] | `Event` | `event`
 `EventFilter` | `event_filter` | `Handler` | `handler`
 `Hook` | `hook` | `HookConfig` | `hook_config`
 `Mutator` | `mutator` | `Namespace` | `namespace`
 `Role` | `role` | `RoleBinding` | `role_binding`
-[`Secret`][41] | `Silenced` | `silenced` | [`ldap`][26]
-[`ad`][42] | [`TessenConfig`][27] | [`PostgresConfig`][32] |
+[`Secret`][41] | `Silenced` | `silenced` | [`VaultProvider`][43]
+[`ldap`][26] | [`ad`][42] | [`TessenConfig`][27] | [`PostgresConfig`][32] |
 
 ### Create resources across namespaces
 
@@ -783,7 +803,7 @@ SET SENSU_REFRESH_TOKEN=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.x.x
 SET SENSU_TRUSTED_CA_FILE=
 SET SENSU_INSECURE_SKIP_TLS_VERIFY=true
 REM Run this command to configure your shell:
-REM 	@FOR /f "tokens=*" %i IN ('sensuctl env --shell cmd') DO @%i
+REM   @FOR /f "tokens=*" %i IN ('sensuctl env --shell cmd') DO @%i
 {{< /highlight >}}
 
 {{< highlight powershell >}}
@@ -886,18 +906,33 @@ To install a sensuctl command from Bonsai or a URL:
 sensuctl command install [ALIAS] ([NAMESPACE/NAME]:[VERSION] | --url [ARCHIVE_URL] --checksum [ARCHIVE_CHECKSUM]) [flags]
 {{< /highlight >}}
 
+To install a command plugin, use the Bonsai asset name or specify a URL and SHA512 checksum.
+
 **To install a command using the Bonsai asset name**, replace `[NAMESPACE/NAME]` with the name of the asset from Bonsai.
 `[:VERSION]` is only required if you require a specific version or are pinning to a specific version.
 If you do not specify a version, sensuctl will fetch the latest version from Bonsai.
 
-For example, to install a command from the [Sensu Go Email Handler Plugin][37] with no flags:
+Replace `[ALIAS]` with a unique name for the command.
+For example, for the [Sensu EC2 Discovery Plugin][37], you might use the alias `sensu-ec2-discovery`. 
+`[ALIAS]` is required.
+
+Replace `[flags]` with the flags you want to use.
+Run `sensuctl command install -h` to view flags.
+Flags are optional and apply only to the `install` command &mdash; they are not saved as part of the command you are installing.
+
+To install a command from the [Sensu EC2 Discovery Plugin][37] with no flags:
 
 {{< highlight shell >}}
-sensuctl command install sensu-email-handler (sensu/sensu-email-handler:0.2.0)
+sensuctl command install sensu-ec2-discovery portertech/sensu-ec2-discovery:0.3.0
 {{< /highlight >}}
 
 **To install a command from a URL**, replace `[ARCHIVE_URL]` with a command URL that points to a tarball (e.g. https://path/to/asset.tar.gz).
 Replace `[ARCHIVE_CHECKSUM]` with the checksum you want to use.
+Replace `[ALIAS]` with a unique name for the command.
+
+Replace `[flags]` with the flags you want to use.
+Run `sensuctl command install -h` to view flags.
+Flags are optional and apply only to the `install` command &mdash; they are not saved as part of the command you are installing.
 
 For example, to install a command-test asset via URL with no flags:
 
@@ -907,14 +942,6 @@ sensuctl command install command-test --url https://github.com/amdprophet/comman
 
 _**NOTE**: Asset definitions with multiple asset builds are only supported via Bonsai._
 
-For both install options, `[ALIAS]` is required.
-Replace `[ALIAS]` with a unique `NAME` for the command.
-For example, for the [Sensu Go Email Handler Plugin][37], you might use the alias `sensu-email-handler`. 
-
-Replace `[flags]` with the flags you want to use.
-Run `sensuctl command install -h` to view flags.
-Flags are optional and apply only to the `install` command &mdash; they are not saved as part of the command you are installing.
-
 #### Execute commands
 
 To execute a sensuctl command plugin via its asset's bin/entrypoint executable:
@@ -923,8 +950,8 @@ To execute a sensuctl command plugin via its asset's bin/entrypoint executable:
 sensuctl command exec [ALIAS] [args] [flags]
 {{< /highlight >}}
 
-Replace `[ALIAS]` with a unique `NAME` for the command.
-For example, for the [Sensu Go Email Handler Plugin][37], you might use the alias `sensu-email-handler`. 
+Replace `[ALIAS]` with a unique name for the command.
+For example, for the [Sensu EC2 Discovery Plugin][37], you might use the alias `sensu-ec2-discovery`. 
 `[ALIAS]` is required.
 
 Replace `[flags]` with the flags you want to use.
@@ -971,8 +998,8 @@ To delete sensuctl commands:
 sensuctl command delete [ALIAS] [flags]
 {{< /highlight >}}
 
-Replace `[ALIAS]` with a unique `NAME` for the command.
-For example, for the [Sensu Go Email Handler Plugin][37], you might use the alias `sensu-email-handler`. 
+Replace `[ALIAS]` with a unique name for the command.
+For example, for the [Sensu EC2 Discovery Plugin][37], you might use the alias `sensu-ec2-discovery`. 
 `[ALIAS]` is required.
 
 Replace `[flags]` with the flags you want to use.
@@ -1015,9 +1042,11 @@ Flags are optional and apply only to the `delete` command.
 [34]: https://bonsai.sensu.io/
 [35]: ../../reference/etcdreplicators/
 [36]: /images/sensu-influxdb-handler-namespace.png
-[37]: https://bonsai.sensu.io/assets/sensu/sensu-email-handler/
+[37]: https://bonsai.sensu.io/assets/portertech/sensu-ec2-discovery
 [38]: #environment-variables
 [39]: #wrapped-json-format
 [40]: ../../installation/install-sensu/#3-initialize
 [41]: ../../reference/secrets/
 [42]: ../../installation/auth/#ad-authentication
+[43]: ../../reference/secrets-providers/
+[44]: ../../installation/auth#use-built-in-basic-authentication

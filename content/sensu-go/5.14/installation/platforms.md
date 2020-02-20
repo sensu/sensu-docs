@@ -33,6 +33,7 @@ Supported packages are available through [sensu/stable][8] on packagecloud and t
 |--------------------|---------|---|---|---|
 | CentOS/RHEL 6      | {{< check >}}      |
 | CentOS/RHEL 7      | {{< check >}}      |
+| CentOS/RHEL 8      | {{< check >}}      |
 | Ubuntu 14.04       | {{< check >}}      |
 | Ubuntu 16.04       | {{< check >}}      |
 | Ubuntu 18.04       | {{< check >}}      |
@@ -48,6 +49,7 @@ Supported packages are available through [sensu/stable][8] on packagecloud and t
 |--------------------|---------|-------|---|---|---|---|
 | CentOS/RHEL 6      | {{< check >}}      |
 | CentOS/RHEL 7      | {{< check >}}      |
+| CentOS/RHEL 8      | {{< check >}}      |
 | Ubuntu 14.04       | {{< check >}}      |
 | Ubuntu 16.04       | {{< check >}}      |
 | Ubuntu 18.04       | {{< check >}}      |
@@ -65,6 +67,7 @@ Supported packages are available through [sensu/stable][8] on packagecloud and t
 |--------------------|---------|-------|---|---|---|---|
 | CentOS/RHEL 6      | {{< check >}}      |
 | CentOS/RHEL 7      | {{< check >}}      |
+| CentOS/RHEL 8      | {{< check >}}      |
 | Ubuntu 14.04       | {{< check >}}      |
 | Ubuntu 16.04       | {{< check >}}      |
 | Ubuntu 18.04       | {{< check >}}      |
