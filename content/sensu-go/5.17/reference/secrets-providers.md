@@ -12,6 +12,7 @@ menu:
 
 - [Secrets providers specification](#secrets-providers-specification)
   - [Top-level attributes](#top-level-attributes) | [Metadata attributes](#metadata-attributes) | [Spec attributes](#spec-attributes)
+- [Secrets providers configuration](#secrets-providers-configuration)
 - [Secrets providers examples](#secrets-providers-examples)
 
 **COMMERCIAL FEATURE**: Access the Env and VaultProvider secrets provider datatypes in the packaged Sensu Go distribution.
@@ -198,6 +199,18 @@ description  | Maximum amount of burst allowed in a rate interval for the secret
 required     | false
 type         | Integer
 example      | {{< highlight shell >}}"burst": 100{{< /highlight >}}
+
+## Secrets providers configuration
+
+You can use the [Secrets API][2] to create, view, and manage your secrets providers configuration.
+
+For example, to retrieve the list of secrets providers:
+
+{{< highlight shell >}}
+curl -X GET \
+http://127.0.0.1:8080/api/enterprise/secrets/v1/providers \
+-H "Authorization: Bearer $SENSU_ACCESS_TOKEN"
+{{< /highlight >}}
 
 ## Secrets providers examples
 
