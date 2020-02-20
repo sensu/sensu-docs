@@ -26,6 +26,8 @@ menu:
   - [`/users/:user/groups/:group` (PUT)](#usersusergroupsgroup-put)
   - [`/users/:user/groups/:group` (DELETE)](#usersusergroupsgroup-delete)
 
+_**NOTE**: The users API allows you to create and manage user credentials with Sensu's built-in [basic authentication provider][6]. To configure user credentials with an external provider like [Lightweight Directory Access Protocol (LDAP)][4] or [Active Directory (AD)][5], use Sensu's [authentication providers API][3]._
+
 ## The `/users` API endpoint
 
 ### `/users` (GET)
@@ -67,7 +69,7 @@ HTTP/1.1 200 OK
 description    | Returns the list of users.
 example url    | http://hostname:8080/api/core/v2/users
 pagination     | This endpoint supports [pagination][2] using the `limit` and `continue` query parameters.
-response filtering | This endpoint supports [API response filtering][4].
+response filtering | This endpoint supports [API response filtering][8].
 response type  | Array
 response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output         | {{< highlight shell >}}
@@ -91,7 +93,7 @@ output         | {{< highlight shell >}}
 
 ### `/users` (POST)
 
-The `/users` API endpoint provides HTTP POST access to create a [user][1].
+The `/users` API endpoint provides HTTP POST access to create a [user][1] using Sensu's basic authentication provider.
 
 #### EXAMPLE {#users-post-example}
 
@@ -235,7 +237,7 @@ http://127.0.0.1:8080/api/core/v2/users/alice
 HTTP/1.1 204 No Content
 {{< /highlight >}}
 
-_**NOTE**: This endpoint **disables** but does not delete the user. You can [reinstate][3] disabled users._
+_**NOTE**: This endpoint **disables** but does not delete the user. You can [reinstate][7] disabled users._
 
 #### API Specification {#usersuser-delete-specification}
 
@@ -388,5 +390,9 @@ response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Miss
 
 [1]: ../../reference/rbac#user-specification
 [2]: ../overview#pagination
-[3]: #the-usersuserreinstate-api-endpoint
-[4]: ../overview#response-filtering
+[3]: ../authproviders/
+[4]: ../../installation/auth#ldap-authentication
+[5]: ../../installation/auth/#ad-authentication
+[6]: ../../installation/auth#use-built-in-basic-authentication
+[7]: #the-usersuserreinstate-api-endpoint
+[8]: ../overview#response-filtering

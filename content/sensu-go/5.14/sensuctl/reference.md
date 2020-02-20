@@ -13,6 +13,7 @@ menu:
 
 - [First-time setup](#first-time-setup)
 - [Managing sensuctl](#managing-sensuctl)
+- [Test a user password](#test-a-user-password)
 - [Creating resources](#creating-resources)
 - [Deleting resources](#deleting-resources)
 - [Updating resources](#updating-resources)
@@ -170,6 +171,25 @@ You can use global flags with most sensuctl commands.
 
 Additionally, these flags can be set permanently by editing `.config/sensu/sensuctl/{cluster, profile}`.
 
+## Test a user password
+
+To test the password for a user created with Sensu's built-in [basic authentication][44]:
+
+{{< highlight shell >}}
+sensuctl user test-creds USERNAME --password 'password'
+{{< /highlight >}}
+
+An empty response indicates valid credentials.
+A `request-unauthorized` response indicates invalid credentials.
+
+_**NOTE**: The `sensuctl user test-creds` command tests passwords for users created with Sensu's built-in [basic authentication provider][44]. It does not test user credentials defined via an authentication provider like [Lightweight Directory Access Protocol (LDAP)][26] or [Active Directory (AD)][43]._
+
+For example, if you test LDAP credentials with the `sensuctl user test-creds` command, the backend will log an error, even if you know the LDAP credentials are correct:
+
+{{< highlight shell >}}
+{"component":"apid.routers","error":"basic provider is disabled","level":"info","msg":"invalid username and/or password","time":"2020-02-07T20:42:14Z","user":"dev"}
+{{< /highlight >}}
+
 ## Creating resources
 The `sensuctl create` command allows you to create or update resources by reading from STDIN or a flag configured file (`-f`).
 The `create` command accepts Sensu resource definitions in `wrapped-json` and `yaml`.
@@ -289,7 +309,7 @@ cat my-resources.yml | sensuctl create
 `HookConfig` | `hook_config` | `Mutator` | `mutator`
 `Namespace` | `namespace` | `Role` | `role`
 `RoleBinding` | `role_binding` | `Silenced` | `silenced`
-[`ldap`][26] | [`ad`][26] | [`TessenConfig`][27] | [`PostgresConfig`][32]
+[`ldap`][26] | [`ad`][43] | [`TessenConfig`][27] | [`PostgresConfig`][32]
 
 ### Creating resources across namespaces
 
@@ -376,7 +396,7 @@ sensuctl edit handler slack
 `cluster-role-binding` | `entity` | `event` | `filter`
 `handler` | `hook` | `mutator` | `namespace`
 `role` | `role-binding` | `silenced` | `user`
-[`auth`][26] | | |
+[`auth`][42] | | |
 
 ## Exporting resources
 
@@ -440,7 +460,7 @@ None | `federation/v1.Replicator`
 Sensuctl provides the following commands to manage Sensu resources.
 
 - [`sensuctl asset`][12]
-- [`sensuctl auth`][26] (licensed tier)
+- [`sensuctl auth`][42] (licensed tier)
 - [`sensuctl check`][13]
 - [`sensuctl cluster`][7]
 - [`sensuctl cluster-role`][1]
@@ -839,7 +859,7 @@ sensu/sensu-influxdb-handler  sensu/sensu-influxdb-handler       3.1.1          
 [23]: #subcommands
 [24]: #sensuctl-edit-resource-types
 [25]: ../../api/overview
-[26]: ../../installation/auth
+[26]: ../../installation/auth#ldap-authentication
 [27]: ../../reference/tessen
 [28]: ../../api/overview#filtering
 [29]: ../../api/overview#field-selector
@@ -849,3 +869,6 @@ sensu/sensu-influxdb-handler  sensu/sensu-influxdb-handler       3.1.1          
 [33]: #creating-resources-across-namespaces
 [34]: https://bonsai.sensu.io/
 [35]: /images/sensu-influxdb-handler-namespace.png
+[42]: ../../installation/auth/
+[43]: ../../installation/auth#ad-authentication
+[44]: ../../installation/auth#use-built-in-basic-authentication

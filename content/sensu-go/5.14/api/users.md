@@ -26,6 +26,8 @@ menu:
   - [`/users/:user/groups/:group` (PUT)](#usersusergroupsgroup-put)
   - [`/users/:user/groups/:group` (DELETE)](#usersusergroupsgroup-delete)
 
+_**NOTE**: The users API allows you to create and manage user credentials with Sensu's built-in [basic authentication provider][7]. To configure user credentials with an external provider like [Lightweight Directory Access Protocol (LDAP)][5] or [Active Directory (AD)][6], use Sensu's [authentication providers API][3]._
+
 ## The `/users` API endpoint
 
 ### `/users` (GET)
@@ -91,7 +93,7 @@ output         | {{< highlight shell >}}
 
 ### `/users` (POST)
 
-The `/users` API endpoint provides HTTP POST access to create a [user][1].
+The `/users` API endpoint provides HTTP POST access to create a [user][1] using Sensu's basic authentication provider.
 
 #### EXAMPLE {#users-post-example}
 
@@ -401,4 +403,8 @@ response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Miss
 
 [1]: ../../reference/rbac#user-specification
 [2]: #the-usersuserreinstate-api-endpoint
+[3]: ../authproviders/
 [4]: ../overview#filtering
+[5]: ../../installation/auth#ldap-authentication
+[6]: ../../installation/auth/#ad-authentication
+[7]: ../../installation/auth/
