@@ -93,7 +93,7 @@ example      | {{< highlight shell >}}"namespace": "default"{{< /highlight >}}
 
 id           | 
 -------------|------ 
-description  | Identifying key for the provider to retrieve the secret.
+description  | Identifying key for the provider to retrieve the secret. For the `Env` secrets provider, the `id` is the environment variable. For the `Vault` secrets provider, the `id` is the secret path and key name in the form of `secret/path#key`.
 required     | true
 type         | String
 example      | {{< highlight shell >}}"id": "secret/ansible#token"{{< /highlight >}}
@@ -205,7 +205,7 @@ The `id` value for secrets that target a HashiCorp Vault must start with the nam
 The [Vault dev server][10] is preconfigured with the `secret` keyspace already set up.
 This is convenient for learning and getting started with Vault secrets management, so this example and our guide to [Secrets management][11] use the `secret/` path for the `id` value.
 In this example, the name of the secret is `database`.
-The `database` secret contains a value called `password`, which is the password to our database.
+The `database` secret contains a key called `password`, and its value is the password to our database.
 
 [1]: ../../getting-started/enterprise/
 [2]: ../../api/secrets/

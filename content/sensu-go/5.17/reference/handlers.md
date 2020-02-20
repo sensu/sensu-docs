@@ -294,7 +294,7 @@ example      | {{< highlight shell >}}"port": 4242{{< /highlight >}}
 
 name         | 
 -------------|------
-description  | Name of the [secret][20] defined in the executable command.
+description  | Name of the [secret][20] defined in the executable command. Becomes the environment variable presented to the check. See [Use secrets management in Sensu][26] for more information.
 required     | true
 type         | String
 example      | {{< highlight shell >}}"name": "ANSIBLE_HOST"{{< /highlight >}}
@@ -553,7 +553,7 @@ spec:
 
 ### Handler with secret
 
-Learn more about secrets management for your Sensu configuration in the [secrets][20] and [secrets providers][21] references.
+Learn more about [secrets management][26] for your Sensu configuration in the [secrets][20] and [secrets providers][21] references.
 
 {{< language-toggle >}}
 
@@ -624,3 +624,4 @@ spec:
 [23]: ../../guides/install-check-executables-with-assets
 [24]: ../filters/
 [25]: ../../dashboard/filtering#filter-with-label-selectors
+[26]: ../../guides/secrets-management/
