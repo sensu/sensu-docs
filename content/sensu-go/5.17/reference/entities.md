@@ -91,7 +91,8 @@ spec:
   deregistration: {}
   entity_class: proxy
   last_seen: 0
-  subscriptions: []
+  subscriptions:
+  - proxy
   system:
     network:
       interfaces: null
@@ -114,7 +115,9 @@ spec:
     "deregistration": {},
     "entity_class": "proxy",
     "last_seen": 0,
-    "subscriptions": [],
+    "subscriptions": [
+      "proxy"
+    ],
     "system": {
       "network": {
         "interfaces": null
@@ -125,6 +128,8 @@ spec:
 {{< /highlight >}}
 
 {{< /language-toggle >}}
+
+_**NOTE**: The proxy entity definition must include the same subscriptions as the sensu-agent to work with round robin scheduling **and** response filter labels. If more than one sensu-agent will execute a proxy check and you did not configure the proxy entity with the same subscriptions as the sensu-agent, the proxy check will fail to run._
 
 Then run `sensuctl create` to create the entity based on the definition:
 
@@ -360,7 +365,7 @@ example      | {{< highlight shell >}}"entity_class": "agent"{{< /highlight >}}
 
 subscriptions| 
 -------------|------ 
-description  | List of subscription names for the entity. The entity by default has an entity-specific subscription, in the format of `entity:{name}` where `name` is the entity's hostname.
+description  | List of subscription names for the entity. The entity by default has an entity-specific subscription, in the format of `entity:{name}` where `name` is the entity's hostname. If you are using round robin scheduling **and** response filter labels with a proxy entity, the proxy entity definition must include the same subscriptions as the sensu-agent.
 required     | false 
 type         | Array 
 default      | The entity-specific subscription.
