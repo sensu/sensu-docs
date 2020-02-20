@@ -38,6 +38,7 @@ HTTP/1.1 200 OK
 [
   {
     "timestamp": 1542667666,
+    "event_id": "caaf2c38-2afb-4f96-89b3-8ca5c3e6f449",
     "entity": {
       "entity_class": "agent",
       "system": {
@@ -112,6 +113,7 @@ output         | {{< highlight shell >}}
 [
   {
     "timestamp": 1542667666,
+    "event_id": "caaf2c38-2afb-4f96-89b3-8ca5c3e6f449",
     "entity": {
       "entity_class": "agent",
       "system": {
@@ -207,7 +209,7 @@ curl -X POST \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/events
 
 HTTP/1.1 200 OK
-{"timestamp":1552582569,"entity":{"entity_class":"proxy","system":{"network":{"interfaces":null}},"subscriptions":null,"last_seen":0,"deregister":false,"deregistration":{},"metadata":{"name":"server1","namespace":"default"}},"check":{"handlers":["slack"],"high_flap_threshold":0,"interval":60,"low_flap_threshold":0,"publish":false,"runtime_assets":null,"subscriptions":[],"proxy_entity_name":"","check_hooks":null,"stdin":false,"subdue":null,"ttl":0,"timeout":0,"round_robin":false,"executed":0,"history":null,"issued":0,"output":"Server error","state":"failing","status":2,"total_state_change":0,"last_ok":0,"occurrences":0,"occurrences_watermark":0,"output_metric_format":"","output_metric_handlers":null,"env_vars":null,"metadata":{"name":"server-health"}},"metadata":{}}
+{"timestamp":1552582569,"event_id":"caaf2c38-2afb-4f96-89b3-8ca5c3e6f449","entity":{"entity_class":"proxy","system":{"network":{"interfaces":null}},"subscriptions":null,"last_seen":0,"deregister":false,"deregistration":{},"metadata":{"name":"server1","namespace":"default"}},"check":{"handlers":["slack"],"high_flap_threshold":0,"interval":60,"low_flap_threshold":0,"publish":false,"runtime_assets":null,"subscriptions":[],"proxy_entity_name":"","check_hooks":null,"stdin":false,"subdue":null,"ttl":0,"timeout":0,"round_robin":false,"executed":0,"history":null,"issued":0,"output":"Server error","state":"failing","status":2,"total_state_change":0,"last_ok":0,"occurrences":0,"occurrences_watermark":0,"output_metric_format":"","output_metric_handlers":null,"env_vars":null,"metadata":{"name":"server-health"}},"metadata":{}}
 {{< /highlight >}}
 
 #### API Specification {#events-post-specification}
@@ -258,6 +260,7 @@ HTTP/1.1 200 OK
 [
   {
     "timestamp": 1543871497,
+    "event_id": "a68906e0-7c5c-49f0-8424-59a71d3ecfe2",
     "entity": {
       "entity_class": "agent",
       "system": {
@@ -303,6 +306,7 @@ HTTP/1.1 200 OK
   },
   {
     "timestamp": 1543871524,
+    "event_id": "095c37e8-1cb4-4d10-91e9-0bdd55a4f35b",
     "entity": {
       "entity_class": "agent",
       "system": {
@@ -361,6 +365,7 @@ output               | {{< highlight json >}}
 [
   {
     "timestamp": 1543871524,
+    "event_id": "095c37e8-1cb4-4d10-91e9-0bdd55a4f35b",
     "entity": {
       "entity_class": "agent",
       "system": {
@@ -425,6 +430,7 @@ HTTP/1.1 200 OK
 
 {
     "timestamp": 1577724113,
+    "event_id": "cf3c9fc0-023a-497a-aaf4-880dbd490332",
     "entity": {
         "entity_class": "proxy",
         "system": {
@@ -507,6 +513,7 @@ response codes       | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (
 output               | {{< highlight json >}}
 {
     "timestamp": 1577724113,
+    "event_id": "cf3c9fc0-023a-497a-aaf4-880dbd490332",
     "entity": {
         "entity_class": "proxy",
         "system": {
@@ -616,7 +623,7 @@ _**NOTE**: A namespace is not required to create the event. The event will use t
 
 {{< highlight shell >}}
 HTTP/1.1 200 OK
-{"timestamp":1552582569,"entity":{"entity_class":"proxy","system":{"network":{"interfaces":null}},"subscriptions":null,"last_seen":0,"deregister":false,"deregistration":{},"metadata":{"name":"server1","namespace":"default"}},"check":{"handlers":["slack"],"high_flap_threshold":0,"interval":60,"low_flap_threshold":0,"publish":false,"runtime_assets":null,"subscriptions":[],"proxy_entity_name":"","check_hooks":null,"stdin":false,"subdue":null,"ttl":0,"timeout":0,"round_robin":false,"executed":0,"history":null,"issued":0,"output":"Server error","status":1,"total_state_change":0,"last_ok":0,"occurrences":0,"occurrences_watermark":0,"output_metric_format":"","output_metric_handlers":null,"env_vars":null,"metadata":{"name":"server-health"}},"metadata":{}}
+{"timestamp":1552582569,"event_id":"15feeae0-e114-410a-b3e3-e757b04d92ec","entity":{"entity_class":"proxy","system":{"network":{"interfaces":null}},"subscriptions":null,"last_seen":0,"deregister":false,"deregistration":{},"metadata":{"name":"server1","namespace":"default"}},"check":{"handlers":["slack"],"high_flap_threshold":0,"interval":60,"low_flap_threshold":0,"publish":false,"runtime_assets":null,"subscriptions":[],"proxy_entity_name":"","check_hooks":null,"stdin":false,"subdue":null,"ttl":0,"timeout":0,"round_robin":false,"executed":0,"history":null,"issued":0,"output":"Server error","status":1,"total_state_change":0,"last_ok":0,"occurrences":0,"occurrences_watermark":0,"output_metric_format":"","output_metric_handlers":null,"env_vars":null,"metadata":{"name":"server-health"}},"metadata":{}}
 {{< /highlight >}}
 
 You can use sensuctl or the [Sensu dashboard][4] to see the event:
@@ -701,7 +708,7 @@ _**NOTE**: A namespace is not required to create the event. The event will use t
 
 {{< highlight shell >}}
 HTTP/1.1 200 OK
-{"timestamp":1552582569,"entity":{"entity_class":"proxy","system":{"network":{"interfaces":null}},"subscriptions":null,"last_seen":0,"deregister":false,"deregistration":{},"metadata":{"name":"server1","namespace":"default"}},"check":{"handlers":["slack"],"high_flap_threshold":0,"interval":60,"low_flap_threshold":0,"publish":false,"runtime_assets":null,"subscriptions":[],"proxy_entity_name":"","check_hooks":null,"stdin":false,"subdue":null,"ttl":0,"timeout":0,"round_robin":false,"executed":0,"history":null,"issued":0,"output":"Server error","status":1,"total_state_change":0,"last_ok":0,"occurrences":0,"occurrences_watermark":0,"output_metric_format":"","output_metric_handlers":null,"env_vars":null,"metadata":{"name":"server-health"}},"metadata":{}}
+{"timestamp":1552582569,"event_id":15feeae0-e114-410a-b3e3-e757b04d92ec,entity":{"entity_class":"proxy","system":{"network":{"interfaces":null}},"subscriptions":null,"last_seen":0,"deregister":false,"deregistration":{},"metadata":{"name":"server1","namespace":"default"}},"check":{"handlers":["slack"],"high_flap_threshold":0,"interval":60,"low_flap_threshold":0,"publish":false,"runtime_assets":null,"subscriptions":[],"proxy_entity_name":"","check_hooks":null,"stdin":false,"subdue":null,"ttl":0,"timeout":0,"round_robin":false,"executed":0,"history":null,"issued":0,"output":"Server error","status":1,"total_state_change":0,"last_ok":0,"occurrences":0,"occurrences_watermark":0,"output_metric_format":"","output_metric_handlers":null,"env_vars":null,"metadata":{"name":"server-health"}},"metadata":{}}
 {{< /highlight >}}
 
 You can use sensuctl or the [Sensu dashboard][4] to see the event:
