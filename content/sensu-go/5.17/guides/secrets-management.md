@@ -16,7 +16,7 @@ menu:
   - [Create your backend environment variable](#create-your-backend-environment-variable)
   - [Create your Env secret](#create-your-env-secret)
 - [Use HashiCorp Vault for secrets management](#use-hashicorp-vault-for-secrets-management)
-  - [Retrieve your Vault token](#retrieve-your-vault-token)
+  - [Retrieve your Vault root token](#retrieve-your-vault-root-token)
   - [Create your Vault secrets provider](#create-your-vault-secrets-provider)
   - [Create your Vault secret](#create-your-vault-secret)
 - [Add a handler](#add-a-handler)
@@ -119,11 +119,11 @@ This section explains how to use [HashiCorp Vault][1] as your external [secrets 
 
 _**NOTE**: You will need to set up [HashiCorp Vault][15] to use `VaultProvider` secrets management in production. The examples in this guide use the [Vault dev server][32], which is useful for learning and experimenting. The Vault dev server gives you access to a preconfigured, running Vault server with in-memory storage that you can use right away. Follow the [HashiCorp Learn curriculum][16] when you are ready to set up a production server in Vault._
 
-### Retrieve your Vault token
+### Retrieve your Vault root token
 
 _**NOTE**: The examples in this guide use the `Root Token` for the the [Vault dev server][18], which gives you access to a preconfigured, running Vault server with in-memory storage that you can use right away. Follow the [HashiCorp Learn curriculum][16] when you are ready to set up a production server in Vault._
 
-To retrieve your Vault token:
+To retrieve your Vault root token:
 
 1. [Download and install][25] the Vault edition for your operating system.
 2. Open a terminal window and run `vault server -dev`.
@@ -145,7 +145,7 @@ Because you aren't using TLS, you will need to set `VAULT_ADDR=http://127.0.0.1:
 _**NOTE**: In Vault's dev server, TLS is not enabled, so you won't be able to use certificate-based authentication._
 
 Use `sensuctl create` to create your secrets provider, `vault`.
-In the code below, replace `VAULT_TOKEN` with the `Root Token` value for your Vault dev server.
+In the code below, replace `ROOT_TOKEN` with the `Root Token` value for your Vault dev server.
 Then, run:
 
 {{< highlight shell >}}
@@ -158,7 +158,7 @@ metadata:
 spec:
   client:
     address: http://localhost:8200
-    token: VAULT_TOKEN
+    token: ROOT_TOKEN
     version: v2
     tls: null
     max_retries: 2
