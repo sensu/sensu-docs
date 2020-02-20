@@ -278,6 +278,7 @@ discovery instead of the static `--initial-cluster method`
 description  | Address the API daemon will listen for requests on.
 type         | String
 default      | `[::]:8080`
+environment variable | `SENSU_API_LISTEN_ADDRESS`
 example      | {{< highlight shell >}}# Command line example
 sensu-backend start --api-listen-address [::]:8080
 
@@ -290,6 +291,7 @@ api-listen-address: "[::]:8080"{{< /highlight >}}
 description  | URL used to connect to the API.
 type         | String
 default      | `http://localhost:8080`
+environment variable | `SENSU_API_URL`
 example      | {{< highlight shell >}}# Command line example
 sensu-backend start --api-url http://localhost:8080
 
@@ -302,6 +304,7 @@ api-url: "http://localhost:8080"{{< /highlight >}}
 description   | Path to store cached data.
 type          | String
 default       | `/var/cache/sensu/sensu-backend`
+environment variable | `SENSU_CACHE_DIR`
 example       | {{< highlight shell >}}# Command line example
 sensu-backend start --cache-dir /cache/sensu-backend
 
@@ -314,6 +317,7 @@ cache-dir: "/cache/sensu-backend"{{< /highlight >}}
 description   | Path to Sensu backend config file.
 type          | String
 default       | `/etc/sensu/backend.yml`
+environment variable | `SENSU_CONFIG_FILE`
 example       | {{< highlight shell >}}# Command line example
 sensu-backend start --config-file /etc/sensu/backend.yml
 sensu-backend start -c /etc/sensu/backend.yml
@@ -327,6 +331,7 @@ config-file: "/etc/sensu/backend.yml"{{< /highlight >}}
 description | If `true`, enable debugging and profiling features. Otherwise, `false`.
 type        | Boolean
 default     | `false`
+environment variable | `SENSU_DEBUG`
 example     | {{< highlight shell >}}# Command line example
 sensu-backend start --debug
 
@@ -339,6 +344,7 @@ debug: true{{< /highlight >}}
 description              | Default event handler to use when processing agent deregistration events.
 type                     | String
 default                  | `""`
+environment variable     | `SENSU_DEREGISTRATION_HANDLER`
 example                  | {{< highlight shell >}}# Command line example
 sensu-backend start --deregistration-handler /path/to/handler.sh
 
@@ -351,6 +357,7 @@ deregistration-handler: "/path/to/handler.sh"{{< /highlight >}}
 description  | Logging level: `panic`, `fatal`, `error`, `warn`, `info`, or `debug`.
 type         | String
 default      | `warn`
+environment variable | `SENSU_LOG_LEVEL`
 example      | {{< highlight shell >}}# Command line example
 sensu-backend start --log-level debug
 
@@ -363,6 +370,7 @@ log-level: "debug"{{< /highlight >}}
 description  | Path to Sensu state storage: `/var/lib/sensu/sensu-backend`.
 type         | String
 required     | true
+environment variable | `SENSU_STATE_DIR`
 example      | {{< highlight shell >}}# Command line example
 sensu-backend start --state-dir /var/lib/sensu/sensu-backend
 sensu-backend start -d /var/lib/sensu/sensu-backend
@@ -378,6 +386,7 @@ state-dir: "/var/lib/sensu/sensu-backend"{{< /highlight >}}
 description  | TLS certificate in PEM format for agent certificate authentication.
 type         | String
 default      | `""`
+environment variable | `SENSU_AGENT_AUTH_CERT_FILE`
 example      | {{< highlight shell >}}# Command line example
 sensu-backend start --agent-auth-cert-file /path/to/ssl/cert.pem
 
@@ -390,6 +399,7 @@ agent-auth-cert-file: /path/to/ssl/cert.pem{{< /highlight >}}
 description  | URLs of CRLs for agent certificate authentication.
 type         | String
 default      | `""`
+environment variable | `SENSU_AGENT_AUTH_CRL_URLS`
 example      | {{< highlight shell >}}# Command line example
 sensu-backend start --agent-auth-crl-urls http://localhost/CARoot.crl
 
@@ -397,11 +407,12 @@ sensu-backend start --agent-auth-crl-urls http://localhost/CARoot.crl
 agent-auth-crl-urls: http://localhost/CARoot.crl{{< /highlight >}}
 
 
-| agent-auth-key-file|      |
+| agent-auth-key-file |      |
 -------------|------
 description  | TLS certificate key in PEM format for agent certificate authentication.
 type         | String
 default      | `""`
+environment variable | `SENSU_AGENT_AUTH_KEY_FILE`
 example      | {{< highlight shell >}}# Command line example
 sensu-backend start --agent-auth-key-file /path/to/ssl/key.pem
 
@@ -414,6 +425,7 @@ agent-auth-key-file: /path/to/ssl/key.pem{{< /highlight >}}
 description  | TLS CA certificate bundle in PEM format for agent certificate authentication.
 type         | String
 default      | `""`
+environment variable | `SENSU_AGENT_AUTH_TRUSTED_CA_FILE`
 example      | {{< highlight shell >}}# Command line example
 sensu-backend start --agent-auth-trusted-ca-file /path/to/ssl/ca.pem
 
@@ -426,6 +438,7 @@ agent-auth-trusted-ca-file: /path/to/ssl/ca.pem{{< /highlight >}}
 description    | Agent listener host. Listens on all IPv4 and IPv6 addresses by default.
 type           | String
 default        | `[::]`
+environment variable | `SENSU_AGENT_HOST`
 example        | {{< highlight shell >}}# Command line example
 sensu-backend start --agent-host 127.0.0.1
 
@@ -438,6 +451,7 @@ agent-host: "127.0.0.1"{{< /highlight >}}
 description  | Agent listener port.
 type         | Integer
 default      | `8081`
+environment variable | `SENSU_AGENT_PORT`
 example      | {{< highlight shell >}}# Command line example
 sensu-backend start --agent-port 8081
 
@@ -452,6 +466,7 @@ agent-port: 8081{{< /highlight >}}
 description  | Path to the primary backend certificate file. Specifies a fallback SSL/TLS certificate if the flag `dashboard-cert-file` is not used. This certificate secures communications between the Sensu dashboard and end user web browsers, as well as communication between sensuctl and the Sensu API.
 type         | String
 default      | `""`
+environment variable | `SENSU_CERT_FILE`
 example      | {{< highlight shell >}}# Command line example
 sensu-backend start --cert-file /path/to/ssl/cert.pem
 
@@ -464,11 +479,13 @@ cert-file: "/path/to/ssl/cert.pem"{{< /highlight >}}
 description                | If `true`, skip SSL verification. Otherwise, `false`. _**WARNING**: This configuration flag is intended for use in development systems only. Do not use this flag in production._
 type                       | Boolean
 default                    | `false`
+environment variable | `SENSU_INSECURE_SKIP_TLS_VERIFY`
 example                    | {{< highlight shell >}}# Command line example
 sensu-backend start --insecure-skip-tls-verify
 
 # /etc/sensu/backend.yml example
 insecure-skip-tls-verify: true{{< /highlight >}}
+
 
 <a name="jwt-attributes"></a>
 
@@ -477,6 +494,7 @@ insecure-skip-tls-verify: true{{< /highlight >}}
 description  | Path to the PEM-encoded private key to use to sign JSON Web Tokens (JWTs). _**NOTE**: The internal symmetric secret key is used by default to sign all JWTs unless a private key is specified via this attribute._
 type         | String
 default      | `""`
+environment variable | `SENSU_JWT_PRIVATE_KEY_FILE`
 example      | {{< highlight shell >}}# Command line example
 sensu-backend start --jwt-private-key-file /path/to/key/private.pem
 
@@ -489,6 +507,7 @@ jwt-private-key-file: /path/to/key/private.pem{{< /highlight >}}
 description  | Path to the PEM-encoded public key to use to verify JSON Web Token (JWT) signatures. _**NOTE**: JWTs signed with the internal symmetric secret key will continue to be verified with that key._
 type         | String
 default      | `""`
+environment variable | `SENSU_JWT_PUBLIC_KEY_FILE`
 required     | false, unless `jwt-private-key-file` is defined
 example      | {{< highlight shell >}}# Command line example
 sensu-backend start --jwt-public-key-file /path/to/key/public.pem
@@ -502,6 +521,7 @@ jwt-public-key-file: /path/to/key/public.pem{{< /highlight >}}
 description  | Path to the primary backend key file. Specifies a fallback SSL/TLS key if the flag `dashboard-key-file` is not used. This key secures communication between the Sensu dashboard and end user web browsers, as well as communication between sensuctl and the Sensu API.
 type         | String
 default      | `""`
+environment variable | `SENSU_KEY_FILE`
 example      | {{< highlight shell >}}# Command line example
 sensu-backend start --key-file /path/to/ssl/key.pem
 
@@ -514,6 +534,7 @@ key-file: "/path/to/ssl/key.pem"{{< /highlight >}}
 description       | Path to the primary backend CA file. Specifies a fallback SSL/TLS certificate authority in PEM format used for etcd client (mutual TLS) communication if the `etcd-trusted-ca-file` is not used. This CA file is used in communication between the Sensu dashboard and end user web browsers, as well as communication between sensuctl and the Sensu API.
 type              | String
 default           | `""`
+environment variable | `SENSU_TRUSTED_CA_FILE`
 example           | {{< highlight shell >}}# Command line example
 sensu-backend start --trusted-ca-file /path/to/trusted-certificate-authorities.pem
 
@@ -528,6 +549,7 @@ trusted-ca-file: "/path/to/trusted-certificate-authorities.pem"{{< /highlight >}
 description  | Dashboard TLS certificate in PEM format. This certificate secures communication with the Sensu dashboard. If the `dashboard-cert-file` is not provided in the backend configuration, Sensu uses the certificate specified in the [`cert-file` flag](#security-configuration-flags) for the dashboard.
 type         | String
 default      | `""`
+environment variable | `SENSU_DASHBOARD_CERT_FILE`
 example      | {{< highlight shell >}}# Command line example
 sensu-backend start --dashboard-cert-file /path/to/tls/cert.pem
 
@@ -540,6 +562,7 @@ dashboard-cert-file: "/path/to/tls/cert.pem"{{< /highlight >}}
 description      | Dashboard listener host.
 type             | String
 default          | `[::]`
+environment variable | `SENSU_DASHBOARD_HOST`
 example          | {{< highlight shell >}}# Command line example
 sensu-backend start --dashboard-host 127.0.0.1
 
@@ -552,6 +575,7 @@ dashboard-host: "127.0.0.1"{{< /highlight >}}
 description  | Dashboard TLS certificate key in PEM format. This key secures communication with the Sensu dashboard. If the `dashboard-key-file` is not provided in the backend configuration, Sensu uses the key specified in the [`key-file` flag](#security-configuration-flags) for the dashboard.
 type         | String
 default      | `""`
+environment variable | `SENSU_DASHBOARD_KEY_FILE`
 example      | {{< highlight shell >}}# Command line example
 sensu-backend start --dashboard-key-file /path/to/tls/key.pem
 
@@ -564,6 +588,7 @@ dashboard-key-file: "/path/to/tls/key.pem"{{< /highlight >}}
 description      | Dashboard listener port.
 type             | Integer
 default          | `3000`
+environment variable | `SENSU_DASHBOARD_PORT`
 example          | {{< highlight shell >}}# Command line example
 sensu-backend start --dashboard-port 4000
 
@@ -578,6 +603,7 @@ dashboard-port: 4000{{< /highlight >}}
 description   | List of this member's client URLs to advertise to the rest of the cluster.
 type          | List
 default       | `http://localhost:2379`
+environment variable | `SENSU_ETCD_ADVERTISE_CLIENT_URLS`
 example       | {{< highlight shell >}}# Command line examples
 sensu-backend start --etcd-advertise-client-urls http://localhost:2378,http://localhost:2379
 sensu-backend start --etcd-advertise-client-urls http://localhost:2378 --etcd-advertise-client-urls http://localhost:2379
@@ -594,6 +620,7 @@ etcd-advertise-client-urls:
 description      | Path to the etcd client API TLS certificate file. Secures communication between the embedded etcd client API and any etcd clients.
 type             | String
 default          | `""`
+environment variable | `SENSU_ETCD_CERT_FILE`
 example          | {{< highlight shell >}}# Command line example
 sensu-backend start --etcd-cert-file ./client.pem
 
@@ -616,6 +643,7 @@ etcd-cipher-suites:
   - TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305
 {{< /highlight >}}
 type                    | List
+environment variable | `SENSU_ETCD_CIPHER_SUITES`
 example                 | {{< highlight shell >}}# Command line examples
 sensu-backend start --etcd-cipher-suites TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
 sensu-backend start --etcd-cipher-suites TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 --etcd-cipher-suites TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
@@ -632,6 +660,7 @@ etcd-cipher-suites:
 description             | If `true`, enable client certificate authentication. Otherwise, `false`.
 type                    | Boolean
 default                 | `false`
+environment variable | `SENSU_ETCD_CLIENT_CERT_AUTH`
 example                 | {{< highlight shell >}}# Command line example
 sensu-backend start --etcd-client-cert-auth
 
@@ -644,6 +673,7 @@ etcd-client-cert-auth: true{{< /highlight >}}
 description             | List of client URLs to use when a sensu-backend is not operating as an etcd member. To configure sensu-backend for use with an external etcd instance, use this flag in conjunction with `--no-embed-etcd` when executing sensu-backend start or [sensu-backend init][22]. If you do not use this flag when using `--no-embed-etcd`, sensu-backend start and sensu-backend-init will fall back to [--etcd-listen-client-urls][23].
 type                    | List
 default                 | `http://127.0.0.1:2379`
+environment variable | `SENSU_ETCD_CLIENT_URLS`
 example                   | {{< highlight shell >}}# Command line examples
 sensu-backend start --etcd-client-urls https://10.0.0.1:2379,https://10.1.0.1:2379
 sensu-backend start --etcd-client-urls https://10.0.0.1:2379 --etcd-client-urls https://10.1.0.1:2379
@@ -660,6 +690,7 @@ etcd-client-urls:
 description             | Exposes [etcd's embedded auto-discovery features][19]. Attempts to use [etcd discovery][20] to get the cluster configuration.
 type                    | String
 default                 | ""
+environment variable | `SENSU_ETCD_DISCOVERY`
 example                 | {{< highlight shell >}}# Command line example
 sensu-backend start --etcd-discovery https://discovery.etcd.io/3e86b59982e49066c5d813af1c2e2579cbf573de
 
@@ -674,6 +705,7 @@ etcd-discovery:
 description             | Exposes [etcd's embedded auto-discovery features][17]. Attempts to use a [DNS SRV][21] record to get the cluster configuration.
 type                    | String
 default                 | ""
+environment variable | `SENSU_ETCD_DISCOVERY_SRV`
 example                 | {{< highlight shell >}}# Command line example
 sensu-backend start --etcd-discovery-srv example.org
 
@@ -688,6 +720,7 @@ etcd-discovery-srv:
 description                        | List of this member's peer URLs to advertise to the rest of the cluster.
 type                               | List
 default                            | `http://127.0.0.1:2380`
+environment variable               | `SENSU_ETCD_INITIAL_ADVERTISE_PEER_URLS`
 example                            | {{< highlight shell >}}# Command line examples
 sensu-backend start --etcd-listen-peer-urls https://10.0.0.1:2380,https://10.1.0.1:2380
 sensu-backend start --etcd-listen-peer-urls https://10.0.0.1:2380 --etcd-listen-peer-urls https://10.1.0.1:2380
@@ -704,6 +737,7 @@ etcd-listen-peer-urls:
 description            | Initial cluster configuration for bootstrapping.
 type                   | String
 default                | `default=http://127.0.0.1:2380`
+environment variable   | `SENSU_ETCD_INITIAL_CLUSTER`
 example                | {{< highlight shell >}}# Command line example
 sensu-backend start --etcd-initial-cluster backend-0=https://10.0.0.1:2380,backend-1=https://10.1.0.1:2380,backend-2=https://10.2.0.1:2380
 
@@ -716,6 +750,7 @@ etcd-initial-cluster: "backend-0=https://10.0.0.1:2380,backend-1=https://10.1.0.
 description                  | Initial cluster state (`new` or `existing`).
 type                         | String
 default                      | `new`
+environment variable         | `SENSU_ETCD_INITIAL_CLUSTER_STATE`
 example                      | {{< highlight shell >}}# Command line example
 sensu-backend start --etcd-initial-cluster-state existing
 
@@ -728,6 +763,7 @@ etcd-initial-cluster-state: "existing"{{< /highlight >}}
 description                  | Initial cluster token for the etcd cluster during bootstrap.
 type                         | String
 default                      | `""`
+environment variable         | `SENSU_ETCD_INITIAL_CLUSTER_TOKEN`
 example                      | {{< highlight shell >}}# Command line example
 sensu-backend start --etcd-initial-cluster-token sensu
 
@@ -739,6 +775,7 @@ etcd-initial-cluster-token: "sensu"{{< /highlight >}}
 -----------------|------
 description      | Path to the etcd client API TLS key file. Secures communication between the embedded etcd client API and any etcd clients.
 type             | String
+environment variable | `SENSU_ETCD_KEY_FILE`
 example          | {{< highlight shell >}}# Command line example
 sensu-backend start --etcd-key-file ./client-key.pem
 
@@ -752,6 +789,7 @@ etcd-key-file: "./client-key.pem"{{< /highlight >}}
 description               | List of URLs to listen on for client traffic.
 type                      | List
 default                   | `http://127.0.0.1:2379`
+environment variable      | `SENSU_ETCD_LISTEN_CLIENT_URLS`
 example                   | {{< highlight shell >}}# Command line examples
 sensu-backend start --etcd-listen-client-urls https://10.0.0.1:2379,https://10.1.0.1:2379
 sensu-backend start --etcd-listen-client-urls https://10.0.0.1:2379 --etcd-listen-client-urls https://10.1.0.1:2379
@@ -768,6 +806,7 @@ etcd-listen-client-urls:
 description             | List of URLs to listen on for peer traffic.
 type                    | List
 default                 | `http://127.0.0.1:2380`
+environment variable    | `SENSU_ETCD_LISTEN_PEER_URLS`
 example                 | {{< highlight shell >}}# Command line examples
 sensu-backend start --etcd-listen-peer-urls https://10.0.0.1:2380,https://10.1.0.1:2380
 sensu-backend start --etcd-listen-peer-urls https://10.0.0.1:2380 --etcd-listen-peer-urls https://10.1.0.1:2380
@@ -784,6 +823,7 @@ etcd-listen-peer-urls:
 description      | Human-readable name for this member.
 type             | String
 default          | `default`
+environment variable | `SENSU_ETCD_NAME`
 example          | {{< highlight shell >}}# Command line example
 sensu-backend start --etcd-name backend-0
 
@@ -795,6 +835,7 @@ etcd-name: "backend-0"{{< /highlight >}}
 ----------------------|------
 description           | Path to the peer server TLS certificate file.
 type                  | String
+environment variable  | `SENSU_ETCD_PEER_CERT_FILE`
 example               | {{< highlight shell >}}# Command line example
 sensu-backend start --etcd-peer-cert-file ./backend-0.pem
 
@@ -807,6 +848,7 @@ etcd-peer-cert-file: "./backend-0.pem"{{< /highlight >}}
 description                  | Enable peer client certificate authentication.
 type                         | Boolean
 default                      | `false`
+environment variable         | `SENSU_ETCD_PEER_CLIENT_CERT_AUTH`
 example                      | {{< highlight shell >}}# Command line example
 sensu-backend start --etcd-peer-client-cert-auth
 
@@ -818,6 +860,7 @@ etcd-peer-client-cert-auth: true{{< /highlight >}}
 ---------------------|------
 description          | Path to the etcd peer API TLS key file. Secures communication between etcd cluster members.
 type                 | String
+environment variable | `SENSU_ETCD_PEER_KEY_FILE`
 example              | {{< highlight shell >}}# Command line example
 sensu-backend start --etcd-peer-key-file ./backend-0-key.pem
 
@@ -829,6 +872,7 @@ etcd-peer-key-file: "./backend-0-key.pem"{{< /highlight >}}
 ----------------------------|------
 description                 | Path to the etcd peer API server TLS trusted CA file. Secures communication between etcd cluster members.
 type                        | String
+environment variable        | `SENSU_ETCD_PEER_TRUSTED_CA_FILE`
 example                     | {{< highlight shell >}}# Command line example
 sensu-backend start --etcd-peer-trusted-ca-file ./ca.pem
 
@@ -841,6 +885,7 @@ etcd-peer-trusted-ca-file: "./ca.pem"{{< /highlight >}}
 description            | Path to the client server TLS trusted CA certificate file. Secures communication with the etcd client server.
 type                   | String
 default                | `""`
+environment variable   | `SENSU_ETCD_TRUSTED_CA_FILE`
 example                | {{< highlight shell >}}# Command line example
 sensu-backend start --etcd-trusted-ca-file ./ca.pem
 
@@ -853,6 +898,7 @@ etcd-trusted-ca-file: "./ca.pem"{{< /highlight >}}
 description      | If `true`, do not embed etcd (use external etcd instead). Otherwise, `false`.
 type             | Boolean
 default          | `false`
+environment variable | `SENSU_NO_EMBED_ETCD`
 example          | {{< highlight shell >}}# Command line example
 sensu-backend start --no-embed-etcd
 
@@ -867,6 +913,7 @@ no-embed-etcd: true{{< /highlight >}}
 description            | Number of incoming events that can be buffered before being processed by an eventd worker. _**WARNING**: Modify with caution. Increasing this value may result in greater memory usage._
 type                   | Integer
 default                | `100`
+environment variable   | `SENSU_EVENTD_BUFFER_SIZE`
 example                | {{< highlight shell >}}# Command line example
 sensu-backend start --eventd-buffer-size 100
 
@@ -880,6 +927,7 @@ eventd-buffer-size: 100{{< /highlight >}}
 description            | Number of workers spawned for processing incoming events that are stored in the eventd buffer. _**WARNING**: Modify with caution. Increasing this value may result in greater CPU usage._
 type                   | Integer
 default                | `100`
+environment variable   | `SENSU_EVENTD_WORKERS`
 example                | {{< highlight shell >}}# Command line example
 sensu-backend start --eventd-workers 100
 
@@ -892,6 +940,7 @@ eventd-workers: 100{{< /highlight >}}
 description            | Number of incoming keepalives that can be buffered before being processed by a keepalived worker. _**WARNING**: Modify with caution. Increasing this value may result in greater memory usage._
 type                   | Integer
 default                | `100`
+environment variable   | `SENSU_KEEPALIVED_BUFFER_SIZE`
 example                | {{< highlight shell >}}# Command line example
 sensu-backend start --keepalived-buffer-size 100
 
@@ -904,6 +953,7 @@ keepalived-buffer-size: 100{{< /highlight >}}
 description            | Number of workers spawned for processing incoming keepalives that are stored in the keepalived buffer. _**WARNING**: Modify with caution. Increasing this value may result in greater CPU usage._
 type                   | Integer
 default                | `100`
+environment variable   | `SENSU_KEEPALIVED_WORKERS`
 example                | {{< highlight shell >}}# Command line example
 sensu-backend start --keepalived-workers 100
 
@@ -916,6 +966,7 @@ keepalived-workers: 100{{< /highlight >}}
 description            | Number of events to handle that can be buffered before being processed by a pipelined worker. _**WARNING**: Modify with caution. Increasing this value may result in greater memory usage._
 type                   | Integer
 default                | `100`
+environment variable   | `SENSU_PIPELINED_BUFFER_SIZE`
 example                | {{< highlight shell >}}# Command line example
 sensu-backend start --pipelined-buffer-size 100
 
@@ -928,6 +979,7 @@ pipelined-buffer-size: 100{{< /highlight >}}
 description            | Number of workers spawned for handling events through the event pipeline that are stored in the pipelined buffer. _**WARNING**: Modify with caution. Increasing this value may result in greater CPU usage._
 type                   | Integer
 default                | `100`
+environment variable   | `SENSU_PIPELINED_WORKERS`
 example                | {{< highlight shell >}}# Command line example
 sensu-backend start --pipelined-workers 100
 
@@ -940,6 +992,7 @@ pipelined-workers: 100{{< /highlight >}}
 description            | Time that a follower node will go without hearing a heartbeat before attempting to become leader itself. In milliseconds (ms). See [etcd time parameter documentation][16] for details and other considerations. _**WARNING**: Make sure to set the same election timeout value for all etcd members in one cluster. Setting different values for etcd members may reduce cluster stability._
 type                   | Integer
 default                | `1000`
+environment variable   | `SENSU_ETCD_ELECTION_TIMEOUT`
 example                | {{< highlight shell >}}# Command line example
 sensu-backend start --etcd-election-timeout 1000
 
@@ -952,6 +1005,7 @@ etcd-election-timeout: 1000{{< /highlight >}}
 description            | Interval at which the etcd leader will notify followers that it is still the leader. In milliseconds (ms). Best practice is to set the interval based on round-trip time between members. See [etcd time parameter documentation][16] for details and other considerations. _**WARNING**: Make sure to set the same heartbeat interval value for all etcd members in one cluster. Setting different values for etcd members may reduce cluster stability._
 type                   | Integer
 default                | `100`
+environment variable   | `SENSU_ETCD_HEARTBEAT_INTERVAL`
 example                | {{< highlight shell >}}# Command line example
 sensu-backend start --etcd-heartbeat-interval 100
 
@@ -964,6 +1018,7 @@ etcd-heartbeat-interval: 100{{< /highlight >}}
 description            | Maximum etcd request size in bytes that can be sent to an etcd server by a client. Increasing this value allows etcd to process events with large outputs at the cost of overall latency. _**WARNING**: Use with caution. This configuration option requires familiarity with etcd. Improper use of this option can result in a non-functioning Sensu instance._
 type                   | Integer
 default                | `1572864`
+environment variable   | `SENSU_ETCD_MAX_REQUEST_BYTES`
 example                | {{< highlight shell >}}# Command line example
 sensu-backend start --etcd-max-request-bytes 1572864
 
@@ -976,6 +1031,7 @@ etcd-max-request-bytes: 1572864{{< /highlight >}}
 description            | Maximum etcd database size in bytes. Increasing this value allows for a larger etcd database at the cost of performance. _**WARNING**: Use with caution. This configuration option requires familiarity with etcd. Improper use of this option can result in a non-functioning Sensu instance._
 type                   | Integer
 default                | `4294967296`
+environment variable   | `SENSU_ETCD_QUOTA_BACKEND_BYTES`
 example                | {{< highlight shell >}}# Command line example
 sensu-backend start --etcd-quota-backend-bytes 4294967296
 
@@ -999,7 +1055,7 @@ $ sudo touch /etc/sysconfig/sensu-backend
 
 {{< /language-toggle >}}
 
-For any configuration flag you wish to specify as an environment variable, you must append `SENSU_` and convert dashes (`-`) to underscores (`_`).
+For any configuration flag you wish to specify as an environment variable, you must prepend `SENSU_`, convert dashes (`-`) to underscores (`_`), and capitalize all letters.
 Then, add the resulting environment variable to the appropriate environment file described above.
 You must restart the service for these settings to take effect.
 
@@ -1034,6 +1090,7 @@ The event logging functionality provides better performance and reliability than
 description            | Buffer size of the event logger. Corresponds to the maximum number of events kept in memory in case the log file is temporarily unavailable or more events have been received than can be written to the log file. 
 type                   | Integer
 default                | 100000
+environment variable   | `SENSU_EVENT_LOG_BUFFER_SIZE`
 example                | {{< highlight shell >}}# Command line example
 sensu-backend start --event-log-buffer-size 100000
 
@@ -1046,6 +1103,7 @@ event-log-buffer-size: 100000{{< /highlight >}}
 -----------------------|------
 description            | Path to the event log file. _**WARNING**: The log file should be located on a local drive. Logging directly to network drives is not supported._
 type                   | String
+environment variable   | `SENSU_EVENT_LOG_FILE`
 example                | {{< highlight shell >}}# Command line example
 sensu-backend start --event-log-file /var/log/sensu/events.log
 

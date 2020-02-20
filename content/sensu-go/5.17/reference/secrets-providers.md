@@ -12,6 +12,7 @@ menu:
 
 - [Secrets providers specification](#secrets-providers-specification)
   - [Top-level attributes](#top-level-attributes) | [Metadata attributes](#metadata-attributes) | [Spec attributes](#spec-attributes)
+- [Secrets providers configuration](#secrets-providers-configuration)
 - [Secrets providers examples](#secrets-providers-examples)
 
 **COMMERCIAL FEATURE**: Access the Env and VaultProvider secrets provider datatypes in the packaged Sensu Go distribution.
@@ -71,7 +72,7 @@ example      | {{< highlight shell >}}
 "spec": {
   "client": {
     "address": "https://vaultserver.example.com:8200",
-    "token": "ROOT_TOKEN",
+    "token": "VAULT_TOKEN",
     "version": "v1",
     "tls": {
       "ca_cert": "/etc/ssl/certs/vault_ca_cert.pem"
@@ -105,7 +106,7 @@ type         | Map of key-value pairs
 example      | {{< highlight shell >}}
 "client": {
   "address": "https://vaultserver.example.com:8200",
-  "token": "ROOT_TOKEN",
+  "token": "VAULT_TOKEN",
   "version": "v1",
   "tls": {
     "ca_cert": "/etc/ssl/certs/vault_ca_cert.pem"
@@ -153,10 +154,10 @@ example      | {{< highlight shell >}}
 
 token        | 
 -------------|------ 
-description  | Vault Root Token to use for authentication.
+description  | Vault token to use for authentication.
 required     | true
 type         | String
-example      | {{< highlight shell >}}"token": "ROOT_TOKEN"{{< /highlight >}}
+example      | {{< highlight shell >}}"token": "VAULT_TOKEN"{{< /highlight >}}
 
 version      | 
 -------------|------ 
@@ -170,7 +171,7 @@ example      | {{< highlight shell >}}"version": "v1"{{< /highlight >}}
 tls          | 
 -------------|------ 
 description  | TLS object. Vault only works with TLS configured. You may need to set up a CA cert if it is not already stored in your operating system's trust store. To do this, set the TLS object and provide the `ca_cert` path. You may also need to set up `client_cert`, `client_key`, or [`cname`][15].
-required     | true
+required     | false
 type         | Map of key-value pairs
 example      | {{< highlight shell >}}
 "tls": {
@@ -199,6 +200,18 @@ required     | false
 type         | Integer
 example      | {{< highlight shell >}}"burst": 100{{< /highlight >}}
 
+## Secrets providers configuration
+
+You can use the [Secrets API][2] to create, view, and manage your secrets providers configuration.
+
+For example, to retrieve the list of secrets providers:
+
+{{< highlight shell >}}
+curl -X GET \
+http://127.0.0.1:8080/api/enterprise/secrets/v1/providers \
+-H "Authorization: Bearer $SENSU_ACCESS_TOKEN"
+{{< /highlight >}}
+
 ## Secrets providers examples
 
 ### VaultProvider example
@@ -216,7 +229,7 @@ metadata:
 spec:
   client:
     address: https://vaultserver.example.com:8200
-    token: ROOT_TOKEN
+    token: VAULT_TOKEN
     version: v1
     tls:
       ca_cert: "/etc/ssl/certs/vault_ca_cert.pem"
@@ -237,7 +250,7 @@ spec:
   "spec": {
     "client": {
       "address": "https://vaultserver.example.com:8200",
-      "token": "ROOT_TOKEN",
+      "token": "VAULT_TOKEN",
       "version": "v1",
       "tls": {
         "ca_cert": "/etc/ssl/certs/vault_ca_cert.pem"

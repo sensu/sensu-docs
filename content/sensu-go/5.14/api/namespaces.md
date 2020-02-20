@@ -46,7 +46,7 @@ curl http://127.0.0.1:8080/api/core/v2/namespaces -H "Authorization: Bearer $SEN
 ---------------|------
 description    | Returns the list of namespaces.
 example url    | http://hostname:8080/api/core/v2/namespaces
-pagination     | This endpoint supports [pagination](../overview#pagination) using the `limit` and `continue` query parameters.
+pagination     | This endpoint supports pagination using the [`limit` query parameter](../overview#limit-query-parameter).
 response filtering | This endpoint supports [API response filtering][3].
 response type  | Array
 response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>

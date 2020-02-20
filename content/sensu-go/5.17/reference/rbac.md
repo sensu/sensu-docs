@@ -36,7 +36,7 @@ RBAC allows you to manage user access and resources based on namespaces, groups,
 - **Role bindings** assign a role to a set of users and groups within a namespace. **Cluster role bindings** assign a cluster role to a set of users and groups cluster-wide.
 
 Sensu access controls apply to [sensuctl][2], the Sensu [API][19], and the Sensu [dashboard][3].
-In addition to built-in RBAC, Sensu includes [commercial][33] support for authentication using external [authentication providers][34].
+In addition to built-in RBAC, Sensu includes [commercial][33] support for authentication using external [authentication providers][32].
 
 ## Namespaces
 
@@ -250,8 +250,7 @@ This is the user that you can use to manage all aspects of Sensu and create new 
 | cluster role   |  `cluster-admin` |
 | cluster role binding   | `cluster-admin	`  |
 
-We **strongly** recommend changing the default password for the admin user immediately.
-Once authenticated, you can change the password using the `change-password` command:
+Once authenticated, you can change the default password for the admin user with the `change-password` command:
 
 {{< highlight shell >}}
 sensuctl user change-password
@@ -262,14 +261,16 @@ You can configure `agent` user credentials with the [`user` and `password` agent
 
 ### Manage users
 
-To test the password for a user:
+To test the password for a user created with Sensu's built-in [basic authentication][34]:
 
 {{< highlight shell >}}
 sensuctl user test-creds USERNAME --password 'password'
 {{< /highlight >}}
 
 An empty response indicates valid credentials.
-A request-unauthorized response indicates invalid credentials.
+A `request-unauthorized` response indicates invalid credentials.
+
+_**NOTE**: The `sensuctl user test-creds` command tests passwords for users created with Sensu's built-in [basic authentication provider][34]. It does not test user credentials defined via an authentication provider like [Lightweight Directory Access Protocol (LDAP)][43] or [Active Directory (AD)][44]._
 
 To change the password for a user:
 
@@ -1251,9 +1252,9 @@ You can add these resources to Sensu using [`sensuctl create`][31].
 [29]: #create-role-bindings-and-cluster-role-bindings
 [30]: #role-binding-and-cluster-role-binding-specification
 [31]: ../../sensuctl/reference#create-resources
-[32]: ../../installation/auth/
+[32]: ../../installation/auth#use-an-authentication-provider
 [33]: ../../getting-started/enterprise/
-[34]: ../../installation/auth/
+[34]: ../../installation/auth#use-built-in-basic-authentication
 [36]: ../../sensuctl/reference#create-resources-across-namespaces
 [37]: ../license/
 [38]: ../../installation/auth/#groups-prefix
@@ -1261,3 +1262,5 @@ You can add these resources to Sensu using [`sensuctl create`][31].
 [40]: ../../reference/etcdreplicators/
 [41]: ../agent/#security-configuration-flags
 [42]: ../../installation/install-sensu/#3-initialize
+[43]: ../../installation/auth#ldap-authentication
+[44]: ../../installation/auth/#ad-authentication

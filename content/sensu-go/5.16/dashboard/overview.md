@@ -16,14 +16,16 @@ menu:
 - [Themes](#themes)
 - [Namespaces](#namespaces)
   - [Namespace switcher](#namespace-switcher)
-- [Manage checks](#manage-checks)
 - [Manage entities](#manage-entities)
+- [Manage checks](#manage-checks)
 - [Manage handlers](#manage-handlers)
 - [Manage event filters](#manage-event-filters)
 - [Manage mutators](#manage-mutators)
 
 
 The Sensu backend includes the **Sensu dashboard**: a unified view of your events, entities, and checks with user-friendly tools to reduce alert fatigue.
+
+**COMMERCIAL FEATURE**: Access the Sensu dashboard homepage (shown below) in the packaged Sensu Go distribution. For more information, see [Get started with commercial features][6].
 
 <div style="text-align:center">
 <img src="/images/homepage.png" alt="Sensu dashboard homepage" width="750">
@@ -55,21 +57,21 @@ By default, the dashboard displays the `default` namespace.
 
 To switch namespaces, select the menu icon in the upper-left corner and choose a namespace from the dropdown.
 
-**COMMERCIAL FEATURE**: The switcher will list only the namespaces to which the current user has access.
+**COMMERCIAL FEATURE**: In the packaged Sensu Go distribution, the namespace switcher will list only the namespaces to which the current user has access. For more information, see [Get started with commercial features][6].
 
 <img src="/images/dashboard-namespace-switcher.png" alt="Screenshot of the Sensu dashboard namespace switcher">
 
 <p style="text-align:center"><i>Sensu dashboard namespace switcher</i></p>
+
+## Manage entities
+
+You can delete Sensu entities in the dashboard Entities page.
 
 ## Manage checks
 
 **COMMERCIAL FEATURE**: Access check management in the packaged Sensu Go distribution. For more information, see [Get started with commercial features][6].
 
 You can create, edit, and delete Sensu checks in the dashboard Checks page.
-
-## Manage entities
-
-You can delete Sensu entities in the dashboard Entities page.
 
 ## Manage handlers
 
