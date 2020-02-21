@@ -625,7 +625,7 @@ sc.exe query SensuAgent
 
 There are two ways to get the current agent version: the `sensu-agent` tool and the agent version API.
 
-To get the current agent version with the `sensu-agent` tool:
+To get the version of the current `sensu-agent` tool:
 
 {{< highlight shell >}}
 sensu-agent version
