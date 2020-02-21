@@ -631,7 +631,7 @@ To get the version of the current `sensu-agent` tool:
 sensu-agent version
 {{< /highlight >}}
 
-To get the current agent version with the agent version API:
+To get the version of the running `sensu-agent` service:
 
 {{< highlight shell >}}
 curl http://127.0.0.1:3031/version
