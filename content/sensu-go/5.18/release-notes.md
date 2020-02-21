@@ -56,7 +56,7 @@ Read the [upgrade guide][1] for information about upgrading to the latest versio
 
 ## 5.18.0 release notes
 
-**February 24, 2020** &mdash; The latest release of Sensu Go, version 5.18.0, is now available for download.
+**February 25, 2020** &mdash; The latest release of Sensu Go, version 5.18.0, is now available for download.
 **PLACEHOLDER FOR RELEASE SUMMARY**
 
 See the [upgrade guide][1] to upgrade Sensu to version 5.18.0.
@@ -68,6 +68,7 @@ See the [upgrade guide][1] to upgrade Sensu to version 5.18.0.
 - Sensuctl now accepts Bonsai asset versions that include a prefix with the letter `v` (for example, `v1.2.0`).
 - The version API now retrieves the Sensu agent version for the Sensu instance.
 - In the [web UI][119], annotations that contain URLs are now clickable links.
+- Log messages now indicate which filter dropped an event.
 - Sensu now reads and writes `initializationKey` to and from EtcdRoot, with legacy support (read-only) as a fallback.
 - Sensu will now check for an HTTP response other than `200 OK` response when fetching assets.
 - Updated Go version from 1.13.5 to 1.13.7.
@@ -78,6 +79,9 @@ See the [upgrade guide][1] to upgrade Sensu to version 5.18.0.
 - Fixed a bug that prevented wrapped resources from having their namespaces set by the default sensuctl configuration.
 - Fixed a bug that prevented [API response filtering][120] from working properly for the silenced API.
 - Improved event payload validation for the [events API][118] so that events that do not match the URL parameters on the `/events/:entity/:check` endpoint are rejected.
+- Sensuctl now supports the `http_proxy`, `https_proxy`, and `no_proxy` environment variables.
+- The [`auth/test` endpoint][121] now returns the correct error messages.
+
 ## 5.17.2 release notes
 
 **February 19, 2020** &mdash; The latest release of Sensu Go, version 5.17.2, is now available for download.
@@ -1084,3 +1088,4 @@ To get started with Sensu Go:
 [118]: /sensu-go/5.18/api/events#events-post
 [119]: /sensu-go/5.18/dashboard/overview
 [120]: /sensu-go/5.18/api/overview/#response-filtering
+[121]: /sensu-go/5.18/api/auth/#the-authtest-api-endpoint
