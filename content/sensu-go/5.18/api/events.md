@@ -214,7 +214,7 @@ HTTP/1.1 200 OK
 
 /events (POST) | 
 ----------------|------
-description     | Creates a new Sensu event. To update an existing event, use the [`/events` PUT endpoint][11].
+description     | Creates a new Sensu event. To update an existing event, use the [`/events` PUT endpoint][11].<br><br>If you create a new event with an entity that does not already exist, the sensu-backend will automatically create a proxy entity when the event is published.
 example URL     | http://hostname:8080/api/core/v2/namespaces/default/events
 payload         | {{< highlight shell >}}
 {

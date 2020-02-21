@@ -68,6 +68,8 @@ Sensu agents can also act as a collector for metrics throughout your infrastruct
 You can send events directly to the Sensu pipeline using the [events API][16].
 To create an event, send a JSON event definition to the [events API PUT endpoint][14].
 
+If you use the events API to create a new event with an entity that does not already exist, the sensu-backend will automatically create a proxy entity when the event is published.
+
 ## Manage events
 
 You can manage events using the [Sensu dashboard][15], [events API][16], and [sensuctl][17] command line tool.
@@ -357,7 +359,7 @@ example      | {{< highlight shell >}}"timestamp": 1522099512{{< /highlight >}}
 
 |entity      |      |
 -------------|------
-description  | [Entity attributes][2] from the originating entity (agent or proxy).
+description  | [Entity attributes][2] from the originating entity (agent or proxy). If you use the [events API][35] to create a new event with an entity that does not already exist, the sensu-backend will automatically create a proxy entity when the event is published.
 type         | Map
 required     | true
 example      | {{< highlight shell >}}
@@ -1329,3 +1331,4 @@ spec:
 [32]: #history-attributes
 [33]: ../checks#spec-attributes
 [34]: #points-attributes
+[35]: ../../api/events#events-post
