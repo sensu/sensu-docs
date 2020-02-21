@@ -67,6 +67,7 @@ See the [upgrade guide][1] to upgrade Sensu to version 5.18.0.
 - If you use the [events API][118] to create a new event with an entity that does not already exist, the sensu-backend will automatically create a proxy entity when the event is published.
 - Sensuctl now accepts Bonsai asset versions that include a prefix with the letter `v` (for example, `v1.2.0`).
 - The version API now retrieves the Sensu agent version for the Sensu instance.
+- In the [web UI][119], annotations that contain URLs are now clickable links.
 - Sensu now reads and writes `initializationKey` to and from EtcdRoot, with legacy support (read-only) as a fallback.
 - Sensu will now check for an HTTP response other than `200 OK` response when fetching assets.
 - Updated Go version from 1.13.5 to 1.13.7.
@@ -1080,3 +1081,4 @@ To get started with Sensu Go:
 [116]: /sensu-go/5.18/api/overview/#label-selector
 [117]: /sensu-go/5.18/api/overview/#field-selector
 [118]: /sensu-go/5.18/api/events#events-post
+[119]: /sensu-go/5.18/dashboard/overview
