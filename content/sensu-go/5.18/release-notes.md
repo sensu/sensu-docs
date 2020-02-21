@@ -64,7 +64,7 @@ See the [upgrade guide][1] to upgrade Sensu to version 5.18.0.
 **IMPROVEMENTS:**
 
 - The `event.entity.entity_class` value now defaults to `proxy` for [`POST /events`][114] requests.
-- Proxy entities are now automatically created when events are published with an entity that does not exist.
+- If you use the [events API][118] to create a new event with an entity that does not already exist, the sensu-backend will automatically create a proxy entity when the event is published.
 - Supported Bonsai asset versions are now prefixed with the letter `v` (for example, `v1.2.0`).
 - The version API now retrieves the Sensu agent version for the Sensu instance.
 - Sensu now reads and writes `initializationKey` to and from EtcdRoot, with legacy support (read-only) as a fallback.
@@ -1079,3 +1079,4 @@ To get started with Sensu Go:
 [115]: /sensu-go/5.18/getting-started/enterprise/
 [116]: /sensu-go/5.18/api/overview/#label-selector
 [117]: /sensu-go/5.18/api/overview/#field-selector
+[118]: /sensu-go/5.18/api/events#events-post
