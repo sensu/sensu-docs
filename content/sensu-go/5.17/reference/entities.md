@@ -820,3 +820,4 @@ spec:
 [21]: https://regex101.com/r/zo9mQU/2
 [22]: ../rbac/
 [23]: ../../dashboard/filtering#filter-with-label-selectors
+[24]: ../checks#proxy-requests-attributes
