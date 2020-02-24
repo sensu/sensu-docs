@@ -623,10 +623,18 @@ sc.exe query SensuAgent
 
 ### Get service version
 
-To get the current agent version using the `sensu-agent` tool:
+There are two ways to get the current agent version: the `sensu-agent` tool and the agent version API.
+
+To get the version of the current `sensu-agent` tool:
 
 {{< highlight shell >}}
 sensu-agent version
+{{< /highlight >}}
+
+To get the version of the running `sensu-agent` service:
+
+{{< highlight shell >}}
+curl http://127.0.0.1:3031/version
 {{< /highlight >}}
 
 ### Uninstall the service
