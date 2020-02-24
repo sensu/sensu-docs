@@ -56,8 +56,7 @@ Read the [upgrade guide][1] for information about upgrading to the latest versio
 
 ## 5.18.0 release notes
 
-**February 25, 2020** &mdash; The latest release of Sensu Go, version 5.18.0, is now available for download.
-**PLACEHOLDER FOR RELEASE SUMMARY**
+**February 25, 2020** &mdash; The latest release of Sensu Go, version 5.18.0, is now available for download. This release delivers a number of improvements to the overall Sensu Go experience. From automatic proxy entity creation to unique Sensu event IDs, it’s now much easier to use and troubleshoot your monitoring event pipelines! If you’re working behind an HTTP proxy, you can now easily manage remote Sensu Go clusters, as sensuctl now honours proxy environment variables (e.g. HTTPS_PROXY). This release includes a number of fixes for usability bugs, making for the most polished release of Sensu Go yet, so go ahead and give it a download!
 
 See the [upgrade guide][1] to upgrade Sensu to version 5.18.0.
 
