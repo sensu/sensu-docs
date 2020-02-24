@@ -76,10 +76,10 @@ See the [upgrade guide][1] to upgrade Sensu to version 5.18.0.
 
 - ([Commercial feature][115]) [Label selectors][116] and [field selectors][117] now accept single and double quotes to identify strings.
 - Fixed a bug that prevented wrapped resources from having their namespaces set by the default sensuctl configuration.
-- Fixed a bug that prevented [API response filtering][120] from working properly for the silenced API.
+- Fixed a bug that prevented [API response filtering][119] from working properly for the silenced API.
 - Improved event payload validation for the [events API][118] so that events that do not match the URL parameters on the `/events/:entity/:check` endpoint are rejected.
 - Sensuctl now supports the `http_proxy`, `https_proxy`, and `no_proxy` environment variables.
-- The [`auth/test` endpoint][121] now returns the correct error messages.
+- The [`auth/test` endpoint][120] now returns the correct error messages.
 
 ## 5.17.2 release notes
 
@@ -1085,5 +1085,5 @@ To get started with Sensu Go:
 [116]: /sensu-go/5.18/api/overview/#label-selector
 [117]: /sensu-go/5.18/api/overview/#field-selector
 [118]: /sensu-go/5.18/api/events#events-post
-[120]: /sensu-go/5.18/api/overview/#response-filtering
-[121]: /sensu-go/5.18/api/auth/#the-authtest-api-endpoint
+[119]: /sensu-go/5.18/api/overview/#response-filtering
+[120]: /sensu-go/5.18/api/auth/#the-authtest-api-endpoint
