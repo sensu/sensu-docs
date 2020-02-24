@@ -1,7 +1,7 @@
 ---
 title: "Generate certificates for your Sensu installation"
 linkTitle: "Generate Certificates"
-description: "public key infrastructure (PKI). Learn how to set up PKI and generate the certificates you need to secure Sensu."
+description: "After you install Sensu, learn how to secure it with public key infrastructure (PKI). Set up PKI and generate the certificates you need to secure Sensu."
 weight: 165
 version: "5.18"
 product: "Sensu Go"
