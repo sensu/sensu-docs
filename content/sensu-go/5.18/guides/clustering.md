@@ -247,8 +247,15 @@ See [Secure Sensu][16] for information about cluster security.
 You must have etcd 3.3.2 or newer to use Sensu with an external etcd cluster.
 Follow etcd's [clustering guide][2] using the same store configuration to stand up an external etcd cluster.
 
-To initialize a backend that uses etcd authentication, configure read and write access to the `/sensu.io` key space for your users:
+To initialize a backend that uses etcd authentication, configure read and write access to the `/sensu.io/` key space for your users:
+{{< highlight shell >}}
+/opt/etcd/etcdctl role grant-permission sensu_readwrite readwrite --from-key '/sensu.io/'
+{{< /highlight >}}
 
+To double-check that the grant is configured correctly, run:
+ {{< highlight shell >}}
+ /opt/etcd/etcdctl user get Username --detail
+{{< /highlight >}}
 {{< highlight shell >}}
 User: Username
 
@@ -259,11 +266,7 @@ KV Write:
 	[/sensu.io/, <open ended>
 {{< /highlight >}}
 
-Then, create an open-ended grant for the `EtcdRoot`:
 
-{{< highlight shell >}}
-/opt/etcd/etcdctl role grant-permission sensu_readwrite readwrite --from-key '/sensu.io/'
-{{< /highlight >}}
 
 To enable client-to-server and peer communication authentication [using self-signed TLS certificates][13], start etcd for `backend-1` based on the [three-node configuration example][19]:
 
