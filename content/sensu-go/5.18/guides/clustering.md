@@ -244,11 +244,28 @@ See [Secure Sensu][16] for information about cluster security.
 
 ## Use an external etcd cluster
 
-To use Sensu with an external etcd cluster, you must have etcd 3.3.2 or newer.
-To stand up an external etcd cluster, follow etcd's [clustering guide][2] using the same store configuration.
+You must have etcd 3.3.2 or newer to use Sensu with an external etcd cluster.
+Follow etcd's [clustering guide][2] using the same store configuration to stand up an external etcd cluster.
 
-In this example, you will enable client-to-server and peer communication authentication [using self-signed TLS certificates][13].
-To start etcd for `backend-1` based on the [three-node configuration example][19]:
+To initialize a backend that uses etcd authentication, configure read and write access to the `/sensu.io` key space for your users:
+
+{{< highlight shell >}}
+User: Username
+
+Role sensu_readwrite
+KV Read:
+	[/sensu.io/, <open ended>
+KV Write:
+	[/sensu.io/, <open ended>
+{{< /highlight >}}
+
+Then, create an open-ended grant for the `EtcdRoot`:
+
+{{< highlight shell >}}
+/opt/etcd/etcdctl role grant-permission sensu_readwrite readwrite --from-key '/sensu.io/'
+{{< /highlight >}}
+
+To enable client-to-server and peer communication authentication [using self-signed TLS certificates][13], start etcd for `backend-1` based on the [three-node configuration example][19]:
 
 {{< highlight shell >}}
 etcd \
@@ -271,9 +288,9 @@ etcd \
 --auto-compaction-retention 2
 {{< /highlight >}}
 
-_**NOTE**: The `auto-compaction-mode` and `auto-compaction-retention` flags are important. Without these settings, your database may quickly reach etcd's maximum database size limit._
+_**NOTE**: Without the `auto-compaction-mode` and `auto-compaction-retention` flags, your database may quickly reach etcd's maximum database size limit._
 
-To tell Sensu to use this external etcd data source, add the `sensu-backend` flag `--no-embed-etcd` to the original configuration, along with the path to a client certificate created using your CA:
+Next, tell Sensu to use this external etcd data source by adding the `sensu-backend` flag `--no-embed-etcd` to the original configuration and the path to a client certificate created using your CA:
 
 {{< highlight shell >}}
 sensu-backend start \
