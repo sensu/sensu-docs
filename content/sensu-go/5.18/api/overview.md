@@ -421,13 +421,13 @@ curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" http://127.0.0.1:8080/api/co
 To use a label or field selector with string values that include special characters like hyphens and underscores, place the value in single or double quotes:
 
 {{< highlight shell >}}
-curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" http://127.0.0.1:8080/api/core/v2/checks -G \
+curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" -X GET http://127.0.0.1:8080/api/core/v2/entities -G \
 --data-urlencode 'labelSelector=region == "us-west-1"'
 {{< /highlight >}}
 
 {{< highlight shell >}}
 curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" http://127.0.0.1:8080/api/core/v2/entities -G \
---data-urlencode 'fieldSelector='entity:whisky' in entity.subscriptions'
+--data-urlencode 'fieldSelector="entity:i-0c1f8a116b84ea50c" in entity.subscriptions'
 {{< /highlight >}}
 
 #### Use selectors with arrays of strings
