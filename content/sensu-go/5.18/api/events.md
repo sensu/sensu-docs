@@ -38,7 +38,7 @@ HTTP/1.1 200 OK
 [
   {
     "timestamp": 1542667666,
-    "event_id": "caaf2c38-2afb-4f96-89b3-8ca5c3e6f449",
+    "id": "caaf2c38-2afb-4f96-89b3-8ca5c3e6f449",
     "entity": {
       "entity_class": "agent",
       "system": {
