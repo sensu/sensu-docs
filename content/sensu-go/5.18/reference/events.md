@@ -145,6 +145,8 @@ Sensu events contain:
   - Metric points in [Sensu metric format][22]
 - `timestamp`
   - Time that the event occurred in seconds since the Unix epoch
+- `event_id`
+  - Universally unique identifier (UUID) for the event
 
 ## Use event data
 
@@ -333,7 +335,8 @@ example      | {{< highlight shell >}}
       }
     ]
   },
-  "timestamp": 1552506033
+  "timestamp": 1552506033,
+  "event_id": "431a0085-96da-4521-863f-c38b480701e9"
 }
 {{< /highlight >}}
 
@@ -356,6 +359,13 @@ required     | false
 type         | Integer
 default      | Time that the event occurred
 example      | {{< highlight shell >}}"timestamp": 1522099512{{< /highlight >}}
+
+event_id     |      |
+-------------|------
+description  | Universally unique identifier (UUID) for the event.
+required     | false
+type         | String
+example      | {{< highlight shell >}}"event_id": "431a0085-96da-4521-863f-c38b480701e9"{{< /highlight >}}
 
 |entity      |      |
 -------------|------
@@ -789,6 +799,7 @@ spec:
       platform_version: 7.4.1708
     user: agent
   timestamp: 1552594758
+  event_id: 3a5948f3-6ffd-4ea2-a41e-334f4a72ca2f
 {{< /highlight >}}
 
 {{< highlight json >}}
@@ -902,7 +913,8 @@ spec:
       },
       "user": "agent"
     },
-    "timestamp": 1552594758
+    "timestamp": 1552594758,
+    "event_id": "3a5948f3-6ffd-4ea2-a41e-334f4a72ca2f"
   }
 }
 {{< /highlight >}}
@@ -1012,6 +1024,7 @@ spec:
       timestamp: 1552506033
       value: 0.004
   timestamp: 1552506033
+  event_id: 431a0085-96da-4521-863f-c38b480701e9
 {{< /highlight >}}
 
 {{< highlight json >}}
@@ -1141,7 +1154,8 @@ spec:
         }
       ]
     },
-    "timestamp": 1552506033
+    "timestamp": 1552506033,
+    "event_id": "431a0085-96da-4521-863f-c38b480701e9"
   }
 }
 {{< /highlight >}}
@@ -1210,6 +1224,7 @@ spec:
       timestamp: 1552506033
       value: 0.004
   timestamp: 1552506033
+  event_id: 47ea07cd-1e50-4897-9e6d-09cd39ec5180
 {{< /highlight >}}
 
 {{< highlight json >}}
@@ -1291,7 +1306,8 @@ spec:
         }
       ]
     },
-    "timestamp": 1552506033
+    "timestamp": 1552506033,
+    "event_id": "47ea07cd-1e50-4897-9e6d-09cd39ec5180"
   }
 }
 {{< /highlight >}}
