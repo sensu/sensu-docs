@@ -267,7 +267,6 @@ KV Write:
 	[/sensu.io/, <open ended>
 {{< /highlight >}}
 
-
 To enable client-to-server and peer communication authentication [using self-signed TLS certificates][13], start etcd for `backend-1` based on the [three-node configuration example][19]:
 
 {{< highlight shell >}}
