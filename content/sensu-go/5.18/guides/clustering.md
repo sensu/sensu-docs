@@ -257,6 +257,9 @@ To double-check that the grant is configured correctly, run:
 {{< highlight shell >}}
 /opt/etcd/etcdctl user get USERNAME --detail
 {{< /highlight >}}
+
+The output should be:
+
 {{< highlight shell >}}
 User: USERNAME
 
