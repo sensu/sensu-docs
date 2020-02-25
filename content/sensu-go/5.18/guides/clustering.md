@@ -253,11 +253,12 @@ To initialize a backend that uses etcd authentication, configure read and write 
 {{< /highlight >}}
 
 To double-check that the grant is configured correctly, run:
- {{< highlight shell >}}
- /opt/etcd/etcdctl user get Username --detail
+
+{{< highlight shell >}}
+/opt/etcd/etcdctl user get USERNAME --detail
 {{< /highlight >}}
 {{< highlight shell >}}
-User: Username
+User: USERNAME
 
 Role sensu_readwrite
 KV Read:
@@ -265,7 +266,6 @@ KV Read:
 KV Write:
 	[/sensu.io/, <open ended>
 {{< /highlight >}}
-
 
 
 To enable client-to-server and peer communication authentication [using self-signed TLS certificates][13], start etcd for `backend-1` based on the [three-node configuration example][19]:
