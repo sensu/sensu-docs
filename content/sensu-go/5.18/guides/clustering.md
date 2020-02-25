@@ -37,6 +37,8 @@ You can configure a Sensu cluster in a couple different ways &mdash; we'll show 
 
 We also recommend using stable platforms to support your etcd instances (see [etcd's supported platforms][5]).
 
+_**IMPORTANT**: If any of your cluster members was started **before** being clustered, remove that member's path to state storage (`/var/lib/sensu/sensu-backend/etcd`) before continuing with configuration._
+
 ### Docker
 
 If you prefer to stand up your Sensu cluster within Docker containers, check out the Sensu Go [Docker configuration][7].
@@ -51,7 +53,7 @@ _**NOTE**: The remainder of this guide describes on-disk configuration. If you a
 The examples in this section are configuration snippets from `/etc/sensu/backend.yml` using a three-node cluster.
 The nodes are named `backend-1`, `backend-2` and `backend-3` with IP addresses `10.0.0.1`, `10.0.0.2` and `10.0.0.3`, respectively.
 
-_**NOTE**: This backend configuration assumes you have set up and installed the sensu-backend on all the nodes used in your cluster. Follow the [Install Sensu][14] guide if you have not already done this._
+_**NOTE**: This backend configuration assumes you have set up and installed the sensu-backend on all the nodes used in your cluster. Follow [Install Sensu][14] if you have not already done this._
 
 **backend-1**
 
