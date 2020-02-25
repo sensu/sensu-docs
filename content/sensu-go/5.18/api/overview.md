@@ -298,8 +298,6 @@ _**NOTE**: To use label and field selectors in the Sensu dashboard, see [dashboa
 The `labelSelector` query parameter allows you to group resources by the label attributes specified in the resource metadata object.
 All resources support labels within the [metadata object][9].
 
-The label selector does not work with values that contain special characters like hyphens and underscores.
-
 ### Field selector
 
 The `fieldSelector` query parameter allows you to organize and select subsets of resources based on certain fields.
@@ -325,8 +323,6 @@ Here's the list of available fields:
 | SecretsProviders | `provider.name` `provider.namespace` |
 | Silenced | `silenced.name` `silenced.namespace` `silenced.check` `silenced.creator` `silenced.expire_on_resolve` `silenced.subscription` |
 | User | `user.username` `user.disabled` `user.groups` |
-
-The `fieldSelector` parameter does not work with values that contain special characters like hyphens and underscores.
 
 ### Operators
 
@@ -419,6 +415,20 @@ curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" http://127.0.0.1:8080/api/co
 {{< /highlight >}}
 
 ### Examples
+
+#### Values with special characters
+
+To use a label or field selector with string values that include special characters like hyphens and underscores, place the value in single or double quotes:
+
+{{< highlight shell >}}
+curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" -X GET http://127.0.0.1:8080/api/core/v2/entities -G \
+--data-urlencode 'labelSelector=region == "us-west-1"'
+{{< /highlight >}}
+
+{{< highlight shell >}}
+curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" http://127.0.0.1:8080/api/core/v2/entities -G \
+--data-urlencode 'fieldSelector="entity:i-0c1f8a116b84ea50c" in entity.subscriptions'
+{{< /highlight >}}
 
 #### Use selectors with arrays of strings
 
