@@ -27,11 +27,11 @@
             "url": "/sensu-go/latest/guides/create-read-only-user",
             "status": 301
         },
-        "~ ^/sensu-go/5.17/?((?<=\/).*)?$": {
+        "~ ^/sensu-go/5.18/?((?<=\/).*)?$": {
             "url": "/sensu-go/latest/$1",
             "status": 302
         },
-        "~ ^/sensu-go/5.1[0-3]/?((?<=\/).*)?$": {
+        "~ ^/sensu-go/5.1[0-4]/?((?<=\/).*)?$": {
             "url": "/sensu-go/latest/$1",
             "status": 301
         },
