@@ -311,7 +311,9 @@ response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 
 
 The `/assets/:asset` API endpoint provides HTTP DELETE access so you can delete an asset.
 
-_**NOTE**: Deleting an asset does not remove the downloaded files from the asset cache or remove any references to the deleted asset in other resources._ 
+{{% notice note %}}
+**NOTE**: Deleting an asset does not remove the downloaded files from the asset cache or remove any references to the deleted asset in other resources.
+{{% /notice %}} 
 
 #### EXAMPLE {#assetsasset-delete-example}
 

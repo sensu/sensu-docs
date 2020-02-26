@@ -19,7 +19,9 @@ Learn more about Sensu [support and licensing][2].
 
 This table lists the supported versions of Sensu Go with links to active documentation (for supported versions) and offline documentation artifacts (for versions that are not supported).
 
-_**NOTE**: We provide support and documentation for Sensu versions according to the [Sensu Enterprise Support Services Agreement][3]._
+{{% notice note %}}
+**NOTE**: We provide support and documentation for Sensu versions according to the [Sensu Enterprise Support Services Agreement](https://sensu.io/sensu-support-services#4.-software-releases.).
+{{% /notice %}}
 
 | Version | Release date     | Status    |     |
 | ------- |   -------------- | --------- | --- |
@@ -59,7 +61,6 @@ _**NOTE**: We provide support and documentation for Sensu versions according to 
 
 [1]: /sensu-go/latest/installation/upgrade/
 [2]: ../enterprise/
-[3]: https://sensu.io/sensu-support-services#4.-software-releases.
 [4]: /sensu-go/latest/release-notes/#5-0-0-release-notes
 [5]: /sensu-go/latest/release-notes/#5-0-1-release-notes
 [6]: /sensu-go/latest/release-notes/#5-1-0-release-notes

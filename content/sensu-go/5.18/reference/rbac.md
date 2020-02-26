@@ -68,7 +68,9 @@ You can use [sensuctl][2] to view all namespaces within Sensu:
 sensuctl namespace list
 {{< /highlight >}}
 
-_**NOTE**: For users on supported Sensu Go distributions,`sensuctl namespace list` lists only the namespaces that the current user has access to._
+{{% notice note %}}
+**NOTE**: For users on supported Sensu Go distributions,`sensuctl namespace list` lists only the namespaces that the current user has access to.
+{{% /notice %}}
 
 #### Create namespaces
 
@@ -139,7 +141,9 @@ spec:
 
 See the [reference docs][16] for the corresponding [resource type][17] to create resource definitions.
 
-_**PRO TIP**: If you omit the `namespace` attribute from resource definitions, you can use the `senusctl create --namespace` flag to specify the namespace for a group of resources at the time of creation. This allows you to replicate resources across namespaces without manual editing. See the [sensuctl reference][36] for more information._
+{{% notice protip %}}
+**PRO TIP**: If you omit the `namespace` attribute from resource definitions, you can use the `senusctl create --namespace` flag to specify the namespace for a group of resources at the time of creation. This allows you to replicate resources across namespaces without manual editing. See the [sensuctl reference](../../sensuctl/reference#create-resources-across-namespaces) for more information.
+{{% /notice %}}
 
 ### Namespace specification
 
@@ -270,7 +274,10 @@ sensuctl user test-creds USERNAME --password 'password'
 An empty response indicates valid credentials.
 A `request-unauthorized` response indicates invalid credentials.
 
-_**NOTE**: The `sensuctl user test-creds` command tests passwords for users created with Sensu's built-in [basic authentication provider][34]. It does not test user credentials defined via an authentication provider like [Lightweight Directory Access Protocol (LDAP)][43] or [Active Directory (AD)][44]._
+{{% notice note %}}
+**NOTE**: The `sensuctl user test-creds` command tests passwords for users created with Sensu's built-in [basic authentication provider](../../installation/auth#use-built-in-basic-authentication).
+It does not test user credentials defined via an authentication provider like [Lightweight Directory Access Protocol (LDAP)](../../installation/auth/#ldap-authentication) or [Active Directory (AD)](../../installation/auth/#ad-authentication). 
+{{% /notice %}}
 
 To change the password for a user:
 
@@ -472,7 +479,9 @@ Every [Sensu backend][1] includes:
 
 You can use [sensuctl][2] to view, create, edit, and delete roles and cluster roles.
 
-_**NOTE**: To use any of these example commands with cluster roles, substitute the `cluster-role` command for the `role` command._
+{{% notice note %}}
+**NOTE**: To use any of these example commands with cluster roles, substitute the `cluster-role` command for the `role` command.
+{{% /notice %}}
 
 To get help managing roles with sensuctl:
 
@@ -737,7 +746,9 @@ To create and manage cluster role bindings, [configure sensuctl][26] as the [def
 
 You can use [sensuctl][2] to view, create, and delete role bindings and cluster role bindings.
 
-_**NOTE**: To use any of these commands with cluster roles, substitute the `cluster-role-binding` command for the `role-binding` command._
+{{% notice note %}}
+**NOTE**: To use any of these commands with cluster roles, substitute the `cluster-role-binding` command for the `role-binding` command.
+{{% /notice %}}
 
 To get help managing role bindings with sensuctl:
 
@@ -1156,7 +1167,9 @@ You can add these resources to Sensu using [`sensuctl create`][31].
 }
 {{< /highlight >}}
 
-_**PRO TIP**: To avoid recreating commonly used roles in each namespace, [create a cluster role][28] and use a [role binding][29] to restrict permissions within a specific namespace._
+{{% notice protip %}}
+**PRO TIP**: To avoid recreating commonly used roles in each namespace, [create a cluster role](#create-cluster-wide-roles) and use a [role binding](#create-role-bindings-and-cluster-role-bindings) to restrict permissions within a specific namespace.
+{{% /notice %}}
 
 ### Assign group permissions across all namespaces
 
@@ -1255,7 +1268,6 @@ You can add these resources to Sensu using [`sensuctl create`][31].
 [32]: ../../installation/auth#use-an-authentication-provider
 [33]: ../../getting-started/enterprise/
 [34]: ../../installation/auth#use-built-in-basic-authentication
-[36]: ../../sensuctl/reference#create-resources-across-namespaces
 [37]: ../license/
 [38]: ../../installation/auth/#groups-prefix
 [39]: ../../installation/auth/#ad-groups-prefix
