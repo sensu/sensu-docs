@@ -29,6 +29,8 @@ In this tutorial, you'll download the Sensu sandbox and create a monitoring work
 git clone https://github.com/sensu/sandbox && cd sandbox/sensu-go
 {{< /highlight >}}
 
+_**NOTE**: If you've cloned the sandbox repository before, run `cd sandbox/sensu-go` and `git pull https://github.com/sensu/sandbox` instead._
+
 **3. Start Vagrant**
 
 {{< highlight shell >}}
