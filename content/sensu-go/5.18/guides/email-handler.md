@@ -36,8 +36,10 @@ In this guide, you'll use the [Sensu Go Email Handler][3] asset to power an `ema
 Use the following sensuctl example to register the [Sensu Go Email Handler][3] asset for Linux AMD64:
 
 {{< highlight shell >}}
-sensuctl asset add sensu/sensu-email-handler
+sensuctl asset add sensu/sensu-email-handler -r email-handler
 {{< /highlight >}}
+
+The -r (rename) flag allows you to specify a shorter name for the asset (in this case, `email-handler`).
 
 You can also download the latest asset definition for your platform from [Bonsai][3] and register the asset with `sensuctl create --file filename.yml`.
 
@@ -47,11 +49,11 @@ To confirm that the handler was added correctly, run:
 sensuctl asset list
 {{< /highlight >}}
 
-You should see the `sensu/sensu-email-handler` asset in the list.
+You should see the `email-handler` asset in the list.
 For a detailed list of everything related to the asset that Sensu added automatically, run:
 
 {{< highlight shell >}}
-sensuctl asset info sensu/sensu-email-handler
+sensuctl asset info email-handler
 {{< /highlight >}}
 
 ## Add an event filter
@@ -113,6 +115,8 @@ spec:
   - is_incident
   - not_silenced
   - state_change_only
+  runtime_assets:
+  - email-handler
 EOF
 {{< /highlight >}}
 
@@ -124,7 +128,7 @@ Then, replace the following text:
 - `USERNAME`: Replace with your SMTP username, typically your email address.
 - `PASSWORD`: Replace with your SMTP password, typically the same as your email password.
 
-_**NOTE**: To use Gmail or G Suite as your SMTP server, follow Google's instructions for [sending email via SMTP][14]. If you have enabled 2-step verification on your Google account, you'll need to use an [app password][15] instead of your login password._
+_**NOTE**: To use Gmail or G Suite as your SMTP server, follow Google's instructions to [send email via SMTP][14]. If you have enabled 2-step verification on your Google account, use an [app password][15] instead of your login password. If you have not enabled 2-step verification, you may need to adjust your [app access settings][18] to follow the example in this guide._
 
 You probably noticed that the handler definition includes two other filters: [`is_incident`][10] and [`not_silenced`][11].
 These two filters are included in every Sensu backend installation, so you don't have to create them.
@@ -138,7 +142,7 @@ Next, create an email template for your notification emails.
 
 The [Sensu Go Email Handler][3] asset makes it possible to use a template that provides context for your email notifications.
 The email template functionality included with the Sensu Go Email Handler asset uses tokens to populate the values provided by the event.
-Use HTML to format the email. 
+Use HTML to format the email.
 
 Here is an example email template:
 
@@ -301,3 +305,4 @@ You can also follow our [Up and running with Sensu Go][9] interactive tutorial t
 [15]: https://support.google.com/accounts/answer/185833?hl=en
 [16]: ../../reference/filters/
 [17]: #create-an-ad-hoc-event
+[18]: https://support.google.com/accounts/answer/6010255
