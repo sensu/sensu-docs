@@ -116,7 +116,7 @@ Skip to the [add a handler][19] section, where you'll use your `pagerduty_key` s
 
 This section explains how to use [HashiCorp Vault][1] as your external [secrets provider][2] to authenticate via the HashiCorp Vault integration's [token auth method][3] or [TLS certificate auth method][4].
 
-_**NOTE**: You will need to set up [HashiCorp Vault][15] to use `VaultProvider` secrets management in production. The examples in this guide use the [Vault dev server][32], which is useful for learning and experimenting. The Vault dev server gives you access to a preconfigured, running Vault server with in-memory storage that you can use right away. Follow the [HashiCorp Learn curriculum][16] when you are ready to set up a production server in Vault._
+_**NOTE**: You will need to set up [HashiCorp Vault][15] to use `VaultProvider` secrets management in production. The examples in the [Vault token authentication][34] section of this guide use the [Vault dev server][32], which is useful for learning and experimenting. The Vault dev server gives you access to a preconfigured, running Vault server with in-memory storage that you can use right away. Follow the [HashiCorp Learn curriculum][16] when you are ready to set up a production server in Vault._
 
 ### Configure your Vault authentication method (token or TLS)
 
@@ -149,8 +149,6 @@ Because you aren't using TLS, you will need to set `VAULT_ADDR=http://127.0.0.1:
 
 ##### Create your Vault secrets provider
 
-_**NOTE**: In Vault's dev server, TLS is not enabled, so you won't be able to use certificate-based authentication._
-
 Use `sensuctl create` to create your secrets provider, `vault`.
 In the code below, replace `ROOT_TOKEN` with the `Root Token` value for your Vault dev server.
 Then, run:
@@ -181,6 +179,8 @@ To continue, skip ahead to [create your Vault secret][29].
 #### Vault TLS certificate authentication
 
 This section explains how use HashiCorp Vault as your external [secrets provider][2] to authenticate with the HashiCorp Vault integration's [TLS certificate auth method][4].
+
+_**NOTE**: You will need to set up [HashiCorp Vault][15] in production to use TLS certificate-based authentication. In Vault's dev server, TLS is not enabled. Follow the [HashiCorp Learn curriculum][16] when you are ready to set up a production server in Vault._
 
 First, in your Vault, [enable and configure certificate authentication][33].
 For example, your Vault might be configured for certificate authentication like this:
@@ -342,3 +342,4 @@ Read the [secrets][9] or [secrets providers][10] reference for in-depth secrets 
 [31]: https://www.pagerduty.com/
 [32]: https://www.vaultproject.io/docs/concepts/dev-server/
 [33]: https://www.vaultproject.io/docs/auth/cert/#configuration
+[34]: #vault-token-authentication
