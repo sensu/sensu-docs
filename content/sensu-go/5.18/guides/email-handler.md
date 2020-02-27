@@ -175,6 +175,10 @@ Sensu<br>
 </html>
 {{< /highlight >}}
 
+{{% notice note %}}
+**NOTE**: If you have more than one backend, make sure that they all use the same template.
+{{% /notice %}}
+
 Before your handler can send alerts to your email, you need an [event][16] that generates the alerts.
 In the final step, you will create an ad hoc event that you can trigger manually.
 
