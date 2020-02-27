@@ -42,7 +42,7 @@ Source clusters with more than one sensu-backend will cause redundant writes.
 This is harmless, but you should consider it when designing a replicated system.
 
 {{% notice note %}}
-**NOTE**: Create a replicator for each resource you want to replicate within a namespace.
+**NOTE**: Create a replicator for each resource type you want to replicate within a namespace.
 Creating a replicator for a particular namespace will **not** replicate all resources within that namespace.
 {{% /notice %}}
 
@@ -385,7 +385,7 @@ Before you implement etcd replicators, review these details &mdash; they are cri
 
 - Never use insecure mode without TLS mutual authentication outside of a testbed.
 
-**Create a replicator for each resource you want to replicate within a namespace.**
+**Create a replicator for each resource type you want to replicate within a namespace.**
 
 - If you only create a replicator for a namespace, it will **not** replicate all resources within that namespace.
 

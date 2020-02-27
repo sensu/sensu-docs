@@ -172,7 +172,7 @@ This allows you to centrally define RBAC policy on the `gateway` cluster and rep
 To get started, configure one etcd replicator per cluster for each of those RBAC policy types, across all namespaces, for each backend in the federation.
 
 {{% notice note %}}
-**NOTE**: Create a replicator for each resource you want to replicate within a namespace.
+**NOTE**: Create a replicator for each resource type you want to replicate within a namespace.
 Creating a replicator for a particular namespace will **not** replicate all resources within that namespace.
 {{% /notice %}}
 
