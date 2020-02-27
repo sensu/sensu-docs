@@ -37,7 +37,10 @@ echo 'abc.def.g:10|c' | nc -w1 -u localhost 8125
 Metrics received through the StatsD listener are not stored in etcd.
 Instead, you must configure event handlers to send the data to a storage solution (for example, a time-series database like [InfluxDB][3]).
 
-_**NOTE**: On Windows machines running Sensu, the StatsD UDP port is not supported. Instead, the TCP port is exposed._
+{{% notice note %}}
+**NOTE**: On Windows machines running Sensu, the StatsD UDP port is not supported.
+Instead, the TCP port is exposed.
+{{% /notice %}}
 
 ## Configure the StatsD listener
 

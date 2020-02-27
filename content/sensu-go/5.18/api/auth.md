@@ -59,8 +59,10 @@ response codes       | <ul><li>**Valid credentials**: 200 (OK)</li><li> **Invali
 
 The `/auth/test` API endpoint provides HTTP GET access to test basic authentication user credentials that were created with Sensu's built-in [basic authentication][1].
 
-_**NOTE**: The `/auth/test` endpoint only tests user credentials created with Sensu's built-in [basic authentication provider][1]. It does not test user credentials defined via an authentication provider like [Lightweight Directory Access Protocol (LDAP)][2] or [Active Directory (AD)][3]._
-
+{{% notice note %}}
+**NOTE**: The `/auth/test` endpoint only tests user credentials created with Sensu's built-in [basic authentication provider](../../installation/auth#use-built-in-basic-authentication). It does not test user credentials defined via an authentication provider like [Lightweight Directory Access Protocol (LDAP)](../../installation/auth#ldap-authentication) or [Active Directory (AD)](../../installation/auth/#ad-authentication).
+{{% /notice %}}
+ 
 #### EXAMPLE {#authtest-get-example}
 
 In the following example, querying the `/auth/test` API endpoint with a given username and password returns an HTTP `200 OK` response, indicating that the credentials are valid.

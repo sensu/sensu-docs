@@ -38,7 +38,10 @@ Event filters can be inclusive (only matching events are handled) or exclusive (
 
 As soon as a filter removes an event, no further analysis is performed and the event handler will not be executed.
 
-_**NOTE**: Filters specified in a **handler set** definition have no effect. Filters must be specified in individual handler definitions._
+{{% notice note %}}
+**NOTE**: Filters specified in a **handler set** definition have no effect.
+Filters must be specified in individual handler definitions.
+{{% /notice %}}
 
 ## Inclusive and exclusive event filters
 
@@ -568,7 +571,10 @@ spec:
 
 The following event filter discards events with a custom entity label `"environment": "production"`, allowing handling only for events without an `environment` label or events with `environment` set to something other than `production`.
 
-_**NOTE**: `action` is `deny`, so this is an exclusive event filter. If evaluation returns false, the event is handled._
+{{% notice note %}}
+**NOTE**: `action` is `deny`, so this is an exclusive event filter.
+If evaluation returns false, the event is handled.
+{{% /notice %}}
 
 {{< language-toggle >}}
 

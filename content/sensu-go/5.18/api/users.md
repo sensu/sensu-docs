@@ -26,7 +26,9 @@ menu:
   - [`/users/:user/groups/:group` (PUT)](#usersusergroupsgroup-put)
   - [`/users/:user/groups/:group` (DELETE)](#usersusergroupsgroup-delete)
 
-_**NOTE**: The users API allows you to create and manage user credentials with Sensu's built-in [basic authentication provider][6]. To configure user credentials with an external provider like [Lightweight Directory Access Protocol (LDAP)][4] or [Active Directory (AD)][5], use Sensu's [authentication providers API][3]._
+{{% notice note %}}
+**NOTE**: The users API allows you to create and manage user credentials with Sensu's built-in [basic authentication provider](../../installation/auth#use-built-in-basic-authentication). To configure user credentials with an external provider like [Lightweight Directory Access Protocol (LDAP)](../../installation/auth#ldap-authentication) or [Active Directory (AD)](../../installation/auth/#ad-authentication), use Sensu's [authentication providers API](../authproviders/).
+{{% /notice %}}
 
 ## The `/users` API endpoint
 
@@ -237,7 +239,10 @@ http://127.0.0.1:8080/api/core/v2/users/alice
 HTTP/1.1 204 No Content
 {{< /highlight >}}
 
-_**NOTE**: This endpoint **disables** but does not delete the user. You can [reinstate][7] disabled users._
+{{% notice note %}}
+**NOTE**: This endpoint **disables** but does not delete the user.
+You can [reinstate](#the-usersuserreinstate-api-endpoint) disabled users.
+{{% /notice %}}
 
 #### API Specification {#usersuser-delete-specification}
 
@@ -390,9 +395,4 @@ response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Miss
 
 [1]: ../../reference/rbac#user-specification
 [2]: ../overview#pagination
-[3]: ../authproviders/
-[4]: ../../installation/auth#ldap-authentication
-[5]: ../../installation/auth/#ad-authentication
-[6]: ../../installation/auth#use-built-in-basic-authentication
-[7]: #the-usersuserreinstate-api-endpoint
 [8]: ../overview#response-filtering

@@ -23,7 +23,9 @@ To upgrade to the latest version of Sensu Go from version 5.0.0 or later, [insta
 
 Then, restart the services.
 
-_**NOTE**: For systems that use `systemd`, run `sudo systemctl daemon-reload` before restarting the services._
+{{% notice note %}}
+**NOTE**: For systems that use `systemd`, run `sudo systemctl daemon-reload` before restarting the services.
+{{% /notice %}}
 
 {{< highlight shell >}}
 # Restart the Sensu agent
@@ -61,14 +63,18 @@ See [our blog announcement][32] for more information about our usage policy.
 
 ## Upgrade Sensu clusters from 5.7.0 or earlier to 5.8.0 or later
 
-_**NOTE**: This section applies only to Sensu clusters with multiple backend nodes._
+{{% notice note %}}
+**NOTE**: This section applies only to Sensu clusters with multiple backend nodes.
+{{% /notice %}}
 
 Due to updates to etcd serialization, you must shut down Sensu clusters with multiple backend nodes while upgrading from Sensu Go 5.7.0 or earlier to 5.8.0 or later.
 See the [backend reference][29] for more information about stopping and starting backends.
 
 ## Upgrade Sensu backend binaries to 5.1.0
 
-_**NOTE**: This section applies only to Sensu backend binaries downloaded from `s3-us-west-2.amazonaws.com/sensu.io/sensu-go`, not to Sensu RPM or DEB packages._
+{{% notice note %}}
+**NOTE**: This section applies only to Sensu backend binaries downloaded from `s3-us-west-2.amazonaws.com/sensu.io/sensu-go`, not to Sensu RPM or DEB packages.
+{{% /notice %}}
 
 For Sensu backend binaries, the default `state-dir` in 5.1.0 is now `/var/lib/sensu/sensu-backend` instead of `/var/lib/sensu`.
 To upgrade your Sensu backend binary to 5.1.0, first [download the latest version][23].

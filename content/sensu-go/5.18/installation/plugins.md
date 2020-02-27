@@ -39,7 +39,11 @@ If you've used previous versions of Sensu, you're probably familiar with the [Se
 Although some of these plugins are enabled for Sensu Go, some do not include the components necessary to work with Sensu Go.
 Read each plugin's instructions for information about whether it is compatibile with Sensu Go. 
 
-_**NOTE**: Plugins in the Sensu Plugins GitHub organization are community-maintained: anyone can improve on them. To get started with adding to a plugin or sharing your own, head to the [Sensu Community Slack channel][4]. Maintainers are always happy to help answer questions and point you in the right direction._
+{{% notice note %}}
+**NOTE**: Plugins in the Sensu Plugins GitHub organization are community-maintained: anyone can improve on them.
+To get started with adding to a plugin or sharing your own, head to the [Sensu Community Slack channel](https://slack.sensu.io/).
+Maintainers are always happy to help answer questions and point you in the right direction.
+{{% /notice %}}
 
 The `sensu-install` tool comes with an embedded version of Ruby, so you don't need to have Ruby installed on your system. 
 
@@ -78,7 +82,10 @@ sudo sensu-install -p 'sensu-plugins-influxdb:2.0.0'
 
 We recommend using a configuration management tool or using [Sensu assets][5] to pin the versions of any plugins installed in production.
 
-_**NOTE**: If a plugin is not Sensu Go-enabled and there is no analogue on Bonsai, you can add the necessary functionality to make the plugin compatible with Sensu Go. Follow [this discourse.sensu.io guide][11] to walk through the process._
+{{% notice note %}}
+**NOTE**: If a plugin is not Sensu Go-enabled and there is no analogue on Bonsai, you can add the necessary functionality to make the plugin compatible with Sensu Go.
+Follow [this discourse.sensu.io guide](https://discourse.sensu.io/t/contributing-assets-for-existing-ruby-sensu-plugins/1165) to walk through the process.
+{{% /notice %}}
 
 ## Troubleshoot the sensu-install tool
 
@@ -117,11 +124,9 @@ sudo yum groupinstall "Development Tools"
 [1]: https://github.com/sensu-plugins/
 [2]: https://packagecloud.io/sensu/community/
 [3]: https://github.com/sensu-plugins/sensu-plugins-disk-checks/
-[4]: https://slack.sensu.io/
 [5]: ../../reference/assets/
 [6]: https://github.com/sensu-plugins/sensu-plugins-influxdb/
 [7]: ../../guides/install-check-executables-with-assets/
 [8]: https://bonsai.sensu.io/
 [9]: ../../reference/assets#share-an-asset-on-bonsai
 [10]: /plugins/latest/reference/
-[11]: https://discourse.sensu.io/t/contributing-assets-for-existing-ruby-sensu-plugins/1165

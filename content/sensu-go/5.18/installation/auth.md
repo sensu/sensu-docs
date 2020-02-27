@@ -386,7 +386,9 @@ example      | {{< highlight shell >}}"port": 636{{< /highlight >}}
 
 | insecure   |      |
 -------------|------
-description  | Skips SSL certificate verification when set to `true`. _**WARNING**: Do not use an insecure connection in production environments._
+description  | Skips SSL certificate verification when set to `true`. {{% notice warning %}}
+**WARNING**: Do not use an insecure connection in production environments.
+{{% /notice %}}
 required     | false
 type         | Boolean
 default      | `false`
@@ -556,7 +558,9 @@ example      | {{< highlight shell >}}"name": "openldap"{{< /highlight >}}
 To troubleshoot any issue with LDAP authentication, start by [increasing the log verbosity][19] of sensu-backend to the debug log level.
 Most authentication and authorization errors are only displayed on the debug log level to avoid flooding the log files.
 
-_**NOTE**: If you can't locate any log entries referencing LDAP authentication, make sure the LDAP provider was successfully installed using [sensuctl][20]._
+{{% notice note %}}
+**NOTE**: If you can't locate any log entries referencing LDAP authentication, make sure the LDAP provider was successfully installed using [sensuctl](#manage-authentication-providers).
+{{% /notice %}}
 
 ### Authentication errors
 
@@ -907,7 +911,9 @@ example      | {{< highlight shell >}}"port": 636{{< /highlight >}}
 
 | insecure   |      |
 -------------|------
-description  | Skips SSL certificate verification when set to `true`. _**WARNING**: Do not use an insecure connection in production environments._
+description  | Skips SSL certificate verification when set to `true`. {{% notice warning %}}
+**WARNING**: Do not use an insecure connection in production environments.
+{{% /notice %}}
 required     | false
 type         | Boolean
 default      | `false`
@@ -983,7 +989,9 @@ example      | {{< highlight shell >}}
 
 | default_upn_domain |     |
 -------------|------
-description  | Enables UPN authentication when set. The default UPN suffix that will be appended to the username when a domain is not specified during login (for example, `user` becomes `user@defaultdomain.xyz`). _**WARNING**: When using UPN authentication, users must re-authenticate to apply any changes to group membership on the AD server since their last authentication. For example, if you remove a user from a group with administrator permissions for the current session (such as a terminated employee), Sensu will not apply the change until the user logs out and tries to start a new session. Likewise, under UPN, users cannot be forced to log out of Sensu. To apply group membership updates without re-authentication, specify a binding account or enable anonymous binding._
+description  | Enables UPN authentication when set. The default UPN suffix that will be appended to the username when a domain is not specified during login (for example, `user` becomes `user@defaultdomain.xyz`). {{% notice warning %}}
+**WARNING**: When using UPN authentication, users must re-authenticate to apply any changes to group membership on the AD server since their last authentication. For example, if you remove a user from a group with administrator permissions for the current session (such as a terminated employee), Sensu will not apply the change until the user logs out and tries to start a new session. Likewise, under UPN, users cannot be forced to log out of Sensu. To apply group membership updates without re-authentication, specify a binding account or enable anonymous binding.
+{{% /notice %}}
 required     | false
 type         | String
 example      | {{< highlight shell >}}
@@ -1100,7 +1108,9 @@ Sensu offers [commercial support][6] for the OIDC provider for using the OpenID 
 
 The Sensu OIDC provider is tested with [Okta][51] and [PingFederate][52]. 
 
-_**NOTE**: OIDC authentication is supported only via `sensuctl`._
+{{% notice note %}}
+**NOTE**: OIDC authentication is supported only via `sensuctl`.
+{{% /notice %}}
 
 ### OIDC configuration examples
 
@@ -1214,42 +1224,54 @@ example      | {{< highlight shell >}}"name": "oidc_name"{{< /highlight >}}
 
 | additional_scopes |   |
 -------------|------
-description  | Scopes to include in the claims, in addition to the default `openid` scope. _**NOTE**: For most providers, you'll want to include `groups`, `email` and `username` in this list._
+description  | Scopes to include in the claims, in addition to the default `openid` scope. {{% notice note %}}
+**NOTE**: For most providers, you'll want to include `groups`, `email` and `username` in this list.
+{{% /notice %}}
 required     | false
 type         | Array
 example      | {{< highlight shell >}}"additional_scopes": ["groups", "email", "username"]{{< /highlight >}}
 
 | client_id    |      |
 -------------|------
-description  | The OIDC provider application `Client ID`. _**NOTE**: Requires [registering an application in the OIDC provider][26]._
+description  | The OIDC provider application `Client ID`. {{% notice note %}}
+**NOTE**: Requires [registering an application in the OIDC provider](#register-an-oidc-application).
+{{% /notice %}}
 required     | true
 type         | String
 example      | {{< highlight shell >}}"client_id": "1c9ae3e6f3cc79c9f1786fcb22692d1f"{{< /highlight >}}
 
 | client_secret  |      |
 -------------|------
-description  | The OIDC provider application `Client Secret`. _**NOTE**: Requires [registering an application in the OIDC provider][26]._
+description  | The OIDC provider application `Client Secret`. {{% notice note %}}
+**NOTE**: Requires [registering an application in the OIDC provider](#register-an-oidc-application).
+{{% /notice %}}
 required     | true
 type         | String
 example      | {{< highlight shell >}}"client_secret": "a0f2a3c1dcd5b1cac71bf0c03f2ff1bd"{{< /highlight >}}
 
 | redirect_uri |   |
 -------------|------
-description  | Redirect URL to provide to the OIDC provider. Requires `/api/enterprise/authentication/v2/oidc/callback` _**NOTE**: Only required for certain OIDC providers, such as Okta._
+description  | Redirect URL to provide to the OIDC provider. Requires `/api/enterprise/authentication/v2/oidc/callback` {{% notice note %}}
+**NOTE**: Only required for certain OIDC providers, such as Okta.
+{{% /notice %}}
 required     | false
 type         | String
 example      | {{< highlight shell >}}"redirect_uri": "http://sensu-backend.example.com:8080/api/enterprise/authentication/v2/oidc/callback"{{< /highlight >}}
 
 | server |  |
 -------------|------
-description  | The location of the OIDC server you wish to authenticate against. _**NOTE**: If you configure with http, the connection will be insecure._
+description  | The location of the OIDC server you wish to authenticate against. {{% notice note %}}
+**NOTE**: If you configure with http, the connection will be insecure.
+{{% /notice %}}
 required     | true
 type         | String
 example      | {{< highlight shell >}}"server": "https://sensu.oidc.provider.example.com"{{< /highlight >}}
 
 | groups_claim |   |
 -------------|------
-description  | The claim to use to form the associated RBAC groups. _**NOTE**: The value held by the claim must be an array of strings._
+description  | The claim to use to form the associated RBAC groups. {{% notice note %}}
+**NOTE**: The value held by the claim must be an array of strings.
+{{% /notice %}}
 required     | false
 type         | String
 example      | {{< highlight shell >}} "groups_claim": "groups" {{< /highlight >}}
@@ -1338,13 +1360,11 @@ If a browser does not open, launch a browser to complete the login via your OIDC
 [17]: ../../reference/rbac#namespaced-resource-types
 [18]: ../../reference/rbac#cluster-wide-resource-types
 [19]: ../../guides/troubleshooting#log-levels
-[20]: #manage-authentication-providers
 [21]: #ldap-group-search-attributes
 [22]: #ldap-user-search-attributes
 [23]: #ad-metadata-attributes
 [24]: #ldap-metadata-attributes
 [25]: #oidc-spec-attributes
-[26]: #register-an-oidc-application
 [27]: ../../api/authproviders/
 [28]: #configure-authentication-providers
 [29]: #ldap-configuration-examples
