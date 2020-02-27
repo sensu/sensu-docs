@@ -13,7 +13,6 @@ menu:
 
 - [Add the email handler asset](#add-the-email-handler-asset)
 - [Add an event filter](#add-an-event-filter)
-- [Create an email template](#create-an-email-template)
 - [Create and trigger an ad hoc event](#create-and-trigger-an-ad-hoc-event)
 - [Next steps](#next-steps)
 
@@ -36,8 +35,10 @@ In this guide, you'll use the [Sensu Go Email Handler][3] asset to power an `ema
 Use the following sensuctl example to register the [Sensu Go Email Handler][3] asset for Linux AMD64:
 
 {{< highlight shell >}}
-sensuctl asset add sensu/sensu-email-handler
+sensuctl asset add sensu/sensu-email-handler -r email-handler
 {{< /highlight >}}
+
+The -r (rename) flag allows you to specify a shorter name for the asset (in this case, `email-handler`).
 
 You can also download the latest asset definition for your platform from [Bonsai][3] and register the asset with `sensuctl create --file filename.yml`.
 
@@ -47,11 +48,11 @@ To confirm that the handler was added correctly, run:
 sensuctl asset list
 {{< /highlight >}}
 
-You should see the `sensu/sensu-email-handler` asset in the list.
+You should see the `email-handler` asset in the list.
 For a detailed list of everything related to the asset that Sensu added automatically, run:
 
 {{< highlight shell >}}
-sensuctl asset info sensu/sensu-email-handler
+sensuctl asset info email-handler
 {{< /highlight >}}
 
 ## Add an event filter
@@ -113,6 +114,8 @@ spec:
   - is_incident
   - not_silenced
   - state_change_only
+  runtime_assets:
+  - email-handler
 EOF
 {{< /highlight >}}
 
@@ -124,7 +127,8 @@ Then, replace the following text:
 - `USERNAME`: Replace with your SMTP username, typically your email address.
 - `PASSWORD`: Replace with your SMTP password, typically the same as your email password.
 
-_**NOTE**: To use Gmail or G Suite as your SMTP server, follow Google's instructions for [sending email via SMTP][14]. If you have enabled 2-step verification on your Google account, you'll need to use an [app password][15] instead of your login password._
+_**NOTE**: To use Gmail or G Suite as your SMTP server, follow Google's instructions for [sending email via SMTP][14].
+If you have enabled 2-step verification on your Google account, you'll need to use an [app password][15] instead of your login password._
 
 You probably noticed that the handler definition includes two other filters: [`is_incident`][10] and [`not_silenced`][11].
 These two filters are included in every Sensu backend installation, so you don't have to create them.
@@ -134,38 +138,8 @@ After you add your email, server, username, and password values, run your update
 Now your handler and event filter are set up!
 Next, create an email template for your notification emails.
 
-## Create an email template
-
-The [Sensu Go Email Handler][3] asset makes it possible to use a template that provides context for your email notifications.
-The email template functionality included with the Sensu Go Email Handler asset uses tokens to populate the values provided by the event.
-Use HTML to format the email. 
-
-Here is an example email template:
-
-{{< highlight shell >}}
-/etc/sensu/email_template
-
-<html>
-Greetings,<br>
-<br>
-The status of your {{ .Check.Name }} event has changed. Details about the change are included below.<br>
-<br>
-<h3>Notification Details</h3>
-<b>Check</b>: {{ .Check.Name }}<br>
-<b>Entity</b>: {{ .Entity.Name }}<br>
-<b>State</b>: {{ .Check.State }}<br>
-<b>Occurrences</b>: {{ .Check.Occurrences }}<br>
-<b>Playbook</b>: https://example.com/monitoring/wiki/playbook<br>
-<h3>Check Output Details</h3>
-<b>Check Output</b>: {{.Check.Output}}<br>
-{{end}}
-
-<br>
-#monitoringlove,<br>
-<br>
-Sensu<br>
-</html>
-{{< /highlight >}}
+The [Sensu Go Email Handler][3] asset makes it possible to [add a template][18] that provides context for your email notifications.
+The email template functionality uses tokens to populate the values provided by the event, and you can use HTML to format the email.
 
 Before your handler can send alerts to your email, you need an [event][16] that generates the alerts.
 In the final step, you will create an ad hoc event that you can trigger manually.
@@ -241,7 +215,8 @@ curl -sS -X PUT \
 http://localhost:8080/api/core/v2/namespaces/default/events/server01/server-health
 {{< /highlight >}}
 
-_**NOTE**: If you see an `invalid credentials` error, refresh your token. Run `eval $(sensuctl env)`._
+_**NOTE**: If you see an `invalid credentials` error, refresh your token.
+Run `eval $(sensuctl env)`._
 
 Check your email — you should see a message from Sensu!
 
@@ -301,3 +276,4 @@ You can also follow our [Up and running with Sensu Go][9] interactive tutorial t
 [15]: https://support.google.com/accounts/answer/185833?hl=en
 [16]: ../../reference/filters/
 [17]: #create-an-ad-hoc-event
+[18]: https://bonsai.sensu.io/assets/sensu/sensu-email-handler#templates

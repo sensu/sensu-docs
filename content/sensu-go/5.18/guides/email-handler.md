@@ -13,7 +13,6 @@ menu:
 
 - [Add the email handler asset](#add-the-email-handler-asset)
 - [Add an event filter](#add-an-event-filter)
-- [Create an email template](#create-an-email-template)
 - [Create and trigger an ad hoc event](#create-and-trigger-an-ad-hoc-event)
 - [Next steps](#next-steps)
 
@@ -142,42 +141,8 @@ After you add your email, server, username, and password values, run your update
 Now your handler and event filter are set up!
 Next, create an email template for your notification emails.
 
-## Create an email template
-
-The [Sensu Go Email Handler][3] asset makes it possible to use a template that provides context for your email notifications.
-The email template functionality included with the Sensu Go Email Handler asset uses tokens to populate the values provided by the event.
-Use HTML to format the email.
-
-Here is an example email template:
-
-{{< highlight shell >}}
-/etc/sensu/email_template
-
-<html>
-Greetings,<br>
-<br>
-The status of your {{ .Check.Name }} event has changed. Details about the change are included below.<br>
-<br>
-<h3>Notification Details</h3>
-<b>Check</b>: {{ .Check.Name }}<br>
-<b>Entity</b>: {{ .Entity.Name }}<br>
-<b>State</b>: {{ .Check.State }}<br>
-<b>Occurrences</b>: {{ .Check.Occurrences }}<br>
-<b>Playbook</b>: https://example.com/monitoring/wiki/playbook<br>
-<h3>Check Output Details</h3>
-<b>Check Output</b>: {{.Check.Output}}<br>
-{{end}}
-
-<br>
-#monitoringlove,<br>
-<br>
-Sensu<br>
-</html>
-{{< /highlight >}}
-
-{{% notice note %}}
-**NOTE**: If you have more than one backend, make sure that they all use the same template.
-{{% /notice %}}
+The [Sensu Go Email Handler][3] asset makes it possible to [add a template][14] that provides context for your email notifications.
+The email template functionality uses tokens to populate the values provided by the event, and you can use HTML to format the email.
 
 Before your handler can send alerts to your email, you need an [event][16] that generates the alerts.
 In the final step, you will create an ad hoc event that you can trigger manually.
@@ -254,7 +219,8 @@ http://localhost:8080/api/core/v2/namespaces/default/events/server01/server-heal
 {{< /highlight >}}
 
 {{% notice note %}}
-**NOTE**: If you see an `invalid credentials` error, refresh your token. Run `eval $(sensuctl env)`.
+**NOTE**: If you see an `invalid credentials` error, refresh your token.
+Run `eval $(sensuctl env)`.
 {{% /notice %}}
 
 Check your email — you should see a message from Sensu!
@@ -311,5 +277,6 @@ You can also follow our [Up and running with Sensu Go][9] interactive tutorial t
 [11]: ../../reference/filters/#built-in-filter-not-silenced
 [12]: ../../installation/install-sensu/#install-the-sensu-backend
 [13]: ../../installation/install-sensu/#install-sensu-agents
+[14]: https://bonsai.sensu.io/assets/sensu/sensu-email-handler#templates
 [16]: ../../reference/filters/
 [17]: #create-an-ad-hoc-event
