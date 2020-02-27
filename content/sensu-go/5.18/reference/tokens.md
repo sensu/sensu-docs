@@ -49,7 +49,9 @@ Access nested Sensu [entity attributes][3] dot notation (for example, `system.ar
   `disk_warning`
 - `{{ index .labels "cpu.threshold" }}` would be replaced with a custom label called `cpu.threshold`
 
-_**NOTE**: When an annotation or label name has a dot (e.g. `cpu.threshold`), you must use the template index function syntax to ensure correct processing because the dot notation is also used for object nesting._
+{{% notice note %}}
+**NOTE**: When an annotation or label name has a dot (e.g. `cpu.threshold`), you must use the template index function syntax to ensure correct processing because the dot notation is also used for object nesting.
+{{% /notice %}}
 
 ### Token substitution default values
 

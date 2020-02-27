@@ -124,7 +124,10 @@ Then, replace the following text:
 - `USERNAME`: Replace with your SMTP username, typically your email address.
 - `PASSWORD`: Replace with your SMTP password, typically the same as your email password.
 
-_**NOTE**: To use Gmail or G Suite as your SMTP server, follow Google's instructions for [sending email via SMTP][14]. If you have enabled 2-step verification on your Google account, you'll need to use an [app password][15] instead of your login password._
+{{% notice note %}}
+**NOTE**: To use Gmail or G Suite as your SMTP server, follow Google's instructions for [sending email via SMTP](https://support.google.com/a/answer/176600?hl=en).
+If you have enabled 2-step verification on your Google account, you'll need to use an [app password](https://support.google.com/accounts/answer/185833?hl=en) instead of your login password.
+{{% /notice %}}
 
 You probably noticed that the handler definition includes two other filters: [`is_incident`][10] and [`not_silenced`][11].
 These two filters are included in every Sensu backend installation, so you don't have to create them.
@@ -241,7 +244,9 @@ curl -sS -X PUT \
 http://localhost:8080/api/core/v2/namespaces/default/events/server01/server-health
 {{< /highlight >}}
 
-_**NOTE**: If you see an `invalid credentials` error, refresh your token. Run `eval $(sensuctl env)`._
+{{% notice note %}}
+**NOTE**: If you see an `invalid credentials` error, refresh your token. Run `eval $(sensuctl env)`.
+{{% /notice %}}
 
 Check your email — you should see a message from Sensu!
 
@@ -297,7 +302,5 @@ You can also follow our [Up and running with Sensu Go][9] interactive tutorial t
 [11]: ../../reference/filters/#built-in-filter-not-silenced
 [12]: ../../installation/install-sensu/#install-the-sensu-backend
 [13]: ../../installation/install-sensu/#install-sensu-agents
-[14]: https://support.google.com/a/answer/176600?hl=en
-[15]: https://support.google.com/accounts/answer/185833?hl=en
 [16]: ../../reference/filters/
 [17]: #create-an-ad-hoc-event

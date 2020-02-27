@@ -263,7 +263,9 @@ spec:
 
 {{< /language-toggle >}}
 
-_**PRO TIP**: `sensuctl create -f` also accepts files that contain multiple resources' definitions._
+{{% notice protip %}}
+**PRO TIP**: `sensuctl create -f` also accepts files that contain multiple resources' definitions.
+{{% /notice %}}
 
 Use `sensuctl` to add the handler and the asset to Sensu:
 

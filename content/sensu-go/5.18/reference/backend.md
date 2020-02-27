@@ -60,7 +60,9 @@ export SENSU_BACKEND_CLUSTER_ADMIN_PASSWORD=YOUR_PASSWORD
 sensu-backend init
 {{< /highlight >}}
 
-_**NOTE**: Make sure the Sensu backend is running before you run `sensu-backend init`._
+{{% notice note %}}
+**NOTE**: Make sure the Sensu backend is running before you run `sensu-backend init`.
+{{% /notice %}}
 
 You can also run the `sensu-backend init` command in interactive mode if you prefer to respond to prompts for your username and password:
 
@@ -74,7 +76,10 @@ Admin Password: YOUR_PASSWORD
 This initialization step bootstraps the first admin user account for your Sensu installation.
 This account will be granted the cluster admin role.
 
-_**NOTE**: If you are already using Sensu, you do not need to initialize. Your installation has already seeded the admin username and password you have set up._
+{{% notice note %}}
+**NOTE**: If you are already using Sensu, you do not need to initialize.
+Your installation has already seeded the admin username and password you have set up.
+{{% /notice %}}
 
 To see available initialization flags:
 
@@ -84,7 +89,9 @@ sensu-backend init --help
 
 ## Operation and service management {#operation}
 
-_**NOTE**: Commands in this section may require administrative privileges._
+{{% notice note %}}
+**NOTE**: Commands in this section may require administrative privileges.
+{{% /notice %}}
 
 ### Start the service
 
@@ -142,7 +149,9 @@ To disable the backend from starting on system boot:
 systemctl disable sensu-backend
 {{< /highlight >}}
 
-_**NOTE**: On older distributions of Linux, use `sudo chkconfig sensu-server on` to enable the backend and `sudo chkconfig sensu-server off` to disable the backend._
+{{% notice note %}}
+**NOTE**: On older distributions of Linux, use `sudo chkconfig sensu-server on` to enable the backend and `sudo chkconfig sensu-server off` to disable the backend.
+{{% /notice %}}
 
 ### Get service status
 
@@ -476,7 +485,9 @@ cert-file: "/path/to/ssl/cert.pem"{{< /highlight >}}
 
 | insecure-skip-tls-verify |      |
 ---------------------------|------
-description                | If `true`, skip SSL verification. Otherwise, `false`. _**WARNING**: This configuration flag is intended for use in development systems only. Do not use this flag in production._
+description                | If `true`, skip SSL verification. Otherwise, `false`. {{% notice warning %}}
+**WARNING**: This configuration flag is intended for use in development systems only. Do not use this flag in production.
+{{% /notice %}}
 type                       | Boolean
 default                    | `false`
 environment variable | `SENSU_INSECURE_SKIP_TLS_VERIFY`
@@ -491,7 +502,9 @@ insecure-skip-tls-verify: true{{< /highlight >}}
 
 | jwt-private-key-file |      |
 -------------|------
-description  | Path to the PEM-encoded private key to use to sign JSON Web Tokens (JWTs). _**NOTE**: The internal symmetric secret key is used by default to sign all JWTs unless a private key is specified via this attribute._
+description  | Path to the PEM-encoded private key to use to sign JSON Web Tokens (JWTs). {{% notice note %}}
+**NOTE**: The internal symmetric secret key is used by default to sign all JWTs unless a private key is specified via this attribute.
+{{% /notice %}}
 type         | String
 default      | `""`
 environment variable | `SENSU_JWT_PRIVATE_KEY_FILE`
@@ -504,7 +517,9 @@ jwt-private-key-file: /path/to/key/private.pem{{< /highlight >}}
 
 | jwt-public-key-file |      |
 -------------|------
-description  | Path to the PEM-encoded public key to use to verify JSON Web Token (JWT) signatures. _**NOTE**: JWTs signed with the internal symmetric secret key will continue to be verified with that key._
+description  | Path to the PEM-encoded public key to use to verify JSON Web Token (JWT) signatures. {{% notice note %}}
+**NOTE**: JWTs signed with the internal symmetric secret key will continue to be verified with that key.
+{{% /notice %}}
 type         | String
 default      | `""`
 environment variable | `SENSU_JWT_PUBLIC_KEY_FILE`
@@ -632,7 +647,9 @@ etcd-cert-file: "./client.pem"{{< /highlight >}}
 
 | etcd-cipher-suites    |      |
 ------------------------|------
-description             | List of allowed cipher suites for etcd TLS configuration. Sensu supports TLS 1.0-1.2 cipher suites as listed in the [Go TLS documentation][18]. You can use this attribute to defend your TLS servers from attacks on weak TLS ciphers. Go determines the default cipher suites based on the hardware used. _**NOTE**: To use TLS 1.3, add the following environment variable: `GODEBUG="tls13=1"`._
+description             | List of allowed cipher suites for etcd TLS configuration. Sensu supports TLS 1.0-1.2 cipher suites as listed in the [Go TLS documentation][18]. You can use this attribute to defend your TLS servers from attacks on weak TLS ciphers. Go determines the default cipher suites based on the hardware used. {{% notice note %}}
+**NOTE**: To use TLS 1.3, add the following environment variable: `GODEBUG="tls13=1"`.
+{{% /notice %}}
 recommended             | {{< highlight shell >}}
 etcd-cipher-suites:
   - TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384
@@ -910,7 +927,9 @@ no-embed-etcd: true{{< /highlight >}}
 
 | eventd-buffer-size   |      |
 -----------------------|------
-description            | Number of incoming events that can be buffered before being processed by an eventd worker. _**WARNING**: Modify with caution. Increasing this value may result in greater memory usage._
+description            | Number of incoming events that can be buffered before being processed by an eventd worker. {{% notice warning %}}
+**WARNING**: Modify with caution. Increasing this value may result in greater memory usage.
+{{% /notice %}}
 type                   | Integer
 default                | `100`
 environment variable   | `SENSU_EVENTD_BUFFER_SIZE`
@@ -924,7 +943,9 @@ eventd-buffer-size: 100{{< /highlight >}}
 
 | eventd-workers       |      |
 -----------------------|------
-description            | Number of workers spawned for processing incoming events that are stored in the eventd buffer. _**WARNING**: Modify with caution. Increasing this value may result in greater CPU usage._
+description            | Number of workers spawned for processing incoming events that are stored in the eventd buffer. {{% notice warning %}}
+**WARNING**: Modify with caution. Increasing this value may result in greater CPU usage.
+{{% /notice %}}
 type                   | Integer
 default                | `100`
 environment variable   | `SENSU_EVENTD_WORKERS`
@@ -937,7 +958,9 @@ eventd-workers: 100{{< /highlight >}}
 
 | keepalived-buffer-size |      |
 -----------------------|------
-description            | Number of incoming keepalives that can be buffered before being processed by a keepalived worker. _**WARNING**: Modify with caution. Increasing this value may result in greater memory usage._
+description            | Number of incoming keepalives that can be buffered before being processed by a keepalived worker. {{% notice warning %}}
+**WARNING**: Modify with caution. Increasing this value may result in greater memory usage.
+{{% /notice %}}
 type                   | Integer
 default                | `100`
 environment variable   | `SENSU_KEEPALIVED_BUFFER_SIZE`
@@ -950,7 +973,8 @@ keepalived-buffer-size: 100{{< /highlight >}}
 
 | keepalived-workers |      |
 -----------------------|------
-description            | Number of workers spawned for processing incoming keepalives that are stored in the keepalived buffer. _**WARNING**: Modify with caution. Increasing this value may result in greater CPU usage._
+description            | Number of workers spawned for processing incoming keepalives that are stored in the keepalived buffer. {{% notice warning %}}
+**WARNING**: Modify with caution. Increasing this value may result in greater CPU usage.{{% /notice %}}
 type                   | Integer
 default                | `100`
 environment variable   | `SENSU_KEEPALIVED_WORKERS`
@@ -963,7 +987,9 @@ keepalived-workers: 100{{< /highlight >}}
 
 | pipelined-buffer-size |      |
 -----------------------|------
-description            | Number of events to handle that can be buffered before being processed by a pipelined worker. _**WARNING**: Modify with caution. Increasing this value may result in greater memory usage._
+description            | Number of events to handle that can be buffered before being processed by a pipelined worker. {{% notice warning %}}
+**WARNING**: Modify with caution. Increasing this value may result in greater memory usage.
+{{% /notice %}}
 type                   | Integer
 default                | `100`
 environment variable   | `SENSU_PIPELINED_BUFFER_SIZE`
@@ -976,7 +1002,9 @@ pipelined-buffer-size: 100{{< /highlight >}}
 
 | pipelined-workers |      |
 -----------------------|------
-description            | Number of workers spawned for handling events through the event pipeline that are stored in the pipelined buffer. _**WARNING**: Modify with caution. Increasing this value may result in greater CPU usage._
+description            | Number of workers spawned for handling events through the event pipeline that are stored in the pipelined buffer. {{% notice warning %}}
+**WARNING**: Modify with caution. Increasing this value may result in greater CPU usage.
+{{% /notice %}}
 type                   | Integer
 default                | `100`
 environment variable   | `SENSU_PIPELINED_WORKERS`
@@ -989,7 +1017,9 @@ pipelined-workers: 100{{< /highlight >}}
 
 | etcd-election-timeout |      |
 -----------------------|------
-description            | Time that a follower node will go without hearing a heartbeat before attempting to become leader itself. In milliseconds (ms). See [etcd time parameter documentation][16] for details and other considerations. _**WARNING**: Make sure to set the same election timeout value for all etcd members in one cluster. Setting different values for etcd members may reduce cluster stability._
+description            | Time that a follower node will go without hearing a heartbeat before attempting to become leader itself. In milliseconds (ms). See [etcd time parameter documentation][16] for details and other considerations. {{% notice warning %}}
+**WARNING**: Make sure to set the same election timeout value for all etcd members in one cluster. Setting different values for etcd members may reduce cluster stability.
+{{% /notice %}}
 type                   | Integer
 default                | `1000`
 environment variable   | `SENSU_ETCD_ELECTION_TIMEOUT`
@@ -1002,7 +1032,8 @@ etcd-election-timeout: 1000{{< /highlight >}}
 
 | etcd-heartbeat-interval |      |
 -----------------------|------
-description            | Interval at which the etcd leader will notify followers that it is still the leader. In milliseconds (ms). Best practice is to set the interval based on round-trip time between members. See [etcd time parameter documentation][16] for details and other considerations. _**WARNING**: Make sure to set the same heartbeat interval value for all etcd members in one cluster. Setting different values for etcd members may reduce cluster stability._
+description            | Interval at which the etcd leader will notify followers that it is still the leader. In milliseconds (ms). Best practice is to set the interval based on round-trip time between members. See [etcd time parameter documentation][16] for details and other considerations. {{% notice warning %}}
+**WARNING**: Make sure to set the same heartbeat interval value for all etcd members in one cluster. Setting different values for etcd members may reduce cluster stability.{{% /notice %}}
 type                   | Integer
 default                | `100`
 environment variable   | `SENSU_ETCD_HEARTBEAT_INTERVAL`
@@ -1015,7 +1046,9 @@ etcd-heartbeat-interval: 100{{< /highlight >}}
 
 | etcd-max-request-bytes |      |
 -----------------------|------
-description            | Maximum etcd request size in bytes that can be sent to an etcd server by a client. Increasing this value allows etcd to process events with large outputs at the cost of overall latency. _**WARNING**: Use with caution. This configuration option requires familiarity with etcd. Improper use of this option can result in a non-functioning Sensu instance._
+description            | Maximum etcd request size in bytes that can be sent to an etcd server by a client. Increasing this value allows etcd to process events with large outputs at the cost of overall latency. {{% notice warning %}}
+**WARNING**: Use with caution. This configuration option requires familiarity with etcd. Improper use of this option can result in a non-functioning Sensu instance.
+{{% /notice %}}
 type                   | Integer
 default                | `1572864`
 environment variable   | `SENSU_ETCD_MAX_REQUEST_BYTES`
@@ -1028,7 +1061,9 @@ etcd-max-request-bytes: 1572864{{< /highlight >}}
 
 | etcd-quota-backend-bytes |      |
 -----------------------|------
-description            | Maximum etcd database size in bytes. Increasing this value allows for a larger etcd database at the cost of performance. _**WARNING**: Use with caution. This configuration option requires familiarity with etcd. Improper use of this option can result in a non-functioning Sensu instance._
+description            | Maximum etcd database size in bytes. Increasing this value allows for a larger etcd database at the cost of performance. {{% notice warning %}}
+**WARNING**: Use with caution. This configuration option requires familiarity with etcd. Improper use of this option can result in a non-functioning Sensu instance.
+{{% /notice %}}
 type                   | Integer
 default                | `4294967296`
 environment variable   | `SENSU_ETCD_QUOTA_BACKEND_BYTES`
@@ -1101,7 +1136,9 @@ event-log-buffer-size: 100000{{< /highlight >}}
 
 | event-log-file |      |
 -----------------------|------
-description            | Path to the event log file. _**WARNING**: The log file should be located on a local drive. Logging directly to network drives is not supported._
+description            | Path to the event log file. {{% notice warning %}}
+**WARNING**: The log file should be located on a local drive. Logging directly to network drives is not supported.
+{{% /notice %}}
 type                   | String
 environment variable   | `SENSU_EVENT_LOG_FILE`
 example                | {{< highlight shell >}}# Command line example

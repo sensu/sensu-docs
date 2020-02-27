@@ -15,7 +15,7 @@ menu:
 - [Sensuctl management commands](#sensuctl-management-commands)
 
 The Sensu API key feature (core/v2.APIKey) is a persistent UUID that maps to a stored Sensu username.
-The advantages of authenticating with API keys rather than [access tokens][2] include:
+The advantages of authenticating with API keys rather than [access tokens][1] include:
 
 - **More efficient integration**: Check and handler plugins and other code can integrate with the Sensu API without implementing the logic required to authenticate via the `/auth` API endpoint to periodically refresh the access token
 - **Improved security**: API keys do not require providing a username and password in check or handler definitions
@@ -23,7 +23,9 @@ The advantages of authenticating with API keys rather than [access tokens][2] in
 
 API keys are cluster-wide resources, so only cluster admins can grant, view, and revoke them.
 
-_**NOTE**: API keys are not supported for authentication providers such as LDAP and OIDC._
+{{% notice note %}}
+**NOTE**: API keys are not supported for authentication providers such as LDAP and OIDC.
+{{% /notice %}}
 
 ## API key authentication
 
@@ -68,7 +70,9 @@ HTTP/1.1 200 OK
 
 ## Sensuctl management commands
 
-_**NOTE**: The API key resource is intentionally not compatible with [`sensuctl create`][1]._
+{{% notice note %}}
+**NOTE**: The API key resource is intentionally not compatible with [`sensuctl create`](../../sensuctl/reference/#create-resources).
+{{% /notice %}}
 
 To generate a new API key for the admin user:
 
@@ -106,5 +110,4 @@ $ sensuctl api-key revoke 7f63b5bc-41f4-4b3e-b59b-5431afd7e6a2 --skip-confirm
 Deleted
 {{< /highlight >}}
 
-[1]: ../../sensuctl/reference/#create-resources
-[2]: ../../api/auth/#the-authtoken-api-endpoint
+[1]: ../../api/auth/#the-authtoken-api-endpoint

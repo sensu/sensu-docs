@@ -12,7 +12,9 @@ menu:
 
 This media guide includes a collection of links to talks, blog posts, tutorials, and podcasts about Sensu Go.
 
-_**NOTE**: Before October 2018, Sensu Go was known as Sensu 2.0._
+{{% notice note %}}
+**NOTE**: Before October 2018, Sensu Go was known as Sensu 2.0.
+{{% /notice %}}
 
 ## Talks
 

@@ -65,7 +65,10 @@ http://127.0.0.1:8080/api/enterprise/secrets/v1/providers \
 ]
 {{< /highlight >}}
 
-_**NOTE**: In addition to the `VaultProvider` type, the secrets API also includes a built-in `Env` secrets provider type that can retrieve backend [environment variables][3] as secrets. Learn more in the [secrets providers reference][2]._
+{{% notice note %}}
+**NOTE**: In addition to the `VaultProvider` type, the secrets API also includes a built-in `Env` secrets provider type that can retrieve backend [environment variables](../../reference/backend/#configuration-via-environment-variables) as secrets.
+Learn more in the [secrets providers reference](../../reference/secrets-providers/).
+{{% /notice %}}
 
 #### API Specification {#providers-get-specification}
 
@@ -462,6 +465,4 @@ response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Miss
 
 
 [1]: ../../getting-started/enterprise/
-[2]: ../../reference/secrets-providers/
-[3]: ../../reference/backend/#configuration-via-environment-variables
 [4]: ../overview#response-filtering
