@@ -189,7 +189,9 @@ To continue, skip ahead to [create your Vault secret][29].
 
 This section explains how use HashiCorp Vault as your external [secrets provider][2] to authenticate with the HashiCorp Vault integration's [TLS certificate auth method][4].
 
-_**NOTE**: You will need to set up [HashiCorp Vault][15] in production to use TLS certificate-based authentication. In Vault's dev server, TLS is not enabled. Follow the [HashiCorp Learn curriculum][16] when you are ready to set up a production server in Vault._
+{{% notice note %}}
+**NOTE**: You will need to set up [HashiCorp Vault](https://www.vaultproject.io/docs/install/) in production to use TLS certificate-based authentication. In Vault's dev server, TLS is not enabled. Follow the [HashiCorp Learn curriculum](https://learn.hashicorp.com/vault) when you are ready to set up a production server in Vault.
+{{% /notice %}}
 
 First, in your Vault, [enable and configure certificate authentication][33].
 For example, your Vault might be configured for certificate authentication like this:
