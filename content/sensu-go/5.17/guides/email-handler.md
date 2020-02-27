@@ -13,6 +13,7 @@ menu:
 
 - [Add the email handler asset](#add-the-email-handler-asset)
 - [Add an event filter](#add-an-event-filter)
+- [Create the email handler definition](#create-the-email-handler-definition)
 - [Create and trigger an ad hoc event](#create-and-trigger-an-ad-hoc-event)
 - [Next steps](#next-steps)
 
@@ -32,7 +33,7 @@ You'll also add an [event filter][5] to make sure you only receive a notificatio
 [Assets][8] are shareable, reusable packages that help you deploy Sensu plugins.
 In this guide, you'll use the [Sensu Go Email Handler][3] asset to power an `email` handler.
 
-Use the following sensuctl example to register the [Sensu Go Email Handler][3] asset for Linux AMD64:
+Use the following sensuctl example to register the [Sensu Go Email Handler][3] asset:
 
 {{< highlight shell >}}
 sensuctl asset add sensu/sensu-email-handler -r email-handler
@@ -42,7 +43,7 @@ The -r (rename) flag allows you to specify a shorter name for the asset (in this
 
 You can also download the latest asset definition for your platform from [Bonsai][3] and register the asset with `sensuctl create --file filename.yml`.
 
-To confirm that the handler was added correctly, run:
+To confirm that the handler asset was added correctly, run:
 
 {{< highlight shell >}}
 sensuctl asset list
@@ -54,6 +55,8 @@ For a detailed list of everything related to the asset that Sensu added automati
 {{< highlight shell >}}
 sensuctl asset info email-handler
 {{< /highlight >}}
+
+The asset includes the `sensu-email-handler` command, which you will use when you [create the email handler definition][20] later in this guide.
 
 ## Add an event filter
 
@@ -67,12 +70,7 @@ Here's an overview of how the `state_change_only` filter will work:
 - If your event status changes to `2` after 1 hour at `1`, you will receive **one** email notification for the change from warning to critical status.
 - If your event status fluctuates between `0`, `1`, and `2` for the next hour, you will receive **one** email notification **each time** the status changes.
 
-Adding the event filter requires two parts:
-
-1. Create the event filter.
-2. Create the email handler definition to specify the email address where the `sensu/sensu-email-handler` asset will send notifications.
-
-First, to create the event filter, run:
+To create the event filter, run:
 
 {{< highlight shell >}}
 cat << EOF | sensuctl create
@@ -92,7 +90,9 @@ spec:
 EOF
 {{< /highlight >}}
 
-Second, create the email handler definition.
+## Create the email handler definition
+
+After you add an event filter, create the email handler definition to specify the email address where the `sensu/sensu-email-handler` asset will send notifications.
 In the handler definition's `command` value, you'll need to change a few things.
 
 Copy this text into a text editor:
@@ -128,15 +128,15 @@ Then, replace the following text:
 - `PASSWORD`: Replace with your SMTP password, typically the same as your email password.
 
 _**NOTE**: To use Gmail or G Suite as your SMTP server, follow Google's instructions for [sending email via SMTP][14].
-If you have enabled 2-step verification on your Google account, you'll need to use an [app password][15] instead of your login password._
+If you have enabled 2-step verification on your Google account, you'll need to use an [app password][15] instead of your login password.
+If you have not enabled 2-step verification, you may need to adjust your [app access settings][19] to follow the example in this guide._
 
-You probably noticed that the handler definition includes two other filters: [`is_incident`][10] and [`not_silenced`][11].
+You probably noticed that the handler definition includes two other filters besides `state_change_only`: [`is_incident`][10] and [`not_silenced`][11].
 These two filters are included in every Sensu backend installation, so you don't have to create them.
 
 After you add your email, server, username, and password values, run your updated code to create the email handler definition.
 
 Now your handler and event filter are set up!
-Next, create an email template for your notification emails.
 
 The [Sensu Go Email Handler][3] asset makes it possible to [add a template][18] that provides context for your email notifications.
 The email template functionality uses tokens to populate the values provided by the event, and you can use HTML to format the email.
@@ -146,7 +146,8 @@ In the final step, you will create an ad hoc event that you can trigger manually
 
 ## Create and trigger an ad hoc event
 
-To begin, use `sensuctl env` to set up environment variables, which will provide the required credentials for the Sensu API:
+To create an ad hoc event, first use `sensuctl env` to set up environment variables.
+The environment variables will provide the required credentials for the Sensu API:
 
 {{< highlight shell >}}
 eval $(sensuctl env)
@@ -159,7 +160,7 @@ echo $SENSU_ACCESS_TOKEN
 eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1NzkwMzY5NjQsImp0aSI6ImJiMmY0ODY4ZTJhZWEyMDhhMTExOTllMGZkNzkzMDc0Iiwic3ViIjoiYWRtaW4iLCJncm91cHMiOlsiY2x1c3Rlci1hZG1pbnMiLCJzeXN0ZW06dXNlcnMiXSwicHJvdmlkZXIiOnsicHJvdmlkZXJfaWQiOiJiYXNpYyIsInByb3ZpZGVyX3R5cGUiOiIiLCJ1c2VyX2lkIjoiYWRtaW4ifX0.6XmuvblCN743R2maF4yErS3K3sOVczsCBsjib9TenUU
 {{< /highlight >}}
 
-Now you can use the Sensu API to create an ad hoc monitoring event.
+With the environment variables set, you can use the Sensu API to create your ad hoc monitoring event.
 This event outputs the message "Everything is OK.” when it occurs:
 
 {{< highlight shell >}}
@@ -218,7 +219,7 @@ http://localhost:8080/api/core/v2/namespaces/default/events/server01/server-heal
 _**NOTE**: If you see an `invalid credentials` error, refresh your token.
 Run `eval $(sensuctl env)`._
 
-Check your email — you should see a message from Sensu!
+Check your email &mdash; you should see a message from Sensu!
 
 Create another event with status set to `0`. Run:
 
@@ -277,3 +278,5 @@ You can also follow our [Up and running with Sensu Go][9] interactive tutorial t
 [16]: ../../reference/filters/
 [17]: #create-an-ad-hoc-event
 [18]: https://bonsai.sensu.io/assets/sensu/sensu-email-handler#templates
+[19]: https://support.google.com/accounts/answer/6010255
+[20]: #create-the-email-handler-definition
