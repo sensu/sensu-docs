@@ -584,7 +584,6 @@ example      | {{< highlight shell >}}"cron": "0 0 * * *"{{< /highlight >}}
 -------------|------
 description  | If check requests are published for the check.
 required     | false
-default      | `false`
 type         | Boolean
 default      | `false`
 example      | {{< highlight shell >}}"publish": false{{< /highlight >}}
