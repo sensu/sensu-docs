@@ -41,6 +41,9 @@ You can configure a Sensu cluster in a couple different ways (we'll show you a f
 
 We also recommend using stable platforms to support your etcd instances (see [etcd's supported platforms][5]).
 
+_**NOTE**: If a cluster member is started before it is configured to join a cluster, the member will persist its prior configuration to disk.
+For this reason, you must remove any previously started member's etcd data by stopping sensu-backend and deleting the contents of `/var/lib/sensu/sensu-backend/etcd` before proceeding with cluster configuration._
+
 ### Docker
 
 If you'd prefer to stand up your Sensu cluster within Docker containers, check out the Sensu Go [docker configuration][7]. This configuration defines three sensu-backend containers and three sensu-agent containers.
