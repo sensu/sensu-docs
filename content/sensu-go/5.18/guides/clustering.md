@@ -24,7 +24,9 @@ Creating a Sensu cluster ultimately configures an [etcd cluster][2].
 Clustering improves Sensu's availability, reliability, and durability.
 It will help you cope with the loss of a backend node, prevent data loss, and distribute the network load of agents.
 
-_**NOTE**: We recommend using a load balancer to evenly distribute agent connections across a cluster._
+{{% notice note %}}
+**NOTE**: We recommend using a load balancer to evenly distribute agent connections across a cluster.
+{{% /notice %}}
 
 ## Configure a cluster
 
@@ -44,14 +46,21 @@ This configuration defines three sensu-backend containers and three sensu-agent 
 
 ### Traditional computer instance
 
-_**NOTE**: The remainder of this guide describes on-disk configuration. If you are using an ephemeral computer instance, you can use `sensu-backend start --help` to see examples of etcd command line flags. The configuration file entries in the rest of this guide translate to `sensu-backend` flags._
+{{% notice note %}}
+**NOTE**: The remainder of this guide describes on-disk configuration.
+If you are using an ephemeral computer instance, you can use `sensu-backend start --help` to see examples of etcd command line flags.
+The configuration file entries in the rest of this guide translate to `sensu-backend` flags.
+{{% /notice %}}
 
 #### Sensu backend configuration
 
 The examples in this section are configuration snippets from `/etc/sensu/backend.yml` using a three-node cluster.
 The nodes are named `backend-1`, `backend-2` and `backend-3` with IP addresses `10.0.0.1`, `10.0.0.2` and `10.0.0.3`, respectively.
 
-_**NOTE**: This backend configuration assumes you have set up and installed the sensu-backend on all the nodes used in your cluster. Follow the [Install Sensu][14] guide if you have not already done this._
+{{% notice note %}}
+**NOTE**: This backend configuration assumes you have set up and installed the sensu-backend on all the nodes used in your cluster.
+Follow the [Install Sensu](../../installation/install-sensu/) guide if you have not already done this.
+{{% /notice %}}
 
 **backend-1**
 
@@ -271,7 +280,10 @@ etcd \
 --auto-compaction-retention 2
 {{< /highlight >}}
 
-_**NOTE**: The `auto-compaction-mode` and `auto-compaction-retention` flags are important. Without these settings, your database may quickly reach etcd's maximum database size limit._
+{{% notice note %}}
+**NOTE**: The `auto-compaction-mode` and `auto-compaction-retention` flags are important.
+Without these settings, your database may quickly reach etcd's maximum database size limit.
+{{% /notice %}}
 
 To tell Sensu to use this external etcd data source, add the `sensu-backend` flag `--no-embed-etcd` to the original configuration, along with the path to a client certificate created using your CA:
 
@@ -307,7 +319,6 @@ See the [etcd recovery guide][9] for disaster recovery information.
 [11]: https://etcd.io/docs/v3.4.0/op-guide/clustering/#self-signed-certificates
 [12]: https://etcd.io/docs/v3.4.0/op-guide/
 [13]: ../securing-sensu/#create-self-signed-certificates
-[14]: ../../installation/install-sensu/
 [15]: ../../reference/backend/
 [16]: ../securing-sensu/
 [17]: ../../sensuctl/reference/

@@ -84,4 +84,6 @@ The `-d` flag will output details, but it will not take action on the logs or ex
 logrotate -d /etc/logrotate.d/sensu.conf
 {{< /highlight>}}
 
-_**NOTE**: On Ubuntu systems, be sure to run `chown -R syslog:adm /var/log/sensu` so syslog can write to that directory._
+{{% notice note %}}
+**NOTE**: On Ubuntu systems, be sure to run `chown -R syslog:adm /var/log/sensu` so syslog can write to that directory.
+{{% /notice %}}

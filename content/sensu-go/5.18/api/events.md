@@ -619,7 +619,10 @@ http://127.0.0.1:8080/api/core/v2/namespaces/default/events/server1/server-healt
 
 The request returns an HTTP `200 OK` response and the resulting event definition.
 
-_**NOTE**: A namespace is not required to create the event. The event will use the namespace in the URL by default._
+{{% notice note %}}
+**NOTE**: A namespace is not required to create the event.
+The event will use the namespace in the URL by default.
+{{% /notice %}}
 
 {{< highlight shell >}}
 HTTP/1.1 200 OK
@@ -704,7 +707,10 @@ http://127.0.0.1:8080/api/core/v2/namespaces/default/events/server1/server-healt
 
 The request returns an HTTP `200 OK` response and the resulting event definition.
 
-_**NOTE**: A namespace is not required to create the event. The event will use the namespace in the URL by default._
+{{% notice note %}}
+**NOTE**: A namespace is not required to create the event.
+The event will use the namespace in the URL by default.
+{{% /notice %}}
 
 {{< highlight shell >}}
 HTTP/1.1 200 OK

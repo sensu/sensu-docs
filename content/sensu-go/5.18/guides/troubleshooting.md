@@ -69,7 +69,9 @@ You may substitute the name of the desired service (e.g. `backend` or `agent`) f
 | Debian       | >= 8       | journald     | {{< highlight shell >}}journalctl --follow --unit sensu-${service}{{< /highlight >}}   |
 | Debian       | <= 7       | log file     | {{< highlight shell >}}tail --follow /var/log/sensu/sensu-${service}{{< /highlight >}} |
 
-_**NOTE**: Platform versions are listed for reference only and do not supersede the documented [supported platforms][8]._
+{{% notice note %}}
+**NOTE**: Platform versions are listed for reference only and do not supersede the documented [supported platforms](../../installation/platforms).
+{{% /notice %}}
 
 ##### Narrow your search to a specific timeframe
 
@@ -224,7 +226,10 @@ http://127.0.0.1:3031/events
 The event data should be written to `/var/log/sensu/debug-event.json` for inspection.
 The contents of this file will be overwritten by every event sent to the `debug` handler.
 
-_**NOTE**: When multiple Sensu backends are configured in a cluster, event processing is distributed across all members. You may need to check the filesystem of each Sensu backend to locate the debug output for your test event._
+{{% notice note %}}
+**NOTE**: When multiple Sensu backends are configured in a cluster, event processing is distributed across all members.
+You may need to check the filesystem of each Sensu backend to locate the debug output for your test event.
+{{% /notice %}}
 
 ## Assets
 
@@ -353,7 +358,6 @@ This would allow the asset to be downloaded onto the target entity.
 [5]: ../../reference/agent/#restart-the-service
 [6]: ../../reference/agent#events-post
 [7]: https://dzone.com/articles/what-is-structured-logging
-[8]: ../../installation/platforms
 [9]: ../../reference/backend/#restart-the-service
 [10]: ../../reference/assets/#asset-definition-multiple-builds
 [11]: ../systemd-logs
