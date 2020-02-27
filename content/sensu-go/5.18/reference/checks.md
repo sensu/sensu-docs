@@ -33,8 +33,10 @@ Check commands are executable commands that the Sensu agent executes.
 A command may include command line arguments for controlling the behavior of the command executable.
 Many common checks are available as assets from [Bonsai][29] and support command line arguments so different check definitions can use the same executable.
 
-_**NOTE**: Sensu advises against requiring root privileges to execute check commands or scripts.
-The Sensu user is not permitted to kill timed-out processes invoked by the root user, which could result in zombie processes._
+{{% notice note %}}
+**NOTE**: Sensu advises against requiring root privileges to execute check commands or scripts.
+The Sensu user is not permitted to kill timed-out processes invoked by the root user, which could result in zombie processes.
+{{% /notice %}}
 
 ### Check command execution
 
@@ -55,7 +57,9 @@ Although Sensu agents attempt to execute any command defined for a check, succes
     - `2` indicates CRITICAL.
     - Exit status codes other than `0`, `1`, and `2` indicate an UNKNOWN or custom status
 
-_**PRO TIP**: If you're familiar with the **Nagios** monitoring system, you may recognize this specification &mdash; it is the same one that Nagios plugins use. As a result, you can use Nagios plugins with Sensu without any modification._
+{{% notice protip %}}
+**PRO TIP**: If you're familiar with the **Nagios** monitoring system, you may recognize this specification &mdash; it is the same one that Nagios plugins use. As a result, you can use Nagios plugins with Sensu without any modification.
+{{% /notice %}}
 
 At every execution of a check command, regardless of success or failure, the Sensu agent publishes the check’s result for eventual handling by the **event processor** (the Sensu backend).
 
@@ -97,7 +101,9 @@ The round robin check cycles through the available agents, resulting in each age
 To use check [`ttl`][31] and `round_robin` together, your check configuration must also specify a [`proxy_entity_name`][32].
 If you do not specify a `proxy_entity_name` when using check `ttl` and `round_robin` together, your check will stop executing.
 
-_**PRO TIP**: Use round robin to distribute check execution workload across multiple agents when using [proxy checks][33]._
+{{% notice protip %}}
+**PRO TIP**: Use round robin to distribute check execution workload across multiple agents when using [proxy checks](#proxy-checks).
+{{% /notice %}}
 
 ### Scheduling
 
@@ -109,7 +115,10 @@ Sensu requires that checks include either an `interval` attribute (interval sche
 You can schedule a check to be executed at regular intervals using the `interval` and `publish` check attributes.
 For example, to schedule a check to execute every 60 seconds, set the `interval` attribute to `60` and the `publish` attribute to `true`.
 
-_**NOTE**: When creating an interval check, Sensu calculates an initial offset to splay the check's first scheduled request. This helps balance the load of both the backend and the agent and may result in a delay before initial check execution._
+{{% notice note %}}
+**NOTE**: When creating an interval check, Sensu calculates an initial offset to splay the check's first scheduled request.
+This helps balance the load of both the backend and the agent and may result in a delay before initial check execution.
+{{% /notice %}}
 
 **Example interval check**
 
@@ -453,7 +462,9 @@ Sensu check tokens are check definition placeholders that the Sensu agent will r
 
 Learn how to use check tokens with the [Sensu tokens reference documentation][5].
 
-_**NOTE**: Check tokens are processed before check execution, so token substitutions will not apply to check data delivered via the local agent socket input._
+{{% notice note %}}
+**NOTE**: Check tokens are processed before check execution, so token substitutions will not apply to check data delivered via the local agent socket input.
+{{% /notice %}}
 
 ## Check hooks
 
@@ -604,7 +615,9 @@ example      | {{< highlight shell >}}"timeout": 30{{< /highlight >}}
 
 |ttl         |      |
 -------------|------
-description  | The time-to-live (TTL) until check results are considered stale. In seconds. If an agent stops publishing results for the check and the TTL expires, an event will be created for the agent's entity.<br><br>The check `ttl` must be greater than the check `interval` and should allow enough time for the check execution and result processing to complete. For example, for a check that has an `interval` of `60` (seconds) and a `timeout` of `30` (seconds), the appropriate `ttl` is at least `90` (seconds).<br><br>To use check `ttl` and [`round_robin`][43] together, your check configuration must also specify a [`proxy_entity_name`][44]. If you do not specify a `proxy_entity_name` when using check `ttl` and `round_robin` together, your check will stop executing. _**NOTE**: Adding TTLs to checks adds overhead, so use the `ttl` attribute sparingly._
+description  | The time-to-live (TTL) until check results are considered stale. In seconds. If an agent stops publishing results for the check and the TTL expires, an event will be created for the agent's entity.<br><br>The check `ttl` must be greater than the check `interval` and should allow enough time for the check execution and result processing to complete. For example, for a check that has an `interval` of `60` (seconds) and a `timeout` of `30` (seconds), the appropriate `ttl` is at least `90` (seconds).<br><br>To use check `ttl` and [`round_robin`][43] together, your check configuration must also specify a [`proxy_entity_name`][44]. If you do not specify a `proxy_entity_name` when using check `ttl` and `round_robin` together, your check will stop executing. {{% notice note %}}
+**NOTE**: Adding TTLs to checks adds overhead, so use the `ttl` attribute sparingly.
+{{% /notice %}}
 required     | false
 type         | Integer
 example      | {{< highlight shell >}}"ttl": 100{{< /highlight >}}
@@ -692,7 +705,9 @@ example      | {{< highlight shell >}}"silenced": ["*:routers"]{{< /highlight >}
 
 |env_vars    |      |
 -------------|------
-description  | Array of environment variables to use with command execution. _**NOTE**: To add `env_vars` to a check, use [`sensuctl create`][41]._
+description  | Array of environment variables to use with command execution. {{% notice note %}}
+**NOTE**: To add `env_vars` to a check, use [`sensuctl create`](../../sensuctl/reference#create-resources).
+{{% /notice %}}
 required     | false
 type         | Array
 example      | {{< highlight shell >}}"env_vars": ["RUBY_VERSION=2.5.0", "CHECK_HOST=my.host.internal"]{{< /highlight >}}
@@ -804,7 +819,9 @@ example      | {{< highlight shell >}}"secret": "sensu-ansible-host"{{< /highlig
 
 ### Minimum recommended check attributes
 
-_**NOTE**: The attribute `interval` is not required if a valid `cron` schedule is defined._
+{{% notice note %}}
+**NOTE**: The attribute `interval` is not required if a valid `cron` schedule is defined.
+{{% /notice %}}
 
 {{< language-toggle >}}
 

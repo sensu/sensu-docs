@@ -26,7 +26,10 @@ Assets are shareable, reusable packages that make it easier to deploy Sensu [plu
 You can use assets to provide the plugins, libraries, and runtimes you need to automate your monitoring workflows.
 Sensu supports runtime assets for [checks][6], [filters][7], [mutators][8], and [handlers][9].
 
-_**NOTE**: Assets are not required to use Sensu Go in production. You can install Sensu plugins using the [sensu-install][32] tool or a [configuration management][33] solution._
+{{% notice note %}}
+**NOTE**: Assets are not required to use Sensu Go in production.
+You can install Sensu plugins using the [sensu-install](../../installation/plugins/#install-plugins-with-the-sensu-install-tool) tool or a [configuration management](../../installation/configuration-management/) solution.
+{{% /notice %}}
 
 The Sensu backend executes handler, filter, and mutator assets.
 The Sensu agent executes check assets.
@@ -37,7 +40,10 @@ At runtime, the backend or agent sequentially evaluates assets that appear in th
 An asset build is the combination of an artifact URL, SHA512 checksum, and optional [Sensu query expression][1] filters.
 Each asset definition may describe one or more builds.
 
-_**NOTE**: Assets that provide `url` and `sha512` attributes at the top level of the `spec` scope are [single-build assets][34], and this form of asset defintion is deprecated. We recommend using [multiple-build asset defintions][35], which specify one or more `builds` under the `spec` scope._
+{{% notice note %}}
+**NOTE**: Assets that provide `url` and `sha512` attributes at the top level of the `spec` scope are [single-build assets](#asset-definition-single-build-deprecated), and this form of asset defintion is deprecated.
+We recommend using [multiple-build asset defintions](#asset-definition-multiple-builds), which specify one or more `builds` under the `spec` scope.
+{{% /notice %}}
 
 ### Asset build evaluation
 
@@ -73,7 +79,11 @@ The following are injected into the execution context:
 - `{PATH_TO_ASSET}/lib` is injected into the `LD_LIBRARY_PATH` environment variable
 - `{PATH_TO_ASSET}/include` is injected into the `CPATH` environment variable
 
-_**NOTE**: You cannot create an asset by creating an archive of an existing project (as in previous versions of Sensu for plugins from the [Sensu Plugins community][36]). Follow the steps outlined in [Contributing Assets for Existing Ruby Sensu Plugins][13], a Sensu Discourse guide. For further examples of Sensu users who have added the ability to use a community plugin as an asset, see [this Discourse post][14]._
+{{% notice note %}}
+**NOTE**: You cannot create an asset by creating an archive of an existing project (as in previous versions of Sensu for plugins from the [Sensu Plugins community](https://github.com/sensu-plugins/)).
+Follow the steps outlined in [Contributing Assets for Existing Ruby Sensu Plugins](https://discourse.sensu.io/t/contributing-assets-for-existing-ruby-sensu-plugins/1165), a Sensu Discourse guide.
+For further examples of Sensu users who have added the ability to use a community plugin as an asset, see [this Discourse post](https://discourse.sensu.io/t/how-to-use-the-sensu-plugins-kubernetes-plugin/1286).
+{{% /notice %}}
 
 ### Default cache directory
 
@@ -329,7 +339,9 @@ example      | {{< highlight shell >}}"sha512": "4f926bf4328..."{{< /highlight >
 
 filters      | 
 -------------|------ 
-description  | Set of [Sensu query expressions][1] used to determine if the asset should be installed. If multiple expressions are included, each expression must return `true` for Sensu to install the asset.<br><br>Filters for _check_ assets should match agent entity platforms. Filters for _handler_ and _filter_ assets should match your Sensu backend platform. You can create asset filter expressions using any supported [entity system attributes][10], including `os`, `arch`, `platform`, and `platform_family`. _**PRO TIP**: Asset filters let you reuse checks across platforms safely. Assign assets for multiple platforms to a single check, and rely on asset filters to ensure that only the appropriate asset is installed on each agent._
+description  | Set of [Sensu query expressions][1] used to determine if the asset should be installed. If multiple expressions are included, each expression must return `true` for Sensu to install the asset.<br><br>Filters for _check_ assets should match agent entity platforms. Filters for _handler_ and _filter_ assets should match your Sensu backend platform. You can create asset filter expressions using any supported [entity system attributes][10], including `os`, `arch`, `platform`, and `platform_family`. {{% notice protip %}}
+**PRO TIP**: Asset filters let you reuse checks across platforms safely. Assign assets for multiple platforms to a single check, and rely on asset filters to ensure that only the appropriate asset is installed on each agent.
+{{% /notice %}}
 required     | false 
 type         | Array 
 example      | {{< highlight shell >}}"filters": ["entity.system.os=='linux'", "entity.system.arch=='amd64'"] {{< /highlight >}}
@@ -756,8 +768,6 @@ You must remove the archive and downloaded files from the asset cache manually.
 [10]: ../entities#system-attributes
 [11]: ../../sensuctl/reference#create-resources
 [12]: #spec-attributes
-[13]: https://discourse.sensu.io/t/contributing-assets-for-existing-ruby-sensu-plugins/1165
-[14]: https://discourse.sensu.io/t/how-to-use-the-sensu-plugins-kubernetes-plugin/1286
 [15]: #example-asset-structure
 [16]: https://bonsai.sensu.io/
 [18]: https://discourse.sensu.io/t/the-hello-world-of-sensu-assets/1422
@@ -773,11 +783,8 @@ You must remove the archive and downloaded files from the asset cache manually.
 [29]: /plugins/latest/reference/
 [30]: ../agent#disable-assets
 [31]: #example-asset-with-a-check
-[32]: ../../installation/plugins/#install-plugins-with-the-sensu-install-tool
-[33]: ../../installation/configuration-management/
 [34]: #asset-definition-single-build-deprecated
 [35]: #asset-definition-multiple-builds
-[36]: https://github.com/sensu-plugins/
 [37]: https://bonsai.sensu.io/sign-in
 [38]: https://bonsai.sensu.io/new
 [39]: ../../dashboard/filtering#filter-with-label-selectors

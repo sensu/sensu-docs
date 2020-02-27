@@ -129,7 +129,10 @@ spec:
 
 {{< /language-toggle >}}
 
-_**NOTE**: The proxy entity definition must include the same subscriptions as the sensu-agent to work with round robin scheduling **and** [proxy requests attributes][24]. If more than one sensu-agent will execute a proxy check and you did not configure the proxy entity with the same subscriptions as the sensu-agent, the sensu-backend will log an error and the proxy check will not be scheduled for agents to run._
+{{% notice note %}}
+**NOTE**: The proxy entity definition must include the same subscriptions as the sensu-agent to work with round robin scheduling **and** [proxy requests attributes](../checks#proxy-requests-attributes).
+If more than one sensu-agent will execute a proxy check and you did not configure the proxy entity with the same subscriptions as the sensu-agent, the sensu-backend will log an error and the proxy check will not be scheduled for agents to run.
+{{% /notice %}}
 
 Then run `sensuctl create` to create the entity based on the definition:
 

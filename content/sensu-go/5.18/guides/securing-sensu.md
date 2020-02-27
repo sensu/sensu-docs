@@ -48,7 +48,10 @@ etcd-peer-trusted-ca-file: "/path/to/your/peer/ca/file"
 The Sensu Go Agent API, HTTP API, and web UI use a common stanza in `/etc/sensu/backend.yml` to provide the certificate, key, and CA file needed to provide secure communication.
 Here are the attributes you'll need to configure.
 
-_**NOTE**: By changing these parameters, the server will communicate over TLS and expect agents that connect to it to use the WebSocket secure protocol. For communication to continue, you must complete the steps in this section **and** in the [Secure Sensu agent-to-server communication][10] section._
+{{% notice note %}}
+**NOTE**: By changing these parameters, the server will communicate over TLS and expect agents that connect to it to use the WebSocket secure protocol.
+For communication to continue, you must complete the steps in this section **and** in the [Secure Sensu agent-to-server communication](#secure-sensu-agent-to-server-communication) section.
+{{% /notice %}}
 
 {{< highlight yml >}}
 ##
@@ -90,7 +93,10 @@ Configuring these attributes will also ensure that agents can communicate secure
 
 ## Secure Sensu agent-to-server communication
 
-_**NOTE**: If you change the agent configuration to communicate via WebSocket Secure protocol, the agent will no longer communicate over a plaintext connection. For communication to continue, you must complete the steps in this section **and** in the [Secure the API and dashboard][11] section._
+{{% notice note %}}
+**NOTE**: If you change the agent configuration to communicate via WebSocket Secure protocol, the agent will no longer communicate over a plaintext connection.
+For communication to continue, you must complete the steps in this section **and** in the [Secure the API and dashboard](#secure-the-api-and-dashboard) section.
+{{% /notice %}}
 
 By default, an agent uses the insecure `ws://` transport.
 Here's an example from `/etc/sensu/agent.yml`:
@@ -125,7 +131,10 @@ You may include it as part of the agent configuration in `/etc/sensu/agent.yml`:
 trusted-ca-file: "/path/to/trusted-certificate-authorities.pem"
 {{< /highlight >}}
 
-_**NOTE**: If you are creating a Sensu cluster, every cluster member needs to be present in the configuration. See [Run a Sensu cluster][1] for more information about how to configure agents for a clustered configuration._
+{{% notice note %}}
+**NOTE**: If you are creating a Sensu cluster, every cluster member needs to be present in the configuration.
+See [Run a Sensu cluster](../clustering/) for more information about how to configure agents for a clustered configuration.
+{{% /notice %}}
 
 ## Sensu agent TLS authentication
 
@@ -143,7 +152,10 @@ They will default to using the `system:agents` group.
 You can still bind agents to a specific user when the `system:agents` group is problematic.
 For this use case, create a user that matches the Common Name (CN) of the agent's certificate.
 
-_**NOTE**: Sensu agents need to be able to create events in the agent's namespace. To ensure that agents with incorrect CN fields can't access the backend, remove the default `system:agents` group._
+{{% notice note %}}
+**NOTE**: Sensu agents need to be able to create events in the agent's namespace.
+To ensure that agents with incorrect CN fields can't access the backend, remove the default `system:agents` group.
+{{% /notice %}}
 
 To view a certificate's CN with openssl:
 
@@ -265,13 +277,10 @@ client.pem
 
 Learn about [role-based access control (RBAC) in Sensu][3] or [create a read-only user][4].
 
-[1]: ../clustering/
 [2]: ../../reference/rbac/#default-users
 [3]: ../../reference/rbac/
 [4]: ../../guides/create-read-only-user/
 [5]: ../../getting-started/enterprise/
 [6]: https://etcd.io/docs/v3.4.0/op-guide/security/
 [9]: https://github.com/cloudflare/cfssl
-[10]: #secure-sensu-agent-to-server-communication
-[11]: #secure-the-api-and-dashboard
 [12]: #create-self-signed-certificates

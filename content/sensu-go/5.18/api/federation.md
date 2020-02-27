@@ -27,7 +27,9 @@ For more information, see [Get started with commercial features][1].
 
 ## The `/etcd-replicators` endpoint
 
-_**NOTE**: The etcd-replicators datatype is only accessible for users who have a cluster role that permits access to replication resources._
+{{% notice note %}}
+**NOTE**: The etcd-replicators datatype is only accessible for users who have a cluster role that permits access to replication resources.
+{{% /notice %}}
 
 ### `/etcd-replicators` (GET)
 
@@ -37,7 +39,9 @@ The `/etcd-replicators` API endpoint provides HTTP GET access to a list of repli
 
 The following example demonstrates a request to the `/etcd-replicators` API endpoint, resulting in a list of replicators.
 
-_**NOTE**: If you did not specify a [namespace][2] when you created a replicator, the response will not include a `namespace` key-value pair._
+{{% notice note %}}
+**NOTE**: If you did not specify a [namespace](../../reference/etcdreplicators#namespace-attribute) when you created a replicator, the response will not include a `namespace` key-value pair.
+{{% /notice %}}
 
 {{< highlight shell >}}
 curl -X GET \
@@ -98,7 +102,9 @@ output         | {{< highlight shell >}}
 
 The `/etcd-replicators` API endpoint provides HTTP POST access to create replicators.
 
-_**NOTE**: If you do not specify a [namespace][2] when you create a replicator, all namespaces for the given resource are replicated._
+{{% notice note %}}
+**NOTE**: If you do not specify a [namespace](../../reference/etcdreplicators#namespace-attribute) when you create a replicator, all namespaces for the given resource are replicated.
+{{% /notice %}}
 
 #### EXAMPLE {#etcd-replicators-post-example}
 
@@ -167,7 +173,9 @@ The `/etcd-replicators/:etcd-replicator` API endpoint provides HTTP GET access t
 
 In the following example, querying the `/etcd-replicators/:etcd-replicator` API endpoint returns a JSON map that contains the requested `:etcd-replicator`.
 
-_**NOTE**: If you did not specify a [namespace][2] when you created the replicator, the response will not include a `namespace` key-value pair._
+{{% notice note %}}
+**NOTE**: If you did not specify a [namespace](../../reference/etcdreplicators#namespace-attribute) when you created the replicator, the response will not include a `namespace` key-value pair.
+{{% /notice %}}
 
 {{< highlight shell >}}
 curl -X GET \
@@ -429,7 +437,9 @@ output               | {{< highlight json >}}
 
 The `/clusters/:cluster` API endpoint provides HTTP PUT access to create or update a specific `cluster`, by cluster name.
 
-_**NOTE**: Only cluster admins have PUT access to clusters._
+{{% notice note %}}
+**NOTE**: Only cluster admins have PUT access to clusters.
+{{% /notice %}}
 
 #### EXAMPLE {#clusterscluster-put-example}
 
@@ -486,7 +496,9 @@ response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 
 
 The `/clusters/:cluster` API endpoint provides HTTP DELETE access to delete the specified cluster from Sensu.
 
-_**NOTE**: Only cluster admins have DELETE access to clusters._
+{{% notice note %}}
+**NOTE**: Only cluster admins have DELETE access to clusters.
+{{% /notice %}}
 
 #### EXAMPLE {#clusterscluster-delete-example}
 
@@ -510,4 +522,3 @@ response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Miss
 
 
 [1]: ../../getting-started/enterprise/
-[2]: ../../reference/etcdreplicators#namespace-attribute

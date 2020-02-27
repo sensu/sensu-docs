@@ -366,8 +366,10 @@ HTTP/1.1 202 Accepted
 {"issued":1543861798}
 {{< /highlight >}}
 
-_**PRO TIP**: Include the `subscriptions` attribute with the request body to override the subscriptions configured in the check definition.
-This gives you the flexibility to execute a check on any Sensu entity or group of entities on demand._
+{{% notice protip %}}
+**PRO TIP**: Include the `subscriptions` attribute with the request body to override the subscriptions configured in the check definition.
+This gives you the flexibility to execute a check on any Sensu entity or group of entities on demand.
+{{% /notice %}}
 
 #### API Specification {#checkscheckexecute-post-specification}
 
