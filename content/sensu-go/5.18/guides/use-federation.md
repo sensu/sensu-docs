@@ -173,7 +173,7 @@ To get started, configure one etcd replicator per cluster for each of those RBAC
 
 {{% notice note %}}
 **NOTE**: Create a replicator for each resource type you want to replicate. 
-Replicating `Namespace` resources will **not** replicate the resources that belong to those namespaces.
+Replicating `namespace` resources will **not** replicate the resources that belong to those namespaces.
 {{% /notice %}}
 
 For example, these etcd replicator resources will replicate ClusterRoleBinding resources from  the`gateway` cluster to two target clusters:

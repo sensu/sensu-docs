@@ -43,7 +43,7 @@ This is harmless, but you should consider it when designing a replicated system.
 
 {{% notice note %}}
 **NOTE**: Create a replicator for each resource type you want to replicate.
-Replicating `Namespace` resources will **not** replicate the resources that belong to those namespaces.
+Replicating `namespace` resources will **not** replicate the resources that belong to those namespaces.
 {{% /notice %}}
 
 ## Delete a replicator
@@ -385,9 +385,9 @@ Before you implement etcd replicators, review these details &mdash; they are cri
 
 - Never use insecure mode without TLS mutual authentication outside of a testbed.
 
-**Create a replicator for each resource type you want to replicate**
+**Create a replicator for each resource type you want to replicate.**
 
-- Replicating `Namespace` resources will **not** replicate the resources that belong to those namespaces.
+- Replicating `namespace` resources will **not** replicate the resources that belong to those namespaces.
 
 {{% notice warning %}}
 **WARNING**: Make sure to confirm your configuration. The server will accept incorrect EtcdReplicator definitions without sending a warning. If your configuration is incorrect, replication will not work.
