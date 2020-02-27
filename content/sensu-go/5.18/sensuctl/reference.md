@@ -68,7 +68,9 @@ When you install the Sensu backend, during the [initialization step][40], you cr
 Your ability to get, list, create, update, and delete resources with sensuctl depends on the permissions assigned to your Sensu user.
 For more information about configuring Sensu access control, see the [RBAC reference][1].
 
-_**NOTE**: The `sensu-backend init` command for initialization runs automatically with a default username (`admin`) and password (`P@ssw0rd!`). You can specify a username and password with the `SENSU_BACKEND_CLUSTER_ADMIN_USERNAME` and `SENSU_BACKEND_CLUSTER_ADMIN_PASSWORD` environment variables during [initialization][40] to override the defaults._ 
+{{% notice note %}}
+**NOTE**: The `sensu-backend init` command for initialization runs automatically with a default username (`admin`) and password (`P@ssw0rd!`). You can specify a username and password with the `SENSU_BACKEND_CLUSTER_ADMIN_USERNAME` and `SENSU_BACKEND_CLUSTER_ADMIN_PASSWORD` environment variables during [initialization](../../installation/install-sensu/#3-initialize) to override the defaults.
+{{% /notice %}} 
 
 ### Preferred output format
 
@@ -203,7 +205,10 @@ sensuctl user test-creds USERNAME --password 'password'
 An empty response indicates valid credentials.
 A `request-unauthorized` response indicates invalid credentials.
 
-_**NOTE**: The `sensuctl user test-creds` command tests passwords for users created with Sensu's built-in [basic authentication provider][44]. It does not test user credentials defined via an authentication provider like [Lightweight Directory Access Protocol (LDAP)][26] or [Active Directory (AD)][42]._
+{{% notice note %}}
+**NOTE**: The `sensuctl user test-creds` command tests passwords for users created with Sensu's built-in [basic authentication provider](../../installation/auth#use-built-in-basic-authentication).
+It does not test user credentials defined via an authentication provider like [Lightweight Directory Access Protocol (LDAP)](../../installation/auth/#ldap-authentication) or [Active Directory (AD)](../../installation/auth/#ad-authentication). 
+{{% /notice %}}
 
 For example, if you test LDAP credentials with the `sensuctl user test-creds` command, the backend will log an error, even if you know the LDAP credentials are correct:
 
@@ -430,7 +435,9 @@ The `sensuctl dump` command allows you to export your resources to standard out 
 You can export all of your resources or a subset of them based on a list of resource types.
 The `dump` command supports exporting in `wrapped-json` and `yaml`.
 
-_**NOTE**: Passwords are not included when exporting users. You must add the `password` attribute to any exported user resources before they can be used with `sensuctl create`._
+{{% notice note %}}
+**NOTE**: Passwords are not included when exporting users. You must add the `password` attribute to any exported user resources before they can be used with `sensuctl create`.
+{{% /notice %}}
 
 To export all resources to a file named `my-resources.yaml` in `yaml` format:
 
@@ -460,7 +467,9 @@ sensuctl dump --types
 
 The table below lists supported `sensuctl dump` resource types.
 
-_**NOTE**: The resource types with no synonym listed are [commercial features][30]._
+{{% notice note %}}
+**NOTE**: The resource types with no synonym listed are [commercial features](../../getting-started/enterprise/).
+{{% /notice %}}
 
 Synonym | Fully qualified name 
 --------------------|---
@@ -680,7 +689,9 @@ sensuctl check list --label-selector 'region == "us-west-1"' --field-selector 's
 Sensuctl supports multiple time formats depending on the manipulated resource.
 Supported canonical time zone IDs are defined in the [tz database][2].
 
-_**WARNING**: Windows does not support canonical zone IDs (for example, `America/Vancouver`)._
+{{% notice warning %}}
+**WARNING**: Windows does not support canonical zone IDs (for example, `America/Vancouver`).
+{{% /notice %}}
 
 ### Dates with time
 
@@ -940,7 +951,9 @@ For example, to install a command-test asset via URL with no flags:
 sensuctl command install command-test --url https://github.com/amdprophet/command-test/releases/download/v0.0.4/command-test_0.0.4_darwin_amd64.tar.gz --checksum 8b15a170e091dab42256fe64ca7c4a050ed49a9dbfd6c8129c95506a8a9a91f2762ac1a6d24f4fc545430613fd45abc91d3e5d3605fcfffb270dcf01996caa7f
 {{< /highlight >}}
 
-_**NOTE**: Asset definitions with multiple asset builds are only supported via Bonsai._
+{{% notice note %}}
+**NOTE**: Asset definitions with multiple asset builds are only supported via Bonsai.
+{{% /notice %}}
 
 #### Execute commands
 
@@ -962,7 +975,9 @@ Replace `[args]` with the globlal flags you want to use.
 Run `sensuctl command exec -h` to view global flags.
 To pass `[args]` flags to the bin/entrypoint executable, make sure to specify them after a double dash surrounded by spaces.
 
-_**NOTE**: When you use `sensuctl command exec`, the [environment variables][38] are passed to the command._
+{{% notice note %}}
+**NOTE**: When you use `sensuctl command exec`, the [environment variables](#environment-variables) are passed to the command.
+{{% /notice %}}
 
 For example:
 
@@ -1043,7 +1058,6 @@ Flags are optional and apply only to the `delete` command.
 [35]: ../../reference/etcdreplicators/
 [36]: /images/sensu-influxdb-handler-namespace.png
 [37]: https://bonsai.sensu.io/assets/portertech/sensu-ec2-discovery
-[38]: #environment-variables
 [39]: #wrapped-json-format
 [40]: ../../installation/install-sensu/#3-initialize
 [41]: ../../reference/secrets/

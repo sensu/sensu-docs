@@ -34,7 +34,11 @@ Many Sensu mutator plugins provide support for command line arguments for reusab
 All mutator commands are executed by a Sensu backend as the `sensu` user.
 Commands must be executable files that are discoverable on the Sensu backend system (installed in a system `$PATH` directory).
 
-_**NOTE**: By default, Sensu installer packages will modify the system `$PATH` for the Sensu processes to include `/etc/sensu/plugins`. As a result, executable scripts (like plugins) located in `/etc/sensu/plugins` will be valid commands. This allows `command` attributes to use “relative paths” for Sensu plugin commands (for example, `"command": "check-http.go -u https://sensuapp.org"`)._
+{{% notice note %}}
+**NOTE**: By default, Sensu installer packages will modify the system `$PATH` for the Sensu processes to include `/etc/sensu/plugins`.
+As a result, executable scripts (like plugins) located in `/etc/sensu/plugins` will be valid commands.
+This allows `command` attributes to use “relative paths” for Sensu plugin commands (for example, `"command": "check-http.go -u https://sensuapp.org"`).
+{{% /notice %}}
 
 ## Built-in mutators
 

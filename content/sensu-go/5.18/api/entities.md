@@ -428,7 +428,9 @@ HTTP/1.1 201 Created
 
 /entities/:entity (PUT) | 
 ----------------|------
-description     | Creates or updates the specified Sensu entity. _**NOTE**: When you create an entity via an HTTP PUT request, the entity will use the namespace in the request URL._
+description     | Creates or updates the specified Sensu entity. {{% notice note %}}
+**NOTE**: When you create an entity via an HTTP PUT request, the entity will use the namespace in the request URL.
+{{% /notice %}}
 example URL     | http://hostname:8080/api/core/v2/namespaces/default/entities/sensu-centos
 payload         | {{< highlight shell >}}
 {

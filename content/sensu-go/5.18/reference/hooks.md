@@ -196,7 +196,9 @@ example      | {{< highlight shell >}}"runtime_assets": ["log-context"]{{< /high
 
 You can use hooks for rudimentary auto-remediation tasks, such as starting a process that is no longer running.
 
-_**NOTE**: Use caution with this approach. Hooks used for auto-remediation will run without regard to the number of event occurrences._
+{{% notice note %}}
+**NOTE**: Use caution with this approach. Hooks used for auto-remediation will run without regard to the number of event occurrences.
+{{% /notice %}}
 
 {{< language-toggle >}}
 
@@ -280,7 +282,9 @@ spec:
 
 You can create check hooks that use [token substitution][7] so you can fine-tune check attributes on a per-entity level and re-use the check definition.
 
-_**NOTE**: Token substitution uses entity-scoped metadata, so make sure to set labels at the entity level._
+{{% notice note %}}
+**NOTE**: Token substitution uses entity-scoped metadata, so make sure to set labels at the entity level.
+{{% /notice %}}
 
 {{< language-toggle >}}
 

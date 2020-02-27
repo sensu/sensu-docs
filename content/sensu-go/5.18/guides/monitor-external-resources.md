@@ -18,7 +18,9 @@ Proxy entities allow Sensu to monitor external resources on systems and devices 
 You can create [proxy entities][1] with [sensuctl][8], the [Sensu API][9], and the [`proxy_entity_name` check attribute][2].
 When executing checks that include a `proxy_entity_name` or `proxy_requests` attributes, Sensu agents report the resulting event under the proxy entity instead of the agent entity.
 
-_**NOTE**: This guide requires a running Sensu backend, a running Sensu agent, and a sensuctl instance configured to connect to the backend as a user with get, list, and create permissions for entities, checks, and events._
+{{% notice note %}}
+**NOTE**: This guide requires a running Sensu backend, a running Sensu agent, and a sensuctl instance configured to connect to the backend as a user with get, list, and create permissions for entities, checks, and events.
+{{% /notice %}}
 
 ## Use a proxy entity to monitor a website
 
@@ -150,7 +152,9 @@ sensu-centos   agent   linux   proxy,entity:sensu-centos   2019-01-16 21:50:03 +
 sensu-site     proxy           entity:sensu-site           N/A  
 {{< /highlight >}}
 
-_**NOTE**: It might take a few moments for Sensu to execute the check and create the proxy entity._
+{{% notice note %}}
+**NOTE**: It might take a few moments for Sensu to execute the check and create the proxy entity.
+{{% /notice %}}
 
 Then, use sensuctl to confirm that Sensu is monitoring `sensu-site` with the `check-sensu-site` check:
 
@@ -229,7 +233,10 @@ Create a file called `entities.json` and add the following entity definitions:
 }
 {{< /highlight >}}
 
-_**PRO TIP**: When you create proxy entities, you can add any custom labels that make sense for your environment. For example, when monitoring a group of routers, you may want to add `ip_address` labels._
+{{% notice protip %}}
+**PRO TIP**: When you create proxy entities, you can add any custom labels that make sense for your environment.
+For example, when monitoring a group of routers, you may want to add `ip_address` labels.
+{{% /notice %}}
 
 Now you can use sensuctl to add these proxy entities to Sensu:
 
@@ -320,7 +327,10 @@ sensuctl check list
   check-http        check-http.rb -u {{ .labels.url }}         60                0     0   proxy                     sensu-plugins-http,sensu-ruby-runtime           true       false                                     
 {{< /highlight >}}
 
-_**PRO TIP**: To distribute check executions across multiple agents, set the `round-robin` check attribute to `true`. For more information about round robin checks, see the [check reference][18]._
+{{% notice protip %}}
+**PRO TIP**: To distribute check executions across multiple agents, set the `round-robin` check attribute to `true`.
+For more information about round robin checks, see the [check reference](../../reference/checks#round-robin-checks).
+{{% /notice %}}
 
 ### Validate the check
 
