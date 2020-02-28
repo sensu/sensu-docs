@@ -51,8 +51,58 @@ For information about creating and managing checks, see:
 
 ## Initialization
 
-For a **new** installation, you must set up an administrator username and password.
-To do this, set environment variables as shown below, replacing `YOUR_USERNAME` and `YOUR_PASSWORD` with the username and password you want to use:
+For a **new** installation, you can set administrator credentials with environment variables to override the default admin username (`admin`) and password (`P@ssw0rd!`).
+
+- If you are using Docker, you can set admin credentials during installation step [2. Configure and start][24].
+- If you are using Ubuntu/Debian or RHEL/CentOS, you can set admin credentials during installation step [3. Initialization][25].
+
+This step bootstraps the first admin user account for your Sensu installation.
+This account will be granted the cluster admin role.
+
+If you do not include the environment variables to set administrator credentials, the backend will initialize with the default admin credentials (username `admin` and password `P@ssw0rd!`).
+
+### Docker initialization
+
+For Docker installations, set administrator credentials with environment variables when you [configure and start][24] the backend as shown below, replacing `YOUR_USERNAME` and `YOUR_PASSWORD` with the username and password you want to use:
+
+{{< language-toggle >}}
+
+{{< highlight Docker >}}
+docker run -v /var/lib/sensu:/var/lib/sensu \
+-d --name sensu-backend \
+-p 3000:3000 -p 8080:8080 -p 8081:8081 sensu/sensu:latest \
+-e SENSU_BACKEND_CLUSTER_ADMIN_USERNAME=YOUR_USERNAME \
+-e SENSU_BACKEND_CLUSTER_ADMIN_PASSWORD=YOUR_PASSWORD \
+sensu-backend start --state-dir /var/lib/sensu/sensu-backend --log-level debug
+{{< /highlight >}}
+
+{{< highlight "Docker Compose" >}}
+---
+version: "3"
+services:
+  sensu-backend:
+    image: sensu/sensu:latest
+    ports:
+    - 3000:3000
+    - 8080:8080
+    - 8081:8081
+    volumes:
+    - "sensu-backend-data:/var/lib/sensu/etcd"
+    command: "sensu-backend start --state-dir /var/lib/sensu/sensu-backend --log-level debug"
+    environment:
+    - SENSU_BACKEND_CLUSTER_ADMIN_USERNAME=YOUR_USERNAME
+    - SENSU_BACKEND_CLUSTER_ADMIN_PASSWORD=YOUR_PASSWORD
+
+volumes:
+  sensu-backend-data:
+    driver: local
+{{< /highlight >}}
+
+{{< /language-toggle >}}
+
+### Ubuntu/Debian or RHEL/CentOS initialization
+
+For Ubuntu/Debian or RHEL/CentOS, set administrator credentials with environment variables at [initialization][25] as shown below, replacing `YOUR_USERNAME` and `YOUR_PASSWORD` with the username and password you want to use:
 
 {{< highlight shell >}}
 export SENSU_BACKEND_CLUSTER_ADMIN_USERNAME=YOUR_USERNAME
@@ -73,12 +123,10 @@ Admin Username: YOUR_USERNAME
 Admin Password: YOUR_PASSWORD
 {{< /highlight >}}
 
-This initialization step bootstraps the first admin user account for your Sensu installation.
-This account will be granted the cluster admin role.
-
 {{% notice note %}}
 **NOTE**: If you are already using Sensu, you do not need to initialize.
 Your installation has already seeded the admin username and password you have set up.
+Running `sensu-backend init` on a previously initialized cluster has no effect &mdash; it will not change the admin credentials.
 {{% /notice %}}
 
 To see available initialization flags:
@@ -1210,3 +1258,5 @@ Here are some log rotate sample configurations:
 [21]: https://etcd.io/docs/v3.3.12/op-guide/clustering/#dns-discovery
 [22]: #initialization
 [23]: #etcd-listen-client-urls
+[24]: ../../installation/install-sensu#2-configure-and-start
+[25]: ../../installation/install-sensu#3-initialization

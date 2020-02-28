@@ -62,14 +62,16 @@ The default URL is `http://127.0.0.1:8080`.
 To connect to a [Sensu cluster][7], connect sensuctl to any single backend in the cluster.
 For information about configuring the Sensu backend URL, see the [backend reference][5].
 
-### Username, Password, and Namespace
+### Username, password, and namespace
 
-When you install the Sensu backend, during the [initialization step][40], you create a username and password for a `default` namespace.
+During the [Sensu backend installation][40] process, you create an administrator username and password for a `default` namespace.
+
 Your ability to get, list, create, update, and delete resources with sensuctl depends on the permissions assigned to your Sensu user.
 For more information about configuring Sensu access control, see the [RBAC reference][1].
 
 {{% notice note %}}
-**NOTE**: The `sensu-backend init` command for initialization runs automatically with a default username (`admin`) and password (`P@ssw0rd!`). You can specify a username and password with the `SENSU_BACKEND_CLUSTER_ADMIN_USERNAME` and `SENSU_BACKEND_CLUSTER_ADMIN_PASSWORD` environment variables during [initialization](../../installation/install-sensu/#3-initialize) to override the defaults.
+**NOTE**: For a **new** installation, you can set administrator credentials with environment variables to override the default admin username and password during [initialization](../../reference/backend/#initialization).
+If you do not include the environment variables to set administrator credentials, the backend will initialize with the default username (`admin`) and password (`P@ssw0rd!`).
 {{% /notice %}} 
 
 ### Preferred output format
@@ -1059,7 +1061,7 @@ Flags are optional and apply only to the `delete` command.
 [36]: /images/sensu-influxdb-handler-namespace.png
 [37]: https://bonsai.sensu.io/assets/portertech/sensu-ec2-discovery
 [39]: #wrapped-json-format
-[40]: ../../installation/install-sensu/#3-initialize
+[40]: ../../installation/install-sensu/#install-the-sensu-backend
 [41]: ../../reference/secrets/
 [42]: ../../installation/auth/#ad-authentication
 [43]: ../../reference/secrets-providers/
