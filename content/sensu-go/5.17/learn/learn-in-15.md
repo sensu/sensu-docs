@@ -21,7 +21,7 @@ s.parentNode.insertBefore(b, s);})();
 <div id="katacoda-scenario-1"
     data-katacoda-id="sensu/sandbox"
     data-katacoda-color="2c3458"
-    data-katacoda-ctaurl="https://docs.sensu.io/sensu-go/latest/learn/learn-sensu-go/"
+    data-katacoda-ctaurl="https://docs.sensu.io/sensu-go/latest/getting-started/sandbox/"
     data-katacoda-ctatext="Learn more in the Sensu Sandbox"
     style="height: 800px; padding-top: 10px;" 
 ></div>
