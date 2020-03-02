@@ -81,7 +81,9 @@ Here are some things to try if you encounter an issue working with the site:
 
 This project uses a [fork](themes/hugo-material-docs/) of the wonderful [hugo-material-docs](https://github.com/digitalcraftsman/hugo-material-docs) theme.
 
-### Developing Offline Docs
+### Offline Docs
+
+#### Developing
 
 Offline documentation uses a set of layouts located in the `offline` directory. To preview them:
 
@@ -94,6 +96,16 @@ To exclude content from the offline documentation, the following can be added to
 ```
 offline: false
 ```
+
+#### Building
+
+Sensu Docs relies on a build script (written in Node), with a [Ghostscript](https://www.ghostscript.com/doc/current/Install.htm) dependency. `gs` must be executable from your terminal. To run the build script and generate offline docs for all products/versions:
+
+```
+yarn run build-offline
+```
+
+Generated PDFs will be in the `./pdf` directory.
 
 ### Deploying the site
 
