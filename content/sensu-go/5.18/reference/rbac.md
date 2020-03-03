@@ -242,7 +242,7 @@ Use your Sensu username and password to [configure sensuctl][26] or log in to th
 
 ### Default users
 
-During the [Sensu backend installation][42] process, you can set administrator credentials to override the default credentials and create a `default` namespace.
+During the [Sensu backend installation][42] process, you create an administrator username and password and a `default` namespace.
 
 This is the admin user that you can use to manage all aspects of Sensu and create new users.
 
