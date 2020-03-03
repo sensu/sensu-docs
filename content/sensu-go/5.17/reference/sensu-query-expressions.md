@@ -17,7 +17,6 @@ menu:
 - [Examples](#examples)
 
 Sensu query expressions are JavaScript-based expressions that provide additional functionality for using Sensu, like nested parameters and custom functions.
-You can use Sensu query expressions to directly evaluate Sensu resources.
 
 Sensu query expressions always return either `true` or `false`.
 They are powered by the [Otto JavaScript VM][1].
