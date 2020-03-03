@@ -64,7 +64,7 @@ For information about configuring the Sensu backend URL, see the [backend refere
 
 ### Username, password, and namespace
 
-During the [Sensu backend installation][40] process, you create an administrator username and password for a `default` namespace.
+During the [Sensu backend installation][40] process, you create an administrator username and password and a `default` namespace.
 
 Your ability to get, list, create, update, and delete resources with sensuctl depends on the permissions assigned to your Sensu user.
 For more information about configuring Sensu access control, see the [RBAC reference][1].
