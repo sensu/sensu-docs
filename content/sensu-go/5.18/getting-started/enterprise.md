@@ -11,10 +11,9 @@ menu:
 ---
 
 Sensu Go offers commercial features designed for monitoring at scale.
-[Contact the Sensu sales team][1] for a personalized demo and free trial.
+All commercial features are available for free in the packaged Sensu Go distribution [up to an entity limit of 100][7].
 
-All commercial features are available for free in the packaged Sensu Go distribution up to an entity limit of 100.
-See the [announcement on our blog][7] for more information.
+If you have more than 100 entities, [contact the Sensu sales team][1] for a personalized demo and free trial.
 
 ## Commercial features in Sensu Go
 
@@ -36,7 +35,9 @@ Our expert in-house team offers best-in-class support to get you up and running 
 
 ## Contact us for a free trial
 
-For a personalized demo and free trial of commercial features at scale in Sensu Go, [contact the Sensu sales team][1].
+Sensu's commercial features are [free for your first 100 entities][7].
+If your Sensu installation includes more than 100 entities, [contact the Sensu sales team][1] for a personalized demo and free trial of commercial features at scale in Sensu Go.
+
 Manage your Sensu account and contact support through [account.sensu.io][2].
 
 - [Contact the Sensu sales team][1]
@@ -47,8 +48,11 @@ Manage your Sensu account and contact support through [account.sensu.io][2].
 
 If you haven't already, [install the Sensu Go backend, agent, and sensuctl tool][15] and [configure sensuctl][16].
 
-Log in to your Sensu account at [account.sensu.io][2] and download your commercial license file.
-Click **Download license**.
+You will need a commercial license if your Sensu installation includes more than 100 entities.
+To download your commercial license file:
+
+1. Log in to your Sensu account at [account.sensu.io][2].
+2. Click **Download license**.
 
 <img alt="Screenshot of Sensu account license download" src="/images/go-license-download.png" width="350px">
 
