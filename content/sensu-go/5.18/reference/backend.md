@@ -59,7 +59,6 @@ For a **new** installation, the backend database must be initialized by providin
 This step bootstraps the first admin user account for your Sensu installation.
 This account will be granted the cluster admin role.
 
-If you do not include the environment variables to set administrator credentials, the backend will initialize with the default admin credentials (username `admin` and password `P@ssw0rd!`).
 
 ### Docker initialization
 
