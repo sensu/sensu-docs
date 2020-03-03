@@ -53,7 +53,7 @@ For information about creating and managing checks, see:
 
 For a **new** installation, the backend database must be initialized by providing a username and password to be granted administrative privileges. Although initialization is required for every new installation, the implementation differs depending on your method of installation:
 
-- If you are using Docker, you can set admin credentials during installation step [2. Configure and start][24].
+- If you are using Docker, you can use environment variables to override the default admin username (`admin`) and password (`P@ssw0rd!`) during installation step [2. Configure and start][24].
 - If you are using Ubuntu/Debian or RHEL/CentOS, you can set admin credentials during installation step [3. Initialization][25].
 
 This step bootstraps the first admin user account for your Sensu installation.
