@@ -51,14 +51,14 @@ For information about creating and managing checks, see:
 
 ## Initialization
 
-For a **new** installation, the backend database must be initialized by providing a username and password to be granted administrative privileges. Although initialization is required for every new installation, the implementation differs depending on your method of installation:
+For a **new** installation, the backend database must be initialized by providing a username and password for the user to be granted administrative privileges.
+Although initialization is required for every new installation, the implementation differs depending on your method of installation:
 
-- If you are using Docker, you can use environment variables to override the default admin username (`admin`) and password (`P@ssw0rd!`) during installation step [2. Configure and start][24].
-- If you are using Ubuntu/Debian or RHEL/CentOS, you must specify admin credentials during installation step [3. Initialization][25]. Sensu does not apply a default admin username or password for Ubuntu/Debian or RHEL/CentoOS installations.
+- If you are using Docker, you can use environment variables to override the default admin username (`admin`) and password (`P@ssw0rd!`) during [step 2 of the backend installation process][24].
+- If you are using Ubuntu/Debian or RHEL/CentOS, you must specify admin credentials during [step 3 of the backend installation process][25]. Sensu does not apply a default admin username or password for Ubuntu/Debian or RHEL/CentoOS installations.
 
 This step bootstraps the first admin user account for your Sensu installation.
 This account will be granted the cluster admin role.
-
 
 ### Docker initialization
 
@@ -98,6 +98,8 @@ volumes:
 {{< /highlight >}}
 
 {{< /language-toggle >}}
+
+If you did not use environment variables to override the default admin credentials in [step 2 of the backend installation process][24], we recommend [changing your default admin password][26] immediately.
 
 ### Ubuntu/Debian or RHEL/CentOS initialization
 
@@ -1235,7 +1237,7 @@ Here are some log rotate sample configurations:
 {{< /highlight >}}
 
 [1]: ../../installation/install-sensu#install-the-sensu-backend
-[2]: https://github.com/etcd-io/etcd/blob/master/Documentation/docs.md
+[2]: https://etcd.io/docs
 [3]: ../../guides/monitor-server-resources/
 [4]: ../../guides/extract-metrics-with-checks/
 [5]: ../../reference/checks/
@@ -1252,10 +1254,11 @@ Here are some log rotate sample configurations:
 [16]: https://github.com/etcd-io/etcd/blob/master/Documentation/tuning.md#time-parameters
 [17]: ../../files/backend.yml
 [18]: https://golang.org/pkg/crypto/tls/#pkg-constants
-[19]: https://etcd.io/docs/v3.3.12/op-guide/clustering/#discovery
-[20]: https://etcd.io/docs/v3.3.12/op-guide/clustering/#etcd-discovery
-[21]: https://etcd.io/docs/v3.3.12/op-guide/clustering/#dns-discovery
+[19]: https://etcd.io/docs/latest/op-guide/clustering/#discovery
+[20]: https://etcd.io/docs/latest/op-guide/clustering/#etcd-discovery
+[21]: https://etcd.io/docs/latest/op-guide/clustering/#dns-discovery
 [22]: #initialization
 [23]: #etcd-listen-client-urls
 [24]: ../../installation/install-sensu#2-configure-and-start
-[25]: ../../installation/install-sensu#3-initialization
+[25]: ../../installation/install-sensu#3-initialize
+[26]: ../../sensuctl/reference/#change-admin-user-s-password

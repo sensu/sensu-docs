@@ -242,9 +242,9 @@ Use your Sensu username and password to [configure sensuctl][26] or log in to th
 
 ### Default users
 
-During the [Sensu backend installation][42] process, you can set administrator credentials to override the default credentials and a `default` namespace.
+During the [Sensu backend installation][42] process, you can set administrator credentials to override the default credentials and create a `default` namespace.
 
-This is the user that you can use to manage all aspects of Sensu and create new users.
+This is the admin user that you can use to manage all aspects of Sensu and create new users.
 
 | attribute | value |
 | --------- | ----- |
@@ -254,11 +254,7 @@ This is the user that you can use to manage all aspects of Sensu and create new 
 | cluster role   |  `cluster-admin` |
 | cluster role binding   | `cluster-admin	`  |
 
-Once authenticated, you can change the password for the admin user with the `change-password` command:
-
-{{< highlight shell >}}
-sensuctl user change-password
-{{< /highlight >}}
+Once authenticated, you can [change the admin user's password][45] with the `change-password` command.
 
 Sensu also includes an `agent` user, which is used internally by the Sensu agent.
 You can configure `agent` user credentials with the [`user` and `password` agent configuration flags][41].
@@ -1276,3 +1272,4 @@ You can add these resources to Sensu using [`sensuctl create`][31].
 [42]: ../../installation/install-sensu/#install-the-sensu-backend
 [43]: ../../installation/auth#ldap-authentication
 [44]: ../../installation/auth/#ad-authentication
+[45]: ../../sensuctl/reference/#change-admin-user-s-password

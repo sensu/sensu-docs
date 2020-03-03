@@ -70,9 +70,17 @@ Your ability to get, list, create, update, and delete resources with sensuctl de
 For more information about configuring Sensu access control, see the [RBAC reference][1].
 
 {{% notice note %}}
-**NOTE**: For a **new** installation, you can set administrator credentials with environment variables to override the default admin username and password during [initialization](../../reference/backend/#initialization).
-If you do not include the environment variables to set administrator credentials, the backend will initialize with the default username (`admin`) and password (`P@ssw0rd!`).
+**NOTE**: For a **new** installation, you can set administrator credentials with environment variables during [initialization](../../reference/backend/#initialization).
+If you are using Docker and you do not include the environment variables to set administrator credentials, the backend will initialize with the default username (`admin`) and password (`P@ssw0rd!`).
 {{% /notice %}} 
+
+#### Change admin user's password
+
+To change the admin user's password, run:
+
+{{< highlight shell >}}
+sensuctl user change-password --interactive
+{{< /highlight >}}
 
 ### Preferred output format
 
@@ -1066,3 +1074,4 @@ Flags are optional and apply only to the `delete` command.
 [42]: ../../installation/auth/#ad-authentication
 [43]: ../../reference/secrets-providers/
 [44]: ../../installation/auth#use-built-in-basic-authentication
+[45]: ../../installation/install-sensu/#2-configure-and-start
