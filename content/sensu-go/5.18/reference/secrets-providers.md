@@ -22,9 +22,12 @@ Sensu's secrets management eliminates the need to expose secrets like usernames,
 With Sensu's secrets management, you can obtain secrets from one or more external secrets providers, refer to external secrets, and consume secrets via [backend environment variables][4].
 
 Only Sensu backends have access to request [secrets][9] from a secrets provider.
-Secrets are only transmitted over a TLS websocket connection.
+
+Secrets are only transmitted over a transport layer security (TLS) websocket connection.
 Unencrypted connections must not transmit privileged information.
-For agent-side resources, enable TLS/mTLS.
+
+For agent-side resources, you must [enable mutual TLS (mTLS)][13].
+Sensu will not transmit secrets to agents that do not use mTLS.
 
 The [Sensu Go commercial distribution][1] includes a built-in secrets provider, `Env`, that exposes secrets from [environment variables][4] on your Sensu backend nodes.
 You can also use the secrets provider `VaultProvider` to authenticate via the HashiCorp Vault integration's [token auth method][10] or [TLS certificate auth method][11].
@@ -316,6 +319,7 @@ spec: {}
 [10]: https://www.vaultproject.io/docs/auth/token/
 [11]: https://www.vaultproject.io/api/auth/cert/index.html
 [12]: #client-attributes
+[13]: ../../guides/securing-sensu/#sensu-agent-mtls-authentication
 [14]: https://www.vaultproject.io/api-docs/
 [15]: https://www.vaultproject.io/api/auth/cert/index.html#parameters-7
 [16]: ../../guides/secrets-management/

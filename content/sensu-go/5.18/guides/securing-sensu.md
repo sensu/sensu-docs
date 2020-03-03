@@ -14,7 +14,7 @@ menu:
 - [Secure etcd peer communication](#secure-etcd-peer-communication)
 - [Secure the API and dashboard](#secure-the-api-and-dashboard)
 - [Secure Sensu agent-to-server communication](#secure-sensu-agent-to-server-communication)
-- [Sensu agent TLS authentication](#sensu-agent-tls-authentication)
+- [Sensu agent mTLS authentication](#sensu-agent-mtls-authentication)
 - [Create self-signed certificates](#create-self-signed-certificates)
 - [Next steps](#next-steps)
 
@@ -49,7 +49,7 @@ The Sensu Go Agent API, HTTP API, and web UI use a common stanza in `/etc/sensu/
 Here are the attributes you'll need to configure.
 
 {{% notice note %}}
-**NOTE**: By changing these parameters, the server will communicate over TLS and expect agents that connect to it to use the WebSocket secure protocol.
+**NOTE**: By changing these parameters, the server will communicate over transport layer security (TLS) and expect agents that connect to it to use the WebSocket secure protocol.
 For communication to continue, you must complete the steps in this section **and** in the [Secure Sensu agent-to-server communication](#secure-sensu-agent-to-server-communication) section.
 {{% /notice %}}
 
@@ -136,19 +136,20 @@ trusted-ca-file: "/path/to/trusted-certificate-authorities.pem"
 See [Run a Sensu cluster](../clustering/) for more information about how to configure agents for a clustered configuration.
 {{% /notice %}}
 
-## Sensu agent TLS authentication
+## Sensu agent mTLS authentication
 
-**COMMERCIAL FEATURE**: Access client TLS authentication in the packaged Sensu Go distribution.
+**COMMERCIAL FEATURE**: Access client mutual transport layer security (mTLS) authentication in the packaged Sensu Go distribution.
 For more information, see [Get started with commercial features][5].
 
 By default, Sensu agents require username and password authentication to communicate with Sensu backends.
 For Sensu's [default user credentials][2] and details about configuring Sensu role-based access control, see the [RBAC reference][3] and [Create a read-only user][4].
 
-Sensu can also use TLS authentication for connecting agents to backends.
-When agent TLS authentication is enabled, agents do not need to send password credentials to backends when they connect.
-In addition, when using TLS authentication, agents do not require an explicit user in Sensu.
-They will default to using the `system:agents` group.
+Sensu can also use mutual transport layer security (mTLS) authentication for connecting agents to backends.
+When agent mTLS authentication is enabled, agents do not need to send password credentials to backends when they connect.
+To use [secrets management][1], Sensu agents must be secured with mTLS.
 
+In addition, when using mTLS authentication, agents do not require an explicit user in Sensu.
+They will default to using the `system:agents` group.
 You can still bind agents to a specific user when the `system:agents` group is problematic.
 For this use case, create a user that matches the Common Name (CN) of the agent's certificate.
 
@@ -177,7 +178,7 @@ Certificate:
 
 The `Subject:` field indicates the certificate's CN is `client`, so to bind the agent to a particular user in Sensu, create a user called `client`.
 
-To enable agent TLS authentication, use existing certificates and keys for the Sensu backend and agent or create new certificates and keys according to the [Create self-signed certificates][12] section.
+To enable agent mTLS authentication, use existing certificates and keys for the Sensu backend and agent or create new certificates and keys according to the [Create self-signed certificates][12] section.
 
 After you create backend and agent certificates, modfiy the backend and agent configuration:
 
@@ -277,6 +278,8 @@ client.pem
 
 Learn about [role-based access control (RBAC) in Sensu][3] or [create a read-only user][4].
 
+
+[1]: ../../guides/secrets-management/
 [2]: ../../reference/rbac/#default-users
 [3]: ../../reference/rbac/
 [4]: ../../guides/create-read-only-user/
