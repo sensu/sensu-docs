@@ -62,7 +62,7 @@ Make a note of your Integration Key &mdash; you'll need it to create your [backe
 
 ## Use Env for secrets management
 
-The [Sensu Go commercial distribution][1] includes a built-in secrets provider, `Env`, that exposes secrets from [environment variables][4] on your Sensu backend nodes.
+The [Sensu Go commercial distribution][1] includes a built-in secrets provider, `Env`, that exposes secrets from [environment variables][21] on your Sensu backend nodes.
 The `Env` secrets provider is automatically created with an empty `spec` when you start your Sensu backend.
 
 ### Create your backend environment variable
@@ -315,7 +315,7 @@ Read the [secrets][9] or [secrets providers][10] reference for in-depth secrets 
 [1]: https://www.vaultproject.io/docs/what-is-vault/
 [2]: ../../reference/secrets-providers/
 [3]: https://www.vaultproject.io/docs/auth/token/
-[4]: https://www.vaultproject.io/api/auth/cert/index.html
+[4]: https://www.vaultproject.io/docs/auth/cert/
 [5]: ../../installation/install-sensu/#install-the-sensu-backend
 [6]: ../../installation/install-sensu/#install-sensu-agents
 [7]: ../../installation/install-sensu/#install-sensuctl
@@ -343,3 +343,4 @@ Read the [secrets][9] or [secrets providers][10] reference for in-depth secrets 
 [30]: #retrieve-your-pagerduty-integration-key
 [31]: https://www.pagerduty.com/
 [32]: https://www.vaultproject.io/docs/concepts/dev-server/
+[33]: https://www.vaultproject.io/docs/auth/cert/#configuration
