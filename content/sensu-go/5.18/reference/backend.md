@@ -99,7 +99,7 @@ volumes:
 
 {{< /language-toggle >}}
 
-If you did not use environment variables to override the default admin credentials in [step 2 of the backend installation process][24], we recommend [changing your default admin password][26] immediately.
+If you did not use environment variables to override the default admin credentials in [step 2 of the backend installation process][24], we recommend [changing your default admin password][26] as soon as you have installed sensuctl.
 
 ### Ubuntu/Debian or RHEL/CentOS initialization
 

@@ -277,7 +277,12 @@ For more information about sensuctl, see the [quickstart][23] and [reference][4]
 
 ### Change default admin password
 
-If you are using Docker and you did not use environment variables to override the default admin credentials in [step 2 of the backend installation process](#2-configure-and-start), we recommend that you change the default admin password immediately: `sensuctl user change-password --interactive`.
+If you are using Docker and you did not use environment variables to override the default admin credentials in [step 2 of the backend installation process](#2-configure-and-start), we recommend that you change the default admin password as soon as you have [installed sensuctl][19].
+Run:
+
+{{< highlight "shell" >}}
+sensuctl user change-password --interactive
+{{< /highlight >}}
 
 ## Install Sensu agents
 

@@ -254,7 +254,7 @@ This is the admin user that you can use to manage all aspects of Sensu and creat
 | cluster role   |  `cluster-admin` |
 | cluster role binding   | `cluster-admin	`  |
 
-Once authenticated, you can [change the admin user's password][45] with the `change-password` command.
+After you [configure sensuctl][26], you can [change the admin user's password][45] with the `change-password` command.
 
 Sensu also includes an `agent` user, which is used internally by the Sensu agent.
 You can configure `agent` user credentials with the [`user` and `password` agent configuration flags][41].

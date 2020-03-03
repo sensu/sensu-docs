@@ -76,7 +76,8 @@ If you are using Docker and you do not include the environment variables to set 
 
 #### Change admin user's password
 
-To change the admin user's password, run:
+After you have [installed and configured sensuctl][46], you can change the admin user's password.
+Run:
 
 {{< highlight shell >}}
 sensuctl user change-password --interactive
@@ -1075,3 +1076,4 @@ Flags are optional and apply only to the `delete` command.
 [43]: ../../reference/secrets-providers/
 [44]: ../../installation/auth#use-built-in-basic-authentication
 [45]: ../../installation/install-sensu/#2-configure-and-start
+[46]: #first-time-setup
