@@ -1,7 +1,7 @@
 ---
 title: "Sensu query expressions"
 linkTitle: "Sensu Query Expressions"
-description: "Based on JavaScript expressions, Sensu query expressions provide additional functionality for Sensu usage, like nested parameters and custom functions, so Sensu resources can be evaluated directly. Read the reference doc to learn about Sensu query expressions."
+description: "Based on JavaScript expressions, Sensu query expressions (or SQEs) provide additional functionality for Sensu usage, like nested parameters and custom functions, so Sensu resources can be evaluated directly. Read the reference doc to learn about SQEs."
 weight: 150
 version: "5.17"
 product: "Sensu Go"
@@ -16,10 +16,13 @@ menu:
   - [Custom functions](#custom-functions)
 - [Examples](#examples)
 
-Sensu query expressions are JavaScript-based expressions that provide additional functionality for using Sensu, like nested parameters and custom functions.
+Sensu query expressions (SQEs) are JavaScript-based expressions that provide additional functionality for using Sensu, like nested parameters and custom functions.
 
-Sensu query expressions always return either `true` or `false`.
-They are powered by the [Otto JavaScript VM][1].
+SQEs are defined in [event filters][3], so they act in the context of determining whether a given event should be passed to the handler.
+SQEs always receive a single event and some information about that event, like `event.timestamp` or `event.check.interval`.
+
+SQEs always return either `true` or `false`.
+They are evaluated by the [Otto JavaScript VM][1] as JavaScript programs.
 
 ## Syntax quick reference
 
@@ -76,9 +79,9 @@ They are powered by the [Otto JavaScript VM][1].
 
 ## Specification
 
-Sensu query expressions are valid ECMAScript 5 (JavaScript) expressions that return either `true` or `false`.
+SQEs are valid ECMAScript 5 (JavaScript) expressions that return either `true` or `false`.
 Other values are not allowed.
-If a Sensu query expression returns a value besides `true` or `false`, an error is logged and the filter evaluates to `false`.
+If an SQE returns a value besides `true` or `false`, an error is recorded in the [Sensu backend log][2] and the filter evaluates to `false`.
 
 ### Custom functions
 
@@ -86,9 +89,9 @@ If a Sensu query expression returns a value besides `true` or `false`, an error 
 
 The custom function `hour` returns the hour of a UNIX epoch time (in UTC and 24-hour time notation).
 
-For example, if an `event.timestamp` equals 1520275913, which is Monday, March 5, 2018 6:51:53 PM UTC, the following Sensu query expression returns `true`:
+For example, if an `event.timestamp` equals 1520275913, which is Monday, March 5, 2018 6:51:53 PM UTC, the following SQE returns `true`:
 
-{{< highlight go >}}
+{{< highlight javascript >}}
 hour(event.timestamp) >= 17
 {{< /highlight >}}
 
@@ -97,9 +100,9 @@ hour(event.timestamp) >= 17
 The custom function `weekday` returns a number that represents the day of the week of a UNIX epoch time.
 Sunday is `0`.
 
-For example, if an `event.timestamp` equals 1520275913, which is Monday, March 5, 2018 6:51:53 PM UTC, the following Sensu query expression returns `false`:
+For example, if an `event.timestamp` equals 1520275913, which is Monday, March 5, 2018 6:51:53 PM UTC, the following SQE returns `false`:
 
-{{< highlight go >}}
+{{< highlight javascript >}}
 weekday(event.timestamp) == 0
 {{< /highlight >}}
 
@@ -107,7 +110,7 @@ weekday(event.timestamp) == 0
 
 ### Evaluate an event attribute
 
-This Sensu query expression returns `true` if the event's entity contains a custom attribute named `namespace` that is equal to `production`:
+This SQE returns `true` if the event's entity contains a custom attribute named `namespace` that is equal to `production`:
 
 {{< highlight javascript >}}
 event.entity.namespace == 'production'
@@ -118,7 +121,7 @@ event.entity.namespace == 'production'
 To evaluate an attribute that contains an array of elements, use the `.indexOf` method.
 For example, this expression returns `true` if an entity includes the subscription `system`:
 
-{{< highlight text >}}
+{{< highlight javascript >}}
 entity.subscriptions.indexOf('system') >= 0
 {{< /highlight >}}
 
@@ -140,7 +143,7 @@ hour(event.timestamp) >= 9 && hour(event.timestamp) <= 17
 
 ### Evaluate labels and annotations
 
-Although you can use annotations to create Sensu query expressions, we recommend using labels because labels provide identifying information.
+Although you can use annotations to create SQEs, we recommend using labels because labels provide identifying information.
 
 This expression returns `true` if the event's entity includes the label `webserver`:
 
@@ -156,3 +159,5 @@ event.entity.annotations.indexOf('www.company.com') >= 0
 
 
 [1]: https://github.com/robertkrimen/otto
+[2]: ../backend/#event-logging
+[3]: ../reference/filters/#build-event-filter-expressions
