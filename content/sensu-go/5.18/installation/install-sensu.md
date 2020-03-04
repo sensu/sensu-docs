@@ -88,16 +88,27 @@ sudo yum install sensu-go-backend
 You can configure the Sensu backend with `sensu-backend start` flags (recommended) or an `/etc/sensu/backend.yml` file.
 The Sensu backend requires the `state-dir` flag at minimum, but other useful configurations and templates are available.
 
+{{% notice note %}}
+**NOTE**: If you are using Docker, intitialization is included in this step when you start the backend rather than in [3. Initialize](#3-initialize).
+For details about intialization in Docker, see the [backend reference](../../reference/backend#docker-initialization).
+{{% /notice %}}
+
 {{< language-toggle >}}
 
 {{< highlight Docker >}}
+# Replace `YOUR_USERNAME` and `YOUR_PASSWORD` with the username and password
+# you want to use for your admin user credentials.
 docker run -v /var/lib/sensu:/var/lib/sensu \
 -d --name sensu-backend \
 -p 3000:3000 -p 8080:8080 -p 8081:8081 sensu/sensu:latest \
+-e SENSU_BACKEND_CLUSTER_ADMIN_USERNAME=YOUR_USERNAME \
+-e SENSU_BACKEND_CLUSTER_ADMIN_PASSWORD=YOUR_PASSWORD \
 sensu-backend start --state-dir /var/lib/sensu/sensu-backend --log-level debug
 {{< /highlight >}}
 
 {{< highlight "Docker Compose" >}}
+# Replace `YOUR_USERNAME` and `YOUR_PASSWORD` with the username and password
+# you want to use for your admin user credentials.
 ---
 version: "3"
 services:
@@ -110,10 +121,14 @@ services:
     volumes:
     - "sensu-backend-data:/var/lib/sensu/etcd"
     command: "sensu-backend start --state-dir /var/lib/sensu/sensu-backend --log-level debug"
+    environment:
+    - SENSU_BACKEND_CLUSTER_ADMIN_USERNAME=YOUR_USERNAME
+    - SENSU_BACKEND_CLUSTER_ADMIN_PASSWORD=YOUR_PASSWORD
 
 volumes:
   sensu-backend-data:
     driver: local
+
 {{< /highlight >}}
 
 {{< highlight "Ubuntu/Debian" >}}
@@ -144,43 +159,18 @@ For a complete list of configuration options, see the [backend reference][6].
 
 ### 3. Initialize
 
+{{% notice note %}}
+**NOTE**: If you are using Docker, you already completed intitialization in [2. Configure and start](#2-configure-and-start).
+Skip ahead to [4. Open the web UI](#4-open-the-web-ui) to continue the backend installation process.
+If you did not use environment variables to override the default admin credentials in step 2, skip ahead to [Install sensuctl](#install-sensuctl) so you can change your default admin password immediately.
+{{% /notice %}}
+
 **With the backend running**, run `sensu-backend init` to set up your Sensu administrator username and password.
 In this initialization step, you only need to set environment variables with a username and password string &mdash; no need for role-based access control (RBAC).
 
 Replace `YOUR_USERNAME` and `YOUR_PASSWORD` with the username and password you want to use.
 
 {{< language-toggle >}}
-
-{{< highlight Docker >}}
-docker run \
--e SENSU_BACKEND_CLUSTER_ADMIN_USERNAME=YOUR_USERNAME \
--e SENSU_BACKEND_CLUSTER_ADMIN_PASSWORD=YOUR_PASSWORD \
---restart always \
---name sensu \
-sensu/sensu:latest \
-sensu-backend start
-{{< /highlight >}}
-
-{{< highlight "Docker Compose" >}}
----
-version: "3"
-services:
-  sensu-backend:
-    image: sensu/sensu:latest
-    ports:
-    - 3000:3000
-    - 8080:8080
-    - 8081:8081
-    volumes:
-    - "sensu-backend-data:/var/lib/sensu/etcd"
-    command: "sensu-backend start"
-    environment:
-    - SENSU_BACKEND_CLUSTER_ADMIN_USERNAME=YOUR_USERNAME
-    - SENSU_BACKEND_CLUSTER_ADMIN_PASSWORD=YOUR_PASSWORD
-volumes:
-  sensu-backend-data:
-    driver: local
-{{< /highlight >}}
 
 {{< highlight "Ubuntu/Debian" >}}
 export SENSU_BACKEND_CLUSTER_ADMIN_USERNAME=YOUR_USERNAME
@@ -204,7 +194,10 @@ The web UI provides a unified view of your monitoring events and user-friendly t
 After starting the Sensu backend, open the web UI by visiting http://localhost:3000.
 You may need to replace `localhost` with the hostname or IP address where the Sensu backend is running.
 
-To log in to the web UI, enter your Sensu user credentials (the username and password provided with the `SENSU_BACKEND_CLUSTER_ADMIN_USERNAME` and `SENSU_BACKEND_CLUSTER_ADMIN_PASSWORD` environment variables).
+To log in to the web UI, enter your Sensu user credentials.
+If you are using Docker and you did not specify environment variables to override the default admin credentials, your user credentials are username `admin` and password `P@ssw0rd!`.
+Otherwise, your user credentials are the username and password you provided with the `SENSU_BACKEND_CLUSTER_ADMIN_USERNAME` and `SENSU_BACKEND_CLUSTER_ADMIN_PASSWORD` environment variables.
+
 Select the ☰ icon to explore the web UI.
 
 ### 5. Make a request to the health API
@@ -280,9 +273,16 @@ sensuctl configure -n \
 Here, the `-n` flag triggers non-interactive mode.
 Run `sensuctl config view` to see your user profile.
 
-We recommend that you change the default admin password immediately: `sensuctl user change-password --interactive`.
-
 For more information about sensuctl, see the [quickstart][23] and [reference][4] docs.
+
+### Change default admin password
+
+If you are using Docker and you did not use environment variables to override the default admin credentials in [step 2 of the backend installation process](#2-configure-and-start), we recommend that you change the default admin password as soon as you have [installed sensuctl][19].
+Run:
+
+{{< highlight "shell" >}}
+sensuctl user change-password --interactive
+{{< /highlight >}}
 
 ## Install Sensu agents
 

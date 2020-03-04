@@ -733,6 +733,7 @@ example      | {{< highlight shell >}}"output_metric_handlers": ["influx-db"]{{<
 description  | When set to `true`, Sensu executes the check once per interval, cycling through each subscribing agent in turn. See [round robin checks][52] for more information.<br><br>Use the `round_robin` attribute with proxy checks to avoid duplicate events and distribute proxy check executions evenly across multiple agents. See [proxy checks][33] for more information.<br><br>To use check [`ttl`][31] and `round_robin` together, your check configuration must also specify a [`proxy_entity_name`][32]. If you do not specify a `proxy_entity_name` when using check `ttl` and `round_robin` together, your check will stop executing.
 required     | false
 type         | Boolean
+default      | `false`
 example      | {{< highlight shell >}}"round_robin": true{{< /highlight >}}
 
 |subdue      |      |
