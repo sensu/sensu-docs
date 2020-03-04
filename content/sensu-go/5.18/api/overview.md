@@ -43,7 +43,9 @@ The Sensu API requires the authenticated user to have the correct access permiss
 If the authenticated user has the correct cluster-wide permissions, you can leave out the `/namespaces/{namespace}` portion of the URL to access Sensu resources across namespaces.
 See the [RBAC reference][3] for more information about configuring Sensu users and access controls.
 
-_**NOTE**: The [authentication API][12], [authentication providers API][15], and [health API][5] do not follow this standard URL format._
+{{% notice note %}}
+**NOTE**: The [authentication API](../auth/), [authentication providers API](../authproviders/), and [health API](../health/) do not follow this standard URL format.
+{{% /notice %}}
 
 ## Data format
 
@@ -163,7 +165,9 @@ The advantages of authenticating with API keys rather than [access tokens][14] i
 
 API keys are cluster-wide resources, so only cluster admins can grant, view, and revoke them.
 
-_**NOTE**: API keys are not supported for authentication providers such as LDAP and OIDC._
+{{% notice note %}}
+**NOTE**: API keys are not supported for authentication providers such as LDAP and OIDC.
+{{% /notice %}}
 
 #### API key authentication
 
@@ -291,14 +295,14 @@ For more information, see [Get started with commercial features][8].
 The Sensu API supports response filtering for all GET endpoints that return an array.
 You can filter resources based on their labels with the `labelSelector` query parameter and based on certain pre-determined fields with the `fieldSelector` query parameter.
 
-_**NOTE**: To use label and field selectors in the Sensu dashboard, see [dashboard filtering][13]._
+{{% notice note %}}
+**NOTE**: To use label and field selectors in the Sensu dashboard, see [dashboard filtering](../../dashboard/filtering/).
+{{% /notice %}}
 
 ### Label selector
 
 The `labelSelector` query parameter allows you to group resources by the label attributes specified in the resource metadata object.
 All resources support labels within the [metadata object][9].
-
-The label selector does not work with values that contain special characters like hyphens and underscores.
 
 ### Field selector
 
@@ -326,8 +330,6 @@ Here's the list of available fields:
 | Silenced | `silenced.name` `silenced.namespace` `silenced.check` `silenced.creator` `silenced.expire_on_resolve` `silenced.subscription` |
 | User | `user.username` `user.disabled` `user.groups` |
 
-The `fieldSelector` parameter does not work with values that contain special characters like hyphens and underscores.
-
 ### Operators
 
 Sensu's API response filtering supports two equality-based operators, two set-based operators, and one logical operator.
@@ -351,8 +353,10 @@ curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" http://127.0.0.1:8080/api/co
 --data-urlencode 'labelSelector=type == "server"'
 {{< /highlight >}}
 
-_**NOTE**: Use the flag `--data-urlencode` in cURL to encode the query parameter. 
-Include the `-G` flag so the request appends the query parameter data to the URL._
+{{% notice note %}}
+**NOTE**: Use the flag `--data-urlencode` in cURL to encode the query parameter. 
+Include the `-G` flag so the request appends the query parameter data to the URL.
+{{% /notice %}}
 
 To retrieve checks that are not in the `production` namespace:
 
@@ -405,7 +409,9 @@ curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" http://127.0.0.1:8080/api/co
 --data-urlencode 'fieldSelector=check.publish != true && linux in check.subscriptions && dev in check.namespace'
 {{< /highlight >}}
 
-_**NOTE**: Sensu does not have the `OR` logical operator._
+{{% notice note %}}
+**NOTE**: Sensu does not have the `OR` logical operator.
+{{% /notice %}}
 
 ### Combined selectors
 
@@ -419,6 +425,20 @@ curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" http://127.0.0.1:8080/api/co
 {{< /highlight >}}
 
 ### Examples
+
+#### Values with special characters
+
+To use a label or field selector with string values that include special characters like hyphens and underscores, place the value in single or double quotes:
+
+{{< highlight shell >}}
+curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" -X GET http://127.0.0.1:8080/api/core/v2/entities -G \
+--data-urlencode 'labelSelector=region == "us-west-1"'
+{{< /highlight >}}
+
+{{< highlight shell >}}
+curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" http://127.0.0.1:8080/api/core/v2/entities -G \
+--data-urlencode 'fieldSelector="entity:i-0c1f8a116b84ea50c" in entity.subscriptions'
+{{< /highlight >}}
 
 #### Use selectors with arrays of strings
 
@@ -499,7 +519,5 @@ curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" http://127.0.0.1:8080/api/co
 [10]: ../auth/#the-auth-api-endpoint
 [11]: ../auth/#the-authtoken-api-endpoint
 [12]: ../auth/
-[13]: ../../dashboard/filtering/
 [14]: #authentication-quickstart
-[15]: ../authproviders/
 [16]: #limit-query-parameter

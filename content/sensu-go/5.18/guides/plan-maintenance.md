@@ -68,7 +68,9 @@ sensuctl event list
    i-424242      check-http                    0          true     2018-03-16 13:22:16 -0400 EDT
 {{< /highlight >}}
 
-_**WARNING**: By default, a silenced event will be handled unless the handler uses the `not_silenced` filter to discard silenced events._
+{{% notice warning %}}
+**WARNING**: By default, a silenced event will be handled unless the handler uses the `not_silenced` filter to discard silenced events.
+{{% /notice %}}
 
 ## Next steps
 

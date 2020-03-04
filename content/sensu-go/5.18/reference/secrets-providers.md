@@ -34,7 +34,10 @@ Secrets providers are cluster-wide resources and compatible with generic functio
  
 ## Secrets providers specification
 
-_**NOTE**: The attribute descriptions in this section use the `VaultProvider` datatype. The [secrets providers examples][13] section includes an example for the `Env` datatype._
+{{% notice note %}}
+**NOTE**: The attribute descriptions in this section use the `VaultProvider` datatype.
+The [secrets providers examples](#env-example) section includes an example for the `Env` datatype.
+{{% /notice %}}
 
 ### Top-level attributes
 
@@ -313,7 +316,6 @@ spec: {}
 [10]: https://www.vaultproject.io/docs/auth/token/
 [11]: https://www.vaultproject.io/api/auth/cert/index.html
 [12]: #client-attributes
-[13]: #env-example
 [14]: https://www.vaultproject.io/api-docs/
 [15]: https://www.vaultproject.io/api/auth/cert/index.html#parameters-7
 [16]: ../../guides/secrets-management/

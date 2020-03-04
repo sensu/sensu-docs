@@ -29,7 +29,9 @@ Sensu binary-only distributions for Linux are available for these architectures 
 | `armv7` (agent and CLI) | [`.tar.gz`][18] \| [`.zip`][24] |
 | `386` | [`.tar.gz`][19] \| [`.zip`][25] |
 
-_**NOTE**: 32-bit systems cannot run the Sensu backend reliably, so `armv5`, `armv6`, and `armv7` packages include the agent and CLI only._
+{{% notice note %}}
+**NOTE**: 32-bit systems cannot run the Sensu backend reliably, so `armv5`, `armv6`, and `armv7` packages include the agent and CLI only.
+{{% /notice %}}
 
 For example, to download Sensu for Linux `amd64` in `tar.gz` format:
 

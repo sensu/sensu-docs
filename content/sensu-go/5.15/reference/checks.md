@@ -584,8 +584,8 @@ example      | {{< highlight shell >}}"cron": "0 0 * * *"{{< /highlight >}}
 -------------|------
 description  | If check requests are published for the check.
 required     | false
-default      | `false`
 type         | Boolean
+default      | `false`
 example      | {{< highlight shell >}}"publish": false{{< /highlight >}}
 
 |timeout     |      |
@@ -609,7 +609,7 @@ example      | {{< highlight shell >}}"ttl": 100{{< /highlight >}}
 description  | If the Sensu agent writes JSON serialized Sensu entity and check data to the command process’ STDIN. The command must expect the JSON data via STDIN, read it, and close STDIN. This attribute cannot be used with existing Sensu check plugins, nor Nagios plugins etc, as Sensu agent will wait indefinitely for the check process to read and close STDIN.
 required     | false
 type         | Boolean
-default      | false
+default      | `false`
 example      | {{< highlight shell >}}"stdin": true{{< /highlight >}}
 
 |low_flap_threshold ||
@@ -713,6 +713,7 @@ example      | {{< highlight shell >}}"output_metric_handlers": ["influx-db"]{{<
 description  | When set to `true`, Sensu executes the check once per interval, cycling through each subscribing agent in turn. See [round-robin checks](#round-robin-checks) for more information.<br><br>Use the `round_robin` attribute with proxy checks to avoid duplicate events and distribute proxy check executions evenly across multiple agents. See [proxy checks](#proxy-requests) for more information.<br><br>To use check [`ttl`](#ttl-attribute) and `round_robin` together, your check configuration must also specify a [`proxy_entity_name`](#proxy-entity-name-attribute). If you do not specify a `proxy_entity_name` when using check `ttl` and `round_robin` together, your check will stop executing.
 required     | false
 type         | Boolean
+default      | `false`
 example      | {{< highlight shell >}}"round_robin": true{{< /highlight >}}
 
 |subdue      |      |
@@ -776,7 +777,7 @@ example      | {{< highlight shell >}}"entity_attributes": [
 description  | If proxy check requests should be splayed, published evenly over a window of time, determined by the check interval and a configurable splay coverage percentage. For example, if a check has an interval of `60` seconds and a configured splay coverage of `90`%, its proxy check requests would be splayed evenly over a time window of `60` seconds * `90`%, `54` seconds, leaving `6`s for the last proxy check execution before the the next round of proxy check requests for the same check.
 required     | false
 type         | Boolean
-default      | false
+default      | `false`
 example      | {{< highlight shell >}}"splay": true{{< /highlight >}}
 
 |splay_coverage  | |

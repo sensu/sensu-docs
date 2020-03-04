@@ -62,7 +62,10 @@ kubectl apply -f kube-state-metrics/kubernetes
 
 **4. Open your `/etc/hosts` file and add the hostnames.**
 
-_**NOTE**: You'll use the IP address for the Minikube VM in the hosts file. To view the address, use the command `minikube ip`._
+{{% notice note %}}
+**NOTE**: You'll use the IP address for the Minikube VM in the hosts file.
+To view the address, use the command `minikube ip`.
+{{% /notice %}}
 
 {{< highlight shell >}}
 192.168.99.100       sensu.local webui.sensu.local sensu-enterprise.local dashboard.sensu-enterprise.local

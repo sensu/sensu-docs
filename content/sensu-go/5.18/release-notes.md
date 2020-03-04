@@ -7,6 +7,7 @@ version: "5.18"
 menu: "sensu-go-5.18"
 ---
 
+- [5.18.0 release notes](#5-18-0-release-notes)
 - [5.17.2 release notes](#5-17-2-release-notes)
 - [5.17.1 release notes](#5-17-1-release-notes)
 - [5.17.0 release notes](#5-17-0-release-notes)
@@ -52,6 +53,36 @@ PATCH versions include backward-compatible bug fixes.
 Read the [upgrade guide][1] for information about upgrading to the latest version of Sensu Go.
 
 ---
+
+## 5.18.0 release notes
+
+**February 25, 2020** &mdash; The latest release of Sensu Go, version 5.18.0, is now available for download.
+This release delivers a number of improvements to the overall Sensu Go experience.
+From automatic proxy entity creation to unique Sensu event IDs, it’s now much easier to use and troubleshoot your monitoring event pipelines!
+If you’re working behind an HTTP proxy, you can now manage remote Sensu Go clusters, as sensuctl now honors proxy environment variables (e.g. HTTPS_PROXY).
+This release also includes a number of fixes for usability bugs, making for the most polished release of Sensu Go yet, so go ahead and give it a download!
+
+See the [upgrade guide][1] to upgrade Sensu to version 5.18.0.
+
+**IMPROVEMENTS:**
+
+- The `event.entity.entity_class` value now defaults to `proxy` for [`POST /events`][114] requests.
+- If you use the [events API][118] to create a new event with an entity that does not already exist, the sensu-backend will automatically create a proxy entity when the event is published.
+- Sensuctl now accepts Bonsai asset versions that include a prefix with the letter `v` (for example, `v1.2.0`).
+- The version API now retrieves the Sensu agent version for the Sensu instance.
+- Log messages now indicate which filter dropped an event.
+- Sensu now reads and writes `initializationKey` to and from EtcdRoot, with legacy support (read-only) as a fallback.
+- Sensu will now check for an HTTP response other than `200 OK` response when fetching assets.
+- Updated Go version from 1.13.5 to 1.13.7.
+
+**FIXES:**
+
+- ([Commercial feature][115]) [Label selectors][116] and [field selectors][117] now accept single and double quotes to identify strings.
+- Fixed a bug that prevented wrapped resources from having their namespaces set by the default sensuctl configuration.
+- Fixed a bug that prevented [API response filtering][119] from working properly for the silenced API.
+- Improved event payload validation for the [events API][118] so that events that do not match the URL parameters on the `/events/:entity/:check` endpoint are rejected.
+- Sensuctl now supports the `http_proxy`, `https_proxy`, and `no_proxy` environment variables.
+- The [`auth/test` endpoint][120] now returns the correct error messages.
 
 ## 5.17.2 release notes
 
@@ -886,7 +917,9 @@ See the [upgrade guide][1] to upgrade Sensu to version 5.1.0.
 
 **IMPORTANT:**
 
-_**NOTE**: This applies only to Sensu backend binaries downloaded from `s3-us-west-2.amazonaws.com/sensu.io/sensu-go`, not to Sensu RPM or DEB packages._
+{{% notice note %}}
+**NOTE**: This applies only to Sensu backend binaries downloaded from `s3-us-west-2.amazonaws.com/sensu.io/sensu-go`, not to Sensu RPM or DEB packages.
+{{% /notice %}}
 
 - For Sensu backend binaries, the default `state-dir` is now `/var/lib/sensu/sensu-backend` instead of `/var/lib/sensu`.
 To upgrade your Sensu backend binary to 5.1.0, make sure your `/etc/sensu/backend.yml` configuration file specifies a `state-dir`.
@@ -1048,7 +1081,14 @@ To get started with Sensu Go:
 [107]: /sensu-go/5.17/dashboard/overview
 [108]: /sensu-go/5.17/api/secrets
 [109]: /sensu-go/5.17/reference/backend/#initialization
-[110]: https://docs.sensu.io/sensu-go/5.17/api/overview/#field-selector
-[111]: https://docs.sensu.io/sensu-go/5.17/reference/rbac/#cluster-wide-resource-types
-[112]: https://docs.sensu.io/sensu-go/5.17/api/events/#events-post
-[113]: https://docs.sensu.io/sensu-go/5.17/sensuctl/reference/#list-commands
+[110]: /sensu-go/5.17/api/overview/#field-selector
+[111]: /sensu-go/5.17/reference/rbac/#cluster-wide-resource-types
+[112]: /sensu-go/5.17/api/events/#events-post
+[113]: /sensu-go/5.17/sensuctl/reference/#list-commands
+[114]: /sensu-go/5.18/api/events/#events-post
+[115]: /sensu-go/5.18/getting-started/enterprise/
+[116]: /sensu-go/5.18/api/overview/#label-selector
+[117]: /sensu-go/5.18/api/overview/#field-selector
+[118]: /sensu-go/5.18/api/events#events-post
+[119]: /sensu-go/5.18/api/overview/#response-filtering
+[120]: /sensu-go/5.18/api/auth/#the-authtest-api-endpoint
