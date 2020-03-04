@@ -37,7 +37,7 @@ Secrets are configured via [secrets resources][8].
 A secret resource definition refers to the secrets provider (`Env` or `VaultProvider`) and an ID (the named secret to fetch from the secrets provider).
 
 This guide only covers the handler use case, but you can use secrets management in handler, mutator, and check execution.
-For secrets management in checks, the Sensu backend will transmit requests over its secure transport [transport layer security (TLS)-encrypted websockets] to your Sensu agent to execute your check, so you must [enable mutual TLS (mTLS)][15].
+When secrets are referenced in check configurations, the Sensu backend will only transmit execution requests for those checks to agents connected via [mutually-authenticated transport layer security (mTLS)-encrypted websockets]. Read more about [enabling mutual TLS (mTLS)][15].
 
 The secret included in your Sensu handler will be exposed to Sensu services at runtime as an environment variable.
 Sensu only exposes secrets to Sensu services like environment variables and automatically redacts secrets from all logs, the API, and the dashboard.
