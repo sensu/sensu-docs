@@ -37,8 +37,6 @@ The `/etcd-replicators` API endpoint provides HTTP GET access to a list of repli
 
 The following example demonstrates a request to the `/etcd-replicators` API endpoint, resulting in a list of replicators.
 
-_**NOTE**: If you did not specify a [namespace][2] when you created a replicator, the response will not include a `namespace` key-value pair._
-
 {{< highlight shell >}}
 curl -X GET \
 http://127.0.0.1:8080/api/enterprise/federation/v1/etcd-replicators \
@@ -68,7 +66,7 @@ http://127.0.0.1:8080/api/enterprise/federation/v1/etcd-replicators \
 
 /etcd-replicators (GET)  | 
 ---------------|------
-description    | Returns the list of replicators.
+description    | Returns the list of replicators. _**NOTE**: If you did not specify a [namespace][2] when you created a replicator, the response will not include a `namespace` key-value pair._
 example url    | http://hostname:8080/api/enterprise/federation/v1/etcd-replicators
 response type  | Array
 response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
@@ -98,7 +96,8 @@ output         | {{< highlight shell >}}
 
 The `/etcd-replicators` API endpoint provides HTTP POST access to create replicators.
 
-_**NOTE**: If you do not specify a [namespace][2] when you create a replicator, all namespaces for the given resource are replicated._
+_**NOTE**: Create a replicator for each resource type you want to replicate. 
+Replicating `namespace` resources will **not** replicate the resources that belong to those namespaces._
 
 #### EXAMPLE {#etcd-replicators-post-example}
 
@@ -134,7 +133,7 @@ HTTP/1.1 200 OK
 
 /etcd-replicators (POST) | 
 ----------------|------
-description     | Creates a new replicator (if none exists).
+description     | Creates a new replicator (if none exists). _**NOTE**: If you do not specify a [namespace][2] when you create a replicator, all namespaces for the given resource are replicated._
 example URL     | http://hostname:8080/api/enterprise/federation/v1/etcd-replicators
 payload         | {{< highlight shell >}}
 {
@@ -167,8 +166,6 @@ The `/etcd-replicators/:etcd-replicator` API endpoint provides HTTP GET access t
 
 In the following example, querying the `/etcd-replicators/:etcd-replicator` API endpoint returns a JSON map that contains the requested `:etcd-replicator`.
 
-_**NOTE**: If you did not specify a [namespace][2] when you created the replicator, the response will not include a `namespace` key-value pair._
-
 {{< highlight shell >}}
 curl -X GET \
 http://127.0.0.1:8080/api/enterprise/federation/v1/etcd-replicators/my_replicator \
@@ -196,7 +193,7 @@ http://127.0.0.1:8080/api/enterprise/federation/v1/etcd-replicators/my_replicato
 
 /etcd-replicators/:etcd-replicator (GET) | 
 ---------------------|------
-description          | Returns the specified replicator.
+description          | Returns the specified replicator. _**NOTE**: If you did not specify a [namespace][2] when you created the replicator, the response will not include a `namespace` key-value pair._
 example url          | http://hostname:8080/api/enterprise/federation/v1/etcd-replicators/my_replicator
 response type        | Map
 response codes       | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
