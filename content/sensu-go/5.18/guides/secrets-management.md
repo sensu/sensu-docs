@@ -16,8 +16,7 @@ menu:
   - [Create your backend environment variable](#create-your-backend-environment-variable)
   - [Create your Env secret](#create-your-env-secret)
 - [Use HashiCorp Vault for secrets management](#use-hashicorp-vault-for-secrets-management)
-  - [Retrieve your Vault root token](#retrieve-your-vault-root-token)
-  - [Create your Vault secrets provider](#create-your-vault-secrets-provider)
+  - [Configure your Vault authentication method (token or TLS)](#configure-your-vault-authentication-method-token-or-tls)
   - [Create your Vault secret](#create-your-vault-secret)
 - [Add a handler](#add-a-handler)
   - [Register the PagerDuty handler asset](#register-the-pagerduty-handler-asset)
@@ -63,7 +62,7 @@ Make a note of your Integration Key &mdash; you'll need it to create your [backe
 
 ## Use Env for secrets management
 
-The [Sensu Go commercial distribution][1] includes a built-in secrets provider, `Env`, that exposes secrets from [environment variables][4] on your Sensu backend nodes.
+The [Sensu Go commercial distribution][1] includes a built-in secrets provider, `Env`, that exposes secrets from [environment variables][21] on your Sensu backend nodes.
 The `Env` secrets provider is automatically created with an empty `spec` when you start your Sensu backend.
 
 ### Create your backend environment variable
@@ -117,11 +116,24 @@ Skip to the [add a handler][19] section, where you'll use your `pagerduty_key` s
 
 This section explains how to use [HashiCorp Vault][1] as your external [secrets provider][2] to authenticate via the HashiCorp Vault integration's [token auth method][3] or [TLS certificate auth method][4].
 
-_**NOTE**: You will need to set up [HashiCorp Vault][15] to use `VaultProvider` secrets management in production. The examples in this guide use the [Vault dev server][32], which is useful for learning and experimenting. The Vault dev server gives you access to a preconfigured, running Vault server with in-memory storage that you can use right away. Follow the [HashiCorp Learn curriculum][16] when you are ready to set up a production server in Vault._
+{{% notice note %}}
+**NOTE**: You will need to set up [HashiCorp Vault](https://www.vaultproject.io/docs/install/) to use `VaultProvider` secrets management in production. The examples in this guide use the [Vault dev server](https://www.vaultproject.io/docs/concepts/dev-server/), which is useful for learning and experimenting. The Vault dev server gives you access to a preconfigured, running Vault server with in-memory storage that you can use right away. Follow the [HashiCorp Learn curriculum](https://learn.hashicorp.com/vault) when you are ready to set up a production server in Vault.
+{{% /notice %}}
 
-### Retrieve your Vault root token
+### Configure your Vault authentication method (token or TLS)
 
-_**NOTE**: The examples in this guide use the `Root Token` for the the [Vault dev server][18], which gives you access to a preconfigured, running Vault server with in-memory storage that you can use right away. Follow the [HashiCorp Learn curriculum][16] when you are ready to set up a production server in Vault._
+If you use [HashiCorp Vault][1] as your external [secrets provider][2], you can authenticate via the HashiCorp Vault integration's [token][3] or [transport layer security (TLS) certificate][4] authentication method.
+
+#### Vault token authentication
+
+Follow the steps in this section to use HashiCorp Vault as your external [secrets provider][2] to authenticate with the HashiCorp Vault integration's [token auth method][3].
+
+##### Retrieve your Vault root token
+
+{{% notice note %}}
+**NOTE**: The examples in this guide use the `Root Token` for the the [Vault dev server](https://learn.hashicorp.com/vault/getting-started/dev-server), which gives you access to a preconfigured, running Vault server with in-memory storage that you can use right away.
+Follow the [HashiCorp Learn curriculum](https://learn.hashicorp.com/vault) when you are ready to set up a production server in Vault.
+{{% /notice %}}
 
 To retrieve your Vault root token:
 
@@ -140,9 +152,11 @@ You will use it next to create your Vault secrets provider.
 Leave the Vault dev server running.
 Because you aren't using TLS, you will need to set `VAULT_ADDR=http://127.0.0.1:8200` in your shell environment.
 
-### Create your Vault secrets provider
+##### Create your Vault secrets provider
 
-_**NOTE**: In Vault's dev server, TLS is not enabled, so you won't be able to use certificate-based authentication._
+{{% notice note %}}
+**NOTE**: In Vault's dev server, TLS is not enabled, so you won't be able to use certificate-based authentication.
+{{% /notice %}}
 
 Use `sensuctl create` to create your secrets provider, `vault`.
 In the code below, replace `ROOT_TOKEN` with the `Root Token` value for your Vault dev server.
@@ -169,6 +183,55 @@ spec:
 EOF
 {{< /highlight >}}
 
+To continue, skip ahead to [create your Vault secret][29].
+
+#### Vault TLS certificate authentication
+
+This section explains how use HashiCorp Vault as your external [secrets provider][2] to authenticate with the HashiCorp Vault integration's [TLS certificate auth method][4].
+
+{{% notice note %}}
+**NOTE**: You will need to set up [HashiCorp Vault](https://www.vaultproject.io/docs/install/) in production to use TLS certificate-based authentication. In Vault's dev server, TLS is not enabled. Follow the [HashiCorp Learn curriculum](https://learn.hashicorp.com/vault) when you are ready to set up a production server in Vault.
+{{% /notice %}}
+
+First, in your Vault, [enable and configure certificate authentication][32].
+For example, your Vault might be configured for certificate authentication like this:
+
+{{< highlight shell >}}
+vault write auth/cert/certs/sensu-agent \
+    display_name=sensu-agent \
+    policies=sensu-agent-policy \
+    certificate=@sensu-agent-vault.pem \
+    ttl=3600
+{{< /highlight >}}
+
+Second, configure your `VaultProvider` in Sensu: 
+
+{{< highlight yaml >}}
+---
+type: VaultProvider
+api_version: secrets/v1
+metadata:
+  name: vault
+spec:
+  client:
+    address: https://vault.example.com:8200
+    version: v2
+    tls:
+      ca_cert: /path/to/your/ca.pem
+      client_cert: /etc/sensu/ssl/sensu-agent-vault.pem
+      client_key: /etc/sensu/ssl/sensu-agent-vault-key.pem
+      cname: sensu-agent.example.com
+    max_retries: 2
+    timeout: 20s
+    rate_limiter:
+      limit: 10
+      burst: 100
+{{< /highlight >}}
+
+The certificate you specify for `tls.client_cert` should be the same certificate you configured in your Vault for certificate authentication.
+
+Next, [create your Vault secret][29].
+
 ### Create your Vault secret
 
 First, retrieve your [PagerDuty Integration Key][30] (the secret you will set up in Vault).
@@ -181,8 +244,10 @@ In this example, the name of the secret is `pagerduty`.
 The `pagerduty` secret contains a key, and you specified that the `key` value is your PagerDuty Integration Key.
 The `id` value for your secret will be `secret/pagerduty#key`.
 
-_**NOTE**: The `id` value for secrets that target a HashiCorp Vault must start with the name of the secret's path in Vault.
-The Vault dev server is preconfigured with the `secret` keyspace already set up, so we recommend using the `secret/` path for the `id` value while you are learning and getting started with Vault secrets management._
+{{% notice note %}}
+**NOTE**: The `id` value for secrets that target a HashiCorp Vault must start with the name of the secret's path in Vault.
+The Vault dev server is preconfigured with the `secret` keyspace already set up, so we recommend using the `secret/` path for the `id` value while you are learning and getting started with Vault secrets management.
+{{% /notice %}}
 
 Run `vault kv get secret/pagerduty` to see the secret you just set up.
 
@@ -217,7 +282,9 @@ sensuctl asset add sensu/sensu-pagerduty-handler:1.2.0 -r pagerduty-handler
 
 This example uses the `-r` (rename) flag to specify a shorter name for the asset: `pagerduty-handler`.
 
-_**NOTE**: You can [adjust the asset definition][26] according to your Sensu configuration if needed._
+{{% notice note %}}
+**NOTE**: You can [adjust the asset definition](../install-check-executables-with-assets/#2-adjust-the-asset-definition) according to your Sensu configuration if needed.
+{{% /notice %}}
 
 Run `sensuctl asset list --format yaml` to confirm that the asset is ready to use.
 
@@ -261,7 +328,7 @@ Read the [secrets][9] or [secrets providers][10] reference for in-depth secrets 
 [1]: https://www.vaultproject.io/docs/what-is-vault/
 [2]: ../../reference/secrets-providers/
 [3]: https://www.vaultproject.io/docs/auth/token/
-[4]: https://www.vaultproject.io/api/auth/cert/index.html
+[4]: https://www.vaultproject.io/docs/auth/cert/
 [5]: ../../installation/install-sensu/#install-the-sensu-backend
 [6]: ../../installation/install-sensu/#install-sensu-agents
 [7]: ../../installation/install-sensu/#install-sensuctl
@@ -272,10 +339,7 @@ Read the [secrets][9] or [secrets providers][10] reference for in-depth secrets 
 [12]: https://www.vaultproject.io/docs/concepts/lease.html#lease-durations-and-renewal
 [13]: ../../api/secrets#providers-provider-put
 [14]: ../../api/secrets#secrets-secret-put
-[15]: https://www.vaultproject.io/docs/install/
-[16]: https://learn.hashicorp.com/vault
 [17]: ../../reference/secrets-providers#tls-vault
-[18]: https://learn.hashicorp.com/vault/getting-started/dev-server
 [19]: #add-a-handler
 [20]: ../../getting-started/enterprise/
 [21]: ../../reference/backend/#configuration-via-environment-variables
@@ -283,9 +347,8 @@ Read the [secrets][9] or [secrets providers][10] reference for in-depth secrets 
 [23]: https://bonsai.sensu.io/assets/sensu/sensu-pagerduty-handler
 [24]: ../monitor-server-resources/
 [25]: https://www.vaultproject.io/downloads/
-[26]: ../install-check-executables-with-assets/#2-adjust-the-asset-definition
 [28]: #create-your-backend-environment-variable
 [29]: #create-your-vault-secret
 [30]: #retrieve-your-pagerduty-integration-key
 [31]: https://www.pagerduty.com/
-[32]: https://www.vaultproject.io/docs/concepts/dev-server/
+[32]: https://www.vaultproject.io/docs/auth/cert/#configuration

@@ -49,7 +49,10 @@ TCP and UDP handlers enable Sensu to forward event data to arbitrary TCP or UDP 
 
 Handler set definitions allow you to use a single named handler set to refer to groups of handlers (individual collections of actions to take on event data).
 
-_**NOTE**: Attributes defined on handler sets do not apply to the handlers they include. For example, `filters` and `mutator` attributes defined in a handler set will have no effect on handlers._
+{{% notice note %}}
+**NOTE**: Attributes defined on handler sets do not apply to the handlers they include.
+For example, `filters` and `mutator` attributes defined in a handler set will have no effect on handlers.
+{{% /notice %}}
 
 ## Keepalive event handlers
 
@@ -225,28 +228,36 @@ example     | {{< highlight shell >}}"timeout": 30{{< /highlight >}}
 
 command      | 
 -------------|------
-description  | Handler command to be executed. The event data is passed to the process via `STDIN`. _**NOTE**: The `command` attribute is only supported for pipe handlers (i.e. handlers configured with `"type": "pipe"`)._
+description  | Handler command to be executed. The event data is passed to the process via `STDIN`. {{% notice note %}}
+**NOTE**: The `command` attribute is only supported for pipe handlers (i.e. handlers configured with `"type": "pipe"`).
+{{% /notice %}}
 required     | true (if `type` equals `pipe`)
 type         | String
 example      | {{< highlight shell >}}"command": "/etc/sensu/plugins/pagerduty.go"{{< /highlight >}}
 
 env_vars      | 
 -------------|------
-description  | Array of environment variables to use with command execution. _**NOTE**: The `env_vars` attribute is only supported for pipe handlers (i.e. handlers configured with `"type": "pipe"`)._
+description  | Array of environment variables to use with command execution. {{% notice note %}}
+**NOTE**: The `env_vars` attribute is only supported for pipe handlers (i.e. handlers configured with `"type": "pipe"`).
+{{% /notice %}}
 required     | false
 type         | Array
 example      | {{< highlight shell >}}"env_vars": ["API_KEY=0428d6b8nb51an4d95nbe28nf90865a66af5"]{{< /highlight >}}
 
 socket       | 
 -------------|------
-description  | Scope for [`socket` definition][6] used to configure the TCP/UDP handler socket. _**NOTE**: The `socket` attribute is only supported for TCP/UDP handlers (i.e. handlers configured with `"type": "tcp"` or `"type": "udp"`)._
+description  | Scope for [`socket` definition][6] used to configure the TCP/UDP handler socket. {{% notice note %}}
+**NOTE**: The `socket` attribute is only supported for TCP/UDP handlers (i.e. handlers configured with `"type": "tcp"` or `"type": "udp"`).
+{{% /notice %}}
 required     | true (if `type` equals `tcp` or `udp`)
 type         | Hash
 example      | {{< highlight shell >}}"socket": {}{{< /highlight >}}
 
 handlers     | 
 -------------|------
-description  | Array of Sensu event handlers (by their names) to use for events using the handler set. Each array item must be a string. _**NOTE**: The `handlers` attribute is only supported for handler sets (i.e. handlers configured with `"type": "set"`)._
+description  | Array of Sensu event handlers (by their names) to use for events using the handler set. Each array item must be a string. {{% notice note %}}
+**NOTE**: The `handlers` attribute is only supported for handler sets (i.e. handlers configured with `"type": "set"`).
+{{% /notice %}}
 required     | true (if `type` equals `set`)
 type         | Array
 example      | {{< highlight shell >}}"handlers": ["pagerduty", "email", "ec2"]{{< /highlight >}}

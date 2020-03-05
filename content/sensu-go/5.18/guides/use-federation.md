@@ -90,7 +90,10 @@ This prerequisite extends to configuring the following Sensu backend etcd parame
 | `etcd-advertise-client-urls` | List of https URLs to advertise for etcd replicators, accessible by other backends in the federation (e.g. `https://sensu.beta.example.com:2379`). |
 | `etcd-listen-client-urls`    | List of https URLs to listen on for etcd replicators (e.g. `https://0.0.0.0:2379` to listen on port 2379 across all ipv4 interfaces). |
 
-_**NOTE**: You *must* provide non-default values for the `etcd-advertise-client-urls` and `etcd-listen-client-urls` backend parameters. The default values are not suitable for use under federation._
+{{% notice note %}}
+**NOTE**: You *must* provide non-default values for the `etcd-advertise-client-urls` and `etcd-listen-client-urls` backend parameters.
+The default values are not suitable for use under federation.
+{{% /notice %}}
 
 ### Step 2 Configure shared token signing keys
 
@@ -167,6 +170,12 @@ Etcd replicators use the [etcd make-mirror utility][12] for one-way replication 
 This allows you to centrally define RBAC policy on the `gateway` cluster and replicate those resources to other clusters in the federation, ensuring consistent permissions for Sensu users across multiple clusters via the `gateway` web UI.
 
 To get started, configure one etcd replicator per cluster for each of those RBAC policy types, across all namespaces, for each backend in the federation.
+
+{{% notice note %}}
+**NOTE**: Create a replicator for each resource type you want to replicate. 
+Replicating `namespace` resources will **not** replicate the resources that belong to those namespaces.
+{{% /notice %}}
+
 For example, these etcd replicator resources will replicate ClusterRoleBinding resources from  the`gateway` cluster to two target clusters:
 
 {{< language-toggle >}}
@@ -270,7 +279,10 @@ Subjects:
 
 Clusters must be registered to become visible in the web UI. Each registered cluster must have a name and a list of one or more cluster member URLs corresponding to the backend REST API.
 
-_**NOTE**: Individual Cluster resources may list the API URLs for a single stand-alone backend or multiple backends which are members of the same etcd cluster. Creating a Cluster resource which lists multiple backends not belonging to the same cluster will result in unexpected behavior._
+{{% notice note %}}
+**NOTE**: Individual cluster resources may list the API URLs for a single stand-alone backend or multiple backends that are members of the same etcd cluster.
+Creating a cluster resource that lists multiple backends that do not belong to the same cluster will result in unexpected behavior.
+{{% /notice %}}
 
 #### Register a single cluster
 
@@ -338,7 +350,9 @@ spec:
 
 {{< /language-toggle >}}
 
-_**NOTE**: When logging into the `gateway` cluster web UI, any namespaces, entities, events, and other resources specific to that cluster will be labeled as `local-cluster`._
+{{% notice note %}}
+**NOTE**: When logging into the `gateway` cluster web UI, any namespaces, entities, events, and other resources specific to that cluster will be labeled as `local-cluster`.
+{{% /notice %}}
 
 ### Step 6 Get a unified view of all your clusters in the web UI
 

@@ -37,7 +37,9 @@ The Sensu backend includes the **Sensu dashboard**: a unified view of your event
 
 After you [start the Sensu backend][1], you can access the dashboard in your browser by visiting http://localhost:3000.
 
-_**NOTE**: You may need to replace `localhost` with the hostname or IP address where the Sensu backend is running._
+{{% notice note %}}
+**NOTE**: You may need to replace `localhost` with the hostname or IP address where the Sensu backend is running.
+{{% /notice %}}
 
 ## Sign in
 

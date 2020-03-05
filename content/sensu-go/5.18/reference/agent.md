@@ -113,7 +113,9 @@ http://127.0.0.1:3031/events
 HTTP/1.1 202 Accepted
 {{< /highlight >}}
 
-_**PRO TIP**: To use the agent API `/events` endpoint to create proxy entities, include a `proxy_entity_name` attribute within the `check` scope._
+{{% notice protip %}}
+**PRO TIP**: To use the agent API `/events` endpoint to create proxy entities, include a `proxy_entity_name` attribute within the `check` scope.
+{{% /notice %}}
 
 #### Detect silent failures
 
@@ -261,7 +263,9 @@ sensu-agent --statsd-event-handlers influx-db --statsd-flush-interval 1 --statsd
 
 ## Create monitoring events using the agent TCP and UDP sockets
 
-_**NOTE**: The agent TCP and UDP sockets are deprecated in favor of the [agent API][51]._
+{{% notice note %}}
+**NOTE**: The agent TCP and UDP sockets are deprecated in favor of the [agent API](#events-post-specification).
+{{% /notice %}}
 
 Sensu agents listen for external monitoring data using TCP and UDP sockets.
 The agent sockets accept JSON event data and pass events to the Sensu backend event pipeline for processing.
@@ -328,7 +332,9 @@ Attributes specified in socket events appear in the resulting event data passed 
 
 ### Socket event specification
 
-_**NOTE**: The Sensu agent socket ignores any attributes that are not included in this specification._
+{{% notice note %}}
+**NOTE**: The Sensu agent socket ignores any attributes that are not included in this specification.
+{{% /notice %}}
 
 name         | 
 -------------|------
@@ -361,7 +367,9 @@ example      | {{< highlight shell >}}"source": "sensu-docs-site"{{< /highlight 
 
 client       | 
 -------------|------
-description  | _**NOTE**: The `client` attribute is deprecated in favor of the `source` attribute (see above)._ Name of the Sensu entity associated with the event. Use this attribute to tie the event to a proxy entity. If no matching entity exists, Sensu creates a proxy entity with the name provided by the `client` attribute.
+description  | Name of the Sensu entity associated with the event. Use this attribute to tie the event to a proxy entity. If no matching entity exists, Sensu creates a proxy entity with the name provided by the `client` attribute. {{% notice note %}}
+**NOTE**: The `client` attribute is deprecated in favor of the `source` attribute (see above).
+{{% /notice %}}
 required     | false
 default      | The agent entity that receives the event data.
 type         | String
@@ -417,7 +425,9 @@ The value you specify for `keepalive-warning-timeout` must be lower than the val
 
 You can use keepalives to identify unhealthy systems and network partitions, send notifications, and trigger auto-remediation, among other useful actions.
 
-_**NOTE**: Keepalive monitoring is not supported for [proxy entities][3], as they are inherently unable to run a Sensu agent._
+{{% notice note %}}
+**NOTE**: Keepalive monitoring is not supported for [proxy entities](../entities/), as they are inherently unable to run a Sensu agent.
+{{% /notice %}}
 
 ### Handle keepalive events
 
@@ -585,7 +595,9 @@ To disable the agent from starting on system boot:
 sudo systemctl disable sensu-agent
 {{< /highlight >}}
 
-_**NOTE**: On older distributions of Linux, use `sudo chkconfig sensu-agent on` to enable the agent and `sudo chkconfig sensu-agent off` to disable the agent._
+{{% notice note %}}
+**NOTE**: On older distributions of Linux, use `sudo chkconfig sensu-agent on` to enable the agent and `sudo chkconfig sensu-agent off` to disable the agent.
+{{% /notice %}}
 
 {{< platformBlockClose >}}
 
@@ -672,14 +684,18 @@ All Sensu agent data provided in keepalive events gets stored in the agent regis
 
 If a [Sensu event handler][8] named `registration` is configured, the [Sensu backend][2] creates and processes an [event][7] for agent registration, applying any configured [filters][9] and [mutators][10] before executing the configured [handler][8].
 
-_**PRO TIP**: Use a [handler set][34] to execute multiple handlers in response to registration events._
+{{% notice protip %}}
+**PRO TIP**: Use a [handler set](../handlers#handler-sets) to execute multiple handlers in response to registration events.
+{{% /notice %}}
 
 You can use registration events to execute one-time handlers for new Sensu agents.
 For example, you can use registration event handlers to update external [configuration management databases (CMDBs)][11] such as [ServiceNow][12].
 
 To configure a registration event handler, see the [Handlers documentation][8], which includes instructions for creating a handler named `registration`.
 
-_**WARNING**: Registration events are not stored in the event registry, so they are not accessible via the Sensu API. However, all registration events are logged in the [Sensu backend][2] log._
+{{% notice warning %}}
+**WARNING**: Registration events are not stored in the event registry, so they are not accessible via the Sensu API. However, all registration events are logged in the [Sensu backend log](../backend/#event-logging).
+{{% /notice %}}
 
 #### Deregistration events
 
@@ -1073,7 +1089,10 @@ keepalive-warning-timeout: 300{{< /highlight >}}
 
 | namespace |      |
 ---------------|------
-description    | Agent namespace. _**NOTE**: Agents are represented in the backend as a class of entity. Entities can only belong to a [single namespace][41]._
+description    | Agent namespace. {{% notice note %}}
+**NOTE**: Agents are represented in the backend as a class of entity.
+Entities can only belong to a [single namespace](../rbac/#namespaced-resource-types).
+{{% /notice %}}
 type           | String
 default        | `default`
 environment variable   | `SENSU_NAMESPACE`
@@ -1112,7 +1131,10 @@ password: "secure-password"{{< /highlight >}}
 
 | redact      |      |
 --------------|------
-description   | List of fields to redact when displaying the entity _**NOTE**: Redacted secrets are sent via the WebSocket connection and stored in etcd. They are not logged or displayed via the Sensu API._
+description   | List of fields to redact when displaying the entity. {{% notice note %}}
+**NOTE**: Redacted secrets are sent via the WebSocket connection and stored in etcd.
+They are not logged or displayed via the Sensu API.
+{{% /notice %}}
 type          | List
 default       | By default, Sensu redacts the following fields: `password`, `passwd`, `pass`, `api_key`, `api_token`, `access_key`, `secret_key`, `private_key`, `secret`.
 environment variable   | `SENSU_REDACT`
@@ -1140,7 +1162,9 @@ trusted-ca-file: "/path/to/trusted-certificate-authorities.pem"{{< /highlight >}
 
 | insecure-skip-tls-verify |      |
 ---------------------------|------
-description                | Skip SSL verification. _**WARNING**: This configuration flag is intended for use in development systems only. Do not use this flag in production._
+description                | Skip SSL verification. {{% notice warning %}}
+**WARNING**: This configuration flag is intended for use in development systems only. Do not use this flag in production.
+{{% /notice %}}
 type                       | Boolean
 default                    | `false`
 environment variable       | `SENSU_INSECURE_SKIP_TLS_VERIFY`
@@ -1423,14 +1447,12 @@ For example, if you configure a `SENSU_TEST_VAR` variable in your sensu-agent fi
 [31]: ../hooks/
 [32]: ../checks/
 [33]: ../../guides/monitor-external-resources/
-[34]: ../handlers#handler-sets
 [35]: ../backend#datastore-and-cluster-configuration-flags
 [36]: ../../guides/clustering/
 [37]: ../backend#general-configuration-flags
 [38]: #name
 [39]: ../rbac/
 [40]: ../../guides/send-slack-alerts/
-[41]: ../rbac/#namespaced-resource-types
 [42]: /sensu-core/latest/reference/checks/#check-result-specification
 [44]: ../checks#ttl-attribute
 [45]: https://en.m.wikipedia.org/wiki/WebSocket

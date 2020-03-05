@@ -68,7 +68,9 @@ You can use [sensuctl][2] to view all namespaces within Sensu:
 sensuctl namespace list
 {{< /highlight >}}
 
-_**NOTE**: For users on supported Sensu Go distributions,`sensuctl namespace list` lists only the namespaces that the current user has access to._
+{{% notice note %}}
+**NOTE**: For users on supported Sensu Go distributions,`sensuctl namespace list` lists only the namespaces that the current user has access to.
+{{% /notice %}}
 
 #### Create namespaces
 
@@ -139,7 +141,9 @@ spec:
 
 See the [reference docs][16] for the corresponding [resource type][17] to create resource definitions.
 
-_**PRO TIP**: If you omit the `namespace` attribute from resource definitions, you can use the `senusctl create --namespace` flag to specify the namespace for a group of resources at the time of creation. This allows you to replicate resources across namespaces without manual editing. See the [sensuctl reference][36] for more information._
+{{% notice protip %}}
+**PRO TIP**: If you omit the `namespace` attribute from resource definitions, you can use the `senusctl create --namespace` flag to specify the namespace for a group of resources at the time of creation. This allows you to replicate resources across namespaces without manual editing. See the [sensuctl reference](../../sensuctl/reference#create-resources-across-namespaces) for more information.
+{{% /notice %}}
 
 ### Namespace specification
 
@@ -238,9 +242,9 @@ Use your Sensu username and password to [configure sensuctl][26] or log in to th
 
 ### Default users
 
-When you install the Sensu backend, during the [initialization step][42], you create a username and password for a `default` namespace.
+During the [Sensu backend installation][42] process, you create an administrator username and password and a `default` namespace.
 
-This is the user that you can use to manage all aspects of Sensu and create new users.
+This is the admin user that you can use to manage all aspects of Sensu and create new users.
 
 | attribute | value |
 | --------- | ----- |
@@ -250,11 +254,7 @@ This is the user that you can use to manage all aspects of Sensu and create new 
 | cluster role   |  `cluster-admin` |
 | cluster role binding   | `cluster-admin	`  |
 
-Once authenticated, you can change the default password for the admin user with the `change-password` command:
-
-{{< highlight shell >}}
-sensuctl user change-password
-{{< /highlight >}}
+After you [configure sensuctl][26], you can [change the admin user's password][45] with the `change-password` command.
 
 Sensu also includes an `agent` user, which is used internally by the Sensu agent.
 You can configure `agent` user credentials with the [`user` and `password` agent configuration flags][41].
@@ -270,7 +270,10 @@ sensuctl user test-creds USERNAME --password 'password'
 An empty response indicates valid credentials.
 A `request-unauthorized` response indicates invalid credentials.
 
-_**NOTE**: The `sensuctl user test-creds` command tests passwords for users created with Sensu's built-in [basic authentication provider][34]. It does not test user credentials defined via an authentication provider like [Lightweight Directory Access Protocol (LDAP)][43] or [Active Directory (AD)][44]._
+{{% notice note %}}
+**NOTE**: The `sensuctl user test-creds` command tests passwords for users created with Sensu's built-in [basic authentication provider](../../installation/auth#use-built-in-basic-authentication).
+It does not test user credentials defined via an authentication provider like [Lightweight Directory Access Protocol (LDAP)](../../installation/auth/#ldap-authentication) or [Active Directory (AD)](../../installation/auth/#ad-authentication). 
+{{% /notice %}}
 
 To change the password for a user:
 
@@ -472,7 +475,9 @@ Every [Sensu backend][1] includes:
 
 You can use [sensuctl][2] to view, create, edit, and delete roles and cluster roles.
 
-_**NOTE**: To use any of these example commands with cluster roles, substitute the `cluster-role` command for the `role` command._
+{{% notice note %}}
+**NOTE**: To use any of these example commands with cluster roles, substitute the `cluster-role` command for the `role` command.
+{{% /notice %}}
 
 To get help managing roles with sensuctl:
 
@@ -737,7 +742,9 @@ To create and manage cluster role bindings, [configure sensuctl][26] as the [def
 
 You can use [sensuctl][2] to view, create, and delete role bindings and cluster role bindings.
 
-_**NOTE**: To use any of these commands with cluster roles, substitute the `cluster-role-binding` command for the `role-binding` command._
+{{% notice note %}}
+**NOTE**: To use any of these commands with cluster roles, substitute the `cluster-role-binding` command for the `role-binding` command.
+{{% /notice %}}
 
 To get help managing role bindings with sensuctl:
 
@@ -1156,7 +1163,9 @@ You can add these resources to Sensu using [`sensuctl create`][31].
 }
 {{< /highlight >}}
 
-_**PRO TIP**: To avoid recreating commonly used roles in each namespace, [create a cluster role][28] and use a [role binding][29] to restrict permissions within a specific namespace._
+{{% notice protip %}}
+**PRO TIP**: To avoid recreating commonly used roles in each namespace, [create a cluster role](#create-cluster-wide-roles) and use a [role binding](#create-role-bindings-and-cluster-role-bindings) to restrict permissions within a specific namespace.
+{{% /notice %}}
 
 ### Assign group permissions across all namespaces
 
@@ -1255,12 +1264,12 @@ You can add these resources to Sensu using [`sensuctl create`][31].
 [32]: ../../installation/auth#use-an-authentication-provider
 [33]: ../../getting-started/enterprise/
 [34]: ../../installation/auth#use-built-in-basic-authentication
-[36]: ../../sensuctl/reference#create-resources-across-namespaces
 [37]: ../license/
 [38]: ../../installation/auth/#groups-prefix
 [39]: ../../installation/auth/#ad-groups-prefix
 [40]: ../../reference/etcdreplicators/
 [41]: ../agent/#security-configuration-flags
-[42]: ../../installation/install-sensu/#3-initialize
+[42]: ../../installation/install-sensu/#install-the-sensu-backend
 [43]: ../../installation/auth#ldap-authentication
 [44]: ../../installation/auth/#ad-authentication
+[45]: ../../sensuctl/reference/#change-admin-user-s-password

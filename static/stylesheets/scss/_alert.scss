@@ -48,3 +48,42 @@
   margin: 1rem 0;
   padding: 1rem;
 }
+
+div.notices {
+  margin: 2rem 0;
+  position: relative;
+}
+div.notices p {
+  padding: 15px;
+  display: block;
+  font-size: 1.6rem;
+  margin-top: 0rem;
+  margin-bottom: 0rem;
+  font-style: italic;
+}
+div.notices p:first-child:before {
+  position: absolute;
+  top: 2px;
+  left: 10px;
+}
+div.notices p:first-child:after {
+  position: absolute;
+  top: 2px;
+  left: 2rem;
+}
+div.notices.important p {
+  background: #f6eaae;
+  color: #691c1a;
+}
+div.notices.warning p {
+  background: #fcf8e3;
+  color: #8a6d3b;
+}
+div.notices.note p {
+  background: #d9edf7;
+  color: #31708f;
+}
+div.notices.protip p {
+  background: #dff0d8;
+  color: #3c763d;
+}
