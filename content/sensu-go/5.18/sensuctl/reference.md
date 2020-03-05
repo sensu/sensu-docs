@@ -21,7 +21,7 @@ menu:
 - [Export resources](#export-resources)
 - [Manage resources](#manage-resources)
   - [Subcommands](#subcommands)
-- [Response filters](#response-filters) (commercial feature)
+- [Response filtering](#response-filtering) (commercial feature)
 - [Time formats](#time-formats)
 - [Shell auto-completion](#shell-auto-completion)
 - [Environment variables](#environment-variables)
@@ -648,15 +648,18 @@ See the [RBAC reference][21] for information about using access control with nam
 
 See the [RBAC reference][22] for information about local user management with sensuctl.
 
-## Response filters
+## Response filtering
 
 **COMMERCIAL FEATURE**: Access sensuctl response filters in the packaged Sensu Go distribution.
 For more information, see [Get started with commercial features][30].
 
-Sensuctl supports response filtering for all `list` commands using the `--label-selector` and `--field-selector` flags.
-For information about the operators and fields you can use in response filters, see the [API docs][28].
+Sensuctl supports response filtering for all [`list` commands][23].
+For information about response filtering methods and available label and field selectors, see [API response filtering][28].
+You can use the same methods and selectors to filter responses with sensuctl, except you'll use the `--label-selector` and `--field-selector` flags instead of cURL.
 
-### Response filter syntax quick reference
+### Operators quick reference
+
+Sensuctl response filtering supports two equality-based operators, two set-based operators, and one logical operator.
 
 | operator | description     | example                |
 | -------- | --------------- | ---------------------- |
@@ -666,30 +669,47 @@ For information about the operators and fields you can use in response filters, 
 | `notin`  | Not included in | `slack notin check.handlers`
 | `&&`     | Logical AND     | `check.publish == true && slack in check.handlers`
 
-### Filter responses with labels
+For details about operators, see [API response filtering operators][47].
+
+### Filter responses with label selectors
 
 Use the `--label-selector` flag to filter responses using custom labels.
 
-In this example, the command returns entities with the `proxy_type` label set to `switch`:
+For example, to return entities with the `proxy_type` label set to `switch`:
 
 {{< highlight shell >}}
 sensuctl entity list --label-selector 'proxy_type == switch'
 {{< /highlight >}}
 
-### Filter responses with resource attributes
+### Filter responses with field selectors
 
-Use the `--field-selector` flag to filter responses using selected resource attributes.
-To see the resource attributes you can use in response filter statements, see the [API docs][29].
+Use the `--field-selector` flag to filter responses using specific [resource attributes][29].
 
-In this example, the command returns entities with the `switches` subscription:
+For example, to return entities with the `switches` subscription:
 
 {{< highlight shell >}}
 sensuctl entity list --field-selector 'switches in entity.subscriptions'
 {{< /highlight >}}
 
-You can also combine the `--label-selector` and `--field-selector` flags.
+To retrieve all events at `2` (CRITICAL) status:
 
-In this example, the command returns checks with the `region` label set to `us-west-1` that use the `slack` handler:
+{{< highlight shell >}}
+sensuctl event list --field-selector 'event.check.status == "2"'
+{{< /highlight >}}
+
+### Use the logical AND operator
+
+To use the logical AND operator (`&&`) to return checks that include a `linux` subscription in the `dev` namespace:
+
+{{< highlight shell >}}
+sensuctl check list --field-selector 'linux in check.subscriptions && dev in check.namespace'
+{{< /highlight >}}
+
+### Combine label and field selectors
+
+You can combine the `--label-selector` and `--field-selector` flags in a single command.
+
+For example, this command returns checks with the `region` label set to `us-west-1` that also use the `slack` handler:
 
 {{< highlight shell >}}
 sensuctl check list --label-selector 'region == "us-west-1"' --field-selector 'slack in check.handlers'
@@ -1077,3 +1097,4 @@ Flags are optional and apply only to the `delete` command.
 [44]: ../../installation/auth#use-built-in-basic-authentication
 [45]: ../../installation/install-sensu/#2-configure-and-start
 [46]: #first-time-setup
+[47]: ../../api/overview/#operators
