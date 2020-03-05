@@ -30,7 +30,7 @@ find_and_replace() {
     ;;
   "Darwin")
     sed -i '' "s/${OLD_SENSU_VERSION}/${NEW_SENSU_VERSION}/g" content/sensu-go/${NEW_SENSU_VERSION}/installation/install-sensu.md content/sensu-go/${NEW_SENSU_VERSION}/installation/verify.md
-    sed -i '' "s/${OLD_SENSU_BUILD}/${NEW_SENSU_BUILD}/g" content/sensu-go/5.18/installation/install-sensu.md content/sensu-go/5.18/installation/verify.md
+    sed -i '' "s/${OLD_SENSU_BUILD}/${NEW_SENSU_BUILD}/g" content/sensu-go/${NEW_SENSU_VERSION}/installation/install-sensu.md content/sensu-go/${NEW_SENSU_VERSION}/installation/verify.md
     ;;
   *)
     echo "Unsupported platform"
