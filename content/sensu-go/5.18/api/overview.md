@@ -484,7 +484,7 @@ curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" http://127.0.0.1:8080/api/co
 --data-urlencode 'fieldSelector=event.entity.status != "0"'
 {{< /highlight >}}
 
-#### Filter checks, entities, or entities by subscription
+#### Filter checks, entities, or events by subscription
 
 To list all checks that include the `linux` subscription:
 
