@@ -655,7 +655,34 @@ For more information, see [Get started with commercial features][30].
 
 Sensuctl supports response filtering for all [`list` commands][23].
 For information about response filtering methods and available label and field selectors, see [API response filtering][28].
-You can use the same methods and selectors to filter responses with sensuctl, except you'll use the `--label-selector` and `--field-selector` flags instead of cURL.
+
+### Sensuctl-specific syntax
+
+You can use the same methods and selectors for sensuctl response filtering as for [API response filtering][28], except you'll use `--label-selector` and `--field-selector` flags instead of cURL.
+
+The standard sensuctl response filtering syntax is:
+
+{{< highlight shell >}}
+sensuctl RESOURCE_TYPE list --SELECTOR_FLAG 'FILTER_STATEMENT'
+{{< /highlight >}}
+
+To create a sensuctl response filtering command:
+
+- Replace `RESOURCE_TYPE` with the resource your filter is based on.
+- Replace `SELECTOR_FLAG` with either `label-selector` or `field-selector`, depending on which selector you want to use.
+- Replace `FILTER_STATEMENT` with the filter to apply.
+
+For example:
+
+{{< highlight shell >}}
+sensuctl event list --field-selector 'linux notin event.entity.subscriptions'
+{{< /highlight >}}
+
+Sensuctl response filtering commands will also work with a single equals sign between the selector flag and the filter statement:
+
+{{< highlight shell >}}
+sensuctl event list --field-selector='linux notin event.entity.subscriptions'
+{{< /highlight >}}
 
 ### Operators quick reference
 
