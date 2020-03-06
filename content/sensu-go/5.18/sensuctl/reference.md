@@ -658,7 +658,7 @@ For information about response filtering methods and available label and field s
 
 ### Sensuctl-specific syntax
 
-You can use the same methods and selectors for sensuctl response filtering as for [API response filtering][28], except you'll use `--label-selector` and `--field-selector` flags instead of cURL.
+You can use the same methods, selectors, and examples for sensuctl response filtering as for [API response filtering][28], except you'll format your requests with the `--label-selector` and `--field-selector` flags instead of cURL.
 
 The standard sensuctl response filtering syntax is:
 
