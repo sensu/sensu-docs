@@ -39,10 +39,10 @@ For example, to download Sensu for Linux `amd64` in `tar.gz` format:
 curl -LO https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.18.0/sensu-go_5.18.0_linux_amd64.tar.gz
 {{< /highlight >}}
 
-Generate a SHA-512 checksum for the downloaded artifact:
+Generate a SHA-256 checksum for the downloaded artifact:
 
 {{< highlight shell >}}
-sha512sum sensu-go_5.18.0_linux_amd64.tar.gz
+sha256sum sensu-go_5.18.0_linux_amd64.tar.gz
 {{< /highlight >}}
 
 The result should match the checksum for your platform:
@@ -102,10 +102,10 @@ For example, to download Sensu for macOS `amd64` in `tar.gz` format:
 curl -LO https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.18.0/sensu-go_5.18.0_darwin_amd64.tar.gz
 {{< /highlight >}}
 
-Generate a SHA-512 checksum for the downloaded artifact:
+Generate a SHA-256 checksum for the downloaded artifact:
 
 {{< highlight shell >}}
-shasum -a 512 sensu-go-5.18.0-darwin-amd64.tar.gz
+shasum -a 256 sensu-go_5.18.0_darwin_amd64.tar.gz
 {{< /highlight >}}
 
 The result should match the checksum for your platform:
@@ -145,10 +145,10 @@ For example, to download Sensu for FreeBSD `amd64` in `tar.gz` format:
 curl -LO https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.18.0/sensu-go_5.18.0_freebsd_amd64.tar.gz
 {{< /highlight >}}
 
-Generate a SHA-512 checksum for the downloaded artifact:
+Generate a SHA-256 checksum for the downloaded artifact:
 
 {{< highlight shell >}}
-sha512sum sensu-go_5.18.0_freebsd_amd64.tar.gz
+sha256sum sensu-go_5.18.0_freebsd_amd64.tar.gz
 {{< /highlight >}}
 
 The result should match the checksum for your platform:
@@ -175,10 +175,10 @@ For example, to download Sensu for Solaris `amd64` in `tar.gz` format:
 curl -LO https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.18.0/sensu-go_5.18.0_solaris_amd64.tar.gz
 {{< /highlight >}}
 
-Generate a SHA-512 checksum for the downloaded artifact.
+Generate a SHA-256 checksum for the downloaded artifact.
 
 {{< highlight shell >}}
-sha512sum sensu-go_5.18.0_solaris_amd64.tar.gz
+sha256sum sensu-go_5.18.0_solaris_amd64.tar.gz
 {{< /highlight >}}
 
 The result should match the checksum for your platform.
