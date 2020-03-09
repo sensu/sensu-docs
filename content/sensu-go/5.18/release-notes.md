@@ -7,6 +7,7 @@ version: "5.18"
 menu: "sensu-go-5.18"
 ---
 
+- [5.18.1 release notes](#5-18-1-release-notes)
 - [5.18.0 release notes](#5-18-0-release-notes)
 - [5.17.2 release notes](#5-17-2-release-notes)
 - [5.17.1 release notes](#5-17-1-release-notes)
@@ -53,6 +54,20 @@ PATCH versions include backward-compatible bug fixes.
 Read the [upgrade guide][1] for information about upgrading to the latest version of Sensu Go.
 
 ---
+
+## 5.18.1 release notes
+
+**March 9, 2020** &mdash; The latest release of Sensu Go, version 5.18.1, is now available for download.
+
+**RELEASE SUMMARY NEEDED**
+
+See the [upgrade guide][1] to upgrade Sensu to version 5.18.1.
+
+**FIXES:**
+
+- Fixed a bug where OIDC login could result in a nil pointer panic.
+- Changed to using the gRPC client (rather than the embedded etcd client) to improve reliability and avoid nil pointer panics triggered by shutting down the embedded etcd client.
+- Changed the cache resource struct alignment to 64-bit to support 32-bit systems.
 
 ## 5.18.0 release notes
 
