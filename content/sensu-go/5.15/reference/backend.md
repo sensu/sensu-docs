@@ -612,11 +612,11 @@ description                        | List of this member's peer URLs to advertis
 type                               | List
 default                            | `http://127.0.0.1:2380`
 example                            | {{< highlight shell >}}# Command line examples
-sensu-backend start --etcd-listen-peer-urls https://10.0.0.1:2380,https://10.1.0.1:2380
-sensu-backend start --etcd-listen-peer-urls https://10.0.0.1:2380 --etcd-listen-peer-urls https://10.1.0.1:2380
+sensu-backend start --etcd-initial-advertise-peer-urls https://10.0.0.1:2380,https://10.1.0.1:2380
+sensu-backend start --etcd-initial-advertise-peer-urls https://10.0.0.1:2380 --etcd-initial-advertise-peer-urls https://10.1.0.1:2380
 
 # /etc/sensu/backend.yml example
-etcd-listen-peer-urls:
+etcd-initial-advertise-peer-urls:
   - https://10.0.0.1:2380
   - https://10.1.0.1:2380
 {{< /highlight >}}
