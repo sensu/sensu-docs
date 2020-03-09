@@ -538,7 +538,7 @@ To list all silences that were not created by the `admin` user:
 
 {{< highlight shell >}}
 curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" http://127.0.0.1:8080/api/core/v2/silenced -G \
---data-urlencode 'fieldSelector=silenced.creator == "admin"'
+--data-urlencode 'fieldSelector=silenced.creator != "admin"'
 {{< /highlight >}}
 
 **Filter silences by silence subscription**
