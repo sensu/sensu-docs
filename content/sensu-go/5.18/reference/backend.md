@@ -788,11 +788,11 @@ type                               | List
 default                            | `http://127.0.0.1:2380`
 environment variable               | `SENSU_ETCD_INITIAL_ADVERTISE_PEER_URLS`
 example                            | {{< highlight shell >}}# Command line examples
-sensu-backend start --etcd-listen-peer-urls https://10.0.0.1:2380,https://10.1.0.1:2380
-sensu-backend start --etcd-listen-peer-urls https://10.0.0.1:2380 --etcd-listen-peer-urls https://10.1.0.1:2380
+sensu-backend start --etcd-initial-advertise-peer-urls https://10.0.0.1:2380,https://10.1.0.1:2380
+sensu-backend start --etcd-initial-advertise-peer-urls https://10.0.0.1:2380 --etcd-initial-advertise-peer-urls https://10.1.0.1:2380
 
 # /etc/sensu/backend.yml example
-etcd-listen-peer-urls:
+etcd-initial-advertise-peer-urls:
   - https://10.0.0.1:2380
   - https://10.1.0.1:2380
 {{< /highlight >}}
