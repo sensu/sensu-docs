@@ -373,14 +373,14 @@ For example, to retrieve checks with a `linux` subscription:
 
 {{< highlight shell >}}
 curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" http://127.0.0.1:8080/api/core/v2/checks -G \
---data-urlencode 'linux in check.subscriptions'
+--data-urlencode 'fieldSelector=linux in check.subscriptions'
 {{< /highlight >}}
 
 To retrieve checks that do not use the `slack` handler:
 
 {{< highlight shell >}}
 curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" http://127.0.0.1:8080/api/core/v2/checks -G \
---data-urlencode 'slack notin check.handlers'
+--data-urlencode 'fieldSelector=slack notin check.handlers'
 {{< /highlight >}}
 
 The `in` and `notin` operators have two important conditions:
