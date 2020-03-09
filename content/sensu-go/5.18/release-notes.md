@@ -134,7 +134,7 @@ See the [upgrade guide][1] to upgrade Sensu to version 5.17.0.
 **IMPROVEMENTS:**
 
 - ([Commercial feature][106]) Upgraded the size of the events auto-incremented ID in the PostgreSQL store to a 64-bit variant, which allows you to store many more events and avoids exhausting the sequence.
-- ([Commercial feature][106]) Initialization via [`sensu-backend init`][109] is now implemented for Docker.
+- ([Commercial feature][106]) [Initialization][109] via `sensu-backend init` is now implemented for Docker.
 - ([Commercial feature][106]) UPN binding support has been re-introduced via the `default_upn_domain` configuration attribute.
 - In the [web UI][107], labels that contain URLs are now clickable links.
 - Added `event.entity.name` as a supported field for the [`fieldSelector`][110] query parameter.
@@ -183,7 +183,7 @@ See the [upgrade guide][1] to upgrade Sensu to version 5.16.0.
 
 **IMPORTANT:**
 
-- The backend is no longer seeded with a default admin username and password.
+- For Ubuntu/Debian and RHEL/CentOS installations, the backend is no longer seeded with a default admin username and password.
 Users will need to [run 'sensu-backend init'][102] on every new installation and specify an admin username and password.
 
 **NEW FEATURES:**
@@ -1080,7 +1080,7 @@ To get started with Sensu Go:
 [106]: /sensu-go/5.17/getting-started/enterprise/
 [107]: /sensu-go/5.17/dashboard/overview
 [108]: /sensu-go/5.17/api/secrets
-[109]: /sensu-go/5.17/reference/backend/#initialization
+[109]: /sensu-go/5.17/reference/backend/#docker-initialization
 [110]: /sensu-go/5.17/api/overview/#field-selector
 [111]: /sensu-go/5.17/reference/rbac/#cluster-wide-resource-types
 [112]: /sensu-go/5.17/api/events/#events-post
