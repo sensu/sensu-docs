@@ -718,7 +718,7 @@ For example, to return entities with the `switches` subscription:
 sensuctl entity list --field-selector 'switches in entity.subscriptions'
 {{< /highlight >}}
 
-To retrieve all events at `2` (CRITICAL) status:
+To retrieve all events that equal a status of `2` (CRITICAL):
 
 {{< highlight shell >}}
 sensuctl event list --field-selector 'event.check.status == "2"'
