@@ -65,9 +65,12 @@ See the [upgrade guide][1] to upgrade Sensu to version 5.18.1.
 
 **FIXES:**
 
-- Fixed a bug where OIDC login could result in a nil pointer panic.
+- ([Commercial feature][121]) Fixed a bug that caused SQL migrations to fail on PostgreSQL 12.
+- ([Commercial feature][121]) Fixed a bug where OIDC login could result in a nil pointer panic.
 - Changed to using the gRPC client (rather than the embedded etcd client) to improve reliability and avoid nil pointer panics triggered by shutting down the embedded etcd client.
-- Changed the cache resource struct alignment to 64-bit to support 32-bit systems.
+- The Sensu backend no longer hangs indefinitely if a file lock for the asset manager cannot be obtained. Instead, the backend returns an error after 60 seconds.
+- Fixed a bug that caused sensu-backend to restart when agents disconnected.
+- Changed the `Resource` struct alignment in the store cache to 64-bit to support 32-bit systems.
 
 ## 5.18.0 release notes
 
@@ -1107,3 +1110,4 @@ To get started with Sensu Go:
 [118]: /sensu-go/5.18/api/events#events-post
 [119]: /sensu-go/5.18/api/overview/#response-filtering
 [120]: /sensu-go/5.18/api/auth/#the-authtest-api-endpoint
+[121]: /sensu-go/5.18/getting-started/enterprise/
