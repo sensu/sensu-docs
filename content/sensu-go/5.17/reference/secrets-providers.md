@@ -21,6 +21,8 @@ For more information, see [Get started with commercial features][1].
 Sensu's secrets management eliminates the need to expose secrets like usernames, passwords, and access keys in your Sensu configuration.
 With Sensu's secrets management, you can obtain secrets from one or more external secrets providers, refer to external secrets, and consume secrets via [backend environment variables][4].
 
+_**NOTE**: Secrets management is implemented for [checks][18], [handlers][19], and [mutators][20]._
+
 Only Sensu backends have access to request [secrets][9] from a secrets provider.
 Secrets are only transmitted over a TLS websocket connection.
 Unencrypted connections must not transmit privileged information.
@@ -318,3 +320,6 @@ spec: {}
 [15]: https://www.vaultproject.io/api/auth/cert/index.html#parameters-7
 [16]: ../../guides/secrets-management/
 [17]: #rate-limiter-attributes
+[18]: ../checks/#check-with-secret
+[19]: ../handlers/#handler-with-secret
+[20]: ../mutators/#mutator-with-secret
