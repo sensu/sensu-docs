@@ -1,6 +1,6 @@
 ---
 title: "Authentication"
-description: "In addition to built-in RBAC, Sensu includes commercial support for authentication using a Lightweight Directory Access Protocol (LDAP) provider. Read the guide to configure a provider."
+description: "In addition to built-in basic authentication and RBAC, Sensu includes commercial support for authentication using Lightweight Directory Access Protocol (LDAP), Active Directory (AD), or OIDC. Read this guide to configure an authentication provider."
 weight: 4
 version: "5.15"
 product: "Sensu Go"
@@ -9,14 +9,16 @@ menu:
     parent: installation
 ---
 
-- [Managing authentication providers](#managing-authentication-providers)
-- [Configuring authentication providers](#configuring-authentication-providers)
+- [Use built-in basic authentication](#use-built-in-basic-authentication)
+- [Use an authentication provider](#use-an-authentication-provider)
+   - [Manage authentication providers](#manage-authentication-providers)
+   - [Configure authentication providers](#configure-authentication-providers)
 - [LDAP authentication](#ldap-authentication)
   - [Examples](#ldap-configuration-examples)
   - [LDAP specification](#ldap-specification)
   - [Troubleshooting](#ldap-troubleshooting)
-- [Active Directory authentication](#active-directory-authentication)
-  - [Examples](#active-directory-configuration-examples)
+- [Active Directory authentication](#ad-authentication)
+  - [Examples](#ad-configuration-examples)
   - [Active Directory specification](#active-directory-specification)
   - [Troubleshooting](#active-directory-troubleshooting)
 - [OIDC authentication](#oidc-authentication)
@@ -25,17 +27,27 @@ menu:
   - [Okta](#okta)
 
 Sensu requires username and password authentication to access the [Sensu dashboard][1], [API][8], and command line tool ([sensuctl][2]).
-For Sensu's [default user credentials][3] and more information about configuring Sensu role based access control, see the [RBAC reference][4] and [guide to creating users][5].
+You can use Sensu's built-in basic authentication provider or configure external authentication providers to authenticate via Lightweight Directory Access Protocol (LDAP), Active Directory (AD), or OpenID Connect.
 
-In addition to built-in RBAC, Sensu includes [commercial][6] support for authentication using external authentication providers.
-Sensu currently supports Microsoft Active Directory and standards-compliant Lightweight Directory Access Protocol tools like OpenLDAP.
+## Use built-in basic authentication
+
+Sensu's built-in basic authentication provider allows you to create and manage user credentials (usernames and passwords) with the [users API][53], either directly or using [sensuctl][2].
+The basic authentication provider does not depend on external services and is not configurable.
+
+After creating users via the basic authentication provider, you can manage their permissions via [role-based access control (RBAC)][4]. See [Create read-only users][5] for an example.
+
+Sensu records basic authentication credentials in [etcd][54].
+
+## Use an authentication provider
 
 **COMMERCIAL FEATURE**: Access authentication providers in the packaged Sensu Go distribution. For more information, see the [getting started guide][6].
 
-## Managing authentication providers
+In addition to built-in authentication and RBAC, Sensu includes commercial support for authentication using external authentication providers, including [Microsoft Active Directory (AD)][37] and standards-compliant [Lightweight Directory Access Protocol (LDAP)][44] tools like OpenLDAP.
+
+### Manage authentication providers
 
 You can view and delete authentication providers using sensuctl and the [authentication providers API](../../api/authproviders).
-To set up an authentication provider for Sensu, see the section on [configuring authentication providers](#configuring-authentication-providers).
+To set up an authentication provider for Sensu, see the section on [configuring authentication providers](#configure-authentication-providers).
 
 To view active authentication providers:
 
@@ -55,14 +67,14 @@ To delete an authentication provider named `openldap`:
 sensuctl auth delete openldap
 {{< /highlight >}}
 
-## Configuring authentication providers
+### Configure authentication providers
 
 **1. Write an authentication provider configuration definition**
 
 Write an authentication provider configuration definition.
 
 For standards-compliant Lightweight Directory Access Protocol tools like OpenLDAP, see the [LDAP configuration examples](#ldap-configuration-examples) and [specification](#ldap-specification).
-For Microsoft Active Directory, see the [AD configuration examples](#active-directory-configuration-examples) and [specification](#active-directory-authentication).
+For Microsoft Active Directory, see the [AD configuration examples](#ad-configuration-examples) and [specification](#ad-authentication).
 
 **2. Apply the configuration using sensuctl**
 
@@ -103,9 +115,9 @@ Once you've configured the correct roles and bindings, log in to [sensuctl](../.
 
 ## LDAP authentication
 
-Sensu offers commercial support for using a standards-compliant Lightweight Directory Access Protocol tool for authentication to the Sensu dashboard, API, and sensuctl.
+Sensu offers [commercial support][6] for a standards-compliant LDAP tool for authentication to the Sensu dashboard, API, and sensuctl.
 The Sensu LDAP authentication provider is tested with [OpenLDAP][7].
-Active Directory users should head over to the [Active Directory section](#active-directory-authentication).
+Active Directory users should head over to the [Active Directory section](#ad-authentication).
 
 ### LDAP configuration examples
 
@@ -634,11 +646,11 @@ example:
 [...] could not authorize the request with any ClusterRoleBindings [...]
 ```
 
-## Active Directory authentication
+## Active Directory (AD) authentication {#ad-authentication}
 
-Sensu offers commercial support for using Microsoft Active Directory (AD) for authentication to the Sensu dashboard, API, and sensuctl. The AD authentication provider is based on the [LDAP authentication provider](#ldap-authentication).
+Sensu offers [commercial support][6] for using Microsoft Active Directory (AD) for authentication to the Sensu dashboard, API, and sensuctl. The AD authentication provider is based on the [LDAP authentication provider](#ldap-authentication).
 
-### Active Directory configuration examples
+### Active Directory (AD) configuration examples {#ad-configuration-examples}
 
 **Example AD configuration: Minimum required attributes**
 
@@ -1100,7 +1112,9 @@ See the [LDAP troubleshooting](#ldap-troubleshooting) section.
 
 ## OIDC authentication
 
-The Sensu offers commercial support for OIDC driver for using the OpenID Connect 1.0 protocol (OIDC) on top of the OAuth 2.0 protocol for RBAC authentication.
+Sensu offers [commercial support][6] for the OIDC provider for using the OpenID Connect 1.0 protocol (OIDC) on top of the OAuth 2.0 protocol for RBAC authentication.
+
+The Sensu OIDC provider is tested with [Okta][51] and [PingFederate][52].
 
 _NOTE: OIDC authentication is currently supported only via `sensuctl`. OIDC authentication for the Web UI will be added in a future release._
 
@@ -1305,9 +1319,9 @@ To use OIDC for authentication, register Sensu Go as an OIDC application. Use th
 8. Click **Save**.
 9. Assign people and groups in the *Assignments* page.
 
-#### OIDC driver configuration
+#### OIDC provider configuration
 
-1. Add the `aadditional_scopes` configuration attribute in the [OIDC scope][25] and set the value to `[ "groups" ]`:
+1. Add the `additional_scopes` configuration attribute in the [OIDC scope][25] and set the value to `[ "groups" ]`:
   - `"additional_scopes": [ "groups" ]`
 
 2. Add the `groups` to the `groups_claim` string. For example, if you have an Okta group `groups` and you set the `groups_prefix` to `okta:`, you can set up RBAC objects to mention group `okta:groups` as needed:
@@ -1346,10 +1360,16 @@ To use OIDC for authentication, register Sensu Go as an OIDC application. Use th
 [17]: ../../reference/rbac#namespaced-resource-types
 [18]: ../../reference/rbac#cluster-wide-resource-types
 [19]: ../../guides/troubleshooting#log-levels
-[20]: #managing-authentication-providers
+[20]: #manage-authentication-providers
 [21]: #group-search-attributes
 [22]: #user-search-attributes
 [23]: #active-directory-metadata-attributes
 [24]: #metadata-attributes
 [25]: #oidc-spec-attributes
 [26]: #register-an-oidc-application
+[37]: #ad-authentication
+[44]: #ldap-authentication
+[51]: https://www.okta.com/
+[52]: https://www.pingidentity.com/en/software/pingfederate.html
+[53]: ../../api/users/
+[54]: https://etcd.io/

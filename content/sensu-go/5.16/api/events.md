@@ -11,7 +11,6 @@ menu:
 - [The `/events` API endpoint](#the-events-api-endpoint)
 	- [`/events` (GET)](#events-get)
 	- [`/events` (POST)](#events-post)
-  	- [`/events` (PUT)](#events-put)
 - [The `/events/:entity` API endpoint](#the-eventsentity-api-endpoint)
 	- [`/events/:entity` (GET)](#eventsentity-get)
 - [The `/events/:entity/:check` API endpoint](#the-eventsentitycheck-api-endpoint)
@@ -31,8 +30,9 @@ The `/events` API endpoint provides HTTP GET access to [event][1] data.
 The following example demonstrates a request to the `/events` API endpoint, resulting in a JSON array that contains [event definitions][1].
 
 {{< highlight shell >}}
-curl -H "Authorization: Bearer $SENSU_TOKEN" \
-http://127.0.0.1:8080/api/core/v2/namespaces/default/events
+curl -X GET \
+http://127.0.0.1:8080/api/core/v2/namespaces/default/events \
+-H "Authorization: Bearer $SENSU_ACCESS_TOKEN"
 
 HTTP/1.1 200 OK
 [
@@ -104,7 +104,8 @@ HTTP/1.1 200 OK
 ---------------|------
 description    | Returns the list of events.
 example url    | http://hostname:8080/api/core/v2/namespaces/default/events
-pagination     | This endpoint supports pagination using the `limit` and `continue` query parameters. See the [API overview][2] for details.
+pagination     | This endpoint supports [pagination][2] using the `limit` and `continue` query parameters.
+response filtering | This endpoint supports [API response filtering][10].
 response type  | Array
 response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output         | {{< highlight shell >}}
@@ -182,8 +183,8 @@ The request includes information about the check and entity represented by the e
 
 {{< highlight shell >}}
 curl -X POST \
--H "Authorization: Bearer $SENSU_TOKEN" \
--H 'Content-Type: application/json' \
+-H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
+-H 'Content-Type: application/json'
 -d '{
   "entity": {
     "entity_class": "proxy",
@@ -213,7 +214,7 @@ HTTP/1.1 200 OK
 
 /events (POST) | 
 ----------------|------
-description     | Creates a new Sensu event. To update an existing event, use the [`/events` PUT endpoint][11].
+description     | Creates a new Sensu event. To update an existing event, use the [`/events/:entity/:check` PUT endpoint][11].
 example URL     | http://hostname:8080/api/core/v2/namespaces/default/events
 payload         | {{< highlight shell >}}
 {
@@ -236,74 +237,6 @@ payload         | {{< highlight shell >}}
   }
 }
 {{< /highlight >}}
-response codes  | <ul><li>**Success**: 200 (OK)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-
-### `/events` (PUT)
-
-The `/events` API endpoint provides HTTP PUT access to update an event and send it to the Sensu pipeline.
-
-#### EXAMPLE {#events-put-example}
-
-In the following example, an HTTP PUT request is submitted to the `/events` API endpoint to update an event.
-The request includes information about the check and entity represented by the event and returns a successful HTTP `200 OK` response and the event definition.
-
-{{< highlight shell >}}
-curl -X PUT \
--H "Authorization: Bearer $SENSU_TOKEN" \
--H 'Content-Type: application/json' \
--d '{
-  "entity": {
-    "entity_class": "proxy",
-    "metadata": {
-      "name": "server1",
-      "namespace": "default"
-    }
-  },
-  "check": {
-    "output": "Server error",
-    "state": "failing",
-    "status": 2,
-    "handlers": ["slack"],
-    "interval": 60,
-    "metadata": {
-      "name": "server-health"
-    }
-  }
-}' \
-http://127.0.0.1:8080/api/core/v2/namespaces/default/events
-
-HTTP/1.1 200 OK
-{"timestamp":1552582569,"entity":{"entity_class":"proxy","system":{"network":{"interfaces":null}},"subscriptions":null,"last_seen":0,"deregister":false,"deregistration":{},"metadata":{"name":"server1","namespace":"default"}},"check":{"handlers":["slack"],"high_flap_threshold":0,"interval":60,"low_flap_threshold":0,"publish":false,"runtime_assets":null,"subscriptions":[],"proxy_entity_name":"","check_hooks":null,"stdin":false,"subdue":null,"ttl":0,"timeout":0,"round_robin":false,"executed":0,"history":null,"issued":0,"output":"Server error","state":"failing","status":2,"total_state_change":0,"last_ok":0,"occurrences":0,"occurrences_watermark":0,"output_metric_format":"","output_metric_handlers":null,"env_vars":null,"metadata":{"name":"server-health"}},"metadata":{}}
-{{< /highlight >}}
-
-#### API Specification {#events-put-specification}
-
-/events (PUT) | 
-----------------|------
-description     | Updates an existing Sensu event. To create a new event, use the [`/events` POST endpoint][10].
-example URL     | http://hostname:8080/api/core/v2/namespaces/default/events
-payload         | {{< highlight shell >}}
-{
-  "entity": {
-    "entity_class": "proxy",
-    "metadata": {
-      "name": "server1",
-      "namespace": "default"
-    }
-  },
-  "check": {
-    "output": "Server error",
-    "state": "failing",
-    "status": 2,
-    "handlers": ["slack"],
-    "interval": 60,
-    "metadata": {
-      "name": "server-health"
-    }
-  }
-}
-{{< /highlight >}}
-payload parameters | See the [payload parameters](#eventsentitycheck-put-parameters) section for the [`/events/:entity/:check` PUT endpoint][3].
 response codes  | <ul><li>**Success**: 200 (OK)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 ## The `/events/:entity` API endpoint {#the-eventsentity-api-endpoint}
@@ -317,8 +250,9 @@ The `/events/:entity` API endpoint provides HTTP GET access to [event data][1] s
 In the following example, querying the `/events/:entity` API endpoint returns a list of Sensu events for the `sensu-go-sandbox` entity and a successful HTTP `200 OK` response.
 
 {{< highlight shell >}}
-curl -H "Authorization: Bearer $SENSU_TOKEN" \
-http://127.0.0.1:8080/api/core/v2/namespaces/default/events/sensu-go-sandbox
+curl -X GET \
+http://127.0.0.1:8080/api/core/v2/namespaces/default/events/sensu-go-sandbox \
+-H "Authorization: Bearer $SENSU_ACCESS_TOKEN"
 
 HTTP/1.1 200 OK
 [
@@ -420,7 +354,7 @@ HTTP/1.1 200 OK
 ---------------------|------
 description          | Returns a list of events for the specified entity.
 example url          | http://hostname:8080/api/core/v2/namespaces/default/events/sensu-go-sandbox
-pagination           | This endpoint supports pagination using the `limit` and `continue` query parameters. See the [API overview][2] for details.
+pagination           | This endpoint supports [pagination][2] using the `limit` and `continue` query parameters.
 response type        | Array
 response codes       | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output               | {{< highlight json >}}
@@ -478,58 +412,167 @@ output               | {{< highlight json >}}
 
 The `/events/:entity/:check` API endpoint provides HTTP GET access to [event][1] data for the specified entity and check.
 
+#### EXAMPLE {#eventsentitycheck-get-example}
+
+In the following example, an HTTP GET request is submitted to the `/events/:entity/:check` API endpoint to retrieve the event for the `server1` entity and the `server-health` check.
+
+{{< highlight shell >}}
+curl -X GET \
+http://127.0.0.1:8080/api/core/v2/namespaces/default/events/server1/server-health \
+-H "Authorization: Bearer $SENSU_ACCESS_TOKEN"
+
+HTTP/1.1 200 OK
+
+{
+    "timestamp": 1577724113,
+    "entity": {
+        "entity_class": "proxy",
+        "system": {
+            "network": {
+                "interfaces": null
+            }
+        },
+        "subscriptions": null,
+        "last_seen": 0,
+        "deregister": false,
+        "deregistration": {},
+        "metadata": {
+            "name": "server1",
+            "namespace": "default"
+        },
+        "sensu_agent_version": ""
+    },
+    "check": {
+        "handlers": [
+            "slack"
+        ],
+        "high_flap_threshold": 0,
+        "interval": 60,
+        "low_flap_threshold": 0,
+        "publish": false,
+        "runtime_assets": null,
+        "subscriptions": [],
+        "proxy_entity_name": "",
+        "check_hooks": null,
+        "stdin": false,
+        "subdue": null,
+        "ttl": 0,
+        "timeout": 0,
+        "round_robin": false,
+        "executed": 0,
+        "history": [
+            {
+                "status": 1,
+                "executed": 0
+            },
+            {
+                "status": 2,
+                "executed": 0
+            },
+            {
+                "status": 1,
+                "executed": 0
+            }
+        ],
+        "issued": 0,
+        "output": "Server error",
+        "state": "failing",
+        "status": 1,
+        "total_state_change": 0,
+        "last_ok": 0,
+        "occurrences": 1,
+        "occurrences_watermark": 1,
+        "output_metric_format": "",
+        "output_metric_handlers": null,
+        "env_vars": null,
+        "metadata": {
+            "name": "server-health",
+            "namespace": "default"
+        }
+    },
+    "metadata": {}
+}
+{{< /highlight >}}
+
+The request returns an HTTP `200 OK` response and the resulting event definition.
+
 #### API Specification {#eventsentitycheck-get-specification}
 
 /events/:entity/:check (GET) | 
 ---------------------|------
 description          | Returns an event for the specified entity and check.
-example url          | http://hostname:8080/api/core/v2/namespaces/default/events/sensu-go-sandbox/check-cpu
+example url          | http://hostname:8080/api/core/v2/namespaces/default/events/server1/server-health
 response type        | Map
 response codes       | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output               | {{< highlight json >}}
 {
-  "timestamp": 1543871524,
-  "entity": {
-    "entity_class": "agent",
-    "system": {
-      "hostname": "webserver01",
-      "...": "...",
-      "arch": "amd64"
+    "timestamp": 1577724113,
+    "entity": {
+        "entity_class": "proxy",
+        "system": {
+            "network": {
+                "interfaces": null
+            }
+        },
+        "subscriptions": null,
+        "last_seen": 0,
+        "deregister": false,
+        "deregistration": {},
+        "metadata": {
+            "name": "server1",
+            "namespace": "default"
+        },
+        "sensu_agent_version": ""
     },
-    "subscriptions": [
-      "linux",
-      "entity:sensu-go-sandbox"
-    ],
-    "last_seen": 1543871523,
-    "metadata": {
-      "name": "sensu-go-sandbox",
-      "namespace": "default"
-    }
-  },
-  "check": {
-    "handlers": [
-      "keepalive"
-    ],
-    "executed": 1543871524,
-    "history": [
-      {
-        "status": 0,
-        "executed": 1543871124
-      }
-    ],
-    "issued": 1543871524,
-    "output": "",
-    "state": "passing",
-    "status": 0,
-    "total_state_change": 0,
-    "last_ok": 1543871524,
-    "occurrences": 1,
-    "metadata": {
-      "name": "keepalive",
-      "namespace": "default"
-    }
-  },
-  "metadata": {}
+    "check": {
+        "handlers": [
+            "slack"
+        ],
+        "high_flap_threshold": 0,
+        "interval": 60,
+        "low_flap_threshold": 0,
+        "publish": false,
+        "runtime_assets": null,
+        "subscriptions": [],
+        "proxy_entity_name": "",
+        "check_hooks": null,
+        "stdin": false,
+        "subdue": null,
+        "ttl": 0,
+        "timeout": 0,
+        "round_robin": false,
+        "executed": 0,
+        "history": [
+            {
+                "status": 1,
+                "executed": 0
+            },
+            {
+                "status": 2,
+                "executed": 0
+            },
+            {
+                "status": 1,
+                "executed": 0
+            }
+        ],
+        "issued": 0,
+        "output": "Server error",
+        "state": "failing",
+        "status": 1,
+        "total_state_change": 0,
+        "last_ok": 0,
+        "occurrences": 1,
+        "occurrences_watermark": 1,
+        "output_metric_format": "",
+        "output_metric_handlers": null,
+        "env_vars": null,
+        "metadata": {
+            "name": "server-health",
+            "namespace": "default"
+        }
+    },
+    "metadata": {}
 }
 {{< /highlight >}}
 
@@ -544,13 +587,14 @@ The event includes a status code of `1`, indicating a warning, and an output mes
 
 {{< highlight shell >}}
 curl -X POST \
--H "Authorization: Bearer $SENSU_TOKEN" \
--H 'Content-Type: application/json' \
+-H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
+-H 'Content-Type: application/json'
 -d '{
   "entity": {
     "entity_class": "proxy",
     "metadata": {
       "name": "server1",
+      "namespace": "default"
     }
   },
   "check": {
@@ -628,8 +672,8 @@ The event includes a status code of `1`, indicating a warning, and an output mes
 
 {{< highlight shell >}}
 curl -X PUT \
--H "Authorization: Bearer $SENSU_TOKEN" \
--H 'Content-Type: application/json' \
+-H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
+-H 'Content-Type: application/json'
 -d '{
   "entity": {
     "entity_class": "proxy",
@@ -718,14 +762,13 @@ For more information about check attributes, see the [check specification][7].
 
 {{< highlight shell >}}
 curl -X PUT \
--H "Authorization: Bearer $SENSU_TOKEN" \
--H 'Content-Type: application/json' \
+-H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
+-H 'Content-Type: application/json'
 -d '{
   "entity": {
     "entity_class": "proxy",
     "metadata": {
-      "name": "server1",
-      "namespace": "default"
+      "name": "server1"
     }
   },
   "check": {
@@ -746,8 +789,8 @@ For more information about these attributes and their available values, see the 
 
 {{< highlight shell >}}
 curl -X PUT \
--H "Authorization: Bearer $SENSU_TOKEN" \
--H 'Content-Type: application/json' \
+-H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
+-H 'Content-Type: application/json'
 -d '{
   "entity": {
     "entity_class": "proxy",
@@ -778,8 +821,8 @@ See the [events reference][9] and for more information about Sensu metric format
 
 {{< highlight shell >}}
 curl -X PUT \
--H "Authorization: Bearer $SENSU_TOKEN" \
--H 'Content-Type: application/json' \
+-H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
+-H 'Content-Type: application/json'
 -d '{
   "entity": {
     "entity_class": "proxy",
@@ -827,8 +870,8 @@ The following example shows a request to the `/events/:entity/:check` API endpoi
 
 {{< highlight shell >}}
 curl -X DELETE \
--H "Authorization: Bearer $SENSU_TOKEN" \
-http://127.0.0.1:8080/api/core/v2/namespaces/default/events/sensu-go-sandbox/check-cpu 
+http://127.0.0.1:8080/api/core/v2/namespaces/default/events/sensu-go-sandbox/check-cpu \
+-H "Authorization: Bearer $SENSU_ACCESS_TOKEN"
 
 HTTP/1.1 204 No Content
 {{< /highlight >}}
@@ -850,5 +893,5 @@ response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Miss
 [7]: ../../reference/checks#check-specification
 [8]: ../../reference/events/
 [9]: ../../reference/events#metrics
-[10]: #events-post
-[11]: #events-put
+[10]: ../overview#response-filtering
+[11]: #eventsentitycheck-put

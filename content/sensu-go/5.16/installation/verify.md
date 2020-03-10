@@ -24,10 +24,12 @@ Sensu binary-only distributions for Linux are available for these architectures 
 | --- | --- |
 | `amd64` | [`.tar.gz`][14] \| [`.zip`][20]
 | `arm64` | [`.tar.gz`][15] \| [`.zip`][21]
-| `armv5` | [`.tar.gz`][16] \| [`.zip`][22]
-| `armv6` | [`.tar.gz`][17] \| [`.zip`][23]
-| `armv7` | [`.tar.gz`][18] \| [`.zip`][24]
+| `armv5` (agent and CLI) | [`.tar.gz`][16] \| [`.zip`][22]
+| `armv6` (agent and CLI) | [`.tar.gz`][17] \| [`.zip`][23]
+| `armv7` (agent and CLI) | [`.tar.gz`][18] \| [`.zip`][24]
 | `386` | [`.tar.gz`][19] \| [`.zip`][25]
+
+_**NOTE**: 32-bit systems cannot run the Sensu backend reliably, so `armv5`, `armv6`, and `armv7` packages include the agent and CLI only._
 
 For example, to download Sensu for Linux `amd64` in `tar.gz` format:
 
@@ -35,10 +37,10 @@ For example, to download Sensu for Linux `amd64` in `tar.gz` format:
 curl -LO https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.16.1/sensu-go_5.16.1_linux_amd64.tar.gz
 {{< /highlight >}}
 
-Generate a SHA-512 checksum for the downloaded artifact:
+Generate a SHA-256 checksum for the downloaded artifact:
 
 {{< highlight shell >}}
-sha512sum sensu-go_5.16.1_linux_amd64.tar.gz
+sha256sum sensu-go_5.16.1_linux_amd64.tar.gz
 {{< /highlight >}}
 
 The result should match the checksum for your platform:
@@ -98,10 +100,10 @@ For example, to download Sensu for macOS `amd64` in `tar.gz` format:
 curl -LO https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.16.1/sensu-go_5.16.1_darwin_amd64.tar.gz
 {{< /highlight >}}
 
-Generate a SHA-512 checksum for the downloaded artifact:
+Generate a SHA-256 checksum for the downloaded artifact:
 
 {{< highlight shell >}}
-shasum -a 512 sensu-go-5.16.1-darwin-amd64.tar.gz
+shasum -a 256 sensu-go_5.16.1_darwin_amd64.tar.gz
 {{< /highlight >}}
 
 The result should match the checksum for your platform:
@@ -141,10 +143,10 @@ For example, to download Sensu for FreeBSD `amd64` in `tar.gz` format:
 curl -LO https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.16.1/sensu-go_5.16.1_freebsd_amd64.tar.gz
 {{< /highlight >}}
 
-Generate a SHA-512 checksum for the downloaded artifact:
+Generate a SHA-256 checksum for the downloaded artifact:
 
 {{< highlight shell >}}
-sha512sum sensu-go_5.16.1_freebsd_amd64.tar.gz
+sha256sum sensu-go_5.16.1_freebsd_amd64.tar.gz
 {{< /highlight >}}
 
 The result should match the checksum for your platform:
@@ -171,10 +173,10 @@ For example, to download Sensu for Solaris `amd64` in `tar.gz` format:
 curl -LO https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.16.1/sensu-go_5.16.1_solaris_amd64.tar.gz
 {{< /highlight >}}
 
-Generate a SHA-512 checksum for the downloaded artifact.
+Generate a SHA-256 checksum for the downloaded artifact.
 
 {{< highlight shell >}}
-sha512sum sensu-go_5.16.1_solaris_amd64.tar.gz
+sha256sum sensu-go_5.16.1_solaris_amd64.tar.gz
 {{< /highlight >}}
 
 The result should match the checksum for your platform.

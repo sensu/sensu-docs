@@ -10,10 +10,10 @@ menu:
 ---
 
 - [The `/users` API endpoint](#the-users-api-endpoint)
-	- [`/users` (GET)](#users-get)
-	- [`/users` (POST)](#users-post)
+  - [`/users` (GET)](#users-get)
+  - [`/users` (POST)](#users-post)
 - [The `/users/:user` API endpoint](#the-usersuser-api-endpoint)
-	- [`/users/:user` (GET)](#usersuser-get)
+  - [`/users/:user` (GET)](#usersuser-get)
   - [`/users/:user` (PUT)](#usersuser-put)
   - [`/users/:user` (DELETE)](#usersuser-delete)
 - [The `/users/:user/password` API endpoint](#the-usersuserpassword-api-endpoint)
@@ -26,6 +26,8 @@ menu:
   - [`/users/:user/groups/:group` (PUT)](#usersusergroupsgroup-put)
   - [`/users/:user/groups/:group` (DELETE)](#usersusergroupsgroup-delete)
 
+_**NOTE**: The users API allows you to create and manage user credentials with Sensu's built-in [basic authentication provider][6]. To configure user credentials with an external provider like [Lightweight Directory Access Protocol (LDAP)][4] or [Active Directory (AD)][5], use Sensu's [authentication providers API][3]._
+
 ## The `/users` API endpoint
 
 ### `/users` (GET)
@@ -37,8 +39,9 @@ The `/users` API endpoint provides HTTP GET access to [user][1] data.
 The following example demonstrates a request to the `/users` API, resulting in a JSON array that contains [user definitions][1].
 
 {{< highlight shell >}}
-curl -H "Authorization: Bearer $SENSU_TOKEN" \
-http://127.0.0.1:8080/api/core/v2/users
+curl -X GET \
+http://127.0.0.1:8080/api/core/v2/users \
+-H "Authorization: Bearer $SENSU_ACCESS_TOKEN"
 
 HTTP/1.1 200 OK
 [
@@ -65,7 +68,8 @@ HTTP/1.1 200 OK
 ---------------|------
 description    | Returns the list of users.
 example url    | http://hostname:8080/api/core/v2/users
-pagination     | This endpoint supports pagination using the `limit` and `continue` query parameters. See the [API overview][2] for details.
+pagination     | This endpoint supports [pagination][2] using the `limit` and `continue` query parameters.
+response filtering | This endpoint supports [API response filtering][8].
 response type  | Array
 response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output         | {{< highlight shell >}}
@@ -89,15 +93,15 @@ output         | {{< highlight shell >}}
 
 ### `/users` (POST)
 
-The `/users` API endpoint provides HTTP POST access to create a [user][1].
+The `/users` API endpoint provides HTTP POST access to create a [user][1] using Sensu's basic authentication provider.
 
 #### EXAMPLE {#users-post-example}
 
-The following example demonstrates a POST request to the `/users` API endpoint to create the user `alice`, resulting in an HTTP `200 OK` response and the created user definition.
+The following example demonstrates a POST request to the `/users` API endpoint to create the user `alice`, resulting in an HTTP `201 Created` response and the created user definition.
 
 {{< highlight shell >}}
 curl -X POST \
--H "Authorization: Bearer $SENSU_TOKEN" \
+-H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
 -H 'Content-Type: application/json' \
 -d '{
   "username": "alice",
@@ -109,14 +113,7 @@ curl -X POST \
 }' \
 http://127.0.0.1:8080/api/core/v2/users
 
-HTTP/1.1 200 OK
-{
-  "username": "alice",
-  "groups": [
-    "ops"
-  ],
-  "disabled": false
-}
+HTTP/1.1 201 Created
 {{< /highlight >}}
 
 #### API Specification {#usersuser-post-specification}
@@ -125,6 +122,7 @@ HTTP/1.1 200 OK
 ----------------|------
 description     | Creates a Sensu user.
 example URL     | http://hostname:8080/api/core/v2/users
+payload parameters | Required: `username` (string), `groups` (array; sets of shared permissions that apply to this user), `password` (string; at least eight characters), and `disabled` (when set to `true`, invalidates user credentials and permissions).
 payload         | {{< highlight shell >}}
 {
   "username": "alice",
@@ -135,8 +133,7 @@ payload         | {{< highlight shell >}}
   "disabled": false
 }
 {{< /highlight >}}
-payload parameters | Required: `username` (string), `groups` (array; sets of shared permissions that apply to this user), `password` (string; at least eight characters), and `disabled` (when set to `true`, invalidates user credentials and permissions).
-response codes  | <ul><li>**Success**: 200 (OK)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 ## The `/users/:user` API endpoint {#the-usersuser-api-endpoint}
 
@@ -149,8 +146,9 @@ The `/users/:user` API endpoint provides HTTP GET access to [user data][1] for a
 In the following example, querying the `/users/:user` API returns a JSON map that contains the requested [`:user` definition][1] (in this example, for the `alice` user).
 
 {{< highlight shell >}}
-curl -H "Authorization: Bearer $SENSU_TOKEN" \
-http://127.0.0.1:8080/api/core/v2/users/alice
+curl -X GET \
+http://127.0.0.1:8080/api/core/v2/users/alice \
+-H "Authorization: Bearer $SENSU_ACCESS_TOKEN"
 
 HTTP/1.1 200 OK
 {
@@ -186,11 +184,11 @@ The `/users/:user` API endpoint provides HTTP PUT access to create or update [us
 
 #### EXAMPLE {#users-put-example}
 
-The following example demonstrates a PUT request to the `/users` API endpoint to update the user `alice` (in this case, to reset the user's password), resulting in an HTTP `200 OK` response and the updated user definition.
+The following example demonstrates a PUT request to the `/users` API endpoint to update the user `alice` (in this case, to reset the user's password), resulting in an HTTP `201 Created` response and the updated user definition.
 
 {{< highlight shell >}}
 curl -X PUT \
--H "Authorization: Bearer $SENSU_TOKEN" \
+-H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
 -H 'Content-Type: application/json' \
 -d '{
   "username": "alice",
@@ -202,14 +200,7 @@ curl -X PUT \
 }' \
 http://127.0.0.1:8080/api/core/v2/users/alice
 
-HTTP/1.1 200 OK
-{
-  "username": "alice",
-  "groups": [
-    "ops"
-  ],
-  "disabled": false
-}
+HTTP/1.1 201 Created
 {{< /highlight >}}
 
 #### API Specification {#usersuser-put-specification}
@@ -228,11 +219,11 @@ payload         | {{< highlight shell >}}
   "disabled": false
 }
 {{< /highlight >}}
-response codes  | <ul><li>**Success**: 200 (OK)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 ### `/users/:user` (DELETE) {#usersuser-delete}
 
-The `/users/:user` API endpoint provides HTTP DELETE access to remove a specific user by `username`.
+The `/users/:user` API endpoint provides HTTP DELETE access to disable a specific user by `username`.
 
 #### EXAMPLE {#usersuser-delete-example}
 
@@ -240,17 +231,19 @@ In the following example, an HTTP DELETE request is submitted to the `/users/:us
 
 {{< highlight shell >}}
 curl -X DELETE \
--H "Authorization: Bearer $SENSU_TOKEN" \
+-H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
 http://127.0.0.1:8080/api/core/v2/users/alice
 
 HTTP/1.1 204 No Content
 {{< /highlight >}}
 
+_**NOTE**: This endpoint **disables** but does not delete the user. You can [reinstate][7] disabled users._
+
 #### API Specification {#usersuser-delete-specification}
 
 /users/:user (DELETE) | 
 --------------------------|------
-description               | Removes the specified user.
+description               | Disables the specified user.
 example url               | http://hostname:8080/api/core/v2/users/alice
 response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
@@ -262,11 +255,11 @@ The `/users/:user/password` API endpoint provides HTTP PUT access to update a us
 
 #### EXAMPLE {#usersuserpassword-put-example}
 
-In the following example, an HTTP PUT request is submitted to the `/users/:user/password` API endpoint to update the password for the user `alice`, resulting in an HTTP `200 OK` response.
+In the following example, an HTTP PUT request is submitted to the `/users/:user/password` API endpoint to update the password for the user `alice`, resulting in an HTTP `201 Created` response.
 
 {{< highlight shell >}}
 curl -X PUT \
--H "Authorization: Bearer $SENSU_TOKEN" \
+-H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
 -H 'Content-Type: application/json' \
 -d '{
   "username": "alice",
@@ -274,7 +267,7 @@ curl -X PUT \
 }' \
 http://127.0.0.1:8080/api/core/v2/users/alice/password
 
-HTTP/1.1 200 OK
+HTTP/1.1 201 Created
 {{< /highlight >}}
 
 #### API Specification {#usersuserpassword-put-specification}
@@ -283,14 +276,14 @@ HTTP/1.1 200 OK
 ----------------|------
 description     | Updates the password for the specified Sensu user.
 example URL     | http://hostname:8080/api/core/v2/users/alice/password
+payload parameters | Required: `username` (string; the `username` for the Sensu user) and `password` (string; the user's new password).
 payload         | {{< highlight shell >}}
 {
   "username": "admin",
   "password": "newpassword"
 }
 {{< /highlight >}}
-payload parameters | Required: `username` (string; the `username` for the Sensu user) and `password` (string; the user's new password).
-response codes  | <ul><li>**Success**: 200 (OK)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 ## The `/users/:user/reinstate` API endpoint {#the-usersuserreinstate-api-endpoint}
 
@@ -300,15 +293,15 @@ The `/users/:user/reinstate` API endpoint provides HTTP PUT access to reinstate 
 
 #### EXAMPLE {#usersuserreinstate-put-example}
 
-In the following example, an HTTP PUT request is submitted to the `/users/:user/reinstate` API endpoint to reinstate the disabled user `alice`, resulting in an HTTP `200 OK` response.
+In the following example, an HTTP PUT request is submitted to the `/users/:user/reinstate` API endpoint to reinstate the disabled user `alice`, resulting in an HTTP `201 Created` response.
 
 {{< highlight shell >}}
 curl -X PUT \
--H "Authorization: Bearer $SENSU_TOKEN" \
+-H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
 -H 'Content-Type: application/json' \
 http://127.0.0.1:8080/api/core/v2/users/alice/reinstate
 
-HTTP/1.1 200 OK
+HTTP/1.1 201 Created
 {{< /highlight >}}
 
 #### API Specification {#usersuserreinstate-put-specification}
@@ -317,7 +310,7 @@ HTTP/1.1 200 OK
 ----------------|------
 description     | Reinstates a disabled user.
 example URL     | http://hostname:8080/api/core/v2/users/alice/reinstate
-response codes  | <ul><li>**Success**: 200 (OK)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 ## The `/users/:user/groups` API endpoint {#the-usersusergroups-api-endpoint}
 
@@ -331,7 +324,7 @@ In the following example, an HTTP DELETE request is submitted to the `/users/:us
 
 {{< highlight shell >}}
 curl -X DELETE \
--H "Authorization: Bearer $SENSU_TOKEN" \
+-H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
 http://127.0.0.1:8080/api/core/v2/users/alice/groups
 
 HTTP/1.1 204 No Content
@@ -353,14 +346,14 @@ The `/users/:user/groups/:group` API endpoint provides HTTP PUT access to assign
 
 #### EXAMPLE {#usersusergroupsgroup-put-example}
 
-In the following example, an HTTP PUT request is submitted to the `/users/:user/groups/:group` API endpoint to add the user `alice` to the group `ops`, resulting in a successful HTTP `204 No Content` response.
+In the following example, an HTTP PUT request is submitted to the `/users/:user/groups/:group` API endpoint to add the user `alice` to the group `ops`, resulting in a successful HTTP `201 Created` response.
 
 {{< highlight shell >}}
 curl -X PUT \
--H "Authorization: Bearer $SENSU_TOKEN" \
+-H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
 http://127.0.0.1:8080/api/core/v2/users/alice/groups/ops
 
-HTTP/1.1 204 No Content
+HTTP/1.1 201 Created
 {{< /highlight >}}
 
 #### API Specification {#usersusergroupsgroup-put-specification}
@@ -369,10 +362,7 @@ HTTP/1.1 204 No Content
 ----------------|------
 description     | Adds the specified user to the specified group.
 example URL     | http://hostname:8080/api/core/v2/users/alice/groups/ops
-payload         | {{< highlight shell >}}
-
-{{< /highlight >}}
-response codes  | <ul><li>**Success**: 204 (No Content)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 ### `/users/:user/groups/:group` (DELETE) {#usersusergroupsgroup-delete}
 
@@ -384,7 +374,7 @@ In the following example, an HTTP DELETE request is submitted to the `/users/:us
 
 {{< highlight shell >}}
 curl -X DELETE \
--H "Authorization: Bearer $SENSU_TOKEN" \
+-H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
 http://127.0.0.1:8080/api/core/v2/users/alice/groups/ops
 
 HTTP/1.1 204 No Content
@@ -400,3 +390,9 @@ response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Miss
 
 [1]: ../../reference/rbac#user-specification
 [2]: ../overview#pagination
+[3]: ../authproviders/
+[4]: ../../installation/auth#ldap-authentication
+[5]: ../../installation/auth/#ad-authentication
+[6]: ../../installation/auth#use-built-in-basic-authentication
+[7]: #the-usersuserreinstate-api-endpoint
+[8]: ../overview#response-filtering

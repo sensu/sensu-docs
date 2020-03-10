@@ -11,7 +11,6 @@ menu:
 - [The `/events` API endpoint](#the-events-api-endpoint)
 	- [`/events` (GET)](#events-get)
 	- [`/events` (POST)](#events-post)
-  	- [`/events` (PUT)](#events-put)
 - [The `/events/:entity` API endpoint](#the-eventsentity-api-endpoint)
 	- [`/events/:entity` (GET)](#eventsentity-get)
 - [The `/events/:entity/:check` API endpoint](#the-eventsentitycheck-api-endpoint)
@@ -105,7 +104,8 @@ HTTP/1.1 200 OK
 ---------------|------
 description    | Returns the list of events.
 example url    | http://hostname:8080/api/core/v2/namespaces/default/events
-pagination     | This endpoint supports pagination using the `limit` and `continue` query parameters. See the [API overview](../overview#pagination) for details.
+pagination     | This endpoint supports [pagination](../overview#pagination) using the `limit` and `continue` query parameters.
+response filtering | This endpoint supports [API response filtering][3].
 response type  | Array
 response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output         | {{< highlight shell >}}
@@ -183,44 +183,6 @@ The request includes information about the check and entity represented by the e
 
 {{< highlight shell >}}
 curl -X POST \
--H "Authorization: Bearer $SENSU_TOKEN" \
--H 'Content-Type: application/json' \
--d '{
-  "entity": {
-    "entity_class": "proxy",
-    "metadata": {
-      "name": "server1",
-      "namespace": "default"
-    }
-  },
-  "check": {
-    "output": "Server error",
-    "state": "failing",
-    "status": 2,
-    "handlers": ["slack"],
-    "interval": 60,
-    "metadata": {
-      "name": "server-health"
-    }
-  }
-}' \
-http://127.0.0.1:8080/api/core/v2/namespaces/default/events
-
-HTTP/1.1 200 OK
-{"timestamp":1552582569,"entity":{"entity_class":"proxy","system":{"network":{"interfaces":null}},"subscriptions":null,"last_seen":0,"deregister":false,"deregistration":{},"metadata":{"name":"server1","namespace":"default"}},"check":{"handlers":["slack"],"high_flap_threshold":0,"interval":60,"low_flap_threshold":0,"publish":false,"runtime_assets":null,"subscriptions":[],"proxy_entity_name":"","check_hooks":null,"stdin":false,"subdue":null,"ttl":0,"timeout":0,"round_robin":false,"executed":0,"history":null,"issued":0,"output":"Server error","state":"failing","status":2,"total_state_change":0,"last_ok":0,"occurrences":0,"occurrences_watermark":0,"output_metric_format":"","output_metric_handlers":null,"env_vars":null,"metadata":{"name":"server-health"}},"metadata":{}}
-{{< /highlight >}}
-
-### `/events` (PUT)
-
-The `/events` API endpoint provides HTTP PUT access to create an event and send it to the Sensu pipeline.
-
-#### EXAMPLE {#events-put-example}
-
-In the following example, an HTTP PUT request is submitted to the `/events` API to create an event.
-The request includes information about the check and entity represented by the event and returns a successful HTTP 200 OK response and the event definition.
-
-{{< highlight shell >}}
-curl -X PUT \
 -H "Authorization: Bearer $SENSU_TOKEN" \
 -H 'Content-Type: application/json' \
 -d '{
@@ -392,7 +354,7 @@ HTTP/1.1 200 OK
 ---------------------|------
 description          | Returns a list of events for the specified entity.
 example url          | http://hostname:8080/api/core/v2/namespaces/default/events/sensu-go-sandbox
-pagination           | This endpoint supports pagination using the `limit` and `continue` query parameters. See the [API overview](../overview#pagination) for details.
+pagination           | This endpoint supports [pagination](../overview#pagination) using the `limit` and `continue` query parameters.
 response type        | Array
 response codes       | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output               | {{< highlight json >}}
@@ -646,11 +608,11 @@ response codes   | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not 
 The `/events/:entity/:check` PUT endpoint requires a request payload containing an `entity` scope and a `check` scope.
 The `entity` scope contains information about the component of your infrastructure represented by the event.
 At a minimum, Sensu requires the `entity` scope to contain the `entity_class` (`agent` or `proxy`) and the entity `name` and `namespace` within a `metadata` scope.
-For more information about entity attributes, see the [entity specification](../../reference/entities#specification).
+For more information about entity attributes, see the [entity specification](../../reference/entities#entities-specification).
 
 The `check` scope contains information about the event status and how the event was created.
 At a minimum, Sensu requires the `check` scope to contain a `name` within a `metadata` scope and either an `interval` or `cron` attribute.
-For more information about check attributes, see the [check specification](../../reference/checks#specification).
+For more information about check attributes, see the [check specification](../../reference/checks#check-specification).
 
 **Example request with minimum required event attributes**
 
@@ -662,8 +624,7 @@ curl -X PUT \
   "entity": {
     "entity_class": "proxy",
     "metadata": {
-      "name": "server1",
-      "namespace": "default"
+      "name": "server1"
     }
   },
   "check": {
@@ -779,3 +740,4 @@ example url               | http://hostname:8080/api/core/v2/namespaces/default/
 response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 [1]: ../../reference/events
+[3]: ../overview#filtering

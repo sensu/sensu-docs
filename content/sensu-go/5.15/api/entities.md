@@ -13,7 +13,6 @@ menu:
 	- [`/entities` (POST)](#entities-post)
 - [The `/entities/:entity` API endpoint](#the-entitiesentity-api-endpoint)
 	- [`/entities/:entity` (GET)](#entitiesentity-get)
-  - [`/entities/:entity` (POST)](#entitiesentity-post)
   - [`/entities/:entity` (PUT)](#entitiesentity-put)
   - [`/entities/:entity` (DELETE)](#entitiesentity-delete)
 
@@ -103,7 +102,8 @@ curl http://127.0.0.1:8080/api/core/v2/namespaces/default/entities -H "Authoriza
 ---------------|------
 description    | Returns the list of entities.
 example url    | http://hostname:8080/api/core/v2/namespaces/default/entities
-pagination     | This endpoint supports pagination using the `limit` and `continue` query parameters. See the [API overview](../overview#pagination) for details.
+pagination     | This endpoint supports [pagination](../overview#pagination) using the `limit` and `continue` query parameters.
+response filtering | This endpoint supports [API response filtering][3].
 response type  | Array
 response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output         | {{< highlight shell >}}
@@ -352,34 +352,6 @@ output               | {{< highlight json >}}
 }
 {{< /highlight >}}
 
-### `/entities/:entity` (POST) {#entitiesentity-post}
-
-#### API Specification {#entitiesentity-post-specification}
-
-/entities/:entity (POST) | 
-----------------|------
-description     | Create or update a Sensu entity.
-example URL     | http://hostname:8080/api/core/v2/namespaces/default/entities/sensu-centos
-payload         | {{< highlight shell >}}
-{
-  "entity_class": "proxy",
-  "sensu_agent_version": "1.0.0",
-  "subscriptions": [
-    "web"
-  ],
-  "deregister": false,
-  "deregistration": {},
-  "metadata": {
-    "name": "sensu-centos",
-    "labels": null,
-    "annotations": null
-  }
-}
-{{< /highlight >}}
-response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-
-Note that when an event is created via an HTTP POST request, the event will use the namespace in the request URL.
-
 ### `/entities/:entity` (PUT) {#entitiesentity-put}
 
 #### API Specification {#entitiesentity-put-specification}
@@ -432,4 +404,5 @@ description               | Removes a entity from Sensu given the entity name.
 example url               | http://hostname:8080/api/core/v2/namespaces/default/entities/server1
 response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
-[1]: ../../reference/entities
+[1]: ../../reference/entities/
+[3]: ../overview#filtering

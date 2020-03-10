@@ -612,11 +612,11 @@ description                        | List of this member's peer URLs to advertis
 type                               | List
 default                            | `http://127.0.0.1:2380`
 example                            | {{< highlight shell >}}# Command line examples
-sensu-backend start --etcd-listen-peer-urls https://10.0.0.1:2380,https://10.1.0.1:2380
-sensu-backend start --etcd-listen-peer-urls https://10.0.0.1:2380 --etcd-listen-peer-urls https://10.1.0.1:2380
+sensu-backend start --etcd-initial-advertise-peer-urls https://10.0.0.1:2380,https://10.1.0.1:2380
+sensu-backend start --etcd-initial-advertise-peer-urls https://10.0.0.1:2380 --etcd-initial-advertise-peer-urls https://10.1.0.1:2380
 
 # /etc/sensu/backend.yml example
-etcd-listen-peer-urls:
+etcd-initial-advertise-peer-urls:
   - https://10.0.0.1:2380
   - https://10.1.0.1:2380
 {{< /highlight >}}
@@ -920,19 +920,20 @@ $ sudo touch /etc/sysconfig/sensu-backend
 
 {{< /language-toggle >}}
 
-For any configuration flag you wish to specify as an environment variable, you will need to append `SENSU_` and convert dashes (`-`) to underscores (`_`). Then, add the resulting environment variable to the appropriate environment file described above. You must restart the service for these settings to take effect.
+For any configuration flag you wish to specify as an environment variable, you must prepend `SENSU_`, convert dashes (`-`) to underscores (`_`), and capitalize all letters.
+Then, add the resulting environment variable to the appropriate environment file described above. You must restart the service for these settings to take effect.
 
 In the following example, the `api-listen-address` flag is configured as an environment variable and set to `192.168.100.20:8080`.
 
 {{< language-toggle >}}
 
 {{< highlight "Ubuntu/Debian" >}}
-$ echo 'SENSU_API_LISTEN_ADDRESS=192.168.100.20:8080' | sudo tee /etc/default/sensu-backend
+$ echo 'SENSU_API_LISTEN_ADDRESS=192.168.100.20:8080' | sudo tee -a /etc/default/sensu-backend
 $ sudo systemctl restart sensu-backend
 {{< /highlight >}}
 
 {{< highlight "RHEL/CentOS" >}}
-$ echo 'SENSU_API_LISTEN_ADDRESS=192.168.100.20:8080' | sudo tee /etc/sysconfig/sensu-backend
+$ echo 'SENSU_API_LISTEN_ADDRESS=192.168.100.20:8080' | sudo tee -a /etc/sysconfig/sensu-backend
 $ sudo systemctl restart sensu-backend
 {{< /highlight >}}
 

@@ -182,7 +182,9 @@ Examples of valid cron values include:
 
 - `cron: CRON_TZ=Asia/Tokyo * * * * *`
 - `cron: TZ=Asia/Tokyo * * * * *`
-- `cron: * * * * *`
+- `cron: '* * * * *'`
+
+_**NOTE**: If you're using YAML to create a check that uses cron scheduling and the first character of the cron schedule is an asterisk (`*`), place the entire cron schedule inside single or double quotes (e.g. `cron: '* * * * *'`)._
 
 **Example cron checks**
 
@@ -198,7 +200,7 @@ metadata:
   namespace: default
 spec:
   command: check-cpu.sh -w 75 -c 90
-  cron: * * * * *
+  cron: '* * * * *'
   handlers:
   - slack
   publish: true
@@ -226,7 +228,7 @@ spec:
 
 {{< /language-toggle >}}
 
-Use a prefix of `TZ=` or `CRON_TZ=` if you want to set a [timezone][30] for the `cron` attribute.
+Use a prefix of `TZ=` or `CRON_TZ=` to set a [timezone][30] for the `cron` attribute.
 
 {{< language-toggle >}}
 
@@ -348,7 +350,7 @@ that entity is a Sensu agent entity or a proxy entity.
 Proxy entities allow Sensu to monitor external resources
 on systems or devices where a Sensu agent cannot be installed, like a
 network switch or a website.
-You can create a proxy check using the [`proxy_entity_name` attribute](#using-a-proxy-check-to-monitor-a-proxy-entity) or the [`proxy_requests` attributes](#using-a-proxy-check-to-monitor-a-multiple-proxy-entities).
+You can create a proxy check using the [`proxy_entity_name` attribute](#using-a-proxy-check-to-monitor-a-proxy-entity) or the [`proxy_requests` attributes](#using-a-proxy-check-to-monitor-multiple-proxy-entities).
 
 ### Using a proxy check to monitor a proxy entity
 
@@ -407,7 +409,7 @@ spec:
 The [`proxy_requests` check attributes](#proxy-requests-top-level) allow Sensu to run a check for each entity that matches the definitions specified in the `entity_attributes`, resulting in monitoring events that represents each matching proxy entity.
 The entity attributes must match exactly as stated; no variables or directives have any special meaning, but you can still use [Sensu query expressions][11] to perform more complicated filtering on the available value, such as finding entities with particular subscriptions.
 
-The `proxy_requests` attributes are a great way to monitor multiple entities using a single check definition when combined with [token substitution](#token-substitution).
+The `proxy_requests` attributes are a great way to monitor multiple entities using a single check definition when combined with [token substitution](#check-token-substitution).
 Since checks including `proxy_requests` attributes need to be executed for each matching entity, we recommend using the `round_robin` attribute to distribute the check execution workload evenly across your Sensu agents.
 
 **Example proxy check using `proxy_requests`**
@@ -575,7 +577,7 @@ example      | {{< highlight shell >}}"interval": 60{{< /highlight >}}
 
 |cron        |      |
 -------------|------
-description  | When the check should be executed, using [cron syntax][14] or [these predefined schedules][15]. Use a prefix of `TZ=` or `CRON_TZ=` to set a [timezone][30] for the cron attribute.
+description  | When the check should be executed, using [cron syntax][14] or [these predefined schedules][15]. Use a prefix of `TZ=` or `CRON_TZ=` to set a [timezone][30] for the cron attribute. _**NOTE**: If you're using YAML to create a check that uses cron scheduling and the first character of the cron schedule is an asterisk (`*`), place the entire cron schedule inside single or double quotes (e.g. `cron: '* * * * *'`)._
 required     | true (unless `interval` is configured)
 type         | String
 example      | {{< highlight shell >}}"cron": "0 0 * * *"{{< /highlight >}}
@@ -584,8 +586,8 @@ example      | {{< highlight shell >}}"cron": "0 0 * * *"{{< /highlight >}}
 -------------|------
 description  | If check requests are published for the check.
 required     | false
-default      | `false`
 type         | Boolean
+default      | `false`
 example      | {{< highlight shell >}}"publish": false{{< /highlight >}}
 
 |timeout     |      |
@@ -609,7 +611,7 @@ example      | {{< highlight shell >}}"ttl": 100{{< /highlight >}}
 description  | If the Sensu agent writes JSON serialized Sensu entity and check data to the command process’ STDIN. The command must expect the JSON data via STDIN, read it, and close STDIN. This attribute cannot be used with existing Sensu check plugins, nor Nagios plugins etc, as Sensu agent will wait indefinitely for the check process to read and close STDIN.
 required     | false
 type         | Boolean
-default      | false
+default      | `false`
 example      | {{< highlight shell >}}"stdin": true{{< /highlight >}}
 
 |low_flap_threshold ||
@@ -687,7 +689,7 @@ example      | {{< highlight shell >}}"silenced": ["*:routers"]{{< /highlight >}
 
 |env_vars    |      |
 -------------|------
-description  | An array of environment variables to use with command execution. _NOTE: To add `env_vars` to a check, use [`sensuctl create`][create]._
+description  | An array of environment variables to use with command execution. _NOTE: To add `env_vars` to a check, use [`sensuctl create`][sc]._
 required     | false
 type         | Array
 example      | {{< highlight shell >}}"env_vars": ["RUBY_VERSION=2.5.0", "CHECK_HOST=my.host.internal"]{{< /highlight >}}
@@ -713,6 +715,7 @@ example      | {{< highlight shell >}}"output_metric_handlers": ["influx-db"]{{<
 description  | When set to `true`, Sensu executes the check once per interval, cycling through each subscribing agent in turn. See [round-robin checks](#round-robin-checks) for more information.<br><br>Use the `round_robin` attribute with proxy checks to avoid duplicate events and distribute proxy check executions evenly across multiple agents. See [proxy checks](#proxy-requests) for more information.<br><br>To use check [`ttl`](#ttl-attribute) and `round_robin` together, your check configuration must also specify a [`proxy_entity_name`](#proxy-entity-name-attribute). If you do not specify a `proxy_entity_name` when using check `ttl` and `round_robin` together, your check will stop executing.
 required     | false
 type         | Boolean
+default      | `false`
 example      | {{< highlight shell >}}"round_robin": true{{< /highlight >}}
 
 |subdue      |      |
@@ -739,7 +742,7 @@ example      | {{< highlight shell >}}"namespace": "production"{{< /highlight >}
 
 | labels     |      |
 -------------|------
-description  | Custom attributes to include with event data, which can be accessed using [event filters][27].<br><br>In contrast to annotations, you can use labels to create meaningful collections that can be selected with [API filtering][api-filter] and [sensuctl filtering][sensuctl-filter]. Overusing labels can impact Sensu's internal performance, so we recommend moving complex, non-identifying metadata to annotations.
+description  | Custom attributes to include with event data that you can use for response and dashboard view filtering.<br><br>If you include labels in your event data, you can filter [API responses][api-filter], [sensuctl responses][sensuctl-filter], and [dashboard views][50] based on them. In other words, labels allow you to create meaningful groupings for your data.<br><br>Limit labels to metadata you need to use for filtering. For complex, non-identifying metadata that you will *not* need to use for API response, sensuctl, or dashboard view filtering, use annotations rather than labels.
 required     | false
 type         | Map of key-value pairs. Keys can contain only letters, numbers, and underscores, but must start with a letter. Values can be any valid UTF-8 string.
 default      | `null`
@@ -750,11 +753,11 @@ example      | {{< highlight shell >}}"labels": {
 
 | annotations |     |
 -------------|------
-description  | Non-identifying metadata to include with event data, which can be accessed using [event filters][27]. You can use annotations to add data that's meaningful to people or external tools interacting with Sensu.<br><br>In contrast to labels, annotations cannot be used in [API filtering][api-filter] or [sensuctl filtering][sensuctl-filter] and do not impact Sensu's internal performance.
+description  | Non-identifying metadata to include with event data, which can be accessed using [event filters][27]. You can use annotations to add data that's meaningful to people or external tools interacting with Sensu.<br><br>In contrast to labels, annotations cannot be used in [API response filtering][api-filter], [sensuctl response filtering][sensuctl-filter], or [dashboard view filtering][50].
 required     | false
 type         | Map of key-value pairs. Keys and values can be any valid UTF-8 string.
 default      | `null`
-example      | {{< highlight shell >}} "annotations": {
+example      | {{< highlight shell >}}"annotations": {
   "managed-by": "ops",
   "playbook": "www.example.url"
 }{{< /highlight >}}
@@ -776,7 +779,7 @@ example      | {{< highlight shell >}}"entity_attributes": [
 description  | If proxy check requests should be splayed, published evenly over a window of time, determined by the check interval and a configurable splay coverage percentage. For example, if a check has an interval of `60` seconds and a configured splay coverage of `90`%, its proxy check requests would be splayed evenly over a time window of `60` seconds * `90`%, `54` seconds, leaving `6`s for the last proxy check execution before the the next round of proxy check requests for the same check.
 required     | false
 type         | Boolean
-default      | false
+default      | `false`
 example      | {{< highlight shell >}}"splay": true{{< /highlight >}}
 
 |splay_coverage  | |
@@ -946,7 +949,7 @@ spec:
 [15]: https://godoc.org/github.com/robfig/cron#hdr-Predefined_schedules
 [16]: https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/3/en/flapping.html
 [17]: #subdue-attributes
-[20]: ../entities/#proxy_entities
+[20]: ../entities/#proxy-entities
 [21]: ../entities/#spec-attributes
 [22]: ../../reference/sensuctl/#time-windows
 [22]: ../../reference/sensuctl/#time-windows
@@ -957,7 +960,6 @@ spec:
 [influx]: https://docs.influxdata.com/influxdb/v1.4/write_protocols/line_protocol_tutorial/#measurement
 [open]: http://opentsdb.net/docs/build/html/user_guide/writing/index.html#data-specification
 [sensu-metric-format]: ../../reference/events/#metrics
-[create]: ../../sensuctl/reference#create
 [25]: #metadata-attributes
 [26]: ../rbac#namespaces
 [27]: ../filters
@@ -968,3 +970,4 @@ spec:
 [30]: https://en.wikipedia.org/wiki/Cron#Timezone_handling
 [api-filter]: ../../api/overview#filtering
 [sensuctl-filter]: ../../sensuctl/reference#filtering
+[50]: ../../dashboard/filtering#label-selectors

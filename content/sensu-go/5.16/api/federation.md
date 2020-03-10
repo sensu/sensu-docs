@@ -37,12 +37,10 @@ The `/etcd-replicators` API endpoint provides HTTP GET access to a list of repli
 
 The following example demonstrates a request to the `/etcd-replicators` API endpoint, resulting in a list of replicators.
 
-_**NOTE**: If you did not specify a [namespace][2] when you created a replicator, the response will not include a `namespace` key-value pair._
-
 {{< highlight shell >}}
 curl -X GET \
 http://127.0.0.1:8080/api/enterprise/federation/v1/etcd-replicators \
--H "Authorization: Bearer $SENSU_TOKEN" \
+-H "Authorization: Bearer $SENSU_ACCESS_TOKEN"
 [
   {
     "api_version": "federation/v1",
@@ -68,7 +66,7 @@ http://127.0.0.1:8080/api/enterprise/federation/v1/etcd-replicators \
 
 /etcd-replicators (GET)  | 
 ---------------|------
-description    | Returns the list of replicators.
+description    | Returns the list of replicators. _**NOTE**: If you did not specify a [namespace][2] when you created a replicator, the response will not include a `namespace` key-value pair._
 example url    | http://hostname:8080/api/enterprise/federation/v1/etcd-replicators
 response type  | Array
 response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
@@ -98,7 +96,8 @@ output         | {{< highlight shell >}}
 
 The `/etcd-replicators` API endpoint provides HTTP POST access to create replicators.
 
-_**NOTE**: If you do not specify a [namespace][2] when you create a replicator, all namespaces for the given resource are replicated._
+_**NOTE**: Create a replicator for each resource type you want to replicate. 
+Replicating `namespace` resources will **not** replicate the resources that belong to those namespaces._
 
 #### EXAMPLE {#etcd-replicators-post-example}
 
@@ -106,7 +105,7 @@ The following example demonstrates a request to the `/etcd-replicators` API endp
 
 {{< highlight shell >}}
 curl -X POST \
--H "Authorization: Bearer $SENSU_TOKEN" \
+-H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
 -H 'Content-Type: application/json' \
 -d '{
   "api_version": "federation/v1",
@@ -134,7 +133,7 @@ HTTP/1.1 200 OK
 
 /etcd-replicators (POST) | 
 ----------------|------
-description     | Creates a new replicator (if none exists).
+description     | Creates a new replicator (if none exists). _**NOTE**: If you do not specify a [namespace][2] when you create a replicator, all namespaces for the given resource are replicated._
 example URL     | http://hostname:8080/api/enterprise/federation/v1/etcd-replicators
 payload         | {{< highlight shell >}}
 {
@@ -167,12 +166,10 @@ The `/etcd-replicators/:etcd-replicator` API endpoint provides HTTP GET access t
 
 In the following example, querying the `/etcd-replicators/:etcd-replicator` API endpoint returns a JSON map that contains the requested `:etcd-replicator`.
 
-_**NOTE**: If you did not specify a [namespace][2] when you created the replicator, the response will not include a `namespace` key-value pair._
-
 {{< highlight shell >}}
 curl -X GET \
 http://127.0.0.1:8080/api/enterprise/federation/v1/etcd-replicators/my_replicator \
--H "Authorization: Bearer $SENSU_TOKEN" \
+-H "Authorization: Bearer $SENSU_ACCESS_TOKEN"
 {
   "api_version": "federation/v1",
   "type": "EtcdReplicator",
@@ -196,7 +193,7 @@ http://127.0.0.1:8080/api/enterprise/federation/v1/etcd-replicators/my_replicato
 
 /etcd-replicators/:etcd-replicator (GET) | 
 ---------------------|------
-description          | Returns the specified replicator.
+description          | Returns the specified replicator. _**NOTE**: If you did not specify a [namespace][2] when you created the replicator, the response will not include a `namespace` key-value pair._
 example url          | http://hostname:8080/api/enterprise/federation/v1/etcd-replicators/my_replicator
 response type        | Map
 response codes       | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
@@ -230,7 +227,7 @@ The following example demonstrates a request to the `/etcd-replicators/:etcd-rep
 
 {{< highlight shell >}}
 curl -X PUT \
--H "Authorization: Bearer $SENSU_TOKEN" \
+-H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
 -H 'Content-Type: application/json' \
 -d '{
   "api_version": "federation/v1",
@@ -291,7 +288,7 @@ The following example shows a request to the `/etcd-replicators/:etcd-replicator
 
 {{< highlight shell >}}
 curl -X DELETE \
--H "Authorization: Bearer $SENSU_TOKEN" \
+-H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
 http://127.0.0.1:8080/api/enterprise/federation/v1/etcd-replicators/my_replicator
 
 HTTP/1.1 204 No Content
@@ -318,7 +315,7 @@ The following example demonstrates a request to the `/clusters` API endpoint, re
 {{< highlight shell >}}
 curl -X GET \
 http://127.0.0.1:8080/api/enterprise/federation/v1/clusters \
--H "Authorization: Bearer $SENSU_TOKEN" \
+-H "Authorization: Bearer $SENSU_ACCESS_TOKEN"
 
 HTTP/1.1 200 OK
 
@@ -380,7 +377,7 @@ In the following example, querying the `/clusters/:cluster` API endpoint returns
 {{< highlight shell >}}
 curl -X GET \
 http://127.0.0.1:8080/api/enterprise/federation/v1/clusters/us-west-2a \
--H "Authorization: Bearer $SENSU_TOKEN" \
+-H "Authorization: Bearer $SENSU_ACCESS_TOKEN"
 
 HTTP/1.1 200 OK
 
@@ -437,7 +434,7 @@ The following example demonstrates a request to the `/clusters/:cluster` API end
 
 {{< highlight shell >}}
 curl -X PUT \
--H "Authorization: Bearer $SENSU_TOKEN" \
+-H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
 -H 'Content-Type: application/json' \
 -d '{
     "type": "Cluster",
@@ -494,7 +491,7 @@ The following example shows a request to the `/clusters/:cluster` API endpoint t
 
 {{< highlight shell >}}
 curl -X DELETE \
--H "Authorization: Bearer $SENSU_TOKEN" \
+-H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
 http://127.0.0.1:8080/api/enterprise/federation/v1/clusters/us-west-2a
 
 HTTP/1.1 204 No Content

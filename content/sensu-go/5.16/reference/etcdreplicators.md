@@ -37,7 +37,12 @@ The replicator process watches the keyspace of the resource to be replicated and
 
 When the cluster starts up, each sensu-backend scans the stored replicator definitions and starts a replicator process for each replicator definition.
 Source clusters with more than one sensu-backend will cause redundant writes.
-This is harmless, but you should consider it when designing a replicated system. 
+This is harmless, but you should consider it when designing a replicated system.
+
+{{% notice note %}}
+**NOTE**: Create a replicator for each resource type you want to replicate.
+Replicating `namespace` resources will **not** replicate the resources that belong to those namespaces.
+{{% /notice %}}
 
 ## Delete a replicator
 
@@ -373,6 +378,10 @@ Before you implement etcd replicators, review these details &mdash; they are cri
 **If you're using insecure mode, use TLS mutual authentication.**
 
 - Never use insecure mode without TLS mutual authentication outside of a testbed.
+
+**Create a replicator for each resource type you want to replicate.**
+
+- Replicating `namespace` resources will **not** replicate the resources that belong to those namespaces.
 
 _**WARNING**: Make sure to confirm your configuration. The server will accept incorrect EtcdReplicator definitions without sending a warning. If your configuration is incorrect, replication will not work._
 

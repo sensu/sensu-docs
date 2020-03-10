@@ -159,7 +159,9 @@ Examples of valid cron values include:
 
 - `cron: CRON_TZ=Asia/Tokyo * * * * *`
 - `cron: TZ=Asia/Tokyo * * * * *`
-- `cron: * * * * *`
+- `cron: '* * * * *'`
+
+_**NOTE**: If you're using YAML to create a check that uses cron scheduling and the first character of the cron schedule is an asterisk (`*`), place the entire cron schedule inside single or double quotes (e.g. `cron: '* * * * *'`)._
 
 **Example cron checks**
 
@@ -175,7 +177,7 @@ metadata:
   namespace: default
 spec:
   command: check-cpu.sh -w 75 -c 90
-  cron: * * * * *
+  cron: '* * * * *'
   handlers:
   - slack
   publish: true
@@ -203,7 +205,7 @@ spec:
 
 {{< /language-toggle >}}
 
-Use a prefix of `TZ=` or `CRON_TZ=` if you want to set a [timezone][30] for the `cron` attribute:
+Use a prefix of `TZ=` or `CRON_TZ=` to set a [timezone][30] for the `cron` attribute:
 
 {{< language-toggle >}}
 
@@ -528,7 +530,7 @@ example      | {{< highlight shell >}}"namespace": "production"{{< /highlight >}
 
 | labels     |      |
 -------------|------
-description  | Custom attributes to include with event data that you can access with [event filters][27].<br><br>In contrast to annotations, you can use labels to create meaningful collections that you can select with [API response filtering][54] and [sensuctl response filtering][55]. Overusing labels can affect Sensu's internal performance, so we recommend moving complex, non-identifying metadata to annotations.
+description  | Custom attributes to include with event data that you can use for response and dashboard view filtering and [tokens][5].<br><br>If you include labels in your event data, you can filter [API responses][54], [sensuctl responses][55], and [dashboard views][56] based on them. In other words, labels allow you to create meaningful groupings for your data.<br><br>Limit labels to metadata you need to use for response filtering. For complex, non-identifying metadata that you will *not* need to use in response filtering, use annotations rather than labels.
 required     | false
 type         | Map of key-value pairs. Keys can contain only letters, numbers, and underscores and must start with a letter. Values can be any valid UTF-8 string.
 default      | `null`
@@ -539,11 +541,11 @@ example      | {{< highlight shell >}}"labels": {
 
 | annotations |     |
 -------------|------
-description  | Non-identifying metadata to include with event data that you can access with [event filters][27]. You can use annotations to add data that's meaningful to people or external tools that interact with Sensu.<br><br>In contrast to labels, you cannot use annotations in [API response filtering][54] or [sensuctl response filtering][55], and annotations do not affect Sensu's internal performance.
+description  | Non-identifying metadata to include with event data that you can access with [event filters][27]. You can use annotations to add data that's meaningful to people or external tools that interact with Sensu.<br><br>In contrast to labels, you cannot use annotations in [API response filtering][54], [sensuctl response filtering][55], or [dashboard views][56].
 required     | false
 type         | Map of key-value pairs. Keys and values can be any valid UTF-8 string.
 default      | `null`
-example      | {{< highlight shell >}} "annotations": {
+example      | {{< highlight shell >}}"annotations": {
   "managed-by": "ops",
   "playbook": "www.example.url"
 }{{< /highlight >}}
@@ -580,7 +582,7 @@ example      | {{< highlight shell >}}"interval": 60{{< /highlight >}}
 
 |cron        |      |
 -------------|------
-description  | When the check should be executed, using [cron syntax][14] or [these predefined schedules][15]. Use a prefix of `TZ=` or `CRON_TZ=` to set a [timezone][30] for the cron attribute.
+description  | When the check should be executed, using [cron syntax][14] or [these predefined schedules][15]. Use a prefix of `TZ=` or `CRON_TZ=` to set a [timezone][30] for the cron attribute. _**NOTE**: If you're using YAML to create a check that uses cron scheduling and the first character of the cron schedule is an asterisk (`*`), place the entire cron schedule inside single or double quotes (e.g. `cron: '* * * * *'`)._
 required     | true (unless `interval` is configured)
 type         | String
 example      | {{< highlight shell >}}"cron": "0 0 * * *"{{< /highlight >}}
@@ -718,6 +720,7 @@ example      | {{< highlight shell >}}"output_metric_handlers": ["influx-db"]{{<
 description  | When set to `true`, Sensu executes the check once per interval, cycling through each subscribing agent in turn. See [round robin checks][52] for more information.<br><br>Use the `round_robin` attribute with proxy checks to avoid duplicate events and distribute proxy check executions evenly across multiple agents. See [proxy checks][33] for more information.<br><br>To use check [`ttl`][31] and `round_robin` together, your check configuration must also specify a [`proxy_entity_name`][32]. If you do not specify a `proxy_entity_name` when using check `ttl` and `round_robin` together, your check will stop executing.
 required     | false
 type         | Boolean
+default      | `false`
 example      | {{< highlight shell >}}"round_robin": true{{< /highlight >}}
 
 |subdue      |      |
@@ -948,3 +951,4 @@ spec:
 [53]: https://regex101.com/r/zo9mQU/2
 [54]: ../../api/overview#response-filtering
 [55]: ../../sensuctl/reference#response-filters
+[56]: ../../dashboard/filtering#filter-with-label-selectors

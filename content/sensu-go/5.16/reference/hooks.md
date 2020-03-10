@@ -19,9 +19,10 @@ menu:
   - [Capture the process tree](#capture-the-process-tree)
   - [Check hook using token substitution](#check-hook-using-token-substitution)
 
-Hooks are executed in response to the result of a check command execution and based on the exit status code of that command (ex: `1`).
-Hook commands can also receive JSON serialized Sensu client data via `STDIN`.
+Hooks are reusable commands the agent executes in response to a check result before creating a monitoring event.
 You can create, manage, and reuse hooks independently of checks.
+Hooks enrich monitoring event context by gathering relevant information based on the exit status code of a check (ex: `1`).
+Hook commands can also receive JSON serialized Sensu client data via `STDIN`.
 
 ## Check response types
 
@@ -137,7 +138,7 @@ example      | {{< highlight shell >}}"namespace": "production"{{< /highlight >}
 
 | labels     |      |
 -------------|------
-description  | Custom attributes to include with event data, which you can access with [event filters][4].<br><br>In contrast to annotations, you can use labels to create meaningful collections that you can select with [API response filtering][10] and [sensuctl response filtering][11]. Overusing labels can affect Sensu's internal performance, so we recommend moving complex, non-identifying metadata to annotations.
+description  | Custom attributes to include with event data that you can use for response and dashboard view filtering.<br><br>If you include labels in your event data, you can filter [API responses][10], [sensuctl responses][11], and [dashboard views][12] based on them. In other words, labels allow you to create meaningful groupings for your data.<br><br>Limit labels to metadata you need to use for response filtering. For complex, non-identifying metadata that you will *not* need to use in response filtering, use annotations rather than labels.
 required     | false
 type         | Map of key-value pairs. Keys can contain only letters, numbers, and underscores and must start with a letter. Values can be any valid UTF-8 string.
 default      | `null`
@@ -148,7 +149,7 @@ example      | {{< highlight shell >}}"labels": {
 
 | annotations |     |
 -------------|------
-description  | Non-identifying metadata to include with event data, which you can access with [event filters][4]. You can use annotations to add data that's meaningful to people or external tools that interact with Sensu.<br><br>In contrast to labels, you cannot use annotations in [API response filtering][10] or [sensuctl response filtering][11], and annotations do not affect Sensu's internal performance.
+description  | Non-identifying metadata to include with event data that you can access with [event filters][4]. You can use annotations to add data that's meaningful to people or external tools that interact with Sensu.<br><br>In contrast to labels, you cannot use annotations in [API response filtering][10], [sensuctl response filtering][11], or [dashboard views][12].
 required     | false
 type         | Map of key-value pairs. Keys and values can be any valid UTF-8 string.
 default      | `null`
@@ -331,3 +332,4 @@ spec:
 [9]: #spec-attributes
 [10]: ../../api/overview#response-filtering
 [11]: ../../sensuctl/reference#response-filters
+[12]: ../../dashboard/filtering#filter-with-label-selectors

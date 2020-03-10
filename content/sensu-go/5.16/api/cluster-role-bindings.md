@@ -28,7 +28,9 @@ The `/clusterrolebindings` API endpoint provides HTTP GET access to [cluster rol
 The following example demonstrates a request to the `/clusterrolebindings` API endpoint, resulting in a JSON array that contains [cluster role binding definitions][1].
 
 {{< highlight shell >}}
-curl http://127.0.0.1:8080/api/core/v2/clusterrolebindings -H "Authorization: Bearer $SENSU_TOKEN"
+curl -X GET \
+http://127.0.0.1:8080/api/core/v2/clusterrolebindings \
+-H "Authorization: Bearer $SENSU_ACCESS_TOKEN"
 
 HTTP/1.1 200 OK
 [
@@ -71,7 +73,8 @@ HTTP/1.1 200 OK
 ---------------|------
 description    | Returns the list of cluster role bindings.
 example url    | http://hostname:8080/api/core/v2/clusterrolebindings
-pagination     | This endpoint supports pagination using the `limit` and `continue` query parameters. See the [API overview][2] for details.
+pagination     | This endpoint supports [pagination][2] using the `limit` and `continue` query parameters.
+response filtering | This endpoint supports [API response filtering][3].
 response type  | Array
 response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output         | {{< highlight shell >}}
@@ -90,6 +93,21 @@ output         | {{< highlight shell >}}
     "metadata": {
       "name": "cluster-admin"
     }
+  },
+  {
+    "subjects": [
+      {
+        "type": "Group",
+        "name": "system:agents"
+      }
+    ],
+    "role_ref": {
+      "type": "ClusterRole",
+      "name": "system:agent"
+    },
+    "metadata": {
+      "name": "system:agent"
+    }
   }
 ]
 {{< /highlight >}}
@@ -105,7 +123,7 @@ The request includes the cluster role binding definition in the request body and
 
 {{< highlight shell >}}
 curl -X POST \
--H "Authorization: Bearer $SENSU_TOKEN" \
+-H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
 -H 'Content-Type: application/json' \
 -d '{
   "subjects": [
@@ -124,22 +142,7 @@ curl -X POST \
 }' \
 http://127.0.0.1:8080/api/core/v2/clusterrolebindings
 
-HTTP/1.1 200 OK
-{
-  "subjects": [
-    {
-      "type": "User",
-      "name": "bob"
-    }
-  ],
-  "role_ref": {
-    "type": "ClusterRole",
-    "name": "cluster-admin"
-  },
-  "metadata": {
-    "name": "bob-binder"
-  }
-}
+HTTP/1.1 201 Created
 {{< /highlight >}}
 
 #### API Specification {#clusterrolebindings-post-specification}
@@ -165,7 +168,7 @@ payload         | {{< highlight shell >}}
   }
 }
 {{< /highlight >}}
-response codes  | <ul><li>**Success**: 200 (OK)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 ## The `/clusterrolebindings/:clusterrolebinding` API endpoint {#the-clusterrolebindingsclusterrolebinding-api-endpoint}
 
@@ -178,7 +181,9 @@ The `/clusterrolebindings/:clusterrolebinding` API endpoint provides HTTP GET ac
 In the following example, querying the `/clusterrolebindings/:clusterrolebinding` API endpoint returns a JSON map that contains the requested [`:clusterrolebinding` definition][1] (in this example, for the `:clusterrolebinding` named `bob-binder`).
 
 {{< highlight shell >}}
-curl http://127.0.0.1:8080/api/core/v2/clusterrolebindings/bob-binder -H "Authorization: Bearer $SENSU_TOKEN"
+curl -X GET \
+http://127.0.0.1:8080/api/core/v2/clusterrolebindings/bob-binder \
+-H "Authorization: Bearer $SENSU_ACCESS_TOKEN"
 
 HTTP/1.1 200 OK
 {
@@ -235,7 +240,7 @@ The request includes the cluster role binding definition in the request body and
 
 {{< highlight shell >}}
 curl -X PUT \
--H "Authorization: Bearer $SENSU_TOKEN" \
+-H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
 -H 'Content-Type: application/json' \
 -d '{
   "subjects": [
@@ -254,22 +259,7 @@ curl -X PUT \
 }' \
 http://127.0.0.1:8080/api/core/v2/clusterrolebindings/ops-group-binder
 
-HTTP/1.1 200 OK
-{
-  "subjects": [
-    {
-      "type": "Group",
-      "name": "ops"
-    }
-  ],
-  "role_ref": {
-    "type": "ClusterRole",
-    "name": "cluster-admin"
-  },
-  "metadata": {
-    "name": "ops-group-binder"
-  }
-}
+HTTP/1.1 201 Created
 {{< /highlight >}}
 
 #### API Specification {#clusterrolebindingsclusterrolebinding-put-specification}
@@ -295,7 +285,7 @@ payload         | {{< highlight shell >}}
   }
 }
 {{< /highlight >}}
-response codes  | <ul><li>**Success**: 200 (OK)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 ### `/clusterrolebindings/:clusterrolebinding` (DELETE) {#clusterrolebindingsclusterrolebinding-delete}
 
@@ -307,7 +297,7 @@ The following example shows a request to the `/clusterrolebindings/:clusterroleb
 
 {{< highlight shell >}}
 curl -X DELETE \
--H "Authorization: Bearer $SENSU_TOKEN" \
+-H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
 http://127.0.0.1:8080/api/core/v2/clusterrolebindings/ops-binding
 
 HTTP/1.1 204 No Content
@@ -323,3 +313,4 @@ response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Miss
 
 [1]: ../../reference/rbac/
 [2]: ../overview#pagination
+[3]: ../overview#response-filtering
