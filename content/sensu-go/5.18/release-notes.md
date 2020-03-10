@@ -7,6 +7,7 @@ version: "5.18"
 menu: "sensu-go-5.18"
 ---
 
+- [5.18.1 release notes](#5-18-1-release-notes)
 - [5.18.0 release notes](#5-18-0-release-notes)
 - [5.17.2 release notes](#5-17-2-release-notes)
 - [5.17.1 release notes](#5-17-1-release-notes)
@@ -53,6 +54,22 @@ PATCH versions include backward-compatible bug fixes.
 Read the [upgrade guide][1] for information about upgrading to the latest version of Sensu Go.
 
 ---
+
+## 5.18.1 release notes
+
+**March 10, 2020** &mdash; The latest release of Sensu Go, version 5.18.1, is now available for download.
+This release fixes bugs that caused SQL migration failure on PostgreSQL 12, nil pointer panic due to OICD login, and sensu-backend restart upon agent disconnection.
+It also includes a reliability improvement &emdash; a change to use the gRPC client rather than the embedded etcd client.
+See the [upgrade guide][1] to upgrade Sensu to version 5.18.1.
+
+**FIXES:**
+
+- ([Commercial feature][121]) Fixed a bug that caused SQL migrations to fail on PostgreSQL 12.
+- ([Commercial feature][121]) Fixed a bug where OIDC login could result in a nil pointer panic.
+- Changed to using the gRPC client (rather than the embedded etcd client) to improve reliability and avoid nil pointer panics triggered by shutting down the embedded etcd client.
+- The Sensu backend no longer hangs indefinitely if a file lock for the asset manager cannot be obtained. Instead, the backend returns an error after 60 seconds.
+- Fixed a bug that caused sensu-backend to restart when agents disconnected.
+- Fixed a bug where the backend would panic on some 32-bit systems.
 
 ## 5.18.0 release notes
 
@@ -1092,3 +1109,4 @@ To get started with Sensu Go:
 [118]: /sensu-go/5.18/api/events#events-post
 [119]: /sensu-go/5.18/api/overview/#response-filtering
 [120]: /sensu-go/5.18/api/auth/#the-authtest-api-endpoint
+[121]: /sensu-go/5.18/getting-started/enterprise/
