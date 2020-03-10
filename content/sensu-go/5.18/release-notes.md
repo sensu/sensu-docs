@@ -70,7 +70,7 @@ See the [upgrade guide][1] to upgrade Sensu to version 5.18.1.
 - Changed to using the gRPC client (rather than the embedded etcd client) to improve reliability and avoid nil pointer panics triggered by shutting down the embedded etcd client.
 - The Sensu backend no longer hangs indefinitely if a file lock for the asset manager cannot be obtained. Instead, the backend returns an error after 60 seconds.
 - Fixed a bug that caused sensu-backend to restart when agents disconnected.
-- Changed the `Resource` struct alignment in the store cache to 64-bit to support 32-bit systems.
+- Fixed a bug where the backend would panic on some 32 bit systems.
 
 ## 5.18.0 release notes
 
