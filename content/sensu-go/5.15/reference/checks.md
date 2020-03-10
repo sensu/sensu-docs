@@ -182,7 +182,9 @@ Examples of valid cron values include:
 
 - `cron: CRON_TZ=Asia/Tokyo * * * * *`
 - `cron: TZ=Asia/Tokyo * * * * *`
-- `cron: * * * * *`
+- `cron: '* * * * *'`
+
+_**NOTE**: If you're using YAML to create a check that uses cron scheduling and the first character of the cron schedule is an asterisk (`*`), place the entire cron schedule inside single or double quotes (e.g. `cron: '* * * * *'`)._
 
 **Example cron checks**
 
@@ -198,7 +200,7 @@ metadata:
   namespace: default
 spec:
   command: check-cpu.sh -w 75 -c 90
-  cron: * * * * *
+  cron: '* * * * *'
   handlers:
   - slack
   publish: true
@@ -226,7 +228,7 @@ spec:
 
 {{< /language-toggle >}}
 
-Use a prefix of `TZ=` or `CRON_TZ=` if you want to set a [timezone][30] for the `cron` attribute.
+Use a prefix of `TZ=` or `CRON_TZ=` to set a [timezone][30] for the `cron` attribute.
 
 {{< language-toggle >}}
 
@@ -575,7 +577,7 @@ example      | {{< highlight shell >}}"interval": 60{{< /highlight >}}
 
 |cron        |      |
 -------------|------
-description  | When the check should be executed, using [cron syntax][14] or [these predefined schedules][15]. Use a prefix of `TZ=` or `CRON_TZ=` to set a [timezone][30] for the cron attribute.
+description  | When the check should be executed, using [cron syntax][14] or [these predefined schedules][15]. Use a prefix of `TZ=` or `CRON_TZ=` to set a [timezone][30] for the cron attribute. _**NOTE**: If you're using YAML to create a check that uses cron scheduling and the first character of the cron schedule is an asterisk (`*`), place the entire cron schedule inside single or double quotes (e.g. `cron: '* * * * *'`)._
 required     | true (unless `interval` is configured)
 type         | String
 example      | {{< highlight shell >}}"cron": "0 0 * * *"{{< /highlight >}}
