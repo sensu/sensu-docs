@@ -663,7 +663,7 @@ You can use the same methods, selectors, and examples for sensuctl response filt
 The standard sensuctl response filtering syntax is:
 
 {{< highlight shell >}}
-sensuctl RESOURCE_TYPE list --SELECTOR_FLAG 'FILTER_STATEMENT'
+sensuctl RESOURCE_TYPE list --SELECTOR 'FILTER_STATEMENT'
 {{< /highlight >}}
 
 To create a sensuctl response filtering command:
