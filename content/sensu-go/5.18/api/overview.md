@@ -559,7 +559,7 @@ curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" http://127.0.0.1:8080/api/co
 
 {{% notice note %}}
 **NOTE**: For this field selector, `subscription` means the subscription specified for the silence.
-In other words, this filter retrieves **silences** with a particular subscription, not silenced resources with a particular subscription.
+In other words, this filter retrieves **silences** with a particular subscription, not silenced entities or checks with a matching subscription.
 {{% /notice %}}
 
 **Filter silenced resources by expiration**
