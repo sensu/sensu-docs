@@ -17,7 +17,7 @@ menu:
 - [Examples](#examples)
 
 The Sensu dashboard includes basic filters you can use to build customized views of your Sensu resources.
-Sensu also supports advanced dashboard filtering based on a wider range of resource attributes and custom lables as a [commercial feature][1].
+Sensu also supports advanced dashboard filtering based on a wider range of resource attributes and custom labels as a [commercial feature][1].
 
 When you apply a filter to a dashboard page, it creates a unique link for the filtered page.
 You can bookmark these links and share your favorite filter combinations.
