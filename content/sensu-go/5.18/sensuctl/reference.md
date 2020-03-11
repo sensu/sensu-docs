@@ -669,7 +669,7 @@ sensuctl RESOURCE_TYPE list --SELECTOR 'FILTER_STATEMENT'
 To create a sensuctl response filtering command:
 
 - Replace `RESOURCE_TYPE` with the resource your filter is based on.
-- Replace `SELECTOR_FLAG` with either `label-selector` or `field-selector`, depending on which selector you want to use.
+- Replace `SELECTOR` with either `label-selector` or `field-selector`, depending on which selector you want to use.
 - Replace `FILTER_STATEMENT` with the filter to apply.
 
 For example:
