@@ -69,7 +69,7 @@ SELECTOR:FILTER_STATEMENT
 
 To write a dashboard filter command:
 
-- Replace `ATTRIBUTE` with the selector you want to use: `labelSelector` or `fieldSelector`.
+- Replace `SELECTOR` with the selector you want to use: `labelSelector` or `fieldSelector`.
 - Replace `FILTER_STATEMENT` with the filter to apply.
 
 For example, this filter will return all events for entities with the `linux` subscription:
