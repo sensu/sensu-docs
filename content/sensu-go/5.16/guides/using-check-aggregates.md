@@ -40,7 +40,9 @@ After you add the label, restart your agent to pick up the change in configurati
 
 `systemctl restart sensu-agent`
 
-Next, configure a check that will identify events with the label you assigned to the entity and ensure that these events are in an OK status. Here's an example:
+Next, configure a check that will identify events with the label you assigned to the entity and ensure that these events are in an OK status. Before you write the check, you'll need to download the [aggregate check plugin][1] via `sensuctl asset add sensu/sensu-aggregate-check`. 
+
+After you've added the aggregate check plugin asset, you'll create the check. Here's an example:
 
 ```yaml
 ---
@@ -225,7 +227,7 @@ Congratulations! Your aggregate is in place. Here's how it might look in the Sen
 ![TO DO INSERT DASHBOARD PIC HERE][]
 
 <!--LINKS-->
-[1]:
+[1]: https://bonsai.sensu.io/assets/sensu/sensu-aggregate-check
 [2]:
 [3]:
 [4]:
