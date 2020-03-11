@@ -21,6 +21,10 @@ For more information, see [Get started with commercial features][1].
 Sensu's secrets management eliminates the need to expose secrets in your Sensu configuration.
 When a Sensu resource definition requires a secret (e.g. a username or password), Sensu allows you to obtain secrets from one or more external secrets providers, so you can both refer to external secrets and consume secrets via [backend environment variables][5].
 
+{{% notice note %}}
+**NOTE**: Secrets management is implemented for [checks](../checks/#check-with-secret), [handlers](../handlers/#handler-with-secret), and [mutators](../mutators/#mutator-with-secret).
+{{% /notice %}}
+
 Only Sensu backends have access to request secrets from a [secrets provider][7].
 Sensu backends cache fetched secrets in memory, with no persistence to a Sensu datastore or file on disk.
 Secrets provided via a "lease" with a "lease duration" are deleted from Sensu's in-memory cache after the configured number of seconds, prompting the Sensu backend to request the secret again.

@@ -7,6 +7,7 @@ version: "5.18"
 menu: "sensu-go-5.18"
 ---
 
+- [5.18.1 release notes](#5-18-1-release-notes)
 - [5.18.0 release notes](#5-18-0-release-notes)
 - [5.17.2 release notes](#5-17-2-release-notes)
 - [5.17.1 release notes](#5-17-1-release-notes)
@@ -53,6 +54,23 @@ PATCH versions include backward-compatible bug fixes.
 Read the [upgrade guide][1] for information about upgrading to the latest version of Sensu Go.
 
 ---
+
+## 5.18.1 release notes
+
+**March 10, 2020** &mdash; The latest release of Sensu Go, version 5.18.1, is now available for download.
+This release fixes bugs that caused SQL migration failure on PostgreSQL 12, nil pointer panic due to OICD login, and sensu-backend restart upon agent disconnection.
+It also includes a reliability improvement &emdash; a change to use the gRPC client rather than the embedded etcd client.
+
+See the [upgrade guide][1] to upgrade Sensu to version 5.18.1.
+
+**FIXES:**
+
+- ([Commercial feature][121]) Fixed a bug that caused SQL migrations to fail on PostgreSQL 12.
+- ([Commercial feature][121]) Fixed a bug where OIDC login could result in a nil pointer panic.
+- Changed to using the gRPC client (rather than the embedded etcd client) to improve reliability and avoid nil pointer panics triggered by shutting down the embedded etcd client.
+- The Sensu backend no longer hangs indefinitely if a file lock for the asset manager cannot be obtained. Instead, the backend returns an error after 60 seconds.
+- Fixed a bug that caused sensu-backend to restart when agents disconnected.
+- Fixed a bug where the backend would panic on some 32-bit systems.
 
 ## 5.18.0 release notes
 
@@ -134,7 +152,7 @@ See the [upgrade guide][1] to upgrade Sensu to version 5.17.0.
 **IMPROVEMENTS:**
 
 - ([Commercial feature][106]) Upgraded the size of the events auto-incremented ID in the PostgreSQL store to a 64-bit variant, which allows you to store many more events and avoids exhausting the sequence.
-- ([Commercial feature][106]) Initialization via [`sensu-backend init`][109] is now implemented for Docker.
+- ([Commercial feature][106]) [Initialization][109] via `sensu-backend init` is now implemented for Docker.
 - ([Commercial feature][106]) UPN binding support has been re-introduced via the `default_upn_domain` configuration attribute.
 - In the [web UI][107], labels that contain URLs are now clickable links.
 - Added `event.entity.name` as a supported field for the [`fieldSelector`][110] query parameter.
@@ -183,7 +201,7 @@ See the [upgrade guide][1] to upgrade Sensu to version 5.16.0.
 
 **IMPORTANT:**
 
-- The backend is no longer seeded with a default admin username and password.
+- For Ubuntu/Debian and RHEL/CentOS installations, the backend is no longer seeded with a default admin username and password.
 Users will need to [run 'sensu-backend init'][102] on every new installation and specify an admin username and password.
 
 **NEW FEATURES:**
@@ -1080,7 +1098,7 @@ To get started with Sensu Go:
 [106]: /sensu-go/5.17/getting-started/enterprise/
 [107]: /sensu-go/5.17/dashboard/overview
 [108]: /sensu-go/5.17/api/secrets
-[109]: /sensu-go/5.17/reference/backend/#initialization
+[109]: /sensu-go/5.17/reference/backend/#docker-initialization
 [110]: /sensu-go/5.17/api/overview/#field-selector
 [111]: /sensu-go/5.17/reference/rbac/#cluster-wide-resource-types
 [112]: /sensu-go/5.17/api/events/#events-post
@@ -1092,3 +1110,4 @@ To get started with Sensu Go:
 [118]: /sensu-go/5.18/api/events#events-post
 [119]: /sensu-go/5.18/api/overview/#response-filtering
 [120]: /sensu-go/5.18/api/auth/#the-authtest-api-endpoint
+[121]: /sensu-go/5.18/getting-started/enterprise/
