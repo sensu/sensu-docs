@@ -15,7 +15,7 @@ menu:
 - [Install sensuctl](#install-sensuctl)
 - [Install Sensu agents](#install-sensu-agents)
 - [Commercial features](#commercial-features)
-- [Next steps](#next-steps)
+- [Next step: Generate certificates](#next-step-generate-certificates)
 
 This installation guide describes how to install the Sensu backend, Sensu agent, and sensuctl command line tool.
 
@@ -431,14 +431,11 @@ You can use sensuctl to view your license details at any time.
 sensuctl license info
 {{< /highlight >}}
 
-## Next steps
+## Next step: Generate certificates
 
-Now that you've installed Sensu, here are some resources to help continue your journey:
+If you're going to deploy Sensu for use outside of a local development environment, you should secure it using transport layer security (TLS).
+The next step in setting up TLS is to [generate the certificates you need][9].
 
-- [Send Slack alerts with handlers][10]
-- [Monitor server resources with checks][9]
-- [Aggregate metrics with the Sensu StatsD listener][32]
-- [Create a read-only user with RBAC][33]
 
 [1]: https://github.com/sensu/sensu-go/releases/
 [3]: ../../dashboard/overview/
@@ -446,8 +443,7 @@ Now that you've installed Sensu, here are some resources to help continue your j
 [5]: ../../installation/platforms
 [6]: ../../reference/backend#configuration
 [7]: ../../reference/agent#configuration
-[9]: ../../guides/monitor-server-resources/
-[10]: ../../guides/send-slack-alerts/
+[9]: ../../guides/generate-certificates
 [11]: https://sensu.io/contact?subject=contact-sales/
 [12]: ../verify/
 [13]: https://sensu.io/sensu-license/
@@ -469,8 +465,6 @@ Now that you've installed Sensu, here are some resources to help continue your j
 [29]: https://blog.sensu.io/one-year-of-sensu-go/
 [30]: ../../reference/backend#initialization
 [31]: ../../guides/deploying/
-[32]: ../../guides/aggregate-metrics-statsd/
-[33]: ../../guides/create-read-only-user/
 [34]: https://account.sensu.io/
 [35]: ../../api/health/
 [36]: #4-open-the-web-ui

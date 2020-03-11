@@ -15,12 +15,13 @@ menu:
 - [Secure the API and dashboard](#secure-the-api-and-dashboard)
 - [Secure Sensu agent-to-server communication](#secure-sensu-agent-to-server-communication)
 - [Sensu agent TLS authentication](#sensu-agent-tls-authentication)
-- [Create self-signed certificates](#create-self-signed-certificates)
-- [Next steps](#next-steps)
+- [Next step: Run a Sensu cluster](#next-step-run-a-sensu-cluster)
 
 As with any piece of software, it is critical to minimize any attack surface the software exposes.
 Sensu is no different.
 This guide describes the components you need to secure to make Sensu production-ready.
+
+To use this guide, you must have previously [generated the certificates][1] you will need to secure Sensu in production.
 
 ## Secure etcd peer communication
 
@@ -177,7 +178,7 @@ Certificate:
 
 The `Subject:` field indicates the certificate's CN is `client`, so to bind the agent to a particular user in Sensu, create a user called `client`.
 
-To enable agent TLS authentication, use existing certificates and keys for the Sensu backend and agent or create new certificates and keys according to the [Create self-signed certificates][12] section.
+To enable agent TLS authentication, use existing certificates and keys for the Sensu backend and agent or [generate new certificates and keys][1].
 
 After you create backend and agent certificates, modfiy the backend and agent configuration:
 
@@ -202,85 +203,18 @@ trusted-ca-file: "/path/to/ca.pem"
 You can use use certificates for authentication that are distinct from other communication channels used by Sensu, like etcd or the API.
 However, deployments can also use the same certificates and keys for etcd peer and client communication, the HTTP API, and agent authentication without issues.
 
-## Create self-signed certificates for securing etcd and backend-agent communication {#create-self-signed-certificates}
+## Next step: Run a Sensu cluster
 
-This example uses the [cfssl][9] tool to generate self-signed certificates.
+Well done!
+Your Sensu installation should now be secured with TLS.
+The last step before you deploy Sensu is to [set up a Sensu cluster][7].
 
-First, create a Certificate Authority (CA).
-To keep things straightforward in this example, you will generate all clients and peer certificates using this CA, but you might eventually want to create a distinct CA.
 
-{{< highlight shell >}}
-echo '{"CN":"CA","key":{"algo":"rsa","size":2048}}' | cfssl gencert -initca - | cfssljson -bare ca -
-echo '{"signing":{"default":{"expiry":"43800h","usages":["signing","key encipherment","server auth","client auth"]}}}' > ca-config.json
-{{< /highlight >}}
-
-Then, using that CA, generate certificates and keys for each peer (backend server) by specifying their Common Name (CN) and their hosts.
-A `*.pem`, `*.csr` and `*.pem` will be created for each backend.
-
-{{< highlight shell >}}
-export ADDRESS=10.0.0.1,backend-1
-export NAME=backend-1
-echo '{"CN":"'$NAME'","hosts":[""],"key":{"algo":"rsa","size":2048}}' | cfssl gencert -config=ca-config.json -ca=ca.pem -ca-key=ca-key.pem -hostname="$ADDRESS" -profile=peer - | cfssljson -bare $NAME
-
-export ADDRESS=10.0.0.2,backend-2
-export NAME=backend-2
-echo '{"CN":"'$NAME'","hosts":[""],"key":{"algo":"rsa","size":2048}}' | cfssl gencert -config=ca-config.json -ca=ca.pem -ca-key=ca-key.pem -hostname="$ADDRESS" -profile=peer - | cfssljson -bare $NAME
-
-export ADDRESS=10.0.0.3,backend-3
-export NAME=backend-3
-echo '{"CN":"'$NAME'","hosts":[""],"key":{"algo":"rsa","size":2048}}' | cfssl gencert -config=ca-config.json -ca=ca.pem -ca-key=ca-key.pem -hostname="$ADDRESS" -profile=peer - | cfssljson -bare $NAME
-{{< /highlight >}}
-
-You will also create generate a *client* certificate that can be used by clients to connect to the etcd client URL.
-This time, you don't need to specify an address, only a CN (here, `client`).
-The files `client-key.pem`, `client.csr`, and `client.pem` will be created:
-
-{{< highlight shell >}}
-export NAME=client
-echo '{"CN":"'$NAME'","hosts":[""],"key":{"algo":"rsa","size":2048}}' | cfssl gencert -config=ca-config.json -ca=ca.pem -ca-key=ca-key.pem -hostname="" -profile=client - | cfssljson -bare $NAME
-{{< /highlight >}}
-
-If you have a Sensu license, you can also generate a certificate for agent TLS authentication:
-
-{{< highlight shell >}}
-export NAME=agent-1
-echo '{"CN":"'$NAME'","hosts":[""],"key":{"algo":"rsa","size":2048}}' | cfssl gencert -config=ca-config.json -ca=ca.pem -ca-key=ca-key.pem -hostname="" -profile=client - | cfssljson -bare $NAME
-{{< /highlight >}}
-
-See [etcd's guide to generating self-signed certificates][6] for detailed instructions for securing etcd.
-
-When you're finished, the following files should be created (the `*.csr` files are not used in this guide):
-
-{{< highlight shell >}}
-agent-1-key.pem
-agent-1.csr
-agent-1.pem
-backend-1-key.pem
-backend-1.csr
-backend-1.pem
-backend-2-key.pem
-backend-2.csr
-backend-2.pem
-backend-3-key.pem
-backend-3.csr
-backend-3.pem
-ca-config.json
-ca-key.pem
-ca.csr
-ca.pem
-client-key.pem
-client.csr
-client.pem
-{{< /highlight >}}
-
-## Next steps
-
-Learn about [role-based access control (RBAC) in Sensu][3] or [create a read-only user][4].
-
+[1]: ../../guides/generate-certificates
 [2]: ../../reference/rbac/#default-users
 [3]: ../../reference/rbac/
 [4]: ../../guides/create-read-only-user/
 [5]: ../../getting-started/enterprise/
 [6]: https://etcd.io/docs/v3.4.0/op-guide/security/
+[7]: ../../guides/clustering/
 [9]: https://github.com/cloudflare/cfssl
-[12]: #create-self-signed-certificates

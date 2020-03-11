@@ -11,44 +11,50 @@ menu:
     parent: guides
 ---
 
-- [Public Key Infrastructure](#public-key-infrastructure-pki)
-- [Issuing Certificates](#issuing-certificates)
-    - [Install cfssl toolkit](#install-cfssl-toolkit)
+- [Public key infrastructure](#public-key-infrastructure-pki)
+- [Issue certificates](#issue-certificates)
+    - [Install TLS](#install-tls)
     - [Create a Certificate Authority (CA)](#create-a-certificate-authority-ca)
     - [Generate backend cluster certificates](#generate-backend-cluster-certificates)
     - [Generate agent certificate](#generate-agent-certificate)
-- [Next steps](#next-steps)
+- [Next step: Secure Sensu](#next-step-secure-sensu)
 
 If you are deploying Sensu for use outside of a local development environment, you should secure it using transport layer security (TLS).
+TLS uses encryption to provide security for communication between Sensu backends and agents as well as communication between human operators and the Sensu backend, such as web UI or sensuctl access.
 
-TLS uses encryption to provide security for communication between Sensu backends and agents, as well as communication between human operators and the Sensu backend, e.g. web UI access or sensuctl access.
+We recommend that you configure TLS for your backend clusters from the very beginning because reconfiguring an existing Sensu backend cluster from cleartext to TLS can be time-consuming.
+TLS is also required to use some of Sensu's commercial features, like [secrets management][9] and mutual TLS authentication (mTLS).
 
-Reconfiguring an existing Sensu backend cluster from cleartext to TLS is a non-trivial exercise, so we strongly recommend that you configure TLS for backend clusters from the very beginning.
+This guide explains how to generate the certificates you need to secure Sensu in production.
+To use this guide, you must have already [installed Sensu][10] on:
 
-TLS is a prerequisite for using certain commercial features like Secrets and Mutual TLS Authentication.
+- Three backend nodes that you plan to cluster together using TLS certificates for transport security.
+- One or more agents that will be configured for mTLS.
 
-This guide assumes you've already installed Sensu on three backend nodes which are to be clustered together using TLS certificates for transport security, and one or more agents which will be configured for mutual TLS authentication (mTLS).
+## Public key infrastructure (PKI)
 
-## Public Key Infrastructure (PKI)
-
-Use of TLS often requires provisioning [public key infrastructure (PKI)][8] for issuing certificates. 
+To use TLS, you typically must provision [public key infrastructure (PKI)][8] for issuing certificates. 
 
 This guide describes how to set up a minimal PKI and generate the certificates you need to secure Sensu communications for a clustered backend and agents.
-If your organization has existing PKI for certificate issuance, you are encouraged to adapt the suggestions in this guide to your organization's PKI.
+If your organization has existing PKI for certificate issuance, you can adapt the suggestions in this guide to your organization's PKI.
 
-As recommended practices for deploying and maintaining production PKI can result in significant complexity, those considerations are considered outside the scope of this guide. TODO: Add a link here for recommended PKI practices.
+Recommended practices for deploying and maintaining production PKI can be complex and case-specific, so recommended practices are not included in the scope of this guide.
 
-## Issuing Certificates
+## Issue certificates
 
-Certificate Authorities (CAs) are a common component of any PKI. A CA certificate and key are used to generate certificates and keys for use with Sensu backends and agents.
+Certificate Authorities (CAs) are a common PKI component.
+Use a CA certificate and key to generate certificates and keys to use with Sensu backends and agents.
 
 This example uses the [CloudFlare cfssl][6] toolkit to generate a CA and self-signed certificates from that CA.
 
 ### Install TLS 
 
-The [cfssl][6] toolkit is released as a collection of command-line tools. These tools need only be installed on one system to generate your CA and issue certificates. You may choose to install the toolkit on your laptop or workstation and store the files there for safe keeping, or to install the toolkit on one of the systems where you'll run the Sensu backend.
+The [cfssl][6] toolkit is released as a collection of command-line tools.
+These tools only need to be installed on one system to generate your CA and issue certificates.
+You may install the toolkit on your laptop or workstation and store the files there for safekeeping or install the toolkit on one of the systems where you'll run the Sensu backend.
 
-In this example you'll walk through installing cfssl on a Linux system, with the requirement that certain certificates and keys will need to be copied to each of the backend and agent systems you are securing. This guide assumes that you'll install these certificates in the `/etc/sensu/pki` directory on each system.
+In this example you'll walk through installing cfssl on a Linux system, which requires copying certain certificates and keys to each of the backend and agent systems you are securing.
+This guide assumes that you'll install these certificates in the `/etc/sensu/pki` directory on each system.
 
 {{< highlight shell >}}
 
@@ -72,7 +78,7 @@ cfssljson -version
 
 ### Create a Certificate Authority (CA)
 
-Create a Certificate Authority (CA) using cfssl and cfssljson.
+Create a CA with cfssl and cfssljson:
 
 {{< highlight shell >}}
 mkdir -p /etc/sensu/pki
@@ -81,7 +87,7 @@ echo '{"CN":"Sensu Test CA","key":{"algo":"rsa","size":2048}}' | cfssl gencert -
 echo '{"signing":{"default":{"expiry":"17520h","usages":["signing","key encipherment","client auth"]},"profiles":{"backend":{"usages":["signing","key encipherment","server auth"],"expiry":"4320h"},"agent":{"usages":["signing","key encipherment","client auth"],"expiry":"4320h"}}}}' > ca-config.json
 {{< /highlight >}}
 
-You now have a directory at `/etc/sensu/pki` containing the following files:
+You should now have a directory at `/etc/sensu/pki` that contains the following files:
 
  filename        | description |
 -----------------|-------------|
@@ -90,16 +96,18 @@ You now have a directory at `/etc/sensu/pki` containing the following files:
 `ca-key.pem`     | CA certificate private key. |
 `ca-config.json` | CA configuration, used in combination with CA certificate and private key to generate server certificates. |
 
-You will need to copy `ca.pem` file will be copied to each agent and backend. The CA certificate is used by sensu-agent and sensu-backend to validate server certificates at connection time.
+Make sure to copy the `ca.pem` file to each agent and backend.
+The sensu-agent and sensu-backend use the CA certificate to validate server certificates at connection time.
 
 ### Generate backend cluster certificates
 
-Now that you've generated a CA, you will use it to generate certificates and keys for each backend server (etcd peer). 
-Before generating the certificates, you'll need some information about each backend server -- specifically the IP address(es) and hostname(s) which will be used in backend and agent communications.
+Now that you've generated a CA, you will use it to generate certificates and keys for each backend server (etcd peer).
+Before you generate the certificates, you'll need some information about each backend server: the IP addresses and hostnames to use in backend and agent communications.
 
-During initial configuration of a cluster of Sensu backends, every member of the cluster must be described with a URL passed as the value of the `etcd-initial-cluster` parameter. In issuing certificates for cluster members, the IP address or host name used in these URLs must be represented in either the Common Name (CN) or Subject Alternative Name (SAN) records in the certificate.
+During initial configuration of a cluster of Sensu backends, you must describe every member of the cluster with a URL passed as the value of the `etcd-initial-cluster` parameter.
+In issuing certificates for cluster members, the IP address or hostname used in these URLs must be represented in either the Common Name (CN) or Subject Alternative Name (SAN) records in the certificate.
 
-This guide assumes a scenario with three backend members which are reachable via a 10.0.0.x IP address, a fully qualified name (e.g. `backend-1.example.com`) and an unqualified name, e.g. `backend-1`:
+This guide assumes a scenario with three backend members that are reachable via a `10.0.0.x` IP address, a fully qualified name (e.g. `backend-1.example.com`), and an unqualified name (e.g. `backend-1`):
 
 Unqualified name | IP address | Fully qualified domain name (FQDN) | Additional names     |
 -----------------|------------|------------------------------------|----------------------|
@@ -107,7 +115,7 @@ backend-1        | 10.0.0.1   | backend-1.example.com              | localhost, 
 backend-2        | 10.0.0.2   | backend-2.example.com              | localhost, 127.0.0.1 |
 backend-3        | 10.0.0.3   | backend-3.example.com              | localhost, 127.0.0.1 |
 
-Using these name and address details, you will create two `*.pem` files and one `*.csr` file for each backend:
+Use these name and address details to create two `*.pem` files and one `*.csr` file for each backend:
 
 {{< highlight shell >}}
 
@@ -115,7 +123,7 @@ Using these name and address details, you will create two `*.pem` files and one 
 
 # Values provided in the ADDRESS variable will be used to populate the certificate's SAN records
 
-# For systems with multiple hostnames and IP addresses, add each to the comma delimited value of the ADDRESS variable
+# For systems with multiple hostnames and IP addresses, add each to the comma-delimited value of the ADDRESS variable
 export ADDRESS=localhost,127.0.0.1,10.0.0.1,backend-1
 export NAME=backend-1.example.com
 echo '{"CN":"'$NAME'","hosts":[""],"key":{"algo":"rsa","size":2048}}' | cfssl gencert -config=ca-config.json -profile="backend" -ca=ca.pem -ca-key=ca-key.pem -hostname="$ADDRESS" - | cfssljson -bare $NAME
@@ -129,7 +137,7 @@ export NAME=backend-3.example.com
 echo '{"CN":"'$NAME'","hosts":[""],"key":{"algo":"rsa","size":2048}}' | cfssl gencert -config=ca-config.json -profile="backend" -ca=ca.pem -ca-key=ca-key.pem -hostname="$ADDRESS" - | cfssljson -bare $NAME
 {{< /highlight >}}
 
-You will now have a set of files for each backend, where the `N` is the numeric element of the backend hostname:
+You should now have a set of files for each backend, where the `N` is the numeric element of the backend hostname:
 
 filename               | description                  | required on backend?|
 -----------------------|------------------------------|---------------------|
@@ -138,7 +146,7 @@ filename               | description                  | required on backend?|
 `backend-N-key.pem`    | Backend server private key.  | {{< check >}}       |
 `backend-N.csr`        | Certificate signing request. |                     |
 
-As mentioned previously, backend PEM files need to be copied to the corresponding backend system, and all systems should receive a copy of ca.pem as well:
+Again, make sure to copy all backend PEM files and `ca-pem` to the corresponding backend system:
 
 {{< highlight shell >}}
 
@@ -149,7 +157,8 @@ As mentioned previously, backend PEM files need to be copied to the correspondin
 └── ca.pem
 {{< /highlight >}}
 
-These files should be accessible only by the `sensu` user. Use chown and chmod to make it so:
+These files should be accessible only by the `sensu` user.
+Use chown and chmod to make it so:
 
 {{< highlight shell >}}
 chown sensu /etc/sensu/pki/*.pem
@@ -158,7 +167,7 @@ chmod 600 /etc/sensu/pki/*.pem
 
 ### Generate agent certificate
 
-Third, generate a certificate that agents can use to connect to the Sensu backend.
+Now you will generate a certificate that agents can use to connect to the Sensu backend.
 Sensu's commerical distribution offers support for authenticating agents via TLS certificates instead of a username and password.
 
 For this certificate, you only need to specify a CN (here, `client`) &emdash; you don't need to specify an address.
@@ -169,13 +178,9 @@ export NAME=client
 echo '{"CN":"'$NAME'","hosts":[""],"key":{"algo":"rsa","size":2048}}' | cfssl gencert -config=ca-config.json -ca=ca.pem -ca-key=ca-key.pem -hostname="" -profile=client - | cfssljson -bare $NAME
 {{< /highlight >}}
 
-## Next steps
+## Next step: Secure Sensu
 
-Now that your backends are deployed and secured according to best practices, read [Secure Sensu][1] to make Sensu production-ready:
-
-- Secure [etcd communication][2], the [Sensu API and dashboard][3], and [agent-to-server communication][4].
-- [Use TLS with Sensu][5].
-- See [etcd's transport security documentation][7] for further details on etcd's transport security.
+Now that you have generated the required certificates, follow our [Secure Sensu][1] guide to make your Sensu installation production-ready.
 
 
 [1]: ../../guides/securing-sensu/
@@ -186,3 +191,5 @@ Now that your backends are deployed and secured according to best practices, rea
 [6]: https://github.com/cloudflare/cfssl
 [7]: https://etcd.io/docs/v3.4.0/op-guide/security/
 [8]: https://en.wikipedia.org/wiki/Public_key_infrastructure
+[9]: ../../guides/secrets-management/
+[10]: ../../installation/install-sensu/
