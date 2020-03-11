@@ -653,7 +653,7 @@ See the [RBAC reference][22] for information about local user management with se
 **COMMERCIAL FEATURE**: Access sensuctl response filters in the packaged Sensu Go distribution.
 For more information, see [Get started with commercial features][30].
 
-Sensuctl supports response filtering for all [`list` commands][23].
+Sensuctl supports response filtering for all [commands using the `list` verb][23].
 For information about response filtering methods and available label and field selectors, see [API response filtering][28].
 
 ### Sensuctl-specific syntax
