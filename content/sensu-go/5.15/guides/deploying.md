@@ -22,7 +22,7 @@ menu:
   - [Large-scale clustered deployment for multiple availability zones](#large-scale-clustered-deployment-for-multiple-availability-zones)
 - [Architecture considerations](#architecture-considerations)
   - [Networking](#networking)
-  - [Load blanacing](#load-balancing)
+  - [Load balancing](#load-balancing)
 
 This guide describes various deployment considerations and recommendations for a production-ready Sensu deployment, including details related to communication security and common deployment architectures.
 
