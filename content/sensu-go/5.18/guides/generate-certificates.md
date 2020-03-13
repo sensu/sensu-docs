@@ -22,14 +22,14 @@ menu:
 If you are deploying Sensu for use outside of a local development environment, you should secure it using transport layer security (TLS).
 TLS uses encryption to provide security for communication between Sensu backends and agents as well as communication between human operators and the Sensu backend, such as web UI or sensuctl access.
 
-We recommend that you configure TLS for your backend clusters from the very beginning because reconfiguring an existing Sensu backend cluster from cleartext to TLS can be time-consuming.
+Because reconfiguring an existing Sensu deployment from cleartext to TLS can be time-consuming, we recommend that you configure TLS for your backend from the very beginning.
 TLS is also required to use some of Sensu's commercial features, like [secrets management][9] and mutual TLS authentication (mTLS).
 
 This guide explains how to generate the certificates you need to secure Sensu in production.
 To use this guide, you must have already [installed Sensu][10] on:
 
-- Three backend nodes that you plan to cluster together using TLS certificates for transport security.
-- One or more agents that will be configured for mTLS.
+- One backend system or three backend systems that you plan to cluster together.
+- One or more agents.
 
 ## Public key infrastructure (PKI)
 
@@ -146,7 +146,7 @@ filename               | description                  | required on backend?|
 `backend-N-key.pem`    | Backend server private key.  | {{< check >}}       |
 `backend-N.csr`        | Certificate signing request. |                     |
 
-Again, make sure to copy all backend PEM files and `ca-pem` to the corresponding backend system:
+Make sure to copy all backend PEM files and `ca-pem` to the corresponding backend system:
 
 {{< highlight shell >}}
 
