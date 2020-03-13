@@ -939,7 +939,6 @@ spec:
 [4]: #check-commands
 [5]: ../tokens
 [6]: ../hooks/
-[7]: /sensu-core/latest/reference/checks/#standalone-checks
 [8]: ../rbac
 [9]: ../assets
 [10]: #proxy-requests-attributes

@@ -79,7 +79,7 @@ Then restart the backend.
 
 ## Migrating to Sensu Go from Sensu Core 1.x {#upgrading-to-sensu-go-from-sensu-core-1-x}
 
-This guide provides general information for migrating your Sensu instance from [Sensu Core 1.x][19] to Sensu Go 5.0.
+This guide provides general information for migrating your Sensu instance from Sensu Core 1.x to Sensu Go 5.0.
 For instructions and tools to help you translate your Sensu configuration from Sensu Core 1.x to Sensu Go, see the following resources.
 
 - [Sensu translator project][18]
@@ -183,7 +183,6 @@ See the metadata attributes section in the reference documentation for more info
 [16]: ../../reference/tokens
 [17]: ../../api/overview
 [18]: https://github.com/sensu/sensu-translator
-[19]: /sensu-core/1.6/
 [20]: https://packagecloud.io/sensu/community
 [21]: https://github.com/sensu-plugins
 [22]: ../plugins
