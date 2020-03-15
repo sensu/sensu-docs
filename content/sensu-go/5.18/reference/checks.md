@@ -871,6 +871,19 @@ spec:
 }
 {{< /highlight >}}
 
+{{< highlight ansible >}}
+- name: Minimal check
+  sensu.sensu_go.check:
+    name: check_minimum
+    command: collect.sh
+    handlers:
+    - slack
+    interval: 10
+    publish: true
+    subscriptions:
+    - system
+{{< /highlight >}}
+
 {{< /language-toggle >}}
 
 ### Metric check
@@ -949,6 +962,36 @@ spec:
     "discard_output": true
   }
 }
+{{< /highlight >}}
+
+{{< highlight ansible >}}
+- name: Metrics
+  sensu.sensu_go.check:
+    annotations:
+      slack-channel: '#monitoring'
+    labels:
+      region: us-west-1
+    name: collect-metrics
+    check_hooks: null
+    command: collect.sh
+    discard_output: true
+    env_vars: null
+    handlers: []
+    high_flap_threshold: 0
+    interval: 10
+    low_flap_threshold: 0
+    output_metric_format: graphite_plaintext
+    output_metric_handlers:
+    - influx-db
+    proxy_entity_name: ""
+    publish: true
+    round_robin: false
+    runtime_assets: null
+    stdin: false
+    subscriptions:
+    - system
+    timeout: 0
+    ttl: 0
 {{< /highlight >}}
 
 {{< /language-toggle >}}
