@@ -395,6 +395,15 @@ spec:
 }
 {{< /highlight >}}
 
+{{< highlight ansible >}}
+- name: Minimal set of asset attributes
+  sensu.sensu_go.asset:
+    name: check_script
+    builds:
+    - sha512: 4f926bf4328fbad2b9cac873d117f771914f4b837c9c85584c38ccf55a3ef3c2e8d154812246e5dda4a87450576b2c58ad9ab40c9e2edc31b288d066b195b21b
+      url: http://example.com/asset.tar.gz
+{{< /highlight >}}
+
 {{< /language-toggle >}}
 
 ### Asset definition (single-build, deprecated)
@@ -558,6 +567,43 @@ spec:
 }
 {{< /highlight >}}
 
+{{< highlight ansible >}}
+- name: Asset with multiple builds
+  sensu.sensu_go.asset:
+    name: check_cpu
+    labels:
+      origin: bonsai
+    annotations:
+      project_url: https://bonsai.sensu.io/assets/asachs01/sensu-go-cpu-check
+      version: 0.0.3
+    builds:
+    - url: https://assets.bonsai.sensu.io/981307deb10ebf1f1433a80da5504c3c53d5c44f/sensu-go-cpu-check_0.0.3_linux_amd64.tar.gz
+      sha512: 487ab34b37da8ce76d2657b62d37b35fbbb240c3546dd463fa0c37dc58a72b786ef0ca396a0a12c8d006ac7fa21923e0e9ae63419a4d56aec41fccb574c1a5d3
+      filters:
+      - entity.system.os == 'linux'
+      - entity.system.arch == 'amd64'
+      headers:
+        Authorization: Bearer $TOKEN
+        X-Forwarded-For: client1, proxy1, proxy2
+    - url: https://assets.bonsai.sensu.io/981307deb10ebf1f1433a80da5504c3c53d5c44f/sensu-go-cpu-check_0.0.3_linux_armv7.tar.gz
+      sha512: 70df8b7e9aa36cf942b972e1781af04815fa560441fcdea1d1538374066a4603fc5566737bfd6c7ffa18314edb858a9f93330a57d430deeb7fd6f75670a8c68b
+      filters:
+      - entity.system.os == 'linux'
+      - entity.system.arch == 'arm'
+      - entity.system.arm_version == 7
+      headers:
+        Authorization: Bearer $TOKEN
+        X-Forwarded-For: client1, proxy1, proxy2
+    - url: https://assets.bonsai.sensu.io/981307deb10ebf1f1433a80da5504c3c53d5c44f/sensu-go-cpu-check_0.0.3_windows_amd64.tar.gz
+      sha512: 10d6411e5c8bd61349897cf8868087189e9ba59c3c206257e1ebc1300706539cf37524ac976d0ed9c8099bdddc50efadacf4f3c89b04a1a8bf5db581f19c157f
+      filters:
+      - entity.system.os == 'windows'
+      - entity.system.arch == 'amd64'
+      headers:
+        Authorization: Bearer $TOKEN
+        X-Forwarded-For: client1, proxy1, proxy2
+{{< /highlight >}}
+
 {{< /language-toggle >}}
 
 ### Example asset with a check
@@ -639,6 +685,32 @@ spec:
     ]
   }
 }
+{{< /highlight >}}
+
+{{< highlight ansible >}}
+- name: Create prometheus asset
+  sensu.sensu_go.asset:
+    name: sensu-prometheus-collector
+    builds:
+    - url: https://assets.bonsai.sensu.io/ef812286f59de36a40e51178024b81c69666e1b7/sensu-prometheus-collector_1.1.6_linux_amd64.tar.gz
+      sha512: a70056ca02662fbf2999460f6be93f174c7e09c5a8b12efc7cc42ce1ccb5570ee0f328a2dd8223f506df3b5972f7f521728f7bdd6abf9f6ca2234d690aeb3808
+      filters:
+      - entity.system.os == 'linux'
+      - entity.system.arch == 'amd64'
+
+- name: Create prometheus check
+  sensu.sensu_go.check:
+    name: prometheus_collector
+    command: "sensu-prometheus-collector -prom-url http://localhost:9090 -prom-query up"
+    interval: 10
+    publish: true
+    output_metric_handlers:
+    - influxdb
+    output_metric_format: influxdb_line
+    runtime_assets:
+    - sensu-prometheus-collector
+    subscriptions:
+    - system
 {{< /highlight >}}
 
 {{< /language-toggle >}}
