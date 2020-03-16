@@ -22,7 +22,8 @@ menu:
 - [Service management](#operation)
   - [Start and stop the service](#start-the-service) | [Register and deregister](#registration) | [Cluster](#cluster) | [Synchronize time](#synchronize-time)
 - [Configuration](#configuration)
-  - [API configuration](#api-configuration-flags) | [Ephemeral agent configuration](#ephemeral-agent-configuration-flags) | [Keepalive configuration](#keepalive-configuration-flags) | [Security configuration](#security-configuration-flags) | [Socket configuration](#socket-configuration-flags) | [StatsD configuration](#statsd-configuration-flags) | [Allow list configuration](#allow-list-configuration) and [example configuration file](#example-allow-list-configuration-file) | [Configuration via environment variables](#configuration-via-environment-variables)
+  - [General configuration flags](#general-configuration-flags) | [API configuration](#api-configuration-flags) | [Ephemeral agent configuration](#ephemeral-agent-configuration-flags) | [Keepalive configuration](#keepalive-configuration-flags) | [Security configuration](#security-configuration-flags) | [Socket configuration](#socket-configuration-flags) | [StatsD configuration](#statsd-configuration-flags) | [Allow list configuration](#allow-list-configuration) and [example configuration file](#example-allow-list-configuration-file)
+  - [Configuration via environment variables](#configuration-via-environment-variables) | [Use environment variables with the Sensu agent](#use-environment-variables-with-the-sensu-agent)
 - [Example Sensu agent configuration file](../../files/agent.yml) (download)
 
 The Sensu agent is a lightweight client that runs on the infrastructure components you want to monitor.
@@ -1437,9 +1438,11 @@ $ sudo systemctl restart sensu-agent
 
 {{< /language-toggle >}}
 
-## Use environment variables with the Sensu agent
+### Use environment variables with the Sensu agent
 
-After you [configure][50] your sensu-agent service to read environment variables from `/etc/default/sensu-agent` (Debian/Ubuntu) or `/etc/sysconfig/sensu-agent` (RHEL), any environment variables you provide there will be available to check and hook commands executed by the Sensu agent.
+After you [configure][50] your sensu-agent service to read environment variables from `/etc/default/sensu-agent` (Debian/Ubuntu) or `/etc/sysconfig/sensu-agent` (RHEL), you can create custom environment variables there (in addition the environment variables Sensu already recognizes, such as those listed in the [agent configuration tables][16]).
+
+Any environment variables you create in the `/etc/default/sensu-agent` (Debian/Ubuntu) or `/etc/sysconfig/sensu-agent` (RHEL) file will be available to check and hook commands executed by the Sensu agent.
 This includes your checks and plugins.
 
 For example, if you configure a `SENSU_TEST_VAR` variable in your sensu-agent file, it will be available to use in your check configurations as `$SENSU_TEST_VAR`.
@@ -1469,7 +1472,7 @@ For example, if you configure a `SENSU_TEST_VAR` variable in your sensu-agent fi
 [23]: https://github.com/statsd/statsd#key-concepts
 [24]: #configuration
 [25]: ../../api/overview#response-filtering
-[26]: ../../sensuctl/reference#response-filters
+[26]: ../../sensuctl/reference#response-filtering
 [27]: ../tokens/
 [28]: #subscriptions-flag
 [29]: ../assets/

@@ -18,7 +18,9 @@ menu:
 - [Operation and service management](#operation)
   - [Start and stop the service](#start-the-service) | [Cluster](#cluster) | [Synchronize time](#synchronize-time)
 - [Configuration](#configuration)
-  - [General configuration](#general-configuration-flags) | [Agent communication configuration](#agent-communication-configuration-flags) | [Security configuration](#security-configuration-flags) | [Dashboard configuration](#dashboard-configuration-flags) | [Datastore and cluster configuration](#datastore-and-cluster-configuration-flags) | [Advanced configuration options](#advanced-configuration-options) | [Configuration via environment variables](#configuration-via-environment-variables) | [Event logging](#event-logging)
+  - [General configuration](#general-configuration-flags) | [Agent communication configuration](#agent-communication-configuration-flags) | [Security configuration](#security-configuration-flags) | [Dashboard configuration](#dashboard-configuration-flags) | [Datastore and cluster configuration](#datastore-and-cluster-configuration-flags) | [Advanced configuration options](#advanced-configuration-options)
+  - [Configuration via environment variables](#configuration-via-environment-variables) | [Use environment variables with the Sensu backend](#use-environment-variables-with-the-sensu-backend)
+- [Event logging](#event-logging)
 - [Example Sensu backend configuration file](../../files/backend.yml) (download)
 
 The Sensu backend is a service that manages check requests and event data.
@@ -1159,6 +1161,14 @@ $ sudo systemctl restart sensu-backend
 
 {{< /language-toggle >}}
 
+### Use environment variables with the Sensu backend
+
+After you [configure][27] your sensu-backend service to read environment variables from `/etc/default/sensu-backend` (Debian/Ubuntu) or `/etc/sysconfig/sensu-backend` (RHEL), you can create custom environment variables there (in addition the environment variables Sensu already recognizes, such as those listed in the [backend configuration tables][15]).
+
+Any environment variables you create in the `/etc/default/sensu-backend` (Debian/Ubuntu) or `/etc/sysconfig/sensu-backend` (RHEL) file will be available to handlers executed by the Sensu backend.
+
+For example, if you configure a `SENSU_TEST_VAR` variable in your sensu-backend file, it will be available to use in your handler configurations as `$SENSU_TEST_VAR`.
+
 ### Event logging
 
 **COMMERCIAL FEATURE**: Access event logging in the packaged Sensu Go distribution.
@@ -1262,3 +1272,4 @@ Here are some log rotate sample configurations:
 [24]: ../../installation/install-sensu#2-configure-and-start
 [25]: ../../installation/install-sensu#3-initialize
 [26]: ../../sensuctl/reference/#change-admin-user-s-password
+[27]: #configuration-via-environment-variables
