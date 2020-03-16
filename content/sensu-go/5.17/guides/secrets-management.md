@@ -188,10 +188,10 @@ First, in your Vault, [enable and configure certificate authentication][33].
 For example, your Vault might be configured for certificate authentication like this:
 
 {{< highlight shell >}}
-vault write auth/cert/certs/sensu-agent \
-    display_name=sensu-agent \
-    policies=sensu-agent-policy \
-    certificate=@sensu-agent-vault.pem \
+vault write auth/cert/certs/sensu-backend \
+    display_name=sensu-backend \
+    policies=sensu-backend-policy \
+    certificate=@sensu-backend-vault.pem \
     ttl=3600
 {{< /highlight >}}
 
@@ -209,9 +209,9 @@ spec:
     version: v2
     tls:
       ca_cert: /path/to/your/ca.pem
-      client_cert: /etc/sensu/ssl/sensu-agent-vault.pem
-      client_key: /etc/sensu/ssl/sensu-agent-vault-key.pem
-      cname: sensu-agent.example.com
+      client_cert: /etc/sensu/ssl/sensu-backend-vault.pem
+      client_key: /etc/sensu/ssl/sensu-backend-vault-key.pem
+      cname: sensu-backend.example.com
     max_retries: 2
     timeout: 20s
     rate_limiter:
