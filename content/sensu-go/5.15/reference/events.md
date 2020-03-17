@@ -22,6 +22,7 @@ menu:
   - [Occurrences](#occurrences-and-occurrences-watermark)
 - [Events specification](#events-specification)
 	- [Top-level attributes](#top-level-attributes)
+  - [Metadata attributes](#metadata-attributes)
 	- [Spec attributes](#spec-attributes)
 	- [Check attributes](#check-attributes)
 	- [Metric attributes](#metric-attributes)
