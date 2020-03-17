@@ -39,6 +39,13 @@ HTTP/1.1 200 OK
     "member_id": 2882886652148554927,
     "raft_term": 26
   }
+  "PostgresHealth": [
+    {
+      "Name": "my-postgres",
+      "Active": false,
+      "Healthy": false
+    }
+  ]
 }
 {{< /highlight >}}
 
@@ -67,5 +74,12 @@ output         | {{< highlight shell >}}
     "member_id": 2882886652148554927,
     "raft_term": 26
   }
+  "PostgresHealth": [
+    {
+      "Name": "my-postgres",
+      "Active": false,
+      "Healthy": false
+    }
+  ]
 }
 {{< /highlight >}}
