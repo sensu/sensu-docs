@@ -2,11 +2,11 @@
 title: "Events"
 description: "An event is a generic container that Sensu uses to provide context for checks and metrics. You can use events to represent the state of your infrastructure and create automated monitoring workflows. Read the reference doc to learn about events."
 weight: 90
-version: "5.16"
+version: "5.19"
 product: "Sensu Go"
 platformContent: false
 menu:
-  sensu-go-5.16:
+  sensu-go-5.19:
     parent: reference
 ---
 
@@ -67,6 +67,8 @@ Sensu agents can also act as a collector for metrics throughout your infrastruct
 
 You can send events directly to the Sensu pipeline using the [events API][16].
 To create an event, send a JSON event definition to the [events API PUT endpoint][14].
+
+If you use the events API to create a new event referencing an entity that does not already exist, the sensu-backend will automatically create a proxy entity when the event is published.
 
 ## Manage events
 
@@ -143,6 +145,8 @@ Sensu events contain:
   - Metric points in [Sensu metric format][22]
 - `timestamp`
   - Time that the event occurred in seconds since the Unix epoch
+- `event_id`
+  - Universally unique identifier (UUID) for the event
 
 ## Use event data
 
@@ -331,7 +335,8 @@ example      | {{< highlight shell >}}
       }
     ]
   },
-  "timestamp": 1552506033
+  "timestamp": 1552506033,
+  "event_id": "431a0085-96da-4521-863f-c38b480701e9"
 }
 {{< /highlight >}}
 
@@ -355,9 +360,16 @@ type         | Integer
 default      | Time that the event occurred
 example      | {{< highlight shell >}}"timestamp": 1522099512{{< /highlight >}}
 
+event_id     |      |
+-------------|------
+description  | Universally unique identifier (UUID) for the event.
+required     | false
+type         | String
+example      | {{< highlight shell >}}"event_id": "431a0085-96da-4521-863f-c38b480701e9"{{< /highlight >}}
+
 |entity      |      |
 -------------|------
-description  | [Entity attributes][2] from the originating entity (agent or proxy).
+description  | [Entity attributes][2] from the originating entity (agent or proxy). If you use the [events API][35] to create a new event referencing an entity that does not already exist, the sensu-backend will automatically create a proxy entity when the event is published.
 type         | Map
 required     | true
 example      | {{< highlight shell >}}
@@ -787,6 +799,7 @@ spec:
       platform_version: 7.4.1708
     user: agent
   timestamp: 1552594758
+  event_id: 3a5948f3-6ffd-4ea2-a41e-334f4a72ca2f
 {{< /highlight >}}
 
 {{< highlight json >}}
@@ -900,7 +913,8 @@ spec:
       },
       "user": "agent"
     },
-    "timestamp": 1552594758
+    "timestamp": 1552594758,
+    "event_id": "3a5948f3-6ffd-4ea2-a41e-334f4a72ca2f"
   }
 }
 {{< /highlight >}}
@@ -1010,6 +1024,7 @@ spec:
       timestamp: 1552506033
       value: 0.004
   timestamp: 1552506033
+  event_id: 431a0085-96da-4521-863f-c38b480701e9
 {{< /highlight >}}
 
 {{< highlight json >}}
@@ -1139,7 +1154,8 @@ spec:
         }
       ]
     },
-    "timestamp": 1552506033
+    "timestamp": 1552506033,
+    "event_id": "431a0085-96da-4521-863f-c38b480701e9"
   }
 }
 {{< /highlight >}}
@@ -1208,6 +1224,7 @@ spec:
       timestamp: 1552506033
       value: 0.004
   timestamp: 1552506033
+  event_id: 47ea07cd-1e50-4897-9e6d-09cd39ec5180
 {{< /highlight >}}
 
 {{< highlight json >}}
@@ -1289,7 +1306,8 @@ spec:
         }
       ]
     },
-    "timestamp": 1552506033
+    "timestamp": 1552506033,
+    "event_id": "47ea07cd-1e50-4897-9e6d-09cd39ec5180"
   }
 }
 {{< /highlight >}}
@@ -1329,3 +1347,4 @@ spec:
 [32]: #history-attributes
 [33]: ../checks#spec-attributes
 [34]: #points-attributes
+[35]: ../../api/events#events-post
