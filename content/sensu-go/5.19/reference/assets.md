@@ -437,7 +437,7 @@ spec:
   "api_version": "core/v2",
   "metadata": {
     "name": "check_cpu_linux_amd64",
-    "namespace": "default"
+    "namespace": "default",
     "labels": {
       "origin": "bonsai"
     },
@@ -513,7 +513,7 @@ spec:
   "api_version": "core/v2",
   "metadata": {
     "name": "check_cpu",
-    "namespace": "default"
+    "namespace": "default",
     "labels": {
       "origin": "bonsai"
     },
@@ -611,7 +611,7 @@ spec:
   "api_version": "core/v2",
   "metadata": {
     "name": "sensu-email-handler",
-    "namespace": default,
+    "namespace": default
   },
   "spec": {
     "builds": [
@@ -631,7 +631,7 @@ spec:
   "api_version": "core/v2",
   "metadata": {
     "name": "prometheus_collector",
-    "namespace": "default",
+    "namespace": "default"
   },
   "spec": {
     "command": "sensu-prometheus-collector -prom-url http://localhost:9090 -prom-query up",
