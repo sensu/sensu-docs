@@ -61,12 +61,13 @@ example      | {{< highlight shell >}}"api_version": "secrets/v1"{{< /highlight 
 
 metadata     |      |
 -------------|------
-description  | Top-level scope that contains the secrets provider `name`. Namespace is not supported in the metadata because secrets providers are cluster-wide resources.
+description  | Top-level scope that contains the secrets provider `name` and `created_by` field. Namespace is not supported in the metadata because secrets providers are cluster-wide resources.
 required     | true
 type         | Map of key-value pairs
 example      | {{< highlight shell >}}
 "metadata": {
-  "name": "vault"
+  "name": "vault",
+  "created_by": "admin"
 }
 {{< /highlight >}}
 
@@ -102,6 +103,13 @@ description  | Provider name used internally by Sensu.
 required     | true
 type         | String
 example      | {{< highlight shell >}}"name": "vault"{{< /highlight >}}
+
+| created_by |      |
+-------------|------
+description  | Username of the Sensu user who created the secrets provider or last updated the secrets provider. Sensu automatically populates the `created_by` field when the secrets provider is created or updated.
+required     | false
+type         | String
+example      | {{< highlight shell >}}"created_by": "admin"{{< /highlight >}}
 
 ### Spec attributes
 

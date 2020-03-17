@@ -118,13 +118,14 @@ example      | {{< highlight shell >}}"api_version": "core/v2"{{< /highlight >}}
 
 metadata     | 
 -------------|------
-description  | Top-level collection of metadata about the mutator that includes the `name` and `namespace` as well as custom `labels` and `annotations`. The `metadata` map is always at the top level of the mutator definition. This means that in `wrapped-json` and `yaml` formats, the `metadata` scope occurs outside the `spec` scope. See the [metadata attributes reference][2] for details.
+description  | Top-level collection of metadata about the mutator that includes `name`, `namespace`, and `created_by` as well as custom `labels` and `annotations`. The `metadata` map is always at the top level of the mutator definition. This means that in `wrapped-json` and `yaml` formats, the `metadata` scope occurs outside the `spec` scope. See the [metadata attributes reference][2] for details.
 required     | Required for mutator definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][5].
 type         | Map of key-value pairs
 example      | {{< highlight shell >}}
 "metadata": {
   "name": "example-mutator",
   "namespace": "default",
+  "created_by": "admin",
   "labels": {
     "region": "us-west-1"
   },
@@ -164,6 +165,13 @@ required     | false
 type         | String
 default      | `default`
 example      | {{< highlight shell >}}"namespace": "production"{{< /highlight >}}
+
+| created_by |      |
+-------------|------
+description  | Username of the Sensu user who created the mutator or last updated the mutator. Sensu automatically populates the `created_by` field when the mutator is created or updated.
+required     | false
+type         | String
+example      | {{< highlight shell >}}"created_by": "admin"{{< /highlight >}}
 
 | labels     |      |
 -------------|------

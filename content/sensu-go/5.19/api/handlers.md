@@ -36,7 +36,8 @@ HTTP/1.1 200 OK
   {
     "metadata": {
       "name": "influx-db",
-      "namespace": "default"
+      "namespace": "default",
+      "created_by": "admin"
     },
     "type": "pipe",
     "command": "sensu-influxdb-handler -d sensu",
@@ -53,7 +54,8 @@ HTTP/1.1 200 OK
   {
     "metadata": {
       "name": "slack",
-      "namespace": "default"
+      "namespace": "default",
+      "created_by": "admin"
     },
     "type": "pipe",
     "command": "sensu-slack-handler --channel '#monitoring'",
@@ -86,7 +88,8 @@ output         | {{< highlight shell >}}
   {
     "metadata": {
       "name": "influx-db",
-      "namespace": "default"
+      "namespace": "default",
+      "created_by": "admin"
     },
     "type": "pipe",
     "command": "sensu-influxdb-handler -d sensu",
@@ -207,6 +210,7 @@ HTTP/1.1 200 OK
   "metadata": {
     "name": "slack",
     "namespace": "default",
+    "created_by": "admin",
     "labels": null,
     "annotations": null
   },
@@ -238,6 +242,7 @@ output               | {{< highlight json >}}
   "metadata": {
     "name": "slack",
     "namespace": "default",
+    "created_by": "admin",
     "labels": null,
     "annotations": null
   },

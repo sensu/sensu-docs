@@ -47,7 +47,8 @@ HTTP/1.1 200 OK
     },
     "metadata": {
       "name": "readers-group-binding",
-      "namespace": "default"
+      "namespace": "default",
+      "created_by": "admin"
     }
   }
 ]
@@ -78,7 +79,8 @@ output         | {{< highlight shell >}}
     },
     "metadata": {
       "name": "readers-group-binding",
-      "namespace": "default"
+      "namespace": "default",
+      "created_by": "admin"
     }
   }
 ]
@@ -160,7 +162,8 @@ HTTP/1.1 200 OK
   },
   "metadata": {
     "name": "readers-group-binding",
-    "namespace": "default"
+    "namespace": "default",
+    "created_by": "admin"
   }
 }
 {{< /highlight >}}
@@ -187,7 +190,8 @@ output               | {{< highlight json >}}
   },
   "metadata": {
     "name": "readers-group-binding",
-    "namespace": "default"
+    "namespace": "default",
+    "created_by": "admin"
   }
 }
 {{< /highlight >}}

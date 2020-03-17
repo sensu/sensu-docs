@@ -64,7 +64,8 @@ HTTP/1.1 200 OK
     "env_vars": null,
     "metadata": {
       "name": "check-email",
-      "namespace": "default"
+      "namespace": "default",
+      "created_by": "admin"
     }
   }
 ]
@@ -107,7 +108,8 @@ output         | {{< highlight shell >}}
     "env_vars": null,
     "metadata": {
       "name": "check-email",
-      "namespace": "default"
+      "namespace": "default",
+      "created_by": "admin"
     }
   }
 ]
@@ -213,7 +215,8 @@ HTTP/1.1 200 OK
   "env_vars": null,
   "metadata": {
     "name": "check-cpu",
-    "namespace": "default"
+    "namespace": "default",
+    "created_by": "admin"
   }
 }
 {{< /highlight >}}
@@ -252,7 +255,8 @@ output               | {{< highlight json >}}
   "env_vars": null,
   "metadata": {
     "name": "check-cpu",
-    "namespace": "default"
+    "namespace": "default",
+    "created_by": "admin"
   }
 }
 {{< /highlight >}}

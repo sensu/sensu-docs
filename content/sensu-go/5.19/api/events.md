@@ -53,6 +53,7 @@ HTTP/1.1 200 OK
       "metadata": {
         "name": "check-nginx",
         "namespace": "default",
+        "created_by": "admin",
         "labels": null,
         "annotations": null
       }
@@ -91,6 +92,7 @@ HTTP/1.1 200 OK
       "metadata": {
         "name": "check-nginx",
         "namespace": "default",
+        "created_by": "admin",
         "labels": null,
         "annotations": null
       }
@@ -128,6 +130,7 @@ output         | {{< highlight shell >}}
       "metadata": {
         "name": "check-nginx",
         "namespace": "default",
+        "created_by": "admin",
         "labels": null,
         "annotations": null
       }
@@ -166,6 +169,7 @@ output         | {{< highlight shell >}}
       "metadata": {
         "name": "check-nginx",
         "namespace": "default",
+        "created_by": "admin",
         "labels": null,
         "annotations": null
       }
@@ -275,7 +279,8 @@ HTTP/1.1 200 OK
       "last_seen": 1543858763,
       "metadata": {
         "name": "sensu-go-sandbox",
-        "namespace": "default"
+        "namespace": "default",
+        "created_by": "admin"
       }
     },
     "check": {
@@ -297,7 +302,8 @@ HTTP/1.1 200 OK
       "occurrences": 1,
       "metadata": {
         "name": "check-cpu",
-        "namespace": "default"
+        "namespace": "default",
+        "created_by": "admin"
       }
     },
     "metadata": {
@@ -321,7 +327,8 @@ HTTP/1.1 200 OK
       "last_seen": 1543871523,
       "metadata": {
         "name": "sensu-go-sandbox",
-        "namespace": "default"
+        "namespace": "default",
+        "created_by": "admin"
       }
     },
     "check": {
@@ -344,7 +351,8 @@ HTTP/1.1 200 OK
       "occurrences": 1,
       "metadata": {
         "name": "keepalive",
-        "namespace": "default"
+        "namespace": "default",
+        "created_by": "admin"
       }
     },
     "metadata": {}
@@ -380,7 +388,8 @@ output               | {{< highlight json >}}
       "last_seen": 1543871523,
       "metadata": {
         "name": "sensu-go-sandbox",
-        "namespace": "default"
+        "namespace": "default",
+        "created_by": "admin"
       }
     },
     "check": {
@@ -403,7 +412,8 @@ output               | {{< highlight json >}}
       "occurrences": 1,
       "metadata": {
         "name": "keepalive",
-        "namespace": "default"
+        "namespace": "default",
+        "created_by": "admin"
       }
     },
     "metadata": {}
@@ -444,7 +454,8 @@ HTTP/1.1 200 OK
         "deregistration": {},
         "metadata": {
             "name": "server1",
-            "namespace": "default"
+            "namespace": "default",
+            "created_by": "admin"
         },
         "sensu_agent_version": ""
     },
@@ -493,7 +504,8 @@ HTTP/1.1 200 OK
         "env_vars": null,
         "metadata": {
             "name": "server-health",
-            "namespace": "default"
+            "namespace": "default",
+            "created_by": "admin"
         }
     },
     "metadata": {}
@@ -527,7 +539,8 @@ output               | {{< highlight json >}}
         "deregistration": {},
         "metadata": {
             "name": "server1",
-            "namespace": "default"
+            "namespace": "default",
+            "created_by": "admin"
         },
         "sensu_agent_version": ""
     },
@@ -576,7 +589,8 @@ output               | {{< highlight json >}}
         "env_vars": null,
         "metadata": {
             "name": "server-health",
-            "namespace": "default"
+            "namespace": "default",
+            "created_by": "admin"
         }
     },
     "metadata": {}
