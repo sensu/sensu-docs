@@ -173,7 +173,7 @@ output               | {{< highlight json >}}
   "metadata": {
     "name": "example-mutator",
     "namespace": "default",
-    "created_by" "admin",
+    "created_by": "admin",
     "labels": null,
     "annotations": null
   },

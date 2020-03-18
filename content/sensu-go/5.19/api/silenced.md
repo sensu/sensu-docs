@@ -188,7 +188,7 @@ output               | {{< highlight json >}}
   "metadata": {
     "name": "linux:check-cpu",
     "namespace": "default",
-    "created_by" "admin",
+    "created_by": "admin",
     "labels": null,
     "annotations": null
   },
