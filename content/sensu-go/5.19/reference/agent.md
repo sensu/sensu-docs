@@ -745,6 +745,7 @@ Flags:
   -c, --config-file string                    path to sensu-agent config file
       --deregister                            ephemeral agent
       --deregistration-handler string         deregistration handler that should process the entity deregistration event.
+      --detect-cloud-provider                 enable cloud provider detection mechanisms
       --disable-assets                        disable check assets on this agent
       --disable-api                           disable the Agent HTTP API
       --disable-sockets                       disable the Agent TCP and UDP event sockets
@@ -1030,6 +1031,19 @@ sensu-agent start --deregistration-handler deregister
 
 # /etc/sensu/agent.yml example
 deregistration-handler: "deregister"{{< /highlight >}}
+
+
+| detect-cloud-provider  |      |
+-------------------------|------
+description              | `true` to enable cloud provider detection mechanisms. Otherwise, `false`. When this flag is enabled, the agent will attempt to read files, resolve hostnames, and make HTTP requests to determine what cloud environment it is running in.
+type                     | Boolean
+default                  | `false`
+environment variable     | `SENSU_DETECT_CLOUD_PROVIDER`
+example                  | {{< highlight shell >}}# Command line example
+sensu-agent start --detect-cloud-provider false
+
+# /etc/sensu/agent.yml example
+detect-cloud-provider: "false"{{< /highlight >}}
 
 
 ### Keepalive configuration flags
