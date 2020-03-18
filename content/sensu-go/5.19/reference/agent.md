@@ -1032,6 +1032,8 @@ sensu-agent start --deregistration-handler deregister
 # /etc/sensu/agent.yml example
 deregistration-handler: "deregister"{{< /highlight >}}
 
+<a name="detect-cloud-provider-flag"></a>
+
 
 | detect-cloud-provider  |      |
 -------------------------|------

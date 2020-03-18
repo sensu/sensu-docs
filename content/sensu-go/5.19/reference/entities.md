@@ -627,7 +627,7 @@ example      | {{< highlight shell >}}"vm_role": "host" {{< /highlight >}}
 
 cloud_provider | 
 ---------------|------ 
-description    | . Automatically populated upon agent startup if the `--detect-cloud-provider` flag is set. {{% notice note %}}
+description    | Entity's cloud provider environment. Automatically populated upon agent startup if the [`--detect-cloud-provider` flag][25] is set. {{% notice note %}}
 **NOTE**: This feature can result in several HTTP requests or DNS lookups being performed, so it may not be appropriate for all environments.
 {{% /notice %}}
 required       | false 
@@ -874,3 +874,4 @@ spec:
 [22]: ../rbac/
 [23]: ../../dashboard/filtering#filter-with-label-selectors
 [24]: ../checks#proxy-requests-attributes
+[25]: ../agent/#detect-cloud-provider-flag
