@@ -293,7 +293,11 @@ example      | {{< highlight shell >}}
           }
         ]
       },
-      "arch": "amd64"
+      "arch": "amd64",
+      "libc_type": "glibc",
+      "vm_system": "kvm",
+      "vm_role": "host",
+      "cloud_provider": ""
     },
     "subscriptions": [
       "entity:webserver01"
@@ -384,6 +388,10 @@ example      | {{< language-toggle >}}
 {{< highlight yml >}}
 system:
   arch: amd64
+  libc_type: glibc
+  vm_system: kvm
+  vm_role: host
+  cloud_provider: null
   hostname: example-hostname
   network:
     interfaces:
@@ -429,7 +437,11 @@ system:
         }
       ]
     },
-    "arch": "amd64"
+    "arch": "amd64",
+    "libc_type": "glibc",
+    "vm_system": "kvm",
+    "vm_role": "host",
+    "cloud_provider": ""
   }
 }{{< /highlight >}}
 
@@ -441,7 +453,6 @@ description  | Timestamp the entity was last seen. In seconds since the Unix epo
 required     | false 
 type         | Integer 
 example      | {{< highlight shell >}}"last_seen": 1522798317 {{< /highlight >}}
-
 
 deregister   | 
 -------------|------ 
@@ -593,6 +604,37 @@ required     | false
 type         | String 
 example      | {{< highlight shell >}}"arch": "amd64" {{< /highlight >}}
 
+libc_type    | 
+-------------|------ 
+description  | Entity's libc type. Automatically populated upon agent startup.
+required     | false 
+type         | String 
+example      | {{< highlight shell >}}"libc_type": "glibc" {{< /highlight >}}
+
+vm_system    | 
+-------------|------ 
+description  | Entity's virtual machine system. Automatically populated upon agent startup.
+required     | false 
+type         | String 
+example      | {{< highlight shell >}}"vm_system": "kvm" {{< /highlight >}}
+
+vm_role      | 
+-------------|------ 
+description  | Entity's virtual machine role. Automatically populated upon agent startup.
+required     | false 
+type         | String 
+example      | {{< highlight shell >}}"vm_role": "host" {{< /highlight >}}
+
+cloud_provider | 
+---------------|------ 
+description    | Entity's cloud provider environment. Automatically populated upon agent startup if the [`--detect-cloud-provider` flag][25] is set. {{% notice note %}}
+**NOTE**: This feature can result in several HTTP requests or DNS lookups being performed, so it may not be appropriate for all environments.
+{{% /notice %}}
+required       | false 
+type           | String 
+example        | {{< highlight shell >}}"cloud_provider": "" {{< /highlight >}}
+
+
 ### Network attributes
 
 network_interface         | 
@@ -704,6 +746,10 @@ spec:
   - entity:webserver01
   system:
     arch: amd64
+    libc_type: glibc
+    vm_system: kvm
+    vm_role: host
+    cloud_provider: null
     hostname: sensu2-centos
     network:
       interfaces:
@@ -774,7 +820,11 @@ spec:
           }
         ]
       },
-      "arch": "amd64"
+      "arch": "amd64",
+      "libc_type": "glibc",
+      "vm_system": "kvm",
+      "vm_role": "host",
+      "cloud_provider": ""
     },
     "subscriptions": [
       "entity:webserver01"
@@ -824,3 +874,4 @@ spec:
 [22]: ../rbac/
 [23]: ../../dashboard/filtering#filter-with-label-selectors
 [24]: ../checks#proxy-requests-attributes
+[25]: ../agent/#detect-cloud-provider-flag
