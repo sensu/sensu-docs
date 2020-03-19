@@ -7,6 +7,7 @@ version: "5.19"
 menu: "sensu-go-5.19"
 ---
 
+- [5.19.0 release notes](#5-19-0-release-notes)
 - [5.18.1 release notes](#5-18-1-release-notes)
 - [5.18.0 release notes](#5-18-0-release-notes)
 - [5.17.2 release notes](#5-17-2-release-notes)
@@ -54,6 +55,33 @@ PATCH versions include backward-compatible bug fixes.
 Read the [upgrade guide][1] for information about upgrading to the latest version of Sensu Go.
 
 ---
+
+## 5.19.0 release notes
+
+**March 25, 2020** &mdash; The latest release of Sensu Go, version 5.19.0, is now available for download.
+
+**Release summary placeholder**
+
+See the [upgrade guide][1] to upgrade Sensu to version 5.19.0.
+
+**IMPROVEMENTS:**
+
+- ([Commercial feature][122]) In the [web UI][124], you can now [save, recall, and delete filtered searches][123].
+- ([Commercial feature][122]) The [health endpoint][125] now includes PostgreSQL health information.
+- **NEED TO REVISIT** ([Commercial feature][122]) Added `contains` as an operator for API response, sensuctl, and dashboard filtering selectors.
+- **NEED TO REVISIT** ([Commercial feature][122]) Added agent and sensuctl builds for Linux architectures: `mips`, `mipsle`, `mips64`, and `mips64le` (softfloat and hardfloat).
+- **NEED TO REVISIT**  The `sensu.io/managed_by` label is now automatically applied to resources created via `sensuctl create`.
+- Resource metadata now includes the `created_by` field, which Sensu automatically populates with the name of the user who created or last updated each resource.
+- The agent now discovers entity libc type, VM system, VM role, and cloud provider.
+- System type now includes the `float_type` field, which stores the float type the system is using (softfloat or hardfloat).
+- The Bonsai client now logs at the `debug` level rather than the `info` level.
+- The store can now create wrapped resources.
+
+**FIXES:**
+
+- Fixed a bug where `event.Check.State` was not set for events passing through the pipeline or written to the event log.
+- Fixed a bug that allowed `subscriptions` to be empty strings.
+
 
 ## 5.18.1 release notes
 
@@ -1111,3 +1139,7 @@ To get started with Sensu Go:
 [119]: /sensu-go/5.18/api/overview/#response-filtering
 [120]: /sensu-go/5.18/api/auth/#the-authtest-api-endpoint
 [121]: /sensu-go/5.18/getting-started/enterprise/
+[122]: /sensu-go/5.19/getting-started/enterprise/
+[123]: /sensu-go/5.19/dashboard/filtering/#save-a-filtered-search
+[124]: /sensu-go/5.19/dashboard/overview/
+[125]: /sensu-go/5.19/api/health/
