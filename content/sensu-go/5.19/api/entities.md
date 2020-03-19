@@ -69,7 +69,11 @@ HTTP/1.1 200 OK
           }
         ]
       },
-      "arch": "amd64"
+      "arch": "amd64",
+      "libc_type": "glibc",
+      "vm_system": "kvm",
+      "vm_role": "host",
+      "cloud_provider": ""
     },
     "subscriptions": [
       "entity:sensu-centos"
@@ -148,7 +152,11 @@ output         | {{< highlight shell >}}
           }
         ]
       },
-      "arch": "amd64"
+      "arch": "amd64",
+      "libc_type": "glibc",
+      "vm_system": "kvm",
+      "vm_role": "host",
+      "cloud_provider": ""
     },
     "subscriptions": [
       "entity:sensu-centos"
@@ -289,7 +297,11 @@ HTTP/1.1 200 OK
         }
       ]
     },
-    "arch": "amd64"
+    "arch": "amd64",
+    "libc_type": "glibc",
+    "vm_system": "kvm",
+    "vm_role": "host",
+    "cloud_provider": ""
   },
   "subscriptions": [
     "entity:sensu-centos"
@@ -364,7 +376,11 @@ output               | {{< highlight json >}}
         }
       ]
     },
-    "arch": "amd64"
+    "arch": "amd64",
+    "libc_type": "glibc",
+    "vm_system": "kvm",
+    "vm_role": "host",
+    "cloud_provider": ""
   },
   "subscriptions": [
     "entity:sensu-centos"
