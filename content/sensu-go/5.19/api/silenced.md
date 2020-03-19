@@ -41,6 +41,7 @@ HTTP/1.1 200 OK
     "metadata": {
       "name": "linux:check-cpu",
       "namespace": "default",
+      "created_by": "admin",
       "labels": null,
       "annotations": null
     },
@@ -70,6 +71,7 @@ output         | {{< highlight shell >}}
     "metadata": {
       "name": "linux:check-cpu",
       "namespace": "default",
+      "created_by": "admin",
       "labels": null,
       "annotations": null
     },
@@ -160,6 +162,7 @@ HTTP/1.1 200 OK
   "metadata": {
     "name": "linux:check-cpu",
     "namespace": "default",
+    "created_by": "admin",
     "labels": null,
     "annotations": null
   },
@@ -185,6 +188,7 @@ output               | {{< highlight json >}}
   "metadata": {
     "name": "linux:check-cpu",
     "namespace": "default",
+    "created_by": "admin",
     "labels": null,
     "annotations": null
   },
@@ -298,6 +302,7 @@ HTTP/1.1 200 OK
     "metadata": {
       "name": "linux:check-cpu",
       "namespace": "default",
+      "created_by": "admin",
       "labels": null,
       "annotations": null
     },
@@ -326,6 +331,7 @@ output               | {{< highlight json >}}
     "metadata": {
       "name": "linux:check-cpu",
       "namespace": "default",
+      "created_by": "admin",
       "labels": null,
       "annotations": null
     },
@@ -360,6 +366,7 @@ HTTP/1.1 200 OK
     "metadata": {
       "name": "linux:check-cpu",
       "namespace": "default",
+      "created_by": "admin",
       "labels": null,
       "annotations": null
     },
@@ -388,6 +395,7 @@ output               | {{< highlight json >}}
     "metadata": {
       "name": "linux:check-cpu",
       "namespace": "default",
+      "created_by": "admin",
       "labels": null,
       "annotations": null
     },

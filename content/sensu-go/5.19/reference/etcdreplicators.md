@@ -79,12 +79,13 @@ example      | {{< highlight shell >}}api_version: federation/v1{{< /highlight >
 
 metadata     |      |
 -------------|------
-description  | Top-level scope that contains the replicator `name`. Namespace is not supported in the metadata because etcd replicators are cluster-wide resources.
+description  | Top-level scope that contains the replicator `name` and `created_by` value. Namespace is not supported in the metadata because etcd replicators are cluster-wide resources.
 required     | true
 type         | Map of key-value pairs
 example      | {{< highlight shell >}}
 metadata:
   name: my_replicator
+  created_by: admin
 {{< /highlight >}}
 
 spec         |      |
@@ -112,6 +113,13 @@ description  | Replicator name used internally by Sensu.
 required     | true
 type         | String
 example      | {{< highlight shell >}}name: my_replicator{{< /highlight >}}
+
+| created_by |      |
+-------------|------
+description  | Username of the Sensu user who created the replicator or last updated the replicator. Sensu automatically populates the `created_by` field when the replicator is created or updated.
+required     | false
+type         | String
+example      | {{< highlight shell >}}created_by: admin{{< /highlight >}}
 
 #### Spec attributes
 
