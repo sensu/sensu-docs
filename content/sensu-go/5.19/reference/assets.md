@@ -200,12 +200,13 @@ example      | {{< highlight shell >}}"api_version": "core/v2"{{< /highlight >}}
 
 metadata     | 
 -------------|------
-description  | Top-level collection of metadata about the asset, including the `name` and `namespace` as well as custom `labels` and `annotations`. The `metadata` map is always at the top level of the asset definition. This means that in `wrapped-json` and `yaml` formats, the `metadata` scope occurs outside the `spec` scope. See [metadata attributes][5] for details.
+description  | Top-level collection of metadata about the asset, including `name`, `namespace`, and `created_by` as well as custom `labels` and `annotations`. The `metadata` map is always at the top level of the asset definition. This means that in `wrapped-json` and `yaml` formats, the `metadata` scope occurs outside the `spec` scope. See [metadata attributes][5] for details.
 required     | Required for asset definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][11].
 type         | Map of key-value pairs
 example      | {{< highlight shell >}}"metadata": {
   "name": "check_script",
   "namespace": "default",
+  "created_by": "admin",
   "labels": {
     "region": "us-west-1"
   },
@@ -273,6 +274,13 @@ required     | false
 type         | String
 default      | `default`
 example      | {{< highlight shell >}}"namespace": "production"{{< /highlight >}}
+
+| created_by |      |
+-------------|------
+description  | Username of the Sensu user who created the asset or last updated the asset. Sensu automatically populates the `created_by` field when the asset is created or updated.
+required     | false
+type         | String
+example      | {{< highlight shell >}}"created_by": "admin"{{< /highlight >}}
 
 | labels     |      |
 -------------|------
@@ -570,6 +578,7 @@ type: Asset
 api_version: core/v2
 metadata:
   name: sensu-prometheus-collector
+  namespace: default
 spec:
   builds:
   - url: https://assets.bonsai.sensu.io/ef812286f59de36a40e51178024b81c69666e1b7/sensu-prometheus-collector_1.1.6_linux_amd64.tar.gz
@@ -601,7 +610,8 @@ spec:
   "type": "Asset",
   "api_version": "core/v2",
   "metadata": {
-    "name": "sensu-email-handler"
+    "name": "sensu-email-handler",
+    "namespace": default
   },
   "spec": {
     "builds": [

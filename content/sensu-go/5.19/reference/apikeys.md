@@ -88,11 +88,12 @@ example      | {{< highlight shell >}}"api_version": "core/v2"{{< /highlight >}}
 
 metadata     | 
 -------------|------
-description  | Top-level collection of metadata about the API key, including the `name`. The `metadata` map is always at the top level of the API key definition. This means that in `wrapped-json` and `yaml` formats, the `metadata` scope occurs outside the `spec` scope.
+description  | Top-level collection of metadata about the API key, including `name` and `created_by`. The `metadata` map is always at the top level of the API key definition. This means that in `wrapped-json` and `yaml` formats, the `metadata` scope occurs outside the `spec` scope.
 required     | true
 type         | Map of key-value pairs
 example      | {{< highlight shell >}}"metadata": {
-  "name": "19803eb8-36a6-4203-a225-28ec4e9f4444"
+  "name": "19803eb8-36a6-4203-a225-28ec4e9f4444",
+  "created_by": "admin"
 }{{< /highlight >}}
 
 spec         | 
@@ -114,6 +115,13 @@ description  | Unique string used to identify the API key. Sensu randomly genera
 required     | true
 type         | String
 example      | {{< highlight shell >}}"name": "19803eb8-36a6-4203-a225-28ec4e9f4444"{{< /highlight >}}
+
+| created_by |      |
+-------------|------
+description  | Username of the Sensu user who created the API key or last updated the API key. Sensu automatically populates the `created_by` field when the API key is created or updated.
+required     | false
+type         | String
+example      | {{< highlight shell >}}"created_by": "admin"{{< /highlight >}}
 
 ### Spec attributes
 

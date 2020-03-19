@@ -35,7 +35,10 @@ HTTP/1.1 200 OK
   {
     "type": "PostgresConfig",
     "api_version": "store/v1",
-    "metadata": {},
+    "metadata": {
+      "name": "my-other-postgres",
+      "created_by": "admin"
+    },
     "spec": {
       "dsn": "postgresql://user:secret@host:port/otherdbname",
       "pool_size": 20
@@ -44,7 +47,10 @@ HTTP/1.1 200 OK
   {
     "type": "PostgresConfig",
     "api_version": "store/v1",
-    "metadata": {},
+    "metadata": {
+      "name": "my-postgres",
+      "created_by": "admin"
+    },
     "spec": {
       "dsn": "postgresql://user:secret@host:port/dbname",
       "pool_size": 20
@@ -66,7 +72,10 @@ output         | {{< highlight json >}}
   {
     "type": "PostgresConfig",
     "api_version": "store/v1",
-    "metadata": {},
+    "metadata": {
+      "name": "my-postgres",
+      "created_by": "admin"
+    },
     "spec": {
       "dsn": "postgresql://user:secret@host:port/otherdbname",
       "pool_size": 20
@@ -75,7 +84,10 @@ output         | {{< highlight json >}}
   {
     "type": "PostgresConfig",
     "api_version": "store/v1",
-    "metadata": {},
+    "metadata": {
+      "name": "my-postgres",
+      "created_by": "admin"
+    },
     "spec": {
       "dsn": "postgresql://user:secret@host:port/dbname",
       "pool_size": 20
@@ -100,7 +112,8 @@ HTTP/1.1 200 OK
   "type": "PostgresConfig",
   "api_version": "store/v1",
   "metadata": {
-    "name": "my-postgres"
+    "name": "my-postgres",
+    "created_by": "admin"
   },
   "spec": {
     "dsn": "postgresql://user:secret@host:port/dbname",
@@ -122,7 +135,8 @@ output         | {{< highlight json >}}
   "type": "PostgresConfig",
   "api_version": "store/v1",
   "metadata": {
-    "name": "my-postgres"
+    "name": "my-postgres",
+    "created_by": "admin"
   },
   "spec": {
     "dsn": "postgresql://user:secret@host:port/dbname",

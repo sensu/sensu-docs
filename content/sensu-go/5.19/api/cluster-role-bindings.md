@@ -46,7 +46,8 @@ HTTP/1.1 200 OK
       "name": "cluster-admin"
     },
     "metadata": {
-      "name": "cluster-admin"
+      "name": "cluster-admin",
+      "created_by": "admin"
     }
   },
   {
@@ -61,7 +62,8 @@ HTTP/1.1 200 OK
       "name": "system:agent"
     },
     "metadata": {
-      "name": "system:agent"
+      "name": "system:agent",
+      "created_by": "admin"
     }
   }
 ]
@@ -91,7 +93,8 @@ output         | {{< highlight shell >}}
       "name": "cluster-admin"
     },
     "metadata": {
-      "name": "cluster-admin"
+      "name": "cluster-admin",
+      "created_by": "admin"
     }
   },
   {
@@ -198,7 +201,8 @@ HTTP/1.1 200 OK
     "name": "cluster-admin"
   },
   "metadata": {
-    "name": "bob-binder"
+    "name": "bob-binder",
+    "created_by": "admin"
   }
 }
 {{< /highlight >}}
@@ -224,7 +228,8 @@ output               | {{< highlight json >}}
     "name": "cluster-admin"
   },
   "metadata": {
-    "name": "bob-binder"
+    "name": "bob-binder",
+    "created_by": "admin"
   }
 }
 {{< /highlight >}}
