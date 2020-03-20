@@ -714,6 +714,7 @@ Flags:
       --api-port int                          port the Sensu client HTTP API listens on (default 3031)
       --backend-url strings                   ws/wss URL of Sensu backend server (to specify multiple backends use this flag multiple times) (default [ws://127.0.0.1:8081])
       --cache-dir string                      path to store cached data (default "/var/cache/sensu/sensu-agent")
+      --cert-file string                      TLS certificate in PEM format
   -c, --config-file string                    path to sensu-agent config file
       --deregister                            ephemeral agent
       --deregistration-handler string         deregistration handler that should process the entity deregistration event.
@@ -727,6 +728,7 @@ Flags:
       --keepalive-critical-timeout uint32     number of seconds until agent is considered dead by backend to create a critical event (default 0)
       --keepalive-interval uint32             number of seconds to send between keepalive events (default 20)
       --keepalive-warning-timeout uint32      number of seconds until agent is considered dead by backend to create a warning event (default 120)
+      --key-file string                       TLS certificate key in PEM format
       --labels stringToString                 entity labels map (default [])
       --log-level string                      logging level [panic, fatal, error, warn, info, debug] (default "warn")
       --name string                           agent name (defaults to hostname) (default "my-hostname")
@@ -1100,6 +1102,20 @@ redact:
   - ec2_access_key
 {{< /highlight >}}
 
+
+| cert-file  |      |
+-------------|------
+description  | Path to the agent certificate file used in mutual TLS authentication.
+type         | String
+default      | `""`
+environment variable | `SENSU_CERT_FILE`
+example      | {{< highlight shell >}}# Command line example
+sensu-agent start --cert-file /path/to/agent-1.pem
+
+# /etc/sensu/agent.yml example
+cert-file: "/path/to/agent-1.pem"{{< /highlight >}}
+
+
 | trusted-ca-file |      |
 ------------------|------
 description       | SSL/TLS certificate authority.
@@ -1111,6 +1127,19 @@ sensu-agent start --trusted-ca-file /path/to/trusted-certificate-authorities.pem
 
 # /etc/sensu/agent.yml example
 trusted-ca-file: "/path/to/trusted-certificate-authorities.pem"{{< /highlight >}}
+
+
+| key-file   |      |
+-------------|------
+description  | Path to the agent key file used in mutual TLS authentication.
+type         | String
+default      | `""`
+environment variable | `SENSU_KEY_FILE`
+example      | {{< highlight shell >}}# Command line example
+sensu-agent start --key-file /path/to/agent-1-key.pem
+
+# /etc/sensu/agent.yml example
+key-file: "/path/to/agent-1-key.pem"{{< /highlight >}}
 
 
 | insecure-skip-tls-verify |      |

@@ -41,6 +41,12 @@ See the [PostgreSQL docs][14] to install and configure PostgreSQL.
 At the time of enabling the PostgreSQL event store, event data cuts over from etcd to PostgreSQL, resulting in a loss of recent event history.
 No restarts or Sensu backend configuration changes are required to enable the PostgreSQL event store.
 
+When you successfully enable PostgreSQL as the Sensu Go event store, the Sensu backend log will include a message like this:
+
+{{< highlight shell >}}
+Mar 10 17:44:45 sensu-centos sensu-backend[1365]: {"component":"store-providers","level":"warning","msg":"switched event store to postgres","time":"2020-03-10T17:44:45Z"}
+{{< /highlight >}}
+
 After installing and configuring PostgreSQL, configure Sensu by creating a `PostgresConfig` resource. See the [specification](#specification) for more information.
 
 {{< language-toggle >}}
@@ -86,6 +92,12 @@ To disable the PostgreSQL event store, use `sensuctl delete` with your `Postgres
 
 {{< highlight shell >}}
 sensuctl delete --file postgres.yml
+{{< /highlight >}}
+
+The Sensu backend log will include a message to record that you successfully disabled PostgreSQL as the Sensu Go event store:
+
+{{< highlight shell >}}
+Mar 10 17:35:04 sensu-centos sensu-backend[1365]: {"component":"store-providers","level":"warning","msg":"switched event store to etcd","time":"2020-03-10T17:35:04Z"}
 {{< /highlight >}}
 
 When disabling the PostgreSQL event store, event data cuts over from PostgreSQL to etcd, resulting in a loss of recent event history.
