@@ -204,7 +204,8 @@ HTTP/1.1 200 OK
     ],
     "metadata": {
       "name": "check-cpu",
-      "namespace": "default"
+      "namespace": "default",
+      "created_by": "admin"
     }
   }
 ]

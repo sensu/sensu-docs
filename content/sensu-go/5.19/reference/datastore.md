@@ -127,12 +127,13 @@ example      | {{< highlight shell >}}api_version: store/v1{{< /highlight >}}
 
 metadata     |      |
 -------------|------
-description  | Top-level scope that contains the PostgreSQL datastore `name`.
+description  | Top-level scope that contains the PostgreSQL datastore `name` and `created_by` field.
 required     | true
 type         | Map of key-value pairs
 example      | {{< highlight shell >}}
 metadata:
   name: my-postgres
+  created_by: admin
 {{< /highlight >}}
 
 spec         |      |
@@ -154,6 +155,13 @@ description  | PostgreSQL datastore name used internally by Sensu.
 required     | true
 type         | String
 example      | {{< highlight shell >}}name: my-postgres{{< /highlight >}}
+
+| created_by |      |
+-------------|------
+description  | Username of the Sensu user who created the datastore or last updated the datastore. Sensu automatically populates the `created_by` field when the datastore is created or updated.
+required     | false
+type         | String
+example      | {{< highlight shell >}}created_by: admin{{< /highlight >}}
 
 #### Spec attributes
 

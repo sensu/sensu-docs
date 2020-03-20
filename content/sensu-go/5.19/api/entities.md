@@ -96,6 +96,7 @@ HTTP/1.1 200 OK
     "metadata": {
       "name": "sensu-centos",
       "namespace": "default",
+      "created_by": "admin",
       "labels": null,
       "annotations": null
     }
@@ -178,6 +179,7 @@ output         | {{< highlight shell >}}
     "metadata": {
       "name": "sensu-centos",
       "namespace": "default",
+      "created_by": "admin",
       "labels": null,
       "annotations": null
     }
@@ -322,6 +324,7 @@ HTTP/1.1 200 OK
   "metadata": {
     "name": "sensu-centos",
     "namespace": "default",
+    "created_by": "admin",
     "labels": null,
     "annotations": null
   }
@@ -400,6 +403,7 @@ output               | {{< highlight json >}}
   "metadata": {
     "name": "sensu-centos",
     "namespace": "default",
+    "created_by": "admin",
     "labels": null,
     "annotations": null
   }

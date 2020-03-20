@@ -36,7 +36,8 @@ HTTP/1.1 200 OK
   {
     "metadata": {
       "name": "development_filter",
-       "namespace": "default"
+       "namespace": "default",
+       "created_by": "admin"
     },
     "action": "deny",
     "expressions": [
@@ -73,7 +74,8 @@ output         | {{< highlight shell >}}
   {
     "metadata": {
       "name": "development_filter",
-       "namespace": "default"
+       "namespace": "default",
+       "created_by": "admin"
     },
     "action": "deny",
     "expressions": [
@@ -168,7 +170,8 @@ HTTP/1.1 200 OK
 {
   "metadata": {
     "name": "state_change_only",
-    "namespace": "default"
+    "namespace": "default",
+    "created_by": "admin"
   },
   "action": "allow",
   "expressions": [
@@ -190,7 +193,8 @@ output               | {{< highlight json >}}
 {
   "metadata": {
     "name": "state_change_only",
-    "namespace": "default"
+    "namespace": "default",
+    "created_by": "admin"
   },
   "action": "allow",
   "expressions": [

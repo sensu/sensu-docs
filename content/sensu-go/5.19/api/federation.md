@@ -48,7 +48,8 @@ http://127.0.0.1:8080/api/enterprise/federation/v1/etcd-replicators \
     "api_version": "federation/v1",
     "type": "EtcdReplicator",
     "metadata": {
-      "name": "my_replicator"
+      "name": "my_replicator",
+      "created_by": "admin"
     },
     "spec": {
       "ca_cert": "/path/to/ssl/trusted-certificate-authorities.pem",
@@ -80,7 +81,8 @@ output         | {{< highlight shell >}}
     "api_version": "federation/v1",
     "type": "EtcdReplicator",
     "metadata": {
-      "name": "my_replicator"
+      "name": "my_replicator",
+      "created_by": "admin"
     },
     "spec": {
       "ca_cert": "/path/to/ssl/trusted-certificate-authorities.pem",
@@ -182,7 +184,8 @@ http://127.0.0.1:8080/api/enterprise/federation/v1/etcd-replicators/my_replicato
   "api_version": "federation/v1",
   "type": "EtcdReplicator",
   "metadata": {
-    "name": "my_replicator"
+    "name": "my_replicator",
+    "created_by": "admin"
   },
   "spec": {
     "ca_cert": "/path/to/ssl/trusted-certificate-authorities.pem",
@@ -212,7 +215,8 @@ output               | {{< highlight json >}}
   "api_version": "federation/v1",
   "type": "EtcdReplicator",
   "metadata": {
-    "name": "my_replicator"
+    "name": "my_replicator",
+    "created_by": "admin"
   },
   "spec": {
     "ca_cert": "/path/to/ssl/trusted-certificate-authorities.pem",
@@ -334,7 +338,8 @@ HTTP/1.1 200 OK
         "type": "Cluster",
         "api_version": "federation/v1",
         "metadata": {
-            "name": "us-west-2a"
+            "name": "us-west-2a",
+            "created_by": "admin"
         },
         "spec": {
             "api_urls": [
@@ -361,7 +366,8 @@ output         | {{< highlight shell >}}
         "type": "Cluster",
         "api_version": "federation/v1",
         "metadata": {
-            "name": "us-west-2a"
+            "name": "us-west-2a",
+            "created_by": "admin"
         },
         "spec": {
             "api_urls": [
@@ -395,7 +401,8 @@ HTTP/1.1 200 OK
   "type": "Cluster",
   "api_version": "federation/v1",
   "metadata": {
-      "name": "us-west-2a"
+      "name": "us-west-2a",
+      "created_by": "admin"
   },
   "spec": {
       "api_urls": [
@@ -420,7 +427,8 @@ output               | {{< highlight json >}}
     "type": "Cluster",
     "api_version": "federation/v1",
     "metadata": {
-        "name": "us-west-2a"
+        "name": "us-west-2a",
+        "created_by": "admin"
     },
     "spec": {
         "api_urls": [
