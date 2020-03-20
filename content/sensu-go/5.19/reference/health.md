@@ -13,7 +13,7 @@ menu:
 - [Health specification](#health-specification)
   - [Top-level attributes](#top-level-attributes) | [ClusterHealth attributes](#clusterhealth-attributes) | [Header attributes](#header-attributes) | [PostgresHealth attributes](#postgreshealth-attributes)
 
-Use Sensu's [health API][1] to make sure your backend is up and running and check the health of your [PostgreSQL datastore resources][2].
+Use Sensu's [health API][1] to make sure your backend is up and running and check the health of your etcd cluster members and [PostgreSQL datastore resources][2].
 
 ## Health payload example
 
