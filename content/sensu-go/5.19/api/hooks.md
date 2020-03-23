@@ -36,7 +36,8 @@ HTTP/1.1 200 OK
   {
     "metadata": {
       "name": "nginx-log",
-      "namespace": "default"
+      "namespace": "default",
+      "created_by": "admin"
     },
     "command": "tail -n 100 /var/log/nginx/error.log",
     "timeout": 10,
@@ -46,7 +47,8 @@ HTTP/1.1 200 OK
   {
     "metadata": {
       "name": "process-tree",
-      "namespace": "default"
+      "namespace": "default",
+      "created_by": "admin"
     },
     "command": "ps -eo user,pid,cmd:50,%cpu --sort=-%cpu | head -n 6",
     "timeout": 10,
@@ -71,7 +73,8 @@ output         | {{< highlight shell >}}
   {
     "metadata": {
       "name": "nginx-log",
-      "namespace": "default"
+      "namespace": "default",
+      "created_by": "admin"
     },
     "command": "tail -n 100 /var/log/nginx/error.log",
     "timeout": 10,
@@ -81,7 +84,8 @@ output         | {{< highlight shell >}}
   {
     "metadata": {
       "name": "process-tree",
-      "namespace": "default"
+      "namespace": "default",
+      "created_by": "admin"
     },
     "command": "ps -eo user,pid,cmd:50,%cpu --sort=-%cpu | head -n 6",
     "timeout": 10,
@@ -161,6 +165,7 @@ HTTP/1.1 200 OK
   "metadata": {
     "name": "process-tree",
     "namespace": "default",
+    "created_by": "admin",
     "labels": null,
     "annotations": null
   },
@@ -183,6 +188,7 @@ output               | {{< highlight json >}}
   "metadata": {
     "name": "process-tree",
     "namespace": "default",
+    "created_by": "admin",
     "labels": null,
     "annotations": null
   },

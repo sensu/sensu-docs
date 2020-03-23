@@ -55,13 +55,14 @@ example      | {{< highlight shell >}}"api_version": "secrets/v1"{{< /highlight 
 
 metadata     |      |
 -------------|------
-description  | Top-level scope that contains the secret's `name` and `namespace`.
+description  | Top-level scope that contains the secret's `name` and `namespace` as well as the `created_by` field.
 required     | true
 type         | Map of key-value pairs
 example      | {{< highlight shell >}}
 "metadata": {
   "name": "sensu-ansible-token",
-  "namespace": "default"
+  "namespace": "default",
+  "created_by": "admin"
 }
 {{< /highlight >}}
 
@@ -92,6 +93,13 @@ description  | [Sensu RBAC namespace][9] that the secret belongs to.
 required     | true
 type         | String
 example      | {{< highlight shell >}}"namespace": "default"{{< /highlight >}}
+
+| created_by |      |
+-------------|------
+description  | Username of the Sensu user who created the secret or last updated the secret. Sensu automatically populates the `created_by` field when the secret is created or updated.
+required     | false
+type         | String
+example      | {{< highlight shell >}}"created_by": "admin"{{< /highlight >}}
 
 ### Spec attributes
 
