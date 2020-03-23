@@ -22,12 +22,20 @@ Sensu binary-only distributions for Linux are available for these architectures 
 
 | arch | format |
 | --- | --- |
+| `386` | [`.tar.gz`][19] \| [`.zip`][25] |
 | `amd64` | [`.tar.gz`][14] \| [`.zip`][20] |
 | `arm64` | [`.tar.gz`][15] \| [`.zip`][21]
 | `armv5` (agent and CLI) | [`.tar.gz`][16] \| [`.zip`][22] |
 | `armv6` (agent and CLI) | [`.tar.gz`][17] \| [`.zip`][23] |
 | `armv7` (agent and CLI) | [`.tar.gz`][18] \| [`.zip`][24] |
-| `386` | [`.tar.gz`][19] \| [`.zip`][25] |
+| `MIPS hard float` | [`.tar.gz`][38] \| [`.zip`][39] |
+| `MIPS soft float` | [`.tar.gz`][40] \| [`.zip`][41] |
+| `MIPS LE hard float` | [`.tar.gz`][42] \| [`.zip`][43] |
+| `MIPS LE soft float` | [`.tar.gz`][44] \| [`.zip`][45] |
+| `MIPS 64 hard float` | [`.tar.gz`][46] \| [`.zip`][47] |
+| `MIPS 64 soft float` | [`.tar.gz`][48] \| [`.zip`][49] |
+| `MIPS 64 LE hard float` | [`.tar.gz`][50] \| [`.zip`][51] |
+| `MIPS 64 LE soft float` | [`.tar.gz`][52] \| [`.zip`][53] |
 
 {{% notice note %}}
 **NOTE**: 32-bit systems cannot run the Sensu backend reliably, so `armv5`, `armv6`, and `armv7` packages include the agent and CLI only.
@@ -227,3 +235,19 @@ Now that you’ve installed Sensu:
 [35]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.18.1/sensu-go_5.18.1_freebsd_386.zip
 [36]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.18.1/sensu-go_5.18.1_solaris_amd64.tar.gz
 [37]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.18.1/sensu-go_5.18.1_solaris_amd64.zip
+[38]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.18.1/sensu-go_5.18.1_linux_mips_hardfloat.tar.gz
+[39]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.18.1/sensu-go_5.18.1_linux_mips_hardfloat.zip
+[40]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.18.1/sensu-go_5.18.1_linux_mips_softfloat.tar.gz
+[41]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.18.1/sensu-go_5.18.1_linux_mips_softfloat.zip
+[42]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.18.1/sensu-go_5.18.1_linux_mipsle_hardfloat.tar.gz
+[43]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.18.1/sensu-go_5.18.1_linux_mipsle_hardfloat.zip
+[44]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.18.1/sensu-go_5.18.1_linux_mipsle_softfloat.tar.gz
+[45]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.18.1/sensu-go_5.18.1_linux_mipsle_softfloat.zip
+[46]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.18.1/sensu-go_5.18.1_linux_mips64_hardfloat.tar.gz
+[47]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.18.1/sensu-go_5.18.1_linux_mips64_hardfloat.zip
+[48]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.18.1/sensu-go_5.18.1_linux_mips64_softfloat.tar.gz
+[49]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.18.1/sensu-go_5.18.1_linux_mips64_softfloat.zip
+[50]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.18.1/sensu-go_5.18.1_linux_mips64le_hardfloat.tar.gz
+[51]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.18.1/sensu-go_5.18.1_linux_mips64le_hardfloat.zip
+[52]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.18.1/sensu-go_5.18.1_linux_mips64le_softfloat.tar.gz
+[53]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.18.1/sensu-go_5.18.1_linux_mips64le_softfloat.zip
