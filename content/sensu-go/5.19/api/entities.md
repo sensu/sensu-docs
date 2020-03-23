@@ -69,7 +69,11 @@ HTTP/1.1 200 OK
           }
         ]
       },
-      "arch": "amd64"
+      "arch": "amd64",
+      "libc_type": "glibc",
+      "vm_system": "kvm",
+      "vm_role": "host",
+      "cloud_provider": ""
     },
     "subscriptions": [
       "entity:sensu-centos"
@@ -92,6 +96,7 @@ HTTP/1.1 200 OK
     "metadata": {
       "name": "sensu-centos",
       "namespace": "default",
+      "created_by": "admin",
       "labels": null,
       "annotations": null
     }
@@ -147,7 +152,11 @@ output         | {{< highlight shell >}}
           }
         ]
       },
-      "arch": "amd64"
+      "arch": "amd64",
+      "libc_type": "glibc",
+      "vm_system": "kvm",
+      "vm_role": "host",
+      "cloud_provider": ""
     },
     "subscriptions": [
       "entity:sensu-centos"
@@ -170,6 +179,7 @@ output         | {{< highlight shell >}}
     "metadata": {
       "name": "sensu-centos",
       "namespace": "default",
+      "created_by": "admin",
       "labels": null,
       "annotations": null
     }
@@ -287,7 +297,11 @@ HTTP/1.1 200 OK
         }
       ]
     },
-    "arch": "amd64"
+    "arch": "amd64",
+    "libc_type": "glibc",
+    "vm_system": "kvm",
+    "vm_role": "host",
+    "cloud_provider": ""
   },
   "subscriptions": [
     "entity:sensu-centos"
@@ -310,6 +324,7 @@ HTTP/1.1 200 OK
   "metadata": {
     "name": "sensu-centos",
     "namespace": "default",
+    "created_by": "admin",
     "labels": null,
     "annotations": null
   }
@@ -361,7 +376,11 @@ output               | {{< highlight json >}}
         }
       ]
     },
-    "arch": "amd64"
+    "arch": "amd64",
+    "libc_type": "glibc",
+    "vm_system": "kvm",
+    "vm_role": "host",
+    "cloud_provider": ""
   },
   "subscriptions": [
     "entity:sensu-centos"
@@ -384,6 +403,7 @@ output               | {{< highlight json >}}
   "metadata": {
     "name": "sensu-centos",
     "namespace": "default",
+    "created_by": "admin",
     "labels": null,
     "annotations": null
   }
