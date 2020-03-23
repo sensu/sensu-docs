@@ -25,10 +25,9 @@ Federation affords visibility into the health of your infrastructure and service
 - **Manage resources from your browser**: Create, edit, and delete checks, handlers, mutators, and filters using the Sensu [web UI][8], and access the Sensu web UI homepage.
 - **Control permissions with Sensu role-based access control (RBAC)**, with the option of using [Lightweight Directory Access Protocol (LDAP) and Active Directory (AD)][9] for authentication.
 - **Use powerful filtering capabilities** designed for large installations. With label and field selectors, you can filter [Sensu API][4] responses, [sensuctl][5] outputs, and Sensu [web UI][6] views using custom labels and a wider range of resource attributes.
-- **Log event data** to a file you can use as an input to your favorite data lake solution.
-Sensu's [event logging][10] provides better performance and reliability than event handlers.
+- **Log event data** [to a file][10] you can use as an input to your favorite data lake solution.
 - **Connect your monitoring event pipelines to industry-standard tools** like ServiceNow and Jira with [enterprise-tier assets][11].
-- **Achieve enterprise-scale event storage** for your Sensu instance and handle high event volumes with a [PostgreSQL event store][12].
+- **Achieve enterprise-scale event handling** for your Sensu instance with a [PostgreSQL event store][12].
 Access the PostgreSQL event datastore with the same Sensu web UI, API, and sensuctl processes as etcd-stored events.
 - **Get enterprise-class support**: Rest assured that with [Sensu support][13], help is available if you need it.
 Our expert in-house team offers best-in-class support to get you up and running smoothly.
@@ -53,6 +52,10 @@ To download your commercial license file:
 
 1. Log in to your Sensu account at [account.sensu.io][2].
 2. Click **Download license**.
+
+{{% notice note %}}
+**NOTE**: In some cases, you may need to click **Generate license** before you can download your license.
+{{% /notice %}}
 
 <img alt="Screenshot of Sensu account license download" src="/images/go-license-download.png" width="350px">
 
@@ -80,7 +83,7 @@ These resources will help you get started with commercial features in Sensu Go:
 [2]: https://account.sensu.io/
 [3]: https://sensu.io/enterprise
 [4]: ../../api/overview#response-filtering
-[5]: ../../sensuctl/reference#response-filters
+[5]: ../../sensuctl/reference#response-filtering
 [6]: ../../dashboard/filtering/
 [7]: https://blog.sensu.io/one-year-of-sensu-go/
 [8]: ../../dashboard/overview/
