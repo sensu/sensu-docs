@@ -84,7 +84,8 @@ HTTP/1.1 200 OK
       }
     ],
     "metadata": {
-      "name": "cluster-admin"
+      "name": "cluster-admin",
+      "created_by": "admin"
     }
   }
 ]
@@ -115,7 +116,8 @@ output         | {{< highlight shell >}}
       }
     ],
     "metadata": {
-      "name": "cluster-admin"
+      "name": "cluster-admin",
+      "created_by": "admin"
     }
   }
 ]
@@ -201,7 +203,8 @@ http://127.0.0.1:8080/api/core/v2/clusterroles/global-event-reader \
 HTTP/1.1 200 OK
 {
   "metadata": {
-    "name": "global-event-reader"
+    "name": "global-event-reader",
+    "created_by": "admin"
   },
   "rules": [
     {
@@ -229,7 +232,8 @@ response codes       | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (
 output               | {{< highlight json >}}
 {
   "metadata": {
-    "name": "global-event-reader"
+    "name": "global-event-reader",
+    "created_by": "admin"
   },
   "rules": [
     {

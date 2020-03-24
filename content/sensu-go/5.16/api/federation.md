@@ -66,7 +66,7 @@ http://127.0.0.1:8080/api/enterprise/federation/v1/etcd-replicators \
 
 /etcd-replicators (GET)  | 
 ---------------|------
-description    | Returns the list of replicators. _**NOTE**: If you did not specify a [namespace][2] when you created a replicator, the response will not include a `namespace` key-value pair._
+description    | Returns the list of replicators.
 example url    | http://hostname:8080/api/enterprise/federation/v1/etcd-replicators
 response type  | Array
 response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
@@ -158,6 +158,8 @@ response codes  | <ul><li>**Success**: 200 (OK)</li><li>**Malformed**: 400 (Bad 
 
 ## The `/etcd-replicators/:etcd-replicator` API endpoint {#the-etcd-replicatorsetcd-replicator-endpoint}
 
+_**NOTE**: The etcd-replicators datatype is only accessible for users who have a cluster role that permits access to replication resources._
+
 ### `/etcd-replicators/:etcd-replicator` (GET) {#etcd-replicatorsetcd-replicator-get}
 
 The `/etcd-replicators/:etcd-replicator` API endpoint provides HTTP GET access to data for a specific `:etcd-replicator`, by replicator name.
@@ -193,7 +195,7 @@ http://127.0.0.1:8080/api/enterprise/federation/v1/etcd-replicators/my_replicato
 
 /etcd-replicators/:etcd-replicator (GET) | 
 ---------------------|------
-description          | Returns the specified replicator. _**NOTE**: If you did not specify a [namespace][2] when you created the replicator, the response will not include a `namespace` key-value pair._
+description          | Returns the specified replicator.
 example url          | http://hostname:8080/api/enterprise/federation/v1/etcd-replicators/my_replicator
 response type        | Map
 response codes       | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
