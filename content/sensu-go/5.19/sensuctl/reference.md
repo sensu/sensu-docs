@@ -686,15 +686,16 @@ sensuctl event list --field-selector='linux notin event.entity.subscriptions'
 
 ### Operators quick reference
 
-Sensuctl response filtering supports two equality-based operators, two set-based operators, and one logical operator.
+Sensuctl response filtering supports two equality-based operators, two set-based operators, one substring matching operator, and one logical operator.
 
-| operator | description     | example                |
-| -------- | --------------- | ---------------------- |
-| `==`     | Equality        | `check.publish == true`
-| `!=`     | Inequality      | `check.namespace != "default"`
-| `in`     | Included in     | `linux in check.subscriptions`
-| `notin`  | Not included in | `slack notin check.handlers`
-| `&&`     | Logical AND     | `check.publish == true && slack in check.handlers`
+| operator  | description        | example                |
+| --------- | ------------------ | ---------------------- |
+| `==`      | Equality           | `check.publish == true`
+| `!=`      | Inequality         | `check.namespace != "default"`
+| `in`      | Included in        | `linux in check.subscriptions`
+| `notin`   | Not included in    | `slack notin check.handlers`
+| `matches` | Substring matching | `check.name matches "linux-"`
+| `&&`      | Logical AND        | `check.publish == true && slack in check.handlers`
 
 For details about operators, see [API response filtering operators][47].
 
@@ -722,6 +723,12 @@ To retrieve all events that equal a status of `2` (CRITICAL):
 
 {{< highlight shell >}}
 sensuctl event list --field-selector 'event.check.status == "2"'
+{{< /highlight >}}
+
+To retrieve all entities whose name includes the substring `webserver`:
+
+{{< highlight shell >}}
+sensuctl entity list --fieldSelector 'entity.name matches "webserver"'
 {{< /highlight >}}
 
 ### Use the logical AND operator

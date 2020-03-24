@@ -86,15 +86,16 @@ fieldSelector: linux in event.entity.subscriptions
 
 ## Operators quick reference
 
-Dashboard filtering supports two equality-based operators, two set-based operators, and one logical operator.
+Dashboard filtering supports two equality-based operators, two set-based operators, one substring matching operator, and one logical operator.
 
-| operator | description     | example                |
-| -------- | --------------- | ---------------------- |
-| `==`     | Equality        | `check.publish == true`
-| `!=`     | Inequality      | `check.namespace != "default"`
-| `in`     | Included in     | `linux in check.subscriptions`
-| `notin`  | Not included in | `slack notin check.handlers`
-| `&&`     | Logical AND     | `check.publish == true && slack in check.handlers`
+| operator  | description        | example                |
+| --------- | ------------------ | ---------------------- |
+| `==`      | Equality           | `check.publish == true`
+| `!=`      | Inequality         | `check.namespace != "default"`
+| `in`      | Included in        | `linux in check.subscriptions`
+| `notin`   | Not included in.   | `slack notin check.handlers`
+| `matches` | Substring matching | `check.name matches "linux-"`
+| `&&`      | Logical AND        | `check.publish == true && slack in check.handlers`
 
 For details about operators, see [API response filtering operators][7].
 
@@ -106,6 +107,12 @@ To filter resources using custom labels (in this example, to display only resour
 
 {{< highlight text >}}
 labelSelector:type == server
+{{< /highlight >}}
+
+To filter for entities that are labeled for any region in the US (e.g. `us-east-1`, `us-west-1`, and so on):
+
+{{< highlight shell >}}
+labelSelector:region matches "us"
 {{< /highlight >}}
 
 ### Filter with field selectors
