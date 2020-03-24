@@ -36,7 +36,8 @@ HTTP/1.1 200 OK
 [
   {
     "metadata": {
-      "name": "83abef1e-e7d7-4beb-91fc-79ad90084d5b"
+      "name": "83abef1e-e7d7-4beb-91fc-79ad90084d5b",
+      "created_by": "admin"
     },
     "username": "admin",
     "created_at": 1570640363
@@ -57,7 +58,8 @@ output         | {{< highlight shell >}}
 [
   {
     "metadata": {
-      "name": "83abef1e-e7d7-4beb-91fc-79ad90084d5b"
+      "name": "83abef1e-e7d7-4beb-91fc-79ad90084d5b",
+      "created_by": "admin"
     },
     "username": "admin",
     "created_at": 1570640363
@@ -117,7 +119,8 @@ http://127.0.0.1:8080/api/core/v2/apikeys/83abef1e-e7d7-4beb-91fc-79ad90084d5b \
 HTTP/1.1 200 OK
 {
   "metadata": {
-    "name": "83abef1e-e7d7-4beb-91fc-79ad90084d5b"
+    "name": "83abef1e-e7d7-4beb-91fc-79ad90084d5b",
+    "created_by": "admin"
   },
   "username": "admin",
   "created_at": 1570640363
@@ -135,7 +138,8 @@ response codes       | <ul><li>**Success**: 200 (OK)</li><li>**Missing**: 404 (N
 output               | {{< highlight json >}}
 {
   "metadata": {
-    "name": "83abef1e-e7d7-4beb-91fc-79ad90084d5b"
+    "name": "83abef1e-e7d7-4beb-91fc-79ad90084d5b",
+    "created_by": "admin"
   },
   "username": "admin",
   "created_at": 1570640363

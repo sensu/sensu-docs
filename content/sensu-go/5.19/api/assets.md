@@ -44,7 +44,8 @@ HTTP/1.1 200 OK
     "builds": null,
     "metadata": {
       "name": "sensu-influxdb-handler",
-      "namespace": "default"
+      "namespace": "default",
+      "created_by": "admin"
     },
     "headers": {
       "Authorization": "Bearer $TOKEN",
@@ -61,7 +62,8 @@ HTTP/1.1 200 OK
     "builds": null,
     "metadata": {
       "name": "sensu-slack-handler",
-      "namespace": "default"
+      "namespace": "default",
+      "created_by": "admin"
     },
     "headers": {
       "Authorization": "Bearer $TOKEN",
@@ -93,7 +95,8 @@ output         | {{< highlight shell >}}
     "builds": null,
     "metadata": {
       "name": "sensu-influxdb-handler",
-      "namespace": "default"
+      "namespace": "default",
+      "created_by": "admin"
     },
     "headers": {
       "Authorization": "Bearer $TOKEN",
@@ -110,7 +113,8 @@ output         | {{< highlight shell >}}
     "builds": null,
     "metadata": {
       "name": "sensu-slack-handler",
-      "namespace": "default"
+      "namespace": "default",
+      "created_by": "admin"
     },
     "headers": {
       "Authorization": "Bearer $TOKEN",
@@ -207,7 +211,8 @@ HTTP/1.1 200 OK
     "builds": null,
     "metadata": {
       "name": "sensu-slack-handler",
-      "namespace": "default"
+      "namespace": "default",
+      "created_by": "admin"
     },
     "headers": {
       "Authorization": "Bearer $TOKEN",
@@ -237,7 +242,8 @@ output               | {{< highlight json >}}
     "builds": null,
     "metadata": {
       "name": "sensu-slack-handler",
-      "namespace": "default"
+      "namespace": "default",
+      "created_by": "admin"
     },
     "headers": {
       "Authorization": "Bearer $TOKEN",

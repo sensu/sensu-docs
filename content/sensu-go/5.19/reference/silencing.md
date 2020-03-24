@@ -64,13 +64,14 @@ example      | {{< highlight shell >}}"api_version": "core/v2"{{< /highlight >}}
 
 metadata     | 
 -------------|------
-description  | Top-level collection of metadata about the silencing entry that includes the `name` and `namespace` as well as custom `labels` and `annotations`. The `metadata` map is always at the top level of the silencing entry definition. This means that in `wrapped-json` and `yaml` formats, the `metadata` scope occurs outside the `spec` scope. See [metadata attributes][3] for details.
+description  | Top-level collection of metadata about the silencing entry that includes `name`, `namespace`, and `created_by` as well as custom `labels` and `annotations`. The `metadata` map is always at the top level of the silencing entry definition. This means that in `wrapped-json` and `yaml` formats, the `metadata` scope occurs outside the `spec` scope. See [metadata attributes][3] for details.
 required     | Required for silencing entry definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][4].
 type         | Map of key-value pairs
 example      | {{< highlight shell >}}
 "metadata": {
   "name": "appserver:mysql_status",
   "namespace": "default",
+  "created_by": "admin",
   "labels": {
     "region": "us-west-1"
   }
@@ -110,6 +111,13 @@ type         | String
 default      | `default`
 example      | {{< highlight shell >}}"namespace": "production"{{< /highlight >}}
 
+| created_by |      |
+-------------|------
+description  | Username of the Sensu user who created the silence or last updated the silence. Sensu automatically populates the `created_by` field when the silence is created or updated.
+required     | false
+type         | String
+example      | {{< highlight shell >}}"created_by": "admin"{{< /highlight >}}
+
 | labels     |      |
 -------------|------
 description  | Custom attributes to include with event data that you can use for response and dashboard view filtering.<br><br>If you include labels in your event data, you can filter [API responses][6], [sensuctl responses][7], and [dashboard views][9] based on them. In other words, labels allow you to create meaningful groupings for your data.<br><br>Limit labels to metadata you need to use for response filtering. For complex, non-identifying metadata that you will *not* need to use in response filtering, use annotations rather than labels.
@@ -140,7 +148,6 @@ description  | Name of the check the entry should match.
 required     | true, unless `subscription` is provided
 type         | String
 example      | {{< highlight shell >}}"check": "haproxy_status"{{< /highlight >}}
-
 
 subscription | 
 -------------|------ 
