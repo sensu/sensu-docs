@@ -97,12 +97,18 @@ Docker images that contain the Sensu backend and Sensu agent are available for L
 
 [Binary-only distributions][4] that contain the Sensu backend, agent, and sensuctl tool are available in `.zip` and `.tar.gz` formats.
 
-| Platform & Version | `386` |`amd64` | `arm64` | `armv5` | `armv6` |`armv7` | `MIPS` |
-|--------------------|---------|---------|---------|---------|--------|-------| ------ |
-| Linux              | {{< check >}}      | {{< check >}}     | {{< check >}}      | {{< check >}}      | {{< check >}}     | {{< check >}}    | {{< check >}}   |
-| Windows            | {{< check >}}      | {{< check >}}      |         |         |         |        |       |
-| macOS              |        |     {{< check >}}      |         |         |        |       |
-| Solaris            |        |     {{< check >}}      |         |         |        |       |
+| Platform & Version | Linux | Windows | macOS | Solaris |
+|--------------------|-------|---------|-------|---------|
+| `386`              | {{< check >}} | {{< check >}} |               |     
+| `amd64`            | {{< check >}} | {{< check >}} | {{< check >}} | {{< check >}}  
+| `arm64`            | {{< check >}} |               |               |             |
+| `armv5`            | {{< check >}} |               |               |             |
+| `armv6`            | {{< check >}} |               |               |             |
+| `armv7`            | {{< check >}} |               |               |             |
+| `MIPS`             | {{< check >}} |               |               |             |
+| `MIPS LE`          | {{< check >}} |               |               |             |
+| `MIPS 64`          | {{< check >}} |               |               |             |
+| `MIPS 64 LE`       | {{< check >}} |               |               |             |
 
 ## Build from source
 
