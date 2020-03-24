@@ -87,6 +87,8 @@ echo '{"CN":"Sensu Test CA","key":{"algo":"rsa","size":2048}}' | cfssl gencert -
 echo '{"signing":{"default":{"expiry":"17520h","usages":["signing","key encipherment","client auth"]},"profiles":{"backend":{"usages":["signing","key encipherment","server auth"],"expiry":"4320h"},"agent":{"usages":["signing","key encipherment","client auth"],"expiry":"4320h"}}}}' > ca-config.json
 {{< /highlight >}}
 
+<a name="copy-ca-pem"></a>
+
 You should now have a directory at `/etc/sensu/pki` that contains the following files:
 
  filename        | description |
@@ -137,6 +139,8 @@ export NAME=backend-3.example.com
 echo '{"CN":"'$NAME'","hosts":[""],"key":{"algo":"rsa","size":2048}}' | cfssl gencert -config=ca-config.json -profile="backend" -ca=ca.pem -ca-key=ca-key.pem -hostname="$ADDRESS" - | cfssljson -bare $NAME
 {{< /highlight >}}
 
+<a name="copy-backend-pem"></a>
+
 You should now have a set of files for each backend, where the `N` is the numeric element of the backend hostname:
 
 filename               | description                  | required on backend?|
@@ -180,7 +184,12 @@ echo '{"CN":"'$NAME'","hosts":[""],"key":{"algo":"rsa","size":2048}}' | cfssl ge
 
 ## Next step: Secure Sensu
 
-Now that you have generated the required certificates, follow our [Secure Sensu][1] guide to make your Sensu installation production-ready.
+Before you move on, make sure you have copied the certificates and keys to each of the backend and agent systems you are securing:
+
+- [Copy the Certificate Authority (CA) certificate file][11], `ca.pem`, to each agent and backend.
+- [Copy all backend PEM files][12] to their corresponding backend systems.
+
+Then follow our [Secure Sensu][1] guide to make your Sensu installation production-ready.
 
 
 [1]: ../../guides/securing-sensu/
@@ -193,3 +202,5 @@ Now that you have generated the required certificates, follow our [Secure Sensu]
 [8]: https://en.wikipedia.org/wiki/Public_key_infrastructure
 [9]: ../../guides/secrets-management/
 [10]: ../../installation/install-sensu/
+[11]: #copy-ca-pem
+[12]: #copy-backend-pem
