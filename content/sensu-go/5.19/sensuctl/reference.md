@@ -21,7 +21,8 @@ menu:
 - [Export resources](#export-resources)
 - [Manage resources](#manage-resources)
   - [Subcommands](#subcommands)
-- [Response filtering](#response-filtering) (commercial feature)
+- [Prune resources](#prune-resources) (experimental feature)
+- [Response filtering](#response-filtering)
 - [Time formats](#time-formats)
 - [Shell auto-completion](#shell-auto-completion)
 - [Environment variables](#environment-variables)
@@ -648,6 +649,97 @@ See the [RBAC reference][21] for information about using access control with nam
 
 See the [RBAC reference][22] for information about local user management with sensuctl.
 
+## Prune resources
+
+{{% notice important %}}
+**IMPORTANT**: `sensuctl prune` is experimental and under testing for Sensu Go 5.19.0.
+We may remove this feature from 5.19.0 and future releases.
+{{% /notice %}}
+
+**COMMERCIAL FEATURE**: Access `sensuctl prune` in the packaged Sensu Go distribution.
+For more information, see [Get started with commercial features][30].
+
+The `sensuctl prune` command allows you to delete resources that do not appear in your configuration from a file, URL, or STDIN.
+For example, you can use `sensuctl prune` to prune resources that were created by a specific user or that include a specific label selector.
+
+### sensuctl prune usage
+
+{{< highlight shell >}}
+sensuctl prune [RESOURCE TYPE],[RESOURCE TYPE]... [-f [FILE] -f [URL] -f [URL] [-r] ... ] [flags]
+{{< /highlight >}}
+
+In this example `sensuctl prune` command:
+
+- Replace [RESOURCE TYPE] with the [synonym or fully qualified name][48] of the resource you want to prune.
+If you do not specify any resource types, `sensuctl prune` defaults to all types except events and entities.
+- Replace [FILE], [URL], or [STDIN] with the name of the file, URL, or STDIN where you want to apply the pruning.
+- Replace [flags] with the flags you want to use, if any.
+
+Use a comma separator to prune more than one resource in a single command.
+
+For example, to prune checks and assets from the file `checks.yaml` for the `dev` namespace and the `admin` and `ops` users:
+
+{{< highlight shell >}}
+sensuctl prune checks,assets --file checks.yaml --namespace dev --users admin,ops
+{{< /highlight >}}
+
+### sensuctl prune flags
+
+Run `sensuctl prune -h` to view command-specific and global flags.
+
+The `sensuctl prune` flags have a few important characteristics:
+
+- `--all-users` defaults to false and overrides the `--users` flag.
+- `--dry-run` defaults to false.
+- `--users` defaults to the currently configured sensuctl user.
+
+### sensuctl prune resource types
+
+The table below lists supported `sensuctl prune` resource types.
+
+Synonym | Fully qualified name 
+--------------------|---
+None | `authentication/v2.Provider`
+None | `licensing/v2.LicenseFile`
+None | `store/v1.PostgresConfig`
+None | `federation/v1.EtcdReplicator`
+None | `secrets/v1.Provider`
+None | `secrets/v1.Secret`
+`apikey` | `core/v2.APIKey`
+`assets` | `core/v2.Asset`
+`checks` | `core/v2.CheckConfig`
+`clusterroles` | `core/v2.ClusterRole`
+`clusterrolebindings` | `core/v2.ClusterRoleBinding`
+`entities` | `core/v2.Entity`
+`filters` | `core/v2.EventFilter`
+`handlers` | `core/v2.Handler`
+`hooks` | `core/v2.Hook`
+`mutators` | `core/v2.Mutator`
+`namespaces` | `core/v2.Namespace`
+`roles` | `core/v2.Role`
+`rolebindings` | `core/v2.RoleBinding`
+`silenced` | `core/v2.Silenced`
+`tessen` | `core/v2.TessenConfig`
+`users` | `core/v2.User`
+
+### sensuctl prune examples
+
+`sensuctl prune` supports pruning resources by their synonyms or fully qualified names:
+
+{{< highlight shell >}}
+sensuctl prune checks,entities
+{{< /highlight >}}
+
+{{< highlight shell >}}
+sensuctl prune core/v2.CheckConfig,core/v2.Entity
+{{< /highlight >}}
+
+Use the `all` qualifier to prune all supported resources:
+
+{{< highlight shell >}}
+sensuctl prune all
+{{< /highlight >}}
+
 ## Response filtering
 
 **COMMERCIAL FEATURE**: Access sensuctl response filters in the packaged Sensu Go distribution.
@@ -1125,3 +1217,4 @@ Flags are optional and apply only to the `delete` command.
 [45]: ../../installation/install-sensu/#2-configure-and-start
 [46]: #first-time-setup
 [47]: ../../api/overview/#operators
+[48]: #sensuctl-prune-resource-types
