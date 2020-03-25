@@ -38,7 +38,14 @@ HTTP/1.1 200 OK
     "cluster_id": 4255616344056076734,
     "member_id": 2882886652148554927,
     "raft_term": 26
-  }
+  },
+  "PostgresHealth": [
+    {
+      "Name": "my-postgres",
+      "Active": false,
+      "Healthy": false
+    }
+  ]
 }
 {{< /highlight >}}
 
@@ -66,6 +73,13 @@ output         | {{< highlight shell >}}
     "cluster_id": 4255616344056076734,
     "member_id": 2882886652148554927,
     "raft_term": 26
-  }
+  },
+  "PostgresHealth": [
+    {
+      "Name": "my-postgres",
+      "Active": false,
+      "Healthy": false
+    }
+  ]
 }
 {{< /highlight >}}
