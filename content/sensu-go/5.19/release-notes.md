@@ -70,7 +70,7 @@ See the [upgrade guide][1] to upgrade Sensu to version 5.19.0.
 - ([Commercial feature][122]) The [health endpoint][125] now includes PostgreSQL health information.
 - ([Commercial feature][122]) Added the `matches` substring matching operator for [API response][126], [sensuctl][127], and [dashboard][128] filtering selectors.
 - ([Commercial feature][122]) Added agent and sensuctl builds for Linux architectures: `mips`, `mipsle`, `mips64`, and `mips64le` (hard float and soft float).
-- **NEED TO REVISIT**  The `sensu.io/managed_by` label is now automatically applied to resources created via `sensuctl create`.
+- ([Commercial feature][122]) Sensu now automatically applies the `sensu.io/managed_by` label to resources created via `sensuctl create` for use in the [`sensuctl prune` alpha feature][129].
 - Resource metadata now includes the `created_by` field, which Sensu automatically populates with the name of the user who created or last updated each resource.
 - The agent now discovers entity libc type, VM system, VM role, and cloud provider.
 - System type now includes the `float_type` field, which stores the float type the system is using (softfloat or hardfloat).
@@ -1149,3 +1149,4 @@ To get started with Sensu Go:
 [126]: /sensu-go/5.19/api/overview/#response-filtering
 [127]: /sensu-go/5.19/sensuctl/reference/#response-filtering
 [128]: /sensu-go/5.19/dashboard/filtering
+[129]: /sensu-go/5.19/sensuctl/reference/#prune-resources
