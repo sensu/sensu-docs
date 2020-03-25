@@ -669,17 +669,17 @@ For example, to prune resources in the `dev` namespace, the current user who sen
 ##### sensuctl prune usage
 
 {{< highlight shell >}}
-sensuctl prune [RESOURCE TYPE],[RESOURCE TYPE]... [-f [FILE] -f [URL] -f [STDIN] [-r] ... ] [--NAMESPACE] [flags]
+sensuctl prune [RESOURCE TYPE],[RESOURCE TYPE]... -f [FILE or URL] [-r] ... ] [--NAMESPACE] [flags]
 {{< /highlight >}}
 
 In this example `sensuctl prune` command:
 
 - Replace [RESOURCE TYPE] with the [synonym or fully qualified name][48] of the resource you want to prune.
 You must specify at least one resource type or the `all` qualifier (to prune all resource types).
-- Replace [FILE], [URL], or [STDIN] with the name of the file, URL, or STDIN where you want to apply the pruning.
+- Replace [FILE or URL] with the name of the file or the URL where you want to apply the pruning.
 - Replace [flags] with the flags you want to use, if any.
 - Replace [--NAMESPACE] with the namespace where you want to apply pruning.
-To prune all namespaces, omit the namespace qualifier from your command.
+If you omit the namespace qualifier, the command defaults to the current configured namespace.
 
 Use a comma separator to prune more than one resource in a single command.
 
@@ -697,6 +697,7 @@ The following table describes the command-specific flags.
 | Flag | Function and important notes
 | ---- | ----------------------------
 `-a` or `--all-users` | Prunes resources created by all users. Mutually exclusive with the `--users` flag. Defaults to false.
+`-c` or `--cluster-wide` | Prunes any cluster-wide (non-namespaced) resources that are not defined in the configuration. Defaults to false.
 `-d` or `--dry-run` | Prints the resources that will be pruned but does not actually delete them. Defaults to false.
 `-f` or `--file` | Files, URLs, or directories to prune resources from. Strings.
 `-h` or `--help` | Help for the prune command.
