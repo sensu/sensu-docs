@@ -59,24 +59,30 @@ Read the [upgrade guide][1] for information about upgrading to the latest versio
 ## 5.19.0 release notes
 
 **March 26, 2020** &mdash; The latest release of Sensu Go, version 5.19.0, is now available for download.
-
-**Release summary placeholder**
+This release is packed with new features, improvements, and fixes, including our first alpha feature: sensuctl pruning to help keep your configuration in good order.
+Other exciting additions include the ability to save and share your filtered searches in the web UI, plus a new `matches` substring match operator that you can use to refine your filtering results!
+Improvements include a new `created_by` field in resource metadata and a `float_type` field that stores whether your system uses hard float or soft float.
+We've also added agent and sensuctl builds for MIPS architectures, moved Bonsai logs to the `debug` level, and added PostgreSQL health information to the health API payload.
 
 See the [upgrade guide][1] to upgrade Sensu to version 5.19.0.
 
-**IMPROVEMENTS:**
+**NEW FEATURES:**
 
 - ([Commercial feature][122]) In the [web UI][124], you can now [save, recall, and delete filtered searches][123].
-- ([Commercial feature][122]) The [health endpoint][125] now includes PostgreSQL health information.
 - ([Commercial feature][122]) Added the `matches` substring matching operator for [API response][126], [sensuctl][127], and [dashboard][128] filtering selectors.
 - ([Commercial feature][122]) Added agent and sensuctl builds for Linux architectures: `mips`, `mipsle`, `mips64`, and `mips64le` (hard float and soft float).
 - ([Commercial feature][122]) Sensu now automatically applies the `sensu.io/managed_by` label to resources created via `sensuctl create` for use in the [`sensuctl prune` alpha feature][129].
+
+**IMPROVEMENTS:**
+
+- ([Commercial feature][122]) The [health endpoint][125] now includes PostgreSQL health information.
 - Resource metadata now includes the `created_by` field, which Sensu automatically populates with the name of the user who created or last updated each resource.
 - The agent now discovers entity libc type, VM system, VM role, and cloud provider.
-- System type now includes the `float_type` field, which stores the float type the system is using (softfloat or hardfloat).
+- System type now includes the `float_type` field, which stores the float type the system is using (hard float or soft float).
 - The Bonsai client now logs at the `debug` level rather than the `info` level.
 - The store can now create wrapped resources.
 - [Tessen][130] now collects the type of store used for events (`etcd` or `postgres`) and numbers of authentication providers, secrets, and secrets providers. Tessen data helps us understand how we can improve Sensu, and all Tessen transmissions are logged for complete transparency.
+
 **FIXES:**
 
 - Fixed a bug where `event.Check.State` was not set for events passing through the pipeline or written to the event log.
