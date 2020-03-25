@@ -20,8 +20,7 @@ menu:
 - [Update resources](#update-resources)
 - [Export resources](#export-resources)
 - [Manage resources](#manage-resources)
-  - [Subcommands](#subcommands)
-- [Prune resources](#prune-resources) (alpha feature)
+  - [Subcommands](#subcommands): [sensuctl check](#sensuctl-check) | [sensuctl cluster](#sensuctl-cluster) | [sensuctl event](#sensuctl-event) | [sensuctl namespace](#sensuctl-namespace) | [sensuctl user](#sensuctl-user) | [sensuctl prune](#sensuctl-prune) (alpha feature)
 - [Response filtering](#response-filtering) (commercial feature)
 - [Time formats](#time-formats)
 - [Shell auto-completion](#shell-auto-completion)
@@ -649,38 +648,28 @@ See the [RBAC reference][21] for information about using access control with nam
 
 See the [RBAC reference][22] for information about local user management with sensuctl.
 
-## Prune resources
+#### sensuctl prune
 
 {{% notice important %}}
 **IMPORTANT**: `sensuctl prune` is an alpha feature in release 5.19.0 and may include breaking changes.
 {{% /notice %}}
 
-The `sensuctl prune` command allows you to delete resources that do not appear in your configuration from a file, URL, or STDIN.
-For example, you can use `sensuctl prune` to prune resources that were created by a specific user or that include a specific label selector.
+**COMMERCIAL FEATURE**: Access sensuctl pruning in the packaged Sensu Go distribution.
+For more information, see [Get started with commercial features][30].
 
-`sensuctl prune` will only prune resources that were created with `sensuctl create` or that have the following label:
+The `sensuctl prune` subcommand allows you to delete resources that do not appear in a given set of Sensu objects (called a "configuration") from a from a file, URL, or STDIN.
+For example, you can use `sensuctl create` to to apply a new configuration, then use `sensuctl prune` to prune unneeded resources, resources that were created by a specific user or that include a specific label selector, and more.
 
-{{< language-toggle >}}
+`sensuctl prune` can only delete resources that have the label `sensu.io/managed_by: sensuctl`, which Sensu automatically adds to all resources created with sensuctl.
+This means you can only use `sensuctl prune` for delete resources that were created with sensuctl.
 
-{{< highlight yml >}}
-labels:
-  sensu.io/managed_by: sensuctl
-{{< /highlight >}}
+The pruning operation always follows the role-based access control (RBAC) permissions of the current user.
+For example, to prune resources in the `dev` namespace, the current user who sends the prune command must have delete access to the `dev` namespace.
 
-{{< highlight json >}}
-"labels": {
-  "sensu.io/managed_by": "sensuctl"
-}
-{{< /highlight >}}
-
-{{< /language-toggle >}}
-
-Sensu automatically adds the `sensu.io/managed_by: sensuctl` label to all resources created with sensuctl.
-
-### sensuctl prune usage
+##### sensuctl prune usage
 
 {{< highlight shell >}}
-sensuctl prune [RESOURCE TYPE],[RESOURCE TYPE]... [-f [FILE] -f [URL] -f [STDIN] [-r] ... ] [flags]
+sensuctl prune [RESOURCE TYPE],[RESOURCE TYPE]... [-f [FILE] -f [URL] -f [STDIN] [-r] ... ] [--NAMESPACE] [flags]
 {{< /highlight >}}
 
 In this example `sensuctl prune` command:
@@ -689,6 +678,8 @@ In this example `sensuctl prune` command:
 You must specify at least one resource type or the `all` qualifier (to prune all resource types).
 - Replace [FILE], [URL], or [STDIN] with the name of the file, URL, or STDIN where you want to apply the pruning.
 - Replace [flags] with the flags you want to use, if any.
+- Replace [--NAMESPACE] with the namespace where you want to apply pruning.
+To prune all namespaces, omit the namespace qualifier from your command.
 
 Use a comma separator to prune more than one resource in a single command.
 
@@ -698,7 +689,7 @@ For example, to prune checks and assets from the file `checks.yaml` for the `dev
 sensuctl prune checks,assets --file checks.yaml --namespace dev --users admin,ops
 {{< /highlight >}}
 
-### sensuctl prune flags
+##### sensuctl prune flags
 
 Run `sensuctl prune -h` to view command-specific and global flags.
 The following table describes the command-specific flags.
@@ -713,7 +704,7 @@ The following table describes the command-specific flags.
 `-r` or `--recursive` | Prune command will follow subdirectories.
 `-u` or `--users` | Prunes only resources that were created by the specified users (comma-separated strings). Defaults to the currently configured sensuctl user.
 
-### sensuctl prune resource types
+##### sensuctl prune resource types
 
 The table below lists supported `sensuctl prune` resource types.
 
@@ -742,7 +733,7 @@ None | `secrets/v1.Secret`
 `tessen` | `core/v2.TessenConfig`
 `users` | `core/v2.User`
 
-### sensuctl prune examples
+##### sensuctl prune examples
 
 `sensuctl prune` supports pruning resources by their synonyms or fully qualified names:
 
