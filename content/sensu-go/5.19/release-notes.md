@@ -58,7 +58,7 @@ Read the [upgrade guide][1] for information about upgrading to the latest versio
 
 ## 5.19.0 release notes
 
-**March 26, 2020** &mdash; The latest release of Sensu Go, version 5.19.0, is now available for download.
+**March 30, 2020** &mdash; The latest release of Sensu Go, version 5.19.0, is now available for download.
 This release is packed with new features, improvements, and fixes, including our first alpha feature: sensuctl pruning to help keep your configuration in good order.
 Other exciting additions include the ability to save and share your filtered searches in the web UI, plus a new `matches` substring match operator that you can use to refine your filtering results!
 Improvements include a new `created_by` field in resource metadata and a `float_type` field that stores whether your system uses hard float or soft float.
