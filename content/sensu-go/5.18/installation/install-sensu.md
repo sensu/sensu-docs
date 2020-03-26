@@ -28,7 +28,7 @@ Read [Generate certificates](../../guides/generate-certificates) next to get the
 
 Sensu downloads are provided under the [Sensu commercial license][13].
 
-Sensu Go is available for Linux, Windows (agent and CLI only), macOS (CLI only), and Docker.
+Sensu Go is packaged for Linux, Windows (agent and CLI only), macOS (CLI only), and Docker.
 See [supported platforms][5] for more information.
 
 ## Architecture overview
