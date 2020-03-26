@@ -18,11 +18,17 @@ menu:
 - [Next steps](#next-steps)
 
 This installation guide describes how to install the Sensu backend, Sensu agent, and sensuctl command line tool.
-
-Sensu Go is available for Linux, Windows (agent and CLI only), macOS (CLI only), and Docker.
 If you’re trying Sensu for the first time, we recommend setting up a local environment using the [Sensu sandbox][14].
-If you’re deploying Sensu to your infrastructure, we recommend one of our supported packages, Docker images, or [configuration management integrations][15].
+
+{{% notice note %}}
+**NOTE**: The instructions in this guide explain how to install Sensu for proof-of-concept purposes or testing in a development environment.
+If you will deploy Sensu to your infrastructure, we recommend one of our supported packages, Docker images, or [configuration management integrations](../configuration-management/), as well as securing your installation with transport layer security (TLS).
+Read [Generate certificates](../../guides/generate-certificates) next to get the certificates you will need for TLS.
+{{% /notice %}}
+
 Sensu downloads are provided under the [Sensu commercial license][13].
+
+Sensu Go is packaged for Linux, Windows (agent and CLI only), macOS (CLI only), and Docker.
 See [supported platforms][5] for more information.
 
 ## Architecture overview
@@ -433,26 +439,29 @@ sensuctl license info
 
 ## Next steps
 
-Now that you've installed Sensu, here are some resources to help continue your journey:
+If you're going to deploy Sensu for use outside of a local development environment, you should secure it using transport layer security (TLS).
+The next step in setting up TLS is to [generate the certificates you need][9].
 
-- [Send Slack alerts with handlers][10]
-- [Monitor server resources with checks][9]
-- [Aggregate metrics with the Sensu StatsD listener][32]
-- [Create a read-only user with RBAC][33]
+If you plan to set up a cluster, here's our suggested pathway:
+
+1. [Generate certificates][2].
+2. [Secure Sensu][8].
+3. [Run a Sensu cluster][22].
+
 
 [1]: https://github.com/sensu/sensu-go/releases/
+[2]: ../../guides/generate-certificates/
 [3]: ../../dashboard/overview/
 [4]: ../../sensuctl/reference/
 [5]: ../../installation/platforms
 [6]: ../../reference/backend#configuration
 [7]: ../../reference/agent#configuration
-[9]: ../../guides/monitor-server-resources/
-[10]: ../../guides/send-slack-alerts/
+[8]: ../../guides/securing-sensu/
+[9]: ../../guides/generate-certificates
 [11]: https://sensu.io/contact?subject=contact-sales/
 [12]: ../verify/
 [13]: https://sensu.io/sensu-license/
 [14]: ../../getting-started/learn-sensu/
-[15]: ../configuration-management/
 [16]: https://etcd.io/
 [17]: ../../reference/assets/
 [18]: #install-sensu-agents
@@ -469,8 +478,6 @@ Now that you've installed Sensu, here are some resources to help continue your j
 [29]: https://blog.sensu.io/one-year-of-sensu-go/
 [30]: ../../reference/backend#initialization
 [31]: ../../guides/deploying/
-[32]: ../../guides/aggregate-metrics-statsd/
-[33]: ../../guides/create-read-only-user/
 [34]: https://account.sensu.io/
 [35]: ../../api/health/
 [36]: #4-open-the-web-ui
