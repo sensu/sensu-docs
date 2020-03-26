@@ -64,7 +64,7 @@ Larger production deployments use more RAM (8+ GB).
 
 This configuration is the minimum required to run the Sensu agent (although it is insufficient for production use:
 
-- 386, amd64, or ARM CPU (ARMv5 minimum)
+- 386, amd64, ARM (ARMv5 minimum), or MIPS CPU
 - 128 MB RAM
 - 10 mbps network link
 
