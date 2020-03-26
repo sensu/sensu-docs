@@ -141,6 +141,9 @@ Read these resources for more information about using assets in Sensu:
 - [Asset format specification][14]
 - [Share assets on Bonsai][15]
 
+You can also try our interactive tutorial to [send critical alerts to your PagerDuty account][8].
+
+
 [1]: ../../reference/assets/
 [2]: #create-an-asset
 [3]: https://bonsai.sensu.io
@@ -148,6 +151,7 @@ Read these resources for more information about using assets in Sensu:
 [5]: ../../reference/assets/#metadata-attributes
 [6]: ../../sensuctl/reference/#install-asset-definitions
 [7]: https://bonsai.sensu.io/assets/sensu/sensu-pagerduty-handler
+[8]: ../../learn/sensu-pagerduty/
 [10]: https://bonsai.sensu.io/assets/sensu/sensu-servicenow-handler
 [11]: https://bonsai.sensu.io/assets/sensu/sensu-jira-handler
 [12]: ../../getting-started/enterprise/

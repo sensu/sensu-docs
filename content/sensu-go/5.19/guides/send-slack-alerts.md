@@ -97,6 +97,9 @@ Whenever an event is being handled, a log entry is added with the message `"hand
 
 Now that you know how to apply a handler to a check and take action on events, read the [handlers reference][8] for in-depth handler documentation and check out the [Reduce alert fatigue][9] guide.
 
+You can also try our interactive tutorial and learn how to [send Sensu Go alerts to your PagerDuty account][11].
+
+
 [1]: ../../reference/events/
 [2]: ../monitor-server-resources/
 [3]: https://github.com/sensu/slack-handler
@@ -107,6 +110,7 @@ Now that you know how to apply a handler to a check and take action on events, r
 [8]: ../../reference/handlers/
 [9]: ../reduce-alert-fatigue/
 [10]: ../../sensuctl/reference/#install-asset-definitions
+[11]: ../../learn/sensu-pagerduty/
 [12]: https://slack.com/get-started#create
 [13]: ../../reference/assets
 [14]: https://bonsai.sensu.io/assets/sensu/sensu-slack-handler
