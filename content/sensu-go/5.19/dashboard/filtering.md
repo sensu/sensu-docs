@@ -15,6 +15,7 @@ menu:
 - [Create dashboard filters](#create-dashboard-filters)
 - [Operators quick reference](#operators-quick-reference)
 - [Examples](#examples)
+- [Save a filtered search](#save-a-filtered-search)
 
 The Sensu dashboard includes basic filters you can use to build customized views of your Sensu resources.
 Sensu also supports advanced dashboard filtering based on a wider range of resource attributes and custom labels as a [commercial feature][1].
@@ -86,15 +87,16 @@ fieldSelector: linux in event.entity.subscriptions
 
 ## Operators quick reference
 
-Dashboard filtering supports two equality-based operators, two set-based operators, and one logical operator.
+Dashboard filtering supports two equality-based operators, two set-based operators, one substring matching operator, and one logical operator.
 
-| operator | description     | example                |
-| -------- | --------------- | ---------------------- |
-| `==`     | Equality        | `check.publish == true`
-| `!=`     | Inequality      | `check.namespace != "default"`
-| `in`     | Included in     | `linux in check.subscriptions`
-| `notin`  | Not included in | `slack notin check.handlers`
-| `&&`     | Logical AND     | `check.publish == true && slack in check.handlers`
+| operator  | description        | example                |
+| --------- | ------------------ | ---------------------- |
+| `==`      | Equality           | `check.publish == true`
+| `!=`      | Inequality         | `check.namespace != "default"`
+| `in`      | Included in        | `linux in check.subscriptions`
+| `notin`   | Not included in.   | `slack notin check.handlers`
+| `matches` | Substring matching | `check.name matches "linux-"`
+| `&&`      | Logical AND        | `check.publish == true && slack in check.handlers`
 
 For details about operators, see [API response filtering operators][7].
 
@@ -106,6 +108,12 @@ To filter resources using custom labels (in this example, to display only resour
 
 {{< highlight text >}}
 labelSelector:type == server
+{{< /highlight >}}
+
+To filter for entities that are labeled for any region in the US (e.g. `us-east-1`, `us-west-1`, and so on):
+
+{{< highlight shell >}}
+labelSelector:region matches "us"
 {{< /highlight >}}
 
 ### Filter with field selectors
@@ -159,6 +167,37 @@ labelSelector:region == "us-west-1"
 fieldSelector:slack in check.handlers
 {{< /highlight >}}
 
+## Save a filtered search
+
+**COMMERCIAL FEATURE**: Access saved filtered searches in the packaged Sensu Go distribution.
+For more information, see [Get started with commercial features][1].
+
+To save a filtered search:
+
+1. [Create a dashboard filter][4].
+2. Click the save icon at the right side of the filter bar: ![save icon](/images/save_icon.png)
+3. Click **Save this search**.
+4. Type the name you want to use for the saved search.
+5. Press **Return/Enter**.
+
+Any Sensu user with access to the namespace where you save the search will be able to recall it at any time.
+
+Sensu saves your filtered searches to etcd in a resource named `searches`.
+
+### Recall a saved filtered search
+
+To recall a saved search, click the save icon in the filter bar and select the name of the search you want to recall.
+
+You can combine an existing saved search with a new filter to create a new saved search.
+To do this, recall a saved search, add the new filter in the filter bar, and [save the combination as a new saved search][8].
+
+### Delete a saved filtered search
+
+To delete a saved search:
+
+1. Click the save icon in the filter bar: ![save icon](/images/save_icon.png)
+2. Click the delete icon next to the search you want to delete: ![delete icon](/images/delete_icon.png)
+
 
 [1]: ../../getting-started/enterprise/
 [2]: ../../api/overview/#field-selector
@@ -167,3 +206,4 @@ fieldSelector:slack in check.handlers
 [5]: #basic-filters
 [6]: ../../api/overview/#label-selector
 [7]: ../../api/overview/#operators
+[8]: #save-a-filtered-search
