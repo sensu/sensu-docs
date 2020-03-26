@@ -21,7 +21,7 @@ As with any piece of software, it is critical to minimize any attack surface the
 Sensu is no different.
 This guide describes the components you need to secure to make Sensu production-ready.
 
-To use this guide, you must have previously [generated the certificates][1] you will need to secure Sensu in production.
+Before you can use this guide, you must have [generated the certificates][1] you will need to secure Sensu.
 
 ## Secure etcd peer communication
 
