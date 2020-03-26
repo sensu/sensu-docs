@@ -27,7 +27,7 @@ TLS uses encryption to provide security for communication between Sensu backends
 
 Because reconfiguring an existing Sensu deployment from cleartext to TLS can be time-consuming, we recommend that you configure TLS for your backend from the very beginning.
 
-TLS is also required to use some of Sensu's commercial features, like [secrets management][9] and mutual TLS authentication (mTLS).
+TLS is also required to use some of Sensu's commercial features, like [secrets management][9] and [mutual TLS authentication (mTLS)][14].
 
 ## Prerequisites
 
@@ -179,7 +179,7 @@ Use chown and chmod to make it so:
 
 {{< highlight shell >}}
 chown sensu /etc/sensu/tls/*.pem
-chmod 600 /etc/sensu/tls/*.pem
+chmod 400 /etc/sensu/tls/*.pem
 {{< /highlight >}}
 
 ### Generate agent certificate
@@ -225,7 +225,7 @@ Use chown and chmod to make it so:
 
 {{< highlight shell >}}
 chown sensu /etc/sensu/tls/*.pem
-chmod 600 /etc/sensu/tls/*.pem
+chmod 400 /etc/sensu/tls/*.pem
 {{< /highlight >}}
 
 ## Installing CA certificates
@@ -242,12 +242,16 @@ Installing the CA certificate in the trust store for these systems makes it easi
 
 {{< language-toggle >}}
 {{< highlight "Ubuntu/Debian" >}}
+chmod 644 /etc/sensu/tls/ca.pem
+chown root /etc/sensu/tls/ca.pem
 sudo apt-get install ca-certificates -y
 sudo ln -sfv /etc/sensu/tls/ca.pem /usr/local/share/ca-certificates/sensu-ca.crt
 sudo update-ca-certificates
 {{< /highlight >}}
 
 {{< highlight "RHEL/CentOS" >}}
+chmod 644 /etc/sensu/tls/ca.pem
+chown root /etc/sensu/tls/ca.pem
 sudo yum install -y ca-certificates
 sudo update-ca-trust force-enable
 sudo ln -s /etc/sensu/tls/ca.pem /etc/pki/ca-trust/source/anchors/sensu-ca.pem
@@ -288,3 +292,4 @@ Now that you have generated the required certificates and copied them to the app
 [11]: #copy-ca-pem
 [12]: #copy-backend-pem
 [13]: #copy-agent-pem
+[14]: https://docs.sensu.io/sensu-go/latest/guides/securing-sensu/#sensu-agent-tls-authentication
