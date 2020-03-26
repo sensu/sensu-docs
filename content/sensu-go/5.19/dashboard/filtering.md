@@ -175,7 +175,7 @@ For more information, see [Get started with commercial features][1].
 To save a filtered search:
 
 1. [Create a dashboard filter][4].
-2. Click the save icon ![save icon](/images/save_icon.png) at the right side of the filter bar. 
+2. Click the save icon at the right side of the filter bar: ![save icon](/images/save_icon.png)
 3. Click **Save this search**.
 4. Type the name you want to use for the saved search.
 5. Press **Return/Enter**.
@@ -195,8 +195,8 @@ To do this, recall a saved search, add the new filter in the filter bar, and [sa
 
 To delete a saved search:
 
-1. Click the save icon  in the filter bar.
-2. Click the delete icon ![delete icon](/images/delete_icon.png) next to the search you want to delete.
+1. Click the save icon in the filter bar: ![save icon](/images/save_icon.png)
+2. Click the delete icon next to the search you want to delete: ![delete icon](/images/delete_icon.png)
 
 
 [1]: ../../getting-started/enterprise/
