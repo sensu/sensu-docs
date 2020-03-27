@@ -150,6 +150,15 @@ As a result, **Sensu Go does not include the built-in occurrence-based event fil
 Sensu Go includes three new built-in [event filters][9]: only-incidents, only-metrics, and allow-silencing.
 Sensu Go does not include a built-in check dependencies filter or a filter-when feature.
 
+#### Fatigue check filter
+
+**Need to explain how this ties in with 1. no built-in occurrences filter in Go and 2. why you would use this instead of the occurrence-based event filter. The info in the main Filters section above seems like the intended replacement for that filter is the repeated events filter. Is it that the translator tool allows Core users to keep all their old checks, and they can still use their occurrence info with the fatigue check filter asset, and this is not possible with the repeated events filter definition?**
+
+In Sensu Go, the [fatigue check filter asset][11] is a Sensu event filter you can use to manage alert fatigue.
+It allows you to tune the number of occurrences and interval for alerts on a per-check or per-entity basis and control whether resolution events will pass through.
+
+[Sensu Translator version 1.1.0][18] retrieves occurrence and refresh values from your Sensu Core 1.x check definitions and outputs them into a Sensu Go check definition, translating them into the annotation values that the fatigue check expects.
+
 ### Assets
 The `sensu-install` tool in Sensu Core 1.x is replaced by [assets][12] in Sensu Go.
 Assets are shareable, reusable packages that make it easier to deploy Sensu plugins.
@@ -190,6 +199,7 @@ See the metadata attributes section in the reference documentation for more info
 [8]: ../../reference/hooks/
 [9]: ../../reference/filters
 [10]: ../../reference/filters/#handle-repeated-events
+[11]: https://github.com/nixwiz/sensu-go-fatigue-check-filter/
 [12]: ../../reference/assets/
 [13]: ../../reference/rbac/
 [14]: ../../guides/create-read-only-user/
