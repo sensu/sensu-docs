@@ -145,7 +145,7 @@ Transport handlers are not supported by Sensu Go, but you can create similar fun
 
 ### Filters
 Ruby eval logic from Sensu Core 1.x is replaced with JavaScript expressions in Sensu Go, opening up powerful ways to filter events based on occurrences and other event attributes.
-As a result, the built-in occurrences event filter in Sensu Core 1.x is not included in Sensu Go, but you can replicate its functionality with [the repeated events filter definition][10].
+As a result, **Sensu Go does not include the built-in occurrence-based event filter in Sensu Core 1.x**, but you can replicate its functionality with [the repeated events filter definition][10].
 
 Sensu Go includes three new built-in [event filters][9]: only-incidents, only-metrics, and allow-silencing.
 Sensu Go does not include a built-in check dependencies filter or a filter-when feature.

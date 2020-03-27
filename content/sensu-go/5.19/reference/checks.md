@@ -479,6 +479,10 @@ Learn how to use check hooks with the [Sensu hooks reference documentation][6].
 
 ## Check specification
 
+{{% notice note %}}
+**NOTE**: In Sensu Go, the check definition does not include the `occurrences` attribute.
+{{% /notice %}}
+
 ### Top-level attributes
 
 type         | 

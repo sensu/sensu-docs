@@ -79,6 +79,10 @@ For an example of how to implement an event filter as an asset, see [Reduce aler
 Sensu includes built-in event filters to help you customize event pipelines for metrics and alerts.
 To start using built-in event filters, see [Send Slack alerts][4] and [Plan maintenance][5].
 
+{{% notice note %}}
+**NOTE**: Sensu Go does not include the built-in occurrence-based event filter in Sensu Core 1.x, but you can replicate its functionality with [the repeated events filter definition](../../reference/filters/#handle-repeated-events).
+{{% /notice %}}
+
 ### Built-in filter: is_incident
 
 The is_incident event filter is included in every installation of the [Sensu backend][8].
