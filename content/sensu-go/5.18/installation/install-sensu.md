@@ -163,6 +163,10 @@ service sensu-backend status
 
 For a complete list of configuration options, see the [backend reference][6].
 
+{{% notice important %}}
+**IMPORTANT**: If you plan to [run a Sensu cluster](../../guides/clustering/), make sure that each of your backend nodes is configured, running, and a member of the cluster before you continue the installation process.
+{{% /notice %}}
+
 ### 3. Initialize
 
 {{% notice note %}}
