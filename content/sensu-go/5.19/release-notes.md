@@ -81,7 +81,7 @@ See the [upgrade guide][1] to upgrade Sensu to version 5.19.0.
 - System type now includes the `float_type` field, which stores the float type the system is using (hard float or soft float).
 - The Bonsai client now logs at the `debug` level rather than the `info` level.
 - The store can now create wrapped resources.
-- [Tessen][130] now collects the type of store used for events (`etcd` or `postgres`) and numbers of authentication providers, secrets, and secrets providers. Tessen data helps us understand how we can improve Sensu, and all Tessen transmissions are logged for complete transparency.
+- [Tessen][130] now collects the type of store used for events (`etcd` or `postgres`) and logs numbers of authentication providers, secrets, and secrets providers. Tessen data helps us understand how we can improve Sensu.
 
 **FIXES:**
 
