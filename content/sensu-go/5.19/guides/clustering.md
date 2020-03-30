@@ -2,7 +2,7 @@
 title: "Run a Sensu cluster"
 linkTitle: "Run a Sensu Cluster"
 description: "Clustering improves Sensu's availability, reliability, and durability. It can help you cope with the loss of a backend node, prevent data loss, and distribute the network load of agents. Read the guide to configure a Sensu cluster."
-weight: 150
+weight: 175
 version: "5.19"
 product: "Sensu Go"
 platformContent: false
@@ -323,7 +323,7 @@ See the [etcd recovery guide][9] for disaster recovery information.
 [10]: https://github.com/cloudflare/cfssl
 [11]: https://etcd.io/docs/v3.4.0/op-guide/clustering/#self-signed-certificates
 [12]: https://etcd.io/docs/v3.4.0/op-guide/
-[13]: ../securing-sensu/#create-self-signed-certificates
+[13]: ../../guides/generate-certificates/
 [15]: ../../reference/backend/
 [16]: ../securing-sensu/
 [17]: ../../sensuctl/reference/
