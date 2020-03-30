@@ -4,11 +4,11 @@ linkTitle: "Binary-Only Distributions"
 description: "Sensu offers binary-only distributions for Linux, Windows, macOS, FreeBSD, and Solaris. Read this guide to learn how to download and verify Sensu binaries."
 weight: 60
 product: "Sensu Go"
-version: "5.19"
+version: "5.19.0"
 platformContent: true
 platforms: ["Linux", "Windows", "macOS", "FreeBSD", "Solaris"]
 menu:
-  sensu-go-5.19:
+  sensu-go-5.19.0:
     parent: installation
 ---
 
@@ -45,19 +45,19 @@ In addition, all `MIPS` packages include only the agent and CLI.
 For example, to download Sensu for Linux `amd64` in `tar.gz` format:
 
 {{< highlight shell >}}
-curl -LO https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.19/sensu-go_5.19_linux_amd64.tar.gz
+curl -LO https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.19.0/sensu-go_5.19.0_linux_amd64.tar.gz
 {{< /highlight >}}
 
 Generate a SHA-256 checksum for the downloaded artifact:
 
 {{< highlight shell >}}
-sha256sum sensu-go_5.19_linux_amd64.tar.gz
+sha256sum sensu-go_5.19.0_linux_amd64.tar.gz
 {{< /highlight >}}
 
 The result should match the checksum for your platform:
 
 {{< highlight shell >}}
-curl -LO https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.19/sensu-go_5.19_checksums.txt && cat sensu-go_5.19_checksums.txt
+curl -LO https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.19.0/sensu-go_5.19.0_checksums.txt && cat sensu-go_5.19.0_checksums.txt
 {{< /highlight >}}
 
 {{< platformBlockClose >}}
@@ -76,21 +76,21 @@ Sensu binary-only distributions for Windows are available for these architecture
 For example, to download Sensu for Windows `amd64` in `zip` format:
 
 {{< highlight text >}}
-Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.19/sensu-go_5.19_windows_amd64.zip  -OutFile "$env:userprofile\sensu-go_5.19_windows_amd64.zip"
+Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.19.0/sensu-go_5.19.0_windows_amd64.zip  -OutFile "$env:userprofile\sensu-go_5.19.0_windows_amd64.zip"
 {{< /highlight >}}
 
 Generate a SHA-256 checksum for the downloaded artifact:
 
 {{< highlight text >}}
-Get-FileHash "$env:userprofile\sensu-go_5.19_windows_amd64.zip" -Algorithm SHA256 | Format-List
+Get-FileHash "$env:userprofile\sensu-go_5.19.0_windows_amd64.zip" -Algorithm SHA256 | Format-List
 {{< /highlight >}}
 
 The result should match (with the exception of capitalization) the checksum for your platform:
 
 {{< highlight text >}}
-Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.19/sensu-go_5.19_checksums.txt -OutFile "$env:userprofile\sensu-go_5.19_checksums.txt"
+Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.19.0/sensu-go_5.19.0_checksums.txt -OutFile "$env:userprofile\sensu-go_5.19.0_checksums.txt"
 
-Get-Content "$env:userprofile\sensu-go_5.19_checksums.txt" | Select-String -Pattern windows_amd64
+Get-Content "$env:userprofile\sensu-go_5.19.0_checksums.txt" | Select-String -Pattern windows_amd64
 {{< /highlight >}}
 
 {{< platformBlockClose >}}
@@ -108,25 +108,25 @@ Sensu binary-only distributions for macOS are available for these architectures 
 For example, to download Sensu for macOS `amd64` in `tar.gz` format:
 
 {{< highlight shell >}}
-curl -LO https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.19/sensu-go_5.19_darwin_amd64.tar.gz
+curl -LO https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.19.0/sensu-go_5.19.0_darwin_amd64.tar.gz
 {{< /highlight >}}
 
 Generate a SHA-256 checksum for the downloaded artifact:
 
 {{< highlight shell >}}
-shasum -a 256 sensu-go_5.19_darwin_amd64.tar.gz
+shasum -a 256 sensu-go_5.19.0_darwin_amd64.tar.gz
 {{< /highlight >}}
 
 The result should match the checksum for your platform:
 
 {{< highlight shell >}}
-curl -LO https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.19/sensu-go_5.19_checksums.txt && cat sensu-go_5.19_checksums.txt
+curl -LO https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.19.0/sensu-go_5.19.0_checksums.txt && cat sensu-go_5.19.0_checksums.txt
 {{< /highlight >}}
 
 Extract the archive:
 
 {{< highlight shell >}}
-tar -xvf sensu-go_5.19_darwin_amd64.tar.gz
+tar -xvf sensu-go_5.19.0_darwin_amd64.tar.gz
 {{< /highlight >}}
 
 Copy the executable into your PATH:
@@ -151,19 +151,19 @@ Sensu binary-only distributions for FreeBSD are available for these architecture
 For example, to download Sensu for FreeBSD `amd64` in `tar.gz` format:
 
 {{< highlight shell >}}
-curl -LO https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.19/sensu-go_5.19_freebsd_amd64.tar.gz
+curl -LO https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.19.0/sensu-go_5.19.0_freebsd_amd64.tar.gz
 {{< /highlight >}}
 
 Generate a SHA-256 checksum for the downloaded artifact:
 
 {{< highlight shell >}}
-sha256sum sensu-go_5.19_freebsd_amd64.tar.gz
+sha256sum sensu-go_5.19.0_freebsd_amd64.tar.gz
 {{< /highlight >}}
 
 The result should match the checksum for your platform:
 
 {{< highlight shell >}}
-curl -LO https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.19/sensu-go_5.19_checksums.txt && cat sensu-go_5.19_checksums.txt
+curl -LO https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.19.0/sensu-go_5.19.0_checksums.txt && cat sensu-go_5.19.0_checksums.txt
 {{< /highlight >}}
 
 {{< platformBlockClose >}}
@@ -181,19 +181,19 @@ Sensu binary-only distributions for Solaris are available for these architecture
 For example, to download Sensu for Solaris `amd64` in `tar.gz` format:
 
 {{< highlight shell >}}
-curl -LO https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.19/sensu-go_5.19_solaris_amd64.tar.gz
+curl -LO https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.19.0/sensu-go_5.19.0_solaris_amd64.tar.gz
 {{< /highlight >}}
 
 Generate a SHA-256 checksum for the downloaded artifact.
 
 {{< highlight shell >}}
-sha256sum sensu-go_5.19_solaris_amd64.tar.gz
+sha256sum sensu-go_5.19.0_solaris_amd64.tar.gz
 {{< /highlight >}}
 
 The result should match the checksum for your platform.
 
 {{< highlight shell >}}
-curl -LO https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.19/sensu-go_5.19_checksums.txt && cat sensu-go_5.19_checksums.txt
+curl -LO https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.19.0/sensu-go_5.19.0_checksums.txt && cat sensu-go_5.19.0_checksums.txt
 {{< /highlight >}}
 
 {{< platformBlockClose >}}
@@ -212,43 +212,43 @@ Now that you’ve installed Sensu:
 [3]: ../../reference/agent#operation
 [4]: ../../sensuctl/reference#first-time-setup
 [5]: ../../guides/monitor-server-resources/
-[14]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.19/sensu-go_5.19_linux_amd64.tar.gz
-[15]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.19/sensu-go_5.19_linux_arm64.tar.gz
-[16]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.19/sensu-go_5.19_linux_armv5.tar.gz
-[17]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.19/sensu-go_5.19_linux_armv6.tar.gz
-[18]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.19/sensu-go_5.19_linux_armv7.tar.gz
-[19]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.19/sensu-go_5.19_linux_386.tar.gz
-[20]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.19/sensu-go_5.19_linux_amd64.zip
-[21]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.19/sensu-go_5.19_linux_arm64.zip
-[22]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.19/sensu-go_5.19_linux_armv5.zip
-[23]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.19/sensu-go_5.19_linux_armv6.zip
-[24]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.19/sensu-go_5.19_linux_armv7.zip
-[25]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.19/sensu-go_5.19_linux_386.zip
-[26]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.19/sensu-go_5.19_windows_amd64.tar.gz
-[27]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.19/sensu-go_5.19_windows_386.tar.gz
-[28]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.19/sensu-go_5.19_windows_amd64.zip
-[29]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.19/sensu-go_5.19_windows_386.zip
-[30]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.19/sensu-go_5.19_darwin_amd64.tar.gz
-[31]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.19/sensu-go_5.19_darwin_amd64.zip
-[32]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.19/sensu-go_5.19_freebsd_amd64.tar.gz
-[33]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.19/sensu-go_5.19_freebsd_amd64.zip
-[34]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.19/sensu-go_5.19_freebsd_386.tar.gz
-[35]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.19/sensu-go_5.19_freebsd_386.zip
-[36]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.19/sensu-go_5.19_solaris_amd64.tar.gz
-[37]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.19/sensu-go_5.19_solaris_amd64.zip
-[38]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.19/sensu-go_5.19_linux_mips_hardfloat.tar.gz
-[39]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.19/sensu-go_5.19_linux_mips_hardfloat.zip
-[40]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.19/sensu-go_5.19_linux_mips_softfloat.tar.gz
-[41]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.19/sensu-go_5.19_linux_mips_softfloat.zip
-[42]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.19/sensu-go_5.19_linux_mipsle_hardfloat.tar.gz
-[43]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.19/sensu-go_5.19_linux_mipsle_hardfloat.zip
-[44]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.19/sensu-go_5.19_linux_mipsle_softfloat.tar.gz
-[45]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.19/sensu-go_5.19_linux_mipsle_softfloat.zip
-[46]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.19/sensu-go_5.19_linux_mips64_hardfloat.tar.gz
-[47]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.19/sensu-go_5.19_linux_mips64_hardfloat.zip
-[48]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.19/sensu-go_5.19_linux_mips64_softfloat.tar.gz
-[49]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.19/sensu-go_5.19_linux_mips64_softfloat.zip
-[50]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.19/sensu-go_5.19_linux_mips64le_hardfloat.tar.gz
-[51]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.19/sensu-go_5.19_linux_mips64le_hardfloat.zip
-[52]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.19/sensu-go_5.19_linux_mips64le_softfloat.tar.gz
-[53]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.19/sensu-go_5.19_linux_mips64le_softfloat.zip
+[14]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.19.0/sensu-go_5.19.0_linux_amd64.tar.gz
+[15]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.19.0/sensu-go_5.19.0_linux_arm64.tar.gz
+[16]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.19.0/sensu-go_5.19.0_linux_armv5.tar.gz
+[17]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.19.0/sensu-go_5.19.0_linux_armv6.tar.gz
+[18]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.19.0/sensu-go_5.19.0_linux_armv7.tar.gz
+[19]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.19.0/sensu-go_5.19.0_linux_386.tar.gz
+[20]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.19.0/sensu-go_5.19.0_linux_amd64.zip
+[21]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.19.0/sensu-go_5.19.0_linux_arm64.zip
+[22]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.19.0/sensu-go_5.19.0_linux_armv5.zip
+[23]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.19.0/sensu-go_5.19.0_linux_armv6.zip
+[24]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.19.0/sensu-go_5.19.0_linux_armv7.zip
+[25]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.19.0/sensu-go_5.19.0_linux_386.zip
+[26]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.19.0/sensu-go_5.19.0_windows_amd64.tar.gz
+[27]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.19.0/sensu-go_5.19.0_windows_386.tar.gz
+[28]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.19.0/sensu-go_5.19.0_windows_amd64.zip
+[29]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.19.0/sensu-go_5.19.0_windows_386.zip
+[30]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.19.0/sensu-go_5.19.0_darwin_amd64.tar.gz
+[31]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.19.0/sensu-go_5.19.0_darwin_amd64.zip
+[32]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.19.0/sensu-go_5.19.0_freebsd_amd64.tar.gz
+[33]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.19.0/sensu-go_5.19.0_freebsd_amd64.zip
+[34]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.19.0/sensu-go_5.19.0_freebsd_386.tar.gz
+[35]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.19.0/sensu-go_5.19.0_freebsd_386.zip
+[36]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.19.0/sensu-go_5.19.0_solaris_amd64.tar.gz
+[37]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.19.0/sensu-go_5.19.0_solaris_amd64.zip
+[38]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.19.0/sensu-go_5.19.0_linux_mips_hardfloat.tar.gz
+[39]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.19.0/sensu-go_5.19.0_linux_mips_hardfloat.zip
+[40]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.19.0/sensu-go_5.19.0_linux_mips_softfloat.tar.gz
+[41]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.19.0/sensu-go_5.19.0_linux_mips_softfloat.zip
+[42]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.19.0/sensu-go_5.19.0_linux_mipsle_hardfloat.tar.gz
+[43]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.19.0/sensu-go_5.19.0_linux_mipsle_hardfloat.zip
+[44]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.19.0/sensu-go_5.19.0_linux_mipsle_softfloat.tar.gz
+[45]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.19.0/sensu-go_5.19.0_linux_mipsle_softfloat.zip
+[46]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.19.0/sensu-go_5.19.0_linux_mips64_hardfloat.tar.gz
+[47]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.19.0/sensu-go_5.19.0_linux_mips64_hardfloat.zip
+[48]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.19.0/sensu-go_5.19.0_linux_mips64_softfloat.tar.gz
+[49]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.19.0/sensu-go_5.19.0_linux_mips64_softfloat.zip
+[50]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.19.0/sensu-go_5.19.0_linux_mips64le_hardfloat.tar.gz
+[51]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.19.0/sensu-go_5.19.0_linux_mips64le_hardfloat.zip
+[52]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.19.0/sensu-go_5.19.0_linux_mips64le_softfloat.tar.gz
+[53]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.19.0/sensu-go_5.19.0_linux_mips64le_softfloat.zip
