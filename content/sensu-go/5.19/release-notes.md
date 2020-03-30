@@ -1157,5 +1157,5 @@ To get started with Sensu Go:
 [126]: /sensu-go/5.19/api/overview/#response-filtering
 [127]: /sensu-go/5.19/sensuctl/reference/#response-filtering
 [128]: /sensu-go/5.19/dashboard/filtering
-[129]: /sensu-go/5.19/sensuctl/reference/#prune-resources
+[129]: /sensu-go/5.19/sensuctl/reference/#sensuctl-prune
 [130]: /sensu-go/5.19/reference/tessen/
