@@ -89,7 +89,7 @@ See the [upgrade guide][1] to upgrade Sensu to version 5.19.0.
 - Fixed a bug that allowed the agent to connect to a backend using a nonexistent namespace.
 - Fixed a bug that allowed `subscriptions` to be empty strings.
 - Corrected the HTTP status codes for unauthenticated and permission denied errors in the REST API.
-
+- Fixed a bug where check history was incorrectly formed when using the PostgreSQL event store.
 
 ## 5.18.1 release notes
 
