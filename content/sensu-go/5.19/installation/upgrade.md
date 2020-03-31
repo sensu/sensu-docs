@@ -145,14 +145,13 @@ Transport handlers are not supported by Sensu Go, but you can create similar fun
 
 ### Filters
 Ruby eval logic from Sensu Core 1.x is replaced with JavaScript expressions in Sensu Go, opening up powerful ways to filter events based on occurrences and other event attributes.
-As a result, **Sensu Go does not include the built-in occurrence-based event filter in Sensu Core 1.x**, but you can replicate its functionality with [the repeated events filter definition][10].
+As a result, **Sensu Go does not include the built-in occurrence-based event filter in Sensu Core 1.x**, which allowed you to control the number of duplicate events that reached the handler.
+You can replicate the occurrence-based filter's functionality with Sensu Go's [repeated events filter definition][10].
 
 Sensu Go includes three new built-in [event filters][9]: only-incidents, only-metrics, and allow-silencing.
 Sensu Go does not include a built-in check dependencies filter or a filter-when feature.
 
 #### Fatigue check filter
-
-**Need to explain how this ties in with 1. no built-in occurrences filter in Go and 2. why you would use this instead of the occurrence-based event filter. The info in the main Filters section above seems like the intended replacement for that filter is the repeated events filter. Is it that the translator tool allows Core users to keep all their old checks, and they can still use their occurrence info with the fatigue check filter asset, and this is not possible with the repeated events filter definition?**
 
 In Sensu Go, the [fatigue check filter asset][11] is a Sensu event filter you can use to manage alert fatigue.
 It allows you to tune the number of occurrences and interval for alerts on a per-check or per-entity basis and control whether resolution events will pass through.
