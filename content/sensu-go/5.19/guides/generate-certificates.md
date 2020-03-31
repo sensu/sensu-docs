@@ -188,7 +188,7 @@ Now you will generate a certificate that agents can use to connect to the Sensu 
 
 Sensu's commercial distribution offers support for authenticating agents via TLS certificates instead of a username and password.
 
-For this certificate, you only need to specify a CN (here, `agent`) &emdash; you don't need to specify an address.
+For this certificate, you only need to specify a CN (here, `agent`) &mdash; you don't need to specify an address.
 You will create the files `agent-key.pem`, `agent.csr`, and `agent.pem`:
 
 {{< highlight shell >}}
