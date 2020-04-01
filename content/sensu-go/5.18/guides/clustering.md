@@ -344,7 +344,7 @@ See the [etcd recovery guide][9] for disaster recovery information.
 [10]: https://github.com/cloudflare/cfssl
 [11]: https://etcd.io/docs/v3.4.0/op-guide/clustering/#self-signed-certificates
 [12]: https://etcd.io/docs/v3.4.0/op-guide/
-[13]: ../../guides/generate-certificates/
+[13]: ../generate-certificates/
 [15]: ../../reference/backend/
 [16]: ../securing-sensu/
 [17]: ../../sensuctl/reference/
