@@ -21,7 +21,7 @@ menu:
 - [Export resources](#export-resources)
 - [Manage resources](#manage-resources)
   - [Subcommands](#subcommands)
-- [Response filters](#response-filters) (commercial feature)
+- [Response filtering](#response-filtering) (commercial feature)
 - [Time formats](#time-formats)
 - [Shell auto-completion](#shell-auto-completion)
 - [Environment variables](#environment-variables)
@@ -62,15 +62,26 @@ The default URL is `http://127.0.0.1:8080`.
 To connect to a [Sensu cluster][7], connect sensuctl to any single backend in the cluster.
 For information about configuring the Sensu backend URL, see the [backend reference][5].
 
-### Username, Password, and Namespace
+### Username, password, and namespace
 
-When you install the Sensu backend, during the [initialization step][40], you create a username and password for a `default` namespace.
+During the [Sensu backend installation][40] process, you create an administrator username and password and a `default` namespace.
+
 Your ability to get, list, create, update, and delete resources with sensuctl depends on the permissions assigned to your Sensu user.
 For more information about configuring Sensu access control, see the [RBAC reference][1].
 
 {{% notice note %}}
-**NOTE**: The `sensu-backend init` command for initialization runs automatically with a default username (`admin`) and password (`P@ssw0rd!`). You can specify a username and password with the `SENSU_BACKEND_CLUSTER_ADMIN_USERNAME` and `SENSU_BACKEND_CLUSTER_ADMIN_PASSWORD` environment variables during [initialization](../../installation/install-sensu/#3-initialize) to override the defaults.
+**NOTE**: For a **new** installation, you can set administrator credentials with environment variables during [initialization](../../reference/backend/#initialization).
+If you are using Docker and you do not include the environment variables to set administrator credentials, the backend will initialize with the default username (`admin`) and password (`P@ssw0rd!`).
 {{% /notice %}} 
+
+#### Change admin user's password
+
+After you have [installed and configured sensuctl][46], you can change the admin user's password.
+Run:
+
+{{< highlight shell >}}
+sensuctl user change-password --interactive
+{{< /highlight >}}
 
 ### Preferred output format
 
@@ -637,15 +648,45 @@ See the [RBAC reference][21] for information about using access control with nam
 
 See the [RBAC reference][22] for information about local user management with sensuctl.
 
-## Response filters
+## Response filtering
 
 **COMMERCIAL FEATURE**: Access sensuctl response filters in the packaged Sensu Go distribution.
 For more information, see [Get started with commercial features][30].
 
-Sensuctl supports response filtering for all `list` commands using the `--label-selector` and `--field-selector` flags.
-For information about the operators and fields you can use in response filters, see the [API docs][28].
+Sensuctl supports response filtering for all [commands using the `list` verb][23].
+For information about response filtering methods and available label and field selectors, see [API response filtering][28].
 
-### Response filter syntax quick reference
+### Sensuctl-specific syntax
+
+You can use the same methods, selectors, and examples for sensuctl response filtering as for [API response filtering][28], except you'll format your requests with the `--label-selector` and `--field-selector` flags instead of cURL.
+
+The standard sensuctl response filtering syntax is:
+
+{{< highlight shell >}}
+sensuctl RESOURCE_TYPE list --SELECTOR 'FILTER_STATEMENT'
+{{< /highlight >}}
+
+To create a sensuctl response filtering command:
+
+- Replace `RESOURCE_TYPE` with the resource your filter is based on.
+- Replace `SELECTOR` with either `label-selector` or `field-selector`, depending on which selector you want to use.
+- Replace `FILTER_STATEMENT` with the filter to apply.
+
+For example:
+
+{{< highlight shell >}}
+sensuctl event list --field-selector 'linux notin event.entity.subscriptions'
+{{< /highlight >}}
+
+Sensuctl response filtering commands will also work with a single equals sign between the selector flag and the filter statement:
+
+{{< highlight shell >}}
+sensuctl event list --field-selector='linux notin event.entity.subscriptions'
+{{< /highlight >}}
+
+### Operators quick reference
+
+Sensuctl response filtering supports two equality-based operators, two set-based operators, and one logical operator.
 
 | operator | description     | example                |
 | -------- | --------------- | ---------------------- |
@@ -655,30 +696,47 @@ For information about the operators and fields you can use in response filters, 
 | `notin`  | Not included in | `slack notin check.handlers`
 | `&&`     | Logical AND     | `check.publish == true && slack in check.handlers`
 
-### Filter responses with labels
+For details about operators, see [API response filtering operators][47].
+
+### Filter responses with label selectors
 
 Use the `--label-selector` flag to filter responses using custom labels.
 
-In this example, the command returns entities with the `proxy_type` label set to `switch`:
+For example, to return entities with the `proxy_type` label set to `switch`:
 
 {{< highlight shell >}}
 sensuctl entity list --label-selector 'proxy_type == switch'
 {{< /highlight >}}
 
-### Filter responses with resource attributes
+### Filter responses with field selectors
 
-Use the `--field-selector` flag to filter responses using selected resource attributes.
-To see the resource attributes you can use in response filter statements, see the [API docs][29].
+Use the `--field-selector` flag to filter responses using specific [resource attributes][29].
 
-In this example, the command returns entities with the `switches` subscription:
+For example, to return entities with the `switches` subscription:
 
 {{< highlight shell >}}
 sensuctl entity list --field-selector 'switches in entity.subscriptions'
 {{< /highlight >}}
 
-You can also combine the `--label-selector` and `--field-selector` flags.
+To retrieve all events that equal a status of `2` (CRITICAL):
 
-In this example, the command returns checks with the `region` label set to `us-west-1` that use the `slack` handler:
+{{< highlight shell >}}
+sensuctl event list --field-selector 'event.check.status == "2"'
+{{< /highlight >}}
+
+### Use the logical AND operator
+
+To use the logical AND operator (`&&`) to return checks that include a `linux` subscription in the `dev` namespace:
+
+{{< highlight shell >}}
+sensuctl check list --field-selector 'linux in check.subscriptions && dev in check.namespace'
+{{< /highlight >}}
+
+### Combine label and field selectors
+
+You can combine the `--label-selector` and `--field-selector` flags in a single command.
+
+For example, this command returns checks with the `region` label set to `us-west-1` that also use the `slack` handler:
 
 {{< highlight shell >}}
 sensuctl check list --label-selector 'region == "us-west-1"' --field-selector 'slack in check.handlers'
@@ -1059,8 +1117,11 @@ Flags are optional and apply only to the `delete` command.
 [36]: /images/sensu-influxdb-handler-namespace.png
 [37]: https://bonsai.sensu.io/assets/portertech/sensu-ec2-discovery
 [39]: #wrapped-json-format
-[40]: ../../installation/install-sensu/#3-initialize
+[40]: ../../installation/install-sensu/#install-the-sensu-backend
 [41]: ../../reference/secrets/
 [42]: ../../installation/auth/#ad-authentication
 [43]: ../../reference/secrets-providers/
 [44]: ../../installation/auth#use-built-in-basic-authentication
+[45]: ../../installation/install-sensu/#2-configure-and-start
+[46]: #first-time-setup
+[47]: ../../api/overview/#operators

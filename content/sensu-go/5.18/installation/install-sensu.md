@@ -18,11 +18,17 @@ menu:
 - [Next steps](#next-steps)
 
 This installation guide describes how to install the Sensu backend, Sensu agent, and sensuctl command line tool.
-
-Sensu Go is available for Linux, Windows (agent and CLI only), macOS (CLI only), and Docker.
 If you’re trying Sensu for the first time, we recommend setting up a local environment using the [Sensu sandbox][14].
-If you’re deploying Sensu to your infrastructure, we recommend one of our supported packages, Docker images, or [configuration management integrations][15].
+
+{{% notice note %}}
+**NOTE**: The instructions in this guide explain how to install Sensu for proof-of-concept purposes or testing in a development environment.
+If you will deploy Sensu to your infrastructure, we recommend one of our supported packages, Docker images, or [configuration management integrations](../configuration-management/), as well as securing your installation with transport layer security (TLS).
+Read [Generate certificates](../../guides/generate-certificates) next to get the certificates you will need for TLS.
+{{% /notice %}}
+
 Sensu downloads are provided under the [Sensu commercial license][13].
+
+Sensu Go is packaged for Linux, Windows (agent and CLI only), macOS (CLI only), and Docker.
 See [supported platforms][5] for more information.
 
 ## Architecture overview
@@ -88,16 +94,27 @@ sudo yum install sensu-go-backend
 You can configure the Sensu backend with `sensu-backend start` flags (recommended) or an `/etc/sensu/backend.yml` file.
 The Sensu backend requires the `state-dir` flag at minimum, but other useful configurations and templates are available.
 
+{{% notice note %}}
+**NOTE**: If you are using Docker, intitialization is included in this step when you start the backend rather than in [3. Initialize](#3-initialize).
+For details about intialization in Docker, see the [backend reference](../../reference/backend#docker-initialization).
+{{% /notice %}}
+
 {{< language-toggle >}}
 
 {{< highlight Docker >}}
+# Replace `YOUR_USERNAME` and `YOUR_PASSWORD` with the username and password
+# you want to use for your admin user credentials.
 docker run -v /var/lib/sensu:/var/lib/sensu \
 -d --name sensu-backend \
 -p 3000:3000 -p 8080:8080 -p 8081:8081 sensu/sensu:latest \
+-e SENSU_BACKEND_CLUSTER_ADMIN_USERNAME=YOUR_USERNAME \
+-e SENSU_BACKEND_CLUSTER_ADMIN_PASSWORD=YOUR_PASSWORD \
 sensu-backend start --state-dir /var/lib/sensu/sensu-backend --log-level debug
 {{< /highlight >}}
 
 {{< highlight "Docker Compose" >}}
+# Replace `YOUR_USERNAME` and `YOUR_PASSWORD` with the username and password
+# you want to use for your admin user credentials.
 ---
 version: "3"
 services:
@@ -110,10 +127,14 @@ services:
     volumes:
     - "sensu-backend-data:/var/lib/sensu/etcd"
     command: "sensu-backend start --state-dir /var/lib/sensu/sensu-backend --log-level debug"
+    environment:
+    - SENSU_BACKEND_CLUSTER_ADMIN_USERNAME=YOUR_USERNAME
+    - SENSU_BACKEND_CLUSTER_ADMIN_PASSWORD=YOUR_PASSWORD
 
 volumes:
   sensu-backend-data:
     driver: local
+
 {{< /highlight >}}
 
 {{< highlight "Ubuntu/Debian" >}}
@@ -142,7 +163,17 @@ service sensu-backend status
 
 For a complete list of configuration options, see the [backend reference][6].
 
+{{% notice important %}}
+**IMPORTANT**: If you plan to [run a Sensu cluster](../../guides/clustering/), make sure that each of your backend nodes is configured, running, and a member of the cluster before you continue the installation process.
+{{% /notice %}}
+
 ### 3. Initialize
+
+{{% notice note %}}
+**NOTE**: If you are using Docker, you already completed intitialization in [2. Configure and start](#2-configure-and-start).
+Skip ahead to [4. Open the web UI](#4-open-the-web-ui) to continue the backend installation process.
+If you did not use environment variables to override the default admin credentials in step 2, skip ahead to [Install sensuctl](#install-sensuctl) so you can change your default admin password immediately.
+{{% /notice %}}
 
 **With the backend running**, run `sensu-backend init` to set up your Sensu administrator username and password.
 In this initialization step, you only need to set environment variables with a username and password string &mdash; no need for role-based access control (RBAC).
@@ -150,37 +181,6 @@ In this initialization step, you only need to set environment variables with a u
 Replace `YOUR_USERNAME` and `YOUR_PASSWORD` with the username and password you want to use.
 
 {{< language-toggle >}}
-
-{{< highlight Docker >}}
-docker run \
--e SENSU_BACKEND_CLUSTER_ADMIN_USERNAME=YOUR_USERNAME \
--e SENSU_BACKEND_CLUSTER_ADMIN_PASSWORD=YOUR_PASSWORD \
---restart always \
---name sensu \
-sensu/sensu:latest \
-sensu-backend start
-{{< /highlight >}}
-
-{{< highlight "Docker Compose" >}}
----
-version: "3"
-services:
-  sensu-backend:
-    image: sensu/sensu:latest
-    ports:
-    - 3000:3000
-    - 8080:8080
-    - 8081:8081
-    volumes:
-    - "sensu-backend-data:/var/lib/sensu/etcd"
-    command: "sensu-backend start"
-    environment:
-    - SENSU_BACKEND_CLUSTER_ADMIN_USERNAME=YOUR_USERNAME
-    - SENSU_BACKEND_CLUSTER_ADMIN_PASSWORD=YOUR_PASSWORD
-volumes:
-  sensu-backend-data:
-    driver: local
-{{< /highlight >}}
 
 {{< highlight "Ubuntu/Debian" >}}
 export SENSU_BACKEND_CLUSTER_ADMIN_USERNAME=YOUR_USERNAME
@@ -204,7 +204,10 @@ The web UI provides a unified view of your monitoring events and user-friendly t
 After starting the Sensu backend, open the web UI by visiting http://localhost:3000.
 You may need to replace `localhost` with the hostname or IP address where the Sensu backend is running.
 
-To log in to the web UI, enter your Sensu user credentials (the username and password provided with the `SENSU_BACKEND_CLUSTER_ADMIN_USERNAME` and `SENSU_BACKEND_CLUSTER_ADMIN_PASSWORD` environment variables).
+To log in to the web UI, enter your Sensu user credentials.
+If you are using Docker and you did not specify environment variables to override the default admin credentials, your user credentials are username `admin` and password `P@ssw0rd!`.
+Otherwise, your user credentials are the username and password you provided with the `SENSU_BACKEND_CLUSTER_ADMIN_USERNAME` and `SENSU_BACKEND_CLUSTER_ADMIN_PASSWORD` environment variables.
+
 Select the ☰ icon to explore the web UI.
 
 ### 5. Make a request to the health API
@@ -247,18 +250,18 @@ sudo yum install sensu-go-cli
 
 {{< highlight "Windows" >}}
 # Download sensuctl for Windows amd64
-Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.18.0/sensu-go_5.18.0_windows_amd64.zip  -OutFile C:\Users\Administrator\sensu-go_5.18.0_windows_amd64.zip
+Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.18.1/sensu-go_5.18.1_windows_amd64.zip  -OutFile C:\Users\Administrator\sensu-go_5.18.1_windows_amd64.zip
 
 # Or for 386
-Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.18.0/sensu-go_5.18.0_windows_386.zip  -OutFile C:\Users\Administrator\sensu-go_5.18.0_windows_386.zip
+Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.18.1/sensu-go_5.18.1_windows_386.zip  -OutFile C:\Users\Administrator\sensu-go_5.18.1_windows_386.zip
 {{< /highlight >}}
 
 {{< highlight "macOS" >}}
 # Download the latest release
-curl -LO https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.18.0/sensu-go_5.18.0_darwin_amd64.tar.gz
+curl -LO https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.18.1/sensu-go_5.18.1_darwin_amd64.tar.gz
 
 # Extract the archive
-tar -xvf sensu-go_5.18.0_darwin_amd64.tar.gz
+tar -xvf sensu-go_5.18.1_darwin_amd64.tar.gz
 
 # Copy the executable into your PATH
 sudo cp sensuctl /usr/local/bin/
@@ -280,9 +283,16 @@ sensuctl configure -n \
 Here, the `-n` flag triggers non-interactive mode.
 Run `sensuctl config view` to see your user profile.
 
-We recommend that you change the default admin password immediately: `sensuctl user change-password --interactive`.
-
 For more information about sensuctl, see the [quickstart][23] and [reference][4] docs.
+
+### Change default admin password
+
+If you are using Docker and you did not use environment variables to override the default admin credentials in [step 2 of the backend installation process](#2-configure-and-start), we recommend that you change the default admin password as soon as you have [installed sensuctl][19].
+Run:
+
+{{< highlight "shell" >}}
+sensuctl user change-password --interactive
+{{< /highlight >}}
 
 ## Install Sensu agents
 
@@ -321,13 +331,13 @@ sudo yum install sensu-go-agent
 
 {{< highlight "Windows" >}}
 # Download the Sensu agent for Windows amd64
-Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.18.0/sensu-go-agent_5.18.0.9470_en-US.x64.msi  -OutFile "$env:userprofile\sensu-go-agent_5.18.0.9470_en-US.x64.msi"
+Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.18.1/sensu-go-agent_5.18.1.9930_en-US.x64.msi  -OutFile "$env:userprofile\sensu-go-agent_5.18.1.9930_en-US.x64.msi"
 
 # Or for Windows 386
-Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.18.0/sensu-go-agent_5.18.0.9470_en-US.x86.msi  -OutFile "$env:userprofile\sensu-go-agent_5.18.0.9470_en-US.x86.msi"
+Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.18.1/sensu-go-agent_5.18.1.9930_en-US.x86.msi  -OutFile "$env:userprofile\sensu-go-agent_5.18.1.9930_en-US.x86.msi"
 
 # Install the Sensu agent
-msiexec.exe /i $env:userprofile\sensu-go-agent_5.18.0.9470_en-US.x64.msi /qn
+msiexec.exe /i $env:userprofile\sensu-go-agent_5.18.1.9930_en-US.x64.msi /qn
 
 # Or via Chocolatey
 choco install sensu-agent
@@ -433,26 +443,29 @@ sensuctl license info
 
 ## Next steps
 
-Now that you've installed Sensu, here are some resources to help continue your journey:
+If you're going to deploy Sensu for use outside of a local development environment, you should secure it using transport layer security (TLS).
+The next step in setting up TLS is to [generate the certificates you need][9].
 
-- [Send Slack alerts with handlers][10]
-- [Monitor server resources with checks][9]
-- [Aggregate metrics with the Sensu StatsD listener][32]
-- [Create a read-only user with RBAC][33]
+If you plan to set up a cluster, here's our suggested pathway:
+
+1. [Generate certificates][2].
+2. [Secure Sensu][8].
+3. [Run a Sensu cluster][22].
+
 
 [1]: https://github.com/sensu/sensu-go/releases/
+[2]: ../../guides/generate-certificates/
 [3]: ../../dashboard/overview/
 [4]: ../../sensuctl/reference/
 [5]: ../../installation/platforms
 [6]: ../../reference/backend#configuration
 [7]: ../../reference/agent#configuration
-[9]: ../../guides/monitor-server-resources/
-[10]: ../../guides/send-slack-alerts/
+[8]: ../../guides/securing-sensu/
+[9]: ../../guides/generate-certificates
 [11]: https://sensu.io/contact?subject=contact-sales/
 [12]: ../verify/
 [13]: https://sensu.io/sensu-license/
 [14]: ../../getting-started/learn-sensu/
-[15]: ../configuration-management/
 [16]: https://etcd.io/
 [17]: ../../reference/assets/
 [18]: #install-sensu-agents
@@ -469,8 +482,6 @@ Now that you've installed Sensu, here are some resources to help continue your j
 [29]: https://blog.sensu.io/one-year-of-sensu-go/
 [30]: ../../reference/backend#initialization
 [31]: ../../guides/deploying/
-[32]: ../../guides/aggregate-metrics-statsd/
-[33]: ../../guides/create-read-only-user/
 [34]: https://account.sensu.io/
 [35]: ../../api/health/
 [36]: #4-open-the-web-ui

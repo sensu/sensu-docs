@@ -39,10 +39,6 @@ The `/etcd-replicators` API endpoint provides HTTP GET access to a list of repli
 
 The following example demonstrates a request to the `/etcd-replicators` API endpoint, resulting in a list of replicators.
 
-{{% notice note %}}
-**NOTE**: If you did not specify a [namespace](../../reference/etcdreplicators#namespace-attribute) when you created a replicator, the response will not include a `namespace` key-value pair.
-{{% /notice %}}
-
 {{< highlight shell >}}
 curl -X GET \
 http://127.0.0.1:8080/api/enterprise/federation/v1/etcd-replicators \
@@ -103,7 +99,8 @@ output         | {{< highlight shell >}}
 The `/etcd-replicators` API endpoint provides HTTP POST access to create replicators.
 
 {{% notice note %}}
-**NOTE**: If you do not specify a [namespace](../../reference/etcdreplicators#namespace-attribute) when you create a replicator, all namespaces for the given resource are replicated.
+**NOTE**: Create a replicator for each resource type you want to replicate. 
+Replicating `namespace` resources will **not** replicate the resources that belong to those namespaces.
 {{% /notice %}}
 
 #### EXAMPLE {#etcd-replicators-post-example}
@@ -165,6 +162,10 @@ response codes  | <ul><li>**Success**: 200 (OK)</li><li>**Malformed**: 400 (Bad 
 
 ## The `/etcd-replicators/:etcd-replicator` API endpoint {#the-etcd-replicatorsetcd-replicator-endpoint}
 
+{{% notice note %}}
+**NOTE**: The etcd-replicators datatype is only accessible for users who have a cluster role that permits access to replication resources.
+{{% /notice %}}
+
 ### `/etcd-replicators/:etcd-replicator` (GET) {#etcd-replicatorsetcd-replicator-get}
 
 The `/etcd-replicators/:etcd-replicator` API endpoint provides HTTP GET access to data for a specific `:etcd-replicator`, by replicator name.
@@ -172,10 +173,6 @@ The `/etcd-replicators/:etcd-replicator` API endpoint provides HTTP GET access t
 #### EXAMPLE {#etcd-replicatorsetcd-replicator-get-example}
 
 In the following example, querying the `/etcd-replicators/:etcd-replicator` API endpoint returns a JSON map that contains the requested `:etcd-replicator`.
-
-{{% notice note %}}
-**NOTE**: If you did not specify a [namespace](../../reference/etcdreplicators#namespace-attribute) when you created the replicator, the response will not include a `namespace` key-value pair.
-{{% /notice %}}
 
 {{< highlight shell >}}
 curl -X GET \

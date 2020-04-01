@@ -373,14 +373,14 @@ For example, to retrieve checks with a `linux` subscription:
 
 {{< highlight shell >}}
 curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" http://127.0.0.1:8080/api/core/v2/checks -G \
---data-urlencode 'linux in check.subscriptions'
+--data-urlencode 'fieldSelector=linux in check.subscriptions'
 {{< /highlight >}}
 
 To retrieve checks that do not use the `slack` handler:
 
 {{< highlight shell >}}
 curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" http://127.0.0.1:8080/api/core/v2/checks -G \
---data-urlencode 'slack notin check.handlers'
+--data-urlencode 'fieldSelector=slack notin check.handlers'
 {{< /highlight >}}
 
 The `in` and `notin` operators have two important conditions:
@@ -484,7 +484,7 @@ curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" http://127.0.0.1:8080/api/co
 --data-urlencode 'fieldSelector=event.entity.status != "0"'
 {{< /highlight >}}
 
-#### Filter checks, entities, or entities by subscription
+#### Filter checks, entities, or events by subscription
 
 To list all checks that include the `linux` subscription:
 
@@ -505,6 +505,70 @@ To list all events for the `linux` subscription, use the `event.entity.subscript
 {{< highlight shell >}}
 curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" http://127.0.0.1:8080/api/core/v2/events -G \
 --data-urlencode 'fieldSelector=linux in event.entity.subscriptions'
+{{< /highlight >}}
+
+#### Filter silenced resources and silences
+
+**Filter silenced resources by namespace**
+
+To list all silenced resources for a particular namespace (in this example, the `default` namespace):
+
+{{< highlight shell >}}
+curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN http://127.0.0.1:8080/api/core/v2/silenced -G \
+--data-urlencode 'fieldSelector=silenced.namespace == "default"'
+{{< /highlight >}}
+
+Likewise, to list all silenced resources *except* those in the `default` namespace:
+
+{{< highlight shell >}}
+curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN http://127.0.0.1:8080/api/core/v2/silenced -G \
+--data-urlencode 'fieldSelector=silenced.namespace != "default"'
+{{< /highlight >}}
+
+**Filter silences by creator**
+
+To list all silences created by the user `alice`:
+
+{{< highlight shell >}}
+curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" http://127.0.0.1:8080/api/core/v2/silenced -G \
+--data-urlencode 'fieldSelector=silenced.creator == "alice"'
+{{< /highlight >}}
+
+To list all silences that were not created by the `admin` user:
+
+{{< highlight shell >}}
+curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" http://127.0.0.1:8080/api/core/v2/silenced -G \
+--data-urlencode 'fieldSelector=silenced.creator != "admin"'
+{{< /highlight >}}
+
+**Filter silences by silence subscription**
+
+To retrieve silences with a specific subscription (in this example, `linux`):
+
+{{< highlight shell >}}
+curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" http://127.0.0.1:8080/api/core/v2/silenced -G \
+--data-urlencode 'fieldSelector=silenced.subscription == "linux"'
+{{< /highlight >}}
+
+Another way to make the same request is:
+
+{{< highlight shell >}}
+curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" http://127.0.0.1:8080/api/core/v2/silenced -G \
+--data-urlencode 'fieldSelector=linux in silenced.subscription'
+{{< /highlight >}}
+
+{{% notice note %}}
+**NOTE**: For this field selector, `subscription` means the subscription specified for the silence.
+In other words, this filter retrieves **silences** with a particular subscription, not silenced entities or checks with a matching subscription.
+{{% /notice %}}
+
+**Filter silenced resources by expiration**
+
+To list all silenced resources that expire only when a matching check resolves:
+
+{{< highlight shell >}}
+curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN http://127.0.0.1:8080/api/core/v2/silenced -G \
+--data-urlencode 'fieldSelector=silenced.expire_on_resolve == true'
 {{< /highlight >}}
 
 

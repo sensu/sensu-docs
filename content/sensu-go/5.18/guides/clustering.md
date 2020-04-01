@@ -2,7 +2,7 @@
 title: "Run a Sensu cluster"
 linkTitle: "Run a Sensu Cluster"
 description: "Clustering improves Sensu's availability, reliability, and durability. It can help you cope with the loss of a backend node, prevent data loss, and distribute the network load of agents. Read the guide to configure a Sensu cluster."
-weight: 150
+weight: 175
 version: "5.18"
 product: "Sensu Go"
 platformContent: false
@@ -38,6 +38,11 @@ You can configure a Sensu cluster in a couple different ways &mdash; we'll show 
 > The recommended etcd cluster size is 3, 5 or 7, which is decided by the fault tolerance requirement. A 7-member cluster can provide enough fault tolerance in most cases. While a larger cluster provides better fault tolerance, the write performance reduces since data needs to be replicated to more machines. It is recommended to have an odd number of members in a cluster. Having an odd cluster size doesn't change the number needed for majority, but you gain a higher tolerance for failure by adding the extra member. *[etcd2 Admin Guide][18]*
 
 We also recommend using stable platforms to support your etcd instances (see [etcd's supported platforms][5]).
+
+{{% notice note %}}
+**NOTE**: If a cluster member is started before it is configured to join a cluster, the member will persist its prior configuration to disk.
+For this reason, you must remove any previously started member's etcd data by stopping sensu-backend and deleting the contents of `/var/lib/sensu/sensu-backend/etcd` before proceeding with cluster configuration.
+{{% /notice %}}
 
 ### Docker
 
@@ -339,7 +344,7 @@ See the [etcd recovery guide][9] for disaster recovery information.
 [10]: https://github.com/cloudflare/cfssl
 [11]: https://etcd.io/docs/v3.4.0/op-guide/clustering/#self-signed-certificates
 [12]: https://etcd.io/docs/v3.4.0/op-guide/
-[13]: ../securing-sensu/#create-self-signed-certificates
+[13]: ../../guides/generate-certificates/
 [15]: ../../reference/backend/
 [16]: ../securing-sensu/
 [17]: ../../sensuctl/reference/
