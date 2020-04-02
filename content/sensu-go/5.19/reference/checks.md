@@ -1008,6 +1008,7 @@ spec:
 ### PowerShell script in check commands
 
 If you use a PowerShell script in your check command, make sure to include the `-f` flag in the command.
+The `-f` flag ensures that the proper exit code is passed into Sensu.
 For example:
 
 {{< language-toggle >}}
