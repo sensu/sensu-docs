@@ -1219,7 +1219,7 @@ grunt-sass@^3.0.2:
   resolved "https://registry.yarnpkg.com/grunt-sass/-/grunt-sass-3.1.0.tgz#a5936cc2a80ec08092d9f31c101dc307d1e4f71c"
   integrity sha512-90s27H7FoCDcA8C8+R0GwC+ntYD3lG6S/jqcavWm3bn9RiJTmSfOvfbFa1PXx4NbBWuiGQMLfQTj/JvvqT5w6A==
 
-grunt@^1.0.4:
+grunt@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/grunt/-/grunt-1.1.0.tgz#97dc6e6add901459774a988e4f454a12e24c9d3d"
   integrity sha512-+NGod0grmviZ7Nzdi9am7vuRS/h76PcWDsV635mEXF0PEQMUV6Kb+OjTdsVxbi0PZmfQOjCMKb3w8CVZcqsn1g==
