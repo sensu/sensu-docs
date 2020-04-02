@@ -1333,10 +1333,10 @@ http-signature@~1.2.0:
     jsprim "^1.2.2"
     sshpk "^1.7.0"
 
-hugo-cli@^0.10.0:
-  version "0.10.0"
-  resolved "https://registry.yarnpkg.com/hugo-cli/-/hugo-cli-0.10.0.tgz#f7966de052ed178801371489b5c909bd17a2207c"
-  integrity sha512-DKwSd/RZFFw3OP8bcS+Ap51kjDpi2Gtkam3j/8pKqCKOGvpbiKMQ0b0CWgOM9hgCCdUxHESJy6F1ffxizlFeYg==
+hugo-cli@^0.11.0:
+  version "0.11.0"
+  resolved "https://registry.yarnpkg.com/hugo-cli/-/hugo-cli-0.11.0.tgz#ae10973b7b9b0ffd7ba47d8c8ca5a50250726aea"
+  integrity sha512-Gu2s535ASZuV4HOi1hJ1HmNG4zN4Jb30UHcMPzYgTa1Bx2v/urG+vb6c4J0DeYfj4YzpopjFW8w9c0iy51DwPQ==
   dependencies:
     chalk "^2.4.1"
     decompress "^4.0.0"
