@@ -69,9 +69,7 @@ http://127.0.0.1:8080/api/enterprise/federation/v1/etcd-replicators \
 
 /etcd-replicators (GET)  | 
 ---------------|------
-description    | Returns the list of replicators. {{% notice note %}}
-**NOTE**: If you did not specify a [namespace](../../reference/etcdreplicators#namespace-attribute) when you created a replicator, the response will not include a `namespace` key-value pair.
-{{% /notice %}}
+description    | Returns the list of replicators.
 example url    | http://hostname:8080/api/enterprise/federation/v1/etcd-replicators
 response type  | Array
 response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
@@ -141,9 +139,7 @@ HTTP/1.1 200 OK
 
 /etcd-replicators (POST) | 
 ----------------|------
-description     | Creates a new replicator (if none exists). {{% notice note %}}
-**NOTE**: If you do not specify a [namespace](../../reference/etcdreplicators#namespace-attribute) when you create a replicator, all namespaces for the given resource are replicated.
-{{% /notice %}}
+description     | Creates a new replicator (if none exists).
 example URL     | http://hostname:8080/api/enterprise/federation/v1/etcd-replicators
 payload         | {{< highlight shell >}}
 {
@@ -167,6 +163,10 @@ payload         | {{< highlight shell >}}
 response codes  | <ul><li>**Success**: 200 (OK)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 ## The `/etcd-replicators/:etcd-replicator` API endpoint {#the-etcd-replicatorsetcd-replicator-endpoint}
+
+{{% notice note %}}
+**NOTE**: The etcd-replicators datatype is only accessible for users who have a cluster role that permits access to replication resources.
+{{% /notice %}}
 
 ### `/etcd-replicators/:etcd-replicator` (GET) {#etcd-replicatorsetcd-replicator-get}
 
@@ -204,9 +204,7 @@ http://127.0.0.1:8080/api/enterprise/federation/v1/etcd-replicators/my_replicato
 
 /etcd-replicators/:etcd-replicator (GET) | 
 ---------------------|------
-description          | Returns the specified replicator. {{% notice note %}}
-**NOTE**: If you did not specify a [namespace](../../reference/etcdreplicators#namespace-attribute) when you created the replicator, the response will not include a `namespace` key-value pair.
-{{% /notice %}}
+description          | Returns the specified replicator.
 example url          | http://hostname:8080/api/enterprise/federation/v1/etcd-replicators/my_replicator
 response type        | Map
 response codes       | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>

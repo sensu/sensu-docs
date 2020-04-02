@@ -36,8 +36,6 @@ The `/etcd-replicators` endpoint provides HTTP GET access to a list of replicato
 
 The following example demonstrates a request to the `/etcd-replicators` endpoint, resulting in a list of replicators.
 
-_**NOTE**: If you did not specify a [namespace][2] when you created a replicator, the response will not include a `namespace` key-value pair._
-
 {{< highlight shell >}}
 curl http://127.0.0.1:8080/api/enterprise/federation/v1/etcd-replicators -H "Authorization: Bearer $SENSU_TOKEN"
 [
@@ -122,6 +120,8 @@ response codes  | <ul><li>**Success**: 200 (OK)</li><li>**Malformed**: 400 (Bad 
 
 ## The `/etcd-replicators/:etcd-replicator` endpoint {#the-etcd-replicatorsetcd-replicator-endpoint}
 
+_**NOTE**: The etcd-replicators datatype is only accessible for users who have a cluster role that permits access to replication resources._
+
 ### `/etcd-replicators/:etcd-replicator` (GET) {#etcd-replicatorsetcd-replicator-get}
 
 The `/etcd-replicators/:etcd-replicator` endpoint provides HTTP GET access to data for a specific `:etcd-replicator`, by replicator `name`.
@@ -129,8 +129,6 @@ The `/etcd-replicators/:etcd-replicator` endpoint provides HTTP GET access to da
 #### EXAMPLE {#etcd-replicatorsetcd-replicator-get-example}
 
 In the following example, querying the `/etcd-replicators/:etcd-replicator` endpoint returns a JSON Map containing the requested `:etcd-replicator`.
-
-_**NOTE**: If you did not specify a [namespace][2] when you created the replicator, the response will not include a `namespace` key-value pair._
 
 {{< highlight shell >}}
 curl http://127.0.0.1:8080/api/enterprise/federation/v1/etcd-replicators/my_replicator -H "Authorization: Bearer $SENSU_TOKEN"

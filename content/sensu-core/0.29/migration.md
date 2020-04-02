@@ -98,7 +98,7 @@ See the [deployment][deploy] and [hardware requirements][37] guides for deployme
 
 These resources can help you migrate from Sensu Core to [Sensu Go][76]:
 
-- **This migration guide** &emdash; it's a step-by-step guide to installing Sensu Go and using the [translator][75] command-line tool to transfer your Sensu Core checks, handlers, and mutators to Sensu Go.
+- **This migration guide** &mdash; it's a step-by-step guide to installing Sensu Go and using the [translator][75] command-line tool to transfer your Sensu Core checks, handlers, and mutators to Sensu Go.
 - [**Sensu Go documentation**][76]: Learn about the Sensu Go architecture and APIs. The [Sensu Go migration section][77] includes an overview of Sensu Go features.
 - [**Sensu Community Slack**][78]: Join hundreds of other Sensu users in our Community Slack, where you can ask questions and benefit from tips others picked up during their own Sensu Go migrations.
 - [**Sensu Community Forum**][79]: Drop a question in our dedicated category for migrating to Go.
@@ -138,7 +138,7 @@ To learn more about setting up RBAC in Sensu Go, see the [RBAC reference][38] an
 
 In Sensu Go, namespaces partition resources within a Sensu instance.
 Sensu Go entities, checks, handlers, and other [namespaced resources][71] belong to a single namespace.
-The Sensu translator places all translated resources into the `default` namespace &emdash; we'll use the translater in a moment.
+The Sensu translator places all translated resources into the `default` namespace &mdash; we'll use the translater in a moment.
 
 In addition to built-in RBAC, Sensu includes [licensed][40] support for authentication using Microsoft Active Directory (AD) and standards-compliant Lightweight Directory Access Protocol tools like OpenLDAP.
 

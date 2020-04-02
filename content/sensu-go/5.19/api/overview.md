@@ -333,15 +333,16 @@ Here's the list of available fields:
 
 ### Operators
 
-Sensu's API response filtering supports two equality-based operators, two set-based operators, and one logical operator.
+Sensu's API response filtering supports two equality-based operators, two set-based operators, one substring matching operator, and one logical operator.
 
-| operator | description     | example                |
-| -------- | --------------- | ---------------------- |
-| `==`     | Equality        | `check.publish == true`
-| `!=`     | Inequality      | `check.namespace != "default"`
-| `in`     | Included in     | `linux in check.subscriptions`
-| `notin`  | Not included in | `slack notin check.handlers`
-| `&&`     | Logical AND     | `check.publish == true && slack in check.handlers`
+| operator  | description        | example                |
+| --------- | ------------------ | ---------------------- |
+| `==`      | Equality           | `check.publish == true`
+| `!=`      | Inequality         | `check.namespace != "default"`
+| `in`      | Included in        | `linux in check.subscriptions`
+| `notin`   | Not included in    | `slack notin check.handlers`
+| `matches` | Substring matching | `check.name matches "linux-"`
+| `&&`      | Logical AND        | `check.publish == true && slack in check.handlers`
 
 #### Equality-based operators
 
@@ -390,6 +391,37 @@ The `in` and `notin` operators have two important conditions:
 You can filter for strings and arrays of strings with `in` and `notin` operators, but you cannot use them to filter for integer, float, array, or Boolean values.
 - Second, to filter for a string, the string must be to the **left** of the operator: `string [in|notin] selector`.
 To filter for an array of strings, the array must be to the **right** of the operator: `selector [in|notin] [string1,string2]`.
+
+#### Substring matching operator
+
+Sensu's _substring matching_ operator is `matches`.
+
+For example, to retrieve all checks whose name includes `linux`:
+
+{{< highlight shell >}}
+curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" http://127.0.0.1:8080/api/core/v2/checks -G \
+--data-urlencode 'fieldSelector=check.name matches "linux"'
+{{< /highlight >}}
+
+Suppose you are using Sensu to monitor 1000 entities that are named incrementally and according to technology.
+For example, your webservers are named `webserver-1` through `webserver-25`, and your CPU entities are named `cpu-1` through `cpu-300`, and so on.
+In this case, you can use `matches` to retrieve all of your `webserver` entities:
+
+{{< highlight shell >}}
+curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" http://127.0.0.1:8080/api/core/v2/entities -G \
+--data-urlencode 'fieldSelector=entity.name matches "webserver-"'
+{{< /highlight >}}
+
+Similarly, if you have entities labeled for different regions, you can use `matches` to find the entities that are labeled for the US (e.g. `us-east-1`, `us-west-1`, and so on):
+
+{{< highlight shell >}}
+curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" http://127.0.0.1:8080/api/core/v2/entities -G \
+--data-urlencode 'labelSelector:region matches "us"'
+{{< /highlight >}}
+
+The `matches` operator only works when the underlying value you're filtering for is a string.
+You can filter for strings and arrays of strings with the `matches` operator, but you cannot use it to filter for integer, float, array, or Boolean values.
+Also, the string must be to the **right** of the operator: `selector matches string`.
 
 #### Logical operator
 
