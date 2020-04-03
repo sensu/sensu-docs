@@ -9,7 +9,7 @@ platformContent: true
 platforms: ["Ubuntu/Debian", "RHEL/CentOS"]
 menu:
   sensu-go-5.19:
-    parent: installation
+    parent: assets
 ---
 
 - [Install plugins with assets](#install-plugins-with-assets)

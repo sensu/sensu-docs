@@ -1,14 +1,14 @@
 ---
-title: "Assets"
-linkTitle: "Assets"
+title: "Assets reference"
+linkTitle: "Assets reference"
 description: "Assets are shareable, reusable packages that make it easier to deploy Sensu plugins. You can use assets to provide the plugins, libraries, and runtimes you need to create automated monitoring workflows. Read this reference doc to learn about assets."
-weight: 40
+weight: 10
 version: "5.19"
 product: "Sensu Go"
 platformContent: false 
 menu:
   sensu-go-5.19:
-    parent: reference
+    parent: assets
 ---
 
 - [Asset builds](#asset-builds)

@@ -2,13 +2,13 @@
 title: "Install plugins with assets"
 linkTitle: "Install Plugins with Assets"
 description: "Assets are shareable, reusable packages that make it easier to deploy Sensu plugins. You can use assets to provide the plugins, libraries, and runtimes you need to power your monitoring workflows. Read the guide to get started using assets."
-weight: 100
+weight: 30
 version: "5.19"
 product: "Sensu Go"
 platformContent: False
 menu: 
   sensu-go-5.19:
-    parent: guides
+    parent: assets
 ---
 
 - [1. Register the Sensu PagerDuty Handler asset](#1-register-the-sensu-pagerduty-handler-asset)

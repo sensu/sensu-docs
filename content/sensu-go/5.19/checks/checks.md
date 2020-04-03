@@ -1,13 +1,13 @@
 ---
-title: "Checks"
+title: "Checks reference"
 description: "Checks work with Sensu agents to let you monitor your infrastructure automatically and send monitoring events to the Sensu pipeline. Read this reference doc to learn how to run service and metric checks."
-weight: 50
+weight: 10
 version: "5.19"
 product: "Sensu Go"
 platformContent: false
 menu:
   sensu-go-5.19:
-    parent: reference
+    parent: checks
 ---
 
 - [Check commands](#check-commands)
