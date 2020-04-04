@@ -189,6 +189,10 @@ You may see old events in the web UI or sensuctl output until the etcd datastore
 Postgres supports an active standby by using [streaming replication][6].
 All Sensu events written to the primary Postgres server will be replicated to the standby server.
 
+{{% notice note %}}
+**NOTE**: Paths and service names may vary based on your operating system.
+{{% /notice %}}
+
 If you have administrative access to Postgres, you can create the replication role:
 
 {{< highlight shell >}}

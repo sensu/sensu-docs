@@ -184,6 +184,10 @@ _**NOTE**: If your Sensu Go license expires, event storage will automatically re
 Postgres supports an active standby by using [streaming replication][6].
 All Sensu events written to the primary Postgres server will be replicated to the standby server.
 
+{{% notice note %}}
+**NOTE**: Paths and service names may vary based on your operating system.
+{{% /notice %}}
+
 If you have administrative access to Postgres, you can create the replication role:
 
 {{< highlight shell >}}
