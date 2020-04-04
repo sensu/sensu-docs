@@ -258,6 +258,29 @@ echo 'hot_standby = on' | sudo tee -a /var/lib/pgsql/data/postgresql.conf
 sudo systemcl start postgresql
 {{< /highlight >}}
 
+Verify that the replication is taking place by checking commit log location on primary and standby hosts:
+
+{{< highlight shell >}}
+# From master
+sudo -u postgres psql -c "select pg_current_xlog_location()"
+ pg_current_xlog_location 
+--------------------------
+ 0/3000568
+(1 row)
+# From standby
+sudo -u postgres psql -c "select pg_last_xlog_receive_location()"
+ pg_last_xlog_receive_location 
+-------------------------------
+ 0/3000568
+(1 row)
+# From standby
+sudo -u postgres psql -c "select pg_last_xlog_replay_location()"
+ pg_last_xlog_replay_location 
+------------------------------
+ 0/3000568
+(1 row)
+{{< /highlight >}}
+
 With this configuration complete, your Sensu events will be replicated to the standby host.
 
 [1]: https://github.com/sensu/sensu-perf
