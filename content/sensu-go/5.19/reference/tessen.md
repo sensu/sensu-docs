@@ -123,10 +123,10 @@ spec:
 
 {{< /language-toggle >}}
 
-## Tessen payload example
+## Tessen metrics log examples
 
 If you opt in to Tessen, Sensu sends various metrics back to the Tessen service.
-In the example payload below, Sensu is sending the number of check hooks back to the Tessen service. 
+In the example metrics log below, Sensu is sending the number of check hooks back to the Tessen service. 
 
 {{< highlight json >}}
 {
@@ -165,7 +165,42 @@ Or the number of filters:
 }
 {{< /highlight >}}
 
-If you opt into Tessen, you can view all of the metrics and payloads in the logs:
+Or the number of authentication providers, secrets providers, and secrets:
+
+{{< highlight json >}}
+{
+    "component": "tessend",
+    "level": "debug",
+    "metric_name": "auth_provider_count",
+    "metric_value": 2,
+    "msg": "collected a metric for tessen",
+    "time": "2020-03-30T15:16:42-04:00"
+}
+{{< /highlight >}}
+
+{{< highlight json >}}
+{
+    "component": "tessend",
+    "level": "debug",
+    "metric_name": "secret_provider_count",
+    "metric_value": 1,
+    "msg": "collected a metric for tessen",
+    "time": "2020-03-30T15:17:12-04:00"
+}
+{{< /highlight >}}
+
+{{< highlight json >}}
+{
+    "component": "tessend",
+    "level": "debug",
+    "metric_name": "secret_count",
+    "metric_value": 1,
+    "msg": "collected a metric for tessen",
+    "time": "2020-03-30T15:16:17-04:00"
+}
+{{< /highlight >}}
+
+If you opt into Tessen, you can view all of the metrics in the logs:
 
 {{< highlight shell >}}
 journalctl _COMM=sensu-backend.service
