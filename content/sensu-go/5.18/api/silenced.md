@@ -47,6 +47,7 @@ HTTP/1.1 200 OK
     "expire": -1,
     "expire_on_resolve": false,
     "creator": "admin",
+    "reason": "reason for silence",
     "subscription": "linux",
     "begin": 1542671205
   }
@@ -75,6 +76,7 @@ output         | {{< highlight shell >}}
     "expire": -1,
     "expire_on_resolve": false,
     "creator": "admin",
+    "reason": "reason for silence",
     "subscription": "linux",
     "begin": 1542671205
   }
@@ -104,6 +106,7 @@ curl -X POST \
   "expire": -1,
   "expire_on_resolve": false,
   "creator": "admin",
+  "reason": "reason for silence",
   "subscription": "linux",
   "begin": 1542671205
 }' \
@@ -129,6 +132,7 @@ payload         | {{< highlight shell >}}
   "expire": -1,
   "expire_on_resolve": false,
   "creator": "admin",
+  "reason": "reason for silence",
   "subscription": "linux",
   "begin": 1542671205
 }
@@ -162,6 +166,7 @@ HTTP/1.1 200 OK
   "expire": -1,
   "expire_on_resolve": false,
   "creator": "admin",
+  "reason": "reason for silence",
   "subscription": "linux",
   "begin": 1542671205
 }
@@ -186,6 +191,7 @@ output               | {{< highlight json >}}
   "expire": -1,
   "expire_on_resolve": false,
   "creator": "admin",
+  "reason": "reason for silence",
   "subscription": "linux",
   "begin": 1542671205
 }
@@ -214,6 +220,7 @@ curl -X PUT \
   "expire": -1,
   "expire_on_resolve": false,
   "creator": "admin",
+  "reason": "reason for silence",
   "subscription": "linux",
   "begin": 1542671205
 }' \
@@ -239,6 +246,7 @@ payload         | {{< highlight shell >}}
   "expire": -1,
   "expire_on_resolve": false,
   "creator": "admin",
+  "reason": "reason for silence",
   "subscription": "linux",
   "begin": 1542671205
 }
@@ -296,6 +304,7 @@ HTTP/1.1 200 OK
     "expire": -1,
     "expire_on_resolve": false,
     "creator": "admin",
+    "reason": "reason for silence",
     "subscription": "linux",
     "begin": 1542671205
   }
@@ -323,6 +332,7 @@ output               | {{< highlight json >}}
     "expire": -1,
     "expire_on_resolve": false,
     "creator": "admin",
+    "reason": "reason for silence",
     "subscription": "linux",
     "begin": 1542671205
   }
@@ -356,6 +366,7 @@ HTTP/1.1 200 OK
     "expire": -1,
     "expire_on_resolve": false,
     "creator": "admin",
+    "reason": "reason for silence",
     "check": "linux",
     "begin": 1542671205
   }
@@ -383,6 +394,7 @@ output               | {{< highlight json >}}
     "expire": -1,
     "expire_on_resolve": false,
     "creator": "admin",
+    "reason": "reason for silence",
     "check": "linux",
     "begin": 1542671205
   }
