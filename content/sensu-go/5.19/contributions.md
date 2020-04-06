@@ -2,7 +2,7 @@
 title: "Contributions section divider"
 linkTitle: "CONTRIBUTIONS"
 description: "Contributions docs section."
-weight: 50
+weight: 500
 product: "Sensu Go"
 version: "5.19"
 menu: "sensu-go-5.19"

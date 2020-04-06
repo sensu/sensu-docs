@@ -2,7 +2,7 @@
 title: "Operations section divider"
 linkTitle: "OPERATIONS"
 description: "Operations docs section."
-weight: 30
+weight: 120
 product: "Sensu Go"
 version: "5.19"
 menu: "sensu-go-5.19"

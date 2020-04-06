@@ -2,7 +2,7 @@
 title: "API section divider"
 linkTitle: "API"
 description: "API docs section."
-weight: 40
+weight: 450
 product: "Sensu Go"
 version: "5.19"
 menu: "sensu-go-5.19"
