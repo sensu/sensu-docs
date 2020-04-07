@@ -22,6 +22,7 @@ menu:
 - [Response filtering](#response-filtering)
   - [Label selector](#label-selector)
   - [Field selector](#field-selector)
+  - [Syntax](#syntax)
   - [Operators](#operators)
   - [Combined selectors](#combined-selectors)
   - [Examples](#examples)
@@ -331,6 +332,24 @@ Here's the list of available fields:
 | Silenced | `silenced.name` `silenced.namespace` `silenced.check` `silenced.creator` `silenced.expire_on_resolve` `silenced.subscription` |
 | User | `user.username` `user.disabled` `user.groups` |
 
+### Syntax
+
+To create an API response filter, you'll write a brief filter statement.
+The filter statement construction is slightly different for different [operators][13], but there are a few general syntax rules that apply to all filter statements.
+For example:
+
+{{< highlight text >}}
+'fieldSelector=silenced.expire_on_resolve == true'
+{{< /highlight >}}
+
+As shown in this example:
+
+- Place the entire filter statement inside single or double quotes.
+- **Do not** use spaces around the `=` between the selector type and the rest of the filter statement.
+- **Do** use spaces around the operator (in this example, the `==`).
+
+The [operators][13] and [examples][15] sections demonstrate how to construct API response filter statements for different operators and specific purposes.
+
 ### Operators
 
 Sensu's API response filtering supports two equality-based operators, two set-based operators, one substring matching operator, and one logical operator.
@@ -616,5 +635,7 @@ curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN http://127.0.0.1:8080/api/cor
 [10]: ../auth/#the-auth-api-endpoint
 [11]: ../auth/#the-authtoken-api-endpoint
 [12]: ../auth/
+[13]: #operators
 [14]: #authentication-quickstart
+[15]: #examples
 [16]: #limit-query-parameter
