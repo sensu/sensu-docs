@@ -281,6 +281,7 @@ Learn about [role-based access control (RBAC) in Sensu][3] or [create a read-onl
 
 
 [1]: ../../guides/secrets-management/
+[7]: ../../reference/agent/#security-configuration-flags
 [2]: ../../reference/rbac/#default-users
 [3]: ../../reference/rbac/
 [4]: ../../guides/create-read-only-user/
