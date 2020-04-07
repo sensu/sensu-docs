@@ -2,14 +2,14 @@
 title: "Binary-only distributions"
 linkTitle: "Binary-Only Distributions"
 description: "Sensu offers binary-only distributions for Linux, Windows, macOS, FreeBSD, and Solaris. Read this guide to learn how to download and verify Sensu binaries."
-weight: 60
+weight: 40
 product: "Sensu Go"
 version: "5.19"
 platformContent: true
 platforms: ["Linux", "Windows", "macOS", "FreeBSD", "Solaris"]
 menu:
   sensu-go-5.19:
-    parent: installation
+    parent: overview
 ---
 
 In addition to [packages][1], Sensu binary-only distributions are available for Linux, Windows (agent and CLI only), macOS (CLI only), FreeBSD, and Solaris.

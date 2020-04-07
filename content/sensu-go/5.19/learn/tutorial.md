@@ -1,11 +1,14 @@
 ---
-title: "Up and running with Sensu Go tutorial"
-description: "Get up and running with Sensu Go in your browser with an interactive tutorial. Learn the basics of Sensu Go and send email alerts."
+title: "Interactive Tutorial"
+description: "Get started with Sensu in your browser with an interactive tutorial. Learn the basics of Sensu Go and monitor a web server."
 version: "5.19"
+weight: 30
 product: "Sensu Go"
 layout: "katacoda-wide"
-platformContent: false
 offline: false
+menu:
+  sensu-go-5.19:
+    parent: learn
 ---
 <!-- begin tracking -->
 <script> !function(e,t,n,s,u,a){e.twq||(s=e.twq=function(){s.exe?s.exe.apply(s,arguments):s.queue.push(arguments); },s.version='1.1',s.queue=[],u=t.createElement(n),u.async=!0,u.src='//static.ads-twitter.com/uwt.js', a=t.getElementsByTagName(n)[0],a.parentNode.insertBefore(u,a))}(window,document,'script'); // Insert Twitter Pixel ID and Standard Event data below twq('init','o1043'); twq('track','PageView');
@@ -20,13 +23,13 @@ s.parentNode.insertBefore(b, s);})();
 
 <script src="//katacoda.com/embed.js"></script>
 <div id="katacoda-scenario-1"
-    data-katacoda-id="sensu/up-and-running"
+    data-katacoda-id="sensu/sandbox"
     data-katacoda-color="2c3458"
     data-katacoda-ctaurl="https://docs.sensu.io/sensu-go/latest/getting-started/sandbox/"
     data-katacoda-ctatext="Learn more in the Sensu Sandbox"
     style="height: 800px; padding-top: 10px;" 
 ></div>
 <br><br>
-[**<-- Back to Send email alerts with the Sensu Go Email Handler**][1]
+[**<-- Back to Get started with Sensu**][1]
 
-[1]: ../email-handler/
+[1]: ../get-started/

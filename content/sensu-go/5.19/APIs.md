@@ -1,6 +1,6 @@
 ---
 title: "API section divider"
-linkTitle: "API"
+linkTitle: "API DOCUMENTATION"
 description: "API docs section."
 weight: 450
 product: "Sensu Go"

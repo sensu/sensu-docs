@@ -7,7 +7,7 @@ weight: 50
 product: "Sensu Go"
 menu:
   sensu-go-5.19:
-    parent: getting-started
+    parent: learn
 ---
 
 Welcome to the Sensu sandbox! The sandbox is the best place to get started with Sensu and try out new features.

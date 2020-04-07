@@ -7,7 +7,7 @@ weight: 20
 product: "Sensu Go"
 menu:
   sensu-go-5.19:
-    parent: getting-started
+    parent: overview
 ---
 
 Sensu Go offers commercial features designed for monitoring at scale.

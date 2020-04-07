@@ -7,7 +7,7 @@ weight: 10
 product: "Sensu Go"
 menu:
   sensu-go-5.19:
-    parent: getting-started
+    parent: overview
 ---
 
 ## Learn Sensu in 15 minutes

@@ -7,7 +7,7 @@ weight: 40
 product: "Sensu Go"
 menu:
   sensu-go-5.19:
-    parent: getting-started
+    parent: learn
 ---
 
 <a href="https://caviar.tf.sensu.io:3000" onclick="ga('send', 'event', 'Demo', 'Click', 'Main demo link');">See a live demo of the Sensu dashboard</a>.

@@ -1,5 +1,5 @@
 ---
-title: "API"
+title: "API Documentation"
 description: "Sensu API documentation"
 weight: 600
 product: "Sensu Go"
