@@ -49,7 +49,7 @@ The Sensu Go Agent API, HTTP API, and web UI use a common stanza in `/etc/sensu/
 Here are the attributes you'll need to configure.
 
 {{% notice note %}}
-**NOTE**: By changing these parameters, the server will communicate over transport layer security (TLS) and expect agents that connect to it to use the WebSocket secure protocol.
+**NOTE**: By changing these parameters, the server will communicate using transport layer security (TLS) and expect agents that connect to it to use the WebSocket secure protocol.
 For communication to continue, you must complete the steps in this section **and** in the [Secure Sensu agent-to-server communication](#secure-sensu-agent-to-server-communication) section.
 {{% /notice %}}
 
