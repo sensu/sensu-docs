@@ -339,7 +339,7 @@ Read the [secrets][9] or [secrets providers][10] reference for in-depth secrets 
 [12]: https://www.vaultproject.io/docs/concepts/lease.html#lease-durations-and-renewal
 [13]: ../../api/secrets#providers-provider-put
 [14]: ../../api/secrets#secrets-secret-put
-[15]: ../../guides/securing-sensu/#sensu-agent-mtls-authentication
+[15]: ../securing-sensu/#sensu-agent-mtls-authentication
 [17]: ../../reference/secrets-providers#tls-vault
 [19]: #add-a-handler
 [20]: ../../getting-started/enterprise/
