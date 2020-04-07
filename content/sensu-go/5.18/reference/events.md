@@ -525,7 +525,7 @@ example      | {{< highlight shell >}}"duration": 1.903135228{{< /highlight >}}
 
 executed     |      |
 -------------|------
-description  | Time at which the check request was executed.
+description  | Time at which the check request was executed. In seconds since the Unix epoch.
 required     | false
 type         | Integer
 example      | {{< highlight shell >}}"executed": 1522100915{{< /highlight >}}

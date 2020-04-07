@@ -676,7 +676,7 @@ In this example `sensuctl prune` command:
 
 - Replace [RESOURCE TYPE] with the [synonym or fully qualified name][48] of the resource you want to prune.
 You must specify at least one resource type or the `all` qualifier (to prune all resource types).
-- Replace [FILE or URL] with the name of the file or the URL where you want to apply the pruning.
+- Replace [FILE or URL] with the name of the file or the URL that contains the set of Sensu objects you want to keep (the configuration).
 - Replace [flags] with the flags you want to use, if any.
 - Replace [--NAMESPACE] with the namespace where you want to apply pruning.
 If you omit the namespace qualifier, the command defaults to the current configured namespace.
