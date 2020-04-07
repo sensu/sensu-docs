@@ -2,7 +2,7 @@ matrix:
   include:
     - language: node_js
       nodejs:
-        - 9
+        - 12
 
       addons:
         apt:
