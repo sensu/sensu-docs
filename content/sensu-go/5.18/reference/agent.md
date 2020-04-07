@@ -1423,7 +1423,7 @@ $ sudo touch /etc/sysconfig/sensu-agent
      {{< /language-toggle >}}
 
 2. Make sure the environment variable is named correctly.
-All environment variable names must begin with `SENSU_`.
+All environment variables controlling Sensu configuration begin with `SENSU_`.
 
      To rename a configuration flag you wish to specify as an environment variable, prepend `SENSU_`, convert dashes to underscores, and capitalize all letters.
      For example, the environment variable for the flag `api-host` is `SENSU_API_HOST`.
