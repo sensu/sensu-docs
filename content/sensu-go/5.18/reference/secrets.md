@@ -29,9 +29,11 @@ Only Sensu backends have access to request secrets from a [secrets provider][7].
 Sensu backends cache fetched secrets in memory, with no persistence to a Sensu datastore or file on disk.
 Secrets provided via a "lease" with a "lease duration" are deleted from Sensu's in-memory cache after the configured number of seconds, prompting the Sensu backend to request the secret again.
 
-Secrets are only transmitted over a TLS websocket connection.
+Secrets are only transmitted over a transport layer security (TLS) websocket connection.
 Unencrypted connections must not transmit privileged information.
-For agent-side resources, enable TLS/mTLS.
+
+For checks, hooks, and assets, you must [enable mutual TLS (mTLS)][13].
+Sensu will not transmit secrets to agents that do not use mTLS.
 
 Sensu only exposes secrets to Sensu services like environment variables and automatically redacts secrets from all logs, the API, and the dashboard.
  
@@ -211,6 +213,7 @@ This is convenient for learning and getting started with Vault secrets managemen
 In this example, the name of the secret is `database`.
 The `database` secret contains a key called `password`, and its value is the password to our database.
 
+
 [1]: ../../getting-started/enterprise/
 [2]: ../../api/secrets/
 [3]: ../../sensuctl/reference/
@@ -223,3 +226,4 @@ The `database` secret contains a key called `password`, and its value is the pas
 [10]: https://learn.hashicorp.com/vault/getting-started/dev-server
 [11]: ../../guides/secrets-management/
 [12]: #metadata-attributes
+[13]: ../../guides/securing-sensu/#sensu-agent-mtls-authentication
