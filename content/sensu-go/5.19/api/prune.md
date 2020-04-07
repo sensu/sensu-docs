@@ -18,7 +18,7 @@ menu:
 
 ### `/prune/v1alpha` (POST)
 
-The `/prune/v1alpha` API endpoint provides HTTP POST access to create a pruning command to delete resources that do not appear in a given set of Sensu objects from a file, URL, or STDIN.
+The `/prune/v1alpha` API endpoint provides HTTP POST access to create a pruning command to delete resources that are not specified in the request body.
 
 #### EXAMPLE {#prune-v1alpha-post-example}
 
@@ -101,4 +101,3 @@ response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 
 
 [1]: ../../getting-started/enterprise/
 [2]: ../../sensuctl/reference/#sensuctl-prune-resource-types
-
