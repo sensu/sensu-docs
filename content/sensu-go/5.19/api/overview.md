@@ -350,6 +350,14 @@ As shown in this example:
 
 The [operators][13] and [examples][15] sections demonstrate how to construct API response filter statements for different operators and specific purposes.
 
+#### Values that begin with a number
+
+If you are filtering for a value that begins with a number, place the value in single quotes:
+
+{{< highlight text >}}
+"fieldSelector=entity.name == '1b04994n'"
+{{< /highlight >}}
+
 ### Operators
 
 Sensu's API response filtering supports two equality-based operators, two set-based operators, one substring matching operator, and one logical operator.
