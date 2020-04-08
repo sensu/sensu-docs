@@ -160,4 +160,4 @@ event.entity.annotations.indexOf('www.company.com') >= 0
 
 [1]: https://github.com/robertkrimen/otto
 [2]: ../backend/#event-logging
-[3]: ../reference/filters/#build-event-filter-expressions
+[3]: ../filters/#build-event-filter-expressions
