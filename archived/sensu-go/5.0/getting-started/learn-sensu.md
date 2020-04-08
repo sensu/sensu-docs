@@ -355,7 +355,7 @@ The `influx-db` handler should be listed. If you completed [lesson \#2](#lesson-
 
 **4. Create a check to monitor Nginx**
 
-The `curl_timings-check.json` file provided with the sandbox will create a service check that runs the `metrics-curl.rb` check plugin every 10 seconds on all entities with the `entity:sensu-go-sandbox` subscription and sends events to the InfluxDB pipeline. The `metrics-curl.rb` plugin is already included as the value of the command field in `curl_timings-check.json` &emdash; you just need to create the file:
+The `curl_timings-check.json` file provided with the sandbox will create a service check that runs the `metrics-curl.rb` check plugin every 10 seconds on all entities with the `entity:sensu-go-sandbox` subscription and sends events to the InfluxDB pipeline. The `metrics-curl.rb` plugin is already included as the value of the command field in `curl_timings-check.json` &mdash; you just need to create the file:
 
 {{< highlight shell >}}
 sensuctl create --file curl_timings-check.json

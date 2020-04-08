@@ -159,7 +159,9 @@ Examples of valid cron values include:
 
 - `cron: CRON_TZ=Asia/Tokyo * * * * *`
 - `cron: TZ=Asia/Tokyo * * * * *`
-- `cron: * * * * *`
+- `cron: '* * * * *'`
+
+_**NOTE**: If you're using YAML to create a check that uses cron scheduling and the first character of the cron schedule is an asterisk (`*`), place the entire cron schedule inside single or double quotes (e.g. `cron: '* * * * *'`)._
 
 **Example cron checks**
 
@@ -175,7 +177,7 @@ metadata:
   namespace: default
 spec:
   command: check-cpu.sh -w 75 -c 90
-  cron: * * * * *
+  cron: '* * * * *'
   handlers:
   - slack
   publish: true
@@ -203,7 +205,7 @@ spec:
 
 {{< /language-toggle >}}
 
-Use a prefix of `TZ=` or `CRON_TZ=` if you want to set a [timezone][30] for the `cron` attribute:
+Use a prefix of `TZ=` or `CRON_TZ=` to set a [timezone][30] for the `cron` attribute:
 
 {{< language-toggle >}}
 
@@ -580,7 +582,7 @@ example      | {{< highlight shell >}}"interval": 60{{< /highlight >}}
 
 |cron        |      |
 -------------|------
-description  | When the check should be executed, using [cron syntax][14] or [these predefined schedules][15]. Use a prefix of `TZ=` or `CRON_TZ=` to set a [timezone][30] for the cron attribute.
+description  | When the check should be executed, using [cron syntax][14] or [these predefined schedules][15]. Use a prefix of `TZ=` or `CRON_TZ=` to set a [timezone][30] for the cron attribute. _**NOTE**: If you're using YAML to create a check that uses cron scheduling and the first character of the cron schedule is an asterisk (`*`), place the entire cron schedule inside single or double quotes (e.g. `cron: '* * * * *'`)._
 required     | true (unless `interval` is configured)
 type         | String
 example      | {{< highlight shell >}}"cron": "0 0 * * *"{{< /highlight >}}
@@ -972,6 +974,51 @@ spec:
 {{< /highlight >}}
 
 {{< /language-toggle >}}
+
+### PowerShell script in check commands
+
+If you use a PowerShell script in your check command, make sure to include the `-f` flag in the command.
+The `-f` flag ensures that the proper exit code is passed into Sensu.
+For example:
+
+{{< language-toggle >}}
+
+{{< highlight yml >}}
+type: CheckConfig
+api_version: core/v2
+metadata:
+  name: interval_test
+  namespace: default
+spec:
+  command: powershell.exe -f c:\\users\\tester\\test.ps1
+  subscriptions:
+  - system
+  handlers:
+  - slack
+  interval: 60
+  publish: true
+{{< /highlight >}}
+
+{{< highlight json >}}
+{
+  "type": "CheckConfig",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "interval_test",
+    "namespace": "default"
+  },
+  "spec": {
+    "command": "powershell.exe -f c:\\users\\tester\\test.ps1",
+    "subscriptions": ["system"],
+    "handlers": ["slack"],
+    "interval": 60,
+    "publish": true
+  }
+}
+{{< /highlight >}}
+
+{{< /language-toggle >}}
+
 
 [1]: #subscription-checks
 [2]: https://en.wikipedia.org/wiki/Publish%E2%80%93subscribe_pattern

@@ -20,7 +20,7 @@ menu:
 - [Use event data](#use-event-data)
   - [Occurrences](#occurrences-and-occurrences-watermark)
 - [Events specification](#events-specification)
-	- [Top-level attributes](#top-level-attributes) | [Spec attributes](#spec-attributes) | [Check attributes](#check-attributes) | [Metric attributes](#metric-attributes)
+	- [Top-level attributes](#top-level-attributes) | [Metadata attributes](#metadata-attributes) | [Spec attributes](#spec-attributes) | [Check attributes](#check-attributes) | [Metric attributes](#metric-attributes)
 - [Examples](#examples)
 
 An event is a generic container used by Sensu to provide context to checks and metrics.
@@ -525,7 +525,7 @@ example      | {{< highlight shell >}}"duration": 1.903135228{{< /highlight >}}
 
 executed     |      |
 -------------|------
-description  | Time at which the check request was executed.
+description  | Time at which the check request was executed. In seconds since the Unix epoch.
 required     | false
 type         | Integer
 example      | {{< highlight shell >}}"executed": 1522100915{{< /highlight >}}

@@ -37,7 +37,7 @@ Secrets are configured via [secrets resources][8].
 A secret resource definition refers to the secrets provider (`Env` or `VaultProvider`) and an ID (the named secret to fetch from the secrets provider).
 
 This guide only covers the handler use case, but you can use secrets management in handler, mutator, and check execution.
-For secrets management in checks, the Sensu backend will transmit requests over its secure transport (TLS-encrypted websockets) to your Sensu agent to execute your check, so mTLS must be enabled.
+When a check configuration references a secret, the Sensu backend will only transmit the check's execution requests to agents that are connected via mutually authenticated transport layer security (mTLS)-encrypted websockets. Read more about [enabling mTLS][15].
 
 The secret included in your Sensu handler will be exposed to Sensu services at runtime as an environment variable.
 Sensu only exposes secrets to Sensu services like environment variables and automatically redacts secrets from all logs, the API, and the dashboard.
@@ -197,10 +197,10 @@ First, in your Vault, [enable and configure certificate authentication][32].
 For example, your Vault might be configured for certificate authentication like this:
 
 {{< highlight shell >}}
-vault write auth/cert/certs/sensu-agent \
-    display_name=sensu-agent \
-    policies=sensu-agent-policy \
-    certificate=@sensu-agent-vault.pem \
+vault write auth/cert/certs/sensu-backend \
+    display_name=sensu-backend \
+    policies=sensu-backend-policy \
+    certificate=@sensu-backend-vault.pem \
     ttl=3600
 {{< /highlight >}}
 
@@ -218,9 +218,9 @@ spec:
     version: v2
     tls:
       ca_cert: /path/to/your/ca.pem
-      client_cert: /etc/sensu/ssl/sensu-agent-vault.pem
-      client_key: /etc/sensu/ssl/sensu-agent-vault-key.pem
-      cname: sensu-agent.example.com
+      client_cert: /etc/sensu/ssl/sensu-backend-vault.pem
+      client_key: /etc/sensu/ssl/sensu-backend-vault-key.pem
+      cname: sensu-backend.example.com
     max_retries: 2
     timeout: 20s
     rate_limiter:
@@ -339,6 +339,7 @@ Read the [secrets][9] or [secrets providers][10] reference for in-depth secrets 
 [12]: https://www.vaultproject.io/docs/concepts/lease.html#lease-durations-and-renewal
 [13]: ../../api/secrets#providers-provider-put
 [14]: ../../api/secrets#secrets-secret-put
+[15]: ../securing-sensu/#sensu-agent-mtls-authentication
 [17]: ../../reference/secrets-providers#tls-vault
 [19]: #add-a-handler
 [20]: ../../getting-started/enterprise/
