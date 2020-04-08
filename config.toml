@@ -1,9 +1,9 @@
 baseurl = ""
-relativeurls = true
 languageCode = "en-us"
 title = "Sensu Docs"
 theme = "hugo-material-docs"
 metadataformat = "yaml"
+canonifyURLs = true
 # Enable Google Analytics by entering your tracking id
 googleAnalytics = "UA-39138312-17"
 enableRobotsTXT = true
