@@ -74,7 +74,7 @@ See the [upgrade guide][1] to upgrade Sensu to version 5.19.0.
 - Keepalives now generate a new event UUID for each keepalive failure event.
 - Agents now correctly reset keepalive switches on reconnect, which fixes a bug that allowed older keepalive timeout settings to persist.
 - Token substitution templates can now express escape-quoted strings.
-- The REST API now uses a timeout of 3 seconds by default when querying etcd health.
+- The REST API now uses a default timeout of 3 seconds when querying etcd health.
 - Pipe handlers now must include a [command][131].
 - The response for `sensu-backend start --help` and `sensu-agent start --help` now includes the configuration file default path.
 - The system's `libc_type` attribute is now populated on Alpine containers.
