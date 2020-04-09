@@ -162,6 +162,13 @@ disableKinds = ["taxonomy", "taxonomyTerm"]
     latest = "3.7"
 
     [[params.products.sensu_enterprise.versions]]
+    version = "3.8"
+    platforms = [
+      "Ubuntu/Debian",
+      "RHEL/CentOS"
+    ]
+
+    [[params.products.sensu_enterprise.versions]]
     version = "3.7"
     platforms = [
       "Ubuntu/Debian",
