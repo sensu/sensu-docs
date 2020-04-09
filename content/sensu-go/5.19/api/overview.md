@@ -358,13 +358,18 @@ Place the entire filter statement inside single quotes:
 'fieldSelector=linux in check.subscriptions'
 {{< /highlight >}}
 
-**Exception**: If the filter statement contains a shell variable, you must use double quotation marks around the statement:
+**Exception**: If the filter statement contains a *shell* variable, you must use double quotation marks around the statement:
 
 {{< highlight text >}}
 "labelSelector=host == $HOSTNAME"
 {{< /highlight >}}
 
 If you use single quotes around a filter statement that contains a shell variable, the single quotes will keep the variable intact instead of expanding it.
+
+{{% notice note %}}
+**NOTE**: This exception only applies to shell variables.
+It does not apply for variables in languages that treat single and double quotation marks interchangeably, like JavaScript.
+{{% /notice %}}
 
 ### Values that begin with a number or include special characters
 
