@@ -11,9 +11,29 @@
   </div>
   {{ partial "footer_js" . }}
   <script>
-    var searchTerms = window.location.pathname.match(/[a-zA-Z0-9.]+/g).join(" ");
+    var facetFilters = docsearchOptions.algoliaOptions.facetFilters;
+    var searchTerms = window.location.pathname.split("/");
+    searchTerms.shift();
+
+    // Scope the search results to a product/version (dirty)
+    if (searchTerms[1]) {
+      var versions = facetFilters[1].map(version => version.replace("version:", ""));
+      if (versions.includes(searchTerms[1])) {
+        docsearchOptions.algoliaOptions.facetFilters[1] = [`version:${searchTerms[1]}`];
+        searchTerms.splice(1, 1);
+      };
+    }
+    if (searchTerms[0]) {
+      var tags = facetFilters[0].map(tag => tag.replace("tags:", ""));
+      if (tags.includes(searchTerms[0])) {
+        docsearchOptions.algoliaOptions.facetFilters[0] = [`tags:${searchTerms[0]}`];
+        searchTerms.shift();
+      };
+    }
+
+    // Populate the search input and open it
     docsearchOptions.inputSelector = "#search";
-    document.querySelector(docsearchOptions.inputSelector).value = searchTerms;
+    document.querySelector(docsearchOptions.inputSelector).value = searchTerms.join(" ").match(/[a-zA-Z0-9.]+/g).join(" ");
     var search = docsearch(docsearchOptions);
     search.autocomplete.autocomplete.open();
   </script>
