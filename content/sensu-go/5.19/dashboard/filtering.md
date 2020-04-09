@@ -96,12 +96,20 @@ And this filter will work the same way:
 fieldSelector: linux in event.entity.subscriptions
 {{< /highlight >}}
 
-### Values that begin with a number
+### Values that begin with a number or include special characters
 
-If you are filtering for a value that begins with a number, place the value in single quotes:
+If you are filtering for a value that begins with a number, place the value in single or double quotes:
 
 {{< highlight text >}}
 fieldSelector:entity.name == '1b04994n'
+fieldSelector:entity.name == "1b04994n"
+{{< /highlight >}}
+
+Likewise, to use a label or field selector with string values that include special characters like hyphens and underscores, place the value in single or double quotes:
+
+{{< highlight text >}}
+labelSelector:region == 'us-west-1'
+labelSelector:region == "us-west-1"
 {{< /highlight >}}
 
 ## Operators quick reference
@@ -155,14 +163,6 @@ On the **Checks page**, to display only checks that use the `slack` handler:
 fieldSelector:slack in check.handlers
 {{< /highlight >}}
 
-#### Values with special characters
-
-To use a label or field selector with string values that include special characters like hyphens and underscores, place the value in single or double quotes:
-
-{{< highlight text >}}
-labelSelector:region == "us-west-1"
-{{< /highlight >}}
-
 ### Use the logical AND operator
 
 To use the logical AND operator (`&&`) to return checks that include a `linux` subscription and the `slack` handler:
@@ -178,11 +178,13 @@ To combine `labelSelector` and `fieldSelector` filters, create the filters separ
 For example, to return resources with the `region` label set to `us-west-1` that also use the `slack` handler:
 
 1. Create the `labelSelector` filter in the filter bar and press **Return/Enter**.
+     {{< highlight text >}}
+labelSelector:region == "us-west-1"
+{{< /highlight >}}
+
 2. Add the `fieldSelector` filter in the filter bar after the `labelSelector` filter and press **Return/Enter** again.
 
-{{< highlight text >}}
-labelSelector:region == "us-west-1"
-
+     {{< highlight text >}}
 fieldSelector:slack in check.handlers
 {{< /highlight >}}
 
