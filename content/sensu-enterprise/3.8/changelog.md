@@ -11,6 +11,7 @@ _NOTE: Sensu Enterprise is built on Sensu Core. Sensu Core changes are documente
 
 ## Releases
 
+- [Enterprise 3.8.0 Release Notes](#enterprise-v3-8-0)
 - [Enterprise 3.7.0 Release Notes](#enterprise-v3-7-0)
 - [Enterprise 3.6.2 Release Notes](#enterprise-v3-6-2)
 - [Enterprise 3.6.1 Release Notes](#enterprise-v3-6-1)
@@ -59,6 +60,18 @@ _NOTE: Sensu Enterprise is built on Sensu Core. Sensu Core changes are documente
 - [Enterprise 1.14.1 Release Notes](#enterprise-v1-14-1)
 - [Enterprise 1.14.0 Release Notes](#enterprise-v1-14-0)
 - [Enterprise 1.13.0 Release Notes](#enterprise-v1-13-0)
+
+## Enterprise 3.8.0 Release Notes {#enterprise-v3-8-0}
+
+**April 8, 2020** &mdash; Sensu Enterprise version 3.8.0 has been
+released and is available for immediate download. Please note the
+following improvements:
+
+### CHANGES {#enterprise-v3-8-0-changes}
+
+Built on [Sensu Core 1.9.0][core-v1-9-0]:
+
+- Replaces the `sensu` gem with the `sensu-eol` built from https://github.com/sensu/sensu-eol.
 
 ## Enterprise 3.7.0 Release Notes {#enterprise-v3-7-0}
 
