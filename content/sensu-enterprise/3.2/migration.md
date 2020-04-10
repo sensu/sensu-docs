@@ -9,7 +9,7 @@ product: "Sensu Enterprise"
 ---
 
 This guide provides information for migrating your Sensu instance from Sensu Enterprise to Sensu Go.
-Read the [blog post][49] to learn more about end-of-life for Sensu Enterprise.
+Read the [blog post][49] and the [Discourse post][102] to learn more about end-of-life for Sensu Enterprise.
 
 - [Learn about Sensu Go](#learn-about-sensu-go)
 - [Install Sensu Go](#install-sensu-go)
