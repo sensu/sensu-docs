@@ -438,3 +438,4 @@ You may also want to re-install the `sensu-install` tool using the [`sensu-plugi
 [72]: /sensu-go/latest/reference/assets/#sharing-an-asset-on-bonsai
 [100]: /sensu-go/latest/guides/contact-routing
 [101]: /sensu-go/latest/dashboard/filtering
+[102]: https://discourse.sensu.io/t/updates-to-the-sensu-core-and-enterprise-eol-schedule-in-response-to-covid-19/1686
