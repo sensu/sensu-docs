@@ -11,7 +11,7 @@ layout: "single"
 [Learn about Sensu Go](/sensu-go/latest/)
 
 _IMPORTANT: [Sensu Enterprise reached end-of-life (EOL) on March 31, 2020](https://blog.sensu.io/eol-schedule-for-sensu-core-and-enterprise), more than 8 years after Sensu Core's inception as an open source software project.
-Learn more about [Core and Enterprise EOL](https://blog.sensu.io/announcing-the-sensu-archives)._
+Learn more about [Core and Enterprise EOL](https://blog.sensu.io/announcing-the-sensu-archives) and [EOL schedule updates](https://discourse.sensu.io/t/updates-to-the-sensu-core-and-enterprise-eol-schedule-in-response-to-covid-19/1686)._
 
 Sensu Enterprise is the reliable, scalable monitoring event pipeline built to reduce operator burden and make developers and business owners happy.
 Built on [Sensu Core][3], Sensu Enterprise includes built-in integrations and features designed to solve your organization's unique monitoring challenges.
