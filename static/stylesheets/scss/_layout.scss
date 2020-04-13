@@ -74,19 +74,3 @@ main {
     }
   }
 }
-
-#page-404 {
-  margin: 0 auto;
-  max-width: 600px;
-  padding: 3rem 2rem;
-  text-align: center;
-
-  h2 {
-    margin: 0;
-  }
-
-  .algolia-autocomplete-right .ds-dropdown-menu {
-    margin: 6px 0;
-    right: 0 !important;
-  }
-}
