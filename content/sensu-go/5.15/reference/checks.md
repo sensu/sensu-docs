@@ -19,11 +19,11 @@ menu:
 - [Check token substitution](#check-token-substitution)
 - [Check hooks](#check-hooks)
 - [Check specification](#check-specification)
-  - [Top-level attributes](#top-level-attributes)
-  - [Spec attributes](#spec-attributes)
-  - [Metadata attributes](#metadata-attributes)
-  - [Proxy requests attributes](#proxy-requests-attributes)
-  - [Check output truncation attributes](#check-output-truncation-attributes)
+	- [Top-level attributes](#top-level-attributes)
+	- [Spec attributes](#spec-attributes)
+	- [Metadata attributes](#metadata-attributes)
+	- [Proxy requests attributes](#proxy-requests-attributes)
+	- [Check output truncation attributes](#check-output-truncation-attributes)
 - [Examples](#examples)
 
 Checks work with Sensu agents to produce monitoring events automatically.
