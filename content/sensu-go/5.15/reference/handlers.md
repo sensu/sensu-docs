@@ -11,15 +11,15 @@ menu:
 ---
 
 - [How do Sensu handlers work?](#how-do-sensu-handlers-work)
-	- [Pipe handlers](#pipe-handlers)
-	- [TCP/UDP handlers](#tcp-udp-handlers)
-	- [Handler sets](#handler-sets)
+  - [Pipe handlers](#pipe-handlers)
+  - [TCP/UDP handlers](#tcp-udp-handlers)
+  - [Handler sets](#handler-sets)
 - [Handling keepalive events](#handling-keepalive-events)
 - [Specification](#handler-specification)
-	- [Top-level attributes](#top-level-attributes)
-	- [Spec attributes](#spec-attributes)
-	- [Metadata attributes](#metadata-attributes)
-	- [`socket` attributes](#socket-attributes)
+  - [Top-level attributes](#top-level-attributes)
+  - [Spec attributes](#spec-attributes)
+  - [Metadata attributes](#metadata-attributes)
+  - [`socket` attributes](#socket-attributes)
 - [Examples](#handler-examples)
 
 Discover, download, and share Sensu handlers assets using [Bonsai][16], the Sensu asset index.
@@ -539,6 +539,8 @@ spec:
 [1]: ../checks/
 [2]: https://en.wikipedia.org/wiki/Standard_streams
 [3]: ../events/
+[4]: /sensu-core/latest/reference/handlers/#the-default-handler
+[5]: /sensu-core/latest/reference/handlers/#transport-handlers
 [6]: #socket-attributes
 [7]: ../assets
 [8]: #metadata-attributes
