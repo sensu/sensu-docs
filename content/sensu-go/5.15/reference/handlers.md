@@ -11,9 +11,9 @@ menu:
 ---
 
 - [How do Sensu handlers work?](#how-do-sensu-handlers-work)
-  - [Pipe handlers](#pipe-handlers)
-  - [TCP/UDP handlers](#tcp-udp-handlers)
-  - [Handler sets](#handler-sets)
+	- [Pipe handlers](#pipe-handlers)
+	- [TCP/UDP handlers](#tcp-udp-handlers)
+	- [Handler sets](#handler-sets)
 - [Handling keepalive events](#handling-keepalive-events)
 - [Specification](#handler-specification)
   - [Top-level attributes](#top-level-attributes)
