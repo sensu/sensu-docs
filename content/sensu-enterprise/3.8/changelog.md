@@ -69,9 +69,13 @@ following improvements:
 
 ### CHANGES {#enterprise-v3-8-0-changes}
 
-Built on [Sensu Core 1.9.0][core-v1-9-0]:
+Built on Sensu Core 1.10.0:
 
-- Replaces the `sensu` gem with the `sensu-eol` built from https://github.com/sensu/sensu-eol.
+- **NEW**: Updates the gem name from `sensu` to `sensu-eol`, which is built from https://github.com/sensu/sensu-eol.
+
+- **IMPROVEMENT**: When JSON parsing fails in the server and API, logging is added to the JSON output.
+
+- **BUGFIX**: Messages are now trimmed to the `max_message_size` (in bytes) and logged instead of being rejected for exceeding the `max_message_size`.
 
 ## Enterprise 3.7.0 Release Notes {#enterprise-v3-7-0}
 
