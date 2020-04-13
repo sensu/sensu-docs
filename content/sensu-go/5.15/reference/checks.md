@@ -14,7 +14,7 @@ menu:
 - [Check result specification](#check-result-specification)
 - [Check scheduling](#check-scheduling)
 	- [Subscriptions](#subscriptions)
- 	- [Scheduling](#scheduling)
+	- [Scheduling](#scheduling)
 - [Proxy checks](#proxy-requests)
 - [Check token substitution](#check-token-substitution)
 - [Check hooks](#check-hooks)
