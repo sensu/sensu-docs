@@ -43,7 +43,8 @@ http://127.0.0.1:8080/api/enterprise/secrets/v1/providers \
     "type": "VaultProvider",
     "api_version": "secrets/v1",
     "metadata": {
-      "name": "my_vault"
+      "name": "my_vault",
+      "created_by": "admin"
     },
     "spec": {
       "client": {
@@ -85,7 +86,8 @@ output         | {{< highlight shell >}}
     "type": "VaultProvider",
     "api_version": "secrets/v1",
     "metadata": {
-      "name": "my_vault"
+      "name": "my_vault",
+      "created_by": "admin"
     },
     "spec": {
       "client": {
@@ -125,7 +127,8 @@ http://127.0.0.1:8080/api/enterprise/secrets/v1/providers/my_vault \
   "type": "VaultProvider",
   "api_version": "secrets/v1",
   "metadata": {
-    "name": "my_vault"
+    "name": "my_vault",
+    "created_by": "admin"
   },
   "spec": {
     "client": {
@@ -159,7 +162,8 @@ output               | {{< highlight json >}}
   "type": "VaultProvider",
   "api_version": "secrets/v1",
   "metadata": {
-    "name": "my_vault"
+    "name": "my_vault",
+    "created_by": "admin"
   },
   "spec": {
     "client": {
@@ -299,7 +303,8 @@ HTTP/1.1 200 OK
     "api_version": "secrets/v1",
     "metadata": {
       "name": "sensu-ansible-token",
-      "namespace": "default"
+      "namespace": "default",
+      "created_by": "admin"
     },
     "spec": {
       "id": "secret/ansible#token",
@@ -325,7 +330,8 @@ output         | {{< highlight shell >}}
     "api_version": "secrets/v1",
     "metadata": {
       "name": "sensu-ansible-token",
-      "namespace": "default"
+      "namespace": "default",
+      "created_by": "admin"
     },
     "spec": {
       "id": "secret/ansible#token",
@@ -356,7 +362,8 @@ HTTP/1.1 200 OK
   "api_version": "secrets/v1",
   "metadata": {
     "name": "sensu-ansible-token",
-    "namespace": "default"
+    "namespace": "default",
+    "created_by": "admin"
   },
   "spec": {
     "id": "secret/ansible#token",
@@ -379,7 +386,8 @@ output               | {{< highlight json >}}
   "api_version": "secrets/v1",
   "metadata": {
     "name": "sensu-ansible-token",
-    "namespace": "default"
+    "namespace": "default",
+    "created_by": "admin"
   },
   "spec": {
     "id": "secret/ansible#token",

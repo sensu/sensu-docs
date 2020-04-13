@@ -26,9 +26,10 @@ With Sensu's secrets management, you can obtain secrets from one or more externa
 {{% /notice %}}
 
 Only Sensu backends have access to request [secrets][9] from a secrets provider.
-Secrets are only transmitted over a TLS websocket connection.
+Secrets are only transmitted over a transport layer security (TLS) websocket connection.
 Unencrypted connections must not transmit privileged information.
-For agent-side resources, enable TLS/mTLS.
+For checks, hooks, and assets, you must [enable mutual TLS (mTLS)][13].
+Sensu will not transmit secrets to agents that do not use mTLS.
 
 The [Sensu Go commercial distribution][1] includes a built-in secrets provider, `Env`, that exposes secrets from [environment variables][4] on your Sensu backend nodes.
 You can also use the secrets provider `VaultProvider` to authenticate via the HashiCorp Vault integration's [token auth method][10] or [TLS certificate auth method][11].
@@ -61,12 +62,13 @@ example      | {{< highlight shell >}}"api_version": "secrets/v1"{{< /highlight 
 
 metadata     |      |
 -------------|------
-description  | Top-level scope that contains the secrets provider `name`. Namespace is not supported in the metadata because secrets providers are cluster-wide resources.
+description  | Top-level scope that contains the secrets provider `name` and `created_by` field. Namespace is not supported in the metadata because secrets providers are cluster-wide resources.
 required     | true
 type         | Map of key-value pairs
 example      | {{< highlight shell >}}
 "metadata": {
-  "name": "vault"
+  "name": "vault",
+  "created_by": "admin"
 }
 {{< /highlight >}}
 
@@ -102,6 +104,13 @@ description  | Provider name used internally by Sensu.
 required     | true
 type         | String
 example      | {{< highlight shell >}}"name": "vault"{{< /highlight >}}
+
+| created_by |      |
+-------------|------
+description  | Username of the Sensu user who created the secrets provider or last updated the secrets provider. Sensu automatically populates the `created_by` field when the secrets provider is created or updated.
+required     | false
+type         | String
+example      | {{< highlight shell >}}"created_by": "admin"{{< /highlight >}}
 
 ### Spec attributes
 
@@ -320,6 +329,7 @@ spec: {}
 [10]: https://www.vaultproject.io/docs/auth/token/
 [11]: https://www.vaultproject.io/api/auth/cert/index.html
 [12]: #client-attributes
+[13]: ../../guides/securing-sensu/#sensu-agent-mtls-authentication
 [14]: https://www.vaultproject.io/api-docs/
 [15]: https://www.vaultproject.io/api/auth/cert/index.html#parameters-7
 [16]: ../../guides/secrets-management/

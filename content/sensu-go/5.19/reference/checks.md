@@ -497,12 +497,13 @@ example      | {{< highlight shell >}}"api_version": "core/v2"{{< /highlight >}}
 
 metadata     | 
 -------------|------
-description  | Top-level collection of metadata about the check, including the `name` and `namespace` as well as custom `labels` and `annotations`. The `metadata` map is always at the top level of the check definition. This means that in `wrapped-json` and `yaml` formats, the `metadata` scope occurs outside the `spec` scope. See [metadata attributes][25] for details.
+description  | Top-level collection of metadata about the check, including `name`, `namespace`, and `created_by` as well as custom `labels` and `annotations`. The `metadata` map is always at the top level of the check definition. This means that in `wrapped-json` and `yaml` formats, the `metadata` scope occurs outside the `spec` scope. See [metadata attributes][25] for details.
 required     | Required for check definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][41].
 type         | Map of key-value pairs
 example      | {{< highlight shell >}}"metadata": {
   "name": "collect-metrics",
   "namespace": "default",
+  "created_by": "admin",
   "labels": {
     "region": "us-west-1"
   },
@@ -541,6 +542,13 @@ required     | false
 type         | String
 default      | `default`
 example      | {{< highlight shell >}}"namespace": "production"{{< /highlight >}}
+
+| created_by |      |
+-------------|------
+description  | Username of the Sensu user who created the check or last updated the check. Sensu automatically populates the `created_by` field when the check is created or updated.
+required     | false
+type         | String
+example      | {{< highlight shell >}}"created_by": "admin"{{< /highlight >}}
 
 | labels     |      |
 -------------|------
@@ -996,6 +1004,51 @@ spec:
 {{< /highlight >}}
 
 {{< /language-toggle >}}
+
+### PowerShell script in check commands
+
+If you use a PowerShell script in your check command, make sure to include the `-f` flag in the command.
+The `-f` flag ensures that the proper exit code is passed into Sensu.
+For example:
+
+{{< language-toggle >}}
+
+{{< highlight yml >}}
+type: CheckConfig
+api_version: core/v2
+metadata:
+  name: interval_test
+  namespace: default
+spec:
+  command: powershell.exe -f c:\\users\\tester\\test.ps1
+  subscriptions:
+  - system
+  handlers:
+  - slack
+  interval: 60
+  publish: true
+{{< /highlight >}}
+
+{{< highlight json >}}
+{
+  "type": "CheckConfig",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "interval_test",
+    "namespace": "default"
+  },
+  "spec": {
+    "command": "powershell.exe -f c:\\users\\tester\\test.ps1",
+    "subscriptions": ["system"],
+    "handlers": ["slack"],
+    "interval": 60,
+    "publish": true
+  }
+}
+{{< /highlight >}}
+
+{{< /language-toggle >}}
+
 
 [1]: #subscription-checks
 [2]: https://en.wikipedia.org/wiki/Publish%E2%80%93subscribe_pattern

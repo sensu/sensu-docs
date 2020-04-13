@@ -59,7 +59,7 @@ Read the [upgrade guide][1] for information about upgrading to the latest versio
 
 **March 10, 2020** &mdash; The latest release of Sensu Go, version 5.18.1, is now available for download.
 This release fixes bugs that caused SQL migration failure on PostgreSQL 12, nil pointer panic due to OICD login, and sensu-backend restart upon agent disconnection.
-It also includes a reliability improvement &emdash; a change to use the gRPC client rather than the embedded etcd client.
+It also includes a reliability improvement &mdash; a change to use the gRPC client rather than the embedded etcd client.
 
 See the [upgrade guide][1] to upgrade Sensu to version 5.18.1.
 

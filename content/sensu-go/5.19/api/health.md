@@ -38,19 +38,27 @@ HTTP/1.1 200 OK
     "cluster_id": 4255616344056076734,
     "member_id": 2882886652148554927,
     "raft_term": 26
-  }
+  },
+  "PostgresHealth": [
+    {
+      "Name": "my-postgres",
+      "Active": false,
+      "Healthy": false
+    }
+  ]
 }
 {{< /highlight >}}
 
 #### API Specification {#health-get-specification}
 
-/health (GET)  | 
----------------|------
-description    | Returns health information about the Sensu instance.
-example url    | http://hostname:8080/health
-response type  | Map
-response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-output         | {{< highlight shell >}}
+/health (GET)    | 
+-----------------|------
+description      | Returns health information about the Sensu instance.
+example url      | http://hostname:8080/health
+query parameters | `timeout`: Defines the timeout when querying etcd. Default is `0`.
+response type    | Map
+response codes   | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+output           | {{< highlight shell >}}
 {
   "Alarms": null,
   "ClusterHealth": [
@@ -66,6 +74,13 @@ output         | {{< highlight shell >}}
     "cluster_id": 4255616344056076734,
     "member_id": 2882886652148554927,
     "raft_term": 26
-  }
+  },
+  "PostgresHealth": [
+    {
+      "Name": "my-postgres",
+      "Active": false,
+      "Healthy": false
+    }
+  ]
 }
 {{< /highlight >}}

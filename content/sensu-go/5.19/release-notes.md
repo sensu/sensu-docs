@@ -7,6 +7,8 @@ version: "5.19"
 menu: "sensu-go-5.19"
 ---
 
+- [5.19.1 release notes](#5-19-1-release-notes)
+- [5.19.0 release notes](#5-19-0-release-notes)
 - [5.18.1 release notes](#5-18-1-release-notes)
 - [5.18.0 release notes](#5-18-0-release-notes)
 - [5.17.2 release notes](#5-17-2-release-notes)
@@ -55,11 +57,68 @@ Read the [upgrade guide][1] for information about upgrading to the latest versio
 
 ---
 
+## 5.19.1 release notes
+
+**April 13, 2020** &mdash; The latest release of Sensu Go, version 5.19.1, is now available for download.
+This is a patch release with a number of bug fixes, including several that affect keepalive events, as well as an addition to the help response for `sensu-backend start` and `sensu-agent start`: the default path for the configuration file.
+
+See the [upgrade guide][1] to upgrade Sensu to version 5.19.1.
+
+**FIXES:**
+
+- ([Commercial feature][122]) Fixed a bug that caused the PostgreSQL store to be enabled too late upon startup, which caused keepalive bugs and possibly other undiscovered bugs.
+- Keepalives now fire correctly when using the PostgreSQL event store.
+- Keepalives can now be published via the HTTP API.
+- `sensu-agent` no longer allows configuring keepalive timeouts that are shorter than the keepalive interval.
+- Eventd no longer mistakes keepalive events for checks with TTL.
+- Keepalives now generate a new event UUID for each keepalive failure event.
+- Agents now correctly reset keepalive switches on reconnect, which fixes a bug that allowed older keepalive timeout settings to persist.
+- Token substitution templates can now express escape-quoted strings.
+- The REST API now uses a default timeout of 3 seconds when querying etcd health.
+- Pipe handlers now must include a [command][131].
+- The response for `sensu-backend start --help` and `sensu-agent start --help` now includes the configuration file default path.
+- The system's `libc_type` attribute is now populated on Alpine containers.
+
+## 5.19.0 release notes
+
+**March 30, 2020** &mdash; The latest release of Sensu Go, version 5.19.0, is now available for download.
+This release is packed with new features, improvements, and fixes, including our first alpha feature: declarative configuration pruning to help keep your Sensu instance in sync with Infrastructure as Code workflows.
+Other exciting additions include the ability to save and share your filtered searches in the web UI, plus a new `matches` substring match operator that you can use to refine your filtering results!
+Improvements include a new `created_by` field in resource metadata and a `float_type` field that stores whether your system uses hard float or soft float.
+We've also added agent and sensuctl builds for MIPS architectures, moved Bonsai logs to the `debug` level, and added PostgreSQL health information to the health API payload.
+
+See the [upgrade guide][1] to upgrade Sensu to version 5.19.0.
+
+**NEW FEATURES:**
+
+- ([Commercial feature][122]) In the [web UI][124], you can now [save, recall, and delete filtered searches][123].
+- ([Commercial feature][122]) Added the `matches` substring matching operator for [API response][126], [sensuctl][127], and [dashboard][128] filtering selectors.
+- ([Commercial feature][122]) Added agent and sensuctl builds for Linux architectures: `mips`, `mipsle`, `mips64`, and `mips64le` (hard float and soft float).
+- ([Commercial feature][122]) Sensu now automatically applies the `sensu.io/managed_by` label to resources created via `sensuctl create` for use in the [`sensuctl prune` alpha feature][129].
+
+**IMPROVEMENTS:**
+
+- ([Commercial feature][122]) The [health endpoint][125] now includes PostgreSQL health information.
+- Resource metadata now includes the `created_by` field, which Sensu automatically populates with the name of the user who created or last updated each resource.
+- The agent now discovers entity libc type, VM system, VM role, and cloud provider.
+- System type now includes the `float_type` field, which stores the float type the system is using (hard float or soft float).
+- The Bonsai client now logs at the `debug` level rather than the `info` level.
+- The store can now create wrapped resources.
+- [Tessen][130] now collects the type of store used for events (`etcd` or `postgres`) and logs numbers of authentication providers, secrets, and secrets providers. Tessen data helps us understand how we can improve Sensu, and all Tessen transmissions are logged locally for complete transparency.
+
+**FIXES:**
+
+- Fixed a bug where `event.Check.State` was not set for events passing through the pipeline or written to the event log.
+- Fixed a bug that allowed the agent to connect to a backend using a nonexistent namespace.
+- Fixed a bug that allowed `subscriptions` to be empty strings.
+- Corrected the HTTP status codes for unauthenticated and permission denied errors in the REST API.
+- Fixed a bug where check history was incorrectly formed when using the PostgreSQL event store.
+
 ## 5.18.1 release notes
 
 **March 10, 2020** &mdash; The latest release of Sensu Go, version 5.18.1, is now available for download.
 This release fixes bugs that caused SQL migration failure on PostgreSQL 12, nil pointer panic due to OICD login, and sensu-backend restart upon agent disconnection.
-It also includes a reliability improvement &emdash; a change to use the gRPC client rather than the embedded etcd client.
+It also includes a reliability improvement &mdash; a change to use the gRPC client rather than the embedded etcd client.
 
 See the [upgrade guide][1] to upgrade Sensu to version 5.18.1.
 
@@ -1111,3 +1170,16 @@ To get started with Sensu Go:
 [119]: /sensu-go/5.18/api/overview/#response-filtering
 [120]: /sensu-go/5.18/api/auth/#the-authtest-api-endpoint
 [121]: /sensu-go/5.18/getting-started/enterprise/
+[122]: /sensu-go/5.19/getting-started/enterprise/
+[123]: /sensu-go/5.19/dashboard/filtering/#save-a-filtered-search
+[124]: /sensu-go/5.19/dashboard/overview/
+[125]: /sensu-go/5.19/api/health/
+[126]: /sensu-go/5.19/api/overview/#response-filtering
+[127]: /sensu-go/5.19/sensuctl/reference/#response-filtering
+[128]: /sensu-go/5.19/dashboard/filtering
+[126]: /sensu-go/5.19/api/overview/#response-filtering
+[127]: /sensu-go/5.19/sensuctl/reference/#response-filtering
+[128]: /sensu-go/5.19/dashboard/filtering
+[129]: /sensu-go/5.19/sensuctl/reference/#sensuctl-prune
+[130]: /sensu-go/5.19/reference/tessen/
+[131]: /sensu-go/5.19/reference/handlers/#pipe-handler-command

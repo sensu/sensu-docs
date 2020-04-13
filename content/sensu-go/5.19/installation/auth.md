@@ -1106,11 +1106,7 @@ The troubleshooting steps in the [LDAP troubleshooting][49] section also apply f
 
 Sensu offers [commercial support][6] for the OIDC provider for using the OpenID Connect 1.0 protocol (OIDC) on top of the OAuth 2.0 protocol for RBAC authentication.
 
-The Sensu OIDC provider is tested with [Okta][51] and [PingFederate][52]. 
-
-{{% notice note %}}
-**NOTE**: OIDC authentication is supported only via `sensuctl`.
-{{% /notice %}}
+The Sensu OIDC provider is tested with [Okta][51] and [PingFederate][52].
 
 ### OIDC configuration examples
 
@@ -1150,7 +1146,7 @@ spec:
       ],
       "client_id": "a8e43af034e7f2608780",
       "client_secret": "b63968394be6ed2edb61c93847ee792f31bf6216",
-      " redirect_uri": "http://sensu-backend.example.com:8080/api/enterprise/authentication/v2/oidc/callback",
+      "redirect_uri": "http://sensu-backend.example.com:8080/api/enterprise/authentication/v2/oidc/callback",
       "server": "https://oidc.example.com:9031",
       "groups_claim": "groups",
       "groups_prefix": "oidc:",

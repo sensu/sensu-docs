@@ -899,6 +899,51 @@ spec:
 
 {{< /language-toggle >}}
 
+### PowerShell script in check commands
+
+If you use a PowerShell script in your check command, make sure to include the `-f` flag in the command.
+The `-f` flag ensures that the proper exit code is passed into Sensu.
+For example:
+
+{{< language-toggle >}}
+
+{{< highlight yml >}}
+type: CheckConfig
+api_version: core/v2
+metadata:
+  name: interval_test
+  namespace: default
+spec:
+  command: powershell.exe -f c:\\users\\tester\\test.ps1
+  subscriptions:
+  - system
+  handlers:
+  - slack
+  interval: 60
+  publish: true
+{{< /highlight >}}
+
+{{< highlight json >}}
+{
+  "type": "CheckConfig",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "interval_test",
+    "namespace": "default"
+  },
+  "spec": {
+    "command": "powershell.exe -f c:\\users\\tester\\test.ps1",
+    "subscriptions": ["system"],
+    "handlers": ["slack"],
+    "interval": 60,
+    "publish": true
+  }
+}
+{{< /highlight >}}
+
+{{< /language-toggle >}}
+
+
 [1]: #subscription-checks
 [2]: https://en.wikipedia.org/wiki/Publish%E2%80%93subscribe_pattern
 [3]: https://en.wikipedia.org/wiki/Standard_streams

@@ -12,6 +12,7 @@ menu:
 
 - [Learn Sensu in 15 minutes](#learn-sensu-in-15-minutes)
 - [Up and running with Sensu Go](#up-and-running-with-sensu-go)
+- [Send Sensu Go alerts to PagerDuty](#send-sensu-go-alerts-to-pagerduty)
 
 Sensu is the industry-leading telemetry and service health-checking solution for multi-cloud monitoring at scale.
 
@@ -37,5 +38,18 @@ When you complete this tutorial, your system will have both the Sensu backend an
 
 [Launch **Up and running with Sensu Go**][2].
 
+## Send Sensu Go alerts to PagerDuty
+
+When you complete this interactive tutorial, your Sensu Go backend will be configured with a handler that will send critical alerts to your PagerDuty account.
+In this scenario, you will:
+
+- Add a Sensu Nagios Foundation asset.
+- Add the PagerDuty asset and create a handler that uses your PagerDuty API key.
+- Send an alert for a Sensu Go event to PagerDuty.
+
+[Launch **Send Sensu Go alerts to PagerDuty**][3].
+
+
 [1]: ../learn-in-15/
 [2]: ../up-and-running/
+[3]: ../sensu-pagerduty
