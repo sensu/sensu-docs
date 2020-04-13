@@ -98,9 +98,10 @@ For details about intialization in Docker, see the [backend reference][38]._
 # you want to use for your admin user credentials.
 docker run -v /var/lib/sensu:/var/lib/sensu \
 -d --name sensu-backend \
--p 3000:3000 -p 8080:8080 -p 8081:8081 sensu/sensu:latest \
+-p 3000:3000 -p 8080:8080 -p 8081:8081 \
 -e SENSU_BACKEND_CLUSTER_ADMIN_USERNAME=YOUR_USERNAME \
 -e SENSU_BACKEND_CLUSTER_ADMIN_PASSWORD=YOUR_PASSWORD \
+sensu/sensu:latest \
 sensu-backend start --state-dir /var/lib/sensu/sensu-backend --log-level debug
 {{< /highlight >}}
 
@@ -111,7 +112,6 @@ sensu-backend start --state-dir /var/lib/sensu/sensu-backend --log-level debug
 version: "3"
 services:
   sensu-backend:
-    image: sensu/sensu:latest
     ports:
     - 3000:3000
     - 8080:8080
@@ -122,6 +122,7 @@ services:
     environment:
     - SENSU_BACKEND_CLUSTER_ADMIN_USERNAME=YOUR_USERNAME
     - SENSU_BACKEND_CLUSTER_ADMIN_PASSWORD=YOUR_PASSWORD
+    image: sensu/sensu:latest
 
 volumes:
   sensu-backend-data:
