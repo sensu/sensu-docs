@@ -16,10 +16,10 @@ menu:
 	- [Handler sets](#handler-sets)
 - [Handling keepalive events](#handling-keepalive-events)
 - [Specification](#handler-specification)
-  - [Top-level attributes](#top-level-attributes)
-  - [Spec attributes](#spec-attributes)
-  - [Metadata attributes](#metadata-attributes)
-  - [`socket` attributes](#socket-attributes)
+	- [Top-level attributes](#top-level-attributes)
+	- [Spec attributes](#spec-attributes)
+	- [Metadata attributes](#metadata-attributes)
+	- [`socket` attributes](#socket-attributes)
 - [Examples](#handler-examples)
 
 Discover, download, and share Sensu handlers assets using [Bonsai][16], the Sensu asset index.
