@@ -1,5 +1,4 @@
 baseurl = ""
-relativeurls = true
 languageCode = "en-us"
 title = "Sensu Docs"
 theme = "hugo-material-docs"
@@ -51,6 +50,10 @@ disableKinds = ["taxonomy", "taxonomyTerm"]
     notice = "Replaces Sensu Core and Enterprise"
     weight = 1
     latest = "5.19"
+
+    [[params.products.sensu_go.versions]]
+    version = "5.20"
+    platforms = []
 
     [[params.products.sensu_go.versions]]
     version = "5.19"
@@ -159,7 +162,7 @@ disableKinds = ["taxonomy", "taxonomyTerm"]
     description = "The powerful and simple monitoring product, built on Sensu Core"
     notice = "End of life: March 31, 2020"
     weight = 3
-    latest = "3.7"
+    latest = "3.8"
 
     [[params.products.sensu_enterprise.versions]]
     version = "3.8"

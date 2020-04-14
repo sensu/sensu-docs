@@ -299,7 +299,7 @@ echo '{"name": "check-mysql-status", "status": 1, "output": "error!"}' | nc -u -
 
 ### Socket event format
 
-The agent TCP and UDP sockets use a special event data format designed for backward compatibility with [Sensu Core 1.x check results][42].
+The agent TCP and UDP sockets use a special event data format designed for backward compatibility with Sensu Core 1.x check results.
 Attributes specified in socket events appear in the resulting event data passed to the Sensu backend.
 
 **Example socket input: Minimum required attributes**
@@ -1435,7 +1435,6 @@ For example, if you configure a `SENSU_TEST_VAR` variable in your sensu-agent fi
 [39]: ../rbac/
 [40]: ../../guides/send-slack-alerts/
 [41]: ../rbac/#namespaced-resource-types
-[42]: /sensu-core/latest/reference/checks/#check-result-specification
 [44]: ../checks#ttl-attribute
 [45]: https://en.m.wikipedia.org/wiki/WebSocket
 [46]: ../../guides/securing-sensu/
