@@ -71,7 +71,6 @@ following improvements:
 
 Built on Sensu Core 1.10.0 (internal release):
 
-- **NEW**: Updates the gem name from `sensu` to `sensu-eol`, which is built from https://github.com/sensu/sensu-eol.
 
 - **IMPROVEMENT**: When JSON parsing fails in the server and API, logging is added to the JSON output.
 
