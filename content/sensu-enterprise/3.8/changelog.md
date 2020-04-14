@@ -69,7 +69,7 @@ following improvements:
 
 ### CHANGES {#enterprise-v3-8-0-changes}
 
-Built on Sensu Core 1.10.0:
+Built on Sensu Core 1.10.0 (internal release):
 
 - **NEW**: Updates the gem name from `sensu` to `sensu-eol`, which is built from https://github.com/sensu/sensu-eol.
 
