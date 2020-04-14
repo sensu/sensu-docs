@@ -62,7 +62,7 @@ Read the [upgrade guide][1] for information about upgrading to the latest versio
 **April 13, 2020** &mdash; The latest release of Sensu Go, version 5.19.1, is now available for download.
 This is a patch release with a number of bug fixes, including several that affect keepalive events, as well as an addition to the help response for `sensu-backend start` and `sensu-agent start`: the default path for the configuration file.
 
-See the [upgrade guide][1] to upgrade Sensu to version 5.19.0.
+See the [upgrade guide][1] to upgrade Sensu to version 5.19.1.
 
 **FIXES:**
 
