@@ -71,7 +71,6 @@ following improvements:
 
 Built on Sensu Core 1.10.0 (internal release):
 
-
 - **IMPROVEMENT**: When JSON parsing fails in the server and API, logging is added to the JSON output.
 
 - **BUGFIX**: Messages are now trimmed to the `max_message_size` (in bytes) and logged instead of being rejected for exceeding the `max_message_size`.
