@@ -7,6 +7,7 @@ version: "5.19"
 menu: "sensu-go-5.19"
 ---
 
+- [5.19.1 release notes](#5-19-1-release-notes)
 - [5.19.0 release notes](#5-19-0-release-notes)
 - [5.18.1 release notes](#5-18-1-release-notes)
 - [5.18.0 release notes](#5-18-0-release-notes)
@@ -55,6 +56,28 @@ PATCH versions include backward-compatible bug fixes.
 Read the [upgrade guide][1] for information about upgrading to the latest version of Sensu Go.
 
 ---
+
+## 5.19.1 release notes
+
+**April 13, 2020** &mdash; The latest release of Sensu Go, version 5.19.1, is now available for download.
+This is a patch release with a number of bug fixes, including several that affect keepalive events, as well as an addition to the help response for `sensu-backend start` and `sensu-agent start`: the default path for the configuration file.
+
+See the [upgrade guide][1] to upgrade Sensu to version 5.19.1.
+
+**FIXES:**
+
+- ([Commercial feature][122]) Fixed a bug that caused the PostgreSQL store to be enabled too late upon startup, which caused keepalive bugs and possibly other undiscovered bugs.
+- Keepalives now fire correctly when using the PostgreSQL event store.
+- Keepalives can now be published via the HTTP API.
+- `sensu-agent` no longer allows configuring keepalive timeouts that are shorter than the keepalive interval.
+- Eventd no longer mistakes keepalive events for checks with TTL.
+- Keepalives now generate a new event UUID for each keepalive failure event.
+- Agents now correctly reset keepalive switches on reconnect, which fixes a bug that allowed older keepalive timeout settings to persist.
+- Token substitution templates can now express escape-quoted strings.
+- The REST API now uses a default timeout of 3 seconds when querying etcd health.
+- Pipe handlers now must include a [command][131].
+- The response for `sensu-backend start --help` and `sensu-agent start --help` now includes the configuration file default path.
+- The system's `libc_type` attribute is now populated on Alpine containers.
 
 ## 5.19.0 release notes
 
@@ -1159,3 +1182,4 @@ To get started with Sensu Go:
 [128]: /sensu-go/5.19/dashboard/filtering
 [129]: /sensu-go/5.19/sensuctl/reference/#sensuctl-prune
 [130]: /sensu-go/5.19/reference/tessen/
+[131]: /sensu-go/5.19/reference/handlers/#pipe-handler-command
