@@ -55,7 +55,7 @@ HTTP/1.1 200 OK
 -----------------|------
 description      | Returns health information about the Sensu instance.
 example url      | http://hostname:8080/health
-query parameters | `timeout`: Defines the timeout when querying etcd. Default is `0`.
+query parameters | `timeout`: Defines the timeout when querying etcd. Default is `3`.
 response type    | Map
 response codes   | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output           | {{< highlight shell >}}
