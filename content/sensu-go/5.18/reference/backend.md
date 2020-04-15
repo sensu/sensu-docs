@@ -1142,6 +1142,7 @@ Here's how.
 {{< highlight "Ubuntu/Debian" >}}
 $ sudo touch /etc/default/sensu-backend
 {{< /highlight >}}
+
 {{< highlight "RHEL/CentOS" >}}
 $ sudo touch /etc/sysconfig/sensu-backend
 {{< /highlight >}}
