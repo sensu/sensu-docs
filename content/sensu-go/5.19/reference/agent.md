@@ -22,7 +22,8 @@ menu:
 - [Service management](#operation)
   - [Start and stop the service](#start-the-service) | [Register and deregister](#registration) | [Cluster](#cluster) | [Synchronize time](#synchronize-time)
 - [Configuration](#configuration)
-  - [API configuration](#api-configuration-flags) | [Ephemeral agent configuration](#ephemeral-agent-configuration-flags) | [Keepalive configuration](#keepalive-configuration-flags) | [Security configuration](#security-configuration-flags) | [Socket configuration](#socket-configuration-flags) | [StatsD configuration](#statsd-configuration-flags) | [Allow list configuration](#allow-list-configuration) and [example configuration file](#example-allow-list-configuration-file) | [Configuration via environment variables](#configuration-via-environment-variables)
+  - [General configuration flags](#general-configuration-flags) | [API configuration](#api-configuration-flags) | [Ephemeral agent configuration](#ephemeral-agent-configuration-flags) | [Keepalive configuration](#keepalive-configuration-flags) | [Security configuration](#security-configuration-flags) | [Socket configuration](#socket-configuration-flags) | [StatsD configuration](#statsd-configuration-flags) | [Allow list configuration](#allow-list-configuration) and [example configuration file](#example-allow-list-configuration-file)
+  - [Configuration via environment variables](#configuration-via-environment-variables)
 - [Example Sensu agent configuration file](../../files/agent.yml) (download)
 
 The Sensu agent is a lightweight client that runs on the infrastructure components you want to monitor.
@@ -1418,11 +1419,15 @@ example               | {{< highlight shell >}}"enable_env": true{{< /highlight 
 
 ### Configuration via environment variables
 
-The `sensu-agent` service configured by our supported packages will read environment variables from `/etc/default/sensu-agent` on Debian/Ubuntu systems and `/etc/sysconfig/sensu-agent` on RHEL systems.
-The installation package does not create these files, so you will need to create them.
+Instead of using configuration flags, you can use environment variables to configure your Sensu agent.
+Each agent configuration flag has an associated environment variable.
+You can also create your own environment variables, as long as you name them correctly and save them in the correct place.
+Here's how.
 
-{{< language-toggle >}}
+1. Create the files from which the `sensu-agent` service configured by our supported packages will read environment variables: `/etc/default/sensu-agent` for Debian/Ubuntu systems or `/etc/sysconfig/sensu-agent` for RHEL/CentOS systems.
 
+     {{< language-toggle >}}
+     
 {{< highlight "Ubuntu/Debian" >}}
 $ sudo touch /etc/default/sensu-agent
 {{< /highlight >}}
@@ -1430,35 +1435,59 @@ $ sudo touch /etc/default/sensu-agent
 {{< highlight "RHEL/CentOS" >}}
 $ sudo touch /etc/sysconfig/sensu-agent
 {{< /highlight >}}
+     
+     {{< /language-toggle >}}
 
-{{< /language-toggle >}}
+2. Make sure the environment variable is named correctly.
+All environment variables controlling Sensu configuration begin with `SENSU_`.
 
-For any configuration flag you wish to specify as an environment variable, you must prepend `SENSU_`, convert dashes (`-`) to underscores (`_`), and capitalize all letters.
-Then, add the resulting environment variable to the appropriate environment file described above.
-You must restart the service for these settings to take effect.
+     To rename a configuration flag you wish to specify as an environment variable, prepend `SENSU_`, convert dashes to underscores, and capitalize all letters.
+     For example, the environment variable for the flag `api-host` is `SENSU_API_HOST`.
 
-In this example, the `api-host` flag is configured as an environment variable and set to `"0.0.0.0"`:
+     For a custom test variable, the environment variable name might be `SENSU_TEST_VAR`.
 
-{{< language-toggle >}}
+3. Add the environment variable to the environment file (`/etc/default/sensu-agent` for Debian/Ubuntu systems or `/etc/sysconfig/sensu-agent` for RHEL/CentOS systems).
+
+     In this example, the `api-host` flag is configured as an environment variable and set to `"0.0.0.0"`:
+     
+     {{< language-toggle >}}
 
 {{< highlight "Ubuntu/Debian" >}}
 $ echo 'SENSU_API_HOST="0.0.0.0' | sudo tee -a /etc/default/sensu-agent
-$ sudo systemctl restart sensu-agent
 {{< /highlight >}}
 
 {{< highlight "RHEL/CentOS" >}}
 $ echo 'SENSU_API_HOST="0.0.0.0' | sudo tee -a /etc/sysconfig/sensu-agent
+{{< /highlight >}}
+
+     {{< /language-toggle >}}
+
+4. Restart the sensu-agent service so these settings can take effect.
+
+     {{< language-toggle >}}
+
+{{< highlight "Ubuntu/Debian" >}}
 $ sudo systemctl restart sensu-agent
 {{< /highlight >}}
 
-{{< /language-toggle >}}
+{{< highlight "RHEL/CentOS" >}}
+$ sudo systemctl restart sensu-agent
+{{< /highlight >}}
 
-## Use environment variables with the Sensu agent
+     {{< /language-toggle >}}
 
-After you [configure][50] your sensu-agent service to read environment variables from `/etc/default/sensu-agent` (Debian/Ubuntu) or `/etc/sysconfig/sensu-agent` (RHEL), any environment variables you provide there will be available to check and hook commands executed by the Sensu agent.
+{{% notice note %}}
+**NOTE**: Sensu includes an environment variable for each agent configuration flag.
+They are listed in the [configuration flag description tables](#general-configuration-flags).
+{{% /notice %}}
+
+#### Use environment variables with the Sensu agent
+
+Any environment variables you create in `/etc/default/sensu-agent` (Debian/Ubuntu) or `/etc/sysconfig/sensu-agent` (RHEL/CentOS) will be available to check and hook commands executed by the Sensu agent.
 This includes your checks and plugins.
 
-For example, if you configure a `SENSU_TEST_VAR` variable in your sensu-agent file, it will be available to use in your check configurations as `$SENSU_TEST_VAR`.
+For example, if you create a `SENSU_TEST_VAR` variable in your sensu-agent file, it will be available to use in your check configurations as `$SENSU_TEST_VAR`.
+
 
 [1]: ../../installation/install-sensu#install-sensu-agents
 [2]: ../backend/
@@ -1485,7 +1514,7 @@ For example, if you configure a `SENSU_TEST_VAR` variable in your sensu-agent fi
 [23]: https://github.com/statsd/statsd#key-concepts
 [24]: #configuration
 [25]: ../../api/overview#response-filtering
-[26]: ../../sensuctl/reference#response-filters
+[26]: ../../sensuctl/reference#response-filtering
 [27]: ../tokens/
 [28]: #subscriptions-flag
 [29]: ../assets/
