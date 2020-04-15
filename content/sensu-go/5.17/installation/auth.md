@@ -1100,8 +1100,6 @@ Sensu offers [commercial support][6] for the OIDC provider for using the OpenID 
 
 The Sensu OIDC provider is tested with [Okta][51] and [PingFederate][52]. 
 
-_**NOTE**: OIDC authentication is supported only via `sensuctl`._
-
 ### OIDC configuration examples
 
 {{< language-toggle >}}

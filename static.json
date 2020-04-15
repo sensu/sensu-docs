@@ -15,7 +15,7 @@
             "url": "/uchiwa/latest/$1",
             "status": 302
         },
-        "~ ^/sensu-enterprise/3.7/?((?<=\/).*)?$": {
+        "~ ^/sensu-enterprise/3.8/?((?<=\/).*)?$": {
             "url": "/sensu-enterprise/latest/$1",
             "status": 302
         },

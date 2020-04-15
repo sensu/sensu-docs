@@ -79,11 +79,6 @@ sudo systemctl restart postgresql
 
 With this configuration complete, you can configure Sensu to store events in your Postgres database.
 
-{{% notice note %}}
-**NOTE**: If your Sensu Go license expires, event storage will automatically revert to etcd.
-See [Revert to the built-in datastore](#revert-to-the-built-in-datastore) below.
-{{% /notice %}}
-
 ## Configure Sensu
 
 If your Sensu backend is already licensed, the configuration for routing events to Postgres is relatively straightforward.
@@ -178,10 +173,6 @@ To verify that the change was effective, look for messages similar to these in t
 
 Similar to enabling Postgres, switching back to the etcd datastore does not migrate current event data from one store to another.
 You may see old events in the web UI or sensuctl output until the etcd datastore catches up with the current state of your monitored infrastructure.
-
-{{% notice note %}}
-**NOTE**: If your Sensu Go license expires, event storage will automatically revert to etcd.
-{{% /notice %}}
 
 [1]: https://github.com/sensu/sensu-perf
 [3]: ../../getting-started/enterprise/

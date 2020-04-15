@@ -35,16 +35,16 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
-    <link rel="shortcut icon" type="image/x-icon" href="{{ with .Site.Params.favicon }}{{ . | absURL }}{{ else }}{{ "/images/favicon.ico" | absURL }}{{ end }}">
-    <link rel="icon" type="image/x-icon" href="{{ with .Site.Params.favicon }}{{ . | absURL }}{{ else }}{{ "/images/favicon.ico" | absURL }}{{ end }}">
+    <link rel="shortcut icon" type="image/x-icon" href="{{ with .Site.Params.favicon }}{{ . | absURL }}{{ else }}/images/favicon.ico{{ end }}">
+    <link rel="icon" type="image/x-icon" href="{{ with .Site.Params.favicon }}{{ . | absURL }}{{ else }}/images/favicon.ico{{ end }}">
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css">
     <link href="https://fonts.googleapis.com/css?family=Work+Sans:300,400,500,600,700&display=swap" rel="stylesheet">
     {{ range .Site.Params.custom_css }}
       <link rel="stylesheet" href="{{ . | absURL }}">
     {{ end }}
-    <link rel="stylesheet" href="{{ "/stylesheets/sensu.css" | absURL }}">
-    <script src="{{ "/javascripts/modernizr.js" | absURL }}"></script>
+    <link rel="stylesheet" href="/stylesheets/sensu.css">
+    <script src="/javascripts/modernizr.js"></script>
     <script
       src="https://code.jquery.com/jquery-3.4.1.min.js"
       integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
@@ -66,10 +66,10 @@
       document.body.insertBefore(span, document.body.firstChild);
 
       var faScript = document.createElement('script');
-      faScript.src = encodeURI('{{ "/js/vendor/fontawesome-all.min.js" | absURL }}')
+      faScript.src = encodeURI('/js/vendor/fontawesome-all.min.js')
 
       var jQueryScript = document.createElement('script');
-      jQueryScript.src = encodeURI('{{ "/js/vendor/jquery-3.4.1.min.js" | absURL }}')
+      jQueryScript.src = encodeURI('/js/vendor/jquery-3.4.1.min.js')
       var head = document.getElementsByTagName('head')[0];
       
       if ((css(span, 'font-family')) !== 'FontAwesome') {
@@ -82,8 +82,8 @@
       document.body.removeChild(span);
     };
   </script>
-  <script src="{{ "/js/js-cookie.js" | absURL }}"></script>
-  <script src="{{ "/js/platformDropdowns.js" | absURL }}"></script>
+  <script src="/js/js-cookie.js"></script>
+  <script src="/js/platformDropdowns.js"></script>
   <!-- Global site tag (gtag.js) - Google Ads: 804504629 -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=AW-804504629"></script>
   <script>
