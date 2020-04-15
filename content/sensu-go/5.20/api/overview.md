@@ -22,6 +22,7 @@ menu:
 - [Response filtering](#response-filtering)
   - [Label selector](#label-selector)
   - [Field selector](#field-selector)
+  - [API-specific syntax](#api-specific-syntax)
   - [Operators](#operators)
   - [Combined selectors](#combined-selectors)
   - [Examples](#examples)
@@ -331,6 +332,59 @@ Here's the list of available fields:
 | Silenced | `silenced.name` `silenced.namespace` `silenced.check` `silenced.creator` `silenced.expire_on_resolve` `silenced.subscription` |
 | User | `user.username` `user.disabled` `user.groups` |
 
+### API-specific syntax
+
+To create an API response filter, you'll write a brief filter statement.
+The [operators][13] and [examples][15] sections demonstrate how to construct API response filter statements for different operators and specific purposes.
+
+The filter statement construction is slightly different for different operators, but there are a few general syntax rules that apply to all filter statements.
+
+#### Spaces in the filter statement
+
+As shown in this example:
+
+{{< highlight text >}}
+'fieldSelector=silenced.expire_on_resolve == true'
+{{< /highlight >}}
+
+- **Do not** use spaces around the `=` between the selector type and the rest of the filter statement.
+- **Do** use spaces around the operator (in this example, the `==`).
+
+#### Quotation marks around the filter statement
+
+Place the entire filter statement inside single quotes:
+
+{{< highlight text >}}
+'fieldSelector=linux in check.subscriptions'
+{{< /highlight >}}
+
+**Exception**: If the filter statement contains a *shell* variable, you must use double quotation marks around the statement:
+
+{{< highlight text >}}
+"labelSelector=host == $HOSTNAME"
+{{< /highlight >}}
+
+If you use single quotes around a filter statement that contains a shell variable, the single quotes will keep the variable intact instead of expanding it.
+
+{{% notice note %}}
+**NOTE**: This exception only applies to shell variables.
+It does not apply for variables in languages that treat single and double quotation marks interchangeably, like JavaScript.
+{{% /notice %}}
+
+### Values that begin with a number or include special characters
+
+If you are filtering for a value that begins with a number, place the value in double quotes:
+
+{{< highlight text >}}
+'fieldSelector=entity.name == "1b04994n"'
+{{< /highlight >}}
+
+Likewise, to use a label or field selector with string values that include special characters like hyphens and underscores, place the value in double quotes:
+
+{{< highlight text >}}
+'labelSelector:region == "us-west-1"'
+{{< /highlight >}}
+
 ### Operators
 
 Sensu's API response filtering supports two equality-based operators, two set-based operators, one substring matching operator, and one logical operator.
@@ -616,5 +670,7 @@ curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN http://127.0.0.1:8080/api/cor
 [10]: ../auth/#the-auth-api-endpoint
 [11]: ../auth/#the-authtoken-api-endpoint
 [12]: ../auth/
+[13]: #operators
 [14]: #authentication-quickstart
+[15]: #examples
 [16]: #limit-query-parameter

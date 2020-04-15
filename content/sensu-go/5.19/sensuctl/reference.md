@@ -788,6 +788,8 @@ Sensuctl response filtering commands will also work with a single equals sign be
 sensuctl event list --field-selector='linux notin event.entity.subscriptions'
 {{< /highlight >}}
 
+The [examples][49] demonstrate how to construct sensuctl filter statements for different selectors and operators.
+
 ### Operators quick reference
 
 Sensuctl response filtering supports two equality-based operators, two set-based operators, one substring matching operator, and one logical operator.
@@ -803,7 +805,9 @@ Sensuctl response filtering supports two equality-based operators, two set-based
 
 For details about operators, see [API response filtering operators][47].
 
-### Filter responses with label selectors
+### Examples
+
+#### Filter responses with label selectors
 
 Use the `--label-selector` flag to filter responses using custom labels.
 
@@ -813,7 +817,7 @@ For example, to return entities with the `proxy_type` label set to `switch`:
 sensuctl entity list --label-selector 'proxy_type == switch'
 {{< /highlight >}}
 
-### Filter responses with field selectors
+#### Filter responses with field selectors
 
 Use the `--field-selector` flag to filter responses using specific [resource attributes][29].
 
@@ -835,7 +839,7 @@ To retrieve all entities whose name includes the substring `webserver`:
 sensuctl entity list --fieldSelector 'entity.name matches "webserver"'
 {{< /highlight >}}
 
-### Use the logical AND operator
+#### Use the logical AND operator
 
 To use the logical AND operator (`&&`) to return checks that include a `linux` subscription in the `dev` namespace:
 
@@ -843,7 +847,7 @@ To use the logical AND operator (`&&`) to return checks that include a `linux` s
 sensuctl check list --field-selector 'linux in check.subscriptions && dev in check.namespace'
 {{< /highlight >}}
 
-### Combine label and field selectors
+#### Combine label and field selectors
 
 You can combine the `--label-selector` and `--field-selector` flags in a single command.
 
@@ -1237,3 +1241,4 @@ Flags are optional and apply only to the `delete` command.
 [46]: #first-time-setup
 [47]: ../../api/overview/#operators
 [48]: #sensuctl-prune-resource-types
+[49]: #examples
