@@ -1461,7 +1461,7 @@ $ sudo systemctl restart sensu-agent
      {{< /language-toggle >}}
 
 {{% notice note %}}
-**NOTE**: Sensu includes an environment variable for each backend configuration flag.
+**NOTE**: Sensu includes an environment variable for each agent configuration flag.
 They are listed in the [configuration flag description tables](#general-configuration-flags).
 {{% /notice %}}
 
