@@ -615,7 +615,7 @@ curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN http://127.0.0.1:8080/api/cor
 To list all silenced events for all namespaces:
 
 {{< highlight shell >}}
-curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN http://127.0.0.1:8080/api/core/v2/events -G \
+curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" http://127.0.0.1:8080/api/core/v2/events -G \
 --data-urlencode 'fieldSelector=event.is_silenced == true'
 {{< /highlight >}}
 
