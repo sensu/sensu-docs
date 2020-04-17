@@ -318,7 +318,7 @@ Here's the list of available fields:
 | ClusterRole | `clusterrole.name` |
 | ClusterRoleBinding | `clusterrolebinding.name` `clusterrolebinding.role_ref.name` `clusterrolebinding.role_ref.type`|
 | Entity | `entity.name` `entity.namespace` `entity.deregister` `entity.entity_class` `entity.subscriptions` |
-| Event | `event.name` `event.namespace` `event.check.handlers` `event.check.name` `event.check.publish` `event.check.round_robin` `event.check.runtime_assets` `event.check.status` `event.check.subscriptions` `event.entity.deregister` `event.entity.entity_class` `event.entity.name` `event.entity.subscriptions` |
+| Event | `event.is_silenced` `event.name` `event.namespace` `event.check.handlers` `event.check.is_silenced` `event.check.name` `event.check.publish` `event.check.round_robin` `event.check.runtime_assets` `event.check.status` `event.check.subscriptions` `event.entity.deregister` `event.entity.entity_class` `event.entity.name` `event.entity.subscriptions` |
 | Extension | `extension.name` `extension.namespace` |
 | Filter | `filter.name` `filter.namespace` `filter.action` `filter.runtime_assets` |
 | Handler | `handler.name` `handler.namespace` `handler.filters` `handler.handlers` `handler.mutator` `handler.type`| 
@@ -611,6 +611,14 @@ Likewise, to list all silenced resources *except* those in the `default` namespa
 curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN http://127.0.0.1:8080/api/core/v2/silenced -G \
 --data-urlencode 'fieldSelector=silenced.namespace != "default"'
 {{< /highlight >}}
+
+To list all silenced events for all namespaces:
+
+{{< highlight shell >}}
+curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" http://127.0.0.1:8080/api/core/v2/events -G \
+--data-urlencode 'fieldSelector=event.is_silenced == true'
+{{< /highlight >}}
+
 
 **Filter silences by creator**
 
