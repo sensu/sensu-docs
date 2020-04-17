@@ -1246,7 +1246,29 @@ Event logging supports log rotation via the _SIGHUP_ signal.
 First, rename (move) the current log file.
 Then, send the _SIGHUP_ signal to the sensu-backend process so it creates a new log file and starts logging to it.
 
-Here are some log rotate sample configurations:
+Here are some log rotate sample configurations.
+
+#### postrotate
+
+In this example, the `postrotate` script will reload the backend after log rotate is complete.
+Without the postrotate script, the backend will not reload.
+This will cause sensu-backend (and sensu-agent, if translated for the Sensu agent) to no longer write to the log file, even if logrotate recreates the log file.
+
+{{< highlight shell >}}
+/var/log/sensu/events.log {
+  rotate 7
+  missingok
+  notifempty
+  compress
+  delaycompress
+  size 30k
+  daily
+  create 0644 sensu sensu
+  postrotate
+    /sbin/service sensu-backend reload > /dev/null 2>/dev/null || true
+  endscript
+}
+{{< /highlight >}}
 
 #### systemd
 {{< highlight shell >}}
