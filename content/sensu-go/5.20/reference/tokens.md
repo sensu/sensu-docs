@@ -11,9 +11,13 @@ menu:
 
 - [Manage entity labels](#manage-entity-labels)
 - [Token specification](#token-specification)
+  - [Token substitution syntax](#token-substitution-syntax)
+  - [Token substitution default values](#token-substitution-default-values)
+  - [Token substitution with quoted strings](#token-substitution-with-quoted-strings)
 - [Unmatched tokens](#unmatched-tokens)
 - [Token data type limitations](#token-data-type-limitations)
 - [Examples](#examples)
+  - [Token substitution for check thresholds](#token-substitution-for-check-thresholds)
 
 Tokens are placeholders in a check definition that the agent replaces with entity information before executing the check.
 You can use tokens to fine-tune check attributes (like alert thresholds) on a per-entity level while reusing the check definition.
@@ -61,6 +65,15 @@ Use token default values to provide a fallback value for entities that are miss
 
 For example, `{{.labels.url | default "https://sensu.io"}}` would be replaced with a custom label called `url`.
 If no such attribute called `url` is included in the entity definition, the default (or fallback) value of `https://sensu.io` will be used to substitute the token.
+
+### Token substitution with quoted strings
+
+You can escape quotes to express quoted strings in token substitution templates as shown in the [Go template package examples][2].
+For example, to provide `"substitution"` as a default value for entities that are missing the `website` attribute (including the quotation marks):
+
+{{< highlight shell >}}
+{{ .labels.website | default "\"substitution\"" }}
+{{< /highlight >}}
 
 ## Unmatched tokens
 
@@ -332,7 +345,9 @@ spec:
 
 {{< /language-toggle >}}
 
-[1]: https://golang.org/pkg/text/template/
+
+[1]: https://pkg.go.dev/text/template
+[2]: https://pkg.go.dev/text/template?tab=doc#hdr-Examples
 [3]: ../entities/#entities-specification
 [4]: ../entities/
 [5]: ../checks/
