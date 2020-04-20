@@ -36,17 +36,16 @@ Use sensuctl to view your license details at any time.
 {{< highlight shell >}}
 # Active license
 sensuctl license info
-=== Training Team - Sensu
+=== You are currently using 10 out of 100 entities
 Account Name: Training Team - Sensu
 Account ID:   123
 Plan:         managed
 Version:      1
 Features:     all
-EntityLimit:  0
 Issuer:       Sensu, Inc.
-Issued:       2019-02-15 15:01:44 -0500 -0500
+Issued:       2020-02-15 15:01:44 -0500 -0500
 Valid:        true
-Valid Until:  2019-03-15 00:00:00 -0800 -0800
+Valid Until:  2021-02-15 00:00:00 -0800 -0800
 
 # No license found
 sensuctl license info
@@ -60,19 +59,56 @@ An entity limit of `0` allows unlimited entities.
 Both agent and proxy entities count toward the overall entity limit.
 [Contact Sensu][8] to upgrade your commercial license.
 
-To see your current entity count, use any `/api/core` or `/api/enterprise` [API request][9]. For example:
+Your current entity count and entity limit are included in the `sensuctl license info` response.
+
+In tabular format, the entity count and limit are included in the response title:
+
+{{< highlight shell >}}
+sensuctl license info --format tabular
+=== You are currently using 10 out of 100 entities
+Account Name: Training Team - Sensu
+Account ID:   123
+Plan:         managed
+Version:      1
+Features:     all
+Issuer:       Sensu, Inc.
+Issued:       2020-02-15 15:01:44 -0500 -0500
+Valid:        true
+Valid Until:  2021-02-15 00:00:00 -0800 -0800
+{{< /highlight >}}
+
+In other formats (e.g. yaml), the entity count and limit are included as labels:
+
+{{< highlight yml >}}
+sensuctl license info --format yaml
+
+type: LicenseFile
+api_version: licensing/v2
+metadata:
+  labels:
+    sensu.io/entity-count: "10"
+    sensu.io/entity-limit: "100"
+spec:
+  license:
+    version: 1
+    issue: Sensu, Inc.
+    accountName: Training Team - Sensu
+[...]
+{{< /highlight >}}
+
+You can also see your current entity count and limit in the response headers for any `/api/core` or `/api/enterprise` [API request][9]. For example:
 
 {{< highlight shell >}}
 curl http://127.0.0.1:8080/api/core/v2/namespaces/default/entities -v -H "Authorization: Bearer $SENSU_ACCESS_TOKEN"
 {{< /highlight >}}
 
-Your current entity count and limit are listed as response headers:
+The response headers will include your current entity count and limit:
 
 {{< highlight shell >}}
 HTTP/1.1 200 OK
 Content-Type: application/json
-Sensu-Entity-Count: 4
-Sensu-Entity-Limit: 0
+Sensu-Entity-Count: 10
+Sensu-Entity-Limit: 100
 {{< /highlight >}}
 
 ## License expiration

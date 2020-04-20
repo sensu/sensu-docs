@@ -36,7 +36,12 @@ HTTP/1.1 200 OK
 {
   "type": "LicenseFile",
   "api_version": "licensing/v2",
-  "metadata": {},
+  "metadata": {
+    "labels": {
+      "sensu.io/entity-count": "10",
+      "sensu.io/entity-limit": "100"
+    }
+  },
   "spec": {
     "license": {
       "version": 1,
@@ -73,7 +78,12 @@ output         | {{< highlight shell >}}
 {
   "type": "LicenseFile",
   "api_version": "licensing/v2",
-  "metadata": {},
+  "metadata": {
+    "labels": {
+      "sensu.io/entity-count": "10",
+      "sensu.io/entity-limit": "100"
+    }
+  },
   "spec": {
     "license": {
       "version": 1,
@@ -114,7 +124,12 @@ curl -X PUT \
 -d '{
   "type": "LicenseFile",
   "api_version": "licensing/v2",
-  "metadata": {},
+  "metadata": {
+    "labels": {
+      "sensu.io/entity-count": "10",
+      "sensu.io/entity-limit": "100"
+    }
+  },
   "spec": {
     "license": {
       "version": 1,
@@ -152,7 +167,12 @@ payload        | {{< highlight shell >}}
 {
   "type": "LicenseFile",
   "api_version": "licensing/v2",
-  "metadata": {},
+  "metadata": {
+    "labels": {
+      "sensu.io/entity-count": "10",
+      "sensu.io/entity-limit": "100"
+    }
+  },
   "spec": {
     "license": {
       "version": 1,
