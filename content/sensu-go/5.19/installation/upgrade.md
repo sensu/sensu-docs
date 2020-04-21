@@ -144,19 +144,22 @@ You can use the built-in [incidents filter][9] to recreate the Sensu Core 1.x be
 Transport handlers are not supported by Sensu Go, but you can create similar functionality with a pipe handler that connects to a message bus and injects event data into a queue.
 
 ### Filters
+Sensu Go includes three new built-in [event filters][9]: only-incidents, only-metrics, and allow-silencing.
+Sensu Go does not include a built-in check dependencies filter or a filter-when feature.
+
 Ruby eval logic from Sensu Core 1.x is replaced with JavaScript expressions in Sensu Go, opening up powerful ways to filter events based on occurrences and other event attributes.
 As a result, **Sensu Go does not include the built-in occurrence-based event filter in Sensu Core 1.x**, which allowed you to control the number of duplicate events that reached the handler.
 You can replicate the occurrence-based filter's functionality with Sensu Go's [repeated events filter definition][10].
 
-Sensu Go includes three new built-in [event filters][9]: only-incidents, only-metrics, and allow-silencing.
-Sensu Go does not include a built-in check dependencies filter or a filter-when feature.
+#### Fatigue check filter asset
 
-#### Fatigue check filter
+In Sensu Go, the [fatigue check filter asset][11] uses annotations to tune the number of occurrences and interval for alerts on a per-check or per-entity basis and control whether resolution events will pass through.
 
-In Sensu Go, the [fatigue check filter asset][11] is a Sensu event filter you can use to manage alert fatigue.
-It allows you to tune the number of occurrences and interval for alerts on a per-check or per-entity basis and control whether resolution events will pass through.
+The [Sensu Translator version 1.1.0][18] retrieves occurrence and refresh values from a Sensu Core 1.x check definition and outputs them as annotation values in a Sensu Go check definition.
+The [fatigue check filter asset][11] uses these [annotations][33] to manage alert fatigue.
 
-[Sensu Translator version 1.1.0][18] retrieves occurrence and refresh values from your Sensu Core 1.x check definitions and outputs them into a Sensu Go check definition, translating them into the annotation values that the fatigue check expects.
+However, the Sensu Translator doesn't automatically add the fatigue check filter asset or the filter configuration you need to run it.
+To use the fatigue check filter asset, you must [register it][15] and create a correctly configured [event filter definition][19].
 
 ### Assets
 The `sensu-install` tool in Sensu Core 1.x is replaced by [assets][12] in Sensu Go.
@@ -202,9 +205,11 @@ See the metadata attributes section in the reference documentation for more info
 [12]: ../../reference/assets/
 [13]: ../../reference/rbac/
 [14]: ../../guides/create-read-only-user/
+[15]: https://github.com/nixwiz/sensu-go-fatigue-check-filter/#asset-registration
 [16]: ../../reference/tokens
 [17]: ../../api/overview//
 [18]: https://github.com/sensu/sensu-translator/
+[19]: https://github.com/nixwiz/sensu-go-fatigue-check-filter/#filter-definition
 [20]: https://packagecloud.io/sensu/community/
 [21]: https://github.com/sensu-plugins/
 [22]: ../plugins/
@@ -218,3 +223,4 @@ See the metadata attributes section in the reference documentation for more info
 [30]: /images/web-ui-entity-warning.png
 [31]: https://sensu.io/contact?subject=contact-sales/
 [32]: https://blog.sensu.io/one-year-of-sensu-go
+[33]: https://github.com/nixwiz/sensu-go-fatigue-check-filter/#configuration-1
