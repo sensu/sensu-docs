@@ -21,6 +21,7 @@ menu:
   - [General configuration](#general-configuration-flags) | [Agent communication configuration](#agent-communication-configuration-flags) | [Security configuration](#security-configuration-flags) | [Dashboard configuration](#dashboard-configuration-flags) | [Datastore and cluster configuration](#datastore-and-cluster-configuration-flags) | [Advanced configuration options](#advanced-configuration-options)
   - [Configuration via environment variables](#configuration-via-environment-variables)
 - [Event logging](#event-logging)
+  - [Log rotation](#log-rotation)
 - [Example Sensu backend configuration file](../../files/backend.yml) (download)
 
 The Sensu backend is a service that manages check requests and event data.
@@ -1243,16 +1244,10 @@ event-log-file: "/var/log/sensu/events.log"{{< /highlight >}}
 ### Log rotation
 
 Event logging supports log rotation via the _SIGHUP_ signal.
-First, rename (move) the current log file.
+To rotate event logs, first rename (move) the current log file.
 Then, send the _SIGHUP_ signal to the sensu-backend process so it creates a new log file and starts logging to it.
 
-Here are some log rotate sample configurations.
-
-#### postrotate
-
 In this example, the `postrotate` script will reload the backend after log rotate is complete.
-Without the postrotate script, the backend will not reload.
-This will cause sensu-backend (and sensu-agent, if translated for the Sensu agent) to no longer write to the log file, even if logrotate recreates the log file.
 
 {{< highlight shell >}}
 /var/log/sensu/events.log {
@@ -1270,7 +1265,11 @@ This will cause sensu-backend (and sensu-agent, if translated for the Sensu agen
 }
 {{< /highlight >}}
 
-#### systemd
+Without the `postrotate` script, the backend will not reload.
+This will cause sensu-backend (and sensu-agent, if translated for the Sensu agent) to no longer write to the log file, even if logrotate recreates the log file.
+
+#### Log rotation for systemd logs
+
 {{< highlight shell >}}
 /var/log/sensu/events.log
 {
@@ -1285,7 +1284,8 @@ This will cause sensu-backend (and sensu-agent, if translated for the Sensu agen
 }
 {{< /highlight >}}
 
-#### sysvinit
+#### Log rotation for sysvinit logs
+
 {{< highlight shell >}}
 /var/log/sensu/events.log
 {
