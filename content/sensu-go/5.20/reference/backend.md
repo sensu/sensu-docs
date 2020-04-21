@@ -277,6 +277,7 @@ General Flags:
       --agent-host string                   agent listener host (default "[::]")
       --agent-port int                      agent listener port (default 8081)
       --agent-write-timeout int             timeout in seconds for agent writes (default 15)
+      --annotations stringToString          entity annotations map (default [])
       --api-listen-address string           address to listen on for API traffic (default "[::]:8080")
       --api-url string                      URL of the API to connect to (default "http://localhost:8080")
       --cache-dir string                    path to store cached data (default "/var/cache/sensu/sensu-backend")
@@ -299,6 +300,7 @@ General Flags:
       --keepalived-buffer-size int          number of incoming keepalives that can be buffered (default 100)
       --keepalived-workers int              number of workers spawned for processing incoming keepalives (default 100)
       --key-file string                     TLS certificate key in PEM format
+      --labels stringToString               entity labels map (default [])
       --log-level string                    logging level [panic, fatal, error, warn, info, debug] (default "warn")
       --pipelined-buffer-size int           number of events to handle that can be buffered (default 100)
       --pipelined-workers int               number of workers spawned for handling events through the event pipeline (default 100)
@@ -337,6 +339,23 @@ discovery instead of the static `--initial-cluster method`
 
 
 ### General configuration flags
+
+| annotations|      |
+-------------|------
+description  | Non-identifying metadata to include with entity data for backend assets (e.g. handler and mutator assets).
+required     | false
+type         | Map of key-value pairs. Keys and values can be any valid UTF-8 string.
+default      | `null`
+environment variable | `SENSU_ANNOTATIONS`
+example      | {{< highlight shell >}}# Command line examples
+sensu-backend start --annotations sensu.io/plugins/slack/config/webhook-url=https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX
+sensu-backend start --annotations example-key="example value" --annotations example-key2="example value"
+
+# /etc/sensu/backend.yml example
+annotations:
+  sensu.io/plugins/slack/config/webhook-url: "https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX"
+{{< /highlight >}}
+
 
 | api-listen-address  |      |
 -------------|------
@@ -415,6 +434,23 @@ sensu-backend start --deregistration-handler /path/to/handler.sh
 
 # /etc/sensu/backend.yml example
 deregistration-handler: "/path/to/handler.sh"{{< /highlight >}}
+
+
+| labels     |      |
+-------------|------
+description  | Custom attributes to include with entity data for backend assets (e.g. handler and mutator assets).
+required     | false
+type         | Map of key-value pairs. Keys can contain only letters, numbers, and underscores and must start with a letter. Values can be any valid UTF-8 string.
+default      | `null`
+environment variable | `SENSU_LABELS`
+example               | {{< highlight shell >}}# Command line examples
+sensu-backend start --labels security_zone=us-west-2a
+sensu-backend start --labels example_key1="example value" example_key2="example value"
+
+# /etc/sensu/backend.yml example
+labels:
+  security_zone: "us-west-2a"
+{{< /highlight >}}
 
 
 | log-level  |      |
