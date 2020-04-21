@@ -342,7 +342,7 @@ discovery instead of the static `--initial-cluster method`
 
 | annotations|      |
 -------------|------
-description  | Non-identifying metadata to include with event data for backend assets (e.g. handler and mutator assets).
+description  | Non-identifying metadata to include with entity data for backend assets (e.g. handler and mutator assets).
 required     | false
 type         | Map of key-value pairs. Keys and values can be any valid UTF-8 string.
 default      | `null`
@@ -438,7 +438,7 @@ deregistration-handler: "/path/to/handler.sh"{{< /highlight >}}
 
 | labels     |      |
 -------------|------
-description  | Custom attributes to include with event data for backend assets (e.g. handler and mutator assets).
+description  | Custom attributes to include with entity data for backend assets (e.g. handler and mutator assets).
 required     | false
 type         | Map of key-value pairs. Keys can contain only letters, numbers, and underscores and must start with a letter. Values can be any valid UTF-8 string.
 default      | `null`
