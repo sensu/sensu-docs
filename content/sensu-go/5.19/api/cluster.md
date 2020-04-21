@@ -57,12 +57,13 @@ HTTP/1.1 200 OK
 #### API Specification {#clustermembers-get-specification}
 
 /cluster/members (GET)  | 
----------------|------
-description    | Returns the etcd cluster definition.
-example url    | http://hostname:8080/api/core/v2/cluster/members
-response type  | Map
-response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-example output | {{< highlight shell >}}
+------------------------|------
+description             | Returns the etcd cluster definition.
+example url             | http://hostname:8080/api/core/v2/cluster/members
+query parameters | `timeout`: Defines the timeout when querying etcd. <ul><li>5.19.0: Default is `0`, which will cause the request to hang. To prevent this, upgrade to [5.19.1][2] or set to `?timeout=3` to match the sensuctl default.</li><li>5.19.1: Default is `3`.</li></ul>
+response type           | Map
+response codes          | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+example output          | {{< highlight shell >}}
 {
   "header": {
     "cluster_id": 4255616304056076734,
@@ -217,14 +218,16 @@ HTTP/1.1 200 OK
 
 #### API Specification {#clusterid-get-specification}
 
-/cluster/id (GET) |  |
----------------|------
-description    | Returns the unique Sensu cluster ID.
-example url    | http://hostname:8080/api/core/v2/cluster/id
-response type  | String
-response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-example output | {{< highlight shell >}}
+/cluster/id (GET) | |
+------------------|------
+description       | Returns the unique Sensu cluster ID.
+example url       | http://hostname:8080/api/core/v2/cluster/id
+query parameters | `timeout`: Defines the timeout when querying etcd. <ul><li>5.19.0: Default is `0`, which will cause the request to hang. To prevent this, upgrade to [5.19.1][2] or set to `?timeout=3` to match the sensuctl default.</li><li>5.19.1: Default is `3`.</li></ul>
+response type     | String
+response codes    | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+example output    | {{< highlight shell >}}
 "23481e76-5844-4d07-b714-6e2ffbbf9315"
 {{< /highlight >}}
 
 [1]: ../../guides/clustering/
+[2]: ../../release-notes/#5-19-1-release-notes

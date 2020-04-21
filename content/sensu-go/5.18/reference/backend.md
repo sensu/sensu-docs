@@ -18,7 +18,9 @@ menu:
 - [Operation and service management](#operation)
   - [Start and stop the service](#start-the-service) | [Cluster](#cluster) | [Synchronize time](#synchronize-time)
 - [Configuration](#configuration)
-  - [General configuration](#general-configuration-flags) | [Agent communication configuration](#agent-communication-configuration-flags) | [Security configuration](#security-configuration-flags) | [Dashboard configuration](#dashboard-configuration-flags) | [Datastore and cluster configuration](#datastore-and-cluster-configuration-flags) | [Advanced configuration options](#advanced-configuration-options) | [Configuration via environment variables](#configuration-via-environment-variables) | [Event logging](#event-logging)
+  - [General configuration](#general-configuration-flags) | [Agent communication configuration](#agent-communication-configuration-flags) | [Security configuration](#security-configuration-flags) | [Dashboard configuration](#dashboard-configuration-flags) | [Datastore and cluster configuration](#datastore-and-cluster-configuration-flags) | [Advanced configuration options](#advanced-configuration-options)
+  - [Configuration via environment variables](#configuration-via-environment-variables)
+- [Event logging](#event-logging)
 - [Example Sensu backend configuration file](../../files/backend.yml) (download)
 
 The Sensu backend is a service that manages check requests and event data.
@@ -60,6 +62,10 @@ Although initialization is required for every new installation, the implementati
 This step bootstraps the first admin user account for your Sensu installation.
 This account will be granted the cluster admin role.
 
+{{% notice important %}}
+**IMPORTANT**: If you plan to [run a Sensu cluster](../../guides/clustering/), make sure that each of your backend nodes is configured, running, and a member of the cluster before you initialize.
+{{% /notice %}}
+
 ### Docker initialization
 
 For Docker installations, set administrator credentials with environment variables when you [configure and start][24] the backend as shown below, replacing `YOUR_USERNAME` and `YOUR_PASSWORD` with the username and password you want to use:
@@ -69,9 +75,10 @@ For Docker installations, set administrator credentials with environment variabl
 {{< highlight Docker >}}
 docker run -v /var/lib/sensu:/var/lib/sensu \
 -d --name sensu-backend \
--p 3000:3000 -p 8080:8080 -p 8081:8081 sensu/sensu:latest \
+-p 3000:3000 -p 8080:8080 -p 8081:8081 \
 -e SENSU_BACKEND_CLUSTER_ADMIN_USERNAME=YOUR_USERNAME \
 -e SENSU_BACKEND_CLUSTER_ADMIN_PASSWORD=YOUR_PASSWORD \
+sensu/sensu:latest \
 sensu-backend start --state-dir /var/lib/sensu/sensu-backend --log-level debug
 {{< /highlight >}}
 
@@ -80,17 +87,17 @@ sensu-backend start --state-dir /var/lib/sensu/sensu-backend --log-level debug
 version: "3"
 services:
   sensu-backend:
-    image: sensu/sensu:latest
     ports:
     - 3000:3000
     - 8080:8080
     - 8081:8081
     volumes:
-    - "sensu-backend-data:/var/lib/sensu/etcd"
+    - "sensu-backend-data:/var/lib/sensu/sensu-backend/etcd"
     command: "sensu-backend start --state-dir /var/lib/sensu/sensu-backend --log-level debug"
     environment:
     - SENSU_BACKEND_CLUSTER_ADMIN_USERNAME=YOUR_USERNAME
     - SENSU_BACKEND_CLUSTER_ADMIN_PASSWORD=YOUR_PASSWORD
+    image: sensu/sensu:latest
 
 volumes:
   sensu-backend-data:
@@ -1124,11 +1131,15 @@ etcd-quota-backend-bytes: 4294967296{{< /highlight >}}
 
 ### Configuration via environment variables
 
-The `sensu-backend` service configured by our supported packages will read environment variables from `/etc/default/sensu-backend` on Debian/Ubuntu systems and `/etc/sysconfig/sensu-backend` on RHEL systems.
-The installation package does not create these files, so you will need to create them.
+Instead of using configuration flags, you can use environment variables to configure your Sensu backend.
+Each backend configuration flag has an associated environment variable.
+You can also create your own environment variables, as long as you name them correctly and save them in the correct place.
+Here's how.
 
-{{< language-toggle >}}
+1. Create the files from which the `sensu-backend` service configured by our supported packages will read environment variables: `/etc/default/sensu-backend` for Debian/Ubuntu systems or `/etc/sysconfig/sensu-backend` for RHEL/CentOS systems.
 
+     {{< language-toggle >}}
+     
 {{< highlight "Ubuntu/Debian" >}}
 $ sudo touch /etc/default/sensu-backend
 {{< /highlight >}}
@@ -1136,16 +1147,22 @@ $ sudo touch /etc/default/sensu-backend
 {{< highlight "RHEL/CentOS" >}}
 $ sudo touch /etc/sysconfig/sensu-backend
 {{< /highlight >}}
+     
+     {{< /language-toggle >}}
 
-{{< /language-toggle >}}
+2. Make sure the environment variable is named correctly.
+All environment variables controlling Sensu configuration begin with `SENSU_`.
 
-For any configuration flag you wish to specify as an environment variable, you must prepend `SENSU_`, convert dashes (`-`) to underscores (`_`), and capitalize all letters.
-Then, add the resulting environment variable to the appropriate environment file described above.
-You must restart the service for these settings to take effect.
+     To rename a configuration flag you wish to specify as an environment variable, prepend `SENSU_`, convert dashes to underscores, and capitalize all letters.
+     For example, the environment variable for the flag `api-listen-address` is `SENSU_API_LISTEN_ADDRESS`.
 
-In this example, the `api-listen-address` flag is configured as an environment variable and set to `192.168.100.20:8080`:
+     For a custom test variable, the environment variable name might be `SENSU_TEST_VAR`.
 
-{{< language-toggle >}}
+3. Add the environment variable to the environment file (`/etc/default/sensu-backend` for Debian/Ubuntu systems or `/etc/sysconfig/sensu-backend` for RHEL/CentOS systems).
+
+     For example, to create `api-listen-address` as an environment variable and set it to `192.168.100.20:8080`:
+     
+     {{< language-toggle >}}
 
 {{< highlight "Ubuntu/Debian" >}}
 $ echo 'SENSU_API_LISTEN_ADDRESS=192.168.100.20:8080' | sudo tee -a /etc/default/sensu-backend
@@ -1157,9 +1174,34 @@ $ echo 'SENSU_API_LISTEN_ADDRESS=192.168.100.20:8080' | sudo tee -a /etc/sysconf
 $ sudo systemctl restart sensu-backend
 {{< /highlight >}}
 
-{{< /language-toggle >}}
+     {{< /language-toggle >}}
 
-### Event logging
+4. Restart the sensu-backend service so these settings can take effect.
+
+     {{< language-toggle >}}
+
+{{< highlight "Ubuntu/Debian" >}}
+$ sudo systemctl restart sensu-backend
+{{< /highlight >}}
+
+{{< highlight "RHEL/CentOS" >}}
+$ sudo systemctl restart sensu-backend
+{{< /highlight >}}
+
+     {{< /language-toggle >}}
+
+{{% notice note %}}
+**NOTE**: Sensu includes an environment variable for each backend configuration flag.
+They are listed in the [configuration flag description tables](#general-configuration-flags).
+{{% /notice %}}
+
+#### Use environment variables with the Sensu backend
+
+Any environment variables you create in `/etc/default/sensu-backend` (Debian/Ubuntu) or `/etc/sysconfig/sensu-backend` (RHEL/CentOS) will be available to handlers executed by the Sensu backend.
+
+For example, if you create a `SENSU_TEST_VAR` variable in your sensu-backend file, it will be available to use in your handler configurations as `$SENSU_TEST_VAR`.
+
+## Event logging
 
 **COMMERCIAL FEATURE**: Access event logging in the packaged Sensu Go distribution.
 For more information, see [Get started with commercial features][14].
@@ -1198,7 +1240,7 @@ sensu-backend start --event-log-file /var/log/sensu/events.log
 event-log-file: "/var/log/sensu/events.log"{{< /highlight >}}
 
 
-#### Log rotation
+### Log rotation
 
 Event logging supports log rotation via the _SIGHUP_ signal.
 First, rename (move) the current log file.
@@ -1206,7 +1248,7 @@ Then, send the _SIGHUP_ signal to the sensu-backend process so it creates a new 
 
 Here are some log rotate sample configurations:
 
-##### systemd
+#### systemd
 {{< highlight shell >}}
 /var/log/sensu/events.log
 {
@@ -1221,7 +1263,7 @@ Here are some log rotate sample configurations:
 }
 {{< /highlight >}}
 
-##### sysvinit
+#### sysvinit
 {{< highlight shell >}}
 /var/log/sensu/events.log
 {
@@ -1235,6 +1277,7 @@ Here are some log rotate sample configurations:
   endscript
 }
 {{< /highlight >}}
+
 
 [1]: ../../installation/install-sensu#install-the-sensu-backend
 [2]: https://etcd.io/docs
@@ -1262,3 +1305,4 @@ Here are some log rotate sample configurations:
 [24]: ../../installation/install-sensu#2-configure-and-start
 [25]: ../../installation/install-sensu#3-initialize
 [26]: ../../sensuctl/reference/#change-admin-user-s-password
+[27]: #configuration-via-environment-variables

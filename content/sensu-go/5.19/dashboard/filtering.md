@@ -12,7 +12,9 @@ menu:
 
 - [Basic filters](#basic-filters)
 - [Advanced filters](#advanced-filters)
-- [Create dashboard filters](#create-dashboard-filters)
+- [Create basic dashboard filters](#create-basic-dashboard-filters)
+- [Create dashboard filters based on label selectors or field selectors](#create-dashboard-filters-based-on-label-selectors-or-field-selectors)
+- [Dashboard-specific syntax](#dashboard-specific-syntax)
 - [Operators quick reference](#operators-quick-reference)
 - [Examples](#examples)
 - [Save a filtered search](#save-a-filtered-search)
@@ -47,7 +49,7 @@ For more information, see [Get started with commercial features][1].
 Sensu supports advanced dashboard filtering using a wider range of attributes, including custom labels.
 You can use the same methods, selectors, and examples for dashboard filtering as for [API response filtering][3], with some [syntax differences][4].
 
-## Create dashboard filters
+## Create basic dashboard filters
 
 If you are using the [basic dashboard filters][5], you can create your filter just by clicking in the filter bar at the top of the dashboard page:
 
@@ -61,8 +63,10 @@ If you are using the [basic dashboard filters][5], you can create your filter ju
 **NOTE**: You do not need to specify a resource type in dashboard filtering because you must navigate to the resource page *before* you construct the filter.
 {{% /notice %}}
 
+## Create dashboard filters based on label selectors or field selectors
+
 To filter resources based on [label selectors][6] or [field selectors][2], you'll write a brief filter statement.
-The standard dashboard filtering syntax is:
+The filter statement construction is slightly different for different [operators][9], but the standard dashboard filtering syntax is:
 
 {{< highlight text >}}
 SELECTOR:FILTER_STATEMENT
@@ -73,16 +77,39 @@ To write a dashboard filter command:
 - Replace `SELECTOR` with the selector you want to use: `labelSelector` or `fieldSelector`.
 - Replace `FILTER_STATEMENT` with the filter to apply.
 
+The [examples][10] demonstrate how to construct dashboard filter statements for different operators and specific purposes.
+
+## Dashboard-specific syntax
+
+### Space after the colon
+
+Dashboard filtering statements will work with no space or a single space after the colon.
 For example, this filter will return all events for entities with the `linux` subscription:
 
 {{< highlight text >}}
 fieldSelector:linux in event.entity.subscriptions
 {{< /highlight >}}
 
-Dashboard filtering statements will also work with a single space after the colon:
+And this filter will work the same way:
 
 {{< highlight text >}}
 fieldSelector: linux in event.entity.subscriptions
+{{< /highlight >}}
+
+### Values that begin with a number or include special characters
+
+If you are filtering for a value that begins with a number, place the value in single or double quotes:
+
+{{< highlight text >}}
+fieldSelector:entity.name == '1b04994n'
+fieldSelector:entity.name == "1b04994n"
+{{< /highlight >}}
+
+Likewise, to use a label or field selector with string values that include special characters like hyphens and underscores, place the value in single or double quotes:
+
+{{< highlight text >}}
+labelSelector:region == 'us-west-1'
+labelSelector:region == "us-west-1"
 {{< /highlight >}}
 
 ## Operators quick reference
@@ -94,7 +121,7 @@ Dashboard filtering supports two equality-based operators, two set-based operato
 | `==`      | Equality           | `check.publish == true`
 | `!=`      | Inequality         | `check.namespace != "default"`
 | `in`      | Included in        | `linux in check.subscriptions`
-| `notin`   | Not included in.   | `slack notin check.handlers`
+| `notin`   | Not included in    | `slack notin check.handlers`
 | `matches` | Substring matching | `check.name matches "linux-"`
 | `&&`      | Logical AND        | `check.publish == true && slack in check.handlers`
 
@@ -136,14 +163,6 @@ On the **Checks page**, to display only checks that use the `slack` handler:
 fieldSelector:slack in check.handlers
 {{< /highlight >}}
 
-#### Values with special characters
-
-To use a label or field selector with string values that include special characters like hyphens and underscores, place the value in single or double quotes:
-
-{{< highlight text >}}
-labelSelector:region == "us-west-1"
-{{< /highlight >}}
-
 ### Use the logical AND operator
 
 To use the logical AND operator (`&&`) to return checks that include a `linux` subscription and the `slack` handler:
@@ -159,11 +178,13 @@ To combine `labelSelector` and `fieldSelector` filters, create the filters separ
 For example, to return resources with the `region` label set to `us-west-1` that also use the `slack` handler:
 
 1. Create the `labelSelector` filter in the filter bar and press **Return/Enter**.
+     {{< highlight text >}}
+labelSelector:region == "us-west-1"
+{{< /highlight >}}
+
 2. Add the `fieldSelector` filter in the filter bar after the `labelSelector` filter and press **Return/Enter** again.
 
-{{< highlight text >}}
-labelSelector:region == "us-west-1"
-
+     {{< highlight text >}}
 fieldSelector:slack in check.handlers
 {{< /highlight >}}
 
@@ -202,8 +223,10 @@ To delete a saved search:
 [1]: ../../getting-started/enterprise/
 [2]: ../../api/overview/#field-selector
 [3]: ../../api/overview/#response-filtering
-[4]: #create-dashboard-filters
+[4]: #dashboard-specific-syntax
 [5]: #basic-filters
 [6]: ../../api/overview/#label-selector
 [7]: ../../api/overview/#operators
 [8]: #save-a-filtered-search
+[9]: #operators-quick-reference
+[10]: #examples

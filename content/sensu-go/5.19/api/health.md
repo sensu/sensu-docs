@@ -51,13 +51,14 @@ HTTP/1.1 200 OK
 
 #### API Specification {#health-get-specification}
 
-/health (GET)  | 
----------------|------
-description    | Returns health information about the Sensu instance.
-example url    | http://hostname:8080/health
-response type  | Map
-response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-output         | {{< highlight shell >}}
+/health (GET)    | 
+-----------------|------
+description      | Returns health information about the Sensu instance.
+example url      | http://hostname:8080/health
+query parameters | `timeout`: Defines the timeout when querying etcd. <ul><li>5.19.0: Default is `0`, which will cause the request to hang. To prevent this, upgrade to [5.19.1][1] or set to `?timeout=3` to match the sensuctl default.</li><li>5.19.1: Default is `3`.</li></ul>
+response type    | Map
+response codes   | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+output           | {{< highlight shell >}}
 {
   "Alarms": null,
   "ClusterHealth": [
@@ -83,3 +84,5 @@ output         | {{< highlight shell >}}
   ]
 }
 {{< /highlight >}}
+
+[1]: ../../release-notes/#5-19-1-release-notes
