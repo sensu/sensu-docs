@@ -692,7 +692,6 @@ output               | {{< highlight json >}}
     }
   },
   "metadata": {}
-}
 {{< /highlight >}}
 
 ### `/events/:entity/:check` (POST) {#eventsentitycheck-post}
