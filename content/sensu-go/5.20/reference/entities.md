@@ -848,7 +848,7 @@ example      | {{< highlight shell >}}"handler": "email-handler"{{< /highlight >
 
 ### Processes attributes
 
-**COMMERCIAL FEATURE**: Access processes attributes with the [`discover-attributes` flag][27] in the packaged Sensu Go distribution. For more information, see [Get started with commercial features][9].
+**COMMERCIAL FEATURE**: Access processes attributes with the [`discover-processes` flag][27] in the packaged Sensu Go distribution. For more information, see [Get started with commercial features][9].
 
 {{% notice note %}}
 **NOTE**: The `processes` field is populated in the packaged Sensu Go distributions. In OSS builds, the field will be empty: `"processes": null`.
