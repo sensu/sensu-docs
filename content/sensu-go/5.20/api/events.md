@@ -598,6 +598,7 @@ HTTP/1.1 200 OK
     }
   },
   "metadata": {}
+}
 {{< /highlight >}}
 
 The request returns an HTTP `200 OK` response and the resulting event definition.
@@ -691,6 +692,7 @@ output               | {{< highlight json >}}
     }
   },
   "metadata": {}
+}
 {{< /highlight >}}
 
 ### `/events/:entity/:check` (POST) {#eventsentitycheck-post}
