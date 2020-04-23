@@ -900,7 +900,7 @@ created      |
 -------------|------ 
 description  | Timestamp when the process was created. In seconds since the Unix epoch.
 required     | false
-type         | String
+type         | Integer
 example      | {{< highlight shell >}}"created": 1586138786{{< /highlight >}}
 
 memory_percent | 
