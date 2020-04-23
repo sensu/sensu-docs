@@ -233,6 +233,7 @@ output         | {{< highlight shell >}}
     }
   }
 ]
+{{< /highlight >}}
 
 ### `/entities` (POST)
 
