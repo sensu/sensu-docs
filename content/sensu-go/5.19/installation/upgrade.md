@@ -315,16 +315,18 @@ Review your Sensu Core check configuration for the following attributes, and mak
 `handlers: default` | Sensu Go does not have a default handler. Create a handler named `default` to continue using this pattern.
 `subdues` | Check subdues are not available in Sensu Go.
 `standalone: true` | Standalone checks are not supported in Sensu Go, although you can achieve similar functionality using [role-based access control, assets, and entity subscriptions][26]. The translator assigns all Core standalone checks to a `standalone` subscription in Sensu Go. Configure one or more Sensu Go agents with the `standalone` subscription to execute formerly standalone checks.
-`metrics: true` | See the [translate metric checks](#translate-metric-checks) section.
-`proxy_requests` | See the [translate proxy requests](#translate-proxy-requests-and-proxy-entities) section.
+`metrics: true` | See the [translate metric checks][71] section.
+`proxy_requests` | See the [translate proxy requests][72] section.
 `subscribers: roundrobin...` | Remove `roundrobin` from the subscription name, and add the `round_robin` check attribute set to `true`.
 `aggregate` | Check aggregates are supported through the [commercial][34] [Sensu Go Aggregate Check Plugin][28].
-`hooks` | See the [translate hooks](#translate-hooks) section.
+`hooks` | See the [translate hooks][73] section.
 `dependencies`| Check dependencies are not available in Sensu Go.
 
 {{% notice protip %}}
 **PRO TIP**: When using **token substitution** in Sensu Go and accessing labels or annotations that include `.` (for example: `sensu.io.json_attributes`), use the `index` function. For example, `{{index .annotations "web_url"}}` substitutes the value of the `web_url` annotation; `{{index .annotations "production.ID"}}` substitutes the value of the `production.ID` annotation.
 {{% /notice %}}
+
+<a name="translate-metric-checks"></a>
 
 **Translate metric checks**
 
@@ -335,10 +337,14 @@ This allowed Sensu Core to process output metrics via a handler even when the ch
 Sensu Go treats output metrics as first-class objects, so you can process check status as well as output metrics via different event pipelines.
 See the [guide to metric output][57] to update your metric checks with the `output_metric_handlers` and `output_metric_format` attributes.
 
+<a name="translate-proxy-requests-entities"></a>
+
 **Translate proxy requests and proxy entities**
 
 See the [guide to monitoring external resources][7] to re-configure `proxy_requests` attributes and update your proxy check configuration.
 See the [entity reference][6] to re-create your proxy client configurations as Sensu Go proxy entities.
+
+<a name="translate-hooks"></a>
 
 **Translate hooks**
 
@@ -468,8 +474,8 @@ To contribute to converting a Sensu plugin to an asset, see [the Discourse post]
 
 #### Step 4: Sunset your Sensu Core instance
 
-When you're ready to sunset your Sensu Core instance, see the [platform][43] documentation to stop the Sensu Core services.
-You may also want to re-install the `sensu-install` tool using the [`sensu-plugins-ruby` package][22].
+When you're ready to sunset your Sensu Core instance, see the [platform][74] documentation to stop the Sensu Core services.
+You may also want to re-install the `sensu-install` tool using the [`sensu-plugins-ruby` package][20].
 
 
 [1]: ../../getting-started/glossary/
@@ -490,7 +496,6 @@ You may also want to re-install the `sensu-install` tool using the [`sensu-plugi
 [18]: https://github.com/sensu/sensu-translator/
 [20]: https://packagecloud.io/sensu/community/
 [21]: https://github.com/sensu-plugins/
-[22]: ../plugins/
 [23]: ../../installation/install-sensu/
 [24]: ../../reference/entities#metadata-attributes
 [25]: https://blog.sensu.io/check-configuration-upgrades-with-the-sensu-go-sandbox/
@@ -502,7 +507,7 @@ You may also want to re-install the `sensu-install` tool using the [`sensu-plugi
 [31]: https://sensu.io/contact?subject=contact-sales/
 [32]: https://blog.sensu.io/one-year-of-sensu-go
 [34]: ../../getting-started/enterprise/
-[35]: https://docs.sensu.io/sensu-core/1.8/changelog/#core-v1-7-0
+[35]: https://eol-repositories.sensuapp.org/
 [36]: https://etcd.io/
 [37]: ../../guides/clustering/
 [38]: ../../guides/deploying/
@@ -517,7 +522,7 @@ You may also want to re-install the `sensu-install` tool using the [`sensu-plugi
 [47]: https://discourse.sensu.io/c/sensu-go/migrating-to-go
 [48]: ../../getting-started/sandbox/
 [49]: https://sensu.io/support/
-[50]: ../../sensu-go/latest/guides/install-check-executables-with-assets
+[50]: ../../guides/install-check-executables-with-assets
 [51]: ../../installation/plugins/
 [52]: ../../installation/install-sensu#install-the-sensu-backend
 [53]: ../../installation/install-sensu#install-sensuctl
@@ -536,5 +541,9 @@ You may also want to re-install the `sensu-install` tool using the [`sensu-plugi
 [66]: https://github.com/sensu-plugins/sensu-plugin#sensu-go-enablement
 [67]: ../../reference/events/#event-format
 [68]: https://bonsai.sensu.io
-[69]: ../../reference/assets/#sharing-an-asset-on-bonsai
+[69]: ../../reference/assets#share-an-asset-on-bonsai
 [70]: https://discourse.sensu.io/t/contributing-assets-for-existing-ruby-sensu-plugins/1165
+[71]: #translate-metric-checks
+[72]: #translate-proxy-requests-entities
+[73]: #translate-hooks
+[74]: https://docs.sensu.io/sensu-core/latest/platforms/
