@@ -598,7 +598,6 @@ HTTP/1.1 200 OK
     }
   },
   "metadata": {}
-}
 {{< /highlight >}}
 
 The request returns an HTTP `200 OK` response and the resulting event definition.
