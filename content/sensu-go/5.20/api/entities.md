@@ -73,7 +73,31 @@ HTTP/1.1 200 OK
       "libc_type": "glibc",
       "vm_system": "kvm",
       "vm_role": "host",
-      "cloud_provider": ""
+      "cloud_provider": "",
+      "processes": [
+        {
+          "name": "Slack",
+          "pid": 1349,
+          "ppid": 0,
+          "status": "Ss",
+          "background": true,
+          "running": true,
+          "created": 1582137786,
+          "memory_percent": 1.09932518,
+          "cpu_percent": 0.3263987595984941
+        },
+        {
+          "name": "Slack Helper",
+          "pid": 1360,
+          "ppid": 1349,
+          "status": "Ss",
+          "background": true,
+          "running": true,
+          "created": 1582137786,
+          "memory_percent": 0.146866455,
+          "cpu_percent": 0.308976181461092553
+        }
+      ]
     },
     "subscriptions": [
       "entity:sensu-centos"
@@ -156,7 +180,31 @@ output         | {{< highlight shell >}}
       "libc_type": "glibc",
       "vm_system": "kvm",
       "vm_role": "host",
-      "cloud_provider": ""
+      "cloud_provider": "",
+      "processes": [
+        {
+          "name": "Slack",
+          "pid": 1349,
+          "ppid": 0,
+          "status": "Ss",
+          "background": true,
+          "running": true,
+          "created": 1582137786,
+          "memory_percent": 1.09932518,
+          "cpu_percent": 0.3263987595984941
+        },
+        {
+          "name": "Slack Helper",
+          "pid": 1360,
+          "ppid": 1349,
+          "status": "Ss",
+          "background": true,
+          "running": true,
+          "created": 1582137786,
+          "memory_percent": 0.146866455,
+          "cpu_percent": 0.308976181461092553
+        }
+      ]
     },
     "subscriptions": [
       "entity:sensu-centos"
@@ -185,7 +233,6 @@ output         | {{< highlight shell >}}
     }
   }
 ]
-{{< /highlight >}}
 
 ### `/entities` (POST)
 
@@ -301,7 +348,31 @@ HTTP/1.1 200 OK
     "libc_type": "glibc",
     "vm_system": "kvm",
     "vm_role": "host",
-    "cloud_provider": ""
+    "cloud_provider": "",
+    "processes": [
+      {
+        "name": "Slack",
+        "pid": 1349,
+        "ppid": 0,
+        "status": "Ss",
+        "background": true,
+        "running": true,
+        "created": 1582137786,
+        "memory_percent": 1.09932518,
+        "cpu_percent": 0.3263987595984941
+      },
+      {
+        "name": "Slack Helper",
+        "pid": 1360,
+        "ppid": 1349,
+        "status": "Ss",
+        "background": true,
+        "running": true,
+        "created": 1582137786,
+        "memory_percent": 0.146866455,
+        "cpu_percent": 0.30897618146109257
+      }
+    ]
   },
   "subscriptions": [
     "entity:sensu-centos"
@@ -380,7 +451,31 @@ output               | {{< highlight json >}}
     "libc_type": "glibc",
     "vm_system": "kvm",
     "vm_role": "host",
-    "cloud_provider": ""
+    "cloud_provider": "",
+    "processes": [
+      {
+        "name": "Slack",
+        "pid": 1349,
+        "ppid": 0,
+        "status": "Ss",
+        "background": true,
+        "running": true,
+        "created": 1582137786,
+        "memory_percent": 1.09932518,
+        "cpu_percent": 0.3263987595984941
+      },
+      {
+        "name": "Slack Helper",
+        "pid": 1360,
+        "ppid": 1349,
+        "status": "Ss",
+        "background": true,
+        "running": true,
+        "created": 1582137786,
+        "memory_percent": 0.146866455,
+        "cpu_percent": 0.30897618146109257
+      }
+    ]
   },
   "subscriptions": [
     "entity:sensu-centos"

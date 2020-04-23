@@ -290,6 +290,34 @@ example      | {{< highlight shell >}}
     ],
     "system": {
       "arch": "amd64",
+      "libc_type": "",
+      "vm_system": "",
+      "vm_role": "",
+      "cloud_provider": "",
+      "processes": [
+        {
+          "name": "Slack",
+          "pid": 1349,
+          "ppid": 0,
+          "status": "Ss",
+          "background": true,
+          "running": true,
+          "created": 1582137786,
+          "memory_percent": 1.09932518,
+          "cpu_percent": 0.3263987595984941
+        },
+        {
+          "name": "Slack Helper",
+          "pid": 1360,
+          "ppid": 1349,
+          "status": "Ss",
+          "background": true,
+          "running": true,
+          "created": 1582137786,
+          "memory_percent": 0.146866455,
+          "cpu_percent": 0.30897618146109257
+        }
+      ],
       "hostname": "sensu-go-sandbox",
       "network": {
         "interfaces": [
@@ -406,6 +434,34 @@ example      | {{< highlight shell >}}
   ],
   "system": {
     "arch": "amd64",
+    "libc_type": "",
+    "vm_system": "",
+    "vm_role": "",
+    "cloud_provider": "",
+    "processes": [
+      {
+        "name": "Slack",
+        "pid": 1349,
+        "ppid": 0,
+        "status": "Ss",
+        "background": true,
+        "running": true,
+        "created": 1582137786,
+        "memory_percent": 1.09932518,
+        "cpu_percent": 0.3263987595984941
+      },
+      {
+        "name": "Slack Helper",
+        "pid": 1360,
+        "ppid": 1349,
+        "status": "Ss",
+        "background": true,
+        "running": true,
+        "created": 1582137786,
+        "memory_percent": 0.146866455,
+        "cpu_percent": 0.30897618146109257
+      }
+    ],
     "hostname": "sensu-go-sandbox",
     "network": {
       "interfaces": [
@@ -784,6 +840,29 @@ spec:
     - entity:sensu-centos
     system:
       arch: amd64
+      libc_type: glibc
+      vm_system: kvm
+      vm_role: host
+      cloud_provider: null
+      processes:
+      - name: Slack
+        pid: 1349
+        ppid: 0
+        status: Ss
+        background: true
+        running: true
+        created: 1582137786
+        memory_percent: 1.09932518
+        cpu_percent: 0.3263987595984941
+      - name: Slack Helper
+        pid: 1360
+        ppid: 1349
+        status: Ss
+        background: true
+        running: true
+        created: 1582137786
+        memory_percent: 0.146866455
+        cpu_percent: 0.30897618146109257
       hostname: sensu-centos
       network:
         interfaces:
@@ -886,6 +965,34 @@ spec:
       ],
       "system": {
         "arch": "amd64",
+        "libc_type": "",
+        "vm_system": "",
+        "vm_role": "",
+        "cloud_provider": "",
+        "processes": [
+          {
+            "name": "Slack",
+            "pid": 1349,
+            "ppid": 0,
+            "status": "Ss",
+            "background": true,
+            "running": true,
+            "created": 1582137786,
+            "memory_percent": 1.09932518,
+            "cpu_percent": 0.3263987595984941
+          },
+          {
+            "name": "Slack Helper",
+            "pid": 1360,
+            "ppid": 1349,
+            "status": "Ss",
+            "background": true,
+            "running": true,
+            "created": 1582137786,
+            "memory_percent": 0.146866455,
+            "cpu_percent": 0.30897618146109257
+          }
+        ],
         "hostname": "sensu-centos",
         "network": {
           "interfaces": [
@@ -1002,6 +1109,29 @@ spec:
     - entity:sensu-go-sandbox
     system:
       arch: amd64
+      libc_type: glibc
+      vm_system: kvm
+      vm_role: host
+      cloud_provider: null
+      processes:
+      - name: Slack
+        pid: 1349
+        ppid: 0
+        status: Ss
+        background: true
+        running: true
+        created: 1582137786
+        memory_percent: 1.09932518
+        cpu_percent: 0.3263987595984941
+      - name: Slack Helper
+        pid: 1360
+        ppid: 1349
+        status: Ss
+        background: true
+        running: true
+        created: 1582137786
+        memory_percent: 0.146866455
+        cpu_percent: 0.30897618146109257
       hostname: sensu-go-sandbox
       network:
         interfaces:
@@ -1116,6 +1246,34 @@ spec:
       ],
       "system": {
         "arch": "amd64",
+        "libc_type": "glibc",
+        "vm_system": "kvm",
+        "vm_role": "host",
+        "cloud_provider": "",
+        "processes": [
+          {
+            "name": "Slack",
+            "pid": 1349,
+            "ppid": 0,
+            "status": "Ss",
+            "background": true,
+            "running": true,
+            "created": 1582137786,
+            "memory_percent": 1.09932518,
+            "cpu_percent": 0.3263987595984941
+          },
+          {
+            "name": "Slack Helper",
+            "pid": 1360,
+            "ppid": 1349,
+            "status": "Ss",
+            "background": true,
+            "running": true,
+            "created": 1582137786,
+            "memory_percent": 0.146866455,
+            "cpu_percent": 0.30897618146109257
+          }
+        ],
         "hostname": "sensu-go-sandbox",
         "network": {
           "interfaces": [
@@ -1202,6 +1360,29 @@ spec:
     - entity:sensu-go-sandbox
     system:
       arch: amd64
+      libc_type: glibc
+      vm_system: kvm
+      vm_role: host
+      cloud_provider: null
+      processes:
+      - name: Slack
+        pid: 1349
+        ppid: 0
+        status: Ss
+        background: true
+        running: true
+        created: 1582137786
+        memory_percent: 1.09932518
+        cpu_percent: 0.3263987595984941
+      - name: Slack Helper
+        pid: 1360
+        ppid: 1349
+        status: Ss
+        background: true
+        running: true
+        created: 1582137786
+        memory_percent: 0.146866455
+        cpu_percent: 0.30897618146109257
       hostname: sensu-go-sandbox
       network:
         interfaces:
@@ -1268,6 +1449,34 @@ spec:
       ],
       "system": {
         "arch": "amd64",
+        "libc_type": "glibc",
+        "vm_system": "kvm",
+        "vm_role": "host",
+        "cloud_provider": "",
+        "processes": [
+          {
+            "name": "Slack",
+            "pid": 1349,
+            "ppid": 0,
+            "status": "Ss",
+            "background": true,
+            "running": true,
+            "created": 1582137786,
+            "memory_percent": 1.09932518,
+            "cpu_percent": 0.3263987595984941
+          },
+          {
+            "name": "Slack Helper",
+            "pid": 1360,
+            "ppid": 1349,
+            "status": "Ss",
+            "background": true,
+            "running": true,
+            "created": 1582137786,
+            "memory_percent": 0.146866455,
+            "cpu_percent": 0.30897618146109257
+          }
+        ],
         "hostname": "sensu-go-sandbox",
         "network": {
           "interfaces": [

@@ -750,6 +750,7 @@ Flags:
       --disable-assets                        disable check assets on this agent
       --disable-api                           disable the Agent HTTP API
       --disable-sockets                       disable the Agent TCP and UDP event sockets
+      --discover-processes                    indicates whether process discovery should be enabled
       --events-burst-limit                    /events api burst limit
       --events-rate-limit                     maximum number of events transmitted to the backend through the /events api
   -h, --help                                  help for start
@@ -789,6 +790,21 @@ See the [example agent configuration file][5] (also provided with Sensu packages
 {{< platformBlockClose >}}
 
 ### General configuration flags
+
+<a name="allow-list"></a>
+
+| allow-list |      |
+------------------|------
+description       | Path to yaml or json file that contains the allow list of check or hook commands the agent can execute. See the [example allow list configuration file][48] and the [allow list configuration spec][49] for information about building a configuration file.
+type              | String
+default           | `""`
+environment variable | `SENSU_ALLOW_LIST`
+example           | {{< highlight shell >}}# Command line example
+sensu-agent start --allow-list /etc/sensu/check-allow-list.yaml
+
+# /etc/sensu/agent.yml example
+allow-list: /etc/sensu/check-allow-list.yaml{{< /highlight >}}
+
 
 | annotations|      |
 -------------|------
@@ -866,19 +882,20 @@ sensu-agent start --disable-assets
 # /etc/sensu/agent.yml example
 disable-assets: true{{< /highlight >}}
 
-<a name="allow-list"></a>
+<a name="discover-processes"></a>
 
-| allow-list |      |
-------------------|------
-description       | Path to yaml or json file that contains the allow list of check or hook commands the agent can execute. See the [example allow list configuration file][48] and the [allow list configuration spec][49] for information about building a configuration file.
-type              | String
-default           | `""`
-environment variable | `SENSU_ALLOW_LIST`
-example           | {{< highlight shell >}}# Command line example
-sensu-agent start --allow-list /etc/sensu/check-allow-list.yaml
+| discover-processes |      |
+--------------|------
+description   | When set to `true`, the agent populates the `processes` field in `entity.system`.
+ | **COMMERCIAL FEATURE**: Access the `discover-processes` flag in the packaged Sensu Go distribution. For more information, see [Get started with commercial features][55].
+type          | Boolean
+default       | false
+environment variable | `SENSU_DISCOVER_PROCESSES`
+example       | {{< highlight shell >}}# Command line example
+sensu-agent start --discover-processes
 
 # /etc/sensu/agent.yml example
-allow-list: /etc/sensu/check-allow-list.yaml{{< /highlight >}}
+discover-processes: true{{< /highlight >}}
 
 | labels     |      |
 -------------|------
@@ -1539,3 +1556,4 @@ For example, if you create a `SENSU_TEST_VAR` variable in your sensu-agent file,
 [52]: ../handlers/#keepalive-event-handlers
 [53]: #keepalive-handlers-flag
 [54]: ../../dashboard/filtering#filter-with-label-selectors
+[55]: ../../getting-started/enterprise/
