@@ -451,7 +451,7 @@ If you add the `splay` attribute (set to `true`) and the `splay_coverage` attrib
 
 Sensu check definitions may include attributes that you  wish to override on an entity-by-entity basis.
 For example, [check commands][4], which may include command line arguments for controlling the behavior of the check command, may benefit from entity-specific thresholds.
-Sensu check tokens are check definition placeholders that the Sensu agent will replace with the corresponding entity definition attributes values (including custom attributes).
+Sensu check tokens are check definition placeholders that the Sensu agent will replace with the corresponding entity definition attribute values (including custom attributes).
 
 Learn how to use check tokens with the [Sensu tokens reference documentation][5].
 
@@ -950,7 +950,6 @@ spec:
 [4]: #check-commands
 [5]: ../tokens/
 [6]: ../hooks/
-[7]: /sensu-core/latest/reference/checks/#standalone-checks
 [8]: ../rbac/
 [9]: ../assets/
 [10]: #proxy-requests-attributes

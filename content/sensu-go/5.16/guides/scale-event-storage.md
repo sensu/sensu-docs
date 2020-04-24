@@ -80,8 +80,6 @@ sudo systemctl restart postgresql
 
 With this configuration complete, you can configure Sensu to store events in your Postgres database.
 
-_**NOTE**: If your Sensu Go license expires, event storage will automatically revert to etcd. See [Revert to the built-in datastore][2] below._
-
 ## Configure Sensu
 
 If your Sensu backend is already licensed, the configuration for routing events to Postgres is relatively straightforward.
@@ -282,6 +280,7 @@ sudo -u postgres psql -c "select pg_last_xlog_replay_location()"
 {{< /highlight >}}
 
 With this configuration complete, your Sensu events will be replicated to the standby host.
+
 
 [1]: https://github.com/sensu/sensu-perf
 [2]: #revert-to-the-built-in-datastore

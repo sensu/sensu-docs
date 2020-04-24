@@ -465,19 +465,19 @@ HTTP/1.1 200 OK
         "ttl": 0,
         "timeout": 0,
         "round_robin": false,
-        "executed": 0,
+        "executed": 1543880280,
         "history": [
             {
                 "status": 1,
-                "executed": 0
+                "executed": 1543880296
             },
             {
                 "status": 2,
-                "executed": 0
+                "executed": 1543880435
             },
             {
                 "status": 1,
-                "executed": 0
+                "executed": 1543889363
             }
         ],
         "issued": 0,
@@ -548,19 +548,19 @@ output               | {{< highlight json >}}
         "ttl": 0,
         "timeout": 0,
         "round_robin": false,
-        "executed": 0,
+        "executed": 1543880280,
         "history": [
             {
                 "status": 1,
-                "executed": 0
+                "executed": 1543880296
             },
             {
                 "status": 2,
-                "executed": 0
+                "executed": 1543880435
             },
             {
                 "status": 1,
-                "executed": 0
+                "executed": 1543889363
             }
         ],
         "issued": 0,
