@@ -182,7 +182,7 @@ All Sensu events written to the primary Postgres server will be replicated to th
 
 _**NOTE**: Paths and service names may vary based on your operating system._
 
-This section describes how to configure PostgreSQL streaming replication in three steps.
+This section describes how to configure PostgreSQL streaming replication in four steps.
 
 ### Step 1: Create and add the replication role
 
