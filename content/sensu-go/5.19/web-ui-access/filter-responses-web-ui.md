@@ -1,14 +1,14 @@
 ---
-title: "Web UI filtering"
-linkTitle: "Web UI Filtering"
+title: "Build filtered views in the Sensu Web UI"
+linkTitle: "Build Filtered Views"
 description: "The Sensu dashboard supports filtering on the Events, Entities, Checks, Handlers, Filters, Mutators, and Silences pages. Learn more about filtering in the Sensu dashboard."
-weight: 20
+weight: 30
 version: "5.19"
 product: "Sensu Go"
 platformContent: false
 menu:
   sensu-go-5.19:
-    parent: web-ui-cli-access
+    parent: web-ui-access
 ---
 
 - [Basic filters](#basic-filters)

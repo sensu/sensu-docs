@@ -1,13 +1,13 @@
 ---
-title: "Troubleshooting"
-description: "Troubleshooting documentation for Sensu"
+title: "WEB UI ACCESS"
+description: "Web UI documentation for Sensu"
 product: "Sensu Go"
 version: "5.19"
-weight: 160
+weight: 180
 layout: "base-for-directory-listing"
 menu:
   sensu-go-5.19:
-    identifier: troubleshooting
+    identifier: web-ui-access
 ---
 
 {{< directoryListing >}}

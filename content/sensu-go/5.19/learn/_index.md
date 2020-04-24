@@ -1,9 +1,9 @@
 ---
-title: "Learn Sensu"
+title: "LEARN SENSU"
 description: "Documentation for learning Sensu"
 product: "Sensu Go"
 version: "5.19"
-weight: 20
+weight: 800
 layout: "base-for-directory-listing"
 menu:
   sensu-go-5.19:

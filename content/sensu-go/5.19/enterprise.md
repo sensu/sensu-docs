@@ -2,12 +2,10 @@
 title: "Get started with commercial features"
 linkTitle: "Commercial Features"
 description: "Get started with commercial features in Sensu Go. Read this guide to learn about the latest commercial features. Contact our sales team for a free trial."
-version: "5.19"
-weight: 20
+weight: -30
 product: "Sensu Go"
-menu:
-  sensu-go-5.19:
-    parent: overview
+version: "5.19"
+menu: "sensu-go-5.19"
 ---
 
 Sensu Go offers commercial features designed for monitoring at scale.

@@ -1,5 +1,5 @@
 ---
-title: "Deployment Architecture"
+title: "Deploy Sensu"
 description: "Deployment and architecture documentation for Sensu"
 product: "Sensu Go"
 version: "5.19"
