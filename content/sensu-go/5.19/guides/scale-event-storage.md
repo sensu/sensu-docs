@@ -175,10 +175,6 @@ To verify that the change was effective, look for messages similar to these in t
 Similar to enabling Postgres, switching back to the etcd datastore does not migrate current event data from one store to another.
 You may see old events in the web UI or sensuctl output until the etcd datastore catches up with the current state of your monitored infrastructure.
 
-{{% notice note %}}
-**NOTE**: If your Sensu Go license expires, event storage will automatically revert to etcd.
-{{% /notice %}}
-
 ## Configure Postgres streaming replication
 
 Postgres supports an active standby by using [streaming replication][6].
