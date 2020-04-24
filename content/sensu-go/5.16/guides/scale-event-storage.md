@@ -227,8 +227,6 @@ sudo cp -a /var/lib/pgsql/data/postgresql.conf /var/lib/pgsql/data/postgresql.co
 
 Next, append the necessary configuration options.
 
-_**NOTE**: To enable read-only queries on a standby server, you must set `wal_level` to `hot_standby`.
-If you will never connect to the server in standby mode, you can set `wal_level` to `archive` instead._
 
 {{< highlight shell >}}
 echo 'wal_level = hot_standby' | sudo tee -a /var/lib/pgsql/data/postgresql.conf
