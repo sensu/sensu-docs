@@ -9,12 +9,12 @@ menu:
 ---
 
 - [The `/events` API endpoint](#the-events-api-endpoint)
-  - [`/events` (GET)](#events-get)
-  - [`/events` (POST)](#events-post)
+	- [`/events` (GET)](#events-get)
+	- [`/events` (POST)](#events-post)
 - [The `/events/:entity` API endpoint](#the-eventsentity-api-endpoint)
-  - [`/events/:entity` (GET)](#eventsentity-get)
+	- [`/events/:entity` (GET)](#eventsentity-get)
 - [The `/events/:entity/:check` API endpoint](#the-eventsentitycheck-api-endpoint)
-  - [`/events/:entity/:check` (GET)](#eventsentitycheck-get)
+	- [`/events/:entity/:check` (GET)](#eventsentitycheck-get)
   - [`/events/:entity/:check` (POST)](#eventsentitycheck-post)
   - [`/events/:entity/:check` (PUT)](#eventsentitycheck-put)
   - [`/events/:entity/:check` (DELETE)](#eventsentitycheck-delete)
