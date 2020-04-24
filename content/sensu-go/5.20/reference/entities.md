@@ -711,7 +711,7 @@ example        | {{< highlight shell >}}"cloud_provider": "" {{< /highlight >}}
 
 processes    | 
 -------------|------ 
-description  | List of processes on the local agent. See [processes attributes][4] for more information.
+description  | List of processes on the local agent. See [processes attributes][26] for more information.
 required     | false
 type         | Map
 example      | {{< language-toggle >}}

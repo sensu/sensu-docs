@@ -9,12 +9,12 @@ menu:
 ---
 
 - [The `/events` API endpoint](#the-events-api-endpoint)
-	- [`/events` (GET)](#events-get)
-	- [`/events` (POST)](#events-post)
+  - [`/events` (GET)](#events-get)
+  - [`/events` (POST)](#events-post)
 - [The `/events/:entity` API endpoint](#the-eventsentity-api-endpoint)
-	- [`/events/:entity` (GET)](#eventsentity-get)
+  - [`/events/:entity` (GET)](#eventsentity-get)
 - [The `/events/:entity/:check` API endpoint](#the-eventsentitycheck-api-endpoint)
-	- [`/events/:entity/:check` (GET)](#eventsentitycheck-get)
+  - [`/events/:entity/:check` (GET)](#eventsentitycheck-get)
   - [`/events/:entity/:check` (POST)](#eventsentitycheck-post)
   - [`/events/:entity/:check` (PUT)](#eventsentitycheck-put)
   - [`/events/:entity/:check` (DELETE)](#eventsentitycheck-delete)
@@ -42,18 +42,9 @@ HTTP/1.1 200 OK
     "entity": {
       "entity_class": "agent",
       "system": {
-        "arch": "amd64",
-        "libc_type": "",
-        "vm_system": "",
-        "vm_role": "",
-        "cloud_provider": "",
-        "processes": [
-          {
-            "...": "..."
-          }
-        ],
         "hostname": "webserver01",
-        "...": "..."
+        "...": "...",
+        "arch": "amd64"
       },
       "subscriptions": [
         "testing",
@@ -69,7 +60,7 @@ HTTP/1.1 200 OK
     },
     "check": {
       "check_hooks": null,
-      "duration": 0.010849143,
+      "duration": 2.033888684,
       "command": "http_check.sh http://localhost:80",
       "handlers": [
         "slack"
@@ -83,9 +74,11 @@ HTTP/1.1 200 OK
         "testing"
       ],
       "proxy_entity_name": "",
+      "check_hooks": null,
       "stdin": false,
       "ttl": 0,
       "timeout": 0,
+      "duration": 0.010849143,
       "output": "",
       "state": "failing",
       "status": 1,
@@ -126,18 +119,9 @@ output         | {{< highlight shell >}}
     "entity": {
       "entity_class": "agent",
       "system": {
-        "arch": "amd64",
-        "libc_type": "",
-        "vm_system": "",
-        "vm_role": "",
-        "cloud_provider": "",
-        "processes": [
-          {
-            "...": "..."
-          }
-        ],
         "hostname": "webserver01",
-        "...": "..."
+        "...": "...",
+        "arch": "amd64"
       },
       "subscriptions": [
         "testing",
@@ -153,7 +137,7 @@ output         | {{< highlight shell >}}
     },
     "check": {
       "check_hooks": null,
-      "duration": 0.010849143,
+      "duration": 2.033888684,
       "command": "http_check.sh http://localhost:80",
       "handlers": [
         "slack"
@@ -167,9 +151,11 @@ output         | {{< highlight shell >}}
         "testing"
       ],
       "proxy_entity_name": "",
+      "check_hooks": null,
       "stdin": false,
       "ttl": 0,
       "timeout": 0,
+      "duration": 0.010849143,
       "output": "",
       "state": "failing",
       "status": 1,
@@ -282,18 +268,9 @@ HTTP/1.1 200 OK
     "entity": {
       "entity_class": "agent",
       "system": {
-        "arch": "amd64",
-        "libc_type": "",
-        "vm_system": "",
-        "vm_role": "",
-        "cloud_provider": "",
-        "processes": [
-          {
-            "...": "..."
-          }
-        ],
         "hostname": "webserver01",
-        "...": "..."
+        "...": "...",
+        "arch": "amd64"
       },
       "subscriptions": [
         "linux",
@@ -395,63 +372,6 @@ response codes       | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (
 output               | {{< highlight json >}}
 [
   {
-    "timestamp": 1543871497,
-    "id": "a68906e0-7c5c-49f0-8424-59a71d3ecfe2",
-    "entity": {
-      "entity_class": "agent",
-      "system": {
-        "arch": "amd64",
-        "libc_type": "",
-        "vm_system": "",
-        "vm_role": "",
-        "cloud_provider": "",
-        "processes": [
-          {
-            "...": "..."
-          }
-        ],
-        "hostname": "webserver01",
-        "...": "..."
-      },
-      "subscriptions": [
-        "linux",
-        "entity:sensu-go-sandbox"
-      ],
-      "last_seen": 1543858763,
-      "metadata": {
-        "name": "sensu-go-sandbox",
-        "namespace": "default",
-        "created_by": "admin"
-      }
-    },
-    "check": {
-      "command": "check-cpu.sh -w 75 -c 90",
-      "duration": 1.054253257,
-      "executed": 1543871496,
-      "history": [
-        {
-          "status": 0,
-          "executed": 1543870296
-        }
-      ],
-      "issued": 1543871496,
-      "output": "CPU OK - Usage:.50\n",
-      "state": "passing",
-      "status": 0,
-      "total_state_change": 0,
-      "last_ok": 1543871497,
-      "occurrences": 1,
-      "metadata": {
-        "name": "check-cpu",
-        "namespace": "default",
-        "created_by": "admin"
-      }
-    },
-    "metadata": {
-      "namespace": "default"
-    }
-  },
-  {
     "timestamp": 1543871524,
     "id": "095c37e8-1cb4-4d10-91e9-0bdd55a4f35b",
     "entity": {
@@ -519,85 +439,76 @@ http://127.0.0.1:8080/api/core/v2/namespaces/default/events/server1/server-healt
 HTTP/1.1 200 OK
 
 {
-  "timestamp": 1577724113,
-  "id": "cf3c9fc0-023a-497a-aaf4-880dbd490332",
-  "entity": {
-    "entity_class": "proxy",
-    "system": {
-      "network": {
-        "interfaces": null
-      },
-      "libc_type": "",
-      "vm_system": "",
-      "vm_role": "",
-      "cloud_provider": "",
-      "processes": [
-        {
-          "...": "..."
+    "timestamp": 1577724113,
+    "id": "cf3c9fc0-023a-497a-aaf4-880dbd490332",
+    "entity": {
+        "entity_class": "proxy",
+        "system": {
+            "network": {
+                "interfaces": null
+            }
+        },
+        "subscriptions": null,
+        "last_seen": 0,
+        "deregister": false,
+        "deregistration": {},
+        "metadata": {
+            "name": "server1",
+            "namespace": "default",
+            "created_by": "admin"
+        },
+        "sensu_agent_version": ""
+    },
+    "check": {
+        "handlers": [
+            "slack"
+        ],
+        "high_flap_threshold": 0,
+        "interval": 60,
+        "low_flap_threshold": 0,
+        "publish": false,
+        "runtime_assets": null,
+        "subscriptions": [],
+        "proxy_entity_name": "",
+        "check_hooks": null,
+        "stdin": false,
+        "subdue": null,
+        "ttl": 0,
+        "timeout": 0,
+        "round_robin": false,
+        "executed": 1543880280,
+        "history": [
+            {
+                "status": 1,
+                "executed": 1543880296
+            },
+            {
+                "status": 2,
+                "executed": 1543880435
+            },
+            {
+                "status": 1,
+                "executed": 1543889363
+            }
+        ],
+        "issued": 0,
+        "output": "Server error",
+        "state": "failing",
+        "status": 1,
+        "total_state_change": 0,
+        "last_ok": 0,
+        "occurrences": 1,
+        "occurrences_watermark": 1,
+        "output_metric_format": "",
+        "output_metric_handlers": null,
+        "env_vars": null,
+        "metadata": {
+            "name": "server-health",
+            "namespace": "default",
+            "created_by": "admin"
         }
-      ]
     },
-    "subscriptions": null,
-    "last_seen": 0,
-    "deregister": false,
-    "deregistration": {},
-    "metadata": {
-      "name": "server1",
-      "namespace": "default",
-      "created_by": "admin"
-    },
-    "sensu_agent_version": ""
-  },
-  "check": {
-    "handlers": [
-      "slack"
-    ],
-    "high_flap_threshold": 0,
-    "interval": 60,
-    "low_flap_threshold": 0,
-    "publish": false,
-    "runtime_assets": null,
-    "subscriptions": [],
-    "proxy_entity_name": "",
-    "check_hooks": null,
-    "stdin": false,
-    "subdue": null,
-    "ttl": 0,
-    "timeout": 0,
-    "round_robin": false,
-    "executed": 1543880280,
-    "history": [
-      {
-        "status": 1,
-        "executed": 1543880296
-      },
-      {
-        "status": 2,
-        "executed": 1543880435
-      },
-      {
-        "status": 1,
-        "executed": 1543889363
-      }
-    ],
-    "issued": 0,
-    "output": "Server error",
-    "state": "failing",
-    "status": 1,
-    "total_state_change": 0,
-    "last_ok": 0,
-    "occurrences": 1,
-    "occurrences_watermark": 1,
-    "output_metric_format": "",
-    "output_metric_handlers": null,
-    "env_vars": null,
-    "metadata": {
-      "name": "server-health",
-      "namespace": "default",
-      "created_by": "admin"
-    }
-  },
-  "metadata": {}
+    "metadata": {}
 }
 {{< /highlight >}}
 
@@ -613,85 +524,76 @@ response type        | Map
 response codes       | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output               | {{< highlight json >}}
 {
-  "timestamp": 1577724113,
-  "id": "cf3c9fc0-023a-497a-aaf4-880dbd490332",
-  "entity": {
-    "entity_class": "proxy",
-    "system": {
-      "network": {
-        "interfaces": null
-      },
-      "libc_type": "",
-      "vm_system": "",
-      "vm_role": "",
-      "cloud_provider": "",
-      "processes": [
-        {
-          "...": "..."
+    "timestamp": 1577724113,
+    "id": "cf3c9fc0-023a-497a-aaf4-880dbd490332",
+    "entity": {
+        "entity_class": "proxy",
+        "system": {
+            "network": {
+                "interfaces": null
+            }
+        },
+        "subscriptions": null,
+        "last_seen": 0,
+        "deregister": false,
+        "deregistration": {},
+        "metadata": {
+            "name": "server1",
+            "namespace": "default",
+            "created_by": "admin"
+        },
+        "sensu_agent_version": ""
+    },
+    "check": {
+        "handlers": [
+            "slack"
+        ],
+        "high_flap_threshold": 0,
+        "interval": 60,
+        "low_flap_threshold": 0,
+        "publish": false,
+        "runtime_assets": null,
+        "subscriptions": [],
+        "proxy_entity_name": "",
+        "check_hooks": null,
+        "stdin": false,
+        "subdue": null,
+        "ttl": 0,
+        "timeout": 0,
+        "round_robin": false,
+        "executed": 1543880280,
+        "history": [
+            {
+                "status": 1,
+                "executed": 1543880296
+            },
+            {
+                "status": 2,
+                "executed": 1543880435
+            },
+            {
+                "status": 1,
+                "executed": 1543889363
+            }
+        ],
+        "issued": 0,
+        "output": "Server error",
+        "state": "failing",
+        "status": 1,
+        "total_state_change": 0,
+        "last_ok": 0,
+        "occurrences": 1,
+        "occurrences_watermark": 1,
+        "output_metric_format": "",
+        "output_metric_handlers": null,
+        "env_vars": null,
+        "metadata": {
+            "name": "server-health",
+            "namespace": "default",
+            "created_by": "admin"
         }
-      ]
     },
-    "subscriptions": null,
-    "last_seen": 0,
-    "deregister": false,
-    "deregistration": {},
-    "metadata": {
-      "name": "server1",
-      "namespace": "default",
-      "created_by": "admin"
-    },
-    "sensu_agent_version": ""
-  },
-  "check": {
-    "handlers": [
-      "slack"
-    ],
-    "high_flap_threshold": 0,
-    "interval": 60,
-    "low_flap_threshold": 0,
-    "publish": false,
-    "runtime_assets": null,
-    "subscriptions": [],
-    "proxy_entity_name": "",
-    "check_hooks": null,
-    "stdin": false,
-    "subdue": null,
-    "ttl": 0,
-    "timeout": 0,
-    "round_robin": false,
-    "executed": 1543880280,
-    "history": [
-      {
-        "status": 1,
-        "executed": 1543880296
-      },
-      {
-        "status": 2,
-        "executed": 1543880435
-      },
-      {
-        "status": 1,
-        "executed": 1543889363
-      }
-    ],
-    "issued": 0,
-    "output": "Server error",
-    "state": "failing",
-    "status": 1,
-    "total_state_change": 0,
-    "last_ok": 0,
-    "occurrences": 1,
-    "occurrences_watermark": 1,
-    "output_metric_format": "",
-    "output_metric_handlers": null,
-    "env_vars": null,
-    "metadata": {
-      "name": "server-health",
-      "namespace": "default",
-      "created_by": "admin"
-    }
-  },
-  "metadata": {}
+    "metadata": {}
 }
 {{< /highlight >}}
 

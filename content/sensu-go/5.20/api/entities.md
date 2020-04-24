@@ -9,10 +9,10 @@ menu:
 ---
 
 - [The `/entities` API endpoint](#the-entities-api-endpoint)
-	- [`/entities` (GET)](#entities-get)
-	- [`/entities` (POST)](#entities-post)
+  - [`/entities` (GET)](#entities-get)
+  - [`/entities` (POST)](#entities-post)
 - [The `/entities/:entity` API endpoint](#the-entitiesentity-api-endpoint)
-	- [`/entities/:entity` (GET)](#entitiesentity-get)
+  - [`/entities/:entity` (GET)](#entitiesentity-get)
   - [`/entities/:entity` (PUT)](#entitiesentity-put)
   - [`/entities/:entity` (DELETE)](#entitiesentity-delete)
 
@@ -371,7 +371,7 @@ HTTP/1.1 200 OK
         "running": true,
         "created": 1582137786,
         "memory_percent": 0.146866455,
-        "cpu_percent": 0.30897618146109257
+        "cpu_percent": 0.308976181461092553
       }
     ]
   },
@@ -474,7 +474,7 @@ output               | {{< highlight json >}}
         "running": true,
         "created": 1582137786,
         "memory_percent": 0.146866455,
-        "cpu_percent": 0.30897618146109257
+        "cpu_percent": 0.308976181461092553
       }
     ]
   },
