@@ -292,12 +292,6 @@ To confirm your configuration is working properly, start by removing configurati
 sudo sed -r -i.bak '/^(wal_level|max_wal_senders|wal_keep_segments).*/d' /var/lib/pgsql/data/postgresql.conf
 {{< /highlight >}}
 
-Enable read-only queries (or modify/remove, if master `wal_level` is archived):
-
-{{< highlight shell >}}
-echo 'hot_standby = on' | sudo tee -a /var/lib/pgsql/data/postgresql.conf
-{{< /highlight >}}
-
 Start the PostgreSQL service:
 
 {{< highlight shell >}}

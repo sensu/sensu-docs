@@ -227,7 +227,6 @@ sudo cp -a /var/lib/pgsql/data/postgresql.conf /var/lib/pgsql/data/postgresql.co
 
 Next, append the necessary configuration options.
 
-
 {{< highlight shell >}}
 echo 'wal_level = hot_standby' | sudo tee -a /var/lib/pgsql/data/postgresql.conf
 {{< /highlight >}}
@@ -287,12 +286,6 @@ To confirm your configuration is working properly, start by removing configurati
 
 {{< highlight shell >}}
 sudo sed -r -i.bak '/^(wal_level|max_wal_senders|wal_keep_segments).*/d' /var/lib/pgsql/data/postgresql.conf
-{{< /highlight >}}
-
-Enable read-only queries (or modify/remove, if master `wal_level` is archived):
-
-{{< highlight shell >}}
-echo 'hot_standby = on' | sudo tee -a /var/lib/pgsql/data/postgresql.conf
 {{< /highlight >}}
 
 Start the PostgreSQL service:
