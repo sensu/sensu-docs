@@ -9,10 +9,10 @@ menu:
 ---
 
 - [The `/entities` API endpoint](#the-entities-api-endpoint)
-	- [`/entities` (GET)](#entities-get)
-	- [`/entities` (POST)](#entities-post)
+  - [`/entities` (GET)](#entities-get)
+  - [`/entities` (POST)](#entities-post)
 - [The `/entities/:entity` API endpoint](#the-entitiesentity-api-endpoint)
-	- [`/entities/:entity` (GET)](#entitiesentity-get)
+  - [`/entities/:entity` (GET)](#entitiesentity-get)
   - [`/entities/:entity` (PUT)](#entitiesentity-put)
   - [`/entities/:entity` (DELETE)](#entitiesentity-delete)
 

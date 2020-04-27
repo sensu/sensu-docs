@@ -247,7 +247,6 @@ spec:
   - staging
   system:
     arch: amd64
-    processes: null
     hostname: example-hostname
     network:
       interfaces:
@@ -269,6 +268,7 @@ spec:
     platform: centos
     platform_family: rhel
     platform_version: 7.4.1708
+    processes: null
   user: agent
 {{< /highlight >}}
 
@@ -293,6 +293,7 @@ spec:
       "platform": "centos",
       "platform_family": "rhel",
       "platform_version": "7.4.1708",
+      "processes": null,
       "network": {
         "interfaces": [
           {
@@ -320,8 +321,7 @@ spec:
           }
         ]
       },
-      "arch": "amd64",
-      "processes": null
+      "arch": "amd64"
     },
     "subscriptions": [
       "entity:example-hostname",

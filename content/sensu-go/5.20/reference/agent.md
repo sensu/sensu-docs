@@ -886,8 +886,7 @@ disable-assets: true{{< /highlight >}}
 
 | discover-processes |      |
 --------------|------
-description   | When set to `true`, the agent populates the `processes` field in `entity.system`.
- | **COMMERCIAL FEATURE**: Access the `discover-processes` flag in the packaged Sensu Go distribution. For more information, see [Get started with commercial features][55].
+description   | When set to `true`, the agent populates the `processes` field in `entity.system`.<br><br>**COMMERCIAL FEATURE**: Access the `discover-processes` flag in the packaged Sensu Go distribution. For more information, see [Get started with commercial features][55].
 type          | Boolean
 default       | false
 environment variable | `SENSU_DISCOVER_PROCESSES`

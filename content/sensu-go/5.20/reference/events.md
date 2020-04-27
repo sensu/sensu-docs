@@ -20,7 +20,7 @@ menu:
 - [Use event data](#use-event-data)
   - [Occurrences](#occurrences-and-occurrences-watermark)
 - [Events specification](#events-specification)
-	- [Top-level attributes](#top-level-attributes) | [Metadata attributes](#metadata-attributes) | [Spec attributes](#spec-attributes) | [Check attributes](#check-attributes) | [Metric attributes](#metric-attributes)
+  - [Top-level attributes](#top-level-attributes) | [Metadata attributes](#metadata-attributes) | [Spec attributes](#spec-attributes) | [Check attributes](#check-attributes) | [Metric attributes](#metric-attributes)
 - [Examples](#examples)
 
 An event is a generic container used by Sensu to provide context to checks and metrics.
@@ -290,7 +290,6 @@ example      | {{< highlight shell >}}
     ],
     "system": {
       "arch": "amd64",
-      "processes": null,
       "hostname": "sensu-go-sandbox",
       "network": {
         "interfaces": [
@@ -314,7 +313,8 @@ example      | {{< highlight shell >}}
       "os": "linux",
       "platform": "centos",
       "platform_family": "rhel",
-      "platform_version": "7.5.1804"
+      "platform_version": "7.5.1804",
+      "processes": null
     },
     "user": "agent"
   },
@@ -785,7 +785,6 @@ spec:
     - entity:sensu-centos
     system:
       arch: amd64
-      processes: null
       hostname: sensu-centos
       network:
         interfaces:
@@ -807,6 +806,7 @@ spec:
       platform: centos
       platform_family: rhel
       platform_version: 7.4.1708
+      processes: null
     user: agent
   timestamp: 1552594758
   event_id: 3a5948f3-6ffd-4ea2-a41e-334f4a72ca2f
@@ -888,7 +888,6 @@ spec:
       ],
       "system": {
         "arch": "amd64",
-        "processes": null,
         "hostname": "sensu-centos",
         "network": {
           "interfaces": [
@@ -920,7 +919,8 @@ spec:
         "os": "linux",
         "platform": "centos",
         "platform_family": "rhel",
-        "platform_version": "7.4.1708"
+        "platform_version": "7.4.1708",
+        "processes": null
       },
       "user": "agent"
     },
@@ -1005,7 +1005,6 @@ spec:
     - entity:sensu-go-sandbox
     system:
       arch: amd64
-      processes: null
       hostname: sensu-go-sandbox
       network:
         interfaces:
@@ -1022,6 +1021,7 @@ spec:
       platform: centos
       platform_family: rhel
       platform_version: 7.5.1804
+      processes: null
     user: agent
   metrics:
     handlers:
@@ -1120,7 +1120,6 @@ spec:
       ],
       "system": {
         "arch": "amd64",
-        "processes": null,
         "hostname": "sensu-go-sandbox",
         "network": {
           "interfaces": [
@@ -1144,7 +1143,8 @@ spec:
         "os": "linux",
         "platform": "centos",
         "platform_family": "rhel",
-        "platform_version": "7.5.1804"
+        "platform_version": "7.5.1804",
+        "processes": null
       },
       "user": "agent"
     },
@@ -1207,7 +1207,6 @@ spec:
     - entity:sensu-go-sandbox
     system:
       arch: amd64
-      processes: null
       hostname: sensu-go-sandbox
       network:
         interfaces:
@@ -1224,6 +1223,7 @@ spec:
       platform: centos
       platform_family: rhel
       platform_version: 7.5.1804
+      processes: null
     user: agent
   metrics:
     handlers:
@@ -1274,7 +1274,6 @@ spec:
       ],
       "system": {
         "arch": "amd64",
-        "processes": null,
         "hostname": "sensu-go-sandbox",
         "network": {
           "interfaces": [
@@ -1298,7 +1297,8 @@ spec:
         "os": "linux",
         "platform": "centos",
         "platform_family": "rhel",
-        "platform_version": "7.5.1804"
+        "platform_version": "7.5.1804",
+        "processes": null
       },
       "user": "agent"
     },

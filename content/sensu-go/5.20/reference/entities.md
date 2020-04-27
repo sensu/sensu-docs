@@ -459,6 +459,7 @@ system:
   platform: ubuntu
   platform_family: debian
   platform_version: "16.04"
+
 {{< /highlight >}}
 
 {{< highlight json >}}
@@ -492,30 +493,30 @@ system:
     "libc_type": "glibc",
     "vm_system": "kvm",
     "vm_role": "host",
-    "cloud_provider": ""
+    "cloud_provider": "",
     "processes": [
-        {
-          "name": "Slack",
-          "pid": 1349,
-          "ppid": 0,
-          "status": "Ss",
-          "background": true,
-          "running": true,
-          "created": 1582137786,
-          "memory_percent": 1.09932518,
-          "cpu_percent": 0.3263987595984941
-        },
-        {
-          "name": "Slack Helper",
-          "pid": 1360,
-          "ppid": 1349,
-          "status": "Ss",
-          "background": true,
-          "running": true,
-          "created": 1582137786,
-          "memory_percent": 0.146866455,
-          "cpu_percent": 0.308976181461092553
-        }
+      {
+        "name": "Slack",
+        "pid": 1349,
+        "ppid": 0,
+        "status": "Ss",
+        "background": true,
+        "running": true,
+        "created": 1582137786,
+        "memory_percent": 1.09932518,
+        "cpu_percent": 0.3263987595984941
+      },
+      {
+        "name": "Slack Helper",
+        "pid": 1360,
+        "ppid": 1349,
+        "status": "Ss",
+        "background": true,
+        "running": true,
+        "created": 1582137786,
+        "memory_percent": 0.146866455,
+        "cpu_percent": 0.308976181461092553
+      }
     ]
   }
 }{{< /highlight >}}
@@ -711,31 +712,31 @@ example        | {{< highlight shell >}}"cloud_provider": "" {{< /highlight >}}
 
 processes    | 
 -------------|------ 
-description  | List of processes on the local agent. See [processes attributes][26] for more information.
-required     | false
+description  | List of processes on the local agent. See [processes attributes][26] for more information. 
+required     | false 
 type         | Map
 example      | {{< language-toggle >}}
 
 {{< highlight yml >}}
 processes:
-  - name: Slack
-    pid: 1349
-    ppid: 0
-    status: Ss
-    background: true
-    running: true
-    created: 1582137786
-    memory_percent: 1.09932518
-    cpu_percent: 0.3263987595984941
-  - name: Slack Helper
-    pid: 1360
-    ppid: 1349
-    status: Ss
-    background: true
-    running: true
-    created: 1582137786
-    memory_percent: 0.146866455
-    cpu_percent: 0.30897618146109257
+- name: Slack
+  pid: 1349
+  ppid: 0
+  status: Ss
+  background: true
+  running: true
+  created: 1582137786
+  memory_percent: 1.09932518
+  cpu_percent: 0.3263987595984941
+- name: Slack Helper
+  pid: 1360
+  ppid: 1349
+  status: Ss
+  background: true
+  running: true
+  created: 1582137786
+  memory_percent: 0.146866455
+  cpu_percent: 0.30897618146109257
 {{< /highlight >}}
 
 {{< highlight json >}}
@@ -761,13 +762,12 @@ processes:
       "running": true,
       "created": 1582137786,
       "memory_percent": 0.146866455,
-      "cpu_percent": 0.30897618146109257
+      "cpu_percent": 0.308976181461092553
     }
   ]
 }{{< /highlight >}}
 
 {{< /language-toggle >}}
-
 
 ### Network attributes
 
@@ -851,7 +851,8 @@ example      | {{< highlight shell >}}"handler": "email-handler"{{< /highlight >
 **COMMERCIAL FEATURE**: Access processes attributes with the [`discover-processes` flag][27] in the packaged Sensu Go distribution. For more information, see [Get started with commercial features][9].
 
 {{% notice note %}}
-**NOTE**: The `processes` field is populated in the packaged Sensu Go distributions. In OSS builds, the field will be empty: `"processes": null`.
+**NOTE**: The `processes` field is populated in the packaged Sensu Go distributions.
+In OSS builds, the field will be empty: `"processes": null`.
 {{% /notice %}}
 
 name         | 
@@ -974,7 +975,7 @@ spec:
       created: 1582137786
       memory_percent: 0.146866455
       cpu_percent: 0.30897618146109257
-    hostname: sensu2-centos
+      hostname: sensu2-centos
     network:
       interfaces:
       - addresses:
@@ -1070,7 +1071,7 @@ spec:
           "running": true,
           "created": 1582137786,
           "memory_percent": 0.146866455,
-          "cpu_percent": 0.30897618146109257
+          "cpu_percent": 0.308976181461092553
         }
       ]
     },
@@ -1112,7 +1113,7 @@ spec:
 [12]: ../../sensuctl/reference#create-resources
 [13]: #spec-attributes
 [14]: ../../api/overview#response-filtering
-[15]: ../../sensuctl/reference#response-filters
+[15]: ../../sensuctl/reference#response-filtering
 [16]: #proxy-entities
 [17]: ../../guides/monitor-external-resources/
 [18]: ../checks/#round-robin-checks
