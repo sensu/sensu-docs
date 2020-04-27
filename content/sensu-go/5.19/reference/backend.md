@@ -1247,28 +1247,9 @@ Event logging supports log rotation via the _SIGHUP_ signal.
 To rotate event logs, first rename (move) the current log file.
 Then, send the _SIGHUP_ signal to the sensu-backend process so it creates a new log file and starts logging to it.
 
-In this example, the `postrotate` script will reload the backend after log rotate is complete.
-
-{{< highlight shell >}}
-/var/log/sensu/events.log {
-  rotate 7
-  missingok
-  notifempty
-  compress
-  delaycompress
-  size 30k
-  daily
-  create 0644 sensu sensu
-  postrotate
-    /sbin/service sensu-backend reload > /dev/null 2>/dev/null || true
-  endscript
-}
-{{< /highlight >}}
-
-Without the `postrotate` script, the backend will not reload.
-This will cause sensu-backend (and sensu-agent, if translated for the Sensu agent) to no longer write to the log file, even if logrotate recreates the log file.
-
 #### Log rotation for systemd logs
+
+In this example, the `postrotate` script will reload the backend after log rotate is complete.
 
 {{< highlight shell >}}
 /var/log/sensu/events.log
@@ -1284,6 +1265,11 @@ This will cause sensu-backend (and sensu-agent, if translated for the Sensu agen
 }
 {{< /highlight >}}
 
+Without the `postrotate` script, the backend will not reload.
+This will cause sensu-backend (and sensu-agent, if translated for the Sensu agent) to no longer write to the log file, even if logrotate recreates the log file.
+
+Read [Log Sensu services with systemd][28] to learn how to add log forwarding from journald to syslog, have rsyslog write logging data to disk, and set up log rotation of the newly created log files.
+
 #### Log rotation for sysvinit logs
 
 {{< highlight shell >}}
@@ -1295,7 +1281,7 @@ This will cause sensu-backend (and sensu-agent, if translated for the Sensu agen
   notifempty
   compress
   postrotate
-    kill -HUP `cat /var/run/sensu/sensu-backend.pid 2> /dev/null` 2> /dev/null || true
+    /sbin/service sensu-backend reload > /dev/null 2>/dev/null || true
   endscript
 }
 {{< /highlight >}}
@@ -1328,3 +1314,4 @@ This will cause sensu-backend (and sensu-agent, if translated for the Sensu agen
 [25]: ../../installation/install-sensu#3-initialize
 [26]: ../../sensuctl/reference/#change-admin-user-s-password
 [27]: #configuration-via-environment-variables
+[28]: ../../guides/systemd-logs/
