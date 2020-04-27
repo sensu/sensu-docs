@@ -41,6 +41,8 @@ HTTP/1.1 200 OK
     },
     "spec": {
       "dsn": "postgresql://user:secret@host:port/otherdbname",
+      "max_conn_lifetime": "5m",
+      "max_idle_conns": 2,
       "pool_size": 20
     }
   },
@@ -53,6 +55,8 @@ HTTP/1.1 200 OK
     },
     "spec": {
       "dsn": "postgresql://user:secret@host:port/dbname",
+      "max_conn_lifetime": "5m",
+      "max_idle_conns": 2,
       "pool_size": 20
     }
   }
@@ -78,6 +82,8 @@ output         | {{< highlight json >}}
     },
     "spec": {
       "dsn": "postgresql://user:secret@host:port/otherdbname",
+      "max_conn_lifetime": "5m",
+      "max_idle_conns": 2,
       "pool_size": 20
     }
   },
@@ -90,6 +96,8 @@ output         | {{< highlight json >}}
     },
     "spec": {
       "dsn": "postgresql://user:secret@host:port/dbname",
+      "max_conn_lifetime": "5m",
+      "max_idle_conns": 2,
       "pool_size": 20
     }
   }
@@ -117,6 +125,8 @@ HTTP/1.1 200 OK
   },
   "spec": {
     "dsn": "postgresql://user:secret@host:port/dbname",
+    "max_conn_lifetime": "5m",
+    "max_idle_conns": 2,
     "pool_size": 20
   }
 }
@@ -140,6 +150,8 @@ output         | {{< highlight json >}}
   },
   "spec": {
     "dsn": "postgresql://user:secret@host:port/dbname",
+    "max_conn_lifetime": "5m",
+    "max_idle_conns": 2,
     "pool_size": 20
   }
 }
@@ -161,6 +173,8 @@ http://127.0.0.1:8080/api/enterprise/store/v1/provider/my-postgres \
   },
   "spec": {
     "dsn": "postgresql://user:secret@host:port/dbname",
+    "max_conn_lifetime": "5m",
+    "max_idle_conns": 2,
     "pool_size": 20
   }
 }'
@@ -185,6 +199,8 @@ payload         | {{< highlight shell >}}
   },
   "spec": {
     "dsn": "postgresql://user:secret@host:port/dbname",
+    "max_conn_lifetime": "5m",
+    "max_idle_conns": 2,
     "pool_size": 20
   }
 }
