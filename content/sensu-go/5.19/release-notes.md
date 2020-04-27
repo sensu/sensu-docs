@@ -62,6 +62,7 @@ Read the [upgrade guide][1] for information about upgrading to the latest versio
 
 **April 27, 2020** &mdash; The latest release of Sensu Go, version 5.19.2, is now available for download.
 This patch release adds two database connection pool parameters for PostgreSQL so you can configure the maximum time a connection can persist before being destroyed and the maximum number of idle connections to retain.
+The release also includes packages for Ubuntu 19.10 and 20.04.
 
 See the [upgrade guide][1] to upgrade Sensu to version 5.19.2.
 
