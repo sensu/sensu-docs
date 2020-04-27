@@ -7,6 +7,7 @@ version: "5.19"
 menu: "sensu-go-5.19"
 ---
 
+- [5.19.2 release notes](#5-19-2-release-notes)
 - [5.19.1 release notes](#5-19-1-release-notes)
 - [5.19.0 release notes](#5-19-0-release-notes)
 - [5.18.1 release notes](#5-18-1-release-notes)
@@ -56,6 +57,22 @@ PATCH versions include backward-compatible bug fixes.
 Read the [upgrade guide][1] for information about upgrading to the latest version of Sensu Go.
 
 ---
+
+## 5.19.2 release notes
+
+**April 27, 2020** &mdash; The latest release of Sensu Go, version 5.19.2, is now available for download.
+This patch release adds two database connection pool parameters for PostgreSQL so you can configure the maximum time a connection can persist before being destroyed and the maximum number of idle connections to retain.
+The release also includes packages for Ubuntu 19.10 and 20.04.
+
+See the [upgrade guide][1] to upgrade Sensu to version 5.19.2.
+
+**FIXES:**
+
+- ([Commercial feature][122]) Adds SQL database connection pool parameters `max_conn_lifetime` and `max_idle_conns` to [store/v1.PostgresConfig][132].
+
+**IMPROVEMENTS:**
+
+- Sensu packages are now available for Ubuntu 19.10 (Eoan Ermine) and 20.04 (Focal Fossa). See the [supported platforms][133] page for a complete list of Sensu’s supported platforms and the [installation guide][134] to install Sensu packages for Ubuntu.
 
 ## 5.19.1 release notes
 
@@ -1183,3 +1200,6 @@ To get started with Sensu Go:
 [129]: /sensu-go/5.19/sensuctl/reference/#sensuctl-prune
 [130]: /sensu-go/5.19/reference/tessen/
 [131]: /sensu-go/5.19/reference/handlers/#pipe-handler-command
+[132]: /sensu-go/5.19/api/datastore/
+[133]: /sensu-go/5.19/installation/platforms/
+[134]: /sensu-go/5.19/installation/install-sensu/

@@ -39,6 +39,8 @@ Supported packages are available through [sensu/stable][8] on packagecloud and t
 | Ubuntu 18.04         | {{< check >}}      |
 | Ubuntu 18.10         | {{< check >}}      |
 | Ubuntu 19.04         | {{< check >}}      |
+| Ubuntu 19.10         | {{< check >}}      |
+| Ubuntu 20.04         | {{< check >}}      |
 | Debian 8             | {{< check >}}      |
 | Debian 9             | {{< check >}}      |
 | Debian 10            | {{< check >}}      |
@@ -55,6 +57,8 @@ Supported packages are available through [sensu/stable][8] on packagecloud and t
 | Ubuntu 18.04         | {{< check >}}      |
 | Ubuntu 18.10         | {{< check >}}      |
 | Ubuntu 19.04         | {{< check >}}      |
+| Ubuntu 19.10         | {{< check >}}      |
+| Ubuntu 20.04         | {{< check >}}      |
 | Debian 8             | {{< check >}}      |
 | Debian 9             | {{< check >}}      |
 | Debian 10            | {{< check >}}      |
@@ -73,6 +77,8 @@ Supported packages are available through [sensu/stable][8] on packagecloud and t
 | Ubuntu 18.04         | {{< check >}}      |
 | Ubuntu 18.10         | {{< check >}}      |
 | Ubuntu 19.04         | {{< check >}}      |
+| Ubuntu 19.10         | {{< check >}}      |
+| Ubuntu 20.04         | {{< check >}}      |
 | Debian 8             | {{< check >}}      |
 | Debian 9             | {{< check >}}      |
 | Debian 10            | {{< check >}}      |
