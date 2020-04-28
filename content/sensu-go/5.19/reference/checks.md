@@ -480,7 +480,7 @@ Learn how to use check hooks with the [Sensu hooks reference documentation][6].
 ## Check specification
 
 {{% notice note %}}
-**NOTE**: The Sensu Go check definition does not include the `occurrences` attribute. In Sensu Go, [occurrences are included in events][60].
+**NOTE**: In Sensu Go, the `occurrences` attribute is not part of the check definition like it was in Sensu Core.
 {{% /notice %}}
 
 ### Top-level attributes

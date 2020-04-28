@@ -159,7 +159,7 @@ The [Sensu Translator version 1.1.0][18] retrieves occurrence and refresh values
 The [fatigue check filter asset][11] uses these [annotations][33] to manage alert fatigue.
 
 However, the Sensu Translator doesn't automatically add the fatigue check filter asset or the filter configuration you need to run it.
-To use the fatigue check filter asset, you must [register it][15] and create a correctly configured [event filter definition][19].
+To use the fatigue check filter asset, you must [register it][15], create a correctly configured [event filter definition][19], and [add the event filter][34] to the list of filters on applicable handlers.
 
 ### Assets
 The `sensu-install` tool in Sensu Core 1.x is replaced by [assets][12] in Sensu Go.
@@ -224,3 +224,4 @@ See the metadata attributes section in the reference documentation for more info
 [31]: https://sensu.io/contact?subject=contact-sales/
 [32]: https://blog.sensu.io/one-year-of-sensu-go
 [33]: https://github.com/nixwiz/sensu-go-fatigue-check-filter/#configuration-1
+[34]: ../../guides/reduce-alert-fatigue/#assign-the-event-filter-to-a-handler-1
