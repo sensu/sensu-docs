@@ -1244,10 +1244,12 @@ event-log-file: "/var/log/sensu/events.log"{{< /highlight >}}
 ### Log rotation
 
 Event logging supports log rotation via the _SIGHUP_ signal.
-To rotate event logs, first rename (move) the current log file.
+To manually rotate event logs, first rename (move) the current log file.
 Then, send the _SIGHUP_ signal to the sensu-backend process so it creates a new log file and starts logging to it.
 
-#### Log rotation for systemd logs
+Because event log files can grow very quickly for larger Sensu installations, we recommend using `logrotate` to automatically rotate log files.
+
+#### Log rotation for systemd
 
 In this example, the `postrotate` script will reload the backend after log rotate is complete.
 
@@ -1268,7 +1270,9 @@ In this example, the `postrotate` script will reload the backend after log rotat
 Without the `postrotate` script, the backend will not reload.
 This will cause sensu-backend (and sensu-agent, if translated for the Sensu agent) to no longer write to the log file, even if logrotate recreates the log file.
 
-Read [Log Sensu services with systemd][28] to learn how to add log forwarding from journald to syslog, have rsyslog write logging data to disk, and set up log rotation of the newly created log files.
+{{% notice note %}}
+**NOTE**: Event logs do not include log messages produced by sensu-backend service. If you wish to write Sensu service logs to flat files on disk, read [Log Sensu services with systemd][28] to learn how.
+{{% /notice %}}
 
 #### Log rotation for sysvinit logs
 
