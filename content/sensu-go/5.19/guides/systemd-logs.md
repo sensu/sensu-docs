@@ -92,4 +92,3 @@ Sensu also offers logging of event data to a separate log file as a commercial f
 
 
 [1]: ../../reference/backend/#event-logging
-[2]: ../../reference/backend/#log-rotation
