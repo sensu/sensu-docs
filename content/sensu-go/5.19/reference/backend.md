@@ -1271,7 +1271,7 @@ Without the `postrotate` script, the backend will not reload.
 This will cause sensu-backend (and sensu-agent, if translated for the Sensu agent) to no longer write to the log file, even if logrotate recreates the log file.
 
 {{% notice note %}}
-**NOTE**: Event logs do not include log messages produced by sensu-backend service. If you wish to write Sensu service logs to flat files on disk, read [Log Sensu services with systemd][28] to learn how.
+**NOTE**: Event logs do not include log messages produced by sensu-backend service. To write Sensu service logs to flat files on disk, read [Log Sensu services with systemd][28].
 {{% /notice %}}
 
 #### Log rotation for sysvinit
