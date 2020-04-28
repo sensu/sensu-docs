@@ -1,6 +1,6 @@
 ---
 title: "License management"
-linkTitle: "License Management"
+linkTitle: "License management reference"
 description: "Sensu Go includes commercial features designed for monitoring at scale. Activate and manage your commercial license with sensuctl and your Sensu account. Read the reference documentation to learn more."
 weight: 40
 version: "5.19"

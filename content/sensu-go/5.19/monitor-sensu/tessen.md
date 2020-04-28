@@ -1,5 +1,5 @@
 ---
-title: "Tessen"
+title: "Tessen reference"
 description: "Tessen sends anonymized data about Sensu instances to Sensu Inc. You can use sensuctl to view and manage Tessen configuration. Read the reference to configure Tessen."
 weight: 10
 version: "5.19"

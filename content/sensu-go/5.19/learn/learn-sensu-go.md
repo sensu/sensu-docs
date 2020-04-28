@@ -1,6 +1,6 @@
 ---
-title: "Learn Sensu Go with interactive training"
-linkTitle: "Learn Sensu Go"
+title: "Learn Sensu Go with interactive tutorials"
+linkTitle: "Interactive tutorials"
 description: "Get familiar with Sensu terminology. Read our glossary to learn the definitions of common Sensu terms, including agent, asset, backend, check, event, and many more. Bonus: each term links to a corresponding guide!"
 weight: 20
 version: "5.19"
