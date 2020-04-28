@@ -1274,7 +1274,7 @@ This will cause sensu-backend (and sensu-agent, if translated for the Sensu agen
 **NOTE**: Event logs do not include log messages produced by sensu-backend service. If you wish to write Sensu service logs to flat files on disk, read [Log Sensu services with systemd][28] to learn how.
 {{% /notice %}}
 
-#### Log rotation for sysvinit logs
+#### Log rotation for sysvinit
 
 {{< highlight shell >}}
 /var/log/sensu/events.log
