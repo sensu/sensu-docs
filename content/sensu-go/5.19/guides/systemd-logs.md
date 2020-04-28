@@ -88,9 +88,8 @@ The `-d` flag will output details, but it will not take action on the logs or ex
 logrotate -d /etc/logrotate.d/sensu.conf
 {{< /highlight>}}
 
-Read the [Sensu backend reference][1] for more information about event logging and log rotation, including [examples for systemd and sysvinit][2].
+Sensu also offers logging of event data to a separate log file as a commercial feature. See [Sensu backend reference][1] for more information about event logging.
 
 
 [1]: ../../reference/backend/#event-logging
 [2]: ../../reference/backend/#log-rotation
-
