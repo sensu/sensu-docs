@@ -25,6 +25,7 @@ This table lists the supported versions of Sensu Go with links to active documen
 
 | Version | Release date     | Status    |     |
 | ------- |   -------------- | --------- | --- |
+5.19.2 | [April 27, 2020][40] | Supported | <a href="https://sensu-docs.s3.amazonaws.com/pdfs/sensu-go-5-19_sensu-docs.pdf"><img src="/images/download-icon.png" width="30" height="30" title="Download Offline Docs" alt="Download Offline Docs"></a>
 5.19.1 | [April 13, 2020][39] | Supported | <a href="https://sensu-docs.s3.amazonaws.com/pdfs/sensu-go-5-19_sensu-docs.pdf"><img src="/images/download-icon.png" width="30" height="30" title="Download Offline Docs" alt="Download Offline Docs"></a>
 5.19.0 | [March 30, 2020][38] | Supported | <a href="https://sensu-docs.s3.amazonaws.com/pdfs/sensu-go-5-19_sensu-docs.pdf"><img src="/images/download-icon.png" width="30" height="30" title="Download Offline Docs" alt="Download Offline Docs"></a>
 5.18.1 | [March 10, 2020][37] | Supported | <a href="https://sensu-docs.s3.amazonaws.com/pdfs/sensu-go-5-18_sensu-docs.pdf"><img src="/images/download-icon.png" width="30" height="30" title="Download Offline Docs" alt="Download Offline Docs"></a>
@@ -100,3 +101,4 @@ This table lists the supported versions of Sensu Go with links to active documen
 [37]: /sensu-go/latest/release-notes/#5-18-1-release-notes
 [38]: /sensu-go/latest/release-notes/#5-19-0-release-notes
 [39]: /sensu-go/latest/release-notes/#5-19-1-release-notes
+[40]: /sensu-go/latest/release-notes/#5-19-2-release-notes
