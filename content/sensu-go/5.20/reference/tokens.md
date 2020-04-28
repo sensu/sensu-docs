@@ -268,6 +268,7 @@ spec:
     platform: centos
     platform_family: rhel
     platform_version: 7.4.1708
+    processes: null
   user: agent
 {{< /highlight >}}
 
@@ -292,6 +293,7 @@ spec:
       "platform": "centos",
       "platform_family": "rhel",
       "platform_version": "7.4.1708",
+      "processes": null,
       "network": {
         "interfaces": [
           {
