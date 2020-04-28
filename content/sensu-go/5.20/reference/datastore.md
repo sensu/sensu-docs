@@ -62,6 +62,8 @@ metadata:
   name: my-postgres
 spec:
   dsn: "postgresql://user:secret@host:port/dbname"
+  max_conn_lifetime: 5m
+  max_idle_conns: 2
   pool_size: 20
 {{< /highlight >}}
 
@@ -74,6 +76,8 @@ spec:
   },
   "spec": {
     "dsn": "postgresql://user:secret@host:port/dbname",
+    "max_conn_lifetime": "5m",
+    "max_idle_conns": 2,
     "pool_size": 20
   }
 }
@@ -144,6 +148,8 @@ type         | Map of key-value pairs
 example      | {{< highlight shell >}}
 spec:
   dsn: "postgresql://user:secret@host:port/dbname"
+  max_conn_lifetime: 5m
+  max_idle_conns: 2
   pool_size: 20
 {{< /highlight >}}
 
@@ -171,6 +177,21 @@ description  | Data source names. Specified as a URL or PostgreSQL connection st
 required     | true
 type         | String
 example      | {{< highlight shell >}}dsn: "postgresql://user:secret@host:port/dbname"{{< /highlight >}}
+
+max_conn_lifetime    |      |
+-------------|------
+description  | Maximum time a connection can persist before being destroyed. Specify values with a numeral and a letter indicator: `s` to indicate seconds, `m` to indicate minutes, and `h` to indicate hours. For example, `1m`, `2h`, and `2h1m3s` are valid. 
+required     | false
+type         | String
+example      | {{< highlight shell >}}max_conn_lifetime: 5m{{< /highlight >}}
+
+max_idle_conns    |      |
+-------------|------
+description  | Maximum number of number of idle connections to retain. 
+required     | false
+default      | `2`
+type         | Integer
+example      | {{< highlight shell >}}max_idle_conns: 2{{< /highlight >}}
 
 pool_size    |      |
 -------------|------
