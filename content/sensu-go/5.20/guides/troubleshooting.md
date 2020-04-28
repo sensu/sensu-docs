@@ -43,8 +43,21 @@ You can configure these log levels by specifying the desired log level as the va
 sensu-agent start --log-level debug
 {{< /highlight >}}
 
-You must restart the service if you change log levels via configuration files or command line arguments.
+You must restart the service after you change log levels via configuration files or command line arguments.
 For help with restarting a service, see the [agent reference][5] or [backend reference][9].
+
+#### Increment log level verbosity
+
+Use these commands to increment the log level verbosity at runtime:
+
+{{< highlight shell >}}
+kill -s SIGUSR1 $(pidof sensu-backend)
+kill -s SIGUSR1 $(pidof sensu-agent)
+{{< /highlight >}}
+
+When you increment the log at the trace level (the most verbose log level), the log will wrap around to the error level.
+
+You must restart the service after making this change.
 
 ### Log file locations
 
