@@ -51,8 +51,60 @@ For information about creating and managing checks, see:
 
 ## Initialization
 
-For a **new** installation, you must set up an administrator username and password.
-To do this, set environment variables as shown below, replacing `YOUR_USERNAME` and `YOUR_PASSWORD` with the username and password you want to use:
+For a **new** installation, the backend database must be initialized by providing a username and password for the user to be granted administrative privileges.
+Although initialization is required for every new installation, the implementation differs depending on your method of installation:
+
+- If you are using Docker, you can use environment variables to override the default admin username (`admin`) and password (`P@ssw0rd!`) during [step 2 of the backend installation process][24].
+- If you are using Ubuntu/Debian or RHEL/CentOS, you must specify admin credentials during [step 3 of the backend installation process][25]. Sensu does not apply a default admin username or password for Ubuntu/Debian or RHEL/CentoOS installations.
+
+This step bootstraps the first admin user account for your Sensu installation.
+This account will be granted the cluster admin role.
+
+### Docker initialization
+
+For Docker installations, set administrator credentials with environment variables when you [configure and start][24] the backend as shown below, replacing `YOUR_USERNAME` and `YOUR_PASSWORD` with the username and password you want to use:
+
+{{< language-toggle >}}
+
+{{< highlight Docker >}}
+docker run -v /var/lib/sensu:/var/lib/sensu \
+-d --name sensu-backend \
+-p 3000:3000 -p 8080:8080 -p 8081:8081 \
+-e SENSU_BACKEND_CLUSTER_ADMIN_USERNAME=YOUR_USERNAME \
+-e SENSU_BACKEND_CLUSTER_ADMIN_PASSWORD=YOUR_PASSWORD \
+sensu/sensu:latest \
+sensu-backend start --state-dir /var/lib/sensu/sensu-backend --log-level debug
+{{< /highlight >}}
+
+{{< highlight "Docker Compose" >}}
+---
+version: "3"
+services:
+  sensu-backend:
+    ports:
+    - 3000:3000
+    - 8080:8080
+    - 8081:8081
+    volumes:
+    - "sensu-backend-data:/var/lib/sensu/sensu-backend/etcd"
+    command: "sensu-backend start --state-dir /var/lib/sensu/sensu-backend --log-level debug"
+    environment:
+    - SENSU_BACKEND_CLUSTER_ADMIN_USERNAME=YOUR_USERNAME
+    - SENSU_BACKEND_CLUSTER_ADMIN_PASSWORD=YOUR_PASSWORD
+    image: sensu/sensu:latest
+
+volumes:
+  sensu-backend-data:
+    driver: local
+{{< /highlight >}}
+
+{{< /language-toggle >}}
+
+If you did not use environment variables to override the default admin credentials in [step 2 of the backend installation process][24], we recommend [changing your default admin password][26] as soon as you have installed sensuctl.
+
+### Ubuntu/Debian or RHEL/CentOS initialization
+
+For Ubuntu/Debian or RHEL/CentOS, set administrator credentials with environment variables at [initialization][25] as shown below, replacing `YOUR_USERNAME` and `YOUR_PASSWORD` with the username and password you want to use:
 
 {{< highlight shell >}}
 export SENSU_BACKEND_CLUSTER_ADMIN_USERNAME=YOUR_USERNAME
@@ -74,7 +126,7 @@ Admin Password: YOUR_PASSWORD
 This initialization step bootstraps the first admin user account for your Sensu installation.
 This account will be granted the cluster admin role.
 
-_**NOTE**: If you are already using Sensu, you do not need to initialize. Your installation has already seeded the admin username and password you have set up._
+_**NOTE**: If you are already using Sensu, you do not need to initialize. Your installation has already seeded the admin username and password you have set up. Running `sensu-backend init` on a previously initialized cluster has no effect &mdash; it will not change the admin credentials._
 
 To see available initialization flags:
 
@@ -722,11 +774,11 @@ type                               | List
 default                            | `http://127.0.0.1:2380`
 environment variable               | `SENSU_ETCD_INITIAL_ADVERTISE_PEER_URLS`
 example                            | {{< highlight shell >}}# Command line examples
-sensu-backend start --etcd-listen-peer-urls https://10.0.0.1:2380,https://10.1.0.1:2380
-sensu-backend start --etcd-listen-peer-urls https://10.0.0.1:2380 --etcd-listen-peer-urls https://10.1.0.1:2380
+sensu-backend start --etcd-initial-advertise-peer-urls https://10.0.0.1:2380,https://10.1.0.1:2380
+sensu-backend start --etcd-initial-advertise-peer-urls https://10.0.0.1:2380 --etcd-initial-advertise-peer-urls https://10.1.0.1:2380
 
 # /etc/sensu/backend.yml example
-etcd-listen-peer-urls:
+etcd-initial-advertise-peer-urls:
   - https://10.0.0.1:2380
   - https://10.1.0.1:2380
 {{< /highlight >}}
@@ -1064,12 +1116,12 @@ In this example, the `api-listen-address` flag is configured as an environment v
 {{< language-toggle >}}
 
 {{< highlight "Ubuntu/Debian" >}}
-$ echo 'SENSU_API_LISTEN_ADDRESS=192.168.100.20:8080' | sudo tee /etc/default/sensu-backend
+$ echo 'SENSU_API_LISTEN_ADDRESS=192.168.100.20:8080' | sudo tee -a /etc/default/sensu-backend
 $ sudo systemctl restart sensu-backend
 {{< /highlight >}}
 
 {{< highlight "RHEL/CentOS" >}}
-$ echo 'SENSU_API_LISTEN_ADDRESS=192.168.100.20:8080' | sudo tee /etc/sysconfig/sensu-backend
+$ echo 'SENSU_API_LISTEN_ADDRESS=192.168.100.20:8080' | sudo tee -a/etc/sysconfig/sensu-backend
 $ sudo systemctl restart sensu-backend
 {{< /highlight >}}
 
@@ -1151,7 +1203,7 @@ Here are some log rotate sample configurations:
 {{< /highlight >}}
 
 [1]: ../../installation/install-sensu#install-the-sensu-backend
-[2]: https://github.com/etcd-io/etcd/blob/master/Documentation/docs.md
+[2]: https://etcd.io/docs
 [3]: ../../guides/monitor-server-resources/
 [4]: ../../guides/extract-metrics-with-checks/
 [5]: ../../reference/checks/
@@ -1168,8 +1220,11 @@ Here are some log rotate sample configurations:
 [16]: https://github.com/etcd-io/etcd/blob/master/Documentation/tuning.md#time-parameters
 [17]: ../../files/backend.yml
 [18]: https://golang.org/pkg/crypto/tls/#pkg-constants
-[19]: https://etcd.io/docs/v3.3.12/op-guide/clustering/#discovery
-[20]: https://etcd.io/docs/v3.3.12/op-guide/clustering/#etcd-discovery
-[21]: https://etcd.io/docs/v3.3.12/op-guide/clustering/#dns-discovery
+[19]: https://etcd.io/docs/latest/op-guide/clustering/#discovery
+[20]: https://etcd.io/docs/latest/op-guide/clustering/#etcd-discovery
+[21]: https://etcd.io/docs/latest/op-guide/clustering/#dns-discovery
 [22]: #initialization
 [23]: #etcd-listen-client-urls
+[24]: ../../installation/install-sensu#2-configure-and-start
+[25]: ../../installation/install-sensu#3-initialize
+[26]: ../../sensuctl/reference/#change-admin-user-s-password

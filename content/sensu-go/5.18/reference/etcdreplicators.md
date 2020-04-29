@@ -20,7 +20,9 @@ menu:
 **COMMERCIAL FEATURE**: Access the etcd-replicators datatype in the packaged Sensu Go distribution.
 For more information, see [Get started with commercial features][1].
 
-_**NOTE**: etcd-replicators is a datatype in the federation API, which is only accessible for users who have a cluster role that permits access to replication resources._
+{{% notice note %}}
+**NOTE**: etcd-replicators is a datatype in the federation API, which is only accessible for users who have a cluster role that permits access to replication resources.
+{{% /notice %}}
 
 Etcd replicators allow you to manage [RBAC][3] resources in one place and mirror the changes to follower clusters.
 The API sets up etcd mirrors for one-way key replication.
@@ -37,7 +39,12 @@ The replicator process watches the keyspace of the resource to be replicated and
 
 When the cluster starts up, each sensu-backend scans the stored replicator definitions and starts a replicator process for each replicator definition.
 Source clusters with more than one sensu-backend will cause redundant writes.
-This is harmless, but you should consider it when designing a replicated system. 
+This is harmless, but you should consider it when designing a replicated system.
+
+{{% notice note %}}
+**NOTE**: Create a replicator for each resource type you want to replicate.
+Replicating `namespace` resources will **not** replicate the resources that belong to those namespaces.
+{{% /notice %}}
 
 ## Delete a replicator
 
@@ -131,7 +138,9 @@ example      | {{< highlight shell >}}key: /path/to/ssl/key.pem{{< /highlight >}
 
 insecure     |      |
 -------------|-------
-description  | `true` to disable transport security. Otherwise, `false`. _**NOTE**: Disable transport security with care._
+description  | `true` to disable transport security. Otherwise, `false`. {{% notice note %}}
+**NOTE**: Disable transport security with care.
+{{% /notice %}}
 required     | false
 type         | Boolean
 default      | `false`
@@ -180,7 +189,9 @@ example      | {{< highlight shell >}}replication_interval_seconds: 30{{< /highl
 
 If you replicate the following four examples for `Role`, `RoleBinding`, `ClusterRole`, and `ClusterRoleBinding` resources, you can expect a full replication of [RBAC policy][3].
 
-_**NOTE**: If you do not specify a namespace when you create a replicator, all namespaces for a given resource are replicated._
+{{% notice note %}}
+**NOTE**: If you do not specify a namespace when you create a replicator, all namespaces for a given resource are replicated.
+{{% /notice %}}
 
 ### Example `Role` resource
 
@@ -374,7 +385,13 @@ Before you implement etcd replicators, review these details &mdash; they are cri
 
 - Never use insecure mode without TLS mutual authentication outside of a testbed.
 
-_**WARNING**: Make sure to confirm your configuration. The server will accept incorrect EtcdReplicator definitions without sending a warning. If your configuration is incorrect, replication will not work._
+**Create a replicator for each resource type you want to replicate.**
+
+- Replicating `namespace` resources will **not** replicate the resources that belong to those namespaces.
+
+{{% notice warning %}}
+**WARNING**: Make sure to confirm your configuration. The server will accept incorrect EtcdReplicator definitions without sending a warning. If your configuration is incorrect, replication will not work.
+{{% /notice %}}
 
 [1]: ../../getting-started/enterprise/
 [2]: ../../api/etcdreplicators/

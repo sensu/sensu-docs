@@ -22,7 +22,8 @@ menu:
 - [Service management](#operation)
   - [Start and stop the service](#start-the-service) | [Register and deregister](#registration) | [Cluster](#cluster) | [Synchronize time](#synchronize-time)
 - [Configuration](#configuration)
-  - [API configuration](#api-configuration-flags) | [Ephemeral agent configuration](#ephemeral-agent-configuration-flags) | [Keepalive configuration](#keepalive-configuration-flags) | [Security configuration](#security-configuration-flags) | [Socket configuration](#socket-configuration-flags) | [StatsD configuration](#statsd-configuration-flags) | [Allow list configuration](#allow-list-configuration) and [example configuration file](#example-allow-list-configuration-file) | [Configuration via environment variables](#configuration-via-environment-variables)
+  - [General configuration flags](#general-configuration-flags) | [API configuration](#api-configuration-flags) | [Ephemeral agent configuration](#ephemeral-agent-configuration-flags) | [Keepalive configuration](#keepalive-configuration-flags) | [Security configuration](#security-configuration-flags) | [Socket configuration](#socket-configuration-flags) | [StatsD configuration](#statsd-configuration-flags) | [Allow list configuration](#allow-list-configuration) and [example configuration file](#example-allow-list-configuration-file)
+  - [Configuration via environment variables](#configuration-via-environment-variables)
 - [Example Sensu agent configuration file](../../files/agent.yml) (download)
 
 The Sensu agent is a lightweight client that runs on the infrastructure components you want to monitor.
@@ -113,7 +114,9 @@ http://127.0.0.1:3031/events
 HTTP/1.1 202 Accepted
 {{< /highlight >}}
 
-_**PRO TIP**: To use the agent API `/events` endpoint to create proxy entities, include a `proxy_entity_name` attribute within the `check` scope._
+{{% notice protip %}}
+**PRO TIP**: To use the agent API `/events` endpoint to create proxy entities, include a `proxy_entity_name` attribute within the `check` scope.
+{{% /notice %}}
 
 #### Detect silent failures
 
@@ -261,7 +264,9 @@ sensu-agent --statsd-event-handlers influx-db --statsd-flush-interval 1 --statsd
 
 ## Create monitoring events using the agent TCP and UDP sockets
 
-_**NOTE**: The agent TCP and UDP sockets are deprecated in favor of the [agent API][51]._
+{{% notice note %}}
+**NOTE**: The agent TCP and UDP sockets are deprecated in favor of the [agent API](#events-post-specification).
+{{% /notice %}}
 
 Sensu agents listen for external monitoring data using TCP and UDP sockets.
 The agent sockets accept JSON event data and pass events to the Sensu backend event pipeline for processing.
@@ -299,7 +304,7 @@ echo '{"name": "check-mysql-status", "status": 1, "output": "error!"}' | nc -u -
 
 ### Socket event format
 
-The agent TCP and UDP sockets use a special event data format designed for backward compatibility with [Sensu Core 1.x check results][42].
+The agent TCP and UDP sockets use a special event data format designed for backward compatibility with Sensu Core 1.x check results.
 Attributes specified in socket events appear in the resulting event data passed to the Sensu backend.
 
 **Example socket input: Minimum required attributes**
@@ -328,7 +333,9 @@ Attributes specified in socket events appear in the resulting event data passed 
 
 ### Socket event specification
 
-_**NOTE**: The Sensu agent socket ignores any attributes that are not included in this specification._
+{{% notice note %}}
+**NOTE**: The Sensu agent socket ignores any attributes that are not included in this specification.
+{{% /notice %}}
 
 name         | 
 -------------|------
@@ -361,7 +368,9 @@ example      | {{< highlight shell >}}"source": "sensu-docs-site"{{< /highlight 
 
 client       | 
 -------------|------
-description  | _**NOTE**: The `client` attribute is deprecated in favor of the `source` attribute (see above)._ Name of the Sensu entity associated with the event. Use this attribute to tie the event to a proxy entity. If no matching entity exists, Sensu creates a proxy entity with the name provided by the `client` attribute.
+description  | Name of the Sensu entity associated with the event. Use this attribute to tie the event to a proxy entity. If no matching entity exists, Sensu creates a proxy entity with the name provided by the `client` attribute. {{% notice note %}}
+**NOTE**: The `client` attribute is deprecated in favor of the `source` attribute (see above).
+{{% /notice %}}
 required     | false
 default      | The agent entity that receives the event data.
 type         | String
@@ -417,7 +426,9 @@ The value you specify for `keepalive-warning-timeout` must be lower than the val
 
 You can use keepalives to identify unhealthy systems and network partitions, send notifications, and trigger auto-remediation, among other useful actions.
 
-_**NOTE**: Keepalive monitoring is not supported for [proxy entities][3], as they are inherently unable to run a Sensu agent._
+{{% notice note %}}
+**NOTE**: Keepalive monitoring is not supported for [proxy entities](../entities/), as they are inherently unable to run a Sensu agent.
+{{% /notice %}}
 
 ### Handle keepalive events
 
@@ -585,7 +596,9 @@ To disable the agent from starting on system boot:
 sudo systemctl disable sensu-agent
 {{< /highlight >}}
 
-_**NOTE**: On older distributions of Linux, use `sudo chkconfig sensu-agent on` to enable the agent and `sudo chkconfig sensu-agent off` to disable the agent._
+{{% notice note %}}
+**NOTE**: On older distributions of Linux, use `sudo chkconfig sensu-agent on` to enable the agent and `sudo chkconfig sensu-agent off` to disable the agent.
+{{% /notice %}}
 
 {{< platformBlockClose >}}
 
@@ -623,10 +636,18 @@ sc.exe query SensuAgent
 
 ### Get service version
 
-To get the current agent version using the `sensu-agent` tool:
+There are two ways to get the current agent version: the `sensu-agent` tool and the agent version API.
+
+To get the version of the current `sensu-agent` tool:
 
 {{< highlight shell >}}
 sensu-agent version
+{{< /highlight >}}
+
+To get the version of the running `sensu-agent` service:
+
+{{< highlight shell >}}
+curl http://127.0.0.1:3031/version
 {{< /highlight >}}
 
 ### Uninstall the service
@@ -664,14 +685,18 @@ All Sensu agent data provided in keepalive events gets stored in the agent regis
 
 If a [Sensu event handler][8] named `registration` is configured, the [Sensu backend][2] creates and processes an [event][7] for agent registration, applying any configured [filters][9] and [mutators][10] before executing the configured [handler][8].
 
-_**PRO TIP**: Use a [handler set][34] to execute multiple handlers in response to registration events._
+{{% notice protip %}}
+**PRO TIP**: Use a [handler set](../handlers#handler-sets) to execute multiple handlers in response to registration events.
+{{% /notice %}}
 
 You can use registration events to execute one-time handlers for new Sensu agents.
 For example, you can use registration event handlers to update external [configuration management databases (CMDBs)][11] such as [ServiceNow][12].
 
 To configure a registration event handler, see the [Handlers documentation][8], which includes instructions for creating a handler named `registration`.
 
-_**WARNING**: Registration events are not stored in the event registry, so they are not accessible via the Sensu API. However, all registration events are logged in the [Sensu backend][2] log._
+{{% notice warning %}}
+**WARNING**: Registration events are not stored in the event registry, so they are not accessible via the Sensu API. However, all registration events are logged in the [Sensu backend log](../backend/#event-logging).
+{{% /notice %}}
 
 #### Deregistration events
 
@@ -717,6 +742,7 @@ Flags:
       --api-port int                          port the Sensu client HTTP API listens on (default 3031)
       --backend-url strings                   ws/wss URL of Sensu backend server (to specify multiple backends use this flag multiple times) (default [ws://127.0.0.1:8081])
       --cache-dir string                      path to store cached data (default "/var/cache/sensu/sensu-agent")
+      --cert-file string                      TLS certificate in PEM format
   -c, --config-file string                    path to sensu-agent config file
       --deregister                            ephemeral agent
       --deregistration-handler string         deregistration handler that should process the entity deregistration event.
@@ -731,6 +757,7 @@ Flags:
       --keepalive-handlers string             comma-delimited list of keepalive handlers for this entity. This flag can also be invoked multiple times
       --keepalive-interval uint32             number of seconds to send between keepalive events (default 20)
       --keepalive-warning-timeout uint32      number of seconds until agent is considered dead by backend to create a warning event (default 120)
+      --key-file string                       TLS certificate key in PEM format
       --labels stringToString                 entity labels map (default [])
       --log-level string                      logging level [panic, fatal, error, warn, info, debug] (default "warn")
       --name string                           agent name (defaults to hostname) (default "my-hostname")
@@ -1065,7 +1092,10 @@ keepalive-warning-timeout: 300{{< /highlight >}}
 
 | namespace |      |
 ---------------|------
-description    | Agent namespace. _**NOTE**: Agents are represented in the backend as a class of entity. Entities can only belong to a [single namespace][41]._
+description    | Agent namespace. {{% notice note %}}
+**NOTE**: Agents are represented in the backend as a class of entity.
+Entities can only belong to a [single namespace](../rbac/#namespaced-resource-types).
+{{% /notice %}}
 type           | String
 default        | `default`
 environment variable   | `SENSU_NAMESPACE`
@@ -1104,7 +1134,10 @@ password: "secure-password"{{< /highlight >}}
 
 | redact      |      |
 --------------|------
-description   | List of fields to redact when displaying the entity _**NOTE**: Redacted secrets are sent via the WebSocket connection and stored in etcd. They are not logged or displayed via the Sensu API._
+description   | List of fields to redact when displaying the entity. {{% notice note %}}
+**NOTE**: Redacted secrets are sent via the WebSocket connection and stored in etcd.
+They are not logged or displayed via the Sensu API.
+{{% /notice %}}
 type          | List
 default       | By default, Sensu redacts the following fields: `password`, `passwd`, `pass`, `api_key`, `api_token`, `access_key`, `secret_key`, `private_key`, `secret`.
 environment variable   | `SENSU_REDACT`
@@ -1116,6 +1149,20 @@ redact:
   - secret
   - ec2_access_key
 {{< /highlight >}}
+
+
+| cert-file  |      |
+-------------|------
+description  | Path to the agent certificate file used in mutual TLS authentication.
+type         | String
+default      | `""`
+environment variable | `SENSU_CERT_FILE`
+example      | {{< highlight shell >}}# Command line example
+sensu-agent start --cert-file /path/to/agent-1.pem
+
+# /etc/sensu/agent.yml example
+cert-file: "/path/to/agent-1.pem"{{< /highlight >}}
+
 
 | trusted-ca-file |      |
 ------------------|------
@@ -1130,9 +1177,25 @@ sensu-agent start --trusted-ca-file /path/to/trusted-certificate-authorities.pem
 trusted-ca-file: "/path/to/trusted-certificate-authorities.pem"{{< /highlight >}}
 
 
+| key-file   |      |
+-------------|------
+description  | Path to the agent key file used in mutual TLS authentication.
+type         | String
+default      | `""`
+environment variable | `SENSU_KEY_FILE`
+example      | {{< highlight shell >}}# Command line example
+sensu-agent start --key-file /path/to/agent-1-key.pem
+
+# /etc/sensu/agent.yml example
+key-file: "/path/to/agent-1-key.pem"{{< /highlight >}}
+
+
+
 | insecure-skip-tls-verify |      |
 ---------------------------|------
-description                | Skip SSL verification. _**WARNING**: This configuration flag is intended for use in development systems only. Do not use this flag in production._
+description                | Skip SSL verification. {{% notice warning %}}
+**WARNING**: This configuration flag is intended for use in development systems only. Do not use this flag in production.
+{{% /notice %}}
 type                       | Boolean
 default                    | `false`
 environment variable       | `SENSU_INSECURE_SKIP_TLS_VERIFY`
@@ -1340,11 +1403,15 @@ example               | {{< highlight shell >}}"enable_env": true{{< /highlight 
 
 ### Configuration via environment variables
 
-The `sensu-agent` service configured by our supported packages will read environment variables from `/etc/default/sensu-agent` on Debian/Ubuntu systems and `/etc/sysconfig/sensu-agent` on RHEL systems.
-The installation package does not create these files, so you will need to create them.
+Instead of using configuration flags, you can use environment variables to configure your Sensu agent.
+Each agent configuration flag has an associated environment variable.
+You can also create your own environment variables, as long as you name them correctly and save them in the correct place.
+Here's how.
 
-{{< language-toggle >}}
+1. Create the files from which the `sensu-agent` service configured by our supported packages will read environment variables: `/etc/default/sensu-agent` for Debian/Ubuntu systems or `/etc/sysconfig/sensu-agent` for RHEL/CentOS systems.
 
+     {{< language-toggle >}}
+     
 {{< highlight "Ubuntu/Debian" >}}
 $ sudo touch /etc/default/sensu-agent
 {{< /highlight >}}
@@ -1352,35 +1419,59 @@ $ sudo touch /etc/default/sensu-agent
 {{< highlight "RHEL/CentOS" >}}
 $ sudo touch /etc/sysconfig/sensu-agent
 {{< /highlight >}}
+     
+     {{< /language-toggle >}}
 
-{{< /language-toggle >}}
+2. Make sure the environment variable is named correctly.
+All environment variables controlling Sensu configuration begin with `SENSU_`.
 
-For any configuration flag you wish to specify as an environment variable, you must prepend `SENSU_`, convert dashes (`-`) to underscores (`_`), and capitalize all letters.
-Then, add the resulting environment variable to the appropriate environment file described above.
-You must restart the service for these settings to take effect.
+     To rename a configuration flag you wish to specify as an environment variable, prepend `SENSU_`, convert dashes to underscores, and capitalize all letters.
+     For example, the environment variable for the flag `api-host` is `SENSU_API_HOST`.
 
-In this example, the `api-host` flag is configured as an environment variable and set to `"0.0.0.0"`:
+     For a custom test variable, the environment variable name might be `SENSU_TEST_VAR`.
 
-{{< language-toggle >}}
+3. Add the environment variable to the environment file (`/etc/default/sensu-agent` for Debian/Ubuntu systems or `/etc/sysconfig/sensu-agent` for RHEL/CentOS systems).
+
+     In this example, the `api-host` flag is configured as an environment variable and set to `"0.0.0.0"`:
+     
+     {{< language-toggle >}}
 
 {{< highlight "Ubuntu/Debian" >}}
 $ echo 'SENSU_API_HOST="0.0.0.0' | sudo tee -a /etc/default/sensu-agent
-$ sudo systemctl restart sensu-agent
 {{< /highlight >}}
 
 {{< highlight "RHEL/CentOS" >}}
 $ echo 'SENSU_API_HOST="0.0.0.0' | sudo tee -a /etc/sysconfig/sensu-agent
+{{< /highlight >}}
+
+     {{< /language-toggle >}}
+
+4. Restart the sensu-agent service so these settings can take effect.
+
+     {{< language-toggle >}}
+
+{{< highlight "Ubuntu/Debian" >}}
 $ sudo systemctl restart sensu-agent
 {{< /highlight >}}
 
-{{< /language-toggle >}}
+{{< highlight "RHEL/CentOS" >}}
+$ sudo systemctl restart sensu-agent
+{{< /highlight >}}
 
-## Use environment variables with the Sensu agent
+     {{< /language-toggle >}}
 
-After you [configure][50] your sensu-agent service to read environment variables from `/etc/default/sensu-agent` (Debian/Ubuntu) or `/etc/sysconfig/sensu-agent` (RHEL), any environment variables you provide there will be available to check and hook commands executed by the Sensu agent.
+{{% notice note %}}
+**NOTE**: Sensu includes an environment variable for each agent configuration flag.
+They are listed in the [configuration flag description tables](#general-configuration-flags).
+{{% /notice %}}
+
+#### Use environment variables with the Sensu agent
+
+Any environment variables you create in `/etc/default/sensu-agent` (Debian/Ubuntu) or `/etc/sysconfig/sensu-agent` (RHEL/CentOS) will be available to check and hook commands executed by the Sensu agent.
 This includes your checks and plugins.
 
-For example, if you configure a `SENSU_TEST_VAR` variable in your sensu-agent file, it will be available to use in your check configurations as `$SENSU_TEST_VAR`.
+For example, if you create a `SENSU_TEST_VAR` variable in your sensu-agent file, it will be available to use in your check configurations as `$SENSU_TEST_VAR`.
+
 
 [1]: ../../installation/install-sensu#install-sensu-agents
 [2]: ../backend/
@@ -1407,7 +1498,7 @@ For example, if you configure a `SENSU_TEST_VAR` variable in your sensu-agent fi
 [23]: https://github.com/statsd/statsd#key-concepts
 [24]: #configuration
 [25]: ../../api/overview#response-filtering
-[26]: ../../sensuctl/reference#response-filters
+[26]: ../../sensuctl/reference#response-filtering
 [27]: ../tokens/
 [28]: #subscriptions-flag
 [29]: ../assets/
@@ -1415,15 +1506,12 @@ For example, if you configure a `SENSU_TEST_VAR` variable in your sensu-agent fi
 [31]: ../hooks/
 [32]: ../checks/
 [33]: ../../guides/monitor-external-resources/
-[34]: ../handlers#handler-sets
 [35]: ../backend#datastore-and-cluster-configuration-flags
 [36]: ../../guides/clustering/
 [37]: ../backend#general-configuration-flags
 [38]: #name
 [39]: ../rbac/
 [40]: ../../guides/send-slack-alerts/
-[41]: ../rbac/#namespaced-resource-types
-[42]: /sensu-core/latest/reference/checks/#check-result-specification
 [44]: ../checks#ttl-attribute
 [45]: https://en.m.wikipedia.org/wiki/WebSocket
 [46]: ../../guides/securing-sensu/

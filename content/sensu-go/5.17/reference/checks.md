@@ -159,7 +159,9 @@ Examples of valid cron values include:
 
 - `cron: CRON_TZ=Asia/Tokyo * * * * *`
 - `cron: TZ=Asia/Tokyo * * * * *`
-- `cron: * * * * *`
+- `cron: '* * * * *'`
+
+_**NOTE**: If you're using YAML to create a check that uses cron scheduling and the first character of the cron schedule is an asterisk (`*`), place the entire cron schedule inside single or double quotes (e.g. `cron: '* * * * *'`)._
 
 **Example cron checks**
 
@@ -175,7 +177,7 @@ metadata:
   namespace: default
 spec:
   command: check-cpu.sh -w 75 -c 90
-  cron: * * * * *
+  cron: '* * * * *'
   handlers:
   - slack
   publish: true
@@ -203,7 +205,7 @@ spec:
 
 {{< /language-toggle >}}
 
-Use a prefix of `TZ=` or `CRON_TZ=` if you want to set a [timezone][30] for the `cron` attribute:
+Use a prefix of `TZ=` or `CRON_TZ=` to set a [timezone][30] for the `cron` attribute:
 
 {{< language-toggle >}}
 
@@ -449,7 +451,7 @@ If you add the `splay` attribute (set to `true`) and the `splay_coverage` attrib
 
 Sensu check definitions may include attributes that you  wish to override on an entity-by-entity basis.
 For example, [check commands][4], which may include command line arguments for controlling the behavior of the check command, may benefit from entity-specific thresholds.
-Sensu check tokens are check definition placeholders that the Sensu agent will replace with the corresponding entity definition attributes values (including custom attributes).
+Sensu check tokens are check definition placeholders that the Sensu agent will replace with the corresponding entity definition attribute values (including custom attributes).
 
 Learn how to use check tokens with the [Sensu tokens reference documentation][5].
 
@@ -580,7 +582,7 @@ example      | {{< highlight shell >}}"interval": 60{{< /highlight >}}
 
 |cron        |      |
 -------------|------
-description  | When the check should be executed, using [cron syntax][14] or [these predefined schedules][15]. Use a prefix of `TZ=` or `CRON_TZ=` to set a [timezone][30] for the cron attribute.
+description  | When the check should be executed, using [cron syntax][14] or [these predefined schedules][15]. Use a prefix of `TZ=` or `CRON_TZ=` to set a [timezone][30] for the cron attribute. _**NOTE**: If you're using YAML to create a check that uses cron scheduling and the first character of the cron schedule is an asterisk (`*`), place the entire cron schedule inside single or double quotes (e.g. `cron: '* * * * *'`)._
 required     | true (unless `interval` is configured)
 type         | String
 example      | {{< highlight shell >}}"cron": "0 0 * * *"{{< /highlight >}}
@@ -718,6 +720,7 @@ example      | {{< highlight shell >}}"output_metric_handlers": ["influx-db"]{{<
 description  | When set to `true`, Sensu executes the check once per interval, cycling through each subscribing agent in turn. See [round robin checks][52] for more information.<br><br>Use the `round_robin` attribute with proxy checks to avoid duplicate events and distribute proxy check executions evenly across multiple agents. See [proxy checks][33] for more information.<br><br>To use check [`ttl`][31] and `round_robin` together, your check configuration must also specify a [`proxy_entity_name`][32]. If you do not specify a `proxy_entity_name` when using check `ttl` and `round_robin` together, your check will stop executing.
 required     | false
 type         | Boolean
+default      | `false`
 example      | {{< highlight shell >}}"round_robin": true{{< /highlight >}}
 
 |subdue      |      |
@@ -972,13 +975,57 @@ spec:
 
 {{< /language-toggle >}}
 
+### PowerShell script in check commands
+
+If you use a PowerShell script in your check command, make sure to include the `-f` flag in the command.
+The `-f` flag ensures that the proper exit code is passed into Sensu.
+For example:
+
+{{< language-toggle >}}
+
+{{< highlight yml >}}
+type: CheckConfig
+api_version: core/v2
+metadata:
+  name: interval_test
+  namespace: default
+spec:
+  command: powershell.exe -f c:\\users\\tester\\test.ps1
+  subscriptions:
+  - system
+  handlers:
+  - slack
+  interval: 60
+  publish: true
+{{< /highlight >}}
+
+{{< highlight json >}}
+{
+  "type": "CheckConfig",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "interval_test",
+    "namespace": "default"
+  },
+  "spec": {
+    "command": "powershell.exe -f c:\\users\\tester\\test.ps1",
+    "subscriptions": ["system"],
+    "handlers": ["slack"],
+    "interval": 60,
+    "publish": true
+  }
+}
+{{< /highlight >}}
+
+{{< /language-toggle >}}
+
+
 [1]: #subscription-checks
 [2]: https://en.wikipedia.org/wiki/Publish%E2%80%93subscribe_pattern
 [3]: https://en.wikipedia.org/wiki/Standard_streams
 [4]: #check-commands
 [5]: ../tokens/
 [6]: ../hooks/
-[7]: /sensu-core/latest/reference/checks/#standalone-checks
 [8]: ../rbac/
 [9]: ../assets/
 [10]: #proxy-requests-attributes

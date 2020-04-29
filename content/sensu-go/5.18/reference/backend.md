@@ -18,7 +18,9 @@ menu:
 - [Operation and service management](#operation)
   - [Start and stop the service](#start-the-service) | [Cluster](#cluster) | [Synchronize time](#synchronize-time)
 - [Configuration](#configuration)
-  - [General configuration](#general-configuration-flags) | [Agent communication configuration](#agent-communication-configuration-flags) | [Security configuration](#security-configuration-flags) | [Dashboard configuration](#dashboard-configuration-flags) | [Datastore and cluster configuration](#datastore-and-cluster-configuration-flags) | [Advanced configuration options](#advanced-configuration-options) | [Configuration via environment variables](#configuration-via-environment-variables) | [Event logging](#event-logging)
+  - [General configuration](#general-configuration-flags) | [Agent communication configuration](#agent-communication-configuration-flags) | [Security configuration](#security-configuration-flags) | [Dashboard configuration](#dashboard-configuration-flags) | [Datastore and cluster configuration](#datastore-and-cluster-configuration-flags) | [Advanced configuration options](#advanced-configuration-options)
+  - [Configuration via environment variables](#configuration-via-environment-variables)
+- [Event logging](#event-logging)
 - [Example Sensu backend configuration file](../../files/backend.yml) (download)
 
 The Sensu backend is a service that manages check requests and event data.
@@ -51,8 +53,64 @@ For information about creating and managing checks, see:
 
 ## Initialization
 
-For a **new** installation, you must set up an administrator username and password.
-To do this, set environment variables as shown below, replacing `YOUR_USERNAME` and `YOUR_PASSWORD` with the username and password you want to use:
+For a **new** installation, the backend database must be initialized by providing a username and password for the user to be granted administrative privileges.
+Although initialization is required for every new installation, the implementation differs depending on your method of installation:
+
+- If you are using Docker, you can use environment variables to override the default admin username (`admin`) and password (`P@ssw0rd!`) during [step 2 of the backend installation process][24].
+- If you are using Ubuntu/Debian or RHEL/CentOS, you must specify admin credentials during [step 3 of the backend installation process][25]. Sensu does not apply a default admin username or password for Ubuntu/Debian or RHEL/CentoOS installations.
+
+This step bootstraps the first admin user account for your Sensu installation.
+This account will be granted the cluster admin role.
+
+{{% notice important %}}
+**IMPORTANT**: If you plan to [run a Sensu cluster](../../guides/clustering/), make sure that each of your backend nodes is configured, running, and a member of the cluster before you initialize.
+{{% /notice %}}
+
+### Docker initialization
+
+For Docker installations, set administrator credentials with environment variables when you [configure and start][24] the backend as shown below, replacing `YOUR_USERNAME` and `YOUR_PASSWORD` with the username and password you want to use:
+
+{{< language-toggle >}}
+
+{{< highlight Docker >}}
+docker run -v /var/lib/sensu:/var/lib/sensu \
+-d --name sensu-backend \
+-p 3000:3000 -p 8080:8080 -p 8081:8081 \
+-e SENSU_BACKEND_CLUSTER_ADMIN_USERNAME=YOUR_USERNAME \
+-e SENSU_BACKEND_CLUSTER_ADMIN_PASSWORD=YOUR_PASSWORD \
+sensu/sensu:latest \
+sensu-backend start --state-dir /var/lib/sensu/sensu-backend --log-level debug
+{{< /highlight >}}
+
+{{< highlight "Docker Compose" >}}
+---
+version: "3"
+services:
+  sensu-backend:
+    ports:
+    - 3000:3000
+    - 8080:8080
+    - 8081:8081
+    volumes:
+    - "sensu-backend-data:/var/lib/sensu/sensu-backend/etcd"
+    command: "sensu-backend start --state-dir /var/lib/sensu/sensu-backend --log-level debug"
+    environment:
+    - SENSU_BACKEND_CLUSTER_ADMIN_USERNAME=YOUR_USERNAME
+    - SENSU_BACKEND_CLUSTER_ADMIN_PASSWORD=YOUR_PASSWORD
+    image: sensu/sensu:latest
+
+volumes:
+  sensu-backend-data:
+    driver: local
+{{< /highlight >}}
+
+{{< /language-toggle >}}
+
+If you did not use environment variables to override the default admin credentials in [step 2 of the backend installation process][24], we recommend [changing your default admin password][26] as soon as you have installed sensuctl.
+
+### Ubuntu/Debian or RHEL/CentOS initialization
+
+For Ubuntu/Debian or RHEL/CentOS, set administrator credentials with environment variables at [initialization][25] as shown below, replacing `YOUR_USERNAME` and `YOUR_PASSWORD` with the username and password you want to use:
 
 {{< highlight shell >}}
 export SENSU_BACKEND_CLUSTER_ADMIN_USERNAME=YOUR_USERNAME
@@ -60,7 +118,9 @@ export SENSU_BACKEND_CLUSTER_ADMIN_PASSWORD=YOUR_PASSWORD
 sensu-backend init
 {{< /highlight >}}
 
-_**NOTE**: Make sure the Sensu backend is running before you run `sensu-backend init`._
+{{% notice note %}}
+**NOTE**: Make sure the Sensu backend is running before you run `sensu-backend init`.
+{{% /notice %}}
 
 You can also run the `sensu-backend init` command in interactive mode if you prefer to respond to prompts for your username and password:
 
@@ -71,10 +131,11 @@ Admin Username: YOUR_USERNAME
 Admin Password: YOUR_PASSWORD
 {{< /highlight >}}
 
-This initialization step bootstraps the first admin user account for your Sensu installation.
-This account will be granted the cluster admin role.
-
-_**NOTE**: If you are already using Sensu, you do not need to initialize. Your installation has already seeded the admin username and password you have set up._
+{{% notice note %}}
+**NOTE**: If you are already using Sensu, you do not need to initialize.
+Your installation has already seeded the admin username and password you have set up.
+Running `sensu-backend init` on a previously initialized cluster has no effect &mdash; it will not change the admin credentials.
+{{% /notice %}}
 
 To see available initialization flags:
 
@@ -84,7 +145,9 @@ sensu-backend init --help
 
 ## Operation and service management {#operation}
 
-_**NOTE**: Commands in this section may require administrative privileges._
+{{% notice note %}}
+**NOTE**: Commands in this section may require administrative privileges.
+{{% /notice %}}
 
 ### Start the service
 
@@ -142,7 +205,9 @@ To disable the backend from starting on system boot:
 systemctl disable sensu-backend
 {{< /highlight >}}
 
-_**NOTE**: On older distributions of Linux, use `sudo chkconfig sensu-server on` to enable the backend and `sudo chkconfig sensu-server off` to disable the backend._
+{{% notice note %}}
+**NOTE**: On older distributions of Linux, use `sudo chkconfig sensu-server on` to enable the backend and `sudo chkconfig sensu-server off` to disable the backend.
+{{% /notice %}}
 
 ### Get service status
 
@@ -476,7 +541,9 @@ cert-file: "/path/to/ssl/cert.pem"{{< /highlight >}}
 
 | insecure-skip-tls-verify |      |
 ---------------------------|------
-description                | If `true`, skip SSL verification. Otherwise, `false`. _**WARNING**: This configuration flag is intended for use in development systems only. Do not use this flag in production._
+description                | If `true`, skip SSL verification. Otherwise, `false`. {{% notice warning %}}
+**WARNING**: This configuration flag is intended for use in development systems only. Do not use this flag in production.
+{{% /notice %}}
 type                       | Boolean
 default                    | `false`
 environment variable | `SENSU_INSECURE_SKIP_TLS_VERIFY`
@@ -491,7 +558,9 @@ insecure-skip-tls-verify: true{{< /highlight >}}
 
 | jwt-private-key-file |      |
 -------------|------
-description  | Path to the PEM-encoded private key to use to sign JSON Web Tokens (JWTs). _**NOTE**: The internal symmetric secret key is used by default to sign all JWTs unless a private key is specified via this attribute._
+description  | Path to the PEM-encoded private key to use to sign JSON Web Tokens (JWTs). {{% notice note %}}
+**NOTE**: The internal symmetric secret key is used by default to sign all JWTs unless a private key is specified via this attribute.
+{{% /notice %}}
 type         | String
 default      | `""`
 environment variable | `SENSU_JWT_PRIVATE_KEY_FILE`
@@ -504,7 +573,9 @@ jwt-private-key-file: /path/to/key/private.pem{{< /highlight >}}
 
 | jwt-public-key-file |      |
 -------------|------
-description  | Path to the PEM-encoded public key to use to verify JSON Web Token (JWT) signatures. _**NOTE**: JWTs signed with the internal symmetric secret key will continue to be verified with that key._
+description  | Path to the PEM-encoded public key to use to verify JSON Web Token (JWT) signatures. {{% notice note %}}
+**NOTE**: JWTs signed with the internal symmetric secret key will continue to be verified with that key.
+{{% /notice %}}
 type         | String
 default      | `""`
 environment variable | `SENSU_JWT_PUBLIC_KEY_FILE`
@@ -632,7 +703,9 @@ etcd-cert-file: "./client.pem"{{< /highlight >}}
 
 | etcd-cipher-suites    |      |
 ------------------------|------
-description             | List of allowed cipher suites for etcd TLS configuration. Sensu supports TLS 1.0-1.2 cipher suites as listed in the [Go TLS documentation][18]. You can use this attribute to defend your TLS servers from attacks on weak TLS ciphers. Go determines the default cipher suites based on the hardware used. _**NOTE**: To use TLS 1.3, add the following environment variable: `GODEBUG="tls13=1"`._
+description             | List of allowed cipher suites for etcd TLS configuration. Sensu supports TLS 1.0-1.2 cipher suites as listed in the [Go TLS documentation][18]. You can use this attribute to defend your TLS servers from attacks on weak TLS ciphers. Go determines the default cipher suites based on the hardware used. {{% notice note %}}
+**NOTE**: To use TLS 1.3, add the following environment variable: `GODEBUG="tls13=1"`.
+{{% /notice %}}
 recommended             | {{< highlight shell >}}
 etcd-cipher-suites:
   - TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384
@@ -722,11 +795,11 @@ type                               | List
 default                            | `http://127.0.0.1:2380`
 environment variable               | `SENSU_ETCD_INITIAL_ADVERTISE_PEER_URLS`
 example                            | {{< highlight shell >}}# Command line examples
-sensu-backend start --etcd-listen-peer-urls https://10.0.0.1:2380,https://10.1.0.1:2380
-sensu-backend start --etcd-listen-peer-urls https://10.0.0.1:2380 --etcd-listen-peer-urls https://10.1.0.1:2380
+sensu-backend start --etcd-initial-advertise-peer-urls https://10.0.0.1:2380,https://10.1.0.1:2380
+sensu-backend start --etcd-initial-advertise-peer-urls https://10.0.0.1:2380 --etcd-initial-advertise-peer-urls https://10.1.0.1:2380
 
 # /etc/sensu/backend.yml example
-etcd-listen-peer-urls:
+etcd-initial-advertise-peer-urls:
   - https://10.0.0.1:2380
   - https://10.1.0.1:2380
 {{< /highlight >}}
@@ -910,7 +983,9 @@ no-embed-etcd: true{{< /highlight >}}
 
 | eventd-buffer-size   |      |
 -----------------------|------
-description            | Number of incoming events that can be buffered before being processed by an eventd worker. _**WARNING**: Modify with caution. Increasing this value may result in greater memory usage._
+description            | Number of incoming events that can be buffered before being processed by an eventd worker. {{% notice warning %}}
+**WARNING**: Modify with caution. Increasing this value may result in greater memory usage.
+{{% /notice %}}
 type                   | Integer
 default                | `100`
 environment variable   | `SENSU_EVENTD_BUFFER_SIZE`
@@ -924,7 +999,9 @@ eventd-buffer-size: 100{{< /highlight >}}
 
 | eventd-workers       |      |
 -----------------------|------
-description            | Number of workers spawned for processing incoming events that are stored in the eventd buffer. _**WARNING**: Modify with caution. Increasing this value may result in greater CPU usage._
+description            | Number of workers spawned for processing incoming events that are stored in the eventd buffer. {{% notice warning %}}
+**WARNING**: Modify with caution. Increasing this value may result in greater CPU usage.
+{{% /notice %}}
 type                   | Integer
 default                | `100`
 environment variable   | `SENSU_EVENTD_WORKERS`
@@ -937,7 +1014,9 @@ eventd-workers: 100{{< /highlight >}}
 
 | keepalived-buffer-size |      |
 -----------------------|------
-description            | Number of incoming keepalives that can be buffered before being processed by a keepalived worker. _**WARNING**: Modify with caution. Increasing this value may result in greater memory usage._
+description            | Number of incoming keepalives that can be buffered before being processed by a keepalived worker. {{% notice warning %}}
+**WARNING**: Modify with caution. Increasing this value may result in greater memory usage.
+{{% /notice %}}
 type                   | Integer
 default                | `100`
 environment variable   | `SENSU_KEEPALIVED_BUFFER_SIZE`
@@ -950,7 +1029,8 @@ keepalived-buffer-size: 100{{< /highlight >}}
 
 | keepalived-workers |      |
 -----------------------|------
-description            | Number of workers spawned for processing incoming keepalives that are stored in the keepalived buffer. _**WARNING**: Modify with caution. Increasing this value may result in greater CPU usage._
+description            | Number of workers spawned for processing incoming keepalives that are stored in the keepalived buffer. {{% notice warning %}}
+**WARNING**: Modify with caution. Increasing this value may result in greater CPU usage.{{% /notice %}}
 type                   | Integer
 default                | `100`
 environment variable   | `SENSU_KEEPALIVED_WORKERS`
@@ -963,7 +1043,9 @@ keepalived-workers: 100{{< /highlight >}}
 
 | pipelined-buffer-size |      |
 -----------------------|------
-description            | Number of events to handle that can be buffered before being processed by a pipelined worker. _**WARNING**: Modify with caution. Increasing this value may result in greater memory usage._
+description            | Number of events to handle that can be buffered before being processed by a pipelined worker. {{% notice warning %}}
+**WARNING**: Modify with caution. Increasing this value may result in greater memory usage.
+{{% /notice %}}
 type                   | Integer
 default                | `100`
 environment variable   | `SENSU_PIPELINED_BUFFER_SIZE`
@@ -976,7 +1058,9 @@ pipelined-buffer-size: 100{{< /highlight >}}
 
 | pipelined-workers |      |
 -----------------------|------
-description            | Number of workers spawned for handling events through the event pipeline that are stored in the pipelined buffer. _**WARNING**: Modify with caution. Increasing this value may result in greater CPU usage._
+description            | Number of workers spawned for handling events through the event pipeline that are stored in the pipelined buffer. {{% notice warning %}}
+**WARNING**: Modify with caution. Increasing this value may result in greater CPU usage.
+{{% /notice %}}
 type                   | Integer
 default                | `100`
 environment variable   | `SENSU_PIPELINED_WORKERS`
@@ -989,7 +1073,9 @@ pipelined-workers: 100{{< /highlight >}}
 
 | etcd-election-timeout |      |
 -----------------------|------
-description            | Time that a follower node will go without hearing a heartbeat before attempting to become leader itself. In milliseconds (ms). See [etcd time parameter documentation][16] for details and other considerations. _**WARNING**: Make sure to set the same election timeout value for all etcd members in one cluster. Setting different values for etcd members may reduce cluster stability._
+description            | Time that a follower node will go without hearing a heartbeat before attempting to become leader itself. In milliseconds (ms). See [etcd time parameter documentation][16] for details and other considerations. {{% notice warning %}}
+**WARNING**: Make sure to set the same election timeout value for all etcd members in one cluster. Setting different values for etcd members may reduce cluster stability.
+{{% /notice %}}
 type                   | Integer
 default                | `1000`
 environment variable   | `SENSU_ETCD_ELECTION_TIMEOUT`
@@ -1002,7 +1088,8 @@ etcd-election-timeout: 1000{{< /highlight >}}
 
 | etcd-heartbeat-interval |      |
 -----------------------|------
-description            | Interval at which the etcd leader will notify followers that it is still the leader. In milliseconds (ms). Best practice is to set the interval based on round-trip time between members. See [etcd time parameter documentation][16] for details and other considerations. _**WARNING**: Make sure to set the same heartbeat interval value for all etcd members in one cluster. Setting different values for etcd members may reduce cluster stability._
+description            | Interval at which the etcd leader will notify followers that it is still the leader. In milliseconds (ms). Best practice is to set the interval based on round-trip time between members. See [etcd time parameter documentation][16] for details and other considerations. {{% notice warning %}}
+**WARNING**: Make sure to set the same heartbeat interval value for all etcd members in one cluster. Setting different values for etcd members may reduce cluster stability.{{% /notice %}}
 type                   | Integer
 default                | `100`
 environment variable   | `SENSU_ETCD_HEARTBEAT_INTERVAL`
@@ -1015,7 +1102,9 @@ etcd-heartbeat-interval: 100{{< /highlight >}}
 
 | etcd-max-request-bytes |      |
 -----------------------|------
-description            | Maximum etcd request size in bytes that can be sent to an etcd server by a client. Increasing this value allows etcd to process events with large outputs at the cost of overall latency. _**WARNING**: Use with caution. This configuration option requires familiarity with etcd. Improper use of this option can result in a non-functioning Sensu instance._
+description            | Maximum etcd request size in bytes that can be sent to an etcd server by a client. Increasing this value allows etcd to process events with large outputs at the cost of overall latency. {{% notice warning %}}
+**WARNING**: Use with caution. This configuration option requires familiarity with etcd. Improper use of this option can result in a non-functioning Sensu instance.
+{{% /notice %}}
 type                   | Integer
 default                | `1572864`
 environment variable   | `SENSU_ETCD_MAX_REQUEST_BYTES`
@@ -1028,7 +1117,9 @@ etcd-max-request-bytes: 1572864{{< /highlight >}}
 
 | etcd-quota-backend-bytes |      |
 -----------------------|------
-description            | Maximum etcd database size in bytes. Increasing this value allows for a larger etcd database at the cost of performance. _**WARNING**: Use with caution. This configuration option requires familiarity with etcd. Improper use of this option can result in a non-functioning Sensu instance._
+description            | Maximum etcd database size in bytes. Increasing this value allows for a larger etcd database at the cost of performance. {{% notice warning %}}
+**WARNING**: Use with caution. This configuration option requires familiarity with etcd. Improper use of this option can result in a non-functioning Sensu instance.
+{{% /notice %}}
 type                   | Integer
 default                | `4294967296`
 environment variable   | `SENSU_ETCD_QUOTA_BACKEND_BYTES`
@@ -1040,11 +1131,15 @@ etcd-quota-backend-bytes: 4294967296{{< /highlight >}}
 
 ### Configuration via environment variables
 
-The `sensu-backend` service configured by our supported packages will read environment variables from `/etc/default/sensu-backend` on Debian/Ubuntu systems and `/etc/sysconfig/sensu-backend` on RHEL systems.
-The installation package does not create these files, so you will need to create them.
+Instead of using configuration flags, you can use environment variables to configure your Sensu backend.
+Each backend configuration flag has an associated environment variable.
+You can also create your own environment variables, as long as you name them correctly and save them in the correct place.
+Here's how.
 
-{{< language-toggle >}}
+1. Create the files from which the `sensu-backend` service configured by our supported packages will read environment variables: `/etc/default/sensu-backend` for Debian/Ubuntu systems or `/etc/sysconfig/sensu-backend` for RHEL/CentOS systems.
 
+     {{< language-toggle >}}
+     
 {{< highlight "Ubuntu/Debian" >}}
 $ sudo touch /etc/default/sensu-backend
 {{< /highlight >}}
@@ -1052,30 +1147,61 @@ $ sudo touch /etc/default/sensu-backend
 {{< highlight "RHEL/CentOS" >}}
 $ sudo touch /etc/sysconfig/sensu-backend
 {{< /highlight >}}
+     
+     {{< /language-toggle >}}
 
-{{< /language-toggle >}}
+2. Make sure the environment variable is named correctly.
+All environment variables controlling Sensu configuration begin with `SENSU_`.
 
-For any configuration flag you wish to specify as an environment variable, you must prepend `SENSU_`, convert dashes (`-`) to underscores (`_`), and capitalize all letters.
-Then, add the resulting environment variable to the appropriate environment file described above.
-You must restart the service for these settings to take effect.
+     To rename a configuration flag you wish to specify as an environment variable, prepend `SENSU_`, convert dashes to underscores, and capitalize all letters.
+     For example, the environment variable for the flag `api-listen-address` is `SENSU_API_LISTEN_ADDRESS`.
 
-In this example, the `api-listen-address` flag is configured as an environment variable and set to `192.168.100.20:8080`:
+     For a custom test variable, the environment variable name might be `SENSU_TEST_VAR`.
 
-{{< language-toggle >}}
+3. Add the environment variable to the environment file (`/etc/default/sensu-backend` for Debian/Ubuntu systems or `/etc/sysconfig/sensu-backend` for RHEL/CentOS systems).
+
+     For example, to create `api-listen-address` as an environment variable and set it to `192.168.100.20:8080`:
+     
+     {{< language-toggle >}}
 
 {{< highlight "Ubuntu/Debian" >}}
-$ echo 'SENSU_API_LISTEN_ADDRESS=192.168.100.20:8080' | sudo tee /etc/default/sensu-backend
+$ echo 'SENSU_API_LISTEN_ADDRESS=192.168.100.20:8080' | sudo tee -a /etc/default/sensu-backend
 $ sudo systemctl restart sensu-backend
 {{< /highlight >}}
 
 {{< highlight "RHEL/CentOS" >}}
-$ echo 'SENSU_API_LISTEN_ADDRESS=192.168.100.20:8080' | sudo tee /etc/sysconfig/sensu-backend
+$ echo 'SENSU_API_LISTEN_ADDRESS=192.168.100.20:8080' | sudo tee -a /etc/sysconfig/sensu-backend
 $ sudo systemctl restart sensu-backend
 {{< /highlight >}}
 
-{{< /language-toggle >}}
+     {{< /language-toggle >}}
 
-### Event logging
+4. Restart the sensu-backend service so these settings can take effect.
+
+     {{< language-toggle >}}
+
+{{< highlight "Ubuntu/Debian" >}}
+$ sudo systemctl restart sensu-backend
+{{< /highlight >}}
+
+{{< highlight "RHEL/CentOS" >}}
+$ sudo systemctl restart sensu-backend
+{{< /highlight >}}
+
+     {{< /language-toggle >}}
+
+{{% notice note %}}
+**NOTE**: Sensu includes an environment variable for each backend configuration flag.
+They are listed in the [configuration flag description tables](#general-configuration-flags).
+{{% /notice %}}
+
+#### Use environment variables with the Sensu backend
+
+Any environment variables you create in `/etc/default/sensu-backend` (Debian/Ubuntu) or `/etc/sysconfig/sensu-backend` (RHEL/CentOS) will be available to handlers executed by the Sensu backend.
+
+For example, if you create a `SENSU_TEST_VAR` variable in your sensu-backend file, it will be available to use in your handler configurations as `$SENSU_TEST_VAR`.
+
+## Event logging
 
 **COMMERCIAL FEATURE**: Access event logging in the packaged Sensu Go distribution.
 For more information, see [Get started with commercial features][14].
@@ -1101,7 +1227,9 @@ event-log-buffer-size: 100000{{< /highlight >}}
 
 | event-log-file |      |
 -----------------------|------
-description            | Path to the event log file. _**WARNING**: The log file should be located on a local drive. Logging directly to network drives is not supported._
+description            | Path to the event log file. {{% notice warning %}}
+**WARNING**: The log file should be located on a local drive. Logging directly to network drives is not supported.
+{{% /notice %}}
 type                   | String
 environment variable   | `SENSU_EVENT_LOG_FILE`
 example                | {{< highlight shell >}}# Command line example
@@ -1112,7 +1240,7 @@ sensu-backend start --event-log-file /var/log/sensu/events.log
 event-log-file: "/var/log/sensu/events.log"{{< /highlight >}}
 
 
-#### Log rotation
+### Log rotation
 
 Event logging supports log rotation via the _SIGHUP_ signal.
 First, rename (move) the current log file.
@@ -1120,7 +1248,7 @@ Then, send the _SIGHUP_ signal to the sensu-backend process so it creates a new 
 
 Here are some log rotate sample configurations:
 
-##### systemd
+#### systemd
 {{< highlight shell >}}
 /var/log/sensu/events.log
 {
@@ -1135,7 +1263,7 @@ Here are some log rotate sample configurations:
 }
 {{< /highlight >}}
 
-##### sysvinit
+#### sysvinit
 {{< highlight shell >}}
 /var/log/sensu/events.log
 {
@@ -1150,8 +1278,9 @@ Here are some log rotate sample configurations:
 }
 {{< /highlight >}}
 
+
 [1]: ../../installation/install-sensu#install-the-sensu-backend
-[2]: https://github.com/etcd-io/etcd/blob/master/Documentation/docs.md
+[2]: https://etcd.io/docs
 [3]: ../../guides/monitor-server-resources/
 [4]: ../../guides/extract-metrics-with-checks/
 [5]: ../../reference/checks/
@@ -1168,8 +1297,12 @@ Here are some log rotate sample configurations:
 [16]: https://github.com/etcd-io/etcd/blob/master/Documentation/tuning.md#time-parameters
 [17]: ../../files/backend.yml
 [18]: https://golang.org/pkg/crypto/tls/#pkg-constants
-[19]: https://etcd.io/docs/v3.3.12/op-guide/clustering/#discovery
-[20]: https://etcd.io/docs/v3.3.12/op-guide/clustering/#etcd-discovery
-[21]: https://etcd.io/docs/v3.3.12/op-guide/clustering/#dns-discovery
+[19]: https://etcd.io/docs/latest/op-guide/clustering/#discovery
+[20]: https://etcd.io/docs/latest/op-guide/clustering/#etcd-discovery
+[21]: https://etcd.io/docs/latest/op-guide/clustering/#dns-discovery
 [22]: #initialization
 [23]: #etcd-listen-client-urls
+[24]: ../../installation/install-sensu#2-configure-and-start
+[25]: ../../installation/install-sensu#3-initialize
+[26]: ../../sensuctl/reference/#change-admin-user-s-password
+[27]: #configuration-via-environment-variables

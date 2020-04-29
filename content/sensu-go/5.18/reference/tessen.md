@@ -12,7 +12,7 @@ menu:
 - [Configure Tessen](#configure-tessen)
 - [Tessen specification](#tessen-specification)
   - [Top-level attributes](#top-level-attributes) | [Spec attributes](#spec-attributes)
-- [Example](#tessen-configuration-example)
+- [Tessen configuration example](#tessen-configuration-example)
 - [Tessen payload example](#tessen-payload-example)
 
 Tessen is the Sensu call-home service.
@@ -42,7 +42,9 @@ To opt out of Tessen:
 sensuctl tessen opt-out
 {{< /highlight >}}
 
-_**NOTE**: [Licensed][4] Sensu instances override Tessen configuration to opt in at runtime._
+{{% notice note %}}
+**NOTE**: [Licensed](../license/) Sensu instances override Tessen configuration to opt in at runtime.
+{{% /notice %}}
 
 You can use the `--skip-confirm` flag to skip the confirmation step:
 

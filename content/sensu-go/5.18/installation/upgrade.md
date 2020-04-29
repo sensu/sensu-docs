@@ -23,7 +23,9 @@ To upgrade to the latest version of Sensu Go from version 5.0.0 or later, [insta
 
 Then, restart the services.
 
-_**NOTE**: For systems that use `systemd`, run `sudo systemctl daemon-reload` before restarting the services._
+{{% notice note %}}
+**NOTE**: For systems that use `systemd`, run `sudo systemctl daemon-reload` before restarting the services.
+{{% /notice %}}
 
 {{< highlight shell >}}
 # Restart the Sensu agent
@@ -61,14 +63,18 @@ See [our blog announcement][32] for more information about our usage policy.
 
 ## Upgrade Sensu clusters from 5.7.0 or earlier to 5.8.0 or later
 
-_**NOTE**: This section applies only to Sensu clusters with multiple backend nodes._
+{{% notice note %}}
+**NOTE**: This section applies only to Sensu clusters with multiple backend nodes.
+{{% /notice %}}
 
 Due to updates to etcd serialization, you must shut down Sensu clusters with multiple backend nodes while upgrading from Sensu Go 5.7.0 or earlier to 5.8.0 or later.
 See the [backend reference][29] for more information about stopping and starting backends.
 
 ## Upgrade Sensu backend binaries to 5.1.0
 
-_**NOTE**: This section applies only to Sensu backend binaries downloaded from `s3-us-west-2.amazonaws.com/sensu.io/sensu-go`, not to Sensu RPM or DEB packages._
+{{% notice note %}}
+**NOTE**: This section applies only to Sensu backend binaries downloaded from `s3-us-west-2.amazonaws.com/sensu.io/sensu-go`, not to Sensu RPM or DEB packages.
+{{% /notice %}}
 
 For Sensu backend binaries, the default `state-dir` in 5.1.0 is now `/var/lib/sensu/sensu-backend` instead of `/var/lib/sensu`.
 To upgrade your Sensu backend binary to 5.1.0, first [download the latest version][23].
@@ -84,7 +90,7 @@ Then restart the backend.
 
 ## Migrate to Sensu Go from Sensu Core 1.x
 
-This guide includes general information for migrating your Sensu instance from [Sensu Core 1.x][19] to Sensu Go 5.0.
+This guide includes general information for migrating your Sensu instance from Sensu Core 1.x to Sensu Go 5.0.
 For instructions and tools to help you translate your Sensu configuration from Sensu Core 1.x to Sensu Go, see the [Sensu translator project][18] and our [blog post about check configuration upgrades with the Sensu Go sandbox][25].
 
 Sensu Go includes important changes to all parts of Sensu: architecture, installation, resource definitions, the event data model, check dependencies, filter evaluation, and more.
@@ -190,7 +196,6 @@ See the metadata attributes section in the reference documentation for more info
 [16]: ../../reference/tokens
 [17]: ../../api/overview//
 [18]: https://github.com/sensu/sensu-translator/
-[19]: /sensu-core/1.6/
 [20]: https://packagecloud.io/sensu/community/
 [21]: https://github.com/sensu-plugins/
 [22]: ../plugins/

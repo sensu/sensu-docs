@@ -22,7 +22,7 @@ menu:
   - [Large-scale clustered deployment for multiple availability zones](#large-scale-clustered-deployment-for-multiple-availability-zones)
 - [Architecture considerations](#architecture-considerations)
   - [Networking](#networking)
-  - [Load blanacing](#load-balancing)
+  - [Load balancing](#load-balancing)
 
 This guide describes various deployment considerations and recommendations for a production-ready Sensu deployment, including details related to communication security and common deployment architectures.
 
@@ -55,7 +55,9 @@ The URLs for each member of an etcd cluster are persisted to the database after 
 As a result, moving a cluster from cleartext to encrypted communications requires resetting the cluster, which destroys all configuration and event data in the database.
 Therefore, we recommend planning for encryption before initiating a clustered Sensu backend deployment.
 
-_**WARNING**: Reconfiguring a Sensu cluster for TLS post-deployment will require resetting all etcd cluster members, resulting in the loss of all data._
+{{% notice warning %}}
+**WARNING**: Reconfiguring a Sensu cluster for TLS post-deployment will require resetting all etcd cluster members, resulting in the loss of all data.
+{{% /notice %}}
 
 As described in [Secure Sensu][6], the backend uses a shared certificate and key for web UI and agent communications.
 You can secure communications with etcd using the same certificate and key.
@@ -84,7 +86,9 @@ The single backend (standalone) architecture may be a good fit for small- to med
 
 For example, in environments with unreliable WAN connectivity, having agents connect to a local backend may be more reliable than having agents connect over WAN or VPN tunnel to a backend running in a central location.
 
-_**NOTE**: Multiple Sensu backends can relay their events to a central backend using the [sensu-relay-handler][2]._
+{{% notice note %}}
+**NOTE**: Multiple Sensu backends can relay their events to a central backend using the [sensu-relay-handler](https://bonsai.sensu.io/assets/sensu/sensu-relay-handler/).
+{{% /notice %}}
 
 ### Clustered deployment for single availability zone
 
@@ -98,7 +102,7 @@ Read [Run a Sensu cluster][7] for more information.
 
 Clustering requires an odd number of backend instances.
 Although larger clusters provide better fault tolerance, write performance suffers because data must be replicated across more machines.
-The etcd maintainers recommend clusters of 3, 5 or 7 backends. See the [etcd documentation][4] for more information.
+The etcd maintainers recommend clusters of 3, 5, or 7 backends. See the [etcd documentation][4] for more information.
 
 ### Clustered deployment for multiple availability zones
 
@@ -157,7 +161,6 @@ Conversely, you cannot configure the sensuctl command line tool with multiple ba
 Under normal conditions, sensuctl communications and browser access to the web UI should be routed via a load balancer.
 
 [1]: ../../installation/recommended-hardware/
-[2]: https://bonsai.sensu.io/assets/sensu/sensu-relay-handler/
 [3]: ../../reference/agent/#general-configuration-flags
 [4]: https://etcd.io/docs/
 [5]: https://github.com/etcd-io/etcd/blob/master/Documentation/op-guide/security.md
