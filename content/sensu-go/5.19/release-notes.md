@@ -73,7 +73,6 @@ See the [upgrade guide][1] to upgrade Sensu to version 5.19.3.
 **IMPROVEMENTS:**
 
 - Adds support for restarting the backend via SIGHUP.
-- Adds `Edition` field to version information.
 
 ## 5.19.2 release notes
 
