@@ -8,8 +8,12 @@ version: "5.19"
 menu: "sensu-go-5.19"
 ---
 
-This page is a placeholder to work around our docs theme menu limitations.
+This page is a placeholder to mark a section that would be named **Contributions**.
 
-It marks a section that would be named **Contributions**.
+In the updated docs architecture, this page could include information about:
 
-Although a **Contributions** section was included in our sitemap exercise, we do not currently have content to include in this section.
+- Sensu plugins and projects that are seeking contributors
+- Most-requested plugins
+- Known gaps in the documentation
+
+This page could also include a showcase of contributed projects.
