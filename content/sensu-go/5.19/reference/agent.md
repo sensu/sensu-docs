@@ -740,8 +740,8 @@ Flags:
       --annotations stringToString            entity annotations map (default [])
       --api-host string                       address to bind the Sensu client HTTP API to (default "127.0.0.1")
       --api-port int                          port the Sensu client HTTP API listens on (default 3031)
-      --assets-burst-limit int                asset fetch burst limit (default 100) -- Sensu Go 5.19.3
-      --assets-rate-limit float               maximum number of assets fetched per second -- Sensu Go 5.19.3
+      --assets-burst-limit int                asset fetch burst limit (default 100)
+      --assets-rate-limit float               maximum number of assets fetched per second
       --backend-url strings                   ws/wss URL of Sensu backend server (to specify multiple backends use this flag multiple times) (default [ws://127.0.0.1:8081])
       --cache-dir string                      path to store cached data (default "/var/cache/sensu/sensu-agent")
       --cert-file string                      TLS certificate in PEM format
@@ -811,7 +811,7 @@ annotations:
 
 | assets-burst-limit   |      |
 --------------|------
-description   | Maximum amount of burst allowed in a rate interval when fetching assets. Added in [Sensu Go 5.19.3][55].
+description   | Available in [Sensu Go 5.19.3][28]. Maximum amount of burst allowed in a rate interval when fetching assets.
 type          | Integer
 default       | `100`
 environment variable | `SENSU_ASSETS_BURST_LIMIT`
@@ -824,7 +824,7 @@ assets-burst-limit: 100{{< /highlight >}}
 
 | assets-rate-limit   |      |
 --------------|------
-description   | Maximum number of assets to fetch per second. The default value `1.39` is equivalent to approximately 5000 user-to-server requests per hour. Added in [Sensu Go 5.19.3][55].
+description   | Available in [Sensu Go 5.19.3][28]. Maximum number of assets to fetch per second. The default value `1.39` is equivalent to approximately 5000 user-to-server requests per hour.
 type          | Float
 default       | `1.39`
 environment variable | `SENSU_ASSETS_RATE_LIMIT`

@@ -279,8 +279,8 @@ General Flags:
       --agent-write-timeout int             timeout in seconds for agent writes (default 15)
       --api-listen-address string           address to listen on for API traffic (default "[::]:8080")
       --api-url string                      URL of the API to connect to (default "http://localhost:8080")
-      --assets-burst-limit int              asset fetch burst limit (default 100) -- Sensu Go 5.19.3
-      --assets-rate-limit float             maximum number of assets fetched per second -- Sensu Go 5.19.3
+      --assets-burst-limit int              asset fetch burst limit (default 100)
+      --assets-rate-limit float             maximum number of assets fetched per second
       --cache-dir string                    path to store cached data (default "/var/cache/sensu/sensu-backend")
       --cert-file string                    TLS certificate in PEM format
   -c, --config-file string                  path to sensu-backend config file
@@ -368,7 +368,7 @@ api-url: "http://localhost:8080"{{< /highlight >}}
 
 | assets-burst-limit   |      |
 --------------|------
-description   | Maximum amount of burst allowed in a rate interval when fetching assets. Added in [Sensu Go 5.19.3][28].
+description   | Available in [Sensu Go 5.19.3][28]. Maximum amount of burst allowed in a rate interval when fetching assets.
 type          | Integer
 default       | `100`
 environment variable | `SENSU_ASSETS_BURST_LIMIT`
@@ -381,7 +381,7 @@ assets-burst-limit: 100{{< /highlight >}}
 
 | assets-rate-limit   |      |
 --------------|------
-description   | Maximum number of assets to fetch per second. The default value `1.39` is equivalent to approximately 5000 user-to-server requests per hour. Added in [Sensu Go 5.19.3][28].
+description   | Available in [Sensu Go 5.19.3][28]. Maximum number of assets to fetch per second. The default value `1.39` is equivalent to approximately 5000 user-to-server requests per hour.
 type          | Float
 default       | `1.39`
 environment variable | `SENSU_ASSETS_RATE_LIMIT`
