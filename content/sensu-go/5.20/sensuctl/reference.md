@@ -478,7 +478,7 @@ Use `sensuctl describe-type` to list the types of supported resources.
 For example, to list all types:
 
 {{< highlight shell >}}
-sensuctl describe-type --all
+sensuctl describe-type all
 {{< /highlight >}}
 
 You can also list specific resource types by fully qualified name or synonym:
