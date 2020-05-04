@@ -61,7 +61,7 @@ Read the [upgrade guide][1] for information about upgrading to the latest versio
 
 ## 5.19.3 release notes
 
-**April 30, 2020** &mdash; The latest release of Sensu Go, version 5.19.3, is now available for download.
+**May 4, 2020** &mdash; The latest release of Sensu Go, version 5.19.3, is now available for download.
 This is a patch release with many improvements and bug fixes, including a fix to close the event store when the backend restarts, a global rate limit for fetching assets, and fixes for goroutine leaks. Sensu Go 5.19.3 also includes several web UI updates, from fixes to prevent crashes to new color-blindness modes.
 
 See the [upgrade guide][1] to upgrade Sensu to version 5.19.3.
