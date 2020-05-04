@@ -60,6 +60,8 @@ If the downloaded artifact's SHA512 checksum matches the checksum provided by th
 Set the backend or agent's local cache path with the `--cache-dir` flag.
 Disable assets for an agent with the agent `--disable-assets` [configuration flag][30].
 
+Use [token substitution][3] for asset paths on disk to retrieve changes to assets without manually updating your resource commands.
+
 ### Asset build execution
 
 The directory path of each asset defined in `runtime_assets` is appended to the `PATH` before the handler, filter, mutator, or check `command` is executed.
@@ -770,6 +772,7 @@ You must remove the archive and downloaded files from the asset cache manually.
 
 [1]: ../sensu-query-expressions/
 [2]: ../rbac#namespaces
+[3]: ../tokens/#manage-asset-changes
 [5]: #metadata-attributes
 [6]: ../checks/
 [7]: ../filters/
