@@ -1200,6 +1200,6 @@ To get started with Sensu Go:
 [129]: /sensu-go/5.19/sensuctl/reference/#sensuctl-prune
 [130]: /sensu-go/5.19/reference/tessen/
 [131]: /sensu-go/5.19/reference/handlers/#pipe-handler-command
-[132]: /sensu-go/5.19/api/datastore/
+[132]: /sensu-go/5.19/reference/datastore/#max_conn_lifetime
 [133]: /sensu-go/5.19/installation/platforms/
 [134]: /sensu-go/5.19/installation/install-sensu/
