@@ -188,7 +188,7 @@ See the metadata attributes section in the reference documentation for more info
 [13]: ../../reference/rbac/
 [14]: ../../guides/create-read-only-user/
 [16]: ../../reference/tokens
-[17]: ../../api/overview//
+[17]: ../../api/overview/
 [18]: https://github.com/sensu/sensu-translator/
 [20]: https://packagecloud.io/sensu/community/
 [21]: https://github.com/sensu-plugins/
