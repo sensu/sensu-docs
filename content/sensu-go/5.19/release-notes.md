@@ -7,6 +7,7 @@ version: "5.19"
 menu: "sensu-go-5.19"
 ---
 
+- [5.19.3 release notes](#5-19-3-release-notes)
 - [5.19.2 release notes](#5-19-2-release-notes)
 - [5.19.1 release notes](#5-19-1-release-notes)
 - [5.19.0 release notes](#5-19-0-release-notes)
@@ -57,6 +58,41 @@ PATCH versions include backward-compatible bug fixes.
 Read the [upgrade guide][1] for information about upgrading to the latest version of Sensu Go.
 
 ---
+
+## 5.19.3 release notes
+
+**April 30, 2020** &mdash; The latest release of Sensu Go, version 5.19.3, is now available for download.
+This is a patch release with many improvements and bug fixes, including a fix to close the event store when the backend restarts, a global rate limit for fetching assets, and fixes for goroutine leaks. Sensu Go 5.19.3 also includes several web UI updates, from fixes to prevent crashes to new color-blindness modes.
+
+See the [upgrade guide][1] to upgrade Sensu to version 5.19.3.
+
+**FIXES:**
+
+- The event store now closes when the backend restarts, which fixes a bug that allowed Postgres connections to linger after the backend restarted interally.
+- The etcd event store now returns exact matches when retrieving events by entity (rather than prefixed matches).
+- `sensu-backend init` now logs any TLS failures encountered during initialization.
+- `sensuctl logout` now resets the TLS configuration.
+- `env_vars` values can now include the equal sign.
+- Error logs now include underlying errors encountered when fetching an asset.
+- The log level is now WARNING when an asset is not installed because none of the filters match.
+- Fixes a bug in the [web UI][135] that could cause labels with links to result in a crash.
+- Fixes a bug in the [web UI][135] that could cause the web UI to crash when using an unregistered theme.
+- Fixes a bug that could cause the backend to crash.
+- Fixes a bug in multi-line metric extraction that appeared in Windows agents.
+- Fixes an authentication bug that restarted the sensu-backend when agents disconnected.
+- Fixes a bug that meant check `state` and `last_ok` were not computed until the second instance of the event.
+- Fixes a bug that caused messages like "unary invoker failed" to appear in the logs.
+- Fixes several goroutine leaks.
+- Fixes a bug that caused the backend to crash when the etcd client received the error "etcdserver: too many requests."
+
+**IMPROVEMENTS:**
+
+- In the [web UI][135], color-blindness modes are now available.
+- In the [web UI][135], labels and annotations with links to images will now be displayed inline.
+- Adds a global rate limit for fetching assets to prevent abusive asset retries, which you can configure with the `--assets-rate-limit` and `--assets-burst-limit` flags for the [agent][136] and [backend][137].
+- Adds support for restarting the backend via SIGHUP.
+- Adds a timeout flag to `sensu-backend init`.
+- Deprecated flags for `sensuctl silenced update` subcommand have been removed.
 
 ## 5.19.2 release notes
 
@@ -1203,3 +1239,6 @@ To get started with Sensu Go:
 [132]: /sensu-go/5.19/reference/datastore/#max_conn_lifetime
 [133]: /sensu-go/5.19/installation/platforms/
 [134]: /sensu-go/5.19/installation/install-sensu/
+[135]: /sensu-go/5.19/dashboard/overview
+[136]: /sensu-go/5.19/reference/agent/#configuration
+[137]: /sensu-go/5.19/reference/backend/#configuration
