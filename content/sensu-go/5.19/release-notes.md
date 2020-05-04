@@ -83,6 +83,7 @@ See the [upgrade guide][1] to upgrade Sensu to version 5.19.3.
 - Fixes a bug that meant check `state` and `last_ok` were not computed until the second instance of the event.
 - Fixes a bug that caused messages like "unary invoker failed" to appear in the logs.
 - Fixes several goroutine leaks.
+- Fixes a bug that caused the backend to crash when the etcd client received the error "etcdserver: too many requests."
 
 **IMPROVEMENTS:**
 
