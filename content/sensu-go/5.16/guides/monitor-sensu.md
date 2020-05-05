@@ -46,7 +46,7 @@ Find more plugins at [Bonsai, the Sensu asset index][5].
 ### Monitor the Sensu backend remotely
 
 Monitor the `sensu-backend` from an independent Sensu instance. This will allow you to know if the Sensu event pipeline, API or dashboard is not working.
-To do this, call Sensu's [health API endpoint][6] and use the [check-http plugin][7] with the following check definition:
+To do this, use the [check-http plugin][7] to query Sensu's [health API endpoint][6] with a check definition like this one:
 
 {{< highlight json >}}
 {
