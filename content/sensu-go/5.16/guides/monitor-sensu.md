@@ -26,7 +26,7 @@ The second Sensu instance will ensure that you are notified when the primary is 
 This guide requires Sensu plugins.
 For more information about using Sensu plugins, see [Install plugins with assets][10].
 
-_**NOTE**: This guide assumes you are not using Sensu clustering, although the strategies in this guide are still useful for monitoring cluster members._
+_**NOTE**: This guide describes approaches for monitoring a single backend. The strategies in this guide are also useful for monitoring individual members of a backend cluster._
 
 ## Monitor your Sensu backend instances
 
