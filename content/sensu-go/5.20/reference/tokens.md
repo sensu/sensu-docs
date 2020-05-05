@@ -41,7 +41,8 @@ See the [entity reference][6] for information about managing entity labels for p
 
 ## Manage asset changes
 
-Use token substitution to retrieve changes to assets without manually updating your check, hook, handler, and mutator commands.
+Use token substitution in your [asset][12] definitions, which your [checks][7], [hooks][8], [handlers][10] and [mutators][11] can use via their `runtime_assets` attributes.
+Token substitution in assets allows you to host your assets on different URLs (for example, at different datacenters) without duplicating your assets.
 
 For example, if an asset changes, the asset's specific path on disk will change.
 If you use token substitution for the asset's path on disk, you will not need to manually update the commands in the checks, hooks, handlers, and mutators that use the asset.
