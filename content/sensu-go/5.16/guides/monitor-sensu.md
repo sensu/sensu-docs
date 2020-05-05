@@ -21,7 +21,7 @@ This guide describes best practices and strategies for monitoring Sensu with Sen
 It explains how to ensure your Sensu components are properly monitored, including your Sensu backend, agent, API, and dashboard.
 
 To completely monitor Sensu (a Sensu backend with internal etcd and an agent), you will need at least one other independent Sensu instance.
-The second Sensu instance will ensure that you are notified when the primary is down and vise versa.
+The second Sensu instance will ensure that you are notified when the primary is down and vice versa.
 
 This guide requires Sensu plugins.
 For more information about using Sensu plugins, see [Install plugins with assets][10].
