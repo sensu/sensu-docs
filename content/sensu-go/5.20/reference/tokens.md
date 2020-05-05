@@ -28,7 +28,7 @@ The agent replaces any tokens with matching attributes from the entity definitio
 Invalid templates or unmatched tokens return an error, which is logged and sent to the Sensu backend message transport.
 Checks with token-matching errors are not executed.
 
-Token substitution is supported for [check][7], [hook][8], [handler][10], and [mutator][11] `command` attributes.
+Token substitution is supported for [check definition][7] `command` attributes and [hook][8] `command` attributes.
 Only [entity attributes][4] are available for substitution.
 Token substitution is not available for event filters because filters already have access to the entity.
 
