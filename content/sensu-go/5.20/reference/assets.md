@@ -60,8 +60,6 @@ If the downloaded artifact's SHA512 checksum matches the checksum provided by th
 Set the backend or agent's local cache path with the `--cache-dir` flag.
 Disable assets for an agent with the agent `--disable-assets` [configuration flag][30].
 
-Use [token substitution][3] for asset paths on disk to retrieve changes to assets without manually updating your resource commands.
-
 ### Asset build execution
 
 The directory path of each asset defined in `runtime_assets` is appended to the `PATH` before the handler, filter, mutator, or check `command` is executed.
@@ -335,7 +333,7 @@ example      | {{< highlight shell >}}"builds": [
 
 url          | 
 -------------|------ 
-description  | URL location of the asset. 
+description  | URL location of the asset. You can use [token substitution][3] in the URLs of your asset definitions so each backend or agent can download assets from the appropriate URL without duplicating your assets (for example, if you want to host your assets at different datacenters).
 required     | true, unless `builds` are provided
 type         | String 
 example      | {{< highlight shell >}}"url": "http://example.com/asset.tar.gz"{{< /highlight >}}
@@ -358,7 +356,7 @@ example      | {{< highlight shell >}}"filters": ["entity.system.os=='linux'", "
 
 headers       |       |
 --------------|-------|
-description   | HTTP headers to apply to asset retrieval requests. You can use headers to access secured assets. For headers that require multiple values, separate the values with a comma.
+description   | HTTP headers to apply to asset retrieval requests. You can use headers to access secured assets. For headers that require multiple values, separate the values with a comma. You can use [token substitution][3] in your asset headers (for example, to include secure information for authentication).
 required     | false
 type         | Map of key-value string pairs
 example      | {{< highlight shell >}}
@@ -772,7 +770,7 @@ You must remove the archive and downloaded files from the asset cache manually.
 
 [1]: ../sensu-query-expressions/
 [2]: ../rbac#namespaces
-[3]: ../tokens/#manage-asset-changes
+[3]: ../tokens/#manage-assets
 [5]: #metadata-attributes
 [6]: ../checks/
 [7]: ../filters/
