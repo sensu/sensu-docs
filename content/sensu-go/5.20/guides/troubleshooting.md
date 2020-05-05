@@ -46,6 +46,11 @@ sensu-agent start --log-level debug
 You must restart the service after you change log levels via configuration files or command line arguments.
 For help with restarting a service, see the [agent reference][5] or [backend reference][9].
 
+{{% notice note %}}
+**NOTE**: You can set the log level to `trace`, but Sensu does not log at the trace level.
+The trace log level is the same as `debug` in Sensu.
+{{% /notice %}}
+
 #### Increment log level verbosity
 
 Use these commands to increment the log level verbosity at runtime:
