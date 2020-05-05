@@ -28,14 +28,14 @@ For more information about using Sensu plugins, see [Install plugins with assets
 
 _**NOTE**: This guide describes approaches for monitoring a single backend. The strategies in this guide are also useful for monitoring individual members of a backend cluster._
 
+_**NOTE**: This guide does not go over Sensu agent monitoring. To learn more about monitoring agent state, visit the [keepalive][11] reference_
+
 ## Monitor your Sensu backend instances
 
 Monitor the host running the `sensu-backend` in two ways:
 
-* Locally by a `sensu-agent` process for operating system checks and metrics and Sensu services that are not part of the Sensu event system.
+* Locally by a `sensu-agent` process for operating system checks and metrics.
 * Remotely from an independent Sensu instance for Sensu components that must be running for Sensu to create events.
-
-Here's an overview of the checks you might use depending on your backend setup:
 
 ### Monitor the Sensu backend locally
 
@@ -46,87 +46,65 @@ Find more plugins at [Bonsai, the Sensu asset index][5].
 ### Monitor the Sensu backend remotely
 
 Monitor the `sensu-backend` from an independent Sensu instance. This will allow you to know if the Sensu event pipeline, API or dashboard is not working.
-To do this, use the [check-http plugin][7] to query Sensu's [health API endpoint][6] with a check definition like this one:
+To do this, use the `check_http` plugin from the [Monitoring plugins asset][7] to query Sensu's [health API endpoint][6] with a check definition like this one:
 
-{{< highlight json >}}
-{
-  "type": "CheckConfig",
-  "api_version": "core/v2",
-  "metadata": {
-    "namespace": "default",
-    "name": "check_backend_health"
-  },
-  "spec": {
-    "command": "check-http.rb -h remote-api-hostname -P 8080 -p /health --response-code 200 -w",
-    "subscriptions": [
-      "monitor_remote_sensu_api"
-    ],
-    "interval": 60,
-    "publish": true,
-    "timeout": 10
-  }
-}
+{{< highlight yaml >}}
+---
+type: CheckConfig
+api_version: core/v2
+metadata:
+  namespace: default
+  name: check_backend_health
+spec:
+  command: check_http -H sensu-backend-beta -p 8080 -u /health
+  subscriptions:
+    - monitor_remote_sensu_api_of_beta
+  interval: 10
+  publish: true
+  timeout: 10
+  runtime_assets:
+    - monitoring-plugins
 {{< /highlight >}}
-
-TODO: Find out if checking the health endpoint covers backend event processing, dashboard and API.
-TODO: If it does, done. If not, need a check for dashboard and API. Is it worth to have dashboard and API for external users and tooling, say firewall issues but health endpont says they are ok?
 
 ## Monitor your Sensu dashboard instances
 
-To monitor the dashboard portion of your sensu-backend remotely, use the [check-port plugin][8] with the following check definition:
+To monitor the dashboard portion of your sensu-backend remotely, use the check_tcp plugin from the [Monitoring plugins asset][7] with the following check definition:
 
-{{< highlight json >}}
-{
-  "type": "CheckConfig",
-  "api_version": "core/v2",
-  "metadata": {
-    "namespace": "default",
-    "name": "check_dashboard_port"
-  },
-  "spec": {
-    "command": "check-ports.rb -H dashboard-remote-hostname -p 3000",
-    "subscriptions": [
-      "monitor_remote_dashboard_port"
-    ],
-    "interval": 60,
-    "publish": true
-  }
-}
+{{< highlight yaml >}}
+---
+type: CheckConfig
+api_version: core/v2
+metadata:
+  namespace: default
+  name: check_dashboard_port
+spec:
+  command: check_tcp -H sensu-backend-beta -p 3000
+  subscriptions:
+    - monitor_remote_dashboard_port
+  interval: 60
+  publish: true
+  runtime_assets:
+    - monitoring-plugins
 {{< /highlight >}}
 
 ## Monitor your Sensu API instances
 
 To monitor the API portion of your sensu-backend remotely, use the [check-port plugin][8] with the following check definition:
 
-
 {{< highlight json >}}
-{
-  "type": "CheckConfig",
-  "api_version": "core/v2",
-  "metadata": {
-    "namespace": "default",
-    "name": "check_api_port"
-  },
-  "spec": {
-    "command": "check-ports.rb -H dashboard-remote-hostname -p 8080",
-    "subscriptions": [
-      "monitor_remote_dashboard_port"
-    ],
-    "interval": 60,
-    "publish": true
-  }
-}
+---
+type: CheckConfig
+api_version: core/v2
+metadata:
+  namespace: default
+  name: check_api_port
+spec:
+  command: check-ports.rb -H dashboard-remote-hostname -p 8080
+  subscriptions:
+  - monitor_remote_dashboard_port
+  interval: 60
+  publish: true
 {{< /highlight >}}
-
-## Monitor your Sensu agent instances
-
-TODO: This API comment either needs an example or removed for now.
-You can use API port checks to monitor your Sensu agent.
-
-TODO: So the below statement is a bit tricky. While true for knowing if the agent is down, agents run on the majority of a users boxes, so they'll still most likely want to run normal checks (CPU, memory, disk, etc). But are those really "checking" Sensu? Or whatever that box is being used for?
-
-Service checks are not effective for monitoring the Sensu agent because if the agent is down, a service check for it won't run.
-The [keepalive][11] is a built-in monitor for whether the Sensu agent service is running and functional, although network issues can cause a non-OK keepalive event even if the agent has no other problems happening.
 
 ## External etcd PLACEHOLDER
 
@@ -142,7 +120,7 @@ TODO: Postgres now is part of the health endpoint. Need to see what that looks l
 [4]: https://bonsai.sensu.io/assets/sensu-plugins/sensu-plugins-network-checks
 [5]: https://bonsai.sensu.io/
 [6]: ../../api/health/
-[7]: https://github.com/sensu-plugins/sensu-plugins-http/blob/master/bin/check-http.rb
+[7]: https://bonsai.sensu.io/assets/sensu/monitoring-plugins
 [8]: https://github.com/sensu-plugins/sensu-plugins-network-checks/blob/master/bin/check-ports.rb
 [9]: https://github.com/sensu-plugins/sensu-plugins-process-checks/blob/master/bin/check-process.rb
 [10]: ../../guides/install-check-executables-with-assets/
