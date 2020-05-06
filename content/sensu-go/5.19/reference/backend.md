@@ -1285,7 +1285,7 @@ This will cause sensu-backend (and sensu-agent, if translated for the Sensu agen
   notifempty
   compress
   postrotate
-    /sbin/service sensu-backend reload > /dev/null 2>/dev/null || true
+    kill -HUP `cat /var/run/sensu/sensu-backend.pid 2> /dev/null` 2> /dev/null || true
   endscript
 }
 {{< /highlight >}}
