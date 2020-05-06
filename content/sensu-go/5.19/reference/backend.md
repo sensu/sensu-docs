@@ -1247,7 +1247,9 @@ Event logging supports log rotation via the _SIGHUP_ signal.
 To manually rotate event logs, first rename (move) the current log file.
 Then, send the _SIGHUP_ signal to the sensu-backend process so it creates a new log file and starts logging to it.
 
-Because event log files can grow very quickly for larger Sensu installations, we recommend using `logrotate` to automatically rotate log files.
+Most Linux distributions include `logrotate` to automatically rotate log files as a standard utility, configured to run once per day by default.
+Because event log files can grow quickly for larger Sensu installations, we recommend using `logrotate` to automatically rotate log files more frequently.
+To use the example log rotation configurations listed below, you may need to [configure `logrotate` to run once per hour][29].
 
 #### Log rotation for systemd
 
@@ -1319,3 +1321,4 @@ This will cause sensu-backend (and sensu-agent, if translated for the Sensu agen
 [26]: ../../sensuctl/reference/#change-admin-user-s-password
 [27]: #configuration-via-environment-variables
 [28]: ../../guides/systemd-logs/
+[29]: https://unix.stackexchange.com/questions/29574/how-can-i-set-up-logrotate-to-rotate-logs-hourly
