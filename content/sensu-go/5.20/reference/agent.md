@@ -853,7 +853,8 @@ assets-rate-limit: 1.39{{< /highlight >}}
 
 | backend-url |      |
 --------------|------
-description   | ws or wss URL of the Sensu backend server. To specify multiple backends with `sensu-agent start`, use this flag multiple times.
+description   | ws or wss URL of the Sensu backend server. To specify multiple backends with `sensu-agent start`, use this flag multiple times.<br>{{% notice note %}}
+**NOTE**: If you do not specify a port for your backend-url values, the agent will automatically append the default backend port (8081).
 type          | List
 default       | `ws://127.0.0.1:8081`
 environment variable | `SENSU_BACKEND_URL`
