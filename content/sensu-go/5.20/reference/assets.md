@@ -60,6 +60,8 @@ If the downloaded artifact's SHA512 checksum matches the checksum provided by th
 Set the backend or agent's local cache path with the `--cache-dir` flag.
 Disable assets for an agent with the agent `--disable-assets` [configuration flag][30].
 
+Use the `--assets-rate-limit` and `--assets-burst-limit` flags for the [agent][40] and [backend][41] to configure a global rate limit for fetching assets.
+
 ### Asset build execution
 
 The directory path of each asset defined in `runtime_assets` is appended to the `PATH` before the handler, filter, mutator, or check `command` is executed.
@@ -799,3 +801,5 @@ You must remove the archive and downloaded files from the asset cache manually.
 [37]: https://bonsai.sensu.io/sign-in
 [38]: https://bonsai.sensu.io/new
 [39]: ../../dashboard/filtering#filter-with-label-selectors
+[40]: ../../reference/agent/#configuration
+[41]: ../../reference/backend/#configuration
