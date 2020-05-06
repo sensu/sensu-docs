@@ -10,6 +10,7 @@ menu:
 ---
 
 - [Manage entity labels](#manage-entity-labels)
+- [Manage assets](#manage-assets)
 - [Token specification](#token-specification)
   - [Token substitution syntax](#token-substitution-syntax)
   - [Token substitution default values](#token-substitution-default-values)
@@ -27,14 +28,65 @@ The agent replaces any tokens with matching attributes from the entity definitio
 Invalid templates or unmatched tokens return an error, which is logged and sent to the Sensu backend message transport.
 Checks with token-matching errors are not executed.
 
-Token substitution is supported for [check definition][7] `command` attributes and [hook][8] `command` attributes.
+Token substitution is supported for [check][7] and [hook][8] `command` attributes, as well as for [asset][12] definitions.
 Only [entity attributes][4] are available for substitution.
+Token substitution is not available for event filters because filters already have access to the entity.
+
 Available attributes will always have [string values][9], such as labels and annotations.
 
 ## Manage entity labels
 
 You can use token substitution with any defined [entity attributes][4], including custom labels.
 See the [entity reference][6] for information about managing entity labels for proxy entities and agent entities.
+
+## Manage assets
+
+You can use token substitution in the URLs of your your [asset][12] definitions.
+Token substitution allows you to host your assets at different URLs (such as at different datacenters) without duplicating your assets, as shown in the following example:
+
+{{< language-toggle >}}
+
+{{< highlight yml >}}
+type: Asset
+api_version: core/v2
+metadata:
+  name: sensu-go-hello-world
+  namespace: default
+spec:
+  builds:
+  - sha512: 07665fda5b7c75e15e4322820aa7ddb791cc9338e38444e976e601bc7d7970592e806a7b88733690a238b7325437d31f85e98ae2fe47b008ca09c86530da9600
+    url: "{{ .labels.asset_url }}/sensu-go-hello-world-0.0.1.tar.gz"
+{{< /highlight >}}
+
+{{< highlight json >}}
+{
+  "type": "Asset",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "sensu-go-hello-world",
+    "namespace": "default"
+  },
+  "spec": {
+    "builds": [
+      {
+        "sha512": "07665fda5b7c75e15e4322820aa7ddb791cc9338e38444e976e601bc7d7970592e806a7b88733690a238b7325437d31f85e98ae2fe47b008ca09c86530da9600",
+        "url": "{{ .labels.asset_url }}/sensu-go-hello-world-0.0.1.tar.gz"
+      }
+    ]
+  }
+}
+{{< /highlight >}}
+
+{{< /language-toggle >}}
+
+With this asset definition, which includes the `.labels.asset_url` token substitution, checks and hooks can include the `sensu-go-hello-world` asset as a runtime asset and Sensu Go will use the token substitution for the agent's entity.
+Handlers and mutators can also include the `sensu-go-hello-world` asset as a runtime asset, but Sensu Go will use the token subtitution for the backend's entity instead of the agent's entity.
+
+You can also use token substitution to customize asset headers (for example, to include secure information for authentication).
+
+{{% notice note %}}
+**NOTE**: To maintain security, you cannot use token substitution for an asset's SHA512 value.
+{{% /notice %}}
 
 ## Token specification
 
@@ -357,3 +409,6 @@ spec:
 [7]: ../checks/#check-commands
 [8]: ../hooks/
 [9]: #token-data-type-limitations
+[10]: ../handlers/
+[11]: ../mutators/
+[12]: ../assets/
