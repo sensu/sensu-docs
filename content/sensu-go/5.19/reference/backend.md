@@ -1272,6 +1272,12 @@ In this example, the `postrotate` script will reload the backend after log rotat
 Without the `postrotate` script, the backend will not reload.
 This will cause sensu-backend (and sensu-agent, if translated for the Sensu agent) to no longer write to the log file, even if logrotate recreates the log file.
 
+In this script, `systemctl reload` sends a _SIGHUP_ signal to the sensu-backend process.
+
+- In Sensu Go versions 5.19.2 and earlier, this reload causes sensu-backend to fully restart.
+If you are running a clustered backend, all cluster members will restart at the same time.
+- In [Sensu Go version 5.19.3][30] and later, the _SIGHUP_ signal causes only event logging components to reload, so cluster members will not simultaneously restart.
+
 {{% notice note %}}
 **NOTE**: Event logs do not include log messages produced by sensu-backend service. To write Sensu service logs to flat files on disk, read [Log Sensu services with systemd][28].
 {{% /notice %}}
@@ -1322,3 +1328,4 @@ This will cause sensu-backend (and sensu-agent, if translated for the Sensu agen
 [27]: #configuration-via-environment-variables
 [28]: ../../guides/systemd-logs/
 [29]: https://unix.stackexchange.com/questions/29574/how-can-i-set-up-logrotate-to-rotate-logs-hourly
+[30]: ../../release-notes/#5-19-3-release-notes
