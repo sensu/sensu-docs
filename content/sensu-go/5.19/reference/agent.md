@@ -692,7 +692,7 @@ If a [Sensu event handler][8] named `registration` is configured, the [Sensu bac
 You can use registration events to execute one-time handlers for new Sensu agents.
 For example, you can use registration event handlers to update external [configuration management databases (CMDBs)][11] such as [ServiceNow][12].
 
-To configure a registration event handler, see the [Handlers documentation][8], which includes instructions for creating a handler named `registration`.
+The handlers reference includes an [example registration event handler][41].
 
 {{% notice warning %}}
 **WARNING**: Registration events are not stored in the event registry, so they are not accessible via the Sensu API. However, all registration events are logged in the [Sensu backend log](../backend/#event-logging).
@@ -837,7 +837,9 @@ assets-rate-limit: 1.39{{< /highlight >}}
 
 | backend-url |      |
 --------------|------
-description   | ws or wss URL of the Sensu backend server. To specify multiple backends with `sensu-agent start`, use this flag multiple times.
+description   | ws or wss URL of the Sensu backend server. To specify multiple backends with `sensu-agent start`, use this flag multiple times.<br>{{% notice note %}}
+**NOTE**: If you do not specify a port for your backend-url values, the agent will automatically append the default backend port (8081).
+{{% /notice %}}
 type          | List
 default       | `ws://127.0.0.1:8081`
 environment variable | `SENSU_BACKEND_URL`
@@ -1556,6 +1558,7 @@ For example, if you create a `SENSU_TEST_VAR` variable in your sensu-agent file,
 [38]: #name
 [39]: ../rbac/
 [40]: ../../guides/send-slack-alerts/
+[41]: ../handlers/#send-registration-events
 [44]: ../checks#ttl-attribute
 [45]: https://en.m.wikipedia.org/wiki/WebSocket
 [46]: ../../guides/securing-sensu/
