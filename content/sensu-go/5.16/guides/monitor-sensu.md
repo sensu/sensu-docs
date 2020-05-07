@@ -23,7 +23,7 @@ It explains how to ensure your Sensu components are properly monitored, includin
 To completely monitor Sensu (a Sensu backend with internal etcd and an agent), you will need at least one other independent Sensu instance.
 The second Sensu instance will ensure that you are notified when the primary is down and vice versa.
 
-This guide requires Sensu plugins.
+This guide requires Sensu plugins using assets.
 For more information about using Sensu plugins, see [Install plugins with assets][10].
 
 _**NOTE**: This guide describes approaches for monitoring a single backend. The strategies in this guide are also useful for monitoring individual members of a backend cluster._
@@ -66,49 +66,9 @@ spec:
     - monitoring-plugins
 {{< /highlight >}}
 
-## Monitor your Sensu dashboard instances
+## Monitoring etcd
 
-To monitor the dashboard portion of your sensu-backend remotely, use the check_tcp plugin from the [Monitoring plugins asset][7] with the following check definition:
-
-{{< highlight yaml >}}
----
-type: CheckConfig
-api_version: core/v2
-metadata:
-  namespace: default
-  name: check_dashboard_port
-spec:
-  command: check_tcp -H sensu-backend-beta -p 3000
-  subscriptions:
-    - monitor_remote_dashboard_port
-  interval: 60
-  publish: true
-  runtime_assets:
-    - monitoring-plugins
-{{< /highlight >}}
-
-## Monitor your Sensu API instances
-
-To monitor the API portion of your sensu-backend remotely, use the [check-port plugin][8] with the following check definition:
-
-{{< highlight json >}}
----
-type: CheckConfig
-api_version: core/v2
-metadata:
-  namespace: default
-  name: check_api_port
-spec:
-  command: check-ports.rb -H dashboard-remote-hostname -p 8080
-  subscriptions:
-  - monitor_remote_dashboard_port
-  interval: 60
-  publish: true
-{{< /highlight >}}
-
-## External etcd PLACEHOLDER
-
-TODO: See what makes sense here from a monitoring point of view, as since this is both external and a need for events to work for non-Postgres users, knowing the health of this will probably depend our secondary Sensu instance we talk about in this guide.
+The Sensu API exposes a `/metrics` endpoint for gathering 
 
 ## PostgreSQL PLACEHOLDER
 
