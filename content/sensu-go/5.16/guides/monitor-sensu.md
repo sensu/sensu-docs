@@ -12,9 +12,9 @@ menu:
 ---
 
 - [Monitor your Sensu backend instances](#monitor-your-sensu-backend-instances)
-- [Monitor your Sensu agent instances](#monitor-your-sensu-agent-instances)
 - [Monitor your Sensu dashboard instances](#monitor-your-sensu-dashboard-instances)
-- [External etcd PLACEHOLDER](#external-etcd-placeholder)
+- [Monitor your Embedded etcd](#monitor-your-embedded-etcd)
+- [Monitor your External etcd](#monitor-your-external-etcd)
 - [PostgreSQL PLACEHOLDER](#postgresql-placeholder)
 
 This guide describes best practices and strategies for monitoring Sensu with Sensu.
@@ -66,13 +66,63 @@ spec:
     - monitoring-plugins
 {{< /highlight >}}
 
-## Monitoring etcd
+## Monitor your embedded etcd
 
-The Sensu API exposes a `/metrics` endpoint for gathering 
+The Sensu API exposes a [`/metrics` endpoint][12] for gathering embedded etcd metrics. These metrics are outputted in Prometheus format and the [Sensu prometheus collector][13] can be used to gather and send them to a TSDB.
+
+In this example, metrics are being sent to an InfluxDB instance:
+
+{{< highlight yaml >}}
+---
+type: CheckConfig
+api_version: core/v2
+metadata:
+  name: sensu-prom-metrics
+spec:
+  command: sensu-prometheus-collector -exporter-url http://localhost:8080/metrics
+  output_metric_format: influxdb_line
+  output_metric_handlers:
+    - influxdb
+  subscriptions:
+    - monitor_remote_dashboard_port
+  handlers:
+    - influxdb
+  interval: 10
+  timeout: 5
+  runtime_assets:
+    - sensu-prometheus-collector
+{{< /highlight >}}
+
+## Monitoring external etcd
+
+Sensu also has the ability to provide metrics when using an external etcd.
+
+In this example, metrics are being sent to an InfluxDB instance:
+
+{{< highlight yaml >}}
+---
+type: CheckConfig
+api_version: core/v2
+metadata:
+  name: sensu-prom-metrics
+spec:
+  command: sensu-prometheus-collector -exporter-url http://external-etcd:2379/metrics
+  output_metric_format: influxdb_line
+  output_metric_handlers:
+    - influxdb
+  subscriptions:
+    - monitor_remote_dashboard_port
+  handlers:
+    - influxdb
+  interval: 10
+  timeout: 5
+  runtime_assets:
+    - sensu-prometheus-collector
+{{< /highlight >}}
 
 ## PostgreSQL PLACEHOLDER
 
-TODO: Postgres now is part of the health endpoint. Need to see what that looks like and what it looks like when it is not available. 
+TODO: Postgres now is part of the health endpoint. Need to see what that looks like and what it looks like when it is not available.
 
 [1]: https://bonsai.sensu.io/assets/sensu-plugins/sensu-plugins-cpu-checks
 [2]: https://bonsai.sensu.io/assets/sensu-plugins/sensu-plugins-memory-checks
@@ -85,3 +135,5 @@ TODO: Postgres now is part of the health endpoint. Need to see what that looks l
 [9]: https://github.com/sensu-plugins/sensu-plugins-process-checks/blob/master/bin/check-process.rb
 [10]: ../../guides/install-check-executables-with-assets/
 [11]: ../../reference/agent/#keepalive-monitoring
+[12]: ../../api/metrics/
+[13]: https://bonsai.sensu.io/assets/sensu/sensu-prometheus-collector
