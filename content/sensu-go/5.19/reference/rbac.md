@@ -206,6 +206,7 @@ You can access namespaced resources by [roles][13] and [cluster roles][21].
 | `mutators` | [Mutator][11] resources within a namespace |
 | `rolebindings` | Namespace-specific role assigners |
 | `roles` | Namespace-specific permission sets |
+| `searches` | [Web UI][3] search queries |
 | `silenced` | [Silencing][14] resources within a namespace |
 
 ### Cluster-wide resource types
@@ -215,14 +216,17 @@ You can access cluster-wide resources only by [cluster roles][21].
 
 | type | description |
 |---|---|
+| `authproviders` | [Authentication provider][32] configuration (commercial feature) |
 | `cluster` | Sensu clusters running multiple [Sensu backends][1] |
 | `clusterrolebindings` | Cluster-wide role assigners  |
 | `clusterroles` | Cluster-wide permission sets |
 | `etcd-replicators` | [Mirror RBAC resource changes][40] to follower clusters |
-| `namespaces` | Resource partitions within a Sensu instance |
-| `users` | People or agents that interact with Sensu |
-| `authproviders` | [Authentication provider][32] configuration (commercial feature) |
 | `license` | Sensu [commercial license][37] |
+| `namespaces` | Resource partitions within a Sensu instance |
+| `provider` | [PostgreSQL event store][47] provider |
+| `providers` | [Secrets providers][46] |
+| `secrets` |[Secrets][48] (e.g. username or password) |
+| `users` | People or agents that interact with Sensu |
 
 ### Special resource types
 
@@ -1273,3 +1277,6 @@ You can add these resources to Sensu using [`sensuctl create`][31].
 [43]: ../../installation/auth#ldap-authentication
 [44]: ../../installation/auth/#ad-authentication
 [45]: ../../sensuctl/reference/#change-admin-user-s-password
+[46]: ../secrets-providers/
+[47]: ../datastore/
+[48]: ../secrets/

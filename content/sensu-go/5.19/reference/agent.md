@@ -740,6 +740,8 @@ Flags:
       --annotations stringToString            entity annotations map (default [])
       --api-host string                       address to bind the Sensu client HTTP API to (default "127.0.0.1")
       --api-port int                          port the Sensu client HTTP API listens on (default 3031)
+      --assets-burst-limit int                asset fetch burst limit (default 100)
+      --assets-rate-limit float               maximum number of assets fetched per second
       --backend-url strings                   ws/wss URL of Sensu backend server (to specify multiple backends use this flag multiple times) (default [ws://127.0.0.1:8081])
       --cache-dir string                      path to store cached data (default "/var/cache/sensu/sensu-agent")
       --cert-file string                      TLS certificate in PEM format
@@ -807,9 +809,37 @@ annotations:
 {{< /highlight >}}
 
 
+| assets-burst-limit   |      |
+--------------|------
+description   | Available in [Sensu Go 5.19.3][28]. Maximum amount of burst allowed in a rate interval when fetching assets.
+type          | Integer
+default       | `100`
+environment variable | `SENSU_ASSETS_BURST_LIMIT`
+example       | {{< highlight shell >}}# Command line example
+sensu-agent start --assets-burst-limit 100
+
+# /etc/sensu/agent.yml example
+assets-burst-limit: 100{{< /highlight >}}
+
+
+| assets-rate-limit   |      |
+--------------|------
+description   | Available in [Sensu Go 5.19.3][28]. Maximum number of assets to fetch per second. The default value `1.39` is equivalent to approximately 5000 user-to-server requests per hour.
+type          | Float
+default       | `1.39`
+environment variable | `SENSU_ASSETS_RATE_LIMIT`
+example       | {{< highlight shell >}}# Command line example
+sensu-agent start --assets-rate-limit 1.39
+
+# /etc/sensu/agent.yml example
+assets-rate-limit: 1.39{{< /highlight >}}
+
+
 | backend-url |      |
 --------------|------
-description   | ws or wss URL of the Sensu backend server. To specify multiple backends with `sensu-agent start`, use this flag multiple times.
+description   | ws or wss URL of the Sensu backend server. To specify multiple backends with `sensu-agent start`, use this flag multiple times.<br>{{% notice note %}}
+**NOTE**: If you do not specify a port for your backend-url values, the agent will automatically append the default backend port (8081).
+{{% /notice %}}
 type          | List
 default       | `ws://127.0.0.1:8081`
 environment variable | `SENSU_BACKEND_URL`
@@ -1539,3 +1569,4 @@ For example, if you create a `SENSU_TEST_VAR` variable in your sensu-agent file,
 [52]: ../handlers/#keepalive-event-handlers
 [53]: #keepalive-handlers-flag
 [54]: ../../dashboard/filtering#filter-with-label-selectors
+[55]: ../../release-notes/#5-19-3-release-notes

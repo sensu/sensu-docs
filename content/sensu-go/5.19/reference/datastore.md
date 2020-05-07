@@ -180,6 +180,8 @@ default      | `0` (unlimited)
 type         | Integer
 example      | {{< highlight shell >}}pool_size: 20{{< /highlight >}}
 
+<a name="max_conn_lifetime"></a>
+
 max_conn_lifetime    |      |
 -------------|------
 description  | Available in [Sensu Go 5.19.2][4]. Maximum time a connection can persist before being destroyed. Specify values with a numeral and a letter indicator: `s` to indicate seconds, `m` to indicate minutes, and `h` to indicate hours. For example, `1m`, `2h`, and `2h1m3s` are valid. 

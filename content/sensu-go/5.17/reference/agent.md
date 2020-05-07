@@ -22,7 +22,7 @@ menu:
 - [Service management](#operation)
   - [Start and stop the service](#start-the-service) | [Register and deregister](#registration) | [Cluster](#cluster) | [Synchronize time](#synchronize-time)
 - [Configuration](#configuration)
-  - [API configuration](#api-configuration-flags) | [Ephemeral agent configuration](#ephemeral-agent-configuration-flags) | [Keepalive configuration](#keepalive-configuration-flags) | [Security configuration](#security-configuration-flags) | [Socket configuration](#socket-configuration-flags) | [StatsD configuration](#statsd-configuration-flags) | [Allow list configuration](#allow-list-configuration) and [example configuration file](#example-allow-list-configuration-file) | [Configuration via environment variables](#configuration-via-environment-variables)
+  - [General configuration flags](#general-configuration-flags) | [API configuration](#api-configuration-flags) | [Ephemeral agent configuration](#ephemeral-agent-configuration-flags) | [Keepalive configuration](#keepalive-configuration-flags) | [Security configuration](#security-configuration-flags) | [Socket configuration](#socket-configuration-flags) | [StatsD configuration](#statsd-configuration-flags) | [Allow list configuration](#allow-list-configuration) and [example configuration file](#example-allow-list-configuration-file) | [Configuration via environment variables](#configuration-via-environment-variables)
 - [Example Sensu agent configuration file](../../files/agent.yml) (download)
 
 The Sensu agent is a lightweight client that runs on the infrastructure components you want to monitor.
@@ -783,7 +783,9 @@ annotations:
 
 | backend-url |      |
 --------------|------
-description   | ws or wss URL of the Sensu backend server. To specify multiple backends with `sensu-agent start`, use this flag multiple times.
+description   | ws or wss URL of the Sensu backend server. To specify multiple backends with `sensu-agent start`, use this flag multiple times.<br>{{% notice note %}}
+**NOTE**: If you do not specify a port for your backend-url values, the agent will automatically append the default backend port (8081).
+{{% /notice %}}
 type          | List
 default       | `ws://127.0.0.1:8081`
 environment variable | `SENSU_BACKEND_URL`
