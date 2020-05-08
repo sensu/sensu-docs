@@ -61,7 +61,7 @@ An entity limit of `0` allows unlimited entities.
 Your Sensu license includes two types of entity limits:
 
 - Entity limit: the maximum number of entities of all classes your license includes. Both agent and proxy entities count toward the overall entity limit.
-- Entity class limit: the maximum number of agent entities your license includes.
+- Entity class limit: the maximum number of a specific class of entities (e.g. agent or proxy) that your license includes.
 
 For example, if your license has an entity limit of 10,000 and an agent entity class limit of 3,000, you cannot run more than 10,000 entities (agent and proxy) total.
 At the same time, you cannot run more than 3,000 agents.
