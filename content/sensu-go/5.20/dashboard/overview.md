@@ -62,7 +62,9 @@ To switch namespaces, select the menu icon in the upper-left corner and choose a
 
 **COMMERCIAL FEATURE**: In the packaged Sensu Go distribution, the namespace switcher will list only the namespaces to which the current user has access. For more information, see [Get started with commercial features][6].
 
-<img src="/images/dashboard-namespace-switcher.png" alt="Screenshot of the Sensu dashboard namespace switcher">
+<div style="text-align:center">
+<img src="/images/namespace-switcher-1.png" alt="Sensu dashboard namespace switcher" width="750">
+</div>
 
 <p style="text-align:center"><i>Sensu dashboard namespace switcher</i></p>
 
