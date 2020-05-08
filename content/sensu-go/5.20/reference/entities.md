@@ -38,7 +38,7 @@ All [commercial features][9] are available for free in the packaged Sensu Go dis
 If your Sensu instance includes more than 100 entities, [contact us][10] to learn how to upgrade your installation and increase your limit.
 See [the announcement on our blog][11] for more information about our usage policy.
 
-Commercial licenses include an entity limit and an entity class limit:
+Commercial licenses may include an entity limit and entity class limits:
 
 - Entity limit: the maximum number of entities of all classes your license includes. Both agent and proxy entities count toward the overall entity limit.
 - Entity class limit: the maximum number of a specific class of entities (e.g. agent or proxy) that your license includes.
