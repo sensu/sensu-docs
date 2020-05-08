@@ -54,7 +54,7 @@ Error: not found
 
 ## Entity limit
 
-Your commercial license includes the entity limit and entity class limit tied to your Sensu licensing package.
+Your commercial license may include the entity limit and entity class limits tied to your Sensu licensing package.
 An entity limit of `0` allows unlimited entities.
 [Contact Sensu][8] to upgrade your commercial license.
 
