@@ -49,7 +49,7 @@ If you use only 1,500 agent entities, you can have 8,500 proxy entities before y
 
 Use sensuctl or the license API to [view your overall entity count and limit][29].
 Your entity class limits are listed in your YAML/JSON Sensu license.
-To find your entity class counts, query your store or sensuctl with a tool like [jq][30].
+To find your entity class counts, query your store or sensuctl with a tool like jq.
 
 ## Proxy entities
 
@@ -1141,4 +1141,3 @@ spec:
 [27]: ../agent/#discover-processes
 [28]: http://man7.org/linux/man-pages/man1/top.1.html
 [29]: ../license/#view-entity-count-and-entity-limit
-[30]: https://stedolan.github.io/jq/
