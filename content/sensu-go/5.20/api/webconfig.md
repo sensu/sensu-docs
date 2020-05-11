@@ -16,7 +16,7 @@ menu:
   - [`/globals/:globalconfig` (PUT)](#globalsglobalconfig-put)
   - [`/globals/:globalconfig` (DELETE)](#globalsglobalconfig-delete)
 
-## The `/globals` API endpoints
+## The `/globals` API endpoint
 
 For more information about commercial features designed for enterprises, see [Get started with commercial features][1].
 
@@ -47,7 +47,7 @@ HTTP/1.1 200 OK
       "always_show_local_cluster": false,
       "default_preferences": {
         "page_size": 50,
-        "theme": "dark"
+        "theme": "sensu"
       },
       "link_policy": {
         "allow_list": true,
@@ -106,7 +106,7 @@ output         | {{< highlight shell >}}
       "always_show_local_cluster": false,
       "default_preferences": {
         "page_size": 50,
-        "theme": "dark"
+        "theme": "sensu"
       },
       "link_policy": {
         "allow_list": true,
@@ -171,7 +171,7 @@ HTTP/1.1 200 OK
     "always_show_local_cluster": false,
     "default_preferences": {
       "page_size": 50,
-      "theme": "dark"
+      "theme": "sensu"
     },
     "link_policy": {
       "allow_list": true,
@@ -207,7 +207,7 @@ output               | {{< highlight json >}}
     "always_show_local_cluster": false,
     "default_preferences": {
       "page_size": 50,
-      "theme": "dark"
+      "theme": "sensu"
     },
     "link_policy": {
       "allow_list": true,
@@ -246,7 +246,7 @@ curl -X PUT \
     "always_show_local_cluster": false,
     "default_preferences": {
       "page_size": 50,
-      "theme": "dark"
+      "theme": "sensu"
     },
     "link_policy": {
       "allow_list": true,
@@ -283,7 +283,7 @@ payload         | {{< highlight shell >}}
     "always_show_local_cluster": false,
     "default_preferences": {
       "page_size": 50,
-      "theme": "dark"
+      "theme": "sensu"
     },
     "link_policy": {
       "allow_list": true,

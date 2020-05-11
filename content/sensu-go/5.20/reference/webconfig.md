@@ -12,7 +12,7 @@ menu:
 
 - [Web UI configuration specification](#web-ui-configuration-specification)
   - [Top-level attributes](#top-level-attributes) | [Metadata attributes](#metadata-attributes) | [Spec attributes](#spec-attributes)
-- [Web UI examples](#web-ui-examples)
+- [Web UI configuration examples](#web-ui-configuration-examples)
 
 **COMMERCIAL FEATURE**: Access web UI configuration in the packaged Sensu Go distribution.
 For more information, see [Get started with commercial features][1].
@@ -21,7 +21,8 @@ Web UI configuration allows you to define certain display options for the Sensu 
 You can define a single custom web UI configuration to federate to all, some, or only one of your clusters.
 
 {{% notice note %}}
-**NOTE**: The web UI configuration feature is an exception to the rule in that there should only be a single web configuration present.
+**NOTE**: Each cluster should have only one web configuration.
+If you provide more than one, Sensu will automatically use the web UI configuration that was created or updated first.
 {{% /notice %}}
  
 ## Web UI configuration specification
@@ -56,7 +57,7 @@ example      | {{< highlight shell >}}
 
 spec         | 
 -------------|------
-description  | Top-level map that includes web UI configuration [spec attributes][8].
+description  | Top-level map that includes web UI configuration [spec attributes][4].
 required     | Required for web UI configuration in `wrapped-json` or `yaml` format.
 type         | Map of key-value pairs
 example      | {{< highlight shell >}}
@@ -90,19 +91,21 @@ example      | {{< highlight shell >}}"name": "custom-web-ui"{{< /highlight >}}
 
 | created_by |      |
 -------------|------
-description  | Username of the Sensu user who created or last updated the web UI configuration. Sensu automatically populates the `created_by` field when the web UI configuration is created or updated.
+description  | Username of the Sensu user who created or last updated the web UI configuration. Sensu automatically populates the `created_by` field when the web UI configuration is created or updated. The admin user, cluster admins, and any user with access to the [`GlobalConfig`][2] resource can create and update web UI configurations.
 required     | false
 type         | String
 example      | {{< highlight shell >}}"created_by": "admin"{{< /highlight >}}
 
 ### Spec attributes
 
+<a name="show-local-cluster"></a>
+
 always_show_local_cluster | 
 -------------|------ 
-description  | To display the details of the cluster the user is currently connected to, `true`. To omit these details, `false`. Setting this parameter to `true` can be useful for debugging.
+description  | To display the cluster the user is currently connected to in the [namespace switcher][5], `true`. To omit these details, `false`. Set to `true` for help with debugging.
 required     | false
 type         | Boolean
-default      | false
+default      | `false`
 example      | {{< highlight shell >}}"always_show_local_cluster": false{{< /highlight >}}
 
 default_preferences | 
@@ -138,15 +141,20 @@ page_size |
 description  | The number of items users will see on each page.
 required     | false
 type         | Integer
-default      | 0
-example      | {{< highlight shell >}}"page_size": 50{{< /highlight >}}
+default      | `25`
+example      | {{< highlight shell >}}"page_size": 25{{< /highlight >}}
 
 theme | 
--------------|------ 
-description  | The theme users will see.
-required     | false
-type         | String
-example      | {{< highlight shell >}}"theme": "classic"{{< /highlight >}}
+---------------|------ 
+description    | The theme users will see.<br>{{% notice note %}}
+**NOTE**: If an individual user's settings conflict with the web UI configuration settings, Sensu will use the individual user's settings.
+For example, if a user's system is set to dark mode and their web UI settings are configured to use their system settings, the user will see dark mode in Sensu's web UI, even if you set the theme to `classic` in your web UI configuration.
+{{% /notice %}}
+required       | false
+type           | String
+default        | `sensu`
+allowed values | `sensu`, `classic`, `uchiwa`, `tritanopia`, and `deuteranopia`
+example        | {{< highlight shell >}}"theme": "classic"{{< /highlight >}}
 
 #### Link policy attributes
 
@@ -155,7 +163,7 @@ allow_list |
 description  | If the list of URLs acts as an allow list, `true`. If the list of URLs acts as a deny list, `false`. As an allow list, only matching URLs will be expanded. As a deny list, matching URLs will not be expanded, but any other URLs will be expanded.
 required     | false
 type         | Boolean
-default      | false
+default      | `false`
 example      | {{< highlight shell >}}"allow_list": true{{< /highlight >}}
 
 urls | 
@@ -236,3 +244,5 @@ spec:
 [1]: ../../getting-started/enterprise/
 [2]: ../../api/webconfig/
 [3]: ../../dashboard/overview/
+[4]: #spec-attributes
+[5]: ../../dashboard/overview/#namespace-switcher
