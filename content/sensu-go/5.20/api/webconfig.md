@@ -60,27 +60,6 @@ HTTP/1.1 200 OK
         ]
       }
     }
-  },
-  {
-    "type": "GlobalConfig",
-    "api_version": "web/v1",
-    "metadata": {
-      "name": "new-web-ui",
-      "created_by": "admin"
-    },
-    "spec": {
-      "always_show_local_cluster": true,
-      "default_preferences": {
-        "page_size": 20,
-        "theme": "classic"
-      },
-      "link_policy": {
-        "allow_list": false,
-        "urls": [
-          "https://example.com"
-        ]
-      }
-    }
   }
 ]
 {{< /highlight >}}
@@ -116,27 +95,6 @@ output         | {{< highlight shell >}}
           "//google.com",
           "//*.google.com",
           "//bob.local"
-        ]
-      }
-    }
-  },
-  {
-    "type": "GlobalConfig",
-    "api_version": "web/v1",
-    "metadata": {
-      "name": "new-web-ui",
-      "created_by": "admin"
-    },
-    "spec": {
-      "always_show_local_cluster": true,
-      "default_preferences": {
-        "page_size": 20,
-        "theme": "classic"
-      },
-      "link_policy": {
-        "allow_list": false,
-        "urls": [
-          "https://example.com"
         ]
       }
     }
