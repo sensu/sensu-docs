@@ -9,28 +9,28 @@ menu:
     parent: api
 ---
 
-- [The `/globals` API endpoint](#the-globals-api-endpoint)
-  - [`/globals` (GET)](#globals-get)
-- [The `/globals/:globalconfig` API endpoint](#the-globalsglobalconfig-api-endpoint)
-  - [`/globals/:globalconfig` (GET)](#globalsglobalconfig-get)
-  - [`/globals/:globalconfig` (PUT)](#globalsglobalconfig-put)
-  - [`/globals/:globalconfig` (DELETE)](#globalsglobalconfig-delete)
+- [The `/config` API endpoint](#the-config-api-endpoint)
+  - [`/config` (GET)](#config-get)
+- [The `/config/:globalconfig` API endpoint](#the-configglobalconfig-api-endpoint)
+  - [`/config/:globalconfig` (GET)](#configglobalconfig-get)
+  - [`/config/:globalconfig` (PUT)](#configglobalconfig-put)
+  - [`/config/:globalconfig` (DELETE)](#configglobalconfig-delete)
 
-## The `/globals` API endpoint
+## The `/config` API endpoint
 
 For more information about commercial features designed for enterprises, see [Get started with commercial features][1].
 
-### `/globals` (GET)
+### `/config` (GET)
 
-The `/globals` API endpoint provides HTTP GET access to the global web UI configuration.
+The `/config` API endpoint provides HTTP GET access to the global web UI configuration.
 
-#### EXAMPLE {#globals-get-example}
+#### EXAMPLE {#config-get-example}
 
-The following example demonstrates a request to the `/web` API endpoint, resulting in a JSON array that contains the global web UI configuration.
+The following example demonstrates a request to the `/config` API endpoint, resulting in a JSON array that contains the global web UI configuration.
 
 {{< highlight shell >}}
 curl -X GET \
-http://127.0.0.1:8080/api/enterprise/web/v1/globals \
+http://127.0.0.1:8080/api/enterprise/web/v2/config \
 -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
 -H 'Content-Type: application/json'
 
@@ -38,7 +38,7 @@ HTTP/1.1 200 OK
 [
   {
     "type": "GlobalConfig",
-    "api_version": "web/v1",
+    "api_version": "web/v2",
     "metadata": {
       "name": "custom-web-ui",
       "created_by": "admin"
@@ -64,19 +64,19 @@ HTTP/1.1 200 OK
 ]
 {{< /highlight >}}
 
-#### API Specification {#globals-get-specification}
+#### API Specification {#config-get-specification}
 
 /web (GET)  | 
 ---------------|------
 description    | Returns the list of global web UI configurations.
-example url    | http://hostname:8080/api/enterprise/web/v1/globals
+example url    | http://hostname:8080/api/enterprise/web/v2/config
 response type  | Map
 response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output         | {{< highlight shell >}}
 [
   {
     "type": "GlobalConfig",
-    "api_version": "web/v1",
+    "api_version": "web/v2",
     "metadata": {
       "name": "custom-web-ui",
       "created_by": "admin"
@@ -102,25 +102,25 @@ output         | {{< highlight shell >}}
 ]
 {{< /highlight >}}
 
-## The `/globals/:globalconfig` API endpoint {#the-globalsglobalconfig-api-endpoint}
+## The `/config/:globalconfig` API endpoint {#the-configglobalconfig-api-endpoint}
 
-### `/globals/:globalconfig` (GET) {#globalsglobalconfig-get}
+### `/config/:globalconfig` (GET) {#configglobalconfig-get}
 
-The `/globals/:globalconfig` API endpoint provides HTTP GET access to global web UI configuration data, specified by configuration name.
+The `/config/:globalconfig` API endpoint provides HTTP GET access to global web UI configuration data, specified by configuration name.
 
-#### EXAMPLE {#globalsglobalconfig-get-example}
+#### EXAMPLE {#configglobalconfig-get-example}
 
-In the following example, querying the `/globals/:globalconfig` API endpoint returns a JSON map that contains the requested [`:globalconfig` definition][1] (in this example, for the `:globalconfig` named `custom-web-ui`).
+In the following example, querying the `/config/:globalconfig` API endpoint returns a JSON map that contains the requested [`:globalconfig` definition][1] (in this example, for the `:globalconfig` named `custom-web-ui`).
 
 {{< highlight shell >}}
 curl -X GET \
-http://127.0.0.1:8080/api/enterprise/web/v1/globals/custom-web-ui \
+http://127.0.0.1:8080/api/enterprise/web/v2/config/custom-web-ui \
 -H "Authorization: Bearer $SENSU_ACCESS_TOKEN"
 
 HTTP/1.1 200 OK
 {
   "type": "GlobalConfig",
-  "api_version": "web/v1",
+  "api_version": "web/v2",
   "metadata": {
     "name": "custom-web-ui",
     "created_by": "admin"
@@ -145,18 +145,18 @@ HTTP/1.1 200 OK
 }
 {{< /highlight >}}
 
-#### API Specification {#globalsglobalconfig-get-specification}
+#### API Specification {#configglobalconfig-get-specification}
 
-/globals/:globalconfig (GET) | 
+/config/:globalconfig (GET) | 
 ---------------------|------
 description          | Returns the specified global web UI configuration.
-example url          | http://hostname:8080/api/enterprise/web/v1/globals/custom-web-ui
+example url          | http://hostname:8080/api/enterprise/web/v2/config/custom-web-ui
 response type        | Map
 response codes       | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output               | {{< highlight json >}}
 {
   "type": "GlobalConfig",
-  "api_version": "web/v1",
+  "api_version": "web/v2",
   "metadata": {
     "name": "custom-web-ui",
     "created_by": "admin"
@@ -181,13 +181,13 @@ output               | {{< highlight json >}}
 }
 {{< /highlight >}}
 
-### `/globals/:globalconfig` (PUT) {#globalsglobalconfig-put}
+### `/config/:globalconfig` (PUT) {#configglobalconfig-put}
 
-The `/globals/:globalconfig` API endpoint provides HTTP PUT access to create and update global web UI configurations, specified by configuration name.
+The `/config/:globalconfig` API endpoint provides HTTP PUT access to create and update global web UI configurations, specified by configuration name.
 
-#### EXAMPLE {#globalsglobalconfighooks-put-example}
+#### EXAMPLE {#configglobalconfighooks-put-example}
 
-In the following example, an HTTP PUT request is submitted to the `/globals/:globalconfig` API endpoint to update the `custom-web-ui` configuration, resulting in an HTTP `200 OK` response and the updated configuration definition.
+In the following example, an HTTP PUT request is submitted to the `/config/:globalconfig` API endpoint to update the `custom-web-ui` configuration, resulting in an HTTP `200 OK` response and the updated configuration definition.
 
 {{< highlight shell >}}
 curl -X PUT \
@@ -195,7 +195,7 @@ curl -X PUT \
 -H 'Content-Type: application/json' \
 -d '{
   "type": "GlobalConfig",
-  "api_version": "web/v1",
+  "api_version": "web/v2",
   "metadata": {
     "name": "custom-web-ui",
     "created_by": "admin"
@@ -218,21 +218,21 @@ curl -X PUT \
     }
   }
 }' \
-http://127.0.0.1:8080/api/enterprise/web/v1/globals/custom-web-ui
+http://127.0.0.1:8080/api/enterprise/web/v2/config/custom-web-ui
 
 HTTP/1.1 201 Created
 {{< /highlight >}}
 
-#### API Specification {#globalsglobalconfig-put-specification}
+#### API Specification {#configglobalconfig-put-specification}
 
-/globals/:globalconfig (PUT) | 
+/config/:globalconfig (PUT) | 
 ----------------|------
 description     | Creates or updates the specified global web UI configuration.
-example URL     | http://hostname:8080/api/enterprise/web/v1/globals/custom-web-ui
+example URL     | http://hostname:8080/api/enterprise/web/v2/config/custom-web-ui
 payload         | {{< highlight shell >}}
 {
   "type": "GlobalConfig",
-  "api_version": "web/v1",
+  "api_version": "web/v2",
   "metadata": {
     "name": "custom-web-ui",
     "created_by": "admin"
@@ -258,28 +258,28 @@ payload         | {{< highlight shell >}}
 {{< /highlight >}}
 response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
-### `/globals/:globalconfig` (DELETE) {#globalsglobalconfig-delete}
+### `/config/:globalconfig` (DELETE) {#configglobalconfig-delete}
 
-The `/globals/:globalconfig` API endpoint provides HTTP DELETE access to delete a global web UI configuration from Sensu, specified by the configuration name.
+The `/config/:globalconfig` API endpoint provides HTTP DELETE access to delete a global web UI configuration from Sensu, specified by the configuration name.
 
-#### EXAMPLE {#globalsglobalconfig-delete-example}
+#### EXAMPLE {#configglobalconfig-delete-example}
 
-The following example shows a request to the `/globals/:globalconfig` API endpoint to delete the global web UI configuration named `custom-web-ui`, resulting in a successful HTTP `204 No Content` response.
+The following example shows a request to the `/config/:globalconfig` API endpoint to delete the global web UI configuration named `custom-web-ui`, resulting in a successful HTTP `204 No Content` response.
 
 {{< highlight shell >}}
 curl -X DELETE \
 -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
-http://127.0.0.1:8080/api/enterprise/web/v1/globals/custom-web-ui
+http://127.0.0.1:8080/api/enterprise/web/v2/config/custom-web-ui
 
 HTTP/1.1 204 No Content
 {{< /highlight >}}
 
-#### API Specification {#globalsglobalconfig-delete-specification}
+#### API Specification {#configglobalconfig-delete-specification}
 
-/globals/:globalconfig (DELETE) | 
+/config/:globalconfig (DELETE) | 
 --------------------------|------
 description               | Removes the specified global web UI configuration from Sensu.
-example url               | http://hostname:8080/api/enterprise/web/v1/globals/custom-web-ui
+example url               | http://hostname:8080/api/enterprise/web/v2/config/custom-web-ui
 response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 
