@@ -58,7 +58,7 @@ Your commercial license may include the entity limit and entity class limits tie
 An entity limit of `0` allows unlimited entities.
 [Contact Sensu][8] to upgrade your commercial license.
 
-Your Sensu license includes two types of entity limits:
+Your Sensu license may include two types of entity limits:
 
 - Entity limit: the maximum number of entities of all classes your license includes. Both agent and proxy entities count toward the overall entity limit.
 - Entity class limits: the maximum number of a specific class of entities (e.g. agent or proxy) that your license includes.
