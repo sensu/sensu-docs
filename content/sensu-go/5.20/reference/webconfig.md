@@ -38,10 +38,10 @@ example      | {{< highlight shell >}}"type": "GlobalConfig"{{< /highlight >}}
 
 api_version  | 
 -------------|------
-description  | Top-level attribute that specifies the Sensu API group and version. For web UI configuration in this version of Sensu, the api_version should always be `web/v1`.
+description  | Top-level attribute that specifies the Sensu API group and version. For web UI configuration in this version of Sensu, the api_version should always be `web/v2`.
 required     | Required for web UI configuration in `wrapped-json` or `yaml` format.
 type         | String
-example      | {{< highlight shell >}}"api_version": "web/v1"{{< /highlight >}}
+example      | {{< highlight shell >}}"api_version": "web/v2"{{< /highlight >}}
 
 metadata     |      |
 -------------|------
@@ -192,7 +192,7 @@ In this web UI configuration example:
 
 {{< highlight yml >}}
 type: GlobalConfig
-api_version: web/v1
+api_version: web/v2
 metadata:
   name: custom-web-ui
 spec:
@@ -213,7 +213,7 @@ spec:
 {{< highlight json >}}
 {
   "type": "GlobalConfig",
-  "api_version": "web/v1",
+  "api_version": "web/v2",
   "metadata": {
     "name": "custom-web-ui",
     "created_by": "admin"
