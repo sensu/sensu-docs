@@ -17,10 +17,11 @@ menu:
 **COMMERCIAL FEATURE**: Access web UI configuration in the packaged Sensu Go distribution.
 For more information, see [Get started with commercial features][1].
 
-NEED TO DEVELOP INTRO CONTENT
+Web UI configuration allows you to define certain display options for the Sensu [web UI][3], such as which web UI theme to use, the number of items to list on each page, and which URLs and linked images to expand.
+You can define a single custom web UI configuration to federate to all, some, or only one of your clusters.
 
 {{% notice note %}}
-**NOTE**: The web UI configuration feature is an exception to the rule in that there should only ever be a single web configuration present.
+**NOTE**: The web UI configuration feature is an exception to the rule in that there should only be a single web configuration present.
 {{% /notice %}}
  
 ## Web UI configuration specification
@@ -43,12 +44,13 @@ example      | {{< highlight shell >}}"api_version": "web/v1"{{< /highlight >}}
 
 metadata     |      |
 -------------|------
-description  | Top-level scope that contains the web UI configuration's `name`.
+description  | Top-level scope that contains the web UI configuration's `name` and `created_by` information.
 required     | true
 type         | Map of key-value pairs
 example      | {{< highlight shell >}}
 "metadata": {
   "name": "custom-web-ui",
+  "created_by": "admin"
 }
 {{< /highlight >}}
 
@@ -86,19 +88,27 @@ required     | true
 type         | String
 example      | {{< highlight shell >}}"name": "custom-web-ui"{{< /highlight >}}
 
+| created_by |      |
+-------------|------
+description  | Username of the Sensu user who created or last updated the web UI configuration. Sensu automatically populates the `created_by` field when the web UI configuration is created or updated.
+required     | false
+type         | String
+example      | {{< highlight shell >}}"created_by": "admin"{{< /highlight >}}
+
 ### Spec attributes
 
 always_show_local_cluster | 
 -------------|------ 
-description  | When one or more clusters are configured the default behaviour of the application is to omit the details of the cluster the user is currently connected to. For purposes of debugging it can be useful to enable.
+description  | To display the details of the cluster the user is currently connected to, `true`. To omit these details, `false`. Setting this parameter to `true` can be useful for debugging.
 required     | false
 type         | Boolean
+default      | false
 example      | {{< highlight shell >}}"always_show_local_cluster": false{{< /highlight >}}
 
 default_preferences | 
 -------------|------ 
-description  | Global default preferences for all users.
-required     | true
+description  | Global default page size and theme preferences for all users.
+required     | false
 type         | Map of key-value pairs
 example      | {{< highlight shell >}}"default_preferences": {
   "page_size": 50,
@@ -108,7 +118,7 @@ example      | {{< highlight shell >}}"default_preferences": {
 link_policy | 
 -------------|------ 
 description  | For labels or annotations that contain a URL, the policy for which domains are valid and invalid targets for conversion to a link or an image.
-required     | true
+required     | false
 type         | Map of key-value pairs
 example      | {{< highlight shell >}}"link_policy": {
   "allow_list": true,
@@ -125,15 +135,16 @@ example      | {{< highlight shell >}}"link_policy": {
 
 page_size | 
 -------------|------ 
-description  | The default number of items a user can see on each page.
-required     | true
+description  | The number of items users will see on each page.
+required     | false
 type         | Integer
+default      | 0
 example      | {{< highlight shell >}}"page_size": 50{{< /highlight >}}
 
 theme | 
 -------------|------ 
-description  | The default theme users will see.
-required     | true
+description  | The theme users will see.
+required     | false
 type         | String
 example      | {{< highlight shell >}}"theme": "classic"{{< /highlight >}}
 
@@ -142,8 +153,9 @@ example      | {{< highlight shell >}}"theme": "classic"{{< /highlight >}}
 allow_list | 
 -------------|------ 
 description  | If the list of URLs acts as an allow list, `true`. If the list of URLs acts as a deny list, `false`. As an allow list, only matching URLs will be expanded. As a deny list, matching URLs will not be expanded, but any other URLs will be expanded.
-required     | true
+required     | false
 type         | Boolean
+default      | false
 example      | {{< highlight shell >}}"allow_list": true{{< /highlight >}}
 
 urls | 
@@ -161,7 +173,12 @@ example      | {{< highlight shell >}}"urls": [
 
 ## Web UI configuration examples
 
-NEED TO DEVELOP
+In this web UI configuration example:
+
+- Details for the local cluster will not be displayed
+- Each page will list 50 items
+- The web UI will use the classic theme
+- Expanded links and images will be allowed for the listed URLs
 
 {{< language-toggle >}}
 
@@ -218,3 +235,4 @@ spec:
 
 [1]: ../../getting-started/enterprise/
 [2]: ../../api/webconfig/
+[3]: ../../dashboard/overview/

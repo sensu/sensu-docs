@@ -47,7 +47,7 @@ HTTP/1.1 200 OK
       "always_show_local_cluster": false,
       "default_preferences": {
         "page_size": 50,
-        "theme": "classic"
+        "theme": "dark"
       },
       "link_policy": {
         "allow_list": true,
@@ -75,7 +75,7 @@ HTTP/1.1 200 OK
         "theme": "classic"
       },
       "link_policy": {
-        "allow_list": true,
+        "allow_list": false,
         "urls": [
           "https://example.com"
         ]
@@ -106,7 +106,7 @@ output         | {{< highlight shell >}}
       "always_show_local_cluster": false,
       "default_preferences": {
         "page_size": 50,
-        "theme": "classic"
+        "theme": "dark"
       },
       "link_policy": {
         "allow_list": true,
@@ -134,7 +134,7 @@ output         | {{< highlight shell >}}
         "theme": "classic"
       },
       "link_policy": {
-        "allow_list": true,
+        "allow_list": false,
         "urls": [
           "https://example.com"
         ]
@@ -171,7 +171,7 @@ HTTP/1.1 200 OK
     "always_show_local_cluster": false,
     "default_preferences": {
       "page_size": 50,
-      "theme": "classic"
+      "theme": "dark"
     },
     "link_policy": {
       "allow_list": true,
@@ -207,7 +207,7 @@ output               | {{< highlight json >}}
     "always_show_local_cluster": false,
     "default_preferences": {
       "page_size": 50,
-      "theme": "classic"
+      "theme": "dark"
     },
     "link_policy": {
       "allow_list": true,
@@ -246,7 +246,7 @@ curl -X PUT \
     "always_show_local_cluster": false,
     "default_preferences": {
       "page_size": 50,
-      "theme": "classic"
+      "theme": "dark"
     },
     "link_policy": {
       "allow_list": true,
@@ -283,7 +283,7 @@ payload         | {{< highlight shell >}}
     "always_show_local_cluster": false,
     "default_preferences": {
       "page_size": 50,
-      "theme": "classic"
+      "theme": "dark"
     },
     "link_policy": {
       "allow_list": true,
