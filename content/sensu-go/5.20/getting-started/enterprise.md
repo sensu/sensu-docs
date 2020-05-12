@@ -25,6 +25,7 @@ Federation affords visibility into the health of your infrastructure and service
 - **Manage resources from your browser**: Create, edit, and delete checks, handlers, mutators, and filters using the Sensu [web UI][8],  access the [federated Sensu web UI homepage][23], which you can filter by cluster and namespace, and create [custom web UI configurations][24].
 - **Control permissions with Sensu role-based access control (RBAC)**, with the option of using [Lightweight Directory Access Protocol (LDAP) and Active Directory (AD)][9] for authentication.
 - **Use powerful filtering capabilities** designed for large installations. With label and field selectors, you can filter [Sensu API][4] responses, [sensuctl][5] outputs, and Sensu [web UI][6] views using custom labels and a wider range of resource attributes. Plus, [save, recall, and delete][22] your filtered searches in the web UI.
+- **Automatically populate data for processes** [on the local agent][25] with the `discover-processes` agent configuration flag.
 - **Log event data** [to a file][10] you can use as an input to your favorite data lake solution.
 - **Connect your monitoring event pipelines to industry-standard tools** like ServiceNow and Jira with [enterprise-tier assets][11].
 - **Achieve enterprise-scale event handling** for your Sensu instance with a [PostgreSQL event store][12].
@@ -103,3 +104,4 @@ These resources will help you get started with commercial features in Sensu Go:
 [22]: ../../dashboard/filtering/#save-a-filtered-search
 [23]: ../../dashboard/overview/#federated-webui
 [24]: ../../dashboard/webconfig/
+[25]: ../../reference/entities/#processes-attributes
