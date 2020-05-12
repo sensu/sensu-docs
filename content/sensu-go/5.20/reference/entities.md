@@ -38,6 +38,17 @@ All [commercial features][9] are available for free in the packaged Sensu Go dis
 If your Sensu instance includes more than 100 entities, [contact us][10] to learn how to upgrade your installation and increase your limit.
 See [the announcement on our blog][11] for more information about our usage policy.
 
+Commercial licenses may include an entity limit and entity class limits:
+
+- Entity limit: the maximum number of entities of all classes your license includes. Both agent and proxy entities count toward the overall entity limit.
+- Entity class limits: the maximum number of a specific class of entities (e.g. agent or proxy) that your license includes.
+
+For example, if your license has an entity limit of 10,000 and an agent entity class limit of 3,000, you cannot run more than 10,000 entities (agent and proxy) total.
+At the same time, you cannot run more than 3,000 agents.
+If you use only 1,500 agent entities, you can have 8,500 proxy entities before you reach the overall entity limit of 10,000.
+
+Use sensuctl or the license API to [view your overall entity count and limit][29].
+
 ## Proxy entities
 
 Proxy entities [formerly known as proxy clients or just-in-time (JIT) clients] are dynamically created entities that are added to the entity store if an entity does not already exist for a check result.
@@ -1127,3 +1138,4 @@ spec:
 [26]: #processes-attributes
 [27]: ../agent/#discover-processes
 [28]: http://man7.org/linux/man-pages/man1/top.1.html
+[29]: ../license/#view-entity-count-and-entity-limit
