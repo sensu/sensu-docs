@@ -31,7 +31,7 @@ The following example demonstrates a request to the `/config` API endpoint, resu
 
 {{< highlight shell >}}
 curl -X GET \
-http://127.0.0.1:8080/api/enterprise/web/v2/config \
+http://127.0.0.1:8080/api/enterprise/web/v1/config \
 -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
 -H 'Content-Type: application/json'
 
@@ -39,7 +39,7 @@ HTTP/1.1 200 OK
 [
   {
     "type": "GlobalConfig",
-    "api_version": "web/v2",
+    "api_version": "web/v1",
     "metadata": {
       "name": "custom-web-ui",
       "created_by": "admin"
@@ -70,14 +70,14 @@ HTTP/1.1 200 OK
 /web (GET)  | 
 ---------------|------
 description    | Returns the list of global web UI configurations.
-example url    | http://hostname:8080/api/enterprise/web/v2/config
+example url    | http://hostname:8080/api/enterprise/web/v1/config
 response type  | Map
 response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output         | {{< highlight shell >}}
 [
   {
     "type": "GlobalConfig",
-    "api_version": "web/v2",
+    "api_version": "web/v1",
     "metadata": {
       "name": "custom-web-ui",
       "created_by": "admin"
@@ -115,13 +115,13 @@ In the following example, querying the `/config/:globalconfig` API endpoint retu
 
 {{< highlight shell >}}
 curl -X GET \
-http://127.0.0.1:8080/api/enterprise/web/v2/config/custom-web-ui \
+http://127.0.0.1:8080/api/enterprise/web/v1/config/custom-web-ui \
 -H "Authorization: Bearer $SENSU_ACCESS_TOKEN"
 
 HTTP/1.1 200 OK
 {
   "type": "GlobalConfig",
-  "api_version": "web/v2",
+  "api_version": "web/v1",
   "metadata": {
     "name": "custom-web-ui",
     "created_by": "admin"
@@ -151,13 +151,13 @@ HTTP/1.1 200 OK
 /config/:globalconfig (GET) | 
 ---------------------|------
 description          | Returns the specified global web UI configuration.
-example url          | http://hostname:8080/api/enterprise/web/v2/config/custom-web-ui
+example url          | http://hostname:8080/api/enterprise/web/v1/config/custom-web-ui
 response type        | Map
 response codes       | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output               | {{< highlight json >}}
 {
   "type": "GlobalConfig",
-  "api_version": "web/v2",
+  "api_version": "web/v1",
   "metadata": {
     "name": "custom-web-ui",
     "created_by": "admin"
@@ -196,7 +196,7 @@ curl -X PUT \
 -H 'Content-Type: application/json' \
 -d '{
   "type": "GlobalConfig",
-  "api_version": "web/v2",
+  "api_version": "web/v1",
   "metadata": {
     "name": "custom-web-ui",
     "created_by": "admin"
@@ -219,7 +219,7 @@ curl -X PUT \
     }
   }
 }' \
-http://127.0.0.1:8080/api/enterprise/web/v2/config/custom-web-ui
+http://127.0.0.1:8080/api/enterprise/web/v1/config/custom-web-ui
 
 HTTP/1.1 201 Created
 {{< /highlight >}}
@@ -229,11 +229,11 @@ HTTP/1.1 201 Created
 /config/:globalconfig (PUT) | 
 ----------------|------
 description     | Creates or updates the specified global web UI configuration.
-example URL     | http://hostname:8080/api/enterprise/web/v2/config/custom-web-ui
+example URL     | http://hostname:8080/api/enterprise/web/v1/config/custom-web-ui
 payload         | {{< highlight shell >}}
 {
   "type": "GlobalConfig",
-  "api_version": "web/v2",
+  "api_version": "web/v1",
   "metadata": {
     "name": "custom-web-ui",
     "created_by": "admin"
@@ -270,7 +270,7 @@ The following example shows a request to the `/config/:globalconfig` API endpoin
 {{< highlight shell >}}
 curl -X DELETE \
 -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
-http://127.0.0.1:8080/api/enterprise/web/v2/config/custom-web-ui
+http://127.0.0.1:8080/api/enterprise/web/v1/config/custom-web-ui
 
 HTTP/1.1 204 No Content
 {{< /highlight >}}
@@ -280,7 +280,7 @@ HTTP/1.1 204 No Content
 /config/:globalconfig (DELETE) | 
 --------------------------|------
 description               | Removes the specified global web UI configuration from Sensu.
-example url               | http://hostname:8080/api/enterprise/web/v2/config/custom-web-ui
+example url               | http://hostname:8080/api/enterprise/web/v1/config/custom-web-ui
 response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 
