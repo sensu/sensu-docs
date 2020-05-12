@@ -72,9 +72,11 @@ See the [upgrade guide][1] to upgrade Sensu to version 5.20.0.
 
 - ([Commercial feature][141]) Added a [`processes` field ][143] to the system type to store agent local processes for entities and events and a `discover-processes` flag to the [agent configuration flags][142] to populate the `processes` field in entity.system if enabled.
 - ([Commercial feature][141]) Added a new resource, `GlobalConfig`, that you can use to [customize your web UI configuration][148].
-- ([Commercial feature][141]) Added metricsd to collect metrics for the web UI.
+- ([Commercial feature][141]) Added metricsd to collect metrics for the [web UI][153].
+- ([Commercial feature][141]) Added process and additional system information to the entity details view in the [web UI][153].
 - ([Commercial feature][141]) Added a PostgreSQL metrics suite so metricsd can collect metrics about events stored in PostgreSQL.
 - ([Commercial feature][141]) Added [entity class limits][151] to the license.
+- Added check hook output to event details page in the [web UI][153].
 - Added the [sensuctl describe-type command][144] to list all resource types.
 - Added `annotations` and `labels` as [backend configuration][145] options.
 - Added [token substitution for assets][146].
@@ -87,12 +89,16 @@ See the [upgrade guide][1] to upgrade Sensu to version 5.20.0.
 - ([Commercial feature][141]) The web UI homepage is now a [federated view][152]. 
 - You can now [increment the log level][140] by sending SIGUSR1 to the sensu-backend or sensu-agent process.
 - [License metadata][149] now includes the [current entity count and license entity limit][150].
+- In the [web UI][153], users will see a notification when they try to delete an event without appropriate authorization.
 - The Windows agent now has [log rotation][139] capabilities.
 - Notepad is now the default editor on Windows rather than vi.
 
 **FIXES:**
 
 - ([Commercial feature][141]) Database connections no longer leak after queries to the cluster health API.
+- In the [web UI][153], any leading and trailing whitespace is now trimmed from the username when authenticating.
+- The [web UI][153] preferences dialog now displays only the first five groups a user belongs to, which makes the sign-out button more accessible.
+- In the [web UI][153], the deregistration handler no longer appears as `undefined` on the entity details page.
 - You can now [escape quotes to express quoted strings][147] in token substitution templates.
 - The Windows agent now accepts and remembers arguments passed to `service run` and `service install`.
 - The Windows agent now synchronizes writes to its log file, so the file size will update with every log line written.
@@ -1296,3 +1302,4 @@ To get started with Sensu Go:
 [150]: /sensu-go/5.20/reference/license/#view-entity-count-and-entity-limit
 [151]: /sensu-go/5.20/reference/license/#entity-limit
 [152]: /sensu-go/5.20/dashboard/overview/#federated-webui
+[153]: /sensu-go/5.20/dashboard/overview/
