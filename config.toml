@@ -1,7 +1,6 @@
 baseurl = ""
 languageCode = "en-us"
 title = "Sensu Docs"
-theme = "hugo-material-docs"
 metadataformat = "yaml"
 canonifyURLs = true
 # Enable Google Analytics by entering your tracking id
