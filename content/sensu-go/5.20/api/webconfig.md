@@ -1,7 +1,7 @@
 ---
 title: "Web UI configuration API"
 linkTitle: "Web UI Configuration API"
-description: "The Sensu web API provides HTTP access to the active web UI configuration. This reference includes examples for returning the active web configuration and adding or updating the web configuration. Read on for the full reference."
+description: "The Sensu web configuration API provides HTTP access to the global web UI configuration. This reference includes examples for returning the global web UI configuration and adding or updating the web UI configuration. Read on for the full reference."
 version: "5.20"
 product: "Sensu Go"
 menu:
@@ -17,8 +17,6 @@ menu:
   - [`/config/:globalconfig` (DELETE)](#configglobalconfig-delete)
 
 ## The `/config` API endpoint
-
-For more information about commercial features designed for enterprises, see [Get started with commercial features][1].
 
 ### `/config` (GET)
 
@@ -110,7 +108,7 @@ The `/config/:globalconfig` API endpoint provides HTTP GET access to global web 
 
 #### EXAMPLE {#configglobalconfig-get-example}
 
-In the following example, querying the `/config/:globalconfig` API endpoint returns a JSON map that contains the requested [`:globalconfig` definition][1] (in this example, for the `:globalconfig` named `custom-web-ui`).
+In the following example, querying the `/config/:globalconfig` API endpoint returns a JSON map that contains the requested `:globalconfig` definition (in this example, for the `:globalconfig` named `custom-web-ui`).
 
 {{< highlight shell >}}
 curl -X GET \

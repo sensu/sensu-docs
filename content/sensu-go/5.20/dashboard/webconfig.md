@@ -26,7 +26,7 @@ You can define a single custom web UI configuration to federate to all, some, or
 Use the [web UI configuration API][2] or [sensuctl create][5] to create a `GlobalConfig` resource.
 The [web UI configuration reference][4] describes each attribute you can configure in the `GlobalConfig` resource.
 
-{{% notice important %}}
+{{% notice note %}}
 **NOTE**: Each cluster should have only one web configuration.
 {{% /notice %}}
 
