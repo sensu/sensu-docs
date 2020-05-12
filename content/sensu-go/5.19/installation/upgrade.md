@@ -151,12 +151,12 @@ Ruby eval logic from Sensu Core 1.x is replaced with JavaScript expressions in S
 As a result, **Sensu Go does not include the built-in occurrence-based event filter in Sensu Core 1.x**, which allowed you to control the number of duplicate events that reached the handler.
 You can replicate the occurrence-based filter's functionality with Sensu Go's [repeated events filter definition][10].
 
-#### Fatigue check filter asset
+#### Fatigue check filter
 
-In Sensu Go, the [fatigue check filter asset][11] uses annotations to tune the number of occurrences and interval for alerts on a per-check or per-entity basis and control whether resolution events will pass through.
+For Sensu Go users, we recommend the [fatigue check filter][11], a JavaScript implementation of the `occurrences` filter from Sensu 1.x.
+This filter looks for [check and entity annotations][33] in each event it receives and uses the values of those annotations to configure the filter's behavior on a per-event basis.
 
-The [Sensu Translator version 1.1.0][18] retrieves occurrence and refresh values from a Sensu Core 1.x check definition and outputs them as annotation values in a Sensu Go check definition.
-The [fatigue check filter asset][11] uses these [annotations][33] to manage alert fatigue.
+The [Sensu Translator version 1.1.0][18] retrieves occurrence and refresh values from a Sensu Core 1.x check definition and outputs them as annotations in a Sensu Go check definition, compatible with the fatigue check filter.
 
 However, the Sensu Translator doesn't automatically add the fatigue check filter asset or the filter configuration you need to run it.
 To use the fatigue check filter asset, you must [register it][15], create a correctly configured [event filter definition][19], and [add the event filter][34] to the list of filters on applicable handlers.
