@@ -22,7 +22,6 @@ You can define a single custom web UI configuration to federate to all, some, or
 
 {{% notice note %}}
 **NOTE**: Each cluster should have only one web configuration.
-If you provide more than one, Sensu will automatically use the web UI configuration that was created or updated first.
 {{% /notice %}}
  
 ## Web UI configuration specification
