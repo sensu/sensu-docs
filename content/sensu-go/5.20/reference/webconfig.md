@@ -102,7 +102,7 @@ example      | {{< highlight shell >}}"created_by": "admin"{{< /highlight >}}
 
 always_show_local_cluster | 
 -------------|------ 
-description  | To display the cluster the user is currently connected to in the [namespace switcher][5], `true`. To omit these details, `false`. Set to `true` for help with debugging.
+description  | Use only in federated environments. Set to `true` to display the cluster the user is currently connected to in the [namespace switcher][5]. To omit local cluster details, set to `false`.
 required     | false
 type         | Boolean
 default      | `false`
