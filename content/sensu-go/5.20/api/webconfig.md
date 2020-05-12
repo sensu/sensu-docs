@@ -16,6 +16,9 @@ menu:
   - [`/config/:globalconfig` (PUT)](#configglobalconfig-put)
   - [`/config/:globalconfig` (DELETE)](#configglobalconfig-delete)
 
+**COMMERCIAL FEATURE**: Access web UI configuration in the packaged Sensu Go distribution.
+For more information, see [Get started with commercial features][1].
+
 ## The `/config` API endpoint
 
 ### `/config` (GET)
