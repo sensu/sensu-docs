@@ -85,7 +85,7 @@ It might take a few moments after you assign the handler to the check for the ch
 After an event is handled, you should see the following message in Slack:
 
 <div style="width:500px">
-   <img class="html" src="/images/handler-slack.png"/>
+   <img class="html" alt="Example Slack message" src="/images/handler-slack.png"/>
 </div>
 
 Verify the proper behavior of this handler with `sensu-backend` logs.

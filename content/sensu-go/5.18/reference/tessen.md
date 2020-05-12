@@ -12,7 +12,7 @@ menu:
 - [Configure Tessen](#configure-tessen)
 - [Tessen specification](#tessen-specification)
   - [Top-level attributes](#top-level-attributes) | [Spec attributes](#spec-attributes)
-- [Example](#tessen-configuration-example)
+- [Tessen configuration example](#tessen-configuration-example)
 - [Tessen payload example](#tessen-payload-example)
 
 Tessen is the Sensu call-home service.
