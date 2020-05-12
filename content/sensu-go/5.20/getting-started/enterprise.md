@@ -22,7 +22,7 @@ Avoid exposing usernames, passwords, and access keys in your Sensu configuration
 - **Manage your monitoring resources across multiple data centers, cloud regions, or providers** and mirror changes to follower clusters with [federation][20].
 Federation affords visibility into the health of your infrastructure and services across multiple distinct Sensu instances within a single web UI.
 - **Use mutual transport layer security (mTLS) authentication** to [provide two-way verification of your Sensu agents and backend connections][21].
-- **Manage resources from your browser**: Create, edit, and delete checks, handlers, mutators, and filters using the Sensu [web UI][8], and access the [federated Sensu web UI homepage][23], which you can filter by cluster and namespace.
+- **Manage resources from your browser**: Create, edit, and delete checks, handlers, mutators, and filters using the Sensu [web UI][8],  access the [federated Sensu web UI homepage][23], which you can filter by cluster and namespace, and create [custom web UI configurations][24].
 - **Control permissions with Sensu role-based access control (RBAC)**, with the option of using [Lightweight Directory Access Protocol (LDAP) and Active Directory (AD)][9] for authentication.
 - **Use powerful filtering capabilities** designed for large installations. With label and field selectors, you can filter [Sensu API][4] responses, [sensuctl][5] outputs, and Sensu [web UI][6] views using custom labels and a wider range of resource attributes. Plus, [save, recall, and delete][22] your filtered searches in the web UI.
 - **Log event data** [to a file][10] you can use as an input to your favorite data lake solution.
@@ -99,6 +99,7 @@ These resources will help you get started with commercial features in Sensu Go:
 [18]: ../../reference/license/
 [19]: ../../guides/secrets-management/
 [20]: ../../guides/use-federation/
-[21]: ../../guides/securing-sensu/#sensu-agent-tls-authentication
+[21]: ../../guides/securing-sensu/#sensu-agent-mtls-authentication
 [22]: ../../dashboard/filtering/#save-a-filtered-search
 [23]: ../../dashboard/overview/#federated-webui
+[24]: ../../dashboard/webconfig/

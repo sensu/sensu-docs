@@ -2,7 +2,7 @@
 title: "Dashboard overview"
 linkTitle: "Overview"
 description: "The Sensu backend includes the Sensu dashboard: a unified view of your Sensu resources with user-friendly tools to reduce alert fatigue. Read this guide to start using the Sensu dashboard."
-weight: 120
+weight: 10
 version: "5.20"
 product: "Sensu Go"
 platformContent: false
