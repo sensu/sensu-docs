@@ -211,14 +211,15 @@ You can access cluster-wide resources only by [cluster roles][21].
 
 | type | description |
 |---|---|
+| `authproviders` | [Authentication provider][32] configuration (commercial feature) |
 | `cluster` | Sensu clusters running multiple [Sensu backends][1] |
 | `clusterrolebindings` | Cluster-wide role assigners  |
 | `clusterroles` | Cluster-wide permission sets |
 | `etcd-replicators` | [Mirror RBAC resource changes][40] to follower clusters |
-| `namespaces` | Resource partitions within a Sensu instance |
-| `users` | People or agents that interact with Sensu |
-| `authproviders` | [Authentication provider][32] configuration (commercial feature) |
 | `license` | Sensu [commercial license][37] |
+| `namespaces` | Resource partitions within a Sensu instance |
+| `provider` | [PostgreSQL event store][47] provider |
+| `users` | People or agents that interact with Sensu |
 
 ### Special resource types
 
@@ -1266,3 +1267,4 @@ You can add these resources to Sensu using [`sensuctl create`][31].
 [42]: ../../installation/install-sensu/#3-initialize
 [43]: ../../installation/auth#ldap-authentication
 [44]: ../../installation/auth/#ad-authentication
+[47]: ../datastore/

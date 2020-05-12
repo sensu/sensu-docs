@@ -207,7 +207,7 @@ See the metadata attributes section in the reference documentation for more info
 [14]: ../../guides/create-read-only-user/
 [15]: https://github.com/nixwiz/sensu-go-fatigue-check-filter/#asset-registration
 [16]: ../../reference/tokens
-[17]: ../../api/overview//
+[17]: ../../api/overview/
 [18]: https://github.com/sensu/sensu-translator/
 [19]: https://github.com/nixwiz/sensu-go-fatigue-check-filter/#filter-definition
 [20]: https://packagecloud.io/sensu/community/

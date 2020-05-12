@@ -82,7 +82,7 @@ spec:
 {
   "type": "Handler",
   "api_version": "core/v2",
-  "metadata" : {
+  "metadata": {
     "name": "keepalive",
     "namespace": "default"
   },
@@ -131,7 +131,7 @@ example      | {{< highlight shell >}}
     "region": "us-west-1"
   },
   "annotations": {
-    "slack-channel" : "#monitoring"
+    "slack-channel": "#monitoring"
   }
 }
 {{< /highlight >}}
@@ -148,7 +148,7 @@ example      | {{< highlight shell >}}
     "host": "10.0.1.99",
     "port": 4444
   },
-  "metadata" : {
+  "metadata": {
     "name": "tcp_handler",
     "namespace": "default"
   }
@@ -466,7 +466,7 @@ spec:
 {
   "type": "Handler",
   "api_version": "core/v2",
-  "metadata" : {
+  "metadata": {
     "name": "tcp_handler",
     "namespace": "default"
   },
@@ -505,7 +505,7 @@ spec:
 {
   "type": "Handler",
   "api_version": "core/v2",
-  "metadata" : {
+  "metadata": {
     "name": "udp_handler",
     "namespace": "default"
   },
@@ -520,6 +520,48 @@ spec:
 {{< /highlight >}}
 
 {{< /language-toggle >}}
+
+### Send registration events
+
+If you configure a Sensu event handler named `registration`, the Sensu backend will create and process an event for the agent registration, apply any configured filters and mutators, and execute the registration handler.
+
+You can use registration events to execute one-time handlers for new Sensu agents to update an external configuration management database (CMDB).
+This example demonstrates how to configure a registration event handler to create or update a ServiceNow incident or event with the [Sensu Go ServiceNow Handler][17]:
+
+{{< language-toggle >}}
+
+{{< highlight yml >}}
+type: Handler
+api_version: core/v2
+metadata:
+  name: registration
+  namespace: default
+spec:
+  handlers:
+  - servicenow-cmdb
+  type: set
+{{< /highlight >}}
+
+{{< highlight json >}}
+{
+  "type": "Handler",
+  "api_version": "core/v2",
+  "metadata": {
+    "name": "registration",
+    "namespace": "default"
+  },
+  "spec": {
+    "handlers": [
+      "servicenow-cmdb"
+    ],
+    "type": "set"
+  }
+}
+{{< /highlight >}}
+
+{{< /language-toggle >}}
+
+The [agent reference][27] describes agent registration and registration events in more detail.
 
 ### Execute multiple handlers
 
@@ -545,7 +587,7 @@ spec:
 {
   "type": "Handler",
   "api_version": "core/v2",
-  "metadata" : {
+  "metadata": {
     "name": "notify_all_the_things",
     "namespace": "default"
   },
@@ -628,6 +670,7 @@ spec:
 [14]: ../backend/
 [15]: ../../guides/send-slack-alerts/
 [16]: https://bonsai.sensu.io/
+[17]: https://github.com/sensu/sensu-servicenow-handler
 [18]: https://regex101.com/r/zo9mQU/2
 [19]: ../agent/#keepalive-handlers-flag
 [20]: ../../reference/secrets/
@@ -636,3 +679,4 @@ spec:
 [24]: ../filters/
 [25]: ../../dashboard/filtering#filter-with-label-selectors
 [26]: ../../guides/secrets-management/
+[27]: ../agent/#registration
