@@ -64,7 +64,7 @@ Read the [upgrade guide][1] for information about upgrading to the latest versio
 
 **May 12, 2020** &mdash; The latest release of Sensu Go, version 5.20.0, is now available for download.
 
-This release delivers several new features, substantial improvements, and important fixes. One exciting new feature is agent local process discovery to further enrich entities and their events with valuable context. Other additions include a web UI federation view that provides a single pane of glass for all of your Sensu Go clusters and token substitution for assets. And Windows users rejoice! This release includes many Windows agent fixes, as well as log rotation capabilities! 
+This release delivers several new features, substantial improvements, and important fixes. One exciting new feature is agent local process discovery to further enrich entities and their events with valuable context. Other additions include a web UI federation view that provides a single pane of glass for all of your Sensu Go clusters and token substitution for assets. And Windows users rejoice! This release includes many Windows agent fixes, as well as agent log rotation capabilities! 
 
 See the [upgrade guide][1] to upgrade Sensu to version 5.20.0.
 
