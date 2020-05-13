@@ -43,7 +43,7 @@
                 {{ $niceName := title $niceName }}
 
                 <li>
-                  <a class="strong accordion {{ if $isCurrent }}current active{{ end }}">
+                  <a class="strong accordion {{ if $isCurrent }}current active{{ end }}" href="{{ .URL | absURL }}">
                     {{ if or (eq $niceName "Api") (eq $niceName "Rbac") }}
                       {{ upper $niceName }}
                     <!-- render the title normally if not API -->
@@ -80,11 +80,12 @@
 
 <!-- Script for the dropdown list items -->
 <script>
-  var acc = document.getElementsByClassName('accordion');
+  var acc = document.querySelectorAll('.accordion .fa');
 
   for (var i = 0; i < acc.length; i++) {
-    acc[i].addEventListener('click', function() {
-      this.classList.toggle('active');
+    acc[i].addEventListener('click', function(e) {
+      e.preventDefault();
+      e.currentTarget.closest('.accordion').classList.toggle('active');
     });
   }
 </script>
