@@ -56,4 +56,23 @@
             "status": 302
         }
     }
+},
+{
+    "root": "/app/public/",
+    "https_only": true,
+    "error_page": "/404.html",
+    "rewrites": {
+        "~ ^/sensu-go/latest/getting-started/media$": {
+            "url": "sensu.io/resources",
+            "status": 301
+        },
+        "~ ^/sensu-go/5.20/?((?<=\/).*)?/getting-started/media$": {
+            "url": "sensu.io/resources",
+            "status": 301
+        },
+        "~ ^/sensu-go/5.1[0-9]/?((?<=\/).*)?/getting-started/media$": {
+            "url": "sensu.io/resources",
+            "status": 301
+        }
+    }
 }
