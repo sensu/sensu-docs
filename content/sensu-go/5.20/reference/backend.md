@@ -1229,12 +1229,12 @@ All environment variables controlling Sensu backend configuration begin with `SE
      {{< language-toggle >}}
 
 {{< highlight "Ubuntu/Debian" >}}
-$ echo 'SENSU_API_LISTEN_ADDRESS=192.168.100.20:8080' | sudo tee -a /etc/default/sensu-backend
+$ echo 'SENSU_BACKEND_API_LISTEN_ADDRESS=192.168.100.20:8080' | sudo tee -a /etc/default/sensu-backend
 $ sudo systemctl restart sensu-backend
 {{< /highlight >}}
 
 {{< highlight "RHEL/CentOS" >}}
-$ echo 'SENSU_API_LISTEN_ADDRESS=192.168.100.20:8080' | sudo tee -a /etc/sysconfig/sensu-backend
+$ echo 'SENSU_BACKEND_API_LISTEN_ADDRESS=192.168.100.20:8080' | sudo tee -a /etc/sysconfig/sensu-backend
 $ sudo systemctl restart sensu-backend
 {{< /highlight >}}
 
@@ -1263,7 +1263,7 @@ They are listed in the [configuration flag description tables](#general-configur
 
 Any environment variables you create in `/etc/default/sensu-backend` (Debian/Ubuntu) or `/etc/sysconfig/sensu-backend` (RHEL/CentOS) will be available to handlers executed by the Sensu backend.
 
-For example, if you create a `SENSU_BACKEND_TEST_VAR` variable in your sensu-backend file, it will be available to use in your handler configurations as `$SENSU_TEST_VAR`.
+For example, if you create a `SENSU_BACKEND_TEST_VAR` variable in your sensu-backend file, it will be available to use in your handler configurations as `$SENSU_BACKEND_TEST_VAR`.
 
 ## Event logging
 
