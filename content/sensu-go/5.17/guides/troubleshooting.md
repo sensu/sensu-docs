@@ -36,6 +36,7 @@ Each log message is associated with a log level that indicates the relative seve
 | warn               | Warning messages that indicate potential issues                          |
 | info               | Information messages that represent service actions                      |
 | debug              | Detailed service operation messages to help troubleshoot issues          |
+| trace              | Confirmation messages about whether a rule authorized a request          |
 
 You can configure these log levels by specifying the desired log level as the value of `log-level` in the service configuration file (`agent.yml` or `backend.yml`) or as an argument to the `--log-level` command line flag:
 
@@ -45,11 +46,6 @@ sensu-agent start --log-level debug
 
 You must restart the service if you change log levels via configuration files or command line arguments.
 For help with restarting a service, see the [agent reference][5] or [backend reference][9].
-
-{{% notice note %}}
-**NOTE**: You can set the log level to `trace`, but Sensu does not log at the trace level.
-The trace log level is the same as `debug` in Sensu.
-{{% /notice %}}
 
 ### Log file locations
 
