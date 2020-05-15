@@ -7,6 +7,7 @@ version: "5.20"
 menu: "sensu-go-5.20"
 ---
 
+- [5.20.1 release notes](#5-20-1-release-notes)
 - [5.20.0 release notes](#5-20-0-release-notes)
 - [5.19.3 release notes](#5-19-3-release-notes)
 - [5.19.2 release notes](#5-19-2-release-notes)
@@ -59,6 +60,18 @@ PATCH versions include backward-compatible bug fixes.
 Read the [upgrade guide][1] for information about upgrading to the latest version of Sensu Go.
 
 ---
+
+## 5.20.1 release notes
+
+**May 15, 2020** &mdash; The latest release of Sensu Go, version 5.20.1, is now available for download.
+
+This patch release includes fixes that affected the web UI federated homepage gauges when using the PostgreSQL datastore and ...
+
+See the [upgrade guide][1] to upgrade Sensu to version 5.20.1.
+
+**FIXES:**
+
+- ([Commercial feature][141]) Fixes a bug that prevented the federated homepage in the [web UI][153] from retrieving the keepalive and event gauges when PostgreSQL was configured as the event datastore.
 
 ## 5.20.0 release notes
 
