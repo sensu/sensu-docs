@@ -714,7 +714,7 @@ example      | {{< highlight shell >}}"vm_role": "host" {{< /highlight >}}
 
 cloud_provider | 
 ---------------|------ 
-description    | Entity's cloud provider environment. Automatically populated upon agent startup if the [`--detect-cloud-provider` flag][25] is set. {{% notice note %}}
+description    | Entity's cloud provider environment. Automatically populated upon agent startup if the [`--detect-cloud-provider` flag][25] is set. Returned empty unless the agent runs on Amazon Elastic Compute Cloud (EC2), Google Cloud Platform (GCP), or Microsoft Azure. {{% notice note %}}
 **NOTE**: This feature can result in several HTTP requests or DNS lookups being performed, so it may not be appropriate for all environments.
 {{% /notice %}}
 required       | false 
@@ -917,17 +917,23 @@ example      | {{< highlight shell >}}"created": 1586138786{{< /highlight >}}
 
 memory_percent | 
 -------------|------ 
-description  | Percent of memory the process is using.
+description  | Percent of memory the process is using. The value is returned as a floating-point number where 0.0 = 0% and 1.0 = 100%. For example, the memory_percent value 0.19932 equals 19.932%. {{% notice note %}}
+**NOTE**: The `memory_percent` attribute is supported on Linux and macOS.
+It is not supported on Windows.
+{{% /notice %}}
 required     | false
 type         | float
-example      | {{< highlight shell >}}"memory_percent": 1.09932518{{< /highlight >}}
+example      | {{< highlight shell >}}"memory_percent": 0.19932{{< /highlight >}}
 
 cpu_percent  | 
 -------------|------ 
-description  | Percent of CPU the process is using.
+description  | Percent of CPU the process is using. The value is returned as a floating-point number where 0.0 = 0% and 1.0 = 100%. For example, the cpu_percent value 0.12639 equals 12.639%. {{% notice note %}}
+**NOTE**: The `cpu_percent` attribute is supported on Linux and macOS.
+It is not supported on Windows.
+{{% /notice %}}
 required     | false
 type         | float
-example      | {{< highlight shell >}}"cpu_percent": 0.3263987595984941{{< /highlight >}}
+example      | {{< highlight shell >}}"cpu_percent": 0.12639{{< /highlight >}}
 
 ## Examples
 
