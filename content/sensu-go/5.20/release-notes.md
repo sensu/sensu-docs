@@ -65,13 +65,14 @@ Read the [upgrade guide][1] for information about upgrading to the latest versio
 
 **May 15, 2020** &mdash; The latest release of Sensu Go, version 5.20.1, is now available for download.
 
-This patch release includes fixes that affected the web UI federated homepage gauges when using the PostgreSQL datastore and ...
+This patch release includes a bug fix that affects the web UI federated homepage gauges when using the PostgreSQL datastore and several fixes for the data displayed in the web UI entity details.
 
 See the [upgrade guide][1] to upgrade Sensu to version 5.20.1.
 
 **FIXES:**
 
 - ([Commercial feature][141]) Fixes a bug that prevented the federated homepage in the [web UI][153] from retrieving the keepalive and event gauges when PostgreSQL was configured as the event datastore.
+- In the [web UI][153], the entity details page no longer displays float type (which applies only for MIPS architectures). Also on entity details pages, the system's libc type is now listed and process names are no longer capitalized.
 
 ## 5.20.0 release notes
 
