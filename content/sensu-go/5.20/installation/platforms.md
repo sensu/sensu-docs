@@ -64,7 +64,7 @@ Supported packages are available through [sensu/stable][8] on packagecloud and t
 | Debian 10            | {{< check >}}      |
 | macOS                | {{< check >}}      |
 | Windows Server 2008 R2 and later | {{< check >}} | {{< check >}} |
-| Windows 7 and later | {{< check >}}     | {{< check >}}   |
+| Windows 7 and later | {{< check >}} | {{< check >}} |
 
 ### Sensuctl command line tool
 
@@ -84,6 +84,8 @@ Supported packages are available through [sensu/stable][8] on packagecloud and t
 | Debian 9             | {{< check >}}      |
 | Debian 10            | {{< check >}}      |
 | macOS                | {{< check >}}      |
+| Windows Server 2008 R2 and later | {{< check >}} | {{< check >}} |
+| Windows 7 and later | {{< check >}} | {{< check >}} |
 
 ## Docker images
 

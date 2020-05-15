@@ -12,7 +12,7 @@ menu:
     parent: installation
 ---
 
-In addition to [packages][1], Sensu binary-only distributions are available for Linux, Windows (agent and CLI only), macOS (CLI only), FreeBSD, and Solaris.
+In addition to [packages][1], Sensu binary-only distributions are available for Linux, Windows (agent and CLI only), macOS (agent and CLI only), FreeBSD (agent and CLI only), and Solaris.
 
 {{< platformBlock "Linux" >}}
 
@@ -57,7 +57,7 @@ curl -LO https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.18.1/sensu-go_5.
 
 ## Windows
 
-Sensu binary-only distributions for Windows are available for these architectures and formats:
+Sensu binary-only distributions for Windows (agent and CLI only) are available for these architectures and formats:
 
 | arch | format |
 | --- | --- |
@@ -90,7 +90,7 @@ Get-Content "$env:userprofile\sensu-go_5.18.1_checksums.txt" | Select-String -Pa
 
 ## macOS
 
-Sensu binary-only distributions for macOS are available for these architectures and formats:
+Sensu binary-only distributions for macOS (agent and CLI only) are available for these architectures and formats:
 
 | arch | format |
 | --- | --- |
@@ -132,7 +132,7 @@ sudo cp sensuctl /usr/local/bin/
 
 ## FreeBSD
 
-Sensu binary-only distributions for FreeBSD are available for these architectures and formats:
+Sensu binary-only distributions for FreeBSD (agent and CLI only) are available for these architectures and formats:
 
 | arch | format |
 | --- | --- |
