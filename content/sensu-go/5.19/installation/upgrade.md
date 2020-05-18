@@ -212,7 +212,7 @@ The `sensu-install` tool in Sensu Core 1.x is replaced by [assets][12] in Sensu 
 Assets are shareable, reusable packages that make it easier to deploy Sensu plugins.
 
 You can still install [Sensu Community plugins][21] in Ruby via `sensu-install` by installing [sensu-plugins-ruby][20].
-See the [installing plugins guide][22] for more information.
+See the [installing plugins guide][51] for more information.
 
 ### Role-based access control (RBAC)
 Role-based access control (RBAC) is a built-in feature of the open-source version of Sensu Go.
@@ -423,7 +423,7 @@ In Sensu Go, all check results are considered events and are processed by event 
 Use the built-in [`is-incident` filter][63] to recreate the Sensu Core behavior, in which only check results with a non-zero status are considered events.
 
 {{% notice note %}}
-**NOTE**: Silencing is disabled by default in Sensu Go and must be explicitly enabled using the built-in [`not_silenced` filter][64]. Add the `not_silenced` filter to any handlers for which you want to enable Sensu's silencing feature.
+**NOTE**: Silencing is disabled by default in Sensu Go and must be explicitly enabled using the built-in [`not_silenced` filter](../../reference/filters/#built-in-filter-not-silenced). Add the `not_silenced` filter to any handlers for which you want to enable Sensu's silencing feature.
 {{% /notice %}}
 
 Review your Sensu Core check configuration for the following attributes, and make the corresponding updates to your Sensu Go configuration.
