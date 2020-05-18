@@ -1104,9 +1104,8 @@ spec:
 [52]: #round-robin-checks
 [53]: https://regex101.com/r/zo9mQU/2
 [54]: ../../api/overview#response-filtering
-[55]: ../../sensuctl/reference#response-filters
+[55]: ../../sensuctl/reference#response-filtering
 [56]: ../../reference/secrets/
 [57]: ../../reference/secrets-providers/
 [58]: ../../dashboard/filtering#filter-with-label-selectors
 [59]: ../../guides/secrets-management/
-[60]: ../events/#occurrences-and-occurrences-watermark

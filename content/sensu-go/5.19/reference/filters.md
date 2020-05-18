@@ -881,7 +881,7 @@ spec:
 [34]: #spec-attributes
 [35]: https://regex101.com/r/zo9mQU/2
 [36]: ../../api/overview#response-filtering
-[37]: ../../sensuctl/reference#response-filters
+[37]: ../../sensuctl/reference#response-filtering
 [38]: https://en.wikipedia.org/wiki/Modulo_operation
 [39]: ../assets/
 [40]: ../filters/
