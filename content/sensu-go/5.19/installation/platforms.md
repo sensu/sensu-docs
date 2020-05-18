@@ -103,23 +103,20 @@ Docker images that contain the Sensu backend and Sensu agent are available for L
 
 ## Binary-only distributions
 
-[Binary-only distributions][4] are available in `.zip` and `.tar.gz` formats.
+[Binary-only distributions][4] that contain the Sensu backend, agent, and sensuctl tool are available in `.zip` and `.tar.gz` formats.
 
-- Linux and Solaris distributions include the Sensu backend, agent, and sensuctl CLI
-- Windows, macOS, and FreeBSD distributions include only the Sensu agent and sensuctl CLI (not the backend)
-
-| Platform & Version | Linux | Windows | macOS | Solaris |
-|--------------------|-------|---------|-------|---------|
-| `386`              | {{< check >}} | {{< check >}} |               |     
-| `amd64`            | {{< check >}} | {{< check >}} | {{< check >}} | {{< check >}}  
-| `arm64`            | {{< check >}} |               |               |             |
-| `armv5`            | {{< check >}} |               |               |             |
-| `armv6`            | {{< check >}} |               |               |             |
-| `armv7`            | {{< check >}} |               |               |             |
-| `MIPS`             | {{< check >}} |               |               |             |
-| `MIPS LE`          | {{< check >}} |               |               |             |
-| `MIPS 64`          | {{< check >}} |               |               |             |
-| `MIPS 64 LE`       | {{< check >}} |               |               |             |
+| Platform & Version | Linux | Windows | macOS | FreeBSD | Solaris |
+|--------------------|-------|---------|-------|---------| ------- |
+| `386`              | {{< check >}} | {{< check >}} | | {{< check >}}               |     
+| `amd64`            | {{< check >}} | {{< check >}} | {{< check >}} | {{< check >}}  | {{< check >}} 
+| `arm64`            | {{< check >}} |               |               |             |             |
+| `armv5`            | {{< check >}} |               |               |             |             |
+| `armv6`            | {{< check >}} |               |               |             |             |
+| `armv7`            | {{< check >}} |               |               |             |             |
+| `MIPS`             | {{< check >}} |               |               |             |             |
+| `MIPS LE`          | {{< check >}} |               |               |             |             |
+| `MIPS 64`          | {{< check >}} |               |               |             |             |
+| `MIPS 64 LE`       | {{< check >}} |               |               |             |             |
 
 ## Build from source
 

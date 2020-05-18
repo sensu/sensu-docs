@@ -19,8 +19,7 @@ menu:
 
 This installation guide describes how to install the Sensu backend, Sensu agent, and sensuctl command line tool.
 
-Sensu Go is available for Linux, Windows (agent and CLI only), and Docker.
-
+Sensu Go is available for Linux, Windows (agent and CLI only), macOS (CLI only), and Docker.
 If you’re trying Sensu for the first time, we recommend setting up a local environment using the [Sensu sandbox][14].
 If you’re deploying Sensu to your infrastructure, we recommend one of our supported packages, Docker images, or [configuration management integrations][15].
 Sensu downloads are provided under the [Sensu commercial license][13].

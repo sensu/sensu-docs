@@ -97,16 +97,14 @@ Docker images that contain the Sensu backend and Sensu agent are available for L
 
 ## Binary-only distributions
 
-[Binary-only distributions][4] are available in `.zip` and `.tar.gz` formats.
-
-- Linux and Solaris distributions include the Sensu backend, agent, and sensuctl CLI
-- Windows, macOS, and FreeBSD distributions include only the Sensu agent and sensuctl CLI (not the backend)
+[Binary-only distributions][4] that contain the Sensu backend, agent, and sensuctl tool are available in `.zip` and `.tar.gz` formats.
 
 | Platform & Version | `amd64` | `arm64` | `armv5` | `armv6` |`armv7` | `386` |
 |--------------------|---------|---------|---------|---------|--------|-------|
 | Linux              | {{< check >}}      | {{< check >}}     | {{< check >}}      | {{< check >}}      | {{< check >}}     | {{< check >}}    |
 | Windows            | {{< check >}}      |         |         |         |        | {{< check >}}    |
 | macOS              | {{< check >}}      |         |         |         |        |       |
+| FreeBSD            | {{< check >}}      |         |         |         |        | {{< check >}}    |
 | Solaris            | {{< check >}}      |         |         |         |        |       |
 
 ## Build from source
