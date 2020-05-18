@@ -14,7 +14,7 @@ module.exports = function(grunt) {
     env : {
       options : {
         add : {
-          HUGO_VERSION : '0.56.1'
+          HUGO_VERSION : '0.70.0'
         }
       },
       dev : {}

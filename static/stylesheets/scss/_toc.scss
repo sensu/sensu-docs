@@ -3,3 +3,41 @@
     margin-left: 2rem;
   }
 }
+
+aside#toc {
+  background: white;
+  display: none;
+  grid-area: aside;
+  padding: 4rem 0 9rem 1rem;
+
+  & > div {
+    background-color: #fbfbfb;
+    padding: 2rem 1rem 2rem 1.5rem;
+    position: sticky;
+    top: 11rem;
+    width: 100%;
+  }
+
+  a {
+    text-decoration: none;
+  }
+
+  code {
+    padding: 0;
+  }
+
+  h4 {
+    font-size: 1.6rem;
+    font-style: normal;
+    margin-top: 0;
+  }
+
+  li {
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+  }
+
+  @media (min-width: $breakpoint-lg) {
+    display: block;
+  }
+}
