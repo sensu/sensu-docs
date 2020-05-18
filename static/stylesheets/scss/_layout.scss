@@ -27,12 +27,11 @@ main {
 .article {
   background-color: white;
   grid-area: main;
-  margin: 0 0 0 auto;
+  margin: 0;
   overflow-x: hidden;
 
   @media (min-width: $breakpoint-lg) {
     border-left: 2px solid #eaeaea;
-    flex: 0 0 50%;
   }
 
 
