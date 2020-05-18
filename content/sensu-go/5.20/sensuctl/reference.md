@@ -344,12 +344,13 @@ cat my-resources.yml | sensuctl create
 `CheckConfig` | `check_config` | `ClusterRole`  | `cluster_role`
 `ClusterRoleBinding`  | `cluster_role_binding` | `Entity` | [`Env`][43]
 `entity` | [`EtcdReplicators`][35] | `Event` | `event`
-`EventFilter` | `event_filter` | `Handler` | `handler`
-`Hook` | `hook` | `HookConfig` | `hook_config`
-`Mutator` | `mutator` | `Namespace` | `namespace`
-`Role` | `role` | `RoleBinding` | `role_binding`
-[`Secret`][41] | `Silenced` | `silenced` | [`VaultProvider`][43]
-[`ldap`][26] | [`ad`][42] | [`TessenConfig`][27] | [`PostgresConfig`][32] |
+`EventFilter` | `event_filter` | [`GlobalConfig`][50] | `Handler` 
+`handler` | `Hook` | `hook` | `HookConfig`
+`hook_config` | `Mutator` | `mutator` | `Namespace`
+`namespace` | `Role` | `role` | `RoleBinding`
+`role_binding` | [`Secret`][41] | `Silenced` | `silenced`
+[`VaultProvider`][43] | [`ldap`][26] | [`ad`][42] | [`TessenConfig`][27]
+[`PostgresConfig`][32] |
 
 ### Create resources across namespaces
 
@@ -468,15 +469,34 @@ To export only handlers and filters to a file named `my-handlers-and-filters.yam
 sensuctl dump handler,filter --format yaml --file my-handlers-and-filters.yaml
 {{< /highlight >}}
 
-### sensuctl dump resource types
+### sensuctl describe-type resource types
 
-You can use the sensuctl `--types` subcommand to list the types of supported resources:
+{{% notice important %}}
+**IMPORTANT**: The `sensuctl describe-type` command deprecates `sensuctl dump --types`.
+{{% /notice %}}
+
+Use `sensuctl describe-type` to list the types of supported resources.
+For example, to list all types:
 
 {{< highlight shell >}}
-sensuctl dump --types
+sensuctl describe-type all
 {{< /highlight >}}
 
-The table below lists supported `sensuctl dump` resource types.
+You can also list specific resource types by fully qualified name or synonym:
+
+{{< highlight shell >}}
+sensuctl describe-type core/v2.CheckConfig
+sensuctl describe-type checks
+{{< /highlight >}}
+
+To list more than one type, use a comma-separated list:
+
+{{< highlight shell >}}
+sensuctl describe-type core/v2.CheckConfig,core/v2.EventFilter,core/v2.Handler
+sensuctl describe-type checks,filters,handlers
+{{< /highlight >}}
+
+The table below lists supported `sensuctl describe-type` resource types.
 
 {{% notice note %}}
 **NOTE**: The resource types with no synonym listed are [commercial features](../../getting-started/enterprise/).
@@ -490,6 +510,9 @@ None | `store/v1.PostgresConfig`
 None | `federation/v1.Replicator`
 None | `secrets/v1.Provider`
 None | `secrets/v1.Secret`
+None | `searches/v1.Search`
+None | `web/v1.GlobalConfig`
+`apikeys` | `core/v2.APIKey`
 `assets` | `core/v2.Asset`
 `checks` | `core/v2.CheckConfig`
 `clusterroles` | `core/v2.ClusterRole`
@@ -507,6 +530,16 @@ None | `secrets/v1.Secret`
 `tessen` | `core/v2.TessenConfig`
 `users` | `core/v2.User`
 
+#### Format the sensuctl describe-type response
+
+Add the `--format` flag to specify how the resources should be formatted in the `sensuctl describe-type` response.
+The default is unformatted, but you can specify either `wrapped-json` or `yaml`:
+
+{{< highlight shell >}}
+sensuctl describe-type core/v2.CheckConfig --format yaml
+sensuctl describe-type core/v2.CheckConfig --format wrapped-json
+{{< /highlight >}}
+ 
 ## Manage resources
 
 Sensuctl provides the following commands to manage Sensu resources.
@@ -1242,3 +1275,4 @@ Flags are optional and apply only to the `delete` command.
 [47]: ../../api/overview/#operators
 [48]: #sensuctl-prune-resource-types
 [49]: #examples
+[50]: ../../reference/webconfig/

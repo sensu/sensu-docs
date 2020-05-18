@@ -36,6 +36,7 @@ Each log message is associated with a log level that indicates the relative seve
 | warn               | Warning messages that indicate potential issues                          |
 | info               | Information messages that represent service actions                      |
 | debug              | Detailed service operation messages to help troubleshoot issues          |
+| trace              | Confirmation messages about whether a rule authorized a request          |
 
 You can configure these log levels by specifying the desired log level as the value of `log-level` in the service configuration file (`agent.yml` or `backend.yml`) or as an argument to the `--log-level` command line flag:
 

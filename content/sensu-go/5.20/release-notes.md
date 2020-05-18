@@ -7,6 +7,10 @@ version: "5.20"
 menu: "sensu-go-5.20"
 ---
 
+- [5.20.1 release notes](#5-20-1-release-notes)
+- [5.20.0 release notes](#5-20-0-release-notes)
+- [5.19.3 release notes](#5-19-3-release-notes)
+- [5.19.2 release notes](#5-19-2-release-notes)
 - [5.19.1 release notes](#5-19-1-release-notes)
 - [5.19.0 release notes](#5-19-0-release-notes)
 - [5.18.1 release notes](#5-18-1-release-notes)
@@ -56,6 +60,115 @@ PATCH versions include backward-compatible bug fixes.
 Read the [upgrade guide][1] for information about upgrading to the latest version of Sensu Go.
 
 ---
+
+## 5.20.1 release notes
+
+**May 15, 2020** &mdash; The latest release of Sensu Go, version 5.20.1, is now available for download.
+
+This patch release includes a bug fix that affects the web UI federated homepage gauges when using the PostgreSQL datastore and several fixes for the data displayed in the web UI entity details.
+
+See the [upgrade guide][1] to upgrade Sensu to version 5.20.1.
+
+**FIXES:**
+
+- ([Commercial feature][141]) Fixes a bug that prevented the federated homepage in the [web UI][153] from retrieving the keepalive and event gauges when PostgreSQL was configured as the event datastore.
+- ([Commercial feature][141]) The [memory_percent and cpu_percent processes attributes][143] are now properly displayed in the [web UI][153].
+- In the [web UI][153], the entity details page no longer displays float type (which applies only for MIPS architectures). Also on entity details pages, the system's libc type is now listed and process names are no longer capitalized.
+
+## 5.20.0 release notes
+
+**May 12, 2020** &mdash; The latest release of Sensu Go, version 5.20.0, is now available for download.
+
+This release delivers several new features, substantial improvements, and important fixes. One exciting new feature is agent local process discovery to further enrich entities and their events with valuable context. Other additions include a web UI federation view that provides a single pane of glass for all of your Sensu Go clusters and token substitution for assets. And Windows users rejoice! This release includes many Windows agent fixes, as well as agent log rotation capabilities! 
+
+See the [upgrade guide][1] to upgrade Sensu to version 5.20.0.
+
+**NEW FEATURES:**
+
+- ([Commercial feature][141]) Added a [`processes` field ][143] to the system type to store agent local processes for entities and events and a `discover-processes` flag to the [agent configuration flags][142] to populate the `processes` field in entity.system if enabled.
+- ([Commercial feature][141]) Added a new resource, `GlobalConfig`, that you can use to [customize your web UI configuration][148].
+- ([Commercial feature][141]) Added metricsd to collect metrics for the [web UI][153].
+- ([Commercial feature][141]) Added process and additional system information to the entity details view in the [web UI][153].
+- ([Commercial feature][141]) Added a PostgreSQL metrics suite so metricsd can collect metrics about events stored in PostgreSQL.
+- ([Commercial feature][141]) Added [entity class limits][151] to the license.
+- Added check hook output to event details page in the [web UI][153].
+- Added the [sensuctl describe-type command][144] to list all resource types.
+- Added `annotations` and `labels` as [backend configuration][145] options.
+- Added [token substitution for assets][146].
+- Added `event.is_silenced` and `event.check.is_silenced` [field selectors][138].
+- Added `Edition` and `GoVersion` fields to version information. In commercial distributions, the `Edition` version attribute is set to `enterprise`
+- Added ability to configure the Resty HTTP timeout. Also, sensuctl now suppresses messages from the Resty library.
+
+**IMPROVEMENTS:**
+
+- ([Commercial feature][141]) The web UI homepage is now a [federated view][152]. 
+- You can now [increment the log level][140] by sending SIGUSR1 to the sensu-backend or sensu-agent process.
+- [License metadata][149] now includes the [current entity count and license entity limit][150].
+- In the [web UI][153], users will see a notification when they try to delete an event without appropriate authorization.
+- The Windows agent now has [log rotation][139] capabilities.
+- Notepad is now the default editor on Windows rather than vi.
+
+**FIXES:**
+
+- ([Commercial feature][141]) Database connections no longer leak after queries to the cluster health API.
+- In the [web UI][153], any leading and trailing whitespace is now trimmed from the username when authenticating.
+- The [web UI][153] preferences dialog now displays only the first five groups a user belongs to, which makes the sign-out button more accessible.
+- In the [web UI][153], the deregistration handler no longer appears as `undefined` on the entity details page.
+- You can now [escape quotes to express quoted strings][147] in token substitution templates.
+- The Windows agent now accepts and remembers arguments passed to `service run` and `service install`.
+- The Windows agent now synchronizes writes to its log file, so the file size will update with every log line written.
+- The Windows agent now logs to both console and log file when you use `service run`.
+
+## 5.19.3 release notes
+
+**May 4, 2020** &mdash; The latest release of Sensu Go, version 5.19.3, is now available for download.
+This is a patch release with many improvements and bug fixes, including a fix to close the event store when the backend restarts, a global rate limit for fetching assets, and fixes for goroutine leaks. Sensu Go 5.19.3 also includes several web UI updates, from fixes to prevent crashes to new color-blindness modes.
+
+See the [upgrade guide][1] to upgrade Sensu to version 5.19.3.
+
+**FIXES:**
+
+- The event store now closes when the backend restarts, which fixes a bug that allowed Postgres connections to linger after the backend restarted interally.
+- The etcd event store now returns exact matches when retrieving events by entity (rather than prefixed matches).
+- `sensu-backend init` now logs any TLS failures encountered during initialization.
+- `sensuctl logout` now resets the TLS configuration.
+- `env_vars` values can now include the equal sign.
+- Error logs now include underlying errors encountered when fetching an asset.
+- The log level is now WARNING when an asset is not installed because none of the filters match.
+- Fixes a bug in the [web UI][135] that could cause labels with links to result in a crash.
+- Fixes a bug in the [web UI][135] that could cause the web UI to crash when using an unregistered theme.
+- Fixes a bug that could cause the backend to crash.
+- Fixes a bug in multi-line metric extraction that appeared in Windows agents.
+- Fixes an authentication bug that restarted the sensu-backend when agents disconnected.
+- Fixes a bug that meant check `state` and `last_ok` were not computed until the second instance of the event.
+- Fixes a bug that caused messages like "unary invoker failed" to appear in the logs.
+- Fixes several goroutine leaks.
+- Fixes a bug that caused the backend to crash when the etcd client received the error "etcdserver: too many requests."
+
+**IMPROVEMENTS:**
+
+- In the [web UI][135], color-blindness modes are now available.
+- In the [web UI][135], labels and annotations with links to images will now be displayed inline.
+- Adds a global rate limit for fetching assets to prevent abusive asset retries, which you can configure with the `--assets-rate-limit` and `--assets-burst-limit` flags for the [agent][136] and [backend][137].
+- Adds support for restarting the backend via SIGHUP.
+- Adds a timeout flag to `sensu-backend init`.
+- Deprecated flags for `sensuctl silenced update` subcommand have been removed.
+
+## 5.19.2 release notes
+
+**April 27, 2020** &mdash; The latest release of Sensu Go, version 5.19.2, is now available for download.
+This patch release adds two database connection pool parameters for PostgreSQL so you can configure the maximum time a connection can persist before being destroyed and the maximum number of idle connections to retain.
+The release also includes packages for Ubuntu 19.10 and 20.04.
+
+See the [upgrade guide][1] to upgrade Sensu to version 5.19.2.
+
+**FIXES:**
+
+- ([Commercial feature][122]) Adds SQL database connection pool parameters `max_conn_lifetime` and `max_idle_conns` to [store/v1.PostgresConfig][132].
+
+**IMPROVEMENTS:**
+
+- Sensu packages are now available for Ubuntu 19.10 (Eoan Ermine) and 20.04 (Focal Fossa). See the [supported platforms][133] page for a complete list of Sensu’s supported platforms and the [installation guide][134] to install Sensu packages for Ubuntu.
 
 ## 5.19.1 release notes
 
@@ -1183,3 +1296,25 @@ To get started with Sensu Go:
 [129]: /sensu-go/5.19/sensuctl/reference/#sensuctl-prune
 [130]: /sensu-go/5.19/reference/tessen/
 [131]: /sensu-go/5.19/reference/handlers/#pipe-handler-command
+[132]: /sensu-go/5.19/reference/datastore/#max_conn_lifetime
+[133]: /sensu-go/5.19/installation/platforms/
+[134]: /sensu-go/5.19/installation/install-sensu/
+[135]: /sensu-go/5.19/dashboard/overview
+[136]: /sensu-go/5.19/reference/agent/#configuration
+[137]: /sensu-go/5.19/reference/backend/#configuration
+[138]: /sensu-go/5.20/api/overview/#field-selector
+[139]: /sensu-go/5.20/reference/backend/#log-rotation
+[140]: /sensu-go/5.20/guides/troubleshooting/#increment-log-level-verbosity
+[141]: /sensu-go/5.20/getting-started/enterprise/
+[142]: /sensu-go/5.20/reference/agent/#configuration
+[143]: /sensu-go/5.20/reference/entities/#processes-attributes
+[144]: /sensu-go/5.20/sensuctl/reference/#sensuctl-describe-type-resource-types
+[145]: /sensu-go/5.20/reference/backend/#configuration-summary
+[146]: /sensu-go/5.20/reference/tokens/#manage-assets
+[147]: /sensu-go/5.20/reference/tokens/#token-substitution-with-quoted-strings
+[148]: /sensu-go/5.20/reference/webconfig/
+[149]: /sensu-go/5.20/api/license/#license-get
+[150]: /sensu-go/5.20/reference/license/#view-entity-count-and-entity-limit
+[151]: /sensu-go/5.20/reference/license/#entity-limit
+[152]: /sensu-go/5.20/dashboard/overview/#federated-webui
+[153]: /sensu-go/5.20/dashboard/overview/

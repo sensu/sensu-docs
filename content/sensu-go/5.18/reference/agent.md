@@ -692,7 +692,7 @@ If a [Sensu event handler][8] named `registration` is configured, the [Sensu bac
 You can use registration events to execute one-time handlers for new Sensu agents.
 For example, you can use registration event handlers to update external [configuration management databases (CMDBs)][11] such as [ServiceNow][12].
 
-To configure a registration event handler, see the [Handlers documentation][8], which includes instructions for creating a handler named `registration`.
+The handlers reference includes an [example registration event handler][41].
 
 {{% notice warning %}}
 **WARNING**: Registration events are not stored in the event registry, so they are not accessible via the Sensu API. However, all registration events are logged in the [Sensu backend log](../backend/#event-logging).
@@ -808,7 +808,9 @@ annotations:
 
 | backend-url |      |
 --------------|------
-description   | ws or wss URL of the Sensu backend server. To specify multiple backends with `sensu-agent start`, use this flag multiple times.
+description   | ws or wss URL of the Sensu backend server. To specify multiple backends with `sensu-agent start`, use this flag multiple times.<br>{{% notice note %}}
+**NOTE**: If you do not specify a port for your backend-url values, the agent will automatically append the default backend port (8081).
+{{% /notice %}}
 type          | List
 default       | `ws://127.0.0.1:8081`
 environment variable | `SENSU_BACKEND_URL`
@@ -1437,11 +1439,11 @@ All environment variables controlling Sensu configuration begin with `SENSU_`.
      {{< language-toggle >}}
 
 {{< highlight "Ubuntu/Debian" >}}
-$ echo 'SENSU_API_HOST="0.0.0.0' | sudo tee -a /etc/default/sensu-agent
+$ echo 'SENSU_API_HOST="0.0.0.0"' | sudo tee -a /etc/default/sensu-agent
 {{< /highlight >}}
 
 {{< highlight "RHEL/CentOS" >}}
-$ echo 'SENSU_API_HOST="0.0.0.0' | sudo tee -a /etc/sysconfig/sensu-agent
+$ echo 'SENSU_API_HOST="0.0.0.0"' | sudo tee -a /etc/sysconfig/sensu-agent
 {{< /highlight >}}
 
      {{< /language-toggle >}}
@@ -1464,6 +1466,38 @@ $ sudo systemctl restart sensu-agent
 **NOTE**: Sensu includes an environment variable for each agent configuration flag.
 They are listed in the [configuration flag description tables](#general-configuration-flags).
 {{% /notice %}}
+
+#### Format for label and annotation environment variables
+
+To use labels and annotations as environment variables in your check and plugin configurations, you must use a specific format when you create the `SENSU_LABELS` and `SENSU_ANNOTATIONS` environment variables.
+
+For example, to create the labels `"region": "us-east-1"` and `"type": "website"` as an environment variable:
+
+{{< language-toggle >}}
+
+{{< highlight "Ubuntu/Debian" >}}
+$ echo 'SENSU_LABELS='{"region": "us-east-1", "type": "website"}'' | sudo tee -a /etc/default/sensu-agent
+{{< /highlight >}}
+
+{{< highlight "RHEL/CentOS" >}}
+$ echo 'SENSU_LABELS='{"region": "us-east-1", "type": "website"}'' | sudo tee -a /etc/sysconfig/sensu-agent
+{{< /highlight >}}
+
+{{< /language-toggle >}}
+
+To create the annotations `"maintainer": "Team A"` and `"webhook-url": "https://hooks.slack.com/services/T0000/B00000/XXXXX"` as an environment variable:
+
+{{< language-toggle >}}
+
+{{< highlight "Ubuntu/Debian" >}}
+$ echo 'SENSU_ANNOTATIONS='{"maintainer": "Team A", "webhook-url": "https://hooks.slack.com/services/T0000/B00000/XXXXX"}'' | sudo tee -a /etc/default/sensu-agent
+{{< /highlight >}}
+
+{{< highlight "RHEL/CentOS" >}}
+$ echo 'SENSU_ANNOTATIONS='{"maintainer": "Team A", "webhook-url": "https://hooks.slack.com/services/T0000/B00000/XXXXX"}'' | sudo tee -a /etc/sysconfig/sensu-agent
+{{< /highlight >}}
+
+{{< /language-toggle >}}
 
 #### Use environment variables with the Sensu agent
 
@@ -1512,6 +1546,7 @@ For example, if you create a `SENSU_TEST_VAR` variable in your sensu-agent file,
 [38]: #name
 [39]: ../rbac/
 [40]: ../../guides/send-slack-alerts/
+[41]: ../handlers/#send-registration-events
 [44]: ../checks#ttl-attribute
 [45]: https://en.m.wikipedia.org/wiki/WebSocket
 [46]: ../../guides/securing-sensu/

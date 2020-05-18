@@ -14,7 +14,7 @@ menu:
 - [Proxy entities](#proxy-entities)
 - [Manage entity labels](#manage-entity-labels): [Proxy entity labels](#proxy-entities-managed) | [Agent entity labels](#agent-entities-managed)
 - [Entities specification](#entities-specification)
-  - [Top-level attributes](#top-level-attributes) | [Metadata attributes](#metadata-attributes) | [Spec attributes](#spec-attributes) | [System attributes](#system-attributes) | [Network attributes](#network-attributes) | [NetworkInterface attributes](#networkinterface-attributes) | [Deregistration attributes](#deregistration-attributes)
+  - [Top-level attributes](#top-level-attributes) | [Metadata attributes](#metadata-attributes) | [Spec attributes](#spec-attributes) | [System attributes](#system-attributes) | [Network attributes](#network-attributes) | [NetworkInterface attributes](#networkinterface-attributes) | [Deregistration attributes](#deregistration-attributes) | [Processes attributes](#processes-attributes)
 - [Examples](#examples)
 
 An entity represents anything that needs to be monitored, such as a server, container, or network switch, including the full range of infrastructure, runtime, and application types that compose a complete monitoring environment (from server hardware to serverless functions).
@@ -37,6 +37,17 @@ Sensu's free entity limit is 100 entities.
 All [commercial features][9] are available for free in the packaged Sensu Go distribution up to an entity limit of 100.
 If your Sensu instance includes more than 100 entities, [contact us][10] to learn how to upgrade your installation and increase your limit.
 See [the announcement on our blog][11] for more information about our usage policy.
+
+Commercial licenses may include an entity limit and entity class limits:
+
+- Entity limit: the maximum number of entities of all classes your license includes. Both agent and proxy entities count toward the overall entity limit.
+- Entity class limits: the maximum number of a specific class of entities (e.g. agent or proxy) that your license includes.
+
+For example, if your license has an entity limit of 10,000 and an agent entity class limit of 3,000, you cannot run more than 10,000 entities (agent and proxy) total.
+At the same time, you cannot run more than 3,000 agents.
+If you use only 1,500 agent entities, you can have 8,500 proxy entities before you reach the overall entity limit of 10,000.
+
+Use sensuctl or the license API to [view your overall entity count and limit][29].
 
 ## Proxy entities
 
@@ -298,7 +309,31 @@ example      | {{< highlight shell >}}
       "libc_type": "glibc",
       "vm_system": "kvm",
       "vm_role": "host",
-      "cloud_provider": ""
+      "cloud_provider": "",
+      "processes": [
+        {
+          "name": "Slack",
+          "pid": 1349,
+          "ppid": 0,
+          "status": "Ss",
+          "background": true,
+          "running": true,
+          "created": 1582137786,
+          "memory_percent": 1.09932518,
+          "cpu_percent": 0.3263987595984941
+        },
+        {
+          "name": "Slack Helper",
+          "pid": 1360,
+          "ppid": 1349,
+          "status": "Ss",
+          "background": true,
+          "running": true,
+          "created": 1582137786,
+          "memory_percent": 0.146866455,
+          "cpu_percent": 0.308976181461092553
+        }
+      ]
     },
     "subscriptions": [
       "entity:webserver01"
@@ -400,6 +435,25 @@ system:
   vm_system: kvm
   vm_role: host
   cloud_provider: null
+  processes:
+  - name: Slack
+    pid: 1349
+    ppid: 0
+    status: Ss
+    background: true
+    running: true
+    created: 1582137786
+    memory_percent: 1.09932518
+    cpu_percent: 0.3263987595984941
+  - name: Slack Helper
+    pid: 1360
+    ppid: 1349
+    status: Ss
+    background: true
+    running: true
+    created: 1582137786
+    memory_percent: 0.146866455
+    cpu_percent: 0.30897618146109257
   hostname: example-hostname
   network:
     interfaces:
@@ -416,6 +470,7 @@ system:
   platform: ubuntu
   platform_family: debian
   platform_version: "16.04"
+
 {{< /highlight >}}
 
 {{< highlight json >}}
@@ -449,7 +504,31 @@ system:
     "libc_type": "glibc",
     "vm_system": "kvm",
     "vm_role": "host",
-    "cloud_provider": ""
+    "cloud_provider": "",
+    "processes": [
+      {
+        "name": "Slack",
+        "pid": 1349,
+        "ppid": 0,
+        "status": "Ss",
+        "background": true,
+        "running": true,
+        "created": 1582137786,
+        "memory_percent": 1.09932518,
+        "cpu_percent": 0.3263987595984941
+      },
+      {
+        "name": "Slack Helper",
+        "pid": 1360,
+        "ppid": 1349,
+        "status": "Ss",
+        "background": true,
+        "running": true,
+        "created": 1582137786,
+        "memory_percent": 0.146866455,
+        "cpu_percent": 0.308976181461092553
+      }
+    ]
   }
 }{{< /highlight >}}
 
@@ -635,13 +714,71 @@ example      | {{< highlight shell >}}"vm_role": "host" {{< /highlight >}}
 
 cloud_provider | 
 ---------------|------ 
-description    | Entity's cloud provider environment. Automatically populated upon agent startup if the [`--detect-cloud-provider` flag][25] is set. {{% notice note %}}
+description    | Entity's cloud provider environment. Automatically populated upon agent startup if the [`--detect-cloud-provider` flag][25] is set. Returned empty unless the agent runs on Amazon Elastic Compute Cloud (EC2), Google Cloud Platform (GCP), or Microsoft Azure. {{% notice note %}}
 **NOTE**: This feature can result in several HTTP requests or DNS lookups being performed, so it may not be appropriate for all environments.
 {{% /notice %}}
 required       | false 
 type           | String 
 example        | {{< highlight shell >}}"cloud_provider": "" {{< /highlight >}}
 
+processes    | 
+-------------|------ 
+description  | List of processes on the local agent. See [processes attributes][26] for more information. 
+required     | false 
+type         | Map
+example      | {{< language-toggle >}}
+
+{{< highlight yml >}}
+processes:
+- name: Slack
+  pid: 1349
+  ppid: 0
+  status: Ss
+  background: true
+  running: true
+  created: 1582137786
+  memory_percent: 1.09932518
+  cpu_percent: 0.3263987595984941
+- name: Slack Helper
+  pid: 1360
+  ppid: 1349
+  status: Ss
+  background: true
+  running: true
+  created: 1582137786
+  memory_percent: 0.146866455
+  cpu_percent: 0.30897618146109257
+{{< /highlight >}}
+
+{{< highlight json >}}
+{
+  "processes": [
+    {
+      "name": "Slack",
+      "pid": 1349,
+      "ppid": 0,
+      "status": "Ss",
+      "background": true,
+      "running": true,
+      "created": 1582137786,
+      "memory_percent": 1.09932518,
+      "cpu_percent": 0.3263987595984941
+    },
+    {
+      "name": "Slack Helper",
+      "pid": 1360,
+      "ppid": 1349,
+      "status": "Ss",
+      "background": true,
+      "running": true,
+      "created": 1582137786,
+      "memory_percent": 0.146866455,
+      "cpu_percent": 0.308976181461092553
+    }
+  ]
+}{{< /highlight >}}
+
+{{< /language-toggle >}}
 
 ### Network attributes
 
@@ -720,6 +857,84 @@ required     | false
 type         | String 
 example      | {{< highlight shell >}}"handler": "email-handler"{{< /highlight >}}
 
+### Processes attributes
+
+**COMMERCIAL FEATURE**: Access processes attributes with the [`discover-processes` flag][27] in the packaged Sensu Go distribution. For more information, see [Get started with commercial features][9].
+
+{{% notice note %}}
+**NOTE**: The `processes` field is populated in the packaged Sensu Go distributions.
+In OSS builds, the field will be empty: `"processes": null`.
+{{% /notice %}}
+
+name         | 
+-------------|------ 
+description  | Name of the process.
+required     | false
+type         | String
+example      | {{< highlight shell >}}"name": "Slack"{{< /highlight >}}
+
+pid          | 
+-------------|------ 
+description  | Process ID of the process.
+required     | false
+type         | Integer
+example      | {{< highlight shell >}}"pid": 1349{{< /highlight >}}
+
+ppid         | 
+-------------|------ 
+description  | Parent process ID of the process.
+required     | false
+type         | Integer
+example      | {{< highlight shell >}}"ppid": 0{{< /highlight >}}
+
+status       | 
+-------------|------ 
+description  | Status of the process. See the [Linux `top` manual page][28] for examples.
+required     | false
+type         | String
+example      | {{< highlight shell >}}"status": "Ss"{{< /highlight >}}
+
+background   | 
+-------------|------ 
+description  | If `true`, the process is a background process. Otherwise, `false`.
+required     | false
+type         | Boolean
+example      | {{< highlight shell >}}"background": true{{< /highlight >}}
+
+running      | 
+-------------|------ 
+description  | If `true`, the process is running. Otherwise, `false`.
+required     | false
+type         | Boolean
+example      | {{< highlight shell >}}"running": true{{< /highlight >}}
+
+created      | 
+-------------|------ 
+description  | Timestamp when the process was created. In seconds since the Unix epoch.
+required     | false
+type         | Integer
+example      | {{< highlight shell >}}"created": 1586138786{{< /highlight >}}
+
+memory_percent | 
+-------------|------ 
+description  | Percent of memory the process is using. The value is returned as a floating-point number where 0.0 = 0% and 1.0 = 100%. For example, the memory_percent value 0.19932 equals 19.932%. {{% notice note %}}
+**NOTE**: The `memory_percent` attribute is supported on Linux and macOS.
+It is not supported on Windows.
+{{% /notice %}}
+required     | false
+type         | float
+example      | {{< highlight shell >}}"memory_percent": 0.19932{{< /highlight >}}
+
+cpu_percent  | 
+-------------|------ 
+description  | Percent of CPU the process is using. The value is returned as a floating-point number where 0.0 = 0% and 1.0 = 100%. For example, the cpu_percent value 0.12639 equals 12.639%. {{% notice note %}}
+**NOTE**: The `cpu_percent` attribute is supported on Linux and macOS.
+It is not supported on Windows.
+{{% /notice %}}
+required     | false
+type         | float
+example      | {{< highlight shell >}}"cpu_percent": 0.12639{{< /highlight >}}
+
 ## Examples
 
 ### Entity definition
@@ -758,7 +973,26 @@ spec:
     vm_system: kvm
     vm_role: host
     cloud_provider: null
-    hostname: sensu2-centos
+    processes:
+    - name: Slack
+      pid: 1349
+      ppid: 0
+      status: Ss
+      background: true
+      running: true
+      created: 1582137786
+      memory_percent: 1.09932518
+      cpu_percent: 0.3263987595984941
+    - name: Slack Helper
+      pid: 1360
+      ppid: 1349
+      status: Ss
+      background: true
+      running: true
+      created: 1582137786
+      memory_percent: 0.146866455
+      cpu_percent: 0.30897618146109257
+      hostname: sensu2-centos
     network:
       interfaces:
       - addresses:
@@ -832,7 +1066,31 @@ spec:
       "libc_type": "glibc",
       "vm_system": "kvm",
       "vm_role": "host",
-      "cloud_provider": ""
+      "cloud_provider": "",
+      "processes": [
+        {
+          "name": "Slack",
+          "pid": 1349,
+          "ppid": 0,
+          "status": "Ss",
+          "background": true,
+          "running": true,
+          "created": 1582137786,
+          "memory_percent": 1.09932518,
+          "cpu_percent": 0.3263987595984941
+        },
+        {
+          "name": "Slack Helper",
+          "pid": 1360,
+          "ppid": 1349,
+          "status": "Ss",
+          "background": true,
+          "running": true,
+          "created": 1582137786,
+          "memory_percent": 0.146866455,
+          "cpu_percent": 0.308976181461092553
+        }
+      ]
     },
     "subscriptions": [
       "entity:webserver01"
@@ -872,7 +1130,7 @@ spec:
 [12]: ../../sensuctl/reference#create-resources
 [13]: #spec-attributes
 [14]: ../../api/overview#response-filtering
-[15]: ../../sensuctl/reference#response-filters
+[15]: ../../sensuctl/reference#response-filtering
 [16]: #proxy-entities
 [17]: ../../guides/monitor-external-resources/
 [18]: ../checks/#round-robin-checks
@@ -883,3 +1141,7 @@ spec:
 [23]: ../../dashboard/filtering#filter-with-label-selectors
 [24]: ../checks#proxy-requests-attributes
 [25]: ../agent/#detect-cloud-provider-flag
+[26]: #processes-attributes
+[27]: ../agent/#discover-processes
+[28]: http://man7.org/linux/man-pages/man1/top.1.html
+[29]: ../license/#view-entity-count-and-entity-limit

@@ -94,7 +94,7 @@ This guide includes general information for migrating your Sensu instance from S
 For instructions and tools to help you translate your Sensu configuration from Sensu Core 1.x to Sensu Go, see the [Sensu Translator project][18] and our [blog post about check configuration upgrades with the Sensu Go sandbox][25].
 
 Sensu Go includes important changes to all parts of Sensu: architecture, installation, resource definitions, the event data model, check dependencies, filter evaluation, and more.
-Sensu Go also includes many powerful [commercial features][34] to make monitoring easier to build, scale, and offer as a self-service tool to your internal customers.
+Sensu Go also includes many powerful [commercial features][27] to make monitoring easier to build, scale, and offer as a self-service tool to your internal customers.
 
 Sensu Go is available for [RHEL/CentOS, Debian, Ubuntu, and Docker][43].
 The Sensu Go agent is also available for Windows.
@@ -190,11 +190,30 @@ You can use the built-in [incidents filter][9] to recreate the Sensu Core 1.x be
 Transport handlers are not supported by Sensu Go, but you can create similar functionality with a pipe handler that connects to a message bus and injects event data into a queue.
 
 ### Filters
-Ruby eval logic from Sensu Core 1.x is replaced with JavaScript expressions in Sensu Go, opening up powerful ways to filter events based on occurrences and other event attributes.
-As a result, the built-in occurrences event filter in Sensu Core 1.x is not included in Sensu Go, but you can replicate its functionality with [the repeated events filter definition][10].
-
 Sensu Go includes three new built-in [event filters][9]: only-incidents, only-metrics, and allow-silencing.
 Sensu Go does not include a built-in check dependencies filter or a filter-when feature.
+
+#### Fatigue check filter
+
+For Sensu Go users, we recommend the [fatigue check filter][11], a JavaScript implementation of the `occurrences` filter from Sensu 1.x.
+This filter looks for [check and entity annotations][33] in each event it receives and uses the values of those annotations to configure the filter's behavior on a per-event basis.
+
+The [Sensu Translator version 1.1.0][18] retrieves occurrence and refresh values from a Sensu Core 1.x check definition and outputs them as annotations in a Sensu Go check definition, compatible with the fatigue check filter.
+
+However, the Sensu Translator doesn't automatically add the fatigue check filter asset or the filter configuration you need to run it.
+To use the fatigue check filter asset, you must [register it][15], create a correctly configured [event filter definition][19], and [add the event filter][34] to the list of filters on applicable handlers.
+
+### Assets
+The `sensu-install` tool in Sensu Core 1.x is replaced by [assets][12] in Sensu Go.
+Assets are shareable, reusable packages that make it easier to deploy Sensu plugins.
+
+You can still install [Sensu Community plugins][21] in Ruby via `sensu-install` by installing [sensu-plugins-ruby][20].
+See the [installing plugins guide][22] for more information.
+
+### Role-based access control (RBAC)
+Role-based access control (RBAC) is a built-in feature of the open-source version of Sensu Go.
+RBAC allows you to manage and access users and resources based on namespaces, groups, roles, and bindings.
+To set up RBAC in Sensu Go, see the [RBAC reference][13] and [Create a read-only user][14].
 
 ### Silencing
 Silencing is disabled by default in Sensu Go.
@@ -318,7 +337,7 @@ Review your Sensu Core check configuration for the following attributes, and mak
 `metrics: true` | See the [translate metric checks][71] section.
 `proxy_requests` | See the [translate proxy requests][72] section.
 `subscribers: roundrobin...` | Remove `roundrobin` from the subscription name, and add the `round_robin` check attribute set to `true`.
-`aggregate` | Check aggregates are supported through the [commercial][34] [Sensu Go Aggregate Check Plugin][28].
+`aggregate` | Check aggregates are supported through the [commercial][27] [Sensu Go Aggregate Check Plugin][28].
 `hooks` | See the [translate hooks][73] section.
 `dependencies`| Check dependencies are not available in Sensu Go.
 
@@ -488,12 +507,15 @@ You may also want to re-install the `sensu-install` tool using the [`sensu-plugi
 [8]: ../../reference/hooks/
 [9]: ../../reference/filters
 [10]: ../../reference/filters/#handle-repeated-events
+[11]: https://github.com/nixwiz/sensu-go-fatigue-check-filter/
 [12]: ../../reference/assets/
 [13]: ../../reference/rbac/
 [14]: ../../guides/create-read-only-user/
+[15]: https://github.com/nixwiz/sensu-go-fatigue-check-filter/#asset-registration
 [16]: ../../reference/tokens
 [17]: ../../api/overview/
 [18]: https://github.com/sensu/sensu-translator/
+[19]: https://github.com/nixwiz/sensu-go-fatigue-check-filter/#filter-definition
 [20]: https://packagecloud.io/sensu/community/
 [21]: https://github.com/sensu-plugins/
 [23]: ../../installation/install-sensu/
@@ -506,7 +528,8 @@ You may also want to re-install the `sensu-install` tool using the [`sensu-plugi
 [30]: /images/web-ui-entity-warning.png
 [31]: https://sensu.io/contact?subject=contact-sales/
 [32]: https://blog.sensu.io/one-year-of-sensu-go
-[34]: ../../getting-started/enterprise/
+[33]: https://github.com/nixwiz/sensu-go-fatigue-check-filter/#configuration-1
+[34]: ../../guides/reduce-alert-fatigue/#assign-the-event-filter-to-a-handler-1
 [35]: https://eol-repositories.sensuapp.org/
 [36]: https://etcd.io/
 [37]: ../../guides/clustering/
