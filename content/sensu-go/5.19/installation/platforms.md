@@ -82,6 +82,8 @@ Supported packages are available through [sensu/stable][8] on packagecloud and t
 | Debian 8             | {{< check >}}      |
 | Debian 9             | {{< check >}}      |
 | Debian 10            | {{< check >}}      |
+| Windows Server 2008 R2 and later | {{< check >}} | {{< check >}} |
+| Windows 7 and later | {{< check >}}     | {{< check >}}   |
 
 ## Docker images
 
@@ -101,7 +103,10 @@ Docker images that contain the Sensu backend and Sensu agent are available for L
 
 ## Binary-only distributions
 
-[Binary-only distributions][4] that contain the Sensu backend, agent, and sensuctl tool are available in `.zip` and `.tar.gz` formats.
+[Binary-only distributions][4] are available in `.zip` and `.tar.gz` formats.
+
+- Linux and Solaris distributions include the Sensu backend, agent, and sensuctl CLI
+- Windows, macOS, and FreeBSD distributions include only the Sensu agent and sensuctl CLI (not the backend)
 
 | Platform & Version | Linux | Windows | macOS | Solaris |
 |--------------------|-------|---------|-------|---------|
