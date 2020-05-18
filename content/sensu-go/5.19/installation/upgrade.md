@@ -144,11 +144,22 @@ You can use the built-in [incidents filter][9] to recreate the Sensu Core 1.x be
 Transport handlers are not supported by Sensu Go, but you can create similar functionality with a pipe handler that connects to a message bus and injects event data into a queue.
 
 ### Filters
-Ruby eval logic from Sensu Core 1.x is replaced with JavaScript expressions in Sensu Go, opening up powerful ways to filter events based on occurrences and other event attributes.
-As a result, the built-in occurrences event filter in Sensu Core 1.x is not included in Sensu Go, but you can replicate its functionality with [the repeated events filter definition][10].
-
 Sensu Go includes three new built-in [event filters][9]: only-incidents, only-metrics, and allow-silencing.
 Sensu Go does not include a built-in check dependencies filter or a filter-when feature.
+
+Ruby eval logic from Sensu Core 1.x is replaced with JavaScript expressions in Sensu Go, opening up powerful ways to filter events based on occurrences and other event attributes.
+As a result, **Sensu Go does not include the built-in occurrence-based event filter in Sensu Core 1.x**, which allowed you to control the number of duplicate events that reached the handler.
+You can replicate the occurrence-based filter's functionality with Sensu Go's [repeated events filter definition][10].
+
+#### Fatigue check filter
+
+For Sensu Go users, we recommend the [fatigue check filter][11], a JavaScript implementation of the `occurrences` filter from Sensu 1.x.
+This filter looks for [check and entity annotations][33] in each event it receives and uses the values of those annotations to configure the filter's behavior on a per-event basis.
+
+The [Sensu Translator version 1.1.0][18] retrieves occurrence and refresh values from a Sensu Core 1.x check definition and outputs them as annotations in a Sensu Go check definition, compatible with the fatigue check filter.
+
+However, the Sensu Translator doesn't automatically add the fatigue check filter asset or the filter configuration you need to run it.
+To use the fatigue check filter asset, you must [register it][15], create a correctly configured [event filter definition][19], and [add the event filter][34] to the list of filters on applicable handlers.
 
 ### Assets
 The `sensu-install` tool in Sensu Core 1.x is replaced by [assets][12] in Sensu Go.
@@ -190,12 +201,15 @@ See the metadata attributes section in the reference documentation for more info
 [8]: ../../reference/hooks/
 [9]: ../../reference/filters
 [10]: ../../reference/filters/#handle-repeated-events
+[11]: https://github.com/nixwiz/sensu-go-fatigue-check-filter/
 [12]: ../../reference/assets/
 [13]: ../../reference/rbac/
 [14]: ../../guides/create-read-only-user/
+[15]: https://github.com/nixwiz/sensu-go-fatigue-check-filter/#asset-registration
 [16]: ../../reference/tokens
 [17]: ../../api/overview/
 [18]: https://github.com/sensu/sensu-translator/
+[19]: https://github.com/nixwiz/sensu-go-fatigue-check-filter/#filter-definition
 [20]: https://packagecloud.io/sensu/community/
 [21]: https://github.com/sensu-plugins/
 [22]: ../plugins/
@@ -209,3 +223,5 @@ See the metadata attributes section in the reference documentation for more info
 [30]: /images/web-ui-entity-warning.png
 [31]: https://sensu.io/contact?subject=contact-sales/
 [32]: https://blog.sensu.io/one-year-of-sensu-go
+[33]: https://github.com/nixwiz/sensu-go-fatigue-check-filter/#configuration-1
+[34]: ../../guides/reduce-alert-fatigue/#assign-the-event-filter-to-a-handler-1
