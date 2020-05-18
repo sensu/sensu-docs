@@ -3,11 +3,6 @@ title: "Authentication API"
 description: "The Sensu authentication API provides HTTP access to test whether user credentials are valid and use these credentials to obtain access tokens. Read on for the full reference."
 version: "5.20"
 product: "Sensu Go"
-markup:
-  tableOfContents:
-    endLevel: 2
-    ordered: false
-    startLevel: 2
 menu:
   sensu-go-5.20:
     parent: api

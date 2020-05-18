@@ -9,6 +9,11 @@ enableRobotsTXT = true
 pygmentsUseClasses = true
 ignoreFiles = ["sensu-doc-template.md"]
 disableKinds = ["taxonomy", "taxonomyTerm"]
+[markup]
+  [markup.tableOfContents]
+    endLevel = 2
+    ordered = false
+    startLevel = 2
 
 [["menu.sensu-core-1.0"]]
   name = "Moi API"
