@@ -193,6 +193,10 @@ Transport handlers are not supported by Sensu Go, but you can create similar fun
 Sensu Go includes three new built-in [event filters][9]: only-incidents, only-metrics, and allow-silencing.
 Sensu Go does not include a built-in check dependencies filter or a filter-when feature.
 
+Ruby eval logic from Sensu Core 1.x is replaced with JavaScript expressions in Sensu Go, opening up powerful ways to filter events based on occurrences and other event attributes.
+As a result, **Sensu Go does not include the built-in occurrence-based event filter in Sensu Core 1.x**, which allowed you to control the number of duplicate events that reached the handler.
+You can replicate the occurrence-based filter's functionality with Sensu Go's [repeated events filter definition][10].
+
 #### Fatigue check filter
 
 For Sensu Go users, we recommend the [fatigue check filter][11], a JavaScript implementation of the `occurrences` filter from Sensu 1.x.
@@ -373,7 +377,6 @@ See the [guide][55] and [hooks reference docs][8] to re-create your Sensu Core h
 
 **Custom attributes**
 
-### Custom attributes
 Custom check attributes are not supported in Sensu Go.
 Instead, Sensu Go allows you to add custom labels and annotations to entities, checks, assets, hooks, filters, mutators, handlers, and silences.
 See the metadata attributes section in the reference documentation for more information about using labels and annotations (for example, [metadata attributes for entities][24]).
