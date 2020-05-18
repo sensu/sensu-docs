@@ -180,9 +180,28 @@ default      | `0` (unlimited)
 type         | Integer
 example      | {{< highlight shell >}}pool_size: 20{{< /highlight >}}
 
+<a name="max_conn_lifetime"></a>
+
+max_conn_lifetime    |      |
+-------------|------
+description  | Available in [Sensu Go 5.19.2][4]. Maximum time a connection can persist before being destroyed. Specify values with a numeral and a letter indicator: `s` to indicate seconds, `m` to indicate minutes, and `h` to indicate hours. For example, `1m`, `2h`, and `2h1m3s` are valid. 
+required     | false
+type         | String
+example      | {{< highlight shell >}}max_conn_lifetime: 5m{{< /highlight >}}
+
+max_idle_conns    |      |
+-------------|------
+description  | Available in [Sensu Go 5.19.2][4]. Maximum number of number of idle connections to retain. 
+required     | false
+default      | `2`
+type         | Integer
+example      | {{< highlight shell >}}max_idle_conns: 2{{< /highlight >}}
+
+
 [1]: ../../sensuctl/reference/#first-time-setup
 [2]: ../../guides/troubleshooting/
 [3]: https://aws.amazon.com/rds/
+[4]: ../../release-notes/#5-19-2-release-notes
 [8]: ../../guides/clustering/#use-an-external-etcd-cluster
 [9]: ../../dashboard/overview/
 [10]: ../../sensuctl/reference/#sensuctl-event

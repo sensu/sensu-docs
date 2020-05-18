@@ -13,9 +13,9 @@
   <article class="article">
     <div class="wrapper">
       <h1>{{ .Title }} {{ if .Draft }} (Draft){{ end }}</h1>
-        
+
         {{ .Content }}
-        
+
         {{ $product := replace .Section "-" "_" }}
         {{ $product_info := (index .Site.Params.products $product) }}
         {{ if (isset $product_info "versions") }}
@@ -44,13 +44,11 @@
 </main>
 
 {{ partial "footer" . }}
-
-
-
 {{ partial "footer_js" . }}
-
 <script>
     function setPlatformCookie(platform) {
       Cookies.set('platform', platform, { expires: 2030 });
     }
 </script>
+</body>
+</html>

@@ -93,3 +93,15 @@
   }
 }
 
+
+.full-width-search {
+  margin: 0 auto;
+  max-width: 600px;
+
+  input {
+    display: block;
+    height: 50px;
+    padding: 12px 10px 12px 44px;
+    width: 100%;
+  }
+}

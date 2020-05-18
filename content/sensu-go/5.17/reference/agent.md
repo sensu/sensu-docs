@@ -22,7 +22,7 @@ menu:
 - [Service management](#operation)
   - [Start and stop the service](#start-the-service) | [Register and deregister](#registration) | [Cluster](#cluster) | [Synchronize time](#synchronize-time)
 - [Configuration](#configuration)
-  - [API configuration](#api-configuration-flags) | [Ephemeral agent configuration](#ephemeral-agent-configuration-flags) | [Keepalive configuration](#keepalive-configuration-flags) | [Security configuration](#security-configuration-flags) | [Socket configuration](#socket-configuration-flags) | [StatsD configuration](#statsd-configuration-flags) | [Allow list configuration](#allow-list-configuration) and [example configuration file](#example-allow-list-configuration-file) | [Configuration via environment variables](#configuration-via-environment-variables)
+  - [General configuration flags](#general-configuration-flags) | [API configuration](#api-configuration-flags) | [Ephemeral agent configuration](#ephemeral-agent-configuration-flags) | [Keepalive configuration](#keepalive-configuration-flags) | [Security configuration](#security-configuration-flags) | [Socket configuration](#socket-configuration-flags) | [StatsD configuration](#statsd-configuration-flags) | [Allow list configuration](#allow-list-configuration) and [example configuration file](#example-allow-list-configuration-file) | [Configuration via environment variables](#configuration-via-environment-variables)
 - [Example Sensu agent configuration file](../../files/agent.yml) (download)
 
 The Sensu agent is a lightweight client that runs on the infrastructure components you want to monitor.
@@ -299,7 +299,7 @@ echo '{"name": "check-mysql-status", "status": 1, "output": "error!"}' | nc -u -
 
 ### Socket event format
 
-The agent TCP and UDP sockets use a special event data format designed for backward compatibility with [Sensu Core 1.x check results][42].
+The agent TCP and UDP sockets use a special event data format designed for backward compatibility with Sensu Core 1.x check results.
 Attributes specified in socket events appear in the resulting event data passed to the Sensu backend.
 
 **Example socket input: Minimum required attributes**
@@ -669,7 +669,7 @@ _**PRO TIP**: Use a [handler set][34] to execute multiple handlers in response t
 You can use registration events to execute one-time handlers for new Sensu agents.
 For example, you can use registration event handlers to update external [configuration management databases (CMDBs)][11] such as [ServiceNow][12].
 
-To configure a registration event handler, see the [Handlers documentation][8], which includes instructions for creating a handler named `registration`.
+The handlers reference includes an [example registration event handler][42].
 
 _**WARNING**: Registration events are not stored in the event registry, so they are not accessible via the Sensu API. However, all registration events are logged in the [Sensu backend][2] log._
 
@@ -783,7 +783,9 @@ annotations:
 
 | backend-url |      |
 --------------|------
-description   | ws or wss URL of the Sensu backend server. To specify multiple backends with `sensu-agent start`, use this flag multiple times.
+description   | ws or wss URL of the Sensu backend server. To specify multiple backends with `sensu-agent start`, use this flag multiple times.<br>{{% notice note %}}
+**NOTE**: If you do not specify a port for your backend-url values, the agent will automatically append the default backend port (8081).
+{{% /notice %}}
 type          | List
 default       | `ws://127.0.0.1:8081`
 environment variable | `SENSU_BACKEND_URL`
@@ -1393,13 +1395,45 @@ In this example, the `api-host` flag is configured as an environment variable an
 {{< language-toggle >}}
 
 {{< highlight "Ubuntu/Debian" >}}
-$ echo 'SENSU_API_HOST="0.0.0.0' | sudo tee -a /etc/default/sensu-agent
+$ echo 'SENSU_API_HOST="0.0.0.0"' | sudo tee -a /etc/default/sensu-agent
 $ sudo systemctl restart sensu-agent
 {{< /highlight >}}
 
 {{< highlight "RHEL/CentOS" >}}
-$ echo 'SENSU_API_HOST="0.0.0.0' | sudo tee -a /etc/sysconfig/sensu-agent
+$ echo 'SENSU_API_HOST="0.0.0.0"' | sudo tee -a /etc/sysconfig/sensu-agent
 $ sudo systemctl restart sensu-agent
+{{< /highlight >}}
+
+{{< /language-toggle >}}
+
+#### Format for label and annotation environment variables
+
+To use labels and annotations as environment variables in your check and plugin configurations, you must use a specific format when you create the `SENSU_LABELS` and `SENSU_ANNOTATIONS` environment variables.
+
+For example, to create the labels `"region": "us-east-1"` and `"type": "website"` as an environment variable:
+
+{{< language-toggle >}}
+
+{{< highlight "Ubuntu/Debian" >}}
+$ echo 'SENSU_LABELS='{"region": "us-east-1", "type": "website"}'' | sudo tee -a /etc/default/sensu-agent
+{{< /highlight >}}
+
+{{< highlight "RHEL/CentOS" >}}
+$ echo 'SENSU_LABELS='{"region": "us-east-1", "type": "website"}'' | sudo tee -a /etc/sysconfig/sensu-agent
+{{< /highlight >}}
+
+{{< /language-toggle >}}
+
+To create the annotations `"maintainer": "Team A"` and `"webhook-url": "https://hooks.slack.com/services/T0000/B00000/XXXXX"` as an environment variable:
+
+{{< language-toggle >}}
+
+{{< highlight "Ubuntu/Debian" >}}
+$ echo 'SENSU_ANNOTATIONS='{"maintainer": "Team A", "webhook-url": "https://hooks.slack.com/services/T0000/B00000/XXXXX"}'' | sudo tee -a /etc/default/sensu-agent
+{{< /highlight >}}
+
+{{< highlight "RHEL/CentOS" >}}
+$ echo 'SENSU_ANNOTATIONS='{"maintainer": "Team A", "webhook-url": "https://hooks.slack.com/services/T0000/B00000/XXXXX"}'' | sudo tee -a /etc/sysconfig/sensu-agent
 {{< /highlight >}}
 
 {{< /language-toggle >}}
@@ -1452,7 +1486,7 @@ For example, if you configure a `SENSU_TEST_VAR` variable in your sensu-agent fi
 [39]: ../rbac/
 [40]: ../../guides/send-slack-alerts/
 [41]: ../rbac/#namespaced-resource-types
-[42]: /sensu-core/latest/reference/checks/#check-result-specification
+[42]: ../handlers/#send-registration-events
 [44]: ../checks#ttl-attribute
 [45]: https://en.m.wikipedia.org/wiki/WebSocket
 [46]: ../../guides/securing-sensu/

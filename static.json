@@ -15,7 +15,7 @@
             "url": "/uchiwa/latest/$1",
             "status": 302
         },
-        "~ ^/sensu-enterprise/3.7/?((?<=\/).*)?$": {
+        "~ ^/sensu-enterprise/3.8/?((?<=\/).*)?$": {
             "url": "/sensu-enterprise/latest/$1",
             "status": 302
         },
@@ -27,11 +27,11 @@
             "url": "/sensu-go/latest/guides/create-read-only-user",
             "status": 301
         },
-        "~ ^/sensu-go/5.19/?((?<=\/).*)?$": {
+        "~ ^/sensu-go/5.20/?((?<=\/).*)?$": {
             "url": "/sensu-go/latest/$1",
             "status": 302
         },
-        "~ ^/sensu-go/5.1[0-5]/?((?<=\/).*)?$": {
+        "~ ^/sensu-go/5.1[0-6]/?((?<=\/).*)?$": {
             "url": "/sensu-go/latest/$1",
             "status": 301
         },

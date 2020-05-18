@@ -7,6 +7,9 @@ version: "5.19"
 menu: "sensu-go-5.19"
 ---
 
+- [5.19.3 release notes](#5-19-3-release-notes)
+- [5.19.2 release notes](#5-19-2-release-notes)
+- [5.19.1 release notes](#5-19-1-release-notes)
 - [5.19.0 release notes](#5-19-0-release-notes)
 - [5.18.1 release notes](#5-18-1-release-notes)
 - [5.18.0 release notes](#5-18-0-release-notes)
@@ -55,6 +58,79 @@ PATCH versions include backward-compatible bug fixes.
 Read the [upgrade guide][1] for information about upgrading to the latest version of Sensu Go.
 
 ---
+
+## 5.19.3 release notes
+
+**May 4, 2020** &mdash; The latest release of Sensu Go, version 5.19.3, is now available for download.
+This is a patch release with many improvements and bug fixes, including a fix to close the event store when the backend restarts, a global rate limit for fetching assets, and fixes for goroutine leaks. Sensu Go 5.19.3 also includes several web UI updates, from fixes to prevent crashes to new color-blindness modes.
+
+See the [upgrade guide][1] to upgrade Sensu to version 5.19.3.
+
+**FIXES:**
+
+- The event store now closes when the backend restarts, which fixes a bug that allowed Postgres connections to linger after the backend restarted interally.
+- The etcd event store now returns exact matches when retrieving events by entity (rather than prefixed matches).
+- `sensu-backend init` now logs any TLS failures encountered during initialization.
+- `sensuctl logout` now resets the TLS configuration.
+- `env_vars` values can now include the equal sign.
+- Error logs now include underlying errors encountered when fetching an asset.
+- The log level is now WARNING when an asset is not installed because none of the filters match.
+- Fixes a bug in the [web UI][135] that could cause labels with links to result in a crash.
+- Fixes a bug in the [web UI][135] that could cause the web UI to crash when using an unregistered theme.
+- Fixes a bug that could cause the backend to crash.
+- Fixes a bug in multi-line metric extraction that appeared in Windows agents.
+- Fixes an authentication bug that restarted the sensu-backend when agents disconnected.
+- Fixes a bug that meant check `state` and `last_ok` were not computed until the second instance of the event.
+- Fixes a bug that caused messages like "unary invoker failed" to appear in the logs.
+- Fixes several goroutine leaks.
+- Fixes a bug that caused the backend to crash when the etcd client received the error "etcdserver: too many requests."
+
+**IMPROVEMENTS:**
+
+- In the [web UI][135], color-blindness modes are now available.
+- In the [web UI][135], labels and annotations with links to images will now be displayed inline.
+- Adds a global rate limit for fetching assets to prevent abusive asset retries, which you can configure with the `--assets-rate-limit` and `--assets-burst-limit` flags for the [agent][136] and [backend][137].
+- Adds support for restarting the backend via SIGHUP.
+- Adds a timeout flag to `sensu-backend init`.
+- Deprecated flags for `sensuctl silenced update` subcommand have been removed.
+
+## 5.19.2 release notes
+
+**April 27, 2020** &mdash; The latest release of Sensu Go, version 5.19.2, is now available for download.
+This patch release adds two database connection pool parameters for PostgreSQL so you can configure the maximum time a connection can persist before being destroyed and the maximum number of idle connections to retain.
+The release also includes packages for Ubuntu 19.10 and 20.04.
+
+See the [upgrade guide][1] to upgrade Sensu to version 5.19.2.
+
+**FIXES:**
+
+- ([Commercial feature][122]) Adds SQL database connection pool parameters `max_conn_lifetime` and `max_idle_conns` to [store/v1.PostgresConfig][132].
+
+**IMPROVEMENTS:**
+
+- Sensu packages are now available for Ubuntu 19.10 (Eoan Ermine) and 20.04 (Focal Fossa). See the [supported platforms][133] page for a complete list of Sensu’s supported platforms and the [installation guide][134] to install Sensu packages for Ubuntu.
+
+## 5.19.1 release notes
+
+**April 13, 2020** &mdash; The latest release of Sensu Go, version 5.19.1, is now available for download.
+This is a patch release with a number of bug fixes, including several that affect keepalive events, as well as an addition to the help response for `sensu-backend start` and `sensu-agent start`: the default path for the configuration file.
+
+See the [upgrade guide][1] to upgrade Sensu to version 5.19.1.
+
+**FIXES:**
+
+- ([Commercial feature][122]) Fixed a bug that caused the PostgreSQL store to be enabled too late upon startup, which caused keepalive bugs and possibly other undiscovered bugs.
+- Keepalives now fire correctly when using the PostgreSQL event store.
+- Keepalives can now be published via the HTTP API.
+- `sensu-agent` no longer allows configuring keepalive timeouts that are shorter than the keepalive interval.
+- Eventd no longer mistakes keepalive events for checks with TTL.
+- Keepalives now generate a new event UUID for each keepalive failure event.
+- Agents now correctly reset keepalive switches on reconnect, which fixes a bug that allowed older keepalive timeout settings to persist.
+- Token substitution templates can now express escape-quoted strings.
+- The REST API now uses a default timeout of 3 seconds when querying etcd health.
+- Pipe handlers now must include a [command][131].
+- The response for `sensu-backend start --help` and `sensu-agent start --help` now includes the configuration file default path.
+- The system's `libc_type` attribute is now populated on Alpine containers.
 
 ## 5.19.0 release notes
 
@@ -1159,3 +1235,10 @@ To get started with Sensu Go:
 [128]: /sensu-go/5.19/dashboard/filtering
 [129]: /sensu-go/5.19/sensuctl/reference/#sensuctl-prune
 [130]: /sensu-go/5.19/reference/tessen/
+[131]: /sensu-go/5.19/reference/handlers/#pipe-handler-command
+[132]: /sensu-go/5.19/reference/datastore/#max_conn_lifetime
+[133]: /sensu-go/5.19/installation/platforms/
+[134]: /sensu-go/5.19/installation/install-sensu/
+[135]: /sensu-go/5.19/dashboard/overview
+[136]: /sensu-go/5.19/reference/agent/#configuration
+[137]: /sensu-go/5.19/reference/backend/#configuration
