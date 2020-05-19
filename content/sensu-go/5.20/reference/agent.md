@@ -916,7 +916,7 @@ disable-assets: true{{< /highlight >}}
 
 | discover-processes |      |
 --------------|------
-description   | When set to `true`, the agent populates the `processes` field in `entity.system`.<br><br>**COMMERCIAL FEATURE**: Access the `discover-processes` flag in the packaged Sensu Go distribution. For more information, see [Get started with commercial features][55].
+description   | When set to `true`, the agent populates the `processes` field in `entity.system` and updates every 20 seconds.<br><br>**COMMERCIAL FEATURE**: Access the `discover-processes` flag in the packaged Sensu Go distribution. For more information, see [Get started with commercial features][55].
 type          | Boolean
 default       | false
 environment variable | `SENSU_DISCOVER_PROCESSES`
@@ -1499,11 +1499,11 @@ All environment variables controlling Sensu configuration begin with `SENSU_`.
      {{< language-toggle >}}
 
 {{< highlight "Ubuntu/Debian" >}}
-$ echo 'SENSU_API_HOST="0.0.0.0' | sudo tee -a /etc/default/sensu-agent
+$ echo 'SENSU_API_HOST="0.0.0.0"' | sudo tee -a /etc/default/sensu-agent
 {{< /highlight >}}
 
 {{< highlight "RHEL/CentOS" >}}
-$ echo 'SENSU_API_HOST="0.0.0.0' | sudo tee -a /etc/sysconfig/sensu-agent
+$ echo 'SENSU_API_HOST="0.0.0.0"' | sudo tee -a /etc/sysconfig/sensu-agent
 {{< /highlight >}}
 
      {{< /language-toggle >}}
@@ -1526,6 +1526,38 @@ $ sudo systemctl restart sensu-agent
 **NOTE**: Sensu includes an environment variable for each agent configuration flag.
 They are listed in the [configuration flag description tables](#general-configuration-flags).
 {{% /notice %}}
+
+#### Format for label and annotation environment variables
+
+To use labels and annotations as environment variables in your check and plugin configurations, you must use a specific format when you create the `SENSU_LABELS` and `SENSU_ANNOTATIONS` environment variables.
+
+For example, to create the labels `"region": "us-east-1"` and `"type": "website"` as an environment variable:
+
+{{< language-toggle >}}
+
+{{< highlight "Ubuntu/Debian" >}}
+$ echo 'SENSU_LABELS='{"region": "us-east-1", "type": "website"}'' | sudo tee -a /etc/default/sensu-agent
+{{< /highlight >}}
+
+{{< highlight "RHEL/CentOS" >}}
+$ echo 'SENSU_LABELS='{"region": "us-east-1", "type": "website"}'' | sudo tee -a /etc/sysconfig/sensu-agent
+{{< /highlight >}}
+
+{{< /language-toggle >}}
+
+To create the annotations `"maintainer": "Team A"` and `"webhook-url": "https://hooks.slack.com/services/T0000/B00000/XXXXX"` as an environment variable:
+
+{{< language-toggle >}}
+
+{{< highlight "Ubuntu/Debian" >}}
+$ echo 'SENSU_ANNOTATIONS='{"maintainer": "Team A", "webhook-url": "https://hooks.slack.com/services/T0000/B00000/XXXXX"}'' | sudo tee -a /etc/default/sensu-agent
+{{< /highlight >}}
+
+{{< highlight "RHEL/CentOS" >}}
+$ echo 'SENSU_ANNOTATIONS='{"maintainer": "Team A", "webhook-url": "https://hooks.slack.com/services/T0000/B00000/XXXXX"}'' | sudo tee -a /etc/sysconfig/sensu-agent
+{{< /highlight >}}
+
+{{< /language-toggle >}}
 
 #### Use environment variables with the Sensu agent
 

@@ -206,7 +206,7 @@ You can access namespaced resources by [roles][13] and [cluster roles][21].
 | `mutators` | [Mutator][11] resources within a namespace |
 | `rolebindings` | Namespace-specific role assigners |
 | `roles` | Namespace-specific permission sets |
-| `searches` | [Web UI][3] search queries |
+| `searches` | Saved [web UI][49] search queries |
 | `silenced` | [Silencing][14] resources within a namespace |
 
 ### Cluster-wide resource types
@@ -1075,7 +1075,7 @@ You can add these resources to Sensu using [`sensuctl create`][31].
         "resource_names": [],
         "resources": [
           "assets", "checks", "entities", "events", "filters", "handlers",
-          "hooks", "mutators", "rolebindings", "roles", "silenced"
+          "hooks", "mutators", "rolebindings", "roles", "searches", "silenced"
         ],
         "verbs": ["get", "list", "create", "update", "delete"]
       }
@@ -1138,7 +1138,7 @@ You can add these resources to Sensu using [`sensuctl create`][31].
         "resource_names": [],
         "resources": [
           "assets", "checks", "entities", "events", "filters", "handlers",
-          "hooks", "mutators", "rolebindings", "roles", "silenced"
+          "hooks", "mutators", "rolebindings", "roles", "searches", "silenced"
         ],
         "verbs": ["get", "list", "create", "update", "delete"]
       }
@@ -1254,7 +1254,7 @@ You can add these resources to Sensu using [`sensuctl create`][31].
 [18]: #cluster-wide-resource-types
 [19]: ../../api/overview/
 [20]: #default-users
-[21]: #roles-and-cluster-roles
+[21]: #cluster-roles
 [22]: ../filters/
 [23]: #role-bindings-and-cluster-role-bindings
 [24]: #role-and-cluster-role-specification
@@ -1280,3 +1280,4 @@ You can add these resources to Sensu using [`sensuctl create`][31].
 [46]: ../secrets-providers/
 [47]: ../datastore/
 [48]: ../secrets/
+[49]: ../../dashboard/filtering/#save-a-filtered-search

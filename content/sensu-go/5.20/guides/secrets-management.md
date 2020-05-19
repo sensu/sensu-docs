@@ -117,7 +117,13 @@ Skip to the [add a handler][19] section, where you'll use your `pagerduty_key` s
 This section explains how to use [HashiCorp Vault][1] as your external [secrets provider][2] to authenticate via the HashiCorp Vault integration's [token auth method][3] or [TLS certificate auth method][4].
 
 {{% notice note %}}
-**NOTE**: You will need to set up [HashiCorp Vault](https://www.vaultproject.io/docs/install/) to use `VaultProvider` secrets management in production. The examples in this guide use the [Vault dev server](https://www.vaultproject.io/docs/concepts/dev-server/), which is useful for learning and experimenting. The Vault dev server gives you access to a preconfigured, running Vault server with in-memory storage that you can use right away. Follow the [HashiCorp Learn curriculum](https://learn.hashicorp.com/vault) when you are ready to set up a production server in Vault.
+**NOTE**: You must set up [HashiCorp Vault](https://www.vaultproject.io/docs/install/) to use `VaultProvider` secrets management in production.
+The examples in this guide use the [Vault dev server](https://www.vaultproject.io/docs/concepts/dev-server/), which is useful for learning and experimenting.
+The Vault dev server gives you access to a preconfigured, running Vault server with in-memory storage that you can use right away.
+Follow the [HashiCorp Learn curriculum](https://learn.hashicorp.com/vault) when you are ready to set up a production server in Vault.<br><br>
+The examples in this guide use the [Vault KV secrets engine](https://www.vaultproject.io/api/secret/kv/kv-v2.html) with the path `"secret/"`.
+Using the Vault KV secrets engine with the Vault dev server requires v2 connections.
+For this reason, in the `VaultProvider` spec in these examples, the client `version` value is **v2**.
 {{% /notice %}}
 
 ### Configure your Vault authentication method (token or TLS)
