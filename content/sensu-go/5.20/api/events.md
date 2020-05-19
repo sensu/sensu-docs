@@ -190,7 +190,7 @@ The request includes information about the check and entity represented by the e
 {{< highlight shell >}}
 curl -X POST \
 -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
--H 'Content-Type: application/json'
+-H 'Content-Type: application/json' \
 -d '{
   "entity": {
     "entity_class": "proxy",
@@ -609,7 +609,7 @@ The event includes a status code of `1`, indicating a warning, and an output mes
 {{< highlight shell >}}
 curl -X POST \
 -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
--H 'Content-Type: application/json'
+-H 'Content-Type: application/json' \
 -d '{
   "entity": {
     "entity_class": "proxy",
@@ -693,7 +693,7 @@ The event includes a status code of `1`, indicating a warning, and an output mes
 {{< highlight shell >}}
 curl -X PUT \
 -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
--H 'Content-Type: application/json'
+-H 'Content-Type: application/json' \
 -d '{
   "entity": {
     "entity_class": "proxy",
@@ -782,7 +782,7 @@ For more information about check attributes, see the [check specification][7].
 {{< highlight shell >}}
 curl -X PUT \
 -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
--H 'Content-Type: application/json'
+-H 'Content-Type: application/json' \
 -d '{
   "entity": {
     "entity_class": "proxy",
@@ -809,7 +809,7 @@ For more information about these attributes and their available values, see the 
 {{< highlight shell >}}
 curl -X PUT \
 -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
--H 'Content-Type: application/json'
+-H 'Content-Type: application/json' \
 -d '{
   "entity": {
     "entity_class": "proxy",
@@ -841,7 +841,7 @@ See the [events reference][9] and for more information about Sensu metric format
 {{< highlight shell >}}
 curl -X PUT \
 -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
--H 'Content-Type: application/json'
+-H 'Content-Type: application/json' \
 -d '{
   "entity": {
     "entity_class": "proxy",
