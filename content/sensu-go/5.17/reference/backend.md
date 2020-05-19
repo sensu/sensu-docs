@@ -1127,6 +1127,38 @@ $ sudo systemctl restart sensu-backend
 
 {{< /language-toggle >}}
 
+#### Format for label and annotation environment variables
+
+To use labels and annotations as environment variables in your handler configurations, you must use a specific format when you create the `SENSU_BACKEND_LABELS` and `SENSU_BACKEND_ANNOTATIONS` environment variables.
+
+For example, to create the labels `"region": "us-east-1"` and `"type": "website"` as an environment variable:
+
+{{< language-toggle >}}
+
+{{< highlight "Ubuntu/Debian" >}}
+$ echo 'SENSU_BACKEND_LABELS='{"region": "us-east-1", "type": "website"}'' | sudo tee -a /etc/default/sensu-backend
+{{< /highlight >}}
+
+{{< highlight "RHEL/CentOS" >}}
+$ echo 'SENSU_BACKEND_LABELS='{"region": "us-east-1", "type": "website"}'' | sudo tee -a /etc/sysconfig/sensu-backend
+{{< /highlight >}}
+
+{{< /language-toggle >}}
+
+To create the annotations `"maintainer": "Team A"` and `"webhook-url": "https://hooks.slack.com/services/T0000/B00000/XXXXX"` as an environment variable:
+
+{{< language-toggle >}}
+
+{{< highlight "Ubuntu/Debian" >}}
+$ echo 'SENSU_BACKEND_ANNOTATIONS='{"maintainer": "Team A", "webhook-url": "https://hooks.slack.com/services/T0000/B00000/XXXXX"}'' | sudo tee -a /etc/default/sensu-backend
+{{< /highlight >}}
+
+{{< highlight "RHEL/CentOS" >}}
+$ echo 'SENSU_BACKEND_ANNOTATIONS='{"maintainer": "Team A", "webhook-url": "https://hooks.slack.com/services/T0000/B00000/XXXXX"}'' | sudo tee -a /etc/sysconfig/sensu-backend
+{{< /highlight >}}
+
+{{< /language-toggle >}}
+
 ### Event logging
 
 **COMMERCIAL FEATURE**: Access event logging in the packaged Sensu Go distribution.
