@@ -202,8 +202,8 @@ To save a filtered search:
 4. Type the name you want to use for the saved search.
 5. Press **Return/Enter**.
 
-Sensu saves your filtered searches to etcd in a resource named `searches`.
-The `searches` resource is a [namespaced resource type][11], so any Sensu user assigned to a [role][12] that includes permissions for the namespace where you save the search will be able to recall it at any time.
+Sensu saves your filtered searches to etcd in a [namespaced resource][11] named `searches`.
+To recall a saved filtered search, a Sensu user must be assigned to a [role][12] that includes permissions for both the `searches` resource and the namespace where you save the search.
 
 The role-based access control (RBAC) reference includes [example workflows][13] that demonstrate how to configure a user's roles and role bindings to include full permissions for namespaced resources, including saved searches.
 
