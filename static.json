@@ -28,15 +28,15 @@
             "status": 301
         },
         "~ ^/sensu-go/latest/getting-started/media$": {
-            "url": "sensu.io/resources",
+            "url": "https://sensu.io/resources",
             "status": 301
         },
         "~ ^/sensu-go/5.20/?((?<=\/).*)?/getting-started/media$": {
-            "url": "sensu.io/resources",
+            "url": "https://sensu.io/resources",
             "status": 301
         },
         "~ ^/sensu-go/5.1[0-9]/?((?<=\/).*)?/getting-started/media$": {
-            "url": "sensu.io/resources",
+            "url": "https://sensu.io/resources",
             "status": 301
         },
         "~ ^/sensu-go/5.20/?((?<=\/).*)?$": {
