@@ -27,15 +27,15 @@
             "url": "/sensu-go/latest/guides/create-read-only-user",
             "status": 301
         },
-        "~ ^/sensu-go/latest/getting-started/media$": {
+        "~ ^/sensu-go/latest/getting-started/media/?$": {
             "url": "https://sensu.io/resources",
             "status": 301
         },
-        "~ ^/sensu-go/5.20/?((?<=\/).*)?/getting-started/media$": {
+        "~ ^/sensu-go/5.20/?((?<=\/).*)?/getting-started/media/?$": {
             "url": "https://sensu.io/resources",
             "status": 301
         },
-        "~ ^/sensu-go/5.1[0-9]/?((?<=\/).*)?/getting-started/media$": {
+        "~ ^/sensu-go/5.1[0-9]/?((?<=\/).*)?/getting-started/media/?$": {
             "url": "https://sensu.io/resources",
             "status": 301
         },
@@ -57,4 +57,3 @@
         }
     }
 }
-
