@@ -9,12 +9,12 @@ menu:
 ---
 
 - [The `/events` API endpoint](#the-events-api-endpoint)
-	- [`/events` (GET)](#events-get)
-	- [`/events` (POST)](#events-post)
+  - [`/events` (GET)](#events-get)
+  - [`/events` (POST)](#events-post)
 - [The `/events/:entity` API endpoint](#the-eventsentity-api-endpoint)
-	- [`/events/:entity` (GET)](#eventsentity-get)
+  - [`/events/:entity` (GET)](#eventsentity-get)
 - [The `/events/:entity/:check` API endpoint](#the-eventsentitycheck-api-endpoint)
-	- [`/events/:entity/:check` (GET)](#eventsentitycheck-get)
+  - [`/events/:entity/:check` (GET)](#eventsentitycheck-get)
   - [`/events/:entity/:check` (POST)](#eventsentitycheck-post)
   - [`/events/:entity/:check` (PUT)](#eventsentitycheck-put)
   - [`/events/:entity/:check` (DELETE)](#eventsentitycheck-delete)
@@ -190,7 +190,7 @@ The request includes information about the check and entity represented by the e
 {{< highlight shell >}}
 curl -X POST \
 -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
--H 'Content-Type: application/json'
+-H 'Content-Type: application/json' \
 -d '{
   "entity": {
     "entity_class": "proxy",
@@ -212,8 +212,8 @@ curl -X POST \
 }' \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/events
 
-HTTP/1.1 200 OK
-{"timestamp":1552582569,"id":"caaf2c38-2afb-4f96-89b3-8ca5c3e6f449","entity":{"entity_class":"proxy","system":{"network":{"interfaces":null}},"subscriptions":null,"last_seen":0,"deregister":false,"deregistration":{},"metadata":{"name":"server1","namespace":"default"}},"check":{"handlers":["slack"],"high_flap_threshold":0,"interval":60,"low_flap_threshold":0,"publish":false,"runtime_assets":null,"subscriptions":[],"proxy_entity_name":"","check_hooks":null,"stdin":false,"subdue":null,"ttl":0,"timeout":0,"round_robin":false,"executed":0,"history":null,"issued":0,"output":"Server error","state":"failing","status":2,"total_state_change":0,"last_ok":0,"occurrences":0,"occurrences_watermark":0,"output_metric_format":"","output_metric_handlers":null,"env_vars":null,"metadata":{"name":"server-health"}},"metadata":{}}
+
+HTTP/1.1 201 Created
 {{< /highlight >}}
 
 #### API Specification {#events-post-specification}
@@ -243,7 +243,7 @@ payload         | {{< highlight shell >}}
   }
 }
 {{< /highlight >}}
-response codes  | <ul><li>**Success**: 200 (OK)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 ## The `/events/:entity` API endpoint {#the-eventsentity-api-endpoint}
 
@@ -609,7 +609,7 @@ The event includes a status code of `1`, indicating a warning, and an output mes
 {{< highlight shell >}}
 curl -X POST \
 -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
--H 'Content-Type: application/json'
+-H 'Content-Type: application/json' \
 -d '{
   "entity": {
     "entity_class": "proxy",
@@ -629,19 +629,15 @@ curl -X POST \
   }
 }' \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/events/server1/server-health
-{{< /highlight >}}
 
-The request returns an HTTP `200 OK` response and the resulting event definition.
+
+HTTP/1.1 201 Created
+{{< /highlight >}}
 
 {{% notice note %}}
 **NOTE**: A namespace is not required to create the event.
 The event will use the namespace in the URL by default.
 {{% /notice %}}
-
-{{< highlight shell >}}
-HTTP/1.1 200 OK
-{"timestamp":1552582569,"id":"15feeae0-e114-410a-b3e3-e757b04d92ec","entity":{"entity_class":"proxy","system":{"network":{"interfaces":null}},"subscriptions":null,"last_seen":0,"deregister":false,"deregistration":{},"metadata":{"name":"server1","namespace":"default"}},"check":{"handlers":["slack"],"high_flap_threshold":0,"interval":60,"low_flap_threshold":0,"publish":false,"runtime_assets":null,"subscriptions":[],"proxy_entity_name":"","check_hooks":null,"stdin":false,"subdue":null,"ttl":0,"timeout":0,"round_robin":false,"executed":0,"history":null,"issued":0,"output":"Server error","status":1,"total_state_change":0,"last_ok":0,"occurrences":0,"occurrences_watermark":0,"output_metric_format":"","output_metric_handlers":null,"env_vars":null,"metadata":{"name":"server-health"}},"metadata":{}}
-{{< /highlight >}}
 
 You can use sensuctl or the [Sensu dashboard][4] to see the event:
 
@@ -683,7 +679,7 @@ payload         | {{< highlight shell >}}
   }
 }
 {{< /highlight >}}
-response codes   | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+response codes   | <ul><li>**Success**: 201 (Created)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 ### `/events/:entity/:check` (PUT) {#eventsentitycheck-put}
 
@@ -697,7 +693,7 @@ The event includes a status code of `1`, indicating a warning, and an output mes
 {{< highlight shell >}}
 curl -X PUT \
 -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
--H 'Content-Type: application/json'
+-H 'Content-Type: application/json' \
 -d '{
   "entity": {
     "entity_class": "proxy",
@@ -717,19 +713,15 @@ curl -X PUT \
   }
 }' \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/events/server1/server-health
-{{< /highlight >}}
 
-The request returns an HTTP `200 OK` response and the resulting event definition.
+
+HTTP/1.1 201 Created
+{{< /highlight >}}
 
 {{% notice note %}}
 **NOTE**: A namespace is not required to create the event.
 The event will use the namespace in the URL by default.
 {{% /notice %}}
-
-{{< highlight shell >}}
-HTTP/1.1 200 OK
-{"timestamp":1552582569,"id":15feeae0-e114-410a-b3e3-e757b04d92ec,entity":{"entity_class":"proxy","system":{"network":{"interfaces":null}},"subscriptions":null,"last_seen":0,"deregister":false,"deregistration":{},"metadata":{"name":"server1","namespace":"default"}},"check":{"handlers":["slack"],"high_flap_threshold":0,"interval":60,"low_flap_threshold":0,"publish":false,"runtime_assets":null,"subscriptions":[],"proxy_entity_name":"","check_hooks":null,"stdin":false,"subdue":null,"ttl":0,"timeout":0,"round_robin":false,"executed":0,"history":null,"issued":0,"output":"Server error","status":1,"total_state_change":0,"last_ok":0,"occurrences":0,"occurrences_watermark":0,"output_metric_format":"","output_metric_handlers":null,"env_vars":null,"metadata":{"name":"server-health"}},"metadata":{}}
-{{< /highlight >}}
 
 You can use sensuctl or the [Sensu dashboard][4] to see the event:
 
@@ -772,7 +764,7 @@ payload         | {{< highlight shell >}}
 }
 {{< /highlight >}}
 payload parameters | See the [payload parameters][5] section below.
-response codes   | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
+response codes   | <ul><li>**Success**: 201 (Created)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 #### Payload parameters {#eventsentitycheck-put-parameters}
 
@@ -790,7 +782,7 @@ For more information about check attributes, see the [check specification][7].
 {{< highlight shell >}}
 curl -X PUT \
 -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
--H 'Content-Type: application/json'
+-H 'Content-Type: application/json' \
 -d '{
   "entity": {
     "entity_class": "proxy",
@@ -817,7 +809,7 @@ For more information about these attributes and their available values, see the 
 {{< highlight shell >}}
 curl -X PUT \
 -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
--H 'Content-Type: application/json'
+-H 'Content-Type: application/json' \
 -d '{
   "entity": {
     "entity_class": "proxy",
@@ -849,7 +841,7 @@ See the [events reference][9] and for more information about Sensu metric format
 {{< highlight shell >}}
 curl -X PUT \
 -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
--H 'Content-Type: application/json'
+-H 'Content-Type: application/json' \
 -d '{
   "entity": {
     "entity_class": "proxy",
