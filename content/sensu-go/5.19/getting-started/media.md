@@ -54,7 +54,7 @@ This media guide includes a collection of links to talks, blog posts, tutorials,
 [9]: http://blog.sensu.io/check-output-metric-extraction-with-influxdb-grafana/
 [10]: https://blog.sensu.io/migrating-to-2.0-the-good-the-bad-the-ugly/
 [11]: https://blog.sensu.io/sensu-go-is-here/
-[12]: ../sandbox/
+[12]: ../../learn/sandbox/
 [13]: https://www.youtube.com/watch?v=5tIPv-rJMZU/
 [14]: https://www.youtube.com/watch?v=QKF6PZrUvuI
-[15]: ../tutorial/
+[15]: ../../learn/learn-in-15/
