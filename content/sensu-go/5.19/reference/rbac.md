@@ -521,7 +521,7 @@ You can use [sensuctl][2] to create a role.
 For example, the following command creates an admin role restricted to the production namespace.
 
 {{< highlight shell >}}
-sensuctl role create prod-admin --verb get,list,create,update,delete --resource * --namespace production
+sensuctl role create prod-admin --verb='get,list,create,update,delete' --resource='*' --namespace production
 {{< /highlight >}}
 
 After you create a role, [create a role binding][23] (or [cluster role binding][23]) to assign the role to users and groups.
@@ -537,7 +537,7 @@ You can use [sensuctl][2] to create a cluster role.
 For example, the following command creates a global event reader role that can read only events across all namespaces within Sensu.
 
 {{< highlight shell >}}
-sensuctl cluster-role create global-event-reader --verb get,list --resource events
+sensuctl cluster-role create global-event-reader --verb='get,list' --resource='events'
 {{< /highlight >}}
 
 #### Delete roles and cluster roles
