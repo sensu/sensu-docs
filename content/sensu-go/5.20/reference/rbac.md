@@ -537,7 +537,7 @@ You can use [sensuctl][2] to create a cluster role.
 For example, the following command creates a global event reader role that can read only events across all namespaces within Sensu.
 
 {{< highlight shell >}}
-sensuctl cluster-role create global-event-reader --verbs='get,list' --resource='events'
+sensuctl cluster-role create global-event-reader --verb='get,list' --resource='events'
 {{< /highlight >}}
 
 #### Delete roles and cluster roles
