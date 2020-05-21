@@ -33,8 +33,33 @@ aside#toc {
   }
 
   li {
+    display: block;
     font-size: 1.4rem;
     margin-bottom: 1rem;
+    padding-left: 1.6rem;
+    position: relative;
+
+    &.active a {
+      color: $green;
+    }
+
+    &::before {
+      border-bottom: 4px solid transparent;
+      border-left-color: $green;
+      border-left-style: solid;
+      border-left-width: 0;
+      border-top: 4px solid transparent;
+      content: '';
+      display: block;
+      left: 0;
+      position: absolute;
+      top: 6px;
+      transition: border 0.3s;
+    }
+
+    &.active::before {
+      border-left-width: 6px;
+    }
   }
 
   @media (min-width: $breakpoint-lg) {
