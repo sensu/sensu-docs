@@ -56,7 +56,7 @@
             "status": 302
         },
         "~ ^/sensu-go/latest/learn/learn-sensu-go/?$": {
-            "url": "/sensu-go/latest/learninteractive-tutorials",
+            "url": "/sensu-go/latest/learn/interactive-tutorials",
             "status": 301
         },
         "~ ^/sensu-go/5.20/?((?<=\/).*)?/learn/learn-sensu-go/?$": {
