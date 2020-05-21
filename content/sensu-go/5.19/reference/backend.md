@@ -1303,7 +1303,7 @@ This will cause sensu-backend (and sensu-agent, if translated for the Sensu agen
 In this script, `systemctl reload` sends a _SIGHUP_ signal to the sensu-backend process.
 
 - In Sensu Go versions 5.19.2 and earlier, this reload causes sensu-backend to fully restart.
-If you are running a clustered backend, all cluster members will restart at the same time.
+If you are running a clustered backend, rotating logs on all cluster members simultaneously could lead to a service interruption.
 - In [Sensu Go version 5.19.3][30] and later, the _SIGHUP_ signal causes only event logging components to reload, so cluster members will not simultaneously restart.
 
 {{% notice note %}}
