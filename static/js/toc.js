@@ -6,7 +6,9 @@
 (function () {
   // 1
   const $tocElements = document.querySelectorAll('#TableOfContents li');
-  const tocLinks = Array.from($tocElements).map($li => $li.querySelector('a').getAttribute('href'));
+  const tocLinks = Array.from($tocElements).map($li => (
+    `#${CSS.escape($li.querySelector('a').getAttribute('href').replace('#', ''))}`
+  ));
 
   // 2
   const $headings = Array.from(document.querySelectorAll(tocLinks.join(',')));

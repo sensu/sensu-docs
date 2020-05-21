@@ -19,6 +19,8 @@ aside#toc {
   }
 
   a {
+    display: block;
+    margin-bottom: 1rem;
     text-decoration: none;
   }
 
@@ -35,11 +37,10 @@ aside#toc {
   li {
     display: block;
     font-size: 1.4rem;
-    margin-bottom: 1rem;
     padding-left: 1.6rem;
     position: relative;
 
-    &.active a {
+    &.active > a {
       color: $green;
     }
 
@@ -60,6 +61,10 @@ aside#toc {
     &.active::before {
       border-left-width: 6px;
     }
+  }
+
+  ul ul {
+    margin-left: 0;
   }
 
   @media (min-width: $breakpoint-lg) {
