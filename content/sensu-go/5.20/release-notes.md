@@ -7,6 +7,7 @@ version: "5.20"
 menu: "sensu-go-5.20"
 ---
 
+- [5.20.2 release notes](#5-20-2-release-notes)
 - [5.20.1 release notes](#5-20-1-release-notes)
 - [5.20.0 release notes](#5-20-0-release-notes)
 - [5.19.3 release notes](#5-19-3-release-notes)
@@ -60,6 +61,27 @@ PATCH versions include backward-compatible bug fixes.
 Read the [upgrade guide][1] for information about upgrading to the latest version of Sensu Go.
 
 ---
+
+## 5.20.2 release notes
+
+**May 26, 2020** &mdash; The latest release of Sensu Go, version 5.20.2, is now available for download.
+
+This patch release adds username to the API request log to help operators with troubleshooting and user activity reporting, as well as validation for subjects in role-based access control (RBAC) role binding and cluster role binding.
+Release 5.20.2 also temporarily disables process discovery so we can investigate and resolve its performance impact on the backend (increased CPU and memory usage).
+
+See the [upgrade guide][1] to upgrade Sensu to version 5.20.2.
+
+**NEW FEATURES:**
+
+- The API request log now includes the username.
+
+**FIXES:**
+
+- ([Commercial feature][141]) [Process discovery in the agent][155] is temporarily disabled.
+- The system’s libc_type attribute is now properly populated for Ubuntu entities.
+- Single-letter subscriptions are now allowed.
+- Subjects are now validated in RBAC role binding and cluster role binding.
+- [Sensuctl command][154] assets can now be retrieved and installed from Bonsai.
 
 ## 5.20.1 release notes
 
@@ -1318,3 +1340,5 @@ To get started with Sensu Go:
 [151]: /sensu-go/5.20/reference/license/#entity-limit
 [152]: /sensu-go/5.20/dashboard/overview/#federated-webui
 [153]: /sensu-go/5.20/dashboard/overview/
+[154]: /sensu-go/5.20/sensuctl/reference/#extend-sensuctl-with-commands
+[155]: /sensu-go/5.20/reference/agent/#discover-processes
