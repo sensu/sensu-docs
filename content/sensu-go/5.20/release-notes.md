@@ -66,7 +66,8 @@ Read the [upgrade guide][1] for information about upgrading to the latest versio
 
 **May 26, 2020** &mdash; The latest release of Sensu Go, version 5.20.2, is now available for download.
 
-This patch release adds username to the API request log to help operators with troubleshooting and user activity reporting, as well as validation for subjects in role-based access control (RBAC) role binding and cluster role binding. Release 5.20.2 also temporariliy disables process discovery so we can investigate and resolve an increase in event payload size.
+This patch release adds username to the API request log to help operators with troubleshooting and user activity reporting, as well as validation for subjects in role-based access control (RBAC) role binding and cluster role binding.
+Release 5.20.2 also temporarily disables process discovery so we can investigate and resolve its performance impact on the backend (increased CPU and memory usage).
 
 See the [upgrade guide][1] to upgrade Sensu to version 5.20.2.
 
