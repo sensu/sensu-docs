@@ -424,8 +424,8 @@ example      | {{< highlight shell >}}"subscriptions": ["web", "prod", "entity:e
 system       | 
 -------------|------ 
 description  | System information about the entity, such as operating system and platform. See [system attributes][1] for more information.<br>{{% notice important %}}
-**IMPORTANT**: Process discovery is disabled in [release 5.20.2](../../release-notes/#5-20-2-release-notes) so we can investigate how it affects event payload size.
-As of 5.20.2, only the `name` is populated in the processes attributes.
+**IMPORTANT**: Process discovery is disabled in [release 5.20.2](../../release-notes/#5-20-2-release-notes).
+As of 5.20.2, new events will not include data in the `processes` attributes.
 {{% /notice %}}
 required     | false
 type         | Map
@@ -727,8 +727,8 @@ example        | {{< highlight shell >}}"cloud_provider": "" {{< /highlight >}}
 processes    | 
 -------------|------ 
 description  | List of processes on the local agent. See [processes attributes][26] for more information.<br>{{% notice important %}}
-**IMPORTANT**: Process discovery is disabled in [release 5.20.2](../../release-notes/#5-20-2-release-notes) so we can investigate how it affects event payload size.
-As of 5.20.2, only the `name` is populated in the processes attributes.
+**IMPORTANT**: Process discovery is disabled in [release 5.20.2](../../release-notes/#5-20-2-release-notes).
+As of 5.20.2, new events will not include data in the `processes` attributes.
 {{% /notice %}}
 required     | false 
 type         | Map
@@ -866,8 +866,8 @@ example      | {{< highlight shell >}}"handler": "email-handler"{{< /highlight >
 ### Processes attributes
 
 {{% notice important %}}
-**IMPORTANT**: Process discovery is disabled in [release 5.20.2](../../release-notes/#5-20-2-release-notes) so we can investigate how it affects event payload size.
-As of 5.20.2, only the `name` is populated in the processes attributes.
+**IMPORTANT**: Process discovery is disabled in [release 5.20.2](../../release-notes/#5-20-2-release-notes).
+As of 5.20.2, new events will not include data in the `processes` attributes.
 {{% /notice %}}
 
 **COMMERCIAL FEATURE**: Access processes attributes with the [`discover-processes` flag][27] in the packaged Sensu Go distribution. For more information, see [Get started with commercial features][9].
