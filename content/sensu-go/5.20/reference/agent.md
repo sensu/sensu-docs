@@ -916,7 +916,9 @@ disable-assets: true{{< /highlight >}}
 
 | discover-processes |      |
 --------------|------
-description   | When set to `true`, the agent populates the `processes` field in `entity.system` and updates every 20 seconds.<br><br>**COMMERCIAL FEATURE**: Access the `discover-processes` flag in the packaged Sensu Go distribution. For more information, see [Get started with commercial features][55].
+description   | When set to `true`, the agent populates the `processes` field in `entity.system` and updates every 20 seconds.<br><br>**COMMERCIAL FEATURE**: Access the `discover-processes` flag in the packaged Sensu Go distribution. For more information, see [Get started with commercial features][55].<br>{{% notice important %}}
+**IMPORTANT**: Process discovery is disabled in [release 5.20.2](../../release-notes/#5-20-2-release-notes) so we can investigate how it affects event payload size.
+As of 5.20.2, only the `name` is populated in the [processes attributes](../../reference/entities/#processes-attributes).{{% /notice %}}
 type          | Boolean
 default       | false
 environment variable | `SENSU_DISCOVER_PROCESSES`
