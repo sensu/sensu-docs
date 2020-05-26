@@ -76,8 +76,7 @@ See the [upgrade guide][1] to upgrade Sensu to version 5.20.2.
 
 **FIXES:**
 
-- ([Commercial feature][141]) Process discovery in the agent is temporarily disabled.
-The [`processes` field ][143] now contains only the name of the process.
+- ([Commercial feature][141]) [Process discovery in the agent][155] is temporarily disabled.
 - The system’s libc_type attribute is now properly populated for Ubuntu entities.
 - Single-letter subscriptions are now allowed.
 - Subjects are now validated in RBAC role binding and cluster role binding.
@@ -1341,3 +1340,4 @@ To get started with Sensu Go:
 [152]: /sensu-go/5.20/dashboard/overview/#federated-webui
 [153]: /sensu-go/5.20/dashboard/overview/
 [154]: /sensu-go/5.20/sensuctl/reference/#extend-sensuctl-with-commands
+[155]: /sensu-go/5.20/reference/agent/#discover-processes
