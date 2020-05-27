@@ -148,13 +148,13 @@ Although you can use annotations to create SQEs, we recommend using labels becau
 This expression returns `true` if the event's entity includes the label `webserver`:
 
 {{< highlight go >}}
-event.entity.labels.indexOf('webserver') >= 0
+!!event.entity.labels.webserver
 {{< /highlight >}}
 
 Likewise, this expression returns `true` if the event's entity includes the annotation `www.company.com`:
 
 {{< highlight go >}}
-event.entity.annotations.indexOf('www.company.com') >= 0
+!!event.entity.annotations['www.company.com']
 {{< /highlight >}}
 
 
