@@ -82,6 +82,8 @@ Supported packages are available through [sensu/stable][8] on packagecloud and t
 | Debian 8             | {{< check >}}      |
 | Debian 9             | {{< check >}}      |
 | Debian 10            | {{< check >}}      |
+| Windows Server 2008 R2 and later | {{< check >}} | {{< check >}} |
+| Windows 7 and later | {{< check >}}     | {{< check >}}   |
 
 ## Docker images
 
@@ -103,18 +105,18 @@ Docker images that contain the Sensu backend and Sensu agent are available for L
 
 [Binary-only distributions][4] that contain the Sensu backend, agent, and sensuctl tool are available in `.zip` and `.tar.gz` formats.
 
-| Platform & Version | Linux | Windows | macOS | Solaris |
-|--------------------|-------|---------|-------|---------|
-| `386`              | {{< check >}} | {{< check >}} |               |     
-| `amd64`            | {{< check >}} | {{< check >}} | {{< check >}} | {{< check >}}  
-| `arm64`            | {{< check >}} |               |               |             |
-| `armv5`            | {{< check >}} |               |               |             |
-| `armv6`            | {{< check >}} |               |               |             |
-| `armv7`            | {{< check >}} |               |               |             |
-| `MIPS`             | {{< check >}} |               |               |             |
-| `MIPS LE`          | {{< check >}} |               |               |             |
-| `MIPS 64`          | {{< check >}} |               |               |             |
-| `MIPS 64 LE`       | {{< check >}} |               |               |             |
+| Platform & Version | Linux | Windows | macOS | FreeBSD | Solaris |
+|--------------------|-------|---------|-------|---------| ------- |
+| `386`              | {{< check >}} | {{< check >}} | | {{< check >}}               |     
+| `amd64`            | {{< check >}} | {{< check >}} | {{< check >}} | {{< check >}}  | {{< check >}} 
+| `arm64`            | {{< check >}} |               |               |             |             |
+| `armv5`            | {{< check >}} |               |               |             |             |
+| `armv6`            | {{< check >}} |               |               |             |             |
+| `armv7`            | {{< check >}} |               |               |             |             |
+| `MIPS`             | {{< check >}} |               |               |             |             |
+| `MIPS LE`          | {{< check >}} |               |               |             |             |
+| `MIPS 64`          | {{< check >}} |               |               |             |             |
+| `MIPS 64 LE`       | {{< check >}} |               |               |             |             |
 
 ## Build from source
 
