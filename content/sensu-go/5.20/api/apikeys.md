@@ -16,6 +16,11 @@ menu:
 	- [`/apikeys/:apikey` (DELETE)](#apikeysapikey-delete)
 
 
+{{% notice note %}}
+**NOTE**: Requests to the APIKeys API require you to authenticate with a Sensu [access token](../overview/#authenticate-with-the-authentication-api) or [API key](../overview/#authenticate-with-an-api-key).
+The code examples in this document use the [environment variable](../overview/#authentication-quickstart) `$SENSU_ACCESS_TOKEN` to represent a valid access token in API requests. 
+{{% /notice %}}
+
 ## The `/apikeys` API endpoint
 
 ### `/apikeys` (GET)

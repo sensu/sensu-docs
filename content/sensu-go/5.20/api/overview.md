@@ -15,17 +15,11 @@ menu:
 - [Versioning](#versioning)
 - [Request size limit](#request-size-limit)
 - [Access control](#access-control)
-  - [Authentication quickstart](#authentication-quickstart)
+  - [Authentication quickstart](#authentication-quickstart) | [Authenticate with the authentication API](#authenticate-with-the-authentication-api) | [Generate an API token with sensuctl](#generate-an-api-token-with-sensuctl) | [Authenticate with an API key](#authenticate-with-an-api-key)
 - [Pagination](#pagination)
-  - [Limit query parameter](#limit-query-parameter)
-  - [Continue query parameter](#continue-query-parameter)
+  - [Limit query parameter](#limit-query-parameter) | [Continue query parameter](#continue-query-parameter)
 - [Response filtering](#response-filtering)
-  - [Label selector](#label-selector)
-  - [Field selector](#field-selector)
-  - [API-specific syntax](#api-specific-syntax)
-  - [Operators](#operators)
-  - [Combined selectors](#combined-selectors)
-  - [Examples](#examples)
+  - [Label selector](#label-selector) | [Field selector](#field-selector) | [API-specific syntax](#api-specific-syntax) | [Operators](#operators) | [Combined selectors](#combined-selectors) | [Examples](#examples)
 
 **API version: v2**
 
@@ -68,9 +62,10 @@ API request bodies are limited to 0.512 MB in size.
 
 ## Access control
 
-With the exception of the [health API][5] and [metrics API][6], the Sensu API requires authentication using a JSON Web Token (JWT) access token.
+With the exception of the [authentication][12], [health][5], and [metrics][6] APIs, the Sensu API requires authentication using a JSON Web Token (JWT) access token or API key.
 Use the [authentication API][12] and your Sensu username and password to generate access tokens and refresh tokens.
-The Sensu API docs use `$SENSU_ACCESS_TOKEN` to represent a valid access token in API requests.
+
+Code examples in the Sensu API docs use the [environment variable][7] `$SENSU_ACCESS_TOKEN` to represent a valid access token in API requests.
 
 ### Authentication quickstart
 
@@ -83,7 +78,9 @@ export SENSU_USER=YOUR_USERNAME && SENSU_PASS=YOUR_PASSWORD
 export SENSU_ACCESS_TOKEN=`curl -X GET -u "$SENSU_USER:$SENSU_PASS" -s http://localhost:8080/auth | jq -r ".access_token"`
 {{< /highlight >}}
 
-### Basic authentication using the authentication API
+The [sensuctl reference][7] demonstrates how to use the `sensuctl env` command to export your access token, token expiry time, and refresh token as environment variables.
+
+### Authenticate with the authentication API
 
 The [`/auth` API endpoint][10] lets you generate short-lived API tokens using your Sensu username and password.
 
@@ -127,7 +124,7 @@ The new access token should be included in the output:
 }
 {{< /highlight >}}
 
-### Generate an API token using sensuctl
+### Generate an API token with sensuctl
 
 You can also generate an API access token using the sensuctl command line tool.
 The user credentials that you use to log in to sensuctl determine your permissions to get, list, create, update, and delete resources with the Sensu API.
@@ -673,6 +670,7 @@ curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN http://127.0.0.1:8080/api/cor
 [4]: ../../reference/agent/
 [5]: ../health/
 [6]: ../metrics/
+[7]: ../../sensuctl/reference#environment-variables
 [8]: ../../getting-started/enterprise/
 [9]: ../../reference/entities#metadata-attributes
 [10]: ../auth/#the-auth-api-endpoint
