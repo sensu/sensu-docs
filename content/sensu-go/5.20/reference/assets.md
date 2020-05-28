@@ -15,6 +15,7 @@ menu:
 - [Asset format specification](#asset-format-specification)
 - [Asset specification](#asset-specification)
   - [Top-level attributes](#top-level-attributes) | [Metadata attributes](#metadata-attributes) | [Spec attributes](#spec-attributes)
+- [Use cases for entity system attributes](#use-cases-for-entity-system-attributes)
 - [Examples](#examples)
 - [Share an asset on Bonsai](#share-an-asset-on-bonsai)
 - [Delete assets](#delete-assets)
@@ -347,6 +348,8 @@ required     | true, unless `builds` are provided
 type         | String 
 example      | {{< highlight shell >}}"sha512": "4f926bf4328..."{{< /highlight >}}
 
+<a name="filters"></a>
+
 filters      | 
 -------------|------ 
 description  | Set of [Sensu query expressions][1] used to determine if the asset should be installed. If multiple expressions are included, each expression must return `true` for Sensu to install the asset.<br><br>Filters for _check_ assets should match agent entity platforms. Filters for _handler_ and _filter_ assets should match your Sensu backend platform. You can create asset filter expressions using any supported [entity system attributes][10], including `os`, `arch`, `platform`, and `platform_family`. {{% notice protip %}}
@@ -367,6 +370,18 @@ example      | {{< highlight shell >}}
   "X-Forwarded-For": "client1, proxy1, proxy2"
 }
 {{< /highlight >}}
+
+## Use cases for entity system attributes
+
+Use the [entity system attributes][10] in asset [filters][42] to specify which systems and configurations you can use the asset with.
+For example, if your asset is compiled for glibc, you can add a filter for `libc_type` to your asset:
+
+{{< highlight shell >}}
+"filters": ["entity.system.libc_type=='glibc'"]
+{{< /highlight >}}
+
+Add asset filters to specify that an asset is compiled for any of the [entity system attributes][10], including operating system, platform, and architecture.
+Then, you can rely on asset filters to ensure that you install only the appropriate asset on each of your agents.
 
 ## Examples
 
@@ -803,3 +818,4 @@ You must remove the archive and downloaded files from the asset cache manually.
 [39]: ../../dashboard/filtering#filter-with-label-selectors
 [40]: ../../reference/agent/#configuration
 [41]: ../../reference/backend/#configuration
+[42]: #filters
