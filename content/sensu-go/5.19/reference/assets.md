@@ -800,6 +800,6 @@ You must remove the archive and downloaded files from the asset cache manually.
 [37]: https://bonsai.sensu.io/sign-in
 [38]: https://bonsai.sensu.io/new
 [39]: ../../dashboard/filtering#filter-with-label-selectors
-[40]: ../../reference/agent/#configuration
+[40]: ../../reference/agent/#configuration-via-flags
 [41]: ../../reference/backend/#configuration
 [42]: ../../release-notes/#5-19-3-release-notes
