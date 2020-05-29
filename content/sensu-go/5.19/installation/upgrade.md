@@ -500,7 +500,7 @@ When you're ready to sunset your Sensu Core instance, see the [platform][74] doc
 You may also want to re-install the `sensu-install` tool using the [`sensu-plugins-ruby` package][20].
 
 
-[1]: ../../getting-started/glossary/
+[1]: ../../learn/glossary/
 [2]: https://etcd.io/docs/latest/
 [3]: ../../reference/backend/
 [4]: ../../reference/agent/
@@ -546,7 +546,7 @@ You may also want to re-install the `sensu-install` tool using the [`sensu-plugi
 [45]: https://github.com/sensu/sensu-translator
 [46]: https://slack.sensu.io/
 [47]: https://discourse.sensu.io/c/sensu-go/migrating-to-go
-[48]: ../../getting-started/sandbox/
+[48]: ../../learn/sandbox/
 [49]: https://sensu.io/support/
 [50]: ../../guides/install-check-executables-with-assets
 [51]: ../../installation/plugins/

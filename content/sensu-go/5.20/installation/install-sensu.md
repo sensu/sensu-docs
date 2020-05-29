@@ -466,7 +466,7 @@ If you plan to set up a cluster, here's our suggested pathway:
 [11]: https://sensu.io/contact?subject=contact-sales/
 [12]: ../verify/
 [13]: https://sensu.io/sensu-license/
-[14]: ../../getting-started/learn-sensu/
+[14]: ../../learn/learn-sensu-sandbox/
 [16]: https://etcd.io/
 [17]: ../../reference/assets/
 [18]: #install-sensu-agents
