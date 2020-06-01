@@ -1,13 +1,13 @@
 ---
-title: "Live demo of Sensu"
-linkTitle: "Live Demo"
+title: "Live demonstration of Sensu"
+linkTitle: "Live demo"
 description: "Explore the Sensu dashboard and sensuctl command line tool with a live demo that monitors the Sensu docs site. See entities, monitoring events, and active service and metric checks."
 version: "5.19"
-weight: 40
+weight: 30
 product: "Sensu Go"
 menu:
   sensu-go-5.19:
-    parent: getting-started
+    parent: learn-sensu
 ---
 
 <a href="https://caviar.tf.sensu.io:3000" onclick="ga('send', 'event', 'Demo', 'Click', 'Main demo link');">See a live demo of the Sensu dashboard</a>.

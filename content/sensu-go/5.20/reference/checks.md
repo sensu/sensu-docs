@@ -479,6 +479,10 @@ Learn how to use check hooks with the [Sensu hooks reference documentation][6].
 
 ## Check specification
 
+{{% notice note %}}
+**NOTE**: In Sensu Go, the `occurrences` attribute is not part of the check definition like it was in Sensu Core.
+{{% /notice %}}
+
 ### Top-level attributes
 
 type         | 
@@ -1101,7 +1105,7 @@ spec:
 [52]: #round-robin-checks
 [53]: https://regex101.com/r/zo9mQU/2
 [54]: ../../api/overview#response-filtering
-[55]: ../../sensuctl/reference#response-filters
+[55]: ../../sensuctl/reference#response-filtering
 [56]: ../../reference/secrets/
 [57]: ../../reference/secrets-providers/
 [58]: ../../dashboard/filtering#filter-with-label-selectors

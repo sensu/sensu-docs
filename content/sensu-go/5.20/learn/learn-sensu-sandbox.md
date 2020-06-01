@@ -1,7 +1,7 @@
 ---
 title: "Learn Sensu Go"
 description: "Here’s everything you need to start learning Sensu Go, including how to set up the Sensu Go sandbox and your first three lesson plans. Learn how to create a monitoring event and event pipeline, as well as automate event production with the Sensu agent."
-version: "5.17"
+version: "5.20"
 product: "Sensu Go"
 ---
 
@@ -29,7 +29,9 @@ In this tutorial, you'll download the Sensu sandbox and create a monitoring work
 git clone https://github.com/sensu/sandbox && cd sandbox/sensu-go
 {{< /highlight >}}
 
-_**NOTE**: If you've cloned the sandbox repository before, run `cd sandbox/sensu-go` and `git pull https://github.com/sensu/sandbox` instead._
+{{% notice note %}}
+**NOTE**: If you've cloned the sandbox repository before, run `cd sandbox/sensu-go` and `git pull https://github.com/sensu/sandbox` instead.
+{{% /notice %}}
 
 **3. Start Vagrant**
 
@@ -43,7 +45,10 @@ To install Sensu in production, use the [installation guide][8] instead.
 
 The sandbox startup process takes about 5 minutes.
 
-_**NOTE**: The sandbox configures VirtualBox to forward TCP ports 3002 and 4002 from the sandbox virtual machine (VM) to the localhost to make it easier for you to interact with the sandbox dashboards. Dashboard links provided in this tutorial assume port forwarding from the VM to the host is active._
+{{% notice note %}}
+**NOTE**: The sandbox configures VirtualBox to forward TCP ports 3002 and 4002 from the sandbox virtual machine (VM) to the localhost to make it easier for you to interact with the sandbox dashboards.
+Dashboard links provided in this tutorial assume port forwarding from the VM to the host is active.
+{{% /notice %}}
 
 **4. SSH into the sandbox**
 
@@ -63,7 +68,10 @@ You should be greeted with this prompt:
 - To erase and restart the sandbox, run `vagrant destroy` and then `vagrant up`.
 - To reset the sandbox's Sensu configuration to the beginning of this tutorial, run `vagrant provision`.
 
-_**NOTE**: The sandbox pre-configures sensuctl with the Sensu Go admin user, so you won't have to configure sensuctl each time you spin up the sandbox to try out a new feature. Before installing sensuctl outside of the sandbox, read the [first time setup reference][1] to learn how to configure sensuctl._  
+{{% notice note %}}
+**NOTE**: The sandbox pre-configures sensuctl with the Sensu Go admin user, so you won't have to configure sensuctl each time you spin up the sandbox to try out a new feature.
+Before installing sensuctl outside of the sandbox, read the [first time setup reference](../../sensuctl/reference/#first-time-setup) to learn how to configure sensuctl.
+{{% /notice %}}  
 
 ---
 
@@ -146,7 +154,9 @@ Log in to the dashboard with these pre-set admin credentials: username `admin` a
 Now that you know the sandbox is working properly, let's get to the fun stuff: creating a workflow.
 In this lesson, you'll create a workflow that sends keepalive alerts to Slack.
 
-_**NOTE**: If you'd rather not create a Slack account, you can skip ahead to [Lesson \#3](#lesson-3-automate-event-production-with-the-sensu-agent)._
+{{% notice note %}}
+**NOTE**: If you'd rather not create a Slack account, you can skip ahead to [Lesson \#3](#lesson-3-automate-event-production-with-the-sensu-agent).
+{{% /notice %}}
 
 **1. Get your Slack webhook URL**
 
@@ -180,14 +190,18 @@ Use sensuctl to see the complete asset definition.
 sensuctl asset info sensu-slack-handler --format yaml
 {{< /highlight >}}
 
-_**PRO TIP**: You can use resource definitions to create and update resources (like assets) using `sensuctl create --file filename.yaml`. See the [sensuctl docs][5] for more information._
+{{% notice protip %}}
+**PRO TIP**: You can use resource definitions to create and update resources (like assets) using `sensuctl create --file filename.yaml`. See the [sensuctl docs](../../sensuctl/reference#create-resources) for more information.
+{{% /notice %}}
 
 **3. Create a Sensu Slack handler**
 
 Open the `sensu-slack-handler.json` handler definition provided with the sandbox in your preferred text editor.
 Edit the definition to include your Slack channel, webhook URL, and the `sensu-slack-handler` asset.
 
-_**NOTE**: If you aren't sure how to open the handler and edit the definition, try these [Vi/Vim gist instructions][11]._
+{{% notice note %}}
+**NOTE**: If you aren't sure how to open the handler and edit the definition, try these [Vi/Vim gist instructions](https://gist.github.com/hillaryfraley/838a046821171b1a37d0dafb16584518/).
+{{% /notice %}}
 
 {{< highlight shell >}}
 "env_vars": [
@@ -420,7 +434,10 @@ sensuctl event info sensu-go-sandbox curl_timings --format json | jq .
 Because the check definition specified a metric format of `graphite_plaintext`, the Sensu agent will treat the output of the check command as Graphite-formatted metrics and translate them into a set of Sensu-formatted metrics (not shown in the output).
 These metrics are then sent to the InfluxDB handler, which reads Sensu-formatted metrics and converts them to a format InfluxDB accepts.
 
-_**NOTE**: Metric support isn't limited to Graphite! The Sensu agent can extract metrics in multiple line protocol formats, including Nagios performance data._
+{{% notice note %}}
+**NOTE**: Metric support isn't limited to Graphite!
+The Sensu agent can extract metrics in multiple line protocol formats, including Nagios performance data.
+{{% /notice %}}
 
 **5. See the HTTP response code events for Nginx in Grafana.**
 
@@ -496,17 +513,14 @@ Here are some resources to help continue your journey:
 - [Create a read-only user][10]
 
 
-[1]: ../../sensuctl/reference/#first-time-setup
 [2]: https://slack.com/get-started#create
 [3]: ../../reference/assets/
 [4]: https://bonsai.sensu.io/assets/sensu/sensu-slack-handler/
-[5]: ../../sensuctl/reference#create-resources
 [6]: https://bonsai.sensu.io/assets/sensu/sensu-influxdb-handler/
-[7]: ../../getting-started/sandbox/
+[7]: ../../learn/sandbox/
 [8]: ../../installation/install-sensu/
 [9]: ../../guides/aggregate-metrics-statsd/
 [10]: ../../guides/create-read-only-user/
-[11]: https://gist.github.com/hillaryfraley/838a046821171b1a37d0dafb16584518/
 [12]: https://www.vagrantup.com/downloads.html
 [13]: https://www.virtualbox.org/wiki/Downloads/
 [14]: https://github.com/sensu/sandbox/archive/master.zip

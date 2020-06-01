@@ -423,7 +423,10 @@ example      | {{< highlight shell >}}"subscriptions": ["web", "prod", "entity:e
 
 system       | 
 -------------|------ 
-description  | System information about the entity, such as operating system and platform. See [system attributes][1] for more information.
+description  | System information about the entity, such as operating system and platform. See [system attributes][1] for more information.<br>{{% notice important %}}
+**IMPORTANT**: Process discovery is disabled in [release 5.20.2](../../release-notes/#5-20-2-release-notes).
+As of 5.20.2, new events will not include data in the `processes` attributes.
+{{% /notice %}}
 required     | false
 type         | Map
 example      | {{< language-toggle >}}
@@ -714,7 +717,7 @@ example      | {{< highlight shell >}}"vm_role": "host" {{< /highlight >}}
 
 cloud_provider | 
 ---------------|------ 
-description    | Entity's cloud provider environment. Automatically populated upon agent startup if the [`--detect-cloud-provider` flag][25] is set. {{% notice note %}}
+description    | Entity's cloud provider environment. Automatically populated upon agent startup if the [`--detect-cloud-provider` flag][25] is set. Returned empty unless the agent runs on Amazon Elastic Compute Cloud (EC2), Google Cloud Platform (GCP), or Microsoft Azure. {{% notice note %}}
 **NOTE**: This feature can result in several HTTP requests or DNS lookups being performed, so it may not be appropriate for all environments.
 {{% /notice %}}
 required       | false 
@@ -723,7 +726,10 @@ example        | {{< highlight shell >}}"cloud_provider": "" {{< /highlight >}}
 
 processes    | 
 -------------|------ 
-description  | List of processes on the local agent. See [processes attributes][26] for more information. 
+description  | List of processes on the local agent. See [processes attributes][26] for more information.<br>{{% notice important %}}
+**IMPORTANT**: Process discovery is disabled in [release 5.20.2](../../release-notes/#5-20-2-release-notes).
+As of 5.20.2, new events will not include data in the `processes` attributes.
+{{% /notice %}}
 required     | false 
 type         | Map
 example      | {{< language-toggle >}}
@@ -859,6 +865,11 @@ example      | {{< highlight shell >}}"handler": "email-handler"{{< /highlight >
 
 ### Processes attributes
 
+{{% notice important %}}
+**IMPORTANT**: Process discovery is disabled in [release 5.20.2](../../release-notes/#5-20-2-release-notes).
+As of 5.20.2, new events will not include data in the `processes` attributes.
+{{% /notice %}}
+
 **COMMERCIAL FEATURE**: Access processes attributes with the [`discover-processes` flag][27] in the packaged Sensu Go distribution. For more information, see [Get started with commercial features][9].
 
 {{% notice note %}}
@@ -917,17 +928,23 @@ example      | {{< highlight shell >}}"created": 1586138786{{< /highlight >}}
 
 memory_percent | 
 -------------|------ 
-description  | Percent of memory the process is using.
+description  | Percent of memory the process is using. The value is returned as a floating-point number where 0.0 = 0% and 1.0 = 100%. For example, the memory_percent value 0.19932 equals 19.932%. {{% notice note %}}
+**NOTE**: The `memory_percent` attribute is supported on Linux and macOS.
+It is not supported on Windows.
+{{% /notice %}}
 required     | false
 type         | float
-example      | {{< highlight shell >}}"memory_percent": 1.09932518{{< /highlight >}}
+example      | {{< highlight shell >}}"memory_percent": 0.19932{{< /highlight >}}
 
 cpu_percent  | 
 -------------|------ 
-description  | Percent of CPU the process is using.
+description  | Percent of CPU the process is using. The value is returned as a floating-point number where 0.0 = 0% and 1.0 = 100%. For example, the cpu_percent value 0.12639 equals 12.639%. {{% notice note %}}
+**NOTE**: The `cpu_percent` attribute is supported on Linux and macOS.
+It is not supported on Windows.
+{{% /notice %}}
 required     | false
 type         | float
-example      | {{< highlight shell >}}"cpu_percent": 0.3263987595984941{{< /highlight >}}
+example      | {{< highlight shell >}}"cpu_percent": 0.12639{{< /highlight >}}
 
 ## Examples
 

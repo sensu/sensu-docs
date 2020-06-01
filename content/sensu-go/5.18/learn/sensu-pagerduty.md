@@ -21,11 +21,11 @@ s.parentNode.insertBefore(b, s);})();
 <div id="katacoda-scenario-1"
     data-katacoda-id="sensu/sensu-pagerduty"
     data-katacoda-color="2c3458"
-    data-katacoda-ctaurl="https://docs.sensu.io/sensu-go/latest/getting-started/sandbox/"
+    data-katacoda-ctaurl="https://docs.sensu.io/sensu-go/latest/learn/sandbox/"
     data-katacoda-ctatext="Learn more in the Sensu Sandbox"
     style="height: 800px; padding-top: 10px;" 
 ></div>
 <br><br>
-[**<-- Back to Learn Sensu Go with interactive training**][1]
+[**<-- Back to Learn Sensu with interactive training**][1]
 
-[1]: ../learn-sensu-go/
+[1]: ../interactive-tutorials/

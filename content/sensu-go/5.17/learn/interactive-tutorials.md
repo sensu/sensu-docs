@@ -1,13 +1,13 @@
 ---
-title: "Learn Sensu Go with interactive training"
-linkTitle: "Learn Sensu Go"
-description: "Get familiar with Sensu terminology. Read our glossary to learn the definitions of common Sensu terms, including agent, asset, backend, check, event, and many more. Bonus: each term links to a corresponding guide!"
-weight: 10
+title: "Learn Sensu with interactive tutorials"
+linkTitle: "Interactive tutorials"
+description: "Learn Sensu using only your browser. These tutorials demonstrate how to use Sensu to automate your workflows, integrate with tools you're already using, and get complete control over your alerts."
+weight: 20
 version: "5.17"
 product: "Sensu Go"
 menu:
   sensu-go-5.17:
-    parent: interactive-training
+    parent: learn-sensu
 ---
 
 - [Learn Sensu in 15 minutes](#learn-sensu-in-15-minutes)
