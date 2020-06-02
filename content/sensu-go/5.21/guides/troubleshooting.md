@@ -58,8 +58,6 @@ kill -s SIGUSR1 $(pidof sensu-agent)
 
 When you increment the log at the trace level (the most verbose log level), the log will wrap around to the error level.
 
-You must restart the service after making this change.
-
 ### Log file locations
 
 {{< platformBlock "Linux" >}}

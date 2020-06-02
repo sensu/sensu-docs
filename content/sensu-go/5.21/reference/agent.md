@@ -768,7 +768,7 @@ Flags:
       --keepalive-warning-timeout uint32      number of seconds until agent is considered dead by backend to create a warning event (default 120)
       --key-file string                       TLS certificate key in PEM format
       --labels stringToString                 entity labels map (default [])
-      --log-level string                      logging level [panic, fatal, error, warn, info, debug] (default "warn")
+      --log-level string                      logging level [panic, fatal, error, warn, info, debug] (default "info")
       --name string                           agent name (defaults to hostname) (default "my-hostname")
       --namespace string                      agent namespace (default "default")
       --password string                       agent password (default "P@ssw0rd!")
