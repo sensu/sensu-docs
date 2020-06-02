@@ -1,7 +1,7 @@
 ---
 title: "Learn Sensu Go"
 description: "Here’s everything you need to start learning Sensu Go, including how to set up the Sensu Go sandbox and your first three lesson plans. Learn how to create a monitoring event and event pipeline, as well as automate event production with the Sensu agent."
-version: "5.18"
+version: "5.19"
 product: "Sensu Go"
 ---
 
@@ -517,7 +517,7 @@ Here are some resources to help continue your journey:
 [3]: ../../reference/assets/
 [4]: https://bonsai.sensu.io/assets/sensu/sensu-slack-handler/
 [6]: https://bonsai.sensu.io/assets/sensu/sensu-influxdb-handler/
-[7]: ../../getting-started/sandbox/
+[7]: ../../learn/sandbox/
 [8]: ../../installation/install-sensu/
 [9]: ../../guides/aggregate-metrics-statsd/
 [10]: ../../guides/create-read-only-user/
