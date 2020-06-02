@@ -1298,7 +1298,6 @@ sensu-backend start --event-log-file /var/log/sensu/events.log
 # /etc/sensu/backend.yml example
 event-log-file: "/var/log/sensu/events.log"{{< /highlight >}}
 
-
 ### Log rotation
 
 Event logging supports log rotation via the _SIGHUP_ signal.
@@ -1337,7 +1336,7 @@ If you are running a clustered backend, rotating logs on all cluster members sim
 - In [Sensu Go version 5.19.3][30] and later, the _SIGHUP_ signal causes the `backend` component to reload instead of restarting the process.
 
 {{% notice note %}}
-**NOTE**: Event logs do not include log messages produced by sensu-backend service. To write Sensu service logs to flat files on disk, read [Log Sensu services with systemd][28].
+**NOTE**: Event logs do not include log messages produced by sensu-backend service. To write Sensu service logs to flat files on disk, read [Log Sensu services with systemd](../../guides/systemd-logs/).
 {{% /notice %}}
 
 #### Log rotation for sysvinit
@@ -1383,7 +1382,6 @@ If you are running a clustered backend, rotating logs on all cluster members sim
 [24]: ../../installation/install-sensu#2-configure-and-start
 [25]: ../../installation/install-sensu#3-initialize
 [26]: ../../sensuctl/reference/#change-admin-user-s-password
-[27]: #configuration-via-environment-variables
 [28]: ../../guides/systemd-logs/
 [29]: https://unix.stackexchange.com/questions/29574/how-can-i-set-up-logrotate-to-rotate-logs-hourly
 [30]: ../../release-notes/#5-19-3-release-notes
