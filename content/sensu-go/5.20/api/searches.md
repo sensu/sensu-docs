@@ -1,6 +1,6 @@
 ---
 title: "Searches API"
-description: "The Sensu searches API provides HTTP access to the saved searches feature in the Sensu web UI. This reference includes examples for returning lists of saved searches and creating, updating, and deleting saved searches. Read on for the full reference."
+description: "The Sensu searches API provides HTTP access to the saved searches feature in the Sensu web UI. This reference includes examples for returning lists of saved searches and creating, updating, and deleting saved searches. Read on for the full API documentation."
 version: "5.20"
 product: "Sensu Go"
 menu:
@@ -8,72 +8,86 @@ menu:
     parent: api
 ---
 
-- [The `/search` API endpoint](#the-searches-api-endpoint)
-	- [`/search` (GET)](#search-get)
-	- [`/search` (POST)](#search-post)
+- [The `/searches` API endpoint](#the-searches-api-endpoint)
+	- [`/searches` (GET)](#searches-get)
 - [The `/searches/:search` API endpoint](#the-searchessearch-api-endpoint)
-	- [`/searches/:search` (GET)](#searchsearch-get)
-  - [`/searches/:search` (PUT)](#searchsearch-put)
-	- [`/searches/:search` (DELETE)](#searchsearch-delete)
+	- [`/searches/:search` (GET)](#searchessearch-get)
+  - [`/searches/:search` (PUT)](#searchessearch-put)
+	- [`/searches/:search` (DELETE)](#searchessearch-delete)
 
-## The `/search` API endpoint
+**COMMERCIAL FEATURE**: Access saved filtered searches in the packaged Sensu Go distribution.
+For more information, see [Get started with commercial features][4].
 
-### `/search` (GET)
+## The `/searches` API endpoint
 
-The `/search` API endpoint provides HTTP GET access to the list of saved searches.
+### `/searches` (GET)
 
-#### EXAMPLE {#search-get-example}
+The `/searches` API endpoint provides HTTP GET access to the list of saved searches.
+
+#### EXAMPLE {#searches-get-example}
 
 The following example demonstrates a request to the `/search` API endpoint, resulting in a JSON array that contains saved search definitions.
 
 {{< highlight shell >}}
 curl -X GET \
-http://127.0.0.1:8080/api/search/v1/search \
+http://127.0.0.1:8080/api/enterprise/searches/v1/searches \
 -H "Authorization: Bearer $SENSU_ACCESS_TOKEN"
 
 HTTP/1.1 200 OK
 [
   {
-    "subjects": [
-      {
-        "type": "Group",
-        "name": "cluster-admins"
-      }
-    ],
-    "role_ref": {
-      "type": "ClusterRole",
-      "name": "cluster-admin"
-    },
+    "type": "Search",
+    "api_version": "searches/v1",
     "metadata": {
-      "name": "cluster-admin",
-      "created_by": "admin"
+      "name": "incidents-us-west",
+      "namespace": "default"
+    },
+    "spec": {
+      "parameters": [
+        "labelSelector:region == \"us-west-1\"",
+        "status:incident"
+      ],
+      "resource": "core.v2/Event"
     }
   },
   {
-    "subjects": [
-      {
-        "type": "Group",
-        "name": "system:agents"
-      }
-    ],
-    "role_ref": {
-      "type": "ClusterRole",
-      "name": "system:agent"
-    },
+    "type": "Search",
+    "api_version": "searches/v1",
     "metadata": {
-      "name": "system:agent",
-      "created_by": "admin"
+      "name": "silenced-events",
+      "namespace": "default"
+    },
+    "spec": {
+      "parameters": [
+        "silenced:true"
+      ],
+      "resource": "core.v2/Event"
+    }
+  },
+  {
+    "type": "Search",
+    "api_version": "searches/v1",
+    "metadata": {
+      "name": "web-agent",
+      "namespace": "default"
+    },
+    "spec": {
+      "parameters": [
+        "class:agent",
+        "subscription:web"
+      ],
+      "resource": "core.v2/Entity"
     }
   }
 ]
 {{< /highlight >}}
 
-#### API Specification {#search-get-specification}
+#### API Specification {#searches-get-specification}
 
 /searches (GET)  | 
 ---------------|------
-description    | Returns the list of cluster role bindings.
-example url    | http://hostname:8080/api/core/v2/clusterrolebindings
+description    | Returns the list of saved searches.
+example url    | http://hostname:8080/api/enterprise/searches/v1/searches
 pagination     | This endpoint supports [pagination][2] using the `limit` and `continue` query parameters.
 response filtering | This endpoint supports [API response filtering][3].
 response type  | Array
@@ -81,240 +95,190 @@ response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal 
 output         | {{< highlight shell >}}
 [
   {
-    "subjects": [
-      {
-        "type": "Group",
-        "name": "cluster-admins"
-      }
-    ],
-    "role_ref": {
-      "type": "ClusterRole",
-      "name": "cluster-admin"
-    },
+    "type": "Search",
+    "api_version": "searches/v1",
     "metadata": {
-      "name": "cluster-admin",
-      "created_by": "admin"
+      "name": "incidents-us-west",
+      "namespace": "default"
+    },
+    "spec": {
+      "parameters": [
+        "labelSelector:region == \"us-west-1\"",
+        "status:incident"
+      ],
+      "resource": "core.v2/Event"
     }
   },
   {
-    "subjects": [
-      {
-        "type": "Group",
-        "name": "system:agents"
-      }
-    ],
-    "role_ref": {
-      "type": "ClusterRole",
-      "name": "system:agent"
-    },
+    "type": "Search",
+    "api_version": "searches/v1",
     "metadata": {
-      "name": "system:agent"
+      "name": "silenced-events",
+      "namespace": "default"
+    },
+    "spec": {
+      "parameters": [
+        "silenced:true"
+      ],
+      "resource": "core.v2/Event"
+    }
+  },
+  {
+    "type": "Search",
+    "api_version": "searches/v1",
+    "metadata": {
+      "name": "web-agent",
+      "namespace": "default"
+    },
+    "spec": {
+      "parameters": [
+        "class:agent",
+        "subscription:web"
+      ],
+      "resource": "core.v2/Entity"
     }
   }
 ]
 {{< /highlight >}}
 
-### `/search` (POST)
-
-The `/search` API endpoint provides HTTP POST access to create a [cluster role binding][1].
-
-#### EXAMPLE {#search-post-example}
-
-In the following example, an HTTP POST request is submitted to the `/search` API endpoint to create a cluster role binding that assigns the `cluster-admin` cluster role to the user `bob`.
-The request includes the cluster role binding definition in the request body and returns a successful HTTP `200 OK` response and the created cluster role binding definition.
-
-{{< highlight shell >}}
-curl -X POST \
--H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
--H 'Content-Type: application/json' \
--d '{
-  "subjects": [
-    {
-      "type": "User",
-      "name": "bob"
-    }
-  ],
-  "role_ref": {
-    "type": "ClusterRole",
-    "name": "cluster-admin"
-  },
-  "metadata": {
-    "name": "bob-binder"
-  }
-}' \
-http://127.0.0.1:8080/api/core/v2/clusterrolebindings
-
-HTTP/1.1 201 Created
-{{< /highlight >}}
-
-#### API Specification {#search-post-specification}
-
-/searches (POST) | 
-----------------|------
-description     | Creates a Sensu cluster role binding.
-example URL     | http://hostname:8080/api/core/v2/clusterrolebindings
-payload         | {{< highlight shell >}}
-{
-  "subjects": [
-    {
-      "type": "User",
-      "name": "bob"
-    }
-  ],
-  "role_ref": {
-    "type": "ClusterRole",
-    "name": "cluster-admin"
-  },
-  "metadata": {
-    "name": "bob-binder"
-  }
-}
-{{< /highlight >}}
-response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-
 ## The `/searches/:search` API endpoint {#the-searchessearch-api-endpoint}
 
-### `/searches/:search` (GET) {#searchsearch-get}
+### `/searches/:search` (GET) {#searchessearch-get}
 
-The `/searches/:search` API endpoint provides HTTP GET access to [cluster role binding data][1] for specific `:search` definitions, by cluster role binding `name`.
+The `/searches/:search` API endpoint provides HTTP GET access to a specific `:search` definition, by the saved search `name`.
 
-#### EXAMPLE {#searchsearch-get-example}
+#### EXAMPLE {#searchessearch-get-example}
 
-In the following example, querying the `/searches/:search` API endpoint returns a JSON map that contains the requested [`:search` definition][1] (in this example, for the `:search` named `bob-binder`).
+In the following example, querying the `/searches/:search` API endpoint returns a JSON map that contains the requested [`:search` definition][1] (in this example, for the `:search` named `silenced-events`).
 
 {{< highlight shell >}}
 curl -X GET \
-http://127.0.0.1:8080/api/core/v2/clusterrolebindings/bob-binder \
+http://127.0.0.1:8080/api/enterprise/searches/v1/searches/silenced-events \
 -H "Authorization: Bearer $SENSU_ACCESS_TOKEN"
 
 HTTP/1.1 200 OK
 {
-  "subjects": [
-    {
-      "type": "User",
-      "name": "bob"
-    }
-  ],
-  "role_ref": {
-    "type": "ClusterRole",
-    "name": "cluster-admin"
-  },
+  "type": "Search",
+  "api_version": "searches/v1",
   "metadata": {
-    "name": "bob-binder",
-    "created_by": "admin"
+    "name": "silenced-events",
+    "namespace": "default"
+  },
+  "spec": {
+    "parameters": [
+      "silenced:true"
+    ],
+    "resource": "core.v2/Event"
   }
 }
 {{< /highlight >}}
 
-#### API Specification {#searchsearch-get-specification}
+#### API Specification {#searchessearch-get-specification}
 
 /searches/:search (GET) | 
 ---------------------|------
-description          | Returns the specified cluster role binding.
-example url          | http://hostname:8080/api/core/v2/clusterrolebindings/bob-binder
+description          | Returns the specified search.
+example url          | http://hostname:8080/api/enterprise/searches/v1/searches/silenced-events
 response type        | Map
 response codes       | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 output               | {{< highlight json >}}
 {
-  "subjects": [
-    {
-      "type": "User",
-      "name": "bob"
-    }
-  ],
-  "role_ref": {
-    "type": "ClusterRole",
-    "name": "cluster-admin"
-  },
+  "type": "Search",
+  "api_version": "searches/v1",
   "metadata": {
-    "name": "bob-binder",
-    "created_by": "admin"
+    "name": "silenced-events",
+    "namespace": "default"
+  },
+  "spec": {
+    "parameters": [
+      "silenced:true"
+    ],
+    "resource": "core.v2/Event"
   }
 }
 {{< /highlight >}}
 
-### `/searches/:search` (PUT) {#searchsearch-put}
+### `/searches/:search` (PUT) {#searchessearch-put}
 
-The `/searches/:search` API endpoint provides HTTP PUT access to create or update a [cluster role binding][1], by cluster role binding `name`.
+The `/searches/:search` API endpoint provides HTTP PUT access to create or update a saved search by the saved search `name`.
 
-#### EXAMPLE {#searchsearch-put-example}
+#### EXAMPLE {#searchessearch-put-example}
 
-In the following example, an HTTP PUT request is submitted to the `/searches/:search` API endpoint to create a cluster role binding that assigns the `cluster-admin` cluster role to users in the group `ops`.
-The request includes the cluster role binding definition in the request body and returns a successful HTTP `200 OK` response and the created cluster role binding definition.
+In the following example, an HTTP PUT request is submitted to the `/searches/:search` API endpoint to create a saved search for events that are silenced.
+The request includes the saved search definition in the request body and returns a successful HTTP `200 OK` response and the created saved search definition.
 
 {{< highlight shell >}}
 curl -X PUT \
 -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
 -H 'Content-Type: application/json' \
 -d '{
-  "subjects": [
-    {
-      "type": "Group",
-      "name": "ops"
-    }
-  ],
-  "role_ref": {
-    "type": "ClusterRole",
-    "name": "cluster-admin"
-  },
+  "type": "Search",
+  "api_version": "searches/v1",
   "metadata": {
-    "name": "ops-group-binder"
+    "name": "silenced-events",
+    "namespace": "default"
+  },
+  "spec": {
+    "parameters": [
+      "silenced:true"
+    ],
+    "resource": "core.v2/Event"
   }
 }' \
-http://127.0.0.1:8080/api/core/v2/clusterrolebindings/ops-group-binder
+http://127.0.0.1:8080/api/enterprise/searches/v1/searches/silenced-events
 
 HTTP/1.1 201 Created
 {{< /highlight >}}
 
-#### API Specification {#searchsearch-put-specification}
+#### API Specification {#searchessearch-put-specification}
 
 /searches/:search (PUT) | 
 ----------------|------
-description     | Creates or updates the specified Sensu cluster role binding.
-example URL     | http://hostname:8080/api/core/v2/clusterrolebindings/ops-group-binder
+description     | Creates or updates the specified saved search.
+example URL     | http://hostname:8080/api/enterprise/searches/v1/searches/silenced-events
 payload         | {{< highlight shell >}}
 {
-  "subjects": [
-    {
-      "type": "Group",
-      "name": "ops"
-    }
-  ],
-  "role_ref": {
-    "type": "ClusterRole",
-    "name": "cluster-admin"
-  },
+  "type": "Search",
+  "api_version": "searches/v1",
   "metadata": {
-    "name": "ops-group-binder"
+    "name": "silenced-events",
+    "namespace": "default"
+  },
+  "spec": {
+    "parameters": [
+      "silenced:true"
+    ],
+    "resource": "core.v2/Event"
   }
 }
 {{< /highlight >}}
 response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
-### `/searches/:search` (DELETE) {#searchsearch-delete}
+### `/searches/:search` (DELETE) {#searchessearch-delete}
 
-The `/searches/:search` API endpoint provides HTTP DELETE access to delete a cluster role binding from Sensu (specified by the cluster role binding name).
+The `/searches/:search` API endpoint provides HTTP DELETE access to delete a saved search from Sensu (specified by the saved search name).
 
-#### EXAMPLE {#searchsearch-delete-example}
+#### EXAMPLE {#searchessearch-delete-example}
 
-The following example shows a request to the `/searches/:search` API endpoint to delete the cluster role binding `ops-binding`, resulting in a successful HTTP `204 No Content` response.
+The following example shows a request to the `/searches/:search` API endpoint to delete the saved search `silenced-events`, resulting in a successful HTTP `204 No Content` response.
 
 {{< highlight shell >}}
 curl -X DELETE \
 -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
-http://127.0.0.1:8080/api/core/v2/clusterrolebindings/ops-binding
+http://127.0.0.1:8080/api/enterprise/searches/v1/searches/silenced-events
 
 HTTP/1.1 204 No Content
 {{< /highlight >}}
 
-#### API Specification {#searchsearch-delete-specification}
+#### API Specification {#searchessearch-delete-specification}
 
 /searches/:search (DELETE) | 
 --------------------------|------
-description               | Removes a cluster role binding from Sensu (specified by the cluster role binding name).
-example url               | http://hostname:8080/api/core/v2/clusterrolebindings/ops-binding
+description               | Removes a saved search from Sensu (specified by the search name).
+example url               | http://hostname:8080/api/enterprise/searches/v1/searches/silenced-events
 response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
-[1]: ../../reference/rbac/
+
 [2]: ../overview#pagination
 [3]: ../overview#response-filtering
+[4]: ../../getting-started/enterprise/
