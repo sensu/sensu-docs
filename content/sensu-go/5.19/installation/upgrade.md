@@ -541,7 +541,7 @@ You may also want to re-install the `sensu-install` tool using the [`sensu-plugi
 [40]: ../../api/overview/
 [41]: ../../reference/agent#create-monitoring-events-using-the-agent-api
 [42]: ../../reference/agent/#create-monitoring-events-using-the-statsd-listener
-[43]: ../../platforms//
+[43]: ../../platforms/
 [44]: ../../installation/configuration-management/
 [45]: https://github.com/sensu/sensu-translator
 [46]: https://slack.sensu.io/
