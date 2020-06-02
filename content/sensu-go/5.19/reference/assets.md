@@ -15,6 +15,7 @@ menu:
 - [Asset format specification](#asset-format-specification)
 - [Asset specification](#asset-specification)
   - [Top-level attributes](#top-level-attributes) | [Metadata attributes](#metadata-attributes) | [Spec attributes](#spec-attributes)
+- [Asset filters based on entity.system attributes](#asset-filters-based-on-entity-system-attributes)
 - [Examples](#examples)
 - [Share an asset on Bonsai](#share-an-asset-on-bonsai)
 - [Delete assets](#delete-assets)
@@ -347,9 +348,11 @@ required     | true, unless `builds` are provided
 type         | String 
 example      | {{< highlight shell >}}"sha512": "4f926bf4328..."{{< /highlight >}}
 
+<a name="filters"></a>
+
 filters      | 
 -------------|------ 
-description  | Set of [Sensu query expressions][1] used to determine if the asset should be installed. If multiple expressions are included, each expression must return `true` for Sensu to install the asset.<br><br>Filters for _check_ assets should match agent entity platforms. Filters for _handler_ and _filter_ assets should match your Sensu backend platform. You can create asset filter expressions using any supported [entity system attributes][10], including `os`, `arch`, `platform`, and `platform_family`. {{% notice protip %}}
+description  | Set of [Sensu query expressions][1] used to determine if the asset should be installed. If multiple expressions are included, each expression must return `true` for Sensu to install the asset.<br><br>Filters for _check_ assets should match agent entity platforms. Filters for _handler_ and _filter_ assets should match your Sensu backend platform. You can create asset filter expressions using any supported [entity.system attributes][10], including `os`, `arch`, `platform`, and `platform_family`. {{% notice protip %}}
 **PRO TIP**: Asset filters let you reuse checks across platforms safely. Assign assets for multiple platforms to a single check, and rely on asset filters to ensure that only the appropriate asset is installed on each agent.
 {{% /notice %}}
 required     | false 
@@ -367,6 +370,66 @@ example      | {{< highlight shell >}}
   "X-Forwarded-For": "client1, proxy1, proxy2"
 }
 {{< /highlight >}}
+
+## Asset filters based on entity.system attributes
+
+Use the [entity.system attributes][10] in asset [filters][43] to specify which systems and configurations an asset or asset builds can be used with.
+
+For example, the [Sensu Go Ruby Runtime][44] asset definition includes several builds, each with filters for several `entity.system` attributes:
+
+{{< highlight yaml >}}
+---
+type: Asset
+api_version: core/v2
+metadata:
+  name: sensu-ruby-runtime
+  labels: 
+  annotations:
+    io.sensu.bonsai.url: https://bonsai.sensu.io/assets/sensu/sensu-ruby-runtime
+    io.sensu.bonsai.api_url: https://bonsai.sensu.io/api/v1/assets/sensu/sensu-ruby-runtime
+    io.sensu.bonsai.tier: Community
+    io.sensu.bonsai.version: 0.0.10
+    io.sensu.bonsai.namespace: sensu
+    io.sensu.bonsai.name: sensu-ruby-runtime
+    io.sensu.bonsai.tags: ''
+spec:
+  builds:
+  - url: https://assets.bonsai.sensu.io/5123017d3dadf2067fa90fc28275b92e9b586885/sensu-ruby-runtime_0.0.10_ruby-2.4.4_centos6_linux_amd64.tar.gz
+    sha512: cbee19124b7007342ce37ff9dfd4a1dde03beb1e87e61ca2aef606a7ad3c9bd0bba4e53873c07afa5ac46b0861967a9224511b4504dadb1a5e8fb687e9495304
+    filters:
+    - entity.system.os == 'linux'
+    - entity.system.arch == 'amd64'
+    - entity.system.platform_family == 'rhel'
+    - parseInt(entity.system.platform_version.split('.')[0]) == 6
+  - url: https://assets.bonsai.sensu.io/5123017d3dadf2067fa90fc28275b92e9b586885/sensu-ruby-runtime_0.0.10_ruby-2.4.4_debian_linux_amd64.tar.gz
+    sha512: a28952fd93fc63db1f8988c7bc40b0ad815eb9f35ef7317d6caf5d77ecfbfd824a9db54184400aa0c81c29b34cb48c7e8c6e3f17891aaf84cafa3c134266a61a
+    filters:
+    - entity.system.os == 'linux'
+    - entity.system.arch == 'amd64'
+    - entity.system.platform_family == 'debian'
+  - url: https://assets.bonsai.sensu.io/5123017d3dadf2067fa90fc28275b92e9b586885/sensu-ruby-runtime_0.0.10_ruby-2.4.4_alpine_linux_amd64.tar.gz
+    sha512: 8d768d1fba545898a8d09dca603457eb0018ec6829bc5f609a1ea51a2be0c4b2d13e1aa46139ecbb04873449e4c76f463f0bdfbaf2107caf37ab1c8db87d5250
+    filters:
+    - entity.system.os == 'linux'
+    - entity.system.arch == 'amd64'
+    - entity.system.platform == 'alpine'
+    - entity.system.platform_version.split('.')[0] == '3'
+{{< /highlight >}}
+
+In this example, if you install the asset on a system running Linux AMD64 Alpine version 3.xx, Sensu will ignore the first two builds and install the third.
+
+{{% notice note %}}
+**NOTE**: Sensu downloads and installs the first build whose filter expressions all evaluate as `true`.
+If your system happens to match all of the filters for more than one build of an asset, Sensu will only install the first build.
+{{% /notice %}}
+
+All of the asset filter expressions must evaluate as true for Sensu to download and install the asset and run the check, handler, or filter that references the asset.
+
+To continue this example, if you try to install the asset on a system running Linux AMD64 Alpine version 2.xx, the `entity.system.platform_version` argument will evaluate as `false`.
+In this case, the asset will not be downloaded and the check, handler, or filter that references the asset will fail to run.
+
+Add asset filters to specify that an asset is compiled for any of the [entity.system attributes][10], including operating system, platform, platform version, and architecture.
+Then, you can rely on asset filters to ensure that you install only the appropriate asset for each of your agents.
 
 ## Examples
 
@@ -803,3 +866,5 @@ You must remove the archive and downloaded files from the asset cache manually.
 [40]: ../../reference/agent/#configuration-via-flags
 [41]: ../../reference/backend/#configuration
 [42]: ../../release-notes/#5-19-3-release-notes
+[43]: #filters
+[44]: https://bonsai.sensu.io/assets/sensu/sensu-ruby-runtime
