@@ -21,9 +21,10 @@ menu:
 - [Keepalive monitoring](#keepalive-monitoring)
 - [Service management](#operation)
   - [Start and stop the service](#start-the-service) | [Register and deregister](#registration) | [Cluster](#cluster) | [Synchronize time](#synchronize-time)
-- [Configuration](#configuration)
-  - [General configuration flags](#general-configuration-flags) | [API configuration](#api-configuration-flags) | [Ephemeral agent configuration](#ephemeral-agent-configuration-flags) | [Keepalive configuration](#keepalive-configuration-flags) | [Security configuration](#security-configuration-flags) | [Socket configuration](#socket-configuration-flags) | [StatsD configuration](#statsd-configuration-flags) | [Allow list configuration](#allow-list-configuration) and [example configuration file](#example-allow-list-configuration-file)
-  - [Configuration via environment variables](#configuration-via-environment-variables)
+- [Configuration via flags](#configuration-via-flags)
+  - [General configuration flags](#general-configuration-flags) | [API configuration flags](#api-configuration-flags) | [Ephemeral agent configuration flags](#ephemeral-agent-configuration-flags) | [Keepalive configuration flags](#keepalive-configuration-flags) | [Security configuration](#security-configuration-flags) | [Socket configuration flags](#socket-configuration-flags) | [StatsD configuration flags](#statsd-configuration-flags)
+  - [Allow list configuration commands](#allow-list-configuration-commands) and [example allow list configuration file](#example-allow-list-configuration-file)
+- [Configuration via environment variables](#configuration-via-environment-variables)
 - [Example Sensu agent configuration file](../../files/agent.yml) (download)
 
 The Sensu agent is a lightweight client that runs on the infrastructure components you want to monitor.
@@ -714,7 +715,7 @@ Agents can connect to a Sensu cluster by specifying any Sensu backend URL in the
 System clocks between agents and the backend should be synchronized to a central NTP server.
 If system time is out-of-sync, it may cause issues with keepalive, metric, and check alerts.
 
-## Configuration
+## Configuration via flags
 
 The agent loads configuration upon startup, so you must restart the agent for any configuration updates to take effect.
 
@@ -791,6 +792,20 @@ See the [example agent configuration file][5] (also provided with Sensu packages
 {{< platformBlockClose >}}
 
 ### General configuration flags
+
+<a name="allow-list"></a>
+
+| allow-list |      |
+------------------|------
+description       | Path to yaml or json file that contains the allow list of check or hook commands the agent can execute. See [allow list configuration commands][49] and the [example allow list configuration file][48] for information about building a configuration file.
+type              | String
+default           | `""`
+environment variable | `SENSU_ALLOW_LIST`
+example           | {{< highlight shell >}}# Command line example
+sensu-agent start --allow-list /etc/sensu/check-allow-list.yaml
+
+# /etc/sensu/agent.yml example
+allow-list: /etc/sensu/check-allow-list.yaml{{< /highlight >}}
 
 | annotations|      |
 -------------|------
@@ -895,20 +910,6 @@ sensu-agent start --disable-assets
 
 # /etc/sensu/agent.yml example
 disable-assets: true{{< /highlight >}}
-
-<a name="allow-list"></a>
-
-| allow-list |      |
-------------------|------
-description       | Path to yaml or json file that contains the allow list of check or hook commands the agent can execute. See the [example allow list configuration file][48] and the [allow list configuration spec][49] for information about building a configuration file.
-type              | String
-default           | `""`
-environment variable | `SENSU_ALLOW_LIST`
-example           | {{< highlight shell >}}# Command line example
-sensu-agent start --allow-list /etc/sensu/check-allow-list.yaml
-
-# /etc/sensu/agent.yml example
-allow-list: /etc/sensu/check-allow-list.yaml{{< /highlight >}}
 
 | labels     |      |
 -------------|------
@@ -1362,14 +1363,18 @@ sensu-agent start --statsd-metrics-port 6125
 # /etc/sensu/agent.yml example
 statsd-metrics-port: 6125{{< /highlight >}}
 
-### Allow list configuration
+### Allow list configuration commands
+
+The allow list includes check and hook commands the agent can execute.
+Use the [allow-list flag][56] to specify the path to the yaml or json file that contains your allow list.
+
+Use these commands to build your allow list configuration file.
 
 | exec |      |
 ----------------------|------
 description           | Command to allow the Sensu agent to run as a check or a hook.
 required              | true
 type                  | String
-environment variable   | `SENSU_EXEC`
 example               | {{< highlight shell >}}"exec": "/usr/local/bin/check_memory.sh"{{< /highlight >}}
 
 | sha512 |      |
@@ -1377,7 +1382,6 @@ example               | {{< highlight shell >}}"exec": "/usr/local/bin/check_mem
 description           | Checksum of the check or hook executable.
 required              | false
 type                  | String
-environment variable   | `SENSU_SHA512`
 example               | {{< highlight shell >}}"sha512": "4f926bf4328..."{{< /highlight >}}
 
 | args |      |
@@ -1385,7 +1389,6 @@ example               | {{< highlight shell >}}"sha512": "4f926bf4328..."{{< /hi
 description           | Arguments for the `exec` command.
 required              | true
 type                  | Array
-environment variable   | `SENSU_ARGS`
 example               | {{< highlight shell >}}"args": ["foo"]{{< /highlight >}}
 
 | enable_env |      |
@@ -1393,10 +1396,9 @@ example               | {{< highlight shell >}}"args": ["foo"]{{< /highlight >}}
 description           | `true` to enable environment variables. Otherwise, `false`.
 required              | false
 type                  | Boolean
-environment variable   | `SENSU_ENABLE_ENV`
 example               | {{< highlight shell >}}"enable_env": true{{< /highlight >}}
 
-### Example allow list configuration file
+#### Example allow list configuration file
 
 {{< language-toggle >}}
 
@@ -1447,7 +1449,7 @@ example               | {{< highlight shell >}}"enable_env": true{{< /highlight 
 
 {{< /language-toggle >}}
 
-### Configuration via environment variables
+## Configuration via environment variables
 
 Instead of using configuration flags, you can use environment variables to configure your Sensu agent.
 Each agent configuration flag has an associated environment variable.
@@ -1574,7 +1576,7 @@ For example, if you create a `SENSU_TEST_VAR` variable in your sensu-agent file,
 [21]: https://github.com/etsy/statsd
 [22]: #statsd-configuration-flags
 [23]: https://github.com/statsd/statsd#key-concepts
-[24]: #configuration
+[24]: #configuration-via-flags
 [25]: ../../api/overview#response-filtering
 [26]: ../../sensuctl/reference#response-filtering
 [27]: ../tokens/
@@ -1596,10 +1598,11 @@ For example, if you create a `SENSU_TEST_VAR` variable in your sensu-agent file,
 [46]: ../../guides/securing-sensu/
 [47]: https://en.m.wikipedia.org/wiki/Protocol_Buffers
 [48]: #example-allow-list-configuration-file
-[49]: #allow-list-configuration
+[49]: #allow-list-configuration-commands
 [50]: #configuration-via-environment-variables
 [51]: #events-post-specification
 [52]: ../handlers/#keepalive-event-handlers
 [53]: #keepalive-handlers-flag
 [54]: ../../dashboard/filtering#filter-with-label-selectors
 [55]: ../../release-notes/#5-19-3-release-notes
+[56]: #allow-list

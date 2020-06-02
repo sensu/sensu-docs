@@ -1323,13 +1323,13 @@ To get started with Sensu Go:
 [133]: /sensu-go/5.19/installation/platforms/
 [134]: /sensu-go/5.19/installation/install-sensu/
 [135]: /sensu-go/5.19/dashboard/overview
-[136]: /sensu-go/5.19/reference/agent/#configuration
+[136]: /sensu-go/5.19/reference/agent/#configuration-via-flags
 [137]: /sensu-go/5.19/reference/backend/#configuration
 [138]: /sensu-go/5.20/api/overview/#field-selector
 [139]: /sensu-go/5.20/reference/backend/#log-rotation
 [140]: /sensu-go/5.20/guides/troubleshooting/#increment-log-level-verbosity
 [141]: /sensu-go/5.20/getting-started/enterprise/
-[142]: /sensu-go/5.20/reference/agent/#configuration
+[142]: /sensu-go/5.20/reference/agent/#configuration-via-flags
 [143]: /sensu-go/5.20/reference/entities/#processes-attributes
 [144]: /sensu-go/5.20/sensuctl/reference/#sensuctl-describe-type-resource-types
 [145]: /sensu-go/5.20/reference/backend/#configuration-summary
