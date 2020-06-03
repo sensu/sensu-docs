@@ -162,6 +162,14 @@
         "~ ^/sensu-go/5.1[0-9]/?((?<=\/).*)?/guides/up-running-tutorial/?$": {
             "url": "/sensu-go/latest/learn/up-and-running",
             "status": 301
+        },
+        "~ ^/sensu-go/5.2[0-9]/?((?<=\/).*)?/installation/platforms/?$": {
+            "url": "/sensu-go/5.21/platforms",
+            "status": 301
+        },
+        "~ ^/sensu-go/5.2[0-9]/?((?<=\/).*)?/installation/verify/?$": {
+            "url": "/sensu-go/5.21/platforms",
+            "status": 301
         }
     }
 }
