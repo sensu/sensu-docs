@@ -1240,5 +1240,5 @@ To get started with Sensu Go:
 [133]: /sensu-go/5.19/installation/platforms/
 [134]: /sensu-go/5.19/installation/install-sensu/
 [135]: /sensu-go/5.19/dashboard/overview
-[136]: /sensu-go/5.19/reference/agent/#configuration
+[136]: /sensu-go/5.19/reference/agent/#configuration-via-flags
 [137]: /sensu-go/5.19/reference/backend/#configuration
