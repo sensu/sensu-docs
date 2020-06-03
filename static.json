@@ -163,15 +163,23 @@
             "url": "/sensu-go/latest/learn/up-and-running",
             "status": 301
         },
+        "~ ^/sensu-go/latest/installation/platforms/?$": {
+            "url": "/sensu-go/latest/platforms",
+            "status": 301
+        },
         "~ ^/sensu-go/5.2[0-9]/?((?<=\/).*)?/installation/platforms/?$": {
             "url": "/sensu-go/latest/platforms",
             "status": 301
         },
-        "~ ^/sensu-go/5.2[0-9]/?((?<=\/).*)?/installation/verify/?$": {
+        "~ ^/sensu-go/5.1[0-9]/?((?<=\/).*)?/installation/platforms/?$": {
             "url": "/sensu-go/latest/platforms",
             "status": 301
         },
-        "~ ^/sensu-go/5.1[0-9]/?((?<=\/).*)?/installation/platforms/?$": {
+        "~ ^/sensu-go/latest/installation/verify/?$": {
+            "url": "/sensu-go/latest/platforms",
+            "status": 301
+        },
+        "~ ^/sensu-go/5.2[0-9]/?((?<=\/).*)?/installation/verify/?$": {
             "url": "/sensu-go/latest/platforms",
             "status": 301
         },
