@@ -100,7 +100,7 @@ If your license expires, you will still have access to [commercial features][5],
 [6]: ../../guides/troubleshooting/
 [7]: https://sensu.io/contact?subject=contact-sales
 [8]: https://account.sensu.io/support
-[9]: ../../../latest/api/
+[9]: ../../api/
 [10]: ../../installation/auth/
 [11]: https://bonsai.sensu.io/assets?tiers%5B%5D=4
 [12]: ../../guides/install-check-executables-with-assets/
