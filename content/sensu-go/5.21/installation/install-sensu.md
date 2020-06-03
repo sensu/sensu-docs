@@ -464,7 +464,6 @@ If you plan to set up a cluster, here's our suggested pathway:
 [8]: ../../guides/securing-sensu/
 [9]: ../../guides/generate-certificates
 [11]: https://sensu.io/contact?subject=contact-sales/
-[12]: ../../platforms/
 [13]: https://sensu.io/sensu-license/
 [14]: ../../learn/learn-sensu-sandbox/
 [16]: https://etcd.io/
