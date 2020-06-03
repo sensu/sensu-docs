@@ -348,13 +348,13 @@ or
 This would allow the asset to be downloaded onto the target entity.
 
 [1]: ../../reference/agent#operation
-[2]: ../../installation/verify
+[2]: ../../platforms/
 [3]: ../securing-sensu/#sensu-agent-tls-authentication
 [4]: https://etcd.io/docs/v3.4.0/op-guide/security/
 [5]: ../../reference/agent/#restart-the-service
 [6]: ../../reference/agent#events-post
 [7]: https://dzone.com/articles/what-is-structured-logging
-[8]: ../../installation/platforms
+[8]: ../../platforms
 [9]: ../../reference/backend/#restart-the-service
 [10]: ../../reference/assets/#asset-definition-multiple-builds
 [11]: ../systemd-logs
