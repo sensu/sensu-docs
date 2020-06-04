@@ -2,6 +2,7 @@
 title: "Sensu Go release notes"
 linkTitle: "Release Notes"
 description: "Read the Sensu Go release notes to learn about what's new in our latest release."
+weight: -80
 product: "Sensu Go"
 version: "5.21"
 menu: "sensu-go-5.21"

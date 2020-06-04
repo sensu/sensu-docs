@@ -438,13 +438,12 @@ Now that you've installed Sensu, here are some resources to help continue your j
 [1]: https://github.com/sensu/sensu-go/releases/
 [3]: ../../dashboard/overview/
 [4]: ../../sensuctl/reference/
-[5]: ../../installation/platforms
+[5]: ../../platforms
 [6]: ../../reference/backend#configuration
 [7]: ../../reference/agent#configuration
 [9]: ../../guides/monitor-server-resources/
 [10]: ../../guides/send-slack-alerts/
 [11]: https://sensu.io/contact?subject=contact-sales/
-[12]: ../verify/
 [13]: https://sensu.io/sensu-license/
 [14]: ../../learn/learn-sensu-sandbox/
 [15]: ../configuration-management/

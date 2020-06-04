@@ -82,7 +82,7 @@ You may substitute the name of the desired service (e.g. `backend` or `agent`) f
 | Debian       | <= 7       | log file     | {{< highlight shell >}}tail --follow /var/log/sensu/sensu-${service}{{< /highlight >}} |
 
 {{% notice note %}}
-**NOTE**: Platform versions are listed for reference only and do not supersede the documented [supported platforms](../../installation/platforms).
+**NOTE**: Platform versions are listed for reference only and do not supersede the documented [supported platforms](../../platforms).
 {{% /notice %}}
 
 ##### Narrow your search to a specific timeframe
