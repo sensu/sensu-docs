@@ -342,7 +342,7 @@ Learn how to use Sensu to [Reduce alert fatigue][11].
 [4]: ../../sensuctl/reference#first-time-setup
 [5]: https://curl.haxx.se/
 [6]: https://api.slack.com/incoming-webhooks
-[7]: ../../getting-started/learn-sensu/
+[7]: ../../learn/learn-sensu-sandbox/
 [8]: https://bonsai.sensu.io/assets/sensu/sensu-slack-handler
 [9]: ../../guides/monitor-server-resources/
 [10]: ../../reference/entities/#manage-entity-labels

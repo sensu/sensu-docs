@@ -125,7 +125,7 @@ Sensu Go does have a [built-in dashboard][29] that you can use to visually inter
 [4]: ../../installation/upgrade/#migrate-to-sensu-go-from-sensu-core-1-x
 [5]: ../../installation/recommended-hardware/
 [6]: https://sensu.io/sales/
-[7]: ../glossary/
+[7]: ../../learn/glossary/
 [8]: ../../installation/install-sensu#install-sensu-agents
 [9]: ../../api/overview/
 [10]: ../../reference/entities/#proxy-entities

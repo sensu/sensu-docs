@@ -272,7 +272,7 @@ You can also follow our [Up and running with Sensu Go][9] interactive tutorial t
 [6]: ../../reference/handlers/
 [7]: ../reduce-alert-fatigue/
 [8]: ../../reference/assets
-[9]: ../up-running-tutorial/
+[9]: ../../learn/up-and-running/
 [10]: ../../reference/filters/#built-in-filter-is-incident
 [11]: ../../reference/filters/#built-in-filter-not-silenced
 [12]: ../../installation/install-sensu/#install-the-sensu-backend

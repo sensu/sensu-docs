@@ -446,7 +446,7 @@ Now that you've installed Sensu, here are some resources to help continue your j
 [11]: https://sensu.io/contact?subject=contact-sales/
 [12]: ../verify/
 [13]: https://sensu.io/sensu-license/
-[14]: ../../getting-started/learn-sensu/
+[14]: ../../learn/learn-sensu-sandbox/
 [15]: ../configuration-management/
 [16]: https://etcd.io/
 [17]: ../../reference/assets/
