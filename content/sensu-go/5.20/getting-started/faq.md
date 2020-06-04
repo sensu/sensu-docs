@@ -146,14 +146,14 @@ Sensu Go does have a [built-in dashboard][29] that you can use to visually inter
 [25]: ../../reference/backend/
 [26]: ../../reference/agent/
 [27]: ../../guides/clustering/
-[28]: ../enterprise/
+[28]: ../commercial/
 [29]: ../../dashboard/overview/
 [30]: https://sensu.io/enterprise/
 [31]: https://blog.sensu.io/enterprise-features-in-sensu-go/
 [32]: https://bonsai.sensu.io/
 [33]: ../../reference/assets/#share-an-asset-on-bonsai
 [34]: https://blog.sensu.io/one-year-of-sensu-go/
-[35]: ../../getting-started/enterprise/
+[35]: ../../commercial/
 [36]: https://sensu.io/contact/
 [37]: #go-ports
 

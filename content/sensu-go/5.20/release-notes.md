@@ -260,8 +260,8 @@ See the [upgrade guide][1] to upgrade Sensu to version 5.18.1.
 
 **FIXES:**
 
-- ([Commercial feature][121]) Fixed a bug that caused SQL migrations to fail on PostgreSQL 12.
-- ([Commercial feature][121]) Fixed a bug where OIDC login could result in a nil pointer panic.
+- ([Commercial feature][115]) Fixed a bug that caused SQL migrations to fail on PostgreSQL 12.
+- ([Commercial feature][115]) Fixed a bug where OIDC login could result in a nil pointer panic.
 - Changed to using the gRPC client (rather than the embedded etcd client) to improve reliability and avoid nil pointer panics triggered by shutting down the embedded etcd client.
 - The Sensu backend no longer hangs indefinitely if a file lock for the asset manager cannot be obtained. Instead, the backend returns an error after 60 seconds.
 - Fixed a bug that caused sensu-backend to restart when agents disconnected.
@@ -1290,7 +1290,7 @@ To get started with Sensu Go:
 [103]: /sensu-go/5.16/dashboard/overview
 [104]: /sensu-go/5.16/
 [105]: /sensu-go/5.16/getting-started/enterprise/
-[106]: /sensu-go/5.17/getting-started/enterprise/
+[106]: /sensu-go/5.17/commercial/
 [107]: /sensu-go/5.17/dashboard/overview
 [108]: /sensu-go/5.17/api/secrets
 [109]: /sensu-go/5.17/reference/backend/#docker-initialization
@@ -1299,14 +1299,13 @@ To get started with Sensu Go:
 [112]: /sensu-go/5.17/api/events/#events-post
 [113]: /sensu-go/5.17/sensuctl/reference/#list-commands
 [114]: /sensu-go/5.18/api/events/#events-post
-[115]: /sensu-go/5.18/getting-started/enterprise/
+[115]: /sensu-go/5.18/commercial/
 [116]: /sensu-go/5.18/api/overview/#label-selector
 [117]: /sensu-go/5.18/api/overview/#field-selector
 [118]: /sensu-go/5.18/api/events#events-post
 [119]: /sensu-go/5.18/api/overview/#response-filtering
 [120]: /sensu-go/5.18/api/auth/#the-authtest-api-endpoint
-[121]: /sensu-go/5.18/getting-started/enterprise/
-[122]: /sensu-go/5.19/getting-started/enterprise/
+[122]: /sensu-go/5.19/commercial/
 [123]: /sensu-go/5.19/dashboard/filtering/#save-a-filtered-search
 [124]: /sensu-go/5.19/dashboard/overview/
 [125]: /sensu-go/5.19/api/health/
@@ -1328,7 +1327,7 @@ To get started with Sensu Go:
 [138]: /sensu-go/5.20/api/overview/#field-selector
 [139]: /sensu-go/5.20/reference/backend/#log-rotation
 [140]: /sensu-go/5.20/guides/troubleshooting/#increment-log-level-verbosity
-[141]: /sensu-go/5.20/getting-started/enterprise/
+[141]: /sensu-go/5.20/commercial/
 [142]: /sensu-go/5.20/reference/agent/#configuration-via-flags
 [143]: /sensu-go/5.20/reference/entities/#processes-attributes
 [144]: /sensu-go/5.20/sensuctl/reference/#sensuctl-describe-type-resource-types

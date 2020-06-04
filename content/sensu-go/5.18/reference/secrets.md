@@ -214,7 +214,7 @@ In this example, the name of the secret is `database`.
 The `database` secret contains a key called `password`, and its value is the password to our database.
 
 
-[1]: ../../getting-started/enterprise/
+[1]: ../../commercial/
 [2]: ../../api/secrets/
 [3]: ../../sensuctl/reference/
 [4]: ../../sensuctl/reference/#subcommands

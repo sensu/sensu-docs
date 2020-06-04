@@ -1347,7 +1347,7 @@ If a browser does not open, launch a browser to complete the login via your OIDC
 [3]: ../../reference/rbac#default-users
 [4]: ../../reference/rbac/
 [5]: ../../guides/create-read-only-user/
-[6]: ../../getting-started/enterprise/
+[6]: ../../commercial/
 [7]: https://www.openldap.org/
 [8]: ../../api/overview/
 [9]: ../../api/auth/

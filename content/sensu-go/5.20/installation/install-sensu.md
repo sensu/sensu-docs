@@ -470,7 +470,7 @@ If you plan to set up a cluster, here's our suggested pathway:
 [17]: ../../reference/assets/
 [18]: #install-sensu-agents
 [19]: #install-sensuctl
-[20]: ../../getting-started/enterprise/
+[20]: ../../commercial/
 [21]: #install-the-sensu-backend
 [22]: ../../guides/clustering/
 [23]: ../../sensuctl/quickstart/

@@ -393,7 +393,7 @@ Before you implement etcd replicators, review these details &mdash; they are cri
 **WARNING**: Make sure to confirm your configuration. The server will accept incorrect EtcdReplicator definitions without sending a warning. If your configuration is incorrect, replication will not work.
 {{% /notice %}}
 
-[1]: ../../getting-started/enterprise/
+[1]: ../../commercial/
 [2]: ../../api/etcdreplicators/
 [3]: ../../reference/rbac/
 [4]: ../../sensuctl/reference/#create-resources

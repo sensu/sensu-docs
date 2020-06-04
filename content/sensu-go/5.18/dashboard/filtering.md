@@ -160,7 +160,7 @@ fieldSelector:slack in check.handlers
 {{< /highlight >}}
 
 
-[1]: ../../getting-started/enterprise/
+[1]: ../../commercial/
 [2]: ../../api/overview/#field-selector
 [3]: ../../api/overview/#response-filtering
 [4]: #create-dashboard-filters

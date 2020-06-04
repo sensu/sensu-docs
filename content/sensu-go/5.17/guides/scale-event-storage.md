@@ -326,7 +326,7 @@ With this configuration complete, your Sensu events will be replicated to the st
 
 [1]: https://github.com/sensu/sensu-perf
 [2]: #revert-to-the-built-in-datastore
-[3]: ../../getting-started/enterprise/
+[3]: ../../commercial/
 [4]: ../../guides/troubleshooting/#log-file-locations
 [5]: https://www.postgresql.org/docs/9.5/auth-methods.html#AUTH-PASSWORD
 [6]: https://wiki.postgresql.org/wiki/Streaming_Replication
