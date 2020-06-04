@@ -13,12 +13,13 @@ menu:
 - [Searches specification](#searches-specification)
   - [Top-level attributes](#top-level-attributes) | [Metadata attributes](#metadata-attributes) | [Spec attributes](#spec-attributes)
 - [Examples](#examples)
-	- [Searches all checks on a specific entity](#silence-all-checks-on-a-specific-entity)
+	- [Search for events with any status except passing](#search-for-events-with-any-status-except-passing)
+  - [Search for published checks with a specific subscription and region ](#search-for-published-checks-with-a-specific-subscription-and-region)
 
 **COMMERCIAL FEATURE**: Access saved searches in the packaged Sensu Go distribution.
 For more information, see [Get started with commercial features][1].
 
-With the saved searches feature, you can filter your resources and events and save the filter to etcd in a [namespaced resource][2] named `searches`.
+With the saved searches feature, you can apply search parameters to your entities, events, and resources and save them to etcd in a [namespaced resource][2] named `searches`.
 
 The saved searches feature is designed to be used directly in the [web UI][3].
 However, you can create, retrieve, update, and delete saved searches with the [searches API][4].
@@ -43,26 +44,28 @@ example      | {{< highlight shell >}}"api_version": "searches/v1"{{< /highlight
 
 metadata     | 
 -------------|------
-description  | Top-level collection of metadata about the search entry that includes `name` and `namespace`. The `metadata` map is always at the top level of the search entry definition. This means that in `wrapped-json` and `yaml` formats, the `metadata` scope occurs outside the `spec` scope. See [metadata attributes][5] for details.
+description  | Top-level collection of metadata about the search that includes `name` and `namespace`. The `metadata` map is always at the top level of the search definition. This means that in `wrapped-json` and `yaml` formats, the `metadata` scope occurs outside the `spec` scope. See [metadata attributes][5] for details.
 required     | Required for search entry definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][6].
 type         | Map of key-value pairs
 example      | {{< highlight shell >}}
 "metadata": {
-  "name": "incidents-us-west",
+  "name": "us-west-server-incidents",
   "namespace": "default"
 }
 {{< /highlight >}}
 
 spec         | 
 -------------|------
-description  | Top-level map that includes the search entry [spec attributes][7]. The spec contents will depend on the filters you apply and save in the search.
+description  | Top-level map that includes the search [spec attributes][7]. The spec contents will depend on the search parameters you apply and save.
 required     | Required for silences in `wrapped-json` or `yaml` format for use with [`sensuctl create`][6].
 type         | Map of key-value pairs
 example      | {{< highlight shell >}}
 "spec": {
   "parameters": [
-  "labelSelector:region == \"us-west-1\"",
-  "status:incident"
+    "entity:server-testing",
+    "check:server-health",
+    "status:incident",
+    "labelSelector:region == \"us-west-1\""
   ],
   "resource": "core.v2/Event"
 }
@@ -75,11 +78,11 @@ example      | {{< highlight shell >}}
 description  | Search identifier generated from the combination of a subscription name and check name.
 required     | true
 type         | String
-example      | {{< highlight shell >}}"name": "incidents-us-west"{{< /highlight >}}
+example      | {{< highlight shell >}}"name": "us-west-server-incidents"{{< /highlight >}}
 
 | namespace  |      |
 -------------|------
-description  | Sensu [RBAC namespace][8] that the search entry belongs to.
+description  | Sensu [RBAC namespace][8] that the search belongs to.
 required     | false
 type         | String
 default      | `default`
@@ -87,102 +90,192 @@ example      | {{< highlight shell >}}"namespace": "default"{{< /highlight >}}
 
 ### Spec attributes
 
-check        | 
+parameters   | 
 -------------|------ 
-description  | Name of the check the entry should match.
-required     | true, unless `subscription` is provided
-type         | String
-example      | {{< highlight shell >}}"check": "haproxy_status"{{< /highlight >}}
-
-entity       | 
--------------|------ 
-description  | Name of the check the entry should match.
-required     | true, unless `subscription` is provided
-type         | String
-example      | {{< highlight shell >}}"check": "haproxy_status"{{< /highlight >}}
-
-fieldSelector | 
--------------|------ 
-description  | Name of the check the entry should match.
-required     | true, unless `subscription` is provided
-type         | String
-example      | {{< highlight shell >}}"check": "haproxy_status"{{< /highlight >}}
-
-labelSelector | 
--------------|------ 
-description  | Name of the subscription the entry should match.
-required     | true, unless `check` is provided
-type         | String
-example      | {{< highlight shell >}}"subscription": "entity:i-424242"{{</highlight>}}
-
-silenced     | 
--------------|------ 
-description  | Time at which silence entry goes into effect. In epoch. 
-required     | false 
-type         | Integer 
-example      | {{< highlight shell >}}"begin": 1512512023{{< /highlight >}}
-
-status       | 
--------------|------ 
-description  | Number of seconds until the entry should be deleted. 
-required     | false 
-type         | Integer 
-default      | -1
-example      | {{< highlight shell >}}"expire": 3600{{< /highlight >}}
+description  | Parameters the search will apply.
+required     | true
+type         | Array
+example      | {{< highlight shell >}}
+"parameters": [
+  "entity:server-testing",
+  "check:server-health",
+  "status:incident",
+  "labelSelector:region == \"us-west-1\""
+]{{< /highlight >}}
 
 resource     | 
 -------------|------ 
-description  | Explanation of the reason for creating the entry.
-required     | false 
-type         | String 
-default      | null 
+description  | Fully qualified name of the resource included in the search.
+required     | true
+type         | String
 example      | {{< highlight shell >}}"resource": "core.v2/Event"{{< /highlight >}}
+
+#### Parameters
+
+action       | 
+-------------|------ 
+description  | For filter searches, the type of filter to include in the search: `allow` or `deny`.
+required     | false
+type         | String
+example      | {{< highlight shell >}}"action:allow"{{< /highlight >}}
+
+check        | 
+-------------|------ 
+description  | Name of the check to include in the search.
+required     | false
+type         | String
+example      | {{< highlight shell >}}"check:server-health"{{< /highlight >}}
+
+class        | 
+-------------|------ 
+description  | For entity searches, the entity class to include in the search: `agent` or `proxy`.
+required     | false
+type         | String
+example      | {{< highlight shell >}}"class:agent"{{< /highlight >}}
+
+entity       | 
+-------------|------ 
+description  | Name of the entity to include in the search.
+required     | false
+type         | String
+example      | {{< highlight shell >}}"entity:server-testing"{{< /highlight >}}
+
+event        | 
+-------------|------ 
+description  | Name of the event to include in the search.
+required     | false
+type         | String
+example      | {{< highlight shell >}}"event:server-testing"{{< /highlight >}}
+
+fieldSelector | 
+-------------|------ 
+description  | [Field selector][9] to include in the search.
+required     | false
+type         | Filter statement
+example      | {{< highlight shell >}}"fieldSelector: entity.name == \"1b04994n\""{{< /highlight >}}
+
+labelSelector | 
+-------------|------ 
+description  | [Label selector][10] to include in the search.
+required     | false
+type         | Filter statement
+example      | {{< highlight shell >}}"labelSelector:region == \"us-west-1\""{{< /highlight >}}
+
+published    | 
+-------------|------ 
+description  | If `true`, the search will include only published resources. Otherwise, `false`. 
+required     | false
+type         | Boolean
+example      | {{< highlight shell >}}"published:true"{{< /highlight >}}
+
+silenced     | 
+-------------|------ 
+description  | If `true`, the search will include only silenced events. Otherwise, `false`. 
+required     | false
+type         | Boolean
+example      | {{< highlight shell >}}"silenced:true"{{< /highlight >}}
+
+status       | 
+-------------|------ 
+description  | Status of the events, entities, or resources to include in the search.
+required     | false
+type         | String
+example      | {{< highlight shell >}}"status:incident"{{< /highlight >}}
+
+subscription | 
+-------------|------ 
+description  | Name of the subscription to include in the search. 
+required     | false
+type         | String
+example      | {{< highlight shell >}}"subscription:web"{{< /highlight >}}
+
+type         | 
+-------------|------ 
+description  | For handler searches, the type of hander to include in the search: `pipe`, `set`, `tcp`, or `udp`.
+required     | false
+type         | String
+example      | {{< highlight shell >}}"type:pipe"{{< /highlight >}}
 
 ## Examples
 
-### Silence all checks on a specific entity
+### Search for events with any status except passing
 
-Suppose you want to silence any alerts on the Sensu entity `i-424242`.
-To do this, use per-entity subscriptions:
+The following saved search will retrieve all events that have any status except `passing`:
 
 {{< language-toggle >}}
 
 {{< highlight yml >}}
-type: Silenced
-api_version: core/v2
+type: Search
+api_version: searches/v1
 metadata:
-  annotations: null
-  labels: null
-  name: entity:i-424242:*
+  name: events-not-passing
   namespace: default
 spec:
-  begin: 1542671205
-  check: null
-  creator: admin
-  expire: -1
-  expire_on_resolve: false
-  reason: null
-  subscription: entity:i-424242
+  parameters:
+  - status:incident
+  - status:warning
+  - status:critical
+  - status:unknown
+  resource: core.v2/Event
 {{< /highlight >}}
 
 {{< highlight json >}}
 {
-  "type": "Silenced",
-  "api_version": "core/v2",
+  "type": "Search",
+  "api_version": "searches/v1",
   "metadata": {
-    "name": "entity:i-424242:*",
-    "namespace": "default",
-    "labels": null,
-    "annotations": null
+    "name": "events-not-passing",
+    "namespace": "default"
   },
   "spec": {
-    "expire": -1,
-    "expire_on_resolve": false,
-    "creator": "admin",
-    "reason": null,
-    "check": null,
-    "subscription": "entity:i-424242",
-    "begin": 1542671205
+    "parameters": [
+      "status:incident",
+      "status:warning",
+      "status:critical",
+      "status:unknown"
+    ],
+    "resource": "core.v2/Event"
+  }
+}
+{{< /highlight >}}
+
+{{< /language-toggle >}}
+
+### Search for published checks with a specific subscription and region
+
+The following saved search will retrieve all published checks for the `us-west-1` region with the `linux` subscription:
+
+{{< language-toggle >}}
+
+{{< highlight yml >}}
+type: Search
+api_version: searches/v1
+metadata:
+  name: published-checks-linux-uswest
+  namespace: default
+spec:
+  parameters:
+  - published:true
+  - subscription:linux
+  - 'labelSelector: region == "us-west-1"'
+  resource: core.v2/CheckConfig
+{{< /highlight >}}
+
+{{< highlight json >}}
+{
+  "type": "Search",
+  "api_version": "searches/v1",
+  "metadata": {
+    "name": "published-checks-linux-uswest",
+    "namespace": "default"
+  },
+  "spec": {
+    "parameters": [
+      "published:true",
+      "subscription:linux",
+      "labelSelector: region == \"us-west-1\""
+    ],
+    "resource": "core.v2/CheckConfig"
   }
 }
 {{< /highlight >}}
@@ -198,3 +291,5 @@ spec:
 [6]: ../../sensuctl/reference#create-resources
 [7]: #spec-attributes
 [8]: ../rbac#namespaces
+[9]: ../../api/overview/#field-selector
+[10]: ../../api/overview/#label-selector
