@@ -180,21 +180,15 @@ Then, follow this example to export your API key to a custom `SENSU_API_KEY` env
 sensuctl env
 export SENSU_API_KEY="83abef1e-e7d7-4beb-91fc-79ad90084d5b"
 
-# Run this command to configure your shell:
-# eval $(sensuctl env)
 {{< /highlight >}}
 
 {{< highlight cmd >}}
-sensuctl env --shell cmd
 SET SENSU_API_KEY="83abef1e-e7d7-4beb-91fc-79ad90084d5b"
 {{< /highlight >}}
 
 {{< highlight powershell >}}
-sensuctl env --shell powershell
 $Env:SENSU_API_KEY = "83abef1e-e7d7-4beb-91fc-79ad90084d5b"
 
-# Run this command to configure your shell:
-# & sensuctl env --shell powershell | Invoke-Expression
 {{< /highlight >}}
 
 {{< /language-toggle >}}
