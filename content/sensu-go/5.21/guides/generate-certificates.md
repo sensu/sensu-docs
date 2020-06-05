@@ -27,7 +27,7 @@ TLS uses encryption to provide security for communication between Sensu backends
 
 Because reconfiguring an existing Sensu deployment from cleartext to TLS can be time-consuming, we recommend that you configure TLS for your backend from the very beginning.
 
-TLS is also required to use some of Sensu's commercial features, like [secrets management][9] and [mutual TLS authentication (mTLS)][14].
+TLS is also required to use some of Sensu's commercial features, like [secrets management][9] and [mutual TLS authentication (mTLS)][5].
 
 ## Prerequisites
 
@@ -279,11 +279,12 @@ TODO: Document steps for adding CA root to Windows trust store
 
 Now that you have generated the required certificates and copied them to the applicable hosts, follow our [Secure Sensu][1] guide to make your Sensu installation production-ready.
 
-[1]: ../../guides/securing-sensu/
-[2]: ../../guides/securing-sensu/#secure-etcd-peer-communication
-[3]: ../../guides/securing-sensu/#secure-the-api-and-dashboard
-[4]: ../../guides/securing-sensu/#secure-sensu-agent-to-server-communication
-[5]: ../../guides/securing-sensu/#sensu-agent-tls-authentication
+
+[1]: ../securing-sensu/
+[2]: ../securing-sensu/#secure-etcd-peer-communication
+[3]: ../securing-sensu/#secure-the-api-and-dashboard
+[4]: ../securing-sensu/#secure-sensu-agent-to-server-communication
+[5]: ../securing-sensu/#sensu-agent-mtls-authentication
 [6]: https://github.com/cloudflare/cfssl
 [7]: https://etcd.io/docs/v3.4.0/op-guide/security/
 [8]: https://en.wikipedia.org/wiki/Public_key_infrastructure
@@ -292,4 +293,3 @@ Now that you have generated the required certificates and copied them to the app
 [11]: #copy-ca-pem
 [12]: #copy-backend-pem
 [13]: #copy-agent-pem
-[14]: https://docs.sensu.io/sensu-go/latest/guides/securing-sensu/#sensu-agent-tls-authentication
