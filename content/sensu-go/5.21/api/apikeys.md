@@ -9,12 +9,16 @@ menu:
 ---
 
 - [The `/apikeys` API endpoint](#the-apikeys-api-endpoint)
-	- [`/apikeys` (GET)](#apikeys-get)
-	- [`/apikeys` (POST)](#apikeys-post)
+  - [`/apikeys` (GET)](#apikeys-get)
+  - [`/apikeys` (POST)](#apikeys-post)
 - [The `/apikeys/:apikey` API endpoint](#the-apikeysapikey-api-endpoint)
-	- [`/apikeys/:apikey` (GET)](#apikeysapikey-get)
-	- [`/apikeys/:apikey` (DELETE)](#apikeysapikey-delete)
+  - [`/apikeys/:apikey` (GET)](#apikeysapikey-get)
+  - [`/apikeys/:apikey` (DELETE)](#apikeysapikey-delete)
 
+{{% notice note %}}
+**NOTE**: Requests to the APIKeys API require you to authenticate with a Sensu [access token](../overview/#authenticate-with-the-authentication-api) or [API key](../overview/#authenticate-with-an-api-key).
+The code examples in this document use the [environment variable](../overview/#configure-an-environment-variable-for-api-key-authentication) `$SENSU_API_KEY` to represent a valid API key in API requests. 
+{{% /notice %}}
 
 ## The `/apikeys` API endpoint
 
@@ -29,7 +33,7 @@ The following example demonstrates a request to the `/apikeys` API endpoint, res
 {{< highlight shell >}}
 curl -X GET \
 http://127.0.0.1:8080/api/core/v2/apikeys \
--H "Authorization: Bearer $SENSU_ACCESS_TOKEN"
+-H "Authorization: KEY $SENSU_API_KEY"
 
 HTTP/1.1 200 OK
 
@@ -78,7 +82,7 @@ The request includes the API key definition in the request body and returns a su
 
 {{< highlight shell >}}
 curl -X POST \
--H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
+-H "Authorization: Key $SENSU_API_KEY" \
 -H 'Content-Type: application/json' \
 -d '{
   "username": "admin"
@@ -114,7 +118,7 @@ In the following example, querying the `/apikeys/:apikey` API returns the reques
 {{< highlight shell >}}
 curl -X GET \
 http://127.0.0.1:8080/api/core/v2/apikeys/83abef1e-e7d7-4beb-91fc-79ad90084d5b \
--H "Authorization: Bearer $SENSU_ACCESS_TOKEN"
+-H "Authorization: Key $SENSU_API_KEY"
 
 HTTP/1.1 200 OK
 {
@@ -156,7 +160,7 @@ The following example shows a request to the `/apikeys/:apikey` API endpoint to 
 
 {{< highlight shell >}}
 curl -X DELETE \
--H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
+-H "Authorization: Key $SENSU_API_KEY" \
 http://127.0.0.1:8080/api/core/v2/apikeys/83abef1e-e7d7-4beb-91fc-79ad90084d5b
 
 HTTP/1.1 204 No Content
