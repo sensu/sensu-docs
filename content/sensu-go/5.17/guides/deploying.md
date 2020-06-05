@@ -164,5 +164,5 @@ Under normal conditions, sensuctl communications and browser access to the web U
 [6]: ../../guides/securing-sensu/
 [7]: ../../guides/clustering/
 [8]: ../../reference/datastore/
-[9]: ../../getting-started/enterprise/
+[9]: ../../commercial/
 [10]: https://github.com/sensu/sensu-perf

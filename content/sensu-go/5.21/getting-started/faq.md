@@ -52,7 +52,7 @@ See [Get started with commercial features][28] for more information.
 
 See the [Enterprise page][30] for a complete comparison. 
 
-All [commercial features][35] are available for free in the packaged Sensu Go distribution up to an entity limit of 100.
+All [commercial features][28] are available for free in the packaged Sensu Go distribution up to an entity limit of 100.
 If your Sensu instance includes more than 100 entities, [contact us][36] to learn how to upgrade your installation and increase your limit.
 See the [announcement on our blog][34] for more information about our usage policy.
 
@@ -119,7 +119,7 @@ Yes, as long as you meet the [port requirements][37], a single Sensu backend can
 Due to Sensu Go's implementation, it is not possible to use Uchiwa with Sensu Go.
 Sensu Go does have a [built-in dashboard][29] that you can use to visually interact with your Sensu Go deployment.
 
-[1]: ../../installation/platforms/
+[1]: ../../platforms/
 [2]: ../../installation/install-sensu/
 [3]: https://blog.sensu.io/sensu-go-is-here/
 [4]: ../../installation/upgrade/#migrate-to-sensu-go-from-sensu-core-1-x
@@ -146,14 +146,13 @@ Sensu Go does have a [built-in dashboard][29] that you can use to visually inter
 [25]: ../../reference/backend/
 [26]: ../../reference/agent/
 [27]: ../../guides/clustering/
-[28]: ../enterprise/
+[28]: ../../commercial/
 [29]: ../../dashboard/overview/
 [30]: https://sensu.io/enterprise/
 [31]: https://blog.sensu.io/enterprise-features-in-sensu-go/
 [32]: https://bonsai.sensu.io/
 [33]: ../../reference/assets/#share-an-asset-on-bonsai
 [34]: https://blog.sensu.io/one-year-of-sensu-go/
-[35]: ../../getting-started/enterprise/
 [36]: https://sensu.io/contact/
 [37]: #go-ports
 

@@ -9,12 +9,17 @@ menu:
 ---
 
 - [The `/hooks` API endpoint](#the-hooks-api-endpoint)
-	- [`/hooks` (GET)](#hooks-get)
-	- [`/hooks` (POST)](#hooks-post)
+  - [`/hooks` (GET)](#hooks-get)
+  - [`/hooks` (POST)](#hooks-post)
 - [The `/hooks/:hook` API endpoint](#the-hookshook-api-endpoint)
-	- [`/hooks/:hook` (GET)](#hookshook-get)
+  - [`/hooks/:hook` (GET)](#hookshook-get)
   - [`/hooks/:hook` (PUT)](#hookshook-put)
   - [`/hooks/:hook` (DELETE)](#hookshook-delete)
+
+{{% notice note %}}
+**NOTE**: Requests to the hooks API require you to authenticate with a Sensu [access token](../overview/#authenticate-with-the-authentication-api) or [API key](../overview/#authenticate-with-an-api-key).
+The code examples in this document use the [environment variable](../overview/#configure-an-environment-variable-for-api-key-authentication) `$SENSU_API_KEY` to represent a valid API key in API requests. 
+{{% /notice %}}
 
 ## The `/hooks` API endpoint
 
@@ -29,7 +34,7 @@ The following example demonstrates a request to the `/hooks` API endpoint, resul
 {{< highlight shell >}}
 curl -X GET \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/hooks \
--H "Authorization: Bearer $SENSU_ACCESS_TOKEN"
+-H "Authorization: Key $SENSU_API_KEY"
 
 HTTP/1.1 200 OK
 [
@@ -106,7 +111,7 @@ The request returns a successful HTTP `201 Created` response.
 
 {{< highlight shell >}}
 curl -X POST \
--H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
+-H "Authorization: Key $SENSU_API_KEY" \
 -H 'Content-Type: application/json' \
 -d '{
   "metadata": {
@@ -158,7 +163,7 @@ In the following example, querying the `/hooks/:hook` API endpoint returns a JSO
 {{< highlight shell >}}
 curl -X GET \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/hooks/process-tree \
--H "Authorization: Bearer $SENSU_ACCESS_TOKEN"
+-H "Authorization: Key $SENSU_API_KEY"
 
 HTTP/1.1 200 OK
 {
@@ -209,7 +214,7 @@ The request returns a successful HTTP `201 Created` response.
 
 {{< highlight shell >}}
 curl -X PUT \
--H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
+-H "Authorization: Key $SENSU_API_KEY" \
 -H 'Content-Type: application/json' \
 -d '{
   "metadata": {
@@ -258,7 +263,7 @@ The following example shows a request to the `/hooks/:hook` API endpoint to dele
 {{< highlight shell >}}
 curl -X DELETE \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/hooks/process-tree \
--H "Authorization: Bearer $SENSU_ACCESS_TOKEN"
+-H "Authorization: Key $SENSU_API_KEY"
 
 HTTP/1.1 204 No Content
 {{< /highlight >}}

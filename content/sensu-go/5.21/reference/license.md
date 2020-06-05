@@ -36,7 +36,7 @@ Use sensuctl to view your license details at any time.
 {{< highlight shell >}}
 # Active license
 sensuctl license info
-=== You are currently using 10 out of 100 entities
+=== You are currently using 10/100 total entities, 5/50 agent entities, and 5/50 proxy entities
 Account Name: Training Team - Sensu
 Account ID:   123
 Plan:         managed
@@ -55,7 +55,6 @@ Error: not found
 ## Entity limit
 
 Your commercial license may include the entity limit and entity class limits tied to your Sensu licensing package.
-An entity limit of `0` allows unlimited entities.
 [Contact Sensu][8] to upgrade your commercial license.
 
 Your Sensu license may include two types of entity limits:
@@ -75,7 +74,7 @@ In tabular format, the entity count and limit are included in the response title
 
 {{< highlight shell >}}
 sensuctl license info --format tabular
-=== You are currently using 10 out of 100 entities
+=== You are currently using 10/100 total entities, 5/50 agent entities, and 5/50 proxy entities
 Account Name: Training Team - Sensu
 Account ID:   123
 Plan:         managed
@@ -85,6 +84,13 @@ Issuer:       Sensu, Inc.
 Issued:       2020-02-15 15:01:44 -0500 -0500
 Valid:        true
 Valid Until:  2021-02-15 00:00:00 -0800 -0800
+{{< /highlight >}}
+
+If you have an unlimited entity count, the `sensuctl license info` response title will still include a current count for each type of entity you are using.
+For example:
+
+{{< highlight shell >}}
+=== You are currently using 10/unlimited total entities, 5/unlimited agent entities, and 5/unlimited proxy entities
 {{< /highlight >}}
 
 In other formats (e.g. yaml), the entity count and limit are included as labels:
@@ -142,11 +148,11 @@ If your license expires, you will still have access to [commercial features][5],
 [2]: ../../installation/install-sensu/
 [3]: ../../sensuctl/reference/#first-time-setup
 [4]: ../../api/license/
-[5]: ../../getting-started/enterprise/
+[5]: ../../commercial/
 [6]: ../../guides/troubleshooting/
 [7]: https://sensu.io/contact?subject=contact-sales
 [8]: https://account.sensu.io/support
-[9]: ../../../latest/api/
+[9]: ../../api/
 [10]: ../../installation/auth/
 [11]: https://bonsai.sensu.io/assets?tiers%5B%5D=4
 [12]: ../../guides/install-check-executables-with-assets/

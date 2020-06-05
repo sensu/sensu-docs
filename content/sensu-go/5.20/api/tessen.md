@@ -12,6 +12,11 @@ menu:
   - [`/tessen` (GET)](#tessen-get)
   - [`/tessen` (PUT)](#tessen-put)
 
+{{% notice note %}}
+**NOTE**: Requests to the Tessen API require you to authenticate with a Sensu [access token](../overview/#authenticate-with-the-authentication-api) or [API key](../overview/#authenticate-with-an-api-key).
+The code examples in this document use the [environment variable](../overview/#configure-an-environment-variable-for-api-key-authentication) `$SENSU_API_KEY` to represent a valid API key in API requests. 
+{{% /notice %}}
+
 ## The `/tessen` API endpoints {#the-tessen-API-endpoints}
 
 The Tessen API provides HTTP access to manage [Tessen][1] configuration.
@@ -29,7 +34,7 @@ The request returns an HTTP `200 OK` response and a JSON map that contains the a
 {{< highlight shell >}}
 curl -X GET \
 http://127.0.0.1:8080/api/core/v2/tessen \
--H "Authorization: Bearer $SENSU_ACCESS_TOKEN"
+-H "Authorization: Key $SENSU_API_KEY"
 
 HTTP/1.1 200 OK
 {
@@ -63,7 +68,7 @@ The request returns an HTTP `200 OK` response and the resulting Tessen configura
 
 {{< highlight shell >}}
 curl -X PUT \
--H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
+-H "Authorization: Key $SENSU_API_KEY" \
 -H 'Content-Type: application/json' \
 -d '{
   "opt_out": false

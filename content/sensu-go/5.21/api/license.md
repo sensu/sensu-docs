@@ -14,6 +14,11 @@ menu:
   - [`/license` (PUT)](#license-put)
   - [`/license` (DELETE)](#license-delete)
 
+{{% notice note %}}
+**NOTE**: Requests to the license API require you to authenticate with a Sensu [access token](../overview/#authenticate-with-the-authentication-api) or [API key](../overview/#authenticate-with-an-api-key).
+The code examples in this document use the [environment variable](../overview/#configure-an-environment-variable-for-api-key-authentication) `$SENSU_API_KEY` to represent a valid API key in API requests. 
+{{% /notice %}}
+
 ## The `/license` API endpoints
 
 For more information about commercial features designed for enterprises, see [Get started with commercial features][1].
@@ -29,7 +34,7 @@ The following example demonstrates a request to the `/license` API endpoint, res
 {{< highlight shell >}}
 curl -X GET \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/license \
--H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
+-H "Authorization: Key $SENSU_API_KEY" \
 -H 'Content-Type: application/json'
 
 HTTP/1.1 200 OK
@@ -119,7 +124,7 @@ The request returns a successful HTTP `201 Created` response.
 
 {{< highlight shell >}}
 curl -X PUT \
--H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
+-H "Authorization: Key $SENSU_API_KEY" \
 -H 'Content-Type: application/json' \
 -d '{
   "type": "LicenseFile",
@@ -209,7 +214,7 @@ The following example shows a request to the `/license` API endpoint to delete t
 {{< highlight shell >}}
 curl -X DELETE \
 http://127.0.0.1:8080/api/enterprise/licensing/v2/license \
--H "Authorization: Bearer $SENSU_ACCESS_TOKEN"
+-H "Authorization: Key $SENSU_API_KEY"
 
 HTTP/1.1 204 No Content
 {{< /highlight >}}
@@ -222,6 +227,6 @@ description    | Removes the commercial license.
 example url    | http://hostname:8080/api/enterprise/licensing/v2/license
 response codes | <ul><li>**Success**: 204 (No Content)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
-[1]: ../../getting-started/enterprise/
+[1]: ../../commercial/
 [2]: https://account.sensu.io/
 [3]: https://sensu.io/contact?subject=contact-sales

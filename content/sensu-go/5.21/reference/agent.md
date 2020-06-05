@@ -769,7 +769,7 @@ Flags:
       --keepalive-warning-timeout uint32      number of seconds until agent is considered dead by backend to create a warning event (default 120)
       --key-file string                       TLS certificate key in PEM format
       --labels stringToString                 entity labels map (default [])
-      --log-level string                      logging level [panic, fatal, error, warn, info, debug] (default "warn")
+      --log-level string                      logging level [panic, fatal, error, warn, info, debug] (default "info")
       --name string                           agent name (defaults to hostname) (default "my-hostname")
       --namespace string                      agent namespace (default "default")
       --password string                       agent password (default "P@ssw0rd!")
@@ -1628,5 +1628,5 @@ For example, if you create a `SENSU_TEST_VAR` variable in your sensu-agent file,
 [52]: ../handlers/#keepalive-event-handlers
 [53]: #keepalive-handlers-flag
 [54]: ../../dashboard/filtering#filter-with-label-selectors
-[55]: ../../getting-started/enterprise/
+[55]: ../../commercial/
 [56]: #allow-list

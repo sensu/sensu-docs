@@ -866,7 +866,7 @@ spec:
 [6]: ../filters/
 [7]: ../tokens/
 [8]: #metadata-attributes
-[9]: ../../getting-started/enterprise/
+[9]: ../../commercial/
 [10]: https://sensu.io/contact
 [11]: https://blog.sensu.io/one-year-of-sensu-go
 [12]: ../../sensuctl/reference#create-resources

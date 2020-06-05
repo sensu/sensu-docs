@@ -311,7 +311,7 @@ spec: {}
 {{< /language-toggle >}}
 
 
-[1]: ../../getting-started/enterprise/
+[1]: ../../commercial/
 [2]: ../../api/secrets/
 [3]: ../../sensuctl/reference/
 [4]: ../backend/#configuration-via-environment-variables

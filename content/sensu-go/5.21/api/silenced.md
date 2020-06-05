@@ -9,17 +9,22 @@ menu:
 ---
 
 - [The `/silenced` API endpoint](#the-silenced-api-endpoint)
-	- [`/silenced` (GET)](#silenced-get)
-	- [`/silenced` (POST)](#silenced-post)
+  - [`/silenced` (GET)](#silenced-get)
+  - [`/silenced` (POST)](#silenced-post)
 - [The `/silenced/:silenced` API endpoint](#the-silencedsilenced-api-endpoint)
-	- [`/silenced/:silenced` (GET)](#silencedsilenced-get)
+  - [`/silenced/:silenced` (GET)](#silencedsilenced-get)
   - [`/silenced/:silenced` (PUT)](#silencedsilenced-put)
   - [`/silenced/:silenced` (DELETE)](#silencedsilenced-delete)
 - [The `/silenced/subscriptions/:subscription` API endpoint](#the-silencedsubscriptions-api-endpoint)
   - [`/silenced/subscriptions/:subscription` (GET)](#silencedsubscriptions-get)
 - [The `/silenced/checks/:check` API endpoint](#the-silencedchecks-api-endpoint)
   - [`/silenced/checks/:check` (GET)](#silencedchecks-get)
-  
+
+{{% notice note %}}
+**NOTE**: Requests to the silencing API require you to authenticate with a Sensu [access token](../overview/#authenticate-with-the-authentication-api) or [API key](../overview/#authenticate-with-an-api-key).
+The code examples in this document use the [environment variable](../overview/#configure-an-environment-variable-for-api-key-authentication) `$SENSU_API_KEY` to represent a valid API key in API requests. 
+{{% /notice %}}
+
 ## The `/silenced` API endpoint
 
 ### `/silenced` (GET)
@@ -32,7 +37,7 @@ The following example demonstrates a request to the `/silenced` API endpoint, re
 
 {{< highlight shell >}}
 curl -X GET \
--H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
+-H "Authorization: Key $SENSU_API_KEY" \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/silenced
 
 HTTP/1.1 200 OK
@@ -96,7 +101,7 @@ The request returns a successful HTTP `201 Created` response.
 
 {{< highlight shell >}}
 curl -X POST \
--H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
+-H "Authorization: Key $SENSU_API_KEY" \
 -H 'Content-Type: application/json' \
 -d '{
   "metadata": {
@@ -154,7 +159,7 @@ Silencing entry names are generated from the combination of a subscription name 
 
 {{< highlight shell >}}
 curl -X GET \
--H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
+-H "Authorization: Key $SENSU_API_KEY" \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/silenced/linux:check-cpu
 
 HTTP/1.1 200 OK
@@ -212,7 +217,7 @@ The request returns a successful HTTP `201 Created` response.
 
 {{< highlight shell >}}
 curl -X PUT \
--H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
+-H "Authorization: Key $SENSU_API_KEY" \
 -H 'Content-Type: application/json' \
 -d '{
   "metadata": {
@@ -267,7 +272,7 @@ In the following example, querying the `/silenced/:silenced` API endpoint to del
 
 {{< highlight shell >}}
 curl -X DELETE \
--H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
+-H "Authorization: Key $SENSU_API_KEY" \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/silenced/linux:check-cpu
 
 HTTP/1.1 204 No Content
@@ -293,7 +298,7 @@ In the following example, querying the `silenced/subscriptions/:subscription` AP
 
 {{< highlight shell >}}
 curl -X GET \
--H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
+-H "Authorization: Key $SENSU_API_KEY" \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/silenced/subscriptions/linux
 
 HTTP/1.1 200 OK
@@ -357,7 +362,7 @@ In the following example, querying the `silenced/checks/:check` API endpoint ret
 
 {{< highlight shell >}}
 curl -X GET \
--H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
+-H "Authorization: Key $SENSU_API_KEY" \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/silenced/checks/check-cpu
 
 HTTP/1.1 200 OK

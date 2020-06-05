@@ -10,12 +10,17 @@ menu:
 ---
 
 - [The `/clusterroles` API endpoint](#the-clusterroles-api-endpoint)
-	- [`/clusterroles` (GET)](#clusterroles-get)
-	- [`/clusterroles` (POST)](#clusterroles-post)
+  - [`/clusterroles` (GET)](#clusterroles-get)
+  - [`/clusterroles` (POST)](#clusterroles-post)
 - [The `/clusterroles/:clusterrole` API endpoint](#the-clusterrolesclusterrole-api-endpoint)
-	- [`/clusterroles/:clusterrole` (GET)](#clusterrolesclusterrole-get)
+  - [`/clusterroles/:clusterrole` (GET)](#clusterrolesclusterrole-get)
   - [`/clusterroles/:clusterrole` (PUT)](#clusterrolesclusterrole-put)
   - [`/clusterroles/:clusterrole` (DELETE)](#clusterrolesclusterrole-delete)
+
+{{% notice note %}}
+**NOTE**: Requests to the cluster roles API require you to authenticate with a Sensu [access token](../overview/#authenticate-with-the-authentication-api) or [API key](../overview/#authenticate-with-an-api-key).
+The code examples in this document use the [environment variable](../overview/#configure-an-environment-variable-for-api-key-authentication) `$SENSU_API_KEY` to represent a valid API key in API requests. 
+{{% /notice %}}
 
 ## The `/clusterroles` API endpoint
 
@@ -30,7 +35,7 @@ The following example demonstrates a request to the `/clusterroles` API endpoint
 {{< highlight shell >}}
 curl -X GET \
 http://127.0.0.1:8080/api/core/v2/clusterroles \
--H "Authorization: Bearer $SENSU_ACCESS_TOKEN"
+-H "Authorization: Key $SENSU_API_KEY"
 
 HTTP/1.1 200 OK
 [
@@ -134,7 +139,7 @@ The request includes the cluster role definition in the request body and returns
 
 {{< highlight shell >}}
 curl -X POST \
--H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
+-H "Authorization: Key $SENSU_API_KEY" \
 -H 'Content-Type: application/json' \
 -d '{
   "metadata": {
@@ -198,7 +203,7 @@ In the following example, querying the `/clusterroles/:clusterrole` API endpoint
 {{< highlight shell >}}
 curl -X GET \
 http://127.0.0.1:8080/api/core/v2/clusterroles/global-event-reader \
--H "Authorization: Bearer $SENSU_ACCESS_TOKEN"
+-H "Authorization: Key $SENSU_API_KEY"
 
 HTTP/1.1 200 OK
 {
@@ -261,7 +266,7 @@ The request includes the cluster role definition in the request body and returns
 
 {{< highlight shell >}}
 curl -X PUT \
--H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
+-H "Authorization: Key $SENSU_API_KEY" \
 -H 'Content-Type: application/json' \
 -d '{
   "metadata": {
@@ -323,7 +328,7 @@ The following example shows a request to the `/clusterroles/:clusterrole` API en
 
 {{< highlight shell >}}
 curl -X DELETE \
--H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
+-H "Authorization: Key $SENSU_API_KEY" \
 http://127.0.0.1:8080/api/core/v2/clusterroles/global-event-reader
 
 HTTP/1.1 204 No Content

@@ -1401,7 +1401,7 @@ The _SIGHUP_ signal causes the `backend` component to reload instead of restarti
 [11]: ../../reference/handlers/
 [12]: #datastore-and-cluster-configuration-flags
 [13]: ../../guides/clustering/
-[14]: ../../getting-started/enterprise/
+[14]: ../../commercial/
 [15]: #general-configuration-flags
 [16]: https://github.com/etcd-io/etcd/blob/master/Documentation/tuning.md#time-parameters
 [17]: ../../files/backend.yml

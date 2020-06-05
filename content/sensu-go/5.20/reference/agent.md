@@ -1628,5 +1628,5 @@ For example, if you create a `SENSU_TEST_VAR` variable in your sensu-agent file,
 [52]: ../handlers/#keepalive-event-handlers
 [53]: #keepalive-handlers-flag
 [54]: ../../dashboard/filtering#filter-with-label-selectors
-[55]: ../../getting-started/enterprise/
+[55]: ../../commercial/
 [56]: #allow-list

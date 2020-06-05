@@ -15,6 +15,11 @@ menu:
   - [`/provider/:provider` (PUT)](#providerprovider-put)
   - [`/provider/:provider` (DELETE)](#providerprovider-delete)
 
+{{% notice note %}}
+**NOTE**: Requests to the datastore API require you to authenticate with a Sensu [access token](../overview/#authenticate-with-the-authentication-api) or [API key](../overview/#authenticate-with-an-api-key).
+The code examples in this document use the [environment variable](../overview/#configure-an-environment-variable-for-api-key-authentication) `$SENSU_API_KEY` to represent a valid API key in API requests. 
+{{% /notice %}}
+
 ## The `/provider` API endpoint {#the-provider-API-endpoint}
 
 ### `/provider` (GET) {#provider-get}
@@ -28,7 +33,7 @@ The following example demonstrates a request to the `/provider` API endpoint, re
 {{< highlight shell >}}
 curl -X GET \
 http://127.0.0.1:8080/api/enterprise/store/v1/provider
--H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
+-H "Authorization: Key $SENSU_API_KEY" \
 
 HTTP/1.1 200 OK
 [
@@ -112,7 +117,7 @@ output         | {{< highlight json >}}
 
 {{< highlight shell >}}
 curl -X GET \
--H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
+-H "Authorization: Key $SENSU_API_KEY" \
 http://127.0.0.1:8080/api/enterprise/store/v1/provider/my-postgres
 
 HTTP/1.1 200 OK
@@ -164,7 +169,7 @@ output         | {{< highlight json >}}
 {{< highlight shell >}}
 curl -X PUT \
 http://127.0.0.1:8080/api/enterprise/store/v1/provider/my-postgres \
--H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
+-H "Authorization: Key $SENSU_API_KEY" \
 -d '{
   "type": "PostgresConfig",
   "api_version": "store/v1",
@@ -217,7 +222,7 @@ The following example shows a request to the `/provider/:provider` API endpoint 
 
 {{< highlight shell >}}
 curl -X DELETE \
--H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
+-H "Authorization: Key $SENSU_API_KEY" \
 http://127.0.0.1:8080/api/enterprise/store/v1/provider/my-postgres
 
 HTTP/1.1 204 No Content

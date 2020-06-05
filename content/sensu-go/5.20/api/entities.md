@@ -16,6 +16,11 @@ menu:
   - [`/entities/:entity` (PUT)](#entitiesentity-put)
   - [`/entities/:entity` (DELETE)](#entitiesentity-delete)
 
+{{% notice note %}}
+**NOTE**: Requests to the entities API require you to authenticate with a Sensu [access token](../overview/#authenticate-with-the-authentication-api) or [API key](../overview/#authenticate-with-an-api-key).
+The code examples in this document use the [environment variable](../overview/#configure-an-environment-variable-for-api-key-authentication) `$SENSU_API_KEY` to represent a valid API key in API requests. 
+{{% /notice %}}
+
 ## The `/entities` API endpoint
 
 ### `/entities` (GET)
@@ -29,7 +34,7 @@ The following example demonstrates a request to the `/entities` API endpoint, re
 {{< highlight shell >}}
 curl -X GET \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/entities \
--H "Authorization: Bearer $SENSU_ACCESS_TOKEN"
+-H "Authorization: Key $SENSU_API_KEY"
 
 HTTP/1.1 200 OK
 [
@@ -246,7 +251,7 @@ The request includes the entity definition in the request body and returns a suc
 
 {{< highlight shell >}}
 curl -X POST \
--H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
+-H "Authorization: Key $SENSU_API_KEY" \
 -H 'Content-Type: application/json' \
 -d '{
   "entity_class": "proxy",
@@ -306,7 +311,7 @@ In the following example, querying the `/entities/:entity` API endpoint returns 
 {{< highlight shell >}}
 curl -X GET \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/entities/sensu-centos \
--H "Authorization: Bearer $SENSU_ACCESS_TOKEN"
+-H "Authorization: Key $SENSU_API_KEY"
 
 HTTP/1.1 200 OK
 {
@@ -517,7 +522,7 @@ The request includes the updated entity definition in the request body and retur
 
 {{< highlight shell >}}
 curl -X PUT \
--H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
+-H "Authorization: Key $SENSU_API_KEY" \
 -H 'Content-Type: application/json' \
 -d '{
   "entity_class": "proxy",
@@ -579,7 +584,7 @@ The following example shows a request to the `/entities/:entity` API endpoint to
 {{< highlight shell >}}
 curl -X DELETE \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/entities/server1 \
--H "Authorization: Bearer $SENSU_ACCESS_TOKEN"
+-H "Authorization: Key $SENSU_API_KEY"
 
 HTTP/1.1 204 No Content
 {{< /highlight >}}
