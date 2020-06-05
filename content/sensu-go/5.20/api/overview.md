@@ -15,17 +15,11 @@ menu:
 - [Versioning](#versioning)
 - [Request size limit](#request-size-limit)
 - [Access control](#access-control)
-  - [Authentication quickstart](#authentication-quickstart)
+  - [Authentication quickstart](#authentication-quickstart) | [Authenticate with the authentication API](#authenticate-with-the-authentication-api) | [Generate an API token with sensuctl](#generate-an-api-token-with-sensuctl) | [Authenticate with an API key](#authenticate-with-an-api-key)
 - [Pagination](#pagination)
-  - [Limit query parameter](#limit-query-parameter)
-  - [Continue query parameter](#continue-query-parameter)
+  - [Limit query parameter](#limit-query-parameter) | [Continue query parameter](#continue-query-parameter)
 - [Response filtering](#response-filtering)
-  - [Label selector](#label-selector)
-  - [Field selector](#field-selector)
-  - [API-specific syntax](#api-specific-syntax)
-  - [Operators](#operators)
-  - [Combined selectors](#combined-selectors)
-  - [Examples](#examples)
+  - [Label selector](#label-selector) | [Field selector](#field-selector) | [API-specific syntax](#api-specific-syntax) | [Operators](#operators) | [Combined selectors](#combined-selectors) | [Examples](#examples)
 
 **API version: v2**
 
@@ -68,9 +62,9 @@ API request bodies are limited to 0.512 MB in size.
 
 ## Access control
 
-With the exception of the [health API][5] and [metrics API][6], the Sensu API requires authentication using a JSON Web Token (JWT) access token.
-Use the [authentication API][12] and your Sensu username and password to generate access tokens and refresh tokens.
-The Sensu API docs use `$SENSU_ACCESS_TOKEN` to represent a valid access token in API requests.
+With the exception of the [authentication][12], [health][5], and [metrics][6] APIs, the Sensu API requires authentication using a JSON Web Token (JWT) [access token][20] or [API key][17].
+
+Code examples in the Sensu API docs use the environment variable `$SENSU_API_KEY` to represent a valid API key in API requests.
 
 ### Authentication quickstart
 
@@ -83,8 +77,11 @@ export SENSU_USER=YOUR_USERNAME && SENSU_PASS=YOUR_PASSWORD
 export SENSU_ACCESS_TOKEN=`curl -X GET -u "$SENSU_USER:$SENSU_PASS" -s http://localhost:8080/auth | jq -r ".access_token"`
 {{< /highlight >}}
 
-### Basic authentication using the authentication API
+The [sensuctl reference][7] demonstrates how to use the `sensuctl env` command to export your access token, token expiry time, and refresh token as environment variables.
 
+### Authenticate with the authentication API
+
+Use the [authentication API][12] and your Sensu username and password to generate access tokens and refresh tokens.
 The [`/auth` API endpoint][10] lets you generate short-lived API tokens using your Sensu username and password.
 
 1. Retrieve an access token for your user.
@@ -127,7 +124,7 @@ The new access token should be included in the output:
 }
 {{< /highlight >}}
 
-### Generate an API token using sensuctl
+### Generate an API token with sensuctl
 
 You can also generate an API access token using the sensuctl command line tool.
 The user credentials that you use to log in to sensuctl determine your permissions to get, list, create, update, and delete resources with the Sensu API.
@@ -170,7 +167,30 @@ API keys are cluster-wide resources, so only cluster admins can grant, view, and
 **NOTE**: API keys are not supported for authentication providers such as LDAP and OIDC.
 {{% /notice %}}
 
-#### API key authentication
+#### Configure an environment variable for API key authentication
+
+Code examples in the Sensu API docs use the environment variable `$SENSU_API_KEY` to represent a valid API key in API requests.
+
+Use [sensuctl][18] or the [APIkeys API][19] to generate an API key.
+Then, follow this example to export your API key to the `SENSU_API_KEY` environment variable you can use for API authentication:
+
+{{< language-toggle >}}
+
+{{< highlight bash >}}
+export SENSU_API_KEY="83abef1e-e7d7-4beb-91fc-79ad90084d5b"
+{{< /highlight >}}
+
+{{< highlight cmd >}}
+SET SENSU_API_KEY="83abef1e-e7d7-4beb-91fc-79ad90084d5b"
+{{< /highlight >}}
+
+{{< highlight powershell >}}
+$Env:SENSU_API_KEY = "83abef1e-e7d7-4beb-91fc-79ad90084d5b"
+{{< /highlight >}}
+
+{{< /language-toggle >}}
+
+#### Authorization header for API key authentication
 
 Similar to the `Bearer [token]` Authorization header, `Key [api-key]` will be accepted as an Authorization header for authentication.
 
@@ -187,6 +207,8 @@ curl -H "Authorization: Key $SENSU_API_KEY" http://127.0.0.1:8080/api/core/v2/na
 {{< /highlight >}}
 
 #### Example
+
+This example uses the API key directly (rather than via an environment variable) to authenticate to the checks API:
 
 {{< highlight shell >}}
 $ curl -H "Authorization: Key 7f63b5bc-41f4-4b3e-b59b-5431afd7e6a2" http://127.0.0.1:8080/api/core/v2/namespaces/default/checks
@@ -673,6 +695,7 @@ curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN http://127.0.0.1:8080/api/cor
 [4]: ../../reference/agent/
 [5]: ../health/
 [6]: ../metrics/
+[7]: ../../sensuctl/reference#environment-variables
 [8]: ../../commercial/
 [9]: ../../reference/entities#metadata-attributes
 [10]: ../auth/#the-auth-api-endpoint
@@ -682,3 +705,7 @@ curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN http://127.0.0.1:8080/api/cor
 [14]: #authentication-quickstart
 [15]: #examples
 [16]: #limit-query-parameter
+[17]: #authenticate-with-an-api-key
+[18]: ../../guides/use-apikey-feature/#sensuctl-management-commands
+[19]: ../../api/apikeys/
+[20]: #authenticate-with-the-authentication-api

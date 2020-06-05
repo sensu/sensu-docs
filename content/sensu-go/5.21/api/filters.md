@@ -9,12 +9,17 @@ menu:
 ---
 
 - [The `/filters` API endpoint](#the-filters-api-endpoint)
-	- [`/filters` (GET)](#filters-get)
-	- [`/filters` (POST)](#filters-post)
+  - [`/filters` (GET)](#filters-get)
+  - [`/filters` (POST)](#filters-post)
 - [The `/filters/:filter` API endpoint](#the-filtersfilter-api-endpoint)
-	- [`/filters/:filter` (GET)](#filtersfilter-get)
+  - [`/filters/:filter` (GET)](#filtersfilter-get)
   - [`/filters/:filter` (PUT)](#filtersfilter-put)
   - [`/filters/:filter` (DELETE)](#filtersfilter-delete)
+
+{{% notice note %}}
+**NOTE**: Requests to the filters API require you to authenticate with a Sensu [access token](../overview/#authenticate-with-the-authentication-api) or [API key](../overview/#authenticate-with-an-api-key).
+The code examples in this document use the [environment variable](../overview/#configure-an-environment-variable-for-api-key-authentication) `$SENSU_API_KEY` to represent a valid API key in API requests. 
+{{% /notice %}}
 
 ## The `/filters` API endpoint
 
@@ -108,7 +113,7 @@ The request returns a successful HTTP `201 Created` response.
 
 {{< highlight shell >}}
 curl -X POST \
--H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
+-H "Authorization: Key $SENSU_API_KEY" \
 -H 'Content-Type: application/json' \
 -d '{
   "metadata": {
@@ -215,7 +220,7 @@ The request returns a successful HTTP `200 OK` response.
 
 {{< highlight shell >}}
 curl -X PUT \
--H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
+-H "Authorization: Key $SENSU_API_KEY" \
 -H 'Content-Type: application/json' \
 -d '{
   "metadata": {
@@ -269,7 +274,7 @@ The following example shows a request to the `/filters/:filter` API endpoint to 
 {{< highlight shell >}}
 curl -X DELETE \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/filters/development_filter \
--H "Authorization: Bearer $SENSU_ACCESS_TOKEN"
+-H "Authorization: Key $SENSU_API_KEY"
 
 HTTP/1.1 204 No Content
 {{< /highlight >}}

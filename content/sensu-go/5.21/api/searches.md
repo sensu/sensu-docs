@@ -9,14 +9,19 @@ menu:
 ---
 
 - [The `/searches` API endpoint](#the-searches-api-endpoint)
-	- [`/searches` (GET)](#searches-get)
+  - [`/searches` (GET)](#searches-get)
 - [The `/searches/:search` API endpoint](#the-searchessearch-api-endpoint)
-	- [`/searches/:search` (GET)](#searchessearch-get)
+  - [`/searches/:search` (GET)](#searchessearch-get)
   - [`/searches/:search` (PUT)](#searchessearch-put)
-	- [`/searches/:search` (DELETE)](#searchessearch-delete)
+  - [`/searches/:search` (DELETE)](#searchessearch-delete)
 
 **COMMERCIAL FEATURE**: Access the searches API in the packaged Sensu Go distribution.
 For more information, see [Get started with commercial features][2].
+
+{{% notice note %}}
+**NOTE**: Requests to the searches API require you to authenticate with a Sensu [access token](../overview/#authenticate-with-the-authentication-api) or [API key](../overview/#authenticate-with-an-api-key).
+The code examples in this document use the [environment variable](../overview/#configure-an-environment-variable-for-api-key-authentication) `$SENSU_API_KEY` to represent a valid API key in API requests. 
+{{% /notice %}}
 
 ## The `/searches` API endpoint
 
@@ -31,7 +36,7 @@ The following example demonstrates a request to the `/search` API endpoint, resu
 {{< highlight shell >}}
 curl -X GET \
 http://127.0.0.1:8080/api/enterprise/searches/v1/namespaces/default/searches \
--H "Authorization: Bearer $SENSU_ACCESS_TOKEN"
+-H "Authorization: Key $SENSU_API_KEY"
 
 HTTP/1.1 200 OK
 [
@@ -153,7 +158,7 @@ In the following example, querying the `/searches/:search` API endpoint returns 
 {{< highlight shell >}}
 curl -X GET \
 http://127.0.0.1:8080/api/enterprise/searches/v1/namespaces/default/searches/silenced-events \
--H "Authorization: Bearer $SENSU_ACCESS_TOKEN"
+-H "Authorization: Key $SENSU_API_KEY"
 
 HTTP/1.1 200 OK
 {
@@ -208,7 +213,7 @@ The request includes the saved search definition in the request body and returns
 
 {{< highlight shell >}}
 curl -X PUT \
--H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
+-H "Authorization: Key $SENSU_API_KEY" \
 -H 'Content-Type: application/json' \
 -d '{
   "type": "Search",
@@ -263,7 +268,7 @@ The following example shows a request to the `/searches/:search` API endpoint to
 
 {{< highlight shell >}}
 curl -X DELETE \
--H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
+-H "Authorization: Key $SENSU_API_KEY" \
 http://127.0.0.1:8080/api/enterprise/searches/v1/namespaces/default/searches/silenced-events
 
 HTTP/1.1 204 No Content

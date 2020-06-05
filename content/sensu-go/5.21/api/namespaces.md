@@ -9,13 +9,18 @@ menu:
 ---
 
 - [The `/namespaces` API endpoint](#the-namespaces-api-endpoint)
-	- [`/namespaces` (GET)](#namespaces-get)
-	- [`/namespaces` (POST)](#namespaces-post)
+  - [`/namespaces` (GET)](#namespaces-get)
+  - [`/namespaces` (POST)](#namespaces-post)
 - [The `/namespaces/:namespace` API endpoint](#the-namespacesnamespace-api-endpoint)
   - [`/namespaces/:namespace` (PUT)](#namespacesnamespace-put)
   - [`/namespaces/:namespace` (DELETE)](#namespacesnamespace-delete)
 - [The `/user-namespaces` API endpoint](#the-user-namespaces-api-endpoint)
   - [`/user-namespaces` (GET)](#user-namespaces-get)
+
+{{% notice note %}}
+**NOTE**: Requests to the namespaces API require you to authenticate with a Sensu [access token](../overview/#authenticate-with-the-authentication-api) or [API key](../overview/#authenticate-with-an-api-key).
+The code examples in this document use the [environment variable](../overview/#configure-an-environment-variable-for-api-key-authentication) `$SENSU_API_KEY` to represent a valid API key in API requests. 
+{{% /notice %}}
 
 ## The `/namespaces` API endpoint
 
@@ -30,7 +35,7 @@ The following example demonstrates a request to the `/namespaces` API endpoint, 
 {{< highlight shell >}}
 curl -X GET \
 http://127.0.0.1:8080/api/core/v2/namespaces \
--H "Authorization: Bearer $SENSU_ACCESS_TOKEN"
+-H "Authorization: Key $SENSU_API_KEY"
 
 HTTP/1.1 200 OK
 [
@@ -75,7 +80,7 @@ The request returns a successful HTTP `201 Created` response.
 
 {{< highlight shell >}}
 curl -X POST \
--H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
+-H "Authorization: Key $SENSU_API_KEY" \
 -H 'Content-Type: application/json' \
 -d '{
   "name": "development"
@@ -111,7 +116,7 @@ The request returns a successful HTTP `201 Created` response.
 
 {{< highlight shell >}}
 curl -X PUT \
--H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
+-H "Authorization: Key $SENSU_API_KEY" \
 -H 'Content-Type: application/json' \
 -d '{
   "name": "development"
@@ -145,7 +150,7 @@ The following example shows a request to the `/namespaces/:namespace` API endpoi
 {{< highlight shell >}}
 curl -X DELETE \
 http://127.0.0.1:8080/api/core/v2/namespaces/development \
--H "Authorization: Bearer $SENSU_ACCESS_TOKEN"
+-H "Authorization: Key $SENSU_API_KEY"
 
 HTTP/1.1 204 No Content
 {{< /highlight >}}
@@ -171,7 +176,7 @@ The following example demonstrates a request to the `/user-namespaces` API endpo
 {{< highlight shell >}}
 curl -X GET \
 http://127.0.0.1:8080/api/enterprise/user-namespaces \
--H "Authorization: Bearer $SENSU_ACCESS_TOKEN"
+-H "Authorization: Key $SENSU_API_KEY"
 
 HTTP/1.1 200 OK
 [
