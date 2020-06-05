@@ -15,7 +15,6 @@ menu:
 	- [`/apikeys/:apikey` (GET)](#apikeysapikey-get)
 	- [`/apikeys/:apikey` (DELETE)](#apikeysapikey-delete)
 
-
 {{% notice note %}}
 **NOTE**: Requests to the APIKeys API require you to authenticate with a Sensu [access token](../overview/#authenticate-with-the-authentication-api) or [API key](../overview/#authenticate-with-an-api-key).
 The code examples in this document use the [environment variable](../overview/#configure-an-environment-variable-for-api-key-authentication) `$SENSU_API_KEY` to represent a valid API key in API requests. 
