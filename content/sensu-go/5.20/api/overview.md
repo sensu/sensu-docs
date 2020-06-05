@@ -172,12 +172,11 @@ API keys are cluster-wide resources, so only cluster admins can grant, view, and
 Code examples in the Sensu API docs use the environment variable `$SENSU_API_KEY` to represent a valid API key in API requests.
 
 Use [sensuctl][18] or the [APIkeys API][19] to generate an API key.
-Then, follow this example to export your API key to a custom `SENSU_API_KEY` environment variable you can use for API authentication:
+Then, follow this example to export your API key to the `SENSU_API_KEY` environment variable you can use for API authentication:
 
 {{< language-toggle >}}
 
 {{< highlight bash >}}
-sensuctl env
 export SENSU_API_KEY="83abef1e-e7d7-4beb-91fc-79ad90084d5b"
 
 {{< /highlight >}}
