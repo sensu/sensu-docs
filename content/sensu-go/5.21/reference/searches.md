@@ -283,7 +283,7 @@ spec:
 {{< /language-toggle >}}
 
 
-[1]: ../../getting-started/enterprise/
+[1]: ../../commercial/
 [2]: ../../reference/rbac/#namespaced-resource-types
 [3]: ../../dashboard/filtering/#save-a-filtered-search
 [4]: ../../api/searches

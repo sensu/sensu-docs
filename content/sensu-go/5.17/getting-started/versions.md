@@ -57,7 +57,7 @@ _**NOTE**: We provide support and documentation for Sensu versions according to 
 5.0.0 | [December 5, 2018][4]     | Not supported | <a href="https://sensu-docs.s3.amazonaws.com/pdfs/sensu-go-5-0_sensu-docs.pdf"><img src="/images/download-icon.png" width="30" height="30" title="Download Offline Docs" alt="Download Offline Docs"></a>
 
 [1]: /sensu-go/latest/installation/upgrade/
-[2]: ../enterprise/
+[2]: ../commercial/
 [3]: https://sensu.io/sensu-support-services#4.-software-releases.
 [4]: /sensu-go/latest/release-notes/#5-0-0-release-notes
 [5]: /sensu-go/latest/release-notes/#5-0-1-release-notes

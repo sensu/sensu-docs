@@ -345,5 +345,5 @@ example url               | http://hostname:8080/api/enterprise/authentication/v
 response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 [1]: ../../installation/auth/
-[2]: ../../getting-started/enterprise/
+[2]: ../../commercial/
 [3]: ../overview#pagination

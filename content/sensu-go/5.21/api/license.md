@@ -227,6 +227,6 @@ description    | Removes the commercial license.
 example url    | http://hostname:8080/api/enterprise/licensing/v2/license
 response codes | <ul><li>**Success**: 204 (No Content)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
-[1]: ../../getting-started/enterprise/
+[1]: ../../commercial/
 [2]: https://account.sensu.io/
 [3]: https://sensu.io/contact?subject=contact-sales

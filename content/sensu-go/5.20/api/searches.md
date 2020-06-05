@@ -284,4 +284,4 @@ response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Miss
 
 
 [1]: ../overview#response-filtering
-[2]: ../../getting-started/enterprise/
+[2]: ../../commercial/

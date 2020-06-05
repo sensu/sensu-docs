@@ -101,4 +101,4 @@ You can create, edit, and delete Sensu mutators in the dashboard Mutators page.
 [3]: ../../reference/rbac/
 [4]: ../../reference/rbac#default-users
 [5]: ../../reference/rbac#create-users
-[6]: ../../getting-started/enterprise/
+[6]: ../../commercial/

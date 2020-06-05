@@ -1252,7 +1252,7 @@ You can add these resources to Sensu using [`sensuctl create`][31].
 [30]: #role-binding-and-cluster-role-binding-specification
 [31]: ../../sensuctl/reference#create-resources
 [32]: ../../installation/auth#use-an-authentication-provider
-[33]: ../../getting-started/enterprise/
+[33]: ../../commercial/
 [34]: ../../installation/auth#use-built-in-basic-authentication
 [36]: ../../sensuctl/reference#create-resources-across-namespaces
 [37]: ../license/

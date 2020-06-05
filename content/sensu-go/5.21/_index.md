@@ -86,7 +86,7 @@ Learn about [support packages](https://sensu.io/support) and [commercial feature
 [15]: dashboard/overview/
 [16]: sensuctl/reference/
 [17]: reference/handlers/
-[18]: getting-started/enterprise/
+[18]: commercial/
 [19]: https://bonsai.sensu.io/assets/sensu/sensu-slack-handler/
 [20]: https://bonsai.sensu.io/
 [21]: https://bonsai.sensu.io/assets/sensu/sensu-pagerduty-handler/

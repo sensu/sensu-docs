@@ -91,4 +91,4 @@ See the [Sensu backend reference][1] for more information about event logging.
 
 
 [1]: ../../reference/backend/#event-logging
-[2]: ../../getting-started/enterprise/
+[2]: ../../commercial/

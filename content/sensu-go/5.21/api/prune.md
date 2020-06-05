@@ -104,5 +104,5 @@ payload               | {{< highlight shell >}}
 response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 
-[1]: ../../getting-started/enterprise/
+[1]: ../../commercial/
 [2]: ../../sensuctl/reference/#sensuctl-prune-resource-types
