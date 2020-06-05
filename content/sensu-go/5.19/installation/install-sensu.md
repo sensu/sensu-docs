@@ -458,15 +458,14 @@ If you plan to set up a cluster, here's our suggested pathway:
 [2]: ../../guides/generate-certificates/
 [3]: ../../dashboard/overview/
 [4]: ../../sensuctl/reference/
-[5]: ../../installation/platforms
+[5]: ../../platforms/
 [6]: ../../reference/backend#configuration
 [7]: ../../reference/agent#configuration
 [8]: ../../guides/securing-sensu/
 [9]: ../../guides/generate-certificates
 [11]: https://sensu.io/contact?subject=contact-sales/
-[12]: ../verify/
 [13]: https://sensu.io/sensu-license/
-[14]: ../../getting-started/learn-sensu/
+[14]: ../../learn/learn-sensu-sandbox/
 [16]: https://etcd.io/
 [17]: ../../reference/assets/
 [18]: #install-sensu-agents
