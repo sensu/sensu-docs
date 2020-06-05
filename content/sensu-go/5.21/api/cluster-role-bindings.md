@@ -10,12 +10,17 @@ menu:
 ---
 
 - [The `/clusterrolebindings` API endpoint](#the-clusterrolebindings-api-endpoint)
-	- [`/clusterrolebindings` (GET)](#clusterrolebindings-get)
-	- [`/clusterrolebindings` (POST)](#clusterrolebindings-post)
+  - [`/clusterrolebindings` (GET)](#clusterrolebindings-get)
+  - [`/clusterrolebindings` (POST)](#clusterrolebindings-post)
 - [The `/clusterrolebindings/:clusterrolebinding` API endpoint](#the-clusterrolebindingsclusterrolebinding-api-endpoint)
-	- [`/clusterrolebindings/:clusterrolebinding` (GET)](#clusterrolebindingsclusterrolebinding-get)
+  - [`/clusterrolebindings/:clusterrolebinding` (GET)](#clusterrolebindingsclusterrolebinding-get)
   - [`/clusterrolebindings/:clusterrolebinding` (PUT)](#clusterrolebindingsclusterrolebinding-put)
-	- [`/clusterrolebindings/:clusterrolebinding` (DELETE)](#clusterrolebindingsclusterrolebinding-delete)
+  - [`/clusterrolebindings/:clusterrolebinding` (DELETE)](#clusterrolebindingsclusterrolebinding-delete)
+
+{{% notice note %}}
+**NOTE**: Requests to the cluster role bindings API require you to authenticate with a Sensu [access token](../overview/#authenticate-with-the-authentication-api) or [API key](../overview/#authenticate-with-an-api-key).
+The code examples in this document use the [environment variable](../overview/#configure-an-environment-variable-for-api-key-authentication) `$SENSU_API_KEY` to represent a valid API key in API requests. 
+{{% /notice %}}
 
 ## The `/clusterrolebindings` API endpoint
 
@@ -30,7 +35,7 @@ The following example demonstrates a request to the `/clusterrolebindings` API e
 {{< highlight shell >}}
 curl -X GET \
 http://127.0.0.1:8080/api/core/v2/clusterrolebindings \
--H "Authorization: Bearer $SENSU_ACCESS_TOKEN"
+-H "Authorization: Key $SENSU_API_KEY"
 
 HTTP/1.1 200 OK
 [
@@ -126,7 +131,7 @@ The request includes the cluster role binding definition in the request body and
 
 {{< highlight shell >}}
 curl -X POST \
--H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
+-H "Authorization: Key $SENSU_API_KEY" \
 -H 'Content-Type: application/json' \
 -d '{
   "subjects": [
@@ -186,7 +191,7 @@ In the following example, querying the `/clusterrolebindings/:clusterrolebinding
 {{< highlight shell >}}
 curl -X GET \
 http://127.0.0.1:8080/api/core/v2/clusterrolebindings/bob-binder \
--H "Authorization: Bearer $SENSU_ACCESS_TOKEN"
+-H "Authorization: Key $SENSU_API_KEY"
 
 HTTP/1.1 200 OK
 {
@@ -245,7 +250,7 @@ The request includes the cluster role binding definition in the request body and
 
 {{< highlight shell >}}
 curl -X PUT \
--H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
+-H "Authorization: Key $SENSU_API_KEY" \
 -H 'Content-Type: application/json' \
 -d '{
   "subjects": [
@@ -302,7 +307,7 @@ The following example shows a request to the `/clusterrolebindings/:clusterroleb
 
 {{< highlight shell >}}
 curl -X DELETE \
--H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
+-H "Authorization: Key $SENSU_API_KEY" \
 http://127.0.0.1:8080/api/core/v2/clusterrolebindings/ops-binding
 
 HTTP/1.1 204 No Content

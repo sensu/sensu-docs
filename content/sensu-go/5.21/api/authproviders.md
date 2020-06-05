@@ -19,6 +19,11 @@ menu:
 **COMMERCIAL FEATURE**: Access authentication providers in the packaged Sensu Go distribution.
 For more information, see [Get started with commercial features][2].
 
+{{% notice note %}}
+**NOTE**: Requests to the authentication providers API require you to authenticate with a Sensu [access token](../overview/#authenticate-with-the-authentication-api) or [API key](../overview/#authenticate-with-an-api-key).
+The code examples in this document use the [environment variable](../overview/#configure-an-environment-variable-for-api-key-authentication) `$SENSU_API_KEY` to represent a valid API key in API requests. 
+{{% /notice %}}
+
 ## The `/authproviders` API endpoints {#the-authproviders-api-endpoints}
 
 ### `/authproviders` (GET) {#authproviders-get}
@@ -32,7 +37,7 @@ In the following example, querying the `/authproviders` API endpoint returns the
 {{< highlight shell >}}
 curl -X GET \
 http://127.0.0.1:8080/api/enterprise/authentication/v2/authproviders \
--H "Authorization: Bearer $SENSU_ACCESS_TOKEN"
+-H "Authorization: Key $SENSU_API_KEY"
 
 HTTP/1.1 200 OK
 [
@@ -144,7 +149,7 @@ In the following example, an HTTP GET request is submitted to the `/authprovider
 {{< highlight shell >}}
 curl -X GET \
 http://127.0.0.1:8080/api/enterprise/authentication/v2/authproviders/openldap \
--H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
+-H "Authorization: Key $SENSU_API_KEY" \
 -H 'Content-Type: application/json'
 
 HTTP/1.1 200 OK
@@ -249,7 +254,7 @@ In the following example, an HTTP PUT request is submitted to the `/authprovider
 
 {{< highlight shell >}}
 curl -X PUT \
--H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
+-H "Authorization: Key $SENSU_API_KEY" \
 -H 'Content-Type: application/json' \
 -d '{
   "Type": "ldap",
@@ -325,7 +330,7 @@ The following example shows a request to the `/authproviders/:name` API endpoint
 
 {{< highlight shell >}}
 curl -X DELETE \
--H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
+-H "Authorization: Key $SENSU_API_KEY" \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/authproviders/openldap
 
 HTTP/1.1 204 No Content
