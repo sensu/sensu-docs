@@ -203,7 +203,7 @@ See the metadata attributes section in the reference documentation for more info
 [24]: ../../reference/entities#metadata-attributes
 [25]: https://blog.sensu.io/check-configuration-upgrades-with-the-sensu-go-sandbox/
 [26]: https://blog.sensu.io/self-service-monitoring-checks-in-sensu-go/
-[27]: ../../getting-started/enterprise/
+[27]: ../../commercial/
 [28]: https://bonsai.sensu.io/assets/sensu/sensu-aggregate-check/
 [29]: ../../reference/backend#operation
 [30]: /images/web-ui-entity-warning.png

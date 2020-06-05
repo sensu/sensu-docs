@@ -222,7 +222,7 @@ To delete a saved search:
 2. Click the delete icon next to the search you want to delete: ![delete icon](/images/delete_icon.png)
 
 
-[1]: ../../getting-started/enterprise/
+[1]: ../../commercial/
 [2]: ../../api/overview/#field-selector
 [3]: ../../api/overview/#response-filtering
 [4]: #dashboard-specific-syntax

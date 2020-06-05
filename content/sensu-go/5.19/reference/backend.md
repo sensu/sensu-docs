@@ -1369,7 +1369,7 @@ If you are running a clustered backend, rotating logs on all cluster members sim
 [11]: ../../reference/handlers/
 [12]: #datastore-and-cluster-configuration-flags
 [13]: ../../guides/clustering/
-[14]: ../../getting-started/enterprise/
+[14]: ../../commercial/
 [15]: #general-configuration-flags
 [16]: https://github.com/etcd-io/etcd/blob/master/Documentation/tuning.md#time-parameters
 [17]: ../../files/backend.yml

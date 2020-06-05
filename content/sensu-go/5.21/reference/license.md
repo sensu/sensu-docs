@@ -148,7 +148,7 @@ If your license expires, you will still have access to [commercial features][5],
 [2]: ../../installation/install-sensu/
 [3]: ../../sensuctl/reference/#first-time-setup
 [4]: ../../api/license/
-[5]: ../../getting-started/enterprise/
+[5]: ../../commercial/
 [6]: ../../guides/troubleshooting/
 [7]: https://sensu.io/contact?subject=contact-sales
 [8]: https://account.sensu.io/support

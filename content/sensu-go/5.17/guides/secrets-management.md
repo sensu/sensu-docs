@@ -332,7 +332,7 @@ Read the [secrets][9] or [secrets providers][10] reference for in-depth secrets 
 [17]: ../../reference/secrets-providers#tls-vault
 [18]: https://learn.hashicorp.com/vault/getting-started/dev-server
 [19]: #add-a-handler
-[20]: ../../getting-started/enterprise/
+[20]: ../../commercial/
 [21]: ../../reference/backend/#configuration-via-environment-variables
 [22]: ../../sensuctl/reference/#install-asset-definitions
 [23]: https://bonsai.sensu.io/assets/sensu/sensu-pagerduty-handler

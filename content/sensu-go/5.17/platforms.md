@@ -1,31 +1,122 @@
 ---
-title: "Binary-only distributions"
-linkTitle: "Binary-Only Distributions"
-description: "Sensu offers binary-only distributions for Linux, Windows, macOS, FreeBSD, and Solaris. Read this guide to learn how to download and verify Sensu binaries."
-weight: 60
-product: "Sensu Go"
+title: "Supported platforms and distributions"
+linkTitle: "Platforms and Distributions"
+description: "Sensu Go is available on a wide range of platforms, including Linux, Windows, and macOS. Learn which platforms you can use with the Sensu backend, Sensu agent, and sensuctl command line tool."
+weight: -60
 version: "5.17"
+menu: "sensu-go-5.17"
 platformContent: true
 platforms: ["Linux", "Windows", "macOS", "FreeBSD", "Solaris"]
-menu:
-  sensu-go-5.17:
-    parent: installation
 ---
 
-In addition to [packages][1], Sensu binary-only distributions are available for Linux, Windows (agent and CLI only), macOS (CLI only), FreeBSD, and Solaris.
+- [Supported packages](#supported-packages)
+  - [Sensu backend](#sensu-backend) | [Sensu agent](#sensu-agent) | [Sensuctl command line tool](#sensuctl-command-line-tool)
+- [Docker images](#docker-images)
+- [Integrations](#integrations)
+- [Binary-only distributions](#binary-only-distributions)
+  - [Linux](#linux) | [Windows](#windows) | [macOS](#macos) | [FreeBSD](#freebsd) | [Solaris](#solaris)
+- [Build from source](#build-from-source)
+
+Sensu is available as [packages][1], [Docker images][2], and [binary-only distributions][4].
+We recommend [installing Sensu][5] with one of our supported packages, Docker images, or [configuration management][6] integrations.
+Sensu downloads are provided under the [Sensu commercial license][7].
+
+## Supported packages
+
+Supported packages are available through [sensu/stable][8] on packagecloud and the [downloads page][9].
+
+### Sensu backend
+
+| Platform and Version | `amd64` | | | |
+|----------------------|---------|---|---|---|
+| CentOS/RHEL 6        | {{< check >}}      |
+| CentOS/RHEL 7        | {{< check >}}      |
+| CentOS/RHEL 8        | {{< check >}}      |
+| Ubuntu 14.04         | {{< check >}}      |
+| Ubuntu 16.04         | {{< check >}}      |
+| Ubuntu 18.04         | {{< check >}}      |
+| Ubuntu 18.10         | {{< check >}}      |
+| Ubuntu 19.04         | {{< check >}}      |
+| Debian 8             | {{< check >}}      |
+| Debian 9             | {{< check >}}      |
+| Debian 10            | {{< check >}}      |
+
+### Sensu agent
+
+| Platform and Version | `amd64` | `386` | | | | |
+|----------------------|---------|-------|---|---|---|---|
+| CentOS/RHEL 6        | {{< check >}}      |
+| CentOS/RHEL 7        | {{< check >}}      |
+| CentOS/RHEL 8        | {{< check >}}      |
+| Ubuntu 14.04         | {{< check >}}      |
+| Ubuntu 16.04         | {{< check >}}      |
+| Ubuntu 18.04         | {{< check >}}      |
+| Ubuntu 18.10         | {{< check >}}      |
+| Ubuntu 19.04         | {{< check >}}      |
+| Debian 8             | {{< check >}}      |
+| Debian 9             | {{< check >}}      |
+| Debian 10            | {{< check >}}      |
+| Windows Server 2008 R2 and later | {{< check >}} | {{< check >}} |
+| Windows 7 and later | {{< check >}}     | {{< check >}}   |
+
+### Sensuctl command line tool
+
+| Platform and Version | `amd64` | `386` | | | | |
+|----------------------|---------|-------|---|---|---|---|
+| CentOS/RHEL 6        | {{< check >}}      |
+| CentOS/RHEL 7        | {{< check >}}      |
+| CentOS/RHEL 8        | {{< check >}}      |
+| Ubuntu 14.04         | {{< check >}}      |
+| Ubuntu 16.04         | {{< check >}}      |
+| Ubuntu 18.04         | {{< check >}}      |
+| Ubuntu 18.10         | {{< check >}}      |
+| Ubuntu 19.04         | {{< check >}}      |
+| Debian 8             | {{< check >}}      |
+| Debian 9             | {{< check >}}      |
+| Debian 10            | {{< check >}}      |
+| Windows Server 2008 R2 and later | {{< check >}} | {{< check >}} |
+| Windows 7 and later | {{< check >}}     | {{< check >}}   |
+
+## Docker images
+
+Docker images that contain the Sensu backend and Sensu agent are available for Linux-based containers.
+
+| Image name | base
+| ---------- | ------- |
+| [sensu/sensu][10] | Alpine Linux
+| [sensu/sensu-rhel][11] | Red Hat Enterprise Linux
+
+## Integrations
+
+- [Ansible role][17]
+- [Chef cookbook][13]
+- [Puppet module][14]
+- [Sensu Go Data Source plugin for Grafana][12]
+
+## Binary-only distributions
+
+Sensu binary-only distributions that contain the Sensu backend, agent, and sensuctl tool are available in `.zip` and `.tar.gz` formats.
+
+| Platform & Version | `amd64` | `arm64` | `armv5` | `armv6` |`armv7` | `386` |
+|--------------------|---------|---------|---------|---------|--------|-------|
+| Linux              | {{< check >}}      | {{< check >}}     | {{< check >}}      | {{< check >}}      | {{< check >}}     | {{< check >}}    |
+| Windows            | {{< check >}}      |         |         |         |        | {{< check >}}    |
+| macOS              | {{< check >}}      |         |         |         |        |       |
+| FreeBSD            | {{< check >}}      |         |         |         |        | {{< check >}}    |
+| Solaris            | {{< check >}}      |         |         |         |        |       |
 
 {{< platformBlock "Linux" >}}
 
-## Linux
+### Linux
 
 Sensu binary-only distributions for Linux are available for these architectures and formats:
 
 | arch | format |
 | --- | --- |
-| `amd64` | [`.tar.gz`][14] \| [`.zip`][20] |
-| `arm64` | [`.tar.gz`][15] \| [`.zip`][21]
-| `armv5` (agent and CLI) | [`.tar.gz`][16] \| [`.zip`][22] |
-| `armv6` (agent and CLI) | [`.tar.gz`][17] \| [`.zip`][23] |
+| `amd64` | [`.tar.gz`][38] \| [`.zip`][20] |
+| `arm64` | [`.tar.gz`][39] \| [`.zip`][21]
+| `armv5` (agent and CLI) | [`.tar.gz`][40] \| [`.zip`][22] |
+| `armv6` (agent and CLI) | [`.tar.gz`][41] \| [`.zip`][23] |
 | `armv7` (agent and CLI) | [`.tar.gz`][18] \| [`.zip`][24] |
 | `386` | [`.tar.gz`][19] \| [`.zip`][25] |
 
@@ -53,7 +144,7 @@ curl -LO https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.17.2/sensu-go_5.
 
 {{< platformBlock "Windows" >}}
 
-## Windows
+### Windows
 
 Sensu binary-only distributions for Windows are available for these architectures and formats:
 
@@ -86,7 +177,7 @@ Get-Content "$env:userprofile\sensu-go_5.17.2_checksums.txt" | Select-String -Pa
 
 {{< platformBlock "macOS" >}}
 
-## macOS
+### macOS
 
 Sensu binary-only distributions for macOS are available for these architectures and formats:
 
@@ -128,7 +219,7 @@ sudo cp sensuctl /usr/local/bin/
 
 {{< platformBlock "FreeBSD" >}}
 
-## FreeBSD
+### FreeBSD
 
 Sensu binary-only distributions for FreeBSD are available for these architectures and formats:
 
@@ -159,7 +250,7 @@ curl -LO https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.17.2/sensu-go_5.
 
 {{< platformBlock "Solaris" >}}
 
-## Solaris
+### Solaris
 
 Sensu binary-only distributions for Solaris are available for these architectures and formats:
 
@@ -187,24 +278,31 @@ curl -LO https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.17.2/sensu-go_5.
 
 {{< platformBlockClose >}}
 
-## Next steps
+## Build from source
 
-Now that you’ve installed Sensu:
+Sensu Go's core is open source software, freely available under an MIT License.
+Sensu Go instances built from source do not include [commercial features][3] such as the web UI homepage.
+See the [feature comparison matrix][15] to learn more.
+To build Sensu Go from source, see the [contributing guide on GitHub][16].
 
-- [Configure sensuctl][4]
-- [Start the Sensu backend][2]
-- [Start the Sensu agent][3]
-- [Use Sensu to monitor server resources][5]
 
-[1]: ../install-sensu/
-[2]: ../../reference/backend#operation
-[3]: ../../reference/agent#operation
-[4]: ../../sensuctl/reference#first-time-setup
-[5]: ../../guides/monitor-server-resources/
-[14]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.17.2/sensu-go_5.17.2_linux_amd64.tar.gz
-[15]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.17.2/sensu-go_5.17.2_linux_arm64.tar.gz
-[16]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.17.2/sensu-go_5.17.2_linux_armv5.tar.gz
-[17]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.17.2/sensu-go_5.17.2_linux_armv6.tar.gz
+[1]: #supported-packages
+[2]: #docker-images
+[3]: ../commercial/
+[4]: #binary-only-distributions
+[5]: /sensu-go/5.17/installation/install-sensu/
+[6]: /sensu-go/5.17/installation/configuration-management/
+[7]: https://sensu.io/sensu-license/
+[8]: https://packagecloud.io/sensu/stable/
+[9]: https://sensu.io/downloads/
+[10]: https://hub.docker.com/r/sensu/sensu/
+[11]: https://hub.docker.com/r/sensu/sensu-rhel/
+[12]: https://github.com/sensu/grafana-sensu-go-datasource/
+[13]: https://github.com/sensu/sensu-go-chef/
+[14]: https://github.com/sensu/sensu-puppet/
+[15]: https://sensu.io/enterprise/
+[16]: https://github.com/sensu/sensu-go/blob/master/CONTRIBUTING.md
+[17]: https://github.com/jaredledvina/sensu-go-ansible/
 [18]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.17.2/sensu-go_5.17.2_linux_armv7.tar.gz
 [19]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.17.2/sensu-go_5.17.2_linux_386.tar.gz
 [20]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.17.2/sensu-go_5.17.2_linux_amd64.zip
@@ -225,3 +323,7 @@ Now that you’ve installed Sensu:
 [35]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.17.2/sensu-go_5.17.2_freebsd_386.zip
 [36]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.17.2/sensu-go_5.17.2_solaris_amd64.tar.gz
 [37]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.17.2/sensu-go_5.17.2_solaris_amd64.zip
+[38]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.17.2/sensu-go_5.17.2_linux_amd64.tar.gz
+[39]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.17.2/sensu-go_5.17.2_linux_arm64.tar.gz
+[40]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.17.2/sensu-go_5.17.2_linux_armv5.tar.gz
+[41]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.17.2/sensu-go_5.17.2_linux_armv6.tar.gz

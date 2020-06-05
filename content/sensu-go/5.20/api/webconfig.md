@@ -19,6 +19,11 @@ menu:
 **COMMERCIAL FEATURE**: Access web UI configuration in the packaged Sensu Go distribution.
 For more information, see [Get started with commercial features][1].
 
+{{% notice note %}}
+**NOTE**: Requests to the web UI configuration API require you to authenticate with a Sensu [access token](../overview/#authenticate-with-the-authentication-api) or [API key](../overview/#authenticate-with-an-api-key).
+The code examples in this document use the [environment variable](../overview/#configure-an-environment-variable-for-api-key-authentication) `$SENSU_API_KEY` to represent a valid API key in API requests. 
+{{% /notice %}}
+
 ## The `/config` API endpoint
 
 ### `/config` (GET)
@@ -32,7 +37,7 @@ The following example demonstrates a request to the `/config` API endpoint, resu
 {{< highlight shell >}}
 curl -X GET \
 http://127.0.0.1:8080/api/enterprise/web/v1/config \
--H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
+-H "Authorization: Key $SENSU_API_KEY" \
 -H 'Content-Type: application/json'
 
 HTTP/1.1 200 OK
@@ -116,7 +121,7 @@ In the following example, querying the `/config/:globalconfig` API endpoint retu
 {{< highlight shell >}}
 curl -X GET \
 http://127.0.0.1:8080/api/enterprise/web/v1/config/custom-web-ui \
--H "Authorization: Bearer $SENSU_ACCESS_TOKEN"
+-H "Authorization: Key $SENSU_API_KEY"
 
 HTTP/1.1 200 OK
 {
@@ -192,7 +197,7 @@ In the following example, an HTTP PUT request is submitted to the `/config/:glob
 
 {{< highlight shell >}}
 curl -X PUT \
--H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
+-H "Authorization: Key $SENSU_API_KEY" \
 -H 'Content-Type: application/json' \
 -d '{
   "type": "GlobalConfig",
@@ -269,7 +274,7 @@ The following example shows a request to the `/config/:globalconfig` API endpoin
 
 {{< highlight shell >}}
 curl -X DELETE \
--H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
+-H "Authorization: Key $SENSU_API_KEY" \
 http://127.0.0.1:8080/api/enterprise/web/v1/config/custom-web-ui
 
 HTTP/1.1 204 No Content
@@ -284,4 +289,4 @@ example url               | http://hostname:8080/api/enterprise/web/v1/config/cu
 response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 
-[1]: ../../getting-started/enterprise/
+[1]: ../../commercial/

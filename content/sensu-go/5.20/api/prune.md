@@ -8,13 +8,18 @@ menu:
     parent: api
 ---
 
-## The `/prune/v1alpha` API endpoint
-
 {{% notice important %}}
-**IMPORTANT**: The prune API is an alpha feature in release 5.19.0 and may include breaking changes.
+**IMPORTANT**: The prune API is an alpha feature and may include breaking changes.
 {{% /notice %}}
 
 **COMMERCIAL FEATURE**: Access sensuctl pruning in the packaged Sensu Go distribution. For more information, see [Get started with commercial features][1].
+
+{{% notice note %}}
+**NOTE**: Requests to the prune API require you to authenticate with a Sensu [access token](../overview/#authenticate-with-the-authentication-api) or [API key](../overview/#authenticate-with-an-api-key).
+The code examples in this document use the [environment variable](../overview/#configure-an-environment-variable-for-api-key-authentication) `$SENSU_API_KEY` to represent a valid API key in API requests. 
+{{% /notice %}}
+
+## The `/prune/v1alpha` API endpoint
 
 ### `/prune/v1alpha` (POST)
 
@@ -29,7 +34,7 @@ The request returns a successful HTTP `201 Created` response and a list of the r
 {{< highlight shell >}}
 curl -X POST \
 http://127.0.0.1:8080/api/enterprise/prune/v1alpha\?types\=core/v2.CheckConfig\&allUsers\=true\&namespaces\=dev \
--H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
+-H "Authorization: Key $SENSU_API_KEY" \
 -H 'Content-Type: application/json' \
 -d '{
   "type": "CheckConfig",
@@ -99,5 +104,5 @@ payload               | {{< highlight shell >}}
 response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 
-[1]: ../../getting-started/enterprise/
+[1]: ../../commercial/
 [2]: ../../sensuctl/reference/#sensuctl-prune-resource-types

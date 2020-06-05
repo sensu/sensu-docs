@@ -9,12 +9,17 @@ menu:
 ---
 
 - [The `/mutators` API endpoint](#the-mutators-api-endpoint)
-	- [`/mutators` (GET)](#mutators-get)
-	- [`/mutators` (POST)](#mutators-post)
+  - [`/mutators` (GET)](#mutators-get)
+  - [`/mutators` (POST)](#mutators-post)
 - [The `/mutators/:mutator` API endpoint](#the-mutatorsmutator-api-endpoint)
-	- [`/mutators/:mutator` (GET)](#mutatorsmutator-get)
+  - [`/mutators/:mutator` (GET)](#mutatorsmutator-get)
   - [`/mutators/:mutator` (PUT)](#mutatorsmutator-put)
   - [`/mutators/:mutator` (DELETE)](#mutatorsmutator-delete)
+
+{{% notice note %}}
+**NOTE**: Requests to the mutators API require you to authenticate with a Sensu [access token](../overview/#authenticate-with-the-authentication-api) or [API key](../overview/#authenticate-with-an-api-key).
+The code examples in this document use the [environment variable](../overview/#configure-an-environment-variable-for-api-key-authentication) `$SENSU_API_KEY` to represent a valid API key in API requests. 
+{{% /notice %}}
 
 ## The `/mutators` API endpoint
 
@@ -29,7 +34,7 @@ The following example demonstrates a request to the `/mutators` API endpoint, re
 {{< highlight shell >}}
 curl -X GET \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/mutators \
--H "Authorization: Bearer $SENSU_ACCESS_TOKEN"
+-H "Authorization: Key $SENSU_API_KEY"
 
 HTTP/1.1 200 OK
 [
@@ -88,7 +93,7 @@ The request returns a successful HTTP `201 Created` response.
 
 {{< highlight shell >}}
 curl -X POST \
--H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
+-H "Authorization: Key $SENSU_API_KEY" \
 -H 'Content-Type: application/json' \
 -d '{
   "metadata": {
@@ -142,7 +147,7 @@ In the following example, querying the `/mutators/:mutator` API endpoint returns
 {{< highlight shell >}}
 curl -X GET \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/mutators/example-mutator \
--H "Authorization: Bearer $SENSU_ACCESS_TOKEN"
+-H "Authorization: Key $SENSU_API_KEY"
 
 HTTP/1.1 200 OK
 {
@@ -195,7 +200,7 @@ The request returns a successful HTTP `201 Created` response.
 
 {{< highlight shell >}}
 curl -X PUT \
--H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
+-H "Authorization: Key $SENSU_API_KEY" \
 -H 'Content-Type: application/json' \
 -d '{
   "metadata": {
@@ -246,7 +251,7 @@ The following example shows a request to the `/mutators/:mutator` API endpoint t
 {{< highlight shell >}}
 curl -X DELETE \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/mutators/example-mutator \
--H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
+-H "Authorization: Key $SENSU_API_KEY" \
 
 HTTP/1.1 204 No Content
 {{< /highlight >}}

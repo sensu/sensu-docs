@@ -9,10 +9,10 @@ menu:
 ---
 
 - [The `/checks` API endpoint](#the-checks-api-endpoint)
-	- [`/checks` (GET)](#checks-get)
-	- [`/checks` (POST)](#checks-post)
+  - [`/checks` (GET)](#checks-get)
+  - [`/checks` (POST)](#checks-post)
 - [The `/checks/:check` API endpoint](#the-checkscheck-api-endpoint)
-	- [`/checks/:check` (GET)](#checkscheck-get)
+  - [`/checks/:check` (GET)](#checkscheck-get)
   - [`/checks/:check` (PUT)](#checkscheck-put)
   - [`/checks/:check` (DELETE)](#checkscheck-delete)
 - [The `/checks/:check/execute` API endpoint](#the-checkscheckexecute-api-endpoint)
@@ -21,6 +21,11 @@ menu:
   - [`/checks/:check/hooks/:type` (PUT)](#checkscheckhooks-put)
 - [The `/checks/:check/hooks/:type/hook/:hook` API endpoint](#the-checkscheckhookshook-api-endpoint)
   - [`/checks/:check/hooks/:type/hook/:hook` (DELETE)](#checkscheckhookshook-delete)
+
+{{% notice note %}}
+**NOTE**: Requests to the checks API require you to authenticate with a Sensu [access token](../overview/#authenticate-with-the-authentication-api) or [API key](../overview/#authenticate-with-an-api-key).
+The code examples in this document use the [environment variable](../overview/#configure-an-environment-variable-for-api-key-authentication) `$SENSU_API_KEY` to represent a valid API key in API requests. 
+{{% /notice %}}
 
 ## The `/checks` API endpoint
 
@@ -35,7 +40,7 @@ The following example demonstrates a request to the `/checks` API endpoint, resu
 {{< highlight shell >}}
 curl -X GET \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/checks \
--H "Authorization: Bearer $SENSU_ACCESS_TOKEN"
+-H "Authorization: Key $SENSU_API_KEY"
 
 HTTP/1.1 200 OK
 [
@@ -126,7 +131,7 @@ The request includes the check definition in the request body and returns a succ
 
 {{< highlight shell >}}
 curl -X POST \
--H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
+-H "Authorization: Key $SENSU_API_KEY" \
 -H 'Content-Type: application/json' \
 -d '{
   "command": "check-cpu.sh -w 75 -c 90",
@@ -187,7 +192,7 @@ In the following example, querying the `/checks/:check` API endpoint returns a J
 {{< highlight shell >}}
 curl -X GET \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/checks/check-cpu \
--H "Authorization: Bearer $SENSU_ACCESS_TOKEN"
+-H "Authorization: Key $SENSU_API_KEY"
 
 HTTP/1.1 200 OK
 {
@@ -271,7 +276,7 @@ In the following example, an HTTP PUT request is submitted to the `/checks/:chec
 
 {{< highlight shell >}}
 curl -X PUT \
--H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
+-H "Authorization: Key $SENSU_API_KEY" \
 -H 'Content-Type: application/json' \
 -d '{
   "command": "check-cpu.sh -w 75 -c 90",
@@ -329,7 +334,7 @@ The following example shows a request to the `/checks/:check` API endpoint to de
 
 {{< highlight shell >}}
 curl -X DELETE \
--H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
+-H "Authorization: Key $SENSU_API_KEY" \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/checks/check-cpu
 
 HTTP/1.1 204 No Content
@@ -356,7 +361,7 @@ The request includes the check name in the request body and returns a successful
 
 {{< highlight shell >}}
 curl -X POST \
--H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
+-H "Authorization: Key $SENSU_API_KEY" \
 -H 'Content-Type: application/json' \
 -d '{
   "check": "check-cpu",
@@ -404,7 +409,7 @@ In the following example, an HTTP PUT request is submitted to the `/checks/:chec
 
 {{< highlight shell >}}
 curl -X PUT \
--H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
+-H "Authorization: Key $SENSU_API_KEY" \
 -H 'Content-Type: application/json' \
 -d '{
   "critical": [
@@ -444,7 +449,7 @@ The following example shows a request to the `/checks/:check/hooks/:type/hook/:h
 
 {{< highlight shell >}}
 curl -X DELETE \
--H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
+-H "Authorization: Key $SENSU_API_KEY" \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/checks/check-cpu/hooks/critical/hook/process_tree 
 
 HTTP/1.1 204 No Content

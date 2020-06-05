@@ -3,7 +3,6 @@ title: "Users API"
 description: "This reference describes the Sensu users API, including some handy examples for how to create users, access user data by username, and update users. Learn how the users API can help you customize Sensu Go to match your workflows."
 version: "5.21"
 product: "Sensu Go"
-lastTested: 2018-12-11
 menu:
   sensu-go-5.21:
     parent: api
@@ -43,7 +42,7 @@ The following example demonstrates a request to the `/users` API, resulting in a
 {{< highlight shell >}}
 curl -X GET \
 http://127.0.0.1:8080/api/core/v2/users \
--H "Authorization: Bearer $SENSU_ACCESS_TOKEN"
+-H "Authorization: Key $SENSU_API_KEY"
 
 HTTP/1.1 200 OK
 [
@@ -103,7 +102,7 @@ The following example demonstrates a POST request to the `/users` API endpoint t
 
 {{< highlight shell >}}
 curl -X POST \
--H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
+-H "Authorization: Key $SENSU_API_KEY" \
 -H 'Content-Type: application/json' \
 -d '{
   "username": "alice",
@@ -150,7 +149,7 @@ In the following example, querying the `/users/:user` API returns a JSON map tha
 {{< highlight shell >}}
 curl -X GET \
 http://127.0.0.1:8080/api/core/v2/users/alice \
--H "Authorization: Bearer $SENSU_ACCESS_TOKEN"
+-H "Authorization: Key $SENSU_API_KEY"
 
 HTTP/1.1 200 OK
 {
@@ -190,7 +189,7 @@ The following example demonstrates a PUT request to the `/users` API endpoint to
 
 {{< highlight shell >}}
 curl -X PUT \
--H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
+-H "Authorization: Key $SENSU_API_KEY" \
 -H 'Content-Type: application/json' \
 -d '{
   "username": "alice",
@@ -233,7 +232,7 @@ In the following example, an HTTP DELETE request is submitted to the `/users/:us
 
 {{< highlight shell >}}
 curl -X DELETE \
--H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
+-H "Authorization: Key $SENSU_API_KEY" \
 http://127.0.0.1:8080/api/core/v2/users/alice
 
 HTTP/1.1 204 No Content
@@ -264,7 +263,7 @@ In the following example, an HTTP PUT request is submitted to the `/users/:user/
 
 {{< highlight shell >}}
 curl -X PUT \
--H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
+-H "Authorization: Key $SENSU_API_KEY" \
 -H 'Content-Type: application/json' \
 -d '{
   "username": "alice",
@@ -302,7 +301,7 @@ In the following example, an HTTP PUT request is submitted to the `/users/:user/
 
 {{< highlight shell >}}
 curl -X PUT \
--H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
+-H "Authorization: Key $SENSU_API_KEY" \
 -H 'Content-Type: application/json' \
 http://127.0.0.1:8080/api/core/v2/users/alice/reinstate
 
@@ -329,7 +328,7 @@ In the following example, an HTTP DELETE request is submitted to the `/users/:us
 
 {{< highlight shell >}}
 curl -X DELETE \
--H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
+-H "Authorization: Key $SENSU_API_KEY" \
 http://127.0.0.1:8080/api/core/v2/users/alice/groups
 
 HTTP/1.1 204 No Content
@@ -355,7 +354,7 @@ In the following example, an HTTP PUT request is submitted to the `/users/:user/
 
 {{< highlight shell >}}
 curl -X PUT \
--H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
+-H "Authorization: Key $SENSU_API_KEY" \
 http://127.0.0.1:8080/api/core/v2/users/alice/groups/ops
 
 HTTP/1.1 201 Created
@@ -379,7 +378,7 @@ In the following example, an HTTP DELETE request is submitted to the `/users/:us
 
 {{< highlight shell >}}
 curl -X DELETE \
--H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
+-H "Authorization: Key $SENSU_API_KEY" \
 http://127.0.0.1:8080/api/core/v2/users/alice/groups/ops
 
 HTTP/1.1 204 No Content

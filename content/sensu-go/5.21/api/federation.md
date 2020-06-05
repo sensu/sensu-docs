@@ -25,6 +25,11 @@ menu:
 **COMMERCIAL FEATURE**: Access federation in the packaged Sensu Go distribution.
 For more information, see [Get started with commercial features][1].
 
+{{% notice note %}}
+**NOTE**: Requests to the federation API require you to authenticate with a Sensu [access token](../overview/#authenticate-with-the-authentication-api) or [API key](../overview/#authenticate-with-an-api-key).
+The code examples in this document use the [environment variable](../overview/#configure-an-environment-variable-for-api-key-authentication) `$SENSU_API_KEY` to represent a valid API key in API requests. 
+{{% /notice %}}
+
 ## The `/etcd-replicators` endpoint
 
 {{% notice note %}}
@@ -42,7 +47,7 @@ The following example demonstrates a request to the `/etcd-replicators` API endp
 {{< highlight shell >}}
 curl -X GET \
 http://127.0.0.1:8080/api/enterprise/federation/v1/etcd-replicators \
--H "Authorization: Bearer $SENSU_ACCESS_TOKEN"
+-H "Authorization: Key $SENSU_API_KEY"
 [
   {
     "api_version": "federation/v1",
@@ -111,7 +116,7 @@ The following example demonstrates a request to the `/etcd-replicators` API endp
 
 {{< highlight shell >}}
 curl -X POST \
--H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
+-H "Authorization: Key $SENSU_API_KEY" \
 -H 'Content-Type: application/json' \
 -d '{
   "api_version": "federation/v1",
@@ -179,7 +184,7 @@ In the following example, querying the `/etcd-replicators/:etcd-replicator` API 
 {{< highlight shell >}}
 curl -X GET \
 http://127.0.0.1:8080/api/enterprise/federation/v1/etcd-replicators/my_replicator \
--H "Authorization: Bearer $SENSU_ACCESS_TOKEN"
+-H "Authorization: Key $SENSU_API_KEY"
 {
   "api_version": "federation/v1",
   "type": "EtcdReplicator",
@@ -239,7 +244,7 @@ The following example demonstrates a request to the `/etcd-replicators/:etcd-rep
 
 {{< highlight shell >}}
 curl -X PUT \
--H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
+-H "Authorization: Key $SENSU_API_KEY" \
 -H 'Content-Type: application/json' \
 -d '{
   "api_version": "federation/v1",
@@ -300,7 +305,7 @@ The following example shows a request to the `/etcd-replicators/:etcd-replicator
 
 {{< highlight shell >}}
 curl -X DELETE \
--H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
+-H "Authorization: Key $SENSU_API_KEY" \
 http://127.0.0.1:8080/api/enterprise/federation/v1/etcd-replicators/my_replicator
 
 HTTP/1.1 204 No Content
@@ -327,7 +332,7 @@ The following example demonstrates a request to the `/clusters` API endpoint, re
 {{< highlight shell >}}
 curl -X GET \
 http://127.0.0.1:8080/api/enterprise/federation/v1/clusters \
--H "Authorization: Bearer $SENSU_ACCESS_TOKEN"
+-H "Authorization: Key $SENSU_API_KEY"
 
 HTTP/1.1 200 OK
 
@@ -391,7 +396,7 @@ In the following example, querying the `/clusters/:cluster` API endpoint returns
 {{< highlight shell >}}
 curl -X GET \
 http://127.0.0.1:8080/api/enterprise/federation/v1/clusters/us-west-2a \
--H "Authorization: Bearer $SENSU_ACCESS_TOKEN"
+-H "Authorization: Key $SENSU_API_KEY"
 
 HTTP/1.1 200 OK
 
@@ -452,7 +457,7 @@ The following example demonstrates a request to the `/clusters/:cluster` API end
 
 {{< highlight shell >}}
 curl -X PUT \
--H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
+-H "Authorization: Key $SENSU_API_KEY" \
 -H 'Content-Type: application/json' \
 -d '{
     "type": "Cluster",
@@ -511,7 +516,7 @@ The following example shows a request to the `/clusters/:cluster` API endpoint t
 
 {{< highlight shell >}}
 curl -X DELETE \
--H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
+-H "Authorization: Key $SENSU_API_KEY" \
 http://127.0.0.1:8080/api/enterprise/federation/v1/clusters/us-west-2a
 
 HTTP/1.1 204 No Content
@@ -526,4 +531,4 @@ example url               | http://hostname:8080/api/enterprise/federation/v1/cl
 response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 
-[1]: ../../getting-started/enterprise/
+[1]: ../../commercial/

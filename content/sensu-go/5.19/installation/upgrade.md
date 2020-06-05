@@ -525,7 +525,7 @@ You may also want to re-install the `sensu-install` tool using the [`sensu-plugi
 [24]: ../../reference/entities#metadata-attributes
 [25]: https://blog.sensu.io/check-configuration-upgrades-with-the-sensu-go-sandbox/
 [26]: https://blog.sensu.io/self-service-monitoring-checks-in-sensu-go/
-[27]: ../../getting-started/enterprise/
+[27]: ../../commercial/
 [28]: https://bonsai.sensu.io/assets/sensu/sensu-aggregate-check/
 [29]: ../../reference/backend#operation
 [30]: /images/web-ui-entity-warning.png
@@ -541,7 +541,7 @@ You may also want to re-install the `sensu-install` tool using the [`sensu-plugi
 [40]: ../../api/overview/
 [41]: ../../reference/agent#create-monitoring-events-using-the-agent-api
 [42]: ../../reference/agent/#create-monitoring-events-using-the-statsd-listener
-[43]: ../../installation/platforms/
+[43]: ../../platforms/
 [44]: ../../installation/configuration-management/
 [45]: https://github.com/sensu/sensu-translator
 [46]: https://slack.sensu.io/

@@ -9,13 +9,17 @@ menu:
 ---
 
 - [The `/assets` API endpoint](#the-assets-api-endpoint)
-	- [`/assets` (GET)](#assets-get)
-	- [`/assets` (POST)](#assets-post)
+  - [`/assets` (GET)](#assets-get)
+  - [`/assets` (POST)](#assets-post)
 - [The `/assets/:asset` API endpoint](#the-assetsasset-api-endpoint)
-	- [`/assets/:asset` (GET)](#assetsasset-get)
+  - [`/assets/:asset` (GET)](#assetsasset-get)
   - [`/assets/:asset` (PUT)](#assetsasset-put)
   - [`/assets/:asset` (DELETE)](#assetsasset-delete)
 
+{{% notice note %}}
+**NOTE**: Requests to the assets API require you to authenticate with a Sensu [access token](../overview/#authenticate-with-the-authentication-api) or [API key](../overview/#authenticate-with-an-api-key).
+The code examples in this document use the [environment variable](../overview/#configure-an-environment-variable-for-api-key-authentication) `$SENSU_API_KEY` to represent a valid API key in API requests. 
+{{% /notice %}}
 
 ## The `/assets` API endpoint
 
@@ -30,7 +34,7 @@ The following example demonstrates a request to the `/assets` API endpoint, resu
 {{< highlight shell >}}
 curl -X GET \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/assets \
--H "Authorization: Bearer $SENSU_ACCESS_TOKEN"
+-H "Authorization: Key $SENSU_API_KEY"
 
 HTTP/1.1 200 OK
 [
@@ -135,7 +139,7 @@ The request returns a successful HTTP `201 Created` response.
 
 {{< highlight shell >}}
 curl -X POST \
--H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
+-H "Authorization: Key $SENSU_API_KEY" \
 -H 'Content-Type: application/json' \
 -d '{
   "url": "https://github.com/sensu/sensu-slack-handler/releases/download/1.0.3/sensu-slack-handler_1.0.3_linux_amd64.tar.gz",
@@ -197,7 +201,7 @@ In the following example, querying the `/assets/:asset` API endpoint returns a J
 {{< highlight shell >}}
 curl -X GET \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/assets/sensu-slack-handler \
--H "Authorization: Bearer $SENSU_ACCESS_TOKEN"
+-H "Authorization: Key $SENSU_API_KEY"
 
 HTTP/1.1 200 OK
 [
@@ -264,7 +268,7 @@ The request returns a successful HTTP `201 Created` response.
 
 {{< highlight shell >}}
 curl -X PUT \
--H "Authorization: Bearer $SENSU_ACCESS_TOKEN" \
+-H "Authorization: Key $SENSU_API_KEY" \
 -H 'Content-Type: application/json' \
 -d '{
   "url": "https://github.com/sensu/sensu-slack-handler/releases/download/1.0.3/sensu-slack-handler_1.0.3_linux_amd64.tar.gz",
@@ -326,7 +330,7 @@ The `/assets/:asset` API endpoint provides HTTP DELETE access so you can delete 
 {{< highlight shell >}}
 curl -X DELETE \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/assets/sensu-slack-handler \
--H "Authorization: Bearer $SENSU_ACCESS_TOKEN"
+-H "Authorization: Key $SENSU_API_KEY"
 
 HTTP/1.1 204 No Content
 {{< /highlight >}}
