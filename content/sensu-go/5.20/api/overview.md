@@ -187,7 +187,6 @@ SET SENSU_API_KEY="83abef1e-e7d7-4beb-91fc-79ad90084d5b"
 
 {{< highlight powershell >}}
 $Env:SENSU_API_KEY = "83abef1e-e7d7-4beb-91fc-79ad90084d5b"
-
 {{< /highlight >}}
 
 {{< /language-toggle >}}
