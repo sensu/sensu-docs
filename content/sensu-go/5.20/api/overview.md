@@ -178,7 +178,6 @@ Then, follow this example to export your API key to the `SENSU_API_KEY` environm
 
 {{< highlight bash >}}
 export SENSU_API_KEY="83abef1e-e7d7-4beb-91fc-79ad90084d5b"
-
 {{< /highlight >}}
 
 {{< highlight cmd >}}
