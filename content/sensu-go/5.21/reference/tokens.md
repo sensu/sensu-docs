@@ -10,7 +10,7 @@ menu:
 ---
 
 - [Manage entity labels](#manage-entity-labels)
-- [Manage assets with token substitution](#manage-assets-with-token-substitution)
+- [Manage assets](#manage-assets)
 - [Token specification](#token-specification)
   - [Token substitution syntax](#token-substitution-syntax)
   - [Token substitution default values](#token-substitution-default-values)
@@ -39,27 +39,9 @@ Available attributes will always have [string values][9], such as labels and ann
 You can use token substitution with any defined [entity attributes][4], including custom labels.
 See the [entity reference][6] for information about managing entity labels for proxy entities and agent entities.
 
-## Manage assets with token substitution
+## Manage assets
 
-You can use token substitution in the URLs and headers of your [asset][12] definitions.
-Token substitution also allows you to add an asset's specific path on disk to checks, hooks, handlers, and mutators that consume the asset.
-
-### Token substitution and asset paths
-
-Token substitution allows you to substitute an asset's specific path on disk in your checks, hooks, handlers, and mutators.
-For example, on a Windows platform, you may write plugins on PowerShell, but if you don't run the PowerShell script using the specific path on disk for the asset, you will not get the correct exit codes.
-
-An asset's specific path on disk includes the checksum, which changes any time the asset changes (for example, a version update).
-If you use token substitution for the asset path, you will not have to manually update your check, hook, handler, or mutator commands every time the asset changes. the checksum means the path on disk for the current version of the plugin will change.
-
-This example shows token subsitution of the asset path:
-
-{{< highlight yml >}}
-NEEDED
-{{< /highlight >}}
-
-### Token substitution and asset URLs
-
+You can use token substitution in the URLs of your your [asset][12] definitions.
 Token substitution allows you to host your assets at different URLs (such as at different datacenters) without duplicating your assets, as shown in the following example:
 
 {{< language-toggle >}}
@@ -100,9 +82,7 @@ spec:
 With this asset definition, which includes the `.labels.asset_url` token substitution, checks and hooks can include the `sensu-go-hello-world` asset as a runtime asset and Sensu Go will use the token substitution for the agent's entity.
 Handlers and mutators can also include the `sensu-go-hello-world` asset as a runtime asset, but Sensu Go will use the token subtitution for the backend's entity instead of the agent's entity.
 
-### Token subsitution in asset headers
-
-You can use token substitution to customize asset headers (for example, to include secure information for authentication).
+You can also use token substitution to customize asset headers (for example, to include secure information for authentication).
 
 {{% notice note %}}
 **NOTE**: To maintain security, you cannot use token substitution for an asset's SHA512 value.
@@ -432,4 +412,3 @@ spec:
 [10]: ../handlers/
 [11]: ../mutators/
 [12]: ../assets/
-[13]: ../checks/#powershell-script-in-check-commands

@@ -13,6 +13,7 @@ menu:
 
 - [Asset builds](#asset-builds)
 - [Asset format specification](#asset-format-specification)
+  - [Asset path](#asset-path) | [Default cache directory](#default-cache-directory)
 - [Asset specification](#asset-specification)
   - [Top-level attributes](#top-level-attributes) | [Metadata attributes](#metadata-attributes) | [Spec attributes](#spec-attributes)
 - [Asset filters based on entity.system attributes](#asset-filters-based-on-entity-system-attributes)
@@ -87,6 +88,19 @@ The following are injected into the execution context:
 Follow the steps outlined in [Contributing Assets for Existing Ruby Sensu Plugins](https://discourse.sensu.io/t/contributing-assets-for-existing-ruby-sensu-plugins/1165), a Sensu Discourse guide.
 For further examples of Sensu users who have added the ability to use a community plugin as an asset, see [this Discourse post](https://discourse.sensu.io/t/how-to-use-the-sensu-plugins-kubernetes-plugin/1286).
 {{% /notice %}}
+
+### Asset path
+
+When you download and install an asset, the asset's local path on disk is exposed to asset consumers via the asset's environment variables.
+This allows you to retrieve the asset's path from a check, hook, handler, or mutator either as an environment variable or using a custom function for token substitution, `assetPath`.
+
+For example, if you included a configuration file in the `include` directory of your asset `sensu-go-hello-world-0.0.2`, you can reference the asset from your handler in either of these ways:
+
+- `$SENSU_GO_HELLO_WORLD_0_0_2/include/config.yaml`
+- `${{assetPath "sensu-go-hello-world-0.0.2"}}/include/config.yaml`
+
+The asset path includes the asset's checksum, which changes every time the asset is updated.
+The `assetPath` token subsitution function allows you to substitute the asset's local path on disk, so you will not need to manually update your check, hook, handler, or mutator commands every time the asset is updated.
 
 ### Default cache directory
 
