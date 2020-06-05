@@ -263,7 +263,14 @@ Follow etcd's [clustering guide][2] using the same store configuration to stand 
 
 To initialize a backend that uses etcd authentication, configure read and write access to the `/sensu.io/` key space for your users:
 {{< highlight shell >}}
-/opt/etcd/etcdctl role grant-permission sensu_readwrite readwrite --from-key '/sensu.io/'
+# Add the sensu user, you'll be prompted for the password interactively
+etcdctl user add sensu
+# Create a role
+etcdctl role add sensu_readwrite
+# Give that role permission to read and write under the /sensu.io/ keyspace
+etcdctl role grant-permission sensu_readwrite readwrite --from-key '/sensu.io/'
+# Grant the sensu user the role
+etcdctl user grant-role sensu sensu_readwrite
 {{< /highlight >}}
 
 To double-check that the grant is configured correctly, run:
