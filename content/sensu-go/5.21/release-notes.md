@@ -8,6 +8,7 @@ version: "5.21"
 menu: "sensu-go-5.21"
 ---
 
+- [5.21.0 release notes](#5-21-0-release-notes)
 - [5.20.2 release notes](#5-20-2-release-notes)
 - [5.20.1 release notes](#5-20-1-release-notes)
 - [5.20.0 release notes](#5-20-0-release-notes)
@@ -62,6 +63,34 @@ PATCH versions include backward-compatible bug fixes.
 Read the [upgrade guide][1] for information about upgrading to the latest version of Sensu Go.
 
 ---
+
+## 5.21.0 release notes
+
+**June 9, 2020** &mdash; The latest release of Sensu Go, version 5.21.0, is now available for download.
+
+**RELEASE SYNOPSIS NEEDED HERE**
+
+See the [upgrade guide][1] to upgrade Sensu to version 5.21.0.
+
+**NEW FEATURES:**
+
+- ([Commercial feature][158] Added [entity count and limit][156] for each entity class in the tabular title in the response for `sensuctl license info` (in addition to the total entity count and limit).
+- Added `sensuctl user hash-password` command to generate password hashes. The `user` resource now includes a `password_hash` field to specify the password hash instead of the cleartext password.
+- Added the ability to reset passwords via the backend API and `sensuctl user reset-password`.
+- Added support for the AIX PPC64 platform.
+
+**IMPROVEMENTS:**
+
+- Changed the [default log level for `sensu-agent`][157] to `info` (instead of `warn`).
+- Updated the gostatsd version to 20.3.2.
+
+**FIXES:**
+
+- The password verification logic when running `sensuctl user change-password` is now included in the backend API rather than sensuctl.
+- Errors in publishing proxy check requests no longer block scheduling for other entities.
+- Using the `--chunk-size` flag when listing namespaces in sensuctl now works properly.
+- The agent no longer immediately exits in certain scenarios when components are disabled.
+- Fixed a bug that could cause a GraphQL query to fail when querying a namespace that contained event data in excess of 2 GB.
 
 ## 5.20.2 release notes
 
@@ -1342,3 +1371,6 @@ To get started with Sensu Go:
 [153]: /sensu-go/5.20/dashboard/overview/
 [154]: /sensu-go/5.20/sensuctl/reference/#extend-sensuctl-with-commands
 [155]: /sensu-go/5.20/reference/agent/#discover-processes
+[156]: /sensu-go/5.21/reference/license/#view-entity-count-and-entity-limit
+[157]: /sensu-go/5.21/reference/agent/#log-level
+[158]: /sensu-go/5.21/commercial/
