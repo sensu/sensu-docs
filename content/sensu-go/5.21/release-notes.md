@@ -77,7 +77,7 @@ See the [upgrade guide][1] to upgrade Sensu to version 5.21.0.
 - ([Commercial feature][158] Added [entity count and limit][156] for each entity class in the tabular title in the response for `sensuctl license info` (in addition to the total entity count and limit).
 - Added `sensuctl user hash-password` command to generate password hashes. The `user` resource now includes a `password_hash` field to specify the password hash instead of the cleartext password.
 - Added the ability to reset passwords via the backend API and `sensuctl user reset-password`.
-- Added support for the AIX PPC64 platform.
+- Added support for the [AIX PPC64][159] platform.
 
 **IMPROVEMENTS:**
 
@@ -1374,3 +1374,4 @@ To get started with Sensu Go:
 [156]: /sensu-go/5.21/reference/license/#view-entity-count-and-entity-limit
 [157]: /sensu-go/5.21/reference/agent/#log-level
 [158]: /sensu-go/5.21/commercial/
+[159]: /sensu-go/5.21/platforms/#aix
