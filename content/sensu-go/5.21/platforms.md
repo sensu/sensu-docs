@@ -6,7 +6,7 @@ weight: -60
 version: "5.21"
 menu: "sensu-go-5.21"
 platformContent: true
-platforms: ["Linux", "Windows", "macOS", "FreeBSD", "Solaris"]
+platforms: ["Linux", "Windows", "macOS", "FreeBSD", "Solaris", "AIX"]
 ---
 
 - [Supported packages](#supported-packages)
@@ -14,7 +14,7 @@ platforms: ["Linux", "Windows", "macOS", "FreeBSD", "Solaris"]
 - [Docker images](#docker-images)
 - [Integrations](#integrations)
 - [Binary-only distributions](#binary-only-distributions)
-  - [Linux](#linux) | [Windows](#windows) | [macOS](#macos) | [FreeBSD](#freebsd) | [Solaris](#solaris)
+  - [Linux](#linux) | [Windows](#windows) | [macOS](#macos) | [FreeBSD](#freebsd) | [Solaris](#solaris) | [AIX](#aix)
 - [Build from source](#build-from-source)
 
 Sensu is available as [packages][1], [Docker images][2], and [binary-only distributions][4].
@@ -29,59 +29,41 @@ Supported packages are available through [sensu/stable][8] on packagecloud and t
 
 | Platform and Version | `amd64` | | | |
 |----------------------|---------|---|---|---|
-| CentOS/RHEL 6        | {{< check >}}      |
-| CentOS/RHEL 7        | {{< check >}}      |
-| CentOS/RHEL 8        | {{< check >}}      |
-| Ubuntu 14.04         | {{< check >}}      |
-| Ubuntu 16.04         | {{< check >}}      |
-| Ubuntu 18.04         | {{< check >}}      |
-| Ubuntu 18.10         | {{< check >}}      |
-| Ubuntu 19.04         | {{< check >}}      |
-| Ubuntu 19.10         | {{< check >}}      |
-| Ubuntu 20.04         | {{< check >}}      |
-| Debian 8             | {{< check >}}      |
-| Debian 9             | {{< check >}}      |
-| Debian 10            | {{< check >}}      |
+| CentOS/RHEL 6, 7, and 8 | {{< check >}} | | | |
+| Ubuntu 14.04            | {{< check >}} | | | |
+| Ubuntu 16.04            | {{< check >}} | | | |
+| Ubuntu 18.04 and 18.10  | {{< check >}} | | | |
+| Ubuntu 19.04 and 19.10  | {{< check >}} | | | |
+| Ubuntu 20.04            | {{< check >}} | | | |
+| Debian 8, 9, and 10     | {{< check >}} | | | |
 
 ### Sensu agent
 
 | Platform and Version | `amd64` | `386` | | | | |
 |----------------------|---------|-------|---|---|---|---|
-| CentOS/RHEL 6        | {{< check >}}      |
-| CentOS/RHEL 7        | {{< check >}}      |
-| CentOS/RHEL 8        | {{< check >}}      |
-| Ubuntu 14.04         | {{< check >}}      |
-| Ubuntu 16.04         | {{< check >}}      |
-| Ubuntu 18.04         | {{< check >}}      |
-| Ubuntu 18.10         | {{< check >}}      |
-| Ubuntu 19.04         | {{< check >}}      |
-| Ubuntu 19.10         | {{< check >}}      |
-| Ubuntu 20.04         | {{< check >}}      |
-| Debian 8             | {{< check >}}      |
-| Debian 9             | {{< check >}}      |
-| Debian 10            | {{< check >}}      |
-| Windows Server 2008 R2 and later | {{< check >}} | {{< check >}} |
-| Windows 7 and later | {{< check >}}     | {{< check >}}   |
+| CentOS/RHEL 6, 7, and 8 | {{< check >}} | | | |
+| Ubuntu 14.04            | {{< check >}} | | | |
+| Ubuntu 16.04            | {{< check >}} | | | |
+| Ubuntu 18.04 and 18.10  | {{< check >}} | | | |
+| Ubuntu 19.04 and 19.10  | {{< check >}} | | | |
+| Ubuntu 20.04            | {{< check >}} | | | |
+| Debian 8, 9, and 10     | {{< check >}} | | | |
+| Windows Server 2008 R2 and later | {{< check >}} | {{< check >}} | | |
+| Windows 7 and later | {{< check >}} | {{< check >}} | | |
 
 ### Sensuctl command line tool
 
 | Platform and Version | `amd64` | `386` | | | | |
 |----------------------|---------|-------|---|---|---|---|
-| CentOS/RHEL 6        | {{< check >}}      |
-| CentOS/RHEL 7        | {{< check >}}      |
-| CentOS/RHEL 8        | {{< check >}}      |
-| Ubuntu 14.04         | {{< check >}}      |
-| Ubuntu 16.04         | {{< check >}}      |
-| Ubuntu 18.04         | {{< check >}}      |
-| Ubuntu 18.10         | {{< check >}}      |
-| Ubuntu 19.04         | {{< check >}}      |
-| Ubuntu 19.10         | {{< check >}}      |
-| Ubuntu 20.04         | {{< check >}}      |
-| Debian 8             | {{< check >}}      |
-| Debian 9             | {{< check >}}      |
-| Debian 10            | {{< check >}}      |
-| Windows Server 2008 R2 and later | {{< check >}} | {{< check >}} |
-| Windows 7 and later | {{< check >}}     | {{< check >}}   |
+| CentOS/RHEL 6, 7, and 8 | {{< check >}} | | | |
+| Ubuntu 14.04            | {{< check >}} | | | |
+| Ubuntu 16.04            | {{< check >}} | | | |
+| Ubuntu 18.04 and 18.10  | {{< check >}} | | | |
+| Ubuntu 19.04 and 19.10  | {{< check >}} | | | |
+| Ubuntu 20.04            | {{< check >}} | | | |
+| Debian 8, 9, and 10     | {{< check >}} | | | |
+| Windows Server 2008 R2 and later | {{< check >}} | {{< check >}} | | |
+| Windows 7 and later | {{< check >}} | {{< check >}} | | |
 
 ## Docker images
 
@@ -103,18 +85,14 @@ Docker images that contain the Sensu backend and Sensu agent are available for L
 
 Sensu binary-only distributions that contain the Sensu backend, agent, and sensuctl tool are available in `.zip` and `.tar.gz` formats.
 
-| Platform & Version | Linux | Windows | macOS | FreeBSD | Solaris |
-|--------------------|-------|---------|-------|---------| ------- |
-| `386`              | {{< check >}} | {{< check >}} | | {{< check >}}               |     
-| `amd64`            | {{< check >}} | {{< check >}} | {{< check >}} | {{< check >}}  | {{< check >}} 
-| `arm64`            | {{< check >}} |               |               |             |             |
-| `armv5`            | {{< check >}} |               |               |             |             |
-| `armv6`            | {{< check >}} |               |               |             |             |
-| `armv7`            | {{< check >}} |               |               |             |             |
-| `MIPS`             | {{< check >}} |               |               |             |             |
-| `MIPS LE`          | {{< check >}} |               |               |             |             |
-| `MIPS 64`          | {{< check >}} |               |               |             |             |
-| `MIPS 64 LE`       | {{< check >}} |               |               |             |             |
+| Platform | Versions |
+|----------|----------|
+| Linux | `386` `amd64` `arm64` `armv5` `armv6` `armv7`<br>`MIPS` `MIPS LE` `MIPS 64` `MIPS 64 LE` |
+| Windows | `386` `amd64` |
+| macOS | `amd64` |
+| FreeBSD | `386` `amd64` |
+| Solaris | `amd64` |
+| AIX | `ppc64` |
 
 {{< platformBlock "Linux" >}}
 
@@ -300,13 +278,44 @@ curl -LO https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.20.2/sensu-go_5.
 
 {{< platformBlockClose >}}
 
+{{< platformBlock "AIX" >}}
+
+### AIX
+
+Sensu binary-only distribution for AIX is available for these architectures and formats:
+
+| arch | format |
+| --- | --- |
+| `ppc64` (agent only) | [`.tar.gz`][59] \| [`.zip`][58]
+
+You must run AIX 7.2 or later with a POWER8 or later processor.
+
+For example, to download Sensu for AIX `ppc64` in `tar.gz` format:
+
+{{< highlight shell >}}
+curl -LO https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.21.0/sensu-go_5.21.0_aix_ppc64.tar.gz
+{{< /highlight >}}
+
+Generate a SHA-256 checksum for the downloaded artifact.
+
+{{< highlight shell >}}
+sha256sum sensu-go_5.21.0_aix_ppc64.tar.gz
+{{< /highlight >}}
+
+The result should match the checksum for your platform.
+
+{{< highlight shell >}}
+curl -LO https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.20.2/sensu-go_5.21.0_checksums.txt && cat sensu-go_5.21.0_checksums.txt
+{{< /highlight >}}
+
+{{< platformBlockClose >}}
+
 ## Build from source
 
 Sensu Go's core is open source software, freely available under an MIT License.
 Sensu Go instances built from source do not include [commercial features][3] such as the web UI homepage.
 See the [feature comparison matrix][15] to learn more.
 To build Sensu Go from source, see the [contributing guide on GitHub][16].
-
 
 [1]: #supported-packages
 [2]: #docker-images
@@ -365,3 +374,5 @@ To build Sensu Go from source, see the [contributing guide on GitHub][16].
 [55]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.20.2/sensu-go_5.20.2_linux_arm64.tar.gz
 [56]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.20.2/sensu-go_5.20.2_linux_armv5.tar.gz
 [57]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.20.2/sensu-go_5.20.2_linux_armv6.tar.gz
+[58]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.21.0/sensu-go_5.21.0_aix_ppc64.zip
+[59]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.21.0/sensu-go_5.21.0_aix_ppc64.tar.gz
