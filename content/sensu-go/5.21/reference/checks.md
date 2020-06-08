@@ -1053,6 +1053,8 @@ spec:
 
 {{< /language-toggle >}}
 
+The asset reference includes an [example check definition that uses the asset path][60] to correctly capture exit status codes from PowerShell plugins distributed as assets.
+
 
 [1]: #subscription-checks
 [2]: https://en.wikipedia.org/wiki/Publish%E2%80%93subscribe_pattern
@@ -1110,3 +1112,4 @@ spec:
 [57]: ../../reference/secrets-providers/
 [58]: ../../dashboard/filtering#filter-with-label-selectors
 [59]: ../../guides/secrets-management/
+[60]: ../assets#asset-path
