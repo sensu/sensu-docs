@@ -102,6 +102,30 @@ For example, if you included a configuration file in the `include` directory of 
 The asset path includes the asset's checksum, which changes every time the asset is updated.
 The `assetPath` token subsitution function allows you to substitute the asset's local path on disk, so you will not need to manually update your check, hook, handler, or mutator commands every time the asset is updated.
 
+This functionality is particularly useful in any case where a command requires the full explicit path to a file distributed in your asset. For example, when running PowerShell plugins on Windows you may find that the exit status codes captured by Sensu do not match the expected values, as described in [this issue](https://github.com/sensu/sensu/issues/1919).
+
+In order to correctly capture exit status codes from PowerShell plugins distributed as assets, you would need to use the asset path to construct the command:
+
+{{ highlight shell }}
+---
+type: CheckConfig
+api_version: core/v2
+metadata:
+namespace: default
+name: win-cpu-check
+spec:
+command: powershell.exe -ExecutionPolicy ByPass -f ${{assetPath "sensu-plugins-windows"}}\bin\check-windows-cpu-load.ps1 90
+95
+subscriptions:
+- windows
+handlers:
+- slack
+- email
+runtime_assets:
+- sensu-plugins-windows
+interval: 10
+publish: true
+{{ / highlight }}
 ### Default cache directory
 
 system  | sensu-backend                         | sensu-agent
