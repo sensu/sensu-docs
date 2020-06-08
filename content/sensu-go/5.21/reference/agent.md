@@ -965,12 +965,13 @@ sensu-agent start --name agent-01
 # /etc/sensu/agent.yml example
 name: "agent-01" {{< /highlight >}}
 
+<a name="log-level"></a>
 
 | log-level   |      |
 --------------|------
 description   | Logging level: `panic`, `fatal`, `error`, `warn`, `info`, or `debug`.
 type          | String
-default       | `warn`
+default       | `info`
 environment variable | `SENSU_LOG_LEVEL`
 example       | {{< highlight shell >}}# Command line example
 sensu-agent start --log-level debug
