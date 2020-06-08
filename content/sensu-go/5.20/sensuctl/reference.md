@@ -344,12 +344,13 @@ cat my-resources.yml | sensuctl create
 `CheckConfig` | `check_config` | `ClusterRole`  | `cluster_role`
 `ClusterRoleBinding`  | `cluster_role_binding` | `Entity` | [`Env`][43]
 `entity` | [`EtcdReplicators`][35] | `Event` | `event`
-`EventFilter` | `event_filter` | `Handler` | `handler`
-`Hook` | `hook` | `HookConfig` | `hook_config`
-`Mutator` | `mutator` | `Namespace` | `namespace`
-`Role` | `role` | `RoleBinding` | `role_binding`
-[`Secret`][41] | `Silenced` | `silenced` | [`VaultProvider`][43]
-[`ldap`][26] | [`ad`][42] | [`TessenConfig`][27] | [`PostgresConfig`][32] |
+`EventFilter` | `event_filter` | [`GlobalConfig`][50] | `Handler` 
+`handler` | `Hook` | `hook` | `HookConfig`
+`hook_config` | `Mutator` | `mutator` | `Namespace`
+`namespace` | `Role` | `role` | `RoleBinding`
+`role_binding` | [`Secret`][41] | `Silenced` | `silenced`
+[`VaultProvider`][43] | [`ldap`][26] | [`ad`][42] | [`TessenConfig`][27]
+[`PostgresConfig`][32] |
 
 ### Create resources across namespaces
 
@@ -498,7 +499,7 @@ sensuctl describe-type checks,filters,handlers
 The table below lists supported `sensuctl describe-type` resource types.
 
 {{% notice note %}}
-**NOTE**: The resource types with no synonym listed are [commercial features](../../getting-started/enterprise/).
+**NOTE**: The resource types with no synonym listed are [commercial features](../../commercial/).
 {{% /notice %}}
 
 Synonym | Fully qualified name 
@@ -1255,7 +1256,7 @@ Flags are optional and apply only to the `delete` command.
 [27]: ../../reference/tessen/
 [28]: ../../api/overview#response-filtering
 [29]: ../../api/overview#field-selector
-[30]: ../../getting-started/enterprise/
+[30]: ../../commercial/
 [31]: #manage-sensuctl
 [32]: ../../reference/datastore/
 [33]: #create-resources-across-namespaces
@@ -1274,3 +1275,4 @@ Flags are optional and apply only to the `delete` command.
 [47]: ../../api/overview/#operators
 [48]: #sensuctl-prune-resource-types
 [49]: #examples
+[50]: ../../reference/webconfig/

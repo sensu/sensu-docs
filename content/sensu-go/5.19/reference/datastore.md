@@ -207,7 +207,7 @@ example      | {{< highlight shell >}}max_idle_conns: 2{{< /highlight >}}
 [10]: ../../sensuctl/reference/#sensuctl-event
 [11]: ../../api/events/
 [12]: ../../guides/influx-db-metric-handler/
-[13]: ../../getting-started/enterprise/
+[13]: ../../commercial/
 [14]: https://www.postgresql.org
 [15]: https://www.postgresql.org/docs/current/libpq-connect.html#LIBPQ-CONNSTRING
 [16]: ../../sensuctl/reference#create-resources

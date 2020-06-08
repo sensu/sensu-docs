@@ -36,6 +36,7 @@ Each log message is associated with a log level that indicates the relative seve
 | warn               | Warning messages that indicate potential issues                          |
 | info               | Information messages that represent service actions                      |
 | debug              | Detailed service operation messages to help troubleshoot issues          |
+| trace              | Confirmation messages about whether a rule authorized a request          |
 
 You can configure these log levels by specifying the desired log level as the value of `log-level` in the service configuration file (`agent.yml` or `backend.yml`) or as an argument to the `--log-level` command line flag:
 
@@ -70,7 +71,7 @@ You may substitute the name of the desired service (e.g. `backend` or `agent`) f
 | Debian       | <= 7       | log file     | {{< highlight shell >}}tail --follow /var/log/sensu/sensu-${service}{{< /highlight >}} |
 
 {{% notice note %}}
-**NOTE**: Platform versions are listed for reference only and do not supersede the documented [supported platforms](../../installation/platforms).
+**NOTE**: Platform versions are listed for reference only and do not supersede the documented [supported platforms](../../platforms).
 {{% /notice %}}
 
 ##### Narrow your search to a specific timeframe
@@ -352,7 +353,7 @@ or
 This would allow the asset to be downloaded onto the target entity.
 
 [1]: ../../reference/agent#operation
-[2]: ../../installation/verify
+[2]: ../../platforms/
 [3]: ../securing-sensu/#sensu-agent-tls-authentication
 [4]: https://etcd.io/docs/v3.4.0/op-guide/security/
 [5]: ../../reference/agent/#restart-the-service

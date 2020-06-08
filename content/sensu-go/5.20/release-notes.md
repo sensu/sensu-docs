@@ -2,11 +2,15 @@
 title: "Sensu Go release notes"
 linkTitle: "Release Notes"
 description: "Read the Sensu Go release notes to learn about what's new in our latest release."
+weight: -80
 product: "Sensu Go"
 version: "5.20"
 menu: "sensu-go-5.20"
 ---
 
+- [5.20.2 release notes](#5-20-2-release-notes)
+- [5.20.1 release notes](#5-20-1-release-notes)
+- [5.20.0 release notes](#5-20-0-release-notes)
 - [5.19.3 release notes](#5-19-3-release-notes)
 - [5.19.2 release notes](#5-19-2-release-notes)
 - [5.19.1 release notes](#5-19-1-release-notes)
@@ -58,6 +62,85 @@ PATCH versions include backward-compatible bug fixes.
 Read the [upgrade guide][1] for information about upgrading to the latest version of Sensu Go.
 
 ---
+
+## 5.20.2 release notes
+
+**May 26, 2020** &mdash; The latest release of Sensu Go, version 5.20.2, is now available for download.
+
+This patch release adds username to the API request log to help operators with troubleshooting and user activity reporting, as well as validation for subjects in role-based access control (RBAC) role binding and cluster role binding.
+Release 5.20.2 also temporarily disables process discovery so we can investigate and resolve its performance impact on the backend (increased CPU and memory usage).
+
+See the [upgrade guide][1] to upgrade Sensu to version 5.20.2.
+
+**NEW FEATURES:**
+
+- The API request log now includes the username.
+
+**FIXES:**
+
+- ([Commercial feature][141]) [Process discovery in the agent][155] is temporarily disabled.
+- The system’s libc_type attribute is now properly populated for Ubuntu entities.
+- Single-letter subscriptions are now allowed.
+- Subjects are now validated in RBAC role binding and cluster role binding.
+- [Sensuctl command][154] assets can now be retrieved and installed from Bonsai.
+
+## 5.20.1 release notes
+
+**May 15, 2020** &mdash; The latest release of Sensu Go, version 5.20.1, is now available for download.
+
+This patch release includes a bug fix that affects the web UI federated homepage gauges when using the PostgreSQL datastore and several fixes for the data displayed in the web UI entity details.
+
+See the [upgrade guide][1] to upgrade Sensu to version 5.20.1.
+
+**FIXES:**
+
+- ([Commercial feature][141]) Fixes a bug that prevented the federated homepage in the [web UI][153] from retrieving the keepalive and event gauges when PostgreSQL was configured as the event datastore.
+- ([Commercial feature][141]) The [memory_percent and cpu_percent processes attributes][143] are now properly displayed in the [web UI][153].
+- In the [web UI][153], the entity details page no longer displays float type (which applies only for MIPS architectures). Also on entity details pages, the system's libc type is now listed and process names are no longer capitalized.
+
+## 5.20.0 release notes
+
+**May 12, 2020** &mdash; The latest release of Sensu Go, version 5.20.0, is now available for download.
+
+This release delivers several new features, substantial improvements, and important fixes. One exciting new feature is agent local process discovery to further enrich entities and their events with valuable context. Other additions include a web UI federation view that provides a single pane of glass for all of your Sensu Go clusters and token substitution for assets. And Windows users rejoice! This release includes many Windows agent fixes, as well as agent log rotation capabilities! 
+
+See the [upgrade guide][1] to upgrade Sensu to version 5.20.0.
+
+**NEW FEATURES:**
+
+- ([Commercial feature][141]) Added a [`processes` field ][143] to the system type to store agent local processes for entities and events and a `discover-processes` flag to the [agent configuration flags][142] to populate the `processes` field in entity.system if enabled.
+- ([Commercial feature][141]) Added a new resource, `GlobalConfig`, that you can use to [customize your web UI configuration][148].
+- ([Commercial feature][141]) Added metricsd to collect metrics for the [web UI][153].
+- ([Commercial feature][141]) Added process and additional system information to the entity details view in the [web UI][153].
+- ([Commercial feature][141]) Added a PostgreSQL metrics suite so metricsd can collect metrics about events stored in PostgreSQL.
+- ([Commercial feature][141]) Added [entity class limits][151] to the license.
+- Added check hook output to event details page in the [web UI][153].
+- Added the [sensuctl describe-type command][144] to list all resource types.
+- Added `annotations` and `labels` as [backend configuration][145] options.
+- Added [token substitution for assets][146].
+- Added `event.is_silenced` and `event.check.is_silenced` [field selectors][138].
+- Added `Edition` and `GoVersion` fields to version information. In commercial distributions, the `Edition` version attribute is set to `enterprise`
+- Added ability to configure the Resty HTTP timeout. Also, sensuctl now suppresses messages from the Resty library.
+
+**IMPROVEMENTS:**
+
+- ([Commercial feature][141]) The web UI homepage is now a [federated view][152]. 
+- You can now [increment the log level][140] by sending SIGUSR1 to the sensu-backend or sensu-agent process.
+- [License metadata][149] now includes the [current entity count and license entity limit][150].
+- In the [web UI][153], users will see a notification when they try to delete an event without appropriate authorization.
+- The Windows agent now has [log rotation][139] capabilities.
+- Notepad is now the default editor on Windows rather than vi.
+
+**FIXES:**
+
+- ([Commercial feature][141]) Database connections no longer leak after queries to the cluster health API.
+- In the [web UI][153], any leading and trailing whitespace is now trimmed from the username when authenticating.
+- The [web UI][153] preferences dialog now displays only the first five groups a user belongs to, which makes the sign-out button more accessible.
+- In the [web UI][153], the deregistration handler no longer appears as `undefined` on the entity details page.
+- You can now [escape quotes to express quoted strings][147] in token substitution templates.
+- The Windows agent now accepts and remembers arguments passed to `service run` and `service install`.
+- The Windows agent now synchronizes writes to its log file, so the file size will update with every log line written.
+- The Windows agent now logs to both console and log file when you use `service run`.
 
 ## 5.19.3 release notes
 
@@ -177,8 +260,8 @@ See the [upgrade guide][1] to upgrade Sensu to version 5.18.1.
 
 **FIXES:**
 
-- ([Commercial feature][121]) Fixed a bug that caused SQL migrations to fail on PostgreSQL 12.
-- ([Commercial feature][121]) Fixed a bug where OIDC login could result in a nil pointer panic.
+- ([Commercial feature][115]) Fixed a bug that caused SQL migrations to fail on PostgreSQL 12.
+- ([Commercial feature][115]) Fixed a bug where OIDC login could result in a nil pointer panic.
 - Changed to using the gRPC client (rather than the embedded etcd client) to improve reliability and avoid nil pointer panics triggered by shutting down the embedded etcd client.
 - The Sensu backend no longer hangs indefinitely if a file lock for the asset manager cannot be obtained. Instead, the backend returns an error after 60 seconds.
 - Fixed a bug that caused sensu-backend to restart when agents disconnected.
@@ -1207,7 +1290,7 @@ To get started with Sensu Go:
 [103]: /sensu-go/5.16/dashboard/overview
 [104]: /sensu-go/5.16/
 [105]: /sensu-go/5.16/getting-started/enterprise/
-[106]: /sensu-go/5.17/getting-started/enterprise/
+[106]: /sensu-go/5.17/commercial/
 [107]: /sensu-go/5.17/dashboard/overview
 [108]: /sensu-go/5.17/api/secrets
 [109]: /sensu-go/5.17/reference/backend/#docker-initialization
@@ -1216,14 +1299,13 @@ To get started with Sensu Go:
 [112]: /sensu-go/5.17/api/events/#events-post
 [113]: /sensu-go/5.17/sensuctl/reference/#list-commands
 [114]: /sensu-go/5.18/api/events/#events-post
-[115]: /sensu-go/5.18/getting-started/enterprise/
+[115]: /sensu-go/5.18/commercial/
 [116]: /sensu-go/5.18/api/overview/#label-selector
 [117]: /sensu-go/5.18/api/overview/#field-selector
 [118]: /sensu-go/5.18/api/events#events-post
 [119]: /sensu-go/5.18/api/overview/#response-filtering
 [120]: /sensu-go/5.18/api/auth/#the-authtest-api-endpoint
-[121]: /sensu-go/5.18/getting-started/enterprise/
-[122]: /sensu-go/5.19/getting-started/enterprise/
+[122]: /sensu-go/5.19/commercial/
 [123]: /sensu-go/5.19/dashboard/filtering/#save-a-filtered-search
 [124]: /sensu-go/5.19/dashboard/overview/
 [125]: /sensu-go/5.19/api/health/
@@ -1237,8 +1319,26 @@ To get started with Sensu Go:
 [130]: /sensu-go/5.19/reference/tessen/
 [131]: /sensu-go/5.19/reference/handlers/#pipe-handler-command
 [132]: /sensu-go/5.19/reference/datastore/#max_conn_lifetime
-[133]: /sensu-go/5.19/installation/platforms/
+[133]: /sensu-go/5.19/platforms/
 [134]: /sensu-go/5.19/installation/install-sensu/
 [135]: /sensu-go/5.19/dashboard/overview
-[136]: /sensu-go/5.19/reference/agent/#configuration
+[136]: /sensu-go/5.19/reference/agent/#configuration-via-flags
 [137]: /sensu-go/5.19/reference/backend/#configuration
+[138]: /sensu-go/5.20/api/overview/#field-selector
+[139]: /sensu-go/5.20/reference/backend/#log-rotation
+[140]: /sensu-go/5.20/guides/troubleshooting/#increment-log-level-verbosity
+[141]: /sensu-go/5.20/commercial/
+[142]: /sensu-go/5.20/reference/agent/#configuration-via-flags
+[143]: /sensu-go/5.20/reference/entities/#processes-attributes
+[144]: /sensu-go/5.20/sensuctl/reference/#sensuctl-describe-type-resource-types
+[145]: /sensu-go/5.20/reference/backend/#configuration-summary
+[146]: /sensu-go/5.20/reference/tokens/#manage-assets
+[147]: /sensu-go/5.20/reference/tokens/#token-substitution-with-quoted-strings
+[148]: /sensu-go/5.20/reference/webconfig/
+[149]: /sensu-go/5.20/api/license/#license-get
+[150]: /sensu-go/5.20/reference/license/#view-entity-count-and-entity-limit
+[151]: /sensu-go/5.20/reference/license/#entity-limit
+[152]: /sensu-go/5.20/dashboard/overview/#federated-webui
+[153]: /sensu-go/5.20/dashboard/overview/
+[154]: /sensu-go/5.20/sensuctl/reference/#extend-sensuctl-with-commands
+[155]: /sensu-go/5.20/reference/agent/#discover-processes

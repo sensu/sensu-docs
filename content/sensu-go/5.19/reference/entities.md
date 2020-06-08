@@ -635,7 +635,7 @@ example      | {{< highlight shell >}}"vm_role": "host" {{< /highlight >}}
 
 cloud_provider | 
 ---------------|------ 
-description    | Entity's cloud provider environment. Automatically populated upon agent startup if the [`--detect-cloud-provider` flag][25] is set. {{% notice note %}}
+description    | Entity's cloud provider environment. Automatically populated upon agent startup if the [`--detect-cloud-provider` flag][25] is set. Returned empty unless the agent runs on Amazon Elastic Compute Cloud (EC2), Google Cloud Platform (GCP), or Microsoft Azure. {{% notice note %}}
 **NOTE**: This feature can result in several HTTP requests or DNS lookups being performed, so it may not be appropriate for all environments.
 {{% /notice %}}
 required       | false 
@@ -866,7 +866,7 @@ spec:
 [6]: ../filters/
 [7]: ../tokens/
 [8]: #metadata-attributes
-[9]: ../../getting-started/enterprise/
+[9]: ../../commercial/
 [10]: https://sensu.io/contact
 [11]: https://blog.sensu.io/one-year-of-sensu-go
 [12]: ../../sensuctl/reference#create-resources

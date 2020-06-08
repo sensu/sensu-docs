@@ -38,6 +38,10 @@ if $programname == 'sensu-agent' then {
 }
 {{< /highlight >}}
 
+{{% notice note %}}
+**NOTE**: On Ubuntu systems, run `chown -R syslog:adm /var/log/sensu` so syslog can write to that directory.
+{{% /notice %}}
+
 Restart rsyslog and journald to apply the new configuration:
 
 {{< highlight shell>}}
@@ -84,6 +88,9 @@ The `-d` flag will output details, but it will not take action on the logs or ex
 logrotate -d /etc/logrotate.d/sensu.conf
 {{< /highlight>}}
 
-{{% notice note %}}
-**NOTE**: On Ubuntu systems, be sure to run `chown -R syslog:adm /var/log/sensu` so syslog can write to that directory.
-{{% /notice %}}
+Sensu also offers logging of event data to a separate log file as a [commercial feature][2].
+See the [Sensu backend reference][1] for more information about event logging.
+
+
+[1]: ../../reference/backend/#event-logging
+[2]: ../../commercial/

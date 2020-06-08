@@ -54,10 +54,20 @@ Error: not found
 
 ## Entity limit
 
-Your commercial license includes the entity limit tied to your Sensu licensing package.
+Your commercial license may include the entity limit and entity class limits tied to your Sensu licensing package.
 An entity limit of `0` allows unlimited entities.
-Both agent and proxy entities count toward the overall entity limit.
 [Contact Sensu][8] to upgrade your commercial license.
+
+Your Sensu license may include two types of entity limits:
+
+- Entity limit: the maximum number of entities of all classes your license includes. Both agent and proxy entities count toward the overall entity limit.
+- Entity class limits: the maximum number of a specific class of entities (e.g. agent or proxy) that your license includes.
+
+For example, if your license has an entity limit of 10,000 and an agent entity class limit of 3,000, you cannot run more than 10,000 entities (agent and proxy) total.
+At the same time, you cannot run more than 3,000 agents.
+If you use only 1,500 agent entities, you can have 8,500 proxy entities before you reach the overall entity limit of 10,000.
+
+### View entity count and entity limit
 
 Your current entity count and entity limit are included in the `sensuctl license info` response.
 
@@ -132,11 +142,11 @@ If your license expires, you will still have access to [commercial features][5],
 [2]: ../../installation/install-sensu/
 [3]: ../../sensuctl/reference/#first-time-setup
 [4]: ../../api/license/
-[5]: ../../getting-started/enterprise/
+[5]: ../../commercial/
 [6]: ../../guides/troubleshooting/
 [7]: https://sensu.io/contact?subject=contact-sales
 [8]: https://account.sensu.io/support
-[9]: ../../../latest/api/
+[9]: ../../api/
 [10]: ../../installation/auth/
 [11]: https://bonsai.sensu.io/assets?tiers%5B%5D=4
 [12]: ../../guides/install-check-executables-with-assets/

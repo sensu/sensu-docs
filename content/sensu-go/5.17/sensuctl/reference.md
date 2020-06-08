@@ -1045,7 +1045,7 @@ Flags are optional and apply only to the `delete` command.
 [27]: ../../reference/tessen/
 [28]: ../../api/overview#response-filtering
 [29]: ../../api/overview#field-selector
-[30]: ../../getting-started/enterprise/
+[30]: ../../commercial/
 [31]: #manage-sensuctl
 [32]: ../../reference/datastore/
 [33]: #create-resources-across-namespaces

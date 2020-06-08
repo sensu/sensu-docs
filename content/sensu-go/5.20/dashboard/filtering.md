@@ -2,6 +2,7 @@
 title: "Dashboard filtering"
 linkTitle: "Filtering"
 description: "The Sensu dashboard supports filtering on the Events, Entities, Checks, Handlers, Filters, Mutators, and Silences pages. Learn more about filtering in the Sensu dashboard."
+weight: 20
 version: "5.20"
 product: "Sensu Go"
 platformContent: false
@@ -201,9 +202,10 @@ To save a filtered search:
 4. Type the name you want to use for the saved search.
 5. Press **Return/Enter**.
 
-Any Sensu user with access to the namespace where you save the search will be able to recall it at any time.
+Sensu saves your filtered searches to etcd in a [namespaced resource][11] named `searches`.
+To recall a saved filtered search, a Sensu user must be assigned to a [role][12] that includes permissions for both the `searches` resource and the namespace where you save the search.
 
-Sensu saves your filtered searches to etcd in a resource named `searches`.
+The role-based access control (RBAC) reference includes [example workflows][13] that demonstrate how to configure a user's roles and role bindings to include full permissions for namespaced resources, including saved searches.
 
 ### Recall a saved filtered search
 
@@ -220,7 +222,7 @@ To delete a saved search:
 2. Click the delete icon next to the search you want to delete: ![delete icon](/images/delete_icon.png)
 
 
-[1]: ../../getting-started/enterprise/
+[1]: ../../commercial/
 [2]: ../../api/overview/#field-selector
 [3]: ../../api/overview/#response-filtering
 [4]: #dashboard-specific-syntax
@@ -230,3 +232,6 @@ To delete a saved search:
 [8]: #save-a-filtered-search
 [9]: #operators-quick-reference
 [10]: #examples
+[11]: ../../reference/rbac/#namespaced-resource-types
+[12]: ../../reference/rbac/#roles-and-cluster-roles
+[13]: ../../reference/rbac/#example-workflows

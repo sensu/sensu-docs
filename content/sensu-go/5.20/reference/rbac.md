@@ -206,7 +206,7 @@ You can access namespaced resources by [roles][13] and [cluster roles][21].
 | `mutators` | [Mutator][11] resources within a namespace |
 | `rolebindings` | Namespace-specific role assigners |
 | `roles` | Namespace-specific permission sets |
-| `searches` | [Web UI][3] search queries |
+| `searches` | Saved [web UI][49] search queries |
 | `silenced` | [Silencing][14] resources within a namespace |
 
 ### Cluster-wide resource types
@@ -521,7 +521,7 @@ You can use [sensuctl][2] to create a role.
 For example, the following command creates an admin role restricted to the production namespace.
 
 {{< highlight shell >}}
-sensuctl role create prod-admin --verb get,list,create,update,delete --resource * --namespace production
+sensuctl role create prod-admin --verb='get,list,create,update,delete' --resource='*' --namespace production
 {{< /highlight >}}
 
 After you create a role, [create a role binding][23] (or [cluster role binding][23]) to assign the role to users and groups.
@@ -537,7 +537,7 @@ You can use [sensuctl][2] to create a cluster role.
 For example, the following command creates a global event reader role that can read only events across all namespaces within Sensu.
 
 {{< highlight shell >}}
-sensuctl cluster-role create global-event-reader --verb get,list --resource events
+sensuctl cluster-role create global-event-reader --verb='get,list' --resource='events'
 {{< /highlight >}}
 
 #### Delete roles and cluster roles
@@ -1075,7 +1075,7 @@ You can add these resources to Sensu using [`sensuctl create`][31].
         "resource_names": [],
         "resources": [
           "assets", "checks", "entities", "events", "filters", "handlers",
-          "hooks", "mutators", "rolebindings", "roles", "silenced"
+          "hooks", "mutators", "rolebindings", "roles", "searches", "silenced"
         ],
         "verbs": ["get", "list", "create", "update", "delete"]
       }
@@ -1138,7 +1138,7 @@ You can add these resources to Sensu using [`sensuctl create`][31].
         "resource_names": [],
         "resources": [
           "assets", "checks", "entities", "events", "filters", "handlers",
-          "hooks", "mutators", "rolebindings", "roles", "silenced"
+          "hooks", "mutators", "rolebindings", "roles", "searches", "silenced"
         ],
         "verbs": ["get", "list", "create", "update", "delete"]
       }
@@ -1236,6 +1236,7 @@ You can add these resources to Sensu using [`sensuctl create`][31].
 }
 {{< /highlight >}}
 
+
 [1]: ../backend/
 [2]: ../../sensuctl/reference/
 [3]: ../../dashboard/overview/
@@ -1254,7 +1255,7 @@ You can add these resources to Sensu using [`sensuctl create`][31].
 [18]: #cluster-wide-resource-types
 [19]: ../../api/overview/
 [20]: #default-users
-[21]: #roles-and-cluster-roles
+[21]: #cluster-roles
 [22]: ../filters/
 [23]: #role-bindings-and-cluster-role-bindings
 [24]: #role-and-cluster-role-specification
@@ -1266,7 +1267,7 @@ You can add these resources to Sensu using [`sensuctl create`][31].
 [30]: #role-binding-and-cluster-role-binding-specification
 [31]: ../../sensuctl/reference#create-resources
 [32]: ../../installation/auth#use-an-authentication-provider
-[33]: ../../getting-started/enterprise/
+[33]: ../../commercial/
 [34]: ../../installation/auth#use-built-in-basic-authentication
 [37]: ../license/
 [38]: ../../installation/auth/#groups-prefix
@@ -1280,3 +1281,4 @@ You can add these resources to Sensu using [`sensuctl create`][31].
 [46]: ../secrets-providers/
 [47]: ../datastore/
 [48]: ../secrets/
+[49]: ../../dashboard/filtering/#save-a-filtered-search

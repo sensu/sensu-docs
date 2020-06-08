@@ -36,6 +36,7 @@ Each log message is associated with a log level that indicates the relative seve
 | warn               | Warning messages that indicate potential issues                          |
 | info               | Information messages that represent service actions                      |
 | debug              | Detailed service operation messages to help troubleshoot issues          |
+| trace              | Confirmation messages about whether a rule authorized a request          |
 
 You can configure these log levels by specifying the desired log level as the value of `log-level` in the service configuration file (`agent.yml` or `backend.yml`) or as an argument to the `--log-level` command line flag:
 
@@ -347,13 +348,13 @@ or
 This would allow the asset to be downloaded onto the target entity.
 
 [1]: ../../reference/agent#operation
-[2]: ../../installation/verify
+[2]: ../../platforms/
 [3]: ../securing-sensu/#sensu-agent-tls-authentication
 [4]: https://etcd.io/docs/v3.4.0/op-guide/security/
 [5]: ../../reference/agent/#restart-the-service
 [6]: ../../reference/agent#events-post
 [7]: https://dzone.com/articles/what-is-structured-logging
-[8]: ../../installation/platforms
+[8]: ../../platforms
 [9]: ../../reference/backend/#restart-the-service
 [10]: ../../reference/assets/#asset-definition-multiple-builds
 [11]: ../systemd-logs
