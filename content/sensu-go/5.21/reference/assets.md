@@ -91,7 +91,8 @@ For further examples of Sensu users who have added the ability to use a communit
 
 ### Asset path
 
-When you download and install an asset, the asset's local path on disk is exposed to asset consumers via  environment variables.
+When you download and install an asset, the asset's local path on disk is exposed to asset consumers via environment variables.
+
 This allows you to retrieve the asset's path from a check, hook, handler, or mutator either as an environment variable or using a custom function for token substitution, `assetPath`.
 
 For example, if you included a configuration file in the `include` directory of your asset `sensu-go-hello-world-0.0.2`, you can reference the asset from your handler in either of these ways:
@@ -125,7 +126,8 @@ runtime_assets:
 - sensu-plugins-windows
 interval: 10
 publish: true
-{{ / highlight }}
+{{ /highlight }}
+
 ### Default cache directory
 
 system  | sensu-backend                         | sensu-agent
