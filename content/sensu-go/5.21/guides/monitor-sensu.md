@@ -3,11 +3,11 @@ title: "Monitor Sensu with Sensu"
 linkTitle: "Monitor Sensu with Sensu"
 description: "Make sure your Sensu components are properly monitored. This guide describes best practices and strategies for monitoring Sensu."
 weight: 230
-version: "5.16"
+version: "5.21"
 product: "Sensu Go"
 platformContent: False
 menu: 
-  sensu-go-5.16:
+  sensu-go-5.21:
     parent: guides
 ---
 
