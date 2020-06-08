@@ -82,17 +82,17 @@ example      | {{< highlight shell >}}
 "spec": {
   "client": {
     "address": "https://vaultserver.example.com:8200",
-    "token": "VAULT_TOKEN",
-    "version": "v1",
+    "max_retries": 2,
+    "rate_limiter": {
+      "limit": 10.0,
+      "burst": 100
+    },
+    "timeout": "20s",
     "tls": {
       "ca_cert": "/etc/ssl/certs/vault_ca_cert.pem"
-    }
-  },
-  "max_retries": 2,
-  "timeout": "20s",
-  "rate_limiter": {
-    "limit": 10.0,
-    "burst": 100
+    },
+    "token": "VAULT_TOKEN",
+    "version": "v1"
   }
 }
 {{< /highlight >}}
