@@ -83,7 +83,7 @@ See the [upgrade guide][1] to upgrade Sensu to version 5.21.0.
 **IMPROVEMENTS:**
 
 - Changed the [default log level for `sensu-agent`][157] to `info` (instead of `warn`).
-- Updated the gostatsd version to 20.3.2.
+- Updated the gostatsd version to 20.3.2. This will eliminate warning messages about ports when shutting down the agent.
 
 **FIXES:**
 
