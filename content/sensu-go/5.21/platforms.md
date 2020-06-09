@@ -30,65 +30,47 @@ Supported packages are available through [sensu/stable][8] on packagecloud and t
 
 | Platform and Version | `amd64` | | | |
 |----------------------|---------|---|---|---|
-| CentOS/RHEL 6        | {{< check >}}      |
-| CentOS/RHEL 7        | {{< check >}}      |
-| CentOS/RHEL 8        | {{< check >}}      |
-| Ubuntu 14.04         | {{< check >}}      |
-| Ubuntu 16.04         | {{< check >}}      |
-| Ubuntu 18.04         | {{< check >}}      |
-| Ubuntu 18.10         | {{< check >}}      |
-| Ubuntu 19.04         | {{< check >}}      |
-| Ubuntu 19.10         | {{< check >}}      |
-| Ubuntu 20.04         | {{< check >}}      |
-| Debian 8             | {{< check >}}      |
-| Debian 9             | {{< check >}}      |
-| Debian 10            | {{< check >}}      |
+| CentOS/RHEL 6, 7, 8 | {{< check >}} | | | |
+| Debian 8, 9, 10     | {{< check >}} | | | |
+| Ubuntu 14.04        | {{< check >}} | | | |
+| Ubuntu 16.04        | {{< check >}} | | | |
+| Ubuntu 18.04, 18.10 | {{< check >}} | | | |
+| Ubuntu 19.04, 19.10 | {{< check >}} | | | |
+| Ubuntu 20.04        | {{< check >}} | | | |
 
 ### Sensu agent
 
 | Platform and Version | `amd64` | `386` | | | | |
 |----------------------|---------|-------|---|---|---|---|
-| CentOS/RHEL 6        | {{< check >}}      |
-| CentOS/RHEL 7        | {{< check >}}      |
-| CentOS/RHEL 8        | {{< check >}}      |
-| Ubuntu 14.04         | {{< check >}}      |
-| Ubuntu 16.04         | {{< check >}}      |
-| Ubuntu 18.04         | {{< check >}}      |
-| Ubuntu 18.10         | {{< check >}}      |
-| Ubuntu 19.04         | {{< check >}}      |
-| Ubuntu 19.10         | {{< check >}}      |
-| Ubuntu 20.04         | {{< check >}}      |
-| Debian 8             | {{< check >}}      |
-| Debian 9             | {{< check >}}      |
-| Debian 10            | {{< check >}}      |
-| Windows Server 2008 R2 and later | {{< check >}} | {{< check >}} |
-| Windows 7 and later | {{< check >}}     | {{< check >}}   |
+| CentOS/RHEL 6, 7, 8 | {{< check >}} | | | |
+| Debian 8, 9, 10     | {{< check >}} | | | |
+| Ubuntu 14.04        | {{< check >}} | | | |
+| Ubuntu 16.04        | {{< check >}} | | | |
+| Ubuntu 18.04, 18.10 | {{< check >}} | | | |
+| Ubuntu 19.04, 19.10 | {{< check >}} | | | |
+| Ubuntu 20.04        | {{< check >}} | | | |
+| Windows 7 and later | {{< check >}} | {{< check >}} | | |
+| Windows Server 2008 R2 and later | {{< check >}} | {{< check >}} | | |
 
 ### Sensuctl command line tool
 
 | Platform and Version | `amd64` | `386` | | | | |
 |----------------------|---------|-------|---|---|---|---|
-| CentOS/RHEL 6        | {{< check >}}      |
-| CentOS/RHEL 7        | {{< check >}}      |
-| CentOS/RHEL 8        | {{< check >}}      |
-| Ubuntu 14.04         | {{< check >}}      |
-| Ubuntu 16.04         | {{< check >}}      |
-| Ubuntu 18.04         | {{< check >}}      |
-| Ubuntu 18.10         | {{< check >}}      |
-| Ubuntu 19.04         | {{< check >}}      |
-| Ubuntu 19.10         | {{< check >}}      |
-| Ubuntu 20.04         | {{< check >}}      |
-| Debian 8             | {{< check >}}      |
-| Debian 9             | {{< check >}}      |
-| Debian 10            | {{< check >}}      |
-| Windows Server 2008 R2 and later | {{< check >}} | {{< check >}} |
-| Windows 7 and later | {{< check >}}     | {{< check >}}   |
+| CentOS/RHEL 6, 7, 8 | {{< check >}} | | | |
+| Debian 8, 9, 10     | {{< check >}} | | | |
+| Ubuntu 14.04        | {{< check >}} | | | |
+| Ubuntu 16.04        | {{< check >}} | | | |
+| Ubuntu 18.04, 18.10 | {{< check >}} | | | |
+| Ubuntu 19.04, 19.10 | {{< check >}} | | | |
+| Ubuntu 20.04        | {{< check >}} | | | |
+| Windows 7 and later | {{< check >}} | {{< check >}} | | |
+| Windows Server 2008 R2 and later | {{< check >}} | {{< check >}} | | |
 
 ## Docker images
 
 Docker images that contain the Sensu backend and Sensu agent are available for Linux-based containers.
 
-| Image name | base
+| Image Name | Base
 | ---------- | ------- |
 | [sensu/sensu][10] | Alpine Linux
 | [sensu/sensu-rhel][11] | Red Hat Enterprise Linux
@@ -111,7 +93,6 @@ Sensu binary-only distributions that contain the Sensu backend, agent, and sensu
 | macOS | `amd64` |
 | FreeBSD | `386` `amd64` |
 | Solaris | `amd64` |
-| AIX | `ppc64` |
 
 {{< platformBlock "Linux" >}}
 
@@ -161,7 +142,7 @@ curl -LO https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.20.2/sensu-go_5.
 
 Sensu binary-only distributions for Windows are available for these architectures and formats:
 
-| Architecture | Format |
+| Architecture | Formats |
 | --- | --- |
 | `amd64` | [`.tar.gz`][26] \| [`.zip`][28]
 | `386` | [`.tar.gz`][27] \| [`.zip`][29]
@@ -194,7 +175,7 @@ Get-Content "$env:userprofile\sensu-go_5.20.2_checksums.txt" | Select-String -Pa
 
 Sensu binary-only distributions for macOS are available for these architectures and formats:
 
-| Architecture | Format |
+| Architecture | Formats |
 | --- | --- |
 | `amd64` | [`.tar.gz`][30] \| [`.zip`][31]
 
@@ -236,7 +217,7 @@ sudo cp sensuctl /usr/local/bin/
 
 Sensu binary-only distributions for FreeBSD are available for these architectures and formats:
 
-| Architecture | Format |
+| Architecture | Formats |
 | --- | --- |
 | `amd64` | [`.tar.gz`][32] \| [`.zip`][33]
 | `386` | [`.tar.gz`][34] \| [`.zip`][35]
@@ -267,7 +248,7 @@ curl -LO https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.20.2/sensu-go_5.
 
 Sensu binary-only distributions for Solaris are available for these architectures and formats:
 
-| Architecture | Format |
+| Architecture | Formats |
 | --- | --- |
 | `amd64` | [`.tar.gz`][36] \| [`.zip`][37]
 
@@ -301,10 +282,10 @@ To build Sensu Go from source, see the [contributing guide on GitHub][16].
 
 [1]: #supported-packages
 [2]: #docker-images
-[3]: /sensu-go/5.20/commercial/
+[3]: /sensu-go/5.21/commercial/
 [4]: #binary-only-distributions
-[5]: /sensu-go/5.20/installation/install-sensu/
-[6]: /sensu-go/5.20/installation/configuration-management/
+[5]: /sensu-go/5.21/installation/install-sensu/
+[6]: /sensu-go/5.21/installation/configuration-management/
 [7]: https://sensu.io/sensu-license/
 [8]: https://packagecloud.io/sensu/stable/
 [9]: https://sensu.io/downloads/
