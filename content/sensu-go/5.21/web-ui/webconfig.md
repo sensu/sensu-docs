@@ -2,13 +2,13 @@
 title: "Configure the web UI"
 linkTitle: "Configure the Web UI"
 description: "Web UI configuration allows you to define certain display options for the Sensu web UI. Read this guide to configure customized displays for your Sensu web UI."
-weight: 30
+weight: 40
 version: "5.21"
 product: "Sensu Go"
 platformContent: false
 menu:
   sensu-go-5.21:
-    parent: dashboard
+    parent: web-ui
 ---
 
 - [Create a web UI configuration](#create-a-web-ui-configuration)
@@ -96,9 +96,9 @@ In a single-cluster environment, the namespace switcher will only list a local-c
 
 [1]: ../../commercial/
 [2]: ../../api/webconfig/
-[3]: ../../dashboard/overview/
+[3]: ../../web-ui/sign-in/
 [4]: ../../reference/webconfig/
 [5]: ../../sensuctl/reference/#create-resources
 [6]: ../../reference/etcdreplicators/
 [7]: ../../reference/webconfig/#show-local-cluster
-[8]: ../../dashboard/overview/#namespace-switcher
+[8]: ../../web-ui/sign-in/#namespace-switcher
