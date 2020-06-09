@@ -88,7 +88,7 @@ Sensu binary-only distributions that contain the Sensu backend, agent, and sensu
 
 | Platform | Architectures |
 |----------|---------------|
-| Linux | `386` `amd64` `amd64 OpenSSL 1.0 and 1.1` `arm64` `armv5` `armv6` `armv7`<br>`MIPS` `MIPS LE` `MIPS 64` `MIPS 64 LE` |
+| Linux | `386` `amd64` `arm64` `armv5` `armv6` `armv7`<br>`MIPS` `MIPS LE` `MIPS 64` `MIPS 64 LE` |
 | Windows | `386` `amd64` |
 | macOS | `amd64` |
 | FreeBSD | `386` `amd64` |
@@ -100,16 +100,15 @@ Sensu binary-only distributions that contain the Sensu backend, agent, and sensu
 
 Sensu binary-only distributions for Linux are available for these architectures and formats:
 
-| Architecture | Format | Architecture | Format |
+| Architecture | Formats | Architecture | Formats |
 | --- | --- | --- | --- |
 | `386` | [`.tar.gz`][19] \| [`.zip`][25] | `MIPS hard float` | [`.tar.gz`][38] \| [`.zip`][39] |
 | `amd64` | [`.tar.gz`][54] \| [`.zip`][20] | `MIPS soft float` | [`.tar.gz`][40] \| [`.zip`][41] |
-| `amd64 OpenSSL 1.0` with FIPS support | [`.tar.gz`][58] \| [`.zip`][59] | `MIPS LE hard float` | [`.tar.gz`][42] \| [`.zip`][43] |
-| `amd64 OpenSSL 1.1` with FIPS support | [`.tar.gz`][60] \| [`.zip`][61] |  `MIPS LE soft float` | [`.tar.gz`][44] \| [`.zip`][45] |
-| `arm64` | [`.tar.gz`][55] \| [`.zip`][21] | `MIPS 64 hard float` | [`.tar.gz`][46] \| [`.zip`][47] |
-| `armv5` (agent and CLI) | [`.tar.gz`][56] \| [`.zip`][22] | `MIPS 64 soft float` | [`.tar.gz`][48] \| [`.zip`][49] |
-| `armv6` (agent and CLI) | [`.tar.gz`][57] \| [`.zip`][23] | `MIPS 64 LE hard float` | [`.tar.gz`][50] \| [`.zip`][51] |
-| `armv7` (agent and CLI) | [`.tar.gz`][18] \| [`.zip`][24] | `MIPS 64 LE soft float` | [`.tar.gz`][52] \| [`.zip`][53] |
+| `arm64` | [`.tar.gz`][55] \| [`.zip`][21] | `MIPS LE hard float` | [`.tar.gz`][42] \| [`.zip`][43] |
+| `armv5` (agent and CLI) | [`.tar.gz`][56] \| [`.zip`][22] | `MIPS LE soft float` | [`.tar.gz`][44] \| [`.zip`][45] |
+| `armv6` (agent and CLI) | [`.tar.gz`][57] \| [`.zip`][23] | `MIPS 64 hard float` | [`.tar.gz`][46] \| [`.zip`][47] |
+| `armv7` (agent and CLI) | [`.tar.gz`][18] \| [`.zip`][24] | `MIPS 64 soft float` | [`.tar.gz`][48] \| [`.zip`][49] |
+| `MIPS 64 LE hard float` | [`.tar.gz`][50] \| [`.zip`][51] | `MIPS 64 LE soft float` | [`.tar.gz`][52] \| [`.zip`][53] |
 
 {{% notice note %}}
 **NOTE**: 32-bit systems cannot run the Sensu backend reliably, so `armv5`, `armv6`, and `armv7` packages include the agent and CLI only.
@@ -337,7 +336,3 @@ To build Sensu Go from source, see the [contributing guide on GitHub][16].
 [55]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.20.2/sensu-go_5.20.2_linux_arm64.tar.gz
 [56]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.20.2/sensu-go_5.20.2_linux_armv5.tar.gz
 [57]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.20.2/sensu-go_5.20.2_linux_armv6.tar.gz
-[58]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.21.0/sensu-go-openssl-1.0_5.21.0_linux_amd64.tar.gz
-[59]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.21.0/sensu-go-openssl-1.0_5.21.0_linux_amd64.zip
-[60]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.21.0/sensu-go-openssl-1.1_5.21.0_linux_amd64.tar.gz
-[61]: https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.21.0/sensu-go-openssl-1.1_5.21.0_linux_amd64.zip

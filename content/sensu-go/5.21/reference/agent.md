@@ -1284,7 +1284,8 @@ insecure-skip-tls-verify: true{{< /highlight >}}
 | require-fips |      |
 ------------------|------
 description       | Require Federal Information Processing Standard (FIPS) support in OpenSSL. Logs an error at Sensu agent startup if `true` but OpenSSL is not running in FIPS mode.<br>{{% notice note %}}
-**NOTE**: The `--require-fips` flag is only available within the [Linux amd64 OpenSSL-linked binary](../../platforms/#linux).
+**NOTE**: The `--require-fips` flag is only available within the Linux amd64 OpenSSL-linked binary.
+[Contact Sensu](https://sensu.io/contact) to request the builds for OpenSSL with FIPS support.
 {{% /notice %}}
 type              | Boolean
 default           | false
@@ -1298,7 +1299,8 @@ require-fips: true{{< /highlight >}}
 | require-openssl |      |
 ------------------|------
 description       | Use OpenSSL instead of Go's standard cryptography library. Logs an error at Sensu agent startup if `true` but Go's standard cryptography library is loaded.<br>{{% notice note %}}
-**NOTE**: The `--require-openssl` flag is only available within the [Linux amd64 OpenSSL-linked binary](../../platforms/#linux).
+**NOTE**: The `--require-openssl` flag is only available within the Linux amd64 OpenSSL-linked binary.
+[Contact Sensu](https://sensu.io/contact) to request the builds for OpenSSL with FIPS support.
 {{% /notice %}}
 type              | Boolean
 default           | false
