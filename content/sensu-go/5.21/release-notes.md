@@ -76,7 +76,7 @@ See the [upgrade guide][1] to upgrade Sensu to version 5.21.0.
 
 - ([Commercial feature][158]) Added [entity count and limit][156] for each entity class in the tabular title in the response for `sensuctl license info` (in addition to the total entity count and limit).
 - ([Commercial feature][158]) Added [Linux amd64 OpenSSL-linked binaries][160] for the Sensu agent and backend, with accompanying `--require-fips` and `--require-openssl` flags for the [agent][161] and [backend][162].
-- Added `sensuctl user hash-password` command to generate password hashes. The `user` resource now includes a `password_hash` field to specify the password hash instead of the cleartext password.
+- Added `sensuctl user hash-password` command to generate password hashes.
 - Added the ability to reset passwords via the backend API and `sensuctl user reset-password`.
 - Added binary distribution for the Sensu agent for the [AIX PPC64][159] platform.
 
