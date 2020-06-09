@@ -97,13 +97,13 @@ You must have admin permissions to use the `sensuctl user reset-password` comman
 
 #### Generate a password hash
 
-To generate a password hash for the given cleartext password, run:
+To generate a password hash for a specified cleartext password, run:
 
 {{< highlight shell >}}
-sensuctl user hash-password
+sensuctl user hash-password PASSWORD
 {{< /highlight >}}
 
-The `sensuctl user hash-password` command creates a [bcrypt hash][54] of the password.
+The `sensuctl user hash-password` command creates a [bcrypt hash][54] of the specified password.
 You can use this hash instead of the password when you use sensuctl to [create][8], [edit][51], or [dump][52] users.
 
 ### Preferred output format
