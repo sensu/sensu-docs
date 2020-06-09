@@ -94,7 +94,7 @@ For further examples of Sensu users who have added the ability to use a communit
 When you download and install an asset, the asset's local path on disk is exposed to asset consumers via environment variables.
 This allows you to retrieve the asset's path from a check, hook, handler, or mutator either as an environment variable or from a check or hook using a custom function for token substitution, `assetPath`.
 
-For example, if you included a configuration file in the `include` directory of the asset [`sensu-plugins-windows`][4], you can reference the asset from your handler in either of these ways:
+For example, if you included a configuration file in the `include` directory of the asset [`sensu-plugins-windows`][4], you can reference the asset from your check in either of these ways:
 
 - `$SENSU_PLUGINS_WINDOWS/include/config.yaml`
 - `${{assetPath "sensu-plugins-windows"}}/include/config.yaml`
