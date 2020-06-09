@@ -92,16 +92,20 @@ For further examples of Sensu users who have added the ability to use a communit
 ### Asset path
 
 When you download and install an asset, the asset's local path on disk is exposed to asset consumers via environment variables.
-This allows you to retrieve the asset's path from a check, hook, handler, or mutator either as an environment variable or using a custom function for token substitution, `assetPath`.
+This allows you to retrieve the asset's path from a check, hook, handler, or mutator either as an environment variable or from a check or hook using a custom function for token substitution, `assetPath`.
 
 For example, if you included a configuration file in the `include` directory of the asset [`sensu-plugins-windows`][4], you can reference the asset from your handler in either of these ways:
 
 - `$SENSU_PLUGINS_WINDOWS/include/config.yaml`
 - `${{assetPath "sensu-plugins-windows"}}/include/config.yaml`
 
+{{% notice note %}}
+**NOTE**: The `assetPath` function is only available where token substitution is available: checks and hooks.
+{{% /notice %}}
+
 The asset path includes the asset's checksum, which changes every time the asset is updated.
-This would normally require you to manually update the commands for any of your checks, hooks, handlers, or mutators that consume the asset.
-However, the `assetPath` token subsitution function allows you to substitute the asset's local path on disk, so you will not need to manually update your check, hook, handler, or mutator commands every time the asset is updated.
+This would normally require you to manually update the commands for any of your checks or hooks that consume the asset.
+However, the `assetPath` token subsitution function allows you to substitute the asset's local path on disk, so you will not need to manually update your check or hook commands every time the asset is updated.
 
 This is useful any time a command requires the full explicit path to a file that is distributed in your asset.
 For example, when running PowerShell plugins on Windows, the [exit status codes that Sensu captures may not match the expected values][13].
