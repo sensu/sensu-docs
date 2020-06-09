@@ -103,7 +103,7 @@ To generate a password hash for the given cleartext password, run:
 sensuctl user hash-password
 {{< /highlight >}}
 
-The `sensuctl user hash-password` command adds a field to the `User` resource, `password_hash`, whose value is a hash for the user's password.
+The `sensuctl user hash-password` command creates a [bcrypt hash][54] of the password.
 You can use this hash instead of the password when you use sensuctl to [create][8], [edit][51], or [dump][52] users.
 
 ### Preferred output format
@@ -1303,3 +1303,4 @@ Flags are optional and apply only to the `delete` command.
 [51]: #update-resources
 [52]: #export-resources
 [53]: ../../reference/rbac/#user-specification
+[54]: https://en.wikipedia.org/wiki/Bcrypt
