@@ -1018,7 +1018,6 @@ SENSU_INSECURE_SKIP_TLS_VERIFY   Boolean value that can be set to skip TLS verif
 {{< language-toggle >}}
 
 {{< highlight bash >}}
-sensuctl env
 export SENSU_API_URL="http://127.0.0.1:8080"
 export SENSU_NAMESPACE="default"
 export SENSU_FORMAT="tabular"
@@ -1033,7 +1032,6 @@ export SENSU_INSECURE_SKIP_TLS_VERIFY="true"
 {{< /highlight >}}
 
 {{< highlight cmd >}}
-sensuctl env --shell cmd
 SET SENSU_API_URL=http://127.0.0.1:8080
 SET SENSU_NAMESPACE=default
 SET SENSU_FORMAT=tabular
@@ -1047,7 +1045,6 @@ REM   @FOR /f "tokens=*" %i IN ('sensuctl env --shell cmd') DO @%i
 {{< /highlight >}}
 
 {{< highlight powershell >}}
-sensuctl env --shell powershell
 $Env:SENSU_API_URL = "http://127.0.0.1:8080"
 $Env:SENSU_NAMESPACE = "default"
 $Env:SENSU_FORMAT = "tabular"
