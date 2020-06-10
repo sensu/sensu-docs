@@ -499,7 +499,7 @@ curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" http://127.0.0.1:8080/api/co
 [10]: ../auth/#the-auth-api-endpoint
 [11]: ../auth/#the-authtoken-api-endpoint
 [12]: ../auth/
-[13]: ../../dashboard/filtering/
+[13]: ../../web-ui/filter/
 [14]: #authentication-quickstart
 [15]: ../authproviders/
 [16]: #limit-query-parameter

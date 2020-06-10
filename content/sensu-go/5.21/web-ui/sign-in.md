@@ -1,5 +1,5 @@
 ---
-title: "Sign in to the Web UI"
+title: "Sign in to the web UI"
 linkTitle: "Sign In"
 description: "The Sensu backend includes the Sensu web UI: a unified view of your Sensu resources with user-friendly tools to reduce alert fatigue. Read this guide to start using the Sensu web UI."
 weight: 10
@@ -14,8 +14,6 @@ menu:
 - [Access the web UI](#access-the-web-ui)
 - [Sign in](#sign-in)
 - [Themes](#themes)
-- [Namespaces](#namespaces)
-  - [Namespace switcher](#namespace-switcher)
 
 <a name="federated-webui"></a>
 
@@ -46,22 +44,6 @@ See the [role-based access control reference][3] for [default user credentials][
 
 Use the preferences menu to change the theme or switch to the dark theme.
 
-## Namespaces
-
-The web UI displays events, entities, checks, and silences for a single namespace at a time.
-By default, the web UI displays the `default` namespace.
-
-### Namespace switcher
-
-To switch namespaces, select the menu icon in the upper-left corner and choose a namespace from the dropdown.
-
-**COMMERCIAL FEATURE**: In the packaged Sensu Go distribution, the namespace switcher will list only the namespaces to which the current user has access. For more information, see [Get started with commercial features][6].
-
-<div style="text-align:center">
-<img src="/images/namespace-switcher-1.png" alt="Sensu web UI namespace switcher" width="750">
-</div>
-
-<p style="text-align:center"><i>Sensu web UI namespace switcher</i></p>
 
 [1]: ../../reference/backend#restart-the-service
 [2]: ../../sensuctl/reference/

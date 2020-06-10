@@ -1281,4 +1281,4 @@ You can add these resources to Sensu using [`sensuctl create`][31].
 [46]: ../secrets-providers/
 [47]: ../datastore/
 [48]: ../secrets/
-[49]: ../../dashboard/filtering/#save-a-filtered-search
+[49]: ../../web-ui/filter/#save-a-filtered-search

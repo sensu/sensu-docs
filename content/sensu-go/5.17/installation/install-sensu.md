@@ -436,7 +436,7 @@ Now that you've installed Sensu, here are some resources to help continue your j
 - [Create a read-only user with RBAC][33]
 
 [1]: https://github.com/sensu/sensu-go/releases/
-[3]: ../../dashboard/overview/
+[3]: ../../web-ui/sign-in/
 [4]: ../../sensuctl/reference/
 [5]: ../../platforms
 [6]: ../../reference/backend#configuration
