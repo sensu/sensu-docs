@@ -21,7 +21,22 @@ aside#toc {
   a {
     display: block;
     margin-bottom: 1rem;
+    position: relative;
     text-decoration: none;
+
+    &::before {
+      border-bottom: 4px solid transparent;
+      border-left-color: $green;
+      border-left-style: solid;
+      border-left-width: 0;
+      border-top: 4px solid transparent;
+      content: '';
+      display: block;
+      left: -1.25rem;
+      position: absolute;
+      top: 6px;
+      transition: border 0.3s;
+    }
   }
 
   code {
@@ -48,26 +63,12 @@ aside#toc {
       color: inherit;
     }
 
-    &::before {
-      border-bottom: 4px solid transparent;
-      border-left-color: $green;
-      border-left-style: solid;
-      border-left-width: 0;
-      border-top: 4px solid transparent;
-      content: '';
-      display: block;
-      left: 0;
-      position: absolute;
-      top: 6px;
-      transition: border 0.3s;
-    }
-
-    &.clicked::before {
-      border-left-width: 6px;
-    }
-
     &.h3 {
       padding-left: 3.2rem;
+    }
+
+    &.clicked a::before {
+      border-left-width: 6px;
     }
   }
 
