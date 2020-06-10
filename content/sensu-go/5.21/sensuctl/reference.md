@@ -83,6 +83,29 @@ Run:
 sensuctl user change-password --interactive
 {{< /highlight >}}
 
+You must specify the user's current password to use the `sensuctl user change-password` command.
+
+#### Reset a user password
+
+To reset a user password without specifying the current password, run:
+
+{{< highlight shell >}}
+sensuctl user reset-password USERNAME --interactive
+{{< /highlight >}}
+
+You must have admin permissions to use the `sensuctl user reset-password` command.
+
+#### Generate a password hash
+
+To generate a password hash for a specified cleartext password, run:
+
+{{< highlight shell >}}
+sensuctl user hash-password PASSWORD
+{{< /highlight >}}
+
+The `sensuctl user hash-password` command creates a [bcrypt hash][54] of the specified password.
+You can use this hash instead of the password when you use sensuctl to [create][8], [edit][51], or [dump][52] users.
+
 ### Preferred output format
 
 Sensuctl supports the following output formats:
@@ -349,8 +372,8 @@ cat my-resources.yml | sensuctl create
 `hook_config` | `Mutator` | `mutator` | `Namespace`
 `namespace` | `Role` | `role` | `RoleBinding`
 `role_binding` | [`Secret`][41] | `Silenced` | `silenced`
-[`VaultProvider`][43] | [`ldap`][26] | [`ad`][42] | [`TessenConfig`][27]
-[`PostgresConfig`][32] |
+[`User`][53] | `user` | [`VaultProvider`][43] | [`ldap`][26]
+[`ad`][42] | [`TessenConfig`][27] | [`PostgresConfig`][32]
 
 ### Create resources across namespaces
 
@@ -1227,6 +1250,7 @@ Replace `[flags]` with the flags you want to use.
 Run `sensuctl command delete -h` to view flags.
 Flags are optional and apply only to the `delete` command.
 
+
 [1]: ../../reference/rbac/
 [2]: https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
 [3]: #sensuctl-create-resource-types
@@ -1276,3 +1300,7 @@ Flags are optional and apply only to the `delete` command.
 [48]: #sensuctl-prune-resource-types
 [49]: #examples
 [50]: ../../reference/webconfig/
+[51]: #update-resources
+[52]: #export-resources
+[53]: ../../reference/rbac/#user-specification
+[54]: https://en.wikipedia.org/wiki/Bcrypt
