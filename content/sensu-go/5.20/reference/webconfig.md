@@ -240,7 +240,7 @@ spec:
 {{< /language-toggle >}}
 
 
-[1]: ../../getting-started/enterprise/
+[1]: ../../commercial/
 [2]: ../../api/webconfig/
 [3]: ../../dashboard/overview/
 [4]: #spec-attributes

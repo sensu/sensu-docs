@@ -21,6 +21,7 @@ menu:
   - [General configuration](#general-configuration-flags) | [Agent communication configuration](#agent-communication-configuration-flags) | [Security configuration](#security-configuration-flags) | [Dashboard configuration](#dashboard-configuration-flags) | [Datastore and cluster configuration](#datastore-and-cluster-configuration-flags) | [Advanced configuration options](#advanced-configuration-options)
   - [Configuration via environment variables](#configuration-via-environment-variables)
 - [Event logging](#event-logging)
+  - [Log rotation](#log-rotation)
 - [Example Sensu backend configuration file](../../files/backend.yml) (download)
 
 The Sensu backend is a service that manages check requests and event data.
@@ -1269,16 +1270,20 @@ sensu-backend start --event-log-file /var/log/sensu/events.log
 # /etc/sensu/backend.yml example
 event-log-file: "/var/log/sensu/events.log"{{< /highlight >}}
 
-
 ### Log rotation
 
 Event logging supports log rotation via the _SIGHUP_ signal.
-First, rename (move) the current log file.
+To manually rotate event logs, first rename (move) the current log file.
 Then, send the _SIGHUP_ signal to the sensu-backend process so it creates a new log file and starts logging to it.
 
-Here are some log rotate sample configurations:
+Most Linux distributions include `logrotate` to automatically rotate log files as a standard utility, configured to run once per day by default.
+Because event log files can grow quickly for larger Sensu installations, we recommend using `logrotate` to automatically rotate log files more frequently.
+To use the example log rotation configurations listed below, you may need to [configure `logrotate` to run once per hour][29].
 
-#### systemd
+#### Log rotation for systemd
+
+In this example, the `postrotate` script will reload the backend after log rotate is complete.
+
 {{< highlight shell >}}
 /var/log/sensu/events.log
 {
@@ -1293,7 +1298,19 @@ Here are some log rotate sample configurations:
 }
 {{< /highlight >}}
 
-#### sysvinit
+Without the `postrotate` script, the backend will not reload.
+This will cause sensu-backend (and sensu-agent, if translated for the Sensu agent) to no longer write to the log file, even if logrotate recreates the log file.
+
+In this script, `systemctl reload` sends a _SIGHUP_ signal to the sensu-backend process.
+**This reload causes sensu-backend to fully restart.**
+If you are running a clustered backend, rotating logs on all cluster members simultaneously could lead to a service interruption.
+
+{{% notice note %}}
+**NOTE**: Event logs do not include log messages produced by sensu-backend service. To write Sensu service logs to flat files on disk, read [Log Sensu services with systemd](../../guides/systemd-logs/).
+{{% /notice %}}
+
+#### Log rotation for sysvinit
+
 {{< highlight shell >}}
 /var/log/sensu/events.log
 {
@@ -1322,7 +1339,7 @@ Here are some log rotate sample configurations:
 [11]: ../../reference/handlers/
 [12]: #datastore-and-cluster-configuration-flags
 [13]: ../../guides/clustering/
-[14]: ../../getting-started/enterprise/
+[14]: ../../commercial/
 [15]: #general-configuration-flags
 [16]: https://github.com/etcd-io/etcd/blob/master/Documentation/tuning.md#time-parameters
 [17]: ../../files/backend.yml
@@ -1335,4 +1352,4 @@ Here are some log rotate sample configurations:
 [24]: ../../installation/install-sensu#2-configure-and-start
 [25]: ../../installation/install-sensu#3-initialize
 [26]: ../../sensuctl/reference/#change-admin-user-s-password
-[27]: #configuration-via-environment-variables
+[29]: https://unix.stackexchange.com/questions/29574/how-can-i-set-up-logrotate-to-rotate-logs-hourly

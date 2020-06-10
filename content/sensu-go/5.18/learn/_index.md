@@ -1,13 +1,13 @@
 ---
-title: "Interactive Training"
-description: "Learn Sensu Go"
+title: "Learn Sensu"
+description: "Learn Sensu"
 product: "Sensu Go"
 version: "5.18"
 weight: 110
 layout: "base-for-directory-listing"
 menu:
   sensu-go-5.18:
-    identifier: interactive-training
+    identifier: learn-sensu
 ---
 
 {{< directoryListing >}}

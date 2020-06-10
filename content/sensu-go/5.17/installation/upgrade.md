@@ -174,7 +174,7 @@ Custom check attributes are not supported in Sensu Go.
 Instead, Sensu Go allows you to add custom labels and annotations to entities, checks, assets, hooks, filters, mutators, handlers, and silences.
 See the metadata attributes section in the reference documentation for more information about using labels and annotations (for example, [metadata attributes for entities][24]).
 
-[1]: ../../getting-started/glossary/
+[1]: ../../learn/glossary/
 [2]: https://github.com/etcd-io/etcd/tree/master/Documentation/
 [3]: ../../reference/backend/
 [4]: ../../reference/agent/
@@ -197,7 +197,7 @@ See the metadata attributes section in the reference documentation for more info
 [24]: ../../reference/entities#metadata-attributes
 [25]: https://blog.sensu.io/check-configuration-upgrades-with-the-sensu-go-sandbox/
 [26]: https://blog.sensu.io/self-service-monitoring-checks-in-sensu-go/
-[27]: ../../getting-started/enterprise/
+[27]: ../../commercial/
 [28]: https://bonsai.sensu.io/assets/sensu/sensu-aggregate-check/
 [29]: ../../reference/backend#operation
 [30]: /images/web-ui-entity-warning.png

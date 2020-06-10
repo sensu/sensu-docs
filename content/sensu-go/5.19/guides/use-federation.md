@@ -375,7 +375,7 @@ Learn more about configuring RBAC policies in our [RBAC reference documentation]
 [5]: ../../sensuctl/reference#create-resources
 [6]: ../../sensuctl/reference#update-resources
 [7]: ../../sensuctl/reference#delete-resources
-[8]: ../../getting-started/enterprise/
+[8]: ../../commercial/
 [9]: ../../reference/etcdreplicators#example-etcdreplicator-resources
 [10]: ../../reference/rbac/
 [11]: ../../api/federation#clusters-get

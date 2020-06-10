@@ -269,7 +269,7 @@ Learn about [role-based access control (RBAC) in Sensu][3] or [create a read-onl
 [2]: ../../reference/rbac/#default-users
 [3]: ../../reference/rbac/
 [4]: ../../guides/create-read-only-user/
-[5]: ../../getting-started/enterprise/
+[5]: ../../commercial/
 [6]: https://etcd.io/docs/v3.4.0/op-guide/security/
 [9]: https://github.com/cloudflare/cfssl
 [10]: #secure-sensu-agent-to-server-communication

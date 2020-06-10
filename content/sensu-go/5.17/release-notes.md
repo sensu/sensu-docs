@@ -2,6 +2,7 @@
 title: "Sensu Go release notes"
 linkTitle: "Release Notes"
 description: "Read the Sensu Go release notes to learn about what's new in our latest release."
+weight: -80
 product: "Sensu Go"
 version: "5.17"
 menu: "sensu-go-5.17"
@@ -1044,7 +1045,7 @@ To get started with Sensu Go:
 [103]: /sensu-go/5.16/dashboard/overview
 [104]: /sensu-go/5.16/
 [105]: /sensu-go/5.16/getting-started/enterprise/
-[106]: /sensu-go/5.17/getting-started/enterprise/
+[106]: /sensu-go/5.17/commercial/
 [107]: /sensu-go/5.17/dashboard/overview
 [108]: /sensu-go/5.17/api/secrets
 [109]: /sensu-go/5.17/reference/backend/#docker-initialization

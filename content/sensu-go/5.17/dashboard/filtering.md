@@ -56,5 +56,5 @@ On the **Checks page**, to display only checks that use the `slack` asset:
 fieldSelector: slack in check.handlers
 {{< /highlight >}}
 
-[1]: ../../getting-started/enterprise/
+[1]: ../../commercial/
 [2]: ../../api/overview#field-selector

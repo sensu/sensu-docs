@@ -2,11 +2,13 @@
 title: "Sensu Go release notes"
 linkTitle: "Release Notes"
 description: "Read the Sensu Go release notes to learn about what's new in our latest release."
+weight: -80
 product: "Sensu Go"
 version: "5.20"
 menu: "sensu-go-5.20"
 ---
 
+- [5.20.2 release notes](#5-20-2-release-notes)
 - [5.20.1 release notes](#5-20-1-release-notes)
 - [5.20.0 release notes](#5-20-0-release-notes)
 - [5.19.3 release notes](#5-19-3-release-notes)
@@ -60,6 +62,27 @@ PATCH versions include backward-compatible bug fixes.
 Read the [upgrade guide][1] for information about upgrading to the latest version of Sensu Go.
 
 ---
+
+## 5.20.2 release notes
+
+**May 26, 2020** &mdash; The latest release of Sensu Go, version 5.20.2, is now available for download.
+
+This patch release adds username to the API request log to help operators with troubleshooting and user activity reporting, as well as validation for subjects in role-based access control (RBAC) role binding and cluster role binding.
+Release 5.20.2 also temporarily disables process discovery so we can investigate and resolve its performance impact on the backend (increased CPU and memory usage).
+
+See the [upgrade guide][1] to upgrade Sensu to version 5.20.2.
+
+**NEW FEATURES:**
+
+- The API request log now includes the username.
+
+**FIXES:**
+
+- ([Commercial feature][141]) [Process discovery in the agent][155] is temporarily disabled.
+- The system’s libc_type attribute is now properly populated for Ubuntu entities.
+- Single-letter subscriptions are now allowed.
+- Subjects are now validated in RBAC role binding and cluster role binding.
+- [Sensuctl command][154] assets can now be retrieved and installed from Bonsai.
 
 ## 5.20.1 release notes
 
@@ -237,8 +260,8 @@ See the [upgrade guide][1] to upgrade Sensu to version 5.18.1.
 
 **FIXES:**
 
-- ([Commercial feature][121]) Fixed a bug that caused SQL migrations to fail on PostgreSQL 12.
-- ([Commercial feature][121]) Fixed a bug where OIDC login could result in a nil pointer panic.
+- ([Commercial feature][115]) Fixed a bug that caused SQL migrations to fail on PostgreSQL 12.
+- ([Commercial feature][115]) Fixed a bug where OIDC login could result in a nil pointer panic.
 - Changed to using the gRPC client (rather than the embedded etcd client) to improve reliability and avoid nil pointer panics triggered by shutting down the embedded etcd client.
 - The Sensu backend no longer hangs indefinitely if a file lock for the asset manager cannot be obtained. Instead, the backend returns an error after 60 seconds.
 - Fixed a bug that caused sensu-backend to restart when agents disconnected.
@@ -1267,7 +1290,7 @@ To get started with Sensu Go:
 [103]: /sensu-go/5.16/dashboard/overview
 [104]: /sensu-go/5.16/
 [105]: /sensu-go/5.16/getting-started/enterprise/
-[106]: /sensu-go/5.17/getting-started/enterprise/
+[106]: /sensu-go/5.17/commercial/
 [107]: /sensu-go/5.17/dashboard/overview
 [108]: /sensu-go/5.17/api/secrets
 [109]: /sensu-go/5.17/reference/backend/#docker-initialization
@@ -1276,14 +1299,13 @@ To get started with Sensu Go:
 [112]: /sensu-go/5.17/api/events/#events-post
 [113]: /sensu-go/5.17/sensuctl/reference/#list-commands
 [114]: /sensu-go/5.18/api/events/#events-post
-[115]: /sensu-go/5.18/getting-started/enterprise/
+[115]: /sensu-go/5.18/commercial/
 [116]: /sensu-go/5.18/api/overview/#label-selector
 [117]: /sensu-go/5.18/api/overview/#field-selector
 [118]: /sensu-go/5.18/api/events#events-post
 [119]: /sensu-go/5.18/api/overview/#response-filtering
 [120]: /sensu-go/5.18/api/auth/#the-authtest-api-endpoint
-[121]: /sensu-go/5.18/getting-started/enterprise/
-[122]: /sensu-go/5.19/getting-started/enterprise/
+[122]: /sensu-go/5.19/commercial/
 [123]: /sensu-go/5.19/dashboard/filtering/#save-a-filtered-search
 [124]: /sensu-go/5.19/dashboard/overview/
 [125]: /sensu-go/5.19/api/health/
@@ -1297,16 +1319,16 @@ To get started with Sensu Go:
 [130]: /sensu-go/5.19/reference/tessen/
 [131]: /sensu-go/5.19/reference/handlers/#pipe-handler-command
 [132]: /sensu-go/5.19/reference/datastore/#max_conn_lifetime
-[133]: /sensu-go/5.19/installation/platforms/
+[133]: /sensu-go/5.19/platforms/
 [134]: /sensu-go/5.19/installation/install-sensu/
 [135]: /sensu-go/5.19/dashboard/overview
-[136]: /sensu-go/5.19/reference/agent/#configuration
+[136]: /sensu-go/5.19/reference/agent/#configuration-via-flags
 [137]: /sensu-go/5.19/reference/backend/#configuration
 [138]: /sensu-go/5.20/api/overview/#field-selector
 [139]: /sensu-go/5.20/reference/backend/#log-rotation
 [140]: /sensu-go/5.20/guides/troubleshooting/#increment-log-level-verbosity
-[141]: /sensu-go/5.20/getting-started/enterprise/
-[142]: /sensu-go/5.20/reference/agent/#configuration
+[141]: /sensu-go/5.20/commercial/
+[142]: /sensu-go/5.20/reference/agent/#configuration-via-flags
 [143]: /sensu-go/5.20/reference/entities/#processes-attributes
 [144]: /sensu-go/5.20/sensuctl/reference/#sensuctl-describe-type-resource-types
 [145]: /sensu-go/5.20/reference/backend/#configuration-summary
@@ -1318,3 +1340,5 @@ To get started with Sensu Go:
 [151]: /sensu-go/5.20/reference/license/#entity-limit
 [152]: /sensu-go/5.20/dashboard/overview/#federated-webui
 [153]: /sensu-go/5.20/dashboard/overview/
+[154]: /sensu-go/5.20/sensuctl/reference/#extend-sensuctl-with-commands
+[155]: /sensu-go/5.20/reference/agent/#discover-processes
