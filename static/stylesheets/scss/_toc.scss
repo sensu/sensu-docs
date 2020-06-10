@@ -50,9 +50,9 @@ aside#toc {
 
     &::before {
       border-bottom: 4px solid transparent;
-      // border-left-color: $green;
-      // border-left-style: solid;
-      // border-left-width: 0;
+      border-left-color: $green;
+      border-left-style: solid;
+      border-left-width: 0;
       border-top: 4px solid transparent;
       content: '';
       display: block;
@@ -62,7 +62,7 @@ aside#toc {
       transition: border 0.3s;
     }
 
-    &.active::before {
+    &.clicked::before {
       border-left-width: 6px;
     }
 
@@ -73,10 +73,6 @@ aside#toc {
 
   ul ul {
     margin-left: 0;
-
-    // li.active > a {
-    //   color: inherit;
-    // }
   }
 
   @media (min-width: $breakpoint-lg) {

@@ -21,7 +21,7 @@
   while($toc.firstChild){
     $toc.removeChild($toc.firstChild);
   }
-  Array.from($tocElements).map($el => $toc.appendChild($el));
+  $tocElements.forEach($el => $toc.appendChild($el));
 
   // 4
   const $article = document.querySelector('main article h1').parentElement;
@@ -54,4 +54,12 @@
     });
   }, { rootMargin: '-125px 0px -60px' });
   $headings.forEach(heading => observer.observe(heading.parentElement));
+
+  // Related functionality
+  $tocElements.forEach($el => {
+    $el.addEventListener('click', (e) => {
+      $tocElements.forEach($el => $el.classList.remove('clicked'));
+      e.currentTarget.classList.add('clicked');
+    });
+  });
 })();
