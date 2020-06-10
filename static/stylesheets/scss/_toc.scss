@@ -44,11 +44,15 @@ aside#toc {
       color: $green;
     }
 
+    &.active ~ li > a {
+      color: inherit;
+    }
+
     &::before {
       border-bottom: 4px solid transparent;
-      border-left-color: $green;
-      border-left-style: solid;
-      border-left-width: 0;
+      // border-left-color: $green;
+      // border-left-style: solid;
+      // border-left-width: 0;
       border-top: 4px solid transparent;
       content: '';
       display: block;
@@ -61,10 +65,18 @@ aside#toc {
     &.active::before {
       border-left-width: 6px;
     }
+
+    &.h3 {
+      padding-left: 3.2rem;
+    }
   }
 
   ul ul {
     margin-left: 0;
+
+    // li.active > a {
+    //   color: inherit;
+    // }
   }
 
   @media (min-width: $breakpoint-lg) {
