@@ -91,16 +91,74 @@ For further examples of Sensu users who have added the ability to use a communit
 
 ### Asset path
 
-When you download and install an asset, the asset's local path on disk is exposed to asset consumers via the asset's environment variables.
-This allows you to retrieve the asset's path from a check, hook, handler, or mutator either as an environment variable or using a custom function for token substitution, `assetPath`.
+When you download and install an asset, the asset's local path on disk is exposed to asset consumers via environment variables.
+This allows you to retrieve the asset's path from a check, hook, handler, or mutator either as an environment variable or from a check or hook using a custom function for token substitution, `assetPath`.
 
-For example, if you included a configuration file in the `include` directory of your asset `sensu-go-hello-world-0.0.2`, you can reference the asset from your handler in either of these ways:
+For example, if you included a configuration file in the `include` directory of the asset [`sensu-plugins-windows`][4], you can reference the asset from your check in either of these ways:
 
-- `$SENSU_GO_HELLO_WORLD_0_0_2/include/config.yaml`
-- `${{assetPath "sensu-go-hello-world-0.0.2"}}/include/config.yaml`
+- `$SENSU_PLUGINS_WINDOWS/include/config.yaml`
+- `${{assetPath "sensu-plugins-windows"}}/include/config.yaml`
+
+{{% notice note %}}
+**NOTE**: The `assetPath` function is only available where token substitution is available: checks and hooks.
+{{% /notice %}}
 
 The asset path includes the asset's checksum, which changes every time the asset is updated.
-The `assetPath` token subsitution function allows you to substitute the asset's local path on disk, so you will not need to manually update your check, hook, handler, or mutator commands every time the asset is updated.
+This would normally require you to manually update the commands for any of your checks or hooks that consume the asset.
+However, the `assetPath` token subsitution function allows you to substitute the asset's local path on disk, so you will not need to manually update your check or hook commands every time the asset is updated.
+
+This is useful any time a command requires the full explicit path to a file that is distributed in your asset.
+For example, when running PowerShell plugins on Windows, the [exit status codes that Sensu captures may not match the expected values][13].
+
+To correctly capture exit status codes from PowerShell plugins distributed as assets, use the asset path to construct the command:
+
+{{< language-toggle >}}
+
+{{< highlight yml >}}
+type: CheckConfig
+api_version: core/v2
+metadata:
+namespace: default
+name: win-cpu-check
+spec:
+  command: powershell.exe -ExecutionPolicy ByPass -f ${{assetPath "sensu-plugins-windows"}}\bin\check-windows-cpu-load.ps1 90 95
+  subscriptions:
+  - windows
+  handlers:
+  - slack
+  - email
+  runtime_assets:
+  - sensu-plugins-windows
+  interval: 10
+  publish: true
+{{< /highlight >}}
+
+{{< highlight json >}}
+{
+  "type": "CheckConfig",
+  "api_version": "core/v2",
+  "metadata": null,
+  "namespace": "default",
+  "name": "win-cpu-check",
+  "spec": {
+    "command": "powershell.exe -ExecutionPolicy ByPass -f ${{assetPath \"sensu-plugins-windows\"}}\\bin\\check-windows-cpu-load.ps1 90 95",
+    "subscriptions": [
+      "windows"
+    ],
+    "handlers": [
+      "slack",
+      "email"
+    ],
+    "runtime_assets": [
+      "sensu-plugins-windows"
+    ],
+    "interval": 10,
+    "publish": true
+  }
+}
+{{< /highlight >}}
+
+{{< /language-toggle >}}
 
 ### Default cache directory
 
@@ -850,6 +908,7 @@ You must remove the archive and downloaded files from the asset cache manually.
 [1]: ../sensu-query-expressions/
 [2]: ../rbac#namespaces
 [3]: ../tokens/#manage-assets
+[4]: https://bonsai.sensu.io/assets/samroy92/sensu-plugins-windows
 [5]: #metadata-attributes
 [6]: ../checks/
 [7]: ../filters/
@@ -858,6 +917,7 @@ You must remove the archive and downloaded files from the asset cache manually.
 [10]: ../entities#system-attributes
 [11]: ../../sensuctl/reference#create-resources
 [12]: #spec-attributes
+[13]: https://github.com/sensu/sensu/issues/1919
 [15]: #example-asset-structure
 [16]: https://bonsai.sensu.io/
 [18]: https://discourse.sensu.io/t/the-hello-world-of-sensu-assets/1422
