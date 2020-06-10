@@ -77,6 +77,11 @@ Here are some things to try if you encounter an issue working with the site:
 * Run `yarn hugo-version` to print the running version of Hugo. Version 0.56.1 or newer is required.
 * If you're still having trouble viewing the site, [open an issue][issue], and we'll be happy to help!
 
+#### Internet Explorer Users
+
+The docs site displays incorrectly in Internet Explorer.
+If you cannot use a different browser, you can access a PDF copy of the Sensu documentation on our [supported versions][supp-vers] page.
+
 ### Theme
 
 This project uses a [fork](themes/hugo-material-docs/) of the wonderful [hugo-material-docs](https://github.com/digitalcraftsman/hugo-material-docs) theme.
@@ -109,4 +114,5 @@ Whenever changes are merged to the `master` branch, this project is automaticall
 [hugo]: https://gohugo.io/documentation/
 [site]: https://docs.sensu.io
 [issue]: https://github.com/sensu/sensu-docs/issues/new
+[supp-vers]: https://docs.sensu.io/sensu-go/latest/getting-started/versions/
 
