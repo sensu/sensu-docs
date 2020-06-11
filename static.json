@@ -212,15 +212,15 @@
             "status": 301
         },
         "~ ^/sensu-go/latest/dashboard/filtering/?$": {
-            "url": "/sensu-go/latest/web-ui/filter-web-ui",
+            "url": "/sensu-go/latest/web-ui/filter",
             "status": 301
         },
         "~ ^/sensu-go/5.2[0-9]/?((?<=\/).*)?/dashboard/filtering/?$": {
-            "url": "/sensu-go/latest/web-ui/filter-web-ui",
+            "url": "/sensu-go/latest/web-ui/filter",
             "status": 301
         },
         "~ ^/sensu-go/5.1[0-9]/?((?<=\/).*)?/dashboard/filtering/?$": {
-            "url": "/sensu-go/latest/web-ui/filter-web-ui",
+            "url": "/sensu-go/latest/web-ui/filter",
             "status": 301
         },
         "~ ^/sensu-go/latest/dashboard/webconfig/?$": {
