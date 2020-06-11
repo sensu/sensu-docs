@@ -774,6 +774,8 @@ Flags:
       --namespace string                      agent namespace (default "default")
       --password string                       agent password (default "P@ssw0rd!")
       --redact string                         comma-delimited customized list of fields to redact
+      --require-fips                          indicates whether fips support should be required in openssl
+      --require-openssl                       indicates whether openssl should be required instead of go's built-in crypto
       --socket-host string                    address to bind the Sensu client socket to (default "127.0.0.1")
       --socket-port int                       port the Sensu client socket listens on (default 3030)
       --statsd-disable                        disables the statsd listener and metrics server
@@ -1276,6 +1278,38 @@ sensu-agent start --insecure-skip-tls-verify
 
 # /etc/sensu/agent.yml example
 insecure-skip-tls-verify: true{{< /highlight >}}
+
+<a name="fips-openssl"></a>
+
+| require-fips |      |
+------------------|------
+description       | Require Federal Information Processing Standard (FIPS) support in OpenSSL. Logs an error at Sensu agent startup if `true` but OpenSSL is not running in FIPS mode.<br>{{% notice note %}}
+**NOTE**: The `--require-fips` flag is only available within the Linux amd64 OpenSSL-linked binary.
+[Contact Sensu](https://sensu.io/contact) to request the builds for OpenSSL with FIPS support.
+{{% /notice %}}
+type              | Boolean
+default           | false
+environment variable | `SENSU_REQUIRE_FIPS`
+example           | {{< highlight shell >}}# Command line example
+sensu-agent start --require-fips
+
+# /etc/sensu/agent.yml example
+require-fips: true{{< /highlight >}}
+
+| require-openssl |      |
+------------------|------
+description       | Use OpenSSL instead of Go's standard cryptography library. Logs an error at Sensu agent startup if `true` but Go's standard cryptography library is loaded.<br>{{% notice note %}}
+**NOTE**: The `--require-openssl` flag is only available within the Linux amd64 OpenSSL-linked binary.
+[Contact Sensu](https://sensu.io/contact) to request the builds for OpenSSL with FIPS support.
+{{% /notice %}}
+type              | Boolean
+default           | false
+environment variable | `SENSU_REQUIRE_OPENSSL`
+example           | {{< highlight shell >}}# Command line example
+sensu-agent start --require-openssl
+
+# /etc/sensu/agent.yml example
+require-openssl: true{{< /highlight >}}
 
 
 ### Socket configuration flags
