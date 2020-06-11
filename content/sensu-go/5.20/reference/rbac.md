@@ -35,7 +35,7 @@ RBAC allows you to manage user access and resources based on namespaces, groups,
 - **Users** represent a person or agent that interacts with Sensu. Users can belong to one or more **groups**.
 - **Role bindings** assign a role to a set of users and groups within a namespace. **Cluster role bindings** assign a cluster role to a set of users and groups cluster-wide.
 
-Sensu access controls apply to [sensuctl][2], the Sensu [API][19], and the Sensu [dashboard][3].
+Sensu access controls apply to [sensuctl][2], the Sensu [API][19], and the Sensu [web UI][3].
 In addition to built-in RBAC, Sensu includes [commercial][33] support for authentication using external [authentication providers][32].
 
 ## Namespaces
@@ -242,7 +242,7 @@ A user represents a person or an agent that interacts with Sensu.
 You can assign users and groups to one or more roles.
 Users and groups inherit all permissions from each role assigned to them.
 
-Use your Sensu username and password to [configure sensuctl][26] or log in to the [dashboard][3].
+Use your Sensu username and password to [configure sensuctl][26] or log in to the [web UI][3].
 
 ### Default users
 
@@ -1239,7 +1239,7 @@ You can add these resources to Sensu using [`sensuctl create`][31].
 
 [1]: ../backend/
 [2]: ../../sensuctl/reference/
-[3]: ../../dashboard/overview/
+[3]: ../../web-ui/sign-in/
 [4]: #resources
 [5]: ../assets/
 [6]: ../checks/

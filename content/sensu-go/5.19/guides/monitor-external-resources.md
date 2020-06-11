@@ -170,7 +170,7 @@ Silenced:  false
 Timestamp: 2019-01-16 21:51:53 +0000 UTC
 {{< /highlight >}}
 
-You can also see the new proxy entity in your [Sensu dashboard][10].
+You can also see the new proxy entity in your [Sensu web UI][10].
 
 ## Use proxy requests to monitor a group of websites
 
@@ -363,7 +363,7 @@ Now that you know how to run a proxy check to verify the status of a website and
 [7]: ../send-slack-alerts/
 [8]: ../../sensuctl/reference/
 [9]: ../../api/entities/
-[10]: ../../dashboard/overview/
+[10]: ../../web-ui/sign-in/
 [11]: ../../reference/entities#manage-entity-labels
 [12]: ../../reference/tokens/
 [13]: #register-assets

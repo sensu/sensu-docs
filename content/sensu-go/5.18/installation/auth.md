@@ -26,7 +26,7 @@ menu:
   - [OIDC specification](#oidc-specification)
   - [Okta](#okta)
 
-Sensu requires username and password authentication to access the [Sensu dashboard][1], [API][8], and command line tool ([sensuctl][2]).
+Sensu requires username and password authentication to access the [Sensu web UI][1], [API][8], and command line tool ([sensuctl][2]).
 You can use Sensu's built-in basic authentication provider or configure external authentication providers to authenticate via Lightweight Directory Access Protocol (LDAP), Active Directory (AD), or OpenID Connect.
 
 ## Use built-in basic authentication
@@ -109,15 +109,15 @@ Sensu entities, checks, handlers, and other [namespaced resources][17] belong to
 To enable permissions for external users and groups within Sensu, create a set of [roles, cluster roles][11], [role bindings, and cluster role bindings][13] that map to the usernames and group names found in your authentication providers.
 
 Make sure to include the [group prefix][34] and [username prefix][35] when creating Sensu role bindings and cluster role bindings.
-Without an assigned role or cluster role, users can sign in to the Sensu dashboard but can't access any Sensu resources.
+Without an assigned role or cluster role, users can sign in to the Sensu web UI but can't access any Sensu resources.
 
 **4. Log in to Sensu**
 
-After you configure the correct roles and bindings, log in to [sensuctl][36] and the [Sensu dashboard][1] using your single-sign-on username and password (no prefix required).
+After you configure the correct roles and bindings, log in to [sensuctl][36] and the [Sensu web UI][1] using your single-sign-on username and password (no prefix required).
 
 ## LDAP authentication
 
-Sensu offers [commercial support][6] for a standards-compliant LDAP tool for authentication to the Sensu dashboard, API, and sensuctl.
+Sensu offers [commercial support][6] for a standards-compliant LDAP tool for authentication to the Sensu web UI, API, and sensuctl.
 The Sensu LDAP authentication provider is tested with [OpenLDAP][7].
 If you're using AD, head to the [AD section][37].
 
@@ -635,7 +635,7 @@ For example:
 
 ## Active Directory (AD) authentication {#ad-authentication}
 
-Sensu offers [commercial support][6] for using Microsoft Active Directory (AD) for authentication to the Sensu dashboard, API, and sensuctl.
+Sensu offers [commercial support][6] for using Microsoft Active Directory (AD) for authentication to the Sensu web UI, API, and sensuctl.
 The AD authentication provider is based on the [LDAP authentication provider][44].
 
 ### Active Directory (AD) configuration examples {#ad-configuration-examples}
@@ -1342,7 +1342,7 @@ For example, if you have an Okta group `groups` and you set the `groups_prefix` 
 If a browser does not open, launch a browser to complete the login via your OIDC provider at following URL:
   - https://sensu-backend.example.com:8080/api/enterprise/authentication/v2/oidc/authorize
 
-[1]: ../../dashboard/overview/
+[1]: ../../web-ui/sign-in/
 [2]: ../../sensuctl/reference/
 [3]: ../../reference/rbac#default-users
 [4]: ../../reference/rbac/

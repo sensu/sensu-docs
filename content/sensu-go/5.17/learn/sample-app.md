@@ -270,12 +270,12 @@ sensuctl create --file go/config/assets/check-plugins.yaml
 sensuctl create --file go/config/checks/dummy-app-healthz.yaml
 {{< /highlight >}}
 
-With the automated alert workflow in place, you can see the resulting events in the Sensu dashboard.
+With the automated alert workflow in place, you can see the resulting events in the Sensu web UI.
 
-**3. Sign in to the Sensu dashboard.**
+**3. Sign in to the Sensu web UI.**
 
-Sign in to the [Sensu dashboard][7] with your sensuctl username (`demo`) and password (`password`).
-Since you're working within the `demo` namespace, select the `demo` namespace in the Sensu dashboard menu.
+Sign in to the [Sensu web UI][7] with your sensuctl username (`demo`) and password (`password`).
+Since you're working within the `demo` namespace, select the `demo` namespace in the Sensu web UI menu.
 
 **4. Toggle the health of the dummy app to simulate a failure.**
 
@@ -297,7 +297,7 @@ Invoke-WebRequest -Uri http://dummy.local/healthz -Method POST
 
 {{< platformBlockClose >}}
 
-You should now be able to see a critical alert in the [Sensu dashboard][8] as well as by using sensuctl:
+You should now be able to see a critical alert in the [Sensu web UI][8] as well as by using sensuctl:
 
 {{< highlight shell >}}
 sensuctl event list
@@ -397,7 +397,7 @@ Create a check to collect Prometheus metrics from Kubernetes using the `promethe
 sensuctl create --file go/config/checks/kube-state-prometheus.yaml
 {{< /highlight >}}
 
-You should now be able to access Kubernetes metrics data in [Grafana][10] and see metric events in the [Sensu dashboard][8].
+You should now be able to access Kubernetes metrics data in [Grafana][10] and see metric events in the [Sensu web UI][8].
 
 ## Next steps
 

@@ -18,7 +18,7 @@ menu:
 ## Event storage
 
 Sensu stores the most recent event for each entity and check pair using either an embedded etcd (default) or an [external etcd][8] instance.
-You can access event data with the [Sensu dashboard][9] Events page, [`sensuctl event` commands][10], and the [events API][11].
+You can access event data with the [Sensu web UI][9] Events page, [`sensuctl event` commands][10], and the [events API][11].
 For longer retention of event data, integrate Sensu with a time series database like [InfluxDB][12] or a searchable index like ElasticSearch or Splunk.
 
 ## Scale event storage
@@ -203,7 +203,7 @@ example      | {{< highlight shell >}}max_idle_conns: 2{{< /highlight >}}
 [3]: https://aws.amazon.com/rds/
 [4]: ../../release-notes/#5-19-2-release-notes
 [8]: ../../guides/clustering/#use-an-external-etcd-cluster
-[9]: ../../dashboard/overview/
+[9]: ../../web-ui/sign-in/
 [10]: ../../sensuctl/reference/#sensuctl-event
 [11]: ../../api/events/
 [12]: ../../guides/influx-db-metric-handler/

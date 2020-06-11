@@ -46,8 +46,8 @@ To install Sensu in production, use the [installation guide][8] instead.
 The sandbox startup process takes about 5 minutes.
 
 {{% notice note %}}
-**NOTE**: The sandbox configures VirtualBox to forward TCP ports 3002 and 4002 from the sandbox virtual machine (VM) to the localhost to make it easier for you to interact with the sandbox dashboards.
-Dashboard links provided in this tutorial assume port forwarding from the VM to the host is active.
+**NOTE**: The sandbox configures VirtualBox to forward TCP ports 3002 and 4002 from the sandbox virtual machine (VM) to the localhost to make it easier for you to interact with the sandbox web UIs.
+Web UI links provided in this tutorial assume port forwarding from the VM to the host is active.
 {{% /notice %}}
 
 **4. SSH into the sandbox**
@@ -146,8 +146,8 @@ sensu-go-sandbox   keepalive   Keepalive last sent from sensu-go-sandbox at 2019
 
 The sensu-go-sandbox keepalive event has status 0, which means the agent is in an OK state and can communicate with the Sensu backend.
 
-You can also see the event and the entity in the [Sensu dashboard][15].
-Log in to the dashboard with these pre-set admin credentials: username `admin` and password `P@ssw0rd!`.
+You can also see the event and the entity in the [Sensu web UI][15].
+Log in to the web UI with these pre-set admin credentials: username `admin` and password `P@ssw0rd!`.
 
 ## Lesson \#2: Pipe keepalive events into Slack
 
@@ -487,7 +487,7 @@ sensuctl create --file disk_usage-check.json
 
 You don't need to make any changes to disk_usage-check.json before running `sensuctl create --file disk_usage-check.json`.
 
-You should see the check working on the [dashboard Entity page][21] and via sensuctl:
+You should see the check working on the [web UI Entity page][21] and via sensuctl:
 
 {{< highlight shell >}}
 sensuctl event list
