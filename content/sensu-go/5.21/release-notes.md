@@ -66,7 +66,7 @@ Read the [upgrade guide][1] for information about upgrading to the latest versio
 
 ## 5.21.0 release notes
 
-**June 11, 2020** &mdash; The latest release of Sensu Go, version 5.21.0, is now available for download.
+**June 15, 2020** &mdash; The latest release of Sensu Go, version 5.21.0, is now available for download.
 
 **RELEASE SYNOPSIS NEEDED HERE**
 
