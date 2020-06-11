@@ -774,7 +774,7 @@ Flags:
       --namespace string                      agent namespace (default "default")
       --password string                       agent password (default "P@ssw0rd!")
       --redact string                         comma-delimited customized list of fields to redact
-      --require-fips                              indicates whether fips support should be required in openssl
+      --require-fips                          indicates whether fips support should be required in openssl
       --require-openssl                       indicates whether openssl should be required instead of go's built-in crypto
       --socket-host string                    address to bind the Sensu client socket to (default "127.0.0.1")
       --socket-port int                       port the Sensu client socket listens on (default 3030)
