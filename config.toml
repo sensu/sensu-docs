@@ -10,6 +10,9 @@ pygmentsUseClasses = true
 ignoreFiles = ["sensu-doc-template.md"]
 disableKinds = ["taxonomy", "taxonomyTerm"]
 [markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
   [markup.tableOfContents]
     endLevel = 2
     ordered = false
