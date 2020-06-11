@@ -7,8 +7,8 @@
 (function () {
   // 1
   const $toc = document.getElementById('TableOfContents');
-  const $tocElements = $toc.querySelectorAll('li');
-  const tocLinks = Array.from($tocElements).map($li => (
+  const $tocElements = Array.from($toc.querySelectorAll('li')).filter($el => $el.innerHTML.trim());
+  const tocLinks = $tocElements.map($li => (
     `#${CSS.escape($li.querySelector('a').getAttribute('href').replace('#', ''))}`
   ));
 
