@@ -307,7 +307,7 @@ General Flags:
       --log-level string                    logging level [panic, fatal, error, warn, info, debug] (default "warn")
       --pipelined-buffer-size int           number of events to handle that can be buffered (default 100)
       --pipelined-workers int               number of workers spawned for handling events through the event pipeline (default 100)
-      --require-fips                            indicates whether fips support should be required in openssl
+      --require-fips                        indicates whether fips support should be required in openssl
       --require-openssl                     indicates whether openssl should be required instead of go's built-in crypto
   -d, --state-dir string                    path to sensu state storage (default "/var/lib/sensu/sensu-backend")
       --trusted-ca-file string              TLS CA certificate bundle in PEM format
