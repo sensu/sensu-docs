@@ -104,7 +104,7 @@ The [Sensu agent][26] uses:
 
 - 3030 (TCP/UDP) Sensu [agent socket][21]: Required for Sensu agents using the agent socket
 - 3031 (HTTP) Sensu [agent API][21]: Required for all users accessing the agent API
-- 8125 (UDP, TCP on Windows) [StatsD listener][23]: Required for all Sensu agents using the StatsD listener
+- 8125 (UDP) [StatsD listener][23]: Required for all Sensu agents using the StatsD listener
 
 The agent TCP and UDP sockets are deprecated in favor of the [agent API][21].
 
