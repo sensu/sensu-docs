@@ -54,13 +54,4 @@
     });
   }, { rootMargin: '-125px 0px -60px' });
   $headings.forEach(heading => observer.observe(heading.parentElement));
-
-  // Related functionality
-  $tocElements.forEach($el => {
-    $el.addEventListener('click', (e) => {
-      $tocElements.forEach($el => $el.classList.remove('active', 'clicked'));
-      e.currentTarget.classList.add('active', 'clicked');
-      observer.disconnect();
-    });
-  });
 })();

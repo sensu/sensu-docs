@@ -59,16 +59,20 @@ aside#toc {
       color: $green;
     }
 
+    &.active a::before {
+      border-left-width: 6px;
+    }
+
     &.active ~ li > a {
       color: inherit;
     }
 
-    &.h3 {
-      padding-left: 3.2rem;
+    &.active ~ li > a::before {
+      border-left-width: 0;
     }
 
-    &.clicked a::before {
-      border-left-width: 6px;
+    &.h3 {
+      padding-left: 3.2rem;
     }
   }
 
