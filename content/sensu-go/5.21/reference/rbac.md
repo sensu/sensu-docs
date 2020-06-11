@@ -285,6 +285,8 @@ To change the password for a user:
 sensuctl user change-password USERNAME --current-password CURRENT_PASSWORD --new-password NEW_PASSWORD
 {{< /highlight >}}
 
+You can also use sensuctl to [reset a user's password][50] or [generate a password hash][51].
+
 To disable a user:
 
 {{< highlight shell >}}
@@ -1282,3 +1284,5 @@ You can add these resources to Sensu using [`sensuctl create`][31].
 [47]: ../datastore/
 [48]: ../secrets/
 [49]: ../../dashboard/filtering/#save-a-filtered-search
+[50]: ../../sensuctl/reference/#reset-a-user-password
+[51]: ../../sensuctl/reference/#generate-a-password-hash
