@@ -1,16 +1,17 @@
 ---
-title: "Dashboard filtering"
-linkTitle: "Filtering"
-description: "The Sensu dashboard supports filtering on the Events, Entities, Checks, Handlers, Filters, Mutators, and Silences pages. Learn more about filtering in the Sensu dashboard."
+title: "Build filtered views in the web UI"
+linkTitle: "Build Filtered Views"
+description: "The Sensu web UI supports filtering on the Events, Entities, Checks, Handlers, Filters, Mutators, and Silences pages. Learn more about filtering in the Sensu web UI."
+weight: 30
 version: "5.17"
 product: "Sensu Go"
 platformContent: false
 menu:
   sensu-go-5.17:
-    parent: dashboard
+    parent: web-ui
 ---
 
-The Sensu dashboard includes basic filters you can use to build customized views of your Sensu resources.
+The Sensu web UI includes basic filters you can use to build customized views of your Sensu resources.
 When applied, filters create a unique link, so you can bookmark and share your favorite filter combinations.
 
 - On the **Events page**, filter by entity, check, status, and silenced/unsilenced.
@@ -26,7 +27,7 @@ You can also sort silences by start date.
 
 **COMMERCIAL FEATURE**: Access advanced filtering in the packaged Sensu Go distribution. For more information, see [Get started with commercial features][1].
 
-Sensu supports advanced dashboard filtering using a wider range of attributes, including custom labels.
+Sensu supports advanced web UI filtering using a wider range of attributes, including custom labels.
 Select the filter bar to start building custom views using suggested attributes and values.
 
 ### Filter with label selectors
@@ -55,6 +56,7 @@ On the **Checks page**, to display only checks that use the `slack` asset:
 {{< highlight text >}}
 fieldSelector: slack in check.handlers
 {{< /highlight >}}
+
 
 [1]: ../../commercial/
 [2]: ../../api/overview#field-selector

@@ -59,9 +59,9 @@ Know what's going on everywhere in your system.
 Sensu supports industry-standard [metric formats][10] like Nagios performance data, Graphite plaintext protocol, InfluxDB line protocol, OpenTSDB data specification, and [StatsD metrics][14].
 Use the Sensu agent to collect metrics alongside check results, then use the event pipeline to route the data to a time series database like [InfluxDB][2].
 
-### Intuitive API and dashboard interfaces
+### Intuitive API and web UI interfaces
 
-Sensu includes a [dashboard][15] to provide a unified view of your entities, checks, and events, as well as a user-friendly silencing tool.
+Sensu includes a [web UI][15] to provide a unified view of your entities, checks, and events, as well as a user-friendly silencing tool.
 The [Sensu API][13] and the [`sensuctl` command-line tool][16] allow you (and your internal customers) to create checks, register entities, manage configuration, and more.
 
 ### Open core software backed by Sensu Inc.
@@ -83,7 +83,7 @@ Learn about [support packages](https://sensu.io/support) and [commercial feature
 [12]: guides/influx-db-metric-handler/
 [13]: api/overview/
 [14]: guides/aggregate-metrics-statsd/
-[15]: dashboard/overview/
+[15]: web-ui/sign-in/
 [16]: sensuctl/reference/
 [17]: reference/handlers/
 [18]: commercial/
