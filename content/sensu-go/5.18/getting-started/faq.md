@@ -117,7 +117,7 @@ Yes, as long as you meet the [port requirements][37], a single Sensu backend can
 ## Can I use Uchiwa with Sensu Go? {#uchiwa-with-go}
 
 Due to Sensu Go's implementation, it is not possible to use Uchiwa with Sensu Go.
-Sensu Go does have a [built-in web UI][24]] that you can use to visually interact with your Sensu Go deployment.
+Sensu Go does have a [built-in web UI][24] that you can use to visually interact with your Sensu Go deployment.
 
 [1]: ../../platforms/
 [2]: ../../installation/install-sensu/
