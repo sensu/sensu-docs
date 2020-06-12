@@ -428,7 +428,7 @@ See the [installation guide][16] for the latest download links.
 See our [authentication documentation][17] for details.
 - Added sensu-agent and sensuctl binary builds for FreeBSD.
 - Added sensuctl dump command to output resources to a file or STDOUT, making it easier to back up your Sensu backends.
-- Agents can now be configured with a whitelist of executables that are allowed to run as check and hook commands.
+- Agents can now be configured with a list of executables that are allowed to run as check and hook commands.
 See the [agent reference][78] for more information.
 
 **IMPROVEMENTS:**

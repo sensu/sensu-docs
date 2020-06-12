@@ -227,7 +227,7 @@ example url     | http://hostname:3031/healthz
 ## Create monitoring events using the StatsD listener
 
 Sensu agents include a listener to send [StatsD][21] metrics to the event pipeline.
-By default, Sensu agents listen on UDP socket 8125 (TCP on Windows systems) for messages that follow the [StatsD line protocol][21] and send metric events for handling by the Sensu backend.
+By default, Sensu agents listen on UDP socket 8125 for messages that follow the [StatsD line protocol][21] and send metric events for handling by the Sensu backend.
 
 For example, you can use the [Netcat][19] utility to send metrics to the StatsD listener:
 

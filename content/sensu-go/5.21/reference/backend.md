@@ -307,6 +307,8 @@ General Flags:
       --log-level string                    logging level [panic, fatal, error, warn, info, debug] (default "warn")
       --pipelined-buffer-size int           number of events to handle that can be buffered (default 100)
       --pipelined-workers int               number of workers spawned for handling events through the event pipeline (default 100)
+      --require-fips                        indicates whether fips support should be required in openssl
+      --require-openssl                     indicates whether openssl should be required instead of go's built-in crypto
   -d, --state-dir string                    path to sensu state storage (default "/var/lib/sensu/sensu-backend")
       --trusted-ca-file string              TLS CA certificate bundle in PEM format
 
@@ -623,7 +625,7 @@ insecure-skip-tls-verify: true{{< /highlight >}}
 
 | jwt-private-key-file |      |
 -------------|------
-description  | Path to the PEM-encoded private key to use to sign JSON Web Tokens (JWTs). {{% notice note %}}
+description  | Path to the PEM-encoded private key to use to sign JSON Web Tokens (JWTs).<br>{{% notice note %}}
 **NOTE**: The internal symmetric secret key is used by default to sign all JWTs unless a private key is specified via this attribute.
 {{% /notice %}}
 type         | String
@@ -638,7 +640,7 @@ jwt-private-key-file: /path/to/key/private.pem{{< /highlight >}}
 
 | jwt-public-key-file |      |
 -------------|------
-description  | Path to the PEM-encoded public key to use to verify JSON Web Token (JWT) signatures. {{% notice note %}}
+description  | Path to the PEM-encoded public key to use to verify JSON Web Token (JWT) signatures.<br>{{% notice note %}}
 **NOTE**: JWTs signed with the internal symmetric secret key will continue to be verified with that key.
 {{% /notice %}}
 type         | String
@@ -664,6 +666,37 @@ sensu-backend start --key-file /path/to/ssl/key.pem
 # /etc/sensu/backend.yml example
 key-file: "/path/to/ssl/key.pem"{{< /highlight >}}
 
+<a name="fips-openssl"></a>
+
+| require-fips |      |
+------------------|------
+description       | Require Federal Information Processing Standard (FIPS) support in OpenSSL. Logs an error at Sensu backend startup if `true` but OpenSSL is not running in FIPS mode.<br>{{% notice note %}}
+**NOTE**: The `--require-fips` flag is only available within the Linux amd64 OpenSSL-linked binary.
+[Contact Sensu](https://sensu.io/contact) to request the builds for OpenSSL with FIPS support.
+{{% /notice %}}
+type              | Boolean
+default           | false
+environment variable | `SENSU_BACKEND_REQUIRE_FIPS`
+example           | {{< highlight shell >}}# Command line example
+sensu-backend start --require-fips
+
+# /etc/sensu/backend.yml example
+require-fips: true{{< /highlight >}}
+
+| require-openssl |      |
+------------------|------
+description       | Use OpenSSL instead of Go's standard cryptography library. Logs an error at Sensu backend startup if `true` but Go's standard cryptography library is loaded.<br>{{% notice note %}}
+**NOTE**: The `--require-openssl` flag is only available within the Linux amd64 OpenSSL-linked binary.
+[Contact Sensu](https://sensu.io/contact) to request the builds for OpenSSL with FIPS support.
+{{% /notice %}}
+type              | Boolean
+default           | false
+environment variable | `SENSU_BACKEND_REQUIRE_OPENSSL`
+example           | {{< highlight shell >}}# Command line example
+sensu-backend start --require-openssl
+
+# /etc/sensu/backend.yml example
+require-openssl: true{{< /highlight >}}
 
 | trusted-ca-file |      |
 ------------------|------
