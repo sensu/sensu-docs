@@ -291,7 +291,7 @@ For more information, see [Get started with commercial features][8].
 The Sensu API supports response filtering for all GET endpoints that return an array.
 You can filter resources based on their labels with the `labelSelector` query parameter and based on certain pre-determined fields with the `fieldSelector` query parameter.
 
-_**NOTE**: To use label and field selectors in the Sensu dashboard, see [dashboard filtering][13]._
+_**NOTE**: To use label and field selectors in the Sensu web UI, see [web UI filtering][13]._
 
 ### Label selector
 
@@ -499,7 +499,7 @@ curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" http://127.0.0.1:8080/api/co
 [10]: ../auth/#the-auth-api-endpoint
 [11]: ../auth/#the-authtoken-api-endpoint
 [12]: ../auth/
-[13]: ../../dashboard/filtering/
+[13]: ../../web-ui/filter/
 [14]: #authentication-quickstart
 [15]: ../authproviders/
 [16]: #limit-query-parameter

@@ -1097,7 +1097,7 @@ To get started with Sensu Go:
 [104]: /sensu-go/5.16/
 [105]: /sensu-go/5.16/getting-started/enterprise/
 [106]: /sensu-go/5.17/commercial/
-[107]: /sensu-go/5.17/dashboard/overview
+[107]: /sensu-go/5.17/web-ui/sign-in
 [108]: /sensu-go/5.17/api/secrets
 [109]: /sensu-go/5.17/reference/backend/#docker-initialization
 [110]: /sensu-go/5.17/api/overview/#field-selector

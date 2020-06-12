@@ -639,7 +639,7 @@ HTTP/1.1 201 Created
 The event will use the namespace in the URL by default.
 {{% /notice %}}
 
-You can use sensuctl or the [Sensu dashboard][4] to see the event:
+You can use sensuctl or the [Sensu web UI][4] to see the event:
 
 {{< highlight shell >}}
 sensuctl event list
@@ -723,7 +723,7 @@ HTTP/1.1 201 Created
 The event will use the namespace in the URL by default.
 {{% /notice %}}
 
-You can use sensuctl or the [Sensu dashboard][4] to see the event:
+You can use sensuctl or the [Sensu web UI][4] to see the event:
 
 {{< highlight shell >}}
 sensuctl event list
@@ -906,7 +906,7 @@ response codes            | <ul><li>**Success**: 204 (No Content)</li><li>**Miss
 [1]: ../../reference/events/
 [2]: ../overview#pagination
 [3]: #eventsentitycheck-put
-[4]: ../../dashboard/overview/
+[4]: ../../web-ui/sign-in/
 [5]: #eventsentitycheck-put-parameters
 [6]: ../../reference/entities#entities-specification
 [7]: ../../reference/checks#check-specification

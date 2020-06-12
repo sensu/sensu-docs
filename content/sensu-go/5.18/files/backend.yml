@@ -24,7 +24,7 @@ log-level: "debug" # available log levels: panic, fatal, error, warn, info, debu
 #api-url: "http://localhost:8080"
 
 ##
-# dashboard configuration
+# web ui configuration
 ##
 #dashboard-cert-file: "/path/to/ssl/cert.pem"
 #dashboard-key-file: "/path/to/ssl/key.pem"

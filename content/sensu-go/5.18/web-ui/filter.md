@@ -1,25 +1,26 @@
 ---
-title: "Dashboard filtering"
-linkTitle: "Filtering"
-description: "The Sensu dashboard supports filtering on the Events, Entities, Checks, Handlers, Filters, Mutators, and Silences pages. Learn more about filtering in the Sensu dashboard."
+title: "Build filtered views in the web UI"
+linkTitle: "Build Filtered Views"
+description: "The Sensu web UI supports filtering on the Events, Entities, Checks, Handlers, Filters, Mutators, and Silences pages. Learn more about filtering in the Sensu web UI."
+weight: 30
 version: "5.18"
 product: "Sensu Go"
 platformContent: false
 menu:
   sensu-go-5.18:
-    parent: dashboard
+    parent: web-ui
 ---
 
 - [Basic filters](#basic-filters)
 - [Advanced filters](#advanced-filters)
-- [Create dashboard filters](#create-dashboard-filters)
+- [Create web UI filters](#create-web-ui-filters)
 - [Operators quick reference](#operators-quick-reference)
 - [Examples](#examples)
 
-The Sensu dashboard includes basic filters you can use to build customized views of your Sensu resources.
-Sensu also supports advanced dashboard filtering based on a wider range of resource attributes and custom labels as a [commercial feature][1].
+The Sensu web UI includes basic filters you can use to build customized views of your Sensu resources.
+Sensu also supports advanced web UI filtering based on a wider range of resource attributes and custom labels as a [commercial feature][1].
 
-When you apply a filter to a dashboard page, it creates a unique link for the filtered page.
+When you apply a filter to a web UI page, it creates a unique link for the filtered page.
 You can bookmark these links and share your favorite filter combinations.
 
 ## Basic filters
@@ -43,31 +44,31 @@ You can also sort events and silences using the **SORT** dropdown menu:
 **COMMERCIAL FEATURE**: Access advanced filtering in the packaged Sensu Go distribution.
 For more information, see [Get started with commercial features][1].
 
-Sensu supports advanced dashboard filtering using a wider range of attributes, including custom labels.
-You can use the same methods, selectors, and examples for dashboard filtering as for [API response filtering][3], with some [syntax differences][4].
+Sensu supports advanced web UI filtering using a wider range of attributes, including custom labels.
+You can use the same methods, selectors, and examples for web UI filtering as for [API response filtering][3], with some [syntax differences][4].
 
-## Create dashboard filters
+## Create web UI filters
 
-If you are using the [basic dashboard filters][5], you can create your filter just by clicking in the filter bar at the top of the dashboard page:
+If you are using the [basic web UI filters][5], you can create your filter just by clicking in the filter bar at the top of the web UI page:
 
-1. In the dashboard, open the page of resources you want to filter.
-2. Click in the filter bar at the top of the dashboard page.
+1. In the web UI, open the page of resources you want to filter.
+2. Click in the filter bar at the top of the web UI page.
 3. Select the attribute you want to filter for from the dropdown list of options.
 4. Click in the filter bar again and select the filter to apply.
 5. Press **Return/Enter**.
 
 {{% notice note %}}
-**NOTE**: You do not need to specify a resource type in dashboard filtering because you must navigate to the resource page *before* you construct the filter.
+**NOTE**: You do not need to specify a resource type in web UI filtering because you must navigate to the resource page *before* you construct the filter.
 {{% /notice %}}
 
 To filter resources based on [label selectors][6] or [field selectors][2], you'll write a brief filter statement.
-The standard dashboard filtering syntax is:
+The standard web UI filtering syntax is:
 
 {{< highlight text >}}
 SELECTOR:FILTER_STATEMENT
 {{< /highlight >}}
 
-To write a dashboard filter command:
+To write a web UI filter command:
 
 - Replace `SELECTOR` with the selector you want to use: `labelSelector` or `fieldSelector`.
 - Replace `FILTER_STATEMENT` with the filter to apply.
@@ -78,7 +79,7 @@ For example, this filter will return all events for entities with the `linux` su
 fieldSelector:linux in event.entity.subscriptions
 {{< /highlight >}}
 
-Dashboard filtering statements will also work with a single space after the colon:
+Web UI filtering statements will also work with a single space after the colon:
 
 {{< highlight text >}}
 fieldSelector: linux in event.entity.subscriptions
@@ -86,15 +87,15 @@ fieldSelector: linux in event.entity.subscriptions
 
 ## Operators quick reference
 
-Dashboard filtering supports two equality-based operators, two set-based operators, and one logical operator.
+Web UI filtering supports two equality-based operators, two set-based operators, and one logical operator.
 
-| operator | description     | example                |
-| -------- | --------------- | ---------------------- |
-| `==`     | Equality        | `check.publish == true`
-| `!=`     | Inequality      | `check.namespace != "default"`
-| `in`     | Included in     | `linux in check.subscriptions`
-| `notin`  | Not included in | `slack notin check.handlers`
-| `&&`     | Logical AND     | `check.publish == true && slack in check.handlers`
+| operator  | description        | example                |
+| --------- | ------------------ | ---------------------- |
+| `==`      | Equality           | `check.publish == true`
+| `!=`      | Inequality         | `check.namespace != "default"`
+| `in`      | Included in        | `linux in check.subscriptions`
+| `notin`   | Not included in    | `slack notin check.handlers`
+| `matches` | Substring matching | `check.name matches "linux-"`
 
 For details about operators, see [API response filtering operators][7].
 
@@ -151,11 +152,9 @@ To combine `labelSelector` and `fieldSelector` filters, create the filters separ
 For example, to return resources with the `region` label set to `us-west-1` that also use the `slack` handler:
 
 1. Create the `labelSelector` filter in the filter bar and press **Return/Enter**.
-2. Add the `fieldSelector` filter in the filter bar after the `labelSelector` filter and press **Return/Enter** again.
+2. Add the `fieldSelector` filter in the filter bar after the `labelSelector` filter and press **Return/Enter** again.	
 
 {{< highlight text >}}
-labelSelector:region == "us-west-1"
-
 fieldSelector:slack in check.handlers
 {{< /highlight >}}
 
@@ -163,7 +162,7 @@ fieldSelector:slack in check.handlers
 [1]: ../../commercial/
 [2]: ../../api/overview/#field-selector
 [3]: ../../api/overview/#response-filtering
-[4]: #create-dashboard-filters
+[4]: #create-web-ui-filters
 [5]: #basic-filters
 [6]: ../../api/overview/#label-selector
 [7]: ../../api/overview/#operators

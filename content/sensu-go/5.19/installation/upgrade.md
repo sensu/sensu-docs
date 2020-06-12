@@ -147,7 +147,7 @@ Sensu checks and pipeline elements are configured via the API or sensuctl tool i
 The [**Sensu backend**][3] is powered by an embedded transport and [etcd][36] datastore and gives you flexible, automated workflows to route metrics and alerts.
 Sensu backends require persistent storage for their embedded database, disk space for local asset caching, and three exposed ports:
 
-- 3000 (HTTP/HTTPS) Sensu [web UI][29]: Required for all Sensu backends using a Sensu dashboard
+- 3000 (HTTP/HTTPS) Sensu [web UI][29]: Required for all Sensu backends using a Sensu web UI
 - 8080 (HTTP/HTTPS) Sensu [API][40]: Required for all users accessing the Sensu API
 - 8081 (WS/WSS) Agent API: Required for all Sensu agents connecting to a Sensu backend
 
@@ -537,7 +537,7 @@ You may also want to re-install the `sensu-install` tool using the [`sensu-plugi
 [36]: https://etcd.io/
 [37]: ../../guides/clustering/
 [38]: ../../guides/deploying/
-[39]: ../..//dashboard/overview/
+[39]: ../../web-ui/sign-in/
 [40]: ../../api/overview/
 [41]: ../../reference/agent#create-monitoring-events-using-the-agent-api
 [42]: ../../reference/agent/#create-monitoring-events-using-the-statsd-listener
