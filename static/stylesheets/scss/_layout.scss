@@ -20,7 +20,7 @@ main {
 
 .katacodawide {
   background-color: white;
-  flex: 0 0 100%;
+  grid-column: span 5;
   padding: 10px 0px;
 }
 
