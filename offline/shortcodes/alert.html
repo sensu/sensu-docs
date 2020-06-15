@@ -1,0 +1,6 @@
+{{ $color := .Get 0 }}
+{{ $message := .Get 1 }}
+{{ $link := .Get 2 }}
+{{ $params := slice $color $message $link }}
+
+{{ partial "alert" $params }}
