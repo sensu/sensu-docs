@@ -228,7 +228,7 @@ See the [upgrade guide][1] to upgrade Sensu to version 5.19.0.
 **NEW FEATURES:**
 
 - ([Commercial feature][122]) In the [web UI][124], you can now [save, recall, and delete filtered searches][123].
-- ([Commercial feature][122]) Added the `matches` substring matching operator for [API response][126], [sensuctl][127], and [dashboard][128] filtering selectors.
+- ([Commercial feature][122]) Added the `matches` substring matching operator for [API response][126], [sensuctl][127], and [web UI][128] filtering selectors.
 - ([Commercial feature][122]) Added agent and sensuctl builds for Linux architectures: `mips`, `mipsle`, `mips64`, and `mips64le` (hard float and soft float).
 - ([Commercial feature][122]) Sensu now automatically applies the `sensu.io/managed_by` label to resources created via `sensuctl create` for use in the [`sensuctl prune` alpha feature][129].
 
@@ -622,7 +622,7 @@ See the [installation guide][16] for the latest download links.
 See our [authentication documentation][17] for details.
 - Added sensu-agent and sensuctl binary builds for FreeBSD.
 - Added sensuctl dump command to output resources to a file or STDOUT, making it easier to back up your Sensu backends.
-- Agents can now be configured with a whitelist of executables that are allowed to run as check and hook commands.
+- Agents can now be configured with a list of executables that are allowed to run as check and hook commands.
 See the [agent reference][78] for more information.
 
 **IMPROVEMENTS:**
@@ -1291,7 +1291,7 @@ To get started with Sensu Go:
 [104]: /sensu-go/5.16/
 [105]: /sensu-go/5.16/getting-started/enterprise/
 [106]: /sensu-go/5.17/commercial/
-[107]: /sensu-go/5.17/dashboard/overview
+[107]: /sensu-go/5.17/web-ui/sign-in
 [108]: /sensu-go/5.17/api/secrets
 [109]: /sensu-go/5.17/reference/backend/#docker-initialization
 [110]: /sensu-go/5.17/api/overview/#field-selector
@@ -1306,22 +1306,22 @@ To get started with Sensu Go:
 [119]: /sensu-go/5.18/api/overview/#response-filtering
 [120]: /sensu-go/5.18/api/auth/#the-authtest-api-endpoint
 [122]: /sensu-go/5.19/commercial/
-[123]: /sensu-go/5.19/dashboard/filtering/#save-a-filtered-search
-[124]: /sensu-go/5.19/dashboard/overview/
+[123]: /sensu-go/5.19/web-ui/filter/#save-a-filtered-search
+[124]: /sensu-go/5.19/web-ui/sign-in/
 [125]: /sensu-go/5.19/api/health/
 [126]: /sensu-go/5.19/api/overview/#response-filtering
 [127]: /sensu-go/5.19/sensuctl/reference/#response-filtering
-[128]: /sensu-go/5.19/dashboard/filtering
+[128]: /sensu-go/5.19/web-ui/filter/
 [126]: /sensu-go/5.19/api/overview/#response-filtering
 [127]: /sensu-go/5.19/sensuctl/reference/#response-filtering
-[128]: /sensu-go/5.19/dashboard/filtering
+[128]: /sensu-go/5.19/web-ui/filter/
 [129]: /sensu-go/5.19/sensuctl/reference/#sensuctl-prune
 [130]: /sensu-go/5.19/reference/tessen/
 [131]: /sensu-go/5.19/reference/handlers/#pipe-handler-command
 [132]: /sensu-go/5.19/reference/datastore/#max_conn_lifetime
-[133]: /sensu-go/5.19/platforms/
+[133]: /sensu-go/5.19/installation/platforms/
 [134]: /sensu-go/5.19/installation/install-sensu/
-[135]: /sensu-go/5.19/dashboard/overview
+[135]: /sensu-go/5.19/web-ui/sign-in/
 [136]: /sensu-go/5.19/reference/agent/#configuration-via-flags
 [137]: /sensu-go/5.19/reference/backend/#configuration
 [138]: /sensu-go/5.20/api/overview/#field-selector
@@ -1338,7 +1338,7 @@ To get started with Sensu Go:
 [149]: /sensu-go/5.20/api/license/#license-get
 [150]: /sensu-go/5.20/reference/license/#view-entity-count-and-entity-limit
 [151]: /sensu-go/5.20/reference/license/#entity-limit
-[152]: /sensu-go/5.20/dashboard/overview/#federated-webui
-[153]: /sensu-go/5.20/dashboard/overview/
+[152]: /sensu-go/5.20/web-ui/sign-in/#federated-webui
+[153]: /sensu-go/5.20/web-ui/sign-in/
 [154]: /sensu-go/5.20/sensuctl/reference/#extend-sensuctl-with-commands
 [155]: /sensu-go/5.20/reference/agent/#discover-processes

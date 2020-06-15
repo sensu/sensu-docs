@@ -34,7 +34,7 @@ Unencrypted connections must not transmit privileged information.
 For checks, hooks, and assets, you must [enable mutual TLS (mTLS)][13].
 Sensu will not transmit secrets to agents that do not use mTLS.
 
-Sensu only exposes secrets to Sensu services like environment variables and automatically redacts secrets from all logs, the API, and the dashboard.
+Sensu only exposes secrets to Sensu services like environment variables and automatically redacts secrets from all logs, the API, and the web UI.
  
 ## Secret specification
 

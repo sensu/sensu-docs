@@ -95,7 +95,7 @@ cd /etc/sensu/tls
 # Create the Certificate Authority
 echo '{"CN":"Sensu Test CA","key":{"algo":"rsa","size":2048}}' | cfssl gencert -initca - | cfssljson -bare ca -
 # Define signing parameters and profiles. Note that agent profile provides the "client auth" usage required for mTLS.
-echo '{"signing":{"default":{"expiry":"17520h","usages":["signing","key encipherment","client auth"]},"profiles":{"backend":{"usages":["signing","key encipherment","server auth"],"expiry":"4320h"},"agent":{"usages":["signing","key encipherment","client auth"],"expiry":"4320h"}}}}' > ca-config.json
+echo '{"signing":{"default":{"expiry":"17520h","usages":["signing","key encipherment","client auth"]},"profiles":{"backend":{"usages":["signing","key encipherment","server auth","client auth"],"expiry":"4320h"},"agent":{"usages":["signing","key encipherment","client auth"],"expiry":"4320h"}}}}' > ca-config.json
 {{< /highlight >}}
 
 <a name="copy-ca-pem"></a>
@@ -282,7 +282,7 @@ Now that you have generated the required certificates and copied them to the app
 
 [1]: ../securing-sensu/
 [2]: ../securing-sensu/#secure-etcd-peer-communication
-[3]: ../securing-sensu/#secure-the-api-and-dashboard
+[3]: ../securing-sensu/#secure-the-api-and-web-ui
 [4]: ../securing-sensu/#secure-sensu-agent-to-server-communication
 [5]: ../securing-sensu/#sensu-agent-mtls-authentication
 [6]: https://github.com/cloudflare/cfssl
