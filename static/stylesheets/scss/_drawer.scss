@@ -1,7 +1,7 @@
 .drawer {
   display: flex;
+  flex: 0 0 75%;
   height: calc(100vh - #{$header-height-sm});
-  justify-content: flex-end;
   left: -75%;
   max-width: 26rem;
   position: fixed;
@@ -19,11 +19,10 @@
   }
 
   @media (min-width: $breakpoint-lg) {
-    grid-area: drawer;
+    flex: 0 0 25%;
     height: calc(100vh - #{$header-height-lg});
-    max-width: 100%;
-    position: sticky;
-    top: 7rem;
+    position: static;
+    width: 25%;
     z-index: 1;
   }
 
@@ -62,9 +61,10 @@
     @media (min-width: $breakpoint-lg) {
       background-color: transparent;
       min-width: auto;
+      max-width: 31rem;
       overflow: auto;
-      width: 100%;
       padding-top: 6rem;
+      position: fixed;
     }
 
     nav {

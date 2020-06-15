@@ -28,7 +28,14 @@
     </div>
   </article>
 
-  {{ partial "toc" . }}
+  <div class="results" role="status" aria-live="polite">
+    <div class="scrollable">
+      <div class="wrapper">
+        <div class="meta"></div>
+        <div class="list"></div>
+      </div>
+    </div>
+  </div>
 </main>
 
 {{ partial "footer" . }}
