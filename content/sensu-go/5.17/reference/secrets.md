@@ -31,7 +31,7 @@ Secrets are only transmitted over a TLS websocket connection.
 Unencrypted connections must not transmit privileged information.
 For agent-side resources, enable TLS/mTLS.
 
-Sensu only exposes secrets to Sensu services like environment variables and automatically redacts secrets from all logs, the API, and the dashboard.
+Sensu only exposes secrets to Sensu services like environment variables and automatically redacts secrets from all logs, the API, and the web UI.
  
 ## Secret specification
 

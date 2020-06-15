@@ -442,7 +442,7 @@ example      | {{< highlight shell >}}"namespace": "production"{{< /highlight >}
 
 | labels     |      |
 -------------|------
-description  | Custom attributes to include with event data that you can use for response and dashboard view filtering.<br><br>If you include labels in your event data, you can filter [API responses][36], [sensuctl responses][37], and [dashboard views][41] based on them. In other words, labels allow you to create meaningful groupings for your data.<br><br>Limit labels to metadata you need to use for response filtering. For complex, non-identifying metadata that you will *not* need to use in response filtering, use annotations rather than labels.
+description  | Custom attributes to include with event data that you can use for response and web UI view filtering.<br><br>If you include labels in your event data, you can filter [API responses][36], [sensuctl responses][37], and [web UI views][41] based on them. In other words, labels allow you to create meaningful groupings for your data.<br><br>Limit labels to metadata you need to use for response filtering. For complex, non-identifying metadata that you will *not* need to use in response filtering, use annotations rather than labels.
 required     | false
 type         | Map of key-value pairs. Keys can contain only letters, numbers, and underscores and must start with a letter. Values can be any valid UTF-8 string.
 default      | `null`
@@ -453,7 +453,7 @@ example      | {{< highlight shell >}}"labels": {
 
 | annotations | |
 -------------|------
-description  | Non-identifying metadata to include with event data that you can access with [event filters][40]. You can use annotations to add data that's meaningful to people or external tools that interact with Sensu.<br><br>In contrast to labels, you cannot use annotations in [API response filtering][36], [sensuctl response filtering][37], or [dashboard views][41].
+description  | Non-identifying metadata to include with event data that you can access with [event filters][40]. You can use annotations to add data that's meaningful to people or external tools that interact with Sensu.<br><br>In contrast to labels, you cannot use annotations in [API response filtering][36], [sensuctl response filtering][37], or [web UI views][42].
 required     | false
 type         | Map of key-value pairs. Keys and values can be any valid UTF-8 string.
 default      | `null`
@@ -863,8 +863,9 @@ spec:
 [34]: #spec-attributes
 [35]: https://regex101.com/r/zo9mQU/2
 [36]: ../../api/overview#response-filtering
-[37]: ../../sensuctl/reference#response-filters
+[37]: ../../sensuctl/reference#response-filtering
 [38]: https://en.wikipedia.org/wiki/Modulo_operation
 [39]: ../assets/
 [40]: ../filters/
-[41]: ../../dashboard/filtering#filter-with-label-selectors
+[41]: ../../web-ui/filter#filter-with-label-selectors
+[42]: ../../web-ui/filter/

@@ -4,44 +4,45 @@ linkTitle: "Release Notes"
 description: "Read the Sensu Go release notes to learn about what's new in our latest release."
 weight: -80
 product: "Sensu Go"
+toc: false
 version: "5.18"
 menu: "sensu-go-5.18"
 ---
 
-- [5.18.1 release notes](#5-18-1-release-notes)
-- [5.18.0 release notes](#5-18-0-release-notes)
-- [5.17.2 release notes](#5-17-2-release-notes)
-- [5.17.1 release notes](#5-17-1-release-notes)
-- [5.17.0 release notes](#5-17-0-release-notes)
-- [5.16.1 release notes](#5-16-1-release-notes)
-- [5.16.0 release notes](#5-16-0-release-notes)
-- [5.15.0 release notes](#5-15-0-release-notes)
-- [5.14.2 release notes](#5-14-2-release-notes)
-- [5.14.1 release notes](#5-14-1-release-notes)
-- [5.14.0 release notes](#5-14-0-release-notes)
-- [5.13.2 release notes](#5-13-2-release-notes)
-- [5.13.1 release notes](#5-13-1-release-notes)
-- [5.13.0 release notes](#5-13-0-release-notes)
-- [5.12.0 release notes](#5-12-0-release-notes)
-- [5.11.1 release notes](#5-11-1-release-notes)
-- [5.11.0 release notes](#5-11-0-release-notes)
-- [5.10.2 release notes](#5-10-2-release-notes)
-- [5.10.1 release notes](#5-10-1-release-notes)
-- [5.10.0 release notes](#5-10-0-release-notes)
-- [5.9.0 release notes](#5-9-0-release-notes)
-- [5.8.0 release notes](#5-8-0-release-notes)
-- [5.7.0 release notes](#5-7-0-release-notes)
-- [5.6.0 release notes](#5-6-0-release-notes)
-- [5.5.1 release notes](#5-5-1-release-notes)
-- [5.5.0 release notes](#5-5-0-release-notes)
-- [5.4.0 release notes](#5-4-0-release-notes)
-- [5.3.0 release notes](#5-3-0-release-notes)
-- [5.2.1 release notes](#5-2-1-release-notes)
-- [5.2.0 release notes](#5-2-0-release-notes)
-- [5.1.1 release notes](#5-1-1-release-notes)
-- [5.1.0 release notes](#5-1-0-release-notes)
-- [5.0.1 release notes](#5-0-1-release-notes)
-- [5.0.0 release notes](#5-0-0-release-notes)
+- [5.18.1 release notes](#5181-release-notes)
+- [5.18.0 release notes](#5180-release-notes)
+- [5.17.2 release notes](#5172-release-notes)
+- [5.17.1 release notes](#5171-release-notes)
+- [5.17.0 release notes](#5170-release-notes)
+- [5.16.1 release notes](#5161-release-notes)
+- [5.16.0 release notes](#5160-release-notes)
+- [5.15.0 release notes](#5150-release-notes)
+- [5.14.2 release notes](#5142-release-notes)
+- [5.14.1 release notes](#5141-release-notes)
+- [5.14.0 release notes](#5140-release-notes)
+- [5.13.2 release notes](#5132-release-notes)
+- [5.13.1 release notes](#5131-release-notes)
+- [5.13.0 release notes](#5130-release-notes)
+- [5.12.0 release notes](#5120-release-notes)
+- [5.11.1 release notes](#5111-release-notes)
+- [5.11.0 release notes](#5110-release-notes)
+- [5.10.2 release notes](#5102-release-notes)
+- [5.10.1 release notes](#5101-release-notes)
+- [5.10.0 release notes](#5100-release-notes)
+- [5.9.0 release notes](#590-release-notes)
+- [5.8.0 release notes](#580-release-notes)
+- [5.7.0 release notes](#570-release-notes)
+- [5.6.0 release notes](#560-release-notes)
+- [5.5.1 release notes](#551-release-notes)
+- [5.5.0 release notes](#550-release-notes)
+- [5.4.0 release notes](#540-release-notes)
+- [5.3.0 release notes](#530-release-notes)
+- [5.2.1 release notes](#521-release-notes)
+- [5.2.0 release notes](#520-release-notes)
+- [5.1.1 release notes](#511-release-notes)
+- [5.1.0 release notes](#510-release-notes)
+- [5.0.1 release notes](#501-release-notes)
+- [5.0.0 release notes](#500-release-notes)
 
 ### Versioning
 
@@ -428,7 +429,7 @@ See the [installation guide][16] for the latest download links.
 See our [authentication documentation][17] for details.
 - Added sensu-agent and sensuctl binary builds for FreeBSD.
 - Added sensuctl dump command to output resources to a file or STDOUT, making it easier to back up your Sensu backends.
-- Agents can now be configured with a whitelist of executables that are allowed to run as check and hook commands.
+- Agents can now be configured with a list of executables that are allowed to run as check and hook commands.
 See the [agent reference][78] for more information.
 
 **IMPROVEMENTS:**
@@ -1097,7 +1098,7 @@ To get started with Sensu Go:
 [104]: /sensu-go/5.16/
 [105]: /sensu-go/5.16/getting-started/enterprise/
 [106]: /sensu-go/5.17/commercial/
-[107]: /sensu-go/5.17/dashboard/overview
+[107]: /sensu-go/5.17/web-ui/sign-in
 [108]: /sensu-go/5.17/api/secrets
 [109]: /sensu-go/5.17/reference/backend/#docker-initialization
 [110]: /sensu-go/5.17/api/overview/#field-selector

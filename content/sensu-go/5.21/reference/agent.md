@@ -227,7 +227,7 @@ example url     | http://hostname:3031/healthz
 ## Create monitoring events using the StatsD listener
 
 Sensu agents include a listener to send [StatsD][21] metrics to the event pipeline.
-By default, Sensu agents listen on UDP socket 8125 (TCP on Windows systems) for messages that follow the [StatsD line protocol][21] and send metric events for handling by the Sensu backend.
+By default, Sensu agents listen on UDP socket 8125 for messages that follow the [StatsD line protocol][21] and send metric events for handling by the Sensu backend.
 
 For example, you can use the [Netcat][19] utility to send metrics to the StatsD listener:
 
@@ -419,10 +419,10 @@ example      | {{< highlight shell >}}"handlers": ["slack", "influxdb"]{{< /high
 Sensu `keepalives` are the heartbeat mechanism used to ensure that all registered agents are operational and able to reach the [Sensu backend][2].
 Sensu agents publish keepalive events containing [entity][3] configuration data to the Sensu backend according to the interval specified by the [`keepalive-interval` flag][4].
 
-If a Sensu agent fails to send keepalive events over the period specified by the [`keepalive-critical-timeout` flag][4], the Sensu backend creates a keepalive **critical** alert in the Sensu dashboard.
+If a Sensu agent fails to send keepalive events over the period specified by the [`keepalive-critical-timeout` flag][4], the Sensu backend creates a keepalive **critical** alert in the Sensu web UI.
 The `keepalive-critical-timeout` is set to `0` (disabled) by default to help ensure that it will not interfere with your `keepalive-warning-timeout` setting.
 
-If a Sensu agent fails to send keepalive events over the period specified by the [`keepalive-warning-timeout` flag][4], the Sensu backend creates a keepalive **warning** alert in the Sensu dashboard.
+If a Sensu agent fails to send keepalive events over the period specified by the [`keepalive-warning-timeout` flag][4], the Sensu backend creates a keepalive **warning** alert in the Sensu web UI.
 The value you specify for `keepalive-warning-timeout` must be lower than the value you specify for `keepalive-critical-timeout`.
 
 You can use keepalives to identify unhealthy systems and network partitions, send notifications, and trigger auto-remediation, among other useful actions.
@@ -774,6 +774,8 @@ Flags:
       --namespace string                      agent namespace (default "default")
       --password string                       agent password (default "P@ssw0rd!")
       --redact string                         comma-delimited customized list of fields to redact
+      --require-fips                          indicates whether fips support should be required in openssl
+      --require-openssl                       indicates whether openssl should be required instead of go's built-in crypto
       --socket-host string                    address to bind the Sensu client socket to (default "127.0.0.1")
       --socket-port int                       port the Sensu client socket listens on (default 3030)
       --statsd-disable                        disables the statsd listener and metrics server
@@ -816,7 +818,7 @@ allow-list: /etc/sensu/check-allow-list.yaml{{< /highlight >}}
 
 | annotations|      |
 -------------|------
-description  | Non-identifying metadata to include with event data that you can access with [event filters][9] and [tokens][27]. You can use annotations to add data that is meaningful to people or external tools that interact with Sensu.<br><br>In contrast to labels, you cannot use annotations in [API response filtering][25], [sensuctl response filtering][26], or [dashboard view filtering][54].
+description  | Non-identifying metadata to include with event data that you can access with [event filters][9] and [tokens][27]. You can use annotations to add data that is meaningful to people or external tools that interact with Sensu.<br><br>In contrast to labels, you cannot use annotations in [API response filtering][25], [sensuctl response filtering][26], or [web UI view filtering][54].
 required     | false
 type         | Map of key-value pairs. Keys and values can be any valid UTF-8 string.
 default      | `null`
@@ -937,7 +939,7 @@ discover-processes: true{{< /highlight >}}
 
 | labels     |      |
 -------------|------
-description  | Custom attributes to include with event data that you can use for response and dashboard view filtering.<br><br>If you include labels in your event data, you can filter [API responses][25], [sensuctl responses][26], and [dashboard views][54] based on them. In other words, labels allow you to create meaningful groupings for your data.<br><br>Limit labels to metadata you need to use for response filtering. For complex, non-identifying metadata that you will *not* need to use in response filtering, use annotations rather than labels.
+description  | Custom attributes to include with event data that you can use for response and web UI view filtering.<br><br>If you include labels in your event data, you can filter [API responses][25], [sensuctl responses][26], and [web UI views][54] based on them. In other words, labels allow you to create meaningful groupings for your data.<br><br>Limit labels to metadata you need to use for response filtering. For complex, non-identifying metadata that you will *not* need to use in response filtering, use annotations rather than labels.
 required     | false
 type         | Map of key-value pairs. Keys can contain only letters, numbers, and underscores and must start with a letter. Values can be any valid UTF-8 string.
 default      | `null`
@@ -1276,6 +1278,38 @@ sensu-agent start --insecure-skip-tls-verify
 
 # /etc/sensu/agent.yml example
 insecure-skip-tls-verify: true{{< /highlight >}}
+
+<a name="fips-openssl"></a>
+
+| require-fips |      |
+------------------|------
+description       | Require Federal Information Processing Standard (FIPS) support in OpenSSL. Logs an error at Sensu agent startup if `true` but OpenSSL is not running in FIPS mode.<br>{{% notice note %}}
+**NOTE**: The `--require-fips` flag is only available within the Linux amd64 OpenSSL-linked binary.
+[Contact Sensu](https://sensu.io/contact) to request the builds for OpenSSL with FIPS support.
+{{% /notice %}}
+type              | Boolean
+default           | false
+environment variable | `SENSU_REQUIRE_FIPS`
+example           | {{< highlight shell >}}# Command line example
+sensu-agent start --require-fips
+
+# /etc/sensu/agent.yml example
+require-fips: true{{< /highlight >}}
+
+| require-openssl |      |
+------------------|------
+description       | Use OpenSSL instead of Go's standard cryptography library. Logs an error at Sensu agent startup if `true` but Go's standard cryptography library is loaded.<br>{{% notice note %}}
+**NOTE**: The `--require-openssl` flag is only available within the Linux amd64 OpenSSL-linked binary.
+[Contact Sensu](https://sensu.io/contact) to request the builds for OpenSSL with FIPS support.
+{{% /notice %}}
+type              | Boolean
+default           | false
+environment variable | `SENSU_REQUIRE_OPENSSL`
+example           | {{< highlight shell >}}# Command line example
+sensu-agent start --require-openssl
+
+# /etc/sensu/agent.yml example
+require-openssl: true{{< /highlight >}}
 
 
 ### Socket configuration flags
@@ -1628,6 +1662,6 @@ For example, if you create a `SENSU_TEST_VAR` variable in your sensu-agent file,
 [51]: #events-post-specification
 [52]: ../handlers/#keepalive-event-handlers
 [53]: #keepalive-handlers-flag
-[54]: ../../dashboard/filtering#filter-with-label-selectors
+[54]: ../../web-ui/filter#filter-with-label-selectors
 [55]: ../../commercial/
 [56]: #allow-list

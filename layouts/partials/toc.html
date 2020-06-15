@@ -1,0 +1,8 @@
+<aside id="toc">
+  {{ if ne .Params.toc false }}
+    <div>
+      <h4>On this page:</h4>
+      {{ .TableOfContents }}
+    </div>
+  {{ end }}
+</aside>

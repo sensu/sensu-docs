@@ -82,17 +82,17 @@ example      | {{< highlight shell >}}
 "spec": {
   "client": {
     "address": "https://vaultserver.example.com:8200",
-    "token": "VAULT_TOKEN",
-    "version": "v1",
+    "max_retries": 2,
+    "rate_limiter": {
+      "limit": 10.0,
+      "burst": 100
+    },
+    "timeout": "20s",
     "tls": {
       "ca_cert": "/etc/ssl/certs/vault_ca_cert.pem"
-    }
-  },
-  "max_retries": 2,
-  "timeout": "20s",
-  "rate_limiter": {
-    "limit": 10.0,
-    "burst": 100
+    },
+    "token": "VAULT_TOKEN",
+    "version": "v1"
   }
 }
 {{< /highlight >}}
@@ -116,39 +116,19 @@ type         | Map of key-value pairs
 example      | {{< highlight shell >}}
 "client": {
   "address": "https://vaultserver.example.com:8200",
-  "token": "VAULT_TOKEN",
-  "version": "v1",
+  "max_retries": 2,
+  "rate_limiter": {
+    "limit": 10.0,
+    "burst": 100
+  },
+  "timeout": "20s",
   "tls": {
     "ca_cert": "/etc/ssl/certs/vault_ca_cert.pem"
+  },
+  "token": "VAULT_TOKEN",
+  "version": "v1"
 }
-{{< /highlight >}}
-
-max_retries  | 
--------------|------ 
-description  | Number of times to retry connecting to the vault provider.
-required     | true
-type         | Integer
-default      | 2
-example      | {{< highlight shell >}}"max_retries": 2{{< /highlight >}}
-
-timeout      | 
--------------|------ 
-description  | Provider connection timeout (hard stop).
-required     | false
-type         | String
-default      | 60s
-example      | {{< highlight shell >}}"timeout": "20s"{{< /highlight >}}
-
-rate_limiter | 
--------------|------ 
-description  | Maximum [rate and burst limits][17] for the secrets API.
-required     | false
-type         | Map of key-value pairs
-example      | {{< highlight shell >}}
-"rate_limiter": {
-  "limit": 10.0,
-  "burst": 100
-}
+  
 {{< /highlight >}}
 
 #### Client attributes
@@ -162,19 +142,33 @@ example      | {{< highlight shell >}}
 "address": "https://vaultserver.example.com:8200"
 {{< /highlight >}}
 
-token        | 
+max_retries  | 
 -------------|------ 
-description  | Vault token to use for authentication.
+description  | Number of times to retry connecting to the vault provider.
 required     | true
-type         | String
-example      | {{< highlight shell >}}"token": "VAULT_TOKEN"{{< /highlight >}}
+type         | Integer
+default      | 2
+example      | {{< highlight shell >}}"max_retries": 2{{< /highlight >}}
 
-version      | 
+rate_limiter | 
 -------------|------ 
-description  | HashiCorp Vault [HTTP API version][14].
-required     | true
+description  | Maximum [rate and burst limits][17] for the secrets API.
+required     | false
+type         | Map of key-value pairs
+example      | {{< highlight shell >}}
+"rate_limiter": {
+  "limit": 10.0,
+  "burst": 100
+}
+{{< /highlight >}}
+
+timeout      | 
+-------------|------ 
+description  | Provider connection timeout (hard stop).
+required     | false
 type         | String
-example      | {{< highlight shell >}}"version": "v1"{{< /highlight >}}
+default      | 60s
+example      | {{< highlight shell >}}"timeout": "20s"{{< /highlight >}}
 
 <a name="tls-vault"></a>
 
@@ -191,6 +185,20 @@ example      | {{< highlight shell >}}
   "cname": "vault_client.example.com"
 }
 {{< /highlight >}}
+
+token        | 
+-------------|------ 
+description  | Vault token to use for authentication.
+required     | true
+type         | String
+example      | {{< highlight shell >}}"token": "VAULT_TOKEN"{{< /highlight >}}
+
+version      | 
+-------------|------ 
+description  | HashiCorp Vault [HTTP API version][14].
+required     | true
+type         | String
+example      | {{< highlight shell >}}"version": "v1"{{< /highlight >}}
 
 <a name="rate-limiter-attributes"></a>
 

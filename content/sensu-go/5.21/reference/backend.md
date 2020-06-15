@@ -1,7 +1,7 @@
 ---
 title: "Sensu backend"
 linkTitle: "Sensu Backend"
-description: "The Sensu backend manages check requests and event data. Every Sensu backend includes an event processing pipeline that applies filters, mutators, handlers, the Sensu API, and the Sensu dashboard. Read the reference doc to run the Sensu backend."
+description: "The Sensu backend manages check requests and event data. Every Sensu backend includes an event processing pipeline that applies filters, mutators, handlers, the Sensu API, and the Sensu web UI. Read the reference doc to run the Sensu backend."
 weight: 20
 version: "5.21"
 product: "Sensu Go"
@@ -18,14 +18,14 @@ menu:
 - [Operation and service management](#operation)
   - [Start and stop the service](#start-the-service) | [Cluster](#cluster) | [Synchronize time](#synchronize-time)
 - [Configuration](#configuration)
-  - [General configuration](#general-configuration-flags) | [Agent communication configuration](#agent-communication-configuration-flags) | [Security configuration](#security-configuration-flags) | [Dashboard configuration](#dashboard-configuration-flags) | [Datastore and cluster configuration](#datastore-and-cluster-configuration-flags) | [Advanced configuration options](#advanced-configuration-options)
+  - [General configuration](#general-configuration-flags) | [Agent communication configuration](#agent-communication-configuration-flags) | [Security configuration](#security-configuration-flags) | [Web UI configuration](#web-ui-configuration-flags) | [Datastore and cluster configuration](#datastore-and-cluster-configuration-flags) | [Advanced configuration options](#advanced-configuration-options)
   - [Configuration via environment variables](#configuration-via-environment-variables)
 - [Event logging](#event-logging)
   - [Log rotation](#log-rotation)
 - [Example Sensu backend configuration file](../../files/backend.yml) (download)
 
 The Sensu backend is a service that manages check requests and event data.
-Every Sensu backend includes an integrated transport for scheduling checks using subscriptions, an event processing pipeline that applies filters, mutators, and handlers, an embedded [etcd][2] datastore for storing configuration and state, a Sensu API, a [Sensu dashboard][6], and the `sensu-backend` command line tool.
+Every Sensu backend includes an integrated transport for scheduling checks using subscriptions, an event processing pipeline that applies filters, mutators, and handlers, an embedded [etcd][2] datastore for storing configuration and state, a Sensu API, a [Sensu web UI][6], and the `sensu-backend` command line tool.
 The Sensu backend is available for Ubuntu/Debian and RHEL/CentOS distributions of Linux.
 See the [installation guide][1] to install the backend.
 
@@ -307,6 +307,8 @@ General Flags:
       --log-level string                    logging level [panic, fatal, error, warn, info, debug] (default "warn")
       --pipelined-buffer-size int           number of events to handle that can be buffered (default 100)
       --pipelined-workers int               number of workers spawned for handling events through the event pipeline (default 100)
+      --require-fips                        indicates whether fips support should be required in openssl
+      --require-openssl                     indicates whether openssl should be required instead of go's built-in crypto
   -d, --state-dir string                    path to sensu state storage (default "/var/lib/sensu/sensu-backend")
       --trusted-ca-file string              TLS CA certificate bundle in PEM format
 
@@ -593,7 +595,7 @@ agent-port: 8081{{< /highlight >}}
 
 | cert-file  |      |
 -------------|------
-description  | Path to the primary backend certificate file. Specifies a fallback SSL/TLS certificate if the flag `dashboard-cert-file` is not used. This certificate secures communications between the Sensu dashboard and end user web browsers, as well as communication between sensuctl and the Sensu API.
+description  | Path to the primary backend certificate file. Specifies a fallback SSL/TLS certificate if the flag `dashboard-cert-file` is not used. This certificate secures communications between the Sensu web UI and end user web browsers, as well as communication between sensuctl and the Sensu API.
 type         | String
 default      | `""`
 environment variable | `SENSU_BACKEND_CERT_FILE`
@@ -623,7 +625,7 @@ insecure-skip-tls-verify: true{{< /highlight >}}
 
 | jwt-private-key-file |      |
 -------------|------
-description  | Path to the PEM-encoded private key to use to sign JSON Web Tokens (JWTs). {{% notice note %}}
+description  | Path to the PEM-encoded private key to use to sign JSON Web Tokens (JWTs).<br>{{% notice note %}}
 **NOTE**: The internal symmetric secret key is used by default to sign all JWTs unless a private key is specified via this attribute.
 {{% /notice %}}
 type         | String
@@ -638,7 +640,7 @@ jwt-private-key-file: /path/to/key/private.pem{{< /highlight >}}
 
 | jwt-public-key-file |      |
 -------------|------
-description  | Path to the PEM-encoded public key to use to verify JSON Web Token (JWT) signatures. {{% notice note %}}
+description  | Path to the PEM-encoded public key to use to verify JSON Web Token (JWT) signatures.<br>{{% notice note %}}
 **NOTE**: JWTs signed with the internal symmetric secret key will continue to be verified with that key.
 {{% /notice %}}
 type         | String
@@ -654,7 +656,7 @@ jwt-public-key-file: /path/to/key/public.pem{{< /highlight >}}
 
 | key-file   |      |
 -------------|------
-description  | Path to the primary backend key file. Specifies a fallback SSL/TLS key if the flag `dashboard-key-file` is not used. This key secures communication between the Sensu dashboard and end user web browsers, as well as communication between sensuctl and the Sensu API.
+description  | Path to the primary backend key file. Specifies a fallback SSL/TLS key if the flag `dashboard-key-file` is not used. This key secures communication between the Sensu web UI and end user web browsers, as well as communication between sensuctl and the Sensu API.
 type         | String
 default      | `""`
 environment variable | `SENSU_BACKEND_KEY_FILE`
@@ -664,10 +666,41 @@ sensu-backend start --key-file /path/to/ssl/key.pem
 # /etc/sensu/backend.yml example
 key-file: "/path/to/ssl/key.pem"{{< /highlight >}}
 
+<a name="fips-openssl"></a>
+
+| require-fips |      |
+------------------|------
+description       | Require Federal Information Processing Standard (FIPS) support in OpenSSL. Logs an error at Sensu backend startup if `true` but OpenSSL is not running in FIPS mode.<br>{{% notice note %}}
+**NOTE**: The `--require-fips` flag is only available within the Linux amd64 OpenSSL-linked binary.
+[Contact Sensu](https://sensu.io/contact) to request the builds for OpenSSL with FIPS support.
+{{% /notice %}}
+type              | Boolean
+default           | false
+environment variable | `SENSU_BACKEND_REQUIRE_FIPS`
+example           | {{< highlight shell >}}# Command line example
+sensu-backend start --require-fips
+
+# /etc/sensu/backend.yml example
+require-fips: true{{< /highlight >}}
+
+| require-openssl |      |
+------------------|------
+description       | Use OpenSSL instead of Go's standard cryptography library. Logs an error at Sensu backend startup if `true` but Go's standard cryptography library is loaded.<br>{{% notice note %}}
+**NOTE**: The `--require-openssl` flag is only available within the Linux amd64 OpenSSL-linked binary.
+[Contact Sensu](https://sensu.io/contact) to request the builds for OpenSSL with FIPS support.
+{{% /notice %}}
+type              | Boolean
+default           | false
+environment variable | `SENSU_BACKEND_REQUIRE_OPENSSL`
+example           | {{< highlight shell >}}# Command line example
+sensu-backend start --require-openssl
+
+# /etc/sensu/backend.yml example
+require-openssl: true{{< /highlight >}}
 
 | trusted-ca-file |      |
 ------------------|------
-description       | Path to the primary backend CA file. Specifies a fallback SSL/TLS certificate authority in PEM format used for etcd client (mutual TLS) communication if the `etcd-trusted-ca-file` is not used. This CA file is used in communication between the Sensu dashboard and end user web browsers, as well as communication between sensuctl and the Sensu API.
+description       | Path to the primary backend CA file. Specifies a fallback SSL/TLS certificate authority in PEM format used for etcd client (mutual TLS) communication if the `etcd-trusted-ca-file` is not used. This CA file is used in communication between the Sensu web UI and end user web browsers, as well as communication between sensuctl and the Sensu API.
 type              | String
 default           | `""`
 environment variable | `SENSU_BACKEND_TRUSTED_CA_FILE`
@@ -678,11 +711,11 @@ sensu-backend start --trusted-ca-file /path/to/trusted-certificate-authorities.p
 trusted-ca-file: "/path/to/trusted-certificate-authorities.pem"{{< /highlight >}}
 
 
-### Dashboard configuration flags
+### Web UI configuration flags
 
 | dashboard-cert-file | |
 -------------|------
-description  | Dashboard TLS certificate in PEM format. This certificate secures communication with the Sensu dashboard. If the `dashboard-cert-file` is not provided in the backend configuration, Sensu uses the certificate specified in the [`cert-file` flag](#security-configuration-flags) for the dashboard.
+description  | Web UI TLS certificate in PEM format. This certificate secures communication with the Sensu web UI. If the `dashboard-cert-file` is not provided in the backend configuration, Sensu uses the certificate specified in the [`cert-file` flag](#security-configuration-flags) for the web UI.
 type         | String
 default      | `""`
 environment variable | `SENSU_BACKEND_DASHBOARD_CERT_FILE`
@@ -695,7 +728,7 @@ dashboard-cert-file: "/path/to/tls/cert.pem"{{< /highlight >}}
 
 | dashboard-host |      |
 -----------------|------
-description      | Dashboard listener host.
+description      | Web UI listener host.
 type             | String
 default          | `[::]`
 environment variable | `SENSU_BACKEND_DASHBOARD_HOST`
@@ -708,7 +741,7 @@ dashboard-host: "127.0.0.1"{{< /highlight >}}
 
 | dashboard-key-file | |
 -------------|------
-description  | Dashboard TLS certificate key in PEM format. This key secures communication with the Sensu dashboard. If the `dashboard-key-file` is not provided in the backend configuration, Sensu uses the key specified in the [`key-file` flag](#security-configuration-flags) for the dashboard.
+description  | Web UI TLS certificate key in PEM format. This key secures communication with the Sensu web UI. If the `dashboard-key-file` is not provided in the backend configuration, Sensu uses the key specified in the [`key-file` flag](#security-configuration-flags) for the web UI.
 type         | String
 default      | `""`
 environment variable | `SENSU_BACKEND_DASHBOARD_KEY_FILE`
@@ -721,7 +754,7 @@ dashboard-key-file: "/path/to/tls/key.pem"{{< /highlight >}}
 
 | dashboard-port |      |
 -----------------|------
-description      | Dashboard listener port.
+description      | Web UI listener port.
 type             | Integer
 default          | `3000`
 environment variable | `SENSU_BACKEND_DASHBOARD_PORT`
@@ -1393,7 +1426,7 @@ The _SIGHUP_ signal causes the `backend` component to reload instead of restarti
 [3]: ../../guides/monitor-server-resources/
 [4]: ../../guides/extract-metrics-with-checks/
 [5]: ../../reference/checks/
-[6]: ../../dashboard/overview/
+[6]: ../../web-ui/sign-in/
 [7]: ../../guides/send-slack-alerts/
 [8]: ../../guides/reduce-alert-fatigue/
 [9]: ../../reference/filters/
