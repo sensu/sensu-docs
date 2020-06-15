@@ -69,7 +69,7 @@ Read the [upgrade guide][1] for information about upgrading to the latest versio
 
 **June 15, 2020** &mdash; The latest release of Sensu Go, version 5.21.0, is now available for download.
 
-**RELEASE SYNOPSIS NEEDED HERE**
+The latest release of Sensu Go, version 5.21.0, is now available for download! This release delivers several enhancements and fixes. The most significant enhancements involve user management: you can now back up users via `sensuctl dump`, restore users via `sensuctl create`, and reset user passwords via the backend API. We also tuned Sensu Go agent logging and changed the default log level from warning to info. Plus, we crushed a number of nasty bugs: checks configured with missing hooks can no longer crash the agent, proxy check request errors do not block scheduling for other entities, and more!
 
 See the [upgrade guide][1] to upgrade Sensu to version 5.21.0.
 
