@@ -42,8 +42,8 @@
                       </span>
                       <ul>
                         <!-- Loop through the child menu's pages -->
-                        {{ range .Children.ByWeight }}
-                          {{ if and (ne .Page.Params.offline false) (ne (lower .Parent) (lower .Name)) }}
+                        {{ range where .Children.ByWeight ".Page.Params.offline" "!=" false }}
+                          {{ if not (eq (lower .Parent) (lower .Name)) }}
                             <li><a href="{{ .URL | absURL }}">{{ .Name }}</a></li>
                           {{ end }}
                         {{ end }}
@@ -52,8 +52,8 @@
                   {{ end }}
                 <!-- No children, this is top level menu items -->
                 {{ else }}
-                  {{ if and (ne .Page.Params.offline false) (ne $.Params.product $x.Name) }}
-                    <li><a class="strong" href="{{ .URL | absURL }}">{{ $x.Name }}</a></li>
+                  {{ if not (eq $.Params.product $x.Name) }}
+                  <li><a class="strong" href="{{ .URL | absURL }}">{{ $x.Name }}</a></li>
                   {{ end }}
                 {{ end }}
                 </ul>
