@@ -3,6 +3,7 @@ title: "Interactive Tutorial: Up and Running with Sensu Go"
 linkTitle: "Up and Running with Sensu Go"
 description: "Get up and running with Sensu Go in your browser with an interactive tutorial. Learn the basics of Sensu Go and send email alerts."
 version: "5.21"
+toc: false
 product: "Sensu Go"
 layout: "katacoda-wide"
 ---
@@ -26,6 +27,4 @@ s.parentNode.insertBefore(b, s);})();
     style="height: 800px; padding-top: 10px;" 
 ></div>
 <br><br>
-[**<-- Back to Learn Sensu with interactive training**][1]
-
-[1]: ../interactive-tutorials/
+<a href="https://docs.sensu.io/sensu-go/5.21/learn/interactive-tutorials/"><-- Back to Learn Sensu with interactive training</a>

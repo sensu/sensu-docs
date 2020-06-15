@@ -3,6 +3,7 @@ title: "Interactive Tutorial: Learn Sensu in 15 minutes"
 linkTitle: "Learn Sensu in 15 Minutes"
 description: "Get started with Sensu in your browser with an interactive tutorial. Learn the basics of Sensu Go and monitor a web server."
 version: "5.21"
+toc: false
 product: "Sensu Go"
 layout: "katacoda-wide"
 ---

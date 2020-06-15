@@ -3,6 +3,7 @@ title: "Interactive Tutorial: Send Sensu Go alerts to PagerDuty"
 linkTitle: "Send Sensu Go alerts to PagerDuty"
 description: "See Sensu Go's monitoring event pipeline in action, using PagerDuty to view Sensu alerts."
 version: "5.17"
+toc: false
 product: "Sensu Go"
 layout: "katacoda-wide"
 ---
@@ -26,6 +27,4 @@ s.parentNode.insertBefore(b, s);})();
     style="height: 800px; padding-top: 10px;" 
 ></div>
 <br><br>
-[**<-- Back to Learn Sensu with interactive training**][1]
-
-[1]: ../interactive-tutorials/
+<a href="https://docs.sensu.io/sensu-go/5.17/learn/interactive-tutorials/"><-- Back to Learn Sensu with interactive training</a>
