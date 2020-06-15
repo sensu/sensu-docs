@@ -39,7 +39,7 @@
             "url": "https://sensu.io/resources",
             "status": 301
         },
-        "~ ^/sensu-go/5.20/?((?<=\/).*)?$": {
+        "~ ^/sensu-go/5.21/?((?<=\/).*)?$": {
             "url": "/sensu-go/latest/$1",
             "status": 302
         },
