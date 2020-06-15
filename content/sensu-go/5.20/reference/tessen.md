@@ -9,12 +9,6 @@ menu:
     parent: reference
 ---
 
-- [Configure Tessen](#configure-tessen)
-- [Tessen specification](#tessen-specification)
-  - [Top-level attributes](#top-level-attributes) | [Spec attributes](#spec-attributes)
-- [Tessen configuration example](#tessen-configuration-example)
-- [Tessen metrics log examples](#tessen-metrics-log-examples)
-
 Tessen is the Sensu call-home service.
 It is enabled by default on Sensu backends.
 Tessen sends anonymized data about Sensu instances to Sensu Inc., including the version, cluster size, number of events processed, and number of resources created (like checks and handlers).

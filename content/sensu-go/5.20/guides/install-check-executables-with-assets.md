@@ -11,11 +11,6 @@ menu:
     parent: guides
 ---
 
-- [1. Register the Sensu PagerDuty Handler asset](#1-register-the-sensu-pagerduty-handler-asset)
-- [2. Adjust the asset definition](#2-adjust-the-asset-definition)
-- [3. Create a monitoring workflow](#3-create-a-workflow)
-- [Next steps](#next-steps)
-
 Assets are shareable, reusable packages that make it easier to deploy Sensu plugins.
 You can use assets to provide the plugins, libraries, and runtimes you need to automate your monitoring workflows.
 See the [asset reference][1] for more information about assets.

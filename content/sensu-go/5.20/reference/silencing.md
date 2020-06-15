@@ -10,16 +10,6 @@ menu:
     parent: reference
 ---
 
-- [Silencing specification](#silencing-specification)
-  - [Top-level attributes](#top-level-attributes) | [Metadata attributes](#metadata-attributes) | [Spec attributes](#spec-attributes)
-- [Examples](#examples)
-	- [Silence all checks on a specific entity](#silence-all-checks-on-a-specific-entity)
-	- [Silence a specific check on a specific entity](#silence-a-specific-check-on-a-specific-entity)
-	- [Silence all checks on entities with a specific subscription](#silence-all-checks-on-entities-with-a-specific-subscription)
-	- [Silence a specific check on entities with a specific subscription](#silence-a-specific-check-on-entities-with-a-specific-subscription)
-	- [Silence a specific check on every entity](#silence-a-specific-check-on-every-entity)
-	- [Delete a silence](#delete-a-silence)
-
 Sensu's silencing capability allows you to suppress event handler execution on an ad hoc basis so you can plan maintenance and reduce alert fatigue.
 Silences are created on an ad hoc basis using `sensuctl`.
 Successfully created silencing entries are assigned a `name` in the format `$SUBSCRIPTION:$CHECK`, where `$SUBSCRIPTION` is the name of a Sensu entity subscription and `$CHECK` is the name of a Sensu check.

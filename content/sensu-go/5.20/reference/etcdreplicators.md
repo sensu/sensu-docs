@@ -10,13 +10,6 @@ menu:
     parent: reference
 ---
 
-- [Create a replicator](#create-a-replicator)
-- [Delete a replicator](#delete-a-replicator)
-- [Replicator configuration](#replicator-configuration)
-- [etcd-replicators specification](#etcd-replicators-specification)
-- [Example EtcdReplicator resources](#example-etcdreplicator-resources)
-- [Critical success factors for etcd replication](#critical-success-factors-for-etcd-replication)
-
 **COMMERCIAL FEATURE**: Access the etcd-replicators datatype in the packaged Sensu Go distribution.
 For more information, see [Get started with commercial features][1].
 

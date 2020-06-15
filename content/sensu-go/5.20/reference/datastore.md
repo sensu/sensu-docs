@@ -9,12 +9,6 @@ menu:
     parent: reference
 ---
 
-- [Event storage](#event-storage)
-- [Scale event storage](#scale-event-storage) (commercial feature)
-  - [Requirements](#requirements)
-  - [Configuration](#configuration)
-  - [Datastore specification](#datastore-specification)
-
 ## Event storage
 
 Sensu stores the most recent event for each entity and check pair using either an embedded etcd (default) or an [external etcd][8] instance.

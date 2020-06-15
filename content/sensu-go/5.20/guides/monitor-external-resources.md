@@ -11,9 +11,6 @@ menu:
     parent: guides
 ---
 
-- [Use a proxy entity to monitor a website](#use-a-proxy-entity-to-monitor-a-website)
-- [Use proxy requests to monitor a group of websites](#use-proxy-requests-to-monitor-a-group-of-websites)
-
 Proxy entities allow Sensu to monitor external resources on systems and devices where a Sensu agent cannot be installed, like a network switch or a website.
 You can create [proxy entities][1] with [sensuctl][8], the [Sensu API][9], and the [`proxy_entity_name` check attribute][2].
 When executing checks that include a `proxy_entity_name` or `proxy_requests` attributes, Sensu agents report the resulting event under the proxy entity instead of the agent entity.

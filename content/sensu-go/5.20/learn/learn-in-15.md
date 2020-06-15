@@ -3,9 +3,11 @@ title: "Interactive Tutorial: Learn Sensu in 15 minutes"
 linkTitle: "Learn Sensu in 15 Minutes"
 description: "Get started with Sensu in your browser with an interactive tutorial. Learn the basics of Sensu Go and monitor a web server."
 version: "5.20"
+toc: false
 product: "Sensu Go"
 layout: "katacoda-wide"
 ---
+
 <!-- begin tracking -->
 <script> !function(e,t,n,s,u,a){e.twq||(s=e.twq=function(){s.exe?s.exe.apply(s,arguments):s.queue.push(arguments); },s.version='1.1',s.queue=[],u=t.createElement(n),u.async=!0,u.src='//static.ads-twitter.com/uwt.js', a=t.getElementsByTagName(n)[0],a.parentNode.insertBefore(u,a))}(window,document,'script'); // Insert Twitter Pixel ID and Standard Event data below twq('init','o1043'); twq('track','PageView');
 </script> <script type="text/javascript"> _linkedin_partner_id = "409770"; window._linkedin_data_partner_ids = window._linkedin_data_partner_ids || []; window._linkedin_data_partner_ids.push(_linkedin_partner_id); </script><script type="text/javascript">
@@ -26,6 +28,4 @@ s.parentNode.insertBefore(b, s);})();
     style="height: 800px; padding-top: 10px;" 
 ></div>
 <br><br>
-[**<-- Back to Learn Sensu with interactive training**][1]
-
-[1]: ../interactive-tutorials/
+<a href="https://docs.sensu.io/sensu-go/5.20/learn/interactive-tutorials/"><-- Back to Learn Sensu with interactive training</a>

@@ -9,23 +9,6 @@ menu:
     parent: installation
 ---
 
-- [Use built-in basic authentication](#use-built-in-basic-authentication)
-- [Use an authentication provider](#use-an-authentication-provider)
-   - [Manage authentication providers](#manage-authentication-providers)
-   - [Configure authentication providers](#configure-authentication-providers)
-- [LDAP authentication](#ldap-authentication)
-  - [Examples](#ldap-configuration-examples)
-  - [LDAP specification](#ldap-specification)
-  - [Troubleshooting](#ldap-troubleshooting)
-- [AD authentication](#ad-authentication)
-  - [Examples](#ad-configuration-examples)
-  - [AD specification](#ad-specification)
-  - [Troubleshooting](#ad-troubleshooting)
-- [OIDC authentication](#oidc-authentication)
-  - [OIDC configuration examples](#oidc-configuration-examples)
-  - [OIDC specification](#oidc-specification)
-  - [Okta](#okta)
-
 Sensu requires username and password authentication to access the [Sensu web UI][1], [API][8], and command line tool ([sensuctl][2]).
 You can use Sensu's built-in basic authentication provider or configure external authentication providers to authenticate via Lightweight Directory Access Protocol (LDAP), Active Directory (AD), or OpenID Connect.
 
@@ -115,7 +98,7 @@ Without an assigned role or cluster role, users can sign in to the Sensu web UI 
 
 After you configure the correct roles and bindings, log in to [sensuctl][36] and the [Sensu web UI][1] using your single-sign-on username and password (no prefix required).
 
-## LDAP authentication
+## Lightweight Directory Access Protocol (LDAP) authentication
 
 Sensu offers [commercial support][6] for a standards-compliant LDAP tool for authentication to the Sensu web UI, API, and sensuctl.
 The Sensu LDAP authentication provider is tested with [OpenLDAP][7].
@@ -244,9 +227,9 @@ spec:
 
 {{< /language-toggle >}}
 
-## LDAP specification
+### LDAP specification
 
-### Top-level attributes
+#### Top-level attributes
 
 type         | 
 -------------|------
@@ -312,7 +295,7 @@ example      | {{< highlight shell >}}
 }
 {{< /highlight >}}
 
-### LDAP spec attributes
+#### LDAP spec attributes
 
 | servers    |      |
 -------------|------
@@ -367,7 +350,7 @@ required     | false
 type         | String
 example      | {{< highlight shell >}}"username_prefix": "ldap"{{< /highlight >}}
 
-### LDAP server attributes
+#### LDAP server attributes
 
 | host       |      |
 -------------|------
@@ -462,7 +445,7 @@ example      | {{< highlight shell >}}
 }
 {{< /highlight >}}
 
-### LDAP binding attributes
+#### LDAP binding attributes
 
 | user_dn    |      |
 -------------|------
@@ -478,7 +461,7 @@ required     | false
 type         | String
 example      | {{< highlight shell >}}"password": "YOUR_PASSWORD"{{< /highlight >}}
 
-### LDAP group search attributes
+#### LDAP group search attributes
 
 | base_dn    |      |
 -------------|------
@@ -511,7 +494,7 @@ type         | String
 default      | `"groupOfNames"`
 example      | {{< highlight shell >}}"object_class": "groupOfNames"{{< /highlight >}}
 
-### LDAP user search attributes
+#### LDAP user search attributes
 
 | base_dn    |      |
 -------------|------
@@ -544,7 +527,7 @@ type         | String
 default      | `"person"`
 example      | {{< highlight shell >}}"object_class": "person"{{< /highlight >}}
 
-### LDAP metadata attributes
+#### LDAP metadata attributes
 
 | name       |      |
 -------------|------
@@ -553,7 +536,7 @@ required     | true
 type         | String
 example      | {{< highlight shell >}}"name": "openldap"{{< /highlight >}}
 
-## LDAP troubleshooting
+### LDAP troubleshooting
 
 To troubleshoot any issue with LDAP authentication, start by [increasing the log verbosity][19] of sensu-backend to the debug log level.
 Most authentication and authorization errors are only displayed on the debug log level to avoid flooding the log files.
@@ -633,12 +616,12 @@ For example:
 [...] could not authorize the request with any ClusterRoleBindings [...]
 ```
 
-## Active Directory (AD) authentication {#ad-authentication}
+## Active Directory (AD) authentication
 
 Sensu offers [commercial support][6] for using Microsoft Active Directory (AD) for authentication to the Sensu web UI, API, and sensuctl.
 The AD authentication provider is based on the [LDAP authentication provider][44].
 
-### Active Directory (AD) configuration examples {#ad-configuration-examples}
+### AD configuration examples
 
 **Example AD configuration: Minimum required attributes**
 
@@ -765,9 +748,9 @@ spec:
 
 {{< /language-toggle >}}
 
-## AD specification
+### AD specification
 
-### AD top-level attributes
+#### AD top-level attributes
 
 type         | 
 -------------|------
@@ -835,7 +818,7 @@ example      | {{< highlight shell >}}
 }
 {{< /highlight >}}
 
-### AD spec attributes
+#### AD spec attributes
 
 | servers    |      |
 -------------|------
@@ -892,7 +875,7 @@ required     | false
 type         | String
 example      | {{< highlight shell >}}"username_prefix": "ad"{{< /highlight >}}
 
-### AD server attributes
+#### AD server attributes
 
 | host       |      |
 -------------|------
@@ -1007,7 +990,7 @@ example      | {{< highlight shell >}}
 "include_nested_groups": true
 {{< /highlight >}}
 
-### AD binding attributes
+#### AD binding attributes
 
 | user_dn    |      |
 -------------|------
@@ -1023,7 +1006,7 @@ required     | false
 type         | String
 example      | {{< highlight shell >}}"password": "YOUR_PASSWORD"{{< /highlight >}}
 
-### AD group search attributes
+#### AD group search attributes
 
 | base_dn    |      |
 -------------|------
@@ -1056,7 +1039,7 @@ type         | String
 default      | `"group"`
 example      | {{< highlight shell >}}"object_class": "group"{{< /highlight >}}
 
-### AD user search attributes
+#### AD user search attributes
 
 | base_dn    |      |
 -------------|------
@@ -1089,7 +1072,7 @@ type         | String
 default      | `"person"`
 example      | {{< highlight shell >}}"object_class": "person"{{< /highlight >}}
 
-### AD metadata attributes
+#### AD metadata attributes
 
 | name       |      |
 -------------|------
@@ -1098,11 +1081,11 @@ required     | true
 type         | String
 example      | {{< highlight shell >}}"name": "activedirectory"{{< /highlight >}}
 
-## AD troubleshooting
+### AD troubleshooting
 
 The troubleshooting steps in the [LDAP troubleshooting][49] section also apply for AD troubleshooting.
 
-## OIDC authentication
+## OpenID Connect 1.0 protocol (OIDC) authentication
 
 Sensu offers [commercial support][6] for the OIDC provider for using the OpenID Connect 1.0 protocol (OIDC) on top of the OAuth 2.0 protocol for RBAC authentication.
 
@@ -1207,7 +1190,7 @@ example      | {{< highlight shell >}}"spec": {
   }
 }{{< /highlight >}}
 
-##### OIDC metadata attribute
+#### OIDC metadata attribute
 
 | name       |      |
 -------------|------
@@ -1216,7 +1199,7 @@ required     | true
 type         | String
 example      | {{< highlight shell >}}"name": "oidc_name"{{< /highlight >}}
 
-##### OIDC spec attributes
+#### OIDC spec attributes
 
 | additional_scopes |   |
 -------------|------
@@ -1293,7 +1276,7 @@ required     | false
 type         | String
 example      | {{< highlight shell >}}"username_prefix": "okta"{{< /highlight >}}
 
-## Register an OIDC application
+### Register an OIDC application
 
 To use OIDC for authentication, register Sensu Go as an OIDC application.
 Use the instructions listed in this section to register an OIDC application for Sensu Go based on your OIDC provider.
@@ -1371,14 +1354,14 @@ If a browser does not open, launch a browser to complete the login via your OIDC
 [34]: #groups-prefix
 [35]: #username-prefix
 [36]: ../../sensuctl/reference#first-time-setup
-[37]: #ad-authentication
+[37]: #active-directory-ad-authentication
 [38]: ../../sensuctl/reference#create-resources
 [39]: #ldap-spec-attributes
 [40]: #ldap-server-attributes
 [41]: https://en.wikipedia.org/wiki/Fully_qualified_domain_name
 [42]: https://regex101.com/r/zo9mQU/2
 [43]: #ldap-binding-attributes
-[44]: #ldap-authentication
+[44]: #lightweight-directory-access-protocol-ldap-authentication
 [45]: #ad-spec-attributes
 [46]: #ad-server-attributes
 [47]: #ad-group-search-attributes

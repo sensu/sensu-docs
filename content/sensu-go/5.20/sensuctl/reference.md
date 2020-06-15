@@ -11,26 +11,6 @@ menu:
     parent: sensuctl
 ---
 
-- [First-time setup](#first-time-setup)
-- [Get help](#get-help)
-- [Manage sensuctl](#manage-sensuctl)
-- [Test a user password](#test-a-user-password)
-- [Create resources](#create-resources)
-- [Delete resources](#delete-resources)
-- [Update resources](#update-resources)
-- [Export resources](#export-resources)
-- [Manage resources](#manage-resources)
-  - [Subcommands](#subcommands): [sensuctl check](#sensuctl-check) | [sensuctl cluster](#sensuctl-cluster) | [sensuctl event](#sensuctl-event) | [sensuctl namespace](#sensuctl-namespace) | [sensuctl user](#sensuctl-user) | [sensuctl prune](#sensuctl-prune) (alpha feature)
-- [Response filtering](#response-filtering) (commercial feature)
-- [Time formats](#time-formats)
-- [Shell auto-completion](#shell-auto-completion)
-- [Environment variables](#environment-variables)
-- [Config files](#configuration-files)
-- [Interact with Bonsai](#interact-with-bonsai)
-  - [Install asset definitions](#install-asset-definitions)
-  - [Check your Sensu backend for outdated assets](#check-your-sensu-backend-for-outdated-assets)
-  - [Extend sensuctl with commands](#extend-sensuctl-with-commands)
-
 Sensuctl is a command line tool for managing resources within Sensu.
 It works by calling Sensu's underlying API to create, read, update, and delete resources, events, and entities.
 Sensuctl is available for Linux, macOS, and Windows.
@@ -218,7 +198,7 @@ A `request-unauthorized` response indicates invalid credentials.
 
 {{% notice note %}}
 **NOTE**: The `sensuctl user test-creds` command tests passwords for users created with Sensu's built-in [basic authentication provider](../../installation/auth#use-built-in-basic-authentication).
-It does not test user credentials defined via an authentication provider like [Lightweight Directory Access Protocol (LDAP)](../../installation/auth/#ldap-authentication) or [Active Directory (AD)](../../installation/auth/#ad-authentication). 
+It does not test user credentials defined via an authentication provider like [Lightweight Directory Access Protocol (LDAP)](../../installation/auth/#lightweight-directory-access-protocol-ldap-authentication) or [Active Directory (AD)](../../installation/auth/#active-directory-ad-authentication). 
 {{% /notice %}}
 
 For example, if you test LDAP credentials with the `sensuctl user test-creds` command, the backend will log an error, even if you know the LDAP credentials are correct:
@@ -1252,7 +1232,7 @@ Flags are optional and apply only to the `delete` command.
 [23]: #subcommands
 [24]: #sensuctl-edit-resource-types
 [25]: ../../api/overview/
-[26]: ../../installation/auth/#ldap-authentication
+[26]: ../../installation/auth/#lightweight-directory-access-protocol-ldap-authentication
 [27]: ../../reference/tessen/
 [28]: ../../api/overview#response-filtering
 [29]: ../../api/overview#field-selector
@@ -1267,7 +1247,7 @@ Flags are optional and apply only to the `delete` command.
 [39]: #wrapped-json-format
 [40]: ../../installation/install-sensu/#install-the-sensu-backend
 [41]: ../../reference/secrets/
-[42]: ../../installation/auth/#ad-authentication
+[42]: ../../installation/auth/#active-directory-ad-authentication
 [43]: ../../reference/secrets-providers/
 [44]: ../../installation/auth#use-built-in-basic-authentication
 [45]: ../../installation/install-sensu/#2-configure-and-start

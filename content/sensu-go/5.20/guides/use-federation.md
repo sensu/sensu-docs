@@ -11,16 +11,6 @@ menu:
     parent: guides
 ---
 
-- [What you can do with federation](#what-you-can-do-with-federation)
-- [Configure federation](#configure-federation)
-  - [Step 1 Configure backends for TLS](#step-1-configure-backends-for-tls)
-  - [Step 2 Configure shared token signing keys](#step-2-configure-shared-token-signing-keys)
-  - [Step 3 Add a cluster role binding and user](#step-3-add-a-cluster-role-binding-and-user)
-  - [Step 4 Create etcd replicators](#step-4-create-etcd-replicators)
-  - [Step 5 Register clusters](#step-5-register-clusters): [Register a single cluster](#register-a-single-cluster) | [Register additional clusters](#register-additional-clusters)
-  - [Step 6 Get a unified view of all your clusters in the web UI](#step-6-get-a-unified-view-of-all-your-clusters-in-the-web-ui)
-- [Next steps](#next-steps)
-
 **COMMERCIAL FEATURE**: Access federation in the packaged Sensu Go distribution.
 For more information, see [Get started with commercial features][8].
 

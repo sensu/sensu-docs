@@ -11,18 +11,6 @@ menu:
     parent: guides
 ---
 
-- [Retrieve your PagerDuty Integration Key](#retrieve-your-pagerduty-integration-key)
-- [Use Env for secrets management](#use-env-for-secrets-management)
-  - [Create your backend environment variable](#create-your-backend-environment-variable)
-  - [Create your Env secret](#create-your-env-secret)
-- [Use HashiCorp Vault for secrets management](#use-hashicorp-vault-for-secrets-management)
-  - [Configure your Vault authentication method (token or TLS)](#configure-your-vault-authentication-method-token-or-tls)
-  - [Create your Vault secret](#create-your-vault-secret)
-- [Add a handler](#add-a-handler)
-  - [Register the PagerDuty handler asset](#register-the-pagerduty-handler-asset)
-  - [Add your secret to the handler spec](#add-your-secret-to-the-handler-spec)
-- [Next steps](#next-steps)
-
 **COMMERCIAL FEATURE**: Access the Env and VaultProvider secrets provider datatypes in the packaged Sensu Go distribution.
 For more information, see [Get started with commercial features][20].
 

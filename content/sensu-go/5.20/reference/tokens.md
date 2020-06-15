@@ -9,17 +9,6 @@ menu:
     parent: reference
 ---
 
-- [Manage entity labels](#manage-entity-labels)
-- [Manage assets](#manage-assets)
-- [Token specification](#token-specification)
-  - [Token substitution syntax](#token-substitution-syntax)
-  - [Token substitution default values](#token-substitution-default-values)
-  - [Token substitution with quoted strings](#token-substitution-with-quoted-strings)
-- [Unmatched tokens](#unmatched-tokens)
-- [Token data type limitations](#token-data-type-limitations)
-- [Examples](#examples)
-  - [Token substitution for check thresholds](#token-substitution-for-check-thresholds)
-
 Tokens are placeholders in a check definition that the agent replaces with entity information before executing the check.
 You can use tokens to fine-tune check attributes (like alert thresholds) on a per-entity level while reusing the check definition.
 

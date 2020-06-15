@@ -12,14 +12,6 @@ menu:
     parent: guides
 ---
 
-- [Service logging](#service-logging)
-	- [Log levels](#log-levels)
-	- [Log file locations](#log-file-locations)
-- [Sensu backend startup errors](#sensu-backend-startup-errors)
-- [Permission issues](#permission-issues)
-- [Handlers and event filters](#handlers-and-event-filters)
-- [Assets](#assets)
-
 ## Service logging
 
 Logs produced by Sensu services (sensu-backend and sensu-agent) are often the best place to start when troubleshooting a variety of issues.

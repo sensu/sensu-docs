@@ -11,19 +11,14 @@ menu:
     parent: guides
 ---
 
-- [Use a handler to populate InfluxDB](#use-a-handler-to-populate-influxdb)
-- [Next steps](#next-steps)
-
 A Sensu event handler is an action the Sensu backend executes when a specific [event][1] occurs.
 In this guide, you'll use a handler to populate the time series database [InfluxDB][2].
 If you're not familiar with handlers, consider reading the [handlers reference][9] before continuing through this guide.
 
-## Use a handler to populate InfluxDB
-
 The example in this guide explains how to populate Sensu metrics into the time series database [InfluxDB][2].
 Metrics can be collected from [check output][10] or the [Sensu StatsD Server][3].
 
-### Register the asset
+## Register the asset
 
 [Assets][12] are shareable, reusable packages that make it easier to deploy Sensu plugins.
 This example uses the [Sensu InfluxDB Handler][13] asset to power an `influx-db` handler.
@@ -46,7 +41,7 @@ Created
 
 Run `sensuctl asset list --format yaml` to confirm that the asset is ready to use.
 
-### Create the handler
+## Create the handler
 
 Now that you have registered the asset, you'll use sensuctl to create a handler called `influx-db` that pipes event data to InfluxDB with the `sensu-influxdb-handler` asset.
 Edit the command below to include your database name, address, username, and password.
@@ -66,7 +61,7 @@ You should see a confirmation message from sensuctl:
 Created
 {{< /highlight >}}
 
-### Assign the handler to an event
+## Assign the handler to an event
 
 With the `influx-db` handler created, you can assign it to a check for [check output metric extraction][10]. 
 In this example, the check name is `collect-metrics`:
@@ -81,7 +76,7 @@ You can also assign the handler to the [Sensu StatsD listener][3] at agent start
 sensu-agent start --statsd-event-handlers influx-db
 {{< /highlight >}}
 
-### Validate the handler
+## Validate the handler
 
 It might take a few moments after you assign the handler to the check or StatsD server for Sensu to receive the metrics, but after an event is handled you should start to see metrics populating InfluxDB.
 You can verify proper handler behavior with `sensu-backend` logs.

@@ -11,13 +11,6 @@ menu:
     parent: guides
 ---
 
-- [Configure a cluster](#configure-a-cluster)
-- [Manage and monitor clusters with sensuctl](#manage-and-monitor-clusters-with-sensuctl)
-- [Manage cluster members](#add-a-cluster-member)
-- [Cluster security](#cluster-security)
-- [Use an external etcd cluster](#use-an-external-etcd-cluster)
-- [Troubleshoot clusters](#troubleshoot-clusters)
-
 A Sensu cluster is a group of [at least three][1] sensu-backend nodes, each connected to a shared etcd cluster, using Sensu's embedded etcd or an external etcd cluster.
 Creating a Sensu cluster ultimately configures an [etcd cluster][2].
 

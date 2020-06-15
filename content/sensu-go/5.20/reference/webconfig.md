@@ -10,10 +10,6 @@ menu:
     parent: reference
 ---
 
-- [Web UI configuration specification](#web-ui-configuration-specification)
-  - [Top-level attributes](#top-level-attributes) | [Metadata attributes](#metadata-attributes) | [Spec attributes](#spec-attributes)
-- [Web UI configuration examples](#web-ui-configuration-examples)
-
 **COMMERCIAL FEATURE**: Access web UI configuration in the packaged Sensu Go distribution.
 For more information, see [Get started with commercial features][1].
 

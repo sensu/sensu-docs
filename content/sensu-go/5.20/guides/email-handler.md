@@ -11,12 +11,6 @@ menu:
     parent: guides
 ---
 
-- [Add the email handler asset](#add-the-email-handler-asset)
-- [Add an event filter](#add-an-event-filter)
-- [Create the email handler definition](#create-the-email-handler-definition)
-- [Create and trigger an ad hoc event](#create-and-trigger-an-ad-hoc-event)
-- [Next steps](#next-steps)
-
 Sensu event handlers are actions the Sensu backend executes on [events][1].
 This guide explains how to use the [Sensu Go Email Handler][3] asset to send notification emails.
 

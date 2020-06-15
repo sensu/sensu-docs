@@ -11,12 +11,6 @@ menu:
     parent: installation
 ---
 
-- [Upgrade to the latest version of Sensu Go from 5.0.0 or later](#upgrade-to-the-latest-version-of-sensu-go-from-5-0-0-or-later)
-- [Upgrade to Sensu Go 5.16.0 from any earlier version](#upgrade-to-sensu-go-5-16-0-from-any-earlier-version)
-- [Upgrade Sensu clusters from 5.7.0 or earlier to 5.8.0 or later](#upgrade-sensu-clusters-from-5-7-0-or-earlier-to-5-8-0-or-later)
-- [Upgrade Sensu backend binaries to 5.1.0](#upgrade-sensu-backend-binaries-to-5-1-0)
-- [Migrate to Sensu Go from Sensu Core 1.x](#migrate-to-sensu-go-from-sensu-core-1-x)
-
 ## Upgrade to the latest version of Sensu Go from 5.0.0 or later
 
 To upgrade to the latest version of Sensu Go from version 5.0.0 or later, [install the latest packages][23].

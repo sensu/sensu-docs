@@ -13,21 +13,6 @@ menu:
 Thank you for visiting the Sensu FAQ!
 For a list of Sensu terms and definitions, see the [glossary][7].
 
-- [What platforms does Sensu support?](#platform-support)
-- [Is Sensu available as a hosted solution?](#hosted-solution)
-- [What are the hardware requirements for running a Sensu backend?](#hardware-requirements)
-- [Is there an enterprise version of Sensu Go?](#enterprise-version)
-- [What's the difference between the OSS, free, and commercial versions?](#version-comparison)
-- [How can I contact the Sensu sales team?](#sales-team)
-- [What can I monitor with Sensu?](#monitor-with-sensu)
-- [Does Sensu include a time series database for long-term storage?](#long-term-storage)
-- [Can I connect Sensu Go to clients and servers from earlier versions of Sensu Core and Sensu Enterprise?](#connect-earlier-versions)
-- [Can I upgrade my Sensu Core 1.x deployment to Sensu Go?](#upgrade-1x-to-go)
-- [Which ports does Sensu use?](#go-ports)
-- [Can one Sensu backend monitor multiple sites?](#monitor-multiple-sites)
-- [Can I use Uchiwa with Sensu Go?](#uchiwa-with-go)
-
-
 ## What platforms does Sensu support? {#platform-support}
 
 Sensu Go is available for Linux, Windows (agent and CLI only), macOS (CLI only), Solaris, and Docker.
@@ -77,7 +62,7 @@ No, Sensu does not store event data.
 We recommend integrating Sensu with a time series database, like [InfluxDB][19], to store event data.
 See the [guide to storing metrics with InfluxDB][18] to get started.
 
-## Can I connect Sensu Go to clients and servers from earlier versions of Sensu Core and Sensu Enterprise? {#connect-earlier-versions}
+## Can I connect Sensu Go to clients and servers from Sensu Core and Enterprise? {#connect-earlier-versions}
 
 No, Sensu Go agents and backends are not compatible with Sensu Core or Sensu Enterprise services.
 
@@ -119,6 +104,7 @@ Yes, as long as you meet the [port requirements][37], a single Sensu backend can
 Due to Sensu Go's implementation, it is not possible to use Uchiwa with Sensu Go.
 Sensu Go does have a [built-in web UI][29] that you can use to visually interact with your Sensu Go deployment.
 
+
 [1]: ../../platforms/
 [2]: ../../installation/install-sensu/
 [3]: https://blog.sensu.io/sensu-go-is-here/
@@ -155,4 +141,3 @@ Sensu Go does have a [built-in web UI][29] that you can use to visually interact
 [34]: https://blog.sensu.io/one-year-of-sensu-go/
 [36]: https://sensu.io/contact/
 [37]: #go-ports
-

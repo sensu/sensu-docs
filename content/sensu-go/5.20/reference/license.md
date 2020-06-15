@@ -10,11 +10,6 @@ menu:
     parent: reference
 ---
 
-- [Activate your commercial license](#activate-your-commercial-license)
-- [Entity limit](#entity-limit)
-- [License expiration](#license-expiration)
-- [Quick links](#quick-links)
-
 ## Activate your commercial license
 
 If you haven't already, [install the backend, agent, and sensuctl][2] and [configure sensuctl][3].
