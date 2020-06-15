@@ -456,7 +456,7 @@ If you plan to set up a cluster, here's our suggested pathway:
 
 [1]: https://github.com/sensu/sensu-go/releases/
 [2]: ../../guides/generate-certificates/
-[3]: ../../dashboard/overview/
+[3]: ../../web-ui/sign-in/
 [4]: ../../sensuctl/reference/
 [5]: ../../platforms/
 [6]: ../../reference/backend#configuration

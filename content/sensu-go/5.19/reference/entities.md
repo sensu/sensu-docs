@@ -64,8 +64,8 @@ Use [proxy entity filters][19] to establish a many-to-many relationship between 
 
 ## Manage entity labels
 
-Labels are custom attributes that Sensu includes with event data that you can use for response and dashboard view filtering.
-In contrast to annotations, you can use labels to filter [API responses][14], [sensuctl responses][15], and [dashboard views][23].
+Labels are custom attributes that Sensu includes with event data that you can use for response and web UI view filtering.
+In contrast to annotations, you can use labels to filter [API responses][14], [sensuctl responses][15], and [web UI views][23].
 
 Limit labels to metadata you need to use for response filtering.
 For complex, non-identifying metadata that you will *not* need to use in response filtering, use [annotations][20] rather than labels.
@@ -347,7 +347,7 @@ example      | {{< highlight shell >}}"created_by": "admin"{{< /highlight >}}
 
 | labels     |      |
 -------------|------
-description  | Custom attributes to include with event data that you can use for response and dashboard view filtering.<br><br>If you include labels in your event data, you can filter [API responses][14], [sensuctl responses][15], and [dashboard views][23] based on them. In other words, labels allow you to create meaningful groupings for your data.<br><br>Limit labels to metadata you need to use for response filtering. For complex, non-identifying metadata that you will *not* need to use in response filtering, use annotations rather than labels.
+description  | Custom attributes to include with event data that you can use for response and web UI view filtering.<br><br>If you include labels in your event data, you can filter [API responses][14], [sensuctl responses][15], and [web UI views][23] based on them. In other words, labels allow you to create meaningful groupings for your data.<br><br>Limit labels to metadata you need to use for response filtering. For complex, non-identifying metadata that you will *not* need to use in response filtering, use annotations rather than labels.
 required     | false
 type         | Map of key-value pairs. Keys can contain only letters, numbers, and underscores and must start with a letter. Values can be any valid UTF-8 string.
 default      | `null`
@@ -360,7 +360,7 @@ example      | {{< highlight shell >}}"labels": {
 
 | annotations |     |
 -------------|------
-description  | Non-identifying metadata to include with event data that you can access with [event filters][6]. You can use annotations to add data that's meaningful to people or external tools that interact with Sensu.<br><br>In contrast to labels, you cannot use annotations in [API response filtering][14], [sensuctl response filtering][15], or [dashboard views][23].
+description  | Non-identifying metadata to include with event data that you can access with [event filters][6]. You can use annotations to add data that's meaningful to people or external tools that interact with Sensu.<br><br>In contrast to labels, you cannot use annotations in [API response filtering][14], [sensuctl response filtering][15], or [web UI views][26].
 required     | false
 type         | Map of key-value pairs. Keys and values can be any valid UTF-8 string.
 default      | `null`
@@ -872,7 +872,7 @@ spec:
 [12]: ../../sensuctl/reference#create-resources
 [13]: #spec-attributes
 [14]: ../../api/overview#response-filtering
-[15]: ../../sensuctl/reference#response-filters
+[15]: ../../sensuctl/reference#response-filtering
 [16]: #proxy-entities
 [17]: ../../guides/monitor-external-resources/
 [18]: ../checks/#round-robin-checks
@@ -880,6 +880,7 @@ spec:
 [20]: #annotations
 [21]: https://regex101.com/r/zo9mQU/2
 [22]: ../rbac/
-[23]: ../../dashboard/filtering#filter-with-label-selectors
+[23]: ../../web-ui/filter#filter-with-label-selectors
 [24]: ../checks#proxy-requests-attributes
 [25]: ../agent/#detect-cloud-provider-flag
+[26]: ../../web-ui/filter/

@@ -12,7 +12,7 @@ menu:
 ---
 
 - [Secure etcd peer communication](#secure-etcd-peer-communication)
-- [Secure the API and dashboard](#secure-the-api-and-dashboard)
+- [Secure the API and web UI](#secure-the-api-and-web-ui)
 - [Secure Sensu agent-to-server communication](#secure-sensu-agent-to-server-communication)
 - [Sensu agent TLS authentication](#sensu-agent-tls-authentication)
 - [Create self-signed certificates](#create-self-signed-certificates)
@@ -43,7 +43,7 @@ etcd-peer-client-cert-auth: "true"
 etcd-peer-trusted-ca-file: "/path/to/your/peer/ca/file"
 {{< /highlight >}}
 
-## Secure the API and dashboard
+## Secure the API and web UI
 
 The Sensu Go Agent API, HTTP API, and web UI use a common stanza in `/etc/sensu/backend.yml` to provide the certificate, key, and CA file needed to provide secure communication.
 Here are the attributes you'll need to configure.
@@ -70,7 +70,7 @@ As a result, you will also need to specify `https://` schema for the `api-url` p
 api-url: "https://localhost:8080"
 {{< /highlight >}}
 
-You can also specify a certificate and key for the dashboard separately from the API using the `dashboard-cert-file` and `dashboard-key-file` parameters:
+You can also specify a certificate and key for the web UI separately from the API using the `dashboard-cert-file` and `dashboard-key-file` parameters:
 
 {{< highlight yml >}}
 ##
@@ -85,12 +85,12 @@ dashboard-key-file: "/path/to/ssl/key.pem"
 {{< /highlight >}}
 
 In this example, we provide the path to the cert, key, and CA file.
-After you restart the `sensu-backend` service, the parameters will load and you will able to access the dashboard at https://localhost:3000.
+After you restart the `sensu-backend` service, the parameters will load and you will able to access the web UI at https://localhost:3000.
 Configuring these attributes will also ensure that agents can communicate securely.
 
 ## Secure Sensu agent-to-server communication
 
-_**NOTE**: If you change the agent configuration to communicate via WebSocket Secure protocol, the agent will no longer communicate over a plaintext connection. For communication to continue, you must complete the steps in this section **and** in the [Secure the API and dashboard][11] section._
+_**NOTE**: If you change the agent configuration to communicate via WebSocket Secure protocol, the agent will no longer communicate over a plaintext connection. For communication to continue, you must complete the steps in this section **and** in the [Secure the API and web UI][11] section._
 
 By default, an agent uses the insecure `ws://` transport.
 Here's an example from `/etc/sensu/agent.yml`:
@@ -273,5 +273,5 @@ Learn about [role-based access control (RBAC) in Sensu][3] or [create a read-onl
 [6]: https://etcd.io/docs/v3.4.0/op-guide/security/
 [9]: https://github.com/cloudflare/cfssl
 [10]: #secure-sensu-agent-to-server-communication
-[11]: #secure-the-api-and-dashboard
+[11]: #secure-the-api-and-web-ui
 [12]: #create-self-signed-certificates

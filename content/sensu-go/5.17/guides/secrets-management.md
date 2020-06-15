@@ -40,7 +40,7 @@ This guide only covers the handler use case, but you can use secrets management 
 For secrets management in checks, the Sensu backend will transmit requests over its secure transport (TLS-encrypted websockets) to your Sensu agent to execute your check, so mTLS must be enabled.
 
 The secret included in your Sensu handler will be exposed to Sensu services at runtime as an environment variable.
-Sensu only exposes secrets to Sensu services like environment variables and automatically redacts secrets from all logs, the API, and the dashboard.
+Sensu only exposes secrets to Sensu services like environment variables and automatically redacts secrets from all logs, the API, and the web UI.
 
 ## Retrieve your PagerDuty Integration Key
 

@@ -1,7 +1,7 @@
 ---
 title: "Live demonstration of Sensu"
 linkTitle: "Live demo"
-description: "Explore the Sensu dashboard and sensuctl command line tool with a live demo that monitors the Sensu docs site. See entities, monitoring events, and active service and metric checks."
+description: "Explore the Sensu web UI and sensuctl command line tool with a live demo that monitors the Sensu docs site. See entities, monitoring events, and active service and metric checks."
 version: "5.20"
 weight: 30
 product: "Sensu Go"
@@ -10,7 +10,7 @@ menu:
     parent: learn-sensu
 ---
 
-<a href="https://caviar.tf.sensu.io:3000" onclick="ga('send', 'event', 'Demo', 'Click', 'Main demo link');">See a live demo of the Sensu dashboard</a>.
+<a href="https://caviar.tf.sensu.io:3000" onclick="ga('send', 'event', 'Demo', 'Click', 'Main demo link');">See a live demo of the Sensu web UI</a>.
 Log in with username `guest` and password `i<3sensu`.
 
 Explore the <a href="https://caviar.tf.sensu.io:3000/default/entities" onclick="ga('send', 'event', 'Demo', 'Click', 'Entities page');">Entities page</a> to see what Sensu is monitoring, the <a href="https://caviar.tf.sensu.io:3000/default/events" onclick="ga('send', 'event', 'Demo', 'Click', 'Events page');">Events page</a> to see the latest monitoring events, and the <a href="https://caviar.tf.sensu.io:3000/default/checks" onclick="ga('send', 'event', 'Demo', 'Click', 'Checks page');">Checks page</a> to see active service and metric checks.

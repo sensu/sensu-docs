@@ -96,7 +96,7 @@ The [Sensu backend][25] uses:
 
 - 2379 (HTTP/HTTPS) Sensu storage client: Required for Sensu backends using an external etcd instance
 - 2380 (HTTP/HTTPS) Sensu storage peer: Required for other Sensu backends in a [cluster][27]
-- 3000 (HTTP/HTTPS) [Sensu dashboard][24]: Required for all Sensu backends using a Sensu dashboard
+- 3000 (HTTP/HTTPS) [Sensu web UI][24]: Required for all Sensu backends using a Sensu web UI
 - 8080 (HTTP/HTTPS) [Sensu API][9]: Required for all users accessing the Sensu API
 - 8081 (WS/WSS) Agent API: Required for all Sensu agents connecting to a Sensu backend
 
@@ -117,7 +117,7 @@ Yes, as long as you meet the [port requirements][37], a single Sensu backend can
 ## Can I use Uchiwa with Sensu Go? {#uchiwa-with-go}
 
 Due to Sensu Go's implementation, it is not possible to use Uchiwa with Sensu Go.
-Sensu Go does have a [built-in dashboard][29] that you can use to visually interact with your Sensu Go deployment.
+Sensu Go does have a [built-in web UI][24] that you can use to visually interact with your Sensu Go deployment.
 
 [1]: ../../platforms/
 [2]: ../../installation/install-sensu/
@@ -142,12 +142,11 @@ Sensu Go does have a [built-in dashboard][29] that you can use to visually inter
 [21]: ../../reference/agent#create-monitoring-events-using-the-agent-api
 [22]: ../../reference/agent/#using-the-http-socket
 [23]: ../../reference/agent/#create-monitoring-events-using-the-statsd-listener
-[24]: ../../dashboard/overview/
+[24]: ../../web-ui/sign-in/
 [25]: ../../reference/backend/
 [26]: ../../reference/agent/
 [27]: ../../guides/clustering/
 [28]: ../../commercial/
-[29]: ../../dashboard/overview/
 [30]: https://sensu.io/enterprise/
 [31]: https://blog.sensu.io/enterprise-features-in-sensu-go/
 [32]: https://bonsai.sensu.io/
