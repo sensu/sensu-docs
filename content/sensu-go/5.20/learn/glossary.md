@@ -28,7 +28,7 @@ Assets let you manage runtime dependencies without using configuration managemen
 A flexible, scalable monitoring event pipeline.
 The Sensu backend processes event data using filters, mutators, and handlers.
 It maintains configuration files, stores recent event data, and schedules monitoring checks.
-You can interact with the backend using the API, command line, and dashboard interfaces.
+You can interact with the backend using the API, command line, and web UI interfaces.
 [Read more about the Sensu backend][2].
 
 #### Check

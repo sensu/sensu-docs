@@ -39,11 +39,11 @@
             "url": "https://sensu.io/resources",
             "status": 301
         },
-        "~ ^/sensu-go/5.20/?((?<=\/).*)?$": {
+        "~ ^/sensu-go/5.21/?((?<=\/).*)?$": {
             "url": "/sensu-go/latest/$1",
             "status": 302
         },
-        "~ ^/sensu-go/5.1[0-6]/?((?<=\/).*)?$": {
+        "~ ^/sensu-go/5.1[0-7]/?((?<=\/).*)?$": {
             "url": "/sensu-go/latest/$1",
             "status": 301
         },
@@ -197,6 +197,54 @@
         },
         "~ ^/sensu-go/5.1[0-9]/?((?<=\/).*)?/getting-started/enterprise/?$": {
             "url": "/sensu-go/latest/commercial",
+            "status": 301
+        },
+        "~ ^/sensu-go/latest/dashboard/overview/?$": {
+            "url": "/sensu-go/latest/web-ui/sign-in",
+            "status": 301
+        },
+        "~ ^/sensu-go/5.2[0-9]/?((?<=\/).*)?/dashboard/overview/?$": {
+            "url": "/sensu-go/latest/web-ui/sign-in",
+            "status": 301
+        },
+        "~ ^/sensu-go/5.1[0-9]/?((?<=\/).*)?/dashboard/overview/?$": {
+            "url": "/sensu-go/latest/web-ui/sign-in",
+            "status": 301
+        },
+        "~ ^/sensu-go/latest/dashboard/filtering/?$": {
+            "url": "/sensu-go/latest/web-ui/filter",
+            "status": 301
+        },
+        "~ ^/sensu-go/5.2[0-9]/?((?<=\/).*)?/dashboard/filtering/?$": {
+            "url": "/sensu-go/latest/web-ui/filter",
+            "status": 301
+        },
+        "~ ^/sensu-go/5.1[0-9]/?((?<=\/).*)?/dashboard/filtering/?$": {
+            "url": "/sensu-go/latest/web-ui/filter",
+            "status": 301
+        },
+        "~ ^/sensu-go/latest/dashboard/webconfig/?$": {
+            "url": "/sensu-go/latest/web-ui/webconfig",
+            "status": 301
+        },
+        "~ ^/sensu-go/5.2[0-9]/?((?<=\/).*)?/dashboard/webconfig/?$": {
+            "url": "/sensu-go/latest/web-ui/webconfig",
+            "status": 301
+        },
+        "~ ^/sensu-go/5.1[0-9]/?((?<=\/).*)?/dashboard/webconfig/?$": {
+            "url": "/sensu-go/latest/web-ui/webconfig",
+            "status": 301
+        },
+        "~ ^/sensu-go/latest/getting-started/versions/?$": {
+            "url": "/sensu-go/latest/versions",
+            "status": 301
+        },
+        "~ ^/sensu-go/5.2[0-9]/?((?<=\/).*)?/getting-started/versions/?$": {
+            "url": "/sensu-go/latest/versions",
+            "status": 301
+        },
+        "~ ^/sensu-go/5.1[0-9]/?((?<=\/).*)?/getting-started/versions/?$": {
+            "url": "/sensu-go/latest/versions",
             "status": 301
         }
     }

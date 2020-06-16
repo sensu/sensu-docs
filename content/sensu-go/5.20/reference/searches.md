@@ -285,7 +285,7 @@ spec:
 
 [1]: ../../commercial/
 [2]: ../../reference/rbac/#namespaced-resource-types
-[3]: ../../dashboard/filtering/#save-a-filtered-search
+[3]: ../../web-ui/filter/#save-a-filtered-search
 [4]: ../../api/searches
 [5]: #metadata-attributes
 [6]: ../../sensuctl/reference#create-resources

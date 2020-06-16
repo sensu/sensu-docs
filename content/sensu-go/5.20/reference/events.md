@@ -72,7 +72,7 @@ If you use the events API to create a new event referencing an entity that does 
 
 ## Manage events
 
-You can manage events using the [Sensu dashboard][15], [events API][16], and [sensuctl][17] command line tool.
+You can manage events using the [Sensu web UI][15], [events API][16], and [sensuctl][17] command line tool.
 
 ### View events
 
@@ -1343,7 +1343,7 @@ spec:
 [12]: ../agent#create-monitoring-events-using-the-agent-tcp-and-udp-sockets
 [13]: ../agent#create-monitoring-events-using-the-statsd-listener
 [14]: ../../api/events#eventsentitycheck-put
-[15]: ../../dashboard/overview/
+[15]: ../../web-ui/sign-in/
 [16]: ../../api/events/
 [17]: ../../sensuctl/reference/
 [18]: ../../sensuctl/reference/#preferred-output-format

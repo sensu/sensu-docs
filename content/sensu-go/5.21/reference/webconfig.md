@@ -242,6 +242,6 @@ spec:
 
 [1]: ../../commercial/
 [2]: ../../api/webconfig/
-[3]: ../../dashboard/overview/
+[3]: ../../web-ui/sign-in/
 [4]: #spec-attributes
-[5]: ../../dashboard/overview/#namespace-switcher
+[5]: ../../web-ui/sign-in/#namespace-switcher
