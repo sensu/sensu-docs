@@ -8,7 +8,7 @@ product: "Sensu Go"
 layout: "single"
 ---
 
-<iframe src="https://ghbtns.com/github-btn.html?user=sensu&repo=sensu-go&type=star&count=true" frameborder="0" scrolling="0" width="87px" height="20px"></iframe> | [Learn about licensing][18]
+<iframe src="https://ghbtns.com/github-btn.html?user=sensu&repo=sensu-go&type=star&count=true" frameborder="0" scrolling="0" width="87px" height="20px"></iframe> | <a href="https://docs.sensu.io/sensu-go/latest/commercial/">Learn about licensing</a>
 
 Sensu is the industry-leading solution for multi-cloud monitoring at scale.
 The Sensu monitoring event pipeline empowers businesses to automate their monitoring workflows and gain deep visibility into their multi-cloud environments.
