@@ -11,10 +11,6 @@ menu:
     parent: guides
 ---
 
-- [Use Sensu to implement StatsD](#use-sensu-to-implement-statsd)
-- [Configure the StatsD listener](#configure-the-statsd-listener)
-- [Next steps](#next-steps)
-
 [StatsD][1] is a daemon, tool, and protocol that you can use to send, collect, and aggregate custom metrics.
 Services that implement StatsD typically expose UDP port 8125 to receive metrics according to the line protocol `<metricname>:<value>|<type>`.
 

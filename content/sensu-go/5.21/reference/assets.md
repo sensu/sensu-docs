@@ -11,16 +11,6 @@ menu:
     parent: reference
 ---
 
-- [Asset builds](#asset-builds)
-- [Asset format specification](#asset-format-specification)
-  - [Asset path](#asset-path) | [Default cache directory](#default-cache-directory)
-- [Asset specification](#asset-specification)
-  - [Top-level attributes](#top-level-attributes) | [Metadata attributes](#metadata-attributes) | [Spec attributes](#spec-attributes)
-- [Asset filters based on entity.system attributes](#asset-filters-based-on-entity-system-attributes)
-- [Examples](#examples)
-- [Share an asset on Bonsai](#share-an-asset-on-bonsai)
-- [Delete assets](#delete-assets)
-
 You can discover, download, and share assets using [Bonsai, the Sensu asset index][16].
 Read [Install plugins with assets][23] to get started.
 

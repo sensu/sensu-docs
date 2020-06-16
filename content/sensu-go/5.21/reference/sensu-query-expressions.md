@@ -11,11 +11,6 @@ menu:
     parent: reference
 ---
 
-- [Syntax quick reference](#syntax-quick-reference)
-- [Specification](#specification)
-  - [Custom functions](#custom-functions)
-- [Examples](#examples)
-
 Sensu query expressions (SQEs) are JavaScript-based expressions that provide additional functionality for using Sensu, like nested parameters and custom functions.
 
 SQEs are defined in [event filters][3], so they act in the context of determining whether a given event should be passed to the handler.

@@ -4,6 +4,7 @@ linkTitle: "Live demo"
 description: "Explore the Sensu web UI and sensuctl command line tool with a live demo that monitors the Sensu docs site. See entities, monitoring events, and active service and metric checks."
 version: "5.21"
 weight: 30
+toc: false
 product: "Sensu Go"
 menu:
   sensu-go-5.21:

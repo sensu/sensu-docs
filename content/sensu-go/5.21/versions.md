@@ -5,6 +5,7 @@ description: "Sensu supports the latest versions of official distributions, incl
 version: "5.21"
 weight: -40
 offline: false
+toc: false
 product: "Sensu Go"
 menu: "sensu-go-5.21"
 ---
