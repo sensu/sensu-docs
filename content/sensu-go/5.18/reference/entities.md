@@ -80,7 +80,6 @@ For example, to create a proxy entity with a `url` label using sensuctl `create`
 {{< code yml >}}
 type: Entity
 api_version: core/v2
-sensu_agent_version: 1.0.0
 metadata:
   labels:
     url: docs.sensu.io
@@ -96,13 +95,13 @@ spec:
   system:
     network:
       interfaces: null
+  sensu_agent_version: 1.0.0
 {{< /code >}}
 
 {{< code json >}}
 {
   "type": "Entity",
   "api_version": "core/v2",
-  "sensu_agent_version": "1.0.0",
   "metadata": {
     "name": "sensu-docs",
     "namespace": "default",
@@ -122,7 +121,8 @@ spec:
       "network": {
         "interfaces": null
       }
-    }
+    },
+    "sensu_agent_version": "1.0.0"
   }
 }
 {{< /code >}}
@@ -154,7 +154,6 @@ And update the `metadata` scope to include `labels`:
 {{< code yml >}}
 type: Entity
 api_version: core/v2
-sensu_agent_version: 1.0.0
 metadata:
   labels:
     url: docs.sensu.io
@@ -168,7 +167,6 @@ spec:
 {
   "type": "Entity",
   "api_version": "core/v2",
-  "sensu_agent_version": "1.0.0",
   "metadata": {
     "name": "sensu-docs",
     "namespace": "default",
@@ -245,13 +243,6 @@ example      | {{< code shell >}}
 }
 {{< /code >}}
 
-sensu_agent_version  | 
----------------------|------
-description          | Sensu Semantic Versioning (SemVer) version of the agent entity.
-required             | true
-type                 | String
-example              | {{< code shell >}}"sensu_agent_version": "1.0.0"{{< /code >}}
-
 spec         | 
 -------------|------
 description  | Top-level map that includes the entity [spec attributes][13].
@@ -295,6 +286,7 @@ example      | {{< code shell >}}
       },
       "arch": "amd64"
     },
+    "sensu_agent_version": "1.0.0",
     "subscriptions": [
       "entity:webserver01"
     ],
@@ -434,6 +426,13 @@ system:
 }{{< /code >}}
 
 {{< /language-toggle >}}
+
+sensu_agent_version  | 
+---------------------|------
+description          | Sensu Semantic Versioning (SemVer) version of the agent entity.
+required             | true
+type                 | String
+example              | {{< highlight shell >}}"sensu_agent_version": "1.0.0"{{< /highlight >}}
 
 last_seen    | 
 -------------|------ 
@@ -679,7 +678,6 @@ example      | {{< code shell >}}"handler": "email-handler"{{< /code >}}
 {{< code yml >}}
 type: Entity
 api_version: core/v2
-sensu_agent_version: 1.0.0
 metadata:
   annotations: null
   labels: null
@@ -725,6 +723,7 @@ spec:
     platform: centos
     platform_family: rhel
     platform_version: 7.4.1708
+  sensu_agent_version: 1.0.0
   user: agent
 {{< /code >}}
 
@@ -732,7 +731,6 @@ spec:
 {
   "type": "Entity",
   "api_version": "core/v2",
-  "sensu_agent_version": "1.0.0",
   "metadata": {
     "name": "webserver01",
     "namespace": "default",
@@ -776,6 +774,7 @@ spec:
       },
       "arch": "amd64"
     },
+    "sensu_agent_version": "1.0.0",
     "subscriptions": [
       "entity:webserver01"
     ],
