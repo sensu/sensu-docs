@@ -277,7 +277,7 @@ sensuctl asset add sensu/sensu-pagerduty-handler:1.2.0 -r pagerduty-handler
 This example uses the `-r` (rename) flag to specify a shorter name for the asset: `pagerduty-handler`.
 
 {{% notice note %}}
-**NOTE**: You can [adjust the asset definition](../install-check-executables-with-assets/#2-adjust-the-asset-definition) according to your Sensu configuration if needed.
+**NOTE**: You can [adjust the asset definition](../install-check-executables-with-assets/#adjust-the-asset-definition) according to your Sensu configuration if needed.
 {{% /notice %}}
 
 Run `sensuctl asset list --format yaml` to confirm that the asset is ready to use.
