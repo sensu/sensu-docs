@@ -12,10 +12,6 @@ menu:
     parent: guides
 ---
 
-- [Create a read-only user](#create-a-read-only-user)
-- [Create a cluster-wide event-reader user](#create-a-cluster-wide-event-reader-user)
-- [Next steps](#next-steps)
-
 Role-based access control (RBAC) allows you to exercise fine-grained control over how Sensu users interact with Sensu resources.
 Use RBAC rules to achieve **multitenancy** so different projects and teams can share a Sensu instance. 
 
@@ -30,19 +26,19 @@ This guide requires a running Sensu backend and a sensuctl instance configured t
 In this section, you'll create a user and assign them read-only access to resources within the `default` namespace using a **role** and a **role binding**.
 
 1. Create a user with the username `alice` and assign them to the group `ops`:
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl user create alice --password='password' --groups=ops
-{{< /highlight >}}
+{{< /code >}}
 
 2. Create a `read-only` role with `get` and `list` permissions for all resources (`*`) within the `default` namespace:
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl role create read-only --verb=get,list --resource=* --namespace=default
-{{< /highlight >}}
+{{< /code >}}
 
 3. Create an `ops-read-only` role binding to assign the `read-only` role to the `ops` group:
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl role-binding create ops-read-only --role=read-only --group=ops
-{{< /highlight >}}
+{{< /code >}}
 
 You can also use role bindings to tie roles directly to users using the `--user` flag.
 
@@ -55,19 +51,19 @@ Suppose you want to create a user with read-only access to events across all nam
 Because you want this role to have cluster-wide permissions, you'll need to create a **cluster role** and a **cluster role binding**.
 
 1. Create a user with the username `bob` and assign them to the group `ops`:
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl user create bob --password='password' --groups=ops
-{{< /highlight >}}
+{{< /code >}}
 
 2. Create a `global-event-reader` cluster role with `get` and `list` permissions for `events` across all namespaces:
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl cluster-role create global-event-reader --verb=get,list --resource=events
-{{< /highlight >}}
+{{< /code >}}
 
 3. Create an `ops-event-reader` cluster role binding to assign the `global-event-reader` role to the `ops` group:
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl cluster-role-binding create ops-event-reader --cluster-role=global-event-reader --group=ops
-{{< /highlight >}}
+{{< /code >}}
 
 All users in the `ops` group now have read-only access to events across all namespaces.
 

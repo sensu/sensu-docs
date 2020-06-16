@@ -62,7 +62,7 @@ Follow the [Install Sensu](../../installation/install-sensu/) guide if you have 
 
 **backend-1**
 
-{{< highlight yml >}}
+{{< code yml >}}
 ##
 # store configuration for backend-1/10.0.0.1
 ##
@@ -74,11 +74,11 @@ etcd-initial-advertise-peer-urls: "http://10.0.0.1:2380"
 etcd-initial-cluster-state: "new"
 etcd-initial-cluster-token: ""
 etcd-name: "backend-1"
-{{< /highlight >}}
+{{< /code >}}
 
 **backend-2**
 
-{{< highlight yml >}}
+{{< code yml >}}
 ##
 # store configuration for backend-2/10.0.0.2
 ##
@@ -90,11 +90,11 @@ etcd-initial-advertise-peer-urls: "http://10.0.0.2:2380"
 etcd-initial-cluster-state: "new"
 etcd-initial-cluster-token: ""
 etcd-name: "backend-2"
-{{< /highlight >}}
+{{< /code >}}
 
 **backend-3**
 
-{{< highlight yml >}}
+{{< code yml >}}
 ##
 # store configuration for backend-3/10.0.0.3
 ##
@@ -106,20 +106,20 @@ etcd-initial-advertise-peer-urls: "http://10.0.0.3:2380"
 etcd-initial-cluster-state: "new"
 etcd-initial-cluster-token: ""
 etcd-name: "backend-3"
-{{< /highlight >}}
+{{< /code >}}
 
 After you configure each node as described in these examples, start each sensu-backend:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sudo systemctl start sensu-backend
-{{< /highlight >}}
+{{< /code >}}
 
 ##### Add Sensu agents to clusters
 
 Each Sensu agent should have the following entries in `/etc/sensu/agent.yml` to ensure the agent is aware of all cluster members.
 This allows the agent to reconnect to a working backend if the backend it is currently connected to goes into an unhealthy state.
 
-{{< highlight yml >}}
+{{< code yml >}}
 ##
 # backend-url configuration for all agents connecting to cluster over ws
 ##
@@ -128,7 +128,7 @@ backend-url:
   - "ws://10.0.0.1:8081"
   - "ws://10.0.0.2:8081"
   - "ws://10.0.0.3:8081"
-{{< /highlight >}}
+{{< /code >}}
 
 You should now have a highly available Sensu cluster!
 Confirm cluster health and try other cluster management commands with [sensuctl][6].
@@ -142,7 +142,7 @@ Run `sensuctl cluster -h` for additional help information.
 
 Get cluster health status and etcd alarm information:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl cluster health
 
        ID            Name                          Error                           Healthy  
@@ -150,13 +150,13 @@ sensuctl cluster health
 a32e8f613b529ad4   backend-1                                                        true
 c3d9f4b8d0dd1ac9   backend-2  dial tcp 10.0.0.2:2379: connect: connection refused   false
 c8f63ae435a5e6bf   backend-3                                                        true
-{{< /highlight >}}
+{{< /code >}}
 
 ### Add a cluster member
 
 Add a new member node to an existing cluster:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl cluster member-add backend-4 https://10.0.0.4:2380
 
 added member 2f7ae42c315f8c2d to cluster
@@ -164,13 +164,13 @@ added member 2f7ae42c315f8c2d to cluster
 ETCD_NAME="backend-4"
 ETCD_INITIAL_CLUSTER="backend-4=https://10.0.0.4:2380,backend-1=https://10.0.0.1:2380,backend-2=https://10.0.0.2:2380,backend-3=https://10.0.0.3:2380"
 ETCD_INITIAL_CLUSTER_STATE="existing"
-{{< /highlight >}}
+{{< /code >}}
 
 ### List cluster members
 
 List the ID, name, peer URLs, and client URLs of all nodes in a cluster:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl cluster member-list
 
        ID            Name             Peer URLs                Client URLs
@@ -179,17 +179,17 @@ a32e8f613b529ad4   backend-1    https://10.0.0.1:2380     https://10.0.0.1:2379
 c3d9f4b8d0dd1ac9   backend-2    https://10.0.0.2:2380     https://10.0.0.2:2379
 c8f63ae435a5e6bf   backend-3    https://10.0.0.3:2380     https://10.0.0.3:2379
 2f7ae42c315f8c2d   backend-4    https://10.0.0.4:2380     https://10.0.0.4:2379
-{{< /highlight >}}
+{{< /code >}}
 
 ### Remove a cluster member
 
 Remove a faulty or decommissioned member node from a cluster:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl cluster member-remove 2f7ae42c315f8c2d
 
 Removed member 2f7ae42c315f8c2d from cluster
-{{< /highlight >}}
+{{< /code >}}
 
 ### Replace a faulty cluster member
 
@@ -198,7 +198,7 @@ For a faulty cluster member, the `Error` column will include an error message an
 
 In this example, cluster member `backend-4` is faulty:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl cluster health
 
        ID            Name                          Error                           Healthy  
@@ -208,21 +208,21 @@ c3d9f4b8d0dd1ac9   backend-2                                                    
 c8f63ae435a5e6bf   backend-3                                                        true
 2f7ae42c315f8c2d   backend-4  dial tcp 10.0.0.4:2379: connect: connection refused   false
 
-{{< /highlight >}}
+{{< /code >}}
 
 Then, delete the faulty cluster member.
 To continue this example, you will delete cluster member `backend-4` using its ID:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl cluster member-remove 2f7ae42c315f8c2d
 
 Removed member 2f7ae42c315f8c2d from cluster
-{{< /highlight >}}
+{{< /code >}}
 
 Finally, add a newly created member to the cluster.
 You can use the same name and IP address as the faulty member you deleted, with one change to the configuration: specify the `etcd-initial-cluster-state` as `existing`.
 
-{{< highlight yml >}}
+{{< code yml >}}
 etcd-advertise-client-urls: "http://10.0.0.4:2379"
 etcd-listen-client-urls: "http://10.0.0.4:2379"
 etcd-listen-peer-urls: "http://0.0.0.0:2380"
@@ -231,7 +231,7 @@ etcd-initial-advertise-peer-urls: "http://10.0.0.4:2380"
 etcd-initial-cluster-state: "existing"
 etcd-initial-cluster-token: ""
 etcd-name: "backend-4"
-{{< /highlight >}}
+{{< /code >}}
 
 If replacing the faulty cluster member does not resolve the problem, see the [etcd operations guide][12] for more information.
 
@@ -239,11 +239,11 @@ If replacing the faulty cluster member does not resolve the problem, see the [et
 
 Update the peer URLs of a member in a cluster:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl cluster member-update c8f63ae435a5e6bf https://10.0.0.4:2380
 
 Updated member with ID c8f63ae435a5e6bf in cluster
-{{< /highlight >}}
+{{< /code >}}
 
 ## Cluster security
 
@@ -257,7 +257,7 @@ To stand up an external etcd cluster, follow etcd's [clustering guide][2] using 
 In this example, you will enable client-to-server and peer communication authentication [using self-signed TLS certificates][13].
 To start etcd for `backend-1` based on the [three-node configuration example][19]:
 
-{{< highlight shell >}}
+{{< code shell >}}
 etcd \
 --listen-client-urls "https://10.0.0.1:2379" \
 --advertise-client-urls "https://10.0.0.1:2379" \
@@ -276,7 +276,7 @@ etcd \
 --peer-client-cert-auth \
 --auto-compaction-mode revision \
 --auto-compaction-retention 2
-{{< /highlight >}}
+{{< /code >}}
 
 {{% notice note %}}
 **NOTE**: The `auto-compaction-mode` and `auto-compaction-retention` flags are important.
@@ -285,14 +285,14 @@ Without these settings, your database may quickly reach etcd's maximum database 
 
 To tell Sensu to use this external etcd data source, add the `sensu-backend` flag `--no-embed-etcd` to the original configuration, along with the path to a client certificate created using your CA:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensu-backend start \
 --etcd-trusted-ca-file=./ca.pem \
 --etcd-cert-file=./client.pem \
 --etcd-key-file=./client-key.pem \
 --etcd-client-urls=https://10.0.0.1:2379,https://10.0.0.2:2379,https://10.0.0.3:2379 \
 --no-embed-etcd
-{{< /highlight >}}
+{{< /code >}}
 
 ## Troubleshoot clusters
 

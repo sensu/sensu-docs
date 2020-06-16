@@ -31,20 +31,20 @@ First, create an event filter called `hourly` that matches new events (where the
 Events in Sensu Go are handled regardless of check execution status.
 Even successful check events are passed through the pipeline, so you'll need to add a clause for non-zero status.
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl filter create hourly \
 --action allow \
 --expressions "event.check.occurrences == 1 || event.check.occurrences % (3600 / event.check.interval) == 0"
-{{< /highlight >}}
+{{< /code >}}
 
 ### Assign the event filter to a handler
 
 Now that you've created the `hourly` event filter, you can assign it to a handler.
 Because you want to reduce the number of Slack messages Sensu sends, you'll apply the event filter to an existing handler named `slack`, in addition to the built-in `is_incident` filter, so only failing events are handled.
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl handler update slack
-{{< /highlight >}}
+{{< /code >}}
 
 Follow the prompts to add the `hourly` and `is_incident` event filters to the Slack handler.
 
@@ -62,9 +62,9 @@ In this approach, the first step is to obtain an event filter asset that will al
 
 Use [`sensuctl asset add`][5] to register the [fatigue check filter][9] asset:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl asset add nixwiz/sensu-go-fatigue-check-filter:0.3.2 -r fatigue-filter
-{{< /highlight >}}
+{{< /code >}}
 
 This example uses the `-r` (rename) flag to specify a shorter name for the asset: `fatigue-filter`.
 
@@ -73,7 +73,7 @@ You can also download the asset directly from [Bonsai, the Sensu asset index][9]
 You've registered the asset, but you still need to create the filter.
 To do this, use the following configuration:
 
-{{< highlight yaml >}}
+{{< code yaml >}}
 ---
 type: EventFilter
 api_version: core/v2
@@ -86,13 +86,13 @@ spec:
   - fatigue_check(event)
   runtime_assets:
   - fatigue-filter
-{{< /highlight >}}
+{{< /code >}}
 
 Then, create the filter, naming it `sensu-fatigue-check-filter.yml`:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl create -f sensu-fatigue-check-filter.yml
-{{< /highlight >}}
+{{< /code >}}
 
 Now that you've created the filter asset and the event filter, you can create the check annotations you need for the asset to work properly. 
 
@@ -101,7 +101,7 @@ Now that you've created the filter asset and the event filter, you can create th
 Next, you need to make some additions to any checks you want to use the filter with.
 Here's an example CPU check:
 
-{{< highlight yaml >}}
+{{< code yaml >}}
 ---
 type: CheckConfig
 api_version: core/v2
@@ -132,7 +132,7 @@ spec:
   - linux
   timeout: 0
   ttl: 0
-{{< /highlight >}}
+{{< /code >}}
 
 Notice the annotations under the `metadata` scope.
 The annotations are required for the filter asset to work the same way as the interactively created event filter.
@@ -150,7 +150,7 @@ Next, you'll assign the newly minted event filter to a handler.
 Just like with the [interactively created event filter][4], you'll introduce the filter into your Sensu workflow by configuring a handler to use it.
 Here's an example:
 
-{{< highlight yaml >}}
+{{< code yaml >}}
 ---
 api_version: core/v2
 type: Handler
@@ -166,7 +166,7 @@ spec:
   filters:
   - is_incident
   - fatigue_check
-{{< /highlight >}}
+{{< /code >}}
 
 ### Validate the event filter
 

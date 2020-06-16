@@ -11,7 +11,7 @@ menu:
     parent: web-ui
 ---
 
-You can view and manage Sensu resources in the web UI, including entities, checks, handlers, event filters, and mutators.
+You can view and manage Sensu resources in the web UI, including events, entities, silences, checks, handlers, event filters, and mutators.
 
 ## Use the namespace switcher
 
@@ -28,15 +28,23 @@ To switch namespaces, select the menu icon in the upper-left corner and choose a
 
 <p style="text-align:center"><i>Sensu web UI namespace switcher</i></p>
 
+## Manage events
+
+Resolve, re-run, silence, and delete Sensu events in the web UI Events page.
+
 ## Manage entities
 
-You can delete Sensu entities in the web UI Entities page.
+Silence and delete Sensu entities in the web UI Entities page.
+
+## Manage silences
+
+Create and clear silences in the web UI Silences page.
 
 ## Manage checks, handlers, event filters, and mutators
 
 **COMMERCIAL FEATURE**: Access check, handler, event filter, and mutator management in the packaged Sensu Go distribution. For more information, see [Get started with commercial features][1].
 
-You can create, edit, and delete Sensu checks, handlers, event filters, and mutators from their respective pages in the web UI.
+Create, edit, and delete Sensu checks, handlers, event filters, and mutators from their respective pages in the web UI.
 
 
 [1]: ../../commercial/

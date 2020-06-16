@@ -9,6 +9,7 @@ version: "5.21"
 menu: "sensu-go-5.21"
 ---
 
+- [5.21.0 release notes](#5210-release-notes)
 - [5.20.2 release notes](#5202-release-notes)
 - [5.20.1 release notes](#5201-release-notes)
 - [5.20.0 release notes](#5200-release-notes)
@@ -63,6 +64,33 @@ PATCH versions include backward-compatible bug fixes.
 Read the [upgrade guide][1] for information about upgrading to the latest version of Sensu Go.
 
 ---
+
+## 5.21.0 release notes
+
+**June 15, 2020** &mdash; The latest release of Sensu Go, version 5.21.0, is now available for download.
+
+The latest release of Sensu Go, version 5.21.0, is now available for download! This release delivers several enhancements and fixes. The most significant enhancements involve user management: you can now back up users via `sensuctl dump`, restore users via `sensuctl create`, and reset user passwords via the backend API. We also tuned Sensu Go agent logging and changed the default log level from warning to info. Plus, we crushed a number of nasty bugs: checks configured with missing hooks can no longer crash the agent, proxy check request errors do not block scheduling for other entities, and more!
+
+See the [upgrade guide][1] to upgrade Sensu to version 5.21.0.
+
+**NEW FEATURES:**
+
+- ([Commercial feature][158]) Added [entity count and limit][156] for each entity class in the tabular title in the response for `sensuctl license info` (in addition to the total entity count and limit).
+- ([Commercial feature][158]) Added [Linux amd64 OpenSSL-linked binaries][160] for the Sensu agent and backend, with accompanying `--require-fips` and `--require-openssl` flags for the [agent][161] and [backend][162].
+- Added `sensuctl user hash-password` command to generate password hashes.
+- Added the ability to reset passwords via the backend API and `sensuctl user reset-password`.
+
+**IMPROVEMENTS:**
+
+- Changed the [default log level for `sensu-agent`][157] to `info` (instead of `warn`).
+
+**FIXES:**
+
+- The password verification logic when running `sensuctl user change-password` is now included in the backend API rather than sensuctl.
+- Errors in publishing proxy check requests no longer block scheduling for other entities.
+- Using the `--chunk-size` flag when listing namespaces in sensuctl now works properly.
+- The agent no longer immediately exits in certain scenarios when components are disabled.
+- Fixed a bug that could cause a GraphQL query to fail when querying a namespace that contained event data in excess of 2 GB.
 
 ## 5.20.2 release notes
 
@@ -1343,3 +1371,9 @@ To get started with Sensu Go:
 [153]: /sensu-go/5.20/web-ui/sign-in/
 [154]: /sensu-go/5.20/sensuctl/reference/#extend-sensuctl-with-commands
 [155]: /sensu-go/5.20/reference/agent/#discover-processes
+[156]: /sensu-go/5.21/reference/license/#view-entity-count-and-entity-limit
+[157]: /sensu-go/5.21/reference/agent/#log-level
+[158]: /sensu-go/5.21/commercial/
+[160]: /sensu-go/5.21/platforms/#linux
+[161]: /sensu-go/5.21/reference/agent#fips-openssl
+[162]: /sensu-go/5.21/reference/backend#fips-openssl

@@ -76,12 +76,12 @@ The Sensu API docs use `$SENSU_ACCESS_TOKEN` to represent a valid access token i
 
 To set up a local API testing environment, save your Sensu credentials and token as environment variables:
 
-{{< highlight shell >}}
+{{< code shell >}}
 # Requires curl and jq
 export SENSU_USER=YOUR_USERNAME && SENSU_PASS=YOUR_PASSWORD
 
 export SENSU_ACCESS_TOKEN=`curl -X GET -u "$SENSU_USER:$SENSU_PASS" -s http://localhost:8080/auth | jq -r ".access_token"`
-{{< /highlight >}}
+{{< /code >}}
 
 ### Basic authentication using the authentication API
 
@@ -89,43 +89,43 @@ The [`/auth` API endpoint][10] lets you generate short-lived API tokens using yo
 
 1. Retrieve an access token for your user.
 For example, to generate an access token using example admin credentials:
-{{< highlight shell >}}
+{{< code shell >}}
 curl -u 'YOUR_USERNAME:YOUR_PASSWORD' http://localhost:8080/auth
-{{< /highlight >}}
+{{< /code >}}
 The access token should be included in the output, along with a refresh token:
-{{< highlight shell >}}
+{{< code shell >}}
 {
   "access_token": "eyJhbGciOiJIUzI1NiIs...",
   "expires_at": 1544582187,
   "refresh_token": "eyJhbGciOiJIUzI1NiIs..."
 }
-{{< /highlight >}}
+{{< /code >}}
 
 2. Use the access token in the authentication header of the API request.
 For example:
-{{< highlight shell >}}
+{{< code shell >}}
 curl -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIs..." \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/events
-{{< /highlight >}}
+{{< /code >}}
 
 3. Refresh your access token every 15 minutes.
 Access tokens last for approximately 15 minutes.
 When your token expires, you should see a `401 Unauthorized` response from the API.
 To generate a new access token, use the [`/auth/token` API endpoint][11], including the expired access token in the authorization header and the refresh token in the request body:
-{{< highlight shell >}}
+{{< code shell >}}
 curl -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIs..." \
 -H 'Content-Type: application/json' \
 -d '{"refresh_token": "eyJhbGciOiJIUzI1NiIs..."}' \
 http://127.0.0.1:8080/auth/token
-{{< /highlight >}}
+{{< /code >}}
 The new access token should be included in the output:
-{{< highlight shell >}}
+{{< code shell >}}
 {
   "access_token": "eyJhbGciOiJIUzI1NiIs...",
   "expires_at": 1561055277,
   "refresh_token": "eyJhbGciOiJIUzI1NiIs..."
 }
-{{< /highlight >}}
+{{< /code >}}
 
 ### Generate an API token using sensuctl
 
@@ -135,20 +135,20 @@ The user credentials that you use to log in to sensuctl determine your permissio
 1. [Install and log in to sensuctl][2].
 
 2. Retrieve an access token for your user:
-{{< highlight shell >}}
+{{< code shell >}}
 cat ~/.config/sensu/sensuctl/cluster|grep access_token
-{{< /highlight >}}
+{{< /code >}}
 The access token should be included in the output:
-{{< highlight shell >}}
+{{< code shell >}}
 "access_token": "eyJhbGciOiJIUzI1NiIs...",
-{{< /highlight >}}
+{{< /code >}}
 
 3. Copy the access token into the authentication header of the API request.
 For example:
-{{< highlight shell >}}
+{{< code shell >}}
 curl -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIs..." \
 http://127.0.0.1:8080/api/core/v2/namespaces/default/events
-{{< /highlight >}}
+{{< /code >}}
 
 4. Refresh your access token every 15 minutes.
 Access tokens last for approximately 15 minutes.
@@ -176,19 +176,19 @@ Similar to the `Bearer [token]` Authorization header, `Key [api-key]` will be ac
 
 For example, a JWT `Bearer [token]` Authorization header might be:
 
-{{< highlight shell >}}
+{{< code shell >}}
 curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" http://127.0.0.1:8080/api/core/v2/namespaces/default/checks
-{{< /highlight >}}
+{{< /code >}}
 
 If you're using `Key [api-key]` to authenticate instead, the Authorization header might be:
 
-{{< highlight shell >}}
+{{< code shell >}}
 curl -H "Authorization: Key $SENSU_API_KEY" http://127.0.0.1:8080/api/core/v2/namespaces/default/checks
-{{< /highlight >}}
+{{< /code >}}
 
 #### Example
 
-{{< highlight shell >}}
+{{< code shell >}}
 $ curl -H "Authorization: Key 7f63b5bc-41f4-4b3e-b59b-5431afd7e6a2" http://127.0.0.1:8080/api/core/v2/namespaces/default/checks
 
 HTTP/1.1 200 OK
@@ -210,7 +210,7 @@ HTTP/1.1 200 OK
     }
   }
 ]
-{{< /highlight >}}
+{{< /code >}}
 
 ## Pagination
 
@@ -221,9 +221,9 @@ You can request a paginated response with the `limit` and `continue` query param
 
 The following request limits the response to a maximum of two objects:
 
-{{< highlight shell >}}
+{{< code shell >}}
 curl http://127.0.0.1:8080/api/core/v2/users?limit=2 -H "Authorization: Bearer $SENSU_ACCESS_TOKEN"
-{{< /highlight >}}
+{{< /code >}}
 
 The response includes the available objects up to the specified limit.
 
@@ -233,7 +233,7 @@ If more objects are available beyond the [limit][16] you specified in a request,
 
 For example, the following response indicates that more than two users are available because it provides a `Sensu-Continue` token in the response header:
 
-{{< highlight shell >}}
+{{< code shell >}}
 HTTP/1.1 200 OK
 Content-Type: application/json
 Sensu-Continue: L2RlZmF1bU2Vuc3UtTWFjQ
@@ -258,19 +258,19 @@ Content-Length: 132
     "disabled": false
   }
 ]
-{{< /highlight >}}
+{{< /code >}}
 
 To request the next two available users, use the `Sensu-Continue` token included in the response header:
 
-{{< highlight shell >}}
+{{< code shell >}}
 curl http://127.0.0.1:8080/api/core/v2/users?limit=2&continue=L2RlZmF1bU2Vuc3UtTWFjQ \
 -H "Authorization: Bearer $SENSU_ACCESS_TOKEN"
-{{< /highlight >}}
+{{< /code >}}
 
 If the response header does not include a `Sensu-Continue` token, there are no further objects to return.
 For example, this response header indicates that no further users are available:
 
-{{< highlight shell >}}
+{{< code shell >}}
 HTTP/1.1 200 OK
 Content-Type: application/json
 Sensu-Entity-Count: 3
@@ -287,7 +287,7 @@ Content-Length: 54
     "disabled": false
   }
 ]
-{{< /highlight >}}
+{{< /code >}}
 
 ## Response filtering
 
@@ -343,9 +343,9 @@ The filter statement construction is slightly different for different operators,
 
 As shown in this example:
 
-{{< highlight text >}}
+{{< code text >}}
 'fieldSelector=silenced.expire_on_resolve == true'
-{{< /highlight >}}
+{{< /code >}}
 
 - **Do not** use spaces around the `=` between the selector type and the rest of the filter statement.
 - **Do** use spaces around the operator (in this example, the `==`).
@@ -354,15 +354,15 @@ As shown in this example:
 
 Place the entire filter statement inside single quotes:
 
-{{< highlight text >}}
+{{< code text >}}
 'fieldSelector=linux in check.subscriptions'
-{{< /highlight >}}
+{{< /code >}}
 
 **Exception**: If the filter statement contains a *shell* variable, you must use double quotation marks around the statement:
 
-{{< highlight text >}}
+{{< code text >}}
 "labelSelector=host == $HOSTNAME"
-{{< /highlight >}}
+{{< /code >}}
 
 If you use single quotes around a filter statement that contains a shell variable, the single quotes will keep the variable intact instead of expanding it.
 
@@ -375,15 +375,15 @@ It does not apply for variables in languages that treat single and double quotat
 
 If you are filtering for a value that begins with a number, place the value in double quotes:
 
-{{< highlight text >}}
+{{< code text >}}
 'fieldSelector=entity.name == "1b04994n"'
-{{< /highlight >}}
+{{< /code >}}
 
 Likewise, to use a label or field selector with string values that include special characters like hyphens and underscores, place the value in double quotes:
 
-{{< highlight text >}}
+{{< code text >}}
 'labelSelector:region == "us-west-1"'
-{{< /highlight >}}
+{{< /code >}}
 
 ### Operators
 
@@ -404,10 +404,10 @@ Sensu's two _equality-based_ operators are `==` (equality) and `!=` (inequality)
 
 For example, to retrieve only checks with the label `type` and value `server`: 
 
-{{< highlight shell >}}
+{{< code shell >}}
 curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" http://127.0.0.1:8080/api/core/v2/checks -G \
 --data-urlencode 'labelSelector=type == "server"'
-{{< /highlight >}}
+{{< /code >}}
 
 {{% notice note %}}
 **NOTE**: Use the flag `--data-urlencode` in cURL to encode the query parameter. 
@@ -416,10 +416,10 @@ Include the `-G` flag so the request appends the query parameter data to the URL
 
 To retrieve checks that are not in the `production` namespace:
 
-{{< highlight shell >}}
+{{< code shell >}}
 curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" http://127.0.0.1:8080/api/core/v2/checks -G \
 --data-urlencode 'fieldSelector=check.namespace != "production"'
-{{< /highlight >}}
+{{< /code >}}
 
 #### Set-based operators
 
@@ -427,17 +427,17 @@ Sensu's two _set-based_ operators for lists of values are `in` and `notin`.
 
 For example, to retrieve checks with a `linux` subscription:
 
-{{< highlight shell >}}
+{{< code shell >}}
 curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" http://127.0.0.1:8080/api/core/v2/checks -G \
 --data-urlencode 'fieldSelector=linux in check.subscriptions'
-{{< /highlight >}}
+{{< /code >}}
 
 To retrieve checks that do not use the `slack` handler:
 
-{{< highlight shell >}}
+{{< code shell >}}
 curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" http://127.0.0.1:8080/api/core/v2/checks -G \
 --data-urlencode 'fieldSelector=slack notin check.handlers'
-{{< /highlight >}}
+{{< /code >}}
 
 The `in` and `notin` operators have two important conditions:
 
@@ -452,26 +452,26 @@ Sensu's _substring matching_ operator is `matches`.
 
 For example, to retrieve all checks whose name includes `linux`:
 
-{{< highlight shell >}}
+{{< code shell >}}
 curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" http://127.0.0.1:8080/api/core/v2/checks -G \
 --data-urlencode 'fieldSelector=check.name matches "linux"'
-{{< /highlight >}}
+{{< /code >}}
 
 Suppose you are using Sensu to monitor 1000 entities that are named incrementally and according to technology.
 For example, your webservers are named `webserver-1` through `webserver-25`, and your CPU entities are named `cpu-1` through `cpu-300`, and so on.
 In this case, you can use `matches` to retrieve all of your `webserver` entities:
 
-{{< highlight shell >}}
+{{< code shell >}}
 curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" http://127.0.0.1:8080/api/core/v2/entities -G \
 --data-urlencode 'fieldSelector=entity.name matches "webserver-"'
-{{< /highlight >}}
+{{< /code >}}
 
 Similarly, if you have entities labeled for different regions, you can use `matches` to find the entities that are labeled for the US (e.g. `us-east-1`, `us-west-1`, and so on):
 
-{{< highlight shell >}}
+{{< code shell >}}
 curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" http://127.0.0.1:8080/api/core/v2/entities -G \
 --data-urlencode 'labelSelector:region matches "us"'
-{{< /highlight >}}
+{{< /code >}}
 
 The `matches` operator only works when the underlying value you're filtering for is a string.
 You can filter for strings and arrays of strings with the `matches` operator, but you cannot use it to filter for integer, float, array, or Boolean values.
@@ -484,17 +484,17 @@ Use it to combine multiple statements separated with the logical operator in fie
 
 For example, the following cURL request retrieves checks that are not configured to be published **and** include the `linux` subscription:
 
-{{< highlight shell >}}
+{{< code shell >}}
 curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" http://127.0.0.1:8080/api/core/v2/checks -G \
 --data-urlencode 'fieldSelector=check.publish != true && linux in check.subscriptions'
-{{< /highlight >}}
+{{< /code >}}
 
 To retrieve checks that are not published, include a `linux` subscription, and are in the `dev` namespace:
 
-{{< highlight shell >}}
+{{< code shell >}}
 curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" http://127.0.0.1:8080/api/core/v2/checks -G \
 --data-urlencode 'fieldSelector=check.publish != true && linux in check.subscriptions && dev in check.namespace'
-{{< /highlight >}}
+{{< /code >}}
 
 {{% notice note %}}
 **NOTE**: Sensu does not have the `OR` logical operator.
@@ -505,11 +505,11 @@ curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" http://127.0.0.1:8080/api/co
 You can use field and label selectors in a single request.
 For example, to retrieve only checks that include a `linux` subscription *and* do not include a label for type `server`:
 
-{{< highlight shell >}}
+{{< code shell >}}
 curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" http://127.0.0.1:8080/api/core/v2/checks -G \
 --data-urlencode 'fieldSelector=linux in check.subscriptions' \
 --data-urlencode 'labelSelector=type != "server"'
-{{< /highlight >}}
+{{< /code >}}
 
 ### Examples
 
@@ -517,82 +517,82 @@ curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" http://127.0.0.1:8080/api/co
 
 To use a label or field selector with string values that include special characters like hyphens and underscores, place the value in single or double quotes:
 
-{{< highlight shell >}}
+{{< code shell >}}
 curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" -X GET http://127.0.0.1:8080/api/core/v2/entities -G \
 --data-urlencode 'labelSelector=region == "us-west-1"'
-{{< /highlight >}}
+{{< /code >}}
 
-{{< highlight shell >}}
+{{< code shell >}}
 curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" http://127.0.0.1:8080/api/core/v2/entities -G \
 --data-urlencode 'fieldSelector="entity:i-0c1f8a116b84ea50c" in entity.subscriptions'
-{{< /highlight >}}
+{{< /code >}}
 
 #### Use selectors with arrays of strings
 
 To retrieve checks that are in either the `dev` or `production` namespace:
 
-{{< highlight shell >}}
+{{< code shell >}}
 curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" http://127.0.0.1:8080/api/core/v2/checks -G \
 --data-urlencode 'fieldSelector=check.namespace in [dev,production]'
-{{< /highlight >}}
+{{< /code >}}
 
 #### Filter events by entity or check
 
 To retrieve events for a specific check (`checkhttp`):
 
-{{< highlight shell >}}
+{{< code shell >}}
 curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" http://127.0.0.1:8080/api/core/v2/events -G \
 --data-urlencode 'fieldSelector=checkhttp in event.check.name'
-{{< /highlight >}}
+{{< /code >}}
 
 Similary, to retrieve only events for the `server` entity:
 
-{{< highlight shell >}}
+{{< code shell >}}
 curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" http://127.0.0.1:8080/api/core/v2/events -G \
 --data-urlencode 'fieldSelector=server in event.entity.name'
-{{< /highlight >}}
+{{< /code >}}
 
 #### Filter events by severity
 
 Use the `event.check.status` field selector to retrieve events by severity.
 For example, to retrieve all events at `2` (CRITICAL) status:
 
-{{< highlight shell >}}
+{{< code shell >}}
 curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" http://127.0.0.1:8080/api/core/v2/events -G \
 --data-urlencode 'fieldSelector=event.check.status == "2"'
-{{< /highlight >}}
+{{< /code >}}
 
 #### Filter all incidents
 
 To retrieve all incidents (all events whose status is not `0`):
 
-{{< highlight shell >}}
+{{< code shell >}}
 curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" http://127.0.0.1:8080/api/core/v2/events -G \
 --data-urlencode 'fieldSelector=event.entity.status != "0"'
-{{< /highlight >}}
+{{< /code >}}
 
 #### Filter checks, entities, or events by subscription
 
 To list all checks that include the `linux` subscription:
 
-{{< highlight shell >}}
+{{< code shell >}}
 curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" http://127.0.0.1:8080/api/core/v2/checks -G \
 --data-urlencode 'fieldSelector=linux in check.subscriptions'
-{{< /highlight >}}
+{{< /code >}}
 
 Similarly, to list all entities that include the `linux` subscription:
 
-{{< highlight shell >}}
+{{< code shell >}}
 curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" http://127.0.0.1:8080/api/core/v2/entities -G \
 --data-urlencode 'fieldSelector=linux in entity.subscriptions'
-{{< /highlight >}}
+{{< /code >}}
 
 To list all events for the `linux` subscription, use the `event.entity.subscriptions` field selector:
 
-{{< highlight shell >}}
+{{< code shell >}}
 curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" http://127.0.0.1:8080/api/core/v2/events -G \
 --data-urlencode 'fieldSelector=linux in event.entity.subscriptions'
-{{< /highlight >}}
+{{< /code >}}
 
 #### Filter silenced resources and silences
 
@@ -600,49 +600,49 @@ curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" http://127.0.0.1:8080/api/co
 
 To list all silenced resources for a particular namespace (in this example, the `default` namespace):
 
-{{< highlight shell >}}
+{{< code shell >}}
 curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN http://127.0.0.1:8080/api/core/v2/silenced -G \
 --data-urlencode 'fieldSelector=silenced.namespace == "default"'
-{{< /highlight >}}
+{{< /code >}}
 
 Likewise, to list all silenced resources *except* those in the `default` namespace:
 
-{{< highlight shell >}}
+{{< code shell >}}
 curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN http://127.0.0.1:8080/api/core/v2/silenced -G \
 --data-urlencode 'fieldSelector=silenced.namespace != "default"'
-{{< /highlight >}}
+{{< /code >}}
 
 **Filter silences by creator**
 
 To list all silences created by the user `alice`:
 
-{{< highlight shell >}}
+{{< code shell >}}
 curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" http://127.0.0.1:8080/api/core/v2/silenced -G \
 --data-urlencode 'fieldSelector=silenced.creator == "alice"'
-{{< /highlight >}}
+{{< /code >}}
 
 To list all silences that were not created by the `admin` user:
 
-{{< highlight shell >}}
+{{< code shell >}}
 curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" http://127.0.0.1:8080/api/core/v2/silenced -G \
 --data-urlencode 'fieldSelector=silenced.creator != "admin"'
-{{< /highlight >}}
+{{< /code >}}
 
 **Filter silences by silence subscription**
 
 To retrieve silences with a specific subscription (in this example, `linux`):
 
-{{< highlight shell >}}
+{{< code shell >}}
 curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" http://127.0.0.1:8080/api/core/v2/silenced -G \
 --data-urlencode 'fieldSelector=silenced.subscription == "linux"'
-{{< /highlight >}}
+{{< /code >}}
 
 Another way to make the same request is:
 
-{{< highlight shell >}}
+{{< code shell >}}
 curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN" http://127.0.0.1:8080/api/core/v2/silenced -G \
 --data-urlencode 'fieldSelector=linux in silenced.subscription'
-{{< /highlight >}}
+{{< /code >}}
 
 {{% notice note %}}
 **NOTE**: For this field selector, `subscription` means the subscription specified for the silence.
@@ -653,10 +653,10 @@ In other words, this filter retrieves **silences** with a particular subscriptio
 
 To list all silenced resources that expire only when a matching check resolves:
 
-{{< highlight shell >}}
+{{< code shell >}}
 curl -H "Authorization: Bearer $SENSU_ACCESS_TOKEN http://127.0.0.1:8080/api/core/v2/silenced -G \
 --data-urlencode 'fieldSelector=silenced.expire_on_resolve == true'
-{{< /highlight >}}
+{{< /code >}}
 
 
 [1]: ../../sensuctl/reference#preferred-output-format

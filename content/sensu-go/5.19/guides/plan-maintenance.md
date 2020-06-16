@@ -39,14 +39,14 @@ In this example, you'll create a silenced entry for a specific entity named `i-4
 To begin, create a silenced entry that will silence the check `check-http` on the entity `i-424242` for a planned maintenance window that starts at **01:00** on **Sunday** and ends **1 hour** later.
 Your username will be added automatically as the **creator** of the silenced entry:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl silenced create \
 --subscription 'entity:i-424242' \
 --check 'check-http' \
 --begin '2018-03-16 01:00:00 -04:00' \
 --expire 3600 \
 --reason 'Server upgrade'
-{{< /highlight >}}
+{{< /code >}}
 
 See the [sensuctl documentation][8] for the supported time formats for the `begin` flag.
 
@@ -54,19 +54,19 @@ See the [sensuctl documentation][8] for the supported time formats for the `begi
 
 Use sensuctl to verify that the silenced entry against the entity `i-424242` was created properly:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl silenced info 'entity:i-424242:check-http'
-{{< /highlight >}}
+{{< /code >}}
 
 After the silenced entry starts to take effect, events that are silenced will be marked as such in `sensuctl events`:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl event list
 
    Entity         Check        Output       Status     Silenced          Timestamp
 ──────────────   ─────────    ─────────   ──────────── ────────── ───────────────────────────────
    i-424242      check-http                    0          true     2018-03-16 13:22:16 -0400 EDT
-{{< /highlight >}}
+{{< /code >}}
 
 {{% notice warning %}}
 **WARNING**: By default, a silenced event will be handled unless the handler uses the `not_silenced` filter to discard silenced events.

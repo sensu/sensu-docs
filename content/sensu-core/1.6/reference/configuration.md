@@ -78,8 +78,8 @@ configuration sources, please note the following example scenario:
    object is actually a JSON document, which begins life (as Sensu is started)
    as an empty JSON document.
    <h4 id="inital-sensu-configuration-hash">Initial Sensu configuration Hash (in memory)</h4>
-{{< highlight json >}}
-{}{{< /highlight >}}
+{{< code json >}}
+{}{{< /code >}}
    When Sensu is started, it will begin to collect configuration from
    environment variables, a configuration file, and one ore more configuration
    directories, which configuration parameters will be used to build up this
@@ -89,7 +89,7 @@ configuration sources, please note the following example scenario:
    snippet that Sensu encounters is a configuration file, located at
    `/etc/sensu/config.json` with the following contents:
    <h6>New config file (on disk at `/etc/sensu/config.json`)</h6>
-{{< highlight json >}}
+{{< code json >}}
 {
  "rabbitmq": {
    "host": "10.0.1.10",
@@ -102,10 +102,10 @@ configuration sources, please note the following example scenario:
    "port": 6379,
    "password": "secret"
  }
-}{{< /highlight >}}
+}{{< /code >}}
    At this time, the Sensu configuration Hash (in memory) will look like: 
    <h6>Updated Sensu configuration Hash (in memory)</h6>
-{{< highlight json >}}
+{{< code json >}}
 {
  "rabbitmq": {
    "host": "localhost",
@@ -118,13 +118,13 @@ configuration sources, please note the following example scenario:
    "port": 6379,
    "password": "secret"
  }
-}{{< /highlight >}}
+}{{< /code >}}
 
 3. Now let's see what happens when Sensu encounters another configuration
    snippet (e.g. a file located in a Sensu configuration directory, such as
    `/etc/sensu/conf.d/rabbitmq.json`): 
   <h6>New config file contents (on disk at `/etc/sensu/conf.d/rabbitmq.json`)</h6>
-{{< highlight json >}}
+{{< code json >}}
 {
  "rabbitmq": {
    "host": "10.0.1.10",
@@ -132,14 +132,14 @@ configuration sources, please note the following example scenario:
    "password": "newsecret"
  }
 }
-{{< /highlight >}}
+{{< /code >}}
    The second configuration snippet provided configuration for the `rabbitmq`
    scope, some of which already exists in the Sensu configuration Hash (in
    memory) - but also missing some attributes which already exist in the Sensu
    configuration Hash (i.e. `vhost`). The result of merging this configuration
    snippet into the Sensu configuration Hash (in memory) is as follows:
   <h6>Updated Sensu configuration Hash (in memory)</h6>
-{{< highlight json >}}
+{{< code json >}}
 {
  "rabbitmq": {
    "host": "10.0.1.10",
@@ -153,7 +153,7 @@ configuration sources, please note the following example scenario:
    "password": "secret"
  }
 }
-{{< /highlight >}}
+{{< /code >}}
    The result of the deep merge is that the configuration snippet provided by
    `/etc/sensu/conf.d/rabbitmq.json` was overlaid on the Sensu configuration
    Hash (in memory), essentially overwriting the previously existing values
@@ -180,13 +180,13 @@ For example, the "root" or scope of the Sensu configuration would be any
 attributes defined at the top "level" of a JSON configuration file, such as the
 configuration attributes for `rabbitmq`, `redis`, or the `api`:
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "rabbitmq": {},
   "redis": {},
   "api": {}
 }
-{{< /highlight >}}
+{{< /code >}}
 
 Attributes defined in the root scope (or top "level") provide the corresponding
 scope(s) for additional configuration settings (e.g. the `rabbitmq` attribute
@@ -213,11 +213,11 @@ containing Sensu client configuration on disk (assuming it is in a location that
 will be loaded by Sensu), the file should contain a top "level" attribute
 called `"client"`:
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "client": {}
 }
-{{< /highlight >}}
+{{< /code >}}
 
 ##### The client socket scope (`"socket": {}`)
 
@@ -234,13 +234,13 @@ location that will be loaded by Sensu), the file should contain a top "level"
 attribute called `"client"`, _and another attribute_ defined within the
 `"client"` scope (or level) called `"socket"`:
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "client": {
     "socket": {}
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 Thus, when the Client Socket reference documentation continues to explain that
 the `bind` and `port` attributes should be defined in the Client Socket scope,
@@ -249,7 +249,7 @@ regardless of where you might store a configuration file containing said
 configuration attributes on disk (assuming it is in a location that will be
 loaded by Sensu).
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "client": {
     "socket": {
@@ -258,7 +258,7 @@ loaded by Sensu).
     }
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 ## Sensu service service configuration {#sensu-service-script-configuration}
 
@@ -289,49 +289,49 @@ EMBEDDED_RUBY |
 description   | If the Sensu embedded Ruby runtime is used for check executions, adding Ruby to Sensu's `$PATH`.
 required      | false
 default       | `true` (for versions >0.21)
-example       | {{< highlight shell >}}EMBEDDED_RUBY=true{{< /highlight >}}
+example       | {{< code shell >}}EMBEDDED_RUBY=true{{< /code >}}
 
 CONFIG_FILE  | 
 -------------|------
 description  | The primary configuration file path.
 required     | false
 default      | `/etc/sensu/config.json`
-example      | {{< highlight shell >}}CONFIG_FILE=/etc/sensu/config.json{{< /highlight >}}
+example      | {{< code shell >}}CONFIG_FILE=/etc/sensu/config.json{{< /code >}}
 
 CONFD_DIR    | 
 -------------|------
 description  | The configuration snippet directory path.
 required     | false
 default      | `/etc/sensu/conf.d`
-example      | {{< highlight shell >}}CONFD_DIR=/etc/sensu/conf.d{{< /highlight >}}
+example      | {{< code shell >}}CONFD_DIR=/etc/sensu/conf.d{{< /code >}}
 
 EXTENSION_DIR | 
 --------------|------
 description   | The Sensu extension directory path.
 required      | false
 default       | `/etc/sensu/extensions`
-example       | {{< highlight shell >}}EXTENSION_DIR=/etc/sensu/extensions{{< /highlight >}}
+example       | {{< code shell >}}EXTENSION_DIR=/etc/sensu/extensions{{< /code >}}
 
 PLUGINS_DIR  | 
 -------------|------
 description  | The Sensu plugins directory path, to add to the Sensu's `$PATH`.
 required     | false
 default      | `/etc/sensu/plugins`
-example      | {{< highlight shell >}}PLUGINS_DIR=/etc/sensu/plugins{{< /highlight >}}
+example      | {{< code shell >}}PLUGINS_DIR=/etc/sensu/plugins{{< /code >}}
 
 HANDLERS_DIR | 
 -------------|------
 description  | The Sensu handlers directory path, to add to Sensu's `$PATH`. This is only used by the Sensu server.
 required     | false
 default      | `/etc/sensu/handlers`
-example      | {{< highlight shell >}}HANDLERS_DIR=/etc/sensu/handlers{{< /highlight >}}
+example      | {{< code shell >}}HANDLERS_DIR=/etc/sensu/handlers{{< /code >}}
 
 LOG_DIR      | 
 -------------|------
 description  | The log file directory path.
 required     | false
 default      | `/var/log/sensu`
-example      | {{< highlight shell >}}LOG_DIR=/var/log/sensu{{< /highlight >}}
+example      | {{< code shell >}}LOG_DIR=/var/log/sensu{{< /code >}}
 
 LOG_LEVEL      | 
 ---------------|------
@@ -339,28 +339,28 @@ description    | The log level to default the logger to.
 required       | false
 default        | `info`
 allowed values | `debug`, `info`, `warn`, `error`, `fatal`
-example        | {{< highlight shell >}}LOG_LEVEL=info{{< /highlight >}}
+example        | {{< code shell >}}LOG_LEVEL=info{{< /code >}}
 
 PID_DIR      | 
 -------------|------
 description  | The PID directory path.
 required     | false
 default      | `/var/run/sensu`
-example      | {{< highlight shell >}}PID_DIR=/var/run/sensu{{< /highlight >}}
+example      | {{< code shell >}}PID_DIR=/var/run/sensu{{< /code >}}
 
 USER         | 
 -------------|------
 description  | The Sensu user to run the process as.
 required     | false
 default      | `sensu`
-example      | {{< highlight shell >}}USER=sensu{{< /highlight >}}
+example      | {{< code shell >}}USER=sensu{{< /code >}}
 
 SERVICE_MAX_WAIT | 
 -----------------|------
 description      | The max wait time for process start/stop.
 required         | false
 default          | `10`
-example          | {{< highlight shell >}}SERVICE_MAX_WAIT=10{{< /highlight >}}
+example          | {{< code shell >}}SERVICE_MAX_WAIT=10{{< /code >}}
 
 ## Sensu command line interfaces and arguments
 
@@ -373,7 +373,7 @@ _NOTE: these options will work with ALL of the Sensu services (`sensu-server`,
 -h (-\-help)  | 
 --------------|------
 description   | Display the help documentation.
-examples      | {{< highlight shell >}}$ /opt/sensu/bin/sensu-server -h
+examples      | {{< code shell >}}$ /opt/sensu/bin/sensu-server -h
 Usage: sensu-server [options]
   -h, --help                       Display this message
   -V, --version                    Display version
@@ -394,30 +394,30 @@ Usage: sensu-install [options]
   -p, --plugin PLUGIN              Install a Sensu PLUGIN
   -P, --plugins PLUGIN[,PLUGIN]    PLUGIN or comma-delimited list of Sensu plugins to install
   -s, --source SOURCE              Install Sensu plugins from a custom SOURCE
-{{< /highlight >}}
+{{< /code >}}
 
 -V (-\-version) | 
 ----------------|------
 description     | Display the Sensu version.
-example         | {{< highlight shell >}}$ /opt/sensu/bin/sensu-client -V
+example         | {{< code shell >}}$ /opt/sensu/bin/sensu-client -V
 1.0.0
-{{< /highlight >}}
+{{< /code >}}
 
 -c (-\-config FILE) | 
 --------------------|------
 description         | Provide the path to the Sensu configuration `FILE`.
-example             | {{< highlight shell >}}/opt/sensu/bin/sensu-api -c /etc/sensu/config.json{{< /highlight >}}
+example             | {{< code shell >}}/opt/sensu/bin/sensu-api -c /etc/sensu/config.json{{< /code >}}
 
 -d (-\-config_dir DIR[,DIR]) | 
 -----------------------------|------
 description                  | Provide the path to the Sensu configuration `DIR`, or comma delimited `DIR` list. Configuration directories are loaded in the order provided.
-example                      | {{< highlight shell >}}/opt/sensu/bin/sensu-server -d /etc/sensu/conf.d,/path/to/more/configuration{{< /highlight >}}
+example                      | {{< code shell >}}/opt/sensu/bin/sensu-server -d /etc/sensu/conf.d,/path/to/more/configuration{{< /code >}}
 
 -P (-\-print_config) | 
 ---------------------|------
 description          | Load and print Sensu configuration to STDOUT.
 dependencies         | Requires `-c` (`--config`) and `-d` (`--config_dir`) CLI arguments to be provided so the Sensu service knows where to load configuration from.
-example              | {{< highlight shell >}}$ sudo -u sensu /opt/sensu/bin/sensu-client -P -c /etc/sensu/config.json -d /etc/sensu/conf.d/
+example              | {{< code shell >}}$ sudo -u sensu /opt/sensu/bin/sensu-client -P -c /etc/sensu/config.json -d /etc/sensu/conf.d/
 {"timestamp":"2016-04-08T16:41:35.699200-0700","level":"warn","message":"loading config file","file":"/etc/sensu/config.json"}
 {"timestamp":"2016-04-08T16:41:35.699411-0700","level":"warn","message":"loading config files from directory","directory":"/etc/sensu/conf.d/"}
 {"timestamp":"2016-04-08T16:41:35.699456-0700","level":"warn","message":"loading config file","file":"/etc/sensu/conf.d/check-sensu-website.json"}
@@ -463,45 +463,45 @@ example              | {{< highlight shell >}}$ sudo -u sensu /opt/sensu/bin/sen
     }
   }
 }
-{{< /highlight >}}_NOTE: this command needs to be run as the `sensu` user (or as a user with elevated privileges) in order for Sensu to access its configuration files)._ _PRO TIP: to generate config output without log entries, try setting the `-L` (`--log_level`) CLI argument to `error` or `fatal` (e.g. `-L fatal`)._
+{{< /code >}}_NOTE: this command needs to be run as the `sensu` user (or as a user with elevated privileges) in order for Sensu to access its configuration files)._ _PRO TIP: to generate config output without log entries, try setting the `-L` (`--log_level`) CLI argument to `error` or `fatal` (e.g. `-L fatal`)._
 
 -\-validate_config | 
 -------------------|------
 description        | Validate compiled configuration and exit with an exit status code indicating if the configuration is valid (will exit `0` for "OK", and `2` for "CRITICAL" or invalid).
 dependencies       | Requires `-c` (`--config`) and `-d` (`--config_dir`) CLI arguments to be provided so the Sensu service knows where to load configuration from.
-example            | {{< highlight shell >}}$ sudo -u sensu /opt/sensu/bin/sensu-client --validate_config -c /etc/sensu/config.json -d /etc/sensu/conf.d/`
-`configuration is valid{{< /highlight >}}
+example            | {{< code shell >}}$ sudo -u sensu /opt/sensu/bin/sensu-client --validate_config -c /etc/sensu/config.json -d /etc/sensu/conf.d/`
+`configuration is valid{{< /code >}}
 
 -e (-\-extensions_dir DIR) | 
 ---------------------------|------
 description                | Provide the path to the Sensu extensions `DIR`.
-example                    | {{< highlight shell >}}/opt/sensu/bin/sensu-server -e /etc/sensu/extensions{{< /highlight >}}
+example                    | {{< code shell >}}/opt/sensu/bin/sensu-server -e /etc/sensu/extensions{{< /code >}}
 
 -l (-\-log LOG) | 
 ----------------|------
 description     | The path to the `LOG` file. Defaults to `STDOUT` if not provided.
-example         | {{< highlight shell >}}/opt/sensu/bin/sensu-server -l /var/log/sensu/sensu-server.log{{< /highlight >}}
+example         | {{< code shell >}}/opt/sensu/bin/sensu-server -l /var/log/sensu/sensu-server.log{{< /code >}}
 
 -L (-\-log_level LEVEL) | 
 ------------------------|------
 description             | Log security `LEVEL`
 allowed values          | `debug`, `info`, `warn`, `error`, `fatal`
-example                 | {{< highlight shell >}}/opt/sensu/bin/sensu-server -L warn{{< /highlight >}}
+example                 | {{< code shell >}}/opt/sensu/bin/sensu-server -L warn{{< /code >}}
 
 -v (-\-verbose) | 
 ----------------|------
 description     | Enable verbose logging.
-example         | {{< highlight shell >}}/opt/sensu/bin/sensu-client -v{{< /highlight >}}
+example         | {{< code shell >}}/opt/sensu/bin/sensu-client -v{{< /code >}}
 
 -b (-\-background) | 
 -------------------|------
 description        | Detach the process and run in the background (i.e. run as a "daemon")
-example            | {{< highlight shell >}}/opt/sensu/bin/sensu-server -b{{< /highlight >}}
+example            | {{< code shell >}}/opt/sensu/bin/sensu-server -b{{< /code >}}
 
 -p (-\-pid_file FILE) | 
 ----------------------|------
 description           | Write the PID to a given `FILE`.
-example               | {{< highlight shell >}}/opt/sensu/bin/sensu-server -p /var/run/sensu-server.pid{{< /highlight >}}
+example               | {{< code shell >}}/opt/sensu/bin/sensu-server -p /var/run/sensu-server.pid{{< /code >}}
 
 
 ## Sensu environment variables
@@ -519,7 +519,7 @@ SENSU_CLIENT_NAME |
 description       | The Sensu client `name`, used if a client definition does not already provide one.
 type              | String
 required          | false
-example           | {{< highlight shell >}}SENSU_CLIENT_NAME="container-01"{{< /highlight >}}
+example           | {{< code shell >}}SENSU_CLIENT_NAME="container-01"{{< /code >}}
 
 SENSU_CLIENT_ADDRESS | 
 ---------------------|------
@@ -527,7 +527,7 @@ description          | The Sensu client `address`, used if a client definition d
 type                 | String
 required             | false
 default              | `hostname`
-example              | {{< highlight shell >}}SENSU_CLIENT_ADDRESS="8.8.8.8"{{< /highlight >}}
+example              | {{< code shell >}}SENSU_CLIENT_ADDRESS="8.8.8.8"{{< /code >}}
 
 SENSU_CLIENT_SUBSCRIPTIONS | 
 ---------------------------|------
@@ -535,7 +535,7 @@ description                | The Sensu client `subscriptions`, comma delimited, 
 type                       | Array
 required                   | false
 default                    | `[]`
-example                    | {{< highlight shell >}}SENSU_CLIENT_SUBSCRIPTIONS="production,webserver,nginx,memcached,all"{{< /highlight >}}
+example                    | {{< code shell >}}SENSU_CLIENT_SUBSCRIPTIONS="production,webserver,nginx,memcached,all"{{< /code >}}
 
 SENSU_TRANSPORT_NAME | 
 ---------------------|------
@@ -543,28 +543,28 @@ description          | The Sensu transport name, indicating the Sensu transport 
 type                 | String
 required             | false
 default              | `rabbitmq`
-example              | {{< highlight shell >}}SENSU_TRANSPORT_NAME="redis"{{< /highlight >}}
+example              | {{< code shell >}}SENSU_TRANSPORT_NAME="redis"{{< /code >}}
 
 RABBITMQ_URL | 
 -------------|------
 description  | The RabbitMQ URL Sensu will use when connecting to RabbitMQ, used if a RabbitMQ definition does not already define connection options. The RabbitMQ URL uses the [AMQP URI spec][6].
 type         | String
 required     | false
-example      | {{< highlight shell >}}RABBITMQ_URL="amqp://user:password@hostname:5672/%2Fvhost"{{< /highlight >}}
+example      | {{< code shell >}}RABBITMQ_URL="amqp://user:password@hostname:5672/%2Fvhost"{{< /code >}}
 
 REDIS_URL    | 
 -------------|------
 description  | The Redis URL Sensu will use when connecting to Redis, used if a Redis definition does not already define connection options.
 type         | String
 required     | false
-example      | {{< highlight shell >}}REDIS_URL="redis://hostname:6379/0"{{< /highlight >}}
+example      | {{< code shell >}}REDIS_URL="redis://hostname:6379/0"{{< /code >}}
 
 REDIS_SENTINEL_URLS | 
 --------------------|------
 description         | A comma-separated list of Redis Sentinel URLs Sensu will use when connecting to Redis; this is used if a Redis definition does not already define Sentinel connection options.
 type                | String
 required            | false
-example             | {{< highlight shell >}}REDIS_SENTINEL_URLS="redis://sentinel1:26379,redis://sentinel2:26379,redis://sentinel3:26379/"{{< /highlight >}}
+example             | {{< code shell >}}REDIS_SENTINEL_URLS="redis://sentinel1:26379,redis://sentinel2:26379,redis://sentinel3:26379/"{{< /code >}}
 
 SENSU_API_PORT | 
 ---------------|------
@@ -572,7 +572,7 @@ description    | The Sensu API TCP port to bind to and listen on, used if an API
 type           | Integer
 required       | false
 default        | `4567`
-example        | {{< highlight shell >}}SENSU_API_PORT=8080{{< /highlight >}}
+example        | {{< code shell >}}SENSU_API_PORT=8080{{< /code >}}
 
 ## Sensu configuration specification
 
@@ -582,7 +582,7 @@ The following is an example Sensu configuration, a JSON configuration file
 located at `/etc/sensu/config.json`. This Sensu configuration provides Sensu
 with information it needs to communicate with RabbitMQ and Redis:
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "rabbitmq": {
     "host": "10.0.1.10",
@@ -601,7 +601,7 @@ with information it needs to communicate with RabbitMQ and Redis:
     "port": "4242"
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 ### Top-level configuration scopes
 
@@ -613,7 +613,7 @@ rabbitmq     |
 description  | The RabbitMQ definition scope (see: [RabbitMQ Configuration][7])
 required     | true
 type         | Hash
-example      | {{< highlight json >}}{
+example      | {{< code json >}}{
   "rabbitmq": {
     "host": "10.0.1.10",
     "vhost": "/sensu",
@@ -621,66 +621,66 @@ example      | {{< highlight json >}}{
     "password": "secret"
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 redis        | 
 -------------|------
 description  | The Redis definition scope (see: [Redis Configuration][8])
 required     | true
 type         | Hash
-example      | {{< highlight json >}}{
+example      | {{< code json >}}{
   "redis": {
     "host": "10.0.1.30",
     "port": 6379,
     "password": "secret"
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 transport    | 
 -------------|------
 description  | The Sensu Transport definition scope (see: [Transport Configuration][9]).
 required     | false
 type         | Hash
-example      | {{< highlight json >}}{
+example      | {{< code json >}}{
   "transport": {
     "name": "rabbitmq"
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 api          | 
 -------------|------
 description  | The Sensu API definition scope (see: [API Configuration][10])
 required     | true
 type         | Hash
-example      | {{< highlight json >}}{
+example      | {{< code json >}}{
   "api": {
     "host": "10.0.1.30",
     "bind": "0.0.0.0",
     "port": 4242
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 sensu        | 
 -------------|-----
 description  | The Sensu global definition scope (see: [Sensu definition scope](#sensu-definition-specification))
 required     | false
 type         | Hash
-example      | {{< highlight json >}}{
+example      | {{< code json >}}{
   "sensu": {
      "spawn": 24
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 client       | 
 -------------|------
 description  | The Sensu Client definition scope (see: [Clients][3])
 required     | false
 type         | Hash
-example      | {{< highlight json >}}{
+example      | {{< code json >}}{
   "client": {
     "name": "i-424242",
     "address": "8.8.8.8",
@@ -691,59 +691,59 @@ example      | {{< highlight json >}}{
     ]
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 checks       | 
 -------------|------
 description  | The Sensu Checks definition scope (see: [Checks][11])
 required     | false
 type         | Hash
-example      | {{< highlight json >}}{
+example      | {{< code json >}}{
   "checks": {
     "example_check": {},
     "another_check": {}
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 handlers     | 
 -------------|------
 description  | The Sensu Handlers definition scope (see: [Handlers][12])
 required     | false
 type         | Hash
-example      | {{< highlight json >}}{
+example      | {{< code json >}}{
   "handlers": {
     "example_handler": {},
     "another_handler": {}
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 filters      | 
 -------------|------
 description  | The Sensu Filters definition scope (see: [Filters][13])
 required     | false
 type         | Hash
-example      | {{< highlight json >}}{
+example      | {{< code json >}}{
   "filters": {
     "example_filter": {},
     "another_filter": {}
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 mutators     | 
 -------------|------
 description  | The Sensu Mutators definition scope (see: [Mutators][14])
 required     | false
 type         | Hash
-example      | {{< highlight json >}}{
+example      | {{< code json >}}{
   "mutators": {
     "example_mutator": {},
     "another_mutator": {}
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 ## Sensu definition specification
 
@@ -759,12 +759,12 @@ description    | Number of processes Sensu will execute simultaneously. This set
 required       | false
 type           | Integer
 default        | 12
-example        | {{< highlight json >}}{
+example        | {{< code json >}}{
   "sensu": {
     "spawn": 24
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 [1]:  #sensu-command-line-interfaces-and-arguments
 [2]:  #sensu-environment-variables

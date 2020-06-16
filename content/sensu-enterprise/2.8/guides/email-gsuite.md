@@ -32,7 +32,7 @@ Port: 587
 
 Let's take a look at what the full configuration looks like:
 
-{{< highlight text >}}
+{{< code text >}}
 /etc/sensu/conf.d/handlers/email.json
 
 {
@@ -50,14 +50,14 @@ Let's take a look at what the full configuration looks like:
     "from": "sensu@mydomain.com"
     }
   }
-{{< /highlight >}}
+{{< /code >}}
 
 Once we've written that configuration to disk, we'll need to reload the Sensu Enterprise process via `systemctl reload sensu-enterprise` to pick up the configuration.
 
 Let's test our configuration quickly to ensure that it's working. We can use the local client socket to generate an ad-hoc check:
 
-{{< highlight shell >}}echo '{"name": "testing_error", "status": 2, "output": "An error event should be created", "handlers": [ "email"]}' > /dev/tcp/localhost/3030
-{{< /highlight >}}
+{{< code shell >}}echo '{"name": "testing_error", "status": 2, "output": "An error event should be created", "handlers": [ "email"]}' > /dev/tcp/localhost/3030
+{{< /code >}}
 
 We should then receive an email at the "ops-team" address specified in our example above. Congrats! You've set up Sensu to email using G Suite!
 

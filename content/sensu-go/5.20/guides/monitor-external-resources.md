@@ -29,9 +29,9 @@ To power the check, use the [Sensu Plugins HTTP][16] asset and the [Sensu Ruby R
 
 Use [`sensuctl asset add`][21] to register the `sensu-plugins-http` asset:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl asset add sensu-plugins/sensu-plugins-http:5.1.1 -r sensu-plugins-http
-{{< /highlight >}}
+{{< /code >}}
 
 This example uses the `-r` (rename) flag to specify a shorter name for the asset: `sensu-plugins-http`.
 
@@ -39,21 +39,21 @@ You can also download the asset definition for Debian or Alpine from [Bonsai][16
 
 Then, use the following sensuctl example to register the `sensu-ruby-runtime` asset:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl asset add sensu/sensu-ruby-runtime:0.0.10 -r sensu-ruby-runtime
-{{< /highlight >}}
+{{< /code >}}
 
 You can also download the asset definition from [Bonsai][17] and register the asset using `sensuctl create --file filename.yml`. 
 
 Use sensuctl to confirm that both the `sensu-plugins-http` and `sensu-ruby-runtime` assets are ready to use:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl asset list
           Name                                                URL                                       Hash    
 ────────────────────────── ─────────────────────────────────────────────────────────────────────────── ───────── 
  sensu-plugins-http         //assets.bonsai.sensu.io/.../sensu-plugins-http_5.1.1_centos_linux_amd64.tar.gz         31023af  
  sensu-ruby-runtime         //assets.bonsai.sensu.io/.../sensu-ruby-runtime_0.0.10_ruby-2.4.4_centos_linux_amd64.tar.gz     338b88b 
-{{< /highlight >}}
+{{< /code >}}
 
 ### Create the check
 
@@ -64,7 +64,7 @@ Create a file called `check.json` and add this check definition:
 
 {{< language-toggle >}}
 
-{{< highlight yml >}}
+{{< code yml >}}
 type: CheckConfig
 api_version: core/v2
 metadata:
@@ -81,9 +81,9 @@ spec:
   - sensu-ruby-runtime
   subscriptions:
   - proxy
-{{< /highlight >}}
+{{< /code >}}
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "type": "CheckConfig",
   "api_version": "core/v2",
@@ -106,48 +106,48 @@ spec:
     ]
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 {{< /language-toggle >}}
 
 Now you can use sensuctl to add the check to Sensu:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl create --file check.json
 
 sensuctl check list
        Name                     Command               Interval   Cron   Timeout   TTL   Subscriptions   Handlers                     Assets                Hooks   Publish?   Stdin?  
 ────────────────── ────────────────────────────────── ────────── ────── ───────── ───── ─────────────── ────────── ─────────────────────────────────────── ─────── ────────── ────────
  check-sensu-site   check-http.rb -u https://sensu.io         60                0     0   proxy                      sensu-plugins-http,sensu-ruby-runtime             true     false
-{{< /highlight >}}
+{{< /code >}}
 
 ### Add the subscription
 
 To run the check, you'll need a Sensu agent with the subscription `proxy`.
 After you [install an agent][19], open `/etc/sensu/agent.yml` and add the `proxy` subscription so the subscription configuration looks like this:
 
-{{< highlight yml >}}
+{{< code yml >}}
 subscriptions:
   - proxy
-{{< /highlight >}}
+{{< /code >}}
 
 Then, restart the agent:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sudo service sensu-agent restart
-{{< /highlight >}}
+{{< /code >}}
 
 ### Validate the check
 
 Use sensuctl to confirm that Sensu created the proxy entity `sensu-site`:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl entity list
       ID        Class    OS           Subscriptions                   Last Seen            
 ────────────── ─────── ─────── ─────────────────────────── ─────────────────────────────── 
 sensu-centos   agent   linux   proxy,entity:sensu-centos   2019-01-16 21:50:03 +0000 UTC  
 sensu-site     proxy           entity:sensu-site           N/A  
-{{< /highlight >}}
+{{< /code >}}
 
 {{% notice note %}}
 **NOTE**: It might take a few moments for Sensu to execute the check and create the proxy entity.
@@ -155,7 +155,7 @@ sensu-site     proxy           entity:sensu-site           N/A
 
 Then, use sensuctl to confirm that Sensu is monitoring `sensu-site` with the `check-sensu-site` check:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl event info sensu-site check-sensu-site
 === sensu-site - check-sensu-site
 Entity:    sensu-site
@@ -165,7 +165,7 @@ Status:    0
 History:   0,0
 Silenced:  false
 Timestamp: 2019-01-16 21:51:53 +0000 UTC
-{{< /highlight >}}
+{{< /code >}}
 
 You can also see the new proxy entity in your [Sensu web UI][10].
 
@@ -182,7 +182,7 @@ Your proxy entities need the `entity_class` attribute set to `proxy` to mark the
 
 Create a file called `entities.json` and add the following entity definitions:
 
-{{< highlight shell >}}
+{{< code shell >}}
 {
   "type": "Entity",
   "api_version": "core/v2",
@@ -228,7 +228,7 @@ Create a file called `entities.json` and add the following entity definitions:
     "entity_class": "proxy"
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 {{% notice protip %}}
 **PRO TIP**: When you create proxy entities, you can add any custom labels that make sense for your environment.
@@ -237,7 +237,7 @@ For example, when monitoring a group of routers, you may want to add `ip_address
 
 Now you can use sensuctl to add these proxy entities to Sensu:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl create --file entities.json
 
 sensuctl entity list
@@ -247,7 +247,7 @@ sensuctl entity list
  packagecloud-site   proxy                                       N/A                            
  sensu-centos        agent   linux   proxy,entity:sensu-centos   2019-01-16 23:05:03 +0000 UTC  
  sensu-docs          proxy                                       N/A                            
-{{< /highlight >}}
+{{< /code >}}
 
 ### Create a reusable HTTP check
 
@@ -257,7 +257,7 @@ Create a file called `check-proxy-requests.json` and add the following check def
 
 {{< language-toggle >}}
 
-{{< highlight yml >}}
+{{< code yml >}}
 type: CheckConfig
 api_version: core/v2
 metadata:
@@ -276,9 +276,9 @@ spec:
   - sensu-ruby-runtime
   subscriptions:
   - proxy
-{{< /highlight >}}
+{{< /code >}}
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "type": "CheckConfig",
   "api_version": "core/v2",
@@ -305,7 +305,7 @@ spec:
     }
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 {{< /language-toggle >}}
 
@@ -315,14 +315,14 @@ Because you're using this check to monitor multiple sites, you can use token sub
 
 Use sensuctl to add the `check-proxy-requests` check to Sensu:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl create --file check-proxy-requests.json
 
 sensuctl check list
        Name                      Command               Interval   Cron   Timeout   TTL   Subscriptions   Handlers                   Assets                  Hooks   Publish?   Stdin?
 ───────────────── ─────────────────────────────────── ────────── ────── ───────── ───── ─────────────── ────────── ─────────────────────────────────────── ─────── ────────── ────────
   check-http        check-http.rb -u {{ .labels.url }}         60                0     0   proxy                     sensu-plugins-http,sensu-ruby-runtime           true       false                                     
-{{< /highlight >}}
+{{< /code >}}
 
 {{% notice protip %}}
 **PRO TIP**: To distribute check executions across multiple agents, set the `round-robin` check attribute to `true`.
@@ -335,7 +335,7 @@ Before you validate the check, make sure that you've [registered the `sensu-plug
 
 Use sensuctl to confirm that Sensu is monitoring docs.sensu.io, packagecloud.io, and github.com with the `check-http`, returning a status of `0` (OK):
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl event list
       Entity                Check          Output   Status   Silenced             Timestamp            
 ─────────────────── ───────────────────── ──────── ──────── ────────── ─────────────────────────────── 
@@ -343,7 +343,7 @@ github-site         check-http                           0   false      2019-01-
 packagecloud-site   check-http                           0   false      2019-01-17 17:10:34 +0000 UTC  
 sensu-centos        keepalive               ...          0   false      2019-01-17 17:10:34 +0000 UTC  
 sensu-docs          check-http                           0   false      2019-01-17 17:06:59 +0000 UTC  
-{{< /highlight >}}
+{{< /code >}}
 
 ## Next steps
 

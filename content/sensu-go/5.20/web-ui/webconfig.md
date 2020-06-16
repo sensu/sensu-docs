@@ -38,7 +38,7 @@ In a federated environment, you can create an [etcd replicator][6] for your `Glo
 
 {{< language-toggle >}}
 
-{{< highlight yml >}}
+{{< code yml >}}
 --- 
 type: EtcdReplicator
 api_version: federation/v1
@@ -53,9 +53,9 @@ spec:
   replication_interval_seconds: 120
   resource: GlobalConfig
   url: "http://127.0.0.1:2379"
-{{< /highlight >}}
+{{< /code >}}
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "type": "EtcdReplicator",
   "api_version": "federation/v1",
@@ -73,7 +73,7 @@ spec:
     "url": "http://127.0.0.1:2379"
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 {{< /language-toggle >}}
 

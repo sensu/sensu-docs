@@ -14,8 +14,8 @@ Installing via the built-in `sensu-install` tool is the preferred method of inst
 
 **Standard Installation**
 
-{{< highlight shell >}}
-sensu-install -p disk-checks{{< /highlight >}}
+{{< code shell >}}
+sensu-install -p disk-checks{{< /code >}}
 
 
 For further details, please see the [Sensu Core 1.x plugin installation guide][1] or the [Sensu Go plugin installation guide][3].
@@ -30,8 +30,8 @@ _NOTE: If the gem has an alpha tag then you will need to use the `--prerelease` 
 
 **Using Gems**
 
-{{< highlight shell >}}
-/opt/sensu/embedded/bin/gem install sensu-plugins-disk-checks{{< /highlight >}}
+{{< code shell >}}
+/opt/sensu/embedded/bin/gem install sensu-plugins-disk-checks{{< /code >}}
 
 #### Bundle
 
@@ -41,41 +41,41 @@ Add *sensu-plugins-disk-checks* to your Gemfile and run `bundle install` or `bun
 
 Using the Sensu **sensu_gem** LWRP
 
-{{< highlight ruby >}}
+{{< code ruby >}}
 sensu_gem 'sensu-plugins-disk-checks' do
   version '0.0.1'
 end
-{{< /highlight >}}
+{{< /code >}}
 
 Using the Chef **package** resource
 
-{{< highlight ruby >}}
+{{< code ruby >}}
 gem_package 'sensu-plugins-disk-checks' do
   version '0.0.1'
 end
-{{< /highlight >}}
+{{< /code >}}
 
 #### Puppet
 
 Using the Puppet **sensu_gem** package provider
 
-{{< highlight puppet >}}
+{{< code puppet >}}
 package { 'sensu-plugins-disk-checks':
   ensure   => '0.0.1',
   provider => sensu_gem,
 }
-{{< /highlight >}}
+{{< /code >}}
 
 #### Ansible
 
-{{< highlight yaml >}}
+{{< code yaml >}}
 - gem: 
     name: sensu-plugins-disk-checks 
     version: 0.0.1 
     state: present 
     executable: /opt/sensu/embedded/bin/gem
     user_install: no
-{{< /highlight >}}
+{{< /code >}}
 
 ## Usage
 

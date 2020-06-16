@@ -99,7 +99,7 @@ Sensu expects assets to be retrieved over HTTP or HTTPS.
 
 ### Example asset structure
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensu-example-handler_1.0.0_linux_amd64
 ├── CHANGELOG.md
 ├── LICENSE
@@ -108,13 +108,13 @@ sensu-example-handler_1.0.0_linux_amd64
   └── my-check.sh
 └── lib
 └── include
-{{< /highlight >}}
+{{< /code >}}
 
 ### Asset hello world example
 
 In this example, you'll run a script that outputs `Hello World`:
 
-{{< highlight bash >}}
+{{< code bash >}}
 hello-world.sh
 
 #!/bin/sh
@@ -128,14 +128,14 @@ if [ $? -eq 0 ]; then
 else
     exit 2
 fi
-{{< /highlight >}}
+{{< /code >}}
 
 The first step is to ensure that your directory structure is in place.
 As noted in [Example asset structure][15], your script could live in three potential directories in the project: `/bin`, `/lib`, or `/include`.
 For this example, put your script in the `/bin` directory.
 Create the directories `sensu-go-hello-world` and `/bin`:
 
-{{< highlight bash >}}
+{{< code bash >}}
 $ mkdir sensu-go-hello-world
 
 $ cd sensu-go-hello-world
@@ -148,14 +148,14 @@ $ tree
 .
 └── bin
     └── hello-world.sh
-{{< /highlight >}}
+{{< /code >}}
 
 Next, make sure that the script is marked as executable:
 
-{{< highlight bash >}}
+{{< code bash >}}
 $ chmod +x bin/hello-world.sh 
 mode of 'hello-world.sh' changed from 0644 (rw-r--r--) to 0755 (rwxr-xr-x)
-{{< /highlight >}}
+{{< /code >}}
 
 Now that the script is in the directory, move on to the next step: packaging the `sensu-go-hello-world` directory as an asset tarball.
 
@@ -164,18 +164,18 @@ Now that the script is in the directory, move on to the next step: packaging the
 Assets are archives, so the first step in packaging the asset is to create a tar.gz archive of your project.
 This assumes you're in the directory you want to tar up:
 
-{{< highlight bash >}}
+{{< code bash >}}
 $ cd ..
 $ tar -C sensu-go-hello-world -cvzf sensu-go-hello-world-0.0.1.tar.gz .
 ...
-{{< /highlight >}}
+{{< /code >}}
 
 Now that you've created an archive, you need to generate a SHA512 sum for it (this is required for the asset to work):
 
-{{< highlight bash >}}
+{{< code bash >}}
 sha512sum sensu-go-hello-world-0.0.1.tar.gz | tee sha512sum.txt
 dbfd4a714c0c51c57f77daeb62f4a21141665ae71440951399be2d899bf44b3634dad2e6f2516fff1ef4b154c198b9c7cdfe1e8867788c820db7bb5bcad83827 sensu-go-hello-world-0.0.1.tar.gz
-{{< /highlight >}}
+{{< /code >}}
 
 From here, you can host your asset wherever you’d like. To make the asset available via [Bonsai][16], you’ll need to host it on Github. Learn more in [The “Hello World” of Sensu Assets][18] on Discourse.
 
@@ -190,21 +190,21 @@ type         |
 description  | Top-level attribute that specifies the [`sensuctl create`][11] resource type. Assets should always be type `Asset`.
 required     | Required for asset definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][11].
 type         | String
-example      | {{< highlight shell >}}"type": "Asset"{{< /highlight >}}
+example      | {{< code shell >}}"type": "Asset"{{< /code >}}
 
 api_version  | 
 -------------|------
 description  | Top-level attribute that specifies the Sensu API group and version. For assets in this version of Sensu, the `api_version` should always be `core/v2`.
 required     | Required for asset definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][11].
 type         | String
-example      | {{< highlight shell >}}"api_version": "core/v2"{{< /highlight >}}
+example      | {{< code shell >}}"api_version": "core/v2"{{< /code >}}
 
 metadata     | 
 -------------|------
 description  | Top-level collection of metadata about the asset, including the `name` and `namespace` as well as custom `labels` and `annotations`. The `metadata` map is always at the top level of the asset definition. This means that in `wrapped-json` and `yaml` formats, the `metadata` scope occurs outside the `spec` scope. See [metadata attributes][5] for details.
 required     | Required for asset definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][11].
 type         | Map of key-value pairs
-example      | {{< highlight shell >}}"metadata": {
+example      | {{< code shell >}}"metadata": {
   "name": "check_script",
   "namespace": "default",
   "labels": {
@@ -213,14 +213,14 @@ example      | {{< highlight shell >}}"metadata": {
   "annotations": {
     "playbook" : "www.example.url"
   }
-}{{< /highlight >}}
+}{{< /code >}}
 
 spec         | 
 -------------|------
 description  | Top-level map that includes the asset [spec attributes][12].
 required     | Required for asset definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][11].
 type         | Map of key-value pairs
-example (multiple builds)     | {{< highlight shell >}}"spec": {
+example (multiple builds)     | {{< code shell >}}"spec": {
   "builds": [
     {
       "url": "http://example.com/asset-linux-amd64.tar.gz",
@@ -244,8 +244,8 @@ example (multiple builds)     | {{< highlight shell >}}"spec": {
     "Authorization": "Bearer $TOKEN",
     "X-Forwarded-For": "client1, proxy1, proxy2"
   }
-}{{< /highlight >}}
-example (single build, deprecated)     | {{< highlight shell >}}"spec": {
+}{{< /code >}}
+example (single build, deprecated)     | {{< code shell >}}"spec": {
   "url": "http://example.com/asset.tar.gz",
   "sha512": "4f926bf4328fbad2b9cac873d117f771914f4b837c9c85584c38ccf55a3ef3c2e8d154812246e5dda4a87450576b2c58ad9ab40c9e2edc31b288d066b195b21b",
   "filters": [
@@ -256,7 +256,7 @@ example (single build, deprecated)     | {{< highlight shell >}}"spec": {
     "Authorization": "Bearer $TOKEN",
     "X-Forwarded-For": "client1, proxy1, proxy2"
   }
-}{{< /highlight >}}
+}{{< /code >}}
 
 ### Metadata attributes
 
@@ -265,7 +265,7 @@ name         |      |
 description  | Unique name of the asset, validated with Go regex [`\A[\w\.\-]+\z`][19].
 required     | true
 type         | String
-example      | {{< highlight shell >}}"name": "check_script"{{< /highlight >}}
+example      | {{< code shell >}}"name": "check_script"{{< /code >}}
 
 | namespace  |      |
 -------------|------
@@ -273,7 +273,7 @@ description  | [Sensu RBAC namespace][2] that the asset belongs to.
 required     | false
 type         | String
 default      | `default`
-example      | {{< highlight shell >}}"namespace": "production"{{< /highlight >}}
+example      | {{< code shell >}}"namespace": "production"{{< /code >}}
 
 | labels     |      |
 -------------|------
@@ -281,10 +281,10 @@ description  | Custom attributes to include with event data that you can use for
 required     | false
 type         | Map of key-value pairs. Keys can contain only letters, numbers, and underscores and must start with a letter. Values can be any valid UTF-8 string.
 default      | `null`
-example      | {{< highlight shell >}}"labels": {
+example      | {{< code shell >}}"labels": {
   "environment": "development",
   "region": "us-west-2"
-}{{< /highlight >}}
+}{{< /code >}}
 
 | annotations | |
 -------------|------
@@ -292,10 +292,10 @@ description  | Non-identifying metadata to include with event data that you can 
 required     | false
 type         | Map of key-value pairs. Keys and values can be any valid UTF-8 string.
 default      | `null`
-example      | {{< highlight shell >}} "annotations": {
+example      | {{< code shell >}} "annotations": {
   "managed-by": "ops",
   "playbook": "www.example.url"
-}{{< /highlight >}}
+}{{< /code >}}
 
 ### Spec attributes
 
@@ -304,7 +304,7 @@ builds       |
 description  | List of asset builds used to define multiple artifacts that provide the named asset.
 required     | true, if `url`, `sha512` and `filters` are not provided
 type         | Array
-example      | {{< highlight shell >}}"builds": [
+example      | {{< code shell >}}"builds": [
     {
       "url": "http://example.com/asset-linux-amd64.tar.gz",
       "sha512": "487ab34b37da8ce76d2657b62d37b35fbbb240c3546dd463fa0c37dc58a72b786ef0ca396a0a12c8d006ac7fa21923e0e9ae63419a4d56aec41fccb574c1a5d3",
@@ -322,21 +322,21 @@ example      | {{< highlight shell >}}"builds": [
           "entity.system.arm_version == 7"
         ]
       }
-  ]{{< /highlight >}}
+  ]{{< /code >}}
 
 url          | 
 -------------|------ 
 description  | URL location of the asset. 
 required     | true, unless `builds` are provided
 type         | String 
-example      | {{< highlight shell >}}"url": "http://example.com/asset.tar.gz"{{< /highlight >}}
+example      | {{< code shell >}}"url": "http://example.com/asset.tar.gz"{{< /code >}}
 
 sha512       | 
 -------------|------ 
 description  | Checksum of the asset. 
 required     | true, unless `builds` are provided
 type         | String 
-example      | {{< highlight shell >}}"sha512": "4f926bf4328..."{{< /highlight >}}
+example      | {{< code shell >}}"sha512": "4f926bf4328..."{{< /code >}}
 
 <a name="filters"></a>
 
@@ -347,19 +347,19 @@ description  | Set of [Sensu query expressions][1] used to determine if the asse
 {{% /notice %}}
 required     | false 
 type         | Array 
-example      | {{< highlight shell >}}"filters": ["entity.system.os=='linux'", "entity.system.arch=='amd64'"] {{< /highlight >}}
+example      | {{< code shell >}}"filters": ["entity.system.os=='linux'", "entity.system.arch=='amd64'"] {{< /code >}}
 
 headers       |       |
 --------------|-------|
 description   | HTTP headers to apply to asset retrieval requests. You can use headers to access secured assets. For headers that require multiple values, separate the values with a comma.
 required     | false
 type         | Map of key-value string pairs
-example      | {{< highlight shell >}}
+example      | {{< code shell >}}
 "headers": {
   "Authorization": "Bearer $TOKEN",
   "X-Forwarded-For": "client1, proxy1, proxy2"
 }
-{{< /highlight >}}
+{{< /code >}}
 
 ## Asset filters based on entity.system attributes
 
@@ -367,7 +367,7 @@ Use the [entity.system attributes][10] in asset [filters][42] to specify which s
 
 For example, the [Sensu Go Ruby Runtime][43] asset definition includes several builds, each with filters for several `entity.system` attributes:
 
-{{< highlight yaml >}}
+{{< code yaml >}}
 ---
 type: Asset
 api_version: core/v2
@@ -404,7 +404,7 @@ spec:
     - entity.system.arch == 'amd64'
     - entity.system.platform == 'alpine'
     - entity.system.platform_version.split('.')[0] == '3'
-{{< /highlight >}}
+{{< /code >}}
 
 In this example, if you install the asset on a system running Linux AMD64 Alpine version 3.xx, Sensu will ignore the first two builds and install the third.
 
@@ -427,7 +427,7 @@ Then, you can rely on asset filters to ensure that you install only the appropri
 
 {{< language-toggle >}}
 
-{{< highlight yml >}}
+{{< code yml >}}
 type: Asset
 api_version: core/v2
 metadata:
@@ -437,9 +437,9 @@ spec:
   builds:
   - sha512: 4f926bf4328fbad2b9cac873d117f771914f4b837c9c85584c38ccf55a3ef3c2e8d154812246e5dda4a87450576b2c58ad9ab40c9e2edc31b288d066b195b21b
     url: http://example.com/asset.tar.gz
-{{< /highlight >}}
+{{< /code >}}
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "type": "Asset",
   "api_version": "core/v2",
@@ -456,7 +456,7 @@ spec:
     ]
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 {{< /language-toggle >}}
 
@@ -464,7 +464,7 @@ spec:
 
 {{< language-toggle >}}
 
-{{< highlight yml >}}
+{{< code yml >}}
 type: Asset
 api_version: core/v2
 metadata:
@@ -484,9 +484,9 @@ spec:
   headers:
     Authorization: Bearer $TOKEN
     X-Forwarded-For: client1, proxy1, proxy2
-{{< /highlight >}}
+{{< /code >}}
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "type": "Asset",
   "api_version": "core/v2",
@@ -514,7 +514,7 @@ spec:
     }
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 {{< /language-toggle >}}
 
@@ -522,7 +522,7 @@ spec:
 
 {{< language-toggle >}}
 
-{{< highlight yml >}}
+{{< code yml >}}
 type: Asset
 api_version: core/v2
 metadata:
@@ -560,9 +560,9 @@ spec:
     headers:
       Authorization: Bearer $TOKEN
       X-Forwarded-For: client1, proxy1, proxy2
-{{< /highlight >}}
+{{< /code >}}
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "type": "Asset",
   "api_version": "core/v2",
@@ -619,7 +619,7 @@ spec:
     ]
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 {{< /language-toggle >}}
 
@@ -627,7 +627,7 @@ spec:
 
 {{< language-toggle >}}
 
-{{< highlight yml >}}
+{{< code yml >}}
 ---
 type: Asset
 api_version: core/v2
@@ -657,9 +657,9 @@ spec:
   - sensu-prometheus-collector
   subscriptions:
   - system
-{{< /highlight >}}
+{{< /code >}}
 
-{{< highlight wrapped-json >}}
+{{< code json "wrapped-json" >}}
 {
   "type": "Asset",
   "api_version": "core/v2",
@@ -702,7 +702,7 @@ spec:
     ]
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 {{< /language-toggle >}}
 
@@ -721,7 +721,7 @@ Make sure to provide a helpful README for your asset with configuration examples
 
 ### `bonsai.yml` example
 
-{{< highlight yml >}}
+{{< code yml >}}
 ---
 description: "#{repo}"
 builds:
@@ -740,7 +740,7 @@ builds:
   filter:
   -  "entity.system.os == 'windows'"
   -  "entity.system.arch == 'amd64'"
-{{< /highlight >}}
+{{< /code >}}
 
 ### `bonsai.yml` specification
 
@@ -749,14 +749,14 @@ builds:
 description  | Project description.
 required     | true
 type         | String
-example      | {{< highlight yml >}}description: "#{repo}"{{< /highlight >}}
+example      | {{< code yml >}}description: "#{repo}"{{< /code >}}
 
  builds      | 
 -------------|------
 description  | Array of asset details per platform.
 required     | true
 type         | Array
-example      | {{< highlight yml >}}
+example      | {{< code yml >}}
 builds:
 - platform: "linux"
   arch: "amd64"
@@ -765,7 +765,7 @@ builds:
   filter:
   -  "entity.system.os == 'linux'"
   -  "entity.system.arch == 'amd64'"
-{{< /highlight >}}
+{{< /code >}}
 
 ### Builds specification
 
@@ -774,39 +774,39 @@ builds:
 description  | Platform supported by the asset.
 required     | true
 type         | String
-example      | {{< highlight yml >}}- platform: "linux"{{< /highlight >}}
+example      | {{< code yml >}}- platform: "linux"{{< /code >}}
 
  arch        | 
 -------------|------
 description  | Architecture supported by the asset.
 required     | true
 type         | String
-example      | {{< highlight yml >}}  arch: "amd64"{{< /highlight >}}
+example      | {{< code yml >}}  arch: "amd64"{{< /code >}}
 
 asset_filename | 
 -------------|------
 description  | File name of the archive that contains the asset.
 required     | true
 type         | String
-example      | {{< highlight yml >}}asset_filename: "#{repo}_#{version}_linux_amd64.tar.gz"{{< /highlight >}}
+example      | {{< code yml >}}asset_filename: "#{repo}_#{version}_linux_amd64.tar.gz"{{< /code >}}
 
 sha_filename | 
 -------------|------
 description  | SHA-512 checksum for the asset archive.
 required     | true
 type         | String
-example      | {{< highlight yml >}}sha_filename: "#{repo}_#{version}_sha512-checksums.txt"{{< /highlight >}}
+example      | {{< code yml >}}sha_filename: "#{repo}_#{version}_sha512-checksums.txt"{{< /code >}}
 
  filter      | 
 -------------|------
 description  | Filter expressions that describe the operating system and architecture supported by the asset.
 required     | false
 type         | Array
-example      | {{< highlight yml >}}
+example      | {{< code yml >}}
   filter:
   -  "entity.system.os == 'linux'"
   -  "entity.system.arch == 'amd64'"
-{{< /highlight >}}
+{{< /code >}}
 
 ## Delete assets
 

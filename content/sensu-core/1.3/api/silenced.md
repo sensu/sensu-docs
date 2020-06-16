@@ -28,7 +28,7 @@ clear (delete) a silence entry via the Sensu API.
 
 #### Example: Querying for all silence entries
 
-{{< highlight shell >}}
+{{< code shell >}}
 $ curl -s -X GET http://localhost:4567/silenced |jq .
 [
   {
@@ -52,7 +52,7 @@ $ curl -s -X GET http://localhost:4567/silenced |jq .
     "id": "all:check_ntpd"
   }
 ]
-{{< /highlight >}}
+{{< /code >}}
 
 #### API specification {#silenced-get-specification}
 
@@ -63,7 +63,7 @@ example url     | http://hostname:4567/silenced
 parameters      | <ul><li>`limit`:<ul><li>**required**: false</li><li>**type**: Integer</li><li>**description**: The number of silence entries to return.</li></ul><li>`offset`:<ul><li>**required**: false</li><li>**type**: Integer</li><li>**depends**: `limit`</li><li>**description**: The number of silence entries to offset before returning items.</li></ul></li></ul>
 response type   | Array
 response codes  | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-output          | {{< highlight json >}}[
+output          | {{< code json >}}[
   {
     "expire": 3530,
     "expire_on_resolve": false,
@@ -84,7 +84,7 @@ output          | {{< highlight json >}}[
     "id": "all:check_ntpd"
   }
 ]
-{{< /highlight >}}
+{{< /code >}}
 
 ### `/silenced` (POST)
 
@@ -94,7 +94,7 @@ The following example demonstrates a `/silenced` query, which creates a
 silence entry for the check "check_haproxy" on clients with the
 "load-balancer" subscription, with an expiration of 3600 seconds:
 
-{{< highlight shell >}}
+{{< code shell >}}
 $ curl -s -i -X POST \
 -H 'Content-Type: application/json' \
 -d '{"subscription": "load-balancer", "check": "check_haproxy", "expire": 3600 }' \
@@ -121,7 +121,7 @@ $ curl -s -X GET http://localhost:4567/silenced | jq .
     "id": "load-balancer:check_haproxy"
   }
 ]
-{{< /highlight >}}
+{{< /code >}}
 
 #### API specification {#silenced-post-specification}
 
@@ -129,13 +129,13 @@ $ curl -s -X GET http://localhost:4567/silenced | jq .
 -------------------|------
 description        | Create a silence entry.
 example URL        | http://hostname:4567/silenced
-payload            | {{< highlight json >}}{
+payload            | {{< code json >}}{
   "subscription": "load-balancer",
   "expire": 3600,
   "reason": "load-balancer maintenance window",
   "creator": "sysop@example.com"
 }
-{{< /highlight >}}
+{{< /code >}}
 payload parameters | <ul><li>`check`<ul><li>**required**: true, unless `subscription` is specified</li><li>**type**: String</li><li>**regex**: Validated with [Ruby regex][2] `/\A[\w\.-]+\z/`</li><li>**description**: Specifies the check which the silence entry applies to.</li><li>**example**: "check_haproxy"</li></ul><li>`begin`<ul><li>**required**: false</li><li>**type**: Integer</li><li>**description**: If specified, the silence entry will only be effective after this epoch timestamp. Silence a check and/or client subscriptions at a predetermined time (e.g. maintenance window).</li><li>**example**: 1512501881</li></ul><li>`creator`<ul><li>**required**: false</li><li>**type**: String</li><li>**description**: Specifies the entity responsible for this entry.</li><li>**example**: "you@yourdomain.com" or "Your Name Here"</li></ul></li><li>`expire`<ul><li>**required**: false</li><li>**type**: Integer</li><li>**description**: If specified, the silence entry will be automatically cleared after this number of seconds. If `begin` is specified, the number of seconds until being cleared starts at that time.</li><li>**example**: 1800</li></ul></li><li>`expire_on_resolve`<ul><li>**required**: false</li><li>**type**: Boolean</li><li>**description**: If specified as true, the silence entry will be automatically cleared once the condition it is silencing is resolved.</li><li>**example**: true</li></ul></li><li>`reason`<ul><li>**required**: false</li><li>**type**: String</li><li>**description**: If specified, this free-form string is used to provide context or rationale for the reason this silence entry was created.</li><li>**example**: "pre-arranged maintenance window"</li></ul></li><li>`subscription`<ul><li>**required**: true, unless `check` is specified</li><li>**type:** String</li><li>**regex**: Validated with [Ruby regex][2] `/\A[\w\.\-\:]+\z/`</li><li>**description**: Specifies the subscription which the silence entry applies to.</li><ul></li></ul>
 response codes     | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
@@ -143,7 +143,7 @@ response codes     | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 4
 
 #### Example: Querying for a specific silence entry
 
-{{< highlight shell >}}
+{{< code shell >}}
 $ curl -s -X GET http://localhost:4567/silenced/ids/load-balancer:check_haproxy |jq .
 {
   "id": "load-balancer:check_haproxy",
@@ -155,7 +155,7 @@ $ curl -s -X GET http://localhost:4567/silenced/ids/load-balancer:check_haproxy 
   "expire_on_resolve": false,
   "expire": 3529
 }
-{{< /highlight >}}
+{{< /code >}}
 
 #### API specification {#silencedids-get-specification}
 
@@ -165,7 +165,7 @@ description             | Returns a specific silenced override by it's ID.
 example url             | http://hostname:4567/silenced/webserver:check_nginx
 response type           | Hash
 response codes          | <ul><li>**Success**: 200 (OK)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-output                  | {{< highlight json >}}{
+output                  | {{< code json >}}{
   "id": "webserver:check_nginx",
   "subscription": "webserver",
   "check": "check_nginx",
@@ -175,7 +175,7 @@ output                  | {{< highlight json >}}{
   "expire_on_resolve": false,
   "expire": -1
 }
-{{< /highlight >}}
+{{< /code >}}
 
 ### `/silenced/clear` (POST)
 
@@ -184,7 +184,7 @@ output                  | {{< highlight json >}}{
 You can use the `/silenced/clear POST` endpoint to delete a single silence entry by its ID.
 The following example deletes a silence entry with the ID `load-balancer:check_haproxy`, resulting in a 204 (No Content) HTTP response code:
 
-{{< highlight shell >}}
+{{< code shell >}}
 $ curl -s -i -X POST \
 -H 'Content-Type: application/json' \
 -d '{ "id": "load-balancer:check_haproxy" }' \
@@ -197,13 +197,13 @@ Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS
 Access-Control-Allow-Origin: *
 Connection: close
 Content-length: 0
-{{< /highlight >}}
+{{< /code >}}
 
 A silence entry can also be cleared by specifying the intersection of
 subscription _and_ check to which the entry applies.
 The following example deletes the silence entry applied to the `check_ntpd` check for `all` subscriptions:
 
-{{< highlight shell >}}
+{{< code shell >}}
 $ curl -s -i -X POST \
 -H 'Content-Type: application/json' \
 -d '{ "subscription": "all", "check": "check_ntpd" }' \
@@ -216,7 +216,7 @@ Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS
 Access-Control-Allow-Origin: *
 Connection: close
 Content-length: 0
-{{< /highlight >}}
+{{< /code >}}
 
 #### API specification {#silenced-clear-post-specification}
 
@@ -224,10 +224,10 @@ Content-length: 0
 -----------------------|------
 description            | Clear a single silence entry specified by its ID or by the applicable check and subscription.
 example URL            | http://hostname:4567/silenced/clear
-payload                | {{< highlight json >}}{
+payload                | {{< code json >}}{
   "id": "load-balancer:ha_proxy"
 }
-{{< /highlight >}}
+{{< /code >}}
 payload parameters     | <ul><li>`check`<ul><li>**required**: true, unless `id` is specified</li><li>**type**: String</li><li>**description**: Specifies the name of the check for which the silence entry should be cleared.</li><li>**example**: "check_haproxy"</li></ul></li><li>`subscription`:<ul><li>**required**: true, unless `id` is specified</li><li>**type:** String</li><li>**description**: Specifies the name of the subscription for which the silence entry should be cleared.</li></ul></li><li>`id`:<ul><li>**required**: true, unless `check` and `subscription` are specified</li><li>**type:** String</li><li>**description**: Specifies the id (intersection of subscription and check) of the silence entry to clear.</li></ul></li></ul>
 response codes         | <ul><li>**Success**: 204 (No Content)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
@@ -235,7 +235,7 @@ response codes         | <ul><li>**Success**: 204 (No Content)</li><li>**Malform
 
 #### Example: Querying for silence entries via subscription name
 
-{{< highlight shell >}}
+{{< code shell >}}
 $ curl -s -X GET http://localhost:4567/silenced/subscriptions/load-balancer | jq .
 [
   {
@@ -249,7 +249,7 @@ $ curl -s -X GET http://localhost:4567/silenced/subscriptions/load-balancer | jq
     "id": "load-balancer:check_ntpd"
   }
 ]
-{{< /highlight >}}
+{{< /code >}}
 
 #### API specification {#silenced-subscriptions-get-specification}
 
@@ -265,7 +265,7 @@ response codes                              | <ul><li>**Success**: 200 (OK)</li>
 
 #### Example: Querying for silence entries via check name
 
-{{< highlight shell >}}
+{{< code shell >}}
 $ curl -s -X GET http://localhost:4567/silenced/checks/check_ntpd | jq .
 [
   {
@@ -289,7 +289,7 @@ $ curl -s -X GET http://localhost:4567/silenced/checks/check_ntpd | jq .
     "id": "load-balancer:check_ntpd"
   }
 ]
-{{< /highlight >}}
+{{< /code >}}
 
 #### API specification {#silenced-checks-get-specification}
 

@@ -60,9 +60,9 @@ If you are using the [basic web UI filters][5], you can create your filter just 
 To filter resources based on [label selectors][6] or [field selectors][2], you'll write a brief filter statement.
 The filter statement construction is slightly different for different [operators][9], but the standard web UI filtering syntax is:
 
-{{< highlight text >}}
+{{< code text >}}
 SELECTOR:FILTER_STATEMENT
-{{< /highlight >}}
+{{< /code >}}
 
 To write a web UI filter command:
 
@@ -78,31 +78,31 @@ The [examples][10] demonstrate how to construct web UI filter statements for dif
 Web UI filtering statements will work with no space or a single space after the colon.
 For example, this filter will return all events for entities with the `linux` subscription:
 
-{{< highlight text >}}
+{{< code text >}}
 fieldSelector:linux in event.entity.subscriptions
-{{< /highlight >}}
+{{< /code >}}
 
 And this filter will work the same way:
 
-{{< highlight text >}}
+{{< code text >}}
 fieldSelector: linux in event.entity.subscriptions
-{{< /highlight >}}
+{{< /code >}}
 
 ### Values that begin with a number or include special characters
 
 If you are filtering for a value that begins with a number, place the value in single or double quotes:
 
-{{< highlight text >}}
+{{< code text >}}
 fieldSelector:entity.name == '1b04994n'
 fieldSelector:entity.name == "1b04994n"
-{{< /highlight >}}
+{{< /code >}}
 
 Likewise, to use a label or field selector with string values that include special characters like hyphens and underscores, place the value in single or double quotes:
 
-{{< highlight text >}}
+{{< code text >}}
 labelSelector:region == 'us-west-1'
 labelSelector:region == "us-west-1"
-{{< /highlight >}}
+{{< /code >}}
 
 ## Operators quick reference
 
@@ -125,43 +125,43 @@ For details about operators, see [API response filtering operators][7].
 
 To filter resources using custom labels (in this example, to display only resources with the `type` label set to `server`:
 
-{{< highlight text >}}
+{{< code text >}}
 labelSelector:type == server
-{{< /highlight >}}
+{{< /code >}}
 
 To filter for entities that are labeled for any region in the US (e.g. `us-east-1`, `us-west-1`, and so on):
 
-{{< highlight shell >}}
+{{< code shell >}}
 labelSelector:region matches "us"
-{{< /highlight >}}
+{{< /code >}}
 
 ### Filter with field selectors
 
 To filter resources using specific [resource attributes][2] (in this example, to display only events at `2` (CRITICAL) status):
 
-{{< highlight text >}}
+{{< code text >}}
 fieldSelector:event.check.status == "2"
-{{< /highlight >}}
+{{< /code >}}
 
 On the **Events page**, to display only events for checks with the subscription `webserver`:
 
-{{< highlight text >}}
+{{< code text >}}
 fieldSelector:webserver in event.check.subscriptions
-{{< /highlight >}}
+{{< /code >}}
 
 On the **Checks page**, to display only checks that use the `slack` handler:
 
-{{< highlight text >}}
+{{< code text >}}
 fieldSelector:slack in check.handlers
-{{< /highlight >}}
+{{< /code >}}
 
 ### Use the logical AND operator
 
 To use the logical AND operator (`&&`) to return checks that include a `linux` subscription and the `slack` handler:
 
-{{< highlight text >}}
+{{< code text >}}
 fieldSelector:linux in check.subscriptions && slack in check.handlers
-{{< /highlight >}}
+{{< /code >}}
 
 ### Combine label and field selectors
 
@@ -170,15 +170,15 @@ To combine `labelSelector` and `fieldSelector` filters, create the filters separ
 For example, to return resources with the `region` label set to `us-west-1` that also use the `slack` handler:
 
 1. Create the `labelSelector` filter in the filter bar and press **Return/Enter**.
-     {{< highlight text >}}
+     {{< code text >}}
 labelSelector:region == "us-west-1"
-{{< /highlight >}}
+{{< /code >}}
 
 2. Add the `fieldSelector` filter in the filter bar after the `labelSelector` filter and press **Return/Enter** again.
 
-     {{< highlight text >}}
+     {{< code text >}}
 fieldSelector:slack in check.handlers
-{{< /highlight >}}
+{{< /code >}}
 
 ## Save a filtered search
 

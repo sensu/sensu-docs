@@ -45,7 +45,7 @@ arbitrary `path` (i.e. the "keys").
 
 The following is an example Sensu stash.
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "path": "path/to/my/stash",
   "content": {
@@ -54,7 +54,7 @@ The following is an example Sensu stash.
   },
   "expire": -1
 }
-{{< /highlight >}}
+{{< /code >}}
 
 ### Stash definition specification
 
@@ -65,17 +65,17 @@ path         |
 description  | The path (or "key") the stash will be created and/or accessible at.
 type         | String
 required     | true
-example      | {{< highlight shell >}}"path": "silence/server-01"{{< /highlight >}}
+example      | {{< code shell >}}"path": "silence/server-01"{{< /code >}}
 
 content      | 
 -------------|------
 description  | Arbitrary JSON data.
 type         | Hash
 required     | false
-example      | {{< highlight shell >}}"content": {
+example      | {{< code shell >}}"content": {
   "message": "hello world!"
 }
-{{< /highlight >}}
+{{< /code >}}
 
 expire       | 
 -------------|------
@@ -83,7 +83,7 @@ description  | How long should the stash exist before it is removed by the API, 
 type         | Integer
 required     | false
 default      | `-1`
-example      | {{< highlight shell >}}"expire": 3600{{< /highlight >}}
+example      | {{< code shell >}}"expire": 3600{{< /code >}}
 
 #### `content` attributes
 
@@ -108,14 +108,14 @@ Please note the following example exercise to demonstrate the effect of direct
 access to stash `content` data:
 
 1. Let's assume we're starting out with an empty [key/value store][4].
-{{< highlight shell >}}
+{{< code shell >}}
 $ curl -s http://localhost:4567/stashes | jq .
 []
-{{< /highlight >}}
+{{< /code >}}
 
 2. Now let's create a stash with a path called 'direct-access/example-1' via the
    [`/stashes` (POST) API][5]:
-{{< highlight shell >}}
+{{< code shell >}}
 $ curl -s -i -X POST \
 -H 'Content-Type: application/json' \
 -d '{"path": "direct-access/example-1", "content":{"message":"hello world"}}' \
@@ -132,12 +132,12 @@ Connection: keep-alive
 Server: thin
 
 {"path":"direct-access/example-1"}
-{{< /highlight >}}
+{{< /code >}}
 
 3. Now let's create a stash with a path called `direct-access/example-2` via the
    [`/stashes/:path` (POST) API][6] (i.e. using **direct access to stash
    `content` data**):
-{{< highlight shell >}}
+{{< code shell >}}
 $ curl -s -i -X POST \
 -H 'Content-Type: application/json' \
 -d '{"message": "hello world"}' \
@@ -153,13 +153,13 @@ Content-Length: 32
 Connection: keep-alive
 Server: thin
 
-{"path":"direct-access/example-2"}{{< /highlight >}}
+{"path":"direct-access/example-2"}{{< /code >}}
    _NOTE: in the above example, we are not providing a complete [stash
    definition][2] (e.g. defining the `path` and `content` attributes), because
    the `/stashes/:path` API provides **direct access to stash `content` data**._
 
 4. Now let's see what our stashes looks like:
-{{< highlight shell >}}
+{{< code shell >}}
 $ curl -s http://localhost:4567/stashes | jq .
 [
  {
@@ -177,7 +177,7 @@ $ curl -s http://localhost:4567/stashes | jq .
    "path": "direct-access/example-2"
  }
 ]
-{{< /highlight >}}
+{{< /code >}}
    As you can see, even though we didn't provide a complete stash definition in
    step 3, the resulting stash is the same format as the stash created in step
    2.

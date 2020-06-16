@@ -29,13 +29,13 @@ _NOTE: It's expected that if you install the `rabbitmq-server` package from the 
 1. To enable the RabbitMQ service, you'll need to install its init scripts using
    the `update-rc.d` utility (if you are using Ubuntu 16.04+ you will need to 
    use `systemctl` instead):
-   {{< highlight shell >}}
-sudo update-rc.d rabbitmq-server enable{{< /highlight >}}
+   {{< code shell >}}
+sudo update-rc.d rabbitmq-server enable{{< /code >}}
 
 2. Start and stop the RabbitMQ service using the `service` command:
-   {{< highlight shell >}}
+   {{< code shell >}}
 sudo service rabbitmq-server start
-sudo service rabbitmq-server stop{{< /highlight >}}
+sudo service rabbitmq-server stop{{< /code >}}
 
 ## Configure RabbitMQ access controls
 
@@ -45,14 +45,14 @@ password). For Sensu services to connect to RabbitMQ a RabbitMQ virtual host
 
 ### Create a dedicated RabbitMQ `vhost` for Sensu
 
-{{< highlight shell >}}
-sudo rabbitmqctl add_vhost /sensu{{< /highlight >}}
+{{< code shell >}}
+sudo rabbitmqctl add_vhost /sensu{{< /code >}}
 
 ### Create a RabbitMQ user for Sensu
 
-{{< highlight shell >}}
+{{< code shell >}}
 sudo rabbitmqctl add_user sensu secret
-sudo rabbitmqctl set_permissions -p /sensu sensu ".*" ".*" ".*"{{< /highlight >}}
+sudo rabbitmqctl set_permissions -p /sensu sensu ".*" ".*" ".*"{{< /code >}}
 
 ## Configure system limits on Linux
 
@@ -77,15 +77,15 @@ development environments.
   _Source: [rabbitmq.com][2]_
 
 To adjust this limit first check if you are booted with systemd by running.
-{{< highlight shell >}}
-systemctl is-system-running{{< /highlight >}}
+{{< code shell >}}
+systemctl is-system-running{{< /code >}}
 If it complains that the command is not found or the output is not "running",
 then please edit the configuration file found at `/etc/default/rabbitmq-server`
 by uncommenting the last line in the file, and
 adjusting the ulimit value to the recommendation corresponding to the
 environment where RabbitMQ is running.
 
-{{< highlight shell >}}
+{{< code shell >}}
 # This file is sourced by the rabbitmq-server service script. Its primary
 # reason for existing is to allow adjustment of system limits for the
 # rabbitmq-server process.
@@ -94,17 +94,17 @@ environment where RabbitMQ is running.
 # to handle many simultaneous connections. Refer to the system
 # documentation for ulimit (in man bash) for more information.
 #
-ulimit -n 65536{{< /highlight >}}
+ulimit -n 65536{{< /code >}}
 else run
-{{< highlight shell >}}
-systemctl edit rabbitmq-server{{< /highlight >}}
+{{< code shell >}}
+systemctl edit rabbitmq-server{{< /code >}}
 and edit the (empty) file by inputting the following and then saving:
-{{< highlight shell >}}
+{{< code shell >}}
 [Service]
-LimitNOFILE=65535{{< /highlight >}}
+LimitNOFILE=65535{{< /code >}}
 Finally run:
-{{< highlight shell >}}
-systemctl daemon-reload{{< /highlight >}}
+{{< code shell >}}
+systemctl daemon-reload{{< /code >}}
 to pick-up the changes.
 
 ### Verifying the Limit
@@ -112,8 +112,8 @@ to pick-up the changes.
 To verify that the RabbitMQ open file handle limit has been increase, please
 run:
 
-{{< highlight shell >}}
-rabbitmqctl status{{< /highlight >}}
+{{< code shell >}}
+rabbitmqctl status{{< /code >}}
 
 ## Configure Sensu
 
@@ -127,7 +127,7 @@ configuration.
 
 1. Copy the following contents to a configuration file located at
    `/etc/sensu/conf.d/rabbitmq.json`:
-   {{< highlight json>}}
+   {{< code json>}}
 {
   "rabbitmq": {
     "host": "127.0.0.1",
@@ -136,7 +136,7 @@ configuration.
     "user": "sensu",
     "password": "secret"
   }
-}{{< /highlight >}}
+}{{< /code >}}
 
 ### Example Distributed Configuration
 
@@ -146,7 +146,7 @@ configuration.
 2. Create a configuration file  with the following contents at
    `/etc/sensu/conf.d/rabbitmq.json` on the Sensu server and API system(s), and
    all systems running the Sensu client:
-   {{< highlight json>}}
+   {{< code json>}}
 {
   "rabbitmq": {
     "host": "10.0.1.6",
@@ -155,7 +155,7 @@ configuration.
     "user": "sensu",
     "password": "secret"
   }
-}{{< /highlight >}}
+}{{< /code >}}
 
 
 

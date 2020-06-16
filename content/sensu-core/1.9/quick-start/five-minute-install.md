@@ -40,24 +40,24 @@ the [installation guide][2].
 
 **0. Install EPEL (if not already done)**
 
-{{< highlight shell >}}
-sudo yum install epel-release -y{{< /highlight >}}
+{{< code shell >}}
+sudo yum install epel-release -y{{< /code >}}
 
 **1. Create the YUM repository configuration file for the Sensu Core repository at
 `/etc/yum.repos.d/sensu.repo`**
 
-{{< highlight shell >}}
+{{< code shell >}}
 echo '[sensu]
 name=sensu
 baseurl=https://eol-repositories.sensuapp.org/yum/$releasever/$basearch/
 gpgkey=https://eol-repositories.sensuapp.org/yum/pubkey.gpg
 gpgcheck=1
-enabled=1' | sudo tee /etc/yum.repos.d/sensu.repo{{< /highlight >}}
+enabled=1' | sudo tee /etc/yum.repos.d/sensu.repo{{< /code >}}
 
 **2. Install Redis (>= 1.3.14) from EPEL:**
 
-{{< highlight shell >}}
-sudo yum install redis -y{{< /highlight >}}
+{{< code shell >}}
+sudo yum install redis -y{{< /code >}}
 
 **3. Disable Redis protected mode**
 
@@ -66,36 +66,36 @@ order to disable [protected mode][redis-security].
 
 Look for a line that reads:
 
-{{< highlight shell >}}
-protected-mode yes{{< /highlight >}}
+{{< code shell >}}
+protected-mode yes{{< /code >}}
 
 and change it to:
 
-{{< highlight shell >}}
-protected-mode no{{< /highlight >}}
+{{< code shell >}}
+protected-mode no{{< /code >}}
 
 **4. Enable and start Redis:**
 
-{{< highlight shell >}}
+{{< code shell >}}
 sudo systemctl enable redis
-sudo systemctl start redis{{< /highlight >}}
+sudo systemctl start redis{{< /code >}}
 
 **5. Install and start RabbitMQ:**
 
 Install Erlang (required for RabbitMQ):
 
-{{< highlight shell >}}
+{{< code shell >}}
 sudo yum install https://dl.bintray.com/rabbitmq/rpm/erlang/20/el/7/x86_64/erlang-20.1.7.1-1.el7.centos.x86_64.rpm
-{{< /highlight >}}
+{{< /code >}}
 
 Install RabbitMQ:
 
-{{< highlight shell >}}
-sudo yum install https://dl.bintray.com/rabbitmq/rabbitmq-server-rpm/rabbitmq-server-3.6.12-1.el7.noarch.rpm{{< /highlight >}}
+{{< code shell >}}
+sudo yum install https://dl.bintray.com/rabbitmq/rabbitmq-server-rpm/rabbitmq-server-3.6.12-1.el7.noarch.rpm{{< /code >}}
 
 Configure RabbitMQ to work with Sensu:
 
-{{< highlight shell >}}
+{{< code shell >}}
 echo '{
   "rabbitmq": {
     "host": "127.0.0.1",
@@ -106,32 +106,32 @@ echo '{
     "heartbeat": 30,
     "prefetch": 50
   }
-}' | sudo tee /etc/sensu/conf.d/rabbitmq.json{{< /highlight >}}
+}' | sudo tee /etc/sensu/conf.d/rabbitmq.json{{< /code >}}
 
 Start RabbitMQ:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sudo systemctl start rabbitmq-server
-sudo systemctl enable rabbitmq-server{{< /highlight >}}
+sudo systemctl enable rabbitmq-server{{< /code >}}
 
 Create a RabbitMQ vhost and user to allow Sensu services to connect to RabbitMQ:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sudo rabbitmqctl add_vhost /sensu
 sudo rabbitmqctl add_user sensu secret
 sudo rabbitmqctl set_permissions -p /sensu sensu ".*" ".*" ".*"
-{{< /highlight >}}
+{{< /code >}}
 
 **6. Install Sensu and the Uchiwa dashboard:**
 
-{{< highlight shell >}}
-sudo yum install sensu uchiwa -y{{< /highlight >}}
+{{< code shell >}}
+sudo yum install sensu uchiwa -y{{< /code >}}
 
 **7. Configure the Sensu client:**
 
 Run the following to set up a minimal client config:
 
-{{< highlight shell >}}
+{{< code shell >}}
 echo '{
   "client": {
     "environment": "development",
@@ -139,11 +139,11 @@ echo '{
       "dev"
     ]
   }
-}' |sudo tee /etc/sensu/conf.d/client.json{{< /highlight >}}
+}' |sudo tee /etc/sensu/conf.d/client.json{{< /code >}}
 
 **8. Configure the Uchiwa dashboard:**
 
-{{< highlight shell >}}
+{{< code shell >}}
  echo '{
    "sensu": [
      {
@@ -156,33 +156,33 @@ echo '{
      "host": "0.0.0.0",
      "port": 3000
    }
- }' |sudo tee /etc/sensu/uchiwa.json{{< /highlight >}}
+ }' |sudo tee /etc/sensu/uchiwa.json{{< /code >}}
 
 **9. Make sure that the `sensu` user owns all of the Sensu configuration files:**
 
-{{< highlight shell >}}
-sudo chown -R sensu:sensu /etc/sensu{{< /highlight >}}
+{{< code shell >}}
+sudo chown -R sensu:sensu /etc/sensu{{< /code >}}
 
 **10. Start the Sensu services:**
 
-{{< highlight shell >}}
+{{< code shell >}}
 sudo systemctl enable sensu-{server,api,client}
 sudo systemctl start sensu-{server,api,client}
 sudo systemctl enable uchiwa
-sudo systemctl start uchiwa{{< /highlight >}}
+sudo systemctl start uchiwa{{< /code >}}
 
 Nice work! You have successfully installed and configured Sensu.
 
 You can verify that your installation is ready to use by querying the Sensu API
 using the `curl` utility (and piping the result to the [`jq` utility][10]):
 
-{{< highlight shell >}}
+{{< code shell >}}
 sudo yum install jq curl -y
-curl -s http://127.0.0.1:4567/clients | jq .{{< /highlight >}}
+curl -s http://127.0.0.1:4567/clients | jq .{{< /code >}}
 
 The Sensu API should return a JSON array of Sensu clients similar to this:
 
-{{< highlight shell >}}
+{{< code shell >}}
 [
   {
     "name": "localhost.localdomain",
@@ -195,12 +195,12 @@ The Sensu API should return a JSON array of Sensu clients similar to this:
     "version": "1.5.0",
     "timestamp": 1536689149
   }
-]{{< /highlight >}}
+]{{< /code >}}
 
 You can also use the settings API to see Sensu's full configuration:
 
-{{< highlight shell >}}
-curl -s http://127.0.0.1:4567/settings | jq .{{< /highlight >}}
+{{< code shell >}}
+curl -s http://127.0.0.1:4567/settings | jq .{{< /code >}}
 
 You now be able to view the Uchiwa dashboard in your browser by visiting [http://hostname:3000](http://hostname:3000) (replacing `hostname` with the hostname or IP address of the system where the dashboard is installed).
 

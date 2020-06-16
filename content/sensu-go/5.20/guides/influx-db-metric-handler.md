@@ -25,9 +25,9 @@ This example uses the [Sensu InfluxDB Handler][13] asset to power an `influx-db`
 
 Use [`sensuctl asset add`][5] to register the [Sensu InfluxDB Handler][13] asset:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl asset add sensu/sensu-influxdb-handler:3.1.2 -r influxdb-handler
-{{< /highlight >}}
+{{< /code >}}
 
 This example uses the `-r` (rename) flag to specify a shorter name for the asset: `influxdb-handler`.
 
@@ -35,9 +35,9 @@ You can also download the latest asset definition for your platform from [Bonsai
 
 You should see a confirmation message from sensuctl:
 
-{{< highlight shell >}}
+{{< code shell >}}
 Created
-{{< /highlight >}}
+{{< /code >}}
 
 Run `sensuctl asset list --format yaml` to confirm that the asset is ready to use.
 
@@ -47,34 +47,34 @@ Now that you have registered the asset, you'll use sensuctl to create a handler 
 Edit the command below to include your database name, address, username, and password.
 For more information about the Sensu InfluxDB handler, see [the asset page in Bonsai][13].
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl handler create influx-db \
 --type pipe \
 --command "sensu-influxdb-handler -d sensu" \
 --env-vars "INFLUXDB_ADDR=http://influxdb.default.svc.cluster.local:8086, INFLUXDB_USER=sensu, INFLUXDB_PASS=password" \
 --runtime-assets influxdb-handler
-{{< /highlight >}}
+{{< /code >}}
 
 You should see a confirmation message from sensuctl:
 
-{{< highlight shell >}}
+{{< code shell >}}
 Created
-{{< /highlight >}}
+{{< /code >}}
 
 ## Assign the handler to an event
 
 With the `influx-db` handler created, you can assign it to a check for [check output metric extraction][10]. 
 In this example, the check name is `collect-metrics`:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl check set-output-metric-handlers collect-metrics influx-db
-{{< /highlight >}}
+{{< /code >}}
 
 You can also assign the handler to the [Sensu StatsD listener][3] at agent startup to pass all StatsD metrics into InfluxDB:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensu-agent start --statsd-event-handlers influx-db
-{{< /highlight >}}
+{{< /code >}}
 
 ## Validate the handler
 

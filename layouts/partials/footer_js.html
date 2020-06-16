@@ -105,7 +105,7 @@
     };
     var toggles = document.getElementsByClassName('language-toggle');
     for (var i=0; i < toggles.length; i++) {
-      var children = Array.prototype.slice.call(toggles[i].querySelectorAll('[data-lang]'));
+      var children = Array.prototype.slice.call(toggles[i].querySelectorAll('.language'));
       var langs = children.map(function(c) { return c.dataset.lang; });
 
       // Add tabs
@@ -151,7 +151,7 @@
       });
 
       // Get all code sections that contain the user-selected language
-      var selector = '.language-toggle code[data-lang="' + lang + '"]';
+      var selector = '.language-toggle .language[data-lang="' + lang + '"]';
       var langBlockChildren = document.querySelectorAll(selector);
       var langBlocks = Array.prototype.slice.call(langBlockChildren).map(function(el) { return el.closest('.languages'); });
       // Hide all unselected code blocks
@@ -161,7 +161,7 @@
         })
       });
       // Show all selected code blocks
-      langBlockChildren.forEach(function(el) { return el.closest('.highlight').classList.add('active'); });
+      langBlockChildren.forEach(function(el) { return el.classList.add('active'); });
     }
     // On load, set the language for all toggles that contain the user-selected language
     setLanguage(localStorage.getItem('lang'));
@@ -203,7 +203,7 @@
           {{ if isset .Page.Params "product" }}
             'version:{{ .Page.Params.version }}'
           {{ else }}
-            'version:5.20',
+            'version:5.21',
             'version:1.0',
             'version:2.16',
             'version:1.9',

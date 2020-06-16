@@ -86,9 +86,9 @@ The custom function `hour` returns the hour of a UNIX epoch time (in UTC and 24-
 
 For example, if an `event.timestamp` equals 1520275913, which is Monday, March 5, 2018 6:51:53 PM UTC, the following SQE returns `true`:
 
-{{< highlight go >}}
+{{< code go >}}
 hour(event.timestamp) >= 17
-{{< /highlight >}}
+{{< /code >}}
 
 #### weekday
 
@@ -97,9 +97,9 @@ Sunday is `0`.
 
 For example, if an `event.timestamp` equals 1520275913, which is Monday, March 5, 2018 6:51:53 PM UTC, the following SQE returns `false`:
 
-{{< highlight go >}}
+{{< code go >}}
 weekday(event.timestamp) == 0
-{{< /highlight >}}
+{{< /code >}}
 
 ## Examples
 
@@ -107,34 +107,34 @@ weekday(event.timestamp) == 0
 
 This SQE returns `true` if the event's entity contains a custom attribute named `namespace` that is equal to `production`:
 
-{{< highlight go >}}
+{{< code go >}}
 event.entity.namespace == 'production'
-{{< /highlight >}}
+{{< /code >}}
 
 ### Evaluate an array
 
 To evaluate an attribute that contains an array of elements, use the `.indexOf` method.
 For example, this expression returns `true` if an entity includes the subscription `system`:
 
-{{< highlight go >}}
+{{< code go >}}
 entity.subscriptions.indexOf('system') >= 0
-{{< /highlight >}}
+{{< /code >}}
 
 ### Evaluate the day of the week
 
 This expression returns `true` if the event occurred on a weekday:
 
-{{< highlight go >}}
+{{< code go >}}
 weekday(event.timestamp) >= 1 && weekday(event.timestamp) <= 5
-{{< /highlight >}}
+{{< /code >}}
 
 ### Evaluate office hours
 
 This expression returns `true` if the event occurred between 9 AM and 5 PM UTC:
 
-{{< highlight go >}}
+{{< code go >}}
 hour(event.timestamp) >= 9 && hour(event.timestamp) <= 17
-{{< /highlight >}}
+{{< /code >}}
 
 ### Evaluate labels and annotations
 
@@ -142,15 +142,15 @@ Although you can use annotations to create SQEs, we recommend using labels becau
 
 This expression returns `true` if the event's entity includes the label `webserver`:
 
-{{< highlight go >}}
+{{< code go >}}
 !!event.entity.labels.webserver
-{{< /highlight >}}
+{{< /code >}}
 
 Likewise, this expression returns `true` if the event's entity includes the annotation `www.company.com`:
 
-{{< highlight go >}}
+{{< code go >}}
 !!event.entity.annotations['www.company.com']
-{{< /highlight >}}
+{{< /code >}}
 
 
 [1]: https://github.com/robertkrimen/otto

@@ -25,7 +25,7 @@ The `/auth` API endpoint provides HTTP GET access to generate an access token an
 
 In the following example, querying the `/auth` API endpoint with a given username and password returns an HTTP `200 OK` response to indicate that the credentials are valid, along with an access token and a refresh token.
 
-{{< highlight shell >}}
+{{< code shell >}}
 curl -X GET \
 http://127.0.0.1:8080/auth \
 -u myusername:mypassword
@@ -36,7 +36,7 @@ HTTP/1.1 200 OK
   "expires_at": 1544582187,
   "refresh_token": "eyJhbGciOiJIUzI1NiIs..."
 }
-{{< /highlight >}}
+{{< /code >}}
 
 #### API Specification {#auth-get-specification}
 
@@ -44,13 +44,13 @@ HTTP/1.1 200 OK
 ---------------------|------
 description          | Generates an access and a refresh token used for accessing the API using Sensu's basic authentication. Access tokens last for approximately 15 minutes. When your token expires, you should see a `401 Unauthorized` response from the API. To generate a new access token, use the [`/auth/token` API endpoint](#authtoken-post).
 example url          | http://hostname:8080/auth
-output               | {{< highlight json >}}
+output               | {{< code json >}}
 {
   "access_token": "eyJhbGciOiJIUzI1NiIs...",
   "expires_at": 1544582187,
   "refresh_token": "eyJhbGciOiJIUzI1NiIs..."
 }
-{{< /highlight >}}
+{{< /code >}}
 response codes       | <ul><li>**Valid credentials**: 200 (OK)</li><li> **Invalid credentials**: 401 (Unauthorized)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 ## The `/auth/test` API endpoint {#the-authtest-api-endpoint}
@@ -67,13 +67,13 @@ The `/auth/test` API endpoint provides HTTP GET access to test basic authenticat
 
 In the following example, querying the `/auth/test` API endpoint with a given username and password returns an HTTP `200 OK` response, indicating that the credentials are valid.
 
-{{< highlight shell >}}
+{{< code shell >}}
 curl -X GET \
 http://127.0.0.1:8080/auth/test \
 -u myusername:mypassword
 
 HTTP/1.1 200 OK
-{{< /highlight >}}
+{{< /code >}}
 
 #### API Specification {#authtest-get-specification}
 
@@ -94,7 +94,7 @@ The `/auth/token` API endpoint provides HTTP POST access to renew an access toke
 In the following example, an HTTP POST request is submitted to the `/auth/token` API endpoint to generate a valid access token.
 The request includes the refresh token in the request body and returns a successful HTTP `200 OK` response along with the new access token.
 
-{{< highlight shell >}}
+{{< code shell >}}
 curl -X POST \
 http://127.0.0.1:8080/auth/token \
 -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIs..." \
@@ -107,7 +107,7 @@ HTTP/1.1 200 OK
   "expires_at": 1544582187,
   "refresh_token": "eyJhbGciOiJIUzI1NiIs..."
 }
-{{< /highlight >}}
+{{< /code >}}
 
 #### API Specification {#authtoken-post-specification}
 
@@ -115,18 +115,18 @@ HTTP/1.1 200 OK
 ---------------------|------
 description          | Generates a new access token using a refresh token and an expired access token.
 example url          | http://hostname:8080/auth/token
-example payload | {{< highlight shell >}}
+example payload | {{< code shell >}}
 {
   "refresh_token": "eyJhbGciOiJIUzI1NiIs..."
 }
-{{< /highlight >}}
-output               | {{< highlight json >}}
+{{< /code >}}
+output               | {{< code json >}}
 {
   "access_token": "eyJhbGciOiJIUzI1NiIs...",
   "expires_at": 1544582187,
   "refresh_token": "eyJhbGciOiJIUzI1NiIs..."
 }
-{{< /highlight >}}
+{{< /code >}}
 response codes  | <ul><li>**Success**: 200 (OK)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 [1]: ../../installation/auth#use-built-in-basic-authentication

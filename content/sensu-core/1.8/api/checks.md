@@ -33,7 +33,7 @@ _**NOTE**: `GET /checks` responses do not include checks that are configured as 
 The following example demonstrates a request to the `/checks` API, resulting in
 a JSON Array of JSON Hashes containing subscription [check definitions][2].
 
-{{< highlight shell >}}
+{{< code shell >}}
 $ curl -s http://127.0.0.1:4567/checks | jq .
 [
   {
@@ -45,7 +45,7 @@ $ curl -s http://127.0.0.1:4567/checks | jq .
     "command": "check-http.rb -u https://sensuapp.org"
   }
 ]
-{{< /highlight >}}
+{{< /code >}}
 
 #### API Specification {#checks-get-specification}
 
@@ -56,7 +56,7 @@ example url    | http://hostname:4567/checks
 pagination     | see [pagination][4]
 response type  | Array
 response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-output         | {{< highlight shell >}}[
+output         | {{< code shell >}}[
   {
     "name": "chef_client_process",
     "command": "check-procs.rb -p /usr/bin/chef-client -W 1 -w 2 -c 3",
@@ -74,7 +74,7 @@ output         | {{< highlight shell >}}[
     "interval": 30
   }
 ]
-{{< /highlight >}}
+{{< /code >}}
 
 ## The `/checks/:check` API endpoint(s) {#the-checkscheck-api-endpoints}
 
@@ -89,7 +89,7 @@ In the following example, querying the `/checks/:check` API returns a JSON Hash
 containing the requested [`:check` definition][2] (i.e. for the `:check` named
 `sensu_website`).
 
-{{< highlight shell >}}
+{{< code shell >}}
 $ curl -s http://127.0.0.1:4567/checks/sensu_website | jq .
 {
   "name": "sensu_website",
@@ -99,13 +99,13 @@ $ curl -s http://127.0.0.1:4567/checks/sensu_website | jq .
   ],
   "command": "check-http.rb -u https://sensuapp.org"
 }
-{{< /highlight >}}
+{{< /code >}}
 
 The following example demonstrates a request for check data for a non-existent
 `:check` named `non_existent_check`, which results in a [404 (Not Found) HTTP
 response code][3] (i.e. `HTTP/1.1 404 Not Found`).
 
-{{< highlight shell >}}
+{{< code shell >}}
 $ curl -s -i http://127.0.0.1:4567/checks/non_existent_check
 
 HTTP/1.1 404 Not Found
@@ -117,7 +117,7 @@ Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept, Au
 Content-Length: 0
 Connection: keep-alive
 Server: thin
-{{< /highlight >}}
+{{< /code >}}
 
 #### API Specification {#checkscheck-get-specification}
 
@@ -127,7 +127,7 @@ description          | Returns a check.
 example url          | http://hostname:4567/checks/sensu_website
 response type        | Hash
 response codes       | <ul><li>**Success**: 200 (OK)</li><li> **Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-output               | {{< highlight json >}}{
+output               | {{< code json >}}{
   "name": "chef_client_process",
   "command": "check-procs.rb -p /usr/bin/chef-client -W 1 -w 2 -c 3",
   "subscribers": [
@@ -135,7 +135,7 @@ output               | {{< highlight json >}}{
   ],
   "interval": 60
 }
-{{< /highlight >}}
+{{< /code >}}
 
 ### `/checks/:check` (DELETE) {#checkscheck-delete}
 
@@ -148,7 +148,7 @@ The following example demonstrates a request to delete a check named
 `sensu_website`, resulting in a [202 (Accepted) HTTP response code][3] and
 and a JSON Hash containing an `issued` timestamp.
 
-{{< highlight shell >}}
+{{< code shell >}}
 $ curl -s -i -X DELETE http://127.0.0.1:4567/checks/sensu_website
 
 HTTP/1.1 202 Accepted
@@ -162,7 +162,7 @@ Connection: keep-alive
 Server: thin
 
 {"issued":1539627787}
-{{< /highlight >}}
+{{< /code >}}
 
 #### API Specification {#checkscheck-delete-specification}
 
@@ -171,7 +171,7 @@ Server: thin
 description               | Asynchronously removes check results and check history for a specified check across all clients. This endpoint does not modify any configuration files.
 example url               | http://hostname:4567/checks/sensu_website
 response codes            | <ul><li>**Success**: 202 (Accepted)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-output                  | {{< highlight shell >}}HTTP/1.1 202 Accepted
+output                  | {{< code shell >}}HTTP/1.1 202 Accepted
 Content-Type: application/json
 Access-Control-Allow-Origin: *
 Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS
@@ -182,7 +182,7 @@ Connection: keep-alive
 Server: thin
 
 {"issued":1539627787}
-{{< /highlight >}}
+{{< /code >}}
 
 ## The `/request` API endpoint
 
@@ -198,7 +198,7 @@ requesting a check execution for the `sensu_website` [subscription check][1],
 resulting in a [202 (Accepted) HTTP response code][3] (i.e. `HTTP/1.1 202
 Accepted`) and a JSON Hash containing an `issued` timestamp.
 
-{{< highlight shell >}}
+{{< code shell >}}
 curl -s -i \
 -X POST \
 -H 'Content-Type: application/json' \
@@ -216,7 +216,7 @@ Connection: keep-alive
 Server: thin
 
 {"issued":1460142533}
-{{< /highlight >}}
+{{< /code >}}
 
 _PRO TIP: the `/request` API can be a powerful utility when combined with check
 definitions that are configured with `"publish": false` (i.e. checks which are
@@ -228,7 +228,7 @@ The following example demonstrates a request for a check execution for a
 non-existent check named `non_existent_check`, which results in a [404 (Not
 Found) HTTP response code][3] (i.e. `HTTP/1.1 404 Not Found`).
 
-{{< highlight shell >}}
+{{< code shell >}}
 curl -s -i \
 -X POST \
 -H 'Content-Type: application/json' \
@@ -244,7 +244,7 @@ Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept, Au
 Content-Length: 0
 Connection: keep-alive
 Server: thin
-{{< /highlight >}}
+{{< /code >}}
 
 #### API Specification {#request-post-specification}
 
@@ -252,14 +252,14 @@ Server: thin
 ----------------|------
 description     | Issues a check execution request.
 example url     | http://hostname:4567/request
-payload         | {{< highlight json >}}{
+payload         | {{< code json >}}{
   "check": "chef_client_process",
   "subscribers": [
     "production"
   ],
   "creator": "sysop@example.com",
   "reason": "triggered application deployment"
-}{{< /highlight >}}_NOTE: the `subscribers` attribute is not required for requesting a check execution, however it may be provided to override the `subscribers` [check definition attribute][2]._ _NOTE: the `creator` and `reason` attributes are not required for requesting a check execution, however they may be provided to add more context to the check request and in turn the check result(s). The check request `creator` and `reason` are added to the check request payload under `api_requested`._
+}{{< /code >}}_NOTE: the `subscribers` attribute is not required for requesting a check execution, however it may be provided to override the `subscribers` [check definition attribute][2]._ _NOTE: the `creator` and `reason` attributes are not required for requesting a check execution, however they may be provided to add more context to the check request and in turn the check result(s). The check request `creator` and `reason` are added to the check request payload under `api_requested`._
 response codes  | <ul><li>**Success**: 202 (Accepted)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 [?]:  #

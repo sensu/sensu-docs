@@ -27,33 +27,33 @@ type         |
 description  | Top-level attribute that specifies the [`sensuctl create`][6] resource type. Searches should always be type `Search`.
 required     | Required for search entry definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][6].
 type         | String
-example      | {{< highlight shell >}}"type": "Search"{{< /highlight >}}
+example      | {{< code shell >}}"type": "Search"{{< /code >}}
 
 api_version  | 
 -------------|------
 description  | Top-level attribute that specifies the Sensu API group and version. For searches in this version of Sensu, the `api_version` should always be `searches/v1`.
 required     | Required for search entry definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][6].
 type         | String
-example      | {{< highlight shell >}}"api_version": "searches/v1"{{< /highlight >}}
+example      | {{< code shell >}}"api_version": "searches/v1"{{< /code >}}
 
 metadata     | 
 -------------|------
 description  | Top-level collection of metadata about the search that includes `name` and `namespace`. The `metadata` map is always at the top level of the search definition. This means that in `wrapped-json` and `yaml` formats, the `metadata` scope occurs outside the `spec` scope. See [metadata attributes][5] for details.
 required     | Required for search entry definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][6].
 type         | Map of key-value pairs
-example      | {{< highlight shell >}}
+example      | {{< code shell >}}
 "metadata": {
   "name": "us-west-server-incidents",
   "namespace": "default"
 }
-{{< /highlight >}}
+{{< /code >}}
 
 spec         | 
 -------------|------
 description  | Top-level map that includes the search [spec attributes][7]. The spec contents will depend on the search parameters you apply and save.
 required     | Required for silences in `wrapped-json` or `yaml` format for use with [`sensuctl create`][6].
 type         | Map of key-value pairs
-example      | {{< highlight shell >}}
+example      | {{< code shell >}}
 "spec": {
   "parameters": [
     "entity:server-testing",
@@ -63,7 +63,7 @@ example      | {{< highlight shell >}}
   ],
   "resource": "core.v2/Event"
 }
-{{< /highlight >}}
+{{< /code >}}
 
 ### Metadata attributes
 
@@ -72,7 +72,7 @@ example      | {{< highlight shell >}}
 description  | Search identifier generated from the combination of a subscription name and check name.
 required     | true
 type         | String
-example      | {{< highlight shell >}}"name": "us-west-server-incidents"{{< /highlight >}}
+example      | {{< code shell >}}"name": "us-west-server-incidents"{{< /code >}}
 
 | namespace  |      |
 -------------|------
@@ -80,7 +80,7 @@ description  | Sensu [RBAC namespace][8] that the search belongs to.
 required     | false
 type         | String
 default      | `default`
-example      | {{< highlight shell >}}"namespace": "default"{{< /highlight >}}
+example      | {{< code shell >}}"namespace": "default"{{< /code >}}
 
 ### Spec attributes
 
@@ -89,20 +89,20 @@ parameters   |
 description  | Parameters the search will apply.
 required     | true
 type         | Array
-example      | {{< highlight shell >}}
+example      | {{< code shell >}}
 "parameters": [
   "entity:server-testing",
   "check:server-health",
   "status:incident",
   "labelSelector:region == \"us-west-1\""
-]{{< /highlight >}}
+]{{< /code >}}
 
 resource     | 
 -------------|------ 
 description  | Fully qualified name of the resource included in the search.
 required     | true
 type         | String
-example      | {{< highlight shell >}}"resource": "core.v2/Event"{{< /highlight >}}
+example      | {{< code shell >}}"resource": "core.v2/Event"{{< /code >}}
 
 #### Parameters
 
@@ -111,84 +111,84 @@ action       |
 description  | For filter searches, the type of filter to include in the search: `allow` or `deny`.
 required     | false
 type         | String
-example      | {{< highlight shell >}}"action:allow"{{< /highlight >}}
+example      | {{< code shell >}}"action:allow"{{< /code >}}
 
 check        | 
 -------------|------ 
 description  | Name of the check to include in the search.
 required     | false
 type         | String
-example      | {{< highlight shell >}}"check:server-health"{{< /highlight >}}
+example      | {{< code shell >}}"check:server-health"{{< /code >}}
 
 class        | 
 -------------|------ 
 description  | For entity searches, the entity class to include in the search: `agent` or `proxy`.
 required     | false
 type         | String
-example      | {{< highlight shell >}}"class:agent"{{< /highlight >}}
+example      | {{< code shell >}}"class:agent"{{< /code >}}
 
 entity       | 
 -------------|------ 
 description  | Name of the entity to include in the search.
 required     | false
 type         | String
-example      | {{< highlight shell >}}"entity:server-testing"{{< /highlight >}}
+example      | {{< code shell >}}"entity:server-testing"{{< /code >}}
 
 event        | 
 -------------|------ 
 description  | Name of the event to include in the search.
 required     | false
 type         | String
-example      | {{< highlight shell >}}"event:server-testing"{{< /highlight >}}
+example      | {{< code shell >}}"event:server-testing"{{< /code >}}
 
 fieldSelector | 
 -------------|------ 
 description  | [Field selector][9] to include in the search.
 required     | false
 type         | Filter statement
-example      | {{< highlight shell >}}"fieldSelector: entity.name == \"1b04994n\""{{< /highlight >}}
+example      | {{< code shell >}}"fieldSelector: entity.name == \"1b04994n\""{{< /code >}}
 
 labelSelector | 
 -------------|------ 
 description  | [Label selector][10] to include in the search.
 required     | false
 type         | Filter statement
-example      | {{< highlight shell >}}"labelSelector:region == \"us-west-1\""{{< /highlight >}}
+example      | {{< code shell >}}"labelSelector:region == \"us-west-1\""{{< /code >}}
 
 published    | 
 -------------|------ 
 description  | If `true`, the search will include only published resources. Otherwise, `false`. 
 required     | false
 type         | Boolean
-example      | {{< highlight shell >}}"published:true"{{< /highlight >}}
+example      | {{< code shell >}}"published:true"{{< /code >}}
 
 silenced     | 
 -------------|------ 
 description  | If `true`, the search will include only silenced events. Otherwise, `false`. 
 required     | false
 type         | Boolean
-example      | {{< highlight shell >}}"silenced:true"{{< /highlight >}}
+example      | {{< code shell >}}"silenced:true"{{< /code >}}
 
 status       | 
 -------------|------ 
 description  | Status of the events, entities, or resources to include in the search.
 required     | false
 type         | String
-example      | {{< highlight shell >}}"status:incident"{{< /highlight >}}
+example      | {{< code shell >}}"status:incident"{{< /code >}}
 
 subscription | 
 -------------|------ 
 description  | Name of the subscription to include in the search. 
 required     | false
 type         | String
-example      | {{< highlight shell >}}"subscription:web"{{< /highlight >}}
+example      | {{< code shell >}}"subscription:web"{{< /code >}}
 
 type         | 
 -------------|------ 
 description  | For handler searches, the type of hander to include in the search: `pipe`, `set`, `tcp`, or `udp`.
 required     | false
 type         | String
-example      | {{< highlight shell >}}"type:pipe"{{< /highlight >}}
+example      | {{< code shell >}}"type:pipe"{{< /code >}}
 
 ## Examples
 
@@ -198,7 +198,7 @@ The following saved search will retrieve all events that have any status except 
 
 {{< language-toggle >}}
 
-{{< highlight yml >}}
+{{< code yml >}}
 type: Search
 api_version: searches/v1
 metadata:
@@ -211,9 +211,9 @@ spec:
   - status:critical
   - status:unknown
   resource: core.v2/Event
-{{< /highlight >}}
+{{< /code >}}
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "type": "Search",
   "api_version": "searches/v1",
@@ -231,7 +231,7 @@ spec:
     "resource": "core.v2/Event"
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 {{< /language-toggle >}}
 
@@ -241,7 +241,7 @@ The following saved search will retrieve all published checks for the `us-west-1
 
 {{< language-toggle >}}
 
-{{< highlight yml >}}
+{{< code yml >}}
 type: Search
 api_version: searches/v1
 metadata:
@@ -253,9 +253,9 @@ spec:
   - subscription:linux
   - 'labelSelector: region == "us-west-1"'
   resource: core.v2/CheckConfig
-{{< /highlight >}}
+{{< /code >}}
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "type": "Search",
   "api_version": "searches/v1",
@@ -272,7 +272,7 @@ spec:
     "resource": "core.v2/CheckConfig"
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 {{< /language-toggle >}}
 

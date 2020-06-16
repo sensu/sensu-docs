@@ -111,7 +111,7 @@ located at `/etc/sensu/conf.d/example_mutator.json`. This mutator definition
 uses an imaginary [Sensu plugin][7] called `example_mutator.rb` to modify event
 data prior to handling the event.
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "mutators": {
     "example_mutator": {
@@ -119,7 +119,7 @@ data prior to handling the event.
     }
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 ### Mutator definition specification
 
@@ -139,14 +139,14 @@ command      |
 description  | The mutator command to be executed. The event data is passed to the process via `STDIN`.
 required     | true
 type         | String
-example      | {{< highlight shell >}}"command": "/etc/sensu/plugins/mutated.rb"{{< /highlight >}}
+example      | {{< code shell >}}"command": "/etc/sensu/plugins/mutated.rb"{{< /code >}}
 
 timeout      | 
 -------------|------
 description  | The mutator execution duration timeout in seconds (hard stop).
 required     | false
 type         | Integer
-example      | {{< highlight shell >}}"timeout": 30{{< /highlight >}}
+example      | {{< code shell >}}"timeout": 30{{< /code >}}
 
 [1]:  ../events#event-data
 [2]:  ../handlers

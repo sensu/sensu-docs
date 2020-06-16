@@ -40,39 +40,39 @@ type         |
 description  | Top-level attribute that specifies the resource type. For secrets configuration, the type should always be `Secret`.
 required     | Required for secrets configuration in `wrapped-json` or `yaml` format.
 type         | String
-example      | {{< highlight shell >}}"type": "Secret"{{< /highlight >}}
+example      | {{< code shell >}}"type": "Secret"{{< /code >}}
 
 api_version  | 
 -------------|------
 description  | Top-level attribute that specifies the Sensu API group and version. For secrets configuration in this version of Sensu, the api_version should always be `secrets/v1`.
 required     | Required for secrets configuration in `wrapped-json` or `yaml` format.
 type         | String
-example      | {{< highlight shell >}}"api_version": "secrets/v1"{{< /highlight >}}
+example      | {{< code shell >}}"api_version": "secrets/v1"{{< /code >}}
 
 metadata     |      |
 -------------|------
 description  | Top-level scope that contains the secret's `name` and `namespace` as well as the `created_by` field.
 required     | true
 type         | Map of key-value pairs
-example      | {{< highlight shell >}}
+example      | {{< code shell >}}
 "metadata": {
   "name": "sensu-ansible-token",
   "namespace": "default",
   "created_by": "admin"
 }
-{{< /highlight >}}
+{{< /code >}}
 
 spec         | 
 -------------|------
 description  | Top-level map that includes secrets configuration [spec attributes][8].
 required     | Required for secrets configuration in `wrapped-json` or `yaml` format.
 type         | Map of key-value pairs
-example      | {{< highlight shell >}}
+example      | {{< code shell >}}
 "spec": {
   "id": "ANSIBLE_TOKEN",
   "provider": "env"
 }
-{{< /highlight >}}
+{{< /code >}}
 
 ### Metadata attributes
 
@@ -81,21 +81,21 @@ name         |      |
 description  | Name for the secret that is used internally by Sensu.
 required     | true
 type         | String
-example      | {{< highlight shell >}}"name": "sensu-ansible-token"{{< /highlight >}}
+example      | {{< code shell >}}"name": "sensu-ansible-token"{{< /code >}}
 
 namespace    |      |
 -------------|------
 description  | [Sensu RBAC namespace][9] that the secret belongs to.
 required     | true
 type         | String
-example      | {{< highlight shell >}}"namespace": "default"{{< /highlight >}}
+example      | {{< code shell >}}"namespace": "default"{{< /code >}}
 
 | created_by |      |
 -------------|------
 description  | Username of the Sensu user who created the secret or last updated the secret. Sensu automatically populates the `created_by` field when the secret is created or updated.
 required     | false
 type         | String
-example      | {{< highlight shell >}}"created_by": "admin"{{< /highlight >}}
+example      | {{< code shell >}}"created_by": "admin"{{< /code >}}
 
 ### Spec attributes
 
@@ -104,14 +104,14 @@ id           |
 description  | Identifying key for the provider to retrieve the secret. For the `Env` secrets provider, the `id` is the environment variable. For the `Vault` secrets provider, the `id` is the secret path and key name in the form of `secret/path#key`.
 required     | true
 type         | String
-example      | {{< highlight shell >}}"id": "secret/ansible#token"{{< /highlight >}}
+example      | {{< code shell >}}"id": "secret/ansible#token"{{< /code >}}
 
 provider     | 
 -------------|------ 
 description  | Name of the provider with the secret.
 required     | true
 type         | String
-example      | {{< highlight shell >}}"provider": "vault"{{< /highlight >}}
+example      | {{< code shell >}}"provider": "vault"{{< /code >}}
 
 ## Secret configuration
 
@@ -122,21 +122,21 @@ The [standard sensuctl subcommands][4] are available for secrets (list, info, an
 
 To list all secrets:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl secret list
-{{< /highlight >}}
+{{< /code >}}
 
 To see a secret's status:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl secret info SECRET_NAME
-{{< /highlight >}}
+{{< /code >}}
 
 To delete a secret:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl secret delete SECRET_NAME
-{{< /highlight >}}
+{{< /code >}}
 
 `SECRET_NAME` is the value specified in the secret's `name` [metadata attribute][12].
 
@@ -147,7 +147,7 @@ Read the [secrets provider reference][7] for the provider specification.
 
 {{< language-toggle >}}
 
-{{< highlight yml >}}
+{{< code yml >}}
 ---
 type: Secret
 api_version: secrets/v1
@@ -157,9 +157,9 @@ metadata:
 spec:
   id: ANSIBLE_TOKEN
   provider: env
-{{< /highlight >}}
+{{< /code >}}
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "type": "Secret",
   "api_version": "secrets/v1",
@@ -172,7 +172,7 @@ spec:
     "provider": "env"
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 {{< /language-toggle >}}
 
@@ -180,7 +180,7 @@ Configure secrets that target a HashiCorp Vault as shown in the following exampl
 
 {{< language-toggle >}}
 
-{{< highlight yml >}}
+{{< code yml >}}
 ---
 type: Secret
 api_version: secrets/v1
@@ -190,9 +190,9 @@ metadata:
 spec:
   id: 'secret/database#password'
   provider: vault
-{{< /highlight >}}
+{{< /code >}}
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "type": "Secret",
   "api_version": "secrets/v1",
@@ -205,7 +205,7 @@ spec:
     "provider": "vault"
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 {{< /language-toggle >}}
 

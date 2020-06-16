@@ -100,27 +100,27 @@ When configuring federation, you need to generate keys as files on disk so they 
 
 Use use the `openssl` command line tool to generate a P-256 elliptic curve private key:
 
-{{< highlight shell >}}
+{{< code shell >}}
 openssl ecparam -genkey -name prime256v1 -noout -out jwt_private.pem
-{{< /highlight >}}
+{{< /code >}}
 
 Then generate a public key from the private key:
 
-{{< highlight shell >}}
+{{< code shell >}}
 openssl ec -in jwt_private.pem -pubout -out jwt_public.pem
-{{< /highlight >}}
+{{< /code >}}
 
 For this example, you'll put JWT keys into `/etc/sensu/certs` on each cluster backend, and use the [`jwt-private-key-file` and `jwt-public-key-file` attributes][4] in `/etc/sensu/backend.yml` to specify the paths to these JWT keys:
 
-{{< highlight yml >}}
+{{< code yml >}}
 jwt-private-key-file: /etc/sensu/certs/jwt_private.pem
 jwt-public-key-file: /etc/sensu/certs/jwt_public.pem
-{{< /highlight >}}
+{{< /code >}}
 
 After updating the backend configuration in each cluster, restart `sensu-backend` so that your settings take effect:
-{{< highlight shell >}}
+{{< code shell >}}
 sensu-backend start
-{{< /highlight >}}
+{{< /code >}}
 
 ### Step 3 Add a cluster role binding and user
 
@@ -128,28 +128,28 @@ To test your configuration, provision a User and a ClusterRoleBinding in the `ga
 
 First, confirm that sensuctl is configured to communicate with the `gateway` cluster using `sensuctl config view` to see the active configuration:
 
-{{< highlight shell >}}
+{{< code shell >}}
 === Active Configuration
 API URL:   https://sensu.gateway.example.com:8080
 Namespace: default
 Format:    tabular
 Username:  admin
-{{< /highlight >}}
+{{< /code >}}
 
 Second, create a `federation-viewer` user:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl user create federation-viewer --interactive
-{{< /highlight >}}
+{{< /code >}}
 
 When prompted, enter a password for the `federation-viewer` user.
 When prompted for groups, press enter. Note the `federation-viewer` password you entered &mdash; you'll use it to log in to the web UI after you configure RBAC policy replication and registered clusters into your federation.
 
 Next, grant the `federation-viewer` user read-only access through a cluster role binding for the built-in `view` cluster role:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl cluster-role-binding create federation-viewer-readonly --cluster-role=view --user=federation-viewer
-{{< /highlight >}}
+{{< /code >}}
 
 In step 4, you'll configure etcd replicators to copy the cluster role bindings and other RBAC policies you created in the `gateway` cluster to the `alpha` and `beta` clusters.
 
@@ -170,7 +170,7 @@ For example, these etcd replicator resources will replicate ClusterRoleBinding r
 
 {{< language-toggle >}}
 
-{{< highlight yml >}}
+{{< code yml >}}
 ---
 api_version: federation/v1
 type: EtcdReplicator
@@ -184,9 +184,9 @@ spec:
   api_version: core/v2
   resource: ClusterRoleBinding
   replication_interval_seconds: 30
-{{< /highlight >}}
+{{< /code >}}
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "api_version": "federation/v1",
   "type": "EtcdReplicator",
@@ -203,13 +203,13 @@ spec:
     "replication_interval_seconds": 30
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 {{< /language-toggle >}}
 
 {{< language-toggle >}}
 
-{{< highlight yml >}}
+{{< code yml >}}
 ---
 api_version: federation/v1
 type: EtcdReplicator
@@ -223,9 +223,9 @@ spec:
   api_version: core/v2
   resource: ClusterRoleBinding
   replication_interval_seconds: 30
-{{< /highlight >}}
+{{< /code >}}
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "api_version": "federation/v1",
   "type": "EtcdReplicator",
@@ -242,7 +242,7 @@ spec:
     "replication_interval_seconds": 30
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 {{< /language-toggle >}}
 
@@ -256,14 +256,14 @@ The [etcd replicators reference][2] includes [examples][9] you can follow for `R
 To verify that the EtcdReplicator resource is working as expected, reconfigure `sensuctl` to communicate with the `alpha` and then `beta` clusters, issuing the `sensuctl cluster-role-binding list` command for each.
 You should see the `federation-viewer-readonly` binding created in step 3 listed in the output from each cluster:
 
-{{< highlight shell >}}
+{{< code shell >}}
 $ sensuctl cluster-role-binding info federation-viewer-readonly
 === federation-viewer-readonly
 Name:         federation-viewer-readonly
 Cluster Role: view
 Subjects:
   Users:      federation-viewer
-{{< /highlight >}}
+{{< /code >}}
 
 ### Step 5 Register clusters
 
@@ -280,7 +280,7 @@ With `sensuctl` configured for the `gateway` cluster, run `sensuctl create` on t
 
 {{< language-toggle >}}
 
-{{< highlight yml >}}
+{{< code yml >}}
 api_version: federation/v1
 type: Cluster
 metadata:
@@ -288,9 +288,9 @@ metadata:
 spec:
   api_urls:
   - https://sensu.alpha.example.com:8080
-{{< /highlight >}}
+{{< /code >}}
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "api_version": "federation/v1",
   "type": "Cluster",
@@ -303,7 +303,7 @@ spec:
     ]
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 {{< /language-toggle >}}
 
@@ -313,7 +313,7 @@ With `sensuctl` configured for `gateway` cluster, run `sensuctl create` on the y
 
 {{< language-toggle >}}
 
-{{< highlight yml >}}
+{{< code yml >}}
 api_version: federation/v1
 type: Cluster
 metadata:
@@ -321,9 +321,9 @@ metadata:
 spec:
   api_urls:
   - https://sensu.beta.example.com:8080
-{{< /highlight >}}
+{{< /code >}}
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "api_version": "federation/v1",
   "type": "Cluster",
@@ -336,7 +336,7 @@ spec:
     ]
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 {{< /language-toggle >}}
 

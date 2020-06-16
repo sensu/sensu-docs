@@ -11,16 +11,6 @@ menu:
     parent: guides
 ---
 
-- [Prerequisites](#prerequisites)
-- [Configure contact routing](#configure-contact-routing)
-  - [1. Register the has-contact filter asset](#1-register-the-has-contact-filter-asset)
-  - [2. Create contact filters](#2-create-contact-filters)
-  - [3. Create a handler for each contact](#3-create-a-handler-for-each-contact)
-  - [4. Create a handler set](#4-create-a-handler-set)
-- [Test contact routing](#test-contact-routing)
-- [Manage contact labels in checks and entities](#manage-contact-labels-in-checks-and-entities)
-- [Next steps](#next-steps)
-
 Every alert has an ideal first responder: a team or person who knows how to triage and address the issue.
 Sensu contact routing lets you alert the right people using their preferred contact methods, reducing mean time to response and recovery.
 
@@ -58,9 +48,9 @@ To set up a quick testing environment, download and start the [Sensu sandbox][7]
 Contact routing is powered by the [has-contact filter asset][12].
 To add the has-contact asset to Sensu, use [`sensuctl asset add`][14]:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl asset add sensu/sensu-go-has-contact-filter:0.2.0 -r contact-filter
-{{< /highlight >}}
+{{< /code >}}
 
 This example uses the `-r` (rename) flag to specify a shorter name for the asset: `contact-filter`.
 
@@ -85,7 +75,7 @@ You'll use these functions to create event filters that represent the three acti
 
 To add these filters to Sensu, use `sensuctl create`:
 
-{{< highlight shell >}}
+{{< code shell >}}
 echo '---
 type: EventFilter
 api_version: core/v2
@@ -119,7 +109,7 @@ spec:
     - contact-filter
   expressions:
     - no_contacts(event)' | sensuctl create
-{{< /highlight >}}
+{{< /code >}}
 
 Run `sensuctl filter list --format yaml` to confirm that the filters are ready to use.
 
@@ -128,9 +118,9 @@ Run `sensuctl filter list --format yaml` to confirm that the filters are ready t
 With your contact filters in place, you can create a handler for each contact: ops, dev, and fallback.
 If you haven't already, add the [Slack handler asset][8] to Sensu with sensuctl:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl asset add sensu/sensu-slack-handler:1.0.3 -r sensu-slack-handler
-{{< /highlight >}}
+{{< /code >}}
 
 This example uses the `-r` (rename) flag to specify a shorter name for the asset: `sensu-slack-handler`.
 
@@ -145,7 +135,7 @@ In each handler definition, specify:
 
 To create the `slack_ops`, `slack_dev`, and `slack_fallback` handlers, edit and run this example:
 
-{{< highlight shell >}}
+{{< code shell >}}
 # Edit before running:
 # 1. Add your SLACK_WEBHOOK_URL
 # 2. Make sure the Slack channels specified in the
@@ -199,7 +189,7 @@ spec:
   runtime_assets:
   - sensu-slack-handler
   type: pipe' | sensuctl create
-{{< /highlight >}}
+{{< /code >}}
 
 Run `sensuctl handler list --format yaml` to confirm that the handlers are ready to use.
 
@@ -209,7 +199,7 @@ To centralize contact management and simplify configuration, create a handler se
 
 Use `sensuctl` to create a `slack` handler set:
 
-{{< highlight shell >}}
+{{< code shell >}}
 echo '---
 type: Handler
 api_version: core/v2
@@ -222,7 +212,7 @@ spec:
   - slack_dev
   - slack_fallback
   type: set' | sensuctl create
-{{< /highlight >}}
+{{< /code >}}
 
 You should see updated output of `sensuctl handler list` that includes the `slack` handler set.
 
@@ -236,7 +226,7 @@ To make sure your contact filters work the way you expect, use the [agent API][1
 First, create an event without a `contacts` label.
 You may need to modify the URL with your Sensu agent address.
 
-{{< highlight shell >}}
+{{< code shell >}}
 curl -X POST \
 -H 'Content-Type: application/json' \
 -d '{
@@ -250,7 +240,7 @@ curl -X POST \
   }
 }' \
 http://127.0.0.1:3031/events
-{{< /highlight >}}
+{{< /code >}}
 
 You should see a 202 response from the API.
 Since this event doesn't include a `contacts` label, you should also see an alert in the Slack channel specified by the `slack_fallback` handler.
@@ -258,7 +248,7 @@ Behind the scenes, Sensu uses the`contact_fallback` filter to match the event to
 
 Now, create an event with a `contacts` label:
 
-{{< highlight shell >}}
+{{< code shell >}}
 curl -X POST \
 -H 'Content-Type: application/json' \
 -d '{
@@ -275,7 +265,7 @@ curl -X POST \
   }
 }' \
 http://127.0.0.1:3031/events
-{{< /highlight >}}
+{{< /code >}}
 
 Because this event contains the `contacts: dev` label, you should see an alert in the Slack channel specified by the `slack_dev` handler.
 
@@ -290,7 +280,7 @@ To assign an alert to a contact, add a `contacts` label to the check or entity.
 This check definition includes two contacts (`ops` and `dev`) and the handler `slack`.
 To set up the `check_cpu` check, see [Monitor server resources][9].
 
-{{< highlight yml >}}
+{{< code yml >}}
 ---
 type: CheckConfig
 api_version: core/v2
@@ -309,7 +299,7 @@ spec:
   runtime-assets:
   - sensu-plugins-cpu-checks
   - sensu-ruby-runtime
-{{< /highlight >}}
+{{< /code >}}
 
 When the `check_cpu` check generates an incident, Sensu filters the event according to the `contact_ops` and `contact_dev` filters, resulting in an alert sent to #alert-ops and #alert-dev.
 

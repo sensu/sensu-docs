@@ -46,7 +46,7 @@ To provide consistent event throughput, we recommend exclusively dedicating your
 
 If you have administrative access to Postgres, you can create the database and user:
 
-{{< highlight shell >}}
+{{< code shell >}}
 $ sudo -u postgres psql
 postgres=# CREATE DATABASE sensu_events;
 CREATE DATABASE
@@ -55,7 +55,7 @@ CREATE ROLE
 postgres=# GRANT ALL PRIVILEGES ON DATABASE sensu_events TO sensu;
 GRANT
 postgres-# \q
-{{< /highlight >}}
+{{< /code >}}
 
 With this configuration complete, Postgres will have a `sensu_events` database for storing Sensu events and a `sensu` user with permissions to that database.
 
@@ -63,14 +63,14 @@ By default, the Postgres user you've just added will not be able to authenticate
 The required change will depend on how Sensu will connect to Postgres.
 In this case, you'll configure Postgres to allow the `sensu` user to connect to the `sensu_events` database from any host using an [md5][5]-encrypted password:
 
-{{< highlight shell >}}
+{{< code shell >}}
 # make a copy of the current pg_hba.conf
 sudo cp /var/lib/pgsql/data/pg_hba.conf /var/tmp/pg_hba.conf.bak
 # give sensu user permissions to connect to sensu_events database from any IP address
 echo 'host sensu_events sensu 0.0.0.0/0 md5' | sudo tee -a /var/lib/pgsql/data/pg_hba.conf
 # restart postgresql service to activate pg_hba.conf changes
 sudo systemctl restart postgresql
-{{< /highlight >}}
+{{< /code >}}
 
 With this configuration complete, you can configure Sensu to store events in your Postgres database.
 
@@ -81,7 +81,7 @@ Create a `PostgresConfig` resource that describes the database connection as a d
 
 {{< language-toggle >}}
 
-{{< highlight yml >}}
+{{< code yml >}}
 type: PostgresConfig
 api_version: store/v1
 metadata:
@@ -89,9 +89,9 @@ metadata:
 spec:
   dsn: "postgresql://sensu:mypass@10.0.2.15:5432/sensu_events?sslmode=disable"
   pool_size: 20
-{{< /highlight >}}
+{{< /code >}}
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "type": "PostgresConfig",
   "api_version": "store/v1",
@@ -103,15 +103,15 @@ spec:
     "pool_size": 20
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 {{< /language-toggle >}}
 
 This configuration is written to disk as `my-postgres.yml`, and you can install it using `sensuctl`:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl create -f my-postgres.yml
-{{< /highlight >}}
+{{< /code >}}
 
 The Sensu backend is now configured to use Postgres for event storage!
 
@@ -123,15 +123,15 @@ Aside from event history, which is not migrated from etcd, there's no observable
 
 To verify that the change was effective and your connection to Postgres was successful, look at the [sensu-backend log][4]:
 
-{{< highlight shell >}}
+{{< code shell >}}
 {"component":"store","level":"warning","msg":"trying to enable external event store","time":"2019-10-02T23:31:38Z"}
 {"component":"store","level":"warning","msg":"switched event store to postgres","time":"2019-10-02T23:31:38Z"}
-{{< /highlight >}}
+{{< /code >}}
 
 You can also use `psql` to verify that events are being written to the `sensu_events` database.
 This code illustrates connecting to the `sensu_events` database, listing the tables in the database, and requesting a list of all entities reporting keepalives:
 
-{{< highlight shell >}}
+{{< code shell >}}
 postgres=# \c sensu_events
 You are now connected to database "sensu_events" as user "postgres".
 sensu_events=# \dt
@@ -148,23 +148,23 @@ sensu_events=# select sensu_entity from events where sensu_check = 'keepalive';
  i-424242
  i-434343
 (3 rows)
-{{< /highlight >}}
+{{< /code >}}
 
 ## Revert to the built-in datastore
 
 If you want to revert to the default etcd event store, delete the PostgresConfig resource.
 In this example, my-postgres.yml contains the same configuration you used to configure the Enterprise event store earlier in this guide:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl delete -f my-postgres.yml
-{{< /highlight >}}
+{{< /code >}}
 
 To verify that the change was effective, look for messages similar to these in the [sensu-backend log][4]:
 
-{{< highlight shell >}}
+{{< code shell >}}
 {"component":"store","level":"warning","msg":"store configuration deleted","store":"/sensu.io/api/enterprise/store/v1/provider/postgres01","time":"2019-10-02T23:29:06Z"}
 {"component":"store","level":"warning","msg":"switched event store to etcd","time":"2019-10-02T23:29:06Z"}
-{{< /highlight >}}
+{{< /code >}}
 
 Similar to enabling Postgres, switching back to the etcd datastore does not migrate current event data from one store to another.
 You may see old events in the web UI or sensuctl output until the etcd datastore catches up with the current state of your monitored infrastructure.
@@ -184,60 +184,60 @@ This section describes how to configure PostgreSQL streaming replication in four
 
 If you have administrative access to Postgres, you can create the replication role:
 
-{{< highlight shell >}}
+{{< code shell >}}
 $ sudo -u postgres psql
 postgres=# CREATE ROLE repl PASSWORD 'secret' LOGIN REPLICATION;
 CREATE ROLE
 postgres-# \q
-{{< /highlight >}}
+{{< /code >}}
 
 Then, you must add the replication role to `pg_hba.conf` using an [md5-encrypted password][5].
 Make a copy of the current `pg_hba.conf`:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sudo cp /var/lib/pgsql/data/pg_hba.conf /var/tmp/pg_hba.conf.bak
-{{< /highlight >}}
+{{< /code >}}
 
 Next, give the repl user permissions to replicate from the standby host.
 In the following command, replace `STANDBY_IP` with the IP address of your standby host:
 
-{{< highlight shell >}}
+{{< code shell >}}
 export STANDBY_IP=192.168.52.10
 echo "host replication repl ${STANDYB_IP}/32 md5" | sudo tee -a /var/lib/pgsql/data/pg_hba.conf
-{{< /highlight >}}
+{{< /code >}}
 
 Restart the PostgreSQL service to activate the `pg_hba.conf` changes:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sudo systemctl restart postgresql
-{{< /highlight >}}
+{{< /code >}}
 
 ### Step 2: Set streaming replication configuration parameters
 
 The next step is to set the streaming replication configuration parameters on the primary Postgres host.
 Begin by making a copy of the `postgresql.conf`:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sudo cp -a /var/lib/pgsql/data/postgresql.conf /var/lib/pgsql/data/postgresql.conf.bak
-{{< /highlight >}}
+{{< /code >}}
 
 Next, append the necessary configuration options.
 
-{{< highlight shell >}}
+{{< code shell >}}
 echo 'wal_level = hot_standby' | sudo tee -a /var/lib/pgsql/data/postgresql.conf
-{{< /highlight >}}
+{{< /code >}}
 
 Set the maximum number of concurrent connections from the standby servers:
 
-{{< highlight shell >}}
+{{< code shell >}}
 echo 'max_wal_senders = 5' | sudo tee -a /var/lib/pgsql/data/postgresql.conf
-{{< /highlight >}}
+{{< /code >}}
 
 To prevent the primary server from removing the WAL segments required for the standby server before shipping them, set the minimum number of segments retained in the `pg_xlog` directory:
 
-{{< highlight shell >}}
+{{< code shell >}}
 echo 'wal_keep_segments = 32' | sudo tee -a /var/lib/pgsql/data/postgresql.conf
-{{< /highlight >}}
+{{< /code >}}
 
 At minimum, the number of `wal_keep_segments` should be larger than the number of segments generated between the beginning of online backup and the startup of streaming replication.
 
@@ -247,9 +247,9 @@ At minimum, the number of `wal_keep_segments` should be larger than the number o
 
 Restart the PostgreSQL service to activate the `postgresql.conf` changes:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sudo systemctl restart postgresql
-{{< /highlight >}}
+{{< /code >}}
 
 ### Step 3: Bootstrap the standby host
 
@@ -258,43 +258,43 @@ This process will copy all configuration files from the primary as well as datab
 
 If the standby host has ever run Postgres, you must empty the data directory:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sudo systemctl stop postgresql
 sudo mv /var/lib/pgsql/data /var/lib/pgsql/data.bak
-{{< /highlight >}}
+{{< /code >}}
 
 Make the standby data directory:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sudo install -d -o postgres -g postgres -m 0700 /var/lib/pgsql/data
-{{< /highlight >}}
+{{< /code >}}
 
 And then bootstrap the standby data directory:
 
-{{< highlight shell >}}
+{{< code shell >}}
 export PRIMARY_IP=192.168.52.11
 sudo -u postgres pg_basebackup -h $PRIMARY_IP -D /var/lib/pgsql/data -P -U repl -R --xlog-method=stream
 Password: 
 30318/30318 kB (100%), 1/1 tablespace
-{{< /highlight >}}
+{{< /code >}}
 
 ### Step 4: Confirm replication
 
 To confirm your configuration is working properly, start by removing configurations that are only for the primary:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sudo sed -r -i.bak '/^(wal_level|max_wal_senders|wal_keep_segments).*/d' /var/lib/pgsql/data/postgresql.conf
-{{< /highlight >}}
+{{< /code >}}
 
 Start the PostgreSQL service:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sudo systemcl start postgresql
-{{< /highlight >}}
+{{< /code >}}
 
 To verify that the replication is taking place, check the commit log location on the primary and standby hosts:
 
-{{< highlight shell >}}
+{{< code shell >}}
 # From master
 sudo -u postgres psql -c "select pg_current_xlog_location()"
  pg_current_xlog_location 
@@ -314,7 +314,7 @@ sudo -u postgres psql -c "select pg_last_xlog_replay_location()"
 ------------------------------
  0/3000568
 (1 row)
-{{< /highlight >}}
+{{< /code >}}
 
 With this configuration complete, your Sensu events will be replicated to the standby host.
 

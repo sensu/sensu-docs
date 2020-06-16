@@ -26,9 +26,9 @@ In this guide, you'll use the [Sensu Slack Handler][14] asset to power a `slack`
 
 Use [`sensuctl asset add`][10] to register the [Sensu Slack Handler][14] asset:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl asset add sensu/sensu-slack-handler:1.0.3 -r sensu-slack-handler
-{{< /highlight >}}
+{{< /code >}}
 
 This example uses the `-r` (rename) flag to specify a shorter name for the asset: `sensu-slack-handler`.
 
@@ -36,9 +36,9 @@ You can also download the latest asset definition for your platform from [Bonsai
 
 You should see a confirmation message from sensuctl:
 
-{{< highlight shell >}}
+{{< code shell >}}
 Created
-{{< /highlight >}}
+{{< /code >}}
 
 ### Get a Slack webhook
 
@@ -52,19 +52,19 @@ Use sensuctl to create a handler called `slack` that pipes event data to Slack u
 Edit the command below to include your Slack channel and webhook URL.
 For more information about customizing your Sensu slack alerts, see the asset page in [Bonsai][14].
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl handler create slack \
 --type pipe \
 --env-vars "SLACK_WEBHOOK_URL=https://hooks.slack.com/services/T0000/B000/XXXXXXXX" \
 --command "sensu-slack-handler --channel '#monitoring'" \
 --runtime-assets sensu-slack-handler
-{{< /highlight >}}
+{{< /code >}}
 
 You should see a confirmation message from sensuctl:
 
-{{< highlight shell >}}
+{{< code shell >}}
 Created
-{{< /highlight >}}
+{{< /code >}}
 
 ### Assign the handler to a check
 
@@ -72,9 +72,9 @@ With the `slack` handler created, you can assign it to a check.
 In this case, you're using the `check-cpu` check: you want to receive Slack alerts whenever the CPU usage of your systems reach some specific thresholds.
 Assign your handler to the check `check-cpu`:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl check set-handlers check-cpu slack
-{{< /highlight >}}
+{{< /code >}}
 
 ### Validate the handler
 

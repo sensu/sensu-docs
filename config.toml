@@ -56,7 +56,7 @@ disableKinds = ["taxonomy", "taxonomyTerm"]
     description = "The next-generation monitoring event pipeline"
     notice = "Replaces Sensu Core and Enterprise"
     weight = 1
-    latest = "5.20"
+    latest = "5.21"
 
     [[params.products.sensu_go.versions]]
     version = "5.21"
@@ -72,10 +72,6 @@ disableKinds = ["taxonomy", "taxonomyTerm"]
 
     [[params.products.sensu_go.versions]]
     version = "5.18"
-    platforms = []
-
-    [[params.products.sensu_go.versions]]
-    version = "5.17"
     platforms = []
 
   [params.products.sensu_core]

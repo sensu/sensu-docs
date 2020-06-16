@@ -23,9 +23,9 @@ previous: ../installation-prerequisites
 
 Install Redis (>= 1.3.14) from the distribution repository:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sudo apt-get update
-sudo apt-get -y install redis-server{{< /highlight >}}
+sudo apt-get -y install redis-server{{< /code >}}
 
 ## Managing the Redis service/process
 
@@ -33,13 +33,13 @@ sudo apt-get -y install redis-server{{< /highlight >}}
 
 Start and stop the Redis service using the `redis-server` init scripts:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sudo service redis-server start
-sudo service redis-server stop{{< /highlight >}}
+sudo service redis-server stop{{< /code >}}
 
-{{< highlight shell >}}
+{{< code shell >}}
 sudo service redis-sentinel start
-sudo service redis-sentinel stop{{< /highlight >}}
+sudo service redis-sentinel stop{{< /code >}}
 
 _NOTE: `redis-sentinel` service scripts are not installed by default and should
 only be used with [highly available Redis configurations][7]._
@@ -49,13 +49,13 @@ only be used with [highly available Redis configurations][7]._
 Enable or disable the Redis service to start on system boot using the
 `update-rc.d` utility:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sudo update-rc.d redis-server enable
-sudo update-rc.d redis-server disable{{< /highlight >}}
+sudo update-rc.d redis-server disable{{< /code >}}
 
-{{< highlight shell >}}
+{{< code shell >}}
 sudo update-rc.d redis-sentinel enable
-sudo update-rc.d redis-sentinel disable{{< /highlight >}}
+sudo update-rc.d redis-sentinel disable{{< /code >}}
 
 _NOTE: `redis-sentinel` service scripts are not installed by default and should
 only be used with [highly available Redis configurations][7]._
@@ -101,7 +101,7 @@ To adjust this limit, please edit the configuration file found at
 `/etc/default/redis-server` by uncommenting the last line in the file, and
 adjusting the `ulimit` value accordingly.
 
-{{< highlight shell >}}
+{{< code shell >}}
 # redis-server configure options
 #
 # ULIMIT: Call ulimit -n with this argument prior to invoking Redis itself.
@@ -109,13 +109,13 @@ adjusting the `ulimit` value accordingly.
 # alter its limits as it is not being run as root. (default: do not call
 # ulimit)
 #
-ULIMIT=65536{{< /highlight >}}
+ULIMIT=65536{{< /code >}}
 
 When the configured number of maximum clients can not be honored, the condition
 is logged at startup...
 
-{{< highlight shell >}}
-[41422] 23 Jan 11:28:33.179 # Unable to set the max number of files limit to 100032 (Invalid argument), setting the max clients configuration to 10112.{{< /highlight >}}
+{{< code shell >}}
+[41422] 23 Jan 11:28:33.179 # Unable to set the max number of files limit to 100032 (Invalid argument), setting the max clients configuration to 10112.{{< /code >}}
 
 ## Configure Sensu
 
@@ -128,13 +128,13 @@ configuration][2] for more information on how Sensu loads configuration.
 
 1. Copy the following contents to a configuration file located at
    `/etc/sensu/conf.d/redis.json`:
-   {{< highlight json >}}
+   {{< code json >}}
 {
   "redis": {
     "host": "127.0.0.1",
     "port": 6379
   }
-}{{< /highlight >}}
+}{{< /code >}}
    _WARNING: using `"localhost"` instead of `127.0.0.1` for the `host`
    configuration on systems that support IPv6 may result in an [IPv6 "localhost"
    resolution (i.e. `::1`)][5] rather than an IPv4 "localhost" resolution (i.e.
@@ -151,14 +151,14 @@ configuration][2] for more information on how Sensu loads configuration.
 2. Create a configuration file  with the following contents at
    `/etc/sensu/conf.d/redis.json` on the Sensu server and API system(s), and all
    systems running the Sensu client:
-   {{< highlight json >}}
+   {{< code json >}}
 {
   "redis": {
     "host": "10.0.1.5",
     "port": 6379,
     "auto_reconnect": true
   }
-}{{< /highlight >}}
+}{{< /code >}}
    _NOTE: the `sensu-client` process does not require Redis configuration
    unless Redis is being used as the [Sensu Transport][3]. If you're not
    planning on using Redis as the Sensu Transport, you do not need to create a
@@ -169,13 +169,13 @@ configuration][2] for more information on how Sensu loads configuration.
 1. If you are [planning to use Redis][4] as your [Sensu Transport][3], please
    copy the following contents to a configuration file located at
    `/etc/sensu/conf.d/transport.json`:
-   {{< highlight json >}}
+   {{< code json >}}
 {
   "transport": {
     "name": "redis",
     "reconnect_on_error": true
   }
-}{{< /highlight >}}
+}{{< /code >}}
    This will inform the Sensu services to use the defined Redis configuration as
    the Sensu Transport (instead of looking for the default transport, RabbitMQ).
 
