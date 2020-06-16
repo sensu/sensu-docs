@@ -31,7 +31,7 @@ created [via HTTP POST to the `/clients` API][4].
 The following example demonstrates a `/clients` API query which returns a JSON
 Array of JSON Hashes containing client data.
 
-{{< highlight shell >}}
+{{< code shell >}}
 $ curl -s http://127.0.0.1:3000/clients | jq .
 [
   {
@@ -53,7 +53,7 @@ $ curl -s http://127.0.0.1:3000/clients | jq .
     "version": "1.5.0"
   }
 ]
-{{< /highlight >}}
+{{< /code >}}
 
 #### API Specification {#clients-get-specification}
 
@@ -63,7 +63,7 @@ description    | Returns a list of clients by `name` and datacenter (`dc`). Sinc
 example url    | http://hostname:3000/clients
 response type  | Array
 response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-output         | {{< highlight shell >}}[
+output         | {{< code shell >}}[
   {
     "_id": "us_west1/i-334455",
     "dc": "us_west1",
@@ -94,7 +94,7 @@ output         | {{< highlight shell >}}[
     "version": "1.5.0"
   }
 ]
-{{< /highlight >}}
+{{< /code >}}
 
 ## The `/clients/:client` API Endpoints {#the-clientsclient-api-endpoints}
 
@@ -114,7 +114,7 @@ In the following example, querying the `/clients/:client` API returns a JSON
 Hash containing the requested client data for the client named
 `i-424242`.
 
-{{< highlight shell >}}
+{{< code shell >}}
 $ curl -s http://127.0.0.1:3000/clients/i-424242 | jq .
 {
   "_id": "us_west1/i-424242",
@@ -133,13 +133,13 @@ $ curl -s http://127.0.0.1:3000/clients/i-424242 | jq .
   "timestamp": 1458625739,
   "version": "1.5.0"
 }
-{{< /highlight >}}
+{{< /code >}}
 
 The following example demonstrates a request for client data for a non-existent
 client named `non-existent-client`, which results in a [404 (Not Found) HTTP
 response code][5].
 
-{{< highlight shell >}}
+{{< code shell >}}
 $ curl -s -i http://127.0.0.1:3000/clients/non-existent-client
 HTTP/1.1 404 Not Found
 Content-Type: application/json
@@ -150,7 +150,7 @@ Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept, Au
 Content-Length: 0
 Connection: keep-alive
 Server: thin
-{{< /highlight >}}
+{{< /code >}}
 
 ### API Specification {#clientsclient-get-specification}
 
@@ -161,7 +161,7 @@ example url            | http://hostname:3000/clients/i-424242
 parameters             | <ul><li>`dc`:<ul><li>**required**: false</li><li>**type**: String</li><li>**description**: If the client name is present in multiple datacenters, specifying the `dc` parameter returns only the client found in that datacenter.</li><li>**example**: `http://hostname:3000/clients/i-424242?dc=us_west1`</li></ul></li></ul>
 response type          | Hash
 response codes         | <ul><li>**Success**: 200 (OK)</li><li>**Found in multiple datacenters**: 300 (Multiple Choices)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-output                 | {{< highlight shell >}}{
+output                 | {{< code shell >}}{
   "_id": "us_east1/i-424242",
   "address": "192.168.0.3",
   "dc": "us_east1",
@@ -175,7 +175,7 @@ output                 | {{< highlight shell >}}{
   "timestamp": 1324674956,
   "version": "1.5.0"
 }
-{{< /highlight >}}
+{{< /code >}}
 
 ### `/clients/:client` (DELETE) {#clientsclient-delete}
 
@@ -187,7 +187,7 @@ definitions in the [client registry][1].
 The following example demonstrates a request to delete a client named
 `api-example`, resulting in a [202 (Accepted) HTTP response code][5].
 
-{{< highlight shell >}}
+{{< code shell >}}
 $ curl -s -i -X DELETE http://127.0.0.1:3000/clients/api-example
 
 HTTP/1.1 202 Accepted
@@ -199,13 +199,13 @@ Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept, Au
 Content-Length: 21
 Connection: keep-alive
 Server: thin
-{{< /highlight >}}
+{{< /code >}}
 
 The following example demonstrates a request to delete a non-existent `:client`
 named `non-existent-client`, resulting in a [404 (Not Found) HTTP response
 code][5] (i.e. `HTTP/1.1 404 Not Found`).
 
-{{< highlight shell >}}
+{{< code shell >}}
 $ curl -s -i -X DELETE http://127.0.0.1:3000/clients/non-existent-client
 
 HTTP/1.1 404 Not Found
@@ -217,7 +217,7 @@ Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept, Au
 Content-Length: 0
 Connection: keep-alive
 Server: thin
-{{< /highlight >}}
+{{< /code >}}
 
 #### API Specification {#clientsclient-delete-specification}
 
@@ -240,7 +240,7 @@ for a specified client.
 In the following example, querying the `/clients/:client/history` API returns a JSON
 Array of JSON Hashes containing check result data for a client named `i-424242`.
 
-{{< highlight shell >}}
+{{< code shell >}}
 $ curl -s http://127.0.0.1:3000/clients/i-424242/history | jq .
 [
   {
@@ -290,7 +290,7 @@ $ curl -s http://127.0.0.1:3000/clients/i-424242/history | jq .
     "silenced_by": null
   }
 ]
-{{< /highlight >}}
+{{< /code >}}
 
 ### API Specification {#clientsclienthistory-get-specification}
 
@@ -301,7 +301,7 @@ example url            | http://hostname:3000/clients/i-424242/history
 parameters             | <ul><li>`dc`:<ul><li>**required**: false</li><li>**type**: String</li><li>**description**: If the client name is present in multiple datacenters, specifying the `dc` parameter returns only check results for the client found in that datacenter.</li><li>**example**: `http://hostname:3000/clients/i-424242/history?dc=us_east1`</li></ul></li></ul>
 response type          | Array
 response codes         | <ul><li>**Success**: 200 (OK)</li><li>**Found in multiple datacenters**: 300 (Multiple Choices)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-output                 | {{< highlight shell >}}[
+output                 | {{< code shell >}}[
   {
     "check": "check_disk_usage",
     "client": "i-424242",
@@ -349,7 +349,7 @@ output                 | {{< highlight shell >}}[
     "silenced_by": null
   }
 ]
-{{< /highlight >}}
+{{< /code >}}
 
 [1]:  /sensu-core/latest/reference/clients#registration-and-registry
 [2]:  /sensu-core/latest/reference/clients#client-keepalives

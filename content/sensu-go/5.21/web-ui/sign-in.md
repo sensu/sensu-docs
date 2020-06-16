@@ -11,10 +11,6 @@ menu:
     parent: web-ui
 ---
 
-- [Access the web UI](#access-the-web-ui)
-- [Sign in](#sign-in)
-- [Themes](#themes)
-
 <a name="federated-webui"></a>
 
 The Sensu backend includes the **Sensu web UI**: a unified view of your events, entities, and checks with user-friendly tools to reduce alert fatigue.

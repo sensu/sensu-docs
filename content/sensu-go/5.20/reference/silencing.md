@@ -53,21 +53,21 @@ type         |
 description  | Top-level attribute that specifies the [`sensuctl create`][4] resource type. Silences should always be type `Silenced`.
 required     | Required for silencing entry definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][4].
 type         | String
-example      | {{< highlight shell >}}"type": "Silenced"{{< /highlight >}}
+example      | {{< code shell >}}"type": "Silenced"{{< /code >}}
 
 api_version  | 
 -------------|------
 description  | Top-level attribute that specifies the Sensu API group and version. For silences in this version of Sensu, the `api_version` should always be `core/v2`.
 required     | Required for silencing entry definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][4].
 type         | String
-example      | {{< highlight shell >}}"api_version": "core/v2"{{< /highlight >}}
+example      | {{< code shell >}}"api_version": "core/v2"{{< /code >}}
 
 metadata     | 
 -------------|------
 description  | Top-level collection of metadata about the silencing entry that includes `name`, `namespace`, and `created_by` as well as custom `labels` and `annotations`. The `metadata` map is always at the top level of the silencing entry definition. This means that in `wrapped-json` and `yaml` formats, the `metadata` scope occurs outside the `spec` scope. See [metadata attributes][3] for details.
 required     | Required for silencing entry definitions in `wrapped-json` or `yaml` format for use with [`sensuctl create`][4].
 type         | Map of key-value pairs
-example      | {{< highlight shell >}}
+example      | {{< code shell >}}
 "metadata": {
   "name": "appserver:mysql_status",
   "namespace": "default",
@@ -75,14 +75,14 @@ example      | {{< highlight shell >}}
   "labels": {
     "region": "us-west-1"
   }
-{{< /highlight >}}
+{{< /code >}}
 
 spec         | 
 -------------|------
 description  | Top-level map that includes the silencing entry [spec attributes][5].
 required     | Required for silences in `wrapped-json` or `yaml` format for use with [`sensuctl create`][4].
 type         | Map of key-value pairs
-example      | {{< highlight shell >}}
+example      | {{< code shell >}}
 "spec": {
   "expire": -1,
   "expire_on_resolve": false,
@@ -92,7 +92,7 @@ example      | {{< highlight shell >}}
   "subscription": "entity:i-424242",
   "begin": 1542671205
 }
-{{< /highlight >}}
+{{< /code >}}
 
 ### Metadata attributes
 
@@ -101,7 +101,7 @@ example      | {{< highlight shell >}}
 description  | Silencing identifier generated from the combination of a subscription name and check name.
 required     | false - This value cannot be modified.
 type         | String
-example      | {{< highlight shell >}}"name": "appserver:mysql_status"{{< /highlight >}}
+example      | {{< code shell >}}"name": "appserver:mysql_status"{{< /code >}}
 
 | namespace  |      |
 -------------|------
@@ -109,14 +109,14 @@ description  | Sensu [RBAC namespace][2] that the silencing entry belongs to.
 required     | false
 type         | String
 default      | `default`
-example      | {{< highlight shell >}}"namespace": "production"{{< /highlight >}}
+example      | {{< code shell >}}"namespace": "production"{{< /code >}}
 
 | created_by |      |
 -------------|------
 description  | Username of the Sensu user who created the silence or last updated the silence. Sensu automatically populates the `created_by` field when the silence is created or updated.
 required     | false
 type         | String
-example      | {{< highlight shell >}}"created_by": "admin"{{< /highlight >}}
+example      | {{< code shell >}}"created_by": "admin"{{< /code >}}
 
 | labels     |      |
 -------------|------
@@ -124,10 +124,10 @@ description  | Custom attributes to include with event data that you can use for
 required     | false
 type         | Map of key-value pairs. Keys can contain only letters, numbers, and underscores and must start with a letter. Values can be any valid UTF-8 string.
 default      | `null`
-example      | {{< highlight shell >}}"labels": {
+example      | {{< code shell >}}"labels": {
   "environment": "development",
   "region": "us-west-2"
-}{{< /highlight >}}
+}{{< /code >}}
 
 | annotations | |
 -------------|------
@@ -135,10 +135,10 @@ description  | Non-identifying metadata to include with event data that you can 
 required     | false
 type         | Map of key-value pairs. Keys and values can be any valid UTF-8 string.
 default      | `null`
-example      | {{< highlight shell >}} "annotations": {
+example      | {{< code shell >}} "annotations": {
   "managed-by": "ops",
   "playbook": "www.example.url"
-}{{< /highlight >}}
+}{{< /code >}}
 
 ### Spec attributes
 
@@ -147,21 +147,21 @@ check        |
 description  | Name of the check the entry should match.
 required     | true, unless `subscription` is provided
 type         | String
-example      | {{< highlight shell >}}"check": "haproxy_status"{{< /highlight >}}
+example      | {{< code shell >}}"check": "haproxy_status"{{< /code >}}
 
 subscription | 
 -------------|------ 
 description  | Name of the subscription the entry should match.
 required     | true, unless `check` is provided
 type         | String
-example      | {{< highlight shell >}}"subscription": "entity:i-424242"{{</highlight>}}
+example      | {{< code shell >}}"subscription": "entity:i-424242"{{< /code>}}
 
 begin        | 
 -------------|------ 
 description  | Time at which silence entry goes into effect. In epoch. 
 required     | false 
 type         | Integer 
-example      | {{< highlight shell >}}"begin": 1512512023{{< /highlight >}}
+example      | {{< code shell >}}"begin": 1512512023{{< /code >}}
 
 expire       | 
 -------------|------ 
@@ -169,7 +169,7 @@ description  | Number of seconds until the entry should be deleted.
 required     | false 
 type         | Integer 
 default      | -1
-example      | {{< highlight shell >}}"expire": 3600{{< /highlight >}}
+example      | {{< code shell >}}"expire": 3600{{< /code >}}
 
 expire_on_resolve       | 
 -------------|------ 
@@ -177,7 +177,7 @@ description  | `true` if the entry should be deleted when a check begins to retu
 required     | false 
 type         | Boolean 
 default      | false 
-example      | {{< highlight shell >}}"expire_on_resolve": true{{< /highlight >}}
+example      | {{< code shell >}}"expire_on_resolve": true{{< /code >}}
 
 creator      | 
 -------------|------ 
@@ -185,7 +185,7 @@ description  | Person, application, or entity responsible for creating the entry
 required     | false 
 type         | String 
 default      | null 
-example      | {{< highlight shell >}}"creator": "Application Deploy Tool 5.0"{{< /highlight >}}
+example      | {{< code shell >}}"creator": "Application Deploy Tool 5.0"{{< /code >}}
 
 reason       | 
 -------------|------ 
@@ -193,7 +193,7 @@ description  | Explanation of the reason for creating the entry.
 required     | false 
 type         | String 
 default      | null 
-example      | {{< highlight shell >}}"reason": "rebooting the world"{{< /highlight >}}
+example      | {{< code shell >}}"reason": "rebooting the world"{{< /code >}}
 
 ## Examples
 
@@ -204,7 +204,7 @@ To do this, use per-entity subscriptions:
 
 {{< language-toggle >}}
 
-{{< highlight yml >}}
+{{< code yml >}}
 type: Silenced
 api_version: core/v2
 metadata:
@@ -220,9 +220,9 @@ spec:
   expire_on_resolve: false
   reason: null
   subscription: entity:i-424242
-{{< /highlight >}}
+{{< /code >}}
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "type": "Silenced",
   "api_version": "core/v2",
@@ -242,7 +242,7 @@ spec:
     "begin": 1542671205
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 {{< /language-toggle >}}
 
@@ -252,19 +252,19 @@ To continue the previous example, here's how to silence a check named `check_ntp
 
 {{< language-toggle >}}
 
-{{< highlight yml >}}
+{{< code yml >}}
 check: check_ntp
 expire_on_resolve: true
 subscription: entity:i-424242
-{{< /highlight >}}
+{{< /code >}}
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "subscription": "entity:i-424242", 
   "check": "check_ntp", 
   "expire_on_resolve": true 
 }
-{{< /highlight >}}
+{{< /code >}}
 
 {{< /language-toggle >}}
 
@@ -279,15 +279,15 @@ Just as in the example of silencing all checks on a specific entity, you’ll cr
 
 {{< language-toggle >}}
 
-{{< highlight yml >}}
+{{< code yml >}}
 subscription: appserver
-{{< /highlight >}}
+{{< /code >}}
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "subscription": "appserver" 
 }
-{{< /highlight >}}
+{{< /code >}}
 
 {{< /language-toggle >}}
 
@@ -297,17 +297,17 @@ To silence a check `mysql_status` that is running on Sensu entities with the sub
 
 {{< language-toggle >}}
 
-{{< highlight yml >}}
+{{< code yml >}}
 check: mysql_status
 subscription: appserver
-{{< /highlight >}}
+{{< /code >}}
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "subscription": "appserver", 
   "check": "mysql_status"
 }
-{{< /highlight >}}
+{{< /code >}}
 
 {{< /language-toggle >}}
 
@@ -317,15 +317,15 @@ To silence the check `mysql_status` on every entity in your infrastructure, rega
 
 {{< language-toggle >}}
 
-{{< highlight yml >}}
+{{< code yml >}}
 check: mysql_status
-{{< /highlight >}}
+{{< /code >}}
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "check": "mysql_status"
 }
-{{< /highlight >}}
+{{< /code >}}
 
 {{< /language-toggle >}}
 
@@ -337,15 +337,15 @@ Subscription-only silencing entry names will be similar to this example:
 
 {{< language-toggle >}}
 
-{{< highlight yml >}}
+{{< code yml >}}
 name: appserver:*
-{{< /highlight >}}
+{{< /code >}}
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "name": "appserver:*"
 }
-{{< /highlight >}}
+{{< /code >}}
 
 {{< /language-toggle >}}
 
@@ -353,15 +353,15 @@ Check-only silencing entry names will be similar to this example:
 
 {{< language-toggle >}}
 
-{{< highlight yml >}}
+{{< code yml >}}
 name: '*:mysql_status'
-{{< /highlight >}}
+{{< /code >}}
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "name": "*:mysql_status"
 }
-{{< /highlight >}}
+{{< /code >}}
 
 {{< /language-toggle >}}
 

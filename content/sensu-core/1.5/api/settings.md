@@ -28,7 +28,7 @@ e.g. `/settings?redacted=false.`
 The following example demonstrates a request to the `/settings` API, resulting in
 a JSON Hash containing the APIs running configuration settings.
 
-{{< highlight shell >}}
+{{< code shell >}}
 $ curl -s http://127.0.0.1:4567/settings | jq .
 {
   "api": {
@@ -46,7 +46,7 @@ $ curl -s http://127.0.0.1:4567/settings | jq .
   },
   "...": "..."
 }
-{{< /highlight >}}
+{{< /code >}}
 
 #### API Specification {#settings-get-specification}
 
@@ -57,7 +57,7 @@ example url     | http://hostname:4567/settings
 parameters      | <ul><li>`redacted`:<ul><li>**required**: false</li><li>**type**: Boolean</li><li>**description**: If sensitive setting values should be redacted.</li><li>**default**: true</li></ul>
 response type   | Hash
 response codes  | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-output          | {{< highlight json >}}{
+output          | {{< code json >}}{
   "api": {
     "cors": {
       "Headers": "Origin, X-Requested-With, Content-Type, Accept, Authorization",
@@ -73,4 +73,4 @@ output          | {{< highlight json >}}{
   },
   "...": "..."
 }
-{{< /highlight >}}
+{{< /code >}}

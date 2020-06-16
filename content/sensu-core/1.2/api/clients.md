@@ -38,7 +38,7 @@ The following example demonstrates a `/clients` API query which returns a JSON
 Array of JSON Hashes containing client data (i.e. the [Sensu client
 registry][1]).
 
-{{< highlight shell >}}
+{{< code shell >}}
 $ curl -s http://127.0.0.1:4567/clients | jq .
 [
   {
@@ -56,7 +56,7 @@ $ curl -s http://127.0.0.1:4567/clients | jq .
     "name": "client-01"
   }
 ]
-{{< /highlight >}}
+{{< /code >}}
 
 _NOTE: for larger Sensu installations it may be undesirable to get the entire
 [client registry][1] in a single API request. The `/clients` API provides
@@ -72,7 +72,7 @@ example url    | http://hostname:4567/clients
 parameters     | <ul><li>`limit`<ul><li>**required**: false</li><li>**type**: Integer</li><li>**description**: The number of clients to return.</li><li>**example**: `http://hostname:4567/clients?limit=100`</li></ul></li><li>`offset`<ul><li>**required**: false</li><li>**type**: Integer</li><li>**depends**: `limit`</li><li>**description**: The number of clients to offset before returning items.</li><li>**example**: `http://hostname:4567/clients?limit=100&offset=100`</li></ul></li></ul>
 response type  | Array
 response codes | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-output         | {{< highlight shell >}}[
+output         | {{< code shell >}}[
   {
     "name": "i-334455",
     "address": "192.168.0.2",
@@ -93,7 +93,7 @@ output         | {{< highlight shell >}}[
     "timestamp": 1324674956
   }
 ]
-{{< /highlight >}}
+{{< /code >}}
 
 ### `/clients` (POST)
 
@@ -105,7 +105,7 @@ The following example demonstrates submitting an HTTP POST to the `/clients`
 API, resulting in a [201 (Created) HTTP response code][5] (i.e.
 `HTTP/1.1 201 Created`) and a JSON Hash containing the client `name`.
 
-{{< highlight shell >}}
+{{< code shell >}}
 $ curl -s -i \
 -X POST \
 -H 'Content-Type: application/json' \
@@ -123,7 +123,7 @@ Connection: keep-alive
 Server: thin
 
 {"name":"api-example"}
-{{< /highlight >}}
+{{< /code >}}
 
 ### API Specification {#clients-post-specification}
 
@@ -131,7 +131,7 @@ Server: thin
 ----------------|------
 description     | Create or update client data (e.g. [Sensu proxy clients][3]).
 example URL     | http://hostname:4567/clients
-payload         | {{< highlight shell >}}{
+payload         | {{< code shell >}}{
   "name": "gateway-router",
   "address": "192.168.0.1",
   "subscriptions": [
@@ -140,7 +140,7 @@ payload         | {{< highlight shell >}}{
   ],
   "environment": "production"
 }
-{{< /highlight >}}
+{{< /code >}}
 response codes  | <ul><li>**Success**: 201 (Created)</li><li>**Malformed**: 400 (Bad Request)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
 
 ## The `/clients/:client` API Endpoint(s) {#the-clientsclient-api-endpoints}
@@ -161,7 +161,7 @@ In the following example, querying the `/clients/:client` API returns a JSON
 Hash containing the requested `:client` data (i.e. for the client named
 `client-01`).
 
-{{< highlight shell >}}
+{{< code shell >}}
 $ curl -s http://127.0.0.1:4567/clients/client-01 | jq .
 {
   "timestamp": 1458625739,
@@ -177,13 +177,13 @@ $ curl -s http://127.0.0.1:4567/clients/client-01 | jq .
   "address": "127.0.0.1",
   "name": "client-01"
 }
-{{< /highlight >}}
+{{< /code >}}
 
 The following example demonstrates a request for client data for a non-existent
 `:client` named `non-existent-client`, which results in a [404 (Not Found) HTTP
 response code][5] (i.e. `HTTP/1.1 404 Not Found`).
 
-{{< highlight shell >}}
+{{< code shell >}}
 $ curl -s -i http://127.0.0.1:4567/clients/non-existent-client
 HTTP/1.1 404 Not Found
 Content-Type: application/json
@@ -194,7 +194,7 @@ Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept, Au
 Content-Length: 0
 Connection: keep-alive
 Server: thin
-{{< /highlight >}}
+{{< /code >}}
 
 ### API Specification {#clientsclient-get-specification}
 
@@ -204,7 +204,7 @@ description            | Returns a client.
 example url            | http://hostname:4567/clients/i-424242
 response type          | Hash
 response codes         | <ul><li>**Success**: 200 (OK)</li><li>**Missing**: 404 (Not Found)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-output                 | {{< highlight shell >}}{
+output                 | {{< code shell >}}{
   "name": "i-424242",
   "address": "192.168.0.3",
   "subscriptions": [
@@ -214,7 +214,7 @@ output                 | {{< highlight shell >}}{
   ],
   "timestamp": 1324674956
 }
-{{< /highlight >}}
+{{< /code >}}
 
 ### `/clients/:client` (DELETE) {#clientsclient-delete}
 
@@ -227,7 +227,7 @@ The following example demonstrates a request to delete a `:client` named
 `api-example`, resulting in a [202 (Accepted) HTTP response code][5] (i.e.
 `HTTP/1.1 202 Accepted`) and a JSON Hash containing an `issued` timestamp.
 
-{{< highlight shell >}}
+{{< code shell >}}
 $ curl -s -i -X DELETE http://127.0.0.1:4567/clients/api-example
 
 HTTP/1.1 202 Accepted
@@ -241,13 +241,13 @@ Connection: keep-alive
 Server: thin
 
 {"issued":1460136855}
-{{< /highlight >}}
+{{< /code >}}
 
 The following example demonstrates a request to delete a non-existent `:client`
 named `non-existent-client`, resulting in a [404 (Not Found) HTTP response
 code][5] (i.e. `HTTP/1.1 404 Not Found`).
 
-{{< highlight shell >}}
+{{< code shell >}}
 $ curl -s -i -X DELETE http://127.0.0.1:4567/clients/non-existent-client
 
 HTTP/1.1 404 Not Found
@@ -259,7 +259,7 @@ Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept, Au
 Content-Length: 0
 Connection: keep-alive
 Server: thin
-{{< /highlight >}}
+{{< /code >}}
 
 #### API Specification {#clientsclient-delete-specification}
 

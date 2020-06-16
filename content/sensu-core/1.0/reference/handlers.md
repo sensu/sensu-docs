@@ -77,7 +77,7 @@ The `keepalive` scope can be configured to use specific handlers on the client,
 as well as overriding the default threshold values.
 
 For example:
-{{< highlight json >}}
+{{< code json >}}
 {
   "client": {
     "name": "i-424242",
@@ -94,7 +94,7 @@ For example:
     }
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 ## Pipe handlers
 
@@ -102,7 +102,7 @@ Pipe handlers are external commands that can consume [event data][6] via STDIN.
 
 ### Example pipe handler definition
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "handlers": {
     "example_pipe_handler": {
@@ -111,7 +111,7 @@ Pipe handlers are external commands that can consume [event data][6] via STDIN.
     }
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 ### Pipe handler commands
 
@@ -151,7 +151,7 @@ The following example TCP handler definition will forward [event data][6] to a
 [TCP socket][8] (i.e. `10.0.1.99:4444`) and will `timeout` if an acknowledgement
 (`ACK`) is not received within 30 seconds.
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "handlers": {
     "example_tcp_handler": {
@@ -164,12 +164,12 @@ The following example TCP handler definition will forward [event data][6] to a
     }
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 The following example UDP handler definition will forward [event data][6] to a
 UDP socket (i.e. `10.0.1.99:444`).
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "handlers": {
     "example_udp_handler": {
@@ -181,7 +181,7 @@ UDP socket (i.e. `10.0.1.99:444`).
     }
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 ## Transport handlers
 
@@ -196,7 +196,7 @@ to the Sensu transport on a pipe (e.g. a "queue" or "channel", etc) named
 third-party application would need to subscribe to the named pipe to process the
 events.
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "handlers": {
     "example_transport_handler": {
@@ -208,7 +208,7 @@ events.
     }
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 ## Handler sets
 
@@ -227,7 +227,7 @@ in a handler set will have no effect._
 The following example handler set definition will execute three handlers (i.e.
 `email`, `slack`, and `pagerduty`) for every event.
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "handlers": {
     "notify_all_the_things": {
@@ -240,7 +240,7 @@ The following example handler set definition will execute three handlers (i.e.
     }
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 ## Handler configuration
 
@@ -251,7 +251,7 @@ located at `/etc/sensu/conf.d/mail_handler.json`. This handler definition uses
 the `mailx` unix command, to email the event data to `example@address.com`, with
 the email subject `sensu event`. The handler is named `mail`.
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "handlers": {
     "mail": {
@@ -260,7 +260,7 @@ the email subject `sensu event`. The handler is named `mail`.
     }
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 ### Handler definition specification
 
@@ -285,21 +285,21 @@ description    | The handler type.
 required       | true
 type           | String
 allowed values | `pipe`, `tcp`, `udp`, `transport`, `set`
-example        | {{< highlight shell >}}"type": "pipe"{{< /highlight >}}
+example        | {{< code shell >}}"type": "pipe"{{< /code >}}
 
 filter       | 
 -------------|------
 description  | The Sensu event filter (name) to use when filtering events for the handler.
 required     | false
 type         | String
-example      | {{< highlight shell >}}"filter": "occurrences"{{< /highlight >}}
+example      | {{< code shell >}}"filter": "occurrences"{{< /code >}}
 
 filters      | 
 -------------|------
 description  | An array of Sensu event filters (names) to use when filtering events for the handler. Each array item must be a string.
 required     | false
 type         | Array
-example      | {{< highlight shell >}}"filters": ["occurrences", "production"]{{< /highlight >}}
+example      | {{< code shell >}}"filters": ["occurrences", "production"]{{< /code >}}
 
 severities     | 
 ---------------|------
@@ -307,21 +307,21 @@ description    | An array of check result severities the handler will handle._NO
 required       | false
 type           | Array
 allowed values | `warning`, `critical`, `unknown`
-example        | {{< highlight shell >}}"severities": ["critical", "unknown"]{{< /highlight >}}
+example        | {{< code shell >}}"severities": ["critical", "unknown"]{{< /code >}}
 
 mutator      | 
 -------------|------
 description  | The Sensu event mutator (name) to use to mutate event data for the handler.
 required     | false
 type         | String
-example      | {{< highlight shell >}}"mutator": "only_check_output"{{< /highlight >}}
+example      | {{< code shell >}}"mutator": "only_check_output"{{< /code >}}
 
 timeout     | 
 ------------|------
 description | The handler execution duration timeout in seconds (hard stop). Only used by `pipe` and `tcp` handler types.
 required    | false
 type        | Integer
-example     | {{< highlight shell >}}"timeout": 30{{< /highlight >}}
+example     | {{< code shell >}}"timeout": 30{{< /code >}}
 
 handle_silenced | 
 ----------------|------
@@ -329,7 +329,7 @@ description     | If events matching one or more silence entries should be handl
 required        | false
 type            | Boolean
 default         | false
-example         | {{< highlight shell >}}"handle_silenced": true{{< /highlight >}}
+example         | {{< code shell >}}"handle_silenced": true{{< /code >}}
 
 handle_flapping | 
 ----------------|------
@@ -337,35 +337,35 @@ description     | If events in the flapping state should be handled.
 required        | false
 type            | Boolean
 default         | false
-example         | {{< highlight shell >}}"handle_flapping": true{{< /highlight >}}
+example         | {{< code shell >}}"handle_flapping": true{{< /code >}}
 
 command      | 
 -------------|------
 description  | The handler command to be executed. The event data is passed to the process via `STDIN`._NOTE: the `command` attribute is only supported for Pipe handlers (i.e. handlers configured with `"type": "pipe"`)._
 required     | true (if `type` == `pipe`)
 type         | String
-example      | {{< highlight shell >}}"command": "/etc/sensu/plugins/pagerduty.rb"{{< /highlight >}}
+example      | {{< code shell >}}"command": "/etc/sensu/plugins/pagerduty.rb"{{< /code >}}
 
 socket       | 
 -------------|------
 description  | The [`socket` definition scope][13], used to configure the TCP/UDP handler socket._NOTE: the `socket` attribute is only supported for TCP/UDP handlers (i.e. handlers configured with `"type": "tcp"` or `"type": "udp"`)._
 required     | true (if `type` == `tcp` or `udp`)
 type         | Hash
-example      | {{< highlight shell >}}"socket": {}{{< /highlight >}}
+example      | {{< code shell >}}"socket": {}{{< /code >}}
 
 pipe         | 
 -------------|------
 description  | The [`pipe` definition scope][14], used to configure the Sensu transport pipe._NOTE: the `pipe` attribute is only supported for Transport handlers (i.e. handlers configured with `"type": "transport"`)._
 required     | true (if `type` == `transport`)
 type         | Hash
-example      | {{< highlight shell >}}"pipe": {}{{< /highlight >}}
+example      | {{< code shell >}}"pipe": {}{{< /code >}}
 
 handlers     | 
 -------------|------
 description  | An array of Sensu event handlers (names) to use for events using the handler set. Each array item must be a string._NOTE: the `handlers` attribute is only supported for handler sets (i.e. handlers configured with `"type": "set"`)._
 required     | true (if `type` == `set`)
 type         | Array
-example      | {{< highlight shell >}}"handlers": ["pagerduty", "email", "ec2"]{{< /highlight >}}
+example      | {{< code shell >}}"handlers": ["pagerduty", "email", "ec2"]{{< /code >}}
 
 #### `socket` attributes
 
@@ -378,7 +378,7 @@ handlers configured with `"type": "tcp"` or `"type": "udp"`)._
 
 ##### EXAMPLE {#socket-attributes-example}
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "handlers": {
     "example_handler": {
@@ -390,7 +390,7 @@ handlers configured with `"type": "tcp"` or `"type": "udp"`)._
     }
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 ##### ATTRIBUTES {#socket-attributes-specification}
 
@@ -399,14 +399,14 @@ host         |
 description  | The socket host address (IP or hostname) to connect to.
 required     | true
 type         | String
-example      | {{< highlight shell >}}"host": "8.8.8.8"{{< /highlight >}}
+example      | {{< code shell >}}"host": "8.8.8.8"{{< /code >}}
 
 port         | 
 -------------|------
 description  | The socket port to connect to.
 required     | true
 type         | Integer
-example      | {{< highlight shell >}}"port": 4242{{< /highlight >}}
+example      | {{< code shell >}}"port": 4242{{< /code >}}
 
 #### `pipe` attributes
 
@@ -419,7 +419,7 @@ handlers configured with `"type": "transport"`)._
 
 ##### EXAMPLE {#pipe-attributes-example}
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "handlers": {
     "example_handler": {
@@ -431,7 +431,7 @@ handlers configured with `"type": "transport"`)._
     }
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 ##### ATTRIBUTES {#pipe-attributes-specification}
 
@@ -441,7 +441,7 @@ description    | The Sensu transport pipe type.
 required       | true
 type           | String
 allowed values | `direct`, `fanout`, `topic`
-example        | {{< highlight shell >}}"type": "direct"{{< /highlight >}}
+example        | {{< code shell >}}"type": "direct"{{< /code >}}
 
 _NOTE: types `direct`, `fanout` and `topic` are supported by the default
 RabbitMQ transport. Redis and other transports may only implement a subset of
@@ -452,7 +452,7 @@ name         |
 description  | The Sensu transport pipe name.
 required     | true
 type         | String
-example      | {{< highlight shell >}}"name": "graphite_plaintext"{{< /highlight >}}
+example      | {{< code shell >}}"name": "graphite_plaintext"{{< /code >}}
 
 options      | 
 -------------|------
@@ -460,7 +460,7 @@ description  | The Sensu transport pipe options. These options may be specific t
 required     | false
 type         | Hash
 default      | `{}`
-example      | {{< highlight shell >}}"options": {"durable": true}{{< /highlight >}}
+example      | {{< code shell >}}"options": {"durable": true}{{< /code >}}
 
 [?]:  #
 [1]:  ../server

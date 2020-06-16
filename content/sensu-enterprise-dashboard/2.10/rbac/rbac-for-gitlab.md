@@ -32,7 +32,7 @@ support for using [GitLab][1] for RBAC authentication.
 
 ### Example RBAC for GitLab definition
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "dashboard": {
     "host": "0.0.0.0",
@@ -70,7 +70,7 @@ support for using [GitLab][1] for RBAC authentication.
     }
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 ### RBAC for GitLab definition specification
 
@@ -81,35 +81,35 @@ applicationid |
 description   | The GitLab OAuth Application "Application Id" _NOTE: requires [registration of an OAuth application in GitLab][2]._
 required      | true
 type          | String
-example       | {{< highlight shell >}}"applicationid": "6141d36e5ea48103bc39bb3eb5eede8735f0dd8f9788d8b30255dbf4d218628f"{{< /highlight >}}
+example       | {{< code shell >}}"applicationid": "6141d36e5ea48103bc39bb3eb5eede8735f0dd8f9788d8b30255dbf4d218628f"{{< /code >}}
 
 secret       | 
 -------------|------
 description  | The GitLab OAuth Application "Secret" _NOTE: requires [registration of an OAuth application in GitLab][2]._
 required     | true
 type         | String
-example      | {{< highlight shell >}}"secret": "7d419a3b2f7b92edab30f963d7c0a4d1841f0dc46b4403b11146b4f1d5cb3a4e"{{< /highlight >}}
+example      | {{< code shell >}}"secret": "7d419a3b2f7b92edab30f963d7c0a4d1841f0dc46b4403b11146b4f1d5cb3a4e"{{< /code >}}
 
 server       | 
 -------------|------
 description  | The location of the GitLab server you wish to authenticate against.
 required     | true
 type         | String
-example      | {{< highlight shell >}}"server": "https://gitlab.com"{{< /highlight >}}
+example      | {{< code shell >}}"server": "https://gitlab.com"{{< /code >}}
 
 redirecturl  | 
 -------------|------
 description  | The GitLab OAuth Application "Callback url" _NOTE: requires [registration of an OAuth application in GitLab][2]._
 required     | true
 type         | String
-example      | {{< highlight shell >}}"redirecturl": "https://sensu.example.org/login/callback"{{< /highlight >}}
+example      | {{< code shell >}}"redirecturl": "https://sensu.example.org/login/callback"{{< /code >}}
 
 roles        | 
 -------------|------
 description  | An array of [`roles` definitions][3].
 required     | true
 type         | Array
-example      | {{< highlight shell >}}"roles": [
+example      | {{< code shell >}}"roles": [
   {
     "name": "guests",
     "members": [
@@ -133,7 +133,7 @@ example      | {{< highlight shell >}}"roles": [
     "readonly": false
   }
 ]
-{{< /highlight >}}
+{{< /code >}}
 
 #### `roles` attributes
 

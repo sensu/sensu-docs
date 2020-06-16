@@ -41,8 +41,8 @@ format specified below._
    _NOTE: FreeBSD packages are available for FreeBSD 10 and 11._
 
 2. Install the `sensu-1.2.0_1.txz` package using the `pkg` utility:
-   {{< highlight shell >}}
-sudo pkg add ./sensu-1.2.0_1.txz{{< /highlight >}}
+   {{< code shell >}}
+sudo pkg add ./sensu-1.2.0_1.txz{{< /code >}}
 
 3. Configure the Sensu client. **No "default" configuration is provided with
    Sensu**, so the Sensu client will not run without the corresponding
@@ -69,14 +69,14 @@ In some cases, the default Sensu configuration directory (i.e.
 `/etc/sensu/conf.d/`) is not created by the Sensu installer, in which case it is
 necessary to create this directory manually.
 
-{{< highlight shell >}}
-mkdir /usr/local/etc/sensu/conf.d{{< /highlight >}}
+{{< code shell >}}
+mkdir /usr/local/etc/sensu/conf.d{{< /code >}}
 
 ### Example client configuration
 
 1. Copy the following contents to a configuration file located at
    `/usr/local/etc/sensu/conf.d/client.json`:
-   {{< highlight json >}}
+   {{< code json >}}
 {
   "client": {
     "name": "freebsd-client",
@@ -91,7 +91,7 @@ mkdir /usr/local/etc/sensu/conf.d{{< /highlight >}}
       "port": 3030
     }
   }
-}{{< /highlight >}}
+}{{< /code >}}
 
 ### Example Transport Configuration
 
@@ -100,13 +100,13 @@ connect to the configured [Sensu Transport][6].
 
 1. Copy the following contents to a configuration file located at
    `/usr/local/etc/sensu/conf.d/transport.json`:
-   {{< highlight json >}}
+   {{< code json >}}
 {
   "transport": {
     "name": "rabbitmq",
     "reconnect_on_error": true
   }
-}{{< /highlight >}}
+}{{< /code >}}
    _NOTE: if you are using Redis as your transport, please use `"name": "redis"`
    for your transport configuration. For more information, please visit the
    [transport definition specification][10]._

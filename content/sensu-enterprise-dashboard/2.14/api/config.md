@@ -26,7 +26,7 @@ default.
 The following example demonstrates a request to the `/config` API, resulting in
 a JSON Hash containing the Sensu Enterprise configuration.
 
-{{< highlight shell >}}
+{{< code shell >}}
 $ curl -s http://127.0.0.1:3000/config | jq .
 {
   "Sensu": [
@@ -57,7 +57,7 @@ $ curl -s http://127.0.0.1:3000/config | jq .
   "...": "...",
   "...": "..."
 }
-{{< /highlight >}}
+{{< /code >}}
 
 #### API Specification {#config-get-specification}
 
@@ -67,7 +67,7 @@ description     | Returns the Sensu Enterprise configuration.
 example url     | http://hostname:3000/config
 response type   | Hash
 response codes  | <ul><li>**Success**: 200 (OK)</li><li>**Error**: 500 (Internal Server Error)</li></ul>
-output          | {{< highlight json >}}{
+output          | {{< code json >}}{
   "Sensu": [
     {
       "Advanced": {
@@ -89,4 +89,4 @@ output          | {{< highlight json >}}{
   ],
   "...": "..."
 }
-{{< /highlight >}}
+{{< /code >}}

@@ -64,9 +64,9 @@ If you are using the [basic web UI filters][5], you can create your filter just 
 To filter resources based on [label selectors][6] or [field selectors][2], you'll write a brief filter statement.
 The standard web UI filtering syntax is:
 
-{{< highlight text >}}
+{{< code text >}}
 SELECTOR:FILTER_STATEMENT
-{{< /highlight >}}
+{{< /code >}}
 
 To write a web UI filter command:
 
@@ -75,15 +75,15 @@ To write a web UI filter command:
 
 For example, this filter will return all events for entities with the `linux` subscription:
 
-{{< highlight text >}}
+{{< code text >}}
 fieldSelector:linux in event.entity.subscriptions
-{{< /highlight >}}
+{{< /code >}}
 
 Web UI filtering statements will also work with a single space after the colon:
 
-{{< highlight text >}}
+{{< code text >}}
 fieldSelector: linux in event.entity.subscriptions
-{{< /highlight >}}
+{{< /code >}}
 
 ## Operators quick reference
 
@@ -105,45 +105,45 @@ For details about operators, see [API response filtering operators][7].
 
 To filter resources using custom labels (in this example, to display only resources with the `type` label set to `server`:
 
-{{< highlight text >}}
+{{< code text >}}
 labelSelector:type == server
-{{< /highlight >}}
+{{< /code >}}
 
 ### Filter with field selectors
 
 To filter resources using specific [resource attributes][2] (in this example, to display only events at `2` (CRITICAL) status):
 
-{{< highlight text >}}
+{{< code text >}}
 fieldSelector:event.check.status == "2"
-{{< /highlight >}}
+{{< /code >}}
 
 On the **Events page**, to display only events for checks with the subscription `webserver`:
 
-{{< highlight text >}}
+{{< code text >}}
 fieldSelector:webserver in event.check.subscriptions
-{{< /highlight >}}
+{{< /code >}}
 
 On the **Checks page**, to display only checks that use the `slack` handler:
 
-{{< highlight text >}}
+{{< code text >}}
 fieldSelector:slack in check.handlers
-{{< /highlight >}}
+{{< /code >}}
 
 #### Values with special characters
 
 To use a label or field selector with string values that include special characters like hyphens and underscores, place the value in single or double quotes:
 
-{{< highlight text >}}
+{{< code text >}}
 labelSelector:region == "us-west-1"
-{{< /highlight >}}
+{{< /code >}}
 
 ### Use the logical AND operator
 
 To use the logical AND operator (`&&`) to return checks that include a `linux` subscription and the `slack` handler:
 
-{{< highlight text >}}
+{{< code text >}}
 fieldSelector:linux in check.subscriptions && slack in check.handlers
-{{< /highlight >}}
+{{< /code >}}
 
 ### Combine label and field selectors
 
@@ -154,9 +154,9 @@ For example, to return resources with the `region` label set to `us-west-1` that
 1. Create the `labelSelector` filter in the filter bar and press **Return/Enter**.
 2. Add the `fieldSelector` filter in the filter bar after the `labelSelector` filter and press **Return/Enter** again.	
 
-{{< highlight text >}}
+{{< code text >}}
 fieldSelector:slack in check.handlers
-{{< /highlight >}}
+{{< /code >}}
 
 
 [1]: ../../commercial/

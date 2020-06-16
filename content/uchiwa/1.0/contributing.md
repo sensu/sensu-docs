@@ -18,55 +18,55 @@ for the Go backend.
 these additional instructions:
 
 Clone the [uchiwa-web](https://github.com/sensu/uchiwa-web) repository:
-{{< highlight shell >}}
-git clone git@github.com:sensu/uchiwa-web.git && cd uchiwa-web{{< /highlight >}}
+{{< code shell >}}
+git clone git@github.com:sensu/uchiwa-web.git && cd uchiwa-web{{< /code >}}
 
 Install third-party libraries:
-{{< highlight shell >}}
+{{< code shell >}}
 npm install # Standard user
-npm install --unsafe-perm # Root user{{< /highlight >}}
+npm install --unsafe-perm # Root user{{< /code >}}
 
 Create a global link for uchiwa-web:
-{{< highlight shell >}}
-bower link{{< /highlight >}}
+{{< code shell >}}
+bower link{{< /code >}}
 
 Move to your uchiwa repository directory:
-{{< highlight shell >}}
-cd $GOPATH/src/github.com/sensu/uchiwa{{< /highlight >}}
+{{< code shell >}}
+cd $GOPATH/src/github.com/sensu/uchiwa{{< /code >}}
 
 Uninstall the uchiwa-web bower component if previously installed:
-{{< highlight shell >}}
-bower uninstall uchiwa-web{{< /highlight >}}
+{{< code shell >}}
+bower uninstall uchiwa-web{{< /code >}}
 
 Point the bower component uchiwa-web to the previously created link
-{{< highlight shell >}}
-bower link uchiwa-web{{< /highlight >}}
+{{< code shell >}}
+bower link uchiwa-web{{< /code >}}
 
 ## Development
 
 ### Backend
 Run the program:
-{{< highlight shell >}}
-go run uchiwa.go{{< /highlight >}}
+{{< code shell >}}
+go run uchiwa.go{{< /code >}}
 
 **N.B.**: You'll need to relaunch this command if you modify the source code
 to apply changes.
 
 ### Frontend
 Generate **CSS** files from **Sass** templates:
-{{< highlight shell >}}
-grunt sass{{< /highlight >}}
+{{< code shell >}}
+grunt sass{{< /code >}}
 
 ## Testing
 
 ### Backend
 Run the unit tests:
-{{< highlight shell >}}
-go test -v ./...{{< /highlight >}}
+{{< code shell >}}
+go test -v ./...{{< /code >}}
 
 ### Frontend
 Run linting and unit tests:
-{{< highlight shell >}}
-grunt{{< /highlight >}}
+{{< code shell >}}
+grunt{{< /code >}}
 
 [1]: ../getting-started/installation/#from-source

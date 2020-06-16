@@ -31,7 +31,7 @@ Hosted Graphite API key. This handler uses the `output_format` mutator.
 The following is an example global configuration for the `graphite` enterprise
 handler (integration).
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "graphite": {
     "host": "graphite.example.com",
@@ -40,7 +40,7 @@ handler (integration).
     "prefix": "production"
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 ### Integration Specification
 
@@ -57,7 +57,7 @@ description  | The Graphite Carbon host address.
 required     | false
 type         | String
 default      | `127.0.0.1`
-example      | {{< highlight shell >}}"host": "carbon.hostedgraphite.com"{{< /highlight >}}
+example      | {{< code shell >}}"host": "carbon.hostedgraphite.com"{{< /code >}}
 
 port         | 
 -------------|------
@@ -65,7 +65,7 @@ description  | The Graphite Carbon port.
 required     | false
 type         | Integer
 default      | `2003`
-example      | {{< highlight shell >}}"port": 3003{{< /highlight >}}
+example      | {{< code shell >}}"port": 3003{{< /code >}}
 
 prefix_source | 
 --------------|------
@@ -73,14 +73,14 @@ description   | If the Sensu source (client name) should prefix (added to) the m
 required      | false
 type          | Boolean
 default       | `false`
-example       | {{< highlight shell >}}"prefix_source": true{{< /highlight >}}
+example       | {{< code shell >}}"prefix_source": true{{< /code >}}
 
 prefix       | 
 -------------|------
 description  | A custom metric name prefix - this can be used to prefix the Hosted Graphite API key.
 required     | false
 type         | String
-example      | {{< highlight shell >}}"prefix": "production"{{< /highlight >}}
+example      | {{< code shell >}}"prefix": "production"{{< /code >}}
 
 retry_limit    | 
 ---------------|------
@@ -88,7 +88,7 @@ description    | The number of times the integration will attempt to re-send met
 required       | false
 type           | Integer
 default        | `3`
-example        | {{< highlight shell >}} "retry_limit": "3"{{< /highlight >}}
+example        | {{< code shell >}} "retry_limit": "3"{{< /code >}}
 
 retry_delay    | 
 ---------------|------
@@ -96,7 +96,7 @@ description    | How long the integration will wait between retries, in seconds.
 required       | false
 type           | Integer
 default        | `1`
-example        | {{< highlight shell >}} "retry_delay": "1"{{< /highlight >}}
+example        | {{< code shell >}} "retry_delay": "1"{{< /code >}}
 
 [?]:  #
 [1]:  /sensu-enterprise

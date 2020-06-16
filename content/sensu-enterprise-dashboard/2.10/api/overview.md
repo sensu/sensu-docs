@@ -41,15 +41,15 @@ The examples below show an access token used to access the Events API.
 
 In a header:
 
-{{< highlight shell >}}
+{{< code shell >}}
 $ curl -H "Authorization: token TOKEN" https://localhost:3000/events
-{{< /highlight >}}
+{{< /code >}}
 
 As a parameter:
 
-{{< highlight shell >}}
+{{< code shell >}}
 $ curl https://localhost:3000/events?token=TOKEN
-{{< /highlight >}}
+{{< /code >}}
 
 [4]:  http://www.json.org/
 [5]:  https://en.wikipedia.org/wiki/Representational_state_transfer

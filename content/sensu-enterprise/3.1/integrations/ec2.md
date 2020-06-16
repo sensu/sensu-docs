@@ -35,7 +35,7 @@ describe instances action in a policy, e.g. `ec2:DescribeInstances`.
 The following is an example global configuration for the `ec2` enterprise
 handler (integration).
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "ec2": {
     "region": "us-west-2",
@@ -45,7 +45,7 @@ handler (integration).
     "timeout": 10
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 ### Integration Specification
 
@@ -64,21 +64,21 @@ description  | The AWS EC2 region to query for EC2 instance state(s).
 required     | false
 type         | String
 default      | `us-east-1`
-example      | {{< highlight shell >}}"region": "us-west-1"{{< /highlight >}}
+example      | {{< code shell >}}"region": "us-west-1"{{< /code >}}
 
 access_key_id | 
 --------------|------
 description   | The AWS IAM user access key ID to use when querying the EC2 API.
 required      | true
 type          | String
-example       | {{< highlight shell >}}"access_key_id": "xxxxxxxxxxxxx"{{< /highlight >}}
+example       | {{< code shell >}}"access_key_id": "xxxxxxxxxxxxx"{{< /code >}}
 
 secret_access_key | 
 ------------------|------
 description       | The AWS IAM user secret access key to use when querying the EC2 API.
 required          | true
 type              | String
-example           | {{< highlight shell >}}"secret_access_key": "xxxxxxxxxxxxxxxxxxxxxxxxx"{{< /highlight >}}
+example           | {{< code shell >}}"secret_access_key": "xxxxxxxxxxxxxxxxxxxxxxxxx"{{< /code >}}
 
 allowed_instance_states | 
 ------------------------|------
@@ -87,15 +87,15 @@ required                | false
 type                    | Array
 allowed values          | `running`, `stopping`, `stopped`, `shutting-down`, `terminated`, `rebooting`, `pending`
 default                 | `["running"]`
-example                 | {{< highlight shell >}}"allowed_instance_states": ["running", "rebooting"]{{< /highlight >}}
+example                 | {{< code shell >}}"allowed_instance_states": ["running", "rebooting"]{{< /code >}}
 
 filters        | 
 ---------------|------
 description    | An array of Sensu event filters (names) to use when filtering events for the handler. Each array item must be a string. Specified filters are merged with default values.
 required       | false
 type           | Array
-default        | {{< highlight shell >}}["handle_when", "check_dependencies"]{{< /highlight >}}
-example        | {{< highlight shell >}}"filters": ["recurrence", "production"]{{< /highlight >}}
+default        | {{< code shell >}}["handle_when", "check_dependencies"]{{< /code >}}
+example        | {{< code shell >}}"filters": ["recurrence", "production"]{{< /code >}}
 
 severities     | 
 ---------------|------
@@ -103,8 +103,8 @@ description    | An array of check result severities the handler will handle. _N
 required       | false
 type           | Array
 allowed values | `ok`, `warning`, `critical`, `unknown`
-default        | {{< highlight shell >}}["warning", "critical", "unknown"]{{< /highlight >}}
-example        | {{< highlight shell >}} "severities": ["critical", "unknown"]{{< /highlight >}}
+default        | {{< code shell >}}["warning", "critical", "unknown"]{{< /code >}}
+example        | {{< code shell >}} "severities": ["critical", "unknown"]{{< /code >}}
 
 timeout      | 
 -------------|------
@@ -112,7 +112,7 @@ description  | The handler execution duration timeout in seconds (hard stop).
 required     | false
 type         | Integer
 default      | `10`
-example      | {{< highlight shell >}}"timeout": 30{{< /highlight >}}
+example      | {{< code shell >}}"timeout": 30{{< /code >}}
 
 ## Cross-Account Access
 Cross-account access lets you use IAM-defined trust relationships to access a Sensu Enterprise instance from EC2 clients across multiple AWS accounts.
@@ -123,7 +123,7 @@ To configure account access, add the `account` attribute to the Sensu client con
 
 #### Client Configuration Example
 
-{{< highlight json >}}{
+{{< code json >}}{
     "client": {
       "name": "i-424242",
       "subscriptions": ["production"],
@@ -131,13 +131,13 @@ To configure account access, add the `account` attribute to the Sensu client con
           "account": "sensuapp"
       }
     }
-}{{< /highlight >}}
+}{{< /code >}}
 
 For additional EC2 attributes possible at the client scope, see the [client EC2 attributes][4].
 
 #### Integration Configuration Example
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "ec2": {
     "region": "us-west-2",
@@ -153,7 +153,7 @@ For additional EC2 attributes possible at the client scope, see the [client EC2 
     ]
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 #### `accounts` attributes
 accounts     | 
@@ -161,26 +161,26 @@ accounts     |
 description  | Amazon resource names to use to access EC2
 required     | false
 type         | Array of hashes
-example      | {{< highlight shell >}}"accounts": [
+example      | {{< code shell >}}"accounts": [
   {
     "name": "sensuapp",
     "role_arn": "arn:aws:iam::xxxxxxxxxx:role/CrossAccountSignin"
   }
-]{{< /highlight >}}
+]{{< /code >}}
 
 name         | 
 -------------|------
 description  | Account name configured in the Sensu client
 required     | false
 type         | String
-example      | {{< highlight shell >}}"name": "sensuapp"{{< /highlight >}}
+example      | {{< code shell >}}"name": "sensuapp"{{< /code >}}
 
 role_arn     | 
 -------------|------
 description  | Amazon resource name for the account
 required     | false
 type         | String
-example      | {{< highlight shell >}}"role_arn": "arn:aws:iam::xxxxxxxxxx:role/CrossAccountSignin"{{< /highlight >}}
+example      | {{< code shell >}}"role_arn": "arn:aws:iam::xxxxxxxxxx:role/CrossAccountSignin"{{< /code >}}
 
 [?]:  #
 [1]:  /sensu-enterprise

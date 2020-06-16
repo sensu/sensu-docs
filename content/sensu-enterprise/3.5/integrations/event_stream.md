@@ -30,7 +30,7 @@ long-term storage.
 The following is an example configuration for the `event_stream` enterprise
 event handler (integration).
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "event_stream": {
     "host": "127.0.0.1",
@@ -40,7 +40,7 @@ event handler (integration).
     "ring_buffer_size": 1500
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 
 ### Integration specification
@@ -53,7 +53,7 @@ description  | The remote host address.
 required     | false
 type         | String
 default      | `127.0.0.1`
-example      | {{< highlight shell >}}"host": "moogserver-01.company.com"{{< /highlight >}}
+example      | {{< code shell >}}"host": "moogserver-01.company.com"{{< /code >}}
 
 port         | 
 -------------|------
@@ -61,7 +61,7 @@ description  | The remote TCP port.
 required     | false
 type         | Integer
 default      | `3000`
-example      | {{< highlight shell >}}"port": 3333{{< /highlight >}}
+example      | {{< code shell >}}"port": 3333{{< /code >}}
 
 filter_metrics | 
 ---------------|------
@@ -69,7 +69,7 @@ description    | If [events][2] with a `type` of `metric` are relayed to the rem
 required       | false
 type           | Boolean
 default        | `false`
-example        | {{< highlight shell >}}"filter_metrics": true{{< /highlight >}}
+example        | {{< code shell >}}"filter_metrics": true{{< /code >}}
 
 filter_ok_keepalives | 
 ---------------------|------
@@ -77,7 +77,7 @@ description          | If OK keepalive [events][2] are relayed to the remote soc
 required             | false
 type                 | Boolean
 default              | `false`
-example              | {{< highlight shell >}}"filter_ok_keepalives": true{{< /highlight >}}
+example              | {{< code shell >}}"filter_ok_keepalives": true{{< /code >}}
 
 ring_buffer_size     | 
 ---------------------|------
@@ -85,7 +85,7 @@ description          | By default, the event stream integration uses a data stre
 required             | false
 type                 | Integer
 default              | `1000`
-example              | {{< highlight shell >}}"ring_buffer_size": 1500{{< /highlight >}}
+example              | {{< code shell >}}"ring_buffer_size": 1500{{< /code >}}
 
 [1]:  /sensu-enterprise
 [2]:  /sensu-core/1.2/reference/events

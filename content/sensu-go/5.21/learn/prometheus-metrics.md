@@ -6,22 +6,6 @@ product: "Sensu Go"
 platformContent: false
 ---
 
-- [Set up](#set-up)
-  - [Install and configure Prometheus](#install-and-configure-prometheus)
-  - [Install and configure Sensu Go](#install-and-configure-sensu-go)
-  - [Install and configure InfluxDB](#install-and-configure-influxdb)
-  - [Install and configure Grafana](#install-and-configure-grafana)
-- [Create a Sensu InfluxDB pipeline](#create-a-sensu-influxdb-pipeline)
-  - [Create a Sensu InfluxDB handler asset](#create-a-sensu-influxdb-handler-asset)
-  - [Create a Sensu handler](#create-a-sensu-handler)
-- [Collect Prometheus metrics with Sensu](#collect-prometheus-metrics-with-sensu)
-  - [Create a Sensu Prometheus Collector asset](#create-a-sensu-prometheus-collector-asset)
-  - [Add a Sensu check to complete the pipeline](#add-a-sensu-check-to-complete-the-pipeline)
-- [Visualize metrics with Grafana](#visualize-metrics-with-grafana)
-  - [Configure a dashboard in Grafana](#configure-a-dashboard-in-grafana)
-  - [View metrics in Grafana](#view-metrics-in-grafana)
-- [Next steps](#next-steps)
-
 The [Sensu Prometheus Collector][1] is a check plugin that collects metrics from a [Prometheus exporter][2] or the [Prometheus query API][3].
 This allows Sensu to route the collected metrics to one or more time series databases, such as InfluxDB or Graphite.
 
@@ -42,17 +26,17 @@ Finally, Grafana will query InfluxDB to display the collected metrics.
 
 Download and extract Prometheus:
 
-{{< highlight shell >}}
+{{< code shell >}}
 wget https://github.com/prometheus/prometheus/releases/download/v2.6.0/prometheus-2.6.0.linux-amd64.tar.gz
 
 tar xvfz prometheus-*.tar.gz
 
 cd prometheus-*
-{{< /highlight >}}
+{{< /code >}}
 
 Replace the default `prometheus.yml` configuration file with the following configuration:
 
-{{< highlight shell >}}
+{{< code shell >}}
 global:
   scrape_interval: 15s
   external_labels:
@@ -63,20 +47,20 @@ scrape_configs:
     scrape_interval: 5s
     static_configs:
       - targets: ['localhost:9090']
-{{< /highlight >}}
+{{< /code >}}
 
 Start Prometheus in the background:
 
-{{< highlight shell >}}
+{{< code shell >}}
 nohup ./prometheus --config.file=prometheus.yml > prometheus.log 2>&1 &
-{{< /highlight >}}
+{{< /code >}}
 
 Ensure Prometheus is running (your result may vary slightly from this example):
 
-{{< highlight shell >}}
+{{< code shell >}}
 ps -ef | grep "[p]rometheus"
 vagrant   7647  3937  2 22:23 pts/0    00:00:00 ./prometheus --config.file=prometheus.yml
-{{< /highlight >}}
+{{< /code >}}
 
 ### Install and configure Sensu Go
 
@@ -84,84 +68,84 @@ Follow the RHEL/CentOS [install instructions][4] for the Sensu backend, the Sens
 
 Add an `app_tier` subscription to `/etc/sensu/agent.yml`:
 
-{{< highlight shell >}}
+{{< code shell >}}
 subscriptions:
   - "app_tier"
-{{< /highlight >}}
+{{< /code >}}
 
 Restart the Sensu agent to apply the configuration change:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sudo systemctl restart sensu-agent
-{{< /highlight >}}
+{{< /code >}}
 
 Ensure Sensu services are running:
 
-{{< highlight shell >}}
+{{< code shell >}}
 systemctl status sensu-backend
 systemctl status sensu-agent
-{{< /highlight >}}
+{{< /code >}}
 
 ### Install and configure InfluxDB
 
 Add an InfluxDB repo:
 
-{{< highlight shell >}}
+{{< code shell >}}
 echo "[influxdb]
 name = InfluxDB Repository - RHEL \$releasever
 baseurl = https://repos.influxdata.com/rhel/\$releasever/\$basearch/stable
 enabled = 1
 gpgcheck = 1
 gpgkey = https://repos.influxdata.com/influxdb.key" | sudo tee /etc/yum.repos.d/influxdb.repo
-{{< /highlight >}}
+{{< /code >}}
 
 Install InfluxDB:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sudo yum -y install influxdb
-{{< /highlight >}}
+{{< /code >}}
 
 Open `/etc/influxdb/influxdb.conf` and uncomment the `http` API line:
 
-{{< highlight shell >}}
+{{< code shell >}}
 [http]
   # Determines whether HTTP endpoint is enabled.
   enabled = true
-{{< /highlight >}}
+{{< /code >}}
 
 Start InfluxDB:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sudo systemctl start influxdb
-{{< /highlight >}}
+{{< /code >}}
 
 Add the Sensu user and database:
 
-{{< highlight shell >}}
+{{< code shell >}}
 influx -execute "CREATE DATABASE sensu"
 
 influx -execute "CREATE USER sensu WITH PASSWORD 'sensu'"
 
 influx -execute "GRANT ALL ON sensu TO sensu"
-{{< /highlight >}}
+{{< /code >}}
 
 ### Install and configure Grafana
 
 Install Grafana:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sudo yum install -y https://s3-us-west-2.amazonaws.com/grafana-releases/release/grafana-5.1.4-1.x86_64.rpm
-{{< /highlight >}}
+{{< /code >}}
 
 Change Grafana's listen port so that it does not conflict with the Sensu web UI:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sudo sed -i 's/^;http_port = 3000/http_port = 4000/' /etc/grafana/grafana.ini
-{{< /highlight >}}
+{{< /code >}}
 
 Create a `/etc/grafana/provisioning/datasources/influxdb.yaml` file, and add an InfluxDB data source:
 
-{{< highlight yml >}}
+{{< code yml >}}
 apiVersion: 1
 
 deleteDatasources:
@@ -177,13 +161,13 @@ datasources:
     user: grafana
     password: grafana
     url: http://localhost:8086
-{{< /highlight >}}
+{{< /code >}}
 
 Start Grafana:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sudo systemctl start grafana-server
-{{< /highlight >}}
+{{< /code >}}
 
 ## Create a Sensu InfluxDB pipeline
 
@@ -193,7 +177,7 @@ Put the following asset definition in a file called `asset_influxdb`:
 
 {{< language-toggle >}}
 
-{{< highlight yml >}}
+{{< code yml >}}
 type: Asset
 api_version: core/v2
 metadata:
@@ -203,9 +187,9 @@ spec:
   sha512: 612c6ff9928841090c4d23bf20aaf7558e4eed8977a848cf9e2899bb13a13e7540bac2b63e324f39d9b1257bb479676bc155b24e21bf93c722b812b0f15cb3bd
   url: https://assets.bonsai.sensu.io/b28f8719a48aa8ea80c603f97e402975a98cea47/sensu-influxdb-handler_3.1.2_linux_amd64.tar.gz
 
-{{< /highlight >}}
+{{< /code >}}
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "type": "Asset",
   "api_version": "core/v2",
@@ -218,7 +202,7 @@ spec:
     "url": "https://assets.bonsai.sensu.io/b28f8719a48aa8ea80c603f97e402975a98cea47/sensu-influxdb-handler_3.1.2_linux_amd64.tar.gz"
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 {{< /language-toggle >}}
 
@@ -228,7 +212,7 @@ Put the following handler definition in a file called `handler`:
 
 {{< language-toggle >}}
 
-{{< highlight yml >}}
+{{< code yml >}}
 type: Handler
 api_version: core/v2
 metadata:
@@ -240,9 +224,9 @@ spec:
   type: pipe
   runtime_assets:
   - sensu-influxdb-handler
-{{< /highlight >}}
+{{< /code >}}
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "type": "Handler",
   "api_version": "core/v2",
@@ -259,7 +243,7 @@ spec:
     ]
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 {{< /language-toggle >}}
 
@@ -269,9 +253,9 @@ spec:
 
 Use `sensuctl` to add the handler and the asset to Sensu:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl create --file handler --file asset_influxdb
-{{< /highlight >}}
+{{< /code >}}
 
 ## Collect Prometheus metrics with Sensu
 
@@ -281,7 +265,7 @@ Put the following handler definition in a file called `asset_prometheus`:
 
 {{< language-toggle >}}
 
-{{< highlight yml >}}
+{{< code yml >}}
 type: Asset
 api_version: core/v2
 metadata:
@@ -290,9 +274,9 @@ metadata:
 spec:
   url: https://assets.bonsai.sensu.io/ef812286f59de36a40e51178024b81c69666e1b7/sensu-prometheus-collector_1.1.6_linux_amd64.tar.gz
   sha512: a70056ca02662fbf2999460f6be93f174c7e09c5a8b12efc7cc42ce1ccb5570ee0f328a2dd8223f506df3b5972f7f521728f7bdd6abf9f6ca2234d690aeb3808
-{{< /highlight >}}
+{{< /code >}}
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "type": "Asset",
   "api_version": "core/v2",
@@ -305,7 +289,7 @@ spec:
     "sha512": "a70056ca02662fbf2999460f6be93f174c7e09c5a8b12efc7cc42ce1ccb5570ee0f328a2dd8223f506df3b5972f7f521728f7bdd6abf9f6ca2234d690aeb3808"
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 {{< /language-toggle >}}
 
@@ -315,7 +299,7 @@ Create the following check definition in a file called `check`:
 
 {{< language-toggle >}}
 
-{{< highlight yml >}}
+{{< code yml >}}
 type: CheckConfig
 api_version: core/v2
 metadata:
@@ -335,9 +319,9 @@ spec:
   runtime_assets:
   - sensu-prometheus-collector
 
-{{< /highlight >}}
+{{< /code >}}
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "type": "CheckConfig",
   "api_version": "core/v2",
@@ -363,28 +347,28 @@ spec:
     ]
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 {{< /language-toggle >}}
 
 Use `sensuctl` to add the check to Sensu:
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl create --file check --file asset_prometheus
-{{< /highlight >}}
+{{< /code >}}
 
 Open the Sensu web UI to see the events generated by the `prometheus_metrics` check.
 Visit http://127.0.0.1:3000, and log in as the admin user (created during the [initialization step][8] when you installed the Sensu backend).
 
 You can also see the metric event data using sensuctl.
 
-{{< highlight shell >}}
+{{< code shell >}}
 sensuctl event list
     Entity            Check                                          Output                                   Status   Silenced             Timestamp            
 ────────────── ──────────────────── ──────────────────────────────────────────────────────────────────────── ──────── ────────── ─────────────────────────────── 
 sensu-centos   keepalive            Keepalive last sent from sensu-centos at 2019-02-12 01:01:37 +0000 UTC        0   false      2019-02-12 01:01:37 +0000 UTC  
 sensu-centos   prometheus_metrics   up,instance=localhost:9090,job=prometheus value=1 1549933306                  0   false      2019-02-12 01:01:46 +0000 UTC  
-{{< /highlight >}}
+{{< /code >}}
 
 ## Visualize metrics with Grafana
 
@@ -392,15 +376,15 @@ sensu-centos   prometheus_metrics   up,instance=localhost:9090,job=prometheus va
 
 Download the Grafana dashboard configuration file from the Sensu docs:
 
-{{< highlight shell >}}
+{{< code shell >}}
 wget https://docs.sensu.io/sensu-go/latest/files/up_or_down_dashboard.json
-{{< /highlight >}}
+{{< /code >}}
 
 Using the downloaded file, add the dashboard to Grafana with an API call:
 
-{{< highlight shell >}}
+{{< code shell >}}
 curl  -XPOST -H 'Content-Type: application/json' -d@up_or_down_dashboard.json HTTP://admin:admin@127.0.0.1:4000/api/dashboards/db
-{{< /highlight >}}
+{{< /code >}}
 
 ### View metrics in Grafana
 

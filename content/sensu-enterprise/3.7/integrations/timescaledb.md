@@ -35,7 +35,7 @@ The TimescaleDB integration requires a TimescaleDB table with following columns 
 
 For example, the following commands create a `sensu` database, a `metrics` table with the required table structure, and a `sensu` user with access privileges for the `metrics` table:
 
-{{< highlight shell >}}
+{{< code shell >}}
 CREATE database sensu;
 
 \c sensu
@@ -54,14 +54,14 @@ SELECT create_hypertable('metrics', 'time');
 
 CREATE USER sensu WITH PASSWORD 'secret';
 GRANT ALL PRIVILEGES ON TABLE metrics TO sensu;
-{{< /highlight >}}
+{{< /code >}}
 
 ### Examples {#examples}
 
 The following is an example global configuration for the Sensu Enterprise
 TimescaleDB integration.
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "timescaledb": {
     "host": "timescaledb.example.com",
@@ -75,7 +75,7 @@ TimescaleDB integration.
     }
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 ### Integration specification
 
@@ -90,7 +90,7 @@ description  | The TimescaleDB host address.
 required     | false
 type         | String
 default      | `127.0.0.1`
-example      | {{< highlight shell >}}"host": "timescaledb.example.com"{{< /highlight >}}
+example      | {{< code shell >}}"host": "timescaledb.example.com"{{< /code >}}
 
 port         | 
 -------------|------
@@ -98,7 +98,7 @@ description  | The TimescaleDB port.
 required     | false
 type         | Integer
 default      | `5432`
-example      | {{< highlight shell >}}"port": 5432{{< /highlight >}}
+example      | {{< code shell >}}"port": 5432{{< /code >}}
 
 user         | 
 -------------|------
@@ -106,7 +106,7 @@ description  | The TimescaleDB username. This user must have access privileges f
 required     | false
 type         | String
 default      | `postgres`
-example      | {{< highlight shell >}}"user": "postgres"{{< /highlight >}}
+example      | {{< code shell >}}"user": "postgres"{{< /code >}}
 
 password     | 
 -------------|------
@@ -114,7 +114,7 @@ description  | The TimescaleDB user password.
 required     | false
 type         | String
 default      | `nil`
-example      | {{< highlight shell >}}"password": "secret"{{< /highlight >}}
+example      | {{< code shell >}}"password": "secret"{{< /code >}}
 
 database     | 
 -------------|------
@@ -122,7 +122,7 @@ description  | The TimescaleDB database name.
 required     | false
 type         | String
 default      | `sensu`
-example      | {{< highlight shell >}}"database": "sensu"{{< /highlight >}}
+example      | {{< code shell >}}"database": "sensu"{{< /code >}}
 
 table        | 
 -------------|------
@@ -130,19 +130,19 @@ description  | The TimescaleDB table where Sensu will send metrics, configured w
 required     | false
 type         | String
 default      | `metrics`
-example      | {{< highlight shell >}}"table": "metrics"{{< /highlight >}}
+example      | {{< code shell >}}"table": "metrics"{{< /code >}}
 
 tags         | 
 -------------|------
 description  | Configurable custom tags (key/value pairs) to add to every TimescaleDB measurement.
 required     | false
 type         | Hash
-default      | {{< highlight shell >}}{}{{< /highlight >}}
-example      | {{< highlight shell >}}
+default      | {{< code shell >}}{}{{< /code >}}
+example      | {{< code shell >}}
 "tags": {
   "dc": "us-central-1"
 }
-{{< /highlight >}}
+{{< /code >}}
 
 [1]: /sensu-enterprise
 [2]: https://www.timescale.com/

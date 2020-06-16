@@ -19,13 +19,13 @@ The Tessen client is disabled default, users can **opt-in** via `sensu-server` c
 
 `/etc/sensu/conf.d/tessen.json`
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "tessen": {
     "enabled": true
   }
 }
-{{< /highlight >}}
+{{< /code >}}
 
 ### Proxy Configuration
 
@@ -33,7 +33,7 @@ The Tessen client supports HTTP proxy configuration.
 
 `/etc/sensu/conf.d/tessen.json`
 
-{{< highlight json >}}
+{{< code json >}}
 {
   "tessen": {
     "enable": true,
@@ -44,4 +44,4 @@ The Tessen client supports HTTP proxy configuration.
     }
   }
 }
-{{< /highlight >}}
+{{< /code >}}
