@@ -9,23 +9,6 @@ menu:
     parent: installation
 ---
 
-- [Use built-in basic authentication](#use-built-in-basic-authentication)
-- [Use an authentication provider](#use-an-authentication-provider)
-   - [Manage authentication providers](#manage-authentication-providers)
-   - [Configure authentication providers](#configure-authentication-providers)
-- [LDAP authentication](#lightweight-directory-access-protocol-ldap-authentication)
-  - [Examples](#ldap-configuration-examples)
-  - [LDAP specification](#ldap-specification)
-  - [Troubleshooting](#ldap-troubleshooting)
-- [AD authentication](#active-directory-ad-authentication)
-  - [Examples](#ad-configuration-examples)
-  - [AD specification](#ad-specification)
-  - [Troubleshooting](#ad-troubleshooting)
-- [OIDC authentication](#oidc-authentication)
-  - [OIDC configuration examples](#oidc-configuration-examples)
-  - [OIDC specification](#oidc-specification)
-  - [Okta](#okta)
-
 Sensu requires username and password authentication to access the [Sensu web UI][1], [API][8], and command line tool ([sensuctl][2]).
 You can use Sensu's built-in basic authentication provider or configure external authentication providers to authenticate via Lightweight Directory Access Protocol (LDAP), Active Directory (AD), or OpenID Connect.
 
